@@ -1,0 +1,76 @@
+{
+  "name": "google/ai-mode",
+  "display_name": "Google AI Mode",
+  "type": "api",
+  "vendor": "Google",
+  "vendor_slug": "google",
+  "description": "Ask Google AI Mode a prompt and receive the cited answer it generates. AI Mode composes the answer at search time, so repeat calls on one prompt can differ in wording and in which sources are cited.",
+  "tags": [
+    "api",
+    "google",
+    "social-media"
+  ],
+  "capabilities": [
+    "api",
+    "google",
+    "social-media"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/google/ai-mode"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "prompt"
+    ],
+    "properties": {
+      "prompt": {
+        "type": "string",
+        "example": "What are the most useful open-source AI agent frameworks?",
+        "minLength": 1,
+        "description": "The question or prompt to answer with Google AI Mode."
+      }
+    },
+    "additionalProperties": false
+  },
+  "response_schema": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string"
+      },
+      "model": {
+        "type": "string"
+      },
+      "status": {
+        "type": "string"
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "data": {
+              "type": "object",
+              "description": "Normalized result for this request."
+            }
+          }
+        }
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "usage_based",
+    "note": "Billed per call from metered usage; the reference price is typical.",
+    "reference_price": 0.002
+  },
+  "readme": "# Google AI Mode API\n\nAsk Google AI Mode a prompt and receive the cited answer it generates. AI Mode composes the answer at search time, so repeat calls on one prompt can differ in wording and in which sources are cited.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/google/ai-mode\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"prompt\": \"What are the most useful open-source AI agent frameworks?\"}'\n```\n\nThe result is returned in `outputs[0].data`. A lookup that finds nothing still succeeds and returns `found: false`.\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `prompt` | string | Yes | The question or prompt to answer with Google AI Mode. |\n\n## Pricing\n\nBilled at the actual cost of each call, usually $0.002 per request. A call can cost more when the first data source fails and another one answers. Failed calls are not charged. Lookups that find nothing and searches with no results are billed at their actual cost, which is often lower and can be $0.\n",
+  "page_url": "https://www.sandbase.ai/model/google/ai-mode",
+  "created_at": "2026-11-01T12:13:01.94Z"
+}

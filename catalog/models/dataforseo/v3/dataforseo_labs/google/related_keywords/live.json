@@ -1,0 +1,52 @@
+{
+  "name": "dataforseo/v3/dataforseo_labs/google/related_keywords/live",
+  "display_name": "DataForSEO Google Related Keywords",
+  "type": "api",
+  "vendor": "DataForSEO",
+  "vendor_slug": "dataforseo",
+  "description": "Returns related search terms that share Google SERP rankings with specified keywords. Helps identify semantically connected queries and search patterns.",
+  "tags": [
+    "labs",
+    "keywords",
+    "google",
+    "seo"
+  ],
+  "capabilities": [
+    "labs",
+    "keywords",
+    "google",
+    "seo"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/dataforseo/v3/dataforseo_labs/google/related_keywords/live"
+  },
+  "input_schema": {
+    "type": "object",
+    "properties": {},
+    "description": "Request parameters forwarded to DataForSEO /v3/dataforseo_labs/google/related_keywords/live. See DataForSEO docs for full schema.",
+    "additionalProperties": true
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.024
+  },
+  "examples": [
+    {
+      "input": {}
+    }
+  ],
+  "readme": "# DataForSEO Google Related Keywords API\n\nRetrieve related Google search queries that appear in shared search engine results pages. Analyze overlapping SERP appearances to discover semantically linked search terms.\n\n## Use cases\n\n- Discover alternative search queries that rank alongside target keywords.\n- Identify semantic keyword clusters based on shared Google SERP positions.\n- Expand keyword research with terms that appear in overlapping search results.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/dataforseo/v3/dataforseo_labs/google/related_keywords/live\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"keyword\": \"running shoes\", \"limit\": 5, \"location_code\": 2840, \"language_code\": \"en\"}'\n```\n\n## Parameters\n\nThe JSON body is forwarded to the upstream endpoint (one task per call). Fields used above:\n\n| Name | Description |\n|---|---|\n| `keyword` | Search query. |\n| `limit` | Maximum number of results (up to 100). |\n| `location_code` | Location code, e.g. 2840 for the United States. |\n| `language_code` | Language code, e.g. \"en\". |\n\n## Pricing\n\nFlat price per call. Failed calls are not charged.\n\n## Related APIs\n\n- [DataForSEO Backlinks Anchors](/model/dataforseo/v3/backlinks/anchors/live): Returns anchor text distribution metrics for backlinks pointing to a target website or page.\n- [DataForSEO Backlinks List](/model/dataforseo/v3/backlinks/backlinks/live): Returns a list of external backlinks pointing to a specified target domain or webpage.\n- [DataForSEO Backlinks Bulk Ranks](/model/dataforseo/v3/backlinks/bulk_ranks/live): Returns rank metrics for multiple domains or pages in bulk.\n",
+  "page_url": "https://www.sandbase.ai/model/dataforseo/v3/dataforseo_labs/google/related_keywords/live",
+  "published_at": "2024-01-01T00:00:00Z",
+  "created_at": "2026-08-02T14:43:23.681Z"
+}

@@ -1,0 +1,87 @@
+{
+  "name": "tiktok/app-v3/user-post-videos",
+  "display_name": "TikTok User Videos (App V3)",
+  "type": "api",
+  "vendor": "TikTok",
+  "vendor_slug": "tiktok",
+  "description": "Returns videos posted on a TikTok user profile. Filter by account identifier, specify sorting order by latest or popular items, and paginate through results.",
+  "tags": [
+    "api",
+    "tiktok"
+  ],
+  "capabilities": [
+    "api",
+    "tiktok"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/tiktok/app-v3/user-post-videos"
+  },
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "count": {
+        "type": "integer",
+        "title": "Count",
+        "default": 20,
+        "example": 20,
+        "description": "Maximum count number"
+      },
+      "region": {
+        "type": "string",
+        "title": "Region",
+        "default": "",
+        "example": "US",
+        "description": "Region, optional parameter, if not passed, the US region data will be used by default. After passing, the data of the corresponding country and region will be preferred, for example: US, GB, FR, JP, SG, VN, etc."
+      },
+      "sort_type": {
+        "type": "integer",
+        "title": "Sort Type",
+        "default": 0,
+        "example": 0,
+        "description": "Sort type, 0-Latest, 1-Hot"
+      },
+      "unique_id": {
+        "type": "string",
+        "title": "Unique Id",
+        "default": "",
+        "example": "tiktok",
+        "description": "User unique_id, optional parameter, if sec_user_id is empty, use unique_id to get user video data, unique_id is also the user's username."
+      },
+      "max_cursor": {
+        "type": "integer",
+        "title": "Max Cursor",
+        "default": 0,
+        "example": 0,
+        "description": "Maximum cursor, used for paging, the first page is 0, the second page is the max_cursor value in the first response."
+      },
+      "sec_user_id": {
+        "type": "string",
+        "title": "Sec User Id",
+        "default": "",
+        "description": "User sec_user_id, use sec_user_id to get user video data first, if sec_user_id is empty, use unique_id to get user video data."
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.0015,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "readme": "# TikTok User Videos (App V3) API\n\nRetrieve posted video content from a target TikTok profile using either `sec_user_id` or `unique_id`.\n\n## Use cases\n\n- Track video releases and performance from specific creator accounts.\n- Retrieve historical video catalogs for public TikTok profiles.\n- Sort profile uploads by latest posts or top-performing hot videos.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/tiktok/app-v3/user-post-videos\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `count` | integer | No | Maximum count number |\n| `region` | string | No | Region, optional parameter, if not passed, the US region data will be used by default. |\n| `sort_type` | integer | No | Sort type, 0-Latest, 1-Hot |\n| `unique_id` | string | No | User unique_id, optional parameter, if sec_user_id is empty, use unique_id to get user video data, unique_id is also the user's username. |\n| `max_cursor` | integer | No | Maximum cursor, used for paging, the first page is 0, the second page is the max_cursor value in the first response. |\n| `sec_user_id` | string | No | User sec_user_id, use sec_user_id to get user video data first, if sec_user_id is empty, use unique_id to get user video data. |\n\n## Notes\n\n- Lookup prioritizes `sec_user_id`; if empty, provide the username via `unique_id`.\n- Set `sort_type` to 0 for latest videos or 1 for hot videos.\n- Paginate by setting `max_cursor` to 0 on the first call, then pass the returned cursor value on subsequent requests.\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [TikTok LIVE Status](/model/tiktok/app-v3/check-live-room-online): Check whether a TikTok LIVE room is currently live by room ID.\n- [TikTok Room Online Status Batch](/model/tiktok/app-v3/check-live-room-online-batch): Returns the online availability status for multiple TikTok broadcast rooms in a single request.\n- [TikTok Content Translation](/model/tiktok/app-v3/content-translate): Translates provided text content into a designated target language.\n",
+  "page_url": "https://www.sandbase.ai/model/tiktok/app-v3/user-post-videos",
+  "created_at": "2026-07-31T04:15:17.921Z"
+}

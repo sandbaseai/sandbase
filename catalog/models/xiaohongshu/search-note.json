@@ -1,0 +1,87 @@
+{
+  "name": "xiaohongshu/search-note",
+  "display_name": "Xiaohongshu Keyword Note Search",
+  "type": "api",
+  "vendor": "Xiaohongshu",
+  "vendor_slug": "xiaohongshu",
+  "description": "Search Xiaohongshu (RedNote) notes by keyword with page-based pagination, sorting and note-type filters. The V2 noteTime filter may return notes outside the selected time range.",
+  "tags": [
+    "api",
+    "xiaohongshu",
+    "social-media"
+  ],
+  "capabilities": [
+    "api",
+    "xiaohongshu",
+    "social-media"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/xiaohongshu/search-note"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "keyword"
+    ],
+    "properties": {
+      "page": {
+        "type": "integer",
+        "default": 1,
+        "description": "Page number for pagination. Start at 1, then increment page while keeping the keyword and filters unchanged."
+      },
+      "sort": {
+        "enum": [
+          "general",
+          "popularity_descending",
+          "time_descending",
+          "comment_descending",
+          "collect_descending"
+        ],
+        "type": "string",
+        "default": "general",
+        "description": "Sort order for the result set."
+      },
+      "keyword": {
+        "type": "string",
+        "example": "美食",
+        "description": "Search keyword."
+      },
+      "noteTime": {
+        "enum": [
+          "ONE_DAY",
+          "ONE_WEEK",
+          "HALF_YEAR"
+        ],
+        "type": "string",
+        "description": "Note publish time filter. Results may include notes published outside the selected time range."
+      },
+      "noteType": {
+        "enum": [
+          "_0",
+          "_1",
+          "_2"
+        ],
+        "type": "string",
+        "default": "_0",
+        "description": "Note type filter."
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.020833
+  },
+  "readme": "# Xiaohongshu Keyword Note Search API\n\nSearch Xiaohongshu (RedNote) notes by keyword with page-based pagination, sorting and note-type filters. The V2 noteTime filter may return notes outside the selected time range.\n\nThe response is the platform's original data structure.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/xiaohongshu/search-note\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"keyword\": \"美食\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `keyword` | string | Yes | Search keyword. |\n| `page` | integer | No | Page number for pagination. Start at 1, then increment page while keeping the keyword and filters unchanged. |\n| `sort` | string | No | Sort order for the result set. |\n| `noteType` | string | No | Note type filter. |\n| `noteTime` | string | No | Note publish time filter. Results may include notes published outside the selected time range. |\n\n## Pricing\n\nFlat price per call. Failed calls and empty results are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/xiaohongshu/search-note",
+  "created_at": "2026-10-29T11:36:14.986Z"
+}

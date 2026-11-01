@@ -1,0 +1,44 @@
+{
+  "name": "stepfun/step-5-preview",
+  "display_name": "StepFun: Step 5 Preview",
+  "type": "llm",
+  "vendor": "Stepfun",
+  "vendor_slug": "stepfun",
+  "description": "Step 5 Preview is StepFun's flagship model for agentic work, built on a sparse Mixture-of-Experts architecture with 27B active and 600B total parameters. It accepts text, image, and video input with a 1M-token context window, and supports tool calling, structured outputs, and configurable reasoning.\n\nIt is designed for software engineering, long-horizon agent workflows, and professional knowledge tasks. As a preview release, its behavior may change before the stable version.",
+  "tags": [
+    "chat",
+    "vision",
+    "reasoning",
+    "structured_output",
+    "function_calling"
+  ],
+  "capabilities": [
+    "chat",
+    "vision",
+    "reasoning",
+    "structured_output",
+    "function_calling"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "chat_completions": "POST /v1/chat/completions",
+    "responses": "POST /v1/responses",
+    "messages": "POST /v1/messages"
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_token",
+    "per_million_tokens": {
+      "input": 1,
+      "output": 2.7,
+      "cache_read_multiplier": 0.05
+    }
+  },
+  "cover_url": "https://www.stepfun.com/step_favicon.svg",
+  "page_url": "https://www.sandbase.ai/model/stepfun/step-5-preview",
+  "published_at": "2026-10-08T12:34:09Z",
+  "created_at": "2026-10-14T23:27:39.246Z"
+}

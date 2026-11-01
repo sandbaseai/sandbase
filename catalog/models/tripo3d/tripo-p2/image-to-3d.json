@@ -1,0 +1,277 @@
+{
+  "name": "tripo3d/tripo-p2/image-to-3d",
+  "display_name": "Tripo P2 Image to 3D",
+  "type": "image",
+  "vendor": "Tripo3D",
+  "vendor_slug": "tripo3d",
+  "description": "Tripo P2 is Tripo3D's latest flagship 3D generation model. It reconstructs a production-ready mesh with optional PBR textures from a single image.",
+  "tags": [
+    "image-to-3d"
+  ],
+  "capabilities": [
+    "image-to-3d"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "image"
+    ],
+    "properties": {
+      "pbr": {
+        "type": "boolean",
+        "title": "PBR",
+        "default": true,
+        "description": "Generate PBR materials (also enables texture)."
+      },
+      "quad": {
+        "type": "boolean",
+        "title": "Quad Mesh",
+        "default": false,
+        "description": "Generate quad mesh topology instead of triangles."
+      },
+      "seed": {
+        "type": "integer",
+        "title": "Seed",
+        "description": "Seed for reproducible geometry generation."
+      },
+      "image": {
+        "type": "string",
+        "title": "Image",
+        "description": "Input image URL for 3D model creation."
+      },
+      "texture": {
+        "type": "boolean",
+        "title": "Texture",
+        "default": true,
+        "description": "Generate textures. Set both texture and pbr to false for an untextured model."
+      },
+      "face_limit": {
+        "type": "integer",
+        "title": "Face Limit",
+        "maximum": 50000,
+        "minimum": 48,
+        "description": "Maximum faces (quad meshes up to 25,000)."
+      },
+      "texture_quality": {
+        "enum": [
+          "fast",
+          "standard",
+          "detailed",
+          "extreme"
+        ],
+        "type": "string",
+        "title": "Texture Quality",
+        "default": "standard",
+        "description": "Texture quality tier."
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "title": "GenerationResponse",
+    "required": [
+      "id",
+      "status"
+    ],
+    "properties": {
+      "id": {
+        "type": "string",
+        "description": "Unique identifier for the generation task."
+      },
+      "error": {
+        "type": "string",
+        "description": "Error message if the task failed. Empty on success."
+      },
+      "model": {
+        "type": "string",
+        "description": "Model ID used for the prediction."
+      },
+      "status": {
+        "enum": [
+          "pending",
+          "running",
+          "completed",
+          "failed",
+          "timeout"
+        ],
+        "type": "string",
+        "description": "Status of the task: pending, running, completed, failed, or timeout."
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "title": "OutputItem",
+          "required": [
+            "url"
+          ],
+          "properties": {
+            "url": {
+              "type": "string",
+              "description": "The URL where the generated content can be downloaded from."
+            },
+            "content_type": {
+              "type": "string",
+              "description": "The MIME type of the output file."
+            }
+          }
+        },
+        "description": "Array of generated content. Empty when status is not completed."
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "formula",
+    "formula": "((params.texture ?? true) || (params.pbr ?? true)) ? ((params.texture_quality ?? \"standard\") == \"extreme\" ? 1.56 : (params.texture_quality ?? \"standard\") == \"detailed\" ? 1.44 : 1.32) : 1.20",
+    "formula_variables": [
+      "params.pbr",
+      "params.texture",
+      "params.texture_quality"
+    ],
+    "reference_price": 1.32,
+    "price_examples": [
+      {
+        "params": {
+          "pbr": false,
+          "texture": false,
+          "texture_quality": "fast"
+        },
+        "usd": 1.2
+      },
+      {
+        "params": {
+          "pbr": false,
+          "texture": false,
+          "texture_quality": "standard"
+        },
+        "usd": 1.2
+      },
+      {
+        "params": {
+          "pbr": false,
+          "texture": false,
+          "texture_quality": "detailed"
+        },
+        "usd": 1.2
+      },
+      {
+        "params": {
+          "pbr": false,
+          "texture": false,
+          "texture_quality": "extreme"
+        },
+        "usd": 1.2
+      },
+      {
+        "params": {
+          "pbr": false,
+          "texture": true,
+          "texture_quality": "fast"
+        },
+        "usd": 1.32
+      },
+      {
+        "params": {
+          "pbr": false,
+          "texture": true,
+          "texture_quality": "standard"
+        },
+        "usd": 1.32
+      },
+      {
+        "params": {
+          "pbr": false,
+          "texture": true,
+          "texture_quality": "detailed"
+        },
+        "usd": 1.44
+      },
+      {
+        "params": {
+          "pbr": false,
+          "texture": true,
+          "texture_quality": "extreme"
+        },
+        "usd": 1.56
+      },
+      {
+        "params": {
+          "pbr": true,
+          "texture": false,
+          "texture_quality": "fast"
+        },
+        "usd": 1.32
+      },
+      {
+        "params": {
+          "pbr": true,
+          "texture": false,
+          "texture_quality": "standard"
+        },
+        "usd": 1.32
+      },
+      {
+        "params": {
+          "pbr": true,
+          "texture": false,
+          "texture_quality": "detailed"
+        },
+        "usd": 1.44
+      },
+      {
+        "params": {
+          "pbr": true,
+          "texture": false,
+          "texture_quality": "extreme"
+        },
+        "usd": 1.56
+      },
+      {
+        "params": {
+          "pbr": true,
+          "texture": true,
+          "texture_quality": "fast"
+        },
+        "usd": 1.32
+      },
+      {
+        "params": {
+          "pbr": true,
+          "texture": true,
+          "texture_quality": "standard"
+        },
+        "usd": 1.32
+      },
+      {
+        "params": {
+          "pbr": true,
+          "texture": true,
+          "texture_quality": "detailed"
+        },
+        "usd": 1.44
+      },
+      {
+        "params": {
+          "pbr": true,
+          "texture": true,
+          "texture_quality": "extreme"
+        },
+        "usd": 1.56
+      }
+    ]
+  },
+  "readme": "# Tripo P2 Image to 3D\n\nTripo P2, Tripo's flagship 3D model, turns a single image into a production-ready mesh with optional PBR textures.\n\n## Fields\n\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `image` | image URL, required | — | Input image URL for 3D model creation. |\n| `face_limit` | integer 48–50000 | — | Maximum face count. |\n| `pbr` | boolean | true | PBR materials. |\n| `quad` | boolean | false | Quad mesh output. |\n| `texture` | boolean | true | Generate textures. |\n| `texture_quality` | `fast` / `standard` / `detailed` / `extreme` | `standard` | Texture detail; higher costs more. |\n| `seed` | integer | random | Fix it to compare prompt changes. |\n\n## Billing\n\n$1.32 per textured model at standard texture quality, $1.44 detailed, $1.56 extreme; $1.20 untextured.\n\n| Texture | Price |\n|---|---|\n| standard | $1.32 |\n| detailed | $1.44 |\n| extreme | $1.56 |\n| Untextured | $1.20 |\n\nFailed runs are not charged.\n\n## Also on SandBase\n\nOther Tripo endpoints: `tripo3d/tripo-p2/text-to-3d`, `tripo3d/tripo-h3.1/text-to-3d`, `tripo3d/tripo-h3.1/image-to-3d`.\n",
+  "cover_url": "https://static.sandbase.ai/covers/tripo3d/tripo-p2/image-to-3d/cover-flare-20261008040730.webp",
+  "page_url": "https://www.sandbase.ai/model/tripo3d/tripo-p2/image-to-3d",
+  "published_at": "2026-09-21T20:52:00.285Z",
+  "created_at": "2026-10-06T04:18:13.975Z"
+}

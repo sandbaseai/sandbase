@@ -1,0 +1,86 @@
+{
+  "name": "tiktok/video-transcript-full",
+  "display_name": "TikTok Video Transcript (speech to text)",
+  "type": "api",
+  "vendor": "TikTok",
+  "vendor_slug": "tiktok",
+  "description": "Transcribe the spoken audio of a TikTok video with speech-to-text: timed sentence-level segments, speaker labels, detected language, and optional per-word timings, for videos TikTok publishes no caption track for and for videos whose caption track gets the words wrong. The service downloads the video and runs the audio through MAI-Transcribe-2 rather than reading anything TikTok wrote, which is why it handles non-English speech and hears words the native captions mishear. The answer also carries the video's id, URL, creator handle, and cover image. Turn on hostVideo to also get the MP4 on a hosted link that plays without TikTok's signed, short-lived CDN URL expiring on you. If you only want whatever TikTok itself published and you want it for a tenth of the price, tiktok.video_transcript is that.",
+  "tags": [
+    "api",
+    "tiktok",
+    "social-media"
+  ],
+  "capabilities": [
+    "api",
+    "tiktok",
+    "social-media"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/tiktok/video-transcript-full"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "url"
+    ],
+    "properties": {
+      "url": {
+        "type": "string",
+        "example": "https://www.tiktok.com/@thatdudecancook/video/7649086431641521421",
+        "minLength": 1,
+        "description": "TikTok video URL (e.g. \"https://www.tiktok.com/@user/video/1234567890\")."
+      },
+      "hostVideo": {
+        "type": "boolean",
+        "default": false,
+        "description": "Also store the video and return a hosted MP4 link that plays without TikTok's signed CDN URL. Charged as an extra on top of the transcript."
+      },
+      "wordTimestamps": {
+        "type": "boolean",
+        "default": false,
+        "description": "Return per-word timings inside each segment. Words carry timings only; the recognizer scores a phrase rather than a word, so there is no per-word confidence to report."
+      }
+    },
+    "additionalProperties": false
+  },
+  "response_schema": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string"
+      },
+      "model": {
+        "type": "string"
+      },
+      "status": {
+        "type": "string"
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "data": {
+              "type": "object",
+              "description": "Normalized result for this request."
+            }
+          }
+        }
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "usage_based",
+    "note": "Billed per call from metered usage; the reference price is typical.",
+    "reference_price": 0.095
+  },
+  "readme": "# TikTok Video Transcript (speech to text) API\n\nTranscribe the spoken audio of a TikTok video with speech-to-text: timed sentence-level segments, speaker labels, detected language, and optional per-word timings, for videos TikTok publishes no caption track for and for videos whose caption track gets the words wrong. The service downloads the video and runs the audio through MAI-Transcribe-2 rather than reading anything TikTok wrote, which is why it handles non-English speech and hears words the native captions mishear. The answer also carries the video's id, URL, creator handle, and cover image. Turn on hostVideo to also get the MP4 on a hosted link that plays without TikTok's signed, short-lived CDN URL expiring on you. If you only want whatever TikTok itself published and you want it for a tenth of the price, tiktok.video_transcript is that.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/tiktok/video-transcript-full\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"url\": \"https://www.tiktok.com/@thatdudecancook/video/7649086431641521421\"}'\n```\n\nThe result is returned in `outputs[0].data`. A lookup that finds nothing still succeeds and returns `found: false`.\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `url` | string | Yes | TikTok video URL (e.g. \"https://www.tiktok.com/@user/video/1234567890\"). |\n| `hostVideo` | boolean | No | Also store the video and return a hosted MP4 link that plays without TikTok's signed CDN URL. Charged as an extra on top of the transcript. Default `false`. |\n| `wordTimestamps` | boolean | No | Return per-word timings inside each segment. Words carry timings only; the recognizer scores a phrase rather than a word, so there is no per-word confidence to report. Default `false`. |\n\n## Pricing\n\nBilled at the actual cost of each call, usually $0.095 per request. A call can cost more when the first data source fails and another one answers. Failed calls are not charged. Lookups that find nothing and searches with no results are billed at their actual cost, which is often lower and can be $0.\n",
+  "page_url": "https://www.sandbase.ai/model/tiktok/video-transcript-full",
+  "created_at": "2026-11-01T12:36:39.12Z"
+}

@@ -1,0 +1,88 @@
+# JD.com Shop Products
+
+`jd/shop/items` · api · JD.com
+
+List products from a JD.com shop by shop ID, page by page, to collect item IDs for follow-up lookups.
+
+## Pricing
+
+- **$0.027778 per call** (USD)
+
+## Call it
+
+Modes: sync (default `sync`). Only pass `mode` values listed here. The SDKs' `run()` waits for async results; `submit()` + `wait()` split the two steps.
+
+**curl**
+
+```bash
+curl https://api.sandbase.ai/v1/run \
+  -H "Authorization: Bearer $SANDBASE_API_KEY" -H 'Content-Type: application/json' \
+  -d '{"model": "jd/shop/items", "shopId": "1000278560"}'
+```
+
+**Python** ([sdk/python](../../../../sdk/python))
+
+```python
+from sandbase import SandBase
+
+result = SandBase().run('jd/shop/items', {'shopId': '1000278560'})
+print(result["outputs"])
+```
+
+**TypeScript** ([sdk/typescript](../../../../sdk/typescript))
+
+```ts
+import { SandBase } from "@sandbaseai/sdk";
+
+const result = await new SandBase().run("jd/shop/items", {
+  "shopId": "1000278560"
+});
+console.log(result.outputs);
+```
+
+**Go** ([sdk/go](../../../../sdk/go))
+
+```go
+c, _ := sandbase.NewClient("")
+run, err := c.Run(ctx, "jd/shop/items", sandbase.Params{
+	"shopId": "1000278560",
+})
+```
+
+Same call via the path form: `POST /v1/api/jd/shop/items` with the body above minus `model`.
+
+## Parameters
+
+| name | type | required | description |
+|---|---|---|---|
+| `page` | string |  | Page number for the paginated shop product list.  |
+| `shopId` | string | yes | A unique shop identifier on JD.com (Shop ID).  |
+
+## Details
+
+List products from a JD.com shop by shop ID, page by page, to collect item IDs for follow-up lookups.
+
+The response is the platform's original data structure.
+
+### Request
+
+```bash
+curl -X POST "https://api.sandbase.ai/v1/api/jd/shop/items" \
+  -H "Authorization: Bearer $SANDBASE_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{"shopId": "1000278560"}'
+```
+
+### Parameters
+
+| Name | Type | Required | Description |
+|---|---|---|---|
+| `shopId` | string | Yes | A unique shop identifier on JD.com (Shop ID). |
+| `page` | string | No | Page number for the paginated shop product list. |
+
+### Pricing
+
+Flat price per call. Failed calls and empty results are not charged.
+
+---
+Machine-readable: [`catalog/models/jd/shop/items.json`](../../../../catalog/models/jd/shop/items.json) · Store page: https://www.sandbase.ai/model/jd/shop/items

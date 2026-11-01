@@ -1,0 +1,42 @@
+{
+  "name": "minimax/minimax-m2.7",
+  "display_name": "MiniMax: MiniMax M2.7",
+  "type": "llm",
+  "vendor": "Minimax",
+  "vendor_slug": "minimax",
+  "description": "MiniMax-M2.7 is a MiniMax M2-series language model that MiniMax describes as its first model to take part in its own development, building agent harnesses, skills and memory for reinforcement learning experiments. It is positioned for end-to-end software engineering including log analysis, bug troubleshooting and code security, high-fidelity editing in Excel, PowerPoint and Word, and character-consistent interaction. A faster highspeed variant exists, and MiniMax-M3 adds multimodality and longer context.",
+  "tags": [
+    "chat",
+    "reasoning",
+    "structured_output",
+    "function_calling"
+  ],
+  "capabilities": [
+    "chat",
+    "reasoning",
+    "structured_output",
+    "function_calling"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "chat_completions": "POST /v1/chat/completions",
+    "responses": "POST /v1/responses",
+    "messages": "POST /v1/messages"
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_token",
+    "per_million_tokens": {
+      "input": 0.3,
+      "output": 1.2,
+      "cache_read_multiplier": 0.2
+    }
+  },
+  "cover_url": "https://t0.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=https://morphllm.com&size=256",
+  "page_url": "https://www.sandbase.ai/model/minimax/minimax-m2.7",
+  "published_at": "2026-03-18T12:24:57.176Z",
+  "created_at": "2026-05-08T23:51:36.185Z"
+}

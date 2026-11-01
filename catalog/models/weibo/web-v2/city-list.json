@@ -1,0 +1,58 @@
+{
+  "name": "weibo/web-v2/city-list",
+  "display_name": "Weibo Region City List",
+  "type": "api",
+  "vendor": "Weibo",
+  "vendor_slug": "weibo",
+  "description": "Returns a directory of provinces and cities on Weibo. Supports toggling a normalized data structure via the normalized parameter.",
+  "tags": [
+    "api",
+    "weibo"
+  ],
+  "capabilities": [
+    "api",
+    "weibo"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/weibo/web-v2/city-list"
+  },
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "normalized": {
+        "type": "boolean",
+        "title": "Normalized",
+        "default": true,
+        "description": "Whether to return normalized structure (default True)"
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.0015,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "examples": [
+    {
+      "input": {},
+      "default": true
+    }
+  ],
+  "readme": "# Weibo Region City List API\n\nCall this endpoint to retrieve the list of provinces and cities on Weibo. Configure `normalized` to select between raw or normalized regional hierarchy formats.\n\n## Use cases\n\n- Populate regional dropdown filters for Weibo content analytics.\n- Map user location records against standardized Chinese administrative divisions.\n- Standardize geographical search queries within Weibo automation workflows.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/weibo/web-v2/city-list\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `normalized` | boolean | No | Whether to return normalized structure (default True) |\n\n## Example response\n\nReal response for the request above, trimmed to the main fields. User names and long IDs are masked.\n\n```json\n{\n  \"provinces\": [\n    {\n      \"name\": \"省/直辖市\"\n    }\n  ]\n}\n```\n\n## Notes\n\n- The `normalized` parameter defaults to true and controls whether the regional structure is normalized.\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [Weibo Advanced Search](/model/weibo/web-v2/advanced-search): Search Weibo posts by keyword with filters for time range, post type (hot, original, verified, media) and content type (images, video, links).\n- [Weibo AI Related Search Content](/model/weibo/web-v2/ai-related-search): Returns AI-generated content extensions for a keyword, including related questions, recommended bloggers, and reference posts.\n- [Weibo AI Search](/model/weibo/web-v2/ai-search): Returns multimodal search results and relevance scores from Weibo intelligent search for a specified keyword or topic query.\n",
+  "page_url": "https://www.sandbase.ai/model/weibo/web-v2/city-list",
+  "created_at": "2026-07-31T02:45:42.989Z"
+}

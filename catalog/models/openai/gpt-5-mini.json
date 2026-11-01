@@ -1,0 +1,44 @@
+{
+  "name": "openai/gpt-5-mini",
+  "display_name": "OpenAI: GPT-5 Mini",
+  "type": "llm",
+  "vendor": "OpenAI",
+  "vendor_slug": "openai",
+  "description": "GPT-5 mini is the faster, more efficient tier of OpenAI's GPT-5 reasoning family, released in August 2025 with text and image input and text output. OpenAI recommends it for well-defined tasks and precise prompts in low-latency, high-volume workloads, keeping GPT-5's configurable reasoning. Choose it over full GPT-5 when speed and throughput matter more than maximum depth; OpenAI's later small models are its suggested successors.",
+  "tags": [
+    "chat",
+    "vision",
+    "reasoning",
+    "structured_output",
+    "function_calling"
+  ],
+  "capabilities": [
+    "chat",
+    "vision",
+    "reasoning",
+    "structured_output",
+    "function_calling"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "chat_completions": "POST /v1/chat/completions",
+    "responses": "POST /v1/responses",
+    "messages": "POST /v1/messages"
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_token",
+    "per_million_tokens": {
+      "input": 0.25,
+      "output": 2,
+      "cache_read_multiplier": 0.1
+    }
+  },
+  "cover_url": "https://t0.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=https://openai.com&size=256",
+  "page_url": "https://www.sandbase.ai/model/openai/gpt-5-mini",
+  "published_at": "2025-08-07T17:23:27Z",
+  "created_at": "2026-05-08T23:54:56.377Z"
+}

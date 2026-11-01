@@ -1,0 +1,219 @@
+{
+  "name": "heygen/heygen-voice/turbo",
+  "display_name": "HeyGen Voice Turbo",
+  "type": "audio",
+  "vendor": "HeyGen",
+  "vendor_slug": "heygen",
+  "description": "HeyGen Voice Turbo is the faster, lower-cost HeyGen text-to-speech model, with the same voices, languages and voice cloning.",
+  "tags": [
+    "text-to-speech"
+  ],
+  "capabilities": [
+    "text-to-speech"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "text"
+    ],
+    "properties": {
+      "text": {
+        "type": "string",
+        "title": "Text",
+        "maxLength": 5000,
+        "minLength": 1,
+        "description": "Text to speak, up to 5,000 characters."
+      },
+      "voice": {
+        "enum": [
+          "Jonah",
+          "Nadine",
+          "Tabitha",
+          "Soren",
+          "Elowen",
+          "Vincent",
+          "Jocelyn",
+          "Marielle",
+          "Corinne",
+          "Lucian",
+          "Kieran",
+          "Hugh",
+          "Noelle",
+          "Bram",
+          "Ewan",
+          "Iona",
+          "Cecily",
+          "Simon",
+          "Weston",
+          "Felicity",
+          "Gareth",
+          "Rory",
+          "Meredith",
+          "Sabrina"
+        ],
+        "type": "string",
+        "title": "Voice",
+        "default": "Jonah",
+        "description": "HeyGen public voice. Ignored when reference_audio is set."
+      },
+      "language": {
+        "enum": [
+          "ar",
+          "be",
+          "bg",
+          "ca",
+          "cs",
+          "da",
+          "de",
+          "el",
+          "en",
+          "es",
+          "fa",
+          "fi",
+          "fr",
+          "he",
+          "hi",
+          "hr",
+          "hu",
+          "id",
+          "it",
+          "ja",
+          "ko",
+          "mk",
+          "ms",
+          "nl",
+          "pl",
+          "pt",
+          "ro",
+          "ru",
+          "sk",
+          "sl",
+          "sr",
+          "sv",
+          "ta",
+          "th",
+          "tl",
+          "tr",
+          "uk",
+          "vi",
+          "zh"
+        ],
+        "type": "string",
+        "title": "Language",
+        "description": "Language of the text. Detected automatically when omitted."
+      },
+      "reference_audio": {
+        "type": "string",
+        "title": "Reference Audio",
+        "description": "Optional single-speaker recording to clone instead of a public voice. Only the first 3 minutes are used."
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "title": "GenerationResponse",
+    "required": [
+      "id",
+      "status"
+    ],
+    "properties": {
+      "id": {
+        "type": "string",
+        "description": "Unique identifier for the generation task."
+      },
+      "error": {
+        "type": "string",
+        "description": "Error message if the task failed. Empty on success."
+      },
+      "model": {
+        "type": "string",
+        "description": "Model ID used for the prediction."
+      },
+      "status": {
+        "enum": [
+          "pending",
+          "running",
+          "completed",
+          "failed",
+          "timeout"
+        ],
+        "type": "string",
+        "description": "Status of the task: pending, running, completed, failed, or timeout."
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "title": "OutputItem",
+          "required": [
+            "url"
+          ],
+          "properties": {
+            "url": {
+              "type": "string",
+              "description": "The URL where the generated content can be downloaded from."
+            },
+            "content_type": {
+              "type": "string",
+              "description": "The MIME type of the output file."
+            }
+          }
+        },
+        "description": "Array of generated content. Empty when status is not completed."
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "formula",
+    "formula": "Math.max(1.0, Math.ceil(len(params.text ?? \"\") / 1000.0)) * 0.004",
+    "formula_variables": [
+      "params.text"
+    ],
+    "reference_price": 0.004,
+    "price_examples": [
+      {
+        "params": {},
+        "usd": 0.004
+      }
+    ]
+  },
+  "examples": [
+    {
+      "input": {
+        "text": "Welcome to SandBase. One API key gives you thousands of AI models for images, video, audio and text.",
+        "voice": "Jonah"
+      },
+      "output": [
+        {
+          "url": "https://static.sandbase.ai/examples/47b68afc-f552-4975-bd30-4809636fea4d/output/5ad7c5ac-8913-48d9-91dc-f704a396e378.wav"
+        }
+      ],
+      "default": true
+    },
+    {
+      "input": {
+        "text": "Thanks for calling. Your order has shipped and should arrive on Thursday.",
+        "voice": "Felicity"
+      },
+      "output": [
+        {
+          "url": "https://static.sandbase.ai/examples/872f5343-af93-47e5-b737-48d06f0df371/output/f9ac34ad-bedf-4b2e-ae39-1b8f5bcbc137.wav"
+        }
+      ]
+    }
+  ],
+  "readme": "# HeyGen Voice Turbo\nHeyGen Voice Turbo is the faster, lower-cost HeyGen text-to-speech model, with the same voices, languages and voice cloning as HeyGen Voice.\n## Fields\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `text` | string, required | — | Up to 5,000 characters. |\n| `voice` | 24 public voices | `Jonah` | Ignored when `reference_audio` is set. |\n| `language` | ISO 639-1 code (39 languages) | auto | Language of the text. |\n| `reference_audio` | audio URL | — | Single-speaker recording to clone; the first 3 minutes are used. |\n## Billing\n$0.004 per started 1,000 characters of input text.\n| Text | Price |\n|---|---|\n| Up to 1,000 characters | $0.004 |\n| 2,500 characters | $0.012 |\n| 5,000 characters | $0.02 |\nFailed runs are not charged.\n## Limits\n- Up to 5,000 characters per request.\n## Also on SandBase\nHigher-quality tier: `heygen/heygen-voice`.",
+  "cover_url": "https://static.sandbase.ai/covers/heygen/heygen-voice/turbo/cover-flare-20261022111258.webp",
+  "page_url": "https://www.sandbase.ai/model/heygen/heygen-voice/turbo",
+  "published_at": "2026-10-21T21:00:59.636Z",
+  "created_at": "2026-10-22T02:43:55.587Z"
+}

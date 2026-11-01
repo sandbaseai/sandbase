@@ -1,0 +1,180 @@
+{
+  "name": "bfl/flux-2/kontext/dev",
+  "display_name": "FLUX.1 Kontext [dev]",
+  "type": "image",
+  "vendor": "BFL",
+  "vendor_slug": "bfl",
+  "description": "Flux 2 Kontext Dev by BFL - AI-powered image editing, style transfer, and transformation. Edit photos with natural language instructions, remove backgrounds, change styles, and enhance images effortlessly.",
+  "tags": [
+    "image-to-image"
+  ],
+  "capabilities": [
+    "image-to-image"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "prompt",
+      "image"
+    ],
+    "properties": {
+      "seed": {
+        "type": "integer",
+        "title": "Seed",
+        "description": "\n            The same seed and the same prompt given to the same version of the model\n            will output the same image every time.\n        "
+      },
+      "image": {
+        "type": "string",
+        "title": "Image URL",
+        "examples": [
+          "https://static.sandbase.ai/examples/bfl/flux-2/kontext/dev/input_image_0.webp"
+        ],
+        "description": "The URL of the image to edit.\n\nMax width: 14142px, Max height: 14142px, Timeout: 20s"
+      },
+      "prompt": {
+        "type": "string",
+        "title": "Prompt",
+        "examples": [
+          "Change the setting to a day time, add a lot of people walking the sidewalk while maintaining the same style of the painting"
+        ],
+        "description": "The prompt to edit the image."
+      },
+      "output_format": {
+        "enum": [
+          "jpeg",
+          "png"
+        ],
+        "type": "string",
+        "title": "Output Format",
+        "default": "jpeg",
+        "description": "Output format"
+      },
+      "guidance_scale": {
+        "type": "number",
+        "title": "Guidance scale (CFG)",
+        "default": 2.5,
+        "maximum": 20,
+        "minimum": 1,
+        "description": "\n            The CFG (Classifier Free Guidance) scale is a measure of how close you want\n            the model to stick to your prompt when looking for a related image to show you.\n        "
+      },
+      "resolution_mode": {
+        "enum": [
+          "auto",
+          "match_input",
+          "1:1",
+          "16:9",
+          "21:9",
+          "3:2",
+          "2:3",
+          "4:5",
+          "5:4",
+          "3:4",
+          "4:3",
+          "9:16",
+          "9:21"
+        ],
+        "type": "string",
+        "title": "Resolution Mode",
+        "default": "match_input",
+        "description": "\n            Determines how the output resolution is set for image editing.\n            - `auto`: The model selects an optimal resolution from a predefined set that best matches the input image's aspect ratio. This is the recommended setting for most use cases as it's what the model was trained on.\n            - `match_input`: The model will attempt to use the same resolution as the input image. The resolution will be adjusted to be compatible with the model's requirements (e.g. dimensions must be multiples of 16 and within supported limits).\n            Apart from these, a few aspect ratios are also supported.\n            "
+      },
+      "num_inference_steps": {
+        "type": "integer",
+        "title": "Num Inference Steps",
+        "default": 28,
+        "maximum": 50,
+        "minimum": 10,
+        "description": "The number of inference steps to perform."
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "title": "GenerationResponse",
+    "required": [
+      "id",
+      "status"
+    ],
+    "properties": {
+      "id": {
+        "type": "string",
+        "description": "Unique identifier for the generation task."
+      },
+      "error": {
+        "type": "string",
+        "description": "Error message if the task failed. Empty on success."
+      },
+      "model": {
+        "type": "string",
+        "description": "Model ID used for the prediction."
+      },
+      "status": {
+        "enum": [
+          "pending",
+          "running",
+          "completed",
+          "failed",
+          "timeout"
+        ],
+        "type": "string",
+        "description": "Status of the task: pending, running, completed, failed, or timeout."
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "title": "OutputItem",
+          "required": [
+            "url"
+          ],
+          "properties": {
+            "url": {
+              "type": "string",
+              "examples": [
+                "https://static.sandbase.ai/examples/bfl/flux-2/kontext/dev/output_url_1.jpeg"
+              ],
+              "description": "The URL where the generated content can be downloaded from."
+            },
+            "content_type": {
+              "type": "string",
+              "description": "The MIME type of the output file."
+            }
+          }
+        },
+        "description": "Array of generated content. Empty when status is not completed."
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.025
+  },
+  "examples": [
+    {
+      "input": {
+        "image": "https://static.sandbase.ai/examples/d4b6c66d-af5e-4af7-9d4e-4d82e9f249ac/input/8fde3e25-c086-4505-bd6d-4b7c824136b5.webp",
+        "prompt": "Change the setting to a day time, add a lot of people walking the sidewalk while maintaining the same style of the painting"
+      },
+      "output": [
+        {
+          "url": "https://static.sandbase.ai/examples/d4b6c66d-af5e-4af7-9d4e-4d82e9f249ac/output/4f32256b-22fa-4ee3-8a38-31d0fa466211.jpeg"
+        }
+      ],
+      "default": true
+    }
+  ],
+  "readme": "# FLUX.1 Kontext [dev]\n\nFLUX.1 Kontext [dev] edits a single image from an instruction: change objects, text, or style while keeping the rest consistent.\n\n## Fields\n\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `prompt` | string, required | — | Text instruction. |\n| `image` | image URL, required | — | Image to edit. JPEG, PNG, or WebP URL. |\n| `guidance_scale` | number 1–20 | 2.5 | How strictly to follow the prompt. |\n| `num_inference_steps` | integer 10–50 | 28 | More steps add detail and time. |\n| `output_format` | `jpeg` / `png` | `jpeg` | Output file format. |\n| `resolution_mode` | `auto` / `match_input` / `1:1` / `16:9` / `21:9` / `3:2` / `2:3` / `4:5` / `5:4` / `3:4` / `4:3` / `9:16` / `9:21` | `match_input` | `match_input` keeps the input size; or choose a ratio. |\n| `seed` | integer | random | Fix it to compare prompt changes. |\n\n## Billing\n\n$0.025 per image.\n\n| Request | Price |\n|---|---|\n| One image | $0.025 |\n\nFailed runs are not charged.\n\n## Prompting\n\n- State the change and what must stay the same.\n\n## Limits\n\n- One input image.\n\n## Also on SandBase\n\nRelated: `bfl/flux-2/dev/edit` (FLUX.2, multi-image).\n",
+  "cover_url": "https://static.sandbase.ai/covers/bfl/flux-2/kontext/dev/cover-flare-20261005082441.webp",
+  "page_url": "https://www.sandbase.ai/model/bfl/flux-2/kontext/dev",
+  "published_at": "2025-05-28T18:38:52.637Z",
+  "created_at": "2026-05-15T23:09:00.21Z"
+}

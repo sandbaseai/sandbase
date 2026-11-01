@@ -1,0 +1,197 @@
+{
+  "name": "kwaivgi/kling-image/o3/edit",
+  "display_name": "Kling Image O3 Edit",
+  "type": "image",
+  "vendor": "KwaiVGI",
+  "vendor_slug": "kwaivgi",
+  "description": "Kling Image O3 Edit by Kuaishou edits or recomposes images from a text instruction using up to 10 reference images, with 1K, 2K, or 4K output.",
+  "tags": [
+    "image-to-image"
+  ],
+  "capabilities": [
+    "image-to-image"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "prompt",
+      "images"
+    ],
+    "properties": {
+      "images": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        },
+        "title": "Image Urls",
+        "examples": [
+          "https://static.sandbase.ai/examples/kwaivgi/kling-image/o3/edit/output_url_0.png"
+        ],
+        "description": "List of reference images. Reference images in prompt using @Image1, @Image2, etc. (1-indexed). Max 10 images."
+      },
+      "prompt": {
+        "type": "string",
+        "title": "Prompt",
+        "examples": [
+          "Transform into photorealistic 3D render, add proper lighting and shadows, realistic materials and textures, maintain exact proportions and design from sketch, product visualization quality"
+        ],
+        "maxLength": 2500,
+        "description": "Text prompt for image generation. Reference images using @Image1, @Image2, etc. (or @Image if only one image). Max 2500 characters."
+      },
+      "resolution": {
+        "enum": [
+          "1K",
+          "2K",
+          "4K"
+        ],
+        "type": "string",
+        "title": "Resolution",
+        "default": "1K",
+        "description": "Image generation resolution. 1K: standard, 2K: high-res, 4K: ultra high-res."
+      },
+      "aspect_ratio": {
+        "enum": [
+          "21:9",
+          "16:9",
+          "3:2",
+          "4:3",
+          "5:4",
+          "1:1",
+          "4:5",
+          "3:4",
+          "2:3",
+          "9:16"
+        ],
+        "type": "string",
+        "title": "Aspect Ratio",
+        "default": "16:9",
+        "description": "The aspect ratio of the generated image."
+      },
+      "output_format": {
+        "enum": [
+          "jpeg",
+          "png"
+        ],
+        "type": "string",
+        "title": "Output Format",
+        "default": "png",
+        "description": "The format of the generated image."
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "title": "GenerationResponse",
+    "required": [
+      "id",
+      "status"
+    ],
+    "properties": {
+      "id": {
+        "type": "string",
+        "description": "Unique identifier for the generation task."
+      },
+      "error": {
+        "type": "string",
+        "description": "Error message if the task failed. Empty on success."
+      },
+      "model": {
+        "type": "string",
+        "description": "Model ID used for the prediction."
+      },
+      "status": {
+        "enum": [
+          "pending",
+          "running",
+          "completed",
+          "failed",
+          "timeout"
+        ],
+        "type": "string",
+        "description": "Status of the task: pending, running, completed, failed, or timeout."
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "title": "OutputItem",
+          "required": [
+            "url"
+          ],
+          "properties": {
+            "url": {
+              "type": "string",
+              "examples": [
+                "https://static.sandbase.ai/examples/kwaivgi/kling-image/o3/edit/output_url_0.png"
+              ],
+              "description": "The URL where the generated content can be downloaded from."
+            },
+            "content_type": {
+              "type": "string",
+              "description": "The MIME type of the output file."
+            }
+          }
+        },
+        "description": "Array of generated content. Empty when status is not completed."
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "formula",
+    "formula": "(params.resolution ?? \"1K\") == \"4K\" ? 0.056 : 0.028",
+    "formula_variables": [
+      "params.resolution"
+    ],
+    "reference_price": 0.028,
+    "price_examples": [
+      {
+        "params": {
+          "resolution": "1K"
+        },
+        "usd": 0.028
+      },
+      {
+        "params": {
+          "resolution": "2K"
+        },
+        "usd": 0.028
+      },
+      {
+        "params": {
+          "resolution": "4K"
+        },
+        "usd": 0.056
+      }
+    ]
+  },
+  "examples": [
+    {
+      "input": {
+        "images": [
+          "https://static.sandbase.ai/examples/1a588da4-8a64-49ca-ad13-6a2efe9bf164/input/e4cacf41-40f9-4c26-b397-7862af7bd5d9.png"
+        ],
+        "prompt": "Transform into photorealistic 3D render, add proper lighting and shadows, realistic materials and textures, maintain exact proportions and design from sketch, product visualization quality"
+      },
+      "output": [
+        {
+          "url": "https://static.sandbase.ai/examples/1a588da4-8a64-49ca-ad13-6a2efe9bf164/output/0bdcdf61-324f-4e6b-9f01-6e1719810bf5.png"
+        }
+      ],
+      "default": true
+    }
+  ],
+  "readme": "# Kling Image O3 Edit\n\nKling Image O3 edit: change or combine images with an instruction, up to 4K.\n\n## Fields\n\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `prompt` | string, required | — | Up to 2,500 characters. |\n| `images` | image URL[], required | — | Images to edit or combine, @Image1, @Image2, … |\n| `resolution` | `1K` / `2K` / `4K` | `1K` | Sets the per-image rate. |\n| `output_format` | `jpeg` / `png` | `png` | Output file format. |\n| `aspect_ratio` | `21:9` / `16:9` / `3:2` / `4:3` / `5:4` / `1:1` / `4:5` / `3:4` / `2:3` / `9:16` | `16:9` | Output shape. |\n\n## Billing\n\n$0.028 per image at 1K or 2K and $0.056 at 4K.\n\n| Request | 1K | 2K | 4K |\n|---|---|---|---|\n| One image | $0.028 | $0.028 | $0.056 |\n\nFailed runs are not charged.\n\n## Prompting\n\n- Quote any text that must appear.\n\n## Limits\n\n- One image per request.\n\n## Also on SandBase\n\nRelated: `kwaivgi/kling-image/o3`.\n",
+  "cover_url": "https://static.sandbase.ai/covers/kwaivgi/kling-image/o3/edit/cover-flare-20261005152550.webp",
+  "page_url": "https://www.sandbase.ai/model/kwaivgi/kling-image/o3/edit",
+  "published_at": "2026-02-03T18:26:40.782Z",
+  "created_at": "2026-05-14T12:37:46.253Z"
+}

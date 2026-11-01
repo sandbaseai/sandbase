@@ -1,0 +1,158 @@
+{
+  "name": "kwaivgi/kling-video/v4/video-edit",
+  "display_name": "Kling V4 Video Edit",
+  "type": "video",
+  "vendor": "KwaiVGI",
+  "vendor_slug": "kwaivgi",
+  "description": "Kling V4 Video Edit by Kuaishou edits a 3-30 second source video from a text instruction and optional reference images.",
+  "tags": [
+    "video-to-video"
+  ],
+  "capabilities": [
+    "video-to-video"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "prompt",
+      "video"
+    ],
+    "properties": {
+      "video": {
+        "type": "string",
+        "title": "Video",
+        "description": "Video to edit (3-30s, min 700x700 px, up to 300 MB). The output keeps its length."
+      },
+      "images": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        },
+        "title": "Reference Images",
+        "maxItems": 10,
+        "description": "Optional reference images, referenced as @Image1, @Image2, ..."
+      },
+      "prompt": {
+        "type": "string",
+        "title": "Prompt",
+        "examples": [
+          "Change the background to a tropical island at sunset."
+        ],
+        "description": "Edit instruction. Refer to the source video as @Video1 and reference images as @Image1, @Image2, ..."
+      },
+      "resolution": {
+        "enum": [
+          "720p",
+          "1080p"
+        ],
+        "type": "string",
+        "title": "Resolution",
+        "default": "1080p",
+        "description": "Output resolution."
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "title": "GenerationResponse",
+    "required": [
+      "id",
+      "status"
+    ],
+    "properties": {
+      "id": {
+        "type": "string",
+        "description": "Unique identifier for the generation task."
+      },
+      "error": {
+        "type": "string",
+        "description": "Error message if the task failed. Empty on success."
+      },
+      "model": {
+        "type": "string",
+        "description": "Model ID used for the prediction."
+      },
+      "status": {
+        "enum": [
+          "pending",
+          "running",
+          "completed",
+          "failed",
+          "timeout"
+        ],
+        "type": "string",
+        "description": "Status of the task: pending, running, completed, failed, or timeout."
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "title": "OutputItem",
+          "required": [
+            "url"
+          ],
+          "properties": {
+            "url": {
+              "type": "string",
+              "description": "The URL where the generated content can be downloaded from."
+            },
+            "content_type": {
+              "type": "string",
+              "description": "The MIME type of the output file."
+            }
+          }
+        },
+        "description": "Array of generated content. Empty when status is not completed."
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "formula",
+    "formula": "((params.resolution ?? \"1080p\") == \"720p\" ? 0.094 : 0.141) * 2.0 * Math.min(30.0, usage.duration ?? media_duration(params.video) ?? 30.0)",
+    "formula_variables": [
+      "params.resolution",
+      "params.video",
+      "usage.duration"
+    ],
+    "reference_price": 8.46
+  },
+  "examples": [
+    {
+      "input": {
+        "prompt": "Change the time of day in @Video1 to a starry night with the boat glowing softly, keep the camera motion.",
+        "video": "https://static.sandbase.ai/examples/c5782511-455d-4642-aed4-aee4d9a68521/input/cc801f7f-f034-4822-99db-04c72e2b9743.mp4"
+      },
+      "output": [
+        {
+          "url": "https://static.sandbase.ai/examples/c5782511-455d-4642-aed4-aee4d9a68521/output/e7edbd9a-0c29-4b45-8e1d-701fba8ef596.mp4"
+        }
+      ],
+      "default": true
+    },
+    {
+      "input": {
+        "prompt": "Restyle @Video1 as a hand-drawn watercolor animation, keep the vendor's motion and the flames.",
+        "video": "https://static.sandbase.ai/examples/8bd56a37-82da-4689-bfeb-b3d6e6db43dd/input/0ff13888-7225-4b82-bbe3-0ddbcabe39d0.mp4"
+      },
+      "output": [
+        {
+          "url": "https://static.sandbase.ai/examples/8bd56a37-82da-4689-bfeb-b3d6e6db43dd/output/4494c994-fdd5-46c0-8aea-59b65e6a8c3c.mp4"
+        }
+      ]
+    }
+  ],
+  "readme": "# Kling V4 Video Edit\nKling V4 video edit changes a 3–30 second source video from a text instruction, with optional reference images. The output keeps the source length.\n## Fields\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `prompt` | string, required | — | Edit instruction. Refer to the source as `@Video1` and images as `@Image1`, … |\n| `video` | video URL, required | — | 3–30s, min 700×700 px, up to 300 MB. |\n| `images` | image URL[] | — | Up to 10 reference images. |\n| `resolution` | `720p` / `1080p` | `1080p` | Output resolution. |\n## Billing\n$0.094 (720p) or $0.141 (1080p) per second, counted on input plus output (2× the source length). Settlement uses the output length (it matches the source); the quote before submission assumes a 30 second source when the length cannot be read.\n| Source | Price |\n|---|---|\n| 6s, 1080p | $1.692 |\n| 10s, 720p | $1.88 |\n| 30s, 1080p | $8.46 |\nFailed runs are not charged.\n## Prompting\n- State what to change and what to keep, e.g. \"replace the jacket in @Video1 with the coat in @Image1\".\n## Limits\n- Source videos are 3–30 seconds.\n## Also on SandBase\nOther Kling V4 endpoints: `kwaivgi/kling-video/v4/text-to-video`, `kwaivgi/kling-video/v4/image-to-video`, `kwaivgi/kling-video/v4/reference-to-video`, `kwaivgi/kling-video/v4/video-edit`.",
+  "cover_url": "https://static.sandbase.ai/covers/kwaivgi/kling-video/v4/video-edit/cover-flare-20261022111134.webp",
+  "page_url": "https://www.sandbase.ai/model/kwaivgi/kling-video/v4/video-edit",
+  "published_at": "2026-10-21T15:22:41.948Z",
+  "created_at": "2026-10-22T02:45:42.573Z"
+}

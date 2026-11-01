@@ -1,0 +1,259 @@
+{
+  "name": "minimax/speech/2.8/turbo",
+  "display_name": "MiniMax Speech 2.8 Turbo",
+  "type": "audio",
+  "vendor": "MiniMax",
+  "vendor_slug": "minimax",
+  "description": "MiniMax Speech 2.8 Turbo by MiniMax converts text into expressive speech in 40+ languages with low latency, system or cloned voices, and emotion control.",
+  "tags": [
+    "text-to-speech"
+  ],
+  "capabilities": [
+    "text-to-speech"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "text",
+      "voice_id"
+    ],
+    "properties": {
+      "text": {
+        "type": "string",
+        "title": "Text",
+        "default": "Hello, welcome to Sandbase",
+        "maxLength": 5000,
+        "minLength": 1,
+        "description": "Text to convert to speech. Use <#x#> between words to control pause duration (0.01-99.99s)."
+      },
+      "pitch": {
+        "step": 1,
+        "type": "integer",
+        "title": "Pitch",
+        "default": 0,
+        "maximum": 12,
+        "minimum": -12,
+        "description": "Speech pitch. Range: -12 to 12, where 0 is normal pitch."
+      },
+      "speed": {
+        "step": 0.01,
+        "type": "number",
+        "title": "Speed",
+        "default": 1,
+        "maximum": 2,
+        "minimum": 0.5,
+        "description": "Speech speed. Range: 0.5-2.0, where 1.0 is normal speed."
+      },
+      "format": {
+        "enum": [
+          "mp3",
+          "pcm",
+          "flac"
+        ],
+        "type": "string",
+        "title": "Format",
+        "description": "Format of generated sound."
+      },
+      "volume": {
+        "step": 0.01,
+        "type": "number",
+        "title": "Volume",
+        "default": 1,
+        "maximum": 10,
+        "minimum": 0.1,
+        "description": "Speech volume. Range: 0.1-10.0, where 1.0 is normal volume."
+      },
+      "bitrate": {
+        "enum": [
+          32000,
+          64000,
+          128000,
+          256000
+        ],
+        "type": "integer",
+        "title": "Bitrate",
+        "description": "Bitrate of generated sound."
+      },
+      "channel": {
+        "enum": [
+          1,
+          2
+        ],
+        "type": "integer",
+        "title": "Channel",
+        "description": "The number of channels. 1: mono, 2: stereo."
+      },
+      "emotion": {
+        "enum": [
+          "happy",
+          "sad",
+          "angry",
+          "fearful",
+          "disgusted",
+          "surprised",
+          "neutral"
+        ],
+        "type": "string",
+        "title": "Emotion",
+        "default": "happy",
+        "description": "The emotion of the generated speech."
+      },
+      "voice_id": {
+        "type": "string",
+        "title": "Voice",
+        "default": "Wise_Woman",
+        "description": "Voice ID for speech synthesis. Use a predefined system voice or a custom cloned voice ID."
+      },
+      "sample_rate": {
+        "enum": [
+          8000,
+          16000,
+          22050,
+          24000,
+          32000,
+          44100
+        ],
+        "type": "integer",
+        "title": "Sample Rate",
+        "description": "Sample rate of generated sound."
+      },
+      "language_boost": {
+        "enum": [
+          "Chinese",
+          "Chinese,Yue",
+          "English",
+          "Arabic",
+          "Russian",
+          "Spanish",
+          "French",
+          "Portuguese",
+          "German",
+          "Turkish",
+          "Dutch",
+          "Ukrainian",
+          "Vietnamese",
+          "Indonesian",
+          "Japanese",
+          "Italian",
+          "Korean",
+          "Thai",
+          "Polish",
+          "Romanian",
+          "Greek",
+          "Czech",
+          "Finnish",
+          "Hindi",
+          "Bulgarian",
+          "Danish",
+          "Hebrew",
+          "Malay",
+          "Slovak",
+          "Swedish",
+          "Croatian",
+          "Hungarian",
+          "Norwegian",
+          "Slovenian",
+          "Catalan",
+          "Nynorsk",
+          "Afrikaans",
+          "auto"
+        ],
+        "type": "string",
+        "title": "Language Boost",
+        "description": "Enhance the ability to recognize specified languages and dialects."
+      },
+      "english_normalization": {
+        "type": "boolean",
+        "title": "English Normalization",
+        "default": false,
+        "description": "Improves performance in number-reading scenarios."
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "title": "GenerationResponse",
+    "required": [
+      "id",
+      "status"
+    ],
+    "properties": {
+      "id": {
+        "type": "string",
+        "description": "Unique identifier for the generation task."
+      },
+      "error": {
+        "type": "string",
+        "description": "Error message if the task failed. Empty on success."
+      },
+      "model": {
+        "type": "string",
+        "description": "Model ID used for the prediction."
+      },
+      "status": {
+        "enum": [
+          "pending",
+          "running",
+          "completed",
+          "failed",
+          "timeout"
+        ],
+        "type": "string",
+        "description": "Status of the task: pending, running, completed, failed, or timeout."
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "title": "OutputItem",
+          "required": [
+            "url"
+          ],
+          "properties": {
+            "url": {
+              "type": "string",
+              "description": "The URL where the generated content can be downloaded from."
+            },
+            "duration_ms": {
+              "type": "integer",
+              "description": "Duration of the audio in milliseconds"
+            },
+            "content_type": {
+              "type": "string",
+              "description": "The MIME type of the output file."
+            }
+          }
+        },
+        "description": "Array of generated content. Empty when status is not completed."
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "formula",
+    "formula": "len((params.text ?? \"Hello, welcome to Sandbase\")) / 1000 * 0.06",
+    "formula_variables": [
+      "params.text"
+    ],
+    "reference_price": 0.06,
+    "price_examples": [
+      {
+        "params": {},
+        "usd": 0.00156
+      }
+    ]
+  },
+  "readme": "# MiniMax Speech 2.8 Turbo\n\nMiniMax Speech 2.8 Turbo: low-latency speech in 40+ languages with system or cloned voices, emotion control, and pitch, speed, and volume adjustment.\n\n## Fields\n\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `text` | string, required | `Hello, welcome to Sandbase` | Text to speak. |\n| `voice_id` | string, required | `Wise_Woman` | System voice or a cloned voice ID from `minimax/voice-clone`. |\n| `speed` | number 0.5–2 | 1 | 0.5–2× speaking rate. |\n| `volume` | number 0.1–10 | 1 | Loudness multiplier. |\n| `pitch` | integer -12–12 | 0 | Semitones, −12 to 12. |\n| `emotion` | `happy` / `sad` / `angry` / `fearful` / `disgusted` / `surprised` / `neutral` | `happy` | Delivery emotion. |\n| `english_normalization` | boolean | false | Improves performance in number-reading scenarios. |\n| `sample_rate` | 8000 / 16000 / 22050 / 24000 / 32000 / 44100 | — | Sample rate of generated sound. |\n| `bitrate` | 32000 / 64000 / 128000 / 256000 | — | Bitrate of generated sound. |\n| `channel` | 1 / 2 | — | The number of channels. |\n| `format` | `mp3` / `pcm` / `flac` | — | Format of generated sound. |\n| `language_boost` | `Chinese` / `Chinese,Yue` / `English` / `Arabic` / `Russian` / `Spanish` / `French` / `Portuguese` / `German` / `Turkish` / `Dutch` / `Ukrainian` / `Vietnamese` / `Indonesian` / `Japanese` / `Italian` / `Korean` / `Thai` / `Polish` / `Romanian` / `Greek` / `Czech` / `Finnish` / `Hindi` / `Bulgarian` / `Danish` / `Hebrew` / `Malay` / `Slovak` / `Swedish` / `Croatian` / `Hungarian` / `Norwegian` / `Slovenian` / `Catalan` / `Nynorsk` / `Afrikaans` / `auto` | — | Improve pronunciation for a specific language. |\n\n## Billing\n\n$0.06 per 1,000 characters, billed per character.\n\n| Text | Price |\n|---|---|\n| 200 characters | $0.012 |\n| 1,000 characters | $0.06 |\n| 5,000 characters | $0.30 |\n\nFailed runs are not charged.\n\n## Prompting\n\n- Use punctuation for pauses; MiniMax also reads pause tags such as `<#0.5#>`.\n\n## Also on SandBase\n\nRelated: `minimax/speech/2.8/hd`, `minimax/speech/2.6/hd`, `minimax/speech/2.6/turbo`, `minimax/voice-clone`, `minimax/voice-design`.\n",
+  "cover_url": "https://static.sandbase.ai/covers/minimax/speech/2.8/turbo/cover-flare-20261008040408.webp",
+  "page_url": "https://www.sandbase.ai/model/minimax/speech/2.8/turbo",
+  "published_at": "2026-02-04T00:09:54.525Z",
+  "created_at": "2026-04-30T03:22:07.594Z"
+}

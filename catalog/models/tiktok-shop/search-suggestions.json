@@ -1,0 +1,86 @@
+{
+  "name": "tiktok-shop/search-suggestions",
+  "display_name": "TikTok Shop Search Suggestions",
+  "type": "api",
+  "vendor": "TikTok Shop",
+  "vendor_slug": "tiktok-shop",
+  "description": "Get TikTok Shop search autocomplete terms for a keyword: the long-tail queries shoppers actually type, for keyword and demand research.",
+  "tags": [
+    "api",
+    "tiktok-shop",
+    "social-media"
+  ],
+  "capabilities": [
+    "api",
+    "tiktok-shop",
+    "social-media"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/tiktok-shop/search-suggestions"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "query"
+    ],
+    "properties": {
+      "query": {
+        "type": "string",
+        "example": "ashwagandha gummies",
+        "description": "Seed keyword to expand (e.g. ashwagandha gummies)."
+      },
+      "country": {
+        "type": "string",
+        "default": "US",
+        "example": "US",
+        "description": "Two-letter country code of the TikTok Shop market (e.g. US)."
+      },
+      "language": {
+        "type": "string",
+        "default": "en-US",
+        "description": "Language tag for the suggestions (e.g. en-US)."
+      }
+    },
+    "additionalProperties": false
+  },
+  "response_schema": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string"
+      },
+      "model": {
+        "type": "string"
+      },
+      "status": {
+        "type": "string"
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "data": {
+              "type": "object",
+              "description": "Normalized result for this request."
+            }
+          }
+        }
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "usage_based",
+    "note": "Billed per call from metered usage; the reference price is typical.",
+    "reference_price": 0.00095
+  },
+  "readme": "# TikTok Shop Search Suggestions API\n\nGet TikTok Shop search autocomplete terms for a keyword: the long-tail queries shoppers actually type, for keyword and demand research.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/tiktok-shop/search-suggestions\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"query\": \"ashwagandha gummies\", \"country\": \"US\"}'\n```\n\nThe result is returned in `outputs[0].data`. A lookup that finds nothing still succeeds and returns `found: false`.\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `query` | string | Yes | Seed keyword to expand (e.g. ashwagandha gummies). |\n| `country` | string | No | Two-letter country code of the TikTok Shop market (e.g. US). Default `\"US\"`. |\n| `language` | string | No | Language tag for the suggestions (e.g. en-US). Default `\"en-US\"`. |\n\n## Pricing\n\nBilled at the actual cost of each call, usually $0.00095 per request. A call can cost more when the first data source fails and another one answers. Failed calls are not charged. Lookups that find nothing and searches with no results are billed at their actual cost, which is often lower and can be $0.\n",
+  "page_url": "https://www.sandbase.ai/model/tiktok-shop/search-suggestions",
+  "created_at": "2026-11-01T12:39:26.181Z"
+}

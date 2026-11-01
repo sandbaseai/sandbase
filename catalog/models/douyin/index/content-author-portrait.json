@@ -1,0 +1,71 @@
+{
+  "name": "douyin/index/content-author-portrait",
+  "display_name": "Douyin Content Author Portrait",
+  "type": "api",
+  "vendor": "Douyin",
+  "vendor_slug": "douyin",
+  "description": "Returns demographic profiles of creators posting within a specific category, including gender, age, region, and activity times based on category ID and selected period.",
+  "tags": [
+    "api",
+    "douyin"
+  ],
+  "capabilities": [
+    "api",
+    "douyin"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/douyin/index/content-author-portrait"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "end_date",
+      "tag_id"
+    ],
+    "properties": {
+      "period": {
+        "enum": [
+          "week",
+          "month"
+        ],
+        "type": "string",
+        "title": "Period",
+        "description": "\"week\" (end_date must be a Sunday) or \"month\" (end_date must be month-end, e.g. 20260331)"
+      },
+      "tag_id": {
+        "type": "string",
+        "title": "Tag Id",
+        "example": "2027",
+        "description": "Category ID (**required, does NOT support 0=all**, must pass a specific category ID)"
+      },
+      "end_date": {
+        "type": "string",
+        "title": "End Date",
+        "example": "1735660799",
+        "description": "End date YYYYMMDD, must align with period"
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.0015,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "readme": "# Douyin Content Author Portrait API\n\nQuery creator audience demographics for a specific category using `tag_id`, `end_date`, and `period`.\n\n## Use cases\n\n- Analyze demographic distributions of creators posting in a target category.\n- Inspect creator activity schedules across weekly or monthly intervals.\n- Evaluate geographic and age profiles of authors for market research.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/douyin/index/content-author-portrait\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"end_date\": \"1735660799\", \"tag_id\": \"2027\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `tag_id` | string | Yes | Category ID (required, does NOT support 0=all, must pass a specific category ID) |\n| `end_date` | string | Yes | End date YYYYMMDD, must align with period |\n| `period` | string | No | \"week\" (end_date must be a Sunday) or \"month\" (end_date must be month-end, e.g. 20260331) |\n\n## Notes\n\n- `tag_id` requires a specific category ID and does not accept 0 for all categories.\n- `period` accepts either \"week\" or \"month\".\n- `end_date` must align with `period` (a Sunday for weekly intervals or the last day of the month for monthly intervals).\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [Douyin Index Area List](/model/douyin/index/all-area): Returns the complete list of supported geographic areas available for Douyin Index queries.\n- [Douyin Index Valid Dates](/model/douyin/index/all-valid-date): Returns the latest valid dates available for each data type in Douyin Index.\n- [Douyin Brand Popularity Cycles](/model/douyin/index/brand-cycles): Returns periodic brand popularity and cycle analysis data across platforms for a specified brand name and date range.\n",
+  "page_url": "https://www.sandbase.ai/model/douyin/index/content-author-portrait",
+  "created_at": "2026-07-31T02:37:23.252Z"
+}

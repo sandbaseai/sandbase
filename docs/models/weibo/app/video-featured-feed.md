@@ -1,0 +1,97 @@
+# Weibo Featured Video Feed
+
+`weibo/app/video-featured-feed` · api · Weibo
+
+Returns featured video feed cards from the Weibo video section. Supports pagination using page numbers to browse recommended multimedia posts.
+
+## Pricing
+
+- **$0.0015 per call** (USD)
+- Free quota: 100 calls/day per organization (shared across free-quota APIs).
+
+## Call it
+
+Modes: sync (default `sync`). Only pass `mode` values listed here. The SDKs' `run()` waits for async results; `submit()` + `wait()` split the two steps.
+
+**curl**
+
+```bash
+curl https://api.sandbase.ai/v1/run \
+  -H "Authorization: Bearer $SANDBASE_API_KEY" -H 'Content-Type: application/json' \
+  -d '{"model": "weibo/app/video-featured-feed"}'
+```
+
+**Python** ([sdk/python](../../../../sdk/python))
+
+```python
+from sandbase import SandBase
+
+result = SandBase().run('weibo/app/video-featured-feed', {})
+print(result["outputs"])
+```
+
+**TypeScript** ([sdk/typescript](../../../../sdk/typescript))
+
+```ts
+import { SandBase } from "@sandbaseai/sdk";
+
+const result = await new SandBase().run("weibo/app/video-featured-feed", {});
+console.log(result.outputs);
+```
+
+**Go** ([sdk/go](../../../../sdk/go))
+
+```go
+c, _ := sandbase.NewClient("")
+run, err := c.Run(ctx, "weibo/app/video-featured-feed", sandbase.Params{})
+```
+
+Same call via the path form: `POST /v1/api/weibo/app/video-featured-feed` with the body above minus `model`.
+
+## Parameters
+
+| name | type | required | description |
+|---|---|---|---|
+| `page` |  |  | Page number, don't pass for first page, pass "2" for second page, and so on  |
+
+## Details
+
+Retrieve curated video content from Weibo's featured video section. Use the optional `page` parameter to navigate through subsequent pages of the feed.
+
+### Use cases
+
+- Display trending Weibo short videos in a custom media dashboard.
+- Track curated multimedia posts across the Weibo video platform.
+- Analyze popular drama and story recommendations surfaced in the video feed.
+
+### Request
+
+```bash
+curl -X POST "https://api.sandbase.ai/v1/api/weibo/app/video-featured-feed" \
+  -H "Authorization: Bearer $SANDBASE_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{}'
+```
+
+### Parameters
+
+| Name | Type | Required | Description |
+|---|---|---|---|
+| `page` | string | No | Page number, don't pass for first page, pass "2" for second page, and so on |
+
+### Notes
+
+- Omit `page` for the first page, or pass `2` and higher for subsequent pages.
+
+### Pricing
+
+Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+
+### Related APIs
+
+- [Weibo App AI Smart Search](/model/weibo/app/ai-smart-search): Returns AI smart search channel results and feed metadata from Weibo for a specified keyword query, with optional page-based pagination.
+- [Weibo Home Recommend Feed](/model/weibo/app/home-recommend-feed): Returns recommended feed items from the Weibo app homepage, with options to paginate and specify the number of items per request.
+- [Weibo Hot Search Rankings](/model/weibo/app/hot-search): Returns current Weibo hot search rankings across various categories.
+
+---
+Machine-readable: [`catalog/models/weibo/app/video-featured-feed.json`](../../../../catalog/models/weibo/app/video-featured-feed.json) · Store page: https://www.sandbase.ai/model/weibo/app/video-featured-feed

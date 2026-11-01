@@ -1,0 +1,109 @@
+{
+  "name": "dataforseo/v3/on_page/page_screenshot",
+  "display_name": "DataForSEO Website Screenshot",
+  "type": "api",
+  "vendor": "DataForSEO",
+  "vendor_slug": "dataforseo",
+  "description": "Capture a full-page or viewport screenshot of any URL in desktop, mobile or tablet view. Options for custom screen size, language, user agent and dismissing cookie pop-ups.",
+  "tags": [
+    "onpage",
+    "screenshot",
+    "rendering"
+  ],
+  "capabilities": [
+    "onpage",
+    "screenshot",
+    "rendering"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/dataforseo/v3/on_page/page_screenshot"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "url"
+    ],
+    "properties": {
+      "url": {
+        "type": "string",
+        "example": "https://dataforseo.com/apis",
+        "description": "page url\nrequired field\nabsolute URL of the page to capture a screenshot of\nexample: https://dataforseo.com/apis"
+      },
+      "switch_pool": {
+        "type": "boolean",
+        "description": "switch proxy pool\noptional field\nif true, additional proxy pools will be used to obtain the requested data"
+      },
+      "browser_preset": {
+        "type": "string",
+        "description": "preset for browser screen parameters\noptional field\npossible values: desktop, mobile, tablet\ndesktop: 1920x1080, scale 1\nmobile: 390x844, scale 3\ntablet: 1024x1366, scale 2"
+      },
+      "accept_language": {
+        "type": "string",
+        "description": "language header for accessing the website\noptional field\nall locale formats are supported (xx, xx-XX, xxx-XX, etc.)\nNote: if you do not specify this parameter, some websites may deny access"
+      },
+      "ip_pool_for_scan": {
+        "type": "string",
+        "description": "proxy pool location\noptional field\npossible values: us, de"
+      },
+      "custom_user_agent": {
+        "type": "string",
+        "description": "custom user agent\noptional field\ncustom user agent for crawling a website\ndefault value: Mozilla/5.0 (compatible; RSiteAuditor)"
+      },
+      "browser_screen_width": {
+        "type": "integer",
+        "description": "browser screen width in pixels\noptional field\nminimum value: 240\nmaximum value: 9999\nif set, browser_preset is ignored"
+      },
+      "disable_cookie_popup": {
+        "type": "boolean",
+        "description": "disable the cookie popup\noptional field\nset to true to dismiss cookie consent dialogs\ndefault value: false"
+      },
+      "full_page_screenshot": {
+        "type": "boolean",
+        "description": "take a screenshot of the full page\noptional field\nset to false to capture only the visible viewport\ndefault value: true"
+      },
+      "browser_screen_height": {
+        "type": "integer",
+        "description": "browser screen height in pixels\noptional field\nminimum value: 240\nmaximum value: 9999\nif set, browser_preset is ignored"
+      },
+      "browser_screen_scale_factor": {
+        "type": "number",
+        "description": "browser screen scale factor\noptional field\nminimum value: 0.5\nmaximum value: 3\nif set, browser_preset is ignored"
+      }
+    },
+    "additionalProperties": true
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.004,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "examples": [
+    {
+      "input": {
+        "accept_language": "en",
+        "browser_preset": "desktop",
+        "disable_cookie_popup": true,
+        "full_page_screenshot": false,
+        "url": "https://static.sandbase.ai/examples/46031d8f-5e94-4e1f-be8d-c5fa08a87c0d/input/5de63a4b-cc40-4bad-b86c-d9afc7795d54.md"
+      }
+    }
+  ],
+  "readme": "# Website Screenshot API\n\nPass a URL and get back a hosted screenshot image of the rendered page. Choose a device preset or exact screen size, and capture the full page or only the visible viewport.\n\n## Use cases\n\n- Generate thumbnails and previews of web pages.\n- Visually monitor competitor landing pages or SERP features.\n- Archive how a page looked at a point in time.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/dataforseo/v3/on_page/page_screenshot\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"url\": \"https://dataforseo.com/apis\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `url` | string | Yes | page url required field absolute URL of the page to capture a screenshot of example: https://dataforseo.com/apis |\n| `switch_pool` | boolean | No | switch proxy pool optional field if true, additional proxy pools will be used to obtain the requested data |\n| `browser_preset` | string | No | preset for browser screen parameters optional field possible values: desktop, mobile, tablet desktop: 1920x1080, scale … |\n| `accept_language` | string | No | language header for accessing the website optional field all locale formats are supported (xx, xx-XX, xxx-XX, etc.) Not… |\n| `ip_pool_for_scan` | string | No | proxy pool location optional field possible values: us, de |\n| `custom_user_agent` | string | No | custom user agent optional field custom user agent for crawling a website default value: Mozilla/5.0 (compatible; RSite… |\n| `browser_screen_width` | integer | No | browser screen width in pixels optional field minimum value: 240 maximum value: 9999 if set, browser_preset is ignored |\n| `disable_cookie_popup` | boolean | No | disable the cookie popup optional field set to true to dismiss cookie consent dialogs default value: false |\n| `full_page_screenshot` | boolean | No | take a screenshot of the full page optional field set to false to capture only the visible viewport default value: true |\n| `browser_screen_height` | integer | No | browser screen height in pixels optional field minimum value: 240 maximum value: 9999 if set, browser_preset is ignored |\n| `browser_screen_scale_factor` | number | No | browser screen scale factor optional field minimum value: 0.5 maximum value: 3 if set, browser_preset is ignored |\n\n## Example response\n\nReal response for the request above, trimmed to the main fields. User names and long IDs are masked.\n\n```json\n{\n  \"status_code\": 20000,\n  \"tasks\": [\n    {\n      \"status_message\": \"Ok.\",\n      \"data\": {\n        \"api\": \"on_page\",\n        \"function\": \"page_screenshot\",\n        \"url\": \"https://dataforseo.com/apis\"\n      },\n      \"result\": [\n        {\n          \"crawl_progress\": \"finished\",\n          \"items_count\": 1,\n          \"items\": [\n            {\n              \"image\": \"https://api.dataforseo.com/cdn/screenshot/10060902-2190-0444-0000-91f534c360ca\"\n            }\n          ]\n        }\n      ]\n    }\n  ]\n}\n```\n\n## Notes\n\n- `browser_preset`: `desktop` (1920×1080), `mobile` (390×844) or `tablet`.\n- Set `disable_cookie_popup` to `true` to hide consent banners.\n\n## Pricing\n\nFlat price per call. Failed calls are not charged.\n\n## Related APIs\n\n- [DataForSEO Google Ads Keyword Search Volume](/model/dataforseo/v3/keywords_data/google_ads/search_volume/live): Get Google Ads search volume, CPC, competition and 12-month trend for up to 1,000 keywords per request, by location and language.\n- [DataForSEO Google Trends](/model/dataforseo/v3/keywords_data/google_trends/explore/live): Get Google Trends interest over time for up to 5 keywords by location, language and time range, with weekly values on a 0–100 scale.\n- [DataForSEO Google SERP (Advanced)](/model/dataforseo/v3/serp/google/organic/live/advanced): Get live Google organic search results for any keyword, location and language, including AI Overviews, featured snippets, People Also Ask and other SERP featur…\n",
+  "page_url": "https://www.sandbase.ai/model/dataforseo/v3/on_page/page_screenshot",
+  "published_at": "2024-01-01T00:00:00Z",
+  "created_at": "2026-08-03T09:20:53.972Z"
+}

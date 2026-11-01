@@ -1,0 +1,38 @@
+{
+  "name": "openai/text-embedding-3-large",
+  "display_name": "OpenAI: Text Embedding 3 Large",
+  "type": "embedding",
+  "vendor": "OpenAI",
+  "vendor_slug": "openai",
+  "description": "OpenAI text-embedding-3-large creates embeddings for semantic search, retrieval, clustering, and classification.",
+  "tags": [
+    "embedding",
+    "text_embedding"
+  ],
+  "capabilities": [
+    "embedding",
+    "text_embedding"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "embeddings": "POST /v1/embeddings"
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_token",
+    "per_million_tokens": {
+      "input": 0.13,
+      "output": 0
+    },
+    "formula": "usage.prompt_tokens * pricing.prompt_token_price / 1000000",
+    "formula_variables": [
+      "usage.prompt_tokens"
+    ]
+  },
+  "readme": "OpenAI text-embedding-3-large produces embeddings with up to 3072 dimensions.",
+  "page_url": "https://www.sandbase.ai/model/openai/text-embedding-3-large",
+  "created_at": "2026-09-09T09:34:02.532Z"
+}

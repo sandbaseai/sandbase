@@ -1,0 +1,69 @@
+{
+  "name": "tiktok/web/explore-post",
+  "display_name": "TikTok Web Explore Posts",
+  "type": "api",
+  "vendor": "TikTok",
+  "vendor_slug": "tiktok",
+  "description": "Returns explore feed posts from TikTok Web, filtered by video category and page count, along with author metrics and audio details.",
+  "tags": [
+    "api",
+    "tiktok"
+  ],
+  "capabilities": [
+    "api",
+    "tiktok"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/tiktok/web/explore-post"
+  },
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "count": {
+        "type": "integer",
+        "title": "Count",
+        "default": 16,
+        "example": 1,
+        "description": "Number per page"
+      },
+      "categoryType": {
+        "type": "string",
+        "title": "Categorytype",
+        "default": "120",
+        "example": "120",
+        "description": "Video category"
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.0015,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "examples": [
+    {
+      "input": {
+        "categoryType": "120",
+        "count": 16
+      },
+      "default": true
+    }
+  ],
+  "readme": "# TikTok Web Explore Posts API\n\nAccess explore feed videos from TikTok Web by specifying optional parameters such as `categoryType` and `count`.\n\n## Use cases\n\n- Discover trending videos within specific content categories.\n- Analyze engagement metrics such as play, digg, and share counts.\n- Look up author stats and background audio details for explore posts.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/tiktok/web/explore-post\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `count` | integer | No | Number per page |\n| `categoryType` | string | No | Video category |\n\n## Example response\n\nReal response for the request above, trimmed to the main fields. User names and long IDs are masked.\n\n```json\n{\n  \"itemList\": [\n    {\n      \"CategoryType\": 120,\n      \"createTime\": 1789793820,\n      \"desc\": \"ប្រទេស​នីមួយៗ​មានចំណុចល្អនិងមិនល្អ​រៀងខ្លួន​\",\n      \"id\": \"7687105888674385160\",\n      \"itemCommentStatus\": 0,\n      \"textLanguage\": \"km\",\n      \"textTranslatable\": true,\n      \"author\": {\n        \"id\": \"6964213552958473217\",\n        \"nickname\": \"<user>\",\n        \"privateAccount\": false,\n        \"verified\": false\n      },\n      \"authorStats\": {\n        \"diggCount\": 1407,\n        \"followerCount\": 51800,\n        \"followingCount\": 629,\n        \"friendCount\": 0,\n        \"heartCount\": 731700,\n        \"videoCount\": 122\n      },\n      \"authorStatsV2\": {\n        \"diggCount\": \"1407\",\n        \"followerCount\": \"51800\",\n        \"followingCount\": \"629\",\n        \"friendCount\": \"0\",\n        \"heartCount\": \"731700\",\n        \"videoCount\": \"122\"\n      },\n      \"music\": {\n        \"authorName\": \"English by Solida\",\n        \"duration\": 130,\n        \"id\": \"7687105936380414728\",\n        \"shoot_duration\": 130,\n        \"title\": \"original sound - English by Solida\"\n      },\n      \"penaltyContext\": {\n        \"arb_content_safety_status\": 102,\n        \"display_penalty_type\": 0,\n        \"display_ui_type\": 0,\n        \"status\": 102,\n        \"tns_status\": 102,\n        \"video_status\": 10\n      },\n      \"stats\": {\n        \"collectCount\": 340,\n        \"commentCount\": 97,\n        \"diggCount\": 9454,\n        \"playCount\": 102200,\n        \"shareCount\": 393\n      },\n      \"statsV2\": {\n        \"collectCount\": \"340\",\n        \"commentCount\": \"97\",\n        \"diggCount\": \"9454\",\n        \"playCount\": \"102200\",\n        \"repostCount\": \"0\",\n        \"shareCount\": \"393\"\n      }\n    }\n  ]\n}\n```\n\n## Notes\n\n- Specify `categoryType` to filter explore posts by a particular category.\n- Use `count` to control the number of posts returned per page.\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [TikTok Video IDs from URLs (Batch)](/model/tiktok/web/all-aweme-id): Resolves and extracts TikTok video IDs from a list of video URLs.\n- [TikTok User Sec User ID Extractor](/model/tiktok/web/all-sec-user-id): Returns a list of sec_user_id identifiers corresponding to TikTok user profile URLs.\n- [TikTok Profile Unique IDs](/model/tiktok/web/all-unique-id): Resolves a batch of TikTok user homepage links to retrieve their corresponding unique identifiers.\n",
+  "page_url": "https://www.sandbase.ai/model/tiktok/web/explore-post",
+  "created_at": "2026-07-31T02:44:05.159Z"
+}

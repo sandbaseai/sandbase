@@ -1,0 +1,126 @@
+{
+  "name": "bing-shopping/search",
+  "display_name": "Bing Shopping Search",
+  "type": "api",
+  "vendor": "Bing Shopping",
+  "vendor_slug": "bing-shopping",
+  "description": "Search Bing Shopping by keyword: product title, price, old price, seller, rating, reviews and shipping, with market and filter options.",
+  "tags": [
+    "api",
+    "bing-shopping",
+    "ecommerce",
+    "product-data"
+  ],
+  "capabilities": [
+    "api",
+    "bing-shopping",
+    "ecommerce",
+    "product-data"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}",
+    "passthrough": "POST /v1/api/bing-shopping/search"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "q"
+    ],
+    "properties": {
+      "q": {
+        "type": [
+          "string",
+          "number",
+          "boolean"
+        ],
+        "example": "wireless earbuds",
+        "description": "The search query. You can use anything that you would use in a regular Bing Shopping search."
+      },
+      "cc": {
+        "type": [
+          "string",
+          "number",
+          "boolean"
+        ],
+        "description": "The country to search from. It follows the 2-character ISO_3166-1 format. (e.g., `us` for United States, `de` for Germany, `gb` for United Kingdom, etc.)."
+      },
+      "mkt": {
+        "type": [
+          "string",
+          "number",
+          "boolean"
+        ],
+        "description": "The market where the results come from (e.g. `en-US`). Typically, `mkt` is the country where the user is making the request from. However, it could be a different country if the user is not located in a country where Bing Shopping API delivers results. The market must be in the form -. For example, en-US. The string is case insensitive. For a list of possible market values, see Market Codes. NOTE: If known, you are encouraged to always specify the market. Specifying the market helps Bing route the request and return an appropriate and optimal response."
+      },
+      "device": {
+        "type": [
+          "string",
+          "number",
+          "boolean"
+        ],
+        "description": "The device to use to get the results. It can be set to `desktop` (default) to use a regular browser, `tablet` to use a tablet browser (currently using iPads), or `mobile` to use a mobile browser."
+      },
+      "efirst": {
+        "type": [
+          "string",
+          "number",
+          "boolean"
+        ],
+        "description": "Controls the offset of the shopping results. (e.g., `efirst=10` will move the 10th shopping result to the first position)."
+      },
+      "filters": {
+        "type": [
+          "string",
+          "number",
+          "boolean"
+        ],
+        "description": "Allows usage of a more complex filtering options such as filtering by date range `ex1:\"ez5_18169_18230\"` or using a specific display filters such as `ufn:\"Wunderman+Thompson\"+sid:\"5bede9a2-1bda-9887-e6eb-30b1b8b6b513\"+catguid:\"5bede9a2-1bda-9887-e6eb-30b1b8b6b513_cfb02057\"+segment:\"generic.carousel\"+entitysegment:\"Organization\"`. Exact values can be constructed by using Bing search and copying `filters` query parameter."
+      },
+      "json_restrictor": {
+        "type": [
+          "string",
+          "number",
+          "boolean"
+        ],
+        "description": "The fields you want to include in the output, reducing payload size for faster response. See the JSON Restrictor documentation for more details."
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "required": [
+      "id",
+      "status",
+      "model"
+    ],
+    "properties": {
+      "id": {
+        "type": "string"
+      },
+      "model": {
+        "type": "string"
+      },
+      "status": {
+        "type": "string"
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.015,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "readme": "# Bing Shopping Search\n\nSearch Bing Shopping by keyword: product title, price, old price, seller, rating, reviews and shipping, with market and filter options.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/bing-shopping/search\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"q\": \"wireless earbuds\"}'\n```\n\nThis API runs asynchronously. The call returns a task `id` with status `pending`; poll `GET https://api.sandbase.ai/v1/run/{id}` until `status` is `completed` and read the result from `outputs[0].data`.\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `q` | string/number/boolean | Yes | The search query. You can use anything that you would use in a regular Bing Shopping search. |\n| `cc` | string/number/boolean | No | The country to search from. It follows the 2-character ISO_3166-1 format. (e.g., `us` for United States, `de` for Germany, `gb` for United Kingdom, etc.). |\n| `device` | string/number/boolean | No | The device to use to get the results. It can be set to `desktop` (default) to use a regular browser, `tablet` to use a tablet browser (currently using iPads), or `mobile` to use a mobile browser. |\n| `efirst` | string/number/boolean | No | Controls the offset of the shopping results. (e.g., `efirst=10` will move the 10th shopping result to the first position). |\n| `filters` | string/number/boolean | No | Allows usage of a more complex filtering options such as filtering by date range `ex1:\"ez5_18169_18230\"` or using a specific display filters such as `ufn:\"Wunderman+Thompson\"+sid:\"5bede9a2-1bda-9887-e… |\n| `json_restrictor` | string/number/boolean | No | The fields you want to include in the output, reducing payload size for faster response. See the JSON Restrictor documentation for more details. |\n| `mkt` | string/number/boolean | No | The market where the results come from (e.g. `en-US`). Typically, `mkt` is the country where the user is making the request from. However, it could be a different country if the user is not located in… |\n\n## Pricing\n\nFlat price per call. Failed calls are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/bing-shopping/search",
+  "created_at": "2026-10-28T23:58:53.635Z"
+}

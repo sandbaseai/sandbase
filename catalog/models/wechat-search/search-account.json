@@ -1,0 +1,56 @@
+{
+  "name": "wechat-search/search-account",
+  "display_name": "WeChat Account Search",
+  "type": "api",
+  "vendor": "WeChat Search",
+  "vendor_slug": "wechat-search",
+  "description": "Search WeChat Official Accounts by keyword with page-number pagination and one result per page. Use it to find an account by name or related term before profile or article lookup.",
+  "tags": [
+    "api",
+    "wechat-search",
+    "social-media"
+  ],
+  "capabilities": [
+    "api",
+    "wechat-search",
+    "social-media"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/wechat-search/search-account"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "keyword"
+    ],
+    "properties": {
+      "page": {
+        "type": "integer",
+        "default": 1,
+        "description": "Page number starting from 1 for WeChat Official Account profile search."
+      },
+      "keyword": {
+        "type": "string",
+        "example": "人工智能",
+        "description": "Search keyword for WeChat Official Account profiles."
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.055556
+  },
+  "readme": "# WeChat Account Search API\n\nSearch WeChat Official Accounts by keyword with page-number pagination and one result per page. Use it to find an account by name or related term before profile or article lookup.\n\nThe response is the platform's original data structure.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/wechat-search/search-account\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"keyword\": \"人工智能\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `keyword` | string | Yes | Search keyword for WeChat Official Account profiles. |\n| `page` | integer | No | Page number starting from 1 for WeChat Official Account profile search. |\n\n## Pricing\n\nFlat price per call. Failed calls and empty results are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/wechat-search/search-account",
+  "created_at": "2026-10-29T12:23:59.1Z"
+}

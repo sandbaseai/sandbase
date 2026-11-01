@@ -1,0 +1,57 @@
+{
+  "name": "threads/web/post-detail-v2",
+  "display_name": "Threads Post Detail (V2)",
+  "type": "api",
+  "vendor": "Threads",
+  "vendor_slug": "threads",
+  "description": "Returns detailed information for a specific Threads post. Queries can be performed using either a full post link or a post short code as input.",
+  "tags": [
+    "api",
+    "threads"
+  ],
+  "capabilities": [
+    "api",
+    "threads"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/threads/web/post-detail-v2"
+  },
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "url": {
+        "type": "string",
+        "title": "Url",
+        "example": "https://www.threads.com/@taylorswift/post/DPVUglOjOUu",
+        "description": "Full post URL (optional), for example: https://www.threads.com/@taylorswift/post/DPVUglOjOUu"
+      },
+      "post_id": {
+        "type": "string",
+        "title": "Post Id",
+        "description": "Post short code (optional), for example: DPVUglOjOUu, can be extracted from post URL, e.g., DPVUglOjOUu in https://www.threads.com/@taylorswift/post/DPVUglOjOUu"
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.003,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "readme": "# Threads Post Detail (V2) API\n\nRetrieve Threads post information by supplying either a complete link in `url` or a post short code in `post_id`.\n\n## Use cases\n\n- Retrieve metadata and content for a specific Threads post.\n- Extract post details using short codes from public links.\n- Monitor specific Threads posts by querying their web address.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/threads/web/post-detail-v2\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `url` | string | No | Full post URL (optional), for example: https://www.threads.com/@taylorswift/post/DPVUglOjOUu |\n| `post_id` | string | No | Post short code (optional), for example: DPVUglOjOUu, can be extracted from post URL, e.g., DPVUglOjOUu in https://www.threads.com/@taylorswift/post/DPVUglOjOUu |\n\n## Notes\n\n- Provide either `url` or `post_id` to look up the post.\n- The `post_id` value corresponds to the short code extracted from the Threads post link.\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [Threads Post Detail](/model/threads/web/post-detail): Returns detailed information for a specific Threads post using its numeric ID.\n- [Threads Profile Search](/model/threads/web/search-profiles): Searches Threads user profiles based on a specified text query string.\n- [Threads Recent Content Search](/model/threads/web/search-recent): Searches recent Threads content matching a specified keyword query.\n",
+  "page_url": "https://www.sandbase.ai/model/threads/web/post-detail-v2",
+  "created_at": "2026-07-31T04:12:46.595Z"
+}

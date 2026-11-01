@@ -1,0 +1,56 @@
+{
+  "name": "weibo/user-detail",
+  "display_name": "Weibo User Profile",
+  "type": "api",
+  "vendor": "Weibo",
+  "vendor_slug": "weibo",
+  "description": "Get a Weibo user profile identified by UID. Use it to look up a known account for creator research, profile review, or subsequent retrieval of that user's posts and videos.",
+  "tags": [
+    "api",
+    "weibo",
+    "social-media"
+  ],
+  "capabilities": [
+    "api",
+    "weibo",
+    "social-media"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/weibo/user-detail"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "uid"
+    ],
+    "properties": {
+      "uid": {
+        "type": "string",
+        "example": "2803301701",
+        "description": "Weibo User ID (UID)."
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.013889,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "readme": "# Weibo User Profile API\n\nGet a Weibo user profile identified by UID. Use it to look up a known account for creator research, profile review, or subsequent retrieval of that user's posts and videos.\n\nThe response is the platform's original data structure.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/weibo/user-detail\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"uid\": \"2803301701\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `uid` | string | Yes | Weibo User ID (UID). |\n\n## Pricing\n\nFlat price per call. Failed calls and empty results are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/weibo/user-detail",
+  "created_at": "2026-10-29T11:43:49.762Z"
+}

@@ -1,0 +1,161 @@
+{
+  "name": "bfl/flux-2/pro/edit",
+  "display_name": "Flux 2 Pro Edit",
+  "type": "image",
+  "vendor": "BFL",
+  "vendor_slug": "bfl",
+  "description": "Flux 2 Pro Edit is BFL's intelligent image editing model. Transform, retouch, and reimagine existing images using text prompts - from background replacement to artistic style conversion.",
+  "tags": [
+    "image-to-image"
+  ],
+  "capabilities": [
+    "image-to-image"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "prompt"
+    ],
+    "properties": {
+      "seed": {
+        "type": "integer",
+        "title": "Seed",
+        "description": "The seed to use for the generation."
+      },
+      "images": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        },
+        "title": "Image URLs",
+        "examples": [
+          "https://static.sandbase.ai/examples/bfl/flux-2/pro/edit/input_images_0.png"
+        ],
+        "description": "List of URLs of input images for editing"
+      },
+      "prompt": {
+        "type": "string",
+        "title": "Prompt",
+        "examples": [
+          "Place realistic flames emerging from the top of the coffee cup, dancing above the rim"
+        ],
+        "description": "The prompt to generate an image from."
+      },
+      "aspect_ratio": {
+        "enum": [
+          "21:9",
+          "16:9",
+          "3:2",
+          "4:3",
+          "5:4",
+          "1:1",
+          "4:5",
+          "3:4",
+          "2:3",
+          "9:16"
+        ],
+        "type": "string",
+        "title": "Aspect Ratio",
+        "description": "The aspect ratio of the generated image."
+      },
+      "output_format": {
+        "enum": [
+          "jpeg",
+          "png"
+        ],
+        "type": "string",
+        "title": "Output Format",
+        "default": "jpeg",
+        "description": "The format of the generated image."
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "title": "GenerationResponse",
+    "required": [
+      "id",
+      "status"
+    ],
+    "properties": {
+      "id": {
+        "type": "string",
+        "description": "Unique identifier for the generation task."
+      },
+      "error": {
+        "type": "string",
+        "description": "Error message if the task failed. Empty on success."
+      },
+      "model": {
+        "type": "string",
+        "description": "Model ID used for the prediction."
+      },
+      "status": {
+        "enum": [
+          "pending",
+          "running",
+          "completed",
+          "failed",
+          "timeout"
+        ],
+        "type": "string",
+        "description": "Status of the task: pending, running, completed, failed, or timeout."
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "title": "OutputItem",
+          "required": [
+            "url"
+          ],
+          "properties": {
+            "url": {
+              "type": "string",
+              "examples": [
+                "https://static.sandbase.ai/examples/bfl/flux-2/pro/edit/output_url_1.png"
+              ],
+              "description": "The URL where the generated content can be downloaded from."
+            },
+            "content_type": {
+              "type": "string",
+              "description": "The MIME type of the output file."
+            }
+          }
+        },
+        "description": "Array of generated content. Empty when status is not completed."
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.06
+  },
+  "examples": [
+    {
+      "input": {
+        "prompt": "Place realistic flames emerging from the top of the coffee cup, dancing above the rim"
+      },
+      "output": [
+        {
+          "url": "https://static.sandbase.ai/examples/81dcde20-95bc-448a-ae37-b5ca6f620132/output/8d3c68e5-6d3c-4959-b858-a1f1e49c0814.png"
+        }
+      ],
+      "default": true
+    }
+  ],
+  "readme": "# Flux 2 Pro Edit\n\nFLUX.2 [pro], BFL's production tier: high quality at a predictable per-image price. Edit or combine images with an instruction.\n\n## Fields\n\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `prompt` | string, required | — | Text instruction. |\n| `images` | image URL[] | — | Images to edit or combine, Image 1, Image 2, … |\n| `output_format` | `jpeg` / `png` | `jpeg` | Output file format. |\n| `aspect_ratio` | `21:9` / `16:9` / `3:2` / `4:3` / `5:4` / `1:1` / `4:5` / `3:4` / `2:3` / `9:16` | — | Output shape. |\n| `seed` | integer | random | Fix it to compare prompt changes. |\n\n## Billing\n\n$0.06 per image.\n\n| Request | Price |\n|---|---|\n| One image | $0.06 |\n\nFailed runs are not charged.\n\n## Prompting\n\n- Say which image is the base and what each other image contributes.\n- List what must not change.\n\n## Limits\n\n- One output image per request.\n\n## Also on SandBase\n\nOther FLUX.2 endpoints: `bfl/flux-2/max/edit`, `bfl/flux-2/flex/edit`, `bfl/flux-2/dev/edit`, `bfl/flux-2/turbo/edit`, `bfl/flux-2/pro`.\n",
+  "cover_url": "https://static.sandbase.ai/covers/bfl/flux-2/pro/edit/cover-flare-20261005013628.webp",
+  "page_url": "https://www.sandbase.ai/model/bfl/flux-2/pro/edit",
+  "published_at": "2025-11-23T00:13:41.404Z",
+  "created_at": "2026-05-13T12:03:26.173Z"
+}

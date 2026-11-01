@@ -1,0 +1,68 @@
+{
+  "name": "instagram/v1/hashtag-posts",
+  "display_name": "Instagram Hashtag Posts (V1)",
+  "type": "api",
+  "vendor": "Instagram",
+  "vendor_slug": "instagram",
+  "description": "Returns public Instagram posts associated with a specific hashtag. Filter by hashtag name and paginate through media results using a cursor.",
+  "tags": [
+    "api",
+    "instagram"
+  ],
+  "capabilities": [
+    "api",
+    "instagram"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/instagram/v1/hashtag-posts"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "hashtag"
+    ],
+    "properties": {
+      "hashtag": {
+        "type": "string",
+        "title": "Hashtag",
+        "example": "openai",
+        "description": "Hashtag name (without #)"
+      },
+      "end_cursor": {
+        "type": "string",
+        "title": "End Cursor",
+        "description": "Pagination cursor, omit for first request"
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.0015,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "examples": [
+    {
+      "input": {
+        "hashtag": "veganrecipes"
+      },
+      "default": true
+    }
+  ],
+  "readme": "# Instagram Hashtag Posts (V1) API\n\nRetrieve media posts tagged with a target topic by providing `hashtag`. Subsequent pages can be queried by supplying `end_cursor`.\n\n## Use cases\n\n- Track media content and trends around specific topic tags.\n- Collect public image and video posts for brand campaigns.\n- Aggregate user posts associated with event hashtags.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/instagram/v1/hashtag-posts\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"hashtag\": \"openai\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `hashtag` | string | Yes | Hashtag name (without #) |\n| `end_cursor` | string | No | Pagination cursor, omit for first request |\n\n## Example response\n\nReal response for the request above, trimmed to the main fields. User names and long IDs are masked.\n\n```json\n{\n  \"data\": {\n    \"hashtag\": {\n      \"edge_hashtag_to_media\": {\n        \"edges\": [\n          {\n            \"node\": {\n              \"__typename\": \"GraphImage\",\n              \"accessibility_caption\": \"Photo by Aliança News on October 06, 2026. May be a meme of text.\",\n              \"display_url\": \"https://scontent-dfw6-2.cdninstagram.com/v/t51.82787-15/839441193_18136625092601…\",\n              \"id\": \"4001955501160418113\",\n              \"taken_at_timestamp\": 1791290300\n            }\n          }\n        ]\n      }\n    }\n  }\n}\n```\n\n## Notes\n\n- Provide `hashtag` without the leading '#' symbol.\n- Use `end_cursor` for pagination, omitting it on the initial request.\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [Instagram Cities by Country](/model/instagram/v1/cities): Returns a list of Instagram cities and regions for a specified country code.\n- [Instagram Location Details (V1)](/model/instagram/v1/location-info): Returns detailed metadata and profile information for a specified Instagram location using its unique identifier.\n- [Instagram Location Posts (V1)](/model/instagram/v1/location-posts): Returns posts tagged at a designated location.\n",
+  "page_url": "https://www.sandbase.ai/model/instagram/v1/hashtag-posts",
+  "created_at": "2026-07-31T03:54:47.813Z"
+}

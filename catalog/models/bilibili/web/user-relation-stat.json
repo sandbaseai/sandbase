@@ -1,0 +1,62 @@
+{
+  "name": "bilibili/web/user-relation-stat",
+  "display_name": "Bilibili User Relation Statistics",
+  "type": "api",
+  "vendor": "Bilibili",
+  "vendor_slug": "bilibili",
+  "description": "Returns relationship statistics, including following and follower counts, for a specified Bilibili account using their user ID.",
+  "tags": [
+    "api",
+    "bilibili"
+  ],
+  "capabilities": [
+    "api",
+    "bilibili"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/bilibili/web/user-relation-stat"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "uid"
+    ],
+    "properties": {
+      "uid": {
+        "type": "string",
+        "title": "Uid",
+        "example": "178360345",
+        "description": "User UID"
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.0015,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "examples": [
+    {
+      "input": {
+        "uid": "178360345"
+      }
+    }
+  ],
+  "readme": "# Bilibili User Relation Statistics API\n\nRetrieve following and follower counts for any Bilibili profile by supplying the user `uid`.\n\n## Use cases\n\n- Track follower growth metrics for specific Bilibili creators.\n- Display audience size and following stats on user profiles.\n- Benchmark channel reach and audience engagement across accounts.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/bilibili/web/user-relation-stat\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"uid\": \"178360345\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `uid` | string | Yes | User UID |\n\n## Notes\n\n- Requires a valid target user ID passed to `uid`.\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [Bilibili Streaming Areas](/model/bilibili/web/all-live-areas): Returns the complete list of streaming broadcast areas and categories on Bilibili.\n- [Bilibili BV to AID Converter](/model/bilibili/web/bv-to-aid): Converts a Bilibili BV identifier to its corresponding numeric AID value.\n- [Bilibili User Collection Folders](/model/bilibili/web/collect-folders): Returns the collection folders owned by a specific Bilibili user.\n",
+  "page_url": "https://www.sandbase.ai/model/bilibili/web/user-relation-stat",
+  "created_at": "2026-07-31T03:54:07.953Z"
+}

@@ -1,0 +1,177 @@
+{
+  "name": "bfl/flux-2/dev/edit",
+  "display_name": "Flux 2 Dev Edit",
+  "type": "image",
+  "vendor": "BFL",
+  "vendor_slug": "bfl",
+  "description": "Flux 2 Dev Edit is BFL's intelligent image editing model. Transform, retouch, and reimagine existing images using text prompts - from background replacement to artistic style conversion.",
+  "tags": [
+    "image-to-image"
+  ],
+  "capabilities": [
+    "image-to-image"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "prompt"
+    ],
+    "properties": {
+      "seed": {
+        "type": "integer",
+        "title": "Seed",
+        "description": "The seed to use for the generation. If not provided, a random seed will be used."
+      },
+      "images": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        },
+        "title": "Image URLs",
+        "examples": [
+          "https://static.sandbase.ai/examples/bfl/flux-2/dev/edit/input_images_0.png"
+        ],
+        "description": "The URLs of the images for editing. A maximum of 4 images are allowed, if more are provided, only the first 4 will be used."
+      },
+      "prompt": {
+        "type": "string",
+        "title": "Prompt",
+        "examples": [
+          "Change his clothes to casual suit and tie"
+        ],
+        "description": "The prompt to edit the image."
+      },
+      "aspect_ratio": {
+        "enum": [
+          "21:9",
+          "16:9",
+          "3:2",
+          "4:3",
+          "5:4",
+          "1:1",
+          "4:5",
+          "3:4",
+          "2:3",
+          "9:16"
+        ],
+        "type": "string",
+        "title": "Aspect Ratio",
+        "description": "The aspect ratio of the generated image."
+      },
+      "output_format": {
+        "enum": [
+          "jpeg",
+          "png"
+        ],
+        "type": "string",
+        "title": "Output Format",
+        "default": "png",
+        "description": "The format of the generated image."
+      },
+      "guidance_scale": {
+        "type": "number",
+        "title": "Guidance Scale",
+        "default": 2.5,
+        "maximum": 20,
+        "minimum": 0,
+        "description": "Guidance Scale is a measure of how close you want the model to stick to your prompt when looking for a related image to show you."
+      },
+      "num_inference_steps": {
+        "type": "integer",
+        "title": "Number of Inference Steps",
+        "default": 28,
+        "maximum": 50,
+        "minimum": 4,
+        "description": "The number of inference steps to perform."
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "title": "GenerationResponse",
+    "required": [
+      "id",
+      "status"
+    ],
+    "properties": {
+      "id": {
+        "type": "string",
+        "description": "Unique identifier for the generation task."
+      },
+      "error": {
+        "type": "string",
+        "description": "Error message if the task failed. Empty on success."
+      },
+      "model": {
+        "type": "string",
+        "description": "Model ID used for the prediction."
+      },
+      "status": {
+        "enum": [
+          "pending",
+          "running",
+          "completed",
+          "failed",
+          "timeout"
+        ],
+        "type": "string",
+        "description": "Status of the task: pending, running, completed, failed, or timeout."
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "title": "OutputItem",
+          "required": [
+            "url"
+          ],
+          "properties": {
+            "url": {
+              "type": "string",
+              "examples": [
+                "https://static.sandbase.ai/examples/bfl/flux-2/dev/edit/output_url_1.png"
+              ],
+              "description": "The URL where the generated content can be downloaded from."
+            },
+            "content_type": {
+              "type": "string",
+              "description": "The MIME type of the output file."
+            }
+          }
+        },
+        "description": "Array of generated content. Empty when status is not completed."
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.024
+  },
+  "examples": [
+    {
+      "input": {
+        "prompt": "Change his clothes to casual suit and tie"
+      },
+      "output": [
+        {
+          "url": "https://static.sandbase.ai/examples/60115522-32c0-4fd3-8a11-70985a71fc46/output/13b888bf-dd2c-40cd-acc9-f5c4ca7a6209.png"
+        }
+      ],
+      "default": true
+    }
+  ],
+  "readme": "# Flux 2 Dev Edit\n\nFLUX.2 [dev], the open-weights 32B FLUX.2 model. Edit or combine images with an instruction.\n\n## Fields\n\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `prompt` | string, required | — | Text instruction. |\n| `images` | image URL[] | — | Images to edit or combine, Image 1, Image 2, … |\n| `guidance_scale` | number 0–20 | 2.5 | How strictly to follow the prompt. |\n| `num_inference_steps` | integer 4–50 | 28 | More steps add detail and time. |\n| `output_format` | `jpeg` / `png` | `png` | Output file format. |\n| `aspect_ratio` | `21:9` / `16:9` / `3:2` / `4:3` / `5:4` / `1:1` / `4:5` / `3:4` / `2:3` / `9:16` | — | Output shape. |\n| `seed` | integer | random | Fix it to compare prompt changes. |\n\n## Billing\n\n$0.024 per image.\n\n| Request | Price |\n|---|---|\n| One image | $0.024 |\n\nFailed runs are not charged.\n\n## Prompting\n\n- Say which image is the base and what each other image contributes.\n- List what must not change.\n\n## Limits\n\n- One output image per request.\n\n## Also on SandBase\n\nOther FLUX.2 endpoints: `bfl/flux-2/max/edit`, `bfl/flux-2/pro/edit`, `bfl/flux-2/flex/edit`, `bfl/flux-2/turbo/edit`, `bfl/flux-2/dev`.\n",
+  "cover_url": "https://static.sandbase.ai/covers/bfl/flux-2/dev/edit/cover-flare-20261005021918.webp",
+  "page_url": "https://www.sandbase.ai/model/bfl/flux-2/dev/edit",
+  "published_at": "2025-11-23T00:15:40.781Z",
+  "created_at": "2026-05-13T11:39:36.187Z"
+}

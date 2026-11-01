@@ -1,0 +1,167 @@
+{
+  "name": "bfl/flux-2/dev",
+  "display_name": "Flux 2 Dev Text to Image",
+  "type": "image",
+  "vendor": "BFL",
+  "vendor_slug": "bfl",
+  "description": "Flux 2 Dev by BFL - generate stunning images from text prompts with state-of-the-art AI. Supports multiple aspect ratios, styles, and high-resolution output for creative and commercial use.",
+  "tags": [
+    "text-to-image"
+  ],
+  "capabilities": [
+    "text-to-image"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "prompt"
+    ],
+    "properties": {
+      "seed": {
+        "type": "integer",
+        "title": "Seed",
+        "description": "The seed to use for the generation. If not provided, a random seed will be used."
+      },
+      "prompt": {
+        "type": "string",
+        "title": "Prompt",
+        "examples": [
+          "Dutch angle close-up of a survivor in post-apocalyptic setting, dust-covered face, dramatic harsh sunlight creating deep shadows, happy expression, desaturated dystopian color palette, gritty realism"
+        ],
+        "description": "The prompt to generate an image from."
+      },
+      "aspect_ratio": {
+        "enum": [
+          "21:9",
+          "16:9",
+          "3:2",
+          "4:3",
+          "5:4",
+          "1:1",
+          "4:5",
+          "3:4",
+          "2:3",
+          "9:16"
+        ],
+        "type": "string",
+        "title": "Aspect Ratio",
+        "default": "16:9",
+        "description": "The aspect ratio of the generated image."
+      },
+      "output_format": {
+        "enum": [
+          "jpeg",
+          "png"
+        ],
+        "type": "string",
+        "title": "Output Format",
+        "default": "png",
+        "description": "The format of the generated image."
+      },
+      "guidance_scale": {
+        "type": "number",
+        "title": "Guidance Scale",
+        "default": 2.5,
+        "maximum": 20,
+        "minimum": 0,
+        "description": "Guidance Scale is a measure of how close you want the model to stick to your prompt when looking for a related image to show you."
+      },
+      "num_inference_steps": {
+        "type": "integer",
+        "title": "Number of Inference Steps",
+        "default": 28,
+        "maximum": 50,
+        "minimum": 4,
+        "description": "The number of inference steps to perform."
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "title": "GenerationResponse",
+    "required": [
+      "id",
+      "status"
+    ],
+    "properties": {
+      "id": {
+        "type": "string",
+        "description": "Unique identifier for the generation task."
+      },
+      "error": {
+        "type": "string",
+        "description": "Error message if the task failed. Empty on success."
+      },
+      "model": {
+        "type": "string",
+        "description": "Model ID used for the prediction."
+      },
+      "status": {
+        "enum": [
+          "pending",
+          "running",
+          "completed",
+          "failed",
+          "timeout"
+        ],
+        "type": "string",
+        "description": "Status of the task: pending, running, completed, failed, or timeout."
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "title": "OutputItem",
+          "required": [
+            "url"
+          ],
+          "properties": {
+            "url": {
+              "type": "string",
+              "examples": [
+                "https://static.sandbase.ai/examples/bfl/flux-2/dev/output_url_0.png"
+              ],
+              "description": "The URL where the generated content can be downloaded from."
+            },
+            "content_type": {
+              "type": "string",
+              "description": "The MIME type of the output file."
+            }
+          }
+        },
+        "description": "Array of generated content. Empty when status is not completed."
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.012
+  },
+  "examples": [
+    {
+      "input": {
+        "prompt": "Dutch angle close-up of a survivor in post-apocalyptic setting, dust-covered face, dramatic harsh sunlight creating deep shadows, happy expression, desaturated dystopian color palette, gritty realism"
+      },
+      "output": [
+        {
+          "url": "https://static.sandbase.ai/examples/9c5d6e59-b957-46c7-8c6f-2295af639f91/output/be5ccf4b-2861-4247-b4d9-3351cb2e3cf7.png"
+        }
+      ],
+      "default": true
+    }
+  ],
+  "readme": "# Flux 2 Dev Text to Image\n\nFLUX.2 [dev], the open-weights 32B FLUX.2 model. Text to image.\n\n## Fields\n\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `prompt` | string, required | — | Text instruction. |\n| `guidance_scale` | number 0–20 | 2.5 | How strictly to follow the prompt. |\n| `num_inference_steps` | integer 4–50 | 28 | More steps add detail and time. |\n| `output_format` | `jpeg` / `png` | `png` | Output file format. |\n| `aspect_ratio` | `21:9` / `16:9` / `3:2` / `4:3` / `5:4` / `1:1` / `4:5` / `3:4` / `2:3` / `9:16` | `16:9` | Output shape. |\n| `seed` | integer | random | Fix it to compare prompt changes. |\n\n## Billing\n\n$0.012 per image.\n\n| Request | Price |\n|---|---|\n| One image | $0.012 |\n\nFailed runs are not charged.\n\n## Prompting\n\n- Write subject, setting, composition, style, then light.\n- Quote any text that must appear.\n\n## Limits\n\n- One output image per request.\n\n## Also on SandBase\n\nOther FLUX.2 endpoints: `bfl/flux-2/max`, `bfl/flux-2/pro`, `bfl/flux-2/flex`, `bfl/flux-2/turbo`, `bfl/flux-2/dev/edit`.\n",
+  "cover_url": "https://static.sandbase.ai/covers/bfl/flux-2/dev/cover-flare-20261005020128.webp",
+  "page_url": "https://www.sandbase.ai/model/bfl/flux-2/dev",
+  "published_at": "2025-11-23T00:15:07.672Z",
+  "created_at": "2026-05-13T11:39:02.431Z"
+}

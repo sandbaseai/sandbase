@@ -1,0 +1,63 @@
+{
+  "name": "tiktok/app-v3/live-room-info",
+  "display_name": "TikTok Broadcast Room Information",
+  "type": "api",
+  "vendor": "TikTok",
+  "vendor_slug": "tiktok",
+  "description": "Returns data and details for a specified broadcast stream room on TikTok. Requires the unique target stream identifier to retrieve room status and metrics.",
+  "tags": [
+    "api",
+    "tiktok"
+  ],
+  "capabilities": [
+    "api",
+    "tiktok"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/tiktok/app-v3/live-room-info"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "room_id"
+    ],
+    "properties": {
+      "room_id": {
+        "type": "string",
+        "title": "Room Id",
+        "example": "7385461256746060575",
+        "description": "Live room id"
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.0015,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "examples": [
+    {
+      "input": {
+        "room_id": "7693011018813426439"
+      },
+      "default": true
+    }
+  ],
+  "readme": "# TikTok Broadcast Room Information API\n\nLook up details and stream data for a specific room using its `room_id`. This endpoint provides metadata for TikTok broadcasts.\n\n## Use cases\n\n- Retrieve operational information for an active broadcast room.\n- Monitor stream statistics using the designated room identifier.\n- Verify current status and stream attributes for TikTok broadcasts.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/tiktok/app-v3/live-room-info\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"room_id\": \"7385461256746060575\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `room_id` | string | Yes | Live room id |\n\n## Notes\n\n- Provide the target stream identifier via `room_id`.\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [TikTok LIVE Status](/model/tiktok/app-v3/check-live-room-online): Check whether a TikTok LIVE room is currently live by room ID.\n- [TikTok Room Online Status Batch](/model/tiktok/app-v3/check-live-room-online-batch): Returns the online availability status for multiple TikTok broadcast rooms in a single request.\n- [TikTok Content Translation](/model/tiktok/app-v3/content-translate): Translates provided text content into a designated target language.\n",
+  "page_url": "https://www.sandbase.ai/model/tiktok/app-v3/live-room-info",
+  "created_at": "2026-07-31T04:14:11.391Z"
+}

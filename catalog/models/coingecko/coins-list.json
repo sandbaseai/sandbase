@@ -1,0 +1,60 @@
+{
+  "name": "coingecko/coins-list",
+  "display_name": "CoinGecko Coins List (ID Map)",
+  "type": "api",
+  "vendor": "CoinGecko",
+  "vendor_slug": "coingecko",
+  "description": "Get all the supported coins on CoinGecko with coins ID, name and symbol",
+  "tags": [
+    "api",
+    "coingecko",
+    "crypto"
+  ],
+  "capabilities": [
+    "api",
+    "coingecko",
+    "crypto"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/coingecko/coins-list"
+  },
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "status": {
+        "enum": [
+          "active",
+          "inactive"
+        ],
+        "type": "string",
+        "description": "Filter by status of coins. Default: active"
+      },
+      "include_platform": {
+        "type": "boolean",
+        "description": "Include platform and token's contract addresses. Default: false"
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.008,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "readme": "# CoinGecko Coins List (ID Map) API\n\nGet all the supported coins on CoinGecko with coins ID, name and symbol\n\nThe response is the official CoinGecko API response, unchanged.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/coingecko/coins-list\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `include_platform` | boolean | No | Include platform and token's contract addresses. Default: false |\n| `status` | string | No | Filter by status of coins. Default: active |\n\n## Pricing\n\nFlat price per call. Failed calls are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/coingecko/coins-list",
+  "created_at": "2026-10-30T03:11:11.55Z"
+}

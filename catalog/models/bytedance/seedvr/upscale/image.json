@@ -1,0 +1,136 @@
+{
+  "name": "bytedance/seedvr/upscale/image",
+  "display_name": "SeedVR2 Image Upscale",
+  "type": "image",
+  "vendor": "Bytedance",
+  "vendor_slug": "bytedance",
+  "description": "Seedvr Upscale Image by Bytedance - AI-powered image editing, style transfer, and transformation. Edit photos with natural language instructions, remove backgrounds, change styles, and enhance images effortlessly.",
+  "tags": [
+    "image-to-image"
+  ],
+  "capabilities": [
+    "image-to-image"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "image"
+    ],
+    "properties": {
+      "image": {
+        "type": "string",
+        "title": "Image Url",
+        "examples": [
+          "https://static.sandbase.ai/examples/bytedance/seedvr/upscale/image/input_image_0.png"
+        ],
+        "description": "The input image to be processed"
+      },
+      "output_format": {
+        "enum": [
+          "png",
+          "jpg"
+        ],
+        "type": "string",
+        "title": "Output Format",
+        "default": "jpg",
+        "description": "The format of the output image."
+      },
+      "target_resolution": {
+        "enum": [
+          "2k",
+          "4k"
+        ],
+        "type": "string",
+        "title": "Target Resolution",
+        "default": "4k",
+        "description": "The target resolution to upscale to."
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "title": "GenerationResponse",
+    "required": [
+      "id",
+      "status"
+    ],
+    "properties": {
+      "id": {
+        "type": "string",
+        "description": "Unique identifier for the generation task."
+      },
+      "error": {
+        "type": "string",
+        "description": "Error message if the task failed. Empty on success."
+      },
+      "model": {
+        "type": "string",
+        "description": "Model ID used for the prediction."
+      },
+      "status": {
+        "enum": [
+          "pending",
+          "running",
+          "completed",
+          "failed",
+          "timeout"
+        ],
+        "type": "string",
+        "description": "Status of the task: pending, running, completed, failed, or timeout."
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "title": "OutputItem",
+          "required": [
+            "url"
+          ],
+          "properties": {
+            "url": {
+              "type": "string",
+              "description": "The URL where the generated content can be downloaded from."
+            },
+            "content_type": {
+              "type": "string",
+              "description": "The MIME type of the output file."
+            }
+          }
+        },
+        "description": "Array of generated content. Empty when status is not completed."
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.01
+  },
+  "examples": [
+    {
+      "input": {
+        "image": "https://static.sandbase.ai/examples/e9063ae5-ae76-45df-ba78-5b81c56d1157/input/99a0d455-36a3-421d-a064-48062fa13691.jpg",
+        "target_resolution": "4k"
+      },
+      "output": [
+        {
+          "url": "https://static.sandbase.ai/examples/e9063ae5-ae76-45df-ba78-5b81c56d1157/output/c057704f-92a4-4408-bedb-a544514bc173.jpg"
+        }
+      ],
+      "default": true
+    }
+  ],
+  "readme": "# SeedVR2 Image Upscale\n\nSeedVR2 restores and upscales a single image to 2K or 4K, sharpening detail without changing content.\n\n## Fields\n\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `image` | image URL, required | — | Image to upscale. JPEG, PNG, or WebP URL. |\n| `target_resolution` | `2k` / `4k` | `4k` | Output long-side tier. |\n| `output_format` | `png` / `jpg` | `jpg` | Output file format. |\n\n## Billing\n\n$0.01 per image.\n\n| Request | Price |\n|---|---|\n| One image | $0.01 |\n\nFailed runs are not charged.\n\n## Limits\n\n- One image per request.\n\n## Also on SandBase\n\nRelated: `bytedance/seedvr/upscale/video`, `topaz/upscale/image` (Topaz).\n",
+  "cover_url": "https://static.sandbase.ai/covers/bytedance/seedvr/upscale/image/cover-flare-20261005014144.webp",
+  "page_url": "https://www.sandbase.ai/model/bytedance/seedvr/upscale/image",
+  "published_at": "2025-09-22T18:19:28.476Z",
+  "created_at": "2026-05-11T05:46:36.213Z"
+}

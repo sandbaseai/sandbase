@@ -1,0 +1,16 @@
+name: Model or API request
+description: Ask for a model or API that SandBase does not offer yet.
+title: "[request] "
+labels: ["capability-request"]
+body:
+  - type: input
+    id: what
+    attributes: { label: Model or API, placeholder: "e.g. a specific video model, or product data for a marketplace" }
+    validations: { required: true }
+  - type: textarea
+    id: why
+    attributes: { label: What would you build with it?, description: Helps us prioritise. }
+    validations: { required: true }
+  - type: input
+    id: link
+    attributes: { label: Link to the model or API (optional) }

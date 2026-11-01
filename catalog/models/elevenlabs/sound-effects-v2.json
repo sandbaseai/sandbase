@@ -1,0 +1,160 @@
+{
+  "name": "elevenlabs/sound-effects-v2",
+  "display_name": "Sound Effects V2",
+  "type": "audio",
+  "vendor": "ElevenLabs",
+  "vendor_slug": "elevenlabs",
+  "description": "Sound Effects V2 by ElevenLabs - generate music, sound effects, and audio from text descriptions with AI. Create original compositions, ambient sounds, and audio content for any creative project.",
+  "tags": [
+    "text-to-audio"
+  ],
+  "capabilities": [
+    "text-to-audio"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}"
+  },
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "loop": {
+        "type": "boolean",
+        "title": "Loop",
+        "default": false,
+        "description": "Whether to create a sound effect that loops smoothly."
+      },
+      "text": {
+        "type": "string",
+        "title": "Text",
+        "examples": [
+          "Spacious braam suitable for high-impact movie trailer moments",
+          "A gentle wind chime tinkling in a soft breeze"
+        ],
+        "description": "The text describing the sound effect to generate"
+      },
+      "duration_seconds": {
+        "type": "number",
+        "title": "Duration (seconds)",
+        "default": 5,
+        "maximum": 22,
+        "minimum": 0.5,
+        "description": "Duration in seconds (0.5-22). If not set, optimal duration will be determined from prompt."
+      },
+      "prompt_influence": {
+        "type": "number",
+        "title": "Prompt Influence",
+        "default": 0.3,
+        "maximum": 1,
+        "minimum": 0,
+        "description": "How closely to follow the prompt (0-1). Higher values mean less variation."
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "title": "GenerationResponse",
+    "required": [
+      "id",
+      "status"
+    ],
+    "properties": {
+      "id": {
+        "type": "string",
+        "description": "Unique identifier for the generation task."
+      },
+      "error": {
+        "type": "string",
+        "description": "Error message if the task failed. Empty on success."
+      },
+      "model": {
+        "type": "string",
+        "description": "Model ID used for the prediction."
+      },
+      "status": {
+        "enum": [
+          "pending",
+          "running",
+          "completed",
+          "failed",
+          "timeout"
+        ],
+        "type": "string",
+        "description": "Status of the task: pending, running, completed, failed, or timeout."
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "title": "OutputItem",
+          "required": [
+            "url"
+          ],
+          "properties": {
+            "url": {
+              "type": "string",
+              "examples": [
+                "https://static.sandbase.ai/examples/elevenlabs/sound-effects-v2/output_url_0.mp3"
+              ],
+              "description": "The URL where the generated content can be downloaded from."
+            },
+            "content_type": {
+              "type": "string",
+              "description": "The MIME type of the output file."
+            }
+          }
+        },
+        "description": "Array of generated content. Empty when status is not completed."
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "formula",
+    "formula": "(params.duration_seconds ?? 5) * 0.002",
+    "formula_variables": [
+      "params.duration_seconds"
+    ],
+    "reference_price": 0.01,
+    "price_examples": [
+      {
+        "params": {
+          "duration_seconds": 0.5
+        },
+        "usd": 0.001
+      },
+      {
+        "params": {
+          "duration_seconds": 5
+        },
+        "usd": 0.01
+      },
+      {
+        "params": {
+          "duration_seconds": 22
+        },
+        "usd": 0.044
+      }
+    ]
+  },
+  "examples": [
+    {
+      "input": {},
+      "output": [
+        {
+          "url": "https://static.sandbase.ai/examples/daa9eaa9-caa4-4397-a5a4-bc67819fc682/output/79c154a1-7f6b-492e-80de-0c34824cfb13.mp3"
+        }
+      ],
+      "default": true
+    }
+  ],
+  "readme": "# Sound Effects V2\n\nElevenLabs Sound Effects v2 creates sound effects and ambiences from a description, 0.5–22 seconds long, optionally loopable.\n\n## Fields\n\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `text` | string | — | Describe the sound. |\n| `prompt_influence` | number 0–1 | 0.3 | How strictly to follow the description. |\n| `duration_seconds` | number 0.5–22 | 5 | Length in seconds (0.5–22). |\n| `loop` | boolean | false | Make the clip loop seamlessly. |\n\n## Billing\n\n$0.002 per second of audio.\n\n| Length | Price |\n|---|---|\n| 2s | $0.004 |\n| 5s | $0.01 |\n| 22s | $0.044 |\n\nFailed runs are not charged.\n\n## Prompting\n\n- Be specific about source, space, and texture: “heavy wooden door creaks open in a stone hall”.\n\n## Limits\n\n- Up to 22 seconds.\n",
+  "cover_url": "https://static.sandbase.ai/covers/elevenlabs/sound-effects-v2/cover-flare-20261008040620.webp",
+  "page_url": "https://www.sandbase.ai/model/elevenlabs/sound-effects-v2",
+  "published_at": "2025-09-02T20:11:50.27Z",
+  "created_at": "2026-05-14T02:54:29.715Z"
+}

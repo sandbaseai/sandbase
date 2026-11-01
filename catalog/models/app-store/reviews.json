@@ -1,0 +1,92 @@
+{
+  "name": "app-store/reviews",
+  "display_name": "App Store Reviews",
+  "type": "api",
+  "vendor": "App Store",
+  "vendor_slug": "app-store",
+  "description": "Read Apple App Store reviews for an app in one storefront country, page by page.",
+  "tags": [
+    "api",
+    "app-store",
+    "ecommerce"
+  ],
+  "capabilities": [
+    "api",
+    "app-store",
+    "ecommerce"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}",
+    "passthrough": "POST /v1/api/app-store/reviews"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "product_id"
+    ],
+    "properties": {
+      "page": {
+        "type": "integer",
+        "maximum": 2147483647,
+        "minimum": 1,
+        "description": "One-based page number. Exhausted pages return an empty review list. Default 1."
+      },
+      "sort": {
+        "enum": [
+          "mostrecent",
+          "mosthelpful"
+        ],
+        "type": "string",
+        "description": "'mostrecent' or 'mosthelpful'. The Mac storefront always returns newest first. Default 'mostrecent'."
+      },
+      "country": {
+        "type": "string",
+        "pattern": "^[a-zA-Z]{2}$",
+        "description": "Two-letter Apple storefront country, such as 'us' or 'gb' ('uk' is accepted). Default 'us'."
+      },
+      "product_id": {
+        "type": "string",
+        "example": "570060128",
+        "pattern": "^[1-9][0-9]{0,19}$",
+        "description": "Positive decimal Apple app identifier, such as '570060128'."
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "required": [
+      "id",
+      "status",
+      "model"
+    ],
+    "properties": {
+      "id": {
+        "type": "string"
+      },
+      "model": {
+        "type": "string"
+      },
+      "status": {
+        "type": "string"
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.00015,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "readme": "# App Store Reviews\n\nRead Apple App Store reviews for an app in one storefront country, page by page.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/app-store/reviews\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"product_id\": \"570060128\"}'\n```\n\nThis API runs asynchronously. The call returns a task `id` with status `pending`; poll `GET https://api.sandbase.ai/v1/run/{id}` until `status` is `completed` and read the result from `outputs[0].data`.\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `product_id` | string | Yes | Positive decimal Apple app identifier, such as '570060128'. |\n| `country` | string | No | Two-letter Apple storefront country, such as 'us' or 'gb' ('uk' is accepted). Default 'us'. |\n| `page` | integer | No | One-based page number. Exhausted pages return an empty review list. Default 1. |\n| `sort` | string | No | 'mostrecent' or 'mosthelpful'. The Mac storefront always returns newest first. Default 'mostrecent'. One of: `mostrecent`, `mosthelpful`. |\n\n## Pricing\n\nFlat price per call. Failed calls are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/app-store/reviews",
+  "created_at": "2026-10-30T08:59:53.876Z"
+}

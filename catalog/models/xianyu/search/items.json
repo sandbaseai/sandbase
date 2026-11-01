@@ -1,0 +1,69 @@
+{
+  "name": "xianyu/search/items",
+  "display_name": "Xianyu Item Search",
+  "type": "api",
+  "vendor": "Xianyu",
+  "vendor_slug": "xianyu",
+  "description": "Search Xianyu (Goofish) second-hand listings by keyword, sorted by activity, recency, seller credit or price.",
+  "tags": [
+    "api",
+    "xianyu",
+    "ecommerce"
+  ],
+  "capabilities": [
+    "api",
+    "xianyu",
+    "ecommerce"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/xianyu/search/items"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "keyword"
+    ],
+    "properties": {
+      "page": {
+        "type": "string",
+        "description": "Page number for pagination. The first page is 1."
+      },
+      "sort": {
+        "enum": [
+          "active",
+          "recent",
+          "credit",
+          "price_asc",
+          "price_desc",
+          "price_drop",
+          "newest"
+        ],
+        "type": "string",
+        "default": "active",
+        "description": "Sort order for Xianyu search results."
+      },
+      "keyword": {
+        "type": "string",
+        "example": "iphone 15",
+        "description": "Search keyword."
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.027778
+  },
+  "readme": "# Xianyu Item Search API\n\nSearch Xianyu (Goofish) second-hand listings by keyword, sorted by activity, recency, seller credit or price.\n\nThe response is the platform's original data structure.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/xianyu/search/items\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"keyword\": \"iphone 15\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `keyword` | string | Yes | Search keyword. |\n| `page` | string | No | Page number for pagination. The first page is 1. |\n| `sort` | string | No | Sort order for Xianyu search results. |\n\n## Pricing\n\nFlat price per call. Failed calls and empty results are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/xianyu/search/items",
+  "created_at": "2026-10-29T09:46:42.99Z"
+}

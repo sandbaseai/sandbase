@@ -1,0 +1,82 @@
+{
+  "name": "linkedin/ads",
+  "display_name": "LinkedIn Ads Library",
+  "type": "api",
+  "vendor": "LinkedIn",
+  "vendor_slug": "linkedin",
+  "description": "Search the LinkedIn Ad Library by search URL and list the matching ads (advertiser, creative text, format).",
+  "tags": [
+    "api",
+    "linkedin",
+    "social-media"
+  ],
+  "capabilities": [
+    "api",
+    "linkedin",
+    "social-media"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/linkedin/ads"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "url"
+    ],
+    "properties": {
+      "url": {
+        "type": "string",
+        "example": "https://www.linkedin.com/company/stripe",
+        "description": "LinkedIn Ad Library search URL or a LinkedIn company URL (e.g. https://www.linkedin.com/ad-library/search?companyIds=1035)."
+      },
+      "limit": {
+        "type": "integer",
+        "example": 3,
+        "maximum": 20,
+        "minimum": 1,
+        "description": "Maximum number of results to return (1-20, default 20). You are billed per result returned, so a lower limit costs less."
+      }
+    },
+    "additionalProperties": false
+  },
+  "response_schema": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string"
+      },
+      "model": {
+        "type": "string"
+      },
+      "status": {
+        "type": "string"
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "data": {
+              "type": "object",
+              "description": "Normalized result for this request."
+            }
+          }
+        }
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "usage_based",
+    "note": "Billed per call from metered usage; the reference price is typical.",
+    "reference_price": 0.0331
+  },
+  "readme": "# LinkedIn Ads Library API\n\nSearch the LinkedIn Ad Library by search URL and list the matching ads (advertiser, creative text, format).\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/linkedin/ads\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"url\": \"https://www.linkedin.com/company/stripe\", \"limit\": 3}'\n```\n\nThe result is returned in `outputs[0].data`. A lookup that finds nothing still succeeds and returns `found: false`.\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `url` | string | Yes | LinkedIn Ad Library search URL or a LinkedIn company URL (e.g. https://www.linkedin.com/ad-library/search?companyIds=1035). |\n| `limit` | integer | No | Maximum number of results to return (1-20, default 20). You are billed per result returned, so a lower limit costs less. |\n\n## Pricing\n\nBilled at the actual cost of each call, usually $0.0331 per request. A call can cost more when the first data source fails and another one answers. Failed calls are not charged. Lookups that find nothing and searches with no results are billed at their actual cost, which is often lower and can be $0.\n",
+  "page_url": "https://www.sandbase.ai/model/linkedin/ads",
+  "created_at": "2026-10-31T10:38:42.191Z"
+}

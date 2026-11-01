@@ -1,0 +1,77 @@
+{
+  "name": "instagram/v1/user-posts-v2",
+  "display_name": "Instagram User Posts (V1, V2)",
+  "type": "api",
+  "vendor": "Instagram",
+  "vendor_slug": "instagram",
+  "description": "Returns a paginated list of media posts for a specified Instagram account. Filter by user ID with support for custom page limits and cursor-based navigation.",
+  "tags": [
+    "api",
+    "instagram"
+  ],
+  "capabilities": [
+    "api",
+    "instagram"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/instagram/v1/user-posts-v2"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "user_id"
+    ],
+    "properties": {
+      "count": {
+        "type": "integer",
+        "title": "Count",
+        "default": 12,
+        "example": 12,
+        "maximum": 50,
+        "minimum": 1,
+        "description": "Count per page, default 12"
+      },
+      "user_id": {
+        "type": "string",
+        "title": "User Id",
+        "example": "25025320",
+        "description": "Instagram user ID"
+      },
+      "end_cursor": {
+        "type": "string",
+        "title": "End Cursor",
+        "description": "Pagination cursor, omit for first request"
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.0015,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "examples": [
+    {
+      "input": {
+        "user_id": "25025320"
+      },
+      "default": true
+    }
+  ],
+  "readme": "# Instagram User Posts (V1, V2) API\n\nRetrieve timeline posts for a specific profile by supplying `user_id`. Use `count` and `end_cursor` to paginate through historic media results.\n\n## Use cases\n\n- Retrieve recent timeline posts and reels from a target Instagram profile.\n- Paginate through an account historical media library for content analysis.\n- Extract post media details including display URLs and media preview data.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/instagram/v1/user-posts-v2\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"user_id\": \"25025320\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `user_id` | string | Yes | Instagram user ID |\n| `count` | integer | No | Count per page, default 12 |\n| `end_cursor` | string | No | Pagination cursor, omit for first request |\n\n## Example response\n\nReal response for the request above, trimmed to the main fields. User names and long IDs are masked.\n\n```json\n{\n  \"data\": {\n    \"user\": {\n      \"edge_owner_to_timeline_media\": {\n        \"edges\": [\n          {\n            \"node\": {\n              \"__typename\": \"GraphVideo\",\n              \"display_url\": \"https://scontent-cdg4-1.cdninstagram.com/v/t51.82787-15/830594125_18798964129001…\",\n              \"id\": \"3998430248382584993\",\n              \"like_and_view_counts_disabled\": false,\n              \"media_preview\": \"ABgq58LngDmums2JgXPVRtP4dP0xUY0uJectke//ANarMdusYwMke5zUvUaKmd3U4YnnP8h7D+dFWZIFYZ6H2oqLF…\",\n              \"product_type\": \"clips\"\n            }\n          }\n        ]\n      }\n    }\n  }\n}\n```\n\n## Notes\n\n- Set `count` to customize the number of posts returned per page, defaulting to 12.\n- Pass `end_cursor` to retrieve subsequent pages of results, or omit it for the initial call.\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [Instagram Cities by Country](/model/instagram/v1/cities): Returns a list of Instagram cities and regions for a specified country code.\n- [Instagram Hashtag Posts (V1)](/model/instagram/v1/hashtag-posts): Returns public Instagram posts associated with a specific hashtag.\n- [Instagram Location Details (V1)](/model/instagram/v1/location-info): Returns detailed metadata and profile information for a specified Instagram location using its unique identifier.\n",
+  "page_url": "https://www.sandbase.ai/model/instagram/v1/user-posts-v2",
+  "created_at": "2026-07-31T03:55:28.433Z"
+}

@@ -1,0 +1,80 @@
+{
+  "name": "linkedin/company-posts-thin",
+  "display_name": "LinkedIn Company Posts (basic)",
+  "type": "api",
+  "vendor": "LinkedIn",
+  "vendor_slug": "linkedin",
+  "description": "Post text and link only. No engagement counts, author details, media, or reaction breakdown - for those use linkedin.company_posts.",
+  "tags": [
+    "api",
+    "linkedin",
+    "social-media"
+  ],
+  "capabilities": [
+    "api",
+    "linkedin",
+    "social-media"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/linkedin/company-posts-thin"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "url"
+    ],
+    "properties": {
+      "url": {
+        "type": "string",
+        "example": "https://www.linkedin.com/company/stripe",
+        "description": "Full LinkedIn company page URL."
+      },
+      "page": {
+        "type": "integer",
+        "minimum": 1,
+        "description": "Page number for pagination."
+      }
+    },
+    "additionalProperties": false
+  },
+  "response_schema": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string"
+      },
+      "model": {
+        "type": "string"
+      },
+      "status": {
+        "type": "string"
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "data": {
+              "type": "object",
+              "description": "Normalized result for this request."
+            }
+          }
+        }
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "usage_based",
+    "note": "Billed per call from metered usage; the reference price is typical.",
+    "reference_price": 0.0012
+  },
+  "readme": "# LinkedIn Company Posts (basic) API\n\nPost text and link only. No engagement counts, author details, media, or reaction breakdown - for those use linkedin.company_posts.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/linkedin/company-posts-thin\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"url\": \"https://www.linkedin.com/company/stripe\"}'\n```\n\nThe result is returned in `outputs[0].data`. A lookup that finds nothing still succeeds and returns `found: false`.\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `url` | string | Yes | Full LinkedIn company page URL. |\n| `page` | integer | No | Page number for pagination. |\n\n## Pricing\n\nBilled at the actual cost of each call, usually $0.0012 per request. A call can cost more when the first data source fails and another one answers. Failed calls are not charged. Lookups that find nothing and searches with no results are billed at their actual cost, which is often lower and can be $0.\n",
+  "page_url": "https://www.sandbase.ai/model/linkedin/company-posts-thin",
+  "created_at": "2026-11-01T12:23:59.319Z"
+}

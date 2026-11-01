@@ -1,0 +1,85 @@
+{
+  "name": "trustpilot/company-reviews",
+  "display_name": "Trustpilot Company Reviews",
+  "type": "api",
+  "vendor": "Trustpilot",
+  "vendor_slug": "trustpilot",
+  "description": "Fetch paginated reviews for a company with optional star filtering, sort order, and keyword search.",
+  "tags": [
+    "api",
+    "trustpilot",
+    "company-people"
+  ],
+  "capabilities": [
+    "api",
+    "trustpilot",
+    "company-people"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}",
+    "passthrough": "POST /v1/api/trustpilot/company-reviews"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "domain"
+    ],
+    "properties": {
+      "page": {
+        "type": "integer",
+        "maximum": 9007199254740991,
+        "minimum": -9007199254740991,
+        "description": "Page number"
+      },
+      "sort": {
+        "type": "string",
+        "description": "Sort order for reviews"
+      },
+      "stars": {
+        "type": "string",
+        "description": "Filter by star rating (1-5)"
+      },
+      "domain": {
+        "type": "string",
+        "example": "stripe.com",
+        "description": "Company domain/identifying name as used on Trustpilot"
+      },
+      "keyword": {
+        "type": "string",
+        "description": "Search keyword within reviews"
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "required": [
+      "id",
+      "status",
+      "model"
+    ],
+    "properties": {
+      "id": {
+        "type": "string"
+      },
+      "model": {
+        "type": "string"
+      },
+      "status": {
+        "type": "string"
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.03
+  },
+  "readme": "# Trustpilot Company Reviews\n\nFetch paginated reviews for a company with optional star filtering, sort order, and keyword search.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/trustpilot/company-reviews\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"domain\": \"stripe.com\"}'\n```\n\nThis API runs asynchronously. The call returns a task `id` with status `pending`; poll `GET https://api.sandbase.ai/v1/run/{id}` until `status` is `completed` and read the result from `outputs[0].data`.\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `domain` | string | Yes | Company domain/identifying name as used on Trustpilot |\n| `keyword` | string | No | Search keyword within reviews |\n| `page` | integer | No | Page number |\n| `sort` | string | No | Sort order for reviews |\n| `stars` | string | No | Filter by star rating (1-5) |\n\n## Pricing\n\nFlat price per call. Failed calls are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/trustpilot/company-reviews",
+  "created_at": "2026-10-30T08:28:59.318Z"
+}

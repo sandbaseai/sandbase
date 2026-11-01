@@ -1,0 +1,111 @@
+{
+  "name": "scholar/search-scholar",
+  "display_name": "Scholar Search (Google Scholar)",
+  "type": "api",
+  "vendor": "Scholar",
+  "vendor_slug": "scholar",
+  "description": "Search academic papers on Google Scholar: titles, authors, links, citation counts and snippets, with publication-year filters.",
+  "tags": [
+    "academic-search"
+  ],
+  "capabilities": [
+    "academic-search"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/scholar/search-scholar"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "query"
+    ],
+    "properties": {
+      "query": {
+        "type": "string",
+        "title": "Query",
+        "example": "large language models",
+        "description": "Search query for scholarly materials."
+      },
+      "as_yhi": {
+        "type": "integer",
+        "title": "Year To",
+        "maximum": 2030,
+        "minimum": 1900,
+        "description": "Year of publication upper bound."
+      },
+      "as_ylo": {
+        "type": "integer",
+        "title": "Year From",
+        "maximum": 2030,
+        "minimum": 1900,
+        "description": "Year of publication lower bound."
+      },
+      "max_num_results": {
+        "type": "integer",
+        "title": "Max Results",
+        "maximum": 100,
+        "minimum": 1,
+        "description": "Maximum number of search results to return, up to 100."
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "properties": {
+      "results": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "url": {
+              "type": "string"
+            },
+            "year": {
+              "type": "integer"
+            },
+            "title": {
+              "type": "string"
+            },
+            "authors": {
+              "type": "string"
+            },
+            "citedBy": {
+              "type": "integer"
+            },
+            "snippet": {
+              "type": "string"
+            }
+          }
+        },
+        "description": "Academic paper search results."
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.0036,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "examples": [
+    {
+      "input": {
+        "max_num_results": 10,
+        "query": "chiral phonons"
+      }
+    }
+  ],
+  "readme": "# Google Scholar Search API\n\nSearch scholarly literature for a query and get papers with authors, links, citation counts and snippets. Filter by publication year.\n\n## Use cases\n\n- Literature reviews and research assistants.\n- Find highly cited papers on a topic.\n- Ground AI answers with academic sources.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/scholar/search-scholar\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"query\": \"large language models\", \"max_num_results\": 3}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `query` | string | Yes | Search query for scholarly materials. |\n| `as_yhi` | integer | No | Year of publication upper bound. |\n| `as_ylo` | integer | No | Year of publication lower bound. |\n| `max_num_results` | integer | No | Maximum number of search results to return, up to 100. |\n\n## Example response\n\nReal response for the request above, trimmed to the main fields. User names and long IDs are masked.\n\n```json\n{\n  \"results\": [\n    {\n      \"title\": \"A comprehensive overview of large language models\",\n      \"authors\": [\n        \"H Naveed\",\n        \"AU Khan\",\n        \"S Qiu\",\n        \"…\"\n      ],\n      \"link\": \"https://dl.acm.org/doi/abs/10.1145/3744746\",\n      \"number_of_citations\": 3775,\n      \"snippet\": \"… Large Language Models (LLMs) have recently demonstrated remarkable capabiliti…\"\n    }\n  ]\n}\n```\n\n## Notes\n\n- `as_ylo` / `as_yhi` set the earliest and latest publication year.\n\n## Pricing\n\nFlat price per call. Failed calls are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/scholar/search-scholar",
+  "published_at": "2024-01-01T00:00:00Z",
+  "created_at": "2026-08-09T12:37:27.299Z"
+}

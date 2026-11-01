@@ -1,0 +1,61 @@
+{
+  "name": "kuaishou/search-user",
+  "display_name": "Kuaishou User Search",
+  "type": "api",
+  "vendor": "Kuaishou",
+  "vendor_slug": "kuaishou",
+  "description": "Search public Kuaishou user accounts by keyword with page-number pagination. Use it to discover relevant creators or accounts before requesting profile and published-video data.",
+  "tags": [
+    "api",
+    "kuaishou",
+    "social-media"
+  ],
+  "capabilities": [
+    "api",
+    "kuaishou",
+    "social-media"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/kuaishou/search-user"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "keyword"
+    ],
+    "properties": {
+      "page": {
+        "type": "integer",
+        "default": 1,
+        "description": "Page number for results, starting from 1."
+      },
+      "keyword": {
+        "type": "string",
+        "example": "美食",
+        "description": "The search keyword to find users."
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.013889,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "readme": "# Kuaishou User Search API\n\nSearch public Kuaishou user accounts by keyword with page-number pagination. Use it to discover relevant creators or accounts before requesting profile and published-video data.\n\nThe response is the platform's original data structure.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/kuaishou/search-user\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"keyword\": \"美食\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `keyword` | string | Yes | The search keyword to find users. |\n| `page` | integer | No | Page number for results, starting from 1. |\n\n## Pricing\n\nFlat price per call. Failed calls and empty results are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/kuaishou/search-user",
+  "created_at": "2026-10-29T12:26:31.863Z"
+}

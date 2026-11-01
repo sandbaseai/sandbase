@@ -1,0 +1,108 @@
+{
+  "name": "douyin/index/report-search",
+  "display_name": "Douyin Trend Report Search",
+  "type": "api",
+  "vendor": "Douyin",
+  "vendor_slug": "douyin",
+  "description": "Returns trend insight reports from Douyin Index. Supports filtering by keyword, report type, product line, category ID, and release year.",
+  "tags": [
+    "api",
+    "douyin"
+  ],
+  "capabilities": [
+    "api",
+    "douyin"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/douyin/index/report-search"
+  },
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "type": {
+        "enum": [
+          "",
+          "行业洞察",
+          "产品洞察",
+          "用户洞察",
+          "趋势洞察"
+        ],
+        "type": "string",
+        "title": "Type",
+        "default": "",
+        "description": "report type, empty for all"
+      },
+      "search": {
+        "type": "string",
+        "title": "Search",
+        "default": "",
+        "description": "keyword search"
+      },
+      "business": {
+        "type": "string",
+        "title": "Business",
+        "default": "",
+        "description": "comma-separated product list"
+      },
+      "category": {
+        "type": "string",
+        "title": "Category",
+        "default": "6",
+        "description": "top-level category ID, default \"6\""
+      },
+      "page_size": {
+        "type": "string",
+        "title": "Page Size",
+        "default": "16",
+        "description": "Page size"
+      },
+      "report_time": {
+        "type": "string",
+        "title": "Report Time",
+        "default": "",
+        "description": "comma-separated year list, e.g. \"2024,2023\""
+      },
+      "current_page": {
+        "type": "string",
+        "title": "Current Page",
+        "default": "1",
+        "description": "Page number"
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.0015,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "examples": [
+    {
+      "input": {
+        "business": "",
+        "category": "6",
+        "current_page": "1",
+        "page_size": "16",
+        "report_time": "",
+        "search": "",
+        "type": ""
+      }
+    }
+  ],
+  "readme": "# Douyin Trend Report Search API\n\nQueries trend insight reports from Douyin Index using `search` keywords, `type`, and `report_time` filters.\n\n## Use cases\n\n- Discover industry and consumer insight reports published on Douyin.\n- Filter historical trend research by release year and category ID.\n- Search report titles and metadata for marketing intelligence.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/douyin/index/report-search\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `type` | string | No | report type, empty for all |\n| `search` | string | No | keyword search |\n| `business` | string | No | comma-separated product list |\n| `category` | string | No | top-level category ID, default \"6\" |\n| `page_size` | string | No | Page size |\n| `report_time` | string | No | comma-separated year list, e.g. \"2024,2023\" |\n| `current_page` | string | No | Page number |\n\n## Example response\n\nReal response for the request above, trimmed to the main fields. User names and long IDs are masked.\n\n```json\n{\n  \"report_list\": [\n    {\n      \"author\": \"抖音\",\n      \"category\": \"6\",\n      \"display_time\": \"2026-06-15\",\n      \"id\": \"1092\",\n      \"keywords\": \"抖音 时尚 美妆\",\n      \"title\": \"2026年抖音美妆春夏宝藏\",\n      \"type\": \"行业洞察\",\n      \"visit_cnt\": \"2979\"\n    }\n  ]\n}\n```\n\n## Notes\n\n- Specify multiple release years as a comma-separated list in `report_time`.\n- Leave `type` empty to return all report types, or specify a single category.\n- Manage pagination using `current_page` and `page_size`.\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [Douyin Index Area List](/model/douyin/index/all-area): Returns the complete list of supported geographic areas available for Douyin Index queries.\n- [Douyin Index Valid Dates](/model/douyin/index/all-valid-date): Returns the latest valid dates available for each data type in Douyin Index.\n- [Douyin Brand Popularity Cycles](/model/douyin/index/brand-cycles): Returns periodic brand popularity and cycle analysis data across platforms for a specified brand name and date range.\n",
+  "page_url": "https://www.sandbase.ai/model/douyin/index/report-search",
+  "created_at": "2026-07-31T02:38:31.701Z"
+}

@@ -1,0 +1,222 @@
+{
+  "name": "heygen/heygen-video/text-to-video",
+  "display_name": "HeyGen Video Text to Video",
+  "type": "video",
+  "vendor": "HeyGen",
+  "vendor_slug": "heygen",
+  "description": "HeyGen Video Text to Video turns a text prompt into a 5-15 second video at up to 2K resolution.",
+  "tags": [
+    "text-to-video"
+  ],
+  "capabilities": [
+    "text-to-video"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "prompt"
+    ],
+    "properties": {
+      "prompt": {
+        "type": "string",
+        "title": "Prompt",
+        "maxLength": 32000,
+        "description": "Describe the scene, action, camera and sound."
+      },
+      "duration": {
+        "type": "integer",
+        "title": "Duration",
+        "default": 5,
+        "maximum": 15,
+        "minimum": 5,
+        "description": "Output length in seconds (5-15)."
+      },
+      "resolution": {
+        "enum": [
+          "480p",
+          "768p",
+          "1080p",
+          "2k"
+        ],
+        "type": "string",
+        "title": "Resolution",
+        "default": "768p",
+        "description": "Output resolution. 1080p and 2k cost more."
+      },
+      "aspect_ratio": {
+        "enum": [
+          "21:9",
+          "16:9",
+          "4:3",
+          "1:1",
+          "3:4",
+          "9:16"
+        ],
+        "type": "string",
+        "title": "Aspect Ratio",
+        "default": "16:9",
+        "description": "Output frame shape."
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "title": "GenerationResponse",
+    "required": [
+      "id",
+      "status"
+    ],
+    "properties": {
+      "id": {
+        "type": "string",
+        "description": "Unique identifier for the generation task."
+      },
+      "error": {
+        "type": "string",
+        "description": "Error message if the task failed. Empty on success."
+      },
+      "model": {
+        "type": "string",
+        "description": "Model ID used for the prediction."
+      },
+      "status": {
+        "enum": [
+          "pending",
+          "running",
+          "completed",
+          "failed",
+          "timeout"
+        ],
+        "type": "string",
+        "description": "Status of the task: pending, running, completed, failed, or timeout."
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "title": "OutputItem",
+          "required": [
+            "url"
+          ],
+          "properties": {
+            "url": {
+              "type": "string",
+              "description": "The URL where the generated content can be downloaded from."
+            },
+            "content_type": {
+              "type": "string",
+              "description": "The MIME type of the output file."
+            }
+          }
+        },
+        "description": "Array of generated content. Empty when status is not completed."
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "formula",
+    "formula": "(params.duration ?? 5) * ((params.resolution ?? \"768p\") == \"480p\" ? 0.02 : (params.resolution ?? \"768p\") == \"768p\" ? 0.036 : 0.06)",
+    "formula_variables": [
+      "params.duration",
+      "params.resolution"
+    ],
+    "reference_price": 0.18,
+    "price_examples": [
+      {
+        "params": {
+          "duration": 5,
+          "resolution": "480p"
+        },
+        "usd": 0.1
+      },
+      {
+        "params": {
+          "duration": 5,
+          "resolution": "768p"
+        },
+        "usd": 0.18
+      },
+      {
+        "params": {
+          "duration": 5,
+          "resolution": "1080p"
+        },
+        "usd": 0.3
+      },
+      {
+        "params": {
+          "duration": 5,
+          "resolution": "2k"
+        },
+        "usd": 0.3
+      },
+      {
+        "params": {
+          "duration": 15,
+          "resolution": "480p"
+        },
+        "usd": 0.3
+      },
+      {
+        "params": {
+          "duration": 15,
+          "resolution": "768p"
+        },
+        "usd": 0.54
+      },
+      {
+        "params": {
+          "duration": 15,
+          "resolution": "1080p"
+        },
+        "usd": 0.9
+      },
+      {
+        "params": {
+          "duration": 15,
+          "resolution": "2k"
+        },
+        "usd": 0.9
+      }
+    ]
+  },
+  "examples": [
+    {
+      "input": {
+        "aspect_ratio": "16:9",
+        "prompt": "A red paper boat drifting on a calm misty lake at sunrise, gentle camera push-in, soft golden light, birds calling in the distance."
+      },
+      "output": [
+        {
+          "url": "https://static.sandbase.ai/examples/4a216857-494e-49b6-9b49-c01514aba4e0/output/0d7b4a3b-a270-4519-8c48-e8cd3c7bdf4d.mp4"
+        }
+      ],
+      "default": true
+    },
+    {
+      "input": {
+        "aspect_ratio": "16:9",
+        "prompt": "A street food vendor in a neon-lit night market flips noodles in a flaming wok, handheld camera, sizzling sounds and crowd chatter."
+      },
+      "output": [
+        {
+          "url": "https://static.sandbase.ai/examples/33c3be5a-cb48-40a2-bb86-274f7d77db64/output/daac038f-e9ea-4ff0-9531-552f1b6ce52d.mp4"
+        }
+      ]
+    }
+  ],
+  "readme": "# HeyGen Video Text to Video\nHeyGen Video turns a text prompt into a 5–15 second video at up to 2K resolution.\n## Fields\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `prompt` | string, required | — | Scene, action, camera and sound. |\n| `aspect_ratio` | `21:9` / `16:9` / `4:3` / `1:1` / `3:4` / `9:16` | `16:9` | Output frame shape. |\n| `resolution` | `480p` / `768p` / `1080p` / `2k` | `768p` | Output resolution; 1080p and 2k cost more. |\n| `duration` | 5–15 | 5 | Output length in seconds. |\n## Billing\nBilled per output second: $0.02 at 480p, $0.036 at 768p, $0.06 at 1080p and 2k.\n| Output | Price |\n|---|---|\n| 5s, 768p (default) | $0.18 |\n| 5s, 480p | $0.10 |\n| 10s, 1080p | $0.60 |\n| 15s, 2k | $0.90 |\nFailed runs are not charged.\n## Prompting\n- Describe subject, action, camera move and light in order.\n## Limits\n- Clips are 5–15 seconds.\n## Also on SandBase\nOther HeyGen Video endpoints: `heygen/heygen-video/image-to-video`, `heygen/heygen-video/reference-to-video`.",
+  "cover_url": "https://static.sandbase.ai/covers/heygen/heygen-video/text-to-video/cover-flare-20261022111144.webp",
+  "page_url": "https://www.sandbase.ai/model/heygen/heygen-video/text-to-video",
+  "published_at": "2026-10-21T21:01:35.525Z",
+  "created_at": "2026-10-22T02:41:52.173Z"
+}

@@ -1,0 +1,52 @@
+{
+  "name": "openai/gpt-6-sol-pro",
+  "display_name": "OpenAI: GPT-6 Sol Pro",
+  "type": "llm",
+  "vendor": "OpenAI",
+  "vendor_slug": "openai",
+  "description": "GPT-6 Sol Pro is the same GPT-6 Sol model, the middle tier of OpenAI's GPT-6 family, served in OpenAI's pro reasoning mode rather than as a separate model. Pro mode does more model work on each request before returning a single final answer, which OpenAI suggests for difficult coding, review and deep analysis where quality outweighs speed. It adds latency and token usage compared with standard GPT-6 Sol, and OpenAI's docs point to GPT-6.1 Sol as the updated Sol model.",
+  "tags": [
+    "chat",
+    "vision",
+    "reasoning",
+    "structured_output",
+    "function_calling"
+  ],
+  "capabilities": [
+    "chat",
+    "vision",
+    "reasoning",
+    "structured_output",
+    "function_calling"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "chat_completions": "POST /v1/chat/completions",
+    "responses": "POST /v1/responses",
+    "messages": "POST /v1/messages"
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_token",
+    "per_million_tokens": {
+      "input": 2,
+      "output": 10,
+      "cache_read_multiplier": 0.1,
+      "cache_write_multiplier": 1.25
+    },
+    "formula": "usage.prompt_tokens >= 272000 ? (usage.prompt_tokens * 4 / 1000000 + usage.completion_tokens * 15 / 1000000 - usage.cached_tokens * 1.8 / 1000000 + usage.cache_creation_tokens * 0.5 / 1000000) : (usage.prompt_tokens * 2 / 1000000 + usage.completion_tokens * 10 / 1000000)",
+    "formula_variables": [
+      "usage.cache_creation_tokens",
+      "usage.cached_tokens",
+      "usage.completion_tokens",
+      "usage.prompt_tokens"
+    ]
+  },
+  "cover_url": "https://t0.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=https://openai.com&size=256",
+  "page_url": "https://www.sandbase.ai/model/openai/gpt-6-sol-pro",
+  "published_at": "2026-09-22T18:13:01Z",
+  "created_at": "2026-10-03T06:30:55.379Z"
+}

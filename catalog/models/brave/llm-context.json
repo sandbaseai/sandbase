@@ -1,0 +1,245 @@
+{
+  "name": "brave/llm-context",
+  "display_name": "Brave LLM Context",
+  "type": "api",
+  "vendor": "Brave",
+  "vendor_slug": "brave",
+  "description": "LLM Context from Brave. Returns the official Brave API response unchanged.",
+  "tags": [
+    "api",
+    "brave",
+    "web-search"
+  ],
+  "capabilities": [
+    "api",
+    "brave",
+    "web-search"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/brave/llm-context"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "q"
+    ],
+    "properties": {
+      "q": {
+        "type": "string",
+        "example": "best coffee in seattle",
+        "description": "The user’s search query term. Query can not be empty. Maximum of 600 characters and 75 words in the query."
+      },
+      "count": {
+        "type": "integer",
+        "default": 20,
+        "maximum": 50,
+        "minimum": 1,
+        "description": "The maximum number of search results considered to select the LLM context data. The default is 20 and the maximum is 50."
+      },
+      "country": {
+        "enum": [
+          "AR",
+          "AU",
+          "AT",
+          "BE",
+          "BR",
+          "CA",
+          "CL",
+          "DK",
+          "FI",
+          "FR",
+          "DE",
+          "GR",
+          "HK",
+          "IN",
+          "ID",
+          "IT",
+          "JP",
+          "KR",
+          "MY",
+          "MX",
+          "NL",
+          "NZ",
+          "NO",
+          "CN",
+          "PL",
+          "PT",
+          "PH",
+          "RU",
+          "SA",
+          "ZA",
+          "ES",
+          "SE",
+          "CH",
+          "TW",
+          "TR",
+          "GB",
+          "US",
+          "ALL"
+        ],
+        "type": "string",
+        "default": "US",
+        "description": "The search query country, where the results come from. The country string is limited to 2 character country codes of supported countries."
+      },
+      "goggles": {
+        "type": "string",
+        "description": "Goggles act as a custom re-ranking on top of Brave’s search index. The parameter supports both a url where the Goggle is hosted or the definition of the Goggle. For more details, see the Goggles documentation . The parameter can be a single Goggle or a list of up to 3 Goggles."
+      },
+      "freshness": {
+        "type": "string",
+        "default": "",
+        "description": "Filters search results by page age. The age of a page is determined by the most relevant date reported by the content, such as its published or last modified date. The following values are supported: pd - Pages aged 24 hours or less. pw - Pages aged 7 days or less. pm - Pages aged 31 days or less. p"
+      },
+      "safesearch": {
+        "enum": [
+          "off",
+          "moderate",
+          "strict"
+        ],
+        "type": "string",
+        "description": "Filters results for adult content. The following values are supported: off - No filtering is done. moderate - Drops adult content from the results used for context. strict - Drops all adult content from the results used for context. When not set, no filtering is applied — except for local recall, wh"
+      },
+      "spellcheck": {
+        "type": "boolean",
+        "default": true,
+        "description": "Whether to enable spellcheck on the query."
+      },
+      "search_lang": {
+        "enum": [
+          "ar",
+          "eu",
+          "bn",
+          "bg",
+          "ca",
+          "zh-hans",
+          "zh-hant",
+          "hr",
+          "cs",
+          "da",
+          "nl",
+          "en",
+          "en-gb",
+          "et",
+          "fi",
+          "fr",
+          "gl",
+          "de",
+          "el",
+          "gu",
+          "he",
+          "hi",
+          "hu",
+          "is",
+          "it",
+          "ja",
+          "jp",
+          "kn",
+          "ko",
+          "lv",
+          "lt",
+          "ms",
+          "ml",
+          "mr",
+          "nb",
+          "pl",
+          "pt-br",
+          "pt-pt",
+          "pa",
+          "ro",
+          "ru",
+          "sr",
+          "sk",
+          "sl",
+          "es",
+          "sv",
+          "ta",
+          "te",
+          "th",
+          "tr",
+          "uk",
+          "vi"
+        ],
+        "type": "string",
+        "default": "en",
+        "description": "The search language preference. The 2 or more character language code for which the search results are provided."
+      },
+      "enable_local": {
+        "type": "boolean",
+        "description": "Whether to enable local recall. Not setting this value means auto-detect: local recall is used if a location is provided ( X-Loc-Lat with X-Loc-Long , or X-Loc-City )."
+      },
+      "context_threshold_mode": {
+        "enum": [
+          "disabled",
+          "strict",
+          "lenient",
+          "balanced"
+        ],
+        "type": "string",
+        "description": "The mode to use to determine the threshold for including content in context."
+      },
+      "enable_source_metadata": {
+        "type": "boolean",
+        "default": false,
+        "description": "Enable source metadata enrichment (site_name, favicon, thumbnail, description, fetched_content_timestamp) in the sources attribute of the response."
+      },
+      "maximum_number_of_urls": {
+        "type": "integer",
+        "default": 20,
+        "maximum": 50,
+        "minimum": 1,
+        "description": "Maximum number of different URLs to include in LLM context."
+      },
+      "maximum_number_of_tokens": {
+        "type": "integer",
+        "default": 8192,
+        "maximum": 32768,
+        "minimum": 1024,
+        "description": "Approximate maximum number of tokens to include in context. The default is 8192 and maximum is 32768 ."
+      },
+      "maximum_number_of_snippets": {
+        "type": "integer",
+        "default": 50,
+        "maximum": 256,
+        "minimum": 1,
+        "description": "Maximum number of different snippets (or chunks of text) to include in LLM context. The default is 50 and maximum is 256 ."
+      },
+      "maximum_number_of_tokens_per_url": {
+        "type": "integer",
+        "default": 4096,
+        "maximum": 8192,
+        "minimum": 512,
+        "description": "Maximum number of tokens to include per URL. The default is 4096 and maximum is 8192 ."
+      },
+      "maximum_number_of_snippets_per_url": {
+        "type": "integer",
+        "default": 50,
+        "maximum": 100,
+        "minimum": 1,
+        "description": "Maximum number of snippets to include per URL. The default is 50 and maximum is 100 ."
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.005,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "readme": "# Brave LLM Context API\n\nLLM Context from Brave. Returns the official Brave API response unchanged.\n\nThe response is the official Brave API response, unchanged.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/brave/llm-context\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"q\": \"best coffee in seattle\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `context_threshold_mode` | string | No | The mode to use to determine the threshold for including content in context. |\n| `count` | integer | No | The maximum number of search results considered to select the LLM context data. The default is 20 and the maximum is 50. |\n| `country` | string | No | The search query country, where the results come from. The country string is limited to 2 character country codes of supported countries. |\n| `enable_local` | boolean | No | Whether to enable local recall. Not setting this value means auto-detect: local recall is used if a location is provided ( X-Loc-Lat with X-Loc-Long , or X-Loc- |\n| `enable_source_metadata` | boolean | No | Enable source metadata enrichment (site_name, favicon, thumbnail, description, fetched_content_timestamp) in the sources attribute of the response. |\n| `freshness` | string | No | Filters search results by page age. The age of a page is determined by the most relevant date reported by the content, such as its published or last modified da |\n| `goggles` | string | No | Goggles act as a custom re-ranking on top of Brave’s search index. The parameter supports both a url where the Goggle is hosted or the definition of the Goggle. |\n| `maximum_number_of_snippets` | integer | No | Maximum number of different snippets (or chunks of text) to include in LLM context. The default is 50 and maximum is 256 . |\n| `maximum_number_of_snippets_per_url` | integer | No | Maximum number of snippets to include per URL. The default is 50 and maximum is 100 . |\n| `maximum_number_of_tokens` | integer | No | Approximate maximum number of tokens to include in context. The default is 8192 and maximum is 32768 . |\n| `maximum_number_of_tokens_per_url` | integer | No | Maximum number of tokens to include per URL. The default is 4096 and maximum is 8192 . |\n| `maximum_number_of_urls` | integer | No | Maximum number of different URLs to include in LLM context. |\n| `q` | string | Yes | The user’s search query term. Query can not be empty. Maximum of 600 characters and 75 words in the query. |\n| `safesearch` | string | No | Filters results for adult content. The following values are supported: off - No filtering is done. moderate - Drops adult content from the results used for cont |\n| `search_lang` | string | No | The search language preference. The 2 or more character language code for which the search results are provided. |\n| `spellcheck` | boolean | No | Whether to enable spellcheck on the query. |\n\n## Pricing\n\nFlat price per call. Failed calls are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/brave/llm-context",
+  "published_at": "2026-10-27T00:00:00Z",
+  "created_at": "2026-10-27T00:06:22.979Z"
+}

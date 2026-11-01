@@ -1,0 +1,209 @@
+{
+  "name": "google-shopping/search",
+  "display_name": "Google Shopping Search",
+  "type": "api",
+  "vendor": "Google Shopping",
+  "vendor_slug": "google-shopping",
+  "description": "Search Google Shopping by keyword: product title, price, old price, store, rating, reviews, delivery and product ID, with price, sort and location filters.",
+  "tags": [
+    "api",
+    "google-shopping",
+    "ecommerce",
+    "product-data"
+  ],
+  "capabilities": [
+    "api",
+    "google-shopping",
+    "ecommerce",
+    "product-data"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}",
+    "passthrough": "POST /v1/api/google-shopping/search"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "q"
+    ],
+    "properties": {
+      "q": {
+        "type": [
+          "string",
+          "number",
+          "boolean"
+        ],
+        "example": "wireless earbuds",
+        "description": "The query you want to search. You can use anything that you would use in a regular Google Shopping search. This parameter is optional if using `shoprs` parameter."
+      },
+      "gl": {
+        "type": [
+          "string",
+          "number",
+          "boolean"
+        ],
+        "description": "The country to use for the Google search. It's a two-letter country code. (e.g., `us` for the United States, `uk` for United Kingdom, or `fr` for France) Head to the Google Shopping countries for a full list of supported Google Shopping countries."
+      },
+      "hl": {
+        "type": [
+          "string",
+          "number",
+          "boolean"
+        ],
+        "description": "The language to use for the Google Shopping search. It's a two or three-letter language code. (e.g., `en` for English, `es` for Spanish, or `fr` for French), optionally followed by a two-letter or three-digit region code (e.g., `en-gb` for British English, or `es-419` for Latin American Spanish)."
+      },
+      "safe": {
+        "type": [
+          "string",
+          "number",
+          "boolean"
+        ],
+        "description": "The level of filtering for adult content. It can be set to `active` or `off`, by default Google will omit explicit content."
+      },
+      "uule": {
+        "type": [
+          "string",
+          "number",
+          "boolean"
+        ],
+        "description": "The Google encoded location you want to use for the search. `uule` and `location` parameters can't be used together. For consistent results with coordinates-based `uule` parameter, a matching `gl` parameter is required. Head to UULE Generator if you need to convert a location or GPS coordinates to `uule` parameter, and vice versa."
+      },
+      "start": {
+        "type": [
+          "string",
+          "number",
+          "boolean"
+        ],
+        "description": "Intended to define the result offset for pagination. Google Shopping's current layout does not support offset pagination: the `start` parameter is ignored and every request returns the first page of results (around 40 items). The `num` parameter is still accepted and forwarded to Google, but the current layout returns a fixed page size, so it does not change the number of results returned."
+      },
+      "device": {
+        "type": [
+          "string",
+          "number",
+          "boolean"
+        ],
+        "description": "The device to use to get the results. It can be set to `desktop` (default) to use a regular browser, `tablet` to use a tablet browser (currently using iPads), or `mobile` to use a mobile browser."
+      },
+      "shoprs": {
+        "type": [
+          "string",
+          "number",
+          "boolean"
+        ],
+        "description": "The parameter defines the token that includes metadata about query and search filter(s). Providing `q` parameter alongside the `shoprs` is **not** required. To apply multiple filters join them with `||` separator, e.g. `shoprs_1||shoprs_2||shoprs_3`."
+      },
+      "on_sale": {
+        "type": [
+          "string",
+          "number",
+          "boolean"
+        ],
+        "description": "Show only products that are on sale. This parameter overrides corresponding filter embedded into `shoprs` parameter."
+      },
+      "sort_by": {
+        "anyOf": [
+          {
+            "enum": [
+              "1",
+              "2"
+            ],
+            "type": "string"
+          },
+          {
+            "enum": [
+              1,
+              2
+            ],
+            "type": "number"
+          }
+        ],
+        "description": "The sorting order of the results. Available options: `1` - Price: low to high `2` - Price: high to low This parameter overrides corresponding filter embedded into `shoprs` parameter."
+      },
+      "max_price": {
+        "type": [
+          "string",
+          "number",
+          "boolean"
+        ],
+        "description": "Upper bound of price range query. This parameter overrides corresponding filter embedded into `shoprs` parameter."
+      },
+      "min_price": {
+        "type": [
+          "string",
+          "number",
+          "boolean"
+        ],
+        "description": "Lower bound of price range query. This parameter overrides corresponding filter embedded into `shoprs` parameter."
+      },
+      "free_shipping": {
+        "type": [
+          "string",
+          "number",
+          "boolean"
+        ],
+        "description": "Show only products with free shipping. This parameter overrides corresponding filter embedded into `shoprs` parameter."
+      },
+      "google_domain": {
+        "type": [
+          "string",
+          "number",
+          "boolean"
+        ],
+        "description": "The Google domain to use. It defaults to `google.com`. Head to the Google domains for a full list of supported Google domains."
+      },
+      "small_business": {
+        "type": [
+          "string",
+          "number",
+          "boolean"
+        ],
+        "description": "Show only products from small business. This parameter overrides corresponding filter embedded into `shoprs` parameter."
+      },
+      "json_restrictor": {
+        "type": [
+          "string",
+          "number",
+          "boolean"
+        ],
+        "description": "The fields you want to include in the output, reducing payload size for faster response. See the JSON Restrictor documentation for more details."
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "required": [
+      "id",
+      "status",
+      "model"
+    ],
+    "properties": {
+      "id": {
+        "type": "string"
+      },
+      "model": {
+        "type": "string"
+      },
+      "status": {
+        "type": "string"
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.015,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "readme": "# Google Shopping Search\n\nSearch Google Shopping by keyword: product title, price, old price, store, rating, reviews, delivery and product ID, with price, sort and location filters.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/google-shopping/search\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"q\": \"wireless earbuds\"}'\n```\n\nThis API runs asynchronously. The call returns a task `id` with status `pending`; poll `GET https://api.sandbase.ai/v1/run/{id}` until `status` is `completed` and read the result from `outputs[0].data`.\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `q` | string/number/boolean | Yes | The query you want to search. You can use anything that you would use in a regular Google Shopping search. This parameter is optional if using `shoprs` parameter. |\n| `device` | string/number/boolean | No | The device to use to get the results. It can be set to `desktop` (default) to use a regular browser, `tablet` to use a tablet browser (currently using iPads), or `mobile` to use a mobile browser. |\n| `free_shipping` | string/number/boolean | No | Show only products with free shipping. This parameter overrides corresponding filter embedded into `shoprs` parameter. |\n| `gl` | string/number/boolean | No | The country to use for the Google search. It's a two-letter country code. (e.g., `us` for the United States, `uk` for United Kingdom, or `fr` for France) Head to the Google Shopping countries for a fu… |\n| `google_domain` | string/number/boolean | No | The Google domain to use. It defaults to `google.com`. Head to the Google domains for a full list of supported Google domains. |\n| `hl` | string/number/boolean | No | The language to use for the Google Shopping search. It's a two or three-letter language code. (e.g., `en` for English, `es` for Spanish, or `fr` for French), optionally followed by a two-letter or thr… |\n| `json_restrictor` | string/number/boolean | No | The fields you want to include in the output, reducing payload size for faster response. See the JSON Restrictor documentation for more details. |\n| `max_price` | string/number/boolean | No | Upper bound of price range query. This parameter overrides corresponding filter embedded into `shoprs` parameter. |\n| `min_price` | string/number/boolean | No | Lower bound of price range query. This parameter overrides corresponding filter embedded into `shoprs` parameter. |\n| `on_sale` | string/number/boolean | No | Show only products that are on sale. This parameter overrides corresponding filter embedded into `shoprs` parameter. |\n| `safe` | string/number/boolean | No | The level of filtering for adult content. It can be set to `active` or `off`, by default Google will omit explicit content. |\n| `shoprs` | string/number/boolean | No | The parameter defines the token that includes metadata about query and search filter(s). Providing `q` parameter alongside the `shoprs` is **not** required. To apply multiple filters join them with `\\… |\n| `small_business` | string/number/boolean | No | Show only products from small business. This parameter overrides corresponding filter embedded into `shoprs` parameter. |\n| `sort_by` | any | No | The sorting order of the results. Available options: `1` - Price: low to high `2` - Price: high to low This parameter overrides corresponding filter embedded into `shoprs` parameter. |\n| `start` | string/number/boolean | No | Intended to define the result offset for pagination. Google Shopping's current layout does not support offset pagination: the `start` parameter is ignored and every request returns the first page of r… |\n| `uule` | string/number/boolean | No | The Google encoded location you want to use for the search. `uule` and `location` parameters can't be used together. For consistent results with coordinates-based `uule` parameter, a matching `gl` par… |\n\n## Pricing\n\nFlat price per call. Failed calls are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/google-shopping/search",
+  "created_at": "2026-10-28T23:58:06.381Z"
+}

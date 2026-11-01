@@ -1,0 +1,104 @@
+# TikTok Post Details (V2)
+
+`tiktok/web/post-detail-v2` · api · TikTok
+
+Returns detailed data for a specific TikTok video by ID. Supports filtering content by region code such as US, GB, JP, or ID.
+
+## Pricing
+
+- **$0.0015 per call** (USD)
+- Free quota: 100 calls/day per organization (shared across free-quota APIs).
+
+## Call it
+
+Modes: sync (default `sync`). Only pass `mode` values listed here. The SDKs' `run()` waits for async results; `submit()` + `wait()` split the two steps.
+
+**curl**
+
+```bash
+curl https://api.sandbase.ai/v1/run \
+  -H "Authorization: Bearer $SANDBASE_API_KEY" -H 'Content-Type: application/json' \
+  -d '{"model": "tiktok/web/post-detail-v2", "itemId": "7650908353513737479"}'
+```
+
+**Python** ([sdk/python](../../../../sdk/python))
+
+```python
+from sandbase import SandBase
+
+result = SandBase().run('tiktok/web/post-detail-v2', {'itemId': '7650908353513737479'})
+print(result["outputs"])
+```
+
+**TypeScript** ([sdk/typescript](../../../../sdk/typescript))
+
+```ts
+import { SandBase } from "@sandbaseai/sdk";
+
+const result = await new SandBase().run("tiktok/web/post-detail-v2", {
+  "itemId": "7650908353513737479"
+});
+console.log(result.outputs);
+```
+
+**Go** ([sdk/go](../../../../sdk/go))
+
+```go
+c, _ := sandbase.NewClient("")
+run, err := c.Run(ctx, "tiktok/web/post-detail-v2", sandbase.Params{
+	"itemId": "7650908353513737479",
+})
+```
+
+Same call via the path form: `POST /v1/api/tiktok/web/post-detail-v2` with the body above minus `model`.
+
+## Parameters
+
+| name | type | required | description |
+|---|---|---|---|
+| `itemId` | string | yes | Video id  |
+| `region` | string |  | Region code, optional; affects content region, e.g. US/GB/JP/ID, default US. default `"US"` |
+
+## Details
+
+Retrieve information for an individual TikTok post using its `itemId`. You can optionally supply `region` to adjust regional content targeting.
+
+### Use cases
+
+- Retrieve video metadata and metrics for a specific post ID.
+- Inspect TikTok content performance across different target regions.
+- Track individual post details for reporting and analysis.
+
+### Request
+
+```bash
+curl -X POST "https://api.sandbase.ai/v1/api/tiktok/web/post-detail-v2" \
+  -H "Authorization: Bearer $SANDBASE_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{"itemId": "7650908353513737479"}'
+```
+
+### Parameters
+
+| Name | Type | Required | Description |
+|---|---|---|---|
+| `itemId` | string | Yes | Video id |
+| `region` | string | No | Region code, optional; affects content region, e.g. |
+
+### Notes
+
+- `itemId` is required to identify the post.
+- `region` defaults to US if not specified, with examples including GB, JP, and ID.
+
+### Pricing
+
+Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+
+### Related APIs
+
+- [TikTok Video IDs from URLs (Batch)](/model/tiktok/web/all-aweme-id): Resolves and extracts TikTok video IDs from a list of video URLs.
+- [TikTok User Sec User ID Extractor](/model/tiktok/web/all-sec-user-id): Returns a list of sec_user_id identifiers corresponding to TikTok user profile URLs.
+- [TikTok Profile Unique IDs](/model/tiktok/web/all-unique-id): Resolves a batch of TikTok user homepage links to retrieve their corresponding unique identifiers.
+
+---
+Machine-readable: [`catalog/models/tiktok/web/post-detail-v2.json`](../../../../catalog/models/tiktok/web/post-detail-v2.json) · Store page: https://www.sandbase.ai/model/tiktok/web/post-detail-v2

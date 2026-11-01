@@ -1,0 +1,51 @@
+{
+  "name": "linkedin/user-detail",
+  "display_name": "LinkedIn User Profile",
+  "type": "api",
+  "vendor": "LinkedIn",
+  "vendor_slug": "linkedin",
+  "description": "Get a LinkedIn profile by username, including documented core profile fields such as name and headline. Use it to inspect a person's professional background or before requesting published posts.",
+  "tags": [
+    "api",
+    "linkedin",
+    "social-media"
+  ],
+  "capabilities": [
+    "api",
+    "linkedin",
+    "social-media"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/linkedin/user-detail"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "username"
+    ],
+    "properties": {
+      "username": {
+        "type": "string",
+        "example": "williamhgates",
+        "description": "LinkedIn username from the profile URL, for example jack from linkedin.com/in/jack."
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.027778
+  },
+  "readme": "# LinkedIn User Profile API\n\nGet a LinkedIn profile by username, including documented core profile fields such as name and headline. Use it to inspect a person's professional background or before requesting published posts.\n\nThe response is the platform's original data structure.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/linkedin/user-detail\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"username\": \"williamhgates\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `username` | string | Yes | LinkedIn username from the profile URL, for example jack from linkedin.com/in/jack. |\n\n## Pricing\n\nFlat price per call. Failed calls and empty results are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/linkedin/user-detail",
+  "created_at": "2026-10-29T12:36:24.745Z"
+}

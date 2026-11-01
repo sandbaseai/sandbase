@@ -1,0 +1,64 @@
+{
+  "name": "douyin/web/user-like-videos",
+  "display_name": "Douyin User Liked Videos (Web)",
+  "type": "api",
+  "vendor": "Douyin",
+  "vendor_slug": "douyin",
+  "description": "Returns videos liked by a specific Douyin web user. Filter results using the user security ID with pagination support via cursor and page size.",
+  "tags": [
+    "api",
+    "douyin"
+  ],
+  "capabilities": [
+    "api",
+    "douyin"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/douyin/web/user-like-videos"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "sec_user_id"
+    ],
+    "properties": {
+      "counts": {
+        "type": "integer",
+        "title": "Counts",
+        "description": "Number per page"
+      },
+      "max_cursor": {
+        "type": "integer",
+        "title": "Max Cursor",
+        "description": "Maximum cursor"
+      },
+      "sec_user_id": {
+        "type": "string",
+        "title": "Sec User Id",
+        "description": "User sec_user_id"
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.0015,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "readme": "# Douyin User Liked Videos (Web) API\n\nRetrieve a Douyin user's liked video list by providing `sec_user_id`. Supports cursor-based pagination with `max_cursor` and page size controls via `counts`.\n\n## Use cases\n\n- Inspect public video favorites for a specific Douyin account.\n- Analyze user content preferences based on liked videos.\n- Paginate through liked video feeds for user profile insights.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/douyin/web/user-like-videos\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"sec_user_id\": \"<sec_user_id>\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `sec_user_id` | string | Yes | User sec_user_id |\n| `counts` | integer | No | Number per page |\n| `max_cursor` | integer | No | Maximum cursor |\n\n## Notes\n\n- Requires `sec_user_id` to identify the user.\n- Supports pagination using `max_cursor` and `counts`.\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [Douyin Batch Video ID Extraction](/model/douyin/web/all-aweme-id): Extracts video IDs from a list of Douyin video URLs.\n- [Douyin sec_user_ids from URLs (Batch)](/model/douyin/web/all-sec-user-id): Extracts Douyin sec_user_id values in bulk from a list of user homepage URLs.\n- [Douyin Webcast ID Extraction](/model/douyin/web/all-webcast-id): Extracts webcast IDs from a submitted list of Douyin live room links.\n",
+  "page_url": "https://www.sandbase.ai/model/douyin/web/user-like-videos",
+  "created_at": "2026-07-31T02:40:35.82Z"
+}

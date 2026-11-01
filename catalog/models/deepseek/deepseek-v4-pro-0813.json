@@ -1,0 +1,47 @@
+{
+  "name": "deepseek/deepseek-v4-pro-0813",
+  "display_name": "DeepSeek: DeepSeek V4 Pro 0813",
+  "type": "llm",
+  "vendor": "DeepSeek",
+  "vendor_slug": "deepseek",
+  "description": "DeepSeek V4 Pro 0813 is the pinned GA release of DeepSeek V4 Pro from August 2026, for workloads that need a fixed version. It keeps V4 Pro's 1.6T-parameter mixture-of-experts design and 1M-token context, with thinking and non-thinking modes, tool calls and JSON output, and DeepSeek reports much stronger agent performance than the April preview, especially in production. DeepSeek has said it will keep serving V4 Pro alongside V4.1 Flash.",
+  "tags": [
+    "chat",
+    "reasoning",
+    "structured_output",
+    "function_calling"
+  ],
+  "capabilities": [
+    "chat",
+    "reasoning",
+    "structured_output",
+    "function_calling"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "chat_completions": "POST /v1/chat/completions",
+    "responses": "POST /v1/responses",
+    "messages": "POST /v1/messages"
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_token",
+    "per_million_tokens": {
+      "input": 1.32,
+      "output": 3.96,
+      "cache_read_multiplier": 0.0333
+    },
+    "formula": "usage.prompt_tokens * 1.32 / 1000000 + usage.completion_tokens * 3.96 / 1000000 + usage.cached_tokens * 0.000044 / 1000000",
+    "formula_variables": [
+      "usage.cached_tokens",
+      "usage.completion_tokens",
+      "usage.prompt_tokens"
+    ]
+  },
+  "page_url": "https://www.sandbase.ai/model/deepseek/deepseek-v4-pro-0813",
+  "published_at": "2026-08-12T15:42:44Z",
+  "created_at": "2026-10-02T07:13:20.647Z"
+}

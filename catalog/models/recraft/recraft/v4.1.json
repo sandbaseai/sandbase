@@ -1,0 +1,175 @@
+{
+  "name": "recraft/recraft/v4.1",
+  "display_name": "Recraft V4.1",
+  "type": "image",
+  "vendor": "Recraft",
+  "vendor_slug": "recraft",
+  "description": "Recraft V4.1 by Recraft - generate stunning images from text prompts with state-of-the-art AI. Supports multiple aspect ratios, styles, and high-resolution output for creative and commercial use.",
+  "tags": [
+    "text-to-image"
+  ],
+  "capabilities": [
+    "text-to-image"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "prompt"
+    ],
+    "properties": {
+      "colors": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "b": {
+              "type": "integer",
+              "title": "B",
+              "default": 0,
+              "maximum": 255,
+              "minimum": 0,
+              "description": "Blue color value"
+            },
+            "g": {
+              "type": "integer",
+              "title": "G",
+              "default": 0,
+              "maximum": 255,
+              "minimum": 0,
+              "description": "Green color value"
+            },
+            "r": {
+              "type": "integer",
+              "title": "R",
+              "default": 0,
+              "maximum": 255,
+              "minimum": 0,
+              "description": "Red color value"
+            }
+          }
+        },
+        "title": "Colors",
+        "default": [],
+        "description": "An array of preferable colors"
+      },
+      "prompt": {
+        "type": "string",
+        "title": "Prompt",
+        "examples": [
+          "Tilt-shift miniature effect on a real Portuguese fishing village at golden hour, colorful boats in the harbor appearing toy-like, selective focus band across the middle, saturated primary colors of blue red and yellow boats against white buildings, 90mm tilt-shift lens, the familiar made fantastical, Wes Anderson color sensibility"
+        ],
+        "maxLength": 10000,
+        "minLength": 1
+      },
+      "aspect_ratio": {
+        "enum": [
+          "21:9",
+          "16:9",
+          "3:2",
+          "4:3",
+          "5:4",
+          "1:1",
+          "4:5",
+          "3:4",
+          "2:3",
+          "9:16"
+        ],
+        "type": "string",
+        "title": "Aspect Ratio",
+        "description": "The aspect ratio of the generated image."
+      },
+      "background_color": {
+        "type": "string",
+        "description": "The preferable background color of the generated images."
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "title": "GenerationResponse",
+    "required": [
+      "id",
+      "status"
+    ],
+    "properties": {
+      "id": {
+        "type": "string",
+        "description": "Unique identifier for the generation task."
+      },
+      "error": {
+        "type": "string",
+        "description": "Error message if the task failed. Empty on success."
+      },
+      "model": {
+        "type": "string",
+        "description": "Model ID used for the prediction."
+      },
+      "status": {
+        "enum": [
+          "pending",
+          "running",
+          "completed",
+          "failed",
+          "timeout"
+        ],
+        "type": "string",
+        "description": "Status of the task: pending, running, completed, failed, or timeout."
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "title": "OutputItem",
+          "required": [
+            "url"
+          ],
+          "properties": {
+            "url": {
+              "type": "string",
+              "examples": [
+                "https://static.sandbase.ai/examples/recraft/recraft/v4.1/output_url_0.webp"
+              ],
+              "description": "The URL where the generated content can be downloaded from."
+            },
+            "content_type": {
+              "type": "string",
+              "description": "The MIME type of the output file."
+            }
+          }
+        },
+        "description": "Array of generated content. Empty when status is not completed."
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.035
+  },
+  "examples": [
+    {
+      "input": {
+        "prompt": "Tilt-shift miniature effect on a real Portuguese fishing village at golden hour, colorful boats in the harbor appearing toy-like, selective focus band across the middle, saturated primary colors of blue red and yellow boats against white buildings, 90mm tilt-shift lens, the familiar made fantastical, Wes Anderson color sensibility"
+      },
+      "output": [
+        {
+          "url": "https://static.sandbase.ai/examples/b94c64ef-7e67-4976-b740-14e778d5f5ba/output/e15e6b83-7012-4a3a-982c-ce031126e5d4.webp"
+        }
+      ],
+      "default": true
+    }
+  ],
+  "readme": "# Recraft V4.1\n\nRecraft V4.1 generates design-ready images with precise color control via `colors` and `background_color`.\n\n## Fields\n\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `prompt` | string, required | — | Up to 10,000 characters. |\n| `aspect_ratio` | `21:9` / `16:9` / `3:2` / `4:3` / `5:4` / `1:1` / `4:5` / `3:4` / `2:3` / `9:16` | — | Output shape. |\n| `background_color` | string | — | Background color. |\n| `colors` | object[] | `[]` | Preferred palette as RGB values. |\n\n## Billing\n\n$0.035 per image.\n\n| Request | Price |\n|---|---|\n| One image | $0.035 |\n\nFailed runs are not charged.\n\n## Prompting\n\n- Name the style: flat illustration, product shot, icon.\n\n## Also on SandBase\n\nRelated: `recraft/recraft/v4.1/utility`.\n",
+  "cover_url": "https://static.sandbase.ai/covers/recraft/recraft/v4.1/cover-flare-20261005033103.webp",
+  "page_url": "https://www.sandbase.ai/model/recraft/recraft/v4.1",
+  "published_at": "2026-05-14T15:54:28.708Z",
+  "created_at": "2026-05-15T10:30:49.709Z"
+}

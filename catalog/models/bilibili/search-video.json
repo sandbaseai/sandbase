@@ -1,0 +1,72 @@
+{
+  "name": "bilibili/search-video",
+  "display_name": "Bilibili Video Search",
+  "type": "api",
+  "vendor": "Bilibili",
+  "vendor_slug": "bilibili",
+  "description": "Search Bilibili videos by keyword with page-based pagination and sorting by general ranking, play count, publish time, danmaku count, or favorites.",
+  "tags": [
+    "api",
+    "bilibili",
+    "social-media"
+  ],
+  "capabilities": [
+    "api",
+    "bilibili",
+    "social-media"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/bilibili/search-video"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "keyword"
+    ],
+    "properties": {
+      "page": {
+        "type": "string",
+        "description": "Page number for pagination."
+      },
+      "order": {
+        "enum": [
+          "general",
+          "click",
+          "pubdate",
+          "dm",
+          "stow"
+        ],
+        "type": "string",
+        "default": "general",
+        "description": "Sorting criteria for search results."
+      },
+      "keyword": {
+        "type": "string",
+        "example": "原神",
+        "description": "Search keyword."
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.013889,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "readme": "# Bilibili Video Search API\n\nSearch Bilibili videos by keyword with page-based pagination and sorting by general ranking, play count, publish time, danmaku count, or favorites.\n\nThe response is the platform's original data structure.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/bilibili/search-video\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"keyword\": \"原神\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `keyword` | string | Yes | Search keyword. |\n| `page` | string | No | Page number for pagination. |\n| `order` | string | No | Sorting criteria for search results. |\n\n## Pricing\n\nFlat price per call. Failed calls and empty results are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/bilibili/search-video",
+  "created_at": "2026-10-29T11:54:07.738Z"
+}

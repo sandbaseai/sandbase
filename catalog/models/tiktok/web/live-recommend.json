@@ -1,0 +1,62 @@
+{
+  "name": "tiktok/web/live-recommend",
+  "display_name": "TikTok Livestream Homepage Recommendations",
+  "type": "api",
+  "vendor": "TikTok",
+  "vendor_slug": "tiktok",
+  "description": "Returns recommended livestreams from the TikTok homepage for a specified category tag. Requires selecting a category tag to retrieve relevant active broadcast recommendations.",
+  "tags": [
+    "api",
+    "tiktok"
+  ],
+  "capabilities": [
+    "api",
+    "tiktok"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/tiktok/web/live-recommend"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "related_live_tag"
+    ],
+    "properties": {
+      "related_live_tag": {
+        "type": "string",
+        "title": "Related Live Tag",
+        "description": "Related live tag (live category). The available values are not fixed; call `/fetch_live_recommend_tabs` first to get the currently available tag list, then pick one to pass in."
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.0015,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "examples": [
+    {
+      "input": {
+        "related_live_tag": "test"
+      },
+      "default": true
+    }
+  ],
+  "readme": "# TikTok Livestream Homepage Recommendations API\n\nRetrieve a list of recommended livestreams from the TikTok homepage based on `related_live_tag`.\n\n## Use cases\n\n- Browse recommended livestreams under a specific category tag.\n- Display curated TikTok broadcasts on an external dashboard.\n- Monitor active broadcast recommendations across diverse categories.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/tiktok/web/live-recommend\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"related_live_tag\": \"<related_live_tag>\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `related_live_tag` | string | Yes | Related live tag (live category). |\n\n## Notes\n\n- Call `/fetch_live_recommend_tabs` first to retrieve currently available values for `related_live_tag`.\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [TikTok Video IDs from URLs (Batch)](/model/tiktok/web/all-aweme-id): Resolves and extracts TikTok video IDs from a list of video URLs.\n- [TikTok User Sec User ID Extractor](/model/tiktok/web/all-sec-user-id): Returns a list of sec_user_id identifiers corresponding to TikTok user profile URLs.\n- [TikTok Profile Unique IDs](/model/tiktok/web/all-unique-id): Resolves a batch of TikTok user homepage links to retrieve their corresponding unique identifiers.\n",
+  "page_url": "https://www.sandbase.ai/model/tiktok/web/live-recommend",
+  "created_at": "2026-07-31T04:17:17.469Z"
+}

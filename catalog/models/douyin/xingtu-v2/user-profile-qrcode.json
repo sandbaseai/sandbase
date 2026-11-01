@@ -1,0 +1,70 @@
+{
+  "name": "douyin/xingtu-v2/user-profile-qrcode",
+  "display_name": "Douyin Xingtu User Profile QR Code",
+  "type": "api",
+  "vendor": "Douyin",
+  "vendor_slug": "douyin",
+  "description": "Returns a QR code for a Douyin Xingtu creator profile. Look up the profile QR code by providing either a user core ID or sec_uid.",
+  "tags": [
+    "api",
+    "douyin"
+  ],
+  "capabilities": [
+    "api",
+    "douyin"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/douyin/xingtu-v2/user-profile-qrcode"
+  },
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "sec_uid": {
+        "anyOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "title": "Sec Uid",
+        "description": "User sec_uid (pick one with core_user_id)"
+      },
+      "core_user_id": {
+        "anyOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "title": "Core User Id",
+        "description": "User core ID (pick one with sec_uid)"
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.003,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "readme": "# Douyin Xingtu User Profile QR Code API\n\nRetrieve a profile QR code for a Douyin Xingtu creator using either `core_user_id` or `sec_uid`. This allows direct linking to creator profiles.\n\n## Use cases\n\n- Display creator profile QR codes in marketing dashboards.\n- Facilitate direct mobile navigation to Douyin creator profiles.\n- Share Xingtu profile links via scannable QR codes.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/douyin/xingtu-v2/user-profile-qrcode\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `sec_uid` | string | No | User sec_uid (pick one with core_user_id) |\n| `core_user_id` | string | No | User core ID (pick one with sec_uid) |\n\n## Notes\n\n- Requires either `core_user_id` or `sec_uid` as an identifier.\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [Douyin Xingtu Author Audience Distribution](/model/douyin/xingtu-v2/author-audience-distribution): Returns audience profile distribution metrics for a specified Xingtu creator based on creator ID and link type, with selectable platform source and channel opt…\n- [Douyin Xingtu Author Base Info](/model/douyin/xingtu-v2/author-base-info): Returns basic creator profile data from Douyin Xingtu by author identifier, with options to include recommendation details and linkage information.\n- [Douyin Xingtu Author Business Card Info](/model/douyin/xingtu-v2/author-business-card-info): Returns business card details for a Douyin Xingtu creator based on the specified author ID.\n",
+  "page_url": "https://www.sandbase.ai/model/douyin/xingtu-v2/user-profile-qrcode",
+  "created_at": "2026-07-31T02:43:05.666Z"
+}

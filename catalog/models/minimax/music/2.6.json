@@ -1,0 +1,179 @@
+{
+  "name": "minimax/music/2.6",
+  "display_name": "MiniMax Music 2.6",
+  "type": "audio",
+  "vendor": "MiniMax",
+  "vendor_slug": "minimax",
+  "description": "MiniMax Music 2.6 by MiniMax composes a full song with vocals and accompaniment from a style prompt and lyrics, or an instrumental track without lyrics.",
+  "tags": [
+    "text-to-music"
+  ],
+  "capabilities": [
+    "text-to-music"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "prompt"
+    ],
+    "properties": {
+      "format": {
+        "enum": [
+          "mp3",
+          "wav",
+          "pcm"
+        ],
+        "type": "string",
+        "title": "Format",
+        "description": "Format of generated audio."
+      },
+      "lyrics": {
+        "type": "string",
+        "title": "Lyrics",
+        "default": "[verse]\nStreetlights flicker, the night breeze sighs\nShadows stretch as I walk alone\nAn old coat wraps my silent sorrow\nWandering, longing, where should I go\n[chorus]\nPushing the wooden door, the aroma spreads\nIn a familiar corner, a stranger gazes",
+        "maxLength": 3500,
+        "description": "Lyrics of the song. Use \\n to separate lines. Supports structure tags: [Intro], [Verse], [Pre Chorus], [Chorus], [Bridge], [Outro], [Interlude], [Hook], [Break], [Solo], [Inst]."
+      },
+      "prompt": {
+        "type": "string",
+        "title": "Prompt",
+        "default": "Indie folk, melancholic, introspective, longing, solitary walk, coffee shop",
+        "maxLength": 2000,
+        "minLength": 1,
+        "description": "A description of the music style, mood, genre, and scenario."
+      },
+      "bitrate": {
+        "enum": [
+          32000,
+          64000,
+          128000,
+          256000
+        ],
+        "type": "integer",
+        "title": "Bitrate",
+        "description": "Bitrate of generated audio."
+      },
+      "sample_rate": {
+        "enum": [
+          16000,
+          24000,
+          32000,
+          44100
+        ],
+        "type": "integer",
+        "title": "Sample Rate",
+        "description": "Sample rate of generated audio."
+      },
+      "is_instrumental": {
+        "type": "boolean",
+        "title": "Instrumental",
+        "default": false,
+        "description": "When true, generates vocal-free instrumental music."
+      },
+      "lyrics_optimizer": {
+        "type": "boolean",
+        "title": "Lyrics Optimizer",
+        "default": false,
+        "description": "When true and lyrics is empty, auto-generates lyrics from the prompt."
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "title": "GenerationResponse",
+    "required": [
+      "id",
+      "status"
+    ],
+    "properties": {
+      "id": {
+        "type": "string",
+        "description": "Unique identifier for the generation task."
+      },
+      "error": {
+        "type": "string",
+        "description": "Error message if the task failed. Empty on success."
+      },
+      "model": {
+        "type": "string",
+        "description": "Model ID used for the prediction."
+      },
+      "status": {
+        "enum": [
+          "pending",
+          "running",
+          "completed",
+          "failed",
+          "timeout"
+        ],
+        "type": "string",
+        "description": "Status of the task: pending, running, completed, failed, or timeout."
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "title": "OutputItem",
+          "required": [
+            "url"
+          ],
+          "properties": {
+            "url": {
+              "type": "string",
+              "description": "The URL where the generated content can be downloaded from."
+            },
+            "duration_ms": {
+              "type": "integer",
+              "description": "Duration of the generated audio in milliseconds."
+            },
+            "content_type": {
+              "type": "string",
+              "description": "The MIME type of the output file."
+            }
+          }
+        },
+        "description": "Array of generated content. Empty when status is not completed."
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "formula",
+    "formula": "0.15",
+    "formula_variables": [],
+    "reference_price": 0.15,
+    "price_examples": [
+      {
+        "params": {},
+        "usd": 0.15
+      }
+    ]
+  },
+  "examples": [
+    {
+      "input": {
+        "lyrics": "[verse]\nMorning light on the water\n[chorus]\nWe keep on running",
+        "prompt": "Upbeat indie pop, bright guitars, female vocal"
+      },
+      "output": [
+        {
+          "url": "https://static.sandbase.ai/examples/e3fa4b3e-299d-459b-91a0-107c492fe12c/output/df4f6d86-08ed-4895-b97a-3ef8ae9a0f8a.mp3"
+        }
+      ],
+      "default": true
+    }
+  ],
+  "readme": "# MiniMax Music 2.6\n\nMiniMax Music 2.6 generates a song with vocals from a style prompt and lyrics, or an instrumental track.\n\n## Fields\n\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `prompt` | string, required | — | Style: genre, mood, instruments. |\n| `lyrics` | string | `[verse]\nStreetlights flicker, the night breeze sighs\nShadows stretch as I walk alone\nAn old coat wraps my silent sorrow\nWandering, longing, where should I go\n[chorus]\nPushing the wooden door, the aroma spreads\nIn a familiar corner, a stranger gazes` | Lyrics with `[verse]` / `[chorus]` markers. |\n| `is_instrumental` | boolean | false | Generate without vocals. |\n| `lyrics_optimizer` | boolean | false | Let MiniMax polish the lyrics. |\n| `sample_rate` | 16000 / 24000 / 32000 / 44100 | — | Sample rate of generated audio. |\n| `bitrate` | 32000 / 64000 / 128000 / 256000 | — | Bitrate of generated audio. |\n| `format` | `mp3` / `wav` / `pcm` | — | Format of generated audio. |\n\n## Billing\n\n$0.15 per song.\n\n| Request | Price |\n|---|---|\n| One song | $0.15 |\n\nFailed runs are not charged.\n\n## Prompting\n\n- Put style in `prompt` and words in `lyrics`.\n\n## Also on SandBase\n\nRelated: `minimax/music/3` (newer, up to 5 minutes).\n",
+  "cover_url": "https://static.sandbase.ai/covers/minimax/music/2.6/cover-flare-20261008043932.webp",
+  "page_url": "https://www.sandbase.ai/model/minimax/music/2.6",
+  "published_at": "2026-04-11T06:21:38.902Z",
+  "created_at": "2026-04-30T05:06:54.229Z"
+}

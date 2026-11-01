@@ -1,0 +1,160 @@
+{
+  "name": "kwaivgi/kling-video/v3/pro/motion-control",
+  "display_name": "Kling V3 Pro Motion Control",
+  "type": "video",
+  "vendor": "KwaiVGI",
+  "vendor_slug": "kwaivgi",
+  "description": "Kling V3 Pro Motion Control by Kuaishou transfers the motion, expressions, and camera movement of a reference video onto the character in an image, producing a 1080p video up to 30 seconds.",
+  "tags": [
+    "video-to-video"
+  ],
+  "capabilities": [
+    "video-to-video"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "image",
+      "video"
+    ],
+    "properties": {
+      "image": {
+        "type": "string",
+        "title": "Image Url",
+        "examples": [
+          "https://static.sandbase.ai/examples/mirrored/f77b827ca02a-TNErq9yD7ZxGRATjfAqnh_EIgJSN67.png"
+        ],
+        "description": "Reference image URL. The characters, backgrounds, and other elements in the generated video are based on this reference image. Characters should have clear body proportions, avoid occlusion, and occupy more than 5% of the image area."
+      },
+      "video": {
+        "type": "string",
+        "title": "Video Url",
+        "examples": [
+          "https://static.sandbase.ai/examples/mirrored/f1ecbb471a16-hklvF__w53diz6Rve7f5__JuDW2xl0mr6sJ_Kjz3Vxe_vidoeook--1-_1.mp4"
+        ],
+        "description": "Reference video URL. The character actions in the generated video will be consistent with this reference video. Should contain a realistic style character with entire body or upper body visible, including head, without obstruction. Duration limit depends on character_orientation: 10s max for 'image', 30s max for 'video'."
+      },
+      "prompt": {
+        "type": "string",
+        "title": "Prompt",
+        "examples": [
+          "A man dancing"
+        ],
+        "maxLength": 2500
+      },
+      "keep_original_sound": {
+        "type": "boolean",
+        "title": "Keep Original Sound",
+        "default": true,
+        "description": "Whether to keep the original sound from the reference video."
+      },
+      "character_orientation": {
+        "enum": [
+          "image",
+          "video"
+        ],
+        "type": "string",
+        "title": "Character Orientation",
+        "examples": [
+          "image"
+        ],
+        "description": "Controls whether the output character's orientation matches the reference image or video. 'video': orientation matches reference video - better for complex motions (max 30s). 'image': orientation matches reference image - better for following camera movements (max 10s)."
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "title": "GenerationResponse",
+    "required": [
+      "id",
+      "status"
+    ],
+    "properties": {
+      "id": {
+        "type": "string",
+        "description": "Unique identifier for the generation task."
+      },
+      "error": {
+        "type": "string",
+        "description": "Error message if the task failed. Empty on success."
+      },
+      "model": {
+        "type": "string",
+        "description": "Model ID used for the prediction."
+      },
+      "status": {
+        "enum": [
+          "pending",
+          "running",
+          "completed",
+          "failed",
+          "timeout"
+        ],
+        "type": "string",
+        "description": "Status of the task: pending, running, completed, failed, or timeout."
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "title": "OutputItem",
+          "required": [
+            "url"
+          ],
+          "properties": {
+            "url": {
+              "type": "string",
+              "examples": [
+                "https://static.sandbase.ai/examples/mirrored/6d563ad8a522-CnmmxIvK05VAq4gG8WiEQ_output.mp4"
+              ],
+              "description": "The URL where the generated content can be downloaded from."
+            },
+            "content_type": {
+              "type": "string",
+              "description": "The MIME type of the output file."
+            }
+          }
+        },
+        "description": "Array of generated content. Empty when status is not completed."
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "formula",
+    "formula": "(media_duration(params.video) ?? 30.0) * 0.168",
+    "formula_variables": [
+      "params.video"
+    ],
+    "reference_price": 0.84
+  },
+  "examples": [
+    {
+      "input": {
+        "image": "https://static.sandbase.ai/examples/f4ec7ca7-2a25-45da-87b5-933bf873408d/input/f5829b4e-e394-4909-8679-a532278d5c65.png",
+        "prompt": "A man dancing",
+        "video": "https://static.sandbase.ai/examples/f4ec7ca7-2a25-45da-87b5-933bf873408d/input/b42cae4e-5993-42db-becf-2f574b3b0196.mp4"
+      },
+      "output": [
+        {
+          "poster": "https://static.sandbase.ai/examples/posters/8309bfa3d46d33afe7e1.jpg",
+          "url": "https://static.sandbase.ai/examples/f4ec7ca7-2a25-45da-87b5-933bf873408d/output/b9168636-b583-4e3e-8073-ef344f183289.mp4"
+        }
+      ],
+      "default": true
+    }
+  ],
+  "readme": "# Kling V3 Pro Motion Control\n\nKling V3 Pro motion control: make the character in `image` perform the moves of a reference `video`, with body, hands, and expression following the source.\n\n## Fields\n\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `prompt` | string | — | Optional scene and style direction. |\n| `image` | image URL, required | — | Character to animate. JPEG, PNG, or WebP URL. |\n| `video` | video URL, required | — | Reference video that supplies the motion. |\n| `keep_original_sound` | boolean | true | Keep the reference video's audio track. |\n| `character_orientation` | `image` / `video` | — | `video` follows the reference video's orientation (better for complex moves, up to 30s); `image` follows the image (better for camera moves, up to 10s). |\n\n## Billing\n\nYou pay $0.168 per second of the reference video. The quote before submission assumes 30 seconds; the final charge uses the measured length.\n\n| Reference video | Price |\n|---|---|\n| 5s reference | $0.84 |\n| 10s reference | $1.68 |\n| 30s reference | $5.04 |\n\nFailed runs are not charged.\n\n## Prompting\n\n- Use a character image whose framing matches the person in the video.\n- Pick `character_orientation` by what matters more: complex moves (`video`) or camera moves (`image`).\n\n## Limits\n\n- Up to 30 seconds with `character_orientation: video`, 10 seconds with `image`.\n\n## Also on SandBase\n\nOther Kling V3 Pro endpoints and tiers: `kwaivgi/kling-video/v3/pro/text-to-video`, `kwaivgi/kling-video/v3/pro/image-to-video`, `kwaivgi/kling-video/v3/standard/motion-control`.\n",
+  "cover_url": "https://static.sandbase.ai/covers/kwaivgi/kling-video/v3/pro/motion-control/cover-flare-20261004213503.webp",
+  "page_url": "https://www.sandbase.ai/model/kwaivgi/kling-video/v3/pro/motion-control",
+  "published_at": "2026-03-05T10:04:10.677Z",
+  "created_at": "2026-05-14T10:26:32.288Z"
+}

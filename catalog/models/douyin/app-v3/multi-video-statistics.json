@@ -1,0 +1,57 @@
+{
+  "name": "douyin/app-v3/multi-video-statistics",
+  "display_name": "Douyin Video Statistics (Batch)",
+  "type": "api",
+  "vendor": "Douyin",
+  "vendor_slug": "douyin",
+  "description": "Get play, like, share and download counts for up to 50 Douyin videos in one request by passing comma-separated video IDs.",
+  "tags": [
+    "api",
+    "douyin"
+  ],
+  "capabilities": [
+    "api",
+    "douyin"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/douyin/app-v3/multi-video-statistics"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "aweme_ids"
+    ],
+    "properties": {
+      "aweme_ids": {
+        "type": "string",
+        "title": "Aweme Ids",
+        "example": "7565738211130035491",
+        "description": "Video id, supports multiple video ids, separated by commas, no more than 50, single is also possible, no need for commas."
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.0375
+  },
+  "examples": [
+    {
+      "input": {
+        "aweme_ids": "example"
+      }
+    }
+  ],
+  "readme": "# Douyin Video Statistics API (Batch)\n\nPass one or more Douyin video IDs (`aweme_id`) and get each video's play, like, share and download counts in a single call.\n\n## Use cases\n\n- Track performance of a list of campaign videos daily.\n- Compare engagement across many videos at once.\n- Enrich search results with up-to-date statistics.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/douyin/app-v3/multi-video-statistics\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"aweme_ids\": \"7565738211130035491\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `aweme_ids` | string | Yes | Video id, supports multiple video ids, separated by commas, no more than 50, single is also possible, no need for comma… |\n\n## Example response\n\nReal response for the request above, trimmed to the main fields. User names and long IDs are masked.\n\n```json\n{\n  \"statistics_list\": [\n    {\n      \"aweme_id\": \"7565738211130035491\",\n      \"digg_count\": 86131,\n      \"download_count\": 27,\n      \"play_count\": 2461544,\n      \"share_count\": 161\n    }\n  ]\n}\n```\n\n## Notes\n\n- Separate multiple IDs with commas, up to 50 per request.\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [Douyin Hot Search List](/model/douyin/app-v3/hot-search-list): Get the Douyin hot search list and other boards (seeding, entertainment, social and challenge lists): trending words with heat values and video counts.\n- [Douyin User Videos](/model/douyin/app-v3/user-post-videos): Get the videos on a Douyin user's profile with descriptions, publish time and play, like, comment and share counts.\n- [Get Douyin brand hot search list data](/model/douyin/app-v3/brand-hot-search-list): Get Douyin brand hot search category data.\n",
+  "page_url": "https://www.sandbase.ai/model/douyin/app-v3/multi-video-statistics",
+  "created_at": "2026-07-31T02:33:47.798Z"
+}

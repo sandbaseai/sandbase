@@ -1,0 +1,62 @@
+{
+  "name": "douyin/app-v3/one-video-by-share-url",
+  "display_name": "Douyin Single Video by Share URL",
+  "type": "api",
+  "vendor": "Douyin",
+  "vendor_slug": "douyin",
+  "description": "Returns detailed video metadata and playback stream specifications for a specific Douyin post using its public share link.",
+  "tags": [
+    "api",
+    "douyin"
+  ],
+  "capabilities": [
+    "api",
+    "douyin"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/douyin/app-v3/one-video-by-share-url"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "share_url"
+    ],
+    "properties": {
+      "share_url": {
+        "type": "string",
+        "title": "Share Url",
+        "example": "https://www.douyin.com/video/7512756548356492544",
+        "description": "Share link"
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.0015,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "examples": [
+    {
+      "input": {
+        "share_url": "https://static.sandbase.ai/examples/a4f6780e-576a-4cd7-b3b0-ef3f793529c1/input/a037f59a-0a2e-4214-8938-b5c11d2ac95a.bin"
+      }
+    }
+  ],
+  "readme": "# Douyin Single Video by Share URL API\n\nRetrieve video metadata and stream specs from Douyin by providing a post link in `share_url`.\n\n## Use cases\n\n- Extract video stream qualities from a Douyin post link.\n- Look up Douyin video details from shared mobile URLs.\n- Parse media bitrates and playback specifications for a clip.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/douyin/app-v3/one-video-by-share-url\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"share_url\": \"https://www.douyin.com/video/7512756548356492544\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `share_url` | string | Yes | Share link |\n\n## Example response\n\nReal response for the request above, trimmed to the main fields. User names and long IDs are masked.\n\n```json\n{\n  \"aweme_detail\": {\n    \"video\": {\n      \"bit_rate\": [\n        {\n          \"bit_rate\": 582425,\n          \"gear_name\": \"540_2_2\",\n          \"quality_type\": 23\n        }\n      ]\n    }\n  }\n}\n```\n\n## Notes\n\n- Pass the full post URL in `share_url` to retrieve video details.\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [Douyin Brand Hot Search List](/model/douyin/app-v3/brand-hot-search-list): Returns the current Douyin brand hot search list and category data.\n- [Douyin Brand Hot Search List Detail](/model/douyin/app-v3/brand-hot-search-list-detail): Returns detailed brand hot search list data from Douyin for a specific category.\n- [Douyin Short Link Generator](/model/douyin/app-v3/generate-short-url): Converts a standard Douyin web link into a shortened Douyin URL.\n",
+  "page_url": "https://www.sandbase.ai/model/douyin/app-v3/one-video-by-share-url",
+  "created_at": "2026-07-31T02:33:59.171Z"
+}

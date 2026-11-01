@@ -1,0 +1,83 @@
+{
+  "name": "similarweb/audience-overlap",
+  "display_name": "Similarweb Audience Overlap",
+  "type": "api",
+  "vendor": "Similarweb",
+  "vendor_slug": "similarweb",
+  "description": "Compare the audiences of up to 5 websites: unique visitors per site, overlapping visitors and the combined audience.",
+  "tags": [
+    "api",
+    "similarweb",
+    "web-analytics"
+  ],
+  "capabilities": [
+    "api",
+    "similarweb",
+    "web-analytics"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/similarweb/audience-overlap"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "domains",
+      "end_date",
+      "start_date"
+    ],
+    "properties": {
+      "country": {
+        "enum": [
+          "ww"
+        ],
+        "type": "string",
+        "default": "ww",
+        "description": "Worldwide data only; values are case-insensitive."
+      },
+      "domains": {
+        "type": "string",
+        "example": "cnn.com,bbc.com",
+        "description": "domains"
+      },
+      "end_date": {
+        "type": "string",
+        "example": "2026-09",
+        "description": "end_date"
+      },
+      "start_date": {
+        "type": "string",
+        "example": "2026-09",
+        "description": "start_date"
+      },
+      "granularity": {
+        "enum": [
+          "monthly"
+        ],
+        "type": "string",
+        "default": "monthly",
+        "description": "granularity"
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "formula",
+    "formula": "0.15 * Math.max(1.0, Math.min(5.0, (output.data?.data != nil ? len(output.data.data) : (params.limit ?? 20)) * 1.0))",
+    "formula_variables": [
+      "params.limit"
+    ],
+    "reference_price": 0.15
+  },
+  "readme": "# Similarweb Audience Overlap API\n\nCompare the audiences of up to 5 websites: unique visitors per site, overlapping visitors and the combined audience.\n\nThe response is the official Similarweb API response, unchanged.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/similarweb/audience-overlap\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"start_date\": \"2026-09\", \"end_date\": \"2026-09\", \"country\": \"ww\", \"domains\": \"cnn.com,bbc.com\", \"granularity\": \"monthly\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `country` | string | No | Worldwide data only; values are case-insensitive. |\n| `domains` | string | Yes | domains |\n| `end_date` | string | Yes | end_date |\n| `granularity` | string | No | granularity |\n| `start_date` | string | Yes | start_date |\n\n## Pricing\n\n$0.15 per returned row (2 Similarweb credits), up to 5 rows; billed on rows returned. Failed calls are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/similarweb/audience-overlap",
+  "created_at": "2026-10-30T06:05:33.827Z"
+}

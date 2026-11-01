@@ -1,0 +1,62 @@
+{
+  "name": "douyin/xingtu/xingtu-kolid-by-unique-id",
+  "display_name": "Douyin XingTu KOL ID by Unique ID",
+  "type": "api",
+  "vendor": "Douyin",
+  "vendor_slug": "douyin",
+  "description": "Returns a Douyin XingTu KOL identifier and profile summary for a given account unique identifier. Useful for mapping public user accounts to XingTu creator data.",
+  "tags": [
+    "api",
+    "douyin"
+  ],
+  "capabilities": [
+    "api",
+    "douyin"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/douyin/xingtu/xingtu-kolid-by-unique-id"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "unique_id"
+    ],
+    "properties": {
+      "unique_id": {
+        "type": "string",
+        "title": "Unique Id",
+        "example": "dyczxzs",
+        "description": "unique_id, can be obtained from the following interfaces: `douyin/web/user-profile`; `douyin/web/user-profile-v2`; `douyin/web/user-profile-v3`; `douyin/app-v3/user-profile`"
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.0015,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "examples": [
+    {
+      "input": {
+        "unique_id": "example"
+      }
+    }
+  ],
+  "readme": "# Douyin XingTu KOL ID by Unique ID API\n\nLook up a creator's XingTu KOL ID using their Douyin `unique_id`.\n\n## Use cases\n\n- Map standard Douyin user accounts to their XingTu commercial creator profiles.\n- Retrieve core user identifiers and profile categories for influencer marketing analysis.\n- Check influencer performance metrics such as task completion rates on XingTu.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/douyin/xingtu/xingtu-kolid-by-unique-id\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"unique_id\": \"dyczxzs\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `unique_id` | string | Yes | unique_id, can be obtained from the following interfaces: `douyin/web/user-profile`; `douyin/web/user-profile-v2`; `douyin/web/user-profile-v3`; `douyin/app-v3… |\n\n## Example response\n\nReal response for the request above, trimmed to the main fields. User names and long IDs are masked.\n\n```json\n{\n  \"core_user_id\": \"92769419069\",\n  \"finish_rate_ovr\": 0,\n  \"id\": \"6870164585236660237\",\n  \"nick_name\": \"<user>\",\n  \"tag\": \"教育培训\"\n}\n```\n\n## Notes\n\n- The `unique_id` parameter can be obtained from Douyin user profile endpoints such as `douyin/web/user-profile` or `douyin/app-v3/user-profile`.\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [Douyin Xingtu Author Hot Comment Keywords](/model/douyin/xingtu/author-content-hot-comment-keywords-v1): Returns hot comment keywords from content produced by a Douyin Xingtu creator.\n- [Douyin Xingtu Author Hot Comment Tokens (Xingtu)](/model/douyin/xingtu/author-hot-comment-tokens-v1): Returns hot comment tokens for a Douyin Xingtu creator based on the specified creator ID.\n- [Douyin Xingtu KOL Audience Portrait (V1)](/model/douyin/xingtu/kol-audience-portrait-v1): Returns audience demographic and portrait insights for a Douyin Xingtu creator.\n",
+  "page_url": "https://www.sandbase.ai/model/douyin/xingtu/xingtu-kolid-by-unique-id",
+  "created_at": "2026-07-31T02:41:56.319Z"
+}

@@ -1,0 +1,170 @@
+{
+  "name": "waveinflu/creator-search",
+  "display_name": "Waveinflu Creator AI Search",
+  "type": "api",
+  "vendor": "Waveinflu",
+  "vendor_slug": "waveinflu",
+  "description": "Finds creators from a natural-language brief instead of a seed account. `platform` and `query` are required; add `limit` (1–100, default 40) and the same optional `filters` as Similar Creators.",
+  "tags": [
+    "api",
+    "waveinflu",
+    "influencers"
+  ],
+  "capabilities": [
+    "api",
+    "waveinflu",
+    "influencers"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/waveinflu/creator-search"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "query"
+    ],
+    "properties": {
+      "limit": {
+        "type": "integer",
+        "default": 25,
+        "example": 10,
+        "maximum": 100,
+        "minimum": 1,
+        "description": "Maximum number of creators to return. Default 25, range 1–100. Caps the billed count."
+      },
+      "query": {
+        "type": "string",
+        "example": "beauty creators in the US",
+        "description": "Natural-language description of the creators you are looking for."
+      },
+      "filters": {
+        "type": "object",
+        "properties": {
+          "genders": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Inferred creator genders, e.g. [\"female\", \"male\"]."
+          },
+          "regions": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Creator regions (ISO country codes), e.g. [\"US\", \"GB\", \"JP\"]."
+          },
+          "languages": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Creator languages, e.g. [\"en\", \"ja\", \"zh-cn\"]."
+          },
+          "ethnicities": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Inferred creator ethnicities."
+          },
+          "creatorTypes": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Creator account types, e.g. [\"individual\", \"brand\"]."
+          },
+          "maxFollowers": {
+            "type": "number",
+            "description": "Maximum follower / subscriber count."
+          },
+          "maxPlayCount": {
+            "type": "number",
+            "description": "Maximum play / view count, measured by `playCountMetric`."
+          },
+          "minFollowers": {
+            "type": "number",
+            "description": "Minimum follower / subscriber count."
+          },
+          "minPlayCount": {
+            "type": "number",
+            "description": "Minimum play / view count, measured by `playCountMetric`."
+          },
+          "playCountMetric": {
+            "enum": [
+              "median",
+              "average"
+            ],
+            "type": "string",
+            "description": "Whether `minPlayCount` / `maxPlayCount` are compared against the median or the average play count."
+          },
+          "faceVisibilities": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Face-visibility classifications, e.g. [\"clear_face\", \"mixed\", \"no_face\"]."
+          },
+          "workspaceDeduplicationEnabled": {
+            "type": "boolean",
+            "description": "When true, creators already saved in your workspace are excluded from the results."
+          }
+        },
+        "description": "Optional filters applied before matching. All fields are optional."
+      },
+      "platform": {
+        "enum": [
+          "instagram",
+          "tiktok",
+          "youtube"
+        ],
+        "type": "string",
+        "default": "youtube",
+        "example": "instagram",
+        "description": "Target platform."
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "formula",
+    "formula": "0.004977 * Math.max(1.0, Math.min(100.0, (params.limit ?? 25) * 1.0))",
+    "formula_variables": [
+      "params.limit"
+    ],
+    "reference_price": 0.124425,
+    "price_examples": [
+      {
+        "params": {
+          "limit": 1
+        },
+        "usd": 0.004977
+      },
+      {
+        "params": {
+          "limit": 25
+        },
+        "usd": 0.124425
+      },
+      {
+        "params": {
+          "limit": 100
+        },
+        "usd": 0.4977
+      }
+    ]
+  },
+  "readme": "# Waveinflu Creator AI Search API\n\nFinds creators from a natural-language brief instead of a seed account. `platform` and `query` are required; add `limit` (1–100, default 40) and the same optional `filters` as Similar Creators.\n\nThe response is the official Waveinflu API response, unchanged.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/waveinflu/creator-search\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"query\": \"fitness coach\", \"platform\": \"instagram\", \"limit\": 1}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `filters` | object | No | Optional filters applied before matching. All fields are optional. |\n| `limit` | integer | No | Maximum number of creators to return. Default 25, range 1–100. Caps the billed count. |\n| `platform` | string | No | Target platform. |\n| `query` | string | Yes | Natural-language description of the creators you are looking for. |\n\n## Pricing\n\n$0.004977 per creator requested (limit, default 25, max 100). Failed calls are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/waveinflu/creator-search",
+  "created_at": "2026-10-30T06:06:56.919Z"
+}

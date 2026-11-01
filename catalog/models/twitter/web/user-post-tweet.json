@@ -1,0 +1,69 @@
+{
+  "name": "twitter/web/user-post-tweet",
+  "display_name": "Twitter (X) User Posts",
+  "type": "api",
+  "vendor": "Twitter",
+  "vendor_slug": "twitter",
+  "description": "Returns posts and tweets from a specified Twitter (X) user timeline. Users can be identified by either their screen name or numeric user ID, with cursor pagination supported.",
+  "tags": [
+    "api",
+    "twitter"
+  ],
+  "capabilities": [
+    "api",
+    "twitter"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/twitter/web/user-post-tweet"
+  },
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "cursor": {
+        "type": "string",
+        "title": "Cursor",
+        "description": "Cursor, default is None, used for paging, obtained from the JSON in the last request."
+      },
+      "rest_id": {
+        "type": "integer",
+        "title": "Rest Id",
+        "description": "User ID, for example: 44196397, if the user ID is used, the username will be ignored, only one of them can be selected."
+      },
+      "screen_name": {
+        "type": "string",
+        "title": "Screen Name",
+        "description": "Screen Name, for example: elonmusk, can be obtained from the user's homepage link, for example: elonmusk in https://twitter.com/elonmusk"
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.0015,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "examples": [
+    {
+      "input": {
+        "screen_name": "sandbaseai"
+      },
+      "default": true
+    }
+  ],
+  "readme": "# Twitter (X) User Posts API\n\nRetrieve a user's timeline posts using either their `screen_name` or numeric `rest_id`. You can paginate through older posts using the `cursor` parameter.\n\n## Use cases\n\n- Archive public tweets and posts from a specific profile.\n- Monitor recent timeline activity for designated accounts.\n- Analyze posting frequency and timeline history for public figures.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/twitter/web/user-post-tweet\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `cursor` | string | No | Cursor, default is None, used for paging, obtained from the JSON in the last request. |\n| `rest_id` | integer | No | User ID, for example: 44196397, if the user ID is used, the username will be ignored, only one of them can be selected. |\n| `screen_name` | string | No | Screen Name, for example: elonmusk, can be obtained from the user's homepage link, for example: elonmusk in https://twitter.com/elonmusk |\n\n## Notes\n\n- Provide either `rest_id` or `screen_name`; if `rest_id` is specified, `screen_name` is ignored.\n- Pass `cursor` from the previous response payload to page through timeline results.\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [Twitter (X) Latest Tweet Comments](/model/twitter/web/latest-post-comments): Returns recent replies and comment timelines for a specific post using its tweet ID, with cursor support for multi-page results.\n- [Twitter (X) Tweet Comments](/model/twitter/web/post-comments): Returns comment threads and replies under a specified tweet.\n- [Twitter (X) Retweet User List](/model/twitter/web/retweet-user-list): Returns a list of users who reposted a specific post using its tweet ID, including follower counts, media counts, and user identifiers.\n",
+  "page_url": "https://www.sandbase.ai/model/twitter/web/user-post-tweet",
+  "created_at": "2026-07-31T04:19:40.902Z"
+}

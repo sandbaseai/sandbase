@@ -1,0 +1,186 @@
+{
+  "name": "minimax/h3/text-to-video",
+  "display_name": "MiniMax H3 Text to Video",
+  "type": "video",
+  "vendor": "MiniMax",
+  "vendor_slug": "minimax",
+  "description": "Generate native-stereo 2K video from text with MiniMax H3.",
+  "tags": [
+    "text-to-video"
+  ],
+  "capabilities": [
+    "text-to-video"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "prompt",
+      "duration"
+    ],
+    "properties": {
+      "prompt": {
+        "type": "string",
+        "title": "Prompt",
+        "default": "A cinematic wide shot of an astronaut walking across a red desert at sunset, wind lifting fine dust, with natural footsteps and distant ambient sound.",
+        "maxLength": 7000,
+        "minLength": 1
+      },
+      "duration": {
+        "enum": [
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15
+        ],
+        "type": "integer",
+        "title": "Duration",
+        "default": 5
+      },
+      "resolution": {
+        "enum": [
+          "768P",
+          "2K"
+        ],
+        "type": "string",
+        "title": "Resolution",
+        "default": "2K",
+        "description": "Output resolution. 768P is generated natively; 2K is upscaled via an in-context regeneration pass."
+      },
+      "aspect_ratio": {
+        "enum": [
+          "21:9",
+          "16:9",
+          "4:3",
+          "1:1",
+          "3:4",
+          "9:16"
+        ],
+        "type": "string",
+        "title": "Aspect Ratio",
+        "default": "16:9"
+      },
+      "aigc_watermark": {
+        "type": "boolean",
+        "title": "AIGC Watermark",
+        "default": false,
+        "description": "Whether to add an AIGC label watermark to the generated video."
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "required": [
+      "id",
+      "status"
+    ],
+    "properties": {
+      "id": {
+        "type": "string"
+      },
+      "error": {
+        "type": "string"
+      },
+      "model": {
+        "type": "string"
+      },
+      "usage": {
+        "type": "object",
+        "properties": {
+          "input_seconds": {
+            "type": "number",
+            "minimum": 0
+          },
+          "total_seconds": {
+            "type": "number",
+            "minimum": 0
+          },
+          "output_seconds": {
+            "type": "number",
+            "minimum": 0
+          },
+          "input_image_count": {
+            "type": "integer",
+            "minimum": 0
+          }
+        },
+        "additionalProperties": false
+      },
+      "status": {
+        "enum": [
+          "pending",
+          "running",
+          "completed",
+          "failed",
+          "timeout"
+        ],
+        "type": "string"
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "required": [
+            "url"
+          ],
+          "properties": {
+            "url": {
+              "type": "string"
+            },
+            "content_type": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "formula",
+    "formula": "(usage.total_seconds ?? params.duration ?? 5) * ((params.resolution ?? \"2K\") == \"768P\" ? 0.06 : 0.13)",
+    "formula_variables": [
+      "params.duration",
+      "params.resolution",
+      "usage.total_seconds"
+    ],
+    "reference_price": 0.65
+  },
+  "examples": [
+    {
+      "input": {
+        "aspect_ratio": "16:9",
+        "duration": 4,
+        "prompt": "A slow macro tracking shot reveals creamy, steamed milk pouring smoothly into a rustic ceramic cup of rich espresso, creating elegant latte art. Warm morning sunlight streams in from the side, illuminating the rising steam. A shallow depth of field blurs the cozy coffee shop background. The atmosphere is warm, premium, and inviting as the liquids mix realistically.",
+        "resolution": "768P"
+      },
+      "output": [
+        {
+          "poster": "https://static.sandbase.ai/examples/posters/7bc657ed4367bfaa69c7.jpg",
+          "url": "https://static.sandbase.ai/examples/9fa30c5b-104d-4fa7-b4b6-1573c5c4f6ad/output/f3713823-c90f-4217-a78b-6edb20e162dd.mp4"
+        }
+      ],
+      "default": true
+    }
+  ],
+  "readme": "# MiniMax H3 Text to Video\n\nMiniMax H3 generates native-stereo 2K video with sound from a written prompt, 4–15 seconds long.\n\n## Fields\n\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `prompt` | string, required | — | Up to 7,000 characters. |\n| `duration` | 4–15, required | 5 | Output length in seconds. |\n| `aspect_ratio` | `21:9` / `16:9` / `4:3` / `1:1` / `3:4` / `9:16` | `16:9` | Output frame shape. |\n| `resolution` | `768P` / `2K` | `2K` | Sets the per-second rate. |\n| `aigc_watermark` | boolean | false | Add MiniMax's AI-generated watermark. |\n\n## Billing\n\nYou pay for output seconds: $0.13 at 2K (the default) and $0.06 at 768P.\n\n| Output | 2K | 768P |\n|---|---|---|\n| 4s | $0.52 | $0.24 |\n| 5s (default) | $0.65 | $0.30 |\n| 10s | $1.30 | $0.60 |\n| 15s | $1.95 | $0.90 |\n\nFailed runs are not charged.\n\n## Prompting\n\n- Describe subject, action, camera, and sound in order.\n- Quote dialogue and name the speaker.\n\n## Limits\n\n- `duration` is required.\n\n## Also on SandBase\n\nOther MiniMax H3 endpoints: `minimax/h3/image-to-video`, `minimax/h3/reference-to-video`, `minimax/h3-max/text-to-video` (faster, cheaper).\n",
+  "cover_url": "https://static.sandbase.ai/covers/minimax/h3/text-to-video/cover-flare-20261004184746.webp",
+  "page_url": "https://www.sandbase.ai/model/minimax/h3/text-to-video",
+  "published_at": "2026-07-29T00:00:00Z",
+  "created_at": "2026-07-31T07:27:09.909Z"
+}

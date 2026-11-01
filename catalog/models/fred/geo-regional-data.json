@@ -1,0 +1,152 @@
+{
+  "name": "fred/geo-regional-data",
+  "display_name": "FRED GeoFRED Regional Data",
+  "type": "api",
+  "vendor": "FRED",
+  "vendor_slug": "fred",
+  "description": "GeoFRED Regional Data from FRED. Returns the official FRED API response unchanged.",
+  "tags": [
+    "api",
+    "fred",
+    "economic-data"
+  ],
+  "capabilities": [
+    "api",
+    "fred",
+    "economic-data"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/fred/geo-regional-data"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "date",
+      "frequency",
+      "region_type",
+      "season",
+      "series_group",
+      "units"
+    ],
+    "properties": {
+      "date": {
+        "type": "string",
+        "example": "2023-01-01",
+        "description": "The date you want to pull a series group data from. YYYY-MM-DD formatted string, required"
+      },
+      "units": {
+        "type": "string",
+        "example": "Dollars",
+        "description": "The units of the series you want to pull. string, required"
+      },
+      "season": {
+        "type": "string",
+        "example": "NSA",
+        "description": "The seasonality of the series group. string, required, five possible SA (Seasonally Adjusted), NSA (Not Seasonally Adjusted), SSA (Smoothed Seasonally Adjusted), SAAR (Seasonally Adjusted Annual Rate), or NSAAR (Not Seasonally Adjusted Annual Rate)"
+      },
+      "file_type": {
+        "enum": [
+          "json"
+        ],
+        "type": "string",
+        "default": "json",
+        "description": "Response format. Only json is supported."
+      },
+      "frequency": {
+        "enum": [
+          "d",
+          "w",
+          "bw",
+          "m",
+          "q",
+          "sa",
+          "a",
+          "wef",
+          "weth",
+          "wew",
+          "wetu",
+          "wem",
+          "wesu",
+          "wesa",
+          "bwew",
+          "bwem"
+        ],
+        "type": "string",
+        "example": "a",
+        "description": "Frequency automatically assigns the default frequency of the map when using the Request Wizard above. The parameter can be used as a frequency aggregation feature. The maps frequency aggregation feature converts higher frequency data series into lower frequency data series (e.g. converts a monthly d"
+      },
+      "start_date": {
+        "type": "string",
+        "description": "The start date you want to request series group data from. This allows you to pull a range of data YYYY-MM-DD formatted string, optional"
+      },
+      "region_type": {
+        "enum": [
+          "bea",
+          "msa",
+          "frb",
+          "necta",
+          "state",
+          "country",
+          "county",
+          "censusregion"
+        ],
+        "type": "string",
+        "example": "state",
+        "description": "The region you want to pull data for. string, required One of the following values: bea msa frb necta state country county censusregion bea msa frb necta state country county censusregion"
+      },
+      "series_group": {
+        "type": "string",
+        "example": "882",
+        "description": "The ID for a group of series found in FRED. string, required"
+      },
+      "transformation": {
+        "enum": [
+          "lin",
+          "chg",
+          "ch1",
+          "pch",
+          "pc1",
+          "pca",
+          "cch",
+          "cca",
+          "log"
+        ],
+        "type": "string",
+        "default": "lin",
+        "description": "A key that indicates a data value transformation. string, optional, default: lin (No transformation) One of the following values: 'lin', 'chg', 'ch1', 'pch', 'pc1', 'pca', 'cch', 'cca', 'log' lin = Levels (No transformation) chg = Change ch1 = Change from Year Ago pch = Percent Change pc1 = Percent "
+      },
+      "aggregation_method": {
+        "enum": [
+          "avg",
+          "sum",
+          "eop"
+        ],
+        "type": "string",
+        "default": "avg",
+        "description": "string, optional, default: avg One of the following values: 'avg', 'sum', 'eop' avg = Average sum = Sum eop = End of Period avg = Average sum = Sum eop = End of Period"
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 1e-05,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "readme": "# FRED GeoFRED Regional Data API\n\nGeoFRED Regional Data from FRED. Returns the official FRED API response unchanged.\n\nThe response is the official FRED API response, unchanged.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/fred/geo-regional-data\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"date\": \"2023-01-01\", \"frequency\": \"a\", \"region_type\": \"state\", \"season\": \"NSA\", \"series_group\": \"882\", \"units\": \"Dollars\", \"file_type\": \"json\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `aggregation_method` | string | No | string, optional, default: avg One of the following values: 'avg', 'sum', 'eop' avg = Average sum = Sum eop = End of Period avg = Average sum = Sum eop = End of |\n| `date` | string | Yes | The date you want to pull a series group data from. YYYY-MM-DD formatted string, required |\n| `file_type` | string | No | Response format. Only json is supported. |\n| `frequency` | string | Yes | Frequency automatically assigns the default frequency of the map when using the Request Wizard above. The parameter can be used as a frequency aggregation featu |\n| `region_type` | string | Yes | The region you want to pull data for. string, required One of the following values: bea msa frb necta state country county censusregion bea msa frb necta state  |\n| `season` | string | Yes | The seasonality of the series group. string, required, five possible SA (Seasonally Adjusted), NSA (Not Seasonally Adjusted), SSA (Smoothed Seasonally Adjusted) |\n| `series_group` | string | Yes | The ID for a group of series found in FRED. string, required |\n| `start_date` | string | No | The start date you want to request series group data from. This allows you to pull a range of data YYYY-MM-DD formatted string, optional |\n| `transformation` | string | No | A key that indicates a data value transformation. string, optional, default: lin (No transformation) One of the following values: 'lin', 'chg', 'ch1', 'pch', 'p |\n| `units` | string | Yes | The units of the series you want to pull. string, required |\n\n## Pricing\n\nFlat price per call. Failed calls are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/fred/geo-regional-data",
+  "created_at": "2026-10-30T03:11:10.311Z"
+}

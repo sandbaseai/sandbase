@@ -1,0 +1,78 @@
+{
+  "name": "douyin/web/video-comments",
+  "display_name": "Douyin Video Comments (Web)",
+  "type": "api",
+  "vendor": "Douyin",
+  "vendor_slug": "douyin",
+  "description": "Returns comments for a specific Douyin video using its video ID. Supports pagination controls via cursor and item count parameters.",
+  "tags": [
+    "api",
+    "douyin"
+  ],
+  "capabilities": [
+    "api",
+    "douyin"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/douyin/web/video-comments"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "aweme_id"
+    ],
+    "properties": {
+      "count": {
+        "type": "integer",
+        "title": "Count",
+        "default": 20,
+        "example": 20,
+        "description": "Number"
+      },
+      "cursor": {
+        "type": "integer",
+        "title": "Cursor",
+        "default": 0,
+        "example": 0,
+        "description": "Cursor"
+      },
+      "aweme_id": {
+        "type": "string",
+        "title": "Aweme Id",
+        "example": "7372484719365098803",
+        "description": "Video id"
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.0015,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "examples": [
+    {
+      "input": {
+        "aweme_id": "7372484719365098803",
+        "count": 20,
+        "cursor": 0
+      }
+    }
+  ],
+  "readme": "# Douyin Video Comments (Web) API\n\nRetrieve comments for a specific Douyin video by providing the target `aweme_id`. Supports pagination using `cursor` and `count` parameters.\n\n## Use cases\n\n- Analyze audience feedback and sentiment on specific video posts.\n- Extract top comment interactions and like counts for performance review.\n- Monitor user discussions and engagement patterns over time.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/douyin/web/video-comments\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"aweme_id\": \"7372484719365098803\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `aweme_id` | string | Yes | Video id |\n| `count` | integer | No | Number |\n| `cursor` | integer | No | Cursor |\n\n## Example response\n\nReal response for the request above, trimmed to the main fields. User names and long IDs are masked.\n\n```json\n{\n  \"comments\": [\n    {\n      \"aweme_id\": \"7372484719365098803\",\n      \"content_type\": 3,\n      \"create_time\": 1716559306,\n      \"digg_count\": 1932,\n      \"ip_label\": \"<user>\",\n      \"label_type\": -1,\n      \"reply_id\": \"0\",\n      \"reply_to_reply_id\": \"0\",\n      \"sort_tags\": \"{\\\"top_list\\\":1}\",\n      \"status\": 1,\n      \"user\": {\n        \"close_friend_type\": 0,\n        \"nickname\": \"<user>\",\n        \"short_id\": \"<user>\",\n        \"status\": 1\n      }\n    }\n  ]\n}\n```\n\n## Notes\n\n- Specify the target video using the required `aweme_id` parameter.\n- Manage response pagination using the `cursor` and `count` parameters.\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [Douyin Batch Video ID Extraction](/model/douyin/web/all-aweme-id): Extracts video IDs from a list of Douyin video URLs.\n- [Douyin sec_user_ids from URLs (Batch)](/model/douyin/web/all-sec-user-id): Extracts Douyin sec_user_id values in bulk from a list of user homepage URLs.\n- [Douyin Webcast ID Extraction](/model/douyin/web/all-webcast-id): Extracts webcast IDs from a submitted list of Douyin live room links.\n",
+  "page_url": "https://www.sandbase.ai/model/douyin/web/video-comments",
+  "created_at": "2026-07-31T02:41:03.112Z"
+}

@@ -1,0 +1,69 @@
+{
+  "name": "wechat-mp/v2/account-profile",
+  "display_name": "WeChat MP Account Profile",
+  "type": "api",
+  "vendor": "WeChat MP",
+  "vendor_slug": "wechat-mp",
+  "description": "Retrieves the profile details of an official WeChat account, including name, avatar, signature, and verification entity type using its official account ID.",
+  "tags": [
+    "api",
+    "wechat-mp"
+  ],
+  "capabilities": [
+    "api",
+    "wechat-mp"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/wechat-mp/v2/account-profile"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "username"
+    ],
+    "properties": {
+      "raw": {
+        "type": "boolean",
+        "title": "Raw",
+        "description": "Optional, default True. True=raw; False=simplified parsing."
+      },
+      "username": {
+        "type": "string",
+        "title": "Username",
+        "pattern": "^gh_[A-Za-z0-9_]+$",
+        "maxLength": 64,
+        "description": "Official account `gh_username` (`gh_…`). Sources: `content.user_name` from article detail, or `jumpInfo.userName` from WeChat Search V2 `fetch_search` (business_type=account) results. E.g. `gh_363b924965e9`"
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.015,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "examples": [
+    {
+      "input": {
+        "username": "gh_363b924965e9"
+      },
+      "default": true
+    }
+  ],
+  "readme": "# WeChat MP Account Profile API\n\nLook up official WeChat account profile information by passing the account ID in `username`.\n\n## Use cases\n\n- Verify official WeChat account details such as verification status and entity type.\n- Display official account avatar, nickname, and signature in external dashboards.\n- Inspect raw or simplified profile data structures for integrated WeChat monitoring tools.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/wechat-mp/v2/account-profile\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"username\": \"<username>\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `username` | string | Yes | Official account `gh_username` (`gh_…`). |\n| `raw` | boolean | No | Optional, default True. |\n\n## Notes\n\n- Set `username` using the `gh_` ID obtained from article details or WeChat search results.\n- Set `raw` to false for simplified parsing, or keep it true by default for raw profile data.\n- Profile fields such as nickname, signature, or avatar URL may return as null.\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [WeChat MP Account Articles](/model/wechat-mp/v2/account-articles): Get the published articles of a WeChat official account by its gh_ username: titles, links, covers and post dates, one page at a time, including video and audi…\n- [WeChat MP Article Ads](/model/wechat-mp/v2/article-ad): Returns embedded ad slot information for a specified WeChat MP article URL.\n- [WeChat MP Article Comments](/model/wechat-mp/v2/article-comments): Get the comments on a WeChat official account article from its URL: comment text, likes, time and commenter region, with cursor pagination.\n",
+  "page_url": "https://www.sandbase.ai/model/wechat-mp/v2/account-profile",
+  "created_at": "2026-07-31T04:21:07.647Z"
+}

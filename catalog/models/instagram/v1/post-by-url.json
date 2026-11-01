@@ -1,0 +1,55 @@
+{
+  "name": "instagram/v1/post-by-url",
+  "display_name": "Instagram Post Details by URL",
+  "type": "api",
+  "vendor": "Instagram",
+  "vendor_slug": "instagram",
+  "description": "Returns details and display resources for a single Instagram post. Queries the platform using a target post link.",
+  "tags": [
+    "api",
+    "instagram"
+  ],
+  "capabilities": [
+    "api",
+    "instagram"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/instagram/v1/post-by-url"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "post_url"
+    ],
+    "properties": {
+      "post_url": {
+        "type": "string",
+        "title": "Post Url",
+        "example": "https://www.instagram.com/p/DPwhVB-jo9k/",
+        "description": "Post URL"
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.0015,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "readme": "# Instagram Post Details by URL API\n\nReturns Instagram post information based on the link provided in `post_url`.\n\n## Use cases\n\n- Retrieve display resources and media data for a specific Instagram link.\n- Inspect single post information for content archiving.\n- Extract post metadata directly using public Instagram URLs.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/instagram/v1/post-by-url\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"post_url\": \"https://www.instagram.com/p/DPwhVB-jo9k/\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `post_url` | string | Yes | Post URL |\n\n## Notes\n\n- Requires a full Instagram post link passed to `post_url`.\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [Instagram Cities by Country](/model/instagram/v1/cities): Returns a list of Instagram cities and regions for a specified country code.\n- [Instagram Hashtag Posts (V1)](/model/instagram/v1/hashtag-posts): Returns public Instagram posts associated with a specific hashtag.\n- [Instagram Location Details (V1)](/model/instagram/v1/location-info): Returns detailed metadata and profile information for a specified Instagram location using its unique identifier.\n",
+  "page_url": "https://www.sandbase.ai/model/instagram/v1/post-by-url",
+  "created_at": "2026-07-31T03:55:02.403Z"
+}

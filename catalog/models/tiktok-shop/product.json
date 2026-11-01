@@ -1,0 +1,94 @@
+{
+  "name": "tiktok-shop/product",
+  "display_name": "TikTok Shop Product",
+  "type": "api",
+  "vendor": "TikTok Shop",
+  "vendor_slug": "tiktok-shop",
+  "description": "Fetch TikTok Shop product details (title, price, sales, seller, and ratings) from a product URL.",
+  "tags": [
+    "api",
+    "tiktok-shop",
+    "social-media"
+  ],
+  "capabilities": [
+    "api",
+    "tiktok-shop",
+    "social-media"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/tiktok-shop/product"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "url"
+    ],
+    "properties": {
+      "url": {
+        "type": "string",
+        "example": "https://www.tiktok.com/shop/pdp/goli-ashwagandha-gummies-with-vitamin-d-ksm-66-vegan-non-gmo/1729587769570529799",
+        "description": "TikTok Shop product detail page URL (e.g. https://www.tiktok.com/shop/pdp/.../1729587769570529799)."
+      },
+      "region": {
+        "type": "string",
+        "description": "Two-letter country code for the proxy location used to access region-specific products (e.g. US, GB, FR). Defaults to US."
+      },
+      "requireFields": {
+        "type": "array",
+        "items": {
+          "enum": [
+            "brand",
+            "category",
+            "name",
+            "sellerLocation",
+            "specifications",
+            "value"
+          ],
+          "type": "string"
+        },
+        "description": "Optional; omit it and routing is unchanged, with the cheapest source serving. Name the output fields this request must be able to return, for example `sellerLocation`, and it is served only by a source that returns every one of them. Fields you do not name are still returned whenever the serving source has them. This can raise your price: when the cheapest source cannot return a named field, a dearer source serves, and you are quoted and charged its price. A named field can still be absent on a product that genuinely lacks it. Naming a combination that no single source returns together is refused as invalid input, with no charge."
+      }
+    },
+    "additionalProperties": false
+  },
+  "response_schema": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string"
+      },
+      "model": {
+        "type": "string"
+      },
+      "status": {
+        "type": "string"
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "data": {
+              "type": "object",
+              "description": "Normalized result for this request."
+            }
+          }
+        }
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "usage_based",
+    "note": "Billed per call from metered usage; the reference price is typical.",
+    "reference_price": 0.0012
+  },
+  "readme": "# TikTok Shop Product API\n\nFetch TikTok Shop product details (title, price, sales, seller, and ratings) from a product URL.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/tiktok-shop/product\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"url\": \"https://www.tiktok.com/shop/pdp/goli-ashwagandha-gummies-with-vitamin-d-ksm-66-vegan-non-gmo/1729587769570529799\"}'\n```\n\nThe result is returned in `outputs[0].data`. A lookup that finds nothing still succeeds and returns `found: false`.\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `url` | string | Yes | TikTok Shop product detail page URL (e.g. https://www.tiktok.com/shop/pdp/.../1729587769570529799). |\n| `region` | string | No | Two-letter country code for the proxy location used to access region-specific products (e.g. US, GB, FR). Defaults to US. |\n| `requireFields` | array | No | Optional; omit it and routing is unchanged, with the cheapest source serving. Name the output fields this request must be able to return, for example `sellerLocation`, and it is served only by a source that returns every |\n\n## Pricing\n\nBilled at the actual cost of each call, usually $0.0012 per request. A call can cost more when the first data source fails and another one answers. Failed calls are not charged. Lookups that find nothing and searches with no results are billed at their actual cost, which is often lower and can be $0.\n",
+  "page_url": "https://www.sandbase.ai/model/tiktok-shop/product",
+  "created_at": "2026-11-01T12:38:29.118Z"
+}

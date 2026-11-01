@@ -1,0 +1,181 @@
+# TikTok User Reposts
+
+`tiktok/web/user-repost` · api · TikTok
+
+Returns a list of reposted videos for a specified TikTok profile. Results include video metadata, author statistics, and engagement metrics via user secUid.
+
+## Pricing
+
+- **$0.0015 per call** (USD)
+- Free quota: 100 calls/day per organization (shared across free-quota APIs).
+
+## Call it
+
+Modes: sync (default `sync`). Only pass `mode` values listed here. The SDKs' `run()` waits for async results; `submit()` + `wait()` split the two steps.
+
+**curl**
+
+```bash
+curl https://api.sandbase.ai/v1/run \
+  -H "Authorization: Bearer $SANDBASE_API_KEY" -H 'Content-Type: application/json' \
+  -d '{"model": "tiktok/web/user-repost", "secUid": "MS4wLjABAAAAv7iSuuXDJGDvJkmH_vz1qkDZYo1apxgzaxdBSeIuPiM"}'
+```
+
+**Python** ([sdk/python](../../../../sdk/python))
+
+```python
+from sandbase import SandBase
+
+result = SandBase().run('tiktok/web/user-repost', {'secUid': 'MS4wLjABAAAAv7iSuuXDJGDvJkmH_vz1qkDZYo1apxgzaxdBSeIuPiM'})
+print(result["outputs"])
+```
+
+**TypeScript** ([sdk/typescript](../../../../sdk/typescript))
+
+```ts
+import { SandBase } from "@sandbaseai/sdk";
+
+const result = await new SandBase().run("tiktok/web/user-repost", {
+  "secUid": "MS4wLjABAAAAv7iSuuXDJGDvJkmH_vz1qkDZYo1apxgzaxdBSeIuPiM"
+});
+console.log(result.outputs);
+```
+
+**Go** ([sdk/go](../../../../sdk/go))
+
+```go
+c, _ := sandbase.NewClient("")
+run, err := c.Run(ctx, "tiktok/web/user-repost", sandbase.Params{
+	"secUid": "MS4wLjABAAAAv7iSuuXDJGDvJkmH_vz1qkDZYo1apxgzaxdBSeIuPiM",
+})
+```
+
+Same call via the path form: `POST /v1/api/tiktok/web/user-repost` with the body above minus `model`.
+
+## Parameters
+
+| name | type | required | description |
+|---|---|---|---|
+| `count` | integer |  | Number per page, default is 20, cannot be changed.  |
+| `cursor` | integer |  | Page cursor  |
+| `secUid` | string | yes | User secUid  |
+| `coverFormat` | integer |  | Cover format, default is 2, optional values are 1 or 2.  |
+
+## Details
+
+Retrieve reposted videos from a TikTok account by passing the user's `secUid`. Supports cursor-based pagination through `cursor`.
+
+### Use cases
+
+- Monitor videos that a specific creator has reposted on their profile.
+- Track engagement and view metrics on reposted content.
+- Collect reposted video metadata for user interest and trend analysis.
+
+### Request
+
+```bash
+curl -X POST "https://api.sandbase.ai/v1/api/tiktok/web/user-repost" \
+  -H "Authorization: Bearer $SANDBASE_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{"secUid": "MS4wLjABAAAAv7iSuuXDJGDvJkmH_vz1qkDZYo1apxgzaxdBSeIuPiM"}'
+```
+
+### Parameters
+
+| Name | Type | Required | Description |
+|---|---|---|---|
+| `secUid` | string | Yes | User secUid |
+| `count` | integer | No | Number per page, default is 20, cannot be changed. |
+| `cursor` | integer | No | Page cursor |
+| `coverFormat` | integer | No | Cover format, default is 2, optional values are 1 or 2. |
+
+### Example response
+
+Real response for the request above, trimmed to the main fields. User names and long IDs are masked.
+
+```json
+{
+  "itemList": [
+    {
+      "CategoryType": 105,
+      "createTime": 1790708957,
+      "desc": "This @TikTok TikTok ad campaign is live right now — and it’s airing on major national TV …",
+      "id": "7691036284428635423",
+      "itemCommentStatus": 0,
+      "textLanguage": "en",
+      "textTranslatable": true,
+      "author": {
+        "id": "6653919748492099589",
+        "nickname": "<user>",
+        "privateAccount": false,
+        "verified": false
+      },
+      "authorStats": {
+        "diggCount": 301,
+        "followerCount": 22600,
+        "followingCount": 15,
+        "friendCount": 0,
+        "heartCount": 536000,
+        "videoCount": 724
+      },
+      "authorStatsV2": {
+        "diggCount": "301",
+        "followerCount": "22600",
+        "followingCount": "15",
+        "friendCount": "0",
+        "heartCount": "536000",
+        "videoCount": "724"
+      },
+      "music": {
+        "authorName": "Christopher Sbrocco",
+        "duration": 15,
+        "id": "7691036398622673694",
+        "shoot_duration": 15,
+        "title": "original sound"
+      },
+      "penaltyContext": {
+        "arb_content_safety_status": 102,
+        "display_penalty_type": 0,
+        "display_ui_type": 0,
+        "status": 102,
+        "tns_status": 102,
+        "video_status": 10
+      },
+      "stats": {
+        "collectCount": 10,
+        "commentCount": 12,
+        "diggCount": 118,
+        "playCount": 7222,
+        "shareCount": 11
+      },
+      "statsV2": {
+        "collectCount": "10",
+        "commentCount": "12",
+        "diggCount": "118",
+        "playCount": "7222",
+        "repostCount": "0",
+        "shareCount": "11"
+      }
+    }
+  ]
+}
+```
+
+### Notes
+
+- The `count` parameter defaults to 20 and cannot be changed.
+- Pagination is handled using the `cursor` parameter.
+- `coverFormat` accepts values `1` or `2`, with `2` as the default.
+
+### Pricing
+
+Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+
+### Related APIs
+
+- [TikTok Video IDs from URLs (Batch)](/model/tiktok/web/all-aweme-id): Resolves and extracts TikTok video IDs from a list of video URLs.
+- [TikTok User Sec User ID Extractor](/model/tiktok/web/all-sec-user-id): Returns a list of sec_user_id identifiers corresponding to TikTok user profile URLs.
+- [TikTok Profile Unique IDs](/model/tiktok/web/all-unique-id): Resolves a batch of TikTok user homepage links to retrieve their corresponding unique identifiers.
+
+---
+Machine-readable: [`catalog/models/tiktok/web/user-repost.json`](../../../../catalog/models/tiktok/web/user-repost.json) · Store page: https://www.sandbase.ai/model/tiktok/web/user-repost

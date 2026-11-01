@@ -1,0 +1,90 @@
+{
+  "name": "wechat-channels/v2/live-history",
+  "display_name": "WeChat Channels Stream Replay History",
+  "type": "api",
+  "vendor": "WeChat Channels",
+  "vendor_slug": "wechat-channels",
+  "description": "Returns a creator's broadcast replay list, including media download URLs and decryption keys. Supports cursor pagination via a finder username.",
+  "tags": [
+    "api",
+    "wechat-channels"
+  ],
+  "capabilities": [
+    "api",
+    "wechat-channels"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/wechat-channels/v2/live-history"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "username"
+    ],
+    "properties": {
+      "raw": {
+        "type": "boolean",
+        "title": "Raw",
+        "description": "Optional, default True. True=raw response; False=simplified parsed structure (recommended for media download)."
+      },
+      "flag": {
+        "type": "integer",
+        "title": "Flag",
+        "maximum": 1000,
+        "minimum": 0,
+        "description": "Optional fetch flag, default 12."
+      },
+      "username": {
+        "type": "string",
+        "title": "Username",
+        "pattern": "^v2_[0-9a-fA-F]+@finder$",
+        "maxLength": 256,
+        "minLength": 10,
+        "description": "WeChat Channels finder username (`v2_…@finder` format). Example (an account with live replays): `v2_060000231003b20faec8cae1811ac4d5c702ea32b0771737aa785454f7f8177114cc4d248d66@finder` (Huxiu)."
+      },
+      "last_buffer": {
+        "anyOf": [
+          {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9+/=_-]*$"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "title": "Last Buffer",
+        "description": "Optional pagination cursor (base64), **leave empty for the first page**; when `continue_flag` is truthy, pass the previous page's `last_buffer`."
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.015,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "examples": [
+    {
+      "input": {
+        "username": "v2_060000231003b20faec8cae1811ac4d5c702ea32b0771737aa785454f7f8177114cc4d248d66@finder"
+      },
+      "default": true
+    }
+  ],
+  "readme": "# WeChat Channels Stream Replay History API\n\nFetch broadcast replay records for a creator by supplying their `username`. Output includes video download details and pagination indicators.\n\n## Use cases\n\n- Archive recorded stream sessions from creator channels\n- Extract video URLs and decryption keys for offline storage\n- Monitor broadcast history and replay availability across channels\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/wechat-channels/v2/live-history\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"username\": \"<username>\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `username` | string | Yes | WeChat Channels finder username (`v2_…@finder` format). |\n| `raw` | boolean | No | Optional, default True. |\n| `flag` | integer | No | Optional fetch flag, default 12. |\n| `last_buffer` | string | No | Optional pagination cursor (base64), leave empty for the first page; when `continue_flag` is truthy, pass the previous page's `last_buffer`. |\n\n## Notes\n\n- The required `username` must follow the `v2_...@finder` format.\n- For pagination, leave `last_buffer` empty on the first call, then pass the returned cursor when continuation is indicated.\n- Set `raw` to false to receive a simplified parsed structure optimized for media downloads.\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [WeChat Channels ID to Username](/model/wechat-channels/v2/channel-id-to-username): Convert a public WeChat Channels Channel ID (sph… short ID) into the finder username (v2_…@finder) required by the other WeChat Channels APIs.\n- [WeChat Channels Account Info](/model/wechat-channels/v2/channel-info): Get the public \"More info\" panel of a WeChat Channels account: Channel ID, IP and profile location, and verification details such as entity type, service categ…\n- [WeChat Channels Collection Videos](/model/wechat-channels/v2/collection-videos): Returns videos contained within a WeChat Channels collection using a collection ID.\n",
+  "page_url": "https://www.sandbase.ai/model/wechat-channels/v2/live-history",
+  "created_at": "2026-07-31T04:20:20.225Z"
+}

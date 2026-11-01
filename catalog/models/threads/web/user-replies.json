@@ -1,0 +1,67 @@
+{
+  "name": "threads/web/user-replies",
+  "display_name": "Threads User Replies",
+  "type": "api",
+  "vendor": "Threads",
+  "vendor_slug": "threads",
+  "description": "Returns a list of replies posted by a specific Threads user. Query replies using a target user identifier and an optional pagination cursor.",
+  "tags": [
+    "api",
+    "threads"
+  ],
+  "capabilities": [
+    "api",
+    "threads"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/threads/web/user-replies"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "user_id"
+    ],
+    "properties": {
+      "user_id": {
+        "type": "string",
+        "title": "User Id",
+        "description": "User ID, for example: 63625256886"
+      },
+      "end_cursor": {
+        "type": "string",
+        "title": "End Cursor",
+        "description": "Pagination cursor (optional), used to get next page data"
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.003,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "examples": [
+    {
+      "input": {
+        "user_id": "63625256886"
+      },
+      "default": true
+    }
+  ],
+  "readme": "# Threads User Replies API\n\nRetrieve replies posted by an account on Threads by supplying the `user_id`. Supports subsequent pages of results via `end_cursor`.\n\n## Use cases\n\n- Monitor recent replies posted by a specific user.\n- Track user conversation history across different threads.\n- Ingest reply activity into an engagement tracking dashboard.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/threads/web/user-replies\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"user_id\": \"<user_id>\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `user_id` | string | Yes | User ID, for example: 63625256886 |\n| `end_cursor` | string | No | Pagination cursor (optional), used to get next page data |\n\n## Notes\n\n- Pass `end_cursor` to paginate through subsequent pages of reply data.\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [Threads Post Detail](/model/threads/web/post-detail): Returns detailed information for a specific Threads post using its numeric ID.\n- [Threads Post Detail (V2)](/model/threads/web/post-detail-v2): Returns detailed information for a specific Threads post.\n- [Threads Profile Search](/model/threads/web/search-profiles): Searches Threads user profiles based on a specified text query string.\n",
+  "page_url": "https://www.sandbase.ai/model/threads/web/user-replies",
+  "created_at": "2026-07-31T04:12:57.472Z"
+}

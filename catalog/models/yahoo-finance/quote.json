@@ -1,0 +1,67 @@
+{
+  "name": "yahoo-finance/quote",
+  "display_name": "Yahoo Finance Quote",
+  "type": "api",
+  "vendor": "Yahoo Finance",
+  "vendor_slug": "yahoo-finance",
+  "description": "Retrieve real-time stock quotes including current price, bid/ask, volume, market cap, and market status for one or more tickers. Supports batch lookups via comma-separated symbols.",
+  "tags": [
+    "api",
+    "yahoo-finance",
+    "finance-crypto"
+  ],
+  "capabilities": [
+    "api",
+    "yahoo-finance",
+    "finance-crypto"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}",
+    "passthrough": "POST /v1/api/yahoo-finance/quote"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "symbols"
+    ],
+    "properties": {
+      "symbols": {
+        "type": "string",
+        "example": "AAPL",
+        "description": "Comma-separated list of stock ticker symbols (e.g., AAPL,MSFT,TSLA)."
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "required": [
+      "id",
+      "status",
+      "model"
+    ],
+    "properties": {
+      "id": {
+        "type": "string"
+      },
+      "model": {
+        "type": "string"
+      },
+      "status": {
+        "type": "string"
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.05
+  },
+  "readme": "# Yahoo Finance Quote\n\nRetrieve real-time stock quotes including current price, bid/ask, volume, market cap, and market status for one or more tickers. Supports batch lookups via comma-separated symbols.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/yahoo-finance/quote\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"symbols\": \"AAPL\"}'\n```\n\nThis API runs asynchronously. The call returns a task `id` with status `pending`; poll `GET https://api.sandbase.ai/v1/run/{id}` until `status` is `completed` and read the result from `outputs[0].data`.\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `symbols` | string | Yes | Comma-separated list of stock ticker symbols (e.g., AAPL,MSFT,TSLA). |\n\n## Pricing\n\nFlat price per call. Failed calls are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/yahoo-finance/quote",
+  "created_at": "2026-10-30T07:41:03.049Z"
+}

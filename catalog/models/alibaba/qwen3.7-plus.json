@@ -1,0 +1,51 @@
+{
+  "name": "alibaba/qwen3.7-plus",
+  "display_name": "Qwen: Qwen3.7 Plus",
+  "type": "llm",
+  "vendor": "Alibaba",
+  "vendor_slug": "alibaba",
+  "description": "Qwen3.7 Plus is the balanced Plus tier of Alibaba's Qwen3.7 series, a reasoning model with text and image input released in June 2026. Alibaba highlights its multimodal hybrid agent abilities: perceiving real-world scenes, reading screens and operating GUIs, generating code from visual references and navigating mobile apps end to end, alongside coding, tool use and productivity work. Model Studio recommends it as its default for general and coding workloads, with Qwen3.8 Max for harder reasoning.",
+  "tags": [
+    "chat",
+    "vision",
+    "reasoning",
+    "structured_output",
+    "function_calling"
+  ],
+  "capabilities": [
+    "chat",
+    "vision",
+    "reasoning",
+    "structured_output",
+    "function_calling"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "chat_completions": "POST /v1/chat/completions",
+    "responses": "POST /v1/responses",
+    "messages": "POST /v1/messages"
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_token",
+    "per_million_tokens": {
+      "input": 0.4,
+      "output": 1.6,
+      "cache_read_multiplier": 0.2,
+      "cache_write_multiplier": 1.25
+    },
+    "formula": "usage.prompt_tokens >= 256000 ? (usage.prompt_tokens * 1.2 / 1000000 + usage.completion_tokens * 4.8 / 1000000 - usage.cached_tokens * 0.64 / 1000000) : (usage.prompt_tokens * 0.4 / 1000000 + usage.completion_tokens * 1.6 / 1000000)",
+    "formula_variables": [
+      "usage.cached_tokens",
+      "usage.completion_tokens",
+      "usage.prompt_tokens"
+    ]
+  },
+  "cover_url": "https://t0.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=https://www.alibabacloud.com&size=256",
+  "page_url": "https://www.sandbase.ai/model/alibaba/qwen3.7-plus",
+  "published_at": "2026-06-03T13:03:03Z",
+  "created_at": "2026-06-04T07:16:53.37Z"
+}

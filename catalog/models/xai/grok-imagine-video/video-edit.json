@@ -1,0 +1,147 @@
+{
+  "name": "xai/grok-imagine-video/video-edit",
+  "display_name": "Grok Imagine Video Edit",
+  "type": "video",
+  "vendor": "xAI",
+  "vendor_slug": "xai",
+  "description": "Grok Imagine Video Edit is xAI's video-to-video AI model. Transform, enhance, and edit video content using text prompts - from style changes to object manipulation and scene modification.",
+  "tags": [
+    "video-to-video"
+  ],
+  "capabilities": [
+    "video-to-video"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "prompt",
+      "video"
+    ],
+    "properties": {
+      "video": {
+        "type": "string",
+        "title": "Video URL",
+        "examples": [
+          "https://static.sandbase.ai/examples/xai/grok-imagine-video/edit/input_video_0.mp4"
+        ],
+        "description": "URL of the input video to edit. The video will be resized to a maximum area of 854x480 pixels and truncated to 8 seconds."
+      },
+      "prompt": {
+        "type": "string",
+        "title": "Prompt",
+        "examples": [
+          "Colorize the video"
+        ],
+        "maxLength": 4096,
+        "description": "Text description of the desired edit."
+      },
+      "resolution": {
+        "enum": [
+          "auto",
+          "480p",
+          "720p"
+        ],
+        "type": "string",
+        "title": "Resolution",
+        "default": "auto",
+        "description": "Resolution of the output video."
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "title": "GenerationResponse",
+    "required": [
+      "id",
+      "status"
+    ],
+    "properties": {
+      "id": {
+        "type": "string",
+        "description": "Unique identifier for the generation task."
+      },
+      "error": {
+        "type": "string",
+        "description": "Error message if the task failed. Empty on success."
+      },
+      "model": {
+        "type": "string",
+        "description": "Model ID used for the prediction."
+      },
+      "status": {
+        "enum": [
+          "pending",
+          "running",
+          "completed",
+          "failed",
+          "timeout"
+        ],
+        "type": "string",
+        "description": "Status of the task: pending, running, completed, failed, or timeout."
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "title": "OutputItem",
+          "required": [
+            "url"
+          ],
+          "properties": {
+            "url": {
+              "type": "string",
+              "examples": [
+                "https://static.sandbase.ai/examples/xai/grok-imagine-video/edit/output_url_1.mp4"
+              ],
+              "description": "The URL where the generated content can be downloaded from."
+            },
+            "content_type": {
+              "type": "string",
+              "description": "The MIME type of the output file."
+            }
+          }
+        },
+        "description": "Array of generated content. Empty when status is not completed."
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "formula",
+    "formula": "(params.resolution ?? \"auto\") == \"720p\" ? (usage.duration ?? media_duration(params.video) ?? 5.0) * 0.08 : (usage.duration ?? media_duration(params.video) ?? 5.0) * 0.06",
+    "formula_variables": [
+      "params.resolution",
+      "params.video",
+      "usage.duration"
+    ],
+    "reference_price": 0.3
+  },
+  "examples": [
+    {
+      "input": {
+        "prompt": "Colorize the video",
+        "video": "https://static.sandbase.ai/examples/11481268-9367-44ba-92ab-8d9e12ea1ca5/input/4a83fad0-72ea-4512-87e8-53f73b2c3b94.mp4"
+      },
+      "output": [
+        {
+          "poster": "https://static.sandbase.ai/examples/posters/b07b9ae3a744140f9541.jpg",
+          "url": "https://static.sandbase.ai/examples/11481268-9367-44ba-92ab-8d9e12ea1ca5/output/40fd15d1-188d-44e7-9e23-9c589bece014.mp4"
+        }
+      ],
+      "default": true
+    }
+  ],
+  "readme": "# Grok Imagine Video Edit\n\nGrok Imagine Video edit: change an existing clip with an instruction while keeping its motion.\n\n## Fields\n\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `prompt` | string, required | — | Up to 4,096 characters. |\n| `video` | video URL, required | — | Source clip. |\n| `resolution` | `auto` / `480p` / `720p` | `auto` | Sets the per-second rate. |\n\n## Billing\n\n$0.08 per output second at 720p and $0.06 otherwise; the output matches the source length. The quote before submission assumes 5 seconds.\n\n| Output | auto | 480p | 720p |\n|---|---|---|---|\n| 3s source | $0.18 | $0.18 | $0.24 |\n| 5s source | $0.30 | $0.30 | $0.40 |\n| 8s source | $0.48 | $0.48 | $0.64 |\n\nFailed runs are not charged.\n\n## Prompting\n\n- Describe subject, action, camera, and sound.\n\n## Also on SandBase\n\nOther Grok Imagine Video endpoints: `xai/grok-imagine-video/text-to-video`, `xai/grok-imagine-video/image-to-video`, `xai/grok-imagine-video/reference-to-video`, `xai/grok-imagine-video/video-extend`, `xai/grok-imagine-video/1.5/text-to-video` (1.5, newer).\n",
+  "cover_url": "https://static.sandbase.ai/covers/xai/grok-imagine-video/edit/cover-flare-20261005002331.webp",
+  "page_url": "https://www.sandbase.ai/model/xai/grok-imagine-video/video-edit",
+  "published_at": "2026-01-29T00:27:49.985Z",
+  "created_at": "2026-10-05T23:57:13.42Z"
+}

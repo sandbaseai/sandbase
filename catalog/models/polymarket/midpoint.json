@@ -1,0 +1,56 @@
+{
+  "name": "polymarket/midpoint",
+  "display_name": "Polymarket Get midpoint price",
+  "type": "api",
+  "vendor": "Polymarket",
+  "vendor_slug": "polymarket",
+  "description": "Retrieves the midpoint price for a specific token ID. The midpoint is calculated as the average of the best bid and best ask prices.",
+  "tags": [
+    "api",
+    "polymarket",
+    "prediction-markets"
+  ],
+  "capabilities": [
+    "api",
+    "polymarket",
+    "prediction-markets"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/polymarket/midpoint"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "token_id"
+    ],
+    "properties": {
+      "token_id": {
+        "type": "string",
+        "example": "0xabc123def456...",
+        "description": "Token ID (asset ID)"
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.012,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "readme": "# Polymarket Get midpoint price API\n\nRetrieves the midpoint price for a specific token ID. The midpoint is calculated as the average of the best bid and best ask prices.\n\nThe response is the official Polymarket API response, unchanged.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/polymarket/midpoint\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"token_id\": \"32338220190071351435772801779725302244575775216413325951443816017994629993401\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `token_id` | string | Yes | Token ID (asset ID) |\n\n## Pricing\n\nFlat price per call. Failed calls are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/polymarket/midpoint",
+  "created_at": "2026-10-30T03:11:38.391Z"
+}

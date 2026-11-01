@@ -1,0 +1,77 @@
+{
+  "name": "weibo/web-v2/user-posts",
+  "display_name": "Weibo User Posts",
+  "type": "api",
+  "vendor": "Weibo",
+  "vendor_slug": "weibo",
+  "description": "Get the posts published by a Weibo user: text, publish time, images, videos and repost, comment and like counts, with pagination.",
+  "tags": [
+    "api",
+    "weibo"
+  ],
+  "capabilities": [
+    "api",
+    "weibo"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/weibo/web-v2/user-posts"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "uid"
+    ],
+    "properties": {
+      "uid": {
+        "type": "string",
+        "title": "Uid",
+        "example": "2803301701",
+        "description": "User ID (required)"
+      },
+      "page": {
+        "type": "integer",
+        "title": "Page",
+        "description": "Page number, starts from 1 (default 1)"
+      },
+      "feature": {
+        "type": "integer",
+        "title": "Feature",
+        "description": "Data feature value (default 0)"
+      },
+      "since_id": {
+        "type": "string",
+        "title": "Since Id",
+        "description": "Pagination identifier for next page"
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.0015,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "examples": [
+    {
+      "input": {
+        "uid": "example"
+      }
+    }
+  ],
+  "readme": "# Weibo User Posts API\n\nPass a Weibo user ID and get that account's posts with engagement metrics, page by page.\n\n## Use cases\n\n- Monitor official accounts and media.\n- Analyze content performance of an account.\n- Archive posts.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/weibo/web-v2/user-posts\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"uid\": \"2803301701\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `uid` | string | Yes | User ID (required) |\n| `page` | integer | No | Page number, starts from 1 (default 1) |\n| `feature` | integer | No | Data feature value (default 0) |\n| `since_id` | string | No | Pagination identifier for next page |\n\n## Example response\n\nReal response for the request above, trimmed to the main fields. User names and long IDs are masked.\n\n```json\n{\n  \"data\": {\n    \"since_id\": \"<since_id>\",\n    \"list\": [\n      {\n        \"id\": 5348998178410235,\n        \"created_at\": \"Thu Oct 01 00:00:08 +0800 2026\",\n        \"reposts_count\": 825698,\n        \"comments_count\": 19113,\n        \"attitudes_count\": 103953,\n        \"text_raw\": \"【此刻，转发接力：#我爱你中国#[心]】#庆祝新中国成立77周年#，今天共同传递：惟愿山河锦绣、国泰民安！祝福伟大祖国…\",\n        \"user\": {\n          \"id\": 2803301701,\n          \"screen_name\": \"人民日报\"\n        }\n      }\n    ]\n  }\n}\n```\n\n## Notes\n\n- Paginate with `page` or `since_id` from the previous response.\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [Weibo Advanced Search](/model/weibo/web-v2/advanced-search): Search Weibo posts by keyword with filters for time range, post type (hot, original, verified, media) and content type (images, video, links).\n- [Weibo Real-Time Hot Search](/model/weibo/web-v2/hot-search): Get the Weibo real-time hot search ranking: trending keywords with rank, heat value and labels such as new or hot.\n- [Weibo Hot Search List](/model/weibo/web-v2/hot-search-summary): Get the complete real-time Weibo hot search ranking (top 50): keyword, rank, heat tag and search link for each trending topic.\n",
+  "page_url": "https://www.sandbase.ai/model/weibo/web-v2/user-posts",
+  "created_at": "2026-07-31T02:46:20.249Z"
+}

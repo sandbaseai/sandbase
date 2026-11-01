@@ -1,0 +1,47 @@
+{
+  "name": "dataforseo/v3/dataforseo_labs/google/categories_for_keywords/live",
+  "display_name": "DataForSEO Google Categories for Keywords",
+  "type": "api",
+  "vendor": "DataForSEO",
+  "vendor_slug": "dataforseo",
+  "description": "Map up to 100 keywords to Google product and service category codes to group and analyze keyword lists by topic.",
+  "tags": [
+    "labs",
+    "keywords",
+    "google",
+    "categories"
+  ],
+  "capabilities": [
+    "labs",
+    "keywords",
+    "google",
+    "categories"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/dataforseo/v3/dataforseo_labs/google/categories_for_keywords/live"
+  },
+  "input_schema": {
+    "type": "object",
+    "properties": {},
+    "description": "Request parameters forwarded to DataForSEO /v3/dataforseo_labs/google/categories_for_keywords/live. See DataForSEO docs for full schema.",
+    "additionalProperties": true
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.024
+  },
+  "readme": "# Google Categories for Keywords API\n\nMap up to 100 keywords to Google product and service category codes to group and analyze keyword lists by topic.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/dataforseo/v3/dataforseo_labs/google/categories_for_keywords/live\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"keywords\": [\"running shoes\", \"laptop\"], \"language_code\": \"en\"}'\n```\n\n## Parameters\n\nThe body is passed through to DataForSEO. See the [official documentation](https://docs.dataforseo.com/v3/dataforseo_labs/google/categories_for_keywords/live/) for every field.\n\n## Pricing\n\nFlat price per call. One task per request; `limit` is capped at 100 and input lists (`keywords`, `targets`, `asins`, `app_ids` ...) accept at most 100 items. Failed calls are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/dataforseo/v3/dataforseo_labs/google/categories_for_keywords/live",
+  "published_at": "2024-01-01T00:00:00Z",
+  "created_at": "2026-10-29T09:34:46.644Z"
+}

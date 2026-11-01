@@ -1,0 +1,69 @@
+{
+  "name": "douyin/web/all-aweme-id",
+  "display_name": "Douyin Batch Video ID Extraction",
+  "type": "api",
+  "vendor": "Douyin",
+  "vendor_slug": "douyin",
+  "description": "Extracts video IDs from a list of Douyin video URLs. Accepts an array of links and returns the corresponding item identifiers.",
+  "tags": [
+    "api",
+    "douyin"
+  ],
+  "capabilities": [
+    "api",
+    "douyin"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/douyin/web/all-aweme-id"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "body"
+    ],
+    "properties": {
+      "body": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        },
+        "title": "Url",
+        "example": [
+          "https://www.douyin.com/video/7512756548356492544"
+        ],
+        "description": "Video link list"
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.0015,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "examples": [
+    {
+      "input": {
+        "body": [
+          "https://static.sandbase.ai/examples/065a6f00-759d-4a47-b76e-ee86608434dd/input/37b54c15-fdda-4fbc-9918-f5aeae5c4218.bin"
+        ]
+      }
+    }
+  ],
+  "readme": "# Douyin Batch Video ID Extraction API\n\nRetrieve Douyin video IDs from provided URLs by passing an array of links in `body`.\n\n## Use cases\n\n- Parse Douyin video IDs from public web links in bulk.\n- Normalize video URLs into clean identifiers for downstream queries.\n- Resolve up to 20 video links in a single request.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/douyin/web/all-aweme-id\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"body\": [\"https://www.douyin.com/video/7512756548356492544\"]}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `body` | array | Yes | Video link list |\n\n## Notes\n\n- Supports up to 20 video links in the request `body`.\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [Douyin sec_user_ids from URLs (Batch)](/model/douyin/web/all-sec-user-id): Extracts Douyin sec_user_id values in bulk from a list of user homepage URLs.\n- [Douyin Webcast ID Extraction](/model/douyin/web/all-webcast-id): Extracts webcast IDs from a submitted list of Douyin live room links.\n- [Douyin Video ID Extractor](/model/douyin/web/aweme-id): Extracts the internal video ID from a given Douyin video web URL.\n",
+  "page_url": "https://www.sandbase.ai/model/douyin/web/all-aweme-id",
+  "created_at": "2026-07-31T02:39:20.311Z"
+}

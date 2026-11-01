@@ -1,0 +1,86 @@
+{
+  "name": "facebook/search-pages",
+  "display_name": "Facebook Page Search",
+  "type": "api",
+  "vendor": "Facebook",
+  "vendor_slug": "facebook",
+  "description": "Search Facebook Pages by keyword, optionally narrowed to a location, and get structured page profiles (name, category, followers, contact details).",
+  "tags": [
+    "api",
+    "facebook",
+    "social-media"
+  ],
+  "capabilities": [
+    "api",
+    "facebook",
+    "social-media"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/facebook/search-pages"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "query"
+    ],
+    "properties": {
+      "limit": {
+        "type": "integer",
+        "example": 3,
+        "maximum": 10,
+        "minimum": 1,
+        "description": "Maximum number of results to return (1-10, default 10). You are billed per result returned, so a lower limit costs less."
+      },
+      "query": {
+        "type": "string",
+        "example": "nike",
+        "description": "Keyword to search Facebook Pages for (e.g. 'coffee roasters')."
+      },
+      "location": {
+        "type": "string",
+        "description": "Optional free-text location to narrow the search: a city, province, or country (e.g. 'Berlin')."
+      }
+    },
+    "additionalProperties": false
+  },
+  "response_schema": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string"
+      },
+      "model": {
+        "type": "string"
+      },
+      "status": {
+        "type": "string"
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "data": {
+              "type": "object",
+              "description": "Normalized result for this request."
+            }
+          }
+        }
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "usage_based",
+    "note": "Billed per call from metered usage; the reference price is typical.",
+    "reference_price": 0.123
+  },
+  "readme": "# Facebook Page Search API\n\nSearch Facebook Pages by keyword, optionally narrowed to a location, and get structured page profiles (name, category, followers, contact details).\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/facebook/search-pages\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"limit\": 3, \"query\": \"nike\"}'\n```\n\nThe result is returned in `outputs[0].data`. A lookup that finds nothing still succeeds and returns `found: false`.\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `query` | string | Yes | Keyword to search Facebook Pages for (e.g. 'coffee roasters'). |\n| `limit` | integer | No | Maximum number of results to return (1-10, default 10). You are billed per result returned, so a lower limit costs less. |\n| `location` | string | No | Optional free-text location to narrow the search: a city, province, or country (e.g. 'Berlin'). |\n\n## Pricing\n\nBilled at the actual cost of each call, usually $0.123 per request. A call can cost more when the first data source fails and another one answers. Failed calls are not charged. Lookups that find nothing and searches with no results are billed at their actual cost, which is often lower and can be $0.\n",
+  "page_url": "https://www.sandbase.ai/model/facebook/search-pages",
+  "created_at": "2026-10-31T10:36:30.609Z"
+}

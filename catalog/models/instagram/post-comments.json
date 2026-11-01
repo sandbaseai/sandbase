@@ -1,0 +1,69 @@
+{
+  "name": "instagram/post-comments",
+  "display_name": "Instagram Post Comment List",
+  "type": "api",
+  "vendor": "Instagram",
+  "vendor_slug": "instagram",
+  "description": "Get top-level comments for an Instagram post by shortcode, with cursor pagination and popular or newest sorting. Use it to review audience feedback or analyze discussion around a known post.",
+  "tags": [
+    "api",
+    "instagram",
+    "social-media"
+  ],
+  "capabilities": [
+    "api",
+    "instagram",
+    "social-media"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/instagram/post-comments"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "code"
+    ],
+    "properties": {
+      "code": {
+        "type": "string",
+        "example": "DfAOoAXRg3L",
+        "description": "The unique shortcode for the Instagram post."
+      },
+      "minId": {
+        "type": "string",
+        "description": "Pagination cursor returned as next_min_id from the previous response."
+      },
+      "sortOrder": {
+        "enum": [
+          "popular",
+          "newest"
+        ],
+        "type": "string",
+        "default": "newest",
+        "description": "Sort order for the comments."
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.013889,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "readme": "# Instagram Post Comment List API\n\nGet top-level comments for an Instagram post by shortcode, with cursor pagination and popular or newest sorting. Use it to review audience feedback or analyze discussion around a known post.\n\nThe response is the platform's original data structure.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/instagram/post-comments\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"code\": \"DfAOoAXRg3L\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `code` | string | Yes | The unique shortcode for the Instagram post. |\n| `minId` | string | No | Pagination cursor returned as next_min_id from the previous response. |\n| `sortOrder` | string | No | Sort order for the comments. |\n\n## Pricing\n\nFlat price per call. Failed calls and empty results are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/instagram/post-comments",
+  "created_at": "2026-10-29T12:29:13.195Z"
+}

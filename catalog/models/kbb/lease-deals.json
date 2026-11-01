@@ -1,0 +1,68 @@
+{
+  "name": "kbb/lease-deals",
+  "display_name": "Kelley Blue Book Lease Deals",
+  "type": "api",
+  "vendor": "Kelley Blue Book",
+  "vendor_slug": "kbb",
+  "description": "Retrieve the current '10 Best Lease Deals Around $200' editorial list from Kelley Blue Book in one round trip. Each deal carries the vehicle name as one string (e.g.",
+  "tags": [
+    "api",
+    "kbb",
+    "ecommerce"
+  ],
+  "capabilities": [
+    "api",
+    "kbb",
+    "ecommerce"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}",
+    "passthrough": "POST /v1/api/kbb/lease-deals"
+  },
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "zip_code": {
+        "type": "string",
+        "description": "5-digit US ZIP code. Accepted and echoed back; deals are national listings and do not vary by location."
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "required": [
+      "id",
+      "status",
+      "model"
+    ],
+    "properties": {
+      "id": {
+        "type": "string"
+      },
+      "model": {
+        "type": "string"
+      },
+      "status": {
+        "type": "string"
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.01,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "readme": "# Kelley Blue Book Lease Deals\n\nRetrieve the current '10 Best Lease Deals Around $200' editorial list from Kelley Blue Book in one round trip. Each deal carries the vehicle name as one string (e.g.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/kbb/lease-deals\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{}'\n```\n\nThis API runs asynchronously. The call returns a task `id` with status `pending`; poll `GET https://api.sandbase.ai/v1/run/{id}` until `status` is `completed` and read the result from `outputs[0].data`.\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `zip_code` | string | No | 5-digit US ZIP code. Accepted and echoed back; deals are national listings and do not vary by location. |\n\n## Pricing\n\nFlat price per call. Failed calls are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/kbb/lease-deals",
+  "created_at": "2026-10-30T09:18:37.374Z"
+}

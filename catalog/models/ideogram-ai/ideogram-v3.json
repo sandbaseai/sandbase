@@ -1,0 +1,182 @@
+{
+  "name": "ideogram-ai/ideogram-v3",
+  "display_name": "Ideogram 3.0 Text to Image",
+  "type": "image",
+  "vendor": "Ideogram",
+  "vendor_slug": "ideogram-ai",
+  "description": "3.0 is Ideogram's advanced text-to-image AI model. Create photorealistic images, illustrations, and concept art from natural language descriptions with exceptional detail and prompt adherence.",
+  "tags": [
+    "text-to-image"
+  ],
+  "capabilities": [
+    "text-to-image"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "prompt"
+    ],
+    "properties": {
+      "seed": {
+        "type": "integer",
+        "title": "Seed",
+        "description": "Seed for the random number generator"
+      },
+      "images": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        },
+        "title": "Image Urls",
+        "description": "A set of images to use as style references (maximum total size 10MB across all style references). The images should be in JPEG, PNG or WebP format"
+      },
+      "prompt": {
+        "type": "string",
+        "title": "Prompt",
+        "examples": [
+          "The Bone Forest stretched across the horizon, its trees fashioned from the ossified remains of ancient leviathans that once swam through the sky. Shamans with antlers growing from their shoulders and eyes that revealed the true nature of any being they beheld conducted rituals to commune with the spirits that still inhabited the calcified grove. In sky writes \"Ideogram V3 in router.ai\""
+        ]
+      },
+      "aspect_ratio": {
+        "enum": [
+          "21:9",
+          "16:9",
+          "3:2",
+          "4:3",
+          "5:4",
+          "1:1",
+          "4:5",
+          "3:4",
+          "2:3",
+          "9:16"
+        ],
+        "type": "string",
+        "title": "Aspect Ratio",
+        "description": "The aspect ratio of the generated image."
+      },
+      "rendering_speed": {
+        "enum": [
+          "TURBO",
+          "BALANCED",
+          "QUALITY"
+        ],
+        "type": "string",
+        "title": "Rendering Speed",
+        "default": "BALANCED",
+        "description": "The rendering speed to use."
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "title": "GenerationResponse",
+    "required": [
+      "id",
+      "status"
+    ],
+    "properties": {
+      "id": {
+        "type": "string",
+        "description": "Unique identifier for the generation task."
+      },
+      "error": {
+        "type": "string",
+        "description": "Error message if the task failed. Empty on success."
+      },
+      "model": {
+        "type": "string",
+        "description": "Model ID used for the prediction."
+      },
+      "status": {
+        "enum": [
+          "pending",
+          "running",
+          "completed",
+          "failed",
+          "timeout"
+        ],
+        "type": "string",
+        "description": "Status of the task: pending, running, completed, failed, or timeout."
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "title": "OutputItem",
+          "required": [
+            "url"
+          ],
+          "properties": {
+            "url": {
+              "type": "string",
+              "examples": [
+                "https://static.sandbase.ai/examples/ideogram/3.0/output_url_0.png"
+              ],
+              "description": "The URL where the generated content can be downloaded from."
+            },
+            "content_type": {
+              "type": "string",
+              "description": "The MIME type of the output file."
+            }
+          }
+        },
+        "description": "Array of generated content. Empty when status is not completed."
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "formula",
+    "formula": "(params.rendering_speed ?? \"BALANCED\") == \"TURBO\" ? 0.03 : (params.rendering_speed ?? \"BALANCED\") == \"QUALITY\" ? 0.09 : 0.06",
+    "formula_variables": [
+      "params.rendering_speed"
+    ],
+    "reference_price": 0.06,
+    "price_examples": [
+      {
+        "params": {
+          "rendering_speed": "TURBO"
+        },
+        "usd": 0.03
+      },
+      {
+        "params": {
+          "rendering_speed": "BALANCED"
+        },
+        "usd": 0.06
+      },
+      {
+        "params": {
+          "rendering_speed": "QUALITY"
+        },
+        "usd": 0.09
+      }
+    ]
+  },
+  "examples": [
+    {
+      "input": {
+        "prompt": "The Bone Forest stretched across the horizon, its trees fashioned from the ossified remains of ancient leviathans that once swam through the sky. Shamans with antlers growing from their shoulders and eyes that revealed the true nature of any being they beheld conducted rituals to commune with the spirits that still inhabited the calcified grove. In sky writes \"Ideogram V3 in router.ai\""
+      },
+      "output": [
+        {
+          "url": "https://static.sandbase.ai/examples/b2ba42af-31f9-4ff2-b7a9-ac8947bd48d3/output/79e94fd7-bf6e-4eee-9104-84db976f505a.png"
+        }
+      ],
+      "default": true
+    }
+  ],
+  "readme": "# Ideogram 3.0 Text to Image\n\nIdeogram 3.0 text-to-image with strong typography, at three rendering speeds.\n\n## Fields\n\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `prompt` | string, required | — | Text instruction. |\n| `images` | image URL[] | — | Optional style references. |\n| `aspect_ratio` | `21:9` / `16:9` / `3:2` / `4:3` / `5:4` / `1:1` / `4:5` / `3:4` / `2:3` / `9:16` | — | Output shape. |\n| `seed` | integer | random | Fix it to compare prompt changes. |\n| `rendering_speed` | `TURBO` / `BALANCED` / `QUALITY` | `BALANCED` | Sets the per-image rate. |\n\n## Billing\n\nPer image: $0.03 Turbo, $0.06 Balanced, $0.09 Quality.\n\n| Speed | Price |\n|---|---|\n| TURBO | $0.03 |\n| BALANCED | $0.06 |\n| QUALITY | $0.09 |\n\nFailed runs are not charged.\n\n## Prompting\n\n- Quote all text that must appear.\n\n## Also on SandBase\n\nRelated: `ideogram/4.5` (newer).\n",
+  "cover_url": "https://static.sandbase.ai/covers/ideogram-ai/ideogram-v3/cover-flare-20261005015518.webp",
+  "page_url": "https://www.sandbase.ai/model/ideogram-ai/ideogram-v3",
+  "published_at": "2025-05-01T16:04:02.805Z",
+  "created_at": "2026-05-13T00:20:33.451Z"
+}

@@ -1,0 +1,52 @@
+{
+  "protocol": "E2B",
+  "api_url": "https://sandbox.sandbase.ai",
+  "domain": "sandbox.sandbase.ai",
+  "sdk": {
+    "python": "e2b",
+    "javascript": "e2b"
+  },
+  "pricing": {
+    "model": "free",
+    "usd": 0,
+    "note": "Sandboxes are free."
+  },
+  "public_templates": [
+    {
+      "id": "tpl_364ae3695c1c462daedac0c145743f1e",
+      "names": [
+        "openagentcore-mcode-0-8-0-fbdea0c8"
+      ],
+      "cpu_count": 2,
+      "memory_mb": 2048,
+      "disk_mb": 23007
+    },
+    {
+      "id": "tpl_8d964f71341b4f629bb96cb82df3d960",
+      "names": [
+        "openagentcore-codex-0-8-0-fbdea0c8"
+      ],
+      "cpu_count": 2,
+      "memory_mb": 2048,
+      "disk_mb": 23173
+    },
+    {
+      "id": "tpl_d445e8f5c4684feaa0318ef58038909c",
+      "names": [
+        "sandbase-oac-37180911221-1"
+      ],
+      "cpu_count": 2,
+      "memory_mb": 2048,
+      "disk_mb": 23751
+    },
+    {
+      "id": "tpl_d5a3e731e44c4892a8679038fda8d221",
+      "names": [
+        "openagentcore-claude-0-8-0-fbdea0c8"
+      ],
+      "cpu_count": 2,
+      "memory_mb": 2048,
+      "disk_mb": 23232
+    }
+  ]
+}

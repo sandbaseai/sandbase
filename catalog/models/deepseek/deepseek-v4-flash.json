@@ -1,0 +1,47 @@
+{
+  "name": "deepseek/deepseek-v4-flash",
+  "display_name": "DeepSeek: DeepSeek V4 Flash",
+  "type": "llm",
+  "vendor": "DeepSeek",
+  "vendor_slug": "deepseek",
+  "description": "DeepSeek V4 Flash is an efficiency-optimized Mixture-of-Experts model from DeepSeek with 284B total parameters and 13B activated parameters, supporting a 1M-token context window. It is designed for fast inference and high-throughput workloads, while maintaining strong reasoning and coding performance.\n\nThe model includes hybrid attention for efficient long-context processing. Reasoning efforts `high` and `xhigh` are supported; `xhigh` maps to max reasoning. It is well suited for applications such as coding assistants, chat systems, and agent workflows where responsiveness and cost efficiency are important.",
+  "tags": [
+    "chat",
+    "reasoning",
+    "structured_output",
+    "function_calling"
+  ],
+  "capabilities": [
+    "chat",
+    "reasoning",
+    "structured_output",
+    "function_calling"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "chat_completions": "POST /v1/chat/completions",
+    "responses": "POST /v1/responses",
+    "messages": "POST /v1/messages"
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_token",
+    "per_million_tokens": {
+      "input": 0.3,
+      "output": 1.2,
+      "cache_read_multiplier": 0.02
+    },
+    "formula": "usage.prompt_tokens * 0.3 / 1000000 + usage.completion_tokens * 1.2 / 1000000 + usage.cached_tokens * 0.000006 / 1000000",
+    "formula_variables": [
+      "usage.cached_tokens",
+      "usage.completion_tokens",
+      "usage.prompt_tokens"
+    ]
+  },
+  "page_url": "https://www.sandbase.ai/model/deepseek/deepseek-v4-flash",
+  "published_at": "2026-04-24T03:17:46.71Z",
+  "created_at": "2026-05-08T23:48:34.834Z"
+}

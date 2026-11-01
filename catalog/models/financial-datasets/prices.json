@@ -1,0 +1,72 @@
+{
+  "name": "financial-datasets/prices",
+  "display_name": "Financial Datasets Get Historical Stock Prices",
+  "type": "api",
+  "vendor": "Financial Datasets",
+  "vendor_slug": "financial-datasets",
+  "description": "Get Historical Stock Prices from Financial Datasets. Returns the official Financial Datasets API response unchanged.",
+  "tags": [
+    "api",
+    "financial-datasets",
+    "stocks"
+  ],
+  "capabilities": [
+    "api",
+    "financial-datasets",
+    "stocks"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/financial-datasets/prices"
+  },
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "cursor": {
+        "type": "string",
+        "description": "Opaque pagination cursor from a previous response's next_page_url. When provided, all other query parameters are ignored: the cursor carries the original request's filters. Treat it as opaque; do not construct or modify it."
+      },
+      "ticker": {
+        "type": "string",
+        "example": "AAPL",
+        "description": "The stock ticker symbol (e.g. AAPL, MSFT)."
+      },
+      "end_date": {
+        "type": "string",
+        "example": "2026-10-10",
+        "description": "The end date for the price data (format: YYYY-MM-DD). Provider reference (supplier schema): `{\"format\":\"date\",\"type\":\"string\"}`."
+      },
+      "interval": {
+        "type": "string",
+        "example": "day",
+        "description": "The time interval for the price data. Provider reference (supplier schema): `{\"enum\":[\"day\",\"week\",\"month\",\"year\"],\"type\":\"string\"}`."
+      },
+      "start_date": {
+        "type": "string",
+        "example": "2026-10-01",
+        "description": "The start date for the price data (format: YYYY-MM-DD). Provider reference (supplier schema): `{\"format\":\"date\",\"type\":\"string\"}`."
+      },
+      "interval_multiplier": {
+        "type": "string",
+        "example": "1",
+        "description": "interval_multiplier"
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.02
+  },
+  "readme": "# Financial Datasets Get Historical Stock Prices API\n\nGet Historical Stock Prices from Financial Datasets. Returns the official Financial Datasets API response unchanged.\n\nThe response is the official Financial Datasets API response, unchanged.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/financial-datasets/prices\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"ticker\": \"AAPL\", \"interval\": \"day\", \"interval_multiplier\": \"1\", \"start_date\": \"2026-10-01\", \"end_date\": \"2026-10-10\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `cursor` | string | No | Opaque pagination cursor from a previous response's next_page_url. When provided, all other query parameters are ignored: the cursor carries the original reques |\n| `end_date` | string | No | The end date for the price data (format: YYYY-MM-DD). Provider reference (supplier schema): `{\"format\":\"date\",\"type\":\"string\"}`. |\n| `interval` | string | No | The time interval for the price data. Provider reference (supplier schema): `{\"enum\":[\"day\",\"week\",\"month\",\"year\"],\"type\":\"string\"}`. |\n| `interval_multiplier` | string | No | interval_multiplier |\n| `start_date` | string | No | The start date for the price data (format: YYYY-MM-DD). Provider reference (supplier schema): `{\"format\":\"date\",\"type\":\"string\"}`. |\n| `ticker` | string | No | The stock ticker symbol (e.g. AAPL, MSFT). |\n\n## Pricing\n\nFlat price per call. Failed calls are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/financial-datasets/prices",
+  "created_at": "2026-10-30T03:12:21.861Z"
+}

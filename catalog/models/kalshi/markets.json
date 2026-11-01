@@ -1,0 +1,117 @@
+{
+  "name": "kalshi/markets",
+  "display_name": "Kalshi Get Kalshi Markets",
+  "type": "api",
+  "vendor": "Kalshi",
+  "vendor_slug": "kalshi",
+  "description": "Get Kalshi Markets from Kalshi. Returns the official Kalshi API response unchanged.",
+  "tags": [
+    "api",
+    "kalshi",
+    "prediction-markets"
+  ],
+  "capabilities": [
+    "api",
+    "kalshi",
+    "prediction-markets"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/kalshi/markets"
+  },
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "limit": {
+        "type": "integer",
+        "default": 100,
+        "maximum": 1000,
+        "minimum": 0,
+        "description": "Number of results per page. Defaults to 100. Maximum value is 1000."
+      },
+      "cursor": {
+        "type": "string",
+        "description": "Pagination cursor. Use the cursor value returned from the previous response to get the next page of results. Leave empty for the first page."
+      },
+      "status": {
+        "enum": [
+          "unopened",
+          "open",
+          "paused",
+          "closed",
+          "settled"
+        ],
+        "type": "string",
+        "description": "Filter by market status. Leave empty to return markets with any status."
+      },
+      "tickers": {
+        "type": "string",
+        "description": "Filter by specific market tickers. Comma-separated list of market tickers to retrieve."
+      },
+      "mve_filter": {
+        "enum": [
+          "only",
+          "exclude"
+        ],
+        "type": "string",
+        "description": "Filter by multivariate events (combos). 'only' returns only multivariate events, 'exclude' excludes multivariate events."
+      },
+      "event_ticker": {
+        "type": "string",
+        "description": "Event ticker to filter by. Only a single event ticker is supported."
+      },
+      "max_close_ts": {
+        "type": "integer",
+        "description": "Filter items that close before this Unix timestamp"
+      },
+      "min_close_ts": {
+        "type": "integer",
+        "description": "Filter items that close after this Unix timestamp"
+      },
+      "series_ticker": {
+        "type": "string",
+        "description": "Filter by series ticker"
+      },
+      "max_created_ts": {
+        "type": "integer",
+        "description": "Filter items that created before this Unix timestamp"
+      },
+      "max_settled_ts": {
+        "type": "integer",
+        "description": "Filter items that settled before this Unix timestamp"
+      },
+      "max_updated_ts": {
+        "type": "integer",
+        "description": "Return markets with metadata updated at or before this Unix timestamp (in seconds). Tracks non-trading changes only. May be combined with min_updated_ts and mve_filter=exclude. May also be combined with series_ticker, which requires mve_filter=exclude. Incompatible with other filters."
+      },
+      "min_created_ts": {
+        "type": "integer",
+        "description": "Filter items that created after this Unix timestamp"
+      },
+      "min_settled_ts": {
+        "type": "integer",
+        "description": "Filter items that settled after this Unix timestamp"
+      },
+      "min_updated_ts": {
+        "type": "integer",
+        "description": "Return markets with metadata updated later than this Unix timestamp (in seconds). Tracks non-trading changes only. May be combined with max_updated_ts and mve_filter=exclude. May also be combined with series_ticker, which requires mve_filter=exclude. Incompatible with other filters."
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.02
+  },
+  "readme": "# Kalshi Get Kalshi Markets API\n\nGet Kalshi Markets from Kalshi. Returns the official Kalshi API response unchanged.\n\nThe response is the official Kalshi API response, unchanged.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/kalshi/markets\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `cursor` | string | No | Pagination cursor. Use the cursor value returned from the previous response to get the next page of results. Leave empty for the first page. |\n| `event_ticker` | string | No | Event ticker to filter by. Only a single event ticker is supported. |\n| `limit` | integer | No | Number of results per page. Defaults to 100. Maximum value is 1000. |\n| `max_close_ts` | integer | No | Filter items that close before this Unix timestamp |\n| `max_created_ts` | integer | No | Filter items that created before this Unix timestamp |\n| `max_settled_ts` | integer | No | Filter items that settled before this Unix timestamp |\n| `max_updated_ts` | integer | No | Return markets with metadata updated at or before this Unix timestamp (in seconds). Tracks non-trading changes only. May be combined with min_updated_ts and mve |\n| `min_close_ts` | integer | No | Filter items that close after this Unix timestamp |\n| `min_created_ts` | integer | No | Filter items that created after this Unix timestamp |\n| `min_settled_ts` | integer | No | Filter items that settled after this Unix timestamp |\n| `min_updated_ts` | integer | No | Return markets with metadata updated later than this Unix timestamp (in seconds). Tracks non-trading changes only. May be combined with max_updated_ts and mve_f |\n| `mve_filter` | string | No | Filter by multivariate events (combos). 'only' returns only multivariate events, 'exclude' excludes multivariate events. |\n| `series_ticker` | string | No | Filter by series ticker |\n| `status` | string | No | Filter by market status. Leave empty to return markets with any status. |\n| `tickers` | string | No | Filter by specific market tickers. Comma-separated list of market tickers to retrieve. |\n\n## Pricing\n\nFlat price per call. Failed calls are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/kalshi/markets",
+  "created_at": "2026-08-10T02:47:58.984Z"
+}

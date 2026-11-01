@@ -1,0 +1,55 @@
+{
+  "name": "jd/search/items",
+  "display_name": "JD.com Product Search",
+  "type": "api",
+  "vendor": "JD.com",
+  "vendor_slug": "jd",
+  "description": "Search JD.com products by keyword with item IDs, titles, images, categories and shop names, with page-based pagination.",
+  "tags": [
+    "api",
+    "jd",
+    "ecommerce"
+  ],
+  "capabilities": [
+    "api",
+    "jd",
+    "ecommerce"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/jd/search/items"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "keyword"
+    ],
+    "properties": {
+      "page": {
+        "type": "string",
+        "description": "Page number for pagination."
+      },
+      "keyword": {
+        "type": "string",
+        "example": "蓝牙耳机",
+        "description": "Search keyword."
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.020834
+  },
+  "readme": "# JD.com Product Search API\n\nSearch JD.com products by keyword with item IDs, titles, images, categories and shop names, with page-based pagination.\n\nThe response is the platform's original data structure.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/jd/search/items\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"keyword\": \"手机壳\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `keyword` | string | Yes | Search keyword. |\n| `page` | string | No | Page number for pagination. |\n\n## Pricing\n\nFlat price per call. Failed calls are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/jd/search/items",
+  "created_at": "2026-10-29T02:28:07.563Z"
+}

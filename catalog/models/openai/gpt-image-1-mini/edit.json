@@ -1,0 +1,284 @@
+{
+  "name": "openai/gpt-image-1-mini/edit",
+  "display_name": "GPT Image 1 Mini Edit",
+  "type": "image",
+  "vendor": "OpenAI",
+  "vendor_slug": "openai",
+  "description": "Gpt Image 1 Mini Edit is OpenAI's intelligent image editing model. Transform, retouch, and reimagine existing images using text prompts - from background replacement to artistic style conversion.",
+  "tags": [
+    "image-to-image"
+  ],
+  "capabilities": [
+    "image-to-image"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "prompt"
+    ],
+    "properties": {
+      "images": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        },
+        "title": "Image URLs",
+        "examples": [
+          "https://static.sandbase.ai/examples/openai/gpt-image-1-mini/edit/input_images_0.png",
+          "https://static.sandbase.ai/examples/openai/gpt-image-1-mini/edit/input_images_1.png",
+          "https://static.sandbase.ai/examples/openai/gpt-image-1-mini/edit/input_images_2.png",
+          "https://static.sandbase.ai/examples/openai/gpt-image-1-mini/edit/input_images_3.png"
+        ],
+        "description": "The URLs of the images to use as a reference for the generation."
+      },
+      "prompt": {
+        "type": "string",
+        "title": "Prompt",
+        "examples": [
+          "Dress the model in the clothes and hat. Add a cat to the scene and change the background to a Victorian era building."
+        ],
+        "minLength": 2,
+        "description": "The prompt for image generation"
+      },
+      "quality": {
+        "enum": [
+          "auto",
+          "low",
+          "medium",
+          "high"
+        ],
+        "type": "string",
+        "title": "Quality",
+        "default": "auto",
+        "description": "Quality for the generated image"
+      },
+      "background": {
+        "enum": [
+          "auto",
+          "transparent",
+          "opaque"
+        ],
+        "type": "string",
+        "title": "Background",
+        "default": "auto",
+        "description": "Background for the generated image"
+      },
+      "aspect_ratio": {
+        "enum": [
+          "1:1",
+          "3:2",
+          "2:3"
+        ],
+        "type": "string",
+        "title": "Aspect Ratio",
+        "default": "1:1",
+        "description": "Output aspect ratio: 1:1 (1024x1024), 3:2 (1536x1024) or 2:3 (1024x1536)."
+      },
+      "output_format": {
+        "enum": [
+          "jpeg",
+          "png"
+        ],
+        "type": "string",
+        "title": "Output Format",
+        "default": "png",
+        "description": "Output format for the images"
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "title": "GenerationResponse",
+    "required": [
+      "id",
+      "status"
+    ],
+    "properties": {
+      "id": {
+        "type": "string",
+        "description": "Unique identifier for the generation task."
+      },
+      "error": {
+        "type": "string",
+        "description": "Error message if the task failed. Empty on success."
+      },
+      "model": {
+        "type": "string",
+        "description": "Model ID used for the prediction."
+      },
+      "status": {
+        "enum": [
+          "pending",
+          "running",
+          "completed",
+          "failed",
+          "timeout"
+        ],
+        "type": "string",
+        "description": "Status of the task: pending, running, completed, failed, or timeout."
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "title": "OutputItem",
+          "required": [
+            "url"
+          ],
+          "properties": {
+            "url": {
+              "type": "string",
+              "examples": [
+                "https://static.sandbase.ai/examples/openai/gpt-image-1-mini/edit/output_url_4.jpg"
+              ],
+              "description": "The URL where the generated content can be downloaded from."
+            },
+            "content_type": {
+              "type": "string",
+              "description": "The MIME type of the output file."
+            }
+          }
+        },
+        "description": "Array of generated content. Empty when status is not completed."
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "formula",
+    "formula": "Math.ceil(len(params.prompt ?? \"\") / 1000) * 0.002 + ((params.quality ?? \"auto\") == \"low\" ? ((params.aspect_ratio ?? \"1:1\") == \"1:1\" ? 0.005 : 0.006) : (params.quality ?? \"auto\") == \"medium\" ? ((params.aspect_ratio ?? \"1:1\") == \"1:1\" ? 0.011 : 0.015) : ((params.aspect_ratio ?? \"1:1\") == \"1:1\" ? 0.036 : 0.052))",
+    "formula_variables": [
+      "params.aspect_ratio",
+      "params.prompt",
+      "params.quality"
+    ],
+    "reference_price": 0.038,
+    "price_examples": [
+      {
+        "params": {
+          "aspect_ratio": "1:1",
+          "quality": "auto"
+        },
+        "usd": 0.038
+      },
+      {
+        "params": {
+          "aspect_ratio": "1:1",
+          "quality": "low"
+        },
+        "usd": 0.007
+      },
+      {
+        "params": {
+          "aspect_ratio": "1:1",
+          "quality": "medium"
+        },
+        "usd": 0.013
+      },
+      {
+        "params": {
+          "aspect_ratio": "1:1",
+          "quality": "high"
+        },
+        "usd": 0.038
+      },
+      {
+        "params": {
+          "aspect_ratio": "3:2",
+          "quality": "auto"
+        },
+        "usd": 0.054
+      },
+      {
+        "params": {
+          "aspect_ratio": "3:2",
+          "quality": "low"
+        },
+        "usd": 0.008
+      },
+      {
+        "params": {
+          "aspect_ratio": "3:2",
+          "quality": "medium"
+        },
+        "usd": 0.017
+      },
+      {
+        "params": {
+          "aspect_ratio": "3:2",
+          "quality": "high"
+        },
+        "usd": 0.054
+      },
+      {
+        "params": {
+          "aspect_ratio": "2:3",
+          "quality": "auto"
+        },
+        "usd": 0.054
+      },
+      {
+        "params": {
+          "aspect_ratio": "2:3",
+          "quality": "low"
+        },
+        "usd": 0.008
+      },
+      {
+        "params": {
+          "aspect_ratio": "2:3",
+          "quality": "medium"
+        },
+        "usd": 0.017
+      },
+      {
+        "params": {
+          "aspect_ratio": "2:3",
+          "quality": "high"
+        },
+        "usd": 0.054
+      }
+    ]
+  },
+  "examples": [
+    {
+      "input": {
+        "aspect_ratio": "1:1",
+        "images": [
+          "https://static.sandbase.ai/examples/e4b5996b-021e-4360-bd2f-959dbdf45f4b/input/5c513255-9c78-4e10-a29a-358eb27f85e4.jpg"
+        ],
+        "prompt": "make it watercolor",
+        "quality": "low"
+      },
+      "output": [
+        {
+          "url": "https://static.sandbase.ai/examples/e4b5996b-021e-4360-bd2f-959dbdf45f4b/output/bac76e9d-c669-4acc-acf0-6499e3e7a2f3.png"
+        }
+      ],
+      "default": true
+    },
+    {
+      "input": {
+        "prompt": "Dress the model in the clothes and hat. Add a cat to the scene and change the background to a Victorian era building."
+      },
+      "output": [
+        {
+          "url": "https://static.sandbase.ai/examples/c929e743-7fe6-425b-8a35-e61ae4725402/output/94d3b8f7-775f-4cb6-97d3-ceb0f18014e8.jpg"
+        }
+      ]
+    }
+  ],
+  "readme": "# GPT Image 1 Mini Edit\n\nGPT Image 1 Mini edit: the low-cost GPT Image tier for quick edits and background swaps.\n\n## Fields\n\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `prompt` | string, required | — | Text instruction. |\n| `images` | image URL[] | — | Images to edit, Image 1, Image 2, … |\n| `output_format` | `jpeg` / `png` | `png` | Output file format. |\n| `background` | `auto` / `transparent` / `opaque` | `auto` | `transparent` returns a PNG with alpha. |\n| `quality` | `auto` / `low` / `medium` / `high` | `auto` | `auto` lets the model pick; billed as high. |\n| `aspect_ratio` | `1:1` / `3:2` / `2:3` | `1:1` | 1:1, 3:2, or 2:3; non-square sizes cost more. |\n\n## Billing\n\nPrice depends on quality and shape, plus $0.002 per started 1,000 prompt characters:\n\n| Quality, short prompt | 1:1 | 3:2 or 2:3 |\n|---|---|---|\n| low | $0.007 | $0.008 |\n| medium | $0.013 | $0.017 |\n| high | $0.038 | $0.054 |\n\nFailed runs are not charged.\n\n## Prompting\n\n- State the change and what must stay the same.\n\n## Limits\n\n- Three shapes only: 1:1, 3:2, 2:3.\n\n## Also on SandBase\n\nRelated: `openai/gpt-image-2/edit` (higher quality).\n",
+  "cover_url": "https://static.sandbase.ai/covers/openai/gpt-image-1-mini/edit/cover-flare-20261005042804.webp",
+  "page_url": "https://www.sandbase.ai/model/openai/gpt-image-1-mini/edit",
+  "published_at": "2025-10-21T22:09:49.003Z",
+  "created_at": "2026-05-15T10:16:42.984Z"
+}

@@ -1,0 +1,41 @@
+name: Integration request
+description: Propose your API for SandBase without writing the integration file yourself.
+title: "[integration] <vendor>: <capability>"
+labels: ["integration"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks! Do **not** paste API keys or secrets here. A maintainer will contact you to arrange access.
+        If you are comfortable with YAML, a pull request under `integrations/` is faster: see integrations/README.md.
+  - type: input
+    id: vendor
+    attributes: { label: Vendor / product name }
+    validations: { required: true }
+  - type: input
+    id: docs
+    attributes: { label: API documentation URL, placeholder: "https://..." }
+    validations: { required: true }
+  - type: input
+    id: pricing
+    attributes: { label: Public pricing page URL, placeholder: "https://..." }
+    validations: { required: true }
+  - type: textarea
+    id: endpoints
+    attributes:
+      label: Endpoints to add
+      description: One per line. Method, path, and what it returns.
+      placeholder: "GET /v1/forecast  hourly forecast for a lat/lon"
+    validations: { required: true }
+  - type: dropdown
+    id: auth
+    attributes: { label: Authentication, options: [Bearer token, API key header, API key query parameter, None, Other] }
+    validations: { required: true }
+  - type: dropdown
+    id: mode
+    attributes: { label: Response mode, options: [Synchronous, Asynchronous (submit then poll), Both] }
+    validations: { required: true }
+  - type: input
+    id: contact
+    attributes: { label: Contact for API access, description: Email or GitHub handle }
+    validations: { required: true }

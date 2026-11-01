@@ -1,0 +1,42 @@
+{
+  "name": "alibaba/qwen3-vl-235b-a22b-instruct",
+  "display_name": "Qwen: Qwen3 VL 235B A22B Instruct",
+  "type": "llm",
+  "vendor": "Alibaba",
+  "vendor_slug": "alibaba",
+  "description": "Qwen3-VL 235B A22B Instruct is the largest Mixture-of-Experts model in Alibaba's open-weight Qwen3-VL vision-language family, in its non-thinking Instruct edition, released in September 2025. Qwen positions it for visual agents that operate PC and mobile GUIs, generating HTML, CSS or diagrams from images and video, 2D and 3D grounding, long-video understanding and OCR in 32 languages. Choose it for direct answers; a separate Thinking edition targets multimodal STEM reasoning.",
+  "tags": [
+    "chat",
+    "vision",
+    "structured_output",
+    "function_calling"
+  ],
+  "capabilities": [
+    "chat",
+    "vision",
+    "structured_output",
+    "function_calling"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "chat_completions": "POST /v1/chat/completions",
+    "responses": "POST /v1/responses",
+    "messages": "POST /v1/messages"
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_token",
+    "per_million_tokens": {
+      "input": 0.4,
+      "output": 1.6,
+      "cache_read_multiplier": 1
+    }
+  },
+  "cover_url": "https://t0.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=https://www.alibabacloud.com&size=256",
+  "page_url": "https://www.sandbase.ai/model/alibaba/qwen3-vl-235b-a22b-instruct",
+  "published_at": "2025-09-23T23:04:47Z",
+  "created_at": "2026-05-08T23:45:32.959Z"
+}

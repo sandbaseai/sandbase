@@ -1,0 +1,254 @@
+{
+  "name": "heygen/heygen-video/reference-to-video",
+  "display_name": "HeyGen Video Reference to Video",
+  "type": "video",
+  "vendor": "HeyGen",
+  "vendor_slug": "heygen",
+  "description": "HeyGen Video Reference to Video generates a 5-15 second video guided by reference images, videos and audio.",
+  "tags": [
+    "reference-to-video"
+  ],
+  "capabilities": [
+    "reference-to-video"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "prompt"
+    ],
+    "properties": {
+      "audios": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        },
+        "title": "Reference Audios",
+        "maxItems": 3,
+        "description": "Up to 3 reference audio clips (voice or music)."
+      },
+      "images": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        },
+        "title": "Reference Images",
+        "maxItems": 9,
+        "description": "Up to 9 reference images (characters, products, scenes)."
+      },
+      "prompt": {
+        "type": "string",
+        "title": "Prompt",
+        "maxLength": 32000,
+        "description": "Describe the scene, action, camera and sound."
+      },
+      "videos": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        },
+        "title": "Reference Videos",
+        "maxItems": 3,
+        "description": "Up to 3 reference videos for motion or style."
+      },
+      "duration": {
+        "type": "integer",
+        "title": "Duration",
+        "default": 5,
+        "maximum": 15,
+        "minimum": 5,
+        "description": "Output length in seconds (5-15)."
+      },
+      "resolution": {
+        "enum": [
+          "480p",
+          "768p",
+          "1080p",
+          "2k"
+        ],
+        "type": "string",
+        "title": "Resolution",
+        "default": "768p",
+        "description": "Output resolution. 1080p and 2k cost more."
+      },
+      "aspect_ratio": {
+        "enum": [
+          "21:9",
+          "16:9",
+          "4:3",
+          "1:1",
+          "3:4",
+          "9:16"
+        ],
+        "type": "string",
+        "title": "Aspect Ratio",
+        "description": "Output frame shape. Leave empty to follow the references (adaptive)."
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "title": "GenerationResponse",
+    "required": [
+      "id",
+      "status"
+    ],
+    "properties": {
+      "id": {
+        "type": "string",
+        "description": "Unique identifier for the generation task."
+      },
+      "error": {
+        "type": "string",
+        "description": "Error message if the task failed. Empty on success."
+      },
+      "model": {
+        "type": "string",
+        "description": "Model ID used for the prediction."
+      },
+      "status": {
+        "enum": [
+          "pending",
+          "running",
+          "completed",
+          "failed",
+          "timeout"
+        ],
+        "type": "string",
+        "description": "Status of the task: pending, running, completed, failed, or timeout."
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "title": "OutputItem",
+          "required": [
+            "url"
+          ],
+          "properties": {
+            "url": {
+              "type": "string",
+              "description": "The URL where the generated content can be downloaded from."
+            },
+            "content_type": {
+              "type": "string",
+              "description": "The MIME type of the output file."
+            }
+          }
+        },
+        "description": "Array of generated content. Empty when status is not completed."
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "formula",
+    "formula": "(params.duration ?? 5) * ((params.resolution ?? \"768p\") == \"480p\" ? 0.07 : (params.resolution ?? \"768p\") == \"768p\" ? 0.1 : 0.18)",
+    "formula_variables": [
+      "params.duration",
+      "params.resolution"
+    ],
+    "reference_price": 0.5,
+    "price_examples": [
+      {
+        "params": {
+          "duration": 5,
+          "resolution": "480p"
+        },
+        "usd": 0.35
+      },
+      {
+        "params": {
+          "duration": 5,
+          "resolution": "768p"
+        },
+        "usd": 0.5
+      },
+      {
+        "params": {
+          "duration": 5,
+          "resolution": "1080p"
+        },
+        "usd": 0.9
+      },
+      {
+        "params": {
+          "duration": 5,
+          "resolution": "2k"
+        },
+        "usd": 0.9
+      },
+      {
+        "params": {
+          "duration": 15,
+          "resolution": "480p"
+        },
+        "usd": 1.05
+      },
+      {
+        "params": {
+          "duration": 15,
+          "resolution": "768p"
+        },
+        "usd": 1.5
+      },
+      {
+        "params": {
+          "duration": 15,
+          "resolution": "1080p"
+        },
+        "usd": 2.7
+      },
+      {
+        "params": {
+          "duration": 15,
+          "resolution": "2k"
+        },
+        "usd": 2.7
+      }
+    ]
+  },
+  "examples": [
+    {
+      "input": {
+        "aspect_ratio": "16:9",
+        "images": [
+          "https://static.sandbase.ai/examples/dbd3acd5-a7f8-4bc6-a1c3-a6abe02c545f/input/f31c8ffc-a03e-43e6-9873-619009a711c2.png"
+        ],
+        "prompt": "The tiger from the reference image walks through a snowy pine forest at dusk, snowflakes falling, low-angle shot."
+      },
+      "output": [
+        {
+          "url": "https://static.sandbase.ai/examples/dbd3acd5-a7f8-4bc6-a1c3-a6abe02c545f/output/9ecef62d-e5c5-4def-b244-64aaa8bbfc56.mp4"
+        }
+      ],
+      "default": true
+    },
+    {
+      "input": {
+        "aspect_ratio": "16:9",
+        "images": [
+          "https://static.sandbase.ai/examples/d1601611-1204-40e5-8c03-663e25116aad/input/050a8af9-8598-4a6b-b90c-ce437082ede7.png"
+        ],
+        "prompt": "The rabbit from the reference image sits by a campfire in a cozy forest clearing at night, sparks drifting upward, slow orbit shot."
+      },
+      "output": [
+        {
+          "url": "https://static.sandbase.ai/examples/d1601611-1204-40e5-8c03-663e25116aad/output/6dbf0f38-4008-43aa-bb21-fbe3965b318b.mp4"
+        }
+      ]
+    }
+  ],
+  "readme": "# HeyGen Video Reference to Video\nHeyGen Video Reference to Video generates a 5–15 second video guided by reference images, videos and audio clips.\n## Fields\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `prompt` | string, required | — | Scene and action; describe how each reference is used. |\n| `images` | image URL[] | — | Up to 9 reference images (characters, products, scenes). |\n| `videos` | video URL[] | — | Up to 3 reference videos for motion or style. |\n| `audios` | audio URL[] | — | Up to 3 reference audio clips (voice or music). |\n| `aspect_ratio` | `21:9` / `16:9` / `4:3` / `1:1` / `3:4` / `9:16` | — | Leave empty to follow the references. |\n| `resolution` | `480p` / `768p` / `1080p` / `2k` | `768p` | Output resolution; 1080p and 2k cost more. |\n| `duration` | 5–15 | 5 | Output length in seconds. |\n## Billing\nBilled per output second: $0.07 at 480p, $0.10 at 768p, $0.18 at 1080p and 2k. References are not billed separately.\n| Output | Price |\n|---|---|\n| 5s, 768p (default) | $0.50 |\n| 5s, 480p | $0.35 |\n| 10s, 1080p | $1.80 |\nFailed runs are not charged.\n## Prompting\n- Say which reference is the subject and which sets motion, style or sound.\n## Limits\n- Clips are 5–15 seconds.\n## Also on SandBase\nOther HeyGen Video endpoints: `heygen/heygen-video/text-to-video`, `heygen/heygen-video/image-to-video`.",
+  "cover_url": "https://static.sandbase.ai/covers/heygen/heygen-video/reference-to-video/cover-flare-20261022111137.webp",
+  "page_url": "https://www.sandbase.ai/model/heygen/heygen-video/reference-to-video",
+  "published_at": "2026-10-21T21:01:16.582Z",
+  "created_at": "2026-10-22T02:42:55.515Z"
+}

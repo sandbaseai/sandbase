@@ -1,0 +1,72 @@
+{
+  "name": "instagram/v3/general-search",
+  "display_name": "Instagram General Search (V3)",
+  "type": "api",
+  "vendor": "Instagram",
+  "vendor_slug": "instagram",
+  "description": "Returns search results across media grids based on a keyword query. Supports pagination tokens and optional metadata flags.",
+  "tags": [
+    "api",
+    "instagram"
+  ],
+  "capabilities": [
+    "api",
+    "instagram"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/instagram/v3/general-search"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "query"
+    ],
+    "properties": {
+      "query": {
+        "type": "string",
+        "title": "Query",
+        "example": "openai",
+        "description": "Search keyword"
+      },
+      "rank_token": {
+        "type": "string",
+        "title": "Rank Token",
+        "description": "Rank token, omit for first request, get from previous response `data.rank_token`"
+      },
+      "next_max_id": {
+        "type": "string",
+        "title": "Next Max Id",
+        "description": "Pagination ID, omit for first request, get from previous response `data.next_max_id`"
+      },
+      "enable_metadata": {
+        "type": "boolean",
+        "title": "Enable Metadata",
+        "default": true,
+        "example": false,
+        "description": "Enable metadata"
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.012,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "readme": "# Instagram General Search (V3) API\n\nSearch Instagram content using a target keyword via `query`. Retrieve subsequent pages using `next_max_id` and `rank_token`.\n\n## Use cases\n\n- Discover Instagram posts and media matching specific topic keywords.\n- Collect media grid feeds for topic-based content analysis.\n- Track brand or keyword presence across indexed platform posts.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/instagram/v3/general-search\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"query\": \"openai\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `query` | string | Yes | Search keyword |\n| `rank_token` | string | No | Rank token, omit for first request, get from previous response `data.rank_token` |\n| `next_max_id` | string | No | Pagination ID, omit for first request, get from previous response `data.next_max_id` |\n| `enable_metadata` | boolean | No | Enable metadata |\n\n## Example response\n\nReal response for the request above, trimmed to the main fields. User names and long IDs are masked.\n\n```json\n{\n  \"media_grid\": {\n    \"sections\": [\n      {\n        \"feed_type\": \"media\",\n        \"layout_type\": \"media_grid\"\n      }\n    ]\n  }\n}\n```\n\n## Notes\n\n- For subsequent pages, pass `next_max_id` from the previous response.\n- Provide `rank_token` from `data.rank_token` of earlier calls to maintain search ranking.\n- Set `enable_metadata` to include additional search metadata.\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [Instagram Comment Bulk Translation](/model/instagram/v3/bulk-translate-comments): Returns bulk translations for multiple Instagram comments using a list of comment identifiers.\n- [Instagram Comment Replies (V3)](/model/instagram/v3/comment-replies): Returns child comment replies for a specific Instagram comment using the post media ID and parent comment ID.\n- [Instagram Explore Feed](/model/instagram/v3/explore): Returns curated sectional items from the Instagram explore feed, including layout formats and feed types.\n",
+  "page_url": "https://www.sandbase.ai/model/instagram/v3/general-search",
+  "created_at": "2026-07-31T03:56:28.967Z"
+}

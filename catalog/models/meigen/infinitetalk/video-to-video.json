@@ -1,0 +1,170 @@
+{
+  "name": "meigen/infinitetalk/video-to-video",
+  "display_name": "InfiniteTalk Video to Video",
+  "type": "video",
+  "vendor": "MeiGen-AI",
+  "vendor_slug": "meigen",
+  "description": "InfiniteTalk dubs an existing video: it re-animates lips, face and body to match new speech audio.",
+  "tags": [
+    "video-to-video"
+  ],
+  "capabilities": [
+    "video-to-video"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "video",
+      "audio",
+      "prompt"
+    ],
+    "properties": {
+      "seed": {
+        "type": "integer",
+        "title": "Seed",
+        "maximum": 2147483647,
+        "minimum": 0,
+        "description": "Random seed for reproducibility."
+      },
+      "audio": {
+        "type": "string",
+        "title": "Audio",
+        "description": "Input audio URL."
+      },
+      "video": {
+        "type": "string",
+        "title": "Video",
+        "examples": [
+          "https://storage.googleapis.com/falserverless/model_tests/video_models/ref_video.mp4"
+        ],
+        "description": "Input video URL."
+      },
+      "prompt": {
+        "type": "string",
+        "title": "Prompt",
+        "examples": [
+          "A woman with colorful hair talking on a podcast."
+        ],
+        "description": "Text prompt guiding the generation."
+      },
+      "num_frames": {
+        "type": "integer",
+        "title": "Max Frames",
+        "default": 145,
+        "maximum": 241,
+        "minimum": 41,
+        "description": "Maximum frames to generate (41–241, 25 fps); output also stops at the end of the audio."
+      },
+      "resolution": {
+        "enum": [
+          "480p",
+          "720p"
+        ],
+        "type": "string",
+        "title": "Resolution",
+        "default": "720p",
+        "description": "Output resolution (720p costs 2x)."
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "title": "GenerationResponse",
+    "required": [
+      "id",
+      "status"
+    ],
+    "properties": {
+      "id": {
+        "type": "string",
+        "description": "Unique identifier for the generation task."
+      },
+      "error": {
+        "type": "string",
+        "description": "Error message if the task failed. Empty on success."
+      },
+      "model": {
+        "type": "string",
+        "description": "Model ID used for the prediction."
+      },
+      "status": {
+        "enum": [
+          "pending",
+          "running",
+          "completed",
+          "failed",
+          "timeout"
+        ],
+        "type": "string",
+        "description": "Status of the task: pending, running, completed, failed, or timeout."
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "title": "OutputItem",
+          "required": [
+            "url"
+          ],
+          "properties": {
+            "url": {
+              "type": "string",
+              "examples": [
+                "https://storage.googleapis.com/falserverless/model_tests/video_models/mk7Ar5IvTtyNjWLRMb-re_dbe605004b664258b38528615afd7e0f.mp4"
+              ],
+              "description": "The URL where the generated content can be downloaded from."
+            },
+            "content_type": {
+              "type": "string",
+              "description": "The MIME type of the output file."
+            }
+          }
+        },
+        "description": "Array of generated content. Empty when status is not completed."
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "formula",
+    "formula": "(usage.duration ?? media_duration(params.audio) ?? ((params.num_frames ?? 145) / 25.0)) * 0.3 * ((params.resolution ?? \"720p\") == \"720p\" ? 2.0 : 1.0)",
+    "formula_variables": [
+      "params.audio",
+      "params.num_frames",
+      "params.resolution",
+      "usage.duration"
+    ],
+    "reference_price": 3.48
+  },
+  "examples": [
+    {
+      "input": {
+        "audio": "https://static.sandbase.ai/examples/b4b962b1-cb06-48d0-a0a4-6c0feb67c13b/input/1a1b7894-fdb9-4a3e-a8d7-67471c91d020.mp3",
+        "num_frames": 41,
+        "prompt": "A woman with colorful hair talking on a podcast.",
+        "resolution": "480p",
+        "video": "https://static.sandbase.ai/examples/b4b962b1-cb06-48d0-a0a4-6c0feb67c13b/input/07b54b85-765a-4454-ab0b-14620a533e1d.mp4"
+      },
+      "output": [
+        {
+          "poster": "https://static.sandbase.ai/examples/posters/b373a9938665ab03ea8f.jpg",
+          "url": "https://static.sandbase.ai/examples/b4b962b1-cb06-48d0-a0a4-6c0feb67c13b/output/28f5c266-fe95-4877-b6fa-b66237b6d2ad.mp4"
+        }
+      ],
+      "default": true
+    }
+  ],
+  "readme": "# InfiniteTalk Video to Video\n\nInfiniteTalk video-to-video dubs an existing clip, re-animating lips, face, and body to new speech.\n\n## Fields\n\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `prompt` | string, required | — | Scene and gesture direction. |\n| `video` | video URL, required | — | Clip to re-animate. |\n| `audio` | audio URL, required | — | Speech that drives the lips. |\n| `num_frames` | integer 41–241 | 145 | Frames at 25fps when the length is not set by audio. |\n| `resolution` | `480p` / `720p` | `720p` | Sets the per-second rate. |\n| `seed` | integer 0–2147483647 | random | Fix it to compare prompt changes. |\n\n## Billing\n\nPer output second: $0.30 at 480p and $0.60 at 720p. Length follows the audio; without it, `num_frames` at 25fps (default 145 frames, 5.8 seconds).\n\n| Output | 480p | 720p |\n|---|---|---|\n| 6s | $1.80 | $3.60 |\n| 30s | $9.00 | $18.00 |\n| 60s | $18.00 | $36.00 |\n\nFailed runs are not charged.\n\n## Prompting\n\n- Use a front-facing portrait with the mouth visible.\n\n## Also on SandBase\n\nOther InfiniteTalk endpoints: `meigen/infinitetalk/image-to-video`, `meigen/infinitetalk/text-to-video`.\n",
+  "cover_url": "https://static.sandbase.ai/covers/meigen/infinitetalk/video-to-video/cover-flare-20261008040644.webp",
+  "page_url": "https://www.sandbase.ai/model/meigen/infinitetalk/video-to-video",
+  "published_at": "2025-09-22T20:17:35.243Z",
+  "created_at": "2026-10-06T08:20:20.676Z"
+}

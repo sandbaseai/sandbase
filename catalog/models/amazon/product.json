@@ -1,0 +1,148 @@
+{
+  "name": "amazon/product",
+  "display_name": "Amazon Product",
+  "type": "api",
+  "vendor": "Amazon",
+  "vendor_slug": "amazon",
+  "description": "Get an Amazon product by ASIN: title, brand, price, rating, reviews, images, variants, availability, purchase options, about-this-item and description.",
+  "tags": [
+    "api",
+    "amazon",
+    "ecommerce",
+    "product-data"
+  ],
+  "capabilities": [
+    "api",
+    "amazon",
+    "ecommerce",
+    "product-data"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}",
+    "passthrough": "POST /v1/api/amazon/product"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "asin"
+    ],
+    "properties": {
+      "asin": {
+        "type": [
+          "string",
+          "number",
+          "boolean"
+        ],
+        "description": "The Amazon Standard Identification Number (ASIN) of the product you want to retrieve. This is a unique identifier assigned to each product on Amazon."
+      },
+      "device": {
+        "type": [
+          "string",
+          "number",
+          "boolean"
+        ],
+        "description": "The device to use to get the results. It can be set to `desktop` (default) to use a regular browser, `tablet` to use a tablet browser (currently using iPads), or `mobile` to use a mobile browser."
+      },
+      "language": {
+        "type": [
+          "string",
+          "number",
+          "boolean"
+        ],
+        "description": "The language to use for the Amazon search. It's a locale name represented as _. (e.g., on amazon.com `en_US` for English, `es_US` for Spanish, or on amazon.co.jp `ja_JP` for Japanese). Head to Amazon languages for a full list of supported Amazon languages."
+      },
+      "delivery_zip": {
+        "type": [
+          "string",
+          "number",
+          "boolean"
+        ],
+        "description": "ZIP Postal code. To filter the shipping products by a selected area."
+      },
+      "amazon_domain": {
+        "type": [
+          "string",
+          "number",
+          "boolean"
+        ],
+        "description": "The Amazon domain to use. It defaults to `amazon.com`. Head to Amazon domains for a full list of supported Amazon domains."
+      },
+      "other_sellers": {
+        "type": [
+          "string",
+          "number",
+          "boolean"
+        ],
+        "description": "Include results from other sellers."
+      },
+      "json_restrictor": {
+        "type": [
+          "string",
+          "number",
+          "boolean"
+        ],
+        "description": "The fields you want to include in the output, reducing payload size for faster response. See the JSON Restrictor documentation for more details."
+      },
+      "shipping_location": {
+        "type": [
+          "string",
+          "number",
+          "boolean"
+        ],
+        "description": "Shipping country. To filter the shipping products by a selected country."
+      },
+      "all_related_products": {
+        "anyOf": [
+          {
+            "type": "boolean"
+          },
+          {
+            "enum": [
+              "true",
+              "false"
+            ],
+            "type": "string"
+          }
+        ],
+        "description": "Set to `true` to retrieve all items in `related_products` and `related_product_sections`, not just the first page. May yield better results but with a longer response time. Defaults to `false`."
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "required": [
+      "id",
+      "status",
+      "model"
+    ],
+    "properties": {
+      "id": {
+        "type": "string"
+      },
+      "model": {
+        "type": "string"
+      },
+      "status": {
+        "type": "string"
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.015,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "readme": "# Amazon Product\n\nGet an Amazon product by ASIN: title, brand, price, rating, reviews, images, variants, availability, purchase options, about-this-item and description.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/amazon/product\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"asin\": \"B0CP9YB3Q4\"}'\n```\n\nThis API runs asynchronously. The call returns a task `id` with status `pending`; poll `GET https://api.sandbase.ai/v1/run/{id}` until `status` is `completed` and read the result from `outputs[0].data`.\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `asin` | string/number/boolean | Yes | The Amazon Standard Identification Number (ASIN) of the product you want to retrieve. This is a unique identifier assigned to each product on Amazon. |\n| `all_related_products` | any | No | Set to `true` to retrieve all items in `related_products` and `related_product_sections`, not just the first page. May yield better results but with a longer response time. Defaults to `false`. |\n| `amazon_domain` | string/number/boolean | No | The Amazon domain to use. It defaults to `amazon.com`. Head to Amazon domains for a full list of supported Amazon domains. |\n| `delivery_zip` | string/number/boolean | No | ZIP Postal code. To filter the shipping products by a selected area. |\n| `device` | string/number/boolean | No | The device to use to get the results. It can be set to `desktop` (default) to use a regular browser, `tablet` to use a tablet browser (currently using iPads), or `mobile` to use a mobile browser. |\n| `json_restrictor` | string/number/boolean | No | The fields you want to include in the output, reducing payload size for faster response. See the JSON Restrictor documentation for more details. |\n| `language` | string/number/boolean | No | The language to use for the Amazon search. It's a locale name represented as _. (e.g., on amazon.com `en_US` for English, `es_US` for Spanish, or on amazon.co.jp `ja_JP` for Japanese). Head to Amazon … |\n| `other_sellers` | string/number/boolean | No | Include results from other sellers. |\n| `shipping_location` | string/number/boolean | No | Shipping country. To filter the shipping products by a selected country. |\n\n## Pricing\n\nFlat price per call. Failed calls are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/amazon/product",
+  "created_at": "2026-10-28T23:57:15.873Z"
+}

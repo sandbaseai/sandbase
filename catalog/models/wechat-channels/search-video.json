@@ -1,0 +1,82 @@
+{
+  "name": "wechat-channels/search-video",
+  "display_name": "WeChat Channels Video Search",
+  "type": "api",
+  "vendor": "WeChat Channels",
+  "vendor_slug": "wechat-channels",
+  "description": "Search WeChat Channels videos by keyword with publish-time, sort, page, offset, and continuation-state controls. Use it to find recent or ordered video results and continue web-search pages.",
+  "tags": [
+    "api",
+    "wechat-channels",
+    "social-media"
+  ],
+  "capabilities": [
+    "api",
+    "wechat-channels",
+    "social-media"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/wechat-channels/search-video"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "keyword"
+    ],
+    "properties": {
+      "offset": {
+        "type": "integer",
+        "default": 0,
+        "description": "Search result offset returned by the previous WeChat Channels search response. Use 0 for the first page."
+      },
+      "keyword": {
+        "type": "string",
+        "example": "人工智能",
+        "description": "Search keyword for WeChat Channels video results."
+      },
+      "sortType": {
+        "enum": [
+          "COMPREHENSIVE",
+          "LATEST",
+          "HOT"
+        ],
+        "type": "string",
+        "default": "COMPREHENSIVE",
+        "description": "Sort order for WeChat Channels video search results."
+      },
+      "currentPage": {
+        "type": "integer",
+        "default": 1,
+        "description": "Current page number starting from 1 for WeChat Channels web search pagination."
+      },
+      "publishTimeType": {
+        "enum": [
+          "ALL",
+          "ONE_DAY",
+          "SEVEN_DAYS",
+          "HALF_YEAR"
+        ],
+        "type": "string",
+        "default": "ALL",
+        "description": "Publish time filter for WeChat Channels video web search."
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.111111
+  },
+  "readme": "# WeChat Channels Video Search API\n\nSearch WeChat Channels videos by keyword with publish-time, sort, page, offset, and continuation-state controls. Use it to find recent or ordered video results and continue web-search pages.\n\nThe response is the platform's original data structure.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/wechat-channels/search-video\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"keyword\": \"人工智能\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `keyword` | string | Yes | Search keyword for WeChat Channels video results. |\n| `publishTimeType` | string | No | Publish time filter for WeChat Channels video web search. |\n| `sortType` | string | No | Sort order for WeChat Channels video search results. |\n| `currentPage` | integer | No | Current page number starting from 1 for WeChat Channels web search pagination. |\n| `offset` | integer | No | Search result offset returned by the previous WeChat Channels search response. Use 0 for the first page. |\n\n## Pricing\n\nFlat price per call. Failed calls and empty results are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/wechat-channels/search-video",
+  "created_at": "2026-10-29T12:12:26.051Z"
+}

@@ -1,0 +1,76 @@
+{
+  "name": "tiktok/app-v3/hashtag-video-list",
+  "display_name": "TikTok Hashtag Video List",
+  "type": "api",
+  "vendor": "TikTok",
+  "vendor_slug": "tiktok",
+  "description": "Returns a list of videos associated with a specific hashtag on TikTok. Filter results by region and paginate through records using cursor controls.",
+  "tags": [
+    "api",
+    "tiktok"
+  ],
+  "capabilities": [
+    "api",
+    "tiktok"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/tiktok/app-v3/hashtag-video-list"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "ch_id"
+    ],
+    "properties": {
+      "ch_id": {
+        "type": "string",
+        "title": "Ch Id",
+        "example": "7551",
+        "description": "Hashtag id"
+      },
+      "count": {
+        "type": "integer",
+        "title": "Count",
+        "default": 10,
+        "example": 10,
+        "description": "Number"
+      },
+      "cursor": {
+        "type": "integer",
+        "title": "Cursor",
+        "default": 0,
+        "example": 0,
+        "description": "Cursor, used for paging, the first page is 0, the second page is the cursor value in the first response."
+      },
+      "region": {
+        "type": "string",
+        "title": "Region",
+        "default": "US",
+        "example": "US",
+        "description": "Region, supports US, GB, FR, JP, VN, SG, default US"
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.0015,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "readme": "# TikTok Hashtag Video List API\n\nFetch a feed of videos associated with a specific TikTok hashtag using `ch_id`. Results can be scoped to specific countries using `region` and paginated via `cursor`.\n\n## Use cases\n\n- Explore videos categorized under a specific TikTok hashtag.\n- Monitor hashtag performance and content across different supported regions.\n- Collect video metadata for hashtag-driven topic analysis.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/tiktok/app-v3/hashtag-video-list\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"ch_id\": \"7551\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `ch_id` | string | Yes | Hashtag id |\n| `count` | integer | No | Number |\n| `cursor` | integer | No | Cursor, used for paging, the first page is 0, the second page is the cursor value in the first response. |\n| `region` | string | No | Region, supports US, GB, FR, JP, VN, SG, default US |\n\n## Example response\n\nReal response for the request above, trimmed to the main fields. User names and long IDs are masked.\n\n```json\n{\n  \"aweme_list\": [\n    {\n      \"author_user_id\": 7504868055664722986,\n      \"aweme_id\": \"7556191047316032823\",\n      \"aweme_type\": 0,\n      \"bodydance_score\": 0,\n      \"content_level\": 1,\n      \"content_original_type\": 1,\n      \"content_size_type\": 1,\n      \"content_type\": \"video\",\n      \"create_time\": 1759312979,\n      \"desc\": \"Cat core #cat #cats #funnypets #funnyanimals #catlover #foryoupage #fyp #viral\",\n      \"added_sound_music_info\": {\n        \"audition_duration\": 94,\n        \"author\": \"funnypets_11\",\n        \"author_deleted\": false,\n        \"binded_challenge_id\": 0,\n        \"commercial_right_type\": 2,\n        \"create_time\": 1759312983\n      },\n      \"aigc_info\": {\n        \"aigc_label_type\": 0\n      },\n      \"animated_image_info\": {\n        \"type\": 0\n      },\n      \"author\": {\n        \"apple_account\": 0,\n        \"authority_status\": 0,\n        \"aweme_count\": 0,\n        \"comment_filter_status\": 0,\n        \"create_time\": 0,\n        \"favoriting_count\": 0\n      }\n    }\n  ]\n}\n```\n\n## Notes\n\n- Set `cursor` to 0 for the first page, and pass the cursor value returned in the previous response for subsequent pages.\n- The `region` parameter supports US, GB, FR, JP, VN, and SG, defaulting to US.\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [TikTok LIVE Status](/model/tiktok/app-v3/check-live-room-online): Check whether a TikTok LIVE room is currently live by room ID.\n- [TikTok Room Online Status Batch](/model/tiktok/app-v3/check-live-room-online-batch): Returns the online availability status for multiple TikTok broadcast rooms in a single request.\n- [TikTok Content Translation](/model/tiktok/app-v3/content-translate): Translates provided text content into a designated target language.\n",
+  "page_url": "https://www.sandbase.ai/model/tiktok/app-v3/hashtag-video-list",
+  "created_at": "2026-07-31T04:14:04.312Z"
+}

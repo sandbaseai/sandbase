@@ -1,0 +1,104 @@
+# TikTok Web X-Gnarly and X-Bogus Signatures
+
+`tiktok/web/generate-xgnarly-and-xbogus` · api · TikTok
+
+Generates X-Gnarly and X-Bogus signature tokens for TikTok web requests using a target endpoint URL and optional request body parameters.
+
+## Pricing
+
+- **$0.0075 per call** (USD)
+- Free quota: 100 calls/day per organization (shared across free-quota APIs).
+
+## Call it
+
+Modes: sync (default `sync`). Only pass `mode` values listed here. The SDKs' `run()` waits for async results; `submit()` + `wait()` split the two steps.
+
+**curl**
+
+```bash
+curl https://api.sandbase.ai/v1/run \
+  -H "Authorization: Bearer $SANDBASE_API_KEY" -H 'Content-Type: application/json' \
+  -d '{"model": "tiktok/web/generate-xgnarly-and-xbogus", "url": "https://www.tiktok.com/tag/cat?_r=1&name=cat&u_code=f02lm2f78d1elh&_d=f02ll161mcjihj&share_challenge_id=7551&sharer_language=en&source=h5_m"}'
+```
+
+**Python** ([sdk/python](../../../../sdk/python))
+
+```python
+from sandbase import SandBase
+
+result = SandBase().run('tiktok/web/generate-xgnarly-and-xbogus', {'url': 'https://www.tiktok.com/tag/cat?_r=1&name=cat&u_code=f02lm2f78d1elh&_d=f02ll161mcjihj&share_challenge_id=7551&sharer_language=en&source=h5_m'})
+print(result["outputs"])
+```
+
+**TypeScript** ([sdk/typescript](../../../../sdk/typescript))
+
+```ts
+import { SandBase } from "@sandbaseai/sdk";
+
+const result = await new SandBase().run("tiktok/web/generate-xgnarly-and-xbogus", {
+  "url": "https://www.tiktok.com/tag/cat?_r=1&name=cat&u_code=f02lm2f78d1elh&_d=f02ll161mcjihj&share_challenge_id=7551&sharer_language=en&source=h5_m"
+});
+console.log(result.outputs);
+```
+
+**Go** ([sdk/go](../../../../sdk/go))
+
+```go
+c, _ := sandbase.NewClient("")
+run, err := c.Run(ctx, "tiktok/web/generate-xgnarly-and-xbogus", sandbase.Params{
+	"url": "https://www.tiktok.com/tag/cat?_r=1&name=cat&u_code=f02lm2f78d1elh&_d=f02ll161mcjihj&share_challenge_id=7551&sharer_language=en&source=h5_m",
+})
+```
+
+Same call via the path form: `POST /v1/api/tiktok/web/generate-xgnarly-and-xbogus` with the body above minus `model`.
+
+## Parameters
+
+| name | type | required | description |
+|---|---|---|---|
+| `url` | string | yes | The requested API URL, no need to URL encode  |
+| `body` |  |  | The API parameters of the request, applicable for POST requests  |
+
+## Details
+
+Generates TikTok web request signatures by passing the target endpoint in `url` and optional POST parameters in `body`.
+
+### Use cases
+
+- Sign TikTok web requests requiring anti-crawler verification tokens.
+- Generate request parameters for automated web scraping pipelines.
+- Formulate valid signed URLs for custom TikTok data workflows.
+
+### Request
+
+```bash
+curl -X POST "https://api.sandbase.ai/v1/api/tiktok/web/generate-xgnarly-and-xbogus" \
+  -H "Authorization: Bearer $SANDBASE_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{"url": "https://www.tiktok.com/tag/cat?_r=1&name=cat&u_code=f02lm2f78d1elh&_d=f02ll161mcjihj&share_challenge_id=7551&sharer_language=en&source=h5_m"}'
+```
+
+### Parameters
+
+| Name | Type | Required | Description |
+|---|---|---|---|
+| `url` | string | Yes | The requested API URL, no need to URL encode |
+| `body` | string | No | The API parameters of the request, applicable for POST requests |
+
+### Notes
+
+- Provide `url` as a plain string without URL encoding.
+- Pass `body` parameters when targeting POST endpoints.
+
+### Pricing
+
+Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+
+### Related APIs
+
+- [TikTok Video IDs from URLs (Batch)](/model/tiktok/web/all-aweme-id): Resolves and extracts TikTok video IDs from a list of video URLs.
+- [TikTok User Sec User ID Extractor](/model/tiktok/web/all-sec-user-id): Returns a list of sec_user_id identifiers corresponding to TikTok user profile URLs.
+- [TikTok Profile Unique IDs](/model/tiktok/web/all-unique-id): Resolves a batch of TikTok user homepage links to retrieve their corresponding unique identifiers.
+
+---
+Machine-readable: [`catalog/models/tiktok/web/generate-xgnarly-and-xbogus.json`](../../../../catalog/models/tiktok/web/generate-xgnarly-and-xbogus.json) · Store page: https://www.sandbase.ai/model/tiktok/web/generate-xgnarly-and-xbogus

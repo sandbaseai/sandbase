@@ -1,0 +1,126 @@
+{
+  "name": "exa/answer",
+  "display_name": "Exa Question Answering",
+  "type": "api",
+  "vendor": "Exa",
+  "vendor_slug": "exa",
+  "description": "Returns direct answers and cited web sources for a given query. Supports custom retrieval modes, optional full page text, and structured schema definitions.",
+  "tags": [
+    "web-search",
+    "question-answering"
+  ],
+  "capabilities": [
+    "web-search",
+    "question-answering"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/exa/answer"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "query"
+    ],
+    "properties": {
+      "text": {
+        "type": "boolean",
+        "title": "Text",
+        "description": "Include the full page text of each citation."
+      },
+      "type": {
+        "enum": [
+          "auto",
+          "fast",
+          "instant",
+          "deep-lite",
+          "deep",
+          "deep-reasoning"
+        ],
+        "type": "string",
+        "title": "Type",
+        "description": "Retrieval mode used to gather sources before answering."
+      },
+      "query": {
+        "type": "string",
+        "title": "Query",
+        "example": "OpenAI",
+        "description": "The question to answer."
+      },
+      "outputSchema": {
+        "type": "object",
+        "title": "Output Schema",
+        "description": "JSON Schema for a structured answer output."
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "properties": {
+      "answer": {
+        "nullable": true,
+        "description": "The generated answer. A string, or a structured object when outputSchema was supplied."
+      },
+      "citations": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string"
+            },
+            "url": {
+              "type": "string"
+            },
+            "text": {
+              "type": "string"
+            },
+            "title": {
+              "type": "string"
+            },
+            "author": {
+              "type": "string"
+            },
+            "publishedDate": {
+              "type": "string"
+            }
+          }
+        },
+        "description": "Sources supporting the answer."
+      },
+      "requestId": {
+        "type": "string",
+        "description": "Exa request identifier."
+      },
+      "costDollars": {
+        "nullable": true,
+        "description": "Upstream Exa cost breakdown. Informational only."
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.0075,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "examples": [
+    {
+      "input": {
+        "query": "Which manufacturers had the top three global EV sales in 2025?"
+      }
+    }
+  ],
+  "readme": "# Exa Question Answering API\n\nProvides answers accompanied by cited web sources based on a submitted `query`. It supports tuning the retrieval mode via `type` and structuring the output with `outputSchema`.\n\n## Use cases\n\n- Retrieve cited answers to factual questions.\n- Extract full-text web references alongside synthesized answers.\n- Format answers into structured JSON schemas for automated workflows.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/exa/answer\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"query\": \"OpenAI\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `query` | string | Yes | The question to answer. |\n| `text` | boolean | No | Include the full page text of each citation. |\n| `type` | string | No | Retrieval mode used to gather sources before answering. |\n| `outputSchema` | object | No | JSON Schema for a structured answer output. |\n\n## Example response\n\nReal response for the request above, trimmed to the main fields. User names and long IDs are masked.\n\n```json\n{\n  \"citations\": [\n    {\n      \"id\": \"https://en.wikipedia.org/wiki/_OpenAI\",\n      \"title\": \"OpenAI\",\n      \"url\": \"https://en.wikipedia.org/wiki/_OpenAI\"\n    }\n  ]\n}\n```\n\n## Notes\n\n- The `type` parameter configures retrieval behavior across modes such as auto, fast, instant, deep-lite, deep, or deep-reasoning.\n- Set `text` to true to include the complete page text for each returned citation.\n- Supply `outputSchema` with a JSON schema to receive structured answer outputs.\n\n## Pricing\n\nFlat price per call. Failed calls are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/exa/answer",
+  "published_at": "2024-01-01T00:00:00Z",
+  "created_at": "2026-08-09T12:14:39.137Z"
+}

@@ -1,0 +1,67 @@
+{
+  "name": "threads/web/search-recent",
+  "display_name": "Threads Recent Content Search",
+  "type": "api",
+  "vendor": "Threads",
+  "vendor_slug": "threads",
+  "description": "Searches recent Threads content matching a specified keyword query. Returns matching web posts with cursor-based pagination support.",
+  "tags": [
+    "api",
+    "threads"
+  ],
+  "capabilities": [
+    "api",
+    "threads"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/threads/web/search-recent"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "query"
+    ],
+    "properties": {
+      "query": {
+        "type": "string",
+        "title": "Query",
+        "description": "Search query, for example: bitcoin"
+      },
+      "end_cursor": {
+        "type": "string",
+        "title": "End Cursor",
+        "description": "Pagination cursor (optional), used to get next page data"
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.003,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "examples": [
+    {
+      "input": {
+        "query": "bitcoin"
+      },
+      "default": true
+    }
+  ],
+  "readme": "# Threads Recent Content Search API\n\nSearch recent posts on Threads by providing a search keyword in `query`. For multi-page results, pass `end_cursor` to retrieve subsequent batches.\n\n## Use cases\n\n- Track recent Threads discussions around specific topics or brands.\n- Monitor breaking news and emerging trends across the platform.\n- Collect search result feeds for analytical and monitoring tools.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/threads/web/search-recent\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"query\": \"<query>\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `query` | string | Yes | Search query, for example: bitcoin |\n| `end_cursor` | string | No | Pagination cursor (optional), used to get next page data |\n\n## Notes\n\n- Use `end_cursor` to paginate through subsequent pages of search results.\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [Threads Post Detail](/model/threads/web/post-detail): Returns detailed information for a specific Threads post using its numeric ID.\n- [Threads Post Detail (V2)](/model/threads/web/post-detail-v2): Returns detailed information for a specific Threads post.\n- [Threads Profile Search](/model/threads/web/search-profiles): Searches Threads user profiles based on a specified text query string.\n",
+  "page_url": "https://www.sandbase.ai/model/threads/web/search-recent",
+  "created_at": "2026-07-31T04:12:49.093Z"
+}

@@ -1,0 +1,79 @@
+{
+  "name": "imdb/news-by-category-query",
+  "display_name": "IMDb News by Category",
+  "type": "api",
+  "vendor": "IMDb",
+  "vendor_slug": "imdb",
+  "description": "Get IMDb news for a selected top, movie, TV, or celebrity category using language and country preferences. Use it to monitor entertainment news or research a specific category.",
+  "tags": [
+    "api",
+    "imdb",
+    "entertainment"
+  ],
+  "capabilities": [
+    "api",
+    "imdb",
+    "entertainment"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/imdb/news-by-category-query"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "category"
+    ],
+    "properties": {
+      "category": {
+        "enum": [
+          "TOP",
+          "MOVIE",
+          "TV",
+          "CELEBRITY"
+        ],
+        "type": "string",
+        "example": "TOP",
+        "description": "News category to filter by."
+      },
+      "languageCountry": {
+        "enum": [
+          "en_US",
+          "fr_CA",
+          "fr_FR",
+          "de_DE",
+          "hi_IN",
+          "it_IT",
+          "pt_BR",
+          "es_ES",
+          "es_US",
+          "es_MX"
+        ],
+        "type": "string",
+        "default": "en_US",
+        "description": "Language and country preferences."
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.006944,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "readme": "# IMDb News by Category API\n\nGet IMDb news for a selected top, movie, TV, or celebrity category using language and country preferences. Use it to monitor entertainment news or research a specific category.\n\nThe response is the platform's original data structure.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/imdb/news-by-category-query\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"category\": \"TOP\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `category` | string | Yes | News category to filter by. |\n| `languageCountry` | string | No | Language and country preferences. |\n\n## Pricing\n\nFlat price per call. Failed calls and empty results are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/imdb/news-by-category-query",
+  "created_at": "2026-10-29T11:15:49.004Z"
+}

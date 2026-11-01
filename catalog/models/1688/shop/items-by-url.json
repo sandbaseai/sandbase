@@ -1,0 +1,91 @@
+{
+  "name": "1688/shop/items-by-url",
+  "display_name": "1688 Shop Products by URL",
+  "type": "api",
+  "vendor": "1688",
+  "vendor_slug": "1688",
+  "description": "List a 1688 shop's products from its homepage URL, with sort, page size and category filters.",
+  "tags": [
+    "api",
+    "1688",
+    "ecommerce"
+  ],
+  "capabilities": [
+    "api",
+    "1688",
+    "ecommerce"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/1688/shop/items-by-url"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "shopUrl"
+    ],
+    "properties": {
+      "cat": {
+        "type": "string",
+        "description": "Optional category ID filter."
+      },
+      "page": {
+        "type": "integer",
+        "default": 1,
+        "description": "Page number, starting at 1."
+      },
+      "sort": {
+        "enum": [
+          "default",
+          "sales",
+          "price_up",
+          "price_down",
+          "time_up",
+          "time_down"
+        ],
+        "type": "string",
+        "default": "default",
+        "description": "Shop product sort order."
+      },
+      "catType": {
+        "enum": [
+          "0",
+          "1"
+        ],
+        "type": "string",
+        "description": "Optional category mode: 0 or 1."
+      },
+      "shopUrl": {
+        "type": "string",
+        "example": "https://winport.m.1688.com/page/index.html?memberId=b2b-35345497994841a",
+        "description": "1688 shop homepage URL."
+      },
+      "pageSize": {
+        "type": "integer",
+        "default": 20,
+        "description": "Number of items requested per page. The returned count may differ."
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.013889,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "readme": "# 1688 Shop Products by URL API\n\nList a 1688 shop's products from its homepage URL, with sort, page size and category filters.\n\nThe response is the platform's original data structure.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/1688/shop/items-by-url\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"shopUrl\": \"https://winport.m.1688.com/page/index.html?memberId=b2b-35345497994841a\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `shopUrl` | string | Yes | 1688 shop homepage URL. |\n| `page` | integer | No | Page number, starting at 1. |\n| `pageSize` | integer | No | Number of items requested per page. The returned count may differ. |\n| `sort` | string | No | Shop product sort order. |\n| `cat` | string | No | Optional category ID filter. |\n| `catType` | string | No | Optional category mode: 0 or 1. |\n\n## Pricing\n\nFlat price per call. Failed calls and empty results are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/1688/shop/items-by-url",
+  "created_at": "2026-10-29T10:14:12.889Z"
+}

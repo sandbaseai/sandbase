@@ -1,0 +1,66 @@
+{
+  "name": "douyin/web/all-sec-user-id",
+  "display_name": "Douyin sec_user_ids from URLs (Batch)",
+  "type": "api",
+  "vendor": "Douyin",
+  "vendor_slug": "douyin",
+  "description": "Extracts Douyin sec_user_id values in bulk from a list of user homepage URLs. Accepts an array of profile links to return the corresponding platform identifiers.",
+  "tags": [
+    "api",
+    "douyin"
+  ],
+  "capabilities": [
+    "api",
+    "douyin"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/douyin/web/all-sec-user-id"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "body"
+    ],
+    "properties": {
+      "body": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        },
+        "title": "Url",
+        "description": "User homepage link list"
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.0015,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "examples": [
+    {
+      "input": {
+        "body": [
+          "https://static.sandbase.ai/examples/f66ded91-c75d-40dd-8377-5675eceeeb3d/input/25f4436b-5642-4e06-93ec-dc108424d26e.bin"
+        ]
+      }
+    }
+  ],
+  "readme": "# Douyin sec_user_ids from URLs (Batch) API\n\nRetrieve Douyin user security IDs in bulk by passing an array of profile homepage links in the `body` parameter. This endpoint returns the platform identifiers for downstream profile lookups.\n\n## Use cases\n\n- Convert multiple Douyin profile URLs into sec_user_id identifiers in a single request.\n- Prepare user identifiers for subsequent profile and video metadata queries.\n- Resolve batch lists of creator homepage links into platform security IDs.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/douyin/web/all-sec-user-id\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"body\": \"<body>\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `body` | array | Yes | User homepage link list |\n\n## Notes\n\n- Supply Douyin user homepage links as an array in the `body` parameter.\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [Douyin Batch Video ID Extraction](/model/douyin/web/all-aweme-id): Extracts video IDs from a list of Douyin video URLs.\n- [Douyin Webcast ID Extraction](/model/douyin/web/all-webcast-id): Extracts webcast IDs from a submitted list of Douyin live room links.\n- [Douyin Video ID Extractor](/model/douyin/web/aweme-id): Extracts the internal video ID from a given Douyin video web URL.\n",
+  "page_url": "https://www.sandbase.ai/model/douyin/web/all-sec-user-id",
+  "created_at": "2026-07-31T02:39:21.665Z"
+}

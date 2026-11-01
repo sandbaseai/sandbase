@@ -1,0 +1,213 @@
+{
+  "name": "alibaba/wan/2.5/text-to-video",
+  "display_name": "Wan 2.5 Text to Video",
+  "type": "video",
+  "vendor": "Alibaba",
+  "vendor_slug": "alibaba",
+  "description": "Wan 2.5 is Alibaba's text-to-video AI model. Turn written scripts and prompts into professional-quality video clips with realistic motion, lighting, and scene composition.",
+  "tags": [
+    "text-to-video"
+  ],
+  "capabilities": [
+    "text-to-video"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "prompt"
+    ],
+    "properties": {
+      "seed": {
+        "type": "integer",
+        "title": "Seed",
+        "description": "Random seed for reproducibility. If None, a random seed is chosen."
+      },
+      "audio": {
+        "type": "string",
+        "title": "Audio",
+        "description": "\nURL of the audio to use as the background music. Must be publicly accessible.\nLimit handling: If the audio duration exceeds the duration value (5 or 10 seconds),\nthe audio is truncated to the first 5 or 10 seconds, and the rest is discarded. If\nthe audio is shorter than the video, the remaining part of the video will be silent.\nFor example, if the audio is 3 seconds long and the video duration is 5 seconds, the\nfirst 3 seconds of the output video will have sound, and the last 2 seconds will be silent.\n- Format: WAV, MP3.\n- Duration: 3 to 30 s.\n- File size: Up to 15 MB.\n"
+      },
+      "prompt": {
+        "type": "string",
+        "title": "Prompt",
+        "examples": [
+          "The white dragon warrior stands still, eyes full of determination and strength. The camera slowly moves closer or circles around the warrior, highlighting the powerful presence and heroic spirit of the character."
+        ],
+        "minLength": 1,
+        "description": "The text prompt for video generation. Supports Chinese and English, max 800 characters."
+      },
+      "duration": {
+        "enum": [
+          5,
+          10
+        ],
+        "type": "integer",
+        "title": "Duration",
+        "default": 5,
+        "description": "Duration of the generated video in seconds. Choose between 5 or 10 seconds."
+      },
+      "resolution": {
+        "enum": [
+          "480p",
+          "720p",
+          "1080p"
+        ],
+        "type": "string",
+        "title": "Resolution",
+        "default": "720p",
+        "description": "Video resolution tier"
+      },
+      "aspect_ratio": {
+        "enum": [
+          "16:9",
+          "9:16",
+          "1:1",
+          "4:3",
+          "3:4"
+        ],
+        "type": "string",
+        "title": "Aspect Ratio",
+        "default": "16:9",
+        "description": "The aspect ratio of the generated image."
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "title": "GenerationResponse",
+    "required": [
+      "id",
+      "status"
+    ],
+    "properties": {
+      "id": {
+        "type": "string",
+        "description": "Unique identifier for the generation task."
+      },
+      "error": {
+        "type": "string",
+        "description": "Error message if the task failed. Empty on success."
+      },
+      "model": {
+        "type": "string",
+        "description": "Model ID used for the prediction."
+      },
+      "status": {
+        "enum": [
+          "pending",
+          "running",
+          "completed",
+          "failed",
+          "timeout"
+        ],
+        "type": "string",
+        "description": "Status of the task: pending, running, completed, failed, or timeout."
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "title": "OutputItem",
+          "required": [
+            "url"
+          ],
+          "properties": {
+            "url": {
+              "type": "string",
+              "examples": [
+                "https://static.sandbase.ai/examples/alibaba/wan/2.5/text-to-video/output_url_0.mp4"
+              ],
+              "description": "The URL where the generated content can be downloaded from."
+            },
+            "content_type": {
+              "type": "string",
+              "description": "The MIME type of the output file."
+            }
+          }
+        },
+        "description": "Array of generated content. Empty when status is not completed."
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "formula",
+    "formula": "(params.resolution ?? \"720p\") == \"1080p\" ? (params.duration ?? 5) * 0.15 : (params.resolution ?? \"720p\") == \"720p\" ? (params.duration ?? 5) * 0.10 : (params.duration ?? 5) * 0.05",
+    "formula_variables": [
+      "params.duration",
+      "params.resolution"
+    ],
+    "reference_price": 0.5,
+    "price_examples": [
+      {
+        "params": {
+          "duration": 5,
+          "resolution": "480p"
+        },
+        "usd": 0.25
+      },
+      {
+        "params": {
+          "duration": 5,
+          "resolution": "720p"
+        },
+        "usd": 0.5
+      },
+      {
+        "params": {
+          "duration": 5,
+          "resolution": "1080p"
+        },
+        "usd": 0.75
+      },
+      {
+        "params": {
+          "duration": 10,
+          "resolution": "480p"
+        },
+        "usd": 0.5
+      },
+      {
+        "params": {
+          "duration": 10,
+          "resolution": "720p"
+        },
+        "usd": 1
+      },
+      {
+        "params": {
+          "duration": 10,
+          "resolution": "1080p"
+        },
+        "usd": 1.5
+      }
+    ]
+  },
+  "examples": [
+    {
+      "input": {
+        "prompt": "The white dragon warrior stands still, eyes full of determination and strength. The camera slowly moves closer or circles around the warrior, highlighting the powerful presence and heroic spirit of the character."
+      },
+      "output": [
+        {
+          "poster": "https://static.sandbase.ai/examples/posters/e8ccf935711c8719503f.jpg",
+          "url": "https://static.sandbase.ai/examples/86338b16-1b5b-4cb0-9d06-92a38769bcb0/output/cb2cb48b-d617-46e2-8f67-50ba0a65e501.mp4"
+        }
+      ],
+      "default": true
+    }
+  ],
+  "readme": "# Wan 2.5 Text to Video\n\nWan 2.5 text-to-video: a 5 or 10 second clip from a written scene, with optional driving audio. Newer Wan versions are listed below.\n\n## Fields\n\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `prompt` | string, required | — | Text instruction. |\n| `aspect_ratio` | `16:9` / `9:16` / `1:1` / `4:3` / `3:4` | `16:9` | Output frame shape. |\n| `audio` | audio URL | — | Optional WAV/MP3 URL that drives speech or rhythm. |\n| `resolution` | `480p` / `720p` / `1080p` | `720p` | Sets the per-second rate. |\n| `duration` | 5 / 10 | 5 | Output length in seconds. |\n| `seed` | integer | random | Fix it to compare prompt changes. |\n\n## Billing\n\nYou pay for output seconds: $0.05 at 480p, $0.10 at 720p, and $0.15 at 1080p.\n\n| Output | 480p | 720p | 1080p |\n|---|---|---|---|\n| 5s (default) | $0.25 | $0.50 | $0.75 |\n| 10s | $0.50 | $1.00 | $1.50 |\n\nFailed runs are not charged.\n\n## Prompting\n\n- Describe the shot in order: subject, action, setting, camera move, light, and sound.\n- Give camera timing explicitly, e.g. “holds for two seconds, then pushes in slowly”.\n\n## Limits\n\n- Durations are 5 or 10 seconds only.\n\n## Also on SandBase\n\nOther Wan 2.5 endpoints: `alibaba/wan/2.5/image-to-video`, `alibaba/wan/2.5/text-to-image`, `alibaba/wan/2.5/image-to-image`, `alibaba/wan/2.7/text-to-video` (newer).\n",
+  "cover_url": "https://static.sandbase.ai/covers/alibaba/wan/2.5/text-to-video/cover-flare-20261005152949.webp",
+  "page_url": "https://www.sandbase.ai/model/alibaba/wan/2.5/text-to-video",
+  "published_at": "2025-09-24T02:07:33.047Z",
+  "created_at": "2026-05-15T03:29:59.245Z"
+}

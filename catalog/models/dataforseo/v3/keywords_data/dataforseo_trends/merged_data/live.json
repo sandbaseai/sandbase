@@ -1,0 +1,50 @@
+{
+  "name": "dataforseo/v3/keywords_data/dataforseo_trends/merged_data/live",
+  "display_name": "DataForSEO Keyword Trend Overview",
+  "type": "api",
+  "vendor": "DataForSEO",
+  "vendor_slug": "dataforseo",
+  "description": "Get trend series, subregion, and demographic data for keywords in one call. DataForSEO Trends merged data for up to 5 keywords: the interest-over-time graph, subregion interests, and demographic split in one response.",
+  "tags": [
+    "keywords",
+    "trends",
+    "merged-data"
+  ],
+  "capabilities": [
+    "keywords",
+    "trends",
+    "merged-data"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/dataforseo/v3/keywords_data/dataforseo_trends/merged_data/live"
+  },
+  "input_schema": {
+    "type": "object",
+    "properties": {},
+    "description": "Request parameters forwarded to DataForSEO /v3/keywords_data/dataforseo_trends/merged_data/live. See DataForSEO docs for full schema.",
+    "additionalProperties": true
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.006,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "readme": "# DataForSEO Keyword Trend Overview API\n\nGet trend series, subregion, and demographic data for keywords in one call.\n\nRequest fields follow the official DataForSEO `/v3/keywords_data/dataforseo_trends/merged_data/live` task schema (one task per call; send `{\"tasks\": [...]}` for several). The response is DataForSEO's original JSON; results are in `tasks[].result`.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/dataforseo/v3/keywords_data/dataforseo_trends/merged_data/live\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"keywords\": [\"running shoes\"], \"location_code\": 2840}'\n```\n\n## Parameters\n\nThe JSON body is forwarded to the upstream endpoint (one task per call). Fields used above:\n\n| Name | Description |\n|---|---|\n| `keywords` | List of keywords (up to 100 per call). |\n| `location_code` | Location code, e.g. 2840 for the United States. |\n\n## Reference\n\n- Official docs: https://docs.dataforseo.com/v3/keywords_data/dataforseo_trends/merged_data/live/\n\n## Pricing\n\nFlat price per call. Failed calls are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/dataforseo/v3/keywords_data/dataforseo_trends/merged_data/live",
+  "published_at": "2024-01-01T00:00:00Z",
+  "created_at": "2026-10-28T14:08:44.178Z"
+}

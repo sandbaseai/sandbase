@@ -1,0 +1,73 @@
+{
+  "name": "hunter/companies-find",
+  "display_name": "Hunter Companies Find",
+  "type": "api",
+  "vendor": "Hunter",
+  "vendor_slug": "hunter",
+  "description": "Look up a company's full profile — industry, size, location, tech stack — from its domain.",
+  "tags": [
+    "api",
+    "hunter",
+    "company-people"
+  ],
+  "capabilities": [
+    "api",
+    "hunter",
+    "company-people"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}",
+    "passthrough": "POST /v1/api/hunter/companies-find"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "domain"
+    ],
+    "properties": {
+      "domain": {
+        "type": "string",
+        "example": "stripe.com",
+        "minLength": 1,
+        "description": "Domain name, e.g. 'stripe.com'. Preferred over company — it skips the name-to-domain conversion."
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "required": [
+      "id",
+      "status",
+      "model"
+    ],
+    "properties": {
+      "id": {
+        "type": "string"
+      },
+      "model": {
+        "type": "string"
+      },
+      "status": {
+        "type": "string"
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.0049,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "readme": "# Hunter Companies Find\n\nLook up a company's full profile — industry, size, location, tech stack — from its domain.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/hunter/companies-find\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"domain\": \"stripe.com\"}'\n```\n\nThis API runs asynchronously. The call returns a task `id` with status `pending`; poll `GET https://api.sandbase.ai/v1/run/{id}` until `status` is `completed` and read the result from `outputs[0].data`.\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `domain` | string | Yes | Domain name, e.g. 'stripe.com'. Preferred over company — it skips the name-to-domain conversion. |\n\n## Pricing\n\nFlat price per call. Failed calls are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/hunter/companies-find",
+  "created_at": "2026-10-30T08:52:54.436Z"
+}

@@ -1,0 +1,149 @@
+{
+  "name": "alibaba/wan/2.5/text-to-image",
+  "display_name": "Wan 2.5 Text to Image",
+  "type": "image",
+  "vendor": "Alibaba",
+  "vendor_slug": "alibaba",
+  "description": "Wan 2.5 is Alibaba's advanced text-to-image AI model. Create photorealistic images, illustrations, and concept art from natural language descriptions with exceptional detail and prompt adherence.",
+  "tags": [
+    "text-to-image"
+  ],
+  "capabilities": [
+    "text-to-image"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "prompt"
+    ],
+    "properties": {
+      "seed": {
+        "type": "integer",
+        "title": "Seed",
+        "description": "Random seed for reproducibility. If None, a random seed is chosen."
+      },
+      "prompt": {
+        "type": "string",
+        "title": "Prompt",
+        "examples": [
+          "A lone samurai standing on the edge of a cliff at twilight, overlooking a vast valley shrouded in mist. The sky burns with deep orange and purple hues from the setting sun, casting long, dramatic shadows. The samurai’s silhouette glows against the horizon, with their sword reflecting a glint of fading light. The overall style is hyper-realistic, cinematic, and moody, with dramatic contrast and atmospheric depth."
+        ],
+        "minLength": 1,
+        "description": "The prompt for image generation. Supports Chinese and English, max 2000 characters."
+      },
+      "aspect_ratio": {
+        "enum": [
+          "21:9",
+          "16:9",
+          "3:2",
+          "4:3",
+          "5:4",
+          "1:1",
+          "4:5",
+          "3:4",
+          "2:3",
+          "9:16"
+        ],
+        "type": "string",
+        "title": "Aspect Ratio",
+        "description": "The aspect ratio of the generated image."
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "title": "GenerationResponse",
+    "required": [
+      "id",
+      "status"
+    ],
+    "properties": {
+      "id": {
+        "type": "string",
+        "description": "Unique identifier for the generation task."
+      },
+      "error": {
+        "type": "string",
+        "description": "Error message if the task failed. Empty on success."
+      },
+      "model": {
+        "type": "string",
+        "description": "Model ID used for the prediction."
+      },
+      "status": {
+        "enum": [
+          "pending",
+          "running",
+          "completed",
+          "failed",
+          "timeout"
+        ],
+        "type": "string",
+        "description": "Status of the task: pending, running, completed, failed, or timeout."
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "title": "OutputItem",
+          "required": [
+            "url"
+          ],
+          "properties": {
+            "url": {
+              "type": "string",
+              "examples": [
+                "https://static.sandbase.ai/examples/alibaba/wan/2.5/text-to-image/output_url_0.png"
+              ],
+              "description": "The URL where the generated content can be downloaded from."
+            },
+            "content_type": {
+              "type": "string",
+              "description": "The MIME type of the output file."
+            }
+          }
+        },
+        "description": "Array of generated content. Empty when status is not completed."
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "formula",
+    "formula": "0.05",
+    "formula_variables": [],
+    "reference_price": 0.05,
+    "price_examples": [
+      {
+        "params": {},
+        "usd": 0.05
+      }
+    ]
+  },
+  "examples": [
+    {
+      "input": {
+        "prompt": "A lone samurai standing on the edge of a cliff at twilight, overlooking a vast valley shrouded in mist. The sky burns with deep orange and purple hues from the setting sun, casting long, dramatic shadows. The samurai’s silhouette glows against the horizon, with their sword reflecting a glint of fading light. The overall style is hyper-realistic, cinematic, and moody, with dramatic contrast and atmospheric depth."
+      },
+      "output": [
+        {
+          "url": "https://static.sandbase.ai/examples/0262978e-6acf-4544-9db2-5efe04371727/output/b9648b82-d0e8-4e37-83a1-e7941f553e8c.png"
+        }
+      ],
+      "default": true
+    }
+  ],
+  "readme": "# Wan 2.5 Text to Image\n\nWan 2.5 text-to-image: one image from a written brief in Chinese or English.\n\n## Fields\n\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `prompt` | string, required | — | Text instruction. |\n| `aspect_ratio` | `21:9` / `16:9` / `3:2` / `4:3` / `5:4` / `1:1` / `4:5` / `3:4` / `2:3` / `9:16` | — | Output shape. |\n| `seed` | integer | random | Fix it to compare prompt changes. |\n\n## Billing\n\n$0.05 per image.\n\n| Request | Price |\n|---|---|\n| One image | $0.05 |\n\nFailed runs are not charged.\n\n## Prompting\n\n- Write subject, setting, composition, style, then light and color.\n\n## Limits\n\n- One image per request. Wan 2.7 is newer and cheaper.\n\n## Also on SandBase\n\nOther Wan 2.5 endpoints: `alibaba/wan/2.5/text-to-video`, `alibaba/wan/2.5/image-to-video`, `alibaba/wan/2.5/image-to-image`, `alibaba/wan/2.7/text-to-image` (newer).\n",
+  "cover_url": "https://static.sandbase.ai/covers/alibaba/wan/2.5/text-to-image/cover-flare-20261005153237.webp",
+  "page_url": "https://www.sandbase.ai/model/alibaba/wan/2.5/text-to-image",
+  "published_at": "2025-09-25T20:57:10.526Z",
+  "created_at": "2026-05-15T03:29:55.235Z"
+}

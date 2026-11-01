@@ -1,0 +1,38 @@
+{
+  "name": "meta/llama-3.3-70b-instruct",
+  "display_name": "Meta: Llama 3.3 70B Instruct",
+  "type": "llm",
+  "vendor": "Meta",
+  "vendor_slug": "meta",
+  "description": "Llama 3.3 70B Instruct is Meta's instruction-tuned, text-only multilingual model released on December 6, 2024, built on an optimized transformer with grouped-query attention and a 128K-token context. It is optimized for assistant-style multilingual dialogue in eight officially supported languages, including English, German, French, Spanish, Hindi and Thai. It is a static open-weight model with a December 2023 knowledge cutoff, and its license also permits synthetic data generation and distillation.",
+  "tags": [
+    "chat",
+    "structured_output",
+    "function_calling"
+  ],
+  "capabilities": [
+    "chat",
+    "structured_output",
+    "function_calling"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "chat_completions": "POST /v1/chat/completions",
+    "responses": "POST /v1/responses",
+    "messages": "POST /v1/messages"
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_token",
+    "per_million_tokens": {
+      "input": 0.1,
+      "output": 0.32
+    }
+  },
+  "page_url": "https://www.sandbase.ai/model/meta/llama-3.3-70b-instruct",
+  "published_at": "2024-12-06T17:28:57Z",
+  "created_at": "2026-05-08T23:50:53.412Z"
+}

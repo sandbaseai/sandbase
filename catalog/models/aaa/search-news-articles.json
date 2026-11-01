@@ -1,0 +1,96 @@
+{
+  "name": "aaa/search-news-articles",
+  "display_name": "AAA Search News Articles",
+  "type": "api",
+  "vendor": "AAA",
+  "vendor_slug": "aaa",
+  "description": "Searches the AAA gas price news archive (weekly national reports and state-specific releases going back years) by keyword, optionally restricted to a publication date range, and returns one page of matching articles.",
+  "tags": [
+    "api",
+    "aaa",
+    "web-scraping"
+  ],
+  "capabilities": [
+    "api",
+    "aaa",
+    "web-scraping"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}",
+    "passthrough": "POST /v1/api/aaa/search-news-articles"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "query"
+    ],
+    "properties": {
+      "page": {
+        "type": "integer",
+        "maximum": 9007199254740991,
+        "minimum": -9007199254740991,
+        "description": "1-based page number of the match set."
+      },
+      "limit": {
+        "type": "integer",
+        "maximum": 9007199254740991,
+        "minimum": -9007199254740991,
+        "description": "Articles per page, 1 to 100."
+      },
+      "order": {
+        "type": "string",
+        "description": "Sort direction by publication date."
+      },
+      "query": {
+        "type": "string",
+        "example": "gas prices",
+        "description": "Keyword or phrase to search article titles and bodies for, e.g. a state name such as Indiana."
+      },
+      "end_date": {
+        "type": "string",
+        "description": "Latest publication date to include, ISO date YYYY-MM-DD (inclusive). Omitting places no upper bound, i.e. results run until now."
+      },
+      "start_date": {
+        "type": "string",
+        "description": "Earliest publication date to include, ISO date YYYY-MM-DD (inclusive). Omitting places no lower bound."
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "required": [
+      "id",
+      "status",
+      "model"
+    ],
+    "properties": {
+      "id": {
+        "type": "string"
+      },
+      "model": {
+        "type": "string"
+      },
+      "status": {
+        "type": "string"
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.01,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "readme": "# AAA Search News Articles\n\nSearches the AAA gas price news archive (weekly national reports and state-specific releases going back years) by keyword, optionally restricted to a publication date range, and returns one page of matching articles.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/aaa/search-news-articles\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"query\": \"gas prices\"}'\n```\n\nThis API runs asynchronously. The call returns a task `id` with status `pending`; poll `GET https://api.sandbase.ai/v1/run/{id}` until `status` is `completed` and read the result from `outputs[0].data`.\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `query` | string | Yes | Keyword or phrase to search article titles and bodies for, e.g. a state name such as Indiana. |\n| `end_date` | string | No | Latest publication date to include, ISO date YYYY-MM-DD (inclusive). Omitting places no upper bound, i.e. results run until now. |\n| `limit` | integer | No | Articles per page, 1 to 100. |\n| `order` | string | No | Sort direction by publication date. |\n| `page` | integer | No | 1-based page number of the match set. |\n| `start_date` | string | No | Earliest publication date to include, ISO date YYYY-MM-DD (inclusive). Omitting places no lower bound. |\n\n## Pricing\n\nFlat price per call. Failed calls are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/aaa/search-news-articles",
+  "created_at": "2026-10-30T08:58:18.872Z"
+}

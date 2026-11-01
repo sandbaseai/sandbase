@@ -1,0 +1,68 @@
+{
+  "name": "douyin/web/game-aweme",
+  "display_name": "Douyin Game Videos",
+  "type": "api",
+  "vendor": "Douyin",
+  "vendor_slug": "douyin",
+  "description": "Returns a paginated list of game-related videos from Douyin web. Callers specify the number of items per page and a refresh index to navigate through video feeds.",
+  "tags": [
+    "api",
+    "douyin"
+  ],
+  "capabilities": [
+    "api",
+    "douyin"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/douyin/web/game-aweme"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "count"
+    ],
+    "properties": {
+      "count": {
+        "type": "integer",
+        "title": "Count",
+        "description": "Number per page, default is 16"
+      },
+      "refresh_index": {
+        "type": "integer",
+        "title": "Refresh Index",
+        "example": 1,
+        "description": "Paging index, default is 1"
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.0015,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "examples": [
+    {
+      "input": {
+        "count": 1,
+        "refresh_index": 1
+      }
+    }
+  ],
+  "readme": "# Douyin Game Videos API\n\nRetrieve game video feeds from Douyin web by specifying `count` and an optional `refresh_index` for pagination.\n\n## Use cases\n\n- Browsing gaming video feeds from Douyin.\n- Displaying game-related content in external dashboards.\n- Paginating through video streams for gaming research.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/douyin/web/game-aweme\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"count\": \"<count>\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `count` | integer | Yes | Number per page, default is 16 |\n| `refresh_index` | integer | No | Paging index, default is 1 |\n\n## Notes\n\n- `count` defines the number of items returned per page, defaulting to 16.\n- `refresh_index` controls the pagination index, with a default value of 1.\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [Douyin Batch Video ID Extraction](/model/douyin/web/all-aweme-id): Extracts video IDs from a list of Douyin video URLs.\n- [Douyin sec_user_ids from URLs (Batch)](/model/douyin/web/all-sec-user-id): Extracts Douyin sec_user_id values in bulk from a list of user homepage URLs.\n- [Douyin Webcast ID Extraction](/model/douyin/web/all-webcast-id): Extracts webcast IDs from a submitted list of Douyin live room links.\n",
+  "page_url": "https://www.sandbase.ai/model/douyin/web/game-aweme",
+  "created_at": "2026-07-31T02:39:37.443Z"
+}

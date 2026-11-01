@@ -1,0 +1,219 @@
+{
+  "name": "xai/grok-imagine-video/reference-to-video",
+  "display_name": "Grok Imagine Video Reference to Video",
+  "type": "video",
+  "vendor": "xAI",
+  "vendor_slug": "xai",
+  "description": "Grok Imagine Video is xAI's image-to-video AI model. Bring static images to life with fluid animation, consistent character motion, and professional-grade video output.",
+  "tags": [
+    "reference-to-video"
+  ],
+  "capabilities": [
+    "reference-to-video"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "prompt",
+      "reference_image_urls"
+    ],
+    "properties": {
+      "prompt": {
+        "type": "string",
+        "title": "Prompt",
+        "examples": [
+          "A @Image1 running through a sunlit meadow, cinematic slow motion"
+        ],
+        "maxLength": 4096,
+        "description": "Text prompt describing the video to generate. Use @Image1, @Image2, etc. to reference specific images from reference_image_urls in order."
+      },
+      "duration": {
+        "type": "integer",
+        "title": "Duration",
+        "default": 8,
+        "maximum": 10,
+        "minimum": 1,
+        "description": "Video duration in seconds."
+      },
+      "resolution": {
+        "enum": [
+          "480p",
+          "720p"
+        ],
+        "type": "string",
+        "title": "Resolution",
+        "default": "720p",
+        "description": "Resolution of the output video."
+      },
+      "aspect_ratio": {
+        "enum": [
+          "16:9",
+          "4:3",
+          "3:2",
+          "1:1",
+          "2:3",
+          "3:4",
+          "9:16"
+        ],
+        "type": "string",
+        "title": "Aspect Ratio",
+        "default": "16:9",
+        "description": "The aspect ratio of the generated image."
+      },
+      "reference_image_urls": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        },
+        "title": "Reference Image URLs",
+        "examples": [
+          "https://static.sandbase.ai/examples/xai/grok-imagine-video/reference-to-video/input_reference_image_urls_0.png"
+        ],
+        "maxItems": 7,
+        "minItems": 1,
+        "description": "One or more reference image URLs to guide the video generation as style and content references. Reference in prompt as @Image1, @Image2, etc. Maximum 7 images."
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "title": "GenerationResponse",
+    "required": [
+      "id",
+      "status"
+    ],
+    "properties": {
+      "id": {
+        "type": "string",
+        "description": "Unique identifier for the generation task."
+      },
+      "error": {
+        "type": "string",
+        "description": "Error message if the task failed. Empty on success."
+      },
+      "model": {
+        "type": "string",
+        "description": "Model ID used for the prediction."
+      },
+      "status": {
+        "enum": [
+          "pending",
+          "running",
+          "completed",
+          "failed",
+          "timeout"
+        ],
+        "type": "string",
+        "description": "Status of the task: pending, running, completed, failed, or timeout."
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "title": "OutputItem",
+          "required": [
+            "url"
+          ],
+          "properties": {
+            "url": {
+              "type": "string",
+              "examples": [
+                "https://static.sandbase.ai/examples/lightricks/ltx-2.3-22b-distilled/audio-to-video/output_url_2.mp4"
+              ],
+              "description": "The URL where the generated content can be downloaded from."
+            },
+            "content_type": {
+              "type": "string",
+              "description": "The MIME type of the output file."
+            }
+          }
+        },
+        "description": "Array of generated content. Empty when status is not completed."
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "formula",
+    "formula": "(params.resolution ?? \"720p\") == \"720p\" ? (params.duration ?? 8) * 0.07 + 0.002 : (params.duration ?? 8) * 0.05 + 0.002",
+    "formula_variables": [
+      "params.duration",
+      "params.resolution"
+    ],
+    "reference_price": 0.562,
+    "price_examples": [
+      {
+        "params": {
+          "duration": 1,
+          "resolution": "480p"
+        },
+        "usd": 0.052
+      },
+      {
+        "params": {
+          "duration": 1,
+          "resolution": "720p"
+        },
+        "usd": 0.072
+      },
+      {
+        "params": {
+          "duration": 8,
+          "resolution": "480p"
+        },
+        "usd": 0.402
+      },
+      {
+        "params": {
+          "duration": 8,
+          "resolution": "720p"
+        },
+        "usd": 0.562
+      },
+      {
+        "params": {
+          "duration": 10,
+          "resolution": "480p"
+        },
+        "usd": 0.502
+      },
+      {
+        "params": {
+          "duration": 10,
+          "resolution": "720p"
+        },
+        "usd": 0.702
+      }
+    ]
+  },
+  "examples": [
+    {
+      "input": {
+        "prompt": "A @Image1 running through a sunlit meadow, cinematic slow motion",
+        "reference_image_urls": [
+          "https://static.sandbase.ai/examples/1d487450-78ff-4d5a-87b2-0abdacea87d7/input/1bb4adf0-cb56-4abf-8133-5b627a7fd3ef.png"
+        ]
+      },
+      "output": [
+        {
+          "poster": "https://static.sandbase.ai/examples/posters/008e2a60f15ea4813552.jpg",
+          "url": "https://static.sandbase.ai/examples/1d487450-78ff-4d5a-87b2-0abdacea87d7/output/a93d9668-7b65-41f8-9c74-3792eb4dc43e.mp4"
+        }
+      ],
+      "default": true
+    }
+  ],
+  "readme": "# Grok Imagine Video Reference to Video\n\nGrok Imagine Video reference-to-video: up to 7 reference images keep characters and objects consistent in a 1–10 second clip.\n\n## Fields\n\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `prompt` | string, required | — | Up to 4,096 characters. |\n| `aspect_ratio` | `16:9` / `4:3` / `3:2` / `1:1` / `2:3` / `3:4` / `9:16` | `16:9` | Output frame shape. |\n| `resolution` | `480p` / `720p` | `720p` | Sets the per-second rate. |\n| `duration` | integer 1–10 | 8 | Output length in seconds. |\n| `reference_image_urls` | image URL[] (≤7), required | — | Reference images, up to 7. |\n\n## Billing\n\n$0.07 per output second at 720p and $0.05 at 480p, plus $0.002 per request.\n\n| Output | 480p | 720p |\n|---|---|---|\n| 6s | $0.302 | $0.422 |\n| 8s (default) | $0.402 | $0.562 |\n| 10s | $0.502 | $0.702 |\n\nFailed runs are not charged.\n\n## Prompting\n\n- Describe subject, action, camera, and sound.\n\n## Also on SandBase\n\nOther Grok Imagine Video endpoints: `xai/grok-imagine-video/text-to-video`, `xai/grok-imagine-video/image-to-video`, `xai/grok-imagine-video/video-edit`, `xai/grok-imagine-video/video-extend`, `xai/grok-imagine-video/1.5/text-to-video` (1.5, newer).\n",
+  "cover_url": "https://static.sandbase.ai/covers/xai/grok-imagine-video/reference-to-video/cover-flare-20261005002700.webp",
+  "page_url": "https://www.sandbase.ai/model/xai/grok-imagine-video/reference-to-video",
+  "published_at": "2026-03-24T17:55:41.616Z",
+  "created_at": "2026-05-15T12:48:12.403Z"
+}

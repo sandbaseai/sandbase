@@ -1,0 +1,45 @@
+{
+  "name": "google/gemini-3-flash-preview",
+  "display_name": "Google: Gemini 3 Flash Preview",
+  "type": "llm",
+  "vendor": "Google",
+  "vendor_slug": "google",
+  "description": "Gemini 3 Flash Preview is the preview release of the Flash tier in Google's Gemini 3 series, released in December 2025. Google described it at launch as its most powerful agentic and vibe-coding model to that point, built on Gemini 3 reasoning with multimodal understanding across text, image, video, audio and PDF input. It remains a preview endpoint with no announced shutdown date, and Google recommends Gemini 3.6 Flash as its replacement.",
+  "tags": [
+    "chat",
+    "vision",
+    "audio_input",
+    "reasoning",
+    "structured_output",
+    "function_calling"
+  ],
+  "capabilities": [
+    "chat",
+    "vision",
+    "audio_input",
+    "reasoning",
+    "structured_output",
+    "function_calling"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "chat_completions": "POST /v1/chat/completions",
+    "responses": "POST /v1/responses",
+    "messages": "POST /v1/messages"
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_token",
+    "per_million_tokens": {
+      "input": 0.5,
+      "output": 3,
+      "cache_read_multiplier": 0.1
+    }
+  },
+  "page_url": "https://www.sandbase.ai/model/google/gemini-3-flash-preview",
+  "published_at": "2025-12-17T15:57:58Z",
+  "created_at": "2026-05-08T23:49:06.388Z"
+}

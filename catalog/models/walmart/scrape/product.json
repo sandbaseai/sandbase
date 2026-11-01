@@ -1,0 +1,91 @@
+{
+  "name": "walmart/scrape/product",
+  "display_name": "Walmart Product Page",
+  "type": "api",
+  "vendor": "Walmart",
+  "vendor_slug": "walmart",
+  "description": "Extract structured data from a Walmart product page URL: name, current and list price, stock, delivery estimate, ratings and seller details.",
+  "tags": [
+    "api",
+    "walmart",
+    "ecommerce",
+    "product-data"
+  ],
+  "capabilities": [
+    "api",
+    "walmart",
+    "ecommerce",
+    "product-data"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}",
+    "passthrough": "POST /v1/api/walmart/scrape/product"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "url"
+    ],
+    "properties": {
+      "url": {
+        "type": "string",
+        "format": "uri",
+        "example": "https://www.walmart.com/ip/HP-14-Laptop/17581855155",
+        "description": "Full Walmart page URL, e.g. https://www.walmart.com/ip/HP-14-Laptop/17581855155"
+      },
+      "country": {
+        "type": "string",
+        "maxLength": 2,
+        "minLength": 2,
+        "description": "Walmart marketplace country code, e.g. 'us', 'ca', 'mx' (default 'us')."
+      },
+      "storeId": {
+        "type": "string",
+        "minLength": 1,
+        "description": "Walmart store ID for localized inventory."
+      },
+      "zipCode": {
+        "type": "string",
+        "minLength": 3,
+        "description": "US zip code used to determine local product availability."
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "required": [
+      "id",
+      "status",
+      "model"
+    ],
+    "properties": {
+      "id": {
+        "type": "string"
+      },
+      "model": {
+        "type": "string"
+      },
+      "status": {
+        "type": "string"
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.01,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "readme": "# Walmart Product Page\n\nExtract structured data from a Walmart product page URL: name, current and list price, stock, delivery estimate, ratings and seller details.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/walmart/scrape/product\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"url\": \"https://www.walmart.com/ip/HP-14-Laptop/17581855155\"}'\n```\n\nThis API runs asynchronously. The call returns a task `id` with status `pending`; poll `GET https://api.sandbase.ai/v1/run/{id}` until `status` is `completed` and read the result from `outputs[0].data`.\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `url` | string | Yes | Full Walmart page URL, e.g. https://www.walmart.com/ip/HP-14-Laptop/17581855155 |\n| `country` | string | No | Walmart marketplace country code, e.g. 'us', 'ca', 'mx' (default 'us'). |\n| `storeId` | string | No | Walmart store ID for localized inventory. |\n| `zipCode` | string | No | US zip code used to determine local product availability. |\n\n## Pricing\n\nFlat price per call. Failed calls are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/walmart/scrape/product",
+  "created_at": "2026-10-28T06:10:35.107Z"
+}

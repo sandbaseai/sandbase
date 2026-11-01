@@ -1,0 +1,51 @@
+{
+  "name": "google/gemini-3.1-pro-preview-customtools",
+  "display_name": "Google: Gemini 3.1 Pro Preview Custom Tools",
+  "type": "llm",
+  "vendor": "Google",
+  "vendor_slug": "google",
+  "description": "Gemini 3.1 Pro Preview Custom Tools is a separate endpoint of Google's Gemini 3.1 Pro Preview, the Pro-tier reasoning model of the Gemini 3 series, tuned for agentic workflows that mix bash with custom tools. Google says it is better at prioritizing user-defined functions, such as file viewing or code search tools, over a general bash tool. Pick it for coding agents built on custom tools; Google notes quality may fluctuate in use cases that do not benefit from such tools, where the standard 3.1 Pro Preview fits better.",
+  "tags": [
+    "chat",
+    "vision",
+    "audio_input",
+    "reasoning",
+    "structured_output",
+    "function_calling"
+  ],
+  "capabilities": [
+    "chat",
+    "vision",
+    "audio_input",
+    "reasoning",
+    "structured_output",
+    "function_calling"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "chat_completions": "POST /v1/chat/completions",
+    "responses": "POST /v1/responses",
+    "messages": "POST /v1/messages"
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_token",
+    "per_million_tokens": {
+      "input": 2,
+      "output": 12,
+      "cache_read_multiplier": 0.1
+    },
+    "formula": "usage.prompt_tokens >= 200000 ? (usage.prompt_tokens * 4 / 1000000 + usage.completion_tokens * 18 / 1000000 - usage.cached_tokens * 1.8 / 1000000) : (usage.prompt_tokens * 2 / 1000000 + usage.completion_tokens * 12 / 1000000)",
+    "formula_variables": [
+      "usage.cached_tokens",
+      "usage.completion_tokens",
+      "usage.prompt_tokens"
+    ]
+  },
+  "page_url": "https://www.sandbase.ai/model/google/gemini-3.1-pro-preview-customtools",
+  "published_at": "2026-02-25T18:58:43Z",
+  "created_at": "2026-05-08T23:49:22.758Z"
+}

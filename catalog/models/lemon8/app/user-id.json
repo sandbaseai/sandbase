@@ -1,0 +1,55 @@
+{
+  "name": "lemon8/app/user-id",
+  "display_name": "Lemon8 User ID from Share Link",
+  "type": "api",
+  "vendor": "Lemon8",
+  "vendor_slug": "lemon8",
+  "description": "Returns a Lemon8 user ID extracted from a user profile share link. Input supports long or short sharing URLs copied from the web or app.",
+  "tags": [
+    "api",
+    "lemon8"
+  ],
+  "capabilities": [
+    "api",
+    "lemon8"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/lemon8/app/user-id"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "share_text"
+    ],
+    "properties": {
+      "share_text": {
+        "type": "string",
+        "title": "Share Text",
+        "example": "https://www.lemon8-app.com/lemon8cars?region=us",
+        "description": "Share link, supports long links and short links, can be obtained and copied from the share button on the web and APP."
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.0015,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "readme": "# Lemon8 User ID from Share Link API\n\nLook up a Lemon8 account identifier using the `share_text` parameter. This endpoint resolves shared profile links into the underlying user ID.\n\n## Use cases\n\n- Resolve shared Lemon8 profile URLs into stable user identifiers.\n- Map user links copied from the Lemon8 mobile app to user IDs.\n- Automate profile identification from Lemon8 web share links.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/lemon8/app/user-id\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"share_text\": \"https://www.lemon8-app.com/lemon8cars?region=us\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `share_text` | string | Yes | Share link, supports long links and short links, can be obtained and copied from the share button on the web and APP. |\n\n## Notes\n\n- The `share_text` parameter accepts both long links and short links copied from the Lemon8 app or web interface.\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [Lemon8 Discover Page Banners](/model/lemon8/app/discover-banners): Returns the current promotional and featured banners displayed on the Lemon8 discover page.\n- [Lemon8 Discover Page Content](/model/lemon8/app/discover-tab): Returns the main content featured on the Lemon8 discover tab.\n- [Lemon8 Discover Editor Picks](/model/lemon8/app/discover-tab-information-tabs): Returns the Editor's Picks and discover tab information from the Lemon8 mobile app.\n",
+  "page_url": "https://www.sandbase.ai/model/lemon8/app/user-id",
+  "created_at": "2026-07-31T04:08:05.844Z"
+}

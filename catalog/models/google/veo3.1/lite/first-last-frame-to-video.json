@@ -1,0 +1,285 @@
+{
+  "name": "google/veo3.1/lite/first-last-frame-to-video",
+  "display_name": "Veo 3.1 Lite First-Last Frame to Video",
+  "type": "video",
+  "vendor": "Google",
+  "vendor_slug": "google",
+  "description": "Veo3.1 Lite First Last Frame To Video is Google's image-to-video AI model. Bring static images to life with fluid animation, consistent character motion, and professional-grade video output.",
+  "tags": [
+    "image-to-video"
+  ],
+  "capabilities": [
+    "image-to-video"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "prompt",
+      "image",
+      "end_image"
+    ],
+    "properties": {
+      "seed": {
+        "type": "integer",
+        "title": "Seed",
+        "maximum": 4294967295,
+        "minimum": 0,
+        "description": "Random seed for more reproducible results."
+      },
+      "image": {
+        "type": "string",
+        "title": "Image",
+        "description": "First frame of the video. 720p or higher in 16:9 or 9:16 works best."
+      },
+      "prompt": {
+        "type": "string",
+        "title": "Prompt",
+        "examples": [
+          "A smooth transition between the two frames with natural motion."
+        ],
+        "maxLength": 20000,
+        "description": "The text prompt describing the video you want to generate"
+      },
+      "duration": {
+        "enum": [
+          4,
+          6,
+          8
+        ],
+        "type": "integer",
+        "title": "Duration",
+        "default": 8,
+        "description": "Duration of the generated video in seconds."
+      },
+      "end_image": {
+        "type": "string",
+        "title": "End Image",
+        "description": "Last frame of the video."
+      },
+      "resolution": {
+        "enum": [
+          "720p",
+          "1080p"
+        ],
+        "type": "string",
+        "title": "Resolution",
+        "default": "720p",
+        "description": "Output resolution."
+      },
+      "aspect_ratio": {
+        "enum": [
+          "16:9",
+          "9:16"
+        ],
+        "type": "string",
+        "title": "Aspect Ratio",
+        "description": "Output aspect ratio. Omit to match the input image."
+      },
+      "generate_audio": {
+        "type": "boolean",
+        "title": "Generate Audio",
+        "default": true,
+        "description": "Generate synchronized audio. Videos without audio are cheaper."
+      },
+      "negative_prompt": {
+        "type": "string",
+        "title": "Negative Prompt",
+        "description": "What to avoid in the video."
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "title": "GenerationResponse",
+    "required": [
+      "id",
+      "status"
+    ],
+    "properties": {
+      "id": {
+        "type": "string",
+        "description": "Unique identifier for the generation task."
+      },
+      "error": {
+        "type": "string",
+        "description": "Error message if the task failed. Empty on success."
+      },
+      "model": {
+        "type": "string",
+        "description": "Model ID used for the prediction."
+      },
+      "status": {
+        "enum": [
+          "pending",
+          "running",
+          "completed",
+          "failed",
+          "timeout"
+        ],
+        "type": "string",
+        "description": "Status of the task: pending, running, completed, failed, or timeout."
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "title": "OutputItem",
+          "required": [
+            "url"
+          ],
+          "properties": {
+            "url": {
+              "type": "string",
+              "description": "The URL where the generated content can be downloaded from."
+            },
+            "content_type": {
+              "type": "string",
+              "description": "The MIME type of the output file."
+            }
+          }
+        },
+        "description": "Array of generated content. Empty when status is not completed."
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "formula",
+    "formula": "(params.duration ?? 8) * ((params.resolution ?? \"720p\") == \"720p\" ? ((params.generate_audio ?? true) ? 0.05 : 0.03) : (params.resolution ?? \"720p\") == \"1080p\" ? ((params.generate_audio ?? true) ? 0.08 : 0.05) : (0 / 0))",
+    "formula_variables": [
+      "params.duration",
+      "params.generate_audio",
+      "params.resolution"
+    ],
+    "reference_price": 0.4,
+    "price_examples": [
+      {
+        "params": {
+          "duration": 4,
+          "generate_audio": false,
+          "resolution": "720p"
+        },
+        "usd": 0.12
+      },
+      {
+        "params": {
+          "duration": 4,
+          "generate_audio": false,
+          "resolution": "1080p"
+        },
+        "usd": 0.2
+      },
+      {
+        "params": {
+          "duration": 4,
+          "generate_audio": true,
+          "resolution": "720p"
+        },
+        "usd": 0.2
+      },
+      {
+        "params": {
+          "duration": 4,
+          "generate_audio": true,
+          "resolution": "1080p"
+        },
+        "usd": 0.32
+      },
+      {
+        "params": {
+          "duration": 6,
+          "generate_audio": false,
+          "resolution": "720p"
+        },
+        "usd": 0.18
+      },
+      {
+        "params": {
+          "duration": 6,
+          "generate_audio": false,
+          "resolution": "1080p"
+        },
+        "usd": 0.3
+      },
+      {
+        "params": {
+          "duration": 6,
+          "generate_audio": true,
+          "resolution": "720p"
+        },
+        "usd": 0.3
+      },
+      {
+        "params": {
+          "duration": 6,
+          "generate_audio": true,
+          "resolution": "1080p"
+        },
+        "usd": 0.48
+      },
+      {
+        "params": {
+          "duration": 8,
+          "generate_audio": false,
+          "resolution": "720p"
+        },
+        "usd": 0.24
+      },
+      {
+        "params": {
+          "duration": 8,
+          "generate_audio": false,
+          "resolution": "1080p"
+        },
+        "usd": 0.4
+      },
+      {
+        "params": {
+          "duration": 8,
+          "generate_audio": true,
+          "resolution": "720p"
+        },
+        "usd": 0.4
+      },
+      {
+        "params": {
+          "duration": 8,
+          "generate_audio": true,
+          "resolution": "1080p"
+        },
+        "usd": 0.64
+      }
+    ]
+  },
+  "examples": [
+    {
+      "input": {
+        "duration": 4,
+        "end_image": "https://static.sandbase.ai/examples/4a2bc59f-d1ae-4599-a231-ffca7087c6b6/input/93e6f9de-e7ff-4b54-aa84-aa06f1f5e743.png",
+        "generate_audio": false,
+        "image": "https://static.sandbase.ai/examples/4a2bc59f-d1ae-4599-a231-ffca7087c6b6/input/53ce9f26-81ff-461b-b429-6a62efb3d5a5.png",
+        "prompt": "The lantern slowly turns"
+      },
+      "output": [
+        {
+          "poster": "https://static.sandbase.ai/examples/posters/fb1640af070bf144c060.jpg",
+          "url": "https://static.sandbase.ai/examples/4a2bc59f-d1ae-4599-a231-ffca7087c6b6/output/3959f3f5-7dc4-4c0f-b29a-685905240dd9.mp4"
+        }
+      ],
+      "default": true
+    }
+  ],
+  "readme": "# Veo 3.1 Lite First-Last Frame to Video\n\nVeo 3.1 Lite with first and last frame control: send a start image and an end image and Veo generates the motion between them, with native audio.\n\n## Fields\n\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `prompt` | string, required | — | Up to 20,000 characters. |\n| `image` | image URL, required | — | First frame. JPEG, PNG, or WebP URL. |\n| `end_image` | image URL, required | — | Last frame. JPEG, PNG, or WebP URL. |\n| `duration` | 4 / 6 / 8 | 8 | Output length in seconds. |\n| `resolution` | `720p` / `1080p` | `720p` | Sets the per-second rate. |\n| `aspect_ratio` | `16:9` / `9:16` | — | Output frame shape. |\n| `generate_audio` | boolean | true | Native dialogue, music, and effects; turning it off lowers the rate. |\n| `negative_prompt` | string | — | What to avoid. |\n| `seed` | integer 0–4294967295 | random | Fix it to compare prompt changes. |\n\n## Billing\n\nYou pay for output seconds, Google's list price. With audio: $0.05 at 720p, $0.08 at 1080p. Without audio: $0.03 / $0.05 respectively.\n\n| Output | 720p | 1080p |\n|---|---|---|\n| 4s with audio | $0.20 | $0.32 |\n| 6s with audio | $0.30 | $0.48 |\n| 8s with audio (default) | $0.40 | $0.64 |\n| 8s without audio | $0.24 | $0.40 |\n\nFailed runs are not charged.\n\n## Prompting\n\n- Keep both frames compatible in framing and lighting, or describe the transition explicitly.\n- Describe how the subject travels from the first frame to the last.\n\n## Limits\n\n- Both frames are required.\n- No 4K on this tier.\n\n## Also on SandBase\n\nOther Veo 3.1 Lite endpoints: `google/veo3.1/lite/text-to-video`, `google/veo3.1/lite/image-to-video`, `google/veo3.1/text-to-video`, `google/veo3.1/fast/text-to-video`.\n",
+  "cover_url": "https://static.sandbase.ai/covers/google/veo3.1/lite/first-last-frame-to-video/cover-flare-20261004235354.webp",
+  "page_url": "https://www.sandbase.ai/model/google/veo3.1/lite/first-last-frame-to-video",
+  "published_at": "2026-03-31T18:36:21.18Z",
+  "created_at": "2026-05-14T23:58:32.985Z"
+}

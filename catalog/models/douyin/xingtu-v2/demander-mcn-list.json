@@ -1,0 +1,76 @@
+{
+  "name": "douyin/xingtu-v2/demander-mcn-list",
+  "display_name": "Douyin Xingtu Demander MCN List",
+  "type": "api",
+  "vendor": "Douyin",
+  "vendor_slug": "douyin",
+  "description": "Returns a directory of MCN organizations on Douyin Xingtu with creator counts and performance scores, filterable by name and sorted by platform scores.",
+  "tags": [
+    "api",
+    "douyin"
+  ],
+  "capabilities": [
+    "api",
+    "douyin"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/douyin/xingtu-v2/demander-mcn-list"
+  },
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "page": {
+        "type": "integer",
+        "title": "Page",
+        "default": 1,
+        "example": 1,
+        "description": "Page number, default 1"
+      },
+      "mcn_name": {
+        "type": "string",
+        "title": "Mcn Name",
+        "default": "",
+        "example": "",
+        "description": "MCN name, supports fuzzy search"
+      },
+      "order_by": {
+        "type": "string",
+        "title": "Order By",
+        "default": "platform_scores",
+        "example": "platform_scores",
+        "description": "Sort by, `platform_scores`=platform scores"
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.0075,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "examples": [
+    {
+      "input": {
+        "mcn_name": "",
+        "order_by": "platform_scores",
+        "page": 1
+      }
+    }
+  ],
+  "readme": "# Douyin Xingtu Demander MCN List API\n\nRetrieve a list of Douyin Xingtu MCN organizations using `mcn_name` for fuzzy matching and `order_by` to rank by platform scores.\n\n## Use cases\n\n- Search for partner MCN agencies by name.\n- Rank MCN organizations based on platform performance scores.\n- Inspect author counts and growth metrics across agencies.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/douyin/xingtu-v2/demander-mcn-list\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `page` | integer | No | Page number, default 1 |\n| `mcn_name` | string | No | MCN name, supports fuzzy search |\n| `order_by` | string | No | Sort by, `platform_scores`=platform scores |\n\n## Example response\n\nReal response for the request above, trimmed to the main fields. User names and long IDs are masked.\n\n```json\n{\n  \"mcns\": [\n    {\n      \"author_num\": 868,\n      \"complex_score\": 89.78,\n      \"growth_score\": 55.63,\n      \"name\": \"杭州无忧传媒有限公司\",\n      \"user_id\": \"<user>\"\n    }\n  ]\n}\n```\n\n## Notes\n\n- `mcn_name` supports fuzzy search.\n- Set `order_by` to `platform_scores` to sort by platform ratings.\n- `page` defaults to 1.\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [Douyin Xingtu Author Audience Distribution](/model/douyin/xingtu-v2/author-audience-distribution): Returns audience profile distribution metrics for a specified Xingtu creator based on creator ID and link type, with selectable platform source and channel opt…\n- [Douyin Xingtu Author Base Info](/model/douyin/xingtu-v2/author-base-info): Returns basic creator profile data from Douyin Xingtu by author identifier, with options to include recommendation details and linkage information.\n- [Douyin Xingtu Author Business Card Info](/model/douyin/xingtu-v2/author-business-card-info): Returns business card details for a Douyin Xingtu creator based on the specified author ID.\n",
+  "page_url": "https://www.sandbase.ai/model/douyin/xingtu-v2/demander-mcn-list",
+  "created_at": "2026-07-31T02:42:30.851Z"
+}

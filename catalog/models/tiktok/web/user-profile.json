@@ -1,0 +1,67 @@
+{
+  "name": "tiktok/web/user-profile",
+  "display_name": "TikTok User Profile",
+  "type": "api",
+  "vendor": "TikTok",
+  "vendor_slug": "tiktok",
+  "description": "Returns public profile information for a specified TikTok user. Look up accounts by providing either the unique handle or secure user ID.",
+  "tags": [
+    "api",
+    "tiktok"
+  ],
+  "capabilities": [
+    "api",
+    "tiktok"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/tiktok/web/user-profile"
+  },
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "secUid": {
+        "type": "string",
+        "title": "Secuid",
+        "default": "",
+        "description": "User secUid"
+      },
+      "uniqueId": {
+        "type": "string",
+        "title": "Uniqueid",
+        "default": "",
+        "example": "tiktok",
+        "description": "User uniqueId"
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.0015,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "examples": [
+    {
+      "input": {
+        "uniqueId": "srlechuza2.0"
+      },
+      "default": true
+    }
+  ],
+  "readme": "# TikTok User Profile API\n\nRetrieve detailed TikTok user profile information using either `uniqueId` or `secUid`.\n\n## Use cases\n\n- Display public creator profile details within external dashboards.\n- Verify TikTok usernames and identify creator accounts.\n- Retrieve creator metadata using either a handle or secure user identifier.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/tiktok/web/user-profile\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `secUid` | string | No | User secUid |\n| `uniqueId` | string | No | User uniqueId |\n\n## Notes\n\n- Look up user profiles using either `uniqueId` or `secUid`.\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [TikTok Video IDs from URLs (Batch)](/model/tiktok/web/all-aweme-id): Resolves and extracts TikTok video IDs from a list of video URLs.\n- [TikTok User Sec User ID Extractor](/model/tiktok/web/all-sec-user-id): Returns a list of sec_user_id identifiers corresponding to TikTok user profile URLs.\n- [TikTok Profile Unique IDs](/model/tiktok/web/all-unique-id): Resolves a batch of TikTok user homepage links to retrieve their corresponding unique identifiers.\n",
+  "page_url": "https://www.sandbase.ai/model/tiktok/web/user-profile",
+  "created_at": "2026-07-31T04:18:07.585Z"
+}

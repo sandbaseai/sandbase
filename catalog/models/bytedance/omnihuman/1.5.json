@@ -1,0 +1,146 @@
+{
+  "name": "bytedance/omnihuman/1.5",
+  "display_name": "ByteDance OmniHuman 1.5",
+  "type": "video",
+  "vendor": "Bytedance",
+  "vendor_slug": "bytedance",
+  "description": "Omnihuman 1.5 is Bytedance's image-to-video AI model. Bring static images to life with fluid animation, consistent character motion, and professional-grade video output.",
+  "tags": [
+    "image-to-video"
+  ],
+  "capabilities": [
+    "image-to-video"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "prompt",
+      "image",
+      "audio"
+    ],
+    "properties": {
+      "mask": {
+        "type": "string",
+        "title": "Mask Url",
+        "description": "The URL of the mask image to apply to the image. Only the person in the white area of the mask will speak."
+      },
+      "audio": {
+        "type": "string",
+        "title": "Audio Url",
+        "examples": [
+          "https://static.sandbase.ai/examples/bytedance/omnihuman/1.5/input_audio_0.mp3"
+        ],
+        "description": "The URL of the audio file to generate the video. Audio must be under 30s long for 1080p generation and under 60s long for 720p generation."
+      },
+      "image": {
+        "type": "string",
+        "title": "Image Url",
+        "examples": [
+          "https://static.sandbase.ai/examples/bytedance/omnihuman/1.5/input_image_1.png"
+        ],
+        "description": "The URL of the image used to generate the video"
+      },
+      "prompt": {
+        "type": "string",
+        "title": "Prompt",
+        "description": "The text prompt used to guide the video generation."
+      },
+      "resolution": {
+        "enum": [
+          "720p",
+          "1080p"
+        ],
+        "type": "string",
+        "title": "Resolution",
+        "default": "720p",
+        "description": "The resolution of the generated video. Defaults to 1080p. 720p generation is faster and higher in quality. 1080p generation is limited to 30s audio and 720p generation is limited to 60s audio."
+      },
+      "turbo_mode": {
+        "type": "boolean",
+        "title": "Turbo Mode",
+        "default": false,
+        "description": "Generate a video at a faster rate with a slight quality trade-off."
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "title": "GenerationResponse",
+    "required": [
+      "id",
+      "status"
+    ],
+    "properties": {
+      "id": {
+        "type": "string",
+        "description": "Unique identifier for the generation task."
+      },
+      "error": {
+        "type": "string",
+        "description": "Error message if the task failed. Empty on success."
+      },
+      "model": {
+        "type": "string",
+        "description": "Model ID used for the prediction."
+      },
+      "status": {
+        "enum": [
+          "pending",
+          "running",
+          "completed",
+          "failed",
+          "timeout"
+        ],
+        "type": "string",
+        "description": "Status of the task: pending, running, completed, failed, or timeout."
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "title": "OutputItem",
+          "required": [
+            "url"
+          ],
+          "properties": {
+            "url": {
+              "type": "string",
+              "examples": [
+                "https://static.sandbase.ai/examples/bytedance/omnihuman/1.5/output_url_2.mp4"
+              ],
+              "description": "The URL where the generated content can be downloaded from."
+            },
+            "content_type": {
+              "type": "string",
+              "description": "The MIME type of the output file."
+            }
+          }
+        },
+        "description": "Array of generated content. Empty when status is not completed."
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "formula",
+    "formula": "(usage.duration ?? media_duration(params.audio) ?? 5.0) * 0.16",
+    "formula_variables": [
+      "params.audio",
+      "usage.duration"
+    ],
+    "reference_price": 0.8
+  },
+  "readme": "# ByteDance OmniHuman 1.5\n\nOmniHuman 1.5 turns a single image and an audio track into a talking or performing video, with lip sync, gestures, and expressions that follow the audio and the prompt.\n\n## Fields\n\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `prompt` | string, required | — | Optional direction for gestures and camera. |\n| `image` | image URL, required | — | Person or character to animate. JPEG, PNG, or WebP URL. |\n| `mask` | image URL | — | Optional mask to choose which person speaks. |\n| `audio` | audio URL, required | — | Speech or song that drives the performance. |\n| `resolution` | `720p` / `1080p` | `720p` | Output resolution. |\n| `turbo_mode` | boolean | false | Faster generation at some quality cost. |\n\n## Billing\n\n$0.16 per output second; the output is as long as the audio. The quote before submission assumes 5 seconds.\n\n| Audio | Price |\n|---|---|\n| 5s audio | $0.80 |\n| 15s audio | $2.40 |\n| 30s audio | $4.80 |\n\nFailed runs are not charged.\n\n## Prompting\n\n- Describe gestures and camera; the lips follow the audio automatically.\n\n## Limits\n\n- Output length follows the audio.\n\n## Also on SandBase\n\nRelated: `bytedance/dreamactor/2.0` (video-driven).\n",
+  "cover_url": "https://static.sandbase.ai/covers/bytedance/omnihuman/1.5/cover-flare-20261005010028.webp",
+  "page_url": "https://www.sandbase.ai/model/bytedance/omnihuman/1.5",
+  "published_at": "2025-09-23T14:00:56.925Z",
+  "created_at": "2026-05-15T01:32:15.504Z"
+}

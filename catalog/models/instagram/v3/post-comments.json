@@ -1,0 +1,79 @@
+{
+  "name": "instagram/v3/post-comments",
+  "display_name": "Instagram Post Comments (V3)",
+  "type": "api",
+  "vendor": "Instagram",
+  "vendor_slug": "instagram",
+  "description": "Returns a list of comments for an Instagram post specified by its shortcode. Supports pagination and ordering by popular or newest comments.",
+  "tags": [
+    "api",
+    "instagram"
+  ],
+  "capabilities": [
+    "api",
+    "instagram"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/instagram/v3/post-comments"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "code"
+    ],
+    "properties": {
+      "code": {
+        "type": "string",
+        "title": "Code",
+        "example": "DUajw4YkorV",
+        "description": "Post shortcode (e.g., DUajw4YkorV, required)"
+      },
+      "min_id": {
+        "type": "string",
+        "title": "Min Id",
+        "description": "Pagination cursor, omit for first request, get from previous response `data.next_min_id`"
+      },
+      "sort_order": {
+        "enum": [
+          "popular",
+          "newest"
+        ],
+        "type": "string",
+        "title": "Sort Order",
+        "default": "popular",
+        "example": "popular",
+        "description": "Sort order"
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.012,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "examples": [
+    {
+      "input": {
+        "code": "DUajw4YkorV"
+      },
+      "default": true
+    }
+  ],
+  "readme": "# Instagram Post Comments (V3) API\n\nRetrieve comments on an Instagram post by providing the post shortcode in `code`. You can optionally paginate results using `min_id` and set comment ordering with `sort_order`.\n\n## Use cases\n\n- Analyze user feedback and sentiment on public Instagram posts.\n- Monitor engagement and track replies across high-performing media.\n- Collect popular or recent viewer discussions for community reporting.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/instagram/v3/post-comments\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"code\": \"DUajw4YkorV\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `code` | string | Yes | Post shortcode (e.g., DUajw4YkorV, required) |\n| `min_id` | string | No | Pagination cursor, omit for first request, get from previous response `data.next_min_id` |\n| `sort_order` | string | No | Sort order |\n\n## Example response\n\nReal response for the request above, trimmed to the main fields. User names and long IDs are masked.\n\n```json\n{\n  \"comments\": [\n    {\n      \"child_comment_count\": 0,\n      \"comment_like_count\": 1,\n      \"content_type\": \"comment\",\n      \"media_id\": \"3826528124109228757\",\n      \"meta_ai_comment_type\": \"NONE\",\n      \"private_reply_status\": 0,\n      \"status\": \"Active\",\n      \"text\": \"So incredibly beautiful ❤️\",\n      \"type\": 0,\n      \"user_id\": \"<user>\",\n      \"user\": {\n        \"full_name\": \"jim blaze\",\n        \"id\": \"78149267796\",\n        \"pk_id\": \"78149267796\",\n        \"profile_pic_id\": \"3764395301835210036_78149267796\",\n        \"profile_pic_url\": \"https://instagram.flas1-1.fna.fbcdn.net/v/t51.82787-19/581679422_178461291216037…\",\n        \"username\": \"<user>\"\n      }\n    }\n  ]\n}\n```\n\n## Notes\n\n- Use `min_id` from the previous response `data.next_min_id` to paginate through comments.\n- Set `sort_order` to either `popular` or `newest`.\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [Instagram Comment Bulk Translation](/model/instagram/v3/bulk-translate-comments): Returns bulk translations for multiple Instagram comments using a list of comment identifiers.\n- [Instagram Comment Replies (V3)](/model/instagram/v3/comment-replies): Returns child comment replies for a specific Instagram comment using the post media ID and parent comment ID.\n- [Instagram Explore Feed](/model/instagram/v3/explore): Returns curated sectional items from the Instagram explore feed, including layout formats and feed types.\n",
+  "page_url": "https://www.sandbase.ai/model/instagram/v3/post-comments",
+  "created_at": "2026-07-31T03:56:43.662Z"
+}

@@ -1,0 +1,63 @@
+{
+  "name": "zhihu/web/user-info",
+  "display_name": "Zhihu Web User Profile",
+  "type": "api",
+  "vendor": "Zhihu",
+  "vendor_slug": "zhihu",
+  "description": "Retrieves public profile metrics and details for a Zhihu user. Returns article counts, answer counts, follower totals, and user account metadata.",
+  "tags": [
+    "api",
+    "zhihu"
+  ],
+  "capabilities": [
+    "api",
+    "zhihu"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/zhihu/web/user-info"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "user_url_token"
+    ],
+    "properties": {
+      "user_url_token": {
+        "type": "string",
+        "title": "User Url Token",
+        "example": "ming-he-43-93",
+        "description": "User ID"
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.0015,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "examples": [
+    {
+      "input": {
+        "user_url_token": "ming-he-43-93"
+      },
+      "default": true
+    }
+  ],
+  "readme": "# Zhihu Web User Profile API\n\nAccess public Zhihu user account metrics by specifying a user token in `user_url_token`. This endpoint returns summary statistics including follower count, article count, and answer count.\n\n## Use cases\n\n- Analyze user audience size and engagement metrics on Zhihu.\n- Retrieve author details and content publication totals.\n- Display Zhihu creator profile statistics within external dashboards.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/zhihu/web/user-info\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"user_url_token\": \"ming-he-43-93\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `user_url_token` | string | Yes | User ID |\n\n## Example response\n\nReal response for the request above, trimmed to the main fields. User names and long IDs are masked.\n\n```json\n{\n  \"answer_count\": 9,\n  \"articles_count\": 87,\n  \"available_medals_count\": 0,\n  \"follower_count\": 2830,\n  \"follower_count_num\": \"2830\",\n  \"follower_count_text\": \"2830\",\n  \"id\": \"bd76ac15154a7024a8adbcc2997efc8d\",\n  \"name\": \"洺河\",\n  \"project_count\": 0,\n  \"type\": \"people\",\n  \"url\": \"https://www.zhihu.com/api/v4/people/ming-he-43-93\",\n  \"user_type\": \"people\"\n}\n```\n\n## Notes\n\n- Requires the Zhihu profile slug passed via `user_url_token`.\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [Zhihu AI Search Stream](/model/zhihu/web/ai-search-stream): Returns streaming AI search results from Zhihu based on a query prompt.\n- [Zhihu Answer Details](/model/zhihu/web/answer-detail): Retrieves detailed information for a specific Zhihu answer using its numeric ID, including answer text, timestamps, and share links.\n- [Zhihu Article Search](/model/zhihu/web/article-search-v3): Search Zhihu articles and answers by keyword and get titles, excerpts, authors, vote and comment counts, with sorting, content type and time filters plus offse…\n",
+  "page_url": "https://www.sandbase.ai/model/zhihu/web/user-info",
+  "created_at": "2026-07-31T04:30:09.375Z"
+}

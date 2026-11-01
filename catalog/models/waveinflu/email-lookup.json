@@ -1,0 +1,53 @@
+{
+  "name": "waveinflu/email-lookup",
+  "display_name": "Waveinflu Email Lookup",
+  "type": "api",
+  "vendor": "Waveinflu",
+  "vendor_slug": "waveinflu",
+  "description": "Looks up the contact email for one Instagram, TikTok, or YouTube creator from a profile URL.",
+  "tags": [
+    "api",
+    "waveinflu",
+    "influencers"
+  ],
+  "capabilities": [
+    "api",
+    "waveinflu",
+    "influencers"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/waveinflu/email-lookup"
+  },
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "profile_url": {
+        "type": "string",
+        "example": "https://www.instagram.com/onkimia/",
+        "description": "Instagram, TikTok, or YouTube creator profile URL."
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.001991,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "readme": "# Waveinflu Email Lookup API\n\nLooks up the contact email for one Instagram, TikTok, or YouTube creator from a profile URL.\n\nThe response is the official Waveinflu API response, unchanged.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/waveinflu/email-lookup\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"profile_url\": \"https://www.instagram.com/nike/\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `profile_url` | string | No | Instagram, TikTok, or YouTube creator profile URL. |\n\n## Pricing\n\nFlat price per call. Failed calls are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/waveinflu/email-lookup",
+  "created_at": "2026-10-30T06:07:19.784Z"
+}

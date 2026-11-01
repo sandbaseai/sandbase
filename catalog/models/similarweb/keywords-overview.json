@@ -1,0 +1,110 @@
+{
+  "name": "similarweb/keywords-overview",
+  "display_name": "Similarweb Keywords Overview",
+  "type": "api",
+  "vendor": "Similarweb",
+  "vendor_slug": "similarweb",
+  "description": "Get search metrics for keywords: clicks, volume, CPC, competition, intent and SERP features such as AI Overviews.",
+  "tags": [
+    "api",
+    "similarweb",
+    "web-analytics"
+  ],
+  "capabilities": [
+    "api",
+    "similarweb",
+    "web-analytics"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/similarweb/keywords-overview"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "end_date",
+      "granularity",
+      "keywords",
+      "limit",
+      "start_date"
+    ],
+    "properties": {
+      "limit": {
+        "type": "integer",
+        "example": 1,
+        "maximum": 20,
+        "minimum": 1,
+        "description": "limit"
+      },
+      "format": {
+        "enum": [
+          "json"
+        ],
+        "type": "string",
+        "description": "format"
+      },
+      "country": {
+        "enum": [
+          "ww"
+        ],
+        "type": "string",
+        "default": "ww",
+        "description": "Worldwide data only; values are case-insensitive."
+      },
+      "end_date": {
+        "type": "string",
+        "example": "2026-09",
+        "description": "end_date"
+      },
+      "keywords": {
+        "type": "string",
+        "example": "running shoes",
+        "description": "keywords"
+      },
+      "start_date": {
+        "type": "string",
+        "example": "2026-09",
+        "description": "start_date"
+      },
+      "web_source": {
+        "enum": [
+          "total"
+        ],
+        "type": "string",
+        "description": "web_source"
+      },
+      "granularity": {
+        "enum": [
+          "monthly"
+        ],
+        "type": "string",
+        "example": "monthly",
+        "description": "granularity"
+      },
+      "main_domain_only": {
+        "type": "boolean",
+        "description": "main_domain_only"
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "formula",
+    "formula": "1.275 * Math.max(1.0, Math.min(20.0, (output.data?.data != nil ? len(output.data.data) : (params.limit ?? 20)) * 1.0))",
+    "formula_variables": [
+      "params.limit"
+    ],
+    "reference_price": 1.275
+  },
+  "readme": "# Similarweb Keywords Overview API\n\nGet search metrics for keywords: clicks, volume, CPC, competition, intent and SERP features such as AI Overviews.\n\nThe response is the official Similarweb API response, unchanged.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/similarweb/keywords-overview\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"start_date\": \"2026-09\", \"end_date\": \"2026-09\", \"country\": \"ww\", \"keywords\": \"running shoes\", \"limit\": 1, \"granularity\": \"monthly\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `country` | string | No | Worldwide data only; values are case-insensitive. |\n| `end_date` | string | Yes | end_date |\n| `format` | string | No | format |\n| `granularity` | string | Yes | granularity |\n| `keywords` | string | Yes | keywords |\n| `limit` | integer | Yes | limit |\n| `main_domain_only` | boolean | No | main_domain_only |\n| `start_date` | string | Yes | start_date |\n| `web_source` | string | No | web_source |\n\n## Pricing\n\n$1.275 per returned row (17 Similarweb credits), up to 20 rows; billed on rows returned. Failed calls are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/similarweb/keywords-overview",
+  "created_at": "2026-10-30T06:05:42.022Z"
+}

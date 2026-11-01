@@ -1,0 +1,9 @@
+{
+  "_comment": "Publishing policy for the public catalog. The list of private upstream markers is never stored in this repository: it is read from SANDBASE_UPSTREAM_MARKERS (JSON array) or the file named by SANDBASE_UPSTREAM_MARKERS_FILE.",
+  "exclude_models": [],
+  "description_overrides": {},
+  "readme_overrides": {},
+  "public_media_hosts": [
+    "static.sandbase.ai"
+  ]
+}

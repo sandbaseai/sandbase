@@ -1,0 +1,63 @@
+{
+  "name": "threads/web/post-detail",
+  "display_name": "Threads Post Detail",
+  "type": "api",
+  "vendor": "Threads",
+  "vendor_slug": "threads",
+  "description": "Returns detailed information for a specific Threads post using its numeric ID. Call this endpoint to inspect post content and metadata from the web interface.",
+  "tags": [
+    "api",
+    "threads"
+  ],
+  "capabilities": [
+    "api",
+    "threads"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/threads/web/post-detail"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "post_id"
+    ],
+    "properties": {
+      "post_id": {
+        "type": "string",
+        "title": "Post Id",
+        "example": "3349029093483693129",
+        "description": "Post ID (numeric only), for example: 3349029093483693129, can be obtained from other APIs. If using URL to get, call /fetch_post_detail_v2 API."
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.003,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "examples": [
+    {
+      "input": {
+        "post_id": "3349029093483693129"
+      },
+      "default": true
+    }
+  ],
+  "readme": "# Threads Post Detail API\n\nRetrieve detailed post data from Threads by specifying a numeric `post_id`.\n\n## Use cases\n\n- Retrieve content and metadata for a specific Threads post.\n- Inspect Threads post information using an existing post identifier.\n- Display individual Threads post details within an external dashboard.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/threads/web/post-detail\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"post_id\": \"3349029093483693129\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `post_id` | string | Yes | Post ID (numeric only), for example: 3349029093483693129, can be obtained from other APIs. |\n\n## Notes\n\n- The `post_id` must be numeric only.\n- To look up details by URL instead of `post_id`, call the /fetch_post_detail_v2 endpoint.\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [Threads Post Detail (V2)](/model/threads/web/post-detail-v2): Returns detailed information for a specific Threads post.\n- [Threads Profile Search](/model/threads/web/search-profiles): Searches Threads user profiles based on a specified text query string.\n- [Threads Recent Content Search](/model/threads/web/search-recent): Searches recent Threads content matching a specified keyword query.\n",
+  "page_url": "https://www.sandbase.ai/model/threads/web/post-detail",
+  "created_at": "2026-07-31T04:12:45.371Z"
+}

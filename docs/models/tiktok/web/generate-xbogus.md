@@ -1,0 +1,115 @@
+# TikTok Web X-Bogus Signature
+
+`tiktok/web/generate-xbogus` · api · TikTok
+
+Returns a signed TikTok Web request URL containing the required X-Bogus token. The endpoint takes an unsigned target API URL and a browser User-Agent string.
+
+## Pricing
+
+- **$0.0015 per call** (USD)
+- Free quota: 100 calls/day per organization (shared across free-quota APIs).
+
+## Call it
+
+Modes: sync (default `sync`). Only pass `mode` values listed here. The SDKs' `run()` waits for async results; `submit()` + `wait()` split the two steps.
+
+**curl**
+
+```bash
+curl https://api.sandbase.ai/v1/run \
+  -H "Authorization: Bearer $SANDBASE_API_KEY" -H 'Content-Type: application/json' \
+  -d '{"model": "tiktok/web/generate-xbogus", "url": "https://www.tiktok.com/tag/cat?_r=1&name=cat&u_code=f02lm2f78d1elh&_d=f02ll161mcjihj&share_challenge_id=7551&sharer_language=en&source=h5_m", "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:145.0) Gecko/20100101 Firefox/145.0"}'
+```
+
+**Python** ([sdk/python](../../../../sdk/python))
+
+```python
+from sandbase import SandBase
+
+result = SandBase().run('tiktok/web/generate-xbogus', {'url': 'https://www.tiktok.com/tag/cat?_r=1&name=cat&u_code=f02lm2f78d1elh&_d=f02ll161mcjihj&share_challenge_id=7551&sharer_language=en&source=h5_m', 'user_agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:145.0) Gecko/20100101 Firefox/145.0'})
+print(result["outputs"])
+```
+
+**TypeScript** ([sdk/typescript](../../../../sdk/typescript))
+
+```ts
+import { SandBase } from "@sandbaseai/sdk";
+
+const result = await new SandBase().run("tiktok/web/generate-xbogus", {
+  "url": "https://www.tiktok.com/tag/cat?_r=1&name=cat&u_code=f02lm2f78d1elh&_d=f02ll161mcjihj&share_challenge_id=7551&sharer_language=en&source=h5_m",
+  "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:145.0) Gecko/20100101 Firefox/145.0"
+});
+console.log(result.outputs);
+```
+
+**Go** ([sdk/go](../../../../sdk/go))
+
+```go
+c, _ := sandbase.NewClient("")
+run, err := c.Run(ctx, "tiktok/web/generate-xbogus", sandbase.Params{
+	"url": "https://www.tiktok.com/tag/cat?_r=1&name=cat&u_code=f02lm2f78d1elh&_d=f02ll161mcjihj&share_challenge_id=7551&sharer_language=en&source=h5_m",
+	"user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:145.0) Gecko/20100101 Firefox/145.0",
+})
+```
+
+Same call via the path form: `POST /v1/api/tiktok/web/generate-xbogus` with the body above minus `model`.
+
+## Parameters
+
+| name | type | required | description |
+|---|---|---|---|
+| `url` | string | yes | Unsigned API URL  |
+| `user_agent` | string | yes | User browser User-Agent  |
+
+## Details
+
+Produces an X-Bogus signed TikTok URL using the target `url` and the caller's `user_agent`.
+
+### Use cases
+
+- Signing TikTok Web requests for data collection scripts.
+- Generating valid X-Bogus query tokens for web scraping workflows.
+- Aligning API request URLs with specific browser User-Agent headers.
+
+### Request
+
+```bash
+curl -X POST "https://api.sandbase.ai/v1/api/tiktok/web/generate-xbogus" \
+  -H "Authorization: Bearer $SANDBASE_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{"url": "https://www.tiktok.com/tag/cat?_r=1&name=cat&u_code=f02lm2f78d1elh&_d=f02ll161mcjihj&share_challenge_id=7551&sharer_language=en&source=h5_m", "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:145.0) Gecko/20100101 Firefox/145.0"}'
+```
+
+### Parameters
+
+| Name | Type | Required | Description |
+|---|---|---|---|
+| `url` | string | Yes | Unsigned API URL |
+| `user_agent` | string | Yes | User browser User-Agent |
+
+### Example response
+
+Real response for the request above, trimmed to the main fields. User names and long IDs are masked.
+
+```json
+{
+  "url": "https://www.tiktok.com/tag/cat?_r=1&name=cat&u_code=f02lm2f78d1elh&_d=f02ll161mc…"
+}
+```
+
+### Notes
+
+- Requires both an unsigned target `url` and the matching browser `user_agent` string.
+
+### Pricing
+
+Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+
+### Related APIs
+
+- [TikTok Video IDs from URLs (Batch)](/model/tiktok/web/all-aweme-id): Resolves and extracts TikTok video IDs from a list of video URLs.
+- [TikTok User Sec User ID Extractor](/model/tiktok/web/all-sec-user-id): Returns a list of sec_user_id identifiers corresponding to TikTok user profile URLs.
+- [TikTok Profile Unique IDs](/model/tiktok/web/all-unique-id): Resolves a batch of TikTok user homepage links to retrieve their corresponding unique identifiers.
+
+---
+Machine-readable: [`catalog/models/tiktok/web/generate-xbogus.json`](../../../../catalog/models/tiktok/web/generate-xbogus.json) · Store page: https://www.sandbase.ai/model/tiktok/web/generate-xbogus

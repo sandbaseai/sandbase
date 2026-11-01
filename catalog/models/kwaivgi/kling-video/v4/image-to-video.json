@@ -1,0 +1,205 @@
+{
+  "name": "kwaivgi/kling-video/v4/image-to-video",
+  "display_name": "Kling V4 Image to Video",
+  "type": "video",
+  "vendor": "KwaiVGI",
+  "vendor_slug": "kwaivgi",
+  "description": "Kling V4 Image to Video by Kuaishou animates a start image, optionally toward an end image, into a 3-30 second video.",
+  "tags": [
+    "image-to-video"
+  ],
+  "capabilities": [
+    "image-to-video"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "prompt",
+      "image"
+    ],
+    "properties": {
+      "image": {
+        "type": "string",
+        "title": "Start Image",
+        "description": "First frame. Min 300x300 px, aspect ratio 0.4-2.5, up to 30 MB."
+      },
+      "prompt": {
+        "type": "string",
+        "title": "Prompt",
+        "examples": [
+          "A detective in a black trench coat stands on a rooftop in the rain, looking through a telescope at the street below."
+        ],
+        "description": "Describe subject, action, camera and light."
+      },
+      "duration": {
+        "type": "integer",
+        "title": "Duration",
+        "default": 5,
+        "maximum": 30,
+        "minimum": 3,
+        "description": "Output length in seconds (3-30)."
+      },
+      "end_image": {
+        "type": "string",
+        "title": "End Image",
+        "description": "Optional last frame."
+      },
+      "resolution": {
+        "enum": [
+          "720p",
+          "1080p"
+        ],
+        "type": "string",
+        "title": "Resolution",
+        "default": "1080p",
+        "description": "Output resolution."
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "title": "GenerationResponse",
+    "required": [
+      "id",
+      "status"
+    ],
+    "properties": {
+      "id": {
+        "type": "string",
+        "description": "Unique identifier for the generation task."
+      },
+      "error": {
+        "type": "string",
+        "description": "Error message if the task failed. Empty on success."
+      },
+      "model": {
+        "type": "string",
+        "description": "Model ID used for the prediction."
+      },
+      "status": {
+        "enum": [
+          "pending",
+          "running",
+          "completed",
+          "failed",
+          "timeout"
+        ],
+        "type": "string",
+        "description": "Status of the task: pending, running, completed, failed, or timeout."
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "title": "OutputItem",
+          "required": [
+            "url"
+          ],
+          "properties": {
+            "url": {
+              "type": "string",
+              "description": "The URL where the generated content can be downloaded from."
+            },
+            "content_type": {
+              "type": "string",
+              "description": "The MIME type of the output file."
+            }
+          }
+        },
+        "description": "Array of generated content. Empty when status is not completed."
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "formula",
+    "formula": "(params.duration ?? 5) * ((params.resolution ?? \"1080p\") == \"720p\" ? 0.157 : 0.235)",
+    "formula_variables": [
+      "params.duration",
+      "params.resolution"
+    ],
+    "reference_price": 1.175,
+    "price_examples": [
+      {
+        "params": {
+          "duration": 3,
+          "resolution": "720p"
+        },
+        "usd": 0.471
+      },
+      {
+        "params": {
+          "duration": 3,
+          "resolution": "1080p"
+        },
+        "usd": 0.705
+      },
+      {
+        "params": {
+          "duration": 5,
+          "resolution": "720p"
+        },
+        "usd": 0.785
+      },
+      {
+        "params": {
+          "duration": 5,
+          "resolution": "1080p"
+        },
+        "usd": 1.175
+      },
+      {
+        "params": {
+          "duration": 30,
+          "resolution": "720p"
+        },
+        "usd": 4.71
+      },
+      {
+        "params": {
+          "duration": 30,
+          "resolution": "1080p"
+        },
+        "usd": 7.05
+      }
+    ]
+  },
+  "examples": [
+    {
+      "input": {
+        "image": "https://static.sandbase.ai/examples/746c1af3-e60b-4a50-a599-53df4d3da1ae/input/fae6ad50-5dc0-4015-8e2f-4ff7689f448b.png",
+        "prompt": "The rabbit looks around curiously, its ears twitch, then it hops toward the camera. Soft breeze moves the grass."
+      },
+      "output": [
+        {
+          "url": "https://static.sandbase.ai/examples/746c1af3-e60b-4a50-a599-53df4d3da1ae/output/f9326313-f618-476e-bc14-075875ae2ed8.mp4"
+        }
+      ],
+      "default": true
+    },
+    {
+      "input": {
+        "image": "https://static.sandbase.ai/examples/2346d3f9-1129-4a8c-a0d9-60eb2b488e9c/input/7b330c7f-26f4-4038-8198-34fc2d98051e.png",
+        "prompt": "The tiger slowly turns its head toward the camera and lets out a low growl, slow cinematic dolly-in."
+      },
+      "output": [
+        {
+          "url": "https://static.sandbase.ai/examples/2346d3f9-1129-4a8c-a0d9-60eb2b488e9c/output/24ff67b6-21c7-4dc9-b3ea-7abaa3879566.mp4"
+        }
+      ]
+    }
+  ],
+  "readme": "# Kling V4 Image to Video\nKling V4 image-to-video animates a start image, optionally toward an end image, into a 3–30 second clip.\n## Fields\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `prompt` | string, required | — | Up to 2,500 characters. |\n| `image` | image URL, required | — | First frame. Min 300×300 px, aspect ratio 0.4–2.5, up to 30 MB. |\n| `end_image` | image URL | — | Optional last frame. |\n| `resolution` | `720p` / `1080p` | `1080p` | Output resolution. |\n| `duration` | 3–30 | 5 | Output length in seconds. |\n## Billing\nBilled per output second: $0.157 at 720p, $0.235 at 1080p.\n| Output | Price |\n|---|---|\n| 5s, 1080p (default) | $1.175 |\n| 5s, 720p | $0.785 |\n| 10s, 1080p | $2.35 |\n| 30s, 1080p | $7.05 |\nFailed runs are not charged.\n## Prompting\n- Describe what moves and how the camera moves; the image sets the look.\n## Limits\n- Clips are 3–30 seconds.\n## Also on SandBase\nOther Kling V4 endpoints: `kwaivgi/kling-video/v4/text-to-video`, `kwaivgi/kling-video/v4/image-to-video`, `kwaivgi/kling-video/v4/reference-to-video`, `kwaivgi/kling-video/v4/video-edit`.",
+  "cover_url": "https://static.sandbase.ai/covers/kwaivgi/kling-video/v4/image-to-video/cover-flare-20261022111134.webp",
+  "page_url": "https://www.sandbase.ai/model/kwaivgi/kling-video/v4/image-to-video",
+  "published_at": "2026-10-21T15:09:19.097Z",
+  "created_at": "2026-10-22T02:44:52.138Z"
+}

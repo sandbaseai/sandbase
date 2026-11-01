@@ -1,0 +1,70 @@
+{
+  "name": "weibo/app/ai-smart-search",
+  "display_name": "Weibo App AI Smart Search",
+  "type": "api",
+  "vendor": "Weibo",
+  "vendor_slug": "weibo",
+  "description": "Returns AI smart search channel results and feed metadata from Weibo for a specified keyword query, with optional page-based pagination.",
+  "tags": [
+    "api",
+    "weibo"
+  ],
+  "capabilities": [
+    "api",
+    "weibo"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/weibo/app/ai-smart-search"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "query"
+    ],
+    "properties": {
+      "page": {
+        "type": "integer",
+        "title": "Page",
+        "default": 1,
+        "minimum": 1,
+        "description": "Page number, starts from 1 (default 1)"
+      },
+      "query": {
+        "type": "string",
+        "title": "Query",
+        "example": "OpenAI",
+        "description": "Search keyword (required)"
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.0015,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "examples": [
+    {
+      "input": {
+        "page": 1,
+        "query": "OpenAI"
+      }
+    }
+  ],
+  "readme": "# Weibo App AI Smart Search API\n\nRetrieves AI search channel data from Weibo for a given `query`. Results can be navigated across pages using `page`.\n\n## Use cases\n\n- Explore Weibo AI search feed channels for specific keywords.\n- Collect search metadata and timestamps for topic monitoring.\n- Track keyword results across app search channels.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/weibo/app/ai-smart-search\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"query\": \"OpenAI\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `query` | string | Yes | Search keyword (required) |\n| `page` | integer | No | Page number, starts from 1 (default 1) |\n\n## Example response\n\nReal response for the request above, trimmed to the main fields. User names and long IDs are masked.\n\n```json\n{\n  \"channelInfo\": {\n    \"channels\": [\n      {\n        \"pageDataType\": \"flow\",\n        \"title\": \"综合\",\n        \"params\": {\n          \"search_time\": 1791290327\n        }\n      }\n    ]\n  }\n}\n```\n\n## Notes\n\n- `query` is required to execute the search.\n- `page` starts at 1 and defaults to 1.\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [Weibo Home Recommend Feed](/model/weibo/app/home-recommend-feed): Returns recommended feed items from the Weibo app homepage, with options to paginate and specify the number of items per request.\n- [Weibo Hot Search Rankings](/model/weibo/app/hot-search): Returns current Weibo hot search rankings across various categories.\n- [Weibo Hot Search Categories](/model/weibo/app/hot-search-categories): Returns all available hot search categories from Weibo.\n",
+  "page_url": "https://www.sandbase.ai/model/weibo/app/ai-smart-search",
+  "created_at": "2026-07-31T02:44:16.774Z"
+}

@@ -1,0 +1,60 @@
+{
+  "name": "youtube/channel-shorts",
+  "display_name": "YouTube Channel Shorts",
+  "type": "api",
+  "vendor": "YouTube",
+  "vendor_slug": "youtube",
+  "description": "Get public Shorts from a YouTube channel ID with optional continuation-token pagination. Use it to browse a channel's short-form videos and continue through additional result pages.",
+  "tags": [
+    "api",
+    "youtube",
+    "social-media"
+  ],
+  "capabilities": [
+    "api",
+    "youtube",
+    "social-media"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/youtube/channel-shorts"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "channelId"
+    ],
+    "properties": {
+      "channelId": {
+        "type": "string",
+        "example": "UCuAXFkgsw1L7xaCfnd5JJOw",
+        "description": "The UC-prefixed unique identifier for a YouTube channel. @username handles are not supported."
+      },
+      "continuationToken": {
+        "type": "string",
+        "description": "Pagination token returned by the previous response."
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.013889,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "readme": "# YouTube Channel Shorts API\n\nGet public Shorts from a YouTube channel ID with optional continuation-token pagination. Use it to browse a channel's short-form videos and continue through additional result pages.\n\nThe response is the platform's original data structure.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/youtube/channel-shorts\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"channelId\": \"UCuAXFkgsw1L7xaCfnd5JJOw\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `channelId` | string | Yes | The UC-prefixed unique identifier for a YouTube channel. @username handles are not supported. |\n| `continuationToken` | string | No | Pagination token returned by the previous response. |\n\n## Pricing\n\nFlat price per call. Failed calls and empty results are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/youtube/channel-shorts",
+  "created_at": "2026-10-29T11:57:46.69Z"
+}

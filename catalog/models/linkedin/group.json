@@ -1,0 +1,78 @@
+{
+  "name": "linkedin/group",
+  "display_name": "LinkedIn Group",
+  "type": "api",
+  "vendor": "LinkedIn",
+  "vendor_slug": "linkedin",
+  "description": "Fetch one LinkedIn group by URL or id: name, description, rules, member count, logo and cover image, creation date, visibility and join settings, and its admins.",
+  "tags": [
+    "api",
+    "linkedin",
+    "social-media"
+  ],
+  "capabilities": [
+    "api",
+    "linkedin",
+    "social-media"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/linkedin/group"
+  },
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "url": {
+        "type": "string",
+        "example": "https://www.linkedin.com/groups/1898033",
+        "minLength": 1,
+        "description": "LinkedIn group URL (e.g. https://www.linkedin.com/groups/1898033). Send this or groupId."
+      },
+      "groupId": {
+        "type": "string",
+        "minLength": 1,
+        "description": "Numeric LinkedIn group id (e.g. 1898033), the number in the group URL. Send this or url."
+      }
+    },
+    "additionalProperties": false
+  },
+  "response_schema": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string"
+      },
+      "model": {
+        "type": "string"
+      },
+      "status": {
+        "type": "string"
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "data": {
+              "type": "object",
+              "description": "Normalized result for this request."
+            }
+          }
+        }
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "usage_based",
+    "note": "Billed per call from metered usage; the reference price is typical.",
+    "reference_price": 0.0013
+  },
+  "readme": "# LinkedIn Group API\n\nFetch one LinkedIn group by URL or id: name, description, rules, member count, logo and cover image, creation date, visibility and join settings, and its admins.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/linkedin/group\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"url\": \"https://www.linkedin.com/groups/1898033\"}'\n```\n\nThe result is returned in `outputs[0].data`. A lookup that finds nothing still succeeds and returns `found: false`.\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `groupId` | string | No | Numeric LinkedIn group id (e.g. 1898033), the number in the group URL. Send this or url. |\n| `url` | string | No | LinkedIn group URL (e.g. https://www.linkedin.com/groups/1898033). Send this or groupId. |\n\n## Pricing\n\nBilled at the actual cost of each call, usually $0.0013 per request. A call can cost more when the first data source fails and another one answers. Failed calls are not charged. Lookups that find nothing and searches with no results are billed at their actual cost, which is often lower and can be $0.\n",
+  "page_url": "https://www.sandbase.ai/model/linkedin/group",
+  "created_at": "2026-10-31T10:39:59.88Z"
+}

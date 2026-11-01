@@ -1,0 +1,275 @@
+{
+  "name": "vidu/q3/reference-to-video/mix",
+  "display_name": "Vidu Q3 Reference to Video Mix",
+  "type": "video",
+  "vendor": "Vidu",
+  "vendor_slug": "vidu",
+  "description": "Vidu Q3 Mix by Shengshu - animate still images into dynamic videos with AI. Transform photos into cinematic clips with natural motion, camera movement, and optional audio generation.",
+  "tags": [
+    "reference-to-video"
+  ],
+  "capabilities": [
+    "reference-to-video"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "prompt",
+      "reference_image_urls"
+    ],
+    "properties": {
+      "seed": {
+        "type": "integer",
+        "title": "Seed",
+        "description": "Random seed for reproducibility. If None, a random seed is chosen."
+      },
+      "audio": {
+        "type": "boolean",
+        "title": "Audio",
+        "default": true,
+        "description": "Whether to use direct audio-video generation. When true, outputs video with sound."
+      },
+      "prompt": {
+        "type": "string",
+        "title": "Prompt",
+        "examples": [
+          "A character walking through a beach catching an apple."
+        ],
+        "maxLength": 2000,
+        "description": "Text prompt for video generation, max 2000 characters"
+      },
+      "duration": {
+        "type": "integer",
+        "title": "Duration",
+        "default": 5,
+        "maximum": 16,
+        "minimum": 1,
+        "description": "Duration of the video in seconds (1-16 for Q3 models)"
+      },
+      "resolution": {
+        "enum": [
+          "360p",
+          "540p",
+          "720p",
+          "1080p"
+        ],
+        "type": "string",
+        "title": "Resolution",
+        "default": "720p",
+        "description": "Output video resolution"
+      },
+      "aspect_ratio": {
+        "enum": [
+          "16:9",
+          "9:16",
+          "4:3",
+          "3:4",
+          "1:1"
+        ],
+        "type": "string",
+        "title": "Aspect Ratio",
+        "default": "16:9",
+        "description": "The aspect ratio of the generated image."
+      },
+      "reference_image_urls": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        },
+        "title": "Reference Image Urls",
+        "examples": [
+          "https://static.sandbase.ai/examples/shengshu/vidu/q3/reference-to-video/mix/input_reference_image_urls_0.png",
+          "https://static.sandbase.ai/examples/shengshu/vidu/q3/reference-to-video/mix/input_reference_image_urls_1.png",
+          "https://static.sandbase.ai/examples/shengshu/vidu/q3/reference-to-video/mix/input_reference_image_urls_2.png"
+        ],
+        "minItems": 1,
+        "description": "URLs of 1 to 4 reference images used to keep subjects or scenes consistent"
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "title": "GenerationResponse",
+    "required": [
+      "id",
+      "status"
+    ],
+    "properties": {
+      "id": {
+        "type": "string",
+        "description": "Unique identifier for the generation task."
+      },
+      "error": {
+        "type": "string",
+        "description": "Error message if the task failed. Empty on success."
+      },
+      "model": {
+        "type": "string",
+        "description": "Model ID used for the prediction."
+      },
+      "status": {
+        "enum": [
+          "pending",
+          "running",
+          "completed",
+          "failed",
+          "timeout"
+        ],
+        "type": "string",
+        "description": "Status of the task: pending, running, completed, failed, or timeout."
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "title": "OutputItem",
+          "required": [
+            "url"
+          ],
+          "properties": {
+            "url": {
+              "type": "string",
+              "examples": [
+                "https://static.sandbase.ai/examples/shengshu/vidu/q3/reference-to-video/mix/output_url_3.mp4"
+              ],
+              "description": "The URL where the generated content can be downloaded from."
+            },
+            "content_type": {
+              "type": "string",
+              "description": "The MIME type of the output file."
+            }
+          }
+        },
+        "description": "Array of generated content. Empty when status is not completed."
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "formula",
+    "formula": "(params.resolution ?? \"720p\") == \"720p\" || (params.resolution ?? \"720p\") == \"1080p\" ? (params.duration ?? 5) * 0.07 * 2.2 : (params.duration ?? 5) * 0.07",
+    "formula_variables": [
+      "params.duration",
+      "params.resolution"
+    ],
+    "reference_price": 0.77,
+    "price_examples": [
+      {
+        "params": {
+          "duration": 1,
+          "resolution": "360p"
+        },
+        "usd": 0.07
+      },
+      {
+        "params": {
+          "duration": 1,
+          "resolution": "540p"
+        },
+        "usd": 0.07
+      },
+      {
+        "params": {
+          "duration": 1,
+          "resolution": "720p"
+        },
+        "usd": 0.154
+      },
+      {
+        "params": {
+          "duration": 1,
+          "resolution": "1080p"
+        },
+        "usd": 0.154
+      },
+      {
+        "params": {
+          "duration": 5,
+          "resolution": "360p"
+        },
+        "usd": 0.35
+      },
+      {
+        "params": {
+          "duration": 5,
+          "resolution": "540p"
+        },
+        "usd": 0.35
+      },
+      {
+        "params": {
+          "duration": 5,
+          "resolution": "720p"
+        },
+        "usd": 0.77
+      },
+      {
+        "params": {
+          "duration": 5,
+          "resolution": "1080p"
+        },
+        "usd": 0.77
+      },
+      {
+        "params": {
+          "duration": 16,
+          "resolution": "360p"
+        },
+        "usd": 1.12
+      },
+      {
+        "params": {
+          "duration": 16,
+          "resolution": "540p"
+        },
+        "usd": 1.12
+      },
+      {
+        "params": {
+          "duration": 16,
+          "resolution": "720p"
+        },
+        "usd": 2.464
+      },
+      {
+        "params": {
+          "duration": 16,
+          "resolution": "1080p"
+        },
+        "usd": 2.464
+      }
+    ]
+  },
+  "examples": [
+    {
+      "input": {
+        "prompt": "A character walking through a beach catching an apple.",
+        "reference_image_urls": [
+          "https://static.sandbase.ai/examples/6491437f-a95b-4ada-aea8-35a842416abf/input/aa16b50e-ec40-47df-bda1-3cf46278a584.png",
+          "https://static.sandbase.ai/examples/6491437f-a95b-4ada-aea8-35a842416abf/input/a35599ea-7845-46e2-b591-0a51da11c67c.png",
+          "https://static.sandbase.ai/examples/6491437f-a95b-4ada-aea8-35a842416abf/input/faffe658-17e3-41a9-ade8-f307be1c4ff7.png"
+        ]
+      },
+      "output": [
+        {
+          "poster": "https://static.sandbase.ai/examples/posters/207cfbc138fba616ee0b.jpg",
+          "url": "https://static.sandbase.ai/examples/6491437f-a95b-4ada-aea8-35a842416abf/output/1baebebd-d9e3-4e36-bf6f-5d06bb0836be.mp4"
+        }
+      ],
+      "default": true
+    }
+  ],
+  "readme": "# Vidu Q3 Reference to Video Mix\n\nVidu Q3 Mix reference-to-video: reference images keep characters and objects consistent in a 1–16 second clip with native audio.\n\n## Fields\n\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `prompt` | string, required | — | Up to 2,000 characters. |\n| `aspect_ratio` | `16:9` / `9:16` / `4:3` / `3:4` / `1:1` | `16:9` | Output frame shape. |\n| `audio` | boolean | true | Generate native audio. Same price on or off. |\n| `resolution` | `360p` / `540p` / `720p` / `1080p` | `720p` | Sets the per-second rate. |\n| `duration` | integer 1–16 | 5 | Output length in seconds. |\n| `seed` | integer | random | Fix it to compare prompt changes. |\n| `reference_image_urls` | image URL[], required | — | Reference images, Image 1, Image 2, … |\n\n## Billing\n\nYou pay for output seconds: $0.07 at 360p or 540p and $0.154 at 720p or 1080p.\n\n| Output | 540p | 720p | 1080p |\n|---|---|---|---|\n| 4s | $0.28 | $0.616 | $0.616 |\n| 5s (default) | $0.35 | $0.77 | $0.77 |\n| 8s | $0.56 | $1.232 | $1.232 |\n| 16s | $1.12 | $2.464 | $2.464 |\n\nFailed runs are not charged.\n\n## Prompting\n\n- Describe subject, action, camera, and sound.\n\n## Also on SandBase\n\nOther Vidu Q3 endpoints: `vidu/q3/text-to-video`, `vidu/q3/image-to-video`, `vidu/q3/text-to-video/turbo`, `vidu/q3/image-to-video/turbo`.\n",
+  "cover_url": "https://static.sandbase.ai/covers/vidu/q3/reference-to-video/mix/cover-flare-20261005045647.webp",
+  "page_url": "https://www.sandbase.ai/model/vidu/q3/reference-to-video/mix",
+  "published_at": "2026-04-08T16:23:13.982Z",
+  "created_at": "2026-06-01T14:43:29.997Z"
+}

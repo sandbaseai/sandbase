@@ -1,0 +1,50 @@
+{
+  "name": "dataforseo/v3/serp/youtube/video_subtitles/live/advanced",
+  "display_name": "DataForSEO YouTube Subtitles",
+  "type": "api",
+  "vendor": "DataForSEO",
+  "vendor_slug": "dataforseo",
+  "description": "Fetch the subtitle track of a YouTube video with timestamps. Subtitles of a YouTube video by video_id and language.",
+  "tags": [
+    "serp",
+    "youtube",
+    "video-subtitles"
+  ],
+  "capabilities": [
+    "serp",
+    "youtube",
+    "video-subtitles"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/dataforseo/v3/serp/youtube/video_subtitles/live/advanced"
+  },
+  "input_schema": {
+    "type": "object",
+    "properties": {},
+    "description": "Request parameters forwarded to DataForSEO /v3/serp/youtube/video_subtitles/live/advanced. See DataForSEO docs for full schema.",
+    "additionalProperties": true
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.006,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "readme": "# DataForSEO YouTube Subtitles API\n\nFetch the subtitle track of a YouTube video with timestamps.\n\nRequest fields follow the official DataForSEO `/v3/serp/youtube/video_subtitles/live/advanced` task schema (one task per call; send `{\"tasks\": [...]}` for several). The response is DataForSEO's original JSON; results are in `tasks[].result`.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/dataforseo/v3/serp/youtube/video_subtitles/live/advanced\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"video_id\": \"dQw4w9WgXcQ\", \"location_code\": 2840, \"language_code\": \"en\"}'\n```\n\n## Parameters\n\nThe JSON body is forwarded to the upstream endpoint (one task per call). Fields used above:\n\n| Name | Description |\n|---|---|\n| `video_id` | YouTube video ID. |\n| `location_code` | Location code, e.g. 2840 for the United States. |\n| `language_code` | Language code, e.g. \"en\". |\n\n## Reference\n\n- Official docs: https://docs.dataforseo.com/v3/serp/youtube/video_subtitles/live/advanced/\n\n## Pricing\n\nFlat price per call. Failed calls are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/dataforseo/v3/serp/youtube/video_subtitles/live/advanced",
+  "published_at": "2024-01-01T00:00:00Z",
+  "created_at": "2026-10-28T14:25:07.023Z"
+}

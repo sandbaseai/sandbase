@@ -1,0 +1,60 @@
+{
+  "name": "instagram/v1/user-reposts",
+  "display_name": "Instagram User Reposts",
+  "type": "api",
+  "vendor": "Instagram",
+  "vendor_slug": "instagram",
+  "description": "Returns a paginated list of reposts and shared media for a specified Instagram account. Includes engagement metrics, captions, and original owner details.",
+  "tags": [
+    "api",
+    "instagram"
+  ],
+  "capabilities": [
+    "api",
+    "instagram"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/instagram/v1/user-reposts"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "user_id"
+    ],
+    "properties": {
+      "max_id": {
+        "type": "string",
+        "title": "Max Id",
+        "description": "Pagination cursor, omit for first request"
+      },
+      "user_id": {
+        "type": "string",
+        "title": "User Id",
+        "example": "25025320",
+        "description": "Instagram user ID"
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.0015,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "readme": "# Instagram User Reposts API\n\nRetrieve shared posts and reposted media for a specific account using `user_id`. Supports cursor-based pagination through `max_id`.\n\n## Use cases\n\n- Track media reposted by target Instagram profiles.\n- Inspect engagement metrics on shared user content.\n- Gather repost histories for creator and audience analytics.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/instagram/v1/user-reposts\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"user_id\": \"25025320\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `user_id` | string | Yes | Instagram user ID |\n| `max_id` | string | No | Pagination cursor, omit for first request |\n\n## Example response\n\nReal response for the request above, trimmed to the main fields. User names and long IDs are masked.\n\n```json\n{\n  \"items\": [\n    {\n      \"caption_is_edited\": false,\n      \"carousel_media_count\": 5,\n      \"carousel_media_pending_post_count\": 0,\n      \"coauthor_producer_can_see_organic_insights\": false,\n      \"comment_count\": 4477,\n      \"filter_type\": 0,\n      \"id\": \"3997941272011173993_36623372661\",\n      \"like_and_view_counts_disabled\": false,\n      \"like_count\": 26048,\n      \"media_repost_count\": 1502,\n      \"caption\": {\n        \"__typename\": \"XDTCommentDict\",\n        \"content_type\": \"comment\",\n        \"media_id\": \"3997941272011173993\",\n        \"private_reply_status\": 0,\n        \"status\": \"Active\",\n        \"text\": \"Make it Instagram official. You can now add your Muse to your profile.\"\n      },\n      \"mashup_info\": {\n        \"non_privacy_filtered_mashups_media_count\": 0\n      },\n      \"owner\": {\n        \"__typename\": \"XDTUserDict\",\n        \"full_name\": \"Muse\",\n        \"id\": \"36623372661\",\n        \"profile_pic_id\": \"3981848964622792966_36623372661\",\n        \"profile_pic_url\": \"https://scontent-phl2-1.cdninstagram.com/v/t51.82787-19/800604240_18094883642220…\",\n        \"username\": \"<user>\"\n      },\n      \"user\": {\n        \"__typename\": \"XDTUserDict\",\n        \"account_type\": 2,\n        \"full_name\": \"Muse\",\n        \"id\": \"36623372661\",\n        \"profile_pic_id\": \"3981848964622792966_36623372661\",\n        \"profile_pic_url\": \"https://scontent-phl2-1.cdninstagram.com/v/t51.82787-19/800604240_18094883642220…\"\n      }\n    }\n  ]\n}\n```\n\n## Notes\n\n- Pass `user_id` to identify the target Instagram profile.\n- Omit `max_id` on the initial call and pass the pagination cursor to page through results.\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [Instagram Cities by Country](/model/instagram/v1/cities): Returns a list of Instagram cities and regions for a specified country code.\n- [Instagram Hashtag Posts (V1)](/model/instagram/v1/hashtag-posts): Returns public Instagram posts associated with a specific hashtag.\n- [Instagram Location Details (V1)](/model/instagram/v1/location-info): Returns detailed metadata and profile information for a specified Instagram location using its unique identifier.\n",
+  "page_url": "https://www.sandbase.ai/model/instagram/v1/user-reposts",
+  "created_at": "2026-07-31T03:55:32.959Z"
+}

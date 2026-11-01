@@ -1,0 +1,74 @@
+{
+  "name": "douyin/web/user-following-list",
+  "display_name": "Douyin Web User Following List",
+  "type": "api",
+  "vendor": "Douyin",
+  "vendor_slug": "douyin",
+  "description": "Returns a list of accounts followed by a Douyin user. Filter by target user security ID and navigate paginated results using timestamps.",
+  "tags": [
+    "api",
+    "douyin"
+  ],
+  "capabilities": [
+    "api",
+    "douyin"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/douyin/web/user-following-list"
+  },
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "count": {
+        "type": "integer",
+        "title": "Count",
+        "default": 20,
+        "example": 20,
+        "description": "Number, default is 20, it is recommended to keep it unchanged."
+      },
+      "max_time": {
+        "type": "string",
+        "title": "Max Time",
+        "default": "0",
+        "example": "0",
+        "description": "Maximum timestamp, default is 0, get from the returned data later, used for paging."
+      },
+      "sec_user_id": {
+        "type": "string",
+        "title": "Sec User Id",
+        "default": "MS4wLjABAAAA9y04iBlVdeMQqTJbqsQZKb-tqWqWW29jPVJqideHT70",
+        "example": "MS4wLjABAAAA9y04iBlVdeMQqTJbqsQZKb-tqWqWW29jPVJqideHT70",
+        "description": "User sec_user_id"
+      },
+      "source_type": {
+        "type": "integer",
+        "title": "Source Type",
+        "default": 1,
+        "example": 2,
+        "description": "Source type, default is `1`, use `2` as the source type for the first request, and then use `1` as the source type for the subsequent request."
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.0015,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "readme": "# Douyin Web User Following List API\n\nFetch the accounts followed by a user using `sec_user_id`. Pagination is supported through `max_time` alongside `source_type` adjustments.\n\n## Use cases\n\n- Inspect the list of profiles followed by a specific user.\n- Map user interest graphs by tracking followed creator profiles.\n- Audit account connections and relationship networks across audiences.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/douyin/web/user-following-list\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `count` | integer | No | Number, default is 20, it is recommended to keep it unchanged. |\n| `max_time` | string | No | Maximum timestamp, default is 0, get from the returned data later, used for paging. |\n| `sec_user_id` | string | No | User sec_user_id |\n| `source_type` | integer | No | Source type, default is `1`, use `2` as the source type for the first request, and then use `1` as the source type for the subsequent request. |\n\n## Example response\n\nReal response for the request above, trimmed to the main fields. User names and long IDs are masked.\n\n```json\n{\n  \"followings\": [\n    {\n      \"account_cert_info\": \"{}\",\n      \"apple_account\": 0,\n      \"authority_status\": 0,\n      \"aweme_count\": 222,\n      \"comment_filter_status\": 0,\n      \"create_time\": 1591592883,\n      \"favoriting_count\": 690,\n      \"fb_expire_time\": 0,\n      \"follow_status\": 0,\n      \"follower_count\": 143488,\n      \"original_musician\": {\n        \"digg_count\": 0,\n        \"music_count\": 0,\n        \"music_used_count\": 0\n      },\n      \"search_impr\": {\n        \"entity_id\": \"1257480849466808\"\n      }\n    }\n  ]\n}\n```\n\n## Notes\n\n- Use `2` for `source_type` on the initial call, then use `1` for subsequent calls.\n- Pass the returned timestamp value to `max_time` to paginate through results.\n- The `count` parameter defaults to 20 items per page.\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [Douyin Batch Video ID Extraction](/model/douyin/web/all-aweme-id): Extracts video IDs from a list of Douyin video URLs.\n- [Douyin sec_user_ids from URLs (Batch)](/model/douyin/web/all-sec-user-id): Extracts Douyin sec_user_id values in bulk from a list of user homepage URLs.\n- [Douyin Webcast ID Extraction](/model/douyin/web/all-webcast-id): Extracts webcast IDs from a submitted list of Douyin live room links.\n",
+  "page_url": "https://www.sandbase.ai/model/douyin/web/user-following-list",
+  "created_at": "2026-07-31T02:40:33.936Z"
+}

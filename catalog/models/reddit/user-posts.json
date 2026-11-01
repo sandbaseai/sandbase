@@ -1,0 +1,102 @@
+{
+  "name": "reddit/user-posts",
+  "display_name": "Reddit User Posts",
+  "type": "api",
+  "vendor": "Reddit",
+  "vendor_slug": "reddit",
+  "description": "List a Reddit user's posts by username, sorted by new, top, hot, or controversial, with cursor pagination.",
+  "tags": [
+    "api",
+    "reddit",
+    "social-media"
+  ],
+  "capabilities": [
+    "api",
+    "reddit",
+    "social-media"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/reddit/user-posts"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "username"
+    ],
+    "properties": {
+      "sort": {
+        "enum": [
+          "new",
+          "top",
+          "hot",
+          "controversial"
+        ],
+        "type": "string",
+        "description": "Sort order for the user's posts. Defaults to new (most recent first)."
+      },
+      "cursor": {
+        "type": "string",
+        "minLength": 1,
+        "description": "Opaque pagination cursor from a previous response's nextCursor. Omit for the first page; pass it back to fetch the next page."
+      },
+      "username": {
+        "type": "string",
+        "example": "spez",
+        "minLength": 1,
+        "description": "Reddit username without the leading u/ prefix (e.g. \"spez\")."
+      },
+      "requireFields": {
+        "type": "array",
+        "items": {
+          "enum": [
+            "isArchived",
+            "isLocked"
+          ],
+          "type": "string"
+        },
+        "description": "Optional; omit it and routing is unchanged, with the cheapest source serving. Name the output fields this request must be able to return, for example `isArchived` or `isLocked`, and it is served only by a source that returns every one of them. Fields you do not name are still returned whenever the serving source has them. This can raise your price: when the cheapest source cannot return a named field, a dearer source serves, and you are quoted and charged its price. A named field can still be absent on a post that genuinely lacks it. Naming a combination that no single source returns together is refused as invalid input, with no charge. On a paginated walk it applies to the first page only; later pages stay with the source that page chose, at the price it was quoted."
+      }
+    },
+    "additionalProperties": false
+  },
+  "response_schema": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string"
+      },
+      "model": {
+        "type": "string"
+      },
+      "status": {
+        "type": "string"
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "data": {
+              "type": "object",
+              "description": "Normalized result for this request."
+            }
+          }
+        }
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "usage_based",
+    "note": "Billed per call from metered usage; the reference price is typical.",
+    "reference_price": 0.00038
+  },
+  "readme": "# Reddit User Posts API\n\nList a Reddit user's posts by username, sorted by new, top, hot, or controversial, with cursor pagination.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/reddit/user-posts\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"username\": \"spez\"}'\n```\n\nThe result is returned in `outputs[0].data`. A lookup that finds nothing still succeeds and returns `found: false`.\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `username` | string | Yes | Reddit username without the leading u/ prefix (e.g. \"spez\"). |\n| `cursor` | string | No | Opaque pagination cursor from a previous response's nextCursor. Omit for the first page; pass it back to fetch the next page. |\n| `requireFields` | array | No | Optional; omit it and routing is unchanged, with the cheapest source serving. Name the output fields this request must be able to return, for example `isArchived` or `isLocked`, and it is served only by a source that ret |\n| `sort` | string | No | Sort order for the user's posts. Defaults to new (most recent first). One of: `new`, `top`, `hot`, `controversial`. |\n\n## Pricing\n\nBilled at the actual cost of each call, usually $0.00038 per request. A call can cost more when the first data source fails and another one answers. Failed calls are not charged. Lookups that find nothing and searches with no results are billed at their actual cost, which is often lower and can be $0.\n",
+  "page_url": "https://www.sandbase.ai/model/reddit/user-posts",
+  "created_at": "2026-11-01T12:29:42.875Z"
+}

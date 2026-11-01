@@ -1,0 +1,151 @@
+{
+  "name": "bytedance/omnihuman/2.0",
+  "display_name": "ByteDance OmniHuman 2.0",
+  "type": "video",
+  "vendor": "Bytedance",
+  "vendor_slug": "bytedance",
+  "description": "OmniHuman 2.0 by ByteDance turns a single image and an audio track into a talking or performing video that follows the audio.",
+  "tags": [
+    "image-to-video"
+  ],
+  "capabilities": [
+    "image-to-video"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "image",
+      "audio"
+    ],
+    "properties": {
+      "audio": {
+        "type": "string",
+        "title": "Audio",
+        "examples": [
+          "https://storage.googleapis.com/falserverless/example_inputs/omnihuman_v15_input_audio.mp3"
+        ],
+        "description": "Speech or song that drives the performance. WAV or MP3, 4-300 seconds, up to 15 MB."
+      },
+      "image": {
+        "type": "string",
+        "title": "Image",
+        "examples": [
+          "https://storage.googleapis.com/falserverless/example_inputs/omnihuman_v15_input_image.png"
+        ],
+        "description": "Person or character to animate. 300-6000 px per side, aspect ratio 0.4-2.5, up to 30 MB."
+      },
+      "prompt": {
+        "type": "string",
+        "title": "Prompt",
+        "description": "Optional direction for scene, gestures and camera."
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "title": "GenerationResponse",
+    "required": [
+      "id",
+      "status"
+    ],
+    "properties": {
+      "id": {
+        "type": "string",
+        "description": "Unique identifier for the generation task."
+      },
+      "error": {
+        "type": "string",
+        "description": "Error message if the task failed. Empty on success."
+      },
+      "model": {
+        "type": "string",
+        "description": "Model ID used for the prediction."
+      },
+      "status": {
+        "enum": [
+          "pending",
+          "running",
+          "completed",
+          "failed",
+          "timeout"
+        ],
+        "type": "string",
+        "description": "Status of the task: pending, running, completed, failed, or timeout."
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "title": "OutputItem",
+          "required": [
+            "url"
+          ],
+          "properties": {
+            "url": {
+              "type": "string",
+              "examples": [
+                "https://storage.googleapis.com/falserverless/example_outputs/omnihuman_v15_output.mp4"
+              ],
+              "description": "The URL where the generated content can be downloaded from."
+            },
+            "content_type": {
+              "type": "string",
+              "description": "The MIME type of the output file."
+            }
+          }
+        },
+        "description": "Array of generated content. Empty when status is not completed."
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "formula",
+    "formula": "(usage.duration ?? media_duration(params.audio) ?? 5.0) * 0.105",
+    "formula_variables": [
+      "params.audio",
+      "usage.duration"
+    ],
+    "reference_price": 0.525
+  },
+  "examples": [
+    {
+      "input": {
+        "audio": "https://static.sandbase.ai/examples/4e4bda6c-b42a-40d2-8777-ec0c9dc7ca6b/input/8f429735-ac39-48b6-aa3c-360f822d11fa.mp3",
+        "image": "https://static.sandbase.ai/examples/4e4bda6c-b42a-40d2-8777-ec0c9dc7ca6b/input/117a23db-2541-4338-a76a-11206be9e9e7.png",
+        "prompt": "She speaks warmly to the camera with natural hand gestures."
+      },
+      "output": [
+        {
+          "url": "https://static.sandbase.ai/examples/4e4bda6c-b42a-40d2-8777-ec0c9dc7ca6b/output/678ef1e5-25c7-4172-bccd-e5456509e237.mp4"
+        }
+      ],
+      "default": true
+    },
+    {
+      "input": {
+        "audio": "https://static.sandbase.ai/examples/4b4402b0-ac66-4de9-89d0-c6dadd102228/input/2280d23d-3ccc-4b1f-a855-c799ca34804a.mp3",
+        "image": "https://static.sandbase.ai/examples/4b4402b0-ac66-4de9-89d0-c6dadd102228/input/d3699201-5618-49d9-91d0-d7a8f340865f.png",
+        "prompt": "He speaks confidently to the camera in Times Square at night, small natural head movements."
+      },
+      "output": [
+        {
+          "url": "https://static.sandbase.ai/examples/4b4402b0-ac66-4de9-89d0-c6dadd102228/output/55a45629-525c-426c-bc47-9ec93171bf2f.mp4"
+        }
+      ]
+    }
+  ],
+  "readme": "# ByteDance OmniHuman 2.0\nOmniHuman 2.0 turns a single image and an audio track into a talking or performing video, with lip sync, gestures and expressions that follow the audio.\n## Fields\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `image` | image URL, required | — | Person or character to animate. 300–6000 px per side, aspect ratio 0.4–2.5, up to 30 MB. |\n| `audio` | audio URL, required | — | Speech or song, WAV or MP3, 4–300 seconds, up to 15 MB. |\n| `prompt` | string | — | Optional direction for scene, gestures and camera. |\n## Billing\n$0.105 per output second; the output is as long as the audio. The quote before submission assumes 5 seconds when the audio length cannot be read.\n| Audio | Price |\n|---|---|\n| 5s audio | $0.525 |\n| 30s audio | $3.15 |\n| 60s audio | $6.30 |\nFailed runs are not charged.\n## Prompting\n- Describe gestures and camera; the lips follow the audio automatically.\n## Limits\n- Audio must be 4–300 seconds.\n## Also on SandBase\nPrevious version: `bytedance/omnihuman/1.5`.",
+  "cover_url": "https://static.sandbase.ai/covers/bytedance/omnihuman/2.0/cover-flare-20261022111213.webp",
+  "page_url": "https://www.sandbase.ai/model/bytedance/omnihuman/2.0",
+  "published_at": "2026-10-15T22:00:29.888Z",
+  "created_at": "2026-10-22T02:46:11.053Z"
+}

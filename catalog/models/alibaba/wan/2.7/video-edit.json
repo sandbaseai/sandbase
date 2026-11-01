@@ -1,0 +1,208 @@
+{
+  "name": "alibaba/wan/2.7/video-edit",
+  "display_name": "Wan 2.7 Video Edit",
+  "type": "video",
+  "vendor": "Alibaba",
+  "vendor_slug": "alibaba",
+  "description": "Alibaba Wan 2.7 video editing model.",
+  "tags": [
+    "video-to-video"
+  ],
+  "capabilities": [
+    "video-to-video"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "prompt",
+      "video"
+    ],
+    "properties": {
+      "seed": {
+        "type": "integer",
+        "title": "Seed",
+        "description": "Random seed (0-2147483647) for reproducible results. Omit for a random seed."
+      },
+      "video": {
+        "type": "string",
+        "title": "Video",
+        "description": "The URL of the input video to edit."
+      },
+      "images": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        },
+        "title": "Reference Images",
+        "examples": [],
+        "description": "Reference images to guide the video editing."
+      },
+      "prompt": {
+        "type": "string",
+        "title": "Prompt",
+        "maxLength": 50000,
+        "minLength": 3,
+        "description": "The editing instruction describing what changes to make."
+      },
+      "duration": {
+        "enum": [
+          0,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10
+        ],
+        "type": "integer",
+        "title": "Duration",
+        "default": 0,
+        "description": "Output video duration in seconds. 0 means match input video duration. When set (2-10), truncates from the start."
+      },
+      "resolution": {
+        "enum": [
+          "720p",
+          "1080p"
+        ],
+        "type": "string",
+        "title": "Resolution",
+        "default": "720p",
+        "description": "The resolution of the output video."
+      },
+      "audio_setting": {
+        "enum": [
+          "auto",
+          "origin"
+        ],
+        "type": "string",
+        "title": "Audio Setting",
+        "default": "auto",
+        "description": "Audio handling. 'auto': model decides whether to regenerate audio. 'origin': preserve original audio from input video."
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "title": "GenerationResponse",
+    "required": [
+      "id",
+      "status"
+    ],
+    "properties": {
+      "id": {
+        "type": "string",
+        "description": "Unique identifier for the generation task."
+      },
+      "error": {
+        "type": "string",
+        "description": "Error message if the task failed. Empty on success."
+      },
+      "model": {
+        "type": "string",
+        "description": "Model ID used for the prediction."
+      },
+      "status": {
+        "enum": [
+          "pending",
+          "running",
+          "completed",
+          "failed",
+          "timeout"
+        ],
+        "type": "string",
+        "description": "Status of the task: pending, running, completed, failed, or timeout."
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "title": "OutputItem",
+          "required": [
+            "url"
+          ],
+          "properties": {
+            "url": {
+              "type": "string",
+              "description": "The URL where the generated content can be downloaded from."
+            },
+            "content_type": {
+              "type": "string",
+              "description": "The MIME type of the output file."
+            }
+          }
+        },
+        "description": "Array of generated content. Empty when status is not completed."
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "formula",
+    "formula": "((params.duration ?? 0) > 0 ? params.duration : Math.ceil(usage.duration ?? media_duration(params.video) ?? 5.0)) * ((params.resolution ?? \"720p\") == \"1080p\" ? 0.15 : 0.10)",
+    "formula_variables": [
+      "params.duration",
+      "params.resolution",
+      "params.video",
+      "usage.duration"
+    ],
+    "reference_price": 0.5
+  },
+  "examples": [
+    {
+      "input": {
+        "prompt": "Change the video to an 8-bit pixel style",
+        "video": "https://static.sandbase.ai/examples/d2517981-e23d-4629-a811-791107b46f0d/input/776801b8-88cf-4cfe-8ae6-b3b3f695f1e3.mp4"
+      },
+      "output": [
+        {
+          "poster": "https://static.sandbase.ai/examples/posters/4f56fc5e6f0961e6af9e.jpg",
+          "url": "https://static.sandbase.ai/examples/d2517981-e23d-4629-a811-791107b46f0d/output/19789c99-8591-4882-a1d4-25574df39dec.mp4"
+        }
+      ],
+      "default": true
+    },
+    {
+      "input": {
+        "images": [
+          "https://static.sandbase.ai/examples/9d304d2f-bc79-4e10-895b-7f9feb28fe82/input/255e6684-4e13-4b95-9841-ae954e4713a4.webp"
+        ],
+        "prompt": "Make the horse-headed character in the video wear the striped sweater from the image",
+        "video": "https://static.sandbase.ai/examples/9d304d2f-bc79-4e10-895b-7f9feb28fe82/input/6dfddb1c-4c34-48a6-a270-e605bc44cb6c.mp4"
+      },
+      "output": [
+        {
+          "poster": "https://static.sandbase.ai/examples/posters/be9328782892e00ee0c5.jpg",
+          "url": "https://static.sandbase.ai/examples/9d304d2f-bc79-4e10-895b-7f9feb28fe82/output/f027fffe-1ee2-4f6e-9d46-3542fa0e6465.mp4"
+        }
+      ]
+    },
+    {
+      "input": {
+        "prompt": "Remove the train from the video. Keep everything else the same.",
+        "video": "https://static.sandbase.ai/examples/cd7590b7-af00-4d8b-87d1-58170e9b07db/input/5adb4529-4fd8-4595-922d-4c4198496cc9.mp4"
+      },
+      "output": [
+        {
+          "poster": "https://static.sandbase.ai/examples/posters/e53b17ea8c8eede706ab.jpg",
+          "url": "https://static.sandbase.ai/examples/cd7590b7-af00-4d8b-87d1-58170e9b07db/output/544be2fe-97f2-4804-9ae5-a3b919b701fe.mp4"
+        }
+      ]
+    }
+  ],
+  "readme": "# Wan 2.7 Video Edit\n\nChange an existing clip with a sentence: restyle it, swap an object or outfit, or rework the background. The edit is carried through every frame so motion and timing from the source are kept. Optional reference images guide the new look.\n\n## Fields\n\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `prompt` | string, required | — | Up to 50,000 characters. |\n| `video` | video URL, required | — | Source clip, Video 1 in the prompt. |\n| `images` | image URL[] | — | Optional reference images, Image 1, Image 2, … |\n| `audio_setting` | `auto` / `origin` | `auto` | `auto` regenerates audio to match the edit; `origin` keeps the source track. |\n| `duration` | 0 / 2 / 3 / 4 / 5 / 6 / 7 / 8 / 9 / 10 | 0 | `0` keeps the source length; 2–10 trims or sets the output length. |\n| `resolution` | `720p` / `1080p` | `720p` | Sets the per-second rate. |\n| `seed` | integer | random | Fix it to compare prompt changes. |\n\n## Billing\n\nYou pay for output seconds: $0.10 at 720p and $0.15 at 1080p, the same as Alibaba's list price. With `duration: 0` the output matches the source, so you pay for the source length; the quote before submission assumes 5 seconds and the final charge uses the measured length. Input video is not metered separately.\n\n| Output | 720p | 1080p |\n|---|---|---|\n| 5s source, `duration: 0` | $0.50 | $0.75 |\n| 10s source, `duration: 0` | $1.00 | $1.50 |\n| Any source, `duration: 3` | $0.30 | $0.45 |\n\nFailed runs are not charged.\n\n## Prompting\n\n- Lead with the change and say what must stay: “turn the street into a snowy night; keep the cyclist and the camera move”.\n- Refer to the source as Video 1 and to references as Image 1, Image 2.\n- Draft at 720p and short `duration` before running the full clip.\n\n## Limits\n\n- Output framing follows the source video.\n- To add footage after the clip, use `alibaba/wan/2.7/video-extend`.\n\n## Also on SandBase\n\nOther Wan 2.7 endpoints: `alibaba/wan/2.7/text-to-video`, `alibaba/wan/2.7/image-to-video`, `alibaba/wan/2.7/reference-to-video`, `alibaba/wan/2.7/video-extend`, `alibaba/wan/3.0/video` (newer, up to 30s).\n",
+  "cover_url": "https://static.sandbase.ai/covers/alibaba/wan/2.7/video-edit/cover-flare-20261005085856.webp",
+  "page_url": "https://www.sandbase.ai/model/alibaba/wan/2.7/video-edit",
+  "published_at": "2026-03-28T19:58:40.182Z",
+  "created_at": "2026-10-04T17:58:25.717Z"
+}

@@ -1,0 +1,44 @@
+{
+  "name": "minimax/minimax-m3",
+  "display_name": "MiniMax: MiniMax M3",
+  "type": "llm",
+  "vendor": "Minimax",
+  "vendor_slug": "minimax",
+  "description": "MiniMax-M3 is MiniMax's flagship multimodal foundation model, which MiniMax describes as open-weight. It is built on MiniMax Sparse Attention, which selects key-value blocks to cut long-context compute and supports up to a 1M-token context, and it was trained natively on text and visual data for image and video understanding. MiniMax positions it for long-horizon coding, agentic tool use and autonomous multi-step work such as research paper reproduction and GPU kernel optimization.",
+  "tags": [
+    "chat",
+    "vision",
+    "reasoning",
+    "structured_output",
+    "function_calling"
+  ],
+  "capabilities": [
+    "chat",
+    "vision",
+    "reasoning",
+    "structured_output",
+    "function_calling"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "chat_completions": "POST /v1/chat/completions",
+    "responses": "POST /v1/responses",
+    "messages": "POST /v1/messages"
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_token",
+    "per_million_tokens": {
+      "input": 0.3,
+      "output": 1.2,
+      "cache_read_multiplier": 0.2
+    }
+  },
+  "cover_url": "https://t0.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=https://minimaxi.com/&size=256",
+  "page_url": "https://www.sandbase.ai/model/minimax/minimax-m3",
+  "published_at": "2026-05-31T16:36:14.509Z",
+  "created_at": "2026-06-04T07:18:09.708Z"
+}

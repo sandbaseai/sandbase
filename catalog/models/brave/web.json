@@ -1,0 +1,292 @@
+{
+  "name": "brave/web",
+  "display_name": "Brave Web Search",
+  "type": "api",
+  "vendor": "Brave",
+  "vendor_slug": "brave",
+  "description": "Web Search from Brave. Returns the official Brave API response unchanged.",
+  "tags": [
+    "api",
+    "brave",
+    "web-search"
+  ],
+  "capabilities": [
+    "api",
+    "brave",
+    "web-search"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/brave/web"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "q"
+    ],
+    "properties": {
+      "q": {
+        "type": "string",
+        "example": "weather seattle",
+        "description": "The user’s search query term. Query can not be empty. Maximum of 600 characters and 75 words in the query."
+      },
+      "count": {
+        "type": "integer",
+        "default": 20,
+        "maximum": 20,
+        "minimum": 1,
+        "description": "The number of search results returned in response. The maximum is 20. The actual number delivered may be less than requested. Combine this parameter with offset to paginate search results. NOTE: Count only applies to web results."
+      },
+      "units": {
+        "enum": [
+          "imperial",
+          "metric"
+        ],
+        "type": "string",
+        "description": "The measurement units. The following values are supported: metric - The standardized measurement system (km, celcius…) imperial - The British Imperial system of units (mile, fahrenheit…)"
+      },
+      "offset": {
+        "type": "integer",
+        "default": 0,
+        "maximum": 9,
+        "minimum": 0,
+        "description": "The zero based offset that indicates number of search result pages (count) to skip before returning the result. The default is 0 and the maximum is 9. The actual number delivered may be less than requested. Use this parameter along with the count parameter to page results. For example, if your user "
+      },
+      "country": {
+        "enum": [
+          "AR",
+          "AU",
+          "AT",
+          "BE",
+          "BR",
+          "CA",
+          "CL",
+          "DK",
+          "FI",
+          "FR",
+          "DE",
+          "GR",
+          "HK",
+          "IN",
+          "ID",
+          "IT",
+          "JP",
+          "KR",
+          "MY",
+          "MX",
+          "NL",
+          "NZ",
+          "NO",
+          "CN",
+          "PL",
+          "PT",
+          "PH",
+          "RU",
+          "SA",
+          "ZA",
+          "ES",
+          "SE",
+          "CH",
+          "TW",
+          "TR",
+          "GB",
+          "US",
+          "ALL"
+        ],
+        "type": "string",
+        "default": "US",
+        "description": "The 2 character country code where the search results come from."
+      },
+      "goggles": {
+        "type": "string",
+        "description": "Goggles act as a custom re-ranking on top of Brave’s search index. The parameter supports both a url where the Goggle is hosted or the definition of the Goggle. For more details, see the Goggles documentation . The parameter can be a single Goggle or a list of up to 3 Goggles."
+      },
+      "summary": {
+        "type": "boolean",
+        "description": "This parameter enables summary key generation in web search results. This is required for summarizer to be enabled."
+      },
+      "ui_lang": {
+        "enum": [
+          "es-AR",
+          "en-AU",
+          "de-AT",
+          "nl-BE",
+          "fr-BE",
+          "pt-BR",
+          "en-CA",
+          "fr-CA",
+          "es-CL",
+          "da-DK",
+          "fi-FI",
+          "fr-FR",
+          "de-DE",
+          "el-GR",
+          "zh-HK",
+          "en-IN",
+          "en-ID",
+          "it-IT",
+          "ja-JP",
+          "ko-KR",
+          "en-MY",
+          "es-MX",
+          "nl-NL",
+          "en-NZ",
+          "no-NO",
+          "zh-CN",
+          "pl-PL",
+          "en-PH",
+          "ru-RU",
+          "en-ZA",
+          "es-ES",
+          "sv-SE",
+          "fr-CH",
+          "de-CH",
+          "zh-TW",
+          "tr-TR",
+          "en-GB",
+          "en-US",
+          "es-US"
+        ],
+        "type": "string",
+        "default": "en-US",
+        "description": "User interface language preferred in response. Usually of the format <language_code>-<country_code>. For more, see RFC 9110 ."
+      },
+      "freshness": {
+        "type": "string",
+        "default": "",
+        "description": "Filters search results by page age. The age of a page is determined by the most relevant date reported by the content, such as its published or last modified date. The following values are supported: pd - Pages aged 24 hours or less. pw - Pages aged 7 days or less. pm - Pages aged 31 days or less. p"
+      },
+      "operators": {
+        "type": "boolean",
+        "default": true,
+        "description": "Whether to apply search operators"
+      },
+      "goggles_id": {
+        "type": "string",
+        "description": "Goggles act as a custom re-ranking on top of Brave’s search index. For more details, refer to the Goggles repository. This parameter is deprecated. Please use the goggles parameter."
+      },
+      "safesearch": {
+        "enum": [
+          "off",
+          "moderate",
+          "strict"
+        ],
+        "type": "string",
+        "default": "moderate",
+        "description": "Filters search results for adult content. The following values are supported: off - No filtering is done. moderate - Filters explicit content, like images and videos, but allows adult domains in the search results. strict - Drops all adult content from search results."
+      },
+      "spellcheck": {
+        "type": "boolean",
+        "default": true,
+        "description": "Whether to spell check provided query. If the spell checker is enabled, the modified query is always used for search. The modified query can be found in altered key from the query response model."
+      },
+      "search_lang": {
+        "enum": [
+          "ar",
+          "eu",
+          "bn",
+          "bg",
+          "ca",
+          "zh-hans",
+          "zh-hant",
+          "hr",
+          "cs",
+          "da",
+          "nl",
+          "en",
+          "en-gb",
+          "et",
+          "fi",
+          "fr",
+          "gl",
+          "de",
+          "el",
+          "gu",
+          "he",
+          "hi",
+          "hu",
+          "is",
+          "it",
+          "ja",
+          "jp",
+          "kn",
+          "ko",
+          "lv",
+          "lt",
+          "ms",
+          "ml",
+          "mr",
+          "nb",
+          "pl",
+          "pt-br",
+          "pt-pt",
+          "pa",
+          "ro",
+          "ru",
+          "sr",
+          "sk",
+          "sl",
+          "es",
+          "sv",
+          "ta",
+          "te",
+          "th",
+          "tr",
+          "uk",
+          "vi"
+        ],
+        "type": "string",
+        "default": "en",
+        "description": "The 2 or more character language code for which the search results are provided."
+      },
+      "result_filter": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        },
+        "description": "A comma delimited string of result types to include in the search response. Not specifying this parameter will return back all result types in search response where data is available and the plan has the corresponding option activated. The response always includes query and type to identify any quer"
+      },
+      "extra_snippets": {
+        "type": "boolean",
+        "description": "A snippet is an excerpt from a page you get as a result of the query, and extra_snippets allow you to get up to 5 additional, alternative excerpts."
+      },
+      "text_decorations": {
+        "type": "boolean",
+        "default": true,
+        "description": "Whether display strings (e.g. result snippets) should include decoration markers (e.g. highlighting characters)."
+      },
+      "enable_rich_callback": {
+        "type": "boolean",
+        "default": false,
+        "example": true,
+        "description": "Enable rich callback. Allows you to get real time rich results via a callback URL when they are relevant to your query. NOTE : Requires Search plan."
+      },
+      "include_fetch_metadata": {
+        "type": "boolean",
+        "default": false,
+        "description": "Include fetch metadata."
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.005,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "readme": "# Brave Web Search API\n\nWeb Search from Brave. Returns the official Brave API response unchanged.\n\nThe response is the official Brave API response, unchanged.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/brave/web\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"q\": \"weather seattle\", \"enable_rich_callback\": true}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `count` | integer | No | The number of search results returned in response. The maximum is 20. The actual number delivered may be less than requested. Combine this parameter with offset |\n| `country` | string | No | The 2 character country code where the search results come from. |\n| `enable_rich_callback` | boolean | No | Enable rich callback. Allows you to get real time rich results via a callback URL when they are relevant to your query. NOTE : Requires Search plan. |\n| `extra_snippets` | boolean | No | A snippet is an excerpt from a page you get as a result of the query, and extra_snippets allow you to get up to 5 additional, alternative excerpts. |\n| `freshness` | string | No | Filters search results by page age. The age of a page is determined by the most relevant date reported by the content, such as its published or last modified da |\n| `goggles` | string | No | Goggles act as a custom re-ranking on top of Brave’s search index. The parameter supports both a url where the Goggle is hosted or the definition of the Goggle. |\n| `goggles_id` | string | No | Goggles act as a custom re-ranking on top of Brave’s search index. For more details, refer to the Goggles repository. This parameter is deprecated. Please use t |\n| `include_fetch_metadata` | boolean | No | Include fetch metadata. |\n| `offset` | integer | No | The zero based offset that indicates number of search result pages (count) to skip before returning the result. The default is 0 and the maximum is 9. The actua |\n| `operators` | boolean | No | Whether to apply search operators |\n| `q` | string | Yes | The user’s search query term. Query can not be empty. Maximum of 600 characters and 75 words in the query. |\n| `result_filter` | array | No | A comma delimited string of result types to include in the search response. Not specifying this parameter will return back all result types in search response w |\n| `safesearch` | string | No | Filters search results for adult content. The following values are supported: off - No filtering is done. moderate - Filters explicit content, like images and v |\n| `search_lang` | string | No | The 2 or more character language code for which the search results are provided. |\n| `spellcheck` | boolean | No | Whether to spell check provided query. If the spell checker is enabled, the modified query is always used for search. The modified query can be found in altered |\n| `summary` | boolean | No | This parameter enables summary key generation in web search results. This is required for summarizer to be enabled. |\n| `text_decorations` | boolean | No | Whether display strings (e.g. result snippets) should include decoration markers (e.g. highlighting characters). |\n| `ui_lang` | string | No | User interface language preferred in response. Usually of the format <language_code>-<country_code>. For more, see RFC 9110 . |\n| `units` | string | No | The measurement units. The following values are supported: metric - The standardized measurement system (km, celcius…) imperial - The British Imperial system of |\n\n## Pricing\n\nFlat price per call. Failed calls are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/brave/web",
+  "created_at": "2026-10-30T03:12:30.656Z"
+}

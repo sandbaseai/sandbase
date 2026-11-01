@@ -1,0 +1,70 @@
+{
+  "name": "reddit/app/user-profile",
+  "display_name": "Reddit App User Profile",
+  "type": "api",
+  "vendor": "Reddit",
+  "vendor_slug": "reddit",
+  "description": "Returns detailed profile information for a specified Reddit app user by username. Supports an optional flag to clean and format the output data.",
+  "tags": [
+    "api",
+    "reddit"
+  ],
+  "capabilities": [
+    "api",
+    "reddit"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/reddit/app/user-profile"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "username"
+    ],
+    "properties": {
+      "username": {
+        "type": "string",
+        "title": "Username",
+        "example": "spez",
+        "description": "Reddit username (without u/ prefix)"
+      },
+      "need_format": {
+        "type": "boolean",
+        "title": "Need Format",
+        "default": false,
+        "example": false,
+        "description": "Whether to clean and format the data"
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.0015,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "examples": [
+    {
+      "input": {
+        "username": "spez"
+      },
+      "default": true
+    }
+  ],
+  "readme": "# Reddit App User Profile API\n\nRetrieve detailed profile information for a Reddit account using the `username` parameter. You can optionally set `need_format` to format the returned data.\n\n## Use cases\n\n- Inspect public Reddit account profile details and moderation records.\n- Verify user identities and profile metadata across community platforms.\n- Retrieve formatted user information for analytics dashboards.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/reddit/app/user-profile\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"username\": \"spez\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `username` | string | Yes | Reddit username (without u/ prefix) |\n| `need_format` | boolean | No | Whether to clean and format the data |\n\n## Example response\n\nReal response for the request above, trimmed to the main fields. User names and long IDs are masked.\n\n```json\n{\n  \"redditorInfoByName\": {\n    \"profile\": {\n      \"moderatorsInfo\": {\n        \"edges\": [\n          {\n            \"node\": {\n              \"id\": \"t2_1w72\"\n            }\n          }\n        ]\n      }\n    }\n  }\n}\n```\n\n## Notes\n\n- Provide `username` without the `u/` prefix.\n- Set `need_format` to true to clean and format the response data.\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [Reddit Subreddit Mute Status](/model/reddit/app/check-subreddit-muted): Checks whether a specified Reddit subreddit is muted by the current account using its ID.\n- [Reddit App Comment Replies](/model/reddit/app/comment-replies): Returns replies and nested sub-comments under a Reddit post comment using a continuation cursor.\n- [Reddit Community Highlights](/model/reddit/app/community-highlights): Returns featured highlight content for a designated Reddit community, such as popular posts and announcements, by subreddit ID.\n",
+  "page_url": "https://www.sandbase.ai/model/reddit/app/user-profile",
+  "created_at": "2026-07-31T04:11:15.706Z"
+}

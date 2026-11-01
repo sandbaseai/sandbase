@@ -1,0 +1,66 @@
+{
+  "name": "tiktok/app-v3/music-chart-list",
+  "display_name": "TikTok Music Chart List",
+  "type": "api",
+  "vendor": "TikTok",
+  "vendor_slug": "tiktok",
+  "description": "Returns TikTok music chart rankings and track details. Supports filtering by chart type scene alongside cursor-based pagination.",
+  "tags": [
+    "api",
+    "tiktok"
+  ],
+  "capabilities": [
+    "api",
+    "tiktok"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/tiktok/app-v3/music-chart-list"
+  },
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "count": {
+        "type": "integer",
+        "title": "Count",
+        "default": 50,
+        "example": 1,
+        "description": "Number per page, default 50, max 50"
+      },
+      "scene": {
+        "type": "integer",
+        "title": "Scene",
+        "default": 0,
+        "example": 0,
+        "description": "Chart type"
+      },
+      "cursor": {
+        "type": "integer",
+        "title": "Cursor",
+        "default": 0,
+        "description": "Pagination cursor, default 0"
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.0015,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "readme": "# TikTok Music Chart List API\n\nRetrieve trending music chart tracks on TikTok by specifying the chart type using `scene`. Paginate through chart entries using `cursor` and `count`.\n\n## Use cases\n\n- Monitor popular and trending audio tracks across TikTok music charts.\n- Analyze artist appearances and track metadata from ranked audio lists.\n- Integrate real-time TikTok chart data into music discovery platforms.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/tiktok/app-v3/music-chart-list\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `count` | integer | No | Number per page, default 50, max 50 |\n| `scene` | integer | No | Chart type |\n| `cursor` | integer | No | Pagination cursor, default 0 |\n\n## Example response\n\nReal response for the request above, trimmed to the main fields. User names and long IDs are masked.\n\n```json\n{\n  \"music_list\": [\n    {\n      \"id\": 7245341979050396417,\n      \"music_info\": {\n        \"audition_duration\": 60,\n        \"author\": \"Taylor Swift\",\n        \"author_deleted\": false,\n        \"binded_challenge_id\": 0,\n        \"commercial_right_type\": 3,\n        \"create_time\": 1790303820\n      }\n    }\n  ]\n}\n```\n\n## Notes\n\n- Control results per page using `count`, with a default and maximum limit of 50.\n- Filter charts by passing a specific chart type integer into `scene`.\n- Paginate results by supplying `cursor`, which defaults to 0.\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [TikTok LIVE Status](/model/tiktok/app-v3/check-live-room-online): Check whether a TikTok LIVE room is currently live by room ID.\n- [TikTok Room Online Status Batch](/model/tiktok/app-v3/check-live-room-online-batch): Returns the online availability status for multiple TikTok broadcast rooms in a single request.\n- [TikTok Content Translation](/model/tiktok/app-v3/content-translate): Translates provided text content into a designated target language.\n",
+  "page_url": "https://www.sandbase.ai/model/tiktok/app-v3/music-chart-list",
+  "created_at": "2026-07-31T04:14:25.996Z"
+}

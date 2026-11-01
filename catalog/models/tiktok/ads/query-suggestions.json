@@ -1,0 +1,66 @@
+{
+  "name": "tiktok/ads/query-suggestions",
+  "display_name": "TikTok Ad Query Suggestions",
+  "type": "api",
+  "vendor": "TikTok",
+  "vendor_slug": "tiktok",
+  "description": "Returns popular or keyword-based ad search suggestions across TikTok. Filter results by target country code, scenario type, and an optional query string.",
+  "tags": [
+    "api",
+    "tiktok"
+  ],
+  "capabilities": [
+    "api",
+    "tiktok"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/tiktok/ads/query-suggestions"
+  },
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "count": {
+        "type": "integer",
+        "title": "Count",
+        "description": "Number of suggestions to return, default 50"
+      },
+      "query": {
+        "type": "string",
+        "title": "Query",
+        "description": "Input keyword (optional), returns suggestions based on input; popular ones if omitted"
+      },
+      "scenario": {
+        "type": "integer",
+        "title": "Scenario",
+        "description": "Scenario type, default 1"
+      },
+      "country_code": {
+        "type": "string",
+        "title": "Country Code",
+        "description": "Country code, default US"
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.0015,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "readme": "# TikTok Ad Query Suggestions API\n\nRetrieves search query recommendations for ad discovery, using optional filters such as `query`, `country_code`, and `scenario`.\n\n## Use cases\n\n- Discover trending keywords for ad campaign targeting.\n- Generate keyword autocomplete suggestions for search inputs.\n- Identify regional creative themes based on country-specific queries.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/tiktok/ads/query-suggestions\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `count` | integer | No | Number of suggestions to return, default 50 |\n| `query` | string | No | Input keyword (optional), returns suggestions based on input; popular ones if omitted |\n| `scenario` | integer | No | Scenario type, default 1 |\n| `country_code` | string | No | Country code, default US |\n\n## Notes\n\n- If `query` is omitted, the endpoint returns general popular suggestions.\n- `country_code` defaults to US.\n- `count` defaults to 50 suggestions per call.\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [TikTok Ad Interactive Analysis](/model/tiktok/ads/ad-interactive-analysis): Returns audience retention and interaction analytics across video timestamps for a specified ad creative.\n- [TikTok Ad Keyframe Analysis](/model/tiktok/ads/ad-keyframe-analysis): Returns keyframe performance metrics across video ad timestamps for a specified material ID, including retention and conversion figures.\n- [TikTok Ad Material Percentile Rankings](/model/tiktok/ads/ad-percentile): Returns ad performance percentile rankings within the industry for a specific ad material.\n",
+  "page_url": "https://www.sandbase.ai/model/tiktok/ads/query-suggestions",
+  "created_at": "2026-07-31T04:13:44.963Z"
+}

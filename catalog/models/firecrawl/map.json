@@ -1,0 +1,78 @@
+{
+  "name": "firecrawl/map",
+  "display_name": "Firecrawl URL Discovery",
+  "type": "api",
+  "vendor": "Firecrawl",
+  "vendor_slug": "firecrawl",
+  "description": "Discovers and returns URLs found across a target website. Provide an HTTPS target address and define the maximum link count to map site pages.",
+  "tags": [
+    "site-mapping",
+    "crawling",
+    "url-discovery"
+  ],
+  "capabilities": [
+    "site-mapping",
+    "crawling",
+    "url-discovery"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/firecrawl/map"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "url",
+      "limit"
+    ],
+    "properties": {
+      "url": {
+        "type": "string",
+        "title": "URL",
+        "description": "The HTTPS URL to map."
+      },
+      "limit": {
+        "type": "integer",
+        "title": "Limit",
+        "maximum": 100000,
+        "minimum": 1,
+        "description": "Maximum number of links to discover."
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "properties": {
+      "links": {
+        "type": "array",
+        "items": {
+          "type": "object"
+        }
+      },
+      "success": {
+        "type": "boolean"
+      },
+      "creditsUsed": {
+        "type": "integer"
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.0075,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "readme": "# Firecrawl URL Discovery API\n\nMap website architecture and discover internal links using `url` and `limit`.\n\n## Use cases\n\n- Discover reachable pages across an entire domain.\n- Map site link structures for search and content indexers.\n- Extract lists of internal website endpoints prior to scraping.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/firecrawl/map\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"url\": \"<url>\", \"limit\": \"<limit>\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `url` | string | Yes | The HTTPS URL to map. |\n| `limit` | integer | Yes | Maximum number of links to discover. |\n\n## Notes\n\n- Requires a valid HTTPS address for `url`.\n- Set `limit` to specify the maximum number of links to discover.\n\n## Pricing\n\nFlat price per call. Failed calls are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/firecrawl/map",
+  "published_at": "2024-01-01T00:00:00Z",
+  "created_at": "2026-08-09T08:03:45.064Z"
+}

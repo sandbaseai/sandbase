@@ -1,0 +1,61 @@
+{
+  "name": "xigua/app-v2/user-info",
+  "display_name": "Xigua User Profile Details",
+  "type": "api",
+  "vendor": "Xigua",
+  "vendor_slug": "xigua",
+  "description": "Returns profile and personal information for a specified Xigua account. Queries details using the target user identifier.",
+  "tags": [
+    "api",
+    "xigua"
+  ],
+  "capabilities": [
+    "api",
+    "xigua"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/xigua/app-v2/user-info"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "user_id"
+    ],
+    "properties": {
+      "user_id": {
+        "type": "string",
+        "title": "User Id",
+        "description": "User id"
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.0015,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "examples": [
+    {
+      "input": {
+        "user_id": "example"
+      }
+    }
+  ],
+  "readme": "# Xigua User Profile Details API\n\nRetrieve detailed personal profile information for a Xigua user using their `user_id`.\n\n## Use cases\n\n- Display public profile information for a specific Xigua user.\n- Verify Xigua account identifiers in analytics workflows.\n- Track account metadata across creator platforms.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/xigua/app-v2/user-info\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"user_id\": \"<user_id>\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `user_id` | string | Yes | User id |\n\n## Notes\n\n- Requires a valid `user_id` parameter to look up profile records.\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [Xigua Single Video Information](/model/xigua/app-v2/one-video): Returns lightweight single video data and associated related video information from Xigua for a specific post by its unique item ID.\n- [Xigua Video Play URL](/model/xigua/app-v2/one-video-play-url): Returns the direct playback URL for a specific Xigua video using its unique item identifier.\n- [Xigua Video Search](/model/xigua/app-v2/search-video): Search Xigua Video (ByteDance long-form video) by keyword: titles, creators, duration, publish time and comment counts, with sort and duration filters.\n",
+  "page_url": "https://www.sandbase.ai/model/xigua/app-v2/user-info",
+  "created_at": "2026-07-31T04:22:39.947Z"
+}

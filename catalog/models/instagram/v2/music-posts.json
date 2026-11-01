@@ -1,0 +1,60 @@
+{
+  "name": "instagram/v2/music-posts",
+  "display_name": "Instagram Music Posts (V2)",
+  "type": "api",
+  "vendor": "Instagram",
+  "vendor_slug": "instagram",
+  "description": "Returns Instagram posts that use a specific audio track identified by its audio ID. Supports paginated results using a pagination token.",
+  "tags": [
+    "api",
+    "instagram"
+  ],
+  "capabilities": [
+    "api",
+    "instagram"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/instagram/v2/music-posts"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "audio_canonical_id"
+    ],
+    "properties": {
+      "pagination_token": {
+        "type": "string",
+        "title": "Pagination Token",
+        "description": "Pagination token from previous response"
+      },
+      "audio_canonical_id": {
+        "type": "string",
+        "title": "Audio Canonical Id",
+        "example": "564058920086577",
+        "description": "Audio ID"
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.003,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "readme": "# Instagram Music Posts (V2) API\n\nRetrieve Instagram posts associated with a specific audio track using `audio_canonical_id`. Paginate through subsequent pages with `pagination_token`.\n\n## Use cases\n\n- Analyze posts featuring a specific audio track or sound.\n- Track content trends around a particular piece of music.\n- Discover creator content using selected Instagram audio tracks.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/instagram/v2/music-posts\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"audio_canonical_id\": \"564058920086577\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `audio_canonical_id` | string | Yes | Audio ID |\n| `pagination_token` | string | No | Pagination token from previous response |\n\n## Notes\n\n- Obtain the `audio_canonical_id` from post details.\n- Pass `pagination_token` from a previous response to paginate through results.\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [Instagram Comment Replies (V2)](/model/instagram/v2/comment-replies): Retrieves a paginated list of replies to an Instagram comment using the post URL or shortcode and the target comment ID.\n- [Instagram General Search (V2)](/model/instagram/v2/general-search): Returns Instagram search results matching a specified keyword, including media items, user profiles, and engagement statistics.\n- [Instagram Hashtag Posts (V2)](/model/instagram/v2/hashtag-posts): Returns posts associated with a specific hashtag.\n",
+  "page_url": "https://www.sandbase.ai/model/instagram/v2/music-posts",
+  "created_at": "2026-07-31T03:55:45.609Z"
+}

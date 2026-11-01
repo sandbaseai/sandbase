@@ -1,0 +1,63 @@
+{
+  "name": "wechat-mp/v2/article-ad",
+  "display_name": "WeChat MP Article Ads",
+  "type": "api",
+  "vendor": "WeChat MP",
+  "vendor_slug": "wechat-mp",
+  "description": "Returns embedded ad slot information for a specified WeChat MP article URL. Supports choosing between the full raw response or a flattened ad list.",
+  "tags": [
+    "api",
+    "wechat-mp"
+  ],
+  "capabilities": [
+    "api",
+    "wechat-mp"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/wechat-mp/v2/article-ad"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "url"
+    ],
+    "properties": {
+      "raw": {
+        "type": "boolean",
+        "title": "Raw",
+        "default": true,
+        "description": "Optional, default True. True=full raw response; False=flattened ad list."
+      },
+      "url": {
+        "type": "string",
+        "title": "Url",
+        "example": "https://mp.weixin.qq.com/s/TSNQKkRpN1qbKsT7BvzqIw",
+        "pattern": "^https?://mp\\.weixin\\.qq\\.com/s([/?].+)?$",
+        "maxLength": 2048,
+        "description": "WeChat MP article URL. E.g. `https://mp.weixin.qq.com/s/TSNQKkRpN1qbKsT7BvzqIw` (this article has no ads, returns empty)"
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.015,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "readme": "# WeChat MP Article Ads API\n\nLook up embedded ad slot information from a WeChat MP post by providing `url`. Use `raw` to choose between a full payload or a flattened list.\n\n## Use cases\n\n- Inspect ad placements embedded inside a specific WeChat MP article.\n- Extract ad slot details for commercial content analysis.\n- Audit ad presence across WeChat MP posts.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/wechat-mp/v2/article-ad\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"url\": \"https://mp.weixin.qq.com/s/TSNQKkRpN1qbKsT7BvzqIw\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `url` | string | Yes | WeChat MP article URL. |\n| `raw` | boolean | No | Optional, default True. |\n\n## Notes\n\n- Set `raw` to `false` to receive a flattened ad list instead of the default full response.\n- Requires a valid WeChat MP article URL passed in `url`.\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [WeChat MP Account Articles](/model/wechat-mp/v2/account-articles): Get the published articles of a WeChat official account by its gh_ username: titles, links, covers and post dates, one page at a time, including video and audi…\n- [WeChat MP Account Profile](/model/wechat-mp/v2/account-profile): Retrieves the profile details of an official WeChat account, including name, avatar, signature, and verification entity type using its official account ID.\n- [WeChat MP Article Comments](/model/wechat-mp/v2/article-comments): Get the comments on a WeChat official account article from its URL: comment text, likes, time and commenter region, with cursor pagination.\n",
+  "page_url": "https://www.sandbase.ai/model/wechat-mp/v2/article-ad",
+  "created_at": "2026-07-31T04:21:12.308Z"
+}

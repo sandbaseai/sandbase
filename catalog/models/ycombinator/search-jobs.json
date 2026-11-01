@@ -1,0 +1,68 @@
+{
+  "name": "ycombinator/search-jobs",
+  "display_name": "Y Combinator Search Jobs",
+  "type": "api",
+  "vendor": "Y Combinator",
+  "vendor_slug": "ycombinator",
+  "description": "List job openings at YC companies from workatastartup.com, filtered by role category. Returns up to 30 jobs per call with title, salary range, location, and company info.",
+  "tags": [
+    "api",
+    "ycombinator",
+    "company-people"
+  ],
+  "capabilities": [
+    "api",
+    "ycombinator",
+    "company-people"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}",
+    "passthrough": "POST /v1/api/ycombinator/search-jobs"
+  },
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "role": {
+        "type": "string",
+        "description": "Role category filter. Accepted values: 'software-engineer', 'designer', 'recruiting', 'science', 'product', 'operations', 'sales', 'marketing', 'legal', 'finance'. Also accepts aliases: 'eng' or 'engineering' (maps to software-engineer), 'design' (maps to designer), 'ops' (maps to operations)."
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "required": [
+      "id",
+      "status",
+      "model"
+    ],
+    "properties": {
+      "id": {
+        "type": "string"
+      },
+      "model": {
+        "type": "string"
+      },
+      "status": {
+        "type": "string"
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.01,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "readme": "# Y Combinator Search Jobs\n\nList job openings at YC companies from workatastartup.com, filtered by role category. Returns up to 30 jobs per call with title, salary range, location, and company info.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/ycombinator/search-jobs\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{}'\n```\n\nThis API runs asynchronously. The call returns a task `id` with status `pending`; poll `GET https://api.sandbase.ai/v1/run/{id}` until `status` is `completed` and read the result from `outputs[0].data`.\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `role` | string | No | Role category filter. Accepted values: 'software-engineer', 'designer', 'recruiting', 'science', 'product', 'operations', 'sales', 'marketing', 'legal', 'finance'. Also accepts aliases: 'eng' or 'engi… |\n\n## Pricing\n\nFlat price per call. Failed calls are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/ycombinator/search-jobs",
+  "created_at": "2026-10-30T08:40:52.769Z"
+}

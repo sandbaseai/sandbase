@@ -1,0 +1,90 @@
+{
+  "name": "wechat-channels/v2/live-detail",
+  "display_name": "WeChat Channels Stream Detail",
+  "type": "api",
+  "vendor": "WeChat Channels",
+  "vendor_slug": "wechat-channels",
+  "description": "Returns live-room details including anchor info, status, online count, and replay data using a live ID. Allows switching between raw and parsed output formats.",
+  "tags": [
+    "api",
+    "wechat-channels"
+  ],
+  "capabilities": [
+    "api",
+    "wechat-channels"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/wechat-channels/v2/live-detail"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "live_id"
+    ],
+    "properties": {
+      "raw": {
+        "type": "boolean",
+        "title": "Raw",
+        "description": "Optional, default True. True=raw response; False=simplified parsed structure."
+      },
+      "scene": {
+        "type": "integer",
+        "title": "Scene",
+        "maximum": 1000,
+        "minimum": 0,
+        "description": "Optional, entry scene, default 5."
+      },
+      "live_id": {
+        "type": "string",
+        "title": "Live Id",
+        "pattern": "^[0-9]+$",
+        "maxLength": 32,
+        "description": "Live ID (numeric). Source: replay items of `fetch_live_history`, live entry, or live share. E.g. `2078950291205875194`."
+      },
+      "finder_username": {
+        "anyOf": [
+          {
+            "type": "string",
+            "pattern": "^(v2_[0-9a-fA-F]+@finder)?$",
+            "maxLength": 256
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "title": "Finder Username",
+        "description": "Optional, anchor finder username (`v2_…@finder` format), improves hit rate. E.g. `v2_060000231003b20faec8cae1811ac4d5c702ea32b0771737aa785454f7f8177114cc4d248d66@finder` (Huxiu)."
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.015,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "examples": [
+    {
+      "input": {
+        "live_id": "2078950291205875194"
+      },
+      "default": true
+    }
+  ],
+  "readme": "# WeChat Channels Stream Detail API\n\nRetrieve detailed room metrics, anchor information, and replay availability by passing a target `live_id` and optional `finder_username`.\n\n## Use cases\n\n- Inspect anchor information and real-time room status.\n- Check online viewer counts during an active session.\n- Retrieve replay details from completed broadcasts.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/wechat-channels/v2/live-detail\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"live_id\": \"<live_id>\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `live_id` | string | Yes | Live ID (numeric). |\n| `raw` | boolean | No | Optional, default True. |\n| `scene` | integer | No | Optional, entry scene, default 5. |\n| `finder_username` | string | No | Optional, anchor finder username (`v2_…@finder` format), improves hit rate. |\n\n## Notes\n\n- Set `raw` to false to obtain a simplified parsed response instead of the raw payload.\n- Providing `finder_username` alongside `live_id` improves lookup accuracy.\n- The `live_id` can be obtained from broadcast history items, entry points, or share links.\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [WeChat Channels ID to Username](/model/wechat-channels/v2/channel-id-to-username): Convert a public WeChat Channels Channel ID (sph… short ID) into the finder username (v2_…@finder) required by the other WeChat Channels APIs.\n- [WeChat Channels Account Info](/model/wechat-channels/v2/channel-info): Get the public \"More info\" panel of a WeChat Channels account: Channel ID, IP and profile location, and verification details such as entity type, service categ…\n- [WeChat Channels Collection Videos](/model/wechat-channels/v2/collection-videos): Returns videos contained within a WeChat Channels collection using a collection ID.\n",
+  "page_url": "https://www.sandbase.ai/model/wechat-channels/v2/live-detail",
+  "created_at": "2026-07-31T04:20:18.764Z"
+}

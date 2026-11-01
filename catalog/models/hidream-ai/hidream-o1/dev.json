@@ -1,0 +1,148 @@
+{
+  "name": "hidream-ai/hidream-o1/dev",
+  "display_name": "HiDream O1 Dev",
+  "type": "image",
+  "vendor": "HiDream",
+  "vendor_slug": "hidream-ai",
+  "description": "Hidream O1 Dev by hidream-ai - generate stunning images from text prompts with state-of-the-art AI. Supports multiple aspect ratios, styles, and high-resolution output for creative and commercial use.",
+  "tags": [
+    "text-to-image"
+  ],
+  "capabilities": [
+    "text-to-image"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "prompt"
+    ],
+    "properties": {
+      "seed": {
+        "type": "integer",
+        "title": "Seed",
+        "description": "Random seed for reproducible generation."
+      },
+      "images": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        },
+        "title": "Images",
+        "default": [],
+        "examples": [
+          "https://static.sandbase.ai/examples/hidream-ai/hidream-o1/dev/input_reference_image_urls_0.png"
+        ],
+        "description": "Optional reference images. Use none for text-to-image, one for image editing, or multiple for subject-driven personalization."
+      },
+      "prompt": {
+        "type": "string",
+        "title": "Prompt",
+        "examples": [
+          "A cinematic product photo of a ceramic mug on a marble counter, soft window light, shallow depth of field."
+        ],
+        "minLength": 1,
+        "description": "Text prompt for image generation, editing, or subject-driven personalization."
+      },
+      "aspect_ratio": {
+        "enum": [
+          "21:9",
+          "16:9",
+          "3:2",
+          "4:3",
+          "5:4",
+          "1:1",
+          "4:5",
+          "3:4",
+          "2:3",
+          "9:16"
+        ],
+        "type": "string",
+        "title": "Aspect Ratio",
+        "default": "16:9",
+        "description": "The aspect ratio of the generated image."
+      },
+      "output_format": {
+        "enum": [
+          "jpeg",
+          "png"
+        ],
+        "type": "string",
+        "title": "Output Format",
+        "default": "png",
+        "description": "The format of the generated image."
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "title": "GenerationResponse",
+    "required": [
+      "id",
+      "status"
+    ],
+    "properties": {
+      "id": {
+        "type": "string",
+        "description": "Unique identifier for the generation task."
+      },
+      "error": {
+        "type": "string",
+        "description": "Error message if the task failed. Empty on success."
+      },
+      "model": {
+        "type": "string",
+        "description": "Model ID used for the prediction."
+      },
+      "status": {
+        "enum": [
+          "pending",
+          "running",
+          "completed",
+          "failed",
+          "timeout"
+        ],
+        "type": "string",
+        "description": "Status of the task: pending, running, completed, failed, or timeout."
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "title": "OutputItem",
+          "required": [
+            "url"
+          ],
+          "properties": {
+            "url": {
+              "type": "string",
+              "description": "The URL where the generated content can be downloaded from."
+            },
+            "content_type": {
+              "type": "string",
+              "description": "The MIME type of the output file."
+            }
+          }
+        },
+        "description": "Array of generated content. Empty when status is not completed."
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.02
+  },
+  "readme": "# HiDream O1 Dev\n\nHiDream O1 Dev generates images from a prompt, or edits when you pass `images`.\n\n## Fields\n\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `prompt` | string, required | — | Text instruction. |\n| `aspect_ratio` | `21:9` / `16:9` / `3:2` / `4:3` / `5:4` / `1:1` / `4:5` / `3:4` / `2:3` / `9:16` | `16:9` | Output shape. |\n| `images` | image URL[] | `[]` | Images to edit or combine, Image 1, Image 2, … |\n| `seed` | integer | random | Fix it to compare prompt changes. |\n| `output_format` | `jpeg` / `png` | `png` | Output file format. |\n\n## Billing\n\n$0.02 per image.\n\n| Request | Price |\n|---|---|\n| One image | $0.02 |\n\nFailed runs are not charged.\n\n## Prompting\n\n- Quote any text that must appear.\n",
+  "cover_url": "https://static.sandbase.ai/covers/hidream-ai/hidream-o1/dev/cover-flare-20261005043152.webp",
+  "page_url": "https://www.sandbase.ai/model/hidream-ai/hidream-o1/dev",
+  "published_at": "2026-05-09T22:26:28.913Z",
+  "created_at": "2026-05-14T03:53:44.186Z"
+}

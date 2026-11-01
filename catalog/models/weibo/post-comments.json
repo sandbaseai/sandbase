@@ -1,0 +1,69 @@
+{
+  "name": "weibo/post-comments",
+  "display_name": "Weibo Post Comments",
+  "type": "api",
+  "vendor": "Weibo",
+  "vendor_slug": "weibo",
+  "description": "Get comments for a Weibo post identified by MID, with optional maxId cursor pagination and time or hot sorting.",
+  "tags": [
+    "api",
+    "weibo",
+    "social-media"
+  ],
+  "capabilities": [
+    "api",
+    "weibo",
+    "social-media"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/weibo/post-comments"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "mid"
+    ],
+    "properties": {
+      "mid": {
+        "type": "string",
+        "example": "4799069542679480",
+        "description": "Weibo post mid."
+      },
+      "sort": {
+        "enum": [
+          "TIME",
+          "HOT"
+        ],
+        "type": "string",
+        "default": "TIME",
+        "description": "Sort order for the result set."
+      },
+      "maxId": {
+        "type": "string",
+        "description": "Pagination cursor returned by the previous response."
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.013889,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "readme": "# Weibo Post Comments API\n\nGet comments for a Weibo post identified by MID, with optional maxId cursor pagination and time or hot sorting.\n\nThe response is the platform's original data structure.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/weibo/post-comments\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"mid\": \"5359793518938198\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `mid` | string | Yes | Weibo post mid. |\n| `sort` | string | No | Sort order for the result set. |\n| `maxId` | string | No | Pagination cursor returned by the previous response. |\n\n## Pricing\n\nFlat price per call. Failed calls and empty results are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/weibo/post-comments",
+  "created_at": "2026-10-29T11:42:38.975Z"
+}

@@ -1,0 +1,51 @@
+# xAI: Grok 4.7
+
+`x-ai/grok-4.7` · llm · xAI
+
+Grok 4.7 is xAI's flagship reasoning model for coding, agentic tasks and knowledge work, released on the xAI API in September 2026 as the successor to Grok 4.6. xAI says it uses a larger base model and a longer reinforcement learning run weighted toward multi-hour problems, making it better at checking its own work, managing long context and producing documents and presentations. It accepts text and image input, returns text, and supports configurable reasoning effort.
+
+## Pricing
+
+- Input **$2** / output **$6** per 1M tokens (USD)
+- cache read multiplier: 0.25
+
+## Call it
+
+OpenAI-compatible: any OpenAI SDK works with `base_url=https://api.sandbase.ai/v1`. Anthropic (`/v1/messages`) and Gemini (`/v1beta/models/...`) formats are also accepted.
+
+**curl**
+
+```bash
+curl https://api.sandbase.ai/v1/chat/completions \
+  -H "Authorization: Bearer $SANDBASE_API_KEY" -H 'Content-Type: application/json' \
+  -d '{"model": "x-ai/grok-4.7", "messages": [{"role": "user", "content": "Hello"}]}'
+```
+
+**Python**
+
+```python
+from openai import OpenAI
+
+client = OpenAI(base_url="https://api.sandbase.ai/v1", api_key=os.environ["SANDBASE_API_KEY"])
+resp = client.chat.completions.create(model='x-ai/grok-4.7', messages=[{"role": "user", "content": "Hello"}])
+```
+
+**TypeScript**
+
+```ts
+import OpenAI from "openai";
+
+const client = new OpenAI({ baseURL: "https://api.sandbase.ai/v1", apiKey: process.env.SANDBASE_API_KEY });
+const resp = await client.chat.completions.create({ model: "x-ai/grok-4.7", messages: [{ role: "user", content: "Hello" }] });
+```
+
+**Go** ([sdk/go](../../../sdk/go))
+
+```go
+resp, err := c.Chat(ctx, "x-ai/grok-4.7", []map[string]any{{"role": "user", "content": "Hello"}}, nil)
+```
+
+
+Capabilities: `chat`, `vision`, `reasoning`, `structured_output`, `function_calling`
+---
+Machine-readable: [`catalog/models/x-ai/grok-4.7.json`](../../../catalog/models/x-ai/grok-4.7.json) · Store page: https://www.sandbase.ai/model/x-ai/grok-4.7

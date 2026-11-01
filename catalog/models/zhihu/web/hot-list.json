@@ -1,0 +1,58 @@
+{
+  "name": "zhihu/web/hot-list",
+  "display_name": "Zhihu Hot List",
+  "type": "api",
+  "vendor": "Zhihu",
+  "vendor_slug": "zhihu",
+  "description": "Get the Zhihu hot list: trending questions with title, excerpt, heat, answer and follower counts, and links.",
+  "tags": [
+    "api",
+    "zhihu"
+  ],
+  "capabilities": [
+    "api",
+    "zhihu"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/zhihu/web/hot-list"
+  },
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "limit": {
+        "type": "string",
+        "title": "Limit",
+        "default": "50",
+        "description": "Number of articles per page"
+      },
+      "desktop": {
+        "type": "string",
+        "title": "Desktop",
+        "default": "true",
+        "description": "Is it a desktop"
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.0015,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "readme": "# Zhihu Hot List API\n\nFetch the current Zhihu hot list. Each item includes the trending question, an excerpt, heat value, and answer and follower counts.\n\n## Use cases\n\n- Track trending discussions on Zhihu.\n- Find popular questions to answer for content marketing.\n- Build daily trend digests.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/zhihu/web/hot-list\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `limit` | string | No | Number of articles per page |\n| `desktop` | string | No | Is it a desktop |\n\n## Example response\n\nReal response for the request above, trimmed to the main fields. User names and long IDs are masked.\n\n```json\n{\n  \"fresh_text\": \"热榜已更新\",\n  \"data\": [\n    {\n      \"type\": \"hot_list_feed\",\n      \"detail_text\": \"163 万热度\",\n      \"target\": {\n        \"id\": 26705971,\n        \"type\": \"question\",\n        \"title\": \"Adobe Photoshop 是否已经过时？\",\n        \"answer_count\": 286,\n        \"follower_count\": 4005,\n        \"created\": 1416488544,\n        \"excerpt\": \"时代在发展，Photoshop 软件是否已经过时了？ 感谢各位热心以及耐心的回答，在此深表感谢。关…\",\n        \"url\": \"https://api.zhihu.com/questions/26705971\"\n      }\n    }\n  ],\n  \"paging\": {\n    \"is_end\": false\n  }\n}\n```\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [Zhihu Article Search](/model/zhihu/web/article-search-v3): Search Zhihu articles and answers by keyword and get titles, excerpts, authors, vote and comment counts, with sorting, content type and time filters plus offse…\n- [Get Zhihu AI Search (v2)](/model/zhihu/web/ai-search-stream): Get Zhihu AI Search results (new endpoint).\n- [Get Zhihu Answer Detail](/model/zhihu/web/answer-detail): Get a single Zhihu answer's detail (content / stats / author / question, etc.).\n",
+  "page_url": "https://www.sandbase.ai/model/zhihu/web/hot-list",
+  "created_at": "2026-07-31T04:29:23.492Z"
+}

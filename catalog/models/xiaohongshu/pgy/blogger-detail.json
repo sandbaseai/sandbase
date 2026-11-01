@@ -1,0 +1,58 @@
+{
+  "name": "xiaohongshu/pgy/blogger-detail",
+  "display_name": "Xiaohongshu (RED) PGY Blogger Details",
+  "type": "api",
+  "vendor": "Xiaohongshu",
+  "vendor_slug": "xiaohongshu",
+  "description": "Retrieves detailed profile information for a specific Xiaohongshu blogger on the PGY platform using their user ID. Returns creator metrics and account details.",
+  "tags": [
+    "api",
+    "xiaohongshu"
+  ],
+  "capabilities": [
+    "api",
+    "xiaohongshu"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/xiaohongshu/pgy/blogger-detail"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "user_id"
+    ],
+    "properties": {
+      "user_id": {
+        "type": "string",
+        "title": "User Id",
+        "example": "60b137080000000001000301",
+        "description": "Blogger user ID, obtainable from blogger list results or PGY blogger page URL"
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.03
+  },
+  "examples": [
+    {
+      "input": {
+        "user_id": "60b137080000000001000301"
+      },
+      "default": true
+    }
+  ],
+  "readme": "# Xiaohongshu (RED) PGY Blogger Details API\n\nRetrieve detailed profile information for a PGY blogger on Xiaohongshu (RED). Supply the target creator's identifier via `user_id` to query their profile data.\n\n## Use cases\n\n- Inspect creator profiles on the PGY platform.\n- Evaluate potential influencer partnerships.\n- Analyze blogger metrics for campaign selection.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/xiaohongshu/pgy/blogger-detail\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"user_id\": \"60b137080000000001000301\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `user_id` | string | Yes | Blogger user ID, obtainable from blogger list results or PGY blogger page URL |\n\n## Notes\n\n- `user_id` is obtainable from blogger list results or the PGY blogger page URL.\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [Xiaohongshu (RED) Blogger Core Data](/model/xiaohongshu/pgy/blogger-core-data): Returns Pugongying core performance metrics and daily trend data for a specified Xiaohongshu blogger, filterable by date range, note type, and traffic source.\n- [Xiaohongshu (RED) PGY Blogger Data Summary](/model/xiaohongshu/pgy/blogger-data-summary): Returns an account-level data summary for a Xiaohongshu blogger on the Pugongying (PGY) platform based on the specified blogger user ID.\n- [Xiaohongshu (RED) PGY Blogger Fan History](/model/xiaohongshu/pgy/blogger-fans-history): Returns historical follower growth counts for a Xiaohongshu Pugongying blogger over time based on user ID and a selected date range.\n",
+  "page_url": "https://www.sandbase.ai/model/xiaohongshu/pgy/blogger-detail",
+  "created_at": "2026-07-31T02:47:27.211Z"
+}

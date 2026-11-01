@@ -1,0 +1,47 @@
+{
+  "name": "google/gemini-3.1-flash-image",
+  "display_name": "Google: Nano Banana 2 (Gemini 3.1 Flash Image)",
+  "type": "llm",
+  "vendor": "Google",
+  "vendor_slug": "google",
+  "description": "Nano Banana 2 (Gemini 3.1 Flash Image) is Google's image generation and conversational image editing model in the Gemini 3 series, producing images alongside text from text, image, video and PDF input. Google positions it as the high-efficiency, low-latency counterpart to Nano Banana Pro for high-volume developer use, adding output resolutions from 0.5K to 4K, extra wide and tall aspect ratios, image search grounding and improved multilingual text rendering. Choose Nano Banana Pro for complex, precision design work.",
+  "tags": [
+    "chat",
+    "vision",
+    "reasoning",
+    "image_output"
+  ],
+  "capabilities": [
+    "chat",
+    "vision",
+    "reasoning",
+    "image_output"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "chat_completions": "POST /v1/chat/completions",
+    "responses": "POST /v1/responses",
+    "messages": "POST /v1/messages"
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_token",
+    "per_million_tokens": {
+      "input": 0.5,
+      "output": 3
+    },
+    "formula": "usage.prompt_tokens * 0.5 / 1000000 + (usage.completion_tokens - (usage.output_image_tokens ?? 0)) * 3 / 1000000 + (usage.output_image_tokens ?? 0) * 60 / 1000000",
+    "formula_variables": [
+      "usage.completion_tokens",
+      "usage.output_image_tokens",
+      "usage.prompt_tokens"
+    ]
+  },
+  "cover_url": "https://static.sandbase.ai/covers/google/gemini-3.1-flash-image/cover-flare-20261005090330.webp",
+  "page_url": "https://www.sandbase.ai/model/google/gemini-3.1-flash-image",
+  "published_at": "2026-06-18T03:41:05Z",
+  "created_at": "2026-06-24T01:28:26.539Z"
+}

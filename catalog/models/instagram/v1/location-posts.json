@@ -1,0 +1,74 @@
+{
+  "name": "instagram/v1/location-posts",
+  "display_name": "Instagram Location Posts (V1)",
+  "type": "api",
+  "vendor": "Instagram",
+  "vendor_slug": "instagram",
+  "description": "Returns posts tagged at a designated location. Supports sorting by top or latest posts alongside cursor-based pagination.",
+  "tags": [
+    "api",
+    "instagram"
+  ],
+  "capabilities": [
+    "api",
+    "instagram"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/instagram/v1/location-posts"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "location_id"
+    ],
+    "properties": {
+      "tab": {
+        "type": "string",
+        "title": "Tab",
+        "default": "ranked",
+        "description": "Sorting method, ranked(top)/recent(latest)"
+      },
+      "end_cursor": {
+        "type": "string",
+        "title": "End Cursor",
+        "description": "Pagination cursor, omit for first request"
+      },
+      "location_id": {
+        "type": "string",
+        "title": "Location Id",
+        "example": "703457703",
+        "description": "Location ID"
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.0015,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "examples": [
+    {
+      "input": {
+        "location_id": "703457703"
+      },
+      "default": true
+    }
+  ],
+  "readme": "# Instagram Location Posts (V1) API\n\nFetch media items tagged at a specific place using `location_id`. You can also configure the sort order using `tab`.\n\n## Use cases\n\n- Discover trending posts associated with a specific venue or city.\n- Monitor recent user content tagged at a retail storefront.\n- Analyze location-tagged media feeds for regional social research.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/instagram/v1/location-posts\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"location_id\": \"703457703\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `location_id` | string | Yes | Location ID |\n| `tab` | string | No | Sorting method, ranked(top)/recent(latest) |\n| `end_cursor` | string | No | Pagination cursor, omit for first request |\n\n## Example response\n\nReal response for the request above, trimmed to the main fields. User names and long IDs are masked.\n\n```json\n{\n  \"edges\": [\n    {\n      \"node\": {\n        \"carousel_media\": [\n          {\n            \"carousel_parent_id\": \"3956906345903348188_6169608598\",\n            \"id\": \"3956905332562451903_6169608598\",\n            \"media_type\": 1,\n            \"user\": {\n              \"id\": \"6169608598\"\n            }\n          }\n        ]\n      }\n    }\n  ]\n}\n```\n\n## Notes\n\n- `location_id` is required to identify the target place.\n- `tab` supports \"ranked\" for top posts and \"recent\" for latest posts.\n- `end_cursor` provides pagination; omit it on the initial request.\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [Instagram Cities by Country](/model/instagram/v1/cities): Returns a list of Instagram cities and regions for a specified country code.\n- [Instagram Hashtag Posts (V1)](/model/instagram/v1/hashtag-posts): Returns public Instagram posts associated with a specific hashtag.\n- [Instagram Location Details (V1)](/model/instagram/v1/location-info): Returns detailed metadata and profile information for a specified Instagram location using its unique identifier.\n",
+  "page_url": "https://www.sandbase.ai/model/instagram/v1/location-posts",
+  "created_at": "2026-07-31T03:54:51.795Z"
+}

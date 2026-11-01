@@ -1,0 +1,67 @@
+{
+  "name": "wellfound/company-jobs",
+  "display_name": "Wellfound Company Jobs",
+  "type": "api",
+  "vendor": "Wellfound",
+  "vendor_slug": "wellfound",
+  "description": "List all open job positions at a specific company. Returns job listings with title, compensation, location, and job type.",
+  "tags": [
+    "api",
+    "wellfound",
+    "company-people"
+  ],
+  "capabilities": [
+    "api",
+    "wellfound",
+    "company-people"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}",
+    "passthrough": "POST /v1/api/wellfound/company-jobs"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "company_slug"
+    ],
+    "properties": {
+      "company_slug": {
+        "type": "string",
+        "example": "stripe",
+        "description": "Company slug (e.g., 'mixpanel', 'juniper-square')"
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "required": [
+      "id",
+      "status",
+      "model"
+    ],
+    "properties": {
+      "id": {
+        "type": "string"
+      },
+      "model": {
+        "type": "string"
+      },
+      "status": {
+        "type": "string"
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.02
+  },
+  "readme": "# Wellfound Company Jobs\n\nList all open job positions at a specific company. Returns job listings with title, compensation, location, and job type.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/wellfound/company-jobs\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"company_slug\": \"stripe\"}'\n```\n\nThis API runs asynchronously. The call returns a task `id` with status `pending`; poll `GET https://api.sandbase.ai/v1/run/{id}` until `status` is `completed` and read the result from `outputs[0].data`.\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `company_slug` | string | Yes | Company slug (e.g., 'mixpanel', 'juniper-square') |\n\n## Pricing\n\nFlat price per call. Failed calls are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/wellfound/company-jobs",
+  "created_at": "2026-10-30T08:37:09.817Z"
+}

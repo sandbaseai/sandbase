@@ -1,0 +1,70 @@
+{
+  "name": "bilibili/web/user-dynamic",
+  "display_name": "Bilibili User Dynamics",
+  "type": "api",
+  "vendor": "Bilibili",
+  "vendor_slug": "bilibili",
+  "description": "Retrieves dynamic feed posts and timeline updates for a specified Bilibili user by UID, with optional offset-based pagination.",
+  "tags": [
+    "api",
+    "bilibili"
+  ],
+  "capabilities": [
+    "api",
+    "bilibili"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/bilibili/web/user-dynamic"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "uid"
+    ],
+    "properties": {
+      "uid": {
+        "type": "string",
+        "title": "Uid",
+        "example": "178360345",
+        "description": "User UID"
+      },
+      "offset": {
+        "type": "string",
+        "title": "Offset",
+        "default": "",
+        "example": "",
+        "description": "offset"
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.0015,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "examples": [
+    {
+      "input": {
+        "offset": "",
+        "uid": "178360345"
+      }
+    }
+  ],
+  "readme": "# Bilibili User Dynamics API\n\nAccesses dynamic timeline posts for a designated Bilibili account using `uid`. Supports navigating dynamic feed histories via the `offset` parameter.\n\n## Use cases\n\n- Monitor recent community posts from a specific content creator.\n- Track timeline activity and status updates on Bilibili.\n- Extract post history across paginated user feeds.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/bilibili/web/user-dynamic\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"uid\": \"178360345\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `uid` | string | Yes | User UID |\n| `offset` | string | No | offset |\n\n## Notes\n\n- Specify the target account using `uid`.\n- Pass `offset` to retrieve subsequent pages of dynamic posts.\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [Bilibili Streaming Areas](/model/bilibili/web/all-live-areas): Returns the complete list of streaming broadcast areas and categories on Bilibili.\n- [Bilibili BV to AID Converter](/model/bilibili/web/bv-to-aid): Converts a Bilibili BV identifier to its corresponding numeric AID value.\n- [Bilibili User Collection Folders](/model/bilibili/web/collect-folders): Returns the collection folders owned by a specific Bilibili user.\n",
+  "page_url": "https://www.sandbase.ai/model/bilibili/web/user-dynamic",
+  "created_at": "2026-07-31T03:54:02.78Z"
+}

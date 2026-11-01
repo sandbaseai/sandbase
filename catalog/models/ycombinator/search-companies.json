@@ -1,0 +1,96 @@
+{
+  "name": "ycombinator/search-companies",
+  "display_name": "Y Combinator Search Companies",
+  "type": "api",
+  "vendor": "Y Combinator",
+  "vendor_slug": "ycombinator",
+  "description": "Search and filter the YC company directory via Algolia. Returns paginated results with company metadata including name, batch, industry, team size, and hiring status.",
+  "tags": [
+    "api",
+    "ycombinator",
+    "company-people"
+  ],
+  "capabilities": [
+    "api",
+    "ycombinator",
+    "company-people"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}",
+    "passthrough": "POST /v1/api/ycombinator/search-companies"
+  },
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "page": {
+        "type": "integer",
+        "maximum": 9007199254740991,
+        "minimum": -9007199254740991,
+        "description": "Page number (0-indexed)."
+      },
+      "batch": {
+        "type": "string",
+        "description": "Filter by YC batch name (e.g. 'Winter 2024', 'Summer 2023')."
+      },
+      "limit": {
+        "type": "integer",
+        "maximum": 9007199254740991,
+        "minimum": -9007199254740991,
+        "description": "Number of results per page."
+      },
+      "query": {
+        "type": "string",
+        "description": "Search keyword to match against company name, description, and tags."
+      },
+      "industry": {
+        "type": "string",
+        "description": "Filter by industry (e.g. 'Fintech', 'B2B', 'Healthcare')."
+      },
+      "is_hiring": {
+        "type": "string",
+        "description": "Filter by hiring status. Accepts 'true' or 'false'."
+      },
+      "top_company": {
+        "type": "string",
+        "description": "Filter for YC top companies. Accepts 'true' or 'false'."
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "required": [
+      "id",
+      "status",
+      "model"
+    ],
+    "properties": {
+      "id": {
+        "type": "string"
+      },
+      "model": {
+        "type": "string"
+      },
+      "status": {
+        "type": "string"
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.01,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "readme": "# Y Combinator Search Companies\n\nSearch and filter the YC company directory via Algolia. Returns paginated results with company metadata including name, batch, industry, team size, and hiring status.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/ycombinator/search-companies\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{}'\n```\n\nThis API runs asynchronously. The call returns a task `id` with status `pending`; poll `GET https://api.sandbase.ai/v1/run/{id}` until `status` is `completed` and read the result from `outputs[0].data`.\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `batch` | string | No | Filter by YC batch name (e.g. 'Winter 2024', 'Summer 2023'). |\n| `industry` | string | No | Filter by industry (e.g. 'Fintech', 'B2B', 'Healthcare'). |\n| `is_hiring` | string | No | Filter by hiring status. Accepts 'true' or 'false'. |\n| `limit` | integer | No | Number of results per page. |\n| `page` | integer | No | Page number (0-indexed). |\n| `query` | string | No | Search keyword to match against company name, description, and tags. |\n| `top_company` | string | No | Filter for YC top companies. Accepts 'true' or 'false'. |\n\n## Pricing\n\nFlat price per call. Failed calls are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/ycombinator/search-companies",
+  "created_at": "2026-10-30T08:43:43.105Z"
+}

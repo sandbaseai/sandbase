@@ -1,0 +1,66 @@
+{
+  "name": "tiktok/web/home-feed",
+  "display_name": "TikTok Web Home Feed",
+  "type": "api",
+  "vendor": "TikTok",
+  "vendor_slug": "tiktok",
+  "description": "Returns recommended video items and metadata from the TikTok web home feed. Supports filtering by target region code and page item count.",
+  "tags": [
+    "api",
+    "tiktok"
+  ],
+  "capabilities": [
+    "api",
+    "tiktok"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/tiktok/web/home-feed"
+  },
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "count": {
+        "type": "integer",
+        "title": "Count",
+        "default": 15,
+        "example": 1,
+        "description": "Number per page"
+      },
+      "region": {
+        "type": "string",
+        "title": "Region",
+        "default": "US",
+        "example": "US",
+        "description": "Region code, optional parameter, affects the region of recommended content, e.g. US/GB/JP/KR/SG, default US."
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.0015,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "examples": [
+    {
+      "input": {},
+      "default": true
+    }
+  ],
+  "readme": "# TikTok Web Home Feed API\n\nCall this endpoint to retrieve recommended feed posts from TikTok web using optional `region` and `count` parameters.\n\n## Use cases\n\n- Inspect trending and recommended video posts across specific regions.\n- Track engagement metrics such as play, digg, and share counts for top feed videos.\n- Analyze author statistics and associated background audio details.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/tiktok/web/home-feed\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `count` | integer | No | Number per page |\n| `region` | string | No | Region code, optional parameter, affects the region of recommended content, e.g. |\n\n## Example response\n\nReal response for the request above, trimmed to the main fields. User names and long IDs are masked.\n\n```json\n{\n  \"itemList\": [\n    {\n      \"CategoryType\": 111,\n      \"createTime\": 1790911701,\n      \"desc\": \"Cooking stir fried crab and eat recipe\",\n      \"id\": \"7691907160216734994\",\n      \"itemCommentStatus\": 0,\n      \"textLanguage\": \"en\",\n      \"textTranslatable\": true,\n      \"author\": {\n        \"id\": \"7607710948674159632\",\n        \"nickname\": \"<user>\",\n        \"privateAccount\": false,\n        \"verified\": false\n      },\n      \"authorStats\": {\n        \"diggCount\": 0,\n        \"followerCount\": 101900,\n        \"followingCount\": 0,\n        \"friendCount\": 0,\n        \"heartCount\": 2000000,\n        \"videoCount\": 76\n      },\n      \"authorStatsV2\": {\n        \"diggCount\": \"0\",\n        \"followerCount\": \"101900\",\n        \"followingCount\": \"0\",\n        \"friendCount\": \"0\",\n        \"heartCount\": \"2000000\",\n        \"videoCount\": \"76\"\n      },\n      \"contentContext\": {\n        \"status_tag\": \"{\\\"traffic_structure_info\\\":\\\"{\\\\\\\"slate_group_type\\\\\\\":\\\\\\\"0\\\\\\\"}\\\"}\"\n      },\n      \"music\": {\n        \"authorName\": \"Cooking Vibe\",\n        \"duration\": 400,\n        \"id\": \"7691907345098853141\",\n        \"shoot_duration\": 400,\n        \"title\": \"original sound - Cooking Vibe\"\n      },\n      \"penaltyContext\": {\n        \"arb_content_safety_status\": 102,\n        \"display_penalty_type\": 0,\n        \"display_ui_type\": 0,\n        \"status\": 102,\n        \"tns_status\": 102,\n        \"video_status\": 10\n      },\n      \"stats\": {\n        \"collectCount\": 73100,\n        \"commentCount\": 14200,\n        \"diggCount\": 1400000,\n        \"playCount\": 28600000,\n        \"shareCount\": 95700\n      }\n    }\n  ]\n}\n```\n\n## Notes\n\n- The `region` parameter accepts country codes such as US, GB, JP, KR, or SG, defaulting to US.\n- The `count` parameter specifies the number of items returned per page.\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [TikTok Video IDs from URLs (Batch)](/model/tiktok/web/all-aweme-id): Resolves and extracts TikTok video IDs from a list of video URLs.\n- [TikTok User Sec User ID Extractor](/model/tiktok/web/all-sec-user-id): Returns a list of sec_user_id identifiers corresponding to TikTok user profile URLs.\n- [TikTok Profile Unique IDs](/model/tiktok/web/all-unique-id): Resolves a batch of TikTok user homepage links to retrieve their corresponding unique identifiers.\n",
+  "page_url": "https://www.sandbase.ai/model/tiktok/web/home-feed",
+  "created_at": "2026-07-31T04:17:10.022Z"
+}

@@ -1,0 +1,181 @@
+{
+  "name": "coingecko/coins-markets",
+  "display_name": "CoinGecko Coins List with Market Data",
+  "type": "api",
+  "vendor": "CoinGecko",
+  "vendor_slug": "coingecko",
+  "description": "Get all the supported coins with price, market cap, volume and market related data",
+  "tags": [
+    "api",
+    "coingecko",
+    "crypto"
+  ],
+  "capabilities": [
+    "api",
+    "coingecko",
+    "crypto"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/coingecko/coins-markets"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "vs_currency"
+    ],
+    "properties": {
+      "ids": {
+        "type": "string",
+        "default": "bitcoin",
+        "description": "Coins' IDs, comma-separated if querying more than 1 coin. *refers to [`/coins/list`](/reference/coins-list)"
+      },
+      "page": {
+        "type": "integer",
+        "description": "Page through results. Default: 1"
+      },
+      "names": {
+        "type": "string",
+        "default": "Bitcoin",
+        "description": "Coins' names, comma-separated if querying more than 1 coin."
+      },
+      "order": {
+        "enum": [
+          "market_cap_asc",
+          "market_cap_desc",
+          "volume_asc",
+          "volume_desc",
+          "id_asc",
+          "id_desc"
+        ],
+        "type": "string",
+        "description": "Sort result by field. Default: market_cap_desc"
+      },
+      "locale": {
+        "enum": [
+          "ar",
+          "bg",
+          "cs",
+          "da",
+          "de",
+          "el",
+          "en",
+          "es",
+          "fi",
+          "fr",
+          "he",
+          "hi",
+          "hr",
+          "hu",
+          "id",
+          "it",
+          "ja",
+          "ko",
+          "lt",
+          "nl",
+          "no",
+          "pl",
+          "pt",
+          "ro",
+          "ru",
+          "sk",
+          "sl",
+          "sv",
+          "th",
+          "tr",
+          "uk",
+          "vi",
+          "zh",
+          "zh-tw"
+        ],
+        "type": "string",
+        "description": "Language background. Default: en"
+      },
+      "symbols": {
+        "type": "string",
+        "default": "btc",
+        "description": "Coins' symbols, comma-separated if querying more than 1 coin."
+      },
+      "category": {
+        "type": "string",
+        "description": "Filter based on coins' category. *refers to [`/coins/categories/list`](/reference/coins-categories-list)"
+      },
+      "per_page": {
+        "type": "integer",
+        "description": "Total results per page. Default: 100 Valid values: 1...250"
+      },
+      "precision": {
+        "enum": [
+          "full",
+          "0",
+          "1",
+          "2",
+          "3",
+          "4",
+          "5",
+          "6",
+          "7",
+          "8",
+          "9",
+          "10",
+          "11",
+          "12",
+          "13",
+          "14",
+          "15",
+          "16",
+          "17",
+          "18"
+        ],
+        "type": "string",
+        "description": "Decimal places for currency price value"
+      },
+      "sparkline": {
+        "type": "boolean",
+        "description": "Include sparkline 7-day data. Default: false"
+      },
+      "vs_currency": {
+        "type": "string",
+        "default": "usd",
+        "description": "Target currency of coins and market data. *refers to [`/simple/supported_vs_currencies`](/reference/simple-supported-currencies)"
+      },
+      "include_tokens": {
+        "enum": [
+          "top",
+          "all"
+        ],
+        "type": "string",
+        "description": "For `symbols` lookups, specify `all` to include all matching tokens. Default `top` returns top-ranked tokens by market cap or volume."
+      },
+      "include_rehypothecated": {
+        "type": "boolean",
+        "description": "Include rehypothecated tokens in results. When true, returns `market_cap_rank_with_rehypothecated` field. Default: false"
+      },
+      "price_change_percentage": {
+        "type": "string",
+        "description": "Include price change percentage timeframe, comma-separated if querying more than 1 timeframe. Valid values: `1h`, `24h`, `7d`, `14d`, `30d`, `200d`, `1y`"
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.008,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "readme": "# CoinGecko Coins List with Market Data API\n\nGet all the supported coins with price, market cap, volume and market related data\n\nThe response is the official CoinGecko API response, unchanged.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/coingecko/coins-markets\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"vs_currency\": \"usd\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `category` | string | No | Filter based on coins' category. *refers to [`/coins/categories/list`](/reference/coins-categories-list) |\n| `ids` | string | No | Coins' IDs, comma-separated if querying more than 1 coin. *refers to [`/coins/list`](/reference/coins-list) |\n| `include_rehypothecated` | boolean | No | Include rehypothecated tokens in results. When true, returns `market_cap_rank_with_rehypothecated` field. Default: false |\n| `include_tokens` | string | No | For `symbols` lookups, specify `all` to include all matching tokens. Default `top` returns top-ranked tokens by market cap or volume. |\n| `locale` | string | No | Language background. Default: en |\n| `names` | string | No | Coins' names, comma-separated if querying more than 1 coin. |\n| `order` | string | No | Sort result by field. Default: market_cap_desc |\n| `page` | integer | No | Page through results. Default: 1 |\n| `per_page` | integer | No | Total results per page. Default: 100 Valid values: 1...250 |\n| `precision` | string | No | Decimal places for currency price value |\n| `price_change_percentage` | string | No | Include price change percentage timeframe, comma-separated if querying more than 1 timeframe. Valid values: `1h`, `24h`, `7d`, `14d`, `30d`, `200d`, `1y` |\n| `sparkline` | boolean | No | Include sparkline 7-day data. Default: false |\n| `symbols` | string | No | Coins' symbols, comma-separated if querying more than 1 coin. |\n| `vs_currency` | string | Yes | Target currency of coins and market data. *refers to [`/simple/supported_vs_currencies`](/reference/simple-supported-currencies) |\n\n## Pricing\n\nFlat price per call. Failed calls are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/coingecko/coins-markets",
+  "created_at": "2026-10-30T03:11:15.064Z"
+}

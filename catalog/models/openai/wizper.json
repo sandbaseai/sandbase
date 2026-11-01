@@ -1,0 +1,238 @@
+{
+  "name": "openai/wizper",
+  "display_name": "Wizper (Whisper v3)",
+  "type": "audio",
+  "vendor": "OpenAI",
+  "vendor_slug": "openai",
+  "description": "Wizper is a fast Whisper v3 speech-to-text model. It transcribes audio or video in about 100 languages, or translates the speech into English, with segment-level timestamps.",
+  "tags": [
+    "speech-to-text"
+  ],
+  "capabilities": [
+    "speech-to-text"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}"
+  },
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "task": {
+        "enum": [
+          "transcribe",
+          "translate"
+        ],
+        "type": "string",
+        "title": "Task",
+        "default": "transcribe",
+        "description": "Task to perform on the audio file. Either transcribe or translate."
+      },
+      "audio": {
+        "type": "string",
+        "title": "Audio Url",
+        "examples": [
+          "https://static.sandbase.ai/examples/elevenlabs/scribe-v2/input_audio_0.mp3"
+        ],
+        "description": "URL of the audio file to transcribe. Supported formats: mp3, mp4, mpeg, mpga, m4a, wav or webm."
+      },
+      "version": {
+        "type": "string",
+        "title": "Version",
+        "default": "3",
+        "description": "Version of the model to use. All of the models are the Whisper large variant."
+      },
+      "language": {
+        "enum": [
+          "af",
+          "am",
+          "ar",
+          "as",
+          "az",
+          "ba",
+          "be",
+          "bg",
+          "bn",
+          "bo",
+          "br",
+          "bs",
+          "ca",
+          "cs",
+          "cy",
+          "da",
+          "de",
+          "el",
+          "en",
+          "es",
+          "et",
+          "eu",
+          "fa",
+          "fi",
+          "fo",
+          "fr",
+          "gl",
+          "gu",
+          "ha",
+          "haw",
+          "he",
+          "hi",
+          "hr",
+          "ht",
+          "hu",
+          "hy",
+          "id",
+          "is",
+          "it",
+          "ja",
+          "jw",
+          "ka",
+          "kk",
+          "km",
+          "kn",
+          "ko",
+          "la",
+          "lb",
+          "ln",
+          "lo",
+          "lt",
+          "lv",
+          "mg",
+          "mi",
+          "mk",
+          "ml",
+          "mn",
+          "mr",
+          "ms",
+          "mt",
+          "my",
+          "ne",
+          "nl",
+          "nn",
+          "no",
+          "oc",
+          "pa",
+          "pl",
+          "ps",
+          "pt",
+          "ro",
+          "ru",
+          "sa",
+          "sd",
+          "si",
+          "sk",
+          "sl",
+          "sn",
+          "so",
+          "sq",
+          "sr",
+          "su",
+          "sv",
+          "sw",
+          "ta",
+          "te",
+          "tg",
+          "th",
+          "tk",
+          "tl",
+          "tr",
+          "tt",
+          "uk",
+          "ur",
+          "uz",
+          "vi",
+          "yi",
+          "yo",
+          "zh"
+        ],
+        "type": "string",
+        "title": "Language",
+        "default": "en",
+        "description": "\n        Language of the audio file.\n        If translate is selected as the task, the audio will be translated to\n        English, regardless of the language selected. If `None` is passed,\n        the language will be automatically detected. This will also increase\n        the inference time.\n        "
+      },
+      "chunk_level": {
+        "type": "string",
+        "title": "Chunk Level",
+        "default": "segment",
+        "description": "Level of the chunks to return."
+      },
+      "merge_chunks": {
+        "type": "boolean",
+        "title": "Merge Chunks",
+        "default": true,
+        "description": "Whether to merge consecutive chunks. When enabled, chunks are merged if their combined duration does not exceed max_segment_len."
+      },
+      "max_segment_len": {
+        "type": "integer",
+        "title": "Max Segment Len",
+        "default": 29,
+        "maximum": 29,
+        "minimum": 10,
+        "description": "Maximum speech segment duration in seconds before splitting."
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "title": "GenerationResponse",
+    "required": [
+      "id",
+      "status"
+    ],
+    "properties": {
+      "id": {
+        "type": "string",
+        "description": "Unique identifier for the generation task."
+      },
+      "error": {
+        "type": "string",
+        "description": "Error message if the task failed. Empty on success."
+      },
+      "model": {
+        "type": "string",
+        "description": "Model ID used for the prediction."
+      },
+      "status": {
+        "enum": [
+          "pending",
+          "running",
+          "completed",
+          "failed",
+          "timeout"
+        ],
+        "type": "string",
+        "description": "Status of the task: pending, running, completed, failed, or timeout."
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "title": "OutputItem",
+          "required": [
+            "text"
+          ],
+          "properties": {
+            "text": {
+              "type": "string",
+              "description": "Transcription text of the audio."
+            }
+          }
+        },
+        "description": "Array of generated content. Empty when status is not completed."
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.006
+  },
+  "readme": "# Wizper (Whisper v3)\n\nWizper is a fast Whisper v3 speech-to-text model: transcribe audio in about 100 languages, or translate it to English.\n\n## Fields\n\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `audio` | audio URL | — | Audio or video URL to transcribe. |\n| `task` | `transcribe` / `translate` | `transcribe` | `transcribe` keeps the source language; `translate` outputs English. |\n| `chunk_level` | string | `segment` | Timestamp granularity. |\n| `max_segment_len` | integer 10–29 | 29 | Maximum segment length in seconds. |\n| `language` | `af` / `am` / `ar` / `as` / `az` / `ba` / `be` / `bg` / `bn` / `bo` / `br` / `bs` / `ca` / `cs` / `cy` / `da` / `de` / `el` / `en` / `es` / `et` / `eu` / `fa` / `fi` / `fo` / `fr` / `gl` / `gu` / `ha` / `haw` / `he` / `hi` / `hr` / `ht` / `hu` / `hy` / `id` / `is` / `it` / `ja` / `jw` / `ka` / `kk` / `km` / `kn` / `ko` / `la` / `lb` / `ln` / `lo` / `lt` / `lv` / `mg` / `mi` / `mk` / `ml` / `mn` / `mr` / `ms` / `mt` / `my` / `ne` / `nl` / `nn` / `no` / `oc` / `pa` / `pl` / `ps` / `pt` / `ro` / `ru` / `sa` / `sd` / `si` / `sk` / `sl` / `sn` / `so` / `sq` / `sr` / `su` / `sv` / `sw` / `ta` / `te` / `tg` / `th` / `tk` / `tl` / `tr` / `tt` / `uk` / `ur` / `uz` / `vi` / `yi` / `yo` / `zh` | `en` | Source language code. |\n| `version` | string | `3` | Version of the model to use. |\n| `merge_chunks` | boolean | true | Merge short segments. |\n\n## Billing\n\n$0.006 per request, whatever the audio length.\n\n| Request | Price |\n|---|---|\n| One file | $0.006 |\n\nFailed runs are not charged.\n\n## Limits\n\n- One audio file per request.\n",
+  "cover_url": "https://static.sandbase.ai/covers/openai/wizper/cover-flare-20261008040603.webp",
+  "page_url": "https://www.sandbase.ai/model/openai/wizper",
+  "published_at": "2024-04-08T00:00:00Z",
+  "created_at": "2026-05-17T02:00:29.615Z"
+}

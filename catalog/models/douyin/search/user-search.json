@@ -1,0 +1,97 @@
+{
+  "name": "douyin/search/user-search",
+  "display_name": "Douyin User Search (Search)",
+  "type": "api",
+  "vendor": "Douyin",
+  "vendor_slug": "douyin",
+  "description": "Returns a list of Douyin users matching search keywords. Supports filtering by fan count and user type with cursor-based pagination.",
+  "tags": [
+    "api",
+    "douyin"
+  ],
+  "capabilities": [
+    "api",
+    "douyin"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/douyin/search/user-search"
+  },
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "cursor": {
+        "type": "integer",
+        "title": "Cursor",
+        "default": 0,
+        "description": "Pagination cursor (0 for first page)"
+      },
+      "keyword": {
+        "type": "string",
+        "title": "Keyword",
+        "default": "猫咪",
+        "example": "OpenAI",
+        "description": "Search keyword, e.g., \"AI\""
+      },
+      "search_id": {
+        "type": "string",
+        "title": "Search Id",
+        "default": "",
+        "description": "Search session ID for pagination"
+      },
+      "douyin_user_fans": {
+        "type": "string",
+        "title": "Douyin User Fans",
+        "default": "",
+        "description": "Fan count filter"
+      },
+      "douyin_user_type": {
+        "type": "string",
+        "title": "Douyin User Type",
+        "default": "",
+        "description": "User type filter"
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.015,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "examples": [
+    {
+      "input": {
+        "cursor": 0,
+        "douyin_user_fans": "",
+        "douyin_user_type": "",
+        "keyword": "猫咪",
+        "search_id": ""
+      }
+    },
+    {
+      "input": {
+        "cursor": 0,
+        "douyin_user_fans": "",
+        "douyin_user_type": "",
+        "keyword": "猫咪",
+        "search_id": ""
+      }
+    }
+  ],
+  "readme": "# Douyin User Search (Search) API\n\nSearch for Douyin accounts by entering a query term in `keyword`. Results can be refined using `douyin_user_fans` and `douyin_user_type`.\n\n## Use cases\n\n- Discover Douyin creators by niche keywords.\n- Filter account search results by fan count brackets.\n- Identify verified or specific categories of Douyin users.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/douyin/search/user-search\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `cursor` | integer | No | Pagination cursor (0 for first page) |\n| `keyword` | string | No | Search keyword, e.g., \"AI\" |\n| `search_id` | string | No | Search session ID for pagination |\n| `douyin_user_fans` | string | No | Fan count filter |\n| `douyin_user_type` | string | No | User type filter |\n\n## Example response\n\nReal response for the request above, trimmed to the main fields. User names and long IDs are masked.\n\n```json\n{\n  \"user_list\": [\n    {\n      \"dynamic_patch\": {\n        \"origin_type\": 4\n      }\n    }\n  ]\n}\n```\n\n## Notes\n\n- Use `cursor` starting at 0 for the first page of results.\n- Pass `search_id` to maintain the search session across paginated requests.\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [Douyin Challenge Search](/model/douyin/search/challenge-search-v1): Returns Douyin challenge and hashtag search results matching a query.\n- [Douyin Hashtag Challenge Search (V2)](/model/douyin/search/challenge-search-v2): Returns Douyin hashtag and challenge search results matching a query keyword.\n- [Douyin Hashtag Suggestions](/model/douyin/search/challenge-suggest): Returns a list of suggested Douyin hashtags and challenges matching a query keyword, including challenge IDs and view counts.\n",
+  "page_url": "https://www.sandbase.ai/model/douyin/search/user-search",
+  "created_at": "2026-07-31T02:39:10.827Z"
+}

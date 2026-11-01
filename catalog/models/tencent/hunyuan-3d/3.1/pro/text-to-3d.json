@@ -1,0 +1,198 @@
+{
+  "name": "tencent/hunyuan-3d/3.1/pro/text-to-3d",
+  "display_name": "Hunyuan 3D 3.1 Pro Text to 3D",
+  "type": "image",
+  "vendor": "Tencent",
+  "vendor_slug": "tencent",
+  "description": "Hunyuan 3d 3.1 Pro is Tencent's text-to-3D AI model. Turn written descriptions into textured 3D objects with realistic geometry and materials.",
+  "tags": [
+    "text-to-3d"
+  ],
+  "capabilities": [
+    "text-to-3d"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "prompt"
+    ],
+    "properties": {
+      "prompt": {
+        "type": "string",
+        "title": "Prompt",
+        "examples": [
+          "A super cool space ship with details"
+        ],
+        "maxLength": 1024,
+        "description": "Text description of the 3D content to generate. Max 1024 UTF-8 characters."
+      },
+      "enable_pbr": {
+        "type": "boolean",
+        "title": "Enable PBR",
+        "default": false,
+        "description": "Generate PBR materials (metallic, roughness, normal). Ignored for Geometry output."
+      },
+      "face_count": {
+        "type": "integer",
+        "title": "Face Count",
+        "maximum": 1500000,
+        "minimum": 40000,
+        "description": "Target polygon face count (custom face count is billed as an add-on)."
+      },
+      "generate_type": {
+        "enum": [
+          "Normal",
+          "Geometry"
+        ],
+        "type": "string",
+        "title": "Generate Type",
+        "default": "Normal",
+        "description": "Normal: textured model. Geometry: geometry-only white model."
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "title": "GenerationResponse",
+    "required": [
+      "id",
+      "status"
+    ],
+    "properties": {
+      "id": {
+        "type": "string",
+        "description": "Unique identifier for the generation task."
+      },
+      "error": {
+        "type": "string",
+        "description": "Error message if the task failed. Empty on success."
+      },
+      "model": {
+        "type": "string",
+        "description": "Model ID used for the prediction."
+      },
+      "status": {
+        "enum": [
+          "pending",
+          "running",
+          "completed",
+          "failed",
+          "timeout"
+        ],
+        "type": "string",
+        "description": "Status of the task: pending, running, completed, failed, or timeout."
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "title": "OutputItem",
+          "required": [
+            "url"
+          ],
+          "properties": {
+            "url": {
+              "type": "string",
+              "description": "The URL where the generated content can be downloaded from."
+            },
+            "content_type": {
+              "type": "string",
+              "description": "The MIME type of the output file."
+            }
+          }
+        },
+        "description": "Array of generated content. Empty when status is not completed."
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "formula",
+    "formula": "0.375 + ((params.enable_pbr ?? false) && (params.generate_type ?? \"Normal\") != \"Geometry\" ? 0.15 : 0.0) + ((params.face_count ?? 0) > 0 ? 0.15 : 0.0)",
+    "formula_variables": [
+      "params.enable_pbr",
+      "params.face_count",
+      "params.generate_type"
+    ],
+    "reference_price": 0.375,
+    "price_examples": [
+      {
+        "params": {
+          "enable_pbr": false,
+          "face_count": 40000,
+          "generate_type": "Normal"
+        },
+        "usd": 0.525
+      },
+      {
+        "params": {
+          "enable_pbr": false,
+          "face_count": 40000,
+          "generate_type": "Geometry"
+        },
+        "usd": 0.525
+      },
+      {
+        "params": {
+          "enable_pbr": false,
+          "face_count": 1500000,
+          "generate_type": "Normal"
+        },
+        "usd": 0.525
+      },
+      {
+        "params": {
+          "enable_pbr": false,
+          "face_count": 1500000,
+          "generate_type": "Geometry"
+        },
+        "usd": 0.525
+      },
+      {
+        "params": {
+          "enable_pbr": true,
+          "face_count": 40000,
+          "generate_type": "Normal"
+        },
+        "usd": 0.675
+      },
+      {
+        "params": {
+          "enable_pbr": true,
+          "face_count": 40000,
+          "generate_type": "Geometry"
+        },
+        "usd": 0.525
+      },
+      {
+        "params": {
+          "enable_pbr": true,
+          "face_count": 1500000,
+          "generate_type": "Normal"
+        },
+        "usd": 0.675
+      },
+      {
+        "params": {
+          "enable_pbr": true,
+          "face_count": 1500000,
+          "generate_type": "Geometry"
+        },
+        "usd": 0.525
+      }
+    ]
+  },
+  "readme": "# Hunyuan 3D 3.1 Pro Text to 3D\n\nHunyuan 3D 3.1 Pro turns a text prompt into a high-detail textured or geometry-only 3D model.\n\n## Fields\n\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `prompt` | string, required | — | Up to 1,024 characters. |\n| `enable_pbr` | boolean | false | PBR materials. |\n| `face_count` | integer 40000–1500000 | — | Target face count. |\n| `generate_type` | `Normal` / `Geometry` | `Normal` | `Normal` textured, `LowPoly`, or `Geometry` (untextured). |\n\n## Billing\n\n$0.375 per model; PBR, a custom face count, and extra views each add $0.15.\n\n| Request | Price |\n|---|---|\n| Default | $0.375 |\n| With PBR | $0.525 |\n| With custom face count | $0.525 |\n\nFailed runs are not charged.\n\n## Also on SandBase\n\nOther Hunyuan 3D endpoints: `tencent/hunyuan-3d/3.1/pro/image-to-3d`, `tencent/hunyuan-3d/3.0/image-to-3d`.\n",
+  "cover_url": "https://static.sandbase.ai/covers/tencent/hunyuan-3d/3.1/pro/text-to-3d/cover-flare-20261005043512.webp",
+  "page_url": "https://www.sandbase.ai/model/tencent/hunyuan-3d/3.1/pro/text-to-3d",
+  "published_at": "2026-01-27T22:41:02.852Z",
+  "created_at": "2026-05-15T12:21:11.019Z"
+}

@@ -1,0 +1,44 @@
+{
+  "name": "anthropic/claude-sonnet-4.5",
+  "display_name": "Anthropic: Claude Sonnet 4.5",
+  "type": "llm",
+  "vendor": "Anthropic",
+  "vendor_slug": "anthropic",
+  "description": "Claude Sonnet 4.5 is Anthropic’s most advanced Sonnet model to date, optimized for real-world agents and coding workflows. It delivers state-of-the-art performance on coding benchmarks such as SWE-bench Verified, with improvements across system design, code security, and specification adherence. The model is designed for extended autonomous operation, maintaining task continuity across sessions and providing fact-based progress tracking.\n\nSonnet 4.5 also introduces stronger agentic capabilities, including improved tool orchestration, speculative parallel execution, and more efficient context and memory management. With enhanced context tracking and awareness of token usage across tool calls, it is particularly well-suited for multi-context and long-running workflows. Use cases span software engineering, cybersecurity, financial analysis, research agents, and other domains requiring sustained reasoning and tool use.",
+  "tags": [
+    "chat",
+    "vision",
+    "reasoning",
+    "structured_output",
+    "function_calling"
+  ],
+  "capabilities": [
+    "chat",
+    "vision",
+    "reasoning",
+    "structured_output",
+    "function_calling"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "chat_completions": "POST /v1/chat/completions",
+    "responses": "POST /v1/responses",
+    "messages": "POST /v1/messages"
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_token",
+    "per_million_tokens": {
+      "input": 3,
+      "output": 15,
+      "cache_read_multiplier": 0.1,
+      "cache_write_multiplier": 1.25
+    }
+  },
+  "page_url": "https://www.sandbase.ai/model/anthropic/claude-sonnet-4.5",
+  "published_at": "2025-09-29T16:01:16.552Z",
+  "created_at": "2026-05-08T23:47:04.629Z"
+}

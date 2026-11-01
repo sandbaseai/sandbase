@@ -1,0 +1,99 @@
+{
+  "name": "bing-maps/maps",
+  "display_name": "Bing Maps Maps",
+  "type": "api",
+  "vendor": "Bing Maps",
+  "vendor_slug": "bing-maps",
+  "description": "Search Bing Maps listings around a map center, or look up one entity by id.",
+  "tags": [
+    "api",
+    "bing-maps",
+    "web-scraping"
+  ],
+  "capabilities": [
+    "api",
+    "bing-maps",
+    "web-scraping"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}",
+    "passthrough": "POST /v1/api/bing-maps/maps"
+  },
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "q": {
+        "type": "string",
+        "example": "coffee",
+        "minLength": 1,
+        "description": "Search query. Required unless place_id is supplied."
+      },
+      "cp": {
+        "type": "string",
+        "example": "47.6062~-122.3321",
+        "pattern": "^-?\\d+(\\.\\d+)?~-?\\d+(\\.\\d+)?$",
+        "description": "Map center as 'latitude~longitude', such as '47.6062~-122.3321'."
+      },
+      "count": {
+        "type": "integer",
+        "maximum": 30,
+        "minimum": 1,
+        "description": "Number of listings, 1-30. Default 30."
+      },
+      "first": {
+        "type": "integer",
+        "maximum": 10000,
+        "minimum": 0,
+        "description": "Listing offset, 0-10,000. Default 0."
+      },
+      "setlang": {
+        "type": "string",
+        "maxLength": 32,
+        "minLength": 2,
+        "description": "Interface language such as 'en-US'."
+      },
+      "place_id": {
+        "type": "string",
+        "minLength": 1,
+        "description": "Native Bing Maps entity ID for a detail lookup. Required unless q is supplied."
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "required": [
+      "id",
+      "status",
+      "model"
+    ],
+    "properties": {
+      "id": {
+        "type": "string"
+      },
+      "model": {
+        "type": "string"
+      },
+      "status": {
+        "type": "string"
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.00015,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "readme": "# Bing Maps Maps\n\nSearch Bing Maps listings around a map center, or look up one entity by id.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/bing-maps/maps\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"q\": \"coffee\", \"cp\": \"47.6062~-122.3321\"}'\n```\n\nThis API runs asynchronously. The call returns a task `id` with status `pending`; poll `GET https://api.sandbase.ai/v1/run/{id}` until `status` is `completed` and read the result from `outputs[0].data`.\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `count` | integer | No | Number of listings, 1-30. Default 30. |\n| `cp` | string | No | Map center as 'latitude~longitude', such as '47.6062~-122.3321'. |\n| `first` | integer | No | Listing offset, 0-10,000. Default 0. |\n| `place_id` | string | No | Native Bing Maps entity ID for a detail lookup. Required unless q is supplied. |\n| `q` | string | No | Search query. Required unless place_id is supplied. |\n| `setlang` | string | No | Interface language such as 'en-US'. |\n\n## Pricing\n\nFlat price per call. Failed calls are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/bing-maps/maps",
+  "created_at": "2026-10-30T09:02:11.196Z"
+}

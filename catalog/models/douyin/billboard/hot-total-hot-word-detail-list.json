@@ -1,0 +1,76 @@
+{
+  "name": "douyin/billboard/hot-total-hot-word-detail-list",
+  "display_name": "Douyin Billboard Hot Word Details",
+  "type": "api",
+  "vendor": "Douyin",
+  "vendor_slug": "douyin",
+  "description": "Returns detailed billboard metrics for a specific Douyin content word. Filters include the search keyword, word identifier, and target query date.",
+  "tags": [
+    "api",
+    "douyin"
+  ],
+  "capabilities": [
+    "api",
+    "douyin"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/douyin/billboard/hot-total-hot-word-detail-list"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "keyword",
+      "query_day",
+      "word_id"
+    ],
+    "properties": {
+      "keyword": {
+        "type": "string",
+        "title": "Keyword",
+        "description": "Search keyword"
+      },
+      "word_id": {
+        "type": "string",
+        "title": "Word Id",
+        "description": "Content word id"
+      },
+      "query_day": {
+        "type": "integer",
+        "title": "Query Day",
+        "description": "Query date, format is YYYYMMDD"
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.0015,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "examples": [
+    {
+      "input": {
+        "keyword": "抖音音乐",
+        "query_day": 20260928,
+        "word_id": "pyLt6qABVdxnZYm5fRPW"
+      },
+      "default": true
+    }
+  ],
+  "readme": "# Douyin Billboard Hot Word Details API\n\nThis endpoint retrieves detailed billboard statistics for a specific trending term on Douyin. Look up word metrics by supplying `keyword`, `word_id`, and `query_day`.\n\n## Use cases\n\n- Analyze trending content word performance on Douyin for a specific date.\n- Track historical popularity metrics for targeted billboard keywords.\n- Compare daily metric breakdowns across specific content word identifiers.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/douyin/billboard/hot-total-hot-word-detail-list\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"keyword\": \"<keyword>\", \"query_day\": \"<query_day>\", \"word_id\": \"<word_id>\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `keyword` | string | Yes | Search keyword |\n| `word_id` | string | Yes | Content word id |\n| `query_day` | integer | Yes | Query date, format is YYYYMMDD |\n\n## Notes\n\n- `query_day` requires an integer date formatted as YYYYMMDD.\n- Both `keyword` and `word_id` must be provided to query word details.\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [Douyin Billboard City List](/model/douyin/billboard/city-list): Returns the list of Chinese cities supported by Douyin billboard rankings.\n- [Douyin Billboard Vertical Content Tags](/model/douyin/billboard/content-tag): Returns a list of vertical content tags available on the Douyin billboard platform.\n- [Douyin Fan Interest Account List](/model/douyin/billboard/hot-account-fans-interest-account-list): Returns a list of 20 accounts that followers of a target creator are interested in on Douyin.\n",
+  "page_url": "https://www.sandbase.ai/model/douyin/billboard/hot-total-hot-word-detail-list",
+  "created_at": "2026-07-31T02:35:20.859Z"
+}

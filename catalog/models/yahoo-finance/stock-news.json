@@ -1,0 +1,72 @@
+{
+  "name": "yahoo-finance/stock-news",
+  "display_name": "Yahoo Finance Stock News",
+  "type": "api",
+  "vendor": "Yahoo Finance",
+  "vendor_slug": "yahoo-finance",
+  "description": "Gather the latest financial news articles related to a specified stock ticker. Returns headlines, publishers, links, publish timestamps, and related tickers for each article.",
+  "tags": [
+    "api",
+    "yahoo-finance",
+    "finance-crypto"
+  ],
+  "capabilities": [
+    "api",
+    "yahoo-finance",
+    "finance-crypto"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}",
+    "passthrough": "POST /v1/api/yahoo-finance/stock-news"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "symbol"
+    ],
+    "properties": {
+      "count": {
+        "type": "integer",
+        "maximum": 9007199254740991,
+        "minimum": -9007199254740991,
+        "description": "Number of news items to retrieve."
+      },
+      "symbol": {
+        "type": "string",
+        "description": "Stock ticker symbol (e.g., AAPL)."
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "required": [
+      "id",
+      "status",
+      "model"
+    ],
+    "properties": {
+      "id": {
+        "type": "string"
+      },
+      "model": {
+        "type": "string"
+      },
+      "status": {
+        "type": "string"
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.05
+  },
+  "readme": "# Yahoo Finance Stock News\n\nGather the latest financial news articles related to a specified stock ticker. Returns headlines, publishers, links, publish timestamps, and related tickers for each article.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/yahoo-finance/stock-news\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"symbol\": \"AAPL\"}'\n```\n\nThis API runs asynchronously. The call returns a task `id` with status `pending`; poll `GET https://api.sandbase.ai/v1/run/{id}` until `status` is `completed` and read the result from `outputs[0].data`.\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `symbol` | string | Yes | Stock ticker symbol (e.g., AAPL). |\n| `count` | integer | No | Number of news items to retrieve. |\n\n## Pricing\n\nFlat price per call. Failed calls are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/yahoo-finance/stock-news",
+  "created_at": "2026-10-30T07:41:56.568Z"
+}

@@ -1,0 +1,42 @@
+{
+  "name": "minimax/minimax-m2.5",
+  "display_name": "MiniMax: MiniMax M2.5",
+  "type": "llm",
+  "vendor": "Minimax",
+  "vendor_slug": "minimax",
+  "description": "MiniMax-M2.5 is a MiniMax M2-series language model released in February 2026 for real-world productivity, trained with reinforcement learning across hundreds of thousands of complex real-world environments. MiniMax highlights coding across more than ten languages and the full development lifecycle, planning projects like a software architect before writing code, plus agentic search, tool use and office work. MiniMax now lists it as a legacy model behind M2.7 and M3.",
+  "tags": [
+    "chat",
+    "reasoning",
+    "structured_output",
+    "function_calling"
+  ],
+  "capabilities": [
+    "chat",
+    "reasoning",
+    "structured_output",
+    "function_calling"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "chat_completions": "POST /v1/chat/completions",
+    "responses": "POST /v1/responses",
+    "messages": "POST /v1/messages"
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_token",
+    "per_million_tokens": {
+      "input": 0.3,
+      "output": 1.2,
+      "cache_read_multiplier": 0.1
+    }
+  },
+  "cover_url": "https://t0.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=https://morphllm.com&size=256",
+  "page_url": "https://www.sandbase.ai/model/minimax/minimax-m2.5",
+  "published_at": "2026-02-12T15:01:42Z",
+  "created_at": "2026-05-08T23:51:30.95Z"
+}

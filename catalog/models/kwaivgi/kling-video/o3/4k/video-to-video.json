@@ -1,0 +1,240 @@
+{
+  "name": "kwaivgi/kling-video/o3/4k/video-to-video",
+  "display_name": "Kling O3 4K Video Reference",
+  "type": "video",
+  "vendor": "KwaiVGI",
+  "vendor_slug": "kwaivgi",
+  "description": "Kling O3 4K Video Reference by Kuaishou generates a new native 4K shot that follows the style and camera motion of a reference video, optionally guided by reference images.",
+  "tags": [
+    "video-to-video"
+  ],
+  "capabilities": [
+    "video-to-video"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "prompt",
+      "video"
+    ],
+    "properties": {
+      "video": {
+        "type": "string",
+        "title": "Video Url",
+        "examples": [
+          "https://static.sandbase.ai/examples/kwaivgi/mirrored/example_inputs/kling-o3/pro-v2v-reference/video_reference.mp4"
+        ],
+        "description": "Reference video URL. Only .mp4/.mov formats, 3-10s duration, 720-2160px resolution, max 200MB."
+      },
+      "images": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        },
+        "title": "Image Urls",
+        "examples": [
+          "https://static.sandbase.ai/examples/kwaivgi/mirrored/example_inputs/kling-o3/pro-v2v-reference/image_url1.jpg",
+          "https://static.sandbase.ai/examples/kwaivgi/mirrored/example_inputs/kling-o3/pro-v2v-reference/image_url2.jpg"
+        ],
+        "description": "Reference images for style/appearance. Reference in prompt as @Image1, @Image2, etc. Maximum 4 total (elements + reference images) when using video."
+      },
+      "prompt": {
+        "type": "string",
+        "title": "Prompt",
+        "examples": [
+          "Integrate @Element1 in the scene. Style video should be following watercolor style of @Image1"
+        ],
+        "maxLength": 2500,
+        "description": "Text prompt for video generation. Reference video as @Video1."
+      },
+      "duration": {
+        "enum": [
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15
+        ],
+        "type": "integer",
+        "title": "Duration",
+        "examples": [
+          "5"
+        ],
+        "description": "Video duration in seconds (3-15s for reference video)."
+      },
+      "shot_type": {
+        "type": "string",
+        "title": "Shot Type",
+        "default": "customize",
+        "description": "The type of multi-shot video generation."
+      },
+      "keep_audio": {
+        "type": "boolean",
+        "title": "Keep Audio",
+        "default": true,
+        "examples": [
+          false
+        ],
+        "description": "Whether to keep the original audio from the reference video. "
+      },
+      "aspect_ratio": {
+        "enum": [
+          "16:9",
+          "9:16",
+          "1:1"
+        ],
+        "type": "string",
+        "title": "Aspect Ratio",
+        "default": "16:9",
+        "description": "The aspect ratio of the generated image."
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "title": "GenerationResponse",
+    "required": [
+      "id",
+      "status"
+    ],
+    "properties": {
+      "id": {
+        "type": "string",
+        "description": "Unique identifier for the generation task."
+      },
+      "error": {
+        "type": "string",
+        "description": "Error message if the task failed. Empty on success."
+      },
+      "model": {
+        "type": "string",
+        "description": "Model ID used for the prediction."
+      },
+      "status": {
+        "enum": [
+          "pending",
+          "running",
+          "completed",
+          "failed",
+          "timeout"
+        ],
+        "type": "string",
+        "description": "Status of the task: pending, running, completed, failed, or timeout."
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "title": "OutputItem",
+          "required": [
+            "url"
+          ],
+          "properties": {
+            "url": {
+              "type": "string",
+              "examples": [
+                "https://static.sandbase.ai/examples/kwaivgi/mirrored/example_outputs/kling-o3/pro-v2v-reference/output.mp4"
+              ],
+              "description": "The URL where the generated content can be downloaded from."
+            },
+            "content_type": {
+              "type": "string",
+              "description": "The MIME type of the output file."
+            }
+          }
+        },
+        "description": "Array of generated content. Empty when status is not completed."
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "formula",
+    "formula": "(params.duration ?? Math.ceil(usage.duration ?? 5.0)) * 0.42",
+    "formula_variables": [
+      "params.duration",
+      "usage.duration"
+    ],
+    "reference_price": 2.1,
+    "price_examples": [
+      {
+        "params": {
+          "duration": 3
+        },
+        "usd": 1.26,
+        "estimate": "assumes output duration equals requested duration"
+      },
+      {
+        "params": {
+          "duration": 4
+        },
+        "usd": 1.68,
+        "estimate": "assumes output duration equals requested duration"
+      },
+      {
+        "params": {
+          "duration": 5
+        },
+        "usd": 2.1,
+        "estimate": "assumes output duration equals requested duration"
+      },
+      {
+        "params": {
+          "duration": 6
+        },
+        "usd": 2.52,
+        "estimate": "assumes output duration equals requested duration"
+      },
+      {
+        "params": {
+          "duration": 7
+        },
+        "usd": 2.94,
+        "estimate": "assumes output duration equals requested duration"
+      },
+      {
+        "params": {
+          "duration": 8
+        },
+        "usd": 3.36,
+        "estimate": "assumes output duration equals requested duration"
+      }
+    ]
+  },
+  "examples": [
+    {
+      "input": {
+        "prompt": "Integrate @Element1 in the scene. Style video should be following watercolor style of @Image1",
+        "video": "https://static.sandbase.ai/examples/efb9ed85-8d55-48df-956f-2f5c72ee7fd8/input/b8d4e379-e81f-4fb1-9009-75af47153760.mp4"
+      },
+      "output": [
+        {
+          "poster": "https://static.sandbase.ai/examples/posters/536c891e9af8cbdc212d.jpg",
+          "url": "https://static.sandbase.ai/examples/efb9ed85-8d55-48df-956f-2f5c72ee7fd8/output/bc98d56b-34da-4cc2-a825-6333105b5692.mp4"
+        }
+      ],
+      "default": true
+    }
+  ],
+  "readme": "# Kling O3 4K Video Reference\n\nKling O3 4K video reference: generate new shots that follow the motion and camera language of a reference video, while the prompt and optional reference images set the new scene and look.\n\n## Fields\n\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `prompt` | string, required | — | Up to 2,500 characters. |\n| `images` | image URL[] | — | Reference images, referred to as @Image1, @Image2, … in the prompt. |\n| `video` | video URL, required | — | Reference video, @Video1 in the prompt. |\n| `duration` | 3–15 | — | Output length; omit to match the reference. |\n| `keep_audio` | boolean | true | Keep the source video's audio track. |\n| `shot_type` | string | `customize` | `customize` follows your `multi_prompt` shot list; `intelligent` lets the model plan the cuts. |\n| `aspect_ratio` | `16:9` / `9:16` / `1:1` | `16:9` | Output frame shape. |\n\n## Billing\n\nYou pay $0.42 per output second. Without `duration` the output matches the reference length; the quote assumes 5 seconds.\n\n| Output | Price |\n|---|---|\n| 3s | $1.26 |\n| 5s | $2.10 |\n| 10s | $4.20 |\n| 15s | $6.30 |\n\nFailed runs are not charged.\n\n## Prompting\n\n- Describe the new scene; the reference video supplies motion and camera.\n\n## Limits\n\n- Clips are 3–15 seconds.\n\n## Also on SandBase\n\nOther Kling O3 4K endpoints and tiers: `kwaivgi/kling-video/o3/4k/text-to-video`, `kwaivgi/kling-video/o3/4k/image-to-video`, `kwaivgi/kling-video/o3/4k/reference-to-video`, `kwaivgi/kling-video/o3/4k/edit`, `kwaivgi/kling-video/o3/standard/video-to-video`, `kwaivgi/kling-video/o3/pro/video-to-video`.\n",
+  "cover_url": "https://static.sandbase.ai/covers/kwaivgi/kling-video/o3/4k/video-to-video/cover-flare-20261005145933.webp",
+  "page_url": "https://www.sandbase.ai/model/kwaivgi/kling-video/o3/4k/video-to-video",
+  "published_at": "2026-10-05T04:19:05Z",
+  "created_at": "2026-10-05T04:54:39.405Z"
+}

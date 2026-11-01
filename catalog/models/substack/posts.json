@@ -1,0 +1,137 @@
+{
+  "name": "substack/posts",
+  "display_name": "Substack Posts",
+  "type": "api",
+  "vendor": "Substack",
+  "vendor_slug": "substack",
+  "description": "Pull posts from any Substack publication by its URL, or pass a single post URL (…/p/slug) to fetch just that one article. Returns title, subtitle, publish date, paywall status, word count, engagement (reactions, comments, restacks), author profile, publication details, the full article body as text, HTML and Markdown, and optional comment threads.",
+  "tags": [
+    "api",
+    "substack",
+    "social-media"
+  ],
+  "capabilities": [
+    "api",
+    "substack",
+    "social-media"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/substack/posts"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "url"
+    ],
+    "properties": {
+      "url": {
+        "type": "string",
+        "example": "https://www.astralcodexten.com",
+        "description": "Either a Substack publication URL / custom domain to fetch its recent posts (e.g. https://www.astralcodexten.com), OR a single post URL to fetch just that one article with full content (e.g. https://www.astralcodexten.com/p/your-book-review)."
+      },
+      "limit": {
+        "type": "integer",
+        "example": 3,
+        "maximum": 100,
+        "minimum": 1,
+        "description": "Maximum number of recent posts to return when given a publication URL (1-100, default 25); ignored for a single post URL, which always returns that one post. You are billed per post returned, so a lower limit costs less."
+      },
+      "endDate": {
+        "type": "string",
+        "description": "Only return posts published on or before this date, format YYYY-MM-DD (e.g. 2024-12-31). Applied within the most recent 'limit' posts scanned."
+      },
+      "onlyFree": {
+        "type": "boolean",
+        "default": false,
+        "description": "Return only free (non-paywalled) posts (e.g. true)."
+      },
+      "startDate": {
+        "type": "string",
+        "description": "Only return posts published on or after this date, format YYYY-MM-DD (e.g. 2024-01-01). Applied within the most recent 'limit' posts scanned, so raise 'limit' to reach older date ranges."
+      },
+      "contentType": {
+        "enum": [
+          "all",
+          "newsletter",
+          "podcast",
+          "thread"
+        ],
+        "type": "string",
+        "default": "all",
+        "description": "Restrict to a single post type, or 'all' (e.g. newsletter)."
+      },
+      "maxComments": {
+        "type": "integer",
+        "maximum": 500,
+        "minimum": 0,
+        "description": "Maximum comments collected per post when 'includeComments' is true (0-500, default 20). Costs nothing extra (e.g. 50)."
+      },
+      "minComments": {
+        "type": "integer",
+        "minimum": 0,
+        "description": "Only return posts with at least this many comments (e.g. 10)."
+      },
+      "minReactions": {
+        "type": "integer",
+        "minimum": 0,
+        "description": "Only return posts with at least this many reactions (e.g. 100)."
+      },
+      "minWordCount": {
+        "type": "integer",
+        "minimum": 0,
+        "description": "Only return posts with at least this many words, which filters out short notes and announcements (e.g. 1000)."
+      },
+      "includeContent": {
+        "type": "boolean",
+        "default": true,
+        "description": "Include the full article body as text, HTML and Markdown. Set false for metadata only, which is faster (e.g. false)."
+      },
+      "includeComments": {
+        "type": "boolean",
+        "default": false,
+        "description": "Include public comment threads and their direct replies on each post (e.g. true)."
+      }
+    },
+    "additionalProperties": false
+  },
+  "response_schema": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string"
+      },
+      "model": {
+        "type": "string"
+      },
+      "status": {
+        "type": "string"
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "data": {
+              "type": "object",
+              "description": "Normalized result for this request."
+            }
+          }
+        }
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "usage_based",
+    "note": "Billed per call from metered usage; the reference price is typical.",
+    "reference_price": 0.0444
+  },
+  "readme": "# Substack Posts API\n\nPull posts from any Substack publication by its URL, or pass a single post URL (…/p/slug) to fetch just that one article. Returns title, subtitle, publish date, paywall status, word count, engagement (reactions, comments, restacks), author profile, publication details, the full article body as text, HTML and Markdown, and optional comment threads.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/substack/posts\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"url\": \"https://www.astralcodexten.com\", \"limit\": 3}'\n```\n\nThe result is returned in `outputs[0].data`. A lookup that finds nothing still succeeds and returns `found: false`.\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `url` | string | Yes | Either a Substack publication URL / custom domain to fetch its recent posts (e.g. https://www.astralcodexten.com), OR a single post URL to fetch just that one article with full content (e.g. https://www.astralcodexten.co |\n| `contentType` | string | No | Restrict to a single post type, or 'all' (e.g. newsletter). One of: `all`, `newsletter`, `podcast`, `thread`. Default `\"all\"`. |\n| `endDate` | string | No | Only return posts published on or before this date, format YYYY-MM-DD (e.g. 2024-12-31). Applied within the most recent 'limit' posts scanned. |\n| `includeComments` | boolean | No | Include public comment threads and their direct replies on each post (e.g. true). Default `false`. |\n| `includeContent` | boolean | No | Include the full article body as text, HTML and Markdown. Set false for metadata only, which is faster (e.g. false). Default `true`. |\n| `limit` | integer | No | Maximum number of recent posts to return when given a publication URL (1-100, default 25); ignored for a single post URL, which always returns that one post. You are billed per post returned, so a lower limit costs less. |\n| `maxComments` | integer | No | Maximum comments collected per post when 'includeComments' is true (0-500, default 20). Costs nothing extra (e.g. 50). |\n| `minComments` | integer | No | Only return posts with at least this many comments (e.g. 10). |\n| `minReactions` | integer | No | Only return posts with at least this many reactions (e.g. 100). |\n| `minWordCount` | integer | No | Only return posts with at least this many words, which filters out short notes and announcements (e.g. 1000). |\n| `onlyFree` | boolean | No | Return only free (non-paywalled) posts (e.g. true). Default `false`. |\n| `startDate` | string | No | Only return posts published on or after this date, format YYYY-MM-DD (e.g. 2024-01-01). Applied within the most recent 'limit' posts scanned, so raise 'limit' to reach older date ranges. |\n\n## Pricing\n\nBilled at the actual cost of each call, usually $0.0444 per request. A call can cost more when the first data source fails and another one answers. Failed calls are not charged. Lookups that find nothing and searches with no results are billed at their actual cost, which is often lower and can be $0.\n",
+  "page_url": "https://www.sandbase.ai/model/substack/posts",
+  "created_at": "2026-10-31T10:44:38.983Z"
+}

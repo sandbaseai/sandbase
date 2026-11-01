@@ -1,0 +1,125 @@
+{
+  "name": "meshy/6.0-lite/retexture",
+  "display_name": "Meshy 6 Lite Retexture",
+  "type": "image",
+  "vendor": "Meshy",
+  "vendor_slug": "meshy",
+  "description": "Meshy 6 Lite Retexture is the lower-cost Meshy retexturing model: repaint an existing 3D model from a text or image style.",
+  "tags": [
+    "3d-to-3d"
+  ],
+  "capabilities": [
+    "3d-to-3d"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "model_url"
+    ],
+    "properties": {
+      "model_url": {
+        "type": "string",
+        "title": "Model URL",
+        "description": "3D model to texture: .glb, .gltf, .obj, .fbx or .stl URL."
+      },
+      "enable_pbr": {
+        "type": "boolean",
+        "title": "PBR Maps",
+        "default": false,
+        "description": "Also generate metallic, roughness and normal maps."
+      },
+      "image_style_url": {
+        "type": "string",
+        "title": "Style Image",
+        "description": "2D image that guides the texture (JPG or PNG). Takes precedence over text_style_prompt."
+      },
+      "text_style_prompt": {
+        "type": "string",
+        "title": "Text Style Prompt",
+        "examples": [
+          "red and black chest"
+        ],
+        "maxLength": 600,
+        "description": "Describe the texture style, up to 600 characters. Required when image_style_url is not set."
+      },
+      "enable_original_uv": {
+        "type": "boolean",
+        "title": "Keep Original UV",
+        "default": true,
+        "description": "Use the model's existing UV layout instead of generating new UVs."
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "title": "GenerationResponse",
+    "required": [
+      "id",
+      "status"
+    ],
+    "properties": {
+      "id": {
+        "type": "string",
+        "description": "Unique identifier for the generation task."
+      },
+      "error": {
+        "type": "string",
+        "description": "Error message if the task failed. Empty on success."
+      },
+      "model": {
+        "type": "string",
+        "description": "Model ID used for the prediction."
+      },
+      "status": {
+        "enum": [
+          "pending",
+          "running",
+          "completed",
+          "failed",
+          "timeout"
+        ],
+        "type": "string",
+        "description": "Status of the task: pending, running, completed, failed, or timeout."
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "title": "OutputItem",
+          "required": [
+            "url"
+          ],
+          "properties": {
+            "url": {
+              "type": "string",
+              "description": "The URL where the generated content can be downloaded from."
+            },
+            "content_type": {
+              "type": "string",
+              "description": "The MIME type of the output file."
+            }
+          }
+        },
+        "description": "Array of generated content. Empty when status is not completed."
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.36
+  },
+  "readme": "# Meshy 6 Lite Retexture\nMeshy 6 Lite Retexture is the lower-cost Meshy retexturing model: repaint an existing 3D model from a text or image style.\n## Fields\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `model_url` | 3D model URL, required | — | .glb, .gltf, .obj, .fbx or .stl. |\n| `text_style_prompt` | string | — | Texture style, up to 600 characters. Required when `image_style_url` is not set. |\n| `image_style_url` | image URL | — | JPG or PNG style reference; takes precedence over the text prompt. |\n| `enable_pbr` | boolean | false | Also generate metallic, roughness and normal maps. |\n| `enable_original_uv` | boolean | true | Keep the model's UV layout. |\n## Billing\n$0.36 per retextured model; PBR maps are included.\n| Request | Price |\n|---|---|\n| Retexture | $0.36 |\n| Retexture + PBR | $0.36 |\nFailed runs are not charged.\n## Prompting\n- Name materials and finish, e.g. \"weathered bronze with green patina\".\n- Provide either `text_style_prompt` or `image_style_url`.\n## Also on SandBase\nHigher-detail retexture models: `meshy/7.0/retexture`, `meshy/6.0/retexture`.",
+  "cover_url": "https://static.sandbase.ai/covers/meshy/6.0-lite/retexture/cover-flare-20261022111510.webp",
+  "page_url": "https://www.sandbase.ai/model/meshy/6.0-lite/retexture",
+  "published_at": "2026-10-06T16:31:21.867Z",
+  "created_at": "2026-10-22T02:47:33.11Z"
+}

@@ -1,0 +1,162 @@
+{
+  "name": "elevenlabs/dubbing",
+  "display_name": "ElevenLabs Dubbing",
+  "type": "video",
+  "vendor": "ElevenLabs",
+  "vendor_slug": "elevenlabs",
+  "description": "ElevenLabs Dubbing translates the speech in a video into another language while preserving each speaker's voice, timing, and background audio.",
+  "tags": [
+    "audio-to-video"
+  ],
+  "capabilities": [
+    "audio-to-video"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "video",
+      "target_lang"
+    ],
+    "properties": {
+      "video": {
+        "type": "string",
+        "title": "Video Url",
+        "examples": [
+          "https://static.sandbase.ai/examples/elevenlabs/dubbing/input_video_0.mp4"
+        ],
+        "description": "URL of the video file to dub (MP4 / MOV). The dubbed result is returned as a video."
+      },
+      "source_lang": {
+        "type": "string",
+        "title": "Source Lang",
+        "examples": [
+          "en",
+          "es",
+          "fr"
+        ],
+        "description": "Source language code. If not provided, will be auto-detected."
+      },
+      "target_lang": {
+        "type": "string",
+        "title": "Target Lang",
+        "examples": [
+          "es",
+          "fr",
+          "de",
+          "ja",
+          "pt",
+          "zh"
+        ],
+        "description": "Target language code for dubbing (ISO 639-1)"
+      },
+      "num_speakers": {
+        "type": "integer",
+        "title": "Num Speakers",
+        "maximum": 50,
+        "minimum": 1,
+        "description": "Number of speakers in the audio. If not provided, will be auto-detected."
+      },
+      "highest_resolution": {
+        "type": "boolean",
+        "title": "Highest Resolution",
+        "default": true,
+        "description": "Whether to use the highest resolution for dubbing."
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "title": "GenerationResponse",
+    "required": [
+      "id",
+      "status"
+    ],
+    "properties": {
+      "id": {
+        "type": "string",
+        "description": "Unique identifier for the generation task."
+      },
+      "error": {
+        "type": "string",
+        "description": "Error message if the task failed. Empty on success."
+      },
+      "model": {
+        "type": "string",
+        "description": "Model ID used for the prediction."
+      },
+      "status": {
+        "enum": [
+          "pending",
+          "running",
+          "completed",
+          "failed",
+          "timeout"
+        ],
+        "type": "string",
+        "description": "Status of the task: pending, running, completed, failed, or timeout."
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "title": "OutputItem",
+          "required": [
+            "url"
+          ],
+          "properties": {
+            "url": {
+              "type": "string",
+              "examples": [
+                "https://static.sandbase.ai/examples/elevenlabs/dubbing/output_url_1.mp4"
+              ],
+              "description": "The URL where the generated content can be downloaded from."
+            },
+            "content_type": {
+              "type": "string",
+              "description": "The MIME type of the output file."
+            }
+          }
+        },
+        "description": "Array of generated content. Empty when status is not completed."
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "formula",
+    "formula": "Math.ceil((media_duration(params.video) ?? usage.duration ?? 60.0) / 60.0) * 0.6",
+    "formula_variables": [
+      "params.video",
+      "usage.duration"
+    ],
+    "reference_price": 0.6
+  },
+  "examples": [
+    {
+      "input": {
+        "target_lang": "es",
+        "video": "https://static.sandbase.ai/examples/8f64921f-0d6e-4239-a36a-7419390685bc/input/2515467e-312a-4f21-a8e1-763533464bb3.mp4"
+      },
+      "output": [
+        {
+          "poster": "https://static.sandbase.ai/examples/posters/5539d010229053c2251d.jpg",
+          "url": "https://static.sandbase.ai/examples/8f64921f-0d6e-4239-a36a-7419390685bc/output/2e522cf6-5580-4ef4-b959-c0aa4f6b8d1c.mp4"
+        }
+      ],
+      "default": true
+    }
+  ],
+  "readme": "# ElevenLabs Dubbing\n\nElevenLabs Dubbing translates the speech in a video into another language while keeping each speaker's voice, timing, and the background audio.\n\n## Fields\n\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `video` | video URL, required | — | Video to dub. |\n| `source_lang` | string | — | Source language; omit to detect. |\n| `num_speakers` | integer 1–50 | — | Speaker count; omit to detect. |\n| `target_lang` | string, required | — | Language to dub into. |\n| `highest_resolution` | boolean | true | Keep the source resolution. |\n\n## Billing\n\n$0.60 per started minute of video. The quote before submission assumes 1 minute; the final charge uses the measured length.\n\n| Video | Price |\n|---|---|\n| 1 min | $0.60 |\n| 5 min | $3.00 |\n| 15 min | $9.00 |\n\nFailed runs are not charged.\n",
+  "cover_url": "https://static.sandbase.ai/covers/elevenlabs/dubbing/cover-flare-20261005045342.webp",
+  "page_url": "https://www.sandbase.ai/model/elevenlabs/dubbing",
+  "published_at": "2026-01-14T14:41:55.68Z",
+  "created_at": "2026-06-01T13:53:52.937Z"
+}

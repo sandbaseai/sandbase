@@ -1,0 +1,82 @@
+{
+  "name": "instagram/hashtag-analytics",
+  "display_name": "Instagram Hashtag Analytics",
+  "type": "api",
+  "vendor": "Instagram",
+  "vendor_slug": "instagram",
+  "description": "Get the total post count for any Instagram hashtag.",
+  "tags": [
+    "api",
+    "instagram",
+    "social-media"
+  ],
+  "capabilities": [
+    "api",
+    "instagram",
+    "social-media"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/instagram/hashtag-analytics"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "hashtag"
+    ],
+    "properties": {
+      "limit": {
+        "type": "integer",
+        "example": 5,
+        "maximum": 20,
+        "minimum": 1,
+        "description": "Deprecated. Has no effect."
+      },
+      "hashtag": {
+        "type": "string",
+        "example": "travel",
+        "description": "The Instagram hashtag to analyze, with or without the # symbol (e.g. streetphotography)."
+      }
+    },
+    "additionalProperties": false
+  },
+  "response_schema": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string"
+      },
+      "model": {
+        "type": "string"
+      },
+      "status": {
+        "type": "string"
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "data": {
+              "type": "object",
+              "description": "Normalized result for this request."
+            }
+          }
+        }
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "usage_based",
+    "note": "Billed per call from metered usage; the reference price is typical.",
+    "reference_price": 0.0011
+  },
+  "readme": "# Instagram Hashtag Analytics API\n\nGet the total post count for any Instagram hashtag.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/instagram/hashtag-analytics\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"limit\": 5, \"hashtag\": \"travel\"}'\n```\n\nThe result is returned in `outputs[0].data`. A lookup that finds nothing still succeeds and returns `found: false`.\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `hashtag` | string | Yes | The Instagram hashtag to analyze, with or without the # symbol (e.g. streetphotography). |\n| `limit` | integer | No | Deprecated. Has no effect. |\n\n## Pricing\n\nBilled at the actual cost of each call, usually $0.0011 per request. A call can cost more when the first data source fails and another one answers. Failed calls are not charged. Lookups that find nothing and searches with no results are billed at their actual cost, which is often lower and can be $0.\n",
+  "page_url": "https://www.sandbase.ai/model/instagram/hashtag-analytics",
+  "created_at": "2026-11-01T12:17:11.589Z"
+}

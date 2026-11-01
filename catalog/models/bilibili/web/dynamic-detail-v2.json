@@ -1,0 +1,62 @@
+{
+  "name": "bilibili/web/dynamic-detail-v2",
+  "display_name": "Bilibili Dynamic Details (V2)",
+  "type": "api",
+  "vendor": "Bilibili",
+  "vendor_slug": "bilibili",
+  "description": "Returns detailed data for a specific Bilibili dynamic post using its dynamic ID. Designed for video dynamics, providing author modules and engagement metrics such as comments, shares, and likes.",
+  "tags": [
+    "api",
+    "bilibili"
+  ],
+  "capabilities": [
+    "api",
+    "bilibili"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/bilibili/web/dynamic-detail-v2"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "dynamic_id"
+    ],
+    "properties": {
+      "dynamic_id": {
+        "type": "string",
+        "title": "Dynamic Id",
+        "example": "1172584638000922630",
+        "description": "Dynamic id"
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.0015,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "examples": [
+    {
+      "input": {
+        "dynamic_id": "1172584638000922630"
+      }
+    }
+  ],
+  "readme": "# Bilibili Dynamic Details (V2) API\n\nRetrieve detailed dynamic information from Bilibili by querying a specific `dynamic_id`. This endpoint specializes in video dynamic posts and returns structured dynamic module metadata.\n\n## Use cases\n\n- Inspect video dynamic post content and author information.\n- Track engagement statistics such as comments, forwards, and likes.\n- Parse structured dynamic module metadata for Bilibili feeds.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/bilibili/web/dynamic-detail-v2\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"dynamic_id\": \"1172584638000922630\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `dynamic_id` | string | Yes | Dynamic id |\n\n## Example response\n\nReal response for the request above, trimmed to the main fields. User names and long IDs are masked.\n\n```json\n{\n  \"data\": {\n    \"item\": {\n      \"modules\": [\n        {\n          \"module_type\": \"MODULE_TYPE_AUTHOR\",\n          \"module_author\": {\n            \"pub_text\": \"2026年02月23日 21:07\"\n          }\n        }\n      ]\n    }\n  }\n}\n```\n\n## Notes\n\n- Requires `dynamic_id` to specify the target dynamic post.\n- Intended for video dynamics (DYNAMIC_TYPE_AV), returning metrics for comments, forwards, and likes.\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [Bilibili Streaming Areas](/model/bilibili/web/all-live-areas): Returns the complete list of streaming broadcast areas and categories on Bilibili.\n- [Bilibili BV to AID Converter](/model/bilibili/web/bv-to-aid): Converts a Bilibili BV identifier to its corresponding numeric AID value.\n- [Bilibili User Collection Folders](/model/bilibili/web/collect-folders): Returns the collection folders owned by a specific Bilibili user.\n",
+  "page_url": "https://www.sandbase.ai/model/bilibili/web/dynamic-detail-v2",
+  "created_at": "2026-07-31T03:53:40.62Z"
+}

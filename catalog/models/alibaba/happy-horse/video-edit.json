@@ -1,0 +1,171 @@
+{
+  "name": "alibaba/happy-horse/video-edit",
+  "display_name": "Happy Horse Video Edit",
+  "type": "video",
+  "vendor": "Alibaba",
+  "vendor_slug": "alibaba",
+  "description": "Happy Horse Video Edit by Alibaba - AI-powered video editing and transformation. Apply style transfer, motion control, lip-sync, and visual effects to existing videos with natural language instructions.",
+  "tags": [
+    "video-to-video"
+  ],
+  "capabilities": [
+    "video-to-video"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "prompt",
+      "video"
+    ],
+    "properties": {
+      "seed": {
+        "type": "integer",
+        "title": "Seed",
+        "description": "Random seed for reproducibility (0-2147483647)."
+      },
+      "video": {
+        "type": "string",
+        "title": "Video Url",
+        "examples": [
+          "https://static.sandbase.ai/examples/alibaba/happy-horse/video-edit/input_video_0.mp4"
+        ],
+        "description": "URL of the source video to edit. Formats: MP4, MOV (H.264 recommended). Duration: 3-60 s. Longer side ≤ 2160 px, shorter side ≥ 320 px. Aspect ratio between 1:2.5 and 2.5:1. Frame rate > 8 fps. Max 100 MB. The output video preserves the source aspect ratio. Output duration matches the input video, capped at 15 s (longer inputs are truncated to the first 15 s).\n\nMax file size: 100.0MB, Min duration: 3s, Max duration: 60s, Timeout: 30.0s"
+      },
+      "prompt": {
+        "type": "string",
+        "title": "Prompt",
+        "examples": [
+          "Recolor the sky to a deep purple sunset."
+        ],
+        "minLength": 1,
+        "description": "Text prompt describing the desired edit. Reference any supplied reference images using @Image1, @Image2, ... up to @Image5. Max 2500 characters."
+      },
+      "resolution": {
+        "enum": [
+          "720p",
+          "1080p"
+        ],
+        "type": "string",
+        "title": "Resolution",
+        "default": "720p",
+        "description": "Output video resolution tier."
+      },
+      "audio_setting": {
+        "enum": [
+          "auto",
+          "origin"
+        ],
+        "type": "string",
+        "title": "Audio Setting",
+        "default": "auto",
+        "description": "Audio handling. 'auto': model decides whether to regenerate audio. 'origin': preserve the original audio from the input video."
+      },
+      "reference_image_urls": {
+        "type": "array",
+        "items": {
+          "ui": {
+            "field": "image"
+          },
+          "type": "string",
+          "_fal_ui_field": "image"
+        },
+        "title": "Reference Image Urls",
+        "description": "Optional reference images used to guide the edit (up to 5). Formats: JPEG, JPG, PNG, WEBP. Dimensions must be at least 300px. Aspect ratio between 1:2.5 and 2.5:1. Max 10 MB each."
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "title": "GenerationResponse",
+    "required": [
+      "id",
+      "status"
+    ],
+    "properties": {
+      "id": {
+        "type": "string",
+        "description": "Unique identifier for the generation task."
+      },
+      "error": {
+        "type": "string",
+        "description": "Error message if the task failed. Empty on success."
+      },
+      "model": {
+        "type": "string",
+        "description": "Model ID used for the prediction."
+      },
+      "status": {
+        "enum": [
+          "pending",
+          "running",
+          "completed",
+          "failed",
+          "timeout"
+        ],
+        "type": "string",
+        "description": "Status of the task: pending, running, completed, failed, or timeout."
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "title": "OutputItem",
+          "required": [
+            "url"
+          ],
+          "properties": {
+            "url": {
+              "type": "string",
+              "description": "The URL where the generated content can be downloaded from."
+            },
+            "content_type": {
+              "type": "string",
+              "description": "The MIME type of the output file."
+            }
+          }
+        },
+        "description": "Array of generated content. Empty when status is not completed."
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "formula",
+    "formula": "(usage.duration ?? media_duration(params.video) ?? 5.0) * 2.0 * ((params.resolution ?? \"720p\") == \"720p\" ? 0.14 : 0.24)",
+    "formula_variables": [
+      "params.resolution",
+      "params.video",
+      "usage.duration"
+    ],
+    "reference_price": 1.4
+  },
+  "examples": [
+    {
+      "input": {
+        "prompt": "Make the scene snowy",
+        "resolution": "720p",
+        "video": "https://static.sandbase.ai/examples/d40d74d4-3ccc-4e10-8d82-cb6d7040edc4/input/19f9589e-def6-4f7b-a519-2d17f8de3364.mp4"
+      },
+      "output": [
+        {
+          "poster": "https://static.sandbase.ai/examples/posters/a38c83680a6fc0c43e91.jpg",
+          "url": "https://static.sandbase.ai/examples/d40d74d4-3ccc-4e10-8d82-cb6d7040edc4/output/ef651f94-d7df-4be7-a000-d972e67a32bb.mp4"
+        }
+      ],
+      "default": true
+    }
+  ],
+  "readme": "# Happy Horse Video Edit\n\nEdit an existing clip with Happy Horse: restyle it, change objects or wardrobe, or rework the scene with an instruction. Optional reference images show the target look; the source motion and length are kept.\n\n## Fields\n\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `prompt` | string, required | — | Text instruction. |\n| `video` | video URL, required | — | Source clip, Video 1 in the prompt. |\n| `resolution` | `720p` / `1080p` | `720p` | Sets the per-second rate. |\n| `seed` | integer | random | Fix it to compare prompt changes. |\n| `reference_image_urls` | image URL[] | — | Optional reference images for the new look. |\n| `audio_setting` | `auto` / `origin` | `auto` | `auto` regenerates audio to match the edit; `origin` keeps the source track. |\n\n## Billing\n\nAlibaba bills the source and the edited output, which are the same length, so each source second bills twice: $0.28 at 720p and $0.48 at 1080p. The quote before submission assumes a 5-second source; the final charge uses the measured length.\n\n| Source clip | 720p | 1080p |\n|---|---|---|\n| 3s | $0.84 | $1.44 |\n| 5s | $1.40 | $2.40 |\n| 10s | $2.80 | $4.80 |\n| 15s | $4.20 | $7.20 |\n\nFailed runs are not charged.\n\n## Prompting\n\n- Lead with the change and say what must stay: “make it a watercolor animation; keep her face and the camera move”.\n- Draft at 720p; edits bill twice the source length.\n\n## Limits\n\n- Output length and framing follow the source video.\n\n## Also on SandBase\n\nOther Happy Horse endpoints: `alibaba/happy-horse/text-to-video`, `alibaba/happy-horse/image-to-video`, `alibaba/happy-horse/reference-to-video`, `alibaba/wan/2.7/video-edit` (Wan alternative, bills output only).\n",
+  "cover_url": "https://static.sandbase.ai/covers/alibaba/happy-horse/video-edit/cover-flare-20261004211830.webp",
+  "page_url": "https://www.sandbase.ai/model/alibaba/happy-horse/video-edit",
+  "published_at": "2026-04-27T11:46:52.471Z",
+  "created_at": "2026-06-01T11:51:44.44Z"
+}

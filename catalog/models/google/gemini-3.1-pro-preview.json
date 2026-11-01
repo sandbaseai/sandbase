@@ -1,0 +1,51 @@
+{
+  "name": "google/gemini-3.1-pro-preview",
+  "display_name": "Google: Gemini 3.1 Pro Preview",
+  "type": "llm",
+  "vendor": "Google",
+  "vendor_slug": "google",
+  "description": "Gemini 3.1 Pro Preview is the Pro-tier reasoning model of Google's Gemini 3 series, released in February 2026 to refine Gemini 3 Pro with better thinking, improved token efficiency and more grounded, factually consistent answers. Google optimizes it for software engineering and for agentic workflows that need precise tool use and reliable multi-step execution across real-world domains. It accepts text, image, video, audio and PDF input, remains a preview model, and is Google's recommended replacement for the retired Gemini 3 Pro Preview.",
+  "tags": [
+    "chat",
+    "vision",
+    "audio_input",
+    "reasoning",
+    "structured_output",
+    "function_calling"
+  ],
+  "capabilities": [
+    "chat",
+    "vision",
+    "audio_input",
+    "reasoning",
+    "structured_output",
+    "function_calling"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "chat_completions": "POST /v1/chat/completions",
+    "responses": "POST /v1/responses",
+    "messages": "POST /v1/messages"
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_token",
+    "per_million_tokens": {
+      "input": 2,
+      "output": 12,
+      "cache_read_multiplier": 0.1
+    },
+    "formula": "usage.prompt_tokens >= 200000 ? (usage.prompt_tokens * 4 / 1000000 + usage.completion_tokens * 18 / 1000000 - usage.cached_tokens * 1.8 / 1000000) : (usage.prompt_tokens * 2 / 1000000 + usage.completion_tokens * 12 / 1000000)",
+    "formula_variables": [
+      "usage.cached_tokens",
+      "usage.completion_tokens",
+      "usage.prompt_tokens"
+    ]
+  },
+  "page_url": "https://www.sandbase.ai/model/google/gemini-3.1-pro-preview",
+  "published_at": "2026-02-19T14:00:27Z",
+  "created_at": "2026-05-08T23:49:19.789Z"
+}

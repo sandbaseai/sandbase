@@ -1,0 +1,55 @@
+{
+  "name": "facebook/post-comments",
+  "display_name": "Facebook Post Comments",
+  "type": "api",
+  "vendor": "Facebook",
+  "vendor_slug": "facebook",
+  "description": "Get comments for a Facebook post ID with cursor pagination. Use it to review discussion associated with a known public post or continue through subsequent comment pages.",
+  "tags": [
+    "api",
+    "facebook",
+    "social-media"
+  ],
+  "capabilities": [
+    "api",
+    "facebook",
+    "social-media"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/facebook/post-comments"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "postId"
+    ],
+    "properties": {
+      "cursor": {
+        "type": "string",
+        "description": "Pagination cursor for fetching the next set of comments."
+      },
+      "postId": {
+        "type": "string",
+        "example": "2000749587967633",
+        "description": "The unique identifier of the Facebook post."
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.027778
+  },
+  "readme": "# Facebook Post Comments API\n\nGet comments for a Facebook post ID with cursor pagination. Use it to review discussion associated with a known public post or continue through subsequent comment pages.\n\nThe response is the platform's original data structure.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/facebook/post-comments\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"postId\": \"2000749587967633\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `postId` | string | Yes | The unique identifier of the Facebook post. |\n| `cursor` | string | No | Pagination cursor for fetching the next set of comments. |\n\n## Pricing\n\nFlat price per call. Failed calls and empty results are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/facebook/post-comments",
+  "created_at": "2026-10-29T12:06:01.876Z"
+}

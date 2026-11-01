@@ -1,0 +1,134 @@
+{
+  "name": "xai/grok-tts",
+  "display_name": "xAI Text to Speech",
+  "type": "audio",
+  "vendor": "xAI",
+  "vendor_slug": "xai",
+  "description": "Grok Tts by xAI - convert text to natural-sounding speech with AI. Supports multiple voices, languages, emotions, and speaking styles for content creation and accessibility.",
+  "tags": [
+    "text-to-speech"
+  ],
+  "capabilities": [
+    "text-to-speech"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}"
+  },
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "text": {
+        "type": "string",
+        "title": "Text",
+        "maxLength": 15000,
+        "minLength": 1,
+        "description": "The text to convert to speech. Maximum 15,000 characters. Supports speech tags for expressive delivery: inline tags like [laugh], [pause], [sigh] and wrapping tags like <whisper>text</whisper>, <slow>text</slow>."
+      },
+      "voice": {
+        "enum": [
+          "eve",
+          "ara",
+          "rex",
+          "sal",
+          "leo"
+        ],
+        "type": "string",
+        "title": "Voice",
+        "description": "The voice to use for speech synthesis."
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "title": "GenerationResponse",
+    "required": [
+      "id",
+      "status"
+    ],
+    "properties": {
+      "id": {
+        "type": "string",
+        "description": "Unique identifier for the generation task."
+      },
+      "error": {
+        "type": "string",
+        "description": "Error message if the task failed. Empty on success."
+      },
+      "model": {
+        "type": "string",
+        "description": "Model ID used for the prediction."
+      },
+      "status": {
+        "enum": [
+          "pending",
+          "running",
+          "completed",
+          "failed",
+          "timeout"
+        ],
+        "type": "string",
+        "description": "Status of the task: pending, running, completed, failed, or timeout."
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "title": "OutputItem",
+          "required": [
+            "url"
+          ],
+          "properties": {
+            "url": {
+              "type": "string",
+              "examples": [
+                "https://static.sandbase.ai/examples/xai/grok-tts/output_url_0.mp3"
+              ],
+              "description": "The URL where the generated content can be downloaded from."
+            },
+            "content_type": {
+              "type": "string",
+              "description": "The MIME type of the output file."
+            }
+          }
+        },
+        "description": "Array of generated content. Empty when status is not completed."
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "formula",
+    "formula": "Math.max(1.0, Math.ceil(len(params.text ?? \"\") / 1000.0)) * 0.015",
+    "formula_variables": [
+      "params.text"
+    ],
+    "reference_price": 0.015,
+    "price_examples": [
+      {
+        "params": {},
+        "usd": 0.015
+      }
+    ]
+  },
+  "examples": [
+    {
+      "input": {},
+      "output": [
+        {
+          "url": "https://static.sandbase.ai/examples/39238a06-6560-4f1a-96f7-447b81f970df/output/9ed0b3ff-cf5c-43ac-8f67-9c487d71efec.mp3"
+        }
+      ],
+      "default": true
+    }
+  ],
+  "readme": "# xAI Text to Speech\n\nxAI text-to-speech with five voices (Eve, Ara, Rex, Sal, Leo).\n\n## Fields\n\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `text` | string | — | Text to speak. |\n| `voice` | `eve` / `ara` / `rex` / `sal` / `leo` | — | Voice. |\n\n## Billing\n\n$0.015 per started 1,000 characters, with a one-unit minimum.\n\n| Text | Price |\n|---|---|\n| 200 characters | $0.015 |\n| 1,000 characters | $0.015 |\n| 2,500 characters | $0.045 |\n\nFailed runs are not charged.\n",
+  "cover_url": "https://static.sandbase.ai/covers/xai/grok-tts/cover-flare-20261008040303.webp",
+  "page_url": "https://www.sandbase.ai/model/xai/grok-tts",
+  "published_at": "2026-03-17T00:21:43.728Z",
+  "created_at": "2026-05-15T12:48:25.296Z"
+}

@@ -1,0 +1,97 @@
+{
+  "name": "duckduckgo/maps",
+  "display_name": "DuckDuckGo Maps",
+  "type": "api",
+  "vendor": "DuckDuckGo",
+  "vendor_slug": "duckduckgo",
+  "description": "Search DuckDuckGo Maps for places inside a viewport rectangle or around a center.",
+  "tags": [
+    "api",
+    "duckduckgo",
+    "web-scraping"
+  ],
+  "capabilities": [
+    "api",
+    "duckduckgo",
+    "web-scraping"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}",
+    "passthrough": "POST /v1/api/duckduckgo/maps"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "q"
+    ],
+    "properties": {
+      "q": {
+        "type": "string",
+        "example": "coffee",
+        "maxLength": 500,
+        "minLength": 1,
+        "description": "Place or category query, up to 500 characters."
+      },
+      "lat": {
+        "type": "number",
+        "example": 40.7128,
+        "maximum": 90,
+        "minimum": -90,
+        "description": "Viewport center latitude. Requires lon."
+      },
+      "lon": {
+        "type": "number",
+        "example": -74.006,
+        "maximum": 180,
+        "minimum": -180,
+        "description": "Viewport center longitude. Requires lat."
+      },
+      "bbox": {
+        "type": "string",
+        "pattern": "^-?\\d+(\\.\\d+)?(,-?\\d+(\\.\\d+)?){3}$",
+        "description": "Viewport rectangle as 'top,left,bottom,right'. Required unless lat and lon are supplied."
+      },
+      "strict_bbox": {
+        "type": "boolean",
+        "description": "Exclude results outside the requested bounds. Default true."
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "required": [
+      "id",
+      "status",
+      "model"
+    ],
+    "properties": {
+      "id": {
+        "type": "string"
+      },
+      "model": {
+        "type": "string"
+      },
+      "status": {
+        "type": "string"
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.00015,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "readme": "# DuckDuckGo Maps\n\nSearch DuckDuckGo Maps for places inside a viewport rectangle or around a center.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/duckduckgo/maps\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"q\": \"coffee\", \"lat\": 40.7128, \"lon\": -74.006}'\n```\n\nThis API runs asynchronously. The call returns a task `id` with status `pending`; poll `GET https://api.sandbase.ai/v1/run/{id}` until `status` is `completed` and read the result from `outputs[0].data`.\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `q` | string | Yes | Place or category query, up to 500 characters. |\n| `bbox` | string | No | Viewport rectangle as 'top,left,bottom,right'. Required unless lat and lon are supplied. |\n| `lat` | number | No | Viewport center latitude. Requires lon. |\n| `lon` | number | No | Viewport center longitude. Requires lat. |\n| `strict_bbox` | boolean | No | Exclude results outside the requested bounds. Default true. |\n\n## Pricing\n\nFlat price per call. Failed calls are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/duckduckgo/maps",
+  "created_at": "2026-10-30T08:55:40.684Z"
+}

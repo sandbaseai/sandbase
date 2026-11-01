@@ -1,0 +1,165 @@
+{
+  "name": "youtube/web-v2/general-search-v2",
+  "display_name": "YouTube General Search (Web V2, V2)",
+  "type": "api",
+  "vendor": "YouTube",
+  "vendor_slug": "youtube",
+  "description": "Returns YouTube search results matching a query keyword. Supports filtering by content type, upload date, duration, features, and sorting options, with pagination via tokens.",
+  "tags": [
+    "api",
+    "youtube"
+  ],
+  "capabilities": [
+    "api",
+    "youtube"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/youtube/web-v2/general-search-v2"
+  },
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "type": {
+        "anyOf": [
+          {
+            "enum": [
+              "video",
+              "channel",
+              "playlist",
+              "movie"
+            ],
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "title": "Type",
+        "description": "Result type filter - video/channel/playlist/movie"
+      },
+      "keyword": {
+        "anyOf": [
+          {
+            "type": "string",
+            "maxLength": 200
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "title": "Keyword",
+        "example": "OpenAI",
+        "description": "Search keyword (required for first request)"
+      },
+      "sort_by": {
+        "anyOf": [
+          {
+            "enum": [
+              "relevance",
+              "upload_date",
+              "view_count",
+              "rating"
+            ],
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "title": "Sort By",
+        "description": "Sort by - relevance/upload_date/view_count/rating"
+      },
+      "duration": {
+        "anyOf": [
+          {
+            "enum": [
+              "short",
+              "medium",
+              "long"
+            ],
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "title": "Duration",
+        "description": "Video duration filter - short(<4min)/medium(4-20min)/long(>20min)"
+      },
+      "features": {
+        "anyOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "title": "Features",
+        "description": "Feature filter (comma separated) - live/4k/hd/subtitles/creative_commons/360/vr180/3d/hdr"
+      },
+      "upload_date": {
+        "anyOf": [
+          {
+            "enum": [
+              "last_hour",
+              "today",
+              "this_week",
+              "this_month",
+              "this_year"
+            ],
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "title": "Upload Date",
+        "description": "Upload date filter - last_hour/today/this_week/this_month/this_year"
+      },
+      "continuation_token": {
+        "anyOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "title": "Continuation Token",
+        "description": "Pagination token (pass from previous response for next page)"
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.003,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "examples": [
+    {
+      "input": {
+        "keyword": "deepseek harness",
+        "sort_by": "relevance",
+        "type": "video"
+      }
+    }
+  ],
+  "readme": "# YouTube General Search (Web V2, V2) API\n\nSearch YouTube items by providing a `keyword` query. Pass `continuation_token` from previous responses to paginate through additional results.\n\n## Use cases\n\n- Find YouTube videos, channels, or playlists matching specific search terms.\n- Filter video search results by duration, definition, or upload date.\n- Sort YouTube content by view count, rating, or upload date.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/youtube/web-v2/general-search-v2\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `type` | string | No | Result type filter - video/channel/playlist/movie |\n| `keyword` | string | No | Search keyword (required for first request) |\n| `sort_by` | string | No | Sort by - relevance/upload_date/view_count/rating |\n| `duration` | string | No | Video duration filter - short(<4min)/medium(4-20min)/long(>20min) |\n| `features` | string | No | Feature filter (comma separated) - live/4k/hd/subtitles/creative_commons/360/vr180/3d/hdr |\n| `upload_date` | string | No | Upload date filter - last_hour/today/this_week/this_month/this_year |\n| `continuation_token` | string | No | Pagination token (pass from previous response for next page) |\n\n## Notes\n\n- `keyword` is required for the initial search request.\n- Use `continuation_token` from the previous response to retrieve the next page of results.\n- Filter by `type` for videos, channels, playlists, or movies, and combine with `features` such as 4k, hd, or subtitles.\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [YouTube Channel Community Posts](/model/youtube/web-v2/channel-community-posts): Returns community posts from a specific YouTube channel, including text content, polls, votes, and comment counts.\n- [YouTube Channel Description](/model/youtube/web-v2/channel-description): Returns YouTube channel details including subscriber counts, video totals, view counts, joined date, and social links.\n- [YouTube Channel ID from URL](/model/youtube/web-v2/channel-id): Resolves a YouTube channel URL to its canonical channel ID.\n",
+  "page_url": "https://www.sandbase.ai/model/youtube/web-v2/general-search-v2",
+  "created_at": "2026-07-31T04:27:00.697Z"
+}

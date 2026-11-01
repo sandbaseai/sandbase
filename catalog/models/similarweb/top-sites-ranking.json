@@ -1,0 +1,77 @@
+{
+  "name": "similarweb/top-sites-ranking",
+  "display_name": "Similarweb Top Sites Ranking",
+  "type": "api",
+  "vendor": "Similarweb",
+  "vendor_slug": "similarweb",
+  "description": "Get the top-ranked websites worldwide or in a category, ordered by traffic rank.",
+  "tags": [
+    "api",
+    "similarweb",
+    "web-analytics"
+  ],
+  "capabilities": [
+    "api",
+    "similarweb",
+    "web-analytics"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/similarweb/top-sites-ranking"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "category",
+      "limit"
+    ],
+    "properties": {
+      "limit": {
+        "type": "integer",
+        "example": 3,
+        "maximum": 20,
+        "minimum": 1,
+        "description": "limit"
+      },
+      "offset": {
+        "type": "integer",
+        "maximum": 100000,
+        "minimum": 0,
+        "description": "offset"
+      },
+      "country": {
+        "enum": [
+          "ww"
+        ],
+        "type": "string",
+        "default": "ww",
+        "description": "Worldwide data only; values are case-insensitive."
+      },
+      "category": {
+        "type": "string",
+        "example": "all",
+        "description": "category"
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "formula",
+    "formula": "0.075 * Math.max(1.0, Math.min(20.0, (output.data?.data != nil ? len(output.data.data) : (params.limit ?? 20)) * 1.0))",
+    "formula_variables": [
+      "params.limit"
+    ],
+    "reference_price": 0.075
+  },
+  "readme": "# Similarweb Top Sites Ranking API\n\nGet the top-ranked websites worldwide or in a category, ordered by traffic rank.\n\nThe response is the official Similarweb API response, unchanged.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/similarweb/top-sites-ranking\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"category\": \"all\", \"country\": \"ww\", \"limit\": 3}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `category` | string | Yes | category |\n| `country` | string | No | Worldwide data only; values are case-insensitive. |\n| `limit` | integer | Yes | limit |\n| `offset` | integer | No | offset |\n\n## Pricing\n\n$0.075 per returned row (1 Similarweb credit), up to 20 rows; billed on rows returned. Failed calls are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/similarweb/top-sites-ranking",
+  "created_at": "2026-10-30T06:06:10.459Z"
+}

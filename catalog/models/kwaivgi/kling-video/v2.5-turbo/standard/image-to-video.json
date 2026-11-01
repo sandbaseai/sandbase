@@ -1,0 +1,157 @@
+{
+  "name": "kwaivgi/kling-video/v2.5-turbo/standard/image-to-video",
+  "display_name": "Kling V2.5 Turbo Standard Image to Video",
+  "type": "video",
+  "vendor": "KwaiVGI",
+  "vendor_slug": "kwaivgi",
+  "description": "Kling V2.5 Turbo Standard Image to Video by Kuaishou animates a start image into a 5 or 10 second 720p video.",
+  "tags": [
+    "image-to-video"
+  ],
+  "capabilities": [
+    "image-to-video"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "prompt",
+      "image"
+    ],
+    "properties": {
+      "image": {
+        "type": "string",
+        "title": "Image Url",
+        "examples": [
+          "https://static.sandbase.ai/examples/mirrored/247795a4986e-w4qtfMTu-mh_KUgHIZNAH__4BUACOxwlMAEVXDfeYbj_2UxyAg3W.jpg"
+        ],
+        "description": "URL of the image to be used for the video"
+      },
+      "prompt": {
+        "type": "string",
+        "title": "Prompt",
+        "examples": [
+          "Fine grains of salt drift across the flats in a slow, low wind, streaming past the figure's feet. The figure's robe ripples. Light crawls down the face of the monolith as the sun rises millimeter by millimeter — a slow wash of coral replacing indigo. The figure tilts their head upward. Camera creeps forward almost imperceptibly. Monumental, spiritual, glacial."
+        ],
+        "maxLength": 2500
+      },
+      "duration": {
+        "enum": [
+          5,
+          10
+        ],
+        "type": "integer",
+        "title": "Duration",
+        "default": 5,
+        "description": "The duration of the generated video in seconds"
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "title": "GenerationResponse",
+    "required": [
+      "id",
+      "status"
+    ],
+    "properties": {
+      "id": {
+        "type": "string",
+        "description": "Unique identifier for the generation task."
+      },
+      "error": {
+        "type": "string",
+        "description": "Error message if the task failed. Empty on success."
+      },
+      "model": {
+        "type": "string",
+        "description": "Model ID used for the prediction."
+      },
+      "status": {
+        "enum": [
+          "pending",
+          "running",
+          "completed",
+          "failed",
+          "timeout"
+        ],
+        "type": "string",
+        "description": "Status of the task: pending, running, completed, failed, or timeout."
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "title": "OutputItem",
+          "required": [
+            "url"
+          ],
+          "properties": {
+            "url": {
+              "type": "string",
+              "examples": [
+                "https://static.sandbase.ai/examples/mirrored/446bcd150d5e-EiyjY6_Fjf7XPgR7nUli5_output.mp4"
+              ],
+              "description": "The URL where the generated content can be downloaded from."
+            },
+            "content_type": {
+              "type": "string",
+              "description": "The MIME type of the output file."
+            }
+          }
+        },
+        "description": "Array of generated content. Empty when status is not completed."
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "formula",
+    "formula": "(params.duration ?? 5) * 0.042",
+    "formula_variables": [
+      "params.duration"
+    ],
+    "reference_price": 0.21,
+    "price_examples": [
+      {
+        "params": {
+          "duration": 5
+        },
+        "usd": 0.21
+      },
+      {
+        "params": {
+          "duration": 10
+        },
+        "usd": 0.42
+      }
+    ]
+  },
+  "examples": [
+    {
+      "input": {
+        "image": "https://static.sandbase.ai/examples/e4ba3afb-2028-4b80-9685-5dfc3c506634/input/ba3214f2-96a8-4a28-b7e4-a4250999105e.jpg",
+        "prompt": "Fine grains of salt drift across the flats in a slow, low wind, streaming past the figure's feet. The figure's robe ripples. Light crawls down the face of the monolith as the sun rises millimeter by millimeter — a slow wash of coral replacing indigo. The figure tilts their head upward. Camera creeps forward almost imperceptibly. Monumental, spiritual, glacial."
+      },
+      "output": [
+        {
+          "poster": "https://static.sandbase.ai/examples/posters/660b949e20d9c9ee1541.jpg",
+          "url": "https://static.sandbase.ai/examples/e4ba3afb-2028-4b80-9685-5dfc3c506634/output/099568e4-1054-4c46-876b-e6cd417b816c.mp4"
+        }
+      ],
+      "default": true
+    }
+  ],
+  "readme": "# Kling V2.5 Turbo Standard Image to Video\n\nKling V2.5 Turbo Standard image-to-video: fast, low-cost 5 or 10 second clips without audio.\n\n## Fields\n\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `prompt` | string, required | — | Up to 2,500 characters. |\n| `image` | image URL, required | — | First frame. JPEG, PNG, or WebP URL. |\n| `duration` | 5 / 10 | 5 | Output length in seconds. |\n\n## Billing\n\n$0.042 per output second.\n\n| Output | Price |\n|---|---|\n| 5s (default) | $0.21 |\n| 10s | $0.42 |\n\nFailed runs are not charged.\n\n## Prompting\n\n- Describe subject, action, camera move, and light in order.\n\n## Limits\n\n- Clips are 5 or 10 seconds; no audio.\n\n## Also on SandBase\n\nOther V2.5 Turbo endpoints: `kwaivgi/kling-video/v2.5-turbo/pro/image-to-video`, `kwaivgi/kling-video/v2.5-turbo/pro/text-to-video`.\n",
+  "cover_url": "https://static.sandbase.ai/covers/kwaivgi/kling-video/v2.5-turbo/standard/image-to-video/cover-flare-20261005022715.webp",
+  "page_url": "https://www.sandbase.ai/model/kwaivgi/kling-video/v2.5-turbo/standard/image-to-video",
+  "published_at": "2025-10-22T05:04:22.392Z",
+  "created_at": "2026-05-14T10:26:29.656Z"
+}

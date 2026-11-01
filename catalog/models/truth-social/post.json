@@ -1,0 +1,75 @@
+{
+  "name": "truth-social/post",
+  "display_name": "Truth Social Post",
+  "type": "api",
+  "vendor": "Truth Social",
+  "vendor_slug": "truth-social",
+  "description": "Get a single Truth Social post by its URL - text, author, engagement (likes, comments, shares), and timestamp as clean JSON.",
+  "tags": [
+    "api",
+    "truth-social",
+    "social-media"
+  ],
+  "capabilities": [
+    "api",
+    "truth-social",
+    "social-media"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/truth-social/post"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "url"
+    ],
+    "properties": {
+      "url": {
+        "type": "string",
+        "example": "https://truthsocial.com/@realDonaldTrump/posts/116824551176646175",
+        "description": "Full Truth Social post URL, e.g. \"https://truthsocial.com/@realDonaldTrump/posts/116824551176646175\"."
+      }
+    },
+    "additionalProperties": false
+  },
+  "response_schema": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string"
+      },
+      "model": {
+        "type": "string"
+      },
+      "status": {
+        "type": "string"
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "data": {
+              "type": "object",
+              "description": "Normalized result for this request."
+            }
+          }
+        }
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "usage_based",
+    "note": "Billed per call from metered usage; the reference price is typical.",
+    "reference_price": 0.0011
+  },
+  "readme": "# Truth Social Post API\n\nGet a single Truth Social post by its URL - text, author, engagement (likes, comments, shares), and timestamp as clean JSON.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/truth-social/post\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"url\": \"https://truthsocial.com/@realDonaldTrump/posts/116824551176646175\"}'\n```\n\nThe result is returned in `outputs[0].data`. A lookup that finds nothing still succeeds and returns `found: false`.\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `url` | string | Yes | Full Truth Social post URL, e.g. \"https://truthsocial.com/@realDonaldTrump/posts/116824551176646175\". |\n\n## Pricing\n\nBilled at the actual cost of each call, usually $0.0011 per request. A call can cost more when the first data source fails and another one answers. Failed calls are not charged. Lookups that find nothing and searches with no results are billed at their actual cost, which is often lower and can be $0.\n",
+  "page_url": "https://www.sandbase.ai/model/truth-social/post",
+  "created_at": "2026-10-31T10:45:29.234Z"
+}

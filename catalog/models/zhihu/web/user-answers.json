@@ -1,0 +1,81 @@
+{
+  "name": "zhihu/web/user-answers",
+  "display_name": "Zhihu User Answers",
+  "type": "api",
+  "vendor": "Zhihu",
+  "vendor_slug": "zhihu",
+  "description": "Returns answers posted by a specific Zhihu user based on their user token. Supports pagination and sorting results by creation date or upvote count.",
+  "tags": [
+    "api",
+    "zhihu"
+  ],
+  "capabilities": [
+    "api",
+    "zhihu"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/zhihu/web/user-answers"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "user_url_token"
+    ],
+    "properties": {
+      "limit": {
+        "type": "string",
+        "title": "Limit",
+        "description": "Number of answers per page"
+      },
+      "offset": {
+        "type": "string",
+        "title": "Offset",
+        "description": "Offset"
+      },
+      "sort_type": {
+        "enum": [
+          "created",
+          "voteups"
+        ],
+        "type": "string",
+        "title": "Sort Type",
+        "description": "Sort Type"
+      },
+      "user_url_token": {
+        "type": "string",
+        "title": "User Url Token",
+        "description": "User ID"
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.0015,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "examples": [
+    {
+      "input": {
+        "user_url_token": "ren-gong-zhi-neng-90"
+      },
+      "default": true
+    }
+  ],
+  "readme": "# Zhihu User Answers API\n\nQuery answers submitted by a specific user on Zhihu using their `user_url_token`. You can paginate results and customize the sort order.\n\n## Use cases\n\n- Analyze the most upvoted answers submitted by a specific Zhihu author.\n- Monitor recent answers from specific industry experts on Zhihu.\n- Extract an author's answer history for profile research.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/zhihu/web/user-answers\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"user_url_token\": \"<user_url_token>\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `user_url_token` | string | Yes | User ID |\n| `limit` | string | No | Number of answers per page |\n| `offset` | string | No | Offset |\n| `sort_type` | string | No | Sort Type |\n\n## Notes\n\n- `user_url_token` is the required user identifier.\n- `sort_type` accepts either `created` or `voteups`.\n- Pagination is controlled using `limit` and `offset`.\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [Zhihu AI Search Stream](/model/zhihu/web/ai-search-stream): Returns streaming AI search results from Zhihu based on a query prompt.\n- [Zhihu Answer Details](/model/zhihu/web/answer-detail): Retrieves detailed information for a specific Zhihu answer using its numeric ID, including answer text, timestamps, and share links.\n- [Zhihu Article Search](/model/zhihu/web/article-search-v3): Search Zhihu articles and answers by keyword and get titles, excerpts, authors, vote and comment counts, with sorting, content type and time filters plus offse…\n",
+  "page_url": "https://www.sandbase.ai/model/zhihu/web/user-answers",
+  "created_at": "2026-07-31T04:29:49.382Z"
+}

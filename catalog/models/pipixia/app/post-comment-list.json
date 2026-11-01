@@ -1,0 +1,78 @@
+{
+  "name": "pipixia/app/post-comment-list",
+  "display_name": "Pipixia Post Comments",
+  "type": "api",
+  "vendor": "Pipixia",
+  "vendor_slug": "pipixia",
+  "description": "Returns comments for a Pipixia post using its video identifier. Supports cursor-based pagination and cell type filtering to browse feedback.",
+  "tags": [
+    "api",
+    "pipixia"
+  ],
+  "capabilities": [
+    "api",
+    "pipixia"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/pipixia/app/post-comment-list"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "cell_id"
+    ],
+    "properties": {
+      "offset": {
+        "type": "string",
+        "title": "Offset",
+        "default": "0",
+        "example": "0",
+        "description": "Page cursor, default is 0, get the corresponding value from the `offset` Key in the previous page."
+      },
+      "cell_id": {
+        "type": "string",
+        "title": "Cell Id",
+        "example": "7411193113223371043",
+        "description": "AKA video id, can be obtained from the share link."
+      },
+      "cell_type": {
+        "type": "integer",
+        "title": "Cell Type",
+        "default": 1,
+        "example": 1,
+        "description": "Video type, 1 for video, keep the default value for other types."
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.0015,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "examples": [
+    {
+      "input": {
+        "cell_id": "7411193113223371043",
+        "cell_type": 1,
+        "offset": "0"
+      }
+    }
+  ],
+  "readme": "# Pipixia Post Comments API\n\nRetrieve audience discussions on a post by providing its `cell_id`. Use `offset` to page through the comment list.\n\n## Use cases\n\n- Read audience feedback on Pipixia posts.\n- Track comment volume and engagement on video content.\n- Archive user reactions for social media analysis.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/pipixia/app/post-comment-list\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"cell_id\": \"7411193113223371043\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `cell_id` | string | Yes | AKA video id, can be obtained from the share link. |\n| `offset` | string | No | Page cursor, default is 0, get the corresponding value from the `offset` Key in the previous page. |\n| `cell_type` | integer | No | Video type, 1 for video, keep the default value for other types. |\n\n## Example response\n\nReal response for the request above, trimmed to the main fields. User names and long IDs are masked.\n\n```json\n{\n  \"data\": {\n    \"cell_comments\": [\n      {\n        \"cell_id\": 7411241327297299263,\n        \"cell_id_str\": \"7411241327297299263\",\n        \"cell_type\": 8,\n        \"city_name\": \"河南\",\n        \"display_time\": 1725564088,\n        \"last_view_time\": 0,\n        \"board_info\": {\n          \"block_type\": 12,\n          \"god_rank\": -1\n        },\n        \"comment_info\": {\n          \"bds_origin_type\": 1,\n          \"bury_count\": -1,\n          \"comment_count\": 1088,\n          \"comment_id\": 7411241327297299263,\n          \"comment_id_str\": \"7411241327297299263\",\n          \"create_time\": 1725564088\n        }\n      }\n    ]\n  }\n}\n```\n\n## Notes\n\n- The `cell_id` corresponds to the video ID and can be obtained from the post share link.\n- Set `offset` to the value returned in the previous response page to fetch the next set of comments.\n- Set `cell_type` to 1 for video posts, or leave default for other types.\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [Pipixia Hashtag Details](/model/pipixia/app/hashtag-detail): Retrieves metadata and profile assets for a specific Pipixia hashtag by its unique identifier.\n- [Pipixia Hashtag Post List](/model/pipixia/app/hashtag-post-list): Returns a list of posts associated with a specific hashtag on Pipixia.\n- [Pipixia App Home Feed](/model/pipixia/app/home-feed): Returns recommended posts from the Pipixia home feed.\n",
+  "page_url": "https://www.sandbase.ai/model/pipixia/app/post-comment-list",
+  "created_at": "2026-07-31T04:09:39.787Z"
+}

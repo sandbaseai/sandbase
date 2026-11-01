@@ -1,0 +1,41 @@
+{
+  "name": "alibaba/qwen3-vl-30b-a3b-instruct",
+  "display_name": "Qwen: Qwen3 VL 30B A3B Instruct",
+  "type": "llm",
+  "vendor": "Alibaba",
+  "vendor_slug": "alibaba",
+  "description": "Qwen3-VL 30B A3B Instruct is the mid-size Mixture-of-Experts, non-thinking edition of Alibaba's open-weight Qwen3-VL vision-language family, activating about 3 billion parameters per token. Alibaba positions it for fast responses with upgraded image and video understanding, long videos and documents, spatial awareness, object recognition, multilingual OCR and visual agents that operate GUIs. It sits between Qwen3-VL 8B and 235B A22B in size and capability.",
+  "tags": [
+    "chat",
+    "vision",
+    "structured_output",
+    "function_calling"
+  ],
+  "capabilities": [
+    "chat",
+    "vision",
+    "structured_output",
+    "function_calling"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "chat_completions": "POST /v1/chat/completions",
+    "responses": "POST /v1/responses",
+    "messages": "POST /v1/messages"
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_token",
+    "per_million_tokens": {
+      "input": 0.13,
+      "output": 0.52
+    }
+  },
+  "cover_url": "https://t0.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=https://www.alibabacloud.com&size=256",
+  "page_url": "https://www.sandbase.ai/model/alibaba/qwen3-vl-30b-a3b-instruct",
+  "published_at": "2025-10-06T23:47:56Z",
+  "created_at": "2026-05-08T23:45:37.403Z"
+}

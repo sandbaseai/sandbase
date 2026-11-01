@@ -1,0 +1,60 @@
+{
+  "name": "dataforseo/v3/serp/yahoo/organic/live/advanced",
+  "display_name": "DataForSEO Yahoo Organic SERP",
+  "type": "api",
+  "vendor": "DataForSEO",
+  "vendor_slug": "dataforseo",
+  "description": "Returns real-time organic search engine results pages from Yahoo. Delivers detailed rank positions, titles, URLs, and SERP snippet data for specified search queries.",
+  "tags": [
+    "serp",
+    "yahoo",
+    "organic"
+  ],
+  "capabilities": [
+    "serp",
+    "yahoo",
+    "organic"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/dataforseo/v3/serp/yahoo/organic/live/advanced"
+  },
+  "input_schema": {
+    "type": "object",
+    "properties": {},
+    "description": "Request parameters forwarded to DataForSEO /v3/serp/yahoo/organic/live/advanced. See DataForSEO docs for full schema.",
+    "additionalProperties": true
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "formula",
+    "formula": "0.003 * Math.ceil(Math.max(params.depth ?? 6.0, 1.0) / 6.0)",
+    "formula_variables": [
+      "params.depth"
+    ],
+    "reference_price": 0.003,
+    "price_examples": [
+      {
+        "params": {},
+        "usd": 0.003
+      }
+    ]
+  },
+  "examples": [
+    {
+      "input": {}
+    }
+  ],
+  "readme": "# DataForSEO Yahoo Organic SERP API\n\nReturns real-time organic Yahoo search engine results pages (SERP) for query keywords and target locations.\n\n## Use cases\n\n- Track search ranking positions on Yahoo for target keywords.\n- Monitor competitor visibility across Yahoo organic listings.\n- Extract organic snippets and destination URLs for SEO audits.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/dataforseo/v3/serp/yahoo/organic/live/advanced\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"keyword\": \"running shoes\", \"location_code\": 2840, \"language_code\": \"en\"}'\n```\n\n## Parameters\n\nThe JSON body is forwarded to the upstream endpoint (one task per call). Fields used above:\n\n| Name | Description |\n|---|---|\n| `keyword` | Search query. |\n| `location_code` | Location code, e.g. 2840 for the United States. |\n| `language_code` | Language code, e.g. \"en\". |\n\n## Pricing\n\n$0.003 per page of 6 results. The default depth (6) is one page; for example depth 30 costs 5 pages. Failed calls are not charged. Extra crawled pages, pixel rankings, async AI overview, People Also Ask clicks and search operators (site:, intitle: ...) are not supported.\n\n## Related APIs\n\n- [DataForSEO Backlinks Anchors](/model/dataforseo/v3/backlinks/anchors/live): Returns anchor text distribution metrics for backlinks pointing to a target website or page.\n- [DataForSEO Backlinks List](/model/dataforseo/v3/backlinks/backlinks/live): Returns a list of external backlinks pointing to a specified target domain or webpage.\n- [DataForSEO Backlinks Bulk Ranks](/model/dataforseo/v3/backlinks/bulk_ranks/live): Returns rank metrics for multiple domains or pages in bulk.\n",
+  "page_url": "https://www.sandbase.ai/model/dataforseo/v3/serp/yahoo/organic/live/advanced",
+  "published_at": "2024-01-01T00:00:00Z",
+  "created_at": "2026-08-02T14:46:49.608Z"
+}

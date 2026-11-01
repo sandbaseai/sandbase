@@ -1,0 +1,167 @@
+{
+  "name": "heygen/lipsync/speed",
+  "display_name": "HeyGen Lipsync Speed",
+  "type": "video",
+  "vendor": "HeyGen",
+  "vendor_slug": "heygen",
+  "description": "HeyGen v3 Lipsync (speed) replaces the speech in a video and re-syncs the speaker's lips to the new audio.",
+  "tags": [
+    "video-to-video"
+  ],
+  "capabilities": [
+    "video-to-video"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "video",
+      "audio"
+    ],
+    "properties": {
+      "audio": {
+        "type": "string",
+        "title": "Audio",
+        "description": "Input audio URL."
+      },
+      "video": {
+        "type": "string",
+        "title": "Video",
+        "examples": [
+          "https://media.sandbase.ai/files/922d1013-9018-4956-a39d-d0859149ba76/0.mp4"
+        ],
+        "description": "Input video URL."
+      },
+      "end_time": {
+        "type": "number",
+        "title": "End Time",
+        "minimum": 0,
+        "description": "End time (seconds) for partial lipsync."
+      },
+      "start_time": {
+        "type": "number",
+        "title": "Start Time",
+        "minimum": 0,
+        "description": "Start time (seconds) for partial lipsync."
+      },
+      "enable_caption": {
+        "type": "boolean",
+        "title": "Captions",
+        "default": false,
+        "description": "Burn in captions."
+      },
+      "disable_music_track": {
+        "type": "boolean",
+        "title": "Remove Music",
+        "default": false,
+        "description": "Remove background music from the source video."
+      },
+      "enable_dynamic_duration": {
+        "type": "boolean",
+        "title": "Dynamic Duration",
+        "default": true,
+        "description": "Allow the video length to follow the new audio."
+      },
+      "enable_speech_enhancement": {
+        "type": "boolean",
+        "title": "Speech Enhancement",
+        "default": false,
+        "description": "Enhance the replacement audio."
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "title": "GenerationResponse",
+    "required": [
+      "id",
+      "status"
+    ],
+    "properties": {
+      "id": {
+        "type": "string",
+        "description": "Unique identifier for the generation task."
+      },
+      "error": {
+        "type": "string",
+        "description": "Error message if the task failed. Empty on success."
+      },
+      "model": {
+        "type": "string",
+        "description": "Model ID used for the prediction."
+      },
+      "status": {
+        "enum": [
+          "pending",
+          "running",
+          "completed",
+          "failed",
+          "timeout"
+        ],
+        "type": "string",
+        "description": "Status of the task: pending, running, completed, failed, or timeout."
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "title": "OutputItem",
+          "required": [
+            "url"
+          ],
+          "properties": {
+            "url": {
+              "type": "string",
+              "examples": [
+                "https://static.sandbase.ai/examples/google/veo3.1/lite/output_url_0.mp4"
+              ],
+              "description": "The URL where the generated content can be downloaded from."
+            },
+            "content_type": {
+              "type": "string",
+              "description": "The MIME type of the output file."
+            }
+          }
+        },
+        "description": "Array of generated content. Empty when status is not completed."
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "formula",
+    "formula": "(usage.duration ?? media_duration(params.audio) ?? 5.0) * 0.05",
+    "formula_variables": [
+      "params.audio",
+      "usage.duration"
+    ],
+    "reference_price": 0.25
+  },
+  "examples": [
+    {
+      "input": {
+        "audio": "https://static.sandbase.ai/examples/9b13681f-6405-4dbd-a183-2a0fddbabd85/input/a3934ad5-5119-4370-af54-46fa9b7c78fc.mp3",
+        "video": "https://static.sandbase.ai/examples/9b13681f-6405-4dbd-a183-2a0fddbabd85/input/e707ebac-4cf5-4c73-8ce1-f159ca1919e3.mp4"
+      },
+      "output": [
+        {
+          "poster": "https://static.sandbase.ai/examples/posters/160849037f6b829828c6.jpg",
+          "url": "https://static.sandbase.ai/examples/9b13681f-6405-4dbd-a183-2a0fddbabd85/output/2a67ccf5-7fd4-404f-bb07-914dea67a40b.mp4"
+        }
+      ],
+      "default": true
+    }
+  ],
+  "readme": "# HeyGen Lipsync Speed\n\nHeyGen Lipsync (speed) replaces the speech in a video and re-syncs the speaker's lips to new audio. Speed is faster and cheaper.\n\n## Fields\n\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `video` | video URL, required | — | Video with the speaker. |\n| `audio` | audio URL, required | — | New speech. |\n| `disable_music_track` | boolean | false | Drop background music. |\n| `enable_caption` | boolean | false | Burn in captions. |\n| `enable_dynamic_duration` | boolean | true | Adjust video length to the new audio. |\n| `enable_speech_enhancement` | boolean | false | Clean up the new speech. |\n| `end_time` | number | — | Optional end of the section. |\n| `start_time` | number | — | Optional start of the section to sync (seconds). |\n\n## Billing\n\n$0.05 per output second. The quote before submission assumes 5 seconds.\n\n| Output | Price |\n|---|---|\n| 5s | $0.25 |\n| 30s | $1.50 |\n| 60s | $3.00 |\n\nFailed runs are not charged.\n\n## Also on SandBase\n\nRelated: `heygen/lipsync/precision`, `sync/lipsync/3.0/video-to-video`.\n",
+  "cover_url": "https://static.sandbase.ai/covers/heygen/lipsync/speed/cover-flare-20261008040516.webp",
+  "page_url": "https://www.sandbase.ai/model/heygen/lipsync/speed",
+  "published_at": "2026-04-16T16:48:56.833Z",
+  "created_at": "2026-10-06T08:13:15.927Z"
+}

@@ -1,0 +1,78 @@
+{
+  "name": "weibo/web-v2/user-info",
+  "display_name": "Weibo User Profile Details (Web V2)",
+  "type": "api",
+  "vendor": "Weibo",
+  "vendor_slug": "weibo",
+  "description": "Returns detailed Weibo user profile information including nickname, avatar, bio, following count, and followers count by user ID or custom username.",
+  "tags": [
+    "api",
+    "weibo"
+  ],
+  "capabilities": [
+    "api",
+    "weibo"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/weibo/web-v2/user-info"
+  },
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "uid": {
+        "anyOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "title": "Uid",
+        "description": "User ID (optional, choose one with custom)"
+      },
+      "custom": {
+        "anyOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "title": "Custom",
+        "description": "Custom username (optional, choose one with uid)"
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.0015,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "examples": [
+    {
+      "input": {
+        "uid": "2062052743"
+      },
+      "default": true
+    }
+  ],
+  "readme": "# Weibo User Profile Details (Web V2) API\n\nRetrieve detailed profile metrics and public information for a Weibo user using `uid` or `custom`.\n\n## Use cases\n\n- Look up Weibo account metrics such as follower counts and following counts.\n- Display user avatar, nickname, and biography details in user dashboards.\n- Verify Weibo public profiles using either account IDs or custom usernames.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/weibo/web-v2/user-info\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `uid` | string | No | User ID (optional, choose one with custom) |\n| `custom` | string | No | Custom username (optional, choose one with uid) |\n\n## Notes\n\n- Provide either `uid` or `custom` to identify the target account.\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [Weibo Advanced Search](/model/weibo/web-v2/advanced-search): Search Weibo posts by keyword with filters for time range, post type (hot, original, verified, media) and content type (images, video, links).\n- [Weibo AI Related Search Content](/model/weibo/web-v2/ai-related-search): Returns AI-generated content extensions for a keyword, including related questions, recommended bloggers, and reference posts.\n- [Weibo AI Search](/model/weibo/web-v2/ai-search): Returns multimodal search results and relevance scores from Weibo intelligent search for a specified keyword or topic query.\n",
+  "page_url": "https://www.sandbase.ai/model/weibo/web-v2/user-info",
+  "created_at": "2026-07-31T02:46:16.266Z"
+}

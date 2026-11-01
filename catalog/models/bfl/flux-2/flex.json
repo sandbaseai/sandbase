@@ -1,0 +1,175 @@
+{
+  "name": "bfl/flux-2/flex",
+  "display_name": "Flux 2 Flex Text to Image",
+  "type": "image",
+  "vendor": "BFL",
+  "vendor_slug": "bfl",
+  "description": "Flux 2 Flex is BFL's advanced text-to-image AI model. Create photorealistic images, illustrations, and concept art from natural language descriptions with exceptional detail and prompt adherence.",
+  "tags": [
+    "text-to-image"
+  ],
+  "capabilities": [
+    "text-to-image"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "prompt"
+    ],
+    "properties": {
+      "seed": {
+        "type": "integer",
+        "title": "Seed",
+        "description": "The seed to use for the generation."
+      },
+      "prompt": {
+        "type": "string",
+        "title": "Prompt",
+        "examples": [
+          "A high-quality 3D render of a cute fluffy monster eating a giant donut; the fur simulation is incredibly detailed, the donut glaze is sticky and reflective, bright daylight lighting, shallow depth of field."
+        ],
+        "description": "The prompt to generate an image from."
+      },
+      "aspect_ratio": {
+        "enum": [
+          "21:9",
+          "16:9",
+          "3:2",
+          "4:3",
+          "5:4",
+          "1:1",
+          "4:5",
+          "3:4",
+          "2:3",
+          "9:16"
+        ],
+        "type": "string",
+        "title": "Aspect Ratio",
+        "default": "16:9",
+        "description": "The aspect ratio of the generated image."
+      },
+      "output_format": {
+        "enum": [
+          "jpeg",
+          "png"
+        ],
+        "type": "string",
+        "title": "Output Format",
+        "default": "jpeg",
+        "description": "The format of the generated image."
+      },
+      "guidance_scale": {
+        "type": "number",
+        "title": "Guidance Scale",
+        "default": 3.5,
+        "maximum": 10,
+        "minimum": 1.5,
+        "description": "The guidance scale to use for the generation."
+      },
+      "num_inference_steps": {
+        "type": "integer",
+        "title": "Number of Inference Steps",
+        "default": 28,
+        "maximum": 50,
+        "minimum": 2,
+        "description": "The number of inference steps to perform."
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "title": "GenerationResponse",
+    "required": [
+      "id",
+      "status"
+    ],
+    "properties": {
+      "id": {
+        "type": "string",
+        "description": "Unique identifier for the generation task."
+      },
+      "error": {
+        "type": "string",
+        "description": "Error message if the task failed. Empty on success."
+      },
+      "model": {
+        "type": "string",
+        "description": "Model ID used for the prediction."
+      },
+      "status": {
+        "enum": [
+          "pending",
+          "running",
+          "completed",
+          "failed",
+          "timeout"
+        ],
+        "type": "string",
+        "description": "Status of the task: pending, running, completed, failed, or timeout."
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "title": "OutputItem",
+          "required": [
+            "url"
+          ],
+          "properties": {
+            "url": {
+              "type": "string",
+              "examples": [
+                "https://static.sandbase.ai/examples/bfl/flux-2/flex/output_url_0.png"
+              ],
+              "description": "The URL where the generated content can be downloaded from."
+            },
+            "content_type": {
+              "type": "string",
+              "description": "The MIME type of the output file."
+            }
+          }
+        },
+        "description": "Array of generated content. Empty when status is not completed."
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "formula",
+    "formula": "0.06",
+    "formula_variables": [],
+    "reference_price": 0.06,
+    "price_examples": [
+      {
+        "params": {},
+        "usd": 0.06
+      }
+    ]
+  },
+  "examples": [
+    {
+      "input": {
+        "prompt": "A high-quality 3D render of a cute fluffy monster eating a giant donut; the fur simulation is incredibly detailed, the donut glaze is sticky and reflective, bright daylight lighting, shallow depth of field."
+      },
+      "output": [
+        {
+          "url": "https://static.sandbase.ai/examples/58485e7a-c0ff-4c8c-aef7-d56902fb9d44/output/8180b9ed-eb55-4342-aa81-aff730b8570f.png"
+        }
+      ],
+      "default": true
+    }
+  ],
+  "readme": "# Flux 2 Flex Text to Image\n\nFLUX.2 [flex], the tunable tier: adjust steps and guidance for typography-heavy or detailed work. Text to image.\n\n## Fields\n\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `prompt` | string, required | — | Text instruction. |\n| `guidance_scale` | number 1.5–10 | 3.5 | How strictly to follow the prompt. |\n| `num_inference_steps` | integer 2–50 | 28 | More steps add detail and time. |\n| `output_format` | `jpeg` / `png` | `jpeg` | Output file format. |\n| `aspect_ratio` | `21:9` / `16:9` / `3:2` / `4:3` / `5:4` / `1:1` / `4:5` / `3:4` / `2:3` / `9:16` | `16:9` | Output shape. |\n| `seed` | integer | random | Fix it to compare prompt changes. |\n\n## Billing\n\n$0.06 per image.\n\n| Request | Price |\n|---|---|\n| One image | $0.06 |\n\nFailed runs are not charged.\n\n## Prompting\n\n- Write subject, setting, composition, style, then light.\n- Quote any text that must appear.\n\n## Limits\n\n- One output image per request.\n\n## Also on SandBase\n\nOther FLUX.2 endpoints: `bfl/flux-2/max`, `bfl/flux-2/pro`, `bfl/flux-2/dev`, `bfl/flux-2/turbo`, `bfl/flux-2/flex/edit`.\n",
+  "cover_url": "https://static.sandbase.ai/covers/bfl/flux-2/flex/cover-flare-20261005032008.webp",
+  "page_url": "https://www.sandbase.ai/model/bfl/flux-2/flex",
+  "published_at": "2025-11-25T02:35:27.724Z",
+  "created_at": "2026-05-13T11:44:50.131Z"
+}

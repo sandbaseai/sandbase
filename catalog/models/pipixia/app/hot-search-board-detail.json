@@ -1,0 +1,62 @@
+{
+  "name": "pipixia/app/hot-search-board-detail",
+  "display_name": "Pipixia Hot Search Board Detail",
+  "type": "api",
+  "vendor": "Pipixia",
+  "vendor_slug": "pipixia",
+  "description": "Returns detailed items from a Pipixia hot search board, including item identifiers, like metrics, and highlighted comments for a specified board type.",
+  "tags": [
+    "api",
+    "pipixia"
+  ],
+  "capabilities": [
+    "api",
+    "pipixia"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/pipixia/app/hot-search-board-detail"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "block_type"
+    ],
+    "properties": {
+      "block_type": {
+        "type": "integer",
+        "title": "Block Type",
+        "example": 12,
+        "description": "Board type, can be obtained from the `/fetch_hot_search_board_list` interface."
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.0015,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "examples": [
+    {
+      "input": {
+        "block_type": 12
+      }
+    }
+  ],
+  "readme": "# Pipixia Hot Search Board Detail API\n\nFetch detailed contents from a Pipixia hot search board by providing the target `block_type` identifier.\n\n## Use cases\n\n- Track trending media items on Pipixia hot search leaderboards.\n- Monitor top comments and engagement counts for ranked content.\n- Analyze trending video durations and daily like volumes.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/pipixia/app/hot-search-board-detail\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"block_type\": 12}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `block_type` | integer | Yes | Board type, can be obtained from the `/fetch_hot_search_board_list` interface. |\n\n## Example response\n\nReal response for the request above, trimmed to the main fields. User names and long IDs are masked.\n\n```json\n{\n  \"data\": {\n    \"board\": {\n      \"board_items\": [\n        {\n          \"today_digg_num\": 2448,\n          \"god_comment\": {\n            \"bds_origin_type\": 1,\n            \"bury_count\": -1,\n            \"city_name\": \"海南\",\n            \"comment_count\": 32,\n            \"comment_id\": 7692734173965976335,\n            \"comment_id_str\": \"7692734173965976335\"\n          },\n          \"item\": {\n            \"create_time\": 1791085444,\n            \"duration\": 60.072,\n            \"item_cell_type\": 1,\n            \"item_id\": 7692653405960935721,\n            \"item_id_str\": \"7692653405960935721\",\n            \"item_type\": 2\n          }\n        }\n      ]\n    }\n  }\n}\n```\n\n## Notes\n\n- Obtain the required `block_type` value from the hot search board list endpoint.\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [Pipixia Hashtag Details](/model/pipixia/app/hashtag-detail): Retrieves metadata and profile assets for a specific Pipixia hashtag by its unique identifier.\n- [Pipixia Hashtag Post List](/model/pipixia/app/hashtag-post-list): Returns a list of posts associated with a specific hashtag on Pipixia.\n- [Pipixia App Home Feed](/model/pipixia/app/home-feed): Returns recommended posts from the Pipixia home feed.\n",
+  "page_url": "https://www.sandbase.ai/model/pipixia/app/hot-search-board-detail",
+  "created_at": "2026-07-31T04:09:32.049Z"
+}

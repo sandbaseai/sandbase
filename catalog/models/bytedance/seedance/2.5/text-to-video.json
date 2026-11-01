@@ -1,0 +1,501 @@
+{
+  "name": "bytedance/seedance/2.5/text-to-video",
+  "display_name": "Seedance 2.5 Text to Video",
+  "type": "video",
+  "vendor": "Bytedance",
+  "vendor_slug": "bytedance",
+  "description": "ByteDance's next-generation text-to-video model, generating native single-shot clips up to 30 seconds at 720p with coherent motion, native audio, and director-level camera control for professional-grade video creation.",
+  "tags": [
+    "text-to-video"
+  ],
+  "capabilities": [
+    "text-to-video"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}"
+  },
+  "input_schema": {
+    "type": "object",
+    "anyOf": [
+      {
+        "required": [
+          "prompt"
+        ]
+      },
+      {
+        "required": [
+          "draft_id"
+        ]
+      }
+    ],
+    "properties": {
+      "seed": {
+        "type": "integer",
+        "title": "Seed",
+        "maximum": 4294967295,
+        "minimum": -1,
+        "description": "Random seed for reproducible results. Omit or use -1 for a random seed."
+      },
+      "draft": {
+        "type": "boolean",
+        "title": "Draft Mode (480p)",
+        "default": false,
+        "description": "Draft mode step 1: render a fast, low-cost 480p draft (overrides `resolution`, billed at the 480p rate). Pass the result's `outputs[0].draft_id` back as `draft_id` within 7 days to render the same shot at 1080p."
+      },
+      "prompt": {
+        "type": "string",
+        "title": "Prompt",
+        "default": "Photorealistic style: Under a clear blue sky, a vast expanse of white daisy fields stretches out. The camera gradually zooms in and finally fixates on a close-up of a single daisy, with several glistening dewdrops resting on its petals.",
+        "maxLength": 50000,
+        "minLength": 3,
+        "description": "The text prompt to generate a video from."
+      },
+      "draft_id": {
+        "type": "string",
+        "title": "Draft ID",
+        "minLength": 1,
+        "description": "Draft mode step 2: the `outputs[0].draft_id` of a succeeded draft from this same model (created with `draft: true` in the last 7 days). Renders the same shot at 1080p, billed at the 1080p rate for the actual output length. The prompt, media, duration, aspect ratio, seed, audio setting and task type are reused from the draft; any such fields sent with `draft_id` are ignored."
+      },
+      "duration": {
+        "enum": [
+          "auto",
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          20,
+          21,
+          22,
+          23,
+          24,
+          25,
+          26,
+          27,
+          28,
+          29,
+          30
+        ],
+        "title": "Duration",
+        "default": 5,
+        "description": "Output duration in seconds (4-30), or `auto` to let the model pick a length from the prompt and inputs. `auto` is pre-authorized at 30 seconds and billed on the actual output length."
+      },
+      "resolution": {
+        "enum": [
+          "480p",
+          "720p",
+          "1080p"
+        ],
+        "type": "string",
+        "title": "Resolution",
+        "default": "720p",
+        "description": "The resolution of the video to generate."
+      },
+      "aspect_ratio": {
+        "enum": [
+          "16:9",
+          "9:16",
+          "1:1",
+          "4:3",
+          "3:4",
+          "21:9"
+        ],
+        "type": "string",
+        "title": "Aspect Ratio",
+        "default": "16:9",
+        "description": "Output aspect ratio. Defaults to 16:9."
+      },
+      "generate_audio": {
+        "type": "boolean",
+        "title": "Generate Audio",
+        "default": true,
+        "description": "Whether to generate synchronized audio (voice, SFX, BGM) for the video."
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "title": "GenerationResponse",
+    "required": [
+      "id",
+      "status"
+    ],
+    "properties": {
+      "id": {
+        "type": "string",
+        "description": "Unique identifier for the generation task."
+      },
+      "error": {
+        "type": "string",
+        "description": "Error message if the task failed. Empty on success."
+      },
+      "model": {
+        "type": "string",
+        "description": "Model ID used for the prediction."
+      },
+      "status": {
+        "enum": [
+          "pending",
+          "running",
+          "completed",
+          "failed",
+          "timeout"
+        ],
+        "type": "string",
+        "description": "Status of the task: pending, running, completed, failed, or timeout."
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "title": "OutputItem",
+          "required": [
+            "url"
+          ],
+          "properties": {
+            "url": {
+              "type": "string",
+              "description": "The URL where the generated content can be downloaded from."
+            },
+            "draft": {
+              "type": "boolean",
+              "description": "Whether this output is a 480p draft."
+            },
+            "draft_id": {
+              "type": "string",
+              "description": "Task ID. When `draft` is true, pass it as `draft_id` to the same model to render the 1080p final."
+            },
+            "content_type": {
+              "type": "string",
+              "description": "The MIME type of the output file."
+            }
+          }
+        },
+        "description": "Array of generated content. Empty when status is not completed."
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "formula",
+    "formula": "(params.draft_id ?? '') != '' ? Math.round(usage.duration ?? 30.0) * 0.90 : (((params.duration ?? 5) == 'auto' ? Math.round(usage.duration ?? 30.0) : (params.duration ?? 5)) * (((params.draft ?? false) == true ? '480p' : (params.resolution ?? '720p')) == '480p' ? 0.18 : ((params.draft ?? false) == true ? '480p' : (params.resolution ?? '720p')) == '720p' ? 0.36 : ((params.draft ?? false) == true ? '480p' : (params.resolution ?? '720p')) == '1080p' ? 0.90 : (0 / 0)))",
+    "formula_variables": [
+      "params.draft",
+      "params.draft_id",
+      "params.duration",
+      "params.resolution",
+      "usage.duration"
+    ],
+    "reference_price": 1.8,
+    "price_examples": [
+      {
+        "params": {
+          "draft": false,
+          "duration": 4,
+          "resolution": "480p"
+        },
+        "usd": 0.72,
+        "estimate": "assumes output duration equals requested duration"
+      },
+      {
+        "params": {
+          "draft": false,
+          "duration": 4,
+          "resolution": "720p"
+        },
+        "usd": 1.44,
+        "estimate": "assumes output duration equals requested duration"
+      },
+      {
+        "params": {
+          "draft": false,
+          "duration": 4,
+          "resolution": "1080p"
+        },
+        "usd": 3.6,
+        "estimate": "assumes output duration equals requested duration"
+      },
+      {
+        "params": {
+          "draft": false,
+          "duration": 5,
+          "resolution": "480p"
+        },
+        "usd": 0.9,
+        "estimate": "assumes output duration equals requested duration"
+      },
+      {
+        "params": {
+          "draft": false,
+          "duration": 5,
+          "resolution": "720p"
+        },
+        "usd": 1.8,
+        "estimate": "assumes output duration equals requested duration"
+      },
+      {
+        "params": {
+          "draft": false,
+          "duration": 5,
+          "resolution": "1080p"
+        },
+        "usd": 4.5,
+        "estimate": "assumes output duration equals requested duration"
+      },
+      {
+        "params": {
+          "draft": false,
+          "duration": 6,
+          "resolution": "480p"
+        },
+        "usd": 1.08,
+        "estimate": "assumes output duration equals requested duration"
+      },
+      {
+        "params": {
+          "draft": false,
+          "duration": 6,
+          "resolution": "720p"
+        },
+        "usd": 2.16,
+        "estimate": "assumes output duration equals requested duration"
+      },
+      {
+        "params": {
+          "draft": false,
+          "duration": 6,
+          "resolution": "1080p"
+        },
+        "usd": 5.4,
+        "estimate": "assumes output duration equals requested duration"
+      },
+      {
+        "params": {
+          "draft": false,
+          "duration": 7,
+          "resolution": "480p"
+        },
+        "usd": 1.26,
+        "estimate": "assumes output duration equals requested duration"
+      },
+      {
+        "params": {
+          "draft": false,
+          "duration": 7,
+          "resolution": "720p"
+        },
+        "usd": 2.52,
+        "estimate": "assumes output duration equals requested duration"
+      },
+      {
+        "params": {
+          "draft": false,
+          "duration": 7,
+          "resolution": "1080p"
+        },
+        "usd": 6.3,
+        "estimate": "assumes output duration equals requested duration"
+      },
+      {
+        "params": {
+          "draft": false,
+          "duration": 8,
+          "resolution": "480p"
+        },
+        "usd": 1.44,
+        "estimate": "assumes output duration equals requested duration"
+      },
+      {
+        "params": {
+          "draft": false,
+          "duration": 8,
+          "resolution": "720p"
+        },
+        "usd": 2.88,
+        "estimate": "assumes output duration equals requested duration"
+      },
+      {
+        "params": {
+          "draft": false,
+          "duration": 8,
+          "resolution": "1080p"
+        },
+        "usd": 7.2,
+        "estimate": "assumes output duration equals requested duration"
+      },
+      {
+        "params": {
+          "draft": true,
+          "duration": 4,
+          "resolution": "480p"
+        },
+        "usd": 0.72,
+        "estimate": "assumes output duration equals requested duration"
+      },
+      {
+        "params": {
+          "draft": true,
+          "duration": 4,
+          "resolution": "720p"
+        },
+        "usd": 0.72,
+        "estimate": "assumes output duration equals requested duration"
+      },
+      {
+        "params": {
+          "draft": true,
+          "duration": 4,
+          "resolution": "1080p"
+        },
+        "usd": 0.72,
+        "estimate": "assumes output duration equals requested duration"
+      },
+      {
+        "params": {
+          "draft": true,
+          "duration": 5,
+          "resolution": "480p"
+        },
+        "usd": 0.9,
+        "estimate": "assumes output duration equals requested duration"
+      },
+      {
+        "params": {
+          "draft": true,
+          "duration": 5,
+          "resolution": "720p"
+        },
+        "usd": 0.9,
+        "estimate": "assumes output duration equals requested duration"
+      },
+      {
+        "params": {
+          "draft": true,
+          "duration": 5,
+          "resolution": "1080p"
+        },
+        "usd": 0.9,
+        "estimate": "assumes output duration equals requested duration"
+      },
+      {
+        "params": {
+          "draft": true,
+          "duration": 6,
+          "resolution": "480p"
+        },
+        "usd": 1.08,
+        "estimate": "assumes output duration equals requested duration"
+      },
+      {
+        "params": {
+          "draft": true,
+          "duration": 6,
+          "resolution": "720p"
+        },
+        "usd": 1.08,
+        "estimate": "assumes output duration equals requested duration"
+      },
+      {
+        "params": {
+          "draft": true,
+          "duration": 6,
+          "resolution": "1080p"
+        },
+        "usd": 1.08,
+        "estimate": "assumes output duration equals requested duration"
+      },
+      {
+        "params": {
+          "draft": true,
+          "duration": 7,
+          "resolution": "480p"
+        },
+        "usd": 1.26,
+        "estimate": "assumes output duration equals requested duration"
+      },
+      {
+        "params": {
+          "draft": true,
+          "duration": 7,
+          "resolution": "720p"
+        },
+        "usd": 1.26,
+        "estimate": "assumes output duration equals requested duration"
+      },
+      {
+        "params": {
+          "draft": true,
+          "duration": 7,
+          "resolution": "1080p"
+        },
+        "usd": 1.26,
+        "estimate": "assumes output duration equals requested duration"
+      },
+      {
+        "params": {
+          "draft": true,
+          "duration": 8,
+          "resolution": "480p"
+        },
+        "usd": 1.44,
+        "estimate": "assumes output duration equals requested duration"
+      },
+      {
+        "params": {
+          "draft": true,
+          "duration": 8,
+          "resolution": "720p"
+        },
+        "usd": 1.44,
+        "estimate": "assumes output duration equals requested duration"
+      },
+      {
+        "params": {
+          "draft": true,
+          "duration": 8,
+          "resolution": "1080p"
+        },
+        "usd": 1.44,
+        "estimate": "assumes output duration equals requested duration"
+      }
+    ]
+  },
+  "examples": [
+    {
+      "input": {
+        "aspect_ratio": "16:9",
+        "duration": 5,
+        "prompt": "A bright modern kitchen with one wooden dining chair standing in the middle of the tiled floor. A round black robot vacuum glides across the floor, reaches the chair, steers around its legs, passes briefly behind them and reappears on the other side, continuing in the same direction. Static wide camera, no people, realistic lighting.",
+        "resolution": "720p"
+      },
+      "output": [
+        {
+          "poster": "https://static.sandbase.ai/examples/posters/b974c471cd40a0a7918a.jpg",
+          "url": "https://static.sandbase.ai/examples/14651a25-543d-406f-aa58-29916f2e9f33/output/af082fa5-7dd3-4a26-a0d8-de1e9d0d65eb.mp4"
+        }
+      ],
+      "default": true
+    }
+  ],
+  "readme": "# Seedance 2.5 Text to Video\n\nSeedance 2.5 text-to-video, ByteDance's newest video model: coherent single-shot clips up to 30 seconds with native audio and director-level camera control. Write the scene, including dialogue and sound, and get back a 4–30 second clip.\n\n## Fields\n\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `prompt` | string, required | — | Up to 50,000 characters. |\n| `duration` | `auto` / 4 / 5 / 6 / 7 / 8 / 9 / 10 / 11 / 12 / 13 / 14 / 15 / 16 / 17 / 18 / 19 / 20 / 21 / 22 / 23 / 24 / 25 / 26 / 27 / 28 / 29 / 30 | 5 | Output length in seconds (4–30), or `auto` to let the model choose. |\n| `aspect_ratio` | `16:9` / `9:16` / `1:1` / `4:3` / `3:4` / `21:9` | `16:9` | Output frame shape. |\n| `resolution` | `480p` / `720p` / `1080p` | `720p` | Sets the per-second rate. |\n| `generate_audio` | boolean | true | Native dialogue, music, and effects. Same price on or off. |\n| `seed` | integer -1–4294967295 | random | Fix it to compare prompt changes; `-1` is random. |\n\n## Billing\n\nYou pay for output seconds: $0.18 at 480p, $0.36 at 720p, $0.90 at 1080p. Audio is included. With `duration: \"auto\"` the quote assumes 30 seconds and the final charge uses the generated length.\n\n| Output | 480p | 720p | 1080p |\n|---|---|---|---|\n| 4s | $0.72 | $1.44 | $3.60 |\n| 5s (default) | $0.90 | $1.80 | $4.50 |\n| 10s | $1.80 | $3.60 | $9.00 |\n| 15s | $2.70 | $5.40 | $13.50 |\n| 30s | $5.40 | $10.80 | $27.00 |\n\nFailed runs are not charged.\n\n## Prompting\n\n- Describe subject, action, camera move, and light in order; add the sound last.\n- Quote dialogue and name the speaker.\n- For several shots, number them and give each a camera direction.\n\n## Limits\n\n- Clips are 4–30 seconds.\n\n## Draft mode\n\nDraft mode is two calls to this same model:\n\n1. **Draft**: add `\"draft\": true`. The output is a 480p preview billed at the 480p rate, and `outputs[0].draft_id` identifies it.\n2. **Final**: send `{\"draft_id\": \"<outputs[0].draft_id>\"}` (optionally `watermark`). The same shot is rendered at 1080p and billed at the 1080p output rate for the actual output length.\n\nThe final reuses the draft's prompt, media, duration, aspect ratio, seed and audio setting; those fields are ignored when `draft_id` is set. A draft can be finalized within 7 days, only with the model that created it.\n\n```json\n{\"prompt\": \"A red toy sailboat drifts slowly from left to right across calm blue water. Fixed camera.\", \"duration\": 4, \"aspect_ratio\": \"16:9\", \"generate_audio\": false, \"draft\": true}\n```\n\n```json\n{\"draft_id\": \"<outputs[0].draft_id from the draft>\"}\n```\n\n## Also on SandBase\n\nOther Seedance 2.5 endpoints and tiers: `bytedance/seedance/2.5/image-to-video`, `bytedance/seedance/2.5/reference-to-video`, `bytedance/seedance/2.0/text-to-video`, `bytedance/seedance/2.0/fast/text-to-video`, `bytedance/seedance/2.0/mini/text-to-video`.\n",
+  "cover_url": "https://static.sandbase.ai/covers/bytedance/seedance/2.5/text-to-video/cover-flare-20261004150557.webp",
+  "page_url": "https://www.sandbase.ai/model/bytedance/seedance/2.5/text-to-video",
+  "published_at": "2026-07-01T00:00:00Z",
+  "created_at": "2026-08-10T04:53:27.748Z"
+}

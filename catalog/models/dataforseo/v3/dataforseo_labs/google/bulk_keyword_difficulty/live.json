@@ -1,0 +1,52 @@
+{
+  "name": "dataforseo/v3/dataforseo_labs/google/bulk_keyword_difficulty/live",
+  "display_name": "DataForSEO Labs Google Bulk Keyword Difficulty",
+  "type": "api",
+  "vendor": "DataForSEO",
+  "vendor_slug": "dataforseo",
+  "description": "Returns Google keyword difficulty metrics in bulk for target search queries. Enables large-scale SEO competition analysis across multiple keywords simultaneously.",
+  "tags": [
+    "labs",
+    "keywords",
+    "google",
+    "seo"
+  ],
+  "capabilities": [
+    "labs",
+    "keywords",
+    "google",
+    "seo"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/dataforseo/v3/dataforseo_labs/google/bulk_keyword_difficulty/live"
+  },
+  "input_schema": {
+    "type": "object",
+    "properties": {},
+    "description": "Request parameters forwarded to DataForSEO /v3/dataforseo_labs/google/bulk_keyword_difficulty/live. See DataForSEO docs for full schema.",
+    "additionalProperties": true
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.024
+  },
+  "examples": [
+    {
+      "input": {}
+    }
+  ],
+  "readme": "# DataForSEO Labs Google Bulk Keyword Difficulty API\n\nLook up keyword difficulty scores for multiple Google search terms in bulk.\n\n## Use cases\n\n- Assess competition levels across large keyword lists.\n- Identify low-difficulty Google search queries for content targeting.\n- Prioritize organic search opportunities based on difficulty metrics.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/dataforseo/v3/dataforseo_labs/google/bulk_keyword_difficulty/live\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"keywords\": [\"running shoes\", \"trail running shoes\"], \"location_code\": 2840, \"language_code\": \"en\"}'\n```\n\n## Parameters\n\nThe JSON body is forwarded to the upstream endpoint (one task per call). Fields used above:\n\n| Name | Description |\n|---|---|\n| `keywords` | List of keywords (up to 100 per call). |\n| `location_code` | Location code, e.g. 2840 for the United States. |\n| `language_code` | Language code, e.g. \"en\". |\n\n## Pricing\n\nFlat price per call. Failed calls are not charged.\n\n## Related APIs\n\n- [DataForSEO Backlinks Anchors](/model/dataforseo/v3/backlinks/anchors/live): Returns anchor text distribution metrics for backlinks pointing to a target website or page.\n- [DataForSEO Backlinks List](/model/dataforseo/v3/backlinks/backlinks/live): Returns a list of external backlinks pointing to a specified target domain or webpage.\n- [DataForSEO Backlinks Bulk Ranks](/model/dataforseo/v3/backlinks/bulk_ranks/live): Returns rank metrics for multiple domains or pages in bulk.\n",
+  "page_url": "https://www.sandbase.ai/model/dataforseo/v3/dataforseo_labs/google/bulk_keyword_difficulty/live",
+  "published_at": "2024-01-01T00:00:00Z",
+  "created_at": "2026-08-02T14:42:41.386Z"
+}

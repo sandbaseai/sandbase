@@ -1,0 +1,56 @@
+{
+  "name": "polymarket/clob-markets",
+  "display_name": "Polymarket Get CLOB market info",
+  "type": "api",
+  "vendor": "Polymarket",
+  "vendor_slug": "polymarket",
+  "description": "Returns all CLOB-level parameters for a market in a single call — tokens, tick size, base fees, rewards, RFQ status, and fee details.",
+  "tags": [
+    "api",
+    "polymarket",
+    "prediction-markets"
+  ],
+  "capabilities": [
+    "api",
+    "polymarket",
+    "prediction-markets"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/polymarket/clob-markets"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "condition_id"
+    ],
+    "properties": {
+      "condition_id": {
+        "type": "string",
+        "example": "0xbd31dc8a20211944f6b70f31557f1001557b59905b7738480ca09bd4532f84af",
+        "description": "The condition ID of the market"
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.012,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "readme": "# Polymarket Get CLOB market info API\n\nReturns all CLOB-level parameters for a market in a single call — tokens, tick size, base fees, rewards, RFQ status, and fee details.\n\nThe response is the official Polymarket API response, unchanged.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/polymarket/clob-markets\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"condition_id\": \"0xa467b14d51f01b957109d9cbb1d6c124fab2a089d52ed8f471d23c2812e743b7\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `condition_id` | string | Yes | The condition ID of the market |\n\n## Pricing\n\nFlat price per call. Failed calls are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/polymarket/clob-markets",
+  "created_at": "2026-10-30T03:11:08.863Z"
+}

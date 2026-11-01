@@ -1,0 +1,149 @@
+{
+  "name": "facebook/ads-search",
+  "display_name": "Facebook Ad Search",
+  "type": "api",
+  "vendor": "Facebook",
+  "vendor_slug": "facebook",
+  "description": "Search the Meta Ad Library by keyword and get matching ads (advertiser, creative text, CTA, platforms, and run dates) with cursor pagination.",
+  "tags": [
+    "api",
+    "facebook",
+    "social-media"
+  ],
+  "capabilities": [
+    "api",
+    "facebook",
+    "social-media"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/facebook/ads-search"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "query"
+    ],
+    "properties": {
+      "query": {
+        "type": "string",
+        "example": "nike",
+        "description": "Keyword to search the Meta Ad Library for (e.g. \"protein powder\")."
+      },
+      "adType": {
+        "enum": [
+          "all",
+          "political_and_issue_ads"
+        ],
+        "type": "string",
+        "description": "Restrict to all ads (default) or only political and issue ads."
+      },
+      "cursor": {
+        "type": "string",
+        "description": "Opaque pagination cursor from a previous response's nextCursor."
+      },
+      "sortBy": {
+        "enum": [
+          "impressions",
+          "recent"
+        ],
+        "type": "string",
+        "description": "Sort order: impressions (highest first, the default) or recent (most recent)."
+      },
+      "status": {
+        "enum": [
+          "ALL",
+          "ACTIVE",
+          "INACTIVE"
+        ],
+        "type": "string",
+        "default": "ACTIVE",
+        "description": "Ad status filter."
+      },
+      "country": {
+        "type": "string",
+        "example": "US",
+        "description": "Two-letter country code to scope results. Omit for all countries."
+      },
+      "endDate": {
+        "type": "string",
+        "description": "Filter to ads with impressions on or before this date, in YYYY-MM-DD format."
+      },
+      "mediaType": {
+        "enum": [
+          "ALL",
+          "IMAGE",
+          "VIDEO",
+          "MEME",
+          "IMAGE_AND_MEME",
+          "NONE"
+        ],
+        "type": "string",
+        "description": "Creative media type filter."
+      },
+      "startDate": {
+        "type": "string",
+        "description": "Filter to ads with impressions on or after this date, in YYYY-MM-DD format."
+      },
+      "searchType": {
+        "enum": [
+          "keyword_unordered",
+          "keyword_exact_phrase"
+        ],
+        "type": "string",
+        "example": "keyword_exact_phrase",
+        "description": "Match mode for the query: loose keyword match (keyword_unordered, the default) or exact phrase (keyword_exact_phrase)."
+      },
+      "requireFields": {
+        "type": "array",
+        "items": {
+          "enum": [
+            "totalResults"
+          ],
+          "type": "string"
+        },
+        "description": "Optional; omit it and routing is unchanged, with the cheapest source serving. Name the output fields this request must be able to return, for example `totalResults`, and it is served only by a source that returns every one of them. Fields you do not name are still returned whenever the serving source has them. This can raise your price: when the cheapest source cannot return a named field, a dearer source serves, and you are quoted and charged its price. A named field can still be absent on an ad that genuinely lacks it. Naming a combination that no single source returns together is refused as invalid input, with no charge."
+      }
+    },
+    "additionalProperties": false
+  },
+  "response_schema": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string"
+      },
+      "model": {
+        "type": "string"
+      },
+      "status": {
+        "type": "string"
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "data": {
+              "type": "object",
+              "description": "Normalized result for this request."
+            }
+          }
+        }
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "usage_based",
+    "note": "Billed per call from metered usage; the reference price is typical.",
+    "reference_price": 0.0011
+  },
+  "readme": "# Facebook Ad Search API\n\nSearch the Meta Ad Library by keyword and get matching ads (advertiser, creative text, CTA, platforms, and run dates) with cursor pagination.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/facebook/ads-search\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"query\": \"nike\", \"country\": \"US\", \"searchType\": \"keyword_exact_phrase\"}'\n```\n\nThe result is returned in `outputs[0].data`. A lookup that finds nothing still succeeds and returns `found: false`.\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `query` | string | Yes | Keyword to search the Meta Ad Library for (e.g. \"protein powder\"). |\n| `adType` | string | No | Restrict to all ads (default) or only political and issue ads. One of: `all`, `political_and_issue_ads`. |\n| `country` | string | No | Two-letter country code to scope results. Omit for all countries. |\n| `cursor` | string | No | Opaque pagination cursor from a previous response's nextCursor. |\n| `endDate` | string | No | Filter to ads with impressions on or before this date, in YYYY-MM-DD format. |\n| `mediaType` | string | No | Creative media type filter. One of: `ALL`, `IMAGE`, `VIDEO`, `MEME`, `IMAGE_AND_MEME`, `NONE`. |\n| `requireFields` | array | No | Optional; omit it and routing is unchanged, with the cheapest source serving. Name the output fields this request must be able to return, for example `totalResults`, and it is served only by a source that returns every o |\n| `searchType` | string | No | Match mode for the query: loose keyword match (keyword_unordered, the default) or exact phrase (keyword_exact_phrase). One of: `keyword_unordered`, `keyword_exact_phrase`. |\n| `sortBy` | string | No | Sort order: impressions (highest first, the default) or recent (most recent). One of: `impressions`, `recent`. |\n| `startDate` | string | No | Filter to ads with impressions on or after this date, in YYYY-MM-DD format. |\n| `status` | string | No | Ad status filter. One of: `ALL`, `ACTIVE`, `INACTIVE`. Default `\"ACTIVE\"`. |\n\n## Pricing\n\nBilled at the actual cost of each call, usually $0.0011 per request. A call can cost more when the first data source fails and another one answers. Failed calls are not charged. Lookups that find nothing and searches with no results are billed at their actual cost, which is often lower and can be $0.\n",
+  "page_url": "https://www.sandbase.ai/model/facebook/ads-search",
+  "created_at": "2026-10-31T10:31:04.128Z"
+}

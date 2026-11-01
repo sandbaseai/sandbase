@@ -1,0 +1,91 @@
+{
+  "name": "douyin/billboard/hot-total-list",
+  "display_name": "Douyin Total Hot Billboard",
+  "type": "api",
+  "vendor": "Douyin",
+  "vendor_slug": "douyin",
+  "description": "Returns Douyin total hot list billboard entries across specified time ranges. Supports filtering by snapshot type, keyword, category tags, and date range with pagination controls.",
+  "tags": [
+    "api",
+    "douyin"
+  ],
+  "capabilities": [
+    "api",
+    "douyin"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/douyin/billboard/hot-total-list"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "page",
+      "page_size",
+      "type"
+    ],
+    "properties": {
+      "page": {
+        "type": "integer",
+        "title": "Page",
+        "description": "Page number"
+      },
+      "type": {
+        "type": "string",
+        "title": "Type",
+        "description": "Snapshot type snapshot view by time range view by time range."
+      },
+      "keyword": {
+        "type": "string",
+        "title": "Keyword",
+        "description": "Hot search term"
+      },
+      "end_date": {
+        "type": "string",
+        "title": "End Date",
+        "description": "Snapshot end time format yyyyMMdd"
+      },
+      "page_size": {
+        "type": "integer",
+        "title": "Page Size",
+        "description": "Number of items per page"
+      },
+      "start_date": {
+        "type": "string",
+        "title": "Start Date",
+        "description": "Snapshot start time format yyyyMMdd"
+      },
+      "sentence_tag": {
+        "type": "string",
+        "title": "Sentence Tag",
+        "description": "Hot category tag, get from hot list category, multiple categories separated by commas, empty for all"
+      },
+      "snapshot_time": {
+        "type": "string",
+        "title": "Snapshot Time",
+        "description": "Snapshot time format yyyyMMddHHmmss"
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.0015,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "readme": "# Douyin Total Hot Billboard API\n\nLook up overall trending search rankings on Douyin using `type`, `page`, and `page_size`. Filter results by `keyword`, `sentence_tag`, or snapshot date ranges.\n\n## Use cases\n\n- Track overall trending search rankings on Douyin across specific dates.\n- Filter trending billboard topics by category tag or keyword.\n- Monitor historical hot search snapshots over designated time ranges.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/douyin/billboard/hot-total-list\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"page\": \"<page>\", \"page_size\": \"<page_size>\", \"type\": \"<type>\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `page` | integer | Yes | Page number |\n| `type` | string | Yes | Snapshot type snapshot view by time range view by time range. |\n| `page_size` | integer | Yes | Number of items per page |\n| `keyword` | string | No | Hot search term |\n| `end_date` | string | No | Snapshot end time format yyyyMMdd |\n| `start_date` | string | No | Snapshot start time format yyyyMMdd |\n| `sentence_tag` | string | No | Hot category tag, get from hot list category, multiple categories separated by commas, empty for all |\n| `snapshot_time` | string | No | Snapshot time format yyyyMMddHHmmss |\n\n## Notes\n\n- Format `start_date` and `end_date` as `yyyyMMdd`, and `snapshot_time` as `yyyyMMddHHmmss`.\n- Supply comma-separated category tags in `sentence_tag`, or leave it empty to return all categories.\n- Paging requires both `page` and `page_size`.\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [Douyin Billboard City List](/model/douyin/billboard/city-list): Returns the list of Chinese cities supported by Douyin billboard rankings.\n- [Douyin Billboard Vertical Content Tags](/model/douyin/billboard/content-tag): Returns a list of vertical content tags available on the Douyin billboard platform.\n- [Douyin Fan Interest Account List](/model/douyin/billboard/hot-account-fans-interest-account-list): Returns a list of 20 accounts that followers of a target creator are interested in on Douyin.\n",
+  "page_url": "https://www.sandbase.ai/model/douyin/billboard/hot-total-list",
+  "created_at": "2026-07-31T02:35:24.715Z"
+}

@@ -1,0 +1,67 @@
+{
+  "name": "weibo/web-v2/user-video-list",
+  "display_name": "Weibo User Video List",
+  "type": "api",
+  "vendor": "Weibo",
+  "vendor_slug": "weibo",
+  "description": "Retrieves a waterfall list of videos posted by a specified user. Supports pagination via cursor parameters to browse historical video entries.",
+  "tags": [
+    "api",
+    "weibo"
+  ],
+  "capabilities": [
+    "api",
+    "weibo"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/weibo/web-v2/user-video-list"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "uid"
+    ],
+    "properties": {
+      "uid": {
+        "type": "string",
+        "title": "Uid",
+        "example": "8431518763",
+        "description": "User ID (required)"
+      },
+      "cursor": {
+        "type": "string",
+        "title": "Cursor",
+        "description": "Pagination cursor, pass \"0\" for first request, use returned next_cursor for subsequent requests"
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.0015,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "examples": [
+    {
+      "input": {
+        "uid": "example"
+      }
+    }
+  ],
+  "readme": "# Weibo User Video List API\n\nRetrieve video posts associated with a specific user profile by supplying their `uid`. You can also paginate through results using the `cursor` parameter.\n\n## Use cases\n\n- Browse video content posted by a specific Weibo account.\n- Collect historical video post listings for creator profile analysis.\n- Track multimedia posts and video feeds for target Weibo users.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/weibo/web-v2/user-video-list\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"uid\": \"8431518763\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `uid` | string | Yes | User ID (required) |\n| `cursor` | string | No | Pagination cursor, pass \"0\" for first request, use returned next_cursor for subsequent requests |\n\n## Notes\n\n- Pass \"0\" to `cursor` for the initial request, then use the returned next_cursor value for following pages.\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [Weibo Advanced Search](/model/weibo/web-v2/advanced-search): Search Weibo posts by keyword with filters for time range, post type (hot, original, verified, media) and content type (images, video, links).\n- [Weibo AI Related Search Content](/model/weibo/web-v2/ai-related-search): Returns AI-generated content extensions for a keyword, including related questions, recommended bloggers, and reference posts.\n- [Weibo AI Search](/model/weibo/web-v2/ai-search): Returns multimodal search results and relevance scores from Weibo intelligent search for a specified keyword or topic query.\n",
+  "page_url": "https://www.sandbase.ai/model/weibo/web-v2/user-video-list",
+  "created_at": "2026-07-31T02:46:29.39Z"
+}

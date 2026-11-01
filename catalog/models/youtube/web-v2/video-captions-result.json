@@ -1,0 +1,68 @@
+{
+  "name": "youtube/web-v2/video-captions-result",
+  "display_name": "YouTube Video Captions Job Result",
+  "type": "api",
+  "vendor": "YouTube",
+  "vendor_slug": "youtube",
+  "description": "Returns the status and finished captions for an asynchronous video caption request by job ID. Supports output formats including SRT, XML, JSON3, and TXT once completed.",
+  "tags": [
+    "api",
+    "youtube"
+  ],
+  "capabilities": [
+    "api",
+    "youtube"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/youtube/web-v2/video-captions-result"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "job_id"
+    ],
+    "properties": {
+      "format": {
+        "enum": [
+          "srt",
+          "xml",
+          "json3",
+          "txt"
+        ],
+        "type": "string",
+        "title": "Format",
+        "description": "Caption format (applies only when the job is completed)"
+      },
+      "job_id": {
+        "type": "string",
+        "title": "Job Id",
+        "pattern": "^[A-Za-z0-9_-]+$",
+        "maxLength": 128,
+        "minLength": 8,
+        "description": "Async job ID (returned by `/get_video_captions`)"
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.0015,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "readme": "# YouTube Video Captions Job Result API\n\nRetrieve finished captions or check task progress for an asynchronous job using `job_id`. Specify the desired output layout with `format` once processing completes.\n\n## Use cases\n\n- Check the status of an asynchronous caption extraction task.\n- Retrieve completed video subtitles in SRT, XML, JSON3, or TXT format.\n- Extract subtitle transcripts for text analysis or translation workflows.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/youtube/web-v2/video-captions-result\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"job_id\": \"<job_id>\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `job_id` | string | Yes | Async job ID (returned by `/get_video_captions`) |\n| `format` | string | No | Caption format (applies only when the job is completed) |\n\n## Notes\n\n- `job_id` is obtained from the caption extraction endpoint.\n- Supported `format` values include srt, xml, json3, and txt once the job completes.\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [YouTube Channel Community Posts](/model/youtube/web-v2/channel-community-posts): Returns community posts from a specific YouTube channel, including text content, polls, votes, and comment counts.\n- [YouTube Channel Description](/model/youtube/web-v2/channel-description): Returns YouTube channel details including subscriber counts, video totals, view counts, joined date, and social links.\n- [YouTube Channel ID from URL](/model/youtube/web-v2/channel-id): Resolves a YouTube channel URL to its canonical channel ID.\n",
+  "page_url": "https://www.sandbase.ai/model/youtube/web-v2/video-captions-result",
+  "created_at": "2026-07-31T04:27:50.671Z"
+}

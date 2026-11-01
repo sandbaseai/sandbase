@@ -1,0 +1,189 @@
+{
+  "name": "midjourney/midjourney-v8.1",
+  "display_name": "Midjourney V8.1",
+  "type": "image",
+  "vendor": "Midjourney",
+  "vendor_slug": "midjourney",
+  "description": "Midjourney V8.1 text-to-image generation.",
+  "tags": [
+    "text-to-image",
+    "commercial"
+  ],
+  "capabilities": [
+    "text-to-image",
+    "commercial"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}"
+  },
+  "input_schema": {
+    "type": "object",
+    "allOf": [
+      {
+        "not": {
+          "required": [
+            "speed",
+            "quality"
+          ],
+          "properties": {
+            "speed": {
+              "const": "draft"
+            },
+            "quality": {
+              "const": "hd"
+            }
+          }
+        }
+      }
+    ],
+    "required": [
+      "prompt"
+    ],
+    "properties": {
+      "speed": {
+        "enum": [
+          "draft",
+          "fast"
+        ],
+        "type": "string",
+        "title": "Speed",
+        "default": "fast",
+        "description": "Generation speed."
+      },
+      "prompt": {
+        "type": "string",
+        "title": "Prompt",
+        "maxLength": 1024,
+        "minLength": 1,
+        "description": "Text prompt used to generate the image."
+      },
+      "quality": {
+        "enum": [
+          "standard",
+          "hd"
+        ],
+        "type": "string",
+        "title": "Quality",
+        "default": "standard",
+        "description": "Output quality. HD is unavailable with draft speed."
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "required": [
+      "id",
+      "status"
+    ],
+    "properties": {
+      "id": {
+        "type": "string"
+      },
+      "error": {
+        "type": "string"
+      },
+      "model": {
+        "type": "string"
+      },
+      "status": {
+        "enum": [
+          "pending",
+          "running",
+          "completed",
+          "failed",
+          "timeout"
+        ],
+        "type": "string"
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "required": [
+            "url"
+          ],
+          "properties": {
+            "url": {
+              "type": "string",
+              "description": "The generated image URL."
+            },
+            "content_type": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "formula",
+    "formula": "(params.speed ?? \"fast\") == \"draft\" ? 0.08 : ((params.quality ?? \"standard\") == \"hd\" ? 0.12 : 0.10)",
+    "formula_variables": [
+      "params.quality",
+      "params.speed"
+    ],
+    "reference_price": 0.1,
+    "price_examples": [
+      {
+        "params": {
+          "quality": "standard",
+          "speed": "draft"
+        },
+        "usd": 0.08
+      },
+      {
+        "params": {
+          "quality": "standard",
+          "speed": "fast"
+        },
+        "usd": 0.1
+      },
+      {
+        "params": {
+          "quality": "hd",
+          "speed": "draft"
+        },
+        "usd": 0.08
+      },
+      {
+        "params": {
+          "quality": "hd",
+          "speed": "fast"
+        },
+        "usd": 0.12
+      }
+    ]
+  },
+  "examples": [
+    {
+      "input": {
+        "prompt": "Square flash sale poster for a pair of white running shoes on a bright yellow background. A headline that reads exactly: \"FLASH SALE\". Show the old price \"Was $129.00\" with a strikethrough line, and the new price \"Now $89.00\" larger next to it. At the bottom, a line that reads exactly: \"Ends 2026.10.03\". Render the text exactly as written, with no other text anywhere in the image."
+      },
+      "output": [
+        {
+          "url": "https://static.sandbase.ai/examples/fc79005f-d1a9-42c1-8669-5f14ddbb6d67/output/25487bfa-98a4-416a-aed7-b0dba2dc64b1.png"
+        },
+        {
+          "url": "https://static.sandbase.ai/examples/fc79005f-d1a9-42c1-8669-5f14ddbb6d67/output/a6d16d84-a3c0-40bf-955a-21ae1f750c03.png"
+        },
+        {
+          "url": "https://static.sandbase.ai/examples/fc79005f-d1a9-42c1-8669-5f14ddbb6d67/output/65a552dd-394e-46fa-b40d-a7dacb73e1b8.png"
+        },
+        {
+          "url": "https://static.sandbase.ai/examples/fc79005f-d1a9-42c1-8669-5f14ddbb6d67/output/f55068bb-7757-4398-ad42-eb1249d023a5.png"
+        }
+      ],
+      "default": true
+    }
+  ],
+  "readme": "# Midjourney V8.1\n\nMidjourney V8.1 text-to-image: Midjourney's distinctive aesthetic, with draft and HD options.\n\n## Fields\n\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `prompt` | string, required | — | Up to 1,024 characters. |\n| `speed` | `draft` / `fast` | `fast` | `draft` is faster and cheaper. |\n| `quality` | `standard` / `hd` | `standard` | `hd` renders at higher resolution. |\n\n## Billing\n\nPer request: $0.08 draft, $0.10 standard, $0.12 HD.\n\n| Mode | Price |\n|---|---|\n| Draft | $0.08 |\n| Fast, standard | $0.10 |\n| Fast, HD | $0.12 |\n\nFailed runs are not charged.\n\n## Prompting\n\n- Midjourney prompt style works: subject, style, and parameters like `--ar 16:9`.\n",
+  "cover_url": "https://static.sandbase.ai/covers/midjourney/midjourney-v8.1/cover-flare-20261004202031.webp",
+  "page_url": "https://www.sandbase.ai/model/midjourney/midjourney-v8.1",
+  "created_at": "2026-08-25T01:35:07.065Z"
+}

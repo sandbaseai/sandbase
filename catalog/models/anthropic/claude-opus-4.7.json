@@ -1,0 +1,44 @@
+{
+  "name": "anthropic/claude-opus-4.7",
+  "display_name": "Anthropic: Claude Opus 4.7",
+  "type": "llm",
+  "vendor": "Anthropic",
+  "vendor_slug": "anthropic",
+  "description": "Opus 4.7 is the next generation of Anthropic's Opus family, built for long-running, asynchronous agents. Building on the coding and agentic strengths of Opus 4.6, it delivers stronger performance on complex, multi-step tasks and more reliable agentic execution across extended workflows. It is especially effective for asynchronous agent pipelines where tasks unfold over time - large codebases, multi-stage debugging, and end-to-end project orchestration.\n\nBeyond coding, Opus 4.7 brings improved knowledge work capabilities - from drafting documents and building presentations to analyzing data. It maintains coherence across very long outputs and extended sessions, making it a strong default for tasks that require persistence, judgment, and follow-through.",
+  "tags": [
+    "chat",
+    "vision",
+    "reasoning",
+    "structured_output",
+    "function_calling"
+  ],
+  "capabilities": [
+    "chat",
+    "vision",
+    "reasoning",
+    "structured_output",
+    "function_calling"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "chat_completions": "POST /v1/chat/completions",
+    "responses": "POST /v1/responses",
+    "messages": "POST /v1/messages"
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_token",
+    "per_million_tokens": {
+      "input": 5,
+      "output": 25,
+      "cache_read_multiplier": 0.1,
+      "cache_write_multiplier": 1.25
+    }
+  },
+  "page_url": "https://www.sandbase.ai/model/anthropic/claude-opus-4.7",
+  "published_at": "2026-04-16T14:51:40.905Z",
+  "created_at": "2026-05-08T23:47:00.185Z"
+}

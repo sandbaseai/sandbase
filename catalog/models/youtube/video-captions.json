@@ -1,0 +1,71 @@
+{
+  "name": "youtube/video-captions",
+  "display_name": "YouTube Video Captions",
+  "type": "api",
+  "vendor": "YouTube",
+  "vendor_slug": "youtube",
+  "description": "Get available caption tracks for a YouTube video or request captions in SRT, XML, JSON3, or plain-text format. Use it to support transcription, accessibility, localization, or text analysis.",
+  "tags": [
+    "api",
+    "youtube",
+    "social-media"
+  ],
+  "capabilities": [
+    "api",
+    "youtube",
+    "social-media"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/youtube/video-captions"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "videoId"
+    ],
+    "properties": {
+      "format": {
+        "enum": [
+          "srt",
+          "xml",
+          "json3",
+          "txt"
+        ],
+        "type": "string",
+        "default": "srt",
+        "description": "Caption output format."
+      },
+      "videoId": {
+        "type": "string",
+        "example": "dQw4w9WgXcQ",
+        "description": "The unique identifier for a YouTube video."
+      },
+      "languageCode": {
+        "type": "string",
+        "description": "Caption language code, such as en, zh-Hans, or a.en. Leave it empty to retrieve available caption tracks."
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.013889,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "readme": "# YouTube Video Captions API\n\nGet available caption tracks for a YouTube video or request captions in SRT, XML, JSON3, or plain-text format. Use it to support transcription, accessibility, localization, or text analysis.\n\nThe response is the platform's original data structure.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/youtube/video-captions\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"videoId\": \"dQw4w9WgXcQ\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `videoId` | string | Yes | The unique identifier for a YouTube video. |\n| `languageCode` | string | No | Caption language code, such as en, zh-Hans, or a.en. Leave it empty to retrieve available caption tracks. |\n| `format` | string | No | Caption output format. |\n\n## Pricing\n\nFlat price per call. Failed calls and empty results are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/youtube/video-captions",
+  "created_at": "2026-10-29T11:59:55.139Z"
+}

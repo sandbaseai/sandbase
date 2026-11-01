@@ -1,0 +1,66 @@
+{
+  "name": "douyin/xingtu/kol-video-performance-v1",
+  "display_name": "Douyin XingTu KOL Video Performance",
+  "type": "api",
+  "vendor": "Douyin",
+  "vendor_slug": "douyin",
+  "description": "Get a Douyin KOL's video performance from XingTu: interaction and play benchmarks versus peers, plus recent videos with likes, plays, comments and shares.",
+  "tags": [
+    "api",
+    "douyin"
+  ],
+  "capabilities": [
+    "api",
+    "douyin"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/douyin/xingtu/kol-video-performance-v1"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "kolId",
+      "onlyAssign"
+    ],
+    "properties": {
+      "kolId": {
+        "type": "string",
+        "title": "Kolid",
+        "example": "7038603512770461703",
+        "description": "User kolId, can be obtained from the following interfaces: `douyin/xingtu/xingtu-kolid-by-uid`; `douyin/xingtu/xingtu-kolid-by-sec-user-id`; `douyin/xingtu/xingtu-kolid-by-unique-id`"
+      },
+      "onlyAssign": {
+        "type": "boolean",
+        "title": "Onlyassign",
+        "example": false,
+        "description": "Whether to display only assigned works, the specific parameters are as follows: false: Show all, including personal works and assigned works, default value; true: Only display assigned works from XingTu"
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.03
+  },
+  "examples": [
+    {
+      "input": {
+        "kolId": "7038603512770461703",
+        "onlyAssign": false
+      },
+      "default": true
+    }
+  ],
+  "readme": "# Douyin XingTu KOL Video Performance API\n\nPass a XingTu `kolId` and get how the creator's recent videos perform, including benchmarks against similar creators.\n\n## Use cases\n\n- Evaluate a creator's content quality before hiring.\n- Compare sponsored vs organic performance (`onlyAssign`).\n- Track creator performance trends.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/douyin/xingtu/kol-video-performance-v1\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"kolId\": \"7038603512770461703\", \"onlyAssign\": false}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `kolId` | string | Yes | User kolId, can be obtained from the following interfaces: `douyin/xingtu/xingtu-kolid-by-uid`; `douyin/xingtu/xingtu-k… |\n| `onlyAssign` | boolean | Yes | Whether to display only assigned works, the specific parameters are as follows: false: Show all, including personal wor… |\n\n## Example response\n\nReal response for the request above, trimmed to the main fields. User names and long IDs are masked.\n\n```json\n{\n  \"data_description\": {\n    \"interaction\": {\n      \"compare_author\": 0.92,\n      \"compare_avg\": 0.0756,\n      \"rate\": 0.1285\n    },\n    \"interaction_enrollment\": {\n      \"compare_author\": 0,\n      \"compare_avg\": -0.0806,\n      \"rate\": 0\n    }\n  },\n  \"latest_star_item_info\": [\n    {\n      \"item_id\": \"7688652613072028323\",\n      \"item_date\": \"2026-09-23\",\n      \"duration\": 85,\n      \"like\": 9370,\n      \"play\": 421301,\n      \"comment\": 33,\n      \"share\": 2285,\n      \"item_title\": \"经历了才明白，它能正常嘘嘘有多珍贵！ #皇家处方粮#尿闭#应激#爪住夏天每一帧…\"\n    }\n  ]\n}\n```\n\n## Notes\n\n- `onlyAssign`: `false` all videos, `true` sponsored (XingTu-assigned) videos only.\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [Douyin XingTu KOL Profile](/model/douyin/xingtu/kol-base-info-v1): Get the XingTu (Douyin creator marketplace) profile of a KOL: followers, location, category tags, online status and available collaboration types.\n- [Douyin XingTu KOL Cost Metrics](/model/douyin/xingtu/kol-cp-info-v1): Get expected campaign metrics for a Douyin KOL from XingTu: expected views, CPM and CPE estimates, and hot-video counts.\n- [Douyin XingTu KOL Audience](/model/douyin/xingtu/kol-fans-portrait-v1): Get the audience portrait of a Douyin KOL from XingTu: fan age, gender, region, device and interest distributions.\n",
+  "page_url": "https://www.sandbase.ai/model/douyin/xingtu/kol-video-performance-v1",
+  "created_at": "2026-07-31T02:41:38.361Z"
+}

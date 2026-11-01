@@ -1,0 +1,71 @@
+{
+  "name": "marketbeat/analyst-ratings",
+  "display_name": "MarketBeat Analyst Ratings",
+  "type": "api",
+  "vendor": "MarketBeat",
+  "vendor_slug": "marketbeat",
+  "description": "Get historical monthly analyst rating counts and breakdown. Returns time series data with buy, hold, sell, strong buy counts and total ratings per month, typically covering 3 years of history.",
+  "tags": [
+    "api",
+    "marketbeat",
+    "finance-crypto"
+  ],
+  "capabilities": [
+    "api",
+    "marketbeat",
+    "finance-crypto"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}",
+    "passthrough": "POST /v1/api/marketbeat/analyst-ratings"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "ticker"
+    ],
+    "properties": {
+      "ticker": {
+        "type": "string",
+        "example": "AAPL",
+        "description": "Stock ticker symbol (e.g. 'AAPL')."
+      },
+      "exchange": {
+        "type": "string",
+        "description": "Stock exchange (e.g. 'NYSE', '')."
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "required": [
+      "id",
+      "status",
+      "model"
+    ],
+    "properties": {
+      "id": {
+        "type": "string"
+      },
+      "model": {
+        "type": "string"
+      },
+      "status": {
+        "type": "string"
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.02
+  },
+  "readme": "# MarketBeat Analyst Ratings\n\nGet historical monthly analyst rating counts and breakdown. Returns time series data with buy, hold, sell, strong buy counts and total ratings per month, typically covering 3 years of history.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/marketbeat/analyst-ratings\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"ticker\": \"AAPL\"}'\n```\n\nThis API runs asynchronously. The call returns a task `id` with status `pending`; poll `GET https://api.sandbase.ai/v1/run/{id}` until `status` is `completed` and read the result from `outputs[0].data`.\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `ticker` | string | Yes | Stock ticker symbol (e.g. 'AAPL'). |\n| `exchange` | string | No | Stock exchange (e.g. 'NYSE', ''). |\n\n## Pricing\n\nFlat price per call. Failed calls are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/marketbeat/analyst-ratings",
+  "created_at": "2026-10-30T07:47:40.767Z"
+}

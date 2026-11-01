@@ -1,0 +1,247 @@
+{
+  "name": "bytedance/seed-speech/tts/2.0",
+  "display_name": "Bytedance Seed Speech Text to Speech",
+  "type": "audio",
+  "vendor": "Bytedance",
+  "vendor_slug": "bytedance",
+  "description": "Seed Speech Tts 2.0 is Bytedance's text-to-speech AI model. Generate human-like voiceovers with expressive intonation, multilingual support, and customizable voice characteristics.",
+  "tags": [
+    "text-to-speech"
+  ],
+  "capabilities": [
+    "text-to-speech"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}"
+  },
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "text": {
+        "type": "string",
+        "title": "Text",
+        "examples": [
+          "Hello, this is a test of ByteDance TTS 2.0 speech synthesis."
+        ],
+        "maxLength": 5000,
+        "description": "The text to synthesize into speech."
+      },
+      "pitch": {
+        "type": "integer",
+        "title": "Pitch",
+        "default": 0,
+        "maximum": 12,
+        "minimum": -12,
+        "description": "Voice pitch shift in semitones. 0 is normal pitch, -12 lowers by one octave, 12 raises by one octave."
+      },
+      "speed": {
+        "type": "number",
+        "title": "Speed",
+        "default": 1,
+        "maximum": 2,
+        "minimum": 0.5,
+        "description": "Speech speed. 1.0 is normal speed, 0.5 is half speed, 2.0 is double speed."
+      },
+      "voice": {
+        "enum": [
+          "vivi_mixed_en_zh_ja_es_id",
+          "mindy_en_es_id_pt_zh",
+          "stokie_en",
+          "dacey_en",
+          "tim_en",
+          "kian_en_zh",
+          "cedric_en_zh",
+          "sophie_en_zh",
+          "jean_en_zh",
+          "magnus_en_zh",
+          "mabel_en_zh",
+          "nadia_en_zh",
+          "opal_en_zh",
+          "pearl_en_zh",
+          "quentin_en_zh",
+          "vienna_mixed_en_zh",
+          "alina_mixed_en_zh",
+          "corinne_mixed_en_zh",
+          "esther_mixed_en_zh",
+          "freya_mixed_en_zh",
+          "gigi_mixed_en_zh",
+          "holly_mixed_en_zh",
+          "lyla_mixed_en_zh",
+          "daisy_mixed_en_zh",
+          "tracy_es_zh",
+          "jess_ja_es_id_pt_en_zh",
+          "pinky_es_ko_mixed_en_zh",
+          "sweety_ja_es",
+          "sandy_es_mixed_en_zh",
+          "sven_de",
+          "minimi_ja",
+          "usseau_fr",
+          "felipe_es",
+          "han_id",
+          "martins_pt",
+          "enzo_it",
+          "shane_ko",
+          "bonnie_zh",
+          "felix_zh",
+          "celeste_zh",
+          "monkey_king_zh"
+        ],
+        "type": "string",
+        "title": "Voice",
+        "default": "stokie_en",
+        "examples": [
+          "stokie_en"
+        ],
+        "description": "Voice to use for synthesis. The preset name encodes the voice and its supported language codes. 'mixed_en_zh' means the voice can seamlessly blend English and Chinese; separate codes (e.g. 'en_zh') mean the voice supports each language independently."
+      },
+      "volume": {
+        "type": "number",
+        "title": "Volume",
+        "default": 1,
+        "maximum": 2,
+        "minimum": 0.5,
+        "description": "Volume. 1.0 is normal volume, 0.5 is half, 2.0 is double."
+      },
+      "language": {
+        "enum": [
+          "zh",
+          "en",
+          "ja",
+          "es-mx",
+          "id",
+          "pt-br",
+          "ko",
+          "it",
+          "de",
+          "fr"
+        ],
+        "type": "string",
+        "title": "Language",
+        "description": "Force the text to be read as a single language, disabling automatic language detection. Leave unset for automatic detection (including seamless Chinese/English mixing on bilingual voices). Codes: zh (Chinese), en (English), ja (Japanese), es-mx (Mexican Spanish), id (Indonesian), pt-br (Brazilian Portuguese), ko (Korean), it (Italian), de (German), fr (French)."
+      },
+      "sample_rate": {
+        "enum": [
+          8000,
+          16000,
+          22050,
+          24000,
+          32000,
+          44100,
+          48000
+        ],
+        "type": "integer",
+        "title": "Sample Rate",
+        "default": 24000,
+        "description": "Sample rate of the output audio in Hz."
+      },
+      "output_format": {
+        "enum": [
+          "mp3",
+          "opus"
+        ],
+        "type": "string",
+        "title": "Output Format",
+        "default": "mp3",
+        "description": "Output audio format. 'mp3' returns MP3 audio; 'opus' returns Opus audio in an Ogg container."
+      },
+      "voice_instruction": {
+        "type": "string",
+        "title": "Voice Instruction",
+        "examples": [
+          "Speak in a warm, cheerful tone."
+        ],
+        "description": "Optional natural-language instruction that steers the delivery (tone, emotion, pace, volume), e.g. 'Speak in a cheerful tone' or 'Could you speak a bit slower?'. It is not spoken aloud and does not affect billing."
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "title": "GenerationResponse",
+    "required": [
+      "id",
+      "status"
+    ],
+    "properties": {
+      "id": {
+        "type": "string",
+        "description": "Unique identifier for the generation task."
+      },
+      "error": {
+        "type": "string",
+        "description": "Error message if the task failed. Empty on success."
+      },
+      "model": {
+        "type": "string",
+        "description": "Model ID used for the prediction."
+      },
+      "status": {
+        "enum": [
+          "pending",
+          "running",
+          "completed",
+          "failed",
+          "timeout"
+        ],
+        "type": "string",
+        "description": "Status of the task: pending, running, completed, failed, or timeout."
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "title": "OutputItem",
+          "required": [
+            "url"
+          ],
+          "properties": {
+            "url": {
+              "type": "string",
+              "description": "The URL where the generated content can be downloaded from."
+            },
+            "content_type": {
+              "type": "string",
+              "description": "The MIME type of the output file."
+            }
+          }
+        },
+        "description": "Array of generated content. Empty when status is not completed."
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "formula",
+    "formula": "Math.max(1.0, Math.ceil(len(params.text ?? \"\") / 1000.0)) * 0.06",
+    "formula_variables": [
+      "params.text"
+    ],
+    "reference_price": 0.06,
+    "price_examples": [
+      {
+        "params": {},
+        "usd": 0.06
+      }
+    ]
+  },
+  "examples": [
+    {
+      "input": {},
+      "output": [
+        {
+          "url": "https://static.sandbase.ai/examples/73f3e9d4-f8e6-4769-8830-bc0421176960/output/36264841-484b-4d8d-a2c1-9e9f9bc55944.mp3"
+        }
+      ],
+      "default": true
+    }
+  ],
+  "readme": "# Bytedance Seed Speech Text to Speech\n\nSeed Speech TTS 2.0 generates expressive, multilingual voiceovers in 10 languages, with pitch, speed, and volume control and a free-text `voice_instruction` for delivery.\n\n## Fields\n\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `text` | string | — | Text to speak. |\n| `output_format` | `mp3` / `opus` | `mp3` | Output file format. |\n| `sample_rate` | 8000 / 16000 / 22050 / 24000 / 32000 / 44100 / 48000 | 24000 | Output sample rate in Hz. |\n| `volume` | number 0.5–2 | 1 | 0.5–2× loudness. |\n| `voice` | `vivi_mixed_en_zh_ja_es_id` / `mindy_en_es_id_pt_zh` / `stokie_en` / `dacey_en` / `tim_en` / `kian_en_zh` / `cedric_en_zh` / `sophie_en_zh` / `jean_en_zh` / `magnus_en_zh` / `mabel_en_zh` / `nadia_en_zh` / `opal_en_zh` / `pearl_en_zh` / `quentin_en_zh` / `vienna_mixed_en_zh` / `alina_mixed_en_zh` / `corinne_mixed_en_zh` / `esther_mixed_en_zh` / `freya_mixed_en_zh` / `gigi_mixed_en_zh` / `holly_mixed_en_zh` / `lyla_mixed_en_zh` / `daisy_mixed_en_zh` / `tracy_es_zh` / `jess_ja_es_id_pt_en_zh` / `pinky_es_ko_mixed_en_zh` / `sweety_ja_es` / `sandy_es_mixed_en_zh` / `sven_de` / `minimi_ja` / `usseau_fr` / `felipe_es` / `han_id` / `martins_pt` / `enzo_it` / `shane_ko` / `bonnie_zh` / `felix_zh` / `celeste_zh` / `monkey_king_zh` | `stokie_en` | Preset voice; names list the languages each voice supports. |\n| `pitch` | integer -12–12 | 0 | Semitones, −12 to 12. |\n| `language` | `zh` / `en` / `ja` / `es-mx` / `id` / `pt-br` / `ko` / `it` / `de` / `fr` | — | Force the text to be read as a single language, disabling automatic language detection. |\n| `voice_instruction` | string | — | How to say it, e.g. “excited sports commentator”. |\n| `speed` | number 0.5–2 | 1 | 0.5–2× speaking rate. |\n\n## Billing\n\n$0.06 per started 1,000 characters of text, with a one-unit minimum.\n\n| Text | Price |\n|---|---|\n| 200 characters | $0.06 |\n| 1,000 characters | $0.06 |\n| 2,500 characters | $0.18 |\n\nFailed runs are not charged.\n\n## Prompting\n\n- Pick a voice whose language list includes the text's language.\n",
+  "cover_url": "https://static.sandbase.ai/covers/bytedance/seed-speech/tts/2.0/cover-flare-20261008040044.webp",
+  "page_url": "https://www.sandbase.ai/model/bytedance/seed-speech/tts/2.0",
+  "published_at": "2026-06-05T00:29:41.13Z",
+  "created_at": "2026-08-17T09:01:19.937Z"
+}

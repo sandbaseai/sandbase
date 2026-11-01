@@ -1,0 +1,50 @@
+{
+  "name": "openai/gpt-5.5",
+  "display_name": "OpenAI: GPT-5.5",
+  "type": "llm",
+  "vendor": "OpenAI",
+  "vendor_slug": "openai",
+  "description": "GPT-5.5 is an OpenAI flagship reasoning model with text and image input, made available in the API in April 2026 and described by OpenAI as built for complex professional work. OpenAI positions it for writing and debugging code, online research, data analysis, creating documents and spreadsheets, and operating software across tools until a task is done. It succeeds GPT-5.4 at similar per-token latency, and a pinned snapshot dated 2026-04-23 is available for fixed-version workloads.",
+  "tags": [
+    "chat",
+    "vision",
+    "reasoning",
+    "structured_output",
+    "function_calling"
+  ],
+  "capabilities": [
+    "chat",
+    "vision",
+    "reasoning",
+    "structured_output",
+    "function_calling"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "chat_completions": "POST /v1/chat/completions",
+    "responses": "POST /v1/responses",
+    "messages": "POST /v1/messages"
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_token",
+    "per_million_tokens": {
+      "input": 5,
+      "output": 30,
+      "cache_read_multiplier": 0.1
+    },
+    "formula": "usage.prompt_tokens >= 272000 ? (usage.prompt_tokens * 10 / 1000000 + usage.completion_tokens * 45 / 1000000 - usage.cached_tokens * 4.5 / 1000000) : (usage.prompt_tokens * 5 / 1000000 + usage.completion_tokens * 30 / 1000000)",
+    "formula_variables": [
+      "usage.cached_tokens",
+      "usage.completion_tokens",
+      "usage.prompt_tokens"
+    ]
+  },
+  "cover_url": "https://t0.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=https://openai.com&size=256",
+  "page_url": "https://www.sandbase.ai/model/openai/gpt-5.5",
+  "published_at": "2026-04-24T17:31:33.253Z",
+  "created_at": "2026-05-08T23:55:47.476Z"
+}

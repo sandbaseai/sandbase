@@ -1,0 +1,42 @@
+{
+  "name": "openai/gpt-4.1-nano",
+  "display_name": "OpenAI: GPT-4.1 Nano",
+  "type": "llm",
+  "vendor": "OpenAI",
+  "vendor_slug": "openai",
+  "description": "GPT-4.1 nano is the fastest and smallest tier of OpenAI's GPT-4.1 series, released in April 2025 as a non-reasoning model with text and image input and text output. It keeps the 1M-token context window and the instruction-following and tool-calling focus of its siblings, and OpenAI points to low-latency tasks such as classification and autocompletion. Choose it for high-volume, simple workloads; GPT-4.1 mini or GPT-4.1 handle harder prompts better.",
+  "tags": [
+    "chat",
+    "vision",
+    "structured_output",
+    "function_calling"
+  ],
+  "capabilities": [
+    "chat",
+    "vision",
+    "structured_output",
+    "function_calling"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "chat_completions": "POST /v1/chat/completions",
+    "responses": "POST /v1/responses",
+    "messages": "POST /v1/messages"
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_token",
+    "per_million_tokens": {
+      "input": 0.1,
+      "output": 0.4,
+      "cache_read_multiplier": 0.25
+    }
+  },
+  "cover_url": "https://t0.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=https://openai.com&size=256",
+  "page_url": "https://www.sandbase.ai/model/openai/gpt-4.1-nano",
+  "published_at": "2025-04-14T17:22:49Z",
+  "created_at": "2026-05-08T23:54:15.724Z"
+}

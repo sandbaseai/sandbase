@@ -1,0 +1,258 @@
+{
+  "name": "openai/gpt-image-1.5/edit",
+  "display_name": "GPT Image 1.5 Edit",
+  "type": "image",
+  "vendor": "OpenAI",
+  "vendor_slug": "openai",
+  "description": "Gpt Image 1.5 Edit by OpenAI - AI-powered image editing, style transfer, and transformation. Edit photos with natural language instructions, remove backgrounds, change styles, and enhance images effortlessly.",
+  "tags": [
+    "image-to-image"
+  ],
+  "capabilities": [
+    "image-to-image"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "prompt"
+    ],
+    "properties": {
+      "mask": {
+        "type": "string",
+        "title": "Mask Image URL",
+        "description": "The URL of the mask image to use for the generation. This indicates what part of the image to edit."
+      },
+      "images": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        },
+        "title": "Image URLs",
+        "examples": [
+          "https://static.sandbase.ai/examples/openai/gpt-image-1.5/edit/input_images_0.png"
+        ],
+        "description": "The URLs of the images to use as a reference for the generation."
+      },
+      "prompt": {
+        "type": "string",
+        "title": "Prompt",
+        "examples": [
+          "Same workers, same beam, same lunch boxes - but they're all on their phones now. One is taking a selfie. One is on a call looking annoyed. Same danger, new priorities. A hard hat has AirPods."
+        ],
+        "maxLength": 32000,
+        "minLength": 2,
+        "description": "The prompt for image generation"
+      },
+      "quality": {
+        "enum": [
+          "low",
+          "medium",
+          "high"
+        ],
+        "type": "string",
+        "title": "Quality",
+        "default": "high",
+        "description": "Quality for the generated image"
+      },
+      "background": {
+        "enum": [
+          "auto",
+          "transparent",
+          "opaque"
+        ],
+        "type": "string",
+        "title": "Background",
+        "default": "auto",
+        "description": "Background for the generated image"
+      },
+      "aspect_ratio": {
+        "enum": [
+          "1:1",
+          "2:3",
+          "3:2"
+        ],
+        "type": "string",
+        "title": "Aspect Ratio",
+        "description": "The aspect ratio of the generated image."
+      },
+      "output_format": {
+        "enum": [
+          "jpeg",
+          "png"
+        ],
+        "type": "string",
+        "title": "Output Format",
+        "default": "png",
+        "description": "Output format for the images"
+      },
+      "input_fidelity": {
+        "enum": [
+          "low",
+          "high"
+        ],
+        "type": "string",
+        "title": "Input Fidelity",
+        "default": "high",
+        "description": "Input fidelity for the generated image"
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "title": "GenerationResponse",
+    "required": [
+      "id",
+      "status"
+    ],
+    "properties": {
+      "id": {
+        "type": "string",
+        "description": "Unique identifier for the generation task."
+      },
+      "error": {
+        "type": "string",
+        "description": "Error message if the task failed. Empty on success."
+      },
+      "model": {
+        "type": "string",
+        "description": "Model ID used for the prediction."
+      },
+      "status": {
+        "enum": [
+          "pending",
+          "running",
+          "completed",
+          "failed",
+          "timeout"
+        ],
+        "type": "string",
+        "description": "Status of the task: pending, running, completed, failed, or timeout."
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "title": "OutputItem",
+          "required": [
+            "url"
+          ],
+          "properties": {
+            "url": {
+              "type": "string",
+              "examples": [
+                "https://static.sandbase.ai/examples/openai/gpt-image-1.5/edit/output_url_1.png"
+              ],
+              "description": "The URL where the generated content can be downloaded from."
+            },
+            "content_type": {
+              "type": "string",
+              "description": "The MIME type of the output file."
+            }
+          }
+        },
+        "description": "Array of generated content. Empty when status is not completed."
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "formula",
+    "formula": "(params.quality ?? \"high\") == \"low\" ? ((params.aspect_ratio ?? \"1:1\") == \"1:1\" ? 0.009 : 0.013) : (params.quality ?? \"high\") == \"medium\" ? ((params.aspect_ratio ?? \"1:1\") == \"1:1\" ? 0.034 : 0.051) : ((params.aspect_ratio ?? \"1:1\") == \"1:1\" ? 0.133 : 0.200)",
+    "formula_variables": [
+      "params.aspect_ratio",
+      "params.quality"
+    ],
+    "reference_price": 0.133,
+    "price_examples": [
+      {
+        "params": {
+          "aspect_ratio": "1:1",
+          "quality": "low"
+        },
+        "usd": 0.009
+      },
+      {
+        "params": {
+          "aspect_ratio": "1:1",
+          "quality": "medium"
+        },
+        "usd": 0.034
+      },
+      {
+        "params": {
+          "aspect_ratio": "1:1",
+          "quality": "high"
+        },
+        "usd": 0.133
+      },
+      {
+        "params": {
+          "aspect_ratio": "2:3",
+          "quality": "low"
+        },
+        "usd": 0.013
+      },
+      {
+        "params": {
+          "aspect_ratio": "2:3",
+          "quality": "medium"
+        },
+        "usd": 0.051
+      },
+      {
+        "params": {
+          "aspect_ratio": "2:3",
+          "quality": "high"
+        },
+        "usd": 0.2
+      },
+      {
+        "params": {
+          "aspect_ratio": "3:2",
+          "quality": "low"
+        },
+        "usd": 0.013
+      },
+      {
+        "params": {
+          "aspect_ratio": "3:2",
+          "quality": "medium"
+        },
+        "usd": 0.051
+      },
+      {
+        "params": {
+          "aspect_ratio": "3:2",
+          "quality": "high"
+        },
+        "usd": 0.2
+      }
+    ]
+  },
+  "examples": [
+    {
+      "input": {
+        "prompt": "Same workers, same beam, same lunch boxes - but they're all on their phones now. One is taking a selfie. One is on a call looking annoyed. Same danger, new priorities. A hard hat has AirPods."
+      },
+      "output": [
+        {
+          "url": "https://static.sandbase.ai/examples/67f8ab24-ea67-4e98-8a05-46c1be76bc02/output/a561e4d6-c6b8-4ed8-b909-e12983309b9d.png"
+        }
+      ],
+      "default": true
+    }
+  ],
+  "readme": "# GPT Image 1.5 Edit\n\nGPT Image 1.5 edit: change images with an instruction, with an optional mask for local edits and `input_fidelity` to keep faces and logos close to the original.\n\n## Fields\n\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `prompt` | string, required | — | Up to 32,000 characters. |\n| `images` | image URL[] | — | Images to edit, Image 1, Image 2, … |\n| `mask` | image URL | — | Optional PNG mask; transparent areas are edited. |\n| `aspect_ratio` | `1:1` / `2:3` / `3:2` | — | 1:1, 3:2, or 2:3; non-square sizes cost more. |\n| `output_format` | `jpeg` / `png` | `png` | Output file format. |\n| `input_fidelity` | `low` / `high` | `high` | `high` preserves faces and logos more closely. |\n| `quality` | `low` / `medium` / `high` | `high` | Higher quality costs more; `high` is the default. |\n| `background` | `auto` / `transparent` / `opaque` | `auto` | `transparent` returns a PNG with alpha. |\n\n## Billing\n\nPrice depends on quality and shape, per output image:\n\n| Quality | 1:1 | 3:2 or 2:3 |\n|---|---|---|\n| low | $0.009 | $0.013 |\n| medium | $0.034 | $0.051 |\n| high | $0.133 | $0.20 |\n\nFailed runs are not charged.\n\n## Prompting\n\n- Use a mask when only one region should change.\n\n## Limits\n\n- Three shapes only: 1:1, 3:2, 2:3.\n\n## Also on SandBase\n\nRelated: `openai/gpt-image-1.5`, `openai/gpt-image-2/edit` (newer).\n",
+  "cover_url": "https://static.sandbase.ai/covers/openai/gpt-image-1.5/edit/cover-flare-20261005004428.webp",
+  "page_url": "https://www.sandbase.ai/model/openai/gpt-image-1.5/edit",
+  "published_at": "2025-12-16T18:38:20.664Z",
+  "created_at": "2026-05-13T00:39:17.857Z"
+}

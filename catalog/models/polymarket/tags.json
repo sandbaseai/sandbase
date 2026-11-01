@@ -1,0 +1,75 @@
+{
+  "name": "polymarket/tags",
+  "display_name": "Polymarket List tags",
+  "type": "api",
+  "vendor": "Polymarket",
+  "vendor_slug": "polymarket",
+  "description": "List tags from Polymarket. Returns the official Polymarket API response unchanged.",
+  "tags": [
+    "api",
+    "polymarket",
+    "prediction-markets"
+  ],
+  "capabilities": [
+    "api",
+    "polymarket",
+    "prediction-markets"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/polymarket/tags"
+  },
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "limit": {
+        "type": "integer",
+        "example": 1,
+        "minimum": 0,
+        "description": "limit"
+      },
+      "order": {
+        "type": "string",
+        "description": "Comma-separated list of fields to order by"
+      },
+      "offset": {
+        "type": "integer",
+        "minimum": 0,
+        "description": "offset"
+      },
+      "ascending": {
+        "type": "boolean",
+        "description": "ascending"
+      },
+      "is_carousel": {
+        "type": "boolean",
+        "description": "is_carousel"
+      },
+      "include_template": {
+        "type": "boolean",
+        "description": "include_template"
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.00044,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "readme": "# Polymarket List tags API\n\nList tags from Polymarket. Returns the official Polymarket API response unchanged.\n\nThe response is the official Polymarket API response, unchanged.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/polymarket/tags\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"limit\": 1}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `ascending` | boolean | No | ascending |\n| `include_template` | boolean | No | include_template |\n| `is_carousel` | boolean | No | is_carousel |\n| `limit` | integer | No | limit |\n| `offset` | integer | No | offset |\n| `order` | string | No | Comma-separated list of fields to order by |\n\n## Pricing\n\nFlat price per call. Failed calls are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/polymarket/tags",
+  "created_at": "2026-10-30T03:12:05.221Z"
+}

@@ -1,0 +1,71 @@
+{
+  "name": "instagram/v1/cities",
+  "display_name": "Instagram Cities by Country",
+  "type": "api",
+  "vendor": "Instagram",
+  "vendor_slug": "instagram",
+  "description": "Returns a list of Instagram cities and regions for a specified country code. Allows developers to look up location identifiers by passing pagination parameters.",
+  "tags": [
+    "api",
+    "instagram"
+  ],
+  "capabilities": [
+    "api",
+    "instagram"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/instagram/v1/cities"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "country_code"
+    ],
+    "properties": {
+      "page": {
+        "type": "integer",
+        "title": "Page",
+        "default": 1,
+        "example": 1,
+        "minimum": 1,
+        "description": "Page number, default 1"
+      },
+      "country_code": {
+        "type": "string",
+        "title": "Country Code",
+        "example": "US",
+        "description": "Country code, e.g. US, CN, JP"
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.0015,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "examples": [
+    {
+      "input": {
+        "country_code": "US"
+      },
+      "default": true
+    }
+  ],
+  "readme": "# Instagram Cities by Country API\n\nLook up cities and regions within a specific country by passing `country_code` and optional `page` parameters.\n\n## Use cases\n\n- Look up Instagram city identifiers for a target country.\n- Populate location filters based on country-level selections.\n- Browse regional location directories page by page.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/instagram/v1/cities\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"country_code\": \"US\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `country_code` | string | Yes | Country code, e.g. |\n| `page` | integer | No | Page number, default 1 |\n\n## Example response\n\nReal response for the request above, trimmed to the main fields. User names and long IDs are masked.\n\n```json\n{\n  \"city_list\": [\n    {\n      \"id\": \"c2753900\",\n      \"name\": \"Downtown-PennQuarter-Chinatown\"\n    }\n  ]\n}\n```\n\n## Notes\n\n- The `country_code` parameter accepts two-letter country codes such as US, CN, or JP.\n- Use `page` for pagination, which defaults to 1.\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [Instagram Hashtag Posts (V1)](/model/instagram/v1/hashtag-posts): Returns public Instagram posts associated with a specific hashtag.\n- [Instagram Location Details (V1)](/model/instagram/v1/location-info): Returns detailed metadata and profile information for a specified Instagram location using its unique identifier.\n- [Instagram Location Posts (V1)](/model/instagram/v1/location-posts): Returns posts tagged at a designated location.\n",
+  "page_url": "https://www.sandbase.ai/model/instagram/v1/cities",
+  "created_at": "2026-07-31T03:54:31.296Z"
+}

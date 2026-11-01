@@ -1,0 +1,61 @@
+{
+  "name": "zhihu/user-follow-topics",
+  "display_name": "Zhihu User Follow Topics",
+  "type": "api",
+  "vendor": "Zhihu",
+  "vendor_slug": "zhihu",
+  "description": "Get Zhihu topics followed by a user, with offset pagination. Use it to browse the topics associated with a known account's follow activity.",
+  "tags": [
+    "api",
+    "zhihu",
+    "social-media"
+  ],
+  "capabilities": [
+    "api",
+    "zhihu",
+    "social-media"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/zhihu/user-follow-topics"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "userUrlToken"
+    ],
+    "properties": {
+      "offset": {
+        "type": "integer",
+        "default": 0,
+        "description": "Start offset, begins with 0."
+      },
+      "userUrlToken": {
+        "type": "string",
+        "example": "excited-vczh",
+        "description": "Zhihu user URL token, such as the value in `zhihu.com/people/{userUrlToken}`."
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.013889,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "readme": "# Zhihu User Follow Topics API\n\nGet Zhihu topics followed by a user, with offset pagination. Use it to browse the topics associated with a known account's follow activity.\n\nThe response is the platform's original data structure.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/zhihu/user-follow-topics\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"userUrlToken\": \"excited-vczh\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `userUrlToken` | string | Yes | Zhihu user URL token, such as the value in `zhihu.com/people/{userUrlToken}`. |\n| `offset` | integer | No | Start offset, begins with 0. |\n\n## Pricing\n\nFlat price per call. Failed calls and empty results are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/zhihu/user-follow-topics",
+  "created_at": "2026-10-29T11:39:33.078Z"
+}

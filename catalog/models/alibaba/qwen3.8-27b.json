@@ -1,0 +1,45 @@
+{
+  "name": "alibaba/qwen3.8-27b",
+  "display_name": "Qwen: Qwen3.8 27B",
+  "type": "llm",
+  "vendor": "Alibaba",
+  "vendor_slug": "alibaba",
+  "description": "Qwen3.8 27B is the compact dense member of Alibaba's Qwen3.8 family, an open-weight native vision-language model that understands images and video, with thinking mode on by default. Compared with Qwen3.6 27B, Alibaba focuses the upgrade on coding and office tasks across text and visual inputs, aiming for more reliable end-to-end completion of complex multi-step work. It suits teams that want Qwen3.8-generation agent skills in a smaller, deployment-friendly model.",
+  "tags": [
+    "chat",
+    "vision",
+    "reasoning",
+    "structured_output",
+    "function_calling"
+  ],
+  "capabilities": [
+    "chat",
+    "vision",
+    "reasoning",
+    "structured_output",
+    "function_calling"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "chat_completions": "POST /v1/chat/completions",
+    "responses": "POST /v1/responses",
+    "messages": "POST /v1/messages"
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_token",
+    "per_million_tokens": {
+      "input": 0.5,
+      "output": 3,
+      "cache_read_multiplier": 0.2,
+      "cache_write_multiplier": 1.25
+    }
+  },
+  "cover_url": "https://t0.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=https://www.alibabacloud.com&size=256",
+  "page_url": "https://www.sandbase.ai/model/alibaba/qwen3.8-27b",
+  "published_at": "2026-08-14T15:55:10Z",
+  "created_at": "2026-09-03T09:48:22.485Z"
+}

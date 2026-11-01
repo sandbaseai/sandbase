@@ -1,0 +1,110 @@
+{
+  "name": "polymarket/closed-positions",
+  "display_name": "Polymarket Get closed positions for a user",
+  "type": "api",
+  "vendor": "Polymarket",
+  "vendor_slug": "polymarket",
+  "description": "Get closed positions for a user from Polymarket. Returns the official Polymarket API response unchanged.",
+  "tags": [
+    "api",
+    "polymarket",
+    "prediction-markets"
+  ],
+  "capabilities": [
+    "api",
+    "polymarket",
+    "prediction-markets"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/polymarket/closed-positions"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "user"
+    ],
+    "properties": {
+      "user": {
+        "type": "string",
+        "example": "0x56687bf447db6ffa42ffe2204a05edaa20f55839",
+        "description": "The address of the user in question"
+      },
+      "limit": {
+        "type": "integer",
+        "default": 10,
+        "example": 2,
+        "maximum": 50,
+        "minimum": 0,
+        "description": "The max number of positions to return"
+      },
+      "title": {
+        "type": "string",
+        "description": "Filter by market title"
+      },
+      "market": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        },
+        "description": "The conditionId of the market in question. Supports multiple csv separated values. Cannot be used with the eventId param."
+      },
+      "offset": {
+        "type": "integer",
+        "default": 0,
+        "maximum": 100000,
+        "minimum": 0,
+        "description": "The starting index for pagination"
+      },
+      "sortBy": {
+        "enum": [
+          "REALIZEDPNL",
+          "TITLE",
+          "PRICE",
+          "AVGPRICE",
+          "TIMESTAMP"
+        ],
+        "type": "string",
+        "default": "REALIZEDPNL",
+        "description": "The sort criteria"
+      },
+      "eventId": {
+        "type": "array",
+        "items": {
+          "type": "integer"
+        },
+        "description": "The event id of the event in question. Supports multiple csv separated values. Returns positions for all markets for those event ids. Cannot be used with the market param."
+      },
+      "sortDirection": {
+        "enum": [
+          "ASC",
+          "DESC"
+        ],
+        "type": "string",
+        "default": "DESC",
+        "description": "The sort direction"
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.012,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "readme": "# Polymarket Get closed positions for a user API\n\nGet closed positions for a user from Polymarket. Returns the official Polymarket API response unchanged.\n\nThe response is the official Polymarket API response, unchanged.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/polymarket/closed-positions\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"user\": \"0xfe787d2da716d60e8acff57fb87eb13cd4d10319\", \"limit\": 2}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `eventId` | array | No | The event id of the event in question. Supports multiple csv separated values. Returns positions for all markets for those event ids. Cannot be used with the ma |\n| `limit` | integer | No | The max number of positions to return |\n| `market` | array | No | The conditionId of the market in question. Supports multiple csv separated values. Cannot be used with the eventId param. |\n| `offset` | integer | No | The starting index for pagination |\n| `sortBy` | string | No | The sort criteria |\n| `sortDirection` | string | No | The sort direction |\n| `title` | string | No | Filter by market title |\n| `user` | string | Yes | The address of the user in question |\n\n## Pricing\n\nFlat price per call. Failed calls are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/polymarket/closed-positions",
+  "created_at": "2026-10-30T03:11:09.999Z"
+}

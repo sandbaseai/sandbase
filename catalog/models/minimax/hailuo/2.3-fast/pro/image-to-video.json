@@ -1,0 +1,137 @@
+{
+  "name": "minimax/hailuo/2.3-fast/pro/image-to-video",
+  "display_name": "MiniMax Hailuo 2.3 Fast Pro Image to Video",
+  "type": "video",
+  "vendor": "MiniMax",
+  "vendor_slug": "minimax",
+  "description": "MiniMax Hailuo 2.3 Fast Pro by MiniMax animates a still image into a 6-second 1080P video at lower cost and latency than Hailuo 2.3 Pro.",
+  "tags": [
+    "image-to-video"
+  ],
+  "capabilities": [
+    "image-to-video"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "prompt",
+      "image"
+    ],
+    "properties": {
+      "image": {
+        "type": "string",
+        "title": "Image Url",
+        "examples": [
+          "https://static.sandbase.ai/examples/minimax/hailuo/2.3-fast/pro/image-to-video/input_image_0.jpg"
+        ],
+        "description": "URL of the image to use as the first frame"
+      },
+      "prompt": {
+        "type": "string",
+        "title": "Prompt",
+        "examples": [
+          "Subject-tracking orbit: camera glides parallel to astronaut, Earth rotates beneath, sun crest reveals lens flare, astronaut tethers and spins slowly, 8K 60 fps slow-motion, ends with spacecraft blackout on sun disk"
+        ],
+        "maxLength": 2000,
+        "minLength": 1,
+        "description": "Text prompt for video generation"
+      },
+      "prompt_optimizer": {
+        "type": "boolean",
+        "title": "Prompt Optimizer",
+        "default": true,
+        "description": "Whether to use the model's prompt optimizer"
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "title": "GenerationResponse",
+    "required": [
+      "id",
+      "status"
+    ],
+    "properties": {
+      "id": {
+        "type": "string",
+        "description": "Unique identifier for the generation task."
+      },
+      "error": {
+        "type": "string",
+        "description": "Error message if the task failed. Empty on success."
+      },
+      "model": {
+        "type": "string",
+        "description": "Model ID used for the prediction."
+      },
+      "status": {
+        "enum": [
+          "pending",
+          "running",
+          "completed",
+          "failed",
+          "timeout"
+        ],
+        "type": "string",
+        "description": "Status of the task: pending, running, completed, failed, or timeout."
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "title": "OutputItem",
+          "required": [
+            "url"
+          ],
+          "properties": {
+            "url": {
+              "type": "string",
+              "examples": [
+                "https://static.sandbase.ai/examples/minimax/hailuo/2.3-fast/pro/image-to-video/output_url_1.mp4"
+              ],
+              "description": "The URL where the generated content can be downloaded from."
+            },
+            "content_type": {
+              "type": "string",
+              "description": "The MIME type of the output file."
+            }
+          }
+        },
+        "description": "Array of generated content. Empty when status is not completed."
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.33
+  },
+  "examples": [
+    {
+      "input": {
+        "image": "https://static.sandbase.ai/examples/9d21c225-e58e-485c-af0d-dd330cb89b0b/input/3134eda0-a0fb-4c79-8c24-6dc43ccfd98e.jpg",
+        "prompt": "Subject-tracking orbit: camera glides parallel to astronaut, Earth rotates beneath, sun crest reveals lens flare, astronaut tethers and spins slowly, 8K 60 fps slow-motion, ends with spacecraft blackout on sun disk"
+      },
+      "output": [
+        {
+          "poster": "https://static.sandbase.ai/examples/posters/e943d7e5baf6f84ba5a6.jpg",
+          "url": "https://static.sandbase.ai/examples/9d21c225-e58e-485c-af0d-dd330cb89b0b/output/9c4843bc-25da-495f-a212-9fa0b1ed258b.mp4"
+        }
+      ],
+      "default": true
+    }
+  ],
+  "readme": "# MiniMax Hailuo 2.3 Fast Pro Image to Video\n\nHailuo 2.3 Fast Pro animates an image into a 6-second 1080P video at lower cost and latency than Hailuo 2.3 Pro.\n\n## Fields\n\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `prompt` | string, required | — | Up to 2,000 characters. |\n| `image` | image URL, required | — | First frame. JPEG, PNG, or WebP URL. |\n| `prompt_optimizer` | boolean | true | Let MiniMax rewrite the prompt for better results. |\n\n## Billing\n\n$0.33 per 6-second video.\n\n| Request | Price |\n|---|---|\n| One video | $0.33 |\n\nFailed runs are not charged.\n\n## Prompting\n\n- Describe the motion and camera in one or two sentences.\n\n## Limits\n\n- No audio track.\n\n## Also on SandBase\n\nOther Hailuo 2.3 endpoints: `minimax/hailuo/2.3/pro/text-to-video`, `minimax/hailuo/2.3/pro/image-to-video`, `minimax/hailuo/2.3/standard/text-to-video`, `minimax/hailuo/2.3/standard/image-to-video`, `minimax/hailuo/2.3-fast/standard/image-to-video`, `minimax/h3/text-to-video` (newer, with audio).\n",
+  "cover_url": "https://static.sandbase.ai/covers/minimax/hailuo/2.3-fast/pro/image-to-video/cover-flare-20261005005653.webp",
+  "page_url": "https://www.sandbase.ai/model/minimax/hailuo/2.3-fast/pro/image-to-video",
+  "published_at": "2025-10-27T13:08:20.657Z",
+  "created_at": "2026-05-14T13:44:26.856Z"
+}

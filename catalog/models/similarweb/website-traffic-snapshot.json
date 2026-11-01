@@ -1,0 +1,63 @@
+{
+  "name": "similarweb/website-traffic-snapshot",
+  "display_name": "Similarweb Website Traffic Snapshot",
+  "type": "api",
+  "vendor": "Similarweb",
+  "vendor_slug": "similarweb",
+  "description": "Get a one-month snapshot of a website's traffic: visits, visit duration, pages per visit and bounce rate.",
+  "tags": [
+    "api",
+    "similarweb",
+    "web-analytics"
+  ],
+  "capabilities": [
+    "api",
+    "similarweb",
+    "web-analytics"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/similarweb/website-traffic-snapshot"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "domain"
+    ],
+    "properties": {
+      "month": {
+        "type": "string",
+        "description": "Complete month in YYYY-MM."
+      },
+      "domain": {
+        "type": "string",
+        "example": "cnn.com",
+        "description": "Bare website hostname without scheme, path, port, or credentials."
+      },
+      "country": {
+        "enum": [
+          "ww"
+        ],
+        "type": "string",
+        "default": "ww",
+        "description": "Worldwide data only; values are case-insensitive."
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.3
+  },
+  "readme": "# Similarweb Website Traffic Snapshot API\n\nGet a one-month snapshot of a website's traffic: visits, visit duration, pages per visit and bounce rate.\n\nThe response is the official Similarweb API response, unchanged.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/similarweb/website-traffic-snapshot\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"domain\": \"cnn.com\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `country` | string | No | Worldwide data only; values are case-insensitive. |\n| `domain` | string | Yes | Bare website hostname without scheme, path, port, or credentials. |\n| `month` | string | No | Complete month in YYYY-MM. |\n\n## Pricing\n\nFlat price per call. Failed calls are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/similarweb/website-traffic-snapshot",
+  "created_at": "2026-10-30T06:06:16.231Z"
+}

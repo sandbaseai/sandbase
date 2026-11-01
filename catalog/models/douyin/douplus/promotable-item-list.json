@@ -1,0 +1,98 @@
+{
+  "name": "douyin/douplus/promotable-item-list",
+  "display_name": "Douyin DOU+ Promotable Items",
+  "type": "api",
+  "vendor": "Douyin",
+  "vendor_slug": "douyin",
+  "description": "Returns the promotable video item list for a Douyin account on the DOU+ promotion page. Includes item details based on specified promotion targets and optimization objectives.",
+  "tags": [
+    "api",
+    "douyin"
+  ],
+  "capabilities": [
+    "api",
+    "douyin"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/douyin/douplus/promotable-item-list"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "sec_uid"
+    ],
+    "properties": {
+      "count": {
+        "anyOf": [
+          {
+            "type": "integer"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "title": "Count",
+        "description": "Number of items, default 30"
+      },
+      "aim_ids": {
+        "anyOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "title": "Aim Ids",
+        "description": "Optional advanced parameter — optimization objective code(s), comma separated."
+      },
+      "sec_uid": {
+        "type": "string",
+        "title": "Sec Uid",
+        "example": "MS4wLjABAAAAr52fXcfmzqOZJM_smap9Uuxtm16h8BupkCVaCt89BENq3E91mHCvtz5Z5TkXPHq_",
+        "description": "sec_uid of the delivery account (required)"
+      },
+      "target_id": {
+        "anyOf": [
+          {
+            "type": "integer"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "title": "Target Id",
+        "description": "Promotion target (the goal card on the DOU+ page), default 31 (likes & comments)."
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.0015,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "examples": [
+    {
+      "input": {
+        "sec_uid": "example"
+      }
+    }
+  ],
+  "readme": "# Douyin DOU+ Promotable Items API\n\nRetrieve videos eligible for DOU+ promotion for a specified Douyin user using their `sec_uid`. Customize results by item count with `count`, promotion goal via `target_id`, and optimization objective codes via `aim_ids`.\n\n## Use cases\n\n- Identify videos eligible for DOU+ promotion campaigns on a given Douyin account.\n- Filter promotable content according to specific optimization goals and targets.\n- Track DOU+ delivery candidate items alongside their metadata.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/douyin/douplus/promotable-item-list\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"sec_uid\": \"MS4wLjABAAAAr52fXcfmzqOZJM_smap9Uuxtm16h8BupkCVaCt89BENq3E91mHCvtz5Z5TkXPHq_\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `sec_uid` | string | Yes | sec_uid of the delivery account (required) |\n| `count` | string | No | Number of items, default 30 |\n| `aim_ids` | string | No | Optional advanced parameter — optimization objective code(s), comma separated. |\n| `target_id` | string | No | Promotion target (the goal card on the DOU+ page), default 31 (likes & comments). |\n\n## Example response\n\nReal response for the request above, trimmed to the main fields. User names and long IDs are masked.\n\n```json\n{\n  \"item_info_list\": [\n    {\n      \"playlet_type\": 0,\n      \"aweme_info\": {\n        \"aweme_id\": \"7691250576776709797\",\n        \"create_time\": 1790758823000,\n        \"desc\": \". #海俪恩蛋尾巴摇摇#海俪恩美瞳#海俪恩小狗#美瞳推荐\",\n        \"valid_anchor_type\": 0\n      },\n      \"item_source\": {\n        \"source_type\": 0\n      }\n    }\n  ]\n}\n```\n\n## Notes\n\n- `sec_uid` is required to identify the delivery account.\n- `target_id` defines the promotion goal card and defaults to 31 for likes and comments.\n- `count` defines the number of items returned, defaulting to 30.\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [Douyin DOU+ User Search](/model/douyin/douplus/search-user): Searches for Douyin users in the DOU+ delivery context using a Douyin ID or nickname.\n- [Douyin DOU+ Talent Categories](/model/douyin/douplus/talent-categories): Returns the Douyin DOU+ talent category directory.\n- [Douyin DOU+ Talents by Category](/model/douyin/douplus/talents-by-category): Returns a list of DOU+ talents filtered by category name or keyword.\n",
+  "page_url": "https://www.sandbase.ai/model/douyin/douplus/promotable-item-list",
+  "created_at": "2026-07-31T02:36:44.813Z"
+}

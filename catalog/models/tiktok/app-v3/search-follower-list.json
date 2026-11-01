@@ -1,0 +1,71 @@
+{
+  "name": "tiktok/app-v3/search-follower-list",
+  "display_name": "TikTok User Follower Search",
+  "type": "api",
+  "vendor": "TikTok",
+  "vendor_slug": "tiktok",
+  "description": "Searches a specific TikTok user's follower list for accounts matching a nickname keyword. Returns matching follower results and a count based on the provided user ID.",
+  "tags": [
+    "api",
+    "tiktok"
+  ],
+  "capabilities": [
+    "api",
+    "tiktok"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/tiktok/app-v3/search-follower-list"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "keyword",
+      "user_id"
+    ],
+    "properties": {
+      "keyword": {
+        "type": "string",
+        "title": "Keyword",
+        "example": "openai",
+        "description": "Search keyword, the user's nickname contains the keyword to match."
+      },
+      "user_id": {
+        "type": "string",
+        "title": "User Id",
+        "example": "107955",
+        "description": "User ID, this is a pure numeric version of the user ID, which can be obtained through the get user info API."
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.0015,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "examples": [
+    {
+      "input": {
+        "keyword": ".v7.v7.v7",
+        "user_id": "7455877271699113003"
+      },
+      "default": true
+    }
+  ],
+  "readme": "# TikTok User Follower Search API\n\nLook up followers of a specific TikTok account by nickname matching. Supply a numeric `user_id` alongside a search `keyword` to discover relevant follower profiles.\n\n## Use cases\n\n- Verify if a specific profile or brand nickname follows a target account.\n- Filter an audience base to find followers with relevant keywords in their nicknames.\n- Confirm follower presence for influencer collaboration checks.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/tiktok/app-v3/search-follower-list\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"keyword\": \"openai\", \"user_id\": \"107955\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `keyword` | string | Yes | Search keyword, the user's nickname contains the keyword to match. |\n| `user_id` | string | Yes | User ID, this is a pure numeric version of the user ID, which can be obtained through the get user info API. |\n\n## Example response\n\nReal response for the request above, trimmed to the main fields. User names and long IDs are masked.\n\n```json\n{\n  \"keyword\": \"openai\",\n  \"result_count\": 0,\n  \"user_id\": \"<user>\"\n}\n```\n\n## Notes\n\n- The `user_id` parameter requires the pure numeric user ID, obtainable through user info endpoints.\n- Matches occur when an account's nickname contains the provided `keyword` string.\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [TikTok LIVE Status](/model/tiktok/app-v3/check-live-room-online): Check whether a TikTok LIVE room is currently live by room ID.\n- [TikTok Room Online Status Batch](/model/tiktok/app-v3/check-live-room-online-batch): Returns the online availability status for multiple TikTok broadcast rooms in a single request.\n- [TikTok Content Translation](/model/tiktok/app-v3/content-translate): Translates provided text content into a designated target language.\n",
+  "page_url": "https://www.sandbase.ai/model/tiktok/app-v3/search-follower-list",
+  "created_at": "2026-07-31T04:14:49.4Z"
+}

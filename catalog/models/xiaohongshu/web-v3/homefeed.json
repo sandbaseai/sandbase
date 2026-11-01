@@ -1,0 +1,76 @@
+{
+  "name": "xiaohongshu/web-v3/homefeed",
+  "display_name": "Xiaohongshu (RED) Homepage Feed",
+  "type": "api",
+  "vendor": "Xiaohongshu",
+  "vendor_slug": "xiaohongshu",
+  "description": "Retrieves recommended notes from the Xiaohongshu homepage feed. Supports filtering by category channel, restricting results to image notes, and paginating via cursor score.",
+  "tags": [
+    "api",
+    "xiaohongshu"
+  ],
+  "capabilities": [
+    "api",
+    "xiaohongshu"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/xiaohongshu/web-v3/homefeed"
+  },
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "num": {
+        "type": "integer",
+        "title": "Num",
+        "default": 20,
+        "maximum": 40,
+        "description": "Number of results, max 40"
+      },
+      "category": {
+        "type": "string",
+        "title": "Category",
+        "default": "homefeed_recommend",
+        "description": "Category channel ID"
+      },
+      "cursor_score": {
+        "type": "string",
+        "title": "Cursor Score",
+        "default": "",
+        "description": "Pagination cursor"
+      },
+      "need_filter_image": {
+        "type": "boolean",
+        "title": "Need Filter Image",
+        "default": false,
+        "description": "Image notes only"
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.015,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "examples": [
+    {
+      "input": {}
+    }
+  ],
+  "readme": "# Xiaohongshu (RED) Homepage Feed API\n\nAccess recommended homepage feed notes using optional parameters such as `category`, `num`, `cursor_score`, and `need_filter_image`.\n\n## Use cases\n\n- Retrieve recommended note feeds for discovery analysis.\n- Filter homepage recommendations to image-only note posts.\n- Monitor trending content across specific category channels.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/xiaohongshu/web-v3/homefeed\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `num` | integer | No | Number of results, max 40 |\n| `category` | string | No | Category channel ID |\n| `cursor_score` | string | No | Pagination cursor |\n| `need_filter_image` | boolean | No | Image notes only |\n\n## Notes\n\n- `num` specifies the count of returned results up to a maximum of 40.\n- Use `cursor_score` to paginate through subsequent pages of the feed.\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [Xiaohongshu (RED) Homepage Categories](/model/xiaohongshu/web-v3/homefeed-categories): Returns a list of available homefeed category channels on Xiaohongshu (RED).\n- [Xiaohongshu (RED) Web Note Details](/model/xiaohongshu/web-v3/note-detail): Returns detailed information for a specific Xiaohongshu note using its identifier and security token obtained from a web share link.\n- [Xiaohongshu (RED) Search Suggestions](/model/xiaohongshu/web-v3/search-suggest): Returns search query suggestions and autocomplete terms from Xiaohongshu (RED).\n",
+  "page_url": "https://www.sandbase.ai/model/xiaohongshu/web-v3/homefeed",
+  "created_at": "2026-07-31T02:47:41.43Z"
+}

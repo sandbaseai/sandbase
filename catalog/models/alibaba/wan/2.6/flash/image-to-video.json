@@ -1,0 +1,216 @@
+{
+  "name": "alibaba/wan/2.6/flash/image-to-video",
+  "display_name": "Wan 2.6 Flash Image to Video",
+  "type": "video",
+  "vendor": "Alibaba",
+  "vendor_slug": "alibaba",
+  "description": "Wan 2.6 Flash by Alibaba - animate still images into dynamic videos with AI. Transform photos into cinematic clips with natural motion, camera movement, and optional audio generation.",
+  "tags": [
+    "image-to-video"
+  ],
+  "capabilities": [
+    "image-to-video"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "prompt",
+      "image"
+    ],
+    "properties": {
+      "seed": {
+        "type": "integer",
+        "title": "Seed",
+        "description": "Random seed for reproducibility. If None, a random seed is chosen."
+      },
+      "audio": {
+        "type": "string",
+        "title": "Audio",
+        "description": "\nURL of the audio to use as the background music. Must be publicly accessible.\nLimit handling: If the audio duration exceeds the duration value (5, 10, or 15 seconds),\nthe audio is truncated to the first N seconds, and the rest is discarded. If\nthe audio is shorter than the video, the remaining part of the video will be silent.\nFor example, if the audio is 3 seconds long and the video duration is 5 seconds, the\nfirst 3 seconds of the output video will have sound, and the last 2 seconds will be silent.\n- Format: WAV, MP3.\n- Duration: 3 to 30 s.\n- File size: Up to 15 MB.\n"
+      },
+      "image": {
+        "type": "string",
+        "title": "Image",
+        "examples": [
+          "https://static.sandbase.ai/examples/bfl/flux-2/dev/edit/input_images_0.png"
+        ],
+        "description": "URL of the image to use as the first frame. Must be publicly accessible or base64 data URI. Image dimensions must be between 240 and 7680."
+      },
+      "prompt": {
+        "type": "string",
+        "title": "Prompt",
+        "examples": [
+          "A comedic cinematic demo where typed prompts physically transform reality. Photoreal, strong match cuts, coherent main character, no subtitles.\n\nShot 1 [0-4s] Continue from first frame. The creator presses \"PRINT\". The machine clunks like a spaceship. Creator whispers: \"Okay… I'm pressing enter.\"\nShot 2 [4-8s] Smash cut: the printed paper flies into the air and unfolds into a full desert canyon scene around the desk, like reality is being unrolled. Creator says: \"Wait—my prompt has physics?\"\nShot 3 [8-12s] Hard cut: the paper tears and reveals a tropical jungle behind it, perfectly lit, cinematic sun. Creator laughs: \"This is exactly why we do AI.\"\nShot 4 [12-15s] Hard cut back to studio. The printer prints a final line (not shown clearly). Creator looks to camera: \"Multi-scene. Single prompt.\""
+        ],
+        "minLength": 1,
+        "description": "The text prompt describing the desired video motion. Max 800 characters."
+      },
+      "duration": {
+        "enum": [
+          5,
+          10,
+          15
+        ],
+        "type": "integer",
+        "title": "Duration",
+        "default": 5,
+        "description": "Duration of the generated video in seconds. Choose between 5, 10 or 15 seconds."
+      },
+      "resolution": {
+        "enum": [
+          "720p",
+          "1080p"
+        ],
+        "type": "string",
+        "title": "Resolution",
+        "default": "720p",
+        "description": "Video resolution. Valid values: 720p, 1080p"
+      },
+      "multi_shots": {
+        "type": "boolean",
+        "title": "Multi Shots",
+        "default": false,
+        "description": "When true, enables intelligent multi-shot segmentation. Only active when enable_prompt_expansion is True. Set to false for single-shot generation."
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "title": "GenerationResponse",
+    "required": [
+      "id",
+      "status"
+    ],
+    "properties": {
+      "id": {
+        "type": "string",
+        "description": "Unique identifier for the generation task."
+      },
+      "error": {
+        "type": "string",
+        "description": "Error message if the task failed. Empty on success."
+      },
+      "model": {
+        "type": "string",
+        "description": "Model ID used for the prediction."
+      },
+      "status": {
+        "enum": [
+          "pending",
+          "running",
+          "completed",
+          "failed",
+          "timeout"
+        ],
+        "type": "string",
+        "description": "Status of the task: pending, running, completed, failed, or timeout."
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "title": "OutputItem",
+          "required": [
+            "url"
+          ],
+          "properties": {
+            "url": {
+              "type": "string",
+              "examples": [
+                "https://static.sandbase.ai/examples/alibaba/wan/2.6/image-to-video/flash/output_url_1.mp4"
+              ],
+              "description": "The URL where the generated content can be downloaded from."
+            },
+            "content_type": {
+              "type": "string",
+              "description": "The MIME type of the output file."
+            }
+          }
+        },
+        "description": "Array of generated content. Empty when status is not completed."
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "formula",
+    "formula": "(params.resolution ?? \"720p\") == \"1080p\" ? (params.duration ?? 5) * 0.075 : (params.duration ?? 5) * 0.05",
+    "formula_variables": [
+      "params.duration",
+      "params.resolution"
+    ],
+    "reference_price": 0.25,
+    "price_examples": [
+      {
+        "params": {
+          "duration": 5,
+          "resolution": "720p"
+        },
+        "usd": 0.25
+      },
+      {
+        "params": {
+          "duration": 5,
+          "resolution": "1080p"
+        },
+        "usd": 0.375
+      },
+      {
+        "params": {
+          "duration": 10,
+          "resolution": "720p"
+        },
+        "usd": 0.5
+      },
+      {
+        "params": {
+          "duration": 10,
+          "resolution": "1080p"
+        },
+        "usd": 0.75
+      },
+      {
+        "params": {
+          "duration": 15,
+          "resolution": "720p"
+        },
+        "usd": 0.75
+      },
+      {
+        "params": {
+          "duration": 15,
+          "resolution": "1080p"
+        },
+        "usd": 1.125
+      }
+    ]
+  },
+  "examples": [
+    {
+      "input": {
+        "image": "https://static.sandbase.ai/examples/1c66bd9f-8155-4927-a5f3-d1a461ddaa02/input/c7880d2b-2ceb-4e39-bf4e-0a3051024917.png",
+        "prompt": "A comedic cinematic demo where typed prompts physically transform reality. Photoreal, strong match cuts, coherent main character, no subtitles.\n\nShot 1 [0-4s] Continue from first frame. The creator presses \"PRINT\". The machine clunks like a spaceship. Creator whispers: \"Okay… I'm pressing enter.\"\nShot 2 [4-8s] Smash cut: the printed paper flies into the air and unfolds into a full desert canyon scene around the desk, like reality is being unrolled. Creator says: \"Wait—my prompt has physics?\"\nShot 3 [8-12s] Hard cut: the paper tears and reveals a tropical jungle behind it, perfectly lit, cinematic sun. Creator laughs: \"This is exactly why we do AI.\"\nShot 4 [12-15s] Hard cut back to studio. The printer prints a final line (not shown clearly). Creator looks to camera: \"Multi-scene. Single prompt.\""
+      },
+      "output": [
+        {
+          "poster": "https://static.sandbase.ai/examples/posters/f787d1379deecec9c38b.jpg",
+          "url": "https://static.sandbase.ai/examples/1c66bd9f-8155-4927-a5f3-d1a461ddaa02/output/ea5bf396-0b1f-4b20-871c-067a6e9ccb07.mp4"
+        }
+      ],
+      "default": true
+    }
+  ],
+  "readme": "# Wan 2.6 Flash Image to Video\n\nThe fast, lower-cost Wan 2.6 image-to-video tier. Animate a picture into a 5, 10, or 15 second clip; turn on `multi_shots` to let the model cut between shots.\n\n## Fields\n\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `prompt` | string, required | — | Text instruction. |\n| `image` | image URL, required | — | First frame. JPEG, PNG, or WebP URL. |\n| `audio` | audio URL | — | Optional WAV/MP3 URL that drives speech or rhythm. |\n| `resolution` | `720p` / `1080p` | `720p` | Sets the per-second rate. |\n| `duration` | 5 / 10 / 15 | 5 | Output length in seconds. |\n| `multi_shots` | boolean | false | Let the model cut between several shots. |\n| `seed` | integer | random | Fix it to compare prompt changes. |\n\n## Billing\n\nYou pay for output seconds: $0.05 at 720p and $0.075 at 1080p.\n\n| Output | 720p | 1080p |\n|---|---|---|\n| 5s (default) | $0.25 | $0.375 |\n| 10s | $0.50 | $0.75 |\n| 15s | $0.75 | $1.125 |\n\nFailed runs are not charged.\n\n## Prompting\n\n- Describe the motion and camera move in one or two sentences.\n- With `multi_shots`, list the shots in order.\n\n## Limits\n\n- Use the non-Flash tier when motion quality matters more than speed and cost.\n\n## Also on SandBase\n\nOther Wan 2.6 endpoints: `alibaba/wan/2.6/text-to-video`, `alibaba/wan/2.6/image-to-video`, `alibaba/wan/2.6/reference-to-video`, `alibaba/wan/2.6/flash/reference-to-video`, `alibaba/wan/2.6/text-to-image`, `alibaba/wan/2.6/image-to-image`, `alibaba/wan/2.7/text-to-video` (newer).\n",
+  "cover_url": "https://static.sandbase.ai/covers/alibaba/wan/2.6/flash/image-to-video/cover-flare-20261005150852.webp",
+  "page_url": "https://www.sandbase.ai/model/alibaba/wan/2.6/flash/image-to-video",
+  "published_at": "2026-01-18T08:06:36.211Z",
+  "created_at": "2026-10-05T02:19:52.276Z"
+}

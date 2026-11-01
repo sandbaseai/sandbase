@@ -1,0 +1,69 @@
+{
+  "name": "instagram/v1/user-posts",
+  "display_name": "Instagram User Posts (V1)",
+  "type": "api",
+  "vendor": "Instagram",
+  "vendor_slug": "instagram",
+  "description": "Returns a paginated list of posts for a specified Instagram account. Results include captions, like counts, comment counts, and media details.",
+  "tags": [
+    "api",
+    "instagram"
+  ],
+  "capabilities": [
+    "api",
+    "instagram"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/instagram/v1/user-posts"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "user_id"
+    ],
+    "properties": {
+      "count": {
+        "type": "integer",
+        "title": "Count",
+        "default": 12,
+        "example": 12,
+        "maximum": 50,
+        "minimum": 1,
+        "description": "Count per page, default 12"
+      },
+      "max_id": {
+        "type": "string",
+        "title": "Max Id",
+        "description": "Pagination cursor, omit for first request"
+      },
+      "user_id": {
+        "type": "string",
+        "title": "User Id",
+        "example": "25025320",
+        "description": "Instagram user ID"
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.0015,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "readme": "# Instagram User Posts (V1) API\n\nRetrieve recent posts from an Instagram account by supplying the target `user_id`. Supports pagination via cursor parameters to browse historical media feeds.\n\n## Use cases\n\n- Display an Instagram account media feed in an external application.\n- Monitor engagement metrics such as likes and comments over recent posts.\n- Archive captions and post metadata for specific public profiles.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/instagram/v1/user-posts\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"user_id\": \"25025320\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `user_id` | string | Yes | Instagram user ID |\n| `count` | integer | No | Count per page, default 12 |\n| `max_id` | string | No | Pagination cursor, omit for first request |\n\n## Example response\n\nReal response for the request above, trimmed to the main fields. User names and long IDs are masked.\n\n```json\n{\n  \"items\": [\n    {\n      \"caption_is_edited\": false,\n      \"coauthor_producer_can_see_organic_insights\": false,\n      \"comment_count\": 18380,\n      \"device_timestamp\": 1790870048722622,\n      \"disable_caption_and_comment\": false,\n      \"filter_type\": 0,\n      \"id\": \"3998430248382584993_25025320\",\n      \"ig_play_count\": 150975683,\n      \"like_and_view_counts_disabled\": false,\n      \"like_count\": 642777,\n      \"caption\": {\n        \"content_type\": \"comment\",\n        \"media_id\": 3998430248382584993,\n        \"private_reply_status\": 0,\n        \"status\": \"Active\",\n        \"text\": \"DIY fish squishy 🐟⁣ ⁣ @yano4kaa.a made this squishy using stuff she already had at home l…\",\n        \"text_translation\": \"DIY fish squishy 🐟     @yano4kaa.a made this squishy using stuff she already had at home …\"\n      },\n      \"clips_metadata\": {\n        \"audio_type\": \"licensed_music\",\n        \"music_canonical_id\": \"18242041438023387\",\n        \"professional_clips_upsell_type\": 0\n      },\n      \"user\": {\n        \"account_type\": 3,\n        \"eligible_for_text_app_activation_badge\": false,\n        \"full_name\": \"Instagram\",\n        \"id\": \"25025320\",\n        \"pk_id\": \"25025320\",\n        \"profile_pic_id\": \"3725434617063385984_25025320\"\n      }\n    }\n  ]\n}\n```\n\n## Notes\n\n- Supply `user_id` to identify the Instagram profile.\n- Pass `max_id` as the pagination cursor for requests after the first page.\n- Use `count` to specify the number of posts returned per page, defaulting to 12.\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [Instagram Cities by Country](/model/instagram/v1/cities): Returns a list of Instagram cities and regions for a specified country code.\n- [Instagram Hashtag Posts (V1)](/model/instagram/v1/hashtag-posts): Returns public Instagram posts associated with a specific hashtag.\n- [Instagram Location Details (V1)](/model/instagram/v1/location-info): Returns detailed metadata and profile information for a specified Instagram location using its unique identifier.\n",
+  "page_url": "https://www.sandbase.ai/model/instagram/v1/user-posts",
+  "created_at": "2026-07-31T03:55:26.618Z"
+}

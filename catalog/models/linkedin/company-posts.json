@@ -1,0 +1,105 @@
+{
+  "name": "linkedin/company-posts",
+  "display_name": "LinkedIn Company Posts",
+  "type": "api",
+  "vendor": "LinkedIn",
+  "vendor_slug": "linkedin",
+  "description": "List a LinkedIn company page's recent posts by URL: full text, canonical link, publish date, author, engagement counts with a per-reaction breakdown, and attached media.",
+  "tags": [
+    "api",
+    "linkedin",
+    "social-media"
+  ],
+  "capabilities": [
+    "api",
+    "linkedin",
+    "social-media"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/linkedin/company-posts"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "url"
+    ],
+    "properties": {
+      "url": {
+        "type": "string",
+        "example": "https://www.linkedin.com/company/stripe",
+        "description": "Full LinkedIn company page URL."
+      },
+      "limit": {
+        "type": "integer",
+        "default": 10,
+        "example": 10,
+        "maximum": 50,
+        "minimum": 1,
+        "description": "Maximum number of posts to return."
+      },
+      "postedLimit": {
+        "enum": [
+          "any",
+          "1h",
+          "24h",
+          "week",
+          "month",
+          "3months",
+          "6months",
+          "year"
+        ],
+        "type": "string",
+        "description": "Only return posts published within this window (default any)."
+      },
+      "includeReposts": {
+        "type": "boolean",
+        "description": "Include reposts (posts shared without an added comment). Defaults to true; set false to exclude them."
+      },
+      "includeQuotePosts": {
+        "type": "boolean",
+        "description": "Include quote posts (posts shared with an added comment). Defaults to true; set false to exclude them."
+      }
+    },
+    "additionalProperties": false
+  },
+  "response_schema": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string"
+      },
+      "model": {
+        "type": "string"
+      },
+      "status": {
+        "type": "string"
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "data": {
+              "type": "object",
+              "description": "Normalized result for this request."
+            }
+          }
+        }
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "usage_based",
+    "note": "Billed per call from metered usage; the reference price is typical.",
+    "reference_price": 0.0029
+  },
+  "readme": "# LinkedIn Company Posts API\n\nList a LinkedIn company page's recent posts by URL: full text, canonical link, publish date, author, engagement counts with a per-reaction breakdown, and attached media.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/linkedin/company-posts\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"url\": \"https://www.linkedin.com/company/stripe\", \"limit\": 10}'\n```\n\nThe result is returned in `outputs[0].data`. A lookup that finds nothing still succeeds and returns `found: false`.\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `url` | string | Yes | Full LinkedIn company page URL. |\n| `includeQuotePosts` | boolean | No | Include quote posts (posts shared with an added comment). Defaults to true; set false to exclude them. |\n| `includeReposts` | boolean | No | Include reposts (posts shared without an added comment). Defaults to true; set false to exclude them. |\n| `limit` | integer | No | Maximum number of posts to return. Default `10`. |\n| `postedLimit` | string | No | Only return posts published within this window (default any). One of: `any`, `1h`, `24h`, `week`, `month`, `3months`, `6months`, `year`. |\n\n## Pricing\n\nBilled at the actual cost of each call, usually $0.0029 per request. A call can cost more when the first data source fails and another one answers. Failed calls are not charged. Lookups that find nothing and searches with no results are billed at their actual cost, which is often lower and can be $0.\n",
+  "page_url": "https://www.sandbase.ai/model/linkedin/company-posts",
+  "created_at": "2026-11-01T12:23:58.802Z"
+}

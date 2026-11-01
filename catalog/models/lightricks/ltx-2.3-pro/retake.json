@@ -1,0 +1,163 @@
+{
+  "name": "lightricks/ltx-2.3-pro/retake",
+  "display_name": "LTX 2.3 Pro Retake",
+  "type": "video",
+  "vendor": "Lightricks",
+  "vendor_slug": "lightricks",
+  "description": "Ltx 2.3 Pro Retake by Lightricks - AI-powered video editing and transformation. Apply style transfer, motion control, lip-sync, and visual effects to existing videos with natural language instructions.",
+  "tags": [
+    "video-to-video"
+  ],
+  "capabilities": [
+    "video-to-video"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "prompt",
+      "video"
+    ],
+    "properties": {
+      "video": {
+        "type": "string",
+        "title": "Video URL",
+        "examples": [
+          "https://static.sandbase.ai/examples/lightricks/ltx-2.3-pro/retake/input_video_0.mp4"
+        ],
+        "description": "The URL of the video to retake"
+      },
+      "prompt": {
+        "type": "string",
+        "title": "Prompt",
+        "examples": [
+          "Change flower to red rose"
+        ],
+        "maxLength": 5000,
+        "minLength": 1,
+        "description": "The prompt to retake the video with"
+      },
+      "duration": {
+        "type": "integer",
+        "title": "Duration",
+        "default": 5,
+        "maximum": 20,
+        "minimum": 2,
+        "description": "The duration of the video to retake in seconds"
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "title": "GenerationResponse",
+    "required": [
+      "id",
+      "status"
+    ],
+    "properties": {
+      "id": {
+        "type": "string",
+        "description": "Unique identifier for the generation task."
+      },
+      "error": {
+        "type": "string",
+        "description": "Error message if the task failed. Empty on success."
+      },
+      "model": {
+        "type": "string",
+        "description": "Model ID used for the prediction."
+      },
+      "status": {
+        "enum": [
+          "pending",
+          "running",
+          "completed",
+          "failed",
+          "timeout"
+        ],
+        "type": "string",
+        "description": "Status of the task: pending, running, completed, failed, or timeout."
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "title": "OutputItem",
+          "required": [
+            "url"
+          ],
+          "properties": {
+            "url": {
+              "type": "string",
+              "examples": [
+                "https://static.sandbase.ai/examples/lightricks/ltx-2.3-pro/retake/output_url_1.mp4"
+              ],
+              "description": "The URL where the generated content can be downloaded from."
+            },
+            "content_type": {
+              "type": "string",
+              "description": "The MIME type of the output file."
+            }
+          }
+        },
+        "description": "Array of generated content. Empty when status is not completed."
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "formula",
+    "formula": "(params.duration ?? 5) * 0.10",
+    "formula_variables": [
+      "params.duration"
+    ],
+    "reference_price": 0.5,
+    "price_examples": [
+      {
+        "params": {
+          "duration": 2
+        },
+        "usd": 0.2
+      },
+      {
+        "params": {
+          "duration": 5
+        },
+        "usd": 0.5
+      },
+      {
+        "params": {
+          "duration": 20
+        },
+        "usd": 2
+      }
+    ]
+  },
+  "examples": [
+    {
+      "input": {
+        "prompt": "Change flower to red rose",
+        "video": "https://static.sandbase.ai/examples/ab43871c-ff3d-4c88-b2cf-b426f17f6b80/input/cce568b6-3e5b-4354-838c-5b2331f78ee9.mp4"
+      },
+      "output": [
+        {
+          "poster": "https://static.sandbase.ai/examples/posters/4529ce1fe33eb9846bd4.jpg",
+          "url": "https://static.sandbase.ai/examples/ab43871c-ff3d-4c88-b2cf-b426f17f6b80/output/8c717cdf-71a9-4d75-a1b9-a0a6df4990e1.mp4"
+        }
+      ],
+      "default": true
+    }
+  ],
+  "readme": "# LTX 2.3 Pro Retake\n\nLTX 2.3 Pro retake: regenerate part of an existing clip from a prompt while keeping the rest.\n\n## Fields\n\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `prompt` | string, required | — | Up to 5,000 characters. |\n| `video` | video URL, required | — | Source clip. |\n| `duration` | integer 2–20 | 5 | Length of the section to regenerate. |\n\n## Billing\n\n$0.10 per regenerated second.\n\n| Output | Price |\n|---|---|\n| 2s | $0.20 |\n| 5s (default) | $0.50 |\n| 10s | $1.00 |\n\nFailed runs are not charged.\n\n## Prompting\n\n- Describe what should happen in the retaken section.\n\n## Also on SandBase\n\nOther LTX 2.3 endpoints: `lightricks/ltx-2.3-pro/text-to-video`, `lightricks/ltx-2.3-pro/image-to-video`, `lightricks/ltx-2.3-pro/audio-to-video`, `lightricks/ltx-2.3-pro/video-extend`.\n",
+  "cover_url": "https://static.sandbase.ai/covers/lightricks/ltx-2.3-pro/retake/cover-flare-20261005045940.webp",
+  "page_url": "https://www.sandbase.ai/model/lightricks/ltx-2.3-pro/retake",
+  "published_at": "2026-03-05T15:28:12.564Z",
+  "created_at": "2026-06-01T14:06:17.802Z"
+}

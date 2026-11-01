@@ -1,0 +1,114 @@
+{
+  "name": "polymarket/public-search",
+  "display_name": "Polymarket Search markets, events, and profiles",
+  "type": "api",
+  "vendor": "Polymarket",
+  "vendor_slug": "polymarket",
+  "description": "Search markets, events, and profiles from Polymarket. Returns the official Polymarket API response unchanged.",
+  "tags": [
+    "api",
+    "polymarket",
+    "prediction-markets"
+  ],
+  "capabilities": [
+    "api",
+    "polymarket",
+    "prediction-markets"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/polymarket/public-search"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "q"
+    ],
+    "properties": {
+      "q": {
+        "type": "string",
+        "example": "election",
+        "description": "q"
+      },
+      "page": {
+        "type": "integer",
+        "description": "page"
+      },
+      "sort": {
+        "type": "string",
+        "description": "sort"
+      },
+      "cache": {
+        "type": "boolean",
+        "description": "cache"
+      },
+      "ascending": {
+        "type": "boolean",
+        "description": "ascending"
+      },
+      "optimized": {
+        "type": "boolean",
+        "description": "optimized"
+      },
+      "events_tag": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        },
+        "description": "events_tag"
+      },
+      "recurrence": {
+        "type": "string",
+        "description": "recurrence"
+      },
+      "search_tags": {
+        "type": "boolean",
+        "description": "search_tags"
+      },
+      "events_status": {
+        "type": "string",
+        "description": "events_status"
+      },
+      "exclude_tag_id": {
+        "type": "array",
+        "items": {
+          "type": "integer"
+        },
+        "description": "exclude_tag_id"
+      },
+      "limit_per_type": {
+        "type": "integer",
+        "description": "limit_per_type"
+      },
+      "search_profiles": {
+        "type": "boolean",
+        "description": "search_profiles"
+      },
+      "keep_closed_markets": {
+        "type": "integer",
+        "description": "keep_closed_markets"
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.012,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "readme": "# Polymarket Search markets, events, and profiles API\n\nSearch markets, events, and profiles from Polymarket. Returns the official Polymarket API response unchanged.\n\nThe response is the official Polymarket API response, unchanged.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/polymarket/public-search\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"q\": \"election\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `ascending` | boolean | No | ascending |\n| `cache` | boolean | No | cache |\n| `events_status` | string | No | events_status |\n| `events_tag` | array | No | events_tag |\n| `exclude_tag_id` | array | No | exclude_tag_id |\n| `keep_closed_markets` | integer | No | keep_closed_markets |\n| `limit_per_type` | integer | No | limit_per_type |\n| `optimized` | boolean | No | optimized |\n| `page` | integer | No | page |\n| `q` | string | Yes | q |\n| `recurrence` | string | No | recurrence |\n| `search_profiles` | boolean | No | search_profiles |\n| `search_tags` | boolean | No | search_tags |\n| `sort` | string | No | sort |\n\n## Pricing\n\nFlat price per call. Failed calls are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/polymarket/public-search",
+  "created_at": "2026-10-30T03:11:45.204Z"
+}

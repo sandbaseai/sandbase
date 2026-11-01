@@ -1,0 +1,70 @@
+{
+  "name": "zhihu/web/hot-recommend",
+  "display_name": "Zhihu Hot Recommendations",
+  "type": "api",
+  "vendor": "Zhihu",
+  "vendor_slug": "zhihu",
+  "description": "Returns hot recommendation items and content snippets from Zhihu Web. Supports pagination through offset and page_number alongside an optional session_token.",
+  "tags": [
+    "api",
+    "zhihu"
+  ],
+  "capabilities": [
+    "api",
+    "zhihu"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/zhihu/web/hot-recommend"
+  },
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "offset": {
+        "type": "string",
+        "title": "Offset",
+        "default": "0",
+        "description": "Offset"
+      },
+      "page_number": {
+        "type": "string",
+        "title": "Page Number",
+        "default": "1",
+        "description": "Page Number"
+      },
+      "session_token": {
+        "type": "string",
+        "title": "Session Token",
+        "default": "",
+        "description": "Session Token"
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.0015,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "examples": [
+    {
+      "input": {},
+      "default": true
+    }
+  ],
+  "readme": "# Zhihu Hot Recommendations API\n\nThis endpoint retrieves trending recommendations from the Zhihu web feed. Control pagination using `offset` and `page_number`, or pass `session_token` to maintain session context.\n\n## Use cases\n\n- Track trending topics and discussions across Zhihu.\n- Aggregate recommended feed snippets for content curation.\n- Monitor popular questions and opinions on the platform.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/zhihu/web/hot-recommend\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `offset` | string | No | Offset |\n| `page_number` | string | No | Page Number |\n| `session_token` | string | No | Session Token |\n\n## Notes\n\n- Paginate results using `offset` and `page_number`.\n- Provide `session_token` when maintaining session-based recommendations.\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [Zhihu AI Search Stream](/model/zhihu/web/ai-search-stream): Returns streaming AI search results from Zhihu based on a query prompt.\n- [Zhihu Answer Details](/model/zhihu/web/answer-detail): Retrieves detailed information for a specific Zhihu answer using its numeric ID, including answer text, timestamps, and share links.\n- [Zhihu Article Search](/model/zhihu/web/article-search-v3): Search Zhihu articles and answers by keyword and get titles, excerpts, authors, vote and comment counts, with sorting, content type and time filters plus offse…\n",
+  "page_url": "https://www.sandbase.ai/model/zhihu/web/hot-recommend",
+  "created_at": "2026-07-31T04:29:25.398Z"
+}

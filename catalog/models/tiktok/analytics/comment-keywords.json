@@ -1,0 +1,63 @@
+{
+  "name": "tiktok/analytics/comment-keywords",
+  "display_name": "TikTok Video Comment Keywords",
+  "type": "api",
+  "vendor": "TikTok",
+  "vendor_slug": "tiktok",
+  "description": "Returns extracted keywords and topics from user comments on a TikTok video. Queries are filtered by the unique video identifier.",
+  "tags": [
+    "api",
+    "tiktok"
+  ],
+  "capabilities": [
+    "api",
+    "tiktok"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/tiktok/analytics/comment-keywords"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "item_id"
+    ],
+    "properties": {
+      "item_id": {
+        "type": "string",
+        "title": "Item Id",
+        "example": "7350810998023949599",
+        "description": "Video ID, required parameter, can be obtained from video sharing links or TikTok Studio"
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.0015,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "examples": [
+    {
+      "input": {
+        "item_id": "7350810998023949599"
+      },
+      "default": true
+    }
+  ],
+  "readme": "# TikTok Video Comment Keywords API\n\nAnalyze audience feedback by inspecting frequent keywords from video comments using `item_id`.\n\n## Use cases\n\n- Identify common viewer topics across video comments.\n- Extract audience feedback to refine video content strategy.\n- Track recurring phrases mentioned by viewers.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/tiktok/analytics/comment-keywords\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"item_id\": \"7350810998023949599\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `item_id` | string | Yes | Video ID, required parameter, can be obtained from video sharing links or TikTok Studio |\n\n## Example response\n\nReal response for the request above, trimmed to the main fields. User names and long IDs are masked.\n\n```json\n{\n  \"key_words\": {\n    \"comment_key_words\": [\n      {\n        \"key_word\": \"pretty sure\"\n      }\n    ]\n  }\n}\n```\n\n## Notes\n\n- Find the required `item_id` in TikTok Studio or inside video sharing links.\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [TikTok Creator Info and Milestones](/model/tiktok/analytics/creator-info-and-milestones): Returns creator details and milestone history for a specified TikTok account.\n- [Detect fake views in video](/model/tiktok/analytics/detect-fake-views): Check whether a TikTok video has fake views.\n- [TikTok Video Metrics](/model/tiktok/analytics/video-metrics): Retrieve detailed analytics for TikTok videos, including total views, likes, comments, favorites, and 14-day daily performance trends using a video identifier.\n",
+  "page_url": "https://www.sandbase.ai/model/tiktok/analytics/comment-keywords",
+  "created_at": "2026-07-31T02:43:20.342Z"
+}

@@ -1,0 +1,70 @@
+{
+  "name": "reddit/app/subreddit-settings",
+  "display_name": "Reddit App Subreddit Settings",
+  "type": "api",
+  "vendor": "Reddit",
+  "vendor_slug": "reddit",
+  "description": "Returns settings and configuration details for a specified Reddit subreddit, including posting rules, flair settings, and moderation configurations.",
+  "tags": [
+    "api",
+    "reddit"
+  ],
+  "capabilities": [
+    "api",
+    "reddit"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/reddit/app/subreddit-settings"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "subreddit_id"
+    ],
+    "properties": {
+      "need_format": {
+        "type": "boolean",
+        "title": "Need Format",
+        "default": false,
+        "example": false,
+        "description": "Whether to clean and format the data"
+      },
+      "subreddit_id": {
+        "type": "string",
+        "title": "Subreddit Id",
+        "example": "t5_2qh0u",
+        "description": "Subreddit ID with format starting with t5_, e.g., \"t5_2qh0u\" (can be obtained from the fetch_subreddit_info endpoint)"
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.0015,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "examples": [
+    {
+      "input": {
+        "need_format": false,
+        "subreddit_id": "t5_2qh0u"
+      }
+    }
+  ],
+  "readme": "# Reddit App Subreddit Settings API\n\nRetrieve community configuration and moderation rules by specifying a `subreddit_id`.\n\n## Use cases\n\n- Inspect posting rules and flair configurations for a community.\n- Review subreddit moderation and permission settings.\n- Audit community operational settings across multiple subreddits.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/reddit/app/subreddit-settings\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"subreddit_id\": \"t5_2qh0u\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `subreddit_id` | string | Yes | Subreddit ID with format starting with t5_, e.g., \"t5_2qh0u\" (can be obtained from the fetch_subreddit_info endpoint) |\n| `need_format` | boolean | No | Whether to clean and format the data |\n\n## Notes\n\n- The `subreddit_id` must start with the t5_ prefix, such as t5_2qh0u.\n- Set `need_format` to true to return cleaned and formatted data.\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [Reddit Subreddit Mute Status](/model/reddit/app/check-subreddit-muted): Checks whether a specified Reddit subreddit is muted by the current account using its ID.\n- [Reddit App Comment Replies](/model/reddit/app/comment-replies): Returns replies and nested sub-comments under a Reddit post comment using a continuation cursor.\n- [Reddit Community Highlights](/model/reddit/app/community-highlights): Returns featured highlight content for a designated Reddit community, such as popular posts and announcements, by subreddit ID.\n",
+  "page_url": "https://www.sandbase.ai/model/reddit/app/subreddit-settings",
+  "created_at": "2026-07-31T04:11:04.018Z"
+}

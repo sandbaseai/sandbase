@@ -1,0 +1,79 @@
+{
+  "name": "tiktok/creator/product-related-videos",
+  "display_name": "TikTok Product Related Videos",
+  "type": "api",
+  "vendor": "TikTok",
+  "vendor_slug": "tiktok",
+  "description": "Returns videos linked to a specified product alongside interaction metrics like counts for likes, comments, and shares. Supports date-based filtering using product and video identifiers.",
+  "tags": [
+    "api",
+    "tiktok"
+  ],
+  "capabilities": [
+    "api",
+    "tiktok"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/tiktok/creator/product-related-videos"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "item_id",
+      "product_id"
+    ],
+    "properties": {
+      "proxy": {
+        "anyOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "title": "Proxy",
+        "description": "Optional HTTP Proxy Address"
+      },
+      "item_id": {
+        "type": "string",
+        "title": "Item Id",
+        "example": "7350810998023949599",
+        "description": "Video ID"
+      },
+      "product_id": {
+        "type": "string",
+        "title": "Product Id",
+        "example": "1732108663255959373",
+        "description": "Product ID"
+      },
+      "start_date": {
+        "type": "string",
+        "title": "Start Date",
+        "description": "Query Start Date, e.g. '04-01-2025'"
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.0015,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "readme": "# TikTok Product Related Videos API\n\nRetrieve all videos linked to a specific product by supplying `product_id` and `item_id`. You can also filter results by calendar month using `start_date`.\n\n## Use cases\n\n- Analyze promotional effectiveness across creator videos featuring the same product.\n- Monitor engagement metrics such as likes, comments, and shares on sponsored videos.\n- Compare performance differences across creator campaigns for a specific item.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/tiktok/creator/product-related-videos\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"item_id\": \"7350810998023949599\", \"product_id\": \"1732108663255959373\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `item_id` | string | Yes | Video ID |\n| `product_id` | string | Yes | Product ID |\n| `proxy` | string | No | Optional HTTP Proxy Address |\n| `start_date` | string | No | Query Start Date, e.g. '04-01-2025' |\n\n## Notes\n\n- `start_date` expects a date formatted like '04-01-2025' and defaults to that calendar month.\n- Both `product_id` and `item_id` are required to query related video data.\n- An optional HTTP proxy can be configured via `proxy`.\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [TikTok Creator Account Health Status](/model/tiktok/creator/account-health-status): Returns the health status of a TikTok Shop creator account.\n- [TikTok Creator Account Insights Overview](/model/tiktok/creator/account-insights-overview): Retrieves performance metrics for a TikTok Shop creator account, including revenue, exposure, clicks, and orders for the specified month.\n- [TikTok Creator Account Violations](/model/tiktok/creator/account-violation-list): Returns the violation history and enforcement actions for a TikTok Shop creator account.\n",
+  "page_url": "https://www.sandbase.ai/model/tiktok/creator/product-related-videos",
+  "created_at": "2026-07-31T04:15:49.947Z"
+}

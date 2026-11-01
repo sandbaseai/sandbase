@@ -1,0 +1,77 @@
+{
+  "name": "douyin/app-v3/user-post-videos",
+  "display_name": "Douyin User Videos",
+  "type": "api",
+  "vendor": "Douyin",
+  "vendor_slug": "douyin",
+  "description": "Get the videos on a Douyin user's profile with descriptions, publish time and play, like, comment and share counts. Sort by latest or most popular, with cursor pagination.",
+  "tags": [
+    "api",
+    "douyin"
+  ],
+  "capabilities": [
+    "api",
+    "douyin"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/douyin/app-v3/user-post-videos"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "sec_user_id"
+    ],
+    "properties": {
+      "count": {
+        "type": "integer",
+        "title": "Count",
+        "description": "Maximum count number, do not exceed 20, it is recommended to keep it unchanged."
+      },
+      "sort_type": {
+        "type": "integer",
+        "title": "Sort Type",
+        "description": "Sort type, optional values are as follows: `0`: Latest sorting - default; `1`: Hottest sorting"
+      },
+      "max_cursor": {
+        "type": "integer",
+        "title": "Max Cursor",
+        "description": "Maximum cursor, used for paging, the first page is 0, the second page is the max_cursor value in the first response."
+      },
+      "sec_user_id": {
+        "type": "string",
+        "title": "Sec User Id",
+        "example": "MS4wLjABAAAAKzTVRAaDq7fTxkJteVYjRsyVPxxofLDAyViyWT43BNRdTjgmqCcolsU_UqRgbzBU",
+        "description": "User sec_user_id"
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.0015,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "examples": [
+    {
+      "input": {
+        "sec_user_id": "example"
+      }
+    }
+  ],
+  "readme": "# Douyin User Videos API\n\nPass a Douyin `sec_user_id` and get the videos on that user's homepage, newest first or most popular first, with full statistics.\n\n## Use cases\n\n- Track a creator's posting cadence and performance.\n- Audit an influencer's recent content before a campaign.\n- Collect a brand account's videos for analysis.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/douyin/app-v3/user-post-videos\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"sec_user_id\": \"MS4wLjABAAAAKzTVRAaDq7fTxkJteVYjRsyVPxxofLDAyViyWT43BNRdTjgmqCcolsU_UqRgbzBU\", \"count\": 5}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `sec_user_id` | string | Yes | User sec_user_id |\n| `count` | integer | No | Maximum count number, do not exceed 20, it is recommended to keep it unchanged. |\n| `sort_type` | integer | No | Sort type, optional values are as follows: `0`: Latest sorting - default; `1`: Hottest sorting |\n| `max_cursor` | integer | No | Maximum cursor, used for paging, the first page is 0, the second page is the max_cursor value in the first response. |\n\n## Example response\n\nReal response for the request above, trimmed to the main fields. User names and long IDs are masked.\n\n```json\n{\n  \"has_more\": 1,\n  \"max_cursor\": \"<next max_cursor>\",\n  \"aweme_list\": [\n    {\n      \"aweme_id\": \"7657847286442471077\",\n      \"create_time\": 1782981514,\n      \"duration\": 6014,\n      \"author\": {\n        \"nickname\": \"<user>\",\n        \"sec_uid\": \"<sec_uid>\"\n      },\n      \"statistics\": {\n        \"play_count\": 0,\n        \"digg_count\": 8,\n        \"comment_count\": 0,\n        \"share_count\": 0,\n        \"collect_count\": 2\n      },\n      \"share_url\": \"https://www.iesdouyin.com/share/video/7657847286442471077/?…\"\n    }\n  ]\n}\n```\n\n## Notes\n\n- `sort_type`: 0 = latest (default), 1 = most popular.\n- Paginate with `max_cursor` from the previous response.\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [Douyin Hot Search List](/model/douyin/app-v3/hot-search-list): Get the Douyin hot search list and other boards (seeding, entertainment, social and challenge lists): trending words with heat values and video counts.\n- [Douyin Video Statistics (Batch)](/model/douyin/app-v3/multi-video-statistics): Get play, like, share and download counts for up to 50 Douyin videos in one request by passing comma-separated video IDs.\n- [Get Douyin brand hot search list data](/model/douyin/app-v3/brand-hot-search-list): Get Douyin brand hot search category data.\n",
+  "page_url": "https://www.sandbase.ai/model/douyin/app-v3/user-post-videos",
+  "created_at": "2026-07-31T02:34:23.341Z"
+}

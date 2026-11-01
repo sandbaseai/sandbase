@@ -1,0 +1,42 @@
+{
+  "name": "openai/gpt-4.1",
+  "display_name": "OpenAI: GPT-4.1",
+  "type": "llm",
+  "vendor": "OpenAI",
+  "vendor_slug": "openai",
+  "description": "GPT-4.1 is OpenAI's flagship non-reasoning model in the GPT-4.1 series, released in April 2025 alongside GPT-4.1 mini and nano, with text and image input and text output. OpenAI positions it for instruction following, tool calling and coding, with improved long-context comprehension across its 1M-token window and low latency because it skips a separate reasoning step. Pick it over the mini and nano tiers when output quality matters more than speed; OpenAI suggests GPT-5-class models for the most complex tasks.",
+  "tags": [
+    "chat",
+    "vision",
+    "structured_output",
+    "function_calling"
+  ],
+  "capabilities": [
+    "chat",
+    "vision",
+    "structured_output",
+    "function_calling"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "chat_completions": "POST /v1/chat/completions",
+    "responses": "POST /v1/responses",
+    "messages": "POST /v1/messages"
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_token",
+    "per_million_tokens": {
+      "input": 2,
+      "output": 8,
+      "cache_read_multiplier": 0.25
+    }
+  },
+  "cover_url": "https://t0.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=https://openai.com&size=256",
+  "page_url": "https://www.sandbase.ai/model/openai/gpt-4.1",
+  "published_at": "2025-04-14T17:23:05Z",
+  "created_at": "2026-05-08T23:54:10.501Z"
+}

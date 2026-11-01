@@ -1,0 +1,287 @@
+{
+  "name": "google/veo3.1/lite/text-to-video",
+  "display_name": "Veo 3.1 Lite Text to Video",
+  "type": "video",
+  "vendor": "Google",
+  "vendor_slug": "google",
+  "description": "Veo3.1 Lite is Google's text-to-video AI model. Turn written scripts and prompts into professional-quality video clips with realistic motion, lighting, and scene composition.",
+  "tags": [
+    "text-to-video"
+  ],
+  "capabilities": [
+    "text-to-video"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "prompt"
+    ],
+    "properties": {
+      "seed": {
+        "type": "integer",
+        "title": "Seed",
+        "maximum": 4294967295,
+        "minimum": 0,
+        "description": "Random seed for more reproducible results."
+      },
+      "prompt": {
+        "type": "string",
+        "title": "Prompt",
+        "examples": [
+          "A massive blue whale glides through crystal-clear deep ocean water, sunlight rays piercing through the surface above, bioluminescent plankton scattered around, cinematic slow motion"
+        ],
+        "maxLength": 20000,
+        "description": "The text prompt describing the video you want to generate"
+      },
+      "duration": {
+        "enum": [
+          4,
+          6,
+          8
+        ],
+        "type": "integer",
+        "title": "Duration",
+        "default": 8,
+        "description": "Duration of the generated video in seconds."
+      },
+      "resolution": {
+        "enum": [
+          "720p",
+          "1080p"
+        ],
+        "type": "string",
+        "title": "Resolution",
+        "default": "720p",
+        "description": "Output resolution."
+      },
+      "aspect_ratio": {
+        "enum": [
+          "16:9",
+          "9:16"
+        ],
+        "type": "string",
+        "title": "Aspect Ratio",
+        "default": "16:9",
+        "description": "Output aspect ratio."
+      },
+      "generate_audio": {
+        "type": "boolean",
+        "title": "Generate Audio",
+        "default": true,
+        "description": "Generate synchronized audio. Videos without audio are cheaper."
+      },
+      "negative_prompt": {
+        "type": "string",
+        "title": "Negative Prompt",
+        "description": "What to avoid in the video."
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "title": "GenerationResponse",
+    "required": [
+      "id",
+      "status"
+    ],
+    "properties": {
+      "id": {
+        "type": "string",
+        "description": "Unique identifier for the generation task."
+      },
+      "error": {
+        "type": "string",
+        "description": "Error message if the task failed. Empty on success."
+      },
+      "model": {
+        "type": "string",
+        "description": "Model ID used for the prediction."
+      },
+      "status": {
+        "enum": [
+          "pending",
+          "running",
+          "completed",
+          "failed",
+          "timeout"
+        ],
+        "type": "string",
+        "description": "Status of the task: pending, running, completed, failed, or timeout."
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "title": "OutputItem",
+          "required": [
+            "url"
+          ],
+          "properties": {
+            "url": {
+              "type": "string",
+              "examples": [
+                "https://static.sandbase.ai/examples/google/veo3.1/lite/output_url_0.mp4"
+              ],
+              "description": "The URL where the generated content can be downloaded from."
+            },
+            "content_type": {
+              "type": "string",
+              "description": "The MIME type of the output file."
+            }
+          }
+        },
+        "description": "Array of generated content. Empty when status is not completed."
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "formula",
+    "formula": "(params.duration ?? 8) * ((params.resolution ?? \"720p\") == \"720p\" ? ((params.generate_audio ?? true) ? 0.05 : 0.03) : (params.resolution ?? \"720p\") == \"1080p\" ? ((params.generate_audio ?? true) ? 0.08 : 0.05) : (0 / 0))",
+    "formula_variables": [
+      "params.duration",
+      "params.generate_audio",
+      "params.resolution"
+    ],
+    "reference_price": 0.4,
+    "price_examples": [
+      {
+        "params": {
+          "duration": 4,
+          "generate_audio": false,
+          "resolution": "720p"
+        },
+        "usd": 0.12
+      },
+      {
+        "params": {
+          "duration": 4,
+          "generate_audio": false,
+          "resolution": "1080p"
+        },
+        "usd": 0.2
+      },
+      {
+        "params": {
+          "duration": 4,
+          "generate_audio": true,
+          "resolution": "720p"
+        },
+        "usd": 0.2
+      },
+      {
+        "params": {
+          "duration": 4,
+          "generate_audio": true,
+          "resolution": "1080p"
+        },
+        "usd": 0.32
+      },
+      {
+        "params": {
+          "duration": 6,
+          "generate_audio": false,
+          "resolution": "720p"
+        },
+        "usd": 0.18
+      },
+      {
+        "params": {
+          "duration": 6,
+          "generate_audio": false,
+          "resolution": "1080p"
+        },
+        "usd": 0.3
+      },
+      {
+        "params": {
+          "duration": 6,
+          "generate_audio": true,
+          "resolution": "720p"
+        },
+        "usd": 0.3
+      },
+      {
+        "params": {
+          "duration": 6,
+          "generate_audio": true,
+          "resolution": "1080p"
+        },
+        "usd": 0.48
+      },
+      {
+        "params": {
+          "duration": 8,
+          "generate_audio": false,
+          "resolution": "720p"
+        },
+        "usd": 0.24
+      },
+      {
+        "params": {
+          "duration": 8,
+          "generate_audio": false,
+          "resolution": "1080p"
+        },
+        "usd": 0.4
+      },
+      {
+        "params": {
+          "duration": 8,
+          "generate_audio": true,
+          "resolution": "720p"
+        },
+        "usd": 0.4
+      },
+      {
+        "params": {
+          "duration": 8,
+          "generate_audio": true,
+          "resolution": "1080p"
+        },
+        "usd": 0.64
+      }
+    ]
+  },
+  "examples": [
+    {
+      "input": {
+        "aspect_ratio": "9:16",
+        "duration": 4,
+        "generate_audio": false,
+        "prompt": "A red paper lantern swaying gently in a quiet bamboo forest at dusk"
+      },
+      "output": [
+        {
+          "poster": "https://static.sandbase.ai/examples/posters/dafd88870140c88ccfcf.jpg",
+          "url": "https://static.sandbase.ai/examples/d118c6f9-3ca6-495d-b964-4264e6fe4255/output/48938a26-9983-4367-90d4-1d45acf1c806.mp4"
+        }
+      ],
+      "default": true
+    },
+    {
+      "input": {
+        "prompt": "A massive blue whale glides through crystal-clear deep ocean water, sunlight rays piercing through the surface above, bioluminescent plankton scattered around, cinematic slow motion"
+      },
+      "output": [
+        {
+          "poster": "https://static.sandbase.ai/examples/posters/160849037f6b829828c6.jpg",
+          "url": "https://static.sandbase.ai/examples/02e05c9b-3f7d-40cb-926b-14f8bd22fe67/output/48d84da4-9a2f-4f4c-815f-0ab76124271c.mp4"
+        }
+      ]
+    }
+  ],
+  "readme": "# Veo 3.1 Lite Text to Video\n\nVeo 3.1 Lite text-to-video, the lowest-cost Veo 3.1 tier for high-volume drafts. Write a scene and get back a 4, 6, or 8 second clip with native audio: dialogue, music, and sound effects generated alongside the picture.\n\n## Fields\n\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `prompt` | string, required | — | Up to 20,000 characters. |\n| `duration` | 4 / 6 / 8 | 8 | Output length in seconds. |\n| `resolution` | `720p` / `1080p` | `720p` | Sets the per-second rate. |\n| `aspect_ratio` | `16:9` / `9:16` | `16:9` | Output frame shape. |\n| `generate_audio` | boolean | true | Native dialogue, music, and effects; turning it off lowers the rate. |\n| `negative_prompt` | string | — | What to avoid. |\n| `seed` | integer 0–4294967295 | random | Fix it to compare prompt changes. |\n\n## Billing\n\nYou pay for output seconds, Google's list price. With audio: $0.05 at 720p, $0.08 at 1080p. Without audio: $0.03 / $0.05 respectively.\n\n| Output | 720p | 1080p |\n|---|---|---|\n| 4s with audio | $0.20 | $0.32 |\n| 6s with audio | $0.30 | $0.48 |\n| 8s with audio (default) | $0.40 | $0.64 |\n| 8s without audio | $0.24 | $0.40 |\n\nFailed runs are not charged.\n\n## Prompting\n\n- Describe subject, action, setting, camera, and light, then the sound.\n- Put dialogue in quotes and name the speaker.\n- Use `negative_prompt` for things to keep out of frame.\n\n## Limits\n\n- Clips are 4, 6, or 8 seconds.\n- No 4K on this tier.\n\n## Also on SandBase\n\nOther Veo 3.1 Lite endpoints: `google/veo3.1/lite/image-to-video`, `google/veo3.1/lite/first-last-frame-to-video`, `google/veo3.1/text-to-video`, `google/veo3.1/fast/text-to-video`.\n",
+  "cover_url": "https://static.sandbase.ai/covers/google/veo3.1/lite/cover-flare-20261004232642.webp",
+  "page_url": "https://www.sandbase.ai/model/google/veo3.1/lite/text-to-video",
+  "published_at": "2026-03-31T18:33:44.437Z",
+  "created_at": "2026-10-05T11:56:34.087Z"
+}

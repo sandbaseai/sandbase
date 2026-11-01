@@ -1,0 +1,72 @@
+{
+  "name": "aaa/lowest-metro-prices",
+  "display_name": "AAA Lowest Metro Prices",
+  "type": "api",
+  "vendor": "AAA",
+  "vendor_slug": "aaa",
+  "description": "Returns metro areas within a state sorted by lowest regular gas price ascending. Useful for finding the cheapest metros within a state.",
+  "tags": [
+    "api",
+    "aaa",
+    "web-scraping"
+  ],
+  "capabilities": [
+    "api",
+    "aaa",
+    "web-scraping"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}",
+    "passthrough": "POST /v1/api/aaa/lowest-metro-prices"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "state_code"
+    ],
+    "properties": {
+      "state_code": {
+        "type": "string",
+        "example": "WA",
+        "description": "Two-letter US state code (e.g. TX, CA, NY, FL). All 50 states and DC are supported."
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "required": [
+      "id",
+      "status",
+      "model"
+    ],
+    "properties": {
+      "id": {
+        "type": "string"
+      },
+      "model": {
+        "type": "string"
+      },
+      "status": {
+        "type": "string"
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.01,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "readme": "# AAA Lowest Metro Prices\n\nReturns metro areas within a state sorted by lowest regular gas price ascending. Useful for finding the cheapest metros within a state.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/aaa/lowest-metro-prices\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"state_code\": \"WA\"}'\n```\n\nThis API runs asynchronously. The call returns a task `id` with status `pending`; poll `GET https://api.sandbase.ai/v1/run/{id}` until `status` is `completed` and read the result from `outputs[0].data`.\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `state_code` | string | Yes | Two-letter US state code (e.g. TX, CA, NY, FL). All 50 states and DC are supported. |\n\n## Pricing\n\nFlat price per call. Failed calls are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/aaa/lowest-metro-prices",
+  "created_at": "2026-10-30T08:50:54.309Z"
+}

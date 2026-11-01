@@ -1,0 +1,94 @@
+# LinkedIn Ad Search
+
+`linkedin/ads-search` · api · LinkedIn
+
+Search the LinkedIn Ad Library by company or keyword and list matching ads (advertiser, headline, creative text, format, CTA, and run dates) with pagination.
+
+## Pricing
+
+- Usage-based. Billed per call from metered usage; the reference price is typical. Reference: **$0.0012**
+
+## Call it
+
+Modes: sync (default `sync`). Only pass `mode` values listed here. The SDKs' `run()` waits for async results; `submit()` + `wait()` split the two steps.
+
+**curl**
+
+```bash
+curl https://api.sandbase.ai/v1/run \
+  -H "Authorization: Bearer $SANDBASE_API_KEY" -H 'Content-Type: application/json' \
+  -d '{"model": "linkedin/ads-search"}'
+```
+
+**Python** ([sdk/python](../../../sdk/python))
+
+```python
+from sandbase import SandBase
+
+result = SandBase().run('linkedin/ads-search', {})
+print(result["outputs"])
+```
+
+**TypeScript** ([sdk/typescript](../../../sdk/typescript))
+
+```ts
+import { SandBase } from "@sandbaseai/sdk";
+
+const result = await new SandBase().run("linkedin/ads-search", {});
+console.log(result.outputs);
+```
+
+**Go** ([sdk/go](../../../sdk/go))
+
+```go
+c, _ := sandbase.NewClient("")
+run, err := c.Run(ctx, "linkedin/ads-search", sandbase.Params{})
+```
+
+Same call via the path form: `POST /v1/api/linkedin/ads-search` with the body above minus `model`.
+
+## Parameters
+
+| name | type | required | description |
+|---|---|---|---|
+| `company` | string |  | Company name to search (e.g. "microsoft").  |
+| `endDate` | string |  | Search end date in YYYY-MM-DD format. Today or a later date is moved back to yesterday in UTC when your range overlaps LinkedIn's accepted dates. When you send startDate without endDate, the search ends yesterday in…  |
+| `keyword` | string |  | Keyword term for the ad search.  |
+| `companyId` | string |  | LinkedIn company identifier.  |
+| `countries` | string |  | Comma-separated two-letter country codes (e.g. "US,CA,MX").  |
+| `startDate` | string |  | Search start date in YYYY-MM-DD format. An earlier date is moved up to one year ago in UTC when your range overlaps LinkedIn's accepted dates.  |
+| `paginationToken` | string |  | Opaque pagination token from a previous response's nextCursor.  |
+
+## Details
+
+Search the LinkedIn Ad Library by company or keyword and list matching ads (advertiser, headline, creative text, format, CTA, and run dates) with pagination.
+
+### Request
+
+```bash
+curl -X POST "https://api.sandbase.ai/v1/api/linkedin/ads-search" \
+  -H "Authorization: Bearer $SANDBASE_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{"company": "microsoft"}'
+```
+
+The result is returned in `outputs[0].data`. A lookup that finds nothing still succeeds and returns `found: false`.
+
+### Parameters
+
+| Name | Type | Required | Description |
+|---|---|---|---|
+| `company` | string | No | Company name to search (e.g. "microsoft"). |
+| `companyId` | string | No | LinkedIn company identifier. |
+| `countries` | string | No | Comma-separated two-letter country codes (e.g. "US,CA,MX"). |
+| `endDate` | string | No | Search end date in YYYY-MM-DD format. Today or a later date is moved back to yesterday in UTC when your range overlaps LinkedIn's accepted dates. When you send startDate without endDate, the search ends yesterday in UTC, |
+| `keyword` | string | No | Keyword term for the ad search. |
+| `paginationToken` | string | No | Opaque pagination token from a previous response's nextCursor. |
+| `startDate` | string | No | Search start date in YYYY-MM-DD format. An earlier date is moved up to one year ago in UTC when your range overlaps LinkedIn's accepted dates. |
+
+### Pricing
+
+Billed at the actual cost of each call, usually $0.0012 per request. A call can cost more when the first data source fails and another one answers. Failed calls are not charged. Lookups that find nothing and searches with no results are billed at their actual cost, which is often lower and can be $0.
+
+---
+Machine-readable: [`catalog/models/linkedin/ads-search.json`](../../../catalog/models/linkedin/ads-search.json) · Store page: https://www.sandbase.ai/model/linkedin/ads-search

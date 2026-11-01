@@ -1,0 +1,79 @@
+{
+  "name": "reddit/post-comments",
+  "display_name": "Reddit Post Comments",
+  "type": "api",
+  "vendor": "Reddit",
+  "vendor_slug": "reddit",
+  "description": "List the comments on a Reddit post by URL (author, body, score, timestamp, parent comment). Replies carry the parentId of the comment they answer.",
+  "tags": [
+    "api",
+    "reddit",
+    "social-media"
+  ],
+  "capabilities": [
+    "api",
+    "reddit",
+    "social-media"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/reddit/post-comments"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "url"
+    ],
+    "properties": {
+      "url": {
+        "type": "string",
+        "example": "https://www.reddit.com/r/IAmA/comments/z1c9z/i_am_barack_obama_president_of_the_united_states/",
+        "description": "Full Reddit post URL on reddit.com. A gallery link (https://www.reddit.com/gallery/<id>) is read as the post it belongs to, and a relative permalink (/r/<subreddit>/comments/<id>/...) as the same path on https://www.reddit.com."
+      },
+      "cursor": {
+        "type": "string",
+        "description": "Cursor from a previous response for more comments."
+      }
+    },
+    "additionalProperties": false
+  },
+  "response_schema": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string"
+      },
+      "model": {
+        "type": "string"
+      },
+      "status": {
+        "type": "string"
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "data": {
+              "type": "object",
+              "description": "Normalized result for this request."
+            }
+          }
+        }
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "usage_based",
+    "note": "Billed per call from metered usage; the reference price is typical.",
+    "reference_price": 0.0006
+  },
+  "readme": "# Reddit Post Comments API\n\nList the comments on a Reddit post by URL (author, body, score, timestamp, parent comment). Replies carry the parentId of the comment they answer.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/reddit/post-comments\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"url\": \"https://www.reddit.com/r/IAmA/comments/z1c9z/i_am_barack_obama_president_of_the_united_states/\"}'\n```\n\nThe result is returned in `outputs[0].data`. A lookup that finds nothing still succeeds and returns `found: false`.\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `url` | string | Yes | Full Reddit post URL on reddit.com. A gallery link (https://www.reddit.com/gallery/<id>) is read as the post it belongs to, and a relative permalink (/r/<subreddit>/comments/<id>/...) as the same path on https://www.redd |\n| `cursor` | string | No | Cursor from a previous response for more comments. |\n\n## Pricing\n\nBilled at the actual cost of each call, usually $0.0006 per request. A call can cost more when the first data source fails and another one answers. Failed calls are not charged. Lookups that find nothing and searches with no results are billed at their actual cost, which is often lower and can be $0.\n",
+  "page_url": "https://www.sandbase.ai/model/reddit/post-comments",
+  "created_at": "2026-11-01T12:26:50.752Z"
+}

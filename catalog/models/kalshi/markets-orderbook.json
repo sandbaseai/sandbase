@@ -1,0 +1,58 @@
+{
+  "name": "kalshi/markets-orderbook",
+  "display_name": "Kalshi Get Kalshi Market OrderBook",
+  "type": "api",
+  "vendor": "Kalshi",
+  "vendor_slug": "kalshi",
+  "description": "Get Kalshi Market OrderBook from Kalshi. Returns the official Kalshi API response unchanged.",
+  "tags": [
+    "api",
+    "kalshi",
+    "prediction-markets"
+  ],
+  "capabilities": [
+    "api",
+    "kalshi",
+    "prediction-markets"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/kalshi/markets-orderbook"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "ticker"
+    ],
+    "properties": {
+      "depth": {
+        "type": "integer",
+        "default": 0,
+        "maximum": 100,
+        "minimum": 0,
+        "description": "Depth of the orderbook to retrieve (0 or negative means all levels, 1-100 for specific depth)"
+      },
+      "ticker": {
+        "type": "string",
+        "example": "KXHIGHNY-26OCT31-B60.5",
+        "description": "Market ticker"
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.02
+  },
+  "readme": "# Kalshi Get Kalshi Market OrderBook API\n\nGet Kalshi Market OrderBook from Kalshi. Returns the official Kalshi API response unchanged.\n\nThe response is the official Kalshi API response, unchanged.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/kalshi/markets-orderbook\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"ticker\": \"KXHIGHNY-26OCT31-B60.5\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `ticker` | string | Yes | Market ticker |\n| `depth` | integer | No | Depth of the orderbook to retrieve (0 or negative means all levels, 1-100 for specific depth) |\n\n## Pricing\n\nFlat price per call. Failed calls are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/kalshi/markets-orderbook",
+  "created_at": "2026-10-30T03:13:00.426Z"
+}

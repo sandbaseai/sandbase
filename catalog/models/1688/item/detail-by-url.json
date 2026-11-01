@@ -1,0 +1,85 @@
+{
+  "name": "1688/item/detail-by-url",
+  "display_name": "1688 Product Details by URL",
+  "type": "api",
+  "vendor": "1688",
+  "vendor_slug": "1688",
+  "description": "Get 1688 product details from a product URL: prices by quantity, SKUs, MOQ and supplier, in the chosen language.",
+  "tags": [
+    "api",
+    "1688",
+    "ecommerce"
+  ],
+  "capabilities": [
+    "api",
+    "1688",
+    "ecommerce"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/1688/item/detail-by-url"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "url"
+    ],
+    "properties": {
+      "url": {
+        "type": "string",
+        "example": "https://detail.1688.com/offer/857511694718.html",
+        "description": "1688 product URL."
+      },
+      "scene": {
+        "enum": [
+          "drop_shipping"
+        ],
+        "type": "string",
+        "description": "Optional dropshipping pricing scene."
+      },
+      "language": {
+        "enum": [
+          "en",
+          "zh",
+          "ru",
+          "th",
+          "pt",
+          "es",
+          "tr",
+          "vi",
+          "ja",
+          "ko"
+        ],
+        "type": "string",
+        "default": "zh",
+        "description": "Output language."
+      },
+      "optimizeTitle": {
+        "type": "boolean",
+        "default": false,
+        "description": "Optimize Chinese titles by removing non-core words."
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.013889,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "readme": "# 1688 Product Details by URL API\n\nGet 1688 product details from a product URL: prices by quantity, SKUs, MOQ and supplier, in the chosen language.\n\nThe response is the platform's original data structure.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/1688/item/detail-by-url\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"url\": \"https://detail.1688.com/offer/857511694718.html\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `url` | string | Yes | 1688 product URL. |\n| `scene` | string | No | Optional dropshipping pricing scene. |\n| `optimizeTitle` | boolean | No | Optimize Chinese titles by removing non-core words. |\n| `language` | string | No | Output language. |\n\n## Pricing\n\nFlat price per call. Failed calls and empty results are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/1688/item/detail-by-url",
+  "created_at": "2026-10-29T10:01:41.818Z"
+}

@@ -1,0 +1,59 @@
+{
+  "name": "reddit/app/check-subreddit-muted",
+  "display_name": "Reddit Subreddit Mute Status",
+  "type": "api",
+  "vendor": "Reddit",
+  "vendor_slug": "reddit",
+  "description": "Checks whether a specified Reddit subreddit is muted by the current account using its ID. Supports an optional flag to format the returned output.",
+  "tags": [
+    "api",
+    "reddit"
+  ],
+  "capabilities": [
+    "api",
+    "reddit"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/reddit/app/check-subreddit-muted"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "subreddit_id"
+    ],
+    "properties": {
+      "need_format": {
+        "type": "boolean",
+        "title": "Need Format",
+        "description": "Whether to clean and format the data"
+      },
+      "subreddit_id": {
+        "type": "string",
+        "title": "Subreddit Id",
+        "description": "Subreddit ID starting with \"t5_\", can be obtained from fetch_subreddit_info endpoint"
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.0015,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "readme": "# Reddit Subreddit Mute Status API\n\nInspects whether an account has muted a specific subreddit by providing `subreddit_id`. An optional `need_format` parameter controls data formatting.\n\n## Use cases\n\n- Verify mute status for a target subreddit on the active account.\n- Filter out muted subreddit feeds in custom client applications.\n- Display mute preferences alongside subreddit details.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/reddit/app/check-subreddit-muted\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"subreddit_id\": \"<subreddit_id>\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `subreddit_id` | string | Yes | Subreddit ID starting with \"t5_\", can be obtained from fetch_subreddit_info endpoint |\n| `need_format` | boolean | No | Whether to clean and format the data |\n\n## Notes\n\n- `subreddit_id` must start with \"t5_\" and can be obtained from the subreddit info endpoint.\n- `need_format` specifies whether to clean and format the returned data.\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [Reddit App Comment Replies](/model/reddit/app/comment-replies): Returns replies and nested sub-comments under a Reddit post comment using a continuation cursor.\n- [Reddit Community Highlights](/model/reddit/app/community-highlights): Returns featured highlight content for a designated Reddit community, such as popular posts and announcements, by subreddit ID.\n- [Reddit Search](/model/reddit/app/dynamic-search): Search Reddit posts, communities, comments, media and users with the Reddit app search.\n",
+  "page_url": "https://www.sandbase.ai/model/reddit/app/check-subreddit-muted",
+  "created_at": "2026-07-31T04:10:05.546Z"
+}

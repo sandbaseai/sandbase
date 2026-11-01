@@ -1,0 +1,240 @@
+{
+  "name": "google/gemini-omni-flash/1.1/text-to-video",
+  "display_name": "Gemini Omni Flash 1.1 Text to Video",
+  "type": "video",
+  "vendor": "Google",
+  "vendor_slug": "google",
+  "description": "Gemini Omni Flash 1.1 is Google's text-to-video AI model. Turn written scripts and prompts into professional-quality video clips with realistic motion, lighting, and scene composition.",
+  "tags": [
+    "text-to-video"
+  ],
+  "capabilities": [
+    "text-to-video"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "prompt"
+    ],
+    "properties": {
+      "prompt": {
+        "type": "string",
+        "title": "Prompt",
+        "examples": [
+          "A cinematic wide shot of a lighthouse on a rocky cliff at dusk, waves crashing below, the beam sweeping across the dark sea."
+        ],
+        "maxLength": 20000,
+        "description": "The text prompt describing the video you want to generate."
+      },
+      "duration": {
+        "type": "integer",
+        "title": "Duration",
+        "default": 8,
+        "maximum": 10,
+        "minimum": 3,
+        "description": "The duration of the generated video, in seconds."
+      },
+      "resolution": {
+        "enum": [
+          "360p",
+          "720p",
+          "1080p",
+          "4k"
+        ],
+        "type": "string",
+        "title": "Resolution",
+        "default": "720p",
+        "description": "The resolution of the generated video."
+      },
+      "aspect_ratio": {
+        "enum": [
+          "16:9",
+          "9:16"
+        ],
+        "type": "string",
+        "title": "Aspect Ratio",
+        "default": "16:9",
+        "description": "The aspect ratio of the generated video."
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "title": "GenerationResponse",
+    "required": [
+      "id",
+      "status"
+    ],
+    "properties": {
+      "id": {
+        "type": "string",
+        "description": "Unique identifier for the generation task."
+      },
+      "error": {
+        "type": "string",
+        "description": "Error message if the task failed. Empty on success."
+      },
+      "model": {
+        "type": "string",
+        "description": "Model ID used for the prediction."
+      },
+      "status": {
+        "enum": [
+          "pending",
+          "running",
+          "completed",
+          "failed",
+          "timeout"
+        ],
+        "type": "string",
+        "description": "Status of the task: pending, running, completed, failed, or timeout."
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "title": "OutputItem",
+          "required": [
+            "url"
+          ],
+          "properties": {
+            "url": {
+              "type": "string",
+              "description": "The URL where the generated content can be downloaded from."
+            },
+            "content_type": {
+              "type": "string",
+              "description": "The MIME type of the output file."
+            }
+          }
+        },
+        "description": "Array of generated content. Empty when status is not completed."
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "formula",
+    "formula": "(params.duration ?? 8) * ((params.resolution ?? \"720p\") == \"360p\" ? 0.03 : (params.resolution ?? \"720p\") == \"1080p\" ? 0.15 : (params.resolution ?? \"720p\") == \"4k\" ? 0.30 : 0.10)",
+    "formula_variables": [
+      "params.duration",
+      "params.resolution"
+    ],
+    "reference_price": 0.8,
+    "price_examples": [
+      {
+        "params": {
+          "duration": 3,
+          "resolution": "360p"
+        },
+        "usd": 0.09
+      },
+      {
+        "params": {
+          "duration": 3,
+          "resolution": "720p"
+        },
+        "usd": 0.3
+      },
+      {
+        "params": {
+          "duration": 3,
+          "resolution": "1080p"
+        },
+        "usd": 0.45
+      },
+      {
+        "params": {
+          "duration": 3,
+          "resolution": "4k"
+        },
+        "usd": 0.9
+      },
+      {
+        "params": {
+          "duration": 8,
+          "resolution": "360p"
+        },
+        "usd": 0.24
+      },
+      {
+        "params": {
+          "duration": 8,
+          "resolution": "720p"
+        },
+        "usd": 0.8
+      },
+      {
+        "params": {
+          "duration": 8,
+          "resolution": "1080p"
+        },
+        "usd": 1.2
+      },
+      {
+        "params": {
+          "duration": 8,
+          "resolution": "4k"
+        },
+        "usd": 2.4
+      },
+      {
+        "params": {
+          "duration": 10,
+          "resolution": "360p"
+        },
+        "usd": 0.3
+      },
+      {
+        "params": {
+          "duration": 10,
+          "resolution": "720p"
+        },
+        "usd": 1
+      },
+      {
+        "params": {
+          "duration": 10,
+          "resolution": "1080p"
+        },
+        "usd": 1.5
+      },
+      {
+        "params": {
+          "duration": 10,
+          "resolution": "4k"
+        },
+        "usd": 3
+      }
+    ]
+  },
+  "examples": [
+    {
+      "input": {
+        "duration": 3,
+        "prompt": "A red ball bounces once on a wooden floor, single continuous shot, no dialogue.",
+        "resolution": "360p"
+      },
+      "output": [
+        {
+          "poster": "https://static.sandbase.ai/examples/posters/7a0fe08b793786b8dfde.jpg",
+          "url": "https://static.sandbase.ai/examples/ae9cfdad-d2f5-47b1-a59c-7f374d675201/output/312270d7-54bc-4b02-9f9c-f69cc19e05e5.mp4"
+        }
+      ],
+      "default": true
+    }
+  ],
+  "readme": "# Gemini Omni Flash 1.1 Text to Video\n\nGemini Omni Flash 1.1 generates a 3–10 second clip with synchronized audio from a written prompt. It is Google's Gemini-native video model, built for fast turnaround and strong prompt following.\n\n## Fields\n\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `prompt` | string, required | — | Up to 20,000 characters. |\n| `aspect_ratio` | `16:9` / `9:16` | `16:9` | Output frame shape. |\n| `resolution` | `360p` / `720p` / `1080p` / `4k` | `720p` | Sets the per-second rate. |\n| `duration` | integer 3–10 | 8 | Output length in seconds (3–10). |\n\n## Billing\n\nYou pay for output seconds: $0.03 at 360p, $0.10 at 720p, $0.15 at 1080p, and $0.30 at 4K.\n\n| Output | 360p | 720p | 1080p | 4k |\n|---|---|---|---|---|\n| 3s | $0.09 | $0.30 | $0.45 | $0.90 |\n| 8s (default) | $0.24 | $0.80 | $1.20 | $2.40 |\n| 10s | $0.30 | $1.00 | $1.50 | $3.00 |\n\nFailed runs are not charged.\n\n## Prompting\n\n- Describe subject, action, camera, and sound in plain sentences.\n- Quote dialogue and name the speaker.\n\n## Limits\n\n- 16:9 or 9:16 only.\n\n## Also on SandBase\n\nOther Gemini Omni Flash 1.1 endpoints: `google/gemini-omni-flash/1.1/image-to-video`, `google/gemini-omni-flash/1.1/reference-to-video`, `google/gemini-omni-flash/1.1/edit`, `google/gemini-omni-flash/text-to-video` (previous version).\n",
+  "cover_url": "https://static.sandbase.ai/covers/google/gemini-omni-flash/1.1/text-to-video/cover-flare-20261004180649.webp",
+  "page_url": "https://www.sandbase.ai/model/google/gemini-omni-flash/1.1/text-to-video",
+  "published_at": "2026-08-27T16:38:41.141Z",
+  "created_at": "2026-08-31T04:06:28.598Z"
+}

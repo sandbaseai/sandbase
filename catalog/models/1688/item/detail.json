@@ -1,0 +1,56 @@
+{
+  "name": "1688/item/detail",
+  "display_name": "1688 Product Details",
+  "type": "api",
+  "vendor": "1688",
+  "vendor_slug": "1688",
+  "description": "Get a 1688 wholesale product by item ID: images, video, SKU options and prices, tiered pricing, minimum order, seller and shop details.",
+  "tags": [
+    "api",
+    "1688",
+    "ecommerce"
+  ],
+  "capabilities": [
+    "api",
+    "1688",
+    "ecommerce"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/1688/item/detail"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "itemId"
+    ],
+    "properties": {
+      "itemId": {
+        "type": "string",
+        "example": "1046925823679",
+        "description": "A unique product identifier on 1688."
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.013889,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "readme": "# 1688 Product Details API\n\nGet a 1688 wholesale product by item ID: images, video, SKU options and prices, tiered pricing, minimum order, seller and shop details.\n\nThe response is the platform's original data structure.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/1688/item/detail\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"itemId\": \"1046925823679\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `itemId` | string | Yes | A unique product identifier on 1688. |\n\n## Pricing\n\nFlat price per call. Failed calls are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/1688/item/detail",
+  "created_at": "2026-10-29T02:20:34.81Z"
+}

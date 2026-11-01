@@ -1,0 +1,54 @@
+{
+  "name": "instagram/v3/bulk-translate-comments",
+  "display_name": "Instagram Comment Bulk Translation",
+  "type": "api",
+  "vendor": "Instagram",
+  "vendor_slug": "instagram",
+  "description": "Returns bulk translations for multiple Instagram comments using a list of comment identifiers. Accepts up to 10 comma-separated IDs to translate multiple comments at once.",
+  "tags": [
+    "api",
+    "instagram"
+  ],
+  "capabilities": [
+    "api",
+    "instagram"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/instagram/v3/bulk-translate-comments"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "comment_ids"
+    ],
+    "properties": {
+      "comment_ids": {
+        "type": "string",
+        "title": "Comment Ids",
+        "description": "Comment ID list, separated by commas, **max 10 IDs**"
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.012,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "readme": "# Instagram Comment Bulk Translation API\n\nTranslate multiple Instagram comments simultaneously by providing a list of IDs in `comment_ids`. This endpoint facilitates efficient cross-language comment analysis across posts.\n\n## Use cases\n\n- Translate foreign-language Instagram user comments for sentiment analysis.\n- Review multilingual feedback across international marketing campaigns.\n- Localize incoming audience interactions for customer support teams.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/instagram/v3/bulk-translate-comments\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"comment_ids\": \"<comment_ids>\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `comment_ids` | string | Yes | Comment ID list, separated by commas, max 10 IDs |\n\n## Notes\n\n- Accepts a maximum of 10 IDs in `comment_ids`, separated by commas.\n- Comment IDs can be obtained from post comments endpoints.\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [Instagram Comment Replies (V3)](/model/instagram/v3/comment-replies): Returns child comment replies for a specific Instagram comment using the post media ID and parent comment ID.\n- [Instagram Explore Feed](/model/instagram/v3/explore): Returns curated sectional items from the Instagram explore feed, including layout formats and feed types.\n- [Instagram Shortcode Extractor](/model/instagram/v3/extract-shortcode): Extracts and returns the unique shortcode identifier from an Instagram post, reel, or TV URL.\n",
+  "page_url": "https://www.sandbase.ai/model/instagram/v3/bulk-translate-comments",
+  "created_at": "2026-07-31T03:56:22.099Z"
+}

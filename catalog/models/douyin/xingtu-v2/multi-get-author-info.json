@@ -1,0 +1,67 @@
+{
+  "name": "douyin/xingtu-v2/multi-get-author-info",
+  "display_name": "Douyin Xingtu Batch Author Details",
+  "type": "api",
+  "vendor": "Douyin",
+  "vendor_slug": "douyin",
+  "description": "Returns Xingtu creator profile information for multiple creator accounts in a single request. It takes a list of creator IDs along with optional platform source and channel options.",
+  "tags": [
+    "api",
+    "douyin"
+  ],
+  "capabilities": [
+    "api",
+    "douyin"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/douyin/xingtu-v2/multi-get-author-info"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "author_ids"
+    ],
+    "properties": {
+      "author_ids": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        },
+        "title": "Author Ids",
+        "description": "Creator ID list, up to 50 per call (exceeding returns an error)"
+      },
+      "platform_source": {
+        "type": "integer",
+        "title": "Platform Source",
+        "description": "Platform source, default 1"
+      },
+      "platform_channel": {
+        "type": "integer",
+        "title": "Platform Channel",
+        "description": "Platform channel, default 1"
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.003,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "readme": "# Douyin Xingtu Batch Author Details API\n\nUse this endpoint to retrieve creator profile data for multiple creators at once using `author_ids`.\n\n## Use cases\n\n- Look up Xingtu profile details for multiple creators simultaneously.\n- Monitor influencer metadata across creator rosters.\n- Enrich creator management records with current Xingtu account details.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/douyin/xingtu-v2/multi-get-author-info\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"author_ids\": \"<author_ids>\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `author_ids` | array | Yes | Creator ID list, up to 50 per call (exceeding returns an error) |\n| `platform_source` | integer | No | Platform source, default 1 |\n| `platform_channel` | integer | No | Platform channel, default 1 |\n\n## Notes\n\n- `author_ids` accepts up to 50 creator IDs per call, and exceeding this limit returns an error.\n- `platform_source` defaults to 1 when omitted.\n- `platform_channel` defaults to 1 when omitted.\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [Douyin Xingtu Author Audience Distribution](/model/douyin/xingtu-v2/author-audience-distribution): Returns audience profile distribution metrics for a specified Xingtu creator based on creator ID and link type, with selectable platform source and channel opt…\n- [Douyin Xingtu Author Base Info](/model/douyin/xingtu-v2/author-base-info): Returns basic creator profile data from Douyin Xingtu by author identifier, with options to include recommendation details and linkage information.\n- [Douyin Xingtu Author Business Card Info](/model/douyin/xingtu-v2/author-business-card-info): Returns business card details for a Douyin Xingtu creator based on the specified author ID.\n",
+  "page_url": "https://www.sandbase.ai/model/douyin/xingtu-v2/multi-get-author-info",
+  "created_at": "2026-07-31T02:42:43.724Z"
+}

@@ -1,0 +1,63 @@
+{
+  "name": "instagram/v2/post-info",
+  "display_name": "Instagram Post Details (V2)",
+  "type": "api",
+  "vendor": "Instagram",
+  "vendor_slug": "instagram",
+  "description": "Returns detailed information for an Instagram post, including available media streams and video versions, using a post shortcode or full URL.",
+  "tags": [
+    "api",
+    "instagram"
+  ],
+  "capabilities": [
+    "api",
+    "instagram"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/instagram/v2/post-info"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "code_or_url"
+    ],
+    "properties": {
+      "code_or_url": {
+        "type": "string",
+        "title": "Code Or Url",
+        "example": "DRhvwVLAHAG",
+        "description": "Post shortcode or full URL"
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.003,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "examples": [
+    {
+      "input": {
+        "code_or_url": "DRhvwVLAHAG"
+      },
+      "default": true
+    }
+  ],
+  "readme": "# Instagram Post Details (V2) API\n\nRetrieve detailed Instagram post data by providing the target post shortcode or full link in `code_or_url`.\n\n## Use cases\n\n- Extract media asset URLs for a specific Instagram post.\n- Inspect post metadata using a post shortcode or direct URL.\n- Verify video versions and source links for Instagram content.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/instagram/v2/post-info\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"code_or_url\": \"DRhvwVLAHAG\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `code_or_url` | string | Yes | Post shortcode or full URL |\n\n## Example response\n\nReal response for the request above, trimmed to the main fields. User names and long IDs are masked.\n\n```json\n{\n  \"data\": {\n    \"video_versions\": [\n      {\n        \"id\": \"1961917128003357v\",\n        \"type\": 101,\n        \"url\": \"https://scontent-arn2-1.cdninstagram.com/o1/v/t2/f2/m86/AQM5-tU7kYwNnMkDKY2gOnuG…\"\n      }\n    ]\n  }\n}\n```\n\n## Notes\n\n- Accepts either a post shortcode or a complete URL in `code_or_url`.\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [Instagram Comment Replies (V2)](/model/instagram/v2/comment-replies): Retrieves a paginated list of replies to an Instagram comment using the post URL or shortcode and the target comment ID.\n- [Instagram General Search (V2)](/model/instagram/v2/general-search): Returns Instagram search results matching a specified keyword, including media items, user profiles, and engagement statistics.\n- [Instagram Hashtag Posts (V2)](/model/instagram/v2/hashtag-posts): Returns posts associated with a specific hashtag.\n",
+  "page_url": "https://www.sandbase.ai/model/instagram/v2/post-info",
+  "created_at": "2026-07-31T03:55:50.232Z"
+}

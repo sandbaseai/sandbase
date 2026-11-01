@@ -1,0 +1,70 @@
+{
+  "name": "douyin/search-user",
+  "display_name": "Douyin User Search",
+  "type": "api",
+  "vendor": "Douyin",
+  "vendor_slug": "douyin",
+  "description": "Search Douyin (TikTok China) users by keyword with page-based pagination and optional account-type filtering. Use it to discover creators, brands, or verified accounts for research.",
+  "tags": [
+    "api",
+    "douyin",
+    "social-media"
+  ],
+  "capabilities": [
+    "api",
+    "douyin",
+    "social-media"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/douyin/search-user"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "keyword"
+    ],
+    "properties": {
+      "page": {
+        "type": "integer",
+        "default": 1,
+        "description": "Page number (starting from 1)."
+      },
+      "keyword": {
+        "type": "string",
+        "example": "美食",
+        "description": "The search keyword."
+      },
+      "userType": {
+        "enum": [
+          "common_user",
+          "enterprise_user",
+          "personal_user"
+        ],
+        "type": "string",
+        "description": "Filter by user type."
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.013889,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "readme": "# Douyin User Search API\n\nSearch Douyin (TikTok China) users by keyword with page-based pagination and optional account-type filtering. Use it to discover creators, brands, or verified accounts for research.\n\nThe response is the platform's original data structure.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/douyin/search-user\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"keyword\": \"美食\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `keyword` | string | Yes | The search keyword. |\n| `page` | integer | No | Page number (starting from 1). |\n| `userType` | string | No | Filter by user type. |\n\n## Pricing\n\nFlat price per call. Failed calls and empty results are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/douyin/search-user",
+  "created_at": "2026-10-29T12:21:39.855Z"
+}

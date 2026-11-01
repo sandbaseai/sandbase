@@ -1,0 +1,266 @@
+{
+  "name": "alibaba/wan/2.6/flash/reference-to-video",
+  "display_name": "Wan 2.6 Flash Reference to Video",
+  "type": "video",
+  "vendor": "Alibaba",
+  "vendor_slug": "alibaba",
+  "description": "Alibaba Wan 2.6 Flash reference-to-video model that places characters from reference images or videos into a new scene, with optional generated audio and multi-shot control.",
+  "tags": [
+    "reference-to-video"
+  ],
+  "capabilities": [
+    "reference-to-video"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "prompt"
+    ],
+    "properties": {
+      "seed": {
+        "type": "integer",
+        "title": "Seed",
+        "description": "Random seed for reproducibility. If None, a random seed is chosen."
+      },
+      "images": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        },
+        "title": "Images",
+        "examples": [
+          "https://static.sandbase.ai/examples/alibaba/wan/2.6/reference-to-video/flash/input_images_0.png"
+        ],
+        "description": "Reference images for subject consistency (0-5 images). Combined with video_urls, total references cannot exceed 5. Formats: JPEG, JPG, PNG (no alpha), BMP, WEBP. Resolution: 240-5000px. Max 10MB each. Reference order: image_urls continue numbering after video_urls."
+      },
+      "prompt": {
+        "type": "string",
+        "title": "Prompt",
+        "examples": [
+          "Dance battle between Character1 and Character2."
+        ],
+        "minLength": 1,
+        "description": "Use Character1, Character2, etc. to reference subjects from your reference files. Works for people, animals, or objects. For multi-shot prompts: '[0-3s] Shot 1. [3-6s] Shot 2.' Max 1500 characters. Reference order: video_urls first, then image_urls."
+      },
+      "videos": {
+        "type": "array",
+        "items": {
+          "type": "string",
+          "limit_description": "Max file size: 100.0MB, Min duration: 2s, Max duration: 30s, Timeout: 30.0s"
+        },
+        "title": "Videos",
+        "examples": [
+          "https://static.sandbase.ai/examples/alibaba/wan/2.6/reference-to-video/flash/input_videos_1.mp4"
+        ],
+        "description": "Reference videos for subject consistency (0-3 videos). Videos' FPS must be at least 16 FPS. Combined with image_urls, total references cannot exceed 5. Reference order: video_urls are numbered first (Character1, Character2...), then image_urls continue the sequence."
+      },
+      "duration": {
+        "enum": [
+          5,
+          10
+        ],
+        "type": "integer",
+        "title": "Duration",
+        "default": 5,
+        "description": "Duration of the generated video in seconds. R2V Flash supports only 5 or 10 seconds."
+      },
+      "resolution": {
+        "enum": [
+          "720p",
+          "1080p"
+        ],
+        "type": "string",
+        "title": "Resolution",
+        "default": "720p",
+        "description": "Video resolution tier. R2V Flash only supports 720p and 1080p."
+      },
+      "multi_shots": {
+        "type": "boolean",
+        "title": "Multi Shots",
+        "default": true,
+        "description": "When true (default), enables intelligent multi-shot segmentation for coherent narrative videos with multiple shots. When false, generates single continuous shot. Only active when enable_prompt_expansion is True."
+      },
+      "aspect_ratio": {
+        "enum": [
+          "16:9",
+          "9:16",
+          "1:1",
+          "4:3",
+          "3:4"
+        ],
+        "type": "string",
+        "title": "Aspect Ratio",
+        "default": "16:9",
+        "description": "The aspect ratio of the generated image."
+      },
+      "generate_audio": {
+        "type": "boolean",
+        "title": "Generate Audio",
+        "default": true,
+        "description": "Whether to generate a video with audio. Set to false for silent video generation. Silent videos are faster and cost half of the audio version price."
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "title": "GenerationResponse",
+    "required": [
+      "id",
+      "status"
+    ],
+    "properties": {
+      "id": {
+        "type": "string",
+        "description": "Unique identifier for the generation task."
+      },
+      "error": {
+        "type": "string",
+        "description": "Error message if the task failed. Empty on success."
+      },
+      "model": {
+        "type": "string",
+        "description": "Model ID used for the prediction."
+      },
+      "status": {
+        "enum": [
+          "pending",
+          "running",
+          "completed",
+          "failed",
+          "timeout"
+        ],
+        "type": "string",
+        "description": "Status of the task: pending, running, completed, failed, or timeout."
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "title": "OutputItem",
+          "required": [
+            "url"
+          ],
+          "properties": {
+            "url": {
+              "type": "string",
+              "examples": [
+                "https://static.sandbase.ai/examples/alibaba/wan/2.6/reference-to-video/flash/output_url_2.mp4"
+              ],
+              "description": "The URL where the generated content can be downloaded from."
+            },
+            "content_type": {
+              "type": "string",
+              "description": "The MIME type of the output file."
+            }
+          }
+        },
+        "description": "Array of generated content. Empty when status is not completed."
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "formula",
+    "formula": "((params.duration ?? 5) + (len(params.videos ?? []) > 0 ? 5 : 0)) * ((params.generate_audio ?? true) ? ((params.resolution ?? \"720p\") == \"1080p\" ? 0.15 : 0.10) : ((params.resolution ?? \"720p\") == \"1080p\" ? 0.075 : 0.05))",
+    "formula_variables": [
+      "params.duration",
+      "params.generate_audio",
+      "params.resolution",
+      "params.videos"
+    ],
+    "reference_price": 0.5,
+    "price_examples": [
+      {
+        "params": {
+          "duration": 5,
+          "generate_audio": false,
+          "resolution": "720p"
+        },
+        "usd": 0.25
+      },
+      {
+        "params": {
+          "duration": 5,
+          "generate_audio": false,
+          "resolution": "1080p"
+        },
+        "usd": 0.375
+      },
+      {
+        "params": {
+          "duration": 5,
+          "generate_audio": true,
+          "resolution": "720p"
+        },
+        "usd": 0.5
+      },
+      {
+        "params": {
+          "duration": 5,
+          "generate_audio": true,
+          "resolution": "1080p"
+        },
+        "usd": 0.75
+      },
+      {
+        "params": {
+          "duration": 10,
+          "generate_audio": false,
+          "resolution": "720p"
+        },
+        "usd": 0.5
+      },
+      {
+        "params": {
+          "duration": 10,
+          "generate_audio": false,
+          "resolution": "1080p"
+        },
+        "usd": 0.75
+      },
+      {
+        "params": {
+          "duration": 10,
+          "generate_audio": true,
+          "resolution": "720p"
+        },
+        "usd": 1
+      },
+      {
+        "params": {
+          "duration": 10,
+          "generate_audio": true,
+          "resolution": "1080p"
+        },
+        "usd": 1.5
+      }
+    ]
+  },
+  "examples": [
+    {
+      "input": {
+        "prompt": "Dance battle between Character1 and Character2."
+      },
+      "output": [
+        {
+          "poster": "https://static.sandbase.ai/examples/posters/162c99e9ecd6e4569806.jpg",
+          "url": "https://static.sandbase.ai/examples/06adda09-8e45-4ccd-b799-23b878e72dad/output/e57df3be-b22e-4367-a2a5-e88bc35334bb.mp4"
+        }
+      ],
+      "default": true
+    }
+  ],
+  "readme": "# Wan 2.6 Flash Reference to Video\n\nThe fast, lower-cost Wan 2.6 reference tier. Cast characters from reference images or videos into a new scene for quick iterations; audio generation and multi-shot cuts are on by default.\n\n## Fields\n\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `prompt` | string, required | — | Text instruction. |\n| `images` | image URL[] | — | Reference images, Image 1, Image 2, … |\n| `videos` | video URL[] | — | Reference clips, Video 1, Video 2, … |\n| `resolution` | `720p` / `1080p` | `720p` | Sets the per-second rate. |\n| `duration` | 5 / 10 | 5 | Output length in seconds. |\n| `multi_shots` | boolean | true | Let the model cut between several shots. |\n| `aspect_ratio` | `16:9` / `9:16` / `1:1` / `4:3` / `3:4` | `16:9` | Output frame shape. |\n| `seed` | integer | random | Fix it to compare prompt changes. |\n| `generate_audio` | boolean | true | Generate a synchronized audio track; turning it off halves the rate. |\n\n## Billing\n\nWith audio you pay $0.10 per output second at 720p and $0.15 at 1080p; silent output costs half. When you send reference `videos`, 5 seconds of input are added to the billed length.\n\n| Output | 720p | 1080p |\n|---|---|---|\n| 5s with audio | $0.50 | $0.75 |\n| 5s silent | $0.25 | $0.375 |\n| 5s with audio + reference video | $1.00 | $1.50 |\n| 10s with audio | $1.00 | $1.50 |\n\nFailed runs are not charged.\n\n## Prompting\n\n- Refer to references by number and give each a role.\n- Keep the action simple for fast drafts, then rerun the winner on the non-Flash tier.\n\n## Limits\n\n- Durations are 5 or 10 seconds.\n\n## Also on SandBase\n\nOther Wan 2.6 endpoints: `alibaba/wan/2.6/text-to-video`, `alibaba/wan/2.6/image-to-video`, `alibaba/wan/2.6/reference-to-video`, `alibaba/wan/2.6/flash/image-to-video`, `alibaba/wan/2.6/text-to-image`, `alibaba/wan/2.6/image-to-image`, `alibaba/wan/2.7/text-to-video` (newer).\n",
+  "cover_url": "https://static.sandbase.ai/covers/alibaba/wan/2.6/flash/reference-to-video/cover-flare-20261005151713.webp",
+  "page_url": "https://www.sandbase.ai/model/alibaba/wan/2.6/flash/reference-to-video",
+  "published_at": "2026-02-06T18:01:37.773Z",
+  "created_at": "2026-10-05T02:20:16.332Z"
+}

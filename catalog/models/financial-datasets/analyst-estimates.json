@@ -1,0 +1,58 @@
+{
+  "name": "financial-datasets/analyst-estimates",
+  "display_name": "Financial Datasets Get Analyst Estimates",
+  "type": "api",
+  "vendor": "Financial Datasets",
+  "vendor_slug": "financial-datasets",
+  "description": "Get Analyst Estimates from Financial Datasets. Returns the official Financial Datasets API response unchanged.",
+  "tags": [
+    "api",
+    "financial-datasets",
+    "stocks"
+  ],
+  "capabilities": [
+    "api",
+    "financial-datasets",
+    "stocks"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/financial-datasets/analyst-estimates"
+  },
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "limit": {
+        "type": "string",
+        "example": "2",
+        "description": "limit"
+      },
+      "period": {
+        "type": "string",
+        "example": "annual",
+        "description": "period"
+      },
+      "ticker": {
+        "type": "string",
+        "example": "AAPL",
+        "description": "ticker"
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.02
+  },
+  "readme": "# Financial Datasets Get Analyst Estimates API\n\nGet Analyst Estimates from Financial Datasets. Returns the official Financial Datasets API response unchanged.\n\nThe response is the official Financial Datasets API response, unchanged.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/financial-datasets/analyst-estimates\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"limit\": \"2\", \"period\": \"annual\", \"ticker\": \"AAPL\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `limit` | string | No | limit |\n| `period` | string | No | period |\n| `ticker` | string | No | ticker |\n\n## Pricing\n\nFlat price per call. Failed calls are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/financial-datasets/analyst-estimates",
+  "created_at": "2026-10-30T03:11:44.824Z"
+}

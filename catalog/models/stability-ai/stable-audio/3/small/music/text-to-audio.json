@@ -1,0 +1,150 @@
+{
+  "name": "stability-ai/stable-audio/3/small/music/text-to-audio",
+  "display_name": "Stable Audio 3 Small Music",
+  "type": "audio",
+  "vendor": "stability-ai",
+  "vendor_slug": "stability-ai",
+  "description": "Stable Audio 3 Small Music by Stability AI is a fast, low-cost music generator producing tracks up to 2 minutes from a text prompt.",
+  "tags": [
+    "text-to-music"
+  ],
+  "capabilities": [
+    "text-to-music"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "prompt"
+    ],
+    "properties": {
+      "seed": {
+        "type": "integer",
+        "title": "Seed",
+        "description": "Random seed for reproducible outputs."
+      },
+      "prompt": {
+        "type": "string",
+        "title": "Prompt",
+        "examples": [
+          "An anthemic Pop Rock instrumental that fills your head with nostalgic thoughtfulness"
+        ],
+        "description": "Text description of the audio to generate."
+      },
+      "duration": {
+        "type": "integer",
+        "title": "Duration",
+        "default": 30,
+        "maximum": 120,
+        "minimum": 1,
+        "description": "Duration in seconds (1–120)."
+      },
+      "output_format": {
+        "enum": [
+          "mp3",
+          "wav",
+          "flac",
+          "ogg",
+          "opus",
+          "m4a",
+          "aac"
+        ],
+        "type": "string",
+        "title": "Output Format",
+        "default": "mp3",
+        "description": "Audio container format."
+      },
+      "negative_prompt": {
+        "type": "string",
+        "title": "Negative Prompt",
+        "default": "",
+        "description": "Qualities to avoid in the output."
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "title": "GenerationResponse",
+    "required": [
+      "id",
+      "status"
+    ],
+    "properties": {
+      "id": {
+        "type": "string",
+        "description": "Unique identifier for the generation task."
+      },
+      "error": {
+        "type": "string",
+        "description": "Error message if the task failed. Empty on success."
+      },
+      "model": {
+        "type": "string",
+        "description": "Model ID used for the prediction."
+      },
+      "status": {
+        "enum": [
+          "pending",
+          "running",
+          "completed",
+          "failed",
+          "timeout"
+        ],
+        "type": "string",
+        "description": "Status of the task: pending, running, completed, failed, or timeout."
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "title": "OutputItem",
+          "required": [
+            "url"
+          ],
+          "properties": {
+            "url": {
+              "type": "string",
+              "description": "The URL where the generated content can be downloaded from."
+            },
+            "content_type": {
+              "type": "string",
+              "description": "The MIME type of the output file."
+            }
+          }
+        },
+        "description": "Array of generated content. Empty when status is not completed."
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.0217
+  },
+  "examples": [
+    {
+      "input": {
+        "duration": 10,
+        "prompt": "calm lo-fi piano loop"
+      },
+      "output": [
+        {
+          "url": "https://static.sandbase.ai/examples/4d2c33ee-87cc-440b-8a53-95f2c86ba91d/output/adb7f62c-4d67-485e-8ba4-93742400f520.mp3"
+        }
+      ],
+      "default": true
+    }
+  ],
+  "readme": "# Stable Audio 3 Small Music\n\nStable Audio 3 Small Music: fast, low-cost music tracks up to 2 minutes.\n\n## Fields\n\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `prompt` | string, required | — | Text instruction. |\n| `duration` | integer 1–120 | 30 | Length in seconds (1–120). |\n| `output_format` | `mp3` / `wav` / `flac` / `ogg` / `opus` / `m4a` / `aac` | `mp3` | Output file format. |\n| `negative_prompt` | string | — | What to avoid. |\n| `seed` | integer | random | Fix it to compare prompt changes. |\n\n## Billing\n\n$0.0217 per generation.\n\n| Request | Price |\n|---|---|\n| One track | $0.0217 |\n\nFailed runs are not charged.\n\n## Prompting\n\n- Name genre, instruments, tempo, and mood.\n\n## Also on SandBase\n\nRelated: `stability-ai/stable-audio/3/medium/text-to-audio`.\n",
+  "cover_url": "https://static.sandbase.ai/covers/stability-ai/stable-audio/3/small/music/text-to-audio/cover-flare-20261008043931.webp",
+  "page_url": "https://www.sandbase.ai/model/stability-ai/stable-audio/3/small/music/text-to-audio",
+  "published_at": "2026-06-03T23:38:34.502Z",
+  "created_at": "2026-10-06T05:37:35.376Z"
+}

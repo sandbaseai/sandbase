@@ -1,0 +1,77 @@
+{
+  "name": "zhihu/web/user-search-v3",
+  "display_name": "Zhihu User Search",
+  "type": "api",
+  "vendor": "Zhihu",
+  "vendor_slug": "zhihu",
+  "description": "Search for Zhihu user profiles by query terms. Returns matching accounts along with follower numbers, article counts, and answer statistics.",
+  "tags": [
+    "api",
+    "zhihu"
+  ],
+  "capabilities": [
+    "api",
+    "zhihu"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/zhihu/web/user-search-v3"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "keyword"
+    ],
+    "properties": {
+      "limit": {
+        "type": "string",
+        "title": "Limit",
+        "default": "25",
+        "example": "25",
+        "description": "Number of users per page"
+      },
+      "offset": {
+        "type": "string",
+        "title": "Offset",
+        "default": "0",
+        "example": "0",
+        "description": "Offset"
+      },
+      "keyword": {
+        "type": "string",
+        "title": "Keyword",
+        "example": "deepseek",
+        "description": "Search Keywords"
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.0015,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "examples": [
+    {
+      "input": {
+        "keyword": "deepseek"
+      },
+      "default": true
+    }
+  ],
+  "readme": "# Zhihu User Search API\n\nSearch Zhihu profiles matching a given `keyword`. Supports pagination controls through `limit` and `offset` parameters.\n\n## Use cases\n\n- Locate specific influencer or brand accounts on Zhihu.\n- Track creator statistics including follower and creation counts.\n- Discover relevant industry experts by keyword search.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/zhihu/web/user-search-v3\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"keyword\": \"deepseek\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `keyword` | string | Yes | Search Keywords |\n| `limit` | string | No | Number of users per page |\n| `offset` | string | No | Offset |\n\n## Example response\n\nReal response for the request above, trimmed to the main fields. User names and long IDs are masked.\n\n```json\n{\n  \"data\": [\n    {\n      \"id\": 4029889030,\n      \"type\": \"search_result\",\n      \"highlight\": {\n        \"title\": \"DeepSeek\"\n      },\n      \"object\": {\n        \"answer_count\": 0,\n        \"articles_count\": 2,\n        \"creation_count\": 2,\n        \"follower_count\": 58778,\n        \"follower_count_text\": \"5.8 万\",\n        \"id\": \"b2be5c4564dd15544180d35da0500188\"\n      }\n    }\n  ]\n}\n```\n\n## Notes\n\n- Use `keyword` to specify the profile search query.\n- Paginate through user results using `limit` and `offset`.\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [Zhihu AI Search Stream](/model/zhihu/web/ai-search-stream): Returns streaming AI search results from Zhihu based on a query prompt.\n- [Zhihu Answer Details](/model/zhihu/web/answer-detail): Retrieves detailed information for a specific Zhihu answer using its numeric ID, including answer text, timestamps, and share links.\n- [Zhihu Article Search](/model/zhihu/web/article-search-v3): Search Zhihu articles and answers by keyword and get titles, excerpts, authors, vote and comment counts, with sorting, content type and time filters plus offse…\n",
+  "page_url": "https://www.sandbase.ai/model/zhihu/web/user-search-v3",
+  "created_at": "2026-07-31T04:30:13.004Z"
+}

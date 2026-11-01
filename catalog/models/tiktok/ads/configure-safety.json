@@ -1,0 +1,45 @@
+{
+  "name": "tiktok/ads/configure-safety",
+  "display_name": "TikTok Search Module Safety Configuration",
+  "type": "api",
+  "vendor": "TikTok",
+  "vendor_slug": "tiktok",
+  "description": "Returns the safety and availability configuration switches for TikTok Creative Center search modules. It indicates whether searches for top ads, keywords, hashtags, sounds, and creators are currently available.",
+  "tags": [
+    "api",
+    "tiktok"
+  ],
+  "capabilities": [
+    "api",
+    "tiktok"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/tiktok/ads/configure-safety"
+  },
+  "input_schema": {
+    "type": "object",
+    "properties": {}
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.0015,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "readme": "# TikTok Search Module Safety Configuration API\n\nCheck the operating status of TikTok Creative Center search tools without passing any parameters. It returns configuration switches indicating whether individual search modules are accessible.\n\n## Use cases\n\n- Check the availability of TikTok Creative Center search modules before querying them.\n- Verify whether keyword, hashtag, or sound search features are currently active.\n- Inspect feature flags for creator and top ad discovery tools.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/tiktok/ads/configure-safety\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{}'\n```\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [TikTok Ad Interactive Analysis](/model/tiktok/ads/ad-interactive-analysis): Returns audience retention and interaction analytics across video timestamps for a specified ad creative.\n- [TikTok Ad Keyframe Analysis](/model/tiktok/ads/ad-keyframe-analysis): Returns keyframe performance metrics across video ad timestamps for a specified material ID, including retention and conversion figures.\n- [TikTok Ad Material Percentile Rankings](/model/tiktok/ads/ad-percentile): Returns ad performance percentile rankings within the industry for a specific ad material.\n",
+  "page_url": "https://www.sandbase.ai/model/tiktok/ads/configure-safety",
+  "created_at": "2026-07-31T04:13:40.975Z"
+}

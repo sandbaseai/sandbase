@@ -1,0 +1,123 @@
+{
+  "name": "linkedin/search-profiles-thin",
+  "display_name": "LinkedIn Profile Search (basic)",
+  "type": "api",
+  "vendor": "LinkedIn",
+  "vendor_slug": "linkedin",
+  "description": "Cheap people search: name/handle, headline, VANITY profile URL, location. No full profile or email - for full profiles per hit use linkedin.search_profiles, add emails with linkedin.search_profiles_email.",
+  "tags": [
+    "api",
+    "linkedin",
+    "social-media"
+  ],
+  "capabilities": [
+    "api",
+    "linkedin",
+    "social-media"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/linkedin/search-profiles-thin"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "query"
+    ],
+    "properties": {
+      "query": {
+        "type": "string",
+        "example": "recruiter",
+        "description": "Search query for LinkedIn profiles - a role, name, or keywords (e.g. 'Marketing Manager')."
+      },
+      "title": {
+        "type": "string",
+        "description": "Filter by job title or headline (e.g. Head of Talent)."
+      },
+      "cursor": {
+        "type": "string",
+        "description": "Opaque pagination cursor from a previous response's nextCursor. Omit for the first page; a page holds 10 profiles."
+      },
+      "lastName": {
+        "type": "string",
+        "description": "Filter by last name (e.g. Okafor)."
+      },
+      "schoolId": {
+        "type": "string",
+        "description": "Filter by school, using a LinkedIn school id."
+      },
+      "firstName": {
+        "type": "string",
+        "description": "Filter by first name (e.g. Jane)."
+      },
+      "industryId": {
+        "type": "string",
+        "description": "Filter by industry, using a LinkedIn industry id."
+      },
+      "locationId": {
+        "type": "string",
+        "description": "Filter by location, using a LinkedIn geocode id."
+      },
+      "followerOfUrn": {
+        "type": "string",
+        "description": "Return only people who follow this member, given the member's LinkedIn URN."
+      },
+      "pastCompanyId": {
+        "type": "string",
+        "description": "Filter by a previous employer, using a numeric LinkedIn company id."
+      },
+      "profileLanguage": {
+        "type": "string",
+        "description": "Filter by the language the profile is written in (ISO 2-letter code, e.g. en)."
+      },
+      "currentCompanyId": {
+        "type": "string",
+        "description": "Filter by current employer, using a numeric LinkedIn company id. Comma-separate for several."
+      },
+      "serviceCategoryId": {
+        "type": "string",
+        "description": "Filter by service category, using a numeric service-category id."
+      }
+    },
+    "additionalProperties": false
+  },
+  "response_schema": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string"
+      },
+      "model": {
+        "type": "string"
+      },
+      "status": {
+        "type": "string"
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "data": {
+              "type": "object",
+              "description": "Normalized result for this request."
+            }
+          }
+        }
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "usage_based",
+    "note": "Billed per call from metered usage; the reference price is typical.",
+    "reference_price": 0.036
+  },
+  "readme": "# LinkedIn Profile Search (basic) API\n\nCheap people search: name/handle, headline, VANITY profile URL, location. No full profile or email - for full profiles per hit use linkedin.search_profiles, add emails with linkedin.search_profiles_email.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/linkedin/search-profiles-thin\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"query\": \"recruiter\"}'\n```\n\nThe result is returned in `outputs[0].data`. A lookup that finds nothing still succeeds and returns `found: false`.\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `query` | string | Yes | Search query for LinkedIn profiles - a role, name, or keywords (e.g. 'Marketing Manager'). |\n| `currentCompanyId` | string | No | Filter by current employer, using a numeric LinkedIn company id. Comma-separate for several. |\n| `cursor` | string | No | Opaque pagination cursor from a previous response's nextCursor. Omit for the first page; a page holds 10 profiles. |\n| `firstName` | string | No | Filter by first name (e.g. Jane). |\n| `followerOfUrn` | string | No | Return only people who follow this member, given the member's LinkedIn URN. |\n| `industryId` | string | No | Filter by industry, using a LinkedIn industry id. |\n| `lastName` | string | No | Filter by last name (e.g. Okafor). |\n| `locationId` | string | No | Filter by location, using a LinkedIn geocode id. |\n| `pastCompanyId` | string | No | Filter by a previous employer, using a numeric LinkedIn company id. |\n| `profileLanguage` | string | No | Filter by the language the profile is written in (ISO 2-letter code, e.g. en). |\n| `schoolId` | string | No | Filter by school, using a LinkedIn school id. |\n| `serviceCategoryId` | string | No | Filter by service category, using a numeric service-category id. |\n| `title` | string | No | Filter by job title or headline (e.g. Head of Talent). |\n\n## Pricing\n\nBilled at the actual cost of each call, usually $0.036 per request. A call can cost more when the first data source fails and another one answers. Failed calls are not charged. Lookups that find nothing and searches with no results are billed at their actual cost, which is often lower and can be $0.\n",
+  "page_url": "https://www.sandbase.ai/model/linkedin/search-profiles-thin",
+  "created_at": "2026-10-31T10:43:25.569Z"
+}

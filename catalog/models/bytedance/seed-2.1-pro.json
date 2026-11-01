@@ -1,0 +1,44 @@
+{
+  "name": "bytedance/seed-2.1-pro",
+  "display_name": "ByteDance: Seed-2.1-Pro",
+  "type": "llm",
+  "vendor": "Bytedance",
+  "vendor_slug": "bytedance",
+  "description": "Seed 2.1 Pro is the larger of the two models in ByteDance Seed's Seed2.1 family, offered as Doubao-Seed-2.1-Pro through Doubao and Volcano Engine. ByteDance built Seed2.1 for real-world productivity: multi-step general agent work such as planning, document processing and tool use, end-to-end coding from requirement analysis to validation, and computer-use tasks. It also brings strong image, document and long-video understanding, and Seed 2.1 Turbo is the smaller sibling.",
+  "tags": [
+    "chat",
+    "vision",
+    "reasoning",
+    "structured_output",
+    "function_calling"
+  ],
+  "capabilities": [
+    "chat",
+    "vision",
+    "reasoning",
+    "structured_output",
+    "function_calling"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "chat_completions": "POST /v1/chat/completions",
+    "responses": "POST /v1/responses",
+    "messages": "POST /v1/messages"
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_token",
+    "per_million_tokens": {
+      "input": 0.890208,
+      "output": 4.451039,
+      "cache_read_multiplier": 0.2
+    }
+  },
+  "cover_url": "https://t0.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=https://avatars.githubusercontent.com/u/4158466?v=4&size=256",
+  "page_url": "https://www.sandbase.ai/model/bytedance/seed-2.1-pro",
+  "published_at": "2026-09-16T00:00:00Z",
+  "created_at": "2026-09-21T14:04:58.139Z"
+}

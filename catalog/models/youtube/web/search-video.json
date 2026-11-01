@@ -1,0 +1,88 @@
+{
+  "name": "youtube/web/search-video",
+  "display_name": "YouTube Video Search",
+  "type": "api",
+  "vendor": "YouTube",
+  "vendor_slug": "youtube",
+  "description": "Search YouTube videos by keyword and get video ID, title, channel, views, length and publish time, with country, language and upload-date filters and continuation-token pagination.",
+  "tags": [
+    "api",
+    "youtube"
+  ],
+  "capabilities": [
+    "api",
+    "youtube"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/youtube/web/search-video"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "search_query"
+    ],
+    "properties": {
+      "order_by": {
+        "type": "string",
+        "title": "Order By",
+        "default": "this_month",
+        "description": "Order by, default is this_month, optional values are this_week, this_month, this_year, last_hour, today."
+      },
+      "country_code": {
+        "type": "string",
+        "title": "Country Code",
+        "default": "us",
+        "description": "Country code, default is us."
+      },
+      "search_query": {
+        "type": "string",
+        "title": "Search Query",
+        "example": "OpenAI",
+        "description": "Search keyword."
+      },
+      "language_code": {
+        "type": "string",
+        "title": "Language Code",
+        "default": "en",
+        "description": "Language code, default is en."
+      },
+      "continuation_token": {
+        "type": "string",
+        "title": "Continuation Token",
+        "description": "Token to continue fetching search results. Default is None."
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.0015,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "examples": [
+    {
+      "input": {
+        "country_code": "us",
+        "language_code": "en",
+        "order_by": "this_month",
+        "search_query": "AI agents"
+      }
+    }
+  ],
+  "readme": "# YouTube Video Search API\n\nSearch YouTube for a keyword and get matching videos with their title, channel, view count, length and publish time.\n\n## Use cases\n\n- Monitor new videos about a brand or topic.\n- Research competitors and popular formats.\n- Find creators for sponsorships.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/youtube/web/search-video\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"search_query\": \"OpenAI\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `search_query` | string | Yes | Search keyword. |\n| `order_by` | string | No | Order by, default is this_month, optional values are this_week, this_month, this_year, last_hour, today. |\n| `country_code` | string | No | Country code, default is us. |\n| `language_code` | string | No | Language code, default is en. |\n| `continuation_token` | string | No | Token to continue fetching search results. |\n\n## Example response\n\nReal response for the request above, trimmed to the main fields. User names and long IDs are masked.\n\n```json\n{\n  \"query\": \"OpenAI\",\n  \"country\": \"US\",\n  \"lang\": \"en\",\n  \"number_of_videos\": 20,\n  \"estimated_results\": 395560,\n  \"continuation_token\": \"<token>\",\n  \"videos\": [\n    {\n      \"video_id\": \"Fls_onRviPM\",\n      \"title\": \"OpenAI DevDay 2026 Keynote (FULL)\",\n      \"channel_id\": \"UCXZCJLdBC09xxGZ6gcdrc6A\",\n      \"number_of_views\": 650665,\n      \"published_time\": \"Streamed 6 days ago\",\n      \"video_length\": \"53:35\",\n      \"type\": \"NORMAL\",\n      \"author\": \"OpenAI\"\n    }\n  ]\n}\n```\n\n## Notes\n\n- `order_by`: last_hour, today, this_week, this_month (default) or this_year.\n- Paginate with `continuation_token`.\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [Get channel ID](/model/youtube/web/channel-id): Get channel ID.\n- [Get channel ID from URL V2](/model/youtube/web/channel-id-v2): Convert YouTube channel URL to channel ID..\n- [Get channel information](/model/youtube/web/channel-info): Get channel information.\n",
+  "page_url": "https://www.sandbase.ai/model/youtube/web/search-video",
+  "created_at": "2026-07-31T04:26:10.133Z"
+}

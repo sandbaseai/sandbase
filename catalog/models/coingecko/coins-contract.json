@@ -1,0 +1,63 @@
+{
+  "name": "coingecko/coins-contract",
+  "display_name": "CoinGecko Coin Data by Token Address",
+  "type": "api",
+  "vendor": "CoinGecko",
+  "vendor_slug": "coingecko",
+  "description": "Get all the metadata (image, websites, socials, description, contract address, etc.) and market data (price, ATH, exchange tickers, etc.) of a coin from the CoinGecko coin page based on an asset platform and a.",
+  "tags": [
+    "api",
+    "coingecko",
+    "crypto"
+  ],
+  "capabilities": [
+    "api",
+    "coingecko",
+    "crypto"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/coingecko/coins-contract"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "contract_address",
+      "id"
+    ],
+    "properties": {
+      "id": {
+        "type": "string",
+        "default": "ethereum",
+        "description": "Asset platform ID. *refers to [`/asset_platforms`](/reference/asset-platforms-list)."
+      },
+      "contract_address": {
+        "type": "string",
+        "default": "0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2",
+        "example": "0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48",
+        "description": "The contract address of token."
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.008,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "readme": "# CoinGecko Coin Data by Token Address API\n\nGet all the metadata (image, websites, socials, description, contract address, etc.) and market data (price, ATH, exchange tickers, etc.) of a coin from the CoinGecko coin page based on an asset platform and a.\n\nThe response is the official CoinGecko API response, unchanged.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/coingecko/coins-contract\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"contract_address\": \"0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48\", \"id\": \"ethereum\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `contract_address` | string | Yes | The contract address of token. |\n| `id` | string | Yes | Asset platform ID. *refers to [`/asset_platforms`](/reference/asset-platforms-list). |\n\n## Pricing\n\nFlat price per call. Failed calls are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/coingecko/coins-contract",
+  "created_at": "2026-10-30T03:11:07.048Z"
+}

@@ -1,0 +1,58 @@
+{
+  "name": "xiaohongshu/pgy/blogger-fans-summary",
+  "display_name": "Xiaohongshu (RED) PGY Blogger Fans Summary",
+  "type": "api",
+  "vendor": "Xiaohongshu",
+  "vendor_slug": "xiaohongshu",
+  "description": "Returns an overview of a Xiaohongshu blogger audience on PGY, including fan scale and activity metrics. Looks up fan statistics for a specified blogger user ID.",
+  "tags": [
+    "api",
+    "xiaohongshu"
+  ],
+  "capabilities": [
+    "api",
+    "xiaohongshu"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/xiaohongshu/pgy/blogger-fans-summary"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "user_id"
+    ],
+    "properties": {
+      "user_id": {
+        "type": "string",
+        "title": "User Id",
+        "example": "60b137080000000001000301",
+        "description": "Blogger user ID"
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.03
+  },
+  "examples": [
+    {
+      "input": {
+        "user_id": "60b137080000000001000301"
+      },
+      "default": true
+    }
+  ],
+  "readme": "# Xiaohongshu (RED) PGY Blogger Fans Summary API\n\nRetrieve audience overview metrics for a PGY blogger by supplying the target `user_id`. It returns fan statistics such as audience scale and activity levels.\n\n## Use cases\n\n- Evaluate blogger audience size and engagement before collaboration.\n- Analyze fan scale metrics for targeted influencer campaigns.\n- Monitor changes in blogger follower activity over time.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/xiaohongshu/pgy/blogger-fans-summary\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"user_id\": \"60b137080000000001000301\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `user_id` | string | Yes | Blogger user ID |\n\n## Notes\n\n- Requires the blogger's `user_id`.\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [Xiaohongshu (RED) Blogger Core Data](/model/xiaohongshu/pgy/blogger-core-data): Returns Pugongying core performance metrics and daily trend data for a specified Xiaohongshu blogger, filterable by date range, note type, and traffic source.\n- [Xiaohongshu (RED) PGY Blogger Data Summary](/model/xiaohongshu/pgy/blogger-data-summary): Returns an account-level data summary for a Xiaohongshu blogger on the Pugongying (PGY) platform based on the specified blogger user ID.\n- [Xiaohongshu (RED) PGY Blogger Details](/model/xiaohongshu/pgy/blogger-detail): Retrieves detailed profile information for a specific Xiaohongshu blogger on the PGY platform using their user ID.\n",
+  "page_url": "https://www.sandbase.ai/model/xiaohongshu/pgy/blogger-fans-summary",
+  "created_at": "2026-07-31T02:47:32.25Z"
+}

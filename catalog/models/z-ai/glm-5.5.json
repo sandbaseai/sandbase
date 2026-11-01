@@ -1,0 +1,37 @@
+{
+  "name": "z-ai/glm-5.5",
+  "display_name": "Z.ai: GLM 5.5",
+  "type": "llm",
+  "vendor": "Z-Ai",
+  "vendor_slug": "z-ai",
+  "description": "GLM 5.5 is listed on SandBase as an upcoming model in Z.ai's GLM series and is not yet available on SandBase. As of early October 2026, Z.ai has not officially announced GLM 5.5 or published its capabilities, specifications or release date. Specifications and pricing will be confirmed at launch, once Z.ai publishes official details.",
+  "tags": [
+    "chat",
+    "reasoning",
+    "structured_output",
+    "function_calling",
+    "coming-soon"
+  ],
+  "capabilities": [
+    "chat",
+    "reasoning",
+    "structured_output",
+    "function_calling",
+    "coming-soon"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "chat_completions": "POST /v1/chat/completions",
+    "responses": "POST /v1/responses",
+    "messages": "POST /v1/messages"
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "unknown"
+  },
+  "page_url": "https://www.sandbase.ai/model/z-ai/glm-5.5",
+  "created_at": "2026-10-04T04:34:35.447Z"
+}

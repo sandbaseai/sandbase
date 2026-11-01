@@ -1,0 +1,124 @@
+{
+  "name": "heygen/video-agent/v3",
+  "display_name": "HeyGen Video Agent V3",
+  "type": "video",
+  "vendor": "HeyGen",
+  "vendor_slug": "heygen",
+  "description": "Heygen Video Agent V3 is HeyGen's text-to-video AI model. Turn written scripts and prompts into professional-quality video clips with realistic motion, lighting, and scene composition.",
+  "tags": [
+    "text-to-video"
+  ],
+  "capabilities": [
+    "text-to-video"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "prompt"
+    ],
+    "properties": {
+      "prompt": {
+        "type": "string",
+        "title": "Prompt",
+        "examples": [
+          "Create a 30-second product demo video showcasing our new AI features with professional lighting and modern graphics."
+        ],
+        "maxLength": 10000,
+        "description": "Natural language prompt describing the video to generate. The agent handles avatar selection, script, and production automatically."
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "title": "GenerationResponse",
+    "required": [
+      "id",
+      "status"
+    ],
+    "properties": {
+      "id": {
+        "type": "string",
+        "description": "Unique identifier for the generation task."
+      },
+      "error": {
+        "type": "string",
+        "description": "Error message if the task failed. Empty on success."
+      },
+      "model": {
+        "type": "string",
+        "description": "Model ID used for the prediction."
+      },
+      "status": {
+        "enum": [
+          "pending",
+          "running",
+          "completed",
+          "failed",
+          "timeout"
+        ],
+        "type": "string",
+        "description": "Status of the task: pending, running, completed, failed, or timeout."
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "title": "OutputItem",
+          "required": [
+            "url"
+          ],
+          "properties": {
+            "url": {
+              "type": "string",
+              "examples": [
+                "https://static.sandbase.ai/examples/heygen/heygen/video-agent/v3/output_url_1.mp4"
+              ],
+              "description": "The URL where the generated content can be downloaded from."
+            },
+            "content_type": {
+              "type": "string",
+              "description": "The MIME type of the output file."
+            }
+          }
+        },
+        "description": "Array of generated content. Empty when status is not completed."
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "formula",
+    "formula": "Math.ceil(usage.duration ?? 30.0) * 0.034",
+    "formula_variables": [
+      "usage.duration"
+    ],
+    "reference_price": 1.02
+  },
+  "examples": [
+    {
+      "input": {
+        "prompt": "Create a 30-second product demo video showcasing our new AI features with professional lighting and modern graphics."
+      },
+      "output": [
+        {
+          "poster": "https://static.sandbase.ai/examples/posters/066ba14b14f373727bbc.jpg",
+          "url": "https://static.sandbase.ai/examples/64dc4772-06ea-45c4-9b73-bcea51bccfbc/output/75f40a8e-d209-40de-82fa-d9e0977099ad.mp4"
+        }
+      ],
+      "default": true
+    }
+  ],
+  "readme": "# HeyGen Video Agent V3\n\nHeyGen Video Agent: describe the video you want and the agent writes, voices, and edits a complete presenter video.\n\n## Fields\n\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `prompt` | string, required | — | What the video should cover, its audience, length, and tone. |\n\n## Billing\n\n$0.034 per output second (rounded up). The quote before submission assumes 30 seconds.\n\n| Output | Price |\n|---|---|\n| 30s | $1.02 |\n| 60s | $2.04 |\n| 120s | $4.08 |\n\nFailed runs are not charged.\n\n## Prompting\n\n- State the target length in the prompt.\n",
+  "cover_url": "https://static.sandbase.ai/covers/heygen/heygen/video-agent/v3/cover-flare-20261005044159.webp",
+  "page_url": "https://www.sandbase.ai/model/heygen/video-agent/v3",
+  "published_at": "2026-04-16T16:49:14.52Z",
+  "created_at": "2026-10-05T23:57:42.477Z"
+}

@@ -1,0 +1,58 @@
+{
+  "name": "kuaishou/app/user-hot-post",
+  "display_name": "Kuaishou User Hot Posts",
+  "type": "api",
+  "vendor": "Kuaishou",
+  "vendor_slug": "kuaishou",
+  "description": "Returns popular posts from a specified Kuaishou user profile, including captions and interaction metrics such as comments and collects.",
+  "tags": [
+    "api",
+    "kuaishou"
+  ],
+  "capabilities": [
+    "api",
+    "kuaishou"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/kuaishou/app/user-hot-post"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "user_id"
+    ],
+    "properties": {
+      "pcursor": {
+        "type": "string",
+        "title": "作品游标/Post cursor"
+      },
+      "user_id": {
+        "type": "string",
+        "title": "用户ID/User ID",
+        "example": "3795214411"
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.0015,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "readme": "# Kuaishou User Hot Posts API\n\nRetrieve hot post feeds and engagement statistics for a Kuaishou creator using `user_id`.\n\n## Use cases\n\n- Analyze top-performing video content from a creator.\n- Track engagement metrics like comment and collect counts on popular posts.\n- Browse a user trending feed history using pagination.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/kuaishou/app/user-hot-post\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"user_id\": \"3795214411\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `user_id` | string | Yes | — |\n| `pcursor` | string | No | — |\n\n## Example response\n\nReal response for the request above, trimmed to the main fields. User names and long IDs are masked.\n\n```json\n{\n  \"feeds\": [\n    {\n      \"caption\": \"回村往事@李秀妍u(O4489551526) #李秀妍u\",\n      \"captionToComment\": \"回村往事@李秀妍u(O4489551526) #李秀妍u\",\n      \"collect_count\": 8390,\n      \"comment_count\": 4097,\n      \"disableCommentDislike\": false,\n      \"duration\": 129349,\n      \"exp_tag\": \"1_i/2006355482836038866_phot\",\n      \"fastCommentType\": 1,\n      \"following\": 0,\n      \"forward_count\": 0,\n      \"bottomEntryInfo\": {\n        \"bottomBizType\": 14\n      },\n      \"commentGuessSearch\": {\n        \"searchWord\": \"李秀妍和榜一大哥的视频\",\n        \"searchWordMD5\": \"c541e248be165bd097c418eb43aa4a47\",\n        \"searchWordUrl\": \"kwai://search?keyword=李秀妍和榜一大哥的视频&sessionId=MzIwXzBfMTc5MTI5MDQ5OTE1NV9fOTM1NQ&source=sea…\"\n      },\n      \"commentInfo\": {\n        \"commentCountSpecialEffect\": true\n      },\n      \"editInfo\": {\n        \"editTime\": 1775816488646\n      }\n    }\n  ]\n}\n```\n\n## Notes\n\n- Specify `user_id` to query hot posts for a specific profile.\n- Pass `pcursor` to navigate across paginated feed results.\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [Kuaishou Brand Top List](/model/kuaishou/app/brand-top-list): Returns top brand rankings and related live stream links from Kuaishou.\n- [Kuaishou App Share Link](/model/kuaishou/app/generate-share-link): Generates a shareable URL for Kuaishou application content using a specified object identifier.\n- [Kuaishou Hot Board Categories](/model/kuaishou/app/hot-board-categories): Returns the active list of hot board categories available in the Kuaishou app.\n",
+  "page_url": "https://www.sandbase.ai/model/kuaishou/app/user-hot-post",
+  "created_at": "2026-07-31T03:58:22.879Z"
+}

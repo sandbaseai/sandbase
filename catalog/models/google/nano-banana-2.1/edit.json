@@ -1,0 +1,310 @@
+{
+  "name": "google/nano-banana-2.1/edit",
+  "display_name": "Nano Banana 2.1 Edit",
+  "type": "image",
+  "vendor": "Google",
+  "vendor_slug": "google",
+  "description": "Nano Banana 2.1 Edit is Google's latest fast image editing model, fusing up to 14 reference images with stronger subject consistency and 1K to 4K output.",
+  "tags": [
+    "image-to-image",
+    "commercial"
+  ],
+  "capabilities": [
+    "image-to-image",
+    "commercial"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "prompt",
+      "images"
+    ],
+    "properties": {
+      "images": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        },
+        "title": "Images",
+        "examples": [
+          "https://ai.google.dev/static/gemini-api/docs/images/man_in_white_glasses.jpg"
+        ],
+        "maxItems": 14,
+        "description": "The URLs of the images to use for image-to-image generation or image editing."
+      },
+      "prompt": {
+        "type": "string",
+        "title": "Prompt",
+        "default": "Make a 3 panel comic in a gritty, noir art style with high-contrast black and white inks. Put the character in a humurous scene.",
+        "maxLength": 50000,
+        "minLength": 3,
+        "description": "The text prompt to generate an image from."
+      },
+      "resolution": {
+        "enum": [
+          "1K",
+          "2K",
+          "4K"
+        ],
+        "type": "string",
+        "title": "Resolution",
+        "default": "1K",
+        "description": "The resolution of the image to generate."
+      },
+      "aspect_ratio": {
+        "enum": [
+          "21:9",
+          "16:9",
+          "3:2",
+          "4:3",
+          "5:4",
+          "1:1",
+          "4:5",
+          "3:4",
+          "2:3",
+          "9:16",
+          "4:1",
+          "1:4",
+          "8:1",
+          "1:8"
+        ],
+        "type": "string",
+        "title": "Aspect Ratio",
+        "description": "The aspect ratio of the generated image. Leave empty to keep the aspect ratio of the input image."
+      },
+      "output_format": {
+        "enum": [
+          "jpeg",
+          "png"
+        ],
+        "type": "string",
+        "title": "Output Format",
+        "default": "png",
+        "description": "The format of the generated image."
+      },
+      "enable_web_search": {
+        "type": "boolean",
+        "title": "Web Search",
+        "default": false,
+        "description": "Enable Google web search grounding to provide background context for image generation."
+      },
+      "enable_image_search": {
+        "type": "boolean",
+        "title": "Image Search",
+        "default": false,
+        "description": "Enable Google image search to retrieve web images as visual background reference for generation."
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "title": "GenerationResponse",
+    "required": [
+      "id",
+      "status"
+    ],
+    "properties": {
+      "id": {
+        "type": "string",
+        "description": "Unique identifier for the generation task."
+      },
+      "error": {
+        "type": "string",
+        "description": "Error message if the task failed. Empty on success."
+      },
+      "model": {
+        "type": "string",
+        "description": "Model ID used for the prediction."
+      },
+      "status": {
+        "enum": [
+          "pending",
+          "running",
+          "completed",
+          "failed",
+          "timeout"
+        ],
+        "type": "string",
+        "description": "Status of the task: pending, running, completed, failed, or timeout."
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "title": "OutputItem",
+          "required": [
+            "url"
+          ],
+          "properties": {
+            "url": {
+              "type": "string",
+              "examples": [
+                "https://storage.googleapis.com/falserverless/example_outputs/nano-banana-multi-edit-output.png"
+              ],
+              "description": "The URL where the generated content can be downloaded from."
+            },
+            "content_type": {
+              "type": "string",
+              "description": "The MIME type of the output file."
+            }
+          }
+        },
+        "description": "Array of generated content. Empty when status is not completed."
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "formula",
+    "formula": "((params.resolution ?? \"1K\") == \"4K\" ? 0.135 : (params.resolution ?? \"1K\") == \"2K\" ? 0.06 : 0.04) + (((params.enable_web_search ?? false) || (params.enable_image_search ?? false)) ? 0.014 : 0.0) + 0.002 * len(params.images ?? [])",
+    "formula_variables": [
+      "params.enable_image_search",
+      "params.enable_web_search",
+      "params.images",
+      "params.resolution"
+    ],
+    "reference_price": 0.042,
+    "price_examples": [
+      {
+        "params": {
+          "enable_image_search": false,
+          "enable_web_search": false,
+          "resolution": "1K"
+        },
+        "usd": 0.044
+      },
+      {
+        "params": {
+          "enable_image_search": false,
+          "enable_web_search": false,
+          "resolution": "2K"
+        },
+        "usd": 0.064
+      },
+      {
+        "params": {
+          "enable_image_search": false,
+          "enable_web_search": false,
+          "resolution": "4K"
+        },
+        "usd": 0.139
+      },
+      {
+        "params": {
+          "enable_image_search": false,
+          "enable_web_search": true,
+          "resolution": "1K"
+        },
+        "usd": 0.058
+      },
+      {
+        "params": {
+          "enable_image_search": false,
+          "enable_web_search": true,
+          "resolution": "2K"
+        },
+        "usd": 0.078
+      },
+      {
+        "params": {
+          "enable_image_search": false,
+          "enable_web_search": true,
+          "resolution": "4K"
+        },
+        "usd": 0.153
+      },
+      {
+        "params": {
+          "enable_image_search": true,
+          "enable_web_search": false,
+          "resolution": "1K"
+        },
+        "usd": 0.058
+      },
+      {
+        "params": {
+          "enable_image_search": true,
+          "enable_web_search": false,
+          "resolution": "2K"
+        },
+        "usd": 0.078
+      },
+      {
+        "params": {
+          "enable_image_search": true,
+          "enable_web_search": false,
+          "resolution": "4K"
+        },
+        "usd": 0.153
+      },
+      {
+        "params": {
+          "enable_image_search": true,
+          "enable_web_search": true,
+          "resolution": "1K"
+        },
+        "usd": 0.058
+      },
+      {
+        "params": {
+          "enable_image_search": true,
+          "enable_web_search": true,
+          "resolution": "2K"
+        },
+        "usd": 0.078
+      },
+      {
+        "params": {
+          "enable_image_search": true,
+          "enable_web_search": true,
+          "resolution": "4K"
+        },
+        "usd": 0.153
+      }
+    ]
+  },
+  "examples": [
+    {
+      "input": {
+        "aspect_ratio": "16:9",
+        "images": [
+          "https://static.sandbase.ai/examples/99a6fd8e-c5a0-4107-85fe-28c24782d8a3/input/88fdad83-3d16-4b09-9da0-f8ce8bdca922.png",
+          "https://static.sandbase.ai/examples/99a6fd8e-c5a0-4107-85fe-28c24782d8a3/input/d324832d-9607-4c10-a226-b596cf215649.png"
+        ],
+        "prompt": "Create a professional e-commerce fashion photo. Take the blue floral dress from the first image and let the woman from the second image wear it. Generate a realistic, full-body shot of the woman wearing the dress, with the lighting and shadows adjusted to match the outdoor environment."
+      },
+      "output": [
+        {
+          "url": "https://static.sandbase.ai/examples/99a6fd8e-c5a0-4107-85fe-28c24782d8a3/output/7c678109-5a6c-43f6-9826-df0c1c539af3.png"
+        }
+      ],
+      "default": true
+    },
+    {
+      "input": {
+        "aspect_ratio": "16:9",
+        "images": [
+          "https://static.sandbase.ai/examples/e9c21fc1-ca67-4fac-9fe5-276f574a2c47/input/7b8c40fd-09f1-458f-ac18-576fdee3e162.jpg"
+        ],
+        "prompt": "Make a 3 panel comic in a gritty, noir art style with high-contrast black and white inks. Put the character in a humorous scene."
+      },
+      "output": [
+        {
+          "url": "https://static.sandbase.ai/examples/e9c21fc1-ca67-4fac-9fe5-276f574a2c47/output/cba0b805-9c6d-4967-b170-5c294c912b3c.png"
+        }
+      ]
+    }
+  ],
+  "cover_url": "https://static.sandbase.ai/covers/google/nano-banana-2.1/edit/cover-flare-20261008073016.webp",
+  "page_url": "https://www.sandbase.ai/model/google/nano-banana-2.1/edit",
+  "published_at": "2026-10-06T16:02:29.662Z",
+  "created_at": "2026-10-07T19:06:29.551Z"
+}

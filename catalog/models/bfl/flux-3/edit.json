@@ -1,0 +1,206 @@
+{
+  "name": "bfl/flux-3/edit",
+  "display_name": "Flux 3 Edit",
+  "type": "image",
+  "vendor": "BFL",
+  "vendor_slug": "bfl",
+  "description": "FLUX 3 by Black Forest Labs edits up to 10 reference images from a text instruction, with strong prompt adherence and typography at 512px to 4K resolution tiers.",
+  "tags": [
+    "image-to-image"
+  ],
+  "capabilities": [
+    "image-to-image"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "prompt",
+      "images"
+    ],
+    "properties": {
+      "images": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        },
+        "title": "Image Urls",
+        "examples": [
+          "https://storage.googleapis.com/falserverless/example_inputs/flux2_pro_edit_input.png"
+        ],
+        "description": "Reference image URLs or data URIs, in image 1 through image 10 order. Each must be at least 256 pixels per dimension and at most 4 megapixels. The first controls auto aspect ratio."
+      },
+      "prompt": {
+        "type": "string",
+        "title": "Prompt",
+        "examples": [
+          "A red fox leaping over a stream in a pine forest, low-angle wildlife photograph."
+        ],
+        "description": "The prompt to generate an image from."
+      },
+      "resolution": {
+        "enum": [
+          "512sq",
+          "768sq",
+          "1k",
+          "2k",
+          "4k"
+        ],
+        "type": "string",
+        "title": "Resolution",
+        "default": "1k",
+        "description": "Output resolution tier. 4k can take several minutes."
+      },
+      "aspect_ratio": {
+        "enum": [
+          "21:9",
+          "16:9",
+          "3:2",
+          "4:3",
+          "5:4",
+          "1:1",
+          "4:5",
+          "3:4",
+          "2:3",
+          "9:16"
+        ],
+        "type": "string",
+        "title": "Aspect Ratio",
+        "description": "The aspect ratio of the generated image."
+      },
+      "output_format": {
+        "enum": [
+          "jpeg",
+          "png"
+        ],
+        "type": "string",
+        "title": "Output Format",
+        "default": "jpeg",
+        "description": "The format of the generated image."
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "title": "GenerationResponse",
+    "required": [
+      "id",
+      "status"
+    ],
+    "properties": {
+      "id": {
+        "type": "string",
+        "description": "Unique identifier for the generation task."
+      },
+      "error": {
+        "type": "string",
+        "description": "Error message if the task failed. Empty on success."
+      },
+      "model": {
+        "type": "string",
+        "description": "Model ID used for the prediction."
+      },
+      "status": {
+        "enum": [
+          "pending",
+          "running",
+          "completed",
+          "failed",
+          "timeout"
+        ],
+        "type": "string",
+        "description": "Status of the task: pending, running, completed, failed, or timeout."
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "title": "OutputItem",
+          "required": [
+            "url"
+          ],
+          "properties": {
+            "url": {
+              "type": "string",
+              "description": "The URL where the generated content can be downloaded from."
+            },
+            "content_type": {
+              "type": "string",
+              "description": "The MIME type of the output file."
+            }
+          }
+        },
+        "description": "Array of generated content. Empty when status is not completed."
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "formula",
+    "formula": "(params.resolution ?? \"1k\") == \"4k\" ? 0.607 : (params.resolution ?? \"1k\") == \"2k\" ? 0.1 : ((params.resolution ?? \"1k\") == \"512sq\" || (params.resolution ?? \"1k\") == \"768sq\") ? 0.041 : 0.048",
+    "formula_variables": [
+      "params.resolution"
+    ],
+    "reference_price": 0.048,
+    "price_examples": [
+      {
+        "params": {
+          "resolution": "512sq"
+        },
+        "usd": 0.041
+      },
+      {
+        "params": {
+          "resolution": "768sq"
+        },
+        "usd": 0.041
+      },
+      {
+        "params": {
+          "resolution": "1k"
+        },
+        "usd": 0.048
+      },
+      {
+        "params": {
+          "resolution": "2k"
+        },
+        "usd": 0.1
+      },
+      {
+        "params": {
+          "resolution": "4k"
+        },
+        "usd": 0.607
+      }
+    ]
+  },
+  "examples": [
+    {
+      "input": {
+        "images": [
+          "https://static.sandbase.ai/examples/569ea553-5e21-4726-8615-1ba33c57e547/input/d1285e69-70ed-44f3-9aab-44a1de9b71f4.png"
+        ],
+        "prompt": "make the background blue"
+      },
+      "output": [
+        {
+          "url": "https://static.sandbase.ai/examples/569ea553-5e21-4726-8615-1ba33c57e547/output/915964a1-cebf-40ba-b9ed-e7d62de59b4e.jpg"
+        }
+      ],
+      "default": true
+    }
+  ],
+  "readme": "# Flux 3 Edit\n\nFLUX 3 by Black Forest Labs edits up to 10 reference images from an instruction, with strong prompt adherence and typography at resolution tiers from 512px to 4K.\n\n## Fields\n\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `prompt` | string, required | — | Text instruction. |\n| `images` | image URL[], required | — | Images to edit, Image 1 to Image 10. |\n| `resolution` | `512sq` / `768sq` / `1k` / `2k` / `4k` | `1k` | Size tier; sets the per-image rate. |\n| `output_format` | `jpeg` / `png` | `jpeg` | Output file format. |\n| `aspect_ratio` | `21:9` / `16:9` / `3:2` / `4:3` / `5:4` / `1:1` / `4:5` / `3:4` / `2:3` / `9:16` | — | Output shape. |\n\n## Billing\n\nBFL's official per-image tiers: $0.041 for the 512 and 768 square tiers, $0.048 at 1K, $0.10 at 2K, $0.607 at 4K.\n\n| Request | 512sq | 1k | 2k | 4k |\n|---|---|---|---|---|\n| One image | $0.041 | $0.048 | $0.10 | $0.607 |\n\nFailed runs are not charged.\n\n## Prompting\n\n- Quote any text that must appear and say where it goes.\n\n## Limits\n\n- One output image per request.\n\n## Also on SandBase\n\nOther FLUX 3 endpoints: `bfl/flux-3/text-to-image`, `bfl/flux-3/text-to-video`, `bfl/flux-3/image-to-video`.\n",
+  "cover_url": "https://static.sandbase.ai/covers/bfl/flux-2/pro/edit/cover-flare-20261005013628.webp",
+  "page_url": "https://www.sandbase.ai/model/bfl/flux-3/edit",
+  "published_at": "2026-10-01T19:10:40.535Z",
+  "created_at": "2026-10-06T10:42:31.124Z"
+}

@@ -1,0 +1,311 @@
+{
+  "name": "lightricks/ltx-2.3-fast/image-to-video",
+  "display_name": "LTX 2.3 Fast Image to Video",
+  "type": "video",
+  "vendor": "Lightricks",
+  "vendor_slug": "lightricks",
+  "description": "Ltx 2.3 Fast is Lightricks's image-to-video AI model. Bring static images to life with fluid animation, consistent character motion, and professional-grade video output.",
+  "tags": [
+    "image-to-video"
+  ],
+  "capabilities": [
+    "image-to-video"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "prompt",
+      "image"
+    ],
+    "properties": {
+      "image": {
+        "type": "string",
+        "title": "Start Image URL",
+        "examples": [
+          "https://static.sandbase.ai/examples/lightricks/ltx-2.3-fast/image-to-video/input_image_0.png"
+        ],
+        "description": "URL of the image to generate the video from. Must be publicly accessible or base64 data URI. Supports PNG, JPEG, WebP, AVIF, and HEIF formats."
+      },
+      "prompt": {
+        "type": "string",
+        "title": "Prompt",
+        "examples": [
+          "Snorkel lens ground-scraping tracking shot following a barefoot Ethiopian long-distance runner training on a dirt road at dawn, camera inches from the ground racing alongside, her feet kicking up red dust in slow motion at 240fps, Rift Valley landscape blurred in the background, the texture of earth and callused skin in hyper-detail, 40mm snorkel lens at ground height, Nike Running documentary meets Lubezki natural light, the poetry of human endurance"
+        ],
+        "maxLength": 5000,
+        "minLength": 1,
+        "description": "The prompt to generate the video from"
+      },
+      "duration": {
+        "enum": [
+          6,
+          8,
+          10,
+          12,
+          14,
+          16,
+          18,
+          20
+        ],
+        "type": "integer",
+        "title": "Duration",
+        "default": 6,
+        "description": "The duration of the generated video in seconds. The fast model supports 6-20 seconds. Note: Durations longer than 10 seconds (12, 14, 16, 18, 20) are only supported with 25 FPS and 1080p resolution."
+      },
+      "end_image": {
+        "type": "string",
+        "title": "End Image URL",
+        "description": "The URL of the end image to use for the generated video. When provided, generates a transition video between start and end frames."
+      },
+      "resolution": {
+        "enum": [
+          "1080p",
+          "1440p",
+          "2160p"
+        ],
+        "type": "string",
+        "title": "Resolution",
+        "default": "1080p",
+        "description": "The resolution of the generated video"
+      },
+      "aspect_ratio": {
+        "enum": [
+          "16:9",
+          "9:16"
+        ],
+        "type": "string",
+        "title": "Aspect Ratio",
+        "description": "Output aspect ratio. Omit to match the input image."
+      },
+      "generate_audio": {
+        "type": "boolean",
+        "title": "Generate Audio",
+        "default": true,
+        "description": "Whether to generate audio for the generated video"
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "title": "GenerationResponse",
+    "required": [
+      "id",
+      "status"
+    ],
+    "properties": {
+      "id": {
+        "type": "string",
+        "description": "Unique identifier for the generation task."
+      },
+      "error": {
+        "type": "string",
+        "description": "Error message if the task failed. Empty on success."
+      },
+      "model": {
+        "type": "string",
+        "description": "Model ID used for the prediction."
+      },
+      "status": {
+        "enum": [
+          "pending",
+          "running",
+          "completed",
+          "failed",
+          "timeout"
+        ],
+        "type": "string",
+        "description": "Status of the task: pending, running, completed, failed, or timeout."
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "title": "OutputItem",
+          "required": [
+            "url"
+          ],
+          "properties": {
+            "url": {
+              "type": "string",
+              "examples": [
+                "https://static.sandbase.ai/examples/lightricks/ltx-2.3-fast/image-to-video/output_url_1.mp4"
+              ],
+              "description": "The URL where the generated content can be downloaded from."
+            },
+            "content_type": {
+              "type": "string",
+              "description": "The MIME type of the output file."
+            }
+          }
+        },
+        "description": "Array of generated content. Empty when status is not completed."
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "formula",
+    "formula": "(params.resolution ?? \"1080p\") == \"2160p\" ? (params.duration ?? 6) * 0.24 : (params.resolution ?? \"1080p\") == \"1440p\" ? (params.duration ?? 6) * 0.12 : (params.duration ?? 6) * 0.06",
+    "formula_variables": [
+      "params.duration",
+      "params.resolution"
+    ],
+    "reference_price": 0.36,
+    "price_examples": [
+      {
+        "params": {
+          "duration": 6,
+          "resolution": "1080p"
+        },
+        "usd": 0.36
+      },
+      {
+        "params": {
+          "duration": 6,
+          "resolution": "1440p"
+        },
+        "usd": 0.72
+      },
+      {
+        "params": {
+          "duration": 6,
+          "resolution": "2160p"
+        },
+        "usd": 1.44
+      },
+      {
+        "params": {
+          "duration": 8,
+          "resolution": "1080p"
+        },
+        "usd": 0.48
+      },
+      {
+        "params": {
+          "duration": 8,
+          "resolution": "1440p"
+        },
+        "usd": 0.96
+      },
+      {
+        "params": {
+          "duration": 8,
+          "resolution": "2160p"
+        },
+        "usd": 1.92
+      },
+      {
+        "params": {
+          "duration": 10,
+          "resolution": "1080p"
+        },
+        "usd": 0.6
+      },
+      {
+        "params": {
+          "duration": 10,
+          "resolution": "1440p"
+        },
+        "usd": 1.2
+      },
+      {
+        "params": {
+          "duration": 10,
+          "resolution": "2160p"
+        },
+        "usd": 2.4
+      },
+      {
+        "params": {
+          "duration": 12,
+          "resolution": "1080p"
+        },
+        "usd": 0.72
+      },
+      {
+        "params": {
+          "duration": 12,
+          "resolution": "1440p"
+        },
+        "usd": 1.44
+      },
+      {
+        "params": {
+          "duration": 12,
+          "resolution": "2160p"
+        },
+        "usd": 2.88
+      },
+      {
+        "params": {
+          "duration": 14,
+          "resolution": "1080p"
+        },
+        "usd": 0.84
+      },
+      {
+        "params": {
+          "duration": 14,
+          "resolution": "1440p"
+        },
+        "usd": 1.68
+      },
+      {
+        "params": {
+          "duration": 14,
+          "resolution": "2160p"
+        },
+        "usd": 3.36
+      },
+      {
+        "params": {
+          "duration": 16,
+          "resolution": "1080p"
+        },
+        "usd": 0.96
+      },
+      {
+        "params": {
+          "duration": 16,
+          "resolution": "1440p"
+        },
+        "usd": 1.92
+      },
+      {
+        "params": {
+          "duration": 16,
+          "resolution": "2160p"
+        },
+        "usd": 3.84
+      }
+    ]
+  },
+  "examples": [
+    {
+      "input": {
+        "image": "https://static.sandbase.ai/examples/78072a01-7219-4993-a8f3-089836e6ad15/input/cc432447-c109-463d-a28b-0e4b21c66923.png",
+        "prompt": "Snorkel lens ground-scraping tracking shot following a barefoot Ethiopian long-distance runner training on a dirt road at dawn, camera inches from the ground racing alongside, her feet kicking up red dust in slow motion at 240fps, Rift Valley landscape blurred in the background, the texture of earth and callused skin in hyper-detail, 40mm snorkel lens at ground height, Nike Running documentary meets Lubezki natural light, the poetry of human endurance"
+      },
+      "output": [
+        {
+          "poster": "https://static.sandbase.ai/examples/posters/751eba32b385e955d0a9.jpg",
+          "url": "https://static.sandbase.ai/examples/78072a01-7219-4993-a8f3-089836e6ad15/output/abec3b97-53f7-487e-a14c-e60845ffb0a8.mp4"
+        }
+      ],
+      "default": true
+    }
+  ],
+  "readme": "# LTX 2.3 Fast Image to Video\n\nLTX 2.3 Fast image to video: up to 20 second clips with native audio at 1080p, 1440p, or 4K (2160p). `image` is the first frame; `end_image` optionally the last.\n\n## Fields\n\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `prompt` | string, required | — | Up to 5,000 characters. |\n| `image` | image URL, required | — | First frame. JPEG, PNG, or WebP URL. |\n| `end_image` | image URL | — | Optional last frame. |\n| `resolution` | `1080p` / `1440p` / `2160p` | `1080p` | Sets the per-second rate. |\n| `duration` | 6 / 8 / 10 / 12 / 14 / 16 / 18 / 20 | 6 | Output length in seconds. |\n| `generate_audio` | boolean | true | Native audio. |\n| `aspect_ratio` | `16:9` / `9:16` | — | Output frame shape. |\n\n## Billing\n\nYou pay for output seconds: $0.06 at 1080p, $0.12 at 1440p, $0.24 at 2160p.\n\n| Output | 1080p | 1440p | 2160p |\n|---|---|---|---|\n| 6s (default) | $0.36 | $0.72 | $1.44 |\n| 10s | $0.60 | $1.20 | $2.40 |\n| 20s | $1.20 | $2.40 | $4.80 |\n\nFailed runs are not charged.\n\n## Prompting\n\n- Describe subject, action, camera, and sound.\n\n## Also on SandBase\n\nOther LTX 2.3 endpoints: `lightricks/ltx-2.3-pro/text-to-video`, `lightricks/ltx-2.3-pro/image-to-video`, `lightricks/ltx-2.3-pro/audio-to-video`, `lightricks/ltx-2.3-pro/retake`.\n",
+  "cover_url": "https://static.sandbase.ai/covers/lightricks/ltx-2.3-fast/image-to-video/cover-flare-20261005031649.webp",
+  "page_url": "https://www.sandbase.ai/model/lightricks/ltx-2.3-fast/image-to-video",
+  "published_at": "2026-03-05T15:34:01.598Z",
+  "created_at": "2026-05-15T11:53:15.539Z"
+}

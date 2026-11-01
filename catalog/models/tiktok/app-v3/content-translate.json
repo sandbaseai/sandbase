@@ -1,0 +1,66 @@
+{
+  "name": "tiktok/app-v3/content-translate",
+  "display_name": "TikTok Content Translation",
+  "type": "api",
+  "vendor": "TikTok",
+  "vendor_slug": "tiktok",
+  "description": "Translates provided text content into a designated target language. Accepts source text up to 5000 characters and returns the corresponding translated text string.",
+  "tags": [
+    "api",
+    "tiktok"
+  ],
+  "capabilities": [
+    "api",
+    "tiktok"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/tiktok/app-v3/content-translate"
+  },
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "trg_lang": {
+        "type": "string",
+        "title": "Trg Lang",
+        "default": "zh-Hans",
+        "example": "zh-Hans",
+        "description": "Target language"
+      },
+      "src_content": {
+        "type": "string",
+        "title": "Src Content",
+        "default": "Hello, welcome!",
+        "example": "Hello",
+        "description": "Source content, that is, the content that needs to be translated, the length does not exceed 5000 characters, if it exceeds 5000 characters, only the first 5000 characters will be translated."
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.0015,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "examples": [
+    {
+      "input": {},
+      "default": true
+    }
+  ],
+  "readme": "# TikTok Content Translation API\n\nRetrieve translated text strings by passing the source text in `src_content` and designating the destination language code in `trg_lang`.\n\n## Use cases\n\n- Translate TikTok post captions and descriptions into a target language.\n- Localize user comments for multilingual analysis workflows.\n- Convert video text content into different regional languages.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/tiktok/app-v3/content-translate\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `trg_lang` | string | No | Target language |\n| `src_content` | string | No | Source content, that is, the content that needs to be translated, the length does not exceed 5000 characters, if it exceeds 5000 characters, only the first 500… |\n\n## Example response\n\nReal response for the request above, trimmed to the main fields. User names and long IDs are masked.\n\n```json\n{\n  \"translated_content_list\": [\n    {\n      \"src_content\": \"Hello, welcome!\",\n      \"translated_content\": \"您好，欢迎！\"\n    }\n  ]\n}\n```\n\n## Notes\n\n- The `src_content` parameter supports up to 5000 characters; input exceeding this limit is truncated to the first 5000 characters.\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [TikTok LIVE Status](/model/tiktok/app-v3/check-live-room-online): Check whether a TikTok LIVE room is currently live by room ID.\n- [TikTok Room Online Status Batch](/model/tiktok/app-v3/check-live-room-online-batch): Returns the online availability status for multiple TikTok broadcast rooms in a single request.\n- [TikTok Creator Search Insights](/model/tiktok/app-v3/creator-search-insights): Get TikTok Creator Search Insights: trending search queries with popularity scores, trend history and video counts, including content-gap topics, by category a…\n",
+  "page_url": "https://www.sandbase.ai/model/tiktok/app-v3/content-translate",
+  "created_at": "2026-07-31T02:43:43.138Z"
+}

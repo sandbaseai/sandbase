@@ -1,0 +1,54 @@
+{
+  "name": "kuaishou/web/one-video-by-url",
+  "display_name": "Kuaishou Single Video by URL",
+  "type": "api",
+  "vendor": "Kuaishou",
+  "vendor_slug": "kuaishou",
+  "description": "Retrieves video manifest data and streaming representation details for a specific Kuaishou post using its web link. Returns media properties such as resolution, frame rate, and direct video URLs.",
+  "tags": [
+    "api",
+    "kuaishou"
+  ],
+  "capabilities": [
+    "api",
+    "kuaishou"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/kuaishou/web/one-video-by-url"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "url"
+    ],
+    "properties": {
+      "url": {
+        "type": "string",
+        "title": "作品链接/Photo URL",
+        "example": "https://v.kuaishou.com/GKTpYm"
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.003,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "readme": "# Kuaishou Single Video by URL API\n\nAccess video stream manifests and quality representations for Kuaishou content by supplying a post link in `url`.\n\n## Use cases\n\n- Retrieve direct stream URLs and video quality representations from a post link.\n- Inspect video resolution, frame rates, and manifest data.\n- Integrate Kuaishou video playback capabilities into external applications.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/kuaishou/web/one-video-by-url\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"url\": \"https://v.kuaishou.com/GKTpYm\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `url` | string | Yes | — |\n\n## Example response\n\nReal response for the request above, trimmed to the main fields. User names and long IDs are masked.\n\n```json\n{\n  \"photo\": {\n    \"manifest\": {\n      \"adaptationSet\": [\n        {\n          \"representation\": [\n            {\n              \"frameRate\": 29.97003,\n              \"hdrType\": 0,\n              \"id\": 1,\n              \"qualityLabel\": \"高清\",\n              \"qualityType\": \"720p\",\n              \"url\": \"https://v23-3.kwaicdn.com/upic/2024/06/19/21/BMjAyNDA2MTkyMTA5NDJfMTA5NjYzNzQwMV…\",\n              \"kvqScore\": {\n                \"nnvcScore\": -1\n              }\n            }\n          ]\n        }\n      ]\n    }\n  }\n}\n```\n\n## Notes\n\n- Provide a valid Kuaishou post link using the required `url` parameter.\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [Kuaishou Web Share Short URL](/model/kuaishou/web/generate-share-short-url): Returns a shareable short URL for a specified Kuaishou video or photo post.\n- [Kuaishou User ID Lookup](/model/kuaishou/web/get-user-id): Resolves a Kuaishou user ID from a provided user share link.\n- [Kuaishou Web Hot List](/model/kuaishou/web/hot-list-v1): Returns the current trending hot list from Kuaishou Web.\n",
+  "page_url": "https://www.sandbase.ai/model/kuaishou/web/one-video-by-url",
+  "created_at": "2026-07-31T03:58:41.549Z"
+}

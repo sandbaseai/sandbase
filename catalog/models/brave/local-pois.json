@@ -1,0 +1,174 @@
+{
+  "name": "brave/local-pois",
+  "display_name": "Brave Local POIs",
+  "type": "api",
+  "vendor": "Brave",
+  "vendor_slug": "brave",
+  "description": "Local POIs from Brave. Returns the official Brave API response unchanged.",
+  "tags": [
+    "api",
+    "brave",
+    "web-search"
+  ],
+  "capabilities": [
+    "api",
+    "brave",
+    "web-search"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/brave/local-pois"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "ids"
+    ],
+    "properties": {
+      "ids": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        },
+        "example": [
+          "loc4DFZ5OEXSZVDUAEEDV6PMTFK6YDFANIHQIRRVKLA="
+        ],
+        "description": "A list of unique identifiers for the location. The ids are valid only for 8 hours."
+      },
+      "units": {
+        "enum": [
+          "imperial",
+          "metric"
+        ],
+        "type": "string",
+        "description": "The measurement units. The following values are supported: metric - The standardized measurement system (km, celcius…) imperial - The British Imperial system of units (mile, fahrenheit…)"
+      },
+      "ui_lang": {
+        "enum": [
+          "es-AR",
+          "en-AU",
+          "de-AT",
+          "nl-BE",
+          "fr-BE",
+          "pt-BR",
+          "en-CA",
+          "fr-CA",
+          "es-CL",
+          "da-DK",
+          "fi-FI",
+          "fr-FR",
+          "de-DE",
+          "el-GR",
+          "zh-HK",
+          "en-IN",
+          "en-ID",
+          "it-IT",
+          "ja-JP",
+          "ko-KR",
+          "en-MY",
+          "es-MX",
+          "nl-NL",
+          "en-NZ",
+          "no-NO",
+          "zh-CN",
+          "pl-PL",
+          "en-PH",
+          "ru-RU",
+          "en-ZA",
+          "es-ES",
+          "sv-SE",
+          "fr-CH",
+          "de-CH",
+          "zh-TW",
+          "tr-TR",
+          "en-GB",
+          "en-US",
+          "es-US"
+        ],
+        "type": "string",
+        "default": "en-US",
+        "description": "User interface language preferred in response. Usually of the format <language_code>-<country_code>. For more, see RFC 9110 ."
+      },
+      "search_lang": {
+        "enum": [
+          "ar",
+          "eu",
+          "bn",
+          "bg",
+          "ca",
+          "zh-hans",
+          "zh-hant",
+          "hr",
+          "cs",
+          "da",
+          "nl",
+          "en",
+          "en-gb",
+          "et",
+          "fi",
+          "fr",
+          "gl",
+          "de",
+          "el",
+          "gu",
+          "he",
+          "hi",
+          "hu",
+          "is",
+          "it",
+          "ja",
+          "jp",
+          "kn",
+          "ko",
+          "lv",
+          "lt",
+          "ms",
+          "ml",
+          "mr",
+          "nb",
+          "pl",
+          "pt-br",
+          "pt-pt",
+          "pa",
+          "ro",
+          "ru",
+          "sr",
+          "sk",
+          "sl",
+          "es",
+          "sv",
+          "ta",
+          "te",
+          "th",
+          "tr",
+          "uk",
+          "vi"
+        ],
+        "type": "string",
+        "default": "en",
+        "description": "The search language preference. The 2 or more character language code for which the search results are provided."
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.005,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "readme": "# Brave Local POIs API\n\nLocal POIs from Brave. Returns the official Brave API response unchanged.\n\nThe response is the official Brave API response, unchanged.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/brave/local-pois\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"ids\": [\"loc4DFZ5OEXSZVDUAEEDV6PMTFK6YDFANIHQIRRVKLA=\"]}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `ids` | array | Yes | A list of unique identifiers for the location. The ids are valid only for 8 hours. |\n| `search_lang` | string | No | The search language preference. The 2 or more character language code for which the search results are provided. |\n| `ui_lang` | string | No | User interface language preferred in response. Usually of the format <language_code>-<country_code>. For more, see RFC 9110 . |\n| `units` | string | No | The measurement units. The following values are supported: metric - The standardized measurement system (km, celcius…) imperial - The British Imperial system of |\n\n## Pricing\n\nFlat price per call. Failed calls are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/brave/local-pois",
+  "created_at": "2026-10-30T03:12:23.54Z"
+}

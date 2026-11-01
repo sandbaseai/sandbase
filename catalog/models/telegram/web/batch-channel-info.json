@@ -1,0 +1,63 @@
+{
+  "name": "telegram/web/batch-channel-info",
+  "display_name": "Telegram Batch Channel Info",
+  "type": "api",
+  "vendor": "Telegram",
+  "vendor_slug": "telegram",
+  "description": "Returns basic channel profile details including title, description, and verified status for multiple public Telegram channels at once.",
+  "tags": [
+    "api",
+    "telegram"
+  ],
+  "capabilities": [
+    "api",
+    "telegram"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/telegram/web/batch-channel-info"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "channels"
+    ],
+    "properties": {
+      "channels": {
+        "type": "string",
+        "title": "Channels",
+        "example": "telegram",
+        "description": "Comma-separated channel usernames, up to 20 per request."
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.012,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "examples": [
+    {
+      "input": {
+        "channels": "telegram"
+      },
+      "default": true
+    }
+  ],
+  "readme": "# Telegram Batch Channel Info API\n\nLook up public profile details for multiple Telegram channels in a single request using the `channels` parameter.\n\n## Use cases\n\n- Retrieve profile summaries for multiple public Telegram channels simultaneously.\n- Verify whether specific Telegram channels have verified badges.\n- Inspect channel descriptions and titles across a list of target usernames.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/telegram/web/batch-channel-info\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"channels\": \"telegram\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `channels` | string | Yes | Comma-separated channel usernames, up to 20 per request. |\n\n## Example response\n\nReal response for the request above, trimmed to the main fields. User names and long IDs are masked.\n\n```json\n{\n  \"results\": [\n    {\n      \"info\": {\n        \"description\": \"The official Telegram on Telegram. Much recursion. Very Telegram. Wow.\",\n        \"title\": \"Telegram News\",\n        \"username\": \"<user>\",\n        \"verified\": true\n      }\n    }\n  ]\n}\n```\n\n## Notes\n\n- Pass channel usernames as a comma-separated string to `channels`.\n- Accepts up to 20 channel usernames per request.\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [Telegram Channel Info](/model/telegram/web/channel-info): Returns public metadata for a Telegram channel, including title, description, verified status, and username, using the public web preview.\n- [Telegram Channel Posts](/model/telegram/web/channel-posts): Get a public Telegram channel's recent posts: text, media, forwards, replies, link previews, reactions, views and time, with cursor pagination.\n- [Telegram Channel Post Search](/model/telegram/web/channel-search): Returns messages matching a search keyword from a specific Telegram channel.\n",
+  "page_url": "https://www.sandbase.ai/model/telegram/web/batch-channel-info",
+  "created_at": "2026-07-31T04:11:28.081Z"
+}

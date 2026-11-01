@@ -1,0 +1,86 @@
+{
+  "name": "reddit/app/post-details",
+  "display_name": "Reddit Post Details",
+  "type": "api",
+  "vendor": "Reddit",
+  "vendor_slug": "reddit",
+  "description": "Returns detailed metadata for a Reddit post by ID, including engagement metrics, author info, and subreddit data. Supports optional comment context.",
+  "tags": [
+    "api",
+    "reddit"
+  ],
+  "capabilities": [
+    "api",
+    "reddit"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/reddit/app/post-details"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "post_id"
+    ],
+    "properties": {
+      "post_id": {
+        "type": "string",
+        "title": "Post Id",
+        "example": "t3_1ojnh50",
+        "description": "Post ID, format like \"t3_XXXXXX\""
+      },
+      "comment_id": {
+        "type": "string",
+        "title": "Comment Id",
+        "default": "",
+        "example": "",
+        "description": "Comment ID (used when include_comment_id is True), format like \"t1_XXXXXX\""
+      },
+      "need_format": {
+        "type": "boolean",
+        "title": "Need Format",
+        "default": false,
+        "example": false,
+        "description": "Whether to clean and format the data"
+      },
+      "include_comment_id": {
+        "type": "boolean",
+        "title": "Include Comment Id",
+        "default": false,
+        "example": false,
+        "description": "Whether to include specific comment ID, default False"
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.0015,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "examples": [
+    {
+      "input": {
+        "comment_id": "",
+        "include_comment_id": false,
+        "need_format": false,
+        "post_id": "t3_1ojnh50"
+      }
+    }
+  ],
+  "readme": "# Reddit Post Details API\n\nRetrieve comprehensive metadata and metrics for a Reddit submission using `post_id`. You can also supply `comment_id` to focus on specific comment context.\n\n## Use cases\n\n- Retrieve submission engagement metrics including score and comment count.\n- Inspect subreddit and author details for a specific Reddit post.\n- Access post permalinks and outbound link metadata by post ID.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/reddit/app/post-details\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"post_id\": \"t3_1ojnh50\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `post_id` | string | Yes | Post ID, format like \"t3_XXXXXX\" |\n| `comment_id` | string | No | Comment ID (used when include_comment_id is True), format like \"t1_XXXXXX\" |\n| `need_format` | boolean | No | Whether to clean and format the data |\n| `include_comment_id` | boolean | No | Whether to include specific comment ID, default False |\n\n## Example response\n\nReal response for the request above, trimmed to the main fields. User names and long IDs are masked.\n\n```json\n{\n  \"postsInfoByIds\": [\n    {\n      \"__typename\": \"SubredditPost\",\n      \"commentCount\": 11406,\n      \"id\": \"t3_1ojnh50\",\n      \"isAuthorBlocked\": false,\n      \"isScoreHidden\": false,\n      \"permalink\": \"/r/TikTokCringe/comments/1ojnh50/removed_by_moderator/\",\n      \"postTitle\": \"[ Removed by moderator ]\",\n      \"removedByCategory\": \"MODERATOR\",\n      \"score\": 33358,\n      \"url\": \"https://www.reddit.com/r/TikTokCringe/comments/1ojnh50/removed_by_moderator/\",\n      \"authorInfo\": {\n        \"__typename\": \"Redditor\",\n        \"accountType\": \"USER\",\n        \"id\": \"t2_n5zmzf3v0\",\n        \"name\": \"ambachk\"\n      },\n      \"flair\": {\n        \"__typename\": \"PostFlair\",\n        \"text\": \"Cringe\",\n        \"type\": \"text\"\n      },\n      \"outboundLink\": {\n        \"url\": \"https://www.reddit.com/r/TikTokCringe/comments/1ojnh50/removed_by_moderator/\"\n      },\n      \"subreddit\": {\n        \"__typename\": \"Subreddit\",\n        \"id\": \"t5_mvcq5\",\n        \"isTitleSafe\": true,\n        \"name\": \"TikTokCringe\",\n        \"prefixedName\": \"r/TikTokCringe\",\n        \"subscribersCount\": 5640715.0\n      }\n    }\n  ]\n}\n```\n\n## Notes\n\n- `post_id` format follows the pattern `t3_XXXXXX`.\n- `comment_id` uses the pattern `t1_XXXXXX` when `include_comment_id` is set to true.\n- Set `need_format` to true to clean and format the returned data.\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [Reddit Subreddit Mute Status](/model/reddit/app/check-subreddit-muted): Checks whether a specified Reddit subreddit is muted by the current account using its ID.\n- [Reddit App Comment Replies](/model/reddit/app/comment-replies): Returns replies and nested sub-comments under a Reddit post comment using a continuation cursor.\n- [Reddit Community Highlights](/model/reddit/app/community-highlights): Returns featured highlight content for a designated Reddit community, such as popular posts and announcements, by subreddit ID.\n",
+  "page_url": "https://www.sandbase.ai/model/reddit/app/post-details",
+  "created_at": "2026-07-31T04:10:50.108Z"
+}

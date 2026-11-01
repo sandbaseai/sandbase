@@ -1,0 +1,179 @@
+{
+  "name": "heygen/heygen-avatar4/image-to-video",
+  "display_name": "HeyGen Avatar 4 Image to Video",
+  "type": "video",
+  "vendor": "HeyGen",
+  "vendor_slug": "heygen",
+  "description": "Heygen Avatar4 is HeyGen's image-to-video AI model. Bring static images to life with fluid animation, consistent character motion, and professional-grade video output.",
+  "tags": [
+    "image-to-video"
+  ],
+  "capabilities": [
+    "image-to-video"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "image"
+    ],
+    "properties": {
+      "audio": {
+        "type": "string",
+        "title": "Audio Url",
+        "description": "URL of an audio file for the avatar to lip-sync to. When provided, overrides prompt and voice."
+      },
+      "image": {
+        "type": "string",
+        "title": "Image Url",
+        "description": "URL of the image to animate. The image should contain a clear face."
+      },
+      "voice": {
+        "type": "string",
+        "title": "Voice",
+        "default": "Melissa",
+        "examples": [
+          "Melissa"
+        ],
+        "description": "The voice ID to use for the avatar."
+      },
+      "prompt": {
+        "type": "string",
+        "title": "Prompt",
+        "examples": [
+          "Hey friends! Welcome to the GPU force podcast and today we are going to discuss about the rising GPU cost!"
+        ],
+        "description": "The text the avatar will speak"
+      },
+      "resolution": {
+        "enum": [
+          "360p",
+          "480p",
+          "540p",
+          "720p",
+          "1080p"
+        ],
+        "type": "string",
+        "title": "Resolution",
+        "default": "720p",
+        "description": "Video resolution preset."
+      },
+      "aspect_ratio": {
+        "enum": [
+          "16:9",
+          "9:16",
+          "4:5",
+          "5:4",
+          "1:1"
+        ],
+        "type": "string",
+        "title": "Aspect Ratio",
+        "description": "Output aspect ratio. Omit to keep the source aspect ratio (falls back to 16:9 when it cannot be read)."
+      },
+      "talking_style": {
+        "enum": [
+          "stable",
+          "expressive"
+        ],
+        "type": "string",
+        "title": "Talking Style",
+        "default": "stable",
+        "description": "Talking style: 'stable' for minimal movement, 'expressive' for more animation."
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "title": "GenerationResponse",
+    "required": [
+      "id",
+      "status"
+    ],
+    "properties": {
+      "id": {
+        "type": "string",
+        "description": "Unique identifier for the generation task."
+      },
+      "error": {
+        "type": "string",
+        "description": "Error message if the task failed. Empty on success."
+      },
+      "model": {
+        "type": "string",
+        "description": "Model ID used for the prediction."
+      },
+      "status": {
+        "enum": [
+          "pending",
+          "running",
+          "completed",
+          "failed",
+          "timeout"
+        ],
+        "type": "string",
+        "description": "Status of the task: pending, running, completed, failed, or timeout."
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "title": "OutputItem",
+          "required": [
+            "url"
+          ],
+          "properties": {
+            "url": {
+              "type": "string",
+              "examples": [
+                "https://static.sandbase.ai/examples/heygen/heygen-avatar4/image-to-video/output_url_1.mp4"
+              ],
+              "description": "The URL where the generated content can be downloaded from."
+            },
+            "content_type": {
+              "type": "string",
+              "description": "The MIME type of the output file."
+            }
+          }
+        },
+        "description": "Array of generated content. Empty when status is not completed."
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "formula",
+    "formula": "(usage.duration ?? ((params.audio ?? \"\") != \"\" ? media_duration(params.audio) : nil) ?? 5.0) * 0.1",
+    "formula_variables": [
+      "params.audio",
+      "usage.duration"
+    ],
+    "reference_price": 0.5
+  },
+  "examples": [
+    {
+      "input": {
+        "image": "https://static.sandbase.ai/examples/58f680f7-93d6-4f27-9255-0043d7b5c44c/input/48d5dacb-cf6b-4678-a54d-dd7bc01337fb.png",
+        "prompt": "Hey friends! Welcome to the GPU force podcast and today we are going to discuss about the rising GPU cost!"
+      },
+      "output": [
+        {
+          "poster": "https://static.sandbase.ai/examples/posters/a1f21fe6264568c9ddae.jpg",
+          "url": "https://static.sandbase.ai/examples/58f680f7-93d6-4f27-9255-0043d7b5c44c/output/3fac915a-6088-4da9-9af5-2ba18962809a.mp4"
+        }
+      ],
+      "default": true
+    }
+  ],
+  "readme": "# HeyGen Avatar 4 Image to Video\n\nHeyGen Avatar 4: turn a single photo into a talking presenter, driven by a script or an audio track.\n\n## Fields\n\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `prompt` | string | — | Script to speak. |\n| `image` | image URL, required | — | Photo of the presenter. JPEG, PNG, or WebP URL. |\n| `audio` | audio URL | — | Optional voice track. |\n| `aspect_ratio` | `16:9` / `9:16` / `4:5` / `5:4` / `1:1` | — | Output frame shape. |\n| `voice` | string | `Melissa` | Voice for the script. |\n| `resolution` | `360p` / `480p` / `540p` / `720p` / `1080p` | `720p` | Video resolution preset. |\n| `talking_style` | `stable` / `expressive` | `stable` | `expressive` adds more head and hand motion. |\n\n## Billing\n\n$0.10 per output second; length follows the audio or the spoken script. The quote before submission assumes 5 seconds.\n\n| Output | Price |\n|---|---|\n| 5s | $0.50 |\n| 30s | $3.00 |\n| 60s | $6.00 |\n\nFailed runs are not charged.\n\n## Prompting\n\n- Use a front-facing photo with the face clearly visible.\n\n## Also on SandBase\n\nRelated: `heygen/avatar5/digital-twin`.\n",
+  "cover_url": "https://static.sandbase.ai/covers/heygen/heygen-avatar4/image-to-video/cover-flare-20261005033227.webp",
+  "page_url": "https://www.sandbase.ai/model/heygen/heygen-avatar4/image-to-video",
+  "published_at": "2026-02-23T18:33:44.115Z",
+  "created_at": "2026-05-15T13:20:26.555Z"
+}

@@ -1,0 +1,78 @@
+{
+  "name": "bilibili/app/video-comments",
+  "display_name": "Bilibili Video Comments (App)",
+  "type": "api",
+  "vendor": "Bilibili",
+  "vendor_slug": "bilibili",
+  "description": "Returns user comments for a specified Bilibili video by AV or BV identifier. Supports sorting comments by popularity or post time, with cursor-based pagination.",
+  "tags": [
+    "api",
+    "bilibili"
+  ],
+  "capabilities": [
+    "api",
+    "bilibili"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/bilibili/app/video-comments"
+  },
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "mode": {
+        "type": "integer",
+        "title": "Mode",
+        "default": 3,
+        "description": "Sort mode (3=hot, 2=time)"
+      },
+      "av_id": {
+        "type": "string",
+        "title": "Av Id",
+        "description": "AV ID (choose one of av_id or bv_id)"
+      },
+      "bv_id": {
+        "type": "string",
+        "title": "Bv Id",
+        "example": "BV18SCrBGE9E",
+        "description": "BV ID (choose one of av_id or bv_id)"
+      },
+      "next_offset": {
+        "type": "integer",
+        "title": "Next Offset",
+        "default": 1,
+        "description": "Pagination cursor"
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.0015,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "examples": [
+    {
+      "input": {
+        "bv_id": "BV19uhb6mEWd",
+        "next_offset": 3
+      },
+      "default": true
+    }
+  ],
+  "readme": "# Bilibili Video Comments (App) API\n\nRetrieve comments on a Bilibili video using either `bv_id` or `av_id`. Configure comment ordering and traverse pages via `next_offset`.\n\n## Use cases\n\n- Analyze viewer sentiment and reactions across top video comments.\n- Track discussion timelines on videos sorted by post time.\n- Collect popular viewer feedback to measure engagement trends.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/bilibili/app/video-comments\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `mode` | integer | No | Sort mode (3=hot, 2=time) |\n| `av_id` | string | No | AV ID (choose one of av_id or bv_id) |\n| `bv_id` | string | No | BV ID (choose one of av_id or bv_id) |\n| `next_offset` | integer | No | Pagination cursor |\n\n## Notes\n\n- Specify either `av_id` or `bv_id` to identify the target video.\n- Set `mode` to 3 for top comments or 2 for chronological order.\n- Advance through result pages using `next_offset`.\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [Bilibili App Bangumi Tab](/model/bilibili/app/bangumi-tab): Returns Bilibili app bangumi tab data, providing curated anime recommendations, feed items, and category listings for mobile clients.\n- [Bilibili App Cinema Tab](/model/bilibili/app/cinema-tab): Returns cinema tab content from the Bilibili app, featuring curated movies, TV shows, and entertainment recommendations without requiring additional query para…\n- [Bilibili App Home Feed](/model/bilibili/app/home-feed): Returns recommended video items from the Bilibili app home feed.\n",
+  "page_url": "https://www.sandbase.ai/model/bilibili/app/video-comments",
+  "created_at": "2026-07-31T03:53:26.17Z"
+}

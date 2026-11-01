@@ -1,0 +1,46 @@
+{
+  "name": "dataforseo/v3/dataforseo_labs/google/historical_serps/live",
+  "display_name": "DataForSEO Labs Historical SERPs",
+  "type": "api",
+  "vendor": "DataForSEO",
+  "vendor_slug": "dataforseo",
+  "description": "Past Google search results for a keyword within a date range.",
+  "tags": [
+    "labs",
+    "serp",
+    "history"
+  ],
+  "capabilities": [
+    "labs",
+    "serp",
+    "history"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/dataforseo/v3/dataforseo_labs/google/historical_serps/live"
+  },
+  "input_schema": {
+    "type": "object",
+    "properties": {},
+    "description": "Request parameters forwarded to DataForSEO /v3/dataforseo_labs/google/historical_serps/live. See DataForSEO docs for full schema.",
+    "additionalProperties": true
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "usage_based",
+    "note": "Billed per call from metered usage; the reference price is typical.",
+    "reference_price": 0.00024
+  },
+  "readme": "# DataForSEO Labs Historical SERPs API\n\nPast Google search results for a keyword within a date range.\n\nRequest fields follow the official DataForSEO `/v3/dataforseo_labs/google/historical_serps/live` task schema (one task per call). The response is DataForSEO's original JSON; results are in `tasks[].result`.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/dataforseo/v3/dataforseo_labs/google/historical_serps/live\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"keyword\": \"coffee\", \"location_code\": 2840, \"language_code\": \"en\", \"date_from\": \"2026-06-01\"}'\n```\n\n## Parameters\n\nThe JSON body is forwarded to the upstream endpoint. Main fields:\n\n| Name | Description |\n|---|---|\n| `keyword` | Keyword. |\n| `location_code` | Location code, e.g. 2840 for the United States. |\n| `language_code` | Language code, e.g. \"en\". |\n| `date_from` | Optional start date, \"yyyy-mm-dd\". |\n| `date_to` | Optional end date. |\n\n## Reference\n\n- Official docs: https://docs.dataforseo.com/v3/dataforseo_labs/google/historical_serps/live/\n\n## Pricing\n\nBilled at the actual cost of each call, about $0.00024 for the request above. The cost grows with the number of rows, targets or tokens a call returns. Failed calls are not charged. Searches with no results are billed at their actual cost.\n",
+  "page_url": "https://www.sandbase.ai/model/dataforseo/v3/dataforseo_labs/google/historical_serps/live",
+  "published_at": "2026-11-01T00:00:00Z",
+  "created_at": "2026-11-01T14:12:58.337Z"
+}

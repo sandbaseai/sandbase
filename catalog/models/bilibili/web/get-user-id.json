@@ -1,0 +1,62 @@
+{
+  "name": "bilibili/web/get-user-id",
+  "display_name": "Bilibili User ID Extraction",
+  "type": "api",
+  "vendor": "Bilibili",
+  "vendor_slug": "bilibili",
+  "description": "Extracts and returns a Bilibili user ID from a provided space share link. Takes a user profile URL and resolves the numeric account identifier.",
+  "tags": [
+    "api",
+    "bilibili"
+  ],
+  "capabilities": [
+    "api",
+    "bilibili"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/bilibili/web/get-user-id"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "share_link"
+    ],
+    "properties": {
+      "share_link": {
+        "type": "string",
+        "title": "Share Link",
+        "example": "https://space.bilibili.com/178360345",
+        "description": "User share link"
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.0015,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "examples": [
+    {
+      "input": {
+        "share_link": "https://static.sandbase.ai/examples/1d420101-6aa7-4cbd-a4d5-e04674de7ca9/input/1094426c-12a0-4ab7-aa39-e91b0f14d3c4.bin"
+      }
+    }
+  ],
+  "readme": "# Bilibili User ID Extraction API\n\nResolve a user's unique numeric identifier by providing their profile URL in `share_link`. This endpoint extracts account IDs directly from standard Bilibili space links.\n\n## Use cases\n\n- Convert user profile share links into raw numeric Bilibili IDs.\n- Resolve account identifiers for downstream Bilibili profile queries.\n- Normalize user URLs collected from external web sources.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/bilibili/web/get-user-id\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"share_link\": \"https://space.bilibili.com/178360345\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `share_link` | string | Yes | User share link |\n\n## Notes\n\n- Requires a valid profile share link passed to `share_link`.\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [Bilibili Streaming Areas](/model/bilibili/web/all-live-areas): Returns the complete list of streaming broadcast areas and categories on Bilibili.\n- [Bilibili BV to AID Converter](/model/bilibili/web/bv-to-aid): Converts a Bilibili BV identifier to its corresponding numeric AID value.\n- [Bilibili User Collection Folders](/model/bilibili/web/collect-folders): Returns the collection folders owned by a specific Bilibili user.\n",
+  "page_url": "https://www.sandbase.ai/model/bilibili/web/get-user-id",
+  "created_at": "2026-07-31T03:53:44.907Z"
+}

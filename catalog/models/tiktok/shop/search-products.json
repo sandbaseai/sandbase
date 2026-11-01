@@ -1,0 +1,81 @@
+{
+  "name": "tiktok/shop/search-products",
+  "display_name": "TikTok Shop Product Search",
+  "type": "api",
+  "vendor": "TikTok",
+  "vendor_slug": "tiktok",
+  "description": "Search TikTok Shop products by keyword within a selected region, with offset and page-token pagination. Use it to discover regional products and continue through search results.",
+  "tags": [
+    "api",
+    "tiktok",
+    "ecommerce"
+  ],
+  "capabilities": [
+    "api",
+    "tiktok",
+    "ecommerce"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/tiktok/shop/search-products"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "keyword"
+    ],
+    "properties": {
+      "offset": {
+        "type": "integer",
+        "default": 0,
+        "description": "Search result offset."
+      },
+      "region": {
+        "enum": [
+          "US",
+          "GB",
+          "FR",
+          "SG",
+          "MY",
+          "PH",
+          "TH",
+          "VN",
+          "ID"
+        ],
+        "type": "string",
+        "default": "US",
+        "description": "Target region for product search."
+      },
+      "keyword": {
+        "type": "string",
+        "example": "iphone",
+        "description": "Search keyword."
+      },
+      "pageToken": {
+        "type": "string",
+        "description": "Pagination token for the next page."
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.013889,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "readme": "# TikTok Shop Product Search API\n\nSearch TikTok Shop products by keyword within a selected region, with offset and page-token pagination. Use it to discover regional products and continue through search results.\n\nThe response is the platform's original data structure.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/tiktok/shop/search-products\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"keyword\": \"phone case\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `keyword` | string | Yes | Search keyword. |\n| `region` | string | No | Target region for product search. |\n| `offset` | integer | No | Search result offset. |\n| `pageToken` | string | No | Pagination token for the next page. |\n\n## Pricing\n\nFlat price per call. Failed calls and empty results are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/tiktok/shop/search-products",
+  "created_at": "2026-10-29T11:51:19.713Z"
+}

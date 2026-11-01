@@ -1,0 +1,62 @@
+{
+  "name": "douyin/billboard/hot-calendar-detail",
+  "display_name": "Douyin Billboard Hot Calendar Detail",
+  "type": "api",
+  "vendor": "Douyin",
+  "vendor_slug": "douyin",
+  "description": "Returns detailed information for a Douyin billboard hot calendar event based on the specified activity identifier. Use this endpoint to inspect schedule metadata and billboard campaign details.",
+  "tags": [
+    "api",
+    "douyin"
+  ],
+  "capabilities": [
+    "api",
+    "douyin"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/douyin/billboard/hot-calendar-detail"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "calendar_id"
+    ],
+    "properties": {
+      "calendar_id": {
+        "type": "string",
+        "title": "Calendar Id",
+        "description": "Activity id"
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.0015,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "examples": [
+    {
+      "input": {
+        "calendar_id": "1"
+      },
+      "default": true
+    }
+  ],
+  "readme": "# Douyin Billboard Hot Calendar Detail API\n\nReturns detailed information for a Douyin billboard hot calendar activity using a specific `calendar_id`. It helps teams review scheduled campaign metadata and calendar event details.\n\n## Use cases\n\n- Review details for a scheduled Douyin billboard calendar activity.\n- Track campaign timelines and billboard event specifics.\n- Integrate hot calendar metadata into marketing dashboards.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/douyin/billboard/hot-calendar-detail\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"calendar_id\": \"<calendar_id>\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `calendar_id` | string | Yes | Activity id |\n\n## Notes\n\n- Specify the target activity identifier via `calendar_id`.\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [Douyin Billboard City List](/model/douyin/billboard/city-list): Returns the list of Chinese cities supported by Douyin billboard rankings.\n- [Douyin Billboard Vertical Content Tags](/model/douyin/billboard/content-tag): Returns a list of vertical content tags available on the Douyin billboard platform.\n- [Douyin Fan Interest Account List](/model/douyin/billboard/hot-account-fans-interest-account-list): Returns a list of 20 accounts that followers of a target creator are interested in on Douyin.\n",
+  "page_url": "https://www.sandbase.ai/model/douyin/billboard/hot-calendar-detail",
+  "created_at": "2026-07-31T02:34:57.873Z"
+}

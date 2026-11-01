@@ -1,0 +1,70 @@
+{
+  "name": "douyin/user-video-list",
+  "display_name": "Douyin User Published Videos",
+  "type": "api",
+  "vendor": "Douyin",
+  "vendor_slug": "douyin",
+  "description": "Get videos published by a Douyin (TikTok China) user, with cursor pagination and newest or most-popular sorting. Use it to browse or monitor a creator's public video output.",
+  "tags": [
+    "api",
+    "douyin",
+    "social-media"
+  ],
+  "capabilities": [
+    "api",
+    "douyin",
+    "social-media"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/douyin/user-video-list"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "secUid"
+    ],
+    "properties": {
+      "secUid": {
+        "type": "string",
+        "example": "MS4wLjABAAAAanuWoPEMHem_eaWR8RQFyLQ8_QiouZlPlb7KAe9GS24",
+        "description": "The unique user ID (sec_user_id) on Douyin."
+      },
+      "sortType": {
+        "enum": [
+          "LATEST",
+          "MOST_POPULAR"
+        ],
+        "type": "string",
+        "default": "LATEST",
+        "description": "Sort order: `LATEST` for newest first (default), or `MOST_POPULAR` for most popular first."
+      },
+      "maxCursor": {
+        "type": "string",
+        "default": "0",
+        "description": "Pagination cursor; use 0 for the first page, and the `max_cursor` from the previous response for subsequent pages."
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.013889,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "readme": "# Douyin User Published Videos API\n\nGet videos published by a Douyin (TikTok China) user, with cursor pagination and newest or most-popular sorting. Use it to browse or monitor a creator's public video output.\n\nThe response is the platform's original data structure.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/douyin/user-video-list\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"secUid\": \"MS4wLjABAAAAanuWoPEMHem_eaWR8RQFyLQ8_QiouZlPlb7KAe9GS24\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `secUid` | string | Yes | The unique user ID (sec_user_id) on Douyin. |\n| `maxCursor` | string | No | Pagination cursor; use 0 for the first page, and the `max_cursor` from the previous response for subsequent pages. |\n| `sortType` | string | No | Sort order: `LATEST` for newest first (default), or `MOST_POPULAR` for most popular first. |\n\n## Pricing\n\nFlat price per call. Failed calls and empty results are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/douyin/user-video-list",
+  "created_at": "2026-10-29T12:12:24.98Z"
+}

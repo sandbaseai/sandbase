@@ -1,0 +1,70 @@
+{
+  "name": "instagram/v2/user-following",
+  "display_name": "Instagram User Following",
+  "type": "api",
+  "vendor": "Instagram",
+  "vendor_slug": "instagram",
+  "description": "Returns the list of accounts that a specified Instagram user follows. Queries can be made using an account username or user ID, with support for pagination tokens.",
+  "tags": [
+    "api",
+    "instagram"
+  ],
+  "capabilities": [
+    "api",
+    "instagram"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/instagram/v2/user-following"
+  },
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "user_id": {
+        "type": "string",
+        "title": "User Id",
+        "description": "User ID (either username or user_id required)"
+      },
+      "username": {
+        "type": "string",
+        "title": "Username",
+        "description": "Username (either username or user_id required)"
+      },
+      "pagination_token": {
+        "type": "string",
+        "title": "Pagination Token",
+        "description": "Pagination token from previous response"
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.003,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "examples": [
+    {
+      "input": {
+        "user_id": "18527",
+        "username": "instagram"
+      },
+      "default": true
+    }
+  ],
+  "readme": "# Instagram User Following API\n\nRetrieve the accounts followed by an Instagram user by providing either `username` or `user_id`. Supports fetching subsequent pages via `pagination_token`.\n\n## Use cases\n\n- Audit the accounts followed by a specific Instagram profile.\n- Map social connections and follow networks across accounts.\n- Track changes in following lists over time.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/instagram/v2/user-following\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `user_id` | string | No | User ID (either username or user_id required) |\n| `username` | string | No | Username (either username or user_id required) |\n| `pagination_token` | string | No | Pagination token from previous response |\n\n## Notes\n\n- Either `username` or `user_id` is required.\n- Pass `pagination_token` from a previous response to paginate through the full list.\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [Instagram Comment Replies (V2)](/model/instagram/v2/comment-replies): Retrieves a paginated list of replies to an Instagram comment using the post URL or shortcode and the target comment ID.\n- [Instagram General Search (V2)](/model/instagram/v2/general-search): Returns Instagram search results matching a specified keyword, including media items, user profiles, and engagement statistics.\n- [Instagram Hashtag Posts (V2)](/model/instagram/v2/hashtag-posts): Returns posts associated with a specific hashtag.\n",
+  "page_url": "https://www.sandbase.ai/model/instagram/v2/user-following",
+  "created_at": "2026-07-31T03:56:07.942Z"
+}

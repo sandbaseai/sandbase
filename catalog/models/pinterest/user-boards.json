@@ -1,0 +1,102 @@
+{
+  "name": "pinterest/user-boards",
+  "display_name": "Pinterest User Boards",
+  "type": "api",
+  "vendor": "Pinterest",
+  "vendor_slug": "pinterest",
+  "description": "Get a Pinterest user's boards by username: board name, URL, description, pin and follower counts, cover images and creation date.",
+  "tags": [
+    "social-media"
+  ],
+  "capabilities": [
+    "social-media"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/pinterest/user-boards"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "handle"
+    ],
+    "properties": {
+      "trim": {
+        "type": "boolean",
+        "title": "Trim",
+        "description": "Set to true for a trimmed down version of the response."
+      },
+      "handle": {
+        "type": "string",
+        "title": "Username",
+        "example": "pinterest",
+        "description": "The Pinterest username to get boards for (e.g. 'broadstbullycom' from https://www.pinterest.com/broadstbullycom/)."
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "properties": {
+      "boards": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string"
+            },
+            "url": {
+              "type": "string"
+            },
+            "name": {
+              "type": "string"
+            },
+            "pin_count": {
+              "type": "integer"
+            },
+            "created_at": {
+              "type": "string"
+            },
+            "description": {
+              "type": "string"
+            },
+            "follower_count": {
+              "type": "integer"
+            },
+            "image_cover_hd_url": {
+              "type": "string"
+            }
+          }
+        },
+        "description": "Array of user boards."
+      },
+      "cursor": {
+        "type": "string",
+        "description": "Cursor for fetching the next page of results."
+      },
+      "success": {
+        "type": "boolean"
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.018
+  },
+  "examples": [
+    {
+      "input": {
+        "handle": "example"
+      }
+    }
+  ],
+  "readme": "# Pinterest User Boards API\n\nPass a Pinterest username and get the boards on that profile.\n\n## Use cases\n\n- Analyze how brands organize content on Pinterest.\n- Find popular boards in a niche.\n- Track board growth.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/pinterest/user-boards\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"handle\": \"pinterest\", \"trim\": true}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `handle` | string | Yes | The Pinterest username to get boards for (e.g. 'broadstbullycom' from https://www.pinterest.com/broadstbullycom/). |\n| `trim` | boolean | No | Set to true for a trimmed down version of the response. |\n\n## Example response\n\nReal response for the request above, trimmed to the main fields. User names and long IDs are masked.\n\n```json\n{\n  \"boards\": [\n    {\n      \"description\": \"Inspired by the Pinterest Predicts trend, Wilderkind, this limited-edition collection is …\",\n      \"follower_count\": 8323,\n      \"id\": \"1136033143445898365\",\n      \"name\": \"The Wilderkind Collection\",\n      \"pin_count\": 45,\n      \"url\": \"https://www.pinterest.com/chamberlaincoffeepins/the-wilderkind-collection/\"\n    }\n  ]\n}\n```\n\n## Pricing\n\nFlat price per call. Failed calls are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/pinterest/user-boards",
+  "published_at": "2024-01-01T00:00:00Z",
+  "created_at": "2026-08-09T12:40:38.09Z"
+}

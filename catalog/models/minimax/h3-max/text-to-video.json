@@ -1,0 +1,198 @@
+{
+  "name": "minimax/h3-max/text-to-video",
+  "display_name": "MiniMax H3 Max Text to Video",
+  "type": "video",
+  "vendor": "MiniMax",
+  "vendor_slug": "minimax",
+  "description": "MiniMax H3 Max by MiniMax turns a text prompt into a 5-15 second video with native audio at 480P or 768P, generating faster than MiniMax H3.",
+  "tags": [
+    "text-to-video"
+  ],
+  "capabilities": [
+    "text-to-video"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "prompt"
+    ],
+    "properties": {
+      "prompt": {
+        "type": "string",
+        "title": "Prompt",
+        "examples": [
+          "A white kitten chases a butterfly across a sunlit garden. Gentle camera tracking, natural movement, soft afternoon light filtering through the leaves."
+        ],
+        "maxLength": 50000,
+        "minLength": 1,
+        "description": "Text prompt for video generation"
+      },
+      "duration": {
+        "type": "integer",
+        "title": "Duration",
+        "default": 5,
+        "maximum": 15,
+        "minimum": 5,
+        "description": "The duration of the video in seconds."
+      },
+      "resolution": {
+        "enum": [
+          "480P",
+          "768P"
+        ],
+        "type": "string",
+        "title": "Resolution",
+        "default": "768P",
+        "description": "The native generation resolution of the video."
+      },
+      "aspect_ratio": {
+        "enum": [
+          "21:9",
+          "16:9",
+          "4:3",
+          "1:1",
+          "3:4",
+          "9:16"
+        ],
+        "type": "string",
+        "title": "Aspect Ratio",
+        "default": "16:9",
+        "description": "Aspect ratio of the generated video."
+      },
+      "prompt_expansion_mode": {
+        "enum": [
+          "balanced",
+          "quality"
+        ],
+        "type": "string",
+        "title": "Prompt Expansion Mode",
+        "default": "balanced",
+        "description": "How much effort to spend rewriting the prompt before generation. `balanced` returns in about a second; `quality` spends up to ~30 seconds on a richer prompt."
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "title": "GenerationResponse",
+    "required": [
+      "id",
+      "status"
+    ],
+    "properties": {
+      "id": {
+        "type": "string",
+        "description": "Unique identifier for the generation task."
+      },
+      "error": {
+        "type": "string",
+        "description": "Error message if the task failed. Empty on success."
+      },
+      "model": {
+        "type": "string",
+        "description": "Model ID used for the prediction."
+      },
+      "status": {
+        "enum": [
+          "pending",
+          "running",
+          "completed",
+          "failed",
+          "timeout"
+        ],
+        "type": "string",
+        "description": "Status of the task: pending, running, completed, failed, or timeout."
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "title": "OutputItem",
+          "required": [
+            "url"
+          ],
+          "properties": {
+            "url": {
+              "type": "string",
+              "examples": [
+                "https://static.sandbase.ai/examples/minimax/mirrored/files/b/0aa46818/--prs89fkHtWW406fmEs__NRhTqNku.mp4"
+              ],
+              "description": "The URL where the generated content can be downloaded from."
+            },
+            "content_type": {
+              "type": "string",
+              "description": "The MIME type of the output file."
+            }
+          }
+        },
+        "description": "Array of generated content. Empty when status is not completed."
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "formula",
+    "formula": "(params.duration ?? 5) * ((params.resolution ?? \"768P\") == \"480P\" ? 0.05 : 0.08)",
+    "formula_variables": [
+      "params.duration",
+      "params.resolution"
+    ],
+    "reference_price": 0.4,
+    "price_examples": [
+      {
+        "params": {
+          "duration": 5,
+          "resolution": "480P"
+        },
+        "usd": 0.25
+      },
+      {
+        "params": {
+          "duration": 5,
+          "resolution": "768P"
+        },
+        "usd": 0.4
+      },
+      {
+        "params": {
+          "duration": 15,
+          "resolution": "480P"
+        },
+        "usd": 0.75
+      },
+      {
+        "params": {
+          "duration": 15,
+          "resolution": "768P"
+        },
+        "usd": 1.2
+      }
+    ]
+  },
+  "examples": [
+    {
+      "input": {
+        "prompt": "A white kitten chases a butterfly across a sunlit garden. Gentle camera tracking, natural movement, soft afternoon light filtering through the leaves."
+      },
+      "output": [
+        {
+          "poster": "https://static.sandbase.ai/examples/posters/3988d3fc20c7aa77f3e4.jpg",
+          "url": "https://static.sandbase.ai/examples/de39084b-dee8-4945-b7f9-0f09c67f7818/output/ed82d2a3-f74a-4f78-832f-279eabb65910.mp4"
+        }
+      ],
+      "default": true
+    }
+  ],
+  "readme": "# MiniMax H3 Max Text to Video\n\nMiniMax H3 Max turns a prompt into a 5–15 second video with native audio at 480P or 768P, faster than H3.\n\n## Fields\n\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `prompt` | string, required | — | Up to 50,000 characters. |\n| `aspect_ratio` | `21:9` / `16:9` / `4:3` / `1:1` / `3:4` / `9:16` | `16:9` | Output frame shape. |\n| `resolution` | `480P` / `768P` | `768P` | Sets the per-second rate. |\n| `duration` | integer 5–15 | 5 | Output length in seconds. |\n| `prompt_expansion_mode` | `balanced` / `quality` | `balanced` | `balanced` rewrites the prompt lightly; `quality` expands it more for richer detail. |\n\n## Billing\n\nYou pay for output seconds: $0.08 at 768P and $0.05 at 480P.\n\n| Output | 768P | 480P |\n|---|---|---|\n| 5s (default) | $0.40 | $0.25 |\n| 10s | $0.80 | $0.50 |\n| 15s | $1.20 | $0.75 |\n\nFailed runs are not charged.\n\n## Prompting\n\n- Describe subject, action, camera, and sound in order.\n- Quote dialogue and name the speaker.\n\n## Limits\n\n- Clips are 5–15 seconds.\n\n## Also on SandBase\n\nOther MiniMax H3 Max endpoints: `minimax/h3-max/image-to-video`, `minimax/h3-max/reference-to-video`, `minimax/h3/text-to-video` (2K).\n",
+  "cover_url": "https://static.sandbase.ai/covers/minimax/h3-max/text-to-video/cover-flare-20261004175812.webp",
+  "page_url": "https://www.sandbase.ai/model/minimax/h3-max/text-to-video",
+  "published_at": "2026-08-26T20:24:56.547Z",
+  "created_at": "2026-08-31T04:14:00.856Z"
+}

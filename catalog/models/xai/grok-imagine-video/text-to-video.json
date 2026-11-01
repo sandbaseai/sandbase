@@ -1,0 +1,177 @@
+{
+  "name": "xai/grok-imagine-video/text-to-video",
+  "display_name": "Grok Imagine Video Text to Video",
+  "type": "video",
+  "vendor": "xAI",
+  "vendor_slug": "xai",
+  "description": "Grok Imagine Video by xAI - generate cinematic videos from text descriptions with AI. Create high-quality video content with natural motion, camera control, and optional audio generation.",
+  "tags": [
+    "text-to-video"
+  ],
+  "capabilities": [
+    "text-to-video"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "prompt"
+    ],
+    "properties": {
+      "prompt": {
+        "type": "string",
+        "title": "Prompt",
+        "examples": [
+          "Anime schoolgirl bursting out of house door, cherry blossoms blowing, morning light, speed lines indicating rush, chibi-ready expressions, classic shojo aesthetic, vibrant colors"
+        ],
+        "maxLength": 4096,
+        "description": "Text description of the desired video."
+      },
+      "duration": {
+        "type": "integer",
+        "title": "Duration",
+        "default": 6,
+        "maximum": 15,
+        "minimum": 1,
+        "description": "Video duration in seconds."
+      },
+      "resolution": {
+        "enum": [
+          "480p",
+          "720p"
+        ],
+        "type": "string",
+        "title": "Resolution",
+        "default": "720p",
+        "description": "Resolution of the output video."
+      },
+      "aspect_ratio": {
+        "enum": [
+          "16:9",
+          "4:3",
+          "3:2",
+          "1:1",
+          "2:3",
+          "3:4",
+          "9:16"
+        ],
+        "type": "string",
+        "title": "Aspect Ratio",
+        "default": "16:9",
+        "description": "The aspect ratio of the generated image."
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "title": "GenerationResponse",
+    "required": [
+      "id",
+      "status"
+    ],
+    "properties": {
+      "id": {
+        "type": "string",
+        "description": "Unique identifier for the generation task."
+      },
+      "error": {
+        "type": "string",
+        "description": "Error message if the task failed. Empty on success."
+      },
+      "model": {
+        "type": "string",
+        "description": "Model ID used for the prediction."
+      },
+      "status": {
+        "enum": [
+          "pending",
+          "running",
+          "completed",
+          "failed",
+          "timeout"
+        ],
+        "type": "string",
+        "description": "Status of the task: pending, running, completed, failed, or timeout."
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "title": "OutputItem",
+          "required": [
+            "url"
+          ],
+          "properties": {
+            "url": {
+              "type": "string",
+              "examples": [
+                "https://static.sandbase.ai/examples/xai/grok-imagine-video/text-to-video/output_url_0.mp4"
+              ],
+              "description": "The URL where the generated content can be downloaded from."
+            },
+            "content_type": {
+              "type": "string",
+              "description": "The MIME type of the output file."
+            }
+          }
+        },
+        "description": "Array of generated content. Empty when status is not completed."
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "formula",
+    "formula": "(params.duration ?? 6) * 0.05",
+    "formula_variables": [
+      "params.duration"
+    ],
+    "reference_price": 0.3,
+    "price_examples": [
+      {
+        "params": {
+          "duration": 1
+        },
+        "usd": 0.05
+      },
+      {
+        "params": {
+          "duration": 6
+        },
+        "usd": 0.3
+      },
+      {
+        "params": {
+          "duration": 15
+        },
+        "usd": 0.75
+      }
+    ]
+  },
+  "examples": [
+    {
+      "input": {
+        "prompt": "Anime schoolgirl bursting out of house door, cherry blossoms blowing, morning light, speed lines indicating rush, chibi-ready expressions, classic shojo aesthetic, vibrant colors"
+      },
+      "output": [
+        {
+          "poster": "https://static.sandbase.ai/examples/posters/a3eef95c5f7288e57f7a.jpg",
+          "url": "https://static.sandbase.ai/examples/0bd87eb9-18fe-4dd1-bc10-a1480fcab6d9/output/3869cf9e-9063-413d-bdfe-43b343a78491.mp4"
+        }
+      ],
+      "default": true
+    }
+  ],
+  "readme": "# Grok Imagine Video Text to Video\n\nGrok Imagine Video turns a prompt into a 1–15 second clip with native audio.\n\n## Fields\n\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `prompt` | string, required | — | Up to 4,096 characters. |\n| `resolution` | `480p` / `720p` | `720p` | Sets the per-second rate. |\n| `duration` | integer 1–15 | 6 | Output length in seconds. |\n| `aspect_ratio` | `16:9` / `4:3` / `3:2` / `1:1` / `2:3` / `3:4` / `9:16` | `16:9` | Output frame shape. |\n\n## Billing\n\n$0.05 per output second.\n\n| Output | Price |\n|---|---|\n| 6s (default) | $0.30 |\n| 10s | $0.50 |\n| 15s | $0.75 |\n\nFailed runs are not charged.\n\n## Prompting\n\n- Describe subject, action, camera, and sound.\n\n## Also on SandBase\n\nOther Grok Imagine Video endpoints: `xai/grok-imagine-video/image-to-video`, `xai/grok-imagine-video/reference-to-video`, `xai/grok-imagine-video/video-edit`, `xai/grok-imagine-video/video-extend`, `xai/grok-imagine-video/1.5/text-to-video` (1.5, newer).\n",
+  "cover_url": "https://static.sandbase.ai/covers/xai/grok-imagine-video/text-to-video/cover-flare-20261005001916.webp",
+  "page_url": "https://www.sandbase.ai/model/xai/grok-imagine-video/text-to-video",
+  "published_at": "2026-01-29T00:26:17.072Z",
+  "created_at": "2026-05-15T12:51:58.569Z"
+}

@@ -1,0 +1,55 @@
+{
+  "name": "facebook/profile-posts",
+  "display_name": "Facebook Get Profile Posts",
+  "type": "api",
+  "vendor": "Facebook",
+  "vendor_slug": "facebook",
+  "description": "Get public posts for a Facebook profile ID with cursor pagination. Use it to browse a known profile's public posting history or continue through subsequent post pages.",
+  "tags": [
+    "api",
+    "facebook",
+    "social-media"
+  ],
+  "capabilities": [
+    "api",
+    "facebook",
+    "social-media"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/facebook/profile-posts"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "profileId"
+    ],
+    "properties": {
+      "cursor": {
+        "type": "string",
+        "description": "Pagination cursor for fetching the next set of results."
+      },
+      "profileId": {
+        "type": "string",
+        "example": "4",
+        "description": "The unique Facebook profile ID."
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.027778
+  },
+  "readme": "# Facebook Get Profile Posts API\n\nGet public posts for a Facebook profile ID with cursor pagination. Use it to browse a known profile's public posting history or continue through subsequent post pages.\n\nThe response is the platform's original data structure.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/facebook/profile-posts\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"profileId\": \"4\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `profileId` | string | Yes | The unique Facebook profile ID. |\n| `cursor` | string | No | Pagination cursor for fetching the next set of results. |\n\n## Pricing\n\nFlat price per call. Failed calls and empty results are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/facebook/profile-posts",
+  "created_at": "2026-10-29T12:07:12.372Z"
+}

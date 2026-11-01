@@ -1,0 +1,413 @@
+{
+  "name": "luma/ray/3.2/image-to-video",
+  "display_name": "Luma Ray 3.2 Image to Video",
+  "type": "video",
+  "vendor": "Luma",
+  "vendor_slug": "luma",
+  "description": "Agent Ray 3.2 by Luma - animate still images into dynamic videos with AI. Transform photos into cinematic clips with natural motion, camera movement, and optional audio generation.",
+  "tags": [
+    "image-to-video"
+  ],
+  "capabilities": [
+    "image-to-video"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "prompt",
+      "image"
+    ],
+    "properties": {
+      "hdr": {
+        "type": "boolean",
+        "title": "Hdr",
+        "default": false,
+        "description": "Generate an HDR-encoded MP4. Requires HDR access on the account and a resolution of 720p or 1080p; not supported with loop."
+      },
+      "loop": {
+        "type": "boolean",
+        "title": "Loop",
+        "default": false,
+        "description": "Generate a seamless loop. Only valid for standard-dynamic-range generations without an end frame or keyframes."
+      },
+      "image": {
+        "type": "string",
+        "title": "Image Url",
+        "examples": [
+          "https://storage.googleapis.com/falserverless/gallery/example_inputs_liuyifei.png"
+        ],
+        "minLength": 1,
+        "description": "URL of the image used as the first frame of the video. Provide either image_url (optionally with end_image_url) or keyframes — the two anchoring modes are mutually exclusive."
+      },
+      "prompt": {
+        "type": "string",
+        "title": "Prompt",
+        "examples": [
+          "Low-angle shot of a majestic tiger prowling through a snowy landscape, leaving paw prints on the white blanket."
+        ],
+        "maxLength": 6000,
+        "minLength": 1,
+        "description": "Text prompt describing the motion/scene to generate."
+      },
+      "duration": {
+        "enum": [
+          5,
+          10
+        ],
+        "type": "integer",
+        "title": "Duration",
+        "default": 5,
+        "description": "Duration of the generated video. 10s requires multi-keyframe input (keyframes / keyframe_indexes); it is not supported with a single image_url / end_image_url anchor."
+      },
+      "end_image": {
+        "type": "string",
+        "title": "End Image Url",
+        "description": "Optional URL of an image used as the last frame. When set, the model interpolates between image_url and end_image_url. Cannot be combined with keyframes."
+      },
+      "keyframes": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        },
+        "title": "Keyframes",
+        "description": "Multi-keyframe image-to-video guide frames: 1-64 image URLs pinned at the positions given by keyframe_indexes. Mutually exclusive with image_url, end_image_url, and loop; unlocks 10s and HDR. Provide keyframes and keyframe_indexes together (same length)."
+      },
+      "exr_export": {
+        "type": "boolean",
+        "title": "Exr Export",
+        "default": false,
+        "description": "Also export an EXR file alongside the MP4. Requires hdr=true and HDR access."
+      },
+      "resolution": {
+        "enum": [
+          "540p",
+          "720p",
+          "1080p"
+        ],
+        "type": "string",
+        "title": "Resolution",
+        "default": "720p",
+        "description": "Resolution of the generated video. Higher resolutions cost more."
+      },
+      "aspect_ratio": {
+        "enum": [
+          "21:9",
+          "16:9",
+          "4:3",
+          "1:1",
+          "3:4",
+          "9:16"
+        ],
+        "type": "string",
+        "title": "Aspect Ratio",
+        "default": "16:9",
+        "description": "The aspect ratio of the generated image."
+      },
+      "keyframe_indexes": {
+        "type": "array",
+        "items": {
+          "type": "integer"
+        },
+        "title": "Keyframe Indexes",
+        "description": "Output-frame positions (duration x 24fps: 5s -> 0-120, 10s -> 0-240) where each keyframes[i] is anchored. Non-negative, unique, and the same length as keyframes."
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "title": "GenerationResponse",
+    "required": [
+      "id",
+      "status"
+    ],
+    "properties": {
+      "id": {
+        "type": "string",
+        "description": "Unique identifier for the generation task."
+      },
+      "error": {
+        "type": "string",
+        "description": "Error message if the task failed. Empty on success."
+      },
+      "model": {
+        "type": "string",
+        "description": "Model ID used for the prediction."
+      },
+      "status": {
+        "enum": [
+          "pending",
+          "running",
+          "completed",
+          "failed",
+          "timeout"
+        ],
+        "type": "string",
+        "description": "Status of the task: pending, running, completed, failed, or timeout."
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "title": "OutputItem",
+          "required": [
+            "url"
+          ],
+          "properties": {
+            "url": {
+              "type": "string",
+              "description": "The URL where the generated content can be downloaded from."
+            },
+            "content_type": {
+              "type": "string",
+              "description": "The MIME type of the output file."
+            }
+          }
+        },
+        "description": "Array of generated content. Empty when status is not completed."
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "formula",
+    "formula": "((params.duration ?? 5) == 10 ? 2 : 1) * ((params.resolution ?? \"720p\") == \"1080p\" ? 2.0 : (params.resolution ?? \"720p\") == \"720p\" ? 1.0 : 0.5) * (((params.resolution ?? \"720p\") != \"540p\" && (params.hdr ?? false)) ? ((params.exr_export ?? false) ? 3.0 : 2.0) : 1.0)",
+    "formula_variables": [
+      "params.duration",
+      "params.exr_export",
+      "params.hdr",
+      "params.resolution"
+    ],
+    "reference_price": 1,
+    "price_examples": [
+      {
+        "params": {
+          "duration": 5,
+          "exr_export": false,
+          "hdr": false,
+          "resolution": "540p"
+        },
+        "usd": 0.5
+      },
+      {
+        "params": {
+          "duration": 5,
+          "exr_export": false,
+          "hdr": false,
+          "resolution": "720p"
+        },
+        "usd": 1
+      },
+      {
+        "params": {
+          "duration": 5,
+          "exr_export": false,
+          "hdr": false,
+          "resolution": "1080p"
+        },
+        "usd": 2
+      },
+      {
+        "params": {
+          "duration": 5,
+          "exr_export": false,
+          "hdr": true,
+          "resolution": "540p"
+        },
+        "usd": 0.5
+      },
+      {
+        "params": {
+          "duration": 5,
+          "exr_export": false,
+          "hdr": true,
+          "resolution": "720p"
+        },
+        "usd": 2
+      },
+      {
+        "params": {
+          "duration": 5,
+          "exr_export": false,
+          "hdr": true,
+          "resolution": "1080p"
+        },
+        "usd": 4
+      },
+      {
+        "params": {
+          "duration": 5,
+          "exr_export": true,
+          "hdr": false,
+          "resolution": "540p"
+        },
+        "usd": 0.5
+      },
+      {
+        "params": {
+          "duration": 5,
+          "exr_export": true,
+          "hdr": false,
+          "resolution": "720p"
+        },
+        "usd": 1
+      },
+      {
+        "params": {
+          "duration": 5,
+          "exr_export": true,
+          "hdr": false,
+          "resolution": "1080p"
+        },
+        "usd": 2
+      },
+      {
+        "params": {
+          "duration": 5,
+          "exr_export": true,
+          "hdr": true,
+          "resolution": "540p"
+        },
+        "usd": 0.5
+      },
+      {
+        "params": {
+          "duration": 5,
+          "exr_export": true,
+          "hdr": true,
+          "resolution": "720p"
+        },
+        "usd": 3
+      },
+      {
+        "params": {
+          "duration": 5,
+          "exr_export": true,
+          "hdr": true,
+          "resolution": "1080p"
+        },
+        "usd": 6
+      },
+      {
+        "params": {
+          "duration": 10,
+          "exr_export": false,
+          "hdr": false,
+          "resolution": "540p"
+        },
+        "usd": 1
+      },
+      {
+        "params": {
+          "duration": 10,
+          "exr_export": false,
+          "hdr": false,
+          "resolution": "720p"
+        },
+        "usd": 2
+      },
+      {
+        "params": {
+          "duration": 10,
+          "exr_export": false,
+          "hdr": false,
+          "resolution": "1080p"
+        },
+        "usd": 4
+      },
+      {
+        "params": {
+          "duration": 10,
+          "exr_export": false,
+          "hdr": true,
+          "resolution": "540p"
+        },
+        "usd": 1
+      },
+      {
+        "params": {
+          "duration": 10,
+          "exr_export": false,
+          "hdr": true,
+          "resolution": "720p"
+        },
+        "usd": 4
+      },
+      {
+        "params": {
+          "duration": 10,
+          "exr_export": false,
+          "hdr": true,
+          "resolution": "1080p"
+        },
+        "usd": 8
+      },
+      {
+        "params": {
+          "duration": 10,
+          "exr_export": true,
+          "hdr": false,
+          "resolution": "540p"
+        },
+        "usd": 1
+      },
+      {
+        "params": {
+          "duration": 10,
+          "exr_export": true,
+          "hdr": false,
+          "resolution": "720p"
+        },
+        "usd": 2
+      },
+      {
+        "params": {
+          "duration": 10,
+          "exr_export": true,
+          "hdr": false,
+          "resolution": "1080p"
+        },
+        "usd": 4
+      },
+      {
+        "params": {
+          "duration": 10,
+          "exr_export": true,
+          "hdr": true,
+          "resolution": "540p"
+        },
+        "usd": 1
+      },
+      {
+        "params": {
+          "duration": 10,
+          "exr_export": true,
+          "hdr": true,
+          "resolution": "720p"
+        },
+        "usd": 6
+      },
+      {
+        "params": {
+          "duration": 10,
+          "exr_export": true,
+          "hdr": true,
+          "resolution": "1080p"
+        },
+        "usd": 12
+      }
+    ]
+  },
+  "readme": "# Luma Ray 3.2 Image to Video\n\nLuma Ray 3.2 image-to-video: animate a first frame (optionally toward an end frame or keyframes) into a 5 or 10 second clip, with optional HDR.\n\n## Fields\n\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `prompt` | string, required | — | Up to 6,000 characters. |\n| `image` | image URL, required | — | First frame. JPEG, PNG, or WebP URL. |\n| `end_image` | image URL | — | Optional last frame. |\n| `resolution` | `540p` / `720p` / `1080p` | `720p` | Sets the per-second rate. |\n| `duration` | 5 / 10 | 5 | Output length in seconds. |\n| `loop` | boolean | false | Make the clip loop. |\n| `keyframes` | string[] | — | Optional keyframe images. |\n| `keyframe_indexes` | integer[] | — | Frame positions for `keyframes`. |\n| `exr_export` | boolean | false | Also export EXR frames with HDR; triples the price. |\n| `hdr` | boolean | false | 16-bit HDR output (720p and 1080p); doubles the price. |\n| `aspect_ratio` | `21:9` / `16:9` / `4:3` / `1:1` / `3:4` / `9:16` | `16:9` | Output frame shape. |\n\n## Billing\n\n$0.50 per 5-second clip at 540p, $1.00 at 720p, $2.00 at 1080p; 10 seconds costs double. HDR doubles and HDR with EXR export triples the 720p/1080p price.\n\n| Output | 540p | 720p | 1080p |\n|---|---|---|---|\n| 5s (default) | $0.50 | $1.00 | $2.00 |\n| 10s | $1.00 | $2.00 | $4.00 |\n| 5s HDR | $0.50 | $2.00 | $4.00 |\n\nFailed runs are not charged.\n\n## Prompting\n\n- Describe what moves and how the camera behaves.\n\n## Limits\n\n- Clips are 5 or 10 seconds.\n\n## Also on SandBase\n\nRelated: `luma/ray/3.2/text-to-video`.\n",
+  "cover_url": "https://static.sandbase.ai/covers/luma/agent/ray/3.2/image-to-video/cover-flare-20261005020900.webp",
+  "page_url": "https://www.sandbase.ai/model/luma/ray/3.2/image-to-video",
+  "published_at": "2026-06-09T15:14:38.545Z",
+  "created_at": "2026-10-05T23:58:16.467Z"
+}

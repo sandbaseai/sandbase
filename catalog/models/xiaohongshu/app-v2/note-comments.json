@@ -1,0 +1,100 @@
+{
+  "name": "xiaohongshu/app-v2/note-comments",
+  "display_name": "Xiaohongshu (RED) Note Comments",
+  "type": "api",
+  "vendor": "Xiaohongshu",
+  "vendor_slug": "xiaohongshu",
+  "description": "Get the comments on a Xiaohongshu note: comment text, time, likes, reply counts and location, with sorting and cursor pagination.",
+  "tags": [
+    "api",
+    "xiaohongshu"
+  ],
+  "capabilities": [
+    "api",
+    "xiaohongshu"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/xiaohongshu/app-v2/note-comments"
+  },
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "index": {
+        "type": "integer",
+        "title": "Index",
+        "default": 0,
+        "example": 0,
+        "description": "Comment index, pass 0 for first request, pass index value from previous response for next page"
+      },
+      "cursor": {
+        "type": "string",
+        "title": "Cursor",
+        "default": "",
+        "example": "",
+        "description": "Pagination cursor, leave empty for first request, pass cursor value from previous response for next page"
+      },
+      "note_id": {
+        "type": "string",
+        "title": "Note Id",
+        "default": "",
+        "example": "697c0eee000000000a03c308",
+        "description": "Note ID, e.g. \"697c0eee000000000a03c308\""
+      },
+      "pageArea": {
+        "type": "string",
+        "title": "Pagearea",
+        "default": "UNFOLDED",
+        "example": "UNFOLDED",
+        "description": "Fold status, default \"UNFOLDED\" (unfolded), pass pageArea value from previous response for next page"
+      },
+      "share_text": {
+        "type": "string",
+        "title": "Share Text",
+        "default": "",
+        "example": "",
+        "description": "Xiaohongshu sharing link (support APP and Web sharing link)"
+      },
+      "sort_strategy": {
+        "type": "string",
+        "title": "Sort Strategy",
+        "default": "latest_v2",
+        "example": "latest_v2",
+        "description": "Sort strategy"
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.015,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "examples": [
+    {
+      "input": {
+        "cursor": "",
+        "index": 0,
+        "note_id": "6a59e720000000000f033247",
+        "pageArea": "UNFOLDED",
+        "sort_strategy": "like_count"
+      },
+      "default": true
+    }
+  ],
+  "readme": "# Xiaohongshu (RED) Note Comments API\n\nPass a Xiaohongshu note ID (or a share link) and get its comments.\n\n## Use cases\n\n- Analyze consumer feedback on products.\n- Find questions and pain points in comments.\n- Monitor comments on brand notes.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/xiaohongshu/app-v2/note-comments\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"note_id\": \"697c0eee000000000a03c308\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `index` | integer | No | Comment index, pass 0 for first request, pass index value from previous response for next page |\n| `cursor` | string | No | Pagination cursor, leave empty for first request, pass cursor value from previous response for next page |\n| `note_id` | string | No | Note ID, e.g. \"697c0eee000000000a03c308\" |\n| `pageArea` | string | No | Fold status, default \"UNFOLDED\" (unfolded), pass pageArea value from previous response for next page |\n| `share_text` | string | No | Xiaohongshu sharing link (support APP and Web sharing link) |\n| `sort_strategy` | string | No | Sort strategy |\n\n## Example response\n\nReal response for the request above, trimmed to the main fields. User names and long IDs are masked.\n\n```json\n{\n  \"data\": {\n    \"cursor\": \"<cursor>\",\n    \"has_more\": true,\n    \"comments\": [\n      {\n        \"id\": \"69cb9fa90000000015001832\",\n        \"note_id\": \"697c0eee000000000a03c308\",\n        \"time\": 1774952362,\n        \"like_count\": 0,\n        \"sub_comment_count\": 0,\n        \"content\": \"想起来一部纪录片，忘了名字🧐\",\n        \"user\": {\n          \"nickname\": \"<user>\"\n        }\n      }\n    ]\n  }\n}\n```\n\n## Notes\n\n- Paginate with `cursor`, `index` and `pageArea` from the previous response.\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [Xiaohongshu (RED) Note Search](/model/xiaohongshu/app-v2/search-notes): Search Xiaohongshu (RED / Little Red Book) notes by keyword and get titles, authors, cover images and like, collect, comment and share counts, with sort, note-…\n- [Get creator hot inspiration feed](/model/xiaohongshu/app-v2/creator-hot-inspiration-feed): Get creator center hot inspiration feed, using cursor pagination.\n- [Get creator inspiration feed](/model/xiaohongshu/app-v2/creator-inspiration-feed): Get creator center recommended inspiration feed, using cursor pagination.\n",
+  "page_url": "https://www.sandbase.ai/model/xiaohongshu/app-v2/note-comments",
+  "created_at": "2026-07-31T02:46:55.21Z"
+}

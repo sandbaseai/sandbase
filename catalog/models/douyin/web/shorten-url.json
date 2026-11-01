@@ -1,0 +1,61 @@
+{
+  "name": "douyin/web/shorten-url",
+  "display_name": "Douyin URL Shortener",
+  "type": "api",
+  "vendor": "Douyin",
+  "vendor_slug": "douyin",
+  "description": "Shortens a target web address for Douyin web workflows. Accepts a full destination link and returns a compact shortened URL.",
+  "tags": [
+    "api",
+    "douyin"
+  ],
+  "capabilities": [
+    "api",
+    "douyin"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/douyin/web/shorten-url"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "target_url"
+    ],
+    "properties": {
+      "target_url": {
+        "type": "string",
+        "title": "Target Url",
+        "description": "Target URL to be converted"
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.0015,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "examples": [
+    {
+      "input": {
+        "target_url": "example"
+      }
+    }
+  ],
+  "readme": "# Douyin URL Shortener API\n\nConvert standard web links into shortened Douyin links using the required `target_url` parameter.\n\n## Use cases\n\n- Generating compact URLs for sharing Douyin links across external channels.\n- Formatting long web addresses into clean, shareable Douyin links.\n- Preparing concise links for display in space-constrained user interfaces.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/douyin/web/shorten-url\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"target_url\": \"<target_url>\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `target_url` | string | Yes | Target URL to be converted |\n\n## Notes\n\n- The `target_url` parameter requires the full destination address to convert.\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [Douyin Batch Video ID Extraction](/model/douyin/web/all-aweme-id): Extracts video IDs from a list of Douyin video URLs.\n- [Douyin sec_user_ids from URLs (Batch)](/model/douyin/web/all-sec-user-id): Extracts Douyin sec_user_id values in bulk from a list of user homepage URLs.\n- [Douyin Webcast ID Extraction](/model/douyin/web/all-webcast-id): Extracts webcast IDs from a submitted list of Douyin live room links.\n",
+  "page_url": "https://www.sandbase.ai/model/douyin/web/shorten-url",
+  "created_at": "2026-07-31T02:40:26.434Z"
+}

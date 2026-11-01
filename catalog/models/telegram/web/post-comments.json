@@ -1,0 +1,77 @@
+{
+  "name": "telegram/web/post-comments",
+  "display_name": "Telegram Post Comments",
+  "type": "api",
+  "vendor": "Telegram",
+  "vendor_slug": "telegram",
+  "description": "Returns comments from the linked discussion group of a specified Telegram channel post. Filters include the channel username, post ID, and an optional limit.",
+  "tags": [
+    "api",
+    "telegram"
+  ],
+  "capabilities": [
+    "api",
+    "telegram"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/telegram/web/post-comments"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "channel",
+      "post_id"
+    ],
+    "properties": {
+      "limit": {
+        "type": "integer",
+        "title": "Limit",
+        "maximum": 100,
+        "minimum": 1,
+        "description": "Number of comments"
+      },
+      "channel": {
+        "type": "string",
+        "title": "Channel",
+        "example": "telegram",
+        "description": "Channel username; post_id: Post ID; limit: number of comments (1-100)."
+      },
+      "post_id": {
+        "type": "integer",
+        "title": "Post Id",
+        "example": 450,
+        "description": "Post ID"
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.0015,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "examples": [
+    {
+      "input": {
+        "channel": "example",
+        "post_id": 1
+      }
+    }
+  ],
+  "readme": "# Telegram Post Comments API\n\nRetrieve discussion comments for a specific post using `channel` and `post_id`. Use `limit` to adjust the number of comments returned.\n\n## Use cases\n\n- Analyze user discussions and feedback on specific channel posts.\n- Monitor linked group responses to broad channel announcements.\n- Archive comment threads connected to public channel content.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/telegram/web/post-comments\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"channel\": \"telegram\", \"post_id\": 450}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `channel` | string | Yes | Channel username; post_id: Post ID; limit: number of comments (1-100). |\n| `post_id` | integer | Yes | Post ID |\n| `limit` | integer | No | Number of comments |\n\n## Notes\n\n- The `limit` parameter supports values between 1 and 100.\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [Telegram Batch Channel Info](/model/telegram/web/batch-channel-info): Returns basic channel profile details including title, description, and verified status for multiple public Telegram channels at once.\n- [Telegram Channel Info](/model/telegram/web/channel-info): Returns public metadata for a Telegram channel, including title, description, verified status, and username, using the public web preview.\n- [Telegram Channel Posts](/model/telegram/web/channel-posts): Get a public Telegram channel's recent posts: text, media, forwards, replies, link previews, reactions, views and time, with cursor pagination.\n",
+  "page_url": "https://www.sandbase.ai/model/telegram/web/post-comments",
+  "created_at": "2026-07-31T04:11:49.829Z"
+}

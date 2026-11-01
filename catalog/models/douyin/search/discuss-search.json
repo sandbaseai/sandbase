@@ -1,0 +1,94 @@
+{
+  "name": "douyin/search/discuss-search",
+  "display_name": "Douyin Discussion Search",
+  "type": "api",
+  "vendor": "Douyin",
+  "vendor_slug": "douyin",
+  "description": "Returns discussion and question-and-answer search results from Douyin. Supports filtering by keyword, sort order, content type, post time, and video duration.",
+  "tags": [
+    "api",
+    "douyin"
+  ],
+  "capabilities": [
+    "api",
+    "douyin"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/douyin/search/discuss-search"
+  },
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "cursor": {
+        "type": "integer",
+        "title": "Cursor",
+        "description": "Pagination cursor (0 for first page, use the last response cursor for subsequent pages)"
+      },
+      "keyword": {
+        "type": "string",
+        "title": "Keyword",
+        "description": "Search keyword, e.g., \"study abroad\""
+      },
+      "backtrace": {
+        "type": "string",
+        "title": "Backtrace",
+        "description": "Backtrace for pagination, obtained from the last response"
+      },
+      "search_id": {
+        "type": "string",
+        "title": "Search Id",
+        "description": "Search ID used for pagination"
+      },
+      "sort_type": {
+        "type": "string",
+        "title": "Sort Type",
+        "description": "Sorting method"
+      },
+      "content_type": {
+        "type": "string",
+        "title": "Content Type",
+        "description": "Content type filter"
+      },
+      "publish_time": {
+        "type": "string",
+        "title": "Publish Time",
+        "description": "Publish time filter"
+      },
+      "filter_duration": {
+        "type": "string",
+        "title": "Filter Duration",
+        "description": "Video duration filter"
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.015,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "examples": [
+    {
+      "input": {}
+    },
+    {
+      "input": {}
+    }
+  ],
+  "readme": "# Douyin Discussion Search API\n\nSearch Douyin discussion and Q&A content using a search query via `keyword`. Supports pagination and refined filtering via parameters like `sort_type` and `content_type`.\n\n## Use cases\n\n- Monitor audience questions and discussions around specific topic keywords.\n- Track public opinions and popular discussion threads on Douyin.\n- Filter community Q&A content by duration and sorting order.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/douyin/search/discuss-search\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `cursor` | integer | No | Pagination cursor (0 for first page, use the last response cursor for subsequent pages) |\n| `keyword` | string | No | Search keyword, e.g., \"study abroad\" |\n| `backtrace` | string | No | Backtrace for pagination, obtained from the last response |\n| `search_id` | string | No | Search ID used for pagination |\n| `sort_type` | string | No | Sorting method |\n| `content_type` | string | No | Content type filter |\n| `publish_time` | string | No | Publish time filter |\n| `filter_duration` | string | No | Video duration filter |\n\n## Example response\n\nReal response for the request above, trimmed to the main fields. User names and long IDs are masked.\n\n```json\n{\n  \"business_data\": [\n    {\n      \"card_id\": \"douyin.doctype_aweme_comment\",\n      \"data_id\": \"0\",\n      \"type\": 999,\n      \"data\": {\n        \"card_id\": \"douyin.doctype_aweme_comment\",\n        \"card_type_name\": \"doctype_aweme_comment\",\n        \"origin_type\": 0\n      }\n    }\n  ]\n}\n```\n\n## Notes\n\n- Set `cursor` to 0 for the initial page, then pass values from the prior response for subsequent requests.\n- Paging across result sets relies on `backtrace` and `search_id` retrieved from preceding response payloads.\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [Douyin Challenge Search](/model/douyin/search/challenge-search-v1): Returns Douyin challenge and hashtag search results matching a query.\n- [Douyin Hashtag Challenge Search (V2)](/model/douyin/search/challenge-search-v2): Returns Douyin hashtag and challenge search results matching a query keyword.\n- [Douyin Hashtag Suggestions](/model/douyin/search/challenge-suggest): Returns a list of suggested Douyin hashtags and challenges matching a query keyword, including challenge IDs and view counts.\n",
+  "page_url": "https://www.sandbase.ai/model/douyin/search/discuss-search",
+  "created_at": "2026-07-31T02:38:45.33Z"
+}

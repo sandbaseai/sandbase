@@ -1,0 +1,47 @@
+{
+  "name": "dataforseo/v3/dataforseo_labs/amazon/related_keywords/live",
+  "display_name": "DataForSEO Amazon Related Keywords",
+  "type": "api",
+  "vendor": "DataForSEO",
+  "vendor_slug": "dataforseo",
+  "description": "Get Amazon keywords related to a seed, with search volume.",
+  "tags": [
+    "labs",
+    "amazon",
+    "ecommerce",
+    "keywords"
+  ],
+  "capabilities": [
+    "labs",
+    "amazon",
+    "ecommerce",
+    "keywords"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/dataforseo/v3/dataforseo_labs/amazon/related_keywords/live"
+  },
+  "input_schema": {
+    "type": "object",
+    "properties": {},
+    "description": "Request parameters forwarded to DataForSEO /v3/dataforseo_labs/amazon/related_keywords/live. See DataForSEO docs for full schema.",
+    "additionalProperties": true
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.024
+  },
+  "readme": "# DataForSEO Amazon Related Keywords API\n\nGet Amazon keywords related to a seed, with search volume.\n\nRequest fields follow the official DataForSEO `/v3/dataforseo_labs/amazon/related_keywords/live` task schema (one task per call; send `{\"tasks\": [...]}` for several). `limit` is capped at 100. The response is DataForSEO's original JSON; results are in `tasks[].result`.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/dataforseo/v3/dataforseo_labs/amazon/related_keywords/live\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"keyword\": \"wireless earbuds\", \"limit\": 5, \"location_code\": 2840, \"language_code\": \"en\"}'\n```\n\n## Parameters\n\nThe JSON body is forwarded to the upstream endpoint (one task per call). Fields used above:\n\n| Name | Description |\n|---|---|\n| `keyword` | Search query. |\n| `limit` | Maximum number of results (up to 100). |\n| `location_code` | Location code, e.g. 2840 for the United States. |\n| `language_code` | Language code, e.g. \"en\". |\n\n## Pricing\n\nFlat price per call. Failed calls are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/dataforseo/v3/dataforseo_labs/amazon/related_keywords/live",
+  "published_at": "2024-01-01T00:00:00Z",
+  "created_at": "2026-10-29T00:07:15.137Z"
+}

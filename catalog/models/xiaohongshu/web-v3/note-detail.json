@@ -1,0 +1,68 @@
+{
+  "name": "xiaohongshu/web-v3/note-detail",
+  "display_name": "Xiaohongshu (RED) Web Note Details",
+  "type": "api",
+  "vendor": "Xiaohongshu",
+  "vendor_slug": "xiaohongshu",
+  "description": "Returns detailed information for a specific Xiaohongshu note using its identifier and security token obtained from a web share link.",
+  "tags": [
+    "api",
+    "xiaohongshu"
+  ],
+  "capabilities": [
+    "api",
+    "xiaohongshu"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/xiaohongshu/web-v3/note-detail"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "note_id",
+      "xsec_token"
+    ],
+    "properties": {
+      "note_id": {
+        "type": "string",
+        "title": "Note Id",
+        "description": "Note ID, can be obtained from the sharing link of Xiaohongshu"
+      },
+      "xsec_token": {
+        "type": "string",
+        "title": "Xsec Token",
+        "description": "Security token, can be obtained from the sharing link of Xiaohongshu"
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.015,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "examples": [
+    {
+      "input": {
+        "note_id": "example",
+        "xsec_token": "example"
+      }
+    }
+  ],
+  "readme": "# Xiaohongshu (RED) Web Note Details API\n\nRetrieve detailed note data from Xiaohongshu by providing the `note_id` and corresponding `xsec_token`.\n\n## Use cases\n\n- Retrieve complete note content and metadata for external analytics.\n- Monitor engagement and post information for specific platform notes.\n- Archive note attributes extracted from shared platform links.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/xiaohongshu/web-v3/note-detail\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"note_id\": \"<note_id>\", \"xsec_token\": \"<xsec_token>\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `note_id` | string | Yes | Note ID, can be obtained from the sharing link of Xiaohongshu |\n| `xsec_token` | string | Yes | Security token, can be obtained from the sharing link of Xiaohongshu |\n\n## Notes\n\n- Both `note_id` and `xsec_token` can be extracted directly from a Xiaohongshu share link.\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [Xiaohongshu (RED) Homepage Feed](/model/xiaohongshu/web-v3/homefeed): Retrieves recommended notes from the Xiaohongshu homepage feed.\n- [Xiaohongshu (RED) Homepage Categories](/model/xiaohongshu/web-v3/homefeed-categories): Returns a list of available homefeed category channels on Xiaohongshu (RED).\n- [Xiaohongshu (RED) Search Suggestions](/model/xiaohongshu/web-v3/search-suggest): Returns search query suggestions and autocomplete terms from Xiaohongshu (RED).\n",
+  "page_url": "https://www.sandbase.ai/model/xiaohongshu/web-v3/note-detail",
+  "created_at": "2026-07-31T02:47:46.929Z"
+}

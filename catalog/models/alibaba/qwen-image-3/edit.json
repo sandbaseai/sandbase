@@ -1,0 +1,176 @@
+{
+  "name": "alibaba/qwen-image-3/edit",
+  "display_name": "Qwen Image 3 Edit",
+  "type": "image",
+  "vendor": "Alibaba",
+  "vendor_slug": "alibaba",
+  "description": "Alibaba Qwen Image 3 image editing model with support for up to three reference images.",
+  "tags": [
+    "image-to-image"
+  ],
+  "capabilities": [
+    "image-to-image"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "prompt",
+      "images"
+    ],
+    "properties": {
+      "seed": {
+        "type": "integer",
+        "title": "Seed",
+        "description": "Random seed for reproducibility (0-2147483647)."
+      },
+      "images": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        },
+        "title": "Reference Images",
+        "examples": [
+          "https://media.sandbase.ai/files/3b376bfd-65d4-4653-817b-51098dee1045.png"
+        ],
+        "maxItems": 3,
+        "minItems": 1,
+        "description": "List of input image URLs for editing. Supports 1 to 3 images."
+      },
+      "prompt": {
+        "type": "string",
+        "title": "Prompt",
+        "default": "用途：precise-object-edit。图像1是唯一编辑目标。这是中国高中数学试卷批改真实性测试。\n严格保留原图的木桌、相机视角、纸张轮廓与阴影，以及全部黑色印刷文字、题号、公式、图形和版式；禁止重绘、改写、移动或删除原试卷内容。只新增以下红色教师签字笔笔迹：\n1. 在试卷右上角写“112/150”并用红笔圈住。\n2. 在四个部分标题旁依次写“45/60”“15/20”“10/20”“42/70”。\n3. 仅在第3、14、25题题号旁画红色叉号；仅在第1、13、21题题号旁画红色勾号。\n4. 在第25题旁写“计算错误”，在第22题旁写“过程不完整”。\n红笔必须像中国高中教师真实批卷：自然手写、轻微倾斜、压感和墨迹浓淡变化，位置准确且不遮挡题干。不要添加学生答案、手、人物、文具、印章、水印或其他内容。除指定红笔内容外，画面保持不变。",
+        "maxLength": 800,
+        "minLength": 1,
+        "description": "The editing instruction describing what changes to make."
+      },
+      "aspect_ratio": {
+        "enum": [
+          "21:9",
+          "16:9",
+          "3:2",
+          "4:3",
+          "5:4",
+          "1:1",
+          "4:5",
+          "3:4",
+          "2:3",
+          "9:16"
+        ],
+        "type": "string",
+        "title": "Aspect Ratio",
+        "default": "3:4",
+        "description": "The aspect ratio of the generated image."
+      },
+      "output_format": {
+        "enum": [
+          "jpeg",
+          "png"
+        ],
+        "type": "string",
+        "title": "Output Format",
+        "default": "png",
+        "description": "The format of the generated image."
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "title": "GenerationResponse",
+    "required": [
+      "id",
+      "status"
+    ],
+    "properties": {
+      "id": {
+        "type": "string",
+        "description": "Unique identifier for the generation task."
+      },
+      "error": {
+        "type": "string",
+        "description": "Error message if the task failed. Empty on success."
+      },
+      "model": {
+        "type": "string",
+        "description": "Model ID used for the prediction."
+      },
+      "status": {
+        "enum": [
+          "pending",
+          "running",
+          "completed",
+          "failed",
+          "timeout"
+        ],
+        "type": "string",
+        "description": "Status of the task: pending, running, completed, failed, or timeout."
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "title": "OutputItem",
+          "required": [
+            "url"
+          ],
+          "properties": {
+            "url": {
+              "type": "string",
+              "description": "The URL where the generated content can be downloaded from."
+            },
+            "content_type": {
+              "type": "string",
+              "description": "The MIME type of the output file."
+            }
+          }
+        },
+        "description": "Array of generated content. Empty when status is not completed."
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "formula",
+    "formula": "0.04 + len(params.images ?? []) * 0.003",
+    "formula_variables": [
+      "params.images"
+    ],
+    "reference_price": 0.043,
+    "price_examples": [
+      {
+        "params": {},
+        "usd": 0.043
+      }
+    ]
+  },
+  "examples": [
+    {
+      "input": {
+        "aspect_ratio": "1:1",
+        "images": [
+          "https://static.sandbase.ai/examples/f17ae866-160b-49bb-aae6-735643de913f/input/343ea4a5-3866-4623-9a00-49b64ad429a8.png"
+        ],
+        "prompt": "Make the sky orange at sunset"
+      },
+      "output": [
+        {
+          "url": "https://static.sandbase.ai/examples/f17ae866-160b-49bb-aae6-735643de913f/output/96abab89-e9ea-4462-a616-b1e229b0f7a5.png"
+        }
+      ],
+      "default": true
+    }
+  ],
+  "readme": "# Qwen Image 3 Edit\n\nEdit up to three images with an instruction using Qwen Image 3 (Pro). It handles precise local edits, text replacement, and multi-image composition while keeping untouched areas unchanged.\n\n## Fields\n\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `prompt` | string, required | — | Up to 800 characters. |\n| `images` | image URL[] (≤3), required | — | Images to edit, Image 1 to Image 3. The first is the main edit target. |\n| `aspect_ratio` | `21:9` / `16:9` / `3:2` / `4:3` / `5:4` / `1:1` / `4:5` / `3:4` / `2:3` / `9:16` | `3:4` | Output shape. |\n| `output_format` | `jpeg` / `png` | `png` | Output file format. |\n| `seed` | integer | random | Fix it to compare prompt changes. |\n\n## Billing\n\n$0.04 per output image plus $0.003 per input image, Alibaba's list price for Qwen Image 3.0 Pro.\n\n| Input images | Price |\n|---|---|\n| 1 | $0.043 |\n| 2 | $0.046 |\n| 3 | $0.049 |\n\nFailed runs are not charged.\n\n## Prompting\n\n- Say which image is the edit target and what each other image contributes.\n- List what must stay unchanged: layout, faces, printed text.\n- Quote replacement text exactly.\n\n## Limits\n\n- Up to 3 input images; the prompt is limited to 800 characters.\n\n## Also on SandBase\n\nRelated: `alibaba/qwen-image-3/text-to-image`, `alibaba/qwen-image-edit/2511`.\n",
+  "cover_url": "https://static.sandbase.ai/covers/alibaba/qwen-image-3/edit/cover-flare-20261004192846.webp",
+  "page_url": "https://www.sandbase.ai/model/alibaba/qwen-image-3/edit",
+  "published_at": "2026-07-21T12:20:35.851Z",
+  "created_at": "2026-07-22T16:40:02.538Z"
+}

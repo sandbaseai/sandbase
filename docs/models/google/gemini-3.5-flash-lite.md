@@ -1,0 +1,51 @@
+# Google: Gemini 3.5 Flash Lite
+
+`google/gemini-3.5-flash-lite` · llm · Google
+
+Gemini 3.5 Flash-Lite is the low-latency, high-throughput tier of Google's Gemini 3.5 family, released in July 2026 and described by Google as its fastest 3.5-class model. It is optimized for subagent tasks, document parsing, high-volume agentic workflows and simple data extraction where latency and throughput matter most. It accepts text, image, video, audio and PDF input, supports thinking and tool use, and is Google's recommended successor to Gemini 3.1 Flash-Lite.
+
+## Pricing
+
+- Input **$0.3** / output **$2.5** per 1M tokens (USD)
+- cache read multiplier: 0.1
+
+## Call it
+
+OpenAI-compatible: any OpenAI SDK works with `base_url=https://api.sandbase.ai/v1`. Anthropic (`/v1/messages`) and Gemini (`/v1beta/models/...`) formats are also accepted.
+
+**curl**
+
+```bash
+curl https://api.sandbase.ai/v1/chat/completions \
+  -H "Authorization: Bearer $SANDBASE_API_KEY" -H 'Content-Type: application/json' \
+  -d '{"model": "google/gemini-3.5-flash-lite", "messages": [{"role": "user", "content": "Hello"}]}'
+```
+
+**Python**
+
+```python
+from openai import OpenAI
+
+client = OpenAI(base_url="https://api.sandbase.ai/v1", api_key=os.environ["SANDBASE_API_KEY"])
+resp = client.chat.completions.create(model='google/gemini-3.5-flash-lite', messages=[{"role": "user", "content": "Hello"}])
+```
+
+**TypeScript**
+
+```ts
+import OpenAI from "openai";
+
+const client = new OpenAI({ baseURL: "https://api.sandbase.ai/v1", apiKey: process.env.SANDBASE_API_KEY });
+const resp = await client.chat.completions.create({ model: "google/gemini-3.5-flash-lite", messages: [{ role: "user", content: "Hello" }] });
+```
+
+**Go** ([sdk/go](../../../sdk/go))
+
+```go
+resp, err := c.Chat(ctx, "google/gemini-3.5-flash-lite", []map[string]any{{"role": "user", "content": "Hello"}}, nil)
+```
+
+
+Capabilities: `chat`, `vision`, `audio_input`, `reasoning`, `structured_output`, `function_calling`
+---
+Machine-readable: [`catalog/models/google/gemini-3.5-flash-lite.json`](../../../catalog/models/google/gemini-3.5-flash-lite.json) · Store page: https://www.sandbase.ai/model/google/gemini-3.5-flash-lite

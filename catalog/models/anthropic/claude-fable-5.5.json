@@ -1,0 +1,39 @@
+{
+  "name": "anthropic/claude-fable-5.5",
+  "display_name": "Anthropic: Claude Fable 5.5",
+  "type": "llm",
+  "vendor": "Anthropic",
+  "vendor_slug": "anthropic",
+  "description": "Claude Fable 5.5 is the expected successor to Claude Fable 5.1, Anthropic's tier above Opus for repository-scale coding, long-running agents and high-stakes review. Anthropic has not officially released it yet; specifications, pricing and API availability will be confirmed at launch.",
+  "tags": [
+    "chat",
+    "vision",
+    "reasoning",
+    "structured_output",
+    "function_calling",
+    "coming-soon"
+  ],
+  "capabilities": [
+    "chat",
+    "vision",
+    "reasoning",
+    "structured_output",
+    "function_calling",
+    "coming-soon"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "chat_completions": "POST /v1/chat/completions",
+    "responses": "POST /v1/responses",
+    "messages": "POST /v1/messages"
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "unknown"
+  },
+  "page_url": "https://www.sandbase.ai/model/anthropic/claude-fable-5.5",
+  "created_at": "2026-10-04T04:34:59.272Z"
+}

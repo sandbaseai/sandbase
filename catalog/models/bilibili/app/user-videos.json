@@ -1,0 +1,86 @@
+{
+  "name": "bilibili/app/user-videos",
+  "display_name": "Bilibili User Videos",
+  "type": "api",
+  "vendor": "Bilibili",
+  "vendor_slug": "bilibili",
+  "description": "Returns uploaded video listings for a specified Bilibili creator account. Supports pagination controls and filtering by post types such as archives or seasons.",
+  "tags": [
+    "api",
+    "bilibili"
+  ],
+  "capabilities": [
+    "api",
+    "bilibili"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/bilibili/app/user-videos"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "user_id"
+    ],
+    "properties": {
+      "ps": {
+        "type": "integer",
+        "title": "Ps",
+        "default": 20,
+        "example": 20,
+        "description": "Page size"
+      },
+      "page": {
+        "type": "integer",
+        "title": "Page",
+        "default": 1,
+        "example": 1,
+        "description": "Page number"
+      },
+      "user_id": {
+        "type": "string",
+        "title": "User Id",
+        "example": "203680252",
+        "description": "User ID (required)"
+      },
+      "post_filter": {
+        "type": "string",
+        "title": "Post Filter",
+        "default": "archive",
+        "example": "archive",
+        "description": "Filter type (archive/season/contribute)"
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.0015,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "examples": [
+    {
+      "input": {
+        "page": 1,
+        "post_filter": "archive",
+        "ps": 20,
+        "user_id": "203680252"
+      }
+    }
+  ],
+  "readme": "# Bilibili User Videos API\n\nRetrieve a list of video uploads from a creator using their `user_id`. You can also filter the results by content type and paginate through records.\n\n## Use cases\n\n- Track recent video uploads from specific Bilibili creators.\n- Catalog channel content by archive, season, or contribution type.\n- Collect video metadata including duration, view counts, and category tags.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/bilibili/app/user-videos\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"user_id\": \"203680252\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `user_id` | string | Yes | User ID (required) |\n| `ps` | integer | No | Page size |\n| `page` | integer | No | Page number |\n| `post_filter` | string | No | Filter type (archive/season/contribute) |\n\n## Example response\n\nReal response for the request above, trimmed to the main fields. User names and long IDs are masked.\n\n```json\n{\n  \"data\": {\n    \"item\": [\n      {\n        \"author\": \"AYCS2\",\n        \"ctime\": 1790748319,\n        \"duration\": 1171,\n        \"publish_time_text\": \"9月30日\",\n        \"title\": \"老Y蜜月之旅 | 马尔代夫菲诺芙\",\n        \"tname\": \"出行\",\n        \"view_content\": \"17万\",\n        \"view_self_type\": 0\n      }\n    ]\n  }\n}\n```\n\n## Notes\n\n- Filter content types using `post_filter` with values such as archive, season, or contribute.\n- Control pagination with the `page` and `ps` parameters.\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [Bilibili App Bangumi Tab](/model/bilibili/app/bangumi-tab): Returns Bilibili app bangumi tab data, providing curated anime recommendations, feed items, and category listings for mobile clients.\n- [Bilibili App Cinema Tab](/model/bilibili/app/cinema-tab): Returns cinema tab content from the Bilibili app, featuring curated movies, TV shows, and entertainment recommendations without requiring additional query para…\n- [Bilibili App Home Feed](/model/bilibili/app/home-feed): Returns recommended video items from the Bilibili app home feed.\n",
+  "page_url": "https://www.sandbase.ai/model/bilibili/app/user-videos",
+  "created_at": "2026-07-31T03:53:24.426Z"
+}

@@ -1,0 +1,42 @@
+{
+  "name": "openai/gpt-4o-2024-08-06",
+  "display_name": "OpenAI: GPT-4o (2024-08-06)",
+  "type": "llm",
+  "vendor": "OpenAI",
+  "vendor_slug": "openai",
+  "description": "This is the pinned August 6, 2024 snapshot of OpenAI's GPT-4o, accepting text and image input and producing text output. It was the first GPT-4o snapshot to support Structured Outputs, letting developers supply a JSON schema that responses follow, and it raised the output limit over the May 2024 release. Use it for workloads that need a fixed GPT-4o version, especially schema-constrained extraction and function-calling pipelines.",
+  "tags": [
+    "chat",
+    "vision",
+    "structured_output",
+    "function_calling"
+  ],
+  "capabilities": [
+    "chat",
+    "vision",
+    "structured_output",
+    "function_calling"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "chat_completions": "POST /v1/chat/completions",
+    "responses": "POST /v1/responses",
+    "messages": "POST /v1/messages"
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_token",
+    "per_million_tokens": {
+      "input": 2.5,
+      "output": 10,
+      "cache_read_multiplier": 0.5
+    }
+  },
+  "cover_url": "https://t0.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=https://openai.com&size=256",
+  "page_url": "https://www.sandbase.ai/model/openai/gpt-4o-2024-08-06",
+  "published_at": "2024-08-06T00:00:00Z",
+  "created_at": "2026-05-08T23:54:23.609Z"
+}

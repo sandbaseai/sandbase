@@ -1,0 +1,53 @@
+{
+  "name": "dataforseo/v3/domain_analytics/technologies/technology_stats/live",
+  "display_name": "DataForSEO Domain Analytics Technology Stats",
+  "type": "api",
+  "vendor": "DataForSEO",
+  "vendor_slug": "dataforseo",
+  "description": "Returns aggregated technology usage statistics across websites and web domains. Enables analysis of market adoption and trends for specific web technologies.",
+  "tags": [
+    "domain",
+    "technologies"
+  ],
+  "capabilities": [
+    "domain",
+    "technologies"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/dataforseo/v3/domain_analytics/technologies/technology_stats/live"
+  },
+  "input_schema": {
+    "type": "object",
+    "properties": {},
+    "description": "Request parameters forwarded to DataForSEO /v3/domain_analytics/technologies/technology_stats/live. See DataForSEO docs for full schema.",
+    "additionalProperties": true
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.003,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "examples": [
+    {
+      "input": {}
+    }
+  ],
+  "readme": "# DataForSEO Domain Analytics Technology Stats API\n\nInspect technology adoption metrics across domains with this endpoint. It provides aggregate technology statistics for tracking domain analytics trends.\n\n## Use cases\n\n- Track market share and adoption trends for web technologies.\n- Analyze technology stack prevalence across indexed domains.\n- Benchmark technology adoption across various digital platforms.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/dataforseo/v3/domain_analytics/technologies/technology_stats/live\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"technology\": \"Nginx\"}'\n```\n\n## Parameters\n\nThe JSON body is forwarded to the upstream endpoint (one task per call). Fields used above:\n\n| Name | Description |\n|---|---|\n| `technology` | Technology name, e.g. \"Nginx\". |\n\n## Pricing\n\nFlat price per call. Failed calls are not charged.\n\n## Related APIs\n\n- [DataForSEO Backlinks Anchors](/model/dataforseo/v3/backlinks/anchors/live): Returns anchor text distribution metrics for backlinks pointing to a target website or page.\n- [DataForSEO Backlinks List](/model/dataforseo/v3/backlinks/backlinks/live): Returns a list of external backlinks pointing to a specified target domain or webpage.\n- [DataForSEO Backlinks Bulk Ranks](/model/dataforseo/v3/backlinks/bulk_ranks/live): Returns rank metrics for multiple domains or pages in bulk.\n",
+  "page_url": "https://www.sandbase.ai/model/dataforseo/v3/domain_analytics/technologies/technology_stats/live",
+  "published_at": "2024-01-01T00:00:00Z",
+  "created_at": "2026-08-02T14:43:49.158Z"
+}

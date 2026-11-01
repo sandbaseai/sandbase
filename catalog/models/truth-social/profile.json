@@ -1,0 +1,75 @@
+{
+  "name": "truth-social/profile",
+  "display_name": "Truth Social Profile",
+  "type": "api",
+  "vendor": "Truth Social",
+  "vendor_slug": "truth-social",
+  "description": "Get a Truth Social account's public profile by handle - display name, bio, follower/following counts, and post count as clean JSON.",
+  "tags": [
+    "api",
+    "truth-social",
+    "social-media"
+  ],
+  "capabilities": [
+    "api",
+    "truth-social",
+    "social-media"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/truth-social/profile"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "handle"
+    ],
+    "properties": {
+      "handle": {
+        "type": "string",
+        "example": "DevinNunes",
+        "description": "Truth Social handle without the @, e.g. \"realDonaldTrump\"."
+      }
+    },
+    "additionalProperties": false
+  },
+  "response_schema": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string"
+      },
+      "model": {
+        "type": "string"
+      },
+      "status": {
+        "type": "string"
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "data": {
+              "type": "object",
+              "description": "Normalized result for this request."
+            }
+          }
+        }
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "usage_based",
+    "note": "Billed per call from metered usage; the reference price is typical.",
+    "reference_price": 0.0011
+  },
+  "readme": "# Truth Social Profile API\n\nGet a Truth Social account's public profile by handle - display name, bio, follower/following counts, and post count as clean JSON.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/truth-social/profile\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"handle\": \"DevinNunes\"}'\n```\n\nThe result is returned in `outputs[0].data`. A lookup that finds nothing still succeeds and returns `found: false`.\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `handle` | string | Yes | Truth Social handle without the @, e.g. \"realDonaldTrump\". |\n\n## Pricing\n\nBilled at the actual cost of each call, usually $0.0011 per request. A call can cost more when the first data source fails and another one answers. Failed calls are not charged. Lookups that find nothing and searches with no results are billed at their actual cost, which is often lower and can be $0.\n",
+  "page_url": "https://www.sandbase.ai/model/truth-social/profile",
+  "created_at": "2026-10-31T10:44:54.919Z"
+}

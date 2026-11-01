@@ -1,0 +1,72 @@
+{
+  "name": "aaa/news-article-detail",
+  "display_name": "AAA News Article Detail",
+  "type": "api",
+  "vendor": "AAA",
+  "vendor_slug": "aaa",
+  "description": "Returns the full content of a specific news article identified by its URL slug. The slug is obtainable from get_news_articles results.",
+  "tags": [
+    "api",
+    "aaa",
+    "web-scraping"
+  ],
+  "capabilities": [
+    "api",
+    "aaa",
+    "web-scraping"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}",
+    "passthrough": "POST /v1/api/aaa/news-article-detail"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "slug"
+    ],
+    "properties": {
+      "slug": {
+        "type": "string",
+        "example": "national-gas-average-drops-nearly-20-cents-in-one-week",
+        "description": "Article URL slug (e.g. national-gas-average-drops-nearly-20-cents-in-one-week). Obtainable from get_news_articles results."
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "required": [
+      "id",
+      "status",
+      "model"
+    ],
+    "properties": {
+      "id": {
+        "type": "string"
+      },
+      "model": {
+        "type": "string"
+      },
+      "status": {
+        "type": "string"
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.01,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "readme": "# AAA News Article Detail\n\nReturns the full content of a specific news article identified by its URL slug. The slug is obtainable from get_news_articles results.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/aaa/news-article-detail\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"slug\": \"national-gas-average-drops-nearly-20-cents-in-one-week\"}'\n```\n\nThis API runs asynchronously. The call returns a task `id` with status `pending`; poll `GET https://api.sandbase.ai/v1/run/{id}` until `status` is `completed` and read the result from `outputs[0].data`.\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `slug` | string | Yes | Article URL slug (e.g. national-gas-average-drops-nearly-20-cents-in-one-week). Obtainable from get_news_articles results. |\n\n## Pricing\n\nFlat price per call. Failed calls are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/aaa/news-article-detail",
+  "created_at": "2026-10-30T08:52:27.981Z"
+}

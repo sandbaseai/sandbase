@@ -1,0 +1,46 @@
+{
+  "name": "xiaomi/mimo-v2.6-pro",
+  "display_name": "Xiaomi: MiMo-V2.6-Pro",
+  "type": "llm",
+  "vendor": "Xiaomi",
+  "vendor_slug": "xiaomi",
+  "description": "MiMo-V2.6-Pro is the flagship of Xiaomi's open-source MiMo-V2.6 series, a trillion-parameter, natively omni-modal reasoning model released in September 2026 that takes text, image, video and audio input. Xiaomi built it for complex projects, long-horizon agents, coding, office and design work, cybersecurity, computer operation and research, with a 1M-token context. Pick it over MiMo-V2.6-Flash when task difficulty matters more than speed and volume.",
+  "tags": [
+    "chat",
+    "vision",
+    "audio_input",
+    "reasoning",
+    "structured_output",
+    "function_calling"
+  ],
+  "capabilities": [
+    "chat",
+    "vision",
+    "audio_input",
+    "reasoning",
+    "structured_output",
+    "function_calling"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "chat_completions": "POST /v1/chat/completions",
+    "responses": "POST /v1/responses",
+    "messages": "POST /v1/messages"
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_token",
+    "per_million_tokens": {
+      "input": 0.435,
+      "output": 0.87,
+      "cache_read_multiplier": 0.0083
+    }
+  },
+  "cover_url": "https://t0.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=https://www.mi.com/&size=256",
+  "page_url": "https://www.sandbase.ai/model/xiaomi/mimo-v2.6-pro",
+  "published_at": "2026-09-21T20:07:39Z",
+  "created_at": "2026-10-02T07:10:26.237Z"
+}

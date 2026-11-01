@@ -1,0 +1,48 @@
+{
+  "name": "google/gemini-3-pro-image",
+  "display_name": "Google: Nano Banana Pro (Gemini 3 Pro Image)",
+  "type": "llm",
+  "vendor": "Google",
+  "vendor_slug": "google",
+  "description": "Nano Banana Pro (Gemini 3 Pro Image) is the Pro-tier image generation and editing model of Google's Gemini 3 line, using a reasoning core and producing images alongside text. Google positions it for professional work such as complex graphic design, high-fidelity product mockups and factual data visualizations that need accurate text rendering, with real-world grounding via Google Search and studio-quality visuals up to 4K. Pick Nano Banana 2 instead for faster, higher-volume generation.",
+  "tags": [
+    "chat",
+    "vision",
+    "reasoning",
+    "image_output"
+  ],
+  "capabilities": [
+    "chat",
+    "vision",
+    "reasoning",
+    "image_output"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "chat_completions": "POST /v1/chat/completions",
+    "responses": "POST /v1/responses",
+    "messages": "POST /v1/messages"
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_token",
+    "per_million_tokens": {
+      "input": 2,
+      "output": 12,
+      "cache_read_multiplier": 0.1
+    },
+    "formula": "usage.prompt_tokens * 2 / 1000000 + (usage.completion_tokens - (usage.output_image_tokens ?? 0)) * 12 / 1000000 + (usage.output_image_tokens ?? 0) * 120 / 1000000",
+    "formula_variables": [
+      "usage.completion_tokens",
+      "usage.output_image_tokens",
+      "usage.prompt_tokens"
+    ]
+  },
+  "cover_url": "https://static.sandbase.ai/covers/google/gemini-3-pro-image/cover-flare-20261005090515.webp",
+  "page_url": "https://www.sandbase.ai/model/google/gemini-3-pro-image",
+  "published_at": "2026-06-18T03:40:54Z",
+  "created_at": "2026-06-24T01:28:23.486Z"
+}

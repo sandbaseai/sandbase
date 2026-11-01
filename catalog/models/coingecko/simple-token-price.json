@@ -1,0 +1,111 @@
+{
+  "name": "coingecko/simple-token-price",
+  "display_name": "CoinGecko Coin Price by Token Addresses",
+  "type": "api",
+  "vendor": "CoinGecko",
+  "vendor_slug": "coingecko",
+  "description": "Get one or more token prices using their token contract addresses",
+  "tags": [
+    "api",
+    "coingecko",
+    "crypto"
+  ],
+  "capabilities": [
+    "api",
+    "coingecko",
+    "crypto"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/coingecko/simple-token-price"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "id",
+      "contract_addresses",
+      "vs_currencies"
+    ],
+    "properties": {
+      "id": {
+        "type": "string",
+        "default": "ethereum",
+        "description": "Asset platform's ID. *refers to [`/asset_platforms`](/reference/asset-platforms-list)"
+      },
+      "precision": {
+        "enum": [
+          "full",
+          "0",
+          "1",
+          "2",
+          "3",
+          "4",
+          "5",
+          "6",
+          "7",
+          "8",
+          "9",
+          "10",
+          "11",
+          "12",
+          "13",
+          "14",
+          "15",
+          "16",
+          "17",
+          "18"
+        ],
+        "type": "string",
+        "description": "Decimal places for currency price value"
+      },
+      "vs_currencies": {
+        "type": "string",
+        "default": "usd",
+        "description": "Target currency of coins, comma-separated if querying more than 1 currency. *refers to [`/simple/supported_vs_currencies`](/reference/simple-supported-currencies)"
+      },
+      "include_24hr_vol": {
+        "type": "boolean",
+        "description": "Include 24-hour trading volume. Default: false"
+      },
+      "contract_addresses": {
+        "type": "string",
+        "default": "0x2260fac5e5542a773aa44fbcfedf7c193bc2c599",
+        "example": "0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48",
+        "description": "Token contract addresses, comma-separated if querying more than 1 token"
+      },
+      "include_market_cap": {
+        "type": "boolean",
+        "description": "Include market capitalization. Default: false"
+      },
+      "include_24hr_change": {
+        "type": "boolean",
+        "description": "Include 24-hour change percentage. Default: false"
+      },
+      "include_last_updated_at": {
+        "type": "boolean",
+        "description": "Include last updated price time as a UNIX timestamp. Default: false"
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.008,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "readme": "# CoinGecko Coin Price by Token Addresses API\n\nGet one or more token prices using their token contract addresses\n\nThe response is the official CoinGecko API response, unchanged.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/coingecko/simple-token-price\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"id\": \"ethereum\", \"contract_addresses\": \"0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48\", \"vs_currencies\": \"usd\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `id` | string | Yes | Asset platform's ID. *refers to [`/asset_platforms`](/reference/asset-platforms-list) |\n| `contract_addresses` | string | Yes | Token contract addresses, comma-separated if querying more than 1 token |\n| `include_24hr_change` | boolean | No | Include 24-hour change percentage. Default: false |\n| `include_24hr_vol` | boolean | No | Include 24-hour trading volume. Default: false |\n| `include_last_updated_at` | boolean | No | Include last updated price time as a UNIX timestamp. Default: false |\n| `include_market_cap` | boolean | No | Include market capitalization. Default: false |\n| `precision` | string | No | Decimal places for currency price value |\n| `vs_currencies` | string | Yes | Target currency of coins, comma-separated if querying more than 1 currency. *refers to [`/simple/supported_vs_currencies`](/reference/simple-supported-currencie |\n\n## Pricing\n\nFlat price per call. Failed calls are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/coingecko/simple-token-price",
+  "created_at": "2026-10-30T03:11:26.413Z"
+}

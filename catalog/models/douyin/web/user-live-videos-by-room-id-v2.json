@@ -1,0 +1,61 @@
+{
+  "name": "douyin/web/user-live-videos-by-room-id-v2",
+  "display_name": "Douyin Stream Data by Room ID (V2)",
+  "type": "api",
+  "vendor": "Douyin",
+  "vendor_slug": "douyin",
+  "description": "Returns stream data for a specified Douyin user using a room identifier. Provide a valid room ID to inspect stream metadata and broadcast details.",
+  "tags": [
+    "api",
+    "douyin"
+  ],
+  "capabilities": [
+    "api",
+    "douyin"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/douyin/web/user-live-videos-by-room-id-v2"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "room_id"
+    ],
+    "properties": {
+      "room_id": {
+        "type": "string",
+        "title": "Room Id",
+        "description": "Room room_id"
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.0015,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "examples": [
+    {
+      "input": {
+        "room_id": "example"
+      }
+    }
+  ],
+  "readme": "# Douyin Stream Data by Room ID (V2) API\n\nThis endpoint retrieves stream details for a specific user based on `room_id`. Call it to inspect broadcast metadata and session information.\n\n## Use cases\n\n- Retrieve broadcast details for a Douyin stream session using a room identifier.\n- Track broadcaster stream performance and metadata across specific room sessions.\n- Verify stream status and session details for specific user rooms.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/douyin/web/user-live-videos-by-room-id-v2\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"room_id\": \"<room_id>\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `room_id` | string | Yes | Room room_id |\n\n## Notes\n\n- Requires a valid `room_id` string to identify the target room.\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [Douyin Batch Video ID Extraction](/model/douyin/web/all-aweme-id): Extracts video IDs from a list of Douyin video URLs.\n- [Douyin sec_user_ids from URLs (Batch)](/model/douyin/web/all-sec-user-id): Extracts Douyin sec_user_id values in bulk from a list of user homepage URLs.\n- [Douyin Webcast ID Extraction](/model/douyin/web/all-webcast-id): Extracts webcast IDs from a submitted list of Douyin live room links.\n",
+  "page_url": "https://www.sandbase.ai/model/douyin/web/user-live-videos-by-room-id-v2",
+  "created_at": "2026-07-31T02:40:41.988Z"
+}

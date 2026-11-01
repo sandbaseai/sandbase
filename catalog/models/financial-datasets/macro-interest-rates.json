@@ -1,0 +1,63 @@
+{
+  "name": "financial-datasets/macro-interest-rates",
+  "display_name": "Financial Datasets Get Historical Interest Rates",
+  "type": "api",
+  "vendor": "Financial Datasets",
+  "vendor_slug": "financial-datasets",
+  "description": "The daily policy rate of one central bank: one row per calendar day, newest first, 10 rows per page. A rate change appears on the first day the new rate is in effect.",
+  "tags": [
+    "api",
+    "financial-datasets",
+    "stocks"
+  ],
+  "capabilities": [
+    "api",
+    "financial-datasets",
+    "stocks"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/financial-datasets/macro-interest-rates"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "bank"
+    ],
+    "properties": {
+      "bank": {
+        "type": "string",
+        "example": "FED",
+        "description": "The central bank code, e.g. FED, ECB, BOJ. Use the /macro/interest-rates/banks endpoint to get the list of available banks."
+      },
+      "cursor": {
+        "type": "string",
+        "description": "Opaque pagination cursor from a previous response's next_page_url. When provided, all other query parameters are ignored: the cursor carries the original request's filters. Treat it as opaque; do not construct or modify it."
+      },
+      "end_date": {
+        "type": "string",
+        "description": "The last date to return, inclusive, in YYYY-MM-DD format. Defaults to today."
+      },
+      "start_date": {
+        "type": "string",
+        "description": "The first date to return, inclusive, in YYYY-MM-DD format. Defaults to five years before end_date when both dates are omitted; omit it with an end_date to get all available history through that date."
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.02
+  },
+  "readme": "# Financial Datasets Get Historical Interest Rates API\n\nThe daily policy rate of one central bank: one row per calendar day, newest first, 10 rows per page. A rate change appears on the first day the new rate is in effect.\n\nThe response is the official Financial Datasets API response, unchanged.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/financial-datasets/macro-interest-rates\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"bank\": \"FED\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `bank` | string | Yes | The central bank code, e.g. FED, ECB, BOJ. Use the /macro/interest-rates/banks endpoint to get the list of available banks. |\n| `cursor` | string | No | Opaque pagination cursor from a previous response's next_page_url. When provided, all other query parameters are ignored: the cursor carries the original reques |\n| `end_date` | string | No | The last date to return, inclusive, in YYYY-MM-DD format. Defaults to today. |\n| `start_date` | string | No | The first date to return, inclusive, in YYYY-MM-DD format. Defaults to five years before end_date when both dates are omitted; omit it with an end_date to get a |\n\n## Pricing\n\nFlat price per call. Failed calls are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/financial-datasets/macro-interest-rates",
+  "created_at": "2026-10-30T03:12:16.342Z"
+}

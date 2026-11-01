@@ -1,0 +1,118 @@
+{
+  "name": "fred/series-search-tags",
+  "display_name": "FRED Search Series Tags",
+  "type": "api",
+  "vendor": "FRED",
+  "vendor_slug": "fred",
+  "description": "Search Series Tags from FRED. Returns the official FRED API response unchanged.",
+  "tags": [
+    "api",
+    "fred",
+    "economic-data"
+  ],
+  "capabilities": [
+    "api",
+    "fred",
+    "economic-data"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/fred/series-search-tags"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "series_search_text"
+    ],
+    "properties": {
+      "limit": {
+        "type": "integer",
+        "default": 1000,
+        "maximum": 1000,
+        "minimum": 1,
+        "description": "The maximum number of results to return. integer between 1 and 1000, optional, default: 1000"
+      },
+      "offset": {
+        "type": "integer",
+        "default": 0,
+        "minimum": 0,
+        "description": "non-negative integer, optional, default: 0"
+      },
+      "order_by": {
+        "enum": [
+          "series_count",
+          "popularity",
+          "created",
+          "name",
+          "group_id"
+        ],
+        "type": "string",
+        "default": "series_count",
+        "description": "Order results by values of the specified attribute. One of the following strings: 'series_count', 'popularity', 'created', 'name', 'group_id'. optional, default: series_count"
+      },
+      "file_type": {
+        "enum": [
+          "json"
+        ],
+        "type": "string",
+        "default": "json",
+        "description": "Response format. Only json is supported."
+      },
+      "tag_names": {
+        "type": "string",
+        "description": "A semicolon delimited list of tag names to only include in the response. See the related request fred/series/search/related_tags . String, optional, no filtering by tag names by default Example value: 'm1;m2'. This value filters results to only include tags 'm1' and 'm2'."
+      },
+      "sort_order": {
+        "enum": [
+          "asc",
+          "desc"
+        ],
+        "type": "string",
+        "default": "asc",
+        "description": "Sort results is ascending or descending order for attribute values specified by order_by. One of the following strings: 'asc', 'desc'. optional, default: asc"
+      },
+      "realtime_end": {
+        "type": "string",
+        "description": "The end of the real-time period. For more information, see Real-Time Periods . YYYY-MM-DD formatted string, optional, default: today's date"
+      },
+      "tag_group_id": {
+        "type": "string",
+        "description": "A tag group id to filter tags by type. String, optional, no filtering by tag group by default. One of the following: 'freq', 'gen', 'geo', 'geot', 'rls', 'seas', 'src'. freq = Frequency gen = General or Concept geo = Geography geot = Geography Type rls = Release seas = Seasonal Adjustment src = Sour"
+      },
+      "realtime_start": {
+        "type": "string",
+        "description": "The start of the real-time period. For more information, see Real-Time Periods . YYYY-MM-DD formatted string, optional, default: today's date"
+      },
+      "tag_search_text": {
+        "type": "string",
+        "description": "The words to find matching tags with. String, optional, no filtering by search words by default."
+      },
+      "series_search_text": {
+        "type": "string",
+        "example": "unemployment",
+        "description": "The words to match against economic data series. string, required"
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 1e-05,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "readme": "# FRED Search Series Tags API\n\nSearch Series Tags from FRED. Returns the official FRED API response unchanged.\n\nThe response is the official FRED API response, unchanged.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/fred/series-search-tags\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"series_search_text\": \"unemployment\", \"file_type\": \"json\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `file_type` | string | No | Response format. Only json is supported. |\n| `limit` | integer | No | The maximum number of results to return. integer between 1 and 1000, optional, default: 1000 |\n| `offset` | integer | No | non-negative integer, optional, default: 0 |\n| `order_by` | string | No | Order results by values of the specified attribute. One of the following strings: 'series_count', 'popularity', 'created', 'name', 'group_id'. optional, default |\n| `realtime_end` | string | No | The end of the real-time period. For more information, see Real-Time Periods . YYYY-MM-DD formatted string, optional, default: today's date |\n| `realtime_start` | string | No | The start of the real-time period. For more information, see Real-Time Periods . YYYY-MM-DD formatted string, optional, default: today's date |\n| `series_search_text` | string | Yes | The words to match against economic data series. string, required |\n| `sort_order` | string | No | Sort results is ascending or descending order for attribute values specified by order_by. One of the following strings: 'asc', 'desc'. optional, default: asc |\n| `tag_group_id` | string | No | A tag group id to filter tags by type. String, optional, no filtering by tag group by default. One of the following: 'freq', 'gen', 'geo', 'geot', 'rls', 'seas' |\n| `tag_names` | string | No | A semicolon delimited list of tag names to only include in the response. See the related request fred/series/search/related_tags . String, optional, no filterin |\n| `tag_search_text` | string | No | The words to find matching tags with. String, optional, no filtering by search words by default. |\n\n## Pricing\n\nFlat price per call. Failed calls are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/fred/series-search-tags",
+  "created_at": "2026-10-30T03:11:35.415Z"
+}

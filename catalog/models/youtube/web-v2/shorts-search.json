@@ -1,0 +1,158 @@
+{
+  "name": "youtube/web-v2/shorts-search",
+  "display_name": "Shorts search (raw data, recommend V2)",
+  "type": "api",
+  "vendor": "YouTube",
+  "vendor_slug": "youtube",
+  "description": "YouTube Shorts specialized search using native YouTube API.",
+  "tags": [
+    "api",
+    "youtube"
+  ],
+  "capabilities": [
+    "api",
+    "youtube"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/youtube/web-v2/shorts-search"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "search_query"
+    ],
+    "properties": {
+      "sort_by": {
+        "anyOf": [
+          {
+            "enum": [
+              "relevance",
+              "upload_date",
+              "view_count",
+              "rating"
+            ],
+            "type": "string",
+            "title": "YouTubeSearchSortAPI",
+            "description": "YouTube search sort order for the API."
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "title": "Sort By",
+        "examples": [
+          "rating",
+          "relevance",
+          "view_count",
+          "upload_date"
+        ],
+        "description": "Sort by for Shorts"
+      },
+      "time_zone": {
+        "type": "string",
+        "title": "Time Zone",
+        "default": "America/Los_Angeles",
+        "example": "America/Los_Angeles",
+        "description": "Time zone (e.g., America/Los_Angeles, Asia/Shanghai)"
+      },
+      "upload_time": {
+        "anyOf": [
+          {
+            "enum": [
+              "hour",
+              "today",
+              "week",
+              "month",
+              "year"
+            ],
+            "type": "string",
+            "title": "YouTubeUploadTimeAPI",
+            "description": "YouTube upload time filter for the API."
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "title": "Upload Time",
+        "examples": [
+          "hour",
+          "week",
+          "year",
+          "month",
+          "today"
+        ],
+        "description": "Upload time filter for Shorts"
+      },
+      "country_code": {
+        "type": "string",
+        "title": "Country Code",
+        "default": "US",
+        "example": "US",
+        "description": "Country code affecting regional relevance"
+      },
+      "search_query": {
+        "type": "string",
+        "title": "Search Query",
+        "example": "NASA",
+        "maxLength": 200,
+        "description": "Search keyword"
+      },
+      "language_code": {
+        "type": "string",
+        "title": "Language Code",
+        "default": "en-US",
+        "example": "en-US",
+        "description": "Language code (zh-CN for Chinese, en-US for English)"
+      },
+      "continuation_token": {
+        "anyOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "title": "Continuation Token",
+        "description": "Pagination token"
+      },
+      "filter_mixed_content": {
+        "type": "boolean",
+        "title": "Filter Mixed Content",
+        "default": true,
+        "example": true,
+        "description": "Whether to filter long videos from mixed content (default true)"
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.0015,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "examples": [
+    {
+      "input": {
+        "search_query": "Python编程"
+      },
+      "default": true
+    }
+  ],
+  "readme": "# Shorts search (raw data, recommend V2)\n\nYouTube Shorts specialized search using native YouTube API. It is suitable for youtube workflows.\n\n## Capability\n\nYouTube Shorts specialized search using native YouTube API. It helps applications, agents, and automated workflows turn that capability into repeatable tasks and useful downstream experiences.\n\n## Common use cases\n\n- Search and discover relevant records for research, monitoring, and product experiences.\n- Create repeatable integrations that pass structured results to downstream business systems.\n- Support scheduled jobs, internal tools, and agent workflows with structured results.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/youtube/web-v2/shorts-search\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"search_query\": \"NASA\"}'\n```\n\nThe result is returned in `outputs[0].data` in YouTube's own response format.\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `sort_by` | string | No | Sort by for Shorts. |\n| `time_zone` | string | No | Time zone (e.g., America/Los_Angeles, Asia/Shanghai). Default `America/Los_Angeles`. |\n| `upload_time` | string | No | Upload time filter for Shorts. |\n| `country_code` | string | No | Country code affecting regional relevance. Default `US`. |\n| `search_query` | string | Yes | Search keyword. |\n| `language_code` | string | No | Language code (zh-CN for Chinese, en-US for English). Default `en-US`. |\n| `continuation_token` | string | No | Pagination token. |\n| `filter_mixed_content` | boolean | No | Whether to filter long videos from mixed content (default `true`). |\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/youtube/web-v2/shorts-search",
+  "created_at": "2026-07-31T04:27:36.697Z"
+}

@@ -1,0 +1,62 @@
+{
+  "name": "douyin/xingtu-v3/data-sp-check-author-display",
+  "display_name": "Douyin Xingtu Creator Visibility Status",
+  "type": "api",
+  "vendor": "Douyin",
+  "vendor_slug": "douyin",
+  "description": "Get whether a specified creator can be displayed in Douyin Creator Marketplace (Xingtu) for the selected content channel. Use it to check creator availability before building a campaign shortlist.",
+  "tags": [
+    "api",
+    "douyin",
+    "social-media"
+  ],
+  "capabilities": [
+    "api",
+    "douyin",
+    "social-media"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/douyin/xingtu-v3/data-sp-check-author-display"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "oAuthorId"
+    ],
+    "properties": {
+      "platform": {
+        "enum": [
+          "SHORT_VIDEO",
+          "LIVE_STREAMING",
+          "PICTURE_TEXT",
+          "SHORT_DRAMA"
+        ],
+        "type": "string",
+        "default": "SHORT_VIDEO",
+        "description": "Platform type."
+      },
+      "oAuthorId": {
+        "type": "string",
+        "example": "6870161898013196295",
+        "description": "Author's unique ID."
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.020833
+  },
+  "readme": "# Douyin Xingtu Creator Visibility Status API\n\nGet whether a specified creator can be displayed in Douyin Creator Marketplace (Xingtu) for the selected content channel. Use it to check creator availability before building a campaign shortlist.\n\nThe response is the platform's original data structure.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/douyin/xingtu-v3/data-sp-check-author-display\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"oAuthorId\": \"6870161898013196295\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `oAuthorId` | string | Yes | Author's unique ID. |\n| `platform` | string | No | Platform type. |\n\n## Pricing\n\nFlat price per call. Failed calls and empty results are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/douyin/xingtu-v3/data-sp-check-author-display",
+  "created_at": "2026-10-29T11:58:15.576Z"
+}

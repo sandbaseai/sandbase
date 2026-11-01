@@ -1,0 +1,212 @@
+{
+  "name": "ideogram/4.5/edit",
+  "display_name": "Ideogram 4.5 Edit",
+  "type": "image",
+  "vendor": "Ideogram",
+  "vendor_slug": "ideogram",
+  "description": "Ideogram 4.5 edits an image from a text instruction, with an optional mask and style references, with reliable text rendering and polished graphic design output.",
+  "tags": [
+    "image-to-image"
+  ],
+  "capabilities": [
+    "image-to-image"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "prompt",
+      "image"
+    ],
+    "properties": {
+      "mask": {
+        "type": "string",
+        "title": "Mask URL",
+        "description": "Mask matching the source dimensions. Black edits, white preserves. Must contain both regions after rounding."
+      },
+      "seed": {
+        "type": "integer",
+        "title": "Seed",
+        "description": "Random seed. Omit to choose automatically."
+      },
+      "image": {
+        "type": "string",
+        "title": "Image URL",
+        "description": "Primary source image to edit."
+      },
+      "prompt": {
+        "type": "string",
+        "title": "Prompt",
+        "examples": [
+          "A colorful storefront with a sign reading hello"
+        ],
+        "maxLength": 10000,
+        "minLength": 1,
+        "description": "The generation or editing prompt."
+      },
+      "quality": {
+        "enum": [
+          "very_low",
+          "low",
+          "medium",
+          "high"
+        ],
+        "type": "string",
+        "title": "Quality",
+        "default": "medium",
+        "description": "Quality tier for either edit precision. Defaults to medium."
+      },
+      "aspect_ratio": {
+        "enum": [
+          "21:9",
+          "16:9",
+          "3:2",
+          "4:3",
+          "5:4",
+          "1:1",
+          "4:5",
+          "3:4",
+          "2:3",
+          "9:16"
+        ],
+        "type": "string",
+        "title": "Aspect Ratio",
+        "description": "The aspect ratio of the generated image."
+      },
+      "edit_precision": {
+        "enum": [
+          "regular",
+          "high"
+        ],
+        "type": "string",
+        "title": "Edit Precision",
+        "default": "regular",
+        "description": "regular uses Generate; high uses Precise Edit with unchanged-pixel restoration. Both always prepare structured edit instructions."
+      },
+      "reference_image_urls": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        },
+        "title": "Reference Image URLs",
+        "description": "Up to four references plus the primary source, or three references plus the primary source and mask."
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "title": "GenerationResponse",
+    "required": [
+      "id",
+      "status"
+    ],
+    "properties": {
+      "id": {
+        "type": "string",
+        "description": "Unique identifier for the generation task."
+      },
+      "error": {
+        "type": "string",
+        "description": "Error message if the task failed. Empty on success."
+      },
+      "model": {
+        "type": "string",
+        "description": "Model ID used for the prediction."
+      },
+      "status": {
+        "enum": [
+          "pending",
+          "running",
+          "completed",
+          "failed",
+          "timeout"
+        ],
+        "type": "string",
+        "description": "Status of the task: pending, running, completed, failed, or timeout."
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "title": "OutputItem",
+          "required": [
+            "url"
+          ],
+          "properties": {
+            "url": {
+              "type": "string",
+              "description": "The URL where the generated content can be downloaded from."
+            },
+            "content_type": {
+              "type": "string",
+              "description": "The MIME type of the output file."
+            }
+          }
+        },
+        "description": "Array of generated content. Empty when status is not completed."
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "formula",
+    "formula": "(params.quality ?? \"medium\") == \"high\" ? 0.22 : (params.quality ?? \"medium\") == \"low\" ? 0.03 : (params.quality ?? \"medium\") == \"very_low\" ? 0.008 : 0.06",
+    "formula_variables": [
+      "params.quality"
+    ],
+    "reference_price": 0.06,
+    "price_examples": [
+      {
+        "params": {
+          "quality": "very_low"
+        },
+        "usd": 0.008
+      },
+      {
+        "params": {
+          "quality": "low"
+        },
+        "usd": 0.03
+      },
+      {
+        "params": {
+          "quality": "medium"
+        },
+        "usd": 0.06
+      },
+      {
+        "params": {
+          "quality": "high"
+        },
+        "usd": 0.22
+      }
+    ]
+  },
+  "examples": [
+    {
+      "input": {
+        "image": "https://static.sandbase.ai/examples/c74a47c4-e59b-48f1-a093-03df5ef017cd/input/72ce2e87-7134-46b2-aedf-d0ac4e1d71de.png",
+        "prompt": "add the word SALE in red",
+        "quality": "very_low"
+      },
+      "output": [
+        {
+          "url": "https://static.sandbase.ai/examples/c74a47c4-e59b-48f1-a093-03df5ef017cd/output/6d8b7abe-68db-4042-abdd-e53cc8242445.png"
+        }
+      ],
+      "default": true
+    }
+  ],
+  "readme": "# Ideogram 4.5 Edit\n\nIdeogram 4.5 edit: change an image from an instruction, with an optional mask and style references.\n\n## Fields\n\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `prompt` | string, required | — | Up to 10,000 characters. |\n| `image` | image URL, required | — | Image to edit. JPEG, PNG, or WebP URL. |\n| `mask` | image URL | — | Optional mask; white areas are edited. |\n| `edit_precision` | `regular` / `high` | `regular` | `high` keeps unmasked areas closer to the original. |\n| `reference_image_urls` | image URL[] | — | Optional style references. |\n| `quality` | `very_low` / `low` / `medium` / `high` | `medium` | Sets the per-image rate. |\n| `aspect_ratio` | `21:9` / `16:9` / `3:2` / `4:3` / `5:4` / `1:1` / `4:5` / `3:4` / `2:3` / `9:16` | — | Output shape. |\n| `seed` | integer | random | Fix it to compare prompt changes. |\n\n## Billing\n\nPer output image: $0.008 very low, $0.03 low, $0.06 medium, $0.22 high.\n\n| Quality | Price |\n|---|---|\n| very_low | $0.008 |\n| low | $0.03 |\n| medium | $0.06 |\n| high | $0.22 |\n\nFailed runs are not charged.\n\n## Prompting\n\n- Use a mask for local edits.\n\n## Also on SandBase\n\nRelated: `ideogram/4.5`.\n",
+  "cover_url": "https://static.sandbase.ai/covers/ideogram-ai/ideogram-v3/edit/cover-flare-20261005041500.webp",
+  "page_url": "https://www.sandbase.ai/model/ideogram/4.5/edit",
+  "published_at": "2026-09-30T16:56:12.009Z",
+  "created_at": "2026-10-06T10:50:35.765Z"
+}

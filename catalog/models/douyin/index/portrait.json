@@ -1,0 +1,87 @@
+{
+  "name": "douyin/index/portrait",
+  "display_name": "Douyin Keyword Crowd Portrait",
+  "type": "api",
+  "vendor": "Douyin",
+  "vendor_slug": "douyin",
+  "description": "Returns crowd portrait analysis for a specific keyword over a defined date range. Allows querying data for Douyin or Toutiao platforms.",
+  "tags": [
+    "api",
+    "douyin"
+  ],
+  "capabilities": [
+    "api",
+    "douyin"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/douyin/index/portrait"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "end_date",
+      "keyword",
+      "start_date"
+    ],
+    "properties": {
+      "keyword": {
+        "type": "string",
+        "title": "Keyword",
+        "example": "人工智能",
+        "description": "The keyword to analyze"
+      },
+      "app_name": {
+        "enum": [
+          "aweme",
+          "toutiao"
+        ],
+        "type": "string",
+        "title": "App Name",
+        "description": "Platform, aweme=Douyin, toutiao=Toutiao"
+      },
+      "end_date": {
+        "type": "string",
+        "title": "End Date",
+        "example": "1735660799",
+        "description": "End date YYYYMMDD"
+      },
+      "start_date": {
+        "type": "string",
+        "title": "Start Date",
+        "example": "1730044800",
+        "description": "Start date YYYYMMDD"
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.0015,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "examples": [
+    {
+      "input": {
+        "end_date": "example",
+        "keyword": "example",
+        "start_date": "example"
+      }
+    }
+  ],
+  "readme": "# Douyin Keyword Crowd Portrait API\n\nQuery crowd portrait metrics for a targeted `keyword` across a timeframe set by `start_date` and `end_date`.\n\n## Use cases\n\n- Analyze audience demographics interested in specific search terms.\n- Compare audience interest between Douyin and Toutiao platforms.\n- Evaluate keyword audience trends across selected date ranges.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/douyin/index/portrait\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"end_date\": \"1735660799\", \"keyword\": \"人工智能\", \"start_date\": \"1730044800\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `keyword` | string | Yes | The keyword to analyze |\n| `end_date` | string | Yes | End date YYYYMMDD |\n| `start_date` | string | Yes | Start date YYYYMMDD |\n| `app_name` | string | No | Platform, aweme=Douyin, toutiao=Toutiao |\n\n## Notes\n\n- The `app_name` parameter supports `aweme` for Douyin and `toutiao` for Toutiao.\n- Both `start_date` and `end_date` require the YYYYMMDD date format.\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [Douyin Index Area List](/model/douyin/index/all-area): Returns the complete list of supported geographic areas available for Douyin Index queries.\n- [Douyin Index Valid Dates](/model/douyin/index/all-valid-date): Returns the latest valid dates available for each data type in Douyin Index.\n- [Douyin Brand Popularity Cycles](/model/douyin/index/brand-cycles): Returns periodic brand popularity and cycle analysis data across platforms for a specified brand name and date range.\n",
+  "page_url": "https://www.sandbase.ai/model/douyin/index/portrait",
+  "created_at": "2026-07-31T02:38:26.755Z"
+}

@@ -1,0 +1,70 @@
+{
+  "name": "kuaishou/app/music-ranking",
+  "display_name": "Kuaishou Music Ranking",
+  "type": "api",
+  "vendor": "Kuaishou",
+  "vendor_slug": "kuaishou",
+  "description": "Returns ranked music tracks on Kuaishou, including track IDs, titles, hot counts, and audio URLs. Supports filtering by chart type and cursor pagination.",
+  "tags": [
+    "api",
+    "kuaishou"
+  ],
+  "capabilities": [
+    "api",
+    "kuaishou"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/kuaishou/app/music-ranking"
+  },
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "count": {
+        "type": "integer",
+        "title": "每页数量/Page size",
+        "default": 20,
+        "description": "Page size, default 20, range 1-50"
+      },
+      "tab_id": {
+        "type": "integer",
+        "title": "榜单ID/Tab ID",
+        "default": 100002,
+        "description": "100002=hot songs (default), 100063=Pi-plan ranking"
+      },
+      "pcursor": {
+        "type": "string",
+        "title": "分页游标/Pagination cursor",
+        "default": "",
+        "description": "Cursor, empty for first page"
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.0015,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "examples": [
+    {
+      "input": {},
+      "default": true
+    }
+  ],
+  "readme": "# Kuaishou Music Ranking API\n\nRetrieve music chart leaderboards on Kuaishou by specifying `tab_id` for different rankings, with pagination managed via `pcursor` and `count`.\n\n## Use cases\n\n- Track trending songs and popular background audio across Kuaishou.\n- Identify viral music tracks for social media content planning.\n- Retrieve audio URLs and track metadata for platform music rankings.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/kuaishou/app/music-ranking\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `count` | integer | No | Page size, default 20, range 1-50 |\n| `tab_id` | integer | No | 100002=hot songs (default), 100063=Pi-plan ranking |\n| `pcursor` | string | No | Cursor, empty for first page |\n\n## Example response\n\nReal response for the request above, trimmed to the main fields. User names and long IDs are masked.\n\n```json\n{\n  \"musics\": [\n    {\n      \"audioType\": 1,\n      \"copyrightTimeLimit\": 60,\n      \"duration\": 320,\n      \"finalStatus\": 0,\n      \"hotCount\": \"1902.1万\",\n      \"id\": \"5xak4hqnwe7ecw9\",\n      \"name\": \"我不难过\",\n      \"snippetDuration\": 60,\n      \"type\": 4,\n      \"url\": \"https://v1-plat-fdl.wsukwai.com/ksc2/pUMOAetCwmckeNtMnU5XWhK1n-Cof_zoeJdTw0B4qvO…\"\n    }\n  ]\n}\n```\n\n## Notes\n\n- Set `tab_id` to 100002 for hot songs or 100063 for Pi-plan rankings.\n- Use `count` to specify the page size between 1 and 50 tracks.\n- Pass an empty string to `pcursor` for the initial page, then use subsequent cursor values for pagination.\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [Kuaishou Brand Top List](/model/kuaishou/app/brand-top-list): Returns top brand rankings and related live stream links from Kuaishou.\n- [Kuaishou App Share Link](/model/kuaishou/app/generate-share-link): Generates a shareable URL for Kuaishou application content using a specified object identifier.\n- [Kuaishou Hot Board Categories](/model/kuaishou/app/hot-board-categories): Returns the active list of hot board categories available in the Kuaishou app.\n",
+  "page_url": "https://www.sandbase.ai/model/kuaishou/app/music-ranking",
+  "created_at": "2026-07-31T03:57:57.023Z"
+}

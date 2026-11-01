@@ -1,0 +1,103 @@
+{
+  "name": "douyin/xingtu-v2/author-homepage-videos",
+  "display_name": "Douyin Xingtu Author Homepage Videos",
+  "type": "api",
+  "vendor": "Douyin",
+  "vendor_slug": "douyin",
+  "description": "Retrieves homepage video records for a specified Douyin Xingtu creator. Filters results by post time range, pagination, and star item status.",
+  "tags": [
+    "api",
+    "douyin"
+  ],
+  "capabilities": [
+    "api",
+    "douyin"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/douyin/xingtu-v2/author-homepage-videos"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "o_author_id"
+    ],
+    "properties": {
+      "page": {
+        "type": "integer",
+        "title": "Page",
+        "description": "Page number, default 1"
+      },
+      "end_time": {
+        "anyOf": [
+          {
+            "type": "integer"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "title": "End Time",
+        "description": "Publish end time, unix seconds, optional"
+      },
+      "start_time": {
+        "anyOf": [
+          {
+            "type": "integer"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "title": "Start Time",
+        "description": "Publish start time, unix seconds, optional"
+      },
+      "o_author_id": {
+        "type": "string",
+        "title": "O Author Id",
+        "description": "Creator ID"
+      },
+      "is_star_item": {
+        "anyOf": [
+          {
+            "type": "integer"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "title": "Is Star Item",
+        "description": "1=star items only, 0=non-star only, omit=all"
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.003,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "examples": [
+    {
+      "input": {
+        "o_author_id": "7029342444797820939"
+      },
+      "default": true
+    }
+  ],
+  "readme": "# Douyin Xingtu Author Homepage Videos API\n\nFetch a list of homepage videos for a creator using their `o_author_id`. Filter the results by date range using `start_time` and `end_time` or filter by star collaboration status.\n\n## Use cases\n\n- Track video releases from a specific Douyin creator.\n- Filter a creator's portfolio to inspect Xingtu star collaboration items.\n- Inspect creator video activity across specific Unix timestamp ranges.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/douyin/xingtu-v2/author-homepage-videos\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"o_author_id\": \"<o_author_id>\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `o_author_id` | string | Yes | Creator ID |\n| `page` | integer | No | Page number, default 1 |\n| `end_time` | string | No | Publish end time, unix seconds, optional |\n| `start_time` | string | No | Publish start time, unix seconds, optional |\n| `is_star_item` | string | No | 1=star items only, 0=non-star only, omit=all |\n\n## Notes\n\n- Requires `o_author_id` to specify the creator.\n- Set `is_star_item` to 1 for star items only, 0 for non-star items, or omit to view all.\n- Supports pagination through `page`, which defaults to 1.\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [Douyin Xingtu Author Audience Distribution](/model/douyin/xingtu-v2/author-audience-distribution): Returns audience profile distribution metrics for a specified Xingtu creator based on creator ID and link type, with selectable platform source and channel opt…\n- [Douyin Xingtu Author Base Info](/model/douyin/xingtu-v2/author-base-info): Returns basic creator profile data from Douyin Xingtu by author identifier, with options to include recommendation details and linkage information.\n- [Douyin Xingtu Author Business Card Info](/model/douyin/xingtu-v2/author-business-card-info): Returns business card details for a Douyin Xingtu creator based on the specified author ID.\n",
+  "page_url": "https://www.sandbase.ai/model/douyin/xingtu-v2/author-homepage-videos",
+  "created_at": "2026-07-31T02:42:14.63Z"
+}

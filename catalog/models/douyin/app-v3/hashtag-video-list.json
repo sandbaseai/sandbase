@@ -1,0 +1,76 @@
+{
+  "name": "douyin/app-v3/hashtag-video-list",
+  "display_name": "Douyin Hashtag Video List",
+  "type": "api",
+  "vendor": "Douyin",
+  "vendor_slug": "douyin",
+  "description": "Returns a list of videos associated with a specific Douyin hashtag. Supports sorting by comprehensive rank, most likes, or latest release along with cursor pagination.",
+  "tags": [
+    "api",
+    "douyin"
+  ],
+  "capabilities": [
+    "api",
+    "douyin"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/douyin/app-v3/hashtag-video-list"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "ch_id"
+    ],
+    "properties": {
+      "ch_id": {
+        "type": "string",
+        "title": "Ch Id",
+        "description": "Hashtag id"
+      },
+      "count": {
+        "type": "integer",
+        "title": "Count",
+        "description": "Number Please keep the default, otherwise there will be BUG."
+      },
+      "cursor": {
+        "type": "integer",
+        "title": "Cursor",
+        "description": "Cursor, used for paging, the first page is 0, the second page is the cursor value in the first response."
+      },
+      "sort_type": {
+        "type": "integer",
+        "title": "Sort Type",
+        "description": "0: Comprehensive sorting 1: Most likes 2: Latest release"
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.0015,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "examples": [
+    {
+      "input": {
+        "ch_id": "example"
+      }
+    }
+  ],
+  "readme": "# Douyin Hashtag Video List API\n\nQuery videos linked to a specific Douyin topic using `ch_id`. You can sort results by popularity or date using `sort_type` and paginate through feeds with `cursor`.\n\n## Use cases\n\n- Track video submissions and trends under a specific Douyin hashtag.\n- Monitor top-liked video content for competitive topic research.\n- Retrieve the latest public posts associated with a campaign hashtag.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/douyin/app-v3/hashtag-video-list\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"ch_id\": \"<ch_id>\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `ch_id` | string | Yes | Hashtag id |\n| `count` | integer | No | Number Please keep the default, otherwise there will be BUG. |\n| `cursor` | integer | No | Cursor, used for paging, the first page is 0, the second page is the cursor value in the first response. |\n| `sort_type` | integer | No | 0: Comprehensive sorting 1: Most likes 2: Latest release |\n\n## Notes\n\n- Set `cursor` to 0 for the first page, then use the cursor value returned in the response for subsequent pages.\n- Set `sort_type` to 0 for comprehensive sorting, 1 for most likes, or 2 for latest release.\n- It is recommended to keep `count` at its default value to prevent errors.\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [Douyin Brand Hot Search List](/model/douyin/app-v3/brand-hot-search-list): Returns the current Douyin brand hot search list and category data.\n- [Douyin Brand Hot Search List Detail](/model/douyin/app-v3/brand-hot-search-list-detail): Returns detailed brand hot search list data from Douyin for a specific category.\n- [Douyin Short Link Generator](/model/douyin/app-v3/generate-short-url): Converts a standard Douyin web link into a shortened Douyin URL.\n",
+  "page_url": "https://www.sandbase.ai/model/douyin/app-v3/hashtag-video-list",
+  "created_at": "2026-07-31T02:33:38.678Z"
+}

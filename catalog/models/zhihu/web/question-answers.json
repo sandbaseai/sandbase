@@ -1,0 +1,88 @@
+{
+  "name": "zhihu/web/question-answers",
+  "display_name": "Zhihu Question Answers",
+  "type": "api",
+  "vendor": "Zhihu",
+  "vendor_slug": "zhihu",
+  "description": "Returns a list of answers for a specified Zhihu question. Supports pagination through cursor or offset parameters and sorting by time or default rank.",
+  "tags": [
+    "api",
+    "zhihu"
+  ],
+  "capabilities": [
+    "api",
+    "zhihu"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/zhihu/web/question-answers"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "question_id"
+    ],
+    "properties": {
+      "limit": {
+        "type": "integer",
+        "title": "Limit",
+        "description": "Number of answers per page, default 5"
+      },
+      "order": {
+        "type": "string",
+        "title": "Order",
+        "description": "Sort order, default=default sort, updated=sort by time"
+      },
+      "cursor": {
+        "type": "string",
+        "title": "Cursor",
+        "description": "Pagination cursor for next page, extracted from response fields"
+      },
+      "offset": {
+        "type": "integer",
+        "title": "Offset",
+        "description": "Offset, default 0"
+      },
+      "session_id": {
+        "type": "string",
+        "title": "Session Id",
+        "description": "Session ID for pagination state, extracted from response fields"
+      },
+      "question_id": {
+        "type": "string",
+        "title": "Question Id",
+        "description": "Question ID"
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.0015,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "examples": [
+    {
+      "input": {
+        "limit": 20,
+        "question_id": "2089412797440455404"
+      },
+      "default": true
+    }
+  ],
+  "readme": "# Zhihu Question Answers API\n\nRetrieve answers submitted to a Zhihu question using its `question_id`. Responses support pagination via `cursor`, `offset`, and `session_id`.\n\n## Use cases\n\n- Read answers submitted to a specific Zhihu question.\n- Track community responses to relevant discussion topics over time.\n- Gather public discussions and viewpoints for topic analysis.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/zhihu/web/question-answers\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"question_id\": \"<question_id>\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `question_id` | string | Yes | Question ID |\n| `limit` | integer | No | Number of answers per page, default 5 |\n| `order` | string | No | Sort order, default=default sort, updated=sort by time |\n| `cursor` | string | No | Pagination cursor for next page, extracted from response fields |\n| `offset` | integer | No | Offset, default 0 |\n| `session_id` | string | No | Session ID for pagination state, extracted from response fields |\n\n## Notes\n\n- Use `cursor` and `session_id` values extracted from response fields to page through results.\n- The `limit` parameter controls how many answers return per page and defaults to 5.\n- The `offset` parameter defaults to 0 for index-based pagination.\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [Zhihu AI Search Stream](/model/zhihu/web/ai-search-stream): Returns streaming AI search results from Zhihu based on a query prompt.\n- [Zhihu Answer Details](/model/zhihu/web/answer-detail): Retrieves detailed information for a specific Zhihu answer using its numeric ID, including answer text, timestamps, and share links.\n- [Zhihu Article Search](/model/zhihu/web/article-search-v3): Search Zhihu articles and answers by keyword and get titles, excerpts, authors, vote and comment counts, with sorting, content type and time filters plus offse…\n",
+  "page_url": "https://www.sandbase.ai/model/zhihu/web/question-answers",
+  "created_at": "2026-07-31T04:29:32.76Z"
+}

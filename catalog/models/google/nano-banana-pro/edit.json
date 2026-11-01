@@ -1,0 +1,198 @@
+{
+  "name": "google/nano-banana-pro/edit",
+  "display_name": "Nano Banana Pro Edit",
+  "type": "image",
+  "vendor": "Google",
+  "vendor_slug": "google",
+  "description": "Nano Banana Pro is Google's new state-of-the-art image generation and editing model",
+  "tags": [
+    "image-to-image",
+    "commercial"
+  ],
+  "capabilities": [
+    "image-to-image",
+    "commercial"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "prompt",
+      "images"
+    ],
+    "properties": {
+      "images": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        },
+        "title": "Images",
+        "examples": [
+          "https://ai.google.dev/static/gemini-api/docs/images/dress.png",
+          "https://ai.google.dev/static/gemini-api/docs/images/model.png"
+        ],
+        "description": "The URLs of the images to use for image-to-image generation or image editing."
+      },
+      "prompt": {
+        "type": "string",
+        "title": "Prompt",
+        "default": "Create a professional e-commerce fashion photo. Take the blue floral dress from the first image and let the woman from the second image wear it. Generate a realistic, full-body shot of the woman wearing the dress, with the lighting and shadows adjusted to match the outdoor environment.",
+        "maxLength": 50000,
+        "minLength": 3,
+        "description": "The text prompt to generate an image from."
+      },
+      "resolution": {
+        "enum": [
+          "1K",
+          "2K",
+          "4K"
+        ],
+        "type": "string",
+        "title": "Resolution",
+        "default": "1K",
+        "description": "The resolution of the image to generate."
+      },
+      "aspect_ratio": {
+        "enum": [
+          "21:9",
+          "16:9",
+          "3:2",
+          "4:3",
+          "5:4",
+          "1:1",
+          "4:5",
+          "3:4",
+          "2:3",
+          "9:16"
+        ],
+        "type": "string",
+        "title": "Aspect Ratio",
+        "description": "The aspect ratio of the generated image. Leave empty to keep the aspect ratio of the input image."
+      },
+      "output_format": {
+        "enum": [
+          "jpeg",
+          "png"
+        ],
+        "type": "string",
+        "title": "Output Format",
+        "default": "png",
+        "description": "The format of the generated image."
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "title": "GenerationResponse",
+    "required": [
+      "id",
+      "status"
+    ],
+    "properties": {
+      "id": {
+        "type": "string",
+        "description": "Unique identifier for the generation task."
+      },
+      "error": {
+        "type": "string",
+        "description": "Error message if the task failed. Empty on success."
+      },
+      "model": {
+        "type": "string",
+        "description": "Model ID used for the prediction."
+      },
+      "status": {
+        "enum": [
+          "pending",
+          "running",
+          "completed",
+          "failed",
+          "timeout"
+        ],
+        "type": "string",
+        "description": "Status of the task: pending, running, completed, failed, or timeout."
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "title": "OutputItem",
+          "required": [
+            "url"
+          ],
+          "properties": {
+            "url": {
+              "type": "string",
+              "description": "The URL where the generated content can be downloaded from."
+            },
+            "content_type": {
+              "type": "string",
+              "description": "The MIME type of the output file."
+            }
+          }
+        },
+        "description": "Array of generated content. Empty when status is not completed."
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "formula",
+    "formula": "((params.resolution ?? \"1K\") == \"4K\" ? 0.24 : 0.134) + len(params.images ?? []) * 0.0011",
+    "formula_variables": [
+      "params.images",
+      "params.resolution"
+    ],
+    "reference_price": 0.1351,
+    "price_examples": [
+      {
+        "params": {
+          "resolution": "1K"
+        },
+        "usd": 0.1362
+      },
+      {
+        "params": {
+          "resolution": "2K"
+        },
+        "usd": 0.1362
+      },
+      {
+        "params": {
+          "resolution": "4K"
+        },
+        "usd": 0.2422
+      }
+    ]
+  },
+  "examples": [
+    {
+      "input": {
+        "aspect_ratio": "2:3",
+        "images": [
+          "https://static.sandbase.ai/examples/a24d699f-ac6b-4c57-b162-f6073c15d031/input/80b3b8e7-87db-4487-ab30-a844b4f22b96.png",
+          "https://static.sandbase.ai/examples/a24d699f-ac6b-4c57-b162-f6073c15d031/input/7c80d815-ad38-457a-9664-bf7371a876b5.png"
+        ],
+        "prompt": "Create a professional e-commerce fashion photo. Take the blue floral dress from the first image and let the woman from the second image wear it. Generate a realistic, full-body shot of the woman wearing the dress, with the lighting and shadows adjusted to match the outdoor environment."
+      },
+      "output": [
+        {
+          "url": "https://static.sandbase.ai/examples/a24d699f-ac6b-4c57-b162-f6073c15d031/output/e849b750-a076-4693-8f0f-011973b72837.png"
+        }
+      ],
+      "default": true
+    }
+  ],
+  "readme": "# Nano Banana Pro Edit\n\nEdit or combine images with Nano Banana Pro. Send one or more images with an instruction; the model keeps identity and layout where you do not ask for changes, and can render new text accurately.\n\n## Fields\n\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `images` | image URL[], required | — | Images to edit or combine, Image 1, Image 2, … |\n| `prompt` | string, required | — | Up to 50,000 characters. |\n| `aspect_ratio` | `21:9` / `16:9` / `3:2` / `4:3` / `5:4` / `1:1` / `4:5` / `3:4` / `2:3` / `9:16` | — | Omit to follow the first input image. |\n| `output_format` | `jpeg` / `png` | `png` | Output file format. |\n| `resolution` | `1K` / `2K` / `4K` | `1K` | Sets the per-image rate. |\n\n## Billing\n\n$0.134 per output image at 1K or 2K and $0.24 at 4K, plus $0.0011 per input image, Google's list price.\n\n| Inputs | 1K | 2K | 4K |\n|---|---|---|---|\n| 1 input image | $0.1351 | $0.1351 | $0.2411 |\n| 3 input images | $0.1373 | $0.1373 | $0.2433 |\n| 6 input images | $0.1406 | $0.1406 | $0.2466 |\n\nFailed runs are not charged.\n\n## Prompting\n\n- Say which image is the base and what each other image contributes.\n- List what must not change.\n\n## Limits\n\n- One output image per request.\n\n## Also on SandBase\n\nOther Nano Banana endpoints: `google/nano-banana-pro`, `google/nano-banana-2`, `google/nano-banana-2/edit`, `google/nano-banana-2-lite`, `google/nano-banana-2-lite/edit`.\n",
+  "cover_url": "https://static.sandbase.ai/covers/google/nano-banana-pro/edit/cover-flare-20261004202834.webp",
+  "page_url": "https://www.sandbase.ai/model/google/nano-banana-pro/edit",
+  "published_at": "2025-11-20T14:27:03.344Z",
+  "created_at": "0001-01-01T00:00:00Z"
+}

@@ -1,0 +1,203 @@
+{
+  "name": "google/nano-banana-pro",
+  "display_name": "Nano Banana Pro Text to Image",
+  "type": "image",
+  "vendor": "Google",
+  "vendor_slug": "google",
+  "description": "Nano Banana Pro is Google's new state-of-the-art image generation and editing model",
+  "tags": [
+    "text-to-image",
+    "commercial"
+  ],
+  "capabilities": [
+    "text-to-image",
+    "commercial"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "prompt"
+    ],
+    "properties": {
+      "prompt": {
+        "type": "string",
+        "title": "Prompt",
+        "default": "a cat sitting on a windowsill, golden hour lighting, photorealistic",
+        "maxLength": 50000,
+        "minLength": 3,
+        "description": "The text prompt to generate an image from."
+      },
+      "resolution": {
+        "enum": [
+          "1K",
+          "2K",
+          "4K"
+        ],
+        "type": "string",
+        "title": "Resolution",
+        "default": "1K",
+        "description": "The resolution of the image to generate."
+      },
+      "aspect_ratio": {
+        "enum": [
+          "21:9",
+          "16:9",
+          "3:2",
+          "4:3",
+          "5:4",
+          "1:1",
+          "4:5",
+          "3:4",
+          "2:3",
+          "9:16"
+        ],
+        "type": "string",
+        "title": "Aspect Ratio",
+        "default": "1:1",
+        "description": "The aspect ratio of the generated image."
+      },
+      "output_format": {
+        "enum": [
+          "jpeg",
+          "png"
+        ],
+        "type": "string",
+        "title": "Output Format",
+        "default": "png",
+        "description": "The format of the generated image."
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "title": "GenerationResponse",
+    "required": [
+      "id",
+      "status"
+    ],
+    "properties": {
+      "id": {
+        "type": "string",
+        "description": "Unique identifier for the generation task."
+      },
+      "error": {
+        "type": "string",
+        "description": "Error message if the task failed. Empty on success."
+      },
+      "model": {
+        "type": "string",
+        "description": "Model ID used for the prediction."
+      },
+      "status": {
+        "enum": [
+          "pending",
+          "running",
+          "completed",
+          "failed",
+          "timeout"
+        ],
+        "type": "string",
+        "description": "Status of the task: pending, running, completed, failed, or timeout."
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "title": "OutputItem",
+          "required": [
+            "url"
+          ],
+          "properties": {
+            "url": {
+              "type": "string",
+              "description": "The URL where the generated content can be downloaded from."
+            },
+            "content_type": {
+              "type": "string",
+              "description": "The MIME type of the output file."
+            }
+          }
+        },
+        "description": "Array of generated content. Empty when status is not completed."
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "formula",
+    "formula": "((params.resolution ?? \"1K\") == \"4K\" ? 0.24 : 0.134)",
+    "formula_variables": [
+      "params.resolution"
+    ],
+    "reference_price": 0.134,
+    "price_examples": [
+      {
+        "params": {
+          "resolution": "1K"
+        },
+        "usd": 0.134
+      },
+      {
+        "params": {
+          "resolution": "2K"
+        },
+        "usd": 0.134
+      },
+      {
+        "params": {
+          "resolution": "4K"
+        },
+        "usd": 0.24
+      }
+    ]
+  },
+  "examples": [
+    {
+      "input": {
+        "aspect_ratio": "1:1",
+        "prompt": "Present a clear, 45° top-down isometric miniature 3D cartoon scene of London, featuring its most iconic landmarks and architectural elements. Use soft, refined textures with realistic PBR materials and gentle, lifelike lighting and shadows. Integrate the current weather conditions directly into the city environment to create an immersive atmospheric mood. Use a clean, minimalistic composition with a soft, solid-colored background. At the top-center, place the title \"London\" in large bold text, a prominent weather icon beneath it, then the date (small text) and temperature (medium text). All text must be centered with consistent spacing, and may subtly overlap the tops of the buildings."
+      },
+      "output": [
+        {
+          "url": "https://static.sandbase.ai/examples/bb9cdb52-fbe4-4e6d-a51d-7d6444b6221a/output/4924b213-a78a-413a-a727-3d330f59b658.jpg"
+        }
+      ],
+      "default": true
+    },
+    {
+      "input": {
+        "aspect_ratio": "1:1",
+        "prompt": "An icon representing a cute dog. The background is white. Make the icons in a colorful and tactile 3D style. No text."
+      },
+      "output": [
+        {
+          "url": "https://static.sandbase.ai/examples/3b57bf51-38ae-4fa8-af73-be936b3802a1/output/d9a5e28a-4645-4889-9bfc-4a786e7e7e44.jpg"
+        }
+      ]
+    },
+    {
+      "input": {
+        "aspect_ratio": "16:9",
+        "prompt": "A photo of an everyday scene at a busy cafe serving breakfast. In the foreground is an anime man with blue hair, one of the people is a pencil sketch, another is a claymation person."
+      },
+      "output": [
+        {
+          "url": "https://static.sandbase.ai/examples/3a28f7e5-c287-4150-b803-e479215b37a1/output/7258732f-1ed8-4ce6-bcc6-69c661b88657.jpg"
+        }
+      ]
+    }
+  ],
+  "readme": "# Nano Banana Pro Text to Image\n\nNano Banana Pro (Gemini 3 Pro Image) is Google's highest-quality image model: strong reasoning over the prompt, accurate multilingual text in the image, and 1K to 4K output.\n\n## Fields\n\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `prompt` | string, required | — | Up to 50,000 characters. |\n| `aspect_ratio` | `21:9` / `16:9` / `3:2` / `4:3` / `5:4` / `1:1` / `4:5` / `3:4` / `2:3` / `9:16` | `1:1` | Output frame shape. |\n| `output_format` | `jpeg` / `png` | `png` | Output file format. |\n| `resolution` | `1K` / `2K` / `4K` | `1K` | Sets the per-image rate. |\n\n## Billing\n\n$0.134 per image at 1K or 2K and $0.24 at 4K, Google's list price.\n\n| Request | 1K | 2K | 4K |\n|---|---|---|---|\n| One image | $0.134 | $0.134 | $0.24 |\n\nFailed runs are not charged.\n\n## Prompting\n\n- Describe the image like a brief to a designer: subject, layout, style, and text.\n- Quote all text that must appear.\n- Use 2K or 4K for posters and print.\n\n## Limits\n\n- One image per request.\n\n## Also on SandBase\n\nOther Nano Banana endpoints: `google/nano-banana-pro/edit`, `google/nano-banana-2`, `google/nano-banana-2/edit`, `google/nano-banana-2-lite`, `google/nano-banana-2-lite/edit`.\n",
+  "cover_url": "https://static.sandbase.ai/covers/google/nano-banana-pro/cover-flare-20261005084041.webp",
+  "page_url": "https://www.sandbase.ai/model/google/nano-banana-pro",
+  "published_at": "2025-11-20T14:24:45.001Z",
+  "created_at": "2026-04-09T06:51:44.044Z"
+}

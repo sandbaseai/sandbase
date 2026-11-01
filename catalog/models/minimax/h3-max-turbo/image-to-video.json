@@ -1,0 +1,225 @@
+{
+  "name": "minimax/h3-max-turbo/image-to-video",
+  "display_name": "MiniMax H3 Max Turbo Image to Video",
+  "type": "video",
+  "vendor": "MiniMax",
+  "vendor_slug": "minimax",
+  "description": "MiniMax H3 Max Turbo, the fastest tier of the H3 family, animates a first frame (and optional last frame) into a 5-15 second video with native audio.",
+  "tags": [
+    "image-to-video"
+  ],
+  "capabilities": [
+    "image-to-video"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "prompt",
+      "image"
+    ],
+    "properties": {
+      "seed": {
+        "type": "integer",
+        "title": "Seed",
+        "description": "Random seed. A random seed is selected when omitted."
+      },
+      "image": {
+        "type": "string",
+        "title": "Image URL",
+        "examples": [
+          "https://storage.googleapis.com/falserverless/example_inputs/hailuo23/pro_i2v_in.jpg"
+        ],
+        "description": "Optional URL of the image to use as the first frame. When provided, the output canvas follows this image. If only end_image_url is provided, the canvas follows that last frame instead. If both images are omitted, the request is handled as text-to-video (16:9 by default)."
+      },
+      "prompt": {
+        "type": "string",
+        "title": "Prompt",
+        "examples": [
+          "The camera slowly pulls back from the scene, revealing the full landscape as clouds drift overhead and light shifts across the terrain."
+        ],
+        "maxLength": 50000,
+        "minLength": 1,
+        "description": "Text prompt for video generation"
+      },
+      "duration": {
+        "type": "integer",
+        "title": "Duration",
+        "default": 5,
+        "maximum": 15,
+        "minimum": 5,
+        "description": "Video duration in seconds (5-15)."
+      },
+      "end_image": {
+        "type": "string",
+        "title": "End Image URL",
+        "description": "Optional URL of the image to use as the last frame. It may be provided alone for end-only keyframe generation; in that case the output canvas follows this image."
+      },
+      "resolution": {
+        "enum": [
+          "480P",
+          "768P",
+          "1080P"
+        ],
+        "type": "string",
+        "title": "Resolution",
+        "default": "768P",
+        "description": "The native generation resolution, or 1080P latent refinement from a native 768P source."
+      },
+      "target_audio_url": {
+        "type": "string",
+        "title": "Target Audio Url",
+        "minLength": 1,
+        "description": "Optional URL of an audio clip at least 2 seconds long (maximum 15 MB) to pin to the generated soundtrack. Longer clips are trimmed to the requested video duration, keeping the beginning. The original audio replaces the output soundtrack, padded with silence if shorter than the video, without changing playback speed. Exceptionally high sample rates may be resampled to 96 kHz. Accepts an HTTP(S) URL or a base64 data URI."
+      },
+      "prompt_expansion_mode": {
+        "type": "string",
+        "title": "Prompt Expansion Mode",
+        "default": "balanced",
+        "examples": [
+          "disabled",
+          "balanced",
+          "quality"
+        ],
+        "description": "How much effort to spend rewriting the prompt before generation. 'disabled' skips prompt expansion. 'balanced' returns in about a second. 'quality' spends up to ~30s on a richer prompt."
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "title": "GenerationResponse",
+    "required": [
+      "id",
+      "status"
+    ],
+    "properties": {
+      "id": {
+        "type": "string",
+        "description": "Unique identifier for the generation task."
+      },
+      "error": {
+        "type": "string",
+        "description": "Error message if the task failed. Empty on success."
+      },
+      "model": {
+        "type": "string",
+        "description": "Model ID used for the prediction."
+      },
+      "status": {
+        "enum": [
+          "pending",
+          "running",
+          "completed",
+          "failed",
+          "timeout"
+        ],
+        "type": "string",
+        "description": "Status of the task: pending, running, completed, failed, or timeout."
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "title": "OutputItem",
+          "required": [
+            "url"
+          ],
+          "properties": {
+            "url": {
+              "type": "string",
+              "description": "The URL where the generated content can be downloaded from."
+            },
+            "content_type": {
+              "type": "string",
+              "description": "The MIME type of the output file."
+            }
+          }
+        },
+        "description": "Array of generated content. Empty when status is not completed."
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "formula",
+    "formula": "(params.duration ?? 5) * ((params.resolution ?? \"768P\") == \"480P\" ? 0.025 : (params.resolution ?? \"768P\") == \"1080P\" ? 0.08 : 0.04)",
+    "formula_variables": [
+      "params.duration",
+      "params.resolution"
+    ],
+    "reference_price": 0.2,
+    "price_examples": [
+      {
+        "params": {
+          "duration": 5,
+          "resolution": "480P"
+        },
+        "usd": 0.125
+      },
+      {
+        "params": {
+          "duration": 5,
+          "resolution": "768P"
+        },
+        "usd": 0.2
+      },
+      {
+        "params": {
+          "duration": 5,
+          "resolution": "1080P"
+        },
+        "usd": 0.4
+      },
+      {
+        "params": {
+          "duration": 15,
+          "resolution": "480P"
+        },
+        "usd": 0.375
+      },
+      {
+        "params": {
+          "duration": 15,
+          "resolution": "768P"
+        },
+        "usd": 0.6
+      },
+      {
+        "params": {
+          "duration": 15,
+          "resolution": "1080P"
+        },
+        "usd": 1.2
+      }
+    ]
+  },
+  "examples": [
+    {
+      "input": {
+        "duration": 5,
+        "image": "https://static.sandbase.ai/examples/d0ca90ac-ba2c-41a6-b0af-8394e87434f3/input/481d37f1-03eb-46bf-ace0-761493d07fac.png",
+        "prompt": "the camera slowly zooms in",
+        "resolution": "480P"
+      },
+      "output": [
+        {
+          "poster": "https://static.sandbase.ai/examples/posters/72d971913735cc004bbb.jpg",
+          "url": "https://static.sandbase.ai/examples/d0ca90ac-ba2c-41a6-b0af-8394e87434f3/output/ccd3c0be-b4e9-4e79-9649-450e52019572.mp4"
+        }
+      ],
+      "default": true
+    }
+  ],
+  "readme": "# MiniMax H3 Max Turbo Image to Video\n\nMiniMax H3 Max Turbo image-to-video: the fastest H3 tier, animating a first frame (and optional last frame) into a 5–15 second clip.\n\n## Fields\n\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `prompt` | string, required | — | Up to 50,000 characters. |\n| `image` | image URL, required | — | First frame. JPEG, PNG, or WebP URL. |\n| `end_image` | image URL | — | Optional last frame. |\n| `resolution` | `480P` / `768P` / `1080P` | `768P` | Sets the per-second rate. |\n| `duration` | integer 5–15 | 5 | Output length in seconds. |\n| `target_audio_url` | audio URL | — | Optional audio the clip should follow. |\n| `prompt_expansion_mode` | string | `balanced` | `balanced` rewrites the prompt lightly; `quality` expands it more for richer detail. |\n| `seed` | integer | random | Fix it to compare prompt changes. |\n\n## Billing\n\nYou pay for new seconds: $0.025 at 480P, $0.04 at 768P, $0.08 at 1080P.\n\n| Output | 480P | 768P | 1080P |\n|---|---|---|---|\n| 5s (default) | $0.125 | $0.20 | $0.40 |\n| 10s | $0.25 | $0.40 | $0.80 |\n| 15s | $0.375 | $0.60 | $1.20 |\n\nFailed runs are not charged.\n\n## Prompting\n\n- Describe subject, action, camera, and sound in order.\n- Quote dialogue and name the speaker.\n\n## Also on SandBase\n\nOther H3 Max Turbo endpoints: `minimax/h3-max-turbo/text-to-video`, `minimax/h3-max-turbo/video-extend`, `minimax/h3-max/text-to-video` (H3 Max).\n",
+  "cover_url": "https://static.sandbase.ai/covers/minimax/h3-max/image-to-video/cover-flare-20261004175940.webp",
+  "page_url": "https://www.sandbase.ai/model/minimax/h3-max-turbo/image-to-video",
+  "published_at": "2026-09-02T17:55:11.477Z",
+  "created_at": "2026-10-06T10:47:40.285Z"
+}

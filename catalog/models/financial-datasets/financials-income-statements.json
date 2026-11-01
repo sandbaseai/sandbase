@@ -1,0 +1,125 @@
+{
+  "name": "financial-datasets/financials-income-statements",
+  "display_name": "Financial Datasets Get Income Statements",
+  "type": "api",
+  "vendor": "Financial Datasets",
+  "vendor_slug": "financial-datasets",
+  "description": "Get Income Statements from Financial Datasets. Returns the official Financial Datasets API response unchanged.",
+  "tags": [
+    "api",
+    "financial-datasets",
+    "stocks"
+  ],
+  "capabilities": [
+    "api",
+    "financial-datasets",
+    "stocks"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/financial-datasets/financials-income-statements"
+  },
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "cik": {
+        "type": "string",
+        "description": "The Central Index Key (CIK) of the company."
+      },
+      "isin": {
+        "type": "string",
+        "description": "The ISIN (International Securities Identification Number) of a non-US listing. An alternative to `ticker` and `exchange`."
+      },
+      "limit": {
+        "type": "string",
+        "example": "2",
+        "description": "The maximum number of income statements to return. This is the total across all pages, not a page size: each page holds up to 10 records, linked by `next_page_url`. Provider reference (supplier schema): `{\"format\":\"int32\",\"type\":\"integer\"}`."
+      },
+      "cursor": {
+        "type": "string",
+        "description": "Opaque pagination cursor from a previous response's next_page_url. When provided, all other query parameters are ignored: the cursor carries the original request's filters. Treat it as opaque; do not construct or modify it."
+      },
+      "market": {
+        "enum": [
+          "UK",
+          "US"
+        ],
+        "type": "string",
+        "description": "market"
+      },
+      "period": {
+        "type": "string",
+        "example": "annual",
+        "description": "The time period of the income statements. Provider reference (supplier schema): `{\"enum\":[\"annual\",\"quarterly\",\"ttm\"],\"type\":\"string\"}`."
+      },
+      "ticker": {
+        "type": "string",
+        "example": "AAPL",
+        "description": "The ticker symbol. Required if cik or isin is not provided."
+      },
+      "exchange": {
+        "enum": [
+          "LSE"
+        ],
+        "type": "string",
+        "description": "The exchange the ticker is listed on. Omit for US listings. Use `LSE` for the London Stock Exchange; any ticker of the company, including a second share class, returns the company's statements."
+      },
+      "filing_date": {
+        "type": "string",
+        "description": "Filter by exact SEC filing date in YYYY-MM-DD format. Rows without a known filing date are excluded. Provider reference (supplier schema): `{\"format\":\"date\",\"type\":\"string\"}`."
+      },
+      "report_period": {
+        "type": "string",
+        "description": "Filter by exact report period date in YYYY-MM-DD format. Provider reference (supplier schema): `{\"format\":\"date\",\"type\":\"string\"}`."
+      },
+      "filing_date_gt": {
+        "type": "string",
+        "description": "Filter by SEC filing date greater than date in YYYY-MM-DD format. Rows without a known filing date are excluded. Provider reference (supplier schema): `{\"format\":\"date\",\"type\":\"string\"}`."
+      },
+      "filing_date_lt": {
+        "type": "string",
+        "description": "Filter by SEC filing date less than date in YYYY-MM-DD format. Rows without a known filing date are excluded. Provider reference (supplier schema): `{\"format\":\"date\",\"type\":\"string\"}`."
+      },
+      "filing_date_gte": {
+        "type": "string",
+        "description": "Filter by SEC filing date greater than or equal to date in YYYY-MM-DD format. Rows without a known filing date are excluded. Provider reference (supplier schema): `{\"format\":\"date\",\"type\":\"string\"}`."
+      },
+      "filing_date_lte": {
+        "type": "string",
+        "description": "Filter by SEC filing date less than or equal to date in YYYY-MM-DD format. Useful for point-in-time queries: returns only data that was publicly filed by the given date. Rows without a known filing date are excluded. Provider reference (supplier schema): `{\"format\":\"date\",\"type\":\"string\"}`."
+      },
+      "report_period_gt": {
+        "type": "string",
+        "description": "Filter by report period greater than date in YYYY-MM-DD format. Provider reference (supplier schema): `{\"format\":\"date\",\"type\":\"string\"}`."
+      },
+      "report_period_lt": {
+        "type": "string",
+        "description": "Filter by report period less than date in YYYY-MM-DD format. Provider reference (supplier schema): `{\"format\":\"date\",\"type\":\"string\"}`."
+      },
+      "report_period_gte": {
+        "type": "string",
+        "description": "Filter by report period greater than or equal to date in YYYY-MM-DD format. Provider reference (supplier schema): `{\"format\":\"date\",\"type\":\"string\"}`."
+      },
+      "report_period_lte": {
+        "type": "string",
+        "description": "Filter by report period less than or equal to date in YYYY-MM-DD format. Provider reference (supplier schema): `{\"format\":\"date\",\"type\":\"string\"}`."
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.02
+  },
+  "readme": "# Financial Datasets Get Income Statements API\n\nGet Income Statements from Financial Datasets. Returns the official Financial Datasets API response unchanged.\n\nThe response is the official Financial Datasets API response, unchanged.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/financial-datasets/financials-income-statements\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"limit\": \"2\", \"period\": \"annual\", \"ticker\": \"AAPL\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `cik` | string | No | The Central Index Key (CIK) of the company. |\n| `cursor` | string | No | Opaque pagination cursor from a previous response's next_page_url. When provided, all other query parameters are ignored: the cursor carries the original reques |\n| `exchange` | string | No | The exchange the ticker is listed on. Omit for US listings. Use `LSE` for the London Stock Exchange; any ticker of the company, including a second share class,  |\n| `filing_date` | string | No | Filter by exact SEC filing date in YYYY-MM-DD format. Rows without a known filing date are excluded. Provider reference (supplier schema): `{\"format\":\"date\",\"ty |\n| `filing_date_gt` | string | No | Filter by SEC filing date greater than date in YYYY-MM-DD format. Rows without a known filing date are excluded. Provider reference (supplier schema): `{\"format |\n| `filing_date_gte` | string | No | Filter by SEC filing date greater than or equal to date in YYYY-MM-DD format. Rows without a known filing date are excluded. Provider reference (supplier schema |\n| `filing_date_lt` | string | No | Filter by SEC filing date less than date in YYYY-MM-DD format. Rows without a known filing date are excluded. Provider reference (supplier schema): `{\"format\":\" |\n| `filing_date_lte` | string | No | Filter by SEC filing date less than or equal to date in YYYY-MM-DD format. Useful for point-in-time queries: returns only data that was publicly filed by the gi |\n| `isin` | string | No | The ISIN (International Securities Identification Number) of a non-US listing. An alternative to `ticker` and `exchange`. |\n| `limit` | string | No | The maximum number of income statements to return. This is the total across all pages, not a page size: each page holds up to 10 records, linked by `next_page_u |\n| `market` | string | No | market |\n| `period` | string | No | The time period of the income statements. Provider reference (supplier schema): `{\"enum\":[\"annual\",\"quarterly\",\"ttm\"],\"type\":\"string\"}`. |\n| `report_period` | string | No | Filter by exact report period date in YYYY-MM-DD format. Provider reference (supplier schema): `{\"format\":\"date\",\"type\":\"string\"}`. |\n| `report_period_gt` | string | No | Filter by report period greater than date in YYYY-MM-DD format. Provider reference (supplier schema): `{\"format\":\"date\",\"type\":\"string\"}`. |\n| `report_period_gte` | string | No | Filter by report period greater than or equal to date in YYYY-MM-DD format. Provider reference (supplier schema): `{\"format\":\"date\",\"type\":\"string\"}`. |\n| `report_period_lt` | string | No | Filter by report period less than date in YYYY-MM-DD format. Provider reference (supplier schema): `{\"format\":\"date\",\"type\":\"string\"}`. |\n| `report_period_lte` | string | No | Filter by report period less than or equal to date in YYYY-MM-DD format. Provider reference (supplier schema): `{\"format\":\"date\",\"type\":\"string\"}`. |\n| `ticker` | string | No | The ticker symbol. Required if cik or isin is not provided. |\n\n## Pricing\n\nFlat price per call. Failed calls are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/financial-datasets/financials-income-statements",
+  "created_at": "2026-10-30T03:12:10.59Z"
+}

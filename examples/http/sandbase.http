@@ -1,0 +1,91 @@
+# SandBase over plain HTTP. Works with the VS Code "REST Client" extension and JetBrains HTTP Client.
+# Set your key below (or in an http-client env file) and click "Send Request" above each block.
+
+@base = https://api.sandbase.ai
+@key = sk-YOUR_KEY
+
+### Sync data API: the result comes back in this response
+POST {{base}}/v1/run
+Authorization: Bearer {{key}}
+Content-Type: application/json
+
+{ "model": "exa/search", "query": "AI agents", "numResults": 3 }
+
+### Same call, path form (data APIs only): body without "model"
+POST {{base}}/v1/api/exa/search
+Authorization: Bearer {{key}}
+Content-Type: application/json
+
+{ "query": "AI agents", "numResults": 3 }
+
+### Async capability: returns {"id", "status": "pending"}
+# @name submit
+POST {{base}}/v1/run
+Authorization: Bearer {{key}}
+Content-Type: application/json
+
+{ "model": "app-store/search", "term": "notes" }
+
+### Poll until status is completed or failed
+GET {{base}}/v1/run/{{submit.response.body.id}}
+Authorization: Bearer {{key}}
+
+### What the run cost
+GET {{base}}/v1/tasks/{{submit.response.body.id}}/cost
+Authorization: Bearer {{key}}
+
+### Image (sync): price depends on quality and resolution, see catalog/models/openai/gpt-image-2.5-flare.json
+POST {{base}}/v1/run
+Authorization: Bearer {{key}}
+Content-Type: application/json
+
+{ "model": "openai/gpt-image-2.5-flare", "prompt": "a red apple on a white table", "quality": "low", "resolution": "1k" }
+
+### Video (async) with a callback instead of polling
+POST {{base}}/v1/run
+Authorization: Bearer {{key}}
+Content-Type: application/json
+
+{ "model": "bytedance/seedance/2.5/text-to-video", "prompt": "a cat surfing at sunset", "duration": 4, "resolution": "480p",
+  "webhook_url": "https://example.com/sandbase-callback" }
+
+### LLM, OpenAI-compatible
+POST {{base}}/v1/chat/completions
+Authorization: Bearer {{key}}
+Content-Type: application/json
+
+{ "model": "openai/gpt-6.1-sol", "messages": [{ "role": "user", "content": "Hello" }] }
+
+### Account balance
+GET {{base}}/v1/account/balance
+Authorization: Bearer {{key}}
+
+### Agents: create an Agent
+# @name agent
+POST {{base}}/v1/agents
+Authorization: Bearer {{key}}
+Content-Type: application/json
+Idempotency-Key: http-example-agent-1
+
+{ "name": "HTTP example", "model": "deepseek/deepseek-v4-flash", "instructions": "Answer in one short sentence." }
+
+### Run it: create a Session with the first input
+# @name session
+POST {{base}}/v1/agents/sessions
+Authorization: Bearer {{key}}
+Content-Type: application/json
+Idempotency-Key: http-example-session-1
+
+{ "agent_id": "{{agent.response.body.id}}", "input": "What is 2+2?" }
+
+### Turns (newest first): wait until the first one is "completed"
+GET {{base}}/v1/agents/sessions/{{session.response.body.id}}/turns
+Authorization: Bearer {{key}}
+
+### Read the answer
+GET {{base}}/v1/agents/sessions/{{session.response.body.id}}/items?order=asc
+Authorization: Bearer {{key}}
+
+### Sandbox templates (E2B control API; use the E2B SDK for commands and files)
+GET https://sandbox.sandbase.ai/v2/templates?limit=100
+X-API-Key: {{key}}

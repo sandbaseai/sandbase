@@ -1,0 +1,186 @@
+{
+  "name": "apollo/people-search",
+  "display_name": "Apollo People API Search",
+  "type": "api",
+  "vendor": "Apollo",
+  "vendor_slug": "apollo",
+  "description": "Use the People API Search endpoint to find net new people in the Apollo database. Several filters are available to help narrow your search. This endpoint is optimized for API usage and does not consume credits.",
+  "tags": [
+    "api",
+    "apollo",
+    "company-data"
+  ],
+  "capabilities": [
+    "api",
+    "apollo",
+    "company-data"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/apollo/people-search"
+  },
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "page": {
+        "type": "integer",
+        "description": "The page number of the Apollo data that you want to retrieve. Use this parameter in combination with the per_page parameter to make search results for navigable and improve the performance of the endpoint. Example: 4"
+      },
+      "per_page": {
+        "type": "integer",
+        "example": 1,
+        "description": "The number of search results that should be returned for each page. Limiting the number of results per page improves the endpoint's performance. Use the page parameter to search the different pages of data. Example: 10"
+      },
+      "q_keywords": {
+        "type": "string",
+        "description": "A string of words over which we want to filter the results."
+      },
+      "person_titles[]": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        },
+        "example": [
+          "ceo"
+        ],
+        "description": "Job titles held by the people you want to find. For a person to be included in search results, they only need to match 1 of the job titles you add. Adding more job titles expands your search results. Results also include job titles with the same terms, even if they are not exact matches. For example"
+      },
+      "organization_ids[]": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        },
+        "description": "The Apollo IDs for the companies (employers) you want to include in your search results. Each company in the Apollo database is assigned a unique ID. To find IDs, call the Organization Search endpoint and identify the values for organization_id. Example: 5e66b6381e05b4008c8331b8"
+      },
+      "person_locations[]": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        },
+        "description": "The location where people live. You can search across cities, US states, and countries. To find people based on the headquarters locations of their current employer, use the organization_locations parameter. Examples: california; ireland; chicago"
+      },
+      "revenue_range[max]": {
+        "type": "integer",
+        "description": "The maximum revenue the person's current employer generates. Use this parameter in combination with revenue_range[min] to set a revenue range. Do not enter currency symbols, commas, or decimal points in the figure. Examples: 500000; 1500000"
+      },
+      "revenue_range[min]": {
+        "type": "integer",
+        "description": "The minimum revenue the person's current employer generates. Use this parameter in combination with revenue_range[max] to set a revenue range. Do not enter currency symbols, commas, or decimal points in the figure. Examples: 500000; 1500000"
+      },
+      "person_seniorities[]": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        },
+        "description": "The job seniority that people hold within their current employer. This enables you to find people that currently hold positions at certain reporting levels, such as Director level or senior IC level. For a person to be included in search results, they only need to match 1 of the seniorities you add."
+      },
+      "contact_email_status[]": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        },
+        "description": "The email statuses for the people you want to find. You can add multiple statuses to expand your search. The statuses you can search include: verified unverified likely to engage unavailable"
+      },
+      "include_similar_titles": {
+        "type": "boolean",
+        "description": "This parameter determines whether people with job titles similar to the titles you define in the person_titles[] parameter are returned in the response. Set this parameter to false when using person_titles[] to return only strict matches for job titles."
+      },
+      "organization_locations[]": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        },
+        "example": [
+          "United States"
+        ],
+        "description": "The location of the company headquarters for a person's current employer. You can search across cities, US states, and countries. If a company has several office locations, results are still based on the headquarters location. For example, if you search chicago but a company's HQ location is in bost"
+      },
+      "q_organization_job_titles[]": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        },
+        "description": "The job titles that are listed in active job postings at the person's current employer. Examples: sales manager; research analyst"
+      },
+      "organization_job_locations[]": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        },
+        "description": "The locations of the jobs being actively recruited by the person's employer. Examples: atlanta; japan"
+      },
+      "q_organization_domains_list[]": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        },
+        "description": "The domain name for the person's employer. This can be the current employer or a previous employer. Do not include www., the @ symbol, or similar. This parameter accepts up to 1,000 domains in a single request. Examples: apollo.io; microsoft.com"
+      },
+      "organization_num_jobs_range[max]": {
+        "type": "integer",
+        "description": "The maximum number of job postings active at the person's current employer. Use this parameter in combination with organization_num_jobs_range[min] to set a job postings range. Examples: 50; 500"
+      },
+      "organization_num_jobs_range[min]": {
+        "type": "integer",
+        "description": "The minimum number of job postings active at the person's current employer. Use this parameter in combination with organization_num_jobs_range[max] to set a job postings range. Examples: 50; 500"
+      },
+      "organization_num_employees_ranges[]": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        },
+        "description": "The number range of employees working for the person's current company. This enables you to find people based on the headcount of their employer. You can add multiple ranges to expand your search results. Each range you add needs to be a string, with the upper and lower numbers of the range separate"
+      },
+      "organization_job_posted_at_range[max]": {
+        "type": "string",
+        "description": "The latest date when jobs were posted by the person's current employer. Use this parameter in combination with organization_job_posted_at_range[min] to set a date range for when jobs posted. Example: 2025-09-25"
+      },
+      "organization_job_posted_at_range[min]": {
+        "type": "string",
+        "description": "The earliest date when jobs were posted by the person's current employer. Use this parameter in combination with organization_job_posted_at_range[max] to set a date range for when jobs posted. Example: 2025-07-25"
+      },
+      "currently_using_all_of_technology_uids[]": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        },
+        "description": "Find people based on all of the technologies their current employer uses. Apollo supports filtering by 1,500+ technologies. Apollo calculates technologies data from multiple sources. This data is updated regularly. Check out the full list of supported technologies by downloading this CSV file . Use "
+      },
+      "currently_using_any_of_technology_uids[]": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        },
+        "description": "Find people based on any of the technologies their current employer uses. Apollo supports filtering by 1,500+ technologies. Apollo calculates technologies data from multiple sources. This data is updated regularly. Check out the full list of supported technologies by downloading this CSV file . Use "
+      },
+      "currently_not_using_any_of_technology_uids[]": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        },
+        "description": "Exclude people from your search based on any of the technologies their current employer uses. Apollo supports filtering by 1,500+ technologies. Apollo calculates technologies data from multiple sources. This data is updated regularly. Check out the full list of supported technologies by downloading "
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.012,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "readme": "# Apollo People API Search API\n\nUse the People API Search endpoint to find net new people in the Apollo database. Several filters are available to help narrow your search. This endpoint is optimized for API usage and does not consume credits.\n\nThe response is the official Apollo API response, unchanged.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/apollo/people-search\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"person_titles[]\": [\"ceo\"], \"organization_locations[]\": [\"United States\"], \"per_page\": 1}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `contact_email_status[]` | array | No | The email statuses for the people you want to find. You can add multiple statuses to expand your search. The statuses you can search include: verified unverifie |\n| `currently_not_using_any_of_technology_uids[]` | array | No | Exclude people from your search based on any of the technologies their current employer uses. Apollo supports filtering by 1,500+ technologies. Apollo calculate |\n| `currently_using_all_of_technology_uids[]` | array | No | Find people based on all of the technologies their current employer uses. Apollo supports filtering by 1,500+ technologies. Apollo calculates technologies data  |\n| `currently_using_any_of_technology_uids[]` | array | No | Find people based on any of the technologies their current employer uses. Apollo supports filtering by 1,500+ technologies. Apollo calculates technologies data  |\n| `include_similar_titles` | boolean | No | This parameter determines whether people with job titles similar to the titles you define in the person_titles[] parameter are returned in the response. Set thi |\n| `organization_ids[]` | array | No | The Apollo IDs for the companies (employers) you want to include in your search results. Each company in the Apollo database is assigned a unique ID. To find ID |\n| `organization_job_locations[]` | array | No | The locations of the jobs being actively recruited by the person's employer. Examples: atlanta; japan |\n| `organization_job_posted_at_range[max]` | string | No | The latest date when jobs were posted by the person's current employer. Use this parameter in combination with organization_job_posted_at_range[min] to set a da |\n| `organization_job_posted_at_range[min]` | string | No | The earliest date when jobs were posted by the person's current employer. Use this parameter in combination with organization_job_posted_at_range[max] to set a  |\n| `organization_locations[]` | array | No | The location of the company headquarters for a person's current employer. You can search across cities, US states, and countries. If a company has several offic |\n| `organization_num_employees_ranges[]` | array | No | The number range of employees working for the person's current company. This enables you to find people based on the headcount of their employer. You can add mu |\n| `organization_num_jobs_range[max]` | integer | No | The maximum number of job postings active at the person's current employer. Use this parameter in combination with organization_num_jobs_range[min] to set a job |\n| `organization_num_jobs_range[min]` | integer | No | The minimum number of job postings active at the person's current employer. Use this parameter in combination with organization_num_jobs_range[max] to set a job |\n| `page` | integer | No | The page number of the Apollo data that you want to retrieve. Use this parameter in combination with the per_page parameter to make search results for navigable |\n| `per_page` | integer | No | The number of search results that should be returned for each page. Limiting the number of results per page improves the endpoint's performance. Use the page pa |\n| `person_locations[]` | array | No | The location where people live. You can search across cities, US states, and countries. To find people based on the headquarters locations of their current empl |\n| `person_seniorities[]` | array | No | The job seniority that people hold within their current employer. This enables you to find people that currently hold positions at certain reporting levels, suc |\n| `person_titles[]` | array | No | Job titles held by the people you want to find. For a person to be included in search results, they only need to match 1 of the job titles you add. Adding more  |\n| `q_keywords` | string | No | A string of words over which we want to filter the results. |\n| `q_organization_domains_list[]` | array | No | The domain name for the person's employer. This can be the current employer or a previous employer. Do not include www., the @ symbol, or similar. This paramete |\n| `q_organization_job_titles[]` | array | No | The job titles that are listed in active job postings at the person's current employer. Examples: sales manager; research analyst |\n| `revenue_range[max]` | integer | No | The maximum revenue the person's current employer generates. Use this parameter in combination with revenue_range[min] to set a revenue range. Do not enter curr |\n| `revenue_range[min]` | integer | No | The minimum revenue the person's current employer generates. Use this parameter in combination with revenue_range[max] to set a revenue range. Do not enter curr |\n\n## Pricing\n\nFlat price per call. Failed calls are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/apollo/people-search",
+  "created_at": "2026-10-30T06:05:48.252Z"
+}

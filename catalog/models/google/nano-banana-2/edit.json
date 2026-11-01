@@ -1,0 +1,324 @@
+{
+  "name": "google/nano-banana-2/edit",
+  "display_name": "Nano Banana 2 Edit",
+  "type": "image",
+  "vendor": "Google",
+  "vendor_slug": "google",
+  "description": "Nano Banana 2 is Google's new state-of-the-art image generation and editing model",
+  "tags": [
+    "image-to-image",
+    "commercial"
+  ],
+  "capabilities": [
+    "image-to-image",
+    "commercial"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "prompt",
+      "images"
+    ],
+    "properties": {
+      "images": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        },
+        "title": "Images",
+        "examples": [
+          "https://ai.google.dev/static/gemini-api/docs/images/man_in_white_glasses.jpg"
+        ],
+        "description": "The URLs of the images to use for image-to-image generation or image editing."
+      },
+      "prompt": {
+        "type": "string",
+        "title": "Prompt",
+        "default": "Make a 3 panel comic in a gritty, noir art style with high-contrast black and white inks. Put the character in a humurous scene.",
+        "maxLength": 50000,
+        "minLength": 3,
+        "description": "The text prompt to generate an image from."
+      },
+      "resolution": {
+        "enum": [
+          "0.5K",
+          "1K",
+          "2K",
+          "4K"
+        ],
+        "type": "string",
+        "title": "Resolution",
+        "default": "1K",
+        "description": "The resolution of the image to generate."
+      },
+      "aspect_ratio": {
+        "enum": [
+          "21:9",
+          "16:9",
+          "3:2",
+          "4:3",
+          "5:4",
+          "1:1",
+          "4:5",
+          "3:4",
+          "2:3",
+          "9:16",
+          "4:1",
+          "1:4",
+          "8:1",
+          "1:8"
+        ],
+        "type": "string",
+        "title": "Aspect Ratio",
+        "description": "The aspect ratio of the generated image. Leave empty to keep the aspect ratio of the input image."
+      },
+      "output_format": {
+        "enum": [
+          "jpeg",
+          "png"
+        ],
+        "type": "string",
+        "title": "Output Format",
+        "default": "png",
+        "description": "The format of the generated image."
+      },
+      "enable_web_search": {
+        "type": "boolean",
+        "title": "Web Search",
+        "default": false,
+        "description": "Enable Google web search grounding to provide background context for image generation."
+      },
+      "enable_image_search": {
+        "type": "boolean",
+        "title": "Image Search",
+        "default": false,
+        "description": "Enable Google image search to retrieve web images as visual background reference for generation."
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "title": "GenerationResponse",
+    "required": [
+      "id",
+      "status"
+    ],
+    "properties": {
+      "id": {
+        "type": "string",
+        "description": "Unique identifier for the generation task."
+      },
+      "error": {
+        "type": "string",
+        "description": "Error message if the task failed. Empty on success."
+      },
+      "model": {
+        "type": "string",
+        "description": "Model ID used for the prediction."
+      },
+      "status": {
+        "enum": [
+          "pending",
+          "running",
+          "completed",
+          "failed",
+          "timeout"
+        ],
+        "type": "string",
+        "description": "Status of the task: pending, running, completed, failed, or timeout."
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "title": "OutputItem",
+          "required": [
+            "url"
+          ],
+          "properties": {
+            "url": {
+              "type": "string",
+              "description": "The URL where the generated content can be downloaded from."
+            },
+            "content_type": {
+              "type": "string",
+              "description": "The MIME type of the output file."
+            }
+          }
+        },
+        "description": "Array of generated content. Empty when status is not completed."
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "formula",
+    "formula": "((params.resolution ?? \"1K\") == \"0.5K\" ? 0.045 : (params.resolution ?? \"1K\") == \"2K\" ? 0.101 : (params.resolution ?? \"1K\") == \"4K\" ? 0.151 : 0.067) + (((params.enable_web_search ?? false) || (params.enable_image_search ?? false)) ? 0.014 : 0.0)",
+    "formula_variables": [
+      "params.enable_image_search",
+      "params.enable_web_search",
+      "params.resolution"
+    ],
+    "reference_price": 0.067,
+    "price_examples": [
+      {
+        "params": {
+          "enable_image_search": false,
+          "enable_web_search": false,
+          "resolution": "0.5K"
+        },
+        "usd": 0.045
+      },
+      {
+        "params": {
+          "enable_image_search": false,
+          "enable_web_search": false,
+          "resolution": "1K"
+        },
+        "usd": 0.067
+      },
+      {
+        "params": {
+          "enable_image_search": false,
+          "enable_web_search": false,
+          "resolution": "2K"
+        },
+        "usd": 0.101
+      },
+      {
+        "params": {
+          "enable_image_search": false,
+          "enable_web_search": false,
+          "resolution": "4K"
+        },
+        "usd": 0.151
+      },
+      {
+        "params": {
+          "enable_image_search": false,
+          "enable_web_search": true,
+          "resolution": "0.5K"
+        },
+        "usd": 0.059
+      },
+      {
+        "params": {
+          "enable_image_search": false,
+          "enable_web_search": true,
+          "resolution": "1K"
+        },
+        "usd": 0.081
+      },
+      {
+        "params": {
+          "enable_image_search": false,
+          "enable_web_search": true,
+          "resolution": "2K"
+        },
+        "usd": 0.115
+      },
+      {
+        "params": {
+          "enable_image_search": false,
+          "enable_web_search": true,
+          "resolution": "4K"
+        },
+        "usd": 0.165
+      },
+      {
+        "params": {
+          "enable_image_search": true,
+          "enable_web_search": false,
+          "resolution": "0.5K"
+        },
+        "usd": 0.059
+      },
+      {
+        "params": {
+          "enable_image_search": true,
+          "enable_web_search": false,
+          "resolution": "1K"
+        },
+        "usd": 0.081
+      },
+      {
+        "params": {
+          "enable_image_search": true,
+          "enable_web_search": false,
+          "resolution": "2K"
+        },
+        "usd": 0.115
+      },
+      {
+        "params": {
+          "enable_image_search": true,
+          "enable_web_search": false,
+          "resolution": "4K"
+        },
+        "usd": 0.165
+      },
+      {
+        "params": {
+          "enable_image_search": true,
+          "enable_web_search": true,
+          "resolution": "0.5K"
+        },
+        "usd": 0.059
+      },
+      {
+        "params": {
+          "enable_image_search": true,
+          "enable_web_search": true,
+          "resolution": "1K"
+        },
+        "usd": 0.081
+      },
+      {
+        "params": {
+          "enable_image_search": true,
+          "enable_web_search": true,
+          "resolution": "2K"
+        },
+        "usd": 0.115
+      },
+      {
+        "params": {
+          "enable_image_search": true,
+          "enable_web_search": true,
+          "resolution": "4K"
+        },
+        "usd": 0.165
+      }
+    ]
+  },
+  "examples": [
+    {
+      "input": {
+        "aspect_ratio": "3:2",
+        "images": [
+          "https://static.sandbase.ai/examples/c260ffa3-a68a-4042-83e9-22e3edc8e209/input/1473477b-62f4-4256-98a0-f5ad17c3b13f.jpg"
+        ],
+        "prompt": "Make a 3 panel comic in a gritty, noir art style with high-contrast black and white inks. Put the character in a humorous scene."
+      },
+      "output": [
+        {
+          "url": "https://static.sandbase.ai/examples/c260ffa3-a68a-4042-83e9-22e3edc8e209/output/6ef1e332-af29-43c9-82db-b612324ca650.jpg"
+        }
+      ],
+      "default": true
+    }
+  ],
+  "readme": "# Nano Banana 2 Edit\n\nEdit or combine images with Nano Banana 2, Google's fast image model. Send images with an instruction to restyle, retouch, swap objects, or merge several inputs into one scene.\n\n## Fields\n\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `images` | image URL[], required | — | Images to edit or combine, Image 1, Image 2, … |\n| `prompt` | string, required | — | Up to 50,000 characters. |\n| `aspect_ratio` | `21:9` / `16:9` / `3:2` / `4:3` / `5:4` / `1:1` / `4:5` / `3:4` / `2:3` / `9:16` / `4:1` / `1:4` / `8:1` / `1:8` | — | Omit to follow the first input image. |\n| `output_format` | `jpeg` / `png` | `png` | Output file format. |\n| `resolution` | `0.5K` / `1K` / `2K` / `4K` | `1K` | Sets the per-image rate. |\n| `enable_web_search` | boolean | false | Ground the edit in Google Search results. |\n| `enable_image_search` | boolean | false | Use image search results as visual references. |\n\n## Billing\n\n$0.045 at 0.5K, $0.067 at 1K, $0.101 at 2K, and $0.151 at 4K per image, Google's list price. Input images are not metered. Turning on `enable_web_search` or `enable_image_search` adds $0.014 per request (charged once even if both are on).\n\n| Request | 0.5K | 1K | 2K | 4K |\n|---|---|---|---|---|\n| One image | $0.045 | $0.067 | $0.101 | $0.151 |\n\nFailed runs are not charged.\n\n## Prompting\n\n- Say which image is the base and what each other image contributes.\n- List what must not change.\n\n## Limits\n\n- One output image per request.\n\n## Also on SandBase\n\nOther Nano Banana endpoints: `google/nano-banana-pro`, `google/nano-banana-pro/edit`, `google/nano-banana-2`, `google/nano-banana-2-lite`, `google/nano-banana-2-lite/edit`.\n",
+  "cover_url": "https://static.sandbase.ai/covers/google/nano-banana-2/edit/cover-flare-20261004201814.webp",
+  "page_url": "https://www.sandbase.ai/model/google/nano-banana-2/edit",
+  "published_at": "2026-02-26T16:20:09.685Z",
+  "created_at": "2026-04-28T02:32:46.755Z"
+}

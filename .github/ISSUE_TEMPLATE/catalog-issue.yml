@@ -1,0 +1,16 @@
+name: Catalog issue
+description: A field, schema, example or price in the catalog is wrong.
+title: "[catalog] <model name>: "
+labels: ["catalog"]
+body:
+  - type: input
+    id: model
+    attributes: { label: Model name, description: "The `name` from catalog/models/<name>.json", placeholder: "openai/gpt-image-2.5-flare" }
+    validations: { required: true }
+  - type: textarea
+    id: problem
+    attributes: { label: What is wrong?, description: "Include the request you sent and the response you got. Remove your API key." }
+    validations: { required: true }
+  - type: textarea
+    id: expected
+    attributes: { label: What did you expect? }

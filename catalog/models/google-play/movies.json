@@ -1,0 +1,125 @@
+{
+  "name": "google-play/movies",
+  "display_name": "Google Play Movies",
+  "type": "api",
+  "vendor": "Google Play",
+  "vendor_slug": "google-play",
+  "description": "Search or browse movies, TV shows, episodes, categories, and charts on Google Play.",
+  "tags": [
+    "api",
+    "google-play",
+    "ecommerce"
+  ],
+  "capabilities": [
+    "api",
+    "google-play",
+    "ecommerce"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}",
+    "passthrough": "POST /v1/api/google-play/movies"
+  },
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "q": {
+        "type": "string",
+        "maxLength": 2048,
+        "minLength": 1,
+        "description": "Search query, 1-2,048 bytes. Excludes category and chart; omit it to browse the storefront."
+      },
+      "gl": {
+        "type": "string",
+        "pattern": "^[a-zA-Z]{2}$",
+        "description": "Two-letter country code. Default 'us'."
+      },
+      "hl": {
+        "type": "string",
+        "pattern": "^[a-zA-Z]{2,3}(?:[-_][a-zA-Z0-9]{2,8}){0,3}$",
+        "maxLength": 32,
+        "description": "Storefront language, such as 'en', 'de', or 'zh-TW'. Default 'en'."
+      },
+      "age": {
+        "enum": [
+          "AGE_RANGE1",
+          "AGE_RANGE2",
+          "AGE_RANGE3"
+        ],
+        "type": "string",
+        "description": "Children's age range. Requires movies_category 'FAMILY'."
+      },
+      "chart": {
+        "type": "string",
+        "pattern": "^[a-zA-Z0-9_-]+$",
+        "maxLength": 128,
+        "minLength": 1,
+        "description": "Chart identifier such as 'topselling_free', 'topselling_paid', or 'topgrossing'. Excludes q and the pagination tokens."
+      },
+      "see_more_token": {
+        "type": "string",
+        "pattern": "^[a-zA-Z0-9_=+/:.-]+$",
+        "maxLength": 65536,
+        "minLength": 1,
+        "description": "Open a result collection with its returned token and the same parameters."
+      },
+      "movies_category": {
+        "type": "string",
+        "pattern": "^[a-zA-Z0-9_-]+$",
+        "maxLength": 128,
+        "minLength": 1,
+        "description": "Native category identifier, such as 'FAMILY'. Excludes q."
+      },
+      "next_page_token": {
+        "type": "string",
+        "pattern": "^[a-zA-Z0-9_=+/:.-]+$",
+        "maxLength": 65536,
+        "minLength": 1,
+        "description": "Continue the listing with the returned next_page_token and the same parameters."
+      },
+      "section_page_token": {
+        "type": "string",
+        "pattern": "^[a-zA-Z0-9_=+/:.-]+$",
+        "maxLength": 65536,
+        "minLength": 1,
+        "description": "Continue one result group with its returned token and the same parameters."
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "required": [
+      "id",
+      "status",
+      "model"
+    ],
+    "properties": {
+      "id": {
+        "type": "string"
+      },
+      "model": {
+        "type": "string"
+      },
+      "status": {
+        "type": "string"
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.00015,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "readme": "# Google Play Movies\n\nSearch or browse movies, TV shows, episodes, categories, and charts on Google Play.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/google-play/movies\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{}'\n```\n\nThis API runs asynchronously. The call returns a task `id` with status `pending`; poll `GET https://api.sandbase.ai/v1/run/{id}` until `status` is `completed` and read the result from `outputs[0].data`.\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `age` | string | No | Children's age range. Requires movies_category 'FAMILY'. One of: `AGE_RANGE1`, `AGE_RANGE2`, `AGE_RANGE3`. |\n| `chart` | string | No | Chart identifier such as 'topselling_free', 'topselling_paid', or 'topgrossing'. Excludes q and the pagination tokens. |\n| `gl` | string | No | Two-letter country code. Default 'us'. |\n| `hl` | string | No | Storefront language, such as 'en', 'de', or 'zh-TW'. Default 'en'. |\n| `movies_category` | string | No | Native category identifier, such as 'FAMILY'. Excludes q. |\n| `next_page_token` | string | No | Continue the listing with the returned next_page_token and the same parameters. |\n| `q` | string | No | Search query, 1-2,048 bytes. Excludes category and chart; omit it to browse the storefront. |\n| `section_page_token` | string | No | Continue one result group with its returned token and the same parameters. |\n| `see_more_token` | string | No | Open a result collection with its returned token and the same parameters. |\n\n## Pricing\n\nFlat price per call. Failed calls are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/google-play/movies",
+  "created_at": "2026-10-30T08:57:45.47Z"
+}

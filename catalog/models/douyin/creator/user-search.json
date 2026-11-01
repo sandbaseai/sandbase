@@ -1,0 +1,62 @@
+{
+  "name": "douyin/creator/user-search",
+  "display_name": "Douyin User Search (Creator)",
+  "type": "api",
+  "vendor": "Douyin",
+  "vendor_slug": "douyin",
+  "description": "Searches for Douyin accounts and returns user profile records matching the query. Looks up profiles using a Douyin ID or user nickname.",
+  "tags": [
+    "api",
+    "douyin"
+  ],
+  "capabilities": [
+    "api",
+    "douyin"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/douyin/creator/user-search"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "user_name"
+    ],
+    "properties": {
+      "user_name": {
+        "type": "string",
+        "title": "User Name",
+        "example": "中国人工智能学会",
+        "description": "Username (supports Douyin ID and nickname)"
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.0015,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "examples": [
+    {
+      "input": {
+        "user_name": "example"
+      }
+    }
+  ],
+  "readme": "# Douyin User Search (Creator) API\n\nSearch Douyin accounts by specifying `user_name`. The query supports searches by Douyin ID as well as profile nickname.\n\n## Use cases\n\n- Locate account profiles by entering a Douyin ID.\n- Search for profiles by display nickname.\n- Retrieve account identifiers such as user ID and short ID.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/douyin/creator/user-search\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"user_name\": \"中国人工智能学会\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `user_name` | string | Yes | Username (supports Douyin ID and nickname) |\n\n## Example response\n\nReal response for the request above, trimmed to the main fields. User names and long IDs are masked.\n\n```json\n{\n  \"user_infos\": [\n    {\n      \"nick_name\": \"<user>\",\n      \"short_id\": \"<user>\",\n      \"user_id\": \"<user>\"\n    }\n  ]\n}\n```\n\n## Notes\n\n- The `user_name` parameter accepts either a Douyin ID or a user nickname.\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [Douyin Creator Activity Details](/model/douyin/creator/creator-activity-detail): Returns detailed information for a specific Douyin creator activity.\n- [Douyin Activity List](/model/douyin/creator/creator-activity-list): Returns activity and campaign records for Douyin accounts within a specified timestamp window between start_time and end_time.\n- [Douyin Content Categories](/model/douyin/creator/creator-content-category): Returns the list of content categories available on Douyin.\n",
+  "page_url": "https://www.sandbase.ai/model/douyin/creator/user-search",
+  "created_at": "2026-07-31T02:36:02.274Z"
+}

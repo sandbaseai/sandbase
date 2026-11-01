@@ -1,0 +1,141 @@
+{
+  "name": "bytedance/seedream/5.0/lite/edit",
+  "display_name": "Seedream 5.0 Lite Edit",
+  "type": "image",
+  "vendor": "Bytedance",
+  "vendor_slug": "bytedance",
+  "description": "Seedream 5.0 Lite — Fast Text-to-Image API The lightweight version of Seedream 5.0, delivering high-quality, low-latency AI image generation from text prompts. Ideal for real-time creative tools, e-commerce visuals, and high-volume AIGC pipelines.",
+  "tags": [
+    "image-to-image",
+    "commercial"
+  ],
+  "capabilities": [
+    "image-to-image",
+    "commercial"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "prompt",
+      "images"
+    ],
+    "properties": {
+      "images": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        },
+        "title": "Images",
+        "examples": [
+          "https://p9-arcosite.byteimg.com/tos-cn-i-goo7wpa0wc/77024d8e03f24862b066bfc385301120~tplv-goo7wpa0wc-image.image",
+          "https://p9-arcosite.byteimg.com/tos-cn-i-goo7wpa0wc/2cbc5cf5a68d44899fc52f177fb9cf51~tplv-goo7wpa0wc-image.image"
+        ],
+        "description": "The URLs of the images to use for image-to-image generation or image editing."
+      },
+      "prompt": {
+        "type": "string",
+        "title": "Prompt",
+        "default": "Generate 3 images of a girl and a cow plushie happily riding a roller coaster in an amusement park, depicting morning, noon, and night.",
+        "maxLength": 50000,
+        "minLength": 3,
+        "description": "The text prompt to generate an image from."
+      },
+      "aspect_ratio": {
+        "enum": [
+          "21:9",
+          "16:9",
+          "3:2",
+          "4:3",
+          "1:1",
+          "3:4",
+          "2:3",
+          "9:16"
+        ],
+        "type": "string",
+        "title": "Aspect Ratio",
+        "description": "The aspect ratio of the generated image."
+      },
+      "output_format": {
+        "enum": [
+          "jpeg",
+          "png"
+        ],
+        "type": "string",
+        "title": "Output Format",
+        "default": "png",
+        "description": "The format of the generated image."
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "title": "GenerationResponse",
+    "required": [
+      "id",
+      "status"
+    ],
+    "properties": {
+      "id": {
+        "type": "string",
+        "description": "Unique identifier for the generation task."
+      },
+      "error": {
+        "type": "string",
+        "description": "Error message if the task failed. Empty on success."
+      },
+      "model": {
+        "type": "string",
+        "description": "Model ID used for the prediction."
+      },
+      "status": {
+        "enum": [
+          "pending",
+          "running",
+          "completed",
+          "failed",
+          "timeout"
+        ],
+        "type": "string",
+        "description": "Status of the task: pending, running, completed, failed, or timeout."
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "title": "OutputItem",
+          "required": [
+            "url"
+          ],
+          "properties": {
+            "url": {
+              "type": "string",
+              "description": "The URL where the generated content can be downloaded from."
+            },
+            "content_type": {
+              "type": "string",
+              "description": "The MIME type of the output file."
+            }
+          }
+        },
+        "description": "Array of generated content. Empty when status is not completed."
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.035
+  },
+  "readme": "# Seedream 5.0 Lite Edit\n\nSeedream 5.0 Lite edit: fast, low-cost edits and multi-image composition.\n\n## Fields\n\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `images` | image URL[], required | — | Images to edit or combine, Image 1, Image 2, … |\n| `prompt` | string, required | — | Up to 50,000 characters. |\n| `aspect_ratio` | `21:9` / `16:9` / `3:2` / `4:3` / `1:1` / `3:4` / `2:3` / `9:16` | — | Omit to follow the first input image. |\n| `output_format` | `jpeg` / `png` | `png` | Output file format. |\n\n## Billing\n\n$0.035 per output image.\n\n| Request | Price |\n|---|---|\n| One image | $0.035 |\n\nFailed runs are not charged.\n\n## Prompting\n\n- Say which image is the base and what each other image contributes.\n- List what must not change.\n\n## Limits\n\n- One output image per request.\n\n## Also on SandBase\n\nOther Seedream endpoints: `bytedance/seedream/5.0/pro`, `bytedance/seedream/5.0/pro/edit`, `bytedance/seedream/5.0/lite`, `bytedance/seedream/5.0/flash`, `bytedance/seedream/5.0/flash/edit`, `bytedance/seedream/4.5`, `bytedance/seedream/4.5/edit`.\n",
+  "cover_url": "https://static.sandbase.ai/covers/bytedance/seedream/5.0/lite/edit/cover-flare-20261004212502.webp",
+  "page_url": "https://www.sandbase.ai/model/bytedance/seedream/5.0/lite/edit",
+  "created_at": "2026-04-28T09:06:34.73Z"
+}

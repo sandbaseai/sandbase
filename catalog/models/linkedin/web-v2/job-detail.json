@@ -1,0 +1,59 @@
+{
+  "name": "linkedin/web-v2/job-detail",
+  "display_name": "LinkedIn Job Details",
+  "type": "api",
+  "vendor": "LinkedIn",
+  "vendor_slug": "linkedin",
+  "description": "Returns detailed information for a specific LinkedIn job posting via its URL. Allows optional inclusion of required skills and hiring team details.",
+  "tags": [
+    "api",
+    "linkedin"
+  ],
+  "capabilities": [
+    "api",
+    "linkedin"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/linkedin/web-v2/job-detail"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "url"
+    ],
+    "properties": {
+      "url": {
+        "type": "string",
+        "title": "Url",
+        "description": "Job URL, e.g. https://www.linkedin.com/jobs/view/3766410207/."
+      },
+      "include_skills": {
+        "type": "boolean",
+        "title": "Include Skills",
+        "description": "Whether to include the required skills."
+      },
+      "include_hiring_team": {
+        "type": "boolean",
+        "title": "Include Hiring Team",
+        "description": "Whether to include hiring team information."
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.045
+  },
+  "readme": "# LinkedIn Job Details API\n\nRetrieve job posting information by submitting a LinkedIn job `url`. Set `include_skills` and `include_hiring_team` to expand the returned job dataset.\n\n## Use cases\n\n- Extract job posting details and requirements from LinkedIn listings.\n- Review hiring team profiles associated with target job openings.\n- Track required job skills to analyze industry hiring trends.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/linkedin/web-v2/job-detail\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"url\": \"<url>\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `url` | string | Yes | Job URL, e.g. https://www.linkedin.com/jobs/view/3766410207/. |\n| `include_skills` | boolean | No | Whether to include the required skills. |\n| `include_hiring_team` | boolean | No | Whether to include hiring team information. |\n\n## Notes\n\n- Supply a full LinkedIn job posting link in `url`.\n- Set `include_skills` to true to receive associated skill requirements.\n- Set `include_hiring_team` to true to retrieve hiring team details.\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [LinkedIn Company Posts](/model/linkedin/web-v2/company-posts): Returns posts from a LinkedIn organization page using the company URL.\n- [LinkedIn Company Profile](/model/linkedin/web-v2/company-profile): Returns LinkedIn company profile details, including affiliated organizations, using a direct company page URL.\n- [LinkedIn Post Comments](/model/linkedin/web-v2/post-comments): Returns comments for a specific LinkedIn post using its activity URN.\n",
+  "page_url": "https://www.sandbase.ai/model/linkedin/web-v2/job-detail",
+  "created_at": "2026-07-31T04:08:35.075Z"
+}

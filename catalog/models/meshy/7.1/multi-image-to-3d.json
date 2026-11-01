@@ -1,0 +1,343 @@
+{
+  "name": "meshy/7.1/multi-image-to-3d",
+  "display_name": "Meshy 7.1 Multi-Image to 3D",
+  "type": "image",
+  "vendor": "Meshy",
+  "vendor_slug": "meshy",
+  "description": "Meshy 7.1 reconstructs a textured, optionally rigged 3D model from 1–4 views of the same object.",
+  "tags": [
+    "image-to-3d"
+  ],
+  "capabilities": [
+    "image-to-3d"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "images"
+    ],
+    "properties": {
+      "images": {
+        "type": "array",
+        "items": {
+          "type": "string",
+          "_fal_ui_field": "image"
+        },
+        "title": "Images",
+        "maxItems": 4,
+        "minItems": 1,
+        "description": "1 to 4 images of the same object from different angles."
+      },
+      "topology": {
+        "enum": [
+          "quad",
+          "triangle"
+        ],
+        "type": "string",
+        "title": "Topology",
+        "default": "triangle",
+        "description": "quad for smooth surfaces, triangle for detail."
+      },
+      "pose_mode": {
+        "enum": [
+          "a-pose",
+          "t-pose",
+          ""
+        ],
+        "type": "string",
+        "title": "Pose Mode",
+        "default": "",
+        "description": "a-pose, t-pose or empty for none."
+      },
+      "enable_pbr": {
+        "type": "boolean",
+        "title": "Enable PBR",
+        "default": false,
+        "description": "Generate PBR maps (metallic, roughness, normal)."
+      },
+      "symmetry_mode": {
+        "enum": [
+          "off",
+          "auto",
+          "on"
+        ],
+        "type": "string",
+        "title": "Symmetry Mode",
+        "default": "auto",
+        "description": "off / auto / on."
+      },
+      "texture_image": {
+        "type": "string",
+        "title": "Texture Image",
+        "description": "Image URL to guide texturing."
+      },
+      "enable_rigging": {
+        "type": "boolean",
+        "title": "Auto Rigging",
+        "default": false,
+        "description": "Rig the model as a humanoid character (+$0.20)."
+      },
+      "should_texture": {
+        "type": "boolean",
+        "title": "Texture",
+        "default": true,
+        "description": "Generate textures (untextured models are cheaper)."
+      },
+      "texture_prompt": {
+        "type": "string",
+        "title": "Texture Prompt",
+        "maxLength": 600,
+        "description": "Text prompt to guide texturing."
+      },
+      "enable_animation": {
+        "type": "boolean",
+        "title": "Animation",
+        "default": false,
+        "description": "Apply an animation preset; requires enable_rigging (+$0.12)."
+      },
+      "target_polycount": {
+        "type": "integer",
+        "title": "Target Polycount",
+        "default": 30000,
+        "maximum": 300000,
+        "minimum": 100,
+        "description": "Target polygon count (100–300,000)."
+      },
+      "geometry_resolution": {
+        "enum": [
+          "standard",
+          "2k"
+        ],
+        "type": "string",
+        "title": "Geometry Resolution",
+        "default": "standard",
+        "description": "Geometry resolution."
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "title": "GenerationResponse",
+    "required": [
+      "id",
+      "status"
+    ],
+    "properties": {
+      "id": {
+        "type": "string",
+        "description": "Unique identifier for the generation task."
+      },
+      "error": {
+        "type": "string",
+        "description": "Error message if the task failed. Empty on success."
+      },
+      "model": {
+        "type": "string",
+        "description": "Model ID used for the prediction."
+      },
+      "status": {
+        "enum": [
+          "pending",
+          "running",
+          "completed",
+          "failed",
+          "timeout"
+        ],
+        "type": "string",
+        "description": "Status of the task: pending, running, completed, failed, or timeout."
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "title": "OutputItem",
+          "required": [
+            "url"
+          ],
+          "properties": {
+            "url": {
+              "type": "string",
+              "description": "The URL where the generated content can be downloaded from."
+            },
+            "content_type": {
+              "type": "string",
+              "description": "The MIME type of the output file."
+            }
+          }
+        },
+        "description": "Array of generated content. Empty when status is not completed."
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "formula",
+    "formula": "((params.should_texture ?? true) ? 1.44 : 0.96) + ((params.geometry_resolution ?? \"standard\") == \"4k\" ? 0.48 : (params.geometry_resolution ?? \"standard\") == \"2k\" ? 0.24 : 0.0) + ((params.enable_rigging ?? false) ? 0.24 : 0.0) + ((params.enable_rigging ?? false) && (params.enable_animation ?? false) ? 0.144 : 0.0)",
+    "formula_variables": [
+      "params.enable_animation",
+      "params.enable_rigging",
+      "params.geometry_resolution",
+      "params.should_texture"
+    ],
+    "reference_price": 1.44,
+    "price_examples": [
+      {
+        "params": {
+          "enable_animation": false,
+          "enable_rigging": false,
+          "geometry_resolution": "standard",
+          "should_texture": false
+        },
+        "usd": 0.96
+      },
+      {
+        "params": {
+          "enable_animation": false,
+          "enable_rigging": false,
+          "geometry_resolution": "standard",
+          "should_texture": true
+        },
+        "usd": 1.44
+      },
+      {
+        "params": {
+          "enable_animation": false,
+          "enable_rigging": false,
+          "geometry_resolution": "2k",
+          "should_texture": false
+        },
+        "usd": 1.2
+      },
+      {
+        "params": {
+          "enable_animation": false,
+          "enable_rigging": false,
+          "geometry_resolution": "2k",
+          "should_texture": true
+        },
+        "usd": 1.68
+      },
+      {
+        "params": {
+          "enable_animation": false,
+          "enable_rigging": true,
+          "geometry_resolution": "standard",
+          "should_texture": false
+        },
+        "usd": 1.2
+      },
+      {
+        "params": {
+          "enable_animation": false,
+          "enable_rigging": true,
+          "geometry_resolution": "standard",
+          "should_texture": true
+        },
+        "usd": 1.68
+      },
+      {
+        "params": {
+          "enable_animation": false,
+          "enable_rigging": true,
+          "geometry_resolution": "2k",
+          "should_texture": false
+        },
+        "usd": 1.44
+      },
+      {
+        "params": {
+          "enable_animation": false,
+          "enable_rigging": true,
+          "geometry_resolution": "2k",
+          "should_texture": true
+        },
+        "usd": 1.92
+      },
+      {
+        "params": {
+          "enable_animation": true,
+          "enable_rigging": false,
+          "geometry_resolution": "standard",
+          "should_texture": false
+        },
+        "usd": 0.96
+      },
+      {
+        "params": {
+          "enable_animation": true,
+          "enable_rigging": false,
+          "geometry_resolution": "standard",
+          "should_texture": true
+        },
+        "usd": 1.44
+      },
+      {
+        "params": {
+          "enable_animation": true,
+          "enable_rigging": false,
+          "geometry_resolution": "2k",
+          "should_texture": false
+        },
+        "usd": 1.2
+      },
+      {
+        "params": {
+          "enable_animation": true,
+          "enable_rigging": false,
+          "geometry_resolution": "2k",
+          "should_texture": true
+        },
+        "usd": 1.68
+      },
+      {
+        "params": {
+          "enable_animation": true,
+          "enable_rigging": true,
+          "geometry_resolution": "standard",
+          "should_texture": false
+        },
+        "usd": 1.344
+      },
+      {
+        "params": {
+          "enable_animation": true,
+          "enable_rigging": true,
+          "geometry_resolution": "standard",
+          "should_texture": true
+        },
+        "usd": 1.824
+      },
+      {
+        "params": {
+          "enable_animation": true,
+          "enable_rigging": true,
+          "geometry_resolution": "2k",
+          "should_texture": false
+        },
+        "usd": 1.584
+      },
+      {
+        "params": {
+          "enable_animation": true,
+          "enable_rigging": true,
+          "geometry_resolution": "2k",
+          "should_texture": true
+        },
+        "usd": 2.064
+      }
+    ]
+  },
+  "readme": "# Meshy 7.1 Multi-Image to 3D\n\nMeshy 7.1 turns 1–4 views of the same object into a textured 3D model, optionally rigged and animated.\n\n## Fields\n\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `images` | image URL[] (≤4), required | — | 1–4 views of the same object. |\n| `symmetry_mode` | `off` / `auto` / `on` | `auto` | Enforce symmetry. |\n| `topology` | `quad` / `triangle` | `triangle` | Quad or triangle mesh. |\n| `enable_rigging` | boolean | false | Add a humanoid rig. |\n| `enable_animation` | boolean | false | Add a walk/run animation (requires rigging). |\n| `enable_pbr` | boolean | false | PBR texture maps. |\n| `target_polycount` | integer 100–300000 | 30000 | Target polygon count. |\n| `geometry_resolution` | `standard` / `2k` | `standard` | Mesh detail; higher tiers cost more. |\n| `should_texture` | boolean | true | Generate textures; untextured costs less. |\n| `pose_mode` | `a-pose` / `t-pose` / `` | — | Force an A- or T-pose. |\n| `texture_prompt` | string | — | Optional texture description. |\n| `texture_image` | image URL | — | Optional texture reference image. |\n\n## Billing\n\n$1.44 per textured model ($0.96 untextured); 2K geometry adds $0.24 and 4K adds $0.48; rigging adds $0.24 and animation another $0.144.\n\n| Request | Price |\n|---|---|\n| Textured | $1.44 |\n| Untextured | $0.96 |\n| Textured, 2K geometry | $1.68 |\n| Textured + rig + animation | $1.824 |\n\nFailed runs are not charged.\n\n## Prompting\n\n- Describe or show one object; plain backgrounds work best.\n\n## Also on SandBase\n\nOther Meshy 7.1 endpoints: `meshy/7.1/text-to-3d`, `meshy/7.1/image-to-3d`.\n",
+  "cover_url": "https://static.sandbase.ai/covers/meshy/7.1/multi-image-to-3d/cover-flare-20261008040623.webp",
+  "page_url": "https://www.sandbase.ai/model/meshy/7.1/multi-image-to-3d",
+  "published_at": "2026-09-21T17:30:17.517Z",
+  "created_at": "2026-10-06T04:26:28.973Z"
+}

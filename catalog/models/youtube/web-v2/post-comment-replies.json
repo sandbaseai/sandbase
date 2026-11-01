@@ -1,0 +1,69 @@
+{
+  "name": "youtube/web-v2/post-comment-replies",
+  "display_name": "YouTube Post Comment Replies",
+  "type": "api",
+  "vendor": "YouTube",
+  "vendor_slug": "youtube",
+  "description": "Returns second-level comment replies for a YouTube post. Supports pagination using continuation tokens, along with optional country and language localization settings.",
+  "tags": [
+    "api",
+    "youtube"
+  ],
+  "capabilities": [
+    "api",
+    "youtube"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/youtube/web-v2/post-comment-replies"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "continuation_token"
+    ],
+    "properties": {
+      "need_format": {
+        "type": "boolean",
+        "title": "Need Format",
+        "description": "Whether to format data, default `true`"
+      },
+      "country_code": {
+        "type": "string",
+        "title": "Country Code",
+        "description": "Country code, default `\"US\"`"
+      },
+      "language_code": {
+        "type": "string",
+        "title": "Language Code",
+        "description": "Language code, default `\"zh-CN\"`"
+      },
+      "continuation_token": {
+        "type": "string",
+        "title": "Continuation Token",
+        "description": "Next page token (if more replies)"
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.0015,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "readme": "# YouTube Post Comment Replies API\n\nRetrieve second-level replies for a post comment using `continuation_token`. Optional parameters include `country_code`, `language_code`, and `need_format`.\n\n## Use cases\n\n- Display nested discussion threads under community post comments.\n- Analyze conversation chains and follow-up viewer interactions.\n- Paginate through reply threads for comprehensive sentiment monitoring.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/youtube/web-v2/post-comment-replies\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"continuation_token\": \"<continuation_token>\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `continuation_token` | string | Yes | Next page token (if more replies) |\n| `need_format` | boolean | No | Whether to format data, default `true` |\n| `country_code` | string | No | Country code, default `\"US\"` |\n| `language_code` | string | No | Language code, default `\"zh-CN\"` |\n\n## Notes\n\n- `continuation_token` is required to paginate through subsequent comment replies.\n- `country_code` defaults to `\"US\"` and `language_code` defaults to `\"zh-CN\"`.\n- `need_format` determines whether to format the data and defaults to `true`.\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [YouTube Channel Community Posts](/model/youtube/web-v2/channel-community-posts): Returns community posts from a specific YouTube channel, including text content, polls, votes, and comment counts.\n- [YouTube Channel Description](/model/youtube/web-v2/channel-description): Returns YouTube channel details including subscriber counts, video totals, view counts, joined date, and social links.\n- [YouTube Channel ID from URL](/model/youtube/web-v2/channel-id): Resolves a YouTube channel URL to its canonical channel ID.\n",
+  "page_url": "https://www.sandbase.ai/model/youtube/web-v2/post-comment-replies",
+  "created_at": "2026-07-31T04:27:06.324Z"
+}

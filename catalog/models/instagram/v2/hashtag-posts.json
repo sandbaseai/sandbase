@@ -1,0 +1,67 @@
+{
+  "name": "instagram/v2/hashtag-posts",
+  "display_name": "Instagram Hashtag Posts (V2)",
+  "type": "api",
+  "vendor": "Instagram",
+  "vendor_slug": "instagram",
+  "description": "Returns posts associated with a specific hashtag. Supports filtering by top posts, recent posts, or reels along with cursor-based pagination.",
+  "tags": [
+    "api",
+    "instagram"
+  ],
+  "capabilities": [
+    "api",
+    "instagram"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/instagram/v2/hashtag-posts"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "keyword"
+    ],
+    "properties": {
+      "keyword": {
+        "type": "string",
+        "title": "Keyword",
+        "example": "cat",
+        "description": "Hashtag keyword (without #)"
+      },
+      "feed_type": {
+        "type": "string",
+        "title": "Feed Type",
+        "default": "top",
+        "example": "top",
+        "description": "Feed type \"top\", \"recent\", or \"reels\", default top"
+      },
+      "pagination_token": {
+        "type": "string",
+        "title": "Pagination Token",
+        "description": "Pagination token from previous response"
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.003,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "readme": "# Instagram Hashtag Posts (V2) API\n\nQuery posts tagged with a specific topic using `keyword` without the leading hash symbol. Feed results can optionally be filtered by `feed_type`.\n\n## Use cases\n\n- Track media content and engagement around specific campaign hashtags.\n- Discover trending reels and top posts within niche topics.\n- Monitor user-generated content for brand or community tags.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/instagram/v2/hashtag-posts\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"keyword\": \"cat\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `keyword` | string | Yes | Hashtag keyword (without #) |\n| `feed_type` | string | No | Feed type \"top\", \"recent\", or \"reels\", default top |\n| `pagination_token` | string | No | Pagination token from previous response |\n\n## Example response\n\nReal response for the request above, trimmed to the main fields. User names and long IDs are masked.\n\n```json\n{\n  \"data\": {\n    \"items\": [\n      {\n        \"caption_text\": \"Some coffee? #cat #cute #coffee #viral #fyp\",\n        \"comment_count\": 4,\n        \"id\": \"4001398805562288512\",\n        \"like_and_view_counts_disabled\": false,\n        \"like_count\": 343,\n        \"media_name\": \"reel\",\n        \"media_type\": 2,\n        \"play_count\": 8090,\n        \"product_type\": \"clips\",\n        \"thumbnail_url\": \"https://scontent-lax7-1.cdninstagram.com/v/t51.71878-15/836759883_10889105004450…\",\n        \"clips_metadata\": {\n          \"audio_canonical_id\": \"18632259277042329\",\n          \"audio_type\": \"original_sounds\",\n          \"professional_clips_upsell_type\": 0\n        },\n        \"user\": {\n          \"id\": \"25310575539\",\n          \"profile_pic_url\": \"https://scontent-lax3-1.cdninstagram.com/v/t51.82787-19/816178425_18114219469847…\",\n          \"username\": \"<user>\"\n        }\n      }\n    ]\n  }\n}\n```\n\n## Notes\n\n- Provide `keyword` without the leading '#' symbol.\n- `feed_type` accepts \"top\", \"recent\", or \"reels\", defaulting to \"top\".\n- Pass `pagination_token` from a prior response to page through additional items.\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [Instagram Comment Replies (V2)](/model/instagram/v2/comment-replies): Retrieves a paginated list of replies to an Instagram comment using the post URL or shortcode and the target comment ID.\n- [Instagram General Search (V2)](/model/instagram/v2/general-search): Returns Instagram search results matching a specified keyword, including media items, user profiles, and engagement statistics.\n- [Instagram Highlight Stories](/model/instagram/v2/highlight-stories): Returns all stories contained within a specific Instagram highlight using its unique identifier.\n",
+  "page_url": "https://www.sandbase.ai/model/instagram/v2/hashtag-posts",
+  "created_at": "2026-07-31T03:55:39.35Z"
+}

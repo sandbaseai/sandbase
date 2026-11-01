@@ -1,0 +1,76 @@
+{
+  "name": "facebook/ad-transcript",
+  "display_name": "Facebook Ad Transcript",
+  "type": "api",
+  "vendor": "Facebook",
+  "vendor_slug": "facebook",
+  "description": "Get the spoken-word transcript of a Meta Ad Library video ad by ad ID or URL.",
+  "tags": [
+    "api",
+    "facebook",
+    "social-media"
+  ],
+  "capabilities": [
+    "api",
+    "facebook",
+    "social-media"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/facebook/ad-transcript"
+  },
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string",
+        "example": "2045879599391945",
+        "description": "Meta Ad Library ad ID (e.g. \"1020359190509080\"). Provide either id or url."
+      },
+      "url": {
+        "type": "string",
+        "description": "Meta Ad Library ad URL (e.g. \"https://www.facebook.com/ads/library?id=1020359190509080\"). Provide either id or url."
+      }
+    },
+    "additionalProperties": false
+  },
+  "response_schema": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string"
+      },
+      "model": {
+        "type": "string"
+      },
+      "status": {
+        "type": "string"
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "data": {
+              "type": "object",
+              "description": "Normalized result for this request."
+            }
+          }
+        }
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "usage_based",
+    "note": "Billed per call from metered usage; the reference price is typical.",
+    "reference_price": 0.0012
+  },
+  "readme": "# Facebook Ad Transcript API\n\nGet the spoken-word transcript of a Meta Ad Library video ad by ad ID or URL.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/facebook/ad-transcript\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"id\": \"2045879599391945\"}'\n```\n\nThe result is returned in `outputs[0].data`. A lookup that finds nothing still succeeds and returns `found: false`.\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `id` | string | No | Meta Ad Library ad ID (e.g. \"1020359190509080\"). Provide either id or url. |\n| `url` | string | No | Meta Ad Library ad URL (e.g. \"https://www.facebook.com/ads/library?id=1020359190509080\"). Provide either id or url. |\n\n## Pricing\n\nBilled at the actual cost of each call, usually $0.0012 per request. A call can cost more when the first data source fails and another one answers. Failed calls are not charged. Lookups that find nothing and searches with no results are billed at their actual cost, which is often lower and can be $0.\n",
+  "page_url": "https://www.sandbase.ai/model/facebook/ad-transcript",
+  "created_at": "2026-10-31T10:31:01.388Z"
+}

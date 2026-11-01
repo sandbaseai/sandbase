@@ -1,0 +1,215 @@
+{
+  "name": "xai/grok-imagine-video/1.5/lite/image-to-video",
+  "display_name": "Grok Imagine Video 1.5 Lite Image to Video",
+  "type": "video",
+  "vendor": "xAI",
+  "vendor_slug": "xai",
+  "description": "Grok Imagine Video 1.5 Lite, the low-cost tier of xAI's video model, animates an image into a 1-15 second video with native audio.",
+  "tags": [
+    "image-to-video"
+  ],
+  "capabilities": [
+    "image-to-video"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "prompt",
+      "image"
+    ],
+    "properties": {
+      "image": {
+        "type": "string",
+        "title": "Image URL",
+        "description": "URL of the input image for video generation."
+      },
+      "prompt": {
+        "type": "string",
+        "title": "Prompt",
+        "examples": [
+          "Medieval knight in ornate armor walking through a mystical forest, bioluminescent plants pulsing with light, ancient stone ruins overgrown with glowing vines, over-the-shoulder camera, dark fantasy aesthetic, volumetric fog and Lumen lighting"
+        ],
+        "maxLength": 4096,
+        "description": "Text description of desired changes or motion in the video."
+      },
+      "duration": {
+        "type": "integer",
+        "title": "Duration",
+        "default": 6,
+        "maximum": 15,
+        "minimum": 1,
+        "description": "Video duration in seconds."
+      },
+      "resolution": {
+        "enum": [
+          "480p",
+          "720p",
+          "1080p"
+        ],
+        "type": "string",
+        "title": "Resolution",
+        "default": "720p",
+        "description": "Resolution of the output video."
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "title": "GenerationResponse",
+    "required": [
+      "id",
+      "status"
+    ],
+    "properties": {
+      "id": {
+        "type": "string",
+        "description": "Unique identifier for the generation task."
+      },
+      "error": {
+        "type": "string",
+        "description": "Error message if the task failed. Empty on success."
+      },
+      "model": {
+        "type": "string",
+        "description": "Model ID used for the prediction."
+      },
+      "status": {
+        "enum": [
+          "pending",
+          "running",
+          "completed",
+          "failed",
+          "timeout"
+        ],
+        "type": "string",
+        "description": "Status of the task: pending, running, completed, failed, or timeout."
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "title": "OutputItem",
+          "required": [
+            "url"
+          ],
+          "properties": {
+            "url": {
+              "type": "string",
+              "description": "The URL where the generated content can be downloaded from."
+            },
+            "content_type": {
+              "type": "string",
+              "description": "The MIME type of the output file."
+            }
+          }
+        },
+        "description": "Array of generated content. Empty when status is not completed."
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "formula",
+    "formula": "(params.duration ?? 6) * ((params.resolution ?? \"720p\") == \"1080p\" ? 0.14 : (params.resolution ?? \"720p\") == \"480p\" ? 0.02 : 0.03) + 0.01",
+    "formula_variables": [
+      "params.duration",
+      "params.resolution"
+    ],
+    "reference_price": 0.19,
+    "price_examples": [
+      {
+        "params": {
+          "duration": 1,
+          "resolution": "480p"
+        },
+        "usd": 0.03
+      },
+      {
+        "params": {
+          "duration": 1,
+          "resolution": "720p"
+        },
+        "usd": 0.04
+      },
+      {
+        "params": {
+          "duration": 1,
+          "resolution": "1080p"
+        },
+        "usd": 0.15
+      },
+      {
+        "params": {
+          "duration": 6,
+          "resolution": "480p"
+        },
+        "usd": 0.13
+      },
+      {
+        "params": {
+          "duration": 6,
+          "resolution": "720p"
+        },
+        "usd": 0.19
+      },
+      {
+        "params": {
+          "duration": 6,
+          "resolution": "1080p"
+        },
+        "usd": 0.85
+      },
+      {
+        "params": {
+          "duration": 15,
+          "resolution": "480p"
+        },
+        "usd": 0.31
+      },
+      {
+        "params": {
+          "duration": 15,
+          "resolution": "720p"
+        },
+        "usd": 0.46
+      },
+      {
+        "params": {
+          "duration": 15,
+          "resolution": "1080p"
+        },
+        "usd": 2.11
+      }
+    ]
+  },
+  "examples": [
+    {
+      "input": {
+        "duration": 1,
+        "image": "https://static.sandbase.ai/examples/5d48e76d-5a0c-452b-8181-aa4ba0072b12/input/9ef1f22e-26ce-4d56-8500-03a900ca4b9c.png",
+        "prompt": "the camera slowly zooms in",
+        "resolution": "480p"
+      },
+      "output": [
+        {
+          "poster": "https://static.sandbase.ai/examples/posters/a363922454ea6dd6c209.jpg",
+          "url": "https://static.sandbase.ai/examples/5d48e76d-5a0c-452b-8181-aa4ba0072b12/output/d7fbc476-d710-40e2-9b21-c867fb08553b.mp4"
+        }
+      ],
+      "default": true
+    }
+  ],
+  "readme": "# Grok Imagine Video 1.5 Lite Image to Video\n\nGrok Imagine Video 1.5 Lite image-to-video: low-cost animation of a picture into a 1–15 second clip.\n\n## Fields\n\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `prompt` | string, required | — | Up to 4,096 characters. |\n| `image` | image URL, required | — | First frame. JPEG, PNG, or WebP URL. |\n| `resolution` | `480p` / `720p` / `1080p` | `720p` | Sets the per-second rate. |\n| `duration` | integer 1–15 | 6 | Output length in seconds. |\n\n## Billing\n\nPer output second: $0.02 at 480p, $0.03 at 720p, $0.14 at 1080p, plus $0.01 per request.\n\n| Output | 480p | 720p | 1080p |\n|---|---|---|---|\n| 6s (default) | $0.13 | $0.19 | $0.85 |\n| 10s | $0.21 | $0.31 | $1.41 |\n| 15s | $0.31 | $0.46 | $2.11 |\n\nFailed runs are not charged.\n\n## Prompting\n\n- Describe subject, action, camera, and sound.\n\n## Also on SandBase\n\nOther Grok Imagine Video 1.5 endpoints: `xai/grok-imagine-video/1.5/text-to-video`, `xai/grok-imagine-video/1.5/image-to-video`, `xai/grok-imagine-video/1.5/reference-to-video`, `xai/grok-imagine-video/1.5/lite/text-to-video`, `xai/grok-imagine-video/text-to-video` (previous version).\n",
+  "cover_url": "https://static.sandbase.ai/covers/xai/grok-imagine-video/1.5/image-to-video/cover-flare-20261004191112.webp",
+  "page_url": "https://www.sandbase.ai/model/xai/grok-imagine-video/1.5/lite/image-to-video",
+  "published_at": "2026-10-01T20:37:27.18Z",
+  "created_at": "2026-10-06T10:52:17.651Z"
+}

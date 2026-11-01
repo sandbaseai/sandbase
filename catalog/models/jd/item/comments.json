@@ -1,0 +1,55 @@
+{
+  "name": "jd/item/comments",
+  "display_name": "JD.com Product Comments",
+  "type": "api",
+  "vendor": "JD.com",
+  "vendor_slug": "jd",
+  "description": "Get paginated customer comments for a JD.com product by item ID, for buyer feedback and product quality research.",
+  "tags": [
+    "api",
+    "jd",
+    "ecommerce"
+  ],
+  "capabilities": [
+    "api",
+    "jd",
+    "ecommerce"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/jd/item/comments"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "itemId"
+    ],
+    "properties": {
+      "page": {
+        "type": "string",
+        "description": "Page number for paginated comments."
+      },
+      "itemId": {
+        "type": "string",
+        "example": "100207440191",
+        "description": "A unique product identifier on JD.com (item ID)."
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.027778
+  },
+  "readme": "# JD.com Product Comments API\n\nGet paginated customer comments for a JD.com product by item ID, for buyer feedback and product quality research.\n\nThe response is the platform's original data structure.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/jd/item/comments\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"itemId\": \"100207440191\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `itemId` | string | Yes | A unique product identifier on JD.com (item ID). |\n| `page` | string | No | Page number for paginated comments. |\n\n## Pricing\n\nFlat price per call. Failed calls are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/jd/item/comments",
+  "created_at": "2026-10-29T02:30:11.852Z"
+}

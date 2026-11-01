@@ -1,0 +1,59 @@
+{
+  "name": "apollo/company-job-postings",
+  "display_name": "Apollo Organization Job Postings",
+  "type": "api",
+  "vendor": "Apollo",
+  "vendor_slug": "apollo",
+  "description": "Live job postings for one company, by Apollo organization id. Each posting carries its title, location, posted date and source URL. Useful as a hiring signal — which functions a company is expanding, and where.",
+  "tags": [
+    "api",
+    "apollo",
+    "company-data"
+  ],
+  "capabilities": [
+    "api",
+    "apollo",
+    "company-data"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/apollo/company-job-postings"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "organization_id"
+    ],
+    "properties": {
+      "page": {
+        "type": "integer",
+        "description": "The page number of the Apollo data that you want to retrieve. Use this parameter in combination with the per_page parameter to make search results for navigable and improve the performance of the endpoint. Example: 4"
+      },
+      "per_page": {
+        "type": "integer",
+        "description": "The number of search results that should be returned for each page. Limiting the number of results per page improves the endpoint's performance. Use the page parameter to search the different pages of data. Example: 10"
+      },
+      "organization_id": {
+        "type": "string",
+        "example": "5d0a0fbff6512580bf33a120",
+        "description": "The organization ID of the company for which you want to find job postings. Each company in the Apollo database is assigned a unique ID. To find IDs, call the Organization Search endpoint and identify the values for organization_id. Example: 5e66b6381e05b4008c8331b8"
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.01975
+  },
+  "readme": "# Apollo Organization Job Postings API\n\nLive job postings for one company, by Apollo organization id. Each posting carries its title, location, posted date and source URL. Useful as a hiring signal — which functions a company is expanding, and where.\n\nThe response is the official Apollo API response, unchanged.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/apollo/company-job-postings\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"organization_id\": \"5d0a0fbff6512580bf33a120\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `organization_id` | string | Yes | The organization ID of the company for which you want to find job postings. Each company in the Apollo database is assigned a unique ID. To find IDs, call the O |\n| `page` | integer | No | The page number of the Apollo data that you want to retrieve. Use this parameter in combination with the per_page parameter to make search results for navigable |\n| `per_page` | integer | No | The number of search results that should be returned for each page. Limiting the number of results per page improves the endpoint's performance. Use the page pa |\n\n## Pricing\n\nFlat price per call. Failed calls are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/apollo/company-job-postings",
+  "created_at": "2026-08-10T02:42:30.992Z"
+}

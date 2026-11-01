@@ -1,0 +1,72 @@
+{
+  "name": "xigua/app-v2/video-comment-list",
+  "display_name": "Xigua Video Comment List",
+  "type": "api",
+  "vendor": "Xigua",
+  "vendor_slug": "xigua",
+  "description": "Returns comments for a specified Xigua video. Supports paginating through discussion threads using offset and result count parameters.",
+  "tags": [
+    "api",
+    "xigua"
+  ],
+  "capabilities": [
+    "api",
+    "xigua"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/xigua/app-v2/video-comment-list"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "item_id"
+    ],
+    "properties": {
+      "count": {
+        "type": "integer",
+        "title": "Count",
+        "description": "Quantity, default 20, it is recommended to keep the default."
+      },
+      "offset": {
+        "type": "integer",
+        "title": "Offset",
+        "description": "Offset, pass 0 for the first request, pass the offset returned by the previous request for subsequent requests"
+      },
+      "item_id": {
+        "type": "string",
+        "title": "Item Id",
+        "description": "Video id"
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.0015,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "examples": [
+    {
+      "input": {
+        "item_id": "7354954305222377999"
+      },
+      "default": true
+    }
+  ],
+  "readme": "# Xigua Video Comment List API\n\nFetch comments for a Xigua video by specifying its `item_id`. Supports sequential pagination via `offset` and `count`.\n\n## Use cases\n\n- Retrieve user comments on a specific Xigua video.\n- Track audience discussion and viewer feedback over time.\n- Paginate through full comment threads for sentiment analysis.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/xigua/app-v2/video-comment-list\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"item_id\": \"<item_id>\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `item_id` | string | Yes | Video id |\n| `count` | integer | No | Quantity, default 20, it is recommended to keep the default. |\n| `offset` | integer | No | Offset, pass 0 for the first request, pass the offset returned by the previous request for subsequent requests |\n\n## Notes\n\n- Requires the video identifier in `item_id`.\n- Use `offset` for pagination, passing 0 on the first call and the returned offset for subsequent requests.\n- The `count` parameter defaults to 20.\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [Xigua Single Video Information](/model/xigua/app-v2/one-video): Returns lightweight single video data and associated related video information from Xigua for a specific post by its unique item ID.\n- [Xigua Video Play URL](/model/xigua/app-v2/one-video-play-url): Returns the direct playback URL for a specific Xigua video using its unique item identifier.\n- [Xigua Video Search](/model/xigua/app-v2/search-video): Search Xigua Video (ByteDance long-form video) by keyword: titles, creators, duration, publish time and comment counts, with sort and duration filters.\n",
+  "page_url": "https://www.sandbase.ai/model/xigua/app-v2/video-comment-list",
+  "created_at": "2026-07-31T04:22:44.423Z"
+}

@@ -1,0 +1,67 @@
+{
+  "name": "zillow/open-houses",
+  "display_name": "Zillow Open Houses",
+  "type": "api",
+  "vendor": "Zillow",
+  "vendor_slug": "zillow",
+  "description": "Retrieve the scheduled open houses for a property listing by its Zillow property ID (zpid), together with the property's address for confirmation. Returns one record per property with an openHouses array (each entry.",
+  "tags": [
+    "api",
+    "zillow",
+    "ecommerce"
+  ],
+  "capabilities": [
+    "api",
+    "zillow",
+    "ecommerce"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}",
+    "passthrough": "POST /v1/api/zillow/open-houses"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "zpid"
+    ],
+    "properties": {
+      "zpid": {
+        "type": "string",
+        "example": "29505949",
+        "description": "Zillow property ID (numeric string, e.g., '29505949')"
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "required": [
+      "id",
+      "status",
+      "model"
+    ],
+    "properties": {
+      "id": {
+        "type": "string"
+      },
+      "model": {
+        "type": "string"
+      },
+      "status": {
+        "type": "string"
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.03
+  },
+  "readme": "# Zillow Open Houses\n\nRetrieve the scheduled open houses for a property listing by its Zillow property ID (zpid), together with the property's address for confirmation. Returns one record per property with an openHouses array (each entry.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/zillow/open-houses\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"zpid\": \"29505949\"}'\n```\n\nThis API runs asynchronously. The call returns a task `id` with status `pending`; poll `GET https://api.sandbase.ai/v1/run/{id}` until `status` is `completed` and read the result from `outputs[0].data`.\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `zpid` | string | Yes | Zillow property ID (numeric string, e.g., '29505949') |\n\n## Pricing\n\nFlat price per call. Failed calls are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/zillow/open-houses",
+  "created_at": "2026-10-30T08:59:09.567Z"
+}

@@ -1,0 +1,62 @@
+{
+  "name": "douyin/app-v3/one-video",
+  "display_name": "Douyin Single Video Details",
+  "type": "api",
+  "vendor": "Douyin",
+  "vendor_slug": "douyin",
+  "description": "Returns detailed metadata for a single Douyin video or photo post using its video ID. Includes video stream formats, bitrates, and quality options.",
+  "tags": [
+    "api",
+    "douyin"
+  ],
+  "capabilities": [
+    "api",
+    "douyin"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/douyin/app-v3/one-video"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "aweme_id"
+    ],
+    "properties": {
+      "aweme_id": {
+        "type": "string",
+        "title": "Aweme Id",
+        "example": "7448118827402972455",
+        "description": "Video id"
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.0015,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "examples": [
+    {
+      "input": {
+        "aweme_id": "7448118827402972455"
+      }
+    }
+  ],
+  "readme": "# Douyin Single Video Details API\n\nLook up video and photo post details from Douyin using `aweme_id`. Returns playback specifications such as bitrate and quality profiles.\n\n## Use cases\n\n- Retrieve stream quality profiles and bitrates for Douyin video posts.\n- Inspect individual photo and video metadata using a known video ID.\n- Verify video asset availability and playback parameters for media workflows.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/douyin/app-v3/one-video\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"aweme_id\": \"7448118827402972455\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `aweme_id` | string | Yes | Video id |\n\n## Example response\n\nReal response for the request above, trimmed to the main fields. User names and long IDs are masked.\n\n```json\n{\n  \"aweme_detail\": {\n    \"video\": {\n      \"bit_rate\": [\n        {\n          \"bit_rate\": 122767,\n          \"gear_name\": \"additional_adapt_lowest_1080_1\",\n          \"quality_type\": 2\n        }\n      ]\n    }\n  }\n}\n```\n\n## Notes\n\n- Provide the target video identifier in `aweme_id`.\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [Douyin Brand Hot Search List](/model/douyin/app-v3/brand-hot-search-list): Returns the current Douyin brand hot search list and category data.\n- [Douyin Brand Hot Search List Detail](/model/douyin/app-v3/brand-hot-search-list-detail): Returns detailed brand hot search list data from Douyin for a specific category.\n- [Douyin Short Link Generator](/model/douyin/app-v3/generate-short-url): Converts a standard Douyin web link into a shortened Douyin URL.\n",
+  "page_url": "https://www.sandbase.ai/model/douyin/app-v3/one-video",
+  "created_at": "2026-07-31T02:33:57.113Z"
+}

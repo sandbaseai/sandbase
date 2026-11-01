@@ -1,0 +1,65 @@
+{
+  "name": "instagram/v3/comment-replies",
+  "display_name": "Instagram Comment Replies (V3)",
+  "type": "api",
+  "vendor": "Instagram",
+  "vendor_slug": "instagram",
+  "description": "Returns child comment replies for a specific Instagram comment using the post media ID and parent comment ID. Supports pagination via cursor tokens.",
+  "tags": [
+    "api",
+    "instagram"
+  ],
+  "capabilities": [
+    "api",
+    "instagram"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/instagram/v3/comment-replies"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "comment_id",
+      "media_id"
+    ],
+    "properties": {
+      "min_id": {
+        "type": "string",
+        "title": "Min Id",
+        "description": "Pagination cursor, omit for first request, get from previous response `data.next_min_child_cursor`"
+      },
+      "media_id": {
+        "type": "string",
+        "title": "Media Id",
+        "description": "Post media ID (numeric ID, required), can be obtained via `/shortcode_to_media_id` endpoint"
+      },
+      "comment_id": {
+        "type": "string",
+        "title": "Comment Id",
+        "description": "Parent comment ID (required, get `pk` field from get_post_comments response)"
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.012,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "readme": "# Instagram Comment Replies (V3) API\n\nRetrieve threaded comment replies for an Instagram post by supplying `media_id` and `comment_id`. Additional pages can be fetched using `min_id`.\n\n## Use cases\n\n- Track conversational replies under popular post comments.\n- Audit user engagement and discussions across comment threads.\n- Analyze community sentiment within nested comment threads.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/instagram/v3/comment-replies\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"comment_id\": \"<comment_id>\", \"media_id\": \"<media_id>\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `media_id` | string | Yes | Post media ID (numeric ID, required), can be obtained via `/shortcode_to_media_id` endpoint |\n| `comment_id` | string | Yes | Parent comment ID (required, get `pk` field from get_post_comments response) |\n| `min_id` | string | No | Pagination cursor, omit for first request, get from previous response `data.next_min_child_cursor` |\n\n## Notes\n\n- Obtain `media_id` via the `/shortcode_to_media_id` endpoint.\n- Obtain `comment_id` from the `pk` field of post comment results.\n- Use `min_id` with `data.next_min_child_cursor` from the previous response for pagination.\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [Instagram Comment Bulk Translation](/model/instagram/v3/bulk-translate-comments): Returns bulk translations for multiple Instagram comments using a list of comment identifiers.\n- [Instagram Explore Feed](/model/instagram/v3/explore): Returns curated sectional items from the Instagram explore feed, including layout formats and feed types.\n- [Instagram Shortcode Extractor](/model/instagram/v3/extract-shortcode): Extracts and returns the unique shortcode identifier from an Instagram post, reel, or TV URL.\n",
+  "page_url": "https://www.sandbase.ai/model/instagram/v3/comment-replies",
+  "created_at": "2026-07-31T03:56:23.553Z"
+}

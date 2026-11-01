@@ -1,0 +1,89 @@
+{
+  "name": "instagram/basic-profile",
+  "display_name": "Instagram Basic Profile",
+  "type": "api",
+  "vendor": "Instagram",
+  "vendor_slug": "instagram",
+  "description": "Fetch an Instagram account's core public profile fields (followers, posts, bio, verification) by user id.",
+  "tags": [
+    "api",
+    "instagram",
+    "social-media"
+  ],
+  "capabilities": [
+    "api",
+    "instagram",
+    "social-media"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/instagram/basic-profile"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "userId"
+    ],
+    "properties": {
+      "userId": {
+        "type": "string",
+        "example": "314216",
+        "description": "Instagram numeric user id (the account's internal all-digits id, e.g. 314216), NOT the @handle or profile URL. Passing a handle here returns no profile."
+      },
+      "requireFields": {
+        "type": "array",
+        "items": {
+          "enum": [
+            "bioLinks",
+            "isBusiness",
+            "posts",
+            "title",
+            "url"
+          ],
+          "type": "string"
+        },
+        "description": "Optional; omit it and routing is unchanged, with the cheapest source serving. Name the output fields this request must be able to return, for example `posts`, and it is served only by a source that returns every one of them. Fields you do not name are still returned whenever the serving source has them. This can raise your price: when the cheapest source cannot return a named field, a dearer source serves, and you are quoted and charged its price. A named field can still be absent on a profile that genuinely lacks it. Naming a combination that no single source returns together is refused as invalid input, with no charge."
+      }
+    },
+    "additionalProperties": false
+  },
+  "response_schema": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string"
+      },
+      "model": {
+        "type": "string"
+      },
+      "status": {
+        "type": "string"
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "data": {
+              "type": "object",
+              "description": "Normalized result for this request."
+            }
+          }
+        }
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "usage_based",
+    "note": "Billed per call from metered usage; the reference price is typical.",
+    "reference_price": 0.001
+  },
+  "readme": "# Instagram Basic Profile API\n\nFetch an Instagram account's core public profile fields (followers, posts, bio, verification) by user id.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/instagram/basic-profile\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"userId\": \"314216\"}'\n```\n\nThe result is returned in `outputs[0].data`. A lookup that finds nothing still succeeds and returns `found: false`.\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `userId` | string | Yes | Instagram numeric user id (the account's internal all-digits id, e.g. 314216), NOT the @handle or profile URL. Passing a handle here returns no profile. |\n| `requireFields` | array | No | Optional; omit it and routing is unchanged, with the cheapest source serving. Name the output fields this request must be able to return, for example `posts`, and it is served only by a source that returns every one of t |\n\n## Pricing\n\nBilled at the actual cost of each call, usually $0.001 per request. A call can cost more when the first data source fails and another one answers. Failed calls are not charged. Lookups that find nothing and searches with no results are billed at their actual cost, which is often lower and can be $0.\n",
+  "page_url": "https://www.sandbase.ai/model/instagram/basic-profile",
+  "created_at": "2026-11-01T12:15:21.905Z"
+}

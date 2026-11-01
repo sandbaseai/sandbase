@@ -1,0 +1,136 @@
+{
+  "name": "tiktok/ads/search-ads",
+  "display_name": "TikTok Creative Center Ad Search",
+  "type": "api",
+  "vendor": "TikTok",
+  "vendor_slug": "tiktok",
+  "description": "Searches ad materials in the TikTok Creative Center using filters such as keyword, industry, country, and performance metrics. Returns ad titles, brand names, IDs, and video metadata.",
+  "tags": [
+    "api",
+    "tiktok"
+  ],
+  "capabilities": [
+    "api",
+    "tiktok"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/tiktok/ads/search-ads"
+  },
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "like": {
+        "type": "integer",
+        "title": "Like",
+        "description": "Like count filter, 1=All"
+      },
+      "page": {
+        "type": "integer",
+        "title": "Page",
+        "description": "Page number, default 1"
+      },
+      "limit": {
+        "type": "integer",
+        "title": "Limit",
+        "description": "Items per page, default 20, max 50"
+      },
+      "period": {
+        "type": "integer",
+        "title": "Period",
+        "description": "Time period in days, e.g., 7, 30, 120, 180 days"
+      },
+      "keyword": {
+        "type": "string",
+        "title": "Keyword",
+        "description": "Search keyword, optional, returns all ads if empty"
+      },
+      "duration": {
+        "anyOf": [
+          {
+            "type": "integer"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "title": "Duration",
+        "description": "视频时长筛选值（可选）/Video duration filter value (optional)"
+      },
+      "industry": {
+        "type": "string",
+        "title": "Industry",
+        "description": "Industry ID list, multiple IDs separated by commas."
+      },
+      "order_by": {
+        "type": "string",
+        "title": "Order By",
+        "description": "Sort method, \"for_you\"=Recommended, \"likes\"=Sort by likes"
+      },
+      "ad_format": {
+        "type": "integer",
+        "title": "Ad Format",
+        "description": "Ad format, 1=Video ads"
+      },
+      "objective": {
+        "type": "integer",
+        "title": "Objective",
+        "description": "Ad objective, 1=All"
+      },
+      "search_id": {
+        "type": "string",
+        "title": "Search Id",
+        "description": "Search ID (optional)"
+      },
+      "ad_language": {
+        "type": "string",
+        "title": "Ad Language",
+        "description": "Ad language code, e.g., en, zh"
+      },
+      "country_code": {
+        "type": "string",
+        "title": "Country Code",
+        "description": "Country code, e.g., US, UK, JP"
+      },
+      "pattern_label": {
+        "anyOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "title": "Pattern Label",
+        "description": "创意趋势标签（可选）/Creative pattern label (optional)"
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.0015,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "examples": [
+    {
+      "input": {},
+      "default": true
+    }
+  ],
+  "readme": "# TikTok Creative Center Ad Search API\n\nQuery TikTok Creative Center ad cases using parameters like `keyword`, `industry`, and `country_code`. Returns matching ad materials along with engagement metrics and video details.\n\n## Use cases\n\n- Discover top-performing video ad campaigns across specific industries.\n- Analyze competitive creative strategies by keyword and country.\n- Benchmark ad performance metrics such as like counts and video durations.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/tiktok/ads/search-ads\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `like` | integer | No | Like count filter, 1=All |\n| `page` | integer | No | Page number, default 1 |\n| `limit` | integer | No | Items per page, default 20, max 50 |\n| `period` | integer | No | Time period in days, e.g., 7, 30, 120, 180 days |\n| `keyword` | string | No | Search keyword, optional, returns all ads if empty |\n| `duration` | string | No | 视频时长筛选值（可选）/Video duration filter value (optional) |\n| `industry` | string | No | Industry ID list, multiple IDs separated by commas. |\n| `order_by` | string | No | Sort method, \"for_you\"=Recommended, \"likes\"=Sort by likes |\n| `ad_format` | integer | No | Ad format, 1=Video ads |\n| `objective` | integer | No | Ad objective, 1=All |\n| `search_id` | string | No | Search ID (optional) |\n| `ad_language` | string | No | Ad language code, e.g., en, zh |\n| `country_code` | string | No | Country code, e.g., US, UK, JP |\n| `pattern_label` | string | No | 创意趋势标签（可选）/Creative pattern label (optional) |\n\n## Example response\n\nReal response for the request above, trimmed to the main fields. User names and long IDs are masked.\n\n```json\n{\n  \"data\": {\n    \"materials\": [\n      {\n        \"ad_title\": \"Upgrade your dog's gear\",\n        \"brand_name\": \"Tactipup\",\n        \"id\": \"7172587525965332482\",\n        \"like\": 69817,\n        \"video_info\": {\n          \"duration\": 29.92\n        }\n      }\n    ]\n  }\n}\n```\n\n## Notes\n\n- Use `limit` (max 50, default 20) and `page` (default 1) for pagination.\n- `order_by` accepts `for_you` for recommendations or `likes` to sort by engagement.\n- `industry` accepts a comma-separated list of industry IDs.\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [TikTok Ad Interactive Analysis](/model/tiktok/ads/ad-interactive-analysis): Returns audience retention and interaction analytics across video timestamps for a specified ad creative.\n- [TikTok Ad Keyframe Analysis](/model/tiktok/ads/ad-keyframe-analysis): Returns keyframe performance metrics across video ad timestamps for a specified material ID, including retention and conversion figures.\n- [TikTok Ad Material Percentile Rankings](/model/tiktok/ads/ad-percentile): Returns ad performance percentile rankings within the industry for a specific ad material.\n",
+  "page_url": "https://www.sandbase.ai/model/tiktok/ads/search-ads",
+  "created_at": "2026-07-31T04:13:48.585Z"
+}

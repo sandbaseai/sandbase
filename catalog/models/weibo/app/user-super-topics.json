@@ -1,0 +1,69 @@
+{
+  "name": "weibo/app/user-super-topics",
+  "display_name": "Weibo User Super Topics",
+  "type": "api",
+  "vendor": "Weibo",
+  "vendor_slug": "weibo",
+  "description": "Returns the list of super topics that a specified Weibo user has joined or participated in, with optional pagination support.",
+  "tags": [
+    "api",
+    "weibo"
+  ],
+  "capabilities": [
+    "api",
+    "weibo"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/weibo/app/user-super-topics"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "uid"
+    ],
+    "properties": {
+      "uid": {
+        "type": "string",
+        "title": "Uid",
+        "example": "8431518763",
+        "description": "User ID (required)"
+      },
+      "page": {
+        "type": "integer",
+        "title": "Page",
+        "minimum": 1,
+        "description": "Page number, starts from 1 (default 1)"
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.0015,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "examples": [
+    {
+      "input": {
+        "uid": "8431518763"
+      },
+      "default": true
+    }
+  ],
+  "readme": "# Weibo User Super Topics API\n\nRetrieve the super topics joined by a Weibo user by passing their account ID in `uid`. Support for multi-page results is available using `page`.\n\n## Use cases\n\n- Analyze community interests and topical activity for a user profile.\n- Display user-associated super topics within profile dashboards.\n- Track engagement across niche community forums on Weibo.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/weibo/app/user-super-topics\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"uid\": \"8431518763\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `uid` | string | Yes | User ID (required) |\n| `page` | integer | No | Page number, starts from 1 (default 1) |\n\n## Example response\n\nReal response for the request above, trimmed to the main fields. User names and long IDs are masked.\n\n```json\n{\n  \"items\": [\n    {\n      \"category\": \"cell\",\n      \"type\": \"span\"\n    }\n  ]\n}\n```\n\n## Notes\n\n- The `page` parameter starts from 1 and defaults to 1.\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [Weibo App AI Smart Search](/model/weibo/app/ai-smart-search): Returns AI smart search channel results and feed metadata from Weibo for a specified keyword query, with optional page-based pagination.\n- [Weibo Home Recommend Feed](/model/weibo/app/home-recommend-feed): Returns recommended feed items from the Weibo app homepage, with options to paginate and specify the number of items per request.\n- [Weibo Hot Search Rankings](/model/weibo/app/hot-search): Returns current Weibo hot search rankings across various categories.\n",
+  "page_url": "https://www.sandbase.ai/model/weibo/app/user-super-topics",
+  "created_at": "2026-07-31T02:45:06.586Z"
+}

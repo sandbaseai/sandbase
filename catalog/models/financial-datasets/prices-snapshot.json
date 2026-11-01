@@ -1,0 +1,48 @@
+{
+  "name": "financial-datasets/prices-snapshot",
+  "display_name": "Financial Datasets Get Stock Price Snapshot",
+  "type": "api",
+  "vendor": "Financial Datasets",
+  "vendor_slug": "financial-datasets",
+  "description": "Get the real-time price snapshot for a stock, including the current price, day change, and day change percent.",
+  "tags": [
+    "api",
+    "financial-datasets",
+    "stocks"
+  ],
+  "capabilities": [
+    "api",
+    "financial-datasets",
+    "stocks"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/financial-datasets/prices-snapshot"
+  },
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "ticker": {
+        "type": "string",
+        "example": "AAPL",
+        "description": "The stock ticker symbol (e.g. AAPL, MSFT)."
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.02
+  },
+  "readme": "# Financial Datasets Get Stock Price Snapshot API\n\nGet the real-time price snapshot for a stock, including the current price, day change, and day change percent.\n\nThe response is the official Financial Datasets API response, unchanged.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/financial-datasets/prices-snapshot\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"ticker\": \"AAPL\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `ticker` | string | No | The stock ticker symbol (e.g. AAPL, MSFT). |\n\n## Pricing\n\nFlat price per call. Failed calls are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/financial-datasets/prices-snapshot",
+  "created_at": "2026-10-30T03:12:22.904Z"
+}

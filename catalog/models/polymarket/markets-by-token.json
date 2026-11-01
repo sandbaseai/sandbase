@@ -1,0 +1,56 @@
+{
+  "name": "polymarket/markets-by-token",
+  "display_name": "Polymarket Get market by token",
+  "type": "api",
+  "vendor": "Polymarket",
+  "vendor_slug": "polymarket",
+  "description": "Get market by token from Polymarket. Returns the official Polymarket API response unchanged.",
+  "tags": [
+    "api",
+    "polymarket",
+    "prediction-markets"
+  ],
+  "capabilities": [
+    "api",
+    "polymarket",
+    "prediction-markets"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/polymarket/markets-by-token"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "token_id"
+    ],
+    "properties": {
+      "token_id": {
+        "type": "string",
+        "example": "32338220190071351435772801779725302244575775216413325951443816017994629993401",
+        "description": "The token ID to look up the parent market for"
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.00044,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "readme": "# Polymarket Get market by token API\n\nGet market by token from Polymarket. Returns the official Polymarket API response unchanged.\n\nThe response is the official Polymarket API response, unchanged.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/polymarket/markets-by-token\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"token_id\": \"32338220190071351435772801779725302244575775216413325951443816017994629993401\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `token_id` | string | Yes | The token ID to look up the parent market for |\n\n## Pricing\n\nFlat price per call. Failed calls are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/polymarket/markets-by-token",
+  "created_at": "2026-10-30T03:11:33.233Z"
+}

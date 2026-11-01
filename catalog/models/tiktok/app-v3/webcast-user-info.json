@@ -1,0 +1,67 @@
+{
+  "name": "tiktok/app-v3/webcast-user-info",
+  "display_name": "TikTok Webcast User Information",
+  "type": "api",
+  "vendor": "TikTok",
+  "vendor_slug": "tiktok",
+  "description": "Retrieves profile information for a specified TikTok Webcast user. Queries data using either a numeric user ID or a secure user ID.",
+  "tags": [
+    "api",
+    "tiktok"
+  ],
+  "capabilities": [
+    "api",
+    "tiktok"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/tiktok/app-v3/webcast-user-info"
+  },
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "user_id": {
+        "type": "string",
+        "title": "User Id",
+        "default": "",
+        "example": "107955",
+        "description": "User uid, optional parameter, pure number, if used, please keep sec_user_id and unique_id empty."
+      },
+      "sec_user_id": {
+        "type": "string",
+        "title": "Sec User Id",
+        "default": "",
+        "description": "User sec_user_id"
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.0015,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "examples": [
+    {
+      "input": {
+        "user_id": "7016736142473561094"
+      },
+      "default": true
+    }
+  ],
+  "readme": "# TikTok Webcast User Information API\n\nQuery Webcast user profile details on TikTok by providing `user_id` or `sec_user_id`.\n\n## Use cases\n\n- Inspect broadcaster account metadata for live streams.\n- Look up creator information using numeric user IDs or secure IDs.\n- Verify account identifiers across live webcast sessions.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/tiktok/app-v3/webcast-user-info\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `user_id` | string | No | User uid, optional parameter, pure number, if used, please keep sec_user_id and unique_id empty. |\n| `sec_user_id` | string | No | User sec_user_id |\n\n## Notes\n\n- When `user_id` is used, ensure `sec_user_id` and `unique_id` remain empty.\n- The `user_id` parameter accepts a purely numeric string.\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [TikTok LIVE Status](/model/tiktok/app-v3/check-live-room-online): Check whether a TikTok LIVE room is currently live by room ID.\n- [TikTok Room Online Status Batch](/model/tiktok/app-v3/check-live-room-online-batch): Returns the online availability status for multiple TikTok broadcast rooms in a single request.\n- [TikTok Content Translation](/model/tiktok/app-v3/content-translate): Translates provided text content into a designated target language.\n",
+  "page_url": "https://www.sandbase.ai/model/tiktok/app-v3/webcast-user-info",
+  "created_at": "2026-07-31T04:15:37.822Z"
+}

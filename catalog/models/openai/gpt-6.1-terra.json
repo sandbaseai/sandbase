@@ -1,0 +1,52 @@
+{
+  "name": "openai/gpt-6.1-terra",
+  "display_name": "OpenAI: GPT-6.1 Terra",
+  "type": "llm",
+  "vendor": "OpenAI",
+  "vendor_slug": "openai",
+  "description": "GPT-6.1 Terra is the middle tier of OpenAI's GPT-6.1 family and the replacement for GPT-5.6 Terra, with text and image input. OpenAI positions it for everyday agentic, coding and writing work, with particular gains in visual reasoning over screenshots and documents and in computer use, at half the price of GPT-6.1 Sol. Reasoning effort ranges from none to max with medium as the default; choose GPT-6.1 Sol for harder work or GPT-6 Luna for the highest-volume tasks.",
+  "tags": [
+    "chat",
+    "vision",
+    "reasoning",
+    "structured_output",
+    "function_calling"
+  ],
+  "capabilities": [
+    "chat",
+    "vision",
+    "reasoning",
+    "structured_output",
+    "function_calling"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "chat_completions": "POST /v1/chat/completions",
+    "responses": "POST /v1/responses",
+    "messages": "POST /v1/messages"
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_token",
+    "per_million_tokens": {
+      "input": 1,
+      "output": 5,
+      "cache_read_multiplier": 0.05,
+      "cache_write_multiplier": 1.25
+    },
+    "formula": "usage.prompt_tokens >= 272000 ? (usage.prompt_tokens * 2 / 1000000 + usage.completion_tokens * 7.5 / 1000000 - usage.cached_tokens * 0.95 / 1000000 + usage.cache_creation_tokens * 0.25 / 1000000) : (usage.prompt_tokens * 1 / 1000000 + usage.completion_tokens * 5 / 1000000)",
+    "formula_variables": [
+      "usage.cache_creation_tokens",
+      "usage.cached_tokens",
+      "usage.completion_tokens",
+      "usage.prompt_tokens"
+    ]
+  },
+  "cover_url": "https://t0.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=https://openai.com&size=256",
+  "page_url": "https://www.sandbase.ai/model/openai/gpt-6.1-terra",
+  "published_at": "2026-10-26T18:13:29Z",
+  "created_at": "2026-10-29T00:20:45.081Z"
+}

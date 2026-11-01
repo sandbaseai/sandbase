@@ -1,0 +1,171 @@
+{
+  "name": "google/gemini-omni-flash/image-to-video",
+  "display_name": "Gemini Omni Flash Image to Video",
+  "type": "video",
+  "vendor": "Google",
+  "vendor_slug": "google",
+  "description": "Gemini Omni Flash by Google - animate still images into dynamic videos with AI. Transform photos into cinematic clips with natural motion, camera movement, and optional audio generation.",
+  "tags": [
+    "image-to-video"
+  ],
+  "capabilities": [
+    "image-to-video"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "prompt",
+      "image"
+    ],
+    "properties": {
+      "image": {
+        "type": "string",
+        "title": "Image URL",
+        "examples": [
+          "https://static.sandbase.ai/examples/google/gemini-omni-flash/image-to-video/input_image_0.png"
+        ],
+        "description": "URL of the input image to animate."
+      },
+      "prompt": {
+        "type": "string",
+        "title": "Prompt",
+        "examples": [
+          "The dog turns its head and wags its tail in warm sunlight."
+        ],
+        "maxLength": 20000,
+        "description": "The text prompt describing how the image should be animated."
+      },
+      "duration": {
+        "type": "integer",
+        "title": "Duration",
+        "default": 8,
+        "maximum": 10,
+        "minimum": 3,
+        "description": "The duration of the generated video, in seconds."
+      },
+      "aspect_ratio": {
+        "enum": [
+          "16:9",
+          "9:16"
+        ],
+        "type": "string",
+        "title": "Aspect Ratio",
+        "default": "16:9",
+        "description": "The aspect ratio of the generated video."
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "title": "GenerationResponse",
+    "required": [
+      "id",
+      "status"
+    ],
+    "properties": {
+      "id": {
+        "type": "string",
+        "description": "Unique identifier for the generation task."
+      },
+      "error": {
+        "type": "string",
+        "description": "Error message if the task failed. Empty on success."
+      },
+      "model": {
+        "type": "string",
+        "description": "Model ID used for the prediction."
+      },
+      "status": {
+        "enum": [
+          "pending",
+          "running",
+          "completed",
+          "failed",
+          "timeout"
+        ],
+        "type": "string",
+        "description": "Status of the task: pending, running, completed, failed, or timeout."
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "title": "OutputItem",
+          "required": [
+            "url"
+          ],
+          "properties": {
+            "url": {
+              "type": "string",
+              "description": "The URL where the generated content can be downloaded from."
+            },
+            "content_type": {
+              "type": "string",
+              "description": "The MIME type of the output file."
+            }
+          }
+        },
+        "description": "Array of generated content. Empty when status is not completed."
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "formula",
+    "formula": "(params.duration ?? 8) * 0.13",
+    "formula_variables": [
+      "params.duration"
+    ],
+    "reference_price": 1.04,
+    "price_examples": [
+      {
+        "params": {
+          "duration": 3
+        },
+        "usd": 0.39
+      },
+      {
+        "params": {
+          "duration": 8
+        },
+        "usd": 1.04
+      },
+      {
+        "params": {
+          "duration": 10
+        },
+        "usd": 1.3
+      }
+    ]
+  },
+  "examples": [
+    {
+      "input": {
+        "aspect_ratio": "9:16",
+        "duration": 3,
+        "image": "https://static.sandbase.ai/examples/cfbc9108-0728-4751-a18f-2e8eb3e6a9ea/input/4746f7db-31ca-43c2-a62c-cbc2ef82a1eb.jpg",
+        "prompt": "The waves roll gently onto the shore, slow push-in, no dialogue"
+      },
+      "output": [
+        {
+          "poster": "https://static.sandbase.ai/examples/posters/b21981b2d2a69c8ad625.jpg",
+          "url": "https://static.sandbase.ai/examples/cfbc9108-0728-4751-a18f-2e8eb3e6a9ea/output/c6b06f65-b9c4-41a9-9e20-f17ddd128c65.mp4"
+        }
+      ],
+      "default": true
+    }
+  ],
+  "readme": "# Gemini Omni Flash Image to Video\n\nGemini Omni Flash image-to-video: animate a picture into a 3–10 second clip with synchronized audio.\n\n## Fields\n\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `prompt` | string, required | — | Up to 20,000 characters. |\n| `image` | image URL, required | — | First frame. JPEG, PNG, or WebP URL. |\n| `duration` | integer 3–10 | 8 | Output length in seconds (3–10). |\n| `aspect_ratio` | `16:9` / `9:16` | `16:9` | Output frame shape. |\n\n## Billing\n\nYou pay $0.13 per output second.\n\n| Output | Price |\n|---|---|\n| 3s | $0.39 |\n| 8s (default) | $1.04 |\n| 10s | $1.30 |\n\nFailed runs are not charged.\n\n## Prompting\n\n- Describe what moves and what it sounds like, not what is already visible.\n\n## Limits\n\n- 16:9 or 9:16 only.\n\n## Also on SandBase\n\nOther Gemini Omni Flash endpoints: `google/gemini-omni-flash/text-to-video`, `google/gemini-omni-flash/reference-to-video`, `google/gemini-omni-flash/edit`, `google/gemini-omni-flash/1.1/image-to-video` (newer).\n",
+  "cover_url": "https://static.sandbase.ai/covers/google/gemini-omni-flash/image-to-video/cover-flare-20261004193459.webp",
+  "page_url": "https://www.sandbase.ai/model/google/gemini-omni-flash/image-to-video",
+  "published_at": "2026-06-30T17:26:14.875Z",
+  "created_at": "2026-07-02T10:24:29.601Z"
+}

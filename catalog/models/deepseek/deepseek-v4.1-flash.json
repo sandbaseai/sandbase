@@ -1,0 +1,49 @@
+{
+  "name": "deepseek/deepseek-v4.1-flash",
+  "display_name": "DeepSeek: DeepSeek V4.1 Flash",
+  "type": "llm",
+  "vendor": "DeepSeek",
+  "vendor_slug": "deepseek",
+  "description": "DeepSeek V4.1 Flash is the smallest model in DeepSeek's V4.1 architecture family, released in September 2026 with native visual understanding. It is a 552B-parameter mixture-of-experts model using a Causal Encoder-Decoder design that activates 8B parameters for input and 16B for output, with a KV cache about a quarter the size of the previous Flash generation. DeepSeek positions it for agentic coding and long-context work and reports it ahead of V4 Pro, replacing V4 Flash and V4 Flash Vision Exp on its API.",
+  "tags": [
+    "chat",
+    "vision",
+    "reasoning",
+    "structured_output",
+    "function_calling"
+  ],
+  "capabilities": [
+    "chat",
+    "vision",
+    "reasoning",
+    "structured_output",
+    "function_calling"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "chat_completions": "POST /v1/chat/completions",
+    "responses": "POST /v1/responses",
+    "messages": "POST /v1/messages"
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_token",
+    "per_million_tokens": {
+      "input": 0.3,
+      "output": 1.2,
+      "cache_read_multiplier": 0.02
+    },
+    "formula": "usage.prompt_tokens * 0.3 / 1000000 + usage.completion_tokens * 1.2 / 1000000 + usage.cached_tokens * 0.000006 / 1000000",
+    "formula_variables": [
+      "usage.cached_tokens",
+      "usage.completion_tokens",
+      "usage.prompt_tokens"
+    ]
+  },
+  "page_url": "https://www.sandbase.ai/model/deepseek/deepseek-v4.1-flash",
+  "published_at": "2026-09-10T06:21:25Z",
+  "created_at": "2026-09-23T13:13:50.06Z"
+}

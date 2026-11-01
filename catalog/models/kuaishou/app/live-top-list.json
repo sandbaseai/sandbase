@@ -1,0 +1,62 @@
+{
+  "name": "kuaishou/app/live-top-list",
+  "display_name": "Kuaishou Stream Top List",
+  "type": "api",
+  "vendor": "Kuaishou",
+  "vendor_slug": "kuaishou",
+  "description": "Returns ranking information for trending streams on Kuaishou. Accepts optional tab parameters to filter leaderboards by category.",
+  "tags": [
+    "api",
+    "kuaishou"
+  ],
+  "capabilities": [
+    "api",
+    "kuaishou"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/kuaishou/app/live-top-list"
+  },
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "subTabId": {
+        "type": "integer",
+        "title": "子标签ID/Sub tag ID",
+        "default": 0
+      },
+      "subTabName": {
+        "type": "string",
+        "title": "子标签名称/Sub tag name",
+        "default": ""
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.0015,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "examples": [
+    {
+      "input": {},
+      "default": true
+    }
+  ],
+  "readme": "# Kuaishou Stream Top List API\n\nRetrieve top-ranked stream listings from Kuaishou by specifying `subTabId` or `subTabName`. The response provides ranking positions, streamer identifiers, titles, and stream links.\n\n## Use cases\n\n- Track top-ranking streams across specific Kuaishou categories.\n- Analyze trending streamer visibility and placement data.\n- Collect stream links and broadcaster identifiers for audience research.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/kuaishou/app/live-top-list\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `subTabId` | integer | No | — |\n| `subTabName` | string | No | — |\n\n## Example response\n\nReal response for the request above, trimmed to the main fields. User names and long IDs are masked.\n\n```json\n{\n  \"topList\": {\n    \"data\": [\n      {\n        \"list\": [\n          {\n            \"linkUrl\": \"kwai://liveaggregatesquare?path=/rest/n/live/feed/common/slide/more&selectedLiveStreamId=…\",\n            \"title\": \"小夺-《负债7百万》收才艺主播\",\n            \"viewType\": 2,\n            \"logInfo\": {\n              \"authorid\": \"4910450607\",\n              \"id\": \"4910450607\",\n              \"type\": \"USER\"\n            },\n            \"order\": {\n              \"shapeType\": 0\n            },\n            \"signalParams\": {\n              \"author_id\": 4910450607\n            }\n          }\n        ]\n      }\n    ]\n  }\n}\n```\n\n## Notes\n\n- Filter stream rankings by specifying optional `subTabId` or `subTabName` parameters.\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [Kuaishou Brand Top List](/model/kuaishou/app/brand-top-list): Returns top brand rankings and related live stream links from Kuaishou.\n- [Kuaishou App Share Link](/model/kuaishou/app/generate-share-link): Generates a shareable URL for Kuaishou application content using a specified object identifier.\n- [Kuaishou Hot Board Categories](/model/kuaishou/app/hot-board-categories): Returns the active list of hot board categories available in the Kuaishou app.\n",
+  "page_url": "https://www.sandbase.ai/model/kuaishou/app/live-top-list",
+  "created_at": "2026-07-31T03:57:55.412Z"
+}

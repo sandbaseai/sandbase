@@ -1,0 +1,62 @@
+{
+  "name": "wechat-mp/v2/article-detail",
+  "display_name": "WeChat MP Article Detail",
+  "type": "api",
+  "vendor": "WeChat MP",
+  "vendor_slug": "wechat-mp",
+  "description": "Get a WeChat official account (MP) article from its URL: title, author, account, publish time, cover, full text and HTML content, and album info.",
+  "tags": [
+    "api",
+    "wechat-mp"
+  ],
+  "capabilities": [
+    "api",
+    "wechat-mp"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/wechat-mp/v2/article-detail"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "url"
+    ],
+    "properties": {
+      "raw": {
+        "type": "boolean",
+        "title": "Raw",
+        "description": "Optional, default True. True=raw response; False=simplified projection."
+      },
+      "url": {
+        "type": "string",
+        "title": "Url",
+        "example": "https://mp.weixin.qq.com/s/TSNQKkRpN1qbKsT7BvzqIw",
+        "pattern": "^https?://mp\\.weixin\\.qq\\.com/s([/?].+)?$",
+        "maxLength": 2048,
+        "description": "WeChat MP article URL (`https://mp.weixin.qq.com/s/…` or long URL with `__biz`). E.g. `https://mp.weixin.qq.com/s/TSNQKkRpN1qbKsT7BvzqIw`"
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.015,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "readme": "# WeChat Official Account Article API\n\nPass a WeChat MP article URL (`https://mp.weixin.qq.com/s/…`) and get the article as structured JSON, including the full text, title, account name and publish time.\n\n## Use cases\n\n- Archive or index WeChat articles for search and RAG.\n- Monitor coverage published by official accounts.\n- Extract clean text for summarization.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/wechat-mp/v2/article-detail\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"url\": \"https://mp.weixin.qq.com/s/TSNQKkRpN1qbKsT7BvzqIw\", \"raw\": false}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `url` | string | Yes | WeChat MP article URL (`https://mp.weixin.qq.com/s/…` or long URL with `__biz`). |\n| `raw` | boolean | No | Optional, default True. |\n\n## Example response\n\nReal response for the request above, trimmed to the main fields. User names and long IDs are masked.\n\n```json\n{\n  \"url\": \"https://mp.weixin.qq.com/s/TSNQKkRpN1qbKsT7BvzqIw\",\n  \"content\": {\n    \"title\": \"“老黄骗人”！5070首批评测：说好1/3价格赛4090，实际不如4070Ti\",\n    \"nick_name\": \"量子位\",\n    \"alias\": \"QbitAI\",\n    \"create_time\": \"2025-03-05 12:22\",\n    \"desc\": \"博主：史上最差70系列\",\n    \"lang\": \"zh_CN\",\n    \"content_text\": \"金磊 发自 凹非寺 量子位 | 公众号 QbitAI 一夜之间，RTX 5070被网友们喷成“史上最差的70系列”了。 这咋回事呢？ 因为…\",\n    \"cdn_url\": \"https://mmbiz.qpic.cn/mmbiz_jpg/YicUhk5aAGtB8zqMsOsFEsStNXL…\",\n    \"appmsgalbuminfo\": \"{…}\"\n  }\n}\n```\n\n## Notes\n\n- Both short links (`/s/…`) and long links with `__biz` are supported.\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [WeChat MP Account Articles](/model/wechat-mp/v2/account-articles): Get the published articles of a WeChat official account by its gh_ username: titles, links, covers and post dates, one page at a time, including video and audi…\n- [Get WeChat MP Account Profile](/model/wechat-mp/v2/account-profile): Pass a `gh_username` to get the official account profile: name / avatar / description / verification entity type, etc..\n- [Get WeChat MP Article Ads](/model/wechat-mp/v2/article-ad): Pass an article URL to get the embedded ad slot info of the article..\n",
+  "page_url": "https://www.sandbase.ai/model/wechat-mp/v2/article-detail",
+  "created_at": "2026-07-31T04:21:16.096Z"
+}

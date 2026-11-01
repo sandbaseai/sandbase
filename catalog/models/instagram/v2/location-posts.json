@@ -1,0 +1,60 @@
+{
+  "name": "instagram/v2/location-posts",
+  "display_name": "Instagram Location Posts (V2)",
+  "type": "api",
+  "vendor": "Instagram",
+  "vendor_slug": "instagram",
+  "description": "Returns public Instagram posts tagged at a designated location. Requires a location ID and supports pagination tokens for browsing subsequent results.",
+  "tags": [
+    "api",
+    "instagram"
+  ],
+  "capabilities": [
+    "api",
+    "instagram"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/instagram/v2/location-posts"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "location_id"
+    ],
+    "properties": {
+      "location_id": {
+        "type": "string",
+        "title": "Location Id",
+        "example": "331004901",
+        "description": "Location ID"
+      },
+      "pagination_token": {
+        "type": "string",
+        "title": "Pagination Token",
+        "description": "Pagination token from previous response"
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.003,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "readme": "# Instagram Location Posts (V2) API\n\nRetrieve public Instagram posts associated with a specific location by passing `location_id`.\n\n## Use cases\n\n- Discover content tagged at specific venues or geographical spots.\n- Track social activity and media from specific locations.\n- Monitor visitor media and public posts from travel destinations.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/instagram/v2/location-posts\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"location_id\": \"331004901\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `location_id` | string | Yes | Location ID |\n| `pagination_token` | string | No | Pagination token from previous response |\n\n## Example response\n\nReal response for the request above, trimmed to the main fields. User names and long IDs are masked.\n\n```json\n{\n  \"data\": {\n    \"items\": [\n      {\n        \"caption_is_edited\": false,\n        \"coauthor_producer_can_see_organic_insights\": false,\n        \"comment_count\": 1,\n        \"device_timestamp\": 1791288704181305,\n        \"disable_caption_and_comment\": false,\n        \"feed_type\": \"media\",\n        \"filter_type\": 0,\n        \"id\": \"4001942187585855200\",\n        \"ig_play_count\": 90,\n        \"layout_type\": \"media_grid\",\n        \"caption\": {\n          \"id\": \"4001942187585855200\",\n          \"private_reply_status\": 0,\n          \"text\": \"Вот такая осень в Париже🍂✨\",\n          \"type\": 1,\n          \"user_id\": \"<user>\"\n        },\n        \"clips_metadata\": {\n          \"audio_type\": \"licensed_music\",\n          \"professional_clips_upsell_type\": 0\n        },\n        \"location\": {\n          \"facebook_places_id\": 509413279115937,\n          \"id\": \"331004901\",\n          \"name\": \"Paris , Eiffel Tower\",\n          \"short_name\": \"Paris\"\n        },\n        \"user\": {\n          \"account_type\": 3,\n          \"eligible_for_text_app_activation_badge\": false,\n          \"full_name\": \"Raya\",\n          \"id\": \"1496267232\",\n          \"profile_pic_id\": \"3994684519919488052\",\n          \"profile_pic_url\": \"https://scontent-arn2-1.cdninstagram.com/v/t51.82787-19/825325846_18629745385011…\"\n        }\n      }\n    ]\n  }\n}\n```\n\n## Notes\n\n- Obtain `location_id` from location search endpoints.\n- Pass `pagination_token` from a previous response to fetch subsequent pages.\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [Instagram Comment Replies (V2)](/model/instagram/v2/comment-replies): Retrieves a paginated list of replies to an Instagram comment using the post URL or shortcode and the target comment ID.\n- [Instagram General Search (V2)](/model/instagram/v2/general-search): Returns Instagram search results matching a specified keyword, including media items, user profiles, and engagement statistics.\n- [Instagram Hashtag Posts (V2)](/model/instagram/v2/hashtag-posts): Returns posts associated with a specific hashtag.\n",
+  "page_url": "https://www.sandbase.ai/model/instagram/v2/location-posts",
+  "created_at": "2026-07-31T03:55:42.398Z"
+}

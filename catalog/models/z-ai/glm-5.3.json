@@ -1,0 +1,41 @@
+{
+  "name": "z-ai/glm-5.3",
+  "display_name": "Z.ai: GLM 5.3",
+  "type": "llm",
+  "vendor": "Z-Ai",
+  "vendor_slug": "z-ai",
+  "description": "GLM-5.3 is Z.ai's flagship text model for complex software engineering and long-horizon agent work, built on the same base model as GLM-5.2 with all gains coming from expanded post-training. Z.ai highlights stronger agentic coding, terminal operation, and vulnerability discovery and exploitation analysis for security work. It always runs with reasoning enabled at selectable effort levels and accepts text only; choose GLM-5.3-Flash for image input or lighter, faster serving.",
+  "tags": [
+    "chat",
+    "reasoning",
+    "structured_output",
+    "function_calling"
+  ],
+  "capabilities": [
+    "chat",
+    "reasoning",
+    "structured_output",
+    "function_calling"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "chat_completions": "POST /v1/chat/completions",
+    "responses": "POST /v1/responses",
+    "messages": "POST /v1/messages"
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_token",
+    "per_million_tokens": {
+      "input": 1.4,
+      "output": 4.4,
+      "cache_read_multiplier": 0.1857
+    }
+  },
+  "page_url": "https://www.sandbase.ai/model/z-ai/glm-5.3",
+  "published_at": "2026-08-18T20:57:35Z",
+  "created_at": "2026-08-27T05:52:51.737Z"
+}

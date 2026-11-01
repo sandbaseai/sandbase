@@ -1,0 +1,72 @@
+{
+  "name": "nasdaq/mutual-fund-quote",
+  "display_name": "Nasdaq Mutual Fund Quote",
+  "type": "api",
+  "vendor": "Nasdaq",
+  "vendor_slug": "nasdaq",
+  "description": "Quote and details for a mutual fund including NAV and daily change. Mutual funds show isRealTime=false and have no bid/ask/volume data.",
+  "tags": [
+    "api",
+    "nasdaq",
+    "finance-crypto"
+  ],
+  "capabilities": [
+    "api",
+    "nasdaq",
+    "finance-crypto"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}",
+    "passthrough": "POST /v1/api/nasdaq/mutual-fund-quote"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "symbol"
+    ],
+    "properties": {
+      "symbol": {
+        "type": "string",
+        "example": "VFIAX",
+        "description": "Mutual fund symbol (e.g. VFIAX)."
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "required": [
+      "id",
+      "status",
+      "model"
+    ],
+    "properties": {
+      "id": {
+        "type": "string"
+      },
+      "model": {
+        "type": "string"
+      },
+      "status": {
+        "type": "string"
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.01,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "readme": "# Nasdaq Mutual Fund Quote\n\nQuote and details for a mutual fund including NAV and daily change. Mutual funds show isRealTime=false and have no bid/ask/volume data.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/nasdaq/mutual-fund-quote\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"symbol\": \"VFIAX\"}'\n```\n\nThis API runs asynchronously. The call returns a task `id` with status `pending`; poll `GET https://api.sandbase.ai/v1/run/{id}` until `status` is `completed` and read the result from `outputs[0].data`.\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `symbol` | string | Yes | Mutual fund symbol (e.g. VFIAX). |\n\n## Pricing\n\nFlat price per call. Failed calls are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/nasdaq/mutual-fund-quote",
+  "created_at": "2026-10-30T07:44:48.935Z"
+}

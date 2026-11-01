@@ -1,0 +1,41 @@
+{
+  "name": "deepseek/deepseek-v3.2",
+  "display_name": "DeepSeek: DeepSeek V3.2",
+  "type": "llm",
+  "vendor": "DeepSeek",
+  "vendor_slug": "deepseek",
+  "description": "DeepSeek-V3.2 is DeepSeek's open-weight, reasoning-first model released in December 2025 as the official successor to V3.2-Exp. It introduces DeepSeek Sparse Attention to reduce long-context training and inference compute and is DeepSeek's first model to integrate thinking directly into tool use, trained on agent data synthesized across more than 1,800 environments. It supports tool calling in both thinking and non-thinking modes, suiting agents and general reasoning.",
+  "tags": [
+    "chat",
+    "reasoning",
+    "structured_output",
+    "function_calling"
+  ],
+  "capabilities": [
+    "chat",
+    "reasoning",
+    "structured_output",
+    "function_calling"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "chat_completions": "POST /v1/chat/completions",
+    "responses": "POST /v1/responses",
+    "messages": "POST /v1/messages"
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_token",
+    "per_million_tokens": {
+      "input": 0.252,
+      "output": 0.378,
+      "cache_read_multiplier": 0.1
+    }
+  },
+  "page_url": "https://www.sandbase.ai/model/deepseek/deepseek-v3.2",
+  "published_at": "2025-12-01T13:10:42.818Z",
+  "created_at": "2026-05-08T23:48:26.247Z"
+}

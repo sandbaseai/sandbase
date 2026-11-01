@@ -1,0 +1,233 @@
+{
+  "name": "youtube/web-v2/general-search",
+  "display_name": "General search (raw data, recommend V2)",
+  "type": "api",
+  "vendor": "YouTube",
+  "vendor_slug": "youtube",
+  "description": "YouTube comprehensive search with multiple filter options for precise result filtering.",
+  "tags": [
+    "api",
+    "youtube"
+  ],
+  "capabilities": [
+    "api",
+    "youtube"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/youtube/web-v2/general-search"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "search_query"
+    ],
+    "properties": {
+      "feature": {
+        "anyOf": [
+          {
+            "enum": [
+              "live",
+              "4k",
+              "hd",
+              "subtitles",
+              "creative_commons",
+              "360",
+              "vr180",
+              "3d",
+              "hdr",
+              "location",
+              "purchased"
+            ],
+            "type": "string",
+            "title": "YouTubeFeatureAPI",
+            "description": "YouTube feature filter for the API."
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "title": "Feature",
+        "examples": [
+          "360",
+          "3d",
+          "4k",
+          "hd",
+          "hdr",
+          "live",
+          "vr180",
+          "location",
+          "purchased",
+          "subtitles",
+          "creative_commons"
+        ],
+        "description": "Feature filter"
+      },
+      "sort_by": {
+        "anyOf": [
+          {
+            "enum": [
+              "relevance",
+              "upload_date",
+              "view_count",
+              "rating"
+            ],
+            "type": "string",
+            "title": "YouTubeSearchSortAPI",
+            "description": "YouTube search sort order for the API."
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "title": "Sort By",
+        "examples": [
+          "rating",
+          "relevance",
+          "view_count",
+          "upload_date"
+        ],
+        "description": "Sort by"
+      },
+      "duration": {
+        "anyOf": [
+          {
+            "enum": [
+              "short",
+              "medium",
+              "long"
+            ],
+            "type": "string",
+            "title": "YouTubeDurationAPI",
+            "description": "YouTube video duration filter for the API."
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "title": "Duration",
+        "examples": [
+          "long",
+          "short",
+          "medium"
+        ],
+        "description": "Duration filter"
+      },
+      "time_zone": {
+        "type": "string",
+        "title": "Time Zone",
+        "default": "America/Los_Angeles",
+        "example": "America/Los_Angeles",
+        "description": "Time zone setting"
+      },
+      "upload_time": {
+        "anyOf": [
+          {
+            "enum": [
+              "hour",
+              "today",
+              "week",
+              "month",
+              "year"
+            ],
+            "type": "string",
+            "title": "YouTubeUploadTimeAPI",
+            "description": "YouTube upload time filter for the API."
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "title": "Upload Time",
+        "examples": [
+          "hour",
+          "week",
+          "year",
+          "month",
+          "today"
+        ],
+        "description": "Upload time filter"
+      },
+      "content_type": {
+        "anyOf": [
+          {
+            "enum": [
+              "video",
+              "channel",
+              "playlist",
+              "movie"
+            ],
+            "type": "string",
+            "title": "YouTubeContentTypeAPI",
+            "description": "YouTube content type filter for the API."
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "title": "Content Type",
+        "examples": [
+          "movie",
+          "video",
+          "channel",
+          "playlist"
+        ],
+        "description": "Content type filter"
+      },
+      "country_code": {
+        "type": "string",
+        "title": "Country Code",
+        "default": "US",
+        "example": "US",
+        "description": "Country code affecting regional relevance"
+      },
+      "search_query": {
+        "type": "string",
+        "title": "Search Query",
+        "example": "NASA",
+        "maxLength": 200,
+        "description": "Search keyword"
+      },
+      "language_code": {
+        "type": "string",
+        "title": "Language Code",
+        "default": "zh-CN",
+        "example": "en-US",
+        "description": "Language code (zh-CN for Chinese, en-US for English)"
+      },
+      "continuation_token": {
+        "anyOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "title": "Continuation Token",
+        "description": "Pagination token"
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.0015,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "readme": "# General search (raw data, recommend V2)\n\nYouTube comprehensive search with multiple filter options for precise result filtering. It is suitable for youtube workflows.\n\n## Capability\n\nYouTube comprehensive search with multiple filter options for precise result filtering. It helps applications, agents, and automated workflows turn that capability into repeatable tasks and useful downstream experiences.\n\n## Common use cases\n\n- Search and discover relevant records for research, monitoring, and product experiences.\n- Create repeatable integrations that pass structured results to downstream business systems.\n- Support scheduled jobs, internal tools, and agent workflows with structured results.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/youtube/web-v2/general-search\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"search_query\": \"NASA\"}'\n```\n\nThe result is returned in `outputs[0].data` in YouTube's own response format.\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `feature` | string | No | Feature filter. |\n| `sort_by` | string | No | Sort by. |\n| `duration` | string | No | Duration filter. |\n| `time_zone` | string | No | Time zone setting. Default `America/Los_Angeles`. |\n| `upload_time` | string | No | Upload time filter. |\n| `content_type` | string | No | Content type filter. |\n| `country_code` | string | No | Country code affecting regional relevance. Default `US`. |\n| `search_query` | string | Yes | Search keyword. |\n| `language_code` | string | No | Language code (zh-CN for Chinese, en-US for English). Default `zh-CN`. |\n| `continuation_token` | string | No | Pagination token. |\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/youtube/web-v2/general-search",
+  "created_at": "2026-07-31T04:26:51.358Z"
+}

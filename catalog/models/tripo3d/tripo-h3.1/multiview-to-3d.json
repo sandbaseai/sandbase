@@ -1,0 +1,488 @@
+{
+  "name": "tripo3d/tripo-h3.1/multiview-to-3d",
+  "display_name": "Tripo H3.1 Multiview to 3D",
+  "type": "image",
+  "vendor": "Tripo3D",
+  "vendor_slug": "tripo3d",
+  "description": "Tripo H3.1 Multiview To 3d by Tripo3D - convert 2D images into 3D models with AI. Generate textured 3D assets from single photos for games, AR/VR, e-commerce, and digital content creation.",
+  "tags": [
+    "image-to-3d"
+  ],
+  "capabilities": [
+    "image-to-3d"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "images"
+    ],
+    "properties": {
+      "pbr": {
+        "type": "boolean",
+        "title": "PBR",
+        "default": true,
+        "description": "Generate PBR materials (also enables texture)."
+      },
+      "quad": {
+        "type": "boolean",
+        "title": "Quad Mesh",
+        "default": false,
+        "description": "Generate quad mesh topology instead of triangles."
+      },
+      "seed": {
+        "type": "integer",
+        "title": "Seed",
+        "description": "Seed for reproducible geometry generation."
+      },
+      "images": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        },
+        "title": "Image Urls",
+        "examples": [
+          "https://static.sandbase.ai/examples/tripo3d/tripo-h3.1/multiview-to-3d/input_images_0.png",
+          "https://static.sandbase.ai/examples/tripo3d/tripo-h3.1/multiview-to-3d/input_images_0.png"
+        ],
+        "maxItems": 4,
+        "minItems": 2,
+        "description": "2 to 4 images of the same object. Order: front, left, back, right."
+      },
+      "texture": {
+        "type": "boolean",
+        "title": "Texture",
+        "default": true,
+        "description": "Generate textures. Set both texture and pbr to false for an untextured model."
+      },
+      "face_limit": {
+        "type": "integer",
+        "title": "Face Limit",
+        "maximum": 2000000,
+        "minimum": 1000,
+        "description": "Target face count. Adaptive when unset."
+      },
+      "texture_quality": {
+        "enum": [
+          "standard",
+          "detailed"
+        ],
+        "type": "string",
+        "title": "Texture Quality",
+        "default": "standard",
+        "description": "standard or detailed (HD) textures."
+      },
+      "geometry_quality": {
+        "enum": [
+          "standard",
+          "detailed"
+        ],
+        "type": "string",
+        "title": "Geometry Quality",
+        "default": "standard",
+        "description": "detailed geometry is billed as an add-on."
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "title": "GenerationResponse",
+    "required": [
+      "id",
+      "status"
+    ],
+    "properties": {
+      "id": {
+        "type": "string",
+        "description": "Unique identifier for the generation task."
+      },
+      "error": {
+        "type": "string",
+        "description": "Error message if the task failed. Empty on success."
+      },
+      "model": {
+        "type": "string",
+        "description": "Model ID used for the prediction."
+      },
+      "status": {
+        "enum": [
+          "pending",
+          "running",
+          "completed",
+          "failed",
+          "timeout"
+        ],
+        "type": "string",
+        "description": "Status of the task: pending, running, completed, failed, or timeout."
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "title": "OutputItem",
+          "required": [
+            "url"
+          ],
+          "properties": {
+            "url": {
+              "type": "string",
+              "description": "The URL where the generated content can be downloaded from."
+            },
+            "content_type": {
+              "type": "string",
+              "description": "The MIME type of the output file."
+            }
+          }
+        },
+        "description": "Array of generated content. Empty when status is not completed."
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "formula",
+    "formula": "(((params.texture ?? true) || (params.pbr ?? true)) ? ((params.texture_quality ?? \"standard\") == \"detailed\" ? 0.48 : 0.36) : 0.24) + ((params.geometry_quality ?? \"standard\") == \"detailed\" ? 0.24 : 0.0) + ((params.quad ?? false) ? 0.06 : 0.0)",
+    "formula_variables": [
+      "params.geometry_quality",
+      "params.pbr",
+      "params.quad",
+      "params.texture",
+      "params.texture_quality"
+    ],
+    "reference_price": 0.36,
+    "price_examples": [
+      {
+        "params": {
+          "geometry_quality": "standard",
+          "pbr": false,
+          "quad": false,
+          "texture": false,
+          "texture_quality": "standard"
+        },
+        "usd": 0.24
+      },
+      {
+        "params": {
+          "geometry_quality": "standard",
+          "pbr": false,
+          "quad": false,
+          "texture": false,
+          "texture_quality": "detailed"
+        },
+        "usd": 0.24
+      },
+      {
+        "params": {
+          "geometry_quality": "standard",
+          "pbr": false,
+          "quad": false,
+          "texture": true,
+          "texture_quality": "standard"
+        },
+        "usd": 0.36
+      },
+      {
+        "params": {
+          "geometry_quality": "standard",
+          "pbr": false,
+          "quad": false,
+          "texture": true,
+          "texture_quality": "detailed"
+        },
+        "usd": 0.48
+      },
+      {
+        "params": {
+          "geometry_quality": "standard",
+          "pbr": false,
+          "quad": true,
+          "texture": false,
+          "texture_quality": "standard"
+        },
+        "usd": 0.3
+      },
+      {
+        "params": {
+          "geometry_quality": "standard",
+          "pbr": false,
+          "quad": true,
+          "texture": false,
+          "texture_quality": "detailed"
+        },
+        "usd": 0.3
+      },
+      {
+        "params": {
+          "geometry_quality": "standard",
+          "pbr": false,
+          "quad": true,
+          "texture": true,
+          "texture_quality": "standard"
+        },
+        "usd": 0.42
+      },
+      {
+        "params": {
+          "geometry_quality": "standard",
+          "pbr": false,
+          "quad": true,
+          "texture": true,
+          "texture_quality": "detailed"
+        },
+        "usd": 0.54
+      },
+      {
+        "params": {
+          "geometry_quality": "standard",
+          "pbr": true,
+          "quad": false,
+          "texture": false,
+          "texture_quality": "standard"
+        },
+        "usd": 0.36
+      },
+      {
+        "params": {
+          "geometry_quality": "standard",
+          "pbr": true,
+          "quad": false,
+          "texture": false,
+          "texture_quality": "detailed"
+        },
+        "usd": 0.48
+      },
+      {
+        "params": {
+          "geometry_quality": "standard",
+          "pbr": true,
+          "quad": false,
+          "texture": true,
+          "texture_quality": "standard"
+        },
+        "usd": 0.36
+      },
+      {
+        "params": {
+          "geometry_quality": "standard",
+          "pbr": true,
+          "quad": false,
+          "texture": true,
+          "texture_quality": "detailed"
+        },
+        "usd": 0.48
+      },
+      {
+        "params": {
+          "geometry_quality": "standard",
+          "pbr": true,
+          "quad": true,
+          "texture": false,
+          "texture_quality": "standard"
+        },
+        "usd": 0.42
+      },
+      {
+        "params": {
+          "geometry_quality": "standard",
+          "pbr": true,
+          "quad": true,
+          "texture": false,
+          "texture_quality": "detailed"
+        },
+        "usd": 0.54
+      },
+      {
+        "params": {
+          "geometry_quality": "standard",
+          "pbr": true,
+          "quad": true,
+          "texture": true,
+          "texture_quality": "standard"
+        },
+        "usd": 0.42
+      },
+      {
+        "params": {
+          "geometry_quality": "standard",
+          "pbr": true,
+          "quad": true,
+          "texture": true,
+          "texture_quality": "detailed"
+        },
+        "usd": 0.54
+      },
+      {
+        "params": {
+          "geometry_quality": "detailed",
+          "pbr": false,
+          "quad": false,
+          "texture": false,
+          "texture_quality": "standard"
+        },
+        "usd": 0.48
+      },
+      {
+        "params": {
+          "geometry_quality": "detailed",
+          "pbr": false,
+          "quad": false,
+          "texture": false,
+          "texture_quality": "detailed"
+        },
+        "usd": 0.48
+      },
+      {
+        "params": {
+          "geometry_quality": "detailed",
+          "pbr": false,
+          "quad": false,
+          "texture": true,
+          "texture_quality": "standard"
+        },
+        "usd": 0.6
+      },
+      {
+        "params": {
+          "geometry_quality": "detailed",
+          "pbr": false,
+          "quad": false,
+          "texture": true,
+          "texture_quality": "detailed"
+        },
+        "usd": 0.72
+      },
+      {
+        "params": {
+          "geometry_quality": "detailed",
+          "pbr": false,
+          "quad": true,
+          "texture": false,
+          "texture_quality": "standard"
+        },
+        "usd": 0.54
+      },
+      {
+        "params": {
+          "geometry_quality": "detailed",
+          "pbr": false,
+          "quad": true,
+          "texture": false,
+          "texture_quality": "detailed"
+        },
+        "usd": 0.54
+      },
+      {
+        "params": {
+          "geometry_quality": "detailed",
+          "pbr": false,
+          "quad": true,
+          "texture": true,
+          "texture_quality": "standard"
+        },
+        "usd": 0.66
+      },
+      {
+        "params": {
+          "geometry_quality": "detailed",
+          "pbr": false,
+          "quad": true,
+          "texture": true,
+          "texture_quality": "detailed"
+        },
+        "usd": 0.78
+      },
+      {
+        "params": {
+          "geometry_quality": "detailed",
+          "pbr": true,
+          "quad": false,
+          "texture": false,
+          "texture_quality": "standard"
+        },
+        "usd": 0.6
+      },
+      {
+        "params": {
+          "geometry_quality": "detailed",
+          "pbr": true,
+          "quad": false,
+          "texture": false,
+          "texture_quality": "detailed"
+        },
+        "usd": 0.72
+      },
+      {
+        "params": {
+          "geometry_quality": "detailed",
+          "pbr": true,
+          "quad": false,
+          "texture": true,
+          "texture_quality": "standard"
+        },
+        "usd": 0.6
+      },
+      {
+        "params": {
+          "geometry_quality": "detailed",
+          "pbr": true,
+          "quad": false,
+          "texture": true,
+          "texture_quality": "detailed"
+        },
+        "usd": 0.72
+      },
+      {
+        "params": {
+          "geometry_quality": "detailed",
+          "pbr": true,
+          "quad": true,
+          "texture": false,
+          "texture_quality": "standard"
+        },
+        "usd": 0.66
+      },
+      {
+        "params": {
+          "geometry_quality": "detailed",
+          "pbr": true,
+          "quad": true,
+          "texture": false,
+          "texture_quality": "detailed"
+        },
+        "usd": 0.78
+      },
+      {
+        "params": {
+          "geometry_quality": "detailed",
+          "pbr": true,
+          "quad": true,
+          "texture": true,
+          "texture_quality": "standard"
+        },
+        "usd": 0.66
+      },
+      {
+        "params": {
+          "geometry_quality": "detailed",
+          "pbr": true,
+          "quad": true,
+          "texture": true,
+          "texture_quality": "detailed"
+        },
+        "usd": 0.78
+      }
+    ]
+  },
+  "readme": "# Tripo H3.1 Multiview to 3D\n\nTripo H3.1 turns up to 4 views into a textured 3D model quickly and at low cost.\n\n## Fields\n\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `images` | image URL[] (≤4), required | — | Up to 4 views (front, left, back, right). |\n| `pbr` | boolean | true | PBR materials. |\n| `quad` | boolean | false | Quad mesh output. |\n| `seed` | integer | random | Fix it to compare prompt changes. |\n| `texture` | boolean | true | Generate textures. |\n| `face_limit` | integer 1000–2000000 | — | Maximum face count. |\n| `texture_quality` | `standard` / `detailed` | `standard` | Texture detail; higher costs more. |\n| `geometry_quality` | `standard` / `detailed` | `standard` | `detailed` adds mesh detail and cost. |\n\n## Billing\n\n$0.36 per textured model at standard quality, $0.48 detailed, $0.24 untextured; detailed geometry adds $0.24 and quad output $0.06.\n\n| Request | Price |\n|---|---|\n| Standard texture | $0.36 |\n| Detailed texture | $0.48 |\n| Untextured | $0.24 |\n| Standard + detailed geometry | $0.60 |\n\nFailed runs are not charged.\n\n## Also on SandBase\n\nOther Tripo endpoints: `tripo3d/tripo-p2/text-to-3d`, `tripo3d/tripo-p2/image-to-3d`, `tripo3d/tripo-h3.1/text-to-3d`.\n",
+  "cover_url": "https://static.sandbase.ai/covers/tripo3d/tripo-h3.1/multiview-to-3d/cover-flare-20261008040304.webp",
+  "page_url": "https://www.sandbase.ai/model/tripo3d/tripo-h3.1/multiview-to-3d",
+  "published_at": "2026-04-15T18:24:49.403Z",
+  "created_at": "2026-06-01T14:39:03.108Z"
+}

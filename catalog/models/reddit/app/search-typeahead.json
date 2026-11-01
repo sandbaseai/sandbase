@@ -1,0 +1,81 @@
+{
+  "name": "reddit/app/search-typeahead",
+  "display_name": "Reddit App Search Typeahead",
+  "type": "api",
+  "vendor": "Reddit",
+  "vendor_slug": "reddit",
+  "description": "Returns autocomplete suggestions for the Reddit search box based on typed input. Includes options to toggle adult content, apply safe search settings, and format response data.",
+  "tags": [
+    "api",
+    "reddit"
+  ],
+  "capabilities": [
+    "api",
+    "reddit"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/reddit/app/search-typeahead"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "query"
+    ],
+    "properties": {
+      "query": {
+        "type": "string",
+        "title": "Query",
+        "example": "OpenAI",
+        "description": "Search keyword, the search text being typed"
+      },
+      "allow_nsfw": {
+        "type": "string",
+        "title": "Allow Nsfw",
+        "default": "0",
+        "description": "Whether to allow NSFW (adult) content display, \"0\" means disallow, \"1\" means allow"
+      },
+      "need_format": {
+        "type": "boolean",
+        "title": "Need Format",
+        "default": false,
+        "description": "Whether to clean and format the data"
+      },
+      "safe_search": {
+        "type": "string",
+        "title": "Safe Search",
+        "default": "unset",
+        "description": "Safe search setting, options are \"unset\" or \"strict\""
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.0015,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "examples": [
+    {
+      "input": {
+        "query": "OpenAI"
+      },
+      "default": true
+    }
+  ],
+  "readme": "# Reddit App Search Typeahead API\n\nQuery autocomplete suggestions for search terms using the `query` parameter. You can also configure adult content visibility and safe search behavior.\n\n## Use cases\n\n- Display real-time search suggestions in custom Reddit clients.\n- Help users discover relevant subreddits and search terms as they type.\n- Filter autocomplete suggestions according to safe search requirements.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/reddit/app/search-typeahead\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"query\": \"OpenAI\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `query` | string | Yes | Search keyword, the search text being typed |\n| `allow_nsfw` | string | No | Whether to allow NSFW (adult) content display, \"0\" means disallow, \"1\" means allow |\n| `need_format` | boolean | No | Whether to clean and format the data |\n| `safe_search` | string | No | Safe search setting, options are \"unset\" or \"strict\" |\n\n## Example response\n\nReal response for the request above, trimmed to the main fields. User names and long IDs are masked.\n\n```json\n{\n  \"search\": {\n    \"dynamic\": {\n      \"components\": {\n        \"main\": [\n          {\n            \"children\": [\n              {\n                \"__typename\": \"QueryAutocomplete\",\n                \"presentation\": {\n                  \"__typename\": \"QueryAutocompleteDefaultPresentation\",\n                  \"query\": \"openai\"\n                },\n                \"telemetry\": {\n                  \"__typename\": \"SearchElementTelemetry\"\n                }\n              }\n            ]\n          }\n        ]\n      }\n    }\n  }\n}\n```\n\n## Notes\n\n- Set `allow_nsfw` to \"1\" to include adult content or \"0\" to exclude it.\n- The `safe_search` parameter accepts \"unset\" or \"strict\".\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [Reddit Subreddit Mute Status](/model/reddit/app/check-subreddit-muted): Checks whether a specified Reddit subreddit is muted by the current account using its ID.\n- [Reddit App Comment Replies](/model/reddit/app/comment-replies): Returns replies and nested sub-comments under a Reddit post comment using a continuation cursor.\n- [Reddit Community Highlights](/model/reddit/app/community-highlights): Returns featured highlight content for a designated Reddit community, such as popular posts and announcements, by subreddit ID.\n",
+  "page_url": "https://www.sandbase.ai/model/reddit/app/search-typeahead",
+  "created_at": "2026-07-31T04:10:56.617Z"
+}

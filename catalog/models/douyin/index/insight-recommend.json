@@ -1,0 +1,51 @@
+{
+  "name": "douyin/index/insight-recommend",
+  "display_name": "Douyin Recommended Insight Reports",
+  "type": "api",
+  "vendor": "Douyin",
+  "vendor_slug": "douyin",
+  "description": "Returns recommended trend insight reports featured on the Douyin index home page. Useful for tracking high-level platform trends and discovering top reports without specifying filters.",
+  "tags": [
+    "api",
+    "douyin"
+  ],
+  "capabilities": [
+    "api",
+    "douyin"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/douyin/index/insight-recommend"
+  },
+  "input_schema": {
+    "type": "object",
+    "properties": {}
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.0015,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "examples": [
+    {
+      "input": {},
+      "default": true
+    }
+  ],
+  "readme": "# Douyin Recommended Insight Reports API\n\nAccess recommended Douyin trend insight reports from the home page. This endpoint requires no query parameters to retrieve current platform recommendations.\n\n## Use cases\n\n- Discover trending industry insights and research topics on Douyin.\n- Monitor featured analytical reports highlighted on the platform home page.\n- Automate regular retrieval of platform-curated trend highlights.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/douyin/index/insight-recommend\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{}'\n```\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [Douyin Index Area List](/model/douyin/index/all-area): Returns the complete list of supported geographic areas available for Douyin Index queries.\n- [Douyin Index Valid Dates](/model/douyin/index/all-valid-date): Returns the latest valid dates available for each data type in Douyin Index.\n- [Douyin Brand Popularity Cycles](/model/douyin/index/brand-cycles): Returns periodic brand popularity and cycle analysis data across platforms for a specified brand name and date range.\n",
+  "page_url": "https://www.sandbase.ai/model/douyin/index/insight-recommend",
+  "created_at": "2026-07-31T02:38:06.534Z"
+}

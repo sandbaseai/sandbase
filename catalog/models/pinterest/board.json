@@ -1,0 +1,90 @@
+{
+  "name": "pinterest/board",
+  "display_name": "Pinterest Board Pins",
+  "type": "api",
+  "vendor": "Pinterest",
+  "vendor_slug": "pinterest",
+  "description": "Returns a paginated list of pins from a specified Pinterest board URL, including pin metadata, images, and aggregated pin metrics.",
+  "tags": [
+    "social-media"
+  ],
+  "capabilities": [
+    "social-media"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/pinterest/board"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "url"
+    ],
+    "properties": {
+      "url": {
+        "type": "string",
+        "title": "Board URL",
+        "description": "The URL of the Pinterest board to fetch pins from."
+      },
+      "trim": {
+        "type": "boolean",
+        "title": "Trim",
+        "description": "Set to true for a trimmed down version of the response."
+      },
+      "cursor": {
+        "type": "string",
+        "title": "Cursor",
+        "description": "Pagination cursor from a previous response to get the next page."
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "properties": {
+      "pins": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string"
+            },
+            "link": {
+              "type": "string"
+            },
+            "title": {
+              "type": "string"
+            },
+            "domain": {
+              "type": "string"
+            },
+            "images": {
+              "type": "object"
+            },
+            "description": {
+              "type": "string"
+            }
+          }
+        },
+        "description": "Array of pins from the board."
+      },
+      "cursor": {
+        "type": "string",
+        "description": "Cursor for fetching the next page of results."
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.018
+  },
+  "readme": "# Pinterest Board Pins API\n\nRetrieve pins and associated metadata from a Pinterest board using its `url`. The endpoint also supports pagination via `cursor` and lightweight responses via `trim`.\n\n## Use cases\n\n- Extract pin images and descriptions from a target Pinterest board.\n- Monitor board content additions and aggregate pin metrics over time.\n- Collect creative assets from curated boards for visual reference libraries.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/pinterest/board\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"url\": \"<url>\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `url` | string | Yes | The URL of the Pinterest board to fetch pins from. |\n| `trim` | boolean | No | Set to true for a trimmed down version of the response. |\n| `cursor` | string | No | Pagination cursor from a previous response to get the next page. |\n\n## Notes\n\n- Use `cursor` to request subsequent pages of pins.\n- Set `trim` to true to retrieve a reduced response payload.\n\n## Pricing\n\nFlat price per call. Failed calls are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/pinterest/board",
+  "published_at": "2024-01-01T00:00:00Z",
+  "created_at": "2026-08-09T12:39:41.406Z"
+}

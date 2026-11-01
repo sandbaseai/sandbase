@@ -1,0 +1,73 @@
+{
+  "name": "tiktok/shop-web/product-detail-v2",
+  "display_name": "TikTok Shop Product Details (V2)",
+  "type": "api",
+  "vendor": "TikTok",
+  "vendor_slug": "tiktok",
+  "description": "Returns basic product details from TikTok Shop for a specified item. Query by product identifier with optional region and seller filters.",
+  "tags": [
+    "api",
+    "tiktok"
+  ],
+  "capabilities": [
+    "api",
+    "tiktok"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/tiktok/shop-web/product-detail-v2"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "product_id"
+    ],
+    "properties": {
+      "region": {
+        "type": "string",
+        "title": "Region",
+        "description": "Region code (US/GB/SG/MY/PH/TH/VN/ID)"
+      },
+      "seller_id": {
+        "type": "string",
+        "title": "Seller Id",
+        "description": "Seller ID (can be empty string)"
+      },
+      "product_id": {
+        "type": "string",
+        "title": "Product Id",
+        "description": "Product ID (required)"
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.0015,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "examples": [
+    {
+      "input": {
+        "product_id": "1731581114818794403",
+        "region": "GB"
+      },
+      "default": true
+    }
+  ],
+  "readme": "# TikTok Shop Product Details (V2) API\n\nRetrieve TikTok Shop product information by supplying a `product_id`. You can also narrow results by setting `region` and `seller_id`.\n\n## Use cases\n\n- Inspect basic product metadata on TikTok Shop.\n- Monitor specific shop inventory across supported countries.\n- Track individual TikTok Shop listings by product ID.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/tiktok/shop-web/product-detail-v2\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"product_id\": \"<product_id>\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `product_id` | string | Yes | Product ID (required) |\n| `region` | string | No | Region code (US/GB/SG/MY/PH/TH/VN/ID) |\n| `seller_id` | string | No | Seller ID (can be empty string) |\n\n## Notes\n\n- Supported `region` codes include US, GB, SG, MY, PH, TH, VN, and ID.\n- `seller_id` can be left as an empty string if unknown.\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [TikTok Shop Product Details](/model/tiktok/shop-web/product-detail): Retrieves full product details and page component information from TikTok Shop by product ID.\n- [TikTok Shop Product Detail (V3)](/model/tiktok/shop-web/product-detail-v3): Returns comprehensive TikTok Shop product data including shop information, videos, and recommendations for a given product ID across supported regions.\n- [TikTok Shop Product ID by Share Link](/model/tiktok/shop-web/product-id-by-share-link): Returns the TikTok Shop product identifier extracted from a provided product share link.\n",
+  "page_url": "https://www.sandbase.ai/model/tiktok/shop-web/product-detail-v2",
+  "created_at": "2026-07-31T04:16:12.763Z"
+}

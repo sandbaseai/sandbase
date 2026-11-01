@@ -1,0 +1,204 @@
+{
+  "name": "alibaba/wan/2.6/image-to-video",
+  "display_name": "Wan 2.6 Image to Video",
+  "type": "video",
+  "vendor": "Alibaba",
+  "vendor_slug": "alibaba",
+  "description": "Alibaba Wan 2.6 image-to-video model transforming still images into video. Supports first-frame-to-video only.",
+  "tags": [
+    "image-to-video"
+  ],
+  "capabilities": [
+    "image-to-video"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "prompt",
+      "image"
+    ],
+    "properties": {
+      "seed": {
+        "type": "integer",
+        "title": "Seed",
+        "description": "Random seed (0-2147483647) for reproducible results. Omit for a random seed."
+      },
+      "audio": {
+        "type": "string",
+        "title": "Audio",
+        "description": "The URL of an audio file to guide video generation."
+      },
+      "image": {
+        "type": "string",
+        "title": "Image",
+        "examples": [
+          "https://static.sandbase.ai/samples/image-to-video/i2v-black-cat-sky-img0.png"
+        ],
+        "description": "The URL of the starting image for video generation (first-frame-to-video only)."
+      },
+      "prompt": {
+        "type": "string",
+        "title": "Prompt",
+        "default": "Realistic style, a small black cat curiously gazes up at the sky. The camera gradually rises from eye level, ending with an overhead angle capturing its curious eyes.",
+        "maxLength": 50000,
+        "minLength": 3,
+        "description": "The text prompt to generate a video from."
+      },
+      "duration": {
+        "enum": [
+          5,
+          10
+        ],
+        "type": "integer",
+        "title": "Duration",
+        "default": 5,
+        "description": "The duration of the generated video in seconds. Valid values are 5 and 10."
+      },
+      "resolution": {
+        "enum": [
+          "720p",
+          "1080p"
+        ],
+        "type": "string",
+        "title": "Resolution",
+        "default": "720p",
+        "description": "The resolution of the video to generate."
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "title": "GenerationResponse",
+    "required": [
+      "id",
+      "status"
+    ],
+    "properties": {
+      "id": {
+        "type": "string",
+        "description": "Unique identifier for the generation task."
+      },
+      "error": {
+        "type": "string",
+        "description": "Error message if the task failed. Empty on success."
+      },
+      "model": {
+        "type": "string",
+        "description": "Model ID used for the prediction."
+      },
+      "status": {
+        "enum": [
+          "pending",
+          "running",
+          "completed",
+          "failed",
+          "timeout"
+        ],
+        "type": "string",
+        "description": "Status of the task: pending, running, completed, failed, or timeout."
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "title": "OutputItem",
+          "required": [
+            "url"
+          ],
+          "properties": {
+            "url": {
+              "type": "string",
+              "description": "The URL where the generated content can be downloaded from."
+            },
+            "content_type": {
+              "type": "string",
+              "description": "The MIME type of the output file."
+            }
+          }
+        },
+        "description": "Array of generated content. Empty when status is not completed."
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "formula",
+    "formula": "(params.duration ?? 5) * ((params.resolution ?? \"720p\") == '1080p' ? 0.15 : 0.10)",
+    "formula_variables": [
+      "params.duration",
+      "params.resolution"
+    ],
+    "reference_price": 0.5,
+    "price_examples": [
+      {
+        "params": {
+          "duration": 5,
+          "resolution": "720p"
+        },
+        "usd": 0.5
+      },
+      {
+        "params": {
+          "duration": 5,
+          "resolution": "1080p"
+        },
+        "usd": 0.75
+      },
+      {
+        "params": {
+          "duration": 10,
+          "resolution": "720p"
+        },
+        "usd": 1
+      },
+      {
+        "params": {
+          "duration": 10,
+          "resolution": "1080p"
+        },
+        "usd": 1.5
+      }
+    ]
+  },
+  "examples": [
+    {
+      "input": {
+        "audio": "https://static.sandbase.ai/examples/5b422d5a-e1be-4e4b-95cb-8f7b4e17e17b/input/cb1853ea-67d2-4a97-b2b4-1b93b5f24d73.mp3",
+        "image": "https://static.sandbase.ai/examples/5b422d5a-e1be-4e4b-95cb-8f7b4e17e17b/input/80632427-d7b9-441c-b64d-6cc247f55788.webp",
+        "prompt": "An urban fantasy art scene. A dynamic graffiti art character. A boy made of spray paint comes to life from a concrete wall. He raps an English song at a very fast pace, striking a classic, energetic rapper pose. The scene is set at night under an urban railway bridge. The lighting comes from a single street lamp, creating a cinematic atmosphere, full of high energy and amazing detail. The audio part of the video consists entirely of rap, with no other dialogue or background noise."
+      },
+      "output": [
+        {
+          "poster": "https://static.sandbase.ai/examples/posters/f831541111ef147b7384.jpg",
+          "url": "https://static.sandbase.ai/examples/5b422d5a-e1be-4e4b-95cb-8f7b4e17e17b/output/a8d0a003-63d1-4360-927e-b7c5270ce37c.mp4"
+        }
+      ],
+      "default": true
+    },
+    {
+      "input": {
+        "image": "https://static.sandbase.ai/examples/68cb3b57-8548-4e28-9213-bb44cb1d84ec/input/21ea14f1-7538-4956-ac9e-b501fb81b424.webp",
+        "prompt": "The camera slowly moves up from below the turtle, which swims gracefully, its belly details clearly visible."
+      },
+      "output": [
+        {
+          "poster": "https://static.sandbase.ai/examples/posters/8b25fc8bf23045464758.jpg",
+          "url": "https://static.sandbase.ai/examples/68cb3b57-8548-4e28-9213-bb44cb1d84ec/output/8c498245-47c7-45e0-adc8-580c56960400.mp4"
+        }
+      ]
+    }
+  ],
+  "readme": "# Wan 2.6 Image to Video\n\nAnimate a picture into a 5 or 10 second clip. `image` becomes the first frame and the prompt says what moves; an optional audio track can drive speech or rhythm.\n\n## Fields\n\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `prompt` | string, required | — | Up to 50,000 characters. |\n| `image` | image URL, required | — | First frame. JPEG, PNG, or WebP URL. |\n| `audio` | audio URL | — | Optional WAV/MP3 URL that drives speech or rhythm. |\n| `duration` | 5 / 10 | 5 | Output length in seconds. |\n| `resolution` | `720p` / `1080p` | `720p` | Sets the per-second rate. |\n| `seed` | integer | random | Fix it to compare prompt changes. |\n\n## Billing\n\nYou pay for output seconds: $0.10 at 720p and $0.15 at 1080p, Alibaba's list price. Input images and audio are not metered.\n\n| Output | 720p | 1080p |\n|---|---|---|\n| 5s (default) | $0.50 | $0.75 |\n| 10s | $1.00 | $1.50 |\n\nFailed runs are not charged.\n\n## Prompting\n\n- Describe the motion and camera, not what is already in the picture.\n- Keep one main action per clip.\n\n## Limits\n\n- Durations are 5 or 10 seconds only.\n- No end-frame control; Wan 2.7 image-to-video adds an optional last frame.\n\n## Also on SandBase\n\nOther Wan 2.6 endpoints: `alibaba/wan/2.6/text-to-video`, `alibaba/wan/2.6/reference-to-video`, `alibaba/wan/2.6/flash/image-to-video`, `alibaba/wan/2.6/flash/reference-to-video`, `alibaba/wan/2.6/text-to-image`, `alibaba/wan/2.6/image-to-image`, `alibaba/wan/2.7/text-to-video` (newer).\n",
+  "cover_url": "https://static.sandbase.ai/covers/alibaba/wan/2.6/image-to-video/cover-flare-20261004230517.webp",
+  "page_url": "https://www.sandbase.ai/model/alibaba/wan/2.6/image-to-video",
+  "published_at": "2025-12-15T17:25:59.831Z",
+  "created_at": "2026-05-02T04:33:42.667Z"
+}

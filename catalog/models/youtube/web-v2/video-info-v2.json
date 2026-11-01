@@ -1,0 +1,63 @@
+{
+  "name": "youtube/web-v2/video-info-v2",
+  "display_name": "YouTube Video Information (V2)",
+  "type": "api",
+  "vendor": "YouTube",
+  "vendor_slug": "youtube",
+  "description": "Returns comprehensive details for a YouTube video identified by its ID or direct URL, with an option to retrieve a cleaned payload format.",
+  "tags": [
+    "api",
+    "youtube"
+  ],
+  "capabilities": [
+    "api",
+    "youtube"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/youtube/web-v2/video-info-v2"
+  },
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "video_id": {
+        "type": "string",
+        "title": "Video Id",
+        "example": "dQw4w9WgXcQ",
+        "description": "Video ID, e.g. `\"dQw4w9WgXcQ\"`"
+      },
+      "video_url": {
+        "type": "string",
+        "title": "Video Url",
+        "description": "Full video URL (ignored if video_id provided)"
+      },
+      "need_format": {
+        "type": "boolean",
+        "title": "Need Format",
+        "default": true,
+        "description": "Whether to return cleaned payload. Default `True`"
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.0015,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "readme": "# YouTube Video Information (V2) API\n\nFetch detailed information for a specific YouTube video by providing either `video_id` or `video_url`.\n\n## Use cases\n\n- Retrieve video metadata such as title and description for display in media applications.\n- Inspect video properties using direct YouTube video links.\n- Extract cleaned video payloads for ingestion into reporting dashboards.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/youtube/web-v2/video-info-v2\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `video_id` | string | No | Video ID, e.g. |\n| `video_url` | string | No | Full video URL (ignored if video_id provided) |\n| `need_format` | boolean | No | Whether to return cleaned payload. |\n\n## Notes\n\n- If `video_id` is provided, `video_url` is ignored.\n- Set `need_format` to true to receive a cleaned data structure.\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [YouTube Channel Community Posts](/model/youtube/web-v2/channel-community-posts): Returns community posts from a specific YouTube channel, including text content, polls, votes, and comment counts.\n- [YouTube Channel Description](/model/youtube/web-v2/channel-description): Returns YouTube channel details including subscriber counts, video totals, view counts, joined date, and social links.\n- [YouTube Channel ID from URL](/model/youtube/web-v2/channel-id): Resolves a YouTube channel URL to its canonical channel ID.\n",
+  "page_url": "https://www.sandbase.ai/model/youtube/web-v2/video-info-v2",
+  "created_at": "2026-07-31T04:28:01.186Z"
+}

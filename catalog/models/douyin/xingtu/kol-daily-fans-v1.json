@@ -1,0 +1,71 @@
+{
+  "name": "douyin/xingtu/kol-daily-fans-v1",
+  "display_name": "Douyin Xingtu KOL Daily Fans",
+  "type": "api",
+  "vendor": "Douyin",
+  "vendor_slug": "douyin",
+  "description": "Returns daily fan statistics for a Douyin Xingtu creator over a specified date range. Requires the creator ID alongside the start and end dates formatted as yyyy-MM-dd.",
+  "tags": [
+    "api",
+    "douyin"
+  ],
+  "capabilities": [
+    "api",
+    "douyin"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/douyin/xingtu/kol-daily-fans-v1"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "endDate",
+      "kolId",
+      "startDate"
+    ],
+    "properties": {
+      "kolId": {
+        "type": "string",
+        "title": "Kolid",
+        "description": "User kolId, can be obtained from the following interfaces: `douyin/xingtu/xingtu-kolid-by-uid`; `douyin/xingtu/xingtu-kolid-by-sec-user-id`; `douyin/xingtu/xingtu-kolid-by-unique-id`"
+      },
+      "endDate": {
+        "type": "string",
+        "title": "Enddate",
+        "description": "End date, format: yyyy-MM-dd"
+      },
+      "startDate": {
+        "type": "string",
+        "title": "Startdate",
+        "description": "Start date, format: yyyy-MM-dd"
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.03
+  },
+  "examples": [
+    {
+      "input": {
+        "endDate": "2026-09-28",
+        "kolId": "6677767167234015243",
+        "startDate": "2026-09-01"
+      },
+      "default": true
+    }
+  ],
+  "readme": "# Douyin Xingtu KOL Daily Fans API\n\nRetrieve daily fan counts for a specified Douyin creator by providing `kolId`, `startDate`, and `endDate`.\n\n## Use cases\n\n- Track daily follower growth trends for specific Douyin creators.\n- Evaluate creator audience changes over selected date intervals.\n- Monitor audience retention and acquisition fluctuations across specific ranges.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/douyin/xingtu/kol-daily-fans-v1\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"endDate\": \"<endDate>\", \"kolId\": \"<kolId>\", \"startDate\": \"<startDate>\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `kolId` | string | Yes | User kolId, can be obtained from the following interfaces: `douyin/xingtu/xingtu-kolid-by-uid`; `douyin/xingtu/xingtu-kolid-by-sec-user-id`; `douyin/xingtu/xin… |\n| `endDate` | string | Yes | End date, format: yyyy-MM-dd |\n| `startDate` | string | Yes | Start date, format: yyyy-MM-dd |\n\n## Notes\n\n- `kolId` can be obtained from the corresponding Xingtu KOL ID lookup endpoints using UID, sec_user_id, or unique ID.\n- `startDate` and `endDate` must be formatted as yyyy-MM-dd.\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [Douyin Xingtu Author Hot Comment Keywords](/model/douyin/xingtu/author-content-hot-comment-keywords-v1): Returns hot comment keywords from content produced by a Douyin Xingtu creator.\n- [Douyin Xingtu Author Hot Comment Tokens (Xingtu)](/model/douyin/xingtu/author-hot-comment-tokens-v1): Returns hot comment tokens for a Douyin Xingtu creator based on the specified creator ID.\n- [Douyin Xingtu KOL Audience Portrait (V1)](/model/douyin/xingtu/kol-audience-portrait-v1): Returns audience demographic and portrait insights for a Douyin Xingtu creator.\n",
+  "page_url": "https://www.sandbase.ai/model/douyin/xingtu/kol-daily-fans-v1",
+  "created_at": "2026-07-31T02:41:25.242Z"
+}

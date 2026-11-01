@@ -1,0 +1,208 @@
+{
+  "name": "elevenlabs/turbo-v2.5",
+  "display_name": "Turbo V2.5",
+  "type": "audio",
+  "vendor": "ElevenLabs",
+  "vendor_slug": "elevenlabs",
+  "description": "Turbo V2.5 by ElevenLabs - convert text to natural-sounding speech with AI. Supports multiple voices, languages, emotions, and speaking styles for content creation and accessibility.",
+  "tags": [
+    "text-to-speech"
+  ],
+  "capabilities": [
+    "text-to-speech"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}"
+  },
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "text": {
+        "type": "string",
+        "title": "Text",
+        "examples": [
+          "Hello! This is a test of the text to speech system, powered by ElevenLabs. How does it sound?"
+        ],
+        "minLength": 1,
+        "description": "The text to convert to speech"
+      },
+      "speed": {
+        "type": "number",
+        "title": "Speed",
+        "default": 1,
+        "maximum": 1.2,
+        "minimum": 0.7,
+        "description": "Speech speed (0.7-1.2). Values below 1.0 slow down the speech, above 1.0 speed it up. Extreme values may affect quality."
+      },
+      "voice": {
+        "type": "string",
+        "title": "Voice",
+        "default": "Rachel",
+        "examples": [
+          "Aria",
+          "Roger",
+          "Sarah",
+          "Laura",
+          "Charlie",
+          "George",
+          "Callum",
+          "River",
+          "Liam",
+          "Charlotte",
+          "Alice",
+          "Matilda",
+          "Will",
+          "Jessica",
+          "Eric",
+          "Chris",
+          "Brian",
+          "Daniel",
+          "Lily",
+          "Bill"
+        ],
+        "description": "The voice to use for speech generation"
+      },
+      "stability": {
+        "type": "number",
+        "title": "Stability",
+        "default": 0.5,
+        "maximum": 1,
+        "minimum": 0,
+        "description": "Voice stability (0-1)"
+      },
+      "language_code": {
+        "enum": [
+          "",
+          "en",
+          "ja",
+          "zh",
+          "de",
+          "hi",
+          "fr",
+          "ko",
+          "pt",
+          "it",
+          "es",
+          "id",
+          "nl",
+          "tr",
+          "fil",
+          "pl",
+          "sv",
+          "bg",
+          "ro",
+          "ar",
+          "cs",
+          "el",
+          "fi",
+          "hr",
+          "ms",
+          "sk",
+          "da",
+          "ta",
+          "uk",
+          "ru",
+          "hu",
+          "no",
+          "vi"
+        ],
+        "type": "string",
+        "title": "Language Code",
+        "description": "Language code (ISO 639-1) used to enforce a language for the model."
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "title": "GenerationResponse",
+    "required": [
+      "id",
+      "status"
+    ],
+    "properties": {
+      "id": {
+        "type": "string",
+        "description": "Unique identifier for the generation task."
+      },
+      "error": {
+        "type": "string",
+        "description": "Error message if the task failed. Empty on success."
+      },
+      "model": {
+        "type": "string",
+        "description": "Model ID used for the prediction."
+      },
+      "status": {
+        "enum": [
+          "pending",
+          "running",
+          "completed",
+          "failed",
+          "timeout"
+        ],
+        "type": "string",
+        "description": "Status of the task: pending, running, completed, failed, or timeout."
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "title": "OutputItem",
+          "required": [
+            "url"
+          ],
+          "properties": {
+            "url": {
+              "type": "string",
+              "examples": [
+                "https://static.sandbase.ai/examples/elevenlabs/turbo-v2.5/output_url_0.mp3"
+              ],
+              "description": "The URL where the generated content can be downloaded from."
+            },
+            "content_type": {
+              "type": "string",
+              "description": "The MIME type of the output file."
+            }
+          }
+        },
+        "description": "Array of generated content. Empty when status is not completed."
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "formula",
+    "formula": "Math.max(1.0, Math.ceil(len(params.text ?? \"\") / 1000.0)) * 0.1",
+    "formula_variables": [
+      "params.text"
+    ],
+    "reference_price": 0.1,
+    "price_examples": [
+      {
+        "params": {},
+        "usd": 0.1
+      }
+    ]
+  },
+  "examples": [
+    {
+      "input": {},
+      "output": [
+        {
+          "url": "https://static.sandbase.ai/examples/de63dda4-7474-48c1-adc7-8e49fafc4845/output/cba615c5-c115-4983-96e5-e899cec37250.mp3"
+        }
+      ],
+      "default": true
+    }
+  ],
+  "readme": "# Turbo V2.5\n\nEleven Turbo v2.5: low-latency speech in 32 languages.\n\n## Fields\n\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `text` | string | — | Text to speak. |\n| `voice` | string | `Rachel` | Voice name or ID. |\n| `language_code` | `` / `en` / `ja` / `zh` / `de` / `hi` / `fr` / `ko` / `pt` / `it` / `es` / `id` / `nl` / `tr` / `fil` / `pl` / `sv` / `bg` / `ro` / `ar` / `cs` / `el` / `fi` / `hr` / `ms` / `sk` / `da` / `ta` / `uk` / `ru` / `hu` / `no` / `vi` | — | Force a language. |\n| `stability` | number 0–1 | 0.5 | Lower is more expressive; higher is more consistent. |\n| `speed` | number 0.7–1.2 | 1 | Speaking rate. |\n\n## Billing\n\n$0.10 per started 1,000 characters, with a one-unit minimum.\n\n| Text | Price |\n|---|---|\n| 200 characters | $0.10 |\n| 1,000 characters | $0.10 |\n| 2,500 characters | $0.30 |\n\nFailed runs are not charged.\n\n## Prompting\n\n- Use punctuation and line breaks to shape pauses.\n\n## Also on SandBase\n\nOther ElevenLabs voices: `elevenlabs/v4`, `elevenlabs/v4-turbo`, `elevenlabs/v3`.\n",
+  "cover_url": "https://static.sandbase.ai/covers/elevenlabs/turbo-v2.5/cover-flare-20261008040727.webp",
+  "page_url": "https://www.sandbase.ai/model/elevenlabs/turbo-v2.5",
+  "published_at": "2025-02-27T00:00:00Z",
+  "created_at": "2026-05-14T02:54:26.183Z"
+}

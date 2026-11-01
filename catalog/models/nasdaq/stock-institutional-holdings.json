@@ -1,0 +1,82 @@
+{
+  "name": "nasdaq/stock-institutional-holdings",
+  "display_name": "Nasdaq Stock Institutional Holdings",
+  "type": "api",
+  "vendor": "Nasdaq",
+  "vendor_slug": "nasdaq",
+  "description": "Institutional holdings data for a stock: ownership summary, active/new/sold-out position counts, and individual holder transactions sorted by market value.",
+  "tags": [
+    "api",
+    "nasdaq",
+    "finance-crypto"
+  ],
+  "capabilities": [
+    "api",
+    "nasdaq",
+    "finance-crypto"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}",
+    "passthrough": "POST /v1/api/nasdaq/stock-institutional-holdings"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "symbol"
+    ],
+    "properties": {
+      "type": {
+        "type": "string",
+        "description": "Holdings type filter: TOTAL, INCREASED, DECREASED, NEW, SOLD_OUT."
+      },
+      "limit": {
+        "type": "integer",
+        "maximum": 9007199254740991,
+        "minimum": -9007199254740991,
+        "description": "Max records to return in holdingsTransactions."
+      },
+      "symbol": {
+        "type": "string",
+        "example": "AAPL",
+        "description": "Stock symbol (e.g. AAPL)."
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "required": [
+      "id",
+      "status",
+      "model"
+    ],
+    "properties": {
+      "id": {
+        "type": "string"
+      },
+      "model": {
+        "type": "string"
+      },
+      "status": {
+        "type": "string"
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.01,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "readme": "# Nasdaq Stock Institutional Holdings\n\nInstitutional holdings data for a stock: ownership summary, active/new/sold-out position counts, and individual holder transactions sorted by market value.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/nasdaq/stock-institutional-holdings\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"symbol\": \"AAPL\"}'\n```\n\nThis API runs asynchronously. The call returns a task `id` with status `pending`; poll `GET https://api.sandbase.ai/v1/run/{id}` until `status` is `completed` and read the result from `outputs[0].data`.\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `symbol` | string | Yes | Stock symbol (e.g. AAPL). |\n| `limit` | integer | No | Max records to return in holdingsTransactions. |\n| `type` | string | No | Holdings type filter: TOTAL, INCREASED, DECREASED, NEW, SOLD_OUT. |\n\n## Pricing\n\nFlat price per call. Failed calls are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/nasdaq/stock-institutional-holdings",
+  "created_at": "2026-10-30T07:45:59.58Z"
+}

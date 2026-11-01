@@ -1,0 +1,65 @@
+{
+  "name": "douyin/web/video-channel-result",
+  "display_name": "Douyin Video Channel Feed",
+  "type": "api",
+  "vendor": "Douyin",
+  "vendor_slug": "douyin",
+  "description": "Returns video listings from a specific Douyin channel page. Requires a channel tag ID and supports pagination through count and refresh index parameters.",
+  "tags": [
+    "api",
+    "douyin"
+  ],
+  "capabilities": [
+    "api",
+    "douyin"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/douyin/web/video-channel-result"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "tag_id"
+    ],
+    "properties": {
+      "count": {
+        "type": "integer",
+        "title": "Count",
+        "description": "Number"
+      },
+      "tag_id": {
+        "type": "integer",
+        "title": "Tag Id",
+        "example": 2027,
+        "description": "Tag id, get from the URL"
+      },
+      "refresh_index": {
+        "type": "integer",
+        "title": "Refresh Index",
+        "description": "Refresh index"
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.0015,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "readme": "# Douyin Video Channel Feed API\n\nFetch video content from a Douyin channel by supplying `tag_id`. You can adjust result sizes with `count` and navigate channel results using `refresh_index`.\n\n## Use cases\n\n- Retrieve video lists associated with specific Douyin channel tags.\n- Track media content appearing within selected channel feeds.\n- Inspect video specifications and available bitrates for channel items.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/douyin/web/video-channel-result\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"tag_id\": 2027}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `tag_id` | integer | Yes | Tag id, get from the URL |\n| `count` | integer | No | Number |\n| `refresh_index` | integer | No | Refresh index |\n\n## Example response\n\nReal response for the request above, trimmed to the main fields. User names and long IDs are masked.\n\n```json\n{\n  \"aweme_list\": [\n    {\n      \"video\": {\n        \"bit_rate\": [\n          {\n            \"bit_rate\": 1089619,\n            \"gear_name\": \"1080_1_1\",\n            \"quality_type\": 3\n          }\n        ]\n      }\n    }\n  ]\n}\n```\n\n## Notes\n\n- Obtain `tag_id` from the channel URL on Douyin.\n- Use `count` to control the number of videos returned.\n- Pass `refresh_index` for paginated channel queries.\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [Douyin Batch Video ID Extraction](/model/douyin/web/all-aweme-id): Extracts video IDs from a list of Douyin video URLs.\n- [Douyin sec_user_ids from URLs (Batch)](/model/douyin/web/all-sec-user-id): Extracts Douyin sec_user_id values in bulk from a list of user homepage URLs.\n- [Douyin Webcast ID Extraction](/model/douyin/web/all-webcast-id): Extracts webcast IDs from a submitted list of Douyin live room links.\n",
+  "page_url": "https://www.sandbase.ai/model/douyin/web/video-channel-result",
+  "created_at": "2026-07-31T02:40:59.115Z"
+}

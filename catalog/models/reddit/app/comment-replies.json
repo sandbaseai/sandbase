@@ -1,0 +1,79 @@
+{
+  "name": "reddit/app/comment-replies",
+  "display_name": "Reddit App Comment Replies",
+  "type": "api",
+  "vendor": "Reddit",
+  "vendor_slug": "reddit",
+  "description": "Returns replies and nested sub-comments under a Reddit post comment using a continuation cursor. Supports custom sorting methods and data formatting options.",
+  "tags": [
+    "api",
+    "reddit"
+  ],
+  "capabilities": [
+    "api",
+    "reddit"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/reddit/app/comment-replies"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "cursor",
+      "post_id"
+    ],
+    "properties": {
+      "cursor": {
+        "type": "string",
+        "title": "Cursor",
+        "description": "Comment cursor from the more.cursor field in comment data, format like \"commenttree:ex:(xxx)\""
+      },
+      "post_id": {
+        "type": "string",
+        "title": "Post Id",
+        "description": "Post ID, format like \"t3_XXXXXX\""
+      },
+      "sort_type": {
+        "type": "string",
+        "title": "Sort Type",
+        "description": "Sort method, supports CONFIDENCE, NEW, TOP, HOT, CONTROVERSIAL, OLD, RANDOM"
+      },
+      "need_format": {
+        "type": "boolean",
+        "title": "Need Format",
+        "description": "Whether to clean and format the data"
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.0015,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "examples": [
+    {
+      "input": {
+        "cursor": "commenttree:ex:(RjiJd",
+        "post_id": "t3_1qmup73"
+      },
+      "default": true
+    }
+  ],
+  "readme": "# Reddit App Comment Replies API\n\nRetrieve nested comment replies for a Reddit post by providing the target `post_id` and the comment node's `cursor`. It supports multiple sorting methods and optional response formatting.\n\n## Use cases\n\n- Retrieve nested sub-comments expanded under specific Reddit comment threads.\n- Organize discussion branches by sorting responses by confidence, new, or top.\n- Format Reddit app reply structures for clean downstream analysis.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/reddit/app/comment-replies\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"cursor\": \"<cursor>\", \"post_id\": \"<post_id>\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `cursor` | string | Yes | Comment cursor from the more.cursor field in comment data, format like \"commenttree:ex:(xxx)\" |\n| `post_id` | string | Yes | Post ID, format like \"t3_XXXXXX\" |\n| `sort_type` | string | No | Sort method, supports CONFIDENCE, NEW, TOP, HOT, CONTROVERSIAL, OLD, RANDOM |\n| `need_format` | boolean | No | Whether to clean and format the data |\n\n## Notes\n\n- Obtain `cursor` from the `more.cursor` field in prior comment response trees.\n- `post_id` requires the Reddit prefix format such as `t3_XXXXXX`.\n- `sort_type` accepts CONFIDENCE, NEW, TOP, HOT, CONTROVERSIAL, OLD, or RANDOM.\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [Reddit Subreddit Mute Status](/model/reddit/app/check-subreddit-muted): Checks whether a specified Reddit subreddit is muted by the current account using its ID.\n- [Reddit Community Highlights](/model/reddit/app/community-highlights): Returns featured highlight content for a designated Reddit community, such as popular posts and announcements, by subreddit ID.\n- [Reddit Search](/model/reddit/app/dynamic-search): Search Reddit posts, communities, comments, media and users with the Reddit app search.\n",
+  "page_url": "https://www.sandbase.ai/model/reddit/app/comment-replies",
+  "created_at": "2026-07-31T04:10:31.479Z"
+}

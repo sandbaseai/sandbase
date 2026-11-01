@@ -1,0 +1,57 @@
+{
+  "name": "pipixia/app/home-feed",
+  "display_name": "Pipixia App Home Feed",
+  "type": "api",
+  "vendor": "Pipixia",
+  "vendor_slug": "pipixia",
+  "description": "Returns recommended posts from the Pipixia home feed. Supports cursor-based pagination to browse subsequent pages of feed items.",
+  "tags": [
+    "api",
+    "pipixia"
+  ],
+  "capabilities": [
+    "api",
+    "pipixia"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/pipixia/app/home-feed"
+  },
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "cursor": {
+        "type": "string",
+        "title": "Cursor",
+        "default": "0",
+        "description": "Page cursor, default is 0, get the corresponding value from the `loadmore_cursor` Key in the previous page."
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.0015,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "examples": [
+    {
+      "input": {}
+    }
+  ],
+  "readme": "# Pipixia App Home Feed API\n\nAccess the Pipixia mobile home feed by passing an optional `cursor` parameter. It returns feed items including cell IDs, item contents, and timestamps.\n\n## Use cases\n\n- Browse trending content from the Pipixia recommendation stream.\n- Monitor newly posted media and text in the general feed.\n- Ingest public feed entries for community sentiment tracking.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/pipixia/app/home-feed\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `cursor` | string | No | Page cursor, default is 0, get the corresponding value from the `loadmore_cursor` Key in the previous page. |\n\n## Example response\n\nReal response for the request above, trimmed to the main fields. User names and long IDs are masked.\n\n```json\n{\n  \"data\": {\n    \"data\": [\n      {\n        \"cell_id\": 7648926325327010111,\n        \"cell_id_str\": \"7648926325327010111\",\n        \"cell_type\": 1,\n        \"city_name\": \"江苏\",\n        \"display_time\": 1780904439,\n        \"last_view_time\": 0,\n        \"item\": {\n          \"ancestor_id\": \"7648834223972817161\",\n          \"author_tags\": \"互互互\",\n          \"content\": \"怎么会事\",\n          \"create_time\": 1780904439,\n          \"duration\": 9.2,\n          \"item_cell_type\": 1\n        }\n      }\n    ]\n  }\n}\n```\n\n## Notes\n\n- Defaults to 0 for the initial page.\n- Pass the `loadmore_cursor` value from the previous response into `cursor` to retrieve subsequent pages.\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [Pipixia Hashtag Details](/model/pipixia/app/hashtag-detail): Retrieves metadata and profile assets for a specific Pipixia hashtag by its unique identifier.\n- [Pipixia Hashtag Post List](/model/pipixia/app/hashtag-post-list): Returns a list of posts associated with a specific hashtag on Pipixia.\n- [Pipixia Home Short Drama Feed](/model/pipixia/app/home-short-drama-feed): Returns short drama and novel recommendations from the Pipixia home feed.\n",
+  "page_url": "https://www.sandbase.ai/model/pipixia/app/home-feed",
+  "created_at": "2026-07-31T04:09:28.7Z"
+}

@@ -1,0 +1,158 @@
+{
+  "name": "kwaivgi/kling-video/v2.5-turbo/pro/text-to-video",
+  "display_name": "Kling V2.5 Turbo Pro Text to Video",
+  "type": "video",
+  "vendor": "KwaiVGI",
+  "vendor_slug": "kwaivgi",
+  "description": "Kling V2.5 Turbo Pro Text to Video by Kuaishou turns a text prompt into a 5 or 10 second 1080p video.",
+  "tags": [
+    "text-to-video"
+  ],
+  "capabilities": [
+    "text-to-video"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "prompt"
+    ],
+    "properties": {
+      "prompt": {
+        "type": "string",
+        "title": "Prompt",
+        "examples": [
+          "A noble lord walks among his people, his presence a comforting reassurance. He greets them with a gentle smile, embodying their hopes and earning their respect through simple interactions. The atmosphere is intimate and sincere, highlighting the bond between the leader and community."
+        ],
+        "maxLength": 2500
+      },
+      "duration": {
+        "enum": [
+          5,
+          10
+        ],
+        "type": "integer",
+        "title": "Duration",
+        "default": 5,
+        "description": "The duration of the generated video in seconds"
+      },
+      "aspect_ratio": {
+        "enum": [
+          "16:9",
+          "9:16",
+          "1:1"
+        ],
+        "type": "string",
+        "title": "Aspect Ratio",
+        "default": "16:9",
+        "description": "The aspect ratio of the generated image."
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "title": "GenerationResponse",
+    "required": [
+      "id",
+      "status"
+    ],
+    "properties": {
+      "id": {
+        "type": "string",
+        "description": "Unique identifier for the generation task."
+      },
+      "error": {
+        "type": "string",
+        "description": "Error message if the task failed. Empty on success."
+      },
+      "model": {
+        "type": "string",
+        "description": "Model ID used for the prediction."
+      },
+      "status": {
+        "enum": [
+          "pending",
+          "running",
+          "completed",
+          "failed",
+          "timeout"
+        ],
+        "type": "string",
+        "description": "Status of the task: pending, running, completed, failed, or timeout."
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "title": "OutputItem",
+          "required": [
+            "url"
+          ],
+          "properties": {
+            "url": {
+              "type": "string",
+              "examples": [
+                "https://static.sandbase.ai/examples/kwaivgi/mirrored/model_tests/kling/kling-v2.5-turbo-pro-text-to-video-output.mp4"
+              ],
+              "description": "The URL where the generated content can be downloaded from."
+            },
+            "content_type": {
+              "type": "string",
+              "description": "The MIME type of the output file."
+            }
+          }
+        },
+        "description": "Array of generated content. Empty when status is not completed."
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "formula",
+    "formula": "(params.duration ?? 5) * 0.07",
+    "formula_variables": [
+      "params.duration"
+    ],
+    "reference_price": 0.35,
+    "price_examples": [
+      {
+        "params": {
+          "duration": 5
+        },
+        "usd": 0.35
+      },
+      {
+        "params": {
+          "duration": 10
+        },
+        "usd": 0.7
+      }
+    ]
+  },
+  "examples": [
+    {
+      "input": {
+        "prompt": "A noble lord walks among his people, his presence a comforting reassurance. He greets them with a gentle smile, embodying their hopes and earning their respect through simple interactions. The atmosphere is intimate and sincere, highlighting the bond between the leader and community."
+      },
+      "output": [
+        {
+          "poster": "https://static.sandbase.ai/examples/posters/6745db0544bae13b5430.jpg",
+          "url": "https://static.sandbase.ai/examples/8d3a79d0-77d6-4bf4-9990-308622c1c6eb/output/582937a0-d99b-41b1-807d-a69396ebad8d.mp4"
+        }
+      ],
+      "default": true
+    }
+  ],
+  "readme": "# Kling V2.5 Turbo Pro Text to Video\n\nKling V2.5 Turbo Pro text-to-video: fast, low-cost 5 or 10 second clips without audio.\n\n## Fields\n\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `prompt` | string, required | — | Up to 2,500 characters. |\n| `aspect_ratio` | `16:9` / `9:16` / `1:1` | `16:9` | Output frame shape. |\n| `duration` | 5 / 10 | 5 | Output length in seconds. |\n\n## Billing\n\n$0.07 per output second.\n\n| Output | Price |\n|---|---|\n| 5s (default) | $0.35 |\n| 10s | $0.70 |\n\nFailed runs are not charged.\n\n## Prompting\n\n- Describe subject, action, camera move, and light in order.\n\n## Limits\n\n- Clips are 5 or 10 seconds; no audio.\n\n## Also on SandBase\n\nOther V2.5 Turbo endpoints: `kwaivgi/kling-video/v2.5-turbo/pro/image-to-video`, `kwaivgi/kling-video/v2.5-turbo/standard/image-to-video`.\n",
+  "cover_url": "https://static.sandbase.ai/covers/kwaivgi/kling-video/v2.5-turbo/pro/text-to-video/cover-flare-20261005022213.webp",
+  "page_url": "https://www.sandbase.ai/model/kwaivgi/kling-video/v2.5-turbo/pro/text-to-video",
+  "published_at": "2025-09-22T22:48:44.637Z",
+  "created_at": "2026-05-14T10:26:29.328Z"
+}

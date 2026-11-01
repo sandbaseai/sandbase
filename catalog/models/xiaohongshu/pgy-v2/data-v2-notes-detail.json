@@ -1,0 +1,95 @@
+{
+  "name": "xiaohongshu/pgy-v2/data-v2-notes-detail",
+  "display_name": "Xiaohongshu Pugongying Creator Note List",
+  "type": "api",
+  "vendor": "Xiaohongshu",
+  "vendor_slug": "xiaohongshu",
+  "description": "Get a paginated Xiaohongshu Pugongying creator note list with advertisement, sort-order, note-type, and third-platform filters. Use it to browse selected content from a known creator.",
+  "tags": [
+    "api",
+    "xiaohongshu",
+    "social-media"
+  ],
+  "capabilities": [
+    "api",
+    "xiaohongshu",
+    "social-media"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/xiaohongshu/pgy-v2/data-v2-notes-detail"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "userId"
+    ],
+    "properties": {
+      "userId": {
+        "type": "string",
+        "example": "64b898310000000014037b21",
+        "description": "KOL's user ID."
+      },
+      "noteType": {
+        "enum": [
+          "ALL",
+          "COOPERATION",
+          "PHOTO_TEXT",
+          "VIDEO"
+        ],
+        "type": "string",
+        "default": "ALL",
+        "description": "Type of note."
+      },
+      "orderType": {
+        "enum": [
+          "LATEST",
+          "MOST_READ",
+          "MOST_INTERACT"
+        ],
+        "type": "string",
+        "default": "LATEST",
+        "description": "Sorting order."
+      },
+      "pageNumber": {
+        "type": "integer",
+        "default": 1,
+        "description": "Page number."
+      },
+      "advertiseSwitch": {
+        "enum": [
+          "ALL",
+          "ORGANIC_ONLY"
+        ],
+        "type": "string",
+        "default": "ALL",
+        "description": "Advertisement filter."
+      },
+      "isThirdPlatform": {
+        "enum": [
+          "NO",
+          "YES"
+        ],
+        "type": "string",
+        "default": "NO",
+        "description": "Whether from third-party platform."
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.020833
+  },
+  "readme": "# Xiaohongshu Pugongying Creator Note List API\n\nGet a paginated Xiaohongshu Pugongying creator note list with advertisement, sort-order, note-type, and third-platform filters. Use it to browse selected content from a known creator.\n\nThe response is the platform's original data structure.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/xiaohongshu/pgy-v2/data-v2-notes-detail\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"userId\": \"64b898310000000014037b21\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `userId` | string | Yes | KOL's user ID. |\n| `advertiseSwitch` | string | No | Advertisement filter. |\n| `orderType` | string | No | Sorting order. |\n| `noteType` | string | No | Type of note. |\n| `isThirdPlatform` | string | No | Whether from third-party platform. |\n| `pageNumber` | integer | No | Page number. |\n\n## Pricing\n\nFlat price per call. Failed calls and empty results are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/xiaohongshu/pgy-v2/data-v2-notes-detail",
+  "created_at": "2026-10-29T12:28:52.714Z"
+}

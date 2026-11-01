@@ -1,0 +1,51 @@
+{
+  "name": "wechat-mp/account-basic-info",
+  "display_name": "WeChat MP Account Basic Info",
+  "type": "api",
+  "vendor": "WeChat MP",
+  "vendor_slug": "wechat-mp",
+  "description": "Get basic profile information for a WeChat Official Account by account name. Use it to identify or enrich a known account before article, ownership, or publishing research.",
+  "tags": [
+    "api",
+    "wechat-mp",
+    "social-media"
+  ],
+  "capabilities": [
+    "api",
+    "wechat-mp",
+    "social-media"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/wechat-mp/account-basic-info"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "name"
+    ],
+    "properties": {
+      "name": {
+        "type": "string",
+        "example": "人民日报",
+        "description": "WeChat Official Account name used to fetch basic profile information."
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.138889
+  },
+  "readme": "# WeChat MP Account Basic Info API\n\nGet basic profile information for a WeChat Official Account by account name. Use it to identify or enrich a known account before article, ownership, or publishing research.\n\nThe response is the platform's original data structure.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/wechat-mp/account-basic-info\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"name\": \"人民日报\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `name` | string | Yes | WeChat Official Account name used to fetch basic profile information. |\n\n## Pricing\n\nFlat price per call. Failed calls and empty results are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/wechat-mp/account-basic-info",
+  "created_at": "2026-10-29T12:17:10.824Z"
+}

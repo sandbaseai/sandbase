@@ -1,0 +1,76 @@
+{
+  "name": "douyin/index/content-publish-trend",
+  "display_name": "Douyin Content Volume Trend",
+  "type": "api",
+  "vendor": "Douyin",
+  "vendor_slug": "douyin",
+  "description": "Returns content posting volume trends over time for a specified category. Requires a category identifier alongside inclusive start and end dates.",
+  "tags": [
+    "api",
+    "douyin"
+  ],
+  "capabilities": [
+    "api",
+    "douyin"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/douyin/index/content-publish-trend"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "end_date",
+      "start_date",
+      "tag_id"
+    ],
+    "properties": {
+      "tag_id": {
+        "type": "string",
+        "title": "Tag Id",
+        "description": "Category ID (**required, does NOT support 0=all**, must pass a specific category ID)"
+      },
+      "end_date": {
+        "type": "string",
+        "title": "End Date",
+        "description": "End date YYYYMMDD (inclusive)"
+      },
+      "start_date": {
+        "type": "string",
+        "title": "Start Date",
+        "description": "Start date YYYYMMDD (inclusive)"
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.0015,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "examples": [
+    {
+      "input": {
+        "end_date": "20260927",
+        "start_date": "20260901",
+        "tag_id": "1"
+      },
+      "default": true
+    }
+  ],
+  "readme": "# Douyin Content Volume Trend API\n\nRetrieves category-level content posting volume trends for Douyin over a designated timeframe using `tag_id`, `start_date`, and `end_date`.\n\n## Use cases\n\n- Track content supply heat fluctuations for specific categories over time.\n- Compare posting frequency across different time windows.\n- Analyze category momentum and video upload dynamics.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/douyin/index/content-publish-trend\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"end_date\": \"1735660799\", \"start_date\": \"1730044800\", \"tag_id\": \"2027\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `tag_id` | string | Yes | Category ID (required, does NOT support 0=all, must pass a specific category ID) |\n| `end_date` | string | Yes | End date YYYYMMDD (inclusive) |\n| `start_date` | string | Yes | Start date YYYYMMDD (inclusive) |\n\n## Notes\n\n- `tag_id` requires a specific category identifier and does not support 0 for all categories.\n- `start_date` and `end_date` must be formatted as YYYYMMDD and are inclusive.\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [Douyin Index Area List](/model/douyin/index/all-area): Returns the complete list of supported geographic areas available for Douyin Index queries.\n- [Douyin Index Valid Dates](/model/douyin/index/all-valid-date): Returns the latest valid dates available for each data type in Douyin Index.\n- [Douyin Brand Popularity Cycles](/model/douyin/index/brand-cycles): Returns periodic brand popularity and cycle analysis data across platforms for a specified brand name and date range.\n",
+  "page_url": "https://www.sandbase.ai/model/douyin/index/content-publish-trend",
+  "created_at": "2026-07-31T02:37:39.274Z"
+}

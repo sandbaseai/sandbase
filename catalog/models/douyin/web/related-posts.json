@@ -1,0 +1,69 @@
+{
+  "name": "douyin/web/related-posts",
+  "display_name": "Douyin Related Posts Recommendations",
+  "type": "api",
+  "vendor": "Douyin",
+  "vendor_slug": "douyin",
+  "description": "Returns recommended related posts for a specific Douyin video. Supports pagination using a refresh index and customizable post count limits.",
+  "tags": [
+    "api",
+    "douyin"
+  ],
+  "capabilities": [
+    "api",
+    "douyin"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/douyin/web/related-posts"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "aweme_id"
+    ],
+    "properties": {
+      "count": {
+        "type": "integer",
+        "title": "Count",
+        "default": 20,
+        "example": 20,
+        "description": "Number, default is 20, it is recommended to keep it unchanged."
+      },
+      "aweme_id": {
+        "type": "string",
+        "title": "Aweme Id",
+        "example": "7393365489105358132",
+        "description": "Video id"
+      },
+      "refresh_index": {
+        "type": "integer",
+        "title": "Refresh Index",
+        "default": 1,
+        "example": 1,
+        "description": "Paging index, default is 1, then increase by 1 each time for paging."
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.0015,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "readme": "# Douyin Related Posts Recommendations API\n\nReturns recommended related Douyin posts based on a target video specified by `aweme_id`. Paginate through sequential recommendations using `refresh_index`.\n\n## Use cases\n\n- Discover recommended Douyin videos related to a specific post.\n- Build content recommendation feeds based on video context.\n- Retrieve sequential batches of related Douyin video suggestions.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/douyin/web/related-posts\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"aweme_id\": \"7393365489105358132\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `aweme_id` | string | Yes | Video id |\n| `count` | integer | No | Number, default is 20, it is recommended to keep it unchanged. |\n| `refresh_index` | integer | No | Paging index, default is 1, then increase by 1 each time for paging. |\n\n## Example response\n\nReal response for the request above, trimmed to the main fields. User names and long IDs are masked.\n\n```json\n{\n  \"aweme_list\": [\n    {\n      \"video\": {\n        \"bit_rate\": [\n          {\n            \"bit_rate\": 1048328,\n            \"gear_name\": \"normal_1080_0\",\n            \"quality_type\": 1\n          }\n        ]\n      }\n    }\n  ]\n}\n```\n\n## Notes\n\n- Provide the target video ID in `aweme_id`.\n- Paginate through results by incrementing `refresh_index` by 1, starting at 1.\n- The default value for `count` is 20.\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [Douyin Batch Video ID Extraction](/model/douyin/web/all-aweme-id): Extracts video IDs from a list of Douyin video URLs.\n- [Douyin sec_user_ids from URLs (Batch)](/model/douyin/web/all-sec-user-id): Extracts Douyin sec_user_id values in bulk from a list of user homepage URLs.\n- [Douyin Webcast ID Extraction](/model/douyin/web/all-webcast-id): Extracts webcast IDs from a submitted list of Douyin live room links.\n",
+  "page_url": "https://www.sandbase.ai/model/douyin/web/related-posts",
+  "created_at": "2026-07-31T02:40:19.986Z"
+}

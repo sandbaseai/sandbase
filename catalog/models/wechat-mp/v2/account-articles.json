@@ -1,0 +1,104 @@
+{
+  "name": "wechat-mp/v2/account-articles",
+  "display_name": "WeChat MP Account Articles",
+  "type": "api",
+  "vendor": "WeChat MP",
+  "vendor_slug": "wechat-mp",
+  "description": "Get the published articles of a WeChat official account by its gh_ username: titles, links, covers and post dates, one page at a time, including video and audio tabs.",
+  "tags": [
+    "api",
+    "wechat-mp"
+  ],
+  "capabilities": [
+    "api",
+    "wechat-mp"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/wechat-mp/v2/account-articles"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "username"
+    ],
+    "properties": {
+      "raw": {
+        "type": "boolean",
+        "title": "Raw",
+        "description": "Optional, default True. True=raw; False=simplified parsing."
+      },
+      "offset": {
+        "anyOf": [
+          {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9+/=_-]*$",
+            "maxLength": 8192
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "title": "Offset",
+        "description": "Optional pagination cursor (base64), **leave empty for the first page**; for the next page pass `next_offset` from the previous response. E.g. `CAMQChiS5KfRBiAKOJLkp9EGQABIAVgAYABwAQ==`"
+      },
+      "username": {
+        "type": "string",
+        "title": "Username",
+        "example": "gh_363b924965e9",
+        "pattern": "^gh_[A-Za-z0-9_]+$",
+        "maxLength": 64,
+        "description": "Official account `gh_username` (`gh_…`). E.g. `gh_363b924965e9`"
+      },
+      "page_size": {
+        "type": "integer",
+        "title": "Page Size",
+        "maximum": 20,
+        "minimum": 10,
+        "description": "Optional, default 20, range **10-20**. Articles per page."
+      },
+      "item_show_type": {
+        "anyOf": [
+          {
+            "type": "integer"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "title": "Item Show Type",
+        "description": "Optional content tab (matches the \"Articles / Videos / Audios\" tabs on the account homepage). Empty / `0`=articles (default), `5`=videos, `7`=audios, `8`=image-text posts. Omitting it = articles, behavior unchanged."
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.015,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "examples": [
+    {
+      "input": {
+        "raw": false,
+        "username": "gh_363b924965e9"
+      },
+      "default": true
+    }
+  ],
+  "readme": "# WeChat Official Account Articles API\n\nPass an official account `gh_…` username and get a page of its historical posts with title, URL, cover and publish time. Paginate with `next_offset`.\n\n## Use cases\n\n- Monitor new articles from competitor or media accounts.\n- Back-fill an account's archive for analysis or search.\n- Feed article URLs into the Article Detail API for full text.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/wechat-mp/v2/account-articles\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"username\": \"gh_363b924965e9\", \"raw\": false}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `username` | string | Yes | Official account `gh_username` (`gh_…`). |\n| `raw` | boolean | No | Optional, default True. |\n| `offset` | string | No | Optional pagination cursor (base64), leave empty for the first page; for the next page pass `next_offset` from the prev… |\n| `page_size` | integer | No | Optional, default 20, range 10-20. |\n| `item_show_type` | string | No | Optional content tab (matches the \"Articles / Videos / Audios\" tabs on the account homepage). |\n\n## Example response\n\nReal response for the request above, trimmed to the main fields. User names and long IDs are masked.\n\n```json\n{\n  \"count\": 10,\n  \"is_end\": 0,\n  \"next_offset\": \"<next_offset>\",\n  \"articles\": [\n    {\n      \"app_msg_id\": 2667038019,\n      \"title\": \"谁家的龙，一直坐着啊？\",\n      \"create_time\": 1791276963,\n      \"item_show_type\": 0,\n      \"is_paid\": 0,\n      \"url\": \"http://mp.weixin.qq.com/s?__biz=MjM5MjAxNDM4MA==&mid=266703…\",\n      \"cover\": \"https://mmbiz.qpic.cn/mmbiz_jpg/QaRWjMxooXtjiaLui…\"\n    }\n  ]\n}\n```\n\n## Notes\n\n- `is_end` truthy means the last page.\n- `item_show_type`: empty or 0 = articles, 5 = videos, 7 = audio.\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [WeChat MP Article Detail](/model/wechat-mp/v2/article-detail): Get a WeChat official account (MP) article from its URL: title, author, account, publish time, cover, full text and HTML content, and album info.\n- [Get WeChat MP Account Profile](/model/wechat-mp/v2/account-profile): Pass a `gh_username` to get the official account profile: name / avatar / description / verification entity type, etc..\n- [Get WeChat MP Article Ads](/model/wechat-mp/v2/article-ad): Pass an article URL to get the embedded ad slot info of the article..\n",
+  "page_url": "https://www.sandbase.ai/model/wechat-mp/v2/account-articles",
+  "created_at": "2026-07-31T04:20:42.389Z"
+}

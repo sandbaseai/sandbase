@@ -1,0 +1,62 @@
+{
+  "name": "kuaishou/app/one-user-v2",
+  "display_name": "Kuaishou Single User Data (V2)",
+  "type": "api",
+  "vendor": "Kuaishou",
+  "vendor_slug": "kuaishou",
+  "description": "Returns profile details and personal entrance configurations for a specific Kuaishou account using the target user identifier.",
+  "tags": [
+    "api",
+    "kuaishou"
+  ],
+  "capabilities": [
+    "api",
+    "kuaishou"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/kuaishou/app/one-user-v2"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "user_id"
+    ],
+    "properties": {
+      "user_id": {
+        "type": "string",
+        "title": "用户ID/User ID",
+        "example": "3795214411"
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.015,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "examples": [
+    {
+      "input": {
+        "user_id": "3795214411"
+      },
+      "default": true
+    }
+  ],
+  "readme": "# Kuaishou Single User Data (V2) API\n\nFetch account profile data and interface options on Kuaishou by specifying a target `user_id`.\n\n## Use cases\n\n- Inspect profile navigation and entrance settings for a Kuaishou user.\n- Verify account interface configurations within the Kuaishou app.\n- Integrate Kuaishou user profile metadata into analytics workflows.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/kuaishou/app/one-user-v2\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"user_id\": \"3795214411\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `user_id` | string | Yes | — |\n\n## Example response\n\nReal response for the request above, trimmed to the main fields. User names and long IDs are masked.\n\n```json\n{\n  \"userProfile\": {\n    \"personalEntrances\": [\n      {\n        \"entrances\": [\n          {\n            \"actionType\": 0,\n            \"entranceName\": \"分享主页\",\n            \"entranceType\": \"shareProfile\"\n          }\n        ]\n      }\n    ]\n  }\n}\n```\n\n## Notes\n\n- Requires a valid `user_id` to look up profile information.\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [Kuaishou Brand Top List](/model/kuaishou/app/brand-top-list): Returns top brand rankings and related live stream links from Kuaishou.\n- [Kuaishou App Share Link](/model/kuaishou/app/generate-share-link): Generates a shareable URL for Kuaishou application content using a specified object identifier.\n- [Kuaishou Hot Board Categories](/model/kuaishou/app/hot-board-categories): Returns the active list of hot board categories available in the Kuaishou app.\n",
+  "page_url": "https://www.sandbase.ai/model/kuaishou/app/one-user-v2",
+  "created_at": "2026-07-31T03:57:58.559Z"
+}

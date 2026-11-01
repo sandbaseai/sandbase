@@ -1,0 +1,47 @@
+{
+  "name": "alibaba/qwen3.8-omni-flash",
+  "display_name": "Qwen: Qwen3.8 Omni Flash",
+  "type": "llm",
+  "vendor": "Alibaba",
+  "vendor_slug": "alibaba",
+  "description": "Qwen3.8 Omni Flash is Alibaba's omni-modal reasoning model in the Qwen3.8 family, accepting text, image, audio and video input and returning text, with a 1M-token context window. Alibaba positions it for audio and video understanding and content analysis, including transcription-aware summarization, meeting and lecture review, and multimodal agent steps, with tool calling and adjustable reasoning effort. Pick Qwen3.8 Flash for text and image workloads that do not need audio or video input.",
+  "tags": [
+    "chat",
+    "vision",
+    "audio_input",
+    "reasoning",
+    "structured_output",
+    "function_calling"
+  ],
+  "capabilities": [
+    "chat",
+    "vision",
+    "audio_input",
+    "reasoning",
+    "structured_output",
+    "function_calling"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "chat_completions": "POST /v1/chat/completions",
+    "responses": "POST /v1/responses",
+    "messages": "POST /v1/messages"
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_token",
+    "per_million_tokens": {
+      "input": 0.15,
+      "output": 0.47,
+      "cache_read_multiplier": 0.1067,
+      "cache_write_multiplier": 1
+    }
+  },
+  "cover_url": "https://t0.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=https://www.alibabacloud.com&size=256",
+  "page_url": "https://www.sandbase.ai/model/alibaba/qwen3.8-omni-flash",
+  "published_at": "2026-09-18T00:00:00Z",
+  "created_at": "2026-10-07T23:13:12.717Z"
+}

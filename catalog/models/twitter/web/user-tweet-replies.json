@@ -1,0 +1,77 @@
+{
+  "name": "twitter/web/user-tweet-replies",
+  "display_name": "Twitter (X) User Tweet Replies",
+  "type": "api",
+  "vendor": "Twitter",
+  "vendor_slug": "twitter",
+  "description": "Returns a timeline of replies posted by a specific Twitter user. Filter by username and paginate through responses using cursor tokens.",
+  "tags": [
+    "api",
+    "twitter"
+  ],
+  "capabilities": [
+    "api",
+    "twitter"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/twitter/web/user-tweet-replies"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "screen_name"
+    ],
+    "properties": {
+      "cursor": {
+        "type": "string",
+        "title": "Cursor",
+        "description": "Cursor, default is None, used for paging, obtained from the last request"
+      },
+      "screen_name": {
+        "type": "string",
+        "title": "Screen Name",
+        "example": "NASA",
+        "description": "Screen Name, for example: elonmusk, can be obtained from the user's homepage link, for example: elonmusk in https://twitter.com/elonmusk"
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.0015,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "examples": [
+    {
+      "input": {
+        "screen_name": "example"
+      }
+    },
+    {
+      "input": {
+        "screen_name": "example"
+      }
+    },
+    {
+      "input": {
+        "screen_name": "example"
+      }
+    }
+  ],
+  "readme": "# Twitter (X) User Tweet Replies API\n\nRetrieve reply tweets from a designated account using the `screen_name` parameter. Pass a `cursor` value to paginate through earlier reply history.\n\n## Use cases\n\n- Monitor conversational engagement from a brand or competitor profile.\n- Archive customer support responses and thread interactions for a user.\n- Analyze communication patterns and reply volume across accounts.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/twitter/web/user-tweet-replies\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"screen_name\": \"NASA\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `screen_name` | string | Yes | Screen Name, for example: elonmusk, can be obtained from the user's homepage link, for example: elonmusk in https://twitter.com/elonmusk |\n| `cursor` | string | No | Cursor, default is None, used for paging, obtained from the last request |\n\n## Example response\n\nReal response for the request above, trimmed to the main fields. User names and long IDs are masked.\n\n```json\n{\n  \"timeline\": [\n    {\n      \"conversation_id\": \"2107095768821576019\",\n      \"in_reply_to_status_id_str\": \"2107095768821576019\",\n      \"text\": \"@NASA I know this is a replay. My brain still does the little 'please work' thing.\",\n      \"tweet_id\": \"2107144593343189432\",\n      \"views\": \"4115\",\n      \"author\": {\n        \"blue_verified\": true,\n        \"name\": \"Mohammed Siddiq\",\n        \"rest_id\": \"1913390828405628928\",\n        \"screen_name\": \"<user>\"\n      }\n    }\n  ]\n}\n```\n\n## Notes\n\n- `screen_name` can be extracted directly from a profile URL (for example, elonmusk from https://twitter.com/elonmusk).\n- Use the `cursor` returned from the prior response to navigate pagination.\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [Twitter (X) Latest Tweet Comments](/model/twitter/web/latest-post-comments): Returns recent replies and comment timelines for a specific post using its tweet ID, with cursor support for multi-page results.\n- [Twitter (X) Tweet Comments](/model/twitter/web/post-comments): Returns comment threads and replies under a specified tweet.\n- [Twitter (X) Retweet User List](/model/twitter/web/retweet-user-list): Returns a list of users who reposted a specific post using its tweet ID, including follower counts, media counts, and user identifiers.\n",
+  "page_url": "https://www.sandbase.ai/model/twitter/web/user-tweet-replies",
+  "created_at": "2026-07-31T04:19:44.044Z"
+}

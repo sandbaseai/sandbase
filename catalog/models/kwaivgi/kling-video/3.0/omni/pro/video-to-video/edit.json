@@ -1,0 +1,192 @@
+{
+  "name": "kwaivgi/kling-video/3.0/omni/pro/video-to-video/edit",
+  "display_name": "Kling 3.0 Omni Pro Video Edit",
+  "type": "video",
+  "vendor": "KwaiVGI",
+  "vendor_slug": "kwaivgi",
+  "description": "Kling 3.0 Omni Pro Video Edit by Kuaishou edits an input video from a text instruction, optionally guided by reference images, at 1080p.",
+  "tags": [
+    "video-to-video"
+  ],
+  "capabilities": [
+    "video-to-video"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "prompt",
+      "video"
+    ],
+    "properties": {
+      "video": {
+        "type": "string",
+        "title": "Video Url",
+        "examples": [
+          "https://static.sandbase.ai/examples/kwaivgi/kling-video/omni/pro/video-to-video/edit/output_url_1.mp4"
+        ],
+        "description": "Reference video URL. Only .mp4/.mov formats supported, 3-10 seconds duration, 720-2160px resolution, max 200MB.\n\nMax file size: 200.0MB, Min width: 720px, Min height: 720px, Max width: 2160px, Max height: 2160px, Min duration: 3.0s, Max duration: 10.05s, Min FPS: 24.0, Max FPS: 60.0, Timeout: 30.0s"
+      },
+      "images": {
+        "type": "array",
+        "items": {
+          "ui": {
+            "field": "image"
+          },
+          "type": "string",
+          "_fal_ui_field": "image",
+          "limit_description": "Max file size: 10.0MB, Min width: 300px, Min height: 300px, Min aspect ratio: 0.40, Max aspect ratio: 2.50, Timeout: 20.0s"
+        },
+        "title": "Image Urls",
+        "examples": [
+          "https://static.sandbase.ai/examples/kwaivgi/kling-video/omni/pro/video-to-video/edit/input_images_0.png"
+        ],
+        "description": "Reference images for style/appearance. Reference in prompt as @Image1, @Image2, etc. Maximum 4 total (elements + reference images) when using video."
+      },
+      "prompt": {
+        "type": "string",
+        "title": "Prompt",
+        "examples": [
+          "Replace the character in the video with @Element1, maintaining the same movements and camera angles. Transform the landscape into @Image1"
+        ],
+        "maxLength": 2500,
+        "description": "Use @Element1, @Element2 to reference elements and @Image1, @Image2 to reference images in order."
+      },
+      "elements": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "required": [
+            "frontal_image_url"
+          ],
+          "properties": {
+            "frontal_image_url": {
+              "type": "string",
+              "title": "Frontal Image Url",
+              "description": "The frontal image of the element (main view).\n\nMax file size: 10.0MB, Min width: 300px, Min height: 300px, Min aspect ratio: 0.40, Max aspect ratio: 2.50, Timeout: 20.0s"
+            },
+            "reference_image_urls": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "_fal_ui_field": "image",
+                "limit_description": "Max file size: 10.0MB, Min width: 300px, Min height: 300px, Min aspect ratio: 0.40, Max aspect ratio: 2.50, Timeout: 20.0s"
+              },
+              "title": "Reference Image Urls",
+              "description": "Additional reference images from different angles. 1-3 images supported. At least one image is required."
+            }
+          }
+        },
+        "title": "Elements",
+        "examples": [
+          {
+            "frontal_image_url": "https://static.sandbase.ai/examples/kwaivgi/kling-video/omni/pro/reference-to-video/input_element_0.png",
+            "reference_image_urls": [
+              "https://static.sandbase.ai/examples/kwaivgi/kling-video/omni/pro/reference-to-video/input_element_1.png",
+              "https://static.sandbase.ai/examples/kwaivgi/kling-video/omni/pro/reference-to-video/input_element_2.png"
+            ]
+          }
+        ],
+        "description": "Elements (characters/objects) to include. Reference in prompt as @Element1, @Element2, etc. Maximum 4 total (elements + reference images) when using video."
+      },
+      "keep_audio": {
+        "type": "boolean",
+        "title": "Keep Audio",
+        "default": false,
+        "description": "Whether to keep the original audio from the video."
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "title": "GenerationResponse",
+    "required": [
+      "id",
+      "status"
+    ],
+    "properties": {
+      "id": {
+        "type": "string",
+        "description": "Unique identifier for the generation task."
+      },
+      "error": {
+        "type": "string",
+        "description": "Error message if the task failed. Empty on success."
+      },
+      "model": {
+        "type": "string",
+        "description": "Model ID used for the prediction."
+      },
+      "status": {
+        "enum": [
+          "pending",
+          "running",
+          "completed",
+          "failed",
+          "timeout"
+        ],
+        "type": "string",
+        "description": "Status of the task: pending, running, completed, failed, or timeout."
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "title": "OutputItem",
+          "required": [
+            "url"
+          ],
+          "properties": {
+            "url": {
+              "type": "string",
+              "examples": [
+                "https://static.sandbase.ai/examples/kwaivgi/kling-video/omni/pro/video-to-video/edit/output_url_2.mp4"
+              ],
+              "description": "The URL where the generated content can be downloaded from."
+            },
+            "content_type": {
+              "type": "string",
+              "description": "The MIME type of the output file."
+            }
+          }
+        },
+        "description": "Array of generated content. Empty when status is not completed."
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "formula",
+    "formula": "(media_duration(params.video) ?? 15.0) * 0.168",
+    "formula_variables": [
+      "params.video"
+    ],
+    "reference_price": 0.84
+  },
+  "examples": [
+    {
+      "input": {
+        "prompt": "Replace the character in the video with @Element1, maintaining the same movements and camera angles. Transform the landscape into @Image1",
+        "video": "https://static.sandbase.ai/examples/d8e6723f-c5f2-49ea-8e92-d15dbfdb8702/input/e08df747-4f43-46f7-b259-dbfde5b1a6c6.mp4"
+      },
+      "output": [
+        {
+          "poster": "https://static.sandbase.ai/examples/posters/8e7d2cdb9f87b8e15531.jpg",
+          "url": "https://static.sandbase.ai/examples/d8e6723f-c5f2-49ea-8e92-d15dbfdb8702/output/852d22be-8bcd-4296-8447-455850a6965d.mp4"
+        }
+      ],
+      "default": true
+    }
+  ],
+  "readme": "# Kling 3.0 Omni Pro Video Edit\n\nKling 3.0 Omni Pro video edit: change an existing clip with an instruction and optional reference images, keeping its motion and timing.\n\n## Fields\n\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `prompt` | string, required | — | Up to 2,500 characters. |\n| `images` | image URL[] | — | Optional reference images, @Image1, … |\n| `video` | video URL, required | — | Source clip, @Video1 in the prompt. |\n| `elements` | object[] | — | Optional character or object elements to keep consistent. |\n| `keep_audio` | boolean | false | Keep the source video's audio track. |\n\n## Billing\n\n$0.168 per second of the source video. The quote before submission assumes 15 seconds; the final charge uses the measured length.\n\n| Source clip | Price |\n|---|---|\n| 3s source | $0.504 |\n| 5s source | $0.84 |\n| 10s source | $1.68 |\n| 15s source | $2.52 |\n\nFailed runs are not charged.\n\n## Prompting\n\n- Lead with the change and say what must stay.\n\n## Limits\n\n- Output length follows the source.\n\n## Also on SandBase\n\nOther Kling 3.0 Omni endpoints: `kwaivgi/kling-video/3.0/omni/pro/image-to-video`, `kwaivgi/kling-video/3.0/omni/pro/reference-to-video`.\n",
+  "cover_url": "https://static.sandbase.ai/covers/kwaivgi/kling-video/3.0/omni/pro/video-to-video/edit/cover-flare-20261004221747.webp",
+  "page_url": "https://www.sandbase.ai/model/kwaivgi/kling-video/3.0/omni/pro/video-to-video/edit",
+  "created_at": "2026-07-03T08:26:07.856Z"
+}

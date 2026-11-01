@@ -1,0 +1,56 @@
+{
+  "name": "douban/subject-detail",
+  "display_name": "Douban Subject Details",
+  "type": "api",
+  "vendor": "Douban",
+  "vendor_slug": "douban",
+  "description": "Get the public detail page data for a Douban movie or TV subject by subject ID. Use it to inspect a known title before requesting its reviews or comments.",
+  "tags": [
+    "api",
+    "douban",
+    "entertainment"
+  ],
+  "capabilities": [
+    "api",
+    "douban",
+    "entertainment"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/douban/subject-detail"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "subjectId"
+    ],
+    "properties": {
+      "subjectId": {
+        "type": "string",
+        "example": "1292052",
+        "description": "The unique ID for a movie or TV subject on Douban."
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.013889,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "readme": "# Douban Subject Details API\n\nGet the public detail page data for a Douban movie or TV subject by subject ID. Use it to inspect a known title before requesting its reviews or comments.\n\nThe response is the platform's original data structure.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/douban/subject-detail\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"subjectId\": \"1292052\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `subjectId` | string | Yes | The unique ID for a movie or TV subject on Douban. |\n\n## Pricing\n\nFlat price per call. Failed calls and empty results are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/douban/subject-detail",
+  "created_at": "2026-10-29T12:00:02.283Z"
+}

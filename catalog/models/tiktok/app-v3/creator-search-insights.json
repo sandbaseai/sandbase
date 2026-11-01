@@ -1,0 +1,105 @@
+{
+  "name": "tiktok/app-v3/creator-search-insights",
+  "display_name": "TikTok Creator Search Insights",
+  "type": "api",
+  "vendor": "TikTok",
+  "vendor_slug": "tiktok",
+  "description": "Get TikTok Creator Search Insights: trending search queries with popularity scores, trend history and video counts, including content-gap topics, by category and language.",
+  "tags": [
+    "api",
+    "tiktok"
+  ],
+  "capabilities": [
+    "api",
+    "tiktok"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/tiktok/app-v3/creator-search-insights"
+  },
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "tab": {
+        "type": "string",
+        "title": "Tab",
+        "default": "all",
+        "example": "all",
+        "description": "Tab type (all/content_gap/follower_searched/life_style/topics/challenges/sounds/hashtags)"
+      },
+      "limit": {
+        "type": "integer",
+        "title": "Limit",
+        "default": 20,
+        "example": 1,
+        "description": "Number per page, default 20"
+      },
+      "offset": {
+        "type": "integer",
+        "title": "Offset",
+        "default": 0,
+        "example": 0,
+        "description": "Pagination offset, default 0"
+      },
+      "force_refresh": {
+        "type": "boolean",
+        "title": "Force Refresh",
+        "default": false,
+        "example": false,
+        "description": "Force refresh, default False"
+      },
+      "creator_source": {
+        "type": "string",
+        "title": "Creator Source",
+        "default": "general_search",
+        "example": "general_search",
+        "description": "Creator source, default \"general_search\""
+      },
+      "category_filters": {
+        "type": "string",
+        "title": "Category Filters",
+        "default": "",
+        "example": "",
+        "description": "Category filters, separated by comma, options: Gaming, Fashion, Tourism, Science, Food, Sports"
+      },
+      "language_filters": {
+        "type": "string",
+        "title": "Language Filters",
+        "default": "en",
+        "example": "en",
+        "description": "Language filters, separated by comma, options: id, de, en, es, fr, pt, vi, tr, ar, th, ja, ko"
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.0015,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "examples": [
+    {
+      "input": {
+        "language_filters": "en",
+        "limit": 10,
+        "offset": 0,
+        "tab": "all"
+      }
+    }
+  ],
+  "readme": "# TikTok Creator Search Insights API\n\nFetch the search topics TikTok shows creators in Creator Search Insights. Each query includes a popularity score, a recent trend series and how many videos already cover it.\n\n## Use cases\n\n- Find trending search topics to create content for.\n- Spot content gaps with high demand and few videos (`tab=content_gap`).\n- Track topic popularity by category and language.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/tiktok/app-v3/creator-search-insights\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `tab` | string | No | Tab type (all/content_gap/follower_searched/life_style/topics/challenges/sounds/hashtags) |\n| `limit` | integer | No | Number per page, default 20 |\n| `offset` | integer | No | Pagination offset, default 0 |\n| `force_refresh` | boolean | No | Force refresh, default False |\n| `creator_source` | string | No | Creator source, default \"general_search\" |\n| `category_filters` | string | No | Category filters, separated by comma, options: Gaming, Fashion, Tourism, Science, Food, Sports |\n| `language_filters` | string | No | Language filters, separated by comma, options: id, de, en, es, fr, pt, vi, tr, ar, th, ja, ko |\n\n## Example response\n\nReal response for the request above, trimmed to the main fields. User names and long IDs are masked.\n\n```json\n{\n  \"has_more\": true,\n  \"cursor\": 20,\n  \"inspiration_list\": [\n    {\n      \"query_text\": \"new account on tiktok\",\n      \"query_id_str\": \"7449584484497752069\",\n      \"popularity\": 72,\n      \"popularity_v2\": 202860,\n      \"video_num\": 123206,\n      \"trending_seq\": [\n        80,\n        80,\n        79,\n        75,\n        74,\n        80,\n        72\n      ],\n      \"inspiration_types\": [\n        \"search\"\n      ]\n    }\n  ]\n}\n```\n\n## Notes\n\n- `tab`: all, content_gap, follower_searched, life_style, topics, challenges, sounds or hashtags.\n- Filter with `category_filters` (e.g. Gaming, Fashion) and `language_filters` (e.g. en, es).\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [TikTok LIVE Status](/model/tiktok/app-v3/check-live-room-online): Check if live room is online The Room ID of the live room can be obtained from the `/api/v1/tiktok/web/get_live_room_id` interface through the live room link.\n- [Batch check if live rooms are online](/model/tiktok/app-v3/check-live-room-online-batch): Batch check TikTok live rooms' online status, supports up to 50 room IDs Room IDs can be retrieved from `/api/v1/tiktok/web/get_live_room_id`.\n- [Get content translation data](/model/tiktok/app-v3/content-translate): Get content translation data.\n",
+  "page_url": "https://www.sandbase.ai/model/tiktok/app-v3/creator-search-insights",
+  "created_at": "2026-07-31T02:43:46.427Z"
+}

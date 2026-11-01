@@ -1,0 +1,75 @@
+{
+  "name": "tiktok/ad-library-ad",
+  "display_name": "TikTok Ad Library Ad",
+  "type": "api",
+  "vendor": "TikTok",
+  "vendor_slug": "tiktok",
+  "description": "Fetch full details for a single TikTok ad (brand, title, spend, CTR, objectives, landing page, and video info).",
+  "tags": [
+    "api",
+    "tiktok",
+    "social-media"
+  ],
+  "capabilities": [
+    "api",
+    "tiktok",
+    "social-media"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/tiktok/ad-library-ad"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "adId"
+    ],
+    "properties": {
+      "adId": {
+        "type": "string",
+        "example": "7648493525660270600",
+        "description": "TikTok Top Ads material/ad ID, or a Top Ads detail URL (e.g. 7648493525660270600)."
+      }
+    },
+    "additionalProperties": false
+  },
+  "response_schema": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string"
+      },
+      "model": {
+        "type": "string"
+      },
+      "status": {
+        "type": "string"
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "data": {
+              "type": "object",
+              "description": "Normalized result for this request."
+            }
+          }
+        }
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "usage_based",
+    "note": "Billed per call from metered usage; the reference price is typical.",
+    "reference_price": 0.0012
+  },
+  "readme": "# TikTok Ad Library Ad API\n\nFetch full details for a single TikTok ad (brand, title, spend, CTR, objectives, landing page, and video info).\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/tiktok/ad-library-ad\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"adId\": \"7648493525660270600\"}'\n```\n\nThe result is returned in `outputs[0].data`. A lookup that finds nothing still succeeds and returns `found: false`.\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `adId` | string | Yes | TikTok Top Ads material/ad ID, or a Top Ads detail URL (e.g. 7648493525660270600). |\n\n## Pricing\n\nBilled at the actual cost of each call, usually $0.0012 per request. A call can cost more when the first data source fails and another one answers. Failed calls are not charged. Lookups that find nothing and searches with no results are billed at their actual cost, which is often lower and can be $0.\n",
+  "page_url": "https://www.sandbase.ai/model/tiktok/ad-library-ad",
+  "created_at": "2026-11-01T12:29:39.176Z"
+}

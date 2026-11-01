@@ -1,0 +1,79 @@
+{
+  "name": "telegram/web/channel-search",
+  "display_name": "Telegram Channel Post Search",
+  "type": "api",
+  "vendor": "Telegram",
+  "vendor_slug": "telegram",
+  "description": "Returns messages matching a search keyword from a specific Telegram channel. Filter results using channel username, query term, and result limit.",
+  "tags": [
+    "api",
+    "telegram"
+  ],
+  "capabilities": [
+    "api",
+    "telegram"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/telegram/web/channel-search"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "channel",
+      "query"
+    ],
+    "properties": {
+      "limit": {
+        "type": "integer",
+        "title": "Limit",
+        "default": 20,
+        "maximum": 100,
+        "minimum": 1,
+        "description": "Number of hits (1-100, default 20)."
+      },
+      "query": {
+        "type": "string",
+        "title": "Query",
+        "example": "privacy",
+        "description": "Keyword (required)."
+      },
+      "channel": {
+        "type": "string",
+        "title": "Channel",
+        "example": "telegram",
+        "description": "Channel username (required)."
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.0015,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "examples": [
+    {
+      "input": {
+        "channel": "telegram",
+        "query": "privacy"
+      },
+      "default": true
+    }
+  ],
+  "readme": "# Telegram Channel Post Search API\n\nSearch for messages within a target Telegram channel matching a `query` string using the channel username in `channel`.\n\n## Use cases\n\n- Search channel history for specific topic mentions or announcements.\n- Locate media posts matching specific keyword queries within a channel.\n- Track historical coverage of particular terms across a channel feed.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/telegram/web/channel-search\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"channel\": \"telegram\", \"query\": \"privacy\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `query` | string | Yes | Keyword (required). |\n| `channel` | string | Yes | Channel username (required). |\n| `limit` | integer | No | Number of hits (1-100, default 20). |\n\n## Example response\n\nReal response for the request above, trimmed to the main fields. User names and long IDs are masked.\n\n```json\n{\n  \"messages\": [\n    {\n      \"author\": \"Telegram News\",\n      \"date\": \"2026-07-19T17:57:15+00:00\",\n      \"id\": 450,\n      \"text\": \"⭐️ Rich Text Editor. You can now create articles and long posts in a visual editor that s…\",\n      \"text_html\": \"⭐️ Rich Text Editor. You can now create articles and long posts in a visual editor that s…\",\n      \"type\": \"video\",\n      \"url\": \"https://t.me/telegram/450\",\n      \"views\": \"1.25M\"\n    }\n  ]\n}\n```\n\n## Notes\n\n- Accepts a `limit` between 1 and 100 hits, with a default of 20.\n- Keyword matching through `query` is case-insensitive.\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [Telegram Batch Channel Info](/model/telegram/web/batch-channel-info): Returns basic channel profile details including title, description, and verified status for multiple public Telegram channels at once.\n- [Telegram Channel Info](/model/telegram/web/channel-info): Returns public metadata for a Telegram channel, including title, description, verified status, and username, using the public web preview.\n- [Telegram Channel Posts](/model/telegram/web/channel-posts): Get a public Telegram channel's recent posts: text, media, forwards, replies, link previews, reactions, views and time, with cursor pagination.\n",
+  "page_url": "https://www.sandbase.ai/model/telegram/web/channel-search",
+  "created_at": "2026-07-31T04:11:47.877Z"
+}

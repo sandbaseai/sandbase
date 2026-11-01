@@ -1,0 +1,42 @@
+{
+  "name": "alibaba/qwen3.8-2.4t-a95b",
+  "display_name": "Qwen: Qwen3.8 2.4T A95B",
+  "type": "llm",
+  "vendor": "Alibaba",
+  "vendor_slug": "alibaba",
+  "description": "Qwen3.8 2.4T A95B is the open-weight release of Alibaba's Qwen3.8 Max-class model, a sparse Mixture-of-Experts with 2.4 trillion total and about 95 billion active parameters, published in August 2026 as the first Qwen-Max-class open model. It targets coding, professional work, research and long-horizon agentic tasks, with tunable reasoning depth. Alibaba's hosted Qwen3.8 Max builds on it and adds vision input, a non-thinking mode and official built-in tools.",
+  "tags": [
+    "chat",
+    "reasoning",
+    "structured_output",
+    "function_calling"
+  ],
+  "capabilities": [
+    "chat",
+    "reasoning",
+    "structured_output",
+    "function_calling"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "chat_completions": "POST /v1/chat/completions",
+    "responses": "POST /v1/responses",
+    "messages": "POST /v1/messages"
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_token",
+    "per_million_tokens": {
+      "input": 2,
+      "output": 6,
+      "cache_read_multiplier": 0.125,
+      "cache_write_multiplier": 1.25
+    }
+  },
+  "page_url": "https://www.sandbase.ai/model/alibaba/qwen3.8-2.4t-a95b",
+  "published_at": "2026-08-12T16:21:42Z",
+  "created_at": "2026-08-13T13:45:09.556Z"
+}

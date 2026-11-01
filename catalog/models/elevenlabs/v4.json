@@ -1,0 +1,219 @@
+{
+  "name": "elevenlabs/v4",
+  "display_name": "ElevenLabs Eleven v4",
+  "type": "audio",
+  "vendor": "ElevenLabs",
+  "vendor_slug": "elevenlabs",
+  "description": "Eleven v4 is ElevenLabs' most expressive text-to-speech model, with natural pacing, emotion and multilingual delivery.",
+  "tags": [
+    "text-to-speech"
+  ],
+  "capabilities": [
+    "text-to-speech"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "text"
+    ],
+    "properties": {
+      "seed": {
+        "type": "integer",
+        "title": "Seed",
+        "maximum": 4294967295,
+        "minimum": 0,
+        "description": "Seed for best-effort reproducibility. Identical output is not guaranteed."
+      },
+      "text": {
+        "type": "string",
+        "title": "Text",
+        "examples": [
+          "[excited] Hello! Welcome to Eleven v4."
+        ],
+        "maxLength": 5000,
+        "minLength": 1,
+        "description": "The text to convert to speech. Supports audio tags such as [whispering] and IPA pronunciation enclosed in forward slashes."
+      },
+      "voice": {
+        "type": "string",
+        "title": "Voice",
+        "default": "Rachel",
+        "examples": [
+          "Aria",
+          "Roger",
+          "Sarah",
+          "Laura",
+          "Charlie",
+          "George",
+          "Callum",
+          "River",
+          "Liam",
+          "Charlotte",
+          "Alice",
+          "Matilda",
+          "Will",
+          "Jessica",
+          "Eric",
+          "Chris",
+          "Brian",
+          "Daniel",
+          "Lily",
+          "Bill"
+        ],
+        "description": "The voice to use for speech generation"
+      },
+      "stability": {
+        "type": "number",
+        "title": "Stability",
+        "default": 0.5,
+        "maximum": 1,
+        "minimum": 0,
+        "description": "Voice stability. Lower values allow more expressive delivery; higher values make delivery more consistent."
+      },
+      "timestamps": {
+        "type": "boolean",
+        "title": "Timestamps",
+        "default": false,
+        "description": "Whether to return character-level timing information with the generated audio."
+      },
+      "language_code": {
+        "type": "string",
+        "title": "Language Code",
+        "description": "Language code (ISO 639-1) for speech generation and text normalization."
+      },
+      "output_format": {
+        "enum": [
+          "mp3_22050_32",
+          "mp3_44100_32",
+          "mp3_44100_64",
+          "mp3_44100_96",
+          "mp3_44100_128",
+          "mp3_44100_192",
+          "opus_48000_32",
+          "opus_48000_64",
+          "opus_48000_96",
+          "opus_48000_128",
+          "opus_48000_192"
+        ],
+        "type": "string",
+        "title": "Output Format",
+        "default": "mp3_44100_128",
+        "description": "Output format of the generated audio. Formatted as codec_sample_rate_bitrate."
+      },
+      "similarity_boost": {
+        "type": "number",
+        "title": "Similarity Boost",
+        "default": 0.75,
+        "maximum": 1,
+        "minimum": 0,
+        "description": "How closely the output follows the reference voice. Higher values increase similarity but may reduce naturalness."
+      },
+      "apply_text_normalization": {
+        "enum": [
+          "auto",
+          "on",
+          "off"
+        ],
+        "type": "string",
+        "title": "Apply Text Normalization",
+        "default": "auto",
+        "description": "Whether to normalize text such as numbers and dates before generation."
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "title": "GenerationResponse",
+    "required": [
+      "id",
+      "status"
+    ],
+    "properties": {
+      "id": {
+        "type": "string",
+        "description": "Unique identifier for the generation task."
+      },
+      "error": {
+        "type": "string",
+        "description": "Error message if the task failed. Empty on success."
+      },
+      "model": {
+        "type": "string",
+        "description": "Model ID used for the prediction."
+      },
+      "status": {
+        "enum": [
+          "pending",
+          "running",
+          "completed",
+          "failed",
+          "timeout"
+        ],
+        "type": "string",
+        "description": "Status of the task: pending, running, completed, failed, or timeout."
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "title": "OutputItem",
+          "required": [
+            "url"
+          ],
+          "properties": {
+            "url": {
+              "type": "string",
+              "description": "The URL where the generated content can be downloaded from."
+            },
+            "content_type": {
+              "type": "string",
+              "description": "The MIME type of the output file."
+            }
+          }
+        },
+        "description": "Array of generated content. Empty when status is not completed."
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "formula",
+    "formula": "Math.max(1.0, Math.ceil(len(params.text ?? \"\") / 1000.0)) * 0.08",
+    "formula_variables": [
+      "params.text"
+    ],
+    "reference_price": 0.08,
+    "price_examples": [
+      {
+        "params": {},
+        "usd": 0.08
+      }
+    ]
+  },
+  "examples": [
+    {
+      "input": {
+        "text": "Hello from SandBase."
+      },
+      "output": [
+        {
+          "url": "https://static.sandbase.ai/examples/a91f9ea2-f4df-460f-9079-09a57c008ace/output/1fcde1ee-10a2-4696-9f2d-ab30225f46b1.mp3"
+        }
+      ],
+      "default": true
+    }
+  ],
+  "readme": "# ElevenLabs Eleven v4\n\nEleven v4, ElevenLabs' most expressive TTS model, with natural pacing, emotion, and multilingual delivery.\n\n## Fields\n\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `text` | string, required | — | Text to speak. |\n| `output_format` | `mp3_22050_32` / `mp3_44100_32` / `mp3_44100_64` / `mp3_44100_96` / `mp3_44100_128` / `mp3_44100_192` / `opus_48000_32` / `opus_48000_64` / `opus_48000_96` / `opus_48000_128` / `opus_48000_192` | `mp3_44100_128` | Output file format. |\n| `seed` | integer 0–4294967295 | random | Fix it to compare prompt changes. |\n| `similarity_boost` | number 0–1 | 0.75 | How closely to match the voice. |\n| `language_code` | string | — | Force a language. |\n| `apply_text_normalization` | `auto` / `on` / `off` | `auto` | Whether to normalize text such as numbers and dates before generation. |\n| `stability` | number 0–1 | 0.5 | Lower is more expressive; higher is more consistent. |\n| `voice` | string | `Rachel` | Voice name or ID. |\n| `timestamps` | boolean | false | Return word timings. |\n\n## Billing\n\n$0.08 per started 1,000 characters, with a one-unit minimum.\n\n| Text | Price |\n|---|---|\n| 200 characters | $0.08 |\n| 1,000 characters | $0.08 |\n| 2,500 characters | $0.24 |\n\nFailed runs are not charged.\n\n## Prompting\n\n- Use punctuation and line breaks to shape pauses.\n\n## Also on SandBase\n\nOther ElevenLabs voices: `elevenlabs/v4-turbo`, `elevenlabs/v3`, `elevenlabs/multilingual-v2`.\n",
+  "cover_url": "https://static.sandbase.ai/covers/elevenlabs/v4/cover-flare-20261008043930.webp",
+  "page_url": "https://www.sandbase.ai/model/elevenlabs/v4",
+  "published_at": "2026-09-28T17:45:23.835Z",
+  "created_at": "2026-10-06T10:43:24.132Z"
+}

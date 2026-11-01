@@ -1,0 +1,62 @@
+{
+  "name": "youtube/web/channel-info",
+  "display_name": "YouTube Channel Information",
+  "type": "api",
+  "vendor": "YouTube",
+  "vendor_slug": "youtube",
+  "description": "Returns profile details and external links for a specified YouTube channel. Look up channel data using a channel identifier.",
+  "tags": [
+    "api",
+    "youtube"
+  ],
+  "capabilities": [
+    "api",
+    "youtube"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/youtube/web/channel-info"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "channel_id"
+    ],
+    "properties": {
+      "channel_id": {
+        "type": "string",
+        "title": "Channel Id",
+        "example": "UCXuqSBlHAE6Xw-yeJA0Tunw",
+        "description": "Channel ID."
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.0015,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "examples": [
+    {
+      "input": {
+        "channel_id": "UCXuqSBlHAE6Xw-yeJA0Tunw"
+      }
+    }
+  ],
+  "readme": "# YouTube Channel Information API\n\nRetrieve channel profile data and associated links by providing a valid `channel_id`.\n\n## Use cases\n\n- Look up public links and metadata associated with a YouTube channel.\n- Audit channel information and external web links.\n- Collect channel details for creator research and monitoring.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/youtube/web/channel-info\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"channel_id\": \"UCXuqSBlHAE6Xw-yeJA0Tunw\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `channel_id` | string | Yes | Channel ID. |\n\n## Example response\n\nReal response for the request above, trimmed to the main fields. User names and long IDs are masked.\n\n```json\n{\n  \"links\": [\n    {\n      \"name\": \"lttstore.com\"\n    }\n  ]\n}\n```\n\n## Notes\n\n- Requires a valid `channel_id` representing the target YouTube channel.\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [YouTube Channel ID Lookup](/model/youtube/web/channel-id): Retrieves the unique YouTube channel ID associated with a specific channel name.\n- [YouTube Channel ID from URL (V2)](/model/youtube/web/channel-id-v2): Resolves a YouTube channel URL into its unique channel ID and standardized channel URL.\n- [YouTube Channel Short Videos](/model/youtube/web/channel-short-videos): Returns a list of YouTube Shorts from a specified channel.\n",
+  "page_url": "https://www.sandbase.ai/model/youtube/web/channel-info",
+  "created_at": "2026-07-31T04:26:00.267Z"
+}

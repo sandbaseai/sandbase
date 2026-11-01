@@ -1,0 +1,84 @@
+{
+  "name": "weibo/app/status-comments",
+  "display_name": "Weibo Post Comments (App)",
+  "type": "api",
+  "vendor": "Weibo",
+  "vendor_slug": "weibo",
+  "description": "Returns the first-level comments for a designated post or video on Weibo. Supports sorting options and cursor-based pagination for browsing discussion threads.",
+  "tags": [
+    "api",
+    "weibo"
+  ],
+  "capabilities": [
+    "api",
+    "weibo"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/weibo/app/status-comments"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "status_id"
+    ],
+    "properties": {
+      "max_id": {
+        "anyOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "title": "Max Id",
+        "example": null,
+        "description": "Pagination cursor, don't pass for first request, use returned max_id for subsequent requests"
+      },
+      "sort_type": {
+        "type": "string",
+        "title": "Sort Type",
+        "default": "0",
+        "example": "0",
+        "description": "Comment sort type"
+      },
+      "status_id": {
+        "type": "string",
+        "title": "Status Id",
+        "example": "5258708168476831",
+        "description": "Post ID or Video ID (required)"
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.0015,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "examples": [
+    {
+      "input": {
+        "max_id": null,
+        "sort_type": "0",
+        "status_id": "5258708168476831"
+      }
+    }
+  ],
+  "readme": "# Weibo Post Comments (App) API\n\nRetrieve top-level comments for a specific post or video using its `status_id`. You can paginate through responses and control comment ordering.\n\n## Use cases\n\n- Display top-level user comments under a Weibo post or video.\n- Track audience sentiment and reactions on specific Weibo discussions.\n- Extract discussion threads for social listening and community analysis.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/weibo/app/status-comments\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"status_id\": \"5258708168476831\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `status_id` | string | Yes | Post ID or Video ID (required) |\n| `max_id` | string | No | Pagination cursor, don't pass for first request, use returned max_id for subsequent requests |\n| `sort_type` | string | No | Comment sort type |\n\n## Example response\n\nReal response for the request above, trimmed to the main fields. User names and long IDs are masked.\n\n```json\n{\n  \"items\": [\n    {\n      \"category\": \"detail\",\n      \"type\": \"comment_header_tip\",\n      \"data\": {\n        \"tip_biz_type\": 0,\n        \"tip_type\": 3\n      }\n    }\n  ]\n}\n```\n\n## Notes\n\n- Pagination is handled via `max_id`; omit it on the initial call and pass the returned value for subsequent requests.\n- Use `sort_type` to specify the ordering of the returned comments.\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [Weibo App AI Smart Search](/model/weibo/app/ai-smart-search): Returns AI smart search channel results and feed metadata from Weibo for a specified keyword query, with optional page-based pagination.\n- [Weibo Home Recommend Feed](/model/weibo/app/home-recommend-feed): Returns recommended feed items from the Weibo app homepage, with options to paginate and specify the number of items per request.\n- [Weibo Hot Search Rankings](/model/weibo/app/hot-search): Returns current Weibo hot search rankings across various categories.\n",
+  "page_url": "https://www.sandbase.ai/model/weibo/app/status-comments",
+  "created_at": "2026-07-31T02:44:49.941Z"
+}

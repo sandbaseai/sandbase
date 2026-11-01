@@ -1,0 +1,330 @@
+{
+  "name": "kwaivgi/kling-video/o3/standard/reference-to-video",
+  "display_name": "Kling O3 Standard Reference to Video",
+  "type": "video",
+  "vendor": "KwaiVGI",
+  "vendor_slug": "kwaivgi",
+  "description": "Kling O3 Standard Reference to Video by Kuaishou generates a 3-15 second 720p video that keeps characters and objects from reference images consistent with optional native audio.",
+  "tags": [
+    "reference-to-video"
+  ],
+  "capabilities": [
+    "reference-to-video"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "prompt",
+      "image"
+    ],
+    "properties": {
+      "image": {
+        "type": "string",
+        "title": "Start Image Url",
+        "examples": [
+          "https://static.sandbase.ai/examples/alibaba/wan/2.2/speech-to-video/input_image_0.png"
+        ],
+        "description": "Image to use as the first frame of the video."
+      },
+      "images": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        },
+        "title": "Image Urls",
+        "examples": [
+          "https://static.sandbase.ai/examples/alibaba/wan/2.2/speech-to-video/input_image_0.png"
+        ],
+        "maxItems": 6,
+        "description": "Additional reference image URLs. Together with `image`, at most 7 images are accepted; do not repeat `image` in this list."
+      },
+      "prompt": {
+        "type": "string",
+        "title": "Prompt",
+        "examples": [
+          "@Element1 and @Element2 is having dinner at this table on @Image1"
+        ],
+        "maxLength": 2500,
+        "description": "Text prompt for video generation. Either prompt or multi_prompt must be provided, but not both."
+      },
+      "duration": {
+        "enum": [
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15
+        ],
+        "type": "integer",
+        "title": "Duration",
+        "default": 5,
+        "examples": [
+          8
+        ],
+        "description": "Video duration in seconds (3-15s)."
+      },
+      "end_image": {
+        "type": "string",
+        "title": "End Image Url",
+        "description": "Image to use as the last frame of the video."
+      },
+      "shot_type": {
+        "enum": [
+          "customize",
+          "intelligent"
+        ],
+        "type": "string",
+        "title": "Shot Type",
+        "default": "customize",
+        "description": "The type of multi-shot video generation. 'intelligent' lets the model automatically determine shot structure."
+      },
+      "aspect_ratio": {
+        "enum": [
+          "16:9",
+          "9:16",
+          "1:1"
+        ],
+        "type": "string",
+        "title": "Aspect Ratio",
+        "default": "16:9",
+        "description": "The aspect ratio of the generated image."
+      },
+      "multi_prompt": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "required": [
+            "prompt"
+          ],
+          "properties": {
+            "prompt": {
+              "type": "string",
+              "title": "Prompt",
+              "description": "The prompt for this shot."
+            },
+            "duration": {
+              "enum": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7,
+                8,
+                9,
+                10,
+                11,
+                12,
+                13,
+                14,
+                15
+              ],
+              "type": "integer",
+              "title": "Duration",
+              "default": 5,
+              "description": "The duration of this shot in seconds"
+            }
+          }
+        },
+        "title": "Multi Prompt",
+        "description": "List of prompts for multi-shot video generation."
+      },
+      "generate_audio": {
+        "type": "boolean",
+        "title": "Generate Audio",
+        "default": false,
+        "description": "Whether to generate native audio for the video."
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "title": "GenerationResponse",
+    "required": [
+      "id",
+      "status"
+    ],
+    "properties": {
+      "id": {
+        "type": "string",
+        "description": "Unique identifier for the generation task."
+      },
+      "error": {
+        "type": "string",
+        "description": "Error message if the task failed. Empty on success."
+      },
+      "model": {
+        "type": "string",
+        "description": "Model ID used for the prediction."
+      },
+      "status": {
+        "enum": [
+          "pending",
+          "running",
+          "completed",
+          "failed",
+          "timeout"
+        ],
+        "type": "string",
+        "description": "Status of the task: pending, running, completed, failed, or timeout."
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "title": "OutputItem",
+          "required": [
+            "url"
+          ],
+          "properties": {
+            "url": {
+              "type": "string",
+              "examples": [
+                "https://static.sandbase.ai/examples/mirrored/4e46f4c82d8a-ejCxI5DalzOPlP4yf6uP3_output.mp4"
+              ],
+              "description": "The URL where the generated content can be downloaded from."
+            },
+            "content_type": {
+              "type": "string",
+              "description": "The MIME type of the output file."
+            }
+          }
+        },
+        "description": "Array of generated content. Empty when status is not completed."
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "formula",
+    "formula": "(params.generate_audio ?? false) ? (params.duration ?? 5) * 0.112 : (params.duration ?? 5) * 0.084",
+    "formula_variables": [
+      "params.duration",
+      "params.generate_audio"
+    ],
+    "reference_price": 0.42,
+    "price_examples": [
+      {
+        "params": {
+          "duration": 3,
+          "generate_audio": false
+        },
+        "usd": 0.252
+      },
+      {
+        "params": {
+          "duration": 3,
+          "generate_audio": true
+        },
+        "usd": 0.336
+      },
+      {
+        "params": {
+          "duration": 4,
+          "generate_audio": false
+        },
+        "usd": 0.336
+      },
+      {
+        "params": {
+          "duration": 4,
+          "generate_audio": true
+        },
+        "usd": 0.448
+      },
+      {
+        "params": {
+          "duration": 5,
+          "generate_audio": false
+        },
+        "usd": 0.42
+      },
+      {
+        "params": {
+          "duration": 5,
+          "generate_audio": true
+        },
+        "usd": 0.56
+      },
+      {
+        "params": {
+          "duration": 6,
+          "generate_audio": false
+        },
+        "usd": 0.504
+      },
+      {
+        "params": {
+          "duration": 6,
+          "generate_audio": true
+        },
+        "usd": 0.672
+      },
+      {
+        "params": {
+          "duration": 7,
+          "generate_audio": false
+        },
+        "usd": 0.588
+      },
+      {
+        "params": {
+          "duration": 7,
+          "generate_audio": true
+        },
+        "usd": 0.784
+      },
+      {
+        "params": {
+          "duration": 8,
+          "generate_audio": false
+        },
+        "usd": 0.672
+      },
+      {
+        "params": {
+          "duration": 8,
+          "generate_audio": true
+        },
+        "usd": 0.896
+      }
+    ]
+  },
+  "examples": [
+    {
+      "input": {
+        "image": "https://static.sandbase.ai/examples/fb9a6cca-db34-4948-8787-c06984fb52dd/input/b747bb75-d99a-46be-a52e-a7e16e8e1a5f.png",
+        "prompt": "@Element1 and @Element2 is having dinner at this table on @Image1"
+      },
+      "output": [
+        {
+          "poster": "https://static.sandbase.ai/examples/posters/c7c574950d973894d1a2.jpg",
+          "url": "https://static.sandbase.ai/examples/fb9a6cca-db34-4948-8787-c06984fb52dd/output/18d6ad48-7049-44bf-bbf9-caca372b73a9.mp4"
+        }
+      ],
+      "default": true
+    }
+  ],
+  "readme": "# Kling O3 Standard Reference to Video\n\nKling O3 Standard reference-to-video, the cost-efficient O3 tier. A start frame plus up to 6 reference images keep characters, objects, and style consistent; refer to them as @Image1, @Image2 in the prompt.\n\n## Fields\n\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `prompt` | string, required | — | Up to 2,500 characters. |\n| `image` | image URL, required | — | Start frame. JPEG, PNG, or WebP URL. |\n| `images` | image URL[] (≤6) | — | Reference images, referred to as @Image1, @Image2, … in the prompt. |\n| `end_image` | image URL | — | Optional last frame. |\n| `duration` | 3–15 | 5 | Output length in seconds. |\n| `generate_audio` | boolean | false | Generate native audio with the clip. |\n| `shot_type` | `customize` / `intelligent` | `customize` | `customize` follows your `multi_prompt` shot list; `intelligent` lets the model plan the cuts. |\n| `multi_prompt` | object[] | — | Optional list of shots, each with its own prompt and duration. |\n| `aspect_ratio` | `16:9` / `9:16` / `1:1` | `16:9` | Output frame shape. |\n\n## Billing\n\nYou pay for output seconds: $0.084 without audio and $0.112 with `generate_audio`.\n\n| Output | Without audio | With audio |\n|---|---|---|\n| 3s | $0.252 | $0.336 |\n| 5s (default) | $0.42 | $0.56 |\n| 10s | $0.84 | $1.12 |\n| 15s | $1.26 | $1.68 |\n\nFailed runs are not charged.\n\n## Prompting\n\n- Name each reference in the prompt: “@Image1 walks into the room from @Image2”.\n- Keep one clear subject per reference image.\n\n## Limits\n\n- Clips are 3–15 seconds.\n\n## Also on SandBase\n\nOther Kling O3 Standard endpoints and tiers: `kwaivgi/kling-video/o3/standard/text-to-video`, `kwaivgi/kling-video/o3/standard/image-to-video`, `kwaivgi/kling-video/o3/standard/edit`, `kwaivgi/kling-video/o3/standard/video-to-video`, `kwaivgi/kling-video/o3/pro/reference-to-video`, `kwaivgi/kling-video/o3/4k/reference-to-video`.\n",
+  "cover_url": "https://static.sandbase.ai/covers/kwaivgi/kling-video/o3/standard/reference-to-video/cover-flare-20261004222512.webp",
+  "page_url": "https://www.sandbase.ai/model/kwaivgi/kling-video/o3/standard/reference-to-video",
+  "published_at": "2026-02-04T15:48:44.935Z",
+  "created_at": "2026-05-14T10:26:22.405Z"
+}

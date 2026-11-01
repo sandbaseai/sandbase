@@ -1,0 +1,255 @@
+{
+  "name": "elevenlabs/text-to-dialogue",
+  "display_name": "Text To Dialogue",
+  "type": "audio",
+  "vendor": "ElevenLabs",
+  "vendor_slug": "elevenlabs",
+  "description": "ElevenLabs Text to Dialogue uses Eleven v3 to turn a list of lines into a multi-speaker conversation, with a separate voice for each line and inline audio tags for delivery.",
+  "tags": [
+    "text-to-speech"
+  ],
+  "capabilities": [
+    "text-to-speech"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}"
+  },
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "inputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "title": "DialogueBlock",
+          "required": [
+            "text",
+            "voice"
+          ],
+          "properties": {
+            "text": {
+              "type": "string",
+              "title": "Text",
+              "description": "The dialogue text"
+            },
+            "voice": {
+              "type": "string",
+              "title": "Voice",
+              "examples": [
+                "Aria",
+                "Roger",
+                "Sarah",
+                "Laura",
+                "Charlie",
+                "George",
+                "Callum",
+                "River",
+                "Liam",
+                "Charlotte",
+                "Alice",
+                "Matilda",
+                "Will",
+                "Jessica",
+                "Eric",
+                "Chris",
+                "Brian",
+                "Daniel",
+                "Lily",
+                "Bill"
+              ],
+              "description": "The name or the ID of the voice to be used for the generation."
+            }
+          }
+        },
+        "title": "Inputs",
+        "examples": [
+          {
+            "text": "[applause] Thank you all for coming tonight! Today we have a very special guest with us.",
+            "voice": "Aria"
+          },
+          {
+            "text": "[gulps] ... [strong canadian accent] [excited] Hello everyone! Thank you all for having me tonight on this special day.",
+            "voice": "Charlotte"
+          }
+        ],
+        "description": "A list of dialogue inputs, each containing text and a voice ID which will be converted into speech."
+      },
+      "stability": {
+        "type": "number",
+        "title": "Stability",
+        "maximum": 1,
+        "minimum": 0,
+        "description": "Determines how stable the voice is and the randomness between each generation. Lower values introduce broader emotional range for the voice. Higher values can result in a monotonous voice with limited emotion. Must be one of 0.0, 0.5, 1.0, else it will be rounded to the nearest value."
+      },
+      "language_code": {
+        "enum": [
+          "",
+          "afr",
+          "ara",
+          "hye",
+          "asm",
+          "aze",
+          "bel",
+          "ben",
+          "bos",
+          "bul",
+          "cat",
+          "ceb",
+          "nya",
+          "hrv",
+          "ces",
+          "dan",
+          "nld",
+          "eng",
+          "est",
+          "fil",
+          "fin",
+          "fra",
+          "glg",
+          "kat",
+          "deu",
+          "ell",
+          "guj",
+          "hau",
+          "heb",
+          "hin",
+          "hun",
+          "isl",
+          "ind",
+          "gle",
+          "ita",
+          "jpn",
+          "jav",
+          "kan",
+          "kaz",
+          "kir",
+          "kor",
+          "lav",
+          "lin",
+          "lit",
+          "ltz",
+          "mkd",
+          "msa",
+          "mal",
+          "cmn",
+          "mar",
+          "nep",
+          "nor",
+          "pus",
+          "fas",
+          "pol",
+          "por",
+          "pan",
+          "ron",
+          "rus",
+          "srp",
+          "snd",
+          "slk",
+          "slv",
+          "som",
+          "spa",
+          "swa",
+          "swe",
+          "tam",
+          "tel",
+          "tha",
+          "tur",
+          "ukr",
+          "urd",
+          "vie",
+          "cym"
+        ],
+        "type": "string",
+        "title": "Language Code",
+        "description": "Language code (ISO 639-3) used to enforce a language for the model."
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "title": "GenerationResponse",
+    "required": [
+      "id",
+      "status"
+    ],
+    "properties": {
+      "id": {
+        "type": "string",
+        "description": "Unique identifier for the generation task."
+      },
+      "error": {
+        "type": "string",
+        "description": "Error message if the task failed. Empty on success."
+      },
+      "model": {
+        "type": "string",
+        "description": "Model ID used for the prediction."
+      },
+      "status": {
+        "enum": [
+          "pending",
+          "running",
+          "completed",
+          "failed",
+          "timeout"
+        ],
+        "type": "string",
+        "description": "Status of the task: pending, running, completed, failed, or timeout."
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "title": "OutputItem",
+          "required": [
+            "url"
+          ],
+          "properties": {
+            "url": {
+              "type": "string",
+              "examples": [
+                "https://static.sandbase.ai/examples/elevenlabs/text-to-dialogue/output_url_0.mp3"
+              ],
+              "description": "The URL where the generated content can be downloaded from."
+            },
+            "content_type": {
+              "type": "string",
+              "description": "The MIME type of the output file."
+            }
+          }
+        },
+        "description": "Array of generated content. Empty when status is not completed."
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "formula",
+    "formula": "Math.max(1.0, Math.ceil(sum(map(params.inputs ?? [], len(#.text ?? \"\"))) / 1000.0)) * 0.2",
+    "formula_variables": [
+      "params.inputs"
+    ],
+    "reference_price": 0.2
+  },
+  "examples": [
+    {
+      "input": {},
+      "output": [
+        {
+          "url": "https://static.sandbase.ai/examples/c8d38538-70ef-460f-85b5-5828eba0b9e9/output/67214e7b-7448-46cc-a109-8b3b6848c970.mp3"
+        }
+      ],
+      "default": true
+    }
+  ],
+  "readme": "# Text To Dialogue\n\nElevenLabs text-to-dialogue (Eleven v3): a multi-speaker conversation from a list of lines, each with its own voice and inline audio tags.\n\n## Fields\n\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `inputs` | item[] | — | List of `{text, voice}` lines in speaking order. |\n| `language_code` | `` / `afr` / `ara` / `hye` / `asm` / `aze` / `bel` / `ben` / `bos` / `bul` / `cat` / `ceb` / `nya` / `hrv` / `ces` / `dan` / `nld` / `eng` / `est` / `fil` / `fin` / `fra` / `glg` / `kat` / `deu` / `ell` / `guj` / `hau` / `heb` / `hin` / `hun` / `isl` / `ind` / `gle` / `ita` / `jpn` / `jav` / `kan` / `kaz` / `kir` / `kor` / `lav` / `lin` / `lit` / `ltz` / `mkd` / `msa` / `mal` / `cmn` / `mar` / `nep` / `nor` / `pus` / `fas` / `pol` / `por` / `pan` / `ron` / `rus` / `srp` / `snd` / `slk` / `slv` / `som` / `spa` / `swa` / `swe` / `tam` / `tel` / `tha` / `tur` / `ukr` / `urd` / `vie` / `cym` | — | Force a language. |\n| `stability` | number 0–1 | — | Lower is more expressive. |\n\n## Billing\n\n$0.20 per started 1,000 characters across all lines, with a one-unit minimum.\n\n| Dialogue | Price |\n|---|---|\n| 500 characters | $0.20 |\n| 1,000 characters | $0.20 |\n| 3,000 characters | $0.60 |\n\nFailed runs are not charged.\n\n## Prompting\n\n- Use audio tags like `[laughs]` inside lines for delivery.\n\n## Also on SandBase\n\nRelated: `elevenlabs/v3`.\n",
+  "cover_url": "https://static.sandbase.ai/covers/elevenlabs/text-to-dialogue/cover-flare-20261008040517.webp",
+  "page_url": "https://www.sandbase.ai/model/elevenlabs/text-to-dialogue",
+  "published_at": "2025-09-09T12:30:10.005Z",
+  "created_at": "2026-05-14T02:54:44.333Z"
+}

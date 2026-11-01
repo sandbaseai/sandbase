@@ -1,0 +1,88 @@
+# TikTok Video Download
+
+`tiktok/video-download` · api · TikTok
+
+Get the playable media files behind a TikTok video URL: the clean no-watermark MP4, the watermarked one TikTok's own save button produces, and the cover image, with duration and pixel dimensions. Photo-mode posts carry no video file - use tiktok.photos for those.
+
+## Pricing
+
+- Usage-based. Billed per call from metered usage; the reference price is typical. Reference: **$0.0008**
+
+## Call it
+
+Modes: sync (default `sync`). Only pass `mode` values listed here. The SDKs' `run()` waits for async results; `submit()` + `wait()` split the two steps.
+
+**curl**
+
+```bash
+curl https://api.sandbase.ai/v1/run \
+  -H "Authorization: Bearer $SANDBASE_API_KEY" -H 'Content-Type: application/json' \
+  -d '{"model": "tiktok/video-download", "url": "https://www.tiktok.com/@mrbeast/video/7654638524729216287"}'
+```
+
+**Python** ([sdk/python](../../../sdk/python))
+
+```python
+from sandbase import SandBase
+
+result = SandBase().run('tiktok/video-download', {'url': 'https://www.tiktok.com/@mrbeast/video/7654638524729216287'})
+print(result["outputs"])
+```
+
+**TypeScript** ([sdk/typescript](../../../sdk/typescript))
+
+```ts
+import { SandBase } from "@sandbaseai/sdk";
+
+const result = await new SandBase().run("tiktok/video-download", {
+  "url": "https://www.tiktok.com/@mrbeast/video/7654638524729216287"
+});
+console.log(result.outputs);
+```
+
+**Go** ([sdk/go](../../../sdk/go))
+
+```go
+c, _ := sandbase.NewClient("")
+run, err := c.Run(ctx, "tiktok/video-download", sandbase.Params{
+	"url": "https://www.tiktok.com/@mrbeast/video/7654638524729216287",
+})
+```
+
+Same call via the path form: `POST /v1/api/tiktok/video-download` with the body above minus `model`.
+
+## Parameters
+
+| name | type | required | description |
+|---|---|---|---|
+| `url` | string | yes | Full TikTok video URL. Share links and tracking query params are fine.  |
+| `requireFields` | array |  | Optional; omit it and routing is unchanged, with the cheapest source serving. Name the output fields this request must be able to return, for example `height` or `width`, and it is served only by a source that returns…  |
+
+## Details
+
+Get the playable media files behind a TikTok video URL: the clean no-watermark MP4, the watermarked one TikTok's own save button produces, and the cover image, with duration and pixel dimensions. Photo-mode posts carry no video file - use tiktok.photos for those.
+
+### Request
+
+```bash
+curl -X POST "https://api.sandbase.ai/v1/api/tiktok/video-download" \
+  -H "Authorization: Bearer $SANDBASE_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{"url": "https://www.tiktok.com/@mrbeast/video/7654638524729216287"}'
+```
+
+The result is returned in `outputs[0].data`. A lookup that finds nothing still succeeds and returns `found: false`.
+
+### Parameters
+
+| Name | Type | Required | Description |
+|---|---|---|---|
+| `url` | string | Yes | Full TikTok video URL. Share links and tracking query params are fine. |
+| `requireFields` | array | No | Optional; omit it and routing is unchanged, with the cheapest source serving. Name the output fields this request must be able to return, for example `height` or `width`, and it is served only by a source that returns ev |
+
+### Pricing
+
+Billed at the actual cost of each call, usually $0.0008 per request. A call can cost more when the first data source fails and another one answers. Failed calls are not charged. Lookups that find nothing and searches with no results are billed at their actual cost, which is often lower and can be $0.
+
+---
+Machine-readable: [`catalog/models/tiktok/video-download.json`](../../../catalog/models/tiktok/video-download.json) · Store page: https://www.sandbase.ai/model/tiktok/video-download

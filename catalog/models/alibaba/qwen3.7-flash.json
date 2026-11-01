@@ -1,0 +1,50 @@
+{
+  "name": "alibaba/qwen3.7-flash",
+  "display_name": "Qwen: Qwen3.7 Flash",
+  "type": "llm",
+  "vendor": "Alibaba",
+  "vendor_slug": "alibaba",
+  "description": "Qwen3.7 Flash is the Flash tier of Alibaba's Qwen3.7 series, a native vision-language reasoning model that accepts text, images and video, released in July 2026. Alibaba describes it as an upgrade over Qwen3.6 Flash in multimodal understanding, object recognition, spatial perception and agent execution, with more stable search and multimodal coding agents. Choose it over Qwen3.7 Plus or Max when speed and high-volume throughput matter more than peak capability.",
+  "tags": [
+    "chat",
+    "vision",
+    "reasoning",
+    "structured_output",
+    "function_calling"
+  ],
+  "capabilities": [
+    "chat",
+    "vision",
+    "reasoning",
+    "structured_output",
+    "function_calling"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "chat_completions": "POST /v1/chat/completions",
+    "responses": "POST /v1/responses",
+    "messages": "POST /v1/messages"
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_token",
+    "per_million_tokens": {
+      "input": 0.03,
+      "output": 0.13,
+      "cache_read_multiplier": 0.2,
+      "cache_write_multiplier": 1.25
+    },
+    "formula": "usage.prompt_tokens >= 256000 ? (usage.prompt_tokens * 0.2 / 1000000 + usage.completion_tokens * 0.8 / 1000000) : usage.prompt_tokens >= 32000 ? (usage.prompt_tokens * 0.1 / 1000000 + usage.completion_tokens * 0.4 / 1000000) : (usage.prompt_tokens * 0.03 / 1000000 + usage.completion_tokens * 0.13 / 1000000)",
+    "formula_variables": [
+      "usage.completion_tokens",
+      "usage.prompt_tokens"
+    ]
+  },
+  "cover_url": "https://t0.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=https://www.alibabacloud.com&size=256",
+  "page_url": "https://www.sandbase.ai/model/alibaba/qwen3.7-flash",
+  "published_at": "2026-07-27T22:16:01Z",
+  "created_at": "2026-10-03T06:33:46.337Z"
+}

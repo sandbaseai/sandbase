@@ -1,0 +1,62 @@
+{
+  "name": "toutiao/app/video-info",
+  "display_name": "Toutiao Video Information",
+  "type": "api",
+  "vendor": "Toutiao",
+  "vendor_slug": "toutiao",
+  "description": "Returns detailed information for a specified Toutiao video using its post identifier. Useful for retrieving metadata and content status from Toutiao posts.",
+  "tags": [
+    "api",
+    "toutiao"
+  ],
+  "capabilities": [
+    "api",
+    "toutiao"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/toutiao/app/video-info"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "group_id"
+    ],
+    "properties": {
+      "group_id": {
+        "type": "string",
+        "title": "Group Id",
+        "example": "7431543350882206242",
+        "description": "Post ID, can be obtained from the link"
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.0015,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "examples": [
+    {
+      "input": {
+        "group_id": "7431543350882206242"
+      }
+    }
+  ],
+  "readme": "# Toutiao Video Information API\n\nRetrieve detailed information for a specific video post on Toutiao. Provide the video post identifier via `group_id` to query its metadata.\n\n## Use cases\n\n- Retrieve metadata for a specific Toutiao video post.\n- Verify the availability and details of linked Toutiao video content.\n- Display Toutiao video attributes within external dashboards.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/toutiao/app/video-info\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"group_id\": \"7431543350882206242\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `group_id` | string | Yes | Post ID, can be obtained from the link |\n\n## Notes\n\n- The `group_id` parameter represents the post ID and can be obtained from the video URL link.\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [Toutiao Article Details (App)](/model/toutiao/app/article-info): Returns details and interface settings for a specified Toutiao post.\n- [Toutiao Post Comments](/model/toutiao/app/comments): Returns user comments and interaction metrics for a specific Toutiao post.\n- [Toutiao Profile User ID](/model/toutiao/app/user-id): Resolves a Toutiao user profile URL into numeric and secure user identifiers.\n",
+  "page_url": "https://www.sandbase.ai/model/toutiao/app/video-info",
+  "created_at": "2026-07-31T04:18:44.656Z"
+}

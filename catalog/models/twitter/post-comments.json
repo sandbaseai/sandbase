@@ -1,0 +1,60 @@
+{
+  "name": "twitter/post-comments",
+  "display_name": "Twitter Post Comments",
+  "type": "api",
+  "vendor": "Twitter",
+  "vendor_slug": "twitter",
+  "description": "Get the latest comments for an X (Twitter) post identified by tweet ID, with cursor pagination. Use it to review recent discussion on a known post and continue through additional comment pages.",
+  "tags": [
+    "api",
+    "twitter",
+    "social-media"
+  ],
+  "capabilities": [
+    "api",
+    "twitter",
+    "social-media"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/twitter/post-comments"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "tweetId"
+    ],
+    "properties": {
+      "cursor": {
+        "type": "string",
+        "description": "Pagination cursor returned by the previous response."
+      },
+      "tweetId": {
+        "type": "string",
+        "example": "1585341984679469056",
+        "description": "The unique identifier of the X (Twitter) post."
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.013889,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "readme": "# Twitter Post Comments API\n\nGet the latest comments for an X (Twitter) post identified by tweet ID, with cursor pagination. Use it to review recent discussion on a known post and continue through additional comment pages.\n\nThe response is the platform's original data structure.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/twitter/post-comments\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"tweetId\": \"1585341984679469056\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `tweetId` | string | Yes | The unique identifier of the X (Twitter) post. |\n| `cursor` | string | No | Pagination cursor returned by the previous response. |\n\n## Pricing\n\nFlat price per call. Failed calls and empty results are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/twitter/post-comments",
+  "created_at": "2026-10-29T11:55:11.236Z"
+}

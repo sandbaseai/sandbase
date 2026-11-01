@@ -1,0 +1,142 @@
+{
+  "name": "home-depot/product-reviews",
+  "display_name": "Home Depot Product Reviews",
+  "type": "api",
+  "vendor": "Home Depot",
+  "vendor_slug": "home-depot",
+  "description": "Get Home Depot product reviews by product ID: overall rating, ratings histogram, recommendation counts, and reviews with filters and sorting.",
+  "tags": [
+    "api",
+    "home-depot",
+    "ecommerce",
+    "product-data"
+  ],
+  "capabilities": [
+    "api",
+    "home-depot",
+    "ecommerce",
+    "product-data"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}",
+    "passthrough": "POST /v1/api/home-depot/product-reviews"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "product_id"
+    ],
+    "properties": {
+      "term": {
+        "type": [
+          "string",
+          "number",
+          "boolean"
+        ],
+        "description": "The term you want to search, only reviews with matching term will be returned."
+      },
+      "start": {
+        "type": [
+          "string",
+          "number",
+          "boolean"
+        ],
+        "description": "Controls the offset of the reviews. This parameter defaults to `1`. If the `pagesize` is `100`, you have to specify `start` as `101` to get the 2nd page results, and the 3rd page is `201`, and so on."
+      },
+      "rating": {
+        "type": [
+          "string",
+          "number",
+          "boolean"
+        ],
+        "description": "To include only results with specified ratings. Example for single rating only: `5` Example for multiple ratings (separated by comma `,`): `5,3,2`"
+      },
+      "sort_by": {
+        "anyOf": [
+          {
+            "enum": [
+              "photoreview",
+              "mosthelpfull",
+              "oldest",
+              "newest",
+              "highestrating",
+              "lowestrating"
+            ],
+            "type": "string"
+          }
+        ],
+        "description": "Sorting reviews. By default the reviews are sorted by `newest`. Available options: `photoreview` - Photo Reviews `mosthelpfull` - Most Helpful `oldest` - Oldest `newest` - Newest `highestrating` - Highest rating `lowestrating` - Lowest rating"
+      },
+      "pagesize": {
+        "type": [
+          "string",
+          "number",
+          "boolean"
+        ],
+        "description": "Determines the number of items per page. By default, `100` (maximum allowed value) results are returned."
+      },
+      "product_id": {
+        "type": [
+          "string",
+          "number",
+          "boolean"
+        ],
+        "example": "310009453",
+        "description": "The Home Depot identifier of a product. Only Product IDs gathered from the Home Depot US are supported."
+      },
+      "json_restrictor": {
+        "type": [
+          "string",
+          "number",
+          "boolean"
+        ],
+        "description": "The fields you want to include in the output, reducing payload size for faster response. See the JSON Restrictor documentation for more details."
+      },
+      "verified_purchases": {
+        "type": [
+          "string",
+          "number",
+          "boolean"
+        ],
+        "description": "Whether to include reviews from verified purchases."
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "required": [
+      "id",
+      "status",
+      "model"
+    ],
+    "properties": {
+      "id": {
+        "type": "string"
+      },
+      "model": {
+        "type": "string"
+      },
+      "status": {
+        "type": "string"
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.015,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "readme": "# Home Depot Product Reviews\n\nGet Home Depot product reviews by product ID: overall rating, ratings histogram, recommendation counts, and reviews with filters and sorting.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/home-depot/product-reviews\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"product_id\": \"310009453\"}'\n```\n\nThis API runs asynchronously. The call returns a task `id` with status `pending`; poll `GET https://api.sandbase.ai/v1/run/{id}` until `status` is `completed` and read the result from `outputs[0].data`.\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `product_id` | string/number/boolean | Yes | The Home Depot identifier of a product. Only Product IDs gathered from the Home Depot US are supported. |\n| `json_restrictor` | string/number/boolean | No | The fields you want to include in the output, reducing payload size for faster response. See the JSON Restrictor documentation for more details. |\n| `pagesize` | string/number/boolean | No | Determines the number of items per page. By default, `100` (maximum allowed value) results are returned. |\n| `rating` | string/number/boolean | No | To include only results with specified ratings. Example for single rating only: `5` Example for multiple ratings (separated by comma `,`): `5,3,2` |\n| `sort_by` | any | No | Sorting reviews. By default the reviews are sorted by `newest`. Available options: `photoreview` - Photo Reviews `mosthelpfull` - Most Helpful `oldest` - Oldest `newest` - Newest `highestrating` - Hig… |\n| `start` | string/number/boolean | No | Controls the offset of the reviews. This parameter defaults to `1`. If the `pagesize` is `100`, you have to specify `start` as `101` to get the 2nd page results, and the 3rd page is `201`, and so on. |\n| `term` | string/number/boolean | No | The term you want to search, only reviews with matching term will be returned. |\n| `verified_purchases` | string/number/boolean | No | Whether to include reviews from verified purchases. |\n\n## Pricing\n\nFlat price per call. Failed calls are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/home-depot/product-reviews",
+  "created_at": "2026-10-28T15:35:14.003Z"
+}

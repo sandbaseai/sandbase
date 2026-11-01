@@ -1,0 +1,75 @@
+{
+  "name": "douyin/web/series-aweme",
+  "display_name": "Douyin Web Series Videos",
+  "type": "api",
+  "vendor": "Douyin",
+  "vendor_slug": "douyin",
+  "description": "Returns a paginated list of series videos from the Douyin web platform. Results can be filtered by content subtype, page number, and page size.",
+  "tags": [
+    "api",
+    "douyin"
+  ],
+  "capabilities": [
+    "api",
+    "douyin"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/douyin/web/series-aweme"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "content_type",
+      "count",
+      "offset"
+    ],
+    "properties": {
+      "count": {
+        "type": "integer",
+        "title": "Count",
+        "description": "Number per page, default is 16"
+      },
+      "offset": {
+        "type": "integer",
+        "title": "Offset",
+        "description": "Page number, default is 0"
+      },
+      "content_type": {
+        "type": "integer",
+        "title": "Content Type",
+        "description": "Subtype, default is 0"
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.0015,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "examples": [
+    {
+      "input": {
+        "content_type": 1,
+        "count": 1,
+        "offset": 1
+      }
+    }
+  ],
+  "readme": "# Douyin Web Series Videos API\n\nRetrieve series videos on the Douyin web platform by specifying the `content_type`, `offset`, and `count` parameters.\n\n## Use cases\n\n- Retrieve episodic video content from Douyin series.\n- Paginate through available series videos on the web platform.\n- Filter series video items by content subtype.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/douyin/web/series-aweme\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"content_type\": \"<content_type>\", \"count\": \"<count>\", \"offset\": \"<offset>\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `count` | integer | Yes | Number per page, default is 16 |\n| `offset` | integer | Yes | Page number, default is 0 |\n| `content_type` | integer | Yes | Subtype, default is 0 |\n\n## Notes\n\n- `count` sets the number of videos per page and defaults to 16.\n- `offset` specifies the page offset and defaults to 0.\n- `content_type` indicates the series subtype and defaults to 0.\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [Douyin Batch Video ID Extraction](/model/douyin/web/all-aweme-id): Extracts video IDs from a list of Douyin video URLs.\n- [Douyin sec_user_ids from URLs (Batch)](/model/douyin/web/all-sec-user-id): Extracts Douyin sec_user_id values in bulk from a list of user homepage URLs.\n- [Douyin Webcast ID Extraction](/model/douyin/web/all-webcast-id): Extracts webcast IDs from a submitted list of Douyin live room links.\n",
+  "page_url": "https://www.sandbase.ai/model/douyin/web/series-aweme",
+  "created_at": "2026-07-31T02:40:23.898Z"
+}

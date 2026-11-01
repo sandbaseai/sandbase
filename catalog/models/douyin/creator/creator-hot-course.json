@@ -1,0 +1,88 @@
+{
+  "name": "douyin/creator/creator-hot-course",
+  "display_name": "Douyin Creator Hot Courses",
+  "type": "api",
+  "vendor": "Douyin",
+  "vendor_slug": "douyin",
+  "description": "Returns trending creator courses or curated topic lessons from Douyin. Results can be filtered by topic category and sorted by recommendation, popularity, or upload date.",
+  "tags": [
+    "api",
+    "douyin"
+  ],
+  "capabilities": [
+    "api",
+    "douyin"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/douyin/creator/creator-hot-course"
+  },
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "limit": {
+        "type": "integer",
+        "title": "Limit",
+        "default": 24,
+        "maximum": 100,
+        "minimum": 1,
+        "description": "Items per page (recommended 24, range 1-100)"
+      },
+      "order": {
+        "type": "integer",
+        "title": "Order",
+        "default": 1,
+        "description": "Order type (1=recommended order, 2=most popular, 3=latest upload)"
+      },
+      "offset": {
+        "type": "integer",
+        "title": "Offset",
+        "default": 0,
+        "minimum": 0,
+        "description": "Offset (starting position)"
+      },
+      "category_id": {
+        "anyOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "title": "Category Id",
+        "description": "Selected topic category ID (empty for hot courses, specific ID for selected topics)"
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.0015,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "examples": [
+    {
+      "input": {
+        "limit": 24,
+        "offset": 0,
+        "order": 1
+      }
+    }
+  ],
+  "readme": "# Douyin Creator Hot Courses API\n\nAccess popular Douyin creator academy courses and selected topic materials using `category_id` and custom sorting with `order`.\n\n## Use cases\n\n- Discover trending educational courses for Douyin creators.\n- Sort instructional videos by popularity, upload date, or platform recommendations.\n- Browse specialized creator curriculum tracks by topic category.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/douyin/creator/creator-hot-course\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `limit` | integer | No | Items per page (recommended 24, range 1-100) |\n| `order` | integer | No | Order type (1=recommended order, 2=most popular, 3=latest upload) |\n| `offset` | integer | No | Offset (starting position) |\n| `category_id` | string | No | Selected topic category ID (empty for hot courses, specific ID for selected topics) |\n\n## Example response\n\nReal response for the request above, trimmed to the main fields. User names and long IDs are masked.\n\n```json\n{\n  \"course_list\": [\n    {\n      \"collected_count\": 12003,\n      \"id\": \"7529857225054063913\",\n      \"name\": \"抖音精选优质内容指南\",\n      \"rank\": 1,\n      \"item\": {\n        \"author_user_id\": 92769419069,\n        \"aweme_id\": \"7529857225054063913\",\n        \"aweme_type\": 4,\n        \"caption\": \"抖音精选优质内容指南来啦～干货满满！从标准解读到作品解析，带你拆解抖音精选作品特征，期待更多好内容被看见～#抖音精选创作课\",\n        \"category\": 0,\n        \"create_time\": 1753181521\n      }\n    }\n  ]\n}\n```\n\n## Notes\n\n- Set `order` to 1 for recommended order, 2 for most popular, or 3 for latest upload.\n- Leave `category_id` empty to retrieve general hot courses, or specify an ID for dedicated topics.\n- Supports pagination via `limit` (1-100, recommended 24) and `offset`.\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [Douyin Creator Activity Details](/model/douyin/creator/creator-activity-detail): Returns detailed information for a specific Douyin creator activity.\n- [Douyin Activity List](/model/douyin/creator/creator-activity-list): Returns activity and campaign records for Douyin accounts within a specified timestamp window between start_time and end_time.\n- [Douyin Content Categories](/model/douyin/creator/creator-content-category): Returns the list of content categories available on Douyin.\n",
+  "page_url": "https://www.sandbase.ai/model/douyin/creator/creator-hot-course",
+  "created_at": "2026-07-31T02:35:43.846Z"
+}

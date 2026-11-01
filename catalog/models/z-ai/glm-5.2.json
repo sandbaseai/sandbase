@@ -1,0 +1,41 @@
+{
+  "name": "z-ai/glm-5.2",
+  "display_name": "Z.ai: GLM 5.2",
+  "type": "llm",
+  "vendor": "Z-Ai",
+  "vendor_slug": "z-ai",
+  "description": "GLM-5.2 is Z.ai's open-weight flagship text model released in June 2026 for long-horizon tasks, and the first GLM model to deliver that capability on a usable 1M-token context. Z.ai positions it for project-scale software engineering, deep debugging and full development workflows from requirements to deployable products, with steadier long-task execution and closer adherence to engineering standards. GLM-5.3 builds on the same base model with further post-training for coding.",
+  "tags": [
+    "chat",
+    "reasoning",
+    "structured_output",
+    "function_calling"
+  ],
+  "capabilities": [
+    "chat",
+    "reasoning",
+    "structured_output",
+    "function_calling"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "chat_completions": "POST /v1/chat/completions",
+    "responses": "POST /v1/responses",
+    "messages": "POST /v1/messages"
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_token",
+    "per_million_tokens": {
+      "input": 1.4,
+      "output": 4.4,
+      "cache_read_multiplier": 0.1857
+    }
+  },
+  "page_url": "https://www.sandbase.ai/model/z-ai/glm-5.2",
+  "published_at": "2026-06-16T17:45:30Z",
+  "created_at": "2026-06-24T01:42:56.652Z"
+}

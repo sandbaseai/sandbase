@@ -1,0 +1,329 @@
+{
+  "name": "bytedance/seedance/2.0/text-to-video",
+  "display_name": "Seedance 2.0 Text to Video",
+  "type": "video",
+  "vendor": "Bytedance",
+  "vendor_slug": "bytedance",
+  "description": "ByteDance's most advanced text-to-video model  delivering cinematic output, native audio, multi-shot editing, and director-level camera control for professional-grade video creation.",
+  "tags": [
+    "text-to-video"
+  ],
+  "capabilities": [
+    "text-to-video"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "prompt"
+    ],
+    "properties": {
+      "seed": {
+        "type": "integer",
+        "title": "Seed",
+        "maximum": 4294967295,
+        "minimum": -1,
+        "description": "Random seed for reproducible results. Omit or use -1 for a random seed."
+      },
+      "prompt": {
+        "type": "string",
+        "title": "Prompt",
+        "default": "Photorealistic style: Under a clear blue sky, a vast expanse of white daisy fields stretches out. The camera gradually zooms in and finally fixates on a close-up of a single daisy, with several glistening dewdrops resting on its petals.",
+        "maxLength": 50000,
+        "minLength": 3,
+        "description": "The text prompt to generate a video from."
+      },
+      "duration": {
+        "enum": [
+          "auto",
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15
+        ],
+        "title": "Duration",
+        "default": 5,
+        "description": "Output duration in seconds (4-15), or `auto` to let the model pick a length from the prompt and inputs. `auto` is pre-authorized at 15 seconds and billed on the actual output length."
+      },
+      "resolution": {
+        "enum": [
+          "480p",
+          "720p",
+          "1080p",
+          "4k"
+        ],
+        "type": "string",
+        "title": "Resolution",
+        "default": "720p",
+        "description": "The resolution of the video to generate."
+      },
+      "aspect_ratio": {
+        "enum": [
+          "16:9",
+          "9:16",
+          "1:1",
+          "4:3",
+          "3:4",
+          "21:9"
+        ],
+        "type": "string",
+        "title": "Aspect Ratio",
+        "default": "16:9",
+        "description": "Output aspect ratio. Defaults to 16:9."
+      },
+      "generate_audio": {
+        "type": "boolean",
+        "title": "Generate Audio",
+        "default": true,
+        "description": "Generate a synchronized audio track. Pricing is the same either way."
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "title": "GenerationResponse",
+    "required": [
+      "id",
+      "status"
+    ],
+    "properties": {
+      "id": {
+        "type": "string",
+        "description": "Unique identifier for the generation task."
+      },
+      "error": {
+        "type": "string",
+        "description": "Error message if the task failed. Empty on success."
+      },
+      "model": {
+        "type": "string",
+        "description": "Model ID used for the prediction."
+      },
+      "status": {
+        "enum": [
+          "pending",
+          "running",
+          "completed",
+          "failed",
+          "timeout"
+        ],
+        "type": "string",
+        "description": "Status of the task: pending, running, completed, failed, or timeout."
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "title": "OutputItem",
+          "required": [
+            "url"
+          ],
+          "properties": {
+            "url": {
+              "type": "string",
+              "description": "The URL where the generated content can be downloaded from."
+            },
+            "content_type": {
+              "type": "string",
+              "description": "The MIME type of the output file."
+            }
+          }
+        },
+        "description": "Array of generated content. Empty when status is not completed."
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "formula",
+    "formula": "((params.duration ?? 5) == 'auto' ? Math.round(usage.duration ?? 15.0) : (params.duration ?? 5)) * ((params.resolution ?? '720p') == '480p' ? 0.12 : (params.resolution ?? '720p') == '720p' ? 0.24 : (params.resolution ?? '720p') == '1080p' ? 0.60 : (params.resolution ?? '720p') == '4k' ? 1.20 : (0 / 0))",
+    "formula_variables": [
+      "params.duration",
+      "params.resolution",
+      "usage.duration"
+    ],
+    "reference_price": 1.2,
+    "price_examples": [
+      {
+        "params": {
+          "duration": 4,
+          "resolution": "480p"
+        },
+        "usd": 0.48,
+        "estimate": "assumes output duration equals requested duration"
+      },
+      {
+        "params": {
+          "duration": 4,
+          "resolution": "720p"
+        },
+        "usd": 0.96,
+        "estimate": "assumes output duration equals requested duration"
+      },
+      {
+        "params": {
+          "duration": 4,
+          "resolution": "1080p"
+        },
+        "usd": 2.4,
+        "estimate": "assumes output duration equals requested duration"
+      },
+      {
+        "params": {
+          "duration": 4,
+          "resolution": "4k"
+        },
+        "usd": 4.8,
+        "estimate": "assumes output duration equals requested duration"
+      },
+      {
+        "params": {
+          "duration": 5,
+          "resolution": "480p"
+        },
+        "usd": 0.6,
+        "estimate": "assumes output duration equals requested duration"
+      },
+      {
+        "params": {
+          "duration": 5,
+          "resolution": "720p"
+        },
+        "usd": 1.2,
+        "estimate": "assumes output duration equals requested duration"
+      },
+      {
+        "params": {
+          "duration": 5,
+          "resolution": "1080p"
+        },
+        "usd": 3,
+        "estimate": "assumes output duration equals requested duration"
+      },
+      {
+        "params": {
+          "duration": 5,
+          "resolution": "4k"
+        },
+        "usd": 6,
+        "estimate": "assumes output duration equals requested duration"
+      },
+      {
+        "params": {
+          "duration": 6,
+          "resolution": "480p"
+        },
+        "usd": 0.72,
+        "estimate": "assumes output duration equals requested duration"
+      },
+      {
+        "params": {
+          "duration": 6,
+          "resolution": "720p"
+        },
+        "usd": 1.44,
+        "estimate": "assumes output duration equals requested duration"
+      },
+      {
+        "params": {
+          "duration": 6,
+          "resolution": "1080p"
+        },
+        "usd": 3.6,
+        "estimate": "assumes output duration equals requested duration"
+      },
+      {
+        "params": {
+          "duration": 6,
+          "resolution": "4k"
+        },
+        "usd": 7.2,
+        "estimate": "assumes output duration equals requested duration"
+      },
+      {
+        "params": {
+          "duration": 7,
+          "resolution": "480p"
+        },
+        "usd": 0.84,
+        "estimate": "assumes output duration equals requested duration"
+      },
+      {
+        "params": {
+          "duration": 7,
+          "resolution": "720p"
+        },
+        "usd": 1.68,
+        "estimate": "assumes output duration equals requested duration"
+      },
+      {
+        "params": {
+          "duration": 7,
+          "resolution": "1080p"
+        },
+        "usd": 4.2,
+        "estimate": "assumes output duration equals requested duration"
+      },
+      {
+        "params": {
+          "duration": 7,
+          "resolution": "4k"
+        },
+        "usd": 8.4,
+        "estimate": "assumes output duration equals requested duration"
+      },
+      {
+        "params": {
+          "duration": 8,
+          "resolution": "480p"
+        },
+        "usd": 0.96,
+        "estimate": "assumes output duration equals requested duration"
+      },
+      {
+        "params": {
+          "duration": 8,
+          "resolution": "720p"
+        },
+        "usd": 1.92,
+        "estimate": "assumes output duration equals requested duration"
+      },
+      {
+        "params": {
+          "duration": 8,
+          "resolution": "1080p"
+        },
+        "usd": 4.8,
+        "estimate": "assumes output duration equals requested duration"
+      },
+      {
+        "params": {
+          "duration": 8,
+          "resolution": "4k"
+        },
+        "usd": 9.6,
+        "estimate": "assumes output duration equals requested duration"
+      }
+    ]
+  },
+  "readme": "# Seedance 2.0 Text to Video\n\nSeedance 2.0 text-to-video, ByteDance's flagship video model with native audio, multi-shot storytelling, and precise camera control. Write the scene, including dialogue and sound, and get back a 4–15 second clip.\n\n## Fields\n\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `prompt` | string, required | — | Up to 50,000 characters. |\n| `duration` | `auto` / 4 / 5 / 6 / 7 / 8 / 9 / 10 / 11 / 12 / 13 / 14 / 15 | 5 | Output length in seconds (4–15), or `auto` to let the model choose. |\n| `aspect_ratio` | `16:9` / `9:16` / `1:1` / `4:3` / `3:4` / `21:9` | `16:9` | Output frame shape. |\n| `resolution` | `480p` / `720p` / `1080p` / `4k` | `720p` | Sets the per-second rate. |\n| `generate_audio` | boolean | true | Native dialogue, music, and effects. Same price on or off. |\n| `seed` | integer -1–4294967295 | random | Fix it to compare prompt changes; `-1` is random. |\n\n## Billing\n\nYou pay for output seconds: $0.12 at 480p, $0.24 at 720p, $0.60 at 1080p, $1.20 at 4k. Audio is included. With `duration: \"auto\"` the quote assumes 15 seconds and the final charge uses the generated length.\n\n| Output | 480p | 720p | 1080p | 4k |\n|---|---|---|---|---|\n| 4s | $0.48 | $0.96 | $2.40 | $4.80 |\n| 5s (default) | $0.60 | $1.20 | $3.00 | $6.00 |\n| 10s | $1.20 | $2.40 | $6.00 | $12.00 |\n| 15s | $1.80 | $3.60 | $9.00 | $18.00 |\n\nFailed runs are not charged.\n\n## Prompting\n\n- Describe subject, action, camera move, and light in order; add the sound last.\n- Quote dialogue and name the speaker.\n- For several shots, number them and give each a camera direction.\n\n## Limits\n\n- Clips are 4–15 seconds.\n\n## Also on SandBase\n\nOther Seedance 2.0 endpoints and tiers: `bytedance/seedance/2.0/image-to-video`, `bytedance/seedance/2.0/reference-to-video`, `bytedance/seedance/2.5/text-to-video`, `bytedance/seedance/2.0/fast/text-to-video`, `bytedance/seedance/2.0/mini/text-to-video`.\n",
+  "cover_url": "https://static.sandbase.ai/covers/bytedance/seedance/2.0/text-to-video/cover-flare-20261004164800.webp",
+  "page_url": "https://www.sandbase.ai/model/bytedance/seedance/2.0/text-to-video",
+  "published_at": "2026-04-01T18:49:18.123Z",
+  "created_at": "2026-04-29T06:51:35.925Z"
+}

@@ -1,0 +1,132 @@
+{
+  "name": "amazon/search-products",
+  "display_name": "Amazon Product Search",
+  "type": "api",
+  "vendor": "Amazon",
+  "vendor_slug": "amazon",
+  "description": "Search Amazon marketplace products by keyword or ASIN with country, sort, condition, Prime-only, deals, and page controls.",
+  "tags": [
+    "api",
+    "amazon",
+    "ecommerce"
+  ],
+  "capabilities": [
+    "api",
+    "amazon",
+    "ecommerce"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/amazon/search-products"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "keyword"
+    ],
+    "properties": {
+      "page": {
+        "type": "integer",
+        "default": 1,
+        "description": "Page number for pagination."
+      },
+      "sortBy": {
+        "enum": [
+          "RELEVANCE",
+          "LOWEST_PRICE",
+          "HIGHEST_PRICE",
+          "REVIEWS",
+          "NEWEST",
+          "BEST_SELLERS"
+        ],
+        "type": "string",
+        "default": "RELEVANCE",
+        "description": "Sort order for Amazon product search results."
+      },
+      "country": {
+        "enum": [
+          "US",
+          "AU",
+          "BR",
+          "CA",
+          "CN",
+          "FR",
+          "DE",
+          "IN",
+          "IT",
+          "MX",
+          "NL",
+          "SG",
+          "ES",
+          "TR",
+          "AE",
+          "GB",
+          "JP",
+          "SA",
+          "PL",
+          "SE",
+          "BE",
+          "EG",
+          "ZA",
+          "IE"
+        ],
+        "type": "string",
+        "default": "US",
+        "description": "Country code for the Amazon marketplace."
+      },
+      "isPrime": {
+        "type": "boolean",
+        "default": false,
+        "description": "Whether to return only Prime-eligible products."
+      },
+      "keyword": {
+        "type": "string",
+        "example": "iphone",
+        "description": "Search keyword or ASIN to find Amazon products."
+      },
+      "productCondition": {
+        "enum": [
+          "ALL",
+          "NEW",
+          "USED",
+          "RENEWED",
+          "COLLECTIBLE"
+        ],
+        "type": "string",
+        "default": "ALL",
+        "description": "Product condition filter for Amazon search results."
+      },
+      "dealsAndDiscounts": {
+        "enum": [
+          "NONE",
+          "ALL_DISCOUNTS",
+          "TODAYS_DEALS"
+        ],
+        "type": "string",
+        "default": "NONE",
+        "description": "Deals and discounts filter for Amazon search results."
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.013889,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "readme": "# Amazon Product Search API\n\nSearch Amazon marketplace products by keyword or ASIN with country, sort, condition, Prime-only, deals, and page controls.\n\nThe response is the platform's original data structure.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/amazon/search-products\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"keyword\": \"iphone\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `keyword` | string | Yes | Search keyword or ASIN to find Amazon products. |\n| `country` | string | No | Country code for the Amazon marketplace. |\n| `sortBy` | string | No | Sort order for Amazon product search results. |\n| `productCondition` | string | No | Product condition filter for Amazon search results. |\n| `isPrime` | boolean | No | Whether to return only Prime-eligible products. |\n| `dealsAndDiscounts` | string | No | Deals and discounts filter for Amazon search results. |\n| `page` | integer | No | Page number for pagination. |\n\n## Pricing\n\nFlat price per call. Failed calls and empty results are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/amazon/search-products",
+  "created_at": "2026-10-29T12:07:22.168Z"
+}

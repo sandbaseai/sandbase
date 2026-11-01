@@ -1,0 +1,50 @@
+{
+  "name": "dataforseo/v3/serp/google/finance_markets/live/advanced",
+  "display_name": "DataForSEO Google Finance Markets",
+  "type": "api",
+  "vendor": "DataForSEO",
+  "vendor_slug": "dataforseo",
+  "description": "Fetch Google Finance market summaries by region or asset class. Google Finance markets page for a market_type (indexes by region, most active, gainers, losers, climate leaders, crypto, currencies).",
+  "tags": [
+    "serp",
+    "google",
+    "finance-markets"
+  ],
+  "capabilities": [
+    "serp",
+    "google",
+    "finance-markets"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/dataforseo/v3/serp/google/finance_markets/live/advanced"
+  },
+  "input_schema": {
+    "type": "object",
+    "properties": {},
+    "description": "Request parameters forwarded to DataForSEO /v3/serp/google/finance_markets/live/advanced. See DataForSEO docs for full schema.",
+    "additionalProperties": true
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.002,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "readme": "# DataForSEO Google Finance Markets API\n\nFetch Google Finance market summaries by region or asset class.\n\nRequest fields follow the official DataForSEO `/v3/serp/google/finance_markets/live/advanced` task schema (one task per call; send `{\"tasks\": [...]}` for several). The response is DataForSEO's original JSON; results are in `tasks[].result`.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/dataforseo/v3/serp/google/finance_markets/live/advanced\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"market_type\": \"indexes\", \"location_code\": 2840, \"language_code\": \"en\"}'\n```\n\n## Parameters\n\nThe JSON body is forwarded to the upstream endpoint (one task per call). Fields used above:\n\n| Name | Description |\n|---|---|\n| `market_type` | Market type, e.g. \"indexes\". |\n| `location_code` | Location code, e.g. 2840 for the United States. |\n| `language_code` | Language code, e.g. \"en\". |\n\n## Reference\n\n- Official docs: https://docs.dataforseo.com/v3/serp/google/finance_markets/live/advanced/\n\n## Pricing\n\nFlat price per call. Failed calls are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/dataforseo/v3/serp/google/finance_markets/live/advanced",
+  "published_at": "2024-01-01T00:00:00Z",
+  "created_at": "2026-10-28T14:19:58.21Z"
+}

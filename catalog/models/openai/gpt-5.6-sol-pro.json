@@ -1,0 +1,52 @@
+{
+  "name": "openai/gpt-5.6-sol-pro",
+  "display_name": "OpenAI: GPT-5.6 Sol Pro",
+  "type": "llm",
+  "vendor": "OpenAI",
+  "vendor_slug": "openai",
+  "description": "GPT-5.6 Sol Pro is the same GPT-5.6 Sol model, the flagship of OpenAI's GPT-5.6 family, served in OpenAI's pro reasoning mode rather than as a separate model. Pro mode spends more model work on each request before returning one final answer, which OpenAI recommends for complex optimization, high-value coding or review, and deep analysis. It brings higher latency and token usage, so standard Sol remains the better choice for routine or latency-sensitive work.",
+  "tags": [
+    "chat",
+    "vision",
+    "reasoning",
+    "structured_output",
+    "function_calling"
+  ],
+  "capabilities": [
+    "chat",
+    "vision",
+    "reasoning",
+    "structured_output",
+    "function_calling"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "chat_completions": "POST /v1/chat/completions",
+    "responses": "POST /v1/responses",
+    "messages": "POST /v1/messages"
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_token",
+    "per_million_tokens": {
+      "input": 4,
+      "output": 20,
+      "cache_read_multiplier": 0.1,
+      "cache_write_multiplier": 1.25
+    },
+    "formula": "usage.prompt_tokens >= 272000 ? (usage.prompt_tokens * 8 / 1000000 + usage.completion_tokens * 30 / 1000000 - usage.cached_tokens * 3.6 / 1000000 + usage.cache_creation_tokens * 1 / 1000000) : (usage.prompt_tokens * 4 / 1000000 + usage.completion_tokens * 20 / 1000000)",
+    "formula_variables": [
+      "usage.cache_creation_tokens",
+      "usage.cached_tokens",
+      "usage.completion_tokens",
+      "usage.prompt_tokens"
+    ]
+  },
+  "cover_url": "https://t0.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=https://openai.com&size=256",
+  "page_url": "https://www.sandbase.ai/model/openai/gpt-5.6-sol-pro",
+  "published_at": "2026-07-09T09:54:14Z",
+  "created_at": "2026-07-11T02:08:39.014Z"
+}

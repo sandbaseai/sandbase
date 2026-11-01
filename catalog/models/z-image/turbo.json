@@ -1,0 +1,152 @@
+{
+  "name": "z-image/turbo",
+  "display_name": "Z-Image Turbo Text to Image",
+  "type": "image",
+  "vendor": "Z-Image",
+  "vendor_slug": "z-image",
+  "description": "Turbo is Z-Image's advanced text-to-image AI model. Create photorealistic images, illustrations, and concept art from natural language descriptions with exceptional detail and prompt adherence.",
+  "tags": [
+    "text-to-image"
+  ],
+  "capabilities": [
+    "text-to-image"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "prompt"
+    ],
+    "properties": {
+      "seed": {
+        "type": "integer",
+        "title": "Seed",
+        "description": "\n            The same seed and the same prompt given to the same version of the model\n            will output the same image every time.\n        "
+      },
+      "prompt": {
+        "type": "string",
+        "title": "Prompt",
+        "examples": [
+          "A hyper-realistic, close-up portrait of a tribal elder from the Omo Valley, painted with intricate white chalk patterns and adorned with a headdress made of dried flowers, seed pods, and rusted bottle caps. The focus is razor-sharp on the texture of the skin, showing every pore, wrinkle, and scar that tells a story of survival. The background is a blurred, smoky hut interior, with the warm glow of a cooking fire reflecting in the subject's dark, soulful eyes. Shot on a Leica M6 with Kodak Portra 400 film grain aesthetic."
+        ],
+        "description": "The prompt to generate an image from."
+      },
+      "aspect_ratio": {
+        "enum": [
+          "21:9",
+          "16:9",
+          "3:2",
+          "4:3",
+          "5:4",
+          "1:1",
+          "4:5",
+          "3:4",
+          "2:3",
+          "9:16"
+        ],
+        "type": "string",
+        "title": "Aspect Ratio",
+        "default": "16:9",
+        "description": "The aspect ratio of the generated image."
+      },
+      "output_format": {
+        "enum": [
+          "jpeg",
+          "png"
+        ],
+        "type": "string",
+        "title": "Output Format",
+        "default": "png",
+        "description": "The format of the generated image."
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "title": "GenerationResponse",
+    "required": [
+      "id",
+      "status"
+    ],
+    "properties": {
+      "id": {
+        "type": "string",
+        "description": "Unique identifier for the generation task."
+      },
+      "error": {
+        "type": "string",
+        "description": "Error message if the task failed. Empty on success."
+      },
+      "model": {
+        "type": "string",
+        "description": "Model ID used for the prediction."
+      },
+      "status": {
+        "enum": [
+          "pending",
+          "running",
+          "completed",
+          "failed",
+          "timeout"
+        ],
+        "type": "string",
+        "description": "Status of the task: pending, running, completed, failed, or timeout."
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "title": "OutputItem",
+          "required": [
+            "url"
+          ],
+          "properties": {
+            "url": {
+              "type": "string",
+              "examples": [
+                "https://static.sandbase.ai/examples/z-image/turbo/output_url_0.png"
+              ],
+              "description": "The URL where the generated content can be downloaded from."
+            },
+            "content_type": {
+              "type": "string",
+              "description": "The MIME type of the output file."
+            }
+          }
+        },
+        "description": "Array of generated content. Empty when status is not completed."
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.015
+  },
+  "examples": [
+    {
+      "input": {
+        "aspect_ratio": "9:16",
+        "prompt": "A red paper lantern in a quiet bamboo forest at dusk"
+      },
+      "output": [
+        {
+          "url": "https://static.sandbase.ai/examples/8eadb471-cfde-4840-a600-9392b90d9a81/output/f15d978b-1461-479c-93b5-f410746428cc.png"
+        }
+      ],
+      "default": true
+    }
+  ],
+  "readme": "# Z-Image Turbo Text to Image\n\nZ-Image Turbo, Alibaba's fast 6B model, generates photorealistic images with bilingual text in a few steps.\n\n## Fields\n\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `prompt` | string, required | — | Text instruction. |\n| `aspect_ratio` | `21:9` / `16:9` / `3:2` / `4:3` / `5:4` / `1:1` / `4:5` / `3:4` / `2:3` / `9:16` | `16:9` | Output shape. |\n| `output_format` | `jpeg` / `png` | `png` | Output file format. |\n| `seed` | integer | random | Fix it to compare prompt changes. |\n\n## Billing\n\n$0.015 per image.\n\n| Request | Price |\n|---|---|\n| One image | $0.015 |\n\nFailed runs are not charged.\n\n## Prompting\n\n- Write subject, setting, style, then light.\n\n## Also on SandBase\n\nRelated: `alibaba/z-image/base`, `alibaba/z-image/turbo/edit`.\n",
+  "cover_url": "https://static.sandbase.ai/covers/z-image/turbo/cover-flare-20261005000459.webp",
+  "page_url": "https://www.sandbase.ai/model/z-image/turbo",
+  "published_at": "2025-11-26T14:38:10.381Z",
+  "created_at": "2026-05-11T13:32:59.159Z"
+}

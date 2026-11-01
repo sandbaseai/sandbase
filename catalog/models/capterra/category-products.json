@@ -1,0 +1,72 @@
+{
+  "name": "capterra/category-products",
+  "display_name": "Capterra Category Products",
+  "type": "api",
+  "vendor": "Capterra",
+  "vendor_slug": "capterra",
+  "description": "Retrieve products listed within a specific software category. Returns product names, numeric IDs, URL slugs, and full URLs.",
+  "tags": [
+    "api",
+    "capterra",
+    "company-people"
+  ],
+  "capabilities": [
+    "api",
+    "capterra",
+    "company-people"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}",
+    "passthrough": "POST /v1/api/capterra/category-products"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "category_slug"
+    ],
+    "properties": {
+      "category_slug": {
+        "type": "string",
+        "example": "accounting",
+        "description": "The slug of the category from get_software_categories (e.g. 'accounting', 'project-management', 'human-resource')."
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "required": [
+      "id",
+      "status",
+      "model"
+    ],
+    "properties": {
+      "id": {
+        "type": "string"
+      },
+      "model": {
+        "type": "string"
+      },
+      "status": {
+        "type": "string"
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.01,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "readme": "# Capterra Category Products\n\nRetrieve products listed within a specific software category. Returns product names, numeric IDs, URL slugs, and full URLs.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/capterra/category-products\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"category_slug\": \"accounting\"}'\n```\n\nThis API runs asynchronously. The call returns a task `id` with status `pending`; poll `GET https://api.sandbase.ai/v1/run/{id}` until `status` is `completed` and read the result from `outputs[0].data`.\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `category_slug` | string | Yes | The slug of the category from get_software_categories (e.g. 'accounting', 'project-management', 'human-resource'). |\n\n## Pricing\n\nFlat price per call. Failed calls are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/capterra/category-products",
+  "created_at": "2026-10-30T08:27:41.902Z"
+}

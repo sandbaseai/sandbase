@@ -1,0 +1,128 @@
+{
+  "name": "douyin/search/image-search",
+  "display_name": "Douyin Image Search",
+  "type": "api",
+  "vendor": "Douyin",
+  "vendor_slug": "douyin",
+  "description": "Returns image-based search results from Douyin matching a search keyword. Supports sorting, content filtering, post date filters, and pagination parameters.",
+  "tags": [
+    "api",
+    "douyin"
+  ],
+  "capabilities": [
+    "api",
+    "douyin"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/douyin/search/image-search"
+  },
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "cursor": {
+        "type": "integer",
+        "title": "Cursor",
+        "default": 0,
+        "example": 0,
+        "description": "Pagination cursor (0 for first request)"
+      },
+      "keyword": {
+        "type": "string",
+        "title": "Keyword",
+        "default": "猫咪",
+        "example": "猫咪",
+        "description": "Search keyword, e.g., \"cat\""
+      },
+      "backtrace": {
+        "type": "string",
+        "title": "Backtrace",
+        "default": "",
+        "example": "",
+        "description": "Backtrace for pagination, obtained from the last response"
+      },
+      "search_id": {
+        "type": "string",
+        "title": "Search Id",
+        "default": "",
+        "example": "",
+        "description": "Search ID for pagination"
+      },
+      "sort_type": {
+        "type": "string",
+        "title": "Sort Type",
+        "default": "0",
+        "example": "0",
+        "description": "Sorting method"
+      },
+      "content_type": {
+        "type": "string",
+        "title": "Content Type",
+        "default": "0",
+        "example": "0",
+        "description": "Content type (Fixed to 2 for images)"
+      },
+      "publish_time": {
+        "type": "string",
+        "title": "Publish Time",
+        "default": "0",
+        "example": "0",
+        "description": "Publish time filter"
+      },
+      "filter_duration": {
+        "type": "string",
+        "title": "Filter Duration",
+        "default": "0",
+        "example": "0",
+        "description": "Video duration filter"
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.015,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "examples": [
+    {
+      "input": {
+        "backtrace": "",
+        "content_type": "0",
+        "cursor": 0,
+        "filter_duration": "0",
+        "keyword": "猫咪",
+        "publish_time": "0",
+        "search_id": "",
+        "sort_type": "0"
+      }
+    },
+    {
+      "input": {
+        "backtrace": "",
+        "content_type": "0",
+        "cursor": 0,
+        "filter_duration": "0",
+        "keyword": "猫咪",
+        "publish_time": "0",
+        "search_id": "",
+        "sort_type": "0"
+      }
+    }
+  ],
+  "readme": "# Douyin Image Search API\n\nLook up Douyin image search results by specifying a `keyword`. Paginate through results using `cursor`, `search_id`, and `backtrace`.\n\n## Use cases\n\n- Search for image posts matching specific keywords.\n- Track relevant graphic content and topics on Douyin.\n- Filter image search results by post date and sorting criteria.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/douyin/search/image-search\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `cursor` | integer | No | Pagination cursor (0 for first request) |\n| `keyword` | string | No | Search keyword, e.g., \"cat\" |\n| `backtrace` | string | No | Backtrace for pagination, obtained from the last response |\n| `search_id` | string | No | Search ID for pagination |\n| `sort_type` | string | No | Sorting method |\n| `content_type` | string | No | Content type (Fixed to 2 for images) |\n| `publish_time` | string | No | Publish time filter |\n| `filter_duration` | string | No | Video duration filter |\n\n## Example response\n\nReal response for the request above, trimmed to the main fields. User names and long IDs are masked.\n\n```json\n{\n  \"business_data\": [\n    {\n      \"card_id\": \"douyin.doctype_aweme_image\",\n      \"data_id\": \"0\",\n      \"type\": 11,\n      \"data\": {\n        \"card_id\": \"douyin.doctype_aweme_image\",\n        \"card_type\": 1,\n        \"doc_type\": 303,\n        \"provider_doc_id\": 7693421414359489253,\n        \"provider_doc_id_str\": \"7693421414359489253\",\n        \"type\": 1\n      }\n    }\n  ]\n}\n```\n\n## Notes\n\n- `cursor` starts at 0 for the initial request.\n- `content_type` is fixed to 2 for images.\n- `backtrace` and `search_id` are passed from previous responses for pagination.\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [Douyin Challenge Search](/model/douyin/search/challenge-search-v1): Returns Douyin challenge and hashtag search results matching a query.\n- [Douyin Hashtag Challenge Search (V2)](/model/douyin/search/challenge-search-v2): Returns Douyin hashtag and challenge search results matching a query keyword.\n- [Douyin Hashtag Suggestions](/model/douyin/search/challenge-suggest): Returns a list of suggested Douyin hashtags and challenges matching a query keyword, including challenge IDs and view counts.\n",
+  "page_url": "https://www.sandbase.ai/model/douyin/search/image-search",
+  "created_at": "2026-07-31T02:38:53.9Z"
+}

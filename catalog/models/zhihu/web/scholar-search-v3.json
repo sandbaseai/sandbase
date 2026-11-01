@@ -1,0 +1,87 @@
+{
+  "name": "zhihu/web/scholar-search-v3",
+  "display_name": "Zhihu Scholar Paper Search",
+  "type": "api",
+  "vendor": "Zhihu",
+  "vendor_slug": "zhihu",
+  "description": "Search Zhihu Scholar papers matching specified keywords and filters. Returns paper details including IDs, titles, highlight snippets, and Zhihu paper URLs.",
+  "tags": [
+    "api",
+    "zhihu"
+  ],
+  "capabilities": [
+    "api",
+    "zhihu"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/zhihu/web/scholar-search-v3"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "keyword"
+    ],
+    "properties": {
+      "limit": {
+        "type": "string",
+        "title": "Limit",
+        "default": "25",
+        "description": "Number of papers per page"
+      },
+      "offset": {
+        "type": "string",
+        "title": "Offset",
+        "default": "0",
+        "description": "Offset"
+      },
+      "keyword": {
+        "type": "string",
+        "title": "Keyword",
+        "example": "OpenAI",
+        "description": "Search Keywords"
+      },
+      "indexed_by": {
+        "type": "string",
+        "default": ""
+      },
+      "classification": {
+        "type": "string",
+        "default": ""
+      },
+      "advanced_filter": {
+        "type": "string",
+        "default": "keywords,title,authors,abstract"
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.0015,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "examples": [
+    {
+      "input": {
+        "keyword": "OpenAI"
+      },
+      "default": true
+    }
+  ],
+  "readme": "# Zhihu Scholar Paper Search API\n\nQuery Zhihu Scholar for academic papers using `keyword`. Refine results using `advanced_filter`, `classification`, and pagination parameters.\n\n## Use cases\n\n- Search for academic publications and research papers on Zhihu.\n- Filter scholarly documents by keywords, title, authors, or abstract.\n- Collect paper URLs and metadata for research analysis.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/zhihu/web/scholar-search-v3\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"keyword\": \"OpenAI\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `keyword` | string | Yes | Search Keywords |\n| `limit` | string | No | Number of papers per page |\n| `offset` | string | No | Offset |\n| `indexed_by` | string | No | — |\n| `classification` | string | No | — |\n| `advanced_filter` | string | No | — |\n\n## Example response\n\nReal response for the request above, trimmed to the main fields. User names and long IDs are masked.\n\n```json\n{\n  \"data\": [\n    {\n      \"id\": \"1984217783119151617\",\n      \"type\": \"search_result\",\n      \"highlight\": {\n        \"title\": \"“有效加速”与“超级对齐”之争:OpenAI事件对人工智能发展方向的启示\"\n      },\n      \"object\": {\n        \"id\": \"1984217783119151617\",\n        \"title\": \"“有效加速”与“超级对齐”之争:OpenAI事件对人工智能发展方向的启示\",\n        \"type\": \"scholar\",\n        \"url\": \"https://www.zhihu.com/kvip/sku/paper/1984217783119151617\"\n      }\n    }\n  ]\n}\n```\n\n## Notes\n\n- Paginate results using `limit` and `offset`.\n- Filter search scopes using `advanced_filter`, such as keywords, title, authors, or abstract.\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [Zhihu AI Search Stream](/model/zhihu/web/ai-search-stream): Returns streaming AI search results from Zhihu based on a query prompt.\n- [Zhihu Answer Details](/model/zhihu/web/answer-detail): Retrieves detailed information for a specific Zhihu answer using its numeric ID, including answer text, timestamps, and share links.\n- [Zhihu Article Search](/model/zhihu/web/article-search-v3): Search Zhihu articles and answers by keyword and get titles, excerpts, authors, vote and comment counts, with sorting, content type and time filters plus offse…\n",
+  "page_url": "https://www.sandbase.ai/model/zhihu/web/scholar-search-v3",
+  "created_at": "2026-07-31T04:29:39.34Z"
+}

@@ -1,0 +1,204 @@
+{
+  "name": "bytedance/seedvr/upscale/video",
+  "display_name": "SeedVR2 Video Upscale",
+  "type": "video",
+  "vendor": "Bytedance",
+  "vendor_slug": "bytedance",
+  "description": "Seedvr Upscale Video by Bytedance - AI-powered video editing and transformation. Apply style transfer, motion control, lip-sync, and visual effects to existing videos with natural language instructions.",
+  "tags": [
+    "video-to-video"
+  ],
+  "capabilities": [
+    "video-to-video"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "video"
+    ],
+    "properties": {
+      "seed": {
+        "type": "integer",
+        "title": "Seed",
+        "description": "The random seed used for the generation process."
+      },
+      "video": {
+        "type": "string",
+        "title": "Video Url",
+        "examples": [
+          "https://static.sandbase.ai/examples/bytedance/seedvr/upscale/video/input_video_0.mp4"
+        ],
+        "description": "The input video to be processed"
+      },
+      "noise_scale": {
+        "type": "number",
+        "title": "Noise Scale",
+        "default": 0.1,
+        "maximum": 1,
+        "minimum": 0,
+        "description": "The noise scale to use for the generation process."
+      },
+      "upscale_mode": {
+        "enum": [
+          "target",
+          "factor"
+        ],
+        "type": "string",
+        "title": "Upscale Mode",
+        "default": "factor",
+        "description": "The mode to use for the upscale. If 'target', the upscale factor will be calculated based on the target resolution. If 'factor', the upscale factor will be used directly."
+      },
+      "output_format": {
+        "enum": [
+          "X264 (.mp4)",
+          "VP9 (.webm)",
+          "PRORES4444 (.mov)",
+          "GIF (.gif)"
+        ],
+        "type": "string",
+        "title": "Output Format",
+        "default": "X264 (.mp4)",
+        "description": "The format of the output video."
+      },
+      "output_quality": {
+        "enum": [
+          "low",
+          "medium",
+          "high",
+          "maximum"
+        ],
+        "type": "string",
+        "title": "Output Quality",
+        "default": "high",
+        "description": "The quality of the output video."
+      },
+      "upscale_factor": {
+        "type": "number",
+        "title": "Upscale Factor",
+        "default": 2,
+        "maximum": 10,
+        "minimum": 1,
+        "description": "Upscaling factor to be used. Will multiply the dimensions with this factor when `upscale_mode` is `factor`."
+      },
+      "output_write_mode": {
+        "enum": [
+          "fast",
+          "balanced",
+          "small"
+        ],
+        "type": "string",
+        "title": "Output Write Mode",
+        "default": "balanced",
+        "description": "The write mode of the output video."
+      },
+      "target_resolution": {
+        "enum": [
+          "720p",
+          "1080p",
+          "1440p",
+          "2160p"
+        ],
+        "type": "string",
+        "title": "Target Resolution",
+        "default": "1080p",
+        "description": "The target resolution to upscale to when `upscale_mode` is `target`."
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "title": "GenerationResponse",
+    "required": [
+      "id",
+      "status"
+    ],
+    "properties": {
+      "id": {
+        "type": "string",
+        "description": "Unique identifier for the generation task."
+      },
+      "error": {
+        "type": "string",
+        "description": "Error message if the task failed. Empty on success."
+      },
+      "model": {
+        "type": "string",
+        "description": "Model ID used for the prediction."
+      },
+      "status": {
+        "enum": [
+          "pending",
+          "running",
+          "completed",
+          "failed",
+          "timeout"
+        ],
+        "type": "string",
+        "description": "Status of the task: pending, running, completed, failed, or timeout."
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "title": "OutputItem",
+          "required": [
+            "url"
+          ],
+          "properties": {
+            "url": {
+              "type": "string",
+              "examples": [
+                "https://static.sandbase.ai/examples/bytedance/seedvr/upscale/video/output_url_1.mp4"
+              ],
+              "description": "The URL where the generated content can be downloaded from."
+            },
+            "content_type": {
+              "type": "string",
+              "description": "The MIME type of the output file."
+            }
+          }
+        },
+        "description": "Array of generated content. Empty when status is not completed."
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "formula",
+    "formula": "(usage.width ?? 1920.0) * (usage.height ?? 1080.0) * (usage.fps ?? 30.0) * (usage.duration ?? 5.0) / 1000000.0 * 0.001",
+    "formula_variables": [
+      "usage.duration",
+      "usage.fps",
+      "usage.height",
+      "usage.width"
+    ],
+    "reference_price": 0.31104
+  },
+  "examples": [
+    {
+      "input": {
+        "video": "https://static.sandbase.ai/examples/7de0d710-8d33-4b43-b1f2-b9b69e54f046/input/f7174bd6-9315-4ac6-865b-eaeaa4c562bf.mp4"
+      },
+      "output": [
+        {
+          "poster": "https://static.sandbase.ai/examples/posters/5f3e04e039f48baab255.jpg",
+          "url": "https://static.sandbase.ai/examples/7de0d710-8d33-4b43-b1f2-b9b69e54f046/output/70751648-6a01-4141-a2cc-8a5b101cfd7e.mp4"
+        }
+      ],
+      "default": true
+    }
+  ],
+  "readme": "# SeedVR2 Video Upscale\n\nSeedVR2 video upscale restores and enlarges a video by a factor (default 2×) or to a target resolution, with temporal consistency across frames.\n\n## Fields\n\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `video` | video URL, required | — | Video to upscale. |\n| `output_format` | `X264 (.mp4)` / `VP9 (.webm)` / `PRORES4444 (.mov)` / `GIF (.gif)` | `X264 (.mp4)` | Output file format. |\n| `seed` | integer | random | Fix it to compare prompt changes. |\n| `output_quality` | `low` / `medium` / `high` / `maximum` | `high` | Encoder quality. |\n| `noise_scale` | number 0–1 | 0.1 | Higher values add more restored detail. |\n| `target_resolution` | `720p` / `1080p` / `1440p` / `2160p` | `1080p` | Used in `target` mode. |\n| `upscale_factor` | number 1–10 | 2 | Used in `factor` mode. |\n| `output_write_mode` | `fast` / `balanced` / `small` | `balanced` | Encoder speed/size trade-off. |\n| `upscale_mode` | `target` / `factor` | `factor` | `factor` multiplies the input size; `target` upscales to `target_resolution`. |\n\n## Billing\n\nBilled on output video data at $0.001 per megapixel (width × height × frames). For 30fps output that is about $0.028 per second at 720p, $0.062 at 1080p, and $0.25 at 4K. The quote before submission assumes 5 seconds of 1080p at 30fps.\n\n| Output at 30fps | 720p | 1080p | 4K |\n|---|---|---|---|\n| 5s | $0.1382 | $0.311 | $1.2442 |\n| 10s | $0.2765 | $0.6221 | $2.4883 |\n| 30s | $0.8294 | $1.8662 | $7.465 |\n\nFailed runs are not charged.\n\n## Limits\n\n- Higher factors on long clips can be expensive; check the output size first.\n\n## Also on SandBase\n\nRelated: `bytedance/upscaler/video` (per-second pricing), `bytedance/seedvr/upscale/image`.\n",
+  "cover_url": "https://static.sandbase.ai/covers/bytedance/seedvr/upscale/video/cover-flare-20261005032621.webp",
+  "page_url": "https://www.sandbase.ai/model/bytedance/seedvr/upscale/video",
+  "published_at": "2025-09-22T18:29:49.293Z",
+  "created_at": "2026-05-15T23:13:38.394Z"
+}

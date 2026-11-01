@@ -1,0 +1,88 @@
+{
+  "name": "tavily/extract",
+  "display_name": "Tavily URL Content Extraction",
+  "type": "api",
+  "vendor": "Tavily",
+  "vendor_slug": "tavily",
+  "description": "Extracts clean text content from specified web pages using their URLs. Supports basic or advanced extraction depth and optional image inclusion.",
+  "tags": [
+    "content-extraction",
+    "web-scraping"
+  ],
+  "capabilities": [
+    "content-extraction",
+    "web-scraping"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/tavily/extract"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "urls"
+    ],
+    "properties": {
+      "urls": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        },
+        "title": "URLs",
+        "description": "URLs to extract content from."
+      },
+      "extract_depth": {
+        "enum": [
+          "basic",
+          "advanced"
+        ],
+        "type": "string",
+        "title": "Extract Depth",
+        "description": "Depth of content extraction."
+      },
+      "include_images": {
+        "type": "boolean",
+        "title": "Include Images",
+        "description": "Include images found on the pages."
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "properties": {
+      "results": {
+        "type": "array",
+        "items": {
+          "type": "object"
+        }
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.012,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "examples": [
+    {
+      "input": {
+        "urls": [
+          "https://static.sandbase.ai/examples/de3a14cf-48e2-4dd0-9ef9-4c4c1da485c8/input/2f4290fd-6946-4f6b-8cbe-5b3366e41080.com"
+        ]
+      }
+    }
+  ],
+  "readme": "# Tavily URL Content Extraction API\n\nRetrieves clean web page content for a list of target addresses supplied via `urls`. Set `extract_depth` to adjust extraction detail or toggle `include_images` to return page images.\n\n## Use cases\n\n- Extract readable web page text for downstream analysis.\n- Retrieve article text and images from specific web addresses.\n- Gather clean webpage data using basic or advanced extraction depths.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/tavily/extract\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"urls\": \"<urls>\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `urls` | array | Yes | URLs to extract content from. |\n| `extract_depth` | string | No | Depth of content extraction. |\n| `include_images` | boolean | No | Include images found on the pages. |\n\n## Notes\n\n- Set `extract_depth` to either basic or advanced to control parsing depth.\n- Toggle `include_images` to true to return images identified on the pages.\n\n## Pricing\n\nFlat price per call. Failed calls are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/tavily/extract",
+  "published_at": "2024-01-01T00:00:00Z",
+  "created_at": "2026-08-09T08:47:40.186Z"
+}

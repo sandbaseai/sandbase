@@ -1,0 +1,50 @@
+{
+  "name": "x-ai/grok-4.3",
+  "display_name": "xAI: Grok 4.3",
+  "type": "llm",
+  "vendor": "xAI",
+  "vendor_slug": "x-ai",
+  "description": "Grok 4.3 is an xAI reasoning model that xAI describes as fast and reliable, with strong tool calling and instruction following. It accepts text and image input with text output, offers a 1M-token context window, and supports configurable reasoning effort that can be switched off or raised, defaulting to low. It suits agentic workflows, long-document analysis and high-volume instruction-following tasks, while Grok 4.5 through 4.7 later took over as xAI's flagship for coding.",
+  "tags": [
+    "chat",
+    "vision",
+    "reasoning",
+    "structured_output",
+    "function_calling"
+  ],
+  "capabilities": [
+    "chat",
+    "vision",
+    "reasoning",
+    "structured_output",
+    "function_calling"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "chat_completions": "POST /v1/chat/completions",
+    "responses": "POST /v1/responses",
+    "messages": "POST /v1/messages"
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_token",
+    "per_million_tokens": {
+      "input": 1.25,
+      "output": 2.5,
+      "cache_read_multiplier": 0.16
+    },
+    "formula": "usage.prompt_tokens >= 200000 ? (usage.prompt_tokens * 2.5 / 1000000 + usage.completion_tokens * 5 / 1000000 - usage.cached_tokens * 1.05 / 1000000) : (usage.prompt_tokens * 1.25 / 1000000 + usage.completion_tokens * 2.5 / 1000000)",
+    "formula_variables": [
+      "usage.cached_tokens",
+      "usage.completion_tokens",
+      "usage.prompt_tokens"
+    ]
+  },
+  "cover_url": "https://t0.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=https://x.ai/&size=256",
+  "page_url": "https://www.sandbase.ai/model/x-ai/grok-4.3",
+  "published_at": "2026-04-30T23:30:21.141Z",
+  "created_at": "2026-05-08T23:58:29.062Z"
+}

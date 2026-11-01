@@ -1,0 +1,73 @@
+{
+  "name": "weibo/web-v2/post-sub-comments",
+  "display_name": "Weibo Post Sub-Comments",
+  "type": "api",
+  "vendor": "Weibo",
+  "vendor_slug": "weibo",
+  "description": "Returns the list of sub-comments or replies for a specific Weibo comment. Supports pagination cursors and adjustable result counts per request.",
+  "tags": [
+    "api",
+    "weibo"
+  ],
+  "capabilities": [
+    "api",
+    "weibo"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/weibo/web-v2/post-sub-comments"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "id"
+    ],
+    "properties": {
+      "id": {
+        "type": "string",
+        "title": "Id",
+        "example": "7648703289",
+        "description": "Main comment ID (required)"
+      },
+      "count": {
+        "type": "integer",
+        "title": "Count",
+        "description": "Number of sub-comments (default 10)"
+      },
+      "max_id": {
+        "type": "string",
+        "title": "Max Id",
+        "description": "Pagination cursor, pass empty for first request, use returned max_id for subsequent requests"
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.0015,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "examples": [
+    {
+      "input": {
+        "id": "5283574244704555"
+      },
+      "default": true
+    }
+  ],
+  "readme": "# Weibo Post Sub-Comments API\n\nRetrieve sub-comments and replies for a designated Weibo comment by passing its `id`.\n\n## Use cases\n\n- Display threaded reply discussions underneath main comments on Weibo.\n- Extract nested user conversations for social sentiment analysis.\n- Track ongoing audience responses to key discussion points.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/weibo/web-v2/post-sub-comments\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"id\": \"7648703289\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `id` | string | Yes | Main comment ID (required) |\n| `count` | integer | No | Number of sub-comments (default 10) |\n| `max_id` | string | No | Pagination cursor, pass empty for first request, use returned max_id for subsequent requests |\n\n## Notes\n\n- Set `count` to control the number of sub-comments returned, which defaults to 10.\n- Pass `max_id` empty on the initial call, then provide the returned `max_id` for cursor-based pagination.\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [Weibo Advanced Search](/model/weibo/web-v2/advanced-search): Search Weibo posts by keyword with filters for time range, post type (hot, original, verified, media) and content type (images, video, links).\n- [Weibo AI Related Search Content](/model/weibo/web-v2/ai-related-search): Returns AI-generated content extensions for a keyword, including related questions, recommended bloggers, and reference posts.\n- [Weibo AI Search](/model/weibo/web-v2/ai-search): Returns multimodal search results and relevance scores from Weibo intelligent search for a specified keyword or topic query.\n",
+  "page_url": "https://www.sandbase.ai/model/weibo/web-v2/post-sub-comments",
+  "created_at": "2026-07-31T02:46:00.122Z"
+}

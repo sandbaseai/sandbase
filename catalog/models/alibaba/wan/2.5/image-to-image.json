@@ -1,0 +1,164 @@
+{
+  "name": "alibaba/wan/2.5/image-to-image",
+  "display_name": "Wan 2.5 Image to Image",
+  "type": "image",
+  "vendor": "Alibaba",
+  "vendor_slug": "alibaba",
+  "description": "Alibaba Wan 2.5 image-to-image model that edits one or more input images from a natural-language instruction, with selectable output aspect ratio.",
+  "tags": [
+    "image-to-image"
+  ],
+  "capabilities": [
+    "image-to-image"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "prompt",
+      "images"
+    ],
+    "properties": {
+      "seed": {
+        "type": "integer",
+        "title": "Seed",
+        "description": "Random seed for reproducibility. If None, a random seed is chosen."
+      },
+      "images": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        },
+        "title": "Images",
+        "examples": [
+          "https://static.sandbase.ai/examples/alibaba/wan/2.5/image-edit/input_images_0.png"
+        ],
+        "description": "URLs of images to edit. For single-image editing, provide 1 URL. For multi-reference generation, provide up to 2 URLs. If more than 2 URLs are provided, only the first 2 will be used."
+      },
+      "prompt": {
+        "type": "string",
+        "title": "Prompt",
+        "examples": [
+          "Reimagine the scene under a raging thunderstorm at night: lightning forks across the sky, illuminating the samurai in stark flashes of white light."
+        ],
+        "minLength": 1,
+        "description": "The text prompt describing how to edit the image. Max 2000 characters."
+      },
+      "aspect_ratio": {
+        "enum": [
+          "21:9",
+          "16:9",
+          "3:2",
+          "4:3",
+          "5:4",
+          "1:1",
+          "4:5",
+          "3:4",
+          "2:3",
+          "9:16"
+        ],
+        "type": "string",
+        "title": "Aspect Ratio",
+        "description": "The aspect ratio of the generated image."
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "title": "GenerationResponse",
+    "required": [
+      "id",
+      "status"
+    ],
+    "properties": {
+      "id": {
+        "type": "string",
+        "description": "Unique identifier for the generation task."
+      },
+      "error": {
+        "type": "string",
+        "description": "Error message if the task failed. Empty on success."
+      },
+      "model": {
+        "type": "string",
+        "description": "Model ID used for the prediction."
+      },
+      "status": {
+        "enum": [
+          "pending",
+          "running",
+          "completed",
+          "failed",
+          "timeout"
+        ],
+        "type": "string",
+        "description": "Status of the task: pending, running, completed, failed, or timeout."
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "title": "OutputItem",
+          "required": [
+            "url"
+          ],
+          "properties": {
+            "url": {
+              "type": "string",
+              "examples": [
+                "https://static.sandbase.ai/examples/alibaba/wan/2.5/image-edit/output_url_1.png"
+              ],
+              "description": "The URL where the generated content can be downloaded from."
+            },
+            "content_type": {
+              "type": "string",
+              "description": "The MIME type of the output file."
+            }
+          }
+        },
+        "description": "Array of generated content. Empty when status is not completed."
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "formula",
+    "formula": "0.05",
+    "formula_variables": [],
+    "reference_price": 0.05,
+    "price_examples": [
+      {
+        "params": {},
+        "usd": 0.05
+      }
+    ]
+  },
+  "examples": [
+    {
+      "input": {
+        "images": [
+          "https://static.sandbase.ai/examples/d92efef7-9913-4a55-bbe7-90fbfedf6e16/input/198eb29e-e2da-4e75-9519-0e9ddf903a3e.png"
+        ],
+        "prompt": "Reimagine the scene under a raging thunderstorm at night: lightning forks across the sky, illuminating the samurai in stark flashes of white light."
+      },
+      "output": [
+        {
+          "url": "https://static.sandbase.ai/examples/d92efef7-9913-4a55-bbe7-90fbfedf6e16/output/16e8e75a-1f9a-4cdb-90f6-77032fe24280.png"
+        }
+      ],
+      "default": true
+    }
+  ],
+  "readme": "# Wan 2.5 Image to Image\n\nWan 2.5 image editing: send one or more pictures and describe the change.\n\n## Fields\n\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `prompt` | string, required | — | Text instruction. |\n| `images` | image URL[], required | — | Images to edit or combine, Image 1, Image 2, … |\n| `aspect_ratio` | `21:9` / `16:9` / `3:2` / `4:3` / `5:4` / `1:1` / `4:5` / `3:4` / `2:3` / `9:16` | — | Omit to follow the first input image. |\n| `seed` | integer | random | Fix it to compare prompt changes. |\n\n## Billing\n\n$0.05 per output image. Input images are not metered.\n\n| Request | Price |\n|---|---|\n| One image | $0.05 |\n\nFailed runs are not charged.\n\n## Prompting\n\n- State the change and what must stay the same.\n\n## Limits\n\n- One output image per request. Wan 2.7 is newer and cheaper.\n\n## Also on SandBase\n\nOther Wan 2.5 endpoints: `alibaba/wan/2.5/text-to-video`, `alibaba/wan/2.5/image-to-video`, `alibaba/wan/2.5/text-to-image`, `alibaba/wan/2.7/image-to-image` (newer).\n",
+  "cover_url": "https://static.sandbase.ai/covers/alibaba/wan/2.5/image-to-image/cover-flare-20261005151916.webp",
+  "page_url": "https://www.sandbase.ai/model/alibaba/wan/2.5/image-to-image",
+  "published_at": "2025-09-25T20:59:52.034Z",
+  "created_at": "2026-10-05T02:17:44.111Z"
+}

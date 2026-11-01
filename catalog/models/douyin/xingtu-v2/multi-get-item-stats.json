@@ -1,0 +1,88 @@
+{
+  "name": "douyin/xingtu-v2/multi-get-item-stats",
+  "display_name": "Douyin Xingtu Batch Video Stats",
+  "type": "api",
+  "vendor": "Douyin",
+  "vendor_slug": "douyin",
+  "description": "Returns batch performance statistics and details for up to 20 videos, including play counts, engagement metrics, and watch durations.",
+  "tags": [
+    "api",
+    "douyin"
+  ],
+  "capabilities": [
+    "api",
+    "douyin"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/douyin/xingtu-v2/multi-get-item-stats"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "item_ids"
+    ],
+    "properties": {
+      "item_ids": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        },
+        "title": "Item Ids",
+        "description": "Video (item) ID list, up to 20 per call (exceeding returns an error); auto de-dup"
+      },
+      "need_cover_url": {
+        "type": "boolean",
+        "title": "Need Cover Url",
+        "description": "Whether to return cover URL, default true"
+      },
+      "platform_source": {
+        "type": "integer",
+        "title": "Platform Source",
+        "description": "Platform source, default 1"
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.06
+  },
+  "examples": [
+    {
+      "input": {
+        "item_ids": [
+          "7687093469244621938",
+          "7686796523062249137",
+          "7686841529931612005",
+          "7686502146531783675",
+          "7685975419837331142",
+          "7685632954731224040",
+          "7684504353231549617",
+          "7682996027443604389",
+          "7681673254012674789",
+          "7679017665726767333",
+          "7678315154521558291",
+          "7664189446983601444",
+          "7655247684618425946",
+          "7615169499202358385",
+          "7605141504243990257"
+        ],
+        "need_cover_url": true,
+        "platform_source": 1
+      },
+      "default": true
+    }
+  ],
+  "readme": "# Douyin Xingtu Batch Video Stats API\n\nRetrieves detailed metrics and engagement statistics for multiple videos using `item_ids`. Supports optional cover image URLs via `need_cover_url` and source filtering via `platform_source`.\n\n## Use cases\n\n- Track performance statistics across multiple Douyin videos simultaneously.\n- Analyze viewer interaction rates and average watch durations for video content.\n- Retrieve video details and thumbnail cover links in batch requests.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/douyin/xingtu-v2/multi-get-item-stats\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"item_ids\": \"<item_ids>\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `item_ids` | array | Yes | Video (item) ID list, up to 20 per call (exceeding returns an error); auto de-dup |\n| `need_cover_url` | boolean | No | Whether to return cover URL, default true |\n| `platform_source` | integer | No | Platform source, default 1 |\n\n## Notes\n\n- Accepts up to 20 IDs in `item_ids` per call with automatic deduplication; exceeding this limit returns an error.\n- `need_cover_url` defaults to true.\n- `platform_source` defaults to 1.\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [Douyin Xingtu Author Audience Distribution](/model/douyin/xingtu-v2/author-audience-distribution): Returns audience profile distribution metrics for a specified Xingtu creator based on creator ID and link type, with selectable platform source and channel opt…\n- [Douyin Xingtu Author Base Info](/model/douyin/xingtu-v2/author-base-info): Returns basic creator profile data from Douyin Xingtu by author identifier, with options to include recommendation details and linkage information.\n- [Douyin Xingtu Author Business Card Info](/model/douyin/xingtu-v2/author-business-card-info): Returns business card details for a Douyin Xingtu creator based on the specified author ID.\n",
+  "page_url": "https://www.sandbase.ai/model/douyin/xingtu-v2/multi-get-item-stats",
+  "created_at": "2026-07-31T02:42:45.225Z"
+}

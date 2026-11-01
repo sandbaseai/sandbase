@@ -1,0 +1,83 @@
+{
+  "name": "tiktok/web/user-like",
+  "display_name": "TikTok User Likes",
+  "type": "api",
+  "vendor": "TikTok",
+  "vendor_slug": "tiktok",
+  "description": "Returns a list of videos liked by a specific TikTok profile based on their secUid. Supports pagination via cursor tokens and optional sort type settings.",
+  "tags": [
+    "api",
+    "tiktok"
+  ],
+  "capabilities": [
+    "api",
+    "tiktok"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/tiktok/web/user-like"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "secUid"
+    ],
+    "properties": {
+      "count": {
+        "type": "integer",
+        "title": "Count",
+        "description": "Number per page, default is 20, cannot be changed."
+      },
+      "cursor": {
+        "type": "integer",
+        "title": "Cursor",
+        "description": "Page cursor"
+      },
+      "secUid": {
+        "type": "string",
+        "title": "Secuid",
+        "example": "MS4wLjABAAAAv7iSuuXDJGDvJkmH_vz1qkDZYo1apxgzaxdBSeIuPiM",
+        "description": "User secUid"
+      },
+      "coverFormat": {
+        "type": "integer",
+        "title": "Coverformat",
+        "description": "Cover format"
+      },
+      "post_item_list_request_type": {
+        "type": "integer",
+        "title": "Post Item List Request Type",
+        "description": "Sort type"
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.0015,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "examples": [
+    {
+      "input": {
+        "secUid": "MS4wLjABAAAAv7iSuuXDJGDvJkmH_vz1qkDZYo1apxgzaxdBSeIuPiM"
+      },
+      "default": true
+    }
+  ],
+  "readme": "# TikTok User Likes API\n\nFetch videos liked by a TikTok account by supplying the target user's `secUid`. Paginate through past likes using the `cursor` parameter.\n\n## Use cases\n\n- Inspect public videos liked by a specific TikTok creator.\n- Analyze content preferences and engagement trends of a target user.\n- Collect user liked video records for audience research.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/tiktok/web/user-like\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"secUid\": \"MS4wLjABAAAAv7iSuuXDJGDvJkmH_vz1qkDZYo1apxgzaxdBSeIuPiM\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `secUid` | string | Yes | User secUid |\n| `count` | integer | No | Number per page, default is 20, cannot be changed. |\n| `cursor` | integer | No | Page cursor |\n| `coverFormat` | integer | No | Cover format |\n| `post_item_list_request_type` | integer | No | Sort type |\n\n## Example response\n\nReal response for the request above, trimmed to the main fields. User names and long IDs are masked.\n\n```json\n{\n  \"statusCode\": 0,\n  \"status_code\": 0\n}\n```\n\n## Notes\n\n- The `count` parameter defaults to 20 and cannot be changed.\n- Use `cursor` for pagination across result pages.\n- The target user's `secUid` is required.\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [TikTok Video IDs from URLs (Batch)](/model/tiktok/web/all-aweme-id): Resolves and extracts TikTok video IDs from a list of video URLs.\n- [TikTok User Sec User ID Extractor](/model/tiktok/web/all-sec-user-id): Returns a list of sec_user_id identifiers corresponding to TikTok user profile URLs.\n- [TikTok Profile Unique IDs](/model/tiktok/web/all-unique-id): Resolves a batch of TikTok user homepage links to retrieve their corresponding unique identifiers.\n",
+  "page_url": "https://www.sandbase.ai/model/tiktok/web/user-like",
+  "created_at": "2026-07-31T04:17:58.309Z"
+}

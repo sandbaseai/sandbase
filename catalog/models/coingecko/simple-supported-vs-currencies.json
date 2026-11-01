@@ -1,0 +1,47 @@
+{
+  "name": "coingecko/simple-supported-vs-currencies",
+  "display_name": "CoinGecko Supported Currencies List",
+  "type": "api",
+  "vendor": "CoinGecko",
+  "vendor_slug": "coingecko",
+  "description": "Supported Currencies List from CoinGecko. Returns the official CoinGecko API response unchanged.",
+  "tags": [
+    "api",
+    "coingecko",
+    "crypto"
+  ],
+  "capabilities": [
+    "api",
+    "coingecko",
+    "crypto"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/coingecko/simple-supported-vs-currencies"
+  },
+  "input_schema": {
+    "type": "object",
+    "properties": {}
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.008,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "readme": "# CoinGecko Supported Currencies List API\n\nSupported Currencies List from CoinGecko. Returns the official CoinGecko API response unchanged.\n\nThe response is the official CoinGecko API response, unchanged.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/coingecko/simple-supported-vs-currencies\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{}'\n```\n\n## Parameters\n\nThis API takes no parameters.\n\n## Pricing\n\nFlat price per call. Failed calls are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/coingecko/simple-supported-vs-currencies",
+  "created_at": "2026-10-30T03:11:25.393Z"
+}

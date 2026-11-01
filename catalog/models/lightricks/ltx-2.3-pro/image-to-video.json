@@ -1,0 +1,243 @@
+{
+  "name": "lightricks/ltx-2.3-pro/image-to-video",
+  "display_name": "LTX 2.3 Pro Image to Video",
+  "type": "video",
+  "vendor": "Lightricks",
+  "vendor_slug": "lightricks",
+  "description": "Ltx 2.3 Pro by Lightricks - animate still images into dynamic videos with AI. Transform photos into cinematic clips with natural motion, camera movement, and optional audio generation.",
+  "tags": [
+    "image-to-video"
+  ],
+  "capabilities": [
+    "image-to-video"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "prompt",
+      "image"
+    ],
+    "properties": {
+      "image": {
+        "type": "string",
+        "title": "Start Image URL",
+        "examples": [
+          "https://static.sandbase.ai/examples/lightricks/ltx-2.3-pro/image-to-video/input_image_0.png"
+        ],
+        "description": "The URL of the start image to use for the generated video."
+      },
+      "prompt": {
+        "type": "string",
+        "title": "Prompt",
+        "examples": [
+          "Periscope-level shot from behind tall grass of two Maasai warriors mid-leap during an adumu jumping dance, bodies fully airborne against a golden savanna sunset, red shuka robes frozen in motion, dust kicked up from the earth catching backlight, 85mm f/1.4 isolating the pair from a blurred circle of onlookers, Steve McCurry meets Emmanuel Lubezki"
+        ],
+        "maxLength": 5000,
+        "minLength": 1,
+        "description": "The prompt to use for the generated video"
+      },
+      "duration": {
+        "enum": [
+          6,
+          8,
+          10
+        ],
+        "type": "integer",
+        "title": "Duration",
+        "default": 6,
+        "description": "The duration of the generated video in seconds"
+      },
+      "end_image": {
+        "type": "string",
+        "title": "End Image URL",
+        "description": "The URL of the end image to use for the generated video. When provided, generates a transition video between start and end frames."
+      },
+      "resolution": {
+        "enum": [
+          "1080p",
+          "1440p",
+          "2160p"
+        ],
+        "type": "string",
+        "title": "Resolution",
+        "default": "1080p",
+        "description": "The resolution of the generated video"
+      },
+      "aspect_ratio": {
+        "enum": [
+          "16:9",
+          "9:16"
+        ],
+        "type": "string",
+        "title": "Aspect Ratio",
+        "description": "Output aspect ratio. Omit to match the input image."
+      },
+      "generate_audio": {
+        "type": "boolean",
+        "title": "Generate Audio",
+        "default": true,
+        "description": "Whether to generate audio for the generated video"
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "title": "GenerationResponse",
+    "required": [
+      "id",
+      "status"
+    ],
+    "properties": {
+      "id": {
+        "type": "string",
+        "description": "Unique identifier for the generation task."
+      },
+      "error": {
+        "type": "string",
+        "description": "Error message if the task failed. Empty on success."
+      },
+      "model": {
+        "type": "string",
+        "description": "Model ID used for the prediction."
+      },
+      "status": {
+        "enum": [
+          "pending",
+          "running",
+          "completed",
+          "failed",
+          "timeout"
+        ],
+        "type": "string",
+        "description": "Status of the task: pending, running, completed, failed, or timeout."
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "title": "OutputItem",
+          "required": [
+            "url"
+          ],
+          "properties": {
+            "url": {
+              "type": "string",
+              "examples": [
+                "https://static.sandbase.ai/examples/lightricks/ltx-2.3-pro/image-to-video/output_url_1.mp4"
+              ],
+              "description": "The URL where the generated content can be downloaded from."
+            },
+            "content_type": {
+              "type": "string",
+              "description": "The MIME type of the output file."
+            }
+          }
+        },
+        "description": "Array of generated content. Empty when status is not completed."
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "formula",
+    "formula": "(params.resolution ?? \"1080p\") == \"2160p\" ? (params.duration ?? 6) * 0.32 : (params.resolution ?? \"1080p\") == \"1440p\" ? (params.duration ?? 6) * 0.16 : (params.duration ?? 6) * 0.08",
+    "formula_variables": [
+      "params.duration",
+      "params.resolution"
+    ],
+    "reference_price": 0.48,
+    "price_examples": [
+      {
+        "params": {
+          "duration": 6,
+          "resolution": "1080p"
+        },
+        "usd": 0.48
+      },
+      {
+        "params": {
+          "duration": 6,
+          "resolution": "1440p"
+        },
+        "usd": 0.96
+      },
+      {
+        "params": {
+          "duration": 6,
+          "resolution": "2160p"
+        },
+        "usd": 1.92
+      },
+      {
+        "params": {
+          "duration": 8,
+          "resolution": "1080p"
+        },
+        "usd": 0.64
+      },
+      {
+        "params": {
+          "duration": 8,
+          "resolution": "1440p"
+        },
+        "usd": 1.28
+      },
+      {
+        "params": {
+          "duration": 8,
+          "resolution": "2160p"
+        },
+        "usd": 2.56
+      },
+      {
+        "params": {
+          "duration": 10,
+          "resolution": "1080p"
+        },
+        "usd": 0.8
+      },
+      {
+        "params": {
+          "duration": 10,
+          "resolution": "1440p"
+        },
+        "usd": 1.6
+      },
+      {
+        "params": {
+          "duration": 10,
+          "resolution": "2160p"
+        },
+        "usd": 3.2
+      }
+    ]
+  },
+  "examples": [
+    {
+      "input": {
+        "image": "https://static.sandbase.ai/examples/c7d8f59e-6180-41d0-88b2-298746c79af5/input/823e934f-9302-48ed-8c09-73ade1f07336.png",
+        "prompt": "Periscope-level shot from behind tall grass of two Maasai warriors mid-leap during an adumu jumping dance, bodies fully airborne against a golden savanna sunset, red shuka robes frozen in motion, dust kicked up from the earth catching backlight, 85mm f/1.4 isolating the pair from a blurred circle of onlookers, Steve McCurry meets Emmanuel Lubezki"
+      },
+      "output": [
+        {
+          "poster": "https://static.sandbase.ai/examples/posters/c9075ef090046045b5e9.jpg",
+          "url": "https://static.sandbase.ai/examples/c7d8f59e-6180-41d0-88b2-298746c79af5/output/04aadb09-3d10-49fe-8d0c-b0f59bac6f64.mp4"
+        }
+      ],
+      "default": true
+    }
+  ],
+  "readme": "# LTX 2.3 Pro Image to Video\n\nLTX 2.3 Pro image to video: 6–10 second clips with native audio at 1080p, 1440p, or 4K (2160p). `image` is the first frame; `end_image` optionally the last.\n\n## Fields\n\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `prompt` | string, required | — | Up to 5,000 characters. |\n| `image` | image URL, required | — | First frame. JPEG, PNG, or WebP URL. |\n| `end_image` | image URL | — | Optional last frame. |\n| `resolution` | `1080p` / `1440p` / `2160p` | `1080p` | Sets the per-second rate. |\n| `duration` | 6 / 8 / 10 | 6 | Output length in seconds. |\n| `generate_audio` | boolean | true | Native audio. |\n| `aspect_ratio` | `16:9` / `9:16` | — | Output frame shape. |\n\n## Billing\n\nYou pay for output seconds: $0.08 at 1080p, $0.16 at 1440p, $0.32 at 2160p.\n\n| Output | 1080p | 1440p | 2160p |\n|---|---|---|---|\n| 6s (default) | $0.48 | $0.96 | $1.92 |\n| 8s | $0.64 | $1.28 | $2.56 |\n| 10s | $0.80 | $1.60 | $3.20 |\n\nFailed runs are not charged.\n\n## Prompting\n\n- Describe subject, action, camera, and sound.\n\n## Also on SandBase\n\nOther LTX 2.3 endpoints: `lightricks/ltx-2.3-pro/text-to-video`, `lightricks/ltx-2.3-pro/audio-to-video`, `lightricks/ltx-2.3-pro/retake`, `lightricks/ltx-2.3-pro/video-extend`.\n",
+  "cover_url": "https://static.sandbase.ai/covers/lightricks/ltx-2.3-pro/image-to-video/cover-flare-20261005032745.webp",
+  "page_url": "https://www.sandbase.ai/model/lightricks/ltx-2.3-pro/image-to-video",
+  "published_at": "2026-03-05T15:31:20.809Z",
+  "created_at": "2026-05-15T11:53:18.065Z"
+}

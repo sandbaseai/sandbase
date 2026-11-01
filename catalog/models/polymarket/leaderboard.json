@@ -1,0 +1,110 @@
+{
+  "name": "polymarket/leaderboard",
+  "display_name": "Polymarket Get trader leaderboard rankings",
+  "type": "api",
+  "vendor": "Polymarket",
+  "vendor_slug": "polymarket",
+  "description": "Returns trader leaderboard rankings for a selected category and time period.",
+  "tags": [
+    "api",
+    "polymarket",
+    "prediction-markets"
+  ],
+  "capabilities": [
+    "api",
+    "polymarket",
+    "prediction-markets"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/polymarket/leaderboard"
+  },
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "user": {
+        "type": "string",
+        "example": "0x56687bf447db6ffa42ffe2204a05edaa20f55839",
+        "description": "Limit leaderboard to a single user by address"
+      },
+      "limit": {
+        "type": "integer",
+        "default": 25,
+        "example": 2,
+        "maximum": 50,
+        "minimum": 1,
+        "description": "Max number of leaderboard traders to return"
+      },
+      "offset": {
+        "type": "integer",
+        "default": 0,
+        "maximum": 1000,
+        "minimum": 0,
+        "description": "Starting index for pagination"
+      },
+      "orderBy": {
+        "enum": [
+          "PNL",
+          "VOL"
+        ],
+        "type": "string",
+        "default": "PNL",
+        "description": "Leaderboard ordering criteria"
+      },
+      "category": {
+        "enum": [
+          "OVERALL",
+          "POLITICS",
+          "SPORTS",
+          "ESPORTS",
+          "CRYPTO",
+          "CULTURE",
+          "MENTIONS",
+          "WEATHER",
+          "ECONOMICS",
+          "TECH",
+          "FINANCE"
+        ],
+        "type": "string",
+        "default": "OVERALL",
+        "description": "Market category for the leaderboard"
+      },
+      "userName": {
+        "type": "string",
+        "description": "Limit leaderboard to a single username"
+      },
+      "timePeriod": {
+        "enum": [
+          "DAY",
+          "WEEK",
+          "MONTH",
+          "ALL"
+        ],
+        "type": "string",
+        "default": "DAY",
+        "description": "Time period for leaderboard results"
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.012,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "readme": "# Polymarket Get trader leaderboard rankings API\n\nReturns trader leaderboard rankings for a selected category and time period.\n\nThe response is the official Polymarket API response, unchanged.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/polymarket/leaderboard\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"limit\": 2}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `category` | string | No | Market category for the leaderboard |\n| `limit` | integer | No | Max number of leaderboard traders to return |\n| `offset` | integer | No | Starting index for pagination |\n| `orderBy` | string | No | Leaderboard ordering criteria |\n| `timePeriod` | string | No | Time period for leaderboard results |\n| `user` | string | No | Limit leaderboard to a single user by address |\n| `userName` | string | No | Limit leaderboard to a single username |\n\n## Pricing\n\nFlat price per call. Failed calls are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/polymarket/leaderboard",
+  "created_at": "2026-08-10T02:52:16.963Z"
+}

@@ -1,0 +1,111 @@
+{
+  "name": "linkedin/web-v2/post-comments",
+  "display_name": "LinkedIn Post Comments",
+  "type": "api",
+  "vendor": "LinkedIn",
+  "vendor_slug": "linkedin",
+  "description": "Returns comments for a specific LinkedIn post using its activity URN. Supports filtering by share URN, sorting by relevance or recency, and paginating through results.",
+  "tags": [
+    "api",
+    "linkedin"
+  ],
+  "capabilities": [
+    "api",
+    "linkedin"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/linkedin/web-v2/post-comments"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "urn"
+    ],
+    "properties": {
+      "urn": {
+        "type": "string",
+        "title": "Urn",
+        "description": "Post activity urn (the numeric part of .../urn:li:activity:<urn>/)."
+      },
+      "page": {
+        "anyOf": [
+          {
+            "type": "integer",
+            "minimum": 1
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "title": "Page",
+        "description": "Page number, starting at 1."
+      },
+      "sort_by": {
+        "anyOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "title": "Sort By",
+        "description": "Most relevant (default) or Most recent."
+      },
+      "share_urn": {
+        "anyOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "title": "Share Urn",
+        "description": "Optional share urn for shared posts."
+      },
+      "pagination_token": {
+        "anyOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "title": "Pagination Token",
+        "description": "Token returned by the previous response."
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.015,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "examples": [
+    {
+      "input": {
+        "urn": "7267273010393358336"
+      },
+      "default": true
+    }
+  ],
+  "readme": "# LinkedIn Post Comments API\n\nRetrieve comments for a LinkedIn post by providing the target activity identifier in `urn`. You can sort by recency or relevance and navigate multi-page discussions.\n\n## Use cases\n\n- Review audience feedback and replies on specific LinkedIn posts.\n- Monitor post discussions sorted by either recency or relevance.\n- Ingest comment threads across multiple pages using pagination tokens.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/linkedin/web-v2/post-comments\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"urn\": \"<urn>\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `urn` | string | Yes | Post activity urn (the numeric part of .../urn:li:activity:<urn>/). |\n| `page` | string | No | Page number, starting at 1. |\n| `sort_by` | string | No | Most relevant (default) or Most recent. |\n| `share_urn` | string | No | Optional share urn for shared posts. |\n| `pagination_token` | string | No | Token returned by the previous response. |\n\n## Notes\n\n- Provide the numeric portion of urn:li:activity:<urn> in `urn`.\n- Sort options for `sort_by` include Most relevant (default) and Most recent.\n- Pagination is handled via `page` starting at 1 or by passing `pagination_token` from previous responses.\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [LinkedIn Company Posts](/model/linkedin/web-v2/company-posts): Returns posts from a LinkedIn organization page using the company URL.\n- [LinkedIn Company Profile](/model/linkedin/web-v2/company-profile): Returns LinkedIn company profile details, including affiliated organizations, using a direct company page URL.\n- [LinkedIn Job Details](/model/linkedin/web-v2/job-detail): Returns detailed information for a specific LinkedIn job posting via its URL.\n",
+  "page_url": "https://www.sandbase.ai/model/linkedin/web-v2/post-comments",
+  "created_at": "2026-07-31T04:08:36.257Z"
+}

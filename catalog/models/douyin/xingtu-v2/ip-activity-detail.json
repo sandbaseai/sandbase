@@ -1,0 +1,62 @@
+{
+  "name": "douyin/xingtu-v2/ip-activity-detail",
+  "display_name": "Douyin Xingtu IP Activity Detail",
+  "type": "api",
+  "vendor": "Douyin",
+  "vendor_slug": "douyin",
+  "description": "Returns detailed information for a specific Xingtu IP calendar activity on Douyin. Queries activity data using the unique activity identifier.",
+  "tags": [
+    "api",
+    "douyin"
+  ],
+  "capabilities": [
+    "api",
+    "douyin"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/douyin/xingtu-v2/ip-activity-detail"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "id"
+    ],
+    "properties": {
+      "id": {
+        "type": "integer",
+        "title": "Id",
+        "example": 1224,
+        "description": "Activity ID, from `get_ip_activity_list`"
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.0015,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "examples": [
+    {
+      "input": {
+        "id": 1
+      }
+    }
+  ],
+  "readme": "# Douyin Xingtu IP Activity Detail API\n\nRetrieve details for a specific Xingtu IP calendar activity by supplying its `id`. Activity identifiers can be obtained from the activity list endpoint.\n\n## Use cases\n\n- Inspect specific Xingtu IP calendar activity parameters and guidelines.\n- Retrieve full activity profiles to coordinate Douyin marketing campaigns.\n- Display detailed calendar event information within marketing dashboards.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/douyin/xingtu-v2/ip-activity-detail\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"id\": 1224}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `id` | integer | Yes | Activity ID, from `get_ip_activity_list` |\n\n## Notes\n\n- Obtain the required `id` value from `get_ip_activity_list`.\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [Douyin Xingtu Author Audience Distribution](/model/douyin/xingtu-v2/author-audience-distribution): Returns audience profile distribution metrics for a specified Xingtu creator based on creator ID and link type, with selectable platform source and channel opt…\n- [Douyin Xingtu Author Base Info](/model/douyin/xingtu-v2/author-base-info): Returns basic creator profile data from Douyin Xingtu by author identifier, with options to include recommendation details and linkage information.\n- [Douyin Xingtu Author Business Card Info](/model/douyin/xingtu-v2/author-business-card-info): Returns business card details for a Douyin Xingtu creator based on the specified author ID.\n",
+  "page_url": "https://www.sandbase.ai/model/douyin/xingtu-v2/ip-activity-detail",
+  "created_at": "2026-07-31T02:42:35.609Z"
+}

@@ -1,0 +1,40 @@
+name: Refresh catalog
+
+on:
+  schedule:
+    - cron: "17 2 * * *"   # daily, 02:17 UTC
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Fetch catalog
+        # read-only key: used to list public Skills and sandbox templates
+        env:
+          SANDBASE_API_KEY: ${{ secrets.SANDBASE_CATALOG_KEY }}
+        run: python scripts/fetch_catalog.py
+      - name: Build (fails on unresolved publishing flags)
+        env:
+          SANDBASE_UPSTREAM_MARKERS: ${{ secrets.SANDBASE_UPSTREAM_MARKERS }}
+        run: python scripts/build_catalog.py --strict
+      - name: Commit changes
+        run: |
+          if git diff --quiet -- catalog docs openapi; then
+            echo "no catalog changes"; exit 0
+          fi
+          git config user.name "sandbase-catalog-bot"
+          git config user.email "catalog-bot@users.noreply.github.com"
+          git add catalog docs openapi
+          git commit -m "chore(catalog): refresh $(date -u +%Y-%m-%d)"
+          git push

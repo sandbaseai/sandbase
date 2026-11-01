@@ -1,0 +1,78 @@
+{
+  "name": "tiktok/web/user-fans",
+  "display_name": "TikTok User Followers",
+  "type": "api",
+  "vendor": "TikTok",
+  "vendor_slug": "tiktok",
+  "description": "Returns a list of followers for a specified TikTok profile along with follower account stats. Supports pagination through cursor and count parameters.",
+  "tags": [
+    "api",
+    "tiktok"
+  ],
+  "capabilities": [
+    "api",
+    "tiktok"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/tiktok/web/user-fans"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "secUid"
+    ],
+    "properties": {
+      "count": {
+        "type": "integer",
+        "title": "Count",
+        "description": "Number per page"
+      },
+      "secUid": {
+        "type": "string",
+        "title": "Secuid",
+        "example": "MS4wLjABAAAAv7iSuuXDJGDvJkmH_vz1qkDZYo1apxgzaxdBSeIuPiM",
+        "description": "User secUid"
+      },
+      "maxCursor": {
+        "type": "integer",
+        "title": "Maxcursor",
+        "description": "Max cursor"
+      },
+      "minCursor": {
+        "type": "integer",
+        "title": "Mincursor",
+        "description": "Min cursor"
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.0015,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "examples": [
+    {
+      "input": {
+        "secUid": "MS4wLjABAAAAv7iSuuXDJGDvJkmH_vz1qkDZYo1apxgzaxdBSeIuPiM"
+      },
+      "default": true
+    }
+  ],
+  "readme": "# TikTok User Followers API\n\nRetrieve followers for a specific TikTok profile by providing the account's `secUid`. Results can be paginated using `maxCursor`, `minCursor`, and `count`.\n\n## Use cases\n\n- Analyze the follower composition and engagement metrics of a TikTok creator.\n- Inspect follower accounts for verification status and interaction counts.\n- Export follower lists for audience research and influencer network mapping.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/tiktok/web/user-fans\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"secUid\": \"MS4wLjABAAAAv7iSuuXDJGDvJkmH_vz1qkDZYo1apxgzaxdBSeIuPiM\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `secUid` | string | Yes | User secUid |\n| `count` | integer | No | Number per page |\n| `maxCursor` | integer | No | Max cursor |\n| `minCursor` | integer | No | Min cursor |\n\n## Example response\n\nReal response for the request above, trimmed to the main fields. User names and long IDs are masked.\n\n```json\n{\n  \"userList\": [\n    {\n      \"stats\": {\n        \"diggCount\": 317,\n        \"followerCount\": 84,\n        \"followingCount\": 222,\n        \"friendCount\": 0,\n        \"heartCount\": 0,\n        \"videoCount\": 1\n      },\n      \"statsV2\": {\n        \"diggCount\": \"317\",\n        \"followerCount\": \"84\",\n        \"followingCount\": \"222\",\n        \"friendCount\": \"0\",\n        \"heartCount\": \"0\",\n        \"videoCount\": \"1\"\n      },\n      \"user\": {\n        \"id\": \"7683196544857965588\",\n        \"nickname\": \"<user>\",\n        \"privateAccount\": false,\n        \"verified\": false\n      }\n    }\n  ]\n}\n```\n\n## Notes\n\n- Specify the target account using `secUid`.\n- Paginate through results using `maxCursor`, `minCursor`, and `count`.\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [TikTok Video IDs from URLs (Batch)](/model/tiktok/web/all-aweme-id): Resolves and extracts TikTok video IDs from a list of video URLs.\n- [TikTok User Sec User ID Extractor](/model/tiktok/web/all-sec-user-id): Returns a list of sec_user_id identifiers corresponding to TikTok user profile URLs.\n- [TikTok Profile Unique IDs](/model/tiktok/web/all-unique-id): Resolves a batch of TikTok user homepage links to retrieve their corresponding unique identifiers.\n",
+  "page_url": "https://www.sandbase.ai/model/tiktok/web/user-fans",
+  "created_at": "2026-07-31T04:17:52.457Z"
+}

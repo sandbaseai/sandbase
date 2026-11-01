@@ -1,0 +1,50 @@
+{
+  "name": "x-ai/grok-4.6",
+  "display_name": "xAI: Grok 4.6",
+  "type": "llm",
+  "vendor": "xAI",
+  "vendor_slug": "x-ai",
+  "description": "Grok 4.6 is xAI's frontier reasoning model for coding, agentic tasks and knowledge work, released in August 2026 as the successor to Grok 4.5. xAI focused it on long-running agents and ambitious interactive and visual projects, such as turning a broad product idea into a working first version and refining it over several rounds. It accepts text and image input with text output and configurable reasoning effort; Grok 4.7 succeeded it in September 2026.",
+  "tags": [
+    "chat",
+    "vision",
+    "reasoning",
+    "structured_output",
+    "function_calling"
+  ],
+  "capabilities": [
+    "chat",
+    "vision",
+    "reasoning",
+    "structured_output",
+    "function_calling"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "chat_completions": "POST /v1/chat/completions",
+    "responses": "POST /v1/responses",
+    "messages": "POST /v1/messages"
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_token",
+    "per_million_tokens": {
+      "input": 2,
+      "output": 6,
+      "cache_read_multiplier": 0.25
+    },
+    "formula": "usage.prompt_tokens >= 200000 ? (usage.prompt_tokens * 4 / 1000000 + usage.completion_tokens * 12 / 1000000 - usage.cached_tokens * 1.5 / 1000000) : (usage.prompt_tokens * 2 / 1000000 + usage.completion_tokens * 6 / 1000000)",
+    "formula_variables": [
+      "usage.cached_tokens",
+      "usage.completion_tokens",
+      "usage.prompt_tokens"
+    ]
+  },
+  "cover_url": "https://t0.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=https://x.ai/&size=256",
+  "page_url": "https://www.sandbase.ai/model/x-ai/grok-4.6",
+  "published_at": "2026-08-12T15:35:57Z",
+  "created_at": "2026-08-13T13:42:06.593Z"
+}

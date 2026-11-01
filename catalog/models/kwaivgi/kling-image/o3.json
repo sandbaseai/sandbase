@@ -1,0 +1,166 @@
+{
+  "name": "kwaivgi/kling-image/o3",
+  "display_name": "Kling Image O3 Text to Image",
+  "type": "image",
+  "vendor": "KwaiVGI",
+  "vendor_slug": "kwaivgi",
+  "description": "Kling Image O3 by Kuaishou generates images from a text prompt at 1K, 2K, or 4K resolution in common aspect ratios.",
+  "tags": [
+    "text-to-image"
+  ],
+  "capabilities": [
+    "text-to-image"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "prompt"
+    ],
+    "properties": {
+      "prompt": {
+        "type": "string",
+        "title": "Prompt",
+        "maxLength": 2500,
+        "description": "Text prompt for image generation. Max 2500 characters."
+      },
+      "resolution": {
+        "enum": [
+          "1K",
+          "2K",
+          "4K"
+        ],
+        "type": "string",
+        "title": "Resolution",
+        "default": "1K",
+        "description": "Image generation resolution. 1K: standard, 2K: high-res, 4K: ultra high-res."
+      },
+      "aspect_ratio": {
+        "enum": [
+          "21:9",
+          "16:9",
+          "3:2",
+          "4:3",
+          "5:4",
+          "1:1",
+          "4:5",
+          "3:4",
+          "2:3",
+          "9:16"
+        ],
+        "type": "string",
+        "title": "Aspect Ratio",
+        "default": "16:9",
+        "description": "The aspect ratio of the generated image."
+      },
+      "output_format": {
+        "enum": [
+          "jpeg",
+          "png"
+        ],
+        "type": "string",
+        "title": "Output Format",
+        "default": "png",
+        "description": "The format of the generated image."
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "title": "GenerationResponse",
+    "required": [
+      "id",
+      "status"
+    ],
+    "properties": {
+      "id": {
+        "type": "string",
+        "description": "Unique identifier for the generation task."
+      },
+      "error": {
+        "type": "string",
+        "description": "Error message if the task failed. Empty on success."
+      },
+      "model": {
+        "type": "string",
+        "description": "Model ID used for the prediction."
+      },
+      "status": {
+        "enum": [
+          "pending",
+          "running",
+          "completed",
+          "failed",
+          "timeout"
+        ],
+        "type": "string",
+        "description": "Status of the task: pending, running, completed, failed, or timeout."
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "title": "OutputItem",
+          "required": [
+            "url"
+          ],
+          "properties": {
+            "url": {
+              "type": "string",
+              "examples": [
+                "https://static.sandbase.ai/examples/kwaivgi/kling-image/o3/output_url_0.png"
+              ],
+              "description": "The URL where the generated content can be downloaded from."
+            },
+            "content_type": {
+              "type": "string",
+              "description": "The MIME type of the output file."
+            }
+          }
+        },
+        "description": "Array of generated content. Empty when status is not completed."
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "formula",
+    "formula": "(params.resolution ?? \"1K\") == \"4K\" ? 0.056 : 0.028",
+    "formula_variables": [
+      "params.resolution"
+    ],
+    "reference_price": 0.028,
+    "price_examples": [
+      {
+        "params": {
+          "resolution": "1K"
+        },
+        "usd": 0.028
+      },
+      {
+        "params": {
+          "resolution": "2K"
+        },
+        "usd": 0.028
+      },
+      {
+        "params": {
+          "resolution": "4K"
+        },
+        "usd": 0.056
+      }
+    ]
+  },
+  "readme": "# Kling Image O3 Text to Image\n\nKling Image O3 text-to-image: detailed images at 1K, 2K, or 4K.\n\n## Fields\n\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `prompt` | string, required | — | Up to 2,500 characters. |\n| `aspect_ratio` | `21:9` / `16:9` / `3:2` / `4:3` / `5:4` / `1:1` / `4:5` / `3:4` / `2:3` / `9:16` | `16:9` | Output shape. |\n| `resolution` | `1K` / `2K` / `4K` | `1K` | Sets the per-image rate. |\n| `output_format` | `jpeg` / `png` | `png` | Output file format. |\n\n## Billing\n\n$0.028 per image at 1K or 2K and $0.056 at 4K.\n\n| Request | 1K | 2K | 4K |\n|---|---|---|---|\n| One image | $0.028 | $0.028 | $0.056 |\n\nFailed runs are not charged.\n\n## Prompting\n\n- Quote any text that must appear.\n\n## Limits\n\n- One image per request.\n\n## Also on SandBase\n\nRelated: `kwaivgi/kling-image/o3/edit`.\n",
+  "cover_url": "https://static.sandbase.ai/covers/kwaivgi/kling-image/o3/cover-flare-20261004215055.webp",
+  "page_url": "https://www.sandbase.ai/model/kwaivgi/kling-image/o3",
+  "published_at": "2026-02-03T18:13:12.085Z",
+  "created_at": "2026-05-14T12:37:28.144Z"
+}

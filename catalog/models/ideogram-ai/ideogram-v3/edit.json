@@ -1,0 +1,184 @@
+{
+  "name": "ideogram-ai/ideogram-v3/edit",
+  "display_name": "Ideogram 3.0 Edit",
+  "type": "image",
+  "vendor": "Ideogram",
+  "vendor_slug": "ideogram-ai",
+  "description": "Ideogram V3 Edit by ideogram-ai - AI-powered image editing, style transfer, and transformation. Edit photos with natural language instructions, remove backgrounds, change styles, and enhance images effortlessly.",
+  "tags": [
+    "image-to-image"
+  ],
+  "capabilities": [
+    "image-to-image"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "prompt",
+      "image"
+    ],
+    "properties": {
+      "mask": {
+        "type": "string",
+        "title": "Mask URL",
+        "examples": [
+          "https://static.sandbase.ai/examples/ideogram-ai/ideogram-v3/edit/input_mask_1.png"
+        ],
+        "description": "The mask URL to inpaint the image. MUST have the exact same dimensions (width and height) as the input image."
+      },
+      "seed": {
+        "type": "integer",
+        "title": "Seed",
+        "description": "Seed for the random number generator"
+      },
+      "image": {
+        "type": "string",
+        "title": "Image URL",
+        "examples": [
+          "https://static.sandbase.ai/examples/ideogram-ai/ideogram-v3/edit/output_url_0.png"
+        ],
+        "description": "The image URL to generate an image from. MUST have the exact same dimensions (width and height) as the mask image."
+      },
+      "images": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        },
+        "title": "Image Urls",
+        "description": "A set of images to use as style references (maximum total size 10MB across all style references). The images should be in JPEG, PNG or WebP format"
+      },
+      "prompt": {
+        "type": "string",
+        "title": "Prompt",
+        "examples": [
+          "black bag"
+        ],
+        "description": "The prompt to fill the masked part of the image."
+      },
+      "rendering_speed": {
+        "enum": [
+          "TURBO",
+          "BALANCED",
+          "QUALITY"
+        ],
+        "type": "string",
+        "title": "Rendering Speed",
+        "default": "BALANCED",
+        "description": "The rendering speed to use."
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "title": "GenerationResponse",
+    "required": [
+      "id",
+      "status"
+    ],
+    "properties": {
+      "id": {
+        "type": "string",
+        "description": "Unique identifier for the generation task."
+      },
+      "error": {
+        "type": "string",
+        "description": "Error message if the task failed. Empty on success."
+      },
+      "model": {
+        "type": "string",
+        "description": "Model ID used for the prediction."
+      },
+      "status": {
+        "enum": [
+          "pending",
+          "running",
+          "completed",
+          "failed",
+          "timeout"
+        ],
+        "type": "string",
+        "description": "Status of the task: pending, running, completed, failed, or timeout."
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "title": "OutputItem",
+          "required": [
+            "url"
+          ],
+          "properties": {
+            "url": {
+              "type": "string",
+              "examples": [
+                "https://static.sandbase.ai/examples/ideogram-ai/ideogram-v3/edit/output_url_2.png"
+              ],
+              "description": "The URL where the generated content can be downloaded from."
+            },
+            "content_type": {
+              "type": "string",
+              "description": "The MIME type of the output file."
+            }
+          }
+        },
+        "description": "Array of generated content. Empty when status is not completed."
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "formula",
+    "formula": "(params.rendering_speed ?? \"BALANCED\") == \"TURBO\" ? 0.03 : (params.rendering_speed ?? \"BALANCED\") == \"QUALITY\" ? 0.09 : 0.06",
+    "formula_variables": [
+      "params.rendering_speed"
+    ],
+    "reference_price": 0.06,
+    "price_examples": [
+      {
+        "params": {
+          "rendering_speed": "TURBO"
+        },
+        "usd": 0.03
+      },
+      {
+        "params": {
+          "rendering_speed": "BALANCED"
+        },
+        "usd": 0.06
+      },
+      {
+        "params": {
+          "rendering_speed": "QUALITY"
+        },
+        "usd": 0.09
+      }
+    ]
+  },
+  "examples": [
+    {
+      "input": {
+        "image": "https://static.sandbase.ai/examples/fef92fd9-0a39-4571-841d-06952aa5e9c6/input/e6ec02d2-e595-4933-8819-321bf1c82b1a.png",
+        "prompt": "black bag"
+      },
+      "output": [
+        {
+          "url": "https://static.sandbase.ai/examples/fef92fd9-0a39-4571-841d-06952aa5e9c6/output/5ffb7ae6-c5f7-4ea5-8883-ec92c71a6572.png"
+        }
+      ],
+      "default": true
+    }
+  ],
+  "readme": "# Ideogram 3.0 Edit\n\nIdeogram 3.0 edit: inpaint a masked region of an image from a prompt.\n\n## Fields\n\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `prompt` | string, required | — | Text instruction. |\n| `image` | image URL, required | — | Image to edit. JPEG, PNG, or WebP URL. |\n| `images` | image URL[] | — | Optional style references. |\n| `mask` | image URL | — | Area to edit. |\n| `rendering_speed` | `TURBO` / `BALANCED` / `QUALITY` | `BALANCED` | Sets the per-image rate. |\n| `seed` | integer | random | Fix it to compare prompt changes. |\n\n## Billing\n\nPer image: $0.03 Turbo, $0.06 Balanced, $0.09 Quality.\n\n| Speed | Price |\n|---|---|\n| TURBO | $0.03 |\n| BALANCED | $0.06 |\n| QUALITY | $0.09 |\n\nFailed runs are not charged.\n\n## Prompting\n\n- Quote all text that must appear.\n\n## Also on SandBase\n\nRelated: `ideogram/4.5` (newer).\n",
+  "cover_url": "https://static.sandbase.ai/covers/ideogram-ai/ideogram-v3/edit/cover-flare-20261005041500.webp",
+  "page_url": "https://www.sandbase.ai/model/ideogram-ai/ideogram-v3/edit",
+  "published_at": "2025-05-01T15:58:51.368Z",
+  "created_at": "2026-05-14T04:18:42.807Z"
+}

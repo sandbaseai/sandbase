@@ -1,0 +1,51 @@
+{
+  "name": "wechat-channels/video-share-url",
+  "display_name": "WeChat Channels Video Share URL",
+  "type": "api",
+  "vendor": "WeChat Channels",
+  "vendor_slug": "wechat-channels",
+  "description": "Generates a share link for a WeChat Channels video identified by objectId. Use it to share a known Channels video or obtain its link for a subsequent lookup.",
+  "tags": [
+    "api",
+    "wechat-channels",
+    "social-media"
+  ],
+  "capabilities": [
+    "api",
+    "wechat-channels",
+    "social-media"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/wechat-channels/video-share-url"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "objectId"
+    ],
+    "properties": {
+      "objectId": {
+        "type": "string",
+        "example": "14941130915890399732",
+        "description": "WeChat Channels video objectId as a numeric string of up to 32 digits."
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.027778
+  },
+  "readme": "# WeChat Channels Video Share URL API\n\nGenerates a share link for a WeChat Channels video identified by objectId. Use it to share a known Channels video or obtain its link for a subsequent lookup.\n\nThe response is the platform's original data structure.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/wechat-channels/video-share-url\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"objectId\": \"14941130915890399732\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `objectId` | string | Yes | WeChat Channels video objectId as a numeric string of up to 32 digits. |\n\n## Pricing\n\nFlat price per call. Failed calls and empty results are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/wechat-channels/video-share-url",
+  "created_at": "2026-10-29T12:34:17.368Z"
+}

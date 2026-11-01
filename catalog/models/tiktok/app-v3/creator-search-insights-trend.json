@@ -1,0 +1,72 @@
+{
+  "name": "tiktok/app-v3/creator-search-insights-trend",
+  "display_name": "TikTok Creator Search Insights Trend",
+  "type": "api",
+  "vendor": "TikTok",
+  "vendor_slug": "tiktok",
+  "description": "Returns creator search insights trend data, covering search popularity across regions and time periods for a specified query ID.",
+  "tags": [
+    "api",
+    "tiktok"
+  ],
+  "capabilities": [
+    "api",
+    "tiktok"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/tiktok/app-v3/creator-search-insights-trend"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "query_id_str"
+    ],
+    "properties": {
+      "query_id_str": {
+        "type": "string",
+        "title": "Query Id Str",
+        "description": "Query ID, obtained from fetch_creator_search_insights response"
+      },
+      "from_tab_path": {
+        "type": "string",
+        "title": "From Tab Path",
+        "description": "From tab path, default \"TRENDING,TOPICS\""
+      },
+      "query_analysis_required": {
+        "type": "boolean",
+        "title": "Query Analysis Required",
+        "description": "Whether query analysis is required, default True"
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.0015,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "examples": [
+    {
+      "input": {
+        "query_id_str": "7555720035176562699"
+      },
+      "default": true
+    }
+  ],
+  "readme": "# TikTok Creator Search Insights Trend API\n\nFetch creator search trend metrics using `query_id_str` to analyze search popularity by region and time.\n\n## Use cases\n\n- Analyze search popularity trends across different regions over time.\n- Inspect query performance to guide content topic planning.\n- Retrieve query analysis insights from search trends.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/tiktok/app-v3/creator-search-insights-trend\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"query_id_str\": \"<query_id_str>\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `query_id_str` | string | Yes | Query ID, obtained from fetch_creator_search_insights response |\n| `from_tab_path` | string | No | From tab path, default \"TRENDING,TOPICS\" |\n| `query_analysis_required` | boolean | No | Whether query analysis is required, default True |\n\n## Notes\n\n- Obtain `query_id_str` from the creator search insights endpoint response.\n- `from_tab_path` defaults to \"TRENDING,TOPICS\".\n- `query_analysis_required` defaults to True.\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [TikTok LIVE Status](/model/tiktok/app-v3/check-live-room-online): Check whether a TikTok LIVE room is currently live by room ID.\n- [TikTok Room Online Status Batch](/model/tiktok/app-v3/check-live-room-online-batch): Returns the online availability status for multiple TikTok broadcast rooms in a single request.\n- [TikTok Content Translation](/model/tiktok/app-v3/content-translate): Translates provided text content into a designated target language.\n",
+  "page_url": "https://www.sandbase.ai/model/tiktok/app-v3/creator-search-insights-trend",
+  "created_at": "2026-07-31T02:43:50.123Z"
+}

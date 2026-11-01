@@ -1,0 +1,69 @@
+{
+  "name": "bilibili/web/one-video-v2",
+  "display_name": "Bilibili Video Details (V2)",
+  "type": "api",
+  "vendor": "Bilibili",
+  "vendor_slug": "bilibili",
+  "description": "Returns detailed metadata and playback information for a specific Bilibili video using its unique video and CID identifiers.",
+  "tags": [
+    "api",
+    "bilibili"
+  ],
+  "capabilities": [
+    "api",
+    "bilibili"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/bilibili/web/one-video-v2"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "a_id",
+      "c_id"
+    ],
+    "properties": {
+      "a_id": {
+        "type": "string",
+        "title": "A Id",
+        "description": "Video id"
+      },
+      "c_id": {
+        "type": "string",
+        "title": "C Id",
+        "description": "Video cid"
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.003,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "examples": [
+    {
+      "input": {
+        "a_id": "114006081739452",
+        "c_id": "28400484458"
+      },
+      "default": true
+    }
+  ],
+  "readme": "# Bilibili Video Details (V2) API\n\nRetrieve detailed information for a Bilibili video by providing the target `a_id` and `c_id`.\n\n## Use cases\n\n- Retrieve video metadata and stream identifiers for player integration\n- Monitor performance metrics of a specific Bilibili video\n- Inspect individual video components using video and CID identifiers\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/bilibili/web/one-video-v2\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"a_id\": \"<a_id>\", \"c_id\": \"<c_id>\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `a_id` | string | Yes | Video id |\n| `c_id` | string | Yes | Video cid |\n\n## Notes\n\n- Requires both the video ID `a_id` and the video component identifier `c_id`.\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [Bilibili Streaming Areas](/model/bilibili/web/all-live-areas): Returns the complete list of streaming broadcast areas and categories on Bilibili.\n- [Bilibili BV to AID Converter](/model/bilibili/web/bv-to-aid): Converts a Bilibili BV identifier to its corresponding numeric AID value.\n- [Bilibili User Collection Folders](/model/bilibili/web/collect-folders): Returns the collection folders owned by a specific Bilibili user.\n",
+  "page_url": "https://www.sandbase.ai/model/bilibili/web/one-video-v2",
+  "created_at": "2026-07-31T03:53:55.556Z"
+}

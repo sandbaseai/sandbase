@@ -1,0 +1,90 @@
+{
+  "name": "tiktok/app-v3/music-search-result",
+  "display_name": "TikTok Music Search",
+  "type": "api",
+  "vendor": "TikTok",
+  "vendor_slug": "tiktok",
+  "description": "Returns TikTok music search results matching specified keywords, with options to filter by title or author and sort by usage or duration.",
+  "tags": [
+    "api",
+    "tiktok"
+  ],
+  "capabilities": [
+    "api",
+    "tiktok"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/tiktok/app-v3/music-search-result"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "keyword"
+    ],
+    "properties": {
+      "count": {
+        "type": "integer",
+        "title": "Count",
+        "default": 20,
+        "example": 1,
+        "description": "Number, do not exceed 20"
+      },
+      "offset": {
+        "type": "integer",
+        "title": "Offset",
+        "default": 0,
+        "example": 0,
+        "description": "Offset, starting from 0, the second page gets the cursor value from the response as the offset to continue the request."
+      },
+      "region": {
+        "type": "string",
+        "title": "Region",
+        "default": "US",
+        "example": "US",
+        "description": "Region, default is US-America, for optional values please refer to TikTok region codes or ISO 3166-1 alpha-2 country codes."
+      },
+      "keyword": {
+        "type": "string",
+        "title": "Keyword",
+        "example": "openai",
+        "description": "Keyword"
+      },
+      "filter_by": {
+        "type": "integer",
+        "title": "Filter By",
+        "default": 0,
+        "example": 0,
+        "description": "Filter type, 0-All, 1-Title, 2-Author, default is 0-All"
+      },
+      "sort_type": {
+        "type": "integer",
+        "title": "Sort Type",
+        "default": 0,
+        "example": 0,
+        "description": "Sort type, 0-Relatedness, 1-Most used, 2-Latest, 3-Shortest duration, 4-Longest duration, default is 0-Relatedness"
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.0015,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "readme": "# TikTok Music Search API\n\nSearch for TikTok music tracks using a specified `keyword`. Filter by title or artist and sort results by relevance, usage, or duration.\n\n## Use cases\n\n- Search TikTok tracks by keyword, title, or artist name.\n- Filter music track results for specific target regions.\n- Discover popular audio tracks sorted by usage count or duration.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/tiktok/app-v3/music-search-result\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"keyword\": \"openai\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `keyword` | string | Yes | Keyword |\n| `count` | integer | No | Number, do not exceed 20 |\n| `offset` | integer | No | Offset, starting from 0, the second page gets the cursor value from the response as the offset to continue the request. |\n| `region` | string | No | Region, default is US-America, for optional values please refer to TikTok region codes or ISO 3166-1 alpha-2 country codes. |\n| `filter_by` | integer | No | Filter type, 0-All, 1-Title, 2-Author, default is 0-All |\n| `sort_type` | integer | No | Sort type, 0-Relatedness, 1-Most used, 2-Latest, 3-Shortest duration, 4-Longest duration, default is 0-Relatedness |\n\n## Example response\n\nReal response for the request above, trimmed to the main fields. User names and long IDs are masked.\n\n```json\n{\n  \"music\": [\n    {\n      \"audition_duration\": 60,\n      \"author\": \"OpenAI\",\n      \"author_deleted\": false,\n      \"binded_challenge_id\": 0,\n      \"commercial_right_type\": 1,\n      \"create_time\": 1676501099,\n      \"duration\": 60,\n      \"id\": 7200517085770811393,\n      \"music_group_use_count\": 0,\n      \"music_ugid_use_count\": 0,\n      \"duration_high_precision\": {\n        \"audition_duration_precision\": 60,\n        \"duration_precision\": 60,\n        \"shoot_duration_precision\": 60,\n        \"video_duration_precision\": 60\n      },\n      \"matched_song\": {\n        \"author\": \"OpenAI\",\n        \"full_duration\": 275100,\n        \"id\": \"7200516864395462658\",\n        \"title\": \"Chatbot\"\n      },\n      \"music_release_info\": {\n        \"group_release_date\": 0\n      }\n    }\n  ]\n}\n```\n\n## Notes\n\n- `filter_by` supports `0` (All), `1` (Title), and `2` (Author).\n- `sort_type` supports `0` (Relatedness), `1` (Most used), `2` (Latest), `3` (Shortest duration), and `4` (Longest duration).\n- `count` must not exceed 20, with subsequent pages using the response cursor as the `offset`.\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [TikTok LIVE Status](/model/tiktok/app-v3/check-live-room-online): Check whether a TikTok LIVE room is currently live by room ID.\n- [TikTok Room Online Status Batch](/model/tiktok/app-v3/check-live-room-online-batch): Returns the online availability status for multiple TikTok broadcast rooms in a single request.\n- [TikTok Content Translation](/model/tiktok/app-v3/content-translate): Translates provided text content into a designated target language.\n",
+  "page_url": "https://www.sandbase.ai/model/tiktok/app-v3/music-search-result",
+  "created_at": "2026-07-31T04:14:29.202Z"
+}

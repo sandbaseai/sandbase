@@ -1,0 +1,44 @@
+{
+  "name": "anthropic/claude-haiku-4.5",
+  "display_name": "Anthropic: Claude Haiku 4.5",
+  "type": "llm",
+  "vendor": "Anthropic",
+  "vendor_slug": "anthropic",
+  "description": "Claude Haiku 4.5 is Anthropic’s fastest and most efficient model, delivering near-frontier intelligence at a fraction of the cost and latency of larger Claude models. Matching Claude Sonnet 4’s performance across reasoning, coding, and computer-use tasks, Haiku 4.5 brings frontier-level capability to real-time and high-volume applications.\n\nIt introduces extended thinking to the Haiku line; enabling controllable reasoning depth, summarized or interleaved thought output, and tool-assisted workflows with full support for coding, bash, web search, and computer-use tools. Scoring >73% on SWE-bench Verified, Haiku 4.5 ranks among the world’s best coding models while maintaining exceptional responsiveness for sub-agents, parallelized execution, and scaled deployment.",
+  "tags": [
+    "chat",
+    "vision",
+    "reasoning",
+    "structured_output",
+    "function_calling"
+  ],
+  "capabilities": [
+    "chat",
+    "vision",
+    "reasoning",
+    "structured_output",
+    "function_calling"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "chat_completions": "POST /v1/chat/completions",
+    "responses": "POST /v1/responses",
+    "messages": "POST /v1/messages"
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_token",
+    "per_million_tokens": {
+      "input": 1,
+      "output": 5,
+      "cache_read_multiplier": 0.1,
+      "cache_write_multiplier": 1.25
+    }
+  },
+  "page_url": "https://www.sandbase.ai/model/anthropic/claude-haiku-4.5",
+  "published_at": "2025-10-15T17:00:38Z",
+  "created_at": "2026-05-08T23:46:46.778Z"
+}

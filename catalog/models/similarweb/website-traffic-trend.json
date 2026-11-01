@@ -1,0 +1,74 @@
+{
+  "name": "similarweb/website-traffic-trend",
+  "display_name": "Similarweb Website Traffic Trend",
+  "type": "api",
+  "vendor": "Similarweb",
+  "vendor_slug": "similarweb",
+  "description": "Get a website's monthly traffic trend for chosen metrics over a date range.",
+  "tags": [
+    "api",
+    "similarweb",
+    "web-analytics"
+  ],
+  "capabilities": [
+    "api",
+    "similarweb",
+    "web-analytics"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/similarweb/website-traffic-trend"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "domain"
+    ],
+    "properties": {
+      "domain": {
+        "type": "string",
+        "example": "cnn.com",
+        "description": "Bare website hostname without scheme, path, port, or credentials."
+      },
+      "country": {
+        "enum": [
+          "ww"
+        ],
+        "type": "string",
+        "default": "ww",
+        "description": "Worldwide data only; values are case-insensitive."
+      },
+      "metrics": {
+        "type": "string",
+        "default": "visits",
+        "description": "One to four supported Traffic & Engagement metrics."
+      },
+      "end_date": {
+        "type": "string",
+        "example": "2026-09",
+        "description": "Inclusive last complete UTC month in YYYY-MM."
+      },
+      "start_date": {
+        "type": "string",
+        "example": "2026-09",
+        "description": "Inclusive first month in YYYY-MM; provide together with end_date."
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.45
+  },
+  "readme": "# Similarweb Website Traffic Trend API\n\nGet a website's monthly traffic trend for chosen metrics over a date range.\n\nThe response is the official Similarweb API response, unchanged.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/similarweb/website-traffic-trend\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"domain\": \"cnn.com\", \"metrics\": \"visits\", \"start_date\": \"2026-09\", \"end_date\": \"2026-09\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `country` | string | No | Worldwide data only; values are case-insensitive. |\n| `domain` | string | Yes | Bare website hostname without scheme, path, port, or credentials. |\n| `end_date` | string | No | Inclusive last complete UTC month in YYYY-MM. |\n| `metrics` | string | No | One to four supported Traffic & Engagement metrics. |\n| `start_date` | string | No | Inclusive first month in YYYY-MM; provide together with end_date. |\n\n## Pricing\n\nFlat price per call. Failed calls are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/similarweb/website-traffic-trend",
+  "created_at": "2026-10-30T06:06:17.312Z"
+}

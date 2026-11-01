@@ -1,0 +1,77 @@
+{
+  "name": "wechat-mp/v2/article-comments",
+  "display_name": "WeChat MP Article Comments",
+  "type": "api",
+  "vendor": "WeChat MP",
+  "vendor_slug": "wechat-mp",
+  "description": "Get the comments on a WeChat official account article from its URL: comment text, likes, time and commenter region, with cursor pagination.",
+  "tags": [
+    "api",
+    "wechat-mp"
+  ],
+  "capabilities": [
+    "api",
+    "wechat-mp"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/wechat-mp/v2/article-comments"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "url"
+    ],
+    "properties": {
+      "raw": {
+        "type": "boolean",
+        "title": "Raw",
+        "default": true,
+        "description": "Optional, default True. True=full raw comment objects; False=simplified comment view."
+      },
+      "url": {
+        "type": "string",
+        "title": "Url",
+        "example": "https://mp.weixin.qq.com/s/TSNQKkRpN1qbKsT7BvzqIw",
+        "pattern": "^https?://mp\\.weixin\\.qq\\.com/s([/?].+)?$",
+        "maxLength": 2048,
+        "description": "WeChat MP article URL (`https://mp.weixin.qq.com/s/…`). E.g. `https://mp.weixin.qq.com/s/TSNQKkRpN1qbKsT7BvzqIw`"
+      },
+      "buffer": {
+        "anyOf": [
+          {
+            "type": "string",
+            "maxLength": 8192
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "title": "Buffer",
+        "default": "",
+        "description": "Optional, default empty. Pagination cursor; leave empty for the first page, pass `buffer` from the previous response for the next page."
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.015,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "readme": "# WeChat Article Comments API\n\nPass a WeChat MP article URL and get its featured comments, one page at a time.\n\n## Use cases\n\n- Analyze reader reactions to articles.\n- Collect feedback on sponsored content.\n- Monitor comments on competitor articles.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/wechat-mp/v2/article-comments\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"url\": \"https://mp.weixin.qq.com/s/TSNQKkRpN1qbKsT7BvzqIw\", \"raw\": false}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `url` | string | Yes | WeChat MP article URL (`https://mp.weixin.qq.com/s/…`). |\n| `raw` | boolean | No | Optional, default True. |\n| `buffer` | string | No | Optional, default empty. |\n\n## Example response\n\nReal response for the request above, trimmed to the main fields. User names and long IDs are masked.\n\n```json\n{\n  \"has_more\": true,\n  \"buffer\": \"<buffer>\",\n  \"comments\": [\n    {\n      \"content_id\": \"6255846262940111556\",\n      \"create_time\": 1741148719,\n      \"like_num\": 87,\n      \"content\": \"所谓的软件优化要是真能提升性能的话，老黄他敢卖只有一组128流处理器的游戏卡\",\n      \"nick_name\": \"<user>\",\n      \"ip_wording\": \"浙江\"\n    }\n  ]\n}\n```\n\n## Notes\n\n- Paginate with `buffer`; `has_more` false means the last page.\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [WeChat MP Account Articles](/model/wechat-mp/v2/account-articles): Get the published articles of a WeChat official account by its gh_ username: titles, links, covers and post dates, one page at a time, including video and audi…\n- [WeChat MP Article Detail](/model/wechat-mp/v2/article-detail): Get a WeChat official account (MP) article from its URL: title, author, account, publish time, cover, full text and HTML content, and album info.\n- [WeChat MP Article Stats](/model/wechat-mp/v2/article-stats): Get the engagement metrics of a WeChat official account article from its URL: reads, likes, \"wow\" count, shares, favorites and comments.\n",
+  "page_url": "https://www.sandbase.ai/model/wechat-mp/v2/article-comments",
+  "created_at": "2026-07-31T04:21:14.092Z"
+}

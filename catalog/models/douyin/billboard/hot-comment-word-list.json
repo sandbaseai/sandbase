@@ -1,0 +1,63 @@
+{
+  "name": "douyin/billboard/hot-comment-word-list",
+  "display_name": "Douyin Work Hot Comment Word Cloud",
+  "type": "api",
+  "vendor": "Douyin",
+  "vendor_slug": "douyin",
+  "description": "Returns word cloud analysis data and keyword weights extracted from comments on a Douyin video. Input a target video identifier to analyze audience feedback topics.",
+  "tags": [
+    "api",
+    "douyin"
+  ],
+  "capabilities": [
+    "api",
+    "douyin"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/douyin/billboard/hot-comment-word-list"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "aweme_id"
+    ],
+    "properties": {
+      "aweme_id": {
+        "type": "string",
+        "title": "Aweme Id",
+        "example": "7372484719365098803",
+        "description": "Work id"
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.0015,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "examples": [
+    {
+      "input": {
+        "aweme_id": "7372484719365098803"
+      },
+      "default": true
+    }
+  ],
+  "readme": "# Douyin Work Hot Comment Word Cloud API\n\nRetrieve keyword weights and word cloud analysis for video comments by supplying `aweme_id`. This endpoint provides audience discussion terms associated with a specific Douyin post.\n\n## Use cases\n\n- Analyze common terms and audience sentiment across video comments.\n- Generate visual word clouds based on viewer discussion keywords.\n- Extract prominent comment topics to evaluate content engagement.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/douyin/billboard/hot-comment-word-list\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"aweme_id\": \"7372484719365098803\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `aweme_id` | string | Yes | Work id |\n\n## Example response\n\nReal response for the request above, trimmed to the main fields. User names and long IDs are masked.\n\n```json\n{\n  \"data\": [\n    {\n      \"value\": 61,\n      \"word_seg\": \"宝宝\"\n    }\n  ]\n}\n```\n\n## Notes\n\n- Requires `aweme_id` representing the target work identifier.\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [Douyin Billboard City List](/model/douyin/billboard/city-list): Returns the list of Chinese cities supported by Douyin billboard rankings.\n- [Douyin Billboard Vertical Content Tags](/model/douyin/billboard/content-tag): Returns a list of vertical content tags available on the Douyin billboard platform.\n- [Douyin Fan Interest Account List](/model/douyin/billboard/hot-account-fans-interest-account-list): Returns a list of 20 accounts that followers of a target creator are interested in on Douyin.\n",
+  "page_url": "https://www.sandbase.ai/model/douyin/billboard/hot-comment-word-list",
+  "created_at": "2026-07-31T02:35:06.255Z"
+}

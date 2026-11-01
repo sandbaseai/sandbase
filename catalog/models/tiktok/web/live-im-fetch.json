@@ -1,0 +1,65 @@
+{
+  "name": "tiktok/web/live-im-fetch",
+  "display_name": "TikTok Room Danmaku Messages",
+  "type": "api",
+  "vendor": "TikTok",
+  "vendor_slug": "tiktok",
+  "description": "Retrieves real-time danmaku and chat messages from a TikTok broadcast room. Requires a room ID and supports both protobuf and JSON output formats.",
+  "tags": [
+    "api",
+    "tiktok"
+  ],
+  "capabilities": [
+    "api",
+    "tiktok"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/tiktok/web/live-im-fetch"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "room_id"
+    ],
+    "properties": {
+      "room_id": {
+        "type": "string",
+        "title": "Room Id",
+        "example": "7693529622901705485",
+        "description": "Live room id"
+      },
+      "user_unique_id": {
+        "type": "string",
+        "title": "User Unique Id",
+        "description": "User unique ID (optional)"
+      },
+      "resp_content_type": {
+        "type": "string",
+        "title": "Resp Content Type",
+        "description": "Response format, protobuf (default) or json"
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.0015,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "readme": "# TikTok Room Danmaku Messages API\n\nAccess danmaku chat messages from an active TikTok broadcast using `room_id`. You can optionally supply `user_unique_id` and specify the output format.\n\n## Use cases\n\n- Monitor real-time audience comments during a broadcast.\n- Collect stream interaction data for sentiment analysis.\n- Display incoming stream chat in external moderation dashboards.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/tiktok/web/live-im-fetch\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"room_id\": \"7693529622901705485\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `room_id` | string | Yes | Live room id |\n| `user_unique_id` | string | No | User unique ID (optional) |\n| `resp_content_type` | string | No | Response format, protobuf (default) or json |\n\n## Notes\n\n- `resp_content_type` controls output format and accepts protobuf (default) or json.\n- `user_unique_id` is an optional parameter to identify a specific user.\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [TikTok Video IDs from URLs (Batch)](/model/tiktok/web/all-aweme-id): Resolves and extracts TikTok video IDs from a list of video URLs.\n- [TikTok User Sec User ID Extractor](/model/tiktok/web/all-sec-user-id): Returns a list of sec_user_id identifiers corresponding to TikTok user profile URLs.\n- [TikTok Profile Unique IDs](/model/tiktok/web/all-unique-id): Resolves a batch of TikTok user homepage links to retrieve their corresponding unique identifiers.\n",
+  "page_url": "https://www.sandbase.ai/model/tiktok/web/live-im-fetch",
+  "created_at": "2026-07-31T04:17:15.156Z"
+}

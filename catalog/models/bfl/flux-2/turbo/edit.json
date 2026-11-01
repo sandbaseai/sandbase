@@ -1,0 +1,179 @@
+{
+  "name": "bfl/flux-2/turbo/edit",
+  "display_name": "Flux 2 Turbo Edit",
+  "type": "image",
+  "vendor": "BFL",
+  "vendor_slug": "bfl",
+  "description": "Flux 2 Turbo Edit is BFL's intelligent image editing model. Transform, retouch, and reimagine existing images using text prompts - from background replacement to artistic style conversion.",
+  "tags": [
+    "image-to-image"
+  ],
+  "capabilities": [
+    "image-to-image"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "prompt"
+    ],
+    "properties": {
+      "seed": {
+        "type": "integer",
+        "title": "Seed",
+        "description": "The seed to use for the generation. If not provided, a random seed will be used."
+      },
+      "images": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        },
+        "title": "Image URLs",
+        "examples": [
+          "https://static.sandbase.ai/examples/bfl/flux-2/turbo/edit/output_url_0.png"
+        ],
+        "description": "The URLs of the images for editing. A maximum of 4 images are allowed, if more are provided, only the first 4 will be used."
+      },
+      "prompt": {
+        "type": "string",
+        "title": "Prompt",
+        "examples": [
+          "Change the weather to winter"
+        ],
+        "description": "The prompt to edit the image."
+      },
+      "aspect_ratio": {
+        "enum": [
+          "21:9",
+          "16:9",
+          "3:2",
+          "4:3",
+          "5:4",
+          "1:1",
+          "4:5",
+          "3:4",
+          "2:3",
+          "9:16"
+        ],
+        "type": "string",
+        "title": "Aspect Ratio",
+        "description": "The aspect ratio of the generated image."
+      },
+      "output_format": {
+        "enum": [
+          "jpeg",
+          "png"
+        ],
+        "type": "string",
+        "title": "Output Format",
+        "default": "png",
+        "description": "The format of the generated image."
+      },
+      "guidance_scale": {
+        "type": "number",
+        "title": "Guidance Scale",
+        "default": 2.5,
+        "maximum": 20,
+        "minimum": 0,
+        "description": "Guidance Scale is a measure of how close you want the model to stick to your prompt when looking for a related image to show you."
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "title": "GenerationResponse",
+    "required": [
+      "id",
+      "status"
+    ],
+    "properties": {
+      "id": {
+        "type": "string",
+        "description": "Unique identifier for the generation task."
+      },
+      "error": {
+        "type": "string",
+        "description": "Error message if the task failed. Empty on success."
+      },
+      "model": {
+        "type": "string",
+        "description": "Model ID used for the prediction."
+      },
+      "status": {
+        "enum": [
+          "pending",
+          "running",
+          "completed",
+          "failed",
+          "timeout"
+        ],
+        "type": "string",
+        "description": "Status of the task: pending, running, completed, failed, or timeout."
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "title": "OutputItem",
+          "required": [
+            "url"
+          ],
+          "properties": {
+            "url": {
+              "type": "string",
+              "examples": [
+                "https://static.sandbase.ai/examples/bfl/flux-2/turbo/edit/output_url_1.png"
+              ],
+              "description": "The URL where the generated content can be downloaded from."
+            },
+            "content_type": {
+              "type": "string",
+              "description": "The MIME type of the output file."
+            }
+          }
+        },
+        "description": "Array of generated content. Empty when status is not completed."
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "formula",
+    "formula": "0.048 + Math.max(0.0, len(params.images ?? []) - 1.0) * 0.008",
+    "formula_variables": [
+      "params.images"
+    ],
+    "reference_price": 0.048,
+    "price_examples": [
+      {
+        "params": {},
+        "usd": 0.048
+      }
+    ]
+  },
+  "examples": [
+    {
+      "input": {
+        "prompt": "Change the weather to winter"
+      },
+      "output": [
+        {
+          "url": "https://static.sandbase.ai/examples/492dcb37-ccaf-43dc-981a-8f172e95ea28/output/4f95e1be-5fe7-4ea6-9815-7dcbdabeb8e0.png"
+        }
+      ],
+      "default": true
+    }
+  ],
+  "readme": "# Flux 2 Turbo Edit\n\nFLUX.2 Turbo, a distilled FLUX.2 for fast generation. Edit or combine images with an instruction.\n\n## Fields\n\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `prompt` | string, required | — | Text instruction. |\n| `images` | image URL[] | — | Images to edit or combine, Image 1, Image 2, … |\n| `guidance_scale` | number 0–20 | 2.5 | How strictly to follow the prompt. |\n| `output_format` | `jpeg` / `png` | `png` | Output file format. |\n| `aspect_ratio` | `21:9` / `16:9` / `3:2` / `4:3` / `5:4` / `1:1` / `4:5` / `3:4` / `2:3` / `9:16` | — | Output shape. |\n| `seed` | integer | random | Fix it to compare prompt changes. |\n\n## Billing\n\n$0.048 per output image, plus $0.008 for each input image after the first.\n\n| Inputs | Price |\n|---|---|\n| 1 input image | $0.048 |\n| 2 input images | $0.056 |\n| 4 input images | $0.072 |\n\nFailed runs are not charged.\n\n## Prompting\n\n- Say which image is the base and what each other image contributes.\n- List what must not change.\n\n## Limits\n\n- One output image per request.\n\n## Also on SandBase\n\nOther FLUX.2 endpoints: `bfl/flux-2/max/edit`, `bfl/flux-2/pro/edit`, `bfl/flux-2/flex/edit`, `bfl/flux-2/dev/edit`, `bfl/flux-2/turbo`.\n",
+  "cover_url": "https://static.sandbase.ai/covers/bfl/flux-2/turbo/edit/cover-flare-20261005031007.webp",
+  "page_url": "https://www.sandbase.ai/model/bfl/flux-2/turbo/edit",
+  "published_at": "2025-12-16T14:07:03.662Z",
+  "created_at": "2026-05-13T12:04:52.1Z"
+}

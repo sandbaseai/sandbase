@@ -1,0 +1,82 @@
+{
+  "name": "douyin/xingtu-v2/author-show-items",
+  "display_name": "Douyin Xingtu Author Show Items",
+  "type": "api",
+  "vendor": "Douyin",
+  "vendor_slug": "douyin",
+  "description": "Returns a video list for a specified Douyin Xingtu author. Filter results by author ID via o_author_id, flow type, platform source, or restrict results to assigned Xingtu videos.",
+  "tags": [
+    "api",
+    "douyin"
+  ],
+  "capabilities": [
+    "api",
+    "douyin"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/douyin/xingtu-v2/author-show-items"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "o_author_id"
+    ],
+    "properties": {
+      "flow_type": {
+        "type": "integer",
+        "title": "Flow Type",
+        "description": "Flow type, default 0"
+      },
+      "o_author_id": {
+        "type": "string",
+        "title": "O Author Id",
+        "description": "Creator/author ID"
+      },
+      "only_assign": {
+        "type": "boolean",
+        "title": "Only Assign",
+        "description": "Only show assigned videos (only for XingTu videos), default False"
+      },
+      "platform_source": {
+        "type": "integer",
+        "title": "Platform Source",
+        "description": "Platform source, default 1"
+      },
+      "platform_channel": {
+        "type": "integer",
+        "title": "Platform Channel",
+        "description": "Platform channel, default 1"
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.0015,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "examples": [
+    {
+      "input": {
+        "o_author_id": "7589271892177518598"
+      },
+      "default": true
+    }
+  ],
+  "readme": "# Douyin Xingtu Author Show Items API\n\nRetrieves the video catalog for a specified Douyin Xingtu author using `o_author_id`. You can also filter results by `flow_type`, `platform_source`, `platform_channel`, and `only_assign`.\n\n## Use cases\n\n- Review video portfolios for specific Douyin Xingtu authors.\n- Filter author video showcases down to assigned Xingtu marketing videos.\n- Analyze author content distributions across different platform channels.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/douyin/xingtu-v2/author-show-items\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"o_author_id\": \"<o_author_id>\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `o_author_id` | string | Yes | Creator/author ID |\n| `flow_type` | integer | No | Flow type, default 0 |\n| `only_assign` | boolean | No | Only show assigned videos (only for XingTu videos), default False |\n| `platform_source` | integer | No | Platform source, default 1 |\n| `platform_channel` | integer | No | Platform channel, default 1 |\n\n## Notes\n\n- `o_author_id` is required to identify the target author.\n- Set `only_assign` to true to return only assigned Xingtu videos (defaults to false).\n- `platform_source` and `platform_channel` default to 1, while `flow_type` defaults to 0.\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [Douyin Xingtu Author Audience Distribution](/model/douyin/xingtu-v2/author-audience-distribution): Returns audience profile distribution metrics for a specified Xingtu creator based on creator ID and link type, with selectable platform source and channel opt…\n- [Douyin Xingtu Author Base Info](/model/douyin/xingtu-v2/author-base-info): Returns basic creator profile data from Douyin Xingtu by author identifier, with options to include recommendation details and linkage information.\n- [Douyin Xingtu Author Business Card Info](/model/douyin/xingtu-v2/author-business-card-info): Returns business card details for a Douyin Xingtu creator based on the specified author ID.\n",
+  "page_url": "https://www.sandbase.ai/model/douyin/xingtu-v2/author-show-items",
+  "created_at": "2026-07-31T02:42:23.697Z"
+}

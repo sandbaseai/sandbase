@@ -1,0 +1,55 @@
+{
+  "name": "youtube/web-v2/channel-url",
+  "display_name": "YouTube Channel URL by ID",
+  "type": "api",
+  "vendor": "YouTube",
+  "vendor_slug": "youtube",
+  "description": "Returns standard and vanity channel URLs for a specified YouTube channel. Takes a unique channel ID to look up the corresponding handle and profile links.",
+  "tags": [
+    "api",
+    "youtube"
+  ],
+  "capabilities": [
+    "api",
+    "youtube"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/youtube/web-v2/channel-url"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "channel_id"
+    ],
+    "properties": {
+      "channel_id": {
+        "type": "string",
+        "title": "Channel Id",
+        "example": "UCeu6U67OzJhV1KwBansH3Dg",
+        "description": "Channel ID (e.g., UCeu6U67OzJhV1KwBansH3Dg)"
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.0015,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "readme": "# YouTube Channel URL by ID API\n\nLook up YouTube profile and vanity URLs by supplying a `channel_id`. This endpoint resolves standard channel identifiers into formatted handle URLs.\n\n## Use cases\n\n- Resolve a channel handle from an existing channel identifier.\n- Display formatted vanity links for creator profile pages.\n- Convert legacy YouTube identifiers into current handle URLs.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/youtube/web-v2/channel-url\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"channel_id\": \"UCeu6U67OzJhV1KwBansH3Dg\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `channel_id` | string | Yes | Channel ID (e.g., UCeu6U67OzJhV1KwBansH3Dg) |\n\n## Example response\n\nReal response for the request above, trimmed to the main fields. User names and long IDs are masked.\n\n```json\n{\n  \"channel_id\": \"UCeu6U67OzJhV1KwBansH3Dg\",\n  \"channel_url\": \"https://www.youtube.com/channel/UCeu6U67OzJhV1KwBansH3Dg\",\n  \"vanity_url\": \"http://www.youtube.com/@CozyCraftYT\"\n}\n```\n\n## Notes\n\n- Requires a valid `channel_id` starting with UC.\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [YouTube Channel Community Posts](/model/youtube/web-v2/channel-community-posts): Returns community posts from a specific YouTube channel, including text content, polls, votes, and comment counts.\n- [YouTube Channel Description](/model/youtube/web-v2/channel-description): Returns YouTube channel details including subscriber counts, video totals, view counts, joined date, and social links.\n- [YouTube Channel ID from URL](/model/youtube/web-v2/channel-id): Resolves a YouTube channel URL to its canonical channel ID.\n",
+  "page_url": "https://www.sandbase.ai/model/youtube/web-v2/channel-url",
+  "created_at": "2026-07-31T04:26:28.283Z"
+}

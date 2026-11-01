@@ -1,0 +1,95 @@
+{
+  "name": "tencent-huxuan/finder-publisher-rank-finder-content",
+  "display_name": "Tencent Huxuan Hot Content Trends",
+  "type": "api",
+  "vendor": "Tencent Huxuan",
+  "vendor_slug": "tencent-huxuan",
+  "description": "List QQ Huxuan hot Video Account content by month and creator category, with six descending sort metrics and page-number pagination. Use it to research monthly content trends for Tencent Huxuan campaign planning.",
+  "tags": [
+    "api",
+    "tencent-huxuan",
+    "social-media"
+  ],
+  "capabilities": [
+    "api",
+    "tencent-huxuan",
+    "social-media"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/tencent-huxuan/finder-publisher-rank-finder-content"
+  },
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "page": {
+        "type": "integer",
+        "default": 1,
+        "description": "Page number, starting at 1. Each page contains up to 48 items."
+      },
+      "sort": {
+        "enum": [
+          "INTERACTION",
+          "PLAY",
+          "THUMB_LIKE",
+          "HEART_LIKE",
+          "COMMENT",
+          "SHARE"
+        ],
+        "type": "string",
+        "default": "INTERACTION",
+        "description": "Sort metric. Results are sorted in descending order."
+      },
+      "month": {
+        "type": "string",
+        "description": "Statistics month in yyyy-MM format. Omit to use the latest month available on QQ Huxuan."
+      },
+      "category": {
+        "enum": [
+          "ALL",
+          "FOOD",
+          "LIFESTYLE",
+          "COMEDY",
+          "EMOTION",
+          "SOCIETY",
+          "HUMANITIES_ARTS",
+          "DRAMA",
+          "ENTERTAINMENT",
+          "TECHNOLOGY",
+          "FINANCE",
+          "FILM_TV_VARIETY",
+          "GAMING",
+          "PARENTING",
+          "MUSIC",
+          "TRAVEL",
+          "SPORTS",
+          "SCIENCE",
+          "AUTOMOTIVE",
+          "EDUCATION",
+          "CAREER",
+          "HEALTH",
+          "PETS"
+        ],
+        "type": "string",
+        "default": "ALL",
+        "description": "Creator category. ALL includes every category."
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.041667
+  },
+  "readme": "# Tencent Huxuan Hot Content Trends API\n\nList QQ Huxuan hot Video Account content by month and creator category, with six descending sort metrics and page-number pagination. Use it to research monthly content trends for Tencent Huxuan campaign planning.\n\nThe response is the platform's original data structure.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/tencent-huxuan/finder-publisher-rank-finder-content\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `category` | string | No | Creator category. ALL includes every category. |\n| `sort` | string | No | Sort metric. Results are sorted in descending order. |\n| `month` | string | No | Statistics month in yyyy-MM format. Omit to use the latest month available on QQ Huxuan. |\n| `page` | integer | No | Page number, starting at 1. Each page contains up to 48 items. |\n\n## Pricing\n\nFlat price per call. Failed calls and empty results are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/tencent-huxuan/finder-publisher-rank-finder-content",
+  "created_at": "2026-10-29T12:08:39.323Z"
+}

@@ -1,0 +1,91 @@
+{
+  "name": "linkedin/web-v2/company-posts",
+  "display_name": "LinkedIn Company Posts",
+  "type": "api",
+  "vendor": "LinkedIn",
+  "vendor_slug": "linkedin",
+  "description": "Returns posts from a LinkedIn organization page using the company URL. Supports ordering by top or recent posts and offset or token pagination.",
+  "tags": [
+    "api",
+    "linkedin"
+  ],
+  "capabilities": [
+    "api",
+    "linkedin"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/linkedin/web-v2/company-posts"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "url"
+    ],
+    "properties": {
+      "url": {
+        "type": "string",
+        "title": "Url",
+        "description": "Company URL."
+      },
+      "start": {
+        "anyOf": [
+          {
+            "type": "integer",
+            "minimum": 0
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "title": "Start",
+        "description": "Pagination offset — 0 for page 1, 50 for page 2, and so on."
+      },
+      "sort_by": {
+        "anyOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "title": "Sort By",
+        "description": "top or recent."
+      },
+      "pagination_token": {
+        "anyOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "title": "Pagination Token",
+        "description": "Token from the `paging` object of the previous response."
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.015,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "readme": "# LinkedIn Company Posts API\n\nRetrieve posts from a company's profile by supplying the organization `url`. Adjust feed ordering with `sort_by` and manage multi-page results using `start` or `pagination_token`.\n\n## Use cases\n\n- Monitor recent announcements and feed activity from target company pages.\n- Analyze post performance trends by reviewing entries ranked as top content.\n- Aggregate competitor content feeds into marketing intelligence dashboards.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/linkedin/web-v2/company-posts\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"url\": \"<url>\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `url` | string | Yes | Company URL. |\n| `start` | string | No | Pagination offset — 0 for page 1, 50 for page 2, and so on. |\n| `sort_by` | string | No | top or recent. |\n| `pagination_token` | string | No | Token from the `paging` object of the previous response. |\n\n## Notes\n\n- Set `sort_by` to `top` or `recent` to adjust output order.\n- Paginate using `start` in increments of 50 or by passing the `pagination_token` returned in the previous response.\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [LinkedIn Company Profile](/model/linkedin/web-v2/company-profile): Returns LinkedIn company profile details, including affiliated organizations, using a direct company page URL.\n- [LinkedIn Job Details](/model/linkedin/web-v2/job-detail): Returns detailed information for a specific LinkedIn job posting via its URL.\n- [LinkedIn Post Comments](/model/linkedin/web-v2/post-comments): Returns comments for a specific LinkedIn post using its activity URN.\n",
+  "page_url": "https://www.sandbase.ai/model/linkedin/web-v2/company-posts",
+  "created_at": "2026-07-31T04:08:19.115Z"
+}

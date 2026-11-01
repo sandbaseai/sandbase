@@ -1,0 +1,67 @@
+{
+  "name": "wellfound/company-profile",
+  "display_name": "Wellfound Company Profile",
+  "type": "api",
+  "vendor": "Wellfound",
+  "vendor_slug": "wellfound",
+  "description": "Retrieve a company profile by slug, including description, size, badges, and basic info. Returns stale_input if the company is not found.",
+  "tags": [
+    "api",
+    "wellfound",
+    "company-people"
+  ],
+  "capabilities": [
+    "api",
+    "wellfound",
+    "company-people"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}",
+    "passthrough": "POST /v1/api/wellfound/company-profile"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "company_slug"
+    ],
+    "properties": {
+      "company_slug": {
+        "type": "string",
+        "example": "stripe",
+        "description": "Company slug (e.g., 'mixpanel', 'juniper-square')"
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "required": [
+      "id",
+      "status",
+      "model"
+    ],
+    "properties": {
+      "id": {
+        "type": "string"
+      },
+      "model": {
+        "type": "string"
+      },
+      "status": {
+        "type": "string"
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.02
+  },
+  "readme": "# Wellfound Company Profile\n\nRetrieve a company profile by slug, including description, size, badges, and basic info. Returns stale_input if the company is not found.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/wellfound/company-profile\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"company_slug\": \"stripe\"}'\n```\n\nThis API runs asynchronously. The call returns a task `id` with status `pending`; poll `GET https://api.sandbase.ai/v1/run/{id}` until `status` is `completed` and read the result from `outputs[0].data`.\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `company_slug` | string | Yes | Company slug (e.g., 'mixpanel', 'juniper-square') |\n\n## Pricing\n\nFlat price per call. Failed calls are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/wellfound/company-profile",
+  "created_at": "2026-10-30T08:38:45.405Z"
+}

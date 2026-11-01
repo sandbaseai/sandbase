@@ -1,0 +1,86 @@
+{
+  "name": "douyin/xingtu-v2/author-audience-distribution",
+  "display_name": "Douyin Xingtu Author Audience Distribution",
+  "type": "api",
+  "vendor": "Douyin",
+  "vendor_slug": "douyin",
+  "description": "Returns audience profile distribution metrics for a specified Xingtu creator based on creator ID and link type, with selectable platform source and channel options.",
+  "tags": [
+    "api",
+    "douyin"
+  ],
+  "capabilities": [
+    "api",
+    "douyin"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/douyin/xingtu-v2/author-audience-distribution"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "o_author_id",
+      "link_type"
+    ],
+    "properties": {
+      "link_type": {
+        "anyOf": [
+          {
+            "type": "integer"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "title": "Link Type",
+        "description": "Link type, optional"
+      },
+      "o_author_id": {
+        "type": "string",
+        "title": "O Author Id",
+        "description": "Creator ID"
+      },
+      "platform_source": {
+        "type": "integer",
+        "title": "Platform Source",
+        "description": "Platform source, default 1"
+      },
+      "platform_channel": {
+        "type": "integer",
+        "title": "Platform Channel",
+        "description": "Platform channel, default 1"
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.003,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "examples": [
+    {
+      "input": {
+        "link_type": 5,
+        "o_author_id": "7029342444797820939"
+      },
+      "default": true
+    }
+  ],
+  "readme": "# Douyin Xingtu Author Audience Distribution API\n\nRetrieve audience profile distribution data for Douyin Xingtu creators by passing the creator identifier `o_author_id` and `link_type`.\n\n## Use cases\n\n- Analyze creator audience demographics for brand campaign targeting.\n- Evaluate audience profile distributions across candidate Douyin creators.\n- Verify target audience alignment prior to campaign collaboration.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/douyin/xingtu-v2/author-audience-distribution\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"o_author_id\": \"<o_author_id>\", \"link_type\": \"<link_type>\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `link_type` | string | Yes | Link type, optional |\n| `o_author_id` | string | Yes | Creator ID |\n| `platform_source` | integer | No | Platform source, default 1 |\n| `platform_channel` | integer | No | Platform channel, default 1 |\n\n## Notes\n\n- `platform_source` defaults to 1 when omitted.\n- `platform_channel` defaults to 1 when omitted.\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [Douyin Xingtu Author Base Info](/model/douyin/xingtu-v2/author-base-info): Returns basic creator profile data from Douyin Xingtu by author identifier, with options to include recommendation details and linkage information.\n- [Douyin Xingtu Author Business Card Info](/model/douyin/xingtu-v2/author-business-card-info): Returns business card details for a Douyin Xingtu creator based on the specified author ID.\n- [Douyin Xingtu Author Content Hot Keywords](/model/douyin/xingtu-v2/author-content-hot-keywords): Returns trending content keywords for a Douyin creator.\n",
+  "page_url": "https://www.sandbase.ai/model/douyin/xingtu-v2/author-audience-distribution",
+  "created_at": "2026-07-31T02:41:57.755Z"
+}

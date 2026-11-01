@@ -1,0 +1,198 @@
+{
+  "name": "meigen/infinitetalk/text-to-video",
+  "display_name": "InfiniteTalk Text to Video",
+  "type": "video",
+  "vendor": "MeiGen-AI",
+  "vendor_slug": "meigen",
+  "description": "InfiniteTalk speaks the given text with a chosen voice and animates the portrait into a talking video.",
+  "tags": [
+    "text-to-video"
+  ],
+  "capabilities": [
+    "text-to-video"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "image",
+      "text",
+      "voice",
+      "prompt"
+    ],
+    "properties": {
+      "seed": {
+        "type": "integer",
+        "title": "Seed",
+        "maximum": 2147483647,
+        "minimum": 0,
+        "description": "Random seed for reproducibility."
+      },
+      "text": {
+        "type": "string",
+        "title": "Text",
+        "examples": [
+          "Spend more time with people who make you feel alive, and less with things that drain your soul."
+        ],
+        "description": "Text the person speaks."
+      },
+      "image": {
+        "type": "string",
+        "title": "Image",
+        "description": "Input image URL (face / character)."
+      },
+      "voice": {
+        "enum": [
+          "Aria",
+          "Roger",
+          "Sarah",
+          "Laura",
+          "Charlie",
+          "George",
+          "Callum",
+          "River",
+          "Liam",
+          "Charlotte",
+          "Alice",
+          "Matilda",
+          "Will",
+          "Jessica",
+          "Eric",
+          "Chris",
+          "Brian",
+          "Daniel",
+          "Lily",
+          "Bill"
+        ],
+        "type": "string",
+        "title": "Voice",
+        "examples": [
+          "Bill"
+        ],
+        "description": "Voice used to speak the text."
+      },
+      "prompt": {
+        "type": "string",
+        "title": "Prompt",
+        "examples": [
+          "An elderly man with a white beard and headphones records audio with a microphone. He appears engaged and expressive, suggesting a podcast or voiceover."
+        ],
+        "description": "Text prompt guiding the generation."
+      },
+      "num_frames": {
+        "type": "integer",
+        "title": "Max Frames",
+        "default": 145,
+        "maximum": 721,
+        "minimum": 41,
+        "description": "Maximum frames to generate (41–721, 25 fps); output also stops at the end of the audio."
+      },
+      "resolution": {
+        "enum": [
+          "480p",
+          "720p"
+        ],
+        "type": "string",
+        "title": "Resolution",
+        "default": "720p",
+        "description": "Output resolution (720p costs 2x)."
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "title": "GenerationResponse",
+    "required": [
+      "id",
+      "status"
+    ],
+    "properties": {
+      "id": {
+        "type": "string",
+        "description": "Unique identifier for the generation task."
+      },
+      "error": {
+        "type": "string",
+        "description": "Error message if the task failed. Empty on success."
+      },
+      "model": {
+        "type": "string",
+        "description": "Model ID used for the prediction."
+      },
+      "status": {
+        "enum": [
+          "pending",
+          "running",
+          "completed",
+          "failed",
+          "timeout"
+        ],
+        "type": "string",
+        "description": "Status of the task: pending, running, completed, failed, or timeout."
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "title": "OutputItem",
+          "required": [
+            "url"
+          ],
+          "properties": {
+            "url": {
+              "type": "string",
+              "description": "The URL where the generated content can be downloaded from."
+            },
+            "content_type": {
+              "type": "string",
+              "description": "The MIME type of the output file."
+            }
+          }
+        },
+        "description": "Array of generated content. Empty when status is not completed."
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "formula",
+    "formula": "(usage.duration ?? ((params.num_frames ?? 145) / 25.0)) * 0.2 * ((params.resolution ?? \"720p\") == \"720p\" ? 2.0 : 1.0)",
+    "formula_variables": [
+      "params.num_frames",
+      "params.resolution",
+      "usage.duration"
+    ],
+    "reference_price": 2.32
+  },
+  "examples": [
+    {
+      "input": {
+        "image": "https://static.sandbase.ai/examples/dacdca53-ccb5-4504-9a89-85b592384fbf/input/b243da19-087f-47f1-9f0c-926f1c59fc20.png",
+        "num_frames": 41,
+        "prompt": "A woman with colorful hair talking on a podcast.",
+        "resolution": "480p",
+        "text": "Hello everyone, welcome to our product demo today.",
+        "voice": "Aria"
+      },
+      "output": [
+        {
+          "poster": "https://static.sandbase.ai/examples/posters/663f023ac6a09b054e91.jpg",
+          "url": "https://static.sandbase.ai/examples/dacdca53-ccb5-4504-9a89-85b592384fbf/output/753324a6-572b-4a6d-9b59-879aaa01152f.mp4"
+        }
+      ],
+      "default": true
+    }
+  ],
+  "readme": "# InfiniteTalk Text to Video\n\nInfiniteTalk text-to-video speaks your text with a chosen voice and animates the portrait to match.\n\n## Fields\n\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `prompt` | string, required | — | Scene and gesture direction. |\n| `text` | string, required | — | Text to speak. |\n| `image` | image URL, required | — | Portrait. JPEG, PNG, or WebP URL. |\n| `voice` | `Aria` / `Roger` / `Sarah` / `Laura` / `Charlie` / `George` / `Callum` / `River` / `Liam` / `Charlotte` / `Alice` / `Matilda` / `Will` / `Jessica` / `Eric` / `Chris` / `Brian` / `Daniel` / `Lily` / `Bill`, required | — | Voice for the text. |\n| `num_frames` | integer 41–721 | 145 | Frames at 25fps when the length is not set by audio. |\n| `resolution` | `480p` / `720p` | `720p` | Sets the per-second rate. |\n| `seed` | integer 0–2147483647 | random | Fix it to compare prompt changes. |\n\n## Billing\n\nPer output second: $0.20 at 480p and $0.40 at 720p. Length follows the audio; without it, `num_frames` at 25fps (default 145 frames, 5.8 seconds).\n\n| Output | 480p | 720p |\n|---|---|---|\n| 6s | $1.20 | $2.40 |\n| 30s | $6.00 | $12.00 |\n| 60s | $12.00 | $24.00 |\n\nFailed runs are not charged.\n\n## Prompting\n\n- Use a front-facing portrait with the mouth visible.\n\n## Also on SandBase\n\nOther InfiniteTalk endpoints: `meigen/infinitetalk/image-to-video`, `meigen/infinitetalk/video-to-video`.\n",
+  "cover_url": "https://static.sandbase.ai/covers/meigen/infinitetalk/text-to-video/cover-flare-20261008040539.webp",
+  "page_url": "https://www.sandbase.ai/model/meigen/infinitetalk/text-to-video",
+  "published_at": "2025-08-22T15:48:52.311Z",
+  "created_at": "2026-10-06T08:21:25.37Z"
+}

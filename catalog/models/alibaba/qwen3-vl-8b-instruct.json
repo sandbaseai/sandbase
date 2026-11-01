@@ -1,0 +1,41 @@
+{
+  "name": "alibaba/qwen3-vl-8b-instruct",
+  "display_name": "Qwen: Qwen3 VL 8B Instruct",
+  "type": "llm",
+  "vendor": "Alibaba",
+  "vendor_slug": "alibaba",
+  "description": "Qwen3-VL 8B Instruct is the 8-billion-parameter dense, non-thinking edition of Alibaba's open-weight Qwen3-VL vision-language family. Alibaba notes it needs less GPU memory while keeping the series' upgraded image and video understanding, long-document and long-video handling, spatial awareness, object recognition, multilingual OCR and GUI agent abilities. Pick it for lighter multimodal deployments; the 30B A3B and 235B A22B models trade size for more capability.",
+  "tags": [
+    "chat",
+    "vision",
+    "structured_output",
+    "function_calling"
+  ],
+  "capabilities": [
+    "chat",
+    "vision",
+    "structured_output",
+    "function_calling"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "chat_completions": "POST /v1/chat/completions",
+    "responses": "POST /v1/responses",
+    "messages": "POST /v1/messages"
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_token",
+    "per_million_tokens": {
+      "input": 0.18,
+      "output": 0.7
+    }
+  },
+  "cover_url": "https://t0.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=https://www.alibabacloud.com&size=256",
+  "page_url": "https://www.sandbase.ai/model/alibaba/qwen3-vl-8b-instruct",
+  "published_at": "2025-10-14T17:35:08Z",
+  "created_at": "2026-05-08T23:45:44.148Z"
+}

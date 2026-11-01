@@ -1,0 +1,77 @@
+{
+  "name": "instagram/v2/post-comments",
+  "display_name": "Instagram Post Comments (V2)",
+  "type": "api",
+  "vendor": "Instagram",
+  "vendor_slug": "instagram",
+  "description": "Returns comments from an Instagram post, including comment text, user details, and like counts. Accepts a post shortcode or URL with options to sort by recent or popular comments and paginate results.",
+  "tags": [
+    "api",
+    "instagram"
+  ],
+  "capabilities": [
+    "api",
+    "instagram"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/instagram/v2/post-comments"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "code_or_url"
+    ],
+    "properties": {
+      "sort_by": {
+        "type": "string",
+        "title": "Sort By",
+        "default": "recent",
+        "example": "recent",
+        "description": "Sort by \"recent\" or \"popular\", default recent"
+      },
+      "code_or_url": {
+        "type": "string",
+        "title": "Code Or Url",
+        "example": "DUajw4YkorV",
+        "description": "Post shortcode or full URL"
+      },
+      "pagination_token": {
+        "type": "string",
+        "title": "Pagination Token",
+        "default": "",
+        "example": "",
+        "description": "Pagination token from previous response"
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.003,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "examples": [
+    {
+      "input": {
+        "code_or_url": "DUajw4YkorV"
+      },
+      "default": true
+    }
+  ],
+  "readme": "# Instagram Post Comments (V2) API\n\nRetrieve comments for an Instagram post using `code_or_url`. Optional parameters include `sort_by` to reorder results and `pagination_token` for navigating through multiple pages.\n\n## Use cases\n\n- Analyze audience sentiment and feedback on specific Instagram posts.\n- Track popular or recent discussions under brand and influencer media.\n- Extract user replies and interaction counts for social listening reports.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/instagram/v2/post-comments\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"code_or_url\": \"DUajw4YkorV\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `code_or_url` | string | Yes | Post shortcode or full URL |\n| `sort_by` | string | No | Sort by \"recent\" or \"popular\", default recent |\n| `pagination_token` | string | No | Pagination token from previous response |\n\n## Example response\n\nReal response for the request above, trimmed to the main fields. User names and long IDs are masked.\n\n```json\n{\n  \"data\": {\n    \"items\": [\n      {\n        \"child_comment_count\": 0,\n        \"comment_like_count\": 2,\n        \"content_type\": \"comment\",\n        \"id\": \"17970092114852855\",\n        \"meta_ai_comment_type\": \"NONE\",\n        \"private_reply_status\": 0,\n        \"text\": \"luvvvvvvv🖤🖤🖤\",\n        \"type\": 0,\n        \"user_id\": \"<user>\",\n        \"user\": {\n          \"full_name\": \"Lingga S. P.\",\n          \"id\": \"3558721631\",\n          \"profile_pic_id\": \"3955241250307294885\",\n          \"profile_pic_url\": \"https://scontent-lax7-1.cdninstagram.com/v/t51.82787-19/762008208_18466154488113…\",\n          \"username\": \"<user>\"\n        }\n      }\n    ]\n  }\n}\n```\n\n## Notes\n\n- `sort_by` accepts \"recent\" or \"popular\", defaulting to \"recent\".\n- `code_or_url` accepts either an Instagram post shortcode or a full URL.\n- Pass `pagination_token` from a previous response to page through additional comments.\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [Instagram Comment Replies (V2)](/model/instagram/v2/comment-replies): Retrieves a paginated list of replies to an Instagram comment using the post URL or shortcode and the target comment ID.\n- [Instagram General Search (V2)](/model/instagram/v2/general-search): Returns Instagram search results matching a specified keyword, including media items, user profiles, and engagement statistics.\n- [Instagram Hashtag Posts (V2)](/model/instagram/v2/hashtag-posts): Returns posts associated with a specific hashtag.\n",
+  "page_url": "https://www.sandbase.ai/model/instagram/v2/post-comments",
+  "created_at": "2026-07-31T03:55:47.05Z"
+}

@@ -1,0 +1,42 @@
+{
+  "name": "openai/gpt-4o",
+  "display_name": "OpenAI: GPT-4o",
+  "type": "llm",
+  "vendor": "OpenAI",
+  "vendor_slug": "openai",
+  "description": "GPT-4o (\"o\" for \"omni\") is OpenAI's versatile, high-intelligence GPT model released in May 2024, accepting text and image input and producing text output, including Structured Outputs. OpenAI describes it as fast and flexible, suited to general-purpose chat, image understanding, function calling and non-English language tasks. This entry tracks OpenAI's default GPT-4o alias; use one of the dated GPT-4o snapshots when a workload needs fixed behavior.",
+  "tags": [
+    "chat",
+    "vision",
+    "structured_output",
+    "function_calling"
+  ],
+  "capabilities": [
+    "chat",
+    "vision",
+    "structured_output",
+    "function_calling"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "chat_completions": "POST /v1/chat/completions",
+    "responses": "POST /v1/responses",
+    "messages": "POST /v1/messages"
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_token",
+    "per_million_tokens": {
+      "input": 2.5,
+      "output": 10,
+      "cache_read_multiplier": 0.5
+    }
+  },
+  "cover_url": "https://t0.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=https://openai.com&size=256",
+  "page_url": "https://www.sandbase.ai/model/openai/gpt-4o",
+  "published_at": "2024-05-13T00:00:00Z",
+  "created_at": "2026-05-08T23:54:18.284Z"
+}

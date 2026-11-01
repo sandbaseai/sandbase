@@ -1,0 +1,95 @@
+{
+  "name": "linkedin/group-posts",
+  "display_name": "LinkedIn Group Posts",
+  "type": "api",
+  "vendor": "LinkedIn",
+  "vendor_slug": "linkedin",
+  "description": "List the posts in a LinkedIn group by group URL, newest first: full text, canonical link, publish date, author, engagement counts with a per-reaction breakdown, and attached media. One call returns a page of about 100 posts; pass page to go further back.",
+  "tags": [
+    "api",
+    "linkedin",
+    "social-media"
+  ],
+  "capabilities": [
+    "api",
+    "linkedin",
+    "social-media"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/linkedin/group-posts"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "url"
+    ],
+    "properties": {
+      "url": {
+        "type": "string",
+        "example": "https://www.linkedin.com/groups/1898033",
+        "description": "Full LinkedIn group URL (e.g. https://www.linkedin.com/groups/1898033)."
+      },
+      "page": {
+        "type": "integer",
+        "default": 1,
+        "minimum": 1,
+        "description": "Which page of about 100 posts to return, starting at 1 (default 1). Page 2 continues where page 1 ended, going further back in time. Each page is billed as one request."
+      },
+      "postedLimit": {
+        "enum": [
+          "any",
+          "1h",
+          "24h",
+          "week",
+          "month",
+          "3months",
+          "6months",
+          "year"
+        ],
+        "type": "string",
+        "description": "Only return posts published within this window (default any). The window is applied to the page, so a page can come back with fewer posts or none."
+      }
+    },
+    "additionalProperties": false
+  },
+  "response_schema": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string"
+      },
+      "model": {
+        "type": "string"
+      },
+      "status": {
+        "type": "string"
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "data": {
+              "type": "object",
+              "description": "Normalized result for this request."
+            }
+          }
+        }
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "usage_based",
+    "note": "Billed per call from metered usage; the reference price is typical.",
+    "reference_price": 0.0026
+  },
+  "readme": "# LinkedIn Group Posts API\n\nList the posts in a LinkedIn group by group URL, newest first: full text, canonical link, publish date, author, engagement counts with a per-reaction breakdown, and attached media. One call returns a page of about 100 posts; pass page to go further back.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/linkedin/group-posts\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"url\": \"https://www.linkedin.com/groups/1898033\"}'\n```\n\nThe result is returned in `outputs[0].data`. A lookup that finds nothing still succeeds and returns `found: false`.\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `url` | string | Yes | Full LinkedIn group URL (e.g. https://www.linkedin.com/groups/1898033). |\n| `page` | integer | No | Which page of about 100 posts to return, starting at 1 (default 1). Page 2 continues where page 1 ended, going further back in time. Each page is billed as one request. |\n| `postedLimit` | string | No | Only return posts published within this window (default any). The window is applied to the page, so a page can come back with fewer posts or none. One of: `any`, `1h`, `24h`, `week`, `month`, `3months`, `6months`, `year` |\n\n## Pricing\n\nBilled at the actual cost of each call, usually $0.0026 per request. A call can cost more when the first data source fails and another one answers. Failed calls are not charged. Lookups that find nothing and searches with no results are billed at their actual cost, which is often lower and can be $0.\n",
+  "page_url": "https://www.sandbase.ai/model/linkedin/group-posts",
+  "created_at": "2026-10-31T10:40:22.473Z"
+}

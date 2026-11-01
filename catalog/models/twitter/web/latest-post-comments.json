@@ -1,0 +1,68 @@
+{
+  "name": "twitter/web/latest-post-comments",
+  "display_name": "Twitter (X) Latest Tweet Comments",
+  "type": "api",
+  "vendor": "Twitter",
+  "vendor_slug": "twitter",
+  "description": "Returns recent replies and comment timelines for a specific post using its tweet ID, with cursor support for multi-page results.",
+  "tags": [
+    "api",
+    "twitter"
+  ],
+  "capabilities": [
+    "api",
+    "twitter"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/twitter/web/latest-post-comments"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "tweet_id"
+    ],
+    "properties": {
+      "cursor": {
+        "type": "string",
+        "title": "Cursor",
+        "description": "Cursor, default is None, used for paging, obtained from the last request"
+      },
+      "tweet_id": {
+        "type": "string",
+        "title": "Tweet Id",
+        "example": "2107237881668313108",
+        "description": "Tweet ID"
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.0015,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "examples": [
+    {
+      "input": {
+        "tweet_id": "2107237881668313108"
+      },
+      "default": true
+    }
+  ],
+  "readme": "# Twitter (X) Latest Tweet Comments API\n\nRetrieve recent replies for a target post by providing `tweet_id`. Use the optional `cursor` parameter to step through paginated comment timelines.\n\n## Use cases\n\n- Monitor audience discussions and replies on specific posts.\n- Track recent public reactions to announcements or news.\n- Gather reply threads for sentiment analysis workflows.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/twitter/web/latest-post-comments\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"tweet_id\": \"2107237881668313108\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `tweet_id` | string | Yes | Tweet ID |\n| `cursor` | string | No | Cursor, default is None, used for paging, obtained from the last request |\n\n## Example response\n\nReal response for the request above, trimmed to the main fields. User names and long IDs are masked.\n\n```json\n{\n  \"timeline\": [\n    {\n      \"conversation_id\": \"2107237881668313108\",\n      \"in_reply_to_screen_name\": \"NASA\",\n      \"in_reply_to_status_id_str\": \"2107237881668313108\",\n      \"in_reply_to_user_id_str\": \"11348282\",\n      \"screen_name\": \"<user>\",\n      \"text\": \"@NASA @Space_Station @SpaceX Nearly eight months in space and they're finally coming home…\",\n      \"tweet_id\": \"2107450375645351938\",\n      \"type\": \"tweet\",\n      \"views\": \"6\",\n      \"user_info\": {\n        \"favorites_count\": 1948,\n        \"followers_count\": 157,\n        \"name\": \"Anup\",\n        \"rest_id\": \"1695754196\",\n        \"screen_name\": \"<user>\",\n        \"verified\": true\n      }\n    }\n  ]\n}\n```\n\n## Notes\n\n- Supply `cursor` from the prior response to page through additional comments.\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [Twitter (X) Tweet Comments](/model/twitter/web/post-comments): Returns comment threads and replies under a specified tweet.\n- [Twitter (X) Retweet User List](/model/twitter/web/retweet-user-list): Returns a list of users who reposted a specific post using its tweet ID, including follower counts, media counts, and user identifiers.\n- [Twitter (X) Search](/model/twitter/web/search-timeline): Search Twitter / X posts by keyword and get tweets with text, author, time and engagement counts (likes, retweets, replies, views).\n",
+  "page_url": "https://www.sandbase.ai/model/twitter/web/latest-post-comments",
+  "created_at": "2026-07-31T04:19:00.308Z"
+}

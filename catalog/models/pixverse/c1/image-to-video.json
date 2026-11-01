@@ -1,0 +1,341 @@
+{
+  "name": "pixverse/c1/image-to-video",
+  "display_name": "PixVerse C1 Image to Video",
+  "type": "video",
+  "vendor": "PixVerse",
+  "vendor_slug": "pixverse",
+  "description": "C1 is PixVerse's image-to-video AI model. Bring static images to life with fluid animation, consistent character motion, and professional-grade video output.",
+  "tags": [
+    "image-to-video"
+  ],
+  "capabilities": [
+    "image-to-video"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "prompt",
+      "image"
+    ],
+    "properties": {
+      "seed": {
+        "type": "integer",
+        "title": "Seed",
+        "description": "\n            The same seed and the same prompt given to the same version of the model\n            will output the same video every time.\n        "
+      },
+      "image": {
+        "type": "string",
+        "title": "Image Url",
+        "examples": [
+          "https://static.sandbase.ai/examples/pixverse/c1/image-to-video/output_url_0.png"
+        ],
+        "description": "URL of the image to use as the first frame"
+      },
+      "prompt": {
+        "type": "string",
+        "title": "Prompt",
+        "examples": [
+          "A woman warrior with her hammer walking with his glacier wolf."
+        ]
+      },
+      "duration": {
+        "type": "integer",
+        "title": "Duration",
+        "default": 5,
+        "maximum": 15,
+        "minimum": 1,
+        "description": "The duration of the generated video in seconds (1-15)"
+      },
+      "resolution": {
+        "enum": [
+          "360p",
+          "540p",
+          "720p",
+          "1080p"
+        ],
+        "type": "string",
+        "title": "Resolution",
+        "default": "720p",
+        "description": "The resolution of the generated video"
+      },
+      "generate_audio_switch": {
+        "type": "boolean",
+        "title": "Generate Audio Switch",
+        "default": false,
+        "description": "Enable audio generation (BGM, SFX, dialogue)"
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "title": "GenerationResponse",
+    "required": [
+      "id",
+      "status"
+    ],
+    "properties": {
+      "id": {
+        "type": "string",
+        "description": "Unique identifier for the generation task."
+      },
+      "error": {
+        "type": "string",
+        "description": "Error message if the task failed. Empty on success."
+      },
+      "model": {
+        "type": "string",
+        "description": "Model ID used for the prediction."
+      },
+      "status": {
+        "enum": [
+          "pending",
+          "running",
+          "completed",
+          "failed",
+          "timeout"
+        ],
+        "type": "string",
+        "description": "Status of the task: pending, running, completed, failed, or timeout."
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "title": "OutputItem",
+          "required": [
+            "url"
+          ],
+          "properties": {
+            "url": {
+              "type": "string",
+              "description": "The URL where the generated content can be downloaded from."
+            },
+            "content_type": {
+              "type": "string",
+              "description": "The MIME type of the output file."
+            }
+          }
+        },
+        "description": "Array of generated content. Empty when status is not completed."
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "formula",
+    "formula": "(params.resolution ?? \"720p\") == \"1080p\" ? ((params.generate_audio_switch ?? false) ? (params.duration ?? 5) * 0.120 : (params.duration ?? 5) * 0.095) : (params.resolution ?? \"720p\") == \"720p\" ? ((params.generate_audio_switch ?? false) ? (params.duration ?? 5) * 0.065 : (params.duration ?? 5) * 0.050) : (params.resolution ?? \"720p\") == \"540p\" ? ((params.generate_audio_switch ?? false) ? (params.duration ?? 5) * 0.050 : (params.duration ?? 5) * 0.040) : ((params.generate_audio_switch ?? false) ? (params.duration ?? 5) * 0.040 : (params.duration ?? 5) * 0.030)",
+    "formula_variables": [
+      "params.duration",
+      "params.generate_audio_switch",
+      "params.resolution"
+    ],
+    "reference_price": 0.25,
+    "price_examples": [
+      {
+        "params": {
+          "duration": 1,
+          "generate_audio_switch": false,
+          "resolution": "360p"
+        },
+        "usd": 0.03
+      },
+      {
+        "params": {
+          "duration": 1,
+          "generate_audio_switch": false,
+          "resolution": "540p"
+        },
+        "usd": 0.04
+      },
+      {
+        "params": {
+          "duration": 1,
+          "generate_audio_switch": false,
+          "resolution": "720p"
+        },
+        "usd": 0.05
+      },
+      {
+        "params": {
+          "duration": 1,
+          "generate_audio_switch": false,
+          "resolution": "1080p"
+        },
+        "usd": 0.095
+      },
+      {
+        "params": {
+          "duration": 1,
+          "generate_audio_switch": true,
+          "resolution": "360p"
+        },
+        "usd": 0.04
+      },
+      {
+        "params": {
+          "duration": 1,
+          "generate_audio_switch": true,
+          "resolution": "540p"
+        },
+        "usd": 0.05
+      },
+      {
+        "params": {
+          "duration": 1,
+          "generate_audio_switch": true,
+          "resolution": "720p"
+        },
+        "usd": 0.065
+      },
+      {
+        "params": {
+          "duration": 1,
+          "generate_audio_switch": true,
+          "resolution": "1080p"
+        },
+        "usd": 0.12
+      },
+      {
+        "params": {
+          "duration": 5,
+          "generate_audio_switch": false,
+          "resolution": "360p"
+        },
+        "usd": 0.15
+      },
+      {
+        "params": {
+          "duration": 5,
+          "generate_audio_switch": false,
+          "resolution": "540p"
+        },
+        "usd": 0.2
+      },
+      {
+        "params": {
+          "duration": 5,
+          "generate_audio_switch": false,
+          "resolution": "720p"
+        },
+        "usd": 0.25
+      },
+      {
+        "params": {
+          "duration": 5,
+          "generate_audio_switch": false,
+          "resolution": "1080p"
+        },
+        "usd": 0.475
+      },
+      {
+        "params": {
+          "duration": 5,
+          "generate_audio_switch": true,
+          "resolution": "360p"
+        },
+        "usd": 0.2
+      },
+      {
+        "params": {
+          "duration": 5,
+          "generate_audio_switch": true,
+          "resolution": "540p"
+        },
+        "usd": 0.25
+      },
+      {
+        "params": {
+          "duration": 5,
+          "generate_audio_switch": true,
+          "resolution": "720p"
+        },
+        "usd": 0.325
+      },
+      {
+        "params": {
+          "duration": 5,
+          "generate_audio_switch": true,
+          "resolution": "1080p"
+        },
+        "usd": 0.6
+      },
+      {
+        "params": {
+          "duration": 15,
+          "generate_audio_switch": false,
+          "resolution": "360p"
+        },
+        "usd": 0.45
+      },
+      {
+        "params": {
+          "duration": 15,
+          "generate_audio_switch": false,
+          "resolution": "540p"
+        },
+        "usd": 0.6
+      },
+      {
+        "params": {
+          "duration": 15,
+          "generate_audio_switch": false,
+          "resolution": "720p"
+        },
+        "usd": 0.75
+      },
+      {
+        "params": {
+          "duration": 15,
+          "generate_audio_switch": false,
+          "resolution": "1080p"
+        },
+        "usd": 1.425
+      },
+      {
+        "params": {
+          "duration": 15,
+          "generate_audio_switch": true,
+          "resolution": "360p"
+        },
+        "usd": 0.6
+      },
+      {
+        "params": {
+          "duration": 15,
+          "generate_audio_switch": true,
+          "resolution": "540p"
+        },
+        "usd": 0.75
+      },
+      {
+        "params": {
+          "duration": 15,
+          "generate_audio_switch": true,
+          "resolution": "720p"
+        },
+        "usd": 0.975
+      },
+      {
+        "params": {
+          "duration": 15,
+          "generate_audio_switch": true,
+          "resolution": "1080p"
+        },
+        "usd": 1.8
+      }
+    ]
+  },
+  "readme": "# PixVerse C1 Image to Video\n\nPixVerse C1 image-to-video: animate a picture into a 1–15 second clip, with optional generated audio.\n\n## Fields\n\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `prompt` | string, required | — | Text instruction. |\n| `image` | image URL, required | — | First frame. JPEG, PNG, or WebP URL. |\n| `resolution` | `360p` / `540p` / `720p` / `1080p` | `720p` | Sets the per-second rate. |\n| `duration` | integer 1–15 | 5 | Output length in seconds. |\n| `generate_audio_switch` | boolean | false | Generate audio; raises the rate. |\n| `seed` | integer | random | Fix it to compare prompt changes. |\n\n## Billing\n\nYou pay per output second; the rate depends on resolution and whether audio is on:\n\n| Output | 360p | 540p | 720p | 1080p |\n|---|---|---|---|---|\n| 5s (default) | $0.15 | $0.20 | $0.25 | $0.475 |\n| 10s | $0.30 | $0.40 | $0.50 | $0.95 |\n| 5s with audio | $0.20 | $0.25 | $0.325 | $0.60 |\n\nFailed runs are not charged.\n\n## Prompting\n\n- Describe the motion and camera in one or two sentences.\n\n## Also on SandBase\n\nRelated: `pixverse/v6/image-to-video`.\n",
+  "cover_url": "https://static.sandbase.ai/covers/pixverse/c1/image-to-video/cover-flare-20261005043345.webp",
+  "page_url": "https://www.sandbase.ai/model/pixverse/c1/image-to-video",
+  "published_at": "2026-04-09T23:44:02.328Z",
+  "created_at": "2026-05-15T10:56:14.501Z"
+}

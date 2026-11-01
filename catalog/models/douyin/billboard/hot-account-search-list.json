@@ -1,0 +1,71 @@
+{
+  "name": "douyin/billboard/hot-account-search-list",
+  "display_name": "Douyin Hot Account Search",
+  "type": "api",
+  "vendor": "Douyin",
+  "vendor_slug": "douyin",
+  "description": "Returns a list of Douyin accounts matching a username or Douyin ID keyword, including follower counts, like totals, and performance metrics.",
+  "tags": [
+    "api",
+    "douyin"
+  ],
+  "capabilities": [
+    "api",
+    "douyin"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/douyin/billboard/hot-account-search-list"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "cursor",
+      "keyword"
+    ],
+    "properties": {
+      "cursor": {
+        "type": "integer",
+        "title": "Cursor",
+        "example": 0,
+        "description": "Cursor, default empty"
+      },
+      "keyword": {
+        "type": "string",
+        "title": "Keyword",
+        "example": "华为",
+        "description": "Search username or Douyin number"
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.0015,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "examples": [
+    {
+      "input": {
+        "cursor": 0,
+        "keyword": "华为"
+      },
+      "default": true
+    }
+  ],
+  "readme": "# Douyin Hot Account Search API\n\nLook up Douyin accounts by providing a search term in `keyword` and navigate results using `cursor`. The response details follower counts, like totals, and account performance statistics.\n\n## Use cases\n\n- Search for Douyin creators by username or Douyin account ID.\n- Inspect follower counts and total likes for matched creator profiles.\n- Discover influencer accounts matching specific brand or topic keywords.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/douyin/billboard/hot-account-search-list\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"cursor\": 0, \"keyword\": \"华为\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `cursor` | integer | Yes | Cursor, default empty |\n| `keyword` | string | Yes | Search username or Douyin number |\n\n## Example response\n\nReal response for the request above, trimmed to the main fields. User names and long IDs are masked.\n\n```json\n{\n  \"data\": {\n    \"user_list\": [\n      {\n        \"fans_cnt\": 13964515,\n        \"fans_incr_rate\": 0,\n        \"group_id\": 0,\n        \"like_cnt\": 225688863,\n        \"monitor_id\": 0,\n        \"monitor_status\": 0,\n        \"new_fans_cnt\": 0,\n        \"new_item_target_cnt\": 0,\n        \"new_item_target_type\": 0,\n        \"new_like_cnt\": 0\n      }\n    ]\n  }\n}\n```\n\n## Notes\n\n- Search by username or Douyin number using `keyword`.\n- Paginate through matching account results using `cursor`.\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [Douyin Billboard City List](/model/douyin/billboard/city-list): Returns the list of Chinese cities supported by Douyin billboard rankings.\n- [Douyin Billboard Vertical Content Tags](/model/douyin/billboard/content-tag): Returns a list of vertical content tags available on the Douyin billboard platform.\n- [Douyin Fan Interest Account List](/model/douyin/billboard/hot-account-fans-interest-account-list): Returns a list of 20 accounts that followers of a target creator are interested in on Douyin.\n",
+  "page_url": "https://www.sandbase.ai/model/douyin/billboard/hot-account-search-list",
+  "created_at": "2026-07-31T02:34:54.378Z"
+}

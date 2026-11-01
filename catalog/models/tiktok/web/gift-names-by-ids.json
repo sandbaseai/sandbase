@@ -1,0 +1,66 @@
+{
+  "name": "tiktok/web/gift-names-by-ids",
+  "display_name": "TikTok Gift Names by IDs",
+  "type": "api",
+  "vendor": "TikTok",
+  "vendor_slug": "tiktok",
+  "description": "Returns gift names for a batch of TikTok gift identifiers. Provide a list of gift IDs to look up their corresponding gift labels.",
+  "tags": [
+    "api",
+    "tiktok"
+  ],
+  "capabilities": [
+    "api",
+    "tiktok"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/tiktok/web/gift-names-by-ids"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "gift_ids"
+    ],
+    "properties": {
+      "gift_ids": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        },
+        "title": "Gift Ids",
+        "maxItems": 1000,
+        "minItems": 1,
+        "description": "Gift ID list, recommend 50/call for best value ($0.025), auto-process first 50 if more than 50"
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.0375
+  },
+  "examples": [
+    {
+      "input": {
+        "gift_ids": [
+          "10001",
+          "10002",
+          "10003"
+        ]
+      },
+      "default": true
+    }
+  ],
+  "readme": "# TikTok Gift Names by IDs API\n\nLook up gift names for multiple items using `gift_ids`. The endpoint resolves names for each specified gift identifier in batches.\n\n## Use cases\n\n- Map raw TikTok gift identifiers to readable gift names.\n- Enrich live stream gift event logs with display labels.\n- Build a local catalog of TikTok virtual gifts.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/tiktok/web/gift-names-by-ids\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"gift_ids\": \"<gift_ids>\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `gift_ids` | array | Yes | Gift ID list, recommend 50/call for best value ($0.025), auto-process first 50 if more than 50 |\n\n## Notes\n\n- Accepts a list of identifiers via `gift_ids` and automatically processes the first 50 if more are provided.\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [TikTok Video IDs from URLs (Batch)](/model/tiktok/web/all-aweme-id): Resolves and extracts TikTok video IDs from a list of video URLs.\n- [TikTok User Sec User ID Extractor](/model/tiktok/web/all-sec-user-id): Returns a list of sec_user_id identifiers corresponding to TikTok user profile URLs.\n- [TikTok Profile Unique IDs](/model/tiktok/web/all-unique-id): Resolves a batch of TikTok user homepage links to retrieve their corresponding unique identifiers.\n",
+  "page_url": "https://www.sandbase.ai/model/tiktok/web/gift-names-by-ids",
+  "created_at": "2026-07-31T04:17:08.555Z"
+}

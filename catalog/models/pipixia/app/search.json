@@ -1,0 +1,76 @@
+{
+  "name": "pipixia/app/search",
+  "display_name": "Pipixia Search",
+  "type": "api",
+  "vendor": "Pipixia",
+  "vendor_slug": "pipixia",
+  "description": "Search Pipixia (ByteDance humor community) by keyword across posts, videos, images, users and hashtags.",
+  "tags": [
+    "api",
+    "pipixia"
+  ],
+  "capabilities": [
+    "api",
+    "pipixia"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/pipixia/app/search"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "keyword"
+    ],
+    "properties": {
+      "offset": {
+        "type": "string",
+        "title": "Offset",
+        "default": "0",
+        "description": "Page cursor, default is 0, get the corresponding value from the `offset` Key in the previous page."
+      },
+      "keyword": {
+        "type": "string",
+        "title": "Keyword",
+        "example": "OpenAI",
+        "description": "Search keyword."
+      },
+      "search_type": {
+        "type": "string",
+        "title": "Search Type",
+        "default": "1",
+        "description": "Search type, available values are as follows: 1: Comprehensive; 8: Hot; 9: Fresh; 2: Video; 3: Photo; 4: User; 5: Hashtag"
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.0015,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "examples": [
+    {
+      "input": {
+        "keyword": "OpenAI",
+        "offset": "0",
+        "search_type": "1"
+      }
+    }
+  ],
+  "readme": "# Pipixia Search API\n\nSearch Pipixia for a keyword. Choose the result type with `search_type` and paginate with `offset`.\n\n## Use cases\n\n- Research trending humor and meme content.\n- Find creators in the Pipixia community.\n- Monitor brand mentions.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/pipixia/app/search\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"keyword\": \"猫\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `keyword` | string | Yes | Search keyword. |\n| `offset` | string | No | Page cursor, default is 0, get the corresponding value from the `offset` Key in the previous page. |\n| `search_type` | string | No | Search type, available values are as follows: 1: Comprehensive; 8: Hot; 9: Fresh; 2: Video; 3: Photo; 4: User; 5: Hasht… |\n\n## Notes\n\n- `search_type`: 1 comprehensive, 8 hot, 9 fresh, 2 video, 3 photo, 4 user.\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [Pipixia Hot Search](/model/pipixia/app/hot-search-board-list): Get the Pipixia hot search boards: trending posts with daily likes and top comments.\n- [Get hashtag detail](/model/pipixia/app/hashtag-detail): Get hashtag detail data.\n- [Get hashtag post list](/model/pipixia/app/hashtag-post-list): Get hashtag post list data.\n",
+  "page_url": "https://www.sandbase.ai/model/pipixia/app/search",
+  "created_at": "2026-07-31T04:09:44.429Z"
+}

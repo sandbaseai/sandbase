@@ -1,0 +1,60 @@
+{
+  "name": "xiaohongshu/pgy-v2/data-v3-data-summary",
+  "display_name": "Xiaohongshu Pugongying Data Summary",
+  "type": "api",
+  "vendor": "Xiaohongshu",
+  "vendor_slug": "xiaohongshu",
+  "description": "Get the Xiaohongshu Pugongying data summary for a creator's daily or cooperation notes. Use it to compare aggregate creator performance between business modes.",
+  "tags": [
+    "api",
+    "xiaohongshu",
+    "social-media"
+  ],
+  "capabilities": [
+    "api",
+    "xiaohongshu",
+    "social-media"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/xiaohongshu/pgy-v2/data-v3-data-summary"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "userId"
+    ],
+    "properties": {
+      "userId": {
+        "type": "string",
+        "example": "64b898310000000014037b21",
+        "description": "KOL's user ID."
+      },
+      "business": {
+        "enum": [
+          "DAILY_NOTE",
+          "COOPERATE_NOTE"
+        ],
+        "type": "string",
+        "default": "DAILY_NOTE",
+        "description": "Business type."
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.020833
+  },
+  "readme": "# Xiaohongshu Pugongying Data Summary API\n\nGet the Xiaohongshu Pugongying data summary for a creator's daily or cooperation notes. Use it to compare aggregate creator performance between business modes.\n\nThe response is the platform's original data structure.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/xiaohongshu/pgy-v2/data-v3-data-summary\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"userId\": \"64b898310000000014037b21\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `userId` | string | Yes | KOL's user ID. |\n| `business` | string | No | Business type. |\n\n## Pricing\n\nFlat price per call. Failed calls and empty results are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/xiaohongshu/pgy-v2/data-v3-data-summary",
+  "created_at": "2026-10-29T12:30:05.978Z"
+}

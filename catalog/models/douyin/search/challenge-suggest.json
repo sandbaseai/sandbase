@@ -1,0 +1,65 @@
+{
+  "name": "douyin/search/challenge-suggest",
+  "display_name": "Douyin Hashtag Suggestions",
+  "type": "api",
+  "vendor": "Douyin",
+  "vendor_slug": "douyin",
+  "description": "Returns a list of suggested Douyin hashtags and challenges matching a query keyword, including challenge IDs and view counts.",
+  "tags": [
+    "api",
+    "douyin"
+  ],
+  "capabilities": [
+    "api",
+    "douyin"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/douyin/search/challenge-suggest"
+  },
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "keyword": {
+        "type": "string",
+        "title": "Keyword",
+        "default": "游戏",
+        "example": "人工智能",
+        "description": "Search keyword, e.g., \"game\""
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.015,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "examples": [
+    {
+      "input": {
+        "keyword": "游戏"
+      }
+    },
+    {
+      "input": {
+        "keyword": "游戏"
+      }
+    }
+  ],
+  "readme": "# Douyin Hashtag Suggestions API\n\nRetrieve autocomplete challenge and hashtag suggestions from Douyin based on a `keyword` input.\n\n## Use cases\n\n- Autocomplete hashtag inputs in search and tag selection tools.\n- Discover related Douyin challenges and their total view counts.\n- Identify popular tags matching specific topic keywords.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/douyin/search/challenge-suggest\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `keyword` | string | No | Search keyword, e.g., \"game\" |\n\n## Example response\n\nReal response for the request above, trimmed to the main fields. User names and long IDs are masked.\n\n```json\n{\n  \"sug_list\": [\n    {\n      \"cha_name\": \"游戏\",\n      \"group_id\": \"6596155186173973764\",\n      \"tag\": 0,\n      \"view_count\": 739698965727\n    }\n  ]\n}\n```\n\n## Notes\n\n- Query related challenges by providing search text in `keyword`.\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [Douyin Challenge Search](/model/douyin/search/challenge-search-v1): Returns Douyin challenge and hashtag search results matching a query.\n- [Douyin Hashtag Challenge Search (V2)](/model/douyin/search/challenge-search-v2): Returns Douyin hashtag and challenge search results matching a query keyword.\n- [Douyin Discussion Search](/model/douyin/search/discuss-search): Returns discussion and question-and-answer search results from Douyin.\n",
+  "page_url": "https://www.sandbase.ai/model/douyin/search/challenge-suggest",
+  "created_at": "2026-07-31T02:38:43.314Z"
+}

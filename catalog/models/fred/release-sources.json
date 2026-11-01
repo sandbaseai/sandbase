@@ -1,0 +1,72 @@
+{
+  "name": "fred/release-sources",
+  "display_name": "FRED Get Release Sources",
+  "type": "api",
+  "vendor": "FRED",
+  "vendor_slug": "fred",
+  "description": "Get Release Sources from FRED. Returns the official FRED API response unchanged.",
+  "tags": [
+    "api",
+    "fred",
+    "economic-data"
+  ],
+  "capabilities": [
+    "api",
+    "fred",
+    "economic-data"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/fred/release-sources"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "release_id"
+    ],
+    "properties": {
+      "file_type": {
+        "enum": [
+          "json"
+        ],
+        "type": "string",
+        "default": "json",
+        "description": "Response format. Only json is supported."
+      },
+      "release_id": {
+        "type": "integer",
+        "example": 53,
+        "description": "The id for a release. integer, required"
+      },
+      "realtime_end": {
+        "type": "string",
+        "description": "The end of the real-time period. For more information, see Real-Time Periods . YYYY-MM-DD formatted string, optional, default: today's date"
+      },
+      "realtime_start": {
+        "type": "string",
+        "description": "The start of the real-time period. For more information, see Real-Time Periods . YYYY-MM-DD formatted string, optional, default: today's date"
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 1e-05,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "readme": "# FRED Get Release Sources API\n\nGet Release Sources from FRED. Returns the official FRED API response unchanged.\n\nThe response is the official FRED API response, unchanged.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/fred/release-sources\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"release_id\": 53, \"file_type\": \"json\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `file_type` | string | No | Response format. Only json is supported. |\n| `realtime_end` | string | No | The end of the real-time period. For more information, see Real-Time Periods . YYYY-MM-DD formatted string, optional, default: today's date |\n| `realtime_start` | string | No | The start of the real-time period. For more information, see Real-Time Periods . YYYY-MM-DD formatted string, optional, default: today's date |\n| `release_id` | integer | Yes | The id for a release. integer, required |\n\n## Pricing\n\nFlat price per call. Failed calls are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/fred/release-sources",
+  "created_at": "2026-10-30T03:11:20.607Z"
+}

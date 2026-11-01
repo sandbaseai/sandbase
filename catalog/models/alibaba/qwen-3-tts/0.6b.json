@@ -1,0 +1,255 @@
+{
+  "name": "alibaba/qwen-3-tts/0.6b",
+  "display_name": "Qwen 3 TTS - Text to Speech [0.6B]",
+  "type": "audio",
+  "vendor": "Alibaba",
+  "vendor_slug": "alibaba",
+  "description": "Qwen 3 Tts 0.6b is Alibaba's text-to-speech AI model. Generate human-like voiceovers with expressive intonation, multilingual support, and customizable voice characteristics.",
+  "tags": [
+    "text-to-speech"
+  ],
+  "capabilities": [
+    "text-to-speech"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "prompt"
+    ],
+    "properties": {
+      "text": {
+        "type": "string",
+        "title": "Text",
+        "examples": [
+          "I feel like I'm taking crazy pills! How can something be both a square and a circle at the same time? It defies all logic!"
+        ],
+        "description": "The text to be converted to speech."
+      },
+      "top_k": {
+        "type": "integer",
+        "title": "Top K",
+        "default": 50,
+        "minimum": 0,
+        "description": "Top-k sampling parameter."
+      },
+      "top_p": {
+        "type": "number",
+        "title": "Top P",
+        "default": 1,
+        "maximum": 1,
+        "minimum": 0,
+        "description": "Top-p sampling parameter."
+      },
+      "voice": {
+        "enum": [
+          "Vivian",
+          "Serena",
+          "Uncle_Fu",
+          "Dylan",
+          "Eric",
+          "Ryan",
+          "Aiden",
+          "Ono_Anna",
+          "Sohee"
+        ],
+        "type": "string",
+        "title": "Voice",
+        "examples": [
+          "Vivian"
+        ],
+        "description": "The voice to be used for speech synthesis, will be ignored if a speaker embedding is provided. Check out the **[documentation](https://github.com/QwenLM/Qwen3-TTS/tree/main?tab=readme-ov-file#custom-voice-generate)** for each voice's details and which language they primarily support."
+      },
+      "prompt": {
+        "type": "string",
+        "title": "Prompt",
+        "examples": [
+          "Very happy."
+        ],
+        "description": "Optional prompt to guide the style of the generated speech. This prompt will be ignored if a speaker embedding is provided."
+      },
+      "language": {
+        "enum": [
+          "Auto",
+          "English",
+          "Chinese",
+          "Spanish",
+          "French",
+          "German",
+          "Italian",
+          "Japanese",
+          "Korean",
+          "Portuguese",
+          "Russian"
+        ],
+        "type": "string",
+        "title": "Language",
+        "default": "Auto",
+        "examples": [
+          "English"
+        ],
+        "description": "The language of the voice."
+      },
+      "temperature": {
+        "type": "number",
+        "title": "Temperature",
+        "default": 0.9,
+        "maximum": 1,
+        "minimum": 0,
+        "description": "Sampling temperature; higher => more random."
+      },
+      "max_new_tokens": {
+        "type": "integer",
+        "title": "Max New Tokens",
+        "default": 200,
+        "maximum": 8192,
+        "minimum": 1,
+        "description": "Maximum number of new codec tokens to generate."
+      },
+      "reference_text": {
+        "type": "string",
+        "title": "Reference Text",
+        "description": "Optional reference text that was used when creating the speaker embedding. Providing this can improve synthesis quality when using a cloned voice."
+      },
+      "subtalker_top_k": {
+        "type": "integer",
+        "title": "Subtalker Top K",
+        "default": 50,
+        "minimum": 0,
+        "description": "Top-k for sub-talker sampling."
+      },
+      "subtalker_top_p": {
+        "type": "number",
+        "title": "Subtalker Top P",
+        "default": 1,
+        "maximum": 1,
+        "minimum": 0,
+        "description": "Top-p for sub-talker sampling."
+      },
+      "repetition_penalty": {
+        "type": "number",
+        "title": "Repetition Penalty",
+        "default": 1.05,
+        "minimum": 0,
+        "description": "Penalty to reduce repeated tokens/codes."
+      },
+      "subtalker_dosample": {
+        "type": "boolean",
+        "title": "Subtalker Dosample",
+        "default": true,
+        "description": "Sampling switch for the sub-talker."
+      },
+      "subtalker_temperature": {
+        "type": "number",
+        "title": "Subtalker Temperature",
+        "default": 0.9,
+        "maximum": 1,
+        "minimum": 0,
+        "description": "Temperature for sub-talker sampling."
+      },
+      "speaker_voice_embedding_file_url": {
+        "type": "string",
+        "title": "Speaker Voice Embedding File Url",
+        "description": "URL to a speaker embedding file in safetensors format. If provided, the TTS model will use the cloned voice for synthesis instead of the predefined voices."
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "title": "GenerationResponse",
+    "required": [
+      "id",
+      "status"
+    ],
+    "properties": {
+      "id": {
+        "type": "string",
+        "description": "Unique identifier for the generation task."
+      },
+      "error": {
+        "type": "string",
+        "description": "Error message if the task failed. Empty on success."
+      },
+      "model": {
+        "type": "string",
+        "description": "Model ID used for the prediction."
+      },
+      "status": {
+        "enum": [
+          "pending",
+          "running",
+          "completed",
+          "failed",
+          "timeout"
+        ],
+        "type": "string",
+        "description": "Status of the task: pending, running, completed, failed, or timeout."
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "title": "OutputItem",
+          "required": [
+            "url"
+          ],
+          "properties": {
+            "url": {
+              "type": "string",
+              "examples": [
+                "https://static.sandbase.ai/examples/alibaba/qwen-3-tts/0.6b/output_url_0.mp3"
+              ],
+              "description": "The URL where the generated content can be downloaded from."
+            },
+            "content_type": {
+              "type": "string",
+              "description": "The MIME type of the output file."
+            }
+          }
+        },
+        "description": "Array of generated content. Empty when status is not completed."
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "formula",
+    "formula": "Math.max(1.0, len(params.text ?? params.prompt ?? \"\") * 1.0) * 0.00007",
+    "formula_variables": [
+      "params.prompt",
+      "params.text"
+    ],
+    "reference_price": 7e-05,
+    "price_examples": [
+      {
+        "params": {},
+        "usd": 0.00077
+      }
+    ]
+  },
+  "examples": [
+    {
+      "input": {
+        "prompt": "Very happy."
+      },
+      "output": [
+        {
+          "url": "https://static.sandbase.ai/examples/7208a5cf-36c8-46ac-885d-6aa69c9b0e2d/output/3deb5c4e-03c5-4858-b571-39df57cf3a8a.mp3"
+        }
+      ],
+      "default": true
+    }
+  ],
+  "readme": "# Qwen 3 TTS - Text to Speech [0.6B]\n\nQwen 3 TTS 0.6B, the open-weights Qwen speech model: text to speech in 10 languages with nine preset voices, or a cloned voice from a speaker-embedding file. The 0.6B model is the faster, cheaper size.\n\n## Fields\n\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `prompt` | string, required | — | Text to speak. |\n| `text` | string | — | Alias of `prompt`; if both are sent, `text` is used. |\n| `top_p` | number 0–1 | 1 | Sampling setting. |\n| `subtalker_top_p` | number 0–1 | 1 | Sub-model sampling setting. |\n| `voice` | `Vivian` / `Serena` / `Uncle_Fu` / `Dylan` / `Eric` / `Ryan` / `Aiden` / `Ono_Anna` / `Sohee` | — | Preset voice; ignored when a speaker embedding is supplied. |\n| `repetition_penalty` | number | 1.05 | Reduces repeated sounds. |\n| `subtalker_top_k` | integer | 50 | Sub-model sampling setting. |\n| `top_k` | integer | 50 | Sampling setting; leave at default unless delivery is unstable. |\n| `reference_text` | string | — | Transcript used when the embedding was created; improves cloned-voice quality. |\n| `temperature` | number 0–1 | 0.9 | Higher values give more varied delivery. |\n| `max_new_tokens` | integer 1–8192 | 200 | Caps the generated audio length; raise it for long text. |\n| `language` | `Auto` / `English` / `Chinese` / `Spanish` / `French` / `German` / `Italian` / `Japanese` / `Korean` / `Portuguese` / `Russian` | `Auto` | Spoken language; `Auto` detects it. |\n| `subtalker_dosample` | boolean | true | Sampling switch for the acoustic sub-model. |\n| `subtalker_temperature` | number 0–1 | 0.9 | Sub-model temperature. |\n| `speaker_voice_embedding_file_url` | string | — | Optional cloned-voice embedding (safetensors) to use instead of a preset voice. |\n\n## Billing\n\n$0.07 per 1,000 characters of input text, billed per character.\n\n| Text | Price |\n|---|---|\n| 100 characters | $0.007 |\n| 1,000 characters | $0.07 |\n| 5,000 characters | $0.35 |\n\nFailed runs are not charged.\n\n## Prompting\n\n- Use punctuation to control pauses; break long passages into paragraphs.\n- Pick a voice whose primary language matches the text.\n\n## Limits\n\n- `max_new_tokens` (default 200) caps the audio length; long text needs a higher value.\n\n## Also on SandBase\n\nRelated: `alibaba/qwen-3-tts/1.7b`.\n",
+  "cover_url": "https://static.sandbase.ai/covers/alibaba/qwen-3-tts/0.6b/cover-flare-20261008043931.webp",
+  "page_url": "https://www.sandbase.ai/model/alibaba/qwen-3-tts/0.6b",
+  "published_at": "2026-01-26T16:24:48.185Z",
+  "created_at": "2026-06-01T12:51:35.09Z"
+}

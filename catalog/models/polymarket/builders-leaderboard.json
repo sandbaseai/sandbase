@@ -1,0 +1,74 @@
+{
+  "name": "polymarket/builders-leaderboard",
+  "display_name": "Polymarket Get aggregated builder leaderboard",
+  "type": "api",
+  "vendor": "Polymarket",
+  "vendor_slug": "polymarket",
+  "description": "Get aggregated builder leaderboard from Polymarket. Returns the official Polymarket API response unchanged.",
+  "tags": [
+    "api",
+    "polymarket",
+    "prediction-markets"
+  ],
+  "capabilities": [
+    "api",
+    "polymarket",
+    "prediction-markets"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/polymarket/builders-leaderboard"
+  },
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "limit": {
+        "type": "integer",
+        "default": 25,
+        "example": 2,
+        "maximum": 50,
+        "minimum": 0,
+        "description": "Maximum number of builders to return"
+      },
+      "offset": {
+        "type": "integer",
+        "default": 0,
+        "maximum": 1000,
+        "minimum": 0,
+        "description": "Starting index for pagination"
+      },
+      "timePeriod": {
+        "enum": [
+          "DAY",
+          "WEEK",
+          "MONTH",
+          "ALL"
+        ],
+        "type": "string",
+        "default": "DAY",
+        "description": "The time period to aggregate results over."
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.012,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "readme": "# Polymarket Get aggregated builder leaderboard API\n\nGet aggregated builder leaderboard from Polymarket. Returns the official Polymarket API response unchanged.\n\nThe response is the official Polymarket API response, unchanged.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/polymarket/builders-leaderboard\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"limit\": 2}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `limit` | integer | No | Maximum number of builders to return |\n| `offset` | integer | No | Starting index for pagination |\n| `timePeriod` | string | No | The time period to aggregate results over. |\n\n## Pricing\n\nFlat price per call. Failed calls are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/polymarket/builders-leaderboard",
+  "created_at": "2026-10-30T03:11:06.498Z"
+}

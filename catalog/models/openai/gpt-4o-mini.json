@@ -1,0 +1,42 @@
+{
+  "name": "openai/gpt-4o-mini",
+  "display_name": "OpenAI: GPT-4o-mini",
+  "type": "llm",
+  "vendor": "OpenAI",
+  "vendor_slug": "openai",
+  "description": "GPT-4o mini is OpenAI's small, fast model from the GPT-4o family, released in July 2024 with text and image input and text output, including Structured Outputs. OpenAI positions it for focused tasks such as intent classification, keyword extraction, translation and tagging, and calls it ideal for fine-tuning, including distilling outputs from a larger model like GPT-4o. Pick it over GPT-4o when latency and throughput matter more than peak capability.",
+  "tags": [
+    "chat",
+    "vision",
+    "structured_output",
+    "function_calling"
+  ],
+  "capabilities": [
+    "chat",
+    "vision",
+    "structured_output",
+    "function_calling"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "chat_completions": "POST /v1/chat/completions",
+    "responses": "POST /v1/responses",
+    "messages": "POST /v1/messages"
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_token",
+    "per_million_tokens": {
+      "input": 0.15,
+      "output": 0.6,
+      "cache_read_multiplier": 0.5
+    }
+  },
+  "cover_url": "https://t0.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=https://openai.com&size=256",
+  "page_url": "https://www.sandbase.ai/model/openai/gpt-4o-mini",
+  "published_at": "2024-07-18T00:00:00Z",
+  "created_at": "2026-05-08T23:54:31.388Z"
+}

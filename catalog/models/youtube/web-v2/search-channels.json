@@ -1,0 +1,71 @@
+{
+  "name": "youtube/web-v2/search-channels",
+  "display_name": "YouTube Channel Search",
+  "type": "api",
+  "vendor": "YouTube",
+  "vendor_slug": "youtube",
+  "description": "Searches YouTube channels by query terms and returns channel listings. Supports paginated results using continuation tokens and optional data formatting.",
+  "tags": [
+    "api",
+    "youtube"
+  ],
+  "capabilities": [
+    "api",
+    "youtube"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/youtube/web-v2/search-channels"
+  },
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "keyword": {
+        "anyOf": [
+          {
+            "type": "string",
+            "maxLength": 200
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "title": "Keyword",
+        "example": "OpenAI",
+        "description": "Search keyword (required for first request)"
+      },
+      "need_format": {
+        "type": "boolean",
+        "title": "Need Format",
+        "default": true,
+        "description": "Whether to format data (default true)"
+      },
+      "continuation_token": {
+        "type": "string",
+        "title": "Continuation Token",
+        "description": "Pagination token (optional, for next page)"
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.0015,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "readme": "# YouTube Channel Search API\n\nQuery YouTube channels matching a specific `keyword`. Use `continuation_token` to retrieve subsequent pages of results.\n\n## Use cases\n\n- Discover YouTube channels matching specific keywords or brand names.\n- Gather channel search results for creator discovery workflows.\n- Page through multi-page channel query listings using continuation tokens.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/youtube/web-v2/search-channels\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `keyword` | string | No | Search keyword (required for first request) |\n| `need_format` | boolean | No | Whether to format data (default true) |\n| `continuation_token` | string | No | Pagination token (optional, for next page) |\n\n## Notes\n\n- `keyword` is required for the initial request.\n- Use `continuation_token` to fetch the next page of search results.\n- `need_format` defaults to true to format returned data.\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [YouTube Channel Community Posts](/model/youtube/web-v2/channel-community-posts): Returns community posts from a specific YouTube channel, including text content, polls, votes, and comment counts.\n- [YouTube Channel Description](/model/youtube/web-v2/channel-description): Returns YouTube channel details including subscriber counts, video totals, view counts, joined date, and social links.\n- [YouTube Channel ID from URL](/model/youtube/web-v2/channel-id): Resolves a YouTube channel URL to its canonical channel ID.\n",
+  "page_url": "https://www.sandbase.ai/model/youtube/web-v2/search-channels",
+  "created_at": "2026-07-31T04:27:31.726Z"
+}

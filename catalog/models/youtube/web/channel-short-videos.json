@@ -1,0 +1,67 @@
+{
+  "name": "youtube/web/channel-short-videos",
+  "display_name": "YouTube Channel Short Videos",
+  "type": "api",
+  "vendor": "YouTube",
+  "vendor_slug": "youtube",
+  "description": "Returns a list of YouTube Shorts from a specified channel. Supports pagination through an optional continuation token to browse additional short videos.",
+  "tags": [
+    "api",
+    "youtube"
+  ],
+  "capabilities": [
+    "api",
+    "youtube"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/youtube/web/channel-short-videos"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "channel_id"
+    ],
+    "properties": {
+      "channel_id": {
+        "type": "string",
+        "title": "Channel Id",
+        "example": "UCXuqSBlHAE6Xw-yeJA0Tunw",
+        "description": "Channel ID."
+      },
+      "continuation_token": {
+        "type": "string",
+        "title": "Continuation Token",
+        "description": "Token to continue fetching channel short videos. Default is None."
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.0015,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "examples": [
+    {
+      "input": {
+        "channel_id": "UCXuqSBlHAE6Xw-yeJA0Tunw"
+      }
+    }
+  ],
+  "readme": "# YouTube Channel Short Videos API\n\nFetch YouTube Shorts uploaded by a creator by supplying a `channel_id`. Use `continuation_token` to paginate through subsequent sets of short videos.\n\n## Use cases\n\n- List all short-form videos belonging to a target YouTube channel.\n- Track recent YouTube Shorts releases for content monitoring tools.\n- Paginate through a channel's Shorts catalog for analytics dashboards.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/youtube/web/channel-short-videos\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"channel_id\": \"UCXuqSBlHAE6Xw-yeJA0Tunw\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `channel_id` | string | Yes | Channel ID. |\n| `continuation_token` | string | No | Token to continue fetching channel short videos. |\n\n## Notes\n\n- Pass `continuation_token` to retrieve the next page of short videos.\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [YouTube Channel ID Lookup](/model/youtube/web/channel-id): Retrieves the unique YouTube channel ID associated with a specific channel name.\n- [YouTube Channel ID from URL (V2)](/model/youtube/web/channel-id-v2): Resolves a YouTube channel URL into its unique channel ID and standardized channel URL.\n- [YouTube Channel Information](/model/youtube/web/channel-info): Returns profile details and external links for a specified YouTube channel.\n",
+  "page_url": "https://www.sandbase.ai/model/youtube/web/channel-short-videos",
+  "created_at": "2026-07-31T04:26:01.548Z"
+}

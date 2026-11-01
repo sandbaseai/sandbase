@@ -1,0 +1,69 @@
+{
+  "name": "wechat-channels/v2/video-share-url",
+  "display_name": "WeChat Channels Video Share URL",
+  "type": "api",
+  "vendor": "WeChat Channels",
+  "vendor_slug": "wechat-channels",
+  "description": "Returns the share URL for a specific WeChat Channels video using its numeric object ID. Supports both raw and simplified parsed response formats.",
+  "tags": [
+    "api",
+    "wechat-channels"
+  ],
+  "capabilities": [
+    "api",
+    "wechat-channels"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/wechat-channels/v2/video-share-url"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "object_id"
+    ],
+    "properties": {
+      "raw": {
+        "type": "boolean",
+        "title": "Raw",
+        "description": "Optional, default True. True=raw response; False=simplified parsed structure."
+      },
+      "object_id": {
+        "type": "string",
+        "title": "Object Id",
+        "pattern": "^[0-9]+$",
+        "maxLength": 32,
+        "description": "Video objectId (numeric), e.g. `14941130915890399732`. From the video `id` of `fetch_user_videos` / `fetch_video_detail`."
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.015,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "examples": [
+    {
+      "input": {
+        "object_id": "14941130915890399732"
+      },
+      "default": true
+    }
+  ],
+  "readme": "# WeChat Channels Video Share URL API\n\nRetrieve a shareable link for a WeChat Channels video by supplying its `object_id`. Use the optional `raw` parameter to toggle between full and simplified response schemas.\n\n## Use cases\n\n- Retrieve public sharing links for specific WeChat Channels videos.\n- Direct users to native WeChat Channels video content via external platforms.\n- Automate the collection of video URLs for reporting and distribution workflows.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/wechat-channels/v2/video-share-url\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"object_id\": \"<object_id>\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `object_id` | string | Yes | Video objectId (numeric), e.g. |\n| `raw` | boolean | No | Optional, default True. |\n\n## Notes\n\n- Find `object_id` from the video `id` returned by user video lists or video detail endpoints.\n- Set `raw` to false for a simplified parsed structure, or true (default) for the raw response.\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [WeChat Channels ID to Username](/model/wechat-channels/v2/channel-id-to-username): Convert a public WeChat Channels Channel ID (sph… short ID) into the finder username (v2_…@finder) required by the other WeChat Channels APIs.\n- [WeChat Channels Account Info](/model/wechat-channels/v2/channel-info): Get the public \"More info\" panel of a WeChat Channels account: Channel ID, IP and profile location, and verification details such as entity type, service categ…\n- [WeChat Channels Collection Videos](/model/wechat-channels/v2/collection-videos): Returns videos contained within a WeChat Channels collection using a collection ID.\n",
+  "page_url": "https://www.sandbase.ai/model/wechat-channels/v2/video-share-url",
+  "created_at": "2026-07-31T04:20:31.461Z"
+}

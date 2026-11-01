@@ -1,0 +1,130 @@
+{
+  "name": "douyin/search/video-search-v1",
+  "display_name": "Douyin Video Search (V1)",
+  "type": "api",
+  "vendor": "Douyin",
+  "vendor_slug": "douyin",
+  "description": "Search Douyin videos by keyword: descriptions, authors and play, like, comment and share counts, with sort, publish-time, duration and content-type filters.",
+  "tags": [
+    "api",
+    "douyin"
+  ],
+  "capabilities": [
+    "api",
+    "douyin"
+  ],
+  "modes": [
+    "sync",
+    "async"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}",
+    "passthrough": "POST /v1/api/douyin/search/video-search-v1"
+  },
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "cursor": {
+        "type": "integer",
+        "title": "Cursor",
+        "default": 0,
+        "example": 0,
+        "description": "Pagination cursor (0 for the first page, use the last response cursor for subsequent pages)"
+      },
+      "keyword": {
+        "type": "string",
+        "title": "Keyword",
+        "default": "猫咪",
+        "example": "猫咪",
+        "description": "Search keyword, e.g., \"Artificial Intelligence\""
+      },
+      "backtrace": {
+        "type": "string",
+        "title": "Backtrace",
+        "default": "",
+        "example": "",
+        "description": "Backtrace identifier used for pagination(obtained from the last response)"
+      },
+      "search_id": {
+        "type": "string",
+        "title": "Search Id",
+        "default": "",
+        "example": "",
+        "description": "Search ID used for pagination(obtained from the last response)"
+      },
+      "sort_type": {
+        "type": "string",
+        "title": "Sort Type",
+        "default": "0",
+        "example": "0",
+        "description": "Sorting method"
+      },
+      "content_type": {
+        "type": "string",
+        "title": "Content Type",
+        "default": "0",
+        "example": "0",
+        "description": "Content type filter"
+      },
+      "publish_time": {
+        "type": "string",
+        "title": "Publish Time",
+        "default": "0",
+        "example": "0",
+        "description": "Publish time filter"
+      },
+      "filter_duration": {
+        "type": "string",
+        "title": "Filter Duration",
+        "default": "0",
+        "example": "0",
+        "description": "Video duration filter"
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.015,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "examples": [
+    {
+      "input": {
+        "backtrace": "",
+        "content_type": "0",
+        "cursor": 0,
+        "filter_duration": "0",
+        "keyword": "猫咪",
+        "publish_time": "0",
+        "search_id": "",
+        "sort_type": "0"
+      }
+    },
+    {
+      "input": {
+        "backtrace": "",
+        "content_type": "0",
+        "cursor": 0,
+        "filter_duration": "0",
+        "keyword": "猫咪",
+        "publish_time": "0",
+        "search_id": "",
+        "sort_type": "0"
+      }
+    }
+  ],
+  "readme": "# Douyin Video Search API (V1)\n\nSearch Douyin's video results for a keyword, with the same filters as the app.\n\n## Use cases\n\n- Find videos about a product or topic.\n- Discover creators for campaigns.\n- Track video volume for a keyword.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/douyin/search/video-search-v1\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"keyword\": \"猫咪\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `cursor` | integer | No | Pagination cursor (0 for the first page, use the last response cursor for subsequent pages) |\n| `keyword` | string | No | Search keyword, e.g., \"Artificial Intelligence\" |\n| `backtrace` | string | No | Backtrace identifier used for pagination(obtained from the last response) |\n| `search_id` | string | No | Search ID used for pagination(obtained from the last response) |\n| `sort_type` | string | No | Sorting method |\n| `content_type` | string | No | Content type filter |\n| `publish_time` | string | No | Publish time filter |\n| `filter_duration` | string | No | Video duration filter |\n\n## Example response\n\nReal response for the request above, trimmed to the main fields. User names and long IDs are masked.\n\n```json\n{\n  \"cursor\": 10,\n  \"has_more\": 1,\n  \"search_id\": \"<search_id>\",\n  \"data\": [\n    {\n      \"type\": 1,\n      \"aweme_info\": {\n        \"aweme_id\": \"7626222853277534707\",\n        \"create_time\": 1775618376,\n        \"desc\": \"据说这是猫咪无法抗拒的声音！你家猫听到会有什么反应？快试了来告诉我～  #猫咪男高音 #蓝金渐层#…\",\n        \"author\": {\n          \"nickname\": \"<user>\",\n          \"sec_uid\": \"<sec_uid>\"\n        },\n        \"statistics\": {\n          \"play_count\": 0,\n          \"digg_count\": 62040,\n          \"comment_count\": 3678,\n          \"share_count\": 21334,\n          \"collect_count\": 12233\n        }\n      }\n    }\n  ]\n}\n```\n\n## Notes\n\n- For the next page, pass back `cursor`, `search_id` and `backtrace`.\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [Douyin General Search](/model/douyin/search/general-search-v1): Search Douyin (Chinese TikTok) from the app's general search tab and get videos with descriptions, authors and play, like, comment and share counts.\n- [Douyin Search Suggestions](/model/douyin/search/search-suggest): Get Douyin search autocomplete suggestions for a keyword: the related queries users see while typing in the Douyin app.\n- [Douyin Video Search](/model/douyin/search/video-search-v2): Search Douyin videos by keyword and get descriptions, authors and play, like, comment and share counts.\n",
+  "page_url": "https://www.sandbase.ai/model/douyin/search/video-search-v1",
+  "created_at": "2026-07-31T02:39:14.393Z"
+}

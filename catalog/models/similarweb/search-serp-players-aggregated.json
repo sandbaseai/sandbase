@@ -1,0 +1,96 @@
+{
+  "name": "similarweb/search-serp-players-aggregated",
+  "display_name": "Similarweb SERP Players - Aggregated",
+  "type": "api",
+  "vendor": "Similarweb",
+  "vendor_slug": "similarweb",
+  "description": "Get the websites that win clicks on search results for given keywords, with clicks, top URL and SERP features, aggregated over the period.",
+  "tags": [
+    "api",
+    "similarweb",
+    "web-analytics"
+  ],
+  "capabilities": [
+    "api",
+    "similarweb",
+    "web-analytics"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/similarweb/search-serp-players-aggregated"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "end_date",
+      "keywords",
+      "limit",
+      "start_date"
+    ],
+    "properties": {
+      "limit": {
+        "type": "integer",
+        "example": 1,
+        "maximum": 20,
+        "minimum": 1,
+        "description": "limit"
+      },
+      "offset": {
+        "type": "integer",
+        "maximum": 100000,
+        "minimum": 0,
+        "description": "offset"
+      },
+      "country": {
+        "enum": [
+          "ww"
+        ],
+        "type": "string",
+        "default": "ww",
+        "description": "Worldwide data only; values are case-insensitive."
+      },
+      "end_date": {
+        "type": "string",
+        "example": "2026-09",
+        "description": "end_date"
+      },
+      "keywords": {
+        "type": "string",
+        "example": "running shoes",
+        "description": "keywords"
+      },
+      "start_date": {
+        "type": "string",
+        "example": "2026-09",
+        "description": "start_date"
+      },
+      "granularity": {
+        "enum": [
+          "monthly"
+        ],
+        "type": "string",
+        "description": "granularity"
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "formula",
+    "formula": "0.075 * Math.max(1.0, Math.ceil(Math.min(20.0, (output.data?.data != nil ? len(output.data.data) : (params.limit ?? 20)) * 1.0) * 70000.0 / 1000000.0))",
+    "formula_variables": [
+      "params.limit"
+    ],
+    "reference_price": 0.15
+  },
+  "readme": "# Similarweb SERP Players - Aggregated API\n\nGet the websites that win clicks on search results for given keywords, with clicks, top URL and SERP features, aggregated over the period.\n\nThe response is the official Similarweb API response, unchanged.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/similarweb/search-serp-players-aggregated\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"start_date\": \"2026-09\", \"end_date\": \"2026-09\", \"country\": \"ww\", \"keywords\": \"running shoes\", \"limit\": 1}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `country` | string | No | Worldwide data only; values are case-insensitive. |\n| `end_date` | string | Yes | end_date |\n| `granularity` | string | No | granularity |\n| `keywords` | string | Yes | keywords |\n| `limit` | integer | Yes | limit |\n| `offset` | integer | No | offset |\n| `start_date` | string | Yes | start_date |\n\n## Pricing\n\n$0.075 per Similarweb credit; 0.07 credit per returned row, rounded up to whole credits. Failed calls are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/similarweb/search-serp-players-aggregated",
+  "created_at": "2026-10-30T06:05:56.469Z"
+}

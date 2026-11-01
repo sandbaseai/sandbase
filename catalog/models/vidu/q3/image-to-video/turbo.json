@@ -1,0 +1,258 @@
+{
+  "name": "vidu/q3/image-to-video/turbo",
+  "display_name": "Vidu Q3 Image to Video Turbo",
+  "type": "video",
+  "vendor": "Vidu",
+  "vendor_slug": "vidu",
+  "description": "Vidu Q3 Turbo by Shengshu - animate still images into dynamic videos with AI. Transform photos into cinematic clips with natural motion, camera movement, and optional audio generation.",
+  "tags": [
+    "image-to-video"
+  ],
+  "capabilities": [
+    "image-to-video"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "prompt",
+      "image"
+    ],
+    "properties": {
+      "seed": {
+        "type": "integer",
+        "title": "Seed",
+        "description": "Random seed for reproducibility. If None, a random seed is chosen."
+      },
+      "audio": {
+        "type": "boolean",
+        "title": "Audio",
+        "default": true,
+        "description": "Whether to use direct audio-video generation. When true, outputs video with sound (including dialogue and sound effects)."
+      },
+      "image": {
+        "type": "string",
+        "title": "Image Url",
+        "examples": [
+          "https://static.sandbase.ai/examples/shengshu/vidu/q3/image-to-video/turbo/input_image_0.png"
+        ],
+        "description": "URL or base64 image to use as the starting frame"
+      },
+      "prompt": {
+        "type": "string",
+        "title": "Prompt",
+        "default": "",
+        "examples": [
+          "The astronaut waved and the camera moved up."
+        ],
+        "maxLength": 2000,
+        "description": "Text prompt for video generation, max 2000 characters"
+      },
+      "duration": {
+        "type": "integer",
+        "title": "Duration",
+        "default": 5,
+        "maximum": 16,
+        "minimum": 1,
+        "description": "Duration of the video in seconds (1-16 for Q3 models)"
+      },
+      "end_image": {
+        "type": "string",
+        "title": "End Image Url",
+        "description": "URL of the image to use as the ending frame. When provided, generates a transition video between start and end frames."
+      },
+      "resolution": {
+        "enum": [
+          "360p",
+          "540p",
+          "720p",
+          "1080p"
+        ],
+        "type": "string",
+        "title": "Resolution",
+        "default": "720p",
+        "description": "Output video resolution. Note: 360p is not available when end_image_url is provided."
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "title": "GenerationResponse",
+    "required": [
+      "id",
+      "status"
+    ],
+    "properties": {
+      "id": {
+        "type": "string",
+        "description": "Unique identifier for the generation task."
+      },
+      "error": {
+        "type": "string",
+        "description": "Error message if the task failed. Empty on success."
+      },
+      "model": {
+        "type": "string",
+        "description": "Model ID used for the prediction."
+      },
+      "status": {
+        "enum": [
+          "pending",
+          "running",
+          "completed",
+          "failed",
+          "timeout"
+        ],
+        "type": "string",
+        "description": "Status of the task: pending, running, completed, failed, or timeout."
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "title": "OutputItem",
+          "required": [
+            "url"
+          ],
+          "properties": {
+            "url": {
+              "type": "string",
+              "examples": [
+                "https://static.sandbase.ai/examples/shengshu/vidu/q3/image-to-video/turbo/output_url_1.mp4"
+              ],
+              "description": "The URL where the generated content can be downloaded from."
+            },
+            "content_type": {
+              "type": "string",
+              "description": "The MIME type of the output file."
+            }
+          }
+        },
+        "description": "Array of generated content. Empty when status is not completed."
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "formula",
+    "formula": "(params.duration ?? 5) * ((params.resolution ?? \"720p\") == \"1080p\" ? 0.08 : (params.resolution ?? \"720p\") == \"720p\" ? 0.077 : 0.04)",
+    "formula_variables": [
+      "params.duration",
+      "params.resolution"
+    ],
+    "reference_price": 0.385,
+    "price_examples": [
+      {
+        "params": {
+          "duration": 1,
+          "resolution": "360p"
+        },
+        "usd": 0.04
+      },
+      {
+        "params": {
+          "duration": 1,
+          "resolution": "540p"
+        },
+        "usd": 0.04
+      },
+      {
+        "params": {
+          "duration": 1,
+          "resolution": "720p"
+        },
+        "usd": 0.077
+      },
+      {
+        "params": {
+          "duration": 1,
+          "resolution": "1080p"
+        },
+        "usd": 0.08
+      },
+      {
+        "params": {
+          "duration": 5,
+          "resolution": "360p"
+        },
+        "usd": 0.2
+      },
+      {
+        "params": {
+          "duration": 5,
+          "resolution": "540p"
+        },
+        "usd": 0.2
+      },
+      {
+        "params": {
+          "duration": 5,
+          "resolution": "720p"
+        },
+        "usd": 0.385
+      },
+      {
+        "params": {
+          "duration": 5,
+          "resolution": "1080p"
+        },
+        "usd": 0.4
+      },
+      {
+        "params": {
+          "duration": 16,
+          "resolution": "360p"
+        },
+        "usd": 0.64
+      },
+      {
+        "params": {
+          "duration": 16,
+          "resolution": "540p"
+        },
+        "usd": 0.64
+      },
+      {
+        "params": {
+          "duration": 16,
+          "resolution": "720p"
+        },
+        "usd": 1.232
+      },
+      {
+        "params": {
+          "duration": 16,
+          "resolution": "1080p"
+        },
+        "usd": 1.28
+      }
+    ]
+  },
+  "examples": [
+    {
+      "input": {
+        "image": "https://static.sandbase.ai/examples/d23baf96-6c95-47f5-b9d9-3b246879c202/input/c243944a-cc2d-487d-9953-47cd2bd754f7.png",
+        "prompt": "The astronaut waved and the camera moved up."
+      },
+      "output": [
+        {
+          "poster": "https://static.sandbase.ai/examples/posters/d8a846cf1e2520b278a8.jpg",
+          "url": "https://static.sandbase.ai/examples/d23baf96-6c95-47f5-b9d9-3b246879c202/output/a148ad69-7909-40a4-99a5-095183ee4e4f.mp4"
+        }
+      ],
+      "default": true
+    }
+  ],
+  "readme": "# Vidu Q3 Image to Video Turbo\n\nVidu Q3 Turbo image-to-video: animate a first frame, optionally toward a last frame, into a 1–16 second clip with native audio. Turbo is faster and cheaper.\n\n## Fields\n\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `prompt` | string, required | — | Up to 2,000 characters. |\n| `image` | image URL, required | — | First frame. JPEG, PNG, or WebP URL. |\n| `end_image` | image URL | — | Optional last frame. |\n| `audio` | boolean | true | Generate native audio. Same price on or off. |\n| `resolution` | `360p` / `540p` / `720p` / `1080p` | `720p` | Sets the per-second rate. |\n| `duration` | integer 1–16 | 5 | Output length in seconds. |\n| `seed` | integer | random | Fix it to compare prompt changes. |\n\n## Billing\n\nYou pay for output seconds: $0.04 at 360p or 540p, $0.077 at 720p, $0.08 at 1080p.\n\n| Output | 540p | 720p | 1080p |\n|---|---|---|---|\n| 4s | $0.16 | $0.308 | $0.32 |\n| 5s (default) | $0.20 | $0.385 | $0.40 |\n| 8s | $0.32 | $0.616 | $0.64 |\n| 16s | $0.64 | $1.232 | $1.28 |\n\nFailed runs are not charged.\n\n## Prompting\n\n- Describe subject, action, camera, and sound.\n\n## Also on SandBase\n\nOther Vidu Q3 endpoints: `vidu/q3/text-to-video`, `vidu/q3/image-to-video`, `vidu/q3/reference-to-video/mix`, `vidu/q3/text-to-video/turbo`.\n",
+  "cover_url": "https://static.sandbase.ai/covers/vidu/q3/image-to-video/turbo/cover-flare-20261005042949.webp",
+  "page_url": "https://www.sandbase.ai/model/vidu/q3/image-to-video/turbo",
+  "published_at": "2026-02-06T20:23:42.516Z",
+  "created_at": "2026-05-15T11:01:24.41Z"
+}

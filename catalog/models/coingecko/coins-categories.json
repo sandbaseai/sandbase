@@ -1,0 +1,60 @@
+{
+  "name": "coingecko/coins-categories",
+  "display_name": "CoinGecko Coins Categories List with Market Data",
+  "type": "api",
+  "vendor": "CoinGecko",
+  "vendor_slug": "coingecko",
+  "description": "Get all the coins categories with market data (market cap, volume, ...) on CoinGecko",
+  "tags": [
+    "api",
+    "coingecko",
+    "crypto"
+  ],
+  "capabilities": [
+    "api",
+    "coingecko",
+    "crypto"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/coingecko/coins-categories"
+  },
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "order": {
+        "enum": [
+          "market_cap_desc",
+          "market_cap_asc",
+          "name_desc",
+          "name_asc",
+          "market_cap_change_24h_desc",
+          "market_cap_change_24h_asc"
+        ],
+        "type": "string",
+        "description": "Sort results by field. Default: `market_cap_desc`"
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.008,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "readme": "# CoinGecko Coins Categories List with Market Data API\n\nGet all the coins categories with market data (market cap, volume, ...) on CoinGecko\n\nThe response is the official CoinGecko API response, unchanged.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/coingecko/coins-categories\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `order` | string | No | Sort results by field. Default: `market_cap_desc` |\n\n## Pricing\n\nFlat price per call. Failed calls are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/coingecko/coins-categories",
+  "created_at": "2026-10-30T03:11:04.363Z"
+}

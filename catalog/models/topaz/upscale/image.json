@@ -1,0 +1,278 @@
+{
+  "name": "topaz/upscale/image",
+  "display_name": "Topaz Upscale",
+  "type": "image",
+  "vendor": "Topaz Labs",
+  "vendor_slug": "topaz",
+  "description": "Upscale Image is Topaz Labs's intelligent image editing model. Transform, retouch, and reimagine existing images using text prompts - from background replacement to artistic style conversion.",
+  "tags": [
+    "image-to-image"
+  ],
+  "capabilities": [
+    "image-to-image"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "prompt",
+      "image"
+    ],
+    "properties": {
+      "image": {
+        "type": "string",
+        "title": "Image Url",
+        "examples": [
+          "https://static.sandbase.ai/examples/topaz/upscale/image/input_image_0.jpeg"
+        ],
+        "minLength": 1,
+        "description": "Url of the image to be upscaled"
+      },
+      "detail": {
+        "type": "number",
+        "title": "Detail",
+        "maximum": 1,
+        "minimum": 0,
+        "description": "Detail recovery level (0.0-1.0). Applies to Recovery V2 model only."
+      },
+      "prompt": {
+        "type": "string",
+        "title": "Prompt",
+        "maxLength": 1024,
+        "description": "Text prompt to guide generative upscaling (max 1024 chars). Applies to Redefine model only."
+      },
+      "denoise": {
+        "type": "number",
+        "title": "Denoise",
+        "maximum": 1,
+        "minimum": 0,
+        "description": "Denoising level (0.0-1.0). Applies to Standard V2, Low Resolution V2, CGI, High Fidelity V2, Text Refine, and Redefine models."
+      },
+      "sharpen": {
+        "type": "number",
+        "title": "Sharpen",
+        "maximum": 1,
+        "minimum": 0,
+        "description": "Sharpening level (0.0-1.0). Applies to Standard V2, Low Resolution V2, CGI, High Fidelity V2, Text Refine, and Redefine models."
+      },
+      "texture": {
+        "type": "integer",
+        "title": "Texture",
+        "maximum": 5,
+        "minimum": 1,
+        "description": "Texture detail level for generative upscaling (1-5). Applies to Redefine model only."
+      },
+      "strength": {
+        "type": "number",
+        "title": "Strength",
+        "maximum": 1,
+        "minimum": 0.01,
+        "description": "Enhancement strength (0.01-1.0). Applies to Text Refine model only."
+      },
+      "autoprompt": {
+        "type": "boolean",
+        "title": "Autoprompt",
+        "description": "Enable automatic prompt generation for generative upscaling. Applies to Redefine model only."
+      },
+      "creativity": {
+        "type": "integer",
+        "title": "Creativity",
+        "maximum": 6,
+        "minimum": 1,
+        "description": "Creativity level for generative upscaling (1-6). Higher values produce more creative/hallucinated details. Applies to Redefine model only."
+      },
+      "crop_to_fill": {
+        "type": "boolean",
+        "title": "Crop To Fill",
+        "default": false
+      },
+      "output_format": {
+        "enum": [
+          "jpeg",
+          "png"
+        ],
+        "type": "string",
+        "title": "Output Format",
+        "default": "jpeg",
+        "description": "Output format of the upscaled image."
+      },
+      "upscale_factor": {
+        "type": "number",
+        "title": "Upscale Factor",
+        "default": 2,
+        "maximum": 4,
+        "minimum": 1,
+        "description": "Factor to upscale the image by (e.g. 2.0 doubles width and height)"
+      },
+      "fix_compression": {
+        "type": "number",
+        "title": "Fix Compression",
+        "maximum": 1,
+        "minimum": 0,
+        "description": "Compression artifact removal level (0.0-1.0). Applies to Standard V2, Low Resolution V2, High Fidelity V2, and Text Refine models."
+      },
+      "face_enhancement": {
+        "type": "boolean",
+        "title": "Face Enhancement",
+        "default": true,
+        "description": "Whether to apply face enhancement to the image. Applies to standard enhance and Recovery V2 models."
+      },
+      "enhancement_model": {
+        "enum": [
+          "Low Resolution V2",
+          "Standard V2",
+          "CGI",
+          "High Fidelity V2",
+          "Text Refine",
+          "Recovery",
+          "Redefine",
+          "Recovery V2",
+          "Standard MAX",
+          "Wonder"
+        ],
+        "type": "string",
+        "title": "Enhancement Model",
+        "default": "Standard V2",
+        "description": "Model to use for image enhancement."
+      },
+      "subject_detection": {
+        "enum": [
+          "All",
+          "Foreground",
+          "Background"
+        ],
+        "type": "string",
+        "title": "Subject Detection",
+        "default": "All",
+        "description": "Subject detection mode for the image enhancement. Applies to standard enhance and Recovery V2 models."
+      },
+      "face_enhancement_strength": {
+        "type": "number",
+        "title": "Face Enhancement Strength",
+        "default": 0.8,
+        "maximum": 1,
+        "minimum": 0,
+        "description": "Strength of the face enhancement. 0.0 means no enhancement, 1.0 means maximum enhancement. Ignored if face enhancement is disabled."
+      },
+      "face_enhancement_creativity": {
+        "type": "number",
+        "title": "Face Enhancement Creativity",
+        "default": 0,
+        "maximum": 1,
+        "minimum": 0,
+        "description": "Creativity level for face enhancement. 0.0 means no creativity, 1.0 means maximum creativity. Ignored if face enhancement is disabled."
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "title": "GenerationResponse",
+    "required": [
+      "id",
+      "status"
+    ],
+    "properties": {
+      "id": {
+        "type": "string",
+        "description": "Unique identifier for the generation task."
+      },
+      "error": {
+        "type": "string",
+        "description": "Error message if the task failed. Empty on success."
+      },
+      "model": {
+        "type": "string",
+        "description": "Model ID used for the prediction."
+      },
+      "status": {
+        "enum": [
+          "pending",
+          "running",
+          "completed",
+          "failed",
+          "timeout"
+        ],
+        "type": "string",
+        "description": "Status of the task: pending, running, completed, failed, or timeout."
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "title": "OutputItem",
+          "required": [
+            "url"
+          ],
+          "properties": {
+            "url": {
+              "type": "string",
+              "description": "The URL where the generated content can be downloaded from."
+            },
+            "content_type": {
+              "type": "string",
+              "description": "The MIME type of the output file."
+            }
+          }
+        },
+        "description": "Array of generated content. Empty when status is not completed."
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "formula",
+    "formula": "((usage.width ?? 0) * (usage.height ?? 0) / 1000000) <= 0 ? 1.36 : ((usage.width * usage.height / 1000000) <= 24 ? 0.08 : ((usage.width * usage.height / 1000000) <= 48 ? 0.16 : ((usage.width * usage.height / 1000000) <= 96 ? 0.32 : 1.36)))",
+    "formula_variables": [
+      "usage.height",
+      "usage.width"
+    ],
+    "reference_price": 0.08
+  },
+  "examples": [
+    {
+      "input": {
+        "crop_to_fill": false,
+        "enhancement_model": "High Fidelity V2",
+        "face_enhancement": false,
+        "image": "https://static.sandbase.ai/examples/5f434c76-3c13-4430-ac6e-a044487d42b4/input/235e21e0-6bcc-4297-853b-0d3db8894545.png",
+        "output_format": "png",
+        "prompt": "Preserve the original panoramic composition, geometry, colors, and details while increasing resolution. Do not crop, reframe, or add new objects.",
+        "upscale_factor": 2.844444444444445
+      },
+      "output": [
+        {
+          "url": "https://static.sandbase.ai/examples/5f434c76-3c13-4430-ac6e-a044487d42b4/output/dacc1c12-12fe-48ef-8089-c5e0add47a26.png"
+        }
+      ],
+      "default": true
+    },
+    {
+      "input": {
+        "crop_to_fill": false,
+        "enhancement_model": "High Fidelity V2",
+        "face_enhancement": false,
+        "image": "https://static.sandbase.ai/examples/837dea98-dbac-4482-b0ba-221473d90d81/input/743b1eb0-8027-4702-bee2-089ad9855502.png",
+        "output_format": "png",
+        "prompt": "Preserve the original panoramic composition, geometry, colors, and details while increasing resolution. Do not crop, reframe, or add new objects.",
+        "upscale_factor": 2.844444444444445
+      },
+      "output": [
+        {
+          "url": "https://static.sandbase.ai/examples/837dea98-dbac-4482-b0ba-221473d90d81/output/f45e65fd-1f7f-41e5-813a-31e4986aefcd.png"
+        }
+      ]
+    }
+  ],
+  "readme": "# Topaz Upscale\n\nTopaz upscales and enhances images with model presets for low-resolution, CGI, high-fidelity, and face recovery work.\n\n## Fields\n\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `prompt` | string, required | — | Optional description for generative models. |\n| `image` | image URL, required | — | Image to upscale. JPEG, PNG, or WebP URL. |\n| `strength` | number 0.01–1 | — | Enhancement strength (0.01-1.0). |\n| `output_format` | `jpeg` / `png` | `jpeg` | Output file format. |\n| `face_enhancement_creativity` | number 0–1 | 0 | Creativity level for face enhancement. |\n| `enhancement_model` | `Low Resolution V2` / `Standard V2` / `CGI` / `High Fidelity V2` / `Text Refine` / `Recovery` / `Redefine` / `Recovery V2` / `Standard MAX` / `Wonder` | `Standard V2` | Model preset. |\n| `subject_detection` | `All` / `Foreground` / `Background` | `All` | Subject detection mode for the image enhancement. |\n| `crop_to_fill` | boolean | false |  |\n| `fix_compression` | number 0–1 | — | Compression artifact removal level (0.0-1.0). |\n| `face_enhancement_strength` | number 0–1 | 0.8 | Strength of the face enhancement. |\n| `detail` | number 0–1 | — | Detail recovery level (0.0-1.0). |\n| `creativity` | integer 1–6 | — | Creativity level for generative upscaling (1-6). |\n| `autoprompt` | boolean | — | Enable automatic prompt generation for generative upscaling. |\n| `sharpen` | number 0–1 | — | Sharpening level (0.0-1.0). |\n| `upscale_factor` | number 1–4 | 2 | 1–4×. |\n| `texture` | integer 1–5 | — | Texture detail level for generative upscaling (1-5). |\n| `denoise` | number 0–1 | — | Denoising level (0.0-1.0). |\n| `face_enhancement` | boolean | true | Restore faces. |\n\n## Billing\n\nBilled by output size: $0.08 up to 24MP, $0.16 up to 48MP, $0.32 up to 96MP, $1.36 above. The quote before submission assumes the top tier; the final charge uses the measured output.\n\n| Output | Price |\n|---|---|\n| 2× of a 4MP photo (16MP) | $0.08 |\n| 4× of a 2MP photo (32MP) | $0.16 |\n| 4× of a 6MP photo (96MP) | $0.32 |\n\nFailed runs are not charged.\n\n## Also on SandBase\n\nRelated: `clarity-ai/clarity-upscaler`, `bytedance/seedvr/upscale/image`.\n",
+  "cover_url": "https://static.sandbase.ai/covers/topaz/upscale/image/cover-flare-20261005015309.webp",
+  "page_url": "https://www.sandbase.ai/model/topaz/upscale/image",
+  "published_at": "2025-06-27T20:22:54.457Z",
+  "created_at": "2026-05-12T09:09:34.24Z"
+}

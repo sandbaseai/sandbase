@@ -1,0 +1,137 @@
+{
+  "name": "exa/contents",
+  "display_name": "Exa Contents",
+  "type": "api",
+  "vendor": "Exa",
+  "vendor_slug": "exa",
+  "description": "Extract clean page contents for a list of URLs: full text, highlights, AI summaries and metadata, from cache or with a live crawl.",
+  "tags": [
+    "web-scraping",
+    "content-extraction"
+  ],
+  "capabilities": [
+    "web-scraping",
+    "content-extraction"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/exa/contents"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "ids"
+    ],
+    "properties": {
+      "ids": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        },
+        "title": "IDs",
+        "example": [
+          "https://developers.openai.com/codex"
+        ],
+        "description": "The URLs (or Exa result ids) to fetch contents for."
+      },
+      "text": {
+        "type": "boolean",
+        "title": "Text",
+        "description": "Return the full page text."
+      },
+      "summary": {
+        "type": "boolean",
+        "title": "Summary",
+        "description": "Return an AI-generated summary of the page."
+      },
+      "subpages": {
+        "type": "integer",
+        "title": "Subpages",
+        "description": "Number of linked subpages to also fetch."
+      },
+      "livecrawl": {
+        "enum": [
+          "always",
+          "fallback",
+          "never"
+        ],
+        "type": "string",
+        "title": "Live Crawl",
+        "description": "Freshness policy: always live-crawl, fall back to live crawl on cache miss, or never live-crawl."
+      },
+      "highlights": {
+        "type": "boolean",
+        "title": "Highlights",
+        "description": "Return highlighted relevant snippets."
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "properties": {
+      "results": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string"
+            },
+            "url": {
+              "type": "string"
+            },
+            "text": {
+              "type": "string"
+            },
+            "title": {
+              "type": "string"
+            },
+            "author": {
+              "type": "string"
+            },
+            "summary": {
+              "type": "string"
+            },
+            "highlights": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "publishedDate": {
+              "type": "string"
+            }
+          }
+        },
+        "description": "Content extraction results."
+      },
+      "requestId": {
+        "type": "string",
+        "description": "Exa request identifier."
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.0045
+  },
+  "examples": [
+    {
+      "input": {
+        "ids": [
+          "https://static.sandbase.ai/examples/a0ad9eef-966a-46c6-8f69-4c42f972fe58/input/31c6cd46-ab5b-48a4-97da-a0a5d9b01220.bin"
+        ],
+        "text": true
+      }
+    }
+  ],
+  "readme": "# Exa Contents API\n\nPass one or more URLs and get their contents ready for an LLM: page text, highlights or summaries, with live crawling when the cache is stale.\n\n## Use cases\n\n- Fetch full text for RAG after a search.\n- Summarize a list of web pages.\n- Monitor page changes with live crawls.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/exa/contents\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"ids\": [\"https://developers.openai.com/codex\"], \"highlights\": true}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `ids` | array | Yes | The URLs (or Exa result ids) to fetch contents for. |\n| `text` | boolean | No | Return the full page text. |\n| `summary` | boolean | No | Return an AI-generated summary of the page. |\n| `subpages` | integer | No | Number of linked subpages to also fetch. |\n| `livecrawl` | string | No | Freshness policy: always live-crawl, fall back to live crawl on cache miss, or never live-crawl. |\n| `highlights` | boolean | No | Return highlighted relevant snippets. |\n\n## Example response\n\nReal response for the request above, trimmed to the main fields. User names and long IDs are masked.\n\n```json\n{\n  \"results\": [\n    {\n      \"id\": \"https://developers.openai.com/codex\",\n      \"url\": \"https://developers.openai.com/codex\",\n      \"title\": \"ChatGPT | ChatGPT Learn\",\n      \"highlights\": [\n        \"ChatGPT | ChatGPT Learn ... responses createreasoning_effortrealtimeprompt cach…\"\n      ]\n    }\n  ]\n}\n```\n\n## Notes\n\n- `livecrawl`: always, fallback (on cache miss) or never.\n\n## Pricing\n\nFlat price per call. Failed calls are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/exa/contents",
+  "published_at": "2024-01-01T00:00:00Z",
+  "created_at": "2026-08-09T12:15:15.511Z"
+}

@@ -1,0 +1,72 @@
+{
+  "name": "secform4/search",
+  "display_name": "SECForm4 Search",
+  "type": "api",
+  "vendor": "SECForm4",
+  "vendor_slug": "secform4",
+  "description": "Searches for insider trading activity by company ticker symbol, CIK number, or company name. Returns all matching transaction records for the company including buys, sells, and option exercises.",
+  "tags": [
+    "api",
+    "secform4",
+    "finance-crypto"
+  ],
+  "capabilities": [
+    "api",
+    "secform4",
+    "finance-crypto"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}",
+    "passthrough": "POST /v1/api/secform4/search"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "query"
+    ],
+    "properties": {
+      "query": {
+        "type": "string",
+        "example": "Tesla",
+        "description": "Search query - company ticker symbol (e.g. 'AAPL'), CIK number (e.g. '320193'), or company name (e.g. 'Apple')"
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "required": [
+      "id",
+      "status",
+      "model"
+    ],
+    "properties": {
+      "id": {
+        "type": "string"
+      },
+      "model": {
+        "type": "string"
+      },
+      "status": {
+        "type": "string"
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.01,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "readme": "# SECForm4 Search\n\nSearches for insider trading activity by company ticker symbol, CIK number, or company name. Returns all matching transaction records for the company including buys, sells, and option exercises.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/secform4/search\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"query\": \"Tesla\"}'\n```\n\nThis API runs asynchronously. The call returns a task `id` with status `pending`; poll `GET https://api.sandbase.ai/v1/run/{id}` until `status` is `completed` and read the result from `outputs[0].data`.\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `query` | string | Yes | Search query - company ticker symbol (e.g. 'AAPL'), CIK number (e.g. '320193'), or company name (e.g. 'Apple') |\n\n## Pricing\n\nFlat price per call. Failed calls are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/secform4/search",
+  "created_at": "2026-10-30T09:08:00.481Z"
+}

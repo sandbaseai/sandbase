@@ -1,0 +1,197 @@
+{
+  "name": "google/veo3.1/fast/video-extend",
+  "display_name": "Veo 3.1 Fast Video Extend",
+  "type": "video",
+  "vendor": "Google",
+  "vendor_slug": "google",
+  "description": "Veo3.1 Fast Extend Video by Google - AI-powered video editing and transformation. Apply style transfer, motion control, lip-sync, and visual effects to existing videos with natural language instructions.",
+  "tags": [
+    "video-to-video"
+  ],
+  "capabilities": [
+    "video-to-video"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "prompt",
+      "video"
+    ],
+    "properties": {
+      "seed": {
+        "type": "integer",
+        "title": "Seed",
+        "maximum": 4294967295,
+        "minimum": 0,
+        "description": "Random seed for more reproducible results."
+      },
+      "video": {
+        "type": "string",
+        "title": "Video",
+        "description": "Video to extend: MP4 at 24 fps, 720p (for example a Veo output). Veo appends the requested duration to it."
+      },
+      "prompt": {
+        "type": "string",
+        "title": "Prompt",
+        "examples": [
+          "Continue the scene naturally, maintaining the same style and motion."
+        ],
+        "maxLength": 20000,
+        "description": "The text prompt describing how the video should be extended"
+      },
+      "duration": {
+        "enum": [
+          7
+        ],
+        "type": "integer",
+        "title": "Duration",
+        "default": 7,
+        "description": "Length of the generated extension in seconds."
+      },
+      "resolution": {
+        "enum": [
+          "720p"
+        ],
+        "type": "string",
+        "title": "Resolution",
+        "default": "720p",
+        "description": "Output resolution. Extensions are generated at 720p."
+      },
+      "aspect_ratio": {
+        "enum": [
+          "16:9",
+          "9:16"
+        ],
+        "type": "string",
+        "title": "Aspect Ratio",
+        "description": "Output aspect ratio. Omit to match the input video."
+      },
+      "generate_audio": {
+        "type": "boolean",
+        "title": "Generate Audio",
+        "default": true,
+        "description": "Generate synchronized audio. Videos without audio are cheaper."
+      },
+      "negative_prompt": {
+        "type": "string",
+        "title": "Negative Prompt",
+        "description": "What to avoid in the video."
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "title": "GenerationResponse",
+    "required": [
+      "id",
+      "status"
+    ],
+    "properties": {
+      "id": {
+        "type": "string",
+        "description": "Unique identifier for the generation task."
+      },
+      "error": {
+        "type": "string",
+        "description": "Error message if the task failed. Empty on success."
+      },
+      "model": {
+        "type": "string",
+        "description": "Model ID used for the prediction."
+      },
+      "status": {
+        "enum": [
+          "pending",
+          "running",
+          "completed",
+          "failed",
+          "timeout"
+        ],
+        "type": "string",
+        "description": "Status of the task: pending, running, completed, failed, or timeout."
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "title": "OutputItem",
+          "required": [
+            "url"
+          ],
+          "properties": {
+            "url": {
+              "type": "string",
+              "examples": [
+                "https://static.sandbase.ai/examples/google/veo3.1/fast/extend-video/output_url_1.mp4"
+              ],
+              "description": "The URL where the generated content can be downloaded from."
+            },
+            "content_type": {
+              "type": "string",
+              "description": "The MIME type of the output file."
+            }
+          }
+        },
+        "description": "Array of generated content. Empty when status is not completed."
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "formula",
+    "formula": "(params.duration ?? 7) * ((params.resolution ?? \"720p\") == \"720p\" ? ((params.generate_audio ?? true) ? 0.10 : 0.08) : (params.resolution ?? \"720p\") == \"1080p\" ? ((params.generate_audio ?? true) ? 0.12 : 0.10) : (params.resolution ?? \"720p\") == \"4k\" ? ((params.generate_audio ?? true) ? 0.30 : 0.25) : (0 / 0))",
+    "formula_variables": [
+      "params.duration",
+      "params.generate_audio",
+      "params.resolution"
+    ],
+    "reference_price": 0.7,
+    "price_examples": [
+      {
+        "params": {
+          "duration": 7,
+          "generate_audio": false,
+          "resolution": "720p"
+        },
+        "usd": 0.56
+      },
+      {
+        "params": {
+          "duration": 7,
+          "generate_audio": true,
+          "resolution": "720p"
+        },
+        "usd": 0.7
+      }
+    ]
+  },
+  "examples": [
+    {
+      "input": {
+        "generate_audio": false,
+        "prompt": "The lantern keeps swaying as the light fades",
+        "video": "https://static.sandbase.ai/examples/42a4309a-059e-4430-83c2-3c5f78e9156d/input/b83f9c6c-19d6-425a-baff-93c56720073b.mp4"
+      },
+      "output": [
+        {
+          "poster": "https://static.sandbase.ai/examples/posters/1b4cfc8180c1cd8f5e7f.jpg",
+          "url": "https://static.sandbase.ai/examples/42a4309a-059e-4430-83c2-3c5f78e9156d/output/9b05eeee-7c8a-4302-9b93-8f487907bffe.mp4"
+        }
+      ],
+      "default": true
+    }
+  ],
+  "readme": "# Veo 3.1 Fast Video Extend\n\nVeo 3.1 Fast video extend: continue an existing Veo clip by 7 seconds, keeping its subject, motion, and audio consistent.\n\n## Fields\n\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `prompt` | string, required | — | Up to 20,000 characters. |\n| `video` | video URL, required | — | Clip to continue (a Veo-generated video works best). |\n| `duration` | 7 | 7 | Output length in seconds. |\n| `resolution` | `720p` | `720p` | Sets the per-second rate. |\n| `aspect_ratio` | `16:9` / `9:16` | — | Output frame shape. |\n| `generate_audio` | boolean | true | Native dialogue, music, and effects; turning it off lowers the rate. |\n| `negative_prompt` | string | — | What to avoid. |\n| `seed` | integer 0–4294967295 | random | Fix it to compare prompt changes. |\n\n## Billing\n\nYou pay for output seconds, Google's list price. With audio: $0.10 at 720p. Without audio: $0.08 respectively.\n\n| Output | 720p |\n|---|---|\n| 7s with audio (default) | $0.70 |\n| 7s without audio | $0.56 |\n\nFailed runs are not charged.\n\n## Prompting\n\n- Describe what happens next, not what is already in the clip.\n\n## Limits\n\n- Each call adds 7 seconds at 720p; call again on the result to keep extending.\n- Use Veo 3.1 for the highest quality.\n\n## Also on SandBase\n\nOther Veo 3.1 Fast endpoints: `google/veo3.1/fast/text-to-video`, `google/veo3.1/fast/image-to-video`, `google/veo3.1/fast/first-last-frame-to-video`, `google/veo3.1/fast/reference-to-video`, `google/veo3.1/text-to-video`, `google/veo3.1/lite/text-to-video`.\n",
+  "cover_url": "https://static.sandbase.ai/covers/google/veo3.1/fast/extend-video/cover-flare-20261004235956.webp",
+  "page_url": "https://www.sandbase.ai/model/google/veo3.1/fast/video-extend",
+  "published_at": "2025-12-15T22:55:47.939Z",
+  "created_at": "2026-10-05T11:52:59.072Z"
+}

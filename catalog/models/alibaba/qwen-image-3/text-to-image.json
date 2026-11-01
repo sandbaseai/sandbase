@@ -1,0 +1,169 @@
+{
+  "name": "alibaba/qwen-image-3/text-to-image",
+  "display_name": "Qwen Image 3 Text to Image",
+  "type": "image",
+  "vendor": "Alibaba",
+  "vendor_slug": "alibaba",
+  "description": "Qwen Image 3 by Alibaba - generate stunning images from text prompts with state-of-the-art AI. Supports multiple aspect ratios, styles, and high-resolution output for creative and commercial use.",
+  "tags": [
+    "text-to-image"
+  ],
+  "capabilities": [
+    "text-to-image"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "prompt"
+    ],
+    "properties": {
+      "seed": {
+        "type": "integer",
+        "title": "Seed",
+        "description": "Random seed for reproducibility (0-2147483647)."
+      },
+      "prompt": {
+        "type": "string",
+        "title": "Prompt",
+        "examples": [
+          "A cute baby koala holding a card that says \"Qwen Image 3 is now available\" while on a water slide"
+        ],
+        "maxLength": 5000,
+        "minLength": 1,
+        "description": "Text prompt describing the desired image. Supports Chinese and English. Max 5000 characters."
+      },
+      "num_images": {
+        "type": "integer",
+        "default": 1,
+        "maximum": 6,
+        "minimum": 1
+      },
+      "resolution": {
+        "enum": [
+          "1K",
+          "2K"
+        ],
+        "type": "string",
+        "default": "1K",
+        "description": "Output resolution tier; the price depends on it."
+      },
+      "output_format": {
+        "enum": [
+          "jpeg",
+          "png"
+        ],
+        "type": "string",
+        "title": "Output Format",
+        "default": "png",
+        "description": "The format of the generated image."
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "title": "GenerationResponse",
+    "required": [
+      "id",
+      "status"
+    ],
+    "properties": {
+      "id": {
+        "type": "string",
+        "description": "Unique identifier for the generation task."
+      },
+      "error": {
+        "type": "string",
+        "description": "Error message if the task failed. Empty on success."
+      },
+      "model": {
+        "type": "string",
+        "description": "Model ID used for the prediction."
+      },
+      "status": {
+        "enum": [
+          "pending",
+          "running",
+          "completed",
+          "failed",
+          "timeout"
+        ],
+        "type": "string",
+        "description": "Status of the task: pending, running, completed, failed, or timeout."
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "title": "OutputItem",
+          "required": [
+            "url"
+          ],
+          "properties": {
+            "url": {
+              "type": "string",
+              "description": "The URL where the generated content can be downloaded from."
+            },
+            "content_type": {
+              "type": "string",
+              "description": "The MIME type of the output file."
+            }
+          }
+        },
+        "description": "Array of generated content. Empty when status is not completed."
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "formula",
+    "formula": "(params.num_images ?? 1) * ((params.resolution ?? \"1K\") == \"2K\" ? 0.075 : 0.04)",
+    "formula_variables": [
+      "params.num_images",
+      "params.resolution"
+    ],
+    "reference_price": 0.04,
+    "price_examples": [
+      {
+        "params": {
+          "num_images": 1,
+          "resolution": "1K"
+        },
+        "usd": 0.04
+      },
+      {
+        "params": {
+          "num_images": 1,
+          "resolution": "2K"
+        },
+        "usd": 0.075
+      },
+      {
+        "params": {
+          "num_images": 6,
+          "resolution": "1K"
+        },
+        "usd": 0.24
+      },
+      {
+        "params": {
+          "num_images": 6,
+          "resolution": "2K"
+        },
+        "usd": 0.45
+      }
+    ]
+  },
+  "readme": "# Qwen Image 3 Text to Image\n\nQwen Image 3 (Pro) generates photorealistic images and dense layouts such as posters, infographics, and slides, with accurate Chinese and English text rendering. Up to 6 images per request at 1K or 2K.\n\n## Fields\n\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `prompt` | string, required | — | Up to 5,000 characters. |\n| `output_format` | `jpeg` / `png` | `png` | Output file format. |\n| `seed` | integer | random | Fix it to compare prompt changes. |\n| `num_images` | integer 1–6 | 1 | Images to generate (1–6); each is billed. |\n| `resolution` | `1K` / `2K` | `1K` | Sets the per-image rate. |\n\n## Billing\n\n$0.04 per image at 1K and $0.075 at 2K, Alibaba's list price for Qwen Image 3.0 Pro.\n\n| Images | 1K | 2K |\n|---|---|---|\n| 1 | $0.04 | $0.075 |\n| 2 | $0.08 | $0.15 |\n| 4 | $0.16 | $0.30 |\n| 6 | $0.24 | $0.45 |\n\nFailed runs are not charged.\n\n## Prompting\n\n- Quote every piece of text that must appear and say where it goes.\n- For infographics and slides, describe the layout region by region.\n- Name the style explicitly: photo, flat illustration, 3D render.\n\n## Limits\n\n- Up to 6 images per request.\n\n## Also on SandBase\n\nRelated: `alibaba/qwen-image-3/edit` (edit with Qwen Image 3), `alibaba/qwen-image-2`.\n",
+  "cover_url": "https://static.sandbase.ai/covers/alibaba/qwen-image-3/text-to-image/cover-flare-20261004192412.webp",
+  "page_url": "https://www.sandbase.ai/model/alibaba/qwen-image-3/text-to-image",
+  "published_at": "2026-07-21T12:20:35.851Z",
+  "created_at": "2026-08-17T09:00:07.455Z"
+}

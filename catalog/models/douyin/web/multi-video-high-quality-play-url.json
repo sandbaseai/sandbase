@@ -1,0 +1,63 @@
+{
+  "name": "douyin/web/multi-video-high-quality-play-url",
+  "display_name": "Douyin High-Quality Video Play URLs",
+  "type": "api",
+  "vendor": "Douyin",
+  "vendor_slug": "douyin",
+  "description": "Returns direct high-quality playback URLs for multiple Douyin videos using comma-separated video IDs and an optional region code.",
+  "tags": [
+    "api",
+    "douyin"
+  ],
+  "capabilities": [
+    "api",
+    "douyin"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/douyin/web/multi-video-high-quality-play-url"
+  },
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "region": {
+        "anyOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "title": "Region",
+        "description": "Optional ISO country code (for example, CN, US, or HK). Pass CN for users in mainland China to get China-region CDN URLs for faster downloads."
+      },
+      "aweme_ids": {
+        "type": "string",
+        "title": "Aweme Ids",
+        "description": "Video id list, separated by commas, for example: \"123,456,789\", up to 50."
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.375
+  },
+  "examples": [
+    {
+      "input": {}
+    }
+  ],
+  "readme": "# Douyin High-Quality Video Play URLs API\n\nRetrieve high-quality video playback URLs in bulk by passing comma-separated video IDs via `aweme_ids`. An optional `region` parameter adjusts the returned CDN links for specific geographic locations.\n\n## Use cases\n\n- Collect clean video source files for offline media archiving.\n- Retrieve high-resolution Douyin video streams for video editing pipelines.\n- Extract original video links in batches to supply training datasets.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/douyin/web/multi-video-high-quality-play-url\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `region` | string | No | Optional ISO country code (for example, CN, US, or HK). |\n| `aweme_ids` | string | No | Video id list, separated by commas, for example: \"123,456,789\", up to 50. |\n\n## Example response\n\nReal response for the request above, trimmed to the main fields. User names and long IDs are masked.\n\n```json\n{\n  \"videos\": [\n    {\n      \"content_type\": \"video/quicktime\",\n      \"original_video_url\": \"https://v26-colds.douyinvod.com/910b338418b78405b24b3c9b02ad6db1/6ac4fa01/video/…\",\n      \"video_id\": \"7512756548356492544\"\n    }\n  ]\n}\n```\n\n## Notes\n\n- Accepts up to 50 video IDs separated by commas in `aweme_ids`.\n- Set `region` to an ISO country code like CN, US, or HK to route to regional CDN URLs.\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [Douyin Batch Video ID Extraction](/model/douyin/web/all-aweme-id): Extracts video IDs from a list of Douyin video URLs.\n- [Douyin sec_user_ids from URLs (Batch)](/model/douyin/web/all-sec-user-id): Extracts Douyin sec_user_id values in bulk from a list of user homepage URLs.\n- [Douyin Webcast ID Extraction](/model/douyin/web/all-webcast-id): Extracts webcast IDs from a submitted list of Douyin live room links.\n",
+  "page_url": "https://www.sandbase.ai/model/douyin/web/multi-video-high-quality-play-url",
+  "created_at": "2026-07-31T02:40:07.185Z"
+}

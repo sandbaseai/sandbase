@@ -1,0 +1,67 @@
+{
+  "name": "crunchbase/organization-profile",
+  "display_name": "Crunchbase Organization Profile",
+  "type": "api",
+  "vendor": "Crunchbase",
+  "vendor_slug": "crunchbase",
+  "description": "Fetch a single organization's full profile by its slug (permalink). Returns the organization's properties including categories, location, employee count, rank, and funding status.",
+  "tags": [
+    "api",
+    "crunchbase",
+    "company-people"
+  ],
+  "capabilities": [
+    "api",
+    "crunchbase",
+    "company-people"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}",
+    "passthrough": "POST /v1/api/crunchbase/organization-profile"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "slug"
+    ],
+    "properties": {
+      "slug": {
+        "type": "string",
+        "example": "slack",
+        "description": "Organization permalink/slug (e.g. 'stripe', 'google', 'anthropic')."
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "required": [
+      "id",
+      "status",
+      "model"
+    ],
+    "properties": {
+      "id": {
+        "type": "string"
+      },
+      "model": {
+        "type": "string"
+      },
+      "status": {
+        "type": "string"
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.02
+  },
+  "readme": "# Crunchbase Organization Profile\n\nFetch a single organization's full profile by its slug (permalink). Returns the organization's properties including categories, location, employee count, rank, and funding status.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/crunchbase/organization-profile\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"slug\": \"slack\"}'\n```\n\nThis API runs asynchronously. The call returns a task `id` with status `pending`; poll `GET https://api.sandbase.ai/v1/run/{id}` until `status` is `completed` and read the result from `outputs[0].data`.\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `slug` | string | Yes | Organization permalink/slug (e.g. 'stripe', 'google', 'anthropic'). |\n\n## Pricing\n\nFlat price per call. Failed calls are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/crunchbase/organization-profile",
+  "created_at": "2026-10-30T09:25:16.861Z"
+}

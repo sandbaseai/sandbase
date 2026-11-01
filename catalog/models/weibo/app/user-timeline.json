@@ -1,0 +1,101 @@
+{
+  "name": "weibo/app/user-timeline",
+  "display_name": "Weibo User Timeline",
+  "type": "api",
+  "vendor": "Weibo",
+  "vendor_slug": "weibo",
+  "description": "Get the posts on a Weibo user's timeline: text, publish time, region, images and repost, comment and like counts, with page and month filters.",
+  "tags": [
+    "api",
+    "weibo"
+  ],
+  "capabilities": [
+    "api",
+    "weibo"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/weibo/app/user-timeline"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "uid"
+    ],
+    "properties": {
+      "uid": {
+        "type": "string",
+        "title": "Uid",
+        "example": "7648703289",
+        "description": "User ID (required)"
+      },
+      "page": {
+        "type": "integer",
+        "title": "Page",
+        "default": 1,
+        "example": 1,
+        "minimum": 1,
+        "description": "Page number, starts from 1 (default 1)"
+      },
+      "month": {
+        "anyOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "title": "Month",
+        "example": null,
+        "description": "Time filter parameter, format YYYYMMDD (only used when filter_type=month)"
+      },
+      "filter_type": {
+        "type": "string",
+        "title": "Filter Type",
+        "default": "all",
+        "example": "all",
+        "description": "Filter type (default \"all\")"
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.0015,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "examples": [
+    {
+      "input": {
+        "filter_type": "all",
+        "month": null,
+        "page": 1,
+        "uid": "7648703289"
+      }
+    },
+    {
+      "input": {
+        "filter_type": "all",
+        "month": null,
+        "page": 1,
+        "uid": "7648703289"
+      }
+    }
+  ],
+  "readme": "# Weibo User Timeline API\n\nPass a Weibo user ID and get that user's posts page by page, with full engagement counts.\n\n## Use cases\n\n- Monitor posts from brands, media or public figures.\n- Analyze posting frequency and engagement.\n- Archive an account's posts.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/weibo/app/user-timeline\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"uid\": \"7648703289\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `uid` | string | Yes | User ID (required) |\n| `page` | integer | No | Page number, starts from 1 (default 1) |\n| `month` | string | No | Time filter parameter, format YYYYMMDD (only used when filter_type=month) |\n| `filter_type` | string | No | Filter type (default \"all\") |\n\n## Example response\n\nReal response for the request above, trimmed to the main fields. User names and long IDs are masked.\n\n```json\n{\n  \"items\": [\n    {\n      \"category\": \"feed\",\n      \"data\": {\n        \"id\": 5019473113516768,\n        \"mblogid\": \"O8aAfeKS4\",\n        \"created_at\": \"Thu Apr 04 16:25:10 +0800 2024\",\n        \"reposts_count\": 796,\n        \"comments_count\": 11619,\n        \"attitudes_count\": 38445,\n        \"region_name\": \"发布于 浙江\",\n        \"pic_num\": 0,\n        \"text\": \"<post text>\",\n        \"user\": {\n          \"screen_name\": \"<user>\"\n        }\n      }\n    }\n  ],\n  \"pageData\": {\n    \"page\": 1\n  }\n}\n```\n\n## Notes\n\n- `filter_type` filters the timeline (default `all`); use `month` (YYYYMMDD) with `filter_type=month`.\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [AI Smart Search](/model/weibo/app/ai-smart-search): App Ai Smart Search provides a focused capability for applications, automation, and data workflows.\n- [Get home recommend feed](/model/weibo/app/home-recommend-feed): Get the home recommend feed from Weibo.\n- [Get hot search](/model/weibo/app/hot-search): Get Weibo hot search ranking, supports multiple categories.\n",
+  "page_url": "https://www.sandbase.ai/model/weibo/app/user-timeline",
+  "created_at": "2026-07-31T02:45:08.228Z"
+}

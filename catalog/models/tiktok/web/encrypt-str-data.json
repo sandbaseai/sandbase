@@ -1,0 +1,62 @@
+{
+  "name": "tiktok/web/encrypt-str-data",
+  "display_name": "TikTok Web StrData Encryption",
+  "type": "api",
+  "vendor": "TikTok",
+  "vendor_slug": "tiktok",
+  "description": "Encrypts raw fingerprint string data for TikTok web requests. Takes a stringified JSON fingerprint payload via the data parameter and returns the encrypted string.",
+  "tags": [
+    "api",
+    "tiktok"
+  ],
+  "capabilities": [
+    "api",
+    "tiktok"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/tiktok/web/encrypt-str-data"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "data"
+    ],
+    "properties": {
+      "data": {
+        "type": "string",
+        "title": "Data",
+        "description": "Raw fingerprint data string (please convert JSON format to string before requesting)"
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.0015,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "examples": [
+    {
+      "input": {
+        "data": "{\"behavior\":{\"beResize\":[],\"beMotion\":[{\"ts\":1701069187299,\"x\":null,\"y\":null,\"z\":null},{\"ts\":1701069202902,\"x\":null,\"y\":null,\"z\":null}],\"bePaste\":[],\"beMouse\":[],\"beKeyboard\":[],\"beScroll\":[],\"beTouch\":[],\"beWheel\":[],\"windowState\":[{\"ts\":1701069186257,\"v\":1},{\"ts\":1701069186257,\"v\":1},{\"ts\":1701069186388,\"v\":2},{\"ts\":1701069186388,\"v\":2},{\"ts\":1701069186402,\"v\":1},{\"ts\":1701069186402,\"v\":1},{\"ts\":1701069200309,\"v\":2},{\"ts\":1701069200309,\"v\":2},{\"ts\":1701069201865,\"v\":1},{\"ts\":1701069201865,\"v\":1}],\"isTrusted\":1},\"wID\":{\"sdkVersion\":\"4.4.6\",\"scmVersion\":\"1.0.0.96\",\"msgType\":2,\"timestamp\":\"1701069221819\",\"aid\":368462,\"aidList\":[1988,368462],\"privacyMode\":516},\"custom\":{},\"window\":{\"location\":\"https://www.tiktok.com/@funnykittensttk/video/7293517029737352454?is_from_webapp=1&web_id=7260049563725497899\"},\"msgMeta\":{\"msgType\":2,\"msgSrcProp\":2,\"msgProtocol\":1,\"aid\":368462,\"aidList\":[1988,368462]}}"
+      },
+      "default": true
+    }
+  ],
+  "readme": "# TikTok Web StrData Encryption API\n\nEncrypt raw fingerprint data for TikTok web interactions. Pass the stringified JSON payload in the `data` parameter to receive the encrypted result.\n\n## Use cases\n\n- Encrypting client fingerprint payloads for TikTok web automation.\n- Preparing formatted request parameters for web endpoint calls.\n- Generating encrypted device or browser string data.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/tiktok/web/encrypt-str-data\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"data\": \"7218694761253735723\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `data` | string | Yes | Raw fingerprint data string (please convert JSON format to string before requesting) |\n\n## Notes\n\n- Convert JSON format to a string before passing it into `data`.\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [TikTok Video IDs from URLs (Batch)](/model/tiktok/web/all-aweme-id): Resolves and extracts TikTok video IDs from a list of video URLs.\n- [TikTok User Sec User ID Extractor](/model/tiktok/web/all-sec-user-id): Returns a list of sec_user_id identifiers corresponding to TikTok user profile URLs.\n- [TikTok Profile Unique IDs](/model/tiktok/web/all-unique-id): Resolves a batch of TikTok user homepage links to retrieve their corresponding unique identifiers.\n",
+  "page_url": "https://www.sandbase.ai/model/tiktok/web/encrypt-str-data",
+  "created_at": "2026-07-31T02:44:03.669Z"
+}

@@ -1,0 +1,61 @@
+{
+  "name": "kuaishou/app/brand-top-list",
+  "display_name": "Kuaishou Brand Top List",
+  "type": "api",
+  "vendor": "Kuaishou",
+  "vendor_slug": "kuaishou",
+  "description": "Returns top brand rankings and related live stream links from Kuaishou. Allows filtering ranking data by sub-tab category ID or sub-tab name.",
+  "tags": [
+    "api",
+    "kuaishou"
+  ],
+  "capabilities": [
+    "api",
+    "kuaishou"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/kuaishou/app/brand-top-list"
+  },
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "subTabId": {
+        "type": "integer",
+        "title": "子标签ID/Sub tag ID",
+        "default": 0
+      },
+      "subTabName": {
+        "type": "string",
+        "title": "子标签名称/Sub tag name",
+        "default": ""
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.0015,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "examples": [
+    {
+      "input": {}
+    }
+  ],
+  "readme": "# Kuaishou Brand Top List API\n\nLook up Kuaishou brand leaderboard rankings and live feed entries using optional `subTabId` and `subTabName` parameters.\n\n## Use cases\n\n- Track leading brands featured across Kuaishou leaderboards.\n- Inspect top-ranked live streaming sessions linked to specific brands.\n- Segment brand performance rankings across different category sub-tabs.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/kuaishou/app/brand-top-list\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `subTabId` | integer | No | — |\n| `subTabName` | string | No | — |\n\n## Example response\n\nReal response for the request above, trimmed to the main fields. User names and long IDs are masked.\n\n```json\n{\n  \"topList\": {\n    \"data\": [\n      {\n        \"list\": [\n          {\n            \"linkUrl\": \"kwai://live/play/iXyv7aayTZI?serverExpTag=feed_live|iXyv7aayTZI|2957169798|1_a/2010185635…\",\n            \"title\": \"韩束\",\n            \"viewType\": 2,\n            \"logInfo\": {\n              \"authorid\": \"2957169798\",\n              \"id\": \"2957169798\",\n              \"type\": \"USER\"\n            }\n          }\n        ]\n      }\n    ]\n  }\n}\n```\n\n## Notes\n\n- Filter rankings by specifying `subTabId` or `subTabName`.\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [Kuaishou App Share Link](/model/kuaishou/app/generate-share-link): Generates a shareable URL for Kuaishou application content using a specified object identifier.\n- [Kuaishou Hot Board Categories](/model/kuaishou/app/hot-board-categories): Returns the active list of hot board categories available in the Kuaishou app.\n- [Kuaishou Hot Board Detail](/model/kuaishou/app/hot-board-detail): Returns trending topics and search keywords from Kuaishou hot boards based on the specified board identifier and board type.\n",
+  "page_url": "https://www.sandbase.ai/model/kuaishou/app/brand-top-list",
+  "created_at": "2026-07-31T03:57:37.591Z"
+}

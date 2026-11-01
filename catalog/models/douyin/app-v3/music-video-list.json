@@ -1,0 +1,72 @@
+{
+  "name": "douyin/app-v3/music-video-list",
+  "display_name": "Douyin Music Video List",
+  "type": "api",
+  "vendor": "Douyin",
+  "vendor_slug": "douyin",
+  "description": "Returns a paginated list of Douyin videos that feature a specified audio track, identified by its music ID.",
+  "tags": [
+    "api",
+    "douyin"
+  ],
+  "capabilities": [
+    "api",
+    "douyin"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/douyin/app-v3/music-video-list"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "music_id"
+    ],
+    "properties": {
+      "count": {
+        "type": "integer",
+        "title": "Count",
+        "description": "Number Please keep the default, otherwise there will be BUG."
+      },
+      "cursor": {
+        "type": "integer",
+        "title": "Cursor",
+        "description": "Cursor, used for paging, the first page is 0, the second page is the cursor value in the first response."
+      },
+      "music_id": {
+        "type": "string",
+        "title": "Music Id",
+        "example": "7348905216869174025",
+        "description": "Music id"
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.0015,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "examples": [
+    {
+      "input": {
+        "music_id": "example"
+      }
+    }
+  ],
+  "readme": "# Douyin Music Video List API\n\nRetrieve videos associated with a specific Douyin audio track using `music_id`.\n\n## Use cases\n\n- Track video posts associated with a specific music track on Douyin.\n- Monitor user adoption and content trends for audio identifiers.\n- Retrieve video metadata and author details linked to a background track.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/douyin/app-v3/music-video-list\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"music_id\": \"7348905216869174025\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `music_id` | string | Yes | Music id |\n| `count` | integer | No | Number Please keep the default, otherwise there will be BUG. |\n| `cursor` | integer | No | Cursor, used for paging, the first page is 0, the second page is the cursor value in the first response. |\n\n## Example response\n\nReal response for the request above, trimmed to the main fields. User names and long IDs are masked.\n\n```json\n{\n  \"aweme_list\": [\n    {\n      \"activity_video_type\": 0,\n      \"author_user_id\": 4055412235572862,\n      \"aweme_id\": \"7357708701425224997\",\n      \"aweme_type\": 68,\n      \"bodydance_score\": 0,\n      \"boost_status\": 0,\n      \"caption\": \"永远这词 我只信你 我的朋友\",\n      \"caption_template_id\": 0,\n      \"category_da\": 16,\n      \"cf_assets_type\": 0,\n      \"author\": {\n        \"account_cert_info\": \"{}\",\n        \"authority_status\": 0,\n        \"comment_filter_status\": 0,\n        \"follow_status\": 0,\n        \"follower_status\": 0,\n        \"live_status\": 0\n      },\n      \"comment_permission_info\": {\n        \"comment_permission_status\": 0\n      },\n      \"commerce_info\": {\n        \"ad_type\": 0\n      },\n      \"component_control\": {\n        \"data_source_url\": \"/aweme/v1/music/aweme/\"\n      }\n    }\n  ]\n}\n```\n\n## Notes\n\n- Use `cursor` for pagination, starting with 0 and passing the subsequent cursor returned by the prior response.\n- Retain the default value for `count` to prevent issues.\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [Douyin Brand Hot Search List](/model/douyin/app-v3/brand-hot-search-list): Returns the current Douyin brand hot search list and category data.\n- [Douyin Brand Hot Search List Detail](/model/douyin/app-v3/brand-hot-search-list-detail): Returns detailed brand hot search list data from Douyin for a specific category.\n- [Douyin Short Link Generator](/model/douyin/app-v3/generate-short-url): Converts a standard Douyin web link into a shortened Douyin URL.\n",
+  "page_url": "https://www.sandbase.ai/model/douyin/app-v3/music-video-list",
+  "created_at": "2026-07-31T02:33:55.676Z"
+}

@@ -1,0 +1,72 @@
+{
+  "name": "crunchbase/investor-profile",
+  "display_name": "Crunchbase Investor Profile",
+  "type": "api",
+  "vendor": "Crunchbase",
+  "vendor_slug": "crunchbase",
+  "description": "Fetch a comprehensive investor profile by permalink/slug. Makes two API calls: one to retrieve investor-specific data (investment count, exits, investor rank, diversity investments, investor type/stage) and one for.",
+  "tags": [
+    "api",
+    "crunchbase",
+    "company-people"
+  ],
+  "capabilities": [
+    "api",
+    "crunchbase",
+    "company-people"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}",
+    "passthrough": "POST /v1/api/crunchbase/investor-profile"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "slug"
+    ],
+    "properties": {
+      "slug": {
+        "type": "string",
+        "example": "slack",
+        "description": "Investor permalink/slug (e.g. 'sequoia-capital', 'andreessen-horowitz'). This is the identifier.permalink from search_investors results."
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "required": [
+      "id",
+      "status",
+      "model"
+    ],
+    "properties": {
+      "id": {
+        "type": "string"
+      },
+      "model": {
+        "type": "string"
+      },
+      "status": {
+        "type": "string"
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.01,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "readme": "# Crunchbase Investor Profile\n\nFetch a comprehensive investor profile by permalink/slug. Makes two API calls: one to retrieve investor-specific data (investment count, exits, investor rank, diversity investments, investor type/stage) and one for.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/crunchbase/investor-profile\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"slug\": \"slack\"}'\n```\n\nThis API runs asynchronously. The call returns a task `id` with status `pending`; poll `GET https://api.sandbase.ai/v1/run/{id}` until `status` is `completed` and read the result from `outputs[0].data`.\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `slug` | string | Yes | Investor permalink/slug (e.g. 'sequoia-capital', 'andreessen-horowitz'). This is the identifier.permalink from search_investors results. |\n\n## Pricing\n\nFlat price per call. Failed calls are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/crunchbase/investor-profile",
+  "created_at": "2026-10-30T09:25:31.718Z"
+}

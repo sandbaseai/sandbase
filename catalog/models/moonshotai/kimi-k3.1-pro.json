@@ -1,0 +1,44 @@
+{
+  "name": "moonshotai/kimi-k3.1-pro",
+  "display_name": "MoonshotAI: Kimi K3.1 Pro",
+  "type": "llm",
+  "vendor": "Moonshotai",
+  "vendor_slug": "moonshotai",
+  "description": "Kimi K3.1 Pro is Moonshot AI's flagship open-weight multimodal reasoning model, a post-trained successor to Kimi K3 with a 1M-token context window. It accepts text, image and video input and is built for long-horizon coding, agentic tool use and visual software work.",
+  "tags": [
+    "chat",
+    "vision",
+    "reasoning",
+    "structured_output",
+    "function_calling"
+  ],
+  "capabilities": [
+    "chat",
+    "vision",
+    "reasoning",
+    "structured_output",
+    "function_calling"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "chat_completions": "POST /v1/chat/completions",
+    "responses": "POST /v1/responses",
+    "messages": "POST /v1/messages"
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_token",
+    "per_million_tokens": {
+      "input": 2,
+      "output": 10,
+      "cache_read_multiplier": 0.1,
+      "cache_write_multiplier": 1
+    }
+  },
+  "page_url": "https://www.sandbase.ai/model/moonshotai/kimi-k3.1-pro",
+  "published_at": "2026-10-23T00:00:00Z",
+  "created_at": "2026-10-24T00:23:37.417Z"
+}

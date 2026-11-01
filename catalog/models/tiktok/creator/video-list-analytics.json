@@ -1,0 +1,73 @@
+{
+  "name": "tiktok/creator/video-list-analytics",
+  "display_name": "TikTok Creator Video List Analytics",
+  "type": "api",
+  "vendor": "TikTok",
+  "vendor_slug": "tiktok",
+  "description": "Returns video records and performance metrics for a TikTok Shop creator within a specific date range. Supports pagination and custom sorting rules.",
+  "tags": [
+    "api",
+    "tiktok"
+  ],
+  "capabilities": [
+    "api",
+    "tiktok"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/tiktok/creator/video-list-analytics"
+  },
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "page": {
+        "type": "integer",
+        "title": "Page",
+        "description": "Page number, default is the first page `0`"
+      },
+      "proxy": {
+        "anyOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "title": "Proxy",
+        "description": "Optional HTTP proxy address, can be omitted if not used"
+      },
+      "rules": {
+        "type": "string",
+        "title": "Rules",
+        "description": "List sorting rule. Default VIDEO_LIST_PUBLISH_TIME (sorted by publish time)"
+      },
+      "start_date": {
+        "type": "string",
+        "title": "Start Date",
+        "description": "Query start date, formatted as 'MM-DD-YYYY', e.g., '04-01-2025'"
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.0015,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "readme": "# TikTok Creator Video List Analytics API\n\nReturns a paginated list of videos and performance metrics for a creator account starting from `start_date`. Configure sorting criteria using the `rules` parameter.\n\n## Use cases\n\n- Review creator video performance metrics across specific date ranges.\n- Track content metrics over time using paginated query results.\n- Sort creator video lists by posting time or other supported ordering rules.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/tiktok/creator/video-list-analytics\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `page` | integer | No | Page number, default is the first page `0` |\n| `proxy` | string | No | Optional HTTP proxy address, can be omitted if not used |\n| `rules` | string | No | List sorting rule. |\n| `start_date` | string | No | Query start date, formatted as 'MM-DD-YYYY', e.g., '04-01-2025' |\n\n## Notes\n\n- Set `page` to step through results, defaulting to `0`.\n- Format `start_date` as 'MM-DD-YYYY'.\n- Sort results using `rules`, which defaults to `VIDEO_LIST_PUBLISH_TIME`.\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [TikTok Creator Account Health Status](/model/tiktok/creator/account-health-status): Returns the health status of a TikTok Shop creator account.\n- [TikTok Creator Account Insights Overview](/model/tiktok/creator/account-insights-overview): Retrieves performance metrics for a TikTok Shop creator account, including revenue, exposure, clicks, and orders for the specified month.\n- [TikTok Creator Account Violations](/model/tiktok/creator/account-violation-list): Returns the violation history and enforcement actions for a TikTok Shop creator account.\n",
+  "page_url": "https://www.sandbase.ai/model/tiktok/creator/video-list-analytics",
+  "created_at": "2026-07-31T04:16:03.177Z"
+}

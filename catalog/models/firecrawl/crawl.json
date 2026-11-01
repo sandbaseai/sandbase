@@ -1,0 +1,105 @@
+{
+  "name": "firecrawl/crawl",
+  "display_name": "Firecrawl Crawl",
+  "type": "api",
+  "vendor": "Firecrawl",
+  "vendor_slug": "firecrawl",
+  "description": "Crawl an entire website starting from a URL. Discovers and scrapes all reachable pages, returning clean markdown for each. Runs asynchronously — submit the job, then poll for results.",
+  "tags": [
+    "web-crawling",
+    "site-scraping",
+    "async"
+  ],
+  "capabilities": [
+    "web-crawling",
+    "site-scraping",
+    "async"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}",
+    "passthrough": "POST /v1/api/firecrawl/crawl"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "url",
+      "limit"
+    ],
+    "properties": {
+      "url": {
+        "type": "string",
+        "title": "URL",
+        "description": "The starting URL to crawl."
+      },
+      "limit": {
+        "type": "integer",
+        "title": "Limit",
+        "maximum": 10000,
+        "minimum": 1,
+        "description": "Maximum number of pages to crawl."
+      },
+      "scrapeOptions": {
+        "type": "object",
+        "title": "Scrape Options",
+        "properties": {
+          "formats": {
+            "type": "array",
+            "items": {
+              "enum": [
+                "markdown",
+                "html",
+                "rawHtml",
+                "links",
+                "screenshot"
+              ],
+              "type": "string"
+            }
+          }
+        },
+        "description": "Options passed to the scraper for each page."
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string"
+      },
+      "data": {
+        "type": "array",
+        "items": {
+          "type": "object"
+        }
+      },
+      "status": {
+        "type": "string"
+      },
+      "success": {
+        "type": "boolean"
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "formula",
+    "formula": "Math.max(1.0, Math.max((output.completed ?? 0) * 1.0, len(output.data ?? []) * 1.0)) * 0.0075",
+    "formula_variables": [],
+    "reference_price": 0.0075,
+    "price_examples": [
+      {
+        "params": {},
+        "usd": 0.0075
+      }
+    ]
+  },
+  "readme": "# Firecrawl Crawl API\n\nCrawl a website from a starting URL. The job finds reachable pages and returns clean markdown and metadata for each one. It runs asynchronously: submit the job, then poll for the result.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/firecrawl/crawl\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"url\": \"https://example.com\", \"limit\": 2}'\n```\n\nThe call returns a run `id` with status `pending`. Poll `GET https://api.sandbase.ai/v1/run/{id}` until the status is `completed`; the job result is in `outputs[0].data`.\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `url` | string | Yes | Starting URL to crawl. |\n| `limit` | integer | Yes | Maximum number of pages to crawl. |\n| `scrapeOptions` | object | No | Options applied when scraping each page, e.g. `{\"formats\": [\"markdown\"]}`. |\n\n## Example response\n\nReal result for the request above, trimmed to the main fields.\n\n```json\n{\n  \"status\": \"completed\",\n  \"total\": 2,\n  \"completed\": 2,\n  \"data\": [\n    {\n      \"markdown\": \"This domain is for use in documentation examples without needing permission. …\",\n      \"metadata\": {\n        \"title\": \"Example Domain\",\n        \"sourceURL\": \"https://example.com\",\n        \"statusCode\": 200,\n        \"language\": \"en\"\n      }\n    }\n  ]\n}\n```\n\n## Pricing\n\n$0.0075 per crawled page, with a minimum of one page per job. Failed jobs are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/firecrawl/crawl",
+  "published_at": "2024-01-01T00:00:00Z",
+  "created_at": "2026-08-09T11:35:03.165Z"
+}

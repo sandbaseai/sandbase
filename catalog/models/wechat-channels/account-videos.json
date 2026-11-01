@@ -1,0 +1,55 @@
+{
+  "name": "wechat-channels/account-videos",
+  "display_name": "WeChat Channels Account Videos",
+  "type": "api",
+  "vendor": "WeChat Channels",
+  "vendor_slug": "wechat-channels",
+  "description": "Get a paginated WeChat Channels account feed by v2Name with continuation-buffer support. Use it to browse videos and other feed entries published by a known creator account.",
+  "tags": [
+    "api",
+    "wechat-channels",
+    "social-media"
+  ],
+  "capabilities": [
+    "api",
+    "wechat-channels",
+    "social-media"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/wechat-channels/account-videos"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "v2Name"
+    ],
+    "properties": {
+      "v2Name": {
+        "type": "string",
+        "example": "v2_060000231003b20faec8c7e48d1dc6d5c802e83db0770775bb566d2b495e6aae711d6d56bd04@finder",
+        "description": "WeChat Channels account unique id, usually ending with @finder."
+      },
+      "last_buffer": {
+        "type": "string",
+        "description": "Pagination buffer returned by the previous WeChat Channels account videos response. Leave it empty for the first page. For this POST endpoint, send it in an application/x-www-form-urlencoded form body."
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.069444
+  },
+  "readme": "# WeChat Channels Account Videos API\n\nGet a paginated WeChat Channels account feed by v2Name with continuation-buffer support. Use it to browse videos and other feed entries published by a known creator account.\n\nThe response is the platform's original data structure.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/wechat-channels/account-videos\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"v2Name\": \"v2_060000231003b20faec8c7e48d1dc6d5c802e83db0770775bb566d2b495e6aae711d6d56bd04@finder\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `v2Name` | string | Yes | WeChat Channels account unique id, usually ending with @finder. |\n| `last_buffer` | string | No | Pagination buffer returned by the previous WeChat Channels account videos response. Leave it empty for the first page. For this POST endpoint, send it in an application/x-www-form-urlencoded form body. |\n\n## Pricing\n\nFlat price per call. Failed calls and empty results are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/wechat-channels/account-videos",
+  "created_at": "2026-10-29T12:05:58.771Z"
+}

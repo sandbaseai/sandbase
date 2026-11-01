@@ -1,0 +1,50 @@
+{
+  "name": "pipixia/app/hot-search-board-list",
+  "display_name": "Pipixia Hot Search",
+  "type": "api",
+  "vendor": "Pipixia",
+  "vendor_slug": "pipixia",
+  "description": "Get the Pipixia hot search boards: trending posts with daily likes and top comments.",
+  "tags": [
+    "api",
+    "pipixia"
+  ],
+  "capabilities": [
+    "api",
+    "pipixia"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/pipixia/app/hot-search-board-list"
+  },
+  "input_schema": {
+    "type": "object",
+    "properties": {}
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.0015,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "examples": [
+    {
+      "input": {}
+    }
+  ],
+  "readme": "# Pipixia Hot Search API\n\nFetch the current Pipixia hot boards and the trending items on each.\n\n## Use cases\n\n- Track trending content on Pipixia.\n- Find viral formats.\n- Build trend digests.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/pipixia/app/hot-search-board-list\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{}'\n```\n\n## Example response\n\nReal response for the request above, trimmed to the main fields. User names and long IDs are masked.\n\n```json\n{\n  \"data\": {\n    \"boards\": [\n      {\n        \"title\": \"神评热榜\",\n        \"board_items\": [\n          {\n            \"today_digg_num\": 2448,\n            \"item\": {\n              \"item_id_str\": \"7692653405960935721\",\n              \"create_time\": 1791085444,\n              \"duration\": 60.072,\n              \"item_type\": 2\n            }\n          }\n        ]\n      }\n    ]\n  }\n}\n```\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [Pipixia Search](/model/pipixia/app/search): Search Pipixia (ByteDance humor community) by keyword across posts, videos, images, users and hashtags.\n- [Get hashtag detail](/model/pipixia/app/hashtag-detail): Get hashtag detail data.\n- [Get hashtag post list](/model/pipixia/app/hashtag-post-list): Get hashtag post list data.\n",
+  "page_url": "https://www.sandbase.ai/model/pipixia/app/hot-search-board-list",
+  "created_at": "2026-07-31T04:09:34.477Z"
+}

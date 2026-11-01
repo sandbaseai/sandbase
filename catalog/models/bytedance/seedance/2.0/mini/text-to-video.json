@@ -1,0 +1,268 @@
+{
+  "name": "bytedance/seedance/2.0/mini/text-to-video",
+  "display_name": "Seedance 2.0 Mini Text to Video",
+  "type": "video",
+  "vendor": "Bytedance",
+  "vendor_slug": "bytedance",
+  "description": "Seedance 2.0 Mini is Bytedance's text-to-video AI model. Turn written scripts and prompts into professional-quality video clips with realistic motion, lighting, and scene composition.",
+  "tags": [
+    "text-to-video"
+  ],
+  "capabilities": [
+    "text-to-video"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "prompt"
+    ],
+    "properties": {
+      "seed": {
+        "type": "integer",
+        "title": "Seed",
+        "maximum": 4294967295,
+        "minimum": -1,
+        "description": "Random seed for reproducible results. Omit or use -1 for a random seed."
+      },
+      "prompt": {
+        "type": "string",
+        "title": "Prompt",
+        "examples": [
+          "An octopus finds a football in the ocean and excitedly calls its octopus friends to come and play. Cut scene to an octopus football game under the sea."
+        ],
+        "description": "The text prompt used to generate the video"
+      },
+      "duration": {
+        "enum": [
+          "auto",
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15
+        ],
+        "title": "Duration",
+        "default": 5,
+        "description": "Output duration in seconds (4-15), or `auto` to let the model pick a length from the prompt and inputs. `auto` is pre-authorized at 15 seconds and billed on the actual output length."
+      },
+      "resolution": {
+        "enum": [
+          "480p",
+          "720p"
+        ],
+        "type": "string",
+        "title": "Resolution",
+        "default": "720p",
+        "description": "Video resolution - 480p for faster generation, 720p for balance."
+      },
+      "aspect_ratio": {
+        "enum": [
+          "21:9",
+          "16:9",
+          "3:2",
+          "4:3",
+          "5:4",
+          "1:1",
+          "4:5",
+          "3:4",
+          "2:3",
+          "9:16"
+        ],
+        "type": "string",
+        "title": "Aspect Ratio",
+        "default": "16:9",
+        "description": "Output aspect ratio. Defaults to 16:9."
+      },
+      "generate_audio": {
+        "type": "boolean",
+        "title": "Generate Audio",
+        "default": true,
+        "description": "Whether to generate synchronized audio for the video, including sound effects, ambient sounds, and lip-synced speech. The cost of video generation is the same regardless of whether audio is generated or not."
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "title": "GenerationResponse",
+    "required": [
+      "id",
+      "status"
+    ],
+    "properties": {
+      "id": {
+        "type": "string",
+        "description": "Unique identifier for the generation task."
+      },
+      "error": {
+        "type": "string",
+        "description": "Error message if the task failed. Empty on success."
+      },
+      "model": {
+        "type": "string",
+        "description": "Model ID used for the prediction."
+      },
+      "status": {
+        "enum": [
+          "pending",
+          "running",
+          "completed",
+          "failed",
+          "timeout"
+        ],
+        "type": "string",
+        "description": "Status of the task: pending, running, completed, failed, or timeout."
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "title": "OutputItem",
+          "required": [
+            "url"
+          ],
+          "properties": {
+            "url": {
+              "type": "string",
+              "examples": [
+                "https://storage.googleapis.com/falserverless/example_outputs/bytedance/seedance_2/output.mp4"
+              ],
+              "description": "The URL where the generated content can be downloaded from."
+            },
+            "content_type": {
+              "type": "string",
+              "description": "The MIME type of the output file."
+            }
+          }
+        },
+        "description": "Array of generated content. Empty when status is not completed."
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "formula",
+    "formula": "((params.duration ?? 5) == 'auto' ? Math.round(usage.duration ?? 15.0) : (params.duration ?? 5)) * ((params.resolution ?? '720p') == '480p' ? 0.06 : (params.resolution ?? '720p') == '720p' ? 0.12 : (0 / 0))",
+    "formula_variables": [
+      "params.duration",
+      "params.resolution",
+      "usage.duration"
+    ],
+    "reference_price": 0.6,
+    "price_examples": [
+      {
+        "params": {
+          "duration": 4,
+          "resolution": "480p"
+        },
+        "usd": 0.24,
+        "estimate": "assumes output duration equals requested duration"
+      },
+      {
+        "params": {
+          "duration": 4,
+          "resolution": "720p"
+        },
+        "usd": 0.48,
+        "estimate": "assumes output duration equals requested duration"
+      },
+      {
+        "params": {
+          "duration": 5,
+          "resolution": "480p"
+        },
+        "usd": 0.3,
+        "estimate": "assumes output duration equals requested duration"
+      },
+      {
+        "params": {
+          "duration": 5,
+          "resolution": "720p"
+        },
+        "usd": 0.6,
+        "estimate": "assumes output duration equals requested duration"
+      },
+      {
+        "params": {
+          "duration": 6,
+          "resolution": "480p"
+        },
+        "usd": 0.36,
+        "estimate": "assumes output duration equals requested duration"
+      },
+      {
+        "params": {
+          "duration": 6,
+          "resolution": "720p"
+        },
+        "usd": 0.72,
+        "estimate": "assumes output duration equals requested duration"
+      },
+      {
+        "params": {
+          "duration": 7,
+          "resolution": "480p"
+        },
+        "usd": 0.42,
+        "estimate": "assumes output duration equals requested duration"
+      },
+      {
+        "params": {
+          "duration": 7,
+          "resolution": "720p"
+        },
+        "usd": 0.84,
+        "estimate": "assumes output duration equals requested duration"
+      },
+      {
+        "params": {
+          "duration": 8,
+          "resolution": "480p"
+        },
+        "usd": 0.48,
+        "estimate": "assumes output duration equals requested duration"
+      },
+      {
+        "params": {
+          "duration": 8,
+          "resolution": "720p"
+        },
+        "usd": 0.96,
+        "estimate": "assumes output duration equals requested duration"
+      }
+    ]
+  },
+  "examples": [
+    {
+      "input": {
+        "prompt": "An octopus finds a football in the ocean and excitedly calls its octopus friends to come and play. Cut scene to an octopus football game under the sea."
+      },
+      "output": [
+        {
+          "poster": "https://static.sandbase.ai/examples/posters/8c713e156c30b55f062e.jpg",
+          "url": "https://static.sandbase.ai/examples/fdbd89eb-7929-4792-ab25-7b8eeb06f7f0/output/1e9a19b5-e4d2-444a-b719-d2d8d79bfaf9.mp4"
+        }
+      ],
+      "default": true
+    }
+  ],
+  "readme": "# Seedance 2.0 Mini Text to Video\n\nSeedance 2.0 Mini text-to-video, the lowest-cost Seedance 2.0 tier for drafts and volume. Write the scene, including dialogue and sound, and get back a 4–15 second clip.\n\n## Fields\n\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `prompt` | string, required | — | Text instruction. |\n| `aspect_ratio` | `21:9` / `16:9` / `3:2` / `4:3` / `5:4` / `1:1` / `4:5` / `3:4` / `2:3` / `9:16` | `16:9` | Output frame shape. |\n| `resolution` | `480p` / `720p` | `720p` | Sets the per-second rate. |\n| `duration` | `auto` / 4 / 5 / 6 / 7 / 8 / 9 / 10 / 11 / 12 / 13 / 14 / 15 | 5 | Output length in seconds (4–15), or `auto` to let the model choose. |\n| `generate_audio` | boolean | true | Native dialogue, music, and effects. Same price on or off. |\n| `seed` | integer -1–4294967295 | random | Fix it to compare prompt changes; `-1` is random. |\n\n## Billing\n\nYou pay for output seconds: $0.06 at 480p, $0.12 at 720p. Audio is included. With `duration: \"auto\"` the quote assumes 15 seconds and the final charge uses the generated length.\n\n| Output | 480p | 720p |\n|---|---|---|\n| 4s | $0.24 | $0.48 |\n| 5s (default) | $0.30 | $0.60 |\n| 10s | $0.60 | $1.20 |\n| 15s | $0.90 | $1.80 |\n\nFailed runs are not charged.\n\n## Prompting\n\n- Describe subject, action, camera move, and light in order; add the sound last.\n- Quote dialogue and name the speaker.\n- For several shots, number them and give each a camera direction.\n\n## Limits\n\n- Clips are 4–15 seconds.\n\n## Also on SandBase\n\nOther Seedance 2.0 Mini endpoints and tiers: `bytedance/seedance/2.0/mini/image-to-video`, `bytedance/seedance/2.0/mini/reference-to-video`, `bytedance/seedance/2.5/text-to-video`, `bytedance/seedance/2.0/text-to-video`, `bytedance/seedance/2.0/fast/text-to-video`.\n",
+  "cover_url": "https://static.sandbase.ai/covers/bytedance/seedance/2.0/mini/text-to-video/cover-flare-20261004171148.webp",
+  "page_url": "https://www.sandbase.ai/model/bytedance/seedance/2.0/mini/text-to-video",
+  "published_at": "2026-06-24T11:19:12.864Z",
+  "created_at": "2026-08-17T09:01:54.936Z"
+}

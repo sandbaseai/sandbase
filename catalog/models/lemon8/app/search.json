@@ -1,0 +1,79 @@
+{
+  "name": "lemon8/app/search",
+  "display_name": "Lemon8 Search",
+  "type": "api",
+  "vendor": "Lemon8",
+  "vendor_slug": "lemon8",
+  "description": "Search Lemon8 posts and users by keyword: post titles, content, authors, images and engagement, with Top and other tabs, sorting and filters.",
+  "tags": [
+    "api",
+    "lemon8"
+  ],
+  "capabilities": [
+    "api",
+    "lemon8"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/lemon8/app/search"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "query"
+    ],
+    "properties": {
+      "query": {
+        "type": "string",
+        "title": "Query",
+        "example": "OpenAI",
+        "description": "Search keyword"
+      },
+      "order_by": {
+        "type": "string",
+        "title": "Order By",
+        "default": "",
+        "description": "Search sort type, default is an empty string, optional values are as follows: Empty string: Relevance (default using this parameter to sort); popular: Sort by popularity; recent: Sort from new to old"
+      },
+      "max_cursor": {
+        "type": "string",
+        "title": "Max Cursor",
+        "default": "",
+        "description": "Pagination parameter, can be obtained from the return result of the last request. It is empty for the first request, and the `max_cursor` returned by the last request is used for subsequent requests. You can judge whether there is more data by the `has_more` field in the return result."
+      },
+      "search_tab": {
+        "type": "string",
+        "title": "Search Tab",
+        "default": "main",
+        "description": "Search type, default is `main`, optional values are as follows: main: Display as `Top` in the APP (comprehensive search, default using this parameter to search); user: Display as `Accounts` in the APP (search user accounts); hashtag: Display as `Hashtags` in the APP (search hashtags); article: Display as `Posts` in the APP (search articles)"
+      },
+      "filter_type": {
+        "type": "string",
+        "title": "Filter Type",
+        "default": "",
+        "description": "Search filter type, default is an empty string, optional values are as follows: Empty string: All (default using this parameter to search); video: Search only video; posts: Search only posts"
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.0015,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "readme": "# Lemon8 Search API\n\nSearch Lemon8 for a keyword and get matching posts and users. Choose the tab with `search_tab` and paginate with `max_cursor`.\n\n## Use cases\n\n- Research lifestyle and product trends on Lemon8.\n- Find creators in a niche.\n- Monitor brand mentions.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/lemon8/app/search\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"query\": \"OpenAI\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `query` | string | Yes | Search keyword |\n| `order_by` | string | No | Search sort type, default is an empty string, optional values are as follows: Empty string: Relevance (default using th… |\n| `max_cursor` | string | No | Pagination parameter, can be obtained from the return result of the last request. |\n| `search_tab` | string | No | Search type, default is `main`, optional values are as follows: main: Display as `Top` in the APP (comprehensive search… |\n| `filter_type` | string | No | Search filter type, default is an empty string, optional values are as follows: Empty string: All (default using this p… |\n\n## Example response\n\nReal response for the request above, trimmed to the main fields. User names and long IDs are masked.\n\n```json\n{\n  \"data\": {\n    \"has_more\": true,\n    \"items\": [\n      {\n        \"articles\": [\n          {\n            \"group_id\": \"7661250232746885645\",\n            \"article_class\": \"Gallery\",\n            \"language\": \"en\",\n            \"publish_time\": 1783774883,\n            \"read_count\": 16,\n            \"title\": \"ChatGPT just clocked in. 👀    OpenAI launched Cha…\",\n            \"article_url\": \"https://www.lemon8-app.com/@itsdebbiedarlin/76612…\",\n            \"author\": {\n              \"name\": \"<user>\"\n            }\n          }\n        ]\n      }\n    ]\n  }\n}\n```\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [Get banners of discover page](/model/lemon8/app/discover-banners): Get banners of discover page.\n- [Get main content of discover page](/model/lemon8/app/discover-tab): Get main content of discover page.\n- [Get Editor's Picks of discover page](/model/lemon8/app/discover-tab-information-tabs): Get Editor's Picks of discover page.\n",
+  "page_url": "https://www.sandbase.ai/model/lemon8/app/search",
+  "created_at": "2026-07-31T04:07:56.782Z"
+}

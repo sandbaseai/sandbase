@@ -1,0 +1,97 @@
+{
+  "name": "xiaohongshu/app-v2/topic-feed",
+  "display_name": "Xiaohongshu (RED) Topic Feed",
+  "type": "api",
+  "vendor": "Xiaohongshu",
+  "vendor_slug": "xiaohongshu",
+  "description": "Returns a list of notes listed under a specified topic page on Xiaohongshu (RED). Supports sorting options and cursor pagination using previous response indicators.",
+  "tags": [
+    "api",
+    "xiaohongshu"
+  ],
+  "capabilities": [
+    "api",
+    "xiaohongshu"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/xiaohongshu/app-v2/topic-feed"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "page_id"
+    ],
+    "properties": {
+      "sort": {
+        "type": "string",
+        "title": "Sort",
+        "description": "Sort type"
+      },
+      "source": {
+        "type": "string",
+        "title": "Source",
+        "description": "Source, default \"normal\""
+      },
+      "page_id": {
+        "type": "string",
+        "title": "Page Id",
+        "example": "5c1cc866febed9000184b7c1",
+        "description": "Topic page ID (required), e.g. \"5c1cc866febed9000184b7c1\""
+      },
+      "session_id": {
+        "type": "string",
+        "title": "Session Id",
+        "description": "Session ID, keep consistent for pagination"
+      },
+      "cursor_score": {
+        "type": "string",
+        "title": "Cursor Score",
+        "description": "Pagination cursor score, pass last item's cursor_score from previous response"
+      },
+      "last_note_ct": {
+        "type": "string",
+        "title": "Last Note Ct",
+        "description": "Last note create time from previous page"
+      },
+      "last_note_id": {
+        "type": "string",
+        "title": "Last Note Id",
+        "description": "Last note ID from previous page"
+      },
+      "first_load_time": {
+        "type": "string",
+        "title": "First Load Time",
+        "description": "First load timestamp, keep consistent for pagination"
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.015,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "examples": [
+    {
+      "input": {
+        "page_id": "example"
+      }
+    }
+  ],
+  "readme": "# Xiaohongshu (RED) Topic Feed API\n\nQuery notes under a specific Xiaohongshu (RED) topic by providing `page_id`. Supports cursor pagination and custom sort options.\n\n## Use cases\n\n- Track posts and community discussions around a specific campaign topic.\n- Monitor engagement trends and top-performing notes within a niche hashtag.\n- Retrieve recent user content associated with targeted topic feeds.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/xiaohongshu/app-v2/topic-feed\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"page_id\": \"5c1cc866febed9000184b7c1\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `page_id` | string | Yes | Topic page ID (required), e.g. \"5c1cc866febed9000184b7c1\" |\n| `sort` | string | No | Sort type |\n| `source` | string | No | Source, default \"normal\" |\n| `session_id` | string | No | Session ID, keep consistent for pagination |\n| `cursor_score` | string | No | Pagination cursor score, pass last item's cursor_score from previous response |\n| `last_note_ct` | string | No | Last note create time from previous page |\n| `last_note_id` | string | No | Last note ID from previous page |\n| `first_load_time` | string | No | First load timestamp, keep consistent for pagination |\n\n## Example response\n\nReal response for the request above, trimmed to the main fields. User names and long IDs are masked.\n\n```json\n{\n  \"data\": {\n    \"items\": [\n      {\n        \"create_time\": 1770546832000,\n        \"desc\": \"宝子们！被这盏像素花灯狠狠戳中中式审美了✨ 靛蓝的亭式灯笼带着飞檐，像把江南古亭缩成掌心小物，镂空窗格透着暖黄灯火，周围粉蓝海棠开得像云絮，仿佛能闻到花香里的夜露气～ 使用104…\",\n        \"id\": \"69886690000000000b010dec\",\n        \"title\": \"拼豆图纸ℓ像素风“春灯海棠”ℓ国风宫灯\",\n        \"type\": \"normal\",\n        \"interaction_info\": {\n          \"collect_count\": 17331,\n          \"comment_count\": 646,\n          \"like_count\": 15179,\n          \"share_count\": 3032\n        },\n        \"note_time\": {\n          \"create_time\": 1770546832,\n          \"update_time\": 1770546833\n        },\n        \"share_info\": {\n          \"content\": \"宝子们！被这盏像素花灯狠狠戳中中式审美了✨ 靛蓝的亭式灯笼带着飞檐，像把江南古亭缩成掌心小物，镂空窗格透着暖黄灯火，周围\",\n          \"link\": \"https://www.xiaohongshu.com/discovery/item/69886690000000000b010dec?app_platform…\",\n          \"title\": \"拼豆图纸ℓ像素风“春灯海棠”ℓ国风宫灯\"\n        },\n        \"topic_note_translate_info\": {\n          \"translate_type\": 2\n        },\n        \"user\": {\n          \"nickname\": \"<user>\",\n          \"user_id\": \"<user>\"\n        }\n      }\n    ]\n  }\n}\n```\n\n## Notes\n\n- `page_id` is required to identify the target topic page.\n- Cursor pagination uses `cursor_score`, `last_note_id`, and `last_note_ct` from the previous response.\n- Maintain consistent values for `session_id` and `first_load_time` across subsequent page calls.\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [Xiaohongshu (RED) Creator Hot Inspiration Feed](/model/xiaohongshu/app-v2/creator-hot-inspiration-feed): Retrieves creator center hot inspiration feed items with topic titles, popularity scores, and deeplinks.\n- [Xiaohongshu (RED) Inspiration Feed](/model/xiaohongshu/app-v2/creator-inspiration-feed): Returns recommended inspiration feed items and trending topics from Xiaohongshu (RED).\n- [Xiaohongshu (RED) Image Note Details](/model/xiaohongshu/app-v2/image-note-detail): Returns detailed information for a Xiaohongshu image note.\n",
+  "page_url": "https://www.sandbase.ai/model/xiaohongshu/app-v2/topic-feed",
+  "created_at": "2026-07-31T02:47:14.061Z"
+}

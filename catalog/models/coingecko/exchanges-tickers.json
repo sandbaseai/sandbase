@@ -1,0 +1,93 @@
+{
+  "name": "coingecko/exchanges-tickers",
+  "display_name": "CoinGecko Exchange Tickers by ID",
+  "type": "api",
+  "vendor": "CoinGecko",
+  "vendor_slug": "coingecko",
+  "description": "Exchange Tickers by ID from CoinGecko. Returns the official CoinGecko API response unchanged.",
+  "tags": [
+    "api",
+    "coingecko",
+    "crypto"
+  ],
+  "capabilities": [
+    "api",
+    "coingecko",
+    "crypto"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/coingecko/exchanges-tickers"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "id"
+    ],
+    "properties": {
+      "id": {
+        "type": "string",
+        "default": "binance",
+        "description": "Exchange ID. *refers to [`/exchanges/list`](/reference/exchanges-list)."
+      },
+      "page": {
+        "type": "number",
+        "description": "Page through results."
+      },
+      "depth": {
+        "type": "boolean",
+        "description": "Include 2% orderbook depth (cost_to_move_up_usd and cost_to_move_down_usd). Default: false"
+      },
+      "order": {
+        "enum": [
+          "market_cap_asc",
+          "market_cap_desc",
+          "trust_score_desc",
+          "trust_score_asc",
+          "volume_desc",
+          "volume_asc",
+          "base_target"
+        ],
+        "type": "string",
+        "description": "Sort the order of responses. Default: `trust_score_desc`"
+      },
+      "coin_ids": {
+        "type": "string",
+        "description": "Filter tickers by coin IDs, comma-separated if querying more than 1 coin. *refers to [`/coins/list`](/reference/coins-list)."
+      },
+      "dex_pair_format": {
+        "enum": [
+          "contract_address",
+          "symbol"
+        ],
+        "type": "string",
+        "description": "Set to `symbol` to display DEX pair base and target as symbols. Default: `contract_address`"
+      },
+      "include_exchange_logo": {
+        "type": "boolean",
+        "description": "Include exchange logo. Default: false"
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.008,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "readme": "# CoinGecko Exchange Tickers by ID API\n\nExchange Tickers by ID from CoinGecko. Returns the official CoinGecko API response unchanged.\n\nThe response is the official CoinGecko API response, unchanged.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/coingecko/exchanges-tickers\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"id\": \"binance\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `id` | string | Yes | Exchange ID. *refers to [`/exchanges/list`](/reference/exchanges-list). |\n| `coin_ids` | string | No | Filter tickers by coin IDs, comma-separated if querying more than 1 coin. *refers to [`/coins/list`](/reference/coins-list). |\n| `depth` | boolean | No | Include 2% orderbook depth (cost_to_move_up_usd and cost_to_move_down_usd). Default: false |\n| `dex_pair_format` | string | No | Set to `symbol` to display DEX pair base and target as symbols. Default: `contract_address` |\n| `include_exchange_logo` | boolean | No | Include exchange logo. Default: false |\n| `order` | string | No | Sort the order of responses. Default: `trust_score_desc` |\n| `page` | number | No | Page through results. |\n\n## Pricing\n\nFlat price per call. Failed calls are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/coingecko/exchanges-tickers",
+  "created_at": "2026-10-30T03:11:21.705Z"
+}

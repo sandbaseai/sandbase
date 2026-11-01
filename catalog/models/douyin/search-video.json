@@ -1,0 +1,97 @@
+{
+  "name": "douyin/search-video",
+  "display_name": "Douyin Video Search",
+  "type": "api",
+  "vendor": "Douyin",
+  "vendor_slug": "douyin",
+  "description": "Search Douyin (TikTok China) videos by keyword with sort, publish-time, duration, and page filters; later pages require the previous search ID. Use it to support content discovery and trend research.",
+  "tags": [
+    "api",
+    "douyin",
+    "social-media"
+  ],
+  "capabilities": [
+    "api",
+    "douyin",
+    "social-media"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/douyin/search-video"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "keyword"
+    ],
+    "properties": {
+      "page": {
+        "type": "integer",
+        "default": 1,
+        "description": "Page number (starting from 1)."
+      },
+      "keyword": {
+        "type": "string",
+        "example": "美食",
+        "description": "The search keyword."
+      },
+      "duration": {
+        "enum": [
+          "_0",
+          "_1",
+          "_2",
+          "_3"
+        ],
+        "type": "string",
+        "default": "_0",
+        "description": "Filter by video duration."
+      },
+      "searchId": {
+        "type": "string",
+        "description": "Search ID; required for pages > 1. Use data.business_config.next_page.search_id from the previous response, and stop paging when data.business_config.has_more is 0."
+      },
+      "sortType": {
+        "enum": [
+          "_0",
+          "_1",
+          "_2"
+        ],
+        "type": "string",
+        "default": "_0",
+        "description": "Sorting criteria for search results."
+      },
+      "publishTime": {
+        "enum": [
+          "_0",
+          "_1",
+          "_7",
+          "_180"
+        ],
+        "type": "string",
+        "default": "_0",
+        "description": "Filter by video publish time range."
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.013889,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "readme": "# Douyin Video Search API\n\nSearch Douyin (TikTok China) videos by keyword with sort, publish-time, duration, and page filters; later pages require the previous search ID. Use it to support content discovery and trend research.\n\nThe response is the platform's original data structure.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/douyin/search-video\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"keyword\": \"美食\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `keyword` | string | Yes | The search keyword. |\n| `sortType` | string | No | Sorting criteria for search results. |\n| `publishTime` | string | No | Filter by video publish time range. |\n| `duration` | string | No | Filter by video duration. |\n| `page` | integer | No | Page number (starting from 1). |\n| `searchId` | string | No | Search ID; required for pages > 1. Use data.business_config.next_page.search_id from the previous response, and stop paging when data.business_config.has_more is 0. |\n\n## Pricing\n\nFlat price per call. Failed calls and empty results are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/douyin/search-video",
+  "created_at": "2026-10-29T12:23:08.257Z"
+}

@@ -1,0 +1,67 @@
+{
+  "name": "tiktok/app-v3/share-qr-code",
+  "display_name": "TikTok Share QR Code",
+  "type": "api",
+  "vendor": "TikTok",
+  "vendor_slug": "tiktok",
+  "description": "Returns a shareable QR code for a target TikTok profile. Requests require an object identifier and accept an optional schema type configuration.",
+  "tags": [
+    "api",
+    "tiktok"
+  ],
+  "capabilities": [
+    "api",
+    "tiktok"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/tiktok/app-v3/share-qr-code"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "object_id"
+    ],
+    "properties": {
+      "object_id": {
+        "type": "string",
+        "title": "Object Id",
+        "description": "Object id, currently supports the uid in the response of the personal homepage interface as a parameter."
+      },
+      "schema_type": {
+        "type": "integer",
+        "title": "Schema Type",
+        "description": "Schema type"
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.0015,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "examples": [
+    {
+      "input": {
+        "object_id": "6762244951259661318"
+      },
+      "default": true
+    }
+  ],
+  "readme": "# TikTok Share QR Code API\n\nRetrieve a TikTok profile share QR code using `object_id` and an optional `schema_type`.\n\n## Use cases\n\n- Generate QR codes to link users directly to a specific TikTok account.\n- Display scannable profile badges on external marketing materials.\n- Direct mobile audiences to targeted creator pages through scan links.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/tiktok/app-v3/share-qr-code\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"object_id\": \"<object_id>\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `object_id` | string | Yes | Object id, currently supports the uid in the response of the personal homepage interface as a parameter. |\n| `schema_type` | integer | No | Schema type |\n\n## Notes\n\n- `object_id` accepts the uid obtained from personal homepage responses.\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [TikTok LIVE Status](/model/tiktok/app-v3/check-live-room-online): Check whether a TikTok LIVE room is currently live by room ID.\n- [TikTok Room Online Status Batch](/model/tiktok/app-v3/check-live-room-online-batch): Returns the online availability status for multiple TikTok broadcast rooms in a single request.\n- [TikTok Content Translation](/model/tiktok/app-v3/content-translate): Translates provided text content into a designated target language.\n",
+  "page_url": "https://www.sandbase.ai/model/tiktok/app-v3/share-qr-code",
+  "created_at": "2026-07-31T04:14:52.755Z"
+}

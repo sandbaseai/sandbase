@@ -1,0 +1,44 @@
+{
+  "name": "openai/gpt-5.1",
+  "display_name": "OpenAI: GPT-5.1",
+  "type": "llm",
+  "vendor": "OpenAI",
+  "vendor_slug": "openai",
+  "description": "GPT-5.1 is OpenAI's GPT-5 series flagship released in November 2025 for coding and agentic tasks, with text and image input and text output. It adapts how long it thinks to task complexity, spending fewer tokens on simple requests and staying persistent on hard ones, and adds a no-reasoning mode that behaves like a low-latency non-reasoning model with strong tool calling. It succeeds GPT-5 as the full-size general-purpose option in that line.",
+  "tags": [
+    "chat",
+    "vision",
+    "reasoning",
+    "structured_output",
+    "function_calling"
+  ],
+  "capabilities": [
+    "chat",
+    "vision",
+    "reasoning",
+    "structured_output",
+    "function_calling"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "chat_completions": "POST /v1/chat/completions",
+    "responses": "POST /v1/responses",
+    "messages": "POST /v1/messages"
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_token",
+    "per_million_tokens": {
+      "input": 1.25,
+      "output": 10,
+      "cache_read_multiplier": 0.1
+    }
+  },
+  "cover_url": "https://t0.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=https://openai.com&size=256",
+  "page_url": "https://www.sandbase.ai/model/openai/gpt-5.1",
+  "published_at": "2025-11-13T18:58:25Z",
+  "created_at": "2026-05-08T23:55:03.844Z"
+}

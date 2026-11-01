@@ -1,0 +1,67 @@
+{
+  "name": "youtube/web/relate-video",
+  "display_name": "YouTube Related Videos (Web)",
+  "type": "api",
+  "vendor": "YouTube",
+  "vendor_slug": "youtube",
+  "description": "Returns a list of related videos for a given YouTube video ID. Supports pagination using a continuation token to retrieve additional recommendations.",
+  "tags": [
+    "api",
+    "youtube"
+  ],
+  "capabilities": [
+    "api",
+    "youtube"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/youtube/web/relate-video"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "video_id"
+    ],
+    "properties": {
+      "video_id": {
+        "type": "string",
+        "title": "Video Id",
+        "example": "LuIL5JATZsc",
+        "description": "Video ID, get it from the URL, for example: https://www.youtube.com/watch?v=LuIL5JATZsc, the id is LuIL5JATZsc."
+      },
+      "continuation_token": {
+        "type": "string",
+        "title": "Continuation Token",
+        "description": "Token to continue fetching related videos. Default is None."
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.0015,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "examples": [
+    {
+      "input": {
+        "video_id": "LuIL5JATZsc"
+      }
+    }
+  ],
+  "readme": "# YouTube Related Videos (Web) API\n\nRetrieve recommended and related videos for a specific video using `video_id`. Pass `continuation_token` to load additional pages of related content.\n\n## Use cases\n\n- Build video recommendation feeds based on a currently playing item.\n- Discover related content and channels in specific topic clusters.\n- Extract recommended video metadata for audience interest analysis.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/youtube/web/relate-video\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"video_id\": \"LuIL5JATZsc\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `video_id` | string | Yes | Video ID, get it from the URL, for example: https://www.youtube.com/watch?v=LuIL5JATZsc, the id is LuIL5JATZsc. |\n| `continuation_token` | string | No | Token to continue fetching related videos. |\n\n## Example response\n\nReal response for the request above, trimmed to the main fields. User names and long IDs are masked.\n\n```json\n{\n  \"videos\": [\n    {\n      \"author\": \"CozyCraft\",\n      \"channel_id\": \"UCeu6U67OzJhV1KwBansH3Dg\",\n      \"number_of_views\": 0,\n      \"published_time\": \"5mo ago\",\n      \"title\": \"just relax, everything can wait… (minecraft music & ambience)\",\n      \"type\": \"NORMAL\",\n      \"video_id\": \"CijACOd7jQk\"\n    }\n  ]\n}\n```\n\n## Notes\n\n- Obtain `video_id` directly from the YouTube video URL.\n- Use `continuation_token` to paginate through subsequent related videos.\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [YouTube Channel ID Lookup](/model/youtube/web/channel-id): Retrieves the unique YouTube channel ID associated with a specific channel name.\n- [YouTube Channel ID from URL (V2)](/model/youtube/web/channel-id-v2): Resolves a YouTube channel URL into its unique channel ID and standardized channel URL.\n- [YouTube Channel Information](/model/youtube/web/channel-info): Returns profile details and external links for a specified YouTube channel.\n",
+  "page_url": "https://www.sandbase.ai/model/youtube/web/relate-video",
+  "created_at": "2026-07-31T04:26:06.445Z"
+}

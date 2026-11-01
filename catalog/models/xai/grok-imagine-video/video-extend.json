@@ -1,0 +1,162 @@
+{
+  "name": "xai/grok-imagine-video/video-extend",
+  "display_name": "Grok Imagine Video Extend",
+  "type": "video",
+  "vendor": "xAI",
+  "vendor_slug": "xai",
+  "description": "Grok Imagine Video Extend is xAI's video-to-video AI model. Transform, enhance, and edit video content using text prompts - from style changes to object manipulation and scene modification.",
+  "tags": [
+    "video-to-video"
+  ],
+  "capabilities": [
+    "video-to-video"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "prompt",
+      "video"
+    ],
+    "properties": {
+      "video": {
+        "type": "string",
+        "title": "Video URL",
+        "examples": [
+          "https://static.sandbase.ai/examples/xai/grok-imagine-video/extend/input_video_0.mp4"
+        ],
+        "description": "URL of the source video to extend. Must be MP4 format (H.264, H.265, or AV1 codec), 2-15 seconds long."
+      },
+      "prompt": {
+        "type": "string",
+        "title": "Prompt",
+        "examples": [
+          "The camera slowly zooms out to reveal the city skyline at sunset"
+        ],
+        "maxLength": 4096,
+        "description": "Text description of what should happen next in the video."
+      },
+      "duration": {
+        "type": "integer",
+        "title": "Duration",
+        "default": 6,
+        "maximum": 10,
+        "minimum": 2,
+        "description": "Length of the extension in seconds."
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "title": "GenerationResponse",
+    "required": [
+      "id",
+      "status"
+    ],
+    "properties": {
+      "id": {
+        "type": "string",
+        "description": "Unique identifier for the generation task."
+      },
+      "error": {
+        "type": "string",
+        "description": "Error message if the task failed. Empty on success."
+      },
+      "model": {
+        "type": "string",
+        "description": "Model ID used for the prediction."
+      },
+      "status": {
+        "enum": [
+          "pending",
+          "running",
+          "completed",
+          "failed",
+          "timeout"
+        ],
+        "type": "string",
+        "description": "Status of the task: pending, running, completed, failed, or timeout."
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "title": "OutputItem",
+          "required": [
+            "url"
+          ],
+          "properties": {
+            "url": {
+              "type": "string",
+              "examples": [
+                "https://static.sandbase.ai/examples/luma/ray-flash-2/modify/output_url_0.mp4"
+              ],
+              "description": "The URL where the generated content can be downloaded from."
+            },
+            "content_type": {
+              "type": "string",
+              "description": "The MIME type of the output file."
+            }
+          }
+        },
+        "description": "Array of generated content. Empty when status is not completed."
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "formula",
+    "formula": "(params.duration ?? 6) * 0.06",
+    "formula_variables": [
+      "params.duration"
+    ],
+    "reference_price": 0.36,
+    "price_examples": [
+      {
+        "params": {
+          "duration": 2
+        },
+        "usd": 0.12
+      },
+      {
+        "params": {
+          "duration": 6
+        },
+        "usd": 0.36
+      },
+      {
+        "params": {
+          "duration": 10
+        },
+        "usd": 0.6
+      }
+    ]
+  },
+  "examples": [
+    {
+      "input": {
+        "prompt": "The camera slowly zooms out to reveal the city skyline at sunset",
+        "video": "https://static.sandbase.ai/examples/79b3c8a1-2494-4e33-a23c-0538c9b1e3b0/input/04b0e73a-3edd-452f-ba14-e335fd7c1c88.mp4"
+      },
+      "output": [
+        {
+          "poster": "https://static.sandbase.ai/examples/posters/bc423fff483b508ccb4e.jpg",
+          "url": "https://static.sandbase.ai/examples/79b3c8a1-2494-4e33-a23c-0538c9b1e3b0/output/ec081a30-39f0-4977-a7ce-e85bbdcc6666.mp4"
+        }
+      ],
+      "default": true
+    }
+  ],
+  "readme": "# Grok Imagine Video Extend\n\nGrok Imagine Video extend: continue a clip with 2–10 seconds of new footage.\n\n## Fields\n\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `prompt` | string, required | — | Up to 4,096 characters. |\n| `video` | video URL, required | — | Source clip. |\n| `duration` | integer 2–10 | 6 | Output length in seconds. |\n\n## Billing\n\n$0.06 per new second.\n\n| Output | Price |\n|---|---|\n| 2s | $0.12 |\n| 6s (default) | $0.36 |\n| 10s | $0.60 |\n\nFailed runs are not charged.\n\n## Prompting\n\n- Describe subject, action, camera, and sound.\n\n## Also on SandBase\n\nOther Grok Imagine Video endpoints: `xai/grok-imagine-video/text-to-video`, `xai/grok-imagine-video/image-to-video`, `xai/grok-imagine-video/reference-to-video`, `xai/grok-imagine-video/video-edit`, `xai/grok-imagine-video/1.5/text-to-video` (1.5, newer).\n",
+  "cover_url": "https://static.sandbase.ai/covers/xai/grok-imagine-video/extend/cover-flare-20261005002920.webp",
+  "page_url": "https://www.sandbase.ai/model/xai/grok-imagine-video/video-extend",
+  "published_at": "2026-03-24T17:54:09.171Z",
+  "created_at": "2026-10-05T23:56:45.049Z"
+}

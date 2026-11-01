@@ -1,0 +1,86 @@
+{
+  "name": "douyin/web/one-video-danmaku",
+  "display_name": "Douyin Video Danmaku",
+  "type": "api",
+  "vendor": "Douyin",
+  "vendor_slug": "douyin",
+  "description": "Returns danmaku comment records for a Douyin video across a specified playback interval. Filter by video ID, total duration, start time, and end time.",
+  "tags": [
+    "api",
+    "douyin"
+  ],
+  "capabilities": [
+    "api",
+    "douyin"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/douyin/web/one-video-danmaku"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "duration",
+      "end_time",
+      "item_id",
+      "start_time"
+    ],
+    "properties": {
+      "item_id": {
+        "type": "string",
+        "title": "Item Id",
+        "example": "7355433624046472498",
+        "description": "Video id"
+      },
+      "duration": {
+        "type": "integer",
+        "title": "Duration",
+        "example": 15134,
+        "description": "Video total duration"
+      },
+      "end_time": {
+        "type": "integer",
+        "title": "End Time",
+        "example": 15133,
+        "description": "End time"
+      },
+      "start_time": {
+        "type": "integer",
+        "title": "Start Time",
+        "example": 0,
+        "description": "Start time"
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.0015,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "examples": [
+    {
+      "input": {
+        "duration": 15134,
+        "end_time": 15133,
+        "item_id": "7355433624046472498",
+        "start_time": 0
+      }
+    }
+  ],
+  "readme": "# Douyin Video Danmaku API\n\nRetrieve danmaku comment streams for a specific Douyin video using `item_id`. Specify the playback window using `duration`, `start_time`, and `end_time`.\n\n## Use cases\n\n- Analyze viewer real-time reactions across specific video segments.\n- Display synchronized danmaku overlays in custom video players.\n- Identify audience engagement spikes during video playback.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/douyin/web/one-video-danmaku\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"duration\": 15134, \"end_time\": 15133, \"item_id\": \"7355433624046472498\", \"start_time\": 0}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `item_id` | string | Yes | Video id |\n| `duration` | integer | Yes | Video total duration |\n| `end_time` | integer | Yes | End time |\n| `start_time` | integer | Yes | Start time |\n\n## Example response\n\nReal response for the request above, trimmed to the main fields. User names and long IDs are masked.\n\n```json\n{\n  \"end_time\": 32000,\n  \"start_time\": 0,\n  \"status_code\": 0\n}\n```\n\n## Notes\n\n- Requires `item_id`, `duration`, `start_time`, and `end_time` for each query.\n- Time parameters define the video playback window for retrieved danmaku comments.\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [Douyin Batch Video ID Extraction](/model/douyin/web/all-aweme-id): Extracts video IDs from a list of Douyin video URLs.\n- [Douyin sec_user_ids from URLs (Batch)](/model/douyin/web/all-sec-user-id): Extracts Douyin sec_user_id values in bulk from a list of user homepage URLs.\n- [Douyin Webcast ID Extraction](/model/douyin/web/all-webcast-id): Extracts webcast IDs from a submitted list of Douyin live room links.\n",
+  "page_url": "https://www.sandbase.ai/model/douyin/web/one-video-danmaku",
+  "created_at": "2026-07-31T02:40:14.983Z"
+}

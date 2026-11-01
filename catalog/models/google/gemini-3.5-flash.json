@@ -1,0 +1,45 @@
+{
+  "name": "google/gemini-3.5-flash",
+  "display_name": "Google: Gemini 3.5 Flash",
+  "type": "llm",
+  "vendor": "Google",
+  "vendor_slug": "google",
+  "description": "Gemini 3.5 Flash is the Flash model of Google's Gemini 3.5 family, introduced at Google I/O in May 2026. Google positions it as delivering frontier-level intelligence at Flash speed, built for sub-agent deployment, multi-step workflows and long-horizon tasks at scale, and particularly effective in rapid agentic loops with complex coding iterations. It takes text, image, video, audio and PDF input with text output; Google's model list now labels it a legacy Flash model behind 3.6, 3.7 and 3.8 Flash.",
+  "tags": [
+    "chat",
+    "vision",
+    "audio_input",
+    "reasoning",
+    "structured_output",
+    "function_calling"
+  ],
+  "capabilities": [
+    "chat",
+    "vision",
+    "audio_input",
+    "reasoning",
+    "structured_output",
+    "function_calling"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "chat_completions": "POST /v1/chat/completions",
+    "responses": "POST /v1/responses",
+    "messages": "POST /v1/messages"
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_token",
+    "per_million_tokens": {
+      "input": 1.5,
+      "output": 9,
+      "cache_read_multiplier": 0.1
+    }
+  },
+  "page_url": "https://www.sandbase.ai/model/google/gemini-3.5-flash",
+  "published_at": "2026-05-19T12:30:00.426Z",
+  "created_at": "2026-05-31T08:25:28.529Z"
+}

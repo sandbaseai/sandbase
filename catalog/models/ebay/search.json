@@ -1,0 +1,243 @@
+{
+  "name": "ebay/search",
+  "display_name": "eBay Search",
+  "type": "api",
+  "vendor": "eBay",
+  "vendor_slug": "ebay",
+  "description": "Search eBay listings by keyword with price, condition, shipping, bids, time left and seller, plus condition, format, price and location filters.",
+  "tags": [
+    "api",
+    "ebay",
+    "ecommerce",
+    "product-data"
+  ],
+  "capabilities": [
+    "api",
+    "ebay",
+    "ecommerce",
+    "product-data"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}",
+    "passthrough": "POST /v1/api/ebay/search"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "_nkw"
+    ],
+    "properties": {
+      "_dmd": {
+        "type": [
+          "string",
+          "number",
+          "boolean"
+        ],
+        "description": "The visual layout for displaying results. The available options are 'Grid' and 'List'."
+      },
+      "_ipg": {
+        "type": [
+          "string",
+          "number",
+          "boolean"
+        ],
+        "description": "The maximum number of results to return. There are three options: `60` (default), `120` and `240` results."
+      },
+      "_nkw": {
+        "type": [
+          "string",
+          "number",
+          "boolean"
+        ],
+        "example": "iphone 15",
+        "description": "The search query. You can use anything that you would use in a regular eBay search. `_nkw` parameter is optional when `category_id` parameter is specified."
+      },
+      "_pgn": {
+        "type": [
+          "string",
+          "number",
+          "boolean"
+        ],
+        "description": "The page number. It's used for pagination. (e.g., `1` (default) is the first page of results, `2` is the 2nd page of results, `3` is the 3rd page of results, etc.)."
+      },
+      "_sop": {
+        "type": [
+          "string",
+          "number",
+          "boolean"
+        ],
+        "description": "Results sorted by different options in the eBay. The default option is 'Best Match'. Head to the eBay sort options for a full list of supported sort options."
+      },
+      "_blrs": {
+        "type": [
+          "string",
+          "number",
+          "boolean"
+        ],
+        "description": "The exclusion of results from an auto-corrected query when the original query is spelled wrong. The recommended value for this parameter is `spell_auto_correct`. Omit `_blrs` if you want the search to include results for an auto-corrected query. Note that this parameter may not prevent eBay from returning results for an auto-corrected query if no other results are available."
+      },
+      "_sasl": {
+        "type": [
+          "string",
+          "number",
+          "boolean"
+        ],
+        "description": "The seller username(s) to filter results by. You can specify multiple sellers separated by commas (e.g. `iRobot,samsung`). Use with `_saslop` to control whether to include or exclude items from the specified seller(s)."
+      },
+      "_udhi": {
+        "type": [
+          "string",
+          "number",
+          "boolean"
+        ],
+        "description": "The highest price of items that should be included in the results (e.g. `20` will only return items that have lower price than `20`)."
+      },
+      "_udlo": {
+        "type": [
+          "string",
+          "number",
+          "boolean"
+        ],
+        "description": "The lowest price of items that should be included in the results (e.g. `10` will only return items that have higher price than `10`)."
+      },
+      "_salic": {
+        "type": [
+          "string",
+          "number",
+          "boolean"
+        ],
+        "description": "The location based on country. Head to the eBay location options for a full list of supported countries."
+      },
+      "_stpos": {
+        "type": [
+          "string",
+          "number",
+          "boolean"
+        ],
+        "description": "The ZIP or Postal code. You can use it to filter the shipping products by a selected area."
+      },
+      "_saslop": {
+        "anyOf": [
+          {
+            "enum": [
+              "1",
+              "2"
+            ],
+            "type": "string"
+          },
+          {
+            "enum": [
+              1,
+              2
+            ],
+            "type": "number"
+          }
+        ],
+        "description": "Whether to include or exclude items from the seller(s) specified in `_sasl`. Available options: `1` - Only show items from sellers (default) `2` - Don't show items from sellers"
+      },
+      "show_only": {
+        "type": "string",
+        "pattern": "^(FR|RPA|AS|Savings|SaleItems|Lots|Charity|AV|FS|LPickup)(,(FR|RPA|AS|Savings|SaleItems|Lots|Charity|AV|FS|LPickup))*$",
+        "description": "The list of filters you can apply to the results. Available options **(case-sensitive)**: `FR` - Free returns `RPA` - Returns accepted `AS` - Authorized seller `Savings` - Deals and savings `SaleItems` - Sale items `Lots` - Listed as lots `Charity` - Benefits charity `AV` - Authenticity Guarantee `FS` - Free shipping `LPickup` - Local pickup You can also combine multiple filter values by joining them with a comma (`value` + `,` + `value`; eg: `FS,RPA`). The `Sold` and `Complete` options are deprecated and no longer supported."
+      },
+      "LH_PrefLoc": {
+        "type": [
+          "string",
+          "number",
+          "boolean"
+        ],
+        "description": "The preferred location. The available options are 'Domestic', 'Regional', and 'Worldwide'."
+      },
+      "category_id": {
+        "type": [
+          "string",
+          "number",
+          "boolean"
+        ],
+        "description": "The ID of a category where you want your search to be concentrated. ID values are accessible inside `categories` array, located in our JSON output (e.g. `categories[1].id`). You can search using `category_id` parameter without specifying `_nkw` parameter."
+      },
+      "ebay_domain": {
+        "type": [
+          "string",
+          "number",
+          "boolean"
+        ],
+        "description": "The eBay domain to use. It defaults to `ebay.com`. Head to the eBay domains for a full list of supported eBay domains."
+      },
+      "buying_format": {
+        "anyOf": [
+          {
+            "enum": [
+              "Auction",
+              "BIN",
+              "BO"
+            ],
+            "type": "string"
+          }
+        ],
+        "description": "The buying format you can apply to the results. Available options **(case-sensitive)**: `Auction` - Auction `BIN` - Buy It Now `BO` - Accepts Offers"
+      },
+      "json_restrictor": {
+        "type": [
+          "string",
+          "number",
+          "boolean"
+        ],
+        "description": "The fields you want to include in the output, reducing payload size for faster response. See the JSON Restrictor documentation for more details."
+      },
+      "popular_filters": {
+        "type": [
+          "string",
+          "number",
+          "boolean"
+        ],
+        "description": "Allows filtering items based on their attributes. The structure is a list of `key=value` pairs separated by `&` (e.g. `Brand=Nespresso&Size=L`). To pass multiple values for the same filter, join them with `|` (e.g. `Brand=adidas|Majestic`). Values can be obtained from the `popular_filters[].parameter` field of the API response."
+      },
+      "LH_ItemCondition": {
+        "type": [
+          "string",
+          "number",
+          "boolean"
+        ],
+        "description": "One or multiple product conditions to limit the search to. Condition is represented via numeric ID, e.g. `1000` for `New`. Multiple IDs should be joined with `|` delimiter, e.g. `1000|3000`. List of supported IDs can be found on eBay documentation page. There is also undocumented ID `10` for `Not Specified` condition."
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "required": [
+      "id",
+      "status",
+      "model"
+    ],
+    "properties": {
+      "id": {
+        "type": "string"
+      },
+      "model": {
+        "type": "string"
+      },
+      "status": {
+        "type": "string"
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.015,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "readme": "# eBay Search\n\nSearch eBay listings by keyword with price, condition, shipping, bids, time left and seller, plus condition, format, price and location filters.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/ebay/search\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"_nkw\": \"iphone 15\"}'\n```\n\nThis API runs asynchronously. The call returns a task `id` with status `pending`; poll `GET https://api.sandbase.ai/v1/run/{id}` until `status` is `completed` and read the result from `outputs[0].data`.\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `_nkw` | string/number/boolean | Yes | The search query. You can use anything that you would use in a regular eBay search. `_nkw` parameter is optional when `category_id` parameter is specified. |\n| `LH_ItemCondition` | string/number/boolean | No | One or multiple product conditions to limit the search to. Condition is represented via numeric ID, e.g. `1000` for `New`. Multiple IDs should be joined with `\\|` delimiter, e.g. `1000\\|3000`. List of… |\n| `LH_PrefLoc` | string/number/boolean | No | The preferred location. The available options are 'Domestic', 'Regional', and 'Worldwide'. |\n| `_blrs` | string/number/boolean | No | The exclusion of results from an auto-corrected query when the original query is spelled wrong. The recommended value for this parameter is `spell_auto_correct`. Omit `_blrs` if you want the search to… |\n| `_dmd` | string/number/boolean | No | The visual layout for displaying results. The available options are 'Grid' and 'List'. |\n| `_ipg` | string/number/boolean | No | The maximum number of results to return. There are three options: `60` (default), `120` and `240` results. |\n| `_pgn` | string/number/boolean | No | The page number. It's used for pagination. (e.g., `1` (default) is the first page of results, `2` is the 2nd page of results, `3` is the 3rd page of results, etc.). |\n| `_salic` | string/number/boolean | No | The location based on country. Head to the eBay location options for a full list of supported countries. |\n| `_sasl` | string/number/boolean | No | The seller username(s) to filter results by. You can specify multiple sellers separated by commas (e.g. `iRobot,samsung`). Use with `_saslop` to control whether to include or exclude items from the sp… |\n| `_saslop` | any | No | Whether to include or exclude items from the seller(s) specified in `_sasl`. Available options: `1` - Only show items from sellers (default) `2` - Don't show items from sellers |\n| `_sop` | string/number/boolean | No | Results sorted by different options in the eBay. The default option is 'Best Match'. Head to the eBay sort options for a full list of supported sort options. |\n| `_stpos` | string/number/boolean | No | The ZIP or Postal code. You can use it to filter the shipping products by a selected area. |\n| `_udhi` | string/number/boolean | No | The highest price of items that should be included in the results (e.g. `20` will only return items that have lower price than `20`). |\n| `_udlo` | string/number/boolean | No | The lowest price of items that should be included in the results (e.g. `10` will only return items that have higher price than `10`). |\n| `buying_format` | any | No | The buying format you can apply to the results. Available options **(case-sensitive)**: `Auction` - Auction `BIN` - Buy It Now `BO` - Accepts Offers |\n| `category_id` | string/number/boolean | No | The ID of a category where you want your search to be concentrated. ID values are accessible inside `categories` array, located in our JSON output (e.g. `categories[1].id`). You can search using `cate… |\n| `ebay_domain` | string/number/boolean | No | The eBay domain to use. It defaults to `ebay.com`. Head to the eBay domains for a full list of supported eBay domains. |\n| `json_restrictor` | string/number/boolean | No | The fields you want to include in the output, reducing payload size for faster response. See the JSON Restrictor documentation for more details. |\n| `popular_filters` | string/number/boolean | No | Allows filtering items based on their attributes. The structure is a list of `key=value` pairs separated by `&` (e.g. `Brand=Nespresso&Size=L`). To pass multiple values for the same filter, join them … |\n| `show_only` | string | No | The list of filters you can apply to the results. Available options **(case-sensitive)**: `FR` - Free returns `RPA` - Returns accepted `AS` - Authorized seller `Savings` - Deals and savings `SaleItems… |\n\n## Pricing\n\nFlat price per call. Failed calls are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/ebay/search",
+  "created_at": "2026-10-28T15:37:35.617Z"
+}

@@ -1,0 +1,119 @@
+{
+  "name": "weibo/web-v2/search-user-posts",
+  "display_name": "Weibo User Post Search",
+  "type": "api",
+  "vendor": "Weibo",
+  "vendor_slug": "weibo",
+  "description": "Returns posts from a specified Weibo user matching optional search keywords. Supports filtering by post types such as images, videos, and retweets, as well as date ranges.",
+  "tags": [
+    "api",
+    "weibo"
+  ],
+  "capabilities": [
+    "api",
+    "weibo"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/weibo/web-v2/search-user-posts"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "uid"
+    ],
+    "properties": {
+      "q": {
+        "type": "string",
+        "title": "Q",
+        "description": "Search keyword (optional, empty string means search all content)"
+      },
+      "uid": {
+        "type": "string",
+        "title": "Uid",
+        "example": "8431518763",
+        "description": "User ID (required)"
+      },
+      "page": {
+        "type": "integer",
+        "title": "Page",
+        "description": "Page number, starts from 1 (default 1)"
+      },
+      "hasori": {
+        "type": "integer",
+        "title": "Hasori",
+        "description": "Include original posts (default 1 include)"
+      },
+      "haspic": {
+        "type": "integer",
+        "title": "Haspic",
+        "description": "Include image posts (default 1 include)"
+      },
+      "hasret": {
+        "type": "integer",
+        "title": "Hasret",
+        "description": "Include retweets (default 1 include)"
+      },
+      "endtime": {
+        "anyOf": [
+          {
+            "type": "integer"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "title": "Endtime",
+        "description": "End timestamp (optional, Unix timestamp format)"
+      },
+      "hastext": {
+        "type": "integer",
+        "title": "Hastext",
+        "description": "Include text posts (default 1 include)"
+      },
+      "hasmusic": {
+        "type": "integer",
+        "title": "Hasmusic",
+        "description": "Include music posts (default 1 include)"
+      },
+      "hasvideo": {
+        "type": "integer",
+        "title": "Hasvideo",
+        "description": "Include video posts (default 1 include)"
+      },
+      "starttime": {
+        "anyOf": [
+          {
+            "type": "integer"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "title": "Starttime",
+        "description": "Start timestamp (optional, Unix timestamp format)"
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.0015,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "readme": "# Weibo User Post Search API\n\nSearch posts from a specific Weibo account using `uid`. Filter results by keyword with `q`, media format flags, and Unix timestamp bounds.\n\n## Use cases\n\n- Search a specific Weibo creator timeline for keyword or brand mentions.\n- Filter an account post history by media type such as images or videos.\n- Retrieve user posts within a specific time range using timestamps.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/weibo/web-v2/search-user-posts\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"uid\": \"8431518763\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `uid` | string | Yes | User ID (required) |\n| `q` | string | No | Search keyword (optional, empty string means search all content) |\n| `page` | integer | No | Page number, starts from 1 (default 1) |\n| `hasori` | integer | No | Include original posts (default 1 include) |\n| `haspic` | integer | No | Include image posts (default 1 include) |\n| `hasret` | integer | No | Include retweets (default 1 include) |\n| `endtime` | string | No | End timestamp (optional, Unix timestamp format) |\n| `hastext` | integer | No | Include text posts (default 1 include) |\n| `hasmusic` | integer | No | Include music posts (default 1 include) |\n| `hasvideo` | integer | No | Include video posts (default 1 include) |\n| `starttime` | string | No | Start timestamp (optional, Unix timestamp format) |\n\n## Notes\n\n- `uid` is required, while `q` can be left empty to return all content.\n- Pagination is handled with `page`, which defaults to 1.\n- Date filters `starttime` and `endtime` accept Unix timestamps.\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [Weibo Advanced Search](/model/weibo/web-v2/advanced-search): Search Weibo posts by keyword with filters for time range, post type (hot, original, verified, media) and content type (images, video, links).\n- [Weibo AI Related Search Content](/model/weibo/web-v2/ai-related-search): Returns AI-generated content extensions for a keyword, including related questions, recommended bloggers, and reference posts.\n- [Weibo AI Search](/model/weibo/web-v2/ai-search): Returns multimodal search results and relevance scores from Weibo intelligent search for a specified keyword or topic query.\n",
+  "page_url": "https://www.sandbase.ai/model/weibo/web-v2/search-user-posts",
+  "created_at": "2026-07-31T02:46:03.675Z"
+}

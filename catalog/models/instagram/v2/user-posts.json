@@ -1,0 +1,62 @@
+{
+  "name": "instagram/v2/user-posts",
+  "display_name": "Instagram User Posts (V2)",
+  "type": "api",
+  "vendor": "Instagram",
+  "vendor_slug": "instagram",
+  "description": "Returns a list of posts from a specific Instagram account using their username or user ID. Supports paginated results via a pagination token.",
+  "tags": [
+    "api",
+    "instagram"
+  ],
+  "capabilities": [
+    "api",
+    "instagram"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/instagram/v2/user-posts"
+  },
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "user_id": {
+        "type": "string",
+        "title": "User Id",
+        "description": "User ID (either username or user_id required)"
+      },
+      "username": {
+        "type": "string",
+        "title": "Username",
+        "example": "instagram",
+        "description": "Username (either username or user_id required)"
+      },
+      "pagination_token": {
+        "type": "string",
+        "title": "Pagination Token",
+        "description": "Pagination token from previous response"
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.003,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "readme": "# Instagram User Posts (V2) API\n\nRetrieve posts from an Instagram profile by specifying either `username` or `user_id`. Use `pagination_token` to navigate through multiple pages of results.\n\n## Use cases\n\n- Retrieve recent posts from an Instagram profile.\n- Archive content history for public accounts.\n- Page through media feeds for social monitoring.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/instagram/v2/user-posts\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `user_id` | string | No | User ID (either username or user_id required) |\n| `username` | string | No | Username (either username or user_id required) |\n| `pagination_token` | string | No | Pagination token from previous response |\n\n## Notes\n\n- Either `username` or `user_id` must be provided.\n- Pass `pagination_token` from a previous response to navigate through additional pages.\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [Instagram Comment Replies (V2)](/model/instagram/v2/comment-replies): Retrieves a paginated list of replies to an Instagram comment using the post URL or shortcode and the target comment ID.\n- [Instagram General Search (V2)](/model/instagram/v2/general-search): Returns Instagram search results matching a specified keyword, including media items, user profiles, and engagement statistics.\n- [Instagram Hashtag Posts (V2)](/model/instagram/v2/hashtag-posts): Returns posts associated with a specific hashtag.\n",
+  "page_url": "https://www.sandbase.ai/model/instagram/v2/user-posts",
+  "created_at": "2026-07-31T03:56:15.531Z"
+}

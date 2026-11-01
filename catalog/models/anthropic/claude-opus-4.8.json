@@ -1,0 +1,44 @@
+{
+  "name": "anthropic/claude-opus-4.8",
+  "display_name": "Anthropic: Claude Opus 4.8",
+  "type": "llm",
+  "vendor": "Anthropic",
+  "vendor_slug": "anthropic",
+  "description": "Claude Opus 4.8 is Anthropic's most capable generally available model in the Opus family. It supports text, image, and file inputs with text output, with reasoning support and a 1M-token context window. It is suited for highly autonomous agents, long-horizon agentic work, knowledge work, and memory-driven tasks where coherence over extended sessions matters.\n\nIt is particularly strong on multi-step reasoning, complex coding, and end-to-end project orchestration - large codebases, multi-stage debugging, and long-running asynchronous agent pipelines. Beyond coding, it handles knowledge work such as drafting documents, building presentations, and analyzing data, maintaining quality across very long outputs.",
+  "tags": [
+    "chat",
+    "vision",
+    "reasoning",
+    "structured_output",
+    "function_calling"
+  ],
+  "capabilities": [
+    "chat",
+    "vision",
+    "reasoning",
+    "structured_output",
+    "function_calling"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "chat_completions": "POST /v1/chat/completions",
+    "responses": "POST /v1/responses",
+    "messages": "POST /v1/messages"
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_token",
+    "per_million_tokens": {
+      "input": 5,
+      "output": 25,
+      "cache_read_multiplier": 0.1,
+      "cache_write_multiplier": 1.25
+    }
+  },
+  "page_url": "https://www.sandbase.ai/model/anthropic/claude-opus-4.8",
+  "published_at": "2026-05-27T18:04:51.937Z",
+  "created_at": "2026-05-31T08:25:11.33Z"
+}

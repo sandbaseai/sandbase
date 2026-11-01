@@ -1,0 +1,81 @@
+{
+  "name": "reddit/app/user-comments",
+  "display_name": "Reddit User Comments",
+  "type": "api",
+  "vendor": "Reddit",
+  "vendor_slug": "reddit",
+  "description": "Returns a list of comments submitted by a specified Reddit user. Supports multiple sorting options, customizable page sizes, and pagination tokens.",
+  "tags": [
+    "api",
+    "reddit"
+  ],
+  "capabilities": [
+    "api",
+    "reddit"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/reddit/app/user-comments"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "username"
+    ],
+    "properties": {
+      "sort": {
+        "type": "string",
+        "title": "Sort",
+        "description": "Sort method, options: NEW (newest), TOP (top rated), HOT (hot), CONTROVERSIAL (controversial)"
+      },
+      "after": {
+        "type": "string",
+        "title": "After",
+        "description": "Pagination parameter for fetching next page"
+      },
+      "username": {
+        "type": "string",
+        "title": "Username",
+        "description": "Reddit username"
+      },
+      "page_size": {
+        "type": "integer",
+        "title": "Page Size",
+        "description": "Number of comments per page, default 25"
+      },
+      "need_format": {
+        "type": "boolean",
+        "title": "Need Format",
+        "description": "Whether to clean and format the data"
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.0015,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "examples": [
+    {
+      "input": {
+        "username": "example"
+      }
+    }
+  ],
+  "readme": "# Reddit User Comments API\n\nRetrieve comments from a Reddit account using the `username` parameter. Results can be sorted by criteria such as newest, top rated, or hot.\n\n## Use cases\n\n- Review comment history for a specific Reddit user account.\n- Analyze user participation and feedback trends across communities.\n- Monitor top-rated and controversial contributions from targeted profiles.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/reddit/app/user-comments\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"username\": \"<username>\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `username` | string | Yes | Reddit username |\n| `sort` | string | No | Sort method, options: NEW (newest), TOP (top rated), HOT (hot), CONTROVERSIAL (controversial) |\n| `after` | string | No | Pagination parameter for fetching next page |\n| `page_size` | integer | No | Number of comments per page, default 25 |\n| `need_format` | boolean | No | Whether to clean and format the data |\n\n## Notes\n\n- Supported `sort` options include NEW, TOP, HOT, and CONTROVERSIAL.\n- `page_size` sets the comment count per request and defaults to 25.\n- Use `after` to retrieve the next page of results.\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [Reddit Subreddit Mute Status](/model/reddit/app/check-subreddit-muted): Checks whether a specified Reddit subreddit is muted by the current account using its ID.\n- [Reddit App Comment Replies](/model/reddit/app/comment-replies): Returns replies and nested sub-comments under a Reddit post comment using a continuation cursor.\n- [Reddit Community Highlights](/model/reddit/app/community-highlights): Returns featured highlight content for a designated Reddit community, such as popular posts and announcements, by subreddit ID.\n",
+  "page_url": "https://www.sandbase.ai/model/reddit/app/user-comments",
+  "created_at": "2026-07-31T04:11:12.346Z"
+}

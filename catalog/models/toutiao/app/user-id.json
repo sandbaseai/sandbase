@@ -1,0 +1,62 @@
+{
+  "name": "toutiao/app/user-id",
+  "display_name": "Toutiao Profile User ID",
+  "type": "api",
+  "vendor": "Toutiao",
+  "vendor_slug": "toutiao",
+  "description": "Resolves a Toutiao user profile URL into numeric and secure user identifiers. Returns the user ID and sec_user_id associated with the provided profile link.",
+  "tags": [
+    "api",
+    "toutiao"
+  ],
+  "capabilities": [
+    "api",
+    "toutiao"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/toutiao/app/user-id"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "user_profile_url"
+    ],
+    "properties": {
+      "user_profile_url": {
+        "type": "string",
+        "title": "User Profile Url",
+        "example": "https://www.toutiao.com/c/user/token/MS4wLjABAAAAwK6echNksY69R8l2vcZudupfhTItbGSGt-8ineO5UaB4L-djqkYDgB6TkAdMvrmW/",
+        "description": "User profile URL"
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.0015,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "examples": [
+    {
+      "input": {
+        "user_profile_url": "https://static.sandbase.ai/examples/4494279d-e579-4329-bbf7-b759ee763f46/input/9295e84f-2dcb-46b2-9db8-9e97dabb7c99.bin"
+      }
+    }
+  ],
+  "readme": "# Toutiao Profile User ID API\n\nLook up account identifiers from a Toutiao user profile link by passing `user_profile_url`.\n\n## Use cases\n\n- Convert web profile links into Toutiao user IDs for downstream queries.\n- Retrieve sec_user_id values needed for Toutiao data integrations.\n- Resolve account identifiers from shared Toutiao user links.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/toutiao/app/user-id\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"user_profile_url\": \"https://www.toutiao.com/c/user/token/MS4wLjABAAAAwK6echNksY69R8l2vcZudupfhTItbGSGt-8ineO5UaB4L-djqkYDgB6TkAdMvrmW/\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `user_profile_url` | string | Yes | User profile URL |\n\n## Example response\n\nReal response for the request above, trimmed to the main fields. User names and long IDs are masked.\n\n```json\n{\n  \"sec_user_id\": \"<user>\",\n  \"user_id\": \"<user>\"\n}\n```\n\n## Notes\n\n- Requires the full profile link in `user_profile_url`.\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [Toutiao Article Details (App)](/model/toutiao/app/article-info): Returns details and interface settings for a specified Toutiao post.\n- [Toutiao Post Comments](/model/toutiao/app/comments): Returns user comments and interaction metrics for a specific Toutiao post.\n- [Toutiao User Profile](/model/toutiao/app/user-info): Get a Toutiao (Jinri Toutiao) user profile by user ID: name, bio, avatar, follower, following and like counts, and content tabs.\n",
+  "page_url": "https://www.sandbase.ai/model/toutiao/app/user-id",
+  "created_at": "2026-07-31T04:18:41.451Z"
+}

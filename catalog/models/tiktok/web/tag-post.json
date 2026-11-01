@@ -1,0 +1,77 @@
+{
+  "name": "tiktok/web/tag-post",
+  "display_name": "TikTok Tag Posts",
+  "type": "api",
+  "vendor": "TikTok",
+  "vendor_slug": "tiktok",
+  "description": "Returns a list of TikTok videos associated with a specific tag or challenge ID. Supports pagination using cursor and count parameters.",
+  "tags": [
+    "api",
+    "tiktok"
+  ],
+  "capabilities": [
+    "api",
+    "tiktok"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/tiktok/web/tag-post"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "challengeID"
+    ],
+    "properties": {
+      "count": {
+        "type": "integer",
+        "title": "Count",
+        "default": 30,
+        "example": 30,
+        "description": "Number per page"
+      },
+      "cursor": {
+        "type": "integer",
+        "title": "Cursor",
+        "default": 0,
+        "example": 0,
+        "description": "Page cursor"
+      },
+      "challengeID": {
+        "type": "string",
+        "title": "Challengeid",
+        "example": "7551",
+        "description": "Tag ID"
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.0015,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "examples": [
+    {
+      "input": {
+        "challengeID": "7551"
+      },
+      "default": true
+    }
+  ],
+  "readme": "# TikTok Tag Posts API\n\nRetrieve videos tied to a specific hashtag challenge by supplying `challengeID`. Supports pagination via `cursor` and `count`.\n\n## Use cases\n\n- Retrieve video content grouped under a specific TikTok hashtag challenge.\n- Analyze trending videos associated with a targeted tag ID.\n- Collect paginated video feeds for hashtag performance research.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/tiktok/web/tag-post\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"challengeID\": \"7551\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `challengeID` | string | Yes | Tag ID |\n| `count` | integer | No | Number per page |\n| `cursor` | integer | No | Page cursor |\n\n## Example response\n\nReal response for the request above, trimmed to the main fields. User names and long IDs are masked.\n\n```json\n{\n  \"itemList\": [\n    {\n      \"video\": {\n        \"bitrateInfo\": [\n          {\n            \"CodecType\": \"h264\",\n            \"GearName\": \"normal_720_0\",\n            \"QualityType\": 10\n          }\n        ]\n      }\n    }\n  ]\n}\n```\n\n## Notes\n\n- Specify the target hashtag identifier using `challengeID`.\n- Manage pagination via `cursor` and configure batch size with `count`.\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [TikTok Video IDs from URLs (Batch)](/model/tiktok/web/all-aweme-id): Resolves and extracts TikTok video IDs from a list of video URLs.\n- [TikTok User Sec User ID Extractor](/model/tiktok/web/all-sec-user-id): Returns a list of sec_user_id identifiers corresponding to TikTok user profile URLs.\n- [TikTok Profile Unique IDs](/model/tiktok/web/all-unique-id): Resolves a batch of TikTok user homepage links to retrieve their corresponding unique identifiers.\n",
+  "page_url": "https://www.sandbase.ai/model/tiktok/web/tag-post",
+  "created_at": "2026-07-31T04:17:47.004Z"
+}

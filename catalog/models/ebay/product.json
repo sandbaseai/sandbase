@@ -1,0 +1,118 @@
+{
+  "name": "ebay/product",
+  "display_name": "eBay Product",
+  "type": "api",
+  "vendor": "eBay",
+  "vendor_slug": "ebay",
+  "description": "Get an eBay product by product ID: title, price, condition, quantity sold, item specifics, media, shipping, returns and seller details.",
+  "tags": [
+    "api",
+    "ebay",
+    "ecommerce",
+    "product-data"
+  ],
+  "capabilities": [
+    "api",
+    "ebay",
+    "ecommerce",
+    "product-data"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}",
+    "passthrough": "POST /v1/api/ebay/product"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "product_id"
+    ],
+    "properties": {
+      "lang": {
+        "type": [
+          "string",
+          "number",
+          "boolean"
+        ],
+        "description": "The language to use for the search. Normally, it defaults to `en-US`, but some locales use localized interface (Japan, Argentina etc.) so override might be helpful. This parameter available only for `United States` eBay domain and only when `locale` is set."
+      },
+      "locale": {
+        "type": [
+          "string",
+          "number",
+          "boolean"
+        ],
+        "description": "From where you want the search to originate from. Head to the eBay locales for a full list of supported locales."
+      },
+      "product_id": {
+        "type": [
+          "string",
+          "number",
+          "boolean"
+        ],
+        "example": "326405504746",
+        "description": "An ID of the product to get results for. Normally, it can be found in product link from search results: `https://www.ebay.com/itm/{product_id}`"
+      },
+      "ebay_domain": {
+        "type": [
+          "string",
+          "number",
+          "boolean"
+        ],
+        "description": "The eBay domain to use. It defaults to `ebay.com`. Head to the eBay domains for a full list of supported domains."
+      },
+      "json_restrictor": {
+        "type": [
+          "string",
+          "number",
+          "boolean"
+        ],
+        "description": "The fields you want to include in the output, reducing payload size for faster response. See the JSON Restrictor documentation for more details."
+      },
+      "shipping_country": {
+        "type": [
+          "string",
+          "number",
+          "boolean"
+        ],
+        "description": "The shipping country to use for shipping data calculation. Head to the eBay shipping countries for a full list of supported countries."
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "required": [
+      "id",
+      "status",
+      "model"
+    ],
+    "properties": {
+      "id": {
+        "type": "string"
+      },
+      "model": {
+        "type": "string"
+      },
+      "status": {
+        "type": "string"
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.015,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "readme": "# eBay Product\n\nGet an eBay product by product ID: title, price, condition, quantity sold, item specifics, media, shipping, returns and seller details.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/ebay/product\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"product_id\": \"326405504746\"}'\n```\n\nThis API runs asynchronously. The call returns a task `id` with status `pending`; poll `GET https://api.sandbase.ai/v1/run/{id}` until `status` is `completed` and read the result from `outputs[0].data`.\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `product_id` | string/number/boolean | Yes | An ID of the product to get results for. Normally, it can be found in product link from search results: `https://www.ebay.com/itm/{product_id}` |\n| `ebay_domain` | string/number/boolean | No | The eBay domain to use. It defaults to `ebay.com`. Head to the eBay domains for a full list of supported domains. |\n| `json_restrictor` | string/number/boolean | No | The fields you want to include in the output, reducing payload size for faster response. See the JSON Restrictor documentation for more details. |\n| `lang` | string/number/boolean | No | The language to use for the search. Normally, it defaults to `en-US`, but some locales use localized interface (Japan, Argentina etc.) so override might be helpful. This parameter available only for `… |\n| `locale` | string/number/boolean | No | From where you want the search to originate from. Head to the eBay locales for a full list of supported locales. |\n| `shipping_country` | string/number/boolean | No | The shipping country to use for shipping data calculation. Head to the eBay shipping countries for a full list of supported countries. |\n\n## Pricing\n\nFlat price per call. Failed calls are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/ebay/product",
+  "created_at": "2026-10-28T15:39:51.691Z"
+}

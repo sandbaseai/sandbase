@@ -1,0 +1,75 @@
+{
+  "name": "google/patents",
+  "display_name": "Google Patents",
+  "type": "api",
+  "vendor": "Google",
+  "vendor_slug": "google",
+  "description": "Search Google Patents with title, patent number, inventor, assignee, key dates, and PDF link.",
+  "tags": [
+    "api",
+    "google",
+    "social-media"
+  ],
+  "capabilities": [
+    "api",
+    "google",
+    "social-media"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/google/patents"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "query"
+    ],
+    "properties": {
+      "query": {
+        "type": "string",
+        "example": "wireless charging",
+        "description": "The Google Patents search query."
+      }
+    },
+    "additionalProperties": false
+  },
+  "response_schema": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string"
+      },
+      "model": {
+        "type": "string"
+      },
+      "status": {
+        "type": "string"
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "data": {
+              "type": "object",
+              "description": "Normalized result for this request."
+            }
+          }
+        }
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "usage_based",
+    "note": "Billed per call from metered usage; the reference price is typical.",
+    "reference_price": 0.00085
+  },
+  "readme": "# Google Patents API\n\nSearch Google Patents with title, patent number, inventor, assignee, key dates, and PDF link.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/google/patents\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"query\": \"wireless charging\"}'\n```\n\nThe result is returned in `outputs[0].data`. A lookup that finds nothing still succeeds and returns `found: false`.\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `query` | string | Yes | The Google Patents search query. |\n\n## Pricing\n\nBilled at the actual cost of each call, usually $0.00085 per request. A call can cost more when the first data source fails and another one answers. Failed calls are not charged. Lookups that find nothing and searches with no results are billed at their actual cost, which is often lower and can be $0.\n",
+  "page_url": "https://www.sandbase.ai/model/google/patents",
+  "created_at": "2026-11-01T12:14:32.038Z"
+}

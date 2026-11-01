@@ -1,0 +1,96 @@
+{
+  "name": "tiktok-shop/product-reviews",
+  "display_name": "TikTok Shop Product Reviews",
+  "type": "api",
+  "vendor": "TikTok Shop",
+  "vendor_slug": "tiktok-shop",
+  "description": "Fetch customer reviews for a TikTok Shop product by URL (rating, text, reviewer, country, and verified-buyer flag).",
+  "tags": [
+    "api",
+    "tiktok-shop",
+    "social-media"
+  ],
+  "capabilities": [
+    "api",
+    "tiktok-shop",
+    "social-media"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/tiktok-shop/product-reviews"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "url"
+    ],
+    "properties": {
+      "url": {
+        "type": "string",
+        "example": "https://www.tiktok.com/shop/pdp/cat-nail-clipper-by-potaroma-adjustable-sizes-built-in-file-safe-for-kittens-cats/1731578642912612516",
+        "description": "TikTok Shop product URL (e.g. https://www.tiktok.com/shop/pdp/.../1729385633899532161)."
+      },
+      "page": {
+        "type": "integer",
+        "default": 1,
+        "minimum": 1,
+        "description": "1-based results page. Use with hasMore in the output to paginate."
+      },
+      "region": {
+        "type": "string",
+        "description": "Two-letter country code of the product's shop region (e.g. US). Strongly recommended for correct results."
+      },
+      "requireFields": {
+        "type": "array",
+        "items": {
+          "enum": [
+            "images",
+            "rating"
+          ],
+          "type": "string"
+        },
+        "description": "Optional; omit it and routing is unchanged, with the cheapest source serving. Name the output fields this request must be able to return, for example `images`, and it is served only by a source that returns every one of them. Fields you do not name are still returned whenever the serving source has them. This can raise your price: when the cheapest source cannot return a named field, a dearer source serves, and you are quoted and charged its price. A named field can still be empty on a review that genuinely lacks it. Naming a combination that no single source returns together is refused as invalid input, with no charge."
+      }
+    },
+    "additionalProperties": false
+  },
+  "response_schema": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string"
+      },
+      "model": {
+        "type": "string"
+      },
+      "status": {
+        "type": "string"
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "data": {
+              "type": "object",
+              "description": "Normalized result for this request."
+            }
+          }
+        }
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "usage_based",
+    "note": "Billed per call from metered usage; the reference price is typical.",
+    "reference_price": 0.00095
+  },
+  "readme": "# TikTok Shop Product Reviews API\n\nFetch customer reviews for a TikTok Shop product by URL (rating, text, reviewer, country, and verified-buyer flag).\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/tiktok-shop/product-reviews\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"url\": \"https://www.tiktok.com/shop/pdp/cat-nail-clipper-by-potaroma-adjustable-sizes-built-in-file-safe-for-kittens-cats/1731578642912612516\"}'\n```\n\nThe result is returned in `outputs[0].data`. A lookup that finds nothing still succeeds and returns `found: false`.\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `url` | string | Yes | TikTok Shop product URL (e.g. https://www.tiktok.com/shop/pdp/.../1729385633899532161). |\n| `page` | integer | No | 1-based results page. Use with hasMore in the output to paginate. Default `1`. |\n| `region` | string | No | Two-letter country code of the product's shop region (e.g. US). Strongly recommended for correct results. |\n| `requireFields` | array | No | Optional; omit it and routing is unchanged, with the cheapest source serving. Name the output fields this request must be able to return, for example `images`, and it is served only by a source that returns every one of  |\n\n## Pricing\n\nBilled at the actual cost of each call, usually $0.00095 per request. A call can cost more when the first data source fails and another one answers. Failed calls are not charged. Lookups that find nothing and searches with no results are billed at their actual cost, which is often lower and can be $0.\n",
+  "page_url": "https://www.sandbase.ai/model/tiktok-shop/product-reviews",
+  "created_at": "2026-11-01T12:38:16.388Z"
+}

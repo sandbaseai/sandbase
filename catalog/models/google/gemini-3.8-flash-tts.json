@@ -1,0 +1,172 @@
+{
+  "name": "google/gemini-3.8-flash-tts",
+  "display_name": "Gemini 3.8 Flash TTS",
+  "type": "audio",
+  "vendor": "Google",
+  "vendor_slug": "google",
+  "description": "Gemini 3.8 Flash TTS by Google turns text into expressive speech with 30 prebuilt voices and natural-language style direction.",
+  "tags": [
+    "text-to-speech"
+  ],
+  "capabilities": [
+    "text-to-speech"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "prompt"
+    ],
+    "properties": {
+      "voice": {
+        "enum": [
+          "Achernar",
+          "Achird",
+          "Algenib",
+          "Algieba",
+          "Alnilam",
+          "Aoede",
+          "Autonoe",
+          "Callirrhoe",
+          "Charon",
+          "Despina",
+          "Enceladus",
+          "Erinome",
+          "Fenrir",
+          "Gacrux",
+          "Iapetus",
+          "Kore",
+          "Laomedeia",
+          "Leda",
+          "Orus",
+          "Pulcherrima",
+          "Puck",
+          "Rasalgethi",
+          "Sadachbia",
+          "Sadaltager",
+          "Schedar",
+          "Sulafat",
+          "Umbriel",
+          "Vindemiatrix",
+          "Zephyr",
+          "Zubenelgenubi"
+        ],
+        "type": "string",
+        "title": "Voice",
+        "default": "Kore",
+        "description": "Prebuilt voice for single-speaker speech."
+      },
+      "prompt": {
+        "type": "string",
+        "title": "Prompt",
+        "examples": [
+          "Have a wonderful day!"
+        ],
+        "minLength": 1,
+        "description": "Verbatim text to speak. Put delivery directions in style_instructions; inline vocal events may use <laugh> or <sigh>. The provider limits the complete input to 8,192 tokens."
+      },
+      "style_instructions": {
+        "type": "string",
+        "title": "Style Instructions",
+        "examples": [
+          "cheerful and friendly"
+        ],
+        "description": "Delivery style, separate from the spoken transcript."
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "title": "GenerationResponse",
+    "required": [
+      "id",
+      "status"
+    ],
+    "properties": {
+      "id": {
+        "type": "string",
+        "description": "Unique identifier for the generation task."
+      },
+      "error": {
+        "type": "string",
+        "description": "Error message if the task failed. Empty on success."
+      },
+      "model": {
+        "type": "string",
+        "description": "Model ID used for the prediction."
+      },
+      "status": {
+        "enum": [
+          "pending",
+          "running",
+          "completed",
+          "failed",
+          "timeout"
+        ],
+        "type": "string",
+        "description": "Status of the task: pending, running, completed, failed, or timeout."
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "title": "OutputItem",
+          "required": [
+            "url"
+          ],
+          "properties": {
+            "url": {
+              "type": "string",
+              "description": "The URL where the generated content can be downloaded from."
+            },
+            "content_type": {
+              "type": "string",
+              "description": "The MIME type of the output file."
+            }
+          }
+        },
+        "description": "Array of generated content. Empty when status is not completed."
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "formula",
+    "formula": "Math.max(1.0, Math.ceil(len(params.prompt ?? \"\") / 1000.0)) * 0.045",
+    "formula_variables": [
+      "params.prompt"
+    ],
+    "reference_price": 0.045,
+    "price_examples": [
+      {
+        "params": {},
+        "usd": 0.045
+      }
+    ]
+  },
+  "examples": [
+    {
+      "input": {
+        "prompt": "Have a wonderful day!"
+      },
+      "output": [
+        {
+          "url": "https://static.sandbase.ai/examples/e0b0d70f-b0e3-4fdd-9c75-dcda4406d5eb/output/8f4857ba-d10a-4099-b8a2-1d979841fcdf.wav"
+        }
+      ],
+      "default": true
+    }
+  ],
+  "readme": "# Gemini 3.8 Flash TTS\n\nGemini 3.8 Flash TTS turns text into expressive speech with 30 prebuilt voices. Direct the delivery in plain language with `style_instructions`, such as tone, pace, or accent.\n\n## Fields\n\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `prompt` | string, required | — | Text to speak. |\n| `style_instructions` | string | — | How to say it, e.g. “warm and unhurried, slight smile”. |\n| `voice` | `Achernar` / `Achird` / `Algenib` / `Algieba` / `Alnilam` / `Aoede` / `Autonoe` / `Callirrhoe` / `Charon` / `Despina` / `Enceladus` / `Erinome` / `Fenrir` / `Gacrux` / `Iapetus` / `Kore` / `Laomedeia` / `Leda` / `Orus` / `Pulcherrima` / `Puck` / `Rasalgethi` / `Sadachbia` / `Sadaltager` / `Schedar` / `Sulafat` / `Umbriel` / `Vindemiatrix` / `Zephyr` / `Zubenelgenubi` | `Kore` | Prebuilt voice. |\n\n## Billing\n\n$0.045 per started 1,000 characters of text, with a one-unit minimum.\n\n| Text | Price |\n|---|---|\n| 200 characters | $0.045 |\n| 1,000 characters | $0.045 |\n| 2,500 characters | $0.135 |\n\nFailed runs are not charged.\n\n## Prompting\n\n- Put delivery direction in `style_instructions`, not in the text itself.\n\n## Limits\n\n- Single speaker per request.\n\n## Also on SandBase\n\nRelated: `google/gemini-3.8-flash-lite-tts` (cheaper), `google/gemini-3.1-flash-tts` (multi-speaker).\n",
+  "cover_url": "https://static.sandbase.ai/covers/google/gemini-3.8-flash-tts/cover-flare-20261008044659.webp",
+  "page_url": "https://www.sandbase.ai/model/google/gemini-3.8-flash-tts",
+  "published_at": "2026-09-25T19:10:28.801Z",
+  "created_at": "2026-10-06T10:45:01.671Z"
+}

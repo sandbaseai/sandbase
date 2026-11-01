@@ -1,0 +1,105 @@
+{
+  "name": "1688/search/items",
+  "display_name": "1688 Product Search",
+  "type": "api",
+  "vendor": "1688",
+  "vendor_slug": "1688",
+  "description": "Search 1688 wholesale products by keyword with price, minimum order quantity, tiered prices, sales, repurchase rate and delivery info. Sort and filter by price, MOQ, dropshipping, free shipping and factory.",
+  "tags": [
+    "api",
+    "1688",
+    "ecommerce"
+  ],
+  "capabilities": [
+    "api",
+    "1688",
+    "ecommerce"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/1688/search/items"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "keyword"
+    ],
+    "properties": {
+      "moq": {
+        "type": "integer",
+        "description": "Minimum order quantity filter."
+      },
+      "page": {
+        "type": "integer",
+        "default": 1,
+        "description": "Page number, starting at 1."
+      },
+      "sort": {
+        "enum": [
+          "default",
+          "sales",
+          "price_up",
+          "price_down"
+        ],
+        "type": "string",
+        "default": "default",
+        "description": "Product sort order."
+      },
+      "keyword": {
+        "type": "string",
+        "example": "蓝牙耳机",
+        "description": "Search keyword."
+      },
+      "pageSize": {
+        "type": "integer",
+        "default": 20,
+        "description": "Number of items requested per page. The returned count may differ."
+      },
+      "priceEnd": {
+        "type": "string",
+        "description": "Maximum price filter in CNY."
+      },
+      "newArrival": {
+        "type": "boolean",
+        "description": "Filter for new products."
+      },
+      "priceStart": {
+        "type": "string",
+        "description": "Minimum price filter in CNY."
+      },
+      "freeShipping": {
+        "type": "boolean",
+        "description": "Filter for free shipping."
+      },
+      "isSuperFactory": {
+        "type": "boolean",
+        "description": "Optional super-factory filter."
+      },
+      "supportDropshipping": {
+        "type": "boolean",
+        "description": "Filter for support for dropshipping."
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.013889,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "readme": "# 1688 Product Search API\n\nSearch 1688 wholesale products by keyword with price, minimum order quantity, tiered prices, sales, repurchase rate and delivery info. Sort and filter by price, MOQ, dropshipping, free shipping and factory.\n\nThe response is the platform's original data structure.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/1688/search/items\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"keyword\": \"蓝牙耳机\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `keyword` | string | Yes | Search keyword. |\n| `page` | integer | No | Page number, starting at 1. |\n| `pageSize` | integer | No | Number of items requested per page. The returned count may differ. |\n| `sort` | string | No | Product sort order. |\n| `moq` | integer | No | Minimum order quantity filter. |\n| `priceStart` | string | No | Minimum price filter in CNY. |\n| `priceEnd` | string | No | Maximum price filter in CNY. |\n| `newArrival` | boolean | No | Filter for new products. |\n| `supportDropshipping` | boolean | No | Filter for support for dropshipping. |\n| `freeShipping` | boolean | No | Filter for free shipping. |\n| `isSuperFactory` | boolean | No | Optional super-factory filter. |\n\n## Pricing\n\nFlat price per call. Failed calls are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/1688/search/items",
+  "created_at": "2026-10-29T02:19:11.663Z"
+}

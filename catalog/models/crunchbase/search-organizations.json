@@ -1,0 +1,69 @@
+{
+  "name": "crunchbase/search-organizations",
+  "display_name": "Crunchbase Search Organizations",
+  "type": "api",
+  "vendor": "Crunchbase",
+  "vendor_slug": "crunchbase",
+  "description": "Full-text search over Crunchbase organizations. Returns results with organization details including categories, location, employee count, rank, and operating status.",
+  "tags": [
+    "api",
+    "crunchbase",
+    "company-people"
+  ],
+  "capabilities": [
+    "api",
+    "crunchbase",
+    "company-people"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}",
+    "passthrough": "POST /v1/api/crunchbase/search-organizations"
+  },
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "limit": {
+        "type": "integer",
+        "maximum": 9007199254740991,
+        "minimum": -9007199254740991,
+        "description": "Max results to return."
+      },
+      "query": {
+        "type": "string",
+        "description": "Search keyword for organization name (e.g. 'stripe', 'google'). Omitting returns all organizations."
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "required": [
+      "id",
+      "status",
+      "model"
+    ],
+    "properties": {
+      "id": {
+        "type": "string"
+      },
+      "model": {
+        "type": "string"
+      },
+      "status": {
+        "type": "string"
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.02
+  },
+  "readme": "# Crunchbase Search Organizations\n\nFull-text search over Crunchbase organizations. Returns results with organization details including categories, location, employee count, rank, and operating status.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/crunchbase/search-organizations\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{}'\n```\n\nThis API runs asynchronously. The call returns a task `id` with status `pending`; poll `GET https://api.sandbase.ai/v1/run/{id}` until `status` is `completed` and read the result from `outputs[0].data`.\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `limit` | integer | No | Max results to return. |\n| `query` | string | No | Search keyword for organization name (e.g. 'stripe', 'google'). Omitting returns all organizations. |\n\n## Pricing\n\nFlat price per call. Failed calls are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/crunchbase/search-organizations",
+  "created_at": "2026-10-30T09:25:18.423Z"
+}

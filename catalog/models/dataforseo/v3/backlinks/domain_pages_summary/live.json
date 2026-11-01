@@ -1,0 +1,44 @@
+{
+  "name": "dataforseo/v3/backlinks/domain_pages_summary/live",
+  "display_name": "DataForSEO Backlinks Domain Pages Summary",
+  "type": "api",
+  "vendor": "DataForSEO",
+  "vendor_slug": "dataforseo",
+  "description": "Backlink metrics for each page of a domain: backlinks, referring domains and rank per page.",
+  "tags": [
+    "backlinks",
+    "seo"
+  ],
+  "capabilities": [
+    "backlinks",
+    "seo"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/dataforseo/v3/backlinks/domain_pages_summary/live"
+  },
+  "input_schema": {
+    "type": "object",
+    "properties": {},
+    "description": "Request parameters forwarded to DataForSEO /v3/backlinks/domain_pages_summary/live. See DataForSEO docs for full schema.",
+    "additionalProperties": true
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "usage_based",
+    "note": "Billed per call from metered usage; the reference price is typical.",
+    "reference_price": 0.02436
+  },
+  "readme": "# DataForSEO Backlinks Domain Pages Summary API\n\nBacklink metrics for each page of a domain: backlinks, referring domains and rank per page.\n\nRequest fields follow the official DataForSEO `/v3/backlinks/domain_pages_summary/live` task schema (one task per call). The response is DataForSEO's original JSON; results are in `tasks[].result`.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/dataforseo/v3/backlinks/domain_pages_summary/live\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"target\": \"nike.com\", \"limit\": 10}'\n```\n\n## Parameters\n\nThe JSON body is forwarded to the upstream endpoint. Main fields:\n\n| Name | Description |\n|---|---|\n| `target` | Domain or subdomain, e.g. \"nike.com\". |\n| `limit` | Maximum number of pages to return. |\n\n## Reference\n\n- Official docs: https://docs.dataforseo.com/v3/backlinks/domain_pages_summary/live/\n\n## Pricing\n\nBilled at the actual cost of each call, about $0.02436 for the request above. The cost grows with the number of rows, targets or tokens a call returns. Failed calls are not charged. Searches with no results are billed at their actual cost.\n",
+  "page_url": "https://www.sandbase.ai/model/dataforseo/v3/backlinks/domain_pages_summary/live",
+  "published_at": "2026-11-01T00:00:00Z",
+  "created_at": "2026-11-01T14:23:35.645Z"
+}

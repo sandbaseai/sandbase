@@ -1,0 +1,53 @@
+{
+  "name": "kuaishou/web/one-video",
+  "display_name": "Kuaishou Single Video Details",
+  "type": "api",
+  "vendor": "Kuaishou",
+  "vendor_slug": "kuaishou",
+  "description": "Returns detailed metadata for a single Kuaishou video post using shared link content. Note that photo-only posts are not supported.",
+  "tags": [
+    "api",
+    "kuaishou"
+  ],
+  "capabilities": [
+    "api",
+    "kuaishou"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/kuaishou/web/one-video"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "share_text"
+    ],
+    "properties": {
+      "share_text": {
+        "type": "string",
+        "title": "作品分享链接/Photo share link"
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.003,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "readme": "# Kuaishou Single Video Details API\n\nRetrieve detailed metadata for a specific video on Kuaishou using the `share_text` parameter. This endpoint does not return data for photo-only posts.\n\n## Use cases\n\n- Extract video metadata from a shared Kuaishou post link.\n- Inspect individual Kuaishou video statistics and attributes.\n- Process video content links shared across social platforms.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/kuaishou/web/one-video\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"share_text\": \"<share_text>\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `share_text` | string | Yes | — |\n\n## Notes\n\n- Photo-only posts are not supported by this endpoint.\n- Input must be provided via the `share_text` parameter.\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [Kuaishou Web Share Short URL](/model/kuaishou/web/generate-share-short-url): Returns a shareable short URL for a specified Kuaishou video or photo post.\n- [Kuaishou User ID Lookup](/model/kuaishou/web/get-user-id): Resolves a Kuaishou user ID from a provided user share link.\n- [Kuaishou Web Hot List](/model/kuaishou/web/hot-list-v1): Returns the current trending hot list from Kuaishou Web.\n",
+  "page_url": "https://www.sandbase.ai/model/kuaishou/web/one-video",
+  "created_at": "2026-07-31T03:58:39.978Z"
+}

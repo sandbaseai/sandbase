@@ -1,0 +1,63 @@
+{
+  "name": "threads/web/search-profiles",
+  "display_name": "Threads Profile Search",
+  "type": "api",
+  "vendor": "Threads",
+  "vendor_slug": "threads",
+  "description": "Searches Threads user profiles based on a specified text query string. Returns matching user accounts and profile information from the platform.",
+  "tags": [
+    "api",
+    "threads"
+  ],
+  "capabilities": [
+    "api",
+    "threads"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/threads/web/search-profiles"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "query"
+    ],
+    "properties": {
+      "query": {
+        "type": "string",
+        "title": "Query",
+        "example": "OpenAI",
+        "description": "Search query, for example: mark"
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.003,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "examples": [
+    {
+      "input": {
+        "query": "mark"
+      },
+      "default": true
+    }
+  ],
+  "readme": "# Threads Profile Search API\n\nLook up Threads user profiles by supplying a text search term via the `query` parameter.\n\n## Use cases\n\n- Find relevant Threads accounts matching brand or organization names.\n- Discover user profiles based on specific keywords or handles.\n- Locate public figures and creators across the Threads network.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/threads/web/search-profiles\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"query\": \"OpenAI\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `query` | string | Yes | Search query, for example: mark |\n\n## Notes\n\n- The `query` parameter specifies the text search term, such as a name or handle.\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [Threads Post Detail](/model/threads/web/post-detail): Returns detailed information for a specific Threads post using its numeric ID.\n- [Threads Post Detail (V2)](/model/threads/web/post-detail-v2): Returns detailed information for a specific Threads post.\n- [Threads Recent Content Search](/model/threads/web/search-recent): Searches recent Threads content matching a specified keyword query.\n",
+  "page_url": "https://www.sandbase.ai/model/threads/web/search-profiles",
+  "created_at": "2026-07-31T04:12:47.831Z"
+}

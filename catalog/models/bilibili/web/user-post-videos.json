@@ -1,0 +1,78 @@
+{
+  "name": "bilibili/web/user-post-videos",
+  "display_name": "Bilibili User Post Videos",
+  "type": "api",
+  "vendor": "Bilibili",
+  "vendor_slug": "bilibili",
+  "description": "Returns videos posted on a Bilibili user's homepage. Query by user identifier with options to control sorting order and page number.",
+  "tags": [
+    "api",
+    "bilibili"
+  ],
+  "capabilities": [
+    "api",
+    "bilibili"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/bilibili/web/user-post-videos"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "uid"
+    ],
+    "properties": {
+      "pn": {
+        "type": "integer",
+        "title": "Pn",
+        "default": 1,
+        "example": 1,
+        "description": "Page number"
+      },
+      "uid": {
+        "type": "string",
+        "title": "Uid",
+        "example": "178360345",
+        "description": "User UID"
+      },
+      "order": {
+        "type": "string",
+        "title": "Order",
+        "default": "pubdate",
+        "example": "pubdate",
+        "description": "Order method"
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.0015,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "examples": [
+    {
+      "input": {
+        "order": "pubdate",
+        "pn": 1,
+        "uid": "178360345"
+      }
+    }
+  ],
+  "readme": "# Bilibili User Post Videos API\n\nFetch video lists from a creator's Bilibili homepage by supplying `uid`. You can also specify pagination with `pn` and sort results using `order`.\n\n## Use cases\n\n- Browse video uploads from a specific Bilibili creator.\n- Monitor new content posted by tracked Bilibili accounts.\n- Sort a user's uploaded videos by post date.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/bilibili/web/user-post-videos\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"uid\": \"178360345\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `uid` | string | Yes | User UID |\n| `pn` | integer | No | Page number |\n| `order` | string | No | Order method |\n\n## Notes\n\n- Use `uid` to specify the target Bilibili user identifier.\n- Use `pn` for page navigation and `order` to set the result sort method.\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [Bilibili Streaming Areas](/model/bilibili/web/all-live-areas): Returns the complete list of streaming broadcast areas and categories on Bilibili.\n- [Bilibili BV to AID Converter](/model/bilibili/web/bv-to-aid): Converts a Bilibili BV identifier to its corresponding numeric AID value.\n- [Bilibili User Collection Folders](/model/bilibili/web/collect-folders): Returns the collection folders owned by a specific Bilibili user.\n",
+  "page_url": "https://www.sandbase.ai/model/bilibili/web/user-post-videos",
+  "created_at": "2026-07-31T03:54:04.24Z"
+}

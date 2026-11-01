@@ -1,0 +1,153 @@
+{
+  "name": "alibaba/wan/2.7/image-to-image",
+  "display_name": "Wan 2.7 Image to Image",
+  "type": "image",
+  "vendor": "Alibaba",
+  "vendor_slug": "alibaba",
+  "description": "Alibaba Wan 2.7 image-to-image model that edits images from a natural-language instruction, with multi-reference support and selectable aspect ratio.",
+  "tags": [
+    "image-to-image"
+  ],
+  "capabilities": [
+    "image-to-image"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "prompt",
+      "images"
+    ],
+    "properties": {
+      "images": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        },
+        "title": "Images",
+        "examples": [
+          "https://static.sandbase.ai/samples/image-editing/edit-style-watercolor-source.png"
+        ],
+        "description": "List of input image URLs for editing. Up to 4 images."
+      },
+      "prompt": {
+        "type": "string",
+        "title": "Prompt",
+        "default": "Convert this photograph into a delicate watercolor painting style with visible brush strokes and soft color bleeding",
+        "maxLength": 10000,
+        "minLength": 1,
+        "description": "The editing instruction describing what changes to make."
+      },
+      "aspect_ratio": {
+        "enum": [
+          "21:9",
+          "16:9",
+          "4:3",
+          "1:1",
+          "3:4",
+          "9:16",
+          "9:21"
+        ],
+        "type": "string",
+        "title": "Aspect Ratio",
+        "description": "The aspect ratio of the generated image."
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "title": "GenerationResponse",
+    "required": [
+      "id",
+      "status"
+    ],
+    "properties": {
+      "id": {
+        "type": "string",
+        "description": "Unique identifier for the generation task."
+      },
+      "error": {
+        "type": "string",
+        "description": "Error message if the task failed. Empty on success."
+      },
+      "model": {
+        "type": "string",
+        "description": "Model ID used for the prediction."
+      },
+      "status": {
+        "enum": [
+          "pending",
+          "running",
+          "completed",
+          "failed",
+          "timeout"
+        ],
+        "type": "string",
+        "description": "Status of the task: pending, running, completed, failed, or timeout."
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "title": "OutputItem",
+          "required": [
+            "url"
+          ],
+          "properties": {
+            "url": {
+              "type": "string",
+              "description": "The URL where the generated content can be downloaded from."
+            },
+            "content_type": {
+              "type": "string",
+              "description": "The MIME type of the output file."
+            }
+          }
+        },
+        "description": "Array of generated content. Empty when status is not completed."
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "formula",
+    "formula": "0.03",
+    "formula_variables": [],
+    "reference_price": 0.03,
+    "price_examples": [
+      {
+        "params": {},
+        "usd": 0.03
+      }
+    ]
+  },
+  "examples": [
+    {
+      "input": {
+        "aspect_ratio": "9:16",
+        "images": [
+          "https://static.sandbase.ai/examples/0eeefa8f-0c4d-4a75-ad7e-6ead1df9e998/input/2a3945fe-b5cb-4a5c-bc95-e9b14b69d6ed.png"
+        ],
+        "prompt": "Turn the scene into a snowy winter night"
+      },
+      "output": [
+        {
+          "url": "https://static.sandbase.ai/examples/0eeefa8f-0c4d-4a75-ad7e-6ead1df9e998/output/fa02f813-dc4c-4b72-be4d-deaccae048ae.png"
+        }
+      ],
+      "default": true
+    }
+  ],
+  "readme": "# Wan 2.7 Image to Image\n\nEdit or restyle pictures with an instruction. Send one or more images and describe the change; Wan 2.7 keeps what you do not mention.\n\n## Fields\n\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `prompt` | string, required | — | Up to 10,000 characters. |\n| `images` | image URL[], required | — | Images to edit or combine, referred to as Image 1, Image 2, … |\n| `aspect_ratio` | `21:9` / `16:9` / `4:3` / `1:1` / `3:4` / `9:16` / `9:21` | — | Omit to follow the first input image. |\n\n## Billing\n\n$0.03 per output image, Alibaba's list price. Input images are not metered.\n\n| Request | Price |\n|---|---|\n| One image | $0.03 |\n\nFailed runs are not charged.\n\n## Prompting\n\n- State the change and what must stay: “change the sky to sunset; keep the lighthouse and the rocks”.\n- With several inputs, say which image supplies which element.\n\n## Limits\n\n- One output image per request.\n\n## Also on SandBase\n\nOther Wan 2.7 image endpoints: `alibaba/wan/2.7/text-to-image`, `alibaba/wan/2.7/pro/text-to-image`, `alibaba/wan/2.7/pro/image-to-image`.\n",
+  "cover_url": "https://static.sandbase.ai/covers/alibaba/wan/2.7/image-to-image/cover-flare-20261005144355.webp",
+  "page_url": "https://www.sandbase.ai/model/alibaba/wan/2.7/image-to-image",
+  "published_at": "2026-04-01T12:21:58.544Z",
+  "created_at": "2026-10-05T02:23:59.988Z"
+}

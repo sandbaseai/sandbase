@@ -1,0 +1,206 @@
+{
+  "name": "kwaivgi/kling-video/v4/text-to-video",
+  "display_name": "Kling V4 Text to Video",
+  "type": "video",
+  "vendor": "KwaiVGI",
+  "vendor_slug": "kwaivgi",
+  "description": "Kling V4 Text to Video by Kuaishou turns a text prompt into a 3-30 second video at 720p or 1080p.",
+  "tags": [
+    "text-to-video"
+  ],
+  "capabilities": [
+    "text-to-video"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "prompt"
+    ],
+    "properties": {
+      "prompt": {
+        "type": "string",
+        "title": "Prompt",
+        "examples": [
+          "A detective in a black trench coat stands on a rooftop in the rain, looking through a telescope at the street below."
+        ],
+        "description": "Describe subject, action, camera and light."
+      },
+      "duration": {
+        "type": "integer",
+        "title": "Duration",
+        "default": 5,
+        "maximum": 30,
+        "minimum": 3,
+        "description": "Output length in seconds (3-30)."
+      },
+      "resolution": {
+        "enum": [
+          "720p",
+          "1080p"
+        ],
+        "type": "string",
+        "title": "Resolution",
+        "default": "1080p",
+        "description": "Output resolution."
+      },
+      "aspect_ratio": {
+        "enum": [
+          "16:9",
+          "9:16",
+          "1:1",
+          "21:9"
+        ],
+        "type": "string",
+        "title": "Aspect Ratio",
+        "default": "16:9",
+        "description": "Output frame shape."
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "title": "GenerationResponse",
+    "required": [
+      "id",
+      "status"
+    ],
+    "properties": {
+      "id": {
+        "type": "string",
+        "description": "Unique identifier for the generation task."
+      },
+      "error": {
+        "type": "string",
+        "description": "Error message if the task failed. Empty on success."
+      },
+      "model": {
+        "type": "string",
+        "description": "Model ID used for the prediction."
+      },
+      "status": {
+        "enum": [
+          "pending",
+          "running",
+          "completed",
+          "failed",
+          "timeout"
+        ],
+        "type": "string",
+        "description": "Status of the task: pending, running, completed, failed, or timeout."
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "title": "OutputItem",
+          "required": [
+            "url"
+          ],
+          "properties": {
+            "url": {
+              "type": "string",
+              "description": "The URL where the generated content can be downloaded from."
+            },
+            "content_type": {
+              "type": "string",
+              "description": "The MIME type of the output file."
+            }
+          }
+        },
+        "description": "Array of generated content. Empty when status is not completed."
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "formula",
+    "formula": "(params.duration ?? 5) * ((params.resolution ?? \"1080p\") == \"720p\" ? 0.157 : 0.235)",
+    "formula_variables": [
+      "params.duration",
+      "params.resolution"
+    ],
+    "reference_price": 1.175,
+    "price_examples": [
+      {
+        "params": {
+          "duration": 3,
+          "resolution": "720p"
+        },
+        "usd": 0.471
+      },
+      {
+        "params": {
+          "duration": 3,
+          "resolution": "1080p"
+        },
+        "usd": 0.705
+      },
+      {
+        "params": {
+          "duration": 5,
+          "resolution": "720p"
+        },
+        "usd": 0.785
+      },
+      {
+        "params": {
+          "duration": 5,
+          "resolution": "1080p"
+        },
+        "usd": 1.175
+      },
+      {
+        "params": {
+          "duration": 30,
+          "resolution": "720p"
+        },
+        "usd": 4.71
+      },
+      {
+        "params": {
+          "duration": 30,
+          "resolution": "1080p"
+        },
+        "usd": 7.05
+      }
+    ]
+  },
+  "examples": [
+    {
+      "input": {
+        "aspect_ratio": "16:9",
+        "prompt": "Close-up: a single drop of water falls from the tip of a leaf into a shallow dish, creating concentric ripples. Warm window light gives the ripples a golden glow. Macro cinematography, photorealistic."
+      },
+      "output": [
+        {
+          "url": "https://static.sandbase.ai/examples/d9d2539c-75cd-4ee7-b7a7-ee70aa5d0db0/output/54ab6613-48ea-4b20-8c2d-c299edea2f12.mp4"
+        }
+      ],
+      "default": true
+    },
+    {
+      "input": {
+        "aspect_ratio": "16:9",
+        "prompt": "A detective in a black trench coat stands on a rooftop in the rain, looking through a telescope at the neon street below. Slow push-in, cinematic lighting."
+      },
+      "output": [
+        {
+          "url": "https://static.sandbase.ai/examples/d3bb2cd7-cc16-46e9-aab7-369af8d51936/output/03c4ea55-bb8f-4892-88e7-652c29d9b8d8.mp4"
+        }
+      ]
+    }
+  ],
+  "readme": "# Kling V4 Text to Video\nKling V4 text-to-video: write a scene and get back a 3–30 second clip at 720p or 1080p.\n## Fields\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `prompt` | string, required | — | Up to 2,500 characters. |\n| `aspect_ratio` | `16:9` / `9:16` / `1:1` / `21:9` | `16:9` | Output frame shape. |\n| `resolution` | `720p` / `1080p` | `1080p` | Output resolution. |\n| `duration` | 3–30 | 5 | Output length in seconds. |\n## Billing\nBilled per output second: $0.157 at 720p, $0.235 at 1080p.\n| Output | Price |\n|---|---|\n| 5s, 1080p (default) | $1.175 |\n| 5s, 720p | $0.785 |\n| 10s, 1080p | $2.35 |\n| 30s, 1080p | $7.05 |\nFailed runs are not charged.\n## Prompting\n- Describe subject, action, camera move and light in order.\n## Limits\n- Clips are 3–30 seconds.\n## Also on SandBase\nOther Kling V4 endpoints: `kwaivgi/kling-video/v4/text-to-video`, `kwaivgi/kling-video/v4/image-to-video`, `kwaivgi/kling-video/v4/reference-to-video`, `kwaivgi/kling-video/v4/video-edit`.",
+  "cover_url": "https://static.sandbase.ai/covers/kwaivgi/kling-video/v4/text-to-video/cover-flare-20261022111249.webp",
+  "page_url": "https://www.sandbase.ai/model/kwaivgi/kling-video/v4/text-to-video",
+  "published_at": "2026-10-21T15:09:30.067Z",
+  "created_at": "2026-10-22T02:44:21.51Z"
+}

@@ -1,0 +1,55 @@
+name: Integrations
+
+on:
+  pull_request:
+    paths: ["integrations/**", "scripts/validate_integrations.py"]
+  push:
+    branches: [main]
+    paths: ["integrations/**"]
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install pyyaml jsonschema
+      - name: Validate proposals
+        run: python scripts/validate_integrations.py
+
+  # A merge to main is the maintainer's approval. Hand the approved files to the private
+  # SandBase pipeline, which registers them disabled, verifies them and then enables them.
+  dispatch:
+    needs: validate
+    if: github.event_name == 'push'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+      - name: Collect approved integrations
+        id: changed
+        run: |
+          files=$(git diff --name-only --diff-filter=AM HEAD~1 HEAD -- 'integrations/**/integration.yaml' | grep -v '/_template/' || true)
+          echo "files=$(printf '%s\n' $files | jq -R . | jq -cs 'map(select(length>0))')" >> "$GITHUB_OUTPUT"
+      - name: Notify SandBase pipeline
+        if: steps.changed.outputs.files != '[]'
+        env:
+          TOKEN: ${{ secrets.INTEGRATION_DISPATCH_TOKEN }}
+          TARGET: ${{ vars.INTEGRATION_DISPATCH_REPO }}
+          FILES: ${{ steps.changed.outputs.files }}
+        run: |
+          if [ -z "$TOKEN" ] || [ -z "$TARGET" ]; then
+            echo "::error::INTEGRATION_DISPATCH_TOKEN secret or INTEGRATION_DISPATCH_REPO variable is not configured"
+            exit 1
+          fi
+          payload=$(jq -cn --arg repo "$GITHUB_REPOSITORY" --arg sha "$GITHUB_SHA" --argjson files "$FILES" \
+            '{event_type: "integration-approved", client_payload: {repo: $repo, sha: $sha, files: $files}}')
+          curl -fsS -X POST "https://api.github.com/repos/$TARGET/dispatches" \
+            -H "Authorization: Bearer $TOKEN" -H "Accept: application/vnd.github+json" -d "$payload"
+          echo "dispatched: $FILES"

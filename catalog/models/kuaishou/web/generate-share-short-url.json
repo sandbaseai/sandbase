@@ -1,0 +1,62 @@
+{
+  "name": "kuaishou/web/generate-share-short-url",
+  "display_name": "Kuaishou Web Share Short URL",
+  "type": "api",
+  "vendor": "Kuaishou",
+  "vendor_slug": "kuaishou",
+  "description": "Returns a shareable short URL for a specified Kuaishou video or photo post. Supply the target post identifier using the photo_id query parameter.",
+  "tags": [
+    "api",
+    "kuaishou"
+  ],
+  "capabilities": [
+    "api",
+    "kuaishou"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/kuaishou/web/generate-share-short-url"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "photo_id"
+    ],
+    "properties": {
+      "photo_id": {
+        "type": "string",
+        "title": "作品ID/Photo ID",
+        "example": "5193494945927590140"
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.0015,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "examples": [
+    {
+      "input": {
+        "photo_id": "5193494945927590140"
+      },
+      "default": true
+    }
+  ],
+  "readme": "# Kuaishou Web Share Short URL API\n\nRetrieve a shareable short link for a Kuaishou post by supplying its `photo_id`.\n\n## Use cases\n\n- Generating compact share links for external distribution.\n- Embedding shortened links to Kuaishou posts in mobile messaging.\n- Simplifying URL presentation across marketing channels.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/kuaishou/web/generate-share-short-url\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"photo_id\": \"5193494945927590140\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `photo_id` | string | Yes | — |\n\n## Notes\n\n- Requires a valid `photo_id` corresponding to the Kuaishou post.\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [Kuaishou User ID Lookup](/model/kuaishou/web/get-user-id): Resolves a Kuaishou user ID from a provided user share link.\n- [Kuaishou Web Hot List](/model/kuaishou/web/hot-list-v1): Returns the current trending hot list from Kuaishou Web.\n- [Kuaishou Web Hot List (V2)](/model/kuaishou/web/hot-list-v2): Returns current trending search rankings and hot topics on Kuaishou web.\n",
+  "page_url": "https://www.sandbase.ai/model/kuaishou/web/generate-share-short-url",
+  "created_at": "2026-07-31T03:58:33.804Z"
+}

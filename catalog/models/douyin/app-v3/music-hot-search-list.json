@@ -1,0 +1,66 @@
+{
+  "name": "douyin/app-v3/music-hot-search-list",
+  "display_name": "Douyin Music Hot Search List",
+  "type": "api",
+  "vendor": "Douyin",
+  "vendor_slug": "douyin",
+  "description": "Retrieves Douyin hot search music rankings, audio details, and artist metadata based on the selected chart category and pagination cursor.",
+  "tags": [
+    "api",
+    "douyin"
+  ],
+  "capabilities": [
+    "api",
+    "douyin"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/douyin/app-v3/music-hot-search-list"
+  },
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "cursor": {
+        "type": "string",
+        "title": "Cursor",
+        "default": "0",
+        "description": "Cursor, default value is '0', used for paginating data retrieval. After each request, the next cursor value will be returned, and the `has_more` field indicates whether there is more data available."
+      },
+      "chart_type": {
+        "type": "string",
+        "title": "Chart Type",
+        "default": "hot",
+        "description": "Chart type, default value is 'hot', supports the following values: 'hot': Hot chart; 'trending': Trending chart; 'original': Original chart"
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.0015,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "examples": [
+    {
+      "input": {
+        "chart_type": "hot",
+        "cursor": "0"
+      }
+    }
+  ],
+  "readme": "# Douyin Music Hot Search List API\n\nAccess Douyin trending and popular music rankings by supplying `chart_type` and `cursor`. It returns audio tracks, duration, and artist details across different leaderboard categories.\n\n## Use cases\n\n- Track trending background music across Douyin charts.\n- Analyze popular original and rising music tracks.\n- Monitor top viral sounds for social media content strategy.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/douyin/app-v3/music-hot-search-list\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `cursor` | string | No | Cursor, default value is '0', used for paginating data retrieval. |\n| `chart_type` | string | No | Chart type, default value is 'hot', supports the following values: 'hot': Hot chart; 'trending': Trending chart; 'original': Original chart |\n\n## Example response\n\nReal response for the request above, trimmed to the main fields. User names and long IDs are masked.\n\n```json\n{\n  \"music_list\": [\n    {\n      \"music_info\": {\n        \"audition_duration\": 173,\n        \"author\": \"好久不见\",\n        \"author_deleted\": false,\n        \"binded_challenge_id\": 0,\n        \"dsp_status\": 10,\n        \"duration\": 173\n      }\n    }\n  ]\n}\n```\n\n## Notes\n\n- Supported `chart_type` values include 'hot' (Hot chart), 'trending' (Trending chart), and 'original' (Original chart).\n- Pagination is handled via `cursor`, which defaults to '0', while the response indicates whether more items remain.\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [Douyin Brand Hot Search List](/model/douyin/app-v3/brand-hot-search-list): Returns the current Douyin brand hot search list and category data.\n- [Douyin Brand Hot Search List Detail](/model/douyin/app-v3/brand-hot-search-list-detail): Returns detailed brand hot search list data from Douyin for a specific category.\n- [Douyin Short Link Generator](/model/douyin/app-v3/generate-short-url): Converts a standard Douyin web link into a shortened Douyin URL.\n",
+  "page_url": "https://www.sandbase.ai/model/douyin/app-v3/music-hot-search-list",
+  "created_at": "2026-07-31T02:33:53.218Z"
+}

@@ -1,0 +1,85 @@
+{
+  "name": "douyin/index/content-creative-topic",
+  "display_name": "Douyin Content Creative Topics",
+  "type": "api",
+  "vendor": "Douyin",
+  "vendor_slug": "douyin",
+  "description": "Returns trending creative topics for a specific Douyin category. Filter results by category ID, evaluation period, ranking metric, and end date.",
+  "tags": [
+    "api",
+    "douyin"
+  ],
+  "capabilities": [
+    "api",
+    "douyin"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/douyin/index/content-creative-topic"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "end_date",
+      "tag_id"
+    ],
+    "properties": {
+      "period": {
+        "enum": [
+          "1",
+          "3",
+          "7"
+        ],
+        "type": "string",
+        "title": "Period",
+        "default": "7",
+        "example": "7",
+        "description": "\"1\" / \"3\" / \"7\""
+      },
+      "tag_id": {
+        "type": "string",
+        "title": "Tag Id",
+        "example": "601",
+        "description": "Category ID (same as category_id in fetch_item_query)"
+      },
+      "end_date": {
+        "type": "string",
+        "title": "End Date",
+        "example": "20260405",
+        "description": "End date YYYYMMDD. **Must be a Sunday only when period=7**; any day for period=1/3"
+      },
+      "rank_type": {
+        "enum": [
+          "index",
+          "rise"
+        ],
+        "type": "string",
+        "title": "Rank Type",
+        "default": "index",
+        "example": "index",
+        "description": "\"index\" or \"rise\""
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.0015,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "readme": "# Douyin Content Creative Topics API\n\nFetch trending creative topics within a specific Douyin category by providing a `tag_id` and an `end_date`.\n\n## Use cases\n\n- Identify trending video topics within a target category.\n- Track topic performance metrics like item count and like counts.\n- Analyze rising versus overall indexed content themes over time.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/douyin/index/content-creative-topic\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"end_date\": \"20260405\", \"tag_id\": \"601\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `tag_id` | string | Yes | Category ID (same as category_id in fetch_item_query) |\n| `end_date` | string | Yes | End date YYYYMMDD. |\n| `period` | string | No | \"1\" / \"3\" / \"7\" |\n| `rank_type` | string | No | \"index\" or \"rise\" |\n\n## Example response\n\nReal response for the request above, trimmed to the main fields. User names and long IDs are masked.\n\n```json\n{\n  \"topic_list\": [\n    {\n      \"digg_cnt\": \"171445435\",\n      \"id\": \"1635669004810253\",\n      \"item_cnt\": \"19739286\",\n      \"name\": \"搞笑\"\n    }\n  ]\n}\n```\n\n## Notes\n\n- The `end_date` must be formatted as YYYYMMDD and must fall on a Sunday when `period` is set to \"7\".\n- `tag_id` corresponds to the category ID used in query operations.\n- `rank_type` accepts either \"index\" or \"rise\".\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [Douyin Index Area List](/model/douyin/index/all-area): Returns the complete list of supported geographic areas available for Douyin Index queries.\n- [Douyin Index Valid Dates](/model/douyin/index/all-valid-date): Returns the latest valid dates available for each data type in Douyin Index.\n- [Douyin Brand Popularity Cycles](/model/douyin/index/brand-cycles): Returns periodic brand popularity and cycle analysis data across platforms for a specified brand name and date range.\n",
+  "page_url": "https://www.sandbase.ai/model/douyin/index/content-creative-topic",
+  "created_at": "2026-07-31T02:37:35.849Z"
+}

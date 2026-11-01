@@ -1,0 +1,56 @@
+{
+  "name": "youku/video-detail",
+  "display_name": "Youku Video Details",
+  "type": "api",
+  "vendor": "Youku",
+  "vendor_slug": "youku",
+  "description": "Get details for a Youku video identified by video ID. Use it to look up a known video for content review, cataloging, or subsequent video analysis.",
+  "tags": [
+    "api",
+    "youku",
+    "entertainment"
+  ],
+  "capabilities": [
+    "api",
+    "youku",
+    "entertainment"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/youku/video-detail"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "videoId"
+    ],
+    "properties": {
+      "videoId": {
+        "type": "string",
+        "example": "XNjU1ODM3MjI4NA==",
+        "description": "The unique identifier for the video."
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.013889,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "readme": "# Youku Video Details API\n\nGet details for a Youku video identified by video ID. Use it to look up a known video for content review, cataloging, or subsequent video analysis.\n\nThe response is the platform's original data structure.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/youku/video-detail\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"videoId\": \"XNjU1ODM3MjI4NA==\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `videoId` | string | Yes | The unique identifier for the video. |\n\n## Pricing\n\nFlat price per call. Failed calls and empty results are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/youku/video-detail",
+  "created_at": "2026-10-29T12:32:55.313Z"
+}

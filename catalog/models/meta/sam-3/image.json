@@ -1,0 +1,316 @@
+{
+  "name": "meta/sam-3/image",
+  "display_name": "SAM 3 Image",
+  "type": "image",
+  "vendor": "Meta",
+  "vendor_slug": "meta",
+  "description": "SAM 3 Image is Meta's segmentation model. It finds objects in an image from a text, point, or box prompt and returns masks and the masked image, with optional confidence scores.",
+  "tags": [
+    "image-to-image"
+  ],
+  "capabilities": [
+    "image-to-image"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "prompt",
+      "image"
+    ],
+    "properties": {
+      "image": {
+        "type": "string",
+        "title": "Image Url",
+        "examples": [
+          "https://raw.githubusercontent.com/facebookresearch/segment-anything-2/main/notebooks/images/truck.jpg"
+        ],
+        "description": "URL of the image to be segmented"
+      },
+      "prompt": {
+        "type": "string",
+        "title": "Prompt",
+        "default": "wheel",
+        "description": "Text prompt for segmentation"
+      },
+      "max_masks": {
+        "type": "integer",
+        "title": "Max Masks",
+        "default": 3,
+        "maximum": 32,
+        "minimum": 1,
+        "description": "Maximum number of masks to return when `return_multiple_masks` is enabled."
+      },
+      "apply_mask": {
+        "type": "boolean",
+        "title": "Apply Mask",
+        "default": true,
+        "description": "Apply the mask on the image."
+      },
+      "box_prompts": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "title": "BoxPrompt",
+          "properties": {
+            "x_max": {
+              "anyOf": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "X Max",
+              "description": "X Max Coordinate of the box"
+            },
+            "x_min": {
+              "anyOf": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "X Min",
+              "description": "X Min Coordinate of the box"
+            },
+            "y_max": {
+              "anyOf": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Y Max",
+              "description": "Y Max Coordinate of the box"
+            },
+            "y_min": {
+              "anyOf": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Y Min",
+              "description": "Y Min Coordinate of the box"
+            },
+            "object_id": {
+              "anyOf": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Object Id",
+              "description": "Optional object identifier. Boxes sharing an object id refine the same object."
+            },
+            "frame_index": {
+              "anyOf": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Frame Index",
+              "description": "The frame index to interact with."
+            }
+          }
+        },
+        "title": "Box Prompts",
+        "default": [],
+        "description": "Box prompt coordinates (x_min, y_min, x_max, y_max). Multiple boxes supported - use object_id to group boxes for the same object or leave empty for separate objects."
+      },
+      "text_prompt": {
+        "type": "string",
+        "title": "Text Prompt",
+        "description": "[DEPRECATED] Use 'prompt' instead. Kept for backward compatibility."
+      },
+      "include_boxes": {
+        "type": "boolean",
+        "title": "Include Boxes",
+        "default": false,
+        "description": "Whether to include bounding boxes for each mask (when available)."
+      },
+      "output_format": {
+        "enum": [
+          "jpeg",
+          "png"
+        ],
+        "type": "string",
+        "title": "Output Format",
+        "default": "png",
+        "description": "The format of the generated image."
+      },
+      "point_prompts": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "title": "PointPrompt",
+          "properties": {
+            "x": {
+              "anyOf": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "X",
+              "description": "X Coordinate of the prompt"
+            },
+            "y": {
+              "anyOf": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Y",
+              "description": "Y Coordinate of the prompt"
+            },
+            "label": {
+              "anyOf": [
+                {
+                  "enum": [
+                    0,
+                    1
+                  ],
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Label",
+              "description": "1 for foreground, 0 for background"
+            },
+            "object_id": {
+              "anyOf": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Object Id",
+              "description": "Optional object identifier. Prompts sharing an object id refine the same object. When a text prompt is also given, the id selects which detected object the points refine."
+            },
+            "frame_index": {
+              "anyOf": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Frame Index",
+              "description": "The frame index to interact with."
+            }
+          }
+        },
+        "title": "Point Prompts",
+        "default": [],
+        "description": "List of point prompts"
+      },
+      "include_scores": {
+        "type": "boolean",
+        "title": "Include Scores",
+        "default": false,
+        "description": "Whether to include mask confidence scores."
+      },
+      "return_multiple_masks": {
+        "type": "boolean",
+        "title": "Return Multiple Masks",
+        "default": false,
+        "description": "If True, upload and return multiple generated masks as defined by `max_masks`."
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "title": "GenerationResponse",
+    "required": [
+      "id",
+      "status"
+    ],
+    "properties": {
+      "id": {
+        "type": "string",
+        "description": "Unique identifier for the generation task."
+      },
+      "error": {
+        "type": "string",
+        "description": "Error message if the task failed. Empty on success."
+      },
+      "model": {
+        "type": "string",
+        "description": "Model ID used for the prediction."
+      },
+      "status": {
+        "enum": [
+          "pending",
+          "running",
+          "completed",
+          "failed",
+          "timeout"
+        ],
+        "type": "string",
+        "description": "Status of the task: pending, running, completed, failed, or timeout."
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "title": "OutputItem",
+          "required": [
+            "url"
+          ],
+          "properties": {
+            "url": {
+              "type": "string",
+              "description": "The URL where the generated content can be downloaded from."
+            },
+            "content_type": {
+              "type": "string",
+              "description": "The MIME type of the output file."
+            }
+          }
+        },
+        "description": "Array of generated content. Empty when status is not completed."
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.005
+  },
+  "readme": "# SAM 3 Image\n\nSAM 3 segments objects in an image from a text, point, or box prompt and returns masks.\n\n## Fields\n\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `prompt` | string, required | `wheel` | What to segment, e.g. “the red car”. |\n| `image` | image URL, required | — | Image to segment. JPEG, PNG, or WebP URL. |\n| `output_format` | `jpeg` / `png` | `png` | Output file format. |\n| `box_prompts` | item[] | `[]` | Optional boxes. |\n| `text_prompt` | string | — | [DEPRECATED] Use 'prompt' instead. |\n| `include_scores` | boolean | false | Whether to include mask confidence scores. |\n| `apply_mask` | boolean | true | Return the masked image. |\n| `point_prompts` | item[] | `[]` | Optional points. |\n| `return_multiple_masks` | boolean | false | If True, upload and return multiple generated masks as defined by `max_masks`. |\n| `max_masks` | integer 1–32 | 3 | Maximum masks to return. |\n| `include_boxes` | boolean | false | Whether to include bounding boxes for each mask (when available). |\n\n## Billing\n\n$0.005 per image.\n\n| Request | Price |\n|---|---|\n| One image | $0.005 |\n\nFailed runs are not charged.\n\n## Also on SandBase\n\nRelated: `meta/sam-3/3d-objects`.\n",
+  "cover_url": "https://static.sandbase.ai/covers/meta/sam-3/image/cover-flare-20261005021027.webp",
+  "page_url": "https://www.sandbase.ai/model/meta/sam-3/image",
+  "published_at": "2025-11-20T19:45:11.63Z",
+  "created_at": "2026-05-17T02:00:12.655Z"
+}

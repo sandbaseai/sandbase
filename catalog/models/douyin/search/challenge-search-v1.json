@@ -1,0 +1,128 @@
+{
+  "name": "douyin/search/challenge-search-v1",
+  "display_name": "Douyin Challenge Search",
+  "type": "api",
+  "vendor": "Douyin",
+  "vendor_slug": "douyin",
+  "description": "Returns Douyin challenge and hashtag search results matching a query. Supports filtering by date, content type, duration, and sorting method.",
+  "tags": [
+    "api",
+    "douyin"
+  ],
+  "capabilities": [
+    "api",
+    "douyin"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/douyin/search/challenge-search-v1"
+  },
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "cursor": {
+        "type": "integer",
+        "title": "Cursor",
+        "default": 0,
+        "example": 0,
+        "description": "Pagination cursor (0 for first request)"
+      },
+      "keyword": {
+        "type": "string",
+        "title": "Keyword",
+        "default": "猫咪",
+        "example": "猫咪",
+        "description": "Search keyword, e.g., \"food\""
+      },
+      "backtrace": {
+        "type": "string",
+        "title": "Backtrace",
+        "default": "",
+        "example": "",
+        "description": "Backtrace for pagination, obtained from the last response"
+      },
+      "search_id": {
+        "type": "string",
+        "title": "Search Id",
+        "default": "",
+        "example": "",
+        "description": "Search ID for pagination"
+      },
+      "sort_type": {
+        "type": "string",
+        "title": "Sort Type",
+        "default": "0",
+        "example": "0",
+        "description": "Sorting method"
+      },
+      "content_type": {
+        "type": "string",
+        "title": "Content Type",
+        "default": "0",
+        "example": "0",
+        "description": "Content type filter"
+      },
+      "publish_time": {
+        "type": "string",
+        "title": "Publish Time",
+        "default": "0",
+        "example": "0",
+        "description": "Publish time filter"
+      },
+      "filter_duration": {
+        "type": "string",
+        "title": "Filter Duration",
+        "default": "0",
+        "example": "0",
+        "description": "Video duration filter"
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.015,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "examples": [
+    {
+      "input": {
+        "backtrace": "",
+        "content_type": "0",
+        "cursor": 0,
+        "filter_duration": "0",
+        "keyword": "猫咪",
+        "publish_time": "0",
+        "search_id": "",
+        "sort_type": "0"
+      }
+    },
+    {
+      "input": {
+        "backtrace": "",
+        "content_type": "0",
+        "cursor": 0,
+        "filter_duration": "0",
+        "keyword": "猫咪",
+        "publish_time": "0",
+        "search_id": "",
+        "sort_type": "0"
+      }
+    }
+  ],
+  "readme": "# Douyin Challenge Search API\n\nQuery Douyin hashtag and challenge listings by submitting a `keyword`. Paginate through results using `cursor`, `search_id`, and `backtrace`.\n\n## Use cases\n\n- Discover trending Douyin hashtags and challenge topics for topic research.\n- Look up challenge metadata including challenge status and profile image assets.\n- Filter hashtag query results by sorting criteria and duration.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/douyin/search/challenge-search-v1\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `cursor` | integer | No | Pagination cursor (0 for first request) |\n| `keyword` | string | No | Search keyword, e.g., \"food\" |\n| `backtrace` | string | No | Backtrace for pagination, obtained from the last response |\n| `search_id` | string | No | Search ID for pagination |\n| `sort_type` | string | No | Sorting method |\n| `content_type` | string | No | Content type filter |\n| `publish_time` | string | No | Publish time filter |\n| `filter_duration` | string | No | Video duration filter |\n\n## Example response\n\nReal response for the request above, trimmed to the main fields. User names and long IDs are masked.\n\n```json\n{\n  \"challenge_list\": [\n    {\n      \"challenge_info\": {\n        \"cha_name\": \"宠物猫咪\",\n        \"challenge_status\": 1,\n        \"from_ugc_hashtag_bank\": \"1\",\n        \"hashtag_profile\": \"https://p3-sign.douyinpic.com/obj/image-cut-tos/bfe0b2e5561077683b8dca38cf1f5e5b…\",\n        \"publish_type\": 1,\n        \"sub_type\": 0\n      }\n    }\n  ]\n}\n```\n\n## Notes\n\n- Set `cursor` to 0 for the first request and pass subsequent offsets for pagination.\n- Pass `backtrace` and `search_id` from the previous response when paginating through results.\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [Douyin Hashtag Challenge Search (V2)](/model/douyin/search/challenge-search-v2): Returns Douyin hashtag and challenge search results matching a query keyword.\n- [Douyin Hashtag Suggestions](/model/douyin/search/challenge-suggest): Returns a list of suggested Douyin hashtags and challenges matching a query keyword, including challenge IDs and view counts.\n- [Douyin Discussion Search](/model/douyin/search/discuss-search): Returns discussion and question-and-answer search results from Douyin.\n",
+  "page_url": "https://www.sandbase.ai/model/douyin/search/challenge-search-v1",
+  "created_at": "2026-07-31T02:38:39.171Z"
+}

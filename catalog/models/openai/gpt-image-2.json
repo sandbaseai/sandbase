@@ -1,0 +1,265 @@
+{
+  "name": "openai/gpt-image-2",
+  "display_name": "GPT Image 2 Text to Image",
+  "type": "image",
+  "vendor": "OpenAI",
+  "vendor_slug": "openai",
+  "description": "GPT Image 2, OpenAI's latest image model, is capable of making fine-grained, detailed edits to images.",
+  "tags": [
+    "text-to-image",
+    "commercial"
+  ],
+  "capabilities": [
+    "text-to-image",
+    "commercial"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "prompt"
+    ],
+    "properties": {
+      "prompt": {
+        "type": "string",
+        "title": "Prompt",
+        "default": "Generate an image of gray tabby cat hugging an otter with an orange scarf",
+        "maxLength": 50000,
+        "minLength": 3,
+        "description": "The text prompt to generate an image from."
+      },
+      "quality": {
+        "enum": [
+          "low",
+          "medium",
+          "high"
+        ],
+        "type": "string",
+        "title": "Quality",
+        "default": "high",
+        "description": "Quality for the generated image"
+      },
+      "resolution": {
+        "enum": [
+          "1k",
+          "2k",
+          "4k"
+        ],
+        "type": "string",
+        "title": "Resolution",
+        "description": "The resolution of the generated image. Leave unset to preserve the provider's standard dimensions."
+      },
+      "aspect_ratio": {
+        "enum": [
+          "1:1",
+          "1:2",
+          "2:1",
+          "1:3",
+          "3:1",
+          "2:3",
+          "3:2",
+          "3:4",
+          "4:3",
+          "4:5",
+          "5:4",
+          "9:16",
+          "16:9",
+          "9:21",
+          "21:9"
+        ],
+        "type": "string",
+        "title": "Aspect Ratio",
+        "default": "1:1",
+        "description": "The aspect ratio of the generated image."
+      },
+      "output_format": {
+        "enum": [
+          "jpeg",
+          "png",
+          "webp"
+        ],
+        "type": "string",
+        "title": "Output Format",
+        "default": "png",
+        "description": "The format of the generated image."
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "title": "GenerationResponse",
+    "required": [
+      "id",
+      "status"
+    ],
+    "properties": {
+      "id": {
+        "type": "string",
+        "description": "Unique identifier for the generation task."
+      },
+      "error": {
+        "type": "string",
+        "description": "Error message if the task failed. Empty on success."
+      },
+      "model": {
+        "type": "string",
+        "description": "Model ID used for the prediction."
+      },
+      "status": {
+        "enum": [
+          "pending",
+          "running",
+          "completed",
+          "failed",
+          "timeout"
+        ],
+        "type": "string",
+        "description": "Status of the task: pending, running, completed, failed, or timeout."
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "title": "OutputItem",
+          "required": [
+            "url"
+          ],
+          "properties": {
+            "url": {
+              "type": "string",
+              "description": "The URL where the generated content can be downloaded from."
+            },
+            "content_type": {
+              "type": "string",
+              "description": "The MIME type of the output file."
+            }
+          }
+        },
+        "description": "Array of generated content. Empty when status is not completed."
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "formula",
+    "formula": "((params.quality ?? \"high\") == \"low\" ? ((params.resolution ?? \"1k\") == \"4k\" ? 0.03 : (params.resolution ?? \"1k\") == \"2k\" ? 0.02 : 0.01) : ((params.quality ?? \"high\") == \"medium\" ? ((params.resolution ?? \"1k\") == \"4k\" ? 0.18 : (params.resolution ?? \"1k\") == \"2k\" ? 0.1 : 0.06) : ((params.resolution ?? \"1k\") == \"4k\" ? 0.72 : (params.resolution ?? \"1k\") == \"2k\" ? 0.4 : 0.22)))",
+    "formula_variables": [
+      "params.quality",
+      "params.resolution"
+    ],
+    "reference_price": 0.22,
+    "price_examples": [
+      {
+        "params": {
+          "quality": "low",
+          "resolution": "1k"
+        },
+        "usd": 0.01
+      },
+      {
+        "params": {
+          "quality": "low",
+          "resolution": "2k"
+        },
+        "usd": 0.02
+      },
+      {
+        "params": {
+          "quality": "low",
+          "resolution": "4k"
+        },
+        "usd": 0.03
+      },
+      {
+        "params": {
+          "quality": "medium",
+          "resolution": "1k"
+        },
+        "usd": 0.06
+      },
+      {
+        "params": {
+          "quality": "medium",
+          "resolution": "2k"
+        },
+        "usd": 0.1
+      },
+      {
+        "params": {
+          "quality": "medium",
+          "resolution": "4k"
+        },
+        "usd": 0.18
+      },
+      {
+        "params": {
+          "quality": "high",
+          "resolution": "1k"
+        },
+        "usd": 0.22
+      },
+      {
+        "params": {
+          "quality": "high",
+          "resolution": "2k"
+        },
+        "usd": 0.4
+      },
+      {
+        "params": {
+          "quality": "high",
+          "resolution": "4k"
+        },
+        "usd": 0.72
+      }
+    ]
+  },
+  "examples": [
+    {
+      "input": {
+        "aspect_ratio": "16:9",
+        "prompt": "Create a photorealistic candid photograph of an elderly sailor standing on a small fishing boat.\nHe has weathered skin with visible wrinkles, pores, and sun texture, and a few faded traditional sailor tattoos on his arms.\nHe is calmly adjusting a net while his dog sits nearby on the deck. Shot like a 35mm film photograph, medium close-up at eye level, using a 50mm lens.\nSoft coastal daylight, shallow depth of field, subtle film grain, natural color balance.\nThe image should feel honest and unposed, with real skin texture, worn materials, and everyday detail. No glamorization, no heavy retouching."
+      },
+      "output": [
+        {
+          "url": "https://static.sandbase.ai/examples/d54cd5f3-d7dc-4981-aff0-36453d1c678b/output/c544106d-1ee3-4412-99d1-a9bcf6d233f3.png"
+        }
+      ],
+      "default": true
+    },
+    {
+      "input": {
+        "aspect_ratio": "16:9",
+        "prompt": "Create a detailed Infographic of the functioning and flow of an automatic coffee machine like a Jura.\nFrom bean basket, to grinding, to scale, water tank, boiler, etc.\nI'd like to understand technically and visually the flow."
+      },
+      "output": [
+        {
+          "url": "https://static.sandbase.ai/examples/61a870d4-db36-4dfb-8a46-892c77c8463b/output/2c14b069-f412-4580-a7de-e50a13d8e672.png"
+        }
+      ]
+    },
+    {
+      "input": {
+        "aspect_ratio": "16:9",
+        "prompt": "Give me a cool in culture ad / fashion shot for a brand called Thread.\nIt's a hip young street brand. The ad shows a group of friends hanging out together with the tagline \"Yours to Create.\"\nMake it feel like a polished campaign image for a youth streetwear audience: stylish, contemporary, energetic, and tasteful.\nUse clean composition, strong color direction, natural poses, and premium fashion photography cues.\nRender the tagline exactly once, clearly and legibly, integrated into the ad layout.\nNo extra text, no watermarks, no unrelated logos."
+      },
+      "output": [
+        {
+          "url": "https://static.sandbase.ai/examples/966764b4-a86b-4f61-9d10-db0d3ad2a984/output/cbeeae7f-3282-4e00-80b8-599074262d51.png"
+        }
+      ]
+    }
+  ],
+  "readme": "# GPT Image 2 Text to Image\n\nGPT Image 2 generates detailed images with strong instruction following and accurate in-image text, at three quality levels and 1K to 4K.\n\n## Fields\n\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `prompt` | string, required | — | Up to 50,000 characters. |\n| `quality` | `low` / `medium` / `high` | `high` | Higher quality costs more; `high` is the default. |\n| `resolution` | `1k` / `2k` / `4k` | — | Output size tier; omit for 1K. |\n| `aspect_ratio` | `1:1` / `1:2` / `2:1` / `1:3` / `3:1` / `2:3` / `3:2` / `3:4` / `4:3` / `4:5` / `5:4` / `9:16` / `16:9` / `9:21` / `21:9` | `1:1` | Output frame shape. |\n| `output_format` | `jpeg` / `png` / `webp` | `png` | Output file format. |\n\n## Billing\n\nPrice depends on quality and resolution, per image:\n\n| Quality | 1k | 2k | 4k |\n|---|---|---|---|\n| low | $0.01 | $0.02 | $0.03 |\n| medium | $0.06 | $0.10 | $0.18 |\n| high (default) | $0.22 | $0.40 | $0.72 |\n\nFailed runs are not charged.\n\n## Prompting\n\n- Quote any text that must appear.\n- Draft at `low`, finish at `high`.\n\n## Limits\n\n- One image per request.\n\n## Also on SandBase\n\nOther GPT Image endpoints: `openai/gpt-image-2.5-sunburst`, `openai/gpt-image-2.5-sunburst/edit`, `openai/gpt-image-2.5-flare`, `openai/gpt-image-2.5-flare/edit`, `openai/gpt-image-2/edit`.\n",
+  "cover_url": "https://static.sandbase.ai/covers/openai/gpt-image-2/cover-flare-20261004174828.webp",
+  "page_url": "https://www.sandbase.ai/model/openai/gpt-image-2",
+  "published_at": "2026-04-21T19:15:20.183Z",
+  "created_at": "2026-04-28T06:46:30.677Z"
+}

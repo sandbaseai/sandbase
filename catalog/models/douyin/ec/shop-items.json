@@ -1,0 +1,55 @@
+{
+  "name": "douyin/ec/shop-items",
+  "display_name": "Douyin Shop Items",
+  "type": "api",
+  "vendor": "Douyin",
+  "vendor_slug": "douyin",
+  "description": "List the products of a Douyin shop by shop ID, page by page, with price and sales for each item.",
+  "tags": [
+    "api",
+    "douyin",
+    "ecommerce"
+  ],
+  "capabilities": [
+    "api",
+    "douyin",
+    "ecommerce"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/douyin/ec/shop-items"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "shopId"
+    ],
+    "properties": {
+      "page": {
+        "type": "string",
+        "description": "Page number for pagination."
+      },
+      "shopId": {
+        "type": "string",
+        "example": "42853938",
+        "description": "The unique ID of the shop on Douyin E-commerce."
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.027778
+  },
+  "readme": "# Douyin Shop Items API\n\nList the products of a Douyin shop by shop ID, page by page, with price and sales for each item.\n\nThe response is the platform's original data structure.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/douyin/ec/shop-items\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"shopId\": \"42853938\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `shopId` | string | Yes | The unique ID of the shop on Douyin E-commerce. |\n| `page` | string | No | Page number for pagination. |\n\n## Pricing\n\nFlat price per call. Failed calls and empty results are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/douyin/ec/shop-items",
+  "created_at": "2026-10-29T09:52:21.191Z"
+}

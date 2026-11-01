@@ -1,0 +1,46 @@
+{
+  "name": "dataforseo/v3/backlinks/page_intersection/live",
+  "display_name": "DataForSEO Backlinks Page Intersection",
+  "type": "api",
+  "vendor": "DataForSEO",
+  "vendor_slug": "dataforseo",
+  "description": "Referring pages that link to all (or some) of up to 20 target pages or domains.",
+  "tags": [
+    "backlinks",
+    "seo",
+    "competitors"
+  ],
+  "capabilities": [
+    "backlinks",
+    "seo",
+    "competitors"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/dataforseo/v3/backlinks/page_intersection/live"
+  },
+  "input_schema": {
+    "type": "object",
+    "properties": {},
+    "description": "Request parameters forwarded to DataForSEO /v3/backlinks/page_intersection/live. See DataForSEO docs for full schema.",
+    "additionalProperties": true
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "usage_based",
+    "note": "Billed per call from metered usage; the reference price is typical.",
+    "reference_price": 0.02436
+  },
+  "readme": "# DataForSEO Backlinks Page Intersection API\n\nReferring pages that link to all (or some) of up to 20 target pages or domains.\n\nRequest fields follow the official DataForSEO `/v3/backlinks/page_intersection/live` task schema (one task per call). The response is DataForSEO's original JSON; results are in `tasks[].result`.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/dataforseo/v3/backlinks/page_intersection/live\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"targets\": {\"1\": \"https://www.nike.com/\", \"2\": \"https://www.adidas.com/\"}, \"limit\": 10}'\n```\n\n## Parameters\n\nThe JSON body is forwarded to the upstream endpoint. Main fields:\n\n| Name | Description |\n|---|---|\n| `targets` | Object of up to 20 targets keyed \"1\", \"2\", ... (pages or domains). |\n| `limit` | Maximum number of referring pages to return. |\n\n## Reference\n\n- Official docs: https://docs.dataforseo.com/v3/backlinks/page_intersection/live/\n\n## Pricing\n\nBilled at the actual cost of each call, about $0.02436 for the request above. The cost grows with the number of rows, targets or tokens a call returns. Failed calls are not charged. Searches with no results are billed at their actual cost.\n",
+  "page_url": "https://www.sandbase.ai/model/dataforseo/v3/backlinks/page_intersection/live",
+  "published_at": "2026-11-01T00:00:00Z",
+  "created_at": "2026-11-01T14:26:24.882Z"
+}

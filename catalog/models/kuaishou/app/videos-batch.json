@@ -1,0 +1,57 @@
+{
+  "name": "kuaishou/app/videos-batch",
+  "display_name": "Kuaishou Batch Video Details",
+  "type": "api",
+  "vendor": "Kuaishou",
+  "vendor_slug": "kuaishou",
+  "description": "Retrieves video details for multiple Kuaishou posts in a single request. Specify comma-separated photo IDs to look up information for up to 40 videos at once.",
+  "tags": [
+    "api",
+    "kuaishou"
+  ],
+  "capabilities": [
+    "api",
+    "kuaishou"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/kuaishou/app/videos-batch"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "photo_ids"
+    ],
+    "properties": {
+      "photo_ids": {
+        "type": "string",
+        "title": "作品ID列表(逗号分隔)/Photo ID list (comma separated)",
+        "description": "Photo ID list, multiple IDs separated by commas, max 40 per request"
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.06
+  },
+  "examples": [
+    {
+      "input": {
+        "photo_ids": "5228960823332207296,5196309727975443273,5222486898325987583"
+      },
+      "default": true
+    }
+  ],
+  "readme": "# Kuaishou Batch Video Details API\n\nQuery details for multiple Kuaishou videos simultaneously using `photo_ids`.\n\n## Use cases\n\n- Retrieve metadata for a list of Kuaishou videos simultaneously.\n- Monitor engagement and view stats across multiple video posts.\n- Sync video catalog records in bulk using their photo IDs.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/kuaishou/app/videos-batch\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"photo_ids\": \"<photo_ids>\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `photo_ids` | string | Yes | Photo ID list, multiple IDs separated by commas, max 40 per request |\n\n## Notes\n\n- Supply comma-separated IDs to `photo_ids` with a maximum of 40 IDs per request.\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [Kuaishou Brand Top List](/model/kuaishou/app/brand-top-list): Returns top brand rankings and related live stream links from Kuaishou.\n- [Kuaishou App Share Link](/model/kuaishou/app/generate-share-link): Generates a shareable URL for Kuaishou application content using a specified object identifier.\n- [Kuaishou Hot Board Categories](/model/kuaishou/app/hot-board-categories): Returns the active list of hot board categories available in the Kuaishou app.\n",
+  "page_url": "https://www.sandbase.ai/model/kuaishou/app/videos-batch",
+  "created_at": "2026-07-31T03:58:31.716Z"
+}

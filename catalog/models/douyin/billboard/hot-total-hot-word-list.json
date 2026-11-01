@@ -1,0 +1,77 @@
+{
+  "name": "douyin/billboard/hot-total-hot-word-list",
+  "display_name": "Douyin Hot Content Words",
+  "type": "api",
+  "vendor": "Douyin",
+  "vendor_slug": "douyin",
+  "description": "Returns trending content words and popularity scores from Douyin billboards. Supports filtering by search keyword, time window, and pagination parameters.",
+  "tags": [
+    "api",
+    "douyin"
+  ],
+  "capabilities": [
+    "api",
+    "douyin"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/douyin/billboard/hot-total-hot-word-list"
+  },
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "keyword": {
+        "type": "string",
+        "title": "Keyword",
+        "default": "抖音",
+        "example": "人工智能",
+        "description": "Search keyword"
+      },
+      "page_num": {
+        "type": "integer",
+        "title": "Page Num",
+        "default": 1,
+        "description": "Page number"
+      },
+      "page_size": {
+        "type": "integer",
+        "title": "Page Size",
+        "default": 10,
+        "description": "Number of items per page"
+      },
+      "date_window": {
+        "type": "integer",
+        "title": "Date Window",
+        "default": 24,
+        "description": "Time window, 1 by hour 2 by day"
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.0015,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "examples": [
+    {
+      "input": {},
+      "default": true
+    }
+  ],
+  "readme": "# Douyin Hot Content Words API\n\nThis endpoint retrieves trending content words from Douyin billboard rankings, optionally filtered by `keyword` and `date_window`.\n\n## Use cases\n\n- Track rising keyword trends and popularity scores on Douyin.\n- Discover high-performing content topics for social media research.\n- Analyze daily or hourly search interest across specific terms.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/douyin/billboard/hot-total-hot-word-list\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `keyword` | string | No | Search keyword |\n| `page_num` | integer | No | Page number |\n| `page_size` | integer | No | Number of items per page |\n| `date_window` | integer | No | Time window, 1 by hour 2 by day |\n\n## Example response\n\nReal response for the request above, trimmed to the main fields. User names and long IDs are masked.\n\n```json\n{\n  \"data\": {\n    \"word_list\": [\n      {\n        \"favorite_id\": 0,\n        \"id\": \"OgfmEKEBoYl6zwhY5vp0\",\n        \"query_day\": \"20261005\",\n        \"score\": 83,\n        \"title\": \"抖音音\"\n      }\n    ]\n  }\n}\n```\n\n## Notes\n\n- Set `date_window` to `1` for hourly data or `2` for daily data.\n- Paginate through results using `page_num` and `page_size`.\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [Douyin Billboard City List](/model/douyin/billboard/city-list): Returns the list of Chinese cities supported by Douyin billboard rankings.\n- [Douyin Billboard Vertical Content Tags](/model/douyin/billboard/content-tag): Returns a list of vertical content tags available on the Douyin billboard platform.\n- [Douyin Fan Interest Account List](/model/douyin/billboard/hot-account-fans-interest-account-list): Returns a list of 20 accounts that followers of a target creator are interested in on Douyin.\n",
+  "page_url": "https://www.sandbase.ai/model/douyin/billboard/hot-total-hot-word-list",
+  "created_at": "2026-07-31T02:35:23.284Z"
+}

@@ -1,0 +1,104 @@
+{
+  "name": "douyin/xingtu-v2/author-daily-fans",
+  "display_name": "Douyin Author Daily Fan Trend",
+  "type": "api",
+  "vendor": "Douyin",
+  "vendor_slug": "douyin",
+  "description": "Returns daily follower trend data for a specified Douyin creator. Supports filtering by date range, author type, and platform source.",
+  "tags": [
+    "api",
+    "douyin"
+  ],
+  "capabilities": [
+    "api",
+    "douyin"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/douyin/xingtu-v2/author-daily-fans"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "author_id"
+    ],
+    "properties": {
+      "end_date": {
+        "anyOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "title": "End Date",
+        "description": "End date, format YYYYMMDD, optional"
+      },
+      "author_id": {
+        "type": "string",
+        "title": "Author Id",
+        "example": "7146074596666507300",
+        "description": "Creator ID"
+      },
+      "start_date": {
+        "anyOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "title": "Start Date",
+        "description": "Start date, format YYYYMMDD, optional"
+      },
+      "author_type": {
+        "anyOf": [
+          {
+            "type": "integer"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "title": "Author Type",
+        "description": "Author type, optional"
+      },
+      "platform_source": {
+        "type": "integer",
+        "title": "Platform Source",
+        "description": "Platform source, default 1"
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.003,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "examples": [
+    {
+      "input": {
+        "author_id": "7146074596666507300"
+      },
+      "default": true
+    }
+  ],
+  "readme": "# Douyin Author Daily Fan Trend API\n\nRetrieve daily follower trend metrics for a creator using `author_id`. Filter the historical records by specifying `start_date` and `end_date`.\n\n## Use cases\n\n- Track daily follower growth and fluctuations for target creators.\n- Analyze audience trend patterns over custom date intervals.\n- Evaluate creator audience performance across different platform sources.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/douyin/xingtu-v2/author-daily-fans\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"author_id\": \"7146074596666507300\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `author_id` | string | Yes | Creator ID |\n| `end_date` | string | No | End date, format YYYYMMDD, optional |\n| `start_date` | string | No | Start date, format YYYYMMDD, optional |\n| `author_type` | string | No | Author type, optional |\n| `platform_source` | integer | No | Platform source, default 1 |\n\n## Notes\n\n- Provide `start_date` and `end_date` in YYYYMMDD format.\n- `platform_source` defaults to 1 if not specified.\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [Douyin Xingtu Author Audience Distribution](/model/douyin/xingtu-v2/author-audience-distribution): Returns audience profile distribution metrics for a specified Xingtu creator based on creator ID and link type, with selectable platform source and channel opt…\n- [Douyin Xingtu Author Base Info](/model/douyin/xingtu-v2/author-base-info): Returns basic creator profile data from Douyin Xingtu by author identifier, with options to include recommendation details and linkage information.\n- [Douyin Xingtu Author Business Card Info](/model/douyin/xingtu-v2/author-business-card-info): Returns business card details for a Douyin Xingtu creator based on the specified author ID.\n",
+  "page_url": "https://www.sandbase.ai/model/douyin/xingtu-v2/author-daily-fans",
+  "created_at": "2026-07-31T02:42:11.379Z"
+}

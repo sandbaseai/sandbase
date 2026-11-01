@@ -1,0 +1,95 @@
+{
+  "name": "wechat-mp/v2/comment-replies",
+  "display_name": "WeChat MP Comment Replies",
+  "type": "api",
+  "vendor": "WeChat MP",
+  "vendor_slug": "wechat-mp",
+  "description": "Returns second-level replies under a specific WeChat MP article comment using the article url and comment identifiers. Supports pagination offset and raw output formats.",
+  "tags": [
+    "api",
+    "wechat-mp"
+  ],
+  "capabilities": [
+    "api",
+    "wechat-mp"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/wechat-mp/v2/comment-replies"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "url"
+    ],
+    "properties": {
+      "raw": {
+        "type": "boolean",
+        "title": "Raw",
+        "description": "Optional, default True. True=full raw reply objects; False=simplified replies."
+      },
+      "url": {
+        "type": "string",
+        "title": "Url",
+        "pattern": "^https?://mp\\.weixin\\.qq\\.com/s([/?].+)?$",
+        "maxLength": 2048,
+        "description": "WeChat MP article URL (`https://mp.weixin.qq.com/s/…`). E.g. `http://mp.weixin.qq.com/s?__biz=Mzk3NTA0MzM5NA==&mid=2247483745&idx=1&sn=3f34e768cf457a501038991ed30be1f4#rd`"
+      },
+      "offset": {
+        "type": "integer",
+        "title": "Offset",
+        "minimum": 0,
+        "description": "Optional, default 0 (>=0). Reply pagination offset; 0 for the first page, pass `next_offset` from the previous response when `has_more=true`. Ignored when `all_pages=true`."
+      },
+      "comment_id": {
+        "anyOf": [
+          {
+            "type": "string",
+            "pattern": "^[0-9]*$",
+            "maxLength": 32
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "title": "Comment Id",
+        "description": "文章的评论 id（可选，**性能捷径**）：不传时上游要先抓并解析整篇文章 HTML 才能拿到它，约占本接口耗时的一半；已有该值时传进来可显著加快。取自 /fetch_article_detail 或 /fetch_article_detail_h5 响应的 `$.data.content.comment_id`/Article comment id (optional, performance shortcut): when omitted, upstream must fetch and parse the whole article HTML to obtain it, which accounts for about half of this endpoint's latency"
+      },
+      "content_id": {
+        "anyOf": [
+          {
+            "type": "string",
+            "pattern": "^[0-9]*$",
+            "maxLength": 32
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "title": "Content Id",
+        "description": "Optional (numeric). `content_id` of the target first-level comment, from `$.data.comments[N].content_id` of the `fetch_article_comments` response; **defaults to the first comment that has replies when omitted**. E.g. `12109128638545265979`"
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.015,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "readme": "# WeChat MP Comment Replies API\n\nFetch second-level comment replies for a WeChat MP article by providing the article `url`. Specify `content_id` to target a specific comment thread.\n\n## Use cases\n\n- Retrieve nested reply threads under top-level article comments.\n- Paginate through reader responses on popular WeChat MP posts.\n- Speed up reply retrieval by supplying a pre-fetched comment_id.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/wechat-mp/v2/comment-replies\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"url\": \"<url>\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `url` | string | Yes | WeChat MP article URL (`https://mp.weixin.qq.com/s/…`). |\n| `raw` | boolean | No | Optional, default True. |\n| `offset` | integer | No | Optional, default 0 (>=0). |\n| `comment_id` | string | No | 文章的评论 id（可选，性能捷径）：不传时上游要先抓并解析整篇文章 HTML 才能拿到它，约占本接口耗时的一半；已有该值时传进来可显著加快。取自 /fetch_article_detail 或 /fetch_article_detail_h5 响应的 `$.data.content.comment_id`/Artic… |\n| `content_id` | string | No | Optional (numeric). |\n\n## Notes\n\n- Pass `comment_id` from article detail responses to avoid upstream HTML parsing and improve response latency.\n- Target a specific comment thread by passing `content_id` obtained from comment listing endpoints; defaults to the first comment with replies when omitted.\n- Page through replies by passing `next_offset` into `offset` when more results are available.\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [WeChat MP Account Articles](/model/wechat-mp/v2/account-articles): Get the published articles of a WeChat official account by its gh_ username: titles, links, covers and post dates, one page at a time, including video and audi…\n- [WeChat MP Account Profile](/model/wechat-mp/v2/account-profile): Retrieves the profile details of an official WeChat account, including name, avatar, signature, and verification entity type using its official account ID.\n- [WeChat MP Article Ads](/model/wechat-mp/v2/article-ad): Returns embedded ad slot information for a specified WeChat MP article URL.\n",
+  "page_url": "https://www.sandbase.ai/model/wechat-mp/v2/comment-replies",
+  "created_at": "2026-07-31T04:21:20.314Z"
+}

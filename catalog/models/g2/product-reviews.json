@@ -1,0 +1,79 @@
+{
+  "name": "g2/product-reviews",
+  "display_name": "G2 Product Reviews",
+  "type": "api",
+  "vendor": "G2",
+  "vendor_slug": "g2",
+  "description": "Retrieve paginated user reviews for a given software product, 10 reviews per page, newest-first in G2's default order. Each review includes author, designation, segment, title, date (ISO YYYY-MM-DD), rating (0-5 on a.",
+  "tags": [
+    "api",
+    "g2",
+    "company-people"
+  ],
+  "capabilities": [
+    "api",
+    "g2",
+    "company-people"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}",
+    "passthrough": "POST /v1/api/g2/product-reviews"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "slug"
+    ],
+    "properties": {
+      "page": {
+        "type": "integer",
+        "maximum": 9007199254740991,
+        "minimum": -9007199254740991,
+        "description": "Page number for pagination"
+      },
+      "slug": {
+        "type": "string",
+        "example": "slack",
+        "description": "Product slug (e.g. 'slack', 'hubspot-sales-hub')"
+      },
+      "star_rating": {
+        "type": "integer",
+        "maximum": 9007199254740991,
+        "minimum": -9007199254740991,
+        "description": "Filter by star rating (1-5) using G2's rating filter; reviews in the 1-star bucket display ratings between 0 and 1. Omit to return reviews of all ratings."
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "required": [
+      "id",
+      "status",
+      "model"
+    ],
+    "properties": {
+      "id": {
+        "type": "string"
+      },
+      "model": {
+        "type": "string"
+      },
+      "status": {
+        "type": "string"
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.05
+  },
+  "readme": "# G2 Product Reviews\n\nRetrieve paginated user reviews for a given software product, 10 reviews per page, newest-first in G2's default order. Each review includes author, designation, segment, title, date (ISO YYYY-MM-DD), rating (0-5 on a.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/g2/product-reviews\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"slug\": \"slack\"}'\n```\n\nThis API runs asynchronously. The call returns a task `id` with status `pending`; poll `GET https://api.sandbase.ai/v1/run/{id}` until `status` is `completed` and read the result from `outputs[0].data`.\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `slug` | string | Yes | Product slug (e.g. 'slack', 'hubspot-sales-hub') |\n| `page` | integer | No | Page number for pagination |\n| `star_rating` | integer | No | Filter by star rating (1-5) using G2's rating filter; reviews in the 1-star bucket display ratings between 0 and 1. Omit to return reviews of all ratings. |\n\n## Pricing\n\nFlat price per call. Failed calls are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/g2/product-reviews",
+  "created_at": "2026-10-30T09:09:29.228Z"
+}

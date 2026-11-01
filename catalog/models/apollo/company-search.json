@@ -1,0 +1,170 @@
+{
+  "name": "apollo/company-search",
+  "display_name": "Apollo Organization Search",
+  "type": "api",
+  "vendor": "Apollo",
+  "vendor_slug": "apollo",
+  "description": "Find companies matching criteria: name, domain, headcount, industry, location, funding stage and technologies in use.",
+  "tags": [
+    "api",
+    "apollo",
+    "company-data"
+  ],
+  "capabilities": [
+    "api",
+    "apollo",
+    "company-data"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/apollo/company-search"
+  },
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "page": {
+        "type": "integer",
+        "description": "The page number of the Apollo data that you want to retrieve. Use this parameter in combination with the per_page parameter to make search results for navigable and improve the performance of the endpoint. Example: 4"
+      },
+      "per_page": {
+        "type": "integer",
+        "example": 1,
+        "description": "The number of search results that should be returned for each page. Limiting the number of results per page improves the endpoint's performance. Use the page parameter to search the different pages of data. Example: 10"
+      },
+      "organization_ids[]": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        },
+        "description": "The Apollo IDs for the companies you want to include in your search results. Each company in the Apollo database is assigned a unique ID. To find IDs, identify the values for organization_id when you call this endpoint. Example: 5e66b6381e05b4008c8331b8"
+      },
+      "revenue_range[max]": {
+        "type": "integer",
+        "description": "Search for organizations based on their revenue. Use this parameter to set the upper range of organization revenue. Use the revenue_range[min] parameter to set the lower range of revenue. Do not enter currency symbols, commas, or decimal points in the figure. Example: 50000000"
+      },
+      "revenue_range[min]": {
+        "type": "integer",
+        "description": "Search for organizations based on their revenue. Use this parameter to set the lower range of organization revenue. Use the revenue_range[max] parameter to set the upper range of revenue. Do not enter currency symbols, commas, or decimal points in the figure. Example: 300000"
+      },
+      "q_organization_name": {
+        "type": "string",
+        "description": "Filter search results to include a specific company name. If the value you enter for this parameter does not match with a company's name, the company will not appear in search results, even if it matches other parameters. Partial matches are accepted. For example, if you filter by the value marketin"
+      },
+      "organization_locations[]": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        },
+        "example": [
+          "United States"
+        ],
+        "description": "The location of the company headquarters. You can search across cities, US states, and countries. If a company has several office locations, results are still based on the headquarters location. For example, if you search chicago but a company's HQ location is in boston, any Boston-based companies w"
+      },
+      "total_funding_range[max]": {
+        "type": "integer",
+        "description": "The maximum amount the company received during all of its funding rounds combined. Use this parameter in combination with total_funding_range[min] to set a monetary range for all of the company's funding rounds. Do not enter currency symbols, commas, or decimal points in the figure. Examples: 500000"
+      },
+      "total_funding_range[min]": {
+        "type": "integer",
+        "description": "The minimum amount the company received during all of its funding rounds combined. Use this parameter in combination with total_funding_range[max] to set a monetary range for all of the company's funding rounds. Do not enter currency symbols, commas, or decimal points in the figure. Examples: 500000"
+      },
+      "q_organization_job_titles[]": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        },
+        "description": "The job titles that are listed in active job postings at the company. Examples: sales manager; research analyst"
+      },
+      "organization_job_locations[]": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        },
+        "description": "The locations of the jobs being actively recruited by the company. Examples: atlanta; japan"
+      },
+      "organization_not_locations[]": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        },
+        "description": "Exclude companies from search results based on the location of the company headquarters. You can use cities, US states, and countries as locations to exclude. This parameter is useful for ensuring you do not prospect in an undesirable territory. For example, if you use ireland as a value, no Ireland"
+      },
+      "q_organization_domains_list[]": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        },
+        "description": "The domain name for the person's employer. This can be the current employer or a previous employer. Do not include www., the @ symbol, or similar. This parameter accepts up to 1,000 domains in a single request. Examples: apollo.io; microsoft.com"
+      },
+      "q_organization_keyword_tags[]": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        },
+        "description": "Filter search results based on keywords associated with companies. For example, you can enter mining as a value to return only companies that have an association with the mining industry. Examples: mining; sales strategy; consulting"
+      },
+      "latest_funding_date_range[max]": {
+        "type": "string",
+        "description": "The latest date when the company received its most recent funding round. Use this parameter in combination with latest_funding_date_range[min] to set a date range for when the company received its most recent funding round. Example: 2025-09-25"
+      },
+      "latest_funding_date_range[min]": {
+        "type": "string",
+        "description": "The earliest date when the company received its most recent funding round. Use this parameter in combination with latest_funding_date_range[max] to set a date range for when the company received its most recent funding round. Example: 2025-07-25"
+      },
+      "latest_funding_amount_range[max]": {
+        "type": "integer",
+        "description": "The maximium amount the company received with its most recent funding round. Use this parameter in combination with latest_funding_amount_range[min] to set a monetary range for the company's most recent funding round. Do not enter currency symbols, commas, or decimal points in the figure. Examples: "
+      },
+      "latest_funding_amount_range[min]": {
+        "type": "integer",
+        "description": "The minimum amount the company received with its most recent funding round. Use this parameter in combination with latest_funding_amount_range[max] to set a monetary range for the company's most recent funding round. Do not enter currency symbols, commas, or decimal points in the figure. Examples: 5"
+      },
+      "organization_num_jobs_range[max]": {
+        "type": "integer",
+        "description": "The maximum number of job postings active at the company. Use this parameter in combination with organization_num_jobs_range[min] to set a job postings range. Examples: 50; 500"
+      },
+      "organization_num_jobs_range[min]": {
+        "type": "integer",
+        "description": "The minimum number of job postings active at the company. Use this parameter in combination with organization_num_jobs_range[max] to set a job postings range. Examples: 50; 500"
+      },
+      "organization_num_employees_ranges[]": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        },
+        "description": "The number range of employees working for the company. This enables you to find companies based on headcount. You can add multiple ranges to expand your search results. Each range you add needs to be a string, with the upper and lower numbers of the range separated only by a comma. Examples: 1,10; 2"
+      },
+      "organization_job_posted_at_range[max]": {
+        "type": "string",
+        "description": "The latest date when jobs were posted by the company. Use this parameter in combination with organization_job_posted_at_range[min] to set a date range for when jobs posted. Example: 2025-09-25"
+      },
+      "organization_job_posted_at_range[min]": {
+        "type": "string",
+        "description": "The earliest date when jobs were posted by the company. Use this parameter in combination with organization_job_posted_at_range[max] to set a date range for when jobs posted. Example: 2025-07-25"
+      },
+      "currently_using_any_of_technology_uids[]": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        },
+        "description": "Find organizations based on the technologies they currently use. Apollo supports filtering by 1,500+ technologies. Apollo calculates technologies data from multiple sources. This data is updated regularly. Check out the full list of supported technologies by downloading this CSV file . Use underscor"
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.01975
+  },
+  "readme": "# Apollo Organization Search API\n\nFind companies matching criteria: name, domain, headcount, industry, location, funding stage and technologies in use.\n\nThe response is the official Apollo API response, unchanged.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/apollo/company-search\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"organization_locations[]\": [\"United States\"], \"per_page\": 1}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `currently_using_any_of_technology_uids[]` | array | No | Find organizations based on the technologies they currently use. Apollo supports filtering by 1,500+ technologies. Apollo calculates technologies data from mult |\n| `latest_funding_amount_range[max]` | integer | No | The maximium amount the company received with its most recent funding round. Use this parameter in combination with latest_funding_amount_range[min] to set a mo |\n| `latest_funding_amount_range[min]` | integer | No | The minimum amount the company received with its most recent funding round. Use this parameter in combination with latest_funding_amount_range[max] to set a mon |\n| `latest_funding_date_range[max]` | string | No | The latest date when the company received its most recent funding round. Use this parameter in combination with latest_funding_date_range[min] to set a date ran |\n| `latest_funding_date_range[min]` | string | No | The earliest date when the company received its most recent funding round. Use this parameter in combination with latest_funding_date_range[max] to set a date r |\n| `organization_ids[]` | array | No | The Apollo IDs for the companies you want to include in your search results. Each company in the Apollo database is assigned a unique ID. To find IDs, identify  |\n| `organization_job_locations[]` | array | No | The locations of the jobs being actively recruited by the company. Examples: atlanta; japan |\n| `organization_job_posted_at_range[max]` | string | No | The latest date when jobs were posted by the company. Use this parameter in combination with organization_job_posted_at_range[min] to set a date range for when  |\n| `organization_job_posted_at_range[min]` | string | No | The earliest date when jobs were posted by the company. Use this parameter in combination with organization_job_posted_at_range[max] to set a date range for whe |\n| `organization_locations[]` | array | No | The location of the company headquarters. You can search across cities, US states, and countries. If a company has several office locations, results are still b |\n| `organization_not_locations[]` | array | No | Exclude companies from search results based on the location of the company headquarters. You can use cities, US states, and countries as locations to exclude. T |\n| `organization_num_employees_ranges[]` | array | No | The number range of employees working for the company. This enables you to find companies based on headcount. You can add multiple ranges to expand your search  |\n| `organization_num_jobs_range[max]` | integer | No | The maximum number of job postings active at the company. Use this parameter in combination with organization_num_jobs_range[min] to set a job postings range. E |\n| `organization_num_jobs_range[min]` | integer | No | The minimum number of job postings active at the company. Use this parameter in combination with organization_num_jobs_range[max] to set a job postings range. E |\n| `page` | integer | No | The page number of the Apollo data that you want to retrieve. Use this parameter in combination with the per_page parameter to make search results for navigable |\n| `per_page` | integer | No | The number of search results that should be returned for each page. Limiting the number of results per page improves the endpoint's performance. Use the page pa |\n| `q_organization_domains_list[]` | array | No | The domain name for the person's employer. This can be the current employer or a previous employer. Do not include www., the @ symbol, or similar. This paramete |\n| `q_organization_job_titles[]` | array | No | The job titles that are listed in active job postings at the company. Examples: sales manager; research analyst |\n| `q_organization_keyword_tags[]` | array | No | Filter search results based on keywords associated with companies. For example, you can enter mining as a value to return only companies that have an associatio |\n| `q_organization_name` | string | No | Filter search results to include a specific company name. If the value you enter for this parameter does not match with a company's name, the company will not a |\n| `revenue_range[max]` | integer | No | Search for organizations based on their revenue. Use this parameter to set the upper range of organization revenue. Use the revenue_range[min] parameter to set  |\n| `revenue_range[min]` | integer | No | Search for organizations based on their revenue. Use this parameter to set the lower range of organization revenue. Use the revenue_range[max] parameter to set  |\n| `total_funding_range[max]` | integer | No | The maximum amount the company received during all of its funding rounds combined. Use this parameter in combination with total_funding_range[min] to set a mone |\n| `total_funding_range[min]` | integer | No | The minimum amount the company received during all of its funding rounds combined. Use this parameter in combination with total_funding_range[max] to set a mone |\n\n## Pricing\n\nFlat price per call. Failed calls are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/apollo/company-search",
+  "created_at": "2026-08-10T02:42:36.295Z"
+}

@@ -1,0 +1,45 @@
+{
+  "name": "alibaba/qwen3.8-max-0902",
+  "display_name": "Qwen: Qwen3.8 Max (0902)",
+  "type": "llm",
+  "vendor": "Alibaba",
+  "vendor_slug": "alibaba",
+  "description": "Qwen3.8 Max (0902) is the pinned snapshot of Alibaba's Qwen3.8 Max dated September 2, 2026, intended for workloads that need a fixed version. Alibaba describes it as an upgraded snapshot with stronger engineering-scale coding and long-horizon autonomous development, steadier multi-tool orchestration and end-to-end task delivery, and refined chart reasoning, document parsing and multimodal perception. It keeps the flagship's vision input, thinking mode and full tool support.",
+  "tags": [
+    "chat",
+    "vision",
+    "reasoning",
+    "structured_output",
+    "function_calling"
+  ],
+  "capabilities": [
+    "chat",
+    "vision",
+    "reasoning",
+    "structured_output",
+    "function_calling"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "chat_completions": "POST /v1/chat/completions",
+    "responses": "POST /v1/responses",
+    "messages": "POST /v1/messages"
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_token",
+    "per_million_tokens": {
+      "input": 2,
+      "output": 6,
+      "cache_read_multiplier": 0.125,
+      "cache_write_multiplier": 1.25
+    }
+  },
+  "cover_url": "https://t0.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=https://www.alibabacloud.com&size=256",
+  "page_url": "https://www.sandbase.ai/model/alibaba/qwen3.8-max-0902",
+  "published_at": "2026-09-03T21:08:24Z",
+  "created_at": "2026-10-02T07:12:30.797Z"
+}

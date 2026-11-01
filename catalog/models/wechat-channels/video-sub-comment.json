@@ -1,0 +1,61 @@
+{
+  "name": "wechat-channels/video-sub-comment",
+  "display_name": "WeChat Channels Video Sub Comments",
+  "type": "api",
+  "vendor": "WeChat Channels",
+  "vendor_slug": "wechat-channels",
+  "description": "Get replies under a first-level WeChat Channels video comment using the video and root-comment IDs. Use it to continue a threaded comment discussion with buffer pagination.",
+  "tags": [
+    "api",
+    "wechat-channels",
+    "social-media"
+  ],
+  "capabilities": [
+    "api",
+    "wechat-channels",
+    "social-media"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/wechat-channels/video-sub-comment"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "objectId",
+      "rootCommentId"
+    ],
+    "properties": {
+      "objectId": {
+        "type": "string",
+        "example": "15042116979764234697",
+        "description": "WeChat Channels video object id used to fetch second-level comment replies."
+      },
+      "last_buffer": {
+        "type": "string",
+        "description": "Pagination buffer for WeChat Channels second-level comment replies. Use the first-level comment's last_buffer for the first reply page when present. For this POST endpoint, send it in an application/x-www-form-urlencoded form body."
+      },
+      "rootCommentId": {
+        "type": "string",
+        "example": "15042242325261781458",
+        "description": "Root first-level comment id returned by the WeChat Channels video comments endpoint."
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.020833
+  },
+  "readme": "# WeChat Channels Video Sub Comments API\n\nGet replies under a first-level WeChat Channels video comment using the video and root-comment IDs. Use it to continue a threaded comment discussion with buffer pagination.\n\nThe response is the platform's original data structure.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/wechat-channels/video-sub-comment\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"objectId\": \"15042116979764234697\", \"rootCommentId\": \"15042242325261781458\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `objectId` | string | Yes | WeChat Channels video object id used to fetch second-level comment replies. |\n| `rootCommentId` | string | Yes | Root first-level comment id returned by the WeChat Channels video comments endpoint. |\n| `last_buffer` | string | No | Pagination buffer for WeChat Channels second-level comment replies. Use the first-level comment's last_buffer for the first reply page when present. For this POST endpoint, send it in an application/x-www-form-urlencoded form body. |\n\n## Pricing\n\nFlat price per call. Failed calls and empty results are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/wechat-channels/video-sub-comment",
+  "created_at": "2026-10-29T12:09:50.585Z"
+}

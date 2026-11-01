@@ -1,0 +1,50 @@
+{
+  "name": "bilibili/app/bangumi-tab",
+  "display_name": "Bilibili App Bangumi Tab",
+  "type": "api",
+  "vendor": "Bilibili",
+  "vendor_slug": "bilibili",
+  "description": "Returns Bilibili app bangumi tab data, providing curated anime recommendations, feed items, and category listings for mobile clients.",
+  "tags": [
+    "api",
+    "bilibili"
+  ],
+  "capabilities": [
+    "api",
+    "bilibili"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/bilibili/app/bangumi-tab"
+  },
+  "input_schema": {
+    "type": "object",
+    "properties": {}
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.0015,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "examples": [
+    {
+      "input": {}
+    }
+  ],
+  "readme": "# Bilibili App Bangumi Tab API\n\nRetrieve Bilibili app bangumi tab content, including anime recommendations and featured series listings without requiring input parameters.\n\n## Use cases\n\n- Display curated anime recommendations from the Bilibili app.\n- Track featured bangumi titles and season promotions.\n- Populate anime discovery feeds in client applications.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/bilibili/app/bangumi-tab\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{}'\n```\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [Bilibili App Cinema Tab](/model/bilibili/app/cinema-tab): Returns cinema tab content from the Bilibili app, featuring curated movies, TV shows, and entertainment recommendations without requiring additional query para…\n- [Bilibili App Home Feed](/model/bilibili/app/home-feed): Returns recommended video items from the Bilibili app home feed.\n- [Bilibili App Single Video Details](/model/bilibili/app/one-video): Returns detailed video metadata for a specific Bilibili video.\n",
+  "page_url": "https://www.sandbase.ai/model/bilibili/app/bangumi-tab",
+  "created_at": "2026-07-31T03:52:59.771Z"
+}

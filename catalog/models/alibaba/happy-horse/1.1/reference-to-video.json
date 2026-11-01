@@ -1,0 +1,328 @@
+{
+  "name": "alibaba/happy-horse/1.1/reference-to-video",
+  "display_name": "Happy Horse 1.1 Reference to Video",
+  "type": "video",
+  "vendor": "Alibaba",
+  "vendor_slug": "alibaba",
+  "description": "Happy Horse 1.1 by Alibaba - animate still images into dynamic videos with AI. Transform photos into cinematic clips with natural motion, camera movement, and optional audio generation.",
+  "tags": [
+    "reference-to-video"
+  ],
+  "capabilities": [
+    "reference-to-video"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "images",
+      "prompt"
+    ],
+    "properties": {
+      "seed": {
+        "type": "integer",
+        "title": "Seed",
+        "description": "Random seed for reproducibility (0-2147483647)."
+      },
+      "images": {
+        "type": "array",
+        "items": {
+          "type": "string",
+          "_fal_ui_field": "image"
+        },
+        "title": "Image Urls",
+        "examples": [
+          "https://help-static-aliyun-doc.aliyuncs.com/file-manage-files/zh-CN/20250925/wpimhv/rap.png"
+        ],
+        "description": "Reference images for subject consistency (1-9 images). Formats: JPEG, JPG, PNG, WEBP. Shortest side must be at least 400 px (720P or higher recommended). Max 20 MB each."
+      },
+      "prompt": {
+        "type": "string",
+        "title": "Prompt",
+        "examples": [
+          "A dance battle between character1 and character2, cinematic lighting, smooth camera movement."
+        ],
+        "minLength": 1,
+        "description": "Text prompt describing the desired video. Reference subjects from your images using ``character1``, ``character2``, ... up to ``character9`` (the order matches the order of ``image_urls``). Max 2500 characters."
+      },
+      "duration": {
+        "enum": [
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15
+        ],
+        "type": "integer",
+        "title": "Duration",
+        "default": 5,
+        "examples": [
+          5,
+          10,
+          15
+        ],
+        "description": "Output video duration in seconds (3-15)."
+      },
+      "resolution": {
+        "enum": [
+          "480p",
+          "720p",
+          "1080p"
+        ],
+        "type": "string",
+        "title": "Resolution",
+        "default": "720p",
+        "description": "Output video resolution tier."
+      },
+      "aspect_ratio": {
+        "enum": [
+          "21:9",
+          "16:9",
+          "3:2",
+          "4:3",
+          "5:4",
+          "1:1",
+          "4:5",
+          "3:4",
+          "2:3",
+          "9:16"
+        ],
+        "type": "string",
+        "title": "Aspect Ratio",
+        "default": "16:9",
+        "description": "The aspect ratio of the generated image."
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "title": "GenerationResponse",
+    "required": [
+      "id",
+      "status"
+    ],
+    "properties": {
+      "id": {
+        "type": "string",
+        "description": "Unique identifier for the generation task."
+      },
+      "error": {
+        "type": "string",
+        "description": "Error message if the task failed. Empty on success."
+      },
+      "model": {
+        "type": "string",
+        "description": "Model ID used for the prediction."
+      },
+      "status": {
+        "enum": [
+          "pending",
+          "running",
+          "completed",
+          "failed",
+          "timeout"
+        ],
+        "type": "string",
+        "description": "Status of the task: pending, running, completed, failed, or timeout."
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "title": "OutputItem",
+          "required": [
+            "url"
+          ],
+          "properties": {
+            "url": {
+              "type": "string",
+              "description": "The URL where the generated content can be downloaded from."
+            },
+            "content_type": {
+              "type": "string",
+              "description": "The MIME type of the output file."
+            }
+          }
+        },
+        "description": "Array of generated content. Empty when status is not completed."
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "formula",
+    "formula": "(params.resolution ?? \"720p\") == \"1080p\" ? (params.duration ?? 5) * 0.18 : (params.resolution ?? \"720p\") == \"480p\" ? (params.duration ?? 5) * 0.07 : (params.duration ?? 5) * 0.14",
+    "formula_variables": [
+      "params.duration",
+      "params.resolution"
+    ],
+    "reference_price": 0.7,
+    "price_examples": [
+      {
+        "params": {
+          "duration": 3,
+          "resolution": "480p"
+        },
+        "usd": 0.21
+      },
+      {
+        "params": {
+          "duration": 3,
+          "resolution": "720p"
+        },
+        "usd": 0.42
+      },
+      {
+        "params": {
+          "duration": 3,
+          "resolution": "1080p"
+        },
+        "usd": 0.54
+      },
+      {
+        "params": {
+          "duration": 4,
+          "resolution": "480p"
+        },
+        "usd": 0.28
+      },
+      {
+        "params": {
+          "duration": 4,
+          "resolution": "720p"
+        },
+        "usd": 0.56
+      },
+      {
+        "params": {
+          "duration": 4,
+          "resolution": "1080p"
+        },
+        "usd": 0.72
+      },
+      {
+        "params": {
+          "duration": 5,
+          "resolution": "480p"
+        },
+        "usd": 0.35
+      },
+      {
+        "params": {
+          "duration": 5,
+          "resolution": "720p"
+        },
+        "usd": 0.7
+      },
+      {
+        "params": {
+          "duration": 5,
+          "resolution": "1080p"
+        },
+        "usd": 0.9
+      },
+      {
+        "params": {
+          "duration": 6,
+          "resolution": "480p"
+        },
+        "usd": 0.42
+      },
+      {
+        "params": {
+          "duration": 6,
+          "resolution": "720p"
+        },
+        "usd": 0.84
+      },
+      {
+        "params": {
+          "duration": 6,
+          "resolution": "1080p"
+        },
+        "usd": 1.08
+      },
+      {
+        "params": {
+          "duration": 7,
+          "resolution": "480p"
+        },
+        "usd": 0.49
+      },
+      {
+        "params": {
+          "duration": 7,
+          "resolution": "720p"
+        },
+        "usd": 0.98
+      },
+      {
+        "params": {
+          "duration": 7,
+          "resolution": "1080p"
+        },
+        "usd": 1.26
+      },
+      {
+        "params": {
+          "duration": 8,
+          "resolution": "480p"
+        },
+        "usd": 0.56
+      },
+      {
+        "params": {
+          "duration": 8,
+          "resolution": "720p"
+        },
+        "usd": 1.12
+      },
+      {
+        "params": {
+          "duration": 8,
+          "resolution": "1080p"
+        },
+        "usd": 1.44
+      }
+    ]
+  },
+  "examples": [
+    {
+      "input": {
+        "duration": 3,
+        "images": [
+          "https://static.sandbase.ai/examples/15f1d2b2-01e3-4f0d-a112-2cfb84ceafde/input/7d424001-95e4-46ed-a097-62db3b5f6022.jpg"
+        ],
+        "prompt": "[Image 1] waves at the camera in a park",
+        "resolution": "720p"
+      },
+      "output": [
+        {
+          "poster": "https://static.sandbase.ai/examples/posters/560068e931254a41e9dd.jpg",
+          "url": "https://static.sandbase.ai/examples/15f1d2b2-01e3-4f0d-a112-2cfb84ceafde/output/2861d5af-fe15-44d0-9e30-d995a5ebba5b.mp4"
+        }
+      ],
+      "default": true
+    }
+  ],
+  "readme": "# Happy Horse 1.1 Reference to Video\n\nCast subjects from reference images into a new Happy Horse 1.1 scene. Refer to each image by number in the prompt to keep its look while the scene plays out.\n\n## Fields\n\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `prompt` | string, required | — | Text instruction. |\n| `images` | image URL[], required | — | Reference images, Image 1, Image 2, … |\n| `resolution` | `480p` / `720p` / `1080p` | `720p` | Sets the per-second rate. |\n| `duration` | 3–15 | 5 | Output length in seconds. |\n| `aspect_ratio` | `21:9` / `16:9` / `3:2` / `4:3` / `5:4` / `1:1` / `4:5` / `3:4` / `2:3` / `9:16` | `16:9` | Output frame shape. |\n| `seed` | integer | random | Fix it to compare prompt changes. |\n\n## Billing\n\nYou pay for output seconds: $0.07 at 480p, $0.14 at 720p, and $0.18 at 1080p, Alibaba's list price.\n\n| Output | 480p | 720p | 1080p |\n|---|---|---|---|\n| 3s | $0.21 | $0.42 | $0.54 |\n| 5s (default) | $0.35 | $0.70 | $0.90 |\n| 10s | $0.70 | $1.40 | $1.80 |\n| 15s | $1.05 | $2.10 | $2.70 |\n\nFailed runs are not charged.\n\n## Prompting\n\n- Give each reference a role: “Image 1 is the rider, Image 2 is the horse”.\n- Keep one clear subject per reference image.\n\n## Limits\n\n- Reference images only; reference videos are not accepted.\n\n## Also on SandBase\n\nOther Happy Horse endpoints: `alibaba/happy-horse/1.1/text-to-video`, `alibaba/happy-horse/1.1/image-to-video`, `alibaba/happy-horse/video-edit` (edit an existing clip).\n",
+  "cover_url": "https://static.sandbase.ai/covers/alibaba/happy-horse/1.1/reference-to-video/cover-flare-20261004204551.webp",
+  "page_url": "https://www.sandbase.ai/model/alibaba/happy-horse/1.1/reference-to-video",
+  "published_at": "2026-06-22T06:14:49.115Z",
+  "created_at": "2026-08-17T09:00:03.847Z"
+}

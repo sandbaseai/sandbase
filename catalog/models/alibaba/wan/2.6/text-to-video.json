@@ -1,0 +1,197 @@
+{
+  "name": "alibaba/wan/2.6/text-to-video",
+  "display_name": "Wan 2.6 Text to Video",
+  "type": "video",
+  "vendor": "Alibaba",
+  "vendor_slug": "alibaba",
+  "description": "Alibaba Wan 2.6 text-to-video model with cinematic visuals, configurable duration (5 or 10 seconds) and resolution.",
+  "tags": [
+    "text-to-video"
+  ],
+  "capabilities": [
+    "text-to-video"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "prompt"
+    ],
+    "properties": {
+      "seed": {
+        "type": "integer",
+        "title": "Seed",
+        "description": "Random seed (0-2147483647) for reproducible results. Omit for a random seed."
+      },
+      "audio": {
+        "type": "string",
+        "title": "Audio",
+        "description": "The URL of an audio file to guide video generation."
+      },
+      "prompt": {
+        "type": "string",
+        "title": "Prompt",
+        "default": "Rim light, low contrast, medium close-up, daylight, left-weighted composition, clean single-person shot, warm tones, soft light, sunny day, side light, daytime. A young girl sits in a field of tall grass, with two fluffy little donkeys standing behind her. The girl is about eleven or twelve, wearing a simple floral dress, hair in two braids, with an innocent smile. She sits cross-legged, gently playing with wildflowers beside her. The donkeys are sturdy with perked ears, curiously looking toward the camera. Sunlight bathes the field, creating a warm and natural atmosphere.",
+        "maxLength": 50000,
+        "minLength": 3,
+        "description": "The text prompt to generate a video from."
+      },
+      "duration": {
+        "enum": [
+          5,
+          10
+        ],
+        "type": "integer",
+        "title": "Duration",
+        "default": 5,
+        "description": "The duration of the generated video in seconds. Valid values are 5 and 10."
+      },
+      "resolution": {
+        "enum": [
+          "720p",
+          "1080p"
+        ],
+        "type": "string",
+        "title": "Resolution",
+        "default": "720p",
+        "description": "The resolution of the video to generate."
+      },
+      "aspect_ratio": {
+        "enum": [
+          "1:1",
+          "4:3",
+          "3:4",
+          "16:9",
+          "9:16"
+        ],
+        "type": "string",
+        "title": "Aspect Ratio",
+        "default": "16:9",
+        "description": "The aspect ratio of the generated video."
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "title": "GenerationResponse",
+    "required": [
+      "id",
+      "status"
+    ],
+    "properties": {
+      "id": {
+        "type": "string",
+        "description": "Unique identifier for the generation task."
+      },
+      "error": {
+        "type": "string",
+        "description": "Error message if the task failed. Empty on success."
+      },
+      "model": {
+        "type": "string",
+        "description": "Model ID used for the prediction."
+      },
+      "status": {
+        "enum": [
+          "pending",
+          "running",
+          "completed",
+          "failed",
+          "timeout"
+        ],
+        "type": "string",
+        "description": "Status of the task: pending, running, completed, failed, or timeout."
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "title": "OutputItem",
+          "required": [
+            "url"
+          ],
+          "properties": {
+            "url": {
+              "type": "string",
+              "description": "The URL where the generated content can be downloaded from."
+            },
+            "content_type": {
+              "type": "string",
+              "description": "The MIME type of the output file."
+            }
+          }
+        },
+        "description": "Array of generated content. Empty when status is not completed."
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "formula",
+    "formula": "(params.duration ?? 5) * ((params.resolution ?? \"720p\") == '1080p' ? 0.15 : 0.10)",
+    "formula_variables": [
+      "params.duration",
+      "params.resolution"
+    ],
+    "reference_price": 0.5,
+    "price_examples": [
+      {
+        "params": {
+          "duration": 5,
+          "resolution": "720p"
+        },
+        "usd": 0.5
+      },
+      {
+        "params": {
+          "duration": 5,
+          "resolution": "1080p"
+        },
+        "usd": 0.75
+      },
+      {
+        "params": {
+          "duration": 10,
+          "resolution": "720p"
+        },
+        "usd": 1
+      },
+      {
+        "params": {
+          "duration": 10,
+          "resolution": "1080p"
+        },
+        "usd": 1.5
+      }
+    ]
+  },
+  "examples": [
+    {
+      "input": {
+        "aspect_ratio": "9:16",
+        "duration": 5,
+        "prompt": "A red paper lantern swaying gently in a quiet bamboo forest at dusk",
+        "resolution": "720p"
+      },
+      "output": [
+        {
+          "poster": "https://static.sandbase.ai/examples/posters/e4d87c467f5be798b303.jpg",
+          "url": "https://static.sandbase.ai/examples/18612ce9-4ed4-4f8e-aeb4-7c8b64e9c1cd/output/0db076c1-5405-4fca-b247-fc6a92374587.mp4"
+        }
+      ],
+      "default": true
+    }
+  ],
+  "readme": "# Wan 2.6 Text to Video\n\nGenerate a 5 or 10 second clip from a written scene, with optional driving audio. For longer clips and better motion, Wan 2.7 is the newer option.\n\n## Fields\n\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `prompt` | string, required | — | Up to 50,000 characters. |\n| `duration` | 5 / 10 | 5 | Output length in seconds. |\n| `audio` | audio URL | — | Optional WAV/MP3 URL that drives speech or rhythm. |\n| `aspect_ratio` | `1:1` / `4:3` / `3:4` / `16:9` / `9:16` | `16:9` | Output frame shape. |\n| `resolution` | `720p` / `1080p` | `720p` | Sets the per-second rate. |\n| `seed` | integer | random | Fix it to compare prompt changes. |\n\n## Billing\n\nYou pay for output seconds: $0.10 at 720p and $0.15 at 1080p, Alibaba's list price.\n\n| Output | 720p | 1080p |\n|---|---|---|\n| 5s (default) | $0.50 | $0.75 |\n| 10s | $1.00 | $1.50 |\n\nFailed runs are not charged.\n\n## Prompting\n\n- Describe the shot in order: subject, action, setting, camera move, light, and sound.\n- Give camera timing explicitly, e.g. “holds for two seconds, then pushes in slowly”.\n- Put spoken lines in quotes and say who speaks them.\n\n## Limits\n\n- Durations are 5 or 10 seconds only.\n\n## Also on SandBase\n\nOther Wan 2.6 endpoints: `alibaba/wan/2.6/image-to-video`, `alibaba/wan/2.6/reference-to-video`, `alibaba/wan/2.6/flash/image-to-video`, `alibaba/wan/2.6/flash/reference-to-video`, `alibaba/wan/2.6/text-to-image`, `alibaba/wan/2.6/image-to-image`, `alibaba/wan/2.7/text-to-video` (newer).\n",
+  "cover_url": "https://static.sandbase.ai/covers/alibaba/wan/2.6/text-to-video/cover-flare-20261004230055.webp",
+  "page_url": "https://www.sandbase.ai/model/alibaba/wan/2.6/text-to-video",
+  "published_at": "2025-12-16T05:12:22.693Z",
+  "created_at": "2026-05-02T04:33:43.324Z"
+}

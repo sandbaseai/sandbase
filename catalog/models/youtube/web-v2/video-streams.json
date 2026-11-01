@@ -1,0 +1,57 @@
+{
+  "name": "youtube/web-v2/video-streams",
+  "display_name": "YouTube Video Streams",
+  "type": "api",
+  "vendor": "YouTube",
+  "vendor_slug": "youtube",
+  "description": "Returns stream details and media information for a specified YouTube video. Queries accept either a direct video identifier or a full video URL.",
+  "tags": [
+    "api",
+    "youtube"
+  ],
+  "capabilities": [
+    "api",
+    "youtube"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/youtube/web-v2/video-streams"
+  },
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "video_id": {
+        "type": "string",
+        "title": "Video Id",
+        "example": "dQw4w9WgXcQ",
+        "description": "Video ID (recommended)"
+      },
+      "video_url": {
+        "type": "string",
+        "title": "Video Url",
+        "description": "Full video URL (optional, ignored if video_id is provided)"
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.0015,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "readme": "# YouTube Video Streams API\n\nRetrieve available video streams and playback sources for a YouTube video using `video_id` or `video_url`.\n\n## Use cases\n\n- Inspect available streaming formats and URLs for a target video.\n- Parse media stream metadata from YouTube video links.\n- Integrate video stream resolution options into playback tools.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/youtube/web-v2/video-streams\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `video_id` | string | No | Video ID (recommended) |\n| `video_url` | string | No | Full video URL (optional, ignored if video_id is provided) |\n\n## Notes\n\n- `video_id` is recommended; `video_url` is ignored if `video_id` is provided.\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [YouTube Channel Community Posts](/model/youtube/web-v2/channel-community-posts): Returns community posts from a specific YouTube channel, including text content, polls, votes, and comment counts.\n- [YouTube Channel Description](/model/youtube/web-v2/channel-description): Returns YouTube channel details including subscriber counts, video totals, view counts, joined date, and social links.\n- [YouTube Channel ID from URL](/model/youtube/web-v2/channel-id): Resolves a YouTube channel URL to its canonical channel ID.\n",
+  "page_url": "https://www.sandbase.ai/model/youtube/web-v2/video-streams",
+  "created_at": "2026-07-31T04:28:03.047Z"
+}

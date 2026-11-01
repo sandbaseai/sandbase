@@ -1,0 +1,60 @@
+{
+  "name": "kuaishou/app/search-image",
+  "display_name": "Kuaishou Image Post Search",
+  "type": "api",
+  "vendor": "Kuaishou",
+  "vendor_slug": "kuaishou",
+  "description": "Searches Kuaishou image posts matching a specified search term. Returns feed details including captions, engagement metrics, and pagination tokens.",
+  "tags": [
+    "api",
+    "kuaishou"
+  ],
+  "capabilities": [
+    "api",
+    "kuaishou"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/kuaishou/app/search-image"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "keyword"
+    ],
+    "properties": {
+      "keyword": {
+        "type": "string",
+        "title": "搜索关键词/Search keyword",
+        "example": "OpenAI"
+      },
+      "pcursor": {
+        "type": "string",
+        "title": "分页游标/Pagination cursor",
+        "default": "",
+        "description": "Cursor, empty for first page"
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.015,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "readme": "# Kuaishou Image Post Search API\n\nSearch for Kuaishou image feeds by passing a query string in `keyword`. Supports cursor-based pagination through the `pcursor` parameter.\n\n## Use cases\n\n- Find relevant image content on Kuaishou based on specific keywords.\n- Track user engagement statistics such as comment and collection counts for image feeds.\n- Page through discovery search results using cursor tokens.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/kuaishou/app/search-image\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"keyword\": \"OpenAI\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `keyword` | string | Yes | — |\n| `pcursor` | string | No | Cursor, empty for first page |\n\n## Example response\n\nReal response for the request above, trimmed to the main fields. User names and long IDs are masked.\n\n```json\n{\n  \"feeds\": [\n    {\n      \"atmosphereType\": 0,\n      \"itemType\": 5,\n      \"rank\": 0,\n      \"feed\": {\n        \"caption\": \"下一家万亿美元公司，会是谁？  anthropic、OpenAI、字节跳动、宇树科技...12家最值得关注的科技独角兽(2026年8月最新版)赶紧收藏!  #IPO #Anthr…\",\n        \"captionToComment\": \"下一家万亿美元公司，会是谁？  anthropic、OpenAI、字节跳动、宇树科技...12家最值得关注的科技独角兽(2026年8月最新版)赶紧收藏!  #IPO #Anthr…\",\n        \"clearScreenSameAuthorCount\": 709,\n        \"collect_count\": 17,\n        \"comment_count\": 5,\n        \"disableCommentDislike\": false\n      }\n    }\n  ]\n}\n```\n\n## Notes\n\n- Leave `pcursor` empty to retrieve the first page of results.\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [Kuaishou Brand Top List](/model/kuaishou/app/brand-top-list): Returns top brand rankings and related live stream links from Kuaishou.\n- [Kuaishou App Share Link](/model/kuaishou/app/generate-share-link): Generates a shareable URL for Kuaishou application content using a specified object identifier.\n- [Kuaishou Hot Board Categories](/model/kuaishou/app/hot-board-categories): Returns the active list of hot board categories available in the Kuaishou app.\n",
+  "page_url": "https://www.sandbase.ai/model/kuaishou/app/search-image",
+  "created_at": "2026-07-31T03:58:06.075Z"
+}

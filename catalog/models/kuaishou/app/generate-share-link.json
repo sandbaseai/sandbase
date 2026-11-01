@@ -1,0 +1,61 @@
+{
+  "name": "kuaishou/app/generate-share-link",
+  "display_name": "Kuaishou App Share Link",
+  "type": "api",
+  "vendor": "Kuaishou",
+  "vendor_slug": "kuaishou",
+  "description": "Generates a shareable URL for Kuaishou application content using a specified object identifier. Returns share link details for the target item.",
+  "tags": [
+    "api",
+    "kuaishou"
+  ],
+  "capabilities": [
+    "api",
+    "kuaishou"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/kuaishou/app/generate-share-link"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "shareObjectId"
+    ],
+    "properties": {
+      "shareObjectId": {
+        "type": "string",
+        "title": "作品ID/Photo ID"
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.0015,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "examples": [
+    {
+      "input": {
+        "shareObjectId": "3xg5wjqdtekbb3u"
+      },
+      "default": true
+    }
+  ],
+  "readme": "# Kuaishou App Share Link API\n\nThis endpoint produces a share link for a specific Kuaishou app object using `shareObjectId`.\n\n## Use cases\n\n- Produce Kuaishou sharing links for specified app objects.\n- Format direct links for sharing Kuaishou items across external channels.\n- Direct users to target Kuaishou media via generated share URLs.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/kuaishou/app/generate-share-link\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"shareObjectId\": \"<shareObjectId>\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `shareObjectId` | string | Yes | — |\n\n## Notes\n\n- `shareObjectId` is a required parameter identifying the target object.\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [Kuaishou Brand Top List](/model/kuaishou/app/brand-top-list): Returns top brand rankings and related live stream links from Kuaishou.\n- [Kuaishou Hot Board Categories](/model/kuaishou/app/hot-board-categories): Returns the active list of hot board categories available in the Kuaishou app.\n- [Kuaishou Hot Board Detail](/model/kuaishou/app/hot-board-detail): Returns trending topics and search keywords from Kuaishou hot boards based on the specified board identifier and board type.\n",
+  "page_url": "https://www.sandbase.ai/model/kuaishou/app/generate-share-link",
+  "created_at": "2026-07-31T03:57:49.907Z"
+}

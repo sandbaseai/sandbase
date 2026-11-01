@@ -1,0 +1,149 @@
+{
+  "name": "microsoft/mai-image-2.5-pro/edit",
+  "display_name": "MAI Image 2.5 Pro Edit",
+  "type": "image",
+  "vendor": "Microsoft",
+  "vendor_slug": "microsoft",
+  "description": "Mai Image 2.5 Pro Edit by Microsoft - AI-powered image editing, style transfer, and transformation. Edit photos with natural language instructions, remove backgrounds, change styles, and enhance images effortlessly.",
+  "tags": [
+    "image-to-image"
+  ],
+  "capabilities": [
+    "image-to-image"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "prompt",
+      "image"
+    ],
+    "properties": {
+      "image": {
+        "type": "string",
+        "title": "Image URL",
+        "default": "",
+        "examples": [
+          "https://storage.googleapis.com/falserverless/example_inputs/nano-banana-edit-input.png"
+        ],
+        "description": "The URL of the image to edit. Provide one http(s) or data: URL."
+      },
+      "prompt": {
+        "type": "string",
+        "title": "Prompt",
+        "examples": [
+          "Turn this into a clean, futuristic product shot with soft studio lighting."
+        ],
+        "maxLength": 5000,
+        "minLength": 3,
+        "description": "The instruction describing how to edit the input image(s)."
+      },
+      "aspect_ratio": {
+        "enum": [
+          "21:9",
+          "16:9",
+          "3:2",
+          "4:3",
+          "5:4",
+          "1:1",
+          "4:5",
+          "3:4",
+          "2:3",
+          "9:16"
+        ],
+        "type": "string",
+        "title": "Aspect Ratio",
+        "description": "The aspect ratio of the generated image."
+      },
+      "output_format": {
+        "enum": [
+          "jpeg",
+          "png"
+        ],
+        "type": "string",
+        "title": "Output Format",
+        "default": "png",
+        "description": "The format of the generated image."
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "title": "GenerationResponse",
+    "required": [
+      "id",
+      "status"
+    ],
+    "properties": {
+      "id": {
+        "type": "string",
+        "description": "Unique identifier for the generation task."
+      },
+      "error": {
+        "type": "string",
+        "description": "Error message if the task failed. Empty on success."
+      },
+      "model": {
+        "type": "string",
+        "description": "Model ID used for the prediction."
+      },
+      "status": {
+        "enum": [
+          "pending",
+          "running",
+          "completed",
+          "failed",
+          "timeout"
+        ],
+        "type": "string",
+        "description": "Status of the task: pending, running, completed, failed, or timeout."
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "title": "OutputItem",
+          "required": [
+            "url"
+          ],
+          "properties": {
+            "url": {
+              "type": "string",
+              "description": "The URL where the generated content can be downloaded from."
+            },
+            "content_type": {
+              "type": "string",
+              "description": "The MIME type of the output file."
+            }
+          }
+        },
+        "description": "Array of generated content. Empty when status is not completed."
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "formula",
+    "formula": "0.29",
+    "formula_variables": [],
+    "reference_price": 0.29,
+    "price_examples": [
+      {
+        "params": {},
+        "usd": 0.29
+      }
+    ]
+  },
+  "readme": "# MAI Image 2.5 Pro Edit\n\nMAI Image 2.5 Pro edit: Microsoft's top image model for photoreal edits from an instruction.\n\n## Fields\n\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `prompt` | string, required | — | Up to 5,000 characters. |\n| `image` | image URL, required | — | Image to edit. JPEG, PNG, or WebP URL. |\n| `output_format` | `jpeg` / `png` | `png` | Output file format. |\n| `aspect_ratio` | `21:9` / `16:9` / `3:2` / `4:3` / `5:4` / `1:1` / `4:5` / `3:4` / `2:3` / `9:16` | — | Output shape. |\n\n## Billing\n\n$0.29 per output image.\n\n| Request | Price |\n|---|---|\n| One image | $0.29 |\n\nFailed runs are not charged.\n\n## Prompting\n\n- State the change and what must stay.\n\n## Also on SandBase\n\nRelated: `microsoft/mai-image-2.5/edit`.\n",
+  "cover_url": "https://static.sandbase.ai/covers/microsoft/mai-image-2.5-pro/edit/cover-flare-20261005012758.webp",
+  "page_url": "https://www.sandbase.ai/model/microsoft/mai-image-2.5-pro/edit",
+  "published_at": "2026-07-30T14:24:19.801Z",
+  "created_at": "2026-08-17T09:07:10.887Z"
+}

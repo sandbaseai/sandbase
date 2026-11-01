@@ -1,0 +1,243 @@
+{
+  "name": "elevenlabs/v3",
+  "display_name": "V3",
+  "type": "audio",
+  "vendor": "ElevenLabs",
+  "vendor_slug": "elevenlabs",
+  "description": "Eleven v3 is ElevenLabs' expressive multilingual text-to-speech model. It follows inline audio tags such as [whispers] or [laughs] to direct delivery, emotion, and pacing.",
+  "tags": [
+    "text-to-speech"
+  ],
+  "capabilities": [
+    "text-to-speech"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}"
+  },
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "text": {
+        "type": "string",
+        "title": "Text",
+        "examples": [
+          "Hello! This is a test of the text to speech system, powered by ElevenLabs. How does it sound?"
+        ],
+        "maxLength": 5000,
+        "minLength": 1,
+        "description": "The text to convert to speech"
+      },
+      "voice": {
+        "type": "string",
+        "title": "Voice",
+        "default": "Rachel",
+        "examples": [
+          "Aria",
+          "Roger",
+          "Sarah",
+          "Laura",
+          "Charlie",
+          "George",
+          "Callum",
+          "River",
+          "Liam",
+          "Charlotte",
+          "Alice",
+          "Matilda",
+          "Will",
+          "Jessica",
+          "Eric",
+          "Chris",
+          "Brian",
+          "Daniel",
+          "Lily",
+          "Bill"
+        ],
+        "description": "The voice to use for speech generation"
+      },
+      "stability": {
+        "type": "number",
+        "title": "Stability",
+        "default": 0.5,
+        "maximum": 1,
+        "minimum": 0,
+        "description": "Voice stability (0-1)"
+      },
+      "language_code": {
+        "enum": [
+          "",
+          "afr",
+          "ara",
+          "hye",
+          "asm",
+          "aze",
+          "bel",
+          "ben",
+          "bos",
+          "bul",
+          "cat",
+          "ceb",
+          "nya",
+          "hrv",
+          "ces",
+          "dan",
+          "nld",
+          "eng",
+          "est",
+          "fil",
+          "fin",
+          "fra",
+          "glg",
+          "kat",
+          "deu",
+          "ell",
+          "guj",
+          "hau",
+          "heb",
+          "hin",
+          "hun",
+          "isl",
+          "ind",
+          "gle",
+          "ita",
+          "jpn",
+          "jav",
+          "kan",
+          "kaz",
+          "kir",
+          "kor",
+          "lav",
+          "lin",
+          "lit",
+          "ltz",
+          "mkd",
+          "msa",
+          "mal",
+          "cmn",
+          "mar",
+          "nep",
+          "nor",
+          "pus",
+          "fas",
+          "pol",
+          "por",
+          "pan",
+          "ron",
+          "rus",
+          "srp",
+          "snd",
+          "slk",
+          "slv",
+          "som",
+          "spa",
+          "swa",
+          "swe",
+          "tam",
+          "tel",
+          "tha",
+          "tur",
+          "ukr",
+          "urd",
+          "vie",
+          "cym"
+        ],
+        "type": "string",
+        "title": "Language Code",
+        "description": "Language code (ISO 639-3) used to enforce a language for the model."
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "title": "GenerationResponse",
+    "required": [
+      "id",
+      "status"
+    ],
+    "properties": {
+      "id": {
+        "type": "string",
+        "description": "Unique identifier for the generation task."
+      },
+      "error": {
+        "type": "string",
+        "description": "Error message if the task failed. Empty on success."
+      },
+      "model": {
+        "type": "string",
+        "description": "Model ID used for the prediction."
+      },
+      "status": {
+        "enum": [
+          "pending",
+          "running",
+          "completed",
+          "failed",
+          "timeout"
+        ],
+        "type": "string",
+        "description": "Status of the task: pending, running, completed, failed, or timeout."
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "title": "OutputItem",
+          "required": [
+            "url"
+          ],
+          "properties": {
+            "url": {
+              "type": "string",
+              "examples": [
+                "https://static.sandbase.ai/examples/elevenlabs/v3/output_url_0.mp3"
+              ],
+              "description": "The URL where the generated content can be downloaded from."
+            },
+            "content_type": {
+              "type": "string",
+              "description": "The MIME type of the output file."
+            }
+          }
+        },
+        "description": "Array of generated content. Empty when status is not completed."
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "formula",
+    "formula": "Math.max(1.0, Math.ceil(len(params.text ?? \"\") / 1000.0)) * 0.2",
+    "formula_variables": [
+      "params.text"
+    ],
+    "reference_price": 0.2,
+    "price_examples": [
+      {
+        "params": {},
+        "usd": 0.2
+      }
+    ]
+  },
+  "examples": [
+    {
+      "input": {},
+      "output": [
+        {
+          "url": "https://static.sandbase.ai/examples/b7c65ba8-c6fc-4d44-87df-45b6fc3d71db/output/2c9fd4c5-21fe-45dd-b6ad-cfed8b45dac9.mp3"
+        }
+      ],
+      "default": true
+    }
+  ],
+  "readme": "# V3\n\nEleven v3: expressive multilingual speech that follows audio tags such as [whispers] or [laughs].\n\n## Fields\n\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `text` | string | — | Text to speak. |\n| `voice` | string | `Rachel` | Voice name or ID. |\n| `language_code` | `` / `afr` / `ara` / `hye` / `asm` / `aze` / `bel` / `ben` / `bos` / `bul` / `cat` / `ceb` / `nya` / `hrv` / `ces` / `dan` / `nld` / `eng` / `est` / `fil` / `fin` / `fra` / `glg` / `kat` / `deu` / `ell` / `guj` / `hau` / `heb` / `hin` / `hun` / `isl` / `ind` / `gle` / `ita` / `jpn` / `jav` / `kan` / `kaz` / `kir` / `kor` / `lav` / `lin` / `lit` / `ltz` / `mkd` / `msa` / `mal` / `cmn` / `mar` / `nep` / `nor` / `pus` / `fas` / `pol` / `por` / `pan` / `ron` / `rus` / `srp` / `snd` / `slk` / `slv` / `som` / `spa` / `swa` / `swe` / `tam` / `tel` / `tha` / `tur` / `ukr` / `urd` / `vie` / `cym` | — | Force a language. |\n| `stability` | number 0–1 | 0.5 | Lower is more expressive; higher is more consistent. |\n\n## Billing\n\n$0.20 per started 1,000 characters, with a one-unit minimum.\n\n| Text | Price |\n|---|---|\n| 200 characters | $0.20 |\n| 1,000 characters | $0.20 |\n| 2,500 characters | $0.60 |\n\nFailed runs are not charged.\n\n## Prompting\n\n- Use punctuation and line breaks to shape pauses.\n- Add audio tags like `[excited]` or `[sighs]` inline.\n\n## Also on SandBase\n\nOther ElevenLabs voices: `elevenlabs/v4`, `elevenlabs/v4-turbo`, `elevenlabs/multilingual-v2`.\n",
+  "cover_url": "https://static.sandbase.ai/covers/elevenlabs/v3/cover-flare-20261008040452.webp",
+  "page_url": "https://www.sandbase.ai/model/elevenlabs/v3",
+  "published_at": "2025-08-20T19:22:36.745Z",
+  "created_at": "2026-05-14T02:54:13.479Z"
+}

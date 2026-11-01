@@ -1,0 +1,177 @@
+{
+  "name": "xai/grok-imagine-image/edit",
+  "display_name": "Grok Imagine Image Edit",
+  "type": "image",
+  "vendor": "xAI",
+  "vendor_slug": "xai",
+  "description": "Grok Imagine Image Edit is xAI's intelligent image editing model. Transform, retouch, and reimagine existing images using text prompts - from background replacement to artistic style conversion.",
+  "tags": [
+    "image-to-image"
+  ],
+  "capabilities": [
+    "image-to-image"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "prompt"
+    ],
+    "properties": {
+      "images": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        },
+        "title": "Image URLs",
+        "examples": [
+          "https://static.sandbase.ai/examples/xai/grok-imagine-image/edit/input_images_0.png"
+        ],
+        "description": "List of URLs of the images to edit. A maximum of 3 images are supported."
+      },
+      "prompt": {
+        "type": "string",
+        "title": "Prompt",
+        "examples": [
+          "Make this scene more realistic but still keep the game vibes"
+        ],
+        "maxLength": 8000,
+        "description": "Text description of the desired image."
+      },
+      "resolution": {
+        "enum": [
+          "1k",
+          "2k"
+        ],
+        "type": "string",
+        "title": "Resolution",
+        "default": "1k",
+        "description": "Resolution of the generated image. `1k` for standard resolution, `2k` for high resolution."
+      },
+      "aspect_ratio": {
+        "enum": [
+          "21:9",
+          "16:9",
+          "3:2",
+          "4:3",
+          "5:4",
+          "1:1",
+          "4:5",
+          "3:4",
+          "2:3",
+          "9:16"
+        ],
+        "type": "string",
+        "title": "Aspect Ratio",
+        "description": "The aspect ratio of the generated image."
+      },
+      "output_format": {
+        "enum": [
+          "jpeg",
+          "png"
+        ],
+        "type": "string",
+        "title": "Output Format",
+        "default": "jpeg",
+        "description": "The format of the generated image."
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "title": "GenerationResponse",
+    "required": [
+      "id",
+      "status"
+    ],
+    "properties": {
+      "id": {
+        "type": "string",
+        "description": "Unique identifier for the generation task."
+      },
+      "error": {
+        "type": "string",
+        "description": "Error message if the task failed. Empty on success."
+      },
+      "model": {
+        "type": "string",
+        "description": "Model ID used for the prediction."
+      },
+      "status": {
+        "enum": [
+          "pending",
+          "running",
+          "completed",
+          "failed",
+          "timeout"
+        ],
+        "type": "string",
+        "description": "Status of the task: pending, running, completed, failed, or timeout."
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "title": "OutputItem",
+          "required": [
+            "url"
+          ],
+          "properties": {
+            "url": {
+              "type": "string",
+              "examples": [
+                "https://static.sandbase.ai/examples/xai/grok-imagine-image/edit/output_url_1.jpg"
+              ],
+              "description": "The URL where the generated content can be downloaded from."
+            },
+            "content_type": {
+              "type": "string",
+              "description": "The MIME type of the output file."
+            }
+          }
+        },
+        "description": "Array of generated content. Empty when status is not completed."
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "formula",
+    "formula": "0.02 + len(params.images ?? []) * 0.002",
+    "formula_variables": [
+      "params.images"
+    ],
+    "reference_price": 0.02,
+    "price_examples": [
+      {
+        "params": {},
+        "usd": 0.02
+      }
+    ]
+  },
+  "examples": [
+    {
+      "input": {
+        "prompt": "Make this scene more realistic but still keep the game vibes"
+      },
+      "output": [
+        {
+          "url": "https://static.sandbase.ai/examples/fef66c03-8926-4e6f-962b-7c117da372e4/output/b2da9da9-9e53-44f9-86fd-2363ac37b163.jpg"
+        }
+      ],
+      "default": true
+    }
+  ],
+  "readme": "# Grok Imagine Image Edit\n\nGrok Imagine Image edit (standard): fast, low-cost image edits.\n\n## Fields\n\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `prompt` | string, required | — | Up to 8,000 characters. |\n| `images` | image URL[] | — | Images to edit or combine, Image 1, Image 2, … |\n| `resolution` | `1k` / `2k` | `1k` | Sets the per-image rate. |\n| `aspect_ratio` | `21:9` / `16:9` / `3:2` / `4:3` / `5:4` / `1:1` / `4:5` / `3:4` / `2:3` / `9:16` | — | Output shape. |\n| `output_format` | `jpeg` / `png` | `jpeg` | Output file format. |\n\n## Billing\n\n$0.02 per output image plus $0.002 per input image.\n\n| Request | Price |\n|---|---|\n| 1 input image | $0.022 |\n| 3 input images | $0.026 |\n\nFailed runs are not charged.\n\n## Prompting\n\n- Quote any text that must appear.\n\n## Limits\n\n- One output image per request.\n\n## Also on SandBase\n\nOther Grok Imagine Image endpoints: `xai/grok-imagine-image/quality`, `xai/grok-imagine-image/quality/edit`, `xai/grok-imagine-image/2.0/text-to-image`, `xai/grok-imagine-image/2.0/edit`.\n",
+  "cover_url": "https://static.sandbase.ai/covers/xai/grok-imagine-image/edit/cover-flare-20261005013810.webp",
+  "page_url": "https://www.sandbase.ai/model/xai/grok-imagine-image/edit",
+  "published_at": "2026-01-29T00:29:41.002Z",
+  "created_at": "2026-05-11T02:40:47.654Z"
+}

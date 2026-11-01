@@ -1,0 +1,146 @@
+{
+  "name": "google/gemini-omni-flash/1.1/edit",
+  "display_name": "Gemini Omni Flash 1.1 Edit",
+  "type": "video",
+  "vendor": "Google",
+  "vendor_slug": "google",
+  "description": "Gemini Omni Flash 1.1 Edit by Google applies natural-language edits to an existing video of up to ten seconds, such as changing style, lighting, or objects, at 360p to 4K output.",
+  "tags": [
+    "video-to-video"
+  ],
+  "capabilities": [
+    "video-to-video"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "prompt",
+      "video"
+    ],
+    "properties": {
+      "video": {
+        "type": "string",
+        "title": "Video URL",
+        "examples": [
+          "https://static.sandbase.ai/examples/google/gemini-omni-flash/edit/input_video_0.mp4"
+        ],
+        "description": "URL of the video to edit."
+      },
+      "prompt": {
+        "type": "string",
+        "title": "Prompt",
+        "examples": [
+          "Make this video anime. Keep everything else the same."
+        ],
+        "maxLength": 20000,
+        "description": "A simple instruction describing the edit."
+      },
+      "resolution": {
+        "enum": [
+          "360p",
+          "720p",
+          "1080p",
+          "4k"
+        ],
+        "type": "string",
+        "title": "Resolution",
+        "default": "720p",
+        "description": "The resolution of the edited video."
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "title": "GenerationResponse",
+    "required": [
+      "id",
+      "status"
+    ],
+    "properties": {
+      "id": {
+        "type": "string",
+        "description": "Unique identifier for the generation task."
+      },
+      "error": {
+        "type": "string",
+        "description": "Error message if the task failed. Empty on success."
+      },
+      "model": {
+        "type": "string",
+        "description": "Model ID used for the prediction."
+      },
+      "status": {
+        "enum": [
+          "pending",
+          "running",
+          "completed",
+          "failed",
+          "timeout"
+        ],
+        "type": "string",
+        "description": "Status of the task: pending, running, completed, failed, or timeout."
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "title": "OutputItem",
+          "required": [
+            "url"
+          ],
+          "properties": {
+            "url": {
+              "type": "string",
+              "description": "The URL where the generated content can be downloaded from."
+            },
+            "content_type": {
+              "type": "string",
+              "description": "The MIME type of the output file."
+            }
+          }
+        },
+        "description": "Array of generated content. Empty when status is not completed."
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "formula",
+    "formula": "Math.min(10.0, Math.ceil((usage.duration ?? media_duration(params.video) ?? 8.0) - 0.05)) * 0.02 + Math.max(3.0, Math.min(10.0, Math.ceil((usage.duration ?? media_duration(params.video) ?? 8.0) - 0.05))) * ((params.resolution ?? \"720p\") == \"360p\" ? 0.04 : (params.resolution ?? \"720p\") == \"1080p\" ? 0.18 : (params.resolution ?? \"720p\") == \"4k\" ? 0.36 : 0.12)",
+    "formula_variables": [
+      "params.resolution",
+      "params.video",
+      "usage.duration"
+    ],
+    "reference_price": 1.12
+  },
+  "examples": [
+    {
+      "input": {
+        "prompt": "Make this video look like a watercolor painting. Keep everything else the same.",
+        "resolution": "1080p",
+        "video": "https://static.sandbase.ai/examples/dc14a58a-ac90-45a2-8041-931e6bafb192/input/dc716dd9-2ff4-443f-ac62-0d7c64e7381e.mp4"
+      },
+      "output": [
+        {
+          "poster": "https://static.sandbase.ai/examples/posters/32fa6172b88089aa9558.jpg",
+          "url": "https://static.sandbase.ai/examples/dc14a58a-ac90-45a2-8041-931e6bafb192/output/3969dbf9-5e53-4955-ab05-47c8c63007b9.mp4"
+        }
+      ],
+      "default": true
+    }
+  ],
+  "readme": "# Gemini Omni Flash 1.1 Edit\n\nGemini Omni Flash 1.1 edit: change an existing clip of up to 10 seconds with an instruction, such as style, lighting, or objects, while the rest of the scene stays consistent.\n\n## Fields\n\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `prompt` | string, required | — | Up to 20,000 characters. |\n| `video` | video URL, required | — | Source clip, up to 10 seconds. |\n| `resolution` | `360p` / `720p` / `1080p` / `4k` | `720p` | Sets the per-second rate. |\n\n## Billing\n\nBilling counts the source and the output: $0.02 per source second plus the output rate ($0.04 at 360p, $0.12 at 720p, $0.18 at 1080p, $0.36 at 4K) for the same length, with a 3-second minimum on the output. The quote before submission assumes an 8-second source.\n\n| Source clip | 360p | 720p | 1080p | 4k |\n|---|---|---|---|---|\n| 3s source | $0.18 | $0.42 | $0.60 | $1.14 |\n| 5s source | $0.30 | $0.70 | $1.00 | $1.90 |\n| 8s source | $0.48 | $1.12 | $1.60 | $3.04 |\n| 10s source | $0.60 | $1.40 | $2.00 | $3.80 |\n\nFailed runs are not charged.\n\n## Prompting\n\n- Lead with the change and say what must stay the same.\n\n## Limits\n\n- Source clips longer than 10 seconds are billed and processed as 10 seconds.\n\n## Also on SandBase\n\nOther Gemini Omni Flash 1.1 endpoints: `google/gemini-omni-flash/1.1/text-to-video`, `google/gemini-omni-flash/1.1/image-to-video`, `google/gemini-omni-flash/1.1/reference-to-video`, `google/gemini-omni-flash/edit` (previous version).\n",
+  "cover_url": "https://static.sandbase.ai/covers/google/gemini-omni-flash/1.1/edit/cover-flare-20261004181435.webp",
+  "page_url": "https://www.sandbase.ai/model/google/gemini-omni-flash/1.1/edit",
+  "published_at": "2026-08-27T16:39:01.336Z",
+  "created_at": "2026-08-31T04:04:34.694Z"
+}

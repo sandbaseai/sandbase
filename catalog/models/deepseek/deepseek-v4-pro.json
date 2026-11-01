@@ -1,0 +1,47 @@
+{
+  "name": "deepseek/deepseek-v4-pro",
+  "display_name": "DeepSeek: DeepSeek V4 Pro",
+  "type": "llm",
+  "vendor": "DeepSeek",
+  "vendor_slug": "deepseek",
+  "description": "DeepSeek V4 Pro is the large tier of DeepSeek's V4 family, a 1.6T-parameter mixture-of-experts model with 49B active parameters, introduced as an open-weight preview in April 2026 with a 1M-token context. It combines token-wise compression with DeepSeek Sparse Attention and supports thinking and non-thinking modes, aimed at agentic coding, advanced reasoning and knowledge-heavy work. On DeepSeek's API this name now serves the August 2026 GA revision; use the 0813 entry to pin that version.",
+  "tags": [
+    "chat",
+    "reasoning",
+    "structured_output",
+    "function_calling"
+  ],
+  "capabilities": [
+    "chat",
+    "reasoning",
+    "structured_output",
+    "function_calling"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "chat_completions": "POST /v1/chat/completions",
+    "responses": "POST /v1/responses",
+    "messages": "POST /v1/messages"
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_token",
+    "per_million_tokens": {
+      "input": 1.32,
+      "output": 3.96,
+      "cache_read_multiplier": 0.0333
+    },
+    "formula": "usage.prompt_tokens * 1.32 / 1000000 + usage.completion_tokens * 3.96 / 1000000 + usage.cached_tokens * 0.000044 / 1000000",
+    "formula_variables": [
+      "usage.cached_tokens",
+      "usage.completion_tokens",
+      "usage.prompt_tokens"
+    ]
+  },
+  "page_url": "https://www.sandbase.ai/model/deepseek/deepseek-v4-pro",
+  "published_at": "2026-04-24T03:17:59.654Z",
+  "created_at": "2026-05-08T23:48:37.395Z"
+}

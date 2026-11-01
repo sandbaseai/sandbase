@@ -1,0 +1,195 @@
+{
+  "name": "kwaivgi/kling-video/v4/reference-to-video",
+  "display_name": "Kling V4 Reference to Video",
+  "type": "video",
+  "vendor": "KwaiVGI",
+  "vendor_slug": "kwaivgi",
+  "description": "Kling V4 Reference to Video by Kuaishou generates a 3-30 second video that keeps characters, objects and motion from reference images and videos.",
+  "tags": [
+    "reference-to-video"
+  ],
+  "capabilities": [
+    "reference-to-video"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "prompt"
+    ],
+    "properties": {
+      "images": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        },
+        "title": "Reference Images",
+        "maxItems": 10,
+        "description": "Up to 10 reference images, referenced as @Image1, @Image2, ..."
+      },
+      "prompt": {
+        "type": "string",
+        "title": "Prompt",
+        "examples": [
+          "@Element1 and @Element2 are having dinner at the table in @Image1"
+        ],
+        "description": "Text prompt. Refer to references as @Image1, @Video1, ..."
+      },
+      "videos": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        },
+        "title": "Reference Videos",
+        "maxItems": 5,
+        "description": "Up to 5 reference videos (3-30s each, 30s combined), referenced as @Video1, ... Video references switch to the input-plus-output price."
+      },
+      "duration": {
+        "type": "integer",
+        "title": "Duration",
+        "default": 5,
+        "maximum": 30,
+        "minimum": 3,
+        "description": "Output length in seconds (3-30)."
+      },
+      "voice_ids": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        },
+        "title": "Voice IDs",
+        "maxItems": 2,
+        "description": "Up to 2 custom voice IDs so characters speak in that voice. Create one by uploading a 5-30s voice recording at https://www.sandbase.ai/model/kwaivgi/kling-video/create-voice (Kling Create Voice). Cannot be combined with reference videos."
+      },
+      "resolution": {
+        "enum": [
+          "720p",
+          "1080p"
+        ],
+        "type": "string",
+        "title": "Resolution",
+        "default": "1080p",
+        "description": "Output resolution."
+      },
+      "aspect_ratio": {
+        "enum": [
+          "21:9",
+          "16:9",
+          "9:16",
+          "1:1"
+        ],
+        "type": "string",
+        "title": "Aspect Ratio",
+        "description": "Output frame shape. Leave empty to follow the references (adaptive)."
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "title": "GenerationResponse",
+    "required": [
+      "id",
+      "status"
+    ],
+    "properties": {
+      "id": {
+        "type": "string",
+        "description": "Unique identifier for the generation task."
+      },
+      "error": {
+        "type": "string",
+        "description": "Error message if the task failed. Empty on success."
+      },
+      "model": {
+        "type": "string",
+        "description": "Model ID used for the prediction."
+      },
+      "status": {
+        "enum": [
+          "pending",
+          "running",
+          "completed",
+          "failed",
+          "timeout"
+        ],
+        "type": "string",
+        "description": "Status of the task: pending, running, completed, failed, or timeout."
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "title": "OutputItem",
+          "required": [
+            "url"
+          ],
+          "properties": {
+            "url": {
+              "type": "string",
+              "description": "The URL where the generated content can be downloaded from."
+            },
+            "content_type": {
+              "type": "string",
+              "description": "The MIME type of the output file."
+            }
+          }
+        },
+        "description": "Array of generated content. Empty when status is not completed."
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "formula",
+    "formula": "len(params.videos ?? []) > 0 ? ((params.resolution ?? \"1080p\") == \"720p\" ? 0.094 : 0.141) * ((params.duration ?? 5) * 1.0 + Math.max((params.duration ?? 5) * 1.0, media_duration(params.videos) ?? 30.0)) : (params.duration ?? 5) * ((params.resolution ?? \"1080p\") == \"720p\" ? 0.157 : 0.235)",
+    "formula_variables": [
+      "params.duration",
+      "params.resolution",
+      "params.videos"
+    ],
+    "reference_price": 1.175
+  },
+  "examples": [
+    {
+      "input": {
+        "aspect_ratio": "16:9",
+        "images": [
+          "https://static.sandbase.ai/examples/d5022210-6b33-4763-915b-1bf6b20f4f81/input/454d9f12-340e-487a-8f25-e83ddd48a57b.png"
+        ],
+        "prompt": "The rabbit from @Image1 sits at a wooden table in a cozy cafe, sipping tea from a tiny cup. Warm afternoon light."
+      },
+      "output": [
+        {
+          "url": "https://static.sandbase.ai/examples/d5022210-6b33-4763-915b-1bf6b20f4f81/output/83773596-daa8-443e-80b4-6a9e2284718b.mp4"
+        }
+      ],
+      "default": true
+    },
+    {
+      "input": {
+        "aspect_ratio": "16:9",
+        "images": [
+          "https://static.sandbase.ai/examples/142b1021-7119-4f94-86c5-b7bba08fb8aa/input/60d4b6f5-2b0a-4718-a948-f25624d8589b.png"
+        ],
+        "prompt": "The tiger from @Image1 walks through a snowy pine forest at dusk, snowflakes falling, low-angle tracking shot."
+      },
+      "output": [
+        {
+          "url": "https://static.sandbase.ai/examples/142b1021-7119-4f94-86c5-b7bba08fb8aa/output/c8a8921d-6a4b-40b2-875a-0fb07c228916.mp4"
+        }
+      ]
+    }
+  ],
+  "readme": "# Kling V4 Reference to Video\nKling V4 reference-to-video keeps characters, objects and motion from reference images and videos in a new 3–30 second clip.\n## Fields\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `prompt` | string, required | — | Refer to inputs as `@Image1`, `@Video1`, … |\n| `images` | image URL[] | — | Up to 10 reference images. |\n| `videos` | video URL[] | — | Up to 5 reference videos, 3–30s each, 30s combined. |\n| `voice_ids` | string[] | — | Up to 2 custom voice IDs. Create one at [Kling Create Voice](https://www.sandbase.ai/model/kwaivgi/kling-video/create-voice). Not combinable with `videos`. |\n| `aspect_ratio` | `21:9` / `16:9` / `9:16` / `1:1` | — | Leave empty to follow the references. |\n| `resolution` | `720p` / `1080p` | `1080p` | Output resolution. |\n| `duration` | 3–30 | 5 | Output length in seconds. |\n## Billing\nWithout reference videos: $0.157 per output second at 720p, $0.235 at 1080p.\nWith reference videos: $0.094 (720p) or $0.141 (1080p) per second of output plus input, where the input side counts at least as long as the output. The quote before submission assumes 30 seconds of reference video when the length cannot be read.\n| Request | Price |\n|---|---|\n| 5s, 1080p, images only (default) | $1.175 |\n| 5s, 720p, images only | $0.785 |\n| 5s, 1080p, 8s reference video | $1.833 |\n| 10s, 720p, 4s reference video | $1.88 |\nFailed runs are not charged.\n## Prompting\n- Name each reference in the prompt, e.g. \"@Image1 walks into the scene from @Video1\".\n- To make a character speak in a cloned voice, upload a 5–30 second recording at [Kling Create Voice](https://www.sandbase.ai/model/kwaivgi/kling-video/create-voice) to get a `voice_id`, pass its ID in `voice_ids`, and write the line in the prompt, e.g. \"The man from @Image1 says: \\\"Welcome back.\\\"\". Every clip has a soundtrack; without `voice_ids` the voice is chosen by the model.\n## Limits\n- Clips are 3–30 seconds; reference videos 3–30 seconds.\n## Also on SandBase\nOther Kling V4 endpoints: `kwaivgi/kling-video/v4/text-to-video`, `kwaivgi/kling-video/v4/image-to-video`, `kwaivgi/kling-video/v4/reference-to-video`, `kwaivgi/kling-video/v4/video-edit`.",
+  "cover_url": "https://static.sandbase.ai/covers/kwaivgi/kling-video/v4/reference-to-video/cover-flare-20261022111304.webp",
+  "page_url": "https://www.sandbase.ai/model/kwaivgi/kling-video/v4/reference-to-video",
+  "published_at": "2026-10-21T15:09:12.01Z",
+  "created_at": "2026-10-22T02:45:18.158Z"
+}

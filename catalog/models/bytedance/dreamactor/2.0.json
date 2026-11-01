@@ -1,0 +1,140 @@
+{
+  "name": "bytedance/dreamactor/2.0",
+  "display_name": "ByteDance DreamActor 2.0",
+  "type": "video",
+  "vendor": "Bytedance",
+  "vendor_slug": "bytedance",
+  "description": "DreamActor 2.0 by ByteDance transfers motion, facial expressions and lip movement from a driving video to the character in a reference image.",
+  "tags": [
+    "video-to-video"
+  ],
+  "capabilities": [
+    "video-to-video"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "image",
+      "video"
+    ],
+    "properties": {
+      "image": {
+        "type": "string",
+        "title": "Image",
+        "examples": [
+          "https://static.sandbase.ai/examples/alibaba/wan/2.2/animate/move/input_image_1.png"
+        ],
+        "description": "Input image URL (face / character)."
+      },
+      "video": {
+        "type": "string",
+        "title": "Video",
+        "examples": [
+          "https://static.sandbase.ai/examples/alibaba/wan/2.2/animate/move/input_video_0.mp4"
+        ],
+        "description": "Driving video providing motion, expressions and lip movement."
+      },
+      "trim_first_second": {
+        "type": "boolean",
+        "title": "Trim First Second",
+        "default": true,
+        "description": "Crop the 1-second transition at the start of the output."
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "title": "GenerationResponse",
+    "required": [
+      "id",
+      "status"
+    ],
+    "properties": {
+      "id": {
+        "type": "string",
+        "description": "Unique identifier for the generation task."
+      },
+      "error": {
+        "type": "string",
+        "description": "Error message if the task failed. Empty on success."
+      },
+      "model": {
+        "type": "string",
+        "description": "Model ID used for the prediction."
+      },
+      "status": {
+        "enum": [
+          "pending",
+          "running",
+          "completed",
+          "failed",
+          "timeout"
+        ],
+        "type": "string",
+        "description": "Status of the task: pending, running, completed, failed, or timeout."
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "title": "OutputItem",
+          "required": [
+            "url"
+          ],
+          "properties": {
+            "url": {
+              "type": "string",
+              "examples": [
+                "https://static.sandbase.ai/examples/bytedance/dreamactor/2.0/output_url_2.mp4"
+              ],
+              "description": "The URL where the generated content can be downloaded from."
+            },
+            "content_type": {
+              "type": "string",
+              "description": "The MIME type of the output file."
+            }
+          }
+        },
+        "description": "Array of generated content. Empty when status is not completed."
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "formula",
+    "formula": "(usage.duration ?? media_duration(params.video) ?? 5.0) * 0.05",
+    "formula_variables": [
+      "params.video",
+      "usage.duration"
+    ],
+    "reference_price": 0.25
+  },
+  "examples": [
+    {
+      "input": {
+        "image": "https://static.sandbase.ai/examples/1668055b-f263-449e-a2b0-64ce4b82aba2/input/e2db078d-d0b4-4317-bf55-9372a99f8359.png",
+        "video": "https://static.sandbase.ai/examples/1668055b-f263-449e-a2b0-64ce4b82aba2/input/df52f6c5-d3e1-4bd2-8348-a8f1ab03ac18.mp4"
+      },
+      "output": [
+        {
+          "poster": "https://static.sandbase.ai/examples/posters/75b7435157e8b8167bf1.jpg",
+          "url": "https://static.sandbase.ai/examples/1668055b-f263-449e-a2b0-64ce4b82aba2/output/12b99cff-c2ad-4774-b236-da1077703b6f.mp4"
+        }
+      ],
+      "default": true
+    }
+  ],
+  "readme": "# ByteDance DreamActor 2.0\n\nDreamActor 2.0 transfers body motion, facial expression, and lip movement from a driving `video` to the character in `image`.\n\n## Fields\n\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `image` | image URL, required | — | Character to animate. JPEG, PNG, or WebP URL. |\n| `video` | video URL, required | — | Driving video that supplies motion and expression. |\n| `trim_first_second` | boolean | true | Drop the first second, which is often used for alignment. |\n\n## Billing\n\n$0.05 per output second. The quote before submission assumes 5 seconds; the final charge uses the measured length.\n\n| Output | Price |\n|---|---|\n| 5s | $0.25 |\n| 10s | $0.50 |\n| 30s | $1.50 |\n\nFailed runs are not charged.\n\n## Prompting\n\n- Use a driving video with one clearly visible face and body.\n- Match the character image's framing to the driving video.\n\n## Limits\n\n- Output length follows the driving video.\n\n## Also on SandBase\n\nRelated: `bytedance/omnihuman/1.5` (audio-driven).\n",
+  "cover_url": "https://static.sandbase.ai/covers/bytedance/dreamactor/2.0/cover-flare-20261008044700.webp",
+  "page_url": "https://www.sandbase.ai/model/bytedance/dreamactor/2.0",
+  "published_at": "2026-02-06T12:48:06.506Z",
+  "created_at": "2026-05-15T01:32:05.617Z"
+}

@@ -1,0 +1,53 @@
+{
+  "name": "douban/recent-hot-movie",
+  "display_name": "Douban Recent Hot Movie",
+  "type": "api",
+  "vendor": "Douban",
+  "vendor_slug": "douban",
+  "description": "Get a paginated list of movies currently featured in Douban's recent-hot collection. Use it to discover popular movie titles and continue through result pages.",
+  "tags": [
+    "api",
+    "douban",
+    "entertainment"
+  ],
+  "capabilities": [
+    "api",
+    "douban",
+    "entertainment"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/douban/recent-hot-movie"
+  },
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "page": {
+        "type": "integer",
+        "default": 1,
+        "description": "Page number for pagination."
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.013889,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "readme": "# Douban Recent Hot Movie API\n\nGet a paginated list of movies currently featured in Douban's recent-hot collection. Use it to discover popular movie titles and continue through result pages.\n\nThe response is the platform's original data structure.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/douban/recent-hot-movie\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `page` | integer | No | Page number for pagination. |\n\n## Pricing\n\nFlat price per call. Failed calls and empty results are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/douban/recent-hot-movie",
+  "created_at": "2026-10-29T12:03:28.377Z"
+}

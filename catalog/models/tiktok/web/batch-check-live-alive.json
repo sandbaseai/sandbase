@@ -1,0 +1,57 @@
+{
+  "name": "tiktok/web/batch-check-live-alive",
+  "display_name": "TikTok Room Active Status Batch Check",
+  "type": "api",
+  "vendor": "TikTok",
+  "vendor_slug": "tiktok",
+  "description": "Checks whether multiple TikTok broadcast rooms are currently active. Accepts a comma-separated list of room identifiers to return current status details.",
+  "tags": [
+    "api",
+    "tiktok"
+  ],
+  "capabilities": [
+    "api",
+    "tiktok"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/tiktok/web/batch-check-live-alive"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "room_ids"
+    ],
+    "properties": {
+      "room_ids": {
+        "type": "string",
+        "title": "Room Ids",
+        "description": "Live room ID list separated by commas, e.g.: 7530611486784277278,7530633767468288782"
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.075
+  },
+  "examples": [
+    {
+      "input": {
+        "room_ids": "7530611486784277278,7530633767468288782,7530636465034775310,7530604930088848142"
+      },
+      "default": true
+    }
+  ],
+  "readme": "# TikTok Room Active Status Batch Check API\n\nInspect the active broadcast status across multiple TikTok streams using `room_ids`. Pass a comma-separated list of room identifiers to inspect stream availability.\n\n## Use cases\n\n- Monitor multiple TikTok broadcast rooms simultaneously for real-time stream status.\n- Track when target creators begin broadcasting across a watchlist of room identifiers.\n- Filter inactive broadcast rooms from automated monitoring dashboards.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/tiktok/web/batch-check-live-alive\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"room_ids\": \"<room_ids>\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `room_ids` | string | Yes | Live room ID list separated by commas, e.g.: 7530611486784277278,7530633767468288782 |\n\n## Notes\n\n- Pass multiple room identifiers formatted as a comma-separated string in `room_ids`.\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [TikTok Video IDs from URLs (Batch)](/model/tiktok/web/all-aweme-id): Resolves and extracts TikTok video IDs from a list of video URLs.\n- [TikTok User Sec User ID Extractor](/model/tiktok/web/all-sec-user-id): Returns a list of sec_user_id identifiers corresponding to TikTok user profile URLs.\n- [TikTok Profile Unique IDs](/model/tiktok/web/all-unique-id): Resolves a batch of TikTok user homepage links to retrieve their corresponding unique identifiers.\n",
+  "page_url": "https://www.sandbase.ai/model/tiktok/web/batch-check-live-alive",
+  "created_at": "2026-07-31T02:43:56.565Z"
+}

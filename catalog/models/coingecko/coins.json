@@ -1,0 +1,93 @@
+{
+  "name": "coingecko/coins",
+  "display_name": "CoinGecko Coin Data by ID",
+  "type": "api",
+  "vendor": "CoinGecko",
+  "vendor_slug": "coingecko",
+  "description": "Get all the metadata (image, websites, socials, description, contract address, etc.) and market data (price, ATH, exchange tickers, etc.) of a coin from the CoinGecko coin page based on a particular coin ID",
+  "tags": [
+    "api",
+    "coingecko",
+    "crypto"
+  ],
+  "capabilities": [
+    "api",
+    "coingecko",
+    "crypto"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/coingecko/coins"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "id"
+    ],
+    "properties": {
+      "id": {
+        "type": "string",
+        "default": "bitcoin",
+        "example": "bitcoin",
+        "description": "Coin ID. *refers to [`/coins/list`](/reference/coins-list)"
+      },
+      "tickers": {
+        "type": "boolean",
+        "description": "Include tickers data. Default: true"
+      },
+      "sparkline": {
+        "type": "boolean",
+        "description": "Include sparkline 7-day data. Default: false"
+      },
+      "market_data": {
+        "type": "boolean",
+        "description": "Include market data. Default: true"
+      },
+      "localization": {
+        "type": "boolean",
+        "description": "Include all localized languages in the response. Default: true"
+      },
+      "community_data": {
+        "type": "boolean",
+        "description": "Include community data. Deprecated: has no effect as of 28 August 2026; the `community_data` object is no longer returned."
+      },
+      "developer_data": {
+        "type": "boolean",
+        "description": "Include developer data. Deprecated: has no effect as of 28 August 2026; the `developer_data` object is no longer returned."
+      },
+      "dex_pair_format": {
+        "enum": [
+          "contract_address",
+          "symbol"
+        ],
+        "type": "string",
+        "description": "Set to `symbol` to display DEX pair base and target as symbols. Default: `contract_address`"
+      },
+      "include_categories_details": {
+        "type": "boolean",
+        "description": "Include categories details. Default: false"
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.008,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "readme": "# CoinGecko Coin Data by ID API\n\nGet all the metadata (image, websites, socials, description, contract address, etc.) and market data (price, ATH, exchange tickers, etc.) of a coin from the CoinGecko coin page based on a particular coin ID\n\nThe response is the official CoinGecko API response, unchanged.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/coingecko/coins\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"id\": \"bitcoin\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `id` | string | Yes | Coin ID. *refers to [`/coins/list`](/reference/coins-list) |\n| `community_data` | boolean | No | Include community data. Deprecated: has no effect as of 28 August 2026; the `community_data` object is no longer returned. |\n| `developer_data` | boolean | No | Include developer data. Deprecated: has no effect as of 28 August 2026; the `developer_data` object is no longer returned. |\n| `dex_pair_format` | string | No | Set to `symbol` to display DEX pair base and target as symbols. Default: `contract_address` |\n| `include_categories_details` | boolean | No | Include categories details. Default: false |\n| `localization` | boolean | No | Include all localized languages in the response. Default: true |\n| `market_data` | boolean | No | Include market data. Default: true |\n| `sparkline` | boolean | No | Include sparkline 7-day data. Default: false |\n| `tickers` | boolean | No | Include tickers data. Default: true |\n\n## Pricing\n\nFlat price per call. Failed calls are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/coingecko/coins",
+  "created_at": "2026-10-30T03:11:00.166Z"
+}

@@ -1,0 +1,93 @@
+{
+  "name": "xiaohongshu/pgy-v2/content-square-search-note-v2",
+  "display_name": "Xiaohongshu Pugongying Content Square Notes",
+  "type": "api",
+  "vendor": "Xiaohongshu",
+  "vendor_slug": "xiaohongshu",
+  "description": "Search Xiaohongshu Pugongying Content Square notes by keyword or browse all notes, with business-category, ranking, time-window, and page controls. Use it to discover high-performing campaign content.",
+  "tags": [
+    "api",
+    "xiaohongshu",
+    "social-media"
+  ],
+  "capabilities": [
+    "api",
+    "xiaohongshu",
+    "social-media"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/xiaohongshu/pgy-v2/content-square-search-note-v2"
+  },
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "nd": {
+        "enum": [
+          "DAY_3",
+          "DAY_7",
+          "DAY_14",
+          "DAY_30"
+        ],
+        "type": "string",
+        "default": "DAY_7",
+        "description": "Time range in days."
+      },
+      "bizType": {
+        "enum": [
+          "XIAOHONGSHU_HOT",
+          "PRODUCT_SEEDING",
+          "ECOMMERCE_PROMOTION",
+          "PUGONGYING_COOPERATION",
+          "LEAD_COLLECTION",
+          "ECOMMERCE_HOT",
+          "SEEDING_DIRECT",
+          "APP_PROMOTION"
+        ],
+        "type": "string",
+        "default": "XIAOHONGSHU_HOT",
+        "description": "Business category."
+      },
+      "orderBy": {
+        "enum": [
+          "premium_imp_num",
+          "premium_good_read_rate",
+          "premium_read_num",
+          "premium_engage_num",
+          "premium_engage_rate",
+          "premium_like_num",
+          "premium_fav_num",
+          "premium_cmt_num"
+        ],
+        "type": "string",
+        "default": "premium_imp_num",
+        "description": "Ranking metric."
+      },
+      "pageNum": {
+        "type": "integer",
+        "default": 1,
+        "description": "Page number for results."
+      },
+      "searchWord": {
+        "type": "string",
+        "description": "Keyword for note search. Empty string searches all notes."
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.020833
+  },
+  "readme": "# Xiaohongshu Pugongying Content Square Notes API\n\nSearch Xiaohongshu Pugongying Content Square notes by keyword or browse all notes, with business-category, ranking, time-window, and page controls. Use it to discover high-performing campaign content.\n\nThe response is the platform's original data structure.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/xiaohongshu/pgy-v2/content-square-search-note-v2\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `searchWord` | string | No | Keyword for note search. Empty string searches all notes. |\n| `pageNum` | integer | No | Page number for results. |\n| `bizType` | string | No | Business category. |\n| `orderBy` | string | No | Ranking metric. |\n| `nd` | string | No | Time range in days. |\n\n## Pricing\n\nFlat price per call. Failed calls and empty results are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/xiaohongshu/pgy-v2/content-square-search-note-v2",
+  "created_at": "2026-10-29T12:27:46.391Z"
+}

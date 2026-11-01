@@ -1,0 +1,67 @@
+{
+  "name": "g2/search-software",
+  "display_name": "G2 Search Software",
+  "type": "api",
+  "vendor": "G2",
+  "vendor_slug": "g2",
+  "description": "Full-text search over G2's software product catalog. Returns matching products with name, slug, rating, review count, and description.",
+  "tags": [
+    "api",
+    "g2",
+    "company-people"
+  ],
+  "capabilities": [
+    "api",
+    "g2",
+    "company-people"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}",
+    "passthrough": "POST /v1/api/g2/search-software"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "query"
+    ],
+    "properties": {
+      "query": {
+        "type": "string",
+        "example": "crm",
+        "description": "Search keyword or query string (e.g. 'slack', 'hubspot', 'project management')"
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "required": [
+      "id",
+      "status",
+      "model"
+    ],
+    "properties": {
+      "id": {
+        "type": "string"
+      },
+      "model": {
+        "type": "string"
+      },
+      "status": {
+        "type": "string"
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.02
+  },
+  "readme": "# G2 Search Software\n\nFull-text search over G2's software product catalog. Returns matching products with name, slug, rating, review count, and description.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/g2/search-software\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"query\": \"crm\"}'\n```\n\nThis API runs asynchronously. The call returns a task `id` with status `pending`; poll `GET https://api.sandbase.ai/v1/run/{id}` until `status` is `completed` and read the result from `outputs[0].data`.\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `query` | string | Yes | Search keyword or query string (e.g. 'slack', 'hubspot', 'project management') |\n\n## Pricing\n\nFlat price per call. Failed calls are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/g2/search-software",
+  "created_at": "2026-10-30T09:16:46.755Z"
+}

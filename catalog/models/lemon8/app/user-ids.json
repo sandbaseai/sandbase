@@ -1,0 +1,57 @@
+{
+  "name": "lemon8/app/user-ids",
+  "display_name": "Lemon8 User IDs by Share Links",
+  "type": "api",
+  "vendor": "Lemon8",
+  "vendor_slug": "lemon8",
+  "description": "Resolves Lemon8 user identifiers in batch from shared profile links. Accepts an array of up to 10 share links per request and returns the corresponding user IDs.",
+  "tags": [
+    "api",
+    "lemon8"
+  ],
+  "capabilities": [
+    "api",
+    "lemon8"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/lemon8/app/user-ids"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "body"
+    ],
+    "properties": {
+      "body": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        },
+        "title": "Share Texts",
+        "description": "Share links list"
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.0015,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "readme": "# Lemon8 User IDs by Share Links API\n\nThis endpoint resolves user IDs from an array of Lemon8 share links provided in `body`. It allows looking up up to 10 profile links in a single request.\n\n## Use cases\n\n- Resolve account IDs from copied Lemon8 profile URLs.\n- Batch process multiple Lemon8 share links in a single query.\n- Map external share links to internal user identifiers.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/lemon8/app/user-ids\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"body\": \"<body>\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `body` | array | Yes | Share links list |\n\n## Notes\n\n- Accepts up to 10 share links at a time in the `body` parameter array.\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [Lemon8 Discover Page Banners](/model/lemon8/app/discover-banners): Returns the current promotional and featured banners displayed on the Lemon8 discover page.\n- [Lemon8 Discover Page Content](/model/lemon8/app/discover-tab): Returns the main content featured on the Lemon8 discover tab.\n- [Lemon8 Discover Editor Picks](/model/lemon8/app/discover-tab-information-tabs): Returns the Editor's Picks and discover tab information from the Lemon8 mobile app.\n",
+  "page_url": "https://www.sandbase.ai/model/lemon8/app/user-ids",
+  "created_at": "2026-07-31T04:08:07.976Z"
+}

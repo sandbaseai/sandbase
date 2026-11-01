@@ -1,0 +1,51 @@
+{
+  "name": "google/gemini-2.5-pro",
+  "display_name": "Google: Gemini 2.5 Pro",
+  "type": "llm",
+  "vendor": "Google",
+  "vendor_slug": "google",
+  "description": "Gemini 2.5 Pro is the Pro-tier thinking model of Google's Gemini 2.5 family, released as stable in June 2025 and described by Google as its most advanced model in that family. It is built for reasoning over complex problems in code, math and STEM, and for analyzing large datasets, codebases and documents using long context. It accepts audio, image, video, text and PDF input; Gemini 3.1 Pro Preview is the Pro-tier successor in the Gemini 3 series.",
+  "tags": [
+    "chat",
+    "vision",
+    "audio_input",
+    "reasoning",
+    "structured_output",
+    "function_calling"
+  ],
+  "capabilities": [
+    "chat",
+    "vision",
+    "audio_input",
+    "reasoning",
+    "structured_output",
+    "function_calling"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "chat_completions": "POST /v1/chat/completions",
+    "responses": "POST /v1/responses",
+    "messages": "POST /v1/messages"
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_token",
+    "per_million_tokens": {
+      "input": 1.25,
+      "output": 10,
+      "cache_read_multiplier": 0.1
+    },
+    "formula": "usage.prompt_tokens >= 200000 ? (usage.prompt_tokens * 2.5 / 1000000 + usage.completion_tokens * 15 / 1000000 - usage.cached_tokens * 1.125 / 1000000) : (usage.prompt_tokens * 1.25 / 1000000 + usage.completion_tokens * 10 / 1000000)",
+    "formula_variables": [
+      "usage.cached_tokens",
+      "usage.completion_tokens",
+      "usage.prompt_tokens"
+    ]
+  },
+  "page_url": "https://www.sandbase.ai/model/google/gemini-2.5-pro",
+  "published_at": "2025-06-17T14:12:24Z",
+  "created_at": "2026-05-08T23:48:58.796Z"
+}

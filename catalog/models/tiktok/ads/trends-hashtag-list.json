@@ -1,0 +1,83 @@
+{
+  "name": "tiktok/ads/trends-hashtag-list",
+  "display_name": "TikTok Trending Hashtags",
+  "type": "api",
+  "vendor": "TikTok",
+  "vendor_slug": "tiktok",
+  "description": "Get trending TikTok hashtags from TikTok Creative Center by country and industry: rank, posts, views and popularity curve over 7, 30 or 90 days.",
+  "tags": [
+    "api",
+    "tiktok"
+  ],
+  "capabilities": [
+    "api",
+    "tiktok"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/tiktok/ads/trends-hashtag-list"
+  },
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "page": {
+        "type": "integer",
+        "title": "Page",
+        "description": "Page number, default 1"
+      },
+      "limit": {
+        "type": "integer",
+        "title": "Limit",
+        "description": "Items per page, default 20"
+      },
+      "time_range": {
+        "type": "integer",
+        "title": "Time Range",
+        "description": "Time range in days, one of 7 / 30 / 90, default 7"
+      },
+      "industry_id": {
+        "type": "integer",
+        "title": "Industry Id",
+        "description": "First-level industry ID (optional), filters hashtags by industry; omit for all industries. Options: 10000000000: Education; 11000000000: Vehicle & Transportation; 12000000000: Baby, Kids & Maternity; 13000000000: Financial Services; 14000000000: Beauty & Personal Care; 15000000000: Tech & Electronics; 16000000000: Appliances; 17000000000: Travel; 18000000000: Household Products; 19000000000: Pets; 20000000000: Apps; 21000000000: Home Improvement; 22000000000: Apparel & Accessories; 23000000000: News & Entertainment; 24000000000: Business Services; 25000000000: Games; 26000000000: Life Services; 27000000000: Food & Beverage; 28000000000: Sports & Outdoor; 29000000000: Health"
+      },
+      "country_code": {
+        "type": "string",
+        "title": "Country Code",
+        "description": "Country code, default US (see /get_location_list for options)"
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.0015,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "examples": [
+    {
+      "input": {
+        "country_code": "DE",
+        "industry_id": 13000000000,
+        "limit": 30,
+        "page": 1,
+        "time_range": 30
+      },
+      "default": true
+    }
+  ],
+  "readme": "# TikTok Trending Hashtags API\n\nFetch the trending hashtag ranking from TikTok Creative Center for a country, optionally filtered by industry.\n\n## Use cases\n\n- Find trending hashtags for content and ads.\n- Compare trends across markets.\n- Track hashtag momentum over time.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/tiktok/ads/trends-hashtag-list\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"country_code\": \"US\", \"limit\": 5}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `page` | integer | No | Page number, default 1 |\n| `limit` | integer | No | Items per page, default 20 |\n| `time_range` | integer | No | Time range in days, one of 7 / 30 / 90, default 7 |\n| `industry_id` | integer | No | First-level industry ID (optional), filters hashtags by industry; omit for all industries. |\n| `country_code` | string | No | Country code, default US (see /get_location_list for options) |\n\n## Example response\n\nReal response for the request above, trimmed to the main fields. User names and long IDs are masked.\n\n```json\n{\n  \"items\": [\n    {\n      \"hashtagID\": \"7173295778981478443\",\n      \"hashtagName\": \"cornell7\",\n      \"rankIndex\": 2,\n      \"publishCnt\": 44984,\n      \"vv\": 352158608,\n      \"popularityCurve\": [\n        {\n          \"timestamp\": \"1790553600\",\n          \"value\": 0\n        },\n        {\n          \"timestamp\": \"1790640000\",\n          \"value\": 62.32516872920672\n        }\n      ]\n    }\n  ],\n  \"pagination\": {\n    \"hasMore\": false,\n    \"limit\": 3,\n    \"page\": 1,\n    \"totalCount\": 3\n  }\n}\n```\n\n## Notes\n\n- `time_range`: 7, 30 or 90 days.\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [Get ad interactive analysis](/model/tiktok/ads/ad-interactive-analysis): Get ad interactive time analysis to understand audience retention and engagement at different video time points Analyze ad video attractiveness curve to find o…\n- [Get ad keyframe analysis](/model/tiktok/ads/ad-keyframe-analysis): Get keyframe analysis of ad videos to understand audience retention at different time points Analyze which time points attract viewers most and where viewers d…\n- [Get ad percentile data](/model/tiktok/ads/ad-percentile): Get ad percentile ranking data within the industry Understand ad performance levels relative to peers across various metrics Help evaluate ad effectiveness and…\n",
+  "page_url": "https://www.sandbase.ai/model/tiktok/ads/trends-hashtag-list",
+  "created_at": "2026-07-31T04:13:54.763Z"
+}

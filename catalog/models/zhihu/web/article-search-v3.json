@@ -1,0 +1,119 @@
+{
+  "name": "zhihu/web/article-search-v3",
+  "display_name": "Zhihu Article Search",
+  "type": "api",
+  "vendor": "Zhihu",
+  "vendor_slug": "zhihu",
+  "description": "Search Zhihu articles and answers by keyword and get titles, excerpts, authors, vote and comment counts, with sorting, content type and time filters plus offset pagination.",
+  "tags": [
+    "api",
+    "zhihu"
+  ],
+  "capabilities": [
+    "api",
+    "zhihu"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/zhihu/web/article-search-v3"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "keyword"
+    ],
+    "properties": {
+      "sort": {
+        "type": "string",
+        "title": "Sort",
+        "default": "",
+        "description": "Empty comprehensive sorting"
+      },
+      "limit": {
+        "type": "string",
+        "title": "Limit",
+        "default": "20",
+        "description": "Number of articles per page"
+      },
+      "offset": {
+        "type": "string",
+        "title": "Offset",
+        "default": "0",
+        "description": "Offset"
+      },
+      "keyword": {
+        "type": "string",
+        "title": "Keyword",
+        "example": "OpenAI",
+        "description": "Search Keywords"
+      },
+      "vertical": {
+        "type": "string",
+        "title": "Vertical",
+        "default": "",
+        "description": "Empty unlimited type"
+      },
+      "search_source": {
+        "type": "string",
+        "title": "Search Source",
+        "default": "Normal",
+        "description": "Search Source"
+      },
+      "time_interval": {
+        "type": "string",
+        "title": "Time Interval",
+        "default": "",
+        "description": "Time interval"
+      },
+      "vertical_info": {
+        "type": "string",
+        "title": "Vertical Info",
+        "default": "",
+        "description": "Vertical information"
+      },
+      "search_hash_id": {
+        "type": "string",
+        "title": "Search Hash Id",
+        "default": "",
+        "description": "Search Hash ID, used to filter duplicate search results"
+      },
+      "show_all_topics": {
+        "type": "integer",
+        "title": "Show All Topics",
+        "default": 0,
+        "description": "Show all topics"
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.0015,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "examples": [
+    {
+      "input": {
+        "keyword": "教育",
+        "limit": "5",
+        "offset": "0"
+      },
+      "default": true
+    }
+  ],
+  "readme": "# Zhihu Article Search API\n\nSearch Zhihu for a keyword and get matching articles and answers with title, excerpt, author, URL and engagement counts.\n\n## Use cases\n\n- Research expert opinions and long-form discussion on Zhihu.\n- Monitor how a brand or product is discussed.\n- Collect articles on a topic for content analysis.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/zhihu/web/article-search-v3\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"keyword\": \"OpenAI\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `keyword` | string | Yes | Search Keywords |\n| `sort` | string | No | Empty comprehensive sorting |\n| `limit` | string | No | Number of articles per page |\n| `offset` | string | No | Offset |\n| `vertical` | string | No | Empty unlimited type |\n| `search_source` | string | No | Search Source |\n| `time_interval` | string | No | Time interval |\n| `vertical_info` | string | No | Vertical information |\n| `search_hash_id` | string | No | Search Hash ID, used to filter duplicate search results |\n| `show_all_topics` | integer | No | Show all topics |\n\n## Example response\n\nReal response for the request above, trimmed to the main fields. User names and long IDs are masked.\n\n```json\n{\n  \"paging\": {\n    \"is_end\": false\n  },\n  \"search_action_info\": {\n    \"search_hash_id\": \"<hash>\"\n  },\n  \"data\": [\n    {\n      \"type\": \"search_result\",\n      \"object\": {\n        \"id\": \"2090812756115067700\",\n        \"type\": \"article\",\n        \"voteup_count\": 3,\n        \"comment_count\": 0,\n        \"created_time\": 1791268958,\n        \"title\": \"OpenAI「疯狂28天」首日，这都发了些啥啊…\",\n        \"excerpt\": \"模型打不过A社，一天到晚净整些有的没的，OpenAI你倒是争点气啊！ OpenAI订阅性价比被A社碾压了 这还没完\",\n        \"url\": \"https://api.zhihu.com/articles/2090812756115067700\",\n        \"author\": {\n          \"name\": \"<user>\"\n        }\n      }\n    }\n  ]\n}\n```\n\n## Notes\n\n- Paginate with `offset` and `limit` (default 20 per page).\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [Zhihu Hot List](/model/zhihu/web/hot-list): Get the Zhihu hot list: trending questions with title, excerpt, heat, answer and follower counts, and links.\n- [Get Zhihu AI Search (v2)](/model/zhihu/web/ai-search-stream): Get Zhihu AI Search results (new endpoint).\n- [Get Zhihu Answer Detail](/model/zhihu/web/answer-detail): Get a single Zhihu answer's detail (content / stats / author / question, etc.).\n",
+  "page_url": "https://www.sandbase.ai/model/zhihu/web/article-search-v3",
+  "created_at": "2026-07-31T04:29:07.913Z"
+}

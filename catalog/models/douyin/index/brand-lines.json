@@ -1,0 +1,90 @@
+{
+  "name": "douyin/index/brand-lines",
+  "display_name": "Douyin Brand Trend Lines",
+  "type": "api",
+  "vendor": "Douyin",
+  "vendor_slug": "douyin",
+  "description": "Returns brand trend line metrics and popularity trends over time for a specified brand name and date range across supported platforms.",
+  "tags": [
+    "api",
+    "douyin"
+  ],
+  "capabilities": [
+    "api",
+    "douyin"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/douyin/index/brand-lines"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "brand_name",
+      "end_date",
+      "start_date"
+    ],
+    "properties": {
+      "app_name": {
+        "enum": [
+          "aweme",
+          "toutiao"
+        ],
+        "type": "string",
+        "title": "App Name",
+        "default": "aweme",
+        "example": "aweme",
+        "description": "Platform"
+      },
+      "end_date": {
+        "type": "string",
+        "title": "End Date",
+        "example": "20260412",
+        "description": "End date YYYYMMDD"
+      },
+      "brand_name": {
+        "type": "string",
+        "title": "Brand Name",
+        "example": "华为",
+        "description": "Brand info"
+      },
+      "start_date": {
+        "type": "string",
+        "title": "Start Date",
+        "example": "20260406",
+        "description": "Start date YYYYMMDD"
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.0015,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "examples": [
+    {
+      "input": {
+        "app_name": "aweme",
+        "brand_name": "华为",
+        "end_date": "20260412",
+        "start_date": "20260406"
+      }
+    }
+  ],
+  "readme": "# Douyin Brand Trend Lines API\n\nFetch historical brand popularity trends by passing `brand_name`, `start_date`, and `end_date`, with an optional `app_name` filter.\n\n## Use cases\n\n- Track brand popularity metrics across Douyin or Toutiao over time.\n- Compare brand trend fluctuations within specific date ranges.\n- Analyze marketing campaign reach and brand visibility shifts.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/douyin/index/brand-lines\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"brand_name\": \"华为\", \"end_date\": \"20260412\", \"start_date\": \"20260406\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `end_date` | string | Yes | End date YYYYMMDD |\n| `brand_name` | string | Yes | Brand info |\n| `start_date` | string | Yes | Start date YYYYMMDD |\n| `app_name` | string | No | Platform |\n\n## Notes\n\n- `start_date` and `end_date` require date formats in YYYYMMDD.\n- `app_name` accepts either aweme or toutiao.\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [Douyin Index Area List](/model/douyin/index/all-area): Returns the complete list of supported geographic areas available for Douyin Index queries.\n- [Douyin Index Valid Dates](/model/douyin/index/all-valid-date): Returns the latest valid dates available for each data type in Douyin Index.\n- [Douyin Brand Popularity Cycles](/model/douyin/index/brand-cycles): Returns periodic brand popularity and cycle analysis data across platforms for a specified brand name and date range.\n",
+  "page_url": "https://www.sandbase.ai/model/douyin/index/brand-lines",
+  "created_at": "2026-07-31T02:37:16.409Z"
+}

@@ -1,0 +1,56 @@
+{
+  "name": "tiktok/web/generate-fingerprint",
+  "display_name": "TikTok Web Browser Fingerprint",
+  "type": "api",
+  "vendor": "TikTok",
+  "vendor_slug": "tiktok",
+  "description": "Returns browser fingerprint configurations for web requests. Allows tailoring the profile based on an optional browser type parameter.",
+  "tags": [
+    "api",
+    "tiktok"
+  ],
+  "capabilities": [
+    "api",
+    "tiktok"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/tiktok/web/generate-fingerprint"
+  },
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "browser_type": {
+        "type": "string",
+        "title": "Browser Type"
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.0015,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "examples": [
+    {
+      "input": {},
+      "default": true
+    }
+  ],
+  "readme": "# TikTok Web Browser Fingerprint API\n\nProvides browser fingerprint values for TikTok web automation. Accepts an optional `browser_type` to define the target environment.\n\n## Use cases\n\n- Configure browser profile parameters for TikTok web calls.\n- Simulate distinct browser environments in test workflows.\n- Standardize client fingerprinting across automated sessions.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/tiktok/web/generate-fingerprint\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `browser_type` | string | No | — |\n\n## Example response\n\nReal response for the request above, trimmed to the main fields. User names and long IDs are masked.\n\n```json\n{\n  \"browser_type\": \"random\"\n}\n```\n\n## Notes\n\n- The `browser_type` parameter is optional.\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [TikTok Video IDs from URLs (Batch)](/model/tiktok/web/all-aweme-id): Resolves and extracts TikTok video IDs from a list of video URLs.\n- [TikTok User Sec User ID Extractor](/model/tiktok/web/all-sec-user-id): Returns a list of sec_user_id identifiers corresponding to TikTok user profile URLs.\n- [TikTok Profile Unique IDs](/model/tiktok/web/all-unique-id): Resolves a batch of TikTok user homepage links to retrieve their corresponding unique identifiers.\n",
+  "page_url": "https://www.sandbase.ai/model/tiktok/web/generate-fingerprint",
+  "created_at": "2026-07-31T04:16:48.462Z"
+}

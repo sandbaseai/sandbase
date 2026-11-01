@@ -1,0 +1,71 @@
+{
+  "name": "instagram/v2/search-by-coordinates",
+  "display_name": "Instagram Location Search by Coordinates (V2)",
+  "type": "api",
+  "vendor": "Instagram",
+  "vendor_slug": "instagram",
+  "description": "Returns nearby Instagram locations matching specified geographic coordinates. Queries require both latitude and longitude values to discover place names and identifiers.",
+  "tags": [
+    "api",
+    "instagram"
+  ],
+  "capabilities": [
+    "api",
+    "instagram"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/instagram/v2/search-by-coordinates"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "latitude",
+      "longitude"
+    ],
+    "properties": {
+      "latitude": {
+        "type": "number",
+        "title": "Latitude",
+        "example": 0,
+        "description": "Latitude"
+      },
+      "longitude": {
+        "type": "number",
+        "title": "Longitude",
+        "example": 0,
+        "description": "Longitude"
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.003,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "examples": [
+    {
+      "input": {
+        "latitude": 0,
+        "longitude": 0
+      },
+      "default": true
+    }
+  ],
+  "readme": "# Instagram Location Search by Coordinates (V2) API\n\nLocate nearby Instagram places by providing geographic coordinates via `latitude` and `longitude`. The endpoint returns matching location records along with their IDs and names.\n\n## Use cases\n\n- Discover Instagram location IDs for places near specific GPS coordinates.\n- Tag posts with accurate local venues based on device coordinates.\n- Map physical business locations to corresponding Instagram place entries.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/instagram/v2/search-by-coordinates\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"latitude\": 0, \"longitude\": 0}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `latitude` | number | Yes | Latitude |\n| `longitude` | number | Yes | Longitude |\n\n## Example response\n\nReal response for the request above, trimmed to the main fields. User names and long IDs are masked.\n\n```json\n{\n  \"data\": {\n    \"items\": [\n      {\n        \"id\": \"469499352918885\",\n        \"name\": \"Đặng Viring Specialty Coffee\"\n      }\n    ]\n  }\n}\n```\n\n## Notes\n\n- Both `latitude` and `longitude` are required numerical inputs.\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [Instagram Comment Replies (V2)](/model/instagram/v2/comment-replies): Retrieves a paginated list of replies to an Instagram comment using the post URL or shortcode and the target comment ID.\n- [Instagram General Search (V2)](/model/instagram/v2/general-search): Returns Instagram search results matching a specified keyword, including media items, user profiles, and engagement statistics.\n- [Instagram Hashtag Posts (V2)](/model/instagram/v2/hashtag-posts): Returns posts associated with a specific hashtag.\n",
+  "page_url": "https://www.sandbase.ai/model/instagram/v2/search-by-coordinates",
+  "created_at": "2026-07-31T03:55:53.26Z"
+}

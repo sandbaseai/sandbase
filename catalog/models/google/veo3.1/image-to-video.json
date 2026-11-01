@@ -1,0 +1,313 @@
+{
+  "name": "google/veo3.1/image-to-video",
+  "display_name": "Veo 3.1 Image to Video",
+  "type": "video",
+  "vendor": "Google",
+  "vendor_slug": "google",
+  "description": "Veo 3.1 by Google - animate still images into dynamic videos with AI. Transform photos into cinematic clips with natural motion, camera movement, and optional audio generation.",
+  "tags": [
+    "image-to-video"
+  ],
+  "capabilities": [
+    "image-to-video"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "prompt",
+      "image"
+    ],
+    "properties": {
+      "seed": {
+        "type": "integer",
+        "title": "Seed",
+        "maximum": 4294967295,
+        "minimum": 0,
+        "description": "Random seed for more reproducible results."
+      },
+      "image": {
+        "type": "string",
+        "title": "Image",
+        "description": "First frame of the video. 720p or higher in 16:9 or 9:16 works best."
+      },
+      "prompt": {
+        "type": "string",
+        "title": "Prompt",
+        "examples": [
+          "A monkey and polar bear host a casual podcast about AI inference, bringing their unique perspectives from different environments (tropical vs. arctic) to discuss how AI systems make decisions and process information.\nSample Dialogue:\nMonkey (Banana): \"Welcome back to Bananas & Ice! I am Banana\"\nPolar Bear (Ice): \"And I'm Ice!\""
+        ],
+        "maxLength": 20000,
+        "description": "The text prompt describing the video you want to generate"
+      },
+      "duration": {
+        "enum": [
+          4,
+          6,
+          8
+        ],
+        "type": "integer",
+        "title": "Duration",
+        "default": 8,
+        "description": "Duration of the generated video in seconds."
+      },
+      "resolution": {
+        "enum": [
+          "720p",
+          "1080p",
+          "4k"
+        ],
+        "type": "string",
+        "title": "Resolution",
+        "default": "720p",
+        "description": "Output resolution."
+      },
+      "aspect_ratio": {
+        "enum": [
+          "16:9",
+          "9:16"
+        ],
+        "type": "string",
+        "title": "Aspect Ratio",
+        "description": "Output aspect ratio. Omit to match the input image."
+      },
+      "generate_audio": {
+        "type": "boolean",
+        "title": "Generate Audio",
+        "default": true,
+        "description": "Generate synchronized audio. Videos without audio are cheaper."
+      },
+      "negative_prompt": {
+        "type": "string",
+        "title": "Negative Prompt",
+        "description": "What to avoid in the video."
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "title": "GenerationResponse",
+    "required": [
+      "id",
+      "status"
+    ],
+    "properties": {
+      "id": {
+        "type": "string",
+        "description": "Unique identifier for the generation task."
+      },
+      "error": {
+        "type": "string",
+        "description": "Error message if the task failed. Empty on success."
+      },
+      "model": {
+        "type": "string",
+        "description": "Model ID used for the prediction."
+      },
+      "status": {
+        "enum": [
+          "pending",
+          "running",
+          "completed",
+          "failed",
+          "timeout"
+        ],
+        "type": "string",
+        "description": "Status of the task: pending, running, completed, failed, or timeout."
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "title": "OutputItem",
+          "required": [
+            "url"
+          ],
+          "properties": {
+            "url": {
+              "type": "string",
+              "examples": [
+                "https://static.sandbase.ai/examples/google/veo-3/image-to-video/output_url_1.mp4"
+              ],
+              "description": "The URL where the generated content can be downloaded from."
+            },
+            "content_type": {
+              "type": "string",
+              "description": "The MIME type of the output file."
+            }
+          }
+        },
+        "description": "Array of generated content. Empty when status is not completed."
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "formula",
+    "formula": "(params.duration ?? 8) * ((params.resolution ?? \"720p\") == \"720p\" ? ((params.generate_audio ?? true) ? 0.40 : 0.20) : (params.resolution ?? \"720p\") == \"1080p\" ? ((params.generate_audio ?? true) ? 0.40 : 0.20) : (params.resolution ?? \"720p\") == \"4k\" ? ((params.generate_audio ?? true) ? 0.60 : 0.40) : (0 / 0))",
+    "formula_variables": [
+      "params.duration",
+      "params.generate_audio",
+      "params.resolution"
+    ],
+    "reference_price": 3.2,
+    "price_examples": [
+      {
+        "params": {
+          "duration": 4,
+          "generate_audio": false,
+          "resolution": "720p"
+        },
+        "usd": 0.8
+      },
+      {
+        "params": {
+          "duration": 4,
+          "generate_audio": false,
+          "resolution": "1080p"
+        },
+        "usd": 0.8
+      },
+      {
+        "params": {
+          "duration": 4,
+          "generate_audio": false,
+          "resolution": "4k"
+        },
+        "usd": 1.6
+      },
+      {
+        "params": {
+          "duration": 4,
+          "generate_audio": true,
+          "resolution": "720p"
+        },
+        "usd": 1.6
+      },
+      {
+        "params": {
+          "duration": 4,
+          "generate_audio": true,
+          "resolution": "1080p"
+        },
+        "usd": 1.6
+      },
+      {
+        "params": {
+          "duration": 4,
+          "generate_audio": true,
+          "resolution": "4k"
+        },
+        "usd": 2.4
+      },
+      {
+        "params": {
+          "duration": 6,
+          "generate_audio": false,
+          "resolution": "720p"
+        },
+        "usd": 1.2
+      },
+      {
+        "params": {
+          "duration": 6,
+          "generate_audio": false,
+          "resolution": "1080p"
+        },
+        "usd": 1.2
+      },
+      {
+        "params": {
+          "duration": 6,
+          "generate_audio": false,
+          "resolution": "4k"
+        },
+        "usd": 2.4
+      },
+      {
+        "params": {
+          "duration": 6,
+          "generate_audio": true,
+          "resolution": "720p"
+        },
+        "usd": 2.4
+      },
+      {
+        "params": {
+          "duration": 6,
+          "generate_audio": true,
+          "resolution": "1080p"
+        },
+        "usd": 2.4
+      },
+      {
+        "params": {
+          "duration": 6,
+          "generate_audio": true,
+          "resolution": "4k"
+        },
+        "usd": 3.6
+      },
+      {
+        "params": {
+          "duration": 8,
+          "generate_audio": false,
+          "resolution": "720p"
+        },
+        "usd": 1.6
+      },
+      {
+        "params": {
+          "duration": 8,
+          "generate_audio": false,
+          "resolution": "1080p"
+        },
+        "usd": 1.6
+      },
+      {
+        "params": {
+          "duration": 8,
+          "generate_audio": false,
+          "resolution": "4k"
+        },
+        "usd": 3.2
+      },
+      {
+        "params": {
+          "duration": 8,
+          "generate_audio": true,
+          "resolution": "720p"
+        },
+        "usd": 3.2
+      },
+      {
+        "params": {
+          "duration": 8,
+          "generate_audio": true,
+          "resolution": "1080p"
+        },
+        "usd": 3.2
+      },
+      {
+        "params": {
+          "duration": 8,
+          "generate_audio": true,
+          "resolution": "4k"
+        },
+        "usd": 4.8
+      }
+    ]
+  },
+  "readme": "# Veo 3.1 Image to Video\n\nVeo 3.1 image-to-video, Google's highest-quality video model. `image` becomes the first frame and the prompt directs motion, camera, and sound for a 4–8 second clip.\n\n## Fields\n\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `prompt` | string, required | — | Up to 20,000 characters. |\n| `image` | image URL, required | — | First frame. JPEG, PNG, or WebP URL. |\n| `duration` | 4 / 6 / 8 | 8 | Output length in seconds. |\n| `resolution` | `720p` / `1080p` / `4k` | `720p` | Sets the per-second rate. |\n| `aspect_ratio` | `16:9` / `9:16` | — | Output frame shape. |\n| `generate_audio` | boolean | true | Native dialogue, music, and effects; turning it off lowers the rate. |\n| `negative_prompt` | string | — | What to avoid. |\n| `seed` | integer 0–4294967295 | random | Fix it to compare prompt changes. |\n\n## Billing\n\nYou pay for output seconds, Google's list price. With audio: $0.40 at 720p, $0.40 at 1080p, $0.60 at 4k. Without audio: $0.20 / $0.20 / $0.40 respectively.\n\n| Output | 720p | 1080p | 4k |\n|---|---|---|---|\n| 4s with audio | $1.60 | $1.60 | $2.40 |\n| 6s with audio | $2.40 | $2.40 | $3.60 |\n| 8s with audio (default) | $3.20 | $3.20 | $4.80 |\n| 8s without audio | $1.60 | $1.60 | $3.20 |\n\nFailed runs are not charged.\n\n## Prompting\n\n- Describe what moves and what the audio should be, not what is already visible.\n- Match `aspect_ratio` to the input image.\n\n## Limits\n\n- One input image; use first-last-frame-to-video to control the ending.\n- Use Veo 3.1 Fast for cheaper drafts.\n\n## Also on SandBase\n\nOther Veo 3.1 endpoints: `google/veo3.1/text-to-video`, `google/veo3.1/first-last-frame-to-video`, `google/veo3.1/reference-to-video`, `google/veo3.1/video-extend`, `google/veo3.1/fast/text-to-video`, `google/veo3.1/lite/text-to-video`.\n",
+  "cover_url": "https://static.sandbase.ai/covers/google/veo3.1/image-to-video/cover-flare-20261004233130.webp",
+  "page_url": "https://www.sandbase.ai/model/google/veo3.1/image-to-video",
+  "published_at": "2025-10-08T17:02:47.996Z",
+  "created_at": "2026-05-11T13:18:00.697Z"
+}

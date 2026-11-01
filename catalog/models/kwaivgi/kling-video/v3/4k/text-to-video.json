@@ -1,0 +1,251 @@
+{
+  "name": "kwaivgi/kling-video/v3/4k/text-to-video",
+  "display_name": "Kling V3 4K Text to Video",
+  "type": "video",
+  "vendor": "KwaiVGI",
+  "vendor_slug": "kwaivgi",
+  "description": "Kling V3 4K Text to Video by Kuaishou turns a text prompt into a 3-15 second native 4K video with optional native audio.",
+  "tags": [
+    "text-to-video"
+  ],
+  "capabilities": [
+    "text-to-video"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "prompt"
+    ],
+    "properties": {
+      "prompt": {
+        "type": "string",
+        "title": "Prompt",
+        "examples": [
+          "Close-up of glowing fireflies dancing in a dark forest at twilight. Soft bioluminescent particles float through the air. Shallow depth of field, bokeh lights in background. Magical atmosphere, gentle movement."
+        ],
+        "maxLength": 2500,
+        "description": "Text prompt for video generation. Either prompt or multi_prompt must be provided, but not both."
+      },
+      "duration": {
+        "enum": [
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15
+        ],
+        "type": "integer",
+        "title": "Duration",
+        "default": 5,
+        "description": "The duration of the generated video in seconds"
+      },
+      "shot_type": {
+        "enum": [
+          "customize",
+          "intelligent"
+        ],
+        "type": "string",
+        "title": "Shot Type",
+        "default": "customize",
+        "description": "The type of multi-shot video generation. 'intelligent' lets the model automatically determine shot structure."
+      },
+      "aspect_ratio": {
+        "enum": [
+          "16:9",
+          "9:16",
+          "1:1"
+        ],
+        "type": "string",
+        "title": "Aspect Ratio",
+        "default": "16:9",
+        "description": "The aspect ratio of the generated image."
+      },
+      "multi_prompt": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "required": [
+            "prompt"
+          ],
+          "properties": {
+            "prompt": {
+              "type": "string",
+              "title": "Prompt",
+              "description": "The prompt for this shot."
+            },
+            "duration": {
+              "enum": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7,
+                8,
+                9,
+                10,
+                11,
+                12,
+                13,
+                14,
+                15
+              ],
+              "type": "integer",
+              "title": "Duration",
+              "default": 5,
+              "description": "The duration of this shot in seconds"
+            }
+          }
+        },
+        "title": "Multi Prompt",
+        "description": "List of prompts for multi-shot video generation. If provided, overrides the single prompt and divides the video into multiple shots with specified prompts and durations."
+      },
+      "generate_audio": {
+        "type": "boolean",
+        "title": "Generate Audio",
+        "default": true,
+        "description": "Whether to generate native audio for the video. Supports Chinese and English voice output. Other languages are automatically translated to English. For English speech, use lowercase letters; for acronyms or proper nouns, use uppercase."
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "title": "GenerationResponse",
+    "required": [
+      "id",
+      "status"
+    ],
+    "properties": {
+      "id": {
+        "type": "string",
+        "description": "Unique identifier for the generation task."
+      },
+      "error": {
+        "type": "string",
+        "description": "Error message if the task failed. Empty on success."
+      },
+      "model": {
+        "type": "string",
+        "description": "Model ID used for the prediction."
+      },
+      "status": {
+        "enum": [
+          "pending",
+          "running",
+          "completed",
+          "failed",
+          "timeout"
+        ],
+        "type": "string",
+        "description": "Status of the task: pending, running, completed, failed, or timeout."
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "title": "OutputItem",
+          "required": [
+            "url"
+          ],
+          "properties": {
+            "url": {
+              "type": "string",
+              "examples": [
+                "https://static.sandbase.ai/examples/kwaivgi/mirrored/example_outputs/kling-v3/pro-t2v/out.mp4"
+              ],
+              "description": "The URL where the generated content can be downloaded from."
+            },
+            "content_type": {
+              "type": "string",
+              "description": "The MIME type of the output file."
+            }
+          }
+        },
+        "description": "Array of generated content. Empty when status is not completed."
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "formula",
+    "formula": "(params.duration ?? 5) * 0.42",
+    "formula_variables": [
+      "params.duration"
+    ],
+    "reference_price": 2.1,
+    "price_examples": [
+      {
+        "params": {
+          "duration": 3
+        },
+        "usd": 1.26
+      },
+      {
+        "params": {
+          "duration": 4
+        },
+        "usd": 1.68
+      },
+      {
+        "params": {
+          "duration": 5
+        },
+        "usd": 2.1
+      },
+      {
+        "params": {
+          "duration": 6
+        },
+        "usd": 2.52
+      },
+      {
+        "params": {
+          "duration": 7
+        },
+        "usd": 2.94
+      },
+      {
+        "params": {
+          "duration": 8
+        },
+        "usd": 3.36
+      }
+    ]
+  },
+  "examples": [
+    {
+      "input": {
+        "prompt": "Close-up of glowing fireflies dancing in a dark forest at twilight. Soft bioluminescent particles float through the air. Shallow depth of field, bokeh lights in background. Magical atmosphere, gentle movement."
+      },
+      "output": [
+        {
+          "poster": "https://static.sandbase.ai/examples/posters/b58a784a894237addece.jpg",
+          "url": "https://static.sandbase.ai/examples/a320ac54-733b-4c48-9e1c-e34183e1f2a5/output/9b7ab3bc-23c2-492c-aafe-34840d1a31a1.mp4"
+        }
+      ],
+      "default": true
+    }
+  ],
+  "readme": "# Kling V3 4K Text to Video\n\nKling V3 4K text-to-video: write a scene and get back a 3–15 second clip, with native audio and multi-shot control. Output is native 4K.\n\n## Fields\n\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `prompt` | string, required | — | Up to 2,500 characters. |\n| `aspect_ratio` | `16:9` / `9:16` / `1:1` | `16:9` | Output frame shape. |\n| `duration` | 3–15 | 5 | Output length in seconds. |\n| `generate_audio` | boolean | true | Generate native audio with the clip. |\n| `multi_prompt` | object[] | — | Optional list of shots, each with its own prompt and duration. |\n| `shot_type` | `customize` / `intelligent` | `customize` | `customize` follows your `multi_prompt` shot list; `intelligent` lets the model plan the cuts. |\n\n## Billing\n\nYou pay $0.42 per output second, with or without audio.\n\n| Output | Price |\n|---|---|\n| 3s | $1.26 |\n| 5s (default) | $2.10 |\n| 10s | $4.20 |\n| 15s | $6.30 |\n\nFailed runs are not charged.\n\n## Prompting\n\n- Describe subject, action, camera move, and light in order.\n- For several shots, use `multi_prompt` with one entry per shot.\n\n## Limits\n\n- Clips are 3–15 seconds.\n\n## Also on SandBase\n\nOther Kling V3 4K endpoints and tiers: `kwaivgi/kling-video/v3/4k/image-to-video`, `kwaivgi/kling-video/v3/standard/text-to-video`, `kwaivgi/kling-video/v3/pro/text-to-video`.\n",
+  "cover_url": "https://static.sandbase.ai/covers/kwaivgi/kling-video/v3/4k/text-to-video/cover-flare-20261004224843.webp",
+  "page_url": "https://www.sandbase.ai/model/kwaivgi/kling-video/v3/4k/text-to-video",
+  "published_at": "2026-04-23T14:59:05.287Z",
+  "created_at": "2026-05-14T10:26:31.628Z"
+}

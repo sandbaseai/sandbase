@@ -1,0 +1,59 @@
+{
+  "name": "douyin/ec/search-items",
+  "display_name": "Douyin Shop Product Search",
+  "type": "api",
+  "vendor": "Douyin",
+  "vendor_slug": "douyin",
+  "description": "Search products sold in Douyin shops by keyword, with price, sales and shop info; pages after the first use searchId.",
+  "tags": [
+    "api",
+    "douyin",
+    "ecommerce"
+  ],
+  "capabilities": [
+    "api",
+    "douyin",
+    "ecommerce"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/douyin/ec/search-items"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "keyword"
+    ],
+    "properties": {
+      "page": {
+        "type": "string",
+        "description": "Page number for pagination."
+      },
+      "keyword": {
+        "type": "string",
+        "example": "防晒霜",
+        "description": "Search keyword."
+      },
+      "searchId": {
+        "type": "string",
+        "description": "Search ID; use the search_id value returned by the last response for subsequent pages."
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.034722
+  },
+  "readme": "# Douyin Shop Product Search API\n\nSearch products sold in Douyin shops by keyword, with price, sales and shop info; pages after the first use searchId.\n\nThe response is the platform's original data structure.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/douyin/ec/search-items\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"keyword\": \"防晒霜\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `keyword` | string | Yes | Search keyword. |\n| `page` | string | No | Page number for pagination. |\n| `searchId` | string | No | Search ID; use the search_id value returned by the last response for subsequent pages. |\n\n## Pricing\n\nFlat price per call. Failed calls and empty results are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/douyin/ec/search-items",
+  "created_at": "2026-10-29T09:48:12.897Z"
+}

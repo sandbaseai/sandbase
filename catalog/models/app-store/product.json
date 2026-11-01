@@ -1,0 +1,87 @@
+{
+  "name": "app-store/product",
+  "display_name": "App Store Product",
+  "type": "api",
+  "vendor": "App Store",
+  "vendor_slug": "app-store",
+  "description": "Read an iOS or Mac app's details, version history, ratings, privacy, and related apps.",
+  "tags": [
+    "api",
+    "app-store",
+    "ecommerce"
+  ],
+  "capabilities": [
+    "api",
+    "app-store",
+    "ecommerce"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}",
+    "passthrough": "POST /v1/api/app-store/product"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "product_id"
+    ],
+    "properties": {
+      "type": {
+        "enum": [
+          "app"
+        ],
+        "type": "string",
+        "example": "app",
+        "description": "App product type; only 'app' is supported."
+      },
+      "country": {
+        "type": "string",
+        "example": "us",
+        "pattern": "^[a-zA-Z]{2}$",
+        "description": "Two-letter Apple storefront country, such as 'us' or 'gb' ('uk' is accepted). Default 'us'."
+      },
+      "product_id": {
+        "type": "string",
+        "example": "570060128",
+        "pattern": "^[1-9][0-9]{0,19}$",
+        "description": "Positive decimal Apple app identifier, such as '570060128'."
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "required": [
+      "id",
+      "status",
+      "model"
+    ],
+    "properties": {
+      "id": {
+        "type": "string"
+      },
+      "model": {
+        "type": "string"
+      },
+      "status": {
+        "type": "string"
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.00015,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "readme": "# App Store Product\n\nRead an iOS or Mac app's details, version history, ratings, privacy, and related apps.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/app-store/product\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"product_id\": \"570060128\", \"country\": \"us\", \"type\": \"app\"}'\n```\n\nThis API runs asynchronously. The call returns a task `id` with status `pending`; poll `GET https://api.sandbase.ai/v1/run/{id}` until `status` is `completed` and read the result from `outputs[0].data`.\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `product_id` | string | Yes | Positive decimal Apple app identifier, such as '570060128'. |\n| `country` | string | No | Two-letter Apple storefront country, such as 'us' or 'gb' ('uk' is accepted). Default 'us'. |\n| `type` | string | No | App product type; only 'app' is supported. One of: `app`. |\n\n## Pricing\n\nFlat price per call. Failed calls are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/app-store/product",
+  "created_at": "2026-10-30T08:57:27.613Z"
+}

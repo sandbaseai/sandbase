@@ -1,0 +1,65 @@
+{
+  "name": "apollo/company-bulk-enrich",
+  "display_name": "Apollo Bulk Organization Enrichment",
+  "type": "api",
+  "vendor": "Apollo",
+  "vendor_slug": "apollo",
+  "description": "Enrich up to 10 companies in one call. Body takes `domains`, an array of bare domains.",
+  "tags": [
+    "api",
+    "apollo",
+    "company-data"
+  ],
+  "capabilities": [
+    "api",
+    "apollo",
+    "company-data"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/apollo/company-bulk-enrich"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "domains[]"
+    ],
+    "properties": {
+      "domains[]": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        },
+        "example": [
+          "stripe.com",
+          "notion.so"
+        ],
+        "description": "The domain of each company that you want to enrich. Do not include www., the @ symbol, or similar. Example: apollo.io and microsoft.com"
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "formula",
+    "formula": "0.01975 * Math.max(1.0, Math.min(10.0, len(params[\"domains[]\"] ?? []) * 1.0))",
+    "formula_variables": [],
+    "reference_price": 0.01975,
+    "price_examples": [
+      {
+        "params": {},
+        "usd": 0.01975
+      }
+    ]
+  },
+  "readme": "# Apollo Bulk Organization Enrichment API\n\nEnrich up to 10 companies in one call. Body takes `domains`, an array of bare domains.\n\nThe response is the official Apollo API response, unchanged.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/apollo/company-bulk-enrich\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"domains[]\": [\"stripe.com\", \"notion.so\"]}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `domains[]` | array | Yes | The domain of each company that you want to enrich. Do not include www., the @ symbol, or similar. Example: apollo.io and microsoft.com |\n\n## Pricing\n\n$0.01975 per domain, up to 10 domains per call. Failed calls are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/apollo/company-bulk-enrich",
+  "created_at": "2026-10-30T06:05:07.953Z"
+}

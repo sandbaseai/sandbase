@@ -1,0 +1,62 @@
+{
+  "name": "weibo/web-v2/check-allow-comment-with-pic",
+  "display_name": "Weibo Image Comment Permission Check",
+  "type": "api",
+  "vendor": "Weibo",
+  "vendor_slug": "weibo",
+  "description": "Checks whether a specific Weibo post permits image attachments in user comments. Returns the image comment eligibility status using the provided post ID.",
+  "tags": [
+    "api",
+    "weibo"
+  ],
+  "capabilities": [
+    "api",
+    "weibo"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/weibo/web-v2/check-allow-comment-with-pic"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "id"
+    ],
+    "properties": {
+      "id": {
+        "type": "string",
+        "title": "Id",
+        "example": "5092682368025584",
+        "description": "Weibo post ID (required)"
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.0015,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "examples": [
+    {
+      "input": {
+        "id": "5092682368025584"
+      }
+    }
+  ],
+  "readme": "# Weibo Image Comment Permission Check API\n\nDetermines whether image comments are permitted on a given post by querying the target post `id`.\n\n## Use cases\n\n- Check if image attachments are supported before displaying media upload options.\n- Verify post comment permissions across monitored Weibo threads.\n- Filter target posts based on their image comment eligibility status.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/weibo/web-v2/check-allow-comment-with-pic\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"id\": \"5092682368025584\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `id` | string | Yes | Weibo post ID (required) |\n\n## Notes\n\n- The `id` parameter specifies the target Weibo post ID.\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [Weibo Advanced Search](/model/weibo/web-v2/advanced-search): Search Weibo posts by keyword with filters for time range, post type (hot, original, verified, media) and content type (images, video, links).\n- [Weibo AI Related Search Content](/model/weibo/web-v2/ai-related-search): Returns AI-generated content extensions for a keyword, including related questions, recommended bloggers, and reference posts.\n- [Weibo AI Search](/model/weibo/web-v2/ai-search): Returns multimodal search results and relevance scores from Weibo intelligent search for a specified keyword or topic query.\n",
+  "page_url": "https://www.sandbase.ai/model/weibo/web-v2/check-allow-comment-with-pic",
+  "created_at": "2026-07-31T02:45:41.549Z"
+}

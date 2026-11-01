@@ -1,0 +1,65 @@
+{
+  "name": "douyin/search/search-suggest",
+  "display_name": "Douyin Search Suggestions",
+  "type": "api",
+  "vendor": "Douyin",
+  "vendor_slug": "douyin",
+  "description": "Get Douyin search autocomplete suggestions for a keyword: the related queries users see while typing in the Douyin app.",
+  "tags": [
+    "api",
+    "douyin"
+  ],
+  "capabilities": [
+    "api",
+    "douyin"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/douyin/search/search-suggest"
+  },
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "keyword": {
+        "type": "string",
+        "title": "Keyword",
+        "default": "人工智能",
+        "example": "人工智能",
+        "description": "Input keyword, e.g., \"Artificial Intelligence\""
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.015,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "examples": [
+    {
+      "input": {
+        "keyword": "人工智能"
+      }
+    },
+    {
+      "input": {
+        "keyword": "人工智能"
+      }
+    }
+  ],
+  "readme": "# Douyin Search Suggestions API\n\nPass a keyword and get the search suggestions Douyin shows in its search box.\n\n## Use cases\n\n- Research long-tail keywords for Douyin SEO.\n- Understand how users search for a topic.\n- Generate keyword lists for content planning.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/douyin/search/search-suggest\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"keyword\": \"人工智能\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `keyword` | string | No | Input keyword, e.g., \"Artificial Intelligence\" |\n\n## Example response\n\nReal response for the request above, trimmed to the main fields. User names and long IDs are masked.\n\n```json\n{\n  \"sug_list\": [\n    {\n      \"content\": \"人工智能\",\n      \"word_record\": {\n        \"group_id\": \"6527568579963917582\",\n        \"words_content\": \"人工智能\",\n        \"words_position\": 0,\n        \"words_source\": \"sug\"\n      }\n    }\n  ]\n}\n```\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [Douyin General Search](/model/douyin/search/general-search-v1): Search Douyin (Chinese TikTok) from the app's general search tab and get videos with descriptions, authors and play, like, comment and share counts.\n- [Douyin Video Search (V1)](/model/douyin/search/video-search-v1): Search Douyin videos by keyword: descriptions, authors and play, like, comment and share counts, with sort, publish-time, duration and content-type filters.\n- [Douyin Video Search](/model/douyin/search/video-search-v2): Search Douyin videos by keyword and get descriptions, authors and play, like, comment and share counts.\n",
+  "page_url": "https://www.sandbase.ai/model/douyin/search/search-suggest",
+  "created_at": "2026-07-31T02:39:08.949Z"
+}

@@ -1,0 +1,71 @@
+{
+  "name": "tiktok/app-v3/user-following-list",
+  "display_name": "TikTok User Following List",
+  "type": "api",
+  "vendor": "TikTok",
+  "vendor_slug": "tiktok",
+  "description": "Returns a list of accounts followed by a target TikTok user. Query using either a numeric user ID or a sec_user_id with support for token and timestamp pagination.",
+  "tags": [
+    "api",
+    "tiktok"
+  ],
+  "capabilities": [
+    "api",
+    "tiktok"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/tiktok/app-v3/user-following-list"
+  },
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "count": {
+        "type": "integer",
+        "title": "Count",
+        "description": "Number, do not exceed 20, keep it fixed."
+      },
+      "user_id": {
+        "type": "string",
+        "title": "User Id",
+        "description": "User ID, this is a pure numeric version of the user ID (one of user_id and sec_user_id)"
+      },
+      "min_time": {
+        "type": "integer",
+        "title": "Min Time",
+        "description": "Minimum time for paging, use default value 0 for the first request, and use the min_time value returned by the last request for subsequent requests."
+      },
+      "page_token": {
+        "type": "string",
+        "title": "Page Token",
+        "description": "Page token, use default value \"\" for the first request, and use the page_token value returned by the last request for subsequent requests."
+      },
+      "sec_user_id": {
+        "type": "string",
+        "title": "Sec User Id",
+        "description": "User sec_user_id, this is a mixed letter and number version ID (one of user_id and sec_user_id)"
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.0015,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "readme": "# TikTok User Following List API\n\nRetrieve the list of accounts followed by a user using either `user_id` or `sec_user_id`. Manage pagination across requests using `page_token` and `min_time`.\n\n## Use cases\n\n- Inspect the accounts followed by a target profile.\n- Map out user connections and social network graphs.\n- Track an influencer's followed accounts over time.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/tiktok/app-v3/user-following-list\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `count` | integer | No | Number, do not exceed 20, keep it fixed. |\n| `user_id` | string | No | User ID, this is a pure numeric version of the user ID (one of user_id and sec_user_id) |\n| `min_time` | integer | No | Minimum time for paging, use default value 0 for the first request, and use the min_time value returned by the last request for subsequent requests. |\n| `page_token` | string | No | Page token, use default value \"\" for the first request, and use the page_token value returned by the last request for subsequent requests. |\n| `sec_user_id` | string | No | User sec_user_id, this is a mixed letter and number version ID (one of user_id and sec_user_id) |\n\n## Notes\n\n- Requires either `user_id` or `sec_user_id` to identify the target account.\n- Supports pagination using `page_token` and `min_time` returned by the preceding response.\n- The `count` parameter must not exceed 20.\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [TikTok LIVE Status](/model/tiktok/app-v3/check-live-room-online): Check whether a TikTok LIVE room is currently live by room ID.\n- [TikTok Room Online Status Batch](/model/tiktok/app-v3/check-live-room-online-batch): Returns the online availability status for multiple TikTok broadcast rooms in a single request.\n- [TikTok Content Translation](/model/tiktok/app-v3/content-translate): Translates provided text content into a designated target language.\n",
+  "page_url": "https://www.sandbase.ai/model/tiktok/app-v3/user-following-list",
+  "created_at": "2026-07-31T04:15:10.764Z"
+}

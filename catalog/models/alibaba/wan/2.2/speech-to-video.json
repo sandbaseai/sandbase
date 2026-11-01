@@ -1,0 +1,178 @@
+{
+  "name": "alibaba/wan/2.2/speech-to-video",
+  "display_name": "Wan 2.2 Speech to Video",
+  "type": "video",
+  "vendor": "Alibaba",
+  "vendor_slug": "alibaba",
+  "description": "Wan 2.2 Speech to Video turns a portrait image and a speech audio into a talking video guided by a prompt.",
+  "tags": [
+    "audio-to-video"
+  ],
+  "capabilities": [
+    "audio-to-video"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "prompt",
+      "image",
+      "audio"
+    ],
+    "properties": {
+      "seed": {
+        "type": "integer",
+        "title": "Seed",
+        "maximum": 2147483647,
+        "minimum": 0,
+        "description": "Random seed for reproducibility."
+      },
+      "audio": {
+        "type": "string",
+        "title": "Audio",
+        "examples": [
+          "https://static.sandbase.ai/examples/alibaba/wan/2.2/speech-to-video/input_audio_1.wav"
+        ],
+        "description": "Input audio URL."
+      },
+      "image": {
+        "type": "string",
+        "title": "Image",
+        "examples": [
+          "https://static.sandbase.ai/examples/alibaba/wan/2.2/speech-to-video/input_image_0.png"
+        ],
+        "description": "Input image URL (face / character)."
+      },
+      "prompt": {
+        "type": "string",
+        "title": "Prompt",
+        "examples": [
+          "Summer beach vacation style, a white cat wearing sunglasses sits on a surfboard."
+        ],
+        "description": "Text prompt guiding the generation."
+      },
+      "num_frames": {
+        "type": "integer",
+        "title": "Frames",
+        "default": 80,
+        "maximum": 120,
+        "minimum": 40,
+        "description": "Frames to generate (40–120, multiple of 4) at 16 fps."
+      },
+      "resolution": {
+        "enum": [
+          "480p",
+          "580p",
+          "720p"
+        ],
+        "type": "string",
+        "title": "Resolution",
+        "default": "720p",
+        "description": "Output resolution."
+      },
+      "negative_prompt": {
+        "type": "string",
+        "title": "Negative Prompt",
+        "default": "",
+        "description": "Content to avoid."
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "title": "GenerationResponse",
+    "required": [
+      "id",
+      "status"
+    ],
+    "properties": {
+      "id": {
+        "type": "string",
+        "description": "Unique identifier for the generation task."
+      },
+      "error": {
+        "type": "string",
+        "description": "Error message if the task failed. Empty on success."
+      },
+      "model": {
+        "type": "string",
+        "description": "Model ID used for the prediction."
+      },
+      "status": {
+        "enum": [
+          "pending",
+          "running",
+          "completed",
+          "failed",
+          "timeout"
+        ],
+        "type": "string",
+        "description": "Status of the task: pending, running, completed, failed, or timeout."
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "title": "OutputItem",
+          "required": [
+            "url"
+          ],
+          "properties": {
+            "url": {
+              "type": "string",
+              "examples": [
+                "https://static.sandbase.ai/examples/alibaba/wan/2.2/speech-to-video/output_url_2.mp4"
+              ],
+              "description": "The URL where the generated content can be downloaded from."
+            },
+            "content_type": {
+              "type": "string",
+              "description": "The MIME type of the output file."
+            }
+          }
+        },
+        "description": "Array of generated content. Empty when status is not completed."
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "formula",
+    "formula": "((usage.duration ?? ((params.num_frames ?? 80) / 16.0)) * (usage.fps ?? 16.0) / 16.0) * ((params.resolution ?? \"720p\") == \"720p\" ? 0.20 : (params.resolution ?? \"720p\") == \"580p\" ? 0.15 : 0.10)",
+    "formula_variables": [
+      "params.num_frames",
+      "params.resolution",
+      "usage.duration",
+      "usage.fps"
+    ],
+    "reference_price": 1
+  },
+  "examples": [
+    {
+      "input": {
+        "audio": "https://static.sandbase.ai/examples/1e330d15-cead-4a6f-95c7-573cdf0002b4/input/a299cae5-adf2-4f2e-a69b-110e1cf5d1a1.wav",
+        "image": "https://static.sandbase.ai/examples/1e330d15-cead-4a6f-95c7-573cdf0002b4/input/2e0cf355-04f3-49ac-9998-f9d7a51e8f19.png",
+        "prompt": "Summer beach vacation style, a white cat wearing sunglasses sits on a surfboard."
+      },
+      "output": [
+        {
+          "poster": "https://static.sandbase.ai/examples/posters/e90941034859654e6a1d.jpg",
+          "url": "https://static.sandbase.ai/examples/1e330d15-cead-4a6f-95c7-573cdf0002b4/output/7c0ba794-a7be-4ec8-80ab-357cd06ad681.mp4"
+        }
+      ],
+      "default": true
+    }
+  ],
+  "readme": "# Wan 2.2 Speech to Video\n\nTurn a portrait and a speech track into a talking video. Wan 2.2 lip-syncs the face in `image` to `audio` and animates head and body movement; the prompt sets the scene and gestures.\n\n## Fields\n\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `prompt` | string, required | — | Text instruction. |\n| `image` | image URL, required | — | Portrait to animate. JPEG, PNG, or WebP URL. |\n| `audio` | audio URL, required | — | Speech track (WAV/MP3) that drives the lips. |\n| `num_frames` | integer 40–120 | 80 | Frames to generate (40–120, 16 frames per second of video). |\n| `resolution` | `480p` / `580p` / `720p` | `720p` | Sets the rate. |\n| `negative_prompt` | string | — | What to avoid. |\n| `seed` | integer 0–2147483647 | random | Fix it to compare prompt changes. |\n\n## Billing\n\nBilled per output second at the upstream rate: $0.10 at 480p, $0.15 at 580p, $0.20 at 720p. The default 80 frames is 5 seconds.\n\n| Output | 480p | 580p | 720p |\n|---|---|---|---|\n| 80 frames (5s, default) | $0.50 | $0.75 | $1.00 |\n| 120 frames (7.5s) | $0.75 | $1.125 | $1.50 |\n\nFailed runs are not charged.\n\n## Prompting\n\n- Describe gestures and setting; the lips follow the audio automatically.\n- Use a front-facing portrait with the mouth clearly visible.\n\n## Limits\n\n- Up to 120 frames (7.5 seconds) per request.\n\n## Also on SandBase\n\nOther Wan 2.2 endpoints: `alibaba/wan/2.2/animate/move`, `alibaba/wan/2.2/animate/replace`.\n",
+  "cover_url": "https://static.sandbase.ai/covers/alibaba/wan/2.2/speech-to-video/cover-flare-20261005051132.webp",
+  "page_url": "https://www.sandbase.ai/model/alibaba/wan/2.2/speech-to-video",
+  "published_at": "2025-08-27T03:34:19.544Z",
+  "created_at": "2026-06-01T13:03:23.383Z"
+}

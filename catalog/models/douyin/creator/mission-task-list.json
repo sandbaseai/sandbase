@@ -1,0 +1,156 @@
+{
+  "name": "douyin/creator/mission-task-list",
+  "display_name": "Douyin Creator Mission Task List",
+  "type": "api",
+  "vendor": "Douyin",
+  "vendor_slug": "douyin",
+  "description": "Returns creator mission tasks from Douyin with filtering options. Supports filters for industry classification, search keywords, mission type, and release timeframes.",
+  "tags": [
+    "api",
+    "douyin"
+  ],
+  "capabilities": [
+    "api",
+    "douyin"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/douyin/creator/mission-task-list"
+  },
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "limit": {
+        "type": "integer",
+        "title": "Limit",
+        "maximum": 100,
+        "minimum": 1,
+        "description": "Number of tasks per page, recommended 24"
+      },
+      "cursor": {
+        "type": "integer",
+        "title": "Cursor",
+        "minimum": 0,
+        "description": "Cursor for pagination, 0 for first page"
+      },
+      "keyword": {
+        "anyOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "title": "Keyword",
+        "description": "Keyword search (optional, supports task name or task ID)"
+      },
+      "pay_type": {
+        "anyOf": [
+          {
+            "type": "integer"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "title": "Pay Type",
+        "description": "Payment type (optional)"
+      },
+      "tab_scene": {
+        "type": "integer",
+        "title": "Tab Scene",
+        "description": "Scene type"
+      },
+      "industry_lv1": {
+        "type": "integer",
+        "title": "Industry Lv1",
+        "description": "Primary industry (-1=All)."
+      },
+      "industry_lv2": {
+        "type": "integer",
+        "title": "Industry Lv2",
+        "description": "Secondary industry (-1=All)."
+      },
+      "mission_type": {
+        "type": "integer",
+        "title": "Mission Type",
+        "description": "Mission type, usually 1"
+      },
+      "platform_channel": {
+        "anyOf": [
+          {
+            "type": "integer"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "title": "Platform Channel",
+        "description": "Platform channel (optional)"
+      },
+      "publish_time_start": {
+        "anyOf": [
+          {
+            "type": "integer"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "title": "Publish Time Start",
+        "description": "Publish start time filter (optional, timestamp format)"
+      },
+      "quick_selector_scene": {
+        "anyOf": [
+          {
+            "type": "integer"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "title": "Quick Selector Scene",
+        "description": "Quick filter scene (optional)"
+      },
+      "greater_than_cost_progress": {
+        "anyOf": [
+          {
+            "type": "integer"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "title": "Greater Than Cost Progress",
+        "description": "Cost progress filter (optional)"
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.0015,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "examples": [
+    {
+      "input": {}
+    }
+  ],
+  "readme": "# Douyin Creator Mission Task List API\n\nRetrieve available creator mission tasks on Douyin using query parameters like `keyword`, `mission_type`, and `cursor`.\n\n## Use cases\n\n- Search Douyin mission tasks by task name or ID.\n- Filter missions across primary and secondary industry tiers.\n- Track task opportunities matching specific channel criteria.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/douyin/creator/mission-task-list\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `limit` | integer | No | Number of tasks per page, recommended 24 |\n| `cursor` | integer | No | Cursor for pagination, 0 for first page |\n| `keyword` | string | No | Keyword search (optional, supports task name or task ID) |\n| `pay_type` | string | No | Payment type (optional) |\n| `tab_scene` | integer | No | Scene type |\n| `industry_lv1` | integer | No | Primary industry (-1=All). |\n| `industry_lv2` | integer | No | Secondary industry (-1=All). |\n| `mission_type` | integer | No | Mission type, usually 1 |\n| `platform_channel` | string | No | Platform channel (optional) |\n| `publish_time_start` | string | No | Publish start time filter (optional, timestamp format) |\n| `quick_selector_scene` | string | No | Quick filter scene (optional) |\n| `greater_than_cost_progress` | string | No | Cost progress filter (optional) |\n\n## Example response\n\nReal response for the request above, trimmed to the main fields. User names and long IDs are masked.\n\n```json\n{\n  \"status_code\": 0,\n  \"total_num\": 0\n}\n```\n\n## Notes\n\n- Use `cursor` starting at 0 for pagination and `limit` to set items per page (default recommended is 24).\n- Set `industry_lv1` and `industry_lv2` to -1 to query all industry categories.\n- Filter tasks by release timestamp using `publish_time_start`.\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [Douyin Creator Activity Details](/model/douyin/creator/creator-activity-detail): Returns detailed information for a specific Douyin creator activity.\n- [Douyin Activity List](/model/douyin/creator/creator-activity-list): Returns activity and campaign records for Douyin accounts within a specified timestamp window between start_time and end_time.\n- [Douyin Content Categories](/model/douyin/creator/creator-content-category): Returns the list of content categories available on Douyin.\n",
+  "page_url": "https://www.sandbase.ai/model/douyin/creator/mission-task-list",
+  "created_at": "2026-07-31T02:36:00.368Z"
+}

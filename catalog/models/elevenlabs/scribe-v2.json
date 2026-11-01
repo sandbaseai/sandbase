@@ -1,0 +1,127 @@
+{
+  "name": "elevenlabs/scribe-v2",
+  "display_name": "Scribe V2",
+  "type": "audio",
+  "vendor": "ElevenLabs",
+  "vendor_slug": "elevenlabs",
+  "description": "Scribe V2 is ElevenLabs's speech recognition model. Transcribe audio content with industry-leading accuracy across multiple languages and accents.",
+  "tags": [
+    "speech-to-text"
+  ],
+  "capabilities": [
+    "speech-to-text"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}"
+  },
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "audio": {
+        "type": "string",
+        "title": "Audio Url",
+        "examples": [
+          "https://static.sandbase.ai/examples/elevenlabs/scribe-v2/input_audio_0.mp3"
+        ],
+        "description": "URL of the audio file to transcribe"
+      },
+      "diarize": {
+        "type": "boolean",
+        "title": "Diarize",
+        "default": true,
+        "description": "Whether to annotate who is speaking"
+      },
+      "language_code": {
+        "type": "string",
+        "title": "Language Code",
+        "examples": [
+          "eng",
+          "spa",
+          "fra",
+          "deu",
+          "jpn"
+        ],
+        "description": "Language code of the audio"
+      },
+      "tag_audio_events": {
+        "type": "boolean",
+        "title": "Tag Audio Events",
+        "default": true,
+        "description": "Tag audio events like laughter, applause, etc."
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "title": "GenerationResponse",
+    "required": [
+      "id",
+      "status"
+    ],
+    "properties": {
+      "id": {
+        "type": "string",
+        "description": "Unique identifier for the generation task."
+      },
+      "error": {
+        "type": "string",
+        "description": "Error message if the task failed. Empty on success."
+      },
+      "model": {
+        "type": "string",
+        "description": "Model ID used for the prediction."
+      },
+      "status": {
+        "enum": [
+          "pending",
+          "running",
+          "completed",
+          "failed",
+          "timeout"
+        ],
+        "type": "string",
+        "description": "Status of the task: pending, running, completed, failed, or timeout."
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "title": "OutputItem",
+          "required": [
+            "text"
+          ],
+          "properties": {
+            "text": {
+              "type": "string",
+              "description": "The full transcribed text."
+            },
+            "language_code": {
+              "type": "string",
+              "description": "Detected or specified language code."
+            }
+          }
+        },
+        "description": "Array of generated content. Empty when status is not completed."
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "formula",
+    "formula": "Math.max(1.0, Math.ceil((media_duration(params.audio) ?? 60.0) / 60.0)) * 0.008",
+    "formula_variables": [
+      "params.audio"
+    ],
+    "reference_price": 0.008
+  },
+  "readme": "# Scribe V2\n\nElevenLabs Scribe v2 transcribes speech in 90+ languages with speaker diarization and tags for non-speech audio events.\n\n## Fields\n\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `audio` | audio URL | — | Audio or video URL. |\n| `tag_audio_events` | boolean | true | Mark laughter, music, and other events. |\n| `diarize` | boolean | true | Label who is speaking. |\n| `language_code` | string | — | Force a language; omit to detect. |\n\n## Billing\n\n$0.008 per started minute of audio. The quote before submission assumes 1 minute; the final charge uses the measured length.\n\n| Audio | Price |\n|---|---|\n| 1 min | $0.008 |\n| 10 min | $0.08 |\n| 60 min | $0.48 |\n\nFailed runs are not charged.\n",
+  "cover_url": "https://static.sandbase.ai/covers/elevenlabs/scribe-v2/cover-flare-20261008040130.webp",
+  "page_url": "https://www.sandbase.ai/model/elevenlabs/scribe-v2",
+  "published_at": "2026-01-14T14:30:10.342Z",
+  "created_at": "2026-05-16T09:29:21.012Z"
+}

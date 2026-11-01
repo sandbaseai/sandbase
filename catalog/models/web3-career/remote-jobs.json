@@ -1,0 +1,70 @@
+{
+  "name": "web3-career/remote-jobs",
+  "display_name": "Web3.career Remote Jobs",
+  "type": "api",
+  "vendor": "Web3.career",
+  "vendor_slug": "web3-career",
+  "description": "Fetch remote-only job listings with pagination. Filters to positions explicitly tagged as remote work opportunities.",
+  "tags": [
+    "api",
+    "web3-career",
+    "company-people"
+  ],
+  "capabilities": [
+    "api",
+    "web3-career",
+    "company-people"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}",
+    "passthrough": "POST /v1/api/web3-career/remote-jobs"
+  },
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "page": {
+        "type": "integer",
+        "maximum": 9007199254740991,
+        "minimum": -9007199254740991,
+        "description": "Page number for pagination."
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "required": [
+      "id",
+      "status",
+      "model"
+    ],
+    "properties": {
+      "id": {
+        "type": "string"
+      },
+      "model": {
+        "type": "string"
+      },
+      "status": {
+        "type": "string"
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.01,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "readme": "# Web3.career Remote Jobs\n\nFetch remote-only job listings with pagination. Filters to positions explicitly tagged as remote work opportunities.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/web3-career/remote-jobs\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{}'\n```\n\nThis API runs asynchronously. The call returns a task `id` with status `pending`; poll `GET https://api.sandbase.ai/v1/run/{id}` until `status` is `completed` and read the result from `outputs[0].data`.\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `page` | integer | No | Page number for pagination. |\n\n## Pricing\n\nFlat price per call. Failed calls are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/web3-career/remote-jobs",
+  "created_at": "2026-10-30T08:35:32.707Z"
+}

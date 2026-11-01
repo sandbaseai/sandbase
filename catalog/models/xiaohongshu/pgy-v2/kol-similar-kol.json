@@ -1,0 +1,56 @@
+{
+  "name": "xiaohongshu/pgy-v2/kol-similar-kol",
+  "display_name": "Xiaohongshu Pugongying Similar Creators",
+  "type": "api",
+  "vendor": "Xiaohongshu",
+  "vendor_slug": "xiaohongshu",
+  "description": "Get paginated Xiaohongshu Pugongying creators similar to a known creator. Use it to expand a campaign shortlist from an existing reference account.",
+  "tags": [
+    "api",
+    "xiaohongshu",
+    "social-media"
+  ],
+  "capabilities": [
+    "api",
+    "xiaohongshu",
+    "social-media"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/xiaohongshu/pgy-v2/kol-similar-kol"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "userId"
+    ],
+    "properties": {
+      "userId": {
+        "type": "string",
+        "example": "5a73c5fa4eacab4c4ccc9778",
+        "description": "KOL's user ID."
+      },
+      "pageNum": {
+        "type": "integer",
+        "default": 1,
+        "description": "Page number for results."
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.020833
+  },
+  "readme": "# Xiaohongshu Pugongying Similar Creators API\n\nGet paginated Xiaohongshu Pugongying creators similar to a known creator. Use it to expand a campaign shortlist from an existing reference account.\n\nThe response is the platform's original data structure.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/xiaohongshu/pgy-v2/kol-similar-kol\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"userId\": \"5a73c5fa4eacab4c4ccc9778\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `userId` | string | Yes | KOL's user ID. |\n| `pageNum` | integer | No | Page number for results. |\n\n## Pricing\n\nFlat price per call. Failed calls and empty results are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/xiaohongshu/pgy-v2/kol-similar-kol",
+  "created_at": "2026-10-29T11:25:27.218Z"
+}

@@ -1,0 +1,98 @@
+{
+  "name": "douyin/index/multi-keyword-interpretation",
+  "display_name": "Douyin Multi-Keyword Index Interpretation",
+  "type": "api",
+  "vendor": "Douyin",
+  "vendor_slug": "douyin",
+  "description": "Returns index interpretation metrics for multiple keywords across selected time periods. Includes comparison metrics like period-over-period and year-over-year differences.",
+  "tags": [
+    "api",
+    "douyin"
+  ],
+  "capabilities": [
+    "api",
+    "douyin"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/douyin/index/multi-keyword-interpretation"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "end_date",
+      "keyword_list",
+      "start_date"
+    ],
+    "properties": {
+      "region": {
+        "type": "string",
+        "title": "Region",
+        "default": "",
+        "example": "",
+        "description": "Region filter, comma separated, empty for all"
+      },
+      "app_name": {
+        "enum": [
+          "aweme",
+          "toutiao"
+        ],
+        "type": "string",
+        "title": "App Name",
+        "default": "aweme",
+        "example": "aweme",
+        "description": "Platform, aweme=Douyin, toutiao=Toutiao"
+      },
+      "end_date": {
+        "type": "string",
+        "title": "End Date",
+        "example": "20260412",
+        "description": "End date, YYYYMMDD"
+      },
+      "start_date": {
+        "type": "string",
+        "title": "Start Date",
+        "example": "20251015",
+        "description": "Start date, YYYYMMDD"
+      },
+      "keyword_list": {
+        "type": "string",
+        "title": "Keyword List",
+        "example": "人工智能,华为",
+        "description": "Comma separated keywords"
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.0015,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "examples": [
+    {
+      "input": {
+        "app_name": "aweme",
+        "end_date": "20260412",
+        "keyword_list": "人工智能,华为",
+        "region": "",
+        "start_date": "20251015"
+      }
+    }
+  ],
+  "readme": "# Douyin Multi-Keyword Index Interpretation API\n\nFetch comparative index interpretation data for multiple topics by supplying `keyword_list`, `start_date`, and `end_date`.\n\n## Use cases\n\n- Compare content index changes between current and previous periods for multiple topics.\n- Monitor year-over-year search and content index differences for targeted brand terms.\n- Track trend performance across Douyin and Toutiao platforms simultaneously.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/douyin/index/multi-keyword-interpretation\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"end_date\": \"20260412\", \"keyword_list\": \"人工智能,华为\", \"start_date\": \"20251015\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `end_date` | string | Yes | End date, YYYYMMDD |\n| `start_date` | string | Yes | Start date, YYYYMMDD |\n| `keyword_list` | string | Yes | Comma separated keywords |\n| `region` | string | No | Region filter, comma separated, empty for all |\n| `app_name` | string | No | Platform, aweme=Douyin, toutiao=Toutiao |\n\n## Example response\n\nReal response for the request above, trimmed to the main fields. User names and long IDs are masked.\n\n```json\n{\n  \"keyword_index_interpretations\": [\n    {\n      \"keyword\": \"人工智能\",\n      \"current_period\": {\n        \"content_index\": \"6286798\"\n      },\n      \"last_period\": {\n        \"content_index\": \"22432607\"\n      },\n      \"last_period_diff\": {\n        \"content_diff\": -0.7197473303036067\n      },\n      \"last_year_diff\": {\n        \"content_diff\": -0.29883205556881526\n      },\n      \"overview\": {\n        \"content_index\": 6286798\n      }\n    }\n  ]\n}\n```\n\n## Notes\n\n- Set `app_name` to \"aweme\" for Douyin or \"toutiao\" for Toutiao.\n- Pass multiple terms in `keyword_list` as a comma-separated string.\n- Use `region` with comma-separated values to filter by specific geographic areas, or leave it empty for all regions.\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [Douyin Index Area List](/model/douyin/index/all-area): Returns the complete list of supported geographic areas available for Douyin Index queries.\n- [Douyin Index Valid Dates](/model/douyin/index/all-valid-date): Returns the latest valid dates available for each data type in Douyin Index.\n- [Douyin Brand Popularity Cycles](/model/douyin/index/brand-cycles): Returns periodic brand popularity and cycle analysis data across platforms for a specified brand name and date range.\n",
+  "page_url": "https://www.sandbase.ai/model/douyin/index/multi-keyword-interpretation",
+  "created_at": "2026-07-31T02:38:24.938Z"
+}

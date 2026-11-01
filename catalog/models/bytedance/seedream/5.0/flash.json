@@ -1,0 +1,146 @@
+{
+  "name": "bytedance/seedream/5.0/flash",
+  "display_name": "Seedream 5.0 Flash Text to Image",
+  "type": "image",
+  "vendor": "Bytedance",
+  "vendor_slug": "bytedance",
+  "description": "Seedream 5.0 Flash is ByteDance's fast, low-cost Seedream 5.0 tier for high-volume text-to-image generation, with roughly 15–20 second turnaround and one flat price per image.",
+  "tags": [
+    "text-to-image",
+    "commercial"
+  ],
+  "capabilities": [
+    "text-to-image",
+    "commercial"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "prompt"
+    ],
+    "properties": {
+      "prompt": {
+        "type": "string",
+        "title": "Prompt",
+        "default": "Search for the popular elegant penguin meme, the penguin dons an all-black tactical techwear suit and narrow-frame futuristic sunglasses, riding a matte silver-black checkered manta ray flying vehicle; metal braided ropes, polar snowstorm backdrop, surreal futuristic techwear style, commercial fashion blockbuster aesthetic, high-definition with strong dynamic tension.",
+        "maxLength": 50000,
+        "minLength": 3,
+        "description": "The text prompt to generate an image from."
+      },
+      "aspect_ratio": {
+        "enum": [
+          "21:9",
+          "16:9",
+          "3:2",
+          "4:3",
+          "5:4",
+          "1:1",
+          "4:5",
+          "3:4",
+          "2:3",
+          "9:16"
+        ],
+        "type": "string",
+        "title": "Aspect Ratio",
+        "default": "1:1",
+        "description": "The aspect ratio of the generated image."
+      },
+      "output_format": {
+        "enum": [
+          "jpeg",
+          "png"
+        ],
+        "type": "string",
+        "title": "Output Format",
+        "default": "png",
+        "description": "The format of the generated image."
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "title": "GenerationResponse",
+    "required": [
+      "id",
+      "status"
+    ],
+    "properties": {
+      "id": {
+        "type": "string",
+        "description": "Unique identifier for the generation task."
+      },
+      "error": {
+        "type": "string",
+        "description": "Error message if the task failed. Empty on success."
+      },
+      "model": {
+        "type": "string",
+        "description": "Model ID used for the prediction."
+      },
+      "status": {
+        "enum": [
+          "pending",
+          "running",
+          "completed",
+          "failed",
+          "timeout"
+        ],
+        "type": "string",
+        "description": "Status of the task: pending, running, completed, failed, or timeout."
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "title": "OutputItem",
+          "required": [
+            "url"
+          ],
+          "properties": {
+            "url": {
+              "type": "string",
+              "description": "The URL where the generated content can be downloaded from."
+            },
+            "content_type": {
+              "type": "string",
+              "description": "The MIME type of the output file."
+            }
+          }
+        },
+        "description": "Array of generated content. Empty when status is not completed."
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.018
+  },
+  "examples": [
+    {
+      "input": {
+        "aspect_ratio": "16:9",
+        "prompt": "A minimalist poster with the text SANDBASE in bold letters"
+      },
+      "output": [
+        {
+          "url": "https://static.sandbase.ai/examples/9d80397c-23d6-4e8d-8e87-f84ba391a895/output/6173cb58-c48a-4084-94da-dec5b4f95eac.jpg"
+        }
+      ],
+      "default": true
+    }
+  ],
+  "readme": "# Seedream 5.0 Flash Text to Image\n\nSeedream 5.0 Flash: the fastest, lowest-cost Seedream 5.0 tier for high-volume generation, with roughly 15–20 second turnaround.\n\n## Fields\n\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `prompt` | string, required | — | Up to 50,000 characters. |\n| `aspect_ratio` | `21:9` / `16:9` / `3:2` / `4:3` / `5:4` / `1:1` / `4:5` / `3:4` / `2:3` / `9:16` | `1:1` | Output shape. |\n| `output_format` | `jpeg` / `png` | `png` | Output file format. |\n\n## Billing\n\n$0.018 per image.\n\n| Request | Price |\n|---|---|\n| One image | $0.018 |\n\nFailed runs are not charged.\n\n## Prompting\n\n- Write subject, layout, style, then light and color.\n- Quote any text that must appear.\n\n## Limits\n\n- One output image per request.\n\n## Also on SandBase\n\nOther Seedream endpoints: `bytedance/seedream/5.0/pro`, `bytedance/seedream/5.0/pro/edit`, `bytedance/seedream/5.0/lite`, `bytedance/seedream/5.0/lite/edit`, `bytedance/seedream/5.0/flash/edit`, `bytedance/seedream/4.5`, `bytedance/seedream/4.5/edit`.\n",
+  "cover_url": "https://static.sandbase.ai/covers/bytedance/seedream/5.0/flash/cover-flare-20261004175508.webp",
+  "page_url": "https://www.sandbase.ai/model/bytedance/seedream/5.0/flash",
+  "published_at": "2026-09-15T00:00:00Z",
+  "created_at": "2026-10-04T02:53:22.744Z"
+}

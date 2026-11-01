@@ -1,0 +1,108 @@
+{
+  "name": "aliexpress/search/products",
+  "display_name": "AliExpress Product Search",
+  "type": "api",
+  "vendor": "AliExpress",
+  "vendor_slug": "aliexpress",
+  "description": "Search AliExpress products by keyword with sort, category, brand, price, locale, region and currency filters.",
+  "tags": [
+    "api",
+    "aliexpress",
+    "ecommerce"
+  ],
+  "capabilities": [
+    "api",
+    "aliexpress",
+    "ecommerce"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/aliexpress/search/products"
+  },
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "q": {
+        "type": "string",
+        "example": "phone case",
+        "description": "Product search query."
+      },
+      "loc": {
+        "type": "string",
+        "description": "Location filter for product search results."
+      },
+      "attr": {
+        "type": "string",
+        "description": "Product attribute filter for search results."
+      },
+      "page": {
+        "type": "string",
+        "description": "One-based page number for pagination."
+      },
+      "sort": {
+        "enum": [
+          "default",
+          "salesDesc",
+          "priceAsc",
+          "priceDesc"
+        ],
+        "type": "string",
+        "default": "default",
+        "description": "Sort order for product search results."
+      },
+      "catId": {
+        "type": "string",
+        "description": "Category ID used to filter product search results."
+      },
+      "locale": {
+        "type": "string",
+        "description": "Locale used for the AliExpress response."
+      },
+      "region": {
+        "type": "string",
+        "description": "AliExpress marketplace region."
+      },
+      "brandId": {
+        "type": "string",
+        "description": "Brand ID used to filter product search results."
+      },
+      "currency": {
+        "type": "string",
+        "description": "Currency code used for product prices."
+      },
+      "endPrice": {
+        "type": "number",
+        "description": "Maximum product price filter, inclusive."
+      },
+      "switches": {
+        "type": "string",
+        "description": "Search switches used to select optional result features."
+      },
+      "startPrice": {
+        "type": "number",
+        "description": "Minimum product price filter, inclusive."
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.013889,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "readme": "# AliExpress Product Search API\n\nSearch AliExpress products by keyword with sort, category, brand, price, locale, region and currency filters.\n\nThe response is the platform's original data structure.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/aliexpress/search/products\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"q\": \"phone case\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `q` | string | No | Product search query. |\n| `page` | string | No | One-based page number for pagination. |\n| `sort` | string | No | Sort order for product search results. |\n| `catId` | string | No | Category ID used to filter product search results. |\n| `brandId` | string | No | Brand ID used to filter product search results. |\n| `loc` | string | No | Location filter for product search results. |\n| `switches` | string | No | Search switches used to select optional result features. |\n| `attr` | string | No | Product attribute filter for search results. |\n| `startPrice` | number | No | Minimum product price filter, inclusive. |\n| `endPrice` | number | No | Maximum product price filter, inclusive. |\n| `locale` | string | No | Locale used for the AliExpress response. |\n| `region` | string | No | AliExpress marketplace region. |\n| `currency` | string | No | Currency code used for product prices. |\n\n## Pricing\n\nFlat price per call. Failed calls and empty results are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/aliexpress/search/products",
+  "created_at": "2026-10-29T09:44:54.827Z"
+}

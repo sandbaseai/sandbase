@@ -1,0 +1,82 @@
+{
+  "name": "polymarket/prices-history",
+  "display_name": "Polymarket Get prices history",
+  "type": "api",
+  "vendor": "Polymarket",
+  "vendor_slug": "polymarket",
+  "description": "Get prices history from Polymarket. Returns the official Polymarket API response unchanged.",
+  "tags": [
+    "api",
+    "polymarket",
+    "prediction-markets"
+  ],
+  "capabilities": [
+    "api",
+    "polymarket",
+    "prediction-markets"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/polymarket/prices-history"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "market"
+    ],
+    "properties": {
+      "endTs": {
+        "type": "number",
+        "description": "Filter by items before this unix timestamp."
+      },
+      "market": {
+        "type": "string",
+        "description": "The market (asset id) to query."
+      },
+      "startTs": {
+        "type": "number",
+        "description": "Filter by items after this unix timestamp."
+      },
+      "fidelity": {
+        "type": "integer",
+        "example": 60,
+        "description": "Accuracy of the data expressed in minutes. Default is 1 minute."
+      },
+      "interval": {
+        "enum": [
+          "max",
+          "all",
+          "1m",
+          "1w",
+          "1d",
+          "6h",
+          "1h"
+        ],
+        "type": "string",
+        "example": "1w",
+        "description": "Time interval for data aggregation."
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.012,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "readme": "# Polymarket Get prices history API\n\nGet prices history from Polymarket. Returns the official Polymarket API response unchanged.\n\nThe response is the official Polymarket API response, unchanged.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/polymarket/prices-history\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"market\": \"32338220190071351435772801779725302244575775216413325951443816017994629993401\", \"interval\": \"1w\", \"fidelity\": 60}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `endTs` | number | No | Filter by items before this unix timestamp. |\n| `fidelity` | integer | No | Accuracy of the data expressed in minutes. Default is 1 minute. |\n| `interval` | string | No | Time interval for data aggregation. |\n| `market` | string | Yes | The market (asset id) to query. |\n| `startTs` | number | No | Filter by items after this unix timestamp. |\n\n## Pricing\n\nFlat price per call. Failed calls are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/polymarket/prices-history",
+  "created_at": "2026-10-30T03:11:43.139Z"
+}

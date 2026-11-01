@@ -1,0 +1,265 @@
+{
+  "name": "alibaba/wan/2.7/text-to-video",
+  "display_name": "Wan 2.7 Text to Video",
+  "type": "video",
+  "vendor": "Alibaba",
+  "vendor_slug": "alibaba",
+  "description": "Alibaba Wan 2.7 text-to-video model with cinematic visuals, native audio generation, and configurable duration and resolution.",
+  "tags": [
+    "text-to-video"
+  ],
+  "capabilities": [
+    "text-to-video"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "prompt"
+    ],
+    "properties": {
+      "seed": {
+        "type": "integer",
+        "title": "Seed",
+        "description": "Random seed (0-2147483647) for reproducible results. Omit for a random seed."
+      },
+      "audio": {
+        "type": "string",
+        "title": "Audio",
+        "description": "The URL of an audio file to guide video generation."
+      },
+      "prompt": {
+        "type": "string",
+        "title": "Prompt",
+        "default": "A young woman sitting by a rain-streaked window in a café, slowly turning to look at the camera with a gentle smile, warm interior lighting",
+        "maxLength": 50000,
+        "minLength": 3,
+        "description": "The text prompt to generate a video from."
+      },
+      "duration": {
+        "enum": [
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15
+        ],
+        "type": "integer",
+        "title": "Duration",
+        "default": 5,
+        "description": "The duration of the generated video in seconds."
+      },
+      "resolution": {
+        "enum": [
+          "720p",
+          "1080p"
+        ],
+        "type": "string",
+        "title": "Resolution",
+        "default": "720p",
+        "description": "The resolution of the video to generate."
+      },
+      "aspect_ratio": {
+        "enum": [
+          "16:9",
+          "9:16",
+          "1:1",
+          "4:3",
+          "3:4"
+        ],
+        "type": "string",
+        "title": "Aspect Ratio",
+        "default": "16:9",
+        "description": "The aspect ratio of the generated video."
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "title": "GenerationResponse",
+    "required": [
+      "id",
+      "status"
+    ],
+    "properties": {
+      "id": {
+        "type": "string",
+        "description": "Unique identifier for the generation task."
+      },
+      "error": {
+        "type": "string",
+        "description": "Error message if the task failed. Empty on success."
+      },
+      "model": {
+        "type": "string",
+        "description": "Model ID used for the prediction."
+      },
+      "status": {
+        "enum": [
+          "pending",
+          "running",
+          "completed",
+          "failed",
+          "timeout"
+        ],
+        "type": "string",
+        "description": "Status of the task: pending, running, completed, failed, or timeout."
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "title": "OutputItem",
+          "required": [
+            "url"
+          ],
+          "properties": {
+            "url": {
+              "type": "string",
+              "description": "The URL where the generated content can be downloaded from."
+            },
+            "content_type": {
+              "type": "string",
+              "description": "The MIME type of the output file."
+            }
+          }
+        },
+        "description": "Array of generated content. Empty when status is not completed."
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "formula",
+    "formula": "(params.duration ?? 5) * ((params.resolution ?? \"720p\") == '1080p' ? 0.15 : 0.10)",
+    "formula_variables": [
+      "params.duration",
+      "params.resolution"
+    ],
+    "reference_price": 0.5,
+    "price_examples": [
+      {
+        "params": {
+          "duration": 2,
+          "resolution": "720p"
+        },
+        "usd": 0.2
+      },
+      {
+        "params": {
+          "duration": 2,
+          "resolution": "1080p"
+        },
+        "usd": 0.3
+      },
+      {
+        "params": {
+          "duration": 3,
+          "resolution": "720p"
+        },
+        "usd": 0.3
+      },
+      {
+        "params": {
+          "duration": 3,
+          "resolution": "1080p"
+        },
+        "usd": 0.45
+      },
+      {
+        "params": {
+          "duration": 4,
+          "resolution": "720p"
+        },
+        "usd": 0.4
+      },
+      {
+        "params": {
+          "duration": 4,
+          "resolution": "1080p"
+        },
+        "usd": 0.6
+      },
+      {
+        "params": {
+          "duration": 5,
+          "resolution": "720p"
+        },
+        "usd": 0.5
+      },
+      {
+        "params": {
+          "duration": 5,
+          "resolution": "1080p"
+        },
+        "usd": 0.75
+      },
+      {
+        "params": {
+          "duration": 6,
+          "resolution": "720p"
+        },
+        "usd": 0.6
+      },
+      {
+        "params": {
+          "duration": 6,
+          "resolution": "1080p"
+        },
+        "usd": 0.9
+      },
+      {
+        "params": {
+          "duration": 7,
+          "resolution": "720p"
+        },
+        "usd": 0.7
+      },
+      {
+        "params": {
+          "duration": 7,
+          "resolution": "1080p"
+        },
+        "usd": 1.05
+      }
+    ]
+  },
+  "examples": [
+    {
+      "input": {
+        "aspect_ratio": "9:16",
+        "duration": 2,
+        "prompt": "A red paper lantern swaying gently in a quiet bamboo forest at dusk",
+        "resolution": "720p"
+      },
+      "output": [
+        {
+          "poster": "https://static.sandbase.ai/examples/posters/62d6c65f456a00aa82c4.jpg",
+          "url": "https://static.sandbase.ai/examples/d56c64fc-c0b4-4239-bf64-f44516cb32dd/output/ed7c2887-2f0b-4919-86b9-9712c1675007.mp4"
+        }
+      ],
+      "default": true
+    }
+  ],
+  "readme": "# Wan 2.7 Text to Video\n\nWrite a scene and get back a 2–15 second clip with optional driving audio. Wan 2.7 improves motion smoothness and scene fidelity over 2.6 and keeps camera instructions more faithfully.\n\n## Fields\n\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `prompt` | string, required | — | Up to 50,000 characters. |\n| `duration` | 2–15 | 5 | Output length in seconds. |\n| `audio` | audio URL | — | Optional WAV/MP3 URL that drives speech or rhythm in the clip. |\n| `aspect_ratio` | `16:9` / `9:16` / `1:1` / `4:3` / `3:4` | `16:9` | Output frame shape. |\n| `resolution` | `720p` / `1080p` | `720p` | Sets the per-second rate. |\n| `seed` | integer | random | Fix it to compare prompt changes. |\n\n## Billing\n\nYou pay for output seconds: $0.10 at 720p and $0.15 at 1080p, the same as Alibaba's list price.\n\n| Output | 720p | 1080p |\n|---|---|---|\n| 2s | $0.20 | $0.30 |\n| 5s (default) | $0.50 | $0.75 |\n| 10s | $1.00 | $1.50 |\n| 15s | $1.50 | $2.25 |\n\nFailed runs are not charged.\n\n## Prompting\n\n- Describe the shot in order: subject, action, setting, camera move, light, and sound.\n- Give camera timing explicitly, e.g. “holds for two seconds, then pushes in slowly”.\n- Put spoken lines in quotes and say who speaks them.\n\n> A young woman sits by a rain-streaked café window, slowly turns toward the camera and smiles; slow push-in, warm interior light, soft rain on the glass.\n\n## Limits\n\n- Text only; to start from your own picture use `alibaba/wan/2.7/image-to-video`.\n\n## Also on SandBase\n\nOther Wan 2.7 endpoints: `alibaba/wan/2.7/image-to-video`, `alibaba/wan/2.7/reference-to-video`, `alibaba/wan/2.7/video-edit`, `alibaba/wan/2.7/video-extend`, `alibaba/wan/3.0/video` (newer, up to 30s).\n",
+  "cover_url": "https://static.sandbase.ai/covers/alibaba/wan/2.7/text-to-video/cover-flare-20261004205146.webp",
+  "page_url": "https://www.sandbase.ai/model/alibaba/wan/2.7/text-to-video",
+  "published_at": "2026-03-28T20:45:33.782Z",
+  "created_at": "2026-05-01T10:48:01.149Z"
+}

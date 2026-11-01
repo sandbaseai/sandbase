@@ -1,0 +1,158 @@
+{
+  "name": "clarity-ai/clarity-upscaler",
+  "display_name": "Clarity Upscaler",
+  "type": "image",
+  "vendor": "ClarityAI",
+  "vendor_slug": "clarity-ai",
+  "description": "Clarity Upscaler by ClarityAI - AI-powered image editing, style transfer, and transformation. Edit photos with natural language instructions, remove backgrounds, change styles, and enhance images effortlessly.",
+  "tags": [
+    "image-to-image"
+  ],
+  "capabilities": [
+    "image-to-image"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "prompt",
+      "image"
+    ],
+    "properties": {
+      "seed": {
+        "type": "integer",
+        "title": "Seed",
+        "minimum": 0,
+        "description": "\n            The same seed and the same prompt given to the same version of Stable Diffusion\n            will output the same image every time.\n        "
+      },
+      "image": {
+        "type": "string",
+        "title": "Image Url",
+        "examples": [
+          "https://static.sandbase.ai/examples/bytedance/seedvr/upscale/image/input_image_0.png"
+        ],
+        "description": "The URL of the image to upscale."
+      },
+      "prompt": {
+        "type": "string",
+        "title": "Prompt",
+        "default": "masterpiece, best quality, highres",
+        "examples": [
+          "masterpiece, best quality, highres"
+        ],
+        "description": "The prompt to use for generating the image. Be as descriptive as possible for best results."
+      },
+      "creativity": {
+        "type": "number",
+        "title": "Creativity",
+        "default": 0.35,
+        "maximum": 1,
+        "minimum": 0,
+        "description": "\n            The creativity of the model. The higher the creativity, the more the model will deviate from the prompt.\n            Refers to the denoise strength of the sampling.\n        "
+      },
+      "resemblance": {
+        "type": "number",
+        "title": "Resemblance",
+        "default": 0.6,
+        "maximum": 1,
+        "minimum": 0,
+        "description": "\n            The resemblance of the upscaled image to the original image. The higher the resemblance, the more the model will try to keep the original image.\n            Refers to the strength of the ControlNet.\n        "
+      },
+      "guidance_scale": {
+        "type": "number",
+        "title": "Guidance scale (CFG)",
+        "default": 4,
+        "maximum": 20,
+        "minimum": 0,
+        "description": "\n            The CFG (Classifier Free Guidance) scale is a measure of how close you want\n            the model to stick to your prompt when looking for a related image to show you.\n        "
+      },
+      "upscale_factor": {
+        "type": "number",
+        "title": "Upscale Factor",
+        "default": 2,
+        "maximum": 4,
+        "minimum": 1,
+        "description": "The upscale factor"
+      },
+      "num_inference_steps": {
+        "type": "integer",
+        "title": "Num Inference Steps",
+        "default": 18,
+        "maximum": 50,
+        "minimum": 4,
+        "description": "The number of inference steps to perform."
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "title": "GenerationResponse",
+    "required": [
+      "id",
+      "status"
+    ],
+    "properties": {
+      "id": {
+        "type": "string",
+        "description": "Unique identifier for the generation task."
+      },
+      "error": {
+        "type": "string",
+        "description": "Error message if the task failed. Empty on success."
+      },
+      "model": {
+        "type": "string",
+        "description": "Model ID used for the prediction."
+      },
+      "status": {
+        "enum": [
+          "pending",
+          "running",
+          "completed",
+          "failed",
+          "timeout"
+        ],
+        "type": "string",
+        "description": "Status of the task: pending, running, completed, failed, or timeout."
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "title": "OutputItem",
+          "required": [
+            "url"
+          ],
+          "properties": {
+            "url": {
+              "type": "string",
+              "description": "The URL where the generated content can be downloaded from."
+            },
+            "content_type": {
+              "type": "string",
+              "description": "The MIME type of the output file."
+            }
+          }
+        },
+        "description": "Array of generated content. Empty when status is not completed."
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.03
+  },
+  "readme": "# Clarity Upscaler\n\nClarity Upscaler enlarges an image up to 4× while adding detail; `creativity` and `resemblance` balance new detail against faithfulness.\n\n## Fields\n\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `prompt` | string, required | `masterpiece, best quality, highres` | Describe the content to guide added detail. |\n| `image` | image URL, required | — | Image to upscale. JPEG, PNG, or WebP URL. |\n| `guidance_scale` | number 0–20 | 4 | How strictly to follow the prompt. |\n| `num_inference_steps` | integer 4–50 | 18 | More steps add detail and time. |\n| `seed` | integer | random | Fix it to compare prompt changes. |\n| `upscale_factor` | number 1–4 | 2 | 1–4×. |\n| `resemblance` | number 0–1 | 0.6 | Higher stays closer to the input. |\n| `creativity` | number 0–1 | 0.35 | Higher adds more invented detail. |\n\n## Billing\n\n$0.03 per image.\n\n| Request | Price |\n|---|---|\n| One image | $0.03 |\n\nFailed runs are not charged.\n\n## Also on SandBase\n\nRelated: `topaz/upscale/image`.\n",
+  "cover_url": "https://static.sandbase.ai/covers/clarity-ai/clarity-upscaler/cover-flare-20261005015848.webp",
+  "page_url": "https://www.sandbase.ai/model/clarity-ai/clarity-upscaler",
+  "published_at": "2024-02-04T00:00:00Z",
+  "created_at": "2026-05-13T23:53:26.009Z"
+}

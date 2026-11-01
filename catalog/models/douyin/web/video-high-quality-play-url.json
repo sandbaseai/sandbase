@@ -1,0 +1,73 @@
+{
+  "name": "douyin/web/video-high-quality-play-url",
+  "display_name": "Douyin High Quality Video Play URL (Web)",
+  "type": "api",
+  "vendor": "Douyin",
+  "vendor_slug": "douyin",
+  "description": "Returns the highest quality playback URL for a Douyin video using a video ID or share URL, with an optional exit region specification.",
+  "tags": [
+    "api",
+    "douyin"
+  ],
+  "capabilities": [
+    "api",
+    "douyin"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/douyin/web/video-high-quality-play-url"
+  },
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "region": {
+        "type": "string",
+        "title": "Region",
+        "example": "CN",
+        "description": "Optional, ISO country code (e.g. \"CN\" / \"US\" / \"HK\") used as the request exit region."
+      },
+      "aweme_id": {
+        "type": "string",
+        "title": "Aweme Id",
+        "example": "7512756548356492544",
+        "description": "Video id, prefer to use aweme_id, if not available, use share_url."
+      },
+      "share_url": {
+        "type": "string",
+        "title": "Share Url",
+        "example": "https://www.douyin.com/video/7512756548356492544",
+        "description": "Optional, share link, if the video id is provided, this parameter can be omitted."
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.0075,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "examples": [
+    {
+      "input": {
+        "aweme_id": "7512756548356492544",
+        "region": "CN",
+        "share_url": "https://static.sandbase.ai/examples/2d775896-4018-4f17-b056-55b641a736b3/input/7e844029-329b-4b7a-a407-bd7e1f15f4ca.bin"
+      }
+    }
+  ],
+  "readme": "# Douyin High Quality Video Play URL (Web) API\n\nRetrieve high-quality playback links for Douyin videos by providing an `aweme_id` or `share_url`. An optional `region` code can be specified to route the request through a designated exit region.\n\n## Use cases\n\n- Extract maximum resolution video streams for media analysis.\n- Stream high-definition Douyin video content in external players.\n- Archive high-quality Douyin media using video IDs or share links.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/douyin/web/video-high-quality-play-url\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `region` | string | No | Optional, ISO country code (e.g. \"CN\" / \"US\" / \"HK\") used as the request exit region. |\n| `aweme_id` | string | No | Video id, prefer to use aweme_id, if not available, use share_url. |\n| `share_url` | string | No | Optional, share link, if the video id is provided, this parameter can be omitted. |\n\n## Notes\n\n- Provide `aweme_id` as the preferred identifier, or supply `share_url` if the video ID is not available.\n- Specify `region` as an ISO country code such as CN, US, or HK to set the request exit location.\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [Douyin Batch Video ID Extraction](/model/douyin/web/all-aweme-id): Extracts video IDs from a list of Douyin video URLs.\n- [Douyin sec_user_ids from URLs (Batch)](/model/douyin/web/all-sec-user-id): Extracts Douyin sec_user_id values in bulk from a list of user homepage URLs.\n- [Douyin Webcast ID Extraction](/model/douyin/web/all-webcast-id): Extracts webcast IDs from a submitted list of Douyin live room links.\n",
+  "page_url": "https://www.sandbase.ai/model/douyin/web/video-high-quality-play-url",
+  "created_at": "2026-07-31T02:41:04.834Z"
+}

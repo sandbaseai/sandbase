@@ -1,0 +1,84 @@
+{
+  "name": "iqair/city-air-quality",
+  "display_name": "IQAir City Air Quality",
+  "type": "api",
+  "vendor": "IQAir",
+  "vendor_slug": "iqair",
+  "description": "Full air quality details for a specific city including current conditions, pollutant breakdown with concentrations, hourly and daily forecasts, weather data, pollen indices, and health recommendations. City, state,.",
+  "tags": [
+    "api",
+    "iqair",
+    "web-scraping"
+  ],
+  "capabilities": [
+    "api",
+    "iqair",
+    "web-scraping"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}",
+    "passthrough": "POST /v1/api/iqair/city-air-quality"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "city",
+      "country",
+      "state"
+    ],
+    "properties": {
+      "city": {
+        "type": "string",
+        "example": "new-york-city",
+        "description": "City URL slug (e.g. 'new-york-city', 'beijing', 'santiago'). Obtainable from the url field of get_live_city_ranking or get_world_air_quality results."
+      },
+      "state": {
+        "type": "string",
+        "example": "new-york",
+        "description": "State/region URL slug (e.g. 'new-york', 'beijing', 'santiago-metropolitan')."
+      },
+      "country": {
+        "type": "string",
+        "example": "usa",
+        "description": "Country URL slug (e.g. 'usa', 'china', 'chile')."
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "required": [
+      "id",
+      "status",
+      "model"
+    ],
+    "properties": {
+      "id": {
+        "type": "string"
+      },
+      "model": {
+        "type": "string"
+      },
+      "status": {
+        "type": "string"
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.01,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "readme": "# IQAir City Air Quality\n\nFull air quality details for a specific city including current conditions, pollutant breakdown with concentrations, hourly and daily forecasts, weather data, pollen indices, and health recommendations. City, state,.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/iqair/city-air-quality\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"city\": \"new-york-city\", \"country\": \"usa\", \"state\": \"new-york\"}'\n```\n\nThis API runs asynchronously. The call returns a task `id` with status `pending`; poll `GET https://api.sandbase.ai/v1/run/{id}` until `status` is `completed` and read the result from `outputs[0].data`.\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `city` | string | Yes | City URL slug (e.g. 'new-york-city', 'beijing', 'santiago'). Obtainable from the url field of get_live_city_ranking or get_world_air_quality results. |\n| `country` | string | Yes | Country URL slug (e.g. 'usa', 'china', 'chile'). |\n| `state` | string | Yes | State/region URL slug (e.g. 'new-york', 'beijing', 'santiago-metropolitan'). |\n\n## Pricing\n\nFlat price per call. Failed calls are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/iqair/city-air-quality",
+  "created_at": "2026-10-30T09:14:46.152Z"
+}

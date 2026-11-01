@@ -1,0 +1,75 @@
+{
+  "name": "polymarket/comments-user-address",
+  "display_name": "Polymarket Get comments by user address",
+  "type": "api",
+  "vendor": "Polymarket",
+  "vendor_slug": "polymarket",
+  "description": "Get comments by user address from Polymarket. Returns the official Polymarket API response unchanged.",
+  "tags": [
+    "api",
+    "polymarket",
+    "prediction-markets"
+  ],
+  "capabilities": [
+    "api",
+    "polymarket",
+    "prediction-markets"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/polymarket/comments-user-address"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "user_address"
+    ],
+    "properties": {
+      "limit": {
+        "type": "integer",
+        "example": 2,
+        "minimum": 0,
+        "description": "limit"
+      },
+      "order": {
+        "type": "string",
+        "description": "Comma-separated list of fields to order by"
+      },
+      "offset": {
+        "type": "integer",
+        "minimum": 0,
+        "description": "offset"
+      },
+      "ascending": {
+        "type": "boolean",
+        "description": "ascending"
+      },
+      "user_address": {
+        "type": "string",
+        "example": "0xc22d0f7c330d5cc00a92578ed876b8c34aa42dd6",
+        "description": "user_address"
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.00044,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "readme": "# Polymarket Get comments by user address API\n\nGet comments by user address from Polymarket. Returns the official Polymarket API response unchanged.\n\nThe response is the official Polymarket API response, unchanged.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/polymarket/comments-user-address\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"user_address\": \"0xc22d0f7c330d5cc00a92578ed876b8c34aa42dd6\", \"limit\": 2}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `user_address` | string | Yes | user_address |\n| `ascending` | boolean | No | ascending |\n| `limit` | integer | No | limit |\n| `offset` | integer | No | offset |\n| `order` | string | No | Comma-separated list of fields to order by |\n\n## Pricing\n\nFlat price per call. Failed calls are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/polymarket/comments-user-address",
+  "created_at": "2026-10-30T03:11:14.162Z"
+}

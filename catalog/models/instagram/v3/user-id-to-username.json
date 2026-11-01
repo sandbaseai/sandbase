@@ -1,0 +1,63 @@
+{
+  "name": "instagram/v3/user-id-to-username",
+  "display_name": "Instagram User Info by ID",
+  "type": "api",
+  "vendor": "Instagram",
+  "vendor_slug": "instagram",
+  "description": "Returns an Instagram profile's details, including username, full name, follower count, and media metrics using an account ID.",
+  "tags": [
+    "api",
+    "instagram"
+  ],
+  "capabilities": [
+    "api",
+    "instagram"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/instagram/v3/user-id-to-username"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "user_id"
+    ],
+    "properties": {
+      "user_id": {
+        "type": "string",
+        "title": "User Id",
+        "example": "25025320",
+        "description": "Instagram user ID (numeric string)"
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.012,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "examples": [
+    {
+      "input": {
+        "user_id": "1935268808"
+      },
+      "default": true
+    }
+  ],
+  "readme": "# Instagram User Info by ID API\n\nLook up an Instagram user profile by providing a numeric `user_id`. The response returns core account metrics including username, follower count, and profile picture URL.\n\n## Use cases\n\n- Resolve an Instagram numeric account ID to its current username.\n- Inspect follower and following counts alongside total media counts.\n- Retrieve profile details such as full name, profile picture URL, and external website.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/instagram/v3/user-id-to-username\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"user_id\": \"25025320\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `user_id` | string | Yes | Instagram user ID (numeric string) |\n\n## Example response\n\nReal response for the request above, trimmed to the main fields. User names and long IDs are masked.\n\n```json\n{\n  \"external_url\": \"http://help.instagram.com\",\n  \"follower_count\": 686584231,\n  \"following_count\": 305,\n  \"full_name\": \"Instagram\",\n  \"id\": \"25025320\",\n  \"media_count\": 8612,\n  \"profile_pic_url\": \"https://instagram.fpit1-1.fna.fbcdn.net/v/t51.82787-19/550891366_186677716840013…\",\n  \"username\": \"<user>\"\n}\n```\n\n## Notes\n\n- The `user_id` parameter requires a numeric string representing the target account identifier.\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [Instagram Comment Bulk Translation](/model/instagram/v3/bulk-translate-comments): Returns bulk translations for multiple Instagram comments using a list of comment identifiers.\n- [Instagram Comment Replies (V3)](/model/instagram/v3/comment-replies): Returns child comment replies for a specific Instagram comment using the post media ID and parent comment ID.\n- [Instagram Explore Feed](/model/instagram/v3/explore): Returns curated sectional items from the Instagram explore feed, including layout formats and feed types.\n",
+  "page_url": "https://www.sandbase.ai/model/instagram/v3/user-id-to-username",
+  "created_at": "2026-07-31T03:57:17.559Z"
+}

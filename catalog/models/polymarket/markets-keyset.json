@@ -1,0 +1,197 @@
+{
+  "name": "polymarket/markets-keyset",
+  "display_name": "Polymarket List markets (keyset pagination)",
+  "type": "api",
+  "vendor": "Polymarket",
+  "vendor_slug": "polymarket",
+  "description": "List markets (keyset pagination) from Polymarket. Returns the official Polymarket API response unchanged.",
+  "tags": [
+    "api",
+    "polymarket",
+    "prediction-markets"
+  ],
+  "capabilities": [
+    "api",
+    "polymarket",
+    "prediction-markets"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/polymarket/markets-keyset"
+  },
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "array",
+        "items": {
+          "type": "integer"
+        },
+        "description": "id"
+      },
+      "cyom": {
+        "type": "boolean",
+        "description": "cyom"
+      },
+      "slug": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        },
+        "description": "slug"
+      },
+      "limit": {
+        "type": "integer",
+        "default": 20,
+        "example": 2,
+        "maximum": 100,
+        "minimum": 1,
+        "description": "Maximum number of results to return (max 100)"
+      },
+      "order": {
+        "type": "string",
+        "description": "Comma-separated list of JSON field names to order by, e.g. volume_num,liquidity_num"
+      },
+      "closed": {
+        "enum": [
+          "any"
+        ],
+        "type": "boolean",
+        "description": "Filter by closed state. Omitted or false returns open markets; true returns closed markets. Use any (case-insensitive) to include both states in an identifier lookup. Requires at least one of id, slug, clob_token_ids, position_ids, condition_ids, request_ids, onchain_event_ids, or question_ids when "
+      },
+      "locale": {
+        "type": "string",
+        "description": "locale"
+      },
+      "offset": {
+        "type": "integer",
+        "description": "Not allowed. Returns 422 if provided."
+      },
+      "tag_id": {
+        "type": "array",
+        "items": {
+          "type": "integer"
+        },
+        "description": "tag_id"
+      },
+      "game_id": {
+        "type": "string",
+        "description": "game_id"
+      },
+      "ascending": {
+        "type": "boolean",
+        "default": true,
+        "description": "Sort direction. Only used when order is set."
+      },
+      "tag_match": {
+        "type": "string",
+        "description": "tag_match"
+      },
+      "decimalized": {
+        "type": "boolean",
+        "description": "decimalized"
+      },
+      "include_tag": {
+        "type": "boolean",
+        "description": "When true, includes Tags relation on each market"
+      },
+      "rfq_enabled": {
+        "type": "boolean",
+        "description": "rfq_enabled"
+      },
+      "after_cursor": {
+        "type": "string",
+        "description": "Opaque cursor token from a previous response's next_cursor"
+      },
+      "end_date_max": {
+        "type": "string",
+        "description": "end_date_max"
+      },
+      "end_date_min": {
+        "type": "string",
+        "description": "end_date_min"
+      },
+      "question_ids": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        },
+        "description": "question_ids"
+      },
+      "related_tags": {
+        "type": "boolean",
+        "description": "related_tags"
+      },
+      "condition_ids": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        },
+        "description": "condition_ids"
+      },
+      "clob_token_ids": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        },
+        "description": "clob_token_ids"
+      },
+      "start_date_max": {
+        "type": "string",
+        "description": "start_date_max"
+      },
+      "start_date_min": {
+        "type": "string",
+        "description": "start_date_min"
+      },
+      "volume_num_max": {
+        "type": "number",
+        "description": "volume_num_max"
+      },
+      "volume_num_min": {
+        "type": "number",
+        "description": "volume_num_min"
+      },
+      "liquidity_num_max": {
+        "type": "number",
+        "description": "liquidity_num_max"
+      },
+      "liquidity_num_min": {
+        "type": "number",
+        "description": "liquidity_num_min"
+      },
+      "sports_market_types": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        },
+        "description": "sports_market_types"
+      },
+      "uma_resolution_status": {
+        "type": "string",
+        "description": "uma_resolution_status"
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.00044,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "readme": "# Polymarket List markets (keyset pagination) API\n\nList markets (keyset pagination) from Polymarket. Returns the official Polymarket API response unchanged.\n\nThe response is the official Polymarket API response, unchanged.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/polymarket/markets-keyset\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"limit\": 2}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `after_cursor` | string | No | Opaque cursor token from a previous response's next_cursor |\n| `ascending` | boolean | No | Sort direction. Only used when order is set. |\n| `clob_token_ids` | array | No | clob_token_ids |\n| `closed` | boolean | No | Filter by closed state. Omitted or false returns open markets; true returns closed markets. Use any (case-insensitive) to include both states in an identifier l |\n| `condition_ids` | array | No | condition_ids |\n| `cyom` | boolean | No | cyom |\n| `decimalized` | boolean | No | decimalized |\n| `end_date_max` | string | No | end_date_max |\n| `end_date_min` | string | No | end_date_min |\n| `game_id` | string | No | game_id |\n| `id` | array | No | id |\n| `include_tag` | boolean | No | When true, includes Tags relation on each market |\n| `limit` | integer | No | Maximum number of results to return (max 100) |\n| `liquidity_num_max` | number | No | liquidity_num_max |\n| `liquidity_num_min` | number | No | liquidity_num_min |\n| `locale` | string | No | locale |\n| `offset` | integer | No | Not allowed. Returns 422 if provided. |\n| `order` | string | No | Comma-separated list of JSON field names to order by, e.g. volume_num,liquidity_num |\n| `question_ids` | array | No | question_ids |\n| `related_tags` | boolean | No | related_tags |\n| `rfq_enabled` | boolean | No | rfq_enabled |\n| `slug` | array | No | slug |\n| `sports_market_types` | array | No | sports_market_types |\n| `start_date_max` | string | No | start_date_max |\n| `start_date_min` | string | No | start_date_min |\n| `tag_id` | array | No | tag_id |\n| `tag_match` | string | No | tag_match |\n| `uma_resolution_status` | string | No | uma_resolution_status |\n| `volume_num_max` | number | No | volume_num_max |\n| `volume_num_min` | number | No | volume_num_min |\n\n## Pricing\n\nFlat price per call. Failed calls are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/polymarket/markets-keyset",
+  "created_at": "2026-10-30T03:11:34.964Z"
+}

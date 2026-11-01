@@ -1,0 +1,211 @@
+{
+  "name": "walmart/search",
+  "display_name": "Walmart Search",
+  "type": "api",
+  "vendor": "Walmart",
+  "vendor_slug": "walmart",
+  "description": "Search Walmart products by keyword with price, rating, reviews, seller and fulfillment badges, plus sorting, price filters and pagination.",
+  "tags": [
+    "api",
+    "walmart",
+    "ecommerce",
+    "product-data"
+  ],
+  "capabilities": [
+    "api",
+    "walmart",
+    "ecommerce",
+    "product-data"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}",
+    "passthrough": "POST /v1/api/walmart/search"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "query"
+    ],
+    "properties": {
+      "page": {
+        "type": [
+          "string",
+          "number",
+          "boolean"
+        ],
+        "description": "Value is used to get the items on a specific page. (e.g., `1` (default) is the first page of results, `2` is the 2nd page of results, `3` is the 3rd page of results, etc.). Maximum `page` value is `100`."
+      },
+      "sort": {
+        "type": [
+          "string",
+          "number",
+          "boolean"
+        ],
+        "description": "Sorting. (e.g. `price_low`, `price_high`, `best_seller`, `best_match`, `rating_high`, `new`). **Note:** `best_seller`, `rating_high`, and `new` are not supported for `walmart.com.mx`."
+      },
+      "facet": {
+        "type": [
+          "string",
+          "number",
+          "boolean"
+        ],
+        "description": "Items filtering based on their attributes. The structure is a list of `key:value` pairs separated by `||`. The key and value are separated by `:`"
+      },
+      "nd_en": {
+        "anyOf": [
+          {
+            "type": "boolean"
+          },
+          {
+            "enum": [
+              "true",
+              "false"
+            ],
+            "type": "string"
+          }
+        ],
+        "description": "Show results with NextDay delivery only. Set to `true` to enable or `false` (default) to disable. **Note:** not supported for `walmart.com.mx`."
+      },
+      "query": {
+        "type": [
+          "string",
+          "number",
+          "boolean"
+        ],
+        "example": "laptop",
+        "description": "The search query. You can use anything that you would use in a regular Walmart search. Either a `query` or a `cat_id` parameter is required."
+      },
+      "cat_id": {
+        "type": [
+          "string",
+          "number",
+          "boolean"
+        ],
+        "description": "Category on Walmart Search. (e.g. `0` (default) is all departments, `976759_976787` is 'Cookies', etc.). Either a `query` or a `cat_id` parameter is required. **Note:** not supported for `walmart.com.mx`."
+      },
+      "device": {
+        "type": [
+          "string",
+          "number",
+          "boolean"
+        ],
+        "description": "The device to use to get the results. It can be set to `desktop` (default) to use a regular browser, `tablet` to use a tablet browser (currently using iPads), or `mobile` to use a mobile browser."
+      },
+      "spelling": {
+        "anyOf": [
+          {
+            "type": "boolean"
+          },
+          {
+            "enum": [
+              "true",
+              "false"
+            ],
+            "type": "string"
+          }
+        ],
+        "description": "Activate spelling fix. `true` (default) includes spelling fix, `false` searches without spelling fix."
+      },
+      "store_id": {
+        "type": [
+          "string",
+          "number",
+          "boolean"
+        ],
+        "description": "Store ID to filter the products by the specific store only. Head to the Walmart Stores Locations for a full list of supported stores. It's possible for the product pricing to differ between stores."
+      },
+      "max_price": {
+        "type": [
+          "string",
+          "number",
+          "boolean"
+        ],
+        "description": "Upper bound of price range query."
+      },
+      "min_price": {
+        "type": [
+          "string",
+          "number",
+          "boolean"
+        ],
+        "description": "Lower bound of price range query."
+      },
+      "soft_sort": {
+        "type": [
+          "string",
+          "number",
+          "boolean"
+        ],
+        "description": "Enables sort by relevance. Walmart is by default showing results sorted by relevance and using the `sort` option. Set to `false` to disable sort by Relevance. **Note:** not supported for `walmart.com.mx`."
+      },
+      "walmart_domain": {
+        "type": [
+          "string",
+          "number",
+          "boolean"
+        ],
+        "description": "The Walmart domain to use. It defaults to `walmart.com`. Head to the Walmart Stores for a full list of supported stores per domain."
+      },
+      "include_filters": {
+        "anyOf": [
+          {
+            "type": "boolean"
+          },
+          {
+            "enum": [
+              "true",
+              "false"
+            ],
+            "type": "string"
+          }
+        ],
+        "description": "Include `filters` to the JSON response. Set to `true` to enable or `false` to disable (default)."
+      },
+      "json_restrictor": {
+        "type": [
+          "string",
+          "number",
+          "boolean"
+        ],
+        "description": "The fields you want to include in the output, reducing payload size for faster response. See the JSON Restrictor documentation for more details."
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "required": [
+      "id",
+      "status",
+      "model"
+    ],
+    "properties": {
+      "id": {
+        "type": "string"
+      },
+      "model": {
+        "type": "string"
+      },
+      "status": {
+        "type": "string"
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.015,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "readme": "# Walmart Search\n\nSearch Walmart products by keyword with price, rating, reviews, seller and fulfillment badges, plus sorting, price filters and pagination.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/walmart/search\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"query\": \"laptop\"}'\n```\n\nThis API runs asynchronously. The call returns a task `id` with status `pending`; poll `GET https://api.sandbase.ai/v1/run/{id}` until `status` is `completed` and read the result from `outputs[0].data`.\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `query` | string/number/boolean | Yes | The search query. You can use anything that you would use in a regular Walmart search. Either a `query` or a `cat_id` parameter is required. |\n| `cat_id` | string/number/boolean | No | Category on Walmart Search. (e.g. `0` (default) is all departments, `976759_976787` is 'Cookies', etc.). Either a `query` or a `cat_id` parameter is required. **Note:** not supported for `walmart.com.… |\n| `device` | string/number/boolean | No | The device to use to get the results. It can be set to `desktop` (default) to use a regular browser, `tablet` to use a tablet browser (currently using iPads), or `mobile` to use a mobile browser. |\n| `facet` | string/number/boolean | No | Items filtering based on their attributes. The structure is a list of `key:value` pairs separated by `\\|\\|`. The key and value are separated by `:` |\n| `include_filters` | any | No | Include `filters` to the JSON response. Set to `true` to enable or `false` to disable (default). |\n| `json_restrictor` | string/number/boolean | No | The fields you want to include in the output, reducing payload size for faster response. See the JSON Restrictor documentation for more details. |\n| `max_price` | string/number/boolean | No | Upper bound of price range query. |\n| `min_price` | string/number/boolean | No | Lower bound of price range query. |\n| `nd_en` | any | No | Show results with NextDay delivery only. Set to `true` to enable or `false` (default) to disable. **Note:** not supported for `walmart.com.mx`. |\n| `page` | string/number/boolean | No | Value is used to get the items on a specific page. (e.g., `1` (default) is the first page of results, `2` is the 2nd page of results, `3` is the 3rd page of results, etc.). Maximum `page` value is `10… |\n| `soft_sort` | string/number/boolean | No | Enables sort by relevance. Walmart is by default showing results sorted by relevance and using the `sort` option. Set to `false` to disable sort by Relevance. **Note:** not supported for `walmart.com.… |\n| `sort` | string/number/boolean | No | Sorting. (e.g. `price_low`, `price_high`, `best_seller`, `best_match`, `rating_high`, `new`). **Note:** `best_seller`, `rating_high`, and `new` are not supported for `walmart.com.mx`. |\n| `spelling` | any | No | Activate spelling fix. `true` (default) includes spelling fix, `false` searches without spelling fix. |\n| `store_id` | string/number/boolean | No | Store ID to filter the products by the specific store only. Head to the Walmart Stores Locations for a full list of supported stores. It's possible for the product pricing to differ between stores. |\n| `walmart_domain` | string/number/boolean | No | The Walmart domain to use. It defaults to `walmart.com`. Head to the Walmart Stores for a full list of supported stores per domain. |\n\n## Pricing\n\nFlat price per call. Failed calls are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/walmart/search",
+  "created_at": "2026-10-28T15:25:42.475Z"
+}

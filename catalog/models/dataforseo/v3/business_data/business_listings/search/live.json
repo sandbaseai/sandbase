@@ -1,0 +1,46 @@
+{
+  "name": "dataforseo/v3/business_data/business_listings/search/live",
+  "display_name": "DataForSEO Business Listings Search",
+  "type": "api",
+  "vendor": "DataForSEO",
+  "vendor_slug": "dataforseo",
+  "description": "Search Google Maps business listings by category, name or location radius, with ratings, contact details and work hours.",
+  "tags": [
+    "business-data",
+    "google-maps",
+    "local"
+  ],
+  "capabilities": [
+    "business-data",
+    "google-maps",
+    "local"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/dataforseo/v3/business_data/business_listings/search/live"
+  },
+  "input_schema": {
+    "type": "object",
+    "properties": {},
+    "description": "Request parameters forwarded to DataForSEO /v3/business_data/business_listings/search/live. See DataForSEO docs for full schema.",
+    "additionalProperties": true
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "usage_based",
+    "note": "Billed per call from metered usage; the reference price is typical.",
+    "reference_price": 0.0156
+  },
+  "readme": "# DataForSEO Business Listings Search API\n\nSearch Google Maps business listings by category, name or location radius, with ratings, contact details and work hours.\n\nRequest fields follow the official DataForSEO `/v3/business_data/business_listings/search/live` task schema (one task per call). The response is DataForSEO's original JSON; results are in `tasks[].result`.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/dataforseo/v3/business_data/business_listings/search/live\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"categories\": [\"pizza_restaurant\"], \"location_coordinate\": \"40.7128,-74.0060,10\", \"limit\": 10}'\n```\n\n## Parameters\n\nThe JSON body is forwarded to the upstream endpoint. Main fields:\n\n| Name | Description |\n|---|---|\n| `categories` | Array of business category ids, e.g. [\"pizza_restaurant\"]. |\n| `location_coordinate` | \"latitude,longitude,radius_km\". |\n| `title` | Optional business name to match. |\n| `limit` | Maximum number of listings to return. |\n\n## Reference\n\n- Official docs: https://docs.dataforseo.com/v3/business_data/business_listings/search/live/\n\n## Pricing\n\nBilled at the actual cost of each call, about $0.0156 for the request above. The cost grows with the number of rows, targets or tokens a call returns. Failed calls are not charged. Searches with no results are billed at their actual cost.\n",
+  "page_url": "https://www.sandbase.ai/model/dataforseo/v3/business_data/business_listings/search/live",
+  "published_at": "2026-11-01T00:00:00Z",
+  "created_at": "2026-11-01T14:31:36.758Z"
+}

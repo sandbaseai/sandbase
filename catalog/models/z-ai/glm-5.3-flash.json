@@ -1,0 +1,43 @@
+{
+  "name": "z-ai/glm-5.3-flash",
+  "display_name": "Z.ai: GLM 5.3 Flash",
+  "type": "llm",
+  "vendor": "Z-Ai",
+  "vendor_slug": "z-ai",
+  "description": "GLM-5.3-Flash is the first native multimodal model in Z.ai's GLM-5 series, a 320B-parameter mixture-of-experts model with 18B active parameters that combines sparse and linear attention to cut long-context compute and KV cache. Vision is built into its coding loop, letting it inspect rendered interfaces and GUI feedback for frontend, game and computer-use work, and it also handles office documents and financial research. Z.ai reports it outperforms GLM-5.2; GLM-5.3-FlashX serves it at higher speed.",
+  "tags": [
+    "chat",
+    "vision",
+    "reasoning",
+    "structured_output",
+    "function_calling"
+  ],
+  "capabilities": [
+    "chat",
+    "vision",
+    "reasoning",
+    "structured_output",
+    "function_calling"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "chat_completions": "POST /v1/chat/completions",
+    "responses": "POST /v1/responses",
+    "messages": "POST /v1/messages"
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_token",
+    "per_million_tokens": {
+      "input": 0.15,
+      "output": 0.5,
+      "cache_read_multiplier": 0.2
+    }
+  },
+  "page_url": "https://www.sandbase.ai/model/z-ai/glm-5.3-flash",
+  "published_at": "2026-08-26T13:59:01Z",
+  "created_at": "2026-08-27T06:08:51.248Z"
+}

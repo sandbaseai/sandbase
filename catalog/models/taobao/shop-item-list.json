@@ -1,0 +1,74 @@
+{
+  "name": "taobao/shop-item-list",
+  "display_name": "Taobao Shop Product List",
+  "type": "api",
+  "vendor": "Taobao",
+  "vendor_slug": "taobao",
+  "description": "Get products from a Taobao or Tmall shop using both seller or user ID and shop ID, with page-based pagination and sorting by sales, new arrivals, credit, or price. Use it to browse a known shop catalog.",
+  "tags": [
+    "api",
+    "taobao",
+    "ecommerce"
+  ],
+  "capabilities": [
+    "api",
+    "taobao",
+    "ecommerce"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/taobao/shop-item-list"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "userId",
+      "shopId"
+    ],
+    "properties": {
+      "page": {
+        "type": "integer",
+        "default": 1,
+        "description": "Page number for pagination."
+      },
+      "sort": {
+        "enum": [
+          "sales-des",
+          "new-des",
+          "credit-des",
+          "price-asc",
+          "price-des"
+        ],
+        "type": "string",
+        "default": "sales-des",
+        "description": "Sort order for the result set."
+      },
+      "shopId": {
+        "type": "string",
+        "example": "103710607",
+        "description": "Unique shop identifier on Taobao/Tmall (shop ID)."
+      },
+      "userId": {
+        "type": "string",
+        "example": "1659916565",
+        "description": "Shop identifier. Also known as Seller ID or User ID (they refer to the same value)."
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.027778
+  },
+  "readme": "# Taobao Shop Product List API\n\nGet products from a Taobao or Tmall shop using both seller or user ID and shop ID, with page-based pagination and sorting by sales, new arrivals, credit, or price. Use it to browse a known shop catalog.\n\nThe response is the platform's original data structure.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/taobao/shop-item-list\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"userId\": \"1659916565\", \"shopId\": \"103710607\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `userId` | string | Yes | Shop identifier. Also known as Seller ID or User ID (they refer to the same value). |\n| `shopId` | string | Yes | Unique shop identifier on Taobao/Tmall (shop ID). |\n| `sort` | string | No | Sort order for the result set. |\n| `page` | integer | No | Page number for pagination. |\n\n## Pricing\n\nFlat price per call. Failed calls and empty results are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/taobao/shop-item-list",
+  "created_at": "2026-10-29T12:10:33.974Z"
+}

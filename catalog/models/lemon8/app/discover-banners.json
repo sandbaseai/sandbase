@@ -1,0 +1,50 @@
+{
+  "name": "lemon8/app/discover-banners",
+  "display_name": "Lemon8 Discover Page Banners",
+  "type": "api",
+  "vendor": "Lemon8",
+  "vendor_slug": "lemon8",
+  "description": "Returns the current promotional and featured banners displayed on the Lemon8 discover page. Applications can use this data to inspect active platform campaigns and highlighted topics.",
+  "tags": [
+    "api",
+    "lemon8"
+  ],
+  "capabilities": [
+    "api",
+    "lemon8"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/lemon8/app/discover-banners"
+  },
+  "input_schema": {
+    "type": "object",
+    "properties": {}
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.0015,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "examples": [
+    {
+      "input": {}
+    }
+  ],
+  "readme": "# Lemon8 Discover Page Banners API\n\nCall this endpoint without additional parameters to inspect the latest promotional banners featured on the Lemon8 discover page.\n\n## Use cases\n\n- Display current Lemon8 campaign banners inside external dashboards.\n- Monitor featured marketing events showcased on the discover page.\n- Track active promotional highlights across the Lemon8 platform.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/lemon8/app/discover-banners\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{}'\n```\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [Lemon8 Discover Page Content](/model/lemon8/app/discover-tab): Returns the main content featured on the Lemon8 discover tab.\n- [Lemon8 Discover Editor Picks](/model/lemon8/app/discover-tab-information-tabs): Returns the Editor's Picks and discover tab information from the Lemon8 mobile app.\n- [Lemon8 Hot Search Keywords](/model/lemon8/app/hot-search-keywords): Returns trending search keywords and topics currently popular on Lemon8.\n",
+  "page_url": "https://www.sandbase.ai/model/lemon8/app/discover-banners",
+  "created_at": "2026-07-31T04:07:23.109Z"
+}

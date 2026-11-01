@@ -1,0 +1,81 @@
+{
+  "name": "zhihu/web/column-search-v3",
+  "display_name": "Zhihu Column Search",
+  "type": "api",
+  "vendor": "Zhihu",
+  "vendor_slug": "zhihu",
+  "description": "Searches Zhihu columns matching a specified query term. Returns matching column profiles, follower counts, article totals, and snippet highlights with pagination support.",
+  "tags": [
+    "api",
+    "zhihu"
+  ],
+  "capabilities": [
+    "api",
+    "zhihu"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/zhihu/web/column-search-v3"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "keyword"
+    ],
+    "properties": {
+      "limit": {
+        "type": "string",
+        "title": "Limit",
+        "default": "20",
+        "description": "Number of columns per page"
+      },
+      "offset": {
+        "type": "string",
+        "title": "Offset",
+        "default": "0",
+        "description": "Offset"
+      },
+      "keyword": {
+        "type": "string",
+        "title": "Keyword",
+        "example": "OpenAI",
+        "description": "Search Keywords"
+      },
+      "search_hash_id": {
+        "type": "string",
+        "title": "Search Hash Id",
+        "default": "",
+        "description": "Search Hash ID"
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.0015,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "examples": [
+    {
+      "input": {
+        "keyword": "OpenAI"
+      },
+      "default": true
+    }
+  ],
+  "readme": "# Zhihu Column Search API\n\nQuery Zhihu columns by passing a search term into `keyword`. You can paginate through matches using `offset` and `limit`.\n\n## Use cases\n\n- Discover topic-focused Zhihu columns by keyword.\n- Track column follower counts and publication volume.\n- Retrieve Zhihu column identifiers and descriptions for market research.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/zhihu/web/column-search-v3\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"keyword\": \"OpenAI\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `keyword` | string | Yes | Search Keywords |\n| `limit` | string | No | Number of columns per page |\n| `offset` | string | No | Offset |\n| `search_hash_id` | string | No | Search Hash ID |\n\n## Example response\n\nReal response for the request above, trimmed to the main fields. User names and long IDs are masked.\n\n```json\n{\n  \"data\": [\n    {\n      \"id\": \"openai\",\n      \"type\": \"search_result\",\n      \"highlight\": {\n        \"content\": \"介绍 OpenAI 的一些工作\",\n        \"description\": \"介绍 OpenAI 的一些工作\",\n        \"title\": \"OpenAI\"\n      },\n      \"object\": {\n        \"articles_count\": 5,\n        \"column_type\": \"normal\",\n        \"description\": \"介绍 OpenAI 的一些工作\",\n        \"followers\": 3153,\n        \"id\": \"openai\",\n        \"image_url\": \"https://pica.zhimg.com/v2-9d09bc4b22fc4a71c21e789f77effb48_r.jpg?source=4e949a73\"\n      }\n    }\n  ]\n}\n```\n\n## Notes\n\n- Supports pagination via `limit` to control page size and `offset` to navigate pages.\n- Requires `keyword` as the search query parameter.\n- Accepts an optional `search_hash_id` parameter.\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [Zhihu AI Search Stream](/model/zhihu/web/ai-search-stream): Returns streaming AI search results from Zhihu based on a query prompt.\n- [Zhihu Answer Details](/model/zhihu/web/answer-detail): Retrieves detailed information for a specific Zhihu answer using its numeric ID, including answer text, timestamps, and share links.\n- [Zhihu Article Search](/model/zhihu/web/article-search-v3): Search Zhihu articles and answers by keyword and get titles, excerpts, authors, vote and comment counts, with sorting, content type and time filters plus offse…\n",
+  "page_url": "https://www.sandbase.ai/model/zhihu/web/column-search-v3",
+  "created_at": "2026-07-31T04:29:18.36Z"
+}

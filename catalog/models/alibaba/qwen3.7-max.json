@@ -1,0 +1,43 @@
+{
+  "name": "alibaba/qwen3.7-max",
+  "display_name": "Qwen: Qwen3.7 Max",
+  "type": "llm",
+  "vendor": "Alibaba",
+  "vendor_slug": "alibaba",
+  "description": "Qwen3.7 Max is the largest and most capable model in Alibaba's Qwen3.7 series as of its May 2026 release, a reasoning model built for agent-centric work and offered here with text input and output. Alibaba highlights its strengths in programming, office and productivity tasks, and long-running autonomous execution. Model Studio now lists the Qwen3.7 line as legacy and recommends Qwen3.8 Max for the strongest reasoning, so it fits workloads already validated on Qwen3.7 Max.",
+  "tags": [
+    "chat",
+    "reasoning",
+    "structured_output",
+    "function_calling"
+  ],
+  "capabilities": [
+    "chat",
+    "reasoning",
+    "structured_output",
+    "function_calling"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "chat_completions": "POST /v1/chat/completions",
+    "responses": "POST /v1/responses",
+    "messages": "POST /v1/messages"
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_token",
+    "per_million_tokens": {
+      "input": 2.5,
+      "output": 7.5,
+      "cache_read_multiplier": 0.2,
+      "cache_write_multiplier": 1.25
+    }
+  },
+  "cover_url": "https://t0.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=https://www.alibabacloud.com&size=256",
+  "page_url": "https://www.sandbase.ai/model/alibaba/qwen3.7-max",
+  "published_at": "2026-05-21T15:21:01Z",
+  "created_at": "2026-05-31T08:25:06.032Z"
+}

@@ -1,0 +1,189 @@
+{
+  "name": "target/search",
+  "display_name": "Target Search",
+  "type": "api",
+  "vendor": "Target",
+  "vendor_slug": "target",
+  "description": "Search Target products by keyword with TCIN, brand, price, sale price, rating, reviews and pickup, delivery and shipping availability.",
+  "tags": [
+    "api",
+    "target",
+    "ecommerce",
+    "product-data"
+  ],
+  "capabilities": [
+    "api",
+    "target",
+    "ecommerce",
+    "product-data"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}",
+    "passthrough": "POST /v1/api/target/search"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "q"
+    ],
+    "properties": {
+      "q": {
+        "type": [
+          "string",
+          "number",
+          "boolean"
+        ],
+        "example": "wireless earbuds",
+        "description": "The query you want to search. You can use anything that you would use in a regular Target search (e.g., `coffee`, `65 inch tv`, or `lego star wars`)."
+      },
+      "page": {
+        "type": [
+          "string",
+          "number",
+          "boolean"
+        ],
+        "description": "Value is used to get results on a specific page. (e.g., `1` (default) is the first page of results, `2` is the 2nd page of results, `3` is the 3rd page of results, etc.). Target returns up to 24 results per page, plus sponsored products, and up to 50 pages."
+      },
+      "sort": {
+        "anyOf": [
+          {
+            "enum": [
+              "relevance",
+              "featured",
+              "price_low",
+              "price_high",
+              "rating_high",
+              "best_seller",
+              "newest"
+            ],
+            "type": "string"
+          }
+        ],
+        "description": "The sorting of the results. It defaults to `relevance`. Available options: `relevance` - Relevance `featured` - Featured `price_low` - Price: low to high `price_high` - Price: high to low `rating_high` - Guest rating `best_seller` - Bestselling `newest` - Newest Target only shows sponsored products when results are sorted by `relevance`."
+      },
+      "facet": {
+        "type": [
+          "string",
+          "number",
+          "boolean"
+        ],
+        "description": "The filters to apply, like Target's filters (e.g., deals, brands, sizes, colors, or guest ratings). It's a comma-separated list of filter IDs (e.g., `5tdv0,4yagy` for Sale and Dark Roast). Filter IDs are available in `filters[].options[].id` of the results when `include_filters` is set to `true`. Like on Target, a search without filters can be filtered automatically by Target (e.g., Brand: LEGO for `lego`), as shown in `applied_filters`. Setting `facet` replaces these filters with yours."
+      },
+      "spelling": {
+        "anyOf": [
+          {
+            "type": "boolean"
+          },
+          {
+            "enum": [
+              "true",
+              "false"
+            ],
+            "type": "string"
+          }
+        ],
+        "description": "Whether to fix the spelling of misspelled queries, like Target. It can be set to `true` (default) to search for the spelling fix (e.g., `coffee` for `cofee`), as shown in `search_information.spelling_fix`, or `false` to search for the query as typed, like Target's Search instead for link."
+      },
+      "store_id": {
+        "type": [
+          "string",
+          "number",
+          "boolean"
+        ],
+        "description": "The Target store to get prices and availability for, like the store selected on Target (e.g., `1375` for Mpls Nicollet Mall, MN). The store ID is the number at the end of the store's page URL on Target (e.g., `https://www.target.com/sl/mpls-nicollet-mall/1375`). It defaults to `1771` (Cedar Rapids South, IA), the store Target uses when it can't locate the visitor."
+      },
+      "max_price": {
+        "type": [
+          "string",
+          "number",
+          "boolean"
+        ],
+        "description": "The maximum price of the products, in US dollars (e.g., `50`)."
+      },
+      "min_price": {
+        "type": [
+          "string",
+          "number",
+          "boolean"
+        ],
+        "description": "The minimum price of the products, in US dollars (e.g., `10`)."
+      },
+      "category_id": {
+        "type": [
+          "string",
+          "number",
+          "boolean"
+        ],
+        "description": "The category to search in (e.g., `hz89j` for Kitchen & Dining). Category IDs are available in the `Category` filter of the results when `include_filters` is set to `true`."
+      },
+      "delivery_zip": {
+        "type": [
+          "string",
+          "number",
+          "boolean"
+        ],
+        "description": "The US ZIP code to deliver to (e.g., `10001`). It's used for the shipping dates and the same day delivery availability. It defaults to the location of the store."
+      },
+      "include_filters": {
+        "anyOf": [
+          {
+            "type": "boolean"
+          },
+          {
+            "enum": [
+              "true",
+              "false"
+            ],
+            "type": "string"
+          }
+        ],
+        "description": "Whether to include the `filters` of the search in the JSON response, with the IDs to use in `facet` and `category_id`. It can be set to `true` or `false` (default)."
+      },
+      "json_restrictor": {
+        "type": [
+          "string",
+          "number",
+          "boolean"
+        ],
+        "description": "The fields you want to include in the output, reducing payload size for faster response. See the JSON Restrictor documentation for more details."
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "required": [
+      "id",
+      "status",
+      "model"
+    ],
+    "properties": {
+      "id": {
+        "type": "string"
+      },
+      "model": {
+        "type": "string"
+      },
+      "status": {
+        "type": "string"
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.015,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "readme": "# Target Search\n\nSearch Target products by keyword with TCIN, brand, price, sale price, rating, reviews and pickup, delivery and shipping availability.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/target/search\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"q\": \"wireless earbuds\"}'\n```\n\nThis API runs asynchronously. The call returns a task `id` with status `pending`; poll `GET https://api.sandbase.ai/v1/run/{id}` until `status` is `completed` and read the result from `outputs[0].data`.\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `q` | string/number/boolean | Yes | The query you want to search. You can use anything that you would use in a regular Target search (e.g., `coffee`, `65 inch tv`, or `lego star wars`). |\n| `category_id` | string/number/boolean | No | The category to search in (e.g., `hz89j` for Kitchen & Dining). Category IDs are available in the `Category` filter of the results when `include_filters` is set to `true`. |\n| `delivery_zip` | string/number/boolean | No | The US ZIP code to deliver to (e.g., `10001`). It's used for the shipping dates and the same day delivery availability. It defaults to the location of the store. |\n| `facet` | string/number/boolean | No | The filters to apply, like Target's filters (e.g., deals, brands, sizes, colors, or guest ratings). It's a comma-separated list of filter IDs (e.g., `5tdv0,4yagy` for Sale and Dark Roast). Filter IDs … |\n| `include_filters` | any | No | Whether to include the `filters` of the search in the JSON response, with the IDs to use in `facet` and `category_id`. It can be set to `true` or `false` (default). |\n| `json_restrictor` | string/number/boolean | No | The fields you want to include in the output, reducing payload size for faster response. See the JSON Restrictor documentation for more details. |\n| `max_price` | string/number/boolean | No | The maximum price of the products, in US dollars (e.g., `50`). |\n| `min_price` | string/number/boolean | No | The minimum price of the products, in US dollars (e.g., `10`). |\n| `page` | string/number/boolean | No | Value is used to get results on a specific page. (e.g., `1` (default) is the first page of results, `2` is the 2nd page of results, `3` is the 3rd page of results, etc.). Target returns up to 24 resul… |\n| `sort` | any | No | The sorting of the results. It defaults to `relevance`. Available options: `relevance` - Relevance `featured` - Featured `price_low` - Price: low to high `price_high` - Price: high to low `rating_high… |\n| `spelling` | any | No | Whether to fix the spelling of misspelled queries, like Target. It can be set to `true` (default) to search for the spelling fix (e.g., `coffee` for `cofee`), as shown in `search_information.spelling_… |\n| `store_id` | string/number/boolean | No | The Target store to get prices and availability for, like the store selected on Target (e.g., `1375` for Mpls Nicollet Mall, MN). The store ID is the number at the end of the store's page URL on Targe… |\n\n## Pricing\n\nFlat price per call. Failed calls are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/target/search",
+  "created_at": "2026-10-28T15:43:53.712Z"
+}

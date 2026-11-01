@@ -1,0 +1,300 @@
+{
+  "name": "kwaivgi/kling-video/o3/standard/text-to-video",
+  "display_name": "Kling O3 Standard Text to Video",
+  "type": "video",
+  "vendor": "KwaiVGI",
+  "vendor_slug": "kwaivgi",
+  "description": "Kling O3 Standard Text to Video by Kuaishou turns a text prompt into a 3-15 second 720p video with optional native audio.",
+  "tags": [
+    "text-to-video"
+  ],
+  "capabilities": [
+    "text-to-video"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "prompt"
+    ],
+    "properties": {
+      "prompt": {
+        "type": "string",
+        "title": "Prompt",
+        "examples": [
+          "A mecha lands on the ground to save the city, and says \"I'm here\", in anime style"
+        ],
+        "maxLength": 2500,
+        "description": "Text prompt for video generation. Required unless multi_prompt is provided."
+      },
+      "duration": {
+        "enum": [
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15
+        ],
+        "type": "integer",
+        "title": "Duration",
+        "default": 5,
+        "description": "Video duration in seconds (3-15s)."
+      },
+      "shot_type": {
+        "enum": [
+          "customize",
+          "intelligent"
+        ],
+        "type": "string",
+        "title": "Shot Type",
+        "default": "customize",
+        "description": "The type of multi-shot video generation. 'intelligent' lets the model automatically determine shot structure."
+      },
+      "aspect_ratio": {
+        "enum": [
+          "16:9",
+          "9:16",
+          "1:1"
+        ],
+        "type": "string",
+        "title": "Aspect Ratio",
+        "default": "16:9",
+        "description": "The aspect ratio of the generated image."
+      },
+      "multi_prompt": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "required": [
+            "prompt"
+          ],
+          "properties": {
+            "prompt": {
+              "type": "string",
+              "title": "Prompt",
+              "description": "The prompt for this shot."
+            },
+            "duration": {
+              "enum": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7,
+                8,
+                9,
+                10,
+                11,
+                12,
+                13,
+                14,
+                15
+              ],
+              "type": "integer",
+              "title": "Duration",
+              "default": 5,
+              "description": "The duration of this shot in seconds"
+            }
+          }
+        },
+        "title": "Multi Prompt",
+        "description": "List of prompts for multi-shot video generation."
+      },
+      "generate_audio": {
+        "type": "boolean",
+        "title": "Generate Audio",
+        "default": false,
+        "description": "Whether to generate native audio for the video."
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "title": "GenerationResponse",
+    "required": [
+      "id",
+      "status"
+    ],
+    "properties": {
+      "id": {
+        "type": "string",
+        "description": "Unique identifier for the generation task."
+      },
+      "error": {
+        "type": "string",
+        "description": "Error message if the task failed. Empty on success."
+      },
+      "model": {
+        "type": "string",
+        "description": "Model ID used for the prediction."
+      },
+      "status": {
+        "enum": [
+          "pending",
+          "running",
+          "completed",
+          "failed",
+          "timeout"
+        ],
+        "type": "string",
+        "description": "Status of the task: pending, running, completed, failed, or timeout."
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "title": "OutputItem",
+          "required": [
+            "url"
+          ],
+          "properties": {
+            "url": {
+              "type": "string",
+              "examples": [
+                "https://static.sandbase.ai/examples/mirrored/1b112a8cb53c-idOb9V-Q9ujlggPSKqsfS_output.mp4"
+              ],
+              "description": "The URL where the generated content can be downloaded from."
+            },
+            "content_type": {
+              "type": "string",
+              "description": "The MIME type of the output file."
+            }
+          }
+        },
+        "description": "Array of generated content. Empty when status is not completed."
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "formula",
+    "formula": "(params.generate_audio ?? false) ? (params.duration ?? 5) * 0.112 : (params.duration ?? 5) * 0.084",
+    "formula_variables": [
+      "params.duration",
+      "params.generate_audio"
+    ],
+    "reference_price": 0.42,
+    "price_examples": [
+      {
+        "params": {
+          "duration": 3,
+          "generate_audio": false
+        },
+        "usd": 0.252
+      },
+      {
+        "params": {
+          "duration": 3,
+          "generate_audio": true
+        },
+        "usd": 0.336
+      },
+      {
+        "params": {
+          "duration": 4,
+          "generate_audio": false
+        },
+        "usd": 0.336
+      },
+      {
+        "params": {
+          "duration": 4,
+          "generate_audio": true
+        },
+        "usd": 0.448
+      },
+      {
+        "params": {
+          "duration": 5,
+          "generate_audio": false
+        },
+        "usd": 0.42
+      },
+      {
+        "params": {
+          "duration": 5,
+          "generate_audio": true
+        },
+        "usd": 0.56
+      },
+      {
+        "params": {
+          "duration": 6,
+          "generate_audio": false
+        },
+        "usd": 0.504
+      },
+      {
+        "params": {
+          "duration": 6,
+          "generate_audio": true
+        },
+        "usd": 0.672
+      },
+      {
+        "params": {
+          "duration": 7,
+          "generate_audio": false
+        },
+        "usd": 0.588
+      },
+      {
+        "params": {
+          "duration": 7,
+          "generate_audio": true
+        },
+        "usd": 0.784
+      },
+      {
+        "params": {
+          "duration": 8,
+          "generate_audio": false
+        },
+        "usd": 0.672
+      },
+      {
+        "params": {
+          "duration": 8,
+          "generate_audio": true
+        },
+        "usd": 0.896
+      }
+    ]
+  },
+  "examples": [
+    {
+      "input": {
+        "prompt": "A mecha lands on the ground to save the city, and says \"I'm here\", in anime style"
+      },
+      "output": [
+        {
+          "poster": "https://static.sandbase.ai/examples/posters/07e592c54be05ebaf28e.jpg",
+          "url": "https://static.sandbase.ai/examples/5530a7b1-f8e7-40ff-9d6d-4fe6c3d1edb6/output/2691a793-e197-4ee5-bf27-f09b403931ff.mp4"
+        }
+      ],
+      "default": true
+    }
+  ],
+  "readme": "# Kling O3 Standard Text to Video\n\nKling O3 Standard text-to-video, the cost-efficient O3 tier. Write a scene, optionally split into shots with `multi_prompt`, and get back a 3–15 second clip.\n\n## Fields\n\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `prompt` | string, required | — | Up to 2,500 characters. |\n| `aspect_ratio` | `16:9` / `9:16` / `1:1` | `16:9` | Output frame shape. |\n| `duration` | 3–15 | 5 | Output length in seconds. |\n| `generate_audio` | boolean | false | Generate native audio with the clip. |\n| `multi_prompt` | object[] | — | Optional list of shots, each with its own prompt and duration. |\n| `shot_type` | `customize` / `intelligent` | `customize` | `customize` follows your `multi_prompt` shot list; `intelligent` lets the model plan the cuts. |\n\n## Billing\n\nYou pay for output seconds: $0.084 without audio and $0.112 with `generate_audio`.\n\n| Output | Without audio | With audio |\n|---|---|---|\n| 3s | $0.252 | $0.336 |\n| 5s (default) | $0.42 | $0.56 |\n| 10s | $0.84 | $1.12 |\n| 15s | $1.26 | $1.68 |\n\nFailed runs are not charged.\n\n## Prompting\n\n- Describe subject, action, camera move, and light in order.\n- For several shots, use `multi_prompt` with one entry per shot.\n\n## Limits\n\n- Clips are 3–15 seconds.\n\n## Also on SandBase\n\nOther Kling O3 Standard endpoints and tiers: `kwaivgi/kling-video/o3/standard/image-to-video`, `kwaivgi/kling-video/o3/standard/reference-to-video`, `kwaivgi/kling-video/o3/standard/edit`, `kwaivgi/kling-video/o3/standard/video-to-video`, `kwaivgi/kling-video/o3/pro/text-to-video`, `kwaivgi/kling-video/o3/4k/text-to-video`.\n",
+  "cover_url": "https://static.sandbase.ai/covers/kwaivgi/kling-video/o3/standard/text-to-video/cover-flare-20261004214550.webp",
+  "page_url": "https://www.sandbase.ai/model/kwaivgi/kling-video/o3/standard/text-to-video",
+  "published_at": "2026-02-04T15:48:44.935Z",
+  "created_at": "2026-05-14T10:26:22.734Z"
+}

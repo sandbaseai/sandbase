@@ -1,0 +1,57 @@
+{
+  "name": "twitter/web/trending",
+  "display_name": "Twitter (X) Trending Topics",
+  "type": "api",
+  "vendor": "Twitter",
+  "vendor_slug": "twitter",
+  "description": "Get trending topics on Twitter / X by country: trend names with their category context, for the United States, Japan, India, the UK and other markets.",
+  "tags": [
+    "api",
+    "twitter"
+  ],
+  "capabilities": [
+    "api",
+    "twitter"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/twitter/web/trending"
+  },
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "country": {
+        "type": "string",
+        "title": "Country",
+        "default": "UnitedStates",
+        "description": "Country, default is UnitedStates, other optional values are as follows: China; India; Japan; Russia; Germany; Indonesia; Brazil; France; UnitedKingdom; Turkey; Italy; Mexico; SouthKorea; Canada; Spain; SaudiArabia; Egypt; Australia; Poland; Iran; Pakistan; Vietnam; Nigeria; Bangladesh; Netherlands; Argentina; Philippines; Malaysia; Colombia; UniteArabEmirates; Romania; Belgium; Switzerland; Singapore; Sweden; Norway; Austria; Kazakhstan; Algeria; Chile; Czechia; Peru"
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.0015,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "examples": [
+    {
+      "input": {}
+    }
+  ],
+  "readme": "# Twitter (X) Trending Topics API\n\nFetch the current X (Twitter) trending list for a country. Each trend includes its name and context such as the category it trends in.\n\n## Use cases\n\n- Monitor what is trending in a market right now.\n- Trigger alerts when a brand or keyword trends.\n- Plan timely social content.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/twitter/web/trending\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `country` | string | No | Country, default is UnitedStates, other optional values are as follows: China; India; Japan; Russia; Germany; Indonesia… |\n\n## Example response\n\nReal response for the request above, trimmed to the main fields. User names and long IDs are masked.\n\n```json\n{\n  \"trends\": [\n    {\n      \"context\": \"Sports · Trending\",\n      \"name\": \"Falcons\"\n    }\n  ]\n}\n```\n\n## Notes\n\n- `country` defaults to `UnitedStates`; other values include Japan, India, UnitedKingdom, Germany and more.\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [Twitter (X) Search](/model/twitter/web/search-timeline): Search Twitter / X posts by keyword and get tweets with text, author, time and engagement counts (likes, retweets, replies, views).\n- [Twitter Tweet Detail](/model/twitter/web/tweet-detail): Get a single tweet (X post) by ID: full text, author, media, and like, retweet, reply, quote, bookmark and view counts.\n- [Twitter (X) User Profile](/model/twitter/web/user-profile): Get a Twitter / X user profile by screen name or user ID: name, bio, follower and following counts, post and media counts, verification and creation date.\n",
+  "page_url": "https://www.sandbase.ai/model/twitter/web/trending",
+  "created_at": "2026-07-31T04:19:32.267Z"
+}

@@ -1,0 +1,74 @@
+{
+  "name": "g2/category-products",
+  "display_name": "G2 Category Products",
+  "type": "api",
+  "vendor": "G2",
+  "vendor_slug": "g2",
+  "description": "List software products within a given G2 category. Returns products with name, slug, rating, and review count.",
+  "tags": [
+    "api",
+    "g2",
+    "company-people"
+  ],
+  "capabilities": [
+    "api",
+    "g2",
+    "company-people"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}",
+    "passthrough": "POST /v1/api/g2/category-products"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "category_slug"
+    ],
+    "properties": {
+      "page": {
+        "type": "integer",
+        "example": 1,
+        "maximum": 9007199254740991,
+        "minimum": -9007199254740991,
+        "description": "Page number for pagination"
+      },
+      "category_slug": {
+        "type": "string",
+        "example": "crm",
+        "description": "Category slug from get_categories results (e.g. 'crm', 'project-management')"
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "required": [
+      "id",
+      "status",
+      "model"
+    ],
+    "properties": {
+      "id": {
+        "type": "string"
+      },
+      "model": {
+        "type": "string"
+      },
+      "status": {
+        "type": "string"
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.05
+  },
+  "readme": "# G2 Category Products\n\nList software products within a given G2 category. Returns products with name, slug, rating, and review count.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/g2/category-products\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"category_slug\": \"crm\", \"page\": 1}'\n```\n\nThis API runs asynchronously. The call returns a task `id` with status `pending`; poll `GET https://api.sandbase.ai/v1/run/{id}` until `status` is `completed` and read the result from `outputs[0].data`.\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `category_slug` | string | Yes | Category slug from get_categories results (e.g. 'crm', 'project-management') |\n| `page` | integer | No | Page number for pagination |\n\n## Pricing\n\nFlat price per call. Failed calls are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/g2/category-products",
+  "created_at": "2026-10-30T09:16:03.256Z"
+}

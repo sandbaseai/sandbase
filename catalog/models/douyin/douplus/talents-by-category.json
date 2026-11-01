@@ -1,0 +1,92 @@
+{
+  "name": "douyin/douplus/talents-by-category",
+  "display_name": "Douyin DOU+ Talents by Category",
+  "type": "api",
+  "vendor": "Douyin",
+  "vendor_slug": "douyin",
+  "description": "Returns a list of DOU+ talents filtered by category name or keyword. Supports pagination through page index and page size parameters.",
+  "tags": [
+    "api",
+    "douyin"
+  ],
+  "capabilities": [
+    "api",
+    "douyin"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/douyin/douplus/talents-by-category"
+  },
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "name": {
+        "anyOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "title": "Name",
+        "description": "Category name or keyword (from the talent category endpoint); empty for all"
+      },
+      "page": {
+        "anyOf": [
+          {
+            "type": "integer"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "title": "Page",
+        "example": 0,
+        "description": "Page index from 0, default 0"
+      },
+      "limit": {
+        "anyOf": [
+          {
+            "type": "integer"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "title": "Limit",
+        "example": 20,
+        "description": "Page size, default 20"
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.0015,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "examples": [
+    {
+      "input": {
+        "limit": 20,
+        "page": 0
+      }
+    }
+  ],
+  "readme": "# Douyin DOU+ Talents by Category API\n\nFetch Douyin DOU+ talents by specifying category criteria with `name`. You can paginate through results using `page` and `limit`.\n\n## Use cases\n\n- Find Douyin influencers within a specific content niche.\n- Browse DOU+ promotional creators by category keyword.\n- Paginate through talent directories for partnership screening.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/douyin/douplus/talents-by-category\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `name` | string | No | Category name or keyword (from the talent category endpoint); empty for all |\n| `page` | string | No | Page index from 0, default 0 |\n| `limit` | string | No | Page size, default 20 |\n\n## Notes\n\n- Leave `name` empty to return all talent categories.\n- Obtain category values from the talent category endpoint.\n- `page` starts at index 0 and defaults to 0, while `limit` defaults to 20.\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [Douyin DOU+ Promotable Items](/model/douyin/douplus/promotable-item-list): Returns the promotable video item list for a Douyin account on the DOU+ promotion page.\n- [Douyin DOU+ User Search](/model/douyin/douplus/search-user): Searches for Douyin users in the DOU+ delivery context using a Douyin ID or nickname.\n- [Douyin DOU+ Talent Categories](/model/douyin/douplus/talent-categories): Returns the Douyin DOU+ talent category directory.\n",
+  "page_url": "https://www.sandbase.ai/model/douyin/douplus/talents-by-category",
+  "created_at": "2026-07-31T02:37:00.244Z"
+}

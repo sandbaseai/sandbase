@@ -1,0 +1,86 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/sandbaseai/sandbase/integrations/schema/integration.schema.json",
+  "title": "SandBase integration proposal",
+  "description": "Describes a public HTTP API to add to SandBase. Never include credentials: maintainers arrange access after review.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["id", "display_name", "vendor", "category", "description", "docs_url", "contact", "request", "execution", "input_schema", "pricing"],
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Capability name callers will pass as `model`: <vendor-slug>/<capability>[/<variant>]",
+      "pattern": "^[a-z0-9][a-z0-9-]*(/[a-z0-9][a-z0-9.-]*){1,3}$",
+      "maxLength": 120
+    },
+    "display_name": { "type": "string", "minLength": 3, "maxLength": 80 },
+    "vendor": { "type": "string", "minLength": 2, "maxLength": 60 },
+    "category": { "enum": ["social", "search", "commerce", "finance", "business", "ai-model", "more"] },
+    "description": { "type": "string", "minLength": 40, "maxLength": 1000 },
+    "homepage": { "type": "string", "format": "uri", "pattern": "^https://" },
+    "docs_url": { "type": "string", "format": "uri", "pattern": "^https://" },
+    "contact": {
+      "type": "string",
+      "description": "Email or GitHub handle for the API owner. Used only to arrange API access.",
+      "minLength": 3,
+      "maxLength": 120
+    },
+    "tags": { "type": "array", "items": { "type": "string", "pattern": "^[a-z0-9-]+$" }, "maxItems": 10, "uniqueItems": true },
+    "request": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["method", "base_url", "path", "auth"],
+      "properties": {
+        "method": { "enum": ["GET", "POST"] },
+        "base_url": { "type": "string", "pattern": "^https://[^/]+(/[^?#]*)?$" },
+        "path": { "type": "string", "pattern": "^/[^?#]*$" },
+        "params_in": { "enum": ["query", "body"], "description": "Where input fields go. Defaults to query for GET and body for POST." },
+        "auth": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["type"],
+          "properties": {
+            "type": { "enum": ["bearer", "header", "query", "none"] },
+            "name": { "type": "string", "description": "Header or query parameter name for type header/query.", "pattern": "^[A-Za-z0-9_-]+$" }
+          }
+        },
+        "timeout_seconds": { "type": "integer", "minimum": 1, "maximum": 600 }
+      }
+    },
+    "execution": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["mode"],
+      "properties": {
+        "mode": { "enum": ["sync", "async"] },
+        "poll_path": { "type": "string", "pattern": "^/.*\\{task_id\\}.*$", "description": "Async only, e.g. /v1/jobs/{task_id}" },
+        "task_id_field": { "type": "string", "description": "Async only: response field holding the job id." },
+        "status_field": { "type": "string" },
+        "status_map": {
+          "type": "object",
+          "description": "Upstream status -> pending | processing | completed | failed",
+          "additionalProperties": { "enum": ["pending", "processing", "completed", "failed"] }
+        }
+      }
+    },
+    "input_schema": {
+      "type": "object",
+      "description": "JSON Schema of the request fields callers send next to `model`.",
+      "required": ["type", "properties"],
+      "properties": { "type": { "const": "object" }, "properties": { "type": "object", "minProperties": 1 } }
+    },
+    "output_example": { "description": "A real, redacted response body. No personal data." },
+    "pricing": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["model", "source_url"],
+      "properties": {
+        "model": { "enum": ["per_call", "per_unit", "free"] },
+        "usd": { "type": "number", "minimum": 0, "description": "Your list price per call or per unit." },
+        "unit": { "type": "string", "description": "per_unit only, e.g. result, page, second, 1k characters" },
+        "unit_field": { "type": "string", "description": "per_unit only: response field that counts units, e.g. results.length" },
+        "source_url": { "type": "string", "pattern": "^https://", "description": "Public pricing page." }
+      }
+    }
+  }
+}

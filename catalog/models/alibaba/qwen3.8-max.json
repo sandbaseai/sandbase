@@ -1,0 +1,45 @@
+{
+  "name": "alibaba/qwen3.8-max",
+  "display_name": "Qwen: Qwen3.8 Max",
+  "type": "llm",
+  "vendor": "Alibaba",
+  "vendor_slug": "alibaba",
+  "description": "Qwen3.8 Max is Alibaba's flagship Qwen3.8 model, a 2.4-trillion-parameter Mixture-of-Experts reasoning model with native vision understanding, released in August 2026. Alibaba positions it for long-horizon coding and office work, from multi-day autonomous development to professional legal, financial and design tasks, with vision used across planning, execution and verification. Model Studio recommends it when the strongest reasoning in the Qwen lineup is needed.",
+  "tags": [
+    "chat",
+    "vision",
+    "reasoning",
+    "structured_output",
+    "function_calling"
+  ],
+  "capabilities": [
+    "chat",
+    "vision",
+    "reasoning",
+    "structured_output",
+    "function_calling"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "chat_completions": "POST /v1/chat/completions",
+    "responses": "POST /v1/responses",
+    "messages": "POST /v1/messages"
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_token",
+    "per_million_tokens": {
+      "input": 2,
+      "output": 6,
+      "cache_read_multiplier": 0.125,
+      "cache_write_multiplier": 1.25
+    }
+  },
+  "cover_url": "https://t0.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=https://www.alibabacloud.com&size=256",
+  "page_url": "https://www.sandbase.ai/model/alibaba/qwen3.8-max",
+  "published_at": "2026-08-03T04:33:32Z",
+  "created_at": "2026-08-12T07:07:20.663Z"
+}

@@ -1,0 +1,115 @@
+{
+  "name": "app-store/search",
+  "display_name": "App Store Search",
+  "type": "api",
+  "vendor": "App Store",
+  "vendor_slug": "app-store",
+  "description": "Search iPhone, iPad, and Mac apps or developers on the Apple App Store by storefront.",
+  "tags": [
+    "api",
+    "app-store",
+    "ecommerce"
+  ],
+  "capabilities": [
+    "api",
+    "app-store",
+    "ecommerce"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}",
+    "passthrough": "POST /v1/api/app-store/search"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "term"
+    ],
+    "properties": {
+      "num": {
+        "type": "integer",
+        "maximum": 200,
+        "minimum": 1,
+        "description": "Maximum results after filtering, 1-200. Default 10."
+      },
+      "lang": {
+        "type": "string",
+        "pattern": "^[a-zA-Z]{2,3}-[a-zA-Z]{2}$",
+        "description": "Language-region code, such as 'en-us' or 'fr-fr'. Default 'en-us'."
+      },
+      "term": {
+        "type": "string",
+        "example": "software",
+        "minLength": 1,
+        "description": "Search term, 1-2,048 UTF-8 bytes (at most 4,096 bytes URL-encoded)."
+      },
+      "device": {
+        "enum": [
+          "mobile",
+          "tablet",
+          "desktop"
+        ],
+        "type": "string",
+        "description": "'mobile' for iPhone apps, 'tablet' for iPad apps, 'desktop' for Mac apps. Default 'mobile'."
+      },
+      "country": {
+        "type": "string",
+        "pattern": "^[a-zA-Z]{2}$",
+        "description": "Two-letter Apple storefront country, such as 'us' or 'gb' ('uk' is accepted). Default 'us'."
+      },
+      "property": {
+        "enum": [
+          "developer"
+        ],
+        "type": "string",
+        "description": "'developer' matches developer names instead of app names, ignoring case."
+      },
+      "category_id": {
+        "type": "integer",
+        "maximum": 2147483647,
+        "minimum": 1,
+        "description": "Filter results by a native genre identifier."
+      },
+      "disallow_explicit": {
+        "type": "boolean",
+        "description": "Exclude explicit results."
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "required": [
+      "id",
+      "status",
+      "model"
+    ],
+    "properties": {
+      "id": {
+        "type": "string"
+      },
+      "model": {
+        "type": "string"
+      },
+      "status": {
+        "type": "string"
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.00015,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "readme": "# App Store Search\n\nSearch iPhone, iPad, and Mac apps or developers on the Apple App Store by storefront.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/app-store/search\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"term\": \"software\"}'\n```\n\nThis API runs asynchronously. The call returns a task `id` with status `pending`; poll `GET https://api.sandbase.ai/v1/run/{id}` until `status` is `completed` and read the result from `outputs[0].data`.\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `term` | string | Yes | Search term, 1-2,048 UTF-8 bytes (at most 4,096 bytes URL-encoded). |\n| `category_id` | integer | No | Filter results by a native genre identifier. |\n| `country` | string | No | Two-letter Apple storefront country, such as 'us' or 'gb' ('uk' is accepted). Default 'us'. |\n| `device` | string | No | 'mobile' for iPhone apps, 'tablet' for iPad apps, 'desktop' for Mac apps. Default 'mobile'. One of: `mobile`, `tablet`, `desktop`. |\n| `disallow_explicit` | boolean | No | Exclude explicit results. |\n| `lang` | string | No | Language-region code, such as 'en-us' or 'fr-fr'. Default 'en-us'. |\n| `num` | integer | No | Maximum results after filtering, 1-200. Default 10. |\n| `property` | string | No | 'developer' matches developer names instead of app names, ignoring case. One of: `developer`. |\n\n## Pricing\n\nFlat price per call. Failed calls are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/app-store/search",
+  "created_at": "2026-10-30T08:54:18.815Z"
+}

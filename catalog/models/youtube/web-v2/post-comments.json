@@ -1,0 +1,88 @@
+{
+  "name": "youtube/web-v2/post-comments",
+  "display_name": "YouTube Community Post Comments",
+  "type": "api",
+  "vendor": "YouTube",
+  "vendor_slug": "youtube",
+  "description": "Returns comments from a YouTube community post with support for pagination, formatted output, and regional localization settings.",
+  "tags": [
+    "api",
+    "youtube"
+  ],
+  "capabilities": [
+    "api",
+    "youtube"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/youtube/web-v2/post-comments"
+  },
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "post_id": {
+        "type": "string",
+        "title": "Post Id",
+        "example": "UgkxiCSRfD6g7SPlWGPDa3vbP7aIsytXRkvy",
+        "description": "Post ID, required for first request"
+      },
+      "need_format": {
+        "type": "boolean",
+        "title": "Need Format",
+        "default": true,
+        "example": true,
+        "description": "Whether to format data, default `true`"
+      },
+      "country_code": {
+        "type": "string",
+        "title": "Country Code",
+        "default": "US",
+        "example": "US",
+        "description": "Country code, default `\"US\"`"
+      },
+      "language_code": {
+        "type": "string",
+        "title": "Language Code",
+        "default": "zh-CN",
+        "example": "en-US",
+        "description": "Language code, default `\"zh-CN\"`"
+      },
+      "continuation_token": {
+        "type": "string",
+        "title": "Continuation Token",
+        "description": "Next page token"
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.0015,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "examples": [
+    {
+      "input": {
+        "country_code": "US",
+        "language_code": "zh-CN",
+        "need_format": true,
+        "post_id": "UgkxiCSRfD6g7SPlWGPDa3vbP7aIsytXRkvy"
+      }
+    }
+  ],
+  "readme": "# YouTube Community Post Comments API\n\nLook up community post comments on YouTube by specifying a `post_id`. Supports localized results and pagination using `continuation_token`.\n\n## Use cases\n\n- Retrieve audience feedback on channel community posts.\n- Monitor user engagement and discussions across community updates.\n- Extract comment threads for sentiment and topic analysis.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/youtube/web-v2/post-comments\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `post_id` | string | No | Post ID, required for first request |\n| `need_format` | boolean | No | Whether to format data, default `true` |\n| `country_code` | string | No | Country code, default `\"US\"` |\n| `language_code` | string | No | Language code, default `\"zh-CN\"` |\n| `continuation_token` | string | No | Next page token |\n\n## Notes\n\n- `post_id` is required for the first request.\n- Pass `continuation_token` to retrieve subsequent pages of comments.\n- Customize localization by setting `country_code` and `language_code`.\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [YouTube Channel Community Posts](/model/youtube/web-v2/channel-community-posts): Returns community posts from a specific YouTube channel, including text content, polls, votes, and comment counts.\n- [YouTube Channel Description](/model/youtube/web-v2/channel-description): Returns YouTube channel details including subscriber counts, video totals, view counts, joined date, and social links.\n- [YouTube Channel ID from URL](/model/youtube/web-v2/channel-id): Resolves a YouTube channel URL to its canonical channel ID.\n",
+  "page_url": "https://www.sandbase.ai/model/youtube/web-v2/post-comments",
+  "created_at": "2026-07-31T04:27:20.632Z"
+}

@@ -1,0 +1,77 @@
+{
+  "name": "kuaishou/app/video-sub-comments",
+  "display_name": "Kuaishou Video Sub Comments (App)",
+  "type": "api",
+  "vendor": "Kuaishou",
+  "vendor_slug": "kuaishou",
+  "description": "Returns sub comments and replies under a root comment for a Kuaishou video. Supports pagination using a cursor and page size configuration.",
+  "tags": [
+    "api",
+    "kuaishou"
+  ],
+  "capabilities": [
+    "api",
+    "kuaishou"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/kuaishou/app/video-sub-comments"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "photo_id",
+      "root_comment_id"
+    ],
+    "properties": {
+      "count": {
+        "type": "integer",
+        "title": "每页数量/Page size",
+        "description": "Page size, default 8, range 1-20"
+      },
+      "pcursor": {
+        "type": "string",
+        "title": "分页游标/Pagination cursor",
+        "description": "Cursor, empty for first page"
+      },
+      "photo_id": {
+        "type": "string",
+        "title": "作品ID/Photo ID"
+      },
+      "root_comment_id": {
+        "type": "string",
+        "title": "一级评论ID/Root comment ID"
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.0015,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "examples": [
+    {
+      "input": {
+        "photo_id": "1",
+        "root_comment_id": "1"
+      },
+      "default": true
+    }
+  ],
+  "readme": "# Kuaishou Video Sub Comments (App) API\n\nRetrieve nested replies under a specific root comment on Kuaishou. Pass `photo_id` and `root_comment_id` to retrieve comment thread details.\n\n## Use cases\n\n- Display threaded reply discussions beneath main video comments.\n- Monitor community responses and conversations for a specific comment.\n- Extract conversation threads for audience interaction analysis.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/kuaishou/app/video-sub-comments\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"photo_id\": \"<photo_id>\", \"root_comment_id\": \"<root_comment_id>\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `photo_id` | string | Yes | — |\n| `root_comment_id` | string | Yes | — |\n| `count` | integer | No | Page size, default 8, range 1-20 |\n| `pcursor` | string | No | Cursor, empty for first page |\n\n## Notes\n\n- Set `count` between 1 and 20 to control page size (defaults to 8).\n- Provide `pcursor` for subsequent pages or leave it empty for the first page.\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [Kuaishou Brand Top List](/model/kuaishou/app/brand-top-list): Returns top brand rankings and related live stream links from Kuaishou.\n- [Kuaishou App Share Link](/model/kuaishou/app/generate-share-link): Generates a shareable URL for Kuaishou application content using a specified object identifier.\n- [Kuaishou Hot Board Categories](/model/kuaishou/app/hot-board-categories): Returns the active list of hot board categories available in the Kuaishou app.\n",
+  "page_url": "https://www.sandbase.ai/model/kuaishou/app/video-sub-comments",
+  "created_at": "2026-07-31T03:58:29.619Z"
+}

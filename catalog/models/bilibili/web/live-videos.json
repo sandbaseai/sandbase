@@ -1,0 +1,62 @@
+{
+  "name": "bilibili/web/live-videos",
+  "display_name": "Bilibili Room Stream Data",
+  "type": "api",
+  "vendor": "Bilibili",
+  "vendor_slug": "bilibili",
+  "description": "Returns stream URLs and playback connection details for a specific Bilibili broadcast room. Filter using the unique room identifier.",
+  "tags": [
+    "api",
+    "bilibili"
+  ],
+  "capabilities": [
+    "api",
+    "bilibili"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/bilibili/web/live-videos"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "room_id"
+    ],
+    "properties": {
+      "room_id": {
+        "type": "string",
+        "title": "Room Id",
+        "example": "1815229528",
+        "description": "Live room ID"
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.0015,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "examples": [
+    {
+      "input": {
+        "room_id": "1815229528"
+      }
+    }
+  ],
+  "readme": "# Bilibili Room Stream Data API\n\nRetrieve stream playback addresses and transmission parameters for a Bilibili room. Specify the target broadcast room using `room_id`.\n\n## Use cases\n\n- Access direct media stream links for active Bilibili broadcasts.\n- Integrate Bilibili stream playback into external player interfaces.\n- Inspect streaming protocol types and transmission endpoints for a room.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/bilibili/web/live-videos\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"room_id\": \"1815229528\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `room_id` | string | Yes | Live room ID |\n\n## Example response\n\nReal response for the request above, trimmed to the main fields. User names and long IDs are masked.\n\n```json\n{\n  \"data\": {\n    \"durl\": [\n      {\n        \"p2p_type\": -1,\n        \"stream_type\": 0,\n        \"url\": \"https://d1--ov-gotcha07.bilivideo.com/live-bvc/538254/live_1777360364_82518558.f…\"\n      }\n    ]\n  }\n}\n```\n\n## Notes\n\n- Supply the broadcast room identifier via `room_id`.\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [Bilibili Streaming Areas](/model/bilibili/web/all-live-areas): Returns the complete list of streaming broadcast areas and categories on Bilibili.\n- [Bilibili BV to AID Converter](/model/bilibili/web/bv-to-aid): Converts a Bilibili BV identifier to its corresponding numeric AID value.\n- [Bilibili User Collection Folders](/model/bilibili/web/collect-folders): Returns the collection folders owned by a specific Bilibili user.\n",
+  "page_url": "https://www.sandbase.ai/model/bilibili/web/live-videos",
+  "created_at": "2026-07-31T03:53:51.632Z"
+}

@@ -1,0 +1,125 @@
+{
+  "name": "veed/lipsync/2.0",
+  "display_name": "VEED Lipsync 2.0",
+  "type": "video",
+  "vendor": "VEED",
+  "vendor_slug": "veed",
+  "description": "VEED Lipsync 2.0 makes the person in a video articulate a new audio track.",
+  "tags": [
+    "video-to-video"
+  ],
+  "capabilities": [
+    "video-to-video"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "video",
+      "audio"
+    ],
+    "properties": {
+      "audio": {
+        "type": "string",
+        "title": "Audio",
+        "description": "Input audio URL."
+      },
+      "video": {
+        "type": "string",
+        "title": "Video",
+        "description": "Input video URL."
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "title": "GenerationResponse",
+    "required": [
+      "id",
+      "status"
+    ],
+    "properties": {
+      "id": {
+        "type": "string",
+        "description": "Unique identifier for the generation task."
+      },
+      "error": {
+        "type": "string",
+        "description": "Error message if the task failed. Empty on success."
+      },
+      "model": {
+        "type": "string",
+        "description": "Model ID used for the prediction."
+      },
+      "status": {
+        "enum": [
+          "pending",
+          "running",
+          "completed",
+          "failed",
+          "timeout"
+        ],
+        "type": "string",
+        "description": "Status of the task: pending, running, completed, failed, or timeout."
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "title": "OutputItem",
+          "required": [
+            "url"
+          ],
+          "properties": {
+            "url": {
+              "type": "string",
+              "description": "The URL where the generated content can be downloaded from."
+            },
+            "content_type": {
+              "type": "string",
+              "description": "The MIME type of the output file."
+            }
+          }
+        },
+        "description": "Array of generated content. Empty when status is not completed."
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "formula",
+    "formula": "(usage.duration ?? media_duration(params.audio) ?? 5.0) * 0.075",
+    "formula_variables": [
+      "params.audio",
+      "usage.duration"
+    ],
+    "reference_price": 0.375
+  },
+  "examples": [
+    {
+      "input": {
+        "audio": "https://static.sandbase.ai/examples/1e3c1d50-3506-4215-ab86-d63bdf2b277a/input/adb496f2-9bfc-4bd0-bdb6-becfd4c320d5.mp3",
+        "video": "https://static.sandbase.ai/examples/1e3c1d50-3506-4215-ab86-d63bdf2b277a/input/2d3f9e09-37e3-4878-b5f2-5e21ec7f494b.mp4"
+      },
+      "output": [
+        {
+          "poster": "https://static.sandbase.ai/examples/posters/c9bc28cf3a12d1669854.jpg",
+          "url": "https://static.sandbase.ai/examples/1e3c1d50-3506-4215-ab86-d63bdf2b277a/output/19980df7-3ee4-4739-9822-d356e778e294.mp4"
+        }
+      ],
+      "default": true
+    }
+  ],
+  "readme": "# VEED Lipsync 2.0\n\nVEED Lipsync 2.0 makes the person in a video articulate a new audio track.\n\n## Fields\n\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `video` | video URL, required | — | Video with the speaker. |\n| `audio` | audio URL, required | — | Replacement speech. |\n\n## Billing\n\n$0.075 per output second. The quote before submission assumes 5 seconds.\n\n| Output | Price |\n|---|---|\n| 5s | $0.375 |\n| 30s | $2.25 |\n| 60s | $4.50 |\n\nFailed runs are not charged.\n\n## Also on SandBase\n\nRelated: `sync/lipsync/3.0/video-to-video`.\n",
+  "cover_url": "https://static.sandbase.ai/covers/veed/lipsync/2.0/cover-flare-20261008040044.webp",
+  "page_url": "https://www.sandbase.ai/model/veed/lipsync/2.0",
+  "published_at": "2026-07-14T07:38:49.415Z",
+  "created_at": "2026-08-17T09:14:11.394Z"
+}

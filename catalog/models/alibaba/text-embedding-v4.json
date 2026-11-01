@@ -1,0 +1,40 @@
+{
+  "name": "alibaba/text-embedding-v4",
+  "display_name": "Alibaba Text Embedding v4",
+  "type": "embedding",
+  "vendor": "Alibaba",
+  "vendor_slug": "alibaba",
+  "description": "Alibaba Cloud Model Studio text-embedding-v4 is a Qwen3-Embedding series text embedding model for semantic search, retrieval-augmented generation, clustering, classification, and multilingual code/text retrieval. It supports configurable output dimensions and OpenAI-compatible embeddings requests.",
+  "tags": [
+    "embedding",
+    "text_embedding",
+    "multilingual"
+  ],
+  "capabilities": [
+    "embedding",
+    "text_embedding",
+    "multilingual"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "embeddings": "POST /v1/embeddings"
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_token",
+    "per_million_tokens": {
+      "input": 0.1,
+      "output": 0
+    },
+    "formula": "usage.prompt_tokens * pricing.prompt_token_price / 1000000",
+    "formula_variables": [
+      "usage.prompt_tokens"
+    ]
+  },
+  "readme": "Alibaba text-embedding-v4 converts text into dense vectors for semantic search, RAG, clustering, classification, and multilingual retrieval. It belongs to the Qwen3-Embedding series and supports configurable output dimensions: 2048, 1536, 1024, 768, 512, 256, 128, and 64.",
+  "page_url": "https://www.sandbase.ai/model/alibaba/text-embedding-v4",
+  "created_at": "2026-07-07T07:37:40.547Z"
+}

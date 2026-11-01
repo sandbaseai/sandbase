@@ -1,0 +1,118 @@
+{
+  "name": "xiaohongshu/app-v2/search-notes",
+  "display_name": "Xiaohongshu (RED) Note Search",
+  "type": "api",
+  "vendor": "Xiaohongshu",
+  "vendor_slug": "xiaohongshu",
+  "description": "Search Xiaohongshu (RED / Little Red Book) notes by keyword and get titles, authors, cover images and like, collect, comment and share counts, with sort, note-type and time filters.",
+  "tags": [
+    "api",
+    "xiaohongshu"
+  ],
+  "capabilities": [
+    "api",
+    "xiaohongshu"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/xiaohongshu/app-v2/search-notes"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "keyword"
+    ],
+    "properties": {
+      "page": {
+        "type": "integer",
+        "title": "Page",
+        "default": 1,
+        "description": "Page number, start from 1"
+      },
+      "source": {
+        "type": "string",
+        "title": "Source",
+        "default": "explore_feed",
+        "description": "Source, default \"explore_feed\""
+      },
+      "ai_mode": {
+        "type": "integer",
+        "title": "Ai Mode",
+        "default": 0,
+        "description": "AI mode, 0=off, 1=on"
+      },
+      "keyword": {
+        "type": "string",
+        "title": "Keyword",
+        "example": "OpenAI",
+        "description": "Search keyword"
+      },
+      "note_type": {
+        "type": "string",
+        "title": "Note Type",
+        "default": "不限",
+        "description": "Note type filter"
+      },
+      "search_id": {
+        "type": "string",
+        "title": "Search Id",
+        "default": "",
+        "description": "Search ID, pass value from first search response for pagination"
+      },
+      "sort_type": {
+        "type": "string",
+        "title": "Sort Type",
+        "default": "general",
+        "description": "Sort type"
+      },
+      "time_filter": {
+        "type": "string",
+        "title": "Time Filter",
+        "default": "不限",
+        "description": "Time filter"
+      },
+      "search_session_id": {
+        "type": "string",
+        "title": "Search Session Id",
+        "default": "",
+        "description": "Search session ID, pass value from first search response for pagination"
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.015,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "examples": [
+    {
+      "input": {
+        "ai_mode": 0,
+        "keyword": "OpenAI",
+        "note_type": "不限",
+        "page": 1,
+        "search_id": "",
+        "search_session_id": "",
+        "sort_type": "general",
+        "source": "explore_feed",
+        "time_filter": "不限"
+      }
+    }
+  ],
+  "readme": "# Xiaohongshu (RED) Note Search API\n\nSearch Xiaohongshu for a keyword and get matching notes with title, author, images and engagement counts. Sort by relevance, popularity or time and filter by note type.\n\n## Use cases\n\n- Research consumer opinions and trends on Xiaohongshu.\n- Find KOLs and popular notes for a product category.\n- Monitor brand mentions on RED.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/xiaohongshu/app-v2/search-notes\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"keyword\": \"OpenAI\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `keyword` | string | Yes | Search keyword |\n| `page` | integer | No | Page number, start from 1 |\n| `source` | string | No | Source, default \"explore_feed\" |\n| `ai_mode` | integer | No | AI mode, 0=off, 1=on |\n| `note_type` | string | No | Note type filter |\n| `search_id` | string | No | Search ID, pass value from first search response for pagination |\n| `sort_type` | string | No | Sort type |\n| `time_filter` | string | No | Time filter |\n| `search_session_id` | string | No | Search session ID, pass value from first search response for pagination |\n\n## Example response\n\nReal response for the request above, trimmed to the main fields. User names and long IDs are masked.\n\n```json\n{\n  \"code\": 0,\n  \"page\": 1,\n  \"next_page\": 2,\n  \"search_id\": \"<search_id>\",\n  \"data\": {\n    \"items\": [\n      {\n        \"model_type\": \"note\",\n        \"note\": {\n          \"id\": \"6a6c688000000000060041d4\",\n          \"type\": \"normal\",\n          \"liked_count\": 98,\n          \"collected_count\": 78,\n          \"comments_count\": 56,\n          \"shared_count\": 25,\n          \"timestamp\": 1785489536,\n          \"title\": \"我发现我真的很会面OpenAI的MLE（已上岸\",\n          \"user\": {\n            \"nickname\": \"<user>\"\n          }\n        }\n      }\n    ]\n  }\n}\n```\n\n## Notes\n\n- For the next page, pass `page`, plus `search_id` and `search_session_id` from the first response.\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [Get creator hot inspiration feed](/model/xiaohongshu/app-v2/creator-hot-inspiration-feed): Get creator center hot inspiration feed, using cursor pagination.\n- [Get creator inspiration feed](/model/xiaohongshu/app-v2/creator-inspiration-feed): Get creator center recommended inspiration feed, using cursor pagination.\n- [Get image note detail](/model/xiaohongshu/app-v2/image-note-detail): App V2 Image Note Detail provides a focused capability for applications, automation, and data workflows.\n",
+  "page_url": "https://www.sandbase.ai/model/xiaohongshu/app-v2/search-notes",
+  "created_at": "2026-07-31T02:47:09.284Z"
+}

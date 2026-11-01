@@ -1,0 +1,80 @@
+{
+  "name": "douyin/creator/creator-material-center-related",
+  "display_name": "Douyin Material Center Related Videos",
+  "type": "api",
+  "vendor": "Douyin",
+  "vendor_slug": "douyin",
+  "description": "Returns related videos for a specific topic, hot spot, prop, or music entry from the Douyin creator material center. Supports pagination controls and filtering by billboard type.",
+  "tags": [
+    "api",
+    "douyin"
+  ],
+  "capabilities": [
+    "api",
+    "douyin"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/douyin/creator/creator-material-center-related"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "query_id"
+    ],
+    "properties": {
+      "limit": {
+        "type": "integer",
+        "title": "Limit",
+        "maximum": 100,
+        "minimum": 1,
+        "description": "Items per page (default 20, range 1-100)"
+      },
+      "offset": {
+        "type": "integer",
+        "title": "Offset",
+        "minimum": 0,
+        "description": "Offset (starting position for pagination)"
+      },
+      "query_id": {
+        "type": "string",
+        "title": "Query Id",
+        "example": "6537523068217103624",
+        "description": "Query ID (topic_id / hot_id obtained from billboard endpoints)"
+      },
+      "billboard_type": {
+        "type": "integer",
+        "title": "Billboard Type",
+        "description": "Billboard type"
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.0015,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "examples": [
+    {
+      "input": {
+        "query_id": "example"
+      }
+    }
+  ],
+  "readme": "# Douyin Material Center Related Videos API\n\nFetch videos tied to a topic or trending item using the required `query_id` parameter. You can optionally filter by `billboard_type` and paginate results.\n\n## Use cases\n\n- Discover trending videos linked to a specific hot spot or topic ID.\n- Analyze content formats performing well under a designated music track or prop.\n- Monitor video engagement patterns across Douyin creator billboard categories.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/douyin/creator/creator-material-center-related\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"query_id\": \"6537523068217103624\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `query_id` | string | Yes | Query ID (topic_id / hot_id obtained from billboard endpoints) |\n| `limit` | integer | No | Items per page (default 20, range 1-100) |\n| `offset` | integer | No | Offset (starting position for pagination) |\n| `billboard_type` | integer | No | Billboard type |\n\n## Notes\n\n- Supply a topic ID or hot spot ID in `query_id` obtained from billboard endpoints.\n- The `limit` parameter supports values from 1 to 100 with a default of 20.\n- Use `offset` to manage pagination offsets through result sets.\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [Douyin Creator Activity Details](/model/douyin/creator/creator-activity-detail): Returns detailed information for a specific Douyin creator activity.\n- [Douyin Activity List](/model/douyin/creator/creator-activity-list): Returns activity and campaign records for Douyin accounts within a specified timestamp window between start_time and end_time.\n- [Douyin Content Categories](/model/douyin/creator/creator-content-category): Returns the list of content categories available on Douyin.\n",
+  "page_url": "https://www.sandbase.ai/model/douyin/creator/creator-material-center-related",
+  "created_at": "2026-07-31T02:35:57.105Z"
+}

@@ -1,0 +1,63 @@
+{
+  "name": "instagram/v1/user-info-by-username",
+  "display_name": "Instagram User Info by Username",
+  "type": "api",
+  "vendor": "Instagram",
+  "vendor_slug": "instagram",
+  "description": "Returns Instagram user profile details and related account information for a specified Instagram handle. Input a username to view public profile data.",
+  "tags": [
+    "api",
+    "instagram"
+  ],
+  "capabilities": [
+    "api",
+    "instagram"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/instagram/v1/user-info-by-username"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "username"
+    ],
+    "properties": {
+      "username": {
+        "type": "string",
+        "title": "Username",
+        "example": "instagram",
+        "description": "Instagram username"
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.0015,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "examples": [
+    {
+      "input": {
+        "username": "__whoisashii"
+      },
+      "default": true
+    }
+  ],
+  "readme": "# Instagram User Info by Username API\n\nAccess Instagram profile details and related accounts by providing a target `username`.\n\n## Use cases\n\n- Retrieve public profile data for a specific Instagram account.\n- Explore related profiles associated with a target username.\n- Verify account details and profile information before displaying in an application.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/instagram/v1/user-info-by-username\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"username\": \"instagram\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `username` | string | Yes | Instagram username |\n\n## Example response\n\nReal response for the request above, trimmed to the main fields. User names and long IDs are masked.\n\n```json\n{\n  \"data\": {\n    \"user\": {\n      \"edge_related_profiles\": {\n        \"edges\": [\n          {\n            \"node\": {\n              \"full_name\": \"абу\",\n              \"id\": \"80458337039\",\n              \"profile_pic_url\": \"https://instagram.fbcn2-1.fna.fbcdn.net/v/t51.82787-19/809201576_178909588026810…\",\n              \"username\": \"<user>\"\n            }\n          }\n        ]\n      }\n    }\n  }\n}\n```\n\n## Notes\n\n- Requires a valid `username` string without special formatting.\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [Instagram Cities by Country](/model/instagram/v1/cities): Returns a list of Instagram cities and regions for a specified country code.\n- [Instagram Hashtag Posts (V1)](/model/instagram/v1/hashtag-posts): Returns public Instagram posts associated with a specific hashtag.\n- [Instagram Location Details (V1)](/model/instagram/v1/location-info): Returns detailed metadata and profile information for a specified Instagram location using its unique identifier.\n",
+  "page_url": "https://www.sandbase.ai/model/instagram/v1/user-info-by-username",
+  "created_at": "2026-07-31T03:55:20.967Z"
+}

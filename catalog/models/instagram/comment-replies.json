@@ -1,0 +1,85 @@
+{
+  "name": "instagram/comment-replies",
+  "display_name": "Instagram Comment Replies",
+  "type": "api",
+  "vendor": "Instagram",
+  "vendor_slug": "instagram",
+  "description": "List the replies to an Instagram comment with cursor pagination (text, author, likes).",
+  "tags": [
+    "api",
+    "instagram",
+    "social-media"
+  ],
+  "capabilities": [
+    "api",
+    "instagram",
+    "social-media"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/instagram/comment-replies"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "commentId",
+      "url"
+    ],
+    "properties": {
+      "url": {
+        "type": "string",
+        "example": "https://www.instagram.com/p/C8rKmYvsrck/",
+        "description": "Full Instagram post or reel URL the comment belongs to."
+      },
+      "cursor": {
+        "type": "string",
+        "description": "Pagination cursor from a previous response's nextCursor."
+      },
+      "commentId": {
+        "type": "string",
+        "example": "18126632131325044",
+        "description": "Instagram comment ID (a comment's id from the Instagram Post Comments endpoint)."
+      }
+    },
+    "additionalProperties": false
+  },
+  "response_schema": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string"
+      },
+      "model": {
+        "type": "string"
+      },
+      "status": {
+        "type": "string"
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "data": {
+              "type": "object",
+              "description": "Normalized result for this request."
+            }
+          }
+        }
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "usage_based",
+    "note": "Billed per call from metered usage; the reference price is typical.",
+    "reference_price": 0.0011
+  },
+  "readme": "# Instagram Comment Replies API\n\nList the replies to an Instagram comment with cursor pagination (text, author, likes).\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/instagram/comment-replies\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"url\": \"https://www.instagram.com/p/C8rKmYvsrck/\", \"commentId\": \"18126632131325044\"}'\n```\n\nThe result is returned in `outputs[0].data`. A lookup that finds nothing still succeeds and returns `found: false`.\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `commentId` | string | Yes | Instagram comment ID (a comment's id from the Instagram Post Comments endpoint). |\n| `url` | string | Yes | Full Instagram post or reel URL the comment belongs to. |\n| `cursor` | string | No | Pagination cursor from a previous response's nextCursor. |\n\n## Pricing\n\nBilled at the actual cost of each call, usually $0.0011 per request. A call can cost more when the first data source fails and another one answers. Failed calls are not charged. Lookups that find nothing and searches with no results are billed at their actual cost, which is often lower and can be $0.\n",
+  "page_url": "https://www.sandbase.ai/model/instagram/comment-replies",
+  "created_at": "2026-11-01T12:16:10.71Z"
+}

@@ -1,0 +1,42 @@
+{
+  "name": "openai/gpt-4.1-mini",
+  "display_name": "OpenAI: GPT-4.1 Mini",
+  "type": "llm",
+  "vendor": "OpenAI",
+  "vendor_slug": "openai",
+  "description": "GPT-4.1 mini is the smaller, faster tier of OpenAI's GPT-4.1 series, released in April 2025 as a non-reasoning model that accepts text and images and returns text. OpenAI describes it as strong at instruction following and tool calling, with the same 1M-token context window as GPT-4.1 and lower latency. It suits interactive apps, chat and agent tool calls where responsiveness matters more than the extra depth of full GPT-4.1.",
+  "tags": [
+    "chat",
+    "vision",
+    "structured_output",
+    "function_calling"
+  ],
+  "capabilities": [
+    "chat",
+    "vision",
+    "structured_output",
+    "function_calling"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "chat_completions": "POST /v1/chat/completions",
+    "responses": "POST /v1/responses",
+    "messages": "POST /v1/messages"
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_token",
+    "per_million_tokens": {
+      "input": 0.4,
+      "output": 1.6,
+      "cache_read_multiplier": 0.25
+    }
+  },
+  "cover_url": "https://t0.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=https://openai.com&size=256",
+  "page_url": "https://www.sandbase.ai/model/openai/gpt-4.1-mini",
+  "published_at": "2025-04-14T17:23:01Z",
+  "created_at": "2026-05-08T23:54:12.975Z"
+}

@@ -1,0 +1,219 @@
+{
+  "name": "meta/sam-3/3d-objects",
+  "display_name": "SAM 3 3D Objects",
+  "type": "image",
+  "vendor": "Meta",
+  "vendor_slug": "meta",
+  "description": "Sam 3 3d Objects by Meta - convert 2D images into 3D models with AI. Generate textured 3D assets from single photos for games, AR/VR, e-commerce, and digital content creation.",
+  "tags": [
+    "image-to-3d"
+  ],
+  "capabilities": [
+    "image-to-3d"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "prompt",
+      "image"
+    ],
+    "properties": {
+      "seed": {
+        "type": "integer",
+        "title": "Seed",
+        "description": "Random seed for reproducibility"
+      },
+      "image": {
+        "type": "string",
+        "title": "Image Url",
+        "examples": [
+          "https://static.sandbase.ai/examples/meta/sam-3/3d-objects/input_image_0.jpeg"
+        ],
+        "description": "URL of the image to reconstruct in 3D"
+      },
+      "prompt": {
+        "type": "string",
+        "title": "Prompt",
+        "default": "car",
+        "description": "Text prompt for auto-segmentation when no masks provided (e.g., 'chair', 'lamp')"
+      },
+      "mask_urls": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        },
+        "title": "Mask Urls",
+        "description": "Optional list of mask URLs (one per object). If not provided, use prompt/point_prompts/box_prompts to auto-segment, or entire image will be used."
+      },
+      "box_prompts": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "x_max": {
+              "type": "integer",
+              "title": "X Max",
+              "description": "X Max Coordinate of the box"
+            },
+            "x_min": {
+              "type": "integer",
+              "title": "X Min",
+              "description": "X Min Coordinate of the box"
+            },
+            "y_max": {
+              "type": "integer",
+              "title": "Y Max",
+              "description": "Y Max Coordinate of the box"
+            },
+            "y_min": {
+              "type": "integer",
+              "title": "Y Min",
+              "description": "Y Min Coordinate of the box"
+            },
+            "object_id": {
+              "type": "integer",
+              "title": "Object Id",
+              "description": "Optional object identifier. Boxes sharing an object id refine the same object."
+            }
+          }
+        },
+        "title": "Box Prompts",
+        "default": [],
+        "description": "Box prompts for auto-segmentation when no masks provided. Multiple boxes supported - each produces a separate object mask for 3D reconstruction."
+      },
+      "pointmap_url": {
+        "type": "string",
+        "title": "Pointmap Url",
+        "description": "Optional URL to external pointmap/depth data (NPY or NPZ format) for improved 3D reconstruction depth estimation"
+      },
+      "point_prompts": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "x": {
+              "type": "integer",
+              "title": "X",
+              "description": "X Coordinate of the prompt"
+            },
+            "y": {
+              "type": "integer",
+              "title": "Y",
+              "description": "Y Coordinate of the prompt"
+            },
+            "label": {
+              "enum": [
+                0,
+                1
+              ],
+              "type": "integer",
+              "title": "Label",
+              "description": "1 for foreground, 0 for background"
+            },
+            "object_id": {
+              "type": "integer",
+              "title": "Object Id",
+              "description": "Optional object identifier. Prompts sharing an object id refine the same object."
+            }
+          }
+        },
+        "title": "Point Prompts",
+        "default": [],
+        "description": "Point prompts for auto-segmentation when no masks provided"
+      },
+      "detection_threshold": {
+        "type": "number",
+        "title": "Detection Threshold",
+        "maximum": 1,
+        "minimum": 0.1,
+        "description": "Detection confidence threshold (0.1-1.0). Lower = more detections but less precise. If not set, uses the model's default."
+      },
+      "export_textured_glb": {
+        "type": "boolean",
+        "title": "Export Textured Glb",
+        "default": false,
+        "description": "If True, exports GLB with baked texture and UVs instead of vertex colors."
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "title": "GenerationResponse",
+    "required": [
+      "id",
+      "status"
+    ],
+    "properties": {
+      "id": {
+        "type": "string",
+        "description": "Unique identifier for the generation task."
+      },
+      "error": {
+        "type": "string",
+        "description": "Error message if the task failed. Empty on success."
+      },
+      "model": {
+        "type": "string",
+        "description": "Model ID used for the prediction."
+      },
+      "status": {
+        "enum": [
+          "pending",
+          "running",
+          "completed",
+          "failed",
+          "timeout"
+        ],
+        "type": "string",
+        "description": "Status of the task: pending, running, completed, failed, or timeout."
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "title": "OutputItem",
+          "required": [
+            "url"
+          ],
+          "properties": {
+            "url": {
+              "type": "string",
+              "description": "The URL where the generated content can be downloaded from."
+            },
+            "content_type": {
+              "type": "string",
+              "description": "The MIME type of the output file."
+            }
+          }
+        },
+        "description": "Array of generated content. Empty when status is not completed."
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "formula",
+    "formula": "0.024",
+    "formula_variables": [],
+    "reference_price": 0.024,
+    "price_examples": [
+      {
+        "params": {},
+        "usd": 0.024
+      }
+    ]
+  },
+  "readme": "# SAM 3 3D Objects\n\nSAM 3D Objects reconstructs a segmented object from a single image as a 3D model.\n\n## Fields\n\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `prompt` | string, required | `car` | What to reconstruct. |\n| `image` | image URL, required | — | Image containing the object. JPEG, PNG, or WebP URL. |\n| `point_prompts` | object[] | `[]` | Point prompts for auto-segmentation when no masks provided |\n| `detection_threshold` | number 0.1–1 | — | Detection confidence threshold (0.1-1.0). |\n| `box_prompts` | object[] | `[]` | Box prompts for auto-segmentation when no masks provided. |\n| `pointmap_url` | string | — | Optional URL to external pointmap/depth data (NPY or NPZ format) for improved 3D reconstruction depth estimation |\n| `export_textured_glb` | boolean | false | Export a textured GLB. |\n| `mask_urls` | image URL[] | — | Optional list of mask URLs (one per object). |\n| `seed` | integer | random | Fix it to compare prompt changes. |\n\n## Billing\n\n$0.024 per object.\n\n| Request | Price |\n|---|---|\n| One object | $0.024 |\n\nFailed runs are not charged.\n\n## Also on SandBase\n\nRelated: `meta/sam-3/image`.\n",
+  "cover_url": "https://static.sandbase.ai/covers/meta/sam-3/3d-objects/cover-flare-20261005035516.webp",
+  "page_url": "https://www.sandbase.ai/model/meta/sam-3/3d-objects",
+  "published_at": "2025-12-02T20:49:49.159Z",
+  "created_at": "2026-05-16T09:41:00.976Z"
+}

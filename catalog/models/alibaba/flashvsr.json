@@ -1,0 +1,116 @@
+{
+  "name": "alibaba/flashvsr",
+  "display_name": "FlashVSR",
+  "type": "video",
+  "vendor": "Alibaba",
+  "vendor_slug": "alibaba",
+  "description": "FlashVSR is a video super-resolution model that upscales videos to higher resolutions (720p / 1080p / 2K / 4K) with fast inference.",
+  "tags": [
+    "video-to-video"
+  ],
+  "capabilities": [
+    "video-to-video"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "video",
+      "resolution"
+    ],
+    "properties": {
+      "video": {
+        "type": "string",
+        "title": "Video",
+        "description": "Input video URL (HTTPS, publicly accessible)."
+      },
+      "resolution": {
+        "enum": [
+          "720p",
+          "1080p",
+          "2k",
+          "4k"
+        ],
+        "type": "string",
+        "title": "Resolution",
+        "default": "1080p",
+        "description": "Target output resolution."
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "title": "GenerationResponse",
+    "required": [
+      "id",
+      "status"
+    ],
+    "properties": {
+      "id": {
+        "type": "string",
+        "description": "Unique identifier for the generation task."
+      },
+      "error": {
+        "type": "string",
+        "description": "Error message if the task failed. Empty on success."
+      },
+      "model": {
+        "type": "string",
+        "description": "Model ID used for the prediction."
+      },
+      "status": {
+        "enum": [
+          "pending",
+          "running",
+          "completed",
+          "failed",
+          "timeout"
+        ],
+        "type": "string",
+        "description": "Status of the task: pending, running, completed, failed, or timeout."
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "title": "OutputItem",
+          "required": [
+            "url"
+          ],
+          "properties": {
+            "url": {
+              "type": "string",
+              "description": "The URL where the generated content can be downloaded from."
+            },
+            "content_type": {
+              "type": "string",
+              "description": "The MIME type of the output file."
+            }
+          }
+        },
+        "description": "Array of generated content. Empty when status is not completed."
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "formula",
+    "formula": "(usage.duration ?? 5.0) * ((params.resolution ?? \"1080p\") == \"4k\" ? 0.124 : (params.resolution ?? \"1080p\") == \"2k\" ? 0.055 : (params.resolution ?? \"1080p\") == \"1080p\" ? 0.031 : 0.014)",
+    "formula_variables": [
+      "params.resolution",
+      "usage.duration"
+    ],
+    "reference_price": 0.155
+  },
+  "readme": "# FlashVSR\n\nUpscale an existing video to 720p, 1080p, 2K, or 4K with FlashVSR's fast video super-resolution, which restores detail while keeping motion stable.\n\n## Fields\n\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `video` | video URL, required | — | Video to upscale. |\n| `resolution` | `720p` / `1080p` / `2k` / `4k`, required | `1080p` | Target resolution; sets the per-second rate. |\n\n## Billing\n\nYou pay per second of output video: $0.014 at 720p, $0.031 at 1080p, $0.055 at 2K, and $0.124 at 4K. The quote before submission assumes 5 seconds; the final charge uses the measured length.\n\n| Video length | 720p | 1080p | 2k | 4k |\n|---|---|---|---|---|\n| 5s | $0.07 | $0.155 | $0.275 | $0.62 |\n| 10s | $0.14 | $0.31 | $0.55 | $1.24 |\n| 30s | $0.42 | $0.93 | $1.65 | $3.72 |\n\nFailed runs are not charged.\n\n## Limits\n\n- Upscaling restores detail but cannot fix heavy blur or compression artifacts completely.\n\n## Also on SandBase\n\nRelated: `bytedance/upscaler/video` (ByteDance video upscaler).\n",
+  "cover_url": "https://static.sandbase.ai/covers/alibaba/flashvsr/cover-flare-20261005053235.webp",
+  "page_url": "https://www.sandbase.ai/model/alibaba/flashvsr",
+  "created_at": "2026-06-22T14:44:13.271Z"
+}

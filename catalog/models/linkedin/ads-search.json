@@ -1,0 +1,96 @@
+{
+  "name": "linkedin/ads-search",
+  "display_name": "LinkedIn Ad Search",
+  "type": "api",
+  "vendor": "LinkedIn",
+  "vendor_slug": "linkedin",
+  "description": "Search the LinkedIn Ad Library by company or keyword and list matching ads (advertiser, headline, creative text, format, CTA, and run dates) with pagination.",
+  "tags": [
+    "api",
+    "linkedin",
+    "social-media"
+  ],
+  "capabilities": [
+    "api",
+    "linkedin",
+    "social-media"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/linkedin/ads-search"
+  },
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "company": {
+        "type": "string",
+        "example": "microsoft",
+        "description": "Company name to search (e.g. \"microsoft\")."
+      },
+      "endDate": {
+        "type": "string",
+        "description": "Search end date in YYYY-MM-DD format. Today or a later date is moved back to yesterday in UTC when your range overlaps LinkedIn's accepted dates. When you send startDate without endDate, the search ends yesterday in UTC, the latest day LinkedIn accepts."
+      },
+      "keyword": {
+        "type": "string",
+        "description": "Keyword term for the ad search."
+      },
+      "companyId": {
+        "type": "string",
+        "description": "LinkedIn company identifier."
+      },
+      "countries": {
+        "type": "string",
+        "description": "Comma-separated two-letter country codes (e.g. \"US,CA,MX\")."
+      },
+      "startDate": {
+        "type": "string",
+        "description": "Search start date in YYYY-MM-DD format. An earlier date is moved up to one year ago in UTC when your range overlaps LinkedIn's accepted dates."
+      },
+      "paginationToken": {
+        "type": "string",
+        "description": "Opaque pagination token from a previous response's nextCursor."
+      }
+    },
+    "additionalProperties": false
+  },
+  "response_schema": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string"
+      },
+      "model": {
+        "type": "string"
+      },
+      "status": {
+        "type": "string"
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "data": {
+              "type": "object",
+              "description": "Normalized result for this request."
+            }
+          }
+        }
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "usage_based",
+    "note": "Billed per call from metered usage; the reference price is typical.",
+    "reference_price": 0.0012
+  },
+  "readme": "# LinkedIn Ad Search API\n\nSearch the LinkedIn Ad Library by company or keyword and list matching ads (advertiser, headline, creative text, format, CTA, and run dates) with pagination.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/linkedin/ads-search\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"company\": \"microsoft\"}'\n```\n\nThe result is returned in `outputs[0].data`. A lookup that finds nothing still succeeds and returns `found: false`.\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `company` | string | No | Company name to search (e.g. \"microsoft\"). |\n| `companyId` | string | No | LinkedIn company identifier. |\n| `countries` | string | No | Comma-separated two-letter country codes (e.g. \"US,CA,MX\"). |\n| `endDate` | string | No | Search end date in YYYY-MM-DD format. Today or a later date is moved back to yesterday in UTC when your range overlaps LinkedIn's accepted dates. When you send startDate without endDate, the search ends yesterday in UTC, |\n| `keyword` | string | No | Keyword term for the ad search. |\n| `paginationToken` | string | No | Opaque pagination token from a previous response's nextCursor. |\n| `startDate` | string | No | Search start date in YYYY-MM-DD format. An earlier date is moved up to one year ago in UTC when your range overlaps LinkedIn's accepted dates. |\n\n## Pricing\n\nBilled at the actual cost of each call, usually $0.0012 per request. A call can cost more when the first data source fails and another one answers. Failed calls are not charged. Lookups that find nothing and searches with no results are billed at their actual cost, which is often lower and can be $0.\n",
+  "page_url": "https://www.sandbase.ai/model/linkedin/ads-search",
+  "created_at": "2026-10-31T10:37:30.083Z"
+}

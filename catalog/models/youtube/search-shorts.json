@@ -1,0 +1,98 @@
+{
+  "name": "youtube/search-shorts",
+  "display_name": "YouTube Shorts Search",
+  "type": "api",
+  "vendor": "YouTube",
+  "vendor_slug": "youtube",
+  "description": "Search YouTube Shorts by keyword and get matching Shorts (title, views, URL) with cursor pagination as normalized JSON.",
+  "tags": [
+    "api",
+    "youtube",
+    "social-media"
+  ],
+  "capabilities": [
+    "api",
+    "youtube",
+    "social-media"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/youtube/search-shorts"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "query"
+    ],
+    "properties": {
+      "query": {
+        "type": "string",
+        "example": "cats",
+        "description": "The keyword to search Shorts for."
+      },
+      "cursor": {
+        "type": "string",
+        "description": "Continuation token from a previous response for pagination."
+      },
+      "sortBy": {
+        "enum": [
+          "relevance",
+          "popular"
+        ],
+        "type": "string",
+        "default": "relevance",
+        "description": "Sort order: \"relevance\" (default) or \"popular\" (most-viewed)."
+      },
+      "uploadDate": {
+        "enum": [
+          "today",
+          "this_week",
+          "this_month",
+          "this_year"
+        ],
+        "type": "string",
+        "description": "Filter by upload recency. Omit for any time."
+      }
+    },
+    "additionalProperties": false
+  },
+  "response_schema": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string"
+      },
+      "model": {
+        "type": "string"
+      },
+      "status": {
+        "type": "string"
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "data": {
+              "type": "object",
+              "description": "Normalized result for this request."
+            }
+          }
+        }
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "usage_based",
+    "note": "Billed per call from metered usage; the reference price is typical.",
+    "reference_price": 0.0012
+  },
+  "readme": "# YouTube Shorts Search API\n\nSearch YouTube Shorts by keyword and get matching Shorts (title, views, URL) with cursor pagination as normalized JSON.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/youtube/search-shorts\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"query\": \"cats\"}'\n```\n\nThe result is returned in `outputs[0].data`. A lookup that finds nothing still succeeds and returns `found: false`.\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `query` | string | Yes | The keyword to search Shorts for. |\n| `cursor` | string | No | Continuation token from a previous response for pagination. |\n| `sortBy` | string | No | Sort order: \"relevance\" (default) or \"popular\" (most-viewed). One of: `relevance`, `popular`. |\n| `uploadDate` | string | No | Filter by upload recency. Omit for any time. One of: `today`, `this_week`, `this_month`, `this_year`. |\n\n## Pricing\n\nBilled at the actual cost of each call, usually $0.0012 per request. A call can cost more when the first data source fails and another one answers. Failed calls are not charged. Lookups that find nothing and searches with no results are billed at their actual cost, which is often lower and can be $0.\n",
+  "page_url": "https://www.sandbase.ai/model/youtube/search-shorts",
+  "created_at": "2026-11-01T12:45:09.534Z"
+}

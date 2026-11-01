@@ -1,0 +1,45 @@
+{
+  "name": "google/gemini-2.5-flash",
+  "display_name": "Google: Gemini 2.5 Flash",
+  "type": "llm",
+  "vendor": "Google",
+  "vendor_slug": "google",
+  "description": "Gemini 2.5 Flash is the workhorse model of Google's Gemini 2.5 family, a thinking model released as stable in June 2025. Google positions it for large-scale processing, low-latency and high-volume tasks that require reasoning, and agentic use cases, with text, image, video and audio input. It sits between 2.5 Flash-Lite and 2.5 Pro in the same generation and remains a stable model with no announced shutdown date.",
+  "tags": [
+    "chat",
+    "vision",
+    "audio_input",
+    "reasoning",
+    "structured_output",
+    "function_calling"
+  ],
+  "capabilities": [
+    "chat",
+    "vision",
+    "audio_input",
+    "reasoning",
+    "structured_output",
+    "function_calling"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "chat_completions": "POST /v1/chat/completions",
+    "responses": "POST /v1/responses",
+    "messages": "POST /v1/messages"
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_token",
+    "per_million_tokens": {
+      "input": 0.3,
+      "output": 2.5,
+      "cache_read_multiplier": 0.1
+    }
+  },
+  "page_url": "https://www.sandbase.ai/model/google/gemini-2.5-flash",
+  "published_at": "2025-06-17T15:01:28.103Z",
+  "created_at": "2026-05-08T23:48:48.248Z"
+}

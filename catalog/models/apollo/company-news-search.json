@@ -1,0 +1,80 @@
+{
+  "name": "apollo/company-news-search",
+  "display_name": "Apollo News Articles Search",
+  "type": "api",
+  "vendor": "Apollo",
+  "vendor_slug": "apollo",
+  "description": "News Articles Search from Apollo. Returns the official Apollo API response unchanged.",
+  "tags": [
+    "api",
+    "apollo",
+    "company-data"
+  ],
+  "capabilities": [
+    "api",
+    "apollo",
+    "company-data"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/apollo/company-news-search"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "organization_ids[]"
+    ],
+    "properties": {
+      "page": {
+        "type": "integer",
+        "description": "The page number of the Apollo data that you want to retrieve. Use this parameter in combination with the per_page parameter to make search results for navigable and improve the performance of the endpoint. Example: 4"
+      },
+      "per_page": {
+        "type": "integer",
+        "example": 2,
+        "description": "The number of search results that should be returned for each page. Limiting the number of results per page improves the endpoint's performance. Use the page parameter to search the different pages of data. Example: 10"
+      },
+      "categories[]": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        },
+        "description": "Filter your search to include only certain categories or sub-categories of news. Use the News search filter for companies within Apollo to uncover all possible categories and sub-categories. Examples: hires; investment; contract"
+      },
+      "published_at[max]": {
+        "type": "string",
+        "description": "Set the upper bound of the date range you want to search. Use this parameter in combination with the published_at[min] parameter. This date should fall after the published_at[min] date. The date should be formatted as YYYY-MM-DD. Example: 2025-05-15"
+      },
+      "published_at[min]": {
+        "type": "string",
+        "description": "Set the lower bound of the date range you want to search. Use this parameter in combination with the published_at[max] parameter. This date should fall before the published_at[max] date. The date should be formatted as YYYY-MM-DD. Example: 2025-02-15"
+      },
+      "organization_ids[]": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        },
+        "example": [
+          "5d0a0fbff6512580bf33a120"
+        ],
+        "description": "The Apollo IDs for the companies you want to include in your search results. Each company in the Apollo database is assigned a unique ID. To find IDs, call the Organization Search endpoint and identify the values for organization_id. Example: 5e66b6381e05b4008c8331b8"
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.01975
+  },
+  "readme": "# Apollo News Articles Search API\n\nNews Articles Search from Apollo. Returns the official Apollo API response unchanged.\n\nThe response is the official Apollo API response, unchanged.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/apollo/company-news-search\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"organization_ids[]\": [\"5d0a0fbff6512580bf33a120\"], \"per_page\": 2}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `categories[]` | array | No | Filter your search to include only certain categories or sub-categories of news. Use the News search filter for companies within Apollo to uncover all possible  |\n| `organization_ids[]` | array | Yes | The Apollo IDs for the companies you want to include in your search results. Each company in the Apollo database is assigned a unique ID. To find IDs, call the  |\n| `page` | integer | No | The page number of the Apollo data that you want to retrieve. Use this parameter in combination with the per_page parameter to make search results for navigable |\n| `per_page` | integer | No | The number of search results that should be returned for each page. Limiting the number of results per page improves the endpoint's performance. Use the page pa |\n| `published_at[max]` | string | No | Set the upper bound of the date range you want to search. Use this parameter in combination with the published_at[min] parameter. This date should fall after th |\n| `published_at[min]` | string | No | Set the lower bound of the date range you want to search. Use this parameter in combination with the published_at[max] parameter. This date should fall before t |\n\n## Pricing\n\nFlat price per call. Failed calls are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/apollo/company-news-search",
+  "created_at": "2026-08-10T02:42:33.132Z"
+}

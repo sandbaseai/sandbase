@@ -1,0 +1,62 @@
+{
+  "name": "douyin/app-v3/one-video-v3",
+  "display_name": "Douyin Video Detail",
+  "type": "api",
+  "vendor": "Douyin",
+  "vendor_slug": "douyin",
+  "description": "Get the full data of a single Douyin post by ID (video, photo or article): description, author, hashtags, music, statistics and play URLs.",
+  "tags": [
+    "api",
+    "douyin"
+  ],
+  "capabilities": [
+    "api",
+    "douyin"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/douyin/app-v3/one-video-v3"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "aweme_id"
+    ],
+    "properties": {
+      "aweme_id": {
+        "type": "string",
+        "title": "Aweme Id",
+        "example": "7592116912205630761",
+        "description": "Video id"
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.0015,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "examples": [
+    {
+      "input": {
+        "aweme_id": "7662510757757603122"
+      }
+    }
+  ],
+  "readme": "# Douyin Video Detail API\n\nPass a Douyin `aweme_id` and get the complete post: description, author, hashtags, statistics, and media URLs.\n\n## Use cases\n\n- Get up-to-date statistics for a specific video.\n- Download or archive Douyin videos.\n- Enrich IDs from search or ranking APIs.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/douyin/app-v3/one-video-v3\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"aweme_id\": \"7592116912205630761\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `aweme_id` | string | Yes | Video id |\n\n## Example response\n\nReal response for the request above, trimmed to the main fields. User names and long IDs are masked.\n\n```json\n{\n  \"aweme_detail\": {\n    \"aweme_id\": \"7592116912205630761\",\n    \"create_time\": 1767781500,\n    \"desc\": \"<video description>\",\n    \"author\": {\n      \"nickname\": \"<user>\",\n      \"sec_uid\": \"<sec_uid>\"\n    },\n    \"statistics\": {\n      \"play_count\": 0,\n      \"digg_count\": 5078,\n      \"comment_count\": 34,\n      \"share_count\": 1580,\n      \"collect_count\": 2606\n    },\n    \"share_url\": \"https://www.iesdouyin.com/share/video/7592116912205630761/?…\",\n    \"video\": {\n      \"duration\": 0,\n      \"play_addr\": {\n        \"url_list\": [\n          \"https://…\"\n        ]\n      }\n    }\n  }\n}\n```\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [Douyin Hot Search List](/model/douyin/app-v3/hot-search-list): Get the Douyin hot search list and other boards (seeding, entertainment, social and challenge lists): trending words with heat values and video counts.\n- [Douyin Video Statistics (Batch)](/model/douyin/app-v3/multi-video-statistics): Get play, like, share and download counts for up to 50 Douyin videos in one request by passing comma-separated video IDs.\n- [Douyin User Videos](/model/douyin/app-v3/user-post-videos): Get the videos on a Douyin user's profile with descriptions, publish time and play, like, comment and share counts.\n",
+  "page_url": "https://www.sandbase.ai/model/douyin/app-v3/one-video-v3",
+  "created_at": "2026-07-31T02:34:03.69Z"
+}

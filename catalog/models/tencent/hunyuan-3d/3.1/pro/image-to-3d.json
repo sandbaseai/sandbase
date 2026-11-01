@@ -1,0 +1,239 @@
+{
+  "name": "tencent/hunyuan-3d/3.1/pro/image-to-3d",
+  "display_name": "Hunyuan 3D 3.1 Pro Image to 3D",
+  "type": "image",
+  "vendor": "Tencent",
+  "vendor_slug": "tencent",
+  "description": "Hunyuan 3d 3.1 Pro by Tencent - convert 2D images into 3D models with AI. Generate textured 3D assets from single photos for games, AR/VR, e-commerce, and digital content creation.",
+  "tags": [
+    "image-to-3d"
+  ],
+  "capabilities": [
+    "image-to-3d"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "image"
+    ],
+    "properties": {
+      "image": {
+        "type": "string",
+        "title": "Input Image Url",
+        "examples": [
+          "https://static.sandbase.ai/examples/tencent/hunyuan-3d/3.1/pro/image-to-3d/input_image_0.png"
+        ],
+        "description": "Front view image URL. Resolution: 128-5000px, max 8MB, formats: JPG/PNG/WEBP. Tips: simple background, single object, object >50% of frame."
+      },
+      "top_image": {
+        "type": "string",
+        "title": "Top Image",
+        "description": "Optional top view image URL for multi-view reconstruction."
+      },
+      "back_image": {
+        "type": "string",
+        "title": "Back Image",
+        "description": "Optional back view image URL for multi-view reconstruction."
+      },
+      "enable_pbr": {
+        "type": "boolean",
+        "title": "Enable PBR",
+        "default": false,
+        "description": "Generate PBR materials (metallic, roughness, normal). Ignored for Geometry output."
+      },
+      "face_count": {
+        "type": "integer",
+        "title": "Face Count",
+        "maximum": 1500000,
+        "minimum": 40000,
+        "description": "Target polygon face count (custom face count is billed as an add-on)."
+      },
+      "left_image": {
+        "type": "string",
+        "title": "Left Image",
+        "description": "Optional left view image URL for multi-view reconstruction."
+      },
+      "right_image": {
+        "type": "string",
+        "title": "Right Image",
+        "description": "Optional right view image URL for multi-view reconstruction."
+      },
+      "bottom_image": {
+        "type": "string",
+        "title": "Bottom Image",
+        "description": "Optional bottom view image URL for multi-view reconstruction."
+      },
+      "generate_type": {
+        "enum": [
+          "Normal",
+          "Geometry"
+        ],
+        "type": "string",
+        "title": "Generate Type",
+        "default": "Normal",
+        "description": "Normal: textured model. Geometry: geometry-only white model."
+      },
+      "left_front_image": {
+        "type": "string",
+        "title": "Left Front Image",
+        "description": "Optional left-front view image URL for multi-view reconstruction."
+      },
+      "right_front_image": {
+        "type": "string",
+        "title": "Right Front Image",
+        "description": "Optional right-front view image URL for multi-view reconstruction."
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "title": "GenerationResponse",
+    "required": [
+      "id",
+      "status"
+    ],
+    "properties": {
+      "id": {
+        "type": "string",
+        "description": "Unique identifier for the generation task."
+      },
+      "error": {
+        "type": "string",
+        "description": "Error message if the task failed. Empty on success."
+      },
+      "model": {
+        "type": "string",
+        "description": "Model ID used for the prediction."
+      },
+      "status": {
+        "enum": [
+          "pending",
+          "running",
+          "completed",
+          "failed",
+          "timeout"
+        ],
+        "type": "string",
+        "description": "Status of the task: pending, running, completed, failed, or timeout."
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "title": "OutputItem",
+          "required": [
+            "url"
+          ],
+          "properties": {
+            "url": {
+              "type": "string",
+              "description": "The URL where the generated content can be downloaded from."
+            },
+            "content_type": {
+              "type": "string",
+              "description": "The MIME type of the output file."
+            }
+          }
+        },
+        "description": "Array of generated content. Empty when status is not completed."
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "formula",
+    "formula": "0.375 + ((params.enable_pbr ?? false) && (params.generate_type ?? \"Normal\") != \"Geometry\" ? 0.15 : 0.0) + ((params.face_count ?? 0) > 0 ? 0.15 : 0.0) + (((params.back_image ?? \"\") != \"\" || (params.left_image ?? \"\") != \"\" || (params.right_image ?? \"\") != \"\" || (params.top_image ?? \"\") != \"\" || (params.bottom_image ?? \"\") != \"\" || (params.left_front_image ?? \"\") != \"\" || (params.right_front_image ?? \"\") != \"\") ? 0.15 : 0.0)",
+    "formula_variables": [
+      "params.back_image",
+      "params.bottom_image",
+      "params.enable_pbr",
+      "params.face_count",
+      "params.generate_type",
+      "params.left_front_image",
+      "params.left_image",
+      "params.right_front_image",
+      "params.right_image",
+      "params.top_image"
+    ],
+    "reference_price": 0.375,
+    "price_examples": [
+      {
+        "params": {
+          "enable_pbr": false,
+          "face_count": 40000,
+          "generate_type": "Normal"
+        },
+        "usd": 0.525
+      },
+      {
+        "params": {
+          "enable_pbr": false,
+          "face_count": 40000,
+          "generate_type": "Geometry"
+        },
+        "usd": 0.525
+      },
+      {
+        "params": {
+          "enable_pbr": false,
+          "face_count": 1500000,
+          "generate_type": "Normal"
+        },
+        "usd": 0.525
+      },
+      {
+        "params": {
+          "enable_pbr": false,
+          "face_count": 1500000,
+          "generate_type": "Geometry"
+        },
+        "usd": 0.525
+      },
+      {
+        "params": {
+          "enable_pbr": true,
+          "face_count": 40000,
+          "generate_type": "Normal"
+        },
+        "usd": 0.675
+      },
+      {
+        "params": {
+          "enable_pbr": true,
+          "face_count": 40000,
+          "generate_type": "Geometry"
+        },
+        "usd": 0.525
+      },
+      {
+        "params": {
+          "enable_pbr": true,
+          "face_count": 1500000,
+          "generate_type": "Normal"
+        },
+        "usd": 0.675
+      },
+      {
+        "params": {
+          "enable_pbr": true,
+          "face_count": 1500000,
+          "generate_type": "Geometry"
+        },
+        "usd": 0.525
+      }
+    ]
+  },
+  "readme": "# Hunyuan 3D 3.1 Pro Image to 3D\n\nHunyuan 3D 3.1 Pro turns an image (plus up to six extra views) into a high-detail textured or geometry-only 3D model.\n\n## Fields\n\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `image` | image URL, required | — | Front view. JPEG, PNG, or WebP URL. |\n| `top_image` | image URL | — | Optional extra view. |\n| `back_image` | image URL | — | Optional extra view. |\n| `enable_pbr` | boolean | false | PBR materials. |\n| `face_count` | integer 40000–1500000 | — | Target face count. |\n| `left_image` | image URL | — | Optional extra view. |\n| `right_image` | image URL | — | Optional extra view. |\n| `bottom_image` | image URL | — | Optional extra view. |\n| `generate_type` | `Normal` / `Geometry` | `Normal` | `Normal` textured, `LowPoly`, or `Geometry` (untextured). |\n| `left_front_image` | image URL | — | Optional extra view. |\n| `right_front_image` | image URL | — | Optional extra view. |\n\n## Billing\n\n$0.375 per model; PBR, a custom face count, and extra views each add $0.15.\n\n| Request | Price |\n|---|---|\n| Default | $0.375 |\n| With PBR | $0.525 |\n| With custom face count | $0.525 |\n\nFailed runs are not charged.\n\n## Also on SandBase\n\nOther Hunyuan 3D endpoints: `tencent/hunyuan-3d/3.1/pro/text-to-3d`, `tencent/hunyuan-3d/3.0/image-to-3d`.\n",
+  "cover_url": "https://static.sandbase.ai/covers/tencent/hunyuan-3d/3.1/pro/image-to-3d/cover-flare-20261005023848.webp",
+  "page_url": "https://www.sandbase.ai/model/tencent/hunyuan-3d/3.1/pro/image-to-3d",
+  "published_at": "2026-01-27T22:01:04.639Z",
+  "created_at": "2026-05-15T12:21:10.574Z"
+}

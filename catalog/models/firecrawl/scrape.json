@@ -1,0 +1,96 @@
+{
+  "name": "firecrawl/scrape",
+  "display_name": "Firecrawl Page Scraper",
+  "type": "api",
+  "vendor": "Firecrawl",
+  "vendor_slug": "firecrawl",
+  "description": "Scrapes content from target web pages with automatic handling of JavaScript rendering. Returns extracted page data based on specified formats and proxy settings.",
+  "tags": [
+    "web-scraping",
+    "content-extraction",
+    "markdown"
+  ],
+  "capabilities": [
+    "web-scraping",
+    "content-extraction",
+    "markdown"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/firecrawl/scrape"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "url",
+      "proxy"
+    ],
+    "properties": {
+      "url": {
+        "type": "string",
+        "title": "URL",
+        "description": "The HTTPS URL to scrape."
+      },
+      "proxy": {
+        "enum": [
+          "basic"
+        ],
+        "type": "string",
+        "title": "Proxy",
+        "default": "basic",
+        "description": "Proxy tier."
+      },
+      "formats": {
+        "type": "array",
+        "items": {
+          "enum": [
+            "markdown"
+          ],
+          "type": "string"
+        },
+        "title": "Formats",
+        "description": "Output formats."
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "properties": {
+      "data": {
+        "type": "object"
+      },
+      "success": {
+        "type": "boolean"
+      },
+      "creditsUsed": {
+        "type": "integer"
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.0075,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "examples": [
+    {
+      "input": {
+        "proxy": "basic",
+        "url": "https://static.sandbase.ai/examples/b8c8d1dc-773a-4e08-adcb-eb014dd7b5eb/input/106170b7-0b8c-46ad-a429-067f9a3139ab.com"
+      }
+    }
+  ],
+  "readme": "# Firecrawl Page Scraper API\n\nUse this endpoint to extract web content from a target `url` using a designated `proxy` tier and optional output `formats`.\n\n## Use cases\n\n- Extract clean page content from JavaScript-heavy websites.\n- Convert target web pages into specific structured formats.\n- Retrieve website data via automated scraping proxies.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/firecrawl/scrape\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"url\": \"<url>\", \"proxy\": \"basic\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `url` | string | Yes | The HTTPS URL to scrape. |\n| `proxy` | string | Yes | Proxy tier. |\n| `formats` | array | No | Output formats. |\n\n## Notes\n\n- Requires an HTTPS link passed to the `url` parameter.\n- The `proxy` parameter accepts the value `basic`.\n\n## Pricing\n\nFlat price per call. Failed calls are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/firecrawl/scrape",
+  "published_at": "2024-01-01T00:00:00Z",
+  "created_at": "2026-08-09T08:01:58.867Z"
+}

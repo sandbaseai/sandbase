@@ -1,0 +1,42 @@
+{
+  "name": "openai/gpt-4o-2024-05-13",
+  "display_name": "OpenAI: GPT-4o (2024-05-13)",
+  "type": "llm",
+  "vendor": "OpenAI",
+  "vendor_slug": "openai",
+  "description": "This is the pinned May 13, 2024 snapshot of OpenAI's GPT-4o, the original API release of the model, with text and image input and text output. It is intended for workloads that need a fixed, reproducible version of the launch-era GPT-4o rather than the moving GPT-4o alias. Later snapshots from August and November 2024 add Structured Outputs with JSON schemas and a larger output limit, so most fresh projects start with one of those.",
+  "tags": [
+    "chat",
+    "vision",
+    "structured_output",
+    "function_calling"
+  ],
+  "capabilities": [
+    "chat",
+    "vision",
+    "structured_output",
+    "function_calling"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "chat_completions": "POST /v1/chat/completions",
+    "responses": "POST /v1/responses",
+    "messages": "POST /v1/messages"
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_token",
+    "per_million_tokens": {
+      "input": 5,
+      "output": 15,
+      "cache_read_multiplier": 0.5
+    }
+  },
+  "cover_url": "https://t0.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=https://openai.com&size=256",
+  "page_url": "https://www.sandbase.ai/model/openai/gpt-4o-2024-05-13",
+  "published_at": "2024-05-13T00:00:00Z",
+  "created_at": "2026-05-08T23:54:21.049Z"
+}

@@ -1,0 +1,67 @@
+{
+  "name": "tiktok/ads/ad-keyframe-analysis",
+  "display_name": "TikTok Ad Keyframe Analysis",
+  "type": "api",
+  "vendor": "TikTok",
+  "vendor_slug": "tiktok",
+  "description": "Returns keyframe performance metrics across video ad timestamps for a specified material ID, including retention and conversion figures.",
+  "tags": [
+    "api",
+    "tiktok"
+  ],
+  "capabilities": [
+    "api",
+    "tiktok"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/tiktok/ads/ad-keyframe-analysis"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "material_id"
+    ],
+    "properties": {
+      "metric": {
+        "type": "string",
+        "title": "Metric",
+        "description": "Analysis metric (retain_ctr, retain_cvr, click_cnt, convert_cnt, play_retain_cnt)"
+      },
+      "material_id": {
+        "type": "string",
+        "title": "Material Id",
+        "description": "Ad material ID, required parameter"
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.0015,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "examples": [
+    {
+      "input": {
+        "material_id": "7164467399885864962"
+      },
+      "default": true
+    }
+  ],
+  "readme": "# TikTok Ad Keyframe Analysis API\n\nFetch frame-by-frame audience engagement and drop-off metrics for an ad video using its `material_id`.\n\n## Use cases\n\n- Identify exact video timestamps where audience drop-off occurs.\n- Compare retention and conversion rates across creative keyframes.\n- Optimize ad pacing and hook placement based on frame-level metrics.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/tiktok/ads/ad-keyframe-analysis\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"material_id\": \"<material_id>\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `material_id` | string | Yes | Ad material ID, required parameter |\n| `metric` | string | No | Analysis metric (retain_ctr, retain_cvr, click_cnt, convert_cnt, play_retain_cnt) |\n\n## Notes\n\n- Supported `metric` values include retain_ctr, retain_cvr, click_cnt, convert_cnt, and play_retain_cnt.\n- Requires a valid `material_id` representing the ad creative.\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [TikTok Ad Interactive Analysis](/model/tiktok/ads/ad-interactive-analysis): Returns audience retention and interaction analytics across video timestamps for a specified ad creative.\n- [TikTok Ad Material Percentile Rankings](/model/tiktok/ads/ad-percentile): Returns ad performance percentile rankings within the industry for a specific ad material.\n- [TikTok Ad Detail](/model/tiktok/ads/ads-detail): Returns detailed information about a single TikTok ad, including creative content, creator information, and engagement performance metrics using a specific ad …\n",
+  "page_url": "https://www.sandbase.ai/model/tiktok/ads/ad-keyframe-analysis",
+  "created_at": "2026-07-31T04:13:36.004Z"
+}

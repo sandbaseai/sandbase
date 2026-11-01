@@ -1,0 +1,94 @@
+{
+  "name": "douyin/xingtu-v3/data-sp-author-spread-info",
+  "display_name": "Douyin Xingtu Spread Metrics",
+  "type": "api",
+  "vendor": "Douyin",
+  "vendor_slug": "douyin",
+  "description": "Get Douyin Creator Marketplace (Xingtu) spread metrics for a creator, with channel, period, video-type, assignment, and flow filters. Use it to compare creator spread performance during campaign planning.",
+  "tags": [
+    "api",
+    "douyin",
+    "social-media"
+  ],
+  "capabilities": [
+    "api",
+    "douyin",
+    "social-media"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/douyin/xingtu-v3/data-sp-author-spread-info"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "oAuthorId"
+    ],
+    "properties": {
+      "type": {
+        "enum": [
+          "PERSONAL_VIDEO",
+          "XINTU_VIDEO"
+        ],
+        "type": "string",
+        "default": "PERSONAL_VIDEO",
+        "description": "Video type."
+      },
+      "range": {
+        "enum": [
+          "DAY_30",
+          "DAY_90"
+        ],
+        "type": "string",
+        "default": "DAY_30",
+        "description": "Time range."
+      },
+      "flowType": {
+        "enum": [
+          "EXCLUDE",
+          "INCLUDE"
+        ],
+        "type": "string",
+        "default": "EXCLUDE",
+        "description": "Flow type filter."
+      },
+      "platform": {
+        "enum": [
+          "SHORT_VIDEO",
+          "LIVE_STREAMING",
+          "PICTURE_TEXT",
+          "SHORT_DRAMA"
+        ],
+        "type": "string",
+        "default": "SHORT_VIDEO",
+        "description": "Platform type."
+      },
+      "oAuthorId": {
+        "type": "string",
+        "example": "6870161898013196295",
+        "description": "Author's unique ID."
+      },
+      "onlyAssign": {
+        "type": "boolean",
+        "default": false,
+        "description": "Whether to only include assigned videos."
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.069444
+  },
+  "readme": "# Douyin Xingtu Spread Metrics API\n\nGet Douyin Creator Marketplace (Xingtu) spread metrics for a creator, with channel, period, video-type, assignment, and flow filters. Use it to compare creator spread performance during campaign planning.\n\nThe response is the platform's original data structure.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/douyin/xingtu-v3/data-sp-author-spread-info\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"oAuthorId\": \"6870161898013196295\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `oAuthorId` | string | Yes | Author's unique ID. |\n| `platform` | string | No | Platform type. |\n| `range` | string | No | Time range. |\n| `type` | string | No | Video type. |\n| `onlyAssign` | boolean | No | Whether to only include assigned videos. |\n| `flowType` | string | No | Flow type filter. |\n\n## Pricing\n\nFlat price per call. Failed calls and empty results are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/douyin/xingtu-v3/data-sp-author-spread-info",
+  "created_at": "2026-10-29T12:05:45.881Z"
+}

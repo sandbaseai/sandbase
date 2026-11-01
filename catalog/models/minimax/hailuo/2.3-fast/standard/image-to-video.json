@@ -1,0 +1,165 @@
+{
+  "name": "minimax/hailuo/2.3-fast/standard/image-to-video",
+  "display_name": "MiniMax Hailuo 2.3 Fast Standard Image to Video",
+  "type": "video",
+  "vendor": "MiniMax",
+  "vendor_slug": "minimax",
+  "description": "MiniMax Hailuo 2.3 Fast Standard by MiniMax animates a still image into a 6 or 10 second 768P video at lower cost and latency than Hailuo 2.3 Standard.",
+  "tags": [
+    "image-to-video"
+  ],
+  "capabilities": [
+    "image-to-video"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "prompt",
+      "image"
+    ],
+    "properties": {
+      "image": {
+        "type": "string",
+        "title": "Image Url",
+        "examples": [
+          "https://static.sandbase.ai/examples/minimax/hailuo/2.3-fast/standard/image-to-video/input_image_0.jpg"
+        ],
+        "description": "URL of the image to use as the first frame"
+      },
+      "prompt": {
+        "type": "string",
+        "title": "Prompt",
+        "examples": [
+          "Athlete running powerfully on beach, dynamic camera movement tracking the runner, waves and sunset in motion, Hollywood movie cinematography, professional sports filming, inspiring atmosphere"
+        ],
+        "maxLength": 2000,
+        "minLength": 1,
+        "description": "Text prompt for video generation"
+      },
+      "duration": {
+        "enum": [
+          6,
+          10
+        ],
+        "type": "integer",
+        "title": "Duration",
+        "default": 6,
+        "description": "The duration of the video in seconds."
+      },
+      "prompt_optimizer": {
+        "type": "boolean",
+        "title": "Prompt Optimizer",
+        "default": true,
+        "description": "Whether to use the model's prompt optimizer"
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "title": "GenerationResponse",
+    "required": [
+      "id",
+      "status"
+    ],
+    "properties": {
+      "id": {
+        "type": "string",
+        "description": "Unique identifier for the generation task."
+      },
+      "error": {
+        "type": "string",
+        "description": "Error message if the task failed. Empty on success."
+      },
+      "model": {
+        "type": "string",
+        "description": "Model ID used for the prediction."
+      },
+      "status": {
+        "enum": [
+          "pending",
+          "running",
+          "completed",
+          "failed",
+          "timeout"
+        ],
+        "type": "string",
+        "description": "Status of the task: pending, running, completed, failed, or timeout."
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "title": "OutputItem",
+          "required": [
+            "url"
+          ],
+          "properties": {
+            "url": {
+              "type": "string",
+              "examples": [
+                "https://static.sandbase.ai/examples/minimax/hailuo/2.3-fast/standard/image-to-video/output_url_1.mp4"
+              ],
+              "description": "The URL where the generated content can be downloaded from."
+            },
+            "content_type": {
+              "type": "string",
+              "description": "The MIME type of the output file."
+            }
+          }
+        },
+        "description": "Array of generated content. Empty when status is not completed."
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "formula",
+    "formula": "(params.duration ?? 6) == 10 ? 0.32 : 0.19",
+    "formula_variables": [
+      "params.duration"
+    ],
+    "reference_price": 0.19,
+    "price_examples": [
+      {
+        "params": {
+          "duration": 6
+        },
+        "usd": 0.19
+      },
+      {
+        "params": {
+          "duration": 10
+        },
+        "usd": 0.32
+      }
+    ]
+  },
+  "examples": [
+    {
+      "input": {
+        "image": "https://static.sandbase.ai/examples/756eec19-405a-400d-9422-cf21af40de58/input/5050463e-efe5-4f06-ae44-d63099f19f7f.jpg",
+        "prompt": "Athlete running powerfully on beach, dynamic camera movement tracking the runner, waves and sunset in motion, Hollywood movie cinematography, professional sports filming, inspiring atmosphere"
+      },
+      "output": [
+        {
+          "poster": "https://static.sandbase.ai/examples/posters/47cc489854913c9e8370.jpg",
+          "url": "https://static.sandbase.ai/examples/756eec19-405a-400d-9422-cf21af40de58/output/d8e3b51b-afb5-4d4b-9d21-3b6a0fa0f859.mp4"
+        }
+      ],
+      "default": true
+    }
+  ],
+  "readme": "# MiniMax Hailuo 2.3 Fast Standard Image to Video\n\nHailuo 2.3 Fast Standard animates an image into a 6 or 10 second 768P video at lower cost than Hailuo 2.3 Standard.\n\n## Fields\n\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `prompt` | string, required | — | Up to 2,000 characters. |\n| `image` | image URL, required | — | First frame. JPEG, PNG, or WebP URL. |\n| `duration` | 6 / 10 | 6 | Output length in seconds. |\n| `prompt_optimizer` | boolean | true | Let MiniMax rewrite the prompt for better results. |\n\n## Billing\n\n$0.19 for 6 seconds, $0.32 for 10 seconds.\n\n| Output | Price |\n|---|---|\n| 6s (default) | $0.19 |\n| 10s | $0.32 |\n\nFailed runs are not charged.\n\n## Prompting\n\n- Describe the motion and camera in one or two sentences.\n\n## Limits\n\n- No audio track.\n\n## Also on SandBase\n\nOther Hailuo 2.3 endpoints: `minimax/hailuo/2.3/pro/text-to-video`, `minimax/hailuo/2.3/pro/image-to-video`, `minimax/hailuo/2.3/standard/text-to-video`, `minimax/hailuo/2.3/standard/image-to-video`, `minimax/hailuo/2.3-fast/pro/image-to-video`, `minimax/h3/text-to-video` (newer, with audio).\n",
+  "cover_url": "https://static.sandbase.ai/covers/minimax/hailuo/2.3-fast/standard/image-to-video/cover-flare-20261005005519.webp",
+  "page_url": "https://www.sandbase.ai/model/minimax/hailuo/2.3-fast/standard/image-to-video",
+  "published_at": "2025-10-27T13:12:54.242Z",
+  "created_at": "2026-05-14T13:44:37.392Z"
+}

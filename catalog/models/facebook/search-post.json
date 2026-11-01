@@ -1,0 +1,63 @@
+{
+  "name": "facebook/search-post",
+  "display_name": "Facebook Post Search",
+  "type": "api",
+  "vendor": "Facebook",
+  "vendor_slug": "facebook",
+  "description": "Search public Facebook posts by keyword with optional inclusive date-range filters and cursor pagination. Use it to find topic-related posts or continue a time-bounded public-content search.",
+  "tags": [
+    "api",
+    "facebook",
+    "social-media"
+  ],
+  "capabilities": [
+    "api",
+    "facebook",
+    "social-media"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/facebook/search-post"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "keyword"
+    ],
+    "properties": {
+      "cursor": {
+        "type": "string",
+        "description": "Pagination cursor for fetching the next set of results."
+      },
+      "endDate": {
+        "type": "string",
+        "description": "End date for the search range (inclusive), formatted as yyyy-MM-dd."
+      },
+      "keyword": {
+        "type": "string",
+        "example": "iphone",
+        "description": "Keyword to search for in public posts. Supports basic text matching."
+      },
+      "startDate": {
+        "type": "string",
+        "description": "Start date for the search range (inclusive), formatted as yyyy-MM-dd."
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.027778
+  },
+  "readme": "# Facebook Post Search API\n\nSearch public Facebook posts by keyword with optional inclusive date-range filters and cursor pagination. Use it to find topic-related posts or continue a time-bounded public-content search.\n\nThe response is the platform's original data structure.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/facebook/search-post\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"keyword\": \"iphone\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `keyword` | string | Yes | Keyword to search for in public posts. Supports basic text matching. |\n| `startDate` | string | No | Start date for the search range (inclusive), formatted as yyyy-MM-dd. |\n| `endDate` | string | No | End date for the search range (inclusive), formatted as yyyy-MM-dd. |\n| `cursor` | string | No | Pagination cursor for fetching the next set of results. |\n\n## Pricing\n\nFlat price per call. Failed calls and empty results are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/facebook/search-post",
+  "created_at": "2026-10-29T12:08:52.29Z"
+}

@@ -1,0 +1,67 @@
+{
+  "name": "reddit/app/user-trophies",
+  "display_name": "Reddit User Public Trophies",
+  "type": "api",
+  "vendor": "Reddit",
+  "vendor_slug": "reddit",
+  "description": "Returns a list of public trophies and achievements for a specified Reddit account. Users can supply a username and optionally request cleaned, formatted data.",
+  "tags": [
+    "api",
+    "reddit"
+  ],
+  "capabilities": [
+    "api",
+    "reddit"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/reddit/app/user-trophies"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "username"
+    ],
+    "properties": {
+      "username": {
+        "type": "string",
+        "title": "Username",
+        "description": "Reddit username (without u/ prefix)"
+      },
+      "need_format": {
+        "type": "boolean",
+        "title": "Need Format",
+        "description": "Whether to clean and format the data"
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.0015,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "examples": [
+    {
+      "input": {
+        "username": "spez"
+      },
+      "default": true
+    }
+  ],
+  "readme": "# Reddit User Public Trophies API\n\nRetrieve the public achievements and trophies earned by a Reddit user by specifying their `username`.\n\n## Use cases\n\n- Display user badges and achievements in community profiles.\n- Inspect Reddit account milestones and historical participation awards.\n- Verify account authenticity and longevity using public trophy records.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/reddit/app/user-trophies\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"username\": \"<username>\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `username` | string | Yes | Reddit username (without u/ prefix) |\n| `need_format` | boolean | No | Whether to clean and format the data |\n\n## Notes\n\n- Provide the `username` without the u/ prefix.\n- Set `need_format` to true to receive cleaned and formatted response data.\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [Reddit Subreddit Mute Status](/model/reddit/app/check-subreddit-muted): Checks whether a specified Reddit subreddit is muted by the current account using its ID.\n- [Reddit App Comment Replies](/model/reddit/app/comment-replies): Returns replies and nested sub-comments under a Reddit post comment using a continuation cursor.\n- [Reddit Community Highlights](/model/reddit/app/community-highlights): Returns featured highlight content for a designated Reddit community, such as popular posts and announcements, by subreddit ID.\n",
+  "page_url": "https://www.sandbase.ai/model/reddit/app/user-trophies",
+  "created_at": "2026-07-31T04:11:17.414Z"
+}

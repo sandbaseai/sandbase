@@ -1,0 +1,289 @@
+{
+  "name": "openai/gpt-image-2/edit",
+  "display_name": "GPT Image 2 Edit",
+  "type": "image",
+  "vendor": "OpenAI",
+  "vendor_slug": "openai",
+  "description": "GPT Image 2 Editing supports image editing and multi-image synthesis with high-quality results.",
+  "tags": [
+    "image-to-image",
+    "commercial"
+  ],
+  "capabilities": [
+    "image-to-image",
+    "commercial"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "prompt",
+      "images"
+    ],
+    "properties": {
+      "images": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        },
+        "title": "Images",
+        "examples": [
+          "https://cdn.openai.com/API/docs/images/body-lotion.png",
+          "https://cdn.openai.com/API/docs/images/soap.png",
+          "https://cdn.openai.com/API/docs/images/incense-kit.png",
+          "https://cdn.openai.com/API/docs/images/bath-bomb.png"
+        ],
+        "description": "The URLs of the images to use for image-to-image generation or image editing."
+      },
+      "prompt": {
+        "type": "string",
+        "title": "Prompt",
+        "default": "Generate a photorealistic image of a gift basket on a white background labeled 'Relax & Unwind' with a ribbon and handwriting-like font, containing all the items in the reference pictures.",
+        "maxLength": 50000,
+        "minLength": 3,
+        "description": "The text prompt to generate an image from."
+      },
+      "quality": {
+        "enum": [
+          "low",
+          "medium",
+          "high"
+        ],
+        "type": "string",
+        "title": "Quality",
+        "default": "high",
+        "description": "Quality for the generated image"
+      },
+      "resolution": {
+        "enum": [
+          "1k",
+          "2k",
+          "4k"
+        ],
+        "type": "string",
+        "title": "Resolution",
+        "description": "The resolution of the generated image. Leave unset to preserve the provider's standard dimensions."
+      },
+      "aspect_ratio": {
+        "enum": [
+          "1:1",
+          "1:2",
+          "2:1",
+          "1:3",
+          "3:1",
+          "2:3",
+          "3:2",
+          "3:4",
+          "4:3",
+          "4:5",
+          "5:4",
+          "9:16",
+          "16:9",
+          "9:21",
+          "21:9"
+        ],
+        "type": "string",
+        "title": "Aspect Ratio",
+        "description": "The aspect ratio of the generated image."
+      },
+      "output_format": {
+        "enum": [
+          "jpeg",
+          "png",
+          "webp"
+        ],
+        "type": "string",
+        "title": "Output Format",
+        "default": "png",
+        "description": "The format of the generated image."
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "title": "GenerationResponse",
+    "required": [
+      "id",
+      "status"
+    ],
+    "properties": {
+      "id": {
+        "type": "string",
+        "description": "Unique identifier for the generation task."
+      },
+      "error": {
+        "type": "string",
+        "description": "Error message if the task failed. Empty on success."
+      },
+      "model": {
+        "type": "string",
+        "description": "Model ID used for the prediction."
+      },
+      "status": {
+        "enum": [
+          "pending",
+          "running",
+          "completed",
+          "failed",
+          "timeout"
+        ],
+        "type": "string",
+        "description": "Status of the task: pending, running, completed, failed, or timeout."
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "title": "OutputItem",
+          "required": [
+            "url"
+          ],
+          "properties": {
+            "url": {
+              "type": "string",
+              "description": "The URL where the generated content can be downloaded from."
+            },
+            "content_type": {
+              "type": "string",
+              "description": "The MIME type of the output file."
+            }
+          }
+        },
+        "description": "Array of generated content. Empty when status is not completed."
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "formula",
+    "formula": "((params.quality ?? \"high\") == \"low\" ? ((params.resolution ?? \"1k\") == \"4k\" ? 0.04 : (params.resolution ?? \"1k\") == \"2k\" ? 0.03 : 0.02) : ((params.quality ?? \"high\") == \"medium\" ? ((params.resolution ?? \"1k\") == \"4k\" ? 0.19 : (params.resolution ?? \"1k\") == \"2k\" ? 0.11 : 0.07) : ((params.resolution ?? \"1k\") == \"4k\" ? 0.73 : (params.resolution ?? \"1k\") == \"2k\" ? 0.41 : 0.23))) + Math.max(float(len(params.images ?? [])) - 1.0, 0.0) * 0.012",
+    "formula_variables": [
+      "params.images",
+      "params.quality",
+      "params.resolution"
+    ],
+    "reference_price": 0.23,
+    "price_examples": [
+      {
+        "params": {
+          "quality": "low",
+          "resolution": "1k"
+        },
+        "usd": 0.02
+      },
+      {
+        "params": {
+          "quality": "low",
+          "resolution": "2k"
+        },
+        "usd": 0.03
+      },
+      {
+        "params": {
+          "quality": "low",
+          "resolution": "4k"
+        },
+        "usd": 0.04
+      },
+      {
+        "params": {
+          "quality": "medium",
+          "resolution": "1k"
+        },
+        "usd": 0.07
+      },
+      {
+        "params": {
+          "quality": "medium",
+          "resolution": "2k"
+        },
+        "usd": 0.11
+      },
+      {
+        "params": {
+          "quality": "medium",
+          "resolution": "4k"
+        },
+        "usd": 0.19
+      },
+      {
+        "params": {
+          "quality": "high",
+          "resolution": "1k"
+        },
+        "usd": 0.23
+      },
+      {
+        "params": {
+          "quality": "high",
+          "resolution": "2k"
+        },
+        "usd": 0.41
+      },
+      {
+        "params": {
+          "quality": "high",
+          "resolution": "4k"
+        },
+        "usd": 0.73
+      }
+    ]
+  },
+  "examples": [
+    {
+      "input": {
+        "aspect_ratio": "16:9",
+        "images": [
+          "https://static.sandbase.ai/examples/a7f81ef8-3f1e-4f19-bc04-fd6d801c7bcb/input/d0f4c379-791c-4bbe-a195-d89e5c9ff18a.png"
+        ],
+        "prompt": "Create a realistic billboard mockup of the shampoo on a highway scene during sunset.\nBillboard text (EXACT, verbatim, no extra characters):\n\"Fresh and clean\"\nTypography: bold sans-serif, high contrast, centered, clean kerning.\nEnsure text appears once and is perfectly legible.\nNo watermarks, no logos."
+      },
+      "output": [
+        {
+          "url": "https://static.sandbase.ai/examples/a7f81ef8-3f1e-4f19-bc04-fd6d801c7bcb/output/0c2961f3-02c4-46db-a0e6-cc9456998ed1.png"
+        }
+      ],
+      "default": true
+    },
+    {
+      "input": {
+        "aspect_ratio": "16:9",
+        "images": [
+          "https://static.sandbase.ai/examples/4c2d16cb-54bf-4bf3-9c61-3b5d4fbe8d0d/input/4b819c0a-61ba-426a-953c-6d2f05f122e2.png"
+        ],
+        "prompt": "Turn this drawing into a photorealistic image.\nPreserve the exact layout, proportions, and perspective.\nChoose realistic materials and lighting consistent with the sketch intent.\nDo not add new elements or text."
+      },
+      "output": [
+        {
+          "url": "https://static.sandbase.ai/examples/4c2d16cb-54bf-4bf3-9c61-3b5d4fbe8d0d/output/c78e2bba-6947-47ca-905f-87ee7095fb06.png"
+        }
+      ]
+    },
+    {
+      "input": {
+        "aspect_ratio": "16:9",
+        "images": [
+          "https://static.sandbase.ai/examples/e29ae6ba-e594-4f4a-a45a-11ba1b56f555/input/efb2db77-9821-44ff-a0ad-9125c1117e08.jpeg"
+        ],
+        "prompt": "In this room photo, replace ONLY white with chairs made of wood.\nPreserve camera angle, room lighting, floor shadows, and surrounding objects.\nKeep all other aspects of the image unchanged.\nPhotorealistic contact shadows and fabric texture."
+      },
+      "output": [
+        {
+          "url": "https://static.sandbase.ai/examples/e29ae6ba-e594-4f4a-a45a-11ba1b56f555/output/e0a42f17-aaf8-438f-90eb-e0c4b897bbe9.png"
+        }
+      ]
+    }
+  ],
+  "readme": "# GPT Image 2 Edit\n\nGPT Image 2 edit: fine-grained edits and multi-image synthesis. Send images with an instruction to retouch, restyle, or combine them.\n\n## Fields\n\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `images` | image URL[], required | — | Images to edit or combine, Image 1, Image 2, … |\n| `prompt` | string, required | — | Up to 50,000 characters. |\n| `quality` | `low` / `medium` / `high` | `high` | Higher quality costs more; `high` is the default. |\n| `resolution` | `1k` / `2k` / `4k` | — | Output size tier; omit for 1K. |\n| `aspect_ratio` | `1:1` / `1:2` / `2:1` / `1:3` / `3:1` / `2:3` / `3:2` / `3:4` / `4:3` / `4:5` / `5:4` / `9:16` / `16:9` / `9:21` / `21:9` | — | Omit to follow the first input image. |\n| `output_format` | `jpeg` / `png` / `webp` | `png` | Output file format. |\n\n## Billing\n\nPrice depends on quality and resolution, per output image, plus $0.012 for each input image after the first:\n\n| Quality, 1 input | 1k | 2k | 4k |\n|---|---|---|---|\n| low | $0.02 | $0.03 | $0.04 |\n| medium | $0.07 | $0.11 | $0.19 |\n| high (default) | $0.23 | $0.41 | $0.73 |\n\nFailed runs are not charged.\n\n## Prompting\n\n- Say which image is the base and what each other image adds.\n\n## Limits\n\n- One output image per request.\n\n## Also on SandBase\n\nOther GPT Image endpoints: `openai/gpt-image-2.5-sunburst`, `openai/gpt-image-2.5-sunburst/edit`, `openai/gpt-image-2.5-flare`, `openai/gpt-image-2.5-flare/edit`, `openai/gpt-image-2`.\n",
+  "cover_url": "https://static.sandbase.ai/covers/openai/gpt-image-2/edit/cover-flare-20261004174944.webp",
+  "page_url": "https://www.sandbase.ai/model/openai/gpt-image-2/edit",
+  "published_at": "2026-04-21T19:15:07.07Z",
+  "created_at": "2026-04-28T06:46:51.155Z"
+}

@@ -1,0 +1,80 @@
+{
+  "name": "meijer/scrape/product",
+  "display_name": "Meijer Product Page",
+  "type": "api",
+  "vendor": "Meijer",
+  "vendor_slug": "meijer",
+  "description": "Extract structured data from a Meijer product page URL: price, availability and product details, optionally localized by ZIP code.",
+  "tags": [
+    "api",
+    "meijer",
+    "ecommerce",
+    "product-data"
+  ],
+  "capabilities": [
+    "api",
+    "meijer",
+    "ecommerce",
+    "product-data"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}",
+    "passthrough": "POST /v1/api/meijer/scrape/product"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "url"
+    ],
+    "properties": {
+      "url": {
+        "type": "string",
+        "format": "uri",
+        "example": "https://www.meijer.com/shopping/product/highlighters-4pk/71928356637.html",
+        "description": "Full Meijer page URL, e.g. https://www.meijer.com/shopping/product/highlighters-4pk/71928356637.html"
+      },
+      "zipCode": {
+        "type": "string",
+        "minLength": 3,
+        "description": "ZIP or postal code used for localized pricing and availability."
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "required": [
+      "id",
+      "status",
+      "model"
+    ],
+    "properties": {
+      "id": {
+        "type": "string"
+      },
+      "model": {
+        "type": "string"
+      },
+      "status": {
+        "type": "string"
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.01,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "readme": "# Meijer Product Page\n\nExtract structured data from a Meijer product page URL: price, availability and product details, optionally localized by ZIP code.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/meijer/scrape/product\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"url\": \"https://www.meijer.com/shopping/product/highlighters-4pk/71928356637.html\"}'\n```\n\nThis API runs asynchronously. The call returns a task `id` with status `pending`; poll `GET https://api.sandbase.ai/v1/run/{id}` until `status` is `completed` and read the result from `outputs[0].data`.\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `url` | string | Yes | Full Meijer page URL, e.g. https://www.meijer.com/shopping/product/highlighters-4pk/71928356637.html |\n| `zipCode` | string | No | ZIP or postal code used for localized pricing and availability. |\n\n## Pricing\n\nFlat price per call. Failed calls are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/meijer/scrape/product",
+  "created_at": "2026-10-28T06:14:03.002Z"
+}

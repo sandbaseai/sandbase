@@ -1,0 +1,146 @@
+{
+  "name": "tavily/search",
+  "display_name": "Tavily Search",
+  "type": "api",
+  "vendor": "Tavily",
+  "vendor_slug": "tavily",
+  "description": "AI-optimized web search for agents and RAG: ranked results with titles, URLs and relevant content, depth control, news and finance topics, domain filters and an optional generated answer.",
+  "tags": [
+    "web-search",
+    "AI-search",
+    "research"
+  ],
+  "capabilities": [
+    "web-search",
+    "AI-search",
+    "research"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/tavily/search"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "query"
+    ],
+    "properties": {
+      "query": {
+        "type": "string",
+        "title": "Query",
+        "example": "OpenAI Codex documentation",
+        "description": "The search query."
+      },
+      "topic": {
+        "enum": [
+          "general",
+          "news",
+          "finance"
+        ],
+        "type": "string",
+        "title": "Topic",
+        "default": "general",
+        "example": "general",
+        "description": "Topic category to focus the search."
+      },
+      "max_results": {
+        "type": "integer",
+        "title": "Max Results",
+        "default": 5,
+        "example": 3,
+        "maximum": 20,
+        "minimum": 1,
+        "description": "Maximum number of results to return."
+      },
+      "search_depth": {
+        "enum": [
+          "basic",
+          "advanced"
+        ],
+        "type": "string",
+        "title": "Search Depth",
+        "default": "basic",
+        "example": "basic",
+        "description": "Depth of search. 'advanced' returns more comprehensive results."
+      },
+      "include_answer": {
+        "type": "boolean",
+        "title": "Include Answer",
+        "default": false,
+        "example": false,
+        "description": "Include an LLM-generated answer summarizing the results."
+      },
+      "exclude_domains": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        },
+        "title": "Exclude Domains",
+        "description": "Exclude results from these domains."
+      },
+      "include_domains": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        },
+        "title": "Include Domains",
+        "example": [
+          "openai.com"
+        ],
+        "description": "Only include results from these domains."
+      },
+      "include_raw_content": {
+        "type": "boolean",
+        "title": "Include Raw Content",
+        "default": false,
+        "example": false,
+        "description": "Include the full raw page content for each result."
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "properties": {
+      "query": {
+        "type": "string"
+      },
+      "answer": {
+        "type": "string"
+      },
+      "results": {
+        "type": "array",
+        "items": {
+          "type": "object"
+        }
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.012,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "examples": [
+    {
+      "input": {
+        "include_answer": true,
+        "max_results": 8,
+        "query": "手性钙钛矿 圆偏振拉曼 手性声子 谱学",
+        "search_depth": "basic"
+      }
+    }
+  ],
+  "readme": "# Tavily Search API\n\nTavily returns search results already cleaned for LLMs: each result has a title, URL, relevant content snippet and score. Optionally get a short generated answer or the raw page content.\n\n## Use cases\n\n- Give agents real-time web access.\n- Build RAG pipelines on fresh sources.\n- Research news or financial topics.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/tavily/search\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"query\": \"OpenAI Codex documentation\", \"max_results\": 3}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `query` | string | Yes | The search query. |\n| `topic` | string | No | Topic category to focus the search. |\n| `max_results` | integer | No | Maximum number of results to return. |\n| `search_depth` | string | No | Depth of search. 'advanced' returns more comprehensive results. |\n| `include_answer` | boolean | No | Include an LLM-generated answer summarizing the results. |\n| `exclude_domains` | array | No | Exclude results from these domains. |\n| `include_domains` | array | No | Only include results from these domains. |\n| `include_raw_content` | boolean | No | Include the full raw page content for each result. |\n\n## Example response\n\nReal response for the request above, trimmed to the main fields. User names and long IDs are masked.\n\n```json\n{\n  \"query\": \"OpenAI Codex documentation\",\n  \"results\": [\n    {\n      \"title\": \"Documentation and implementation of Open AI's new Codex model - API -…\",\n      \"url\": \"https://community.openai.com/t/documentation-and-implementation-of-op…\",\n      \"content\": \"# Documentation and implementation of Open AI's new Codex model  Hi,  I am look…\",\n      \"score\": 0.8624794\n    }\n  ],\n  \"response_time\": 1.18\n}\n```\n\n## Notes\n\n- `search_depth`: basic or advanced (more comprehensive).\n- Set `include_answer` to `true` for an LLM-generated summary.\n\n## Pricing\n\nFlat price per call. Failed calls are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/tavily/search",
+  "published_at": "2024-01-01T00:00:00Z",
+  "created_at": "2026-07-25T18:15:03.119Z"
+}

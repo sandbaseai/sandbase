@@ -1,0 +1,50 @@
+{
+  "name": "weibo/web-v2/hot-search",
+  "display_name": "Weibo Real-Time Hot Search",
+  "type": "api",
+  "vendor": "Weibo",
+  "vendor_slug": "weibo",
+  "description": "Get the Weibo real-time hot search ranking: trending keywords with rank, heat value and labels such as new or hot.",
+  "tags": [
+    "api",
+    "weibo"
+  ],
+  "capabilities": [
+    "api",
+    "weibo"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/weibo/web-v2/hot-search"
+  },
+  "input_schema": {
+    "type": "object",
+    "properties": {}
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.0015,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "examples": [
+    {
+      "input": {}
+    }
+  ],
+  "readme": "# Weibo Real-Time Hot Search API\n\nFetch the current Weibo hot search list with each topic's rank, heat value and label.\n\n## Use cases\n\n- Track trending topics in China.\n- Alert when a brand enters the hot list.\n- Build trend dashboards.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/weibo/web-v2/hot-search\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{}'\n```\n\n## Example response\n\nReal response for the request above, trimmed to the main fields. User names and long IDs are masked.\n\n```json\n{\n  \"realtime\": [\n    {\n      \"label_name\": \"新\",\n      \"num\": 1413832,\n      \"rank\": 0,\n      \"word\": \"诺贝尔物理学奖\",\n      \"word_scheme\": \"诺贝尔物理学奖\"\n    }\n  ]\n}\n```\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [Weibo Advanced Search](/model/weibo/web-v2/advanced-search): Search Weibo posts by keyword with filters for time range, post type (hot, original, verified, media) and content type (images, video, links).\n- [Weibo Hot Search List](/model/weibo/web-v2/hot-search-summary): Get the complete real-time Weibo hot search ranking (top 50): keyword, rank, heat tag and search link for each trending topic.\n- [Weibo Post Comments](/model/weibo/web-v2/post-comments): Get the first-level comments on a Weibo post: comment text, author, time, likes and reply counts, with cursor pagination.\n",
+  "page_url": "https://www.sandbase.ai/model/weibo/web-v2/hot-search",
+  "created_at": "2026-07-31T02:45:47.424Z"
+}

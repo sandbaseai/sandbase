@@ -1,0 +1,72 @@
+{
+  "name": "twitter/web/tweet-detail",
+  "display_name": "Twitter Tweet Detail",
+  "type": "api",
+  "vendor": "Twitter",
+  "vendor_slug": "twitter",
+  "description": "Get a single tweet (X post) by ID: full text, author, media, and like, retweet, reply, quote, bookmark and view counts.",
+  "tags": [
+    "api",
+    "twitter"
+  ],
+  "capabilities": [
+    "api",
+    "twitter"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/twitter/web/tweet-detail"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "tweet_id"
+    ],
+    "properties": {
+      "tweet_id": {
+        "type": "string",
+        "title": "Tweet Id",
+        "example": "1808168603721650364",
+        "description": "Tweet ID, can be obtained from the tweet link. For example: 1808168603721650364 in https://x.com/elonmusk/status/1808168603721650364"
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.0015,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "examples": [
+    {
+      "input": {
+        "tweet_id": "1808168603721650364"
+      }
+    },
+    {
+      "input": {
+        "tweet_id": "1808168603721650364"
+      }
+    },
+    {
+      "input": {
+        "tweet_id": "1808168603721650364"
+      }
+    }
+  ],
+  "readme": "# Tweet Detail API\n\nPass a tweet ID and get the full post as JSON, including author details, media attachments and engagement metrics.\n\n## Use cases\n\n- Track engagement on specific posts over time.\n- Enrich tweet IDs from search results with full details.\n- Archive posts referenced in reports.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/twitter/web/tweet-detail\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"tweet_id\": \"1808168603721650364\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `tweet_id` | string | Yes | Tweet ID, can be obtained from the tweet link. |\n\n## Example response\n\nReal response for the request above, trimmed to the main fields. User names and long IDs are masked.\n\n```json\n{\n  \"id\": \"1808168603721650364\",\n  \"created_at\": \"Tue Jul 02 15:59:23 +0000 2024\",\n  \"lang\": \"en\",\n  \"likes\": 282804,\n  \"retweets\": 52252,\n  \"replies\": 18666,\n  \"quotes\": 3899,\n  \"bookmarks\": 6568,\n  \"views\": \"53721665\",\n  \"text\": \"<tweet text>\",\n  \"author\": {\n    \"screen_name\": \"<user>\",\n    \"rest_id\": \"<user id>\"\n  },\n  \"media\": [\n    \"…\"\n  ]\n}\n```\n\n## Notes\n\n- The tweet ID is the number after `/status/` in the post URL.\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [Twitter (X) Search](/model/twitter/web/search-timeline): Search Twitter / X posts by keyword and get tweets with text, author, time and engagement counts (likes, retweets, replies, views).\n- [Twitter (X) Trending Topics](/model/twitter/web/trending): Get trending topics on Twitter / X by country: trend names with their category context, for the United States, Japan, India, the UK and other markets.\n- [Twitter (X) User Profile](/model/twitter/web/user-profile): Get a Twitter / X user profile by screen name or user ID: name, bio, follower and following counts, post and media counts, verification and creation date.\n",
+  "page_url": "https://www.sandbase.ai/model/twitter/web/tweet-detail",
+  "created_at": "2026-07-31T04:19:33.876Z"
+}

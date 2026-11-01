@@ -1,0 +1,70 @@
+{
+  "name": "bilibili/web/video-subtitle",
+  "display_name": "Bilibili Video Subtitle Details",
+  "type": "api",
+  "vendor": "Bilibili",
+  "vendor_slug": "bilibili",
+  "description": "Returns subtitle data for a specified Bilibili video based on its video ID and CID. Helps retrieve available caption tracks and related metadata.",
+  "tags": [
+    "api",
+    "bilibili"
+  ],
+  "capabilities": [
+    "api",
+    "bilibili"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/bilibili/web/video-subtitle"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "a_id",
+      "c_id"
+    ],
+    "properties": {
+      "a_id": {
+        "type": "string",
+        "title": "A Id",
+        "example": "114006081739452",
+        "description": "Video id"
+      },
+      "c_id": {
+        "type": "string",
+        "title": "C Id",
+        "example": "28400484458",
+        "description": "Video cid"
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.0015,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "examples": [
+    {
+      "input": {
+        "a_id": "114006081739452",
+        "c_id": "28400484458"
+      }
+    }
+  ],
+  "readme": "# Bilibili Video Subtitle Details API\n\nRetrieve subtitle information for a Bilibili video by providing the video ID in `a_id` and the specific part CID in `c_id`.\n\n## Use cases\n\n- Extract caption tracks for video transcription and translation workflows.\n- Display synchronized subtitles in custom video players.\n- Inspect available subtitle languages and formats for a given video clip.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/bilibili/web/video-subtitle\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"a_id\": \"114006081739452\", \"c_id\": \"28400484458\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `a_id` | string | Yes | Video id |\n| `c_id` | string | Yes | Video cid |\n\n## Notes\n\n- Both `a_id` and `c_id` are required to pinpoint the exact video part.\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [Bilibili Streaming Areas](/model/bilibili/web/all-live-areas): Returns the complete list of streaming broadcast areas and categories on Bilibili.\n- [Bilibili BV to AID Converter](/model/bilibili/web/bv-to-aid): Converts a Bilibili BV identifier to its corresponding numeric AID value.\n- [Bilibili User Collection Folders](/model/bilibili/web/collect-folders): Returns the collection folders owned by a specific Bilibili user.\n",
+  "page_url": "https://www.sandbase.ai/model/bilibili/web/video-subtitle",
+  "created_at": "2026-07-31T03:54:21.131Z"
+}

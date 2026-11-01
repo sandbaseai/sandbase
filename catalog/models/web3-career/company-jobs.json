@@ -1,0 +1,78 @@
+{
+  "name": "web3-career/company-jobs",
+  "display_name": "Web3.career Company Jobs",
+  "type": "api",
+  "vendor": "Web3.career",
+  "vendor_slug": "web3-career",
+  "description": "Fetch all job listings for a specific company by its URL slug. Returns paginated job listings posted by the company.",
+  "tags": [
+    "api",
+    "web3-career",
+    "company-people"
+  ],
+  "capabilities": [
+    "api",
+    "web3-career",
+    "company-people"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}",
+    "passthrough": "POST /v1/api/web3-career/company-jobs"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "company_slug"
+    ],
+    "properties": {
+      "page": {
+        "type": "integer",
+        "maximum": 9007199254740991,
+        "minimum": -9007199254740991,
+        "description": "Page number for pagination."
+      },
+      "company_slug": {
+        "type": "string",
+        "example": "stripe",
+        "description": "The URL slug of the company (e.g., binance, crypto-com, coinbase). Available from get_web3_companies results."
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "required": [
+      "id",
+      "status",
+      "model"
+    ],
+    "properties": {
+      "id": {
+        "type": "string"
+      },
+      "model": {
+        "type": "string"
+      },
+      "status": {
+        "type": "string"
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.01,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "readme": "# Web3.career Company Jobs\n\nFetch all job listings for a specific company by its URL slug. Returns paginated job listings posted by the company.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/web3-career/company-jobs\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"company_slug\": \"stripe\"}'\n```\n\nThis API runs asynchronously. The call returns a task `id` with status `pending`; poll `GET https://api.sandbase.ai/v1/run/{id}` until `status` is `completed` and read the result from `outputs[0].data`.\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `company_slug` | string | Yes | The URL slug of the company (e.g., binance, crypto-com, coinbase). Available from get_web3_companies results. |\n| `page` | integer | No | Page number for pagination. |\n\n## Pricing\n\nFlat price per call. Failed calls are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/web3-career/company-jobs",
+  "created_at": "2026-10-30T08:32:15.606Z"
+}

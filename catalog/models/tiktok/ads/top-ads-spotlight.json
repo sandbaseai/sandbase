@@ -1,0 +1,67 @@
+{
+  "name": "tiktok/ads/top-ads-spotlight",
+  "display_name": "TikTok Top Ads Spotlight",
+  "type": "api",
+  "vendor": "TikTok",
+  "vendor_slug": "tiktok",
+  "description": "Returns top spotlight ad cases, highlights, and performance metrics across industries or filtered by a specific industry ID. Supports pagination via page and limit parameters.",
+  "tags": [
+    "api",
+    "tiktok"
+  ],
+  "capabilities": [
+    "api",
+    "tiktok"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/tiktok/ads/top-ads-spotlight"
+  },
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "page": {
+        "type": "integer",
+        "title": "Page",
+        "description": "Page number, default 1"
+      },
+      "limit": {
+        "type": "integer",
+        "title": "Limit",
+        "description": "Items per page, default 20"
+      },
+      "industry": {
+        "type": "string",
+        "title": "Industry",
+        "description": "Industry ID, optional, returns cross-industry list if omitted, e.g., Education: 25000000000"
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.0015,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "examples": [
+    {
+      "input": {},
+      "default": true
+    }
+  ],
+  "readme": "# TikTok Top Ads Spotlight API\n\nLook up top-performing TikTok ad showcases and creative highlights. Filter results by `industry` or paginate through cross-industry cases using `page` and `limit`.\n\n## Use cases\n\n- Analyze high-performing video ad creative formats and hooks within specific industries.\n- Gather creative inspiration and benchmark engagement metrics for campaign planning.\n- Track top ad trends and spotlight examples across multiple business sectors.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/tiktok/ads/top-ads-spotlight\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `page` | integer | No | Page number, default 1 |\n| `limit` | integer | No | Items per page, default 20 |\n| `industry` | string | No | Industry ID, optional, returns cross-industry list if omitted, e.g., Education: 25000000000 |\n\n## Example response\n\nReal response for the request above, trimmed to the main fields. User names and long IDs are masked.\n\n```json\n{\n  \"data\": {\n    \"materials\": [\n      {\n        \"highlight\": \"Showcase a real-time comparison between products, while communicating your product's valu…\",\n        \"id\": \"7182310470102122497\",\n        \"like\": 33506,\n        \"video_info\": {\n          \"duration\": 43.542\n        }\n      }\n    ]\n  }\n}\n```\n\n## Notes\n\n- Omitting `industry` returns a cross-industry list of spotlight ads.\n- Default pagination settings are `page` 1 and `limit` 20.\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [TikTok Ad Interactive Analysis](/model/tiktok/ads/ad-interactive-analysis): Returns audience retention and interaction analytics across video timestamps for a specified ad creative.\n- [TikTok Ad Keyframe Analysis](/model/tiktok/ads/ad-keyframe-analysis): Returns keyframe performance metrics across video ad timestamps for a specified material ID, including retention and conversion figures.\n- [TikTok Ad Material Percentile Rankings](/model/tiktok/ads/ad-percentile): Returns ad performance percentile rankings within the industry for a specific ad material.\n",
+  "page_url": "https://www.sandbase.ai/model/tiktok/ads/top-ads-spotlight",
+  "created_at": "2026-07-31T04:13:50.486Z"
+}

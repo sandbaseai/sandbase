@@ -1,0 +1,63 @@
+{
+  "name": "bilibili/app/popular-feed",
+  "display_name": "Bilibili App Popular Feed",
+  "type": "api",
+  "vendor": "Bilibili",
+  "vendor_slug": "bilibili",
+  "description": "Retrieves popular video feed items from the Bilibili app. Supports pagination through page index and previous video identifiers.",
+  "tags": [
+    "api",
+    "bilibili"
+  ],
+  "capabilities": [
+    "api",
+    "bilibili"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/bilibili/app/popular-feed"
+  },
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "idx": {
+        "type": "integer",
+        "title": "Idx",
+        "default": 1,
+        "description": "Page index (starting from 1)"
+      },
+      "last_param": {
+        "type": "string",
+        "title": "Last Param",
+        "description": "Last video ID from previous page (for pagination)"
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.0015,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "examples": [
+    {
+      "input": {},
+      "default": true
+    }
+  ],
+  "readme": "# Bilibili App Popular Feed API\n\nAccess popular trending video items on the Bilibili app. Use `idx` to specify the page index and `last_param` to handle pagination between result sets.\n\n## Use cases\n\n- Track trending and high-performing videos on the Bilibili app.\n- Display popular video recommendations in external dashboards.\n- Paginate through top video feeds for content discovery.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/bilibili/app/popular-feed\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `idx` | integer | No | Page index (starting from 1) |\n| `last_param` | string | No | Last video ID from previous page (for pagination) |\n\n## Example response\n\nReal response for the request above, trimmed to the main fields. User names and long IDs are masked.\n\n```json\n{\n  \"data\": [\n    {\n      \"card_type\": \"small_cover_v5\",\n      \"cover_right_text_1\": \"23:59\",\n      \"from_type\": \"recommend\",\n      \"right_desc_1\": \"小潮院长 等联合创作\",\n      \"right_desc_2\": \"223.2万观看 · 昨天 12:00\",\n      \"title\": \"惊惊惊惊惊惊惊惊了\"\n    }\n  ]\n}\n```\n\n## Notes\n\n- `idx` defines the page index starting from 1.\n- `last_param` accepts the last video ID from the previous page for pagination.\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [Bilibili App Bangumi Tab](/model/bilibili/app/bangumi-tab): Returns Bilibili app bangumi tab data, providing curated anime recommendations, feed items, and category listings for mobile clients.\n- [Bilibili App Cinema Tab](/model/bilibili/app/cinema-tab): Returns cinema tab content from the Bilibili app, featuring curated movies, TV shows, and entertainment recommendations without requiring additional query para…\n- [Bilibili App Home Feed](/model/bilibili/app/home-feed): Returns recommended video items from the Bilibili app home feed.\n",
+  "page_url": "https://www.sandbase.ai/model/bilibili/app/popular-feed",
+  "created_at": "2026-07-31T03:53:15.958Z"
+}

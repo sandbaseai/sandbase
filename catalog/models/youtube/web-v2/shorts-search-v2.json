@@ -1,0 +1,116 @@
+{
+  "name": "youtube/web-v2/shorts-search-v2",
+  "display_name": "YouTube Shorts Search (V2)",
+  "type": "api",
+  "vendor": "YouTube",
+  "vendor_slug": "youtube",
+  "description": "Searches for YouTube Shorts matching a query keyword. Results can be filtered by upload date and sorted by relevance, upload date, view count, or rating.",
+  "tags": [
+    "api",
+    "youtube"
+  ],
+  "capabilities": [
+    "api",
+    "youtube"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/youtube/web-v2/shorts-search-v2"
+  },
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "keyword": {
+        "anyOf": [
+          {
+            "type": "string",
+            "maxLength": 200
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "title": "Keyword",
+        "example": "OpenAI",
+        "description": "Search keyword (required for first request)"
+      },
+      "sort_by": {
+        "anyOf": [
+          {
+            "enum": [
+              "relevance",
+              "upload_date",
+              "view_count",
+              "rating"
+            ],
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "title": "Sort By",
+        "description": "Sort by - relevance/upload_date/view_count/rating"
+      },
+      "upload_date": {
+        "anyOf": [
+          {
+            "enum": [
+              "last_hour",
+              "today",
+              "this_week",
+              "this_month",
+              "this_year"
+            ],
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "title": "Upload Date",
+        "description": "Upload date filter - last_hour/today/this_week/this_month/this_year"
+      },
+      "continuation_token": {
+        "anyOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "title": "Continuation Token",
+        "description": "Pagination token (from previous response)"
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.003,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "examples": [
+    {
+      "input": {
+        "keyword": "OpenAI"
+      }
+    }
+  ],
+  "readme": "# YouTube Shorts Search (V2) API\n\nUse this endpoint to search YouTube Shorts videos by entering a `keyword`. You can also filter results by `upload_date` and adjust order with `sort_by`.\n\n## Use cases\n\n- Discover trending YouTube Shorts on specific topics.\n- Monitor newly posted short-form video content using date filters.\n- Track top-performing Shorts ranked by view count or rating.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/youtube/web-v2/shorts-search-v2\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `keyword` | string | No | Search keyword (required for first request) |\n| `sort_by` | string | No | Sort by - relevance/upload_date/view_count/rating |\n| `upload_date` | string | No | Upload date filter - last_hour/today/this_week/this_month/this_year |\n| `continuation_token` | string | No | Pagination token (from previous response) |\n\n## Notes\n\n- `keyword` is required for the initial query.\n- `sort_by` accepts relevance, upload_date, view_count, or rating.\n- Use `continuation_token` from a previous response to fetch the next page of results.\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [YouTube Channel Community Posts](/model/youtube/web-v2/channel-community-posts): Returns community posts from a specific YouTube channel, including text content, polls, votes, and comment counts.\n- [YouTube Channel Description](/model/youtube/web-v2/channel-description): Returns YouTube channel details including subscriber counts, video totals, view counts, joined date, and social links.\n- [YouTube Channel ID from URL](/model/youtube/web-v2/channel-id): Resolves a YouTube channel URL to its canonical channel ID.\n",
+  "page_url": "https://www.sandbase.ai/model/youtube/web-v2/shorts-search-v2",
+  "created_at": "2026-07-31T04:27:44.029Z"
+}

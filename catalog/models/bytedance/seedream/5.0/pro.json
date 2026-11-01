@@ -1,0 +1,168 @@
+{
+  "name": "bytedance/seedream/5.0/pro",
+  "display_name": "Seedream 5.0 Pro Text to Image",
+  "type": "image",
+  "vendor": "Bytedance",
+  "vendor_slug": "bytedance",
+  "description": "Seedream 5.0 Pro by Bytedance - generate stunning images from text prompts with state-of-the-art AI. Supports multiple aspect ratios, styles, and high-resolution output for creative and commercial use.",
+  "tags": [
+    "text-to-image"
+  ],
+  "capabilities": [
+    "text-to-image"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "prompt"
+    ],
+    "properties": {
+      "prompt": {
+        "type": "string",
+        "title": "Prompt",
+        "examples": [
+          "Vibrant editorial of a model in contemporary fashion fused with West African textile patterns and beadwork, Campbell Addy bold aesthetic, saturated palette, dramatic studio lighting, celebratory cultural richness, striking contemporary portraiture"
+        ],
+        "description": "The text prompt used to generate the image."
+      },
+      "num_images": {
+        "type": "integer",
+        "title": "Number of Images",
+        "default": 1,
+        "maximum": 1,
+        "minimum": 1,
+        "description": "The number of images to generate. Currently limited to 1."
+      },
+      "aspect_ratio": {
+        "enum": [
+          "21:9",
+          "16:9",
+          "3:2",
+          "4:3",
+          "5:4",
+          "1:1",
+          "4:5",
+          "3:4",
+          "2:3",
+          "9:16"
+        ],
+        "type": "string",
+        "title": "Aspect Ratio",
+        "description": "The aspect ratio of the generated 2K image. Defaults to 1:1."
+      },
+      "output_format": {
+        "enum": [
+          "jpeg",
+          "png"
+        ],
+        "type": "string",
+        "title": "Output Format",
+        "default": "jpeg",
+        "examples": [
+          "jpeg"
+        ],
+        "description": "The file format of the generated image."
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "title": "GenerationResponse",
+    "required": [
+      "id",
+      "status"
+    ],
+    "properties": {
+      "id": {
+        "type": "string",
+        "description": "Unique identifier for the generation task."
+      },
+      "error": {
+        "type": "string",
+        "description": "Error message if the task failed. Empty on success."
+      },
+      "model": {
+        "type": "string",
+        "description": "Model ID used for the prediction."
+      },
+      "status": {
+        "enum": [
+          "pending",
+          "running",
+          "completed",
+          "failed",
+          "timeout"
+        ],
+        "type": "string",
+        "description": "Status of the task: pending, running, completed, failed, or timeout."
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "title": "OutputItem",
+          "required": [
+            "url"
+          ],
+          "properties": {
+            "url": {
+              "type": "string",
+              "examples": [
+                "https://static.sandbase.ai/examples/bytedance/seedream/5.0/pro/output_url_0.png"
+              ],
+              "description": "The URL where the generated content can be downloaded from."
+            },
+            "content_type": {
+              "type": "string",
+              "description": "The MIME type of the output file."
+            }
+          }
+        },
+        "description": "Array of generated content. Empty when status is not completed."
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "formula",
+    "formula": "(params.num_images ?? 1) * 0.09",
+    "formula_variables": [
+      "params.num_images"
+    ],
+    "reference_price": 0.09,
+    "price_examples": [
+      {
+        "params": {
+          "num_images": 1
+        },
+        "usd": 0.09
+      }
+    ]
+  },
+  "examples": [
+    {
+      "input": {
+        "prompt": "Vibrant editorial of a model in contemporary fashion fused with West African textile patterns and beadwork, Campbell Addy bold aesthetic, saturated palette, dramatic studio lighting, celebratory cultural richness, striking contemporary portraiture"
+      },
+      "output": [
+        {
+          "url": "https://static.sandbase.ai/examples/f0d767a5-40ad-4e3b-9070-0ffae464190d/output/92a345ab-fee7-4a05-b40c-e1566fdc0d11.png"
+        }
+      ],
+      "default": true
+    }
+  ],
+  "readme": "# Seedream 5.0 Pro Text to Image\n\nSeedream 5.0 Pro is ByteDance's top image tier: photorealistic detail, dense layouts, and reliable Chinese and English text.\n\n## Fields\n\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `prompt` | string, required | — | Text instruction. |\n| `aspect_ratio` | `21:9` / `16:9` / `3:2` / `4:3` / `5:4` / `1:1` / `4:5` / `3:4` / `2:3` / `9:16` | — | Output shape. |\n| `num_images` | integer 1–1 | 1 | Fixed at 1. |\n| `output_format` | `jpeg` / `png` | `jpeg` | Output file format. |\n\n## Billing\n\n$0.09 per image.\n\n| Request | Price |\n|---|---|\n| One image | $0.09 |\n\nFailed runs are not charged.\n\n## Prompting\n\n- Write subject, layout, style, then light and color.\n- Quote any text that must appear.\n\n## Limits\n\n- One output image per request.\n\n## Also on SandBase\n\nOther Seedream endpoints: `bytedance/seedream/5.0/pro/edit`, `bytedance/seedream/5.0/lite`, `bytedance/seedream/5.0/lite/edit`, `bytedance/seedream/5.0/flash`, `bytedance/seedream/5.0/flash/edit`, `bytedance/seedream/4.5`, `bytedance/seedream/4.5/edit`.\n",
+  "cover_url": "https://static.sandbase.ai/covers/bytedance/seedream/5.0/pro/cover-flare-20261004191754.webp",
+  "page_url": "https://www.sandbase.ai/model/bytedance/seedream/5.0/pro",
+  "published_at": "2026-07-08T13:18:11.843Z",
+  "created_at": "2026-07-11T02:10:24.106Z"
+}

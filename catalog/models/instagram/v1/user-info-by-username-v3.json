@@ -1,0 +1,63 @@
+{
+  "name": "instagram/v1/user-info-by-username-v3",
+  "display_name": "Instagram User Profile by Username (V3)",
+  "type": "api",
+  "vendor": "Instagram",
+  "vendor_slug": "instagram",
+  "description": "Returns detailed Instagram user account information, including bio links, by querying an account handle.",
+  "tags": [
+    "api",
+    "instagram"
+  ],
+  "capabilities": [
+    "api",
+    "instagram"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/instagram/v1/user-info-by-username-v3"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "username"
+    ],
+    "properties": {
+      "username": {
+        "type": "string",
+        "title": "Username",
+        "example": "instagram",
+        "description": "Instagram username"
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.0015,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "examples": [
+    {
+      "input": {
+        "username": "instagram"
+      },
+      "default": true
+    }
+  ],
+  "readme": "# Instagram User Profile by Username (V3) API\n\nRetrieve detailed Instagram user profile data by supplying an account handle via the `username` parameter.\n\n## Use cases\n\n- Inspect bio links and external URLs attached to an Instagram profile.\n- Retrieve public profile details for a specific Instagram username.\n- Verify public Instagram account handles and link metadata.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/instagram/v1/user-info-by-username-v3\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"username\": \"instagram\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `username` | string | Yes | Instagram username |\n\n## Example response\n\nReal response for the request above, trimmed to the main fields. User names and long IDs are masked.\n\n```json\n{\n  \"bio_links\": [\n    {\n      \"link_type\": \"external\",\n      \"lynx_url\": \"https://l.instagram.com/?u=https%3A%2F%2Fhelp.instagram.com%2F&e=AUDPRoUBv2LXTt2…\",\n      \"media_type\": \"none\",\n      \"url\": \"http://help.instagram.com\"\n    }\n  ]\n}\n```\n\n## Notes\n\n- Pass the target Instagram account handle into `username` without the leading @ symbol.\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [Instagram Cities by Country](/model/instagram/v1/cities): Returns a list of Instagram cities and regions for a specified country code.\n- [Instagram Hashtag Posts (V1)](/model/instagram/v1/hashtag-posts): Returns public Instagram posts associated with a specific hashtag.\n- [Instagram Location Details (V1)](/model/instagram/v1/location-info): Returns detailed metadata and profile information for a specified Instagram location using its unique identifier.\n",
+  "page_url": "https://www.sandbase.ai/model/instagram/v1/user-info-by-username-v3",
+  "created_at": "2026-07-31T03:55:24.861Z"
+}

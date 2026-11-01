@@ -1,0 +1,107 @@
+{
+  "name": "scholar/search-mixed",
+  "display_name": "Scholar Smart Search",
+  "type": "api",
+  "vendor": "Scholar",
+  "vendor_slug": "scholar",
+  "description": "Returns scholarly and academic search results matching a query. Supports filtering by publication year range and limiting the total number of returned entries.",
+  "tags": [
+    "academic-search",
+    "web-search"
+  ],
+  "capabilities": [
+    "academic-search",
+    "web-search"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/scholar/search-mixed"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "query"
+    ],
+    "properties": {
+      "query": {
+        "type": "string",
+        "title": "Query",
+        "example": "OpenAI",
+        "description": "Search query for scholarly materials."
+      },
+      "as_yhi": {
+        "type": "integer",
+        "title": "Year To",
+        "maximum": 2030,
+        "minimum": 1900,
+        "description": "Year of publication upper bound."
+      },
+      "as_ylo": {
+        "type": "integer",
+        "title": "Year From",
+        "maximum": 2030,
+        "minimum": 1900,
+        "description": "Year of publication lower bound."
+      },
+      "max_num_results": {
+        "type": "integer",
+        "title": "Max Results",
+        "maximum": 100,
+        "minimum": 1,
+        "description": "Maximum number of search results to return, up to 100."
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "properties": {
+      "results": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "url": {
+              "type": "string"
+            },
+            "title": {
+              "type": "string"
+            },
+            "source": {
+              "type": "string"
+            },
+            "snippet": {
+              "type": "string"
+            }
+          }
+        },
+        "description": "Combined web and academic search results."
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.0036,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "examples": [
+    {
+      "input": {
+        "max_num_results": 15,
+        "query": "ferroelectric control of chiral phonons"
+      }
+    }
+  ],
+  "readme": "# Scholar Smart Search API\n\nSearch for academic and web materials using `query`. You can also filter publication dates with `as_ylo` and `as_yhi`.\n\n## Use cases\n\n- Find academic papers and scholarly articles by topic.\n- Filter scholarly search results within specific publication years.\n- Retrieve relevant research paper links and snippets for automated review.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/scholar/search-mixed\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"query\": \"OpenAI\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `query` | string | Yes | Search query for scholarly materials. |\n| `as_yhi` | integer | No | Year of publication upper bound. |\n| `as_ylo` | integer | No | Year of publication lower bound. |\n| `max_num_results` | integer | No | Maximum number of search results to return, up to 100. |\n\n## Example response\n\nReal response for the request above, trimmed to the main fields. User names and long IDs are masked.\n\n```json\n{\n  \"results\": [\n    {\n      \"link\": \"https://www.mdpi.com/1999-5903/15/6/192\",\n      \"snippet\": \"According to numerous reports, ChatGPT represents a significant breakthrough in the field…\",\n      \"title\": \"Chatgpt and open-ai models: A preliminary review\"\n    }\n  ]\n}\n```\n\n## Notes\n\n- `max_num_results` accepts a value up to 100.\n- Use `as_ylo` and `as_yhi` to specify lower and upper bounds for publication years.\n\n## Pricing\n\nFlat price per call. Failed calls are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/scholar/search-mixed",
+  "published_at": "2024-01-01T00:00:00Z",
+  "created_at": "2026-08-09T12:37:26.045Z"
+}

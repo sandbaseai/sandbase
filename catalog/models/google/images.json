@@ -1,0 +1,114 @@
+{
+  "name": "google/images",
+  "display_name": "Google Images",
+  "type": "api",
+  "vendor": "Google",
+  "vendor_slug": "google",
+  "description": "Run a Google Images search and get structured results: image URLs, dimensions, titles, and source pages.",
+  "tags": [
+    "api",
+    "google",
+    "social-media"
+  ],
+  "capabilities": [
+    "api",
+    "google",
+    "social-media"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/google/images"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "query"
+    ],
+    "properties": {
+      "gl": {
+        "type": "string",
+        "default": "us",
+        "example": "us",
+        "description": "Two-letter country code for result localization (e.g. us, gb, de)."
+      },
+      "hl": {
+        "type": "string",
+        "default": "en",
+        "example": "en",
+        "description": "Two-letter interface and results language code (e.g. en, es, de)."
+      },
+      "limit": {
+        "type": "integer",
+        "default": 20,
+        "example": 5,
+        "maximum": 100,
+        "minimum": 1,
+        "description": "Maximum number of images to return (1-100, default 20). Requests for 10 results or fewer are billed at a lower rate than larger requests."
+      },
+      "query": {
+        "type": "string",
+        "example": "golden retriever",
+        "description": "Image search query (e.g. golden gate bridge at sunset)."
+      },
+      "location": {
+        "type": "string",
+        "description": "Fine-grained location for result localization, given as a canonical Google location string (e.g. 'New York, United States', 'London, United Kingdom'). More specific than the country-level gl."
+      },
+      "timeframe": {
+        "enum": [
+          "1h",
+          "1d",
+          "7d",
+          "1y",
+          "all"
+        ],
+        "type": "string",
+        "description": "Restrict results to a recent time window: 1h, 1d, 7d, 1y, or all. Default all (no time restriction)."
+      },
+      "autocorrect": {
+        "type": "boolean",
+        "description": "Toggle Google spelling autocorrect (default true). Set false to search the exact query without correction."
+      }
+    },
+    "additionalProperties": false
+  },
+  "response_schema": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string"
+      },
+      "model": {
+        "type": "string"
+      },
+      "status": {
+        "type": "string"
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "data": {
+              "type": "object",
+              "description": "Normalized result for this request."
+            }
+          }
+        }
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "usage_based",
+    "note": "Billed per call from metered usage; the reference price is typical.",
+    "reference_price": 0.00085
+  },
+  "readme": "# Google Images API\n\nRun a Google Images search and get structured results: image URLs, dimensions, titles, and source pages.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/google/images\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"gl\": \"us\", \"hl\": \"en\", \"limit\": 5, \"query\": \"golden retriever\"}'\n```\n\nThe result is returned in `outputs[0].data`. A lookup that finds nothing still succeeds and returns `found: false`.\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `query` | string | Yes | Image search query (e.g. golden gate bridge at sunset). |\n| `autocorrect` | boolean | No | Toggle Google spelling autocorrect (default true). Set false to search the exact query without correction. |\n| `gl` | string | No | Two-letter country code for result localization (e.g. us, gb, de). Default `\"us\"`. |\n| `hl` | string | No | Two-letter interface and results language code (e.g. en, es, de). Default `\"en\"`. |\n| `limit` | integer | No | Maximum number of images to return (1-100, default 20). Requests for 10 results or fewer are billed at a lower rate than larger requests. |\n| `location` | string | No | Fine-grained location for result localization, given as a canonical Google location string (e.g. 'New York, United States', 'London, United Kingdom'). More specific than the country-level gl. |\n| `timeframe` | string | No | Restrict results to a recent time window: 1h, 1d, 7d, 1y, or all. Default all (no time restriction). One of: `1h`, `1d`, `7d`, `1y`, `all`. |\n\n## Pricing\n\nBilled at the actual cost of each call, usually $0.00085 per request. A call can cost more when the first data source fails and another one answers. Failed calls are not charged. Lookups that find nothing and searches with no results are billed at their actual cost, which is often lower and can be $0.\n",
+  "page_url": "https://www.sandbase.ai/model/google/images",
+  "created_at": "2026-11-01T12:13:01.74Z"
+}

@@ -1,0 +1,43 @@
+{
+  "name": "z-ai/glm-5.3-flashx",
+  "display_name": "Z.ai: GLM 5.3 FlashX",
+  "type": "llm",
+  "vendor": "Z-Ai",
+  "vendor_slug": "z-ai",
+  "description": "GLM-5.3-FlashX is the high-speed tier of Z.ai's GLM-5.3-Flash, documented together with Flash and delivering inference speeds of up to 200 tokens per second. It shares Flash's native multimodal design and hybrid sparse-plus-linear attention, with image, video and file input, always-on reasoning, tool calling and structured output. Pick it over standard Flash for latency-sensitive coding agents, GUI and browser tasks, and interactive chat.",
+  "tags": [
+    "chat",
+    "vision",
+    "reasoning",
+    "structured_output",
+    "function_calling"
+  ],
+  "capabilities": [
+    "chat",
+    "vision",
+    "reasoning",
+    "structured_output",
+    "function_calling"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "chat_completions": "POST /v1/chat/completions",
+    "responses": "POST /v1/responses",
+    "messages": "POST /v1/messages"
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_token",
+    "per_million_tokens": {
+      "input": 0.37,
+      "output": 1.25,
+      "cache_read_multiplier": 0.2432
+    }
+  },
+  "page_url": "https://www.sandbase.ai/model/z-ai/glm-5.3-flashx",
+  "published_at": "2026-09-18T15:07:00Z",
+  "created_at": "2026-10-03T04:21:07.385Z"
+}

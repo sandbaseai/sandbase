@@ -1,0 +1,160 @@
+{
+  "name": "alibaba/wan/2.2/animate/replace",
+  "display_name": "Wan 2.2 Animate Replace",
+  "type": "video",
+  "vendor": "Alibaba",
+  "vendor_slug": "alibaba",
+  "description": "Wan 2.2 Animate Replace replaces the person in the reference video with the character from the image.",
+  "tags": [
+    "video-to-video"
+  ],
+  "capabilities": [
+    "video-to-video"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "image",
+      "video"
+    ],
+    "properties": {
+      "seed": {
+        "type": "integer",
+        "title": "Seed",
+        "maximum": 2147483647,
+        "minimum": 0,
+        "description": "Random seed for reproducibility."
+      },
+      "image": {
+        "type": "string",
+        "title": "Image",
+        "examples": [
+          "https://static.sandbase.ai/examples/alibaba/wan/2.2/animate/replace/input_image_0.png"
+        ],
+        "description": "Input image URL (face / character)."
+      },
+      "video": {
+        "type": "string",
+        "title": "Video",
+        "examples": [
+          "https://static.sandbase.ai/examples/alibaba/wan/2.2/animate/replace/input_video_1.mp4"
+        ],
+        "description": "Reference video."
+      },
+      "use_turbo": {
+        "type": "boolean",
+        "title": "Turbo",
+        "default": false,
+        "description": "Faster generation with quality enhancement."
+      },
+      "resolution": {
+        "enum": [
+          "480p",
+          "580p",
+          "720p"
+        ],
+        "type": "string",
+        "title": "Resolution",
+        "default": "720p",
+        "description": "Output resolution."
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "title": "GenerationResponse",
+    "required": [
+      "id",
+      "status"
+    ],
+    "properties": {
+      "id": {
+        "type": "string",
+        "description": "Unique identifier for the generation task."
+      },
+      "error": {
+        "type": "string",
+        "description": "Error message if the task failed. Empty on success."
+      },
+      "model": {
+        "type": "string",
+        "description": "Model ID used for the prediction."
+      },
+      "status": {
+        "enum": [
+          "pending",
+          "running",
+          "completed",
+          "failed",
+          "timeout"
+        ],
+        "type": "string",
+        "description": "Status of the task: pending, running, completed, failed, or timeout."
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "title": "OutputItem",
+          "required": [
+            "url"
+          ],
+          "properties": {
+            "url": {
+              "type": "string",
+              "examples": [
+                "https://static.sandbase.ai/examples/alibaba/wan/2.2/animate/replace/output_url_2.mp4"
+              ],
+              "description": "The URL where the generated content can be downloaded from."
+            },
+            "content_type": {
+              "type": "string",
+              "description": "The MIME type of the output file."
+            }
+          }
+        },
+        "description": "Array of generated content. Empty when status is not completed."
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "formula",
+    "formula": "((usage.duration ?? media_duration(params.video) ?? 5.0) * (usage.fps ?? 30.0) / 16.0) * ((params.resolution ?? \"720p\") == \"720p\" ? 0.08 : (params.resolution ?? \"720p\") == \"580p\" ? 0.06 : 0.04)",
+    "formula_variables": [
+      "params.resolution",
+      "params.video",
+      "usage.duration",
+      "usage.fps"
+    ],
+    "reference_price": 0.75
+  },
+  "examples": [
+    {
+      "input": {
+        "image": "https://static.sandbase.ai/examples/874ae93a-9288-40dc-b214-6c73426b2d22/input/e9a4fdfa-de1e-494c-a286-70452a235cf1.png",
+        "video": "https://static.sandbase.ai/examples/874ae93a-9288-40dc-b214-6c73426b2d22/input/c93e1785-2391-4b49-805a-bd2bfe345c93.mp4"
+      },
+      "output": [
+        {
+          "poster": "https://static.sandbase.ai/examples/posters/4d5a028d71443e685f77.jpg",
+          "url": "https://static.sandbase.ai/examples/874ae93a-9288-40dc-b214-6c73426b2d22/output/a33829fd-db96-4b56-9675-74ed689de1e0.mp4"
+        }
+      ],
+      "default": true
+    }
+  ],
+  "readme": "# Wan 2.2 Animate Replace\n\nSwap the person in a reference `video` for the character in `image`. Motion, camera, and scene come from the video; the new character's look comes from the picture, relit to fit the scene.\n\n## Fields\n\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `image` | image URL, required | — | Character image. JPEG, PNG, or WebP URL. |\n| `video` | video URL, required | — | Reference video that supplies the motion. |\n| `resolution` | `480p` / `580p` / `720p` | `720p` | Sets the rate. |\n| `use_turbo` | boolean | false | Faster generation at some quality cost. |\n| `seed` | integer 0–2147483647 | random | Fix it to compare prompt changes. |\n\n## Billing\n\nBilling follows the upstream unit: output seconds counted at 16 frames per second, so a 30fps output bills about 1.9× its wall-clock length. Rates per counted second: $0.04 at 480p, $0.06 at 580p, $0.08 at 720p. The quote before submission assumes a 5-second, 30fps result; the final charge uses the measured output.\n\n| Output | 480p | 580p | 720p |\n|---|---|---|---|\n| 5s at 30fps | $0.375 | $0.5625 | $0.75 |\n| 10s at 30fps | $0.75 | $1.125 | $1.50 |\n| 10s at 16fps | $0.40 | $0.60 | $0.80 |\n\nFailed runs are not charged.\n\n## Prompting\n\n- Match the character image's pose and framing to the person in the video where possible.\n- Avoid videos with several people overlapping the subject.\n\n## Limits\n\n- Output length follows the reference video.\n\n## Also on SandBase\n\nOther Wan 2.2 endpoints: `alibaba/wan/2.2/animate/move`, `alibaba/wan/2.2/speech-to-video`.\n",
+  "cover_url": "https://static.sandbase.ai/covers/alibaba/wan/2.2/animate/replace/cover-flare-20261008040429.webp",
+  "page_url": "https://www.sandbase.ai/model/alibaba/wan/2.2/animate/replace",
+  "published_at": "2025-09-21T22:34:12.372Z",
+  "created_at": "2026-05-15T03:28:47.94Z"
+}

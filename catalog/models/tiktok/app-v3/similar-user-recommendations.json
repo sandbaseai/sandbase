@@ -1,0 +1,68 @@
+{
+  "name": "tiktok/app-v3/similar-user-recommendations",
+  "display_name": "TikTok Similar User Recommendations",
+  "type": "api",
+  "vendor": "TikTok",
+  "vendor_slug": "tiktok",
+  "description": "Returns recommended similar user profiles for a target TikTok account based on its secure user identifier, with support for cursor-based pagination.",
+  "tags": [
+    "api",
+    "tiktok"
+  ],
+  "capabilities": [
+    "api",
+    "tiktok"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/tiktok/app-v3/similar-user-recommendations"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "sec_uid"
+    ],
+    "properties": {
+      "sec_uid": {
+        "type": "string",
+        "title": "Sec Uid",
+        "example": "MS4wLjABAAAAv7iSuuXDJGDvJkmH_vz1qkDZYo1apxgzaxdBSeIuPiM",
+        "description": "User sec_uid"
+      },
+      "page_token": {
+        "type": "string",
+        "title": "Page Token",
+        "description": "Page token, not required for the first request, for subsequent requests, pass the next_page_token value from the previous response."
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.0015,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "examples": [
+    {
+      "input": {
+        "sec_uid": "MS4wLjABAAAA2_YTgxz3kLb2XoyC3xOXnosim3gdiqMtFHnjRvckabZJFQ40XBOVttDCiB5cwa3b"
+      },
+      "default": true
+    }
+  ],
+  "readme": "# TikTok Similar User Recommendations API\n\nUse this endpoint to look up accounts similar to a target TikTok profile using its `sec_uid` parameter. Subsequent batches can be retrieved by providing the `page_token`.\n\n## Use cases\n\n- Discover comparable creators within the same niche or topic.\n- Expand influencer research by finding related TikTok accounts.\n- Analyze audience overlap and creator recommendation clusters.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/tiktok/app-v3/similar-user-recommendations\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"sec_uid\": \"MS4wLjABAAAAv7iSuuXDJGDvJkmH_vz1qkDZYo1apxgzaxdBSeIuPiM\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `sec_uid` | string | Yes | User sec_uid |\n| `page_token` | string | No | Page token, not required for the first request, for subsequent requests, pass the next_page_token value from the previous response. |\n\n## Example response\n\nReal response for the request above, trimmed to the main fields. User names and long IDs are masked.\n\n```json\n{\n  \"users\": [\n    {\n      \"apple_account\": 0,\n      \"authority_status\": 0,\n      \"aweme_count\": 448,\n      \"comment_filter_status\": 0,\n      \"create_time\": 1734207833,\n      \"favoriting_count\": 1105,\n      \"fb_expire_time\": 0,\n      \"follow_status\": 0,\n      \"follower_count\": 888639,\n      \"follower_status\": 0,\n      \"matched_friend\": {\n        \"face_cover_num\": 0,\n        \"friend_relation_type\": 0,\n        \"label_type\": \"5-0\",\n        \"rec_type\": \"5-0\",\n        \"relation_type\": \"43\"\n      },\n      \"original_musician\": {\n        \"digg_count\": 0,\n        \"music_count\": 0,\n        \"music_used_count\": 0\n      }\n    }\n  ]\n}\n```\n\n## Notes\n\n- Requires the target user's `sec_uid`.\n- For subsequent requests, pass the previous response's next page token into `page_token`.\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [TikTok LIVE Status](/model/tiktok/app-v3/check-live-room-online): Check whether a TikTok LIVE room is currently live by room ID.\n- [TikTok Room Online Status Batch](/model/tiktok/app-v3/check-live-room-online-batch): Returns the online availability status for multiple TikTok broadcast rooms in a single request.\n- [TikTok Content Translation](/model/tiktok/app-v3/content-translate): Translates provided text content into a designated target language.\n",
+  "page_url": "https://www.sandbase.ai/model/tiktok/app-v3/similar-user-recommendations",
+  "created_at": "2026-07-31T04:15:04.077Z"
+}

@@ -1,0 +1,72 @@
+{
+  "name": "getapp/category-leaders",
+  "display_name": "GetApp Category Leaders",
+  "type": "api",
+  "vendor": "GetApp",
+  "vendor_slug": "getapp",
+  "description": "Retrieve the category page data including top-ranked software products, buyers guide content, facets, and pagination for a given category.",
+  "tags": [
+    "api",
+    "getapp",
+    "company-people"
+  ],
+  "capabilities": [
+    "api",
+    "getapp",
+    "company-people"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}",
+    "passthrough": "POST /v1/api/getapp/category-leaders"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "category_slug"
+    ],
+    "properties": {
+      "category_slug": {
+        "type": "string",
+        "example": "customer-management-software/crm",
+        "description": "Category URL path segment without leading/trailing slashes (e.g. 'customer-management-software/crm'). Same format as list_software_by_category."
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "required": [
+      "id",
+      "status",
+      "model"
+    ],
+    "properties": {
+      "id": {
+        "type": "string"
+      },
+      "model": {
+        "type": "string"
+      },
+      "status": {
+        "type": "string"
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.01,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "readme": "# GetApp Category Leaders\n\nRetrieve the category page data including top-ranked software products, buyers guide content, facets, and pagination for a given category.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/getapp/category-leaders\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"category_slug\": \"customer-management-software/crm\"}'\n```\n\nThis API runs asynchronously. The call returns a task `id` with status `pending`; poll `GET https://api.sandbase.ai/v1/run/{id}` until `status` is `completed` and read the result from `outputs[0].data`.\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `category_slug` | string | Yes | Category URL path segment without leading/trailing slashes (e.g. 'customer-management-software/crm'). Same format as list_software_by_category. |\n\n## Pricing\n\nFlat price per call. Failed calls are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/getapp/category-leaders",
+  "created_at": "2026-10-30T09:20:48.772Z"
+}

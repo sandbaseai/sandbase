@@ -1,0 +1,368 @@
+{
+  "name": "google/gemini-3.1-flash-tts",
+  "display_name": "Gemini 3.1 Flash Tts",
+  "type": "audio",
+  "vendor": "Google",
+  "vendor_slug": "google",
+  "description": "Gemini 3.1 Flash Tts by Google - convert text to natural-sounding speech with AI. Supports multiple voices, languages, emotions, and speaking styles for content creation and accessibility.",
+  "tags": [
+    "text-to-speech"
+  ],
+  "capabilities": [
+    "text-to-speech"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "prompt"
+    ],
+    "properties": {
+      "voice": {
+        "enum": [
+          "Achernar",
+          "Achird",
+          "Algenib",
+          "Algieba",
+          "Alnilam",
+          "Aoede",
+          "Autonoe",
+          "Callirrhoe",
+          "Charon",
+          "Despina",
+          "Enceladus",
+          "Erinome",
+          "Fenrir",
+          "Gacrux",
+          "Iapetus",
+          "Kore",
+          "Laomedeia",
+          "Leda",
+          "Orus",
+          "Pulcherrima",
+          "Puck",
+          "Rasalgethi",
+          "Sadachbia",
+          "Sadaltager",
+          "Schedar",
+          "Sulafat",
+          "Umbriel",
+          "Vindemiatrix",
+          "Zephyr",
+          "Zubenelgenubi"
+        ],
+        "type": "string",
+        "title": "Voice",
+        "default": "Kore",
+        "description": "Voice preset for single-speaker synthesis. 30 distinct voices are available. Ignored when speakers is set. Popular choices: Kore (strong, firm female), Puck (upbeat, lively male), Charon (calm, professional male), Zephyr (bright, clear female), Aoede (warm, melodic female)."
+      },
+      "prompt": {
+        "type": "string",
+        "title": "Prompt",
+        "examples": [
+          "I can't believe it worked! [laughing] After all those hours of debugging [sigh] it was just a missing semicolon."
+        ],
+        "maxLength": 50000,
+        "minLength": 1,
+        "description": "The text to convert to speech. Gemini 3.1 Flash TTS supports natural-language prompting for style, pace, accent, and emotional expression — include delivery instructions inline with the text (e.g. 'Say cheerfully: Have a wonderful day!'). Supports expressive audio tags like [sigh], [laughing], [whispering], [short pause] for fine-grained control over delivery. For multi-speaker synthesis, prefix lines with speaker aliases defined in the speakers field (e.g. 'Alice: Hello!\\nBob: Hi!')."
+      },
+      "speakers": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "required": [
+            "voice",
+            "speaker_id"
+          ],
+          "properties": {
+            "voice": {
+              "enum": [
+                "Achernar",
+                "Achird",
+                "Algenib",
+                "Algieba",
+                "Alnilam",
+                "Aoede",
+                "Autonoe",
+                "Callirrhoe",
+                "Charon",
+                "Despina",
+                "Enceladus",
+                "Erinome",
+                "Fenrir",
+                "Gacrux",
+                "Iapetus",
+                "Kore",
+                "Laomedeia",
+                "Leda",
+                "Orus",
+                "Pulcherrima",
+                "Puck",
+                "Rasalgethi",
+                "Sadachbia",
+                "Sadaltager",
+                "Schedar",
+                "Sulafat",
+                "Umbriel",
+                "Vindemiatrix",
+                "Zephyr",
+                "Zubenelgenubi"
+              ],
+              "type": "string",
+              "title": "Voice",
+              "description": "Voice preset for this speaker."
+            },
+            "speaker_id": {
+              "type": "string",
+              "title": "Speaker Id",
+              "examples": [
+                "Speaker1",
+                "Alice",
+                "Narrator"
+              ],
+              "description": "Alias used to identify this speaker in the prompt. Use this alias as a prefix in the prompt field, e.g. 'Alice: Hello! Bob: Hi there!'. Must be alphanumeric with no whitespace."
+            }
+          }
+        },
+        "title": "Speakers",
+        "examples": [
+          {
+            "voice": "Charon",
+            "speaker_id": "Host"
+          },
+          {
+            "voice": "Kore",
+            "speaker_id": "DrChen"
+          }
+        ],
+        "description": "Multi-speaker voice configuration. When set, enables multi-speaker synthesis where different parts of the text are spoken by different voices. Each speaker needs a voice and a speaker_id (alias) that matches prefixes in the prompt."
+      },
+      "temperature": {
+        "type": "number",
+        "title": "Temperature",
+        "default": 1,
+        "maximum": 2,
+        "minimum": 0,
+        "description": "Controls the randomness of the speech output. Higher values produce more creative and varied delivery, while lower values make the output more predictable and focused."
+      },
+      "language_code": {
+        "enum": [
+          "Arabic (Egypt)",
+          "Bangla (Bangladesh)",
+          "Dutch (Netherlands)",
+          "English (India)",
+          "English (US)",
+          "French (France)",
+          "German (Germany)",
+          "Hindi (India)",
+          "Indonesian (Indonesia)",
+          "Italian (Italy)",
+          "Japanese (Japan)",
+          "Korean (South Korea)",
+          "Marathi (India)",
+          "Polish (Poland)",
+          "Portuguese (Brazil)",
+          "Romanian (Romania)",
+          "Russian (Russia)",
+          "Spanish (Spain)",
+          "Tamil (India)",
+          "Telugu (India)",
+          "Thai (Thailand)",
+          "Turkish (Turkey)",
+          "Ukrainian (Ukraine)",
+          "Vietnamese (Vietnam)",
+          "Afrikaans (South Africa)",
+          "Albanian (Albania)",
+          "Amharic (Ethiopia)",
+          "Arabic (World)",
+          "Armenian (Armenia)",
+          "Azerbaijani (Azerbaijan)",
+          "Basque (Spain)",
+          "Belarusian (Belarus)",
+          "Bulgarian (Bulgaria)",
+          "Burmese (Myanmar)",
+          "Catalan (Spain)",
+          "Cebuano (Philippines)",
+          "Chinese Mandarin (China)",
+          "Chinese Mandarin (Taiwan)",
+          "Croatian (Croatia)",
+          "Czech (Czech Republic)",
+          "Danish (Denmark)",
+          "English (Australia)",
+          "English (UK)",
+          "Estonian (Estonia)",
+          "Filipino (Philippines)",
+          "Finnish (Finland)",
+          "French (Canada)",
+          "Galician (Spain)",
+          "Georgian (Georgia)",
+          "Greek (Greece)",
+          "Gujarati (India)",
+          "Haitian Creole (Haiti)",
+          "Hebrew (Israel)",
+          "Hungarian (Hungary)",
+          "Icelandic (Iceland)",
+          "Javanese (Java)",
+          "Kannada (India)",
+          "Konkani (India)",
+          "Lao (Laos)",
+          "Latin (Vatican City)",
+          "Latvian (Latvia)",
+          "Lithuanian (Lithuania)",
+          "Luxembourgish (Luxembourg)",
+          "Macedonian (North Macedonia)",
+          "Maithili (India)",
+          "Malagasy (Madagascar)",
+          "Malay (Malaysia)",
+          "Malayalam (India)",
+          "Mongolian (Mongolia)",
+          "Nepali (Nepal)",
+          "Norwegian Bokmal (Norway)",
+          "Norwegian Nynorsk (Norway)",
+          "Odia (India)",
+          "Pashto (Afghanistan)",
+          "Persian (Iran)",
+          "Portuguese (Portugal)",
+          "Punjabi (India)",
+          "Serbian (Serbia)",
+          "Sindhi (India)",
+          "Sinhala (Sri Lanka)",
+          "Slovak (Slovakia)",
+          "Slovenian (Slovenia)",
+          "Spanish (Latin America)",
+          "Spanish (Mexico)",
+          "Swahili (Kenya)",
+          "Swedish (Sweden)",
+          "Urdu (Pakistan)"
+        ],
+        "type": "string",
+        "title": "Language Code",
+        "examples": [
+          "English (US)",
+          "French (France)",
+          "Japanese (Japan)"
+        ],
+        "description": "Language for multilingual synthesis. When set, steers the model to speak in the specified language. If not set, the model auto-detects the language from the text."
+      },
+      "output_format": {
+        "enum": [
+          "wav",
+          "mp3",
+          "ogg_opus"
+        ],
+        "type": "string",
+        "title": "Output Format",
+        "default": "mp3",
+        "description": "Audio output format. mp3: compressed, small file size (recommended). wav: uncompressed PCM wrapped in WAV (24 kHz, 16-bit mono). ogg_opus: Ogg container with Opus codec, good quality-to-size ratio."
+      },
+      "style_instructions": {
+        "type": "string",
+        "title": "Style Instructions",
+        "examples": [
+          "Say the following in a warm, conversational tone",
+          "Read this as a dramatic newscast with gravitas",
+          "Speak with a British accent, cheerfully and energetically"
+        ],
+        "maxLength": 4000,
+        "description": "Optional style and delivery instructions prepended to the prompt. Controls expressiveness, accent, pace, tone, and emotional expression using natural language. Use this to separate style control from the text content. Examples: 'Speak warmly and slowly', 'Read this as a dramatic newscast', 'Use a British accent with a cheerful tone', 'Whisper mysteriously'."
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "title": "GenerationResponse",
+    "required": [
+      "id",
+      "status"
+    ],
+    "properties": {
+      "id": {
+        "type": "string",
+        "description": "Unique identifier for the generation task."
+      },
+      "error": {
+        "type": "string",
+        "description": "Error message if the task failed. Empty on success."
+      },
+      "model": {
+        "type": "string",
+        "description": "Model ID used for the prediction."
+      },
+      "status": {
+        "enum": [
+          "pending",
+          "running",
+          "completed",
+          "failed",
+          "timeout"
+        ],
+        "type": "string",
+        "description": "Status of the task: pending, running, completed, failed, or timeout."
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "title": "OutputItem",
+          "required": [
+            "url"
+          ],
+          "properties": {
+            "url": {
+              "type": "string",
+              "examples": [
+                "https://static.sandbase.ai/examples/google/gemini-3.1-flash-tts/output_url_0.mp3"
+              ],
+              "description": "The URL where the generated content can be downloaded from."
+            },
+            "content_type": {
+              "type": "string",
+              "description": "The MIME type of the output file."
+            }
+          }
+        },
+        "description": "Array of generated content. Empty when status is not completed."
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "formula",
+    "formula": "Math.max(1.0, Math.ceil(len(params.prompt ?? \"\") / 1000.0)) * 0.05",
+    "formula_variables": [
+      "params.prompt"
+    ],
+    "reference_price": 0.05,
+    "price_examples": [
+      {
+        "params": {},
+        "usd": 0.05
+      }
+    ]
+  },
+  "examples": [
+    {
+      "input": {
+        "prompt": "I can't believe it worked! [laughing] After all those hours of debugging [sigh] it was just a missing semicolon."
+      },
+      "output": [
+        {
+          "url": "https://static.sandbase.ai/examples/e7575998-bce2-4672-aed0-88c87fc285b2/output/1f0aa4fe-444d-4005-9acc-73ff66b324f5.mp3"
+        }
+      ],
+      "default": true
+    }
+  ],
+  "readme": "# Gemini 3.1 Flash Tts\n\nGemini 3.1 Flash TTS speaks text in dozens of languages with 30 prebuilt voices, and supports two-speaker dialogue through `speakers`. Steer tone and pace with `style_instructions`.\n\n## Fields\n\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `prompt` | string, required | — | Text to speak. For dialogue, prefix lines with the speaker names defined in `speakers`. |\n| `output_format` | `wav` / `mp3` / `ogg_opus` | `mp3` | Output file format. |\n| `temperature` | number 0–2 | 1 | Higher values give more varied delivery. |\n| `speakers` | object[] | — | Optional speaker-to-voice list for multi-speaker dialogue. |\n| `language_code` | `Arabic (Egypt)` / `Bangla (Bangladesh)` / `Dutch (Netherlands)` / `English (India)` / `English (US)` / `French (France)` / `German (Germany)` / `Hindi (India)` / `Indonesian (Indonesia)` / `Italian (Italy)` / `Japanese (Japan)` / `Korean (South Korea)` / `Marathi (India)` / `Polish (Poland)` / `Portuguese (Brazil)` / `Romanian (Romania)` / `Russian (Russia)` / `Spanish (Spain)` / `Tamil (India)` / `Telugu (India)` / `Thai (Thailand)` / `Turkish (Turkey)` / `Ukrainian (Ukraine)` / `Vietnamese (Vietnam)` / `Afrikaans (South Africa)` / `Albanian (Albania)` / `Amharic (Ethiopia)` / `Arabic (World)` / `Armenian (Armenia)` / `Azerbaijani (Azerbaijan)` / `Basque (Spain)` / `Belarusian (Belarus)` / `Bulgarian (Bulgaria)` / `Burmese (Myanmar)` / `Catalan (Spain)` / `Cebuano (Philippines)` / `Chinese Mandarin (China)` / `Chinese Mandarin (Taiwan)` / `Croatian (Croatia)` / `Czech (Czech Republic)` / `Danish (Denmark)` / `English (Australia)` / `English (UK)` / `Estonian (Estonia)` / `Filipino (Philippines)` / `Finnish (Finland)` / `French (Canada)` / `Galician (Spain)` / `Georgian (Georgia)` / `Greek (Greece)` / `Gujarati (India)` / `Haitian Creole (Haiti)` / `Hebrew (Israel)` / `Hungarian (Hungary)` / `Icelandic (Iceland)` / `Javanese (Java)` / `Kannada (India)` / `Konkani (India)` / `Lao (Laos)` / `Latin (Vatican City)` / `Latvian (Latvia)` / `Lithuanian (Lithuania)` / `Luxembourgish (Luxembourg)` / `Macedonian (North Macedonia)` / `Maithili (India)` / `Malagasy (Madagascar)` / `Malay (Malaysia)` / `Malayalam (India)` / `Mongolian (Mongolia)` / `Nepali (Nepal)` / `Norwegian Bokmal (Norway)` / `Norwegian Nynorsk (Norway)` / `Odia (India)` / `Pashto (Afghanistan)` / `Persian (Iran)` / `Portuguese (Portugal)` / `Punjabi (India)` / `Serbian (Serbia)` / `Sindhi (India)` / `Sinhala (Sri Lanka)` / `Slovak (Slovakia)` / `Slovenian (Slovenia)` / `Spanish (Latin America)` / `Spanish (Mexico)` / `Swahili (Kenya)` / `Swedish (Sweden)` / `Urdu (Pakistan)` | — | Spoken language. |\n| `voice` | `Achernar` / `Achird` / `Algenib` / `Algieba` / `Alnilam` / `Aoede` / `Autonoe` / `Callirrhoe` / `Charon` / `Despina` / `Enceladus` / `Erinome` / `Fenrir` / `Gacrux` / `Iapetus` / `Kore` / `Laomedeia` / `Leda` / `Orus` / `Pulcherrima` / `Puck` / `Rasalgethi` / `Sadachbia` / `Sadaltager` / `Schedar` / `Sulafat` / `Umbriel` / `Vindemiatrix` / `Zephyr` / `Zubenelgenubi` | `Kore` | Prebuilt voice for single-speaker requests. |\n| `style_instructions` | string | — | How to say it. |\n\n## Billing\n\n$0.05 per started 1,000 characters of text.\n\n| Text | Price |\n|---|---|\n| 200 characters | $0.05 |\n| 1,000 characters | $0.05 |\n| 2,500 characters | $0.15 |\n\nFailed runs are not charged.\n\n## Prompting\n\n- For dialogue, write `Name: line` and map each name to a voice in `speakers`.\n\n## Also on SandBase\n\nRelated: `google/gemini-3.8-flash-tts` (newer, cheaper).\n",
+  "cover_url": "https://static.sandbase.ai/covers/google/gemini-3.1-flash-tts/cover-flare-20261008040109.webp",
+  "page_url": "https://www.sandbase.ai/model/google/gemini-3.1-flash-tts",
+  "published_at": "2026-04-16T14:39:44.127Z",
+  "created_at": "2026-05-14T23:57:40.592Z"
+}

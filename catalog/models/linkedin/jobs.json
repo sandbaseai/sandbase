@@ -1,0 +1,169 @@
+{
+  "name": "linkedin/jobs",
+  "display_name": "LinkedIn Jobs",
+  "type": "api",
+  "vendor": "LinkedIn",
+  "vendor_slug": "linkedin",
+  "description": "Search LinkedIn job listings by title and location - full records with description, salary, applicant count, seniority, company details, and benefits. Up to 25 jobs per request.",
+  "tags": [
+    "api",
+    "linkedin",
+    "social-media"
+  ],
+  "capabilities": [
+    "api",
+    "linkedin",
+    "social-media"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/linkedin/jobs"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "query"
+    ],
+    "properties": {
+      "limit": {
+        "type": "integer",
+        "example": 3,
+        "maximum": 25,
+        "minimum": 1,
+        "description": "Accepted for compatibility and ignored: each call returns one full page of up to 25 jobs at one flat price per call; follow nextCursor for more."
+      },
+      "query": {
+        "type": "string",
+        "example": "software engineer",
+        "description": "Job title or keywords to search. Supports LinkedIn boolean operators."
+      },
+      "cursor": {
+        "type": "string",
+        "description": "Opaque pagination cursor from a previous response's nextCursor. Omit for the first page; pass it to fetch the next page of job listings."
+      },
+      "salary": {
+        "enum": [
+          "40k+",
+          "60k+",
+          "80k+",
+          "100k+",
+          "120k+",
+          "140k+",
+          "160k+",
+          "180k+",
+          "200k+"
+        ],
+        "type": "string",
+        "description": "Filter by minimum base salary band (US dollars)."
+      },
+      "sortBy": {
+        "enum": [
+          "date",
+          "relevance"
+        ],
+        "type": "string",
+        "description": "Sort order: most recent (date) or best match (relevance)."
+      },
+      "company": {
+        "type": "string",
+        "description": "Filter to a specific company by name (e.g. Google)."
+      },
+      "location": {
+        "type": "string",
+        "example": "United States",
+        "description": "City, region, or country to search within (e.g. United States, San Francisco)."
+      },
+      "easyApply": {
+        "type": "boolean",
+        "description": "When true, only return jobs offering LinkedIn Easy Apply."
+      },
+      "postedLimit": {
+        "enum": [
+          "1h",
+          "24h",
+          "week",
+          "month"
+        ],
+        "type": "string",
+        "description": "Only jobs posted within this window (past hour, 24 hours, week, or month)."
+      },
+      "workplaceType": {
+        "enum": [
+          "remote",
+          "hybrid",
+          "onsite"
+        ],
+        "type": "string",
+        "example": "remote",
+        "description": "Filter by workplace type (remote, hybrid, or onsite)."
+      },
+      "employmentType": {
+        "enum": [
+          "full-time",
+          "part-time",
+          "contract",
+          "internship",
+          "temporary"
+        ],
+        "type": "string",
+        "description": "Filter by employment type."
+      },
+      "experienceLevel": {
+        "enum": [
+          "internship",
+          "entry",
+          "associate",
+          "mid-senior",
+          "director",
+          "executive"
+        ],
+        "type": "string",
+        "description": "Filter by required seniority/experience level."
+      },
+      "under10Applicants": {
+        "type": "boolean",
+        "description": "When true, only return jobs with fewer than 10 applicants (lower competition)."
+      }
+    },
+    "additionalProperties": false
+  },
+  "response_schema": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string"
+      },
+      "model": {
+        "type": "string"
+      },
+      "status": {
+        "type": "string"
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "data": {
+              "type": "object",
+              "description": "Normalized result for this request."
+            }
+          }
+        }
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "usage_based",
+    "note": "Billed per call from metered usage; the reference price is typical.",
+    "reference_price": 0.0195
+  },
+  "readme": "# LinkedIn Jobs API\n\nSearch LinkedIn job listings by title and location - full records with description, salary, applicant count, seniority, company details, and benefits. Up to 25 jobs per request.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/linkedin/jobs\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"limit\": 3, \"query\": \"software engineer\", \"location\": \"United States\", \"workplaceType\": \"remote\"}'\n```\n\nThe result is returned in `outputs[0].data`. A lookup that finds nothing still succeeds and returns `found: false`.\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `query` | string | Yes | Job title or keywords to search. Supports LinkedIn boolean operators. |\n| `company` | string | No | Filter to a specific company by name (e.g. Google). |\n| `cursor` | string | No | Opaque pagination cursor from a previous response's nextCursor. Omit for the first page; pass it to fetch the next page of job listings. |\n| `easyApply` | boolean | No | When true, only return jobs offering LinkedIn Easy Apply. |\n| `employmentType` | string | No | Filter by employment type. One of: `full-time`, `part-time`, `contract`, `internship`, `temporary`. |\n| `experienceLevel` | string | No | Filter by required seniority/experience level. One of: `internship`, `entry`, `associate`, `mid-senior`, `director`, `executive`. |\n| `limit` | integer | No | Accepted for compatibility and ignored: each call returns one full page of up to 25 jobs at one flat price per call; follow nextCursor for more. |\n| `location` | string | No | City, region, or country to search within (e.g. United States, San Francisco). |\n| `postedLimit` | string | No | Only jobs posted within this window (past hour, 24 hours, week, or month). One of: `1h`, `24h`, `week`, `month`. |\n| `salary` | string | No | Filter by minimum base salary band (US dollars). One of: `40k+`, `60k+`, `80k+`, `100k+`, `120k+`, `140k+`, `160k+`, `180k+`, `200k+`. |\n| `sortBy` | string | No | Sort order: most recent (date) or best match (relevance). One of: `date`, `relevance`. |\n| `under10Applicants` | boolean | No | When true, only return jobs with fewer than 10 applicants (lower competition). |\n| `workplaceType` | string | No | Filter by workplace type (remote, hybrid, or onsite). One of: `remote`, `hybrid`, `onsite`. |\n\n## Pricing\n\nBilled at the actual cost of each call, usually $0.0195 per request. A call can cost more when the first data source fails and another one answers. Failed calls are not charged. Lookups that find nothing and searches with no results are billed at their actual cost, which is often lower and can be $0.\n",
+  "page_url": "https://www.sandbase.ai/model/linkedin/jobs",
+  "created_at": "2026-11-01T12:24:29.881Z"
+}

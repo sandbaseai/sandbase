@@ -1,0 +1,98 @@
+{
+  "name": "twitter/followers",
+  "display_name": "X / Twitter Followers",
+  "type": "api",
+  "vendor": "X (Twitter)",
+  "vendor_slug": "twitter",
+  "description": "Fetch the follower list of any public X (Twitter) account by username with cursor pagination. Limit is a per-page maximum and a native page holds up to 200 accounts; follow the response's nextCursor for more.",
+  "tags": [
+    "api",
+    "twitter",
+    "social-media"
+  ],
+  "capabilities": [
+    "api",
+    "twitter",
+    "social-media"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/twitter/followers"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "username"
+    ],
+    "properties": {
+      "limit": {
+        "type": "integer",
+        "default": 200,
+        "example": 200,
+        "maximum": 100000,
+        "minimum": 1,
+        "description": "Accepted but does not change the page: every call returns one full native page of followers (up to 200, depending on the source), never trimmed, so follow nextCursor to continue exactly where this response ended."
+      },
+      "cursor": {
+        "type": "string",
+        "description": "Opaque pagination cursor from a previous response's nextCursor. Omit for the first page; pass it to fetch the next page of followers."
+      },
+      "username": {
+        "type": "string",
+        "example": "nasa",
+        "description": "The X (Twitter) username to fetch followers for, without the @ prefix (e.g. elonmusk)."
+      },
+      "requireFields": {
+        "type": "array",
+        "items": {
+          "enum": [
+            "bio",
+            "following"
+          ],
+          "type": "string"
+        },
+        "description": "Optional; omit it and routing is unchanged, with the cheapest source serving. Name the output fields this request must be able to return, for example `bio`, and it is served only by a source that returns every one of them. Fields you do not name are still returned whenever the serving source has them. This can raise your price: when the cheapest source cannot return a named field, a dearer source serves, and you are quoted and charged its price. A named field can still be absent on a profile that genuinely lacks it. Naming a combination that no single source returns together is refused as invalid input, with no charge. On a paginated walk it applies to the first page only; later pages stay with the source that page chose, at the price it was quoted."
+      }
+    },
+    "additionalProperties": false
+  },
+  "response_schema": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string"
+      },
+      "model": {
+        "type": "string"
+      },
+      "status": {
+        "type": "string"
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "data": {
+              "type": "object",
+              "description": "Normalized result for this request."
+            }
+          }
+        }
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "usage_based",
+    "note": "Billed per call from metered usage; the reference price is typical.",
+    "reference_price": 0.00045
+  },
+  "readme": "# X / Twitter Followers API\n\nFetch the follower list of any public X (Twitter) account by username with cursor pagination. Limit is a per-page maximum and a native page holds up to 200 accounts; follow the response's nextCursor for more.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/twitter/followers\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"limit\": 200, \"username\": \"nasa\"}'\n```\n\nThe result is returned in `outputs[0].data`. A lookup that finds nothing still succeeds and returns `found: false`.\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `username` | string | Yes | The X (Twitter) username to fetch followers for, without the @ prefix (e.g. elonmusk). |\n| `cursor` | string | No | Opaque pagination cursor from a previous response's nextCursor. Omit for the first page; pass it to fetch the next page of followers. |\n| `limit` | integer | No | Accepted but does not change the page: every call returns one full native page of followers (up to 200, depending on the source), never trimmed, so follow nextCursor to continue exactly where this response ended. Default |\n| `requireFields` | array | No | Optional; omit it and routing is unchanged, with the cheapest source serving. Name the output fields this request must be able to return, for example `bio`, and it is served only by a source that returns every one of the |\n\n## Pricing\n\nBilled at the actual cost of each call, usually $0.00045 per request. A call can cost more when the first data source fails and another one answers. Failed calls are not charged. Lookups that find nothing and searches with no results are billed at their actual cost, which is often lower and can be $0.\n",
+  "page_url": "https://www.sandbase.ai/model/twitter/followers",
+  "created_at": "2026-11-01T12:40:54.996Z"
+}

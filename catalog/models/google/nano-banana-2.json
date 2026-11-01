@@ -1,0 +1,321 @@
+{
+  "name": "google/nano-banana-2",
+  "display_name": "Nano Banana 2 Text to Image",
+  "type": "image",
+  "vendor": "Google",
+  "vendor_slug": "google",
+  "description": "Nano Banana 2 is Google's new state-of-the-art fast image generation and editing model",
+  "tags": [
+    "text-to-image",
+    "commercial"
+  ],
+  "capabilities": [
+    "text-to-image",
+    "commercial"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "prompt"
+    ],
+    "properties": {
+      "prompt": {
+        "type": "string",
+        "title": "Prompt",
+        "default": "A photo of a close-up portrait of an elderly Japanese ceramicist with deep, sun-etched wrinkles and a warm, knowing smile. He is carefully inspecting a freshly glazed tea bowl. The setting is his rustic, sun-drenched workshop. The scene is illuminated by soft, golden hour light streaming through a window, highlighting the fine texture of the clay. Captured with an 85mm portrait lens, resulting in a soft, blurred background (bokeh). The overall mood is serene and masterful. Vertical portrait orientation.",
+        "maxLength": 50000,
+        "minLength": 3,
+        "description": "The text prompt to generate an image from."
+      },
+      "resolution": {
+        "enum": [
+          "0.5K",
+          "1K",
+          "2K",
+          "4K"
+        ],
+        "type": "string",
+        "title": "Resolution",
+        "default": "1K",
+        "description": "The resolution of the image to generate."
+      },
+      "aspect_ratio": {
+        "enum": [
+          "21:9",
+          "16:9",
+          "3:2",
+          "4:3",
+          "5:4",
+          "1:1",
+          "4:5",
+          "3:4",
+          "2:3",
+          "9:16",
+          "4:1",
+          "1:4",
+          "8:1",
+          "1:8"
+        ],
+        "type": "string",
+        "title": "Aspect Ratio",
+        "default": "1:1",
+        "description": "The aspect ratio of the generated image."
+      },
+      "output_format": {
+        "enum": [
+          "jpeg",
+          "png"
+        ],
+        "type": "string",
+        "title": "Output Format",
+        "default": "png",
+        "description": "The format of the generated image."
+      },
+      "enable_web_search": {
+        "type": "boolean",
+        "title": "Web Search",
+        "default": false,
+        "description": "Enable Google web search grounding to provide background context for image generation."
+      },
+      "enable_image_search": {
+        "type": "boolean",
+        "title": "Image Search",
+        "default": false,
+        "description": "Enable Google image search to retrieve web images as visual background reference for generation."
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "title": "GenerationResponse",
+    "required": [
+      "id",
+      "status"
+    ],
+    "properties": {
+      "id": {
+        "type": "string",
+        "description": "Unique identifier for the generation task."
+      },
+      "error": {
+        "type": "string",
+        "description": "Error message if the task failed. Empty on success."
+      },
+      "model": {
+        "type": "string",
+        "description": "Model ID used for the prediction."
+      },
+      "status": {
+        "enum": [
+          "pending",
+          "running",
+          "completed",
+          "failed",
+          "timeout"
+        ],
+        "type": "string",
+        "description": "Status of the task: pending, running, completed, failed, or timeout."
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "title": "OutputItem",
+          "required": [
+            "url"
+          ],
+          "properties": {
+            "url": {
+              "type": "string",
+              "description": "The URL where the generated content can be downloaded from."
+            },
+            "content_type": {
+              "type": "string",
+              "description": "The MIME type of the output file."
+            }
+          }
+        },
+        "description": "Array of generated content. Empty when status is not completed."
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "formula",
+    "formula": "((params.resolution ?? \"1K\") == \"0.5K\" ? 0.045 : (params.resolution ?? \"1K\") == \"2K\" ? 0.101 : (params.resolution ?? \"1K\") == \"4K\" ? 0.151 : 0.067) + (((params.enable_web_search ?? false) || (params.enable_image_search ?? false)) ? 0.014 : 0.0)",
+    "formula_variables": [
+      "params.enable_image_search",
+      "params.enable_web_search",
+      "params.resolution"
+    ],
+    "reference_price": 0.067,
+    "price_examples": [
+      {
+        "params": {
+          "enable_image_search": false,
+          "enable_web_search": false,
+          "resolution": "0.5K"
+        },
+        "usd": 0.045
+      },
+      {
+        "params": {
+          "enable_image_search": false,
+          "enable_web_search": false,
+          "resolution": "1K"
+        },
+        "usd": 0.067
+      },
+      {
+        "params": {
+          "enable_image_search": false,
+          "enable_web_search": false,
+          "resolution": "2K"
+        },
+        "usd": 0.101
+      },
+      {
+        "params": {
+          "enable_image_search": false,
+          "enable_web_search": false,
+          "resolution": "4K"
+        },
+        "usd": 0.151
+      },
+      {
+        "params": {
+          "enable_image_search": false,
+          "enable_web_search": true,
+          "resolution": "0.5K"
+        },
+        "usd": 0.059
+      },
+      {
+        "params": {
+          "enable_image_search": false,
+          "enable_web_search": true,
+          "resolution": "1K"
+        },
+        "usd": 0.081
+      },
+      {
+        "params": {
+          "enable_image_search": false,
+          "enable_web_search": true,
+          "resolution": "2K"
+        },
+        "usd": 0.115
+      },
+      {
+        "params": {
+          "enable_image_search": false,
+          "enable_web_search": true,
+          "resolution": "4K"
+        },
+        "usd": 0.165
+      },
+      {
+        "params": {
+          "enable_image_search": true,
+          "enable_web_search": false,
+          "resolution": "0.5K"
+        },
+        "usd": 0.059
+      },
+      {
+        "params": {
+          "enable_image_search": true,
+          "enable_web_search": false,
+          "resolution": "1K"
+        },
+        "usd": 0.081
+      },
+      {
+        "params": {
+          "enable_image_search": true,
+          "enable_web_search": false,
+          "resolution": "2K"
+        },
+        "usd": 0.115
+      },
+      {
+        "params": {
+          "enable_image_search": true,
+          "enable_web_search": false,
+          "resolution": "4K"
+        },
+        "usd": 0.165
+      },
+      {
+        "params": {
+          "enable_image_search": true,
+          "enable_web_search": true,
+          "resolution": "0.5K"
+        },
+        "usd": 0.059
+      },
+      {
+        "params": {
+          "enable_image_search": true,
+          "enable_web_search": true,
+          "resolution": "1K"
+        },
+        "usd": 0.081
+      },
+      {
+        "params": {
+          "enable_image_search": true,
+          "enable_web_search": true,
+          "resolution": "2K"
+        },
+        "usd": 0.115
+      },
+      {
+        "params": {
+          "enable_image_search": true,
+          "enable_web_search": true,
+          "resolution": "4K"
+        },
+        "usd": 0.165
+      }
+    ]
+  },
+  "examples": [
+    {
+      "input": {
+        "aspect_ratio": "3:4",
+        "prompt": "A photo of a glossy magazine cover, the minimal blue cover has the large bold words Nano Banana. The text is in a serif font and fills the view. No other text. In front of the text there is a portrait of a person in a sleek and minimal dress. She is playfully holding the number 2, which is the focal point. Put the issue number and \"Feb 2026\" date in the corner along with a barcode. The magazine is on a shelf against an orange plastered wall, within a designer store."
+      },
+      "output": [
+        {
+          "url": "https://static.sandbase.ai/examples/20084e1d-e752-4b08-933e-91f7869ef577/output/9769d388-299d-4eeb-8e54-bb66a32b1293.jpg"
+        }
+      ],
+      "default": true
+    },
+    {
+      "input": {
+        "aspect_ratio": "3:2",
+        "prompt": "Use image search to find accurate images of a resplendent quetzal bird. Create a beautiful 3:2 wallpaper of this bird, with a natural top to bottom gradient and minimal composition."
+      },
+      "output": [
+        {
+          "url": "https://static.sandbase.ai/examples/dafc3d87-77d0-4de2-ad2b-53e3afe77df1/output/ef02814d-4527-4d06-a933-2c265b757fa9.png"
+        }
+      ]
+    }
+  ],
+  "readme": "# Nano Banana 2 Text to Image\n\nNano Banana 2 (Gemini 3.1 Flash Image) is Google's fast image model with near-Pro quality, extreme aspect ratios up to 8:1, and optional web and image search grounding for current or factual subjects.\n\n## Fields\n\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `prompt` | string, required | — | Up to 50,000 characters. |\n| `aspect_ratio` | `21:9` / `16:9` / `3:2` / `4:3` / `5:4` / `1:1` / `4:5` / `3:4` / `2:3` / `9:16` / `4:1` / `1:4` / `8:1` / `1:8` | `1:1` | Output frame shape. |\n| `output_format` | `jpeg` / `png` | `png` | Output file format. |\n| `resolution` | `0.5K` / `1K` / `2K` / `4K` | `1K` | Sets the per-image rate. |\n| `enable_web_search` | boolean | false | Ground the image in Google Search results. |\n| `enable_image_search` | boolean | false | Use image search results as visual references. |\n\n## Billing\n\n$0.045 at 0.5K, $0.067 at 1K, $0.101 at 2K, and $0.151 at 4K per image, Google's list price. Turning on `enable_web_search` or `enable_image_search` adds $0.014 per request (charged once even if both are on).\n\n| Request | 0.5K | 1K | 2K | 4K |\n|---|---|---|---|---|\n| One image | $0.045 | $0.067 | $0.101 | $0.151 |\n\nFailed runs are not charged.\n\n## Prompting\n\n- Turn on `enable_web_search` for real places, products, or events.\n- Quote all text that must appear.\n\n## Limits\n\n- One image per request.\n\n## Also on SandBase\n\nOther Nano Banana endpoints: `google/nano-banana-pro`, `google/nano-banana-pro/edit`, `google/nano-banana-2/edit`, `google/nano-banana-2-lite`, `google/nano-banana-2-lite/edit`.\n",
+  "cover_url": "https://static.sandbase.ai/covers/google/nano-banana-2/cover-flare-20261004201502.webp",
+  "page_url": "https://www.sandbase.ai/model/google/nano-banana-2",
+  "published_at": "2026-02-26T16:08:01.361Z",
+  "created_at": "2026-04-28T02:32:46.755Z"
+}

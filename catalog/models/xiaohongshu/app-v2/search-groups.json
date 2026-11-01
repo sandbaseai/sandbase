@@ -1,0 +1,90 @@
+{
+  "name": "xiaohongshu/app-v2/search-groups",
+  "display_name": "Xiaohongshu (RED) Group Search",
+  "type": "api",
+  "vendor": "Xiaohongshu",
+  "vendor_slug": "xiaohongshu",
+  "description": "Searches Xiaohongshu community groups by keyword with support for pagination, recommendation flags, and search filters.",
+  "tags": [
+    "api",
+    "xiaohongshu"
+  ],
+  "capabilities": [
+    "api",
+    "xiaohongshu"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/xiaohongshu/app-v2/search-groups"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "keyword"
+    ],
+    "properties": {
+      "source": {
+        "type": "string",
+        "title": "Source",
+        "default": "unifiedSearchGroup",
+        "description": "Source, default \"unifiedSearchGroup\""
+      },
+      "keyword": {
+        "type": "string",
+        "title": "Keyword",
+        "example": "OpenAI",
+        "description": "Search keyword"
+      },
+      "page_no": {
+        "type": "integer",
+        "title": "Page No",
+        "default": 0,
+        "description": "Page number, start from 0"
+      },
+      "search_id": {
+        "type": "string",
+        "title": "Search Id",
+        "default": "",
+        "description": "Search ID, pass value from first search response for pagination"
+      },
+      "is_recommend": {
+        "type": "integer",
+        "title": "Is Recommend",
+        "default": 0,
+        "description": "Is recommend, 0=no, 1=yes"
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.015,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "examples": [
+    {
+      "input": {
+        "is_recommend": 0,
+        "keyword": "OpenAI",
+        "page_no": 0,
+        "search_id": "",
+        "source": "unifiedSearchGroup"
+      }
+    }
+  ],
+  "readme": "# Xiaohongshu (RED) Group Search API\n\nSearches Xiaohongshu community groups matching a target `keyword`, supporting pagination and recommendation settings.\n\n## Use cases\n\n- Discover community groups matching specific topic keywords.\n- Browse group search filter options for refined queries.\n- Paginate through group search results using returned identifiers.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/xiaohongshu/app-v2/search-groups\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"keyword\": \"OpenAI\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `keyword` | string | Yes | Search keyword |\n| `source` | string | No | Source, default \"unifiedSearchGroup\" |\n| `page_no` | integer | No | Page number, start from 0 |\n| `search_id` | string | No | Search ID, pass value from first search response for pagination |\n| `is_recommend` | integer | No | Is recommend, 0=no, 1=yes |\n\n## Example response\n\nReal response for the request above, trimmed to the main fields. User names and long IDs are masked.\n\n```json\n{\n  \"data\": {\n    \"group_search_filters\": [\n      {\n        \"options\": [\n          {\n            \"id\": \"default\",\n            \"name\": \"All\"\n          }\n        ]\n      }\n    ]\n  }\n}\n```\n\n## Notes\n\n- Pagination starts at index 0 for `page_no`.\n- Pass `search_id` from the initial search response when requesting subsequent pages.\n- Set `is_recommend` to 1 to enable recommendations, or 0 for standard search.\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [Xiaohongshu (RED) Creator Hot Inspiration Feed](/model/xiaohongshu/app-v2/creator-hot-inspiration-feed): Retrieves creator center hot inspiration feed items with topic titles, popularity scores, and deeplinks.\n- [Xiaohongshu (RED) Inspiration Feed](/model/xiaohongshu/app-v2/creator-inspiration-feed): Returns recommended inspiration feed items and trending topics from Xiaohongshu (RED).\n- [Xiaohongshu (RED) Image Note Details](/model/xiaohongshu/app-v2/image-note-detail): Returns detailed information for a Xiaohongshu image note.\n",
+  "page_url": "https://www.sandbase.ai/model/xiaohongshu/app-v2/search-groups",
+  "created_at": "2026-07-31T02:47:05.058Z"
+}

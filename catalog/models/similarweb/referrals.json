@@ -1,0 +1,114 @@
+{
+  "name": "similarweb/referrals",
+  "display_name": "Similarweb Referrals",
+  "type": "api",
+  "vendor": "Similarweb",
+  "vendor_slug": "similarweb",
+  "description": "Get the websites a site's referral traffic comes from, with visits, share and change for each referrer.",
+  "tags": [
+    "api",
+    "similarweb",
+    "web-analytics"
+  ],
+  "capabilities": [
+    "api",
+    "similarweb",
+    "web-analytics"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/similarweb/referrals"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "domain",
+      "end_date",
+      "limit",
+      "start_date"
+    ],
+    "properties": {
+      "limit": {
+        "type": "integer",
+        "example": 1,
+        "maximum": 20,
+        "minimum": 1,
+        "description": "limit"
+      },
+      "domain": {
+        "type": "string",
+        "example": "cnn.com",
+        "description": "domain"
+      },
+      "offset": {
+        "type": "integer",
+        "maximum": 100000,
+        "minimum": 0,
+        "description": "offset"
+      },
+      "country": {
+        "enum": [
+          "ww"
+        ],
+        "type": "string",
+        "default": "ww",
+        "description": "Worldwide data only; values are case-insensitive."
+      },
+      "end_date": {
+        "type": "string",
+        "example": "2026-09",
+        "description": "end_date"
+      },
+      "start_date": {
+        "type": "string",
+        "example": "2026-09",
+        "description": "start_date"
+      },
+      "web_source": {
+        "enum": [
+          "desktop",
+          "mobile_web",
+          "total"
+        ],
+        "type": "string",
+        "description": "web_source"
+      },
+      "granularity": {
+        "enum": [
+          "monthly"
+        ],
+        "type": "string",
+        "example": "monthly",
+        "description": "granularity"
+      },
+      "traffic_source": {
+        "type": "string",
+        "description": "traffic_source"
+      },
+      "main_domain_only": {
+        "type": "boolean",
+        "description": "main_domain_only"
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "formula",
+    "formula": "0.3 * Math.max(1.0, Math.min(20.0, (output.data?.data != nil ? len(output.data.data) : (params.limit ?? 20)) * 1.0))",
+    "formula_variables": [
+      "params.limit"
+    ],
+    "reference_price": 0.3
+  },
+  "readme": "# Similarweb Referrals API\n\nGet the websites a site's referral traffic comes from, with visits, share and change for each referrer.\n\nThe response is the official Similarweb API response, unchanged.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/similarweb/referrals\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"start_date\": \"2026-09\", \"end_date\": \"2026-09\", \"country\": \"ww\", \"domain\": \"cnn.com\", \"limit\": 1, \"granularity\": \"monthly\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `country` | string | No | Worldwide data only; values are case-insensitive. |\n| `domain` | string | Yes | domain |\n| `end_date` | string | Yes | end_date |\n| `granularity` | string | No | granularity |\n| `limit` | integer | Yes | limit |\n| `main_domain_only` | boolean | No | main_domain_only |\n| `offset` | integer | No | offset |\n| `start_date` | string | Yes | start_date |\n| `traffic_source` | string | No | traffic_source |\n| `web_source` | string | No | web_source |\n\n## Pricing\n\n$0.3 per returned row (4 Similarweb credits), up to 20 rows; billed on rows returned. Failed calls are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/similarweb/referrals",
+  "created_at": "2026-10-30T06:05:49.951Z"
+}

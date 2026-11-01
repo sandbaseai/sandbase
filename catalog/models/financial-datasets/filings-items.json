@@ -1,0 +1,139 @@
+{
+  "name": "financial-datasets/filings-items",
+  "display_name": "Financial Datasets Get SEC Filing Items",
+  "type": "api",
+  "vendor": "Financial Datasets",
+  "vendor_slug": "financial-datasets",
+  "description": "Get SEC Filing Items from Financial Datasets. Returns the official Financial Datasets API response unchanged.",
+  "tags": [
+    "api",
+    "financial-datasets",
+    "stocks"
+  ],
+  "capabilities": [
+    "api",
+    "financial-datasets",
+    "stocks"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/financial-datasets/filings-items"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "filing_type",
+      "ticker",
+      "year"
+    ],
+    "properties": {
+      "item": {
+        "enum": [
+          "Item-1",
+          "Item-1A",
+          "Item-1B",
+          "Item-2",
+          "Item-3",
+          "Item-4",
+          "Item-5",
+          "Item-6",
+          "Item-7",
+          "Item-7A",
+          "Item-8",
+          "Item-9",
+          "Item-9A",
+          "Item-9B",
+          "Item-10",
+          "Item-11",
+          "Item-12",
+          "Item-13",
+          "Item-14",
+          "Item-15",
+          "Item-16",
+          "Item-1.01",
+          "Item-1.02",
+          "Item-1.03",
+          "Item-1.04",
+          "Item-2.01",
+          "Item-2.02",
+          "Item-2.03",
+          "Item-2.04",
+          "Item-2.05",
+          "Item-2.06",
+          "Item-3.01",
+          "Item-3.02",
+          "Item-3.03",
+          "Item-4.01",
+          "Item-4.02",
+          "Item-5.01",
+          "Item-5.02",
+          "Item-5.03",
+          "Item-5.04",
+          "Item-5.05",
+          "Item-5.06",
+          "Item-5.07",
+          "Item-5.08",
+          "Item-6.01",
+          "Item-6.02",
+          "Item-6.03",
+          "Item-6.04",
+          "Item-6.05",
+          "Item-7.01",
+          "Item-8.01",
+          "Item-9.01"
+        ],
+        "type": "string",
+        "description": "The item to get."
+      },
+      "year": {
+        "type": "integer",
+        "example": 2024,
+        "description": "The year of the filing."
+      },
+      "ticker": {
+        "type": "string",
+        "example": "AAPL",
+        "description": "The ticker symbol."
+      },
+      "quarter": {
+        "type": "integer",
+        "description": "The quarter of the filing if 10-Q."
+      },
+      "filing_type": {
+        "enum": [
+          "10-K",
+          "10-Q",
+          "8-K"
+        ],
+        "type": "string",
+        "example": "10-K",
+        "description": "The type of filing."
+      },
+      "accession_number": {
+        "type": "string",
+        "description": "The accession number of the filing if 8-K."
+      },
+      "include_exhibits": {
+        "type": "boolean",
+        "default": false,
+        "description": "Whether to include the raw text from linked exhibits. Only applicable for 8-K filings. When true, exhibit objects will include the 'text' field containing the full exhibit content."
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.02
+  },
+  "readme": "# Financial Datasets Get SEC Filing Items API\n\nGet SEC Filing Items from Financial Datasets. Returns the official Financial Datasets API response unchanged.\n\nThe response is the official Financial Datasets API response, unchanged.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/financial-datasets/filings-items\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"filing_type\": \"10-K\", \"ticker\": \"AAPL\", \"year\": 2024}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `accession_number` | string | No | The accession number of the filing if 8-K. |\n| `filing_type` | string | Yes | The type of filing. |\n| `include_exhibits` | boolean | No | Whether to include the raw text from linked exhibits. Only applicable for 8-K filings. When true, exhibit objects will include the 'text' field containing the f |\n| `item` | string | No | The item to get. |\n| `quarter` | integer | No | The quarter of the filing if 10-Q. |\n| `ticker` | string | Yes | The ticker symbol. |\n| `year` | integer | Yes | The year of the filing. |\n\n## Pricing\n\nFlat price per call. Failed calls are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/financial-datasets/filings-items",
+  "created_at": "2026-10-30T03:12:03.877Z"
+}

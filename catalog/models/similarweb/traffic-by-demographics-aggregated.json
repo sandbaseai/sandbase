@@ -1,0 +1,124 @@
+{
+  "name": "similarweb/traffic-by-demographics-aggregated",
+  "display_name": "Similarweb Demographics - Specific Groups",
+  "type": "api",
+  "vendor": "Similarweb",
+  "vendor_slug": "similarweb",
+  "description": "Get the traffic share of one visitor age group on a website for the selected period.",
+  "tags": [
+    "api",
+    "similarweb",
+    "web-analytics"
+  ],
+  "capabilities": [
+    "api",
+    "similarweb",
+    "web-analytics"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/similarweb/traffic-by-demographics-aggregated"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "age_bucket",
+      "domain",
+      "end_date",
+      "granularity",
+      "metrics",
+      "start_date"
+    ],
+    "properties": {
+      "domain": {
+        "type": "string",
+        "example": "cnn.com",
+        "description": "domain"
+      },
+      "format": {
+        "enum": [
+          "json"
+        ],
+        "type": "string",
+        "description": "format"
+      },
+      "country": {
+        "enum": [
+          "ww"
+        ],
+        "type": "string",
+        "default": "ww",
+        "description": "Worldwide data only; values are case-insensitive."
+      },
+      "metrics": {
+        "type": "string",
+        "example": "share",
+        "description": "Comma-separated metrics. Supported: share."
+      },
+      "end_date": {
+        "type": "string",
+        "example": "2026-09",
+        "description": "end_date"
+      },
+      "age_bucket": {
+        "enum": [
+          "18",
+          "25",
+          "35",
+          "45",
+          "55",
+          "65"
+        ],
+        "type": "string",
+        "example": "25",
+        "description": "Select one age bucket; age_bucket must be provided exactly once."
+      },
+      "start_date": {
+        "type": "string",
+        "example": "2026-09",
+        "description": "start_date"
+      },
+      "web_source": {
+        "enum": [
+          "total"
+        ],
+        "type": "string",
+        "description": "web_source"
+      },
+      "granularity": {
+        "enum": [
+          "monthly"
+        ],
+        "type": "string",
+        "example": "monthly",
+        "description": "granularity"
+      },
+      "main_domain_only": {
+        "type": "boolean",
+        "description": "main_domain_only"
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "formula",
+    "formula": "0.45 * Math.max(1.0, len(split(params.metrics ?? \"share\", \",\")) * 1.0) * Math.max(1.0, ((int(split(params.end_date, \"-\")[0]) - int(split(params.start_date, \"-\")[0])) * 12 + int(split(params.end_date, \"-\")[1]) - int(split(params.start_date, \"-\")[1]) + 1) * 1.0)",
+    "formula_variables": [
+      "params.end_date",
+      "params.metrics",
+      "params.start_date"
+    ],
+    "reference_price": 0.45
+  },
+  "readme": "# Similarweb Demographics - Specific Groups API\n\nGet the traffic share of one visitor age group on a website for the selected period.\n\nThe response is the official Similarweb API response, unchanged.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/similarweb/traffic-by-demographics-aggregated\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"domain\": \"cnn.com\", \"start_date\": \"2026-09\", \"end_date\": \"2026-09\", \"granularity\": \"monthly\", \"metrics\": \"share\", \"age_bucket\": \"25\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `age_bucket` | string | Yes | Select one age bucket; age_bucket must be provided exactly once. |\n| `country` | string | No | Worldwide data only; values are case-insensitive. |\n| `domain` | string | Yes | domain |\n| `end_date` | string | Yes | end_date |\n| `format` | string | No | format |\n| `granularity` | string | Yes | granularity |\n| `main_domain_only` | boolean | No | main_domain_only |\n| `metrics` | string | Yes | Comma-separated metrics. Supported: share. |\n| `start_date` | string | Yes | start_date |\n| `web_source` | string | No | web_source |\n\n## Pricing\n\n$0.45 per metric per month between start_date and end_date. Failed calls are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/similarweb/traffic-by-demographics-aggregated",
+  "created_at": "2026-10-30T06:06:11.894Z"
+}

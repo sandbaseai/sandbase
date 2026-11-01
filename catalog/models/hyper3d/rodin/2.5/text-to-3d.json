@@ -1,0 +1,240 @@
+{
+  "name": "hyper3d/rodin/2.5/text-to-3d",
+  "display_name": "Rodin 2.5 Text to 3D",
+  "type": "image",
+  "vendor": "hyper3d",
+  "vendor_slug": "hyper3d",
+  "description": "Rodin Gen-2.5 by Hyper3D (Deemos) generates game- and production-ready 3D assets from a text prompt.",
+  "tags": [
+    "text-to-3d"
+  ],
+  "capabilities": [
+    "text-to-3d"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "prompt"
+    ],
+    "properties": {
+      "seed": {
+        "type": "integer",
+        "title": "Seed",
+        "maximum": 65535,
+        "minimum": 0,
+        "description": "Seed (0–65535)."
+      },
+      "tier": {
+        "enum": [
+          "Gen-2.5-Minimum",
+          "Gen-2.5-Extreme-Low",
+          "Gen-2.5-Low",
+          "Gen-2.5-Medium",
+          "Gen-2.5-High",
+          "Gen-2.5-Extreme-High"
+        ],
+        "type": "string",
+        "title": "Tier",
+        "default": "Gen-2.5-High",
+        "description": "Generation tier (quality / speed)."
+      },
+      "TAPose": {
+        "type": "boolean",
+        "title": "T/A Pose",
+        "default": false,
+        "description": "Generate characters in T-pose or A-pose for rigging."
+      },
+      "addons": {
+        "enum": [
+          "HighPack"
+        ],
+        "type": "string",
+        "title": "Add-ons",
+        "description": "Optional add-on. HighPack (4K textures, high-poly) is billed +$0.80."
+      },
+      "prompt": {
+        "type": "string",
+        "title": "Prompt",
+        "examples": [
+          "A futuristic robot with sleek metallic design."
+        ],
+        "maxLength": 1024,
+        "description": "A textual prompt to guide model generation. Required for Text-to-3D mode."
+      },
+      "material": {
+        "enum": [
+          "PBR",
+          "Shaded",
+          "All",
+          "None"
+        ],
+        "type": "string",
+        "title": "Material",
+        "default": "All",
+        "description": "PBR, Shaded, All (both) or None."
+      },
+      "hd_texture": {
+        "type": "boolean",
+        "title": "HD Texture",
+        "default": false,
+        "description": "Enhanced texture post-processing."
+      },
+      "quality_mesh_option": {
+        "enum": [
+          "Auto",
+          "4K Quad",
+          "8K Quad",
+          "18K Quad",
+          "50K Quad",
+          "100K Quad",
+          "200K Quad",
+          "2K Triangle",
+          "20K Triangle",
+          "50K Triangle",
+          "150K Triangle",
+          "500K Triangle",
+          "1M Triangle",
+          "2M Triangle"
+        ],
+        "type": "string",
+        "title": "Quality Mesh Option",
+        "default": "Auto",
+        "description": "Combined quality and mesh type selection. Quad = smooth surfaces, Triangle = detailed geometry. Maps to `mesh_mode` (Quad/Raw) and `quality_override` (face count) on the Hyper3D API. Valid face counts depend on the selected tier. Up to 1M Triangle is supported for tiers Extreme-Low, Low, and Medium. Up to 2M Triangle (as low as 20K Triangle) is supported for tiers High and Extreme-High. Auto option will choose the advised options for each tier:\n1. Gen-2.5-Minimum: 50K Triangle\n2. Gen-2.5-Extreme-Low: 50K Triangle\n3. Gen-2.5-Low: 50K Triangle\n4. Gen-2.5-Medium: 500K Triangle\n5. Gen-2.5-High: 500K Triangle\nGen-2.5-Extreme-High: 1M Triangle."
+      },
+      "geometry_file_format": {
+        "enum": [
+          "glb",
+          "usdz",
+          "fbx",
+          "obj",
+          "stl"
+        ],
+        "type": "string",
+        "title": "Geometry File Format",
+        "default": "glb",
+        "description": "Output file format."
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "title": "GenerationResponse",
+    "required": [
+      "id",
+      "status"
+    ],
+    "properties": {
+      "id": {
+        "type": "string",
+        "description": "Unique identifier for the generation task."
+      },
+      "error": {
+        "type": "string",
+        "description": "Error message if the task failed. Empty on success."
+      },
+      "model": {
+        "type": "string",
+        "description": "Model ID used for the prediction."
+      },
+      "status": {
+        "enum": [
+          "pending",
+          "running",
+          "completed",
+          "failed",
+          "timeout"
+        ],
+        "type": "string",
+        "description": "Status of the task: pending, running, completed, failed, or timeout."
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "title": "OutputItem",
+          "required": [
+            "url"
+          ],
+          "properties": {
+            "url": {
+              "type": "string",
+              "description": "The URL where the generated content can be downloaded from."
+            },
+            "content_type": {
+              "type": "string",
+              "description": "The MIME type of the output file."
+            }
+          }
+        },
+        "description": "Array of generated content. Empty when status is not completed."
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "formula",
+    "formula": "((params.tier ?? \"Gen-2.5-High\") == \"Gen-2.5-Extreme-High\" ? 0.96 : 0.48) + ((params.addons ?? \"\") == \"HighPack\" ? 0.96 : 0.0)",
+    "formula_variables": [
+      "params.addons",
+      "params.tier"
+    ],
+    "reference_price": 0.48,
+    "price_examples": [
+      {
+        "params": {
+          "addons": "HighPack",
+          "tier": "Gen-2.5-Minimum"
+        },
+        "usd": 1.44
+      },
+      {
+        "params": {
+          "addons": "HighPack",
+          "tier": "Gen-2.5-Extreme-Low"
+        },
+        "usd": 1.44
+      },
+      {
+        "params": {
+          "addons": "HighPack",
+          "tier": "Gen-2.5-Low"
+        },
+        "usd": 1.44
+      },
+      {
+        "params": {
+          "addons": "HighPack",
+          "tier": "Gen-2.5-Medium"
+        },
+        "usd": 1.44
+      },
+      {
+        "params": {
+          "addons": "HighPack",
+          "tier": "Gen-2.5-High"
+        },
+        "usd": 1.44
+      },
+      {
+        "params": {
+          "addons": "HighPack",
+          "tier": "Gen-2.5-Extreme-High"
+        },
+        "usd": 1.92
+      }
+    ]
+  },
+  "readme": "# Rodin 2.5 Text to 3D\n\nRodin Gen-2.5 by Hyper3D turns a text prompt into a production-ready 3D asset with PBR materials and quad or triangle meshes.\n\n## Fields\n\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `prompt` | string, required | — | Up to 1,024 characters. |\n| `seed` | integer 0–65535 | random | Fix it to compare prompt changes. |\n| `quality_mesh_option` | `Auto` / `4K Quad` / `8K Quad` / `18K Quad` / `50K Quad` / `100K Quad` / `200K Quad` / `2K Triangle` / `20K Triangle` / `50K Triangle` / `150K Triangle` / `500K Triangle` / `1M Triangle` / `2M Triangle` | `Auto` | Mesh density and topology. |\n| `material` | `PBR` / `Shaded` / `All` / `None` | `All` | Material output. |\n| `hd_texture` | boolean | false | Higher-resolution textures. |\n| `geometry_file_format` | `glb` / `usdz` / `fbx` / `obj` / `stl` | `glb` | Output file format. |\n| `TAPose` | boolean | false | Force a T/A-pose for characters. |\n| `addons` | `HighPack` | — | `HighPack` adds high-resolution textures and denser meshes. |\n| `tier` | `Gen-2.5-Minimum` / `Gen-2.5-Extreme-Low` / `Gen-2.5-Low` / `Gen-2.5-Medium` / `Gen-2.5-High` / `Gen-2.5-Extreme-High` | `Gen-2.5-High` | Quality tier. |\n\n## Billing\n\n$0.48 per model ($0.96 on the Extreme-High tier), plus $0.96 for the HighPack add-on.\n\n| Request | Price |\n|---|---|\n| Default tier | $0.48 |\n| Extreme-High tier | $0.96 |\n| Default + HighPack | $1.44 |\n\nFailed runs are not charged.\n\n## Prompting\n\n- Describe one object: shape, materials, and style.\n\n## Also on SandBase\n\nOther Rodin endpoints: `hyper3d/rodin/2.5/image-to-3d`, `hyper3d/rodin/2.5/fast/text-to-3d`, `hyper3d/rodin/2.5/fast/image-to-3d`.\n",
+  "cover_url": "https://static.sandbase.ai/covers/hyper3d/rodin/2.5/text-to-3d/cover-flare-20261008043952.webp",
+  "page_url": "https://www.sandbase.ai/model/hyper3d/rodin/2.5/text-to-3d",
+  "published_at": "2026-05-31T08:01:11.402Z",
+  "created_at": "2026-10-06T04:22:34.67Z"
+}

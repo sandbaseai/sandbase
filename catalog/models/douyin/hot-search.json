@@ -1,0 +1,155 @@
+{
+  "name": "douyin/hot-search",
+  "display_name": "Douyin Hot Search",
+  "type": "api",
+  "vendor": "Douyin",
+  "vendor_slug": "douyin",
+  "description": "Search Douyin (TikTok China) content with optional keyword, category, video-type, ranking, pagination, engagement, and creator-follower filters. Use it to support trend discovery and campaign research.",
+  "tags": [
+    "api",
+    "douyin",
+    "social-media"
+  ],
+  "capabilities": [
+    "api",
+    "douyin",
+    "social-media"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/douyin/hot-search"
+  },
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "page": {
+        "type": "integer",
+        "default": 1,
+        "description": "Page number (starting from 1). Page size is fixed at 10."
+      },
+      "keyword": {
+        "type": "string",
+        "description": "Optional search keyword."
+      },
+      "sortType": {
+        "enum": [
+          "COMPREHENSIVE",
+          "HIGH_INTERACTION",
+          "HIGH_LIKE",
+          "HIGH_COMMENT",
+          "HIGH_SHARE"
+        ],
+        "type": "string",
+        "default": "COMPREHENSIVE",
+        "description": "Sorting criteria for hot content results."
+      },
+      "videoType": {
+        "enum": [
+          "ALL",
+          "XINGTU_VIDEO",
+          "NATURAL_VIDEO"
+        ],
+        "type": "string",
+        "default": "ALL",
+        "description": "Video type filter."
+      },
+      "contentType": {
+        "enum": [
+          "ALL",
+          "FASHION",
+          "TECHNOLOGY",
+          "SCIENCE",
+          "PHOTOGRAPHY",
+          "FOOD",
+          "MOTHER_BABY",
+          "PARENTING",
+          "DRAMA",
+          "GAME",
+          "AUTOMOTIVE",
+          "ANIMAL",
+          "TRAVEL",
+          "DANCE",
+          "TRADITIONAL_CULTURE",
+          "ART",
+          "SPORTS",
+          "MUSIC",
+          "LIFE_RECORD",
+          "HOME_LIVING",
+          "LEISURE_ENTERTAINMENT",
+          "WORKPLACE",
+          "AGRICULTURE",
+          "CASUAL",
+          "ACG",
+          "MOVIE",
+          "TV_SERIES",
+          "VARIETY_SHOW",
+          "CELEBRITY",
+          "HUMANITIES_SOCIAL_SCIENCE",
+          "EDUCATION_CAMPUS",
+          "EMOTION",
+          "FINANCE",
+          "PUBLIC_WELFARE"
+        ],
+        "type": "string",
+        "default": "ALL",
+        "description": "Top-level content type. Only one content type can be selected."
+      },
+      "likeCountMax": {
+        "type": "integer",
+        "description": "Maximum raw like count."
+      },
+      "likeCountMin": {
+        "type": "integer",
+        "description": "Minimum raw like count."
+      },
+      "shareCountMax": {
+        "type": "integer",
+        "description": "Maximum raw share count."
+      },
+      "shareCountMin": {
+        "type": "integer",
+        "description": "Minimum raw share count."
+      },
+      "commentCountMax": {
+        "type": "integer",
+        "description": "Maximum raw comment count."
+      },
+      "commentCountMin": {
+        "type": "integer",
+        "description": "Minimum raw comment count."
+      },
+      "followerCountMax": {
+        "type": "integer",
+        "description": "Maximum raw creator follower count."
+      },
+      "followerCountMin": {
+        "type": "integer",
+        "description": "Minimum raw creator follower count."
+      },
+      "interactionCountMax": {
+        "type": "integer",
+        "description": "Maximum raw interaction count."
+      },
+      "interactionCountMin": {
+        "type": "integer",
+        "description": "Minimum raw interaction count."
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.027778
+  },
+  "readme": "# Douyin Hot Search API\n\nSearch Douyin (TikTok China) content with optional keyword, category, video-type, ranking, pagination, engagement, and creator-follower filters. Use it to support trend discovery and campaign research.\n\nThe response is the platform's original data structure.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/douyin/hot-search\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `keyword` | string | No | Optional search keyword. |\n| `contentType` | string | No | Top-level content type. Only one content type can be selected. |\n| `videoType` | string | No | Video type filter. |\n| `sortType` | string | No | Sorting criteria for hot content results. |\n| `page` | integer | No | Page number (starting from 1). Page size is fixed at 10. |\n| `likeCountMin` | integer | No | Minimum raw like count. |\n| `likeCountMax` | integer | No | Maximum raw like count. |\n| `commentCountMin` | integer | No | Minimum raw comment count. |\n| `commentCountMax` | integer | No | Maximum raw comment count. |\n| `shareCountMin` | integer | No | Minimum raw share count. |\n| `shareCountMax` | integer | No | Maximum raw share count. |\n| `interactionCountMin` | integer | No | Minimum raw interaction count. |\n| `interactionCountMax` | integer | No | Maximum raw interaction count. |\n| `followerCountMin` | integer | No | Minimum raw creator follower count. |\n| `followerCountMax` | integer | No | Maximum raw creator follower count. |\n\n## Pricing\n\nFlat price per call. Failed calls and empty results are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/douyin/hot-search",
+  "created_at": "2026-10-29T12:19:08.793Z"
+}

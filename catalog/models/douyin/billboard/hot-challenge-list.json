@@ -1,0 +1,68 @@
+{
+  "name": "douyin/billboard/hot-challenge-list",
+  "display_name": "Douyin Hot Challenge List",
+  "type": "api",
+  "vendor": "Douyin",
+  "vendor_slug": "douyin",
+  "description": "Returns trending Douyin challenge leaderboard entries with rank, hot score, and video counts. Supports filtering by keyword and page-based pagination.",
+  "tags": [
+    "api",
+    "douyin"
+  ],
+  "capabilities": [
+    "api",
+    "douyin"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/douyin/billboard/hot-challenge-list"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "page",
+      "page_size"
+    ],
+    "properties": {
+      "page": {
+        "type": "integer",
+        "title": "Page",
+        "example": 1,
+        "description": "Page number"
+      },
+      "keyword": {
+        "type": "string",
+        "title": "Keyword",
+        "default": "",
+        "description": "Hot search term"
+      },
+      "page_size": {
+        "type": "integer",
+        "title": "Page Size",
+        "example": 10,
+        "description": "Number of items per page"
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.0015,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "readme": "# Douyin Hot Challenge List API\n\nRetrieve trending challenge rankings on Douyin using `page` and `page_size`, with optional keyword filtering via `keyword`.\n\n## Use cases\n\n- Track top-performing challenge topics on Douyin.\n- Analyze challenge popularity through hot scores and video counts.\n- Search for specific challenge themes using keyword filters.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/douyin/billboard/hot-challenge-list\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"page\": 1, \"page_size\": 10}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `page` | integer | Yes | Page number |\n| `page_size` | integer | Yes | Number of items per page |\n| `keyword` | string | No | Hot search term |\n\n## Example response\n\nReal response for the request above, trimmed to the main fields. User names and long IDs are masked.\n\n```json\n{\n  \"data\": {\n    \"objs\": [\n      {\n        \"SnapshotSubType\": \"hotspot_challenge\",\n        \"SnapshotType\": 2,\n        \"hot_score\": 8870294,\n        \"label\": 0,\n        \"rank\": 1,\n        \"sentence_id\": 2683588,\n        \"sentence_tag\": 1001,\n        \"video_count\": 10\n      }\n    ]\n  }\n}\n```\n\n## Notes\n\n- Pagination is controlled using the required `page` and `page_size` parameters.\n- Use `keyword` to filter challenge results by a specific search term.\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [Douyin Billboard City List](/model/douyin/billboard/city-list): Returns the list of Chinese cities supported by Douyin billboard rankings.\n- [Douyin Billboard Vertical Content Tags](/model/douyin/billboard/content-tag): Returns a list of vertical content tags available on the Douyin billboard platform.\n- [Douyin Fan Interest Account List](/model/douyin/billboard/hot-account-fans-interest-account-list): Returns a list of 20 accounts that followers of a target creator are interested in on Douyin.\n",
+  "page_url": "https://www.sandbase.ai/model/douyin/billboard/hot-challenge-list",
+  "created_at": "2026-07-31T02:35:02.511Z"
+}

@@ -1,0 +1,98 @@
+{
+  "name": "kuaishou/app/search-user-v2",
+  "display_name": "Kuaishou User Search (V2)",
+  "type": "api",
+  "vendor": "Kuaishou",
+  "vendor_slug": "kuaishou",
+  "description": "Searches for Kuaishou accounts matching a query term. Results can be filtered by gender and account relationship status, as well as sorted by follower count.",
+  "tags": [
+    "api",
+    "kuaishou"
+  ],
+  "capabilities": [
+    "api",
+    "kuaishou"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/kuaishou/app/search-user-v2"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "keyword"
+    ],
+    "properties": {
+      "keyword": {
+        "type": "string",
+        "title": "搜索关键词/Search keyword"
+      },
+      "pcursor": {
+        "type": "string",
+        "title": "分页游标/Pagination cursor",
+        "description": "Pagination cursor, empty for first page, pass pcursor from previous response"
+      },
+      "fans_sort": {
+        "enum": [
+          "default",
+          "most_to_least",
+          "least_to_most"
+        ],
+        "type": "string",
+        "title": "粉丝排序/Fans sort",
+        "description": "default / most_to_least / least_to_most"
+      },
+      "user_gender": {
+        "enum": [
+          "all",
+          "male",
+          "female"
+        ],
+        "type": "string",
+        "title": "性别筛选/Gender filter",
+        "description": "all / male / female"
+      },
+      "user_relation": {
+        "enum": [
+          "all",
+          "same_city",
+          "verified",
+          "live",
+          "following"
+        ],
+        "type": "string",
+        "title": "关系筛选/Relation filter",
+        "description": "all / same_city / verified / live / following"
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.015,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "examples": [
+    {
+      "input": {
+        "keyword": "test"
+      },
+      "default": true
+    }
+  ],
+  "readme": "# Kuaishou User Search (V2) API\n\nLook up Kuaishou accounts using a search `keyword`. Narrow results by applying `user_gender`, `user_relation`, and `fans_sort` criteria.\n\n## Use cases\n\n- Find creator profiles matching target keywords on Kuaishou.\n- Filter account search results by gender or verification status.\n- Discover popular influencers by sorting profiles based on follower counts.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/kuaishou/app/search-user-v2\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"keyword\": \"<keyword>\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `keyword` | string | Yes | — |\n| `pcursor` | string | No | Pagination cursor, empty for first page, pass pcursor from previous response |\n| `fans_sort` | string | No | default / most_to_least / least_to_most |\n| `user_gender` | string | No | all / male / female |\n| `user_relation` | string | No | all / same_city / verified / live / following |\n\n## Notes\n\n- Leave `pcursor` empty for the first page, and pass the returned value from the prior call to request subsequent pages.\n- The `fans_sort` parameter supports `default`, `most_to_least`, and `least_to_most`.\n- Use `user_relation` to filter by `all`, `same_city`, `verified`, `live`, or `following`.\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [Kuaishou Brand Top List](/model/kuaishou/app/brand-top-list): Returns top brand rankings and related live stream links from Kuaishou.\n- [Kuaishou App Share Link](/model/kuaishou/app/generate-share-link): Generates a shareable URL for Kuaishou application content using a specified object identifier.\n- [Kuaishou Hot Board Categories](/model/kuaishou/app/hot-board-categories): Returns the active list of hot board categories available in the Kuaishou app.\n",
+  "page_url": "https://www.sandbase.ai/model/kuaishou/app/search-user-v2",
+  "created_at": "2026-07-31T03:58:13.132Z"
+}

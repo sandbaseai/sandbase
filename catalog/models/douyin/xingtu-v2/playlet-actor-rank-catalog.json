@@ -1,0 +1,53 @@
+{
+  "name": "douyin/xingtu-v2/playlet-actor-rank-catalog",
+  "display_name": "Douyin Xingtu Playlet Actor Rank Catalog",
+  "type": "api",
+  "vendor": "Douyin",
+  "vendor_slug": "douyin",
+  "description": "Returns the ranking catalog options for Douyin Xingtu playlet actors. Use this endpoint to inspect available categories and ranking classifications.",
+  "tags": [
+    "api",
+    "douyin"
+  ],
+  "capabilities": [
+    "api",
+    "douyin"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/douyin/xingtu-v2/playlet-actor-rank-catalog"
+  },
+  "input_schema": {
+    "type": "object",
+    "properties": {}
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.0015,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "examples": [
+    {
+      "input": {}
+    },
+    {
+      "input": {}
+    }
+  ],
+  "readme": "# Douyin Xingtu Playlet Actor Rank Catalog API\n\nAccess the available ranking catalog and classification categories for Douyin Xingtu playlet actors. This endpoint requires no request parameters.\n\n## Use cases\n\n- Discover available ranking categories for playlet actors on Xingtu.\n- Map catalog identifiers prior to querying specific actor leaderboards.\n- Keep local category definitions synchronized with Douyin Xingtu taxonomies.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/douyin/xingtu-v2/playlet-actor-rank-catalog\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{}'\n```\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [Douyin Xingtu Author Audience Distribution](/model/douyin/xingtu-v2/author-audience-distribution): Returns audience profile distribution metrics for a specified Xingtu creator based on creator ID and link type, with selectable platform source and channel opt…\n- [Douyin Xingtu Author Base Info](/model/douyin/xingtu-v2/author-base-info): Returns basic creator profile data from Douyin Xingtu by author identifier, with options to include recommendation details and linkage information.\n- [Douyin Xingtu Author Business Card Info](/model/douyin/xingtu-v2/author-business-card-info): Returns business card details for a Douyin Xingtu creator based on the specified author ID.\n",
+  "page_url": "https://www.sandbase.ai/model/douyin/xingtu-v2/playlet-actor-rank-catalog",
+  "created_at": "2026-07-31T02:42:47.045Z"
+}

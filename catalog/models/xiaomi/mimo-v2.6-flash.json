@@ -1,0 +1,46 @@
+{
+  "name": "xiaomi/mimo-v2.6-flash",
+  "display_name": "Xiaomi: MiMo-V2.6-Flash",
+  "type": "llm",
+  "vendor": "Xiaomi",
+  "vendor_slug": "xiaomi",
+  "description": "MiMo-V2.6-Flash is the efficiency tier of Xiaomi's open-source MiMo-V2.6 series, released in September 2026 as a natively omni-modal reasoning model that takes text, image, video and audio input and returns text. Xiaomi positions it as the balance of intelligence and efficiency for high-frequency calls and large-scale professional workflows, with a 1M-token context, tool calling and structured output. Xiaomi reports it surpasses MiMo-V2.5-Pro; choose MiMo-V2.6-Pro for the hardest tasks.",
+  "tags": [
+    "chat",
+    "vision",
+    "audio_input",
+    "reasoning",
+    "structured_output",
+    "function_calling"
+  ],
+  "capabilities": [
+    "chat",
+    "vision",
+    "audio_input",
+    "reasoning",
+    "structured_output",
+    "function_calling"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "chat_completions": "POST /v1/chat/completions",
+    "responses": "POST /v1/responses",
+    "messages": "POST /v1/messages"
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_token",
+    "per_million_tokens": {
+      "input": 0.14,
+      "output": 0.28,
+      "cache_read_multiplier": 0.02
+    }
+  },
+  "cover_url": "https://t0.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=https://www.mi.com/&size=256",
+  "page_url": "https://www.sandbase.ai/model/xiaomi/mimo-v2.6-flash",
+  "published_at": "2026-09-21T20:07:44Z",
+  "created_at": "2026-10-02T07:11:40.641Z"
+}

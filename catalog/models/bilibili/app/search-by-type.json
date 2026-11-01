@@ -1,0 +1,90 @@
+{
+  "name": "bilibili/app/search-by-type",
+  "display_name": "Bilibili Search by Type",
+  "type": "api",
+  "vendor": "Bilibili",
+  "vendor_slug": "bilibili",
+  "description": "Returns categorized search results from Bilibili based on a target query string. Supports filtering by search type, adjusting sort order, and cursor-based pagination.",
+  "tags": [
+    "api",
+    "bilibili"
+  ],
+  "capabilities": [
+    "api",
+    "bilibili"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/bilibili/app/search-by-type"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "keyword"
+    ],
+    "properties": {
+      "order": {
+        "type": "integer",
+        "title": "Order",
+        "default": 0,
+        "description": "Sort order"
+      },
+      "cursor": {
+        "type": "string",
+        "title": "Cursor",
+        "default": "",
+        "description": "Pagination cursor. Leave empty for the first page; for the next page pass"
+      },
+      "keyword": {
+        "type": "string",
+        "title": "Keyword",
+        "example": "OpenAI",
+        "description": "Search keyword (required)"
+      },
+      "page_size": {
+        "type": "integer",
+        "title": "Page Size",
+        "default": 20,
+        "description": "Results per page"
+      },
+      "search_type": {
+        "type": "string",
+        "title": "Search Type",
+        "default": "video",
+        "description": "Search type"
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.0015,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "examples": [
+    {
+      "input": {
+        "cursor": "",
+        "keyword": "OpenAI",
+        "order": 0,
+        "page_size": 20,
+        "search_type": "video"
+      }
+    }
+  ],
+  "readme": "# Bilibili Search by Type API\n\nQuery Bilibili content categorized by type using the required `keyword` parameter. You can optionally filter by `search_type`, apply an `order` index, and paginate through results.\n\n## Use cases\n\n- Search for specific video items matching a keyword on Bilibili.\n- Filter platform search results by specified category types.\n- Paginate through Bilibili catalog queries using cursor tokens.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/bilibili/app/search-by-type\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"keyword\": \"OpenAI\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `keyword` | string | Yes | Search keyword (required) |\n| `order` | integer | No | Sort order |\n| `cursor` | string | No | Pagination cursor. |\n| `page_size` | integer | No | Results per page |\n| `search_type` | string | No | Search type |\n\n## Example response\n\nReal response for the request above, trimmed to the main fields. User names and long IDs are masked.\n\n```json\n{\n  \"data\": {\n    \"items\": [\n      {\n        \"av\": {\n          \"author\": \"红客官方账号\",\n          \"duration\": \"9:29\",\n          \"ptime\": \"1788174347\",\n          \"title\": \"全球首例！700个AI失控组团攻击，全程无人参与，OpenAI都懵了\",\n          \"view_content\": \"5.9万\"\n        }\n      }\n    ]\n  }\n}\n```\n\n## Notes\n\n- Leave `cursor` empty for the initial request, then pass the returned cursor string for subsequent pages.\n- `keyword` is required for every search request.\n- Use `search_type` to define the target category such as video.\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [Bilibili App Bangumi Tab](/model/bilibili/app/bangumi-tab): Returns Bilibili app bangumi tab data, providing curated anime recommendations, feed items, and category listings for mobile clients.\n- [Bilibili App Cinema Tab](/model/bilibili/app/cinema-tab): Returns cinema tab content from the Bilibili app, featuring curated movies, TV shows, and entertainment recommendations without requiring additional query para…\n- [Bilibili App Home Feed](/model/bilibili/app/home-feed): Returns recommended video items from the Bilibili app home feed.\n",
+  "page_url": "https://www.sandbase.ai/model/bilibili/app/search-by-type",
+  "created_at": "2026-07-31T03:53:21.376Z"
+}

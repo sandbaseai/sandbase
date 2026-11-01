@@ -1,0 +1,96 @@
+{
+  "name": "linkedin/post-comments",
+  "display_name": "LinkedIn Post Comments",
+  "type": "api",
+  "vendor": "LinkedIn",
+  "vendor_slug": "linkedin",
+  "description": "List comments on a LinkedIn post - full text, commenter name/URL/job title, timestamps, and engagement.",
+  "tags": [
+    "api",
+    "linkedin",
+    "social-media"
+  ],
+  "capabilities": [
+    "api",
+    "linkedin",
+    "social-media"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/linkedin/post-comments"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "url"
+    ],
+    "properties": {
+      "url": {
+        "type": "string",
+        "example": "https://www.linkedin.com/posts/stripe_philip-kl%C3%B6ckner-in-conversation-with-conor-activity-7477791740645564416-tIbZ",
+        "description": "Full URL of the LinkedIn post to list comments for."
+      },
+      "limit": {
+        "type": "integer",
+        "default": 100,
+        "example": 10,
+        "maximum": 100,
+        "minimum": 1,
+        "description": "Maximum number of comments to return."
+      },
+      "postedLimit": {
+        "enum": [
+          "any",
+          "24h",
+          "week",
+          "month",
+          "3months",
+          "6months",
+          "year"
+        ],
+        "type": "string",
+        "description": "Only return comments posted within this window (default any)."
+      }
+    },
+    "additionalProperties": false
+  },
+  "response_schema": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string"
+      },
+      "model": {
+        "type": "string"
+      },
+      "status": {
+        "type": "string"
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "data": {
+              "type": "object",
+              "description": "Normalized result for this request."
+            }
+          }
+        }
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "usage_based",
+    "note": "Billed per call from metered usage; the reference price is typical.",
+    "reference_price": 0.0029
+  },
+  "readme": "# LinkedIn Post Comments API\n\nList comments on a LinkedIn post - full text, commenter name/URL/job title, timestamps, and engagement.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/linkedin/post-comments\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"url\": \"https://www.linkedin.com/posts/stripe_philip-kl%C3%B6ckner-in-conversation-with-conor-activity-7477791740645564416-tIbZ\", \"limit\": 10}'\n```\n\nThe result is returned in `outputs[0].data`. A lookup that finds nothing still succeeds and returns `found: false`.\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `url` | string | Yes | Full URL of the LinkedIn post to list comments for. |\n| `limit` | integer | No | Maximum number of comments to return. Default `100`. |\n| `postedLimit` | string | No | Only return comments posted within this window (default any). One of: `any`, `24h`, `week`, `month`, `3months`, `6months`, `year`. |\n\n## Pricing\n\nBilled at the actual cost of each call, usually $0.0029 per request. A call can cost more when the first data source fails and another one answers. Failed calls are not charged. Lookups that find nothing and searches with no results are billed at their actual cost, which is often lower and can be $0.\n",
+  "page_url": "https://www.sandbase.ai/model/linkedin/post-comments",
+  "created_at": "2026-11-01T12:25:33.422Z"
+}

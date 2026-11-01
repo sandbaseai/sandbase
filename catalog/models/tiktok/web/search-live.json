@@ -1,0 +1,83 @@
+{
+  "name": "tiktok/web/search-live",
+  "display_name": "TikTok Web Stream Search",
+  "type": "api",
+  "vendor": "TikTok",
+  "vendor_slug": "tiktok",
+  "description": "Searches active TikTok web broadcasts matching a specified keyword. Returns stream details with pagination controls via count and offset parameters.",
+  "tags": [
+    "api",
+    "tiktok"
+  ],
+  "capabilities": [
+    "api",
+    "tiktok"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/tiktok/web/search-live"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "keyword"
+    ],
+    "properties": {
+      "count": {
+        "type": "integer",
+        "title": "Count",
+        "default": 20,
+        "example": 1,
+        "description": "Number per page"
+      },
+      "offset": {
+        "type": "integer",
+        "title": "Offset",
+        "default": 0,
+        "example": 0,
+        "description": "Page offset, 0 for the first request, need to provide for the second paging."
+      },
+      "keyword": {
+        "type": "string",
+        "title": "Keyword",
+        "example": "openai",
+        "description": "Search keyword"
+      },
+      "search_id": {
+        "type": "string",
+        "title": "Search Id",
+        "default": "",
+        "description": "Search id, empty for the first request, need to provide for the second paging, need to get it from the return response of the last request."
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.0015,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "examples": [
+    {
+      "input": {
+        "keyword": "openai"
+      },
+      "default": true
+    }
+  ],
+  "readme": "# TikTok Web Stream Search API\n\nQuery active streams on TikTok by providing a search term in `keyword`. Supports pagination across multiple result pages using `offset` and `search_id`.\n\n## Use cases\n\n- Discover active TikTok broadcasts matching specific topics or brand names.\n- Track broadcast trends for targeted keywords.\n- Monitor competitor streaming activity across the platform.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/tiktok/web/search-live\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"keyword\": \"openai\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `keyword` | string | Yes | Search keyword |\n| `count` | integer | No | Number per page |\n| `offset` | integer | No | Page offset, 0 for the first request, need to provide for the second paging. |\n| `search_id` | string | No | Search id, empty for the first request, need to provide for the second paging, need to get it from the return response of the last request. |\n\n## Notes\n\n- Pass `offset` as 0 for initial queries, then advance it for subsequent pages.\n- Include the `search_id` returned in the previous response when requesting additional pages.\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [TikTok Video IDs from URLs (Batch)](/model/tiktok/web/all-aweme-id): Resolves and extracts TikTok video IDs from a list of video URLs.\n- [TikTok User Sec User ID Extractor](/model/tiktok/web/all-sec-user-id): Returns a list of sec_user_id identifiers corresponding to TikTok user profile URLs.\n- [TikTok Profile Unique IDs](/model/tiktok/web/all-unique-id): Resolves a batch of TikTok user homepage links to retrieve their corresponding unique identifiers.\n",
+  "page_url": "https://www.sandbase.ai/model/tiktok/web/search-live",
+  "created_at": "2026-07-31T04:17:34.618Z"
+}

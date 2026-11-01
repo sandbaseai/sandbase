@@ -1,0 +1,101 @@
+# Kuaishou User ID Lookup
+
+`kuaishou/web/get-user-id` · api · Kuaishou
+
+Resolves a Kuaishou user ID from a provided user share link. Useful for extracting internal profile identifiers from public sharing URLs.
+
+## Pricing
+
+- **$0.0015 per call** (USD)
+- Free quota: 100 calls/day per organization (shared across free-quota APIs).
+
+## Call it
+
+Modes: sync (default `sync`). Only pass `mode` values listed here. The SDKs' `run()` waits for async results; `submit()` + `wait()` split the two steps.
+
+**curl**
+
+```bash
+curl https://api.sandbase.ai/v1/run \
+  -H "Authorization: Bearer $SANDBASE_API_KEY" -H 'Content-Type: application/json' \
+  -d '{"model": "kuaishou/web/get-user-id", "share_link": "https://c.kuaishou.com/fw/user/3xcuu5habgc8z29"}'
+```
+
+**Python** ([sdk/python](../../../../sdk/python))
+
+```python
+from sandbase import SandBase
+
+result = SandBase().run('kuaishou/web/get-user-id', {'share_link': 'https://c.kuaishou.com/fw/user/3xcuu5habgc8z29'})
+print(result["outputs"])
+```
+
+**TypeScript** ([sdk/typescript](../../../../sdk/typescript))
+
+```ts
+import { SandBase } from "@sandbaseai/sdk";
+
+const result = await new SandBase().run("kuaishou/web/get-user-id", {
+  "share_link": "https://c.kuaishou.com/fw/user/3xcuu5habgc8z29"
+});
+console.log(result.outputs);
+```
+
+**Go** ([sdk/go](../../../../sdk/go))
+
+```go
+c, _ := sandbase.NewClient("")
+run, err := c.Run(ctx, "kuaishou/web/get-user-id", sandbase.Params{
+	"share_link": "https://c.kuaishou.com/fw/user/3xcuu5habgc8z29",
+})
+```
+
+Same call via the path form: `POST /v1/api/kuaishou/web/get-user-id` with the body above minus `model`.
+
+## Parameters
+
+| name | type | required | description |
+|---|---|---|---|
+| `share_link` | string | yes | 用户分享链接/User Share Link  |
+
+## Details
+
+Resolves a Kuaishou profile identifier by parsing the provided `share_link`.
+
+### Use cases
+
+- Resolve raw user profile IDs from shared Kuaishou web links.
+- Convert mobile share links into standard identifiers for downstream lookups.
+- Automate profile identity extraction from social share URLs.
+
+### Request
+
+```bash
+curl -X POST "https://api.sandbase.ai/v1/api/kuaishou/web/get-user-id" \
+  -H "Authorization: Bearer $SANDBASE_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{"share_link": "https://c.kuaishou.com/fw/user/3xcuu5habgc8z29"}'
+```
+
+### Parameters
+
+| Name | Type | Required | Description |
+|---|---|---|---|
+| `share_link` | string | Yes | — |
+
+### Notes
+
+- Requires a valid user URL passed via `share_link`.
+
+### Pricing
+
+Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+
+### Related APIs
+
+- [Kuaishou Web Share Short URL](/model/kuaishou/web/generate-share-short-url): Returns a shareable short URL for a specified Kuaishou video or photo post.
+- [Kuaishou Web Hot List](/model/kuaishou/web/hot-list-v1): Returns the current trending hot list from Kuaishou Web.
+- [Kuaishou Web Hot List (V2)](/model/kuaishou/web/hot-list-v2): Returns current trending search rankings and hot topics on Kuaishou web.
+
+---
+Machine-readable: [`catalog/models/kuaishou/web/get-user-id.json`](../../../../catalog/models/kuaishou/web/get-user-id.json) · Store page: https://www.sandbase.ai/model/kuaishou/web/get-user-id

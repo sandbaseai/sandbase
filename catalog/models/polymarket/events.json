@@ -1,0 +1,168 @@
+{
+  "name": "polymarket/events",
+  "display_name": "Polymarket List events",
+  "type": "api",
+  "vendor": "Polymarket",
+  "vendor_slug": "polymarket",
+  "description": "List events with offset based pagination and filter parameters.",
+  "tags": [
+    "api",
+    "polymarket",
+    "prediction-markets"
+  ],
+  "capabilities": [
+    "api",
+    "polymarket",
+    "prediction-markets"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/polymarket/events"
+  },
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "array",
+        "items": {
+          "type": "integer"
+        },
+        "description": "id"
+      },
+      "cyom": {
+        "type": "boolean",
+        "description": "cyom"
+      },
+      "slug": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        },
+        "description": "slug"
+      },
+      "limit": {
+        "type": "integer",
+        "example": 1,
+        "minimum": 0,
+        "description": "limit"
+      },
+      "order": {
+        "type": "string",
+        "description": "Comma-separated list of fields to order by"
+      },
+      "active": {
+        "type": "boolean",
+        "example": true,
+        "description": "active"
+      },
+      "closed": {
+        "enum": [
+          "any"
+        ],
+        "type": "boolean",
+        "description": "Filter by closed state. Omitted includes open and closed events. Use true for closed events, false for open events, or any (case-insensitive) for both states. Unlike markets, any does not require an identifier filter. Invalid closed values return 422."
+      },
+      "offset": {
+        "type": "integer",
+        "minimum": 0,
+        "description": "offset"
+      },
+      "tag_id": {
+        "type": "integer",
+        "description": "tag_id"
+      },
+      "archived": {
+        "type": "boolean",
+        "description": "archived"
+      },
+      "featured": {
+        "type": "boolean",
+        "description": "featured"
+      },
+      "tag_slug": {
+        "type": "string",
+        "description": "tag_slug"
+      },
+      "ascending": {
+        "type": "boolean",
+        "description": "ascending"
+      },
+      "recurrence": {
+        "type": "string",
+        "description": "recurrence"
+      },
+      "volume_max": {
+        "type": "number",
+        "description": "volume_max"
+      },
+      "volume_min": {
+        "type": "number",
+        "description": "volume_min"
+      },
+      "end_date_max": {
+        "type": "string",
+        "description": "end_date_max"
+      },
+      "end_date_min": {
+        "type": "string",
+        "description": "end_date_min"
+      },
+      "include_chat": {
+        "type": "boolean",
+        "description": "include_chat"
+      },
+      "related_tags": {
+        "type": "boolean",
+        "description": "related_tags"
+      },
+      "liquidity_max": {
+        "type": "number",
+        "description": "liquidity_max"
+      },
+      "liquidity_min": {
+        "type": "number",
+        "description": "liquidity_min"
+      },
+      "exclude_tag_id": {
+        "type": "array",
+        "items": {
+          "type": "integer"
+        },
+        "description": "exclude_tag_id"
+      },
+      "start_date_max": {
+        "type": "string",
+        "description": "start_date_max"
+      },
+      "start_date_min": {
+        "type": "string",
+        "description": "start_date_min"
+      },
+      "include_template": {
+        "type": "boolean",
+        "description": "include_template"
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.00044,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "readme": "# Polymarket List events API\n\nList events with offset based pagination and filter parameters.\n\nThe response is the official Polymarket API response, unchanged.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/polymarket/events\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"limit\": 1, \"active\": true}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `active` | boolean | No | active |\n| `archived` | boolean | No | archived |\n| `ascending` | boolean | No | ascending |\n| `closed` | boolean | No | Filter by closed state. Omitted includes open and closed events. Use true for closed events, false for open events, or any (case-insensitive) for both states. U |\n| `cyom` | boolean | No | cyom |\n| `end_date_max` | string | No | end_date_max |\n| `end_date_min` | string | No | end_date_min |\n| `exclude_tag_id` | array | No | exclude_tag_id |\n| `featured` | boolean | No | featured |\n| `id` | array | No | id |\n| `include_chat` | boolean | No | include_chat |\n| `include_template` | boolean | No | include_template |\n| `limit` | integer | No | limit |\n| `liquidity_max` | number | No | liquidity_max |\n| `liquidity_min` | number | No | liquidity_min |\n| `offset` | integer | No | offset |\n| `order` | string | No | Comma-separated list of fields to order by |\n| `recurrence` | string | No | recurrence |\n| `related_tags` | boolean | No | related_tags |\n| `slug` | array | No | slug |\n| `start_date_max` | string | No | start_date_max |\n| `start_date_min` | string | No | start_date_min |\n| `tag_id` | integer | No | tag_id |\n| `tag_slug` | string | No | tag_slug |\n| `volume_max` | number | No | volume_max |\n| `volume_min` | number | No | volume_min |\n\n## Pricing\n\nFlat price per call. Failed calls are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/polymarket/events",
+  "created_at": "2026-08-10T02:52:15.69Z"
+}

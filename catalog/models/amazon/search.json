@@ -1,0 +1,181 @@
+{
+  "name": "amazon/search",
+  "display_name": "Amazon Search",
+  "type": "api",
+  "vendor": "Amazon",
+  "vendor_slug": "amazon",
+  "description": "Search Amazon by keyword: organic results with ASIN, title, price, old price, rating, reviews, Prime and delivery info, plus sponsored products and pagination.",
+  "tags": [
+    "api",
+    "amazon",
+    "ecommerce",
+    "product-data"
+  ],
+  "capabilities": [
+    "api",
+    "amazon",
+    "ecommerce",
+    "product-data"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}",
+    "passthrough": "POST /v1/api/amazon/search"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "k"
+    ],
+    "properties": {
+      "k": {
+        "type": [
+          "string",
+          "number",
+          "boolean"
+        ],
+        "example": "wireless earbuds",
+        "description": "The query you want to search. You can use anything that you would use in a regular Amazon search. This parameter can't be used with the `node` parameter."
+      },
+      "s": {
+        "anyOf": [
+          {
+            "enum": [
+              "relevanceblender",
+              "price-asc-rank",
+              "price-desc-rank",
+              "review-rank",
+              "date-desc-rank",
+              "exact-aware-popularity-rank"
+            ],
+            "type": "string"
+          }
+        ],
+        "description": "Sorting results. Available options: `relevanceblender` - Featured (default) `price-asc-rank` - Price: Low to High `price-desc-rank` - Price: High to Low `review-rank` - Avg. Customer Review `date-desc-rank` - Newest Arrivals `exact-aware-popularity-rank` - Best Sellers"
+      },
+      "dc": {
+        "anyOf": [
+          {
+            "type": "boolean"
+          },
+          {
+            "enum": [
+              "true",
+              "false"
+            ],
+            "type": "string"
+          }
+        ],
+        "description": "The exclusion of results from an auto-corrected query when the original query is spelled wrong. It can be set to `true` to exclude these results, or `false` to include them (default)."
+      },
+      "rh": {
+        "type": [
+          "string",
+          "number",
+          "boolean"
+        ],
+        "description": "Items filtering based on their attributes. The structure is a list of `key:value` pairs separated by `,`. For example `n:16318031,p_n_cpf_eligible:21512497011,p_72:1248897011` to filter for products in **Coffee** department (`n:16318031`) that are **Climate Pledge Friendly** (`p_n_cpf_eligible:21512497011`) and rated **4 Stars & Up** (`p_72:1248897011`). Head to Amazon Category Nodes for a full list of supported Amazon Categories."
+      },
+      "node": {
+        "type": [
+          "string",
+          "number",
+          "boolean"
+        ],
+        "description": "Specifies the category for Amazon search results. You can find the appropriate node value by browsing Amazon’s website and accessing a specific category. The node ID is typically included in the URL after the format `node=[NODE ID]`. For example, on Amazon.com, the node for Smart Home is `6563140011`, and on Amazon.co.uk, the node for Fashion is `11961407031`. Use this node value to filter search results by category. This parameter can't be used with the `k` parameter. Head to Amazon Category Nodes for a full list of supported Amazon Categories."
+      },
+      "page": {
+        "type": [
+          "string",
+          "number",
+          "boolean"
+        ],
+        "description": "The page number. It's used for pagination. (e.g., `1` (default) is the first page of results, `2` is the 2nd page of results, `3` is the 3rd page of results, etc.)."
+      },
+      "device": {
+        "type": [
+          "string",
+          "number",
+          "boolean"
+        ],
+        "description": "The device to use to get the results. It can be set to `desktop` (default) to use a regular browser, `tablet` to use a tablet browser (currently using iPads), or `mobile` to use a mobile browser."
+      },
+      "language": {
+        "type": [
+          "string",
+          "number",
+          "boolean"
+        ],
+        "description": "The language to use for the Amazon search. It's a locale name represented as _. (e.g., on amazon.com `en_US` for English, `es_US` for Spanish, or on amazon.co.jp `ja_JP` for Japanese). Head to Amazon languages for a full list of supported Amazon languages."
+      },
+      "delivery_zip": {
+        "type": [
+          "string",
+          "number",
+          "boolean"
+        ],
+        "description": "ZIP Postal code. To filter the shipping products by a selected area."
+      },
+      "amazon_domain": {
+        "type": [
+          "string",
+          "number",
+          "boolean"
+        ],
+        "description": "The Amazon domain to use. It defaults to `amazon.com`. Head to Amazon domains for a full list of supported Amazon domains."
+      },
+      "json_restrictor": {
+        "type": [
+          "string",
+          "number",
+          "boolean"
+        ],
+        "description": "The fields you want to include in the output, reducing payload size for faster response. See the JSON Restrictor documentation for more details."
+      },
+      "shipping_location": {
+        "type": [
+          "string",
+          "number",
+          "boolean"
+        ],
+        "description": "Shipping country. To filter the shipping products by a selected country."
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "required": [
+      "id",
+      "status",
+      "model"
+    ],
+    "properties": {
+      "id": {
+        "type": "string"
+      },
+      "model": {
+        "type": "string"
+      },
+      "status": {
+        "type": "string"
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.015,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "readme": "# Amazon Search\n\nSearch Amazon by keyword: organic results with ASIN, title, price, old price, rating, reviews, Prime and delivery info, plus sponsored products and pagination.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/amazon/search\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"k\": \"wireless earbuds\"}'\n```\n\nThis API runs asynchronously. The call returns a task `id` with status `pending`; poll `GET https://api.sandbase.ai/v1/run/{id}` until `status` is `completed` and read the result from `outputs[0].data`.\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `k` | string/number/boolean | Yes | The query you want to search. You can use anything that you would use in a regular Amazon search. This parameter can't be used with the `node` parameter. |\n| `amazon_domain` | string/number/boolean | No | The Amazon domain to use. It defaults to `amazon.com`. Head to Amazon domains for a full list of supported Amazon domains. |\n| `dc` | any | No | The exclusion of results from an auto-corrected query when the original query is spelled wrong. It can be set to `true` to exclude these results, or `false` to include them (default). |\n| `delivery_zip` | string/number/boolean | No | ZIP Postal code. To filter the shipping products by a selected area. |\n| `device` | string/number/boolean | No | The device to use to get the results. It can be set to `desktop` (default) to use a regular browser, `tablet` to use a tablet browser (currently using iPads), or `mobile` to use a mobile browser. |\n| `json_restrictor` | string/number/boolean | No | The fields you want to include in the output, reducing payload size for faster response. See the JSON Restrictor documentation for more details. |\n| `language` | string/number/boolean | No | The language to use for the Amazon search. It's a locale name represented as _. (e.g., on amazon.com `en_US` for English, `es_US` for Spanish, or on amazon.co.jp `ja_JP` for Japanese). Head to Amazon … |\n| `node` | string/number/boolean | No | Specifies the category for Amazon search results. You can find the appropriate node value by browsing Amazon’s website and accessing a specific category. The node ID is typically included in the URL a… |\n| `page` | string/number/boolean | No | The page number. It's used for pagination. (e.g., `1` (default) is the first page of results, `2` is the 2nd page of results, `3` is the 3rd page of results, etc.). |\n| `rh` | string/number/boolean | No | Items filtering based on their attributes. The structure is a list of `key:value` pairs separated by `,`. For example `n:16318031,p_n_cpf_eligible:21512497011,p_72:1248897011` to filter for products i… |\n| `s` | any | No | Sorting results. Available options: `relevanceblender` - Featured (default) `price-asc-rank` - Price: Low to High `price-desc-rank` - Price: High to Low `review-rank` - Avg. Customer Review `date-desc… |\n| `shipping_location` | string/number/boolean | No | Shipping country. To filter the shipping products by a selected country. |\n\n## Pricing\n\nFlat price per call. Failed calls are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/amazon/search",
+  "created_at": "2026-10-28T23:56:26.638Z"
+}

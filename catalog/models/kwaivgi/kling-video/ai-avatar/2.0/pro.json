@@ -1,0 +1,142 @@
+{
+  "name": "kwaivgi/kling-video/ai-avatar/2.0/pro",
+  "display_name": "Kling AI Avatar 2.0 Pro",
+  "type": "video",
+  "vendor": "KwaiVGI",
+  "vendor_slug": "kwaivgi",
+  "description": "Kling AI Avatar 2.0 Pro by Kuaishou animates a portrait image into a talking-head video lip-synced to an input audio track, at Pro quality.",
+  "tags": [
+    "image-to-video"
+  ],
+  "capabilities": [
+    "image-to-video"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "prompt",
+      "image",
+      "audio"
+    ],
+    "properties": {
+      "audio": {
+        "type": "string",
+        "title": "Audio Url",
+        "examples": [
+          "https://static.sandbase.ai/examples/kwaivgi/kling-video/ai-avatar/2.0/pro/output_url_0.mp3"
+        ],
+        "description": "The URL of the audio file."
+      },
+      "image": {
+        "type": "string",
+        "title": "Image Url",
+        "examples": [
+          "https://static.sandbase.ai/examples/kwaivgi/kling-video/ai-avatar/2.0/pro/input_image_1.jpg"
+        ],
+        "description": "The URL of the image to use as your avatar"
+      },
+      "prompt": {
+        "type": "string",
+        "title": "Prompt",
+        "default": ".",
+        "description": "The prompt to use for the video generation."
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "title": "GenerationResponse",
+    "required": [
+      "id",
+      "status"
+    ],
+    "properties": {
+      "id": {
+        "type": "string",
+        "description": "Unique identifier for the generation task."
+      },
+      "error": {
+        "type": "string",
+        "description": "Error message if the task failed. Empty on success."
+      },
+      "model": {
+        "type": "string",
+        "description": "Model ID used for the prediction."
+      },
+      "status": {
+        "enum": [
+          "pending",
+          "running",
+          "completed",
+          "failed",
+          "timeout"
+        ],
+        "type": "string",
+        "description": "Status of the task: pending, running, completed, failed, or timeout."
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "title": "OutputItem",
+          "required": [
+            "url"
+          ],
+          "properties": {
+            "url": {
+              "type": "string",
+              "examples": [
+                "https://static.sandbase.ai/examples/kwaivgi/kling-video/ai-avatar/2.0/pro/output_url_2.mp4"
+              ],
+              "description": "The URL where the generated content can be downloaded from."
+            },
+            "content_type": {
+              "type": "string",
+              "description": "The MIME type of the output file."
+            }
+          }
+        },
+        "description": "Array of generated content. Empty when status is not completed."
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "formula",
+    "formula": "(usage.duration ?? media_duration(params.audio) ?? 5.0) * 0.115",
+    "formula_variables": [
+      "params.audio",
+      "usage.duration"
+    ],
+    "reference_price": 0.575
+  },
+  "examples": [
+    {
+      "input": {
+        "audio": "https://static.sandbase.ai/examples/2344becd-9196-4cec-b002-593f3c58ad87/input/2cddcd9d-dc34-447a-b542-a333350592b9.mp3",
+        "image": "https://static.sandbase.ai/examples/2344becd-9196-4cec-b002-593f3c58ad87/input/fea5b189-ea59-4ce0-bc86-0b3ec493a3f8.jpg",
+        "prompt": "."
+      },
+      "output": [
+        {
+          "poster": "https://static.sandbase.ai/examples/posters/b7ed3d27d2310471eedd.jpg",
+          "url": "https://static.sandbase.ai/examples/2344becd-9196-4cec-b002-593f3c58ad87/output/37839889-01c3-4a7d-aebf-a78913302b7a.mp4"
+        }
+      ],
+      "default": true
+    }
+  ],
+  "readme": "# Kling AI Avatar 2.0 Pro\n\nKling AI Avatar 2.0 Pro: a talking-head video from one portrait and an audio track, with lip sync and natural head motion.\n\n## Fields\n\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `prompt` | string, required | `.` | Gesture, expression, and scene direction. |\n| `image` | image URL, required | — | Portrait. JPEG, PNG, or WebP URL. |\n| `audio` | audio URL, required | — | Speech that drives the lips. |\n\n## Billing\n\n$0.115 per output second; the output is as long as the audio. The quote before submission assumes 5 seconds.\n\n| Audio | Price |\n|---|---|\n| 5s audio | $0.575 |\n| 30s audio | $3.45 |\n| 60s audio | $6.90 |\n\nFailed runs are not charged.\n\n## Prompting\n\n- Use a front-facing portrait with the mouth visible.\n\n## Limits\n\n- Output length follows the audio.\n\n## Also on SandBase\n\nRelated: `kwaivgi/kling-video/ai-avatar/2.0/standard`.\n",
+  "cover_url": "https://static.sandbase.ai/covers/kwaivgi/kling-video/ai-avatar/2.0/pro/cover-flare-20261005031339.webp",
+  "page_url": "https://www.sandbase.ai/model/kwaivgi/kling-video/ai-avatar/2.0/pro",
+  "published_at": "2025-12-04T12:58:48.77Z",
+  "created_at": "2026-05-15T23:09:29.301Z"
+}

@@ -1,0 +1,62 @@
+{
+  "name": "bilibili/web/live-room-detail",
+  "display_name": "Bilibili Live Room Details",
+  "type": "api",
+  "vendor": "Bilibili",
+  "vendor_slug": "bilibili",
+  "description": "Returns detailed metadata and status information for a specified Bilibili live broadcast room based on the provided room identifier.",
+  "tags": [
+    "api",
+    "bilibili"
+  ],
+  "capabilities": [
+    "api",
+    "bilibili"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/bilibili/web/live-room-detail"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "room_id"
+    ],
+    "properties": {
+      "room_id": {
+        "type": "string",
+        "title": "Room Id",
+        "example": "22816111",
+        "description": "Live room ID"
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.0015,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "examples": [
+    {
+      "input": {
+        "room_id": "22816111"
+      }
+    }
+  ],
+  "readme": "# Bilibili Live Room Details API\n\nRetrieve detailed live stream information for a specific Bilibili room by providing the target `room_id`.\n\n## Use cases\n\n- Monitor the status of a specific Bilibili live room.\n- Retrieve stream metadata for display in external dashboards.\n- Verify live room availability before directing viewers.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/bilibili/web/live-room-detail\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"room_id\": \"22816111\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `room_id` | string | Yes | Live room ID |\n\n## Notes\n\n- Provide the target live broadcast identifier using `room_id`.\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [Bilibili Streaming Areas](/model/bilibili/web/all-live-areas): Returns the complete list of streaming broadcast areas and categories on Bilibili.\n- [Bilibili BV to AID Converter](/model/bilibili/web/bv-to-aid): Converts a Bilibili BV identifier to its corresponding numeric AID value.\n- [Bilibili User Collection Folders](/model/bilibili/web/collect-folders): Returns the collection folders owned by a specific Bilibili user.\n",
+  "page_url": "https://www.sandbase.ai/model/bilibili/web/live-room-detail",
+  "created_at": "2026-07-31T03:53:48.032Z"
+}

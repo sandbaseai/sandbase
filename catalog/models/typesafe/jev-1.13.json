@@ -1,0 +1,34 @@
+{
+  "name": "typesafe/jev-1.13",
+  "display_name": "TypeSafe: Jev 1.13",
+  "type": "llm",
+  "vendor": "TypeSafe",
+  "vendor_slug": "typesafe",
+  "description": "Jev 1.13 is a version of Jev, TypeSafe AI's flagship and first public System One model, which makes structured decisions for software instead of generating text. Given a state and typed questions, it returns a chosen option, a rubric score or the probability that a statement is true, with confidence estimates that code can threshold. TypeSafe positions it for automated decision points that software can branch on, sort or route with, with complex judgments split into atomic questions combined in code.",
+  "tags": [
+    "decisions"
+  ],
+  "capabilities": [
+    "decisions"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "chat_completions": "POST /v1/chat/completions",
+    "responses": "POST /v1/responses",
+    "messages": "POST /v1/messages"
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_token",
+    "per_million_tokens": {
+      "input": 0.042,
+      "output": 0
+    }
+  },
+  "page_url": "https://www.sandbase.ai/model/typesafe/jev-1.13",
+  "published_at": "2026-09-18T00:01:24Z",
+  "created_at": "2026-09-23T01:09:18.974Z"
+}

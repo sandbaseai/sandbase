@@ -1,0 +1,45 @@
+{
+  "name": "google/gemini-3.7-flash",
+  "display_name": "Google: Gemini 3.7 Flash",
+  "type": "llm",
+  "vendor": "Google",
+  "vendor_slug": "google",
+  "description": "Gemini 3.7 Flash is a natively multimodal reasoning model in Google's Gemini 3 Flash line, released in August 2026, three weeks after 3.6 Flash. Google positions it as an everyday driver for developers, with improvements in software engineering, knowledge work, web development, instruction following and tool calling. It takes text, image, video, audio and PDF input and returns text; Gemini 3.8 Flash, released in September 2026, has since succeeded it as Google's top Flash model.",
+  "tags": [
+    "chat",
+    "vision",
+    "audio_input",
+    "reasoning",
+    "structured_output",
+    "function_calling"
+  ],
+  "capabilities": [
+    "chat",
+    "vision",
+    "audio_input",
+    "reasoning",
+    "structured_output",
+    "function_calling"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "chat_completions": "POST /v1/chat/completions",
+    "responses": "POST /v1/responses",
+    "messages": "POST /v1/messages"
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_token",
+    "per_million_tokens": {
+      "input": 1.5,
+      "output": 7.5,
+      "cache_read_multiplier": 0.1
+    }
+  },
+  "page_url": "https://www.sandbase.ai/model/google/gemini-3.7-flash",
+  "published_at": "2026-08-13T00:00:00Z",
+  "created_at": "2026-08-14T07:44:30.502Z"
+}

@@ -1,0 +1,72 @@
+{
+  "name": "pipixia/app/user-post-list",
+  "display_name": "Pipixia User Post List",
+  "type": "api",
+  "vendor": "Pipixia",
+  "vendor_slug": "pipixia",
+  "description": "Returns a list of posts, including videos and photos, for a specified user profile. Supports pagination via cursor and feed count parameters.",
+  "tags": [
+    "api",
+    "pipixia"
+  ],
+  "capabilities": [
+    "api",
+    "pipixia"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/pipixia/app/user-post-list"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "user_id"
+    ],
+    "properties": {
+      "cursor": {
+        "type": "string",
+        "title": "Cursor",
+        "description": "Page cursor, default is 0, get the corresponding value from the `loadmore_cursor` Key in the previous page."
+      },
+      "user_id": {
+        "type": "string",
+        "title": "User Id",
+        "example": "3602444694069495",
+        "description": "AKA user id, can be obtained from the share link."
+      },
+      "feed_count": {
+        "type": "string",
+        "title": "Feed Count",
+        "description": "Page count, default is 0, add 1 for each page, such as 0 for the first page, 1 for the second page, 2 for the third page, and so on."
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.0015,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "examples": [
+    {
+      "input": {
+        "user_id": "example"
+      }
+    }
+  ],
+  "readme": "# Pipixia User Post List API\n\nRetrieve post feeds from a specified user profile using `user_id`. Pagination is supported using `cursor` and `feed_count`.\n\n## Use cases\n\n- Display a user's uploaded videos and photos within an external dashboard.\n- Track engagement metrics and recent posts for specific creators.\n- Archive media items and post text from target Pipixia accounts.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/pipixia/app/user-post-list\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"user_id\": \"3602444694069495\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `user_id` | string | Yes | AKA user id, can be obtained from the share link. |\n| `cursor` | string | No | Page cursor, default is 0, get the corresponding value from the `loadmore_cursor` Key in the previous page. |\n| `feed_count` | string | No | Page count, default is 0, add 1 for each page, such as 0 for the first page, 1 for the second page, 2 for the third page, and so on. |\n\n## Example response\n\nReal response for the request above, trimmed to the main fields. User names and long IDs are masked.\n\n```json\n{\n  \"data\": {\n    \"data\": [\n      {\n        \"cell_id\": 7692668426287847734,\n        \"cell_id_str\": \"7692668426287847734\",\n        \"cell_type\": 1,\n        \"city_name\": \"湖北\",\n        \"display_time\": 1791088941,\n        \"last_view_time\": 0,\n        \"board_info\": {\n          \"block_type\": 12,\n          \"god_rank\": -1\n        },\n        \"hashtag\": {\n          \"enter_num\": 21002280,\n          \"followers_num\": 227517,\n          \"works_num\": 823422\n        },\n        \"item\": {\n          \"ancestor_id\": \"7692668426287847734\",\n          \"content\": \"何亮已经到要给娟儿姐报备的程度了！\",\n          \"create_time\": 1791088941,\n          \"duration\": 22.87,\n          \"item_cell_type\": 1,\n          \"item_id\": 7692668426287847734\n        }\n      }\n    ]\n  }\n}\n```\n\n## Notes\n\n- `user_id` can be obtained from the account share link.\n- Set `cursor` using the `loadmore_cursor` value from the previous page, defaulting to 0.\n- Increment `feed_count` by 1 for each subsequent page, starting at 0.\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [Pipixia Hashtag Details](/model/pipixia/app/hashtag-detail): Retrieves metadata and profile assets for a specific Pipixia hashtag by its unique identifier.\n- [Pipixia Hashtag Post List](/model/pipixia/app/hashtag-post-list): Returns a list of posts associated with a specific hashtag on Pipixia.\n- [Pipixia App Home Feed](/model/pipixia/app/home-feed): Returns recommended posts from the Pipixia home feed.\n",
+  "page_url": "https://www.sandbase.ai/model/pipixia/app/user-post-list",
+  "created_at": "2026-07-31T04:09:54.282Z"
+}

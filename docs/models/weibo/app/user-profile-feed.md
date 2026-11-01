@@ -1,0 +1,124 @@
+# Weibo App User Profile Feed
+
+`weibo/app/user-profile-feed` · api · Weibo
+
+Retrieves the profile feed cards for a specified user on Weibo. Query by target user identifier with support for cursor-based pagination.
+
+## Pricing
+
+- **$0.0015 per call** (USD)
+- Free quota: 100 calls/day per organization (shared across free-quota APIs).
+
+## Call it
+
+Modes: sync (default `sync`). Only pass `mode` values listed here. The SDKs' `run()` waits for async results; `submit()` + `wait()` split the two steps.
+
+**curl**
+
+```bash
+curl https://api.sandbase.ai/v1/run \
+  -H "Authorization: Bearer $SANDBASE_API_KEY" -H 'Content-Type: application/json' \
+  -d '{"model": "weibo/app/user-profile-feed", "uid": "8431518763"}'
+```
+
+**Python** ([sdk/python](../../../../sdk/python))
+
+```python
+from sandbase import SandBase
+
+result = SandBase().run('weibo/app/user-profile-feed', {'uid': '8431518763'})
+print(result["outputs"])
+```
+
+**TypeScript** ([sdk/typescript](../../../../sdk/typescript))
+
+```ts
+import { SandBase } from "@sandbaseai/sdk";
+
+const result = await new SandBase().run("weibo/app/user-profile-feed", {
+  "uid": "8431518763"
+});
+console.log(result.outputs);
+```
+
+**Go** ([sdk/go](../../../../sdk/go))
+
+```go
+c, _ := sandbase.NewClient("")
+run, err := c.Run(ctx, "weibo/app/user-profile-feed", sandbase.Params{
+	"uid": "8431518763",
+})
+```
+
+Same call via the path form: `POST /v1/api/weibo/app/user-profile-feed` with the body above minus `model`.
+
+## Parameters
+
+| name | type | required | description |
+|---|---|---|---|
+| `uid` | string | yes | User ID (required)  |
+| `since_id` |  |  | Pagination cursor, don't pass for first request, use returned since_id for subsequent requests  |
+
+## Details
+
+Access the profile feed cards for a specified Weibo account using `uid`. Paginate through sequential feed entries using the optional `since_id` parameter.
+
+### Use cases
+
+- Display an account's recent activity stream within a custom dashboard.
+- Monitor profile feed cards and status items for target Weibo accounts.
+- Traverse paginated profile feed entries using cursor tokens.
+
+### Request
+
+```bash
+curl -X POST "https://api.sandbase.ai/v1/api/weibo/app/user-profile-feed" \
+  -H "Authorization: Bearer $SANDBASE_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{"uid": "8431518763"}'
+```
+
+### Parameters
+
+| Name | Type | Required | Description |
+|---|---|---|---|
+| `uid` | string | Yes | User ID (required) |
+| `since_id` | string | No | Pagination cursor, don't pass for first request, use returned since_id for subsequent requests |
+
+### Example response
+
+Real response for the request above, trimmed to the main fields. User names and long IDs are masked.
+
+```json
+{
+  "items": [
+    {
+      "category": "card",
+      "data": {
+        "card_type": 58,
+        "name": "没有更多动态，去看看她的微博内容吧",
+        "name_bold": false,
+        "name_size": 12
+      }
+    }
+  ]
+}
+```
+
+### Notes
+
+- Requires the target user ID in `uid`.
+- Leave `since_id` empty on the first request and pass the returned value for subsequent requests.
+
+### Pricing
+
+Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+
+### Related APIs
+
+- [Weibo App AI Smart Search](/model/weibo/app/ai-smart-search): Returns AI smart search channel results and feed metadata from Weibo for a specified keyword query, with optional page-based pagination.
+- [Weibo Home Recommend Feed](/model/weibo/app/home-recommend-feed): Returns recommended feed items from the Weibo app homepage, with options to paginate and specify the number of items per request.
+- [Weibo Hot Search Rankings](/model/weibo/app/hot-search): Returns current Weibo hot search rankings across various categories.
+
+---
+Machine-readable: [`catalog/models/weibo/app/user-profile-feed.json`](../../../../catalog/models/weibo/app/user-profile-feed.json) · Store page: https://www.sandbase.ai/model/weibo/app/user-profile-feed

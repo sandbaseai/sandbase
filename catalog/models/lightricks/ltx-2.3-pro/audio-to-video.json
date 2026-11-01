@@ -1,0 +1,155 @@
+{
+  "name": "lightricks/ltx-2.3-pro/audio-to-video",
+  "display_name": "LTX 2.3 Pro Audio to Video",
+  "type": "video",
+  "vendor": "Lightricks",
+  "vendor_slug": "lightricks",
+  "description": "Ltx 2.3 Pro Audio To Video by Lightricks - advanced AI model for audio-to-video. Delivers high-quality results with fast inference, suitable for both creative and production workflows.",
+  "tags": [
+    "audio-to-video"
+  ],
+  "capabilities": [
+    "audio-to-video"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "prompt",
+      "image",
+      "audio"
+    ],
+    "properties": {
+      "audio": {
+        "type": "string",
+        "title": "Audio URL",
+        "examples": [
+          "https://static.sandbase.ai/examples/lightricks/ltx-2.3-pro/audio-to-video/output_url_1.mp3"
+        ],
+        "description": "URL of the audio file to generate a video from. Duration must be between 2 and 20 seconds. Must be publicly accessible or base64 data URI."
+      },
+      "image": {
+        "type": "string",
+        "title": "Image URL",
+        "examples": [
+          "https://static.sandbase.ai/examples/lightricks/ltx-2.3-pro/audio-to-video/input_image_0.png"
+        ],
+        "description": "URL of an image to use as the first frame of the video. If not provided, prompt is required."
+      },
+      "prompt": {
+        "type": "string",
+        "title": "Prompt",
+        "examples": [
+          "A woman whispering to the microphone"
+        ],
+        "maxLength": 5000,
+        "minLength": 1,
+        "description": "Text description of how the video should be generated. Required if image_url is not provided. When image_url is provided, this describes how the image should be animated."
+      },
+      "aspect_ratio": {
+        "enum": [
+          "16:9",
+          "9:16"
+        ],
+        "type": "string",
+        "title": "Aspect Ratio",
+        "description": "Output aspect ratio. Omit to match the input media."
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "title": "GenerationResponse",
+    "required": [
+      "id",
+      "status"
+    ],
+    "properties": {
+      "id": {
+        "type": "string",
+        "description": "Unique identifier for the generation task."
+      },
+      "error": {
+        "type": "string",
+        "description": "Error message if the task failed. Empty on success."
+      },
+      "model": {
+        "type": "string",
+        "description": "Model ID used for the prediction."
+      },
+      "status": {
+        "enum": [
+          "pending",
+          "running",
+          "completed",
+          "failed",
+          "timeout"
+        ],
+        "type": "string",
+        "description": "Status of the task: pending, running, completed, failed, or timeout."
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "title": "OutputItem",
+          "required": [
+            "url"
+          ],
+          "properties": {
+            "url": {
+              "type": "string",
+              "examples": [
+                "https://static.sandbase.ai/examples/lightricks/ltx-2.3-pro/audio-to-video/output_url_2.mp4"
+              ],
+              "description": "The URL where the generated content can be downloaded from."
+            },
+            "content_type": {
+              "type": "string",
+              "description": "The MIME type of the output file."
+            }
+          }
+        },
+        "description": "Array of generated content. Empty when status is not completed."
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "formula",
+    "formula": "(usage.duration ?? media_duration(params.audio) ?? 5.0) * 0.10",
+    "formula_variables": [
+      "params.audio",
+      "usage.duration"
+    ],
+    "reference_price": 0.5
+  },
+  "examples": [
+    {
+      "input": {
+        "audio": "https://static.sandbase.ai/examples/d329ed93-dcc3-4816-a380-9ef3c56b9ed8/input/033e9797-2daf-4d8b-aae3-74eee1a9b8d6.mp3",
+        "image": "https://static.sandbase.ai/examples/d329ed93-dcc3-4816-a380-9ef3c56b9ed8/input/c790a0f6-daad-468d-ad20-666837bc95ba.png",
+        "prompt": "A woman whispering to the microphone"
+      },
+      "output": [
+        {
+          "poster": "https://static.sandbase.ai/examples/posters/9323c8905677ae620181.jpg",
+          "url": "https://static.sandbase.ai/examples/d329ed93-dcc3-4816-a380-9ef3c56b9ed8/output/ca045116-8299-421a-9398-063d666ef469.mp4"
+        }
+      ],
+      "default": true
+    }
+  ],
+  "readme": "# LTX 2.3 Pro Audio to Video\n\nLTX 2.3 Pro audio-to-video: animate an image into a video that follows an audio track, such as a voice or song.\n\n## Fields\n\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `prompt` | string, required | — | Up to 5,000 characters. |\n| `image` | image URL, required | — | Image to animate. JPEG, PNG, or WebP URL. |\n| `audio` | audio URL, required | — | Audio that drives the video. |\n| `aspect_ratio` | `16:9` / `9:16` | — | Output frame shape. |\n\n## Billing\n\n$0.10 per output second; the output is as long as the audio. The quote before submission assumes 5 seconds.\n\n| Audio | Price |\n|---|---|\n| 5s audio | $0.50 |\n| 10s audio | $1.00 |\n| 20s audio | $2.00 |\n\nFailed runs are not charged.\n\n## Prompting\n\n- Describe the scene and motion; timing follows the audio.\n\n## Also on SandBase\n\nOther LTX 2.3 endpoints: `lightricks/ltx-2.3-pro/text-to-video`, `lightricks/ltx-2.3-pro/image-to-video`, `lightricks/ltx-2.3-pro/retake`, `lightricks/ltx-2.3-pro/video-extend`.\n",
+  "cover_url": "https://static.sandbase.ai/covers/lightricks/ltx-2.3-pro/audio-to-video/cover-flare-20261005042038.webp",
+  "page_url": "https://www.sandbase.ai/model/lightricks/ltx-2.3-pro/audio-to-video",
+  "published_at": "2026-03-05T15:26:32.464Z",
+  "created_at": "2026-05-15T11:53:16.322Z"
+}

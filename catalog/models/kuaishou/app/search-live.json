@@ -1,0 +1,68 @@
+{
+  "name": "kuaishou/app/search-live",
+  "display_name": "Kuaishou Livestream Search",
+  "type": "api",
+  "vendor": "Kuaishou",
+  "vendor_slug": "kuaishou",
+  "description": "Searches Kuaishou livestreams using a specified search term. Returns matching active broadcast rooms with cursor pagination support.",
+  "tags": [
+    "api",
+    "kuaishou"
+  ],
+  "capabilities": [
+    "api",
+    "kuaishou"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/kuaishou/app/search-live"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "keyword"
+    ],
+    "properties": {
+      "keyword": {
+        "type": "string",
+        "title": "搜索关键词/Search keyword",
+        "example": "OpenAI"
+      },
+      "pcursor": {
+        "type": "string",
+        "title": "分页游标/Pagination cursor",
+        "default": "",
+        "description": "Cursor, empty for first page"
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.015,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "examples": [
+    {
+      "input": {
+        "keyword": "带货"
+      },
+      "default": true
+    }
+  ],
+  "readme": "# Kuaishou Livestream Search API\n\nQuery active broadcast rooms on Kuaishou by providing a `keyword`. Supports cursor-based pagination through the `pcursor` parameter.\n\n## Use cases\n\n- Discover ongoing broadcast rooms related to specific topics.\n- Monitor streaming activity for designated keywords.\n- Track relevant broadcast sessions across paginated query results.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/kuaishou/app/search-live\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"keyword\": \"OpenAI\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `keyword` | string | Yes | — |\n| `pcursor` | string | No | Cursor, empty for first page |\n\n## Notes\n\n- Pass an empty string to `pcursor` to retrieve the first page of results.\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [Kuaishou Brand Top List](/model/kuaishou/app/brand-top-list): Returns top brand rankings and related live stream links from Kuaishou.\n- [Kuaishou App Share Link](/model/kuaishou/app/generate-share-link): Generates a shareable URL for Kuaishou application content using a specified object identifier.\n- [Kuaishou Hot Board Categories](/model/kuaishou/app/hot-board-categories): Returns the active list of hot board categories available in the Kuaishou app.\n",
+  "page_url": "https://www.sandbase.ai/model/kuaishou/app/search-live",
+  "created_at": "2026-07-31T03:58:07.615Z"
+}

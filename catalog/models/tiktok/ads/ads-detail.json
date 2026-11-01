@@ -1,0 +1,62 @@
+{
+  "name": "tiktok/ads/ads-detail",
+  "display_name": "TikTok Ad Detail",
+  "type": "api",
+  "vendor": "TikTok",
+  "vendor_slug": "tiktok",
+  "description": "Returns detailed information about a single TikTok ad, including creative content, creator information, and engagement performance metrics using a specific ad identifier.",
+  "tags": [
+    "api",
+    "tiktok"
+  ],
+  "capabilities": [
+    "api",
+    "tiktok"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/tiktok/ads/ads-detail"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "ads_id"
+    ],
+    "properties": {
+      "ads_id": {
+        "type": "string",
+        "title": "Ads Id",
+        "description": "Ad ID, required parameter, can be obtained from ad lists or TikTok Ads Creative Center"
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.0015,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "examples": [
+    {
+      "input": {
+        "ads_id": "7164467399885864962"
+      },
+      "default": true
+    }
+  ],
+  "readme": "# TikTok Ad Detail API\n\nRetrieve comprehensive ad details and performance metrics by providing an `ads_id`.\n\n## Use cases\n\n- Review creative content and creator details for a specific TikTok ad.\n- Analyze engagement metrics including views, likes, and comments on an ad.\n- Evaluate specific ad effectiveness and audience feedback.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/tiktok/ads/ads-detail\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"ads_id\": \"<ads_id>\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `ads_id` | string | Yes | Ad ID, required parameter, can be obtained from ad lists or TikTok Ads Creative Center |\n\n## Notes\n\n- `ads_id` can be obtained from ad lists or the TikTok Ads Creative Center.\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [TikTok Ad Interactive Analysis](/model/tiktok/ads/ad-interactive-analysis): Returns audience retention and interaction analytics across video timestamps for a specified ad creative.\n- [TikTok Ad Keyframe Analysis](/model/tiktok/ads/ad-keyframe-analysis): Returns keyframe performance metrics across video ad timestamps for a specified material ID, including retention and conversion figures.\n- [TikTok Ad Material Percentile Rankings](/model/tiktok/ads/ad-percentile): Returns ad performance percentile rankings within the industry for a specific ad material.\n",
+  "page_url": "https://www.sandbase.ai/model/tiktok/ads/ads-detail",
+  "created_at": "2026-07-31T04:13:38.511Z"
+}

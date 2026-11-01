@@ -1,0 +1,44 @@
+{
+  "name": "anthropic/claude-opus-5",
+  "display_name": "Anthropic: Claude Opus 5",
+  "type": "llm",
+  "vendor": "Anthropic",
+  "vendor_slug": "anthropic",
+  "description": "Claude Opus 5 is the most powerful model in the Claude 5 family from Anthropic. It excels at complex reasoning, analysis, and creative tasks with superior accuracy and nuance. It supports text, image, and file inputs with text output, reasoning support and a 1M-token context window.",
+  "tags": [
+    "chat",
+    "vision",
+    "reasoning",
+    "structured_output",
+    "function_calling"
+  ],
+  "capabilities": [
+    "chat",
+    "vision",
+    "reasoning",
+    "structured_output",
+    "function_calling"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "chat_completions": "POST /v1/chat/completions",
+    "responses": "POST /v1/responses",
+    "messages": "POST /v1/messages"
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_token",
+    "per_million_tokens": {
+      "input": 5,
+      "output": 25,
+      "cache_read_multiplier": 0.1,
+      "cache_write_multiplier": 1.25
+    }
+  },
+  "page_url": "https://www.sandbase.ai/model/anthropic/claude-opus-5",
+  "published_at": "2026-07-25T00:00:00Z",
+  "created_at": "2026-07-26T09:23:43.907Z"
+}

@@ -1,0 +1,77 @@
+{
+  "name": "weibo/web-v2/post-comments",
+  "display_name": "Weibo Post Comments",
+  "type": "api",
+  "vendor": "Weibo",
+  "vendor_slug": "weibo",
+  "description": "Get the first-level comments on a Weibo post: comment text, author, time, likes and reply counts, with cursor pagination.",
+  "tags": [
+    "api",
+    "weibo"
+  ],
+  "capabilities": [
+    "api",
+    "weibo"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/weibo/web-v2/post-comments"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "id"
+    ],
+    "properties": {
+      "id": {
+        "type": "string",
+        "title": "Id",
+        "example": "5283919831764022",
+        "description": "Weibo post ID (required)"
+      },
+      "count": {
+        "type": "integer",
+        "title": "Count",
+        "default": 10,
+        "example": 10,
+        "description": "Number of comments (default 10)"
+      },
+      "max_id": {
+        "type": "string",
+        "title": "Max Id",
+        "default": "",
+        "example": "",
+        "description": "Pagination cursor, pass empty for first request, use returned max_id for subsequent requests"
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.0015,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "examples": [
+    {
+      "input": {
+        "id": "5350554563773695"
+      },
+      "default": true
+    }
+  ],
+  "readme": "# Weibo Post Comments API\n\nPass a Weibo post ID and get its comments, page by page.\n\n## Use cases\n\n- Analyze reactions to a post.\n- Collect customer feedback.\n- Monitor comments on brand posts.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/weibo/web-v2/post-comments\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"id\": \"5350554563773695\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `id` | string | Yes | Weibo post ID (required) |\n| `count` | integer | No | Number of comments (default 10) |\n| `max_id` | string | No | Pagination cursor, pass empty for first request, use returned max_id for subsequent requests |\n\n## Example response\n\nReal response for the request above, trimmed to the main fields. User names and long IDs are masked.\n\n```json\n{\n  \"max_id\": \"<max_id>\",\n  \"total_number\": 34,\n  \"data\": [\n    {\n      \"id\": 5350555695188006,\n      \"created_at\": \"Mon Oct 05 07:09:09 +0800 2026\",\n      \"like_counts\": 7,\n      \"total_number\": 3,\n      \"source\": \"来自 上海\",\n      \"text_raw\": \"也就是28天每天要么上新一个新功能/重置一次吗？ 还挺好的！[打call]刚开了Pro会员又可以尽…\",\n      \"user\": {\n        \"screen_name\": \"<user>\"\n      }\n    }\n  ]\n}\n```\n\n## Notes\n\n- Paginate with `max_id` from the previous response.\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [Weibo Advanced Search](/model/weibo/web-v2/advanced-search): Search Weibo posts by keyword with filters for time range, post type (hot, original, verified, media) and content type (images, video, links).\n- [Weibo Real-Time Hot Search](/model/weibo/web-v2/hot-search): Get the Weibo real-time hot search ranking: trending keywords with rank, heat value and labels such as new or hot.\n- [Weibo Hot Search List](/model/weibo/web-v2/hot-search-summary): Get the complete real-time Weibo hot search ranking (top 50): keyword, rank, heat tag and search link for each trending topic.\n",
+  "page_url": "https://www.sandbase.ai/model/weibo/web-v2/post-comments",
+  "created_at": "2026-07-31T02:45:56.937Z"
+}

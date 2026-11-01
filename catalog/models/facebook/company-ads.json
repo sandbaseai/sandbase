@@ -1,0 +1,128 @@
+{
+  "name": "facebook/company-ads",
+  "display_name": "Facebook Company Ads",
+  "type": "api",
+  "vendor": "Facebook",
+  "vendor_slug": "facebook",
+  "description": "List the Meta Ad Library ads a company is running by page ID or company name (creative text, format, platforms, and run dates) with cursor pagination.",
+  "tags": [
+    "api",
+    "facebook",
+    "social-media"
+  ],
+  "capabilities": [
+    "api",
+    "facebook",
+    "social-media"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/facebook/company-ads"
+  },
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "cursor": {
+        "type": "string",
+        "description": "Opaque pagination cursor from a previous response's nextCursor."
+      },
+      "pageId": {
+        "type": "string",
+        "example": "15087023444",
+        "minLength": 1,
+        "description": "Company's Ad Library page ID. Provide either pageId or companyName."
+      },
+      "sortBy": {
+        "enum": [
+          "impressions",
+          "recent"
+        ],
+        "type": "string",
+        "example": "recent",
+        "description": "Sort order: impressions (highest first, the default) or recent (most recent)."
+      },
+      "status": {
+        "enum": [
+          "ALL",
+          "ACTIVE",
+          "INACTIVE"
+        ],
+        "type": "string",
+        "description": "Ad status filter. Defaults to ACTIVE."
+      },
+      "country": {
+        "type": "string",
+        "description": "Two-letter country code to scope results. Defaults to all countries."
+      },
+      "endDate": {
+        "type": "string",
+        "description": "Filter to ads with impressions on or before this date, in YYYY-MM-DD format."
+      },
+      "language": {
+        "type": "string",
+        "description": "Two-letter language code to filter ads (e.g. \"EN\", \"ES\", \"FR\")."
+      },
+      "mediaType": {
+        "enum": [
+          "ALL",
+          "IMAGE",
+          "VIDEO",
+          "MEME",
+          "IMAGE_AND_MEME",
+          "NONE"
+        ],
+        "type": "string",
+        "description": "Creative media type filter."
+      },
+      "startDate": {
+        "type": "string",
+        "description": "Filter to ads with impressions on or after this date, in YYYY-MM-DD format."
+      },
+      "companyName": {
+        "type": "string",
+        "minLength": 1,
+        "description": "Company name to search (e.g. \"nike\"). Exact-match and case-sensitive against the Meta Ad Library index; an advertiser with no indexed page returns found:false."
+      }
+    },
+    "additionalProperties": false
+  },
+  "response_schema": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string"
+      },
+      "model": {
+        "type": "string"
+      },
+      "status": {
+        "type": "string"
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "data": {
+              "type": "object",
+              "description": "Normalized result for this request."
+            }
+          }
+        }
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "usage_based",
+    "note": "Billed per call from metered usage; the reference price is typical.",
+    "reference_price": 0.0011
+  },
+  "readme": "# Facebook Company Ads API\n\nList the Meta Ad Library ads a company is running by page ID or company name (creative text, format, platforms, and run dates) with cursor pagination.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/facebook/company-ads\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"pageId\": \"15087023444\", \"sortBy\": \"recent\"}'\n```\n\nThe result is returned in `outputs[0].data`. A lookup that finds nothing still succeeds and returns `found: false`.\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `companyName` | string | No | Company name to search (e.g. \"nike\"). Exact-match and case-sensitive against the Meta Ad Library index; an advertiser with no indexed page returns found:false. |\n| `country` | string | No | Two-letter country code to scope results. Defaults to all countries. |\n| `cursor` | string | No | Opaque pagination cursor from a previous response's nextCursor. |\n| `endDate` | string | No | Filter to ads with impressions on or before this date, in YYYY-MM-DD format. |\n| `language` | string | No | Two-letter language code to filter ads (e.g. \"EN\", \"ES\", \"FR\"). |\n| `mediaType` | string | No | Creative media type filter. One of: `ALL`, `IMAGE`, `VIDEO`, `MEME`, `IMAGE_AND_MEME`, `NONE`. |\n| `pageId` | string | No | Company's Ad Library page ID. Provide either pageId or companyName. |\n| `sortBy` | string | No | Sort order: impressions (highest first, the default) or recent (most recent). One of: `impressions`, `recent`. |\n| `startDate` | string | No | Filter to ads with impressions on or after this date, in YYYY-MM-DD format. |\n| `status` | string | No | Ad status filter. Defaults to ACTIVE. One of: `ALL`, `ACTIVE`, `INACTIVE`. |\n\n## Pricing\n\nBilled at the actual cost of each call, usually $0.0011 per request. A call can cost more when the first data source fails and another one answers. Failed calls are not charged. Lookups that find nothing and searches with no results are billed at their actual cost, which is often lower and can be $0.\n",
+  "page_url": "https://www.sandbase.ai/model/facebook/company-ads",
+  "created_at": "2026-10-31T10:31:57.224Z"
+}

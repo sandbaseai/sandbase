@@ -1,0 +1,70 @@
+{
+  "name": "bilibili/web/video-playurl",
+  "display_name": "Bilibili Video Playback URL",
+  "type": "api",
+  "vendor": "Bilibili",
+  "vendor_slug": "bilibili",
+  "description": "Returns video playback stream URLs and DASH metadata for a specified Bilibili video. Requires both the video identifier and the content identifier.",
+  "tags": [
+    "api",
+    "bilibili"
+  ],
+  "capabilities": [
+    "api",
+    "bilibili"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/bilibili/web/video-playurl"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "bv_id",
+      "cid"
+    ],
+    "properties": {
+      "cid": {
+        "type": "string",
+        "title": "Cid",
+        "example": "171776208",
+        "description": "Video cid"
+      },
+      "bv_id": {
+        "type": "string",
+        "title": "Bv Id",
+        "example": "BV1y7411Q7Eq",
+        "description": "Video id"
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.0015,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "examples": [
+    {
+      "input": {
+        "bv_id": "BV1dVbC6WE6p",
+        "cid": "40931491951"
+      }
+    }
+  ],
+  "readme": "# Bilibili Video Playback URL API\n\nFetch playback stream URLs and stream qualities for Bilibili videos by providing `bv_id` and `cid`.\n\n## Use cases\n\n- Retrieve direct DASH video stream URLs for playback integration.\n- Inspect available frame rates and stream codecs for a specific video.\n- Automate media player setups with official streaming endpoints.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/bilibili/web/video-playurl\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"bv_id\": \"BV1y7411Q7Eq\", \"cid\": \"171776208\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `cid` | string | Yes | Video cid |\n| `bv_id` | string | Yes | Video id |\n\n## Example response\n\nReal response for the request above, trimmed to the main fields. User names and long IDs are masked.\n\n```json\n{\n  \"data\": {\n    \"dash\": {\n      \"video\": [\n        {\n          \"base_url\": \"https://upos-sz-mirrorcosov.bilivideo.com/upgcxcode/08/62/171776208/171776208_nb…\",\n          \"frameRate\": \"29.412\",\n          \"frame_rate\": \"29.412\",\n          \"id\": 32,\n          \"mimeType\": \"video/mp4\",\n          \"mime_type\": \"video/mp4\"\n        }\n      ]\n    }\n  }\n}\n```\n\n## Notes\n\n- Requires both `bv_id` (Bilibili video ID) and `cid` (video content ID) to locate the playback stream.\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [Bilibili Streaming Areas](/model/bilibili/web/all-live-areas): Returns the complete list of streaming broadcast areas and categories on Bilibili.\n- [Bilibili BV to AID Converter](/model/bilibili/web/bv-to-aid): Converts a Bilibili BV identifier to its corresponding numeric AID value.\n- [Bilibili User Collection Folders](/model/bilibili/web/collect-folders): Returns the collection folders owned by a specific Bilibili user.\n",
+  "page_url": "https://www.sandbase.ai/model/bilibili/web/video-playurl",
+  "created_at": "2026-07-31T03:54:19.416Z"
+}

@@ -1,0 +1,142 @@
+{
+  "name": "minimax/voice-design",
+  "display_name": "MiniMax Voice Design",
+  "type": "audio",
+  "vendor": "MiniMax",
+  "vendor_slug": "minimax",
+  "description": "MiniMax Voice Design by MiniMax creates a new reusable voice from a text description of its timbre, age, and style, and returns a spoken preview.",
+  "tags": [
+    "text-to-speech"
+  ],
+  "capabilities": [
+    "text-to-speech"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "prompt"
+    ],
+    "properties": {
+      "prompt": {
+        "type": "string",
+        "title": "Prompt",
+        "examples": [
+          "Bubbly and excitable female pop star interviewee, youthful, slightly breathless, and very enthusiastic"
+        ],
+        "maxLength": 2000,
+        "description": "Voice description prompt for generating a personalized voice"
+      },
+      "preview_text": {
+        "type": "string",
+        "title": "Preview Text",
+        "maxLength": 500,
+        "description": "Text for audio preview. Limited to 500 characters. A fee of $30 per 1M characters will be charged for the generation of the preview audio."
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "title": "GenerationResponse",
+    "required": [
+      "id",
+      "status"
+    ],
+    "properties": {
+      "id": {
+        "type": "string",
+        "description": "Unique identifier for the generation task."
+      },
+      "error": {
+        "type": "string",
+        "description": "Error message if the task failed. Empty on success."
+      },
+      "model": {
+        "type": "string",
+        "description": "Model ID used for the prediction."
+      },
+      "status": {
+        "enum": [
+          "pending",
+          "running",
+          "completed",
+          "failed",
+          "timeout"
+        ],
+        "type": "string",
+        "description": "Status of the task: pending, running, completed, failed, or timeout."
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "title": "OutputItem",
+          "required": [
+            "url"
+          ],
+          "properties": {
+            "url": {
+              "type": "string",
+              "examples": [
+                "https://static.sandbase.ai/examples/minimax/voice-design/output_url_0.mp3"
+              ],
+              "description": "The URL where the generated content can be downloaded from."
+            },
+            "content_type": {
+              "type": "string",
+              "description": "The MIME type of the output file."
+            },
+            "custom_voice_id": {
+              "type": "string",
+              "examples": [
+                "Voice6eb3a8441782875482"
+              ],
+              "description": "The generated custom voice ID. Use it with a text-to-speech endpoint to synthesize speech with this voice."
+            }
+          }
+        },
+        "description": "Array of generated content. Empty when status is not completed."
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "formula",
+    "formula": "3.00 + Math.ceil(len(params.prompt ?? \"\") / 1000) * 0.03",
+    "formula_variables": [
+      "params.prompt"
+    ],
+    "reference_price": 3,
+    "price_examples": [
+      {
+        "params": {},
+        "usd": 3.03
+      }
+    ]
+  },
+  "examples": [
+    {
+      "input": {
+        "prompt": "Bubbly and excitable female pop star interviewee, youthful, slightly breathless, and very enthusiastic"
+      },
+      "output": [
+        {
+          "url": "https://static.sandbase.ai/examples/ba16c298-f701-42ea-b7e3-c34d9a6f03c9/output/ac8b4a57-f92e-4ee3-9727-107ddeee43b8.mp3"
+        }
+      ],
+      "default": true
+    }
+  ],
+  "readme": "# MiniMax Voice Design\n\nDesign a new reusable voice from a text description of its timbre, age, and style. The response includes the voice ID and a spoken preview.\n\n## Fields\n\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `prompt` | string, required | — | Describe the voice: gender, age, timbre, accent, and mood. |\n| `preview_text` | string | — | Sentence spoken in the new voice. |\n\n## Billing\n\n$3.00 per designed voice plus $0.03 per started 1,000 description characters.\n\n| Request | Price |\n|---|---|\n| One voice | $3.00 |\n\nFailed runs are not charged.\n\n## Prompting\n\n- Be concrete: “warm, low female voice in her 40s, slight British accent, calm”.\n\n## Limits\n\n- Use the returned voice ID as `voice_id` in MiniMax Speech.\n\n## Also on SandBase\n\nRelated: `minimax/speech/2.8/hd`, `minimax/speech/2.8/turbo`, `minimax/voice-clone`.\n",
+  "cover_url": "https://static.sandbase.ai/covers/minimax/voice-design/cover-flare-20261008040324.webp",
+  "page_url": "https://www.sandbase.ai/model/minimax/voice-design",
+  "published_at": "2025-07-18T21:21:52.686Z",
+  "created_at": "2026-06-01T14:17:19.544Z"
+}

@@ -1,0 +1,59 @@
+{
+  "name": "threads/web/user-reposts",
+  "display_name": "Threads User Reposts",
+  "type": "api",
+  "vendor": "Threads",
+  "vendor_slug": "threads",
+  "description": "Returns a list of reposted threads for a specified Threads user account. Requires the user ID and supports pagination via an optional cursor.",
+  "tags": [
+    "api",
+    "threads"
+  ],
+  "capabilities": [
+    "api",
+    "threads"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/threads/web/user-reposts"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "user_id"
+    ],
+    "properties": {
+      "user_id": {
+        "type": "string",
+        "title": "User Id",
+        "description": "User ID, for example: 63625256886"
+      },
+      "end_cursor": {
+        "type": "string",
+        "title": "End Cursor",
+        "description": "Pagination cursor (optional), used to get next page data"
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.003,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "readme": "# Threads User Reposts API\n\nRetrieve reposted posts for a specific account using `user_id`. Optional pagination is handled through `end_cursor`.\n\n## Use cases\n\n- Review reposted content from a target Threads account.\n- Track sharing activity and community interactions of a profile.\n- Archive repost feeds across multiple user profiles.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/threads/web/user-reposts\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"user_id\": \"<user_id>\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `user_id` | string | Yes | User ID, for example: 63625256886 |\n| `end_cursor` | string | No | Pagination cursor (optional), used to get next page data |\n\n## Notes\n\n- Supply `end_cursor` to paginate through subsequent pages of reposts.\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [Threads Post Detail](/model/threads/web/post-detail): Returns detailed information for a specific Threads post using its numeric ID.\n- [Threads Post Detail (V2)](/model/threads/web/post-detail-v2): Returns detailed information for a specific Threads post.\n- [Threads Profile Search](/model/threads/web/search-profiles): Searches Threads user profiles based on a specified text query string.\n",
+  "page_url": "https://www.sandbase.ai/model/threads/web/user-reposts",
+  "created_at": "2026-07-31T04:12:59.636Z"
+}

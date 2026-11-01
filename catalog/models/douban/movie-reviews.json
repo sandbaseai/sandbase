@@ -1,0 +1,70 @@
+{
+  "name": "douban/movie-reviews",
+  "display_name": "Douban Movie Reviews",
+  "type": "api",
+  "vendor": "Douban",
+  "vendor_slug": "douban",
+  "description": "Get paginated Douban long-form reviews for a movie or TV subject, ordered by time or popularity. Use it to browse in-depth audience reviews for a known subject.",
+  "tags": [
+    "api",
+    "douban",
+    "entertainment"
+  ],
+  "capabilities": [
+    "api",
+    "douban",
+    "entertainment"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/douban/movie-reviews"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "subjectId"
+    ],
+    "properties": {
+      "page": {
+        "type": "integer",
+        "default": 1,
+        "description": "Page number for pagination."
+      },
+      "sort": {
+        "enum": [
+          "time",
+          "hotest"
+        ],
+        "type": "string",
+        "default": "time",
+        "description": "Sort order for the result set."
+      },
+      "subjectId": {
+        "type": "string",
+        "example": "1292052",
+        "description": "The unique ID for a movie or TV subject on Douban."
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.013889,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "readme": "# Douban Movie Reviews API\n\nGet paginated Douban long-form reviews for a movie or TV subject, ordered by time or popularity. Use it to browse in-depth audience reviews for a known subject.\n\nThe response is the platform's original data structure.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/douban/movie-reviews\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"subjectId\": \"1292052\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `subjectId` | string | Yes | The unique ID for a movie or TV subject on Douban. |\n| `sort` | string | No | Sort order for the result set. |\n| `page` | integer | No | Page number for pagination. |\n\n## Pricing\n\nFlat price per call. Failed calls and empty results are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/douban/movie-reviews",
+  "created_at": "2026-10-29T12:01:57.392Z"
+}

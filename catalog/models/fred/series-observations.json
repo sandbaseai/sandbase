@@ -1,0 +1,167 @@
+{
+  "name": "fred/series-observations",
+  "display_name": "FRED Get Series Observations",
+  "type": "api",
+  "vendor": "FRED",
+  "vendor_slug": "fred",
+  "description": "Get Series Observations from FRED. Returns the official FRED API response unchanged.",
+  "tags": [
+    "api",
+    "fred",
+    "economic-data"
+  ],
+  "capabilities": [
+    "api",
+    "fred",
+    "economic-data"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/fred/series-observations"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "series_id"
+    ],
+    "properties": {
+      "limit": {
+        "type": "integer",
+        "default": 100000,
+        "maximum": 100000,
+        "minimum": 1,
+        "description": "The maximum number of results to return. integer between 1 and 100000, optional, default: 100000"
+      },
+      "units": {
+        "enum": [
+          "lin",
+          "chg",
+          "ch1",
+          "pch",
+          "pc1",
+          "pca",
+          "cch",
+          "cca",
+          "log"
+        ],
+        "type": "string",
+        "default": "lin",
+        "description": "A key that indicates a data value transformation. string, optional, default: lin (No transformation) One of the following values: 'lin', 'chg', 'ch1', 'pch', 'pc1', 'pca', 'cch', 'cca', 'log' lin = Levels (No transformation) chg = Change ch1 = Change from Year Ago pch = Percent Change pc1 = Percent "
+      },
+      "offset": {
+        "type": "integer",
+        "default": 0,
+        "minimum": 0,
+        "description": "non-negative integer, optional, default: 0"
+      },
+      "file_type": {
+        "enum": [
+          "json"
+        ],
+        "type": "string",
+        "default": "json",
+        "description": "Response format. Only json is supported."
+      },
+      "frequency": {
+        "enum": [
+          "d",
+          "w",
+          "bw",
+          "m",
+          "q",
+          "sa",
+          "a",
+          "wef",
+          "weth",
+          "wew",
+          "wetu",
+          "wem",
+          "wesu",
+          "wesa",
+          "bwew",
+          "bwem"
+        ],
+        "type": "string",
+        "description": "An optional parameter that indicates a lower frequency to aggregate values to. The FRED frequency aggregation feature converts higher frequency data series into lower frequency data series (e.g. converts a monthly data series into an annual data series). In FRED, the highest frequency data is daily,"
+      },
+      "series_id": {
+        "type": "string",
+        "example": "GNPCA",
+        "description": "The id for a series. string, required"
+      },
+      "sort_order": {
+        "enum": [
+          "asc",
+          "desc"
+        ],
+        "type": "string",
+        "default": "asc",
+        "description": "Sort results is ascending or descending observation_date order. One of the following strings: 'asc', 'desc'. optional, default: asc"
+      },
+      "output_type": {
+        "enum": [
+          1,
+          2,
+          3,
+          4
+        ],
+        "type": "integer",
+        "default": 1,
+        "description": "An integer that indicates an output type. integer, optional, default: 1 One of the following values: '1', '2', '3', '4' 1 = Observations by Real-Time Period 2 = Observations by Vintage Date, All Observations 3 = Observations by Vintage Date, New and Revised Observations Only 4 = Observations, Initia"
+      },
+      "realtime_end": {
+        "type": "string",
+        "description": "The end of the real-time period. For more information, see Real-Time Periods , vintage_dates . YYYY-MM-DD formatted string, optional, default: today's date"
+      },
+      "vintage_dates": {
+        "type": "string",
+        "description": "A comma separated string of YYYY-MM-DD formatted dates in history (e.g. 2000-01-01,2005-02-24). Vintage dates are used to download data as it existed on these specified dates in history. Vintage dates can be specified instead of a real-time period using realtime_start and realtime_end. Sometimes it "
+      },
+      "realtime_start": {
+        "type": "string",
+        "description": "The start of the real-time period. For more information, see Real-Time Periods , vintage_dates . YYYY-MM-DD formatted string, optional, default: today's date"
+      },
+      "observation_end": {
+        "type": "string",
+        "default": "9999-12-31",
+        "description": "The end of the observation period. YYYY-MM-DD formatted string, optional, default: 9999-12-31 (latest available)"
+      },
+      "observation_start": {
+        "type": "string",
+        "default": "1776-07-04",
+        "description": "The start of the observation period. YYYY-MM-DD formatted string, optional, default: 1776-07-04 (earliest available)"
+      },
+      "aggregation_method": {
+        "enum": [
+          "avg",
+          "sum",
+          "eop"
+        ],
+        "type": "string",
+        "default": "avg",
+        "description": "A key that indicates the aggregation method used for frequency aggregation. This parameter has no affect if the frequency parameter is not set. string, optional, default: avg One of the following values: 'avg', 'sum', 'eop' avg = Average sum = Sum eop = End of Period avg = Average sum = Sum eop = En"
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 1e-05,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "readme": "# FRED Get Series Observations API\n\nGet Series Observations from FRED. Returns the official FRED API response unchanged.\n\nThe response is the official FRED API response, unchanged.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/fred/series-observations\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"series_id\": \"GNPCA\", \"file_type\": \"json\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `aggregation_method` | string | No | A key that indicates the aggregation method used for frequency aggregation. This parameter has no affect if the frequency parameter is not set. string, optional |\n| `file_type` | string | No | Response format. Only json is supported. |\n| `frequency` | string | No | An optional parameter that indicates a lower frequency to aggregate values to. The FRED frequency aggregation feature converts higher frequency data series into |\n| `limit` | integer | No | The maximum number of results to return. integer between 1 and 100000, optional, default: 100000 |\n| `observation_end` | string | No | The end of the observation period. YYYY-MM-DD formatted string, optional, default: 9999-12-31 (latest available) |\n| `observation_start` | string | No | The start of the observation period. YYYY-MM-DD formatted string, optional, default: 1776-07-04 (earliest available) |\n| `offset` | integer | No | non-negative integer, optional, default: 0 |\n| `output_type` | integer | No | An integer that indicates an output type. integer, optional, default: 1 One of the following values: '1', '2', '3', '4' 1 = Observations by Real-Time Period 2 = |\n| `realtime_end` | string | No | The end of the real-time period. For more information, see Real-Time Periods , vintage_dates . YYYY-MM-DD formatted string, optional, default: today's date |\n| `realtime_start` | string | No | The start of the real-time period. For more information, see Real-Time Periods , vintage_dates . YYYY-MM-DD formatted string, optional, default: today's date |\n| `series_id` | string | Yes | The id for a series. string, required |\n| `sort_order` | string | No | Sort results is ascending or descending observation_date order. One of the following strings: 'asc', 'desc'. optional, default: asc |\n| `units` | string | No | A key that indicates a data value transformation. string, optional, default: lin (No transformation) One of the following values: 'lin', 'chg', 'ch1', 'pch', 'p |\n| `vintage_dates` | string | No | A comma separated string of YYYY-MM-DD formatted dates in history (e.g. 2000-01-01,2005-02-24). Vintage dates are used to download data as it existed on these s |\n\n## Pricing\n\nFlat price per call. Failed calls are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/fred/series-observations",
+  "created_at": "2026-10-30T03:11:30.304Z"
+}

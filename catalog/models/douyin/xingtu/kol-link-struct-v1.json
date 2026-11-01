@@ -1,0 +1,57 @@
+{
+  "name": "douyin/xingtu/kol-link-struct-v1",
+  "display_name": "Douyin Xingtu KOL Link Structure",
+  "type": "api",
+  "vendor": "Douyin",
+  "vendor_slug": "douyin",
+  "description": "Returns the link structure data for a Douyin Xingtu creator. Queries the platform structure by specifying the creator's KOL identifier.",
+  "tags": [
+    "api",
+    "douyin"
+  ],
+  "capabilities": [
+    "api",
+    "douyin"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/douyin/xingtu/kol-link-struct-v1"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "kolId"
+    ],
+    "properties": {
+      "kolId": {
+        "type": "string",
+        "title": "Kolid",
+        "description": "User kolId, can be obtained from the following interfaces: `douyin/xingtu/xingtu-kolid-by-uid`; `douyin/xingtu/xingtu-kolid-by-sec-user-id`; `douyin/xingtu/xingtu-kolid-by-unique-id`"
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.03
+  },
+  "examples": [
+    {
+      "input": {
+        "kolId": "7048929565493690398"
+      },
+      "default": true
+    }
+  ],
+  "readme": "# Douyin Xingtu KOL Link Structure API\n\nRetrieve link structure details for a Douyin Xingtu creator using `kolId`.\n\n## Use cases\n\n- Analyze link structure details for specific Douyin creators.\n- Evaluate Douyin Xingtu KOL profile configurations.\n- Integrate creator link data into talent evaluation systems.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/douyin/xingtu/kol-link-struct-v1\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"kolId\": \"<kolId>\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `kolId` | string | Yes | User kolId, can be obtained from the following interfaces: `douyin/xingtu/xingtu-kolid-by-uid`; `douyin/xingtu/xingtu-kolid-by-sec-user-id`; `douyin/xingtu/xin… |\n\n## Notes\n\n- Obtain `kolId` using the related Xingtu creator lookup endpoints via UID, sec_uid, or unique ID.\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [Douyin Xingtu Author Hot Comment Keywords](/model/douyin/xingtu/author-content-hot-comment-keywords-v1): Returns hot comment keywords from content produced by a Douyin Xingtu creator.\n- [Douyin Xingtu Author Hot Comment Tokens (Xingtu)](/model/douyin/xingtu/author-hot-comment-tokens-v1): Returns hot comment tokens for a Douyin Xingtu creator based on the specified creator ID.\n- [Douyin Xingtu KOL Audience Portrait (V1)](/model/douyin/xingtu/kol-audience-portrait-v1): Returns audience demographic and portrait insights for a Douyin Xingtu creator.\n",
+  "page_url": "https://www.sandbase.ai/model/douyin/xingtu/kol-link-struct-v1",
+  "created_at": "2026-07-31T02:41:30.651Z"
+}

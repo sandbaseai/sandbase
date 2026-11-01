@@ -1,0 +1,149 @@
+{
+  "name": "elevenlabs/music/2",
+  "display_name": "ElevenLabs Music v2",
+  "type": "audio",
+  "vendor": "ElevenLabs",
+  "vendor_slug": "elevenlabs",
+  "description": "ElevenLabs Music v2 generates studio-quality songs and instrumentals with vocals from a text prompt, up to 10 minutes long.",
+  "tags": [
+    "text-to-music"
+  ],
+  "capabilities": [
+    "text-to-music"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "prompt"
+    ],
+    "properties": {
+      "prompt": {
+        "type": "string",
+        "title": "Prompt",
+        "examples": [
+          "Mysterious original soundtrack, themes of jungle, rainforest, nature, woodwinds, busy rhythmic tribal percussion."
+        ],
+        "description": "The text prompt describing the music to generate"
+      },
+      "music_length_ms": {
+        "type": "integer",
+        "title": "Music Length (ms)",
+        "maximum": 600000,
+        "minimum": 3000,
+        "description": "The length of the song to generate in milliseconds (3000-600000). If not provided, the model will choose a length based on the prompt."
+      },
+      "force_instrumental": {
+        "type": "boolean",
+        "title": "Force Instrumental",
+        "default": false,
+        "description": "If true, guarantees that the generated song will be instrumental."
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "title": "GenerationResponse",
+    "required": [
+      "id",
+      "status"
+    ],
+    "properties": {
+      "id": {
+        "type": "string",
+        "description": "Unique identifier for the generation task."
+      },
+      "error": {
+        "type": "string",
+        "description": "Error message if the task failed. Empty on success."
+      },
+      "model": {
+        "type": "string",
+        "description": "Model ID used for the prediction."
+      },
+      "status": {
+        "enum": [
+          "pending",
+          "running",
+          "completed",
+          "failed",
+          "timeout"
+        ],
+        "type": "string",
+        "description": "Status of the task: pending, running, completed, failed, or timeout."
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "title": "OutputItem",
+          "required": [
+            "url"
+          ],
+          "properties": {
+            "url": {
+              "type": "string",
+              "examples": [
+                "https://storage.googleapis.com/falserverless/example_outputs/elevenlabs/music_generated.mp3"
+              ],
+              "description": "The URL where the generated content can be downloaded from."
+            },
+            "content_type": {
+              "type": "string",
+              "description": "The MIME type of the output file."
+            }
+          }
+        },
+        "description": "Array of generated content. Empty when status is not completed."
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "formula",
+    "formula": "Math.max(1.0, Math.ceil((params.music_length_ms ?? 60000) / 60000.0)) * 0.75",
+    "formula_variables": [
+      "params.music_length_ms"
+    ],
+    "reference_price": 0.75,
+    "price_examples": [
+      {
+        "params": {
+          "music_length_ms": 3000
+        },
+        "usd": 0.75
+      },
+      {
+        "params": {
+          "music_length_ms": 600000
+        },
+        "usd": 7.5
+      }
+    ]
+  },
+  "examples": [
+    {
+      "input": {
+        "prompt": "Mysterious original soundtrack, themes of jungle, rainforest, nature, woodwinds, busy rhythmic tribal percussion."
+      },
+      "output": [
+        {
+          "url": "https://static.sandbase.ai/examples/25fda4c5-a1ef-421b-957f-ca0e5c6edbfd/output/ed67538b-5bd4-4024-8585-66502e59c91e.mp3"
+        }
+      ],
+      "default": true
+    }
+  ],
+  "readme": "# ElevenLabs Music v2\n\nElevenLabs Music v2: studio-quality songs and instrumentals with vocals, up to 10 minutes.\n\n## Fields\n\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `prompt` | string, required | — | Genre, mood, instruments, vocals, and lyrics. |\n| `force_instrumental` | boolean | false | Generate without vocals. |\n| `music_length_ms` | integer 3000–600000 | — | Length in milliseconds (3,000–600,000). |\n\n## Billing\n\n$0.75 per started minute, with a one-minute minimum. Without `music_length_ms` the quote assumes 1 minute.\n\n| Length | Price |\n|---|---|\n| 30s | $0.75 |\n| 60s | $0.75 |\n| 150s | $2.25 |\n| 600s | $7.50 |\n\nFailed runs are not charged.\n\n## Prompting\n\n- Describe structure and vocals; put lyrics in the prompt if you need exact words.\n\n## Limits\n\n- Up to 10 minutes.\n\n## Also on SandBase\n\nOther ElevenLabs Music versions: `elevenlabs/music`, `elevenlabs/music/2.5`.\n",
+  "cover_url": "https://static.sandbase.ai/covers/elevenlabs/music/2/cover-flare-20261008040213.webp",
+  "page_url": "https://www.sandbase.ai/model/elevenlabs/music/2",
+  "published_at": "2026-09-14T20:07:31.11Z",
+  "created_at": "2026-10-06T05:33:51.089Z"
+}

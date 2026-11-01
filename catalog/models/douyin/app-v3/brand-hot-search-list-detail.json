@@ -1,0 +1,61 @@
+{
+  "name": "douyin/app-v3/brand-hot-search-list-detail",
+  "display_name": "Douyin Brand Hot Search List Detail",
+  "type": "api",
+  "vendor": "Douyin",
+  "vendor_slug": "douyin",
+  "description": "Returns detailed brand hot search list data from Douyin for a specific category. Requires a category identifier to filter the ranking results.",
+  "tags": [
+    "api",
+    "douyin"
+  ],
+  "capabilities": [
+    "api",
+    "douyin"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/douyin/app-v3/brand-hot-search-list-detail"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "category_id"
+    ],
+    "properties": {
+      "category_id": {
+        "type": "integer",
+        "title": "Category Id",
+        "description": "Category id"
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.0015,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "examples": [
+    {
+      "input": {
+        "category_id": 1
+      }
+    }
+  ],
+  "readme": "# Douyin Brand Hot Search List Detail API\n\nCall this endpoint with `category_id` to retrieve brand hot search list details from Douyin.\n\n## Use cases\n\n- Tracking trending brands across specific Douyin categories.\n- Analyzing brand search popularity and rankings on the platform.\n- Monitoring competitive brand visibility by category.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/douyin/app-v3/brand-hot-search-list-detail\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"category_id\": \"<category_id>\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `category_id` | integer | Yes | Category id |\n\n## Notes\n\n- Requires `category_id` to specify the brand category.\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [Douyin Brand Hot Search List](/model/douyin/app-v3/brand-hot-search-list): Returns the current Douyin brand hot search list and category data.\n- [Douyin Short Link Generator](/model/douyin/app-v3/generate-short-url): Converts a standard Douyin web link into a shortened Douyin URL.\n- [Douyin Video Share QR Code](/model/douyin/app-v3/generate-video-share-qrcode): Returns a Douyin share QR code for a designated target.\n",
+  "page_url": "https://www.sandbase.ai/model/douyin/app-v3/brand-hot-search-list-detail",
+  "created_at": "2026-07-31T02:33:32.36Z"
+}

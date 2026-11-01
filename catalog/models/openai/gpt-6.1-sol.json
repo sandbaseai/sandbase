@@ -1,0 +1,52 @@
+{
+  "name": "openai/gpt-6.1-sol",
+  "display_name": "OpenAI: GPT-6.1 Sol",
+  "type": "llm",
+  "vendor": "OpenAI",
+  "vendor_slug": "openai",
+  "description": "GPT-6.1 Sol is OpenAI's upgrade to GPT-6 Sol, introduced at DevDay 2026 and positioned between GPT-6 Astra and GPT-6 Luna, with text and image input. OpenAI says it delivers near-Astra performance for complex coding, computer use and professional work, and recommends comparing it with Astra on your own tasks. Pick it for demanding agentic work at scale when Astra's full depth is not required; it always reasons at least at a low level and has no reasoning-off option.",
+  "tags": [
+    "chat",
+    "vision",
+    "reasoning",
+    "structured_output",
+    "function_calling"
+  ],
+  "capabilities": [
+    "chat",
+    "vision",
+    "reasoning",
+    "structured_output",
+    "function_calling"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "chat_completions": "POST /v1/chat/completions",
+    "responses": "POST /v1/responses",
+    "messages": "POST /v1/messages"
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_token",
+    "per_million_tokens": {
+      "input": 2,
+      "output": 10,
+      "cache_read_multiplier": 0.05,
+      "cache_write_multiplier": 1.25
+    },
+    "formula": "usage.prompt_tokens >= 272000 ? (usage.prompt_tokens * 4 / 1000000 + usage.completion_tokens * 15 / 1000000 - usage.cached_tokens * 1.9 / 1000000 + usage.cache_creation_tokens * 0.5 / 1000000) : (usage.prompt_tokens * 2 / 1000000 + usage.completion_tokens * 10 / 1000000)",
+    "formula_variables": [
+      "usage.cache_creation_tokens",
+      "usage.cached_tokens",
+      "usage.completion_tokens",
+      "usage.prompt_tokens"
+    ]
+  },
+  "cover_url": "https://t0.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=https://openai.com&size=256",
+  "page_url": "https://www.sandbase.ai/model/openai/gpt-6.1-sol",
+  "published_at": "2026-09-29T17:28:02Z",
+  "created_at": "2026-10-02T07:05:58.025Z"
+}

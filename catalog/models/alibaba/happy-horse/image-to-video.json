@@ -1,0 +1,253 @@
+{
+  "name": "alibaba/happy-horse/image-to-video",
+  "display_name": "Happy Horse Image to Video",
+  "type": "video",
+  "vendor": "Alibaba",
+  "vendor_slug": "alibaba",
+  "description": "Alibaba's #1-ranked Happy Horse 1.0 generates stunning 1080p videos with synchronized native audio and multilingual lip-sync, transforming text prompts or images into cinematic, true-to-life motion content for next-generation AIGC creation.",
+  "tags": [
+    "image-to-video"
+  ],
+  "capabilities": [
+    "image-to-video"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "image"
+    ],
+    "properties": {
+      "seed": {
+        "type": "integer",
+        "title": "Seed",
+        "description": "Random seed for reproducible results. Set to -1 for random seed."
+      },
+      "image": {
+        "type": "string",
+        "title": "Image",
+        "examples": [
+          "https://help-static-aliyun-doc.aliyuncs.com/file-manage-files/zh-CN/20250925/wpimhv/rap.png"
+        ],
+        "description": "The URL of the source image to animate into a video."
+      },
+      "prompt": {
+        "type": "string",
+        "title": "Prompt",
+        "default": "Bring the scene in the image to life.",
+        "maxLength": 50000,
+        "description": "Optional text prompt to guide the video generation."
+      },
+      "duration": {
+        "enum": [
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15
+        ],
+        "type": "integer",
+        "title": "Duration",
+        "default": 5,
+        "description": "The duration of the generated video in seconds."
+      },
+      "resolution": {
+        "enum": [
+          "720p",
+          "1080p"
+        ],
+        "type": "string",
+        "title": "Resolution",
+        "default": "720p",
+        "description": "The resolution of the video to generate."
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "title": "GenerationResponse",
+    "required": [
+      "id",
+      "status"
+    ],
+    "properties": {
+      "id": {
+        "type": "string",
+        "description": "Unique identifier for the generation task."
+      },
+      "error": {
+        "type": "string",
+        "description": "Error message if the task failed. Empty on success."
+      },
+      "model": {
+        "type": "string",
+        "description": "Model ID used for the prediction."
+      },
+      "status": {
+        "enum": [
+          "pending",
+          "running",
+          "completed",
+          "failed",
+          "timeout"
+        ],
+        "type": "string",
+        "description": "Status of the task: pending, running, completed, failed, or timeout."
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "title": "OutputItem",
+          "required": [
+            "url"
+          ],
+          "properties": {
+            "url": {
+              "type": "string",
+              "description": "The URL where the generated content can be downloaded from."
+            },
+            "content_type": {
+              "type": "string",
+              "description": "The MIME type of the output file."
+            }
+          }
+        },
+        "description": "Array of generated content. Empty when status is not completed."
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "formula",
+    "formula": "(params.duration ?? 5) * ((params.resolution ?? \"720p\") == \"1080p\" ? 0.24 : 0.14)",
+    "formula_variables": [
+      "params.duration",
+      "params.resolution"
+    ],
+    "reference_price": 0.7,
+    "price_examples": [
+      {
+        "params": {
+          "duration": 3,
+          "resolution": "720p"
+        },
+        "usd": 0.42
+      },
+      {
+        "params": {
+          "duration": 3,
+          "resolution": "1080p"
+        },
+        "usd": 0.72
+      },
+      {
+        "params": {
+          "duration": 4,
+          "resolution": "720p"
+        },
+        "usd": 0.56
+      },
+      {
+        "params": {
+          "duration": 4,
+          "resolution": "1080p"
+        },
+        "usd": 0.96
+      },
+      {
+        "params": {
+          "duration": 5,
+          "resolution": "720p"
+        },
+        "usd": 0.7
+      },
+      {
+        "params": {
+          "duration": 5,
+          "resolution": "1080p"
+        },
+        "usd": 1.2
+      },
+      {
+        "params": {
+          "duration": 6,
+          "resolution": "720p"
+        },
+        "usd": 0.84
+      },
+      {
+        "params": {
+          "duration": 6,
+          "resolution": "1080p"
+        },
+        "usd": 1.44
+      },
+      {
+        "params": {
+          "duration": 7,
+          "resolution": "720p"
+        },
+        "usd": 0.98
+      },
+      {
+        "params": {
+          "duration": 7,
+          "resolution": "1080p"
+        },
+        "usd": 1.68
+      },
+      {
+        "params": {
+          "duration": 8,
+          "resolution": "720p"
+        },
+        "usd": 1.12
+      },
+      {
+        "params": {
+          "duration": 8,
+          "resolution": "1080p"
+        },
+        "usd": 1.92
+      }
+    ]
+  },
+  "examples": [
+    {
+      "input": {
+        "duration": 3,
+        "image": "https://static.sandbase.ai/examples/7c2cda62-fedf-4b96-85d4-46f905309272/input/10329729-dbe9-455b-8a28-d97fb57cb0c5.png",
+        "prompt": "The black cat slowly looks up",
+        "resolution": "720p"
+      },
+      "output": [
+        {
+          "poster": "https://static.sandbase.ai/examples/posters/8bfe0ce48e7bfcdbd1e3.jpg",
+          "url": "https://static.sandbase.ai/examples/7c2cda62-fedf-4b96-85d4-46f905309272/output/a1e80424-3e01-4e8e-8175-0cac7651d468.mp4"
+        }
+      ],
+      "default": true
+    }
+  ],
+  "readme": "# Happy Horse Image to Video\n\nHappy Horse 1.0 image-to-video: animate a picture over 3–15 seconds. `prompt` is optional; without it the model brings the scene to life on its own.\n\n## Fields\n\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `image` | image URL, required | — | First frame. JPEG, PNG, or WebP URL. |\n| `prompt` | string | `Bring the scene in the image to life.` | Optional direction for motion and camera. |\n| `duration` | 3–15 | 5 | Output length in seconds. |\n| `resolution` | `720p` / `1080p` | `720p` | Sets the per-second rate. |\n| `seed` | integer | random | Fix it to compare prompt changes. |\n\n## Billing\n\nYou pay for output seconds: $0.14 at 720p and $0.24 at 1080p, Alibaba's list price.\n\n| Output | 720p | 1080p |\n|---|---|---|\n| 3s | $0.42 | $0.72 |\n| 5s (default) | $0.70 | $1.20 |\n| 10s | $1.40 | $2.40 |\n| 15s | $2.10 | $3.60 |\n\nFailed runs are not charged.\n\n## Prompting\n\n- Describe the motion and camera, not what is already in the picture.\n\n## Limits\n\n- 720p and 1080p only.\n\n## Also on SandBase\n\nOther Happy Horse endpoints: `alibaba/happy-horse/text-to-video`, `alibaba/happy-horse/reference-to-video`, `alibaba/happy-horse/video-edit`, `alibaba/happy-horse/1.1/image-to-video` (newer).\n",
+  "cover_url": "https://static.sandbase.ai/covers/alibaba/happy-horse/image-to-video/cover-flare-20261004211537.webp",
+  "page_url": "https://www.sandbase.ai/model/alibaba/happy-horse/image-to-video",
+  "published_at": "2026-04-27T10:31:27.614Z",
+  "created_at": "2026-04-29T02:34:32.465Z"
+}

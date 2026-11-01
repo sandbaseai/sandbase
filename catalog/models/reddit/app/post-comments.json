@@ -1,0 +1,86 @@
+{
+  "name": "reddit/app/post-comments",
+  "display_name": "Reddit App Post Comments",
+  "type": "api",
+  "vendor": "Reddit",
+  "vendor_slug": "reddit",
+  "description": "Returns comment trees for a specific Reddit post by its ID. Supports comment sorting by hot, new, top, best, or controversial, with optional pagination via a cursor.",
+  "tags": [
+    "api",
+    "reddit"
+  ],
+  "capabilities": [
+    "api",
+    "reddit"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/reddit/app/post-comments"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "post_id"
+    ],
+    "properties": {
+      "after": {
+        "type": "string",
+        "title": "After",
+        "default": "",
+        "example": "",
+        "description": "Pagination parameter for fetching the next page, can be found in the last comment node in commentForest, e.g., $.data.postInfoById.commentForest.trees[-1].more.cursor"
+      },
+      "post_id": {
+        "type": "string",
+        "title": "Post Id",
+        "example": "t3_1ojnvca",
+        "description": "Post ID, format like \"t3_XXXXXX\""
+      },
+      "sort_type": {
+        "type": "string",
+        "title": "Sort Type",
+        "default": "CONFIDENCE",
+        "example": "CONFIDENCE",
+        "description": "Sort method, supports HOT, NEW, TOP, BEST, CONTROVERSIAL"
+      },
+      "need_format": {
+        "type": "boolean",
+        "title": "Need Format",
+        "default": false,
+        "example": false,
+        "description": "Whether to clean and format the data"
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.0015,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "examples": [
+    {
+      "input": {
+        "after": "",
+        "need_format": false,
+        "post_id": "t3_1ojnvca",
+        "sort_type": "CONFIDENCE"
+      }
+    }
+  ],
+  "readme": "# Reddit App Post Comments API\n\nRetrieve discussion comments for a Reddit submission using `post_id`. Configure comment order with `sort_type` and page through comment trees using `after`.\n\n## Use cases\n\n- Retrieve top discussion threads and reply trees under a Reddit submission.\n- Analyze audience sentiment and reactions across community discussions.\n- Extract recent community feedback by sorting comments by new.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/reddit/app/post-comments\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"post_id\": \"t3_1ojnvca\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `post_id` | string | Yes | Post ID, format like \"t3_XXXXXX\" |\n| `after` | string | No | Pagination parameter for fetching the next page, can be found in the last comment node in commentForest, e.g., $.data.postInfoById.commentForest.trees[-1].more… |\n| `sort_type` | string | No | Sort method, supports HOT, NEW, TOP, BEST, CONTROVERSIAL |\n| `need_format` | boolean | No | Whether to clean and format the data |\n\n## Notes\n\n- `post_id` expects an identifier formatted like t3_XXXXXX.\n- Supported `sort_type` options include HOT, NEW, TOP, BEST, and CONTROVERSIAL.\n- Pagination uses the `after` cursor obtained from the last comment node in the comment forest.\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [Reddit Subreddit Mute Status](/model/reddit/app/check-subreddit-muted): Checks whether a specified Reddit subreddit is muted by the current account using its ID.\n- [Reddit App Comment Replies](/model/reddit/app/comment-replies): Returns replies and nested sub-comments under a Reddit post comment using a continuation cursor.\n- [Reddit Community Highlights](/model/reddit/app/community-highlights): Returns featured highlight content for a designated Reddit community, such as popular posts and announcements, by subreddit ID.\n",
+  "page_url": "https://www.sandbase.ai/model/reddit/app/post-comments",
+  "created_at": "2026-07-31T04:10:48.474Z"
+}

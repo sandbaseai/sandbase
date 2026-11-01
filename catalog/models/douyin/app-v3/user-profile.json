@@ -1,0 +1,62 @@
+{
+  "name": "douyin/app-v3/user-profile",
+  "display_name": "Douyin User Profile (App V3)",
+  "type": "api",
+  "vendor": "Douyin",
+  "vendor_slug": "douyin",
+  "description": "Returns profile information and follower statistics for a specified Douyin user based on their unique secure user identifier.",
+  "tags": [
+    "api",
+    "douyin"
+  ],
+  "capabilities": [
+    "api",
+    "douyin"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/douyin/app-v3/user-profile"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "sec_user_id"
+    ],
+    "properties": {
+      "sec_user_id": {
+        "type": "string",
+        "title": "Sec User Id",
+        "example": "MS4wLjABAAAAr52fXcfmzqOZJM_smap9Uuxtm16h8BupkCVaCt89BENq3E91mHCvtz5Z5TkXPHq_",
+        "description": "User sec_user_id"
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.0015,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "examples": [
+    {
+      "input": {
+        "sec_user_id": "example"
+      }
+    }
+  ],
+  "readme": "# Douyin User Profile (App V3) API\n\nRetrieve profile details and follower metadata for a specific Douyin account by supplying `sec_user_id`.\n\n## Use cases\n\n- Analyze audience reach and follower counts for a target Douyin account.\n- Extract user profile data for influencer research and creator monitoring.\n- Inspect Douyin account details within social media analytics workflows.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/douyin/app-v3/user-profile\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"sec_user_id\": \"MS4wLjABAAAAr52fXcfmzqOZJM_smap9Uuxtm16h8BupkCVaCt89BENq3E91mHCvtz5Z5TkXPHq_\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `sec_user_id` | string | Yes | User sec_user_id |\n\n## Example response\n\nReal response for the request above, trimmed to the main fields. User names and long IDs are masked.\n\n```json\n{\n  \"user\": {\n    \"followers_detail\": [\n      {\n        \"app_name\": \"aweme\",\n        \"apple_id\": \"1142110895\",\n        \"fans_count\": 163334,\n        \"name\": \"抖音\",\n        \"open_url\": \"snssdk1128://user/profile/3635433641882579?\",\n        \"package_name\": \"com.ss.android.ugc.aweme\"\n      }\n    ]\n  }\n}\n```\n\n## Notes\n\n- Requires a valid `sec_user_id` parameter to identify the target profile.\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [Douyin Brand Hot Search List](/model/douyin/app-v3/brand-hot-search-list): Returns the current Douyin brand hot search list and category data.\n- [Douyin Brand Hot Search List Detail](/model/douyin/app-v3/brand-hot-search-list-detail): Returns detailed brand hot search list data from Douyin for a specific category.\n- [Douyin Short Link Generator](/model/douyin/app-v3/generate-short-url): Converts a standard Douyin web link into a shortened Douyin URL.\n",
+  "page_url": "https://www.sandbase.ai/model/douyin/app-v3/user-profile",
+  "created_at": "2026-07-31T02:34:25.68Z"
+}

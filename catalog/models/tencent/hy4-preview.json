@@ -1,0 +1,41 @@
+{
+  "name": "tencent/hy4-preview",
+  "display_name": "Tencent: Hy4 preview",
+  "type": "llm",
+  "vendor": "Tencent",
+  "vendor_slug": "tencent",
+  "description": "Hy4 preview is Tencent Hunyuan's open-source preview of its Hy4 generation, a mixture-of-experts language model with 770B total and 49B active parameters and a context window exceeding 1M tokens. Tencent built it for real-world productivity: long-context software development and front-end work, office and financial analysis, game prototyping and scientific research. Tencent follows a preview-first approach, with official Hy4 releases to come after this model.",
+  "tags": [
+    "chat",
+    "reasoning",
+    "structured_output",
+    "function_calling"
+  ],
+  "capabilities": [
+    "chat",
+    "reasoning",
+    "structured_output",
+    "function_calling"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "chat_completions": "POST /v1/chat/completions",
+    "responses": "POST /v1/responses",
+    "messages": "POST /v1/messages"
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_token",
+    "per_million_tokens": {
+      "input": 0.834,
+      "output": 2.501,
+      "cache_read_multiplier": 0.0504
+    }
+  },
+  "page_url": "https://www.sandbase.ai/model/tencent/hy4-preview",
+  "published_at": "2026-08-28T06:09:35Z",
+  "created_at": "2026-09-03T09:37:29.228Z"
+}

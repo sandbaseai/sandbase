@@ -1,0 +1,92 @@
+{
+  "name": "douyin/xingtu-v2/ranking-list-data",
+  "display_name": "Douyin XingTu Ranking List Data",
+  "type": "api",
+  "vendor": "Douyin",
+  "vendor_slug": "douyin",
+  "description": "Returns Douyin XingTu author business ranking records by type, date, and category qualifier. It provides author rankings, performance scores, and order metrics.",
+  "tags": [
+    "api",
+    "douyin"
+  ],
+  "capabilities": [
+    "api",
+    "douyin"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/douyin/xingtu-v2/ranking-list-data"
+  },
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "code": {
+        "type": "integer",
+        "title": "Code",
+        "default": 1,
+        "example": 1,
+        "description": "Ranking type code"
+      },
+      "date": {
+        "type": "string",
+        "title": "Date",
+        "default": "20260131",
+        "example": "20260131",
+        "description": "Date, format YYYYMMDD"
+      },
+      "period": {
+        "type": "integer",
+        "title": "Period",
+        "default": 30,
+        "example": 30,
+        "description": "7=weekly, 30=monthly"
+      },
+      "version": {
+        "type": "string",
+        "title": "Version",
+        "default": "flow_split",
+        "example": "flow_split",
+        "description": "`flow_split`=default for video rankings, `base`=commonly used for live rankings"
+      },
+      "qualifier": {
+        "type": "string",
+        "title": "Qualifier",
+        "default": "1901",
+        "example": "1901",
+        "description": "Category qualifier_id from `get_ranking_list_catalog`"
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.003,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "examples": [
+    {
+      "input": {
+        "code": 1,
+        "date": "20260131",
+        "period": 30,
+        "qualifier": "1901",
+        "version": "flow_split"
+      }
+    }
+  ],
+  "readme": "# Douyin XingTu Ranking List Data API\n\nRetrieve Douyin XingTu influencer leaderboard records using parameters like `code`, `qualifier`, `date`, and `period`.\n\n## Use cases\n\n- Track top-performing Douyin XingTu influencers across weekly or monthly cycles.\n- Analyze author ranking shifts and commercial order fulfillment rates.\n- Compare talent scores across different category qualifiers and video formats.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/douyin/xingtu-v2/ranking-list-data\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `code` | integer | No | Ranking type code |\n| `date` | string | No | Date, format YYYYMMDD |\n| `period` | integer | No | 7=weekly, 30=monthly |\n| `version` | string | No | `flow_split`=default for video rankings, `base`=commonly used for live rankings |\n| `qualifier` | string | No | Category qualifier_id from `get_ranking_list_catalog` |\n\n## Example response\n\nReal response for the request above, trimmed to the main fields. User names and long IDs are masked.\n\n```json\n{\n  \"authors\": [\n    {\n      \"old_rank\": \"1\",\n      \"rank\": \"1\",\n      \"score\": 0.58994708994709,\n      \"star_id\": \"7146074596666507300\",\n      \"attribute_datas\": {\n        \"author_id\": \"7146074596666507300\",\n        \"author_status\": \"1\",\n        \"core_user_id\": \"3777519688105684\",\n        \"finish_order_cnt\": \"> 20\",\n        \"item_order_rate\": \"0.0546\",\n        \"modify_time\": \"1769932545\"\n      }\n    }\n  ]\n}\n```\n\n## Notes\n\n- Set `period` to 7 for weekly rankings or 30 for monthly rankings.\n- Set `version` to `flow_split` for video rankings or `base` for live stream rankings.\n- Obtain category `qualifier` values from the ranking list catalog endpoint.\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [Douyin Xingtu Author Audience Distribution](/model/douyin/xingtu-v2/author-audience-distribution): Returns audience profile distribution metrics for a specified Xingtu creator based on creator ID and link type, with selectable platform source and channel opt…\n- [Douyin Xingtu Author Base Info](/model/douyin/xingtu-v2/author-base-info): Returns basic creator profile data from Douyin Xingtu by author identifier, with options to include recommendation details and linkage information.\n- [Douyin Xingtu Author Business Card Info](/model/douyin/xingtu-v2/author-business-card-info): Returns business card details for a Douyin Xingtu creator based on the specified author ID.\n",
+  "page_url": "https://www.sandbase.ai/model/douyin/xingtu-v2/ranking-list-data",
+  "created_at": "2026-07-31T02:42:53.129Z"
+}

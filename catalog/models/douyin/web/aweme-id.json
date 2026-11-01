@@ -1,0 +1,61 @@
+{
+  "name": "douyin/web/aweme-id",
+  "display_name": "Douyin Video ID Extractor",
+  "type": "api",
+  "vendor": "Douyin",
+  "vendor_slug": "douyin",
+  "description": "Extracts the internal video ID from a given Douyin video web URL. Useful for parsing links before calling downstream video detail endpoints.",
+  "tags": [
+    "api",
+    "douyin"
+  ],
+  "capabilities": [
+    "api",
+    "douyin"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/douyin/web/aweme-id"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "url"
+    ],
+    "properties": {
+      "url": {
+        "type": "string",
+        "title": "Url",
+        "example": "https://www.douyin.com/video/7512756548356492544"
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.0015,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "examples": [
+    {
+      "input": {
+        "url": "https://static.sandbase.ai/examples/8199cdcf-9adb-4073-a093-e4e83b70e1d0/input/0598f8d8-d74b-4fae-997a-faec7227135f.bin"
+      }
+    }
+  ],
+  "readme": "# Douyin Video ID Extractor API\n\nParse a Douyin video link provided in `url` to extract its underlying video ID.\n\n## Use cases\n\n- Extract video IDs from shared Douyin web links.\n- Normalize video URLs before querying metadata endpoints.\n- Resolve raw post links captured from social feeds.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/douyin/web/aweme-id\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"url\": \"https://www.douyin.com/video/7512756548356492544\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `url` | string | Yes | — |\n\n## Notes\n\n- Requires a valid Douyin video URL in the `url` parameter.\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [Douyin Batch Video ID Extraction](/model/douyin/web/all-aweme-id): Extracts video IDs from a list of Douyin video URLs.\n- [Douyin sec_user_ids from URLs (Batch)](/model/douyin/web/all-sec-user-id): Extracts Douyin sec_user_id values in bulk from a list of user homepage URLs.\n- [Douyin Webcast ID Extraction](/model/douyin/web/all-webcast-id): Extracts webcast IDs from a submitted list of Douyin live room links.\n",
+  "page_url": "https://www.sandbase.ai/model/douyin/web/aweme-id",
+  "created_at": "2026-07-31T02:39:25.348Z"
+}

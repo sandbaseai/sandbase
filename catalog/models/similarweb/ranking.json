@@ -1,0 +1,98 @@
+{
+  "name": "similarweb/ranking",
+  "display_name": "Similarweb Website Ranking",
+  "type": "api",
+  "vendor": "Similarweb",
+  "vendor_slug": "similarweb",
+  "description": "Get a website's global, country and category traffic rank month by month.",
+  "tags": [
+    "api",
+    "similarweb",
+    "web-analytics"
+  ],
+  "capabilities": [
+    "api",
+    "similarweb",
+    "web-analytics"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/similarweb/ranking"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "domain",
+      "end_date",
+      "start_date"
+    ],
+    "properties": {
+      "domain": {
+        "type": "string",
+        "example": "cnn.com",
+        "description": "domain"
+      },
+      "country": {
+        "enum": [
+          "ww"
+        ],
+        "type": "string",
+        "default": "ww",
+        "description": "Worldwide data only; values are case-insensitive."
+      },
+      "end_date": {
+        "type": "string",
+        "example": "2026-09",
+        "description": "end_date"
+      },
+      "start_date": {
+        "type": "string",
+        "example": "2026-09",
+        "description": "start_date"
+      },
+      "web_source": {
+        "enum": [
+          "desktop",
+          "mobile_web",
+          "total"
+        ],
+        "type": "string",
+        "description": "web_source"
+      },
+      "granularity": {
+        "enum": [
+          "monthly"
+        ],
+        "type": "string",
+        "default": "monthly",
+        "description": "granularity"
+      },
+      "main_domain_only": {
+        "type": "boolean",
+        "default": true,
+        "description": "main_domain_only"
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "formula",
+    "formula": "0.15 * Math.max(1.0, (params.start_date != nil && params.end_date != nil ? ((int(split(params.end_date, \"-\")[0]) - int(split(params.start_date, \"-\")[0])) * 12 + int(split(params.end_date, \"-\")[1]) - int(split(params.start_date, \"-\")[1]) + 1) * 1.0 : 12.0))",
+    "formula_variables": [
+      "params.end_date",
+      "params.start_date"
+    ],
+    "reference_price": 0.15
+  },
+  "readme": "# Similarweb Website Ranking API\n\nGet a website's global, country and category traffic rank month by month.\n\nThe response is the official Similarweb API response, unchanged.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/similarweb/ranking\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"start_date\": \"2026-09\", \"end_date\": \"2026-09\", \"country\": \"ww\", \"domain\": \"cnn.com\", \"granularity\": \"monthly\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `country` | string | No | Worldwide data only; values are case-insensitive. |\n| `domain` | string | Yes | domain |\n| `end_date` | string | Yes | end_date |\n| `granularity` | string | No | granularity |\n| `main_domain_only` | boolean | No | main_domain_only |\n| `start_date` | string | Yes | start_date |\n| `web_source` | string | No | web_source |\n\n## Pricing\n\n$0.15 per month between start_date and end_date (12 months if omitted). Failed calls are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/similarweb/ranking",
+  "created_at": "2026-10-30T06:05:48.055Z"
+}

@@ -1,0 +1,55 @@
+{
+  "name": "instagram/v2/media-id-to-shortcode",
+  "display_name": "Instagram Media ID to Shortcode (V2)",
+  "type": "api",
+  "vendor": "Instagram",
+  "vendor_slug": "instagram",
+  "description": "Converts an Instagram post media identifier into its corresponding shortcode. Useful for reconstructing direct post URLs from numeric identifiers.",
+  "tags": [
+    "api",
+    "instagram"
+  ],
+  "capabilities": [
+    "api",
+    "instagram"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/instagram/v2/media-id-to-shortcode"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "media_id"
+    ],
+    "properties": {
+      "media_id": {
+        "type": "string",
+        "title": "Media Id",
+        "example": "3774507992167247878",
+        "description": "Post media ID"
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.003,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "readme": "# Instagram Media ID to Shortcode (V2) API\n\nResolve an Instagram post shortcode from a given `media_id`. This allows building standard post URLs from numeric media identifiers.\n\n## Use cases\n\n- Reconstruct web links for posts stored only by numeric media ID.\n- Convert legacy database identifiers into standard Instagram post URLs.\n- Prepare link previews by resolving shortcodes for social dashboards.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/instagram/v2/media-id-to-shortcode\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"media_id\": \"3774507992167247878\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `media_id` | string | Yes | Post media ID |\n\n## Notes\n\n- Requires a valid numeric Instagram post `media_id`.\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [Instagram Comment Replies (V2)](/model/instagram/v2/comment-replies): Retrieves a paginated list of replies to an Instagram comment using the post URL or shortcode and the target comment ID.\n- [Instagram General Search (V2)](/model/instagram/v2/general-search): Returns Instagram search results matching a specified keyword, including media items, user profiles, and engagement statistics.\n- [Instagram Hashtag Posts (V2)](/model/instagram/v2/hashtag-posts): Returns posts associated with a specific hashtag.\n",
+  "page_url": "https://www.sandbase.ai/model/instagram/v2/media-id-to-shortcode",
+  "created_at": "2026-07-31T03:55:43.822Z"
+}

@@ -1,0 +1,88 @@
+{
+  "name": "tiktok/search-post",
+  "display_name": "TikTok Post Search",
+  "type": "api",
+  "vendor": "TikTok",
+  "vendor_slug": "tiktok",
+  "description": "Search TikTok posts by keyword with offset pagination plus sorting, publish-time, and region controls. Use it to support regional content discovery, topic research, or monitoring keyword-related videos.",
+  "tags": [
+    "api",
+    "tiktok",
+    "social-media"
+  ],
+  "capabilities": [
+    "api",
+    "tiktok",
+    "social-media"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/tiktok/search-post"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "keyword"
+    ],
+    "properties": {
+      "offset": {
+        "type": "integer",
+        "default": 0,
+        "description": "Pagination offset, starting from 0 and stepping by 20."
+      },
+      "region": {
+        "type": "string",
+        "default": "US",
+        "description": "ISO 3166-1 alpha-2 country code (e.g., 'US', 'GB')."
+      },
+      "keyword": {
+        "type": "string",
+        "example": "cooking",
+        "description": "Search keywords."
+      },
+      "sortType": {
+        "enum": [
+          "RELEVANCE",
+          "MOST_LIKED"
+        ],
+        "type": "string",
+        "default": "RELEVANCE",
+        "description": "Sorting criteria for search results."
+      },
+      "publishTime": {
+        "enum": [
+          "ALL",
+          "ONE_DAY",
+          "ONE_WEEK",
+          "ONE_MONTH",
+          "THREE_MONTHS",
+          "HALF_YEAR"
+        ],
+        "type": "string",
+        "default": "ALL",
+        "description": "Filter posts by publishing time."
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.013889,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "readme": "# TikTok Post Search API\n\nSearch TikTok posts by keyword with offset pagination plus sorting, publish-time, and region controls. Use it to support regional content discovery, topic research, or monitoring keyword-related videos.\n\nThe response is the platform's original data structure.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/tiktok/search-post\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"keyword\": \"cooking\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `keyword` | string | Yes | Search keywords. |\n| `offset` | integer | No | Pagination offset, starting from 0 and stepping by 20. |\n| `sortType` | string | No | Sorting criteria for search results. |\n| `publishTime` | string | No | Filter posts by publishing time. |\n| `region` | string | No | ISO 3166-1 alpha-2 country code (e.g., 'US', 'GB'). |\n\n## Pricing\n\nFlat price per call. Failed calls and empty results are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/tiktok/search-post",
+  "created_at": "2026-10-29T11:56:42.979Z"
+}

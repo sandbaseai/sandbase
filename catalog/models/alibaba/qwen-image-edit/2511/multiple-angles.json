@@ -1,0 +1,177 @@
+{
+  "name": "alibaba/qwen-image-edit/2511/multiple-angles",
+  "display_name": "Qwen Image Edit 2511 Multiple Angles",
+  "type": "image",
+  "vendor": "Alibaba",
+  "vendor_slug": "alibaba",
+  "description": "Qwen Image Edit 2511 Multiple Angles by Alibaba - AI-powered image editing, style transfer, and transformation. Edit photos with natural language instructions, remove backgrounds, change styles, and enhance images effortlessly.",
+  "tags": [
+    "image-to-image"
+  ],
+  "capabilities": [
+    "image-to-image"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}"
+  },
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "seed": {
+        "type": "integer",
+        "title": "Seed",
+        "description": "Random seed for reproducibility."
+      },
+      "zoom": {
+        "type": "number",
+        "title": "Zoom (Distance)",
+        "default": 5,
+        "maximum": 10,
+        "minimum": 0,
+        "description": "Camera zoom/distance. 0=wide shot (far away), 5=medium shot (normal), 10=close-up (very close)."
+      },
+      "images": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        },
+        "title": "Image URLs",
+        "examples": [
+          "https://static.sandbase.ai/examples/alibaba/qwen-image-edit/2511/multiple-angles/input_images_0.png"
+        ],
+        "description": "The URL of the image to adjust camera angle for."
+      },
+      "aspect_ratio": {
+        "enum": [
+          "21:9",
+          "16:9",
+          "3:2",
+          "4:3",
+          "5:4",
+          "1:1",
+          "4:5",
+          "3:4",
+          "2:3",
+          "9:16"
+        ],
+        "type": "string",
+        "title": "Aspect Ratio",
+        "description": "The aspect ratio of the generated image."
+      },
+      "output_format": {
+        "enum": [
+          "png",
+          "jpeg"
+        ],
+        "type": "string",
+        "title": "Output Format",
+        "default": "png",
+        "description": "The format of the output image"
+      },
+      "vertical_angle": {
+        "type": "number",
+        "title": "Vertical Angle (Elevation °)",
+        "default": 0,
+        "maximum": 90,
+        "minimum": -30,
+        "description": "Vertical camera angle in degrees. -30°=low-angle shot (looking up), 0°=eye-level, 30°=elevated, 60°=high-angle, 90°=bird's-eye view (looking down)."
+      },
+      "horizontal_angle": {
+        "type": "number",
+        "title": "Horizontal Angle (Azimuth °)",
+        "default": 0,
+        "maximum": 360,
+        "minimum": 0,
+        "description": "Horizontal rotation angle around the object in degrees. 0°=front view, 90°=right side, 180°=back view, 270°=left side, 360°=front view again."
+      },
+      "additional_prompt": {
+        "type": "string",
+        "title": "Additional Prompt",
+        "description": "Additional text to append to the automatically generated prompt."
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "title": "GenerationResponse",
+    "required": [
+      "id",
+      "status"
+    ],
+    "properties": {
+      "id": {
+        "type": "string",
+        "description": "Unique identifier for the generation task."
+      },
+      "error": {
+        "type": "string",
+        "description": "Error message if the task failed. Empty on success."
+      },
+      "model": {
+        "type": "string",
+        "description": "Model ID used for the prediction."
+      },
+      "status": {
+        "enum": [
+          "pending",
+          "running",
+          "completed",
+          "failed",
+          "timeout"
+        ],
+        "type": "string",
+        "description": "Status of the task: pending, running, completed, failed, or timeout."
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "title": "OutputItem",
+          "required": [
+            "url"
+          ],
+          "properties": {
+            "url": {
+              "type": "string",
+              "examples": [
+                "https://static.sandbase.ai/examples/alibaba/qwen-image-edit/2511/multiple-angles/output_url_1.png"
+              ],
+              "description": "The URL where the generated content can be downloaded from."
+            },
+            "content_type": {
+              "type": "string",
+              "description": "The MIME type of the output file."
+            }
+          }
+        },
+        "description": "Array of generated content. Empty when status is not completed."
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.035
+  },
+  "examples": [
+    {
+      "input": {},
+      "output": [
+        {
+          "url": "https://static.sandbase.ai/examples/18b21c05-764f-43eb-9262-274fc14e03d9/output/368ca32c-f20e-480b-9170-02fa12467b67.png"
+        }
+      ],
+      "default": true
+    }
+  ],
+  "readme": "# Qwen Image Edit 2511 Multiple Angles\n\nRe-render a subject from a new camera angle. Set the rotation, tilt, and zoom and Qwen Image Edit 2511 infers the unseen sides while keeping shape, color, and branding consistent; useful for product turnarounds and character sheets.\n\n## Fields\n\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `images` | image URL[] | — | Image(s) of the subject. |\n| `output_format` | `png` / `jpeg` | `png` | Output file format. |\n| `vertical_angle` | number -30–90 | 0 | Camera tilt in degrees (−30 to 90). |\n| `horizontal_angle` | number 0–360 | 0 | Camera rotation around the subject in degrees (0–360). |\n| `zoom` | number 0–10 | 5 | 0 is far, 10 is close. |\n| `additional_prompt` | string | — | Optional extra instruction. |\n| `aspect_ratio` | `21:9` / `16:9` / `3:2` / `4:3` / `5:4` / `1:1` / `4:5` / `3:4` / `2:3` / `9:16` | — | Output shape. |\n| `seed` | integer | random | Fix it to compare prompt changes. |\n\n## Billing\n\n$0.035 per output image.\n\n| Request | Price |\n|---|---|\n| One view | $0.035 |\n\nFailed runs are not charged.\n\n## Prompting\n\n- Call once per view and keep `seed` fixed for a consistent set.\n- Use a clean, well-lit input with the whole subject visible.\n\n## Limits\n\n- One view per request; there is no text prompt beyond `additional_prompt`.\n\n## Also on SandBase\n\nRelated: `alibaba/qwen-image-edit`, `alibaba/qwen-image-edit/2511`.\n",
+  "cover_url": "https://static.sandbase.ai/covers/alibaba/qwen-image-edit/2511/multiple-angles/cover-flare-20261005010604.webp",
+  "page_url": "https://www.sandbase.ai/model/alibaba/qwen-image-edit/2511/multiple-angles",
+  "published_at": "2026-01-07T16:36:31.062Z",
+  "created_at": "2026-05-15T05:53:04.045Z"
+}

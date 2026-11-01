@@ -1,0 +1,88 @@
+{
+  "name": "xiaohongshu/pgy-v2/data-v3-notes-rate",
+  "display_name": "Xiaohongshu Pugongying Note Performance Metrics",
+  "type": "api",
+  "vendor": "Xiaohongshu",
+  "vendor_slug": "xiaohongshu",
+  "description": "Get Xiaohongshu Pugongying aggregate note performance metrics for a creator with business, note-type, date-range, and advertisement filters. Use it to compare content performance across selected scopes.",
+  "tags": [
+    "api",
+    "xiaohongshu",
+    "social-media"
+  ],
+  "capabilities": [
+    "api",
+    "xiaohongshu",
+    "social-media"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/xiaohongshu/pgy-v2/data-v3-notes-rate"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "userId"
+    ],
+    "properties": {
+      "userId": {
+        "type": "string",
+        "example": "5a73c5fa4eacab4c4ccc9778",
+        "description": "KOL's user ID."
+      },
+      "business": {
+        "enum": [
+          "DAILY_NOTE",
+          "COOPERATE_NOTE"
+        ],
+        "type": "string",
+        "default": "DAILY_NOTE",
+        "description": "Business type."
+      },
+      "dateType": {
+        "enum": [
+          "DAY_30",
+          "DAY_90"
+        ],
+        "type": "string",
+        "default": "DAY_30",
+        "description": "Time range for data."
+      },
+      "noteType": {
+        "enum": [
+          "PHOTO_TEXT_AND_VIDEO",
+          "PHOTO_TEXT",
+          "VIDEO"
+        ],
+        "type": "string",
+        "default": "PHOTO_TEXT_AND_VIDEO",
+        "description": "Type of note."
+      },
+      "advertiseSwitch": {
+        "enum": [
+          "ALL",
+          "ORGANIC_ONLY"
+        ],
+        "type": "string",
+        "default": "ALL",
+        "description": "Advertisement filter."
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.020833
+  },
+  "readme": "# Xiaohongshu Pugongying Note Performance Metrics API\n\nGet Xiaohongshu Pugongying aggregate note performance metrics for a creator with business, note-type, date-range, and advertisement filters. Use it to compare content performance across selected scopes.\n\nThe response is the platform's original data structure.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/xiaohongshu/pgy-v2/data-v3-notes-rate\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"userId\": \"5a73c5fa4eacab4c4ccc9778\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `userId` | string | Yes | KOL's user ID. |\n| `business` | string | No | Business type. |\n| `noteType` | string | No | Type of note. |\n| `dateType` | string | No | Time range for data. |\n| `advertiseSwitch` | string | No | Advertisement filter. |\n\n## Pricing\n\nFlat price per call. Failed calls and empty results are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/xiaohongshu/pgy-v2/data-v3-notes-rate",
+  "created_at": "2026-10-29T11:24:24.142Z"
+}

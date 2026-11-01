@@ -1,0 +1,205 @@
+{
+  "name": "exa/search",
+  "display_name": "Exa Search",
+  "type": "api",
+  "vendor": "Exa",
+  "vendor_slug": "exa",
+  "description": "Neural web search for AI apps and agents. Ask in natural language and get the most relevant pages, with optional highlights, summaries or full text, domain filters and date ranges.",
+  "tags": [
+    "web-search"
+  ],
+  "capabilities": [
+    "web-search"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/exa/search"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "query"
+    ],
+    "properties": {
+      "type": {
+        "enum": [
+          "auto",
+          "fast",
+          "instant",
+          "deep-lite",
+          "deep",
+          "deep-reasoning"
+        ],
+        "type": "string",
+        "title": "Type",
+        "default": "auto",
+        "example": "fast",
+        "description": "Search mode. auto lets Exa choose; the deep modes trade latency for higher-quality retrieval."
+      },
+      "query": {
+        "type": "string",
+        "title": "Query",
+        "example": "OpenAI Codex documentation",
+        "description": "The natural-language search query."
+      },
+      "category": {
+        "enum": [
+          "company",
+          "research paper",
+          "news",
+          "personal site",
+          "financial report",
+          "people"
+        ],
+        "type": "string",
+        "title": "Category",
+        "description": "Optional hint about the kind of pages to prioritize."
+      },
+      "contents": {
+        "type": "object",
+        "title": "Contents",
+        "example": {
+          "text": false,
+          "summary": false,
+          "highlights": true
+        },
+        "properties": {
+          "text": {
+            "type": "boolean",
+            "description": "Return the full page text."
+          },
+          "summary": {
+            "type": "boolean",
+            "description": "Return an AI-generated summary of the page."
+          },
+          "highlights": {
+            "type": "boolean",
+            "description": "Return highlighted relevant snippets."
+          }
+        },
+        "description": "Content options to return alongside each result."
+      },
+      "numResults": {
+        "type": "integer",
+        "title": "Number of Results",
+        "default": 10,
+        "example": 3,
+        "maximum": 100,
+        "minimum": 1,
+        "description": "Number of results to return."
+      },
+      "outputSchema": {
+        "type": "object",
+        "title": "Output Schema",
+        "description": "JSON Schema used to synthesize a structured output from the results."
+      },
+      "systemPrompt": {
+        "type": "string",
+        "title": "System Prompt",
+        "description": "Instruction that guides how the structured output is generated."
+      },
+      "excludeDomains": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        },
+        "title": "Exclude Domains",
+        "description": "Exclude results from these domains."
+      },
+      "includeDomains": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        },
+        "title": "Include Domains",
+        "example": [
+          "openai.com"
+        ],
+        "description": "Only return results from these domains."
+      },
+      "endPublishedDate": {
+        "type": "string",
+        "title": "End Published Date",
+        "format": "date-time",
+        "description": "Only return results published on or before this ISO 8601 date."
+      },
+      "startPublishedDate": {
+        "type": "string",
+        "title": "Start Published Date",
+        "format": "date-time",
+        "description": "Only return results published on or after this ISO 8601 date."
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "properties": {
+      "output": {
+        "nullable": true,
+        "description": "Structured output, present only when outputSchema was supplied."
+      },
+      "results": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string"
+            },
+            "url": {
+              "type": "string"
+            },
+            "title": {
+              "type": "string"
+            },
+            "author": {
+              "type": "string"
+            },
+            "publishedDate": {
+              "type": "string"
+            }
+          }
+        },
+        "description": "Ranked search results."
+      },
+      "requestId": {
+        "type": "string",
+        "description": "Exa request identifier."
+      },
+      "costDollars": {
+        "nullable": true,
+        "description": "Upstream Exa cost breakdown. Informational only."
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.0105,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "examples": [
+    {
+      "input": {
+        "category": "research paper",
+        "contents": {
+          "highlights": true
+        },
+        "numResults": 5,
+        "query": "Ferroelectric control of chiral phonons"
+      }
+    }
+  ],
+  "readme": "# Exa Search API\n\nExa Search finds web pages by meaning rather than keywords. Send a natural-language query and get ranked results with titles, URLs and optional page content, ready to feed into an LLM.\n\n## Use cases\n\n- Ground LLM answers and agents with fresh web sources (RAG).\n- Find companies, research papers or news on a topic.\n- Restrict results to trusted domains or a publish-date window.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/exa/search\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"query\": \"OpenAI Codex documentation\", \"type\": \"fast\", \"numResults\": 3, \"contents\": {\"highlights\": true}}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `query` | string | Yes | The natural-language search query. |\n| `type` | string | No | Search mode. auto lets Exa choose; the deep modes trade latency for higher-quality retrieval. |\n| `category` | string | No | Optional hint about the kind of pages to prioritize. |\n| `contents` | object | No | Content options to return alongside each result. |\n| `numResults` | integer | No | Number of results to return. |\n| `outputSchema` | object | No | JSON Schema used to synthesize a structured output from the results. |\n| `systemPrompt` | string | No | Instruction that guides how the structured output is generated. |\n| `excludeDomains` | array | No | Exclude results from these domains. |\n| `includeDomains` | array | No | Only return results from these domains. |\n| `endPublishedDate` | string | No | Only return results published on or before this ISO 8601 date. |\n| `startPublishedDate` | string | No | Only return results published on or after this ISO 8601 date. |\n\n## Example response\n\nReal response for the request above, trimmed to the main fields. User names and long IDs are masked.\n\n```json\n{\n  \"entities\": [\n    {\n      \"title\": \"Codex manual\",\n      \"url\": \"https://developers.openai.com/codex/codex-manual.md\",\n      \"highlights\": [\n        \"Codex is OpenAI's coding agent for software development. ChatGPT Plus, Pro, Business, Edu, and Enterprise pla…\"\n      ]\n    }\n  ]\n}\n```\n\n## Notes\n\n- `type` trades speed for quality: `instant` / `fast` for low latency, `deep` modes for harder research queries.\n- Use `contents` to return highlights, summaries or full text with each result.\n\n## Pricing\n\nFlat price per call. Failed calls are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/exa/search",
+  "published_at": "2024-01-01T00:00:00Z",
+  "created_at": "2026-06-14T02:11:23.229Z"
+}

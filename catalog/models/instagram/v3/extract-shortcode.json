@@ -1,0 +1,55 @@
+{
+  "name": "instagram/v3/extract-shortcode",
+  "display_name": "Instagram Shortcode Extractor",
+  "type": "api",
+  "vendor": "Instagram",
+  "vendor_slug": "instagram",
+  "description": "Extracts and returns the unique shortcode identifier from an Instagram post, reel, or TV URL. Requires the full target post URL as input.",
+  "tags": [
+    "api",
+    "instagram"
+  ],
+  "capabilities": [
+    "api",
+    "instagram"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/instagram/v3/extract-shortcode"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "url"
+    ],
+    "properties": {
+      "url": {
+        "type": "string",
+        "title": "Url",
+        "example": "https://www.instagram.com/p/DUajw4YkorV/",
+        "description": "Full Instagram post URL"
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.003,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "readme": "# Instagram Shortcode Extractor API\n\nThis endpoint resolves the unique shortcode identifier from an Instagram link provided in `url`. It accepts links from standard posts, reels, and TV items.\n\n## Use cases\n\n- Parse a shortcode identifier from an Instagram reel or post link.\n- Prepare Instagram post identifiers for downstream media lookups.\n- Normalize diverse Instagram content URLs into standardized post keys.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/instagram/v3/extract-shortcode\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"url\": \"https://www.instagram.com/p/DUajw4YkorV/\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `url` | string | Yes | Full Instagram post URL |\n\n## Notes\n\n- Provide a full Instagram post link in the `url` parameter.\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [Instagram Comment Bulk Translation](/model/instagram/v3/bulk-translate-comments): Returns bulk translations for multiple Instagram comments using a list of comment identifiers.\n- [Instagram Comment Replies (V3)](/model/instagram/v3/comment-replies): Returns child comment replies for a specific Instagram comment using the post media ID and parent comment ID.\n- [Instagram Explore Feed](/model/instagram/v3/explore): Returns curated sectional items from the Instagram explore feed, including layout formats and feed types.\n",
+  "page_url": "https://www.sandbase.ai/model/instagram/v3/extract-shortcode",
+  "created_at": "2026-07-31T03:56:27.465Z"
+}

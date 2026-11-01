@@ -1,0 +1,63 @@
+{
+  "name": "tiktok/creator/creator-account-info",
+  "display_name": "TikTok Creator Account Info",
+  "type": "api",
+  "vendor": "TikTok",
+  "vendor_slug": "tiktok",
+  "description": "Returns basic profile details for a TikTok Shop creator account, including username, avatar URLs, account ID, region, partner bindings, and permissions.",
+  "tags": [
+    "api",
+    "tiktok"
+  ],
+  "capabilities": [
+    "api",
+    "tiktok"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/tiktok/creator/creator-account-info"
+  },
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "proxy": {
+        "anyOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "title": "Proxy",
+        "description": "Optional HTTP proxy address, can be omitted if not used"
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.0015,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "examples": [
+    {
+      "input": {}
+    }
+  ],
+  "readme": "# TikTok Creator Account Info API\n\nRetrieves TikTok Shop creator account details such as username, avatar, and permissions. You can optionally route requests through an HTTP proxy via `proxy`.\n\n## Use cases\n\n- Verify TikTok Shop creator account status and permissions.\n- Display creator profile details such as username and avatar in a dashboard.\n- Check partner binding information for authorized creator workflows.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/tiktok/creator/creator-account-info\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `proxy` | string | No | Optional HTTP proxy address, can be omitted if not used |\n\n## Notes\n\n- Pass an optional HTTP proxy address in `proxy` if routing through a proxy server.\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [TikTok Creator Account Health Status](/model/tiktok/creator/account-health-status): Returns the health status of a TikTok Shop creator account.\n- [TikTok Creator Account Insights Overview](/model/tiktok/creator/account-insights-overview): Retrieves performance metrics for a TikTok Shop creator account, including revenue, exposure, clicks, and orders for the specified month.\n- [TikTok Creator Account Violations](/model/tiktok/creator/account-violation-list): Returns the violation history and enforcement actions for a TikTok Shop creator account.\n",
+  "page_url": "https://www.sandbase.ai/model/tiktok/creator/creator-account-info",
+  "created_at": "2026-07-31T04:15:44.873Z"
+}

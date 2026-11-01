@@ -1,0 +1,185 @@
+{
+  "name": "topaz/upscale/video",
+  "display_name": "Topaz Video Upscale",
+  "type": "video",
+  "vendor": "Topaz Labs",
+  "vendor_slug": "topaz",
+  "description": "Upscale Video is Topaz Labs's video-to-video AI model. Transform, enhance, and edit video content using text prompts - from style changes to object manipulation and scene modification.",
+  "tags": [
+    "video-to-video"
+  ],
+  "capabilities": [
+    "video-to-video"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "video"
+    ],
+    "properties": {
+      "halo": {
+        "type": "number",
+        "title": "Halo",
+        "maximum": 1,
+        "minimum": 0,
+        "description": "Halo reduction level (0.0-1.0). Default varies by model."
+      },
+      "grain": {
+        "type": "number",
+        "title": "Grain",
+        "maximum": 0.1,
+        "minimum": 0,
+        "description": "Film grain amount (0.0-0.1). Default varies by model."
+      },
+      "noise": {
+        "type": "number",
+        "title": "Noise",
+        "maximum": 1,
+        "minimum": 0,
+        "description": "Noise reduction level (0.0-1.0). Default varies by model."
+      },
+      "video": {
+        "type": "string",
+        "title": "Video Url",
+        "examples": [
+          "https://static.sandbase.ai/examples/topaz/upscale/video/input_video_0.mp4"
+        ],
+        "description": "URL of the video to upscale"
+      },
+      "target_fps": {
+        "type": "integer",
+        "title": "Target Fps",
+        "maximum": 60,
+        "minimum": 16,
+        "description": "Target FPS for frame interpolation. If set, frame interpolation will be enabled."
+      },
+      "H264_output": {
+        "type": "boolean",
+        "title": "H264 Output",
+        "default": false,
+        "description": "Whether to use H264 codec for output video. Default is H265."
+      },
+      "compression": {
+        "type": "number",
+        "title": "Compression",
+        "maximum": 1,
+        "minimum": 0,
+        "description": "Compression artifact removal level (0.0-1.0). Default varies by model."
+      },
+      "recover_detail": {
+        "type": "number",
+        "title": "Recover Detail",
+        "maximum": 1,
+        "minimum": 0,
+        "description": "Recover original detail level (0.0-1.0). Higher values preserve more original detail."
+      },
+      "upscale_factor": {
+        "type": "number",
+        "title": "Upscale Factor",
+        "default": 2,
+        "maximum": 4,
+        "minimum": 1,
+        "description": "Factor to upscale the video by (e.g. 2.0 doubles width and height)"
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "title": "GenerationResponse",
+    "required": [
+      "id",
+      "status"
+    ],
+    "properties": {
+      "id": {
+        "type": "string",
+        "description": "Unique identifier for the generation task."
+      },
+      "error": {
+        "type": "string",
+        "description": "Error message if the task failed. Empty on success."
+      },
+      "model": {
+        "type": "string",
+        "description": "Model ID used for the prediction."
+      },
+      "status": {
+        "enum": [
+          "pending",
+          "running",
+          "completed",
+          "failed",
+          "timeout"
+        ],
+        "type": "string",
+        "description": "Status of the task: pending, running, completed, failed, or timeout."
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "title": "OutputItem",
+          "required": [
+            "url"
+          ],
+          "properties": {
+            "url": {
+              "type": "string",
+              "examples": [
+                "https://static.sandbase.ai/examples/topaz/upscale/video/output_url_1.mp4"
+              ],
+              "description": "The URL where the generated content can be downloaded from."
+            },
+            "content_type": {
+              "type": "string",
+              "description": "The MIME type of the output file."
+            }
+          }
+        },
+        "description": "Array of generated content. Empty when status is not completed."
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "formula",
+    "formula": "Math.max((usage.duration ?? media_duration(params.video) ?? 0.0), 5.0) * (((usage.width ?? 0.0) * (usage.height ?? 0.0)) <= 0.0 ? 0.02 : ((usage.width * usage.height) <= 921600.0 ? 0.01 : ((usage.width * usage.height) <= 2073600.0 ? 0.02 : 0.08))) * ((usage.fps ?? (params.target_fps ?? 30.0)) >= 60.0 ? 2.0 : 1.0) * ((params.model ?? \"\") == \"Gaia 2\" ? 0.5 : 1.0)",
+    "formula_variables": [
+      "params.model",
+      "params.target_fps",
+      "params.video",
+      "usage.duration",
+      "usage.fps",
+      "usage.height",
+      "usage.width"
+    ],
+    "reference_price": 0.1
+  },
+  "examples": [
+    {
+      "input": {
+        "video": "https://static.sandbase.ai/examples/1e4dfe61-979e-46cb-b89b-febca05cad88/input/b80bd4f4-a0df-434c-98c9-e7f418ff0cb3.mp4"
+      },
+      "output": [
+        {
+          "poster": "https://static.sandbase.ai/examples/posters/85fcd8ed50a5b526b41c.jpg",
+          "url": "https://static.sandbase.ai/examples/1e4dfe61-979e-46cb-b89b-febca05cad88/output/6d5e0a6a-f6ea-44ac-9878-e9d6f9401f9e.mp4"
+        }
+      ],
+      "default": true
+    }
+  ],
+  "readme": "# Topaz Video Upscale\n\nTopaz upscales and enhances video, with optional frame interpolation to 60fps.\n\n## Fields\n\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `video` | video URL, required | — | Video to upscale. |\n| `noise` | number 0–1 | — | Noise reduction level (0.0-1.0). |\n| `upscale_factor` | number 1–4 | 2 | 1–4×. |\n| `halo` | number 0–1 | — | Halo reduction level (0.0-1.0). |\n| `compression` | number 0–1 | — | Compression artifact removal level (0.0-1.0). |\n| `grain` | number 0–0.1 | — | Film grain amount (0.0-0.1). |\n| `recover_detail` | number 0–1 | — | Recover original detail level (0.0-1.0). |\n| `target_fps` | integer 16–60 | — | Interpolate to this frame rate (16–60). |\n| `H264_output` | boolean | false | Whether to use H264 codec for output video. |\n\n## Billing\n\nPer output second (minimum 5): $0.01 up to 720p, $0.02 up to 1080p, $0.08 above; 60fps doubles the rate.\n\n| Output | 720p | 1080p | 4K |\n|---|---|---|---|\n| 10s | $0.10 | $0.20 | $0.80 |\n\nFailed runs are not charged.\n\n## Also on SandBase\n\nRelated: `bytedance/upscaler/video`.\n",
+  "cover_url": "https://static.sandbase.ai/covers/topaz/upscale/video/cover-flare-20261005020319.webp",
+  "page_url": "https://www.sandbase.ai/model/topaz/upscale/video",
+  "published_at": "2025-03-04T00:00:00Z",
+  "created_at": "2026-05-17T02:00:41.733Z"
+}

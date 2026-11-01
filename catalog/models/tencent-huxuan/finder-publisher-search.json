@@ -1,0 +1,52 @@
+{
+  "name": "tencent-huxuan/finder-publisher-search",
+  "display_name": "Tencent Huxuan Video Account Creator Search",
+  "type": "api",
+  "vendor": "Tencent Huxuan",
+  "vendor_slug": "tencent-huxuan",
+  "description": "Search or browses QQ Huxuan Video Account creators by optional nickname keyword with page-number pagination. Use it to discover and shortlist video creators for Tencent Huxuan campaign planning.",
+  "tags": [
+    "api",
+    "tencent-huxuan",
+    "social-media"
+  ],
+  "capabilities": [
+    "api",
+    "tencent-huxuan",
+    "social-media"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/tencent-huxuan/finder-publisher-search"
+  },
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "page": {
+        "type": "integer",
+        "default": 1,
+        "description": "Page number. The first page is 1."
+      },
+      "keyword": {
+        "type": "string",
+        "description": "Creator nickname keyword. Leave empty to browse the default marketplace list."
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.069444
+  },
+  "readme": "# Tencent Huxuan Video Account Creator Search API\n\nSearch or browses QQ Huxuan Video Account creators by optional nickname keyword with page-number pagination. Use it to discover and shortlist video creators for Tencent Huxuan campaign planning.\n\nThe response is the platform's original data structure.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/tencent-huxuan/finder-publisher-search\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `keyword` | string | No | Creator nickname keyword. Leave empty to browse the default marketplace list. |\n| `page` | integer | No | Page number. The first page is 1. |\n\n## Pricing\n\nFlat price per call. Failed calls and empty results are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/tencent-huxuan/finder-publisher-search",
+  "created_at": "2026-10-29T12:09:59.084Z"
+}

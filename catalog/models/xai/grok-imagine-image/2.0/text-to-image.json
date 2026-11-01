@@ -1,0 +1,198 @@
+{
+  "name": "xai/grok-imagine-image/2.0/text-to-image",
+  "display_name": "Grok Imagine Image 2.0 Text to Image",
+  "type": "image",
+  "vendor": "xAI",
+  "vendor_slug": "xai",
+  "description": "Grok Imagine Image 2.0 by xAI - generate stunning images from text prompts with state-of-the-art AI. Supports multiple aspect ratios, styles, and high-resolution output for creative and commercial use.",
+  "tags": [
+    "text-to-image"
+  ],
+  "capabilities": [
+    "text-to-image"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "prompt"
+    ],
+    "properties": {
+      "prompt": {
+        "type": "string",
+        "title": "Prompt",
+        "examples": [
+          "Abstract human silhouette, golden particles ready to burst outward representing joy, data visualization style, emotional expression through particles, artistic scientific"
+        ],
+        "maxLength": 8000,
+        "description": "Text description of the desired image."
+      },
+      "quality": {
+        "enum": [
+          "low",
+          "medium"
+        ],
+        "type": "string",
+        "title": "Quality",
+        "default": "medium",
+        "description": "Quality level of the generated image."
+      },
+      "resolution": {
+        "enum": [
+          "1k",
+          "2k"
+        ],
+        "type": "string",
+        "title": "Resolution",
+        "default": "1k",
+        "description": "Resolution of the generated image. `1k` for standard resolution, `2k` for high resolution."
+      },
+      "aspect_ratio": {
+        "enum": [
+          "21:9",
+          "16:9",
+          "3:2",
+          "4:3",
+          "5:4",
+          "1:1",
+          "4:5",
+          "3:4",
+          "2:3",
+          "9:16"
+        ],
+        "type": "string",
+        "title": "Aspect Ratio",
+        "description": "The aspect ratio of the generated image."
+      },
+      "output_format": {
+        "enum": [
+          "jpeg",
+          "png"
+        ],
+        "type": "string",
+        "title": "Output Format",
+        "default": "jpeg",
+        "description": "The format of the generated image."
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "title": "GenerationResponse",
+    "required": [
+      "id",
+      "status"
+    ],
+    "properties": {
+      "id": {
+        "type": "string",
+        "description": "Unique identifier for the generation task."
+      },
+      "error": {
+        "type": "string",
+        "description": "Error message if the task failed. Empty on success."
+      },
+      "model": {
+        "type": "string",
+        "description": "Model ID used for the prediction."
+      },
+      "status": {
+        "enum": [
+          "pending",
+          "running",
+          "completed",
+          "failed",
+          "timeout"
+        ],
+        "type": "string",
+        "description": "Status of the task: pending, running, completed, failed, or timeout."
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "title": "OutputItem",
+          "required": [
+            "url"
+          ],
+          "properties": {
+            "url": {
+              "type": "string",
+              "description": "The URL where the generated content can be downloaded from."
+            },
+            "content_type": {
+              "type": "string",
+              "description": "The MIME type of the output file."
+            }
+          }
+        },
+        "description": "Array of generated content. Empty when status is not completed."
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "formula",
+    "formula": "((params.resolution ?? \"1k\") == \"2k\" ? ((params.quality ?? \"medium\") == \"low\" ? 0.06 : 0.08) : ((params.quality ?? \"medium\") == \"low\" ? 0.04 : 0.06))",
+    "formula_variables": [
+      "params.quality",
+      "params.resolution"
+    ],
+    "reference_price": 0.06,
+    "price_examples": [
+      {
+        "params": {
+          "quality": "low",
+          "resolution": "1k"
+        },
+        "usd": 0.04
+      },
+      {
+        "params": {
+          "quality": "low",
+          "resolution": "2k"
+        },
+        "usd": 0.06
+      },
+      {
+        "params": {
+          "quality": "medium",
+          "resolution": "1k"
+        },
+        "usd": 0.06
+      },
+      {
+        "params": {
+          "quality": "medium",
+          "resolution": "2k"
+        },
+        "usd": 0.08
+      }
+    ]
+  },
+  "examples": [
+    {
+      "input": {
+        "prompt": "Abstract human silhouette, golden particles ready to burst outward representing joy, data visualization style, emotional expression through particles, artistic scientific"
+      },
+      "output": [
+        {
+          "url": "https://static.sandbase.ai/examples/133eedb7-0edd-49be-8452-894e6242d034/output/584e0e98-2988-4b27-9ce0-d87ba6bf1b4b.jpg"
+        }
+      ],
+      "default": true
+    }
+  ],
+  "readme": "# Grok Imagine Image 2.0 Text to Image\n\nGrok Imagine Image 2.0 generates images at two quality levels and 1K or 2K.\n\n## Fields\n\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `prompt` | string, required | — | Up to 8,000 characters. |\n| `aspect_ratio` | `21:9` / `16:9` / `3:2` / `4:3` / `5:4` / `1:1` / `4:5` / `3:4` / `2:3` / `9:16` | — | Output shape. |\n| `resolution` | `1k` / `2k` | `1k` | Sets the per-image rate. |\n| `output_format` | `jpeg` / `png` | `jpeg` | Output file format. |\n| `quality` | `low` / `medium` | `medium` | Sets the per-image rate. |\n\n## Billing\n\nPer image: $0.04 (low) or $0.06 (medium) at 1K; $0.06 or $0.08 at 2K.\n\n| Request | 1k | 2k |\n|---|---|---|\n| low | $0.04 | $0.06 |\n| medium | $0.06 | $0.08 |\n\nFailed runs are not charged.\n\n## Prompting\n\n- Quote any text that must appear.\n\n## Limits\n\n- One output image per request.\n\n## Also on SandBase\n\nOther Grok Imagine Image endpoints: `xai/grok-imagine-image/quality`, `xai/grok-imagine-image/quality/edit`, `xai/grok-imagine-image/edit`, `xai/grok-imagine-image/2.0/edit`.\n",
+  "cover_url": "https://static.sandbase.ai/covers/xai/grok-imagine-image/2.0/text-to-image/cover-flare-20261004184422.webp",
+  "page_url": "https://www.sandbase.ai/model/xai/grok-imagine-image/2.0/text-to-image",
+  "published_at": "2026-08-11T20:13:21.281Z",
+  "created_at": "2026-08-31T04:28:51.513Z"
+}

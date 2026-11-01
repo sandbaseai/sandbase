@@ -1,0 +1,69 @@
+{
+  "name": "douyin/xingtu-v3/aggregator-author-live-watch-distribution",
+  "display_name": "Douyin Xingtu Live Watch Distribution",
+  "type": "api",
+  "vendor": "Douyin",
+  "vendor_slug": "douyin",
+  "description": "Get Douyin Creator Marketplace (Xingtu) live audience or follower watch-distribution data for a creator and selected live-room type. Use it to assess live audience fit for a campaign.",
+  "tags": [
+    "api",
+    "douyin",
+    "social-media"
+  ],
+  "capabilities": [
+    "api",
+    "douyin",
+    "social-media"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/douyin/xingtu-v3/aggregator-author-live-watch-distribution"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "oAuthorId"
+    ],
+    "properties": {
+      "liveType": {
+        "enum": [
+          "ALL",
+          "GAME",
+          "ECOMMERCE",
+          "OTHER"
+        ],
+        "type": "string",
+        "description": "Live room type filter."
+      },
+      "oAuthorId": {
+        "type": "string",
+        "example": "6870161898013196295",
+        "description": "Author's unique ID."
+      },
+      "liveCrowdType": {
+        "enum": [
+          "AUDIENCE",
+          "FANS"
+        ],
+        "type": "string",
+        "description": "Live audience profile type."
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.020833
+  },
+  "readme": "# Douyin Xingtu Live Watch Distribution API\n\nGet Douyin Creator Marketplace (Xingtu) live audience or follower watch-distribution data for a creator and selected live-room type. Use it to assess live audience fit for a campaign.\n\nThe response is the platform's original data structure.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/douyin/xingtu-v3/aggregator-author-live-watch-distribution\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"oAuthorId\": \"6870161898013196295\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `oAuthorId` | string | Yes | Author's unique ID. |\n| `liveCrowdType` | string | No | Live audience profile type. |\n| `liveType` | string | No | Live room type filter. |\n\n## Pricing\n\nFlat price per call. Failed calls and empty results are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/douyin/xingtu-v3/aggregator-author-live-watch-distribution",
+  "created_at": "2026-10-29T11:40:15.864Z"
+}

@@ -1,0 +1,61 @@
+{
+  "name": "pipixia/app/short-url",
+  "display_name": "Pipixia Short URL Conversion",
+  "type": "api",
+  "vendor": "Pipixia",
+  "vendor_slug": "pipixia",
+  "description": "Returns a shortened link for a specified web address. Takes an original web link as input and converts it into a Pipixia-compatible short URL format.",
+  "tags": [
+    "api",
+    "pipixia"
+  ],
+  "capabilities": [
+    "api",
+    "pipixia"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/pipixia/app/short-url"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "original_url"
+    ],
+    "properties": {
+      "original_url": {
+        "type": "string",
+        "title": "Original Url",
+        "description": "Original URL, can be any link."
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.0015,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "examples": [
+    {
+      "input": {
+        "original_url": "example"
+      }
+    }
+  ],
+  "readme": "# Pipixia Short URL Conversion API\n\nConverts long links into shortened URLs using `original_url`. Useful for sharing clean links across social workflows.\n\n## Use cases\n\n- Convert long content links into compact URLs for easy sharing.\n- Transform external addresses into Pipixia short link format.\n- Prepare streamlined links for mobile app distribution.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/pipixia/app/short-url\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"original_url\": \"<original_url>\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `original_url` | string | Yes | Original URL, can be any link. |\n\n## Notes\n\n- The `original_url` parameter is required and accepts any web address.\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [Pipixia Hashtag Details](/model/pipixia/app/hashtag-detail): Retrieves metadata and profile assets for a specific Pipixia hashtag by its unique identifier.\n- [Pipixia Hashtag Post List](/model/pipixia/app/hashtag-post-list): Returns a list of posts associated with a specific hashtag on Pipixia.\n- [Pipixia App Home Feed](/model/pipixia/app/home-feed): Returns recommended posts from the Pipixia home feed.\n",
+  "page_url": "https://www.sandbase.ai/model/pipixia/app/short-url",
+  "created_at": "2026-07-31T04:09:46.13Z"
+}

@@ -1,0 +1,63 @@
+{
+  "name": "tiktok/creator/account-violation-list",
+  "display_name": "TikTok Creator Account Violations",
+  "type": "api",
+  "vendor": "TikTok",
+  "vendor_slug": "tiktok",
+  "description": "Returns the violation history and enforcement actions for a TikTok Shop creator account. Supports chronological pagination across historical violation records.",
+  "tags": [
+    "api",
+    "tiktok"
+  ],
+  "capabilities": [
+    "api",
+    "tiktok"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/tiktok/creator/account-violation-list"
+  },
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "page": {
+        "type": "integer",
+        "title": "Page",
+        "description": "Integer, page number (default is `1`)"
+      },
+      "proxy": {
+        "anyOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "title": "Proxy",
+        "description": "Optional HTTP proxy address, can be omitted if not needed"
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.0015,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "readme": "# TikTok Creator Account Violations API\n\nLook up past compliance violations and enforcement records for a TikTok Shop creator account using `page` for pagination.\n\n## Use cases\n\n- Monitor creator account health and track policy compliance.\n- Review past enforcement actions across historical records.\n- Audit account risk factors across multiple paginated entries.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/tiktok/creator/account-violation-list\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `page` | integer | No | Integer, page number (default is `1`) |\n| `proxy` | string | No | Optional HTTP proxy address, can be omitted if not needed |\n\n## Notes\n\n- Supports pagination via the `page` parameter, which defaults to `1`.\n- Accepts an optional HTTP proxy address via `proxy`.\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [TikTok Creator Account Health Status](/model/tiktok/creator/account-health-status): Returns the health status of a TikTok Shop creator account.\n- [TikTok Creator Account Insights Overview](/model/tiktok/creator/account-insights-overview): Retrieves performance metrics for a TikTok Shop creator account, including revenue, exposure, clicks, and orders for the specified month.\n- [TikTok Creator Account Info](/model/tiktok/creator/creator-account-info): Returns basic profile details for a TikTok Shop creator account, including username, avatar URLs, account ID, region, partner bindings, and permissions.\n",
+  "page_url": "https://www.sandbase.ai/model/tiktok/creator/account-violation-list",
+  "created_at": "2026-07-31T04:15:43.184Z"
+}

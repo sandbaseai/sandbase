@@ -1,0 +1,57 @@
+{
+  "name": "dataforseo/v3/content_analysis/sentiment_analysis/live",
+  "display_name": "DataForSEO Content Sentiment Analysis",
+  "type": "api",
+  "vendor": "DataForSEO",
+  "vendor_slug": "dataforseo",
+  "description": "Evaluates text content to determine sentiment scores and emotional tone. Returns sentiment classifications and polarity metrics across analyzed web content.",
+  "tags": [
+    "content",
+    "analysis",
+    "sentiment",
+    "nlp"
+  ],
+  "capabilities": [
+    "content",
+    "analysis",
+    "sentiment",
+    "nlp"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/dataforseo/v3/content_analysis/sentiment_analysis/live"
+  },
+  "input_schema": {
+    "type": "object",
+    "properties": {},
+    "description": "Request parameters forwarded to DataForSEO /v3/content_analysis/sentiment_analysis/live. See DataForSEO docs for full schema.",
+    "additionalProperties": true
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.003,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "examples": [
+    {
+      "input": {}
+    }
+  ],
+  "readme": "# DataForSEO Content Sentiment Analysis API\n\nThis endpoint evaluates sentiment for submitted content. It returns tone analysis and polarity metrics for the provided text.\n\n## Use cases\n\n- Evaluate public sentiment across brand-related web content.\n- Analyze emotional tone within digital articles and customer feedback.\n- Score text polarity for market research and competitive analysis.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/dataforseo/v3/content_analysis/sentiment_analysis/live\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"keyword\": \"nike\"}'\n```\n\n## Parameters\n\nThe JSON body is forwarded to the upstream endpoint (one task per call). Fields used above:\n\n| Name | Description |\n|---|---|\n| `keyword` | Search query. |\n\n## Pricing\n\nFlat price per call. Failed calls are not charged.\n\n## Related APIs\n\n- [DataForSEO Backlinks Anchors](/model/dataforseo/v3/backlinks/anchors/live): Returns anchor text distribution metrics for backlinks pointing to a target website or page.\n- [DataForSEO Backlinks List](/model/dataforseo/v3/backlinks/backlinks/live): Returns a list of external backlinks pointing to a specified target domain or webpage.\n- [DataForSEO Backlinks Bulk Ranks](/model/dataforseo/v3/backlinks/bulk_ranks/live): Returns rank metrics for multiple domains or pages in bulk.\n",
+  "page_url": "https://www.sandbase.ai/model/dataforseo/v3/content_analysis/sentiment_analysis/live",
+  "published_at": "2024-01-01T00:00:00Z",
+  "created_at": "2026-08-02T14:42:32.573Z"
+}

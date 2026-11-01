@@ -1,0 +1,63 @@
+{
+  "name": "getapp/blog-research",
+  "display_name": "GetApp Blog Research",
+  "type": "api",
+  "vendor": "GetApp",
+  "vendor_slug": "getapp",
+  "description": "Retrieve blog posts and software research guides from GetApp's resources section. Returns all published posts with metadata, topics, and content hubs.",
+  "tags": [
+    "api",
+    "getapp",
+    "company-people"
+  ],
+  "capabilities": [
+    "api",
+    "getapp",
+    "company-people"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}",
+    "passthrough": "POST /v1/api/getapp/blog-research"
+  },
+  "input_schema": {
+    "type": "object",
+    "properties": {}
+  },
+  "response_schema": {
+    "type": "object",
+    "required": [
+      "id",
+      "status",
+      "model"
+    ],
+    "properties": {
+      "id": {
+        "type": "string"
+      },
+      "model": {
+        "type": "string"
+      },
+      "status": {
+        "type": "string"
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.01,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "readme": "# GetApp Blog Research\n\nRetrieve blog posts and software research guides from GetApp's resources section. Returns all published posts with metadata, topics, and content hubs.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/getapp/blog-research\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{}'\n```\n\nThis API runs asynchronously. The call returns a task `id` with status `pending`; poll `GET https://api.sandbase.ai/v1/run/{id}` until `status` is `completed` and read the result from `outputs[0].data`.\n\n## Parameters\n\nThis API takes no parameters.\n\n## Pricing\n\nFlat price per call. Failed calls are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/getapp/blog-research",
+  "created_at": "2026-10-30T09:20:15.549Z"
+}

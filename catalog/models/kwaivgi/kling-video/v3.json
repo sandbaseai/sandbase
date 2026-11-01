@@ -1,0 +1,534 @@
+{
+  "name": "kwaivgi/kling-video/v3",
+  "display_name": "Kling V3",
+  "type": "video",
+  "vendor": "KwaiVGI",
+  "vendor_slug": "kwaivgi",
+  "description": "Kling V3 by Kuaishou is a single entry point for Kling 3.0 video: text, image, reference, and video-guided generation in Standard, Pro, or 4K quality, with optional native audio.",
+  "tags": [
+    "text-to-video",
+    "image-to-video",
+    "video-to-video"
+  ],
+  "capabilities": [
+    "text-to-video",
+    "image-to-video",
+    "video-to-video"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "prompt"
+    ],
+    "properties": {
+      "image": {
+        "type": "string",
+        "title": "Start Image URL",
+        "examples": [
+          "https://static.sandbase.ai/examples/mirrored/f77b827ca02a-TNErq9yD7ZxGRATjfAqnh_EIgJSN67.png"
+        ],
+        "description": "Optional first-frame image URL for image-to-video."
+      },
+      "video": {
+        "type": "string",
+        "title": "Video URL",
+        "examples": [
+          "https://static.sandbase.ai/examples/mirrored/f1ecbb471a16-hklvF__w53diz6Rve7f5__JuDW2xl0mr6sJ_Kjz3Vxe_vidoeook--1-_1.mp4"
+        ],
+        "description": "Optional reference video URL for video-to-video generation."
+      },
+      "images": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        },
+        "title": "Reference Images",
+        "description": "Optional reference image URLs."
+      },
+      "prompt": {
+        "type": "string",
+        "title": "Prompt",
+        "examples": [
+          "Based on @Video1, make the character from @Image1 dance."
+        ],
+        "maxLength": 2500,
+        "description": "Text prompt for video generation or transformation. When using reference media, refer to them as @Image1, @Image2, and @Video1."
+      },
+      "duration": {
+        "enum": [
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15
+        ],
+        "type": "integer",
+        "title": "Duration",
+        "default": 5,
+        "description": "Generated video duration in seconds."
+      },
+      "end_image": {
+        "type": "string",
+        "title": "End Image URL",
+        "description": "Optional end-frame image URL for image-to-video."
+      },
+      "shot_type": {
+        "enum": [
+          "customize",
+          "intelligent"
+        ],
+        "type": "string",
+        "title": "Shot Type",
+        "default": "customize"
+      },
+      "resolution": {
+        "enum": [
+          "standard",
+          "pro",
+          "4k"
+        ],
+        "type": "string",
+        "title": "Resolution",
+        "default": "standard",
+        "description": "Generation quality tier."
+      },
+      "aspect_ratio": {
+        "enum": [
+          "16:9",
+          "9:16",
+          "1:1"
+        ],
+        "type": "string",
+        "title": "Aspect Ratio",
+        "default": "16:9"
+      },
+      "multi_prompt": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "required": [
+            "prompt"
+          ],
+          "properties": {
+            "prompt": {
+              "type": "string"
+            },
+            "duration": {
+              "type": "string",
+              "default": "5"
+            }
+          }
+        },
+        "title": "Multi Prompt"
+      },
+      "generate_audio": {
+        "type": "boolean",
+        "title": "Generate Audio",
+        "default": true
+      },
+      "keep_original_sound": {
+        "type": "boolean",
+        "title": "Keep Original Sound",
+        "default": true
+      },
+      "character_orientation": {
+        "enum": [
+          "image",
+          "video"
+        ],
+        "type": "string",
+        "title": "Character Orientation",
+        "examples": [
+          "image"
+        ]
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "title": "GenerationResponse",
+    "required": [
+      "id",
+      "status"
+    ],
+    "properties": {
+      "id": {
+        "type": "string",
+        "description": "Unique identifier for the generation task."
+      },
+      "error": {
+        "type": "string"
+      },
+      "model": {
+        "type": "string"
+      },
+      "status": {
+        "enum": [
+          "pending",
+          "running",
+          "completed",
+          "failed",
+          "timeout"
+        ],
+        "type": "string"
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "required": [
+            "url"
+          ],
+          "properties": {
+            "url": {
+              "type": "string",
+              "description": "The URL where the generated content can be downloaded from."
+            },
+            "content_type": {
+              "type": "string",
+              "description": "The MIME type of the output file."
+            }
+          }
+        }
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "formula",
+    "formula": "(params.resolution ?? \"standard\") == \"4k\" ? (params.duration ?? 5) * 0.42 : ((params.video ?? \"\") != \"\" ? ((params.resolution ?? \"standard\") == \"pro\" ? (params.duration ?? 5) * 0.168 : (params.duration ?? 5) * 0.126) : ((params.resolution ?? \"standard\") == \"pro\" ? ((params.generate_audio ?? true) == false ? (params.duration ?? 5) * 0.112 : (params.duration ?? 5) * 0.14) : ((params.generate_audio ?? true) == false ? (params.duration ?? 5) * 0.084 : (params.duration ?? 5) * 0.112)))",
+    "formula_variables": [
+      "params.duration",
+      "params.generate_audio",
+      "params.resolution",
+      "params.video"
+    ],
+    "reference_price": 0.56,
+    "price_examples": [
+      {
+        "params": {
+          "duration": 3,
+          "generate_audio": false,
+          "resolution": "standard"
+        },
+        "usd": 0.252
+      },
+      {
+        "params": {
+          "duration": 3,
+          "generate_audio": false,
+          "resolution": "pro"
+        },
+        "usd": 0.336
+      },
+      {
+        "params": {
+          "duration": 3,
+          "generate_audio": false,
+          "resolution": "4k"
+        },
+        "usd": 1.26
+      },
+      {
+        "params": {
+          "duration": 3,
+          "generate_audio": true,
+          "resolution": "standard"
+        },
+        "usd": 0.336
+      },
+      {
+        "params": {
+          "duration": 3,
+          "generate_audio": true,
+          "resolution": "pro"
+        },
+        "usd": 0.42
+      },
+      {
+        "params": {
+          "duration": 3,
+          "generate_audio": true,
+          "resolution": "4k"
+        },
+        "usd": 1.26
+      },
+      {
+        "params": {
+          "duration": 4,
+          "generate_audio": false,
+          "resolution": "standard"
+        },
+        "usd": 0.336
+      },
+      {
+        "params": {
+          "duration": 4,
+          "generate_audio": false,
+          "resolution": "pro"
+        },
+        "usd": 0.448
+      },
+      {
+        "params": {
+          "duration": 4,
+          "generate_audio": false,
+          "resolution": "4k"
+        },
+        "usd": 1.68
+      },
+      {
+        "params": {
+          "duration": 4,
+          "generate_audio": true,
+          "resolution": "standard"
+        },
+        "usd": 0.448
+      },
+      {
+        "params": {
+          "duration": 4,
+          "generate_audio": true,
+          "resolution": "pro"
+        },
+        "usd": 0.56
+      },
+      {
+        "params": {
+          "duration": 4,
+          "generate_audio": true,
+          "resolution": "4k"
+        },
+        "usd": 1.68
+      },
+      {
+        "params": {
+          "duration": 5,
+          "generate_audio": false,
+          "resolution": "standard"
+        },
+        "usd": 0.42
+      },
+      {
+        "params": {
+          "duration": 5,
+          "generate_audio": false,
+          "resolution": "pro"
+        },
+        "usd": 0.56
+      },
+      {
+        "params": {
+          "duration": 5,
+          "generate_audio": false,
+          "resolution": "4k"
+        },
+        "usd": 2.1
+      },
+      {
+        "params": {
+          "duration": 5,
+          "generate_audio": true,
+          "resolution": "standard"
+        },
+        "usd": 0.56
+      },
+      {
+        "params": {
+          "duration": 5,
+          "generate_audio": true,
+          "resolution": "pro"
+        },
+        "usd": 0.7
+      },
+      {
+        "params": {
+          "duration": 5,
+          "generate_audio": true,
+          "resolution": "4k"
+        },
+        "usd": 2.1
+      },
+      {
+        "params": {
+          "duration": 6,
+          "generate_audio": false,
+          "resolution": "standard"
+        },
+        "usd": 0.504
+      },
+      {
+        "params": {
+          "duration": 6,
+          "generate_audio": false,
+          "resolution": "pro"
+        },
+        "usd": 0.672
+      },
+      {
+        "params": {
+          "duration": 6,
+          "generate_audio": false,
+          "resolution": "4k"
+        },
+        "usd": 2.52
+      },
+      {
+        "params": {
+          "duration": 6,
+          "generate_audio": true,
+          "resolution": "standard"
+        },
+        "usd": 0.672
+      },
+      {
+        "params": {
+          "duration": 6,
+          "generate_audio": true,
+          "resolution": "pro"
+        },
+        "usd": 0.84
+      },
+      {
+        "params": {
+          "duration": 6,
+          "generate_audio": true,
+          "resolution": "4k"
+        },
+        "usd": 2.52
+      },
+      {
+        "params": {
+          "duration": 7,
+          "generate_audio": false,
+          "resolution": "standard"
+        },
+        "usd": 0.588
+      },
+      {
+        "params": {
+          "duration": 7,
+          "generate_audio": false,
+          "resolution": "pro"
+        },
+        "usd": 0.784
+      },
+      {
+        "params": {
+          "duration": 7,
+          "generate_audio": false,
+          "resolution": "4k"
+        },
+        "usd": 2.94
+      },
+      {
+        "params": {
+          "duration": 7,
+          "generate_audio": true,
+          "resolution": "standard"
+        },
+        "usd": 0.784
+      },
+      {
+        "params": {
+          "duration": 7,
+          "generate_audio": true,
+          "resolution": "pro"
+        },
+        "usd": 0.98
+      },
+      {
+        "params": {
+          "duration": 7,
+          "generate_audio": true,
+          "resolution": "4k"
+        },
+        "usd": 2.94
+      },
+      {
+        "params": {
+          "duration": 8,
+          "generate_audio": false,
+          "resolution": "standard"
+        },
+        "usd": 0.672
+      },
+      {
+        "params": {
+          "duration": 8,
+          "generate_audio": false,
+          "resolution": "pro"
+        },
+        "usd": 0.896
+      },
+      {
+        "params": {
+          "duration": 8,
+          "generate_audio": false,
+          "resolution": "4k"
+        },
+        "usd": 3.36
+      },
+      {
+        "params": {
+          "duration": 8,
+          "generate_audio": true,
+          "resolution": "standard"
+        },
+        "usd": 0.896
+      },
+      {
+        "params": {
+          "duration": 8,
+          "generate_audio": true,
+          "resolution": "pro"
+        },
+        "usd": 1.12
+      },
+      {
+        "params": {
+          "duration": 8,
+          "generate_audio": true,
+          "resolution": "4k"
+        },
+        "usd": 3.36
+      }
+    ]
+  },
+  "examples": [
+    {
+      "input": {
+        "duration": 3,
+        "generate_audio": false,
+        "prompt": "A calm lake at sunrise, gentle ripples, birds flying overhead"
+      },
+      "output": [
+        {
+          "poster": "https://static.sandbase.ai/examples/posters/b585242ce007dea9c27c.jpg",
+          "url": "https://static.sandbase.ai/examples/96c4d85a-9156-41f7-acd9-1695cbe2ce87/output/7d121d32-524c-4978-b033-d9ad4bafa6ba.mp4"
+        }
+      ],
+      "default": true
+    }
+  ],
+  "readme": "# Kling V3\n\nA single endpoint for Kling V3: text-to-video, image-to-video (with optional end frame), reference images, and video reference in one schema. Pick the tier with `resolution`.\n\n## Pick an input mode\n\n| Mode | Send |\n|---|---|\n| Text | `prompt` only |\n| Frames | `image`, optional `end_image` |\n| References | `images` (refer to them as @Image1, …) |\n| Video reference | `video`, optional `images` |\n\n## Fields\n\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `prompt` | string, required | — | Up to 2,500 characters. |\n| `resolution` | `standard` / `pro` / `4k` | `standard` | Tier: `standard`, `pro`, or `4k`; sets the per-second rate. |\n| `image` | image URL | — | Optional first frame. |\n| `video` | video URL | — | Optional reference video. |\n| `keep_original_sound` | boolean | true | Keep the reference video's audio track. |\n| `character_orientation` | `image` / `video` | — | `video` follows the reference video's orientation (better for complex moves, up to 30s); `image` follows the image (better for camera moves, up to 10s). |\n| `end_image` | image URL | — | Optional last frame. |\n| `images` | image URL[] | — | Reference images, referred to as @Image1, @Image2, … in the prompt. |\n| `duration` | 3–15 | 5 | Output length in seconds. |\n| `aspect_ratio` | `16:9` / `9:16` / `1:1` | `16:9` | Output frame shape. |\n| `generate_audio` | boolean | true | Generate native audio with the clip. |\n| `shot_type` | `customize` / `intelligent` | `customize` | `customize` follows your `multi_prompt` shot list; `intelligent` lets the model plan the cuts. |\n| `multi_prompt` | object[] | — | Optional list of shots, each with its own prompt and duration. |\n\n## Billing\n\nYou pay per output second. Standard: $0.112 with audio, $0.084 without. Pro: $0.14 with audio, $0.112 without. 4K: $0.42. With a reference `video`: $0.126 (standard) or $0.168 (pro).\n\n| Output | standard | pro | 4k |\n|---|---|---|---|\n| 5s with audio | $0.56 | $0.70 | $2.10 |\n| 5s without audio | $0.42 | $0.56 | $2.10 |\n| 5s with reference video | $0.63 | $0.84 | $2.10 |\n| 10s with audio | $1.12 | $1.40 | $4.20 |\n\nFailed runs are not charged.\n\n## Prompting\n\n- Describe subject, action, camera move, and light in order.\n- For several shots, use `multi_prompt` with one entry per shot.\n- Refer to references as @Image1, @Video1.\n\n## Limits\n\n- Clips are 3–15 seconds.\n\n## Also on SandBase\n\nRelated: `kwaivgi/kling-video/v3/pro/text-to-video` (single-mode endpoint), `kwaivgi/kling-video/v3/pro/image-to-video` (single-mode endpoint).\n",
+  "cover_url": "https://static.sandbase.ai/covers/kwaivgi/kling-video/v3/cover-flare-20261004225129.webp",
+  "page_url": "https://www.sandbase.ai/model/kwaivgi/kling-video/v3",
+  "created_at": "2026-07-06T11:00:11.354Z"
+}

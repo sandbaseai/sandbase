@@ -1,0 +1,75 @@
+{
+  "name": "reddit/app/home-feed",
+  "display_name": "Reddit App Home Feed",
+  "type": "api",
+  "vendor": "Reddit",
+  "vendor_slug": "reddit",
+  "description": "Returns Reddit mobile app home feed content including post metadata, author details, scores, and media links. Supports sorting methods, pagination tokens, and post exclusion lists.",
+  "tags": [
+    "api",
+    "reddit"
+  ],
+  "capabilities": [
+    "api",
+    "reddit"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/reddit/app/home-feed"
+  },
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "sort": {
+        "type": "string",
+        "title": "Sort",
+        "description": "Sort method, supports HOT, NEW, TOP, BEST, CONTROVERSIAL"
+      },
+      "after": {
+        "type": "string",
+        "title": "After",
+        "description": "Pagination parameter for fetching the next page"
+      },
+      "need_format": {
+        "type": "boolean",
+        "title": "Need Format",
+        "description": "Whether to clean and format the data"
+      },
+      "filter_posts": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        },
+        "title": "Filter Posts",
+        "description": "List of post IDs to filter out, used to exclude already fetched posts"
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.0015,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "examples": [
+    {
+      "input": {},
+      "default": true
+    }
+  ],
+  "readme": "# Reddit App Home Feed API\n\nRetrieves the Reddit app home feed using optional parameters such as `sort`, `after`, and `filter_posts` to paginate and filter content.\n\n## Use cases\n\n- Display trending or top posts from the Reddit home feed.\n- Paginate through mobile feed posts using cursor tokens.\n- Exclude previously viewed post IDs from feed responses.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/reddit/app/home-feed\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `sort` | string | No | Sort method, supports HOT, NEW, TOP, BEST, CONTROVERSIAL |\n| `after` | string | No | Pagination parameter for fetching the next page |\n| `need_format` | boolean | No | Whether to clean and format the data |\n| `filter_posts` | array | No | List of post IDs to filter out, used to exclude already fetched posts |\n\n## Example response\n\nReal response for the request above, trimmed to the main fields. User names and long IDs are masked.\n\n```json\n{\n  \"homefeed\": {\n    \"postsInfoByIds\": [\n      {\n        \"__typename\": \"SubredditPost\",\n        \"commentCount\": 489,\n        \"id\": \"t3_1ww2n4p\",\n        \"isAuthorBlocked\": false,\n        \"isScoreHidden\": false,\n        \"permalink\": \"/r/teenagers/comments/1ww2n4p/whats_a_crazy_rumour_from_your_school_that_turned/\",\n        \"postTitle\": \"Whats a crazy rumour from your school that turned out to be true?\",\n        \"score\": 389,\n        \"url\": \"https://i.redd.it/956mpuopt3th1.jpeg\",\n        \"authorFlair\": {\n          \"__typename\": \"AuthorFlair\",\n          \"richtext\": \"[{\\\"e\\\":\\\"text\\\",\\\"t\\\":\\\"Teenager\\\"}]\",\n          \"text\": \"Teenager\"\n        },\n        \"authorInfo\": {\n          \"__typename\": \"Redditor\",\n          \"accountType\": \"USER\",\n          \"id\": \"t2_25tl8ckdgd\",\n          \"name\": \"Crimsonrainflower33\"\n        },\n        \"flair\": {\n          \"__typename\": \"PostFlair\",\n          \"richtext\": \"[{\\\"e\\\":\\\"text\\\",\\\"t\\\":\\\"Discussion\\\"}]\",\n          \"text\": \"Discussion\",\n          \"type\": \"richtext\"\n        },\n        \"media\": {\n          \"__typename\": \"Media\",\n          \"typeHint\": \"IMAGE\"\n        },\n        \"outboundLink\": {\n          \"url\": \"https://i.redd.it/956mpuopt3th1.jpeg\"\n        }\n      }\n    ]\n  }\n}\n```\n\n## Notes\n\n- `sort` supports HOT, NEW, TOP, BEST, and CONTROVERSIAL.\n- Use `after` to fetch the next page of feed items.\n- Pass an array of post IDs into `filter_posts` to exclude already viewed items.\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [Reddit Subreddit Mute Status](/model/reddit/app/check-subreddit-muted): Checks whether a specified Reddit subreddit is muted by the current account using its ID.\n- [Reddit App Comment Replies](/model/reddit/app/comment-replies): Returns replies and nested sub-comments under a Reddit post comment using a continuation cursor.\n- [Reddit Community Highlights](/model/reddit/app/community-highlights): Returns featured highlight content for a designated Reddit community, such as popular posts and announcements, by subreddit ID.\n",
+  "page_url": "https://www.sandbase.ai/model/reddit/app/home-feed",
+  "created_at": "2026-07-31T04:10:43.714Z"
+}

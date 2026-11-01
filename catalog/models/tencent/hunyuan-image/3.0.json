@@ -1,0 +1,145 @@
+{
+  "name": "tencent/hunyuan-image/3.0",
+  "display_name": "Hunyuan Image 3.0 Text to Image",
+  "type": "image",
+  "vendor": "Tencent",
+  "vendor_slug": "tencent",
+  "description": "Hunyuan Image 3.0 is Tencent's advanced text-to-image AI model. Create photorealistic images, illustrations, and concept art from natural language descriptions with exceptional detail and prompt adherence.",
+  "tags": [
+    "text-to-image"
+  ],
+  "capabilities": [
+    "text-to-image"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "prompt"
+    ],
+    "properties": {
+      "prompt": {
+        "type": "string",
+        "title": "Prompt",
+        "examples": [
+          "200mm telephoto through crowd gaps; subject laughing, candid; creamy background compression, color pop from a single bold garment, catchlight in eyes."
+        ],
+        "description": "The text prompt for image-to-image."
+      },
+      "aspect_ratio": {
+        "enum": [
+          "21:9",
+          "16:9",
+          "3:2",
+          "4:3",
+          "5:4",
+          "1:1",
+          "4:5",
+          "3:4",
+          "2:3",
+          "9:16"
+        ],
+        "type": "string",
+        "title": "Aspect Ratio",
+        "description": "The aspect ratio of the generated image."
+      },
+      "output_format": {
+        "enum": [
+          "jpeg",
+          "png"
+        ],
+        "type": "string",
+        "title": "Output Format",
+        "default": "png",
+        "description": "The format of the generated image."
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "title": "GenerationResponse",
+    "required": [
+      "id",
+      "status"
+    ],
+    "properties": {
+      "id": {
+        "type": "string",
+        "description": "Unique identifier for the generation task."
+      },
+      "error": {
+        "type": "string",
+        "description": "Error message if the task failed. Empty on success."
+      },
+      "model": {
+        "type": "string",
+        "description": "Model ID used for the prediction."
+      },
+      "status": {
+        "enum": [
+          "pending",
+          "running",
+          "completed",
+          "failed",
+          "timeout"
+        ],
+        "type": "string",
+        "description": "Status of the task: pending, running, completed, failed, or timeout."
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "title": "OutputItem",
+          "required": [
+            "url"
+          ],
+          "properties": {
+            "url": {
+              "type": "string",
+              "examples": [
+                "https://static.sandbase.ai/examples/tencent/hunyuan-image/3.0/output_url_0.png"
+              ],
+              "description": "The URL where the generated content can be downloaded from."
+            },
+            "content_type": {
+              "type": "string",
+              "description": "The MIME type of the output file."
+            }
+          }
+        },
+        "description": "Array of generated content. Empty when status is not completed."
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.1
+  },
+  "examples": [
+    {
+      "input": {
+        "prompt": "200mm telephoto through crowd gaps; subject laughing, candid; creamy background compression, color pop from a single bold garment, catchlight in eyes."
+      },
+      "output": [
+        {
+          "url": "https://static.sandbase.ai/examples/1cb19ea9-0457-4b45-8976-588a55c7416d/output/9f5dae06-e6c8-48aa-85b8-27af26d6c804.png"
+        }
+      ],
+      "default": true
+    }
+  ],
+  "readme": "# Hunyuan Image 3.0 Text to Image\n\nHunyuan Image 3.0, Tencent's multimodal image model, renders detailed images with strong world knowledge and bilingual text.\n\n## Fields\n\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `prompt` | string, required | — | Text instruction. |\n| `aspect_ratio` | `21:9` / `16:9` / `3:2` / `4:3` / `5:4` / `1:1` / `4:5` / `3:4` / `2:3` / `9:16` | — | Output shape. |\n| `output_format` | `jpeg` / `png` | `png` | Output file format. |\n\n## Billing\n\n$0.10 per image.\n\n| Request | Price |\n|---|---|\n| One image | $0.10 |\n\nFailed runs are not charged.\n\n## Prompting\n\n- Long, descriptive prompts work well.\n\n## Limits\n\n- One image per request.\n\n## Also on SandBase\n\nRelated: `tencent/hunyuan-image/3.0/edit`.\n",
+  "cover_url": "https://static.sandbase.ai/covers/tencent/hunyuan-image/3.0/cover-flare-20261005040400.webp",
+  "page_url": "https://www.sandbase.ai/model/tencent/hunyuan-image/3.0",
+  "published_at": "2025-09-28T06:04:53.92Z",
+  "created_at": "2026-05-15T12:21:14.287Z"
+}

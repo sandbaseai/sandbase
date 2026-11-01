@@ -1,0 +1,78 @@
+{
+  "name": "douyin/app-v3/video-comments",
+  "display_name": "Douyin Video Comments",
+  "type": "api",
+  "vendor": "Douyin",
+  "vendor_slug": "douyin",
+  "description": "Get the comments on a Douyin video: comment text, publish time, like count, reply count and commenter location, with cursor pagination.",
+  "tags": [
+    "api",
+    "douyin"
+  ],
+  "capabilities": [
+    "api",
+    "douyin"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/douyin/app-v3/video-comments"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "aweme_id"
+    ],
+    "properties": {
+      "count": {
+        "type": "integer",
+        "title": "Count",
+        "default": 20,
+        "example": 20,
+        "description": "Number Please keep the default, otherwise there will be BUG."
+      },
+      "cursor": {
+        "type": "integer",
+        "title": "Cursor",
+        "default": 0,
+        "example": 0,
+        "description": "Cursor, used for paging, the first page is 0, the second page is the cursor value in the first response."
+      },
+      "aweme_id": {
+        "type": "string",
+        "title": "Aweme Id",
+        "example": "7448118827402972455",
+        "description": "Video id"
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.0015,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "examples": [
+    {
+      "input": {
+        "aweme_id": "7448118827402972455",
+        "count": 20,
+        "cursor": 0
+      }
+    }
+  ],
+  "readme": "# Douyin Video Comments API\n\nPass a Douyin video ID (`aweme_id`) and get its first-level comments with text, likes, reply counts and IP location.\n\n## Use cases\n\n- Analyze audience sentiment on a video.\n- Collect feedback on a product or campaign video.\n- Find frequently asked questions in comments.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/douyin/app-v3/video-comments\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"aweme_id\": \"7565738211130035491\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `aweme_id` | string | Yes | Video id |\n| `count` | integer | No | Number Please keep the default, otherwise there will be BUG. |\n| `cursor` | integer | No | Cursor, used for paging, the first page is 0, the second page is the cursor value in the first response. |\n\n## Example response\n\nReal response for the request above, trimmed to the main fields. User names and long IDs are masked.\n\n```json\n{\n  \"total\": 4960,\n  \"has_more\": 1,\n  \"cursor\": \"<next cursor>\",\n  \"comments\": [\n    {\n      \"cid\": \"7693474478307853091\",\n      \"aweme_id\": \"7565738211130035491\",\n      \"create_time\": 1791276616,\n      \"digg_count\": 0,\n      \"reply_comment_total\": 0,\n      \"text\": \"我家小猫很活泼了才3个月[捂脸]\",\n      \"ip_label\": \"河南\",\n      \"user\": {\n        \"nickname\": \"<user>\"\n      }\n    }\n  ]\n}\n```\n\n## Notes\n\n- Keep `count` at the default 20.\n- Paginate with the `cursor` from the previous response.\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [Douyin Hot Search List](/model/douyin/app-v3/hot-search-list): Get the Douyin hot search list and other boards (seeding, entertainment, social and challenge lists): trending words with heat values and video counts.\n- [Douyin Video Statistics (Batch)](/model/douyin/app-v3/multi-video-statistics): Get play, like, share and download counts for up to 50 Douyin videos in one request by passing comma-separated video IDs.\n- [Douyin Video Detail](/model/douyin/app-v3/one-video-v3): Get the full data of a single Douyin post by ID (video, photo or article): description, author, hashtags, music, statistics and play URLs.\n",
+  "page_url": "https://www.sandbase.ai/model/douyin/app-v3/video-comments",
+  "created_at": "2026-07-31T02:34:30.647Z"
+}

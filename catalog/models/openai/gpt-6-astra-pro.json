@@ -1,0 +1,52 @@
+{
+  "name": "openai/gpt-6-astra-pro",
+  "display_name": "OpenAI: GPT-6 Astra Pro",
+  "type": "llm",
+  "vendor": "OpenAI",
+  "vendor_slug": "openai",
+  "description": "GPT-6 Astra Pro is the same GPT-6 Astra model, OpenAI's most capable GPT-6 tier, served in OpenAI's pro reasoning mode rather than as different weights. In pro mode the model does more work on each request before returning one final answer, which OpenAI suggests for complex optimization, high-value coding or review, and deep analysis. Expect higher latency and token usage than standard Astra, so reserve it for problems where a marginal quality gain changes the outcome.",
+  "tags": [
+    "chat",
+    "vision",
+    "reasoning",
+    "structured_output",
+    "function_calling"
+  ],
+  "capabilities": [
+    "chat",
+    "vision",
+    "reasoning",
+    "structured_output",
+    "function_calling"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "chat_completions": "POST /v1/chat/completions",
+    "responses": "POST /v1/responses",
+    "messages": "POST /v1/messages"
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_token",
+    "per_million_tokens": {
+      "input": 10,
+      "output": 50,
+      "cache_read_multiplier": 0.1,
+      "cache_write_multiplier": 1.25
+    },
+    "formula": "usage.prompt_tokens >= 272000 ? (usage.prompt_tokens * 20 / 1000000 + usage.completion_tokens * 75 / 1000000 - usage.cached_tokens * 9 / 1000000 + usage.cache_creation_tokens * 2.5 / 1000000) : (usage.prompt_tokens * 10 / 1000000 + usage.completion_tokens * 50 / 1000000)",
+    "formula_variables": [
+      "usage.cache_creation_tokens",
+      "usage.cached_tokens",
+      "usage.completion_tokens",
+      "usage.prompt_tokens"
+    ]
+  },
+  "cover_url": "https://t0.gstatic.com/faviconV2?client=SOCIAL\\u0026type=FAVICON\\u0026fallback_opts=TYPE,SIZE,URL\\u0026url=https://openai.com\\u0026size=256",
+  "page_url": "https://www.sandbase.ai/model/openai/gpt-6-astra-pro",
+  "published_at": "2026-09-04T20:13:55Z",
+  "created_at": "2026-10-03T06:31:41.161Z"
+}

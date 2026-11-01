@@ -1,0 +1,71 @@
+{
+  "name": "weibo/web-v2/post-detail",
+  "display_name": "Weibo Post Detail",
+  "type": "api",
+  "vendor": "Weibo",
+  "vendor_slug": "weibo",
+  "description": "Get the full data of a single Weibo post by its ID: text (including long posts), author, publish time, location and repost, comment and like counts.",
+  "tags": [
+    "api",
+    "weibo"
+  ],
+  "capabilities": [
+    "api",
+    "weibo"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/weibo/web-v2/post-detail"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "id"
+    ],
+    "properties": {
+      "id": {
+        "type": "string",
+        "title": "Id",
+        "example": "5092682368025584",
+        "description": "Weibo post ID (required)"
+      },
+      "is_get_long_text": {
+        "type": "string",
+        "title": "Is Get Long Text",
+        "default": "true",
+        "example": "true",
+        "description": "Whether to get full text of long posts (default \"true\")"
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.0015,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "examples": [
+    {
+      "input": {
+        "id": "5350731756601957",
+        "is_get_long_text": "true"
+      },
+      "default": true
+    }
+  ],
+  "readme": "# Weibo Post Detail API\n\nPass a Weibo post ID and get back the complete post as JSON: the full text, author profile, publish time and region, attached images, and engagement counts.\n\n## Use cases\n\n- Track how a specific post performs over time (reposts, comments, likes).\n- Archive posts referenced in news or brand monitoring.\n- Enrich search results from the Weibo search APIs with full post details.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/weibo/web-v2/post-detail\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"id\": \"5350554563773695\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `id` | string | Yes | Weibo post ID (required) |\n| `is_get_long_text` | string | No | Whether to get full text of long posts (default \"true\") |\n\n## Example response\n\nReal response for the request above, trimmed to the main fields. User names and long IDs are masked.\n\n```json\n{\n  \"id\": 5350554563773695,\n  \"mblogid\": \"Rld9CfPI3\",\n  \"created_at\": \"Mon Oct 05 07:04:39 +0800 2026\",\n  \"reposts_count\": 40,\n  \"comments_count\": 34,\n  \"attitudes_count\": 151,\n  \"region_name\": \"发布于 美国\",\n  \"text_raw\": \"OpenAI Codex 承诺连续 28 天：每天上新，否则重置额度  OpenAI 给 Codex 用户立了个 28 天的规矩：每天要么上线一项多数人用得上…\",\n  \"user\": {\n    \"screen_name\": \"<user>\"\n  }\n}\n```\n\n## Notes\n\n- The post ID is the numeric `id` / `mid`, or the `weibo_id` returned by Weibo search.\n- Long posts are expanded to full text by default (`is_get_long_text` = `\"true\"`).\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [Weibo Advanced Search](/model/weibo/web-v2/advanced-search): Search Weibo posts by keyword with filters for time range, post type (hot, original, verified, media) and content type (images, video, links).\n- [Weibo Hot Search List](/model/weibo/web-v2/hot-search-summary): Get the complete real-time Weibo hot search ranking (top 50): keyword, rank, heat tag and search link for each trending topic.\n- [Weibo AI Search Content Extension](/model/weibo/web-v2/ai-related-search): Get content extensions related to keyword (related questions, blogger recommendations, reference posts).\n",
+  "page_url": "https://www.sandbase.ai/model/weibo/web-v2/post-detail",
+  "created_at": "2026-07-31T02:45:58.648Z"
+}

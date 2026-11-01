@@ -1,0 +1,138 @@
+{
+  "name": "wechat-search/v2/search-videos",
+  "display_name": "WeChat Search for Channels Videos",
+  "type": "api",
+  "vendor": "WeChat Search",
+  "vendor_slug": "wechat-search",
+  "description": "Search WeChat Channels videos by keyword with duration, sort (relevance, newest, most liked) and publish-time filters. Returns titles, creators, duration, likes and publish time.",
+  "tags": [
+    "api",
+    "wechat-search"
+  ],
+  "capabilities": [
+    "api",
+    "wechat-search"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/wechat-search/v2/search-videos"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "keyword"
+    ],
+    "properties": {
+      "raw": {
+        "type": "boolean",
+        "title": "Raw",
+        "default": true,
+        "example": false,
+        "description": "Optional, default True. True=raw search response; False=simplified parsing."
+      },
+      "sort": {
+        "anyOf": [
+          {
+            "type": "integer"
+          },
+          {
+            "type": "string"
+          }
+        ],
+        "title": "Sort",
+        "default": "default",
+        "example": "default",
+        "description": "Optional, default `default`. Sort — `default`/0 (relevance) / `latest`/1 (newest) / `hot`/2 (most liked); string key or integer, invalid values rejected (400)."
+      },
+      "cursor": {
+        "anyOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "title": "Cursor",
+        "description": "Optional. Pagination cursor, same usage as universal search `/fetch_search`. Leave empty for the first page; for the next page pass back the `cursor` from the previous response (repeat the same `duration` / `sort` / `publish_time`)."
+      },
+      "offset": {
+        "type": "integer",
+        "title": "Offset",
+        "default": 0,
+        "example": 0,
+        "minimum": 0,
+        "description": "Optional, default 0 (>=0). Pass `0` for the first page; use `cursor` to paginate (offset alone does not work)."
+      },
+      "keyword": {
+        "type": "string",
+        "title": "Keyword",
+        "example": "OpenAI",
+        "maxLength": 100,
+        "minLength": 1,
+        "description": "Search keyword (1-100 chars)"
+      },
+      "duration": {
+        "anyOf": [
+          {
+            "type": "integer"
+          },
+          {
+            "type": "string"
+          }
+        ],
+        "title": "Duration",
+        "default": "all",
+        "example": "all",
+        "description": "Optional, default `all`. Duration tier (Channels video only) — `all`/0 / `short`/1 (<5min) / `medium`/2 (5-10min) / `long`/3 (20min+); string key or integer, invalid values rejected (400)."
+      },
+      "publish_time": {
+        "anyOf": [
+          {
+            "type": "integer"
+          },
+          {
+            "type": "string"
+          }
+        ],
+        "title": "Publish Time",
+        "default": "all",
+        "example": "all",
+        "description": "Optional, default `all`. Publish time — `all`/0 / `day`/1 / `week`/2 / `half_year`/3; string key or integer, invalid values rejected (400)."
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.015,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "examples": [
+    {
+      "input": {
+        "keyword": "商业",
+        "offset": 0,
+        "publish_time": "half_year",
+        "raw": false,
+        "sort": "latest"
+      },
+      "default": true
+    }
+  ],
+  "readme": "# WeChat Channels Video Search API\n\nSearch the WeChat Channels video vertical for a keyword. Filter by video length and publish time, sort by relevance, newest or most liked, and paginate with a cursor.\n\n## Use cases\n\n- Find Channels videos about a brand or topic.\n- Discover active Channels creators in a niche.\n- Track new short-video coverage with `sort=latest`.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/wechat-search/v2/search-videos\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"keyword\": \"OpenAI\", \"raw\": false}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `keyword` | string | Yes | Search keyword (1-100 chars) |\n| `raw` | boolean | No | Optional, default True. |\n| `sort` | string | No | Optional, default `default`. |\n| `cursor` | string | No | Optional. |\n| `offset` | integer | No | Optional, default 0 (>=0). |\n| `duration` | string | No | Optional, default `all`. |\n| `publish_time` | string | No | Optional, default `all`. |\n\n## Example response\n\nReal response for the request above, trimmed to the main fields. User names and long IDs are masked.\n\n```json\n{\n  \"count\": 10,\n  \"cursor\": \"<next page cursor>\",\n  \"items\": [\n    {\n      \"title\": \"... #人工智能  #AI安全  #OpenAI  #企业AI\",\n      \"duration\": \"01:23\",\n      \"likeNum\": \"2\",\n      \"pubTime\": 1791270001,\n      \"source\": {\n        \"title\": \"<user>\"\n      }\n    }\n  ]\n}\n```\n\n## Notes\n\n- `duration`: all, short (<5 min), medium (5–10 min) or long.\n- Paginate with the `cursor` from the previous response.\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [WeChat Search](/model/wechat-search/v2/search): Search WeChat with one endpoint: official account articles, accounts, Channels videos, live streams, news and more.\n",
+  "page_url": "https://www.sandbase.ai/model/wechat-search/v2/search-videos",
+  "created_at": "2026-07-31T04:22:04.037Z"
+}

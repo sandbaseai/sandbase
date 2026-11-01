@@ -1,0 +1,177 @@
+{
+  "name": "hyper3d/rodin/2.5/fast/text-to-3d",
+  "display_name": "Rodin 2.5 Fast Text to 3D",
+  "type": "image",
+  "vendor": "hyper3d",
+  "vendor_slug": "hyper3d",
+  "description": "Rodin Gen-2.5 by Hyper3D (Deemos) generates game- and production-ready 3D assets from a text prompt, tuned for speed with the low tiers.",
+  "tags": [
+    "text-to-3d"
+  ],
+  "capabilities": [
+    "text-to-3d"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "prompt"
+    ],
+    "properties": {
+      "seed": {
+        "type": "integer",
+        "title": "Seed",
+        "maximum": 65535,
+        "minimum": 0,
+        "description": "Seed (0–65535)."
+      },
+      "tier": {
+        "enum": [
+          "Gen-2.5-Minimum",
+          "Gen-2.5-Extreme-Low",
+          "Gen-2.5-Low"
+        ],
+        "type": "string",
+        "title": "Tier",
+        "default": "Gen-2.5-Extreme-Low",
+        "description": "Generation tier (quality / speed)."
+      },
+      "TAPose": {
+        "type": "boolean",
+        "title": "T/A Pose",
+        "default": false,
+        "description": "Generate characters in T-pose or A-pose for rigging."
+      },
+      "prompt": {
+        "type": "string",
+        "title": "Prompt",
+        "examples": [
+          "A futuristic robot with sleek metallic design."
+        ],
+        "maxLength": 1024,
+        "description": "A textual prompt to guide model generation. Required for Text-to-3D mode."
+      },
+      "material": {
+        "enum": [
+          "PBR",
+          "Shaded",
+          "All",
+          "None"
+        ],
+        "type": "string",
+        "title": "Material",
+        "default": "Shaded",
+        "description": "PBR, Shaded, All (both) or None."
+      },
+      "hd_texture": {
+        "type": "boolean",
+        "title": "HD Texture",
+        "default": false,
+        "description": "Enhanced texture post-processing."
+      },
+      "quality_mesh_option": {
+        "enum": [
+          "Auto",
+          "1K Quad",
+          "4K Quad",
+          "8K Quad",
+          "18K Quad",
+          "20K Quad",
+          "2K Triangle",
+          "4K Triangle",
+          "8K Triangle",
+          "10K Triangle",
+          "20K Triangle"
+        ],
+        "type": "string",
+        "title": "Quality Mesh Option",
+        "default": "Auto",
+        "description": "Combined quality and mesh type selection. Quad = smooth surfaces, Triangle = detailed geometry. Maps to `mesh_mode` (Quad/Raw) and `quality_override` (face count) on the Hyper3D API. Valid face counts depend on the selected tier. Up to 1M Triangle is supported for tiers Minimum, Extreme-Low, Low. For fast endpoint, this limit is up to 20K, primarily for prototyping and testing. For generating higher quality meshes, use the standard endpoint. Auto option will choose the advised options for each tier:\n1. Gen-2.5-Minimum: 20K Triangle\n2. Gen-2.5-Extreme-Low: 20K Triangle\n3. Gen-2.5-Low: 20K Triangle"
+      },
+      "geometry_file_format": {
+        "enum": [
+          "glb",
+          "usdz",
+          "fbx",
+          "obj",
+          "stl"
+        ],
+        "type": "string",
+        "title": "Geometry File Format",
+        "default": "glb",
+        "description": "Output file format."
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "title": "GenerationResponse",
+    "required": [
+      "id",
+      "status"
+    ],
+    "properties": {
+      "id": {
+        "type": "string",
+        "description": "Unique identifier for the generation task."
+      },
+      "error": {
+        "type": "string",
+        "description": "Error message if the task failed. Empty on success."
+      },
+      "model": {
+        "type": "string",
+        "description": "Model ID used for the prediction."
+      },
+      "status": {
+        "enum": [
+          "pending",
+          "running",
+          "completed",
+          "failed",
+          "timeout"
+        ],
+        "type": "string",
+        "description": "Status of the task: pending, running, completed, failed, or timeout."
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "title": "OutputItem",
+          "required": [
+            "url"
+          ],
+          "properties": {
+            "url": {
+              "type": "string",
+              "description": "The URL where the generated content can be downloaded from."
+            },
+            "content_type": {
+              "type": "string",
+              "description": "The MIME type of the output file."
+            }
+          }
+        },
+        "description": "Array of generated content. Empty when status is not completed."
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.1
+  },
+  "readme": "# Rodin 2.5 Fast Text to 3D\n\nRodin Gen-2.5 Fast by Hyper3D turns a text prompt into a game-ready 3D asset, using the low tiers for speed.\n\n## Fields\n\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `prompt` | string, required | — | Up to 1,024 characters. |\n| `seed` | integer 0–65535 | random | Fix it to compare prompt changes. |\n| `geometry_file_format` | `glb` / `usdz` / `fbx` / `obj` / `stl` | `glb` | Output file format. |\n| `material` | `PBR` / `Shaded` / `All` / `None` | `Shaded` | Material output. |\n| `hd_texture` | boolean | false | Higher-resolution textures. |\n| `tier` | `Gen-2.5-Minimum` / `Gen-2.5-Extreme-Low` / `Gen-2.5-Low` | `Gen-2.5-Extreme-Low` | Quality tier. |\n| `quality_mesh_option` | `Auto` / `1K Quad` / `4K Quad` / `8K Quad` / `18K Quad` / `20K Quad` / `2K Triangle` / `4K Triangle` / `8K Triangle` / `10K Triangle` / `20K Triangle` | `Auto` | Mesh density and topology. |\n| `TAPose` | boolean | false | Force a T/A-pose for characters. |\n\n## Billing\n\n$0.10 per model.\n\n| Request | Price |\n|---|---|\n| One model | $0.10 |\n\nFailed runs are not charged.\n\n## Also on SandBase\n\nOther Rodin endpoints: `hyper3d/rodin/2.5/text-to-3d`, `hyper3d/rodin/2.5/image-to-3d`, `hyper3d/rodin/2.5/fast/image-to-3d`.\n",
+  "cover_url": "https://static.sandbase.ai/covers/hyper3d/rodin/2.5/fast/text-to-3d/cover-flare-20261008040453.webp",
+  "page_url": "https://www.sandbase.ai/model/hyper3d/rodin/2.5/fast/text-to-3d",
+  "published_at": "2026-06-19T20:15:10.273Z",
+  "created_at": "2026-10-06T04:24:34.679Z"
+}

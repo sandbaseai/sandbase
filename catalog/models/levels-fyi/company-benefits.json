@@ -1,0 +1,72 @@
+{
+  "name": "levels-fyi/company-benefits",
+  "display_name": "Levels.fyi Company Benefits",
+  "type": "api",
+  "vendor": "Levels.fyi",
+  "vendor_slug": "levels-fyi",
+  "description": "Retrieve benefits and perks data for a specific company including benefit categories, descriptions, field values, and computed monetary values. Each benefit includes its perk definition, category tag, and any.",
+  "tags": [
+    "api",
+    "levels-fyi",
+    "company-people"
+  ],
+  "capabilities": [
+    "api",
+    "levels-fyi",
+    "company-people"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}",
+    "passthrough": "POST /v1/api/levels-fyi/company-benefits"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "company_slug"
+    ],
+    "properties": {
+      "company_slug": {
+        "type": "string",
+        "example": "stripe",
+        "description": "Company slug identifier (e.g. 'google', 'meta', 'amazon'). Obtain from get_popular_companies."
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "required": [
+      "id",
+      "status",
+      "model"
+    ],
+    "properties": {
+      "id": {
+        "type": "string"
+      },
+      "model": {
+        "type": "string"
+      },
+      "status": {
+        "type": "string"
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.01,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "readme": "# Levels.fyi Company Benefits\n\nRetrieve benefits and perks data for a specific company including benefit categories, descriptions, field values, and computed monetary values. Each benefit includes its perk definition, category tag, and any.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/levels-fyi/company-benefits\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"company_slug\": \"stripe\"}'\n```\n\nThis API runs asynchronously. The call returns a task `id` with status `pending`; poll `GET https://api.sandbase.ai/v1/run/{id}` until `status` is `completed` and read the result from `outputs[0].data`.\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `company_slug` | string | Yes | Company slug identifier (e.g. 'google', 'meta', 'amazon'). Obtain from get_popular_companies. |\n\n## Pricing\n\nFlat price per call. Failed calls are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/levels-fyi/company-benefits",
+  "created_at": "2026-10-30T07:50:48.967Z"
+}

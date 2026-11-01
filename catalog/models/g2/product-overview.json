@@ -1,0 +1,72 @@
+{
+  "name": "g2/product-overview",
+  "display_name": "G2 Product Overview",
+  "type": "api",
+  "vendor": "G2",
+  "vendor_slug": "g2",
+  "description": "Retrieve product overview information for a given product slug, including name, description, rating, review count, and logo URL. Uses search to locate the product and extract its details.",
+  "tags": [
+    "api",
+    "g2",
+    "company-people"
+  ],
+  "capabilities": [
+    "api",
+    "g2",
+    "company-people"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}",
+    "passthrough": "POST /v1/api/g2/product-overview"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "slug"
+    ],
+    "properties": {
+      "slug": {
+        "type": "string",
+        "example": "slack",
+        "description": "Product slug from search_software or get_category_products results (e.g. 'slack', 'hubspot-sales-hub')"
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "required": [
+      "id",
+      "status",
+      "model"
+    ],
+    "properties": {
+      "id": {
+        "type": "string"
+      },
+      "model": {
+        "type": "string"
+      },
+      "status": {
+        "type": "string"
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.01,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "readme": "# G2 Product Overview\n\nRetrieve product overview information for a given product slug, including name, description, rating, review count, and logo URL. Uses search to locate the product and extract its details.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/g2/product-overview\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"slug\": \"slack\"}'\n```\n\nThis API runs asynchronously. The call returns a task `id` with status `pending`; poll `GET https://api.sandbase.ai/v1/run/{id}` until `status` is `completed` and read the result from `outputs[0].data`.\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `slug` | string | Yes | Product slug from search_software or get_category_products results (e.g. 'slack', 'hubspot-sales-hub') |\n\n## Pricing\n\nFlat price per call. Failed calls are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/g2/product-overview",
+  "created_at": "2026-10-30T09:18:05.846Z"
+}

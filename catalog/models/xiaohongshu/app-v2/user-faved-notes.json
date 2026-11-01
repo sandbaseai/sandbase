@@ -1,0 +1,69 @@
+{
+  "name": "xiaohongshu/app-v2/user-faved-notes",
+  "display_name": "Xiaohongshu (RED) User Favorited Notes",
+  "type": "api",
+  "vendor": "Xiaohongshu",
+  "vendor_slug": "xiaohongshu",
+  "description": "Returns a paginated list of notes favorited by a specified Xiaohongshu (RED) user. Supports querying by user ID or profile share link, with cursor-based pagination.",
+  "tags": [
+    "api",
+    "xiaohongshu"
+  ],
+  "capabilities": [
+    "api",
+    "xiaohongshu"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/xiaohongshu/app-v2/user-faved-notes"
+  },
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "cursor": {
+        "type": "string",
+        "title": "Cursor",
+        "description": "Pagination cursor, leave empty for first request, pass last note_id from previous page for next page"
+      },
+      "user_id": {
+        "type": "string",
+        "title": "User Id",
+        "description": "User ID, e.g. \"5a8cf39111be10466d285d6b\""
+      },
+      "share_text": {
+        "type": "string",
+        "title": "Share Text",
+        "description": "Xiaohongshu sharing link (support APP and Web sharing link)"
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.015,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "examples": [
+    {
+      "input": {
+        "user_id": "5c668b3e0000000012021605"
+      },
+      "default": true
+    }
+  ],
+  "readme": "# Xiaohongshu (RED) User Favorited Notes API\n\nRetrieve notes favorited by a Xiaohongshu (RED) user using `user_id` or `share_text`. Results can be paginated sequentially using the `cursor` parameter.\n\n## Use cases\n\n- Analyze content preferences and topics favorited by target users.\n- Track saved posts to understand audience engagement patterns.\n- Collect curated note references from public user profiles.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/xiaohongshu/app-v2/user-faved-notes\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `cursor` | string | No | Pagination cursor, leave empty for first request, pass last note_id from previous page for next page |\n| `user_id` | string | No | User ID, e.g. \"5a8cf39111be10466d285d6b\" |\n| `share_text` | string | No | Xiaohongshu sharing link (support APP and Web sharing link) |\n\n## Notes\n\n- Leave `cursor` empty for the initial request, then pass the last note ID from the previous page for subsequent requests.\n- The `share_text` parameter supports both mobile app and web sharing links.\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [Xiaohongshu (RED) Creator Hot Inspiration Feed](/model/xiaohongshu/app-v2/creator-hot-inspiration-feed): Retrieves creator center hot inspiration feed items with topic titles, popularity scores, and deeplinks.\n- [Xiaohongshu (RED) Inspiration Feed](/model/xiaohongshu/app-v2/creator-inspiration-feed): Returns recommended inspiration feed items and trending topics from Xiaohongshu (RED).\n- [Xiaohongshu (RED) Image Note Details](/model/xiaohongshu/app-v2/image-note-detail): Returns detailed information for a Xiaohongshu image note.\n",
+  "page_url": "https://www.sandbase.ai/model/xiaohongshu/app-v2/user-faved-notes",
+  "created_at": "2026-07-31T02:47:17.265Z"
+}

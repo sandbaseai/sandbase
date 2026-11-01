@@ -1,0 +1,67 @@
+{
+  "name": "douyin/xingtu/search-kol-v2",
+  "display_name": "Douyin Xingtu KOL Search (V2)",
+  "type": "api",
+  "vendor": "Douyin",
+  "vendor_slug": "douyin",
+  "description": "Searches Douyin Xingtu creators by keyword, content tags, and follower count ranges. Returns creator identifiers, task rate tiers, and qualification levels.",
+  "tags": [
+    "api",
+    "douyin"
+  ],
+  "capabilities": [
+    "api",
+    "douyin"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/douyin/xingtu/search-kol-v2"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "keyword"
+    ],
+    "properties": {
+      "keyword": {
+        "type": "string",
+        "title": "Keyword",
+        "example": "人工智能",
+        "description": "Keyword"
+      },
+      "contentTag": {
+        "type": "string",
+        "title": "Contenttag",
+        "description": "Content tag (optional), for example tag-1 or tag_level_two-7."
+      },
+      "followerRange": {
+        "type": "string",
+        "title": "Followerrange",
+        "description": "Follower range (optional), for example 10-100 means 100,000 to 1,000,000 followers."
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.03
+  },
+  "examples": [
+    {
+      "input": {
+        "keyword": "example"
+      }
+    }
+  ],
+  "readme": "# Douyin Xingtu KOL Search (V2) API\n\nQuery Douyin Xingtu creator profiles by specifying a `keyword` alongside optional content tags and follower thresholds.\n\n## Use cases\n\n- Discover Douyin creators matching specific niche topics or keywords.\n- Filter potential influencer partnerships by audience size brackets.\n- Evaluate creator task tier assignments and performance levels.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/douyin/xingtu/search-kol-v2\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"keyword\": \"人工智能\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `keyword` | string | Yes | Keyword |\n| `contentTag` | string | No | Content tag (optional), for example tag-1 or tag_level_two-7. |\n| `followerRange` | string | No | Follower range (optional), for example 10-100 means 100,000 to 1,000,000 followers. |\n\n## Example response\n\nReal response for the request above, trimmed to the main fields. User names and long IDs are masked.\n\n```json\n{\n  \"authors\": [\n    {\n      \"star_id\": \"6669294384883695629\",\n      \"attribute_datas\": {\n        \"assign_cpm_suggest_price\": \"105\",\n        \"assign_task_price_list\": \"[97500,150000,172000]\",\n        \"author_ecom_level\": \"L0\",\n        \"author_level_game\": \"Lv1\",\n        \"author_level_other\": \"Lv1\",\n        \"author_status\": \"1\"\n      }\n    }\n  ]\n}\n```\n\n## Notes\n\n- Format `followerRange` as min-max values in tens of thousands, such as 10-100 for 100,000 to 1,000,000 followers.\n- Supply `contentTag` values using category identifiers like tag-1 or tag_level_two-7.\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [Douyin Xingtu Author Hot Comment Keywords](/model/douyin/xingtu/author-content-hot-comment-keywords-v1): Returns hot comment keywords from content produced by a Douyin Xingtu creator.\n- [Douyin Xingtu Author Hot Comment Tokens (Xingtu)](/model/douyin/xingtu/author-hot-comment-tokens-v1): Returns hot comment tokens for a Douyin Xingtu creator based on the specified creator ID.\n- [Douyin Xingtu KOL Audience Portrait (V1)](/model/douyin/xingtu/kol-audience-portrait-v1): Returns audience demographic and portrait insights for a Douyin Xingtu creator.\n",
+  "page_url": "https://www.sandbase.ai/model/douyin/xingtu/search-kol-v2",
+  "created_at": "2026-07-31T02:41:47.583Z"
+}

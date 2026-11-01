@@ -1,0 +1,184 @@
+{
+  "name": "google/nano-banana-2-lite/edit",
+  "display_name": "Nano Banana 2 Lite Edit",
+  "type": "image",
+  "vendor": "Google",
+  "vendor_slug": "google",
+  "description": "Nano Banana 2 Lite Edit is Google's low-latency, cost-efficient image editing model (Gemini 3.1 Flash Lite Image). Edit and combine supplied images with a text prompt; output is a 1K image.",
+  "tags": [
+    "image-to-image"
+  ],
+  "capabilities": [
+    "image-to-image"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "prompt",
+      "images"
+    ],
+    "properties": {
+      "seed": {
+        "type": "integer",
+        "title": "Seed",
+        "description": "The seed for the random number generator."
+      },
+      "images": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        },
+        "title": "Image URLs",
+        "examples": [
+          "https://static.sandbase.ai/examples/google/nano-banana-2-lite/edit/input_images_0.png",
+          "https://static.sandbase.ai/examples/google/nano-banana-2-lite/edit/input_images_1.png"
+        ],
+        "description": "The URLs of the images to use for image-to-image generation or image editing."
+      },
+      "prompt": {
+        "type": "string",
+        "title": "Prompt",
+        "examples": [
+          "make a photo of the man driving the car down the california coastline"
+        ],
+        "maxLength": 50000,
+        "minLength": 3,
+        "description": "The prompt for image editing."
+      },
+      "aspect_ratio": {
+        "enum": [
+          "21:9",
+          "16:9",
+          "3:2",
+          "4:3",
+          "5:4",
+          "1:1",
+          "4:5",
+          "3:4",
+          "2:3",
+          "9:16"
+        ],
+        "type": "string",
+        "title": "Aspect Ratio",
+        "description": "The aspect ratio of the generated image. Leave empty to keep the aspect ratio of the input image."
+      },
+      "output_format": {
+        "enum": [
+          "jpeg",
+          "png"
+        ],
+        "type": "string",
+        "title": "Output Format",
+        "default": "png",
+        "description": "The format of the generated image."
+      },
+      "system_prompt": {
+        "type": "string",
+        "title": "System Prompt",
+        "default": "",
+        "maxLength": 50000,
+        "description": "Optional system instruction that steers the model's persona and output style across the request. Leave blank to omit; when provided, it is sent as the system instruction to Gemini (or as a system message on OpenAI-compatible providers)."
+      },
+      "thinking_level": {
+        "enum": [
+          "minimal",
+          "high"
+        ],
+        "type": "string",
+        "title": "Thinking Level",
+        "description": "When set, enables model thinking with the given level ('minimal' or 'high') and includes thoughts in the generation. Omit to disable."
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "title": "GenerationResponse",
+    "required": [
+      "id",
+      "status"
+    ],
+    "properties": {
+      "id": {
+        "type": "string",
+        "description": "Unique identifier for the generation task."
+      },
+      "error": {
+        "type": "string",
+        "description": "Error message if the task failed. Empty on success."
+      },
+      "model": {
+        "type": "string",
+        "description": "Model ID used for the prediction."
+      },
+      "status": {
+        "enum": [
+          "pending",
+          "running",
+          "completed",
+          "failed",
+          "timeout"
+        ],
+        "type": "string",
+        "description": "Status of the task: pending, running, completed, failed, or timeout."
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "title": "OutputItem",
+          "required": [
+            "url"
+          ],
+          "properties": {
+            "url": {
+              "type": "string",
+              "examples": [
+                "https://static.sandbase.ai/examples/google/nano-banana-2-lite/edit/output_url_2.png"
+              ],
+              "description": "The URL where the generated content can be downloaded from."
+            },
+            "content_type": {
+              "type": "string",
+              "description": "The MIME type of the output file."
+            }
+          }
+        },
+        "description": "Array of generated content. Empty when status is not completed."
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.0336
+  },
+  "examples": [
+    {
+      "input": {
+        "images": [
+          "https://static.sandbase.ai/examples/17b5627b-8b12-4fc0-9e93-72f557c3fced/input/56496fc5-007b-4821-b507-b6b1b60e9408.png"
+        ],
+        "prompt": "make the background light blue"
+      },
+      "output": [
+        {
+          "url": "https://static.sandbase.ai/examples/17b5627b-8b12-4fc0-9e93-72f557c3fced/output/7a8ec137-6183-4b5c-9d57-6680f2b29c30.jpg"
+        }
+      ],
+      "default": true
+    }
+  ],
+  "readme": "# Nano Banana 2 Lite Edit\n\nNano Banana 2 Lite Edit: fast, low-cost edits and multi-image composition at 1K with Gemini 3.1 Flash Lite Image.\n\n## Fields\n\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `prompt` | string, required | — | Up to 50,000 characters. |\n| `images` | image URL[], required | — | Images to edit or combine, Image 1, Image 2, … |\n| `output_format` | `jpeg` / `png` | `png` | Output file format. |\n| `system_prompt` | string | — | Optional standing instructions applied to every request. |\n| `thinking_level` | `minimal` / `high` | — | `high` reasons more about the prompt before drawing; `minimal` is faster. |\n| `aspect_ratio` | `21:9` / `16:9` / `3:2` / `4:3` / `5:4` / `1:1` / `4:5` / `3:4` / `2:3` / `9:16` | — | Omit to follow the first input image. |\n| `seed` | integer | random | Fix it to compare prompt changes. |\n\n## Billing\n\n$0.0336 per 1K image, Google's list price.\n\n| Request | Price |\n|---|---|\n| One image | $0.0336 |\n\nFailed runs are not charged.\n\n## Prompting\n\n- Keep prompts direct; use `thinking_level: high` for complex layouts.\n\n## Limits\n\n- Output is 1K only.\n\n## Also on SandBase\n\nOther Nano Banana endpoints: `google/nano-banana-pro`, `google/nano-banana-pro/edit`, `google/nano-banana-2`, `google/nano-banana-2/edit`, `google/nano-banana-2-lite`.\n",
+  "cover_url": "https://static.sandbase.ai/covers/google/nano-banana-2-lite/edit/cover-flare-20261005012254.webp",
+  "page_url": "https://www.sandbase.ai/model/google/nano-banana-2-lite/edit",
+  "published_at": "2026-06-30T17:49:04.027Z",
+  "created_at": "2026-10-05T22:07:52.284Z"
+}

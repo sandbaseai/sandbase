@@ -1,0 +1,77 @@
+{
+  "name": "tiktok/app-v3/user-music-list",
+  "display_name": "TikTok User Music List",
+  "type": "api",
+  "vendor": "TikTok",
+  "vendor_slug": "tiktok",
+  "description": "Returns a list of audio tracks associated with a specific TikTok user. Queries require the user's `sec_uid` with optional cursor-based pagination.",
+  "tags": [
+    "api",
+    "tiktok"
+  ],
+  "capabilities": [
+    "api",
+    "tiktok"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/tiktok/app-v3/user-music-list"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "sec_uid"
+    ],
+    "properties": {
+      "count": {
+        "type": "integer",
+        "title": "Count",
+        "default": 10,
+        "example": 10,
+        "description": "Number"
+      },
+      "cursor": {
+        "type": "integer",
+        "title": "Cursor",
+        "default": 0,
+        "example": 0,
+        "description": "Cursor, used for paging, the first page is 0, the second page is the cursor value in the first response."
+      },
+      "sec_uid": {
+        "type": "string",
+        "title": "Sec Uid",
+        "example": "MS4wLjABAAAAv7iSuuXDJGDvJkmH_vz1qkDZYo1apxgzaxdBSeIuPiM",
+        "description": "User sec_uid"
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.0015,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "examples": [
+    {
+      "input": {
+        "sec_uid": "MS4wLjABAAAAv7iSuuXDJGDvJkmH_vz1qkDZYo1apxgzaxdBSeIuPiM"
+      },
+      "default": true
+    }
+  ],
+  "readme": "# TikTok User Music List API\n\nRetrieve audio tracks associated with a user profile by supplying `sec_uid`. Supports cursor pagination via `cursor` and custom page sizes with `count`.\n\n## Use cases\n\n- Track original audio tracks associated with a creator account.\n- Browse cataloged songs and audition details for an artist profile.\n- Extract song metadata and duration metrics for specific users.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/tiktok/app-v3/user-music-list\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"sec_uid\": \"MS4wLjABAAAAv7iSuuXDJGDvJkmH_vz1qkDZYo1apxgzaxdBSeIuPiM\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `sec_uid` | string | Yes | User sec_uid |\n| `count` | integer | No | Number |\n| `cursor` | integer | No | Cursor, used for paging, the first page is 0, the second page is the cursor value in the first response. |\n\n## Example response\n\nReal response for the request above, trimmed to the main fields. User names and long IDs are masked.\n\n```json\n{\n  \"music\": [\n    {\n      \"audition_duration\": 60,\n      \"author\": \"Chân CaCa\",\n      \"author_deleted\": false,\n      \"binded_challenge_id\": 0,\n      \"commercial_right_type\": 3,\n      \"create_time\": 1777489026,\n      \"duration\": 60,\n      \"id\": 7634256818454333457,\n      \"preview_end_time\": 0,\n      \"preview_start_time\": 87,\n      \"duration_high_precision\": {\n        \"audition_duration_precision\": 60,\n        \"duration_precision\": 60,\n        \"shoot_duration_precision\": 60,\n        \"video_duration_precision\": 60\n      },\n      \"matched_song\": {\n        \"author\": \"Chân CaCa\",\n        \"full_duration\": 248861,\n        \"id\": \"7634249903032469521\",\n        \"title\": \"Chữ Vấn Chữ Vương (Huy PT Remix)\"\n      },\n      \"music_release_info\": {\n        \"group_release_date\": 1777766400\n      }\n    }\n  ]\n}\n```\n\n## Notes\n\n- Pagination starts at 0 for `cursor`, with subsequent pages using the cursor returned in previous responses.\n- `sec_uid` is required to identify the target TikTok user.\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [TikTok LIVE Status](/model/tiktok/app-v3/check-live-room-online): Check whether a TikTok LIVE room is currently live by room ID.\n- [TikTok Room Online Status Batch](/model/tiktok/app-v3/check-live-room-online-batch): Returns the online availability status for multiple TikTok broadcast rooms in a single request.\n- [TikTok Content Translation](/model/tiktok/app-v3/content-translate): Translates provided text content into a designated target language.\n",
+  "page_url": "https://www.sandbase.ai/model/tiktok/app-v3/user-music-list",
+  "created_at": "2026-07-31T04:15:15.699Z"
+}

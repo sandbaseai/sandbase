@@ -1,0 +1,62 @@
+{
+  "name": "xigua/app-v2/one-video-play-url",
+  "display_name": "Xigua Video Play URL",
+  "type": "api",
+  "vendor": "Xigua",
+  "vendor_slug": "xigua",
+  "description": "Returns the direct playback URL for a specific Xigua video using its unique item identifier. Developers supply the target video ID to retrieve playable media links.",
+  "tags": [
+    "api",
+    "xigua"
+  ],
+  "capabilities": [
+    "api",
+    "xigua"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/xigua/app-v2/one-video-play-url"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "item_id"
+    ],
+    "properties": {
+      "item_id": {
+        "type": "string",
+        "title": "Item Id",
+        "description": "Video id"
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.0015,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "examples": [
+    {
+      "input": {
+        "item_id": "7354954305222377999"
+      },
+      "default": true
+    }
+  ],
+  "readme": "# Xigua Video Play URL API\n\nRetrieve direct video playback links for Xigua videos by providing the target `item_id`. This endpoint allows clients to obtain playable media stream URLs directly.\n\n## Use cases\n\n- Integrate playable Xigua media streams directly into external video players.\n- Retrieve video playback links for content analysis and automated processing pipelines.\n- Verify media availability and inspect streaming URLs for specific video IDs.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/xigua/app-v2/one-video-play-url\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"item_id\": \"<item_id>\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `item_id` | string | Yes | Video id |\n\n## Notes\n\n- `item_id` is required and specifies the unique identifier of the Xigua video.\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [Xigua Single Video Information](/model/xigua/app-v2/one-video): Returns lightweight single video data and associated related video information from Xigua for a specific post by its unique item ID.\n- [Xigua Video Search](/model/xigua/app-v2/search-video): Search Xigua Video (ByteDance long-form video) by keyword: titles, creators, duration, publish time and comment counts, with sort and duration filters.\n- [Xigua User Profile Details](/model/xigua/app-v2/user-info): Returns profile and personal information for a specified Xigua account.\n",
+  "page_url": "https://www.sandbase.ai/model/xigua/app-v2/one-video-play-url",
+  "created_at": "2026-07-31T04:22:35.606Z"
+}

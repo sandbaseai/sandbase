@@ -1,0 +1,72 @@
+{
+  "name": "douyin/xingtu/sign-image",
+  "display_name": "Douyin Xingtu Signed Image URL",
+  "type": "api",
+  "vendor": "Douyin",
+  "vendor_slug": "douyin",
+  "description": "Resolves encrypted Xingtu image URIs into accessible image URLs. Callers can specify preferred image formats such as webp, jpg, or png along with link expiration times.",
+  "tags": [
+    "api",
+    "douyin"
+  ],
+  "capabilities": [
+    "api",
+    "douyin"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/douyin/xingtu/sign-image"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "uri"
+    ],
+    "properties": {
+      "uri": {
+        "type": "string",
+        "title": "Uri",
+        "description": "Image URI, usually obtained from other XingTu API responses"
+      },
+      "format": {
+        "type": "string",
+        "title": "Format",
+        "description": "Image format, default webp, supports: webp, jpg, png, etc."
+      },
+      "durationTS": {
+        "type": "integer",
+        "title": "Durationts",
+        "description": "Duration in seconds, default 86400 (24 hours)"
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.0015,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "examples": [
+    {
+      "input": {
+        "uri": "tos-cn-i-0813c000-ce/oMKzDA3A9QGAuebfsDIAwlDoAfCFEEzSEw8FQZ"
+      },
+      "default": true
+    }
+  ],
+  "readme": "# Douyin Xingtu Signed Image URL API\n\nConvert encrypted Xingtu image URIs into accessible URLs using the `uri` parameter. You can optionally set custom image formats and link validity periods.\n\n## Use cases\n\n- Convert Xingtu image URIs into directly accessible image links.\n- Retrieve Xingtu images in formats such as jpg, png, or webp.\n- Generate temporary media URLs with custom expiration lifetimes.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/douyin/xingtu/sign-image\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"uri\": \"<uri>\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `uri` | string | Yes | Image URI, usually obtained from other XingTu API responses |\n| `format` | string | No | Image format, default webp, supports: webp, jpg, png, etc. |\n| `durationTS` | integer | No | Duration in seconds, default 86400 (24 hours) |\n\n## Notes\n\n- The `uri` parameter is typically retrieved from other Xingtu endpoint responses.\n- The `format` parameter defaults to webp and accepts formats such as jpg and png.\n- The `durationTS` parameter controls link validity in seconds, defaulting to 86400 (24 hours).\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [Douyin Xingtu Author Hot Comment Keywords](/model/douyin/xingtu/author-content-hot-comment-keywords-v1): Returns hot comment keywords from content produced by a Douyin Xingtu creator.\n- [Douyin Xingtu Author Hot Comment Tokens (Xingtu)](/model/douyin/xingtu/author-hot-comment-tokens-v1): Returns hot comment tokens for a Douyin Xingtu creator based on the specified creator ID.\n- [Douyin Xingtu KOL Audience Portrait (V1)](/model/douyin/xingtu/kol-audience-portrait-v1): Returns audience demographic and portrait insights for a Douyin Xingtu creator.\n",
+  "page_url": "https://www.sandbase.ai/model/douyin/xingtu/sign-image",
+  "created_at": "2026-07-31T02:41:50.414Z"
+}

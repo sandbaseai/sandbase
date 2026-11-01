@@ -1,0 +1,275 @@
+{
+  "name": "vidu/q4/image-to-video",
+  "display_name": "Vidu Q4 Image to Video",
+  "type": "video",
+  "vendor": "Vidu",
+  "vendor_slug": "vidu",
+  "description": "Vidu Q4 Preview by Shengshu animates a first-frame image into a 3 to 16 second video at up to 4K. Prompts can direct motion, camera cuts, and spoken dialogue, with native speech and sound effects.",
+  "tags": [
+    "image-to-video"
+  ],
+  "capabilities": [
+    "image-to-video"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "image"
+    ],
+    "properties": {
+      "seed": {
+        "type": "integer",
+        "title": "Seed",
+        "description": "Random seed for reproducibility. If None, a random seed is chosen."
+      },
+      "image": {
+        "type": "string",
+        "title": "Image Url",
+        "examples": [
+          "https://storage.googleapis.com/falserverless/web-examples/vidu/stylish_woman.webp"
+        ],
+        "description": "URL or base64 data URI of the image to use as the first frame. Supports png, jpeg, jpg and webp up to 50 MB."
+      },
+      "prompt": {
+        "type": "string",
+        "title": "Prompt",
+        "default": "",
+        "examples": [
+          "The woman turns toward the camera and smiles, then the shot cuts to a close-up as she says: \"Let's go.\""
+        ],
+        "maxLength": 5000,
+        "description": "Text prompt for video generation, max 5000 characters. Can direct motion, camera cuts, and spoken dialogue."
+      },
+      "duration": {
+        "type": "integer",
+        "title": "Duration",
+        "default": 5,
+        "maximum": 16,
+        "minimum": 3,
+        "description": "Duration of the video in seconds (3-16)"
+      },
+      "resolution": {
+        "enum": [
+          "540p",
+          "720p",
+          "1080p",
+          "2K",
+          "4K"
+        ],
+        "type": "string",
+        "title": "Resolution",
+        "default": "720p",
+        "description": "Output video resolution. Sets the per-second rate."
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "title": "GenerationResponse",
+    "required": [
+      "id",
+      "status"
+    ],
+    "properties": {
+      "id": {
+        "type": "string",
+        "description": "Unique identifier for the generation task."
+      },
+      "error": {
+        "type": "string",
+        "description": "Error message if the task failed. Empty on success."
+      },
+      "model": {
+        "type": "string",
+        "description": "Model ID used for the prediction."
+      },
+      "status": {
+        "enum": [
+          "pending",
+          "running",
+          "completed",
+          "failed",
+          "timeout"
+        ],
+        "type": "string",
+        "description": "Status of the task: pending, running, completed, failed, or timeout."
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "title": "OutputItem",
+          "required": [
+            "url"
+          ],
+          "properties": {
+            "url": {
+              "type": "string",
+              "description": "The URL where the generated content can be downloaded from."
+            },
+            "content_type": {
+              "type": "string",
+              "description": "The MIME type of the output file."
+            }
+          }
+        },
+        "description": "Array of generated content. Empty when status is not completed."
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "formula",
+    "formula": "(params.duration ?? 5) * ((params.resolution ?? \"720p\") == \"4K\" ? 0.39 : (params.resolution ?? \"720p\") == \"2K\" ? 0.19 : (params.resolution ?? \"720p\") == \"1080p\" ? 0.12 : (params.resolution ?? \"720p\") == \"540p\" ? 0.045 : 0.095)",
+    "formula_variables": [
+      "params.duration",
+      "params.resolution"
+    ],
+    "reference_price": 0.475,
+    "price_examples": [
+      {
+        "params": {
+          "duration": 3,
+          "resolution": "540p"
+        },
+        "usd": 0.135
+      },
+      {
+        "params": {
+          "duration": 3,
+          "resolution": "720p"
+        },
+        "usd": 0.285
+      },
+      {
+        "params": {
+          "duration": 3,
+          "resolution": "1080p"
+        },
+        "usd": 0.36
+      },
+      {
+        "params": {
+          "duration": 3,
+          "resolution": "2K"
+        },
+        "usd": 0.57
+      },
+      {
+        "params": {
+          "duration": 3,
+          "resolution": "4K"
+        },
+        "usd": 1.17
+      },
+      {
+        "params": {
+          "duration": 5,
+          "resolution": "540p"
+        },
+        "usd": 0.225
+      },
+      {
+        "params": {
+          "duration": 5,
+          "resolution": "720p"
+        },
+        "usd": 0.475
+      },
+      {
+        "params": {
+          "duration": 5,
+          "resolution": "1080p"
+        },
+        "usd": 0.6
+      },
+      {
+        "params": {
+          "duration": 5,
+          "resolution": "2K"
+        },
+        "usd": 0.95
+      },
+      {
+        "params": {
+          "duration": 5,
+          "resolution": "4K"
+        },
+        "usd": 1.95
+      },
+      {
+        "params": {
+          "duration": 16,
+          "resolution": "540p"
+        },
+        "usd": 0.72
+      },
+      {
+        "params": {
+          "duration": 16,
+          "resolution": "720p"
+        },
+        "usd": 1.52
+      },
+      {
+        "params": {
+          "duration": 16,
+          "resolution": "1080p"
+        },
+        "usd": 1.92
+      },
+      {
+        "params": {
+          "duration": 16,
+          "resolution": "2K"
+        },
+        "usd": 3.04
+      },
+      {
+        "params": {
+          "duration": 16,
+          "resolution": "4K"
+        },
+        "usd": 6.24
+      }
+    ]
+  },
+  "examples": [
+    {
+      "input": {
+        "image": "https://static.sandbase.ai/examples/da3da75f-2e08-46a9-95f1-398e0499bed9/input/99da89c9-98be-4974-8eed-5e8b4965db43.webp",
+        "prompt": "The woman turns toward the camera and smiles, then the shot cuts to a close-up as she says: \"Let's go.\""
+      },
+      "output": [
+        {
+          "url": "https://static.sandbase.ai/examples/da3da75f-2e08-46a9-95f1-398e0499bed9/output/d3ecd824-a438-46f3-ac76-3cac64dc8435.mp4"
+        }
+      ],
+      "default": true
+    },
+    {
+      "input": {
+        "image": "https://static.sandbase.ai/examples/ccdbd99a-6ef9-413d-8bac-ea4670227979/input/4e82b9ae-5614-4a88-84a1-263ed973d933.png",
+        "prompt": "The astronaut raises a hand and waves as the nebula swirls behind him; the camera slowly pushes in and then rises above his helmet. Low cosmic hum and a soft radio crackle."
+      },
+      "output": [
+        {
+          "url": "https://static.sandbase.ai/examples/ccdbd99a-6ef9-413d-8bac-ea4670227979/output/4274e2e4-324c-4c29-b4c5-db06cbdaec30.mp4"
+        }
+      ]
+    }
+  ],
+  "readme": "# Vidu Q4 Image to Video\n\nVidu Q4 Preview image-to-video: animate a first frame into a 3–16 second clip at up to 4K, with native audio such as speech and sound effects directed by the prompt.\n\n## Fields\n\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `prompt` | string | empty | Up to 5,000 characters. Describe motion, camera cuts, and dialogue. |\n| `image` | image URL, required | — | First frame. PNG, JPEG, or WebP up to 50 MB. |\n| `resolution` | `540p` / `720p` / `1080p` / `2K` / `4K` | `720p` | Sets the per-second rate. |\n| `duration` | integer 3–16 | 5 | Output length in seconds. |\n| `seed` | integer | random | Fix it to compare prompt changes. |\n\n## Billing\n\nYou pay for output seconds: $0.045 at 540p, $0.095 at 720p, $0.12 at 1080p, $0.19 at 2K, $0.39 at 4K.\n\n| Output | 540p | 720p | 1080p | 2K | 4K |\n|---|---|---|---|---|---|\n| 3s | $0.135 | $0.285 | $0.36 | $0.57 | $1.17 |\n| 5s (default) | $0.225 | $0.475 | $0.60 | $0.95 | $1.95 |\n| 8s | $0.36 | $0.76 | $0.96 | $1.52 | $3.12 |\n| 16s | $0.72 | $1.52 | $1.92 | $3.04 | $6.24 |\n\nFailed runs are not charged.\n\n## Prompting\n\n- Describe subject, action, camera, and sound. Put spoken lines in quotes.\n- This endpoint has no audio switch.\n\n## Also on SandBase\n\n`vidu/q4/reference-to-video` keeps characters, products, and voices consistent from reference images and audio. Vidu Q3 endpoints such as `vidu/q3/image-to-video` remain available.\n",
+  "cover_url": "https://static.sandbase.ai/covers/vidu/q4/image-to-video/cover-flare-20261008214252.webp",
+  "page_url": "https://www.sandbase.ai/model/vidu/q4/image-to-video",
+  "published_at": "2026-10-07T20:20:15.855Z",
+  "created_at": "2026-10-08T13:19:58.708Z"
+}

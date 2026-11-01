@@ -1,0 +1,72 @@
+{
+  "name": "tiktok/ads/ad-interactive-analysis",
+  "display_name": "TikTok Ad Interactive Analysis",
+  "type": "api",
+  "vendor": "TikTok",
+  "vendor_slug": "tiktok",
+  "description": "Returns audience retention and interaction analytics across video timestamps for a specified ad creative. Supports filtering by analysis metric and time period.",
+  "tags": [
+    "api",
+    "tiktok"
+  ],
+  "capabilities": [
+    "api",
+    "tiktok"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/tiktok/ads/ad-interactive-analysis"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "material_id"
+    ],
+    "properties": {
+      "material_id": {
+        "type": "string",
+        "title": "Material Id",
+        "description": "Ad material ID, required parameter"
+      },
+      "metric_type": {
+        "type": "string",
+        "title": "Metric Type",
+        "description": "Analysis type"
+      },
+      "period_type": {
+        "type": "integer",
+        "title": "Period Type",
+        "description": "Time range, default 180 days"
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.0015,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "examples": [
+    {
+      "input": {
+        "material_id": "7164467399885864962"
+      },
+      "default": true
+    }
+  ],
+  "readme": "# TikTok Ad Interactive Analysis API\n\nLook up audience retention and engagement data across video time points using `material_id`. Customize results with optional `metric_type` and `period_type` parameters.\n\n## Use cases\n\n- Inspect audience retention curves at specific video playback timestamps.\n- Identify high-engagement moments within video ad creatives.\n- Determine optimal ad duration based on historical interaction patterns.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/tiktok/ads/ad-interactive-analysis\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"material_id\": \"<material_id>\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `material_id` | string | Yes | Ad material ID, required parameter |\n| `metric_type` | string | No | Analysis type |\n| `period_type` | integer | No | Time range, default 180 days |\n\n## Notes\n\n- `period_type` specifies the analysis time range and defaults to 180 days.\n- `material_id` is required to identify the target ad material.\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [TikTok Ad Keyframe Analysis](/model/tiktok/ads/ad-keyframe-analysis): Returns keyframe performance metrics across video ad timestamps for a specified material ID, including retention and conversion figures.\n- [TikTok Ad Material Percentile Rankings](/model/tiktok/ads/ad-percentile): Returns ad performance percentile rankings within the industry for a specific ad material.\n- [TikTok Ad Detail](/model/tiktok/ads/ads-detail): Returns detailed information about a single TikTok ad, including creative content, creator information, and engagement performance metrics using a specific ad …\n",
+  "page_url": "https://www.sandbase.ai/model/tiktok/ads/ad-interactive-analysis",
+  "created_at": "2026-07-31T04:13:09.809Z"
+}

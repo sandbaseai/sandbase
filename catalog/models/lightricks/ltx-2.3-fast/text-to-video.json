@@ -1,0 +1,297 @@
+{
+  "name": "lightricks/ltx-2.3-fast/text-to-video",
+  "display_name": "LTX 2.3 Fast Text to Video",
+  "type": "video",
+  "vendor": "Lightricks",
+  "vendor_slug": "lightricks",
+  "description": "Ltx 2.3 Fast by Lightricks - generate cinematic videos from text descriptions with AI. Create high-quality video content with natural motion, camera control, and optional audio generation.",
+  "tags": [
+    "text-to-video"
+  ],
+  "capabilities": [
+    "text-to-video"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "prompt"
+    ],
+    "properties": {
+      "prompt": {
+        "type": "string",
+        "title": "Prompt",
+        "examples": [
+          "Drone descent through the open oculus of a derelict Soviet-era radio telescope dish, spiraling downward into the rusted parabolic bowl where a lone botanist catalogs wildflowers growing through cracked concrete, her red jacket the only color against oxidized metal and grey sky, 24mm on a caged FPV drone, the descent creating a vertigo spiral, Tarkovsky Stalker zones of alien beauty reclaiming technology, science swallowed by nature"
+        ],
+        "maxLength": 5000,
+        "minLength": 1,
+        "description": "The prompt to use for the generated video"
+      },
+      "duration": {
+        "enum": [
+          6,
+          8,
+          10,
+          12,
+          14,
+          16,
+          18,
+          20
+        ],
+        "type": "integer",
+        "title": "Duration",
+        "default": 6,
+        "description": "The duration of the generated video in seconds. The fast model supports 6-20 seconds. Note: Durations longer than 10 seconds (12, 14, 16, 18, 20) are only supported with 25 FPS and 1080p resolution."
+      },
+      "resolution": {
+        "enum": [
+          "1080p",
+          "1440p",
+          "2160p"
+        ],
+        "type": "string",
+        "title": "Resolution",
+        "default": "1080p",
+        "description": "The resolution of the generated video"
+      },
+      "aspect_ratio": {
+        "enum": [
+          "16:9",
+          "9:16"
+        ],
+        "type": "string",
+        "title": "Aspect Ratio",
+        "default": "16:9",
+        "description": "The aspect ratio of the generated image."
+      },
+      "generate_audio": {
+        "type": "boolean",
+        "title": "Generate Audio",
+        "default": true,
+        "description": "Whether to generate audio for the generated video"
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "title": "GenerationResponse",
+    "required": [
+      "id",
+      "status"
+    ],
+    "properties": {
+      "id": {
+        "type": "string",
+        "description": "Unique identifier for the generation task."
+      },
+      "error": {
+        "type": "string",
+        "description": "Error message if the task failed. Empty on success."
+      },
+      "model": {
+        "type": "string",
+        "description": "Model ID used for the prediction."
+      },
+      "status": {
+        "enum": [
+          "pending",
+          "running",
+          "completed",
+          "failed",
+          "timeout"
+        ],
+        "type": "string",
+        "description": "Status of the task: pending, running, completed, failed, or timeout."
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "title": "OutputItem",
+          "required": [
+            "url"
+          ],
+          "properties": {
+            "url": {
+              "type": "string",
+              "examples": [
+                "https://static.sandbase.ai/examples/lightricks/ltx-2.3-fast/text-to-video/output_url_0.mp4"
+              ],
+              "description": "The URL where the generated content can be downloaded from."
+            },
+            "content_type": {
+              "type": "string",
+              "description": "The MIME type of the output file."
+            }
+          }
+        },
+        "description": "Array of generated content. Empty when status is not completed."
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "formula",
+    "formula": "(params.resolution ?? \"1080p\") == \"2160p\" ? (params.duration ?? 6) * 0.24 : (params.resolution ?? \"1080p\") == \"1440p\" ? (params.duration ?? 6) * 0.12 : (params.duration ?? 6) * 0.06",
+    "formula_variables": [
+      "params.duration",
+      "params.resolution"
+    ],
+    "reference_price": 0.36,
+    "price_examples": [
+      {
+        "params": {
+          "duration": 6,
+          "resolution": "1080p"
+        },
+        "usd": 0.36
+      },
+      {
+        "params": {
+          "duration": 6,
+          "resolution": "1440p"
+        },
+        "usd": 0.72
+      },
+      {
+        "params": {
+          "duration": 6,
+          "resolution": "2160p"
+        },
+        "usd": 1.44
+      },
+      {
+        "params": {
+          "duration": 8,
+          "resolution": "1080p"
+        },
+        "usd": 0.48
+      },
+      {
+        "params": {
+          "duration": 8,
+          "resolution": "1440p"
+        },
+        "usd": 0.96
+      },
+      {
+        "params": {
+          "duration": 8,
+          "resolution": "2160p"
+        },
+        "usd": 1.92
+      },
+      {
+        "params": {
+          "duration": 10,
+          "resolution": "1080p"
+        },
+        "usd": 0.6
+      },
+      {
+        "params": {
+          "duration": 10,
+          "resolution": "1440p"
+        },
+        "usd": 1.2
+      },
+      {
+        "params": {
+          "duration": 10,
+          "resolution": "2160p"
+        },
+        "usd": 2.4
+      },
+      {
+        "params": {
+          "duration": 12,
+          "resolution": "1080p"
+        },
+        "usd": 0.72
+      },
+      {
+        "params": {
+          "duration": 12,
+          "resolution": "1440p"
+        },
+        "usd": 1.44
+      },
+      {
+        "params": {
+          "duration": 12,
+          "resolution": "2160p"
+        },
+        "usd": 2.88
+      },
+      {
+        "params": {
+          "duration": 14,
+          "resolution": "1080p"
+        },
+        "usd": 0.84
+      },
+      {
+        "params": {
+          "duration": 14,
+          "resolution": "1440p"
+        },
+        "usd": 1.68
+      },
+      {
+        "params": {
+          "duration": 14,
+          "resolution": "2160p"
+        },
+        "usd": 3.36
+      },
+      {
+        "params": {
+          "duration": 16,
+          "resolution": "1080p"
+        },
+        "usd": 0.96
+      },
+      {
+        "params": {
+          "duration": 16,
+          "resolution": "1440p"
+        },
+        "usd": 1.92
+      },
+      {
+        "params": {
+          "duration": 16,
+          "resolution": "2160p"
+        },
+        "usd": 3.84
+      }
+    ]
+  },
+  "examples": [
+    {
+      "input": {
+        "prompt": "Drone descent through the open oculus of a derelict Soviet-era radio telescope dish, spiraling downward into the rusted parabolic bowl where a lone botanist catalogs wildflowers growing through cracked concrete, her red jacket the only color against oxidized metal and grey sky, 24mm on a caged FPV drone, the descent creating a vertigo spiral, Tarkovsky Stalker zones of alien beauty reclaiming technology, science swallowed by nature"
+      },
+      "output": [
+        {
+          "poster": "https://static.sandbase.ai/examples/posters/d85d133037bc66b4cbf7.jpg",
+          "url": "https://static.sandbase.ai/examples/20ca6eae-1cb7-464e-9b85-168cb86d7d18/output/296401b2-83b4-4935-9d5e-7fa06a75532a.mp4"
+        }
+      ],
+      "default": true
+    }
+  ],
+  "readme": "# LTX 2.3 Fast Text to Video\n\nLTX 2.3 Fast text to video: up to 20 second clips with native audio at 1080p, 1440p, or 4K (2160p).\n\n## Fields\n\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `prompt` | string, required | — | Up to 5,000 characters. |\n| `aspect_ratio` | `16:9` / `9:16` | `16:9` | Output frame shape. |\n| `resolution` | `1080p` / `1440p` / `2160p` | `1080p` | Sets the per-second rate. |\n| `duration` | 6 / 8 / 10 / 12 / 14 / 16 / 18 / 20 | 6 | Output length in seconds. |\n| `generate_audio` | boolean | true | Native audio. |\n\n## Billing\n\nYou pay for output seconds: $0.06 at 1080p, $0.12 at 1440p, $0.24 at 2160p.\n\n| Output | 1080p | 1440p | 2160p |\n|---|---|---|---|\n| 6s (default) | $0.36 | $0.72 | $1.44 |\n| 10s | $0.60 | $1.20 | $2.40 |\n| 20s | $1.20 | $2.40 | $4.80 |\n\nFailed runs are not charged.\n\n## Prompting\n\n- Describe subject, action, camera, and sound.\n\n## Also on SandBase\n\nOther LTX 2.3 endpoints: `lightricks/ltx-2.3-pro/text-to-video`, `lightricks/ltx-2.3-pro/image-to-video`, `lightricks/ltx-2.3-pro/audio-to-video`, `lightricks/ltx-2.3-pro/retake`.\n",
+  "cover_url": "https://static.sandbase.ai/covers/lightricks/ltx-2.3-fast/text-to-video/cover-flare-20261005040239.webp",
+  "page_url": "https://www.sandbase.ai/model/lightricks/ltx-2.3-fast/text-to-video",
+  "published_at": "2026-03-05T15:32:51.533Z",
+  "created_at": "2026-05-15T11:53:15.879Z"
+}

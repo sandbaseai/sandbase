@@ -1,0 +1,46 @@
+{
+  "name": "dataforseo/v3/backlinks/timeseries_new_lost_summary/live",
+  "display_name": "DataForSEO Backlinks New and Lost Over Time",
+  "type": "api",
+  "vendor": "DataForSEO",
+  "vendor_slug": "dataforseo",
+  "description": "New and lost backlinks and referring domains for a domain, grouped by day, week, month or year.",
+  "tags": [
+    "backlinks",
+    "seo",
+    "history"
+  ],
+  "capabilities": [
+    "backlinks",
+    "seo",
+    "history"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/dataforseo/v3/backlinks/timeseries_new_lost_summary/live"
+  },
+  "input_schema": {
+    "type": "object",
+    "properties": {},
+    "description": "Request parameters forwarded to DataForSEO /v3/backlinks/timeseries_new_lost_summary/live. See DataForSEO docs for full schema.",
+    "additionalProperties": true
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "usage_based",
+    "note": "Billed per call from metered usage; the reference price is typical.",
+    "reference_price": 0.024144
+  },
+  "readme": "# DataForSEO Backlinks New and Lost Over Time API\n\nNew and lost backlinks and referring domains for a domain, grouped by day, week, month or year.\n\nRequest fields follow the official DataForSEO `/v3/backlinks/timeseries_new_lost_summary/live` task schema (one task per call). The response is DataForSEO's original JSON; results are in `tasks[].result`.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/dataforseo/v3/backlinks/timeseries_new_lost_summary/live\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"target\": \"nike.com\", \"date_from\": \"2026-07-01\", \"date_to\": \"2026-10-01\", \"group_range\": \"month\"}'\n```\n\n## Parameters\n\nThe JSON body is forwarded to the upstream endpoint. Main fields:\n\n| Name | Description |\n|---|---|\n| `target` | Domain, e.g. \"nike.com\". |\n| `date_from` | Start date, \"yyyy-mm-dd\". |\n| `date_to` | End date, \"yyyy-mm-dd\". |\n| `group_range` | \"day\", \"week\", \"month\" or \"year\". |\n\n## Reference\n\n- Official docs: https://docs.dataforseo.com/v3/backlinks/timeseries_new_lost_summary/live/\n\n## Pricing\n\nBilled at the actual cost of each call, about $0.024144 for the request above. The cost grows with the number of rows, targets or tokens a call returns. Failed calls are not charged. Searches with no results are billed at their actual cost.\n",
+  "page_url": "https://www.sandbase.ai/model/dataforseo/v3/backlinks/timeseries_new_lost_summary/live",
+  "published_at": "2026-11-01T00:00:00Z",
+  "created_at": "2026-11-01T14:29:05.484Z"
+}

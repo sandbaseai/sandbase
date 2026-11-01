@@ -1,0 +1,107 @@
+{
+  "name": "douyin/xingtu-v3/data-sp-author-link-info",
+  "display_name": "Douyin Xingtu Creator Link Metrics",
+  "type": "api",
+  "vendor": "Douyin",
+  "vendor_slug": "douyin",
+  "description": "Get Douyin Creator Marketplace (Xingtu) creator-link metrics for a specified creator, content channel, and industry category. Use it to review creator link information in an industry context.",
+  "tags": [
+    "api",
+    "douyin",
+    "social-media"
+  ],
+  "capabilities": [
+    "api",
+    "douyin",
+    "social-media"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/douyin/xingtu-v3/data-sp-author-link-info"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "oAuthorId"
+    ],
+    "properties": {
+      "platform": {
+        "enum": [
+          "SHORT_VIDEO",
+          "LIVE_STREAMING",
+          "PICTURE_TEXT",
+          "SHORT_DRAMA"
+        ],
+        "type": "string",
+        "default": "SHORT_VIDEO",
+        "description": "Platform type."
+      },
+      "oAuthorId": {
+        "type": "string",
+        "example": "6870161898013196295",
+        "description": "Author's unique ID."
+      },
+      "industryTag": {
+        "enum": [
+          "ALL",
+          "ELECTRONICS_AND_APPLIANCES",
+          "SHOPPING",
+          "FOOD_AND_BEVERAGE",
+          "CLOTHING_AND_ACCESSORIES",
+          "HEALTHCARE_AND_MEDICAL",
+          "MEDICAL_INSTITUTIONS",
+          "HOME_AND_BUILDING_MATERIALS",
+          "LOCAL_SERVICES",
+          "BUSINESS_SERVICES",
+          "CULTURE_SPORTS_ENTERTAINMENT",
+          "BEAUTY_SERVICES",
+          "REAL_ESTATE",
+          "EDUCATION_AND_TRAINING",
+          "TRAVEL_AND_TOURISM",
+          "PUBLIC_SERVICES",
+          "GAMES",
+          "RETAIL",
+          "TRANSPORTATION_EQUIPMENT",
+          "AUTOMOTIVE",
+          "AGRICULTURE_FORESTRY_FISHERY",
+          "CHEMICAL_AND_ENERGY",
+          "ELECTRONICS_AND_ELECTRICAL",
+          "MACHINERY_EQUIPMENT",
+          "MEDIA_AND_INFORMATION",
+          "LOGISTICS",
+          "TELECOMMUNICATIONS",
+          "FINANCIAL_SERVICES",
+          "CATERING_SERVICES",
+          "SOFTWARE_TOOLS",
+          "FRANCHISING_AND_INVESTMENT",
+          "BEAUTY_AND_COSMETICS",
+          "MOTHER_BABY_AND_PET",
+          "DAILY_CHEMICALS",
+          "PHYSICAL_BOOKS",
+          "SOCIAL_AND_COMMUNICATION",
+          "CULTURAL_SUPPLIES",
+          "SPORTS_OUTDOOR"
+        ],
+        "type": "string",
+        "default": "ALL",
+        "description": "Industry tag."
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.020833
+  },
+  "readme": "# Douyin Xingtu Creator Link Metrics API\n\nGet Douyin Creator Marketplace (Xingtu) creator-link metrics for a specified creator, content channel, and industry category. Use it to review creator link information in an industry context.\n\nThe response is the platform's original data structure.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/douyin/xingtu-v3/data-sp-author-link-info\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"oAuthorId\": \"6870161898013196295\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `oAuthorId` | string | Yes | Author's unique ID. |\n| `platform` | string | No | Platform type. |\n| `industryTag` | string | No | Industry tag. |\n\n## Pricing\n\nFlat price per call. Failed calls and empty results are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/douyin/xingtu-v3/data-sp-author-link-info",
+  "created_at": "2026-10-29T12:04:30.056Z"
+}

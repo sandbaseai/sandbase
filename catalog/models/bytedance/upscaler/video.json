@@ -1,0 +1,189 @@
+{
+  "name": "bytedance/upscaler/video",
+  "display_name": "ByteDance Video Upscaler",
+  "type": "video",
+  "vendor": "Bytedance",
+  "vendor_slug": "bytedance",
+  "description": "Bytedance Video Upscaler upscales videos to 4K resolution with AI-powered enhancement. Supports multiple quality tiers (fast, standard, pro), frame rate interpolation to 60fps, and presets optimized for UGC, short series, AIGC, and old film restoration.",
+  "tags": [
+    "video-to-video"
+  ],
+  "capabilities": [
+    "video-to-video"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "video"
+    ],
+    "properties": {
+      "video": {
+        "type": "string",
+        "title": "Video Url",
+        "examples": [
+          "https://static.sandbase.ai/examples/bytedance/upscaler/video/input_video_0.mp4"
+        ],
+        "description": "The URL of the video to upscale."
+      },
+      "fidelity": {
+        "enum": [
+          "high",
+          "medium"
+        ],
+        "type": "string",
+        "title": "Fidelity",
+        "default": "high",
+        "description": "The enhancement intensity. 'high' applies mild enhancement while keeping visual texture close to the source video. 'medium' provides a balanced image quality enhancement."
+      },
+      "target_fps": {
+        "enum": [
+          "30fps",
+          "60fps"
+        ],
+        "type": "string",
+        "title": "Target Fps",
+        "default": "30fps",
+        "description": "The target FPS of the video to upscale."
+      },
+      "scale_ratio": {
+        "type": "number",
+        "title": "Scale Ratio",
+        "maximum": 10,
+        "minimum": 1.1,
+        "description": "The scaling ratio for the output video resolution. When set, overrides target_resolution and scales the input resolution by this factor (e.g., 2.0 doubles the resolution). Range: 1.1 to 10.0. Please note that this is valid only up to 4k resolution, and trying to scale beyond 4k will result in an error. (4k is defined as having atotal pixel count of 3840x2160)."
+      },
+      "enhancement_tier": {
+        "enum": [
+          "fast",
+          "standard",
+          "pro"
+        ],
+        "type": "string",
+        "title": "Enhancement Tier",
+        "default": "standard",
+        "description": "The enhancement quality tier. 'fast' provides essential upscaling with good speed, 'standard' uses adaptive algorithms for better visual texture, 'pro' uses large-model restoration for cinematic quality (longer processing time), and 10 times the cost of `standard` and `fast`."
+      },
+      "target_resolution": {
+        "enum": [
+          "1080p",
+          "2k",
+          "4k"
+        ],
+        "type": "string",
+        "title": "Target Resolution",
+        "default": "1080p",
+        "description": "The target resolution of the video to upscale."
+      },
+      "enhancement_preset": {
+        "enum": [
+          "general",
+          "ugc",
+          "short_series",
+          "aigc",
+          "old_film"
+        ],
+        "type": "string",
+        "title": "Enhancement Preset",
+        "default": "general",
+        "description": "The enhancement preset optimized for specific video scenarios. 'general' is a general-purpose template, 'ugc' targets user-generated short videos, 'short_series' is for short dramas, 'aigc' is for AI-generated content, and 'old_film' is for classic film restoration."
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "title": "GenerationResponse",
+    "required": [
+      "id",
+      "status"
+    ],
+    "properties": {
+      "id": {
+        "type": "string",
+        "description": "Unique identifier for the generation task."
+      },
+      "error": {
+        "type": "string",
+        "description": "Error message if the task failed. Empty on success."
+      },
+      "model": {
+        "type": "string",
+        "description": "Model ID used for the prediction."
+      },
+      "status": {
+        "enum": [
+          "pending",
+          "running",
+          "completed",
+          "failed",
+          "timeout"
+        ],
+        "type": "string",
+        "description": "Status of the task: pending, running, completed, failed, or timeout."
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "title": "OutputItem",
+          "required": [
+            "url"
+          ],
+          "properties": {
+            "url": {
+              "type": "string",
+              "examples": [
+                "https://static.sandbase.ai/examples/bytedance/upscaler/video/output_url_1.mp4"
+              ],
+              "description": "The URL where the generated content can be downloaded from."
+            },
+            "content_type": {
+              "type": "string",
+              "description": "The MIME type of the output file."
+            }
+          }
+        },
+        "description": "Array of generated content. Empty when status is not completed."
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "formula",
+    "formula": "Math.ceil(usage.duration ?? media_duration(params.video) ?? 5.0) * 0.0072 * ((params.target_resolution ?? \"1080p\") == \"4k\" ? 4 : (params.target_resolution ?? \"1080p\") == \"2k\" ? 2 : 1) * ((params.enhancement_tier ?? \"standard\") == \"pro\" ? 10 : 1) * ((params.target_fps ?? \"30fps\") == \"60fps\" ? 2 : 1)",
+    "formula_variables": [
+      "params.enhancement_tier",
+      "params.target_fps",
+      "params.target_resolution",
+      "params.video",
+      "usage.duration"
+    ],
+    "reference_price": 0.036
+  },
+  "examples": [
+    {
+      "input": {
+        "video": "https://static.sandbase.ai/examples/519bb19f-f235-4c5c-bff2-ba45eaaa714d/input/a36e41d0-65b7-4499-810b-1e7d2f89b885.mp4"
+      },
+      "output": [
+        {
+          "poster": "https://static.sandbase.ai/examples/posters/7ac39d68a6a63b7b74d0.jpg",
+          "url": "https://static.sandbase.ai/examples/519bb19f-f235-4c5c-bff2-ba45eaaa714d/output/47319d72-d379-4648-8c3b-3b126d70331f.mp4"
+        }
+      ],
+      "default": true
+    }
+  ],
+  "readme": "# ByteDance Video Upscaler\n\nByteDance Video Upscaler enlarges videos to 1080p, 2K, or 4K with three enhancement tiers, optional 60fps interpolation, and presets for UGC, short drama, AI-generated, and old-film footage.\n\n## Fields\n\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `video` | video URL, required | — | Video to upscale. |\n| `enhancement_preset` | `general` / `ugc` / `short_series` / `aigc` / `old_film` | `general` | Tune restoration to the footage type. |\n| `scale_ratio` | number 1.1–10 | — | Optional explicit scale factor. |\n| `target_resolution` | `1080p` / `2k` / `4k` | `1080p` | Output tier; sets the rate. |\n| `target_fps` | `30fps` / `60fps` | `30fps` | `60fps` interpolates frames and doubles the rate. |\n| `enhancement_tier` | `fast` / `standard` / `pro` | `standard` | `fast`, `standard`, or `pro` (10× the standard rate). |\n| `fidelity` | `high` / `medium` | `high` | `high` stays closer to the source. |\n\n## Billing\n\n$0.0072 per second at 1080p, standard tier, 30fps. 2K is 2× and 4K is 4×; `pro` is 10×; `60fps` is 2×. Seconds are rounded up.\n\n| Video | 1080p | 2k | 4k |\n|---|---|---|---|\n| 10s, standard, 30fps | $0.072 | $0.144 | $0.288 |\n| 10s, standard, 60fps | $0.144 | $0.288 | $0.576 |\n| 10s, pro, 30fps | $0.72 | $1.44 | $2.88 |\n\nFailed runs are not charged.\n\n## Also on SandBase\n\nRelated: `bytedance/seedvr/upscale/video`, `alibaba/flashvsr`.\n",
+  "cover_url": "https://static.sandbase.ai/covers/bytedance/upscaler/video/cover-flare-20261005033537.webp",
+  "page_url": "https://www.sandbase.ai/model/bytedance/upscaler/video",
+  "published_at": "2025-10-31T16:15:01.762Z",
+  "created_at": "2026-05-15T01:32:02.83Z"
+}

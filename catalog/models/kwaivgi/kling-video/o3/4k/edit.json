@@ -1,0 +1,157 @@
+{
+  "name": "kwaivgi/kling-video/o3/4k/edit",
+  "display_name": "Kling O3 4K Video Edit",
+  "type": "video",
+  "vendor": "KwaiVGI",
+  "vendor_slug": "kwaivgi",
+  "description": "Kling O3 4K Video Edit by Kuaishou edits an input video from a text instruction, optionally guided by reference images, at native 4K.",
+  "tags": [
+    "video-to-video"
+  ],
+  "capabilities": [
+    "video-to-video"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "prompt",
+      "video"
+    ],
+    "properties": {
+      "video": {
+        "type": "string",
+        "title": "Video Url",
+        "examples": [
+          "https://static.sandbase.ai/examples/kwaivgi/mirrored/example_inputs/kling-o3/pro-v2v-edit/video_reference.mp4"
+        ],
+        "description": "Reference video URL. Only .mp4/.mov formats, 3-10s duration, 720-2160px resolution, max 200MB."
+      },
+      "images": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        },
+        "title": "Image Urls",
+        "examples": [
+          "https://static.sandbase.ai/examples/kwaivgi/mirrored/example_inputs/kling-o3/pro-v2v-edit/image_url1.jpg"
+        ],
+        "description": "Reference images for style/appearance. Reference in prompt as @Image1, @Image2, etc. Maximum 4 total (elements + reference images) when using video."
+      },
+      "prompt": {
+        "type": "string",
+        "title": "Prompt",
+        "examples": [
+          "Change environment to be fully snow as @Image1. Replace animal with @Element1"
+        ],
+        "maxLength": 2500,
+        "description": "Text prompt for video generation. Reference video as @Video1."
+      },
+      "shot_type": {
+        "type": "string",
+        "title": "Shot Type",
+        "default": "customize",
+        "description": "The type of multi-shot video generation."
+      },
+      "keep_audio": {
+        "type": "boolean",
+        "title": "Keep Audio",
+        "default": true,
+        "description": "Whether to keep the original audio from the reference video. "
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "title": "GenerationResponse",
+    "required": [
+      "id",
+      "status"
+    ],
+    "properties": {
+      "id": {
+        "type": "string",
+        "description": "Unique identifier for the generation task."
+      },
+      "error": {
+        "type": "string",
+        "description": "Error message if the task failed. Empty on success."
+      },
+      "model": {
+        "type": "string",
+        "description": "Model ID used for the prediction."
+      },
+      "status": {
+        "enum": [
+          "pending",
+          "running",
+          "completed",
+          "failed",
+          "timeout"
+        ],
+        "type": "string",
+        "description": "Status of the task: pending, running, completed, failed, or timeout."
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "title": "OutputItem",
+          "required": [
+            "url"
+          ],
+          "properties": {
+            "url": {
+              "type": "string",
+              "examples": [
+                "https://static.sandbase.ai/examples/kwaivgi/mirrored/example_outputs/kling-o3/pro-v2v-edit/output.mp4"
+              ],
+              "description": "The URL where the generated content can be downloaded from."
+            },
+            "content_type": {
+              "type": "string",
+              "description": "The MIME type of the output file."
+            }
+          }
+        },
+        "description": "Array of generated content. Empty when status is not completed."
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "formula",
+    "formula": "(media_duration(params.video) ?? 15.0) * 0.42",
+    "formula_variables": [
+      "params.video"
+    ],
+    "reference_price": 2.1
+  },
+  "examples": [
+    {
+      "input": {
+        "prompt": "Change environment to be fully snow as @Image1. Replace animal with @Element1",
+        "video": "https://static.sandbase.ai/examples/9a3754af-416e-4d82-9080-086173a5abf6/input/ccf25009-a184-4290-9917-1ac770a9a29e.mp4"
+      },
+      "output": [
+        {
+          "poster": "https://static.sandbase.ai/examples/posters/85513ed0d7d10db979c7.jpg",
+          "url": "https://static.sandbase.ai/examples/9a3754af-416e-4d82-9080-086173a5abf6/output/d6db0f2f-26c2-4aeb-887e-5c1933cadd74.mp4"
+        }
+      ],
+      "default": true
+    }
+  ],
+  "readme": "# Kling O3 4K Video Edit\n\nKling O3 4K video edit: change an existing clip with an instruction, such as restyling it or swapping objects or people, while motion and camera are kept. Reference images can supply the new look.\n\n## Fields\n\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `prompt` | string, required | — | Up to 2,500 characters. |\n| `images` | image URL[] | — | Optional reference images, @Image1, @Image2, … |\n| `video` | video URL, required | — | Source clip, @Video1 in the prompt. |\n| `shot_type` | string | `customize` | `customize` follows your `multi_prompt` shot list; `intelligent` lets the model plan the cuts. |\n| `keep_audio` | boolean | true | Keep the source video's audio track. |\n\n## Billing\n\nYou pay $0.42 per second of the source video. The quote before submission assumes 15 seconds; the final charge uses the measured length.\n\n| Source clip | Price |\n|---|---|\n| 3s source | $1.26 |\n| 5s source | $2.10 |\n| 10s source | $4.20 |\n| 15s source | $6.30 |\n\nFailed runs are not charged.\n\n## Prompting\n\n- Lead with the change and say what must stay: “replace the jacket with @Image1; keep the walk and the camera”.\n\n## Limits\n\n- Output length follows the source video.\n\n## Also on SandBase\n\nOther Kling O3 4K endpoints and tiers: `kwaivgi/kling-video/o3/4k/text-to-video`, `kwaivgi/kling-video/o3/4k/image-to-video`, `kwaivgi/kling-video/o3/4k/reference-to-video`, `kwaivgi/kling-video/o3/4k/video-to-video`, `kwaivgi/kling-video/o3/standard/edit`, `kwaivgi/kling-video/o3/pro/edit`.\n",
+  "cover_url": "https://static.sandbase.ai/covers/kwaivgi/kling-video/o3/4k/edit/cover-flare-20261005145719.webp",
+  "page_url": "https://www.sandbase.ai/model/kwaivgi/kling-video/o3/4k/edit",
+  "published_at": "2026-10-05T04:19:05Z",
+  "created_at": "2026-10-05T04:51:52.341Z"
+}

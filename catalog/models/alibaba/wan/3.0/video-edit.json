@@ -1,0 +1,204 @@
+{
+  "name": "alibaba/wan/3.0/video-edit",
+  "display_name": "Wan 3.0 Video Edit",
+  "type": "video",
+  "vendor": "Alibaba",
+  "vendor_slug": "alibaba",
+  "description": "Wan 3.0 Video Edit by Alibaba restyles or modifies an input video from a text instruction, optionally guided by reference images and audio, keeping the original length.",
+  "tags": [
+    "video-to-video"
+  ],
+  "capabilities": [
+    "video-to-video"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "prompt",
+      "video"
+    ],
+    "properties": {
+      "seed": {
+        "type": "integer",
+        "title": "Seed",
+        "maximum": 2147483647,
+        "minimum": 0,
+        "description": "Random seed (0-2147483647) for reproducible results. Omit for a random seed; the same seed may still produce slightly different results."
+      },
+      "video": {
+        "type": "string",
+        "title": "Video",
+        "examples": [
+          "https://help-static-aliyun-doc.aliyuncs.com/file-manage-files/zh-CN/20260402/ldnfdf/wan2.7-videoedit-style-change.mp4"
+        ],
+        "description": "URL of the input video (MP4 or MOV; 1-15 seconds, at least 16 fps, 240-4096px per side, under 100MB)."
+      },
+      "audios": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        },
+        "title": "Audios",
+        "examples": [],
+        "maxItems": 5,
+        "description": "Up to 5 optional reference audio URLs (WAV or MP3; 1-15s each, 15s total, under 15MB each)."
+      },
+      "images": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        },
+        "title": "Images",
+        "examples": [],
+        "maxItems": 10,
+        "description": "Up to 10 optional reference image URLs (JPEG, PNG, BMP, or WebP; up to 20MB each). Refer to them in the prompt as Image 1, Image 2, and so on."
+      },
+      "prompt": {
+        "type": "string",
+        "title": "Prompt",
+        "maxLength": 5000,
+        "minLength": 1,
+        "description": "Text instruction describing the editing. Refer to the input video as Video 1 and to reference images or audio as Image 1, Audio 1, and so on."
+      },
+      "resolution": {
+        "enum": [
+          "480p",
+          "720p",
+          "1080p"
+        ],
+        "type": "string",
+        "title": "Resolution",
+        "default": "720p",
+        "description": "Output video resolution tier."
+      },
+      "generate_audio": {
+        "type": "boolean",
+        "title": "Generate Audio",
+        "default": true,
+        "description": "Generate a synchronized audio track. Pricing is the same either way."
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "title": "GenerationResponse",
+    "required": [
+      "id",
+      "status"
+    ],
+    "properties": {
+      "id": {
+        "type": "string",
+        "description": "Unique identifier for the generation task."
+      },
+      "error": {
+        "type": "string",
+        "description": "Error message if the task failed. Empty on success."
+      },
+      "model": {
+        "type": "string",
+        "description": "Model ID used for the prediction."
+      },
+      "status": {
+        "enum": [
+          "pending",
+          "running",
+          "completed",
+          "failed",
+          "timeout"
+        ],
+        "type": "string",
+        "description": "Status of the task: pending, running, completed, failed, or timeout."
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "title": "OutputItem",
+          "required": [
+            "url"
+          ],
+          "properties": {
+            "url": {
+              "type": "string",
+              "description": "The URL where the generated content can be downloaded from."
+            },
+            "content_type": {
+              "type": "string",
+              "description": "The MIME type of the output file."
+            }
+          }
+        },
+        "description": "Array of generated content. Empty when status is not completed."
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "formula",
+    "formula": "2 * Math.round(usage.duration ?? media_duration(params.video) ?? 5.0) * ((params.resolution ?? \"720p\") == \"1080p\" ? 0.20 : (params.resolution ?? \"720p\") == \"480p\" ? 0.05 : 0.10)",
+    "formula_variables": [
+      "params.resolution",
+      "params.video",
+      "usage.duration"
+    ],
+    "reference_price": 1
+  },
+  "examples": [
+    {
+      "input": {
+        "prompt": "Convert the entire scene to clay style",
+        "video": "https://static.sandbase.ai/examples/d2c29bdb-fa51-4c8d-8cdc-f3bfa6f5fccc/input/fe903192-9db0-40ad-8d3f-149e3cd21c99.mp4"
+      },
+      "output": [
+        {
+          "poster": "https://static.sandbase.ai/examples/posters/cf8c6f43ea34032d01f8.jpg",
+          "url": "https://static.sandbase.ai/examples/d2c29bdb-fa51-4c8d-8cdc-f3bfa6f5fccc/output/fdf7f5e2-5cdd-49c3-b6e5-b1e835618cee.mp4"
+        }
+      ],
+      "default": true
+    },
+    {
+      "input": {
+        "prompt": "Edit the video, change the man's dialogue to: \"The deal is done. Now... we disappear.\"",
+        "video": "https://static.sandbase.ai/examples/74ce2b92-9d62-4a4a-8f9a-2d3180b7336b/input/f5c743b3-3244-444b-a631-1f7d7091f7ab.mp4"
+      },
+      "output": [
+        {
+          "poster": "https://static.sandbase.ai/examples/posters/40cbbb6eb6caaa0e7770.jpg",
+          "url": "https://static.sandbase.ai/examples/74ce2b92-9d62-4a4a-8f9a-2d3180b7336b/output/9b241de5-c7fa-420d-9361-2440c37a62c1.mp4"
+        }
+      ]
+    },
+    {
+      "input": {
+        "images": [
+          "https://static.sandbase.ai/examples/b05d3383-cab9-4358-8672-2868922f0b3e/input/c21f77b4-3386-43ba-8e42-ccbfbd3db5c5.png",
+          "https://static.sandbase.ai/examples/b05d3383-cab9-4358-8672-2868922f0b3e/input/a563aa03-d3a5-4a4a-9353-af2780d6add2.png",
+          "https://static.sandbase.ai/examples/b05d3383-cab9-4358-8672-2868922f0b3e/input/ae8e00c2-cd2a-44d9-93f2-aada9604ff4c.png"
+        ],
+        "prompt": "Edit the video: the woman in Video 1 puts on the hat from Image 1, naturally fitting her head shape. The man in Video 1 puts on the hat from Image 2, naturally fitting his head shape. The man's russet-brown shirt is replaced with the blue washed loose denim shirt from Image 3, with the collar open and sleeves rolled up to the forearms. The movements, other clothing, and the rest of the scene remain unchanged.",
+        "video": "https://static.sandbase.ai/examples/b05d3383-cab9-4358-8672-2868922f0b3e/input/154795e4-429e-43ba-b751-929cee0ca615.mp4"
+      },
+      "output": [
+        {
+          "poster": "https://static.sandbase.ai/examples/posters/151e27d1c6c1148325d6.jpg",
+          "url": "https://static.sandbase.ai/examples/b05d3383-cab9-4358-8672-2868922f0b3e/output/a3945885-972c-4036-a685-02d2bef27585.mp4"
+        }
+      ]
+    }
+  ],
+  "readme": "# Wan 3.0 Video Edit\n\nChange an existing clip with a sentence: restyle it, swap a subject or prop, or rework the setting. Optional reference images and audio guide the change. The result keeps the length and framing of the source.\n\n## Fields\n\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `prompt` | string, required | — | Up to 5,000 characters. |\n| `video` | video URL, required | — | Source clip, Video 1 in the prompt. MP4/MOV, 1–15s, ≥16fps, 240–4096px per side, ≤100MB. |\n| `images` | image URL[] (≤10) | — | Referenced as Image 1, Image 2, … |\n| `audios` | audio URL[] (≤5) | — | WAV/MP3, 1–15s each, 15s total, ≤15MB. Referenced as Audio 1, … |\n| `resolution` | `480p` / `720p` / `1080p` | `720p` | Sets the per-second rate. |\n| `generate_audio` | boolean | true | Native dialogue, music, and effects. Same price on or off. |\n| `seed` | integer 0–2147483647 | random | Fix it to compare prompt changes. |\n\nThere is no `duration` field; the output is as long as the source.\n\n## Billing\n\nLike the official Wan 3.0 rate, billing counts the source clip and the edited output, which are the same length, so each source second bills twice: $0.10 at 480p, $0.20 at 720p, $0.40 at 1080p. References are not metered.\n\n| Source clip | Billed | 480p | 720p | 1080p |\n|---|---|---|---|---|\n| 2s | 4s | $0.20 | $0.40 | $0.80 |\n| 5s | 10s | $0.50 | $1.00 | $2.00 |\n| 10s | 20s | $1.00 | $2.00 | $4.00 |\n| 15s | 30s | $1.50 | $3.00 | $6.00 |\n\nThe quote shown before submission assumes a 5-second source ($1.00 at 720p); the final charge uses the measured length. Failed runs are not charged. Output files are copied to SandBase storage and the returned URL stays valid for 7 days; download anything you need to keep.\n\n## Prompting\n\n- Lead with the change and state what must stay: “turn the scene into clay animation; keep her face and the camera motion”.\n- Refer to the source as Video 1 and to references as Image 1 or Audio 1.\n- Draft at 480p; edits cost twice the source length.\n\n## Limits\n\n- The output aspect ratio follows the source video.\n- To add new footage after the clip, use video-extend.\n\n## Also on SandBase\n\nOther Wan 3.0 endpoints: `alibaba/wan/3.0/video` (all modes in one schema), `alibaba/wan/3.0/text-to-video`, `alibaba/wan/3.0/image-to-video`, `alibaba/wan/3.0/reference-to-video`, `alibaba/wan/3.0/video-extend`.",
+  "cover_url": "https://static.sandbase.ai/covers/alibaba/wan/3.0/video-edit/cover-flare-20261005084608.webp",
+  "page_url": "https://www.sandbase.ai/model/alibaba/wan/3.0/video-edit",
+  "published_at": "2026-10-04T00:00:00Z",
+  "created_at": "2026-10-04T10:47:40.345Z"
+}

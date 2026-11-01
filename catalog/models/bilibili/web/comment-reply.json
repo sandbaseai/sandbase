@@ -1,0 +1,74 @@
+{
+  "name": "bilibili/web/comment-reply",
+  "display_name": "Bilibili Comment Replies",
+  "type": "api",
+  "vendor": "Bilibili",
+  "vendor_slug": "bilibili",
+  "description": "Returns replies to a specific comment on a Bilibili video by video ID and comment ID. Supports pagination to browse threaded discussion replies.",
+  "tags": [
+    "api",
+    "bilibili"
+  ],
+  "capabilities": [
+    "api",
+    "bilibili"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/bilibili/web/comment-reply"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "bv_id",
+      "rpid"
+    ],
+    "properties": {
+      "pn": {
+        "type": "integer",
+        "title": "Pn",
+        "description": "Page number"
+      },
+      "rpid": {
+        "type": "string",
+        "title": "Rpid",
+        "description": "Reply id"
+      },
+      "bv_id": {
+        "type": "string",
+        "title": "Bv Id",
+        "description": "Video id"
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.0015,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "examples": [
+    {
+      "input": {
+        "bv_id": "BV1dFad6aEz9",
+        "rpid": "237108091664"
+      },
+      "default": true
+    }
+  ],
+  "readme": "# Bilibili Comment Replies API\n\nFetch threaded replies for a specific comment using `bv_id` and `rpid`. Browse through conversation pages by specifying `pn`.\n\n## Use cases\n\n- Inspect user conversations beneath specific video comments.\n- Analyze engagement and reaction metrics on comment threads.\n- Build moderation or archiving tools for video discussion replies.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/bilibili/web/comment-reply\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"bv_id\": \"BV1dFad6aEz9\", \"rpid\": \"237108091664\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `rpid` | string | Yes | Reply id |\n| `bv_id` | string | Yes | Video id |\n| `pn` | integer | No | Page number |\n\n## Example response\n\nReal response for the request above, trimmed to the main fields. User names and long IDs are masked.\n\n```json\n{\n  \"data\": {\n    \"replies\": [\n      {\n        \"count\": 0,\n        \"ctime\": 1723373731,\n        \"dynamic_id_str\": \"0\",\n        \"like\": 18,\n        \"rcount\": 0,\n        \"type\": 1,\n        \"member\": {\n          \"rank\": \"10000\",\n          \"uname\": \"喜欢孤独的滋味\"\n        },\n        \"reply_control\": {\n          \"time_desc\": \"786天前发布\"\n        },\n        \"up_action\": {\n          \"like\": false\n        }\n      }\n    ]\n  }\n}\n```\n\n## Notes\n\n- Identify the target video using `bv_id`.\n- Provide the parent comment identifier via `rpid`.\n- Use `pn` to page through nested reply results.\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [Bilibili Streaming Areas](/model/bilibili/web/all-live-areas): Returns the complete list of streaming broadcast areas and categories on Bilibili.\n- [Bilibili BV to AID Converter](/model/bilibili/web/bv-to-aid): Converts a Bilibili BV identifier to its corresponding numeric AID value.\n- [Bilibili User Collection Folders](/model/bilibili/web/collect-folders): Returns the collection folders owned by a specific Bilibili user.\n",
+  "page_url": "https://www.sandbase.ai/model/bilibili/web/comment-reply",
+  "created_at": "2026-07-31T03:53:36.425Z"
+}

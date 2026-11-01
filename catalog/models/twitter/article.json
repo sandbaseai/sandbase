@@ -1,0 +1,75 @@
+{
+  "name": "twitter/article",
+  "display_name": "X / Twitter Article",
+  "type": "api",
+  "vendor": "X (Twitter)",
+  "vendor_slug": "twitter",
+  "description": "Get a public X long-form article from its wrapper post URL, including its author, engagement, cover image, and structured content blocks.",
+  "tags": [
+    "api",
+    "twitter",
+    "social-media"
+  ],
+  "capabilities": [
+    "api",
+    "twitter",
+    "social-media"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/twitter/article"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "url"
+    ],
+    "properties": {
+      "url": {
+        "type": "string",
+        "example": "https://x.com/Decentralisedco/status/1905545699552375179",
+        "description": "Canonical x.com or twitter.com URL of the public wrapper post for an X Article."
+      }
+    },
+    "additionalProperties": false
+  },
+  "response_schema": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string"
+      },
+      "model": {
+        "type": "string"
+      },
+      "status": {
+        "type": "string"
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "data": {
+              "type": "object",
+              "description": "Normalized result for this request."
+            }
+          }
+        }
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "usage_based",
+    "note": "Billed per call from metered usage; the reference price is typical.",
+    "reference_price": 0.00054
+  },
+  "readme": "# X / Twitter Article API\n\nGet a public X long-form article from its wrapper post URL, including its author, engagement, cover image, and structured content blocks.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/twitter/article\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"url\": \"https://x.com/Decentralisedco/status/1905545699552375179\"}'\n```\n\nThe result is returned in `outputs[0].data`. A lookup that finds nothing still succeeds and returns `found: false`.\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `url` | string | Yes | Canonical x.com or twitter.com URL of the public wrapper post for an X Article. |\n\n## Pricing\n\nBilled at the actual cost of each call, usually $0.00054 per request. A call can cost more when the first data source fails and another one answers. Failed calls are not charged. Lookups that find nothing and searches with no results are billed at their actual cost, which is often lower and can be $0.\n",
+  "page_url": "https://www.sandbase.ai/model/twitter/article",
+  "created_at": "2026-10-31T10:45:47.154Z"
+}

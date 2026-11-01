@@ -1,0 +1,258 @@
+{
+  "name": "alibaba/happy-horse/text-to-video",
+  "display_name": "Happy Horse Text to Video",
+  "type": "video",
+  "vendor": "Alibaba",
+  "vendor_slug": "alibaba",
+  "description": "Alibaba's #1-ranked Happy Horse 1.0 generates stunning 1080p videos with synchronized native audio and multilingual lip-sync, transforming text prompts or images into cinematic, true-to-life motion content for next-generation AIGC creation.",
+  "tags": [
+    "text-to-video"
+  ],
+  "capabilities": [
+    "text-to-video"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "prompt"
+    ],
+    "properties": {
+      "seed": {
+        "type": "integer",
+        "title": "Seed",
+        "description": "Random seed for reproducible results. Set to -1 for random seed."
+      },
+      "prompt": {
+        "type": "string",
+        "title": "Prompt",
+        "default": "Shot 3 (over the shoulder, 3.5-5s): The camera glides slowly over his shoulder down onto the open book, his thumb gently turning a single page, soft window light falling across the paper, shallow depth of field on his hand.",
+        "maxLength": 50000,
+        "minLength": 3,
+        "description": "The text prompt to generate a video from."
+      },
+      "duration": {
+        "enum": [
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15
+        ],
+        "type": "integer",
+        "title": "Duration",
+        "default": 5,
+        "description": "The duration of the generated video in seconds."
+      },
+      "resolution": {
+        "enum": [
+          "720p",
+          "1080p"
+        ],
+        "type": "string",
+        "title": "Resolution",
+        "default": "720p",
+        "description": "The resolution of the video to generate."
+      },
+      "aspect_ratio": {
+        "enum": [
+          "16:9",
+          "9:16",
+          "1:1",
+          "4:3",
+          "3:4"
+        ],
+        "type": "string",
+        "title": "Aspect Ratio",
+        "default": "16:9",
+        "description": "The aspect ratio of the generated video."
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "title": "GenerationResponse",
+    "required": [
+      "id",
+      "status"
+    ],
+    "properties": {
+      "id": {
+        "type": "string",
+        "description": "Unique identifier for the generation task."
+      },
+      "error": {
+        "type": "string",
+        "description": "Error message if the task failed. Empty on success."
+      },
+      "model": {
+        "type": "string",
+        "description": "Model ID used for the prediction."
+      },
+      "status": {
+        "enum": [
+          "pending",
+          "running",
+          "completed",
+          "failed",
+          "timeout"
+        ],
+        "type": "string",
+        "description": "Status of the task: pending, running, completed, failed, or timeout."
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "title": "OutputItem",
+          "required": [
+            "url"
+          ],
+          "properties": {
+            "url": {
+              "type": "string",
+              "description": "The URL where the generated content can be downloaded from."
+            },
+            "content_type": {
+              "type": "string",
+              "description": "The MIME type of the output file."
+            }
+          }
+        },
+        "description": "Array of generated content. Empty when status is not completed."
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "formula",
+    "formula": "(params.duration ?? 5) * ((params.resolution ?? \"720p\") == \"1080p\" ? 0.24 : 0.14)",
+    "formula_variables": [
+      "params.duration",
+      "params.resolution"
+    ],
+    "reference_price": 0.7,
+    "price_examples": [
+      {
+        "params": {
+          "duration": 3,
+          "resolution": "720p"
+        },
+        "usd": 0.42
+      },
+      {
+        "params": {
+          "duration": 3,
+          "resolution": "1080p"
+        },
+        "usd": 0.72
+      },
+      {
+        "params": {
+          "duration": 4,
+          "resolution": "720p"
+        },
+        "usd": 0.56
+      },
+      {
+        "params": {
+          "duration": 4,
+          "resolution": "1080p"
+        },
+        "usd": 0.96
+      },
+      {
+        "params": {
+          "duration": 5,
+          "resolution": "720p"
+        },
+        "usd": 0.7
+      },
+      {
+        "params": {
+          "duration": 5,
+          "resolution": "1080p"
+        },
+        "usd": 1.2
+      },
+      {
+        "params": {
+          "duration": 6,
+          "resolution": "720p"
+        },
+        "usd": 0.84
+      },
+      {
+        "params": {
+          "duration": 6,
+          "resolution": "1080p"
+        },
+        "usd": 1.44
+      },
+      {
+        "params": {
+          "duration": 7,
+          "resolution": "720p"
+        },
+        "usd": 0.98
+      },
+      {
+        "params": {
+          "duration": 7,
+          "resolution": "1080p"
+        },
+        "usd": 1.68
+      },
+      {
+        "params": {
+          "duration": 8,
+          "resolution": "720p"
+        },
+        "usd": 1.12
+      },
+      {
+        "params": {
+          "duration": 8,
+          "resolution": "1080p"
+        },
+        "usd": 1.92
+      }
+    ]
+  },
+  "examples": [
+    {
+      "input": {
+        "duration": 3,
+        "prompt": "A red paper boat floating on a calm lake",
+        "resolution": "720p"
+      },
+      "output": [
+        {
+          "poster": "https://static.sandbase.ai/examples/posters/5398ad03bb8ea1c27ebd.jpg",
+          "url": "https://static.sandbase.ai/examples/6955e411-584a-488a-ad74-43105ae8e39d/output/45f6a073-616b-4e1c-b1b7-f2cfe721c4ae.mp4"
+        }
+      ],
+      "default": true
+    }
+  ],
+  "readme": "# Happy Horse Text to Video\n\nHappy Horse 1.0 text-to-video: a 3–15 second cinematic clip from a written script. Version 1.1 is newer and cheaper at 1080p.\n\n## Fields\n\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `prompt` | string, required | — | Up to 50,000 characters. Shot-by-shot scripts with timings work well. |\n| `duration` | 3–15 | 5 | Output length in seconds. |\n| `aspect_ratio` | `16:9` / `9:16` / `1:1` / `4:3` / `3:4` | `16:9` | Output frame shape. |\n| `resolution` | `720p` / `1080p` | `720p` | Sets the per-second rate. |\n| `seed` | integer | random | Fix it to compare prompt changes. |\n\n## Billing\n\nYou pay for output seconds: $0.14 at 720p and $0.24 at 1080p, Alibaba's list price.\n\n| Output | 720p | 1080p |\n|---|---|---|\n| 3s | $0.42 | $0.72 |\n| 5s (default) | $0.70 | $1.20 |\n| 10s | $1.40 | $2.40 |\n| 15s | $2.10 | $3.60 |\n\nFailed runs are not charged.\n\n## Prompting\n\n- Describe the shot in order: subject, action, setting, camera move, light, and sound.\n- Give camera timing explicitly, e.g. “holds for two seconds, then pushes in slowly”.\n- Put spoken lines in quotes and say who speaks them.\n\n## Limits\n\n- 720p and 1080p only.\n\n## Also on SandBase\n\nOther Happy Horse endpoints: `alibaba/happy-horse/image-to-video`, `alibaba/happy-horse/reference-to-video`, `alibaba/happy-horse/video-edit`, `alibaba/happy-horse/1.1/text-to-video` (newer).\n",
+  "cover_url": "https://static.sandbase.ai/covers/alibaba/happy-horse/text-to-video/cover-flare-20261004211302.webp",
+  "page_url": "https://www.sandbase.ai/model/alibaba/happy-horse/text-to-video",
+  "published_at": "2026-04-27T10:31:20.339Z",
+  "created_at": "2026-04-29T02:34:26.862Z"
+}

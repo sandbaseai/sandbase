@@ -1,0 +1,67 @@
+{
+  "name": "accuweather/weather",
+  "display_name": "AccuWeather Weather",
+  "type": "api",
+  "vendor": "AccuWeather",
+  "vendor_slug": "accuweather",
+  "description": "Get comprehensive weather data for a city including current conditions, daily and hourly forecasts, alerts, allergens, and radar metadata. Resolves city name to a location key internally, then fetches multiple data.",
+  "tags": [
+    "api",
+    "accuweather",
+    "web-scraping"
+  ],
+  "capabilities": [
+    "api",
+    "accuweather",
+    "web-scraping"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}",
+    "passthrough": "POST /v1/api/accuweather/weather"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "city"
+    ],
+    "properties": {
+      "city": {
+        "type": "string",
+        "example": "Seattle",
+        "description": "City name to get weather for (e.g., 'Istanbul', 'New York', 'London')"
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "required": [
+      "id",
+      "status",
+      "model"
+    ],
+    "properties": {
+      "id": {
+        "type": "string"
+      },
+      "model": {
+        "type": "string"
+      },
+      "status": {
+        "type": "string"
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.05
+  },
+  "readme": "# AccuWeather Weather\n\nGet comprehensive weather data for a city including current conditions, daily and hourly forecasts, alerts, allergens, and radar metadata. Resolves city name to a location key internally, then fetches multiple data.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/accuweather/weather\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"city\": \"Seattle\"}'\n```\n\nThis API runs asynchronously. The call returns a task `id` with status `pending`; poll `GET https://api.sandbase.ai/v1/run/{id}` until `status` is `completed` and read the result from `outputs[0].data`.\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `city` | string | Yes | City name to get weather for (e.g., 'Istanbul', 'New York', 'London') |\n\n## Pricing\n\nFlat price per call. Failed calls are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/accuweather/weather",
+  "created_at": "2026-10-30T07:53:42.421Z"
+}

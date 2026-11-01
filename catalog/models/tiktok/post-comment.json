@@ -1,0 +1,61 @@
+{
+  "name": "tiktok/post-comment",
+  "display_name": "TikTok Post Comments",
+  "type": "api",
+  "vendor": "TikTok",
+  "vendor_slug": "tiktok",
+  "description": "Get comments for a TikTok post with cursor pagination. Use it to review audience discussion, continue through comment pages, or support comment analysis for a known post.",
+  "tags": [
+    "api",
+    "tiktok",
+    "social-media"
+  ],
+  "capabilities": [
+    "api",
+    "tiktok",
+    "social-media"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/tiktok/post-comment"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "awemeId"
+    ],
+    "properties": {
+      "cursor": {
+        "type": "string",
+        "default": "0",
+        "description": "Pagination cursor. Start with '0'."
+      },
+      "awemeId": {
+        "type": "string",
+        "example": "7701102965385383199",
+        "description": "The unique ID of the TikTok post (awemeId)."
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.013889,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "readme": "# TikTok Post Comments API\n\nGet comments for a TikTok post with cursor pagination. Use it to review audience discussion, continue through comment pages, or support comment analysis for a known post.\n\nThe response is the platform's original data structure.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/tiktok/post-comment\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"awemeId\": \"7701102965385383199\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `awemeId` | string | Yes | The unique ID of the TikTok post (awemeId). |\n| `cursor` | string | No | Pagination cursor. Start with '0'. |\n\n## Pricing\n\nFlat price per call. Failed calls and empty results are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/tiktok/post-comment",
+  "created_at": "2026-10-29T11:52:35.486Z"
+}

@@ -1,0 +1,55 @@
+{
+  "name": "dataforseo/v3/on_page/lighthouse/live/json",
+  "display_name": "DataForSEO OnPage Lighthouse Audit",
+  "type": "api",
+  "vendor": "DataForSEO",
+  "vendor_slug": "dataforseo",
+  "description": "Returns real-time Google Lighthouse audit data and web performance metrics for target web pages. Helps assess on-page speed, accessibility, best practices, and search optimization standards.",
+  "tags": [
+    "onpage",
+    "performance",
+    "lighthouse"
+  ],
+  "capabilities": [
+    "onpage",
+    "performance",
+    "lighthouse"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/dataforseo/v3/on_page/lighthouse/live/json"
+  },
+  "input_schema": {
+    "type": "object",
+    "properties": {},
+    "description": "Request parameters forwarded to DataForSEO /v3/on_page/lighthouse/live/json. See DataForSEO docs for full schema.",
+    "additionalProperties": true
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.005,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "examples": [
+    {
+      "input": {}
+    }
+  ],
+  "readme": "# DataForSEO OnPage Lighthouse Audit API\n\nRuns Google Lighthouse audits on web pages and returns detailed diagnostic reports. Pass target `url` values to evaluate on-page performance, SEO, and accessibility metrics.\n\n## Use cases\n\n- Audit website performance and Core Web Vitals on target pages.\n- Evaluate technical SEO, accessibility, and best practice compliance.\n- Diagnose on-page load bottlenecks and rendering issues.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/dataforseo/v3/on_page/lighthouse/live/json\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"url\": \"https://www.python.org/\"}'\n```\n\n## Parameters\n\nThe JSON body is forwarded to the upstream endpoint (one task per call). Fields used above:\n\n| Name | Description |\n|---|---|\n| `url` | Page URL. |\n\n## Pricing\n\nFlat price per call. Failed calls are not charged.\n\n## Related APIs\n\n- [DataForSEO Backlinks Anchors](/model/dataforseo/v3/backlinks/anchors/live): Returns anchor text distribution metrics for backlinks pointing to a target website or page.\n- [DataForSEO Backlinks List](/model/dataforseo/v3/backlinks/backlinks/live): Returns a list of external backlinks pointing to a specified target domain or webpage.\n- [DataForSEO Backlinks Bulk Ranks](/model/dataforseo/v3/backlinks/bulk_ranks/live): Returns rank metrics for multiple domains or pages in bulk.\n",
+  "page_url": "https://www.sandbase.ai/model/dataforseo/v3/on_page/lighthouse/live/json",
+  "published_at": "2024-01-01T00:00:00Z",
+  "created_at": "2026-08-02T14:45:17.655Z"
+}

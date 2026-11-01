@@ -1,0 +1,55 @@
+{
+  "name": "linkedin/web-v2/post-detail",
+  "display_name": "LinkedIn Post or Article Detail",
+  "type": "api",
+  "vendor": "LinkedIn",
+  "vendor_slug": "linkedin",
+  "description": "Returns content and metadata for a LinkedIn post or article using its web address. Works with both standard post and pulse article links.",
+  "tags": [
+    "api",
+    "linkedin"
+  ],
+  "capabilities": [
+    "api",
+    "linkedin"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/linkedin/web-v2/post-detail"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "url"
+    ],
+    "properties": {
+      "url": {
+        "type": "string",
+        "title": "Url",
+        "example": "https://www.linkedin.com/posts/...-activity-...-xxxx",
+        "description": "Full post or article URL (both /posts/... and /pulse/... are"
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.0015,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "readme": "# LinkedIn Post or Article Detail API\n\nFetch detailed information about a LinkedIn post or article by supplying its link in `url`.\n\n## Use cases\n\n- Retrieve LinkedIn post metadata and content from post URLs.\n- Inspect LinkedIn Pulse articles directly from article links.\n- Integrate public LinkedIn post details into external dashboards.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/linkedin/web-v2/post-detail\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"url\": \"https://www.linkedin.com/posts/...-activity-...-xxxx\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `url` | string | Yes | Full post or article URL (both /posts/... and /pulse/... are |\n\n## Notes\n\n- Supports both `/posts/...` and `/pulse/...` link formats in `url`.\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [LinkedIn Company Posts](/model/linkedin/web-v2/company-posts): Returns posts from a LinkedIn organization page using the company URL.\n- [LinkedIn Company Profile](/model/linkedin/web-v2/company-profile): Returns LinkedIn company profile details, including affiliated organizations, using a direct company page URL.\n- [LinkedIn Job Details](/model/linkedin/web-v2/job-detail): Returns detailed information for a specific LinkedIn job posting via its URL.\n",
+  "page_url": "https://www.sandbase.ai/model/linkedin/web-v2/post-detail",
+  "created_at": "2026-07-31T04:08:38.971Z"
+}

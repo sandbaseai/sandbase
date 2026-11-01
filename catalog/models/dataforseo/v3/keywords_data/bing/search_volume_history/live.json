@@ -1,0 +1,45 @@
+{
+  "name": "dataforseo/v3/keywords_data/bing/search_volume_history/live",
+  "display_name": "DataForSEO Bing Search Volume History",
+  "type": "api",
+  "vendor": "DataForSEO",
+  "vendor_slug": "dataforseo",
+  "description": "Get monthly Bing search volume history for up to 1000 keywords. Bing Ads search volume history for a keyword list.",
+  "tags": [
+    "keywords",
+    "bing",
+    "search-volume-history"
+  ],
+  "capabilities": [
+    "keywords",
+    "bing",
+    "search-volume-history"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/dataforseo/v3/keywords_data/bing/search_volume_history/live"
+  },
+  "input_schema": {
+    "type": "object",
+    "properties": {},
+    "description": "Request parameters forwarded to DataForSEO /v3/keywords_data/bing/search_volume_history/live. See DataForSEO docs for full schema.",
+    "additionalProperties": true
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.09
+  },
+  "readme": "# DataForSEO Bing Search Volume History API\n\nGet monthly Bing search volume history for up to 1000 keywords.\n\nRequest fields follow the official DataForSEO `/v3/keywords_data/bing/search_volume_history/live` task schema (one task per call; send `{\"tasks\": [...]}` for several). The response is DataForSEO's original JSON; results are in `tasks[].result`.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/dataforseo/v3/keywords_data/bing/search_volume_history/live\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"keywords\": [\"running shoes\"], \"location_code\": 2840, \"language_code\": \"en\"}'\n```\n\n## Parameters\n\nThe JSON body is forwarded to the upstream endpoint (one task per call). Fields used above:\n\n| Name | Description |\n|---|---|\n| `keywords` | List of keywords (up to 100 per call). |\n| `location_code` | Location code, e.g. 2840 for the United States. |\n| `language_code` | Language code, e.g. \"en\". |\n\n## Reference\n\n- Official docs: https://docs.dataforseo.com/v3/keywords_data/bing/search_volume_history/live/\n\n## Pricing\n\nFlat price per call. Failed calls are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/dataforseo/v3/keywords_data/bing/search_volume_history/live",
+  "published_at": "2024-01-01T00:00:00Z",
+  "created_at": "2026-10-28T14:36:39.135Z"
+}

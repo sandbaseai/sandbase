@@ -1,0 +1,67 @@
+{
+  "name": "weibo/app/status-detail",
+  "display_name": "Weibo Post Detail (App)",
+  "type": "api",
+  "vendor": "Weibo",
+  "vendor_slug": "weibo",
+  "description": "Returns detailed post information from the Weibo app based on a specified post identifier. Use this endpoint to inspect post metadata and actions.",
+  "tags": [
+    "api",
+    "weibo"
+  ],
+  "capabilities": [
+    "api",
+    "weibo"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/weibo/app/status-detail"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "status_id"
+    ],
+    "properties": {
+      "status_id": {
+        "type": "string",
+        "title": "Status Id",
+        "example": "5016922058656962",
+        "description": "Post ID (required)"
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.0015,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "examples": [
+    {
+      "input": {
+        "status_id": "5016922058656962"
+      }
+    },
+    {
+      "input": {
+        "status_id": "5016922058656962"
+      }
+    }
+  ],
+  "readme": "# Weibo Post Detail (App) API\n\nRetrieve detailed status information from the Weibo mobile application using a specific `status_id`.\n\n## Use cases\n\n- Inspect detailed metadata for an individual Weibo status.\n- Access custom action configurations linked to a specific post.\n- Track specific Weibo posts by their unique identifier.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/weibo/app/status-detail\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"status_id\": \"5016922058656962\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `status_id` | string | Yes | Post ID (required) |\n\n## Example response\n\nReal response for the request above, trimmed to the main fields. User names and long IDs are masked.\n\n```json\n{\n  \"detailInfo\": {\n    \"extend\": {\n      \"custom_action_list\": [\n        {\n          \"type\": \"mblog_menus_comment_manager\"\n        }\n      ]\n    }\n  }\n}\n```\n\n## Notes\n\n- Requires a valid `status_id` representing the target post identifier.\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [Weibo App AI Smart Search](/model/weibo/app/ai-smart-search): Returns AI smart search channel results and feed metadata from Weibo for a specified keyword query, with optional page-based pagination.\n- [Weibo Home Recommend Feed](/model/weibo/app/home-recommend-feed): Returns recommended feed items from the Weibo app homepage, with options to paginate and specify the number of items per request.\n- [Weibo Hot Search Rankings](/model/weibo/app/hot-search): Returns current Weibo hot search rankings across various categories.\n",
+  "page_url": "https://www.sandbase.ai/model/weibo/app/status-detail",
+  "created_at": "2026-07-31T02:44:51.614Z"
+}

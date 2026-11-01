@@ -1,0 +1,258 @@
+{
+  "name": "vidu/q3/image-to-video",
+  "display_name": "Vidu Q3 Image to Video",
+  "type": "video",
+  "vendor": "Vidu",
+  "vendor_slug": "vidu",
+  "description": "Vidu Q3 by Shengshu - animate still images into dynamic videos with AI. Transform photos into cinematic clips with natural motion, camera movement, and optional audio generation.",
+  "tags": [
+    "image-to-video"
+  ],
+  "capabilities": [
+    "image-to-video"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "prompt",
+      "image"
+    ],
+    "properties": {
+      "seed": {
+        "type": "integer",
+        "title": "Seed",
+        "description": "Random seed for reproducibility. If None, a random seed is chosen."
+      },
+      "audio": {
+        "type": "boolean",
+        "title": "Audio",
+        "default": true,
+        "description": "Whether to use direct audio-video generation. When true, outputs video with sound (including dialogue and sound effects)."
+      },
+      "image": {
+        "type": "string",
+        "title": "Image Url",
+        "examples": [
+          "https://static.sandbase.ai/examples/shengshu/vidu/q3/image-to-video/input_image_0.png"
+        ],
+        "description": "URL or base64 image to use as the starting frame"
+      },
+      "prompt": {
+        "type": "string",
+        "title": "Prompt",
+        "default": "",
+        "examples": [
+          "The astronaut waved and the camera moved up."
+        ],
+        "maxLength": 2000,
+        "description": "Text prompt for video generation, max 2000 characters"
+      },
+      "duration": {
+        "type": "integer",
+        "title": "Duration",
+        "default": 5,
+        "maximum": 16,
+        "minimum": 1,
+        "description": "Duration of the video in seconds (1-16 for Q3 models)"
+      },
+      "end_image": {
+        "type": "string",
+        "title": "End Image Url",
+        "description": "URL of the image to use as the ending frame. When provided, generates a transition video between start and end frames."
+      },
+      "resolution": {
+        "enum": [
+          "360p",
+          "540p",
+          "720p",
+          "1080p"
+        ],
+        "type": "string",
+        "title": "Resolution",
+        "default": "720p",
+        "description": "Output video resolution. Note: 360p is not available when end_image_url is provided."
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "title": "GenerationResponse",
+    "required": [
+      "id",
+      "status"
+    ],
+    "properties": {
+      "id": {
+        "type": "string",
+        "description": "Unique identifier for the generation task."
+      },
+      "error": {
+        "type": "string",
+        "description": "Error message if the task failed. Empty on success."
+      },
+      "model": {
+        "type": "string",
+        "description": "Model ID used for the prediction."
+      },
+      "status": {
+        "enum": [
+          "pending",
+          "running",
+          "completed",
+          "failed",
+          "timeout"
+        ],
+        "type": "string",
+        "description": "Status of the task: pending, running, completed, failed, or timeout."
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "title": "OutputItem",
+          "required": [
+            "url"
+          ],
+          "properties": {
+            "url": {
+              "type": "string",
+              "examples": [
+                "https://static.sandbase.ai/examples/shengshu/vidu/q3/image-to-video/output_url_1.mp4"
+              ],
+              "description": "The URL where the generated content can be downloaded from."
+            },
+            "content_type": {
+              "type": "string",
+              "description": "The MIME type of the output file."
+            }
+          }
+        },
+        "description": "Array of generated content. Empty when status is not completed."
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "formula",
+    "formula": "(params.duration ?? 5) * ((params.resolution ?? \"720p\") == \"1080p\" ? 0.16 : (params.resolution ?? \"720p\") == \"720p\" ? 0.154 : 0.07)",
+    "formula_variables": [
+      "params.duration",
+      "params.resolution"
+    ],
+    "reference_price": 0.77,
+    "price_examples": [
+      {
+        "params": {
+          "duration": 1,
+          "resolution": "360p"
+        },
+        "usd": 0.07
+      },
+      {
+        "params": {
+          "duration": 1,
+          "resolution": "540p"
+        },
+        "usd": 0.07
+      },
+      {
+        "params": {
+          "duration": 1,
+          "resolution": "720p"
+        },
+        "usd": 0.154
+      },
+      {
+        "params": {
+          "duration": 1,
+          "resolution": "1080p"
+        },
+        "usd": 0.16
+      },
+      {
+        "params": {
+          "duration": 5,
+          "resolution": "360p"
+        },
+        "usd": 0.35
+      },
+      {
+        "params": {
+          "duration": 5,
+          "resolution": "540p"
+        },
+        "usd": 0.35
+      },
+      {
+        "params": {
+          "duration": 5,
+          "resolution": "720p"
+        },
+        "usd": 0.77
+      },
+      {
+        "params": {
+          "duration": 5,
+          "resolution": "1080p"
+        },
+        "usd": 0.8
+      },
+      {
+        "params": {
+          "duration": 16,
+          "resolution": "360p"
+        },
+        "usd": 1.12
+      },
+      {
+        "params": {
+          "duration": 16,
+          "resolution": "540p"
+        },
+        "usd": 1.12
+      },
+      {
+        "params": {
+          "duration": 16,
+          "resolution": "720p"
+        },
+        "usd": 2.464
+      },
+      {
+        "params": {
+          "duration": 16,
+          "resolution": "1080p"
+        },
+        "usd": 2.56
+      }
+    ]
+  },
+  "examples": [
+    {
+      "input": {
+        "image": "https://static.sandbase.ai/examples/c5e6585e-7e89-4c14-a4e1-6fb94916f126/input/066353de-0ec8-4d21-bf03-46efafa9db7b.png",
+        "prompt": "The astronaut waved and the camera moved up."
+      },
+      "output": [
+        {
+          "poster": "https://static.sandbase.ai/examples/posters/af23a44614db7c182757.jpg",
+          "url": "https://static.sandbase.ai/examples/c5e6585e-7e89-4c14-a4e1-6fb94916f126/output/5e3156b2-ba4a-46cd-81ea-42cb4992d563.mp4"
+        }
+      ],
+      "default": true
+    }
+  ],
+  "readme": "# Vidu Q3 Image to Video\n\nVidu Q3 image-to-video: animate a first frame, optionally toward a last frame, into a 1–16 second clip with native audio.\n\n## Fields\n\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `prompt` | string, required | — | Up to 2,000 characters. |\n| `image` | image URL, required | — | First frame. JPEG, PNG, or WebP URL. |\n| `end_image` | image URL | — | Optional last frame. |\n| `audio` | boolean | true | Generate native audio. Same price on or off. |\n| `resolution` | `360p` / `540p` / `720p` / `1080p` | `720p` | Sets the per-second rate. |\n| `duration` | integer 1–16 | 5 | Output length in seconds. |\n| `seed` | integer | random | Fix it to compare prompt changes. |\n\n## Billing\n\nYou pay for output seconds: $0.07 at 360p or 540p, $0.154 at 720p, $0.16 at 1080p.\n\n| Output | 540p | 720p | 1080p |\n|---|---|---|---|\n| 4s | $0.28 | $0.616 | $0.64 |\n| 5s (default) | $0.35 | $0.77 | $0.80 |\n| 8s | $0.56 | $1.232 | $1.28 |\n| 16s | $1.12 | $2.464 | $2.56 |\n\nFailed runs are not charged.\n\n## Prompting\n\n- Describe subject, action, camera, and sound.\n\n## Also on SandBase\n\nOther Vidu Q3 endpoints: `vidu/q3/text-to-video`, `vidu/q3/reference-to-video/mix`, `vidu/q3/text-to-video/turbo`, `vidu/q3/image-to-video/turbo`.\n",
+  "cover_url": "https://static.sandbase.ai/covers/vidu/q3/image-to-video/cover-flare-20261005082741.webp",
+  "page_url": "https://www.sandbase.ai/model/vidu/q3/image-to-video",
+  "published_at": "2026-01-31T07:34:05.888Z",
+  "created_at": "2026-05-15T11:01:23.743Z"
+}

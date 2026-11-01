@@ -1,0 +1,60 @@
+{
+  "name": "kuaishou/app/search-video-v2",
+  "display_name": "Kuaishou Video Search (V2)",
+  "type": "api",
+  "vendor": "Kuaishou",
+  "vendor_slug": "kuaishou",
+  "description": "Searches for Kuaishou videos matching a designated keyword query. Returns matching video results with support for cursor-based pagination across multiple pages.",
+  "tags": [
+    "api",
+    "kuaishou"
+  ],
+  "capabilities": [
+    "api",
+    "kuaishou"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/kuaishou/app/search-video-v2"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "keyword"
+    ],
+    "properties": {
+      "keyword": {
+        "type": "string",
+        "title": "搜索关键词/Search keyword",
+        "example": "OpenAI"
+      },
+      "pcursor": {
+        "type": "string",
+        "title": "分页游标/Pagination cursor",
+        "default": "",
+        "description": "Pagination cursor, empty for first page, pass pcursor from previous response"
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.015,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "readme": "# Kuaishou Video Search (V2) API\n\nSearch Kuaishou videos by providing a query term in `keyword`. Page through additional result sets by supplying the `pcursor` value from previous responses.\n\n## Use cases\n\n- Find Kuaishou videos matching specific topic or product keywords.\n- Track video content trends for brand names and industry terms.\n- Retrieve continuous pages of video search results for external analysis.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/kuaishou/app/search-video-v2\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"keyword\": \"OpenAI\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `keyword` | string | Yes | — |\n| `pcursor` | string | No | Pagination cursor, empty for first page, pass pcursor from previous response |\n\n## Notes\n\n- Leave `pcursor` empty for the first page, and pass the token from the previous response to retrieve the next page.\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [Kuaishou Brand Top List](/model/kuaishou/app/brand-top-list): Returns top brand rankings and related live stream links from Kuaishou.\n- [Kuaishou App Share Link](/model/kuaishou/app/generate-share-link): Generates a shareable URL for Kuaishou application content using a specified object identifier.\n- [Kuaishou Hot Board Categories](/model/kuaishou/app/hot-board-categories): Returns the active list of hot board categories available in the Kuaishou app.\n",
+  "page_url": "https://www.sandbase.ai/model/kuaishou/app/search-video-v2",
+  "created_at": "2026-07-31T03:58:15.38Z"
+}

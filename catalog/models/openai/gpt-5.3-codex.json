@@ -1,0 +1,44 @@
+{
+  "name": "openai/gpt-5.3-codex",
+  "display_name": "OpenAI: GPT-5.3-Codex",
+  "type": "llm",
+  "vendor": "OpenAI",
+  "vendor_slug": "openai",
+  "description": "GPT-5.3-Codex is OpenAI's agentic coding model announced in February 2026, optimized for Codex and similar environments, with text and image input and text output. OpenAI called it its most capable agentic coding model at release and says it extends Codex from writing and reviewing code to most tasks developers and professionals do on a computer. It supports low to extra-high reasoning effort and suits long-running coding, debugging and computer-use agents.",
+  "tags": [
+    "chat",
+    "vision",
+    "reasoning",
+    "structured_output",
+    "function_calling"
+  ],
+  "capabilities": [
+    "chat",
+    "vision",
+    "reasoning",
+    "structured_output",
+    "function_calling"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "chat_completions": "POST /v1/chat/completions",
+    "responses": "POST /v1/responses",
+    "messages": "POST /v1/messages"
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_token",
+    "per_million_tokens": {
+      "input": 1.75,
+      "output": 14,
+      "cache_read_multiplier": 0.1
+    }
+  },
+  "cover_url": "https://t0.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=https://openai.com&size=256",
+  "page_url": "https://www.sandbase.ai/model/openai/gpt-5.3-codex",
+  "published_at": "2026-02-24T18:52:44.481Z",
+  "created_at": "2026-05-08T23:55:31.09Z"
+}

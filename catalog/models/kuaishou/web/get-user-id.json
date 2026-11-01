@@ -1,0 +1,54 @@
+{
+  "name": "kuaishou/web/get-user-id",
+  "display_name": "Kuaishou User ID Lookup",
+  "type": "api",
+  "vendor": "Kuaishou",
+  "vendor_slug": "kuaishou",
+  "description": "Resolves a Kuaishou user ID from a provided user share link. Useful for extracting internal profile identifiers from public sharing URLs.",
+  "tags": [
+    "api",
+    "kuaishou"
+  ],
+  "capabilities": [
+    "api",
+    "kuaishou"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/kuaishou/web/get-user-id"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "share_link"
+    ],
+    "properties": {
+      "share_link": {
+        "type": "string",
+        "title": "用户分享链接/User Share Link",
+        "example": "https://c.kuaishou.com/fw/user/3xcuu5habgc8z29"
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.0015,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "readme": "# Kuaishou User ID Lookup API\n\nResolves a Kuaishou profile identifier by parsing the provided `share_link`.\n\n## Use cases\n\n- Resolve raw user profile IDs from shared Kuaishou web links.\n- Convert mobile share links into standard identifiers for downstream lookups.\n- Automate profile identity extraction from social share URLs.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/kuaishou/web/get-user-id\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"share_link\": \"https://c.kuaishou.com/fw/user/3xcuu5habgc8z29\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `share_link` | string | Yes | — |\n\n## Notes\n\n- Requires a valid user URL passed via `share_link`.\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [Kuaishou Web Share Short URL](/model/kuaishou/web/generate-share-short-url): Returns a shareable short URL for a specified Kuaishou video or photo post.\n- [Kuaishou Web Hot List](/model/kuaishou/web/hot-list-v1): Returns the current trending hot list from Kuaishou Web.\n- [Kuaishou Web Hot List (V2)](/model/kuaishou/web/hot-list-v2): Returns current trending search rankings and hot topics on Kuaishou web.\n",
+  "page_url": "https://www.sandbase.ai/model/kuaishou/web/get-user-id",
+  "created_at": "2026-07-31T03:58:35.42Z"
+}

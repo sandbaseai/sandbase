@@ -1,0 +1,63 @@
+{
+  "name": "artificial-analysis/cost-per-task",
+  "display_name": "Artificial Analysis Cost Per Task",
+  "type": "api",
+  "vendor": "Artificial Analysis",
+  "vendor_slug": "artificial-analysis",
+  "description": "Get per-model cost-per-task data from the Artificial Analysis homepage. Returns Intelligence Index score, cost per task (USD) with granular cost breakdown, time per task, end-to-end response time, TTFT, token counts.",
+  "tags": [
+    "api",
+    "artificial-analysis",
+    "search"
+  ],
+  "capabilities": [
+    "api",
+    "artificial-analysis",
+    "search"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}",
+    "passthrough": "POST /v1/api/artificial-analysis/cost-per-task"
+  },
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "models": {
+        "type": "string",
+        "description": "Comma-separated list of model slugs to filter results (e.g. 'claude-sonnet-5,gpt-5-6-sol,gemini-3-5-flash-lite'). When omitted, returns the default set of models shown on the homepage."
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "required": [
+      "id",
+      "status",
+      "model"
+    ],
+    "properties": {
+      "id": {
+        "type": "string"
+      },
+      "model": {
+        "type": "string"
+      },
+      "status": {
+        "type": "string"
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.05
+  },
+  "readme": "# Artificial Analysis Cost Per Task\n\nGet per-model cost-per-task data from the Artificial Analysis homepage. Returns Intelligence Index score, cost per task (USD) with granular cost breakdown, time per task, end-to-end response time, TTFT, token counts.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/artificial-analysis/cost-per-task\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{}'\n```\n\nThis API runs asynchronously. The call returns a task `id` with status `pending`; poll `GET https://api.sandbase.ai/v1/run/{id}` until `status` is `completed` and read the result from `outputs[0].data`.\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `models` | string | No | Comma-separated list of model slugs to filter results (e.g. 'claude-sonnet-5,gpt-5-6-sol,gemini-3-5-flash-lite'). When omitted, returns the default set of models shown on the homepage. |\n\n## Pricing\n\nFlat price per call. Failed calls are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/artificial-analysis/cost-per-task",
+  "created_at": "2026-10-30T08:45:49.812Z"
+}

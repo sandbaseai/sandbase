@@ -1,0 +1,176 @@
+{
+  "name": "polymarket/markets",
+  "display_name": "Polymarket List markets",
+  "type": "api",
+  "vendor": "Polymarket",
+  "vendor_slug": "polymarket",
+  "description": "List markets from Polymarket. Returns the official Polymarket API response unchanged.",
+  "tags": [
+    "api",
+    "polymarket",
+    "prediction-markets"
+  ],
+  "capabilities": [
+    "api",
+    "polymarket",
+    "prediction-markets"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/polymarket/markets"
+  },
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "array",
+        "items": {
+          "type": "integer"
+        },
+        "description": "id"
+      },
+      "cyom": {
+        "type": "boolean",
+        "description": "cyom"
+      },
+      "slug": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        },
+        "description": "slug"
+      },
+      "limit": {
+        "type": "integer",
+        "example": 1,
+        "minimum": 0,
+        "description": "limit"
+      },
+      "order": {
+        "type": "string",
+        "description": "Comma-separated list of fields to order by"
+      },
+      "closed": {
+        "enum": [
+          "any"
+        ],
+        "type": "boolean",
+        "description": "Filter by closed state. Omitted or false returns open markets; true returns closed markets. Use any (case-insensitive) to include both states in an identifier lookup. Requires at least one of id, slug, clob_token_ids, position_ids, condition_ids, request_ids, onchain_event_ids, or question_ids when "
+      },
+      "offset": {
+        "type": "integer",
+        "minimum": 0,
+        "description": "offset"
+      },
+      "tag_id": {
+        "type": "integer",
+        "description": "tag_id"
+      },
+      "game_id": {
+        "type": "string",
+        "description": "game_id"
+      },
+      "ascending": {
+        "type": "boolean",
+        "description": "ascending"
+      },
+      "include_tag": {
+        "type": "boolean",
+        "description": "include_tag"
+      },
+      "end_date_max": {
+        "type": "string",
+        "description": "end_date_max"
+      },
+      "end_date_min": {
+        "type": "string",
+        "description": "end_date_min"
+      },
+      "question_ids": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        },
+        "description": "question_ids"
+      },
+      "related_tags": {
+        "type": "boolean",
+        "description": "related_tags"
+      },
+      "condition_ids": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        },
+        "description": "condition_ids"
+      },
+      "clob_token_ids": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        },
+        "description": "clob_token_ids"
+      },
+      "start_date_max": {
+        "type": "string",
+        "description": "start_date_max"
+      },
+      "start_date_min": {
+        "type": "string",
+        "description": "start_date_min"
+      },
+      "volume_num_max": {
+        "type": "number",
+        "description": "volume_num_max"
+      },
+      "volume_num_min": {
+        "type": "number",
+        "description": "volume_num_min"
+      },
+      "rewards_min_size": {
+        "type": "number",
+        "description": "rewards_min_size"
+      },
+      "liquidity_num_max": {
+        "type": "number",
+        "description": "liquidity_num_max"
+      },
+      "liquidity_num_min": {
+        "type": "number",
+        "description": "liquidity_num_min"
+      },
+      "sports_market_types": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        },
+        "description": "sports_market_types"
+      },
+      "uma_resolution_status": {
+        "type": "string",
+        "description": "uma_resolution_status"
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.00044,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "readme": "# Polymarket List markets API\n\nList markets from Polymarket. Returns the official Polymarket API response unchanged.\n\nThe response is the official Polymarket API response, unchanged.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/polymarket/markets\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"limit\": 1, \"active\": true}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `ascending` | boolean | No | ascending |\n| `clob_token_ids` | array | No | clob_token_ids |\n| `closed` | boolean | No | Filter by closed state. Omitted or false returns open markets; true returns closed markets. Use any (case-insensitive) to include both states in an identifier l |\n| `condition_ids` | array | No | condition_ids |\n| `cyom` | boolean | No | cyom |\n| `end_date_max` | string | No | end_date_max |\n| `end_date_min` | string | No | end_date_min |\n| `game_id` | string | No | game_id |\n| `id` | array | No | id |\n| `include_tag` | boolean | No | include_tag |\n| `limit` | integer | No | limit |\n| `liquidity_num_max` | number | No | liquidity_num_max |\n| `liquidity_num_min` | number | No | liquidity_num_min |\n| `offset` | integer | No | offset |\n| `order` | string | No | Comma-separated list of fields to order by |\n| `question_ids` | array | No | question_ids |\n| `related_tags` | boolean | No | related_tags |\n| `rewards_min_size` | number | No | rewards_min_size |\n| `slug` | array | No | slug |\n| `sports_market_types` | array | No | sports_market_types |\n| `start_date_max` | string | No | start_date_max |\n| `start_date_min` | string | No | start_date_min |\n| `tag_id` | integer | No | tag_id |\n| `uma_resolution_status` | string | No | uma_resolution_status |\n| `volume_num_max` | number | No | volume_num_max |\n| `volume_num_min` | number | No | volume_num_min |\n\n## Pricing\n\nFlat price per call. Failed calls are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/polymarket/markets",
+  "created_at": "2026-08-10T02:52:18.211Z"
+}

@@ -1,0 +1,72 @@
+{
+  "name": "zhihu/web/ai-search-stream",
+  "display_name": "Zhihu AI Search Stream",
+  "type": "api",
+  "vendor": "Zhihu",
+  "vendor_slug": "zhihu",
+  "description": "Returns streaming AI search results from Zhihu based on a query prompt. Supports conversational multi-turn sessions and chat modes.",
+  "tags": [
+    "api",
+    "zhihu"
+  ],
+  "capabilities": [
+    "api",
+    "zhihu"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/zhihu/web/ai-search-stream"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "message_content"
+    ],
+    "properties": {
+      "chat_mode": {
+        "type": "string",
+        "title": "Chat Mode",
+        "description": "Chat mode, default FAST"
+      },
+      "session_id": {
+        "type": "string",
+        "title": "Session Id",
+        "description": "Session ID for multi-turn"
+      },
+      "message_content": {
+        "type": "string",
+        "title": "Message Content",
+        "description": "Search Content"
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.0075,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "examples": [
+    {
+      "input": {
+        "message_content": "test"
+      },
+      "default": true
+    }
+  ],
+  "readme": "# Zhihu AI Search Stream API\n\nQuery Zhihu AI search stream by passing `message_content`. Optionally supply `session_id` for multi-turn conversations and specify `chat_mode`.\n\n## Use cases\n\n- Retrieve AI-synthesized answers from Zhihu content.\n- Maintain multi-turn AI search dialogs using session identifiers.\n- Stream Zhihu search output in fast or alternative chat modes.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/zhihu/web/ai-search-stream\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"message_content\": \"<message_content>\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `message_content` | string | Yes | Search Content |\n| `chat_mode` | string | No | Chat mode, default FAST |\n| `session_id` | string | No | Session ID for multi-turn |\n\n## Notes\n\n- `message_content` is required to provide the search text.\n- `session_id` enables multi-turn conversation tracking.\n- `chat_mode` defaults to FAST if omitted.\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [Zhihu Answer Details](/model/zhihu/web/answer-detail): Retrieves detailed information for a specific Zhihu answer using its numeric ID, including answer text, timestamps, and share links.\n- [Zhihu Article Search](/model/zhihu/web/article-search-v3): Search Zhihu articles and answers by keyword and get titles, excerpts, authors, vote and comment counts, with sorting, content type and time filters plus offse…\n- [Zhihu Column Article Detail](/model/zhihu/web/column-article-detail): Returns detailed information and metadata for a specific Zhihu column article, including author profile details, using a provided article ID.\n",
+  "page_url": "https://www.sandbase.ai/model/zhihu/web/ai-search-stream",
+  "created_at": "2026-07-31T04:28:35.965Z"
+}

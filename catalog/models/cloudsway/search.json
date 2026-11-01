@@ -1,0 +1,246 @@
+{
+  "name": "cloudsway/search",
+  "display_name": "Cloudsway Web Search",
+  "type": "api",
+  "vendor": "Cloudsway",
+  "vendor_slug": "cloudsway",
+  "description": "Web search API for AI agents with topic focus (news, academic, company, finance and more), country, date range and domain filters, plus optional full text, summaries and highlights.",
+  "tags": [
+    "web-search"
+  ],
+  "capabilities": [
+    "web-search"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/cloudsway/search"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "query"
+    ],
+    "properties": {
+      "query": {
+        "type": "string",
+        "title": "Query",
+        "example": "OpenAI Codex documentation",
+        "minLength": 1,
+        "description": "The search query string."
+      },
+      "topic": {
+        "enum": [
+          "general",
+          "news",
+          "academic",
+          "company",
+          "people",
+          "finance"
+        ],
+        "type": "string",
+        "title": "Topic",
+        "default": "general",
+        "description": "Content category to focus on."
+      },
+      "country": {
+        "enum": [
+          "US",
+          "GB",
+          "CN",
+          "JP",
+          "DE",
+          "FR",
+          "KR",
+          "IN",
+          "CA",
+          "AU",
+          "SG",
+          "BR",
+          "RU",
+          "IT",
+          "ES",
+          "NL",
+          "SE",
+          "CH",
+          "IL",
+          "AE"
+        ],
+        "type": "string",
+        "title": "Country",
+        "description": "Two-letter ISO country code for localized results."
+      },
+      "end_date": {
+        "type": "string",
+        "title": "End Date",
+        "description": "Only return results published before this date. Format: YYYY-MM-DD."
+      },
+      "start_date": {
+        "type": "string",
+        "title": "Start Date",
+        "description": "Only return results published after this date. Format: YYYY-MM-DD."
+      },
+      "max_results": {
+        "type": "integer",
+        "title": "Max Results",
+        "default": 10,
+        "example": 3,
+        "maximum": 100,
+        "minimum": 1,
+        "description": "Maximum number of results to return."
+      },
+      "include_text": {
+        "type": "boolean",
+        "title": "Include Text",
+        "default": false,
+        "example": false,
+        "description": "Return full page text content for each result."
+      },
+      "search_depth": {
+        "enum": [
+          "basic",
+          "advanced"
+        ],
+        "type": "string",
+        "title": "Search Depth",
+        "default": "basic",
+        "example": "basic",
+        "description": "basic: fast, low-latency search (~1s). advanced: multi-step reasoning with higher quality results (4-40s), costs more."
+      },
+      "max_characters": {
+        "type": "integer",
+        "title": "Max Characters",
+        "default": 3000,
+        "maximum": 10000,
+        "minimum": 1,
+        "description": "Maximum characters for text content per result."
+      },
+      "exclude_domains": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        },
+        "title": "Exclude Domains",
+        "description": "Exclude results from these domains."
+      },
+      "include_domains": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        },
+        "title": "Include Domains",
+        "description": "Only return results from these domains."
+      },
+      "include_summary": {
+        "type": "boolean",
+        "title": "Include Summary",
+        "default": false,
+        "example": false,
+        "description": "Return a short summary of each result."
+      },
+      "include_highlights": {
+        "type": "boolean",
+        "title": "Include Highlights",
+        "default": true,
+        "example": true,
+        "description": "Return key excerpts relevant to the query."
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "required": [
+      "results"
+    ],
+    "properties": {
+      "results": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "required": [
+            "title",
+            "url"
+          ],
+          "properties": {
+            "url": {
+              "type": "string",
+              "format": "uri",
+              "description": "Page URL."
+            },
+            "text": {
+              "type": "string",
+              "description": "Full page text (when include_text=true)."
+            },
+            "score": {
+              "type": "number",
+              "description": "Relevance score."
+            },
+            "title": {
+              "type": "string",
+              "description": "Page title."
+            },
+            "author": {
+              "type": "string",
+              "description": "Author if available."
+            },
+            "content": {
+              "type": "string",
+              "description": "Snippet or main content excerpt."
+            },
+            "favicon": {
+              "type": "string",
+              "format": "uri",
+              "description": "Favicon URL of the result domain."
+            },
+            "summary": {
+              "type": "string",
+              "description": "Page summary (when include_summary=true)."
+            },
+            "highlights": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "description": "Key excerpts (when include_highlights=true)."
+            },
+            "published_date": {
+              "type": "string",
+              "description": "Publication date."
+            }
+          }
+        },
+        "description": "List of search results."
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.005,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "examples": [
+    {
+      "input": {
+        "end_date": "2026-08-06",
+        "include_highlights": true,
+        "max_results": 5,
+        "query": "Groq LPU inference funding valuation revenue 2025 2026",
+        "search_depth": "basic",
+        "start_date": "2024-01-01",
+        "topic": "company"
+      }
+    }
+  ],
+  "readme": "# Cloudsway Web Search API\n\nSearch the web for a query and get ranked results with title, URL, publish date and relevance score. Optionally include highlights, summaries or full page text for RAG.\n\n## Use cases\n\n- Ground LLM answers with fresh web sources.\n- Research news, companies or academic topics.\n- Restrict results to trusted domains or a date window.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/cloudsway/search\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"query\": \"OpenAI Codex documentation\", \"max_results\": 3}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `query` | string | Yes | The search query string. |\n| `topic` | string | No | Content category to focus on. |\n| `country` | string | No | Two-letter ISO country code for localized results. |\n| `end_date` | string | No | Only return results published before this date. |\n| `start_date` | string | No | Only return results published after this date. |\n| `max_results` | integer | No | Maximum number of results to return. |\n| `include_text` | boolean | No | Return full page text content for each result. |\n| `search_depth` | string | No | basic: fast, low-latency search (~1s). advanced: multi-step reasoning with higher quality results (4-40s), costs more. |\n| `max_characters` | integer | No | Maximum characters for text content per result. |\n| `exclude_domains` | array | No | Exclude results from these domains. |\n| `include_domains` | array | No | Only return results from these domains. |\n| `include_summary` | boolean | No | Return a short summary of each result. |\n| `include_highlights` | boolean | No | Return key excerpts relevant to the query. |\n\n## Example response\n\nReal response for the request above, trimmed to the main fields. User names and long IDs are masked.\n\n```json\n{\n  \"entities\": [\n    {\n      \"title\": \"OpenAI Codex CLI Official Documentation Guide (2026) | Codex Knowledg…\",\n      \"url\": \"https://codex.danielvaughan.com/2026/04/19/openai-codex-cli-official-…\",\n      \"content\": \"The official Codex CLI documentation has grown considerably since the tool’s op…\",\n      \"published_date\": \"2026-04-19T07:22:32.0000000\",\n      \"score\": 0.75424725\n    }\n  ]\n}\n```\n\n## Notes\n\n- `search_depth`: basic (about 1 s) or advanced (multi-step, 4–40 s, higher quality).\n\n## Pricing\n\nFlat price per call. Failed calls are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/cloudsway/search",
+  "published_at": "2024-01-01T00:00:00Z",
+  "created_at": "2026-07-02T10:22:45.325Z"
+}

@@ -1,0 +1,63 @@
+{
+  "name": "kbb/years",
+  "display_name": "Kelley Blue Book Years",
+  "type": "api",
+  "vendor": "Kelley Blue Book",
+  "vendor_slug": "kbb",
+  "description": "Retrieve all available vehicle model years from Kelley Blue Book in one round trip. Returns an array of integer years in descending order, from the newest model year the site currently lists (one year beyond the next.",
+  "tags": [
+    "api",
+    "kbb",
+    "ecommerce"
+  ],
+  "capabilities": [
+    "api",
+    "kbb",
+    "ecommerce"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}",
+    "passthrough": "POST /v1/api/kbb/years"
+  },
+  "input_schema": {
+    "type": "object",
+    "properties": {}
+  },
+  "response_schema": {
+    "type": "object",
+    "required": [
+      "id",
+      "status",
+      "model"
+    ],
+    "properties": {
+      "id": {
+        "type": "string"
+      },
+      "model": {
+        "type": "string"
+      },
+      "status": {
+        "type": "string"
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.01,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "readme": "# Kelley Blue Book Years\n\nRetrieve all available vehicle model years from Kelley Blue Book in one round trip. Returns an array of integer years in descending order, from the newest model year the site currently lists (one year beyond the next.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/kbb/years\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{}'\n```\n\nThis API runs asynchronously. The call returns a task `id` with status `pending`; poll `GET https://api.sandbase.ai/v1/run/{id}` until `status` is `completed` and read the result from `outputs[0].data`.\n\n## Parameters\n\nThis API takes no parameters.\n\n## Pricing\n\nFlat price per call. Failed calls are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/kbb/years",
+  "created_at": "2026-10-30T09:11:11.513Z"
+}

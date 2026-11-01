@@ -1,0 +1,50 @@
+{
+  "name": "tiktok/web/generate-ttwid",
+  "display_name": "TikTok Web TTWID Identifier",
+  "type": "api",
+  "vendor": "TikTok",
+  "vendor_slug": "tiktok",
+  "description": "Returns a valid TikTok ttwid cookie value for web session handling. Accepts an optional user_agent string to match specific browser environments.",
+  "tags": [
+    "api",
+    "tiktok"
+  ],
+  "capabilities": [
+    "api",
+    "tiktok"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/tiktok/web/generate-ttwid"
+  },
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "user_agent": {
+        "type": "string",
+        "title": "User Agent"
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.0015,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "readme": "# TikTok Web TTWID Identifier API\n\nObtain a TikTok web session ttwid cookie. You can optionally supply a custom `user_agent` to match the client environment.\n\n## Use cases\n\n- Acquire a ttwid cookie for authenticating downstream TikTok web queries.\n- Configure web scrapers with matching browser user agent identifiers.\n- Simulate web client session headers for automated TikTok data collection.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/tiktok/web/generate-ttwid\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `user_agent` | string | No | — |\n\n## Notes\n\n- Supply `user_agent` to align the cookie with your target browser header.\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [TikTok Video IDs from URLs (Batch)](/model/tiktok/web/all-aweme-id): Resolves and extracts TikTok video IDs from a list of video URLs.\n- [TikTok User Sec User ID Extractor](/model/tiktok/web/all-sec-user-id): Returns a list of sec_user_id identifiers corresponding to TikTok user profile URLs.\n- [TikTok Profile Unique IDs](/model/tiktok/web/all-unique-id): Resolves a batch of TikTok user homepage links to retrieve their corresponding unique identifiers.\n",
+  "page_url": "https://www.sandbase.ai/model/tiktok/web/generate-ttwid",
+  "created_at": "2026-07-31T04:16:54.056Z"
+}

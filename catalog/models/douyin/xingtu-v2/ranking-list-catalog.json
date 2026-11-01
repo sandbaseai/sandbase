@@ -1,0 +1,74 @@
+{
+  "name": "douyin/xingtu-v2/ranking-list-catalog",
+  "display_name": "Douyin Xingtu Ranking List Catalog",
+  "type": "api",
+  "vendor": "Douyin",
+  "vendor_slug": "douyin",
+  "description": "Returns the ranking list catalog from Douyin Xingtu, including available leaderboard dates and qualifiers. Accepts optional business scene and classification code filters.",
+  "tags": [
+    "api",
+    "douyin"
+  ],
+  "capabilities": [
+    "api",
+    "douyin"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/douyin/xingtu-v2/ranking-list-catalog"
+  },
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "codes": {
+        "type": "string",
+        "title": "Codes",
+        "default": "",
+        "example": "",
+        "description": "Classification codes, default is empty string"
+      },
+      "biz_scene": {
+        "type": "string",
+        "title": "Biz Scene",
+        "default": "douyin_flow_split_video_author_ranks",
+        "example": "douyin_flow_split_video_author_ranks",
+        "description": "Business scene"
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.0015,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "examples": [
+    {
+      "input": {
+        "biz_scene": "douyin_flow_split_video_author_ranks",
+        "codes": ""
+      }
+    },
+    {
+      "input": {
+        "biz_scene": "douyin_flow_split_video_author_ranks",
+        "codes": ""
+      }
+    }
+  ],
+  "readme": "# Douyin Xingtu Ranking List Catalog API\n\nFetch available leaderboard categories and dates across Douyin Xingtu. Filter the catalog using `biz_scene` and classification `codes`.\n\n## Use cases\n\n- Discover available Douyin Xingtu creator ranking categories and qualifiers.\n- Look up supported leaderboard dates for specific business scenes.\n- Map qualifier identifiers to corresponding ranking list display names.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/douyin/xingtu-v2/ranking-list-catalog\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `codes` | string | No | Classification codes, default is empty string |\n| `biz_scene` | string | No | Business scene |\n\n## Example response\n\nReal response for the request above, trimmed to the main fields. User names and long IDs are masked.\n\n```json\n{\n  \"catalog\": {\n    \"18\": [\n      {\n        \"date\": \"20260930\",\n        \"display_name\": \"头部必选榜\",\n        \"qualifier_id\": \"627\"\n      }\n    ]\n  }\n}\n```\n\n## Notes\n\n- Filter rankings by classification codes using `codes`, which defaults to an empty string.\n- Specify the target business context with `biz_scene`.\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [Douyin Xingtu Author Audience Distribution](/model/douyin/xingtu-v2/author-audience-distribution): Returns audience profile distribution metrics for a specified Xingtu creator based on creator ID and link type, with selectable platform source and channel opt…\n- [Douyin Xingtu Author Base Info](/model/douyin/xingtu-v2/author-base-info): Returns basic creator profile data from Douyin Xingtu by author identifier, with options to include recommendation details and linkage information.\n- [Douyin Xingtu Author Business Card Info](/model/douyin/xingtu-v2/author-business-card-info): Returns business card details for a Douyin Xingtu creator based on the specified author ID.\n",
+  "page_url": "https://www.sandbase.ai/model/douyin/xingtu-v2/ranking-list-catalog",
+  "created_at": "2026-07-31T02:42:51.668Z"
+}

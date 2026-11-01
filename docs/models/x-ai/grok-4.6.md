@@ -1,0 +1,51 @@
+# xAI: Grok 4.6
+
+`x-ai/grok-4.6` · llm · xAI
+
+Grok 4.6 is xAI's frontier reasoning model for coding, agentic tasks and knowledge work, released in August 2026 as the successor to Grok 4.5. xAI focused it on long-running agents and ambitious interactive and visual projects, such as turning a broad product idea into a working first version and refining it over several rounds. It accepts text and image input with text output and configurable reasoning effort; Grok 4.7 succeeded it in September 2026.
+
+## Pricing
+
+- Input **$2** / output **$6** per 1M tokens (USD)
+- cache read multiplier: 0.25
+
+## Call it
+
+OpenAI-compatible: any OpenAI SDK works with `base_url=https://api.sandbase.ai/v1`. Anthropic (`/v1/messages`) and Gemini (`/v1beta/models/...`) formats are also accepted.
+
+**curl**
+
+```bash
+curl https://api.sandbase.ai/v1/chat/completions \
+  -H "Authorization: Bearer $SANDBASE_API_KEY" -H 'Content-Type: application/json' \
+  -d '{"model": "x-ai/grok-4.6", "messages": [{"role": "user", "content": "Hello"}]}'
+```
+
+**Python**
+
+```python
+from openai import OpenAI
+
+client = OpenAI(base_url="https://api.sandbase.ai/v1", api_key=os.environ["SANDBASE_API_KEY"])
+resp = client.chat.completions.create(model='x-ai/grok-4.6', messages=[{"role": "user", "content": "Hello"}])
+```
+
+**TypeScript**
+
+```ts
+import OpenAI from "openai";
+
+const client = new OpenAI({ baseURL: "https://api.sandbase.ai/v1", apiKey: process.env.SANDBASE_API_KEY });
+const resp = await client.chat.completions.create({ model: "x-ai/grok-4.6", messages: [{ role: "user", content: "Hello" }] });
+```
+
+**Go** ([sdk/go](../../../sdk/go))
+
+```go
+resp, err := c.Chat(ctx, "x-ai/grok-4.6", []map[string]any{{"role": "user", "content": "Hello"}}, nil)
+```
+
+
+Capabilities: `chat`, `vision`, `reasoning`, `structured_output`, `function_calling`
+---
+Machine-readable: [`catalog/models/x-ai/grok-4.6.json`](../../../catalog/models/x-ai/grok-4.6.json) · Store page: https://www.sandbase.ai/model/x-ai/grok-4.6

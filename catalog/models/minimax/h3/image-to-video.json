@@ -1,0 +1,214 @@
+{
+  "name": "minimax/h3/image-to-video",
+  "display_name": "MiniMax H3 Image to Video",
+  "type": "video",
+  "vendor": "MiniMax",
+  "vendor_slug": "minimax",
+  "description": "Generate native-stereo 2K video from a first frame and optional last frame with MiniMax H3.",
+  "tags": [
+    "image-to-video",
+    "first-last-frame-to-video"
+  ],
+  "capabilities": [
+    "image-to-video",
+    "first-last-frame-to-video"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "prompt",
+      "image",
+      "duration"
+    ],
+    "properties": {
+      "image": {
+        "type": "string",
+        "title": "First Frame Image",
+        "description": "The first frame of the generated video."
+      },
+      "prompt": {
+        "type": "string",
+        "title": "Prompt",
+        "default": "The camera slowly pulls back, revealing the full landscape as clouds drift overhead and light shifts across the terrain.",
+        "maxLength": 7000,
+        "minLength": 1
+      },
+      "duration": {
+        "enum": [
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15
+        ],
+        "type": "integer",
+        "title": "Duration",
+        "default": 5
+      },
+      "end_image": {
+        "type": "string",
+        "title": "Last Frame Image",
+        "description": "Optional last frame for first-to-last keyframe control."
+      },
+      "resolution": {
+        "enum": [
+          "768P",
+          "2K"
+        ],
+        "type": "string",
+        "title": "Resolution",
+        "default": "2K",
+        "description": "Output resolution. 768P is generated natively; 2K is upscaled via an in-context regeneration pass."
+      },
+      "aigc_watermark": {
+        "type": "boolean",
+        "title": "AIGC Watermark",
+        "default": false,
+        "description": "Whether to add an AIGC label watermark to the generated video."
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "required": [
+      "id",
+      "status"
+    ],
+    "properties": {
+      "id": {
+        "type": "string"
+      },
+      "error": {
+        "type": "string"
+      },
+      "model": {
+        "type": "string"
+      },
+      "usage": {
+        "type": "object",
+        "properties": {
+          "input_seconds": {
+            "type": "number",
+            "minimum": 0
+          },
+          "total_seconds": {
+            "type": "number",
+            "minimum": 0
+          },
+          "output_seconds": {
+            "type": "number",
+            "minimum": 0
+          },
+          "input_image_count": {
+            "type": "integer",
+            "minimum": 0
+          }
+        },
+        "additionalProperties": false
+      },
+      "status": {
+        "enum": [
+          "pending",
+          "running",
+          "completed",
+          "failed",
+          "timeout"
+        ],
+        "type": "string"
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "required": [
+            "url"
+          ],
+          "properties": {
+            "url": {
+              "type": "string"
+            },
+            "content_type": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "formula",
+    "formula": "(usage.total_seconds ?? params.duration ?? 5) * ((params.resolution ?? \"2K\") == \"768P\" ? 0.06 : 0.13)",
+    "formula_variables": [
+      "params.duration",
+      "params.resolution",
+      "usage.total_seconds"
+    ],
+    "reference_price": 0.65
+  },
+  "examples": [
+    {
+      "input": {
+        "duration": 15,
+        "image": "https://static.sandbase.ai/examples/23ca8902-929b-4b32-912d-ce1d7dd40a79/input/9a0ddc5e-266d-45c2-a34f-9db1ce9044ab.jpeg",
+        "prompt": "make my cleavage bigger and fatter and jigglier  and my bottom part too\nwith my body and clothes are all sweaty and with some milk on it i seductively dance then turn around and jiggle my lower behind part up and down\nthen i drop on the floor knees first all hot and tired but enjoying my self the i grab a cucumber from the camera and i lick and suck it seductively \nthen  loads of milk drop on me from the camera while i laugh and enjoy myself",
+        "resolution": "768P"
+      },
+      "output": [
+        {
+          "poster": "https://static.sandbase.ai/examples/posters/c0d98c0689b259fac83b.jpg",
+          "url": "https://static.sandbase.ai/examples/23ca8902-929b-4b32-912d-ce1d7dd40a79/output/9a5939f1-e402-4344-8460-c7d593c3bd52.mp4"
+        }
+      ],
+      "default": true
+    },
+    {
+      "input": {
+        "duration": 15,
+        "image": "https://static.sandbase.ai/examples/5b8ea529-00b1-4ea4-91de-bf9aa92233f0/input/e3014cf9-f667-4b58-976d-3c48a4a1887c.jpeg",
+        "prompt": "make my cleavage bigger and fatter and jigglier but not that much and my bottom part too\nwith my body and clothes are all sweaty and with some milk on it i dance front facing camera then i turn and jiggle my lower part a bit\nthen i drop on the floor knees first all hot and tired but enjoying my self the i grab a cucumber from the camera and i start sucking it it like its an ice cream \nthen small loads of milk drop on me from the camera while i laugh and enjoy myself\nmake sure to include every detail and make the video longer than the usual 15 seconds maybe 30 and take your time with it until you perfect it",
+        "resolution": "768P"
+      },
+      "output": [
+        {
+          "poster": "https://static.sandbase.ai/examples/posters/643554b45b8288ea410e.jpg",
+          "url": "https://static.sandbase.ai/examples/5b8ea529-00b1-4ea4-91de-bf9aa92233f0/output/f439bc16-2b3a-4249-8e1f-8ac01fe41371.mp4"
+        }
+      ]
+    },
+    {
+      "input": {
+        "duration": 15,
+        "image": "https://static.sandbase.ai/examples/cc4277ea-9fe8-47e6-a0dc-4a4a3a44eda5/input/ac3d54d3-5e54-423a-a841-0c764c0c6f51.jpeg",
+        "prompt": "make me turn around and dance like ice spice in a rap video but make my bottom part alot bigger and rounder and jggilier and moves like its clapping and small amount of milk shooting at it  from random directions while the camera moves like its walking towards me while I'm faced against the wall and i start saying ah ah ah ah like I'm enjoying it \nkeep the video frame on my whole body with my face showing too",
+        "resolution": "768P"
+      },
+      "output": [
+        {
+          "poster": "https://static.sandbase.ai/examples/posters/93bbb34e604fe7aaa19b.jpg",
+          "url": "https://static.sandbase.ai/examples/cc4277ea-9fe8-47e6-a0dc-4a4a3a44eda5/output/962e8d53-27cc-4c10-96e6-ae701eda2e81.mp4"
+        }
+      ]
+    }
+  ],
+  "readme": "# MiniMax H3 Image to Video\n\nMiniMax H3 image-to-video: animate a first frame, optionally toward a last frame, into a 4–15 second native-stereo 2K clip.\n\n## Fields\n\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `prompt` | string, required | — | Up to 7,000 characters. |\n| `image` | image URL, required | — | First frame. JPEG, PNG, or WebP URL. |\n| `end_image` | image URL | — | Optional last frame. |\n| `duration` | 4–15, required | 5 | Output length in seconds. |\n| `resolution` | `768P` / `2K` | `2K` | Sets the per-second rate. |\n| `aigc_watermark` | boolean | false | Add MiniMax's AI-generated watermark. |\n\n## Billing\n\nYou pay for output seconds: $0.13 at 2K (the default) and $0.06 at 768P.\n\n| Output | 2K | 768P |\n|---|---|---|\n| 4s | $0.52 | $0.24 |\n| 5s (default) | $0.65 | $0.30 |\n| 10s | $1.30 | $0.60 |\n| 15s | $1.95 | $0.90 |\n\nFailed runs are not charged.\n\n## Prompting\n\n- Describe subject, action, camera, and sound in order.\n- Quote dialogue and name the speaker.\n\n## Limits\n\n- `duration` is required.\n\n## Also on SandBase\n\nOther MiniMax H3 endpoints: `minimax/h3/text-to-video`, `minimax/h3/reference-to-video`, `minimax/h3-max/image-to-video` (faster, cheaper).\n",
+  "cover_url": "https://static.sandbase.ai/covers/minimax/h3/image-to-video/cover-flare-20261004185016.webp",
+  "page_url": "https://www.sandbase.ai/model/minimax/h3/image-to-video",
+  "published_at": "2026-07-29T00:00:00Z",
+  "created_at": "2026-07-31T07:27:26.602Z"
+}

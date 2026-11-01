@@ -1,0 +1,219 @@
+{
+  "name": "home-depot/search",
+  "display_name": "Home Depot Search",
+  "type": "api",
+  "vendor": "Home Depot",
+  "vendor_slug": "home-depot",
+  "description": "Search Home Depot products by keyword with price, brand, model number, rating, delivery and pickup availability, filters and pagination.",
+  "tags": [
+    "api",
+    "home-depot",
+    "ecommerce",
+    "product-data"
+  ],
+  "capabilities": [
+    "api",
+    "home-depot",
+    "ecommerce",
+    "product-data"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}",
+    "passthrough": "POST /v1/api/home-depot/search"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "q"
+    ],
+    "properties": {
+      "q": {
+        "type": [
+          "string",
+          "number",
+          "boolean"
+        ],
+        "example": "cordless drill",
+        "description": "The search query. You can use anything that you would use in a regular The Home Depot search."
+      },
+      "ps": {
+        "type": [
+          "string",
+          "number",
+          "boolean"
+        ],
+        "description": "Determines the number of items per page. There are scenarios where The Home Depot overrides the `ps` value. By default, The Home Depot returns `24` (maximum allowed value) results."
+      },
+      "nao": {
+        "type": [
+          "string",
+          "number",
+          "boolean"
+        ],
+        "description": "Defines offset for products result. A single page contains 24 products. First page offset is 0, second -> 24, third -> 48 and so on."
+      },
+      "page": {
+        "type": [
+          "string",
+          "number",
+          "boolean"
+        ],
+        "description": "Value is used to get the items on a specific page. (e.g., `1` (default) is the first page of results, `2` is the 2nd page of results, `3` is the 3rd page of results, etc.). This parameter is common for both US and CA searches."
+      },
+      "sort": {
+        "anyOf": [
+          {
+            "enum": [
+              "price-asc",
+              "price-desc",
+              "reviewAvgRating",
+              "relevance"
+            ],
+            "type": "string"
+          }
+        ],
+        "description": "Results sorted by different options in Home Depot Canada. It can be set to: `price-asc`: Price Low to High, `price-desc`: Price High to Low, `reviewAvgRating`: Top Rated, `relevance`: Recommended (Default)"
+      },
+      "store": {
+        "type": [
+          "string",
+          "number",
+          "boolean"
+        ],
+        "description": "Store ID to filter the products by the specific store only in Home Depot Canada. The default store is Gatineau (`7140`). See all Home Depot Canada stores"
+      },
+      "filter": {
+        "type": [
+          "string",
+          "number",
+          "boolean"
+        ],
+        "description": "Used to pass filter tokens divided by dash (-) in Home Depot Canada. Filter tokens can be obtained from API response"
+      },
+      "minmax": {
+        "type": [
+          "string",
+          "number",
+          "boolean"
+        ],
+        "description": "Defines lower and upper bound for price in CAD. Parameter is only used in the Home Depot Canada. Example: `price:[100 TO 500]`(Between $100 to $500) Example: `price:[100 TO *]`(Minimum $100) Example: `price:[0 TO 500]`(Maximum $500) Example: `price:%5B100%20TO%20500%5D`(Encoded version, Between $100 to $500)"
+      },
+      "country": {
+        "type": [
+          "string",
+          "number",
+          "boolean"
+        ],
+        "description": "The country to use for the Home Depot search. Only United States(`us`), and Canada(`ca`) are supported."
+      },
+      "hd_sort": {
+        "anyOf": [
+          {
+            "enum": [
+              "top_sellers",
+              "price_low_to_high",
+              "price_high_to_low",
+              "top_rated",
+              "best_match"
+            ],
+            "type": "string"
+          }
+        ],
+        "description": "Results sorted by different options in Home Depot US. It can be set to: `top_sellers`: Top Sellers, `price_low_to_high`: Price Low to High, `price_high_to_low`: Price High to Low, `top_rated`: Top Rated, `best_match`: Best Match"
+      },
+      "pagesize": {
+        "type": [
+          "string",
+          "number",
+          "boolean"
+        ],
+        "description": "Determines the number of items per page in the Home Depot Canada. By default, the Home Depot Canada returns `40` (maximum allowed value) results."
+      },
+      "store_id": {
+        "type": [
+          "string",
+          "number",
+          "boolean"
+        ],
+        "description": "Store ID to filter the products by the specific store only. See all Home Depot stores"
+      },
+      "lowerbound": {
+        "type": [
+          "string",
+          "number",
+          "boolean"
+        ],
+        "description": "Defines lower bound for price in USD."
+      },
+      "upperbound": {
+        "type": [
+          "string",
+          "number",
+          "boolean"
+        ],
+        "description": "Defines upper bound for price in USD."
+      },
+      "delivery_zip": {
+        "type": [
+          "string",
+          "number",
+          "boolean"
+        ],
+        "description": "ZIP Postal code. To filter the shipping products by a selected area."
+      },
+      "json_restrictor": {
+        "type": [
+          "string",
+          "number",
+          "boolean"
+        ],
+        "description": "The fields you want to include in the output, reducing payload size for faster response. See the JSON Restrictor documentation for more details."
+      },
+      "hd_filter_tokens": {
+        "type": [
+          "string",
+          "number",
+          "boolean"
+        ],
+        "description": "Used to pass filter tokens divided by comma. Filter tokens can be obtained from API response"
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "required": [
+      "id",
+      "status",
+      "model"
+    ],
+    "properties": {
+      "id": {
+        "type": "string"
+      },
+      "model": {
+        "type": "string"
+      },
+      "status": {
+        "type": "string"
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.015,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "readme": "# Home Depot Search\n\nSearch Home Depot products by keyword with price, brand, model number, rating, delivery and pickup availability, filters and pagination.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/home-depot/search\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"q\": \"cordless drill\"}'\n```\n\nThis API runs asynchronously. The call returns a task `id` with status `pending`; poll `GET https://api.sandbase.ai/v1/run/{id}` until `status` is `completed` and read the result from `outputs[0].data`.\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `q` | string/number/boolean | Yes | The search query. You can use anything that you would use in a regular The Home Depot search. |\n| `country` | string/number/boolean | No | The country to use for the Home Depot search. Only United States(`us`), and Canada(`ca`) are supported. |\n| `delivery_zip` | string/number/boolean | No | ZIP Postal code. To filter the shipping products by a selected area. |\n| `filter` | string/number/boolean | No | Used to pass filter tokens divided by dash (-) in Home Depot Canada. Filter tokens can be obtained from API response |\n| `hd_filter_tokens` | string/number/boolean | No | Used to pass filter tokens divided by comma. Filter tokens can be obtained from API response |\n| `hd_sort` | any | No | Results sorted by different options in Home Depot US. It can be set to: `top_sellers`: Top Sellers, `price_low_to_high`: Price Low to High, `price_high_to_low`: Price High to Low, `top_rated`: Top Rat… |\n| `json_restrictor` | string/number/boolean | No | The fields you want to include in the output, reducing payload size for faster response. See the JSON Restrictor documentation for more details. |\n| `lowerbound` | string/number/boolean | No | Defines lower bound for price in USD. |\n| `minmax` | string/number/boolean | No | Defines lower and upper bound for price in CAD. Parameter is only used in the Home Depot Canada. Example: `price:[100 TO 500]`(Between $100 to $500) Example: `price:[100 TO *]`(Minimum $100) Example: … |\n| `nao` | string/number/boolean | No | Defines offset for products result. A single page contains 24 products. First page offset is 0, second -> 24, third -> 48 and so on. |\n| `page` | string/number/boolean | No | Value is used to get the items on a specific page. (e.g., `1` (default) is the first page of results, `2` is the 2nd page of results, `3` is the 3rd page of results, etc.). This parameter is common fo… |\n| `pagesize` | string/number/boolean | No | Determines the number of items per page in the Home Depot Canada. By default, the Home Depot Canada returns `40` (maximum allowed value) results. |\n| `ps` | string/number/boolean | No | Determines the number of items per page. There are scenarios where The Home Depot overrides the `ps` value. By default, The Home Depot returns `24` (maximum allowed value) results. |\n| `sort` | any | No | Results sorted by different options in Home Depot Canada. It can be set to: `price-asc`: Price Low to High, `price-desc`: Price High to Low, `reviewAvgRating`: Top Rated, `relevance`: Recommended (Def… |\n| `store` | string/number/boolean | No | Store ID to filter the products by the specific store only in Home Depot Canada. The default store is Gatineau (`7140`). See all Home Depot Canada stores |\n| `store_id` | string/number/boolean | No | Store ID to filter the products by the specific store only. See all Home Depot stores |\n| `upperbound` | string/number/boolean | No | Defines upper bound for price in USD. |\n\n## Pricing\n\nFlat price per call. Failed calls are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/home-depot/search",
+  "created_at": "2026-10-28T15:30:44.556Z"
+}

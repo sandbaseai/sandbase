@@ -1,0 +1,131 @@
+{
+  "name": "sync/lipsync/3.0/image-to-video",
+  "display_name": "Sync 3 Avatar Image to Video",
+  "type": "video",
+  "vendor": "Sync Labs",
+  "vendor_slug": "sync",
+  "description": "Sync 3 animates the face in a still image so it speaks the provided audio; the output matches the audio length.",
+  "tags": [
+    "image-to-video"
+  ],
+  "capabilities": [
+    "image-to-video"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "image",
+      "audio"
+    ],
+    "properties": {
+      "audio": {
+        "type": "string",
+        "title": "Audio",
+        "examples": [
+          "https://static.sandbase.ai/examples/sync/lipsync/v3/input_audio_1.wav"
+        ],
+        "description": "Input audio URL."
+      },
+      "image": {
+        "type": "string",
+        "title": "Image",
+        "examples": [
+          "https://storage.googleapis.com/falserverless/example_inputs/echo-mimic-input-image.png"
+        ],
+        "description": "Input image URL (face / character)."
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "title": "GenerationResponse",
+    "required": [
+      "id",
+      "status"
+    ],
+    "properties": {
+      "id": {
+        "type": "string",
+        "description": "Unique identifier for the generation task."
+      },
+      "error": {
+        "type": "string",
+        "description": "Error message if the task failed. Empty on success."
+      },
+      "model": {
+        "type": "string",
+        "description": "Model ID used for the prediction."
+      },
+      "status": {
+        "enum": [
+          "pending",
+          "running",
+          "completed",
+          "failed",
+          "timeout"
+        ],
+        "type": "string",
+        "description": "Status of the task: pending, running, completed, failed, or timeout."
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "title": "OutputItem",
+          "required": [
+            "url"
+          ],
+          "properties": {
+            "url": {
+              "type": "string",
+              "description": "The URL where the generated content can be downloaded from."
+            },
+            "content_type": {
+              "type": "string",
+              "description": "The MIME type of the output file."
+            }
+          }
+        },
+        "description": "Array of generated content. Empty when status is not completed."
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "formula",
+    "formula": "(usage.duration ?? media_duration(params.audio) ?? 5.0) * 0.135",
+    "formula_variables": [
+      "params.audio",
+      "usage.duration"
+    ],
+    "reference_price": 0.675
+  },
+  "examples": [
+    {
+      "input": {
+        "audio": "https://static.sandbase.ai/examples/561589e7-7f64-4b10-8636-6a598fd9b9b8/input/b3a8612b-d1e8-4efb-97c0-34d3cd05a581.wav",
+        "image": "https://static.sandbase.ai/examples/561589e7-7f64-4b10-8636-6a598fd9b9b8/input/0b00a2c7-affa-4bef-9e70-4f1526d9579a.png"
+      },
+      "output": [
+        {
+          "poster": "https://static.sandbase.ai/examples/posters/19c92891b3818512c38a.jpg",
+          "url": "https://static.sandbase.ai/examples/561589e7-7f64-4b10-8636-6a598fd9b9b8/output/b534df76-6cef-44da-b823-b8bc128ebadb.mp4"
+        }
+      ],
+      "default": true
+    }
+  ],
+  "readme": "# Sync 3 Avatar Image to Video\n\nSync 3 Avatar animates the face in a still image so it speaks the provided audio.\n\n## Fields\n\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `image` | image URL, required | — | Face to animate. JPEG, PNG, or WebP URL. |\n| `audio` | audio URL, required | — | Speech to sync. |\n\n## Billing\n\n$0.135 per output second. The quote before submission assumes 5 seconds; the final charge uses the measured length.\n\n| Output | Price |\n|---|---|\n| 5s | $0.675 |\n| 30s | $4.05 |\n| 60s | $8.10 |\n\nFailed runs are not charged.\n\n## Also on SandBase\n\nRelated: `sync/lipsync/3.0/video-to-video`.\n",
+  "cover_url": "https://static.sandbase.ai/covers/sync/lipsync/3.0/image-to-video/cover-flare-20261008040154.webp",
+  "page_url": "https://www.sandbase.ai/model/sync/lipsync/3.0/image-to-video",
+  "published_at": "2026-06-22T18:42:24.951Z",
+  "created_at": "2026-10-06T08:11:12.185Z"
+}

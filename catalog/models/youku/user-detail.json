@@ -1,0 +1,56 @@
+{
+  "name": "youku/user-detail",
+  "display_name": "Youku User Profile",
+  "type": "api",
+  "vendor": "Youku",
+  "vendor_slug": "youku",
+  "description": "Get a Youku user profile identified by UID. Use it to look up a known account for creator research, profile review, or related video discovery.",
+  "tags": [
+    "api",
+    "youku",
+    "entertainment"
+  ],
+  "capabilities": [
+    "api",
+    "youku",
+    "entertainment"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/youku/user-detail"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "uid"
+    ],
+    "properties": {
+      "uid": {
+        "type": "string",
+        "example": "UMTM2MTEzNzk5Ng==",
+        "description": "The unique identifier for the user."
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.013889,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "readme": "# Youku User Profile API\n\nGet a Youku user profile identified by UID. Use it to look up a known account for creator research, profile review, or related video discovery.\n\nThe response is the platform's original data structure.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/youku/user-detail\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"uid\": \"UMTM2MTEzNzk5Ng==\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `uid` | string | Yes | The unique identifier for the user. |\n\n## Pricing\n\nFlat price per call. Failed calls and empty results are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/youku/user-detail",
+  "created_at": "2026-10-29T12:31:17.413Z"
+}
