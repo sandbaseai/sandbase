@@ -1,0 +1,13 @@
+title = "sandbase"
+
+[extend]
+useDefault = true
+
+# Placeholder values copied from public API documentation into schema examples.
+[allowlist]
+description = "public documentation example values"
+regexTarget = "line"
+regexes = [
+  '''9a186935547145e29271648369eeec01''',
+  '''0xabc123def456''',
+]
