@@ -475,23 +475,60 @@ def param_rows(schema: dict) -> list[str]:
     return rows
 
 
+CURL_BODY = re.compile(r"-d\s+'(\{.*?\})'", re.S)
+PLACEHOLDER = re.compile(r"^<[^<>]+>$")
+SAMPLE_PROMPT = {
+    "image": "A red fox in a snowy forest at sunrise, photorealistic",
+    "video": "A red fox runs through a snowy forest at sunrise, cinematic tracking shot",
+    "audio": "Hello! Welcome to SandBase.",
+}
+
+
+def documented_body(rec: dict) -> dict:
+    """Request body of the first curl example in the model's documentation, if any."""
+    for m in CURL_BODY.finditer(rec.get("readme") or ""):
+        try:
+            body = json.loads(m.group(1))
+        except ValueError:
+            continue
+        if isinstance(body, dict):
+            body.pop("model", None)
+            return body
+    return {}
+
+
+def sample_value(k: str, p: dict, rec: dict, documented: dict):
+    if "example" in p:
+        return p["example"]
+    if isinstance(p.get("examples"), list) and p["examples"]:
+        return p["examples"][0]
+    if "default" in p:
+        return p["default"]
+    if p.get("enum"):
+        return p["enum"][0]
+    v = documented.get(k)
+    if v is not None and not (isinstance(v, str) and PLACEHOLDER.match(v)):
+        return v
+    if p.get("type") in ("integer", "number"):
+        return p.get("minimum", 1) or 1
+    if p.get("type") == "boolean":
+        return False
+    if k == "prompt" and rec.get("type") in SAMPLE_PROMPT:
+        return SAMPLE_PROMPT[rec["type"]]
+    if p.get("type") == "array":
+        return ["<" + k + ">"]
+    return "<" + k + ">"
+
+
 def sample_body(rec: dict) -> dict:
+    """Request body for the code samples: a published example, else the required fields
+    filled from the schema (example / examples / default / enum) and the documented curl body."""
     if rec.get("examples"):
-        body = dict(rec["examples"][0]["input"])
-    else:
-        body = {}
-        schema = rec.get("input_schema") or {}
-        for k in schema.get("required") or []:
-            p = (schema.get("properties") or {}).get(k) or {}
-            if "example" in p:
-                body[k] = p["example"]
-            elif "default" in p:
-                body[k] = p["default"]
-            elif "enum" in p:
-                body[k] = p["enum"][0]
-            else:
-                body[k] = "<" + k + ">"
-    return body
+        return dict(rec["examples"][0]["input"])
+    schema = rec.get("input_schema") or {}
+    props = schema.get("properties") or {}
+    documented = documented_body(rec)
+    return {k: sample_value(k, props.get(k) or {}, rec, documented) for k in schema.get("required") or []}
 
 
 def go_literal(v, indent: int = 1) -> str:
@@ -955,11 +992,27 @@ See [docs/guides/relay-platforms.md](../docs/guides/relay-platforms.md) for setu
 
 # --------------------------------------------------------------------------- agents / skills / sandbox
 
+PLATFORM_FILES = ["catalog/skills.json", "catalog/sandbox.json", "docs/SKILLS.md"]
+
+
+def keep_previous_platform(reason: str) -> dict:
+    """Carry the last published Skills / Sandbox files over unchanged instead of dropping them."""
+    print(f"platform: {reason}; keeping the previous snapshot", file=sys.stderr)
+    for rel in PLATFORM_FILES:
+        src = ROOT / rel
+        if src.exists():
+            (OUT / rel).parent.mkdir(parents=True, exist_ok=True)
+            shutil.copy2(src, OUT / rel)
+    prev = ROOT / "catalog" / "index.json"
+    counts = (json.loads(prev.read_text()).get("platform") or {}) if prev.exists() else {}
+    return {k: v for k, v in counts.items() if k != "files"}
+
+
 def build_platform(generated_at: str) -> dict:
     """Whitelisted public Agent catalog, Skill catalog and Sandbox templates (from fetch_catalog.py)."""
     path = RAW / "platform.json"
     if not path.exists():
-        return {}
+        return keep_previous_platform("no fresh platform data (SANDBASE_API_KEY not set or fetch failed)")
     raw = json.loads(path.read_text())
     skills = [{"id": s["id"], "name": s.get("name"), "description": s.get("description"),
                "version": s.get("latest_version") or s.get("default_version")} for s in raw.get("skills", [])]
@@ -974,8 +1027,10 @@ def build_platform(generated_at: str) -> dict:
                     "pricing": {"model": "free", "usd": 0, "note": "Sandboxes are free."},
                     "public_templates": templates},
     }
-    for leak in MARKERS.findall(json.dumps(platform, ensure_ascii=False)):
-        print(f"WARNING: platform catalog mentions upstream marker '{leak}'", file=sys.stderr)
+    leaky = [s["id"] for s in platform["skills"] if MARKERS.search(json.dumps(s, ensure_ascii=False))]
+    if leaky or MARKERS.search(json.dumps(platform["sandbox"], ensure_ascii=False)):
+        # never name the marker: Actions logs of a public repository are public
+        return keep_previous_platform(f"platform data has review flags (skills: {', '.join(leaky) or '-'})")
     (OUT / "catalog" / "skills.json").write_text(json.dumps(platform["skills"], ensure_ascii=False, indent=2) + "\n")
     (OUT / "catalog" / "sandbox.json").write_text(json.dumps(platform["sandbox"], ensure_ascii=False, indent=2) + "\n")
 
@@ -990,7 +1045,7 @@ def build_platform(generated_at: str) -> dict:
 
 def main() -> int:
     ap = argparse.ArgumentParser()
-    ap.add_argument("--strict", action="store_true", help="fail if any record still has review flags")
+    ap.add_argument("--strict", action="store_true", help="require the marker list; flagged records keep their previous clean version or are withheld (see .cache/quarantine.json)")
     args = ap.parse_args()
     if args.strict and not MARKER_LIST:
         print("strict: no upstream marker list (set SANDBASE_UPSTREAM_MARKERS or SANDBASE_UPSTREAM_MARKERS_FILE)", file=sys.stderr)
@@ -1013,6 +1068,23 @@ def main() -> int:
             rec["context_length"] = item["context_length"]
         records[raw["name"]] = rec
     attach_price_examples(records)
+
+    # A record with an unresolved flag is never published. With --strict the rest of the
+    # catalog still ships: the flagged record keeps its last published (clean) version, or
+    # is withheld if it is new. The run is then marked failed so the record gets fixed.
+    blocking = {n: [f for f in fl if not f.startswith("info:")] for n, fl in review["flags"].items()}
+    blocking = {n: fl for n, fl in blocking.items() if fl}
+    quarantined: dict[str, str] = {}
+    if args.strict:
+        for name in sorted(blocking):
+            prev = ROOT / "catalog" / "models" / f"{name}.json"
+            old = json.loads(prev.read_text()) if prev.exists() else None
+            if old and not MARKERS.search(json.dumps(old, ensure_ascii=False)):
+                records[name] = old
+                quarantined[name] = "kept previous version"
+            else:
+                records.pop(name, None)
+                quarantined[name] = "withheld"
 
     shutil.rmtree(OUT, ignore_errors=True)
     OUT.mkdir(parents=True)
@@ -1102,12 +1174,13 @@ def main() -> int:
     print("by type:", index["counts_by_type"])
     print("pricing models:", dict(Counter(r["pricing"].get("model") for r in records.values())))
     print("with price_examples:", sum(1 for r in records.values() if r["pricing"].get("price_examples")))
-    blocking = {n: [f for f in fl if not f.startswith("info:")] for n, fl in review["flags"].items()}
-    blocking = {n: fl for n, fl in blocking.items() if fl}
     print("blocking review items:", len(blocking))
-    if args.strict and blocking:
-        print("strict: unresolved review flags, see .cache/review.md (nothing published)", file=sys.stderr)
-        return 2
+    if blocking and not args.strict:
+        print("not --strict: flagged records were written as-is; do not publish this build", file=sys.stderr)
+    # names only: the flag text itself (which marker matched) stays in .cache/review.md
+    (ROOT / ".cache" / "quarantine.json").write_text(json.dumps(quarantined, indent=1) + "\n")
+    for name, what in quarantined.items():
+        print(f"quarantined: {name} ({what})")
     publish_outputs()
     return 0
 

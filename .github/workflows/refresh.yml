@@ -1,13 +1,13 @@
 name: Refresh catalog
-
 on:
   schedule:
-    - cron: "17 2 * * *"   # daily, 02:17 UTC
+    - cron: "17 */4 * * *"   # every 4 hours
   workflow_dispatch:
-
 permissions:
   contents: write
-
+concurrency:
+  group: refresh-catalog
+  cancel-in-progress: false
 jobs:
   refresh:
     runs-on: ubuntu-latest
@@ -20,21 +20,37 @@ jobs:
         with:
           node-version: "22"
       - name: Fetch catalog
-        # read-only key: used to list public Skills and sandbox templates
+        # read-only key: used to list public Skills and sandbox templates.
+        # Without it the previous Skills / Sandbox snapshot is kept.
         env:
           SANDBASE_API_KEY: ${{ secrets.SANDBASE_CATALOG_KEY }}
         run: python scripts/fetch_catalog.py
-      - name: Build (fails on unresolved publishing flags)
+      - name: Build (flagged records are never published)
         env:
           SANDBASE_UPSTREAM_MARKERS: ${{ secrets.SANDBASE_UPSTREAM_MARKERS }}
         run: python scripts/build_catalog.py --strict
       - name: Commit changes
         run: |
-          if git diff --quiet -- catalog docs openapi exports llms.txt README.md README.zh-CN.md; then
+          paths="catalog docs openapi exports llms.txt README.md README.zh-CN.md"
+          # skip runs where only the generation timestamp moved
+          if git diff --quiet -I 'generated' -- $paths && [ -z "$(git ls-files --others --exclude-standard -- $paths)" ]; then
             echo "no catalog changes"; exit 0
           fi
           git config user.name "sandbase-catalog-bot"
           git config user.email "catalog-bot@users.noreply.github.com"
-          git add catalog docs openapi exports llms.txt README.md README.zh-CN.md
-          git commit -m "chore(catalog): refresh $(date -u +%Y-%m-%d)"
+          git add $paths
+          git commit -m "chore(catalog): refresh $(date -u +%Y-%m-%dT%H:%MZ)"
+          git pull --rebase
           git push
+      - name: Report records held back
+        run: |
+          python - <<'EOF'
+          import json, sys
+          q = json.load(open(".cache/quarantine.json"))
+          if q:
+              print(f"::error::{len(q)} record(s) held back until their metadata is fixed upstream:")
+              for name, what in q.items():
+                  print(f"  {name}: {what}")
+              sys.exit(1)
+          print("all records published")
+          EOF
