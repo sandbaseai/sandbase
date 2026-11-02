@@ -1,61 +1,134 @@
 #!/usr/bin/env python3
-"""Render .github/social-preview.png (1280x640) for the GitHub repository card. Requires Pillow."""
-import json
+"""Render .github/social-preview.png (1280x640) in the SandBase brand style. Requires Pillow.
+
+Brand assets (Clash Grotesk, the pixel-art stack and the logo mark) are read from the
+X banner SVG given with --banner; they are not stored in this repository.
+
+    python scripts/make_social_preview.py --banner path/to/sandbase-x-banner.svg
+"""
+import argparse
+import base64
+import io
+import re
 from pathlib import Path
 
 from PIL import Image, ImageDraw, ImageFont
 
 ROOT = Path(__file__).resolve().parent.parent
 W, H = 1280, 640
-BG, INK, MUTED, ACCENT, CARD = (11, 15, 25), (245, 247, 250), (148, 160, 180), (52, 211, 153), (24, 31, 46)
-FONT = "/System/Library/Fonts/SFNS.ttf"
-MONO = "/System/Library/Fonts/SFNSMono.ttf"
+SS = 2                                   # supersampling for smooth text and logo edges
+BG = (14, 11, 26)                        # #0E0B1A
+LIME = (217, 255, 67)                    # #D9FF43
+WHITE = (255, 255, 255)
+MUTED = (178, 172, 204)
 
 
-def font(size, mono=False):
-    try:
-        return ImageFont.truetype(MONO if mono else FONT, size)
-    except OSError:
-        return ImageFont.load_default()
+def load_brand(svg_path: Path):
+    s = svg_path.read_text()
+    fonts = {w: base64.b64decode(b) for w, b in re.findall(
+        r"font-weight:\s*(\d+);\s*src:\s*url\(data:font/ttf;base64,([A-Za-z0-9+/=]+)\)", s)}
+    art = Image.open(io.BytesIO(base64.b64decode(
+        re.search(r'<image [^>]*href="data:image/png;base64,([A-Za-z0-9+/=]+)"', s).group(1)))).convert("RGBA")
+    mark = re.search(r'<path fill="#D9FF43" fill-rule="evenodd" d="([^"]+)"', s).group(1)
+    return fonts, art, mark
+
+
+def path_polygons(d: str, steps: int = 16):
+    """Flatten an absolute SVG path (M, L, H, V, C, Z) into polygons."""
+    tokens = re.findall(r"[MLHVCZ]|-?\d*\.?\d+(?:e-?\d+)?", d)
+    polys, cur, pos, i, cmd = [], [], (0.0, 0.0), 0, None
+    while i < len(tokens):
+        t = tokens[i]
+        if t in "MLHVCZ":
+            cmd = t
+            i += 1
+            if cmd == "Z":
+                if cur:
+                    polys.append(cur)
+                cur = []
+            continue
+        nums = lambda n: [float(x) for x in tokens[i:i + n]]
+        if cmd == "M":
+            x, y = nums(2); i += 2
+            if cur:
+                polys.append(cur)
+            cur, pos = [(x, y)], (x, y)
+            cmd = "L"
+        elif cmd == "L":
+            x, y = nums(2); i += 2
+            pos = (x, y); cur.append(pos)
+        elif cmd == "H":
+            (x,) = nums(1); i += 1
+            pos = (x, pos[1]); cur.append(pos)
+        elif cmd == "V":
+            (y,) = nums(1); i += 1
+            pos = (pos[0], y); cur.append(pos)
+        elif cmd == "C":
+            x1, y1, x2, y2, x, y = nums(6); i += 6
+            x0, y0 = pos
+            for k in range(1, steps + 1):
+                u = k / steps
+                a, b, c, e = (1 - u) ** 3, 3 * u * (1 - u) ** 2, 3 * u * u * (1 - u), u ** 3
+                cur.append((a * x0 + b * x1 + c * x2 + e * x, a * y0 + b * y1 + c * y2 + e * y))
+            pos = (x, y)
+    if cur:
+        polys.append(cur)
+    return polys
+
+
+def draw_mark(img, d, x, y, size):
+    """Logo mark (275x340 viewBox) at (x, y), `size` pixels tall, even-odd filled."""
+    scale = size / 340
+    mask = Image.new("1", img.size, 0)
+    for poly in path_polygons(d):
+        layer = Image.new("1", img.size, 0)
+        ImageDraw.Draw(layer).polygon([(x + px * scale, y + py * scale) for px, py in poly], fill=1)
+        mask = Image.frombytes("1", img.size, bytes(a ^ b for a, b in zip(mask.tobytes(), layer.tobytes())))
+    img.paste(Image.new("RGB", img.size, LIME), (0, 0), mask)
 
 
 def main():
-    index = json.loads((ROOT / "catalog" / "index.json").read_text())
-    total = index["count"]
-    headline = f"{total // 1000 * 1000:,}+" if total >= 2000 else f"{total:,}"
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--banner", required=True, type=Path)
+    ap.add_argument("--out", type=Path, default=ROOT / ".github" / "social-preview.png")
+    a = ap.parse_args()
+    fonts, art, mark = load_brand(a.banner)
+    font = lambda size, weight="400": ImageFont.truetype(io.BytesIO(fonts[weight]), size * SS)
 
-    img = Image.new("RGB", (W, H), BG)
+    img = Image.new("RGB", (W * SS, H * SS), BG)
+
+    # artwork: right side of the pixel-art stack, nearest-neighbour scaled to full height
+    crop = art.crop((art.width * 300 // 900, 0, art.width, art.height))
+    k = H * SS / crop.height
+    crop = crop.resize((round(crop.width * k), H * SS), Image.NEAREST)
+    # soften the cut edge: fade the left 160 px of the artwork into the background
+    fade = Image.new("L", crop.size, 255)
+    ramp = 160 * SS
+    for x in range(ramp):
+        fade.paste(round(255 * (x / ramp) ** 1.6), (x, 0, x + 1, crop.height))
+    img.paste(crop.convert("RGB"), (W * SS - crop.width, 0), fade)
+
     d = ImageDraw.Draw(img)
-    d.rectangle([0, 0, W, 8], fill=ACCENT)
-    d.text((72, 64), "SandBase", font=font(44), fill=ACCENT)
-    d.text((72, 132), "One API key for AI models, data APIs,", font=font(58), fill=INK)
-    d.text((72, 202), "sandboxes and agents.", font=font(58), fill=INK)
+    m = 72 * SS                                     # left margin
+    draw_mark(img, mark, m, 64 * SS, 30 * SS)
+    d.text((m + 38 * SS, 62 * SS), "SandBase", font=font(28, "500"), fill=WHITE)
 
-    pills = [(f"{headline} models & APIs", ACCENT), ("100 free API calls / day", INK), ("Sandboxes free", INK), ("Agents free", INK)]
-    x = 72
-    for text, color in pills:
-        f = font(28)
-        w = d.textlength(text, font=f)
-        d.rounded_rectangle([x, 300, x + w + 40, 352], radius=26, fill=CARD)
-        d.text((x + 20, 309), text, font=f, fill=color)
-        x += w + 56
+    h1 = font(72)
+    d.text((m - 4 * SS, 214 * SS), "One API Key.", font=h1, fill=WHITE)
+    word = "Every Model."
+    bbox = d.textbbox((0, 0), word, font=h1)
+    x0, y0 = m - 4 * SS, 304 * SS
+    d.rectangle([x0, y0 + 10 * SS, x0 + bbox[2] + 22 * SS, y0 + 96 * SS], fill=LIME)
+    d.text((x0 + 11 * SS, y0), word, font=h1, fill=BG)
 
-    d.rounded_rectangle([72, 392, W - 72, 548], radius=18, fill=CARD)
-    code = [
-        ("$ ", MUTED, 'curl api.sandbase.ai/v1/run -H "Authorization: Bearer $KEY" \\'),
-        ("  ", MUTED, '    -d \'{"model": "exa/search", "query": "AI agents"}\''),
-        ("", ACCENT, "Python · TypeScript · Go · OpenAI SDK · E2B SDK · OpenAPI 3.1"),
-    ]
-    y = 414
-    for prefix, color, line in code:
-        d.text((104, y), prefix + line, font=font(26, mono=True), fill=color if not prefix else INK)
-        y += 42
-    d.text((72, 580), "github.com/sandbaseai/sandbase", font=font(26), fill=MUTED)
-    d.text((W - 72 - d.textlength("sandbase.ai", font=font(26)), 580), "sandbase.ai", font=font(26), fill=MUTED)
+    d.text((m, 438 * SS), "Models · Data APIs · Sandboxes · Agents", font=font(26, "500"), fill=WHITE)
+    d.text((m, 478 * SS), "2,000+ capabilities  ·  sandboxes & agents free", font=font(22), fill=MUTED)
+    d.text((m, 570 * SS), "github.com/sandbaseai/sandbase", font=font(20), fill=MUTED)
 
-    out = ROOT / ".github" / "social-preview.png"
-    img.save(out, optimize=True)
-    print(out, img.size)
+    img = img.resize((W, H), Image.LANCZOS)
+    a.out.parent.mkdir(parents=True, exist_ok=True)
+    img.save(a.out, optimize=True)
+    print(a.out, img.size)
 
 
 if __name__ == "__main__":
