@@ -42,26 +42,40 @@
 
 ## 快速开始
 
-在 [sandbase.ai/console](https://www.sandbase.ai/console) 获取 key 后：
+在 [sandbase.ai/console](https://www.sandbase.ai/console) 获取 key 后，就可以调用任意模型或 API：
 
 ```bash
 export SANDBASE_API_KEY=sk-...
 
 curl https://api.sandbase.ai/v1/run \
-  -H "Authorization: Bearer $SANDBASE_API_KEY" -H "Content-Type: application/json" \
-  -d '{"model": "exa/search", "query": "AI agents", "numResults": 3}'
+  -H "Authorization: Bearer $SANDBASE_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{"model": "exa/search", "query": "AI agents"}'
+```
+
+安装 Python 客户端：
+
+```bash
+pip install "git+https://github.com/sandbaseai/sandbase#subdirectory=sdk/python"
 ```
 
 ```python
-# pip install "git+https://github.com/sandbaseai/sandbase#subdirectory=sdk/python"
 from sandbase import SandBase
 
 sb = SandBase()
-sb.run("exa/search", query="AI agents")                                             # 同步
-sb.run("bytedance/seedance/2.5/text-to-video", prompt="a cat surfing", duration=4)  # 异步，自动等待结果
+
+# 数据 API（同步）
+sb.run("exa/search", query="AI agents")
+
+# 视频模型（异步，run() 会自动等待结果）
+sb.run(
+    "bytedance/seedance/2.5/text-to-video",
+    prompt="a cat surfing",
+    duration=4,
+)
 ```
 
-TypeScript 和 Go 的用法完全一样，见 [`sdk/typescript`](sdk/typescript) 和 [`sdk/go`](sdk/go)。调用 LLM 时，直接用 OpenAI 官方 SDK，把 `base_url` 设为 `https://api.sandbase.ai/v1`。
+TypeScript 和 Go 的用法一样，见 [`sdk/typescript`](sdk/typescript) 和 [`sdk/go`](sdk/go)。调用 LLM 时直接用 OpenAI 官方 SDK，把 `base_url` 设为 `https://api.sandbase.ai/v1` 即可。
 
 ## 包含哪些
 
@@ -79,10 +93,42 @@ TypeScript 和 Go 的用法完全一样，见 [`sdk/typescript`](sdk/typescript)
 
 每个模型和 API 都有一页文档，写明 schema、价格，并附四种语言的示例。完整列表见[全部模型和 API](docs/INDEX.md)，也可以[按平台浏览](docs/platforms/README.md)：[抖音](docs/platforms/douyin.md) · [小红书](docs/platforms/xiaohongshu.md) · [TikTok](docs/platforms/tiktok.md) · [Instagram](docs/platforms/instagram.md) · [YouTube](docs/platforms/youtube.md) · [微博](docs/platforms/weibo.md) · [知乎](docs/platforms/zhihu.md) · [B 站](docs/platforms/bilibili.md) · [OpenAI](docs/platforms/openai.md) · [可灵](docs/platforms/kwaivgi.md)
 
-## 沙箱与 Agent
+## 沙箱
 
-- **沙箱（免费）**：继续用 E2B 官方 SDK，只需设置三个环境变量：`E2B_API_KEY=$SANDBASE_API_KEY`、`E2B_API_URL=https://sandbox.sandbase.ai`、`E2B_DOMAIN=sandbox.sandbase.ai`。示例见 [`examples/sandbox`](examples/sandbox)。
-- **Agent（免费）**：直接用 OpenAI 官方 SDK 的 `client.beta.agents`。如果只想拿到结果，用本仓库客户端的一行调用：`sb.run_agent(agent_id, "任务")`。示例见 [`examples/agents`](examples/agents)。
+沙箱免费，兼容 E2B 协议。继续用 E2B 官方 SDK，把它指向 SandBase 就行：
+
+```python
+# pip install e2b
+import os
+from e2b import Sandbox
+
+os.environ["E2B_API_KEY"] = os.environ["SANDBASE_API_KEY"]
+os.environ["E2B_API_URL"] = "https://sandbox.sandbase.ai"
+os.environ["E2B_DOMAIN"] = "sandbox.sandbase.ai"
+
+sbx = Sandbox.create("tpl_...", timeout=120)  # 模板 ID 见 catalog/sandbox.json
+print(sbx.commands.run("python3 -c 'print(40 + 2)'").stdout)
+sbx.kill()
+```
+
+## Agent
+
+Agent 免费，Agent 调用的模型和 API 照常计费。
+
+```python
+agent = sb.create_agent(
+    "deepseek/deepseek-v4-flash",
+    instructions="用一句话回答。",
+)
+
+reply = sb.run_agent(agent["id"], "2+2 等于几？")
+print(reply["output"])
+
+# 在同一个 Session 里追问
+sb.send(reply["session_id"], "再乘以 10？")
+```
+
+也可以直接用 OpenAI 官方 SDK 的 `client.beta.agents`，示例见 [`examples/agents`](examples/agents)。
 
 ## 价格
 

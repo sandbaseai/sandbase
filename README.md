@@ -49,35 +49,52 @@ Most platforms cover one layer: an LLM gateway, a media API, a sandbox, or a too
 
 ## Quickstart
 
-Get a key at [sandbase.ai/console](https://www.sandbase.ai/console), then:
+Get a key at [sandbase.ai/console](https://www.sandbase.ai/console), then call any model or API:
 
 ```bash
 export SANDBASE_API_KEY=sk-...
 
 curl https://api.sandbase.ai/v1/run \
-  -H "Authorization: Bearer $SANDBASE_API_KEY" -H "Content-Type: application/json" \
-  -d '{"model": "exa/search", "query": "AI agents", "numResults": 3}'
+  -H "Authorization: Bearer $SANDBASE_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{"model": "exa/search", "query": "AI agents"}'
 ```
 
-Every model and API takes the same request: `model` plus its fields. `run()` in the clients returns the finished result whether the call is sync or async.
+Every capability takes the same request: `model` plus its own fields. In the clients, `run()` returns the finished result for sync and async calls alike:
+
+Install the Python client:
+
+```bash
+pip install "git+https://github.com/sandbaseai/sandbase#subdirectory=sdk/python"
+```
 
 ```python
-# pip install "git+https://github.com/sandbaseai/sandbase#subdirectory=sdk/python"
 from sandbase import SandBase
 
 sb = SandBase()
-sb.run("exa/search", query="AI agents", numResults=3)
-sb.run("bytedance/seedance/2.5/text-to-video", prompt="a cat surfing", duration=4)  # async video, waits
+
+# a data API (sync)
+sb.run("exa/search", query="AI agents")
+
+# a video model (async, run() waits)
+sb.run(
+    "bytedance/seedance/2.5/text-to-video",
+    prompt="a cat surfing",
+    duration=4,
+)
 ```
 
 <details>
 <summary><b>TypeScript</b></summary>
 
 ```ts
-import { SandBase } from "@sandbaseai/sdk"; // sdk/typescript: one file, no dependencies
+// sdk/typescript: one file, no dependencies
+import { SandBase } from "@sandbaseai/sdk";
 
 const sb = new SandBase();
-const result = await sb.run("exa/search", { query: "AI agents", numResults: 3 });
+const result = await sb.run("exa/search", {
+  query: "AI agents",
+});
 ```
 </details>
 
@@ -88,7 +105,9 @@ const result = await sb.run("exa/search", { query: "AI agents", numResults: 3 })
 import sandbase "github.com/sandbaseai/sandbase/sdk/go"
 
 c, _ := sandbase.NewClient("") // reads SANDBASE_API_KEY
-run, err := c.Run(ctx, "exa/search", sandbase.Params{"query": "AI agents", "numResults": 3})
+run, err := c.Run(ctx, "exa/search", sandbase.Params{
+    "query": "AI agents",
+})
 ```
 </details>
 
@@ -96,10 +115,17 @@ run, err := c.Run(ctx, "exa/search", sandbase.Params{"query": "AI agents", "numR
 <summary><b>LLMs with the OpenAI SDK</b></summary>
 
 ```python
+import os
 from openai import OpenAI
 
-client = OpenAI(base_url="https://api.sandbase.ai/v1", api_key=os.environ["SANDBASE_API_KEY"])
-client.chat.completions.create(model="openai/gpt-6.1-sol", messages=[{"role": "user", "content": "Hi"}])
+client = OpenAI(
+    base_url="https://api.sandbase.ai/v1",
+    api_key=os.environ["SANDBASE_API_KEY"],
+)
+client.chat.completions.create(
+    model="openai/gpt-6.1-sol",
+    messages=[{"role": "user", "content": "Hi"}],
+)
 ```
 
 The Anthropic Messages (`/v1/messages`) and Gemini (`/v1beta/models/...`) formats are also accepted.
@@ -129,19 +155,20 @@ Every entry has a page with its schema, price and code in four languages. See [a
 
 ## Sandboxes
 
-Sandboxes are free. Keep your E2B code and change three environment variables:
-
-```bash
-export E2B_API_KEY="$SANDBASE_API_KEY"
-export E2B_API_URL="https://sandbox.sandbase.ai"
-export E2B_DOMAIN="sandbox.sandbase.ai"
-```
+Sandboxes are free and speak the E2B protocol. Keep the official E2B SDK and point it at SandBase:
 
 ```python
-from e2b import Sandbox  # pip install e2b
+# pip install e2b
+import os
+from e2b import Sandbox
 
-sbx = Sandbox.create("tpl_...", timeout=120)  # public templates: catalog/sandbox.json
-print(sbx.commands.run("python3 -c 'print(40+2)'").stdout)
+os.environ["E2B_API_KEY"] = os.environ["SANDBASE_API_KEY"]
+os.environ["E2B_API_URL"] = "https://sandbox.sandbase.ai"
+os.environ["E2B_DOMAIN"] = "sandbox.sandbase.ai"
+
+# template ids: catalog/sandbox.json
+sbx = Sandbox.create("tpl_...", timeout=120)
+print(sbx.commands.run("python3 -c 'print(40 + 2)'").stdout)
 sbx.kill()
 ```
 
@@ -149,24 +176,24 @@ Full examples: [Python](examples/sandbox/python/hello_sandbox.py) · [TypeScript
 
 ## Agents
 
-Agents are free to create and run. You pay only for the models and APIs they call. SandBase implements the OpenAI Agents API, so the official OpenAI SDK works as-is:
+Agents are free to create and run. You pay only for the models and APIs they call.
+
+The quickest path is the client in this repo. `run_agent()` creates a Session and waits for the answer:
 
 ```python
-client = OpenAI(base_url="https://api.sandbase.ai/v1", api_key=os.environ["SANDBASE_API_KEY"])
-agent = client.beta.agents.create(model="deepseek/deepseek-v4-flash", instructions="Answer briefly.")
-session = client.beta.agents.sessions.create(agent_id=agent.id, environment={"type": "openai_hosted"})
+agent = sb.create_agent(
+    "deepseek/deepseek-v4-flash",
+    instructions="Answer in one short sentence.",
+)
+
+reply = sb.run_agent(agent["id"], "What is 2+2?")
+print(reply["output"])  # 2 + 2 = 4.
+
+# a follow-up in the same Session
+sb.send(reply["session_id"], "And times 10?")
 ```
 
-To get just the answer, use the clients in this repo:
-
-```python
-agent = sb.create_agent("deepseek/deepseek-v4-flash", "Answer in one short sentence.")
-r = sb.run_agent(agent["id"], "What is 2+2?")         # "2 + 2 = 4."
-sb.send(r["session_id"], "And times 10?")              # follow-up in the same Session
-sb.invoke_service("svc_...", "What is 7+7?")           # an Agent deployed as an HTTP Service
-```
-
-The streaming example is [`examples/agents/python/openai_agents.py`](examples/agents/python/openai_agents.py). TypeScript and Go have the same helpers (`runAgent`, `RunAgent`).
+SandBase implements the OpenAI Agents API, so you can also use the official OpenAI SDK (`client.beta.agents`) with `base_url="https://api.sandbase.ai/v1"`. See the [streaming example](examples/agents/python/openai_agents.py). TypeScript and Go have the same helpers: `runAgent` and `RunAgent`.
 
 ## Pricing
 
