@@ -20,7 +20,7 @@ Modes: sync (default `sync`). Only pass `mode` values listed here. The SDKs' `ru
 ```bash
 curl https://api.sandbase.ai/v1/run \
   -H "Authorization: Bearer $SANDBASE_API_KEY" -H 'Content-Type: application/json' \
-  -d '{"model": "douyin/billboard/hot-total-list", "page": 1, "page_size": 1, "type": "<type>"}'
+  -d '{"model": "douyin/billboard/hot-total-list", "page": 1, "page_size": 10, "type": "snapshot"}'
 ```
 
 **Python** ([sdk/python](../../../../sdk/python))
@@ -28,7 +28,7 @@ curl https://api.sandbase.ai/v1/run \
 ```python
 from sandbase import SandBase
 
-result = SandBase().run('douyin/billboard/hot-total-list', {'page': 1, 'page_size': 1, 'type': '<type>'})
+result = SandBase().run('douyin/billboard/hot-total-list', {'page': 1, 'page_size': 10, 'type': 'snapshot'})
 print(result["outputs"])
 ```
 
@@ -39,8 +39,8 @@ import { SandBase } from "@sandbaseai/sdk";
 
 const result = await new SandBase().run("douyin/billboard/hot-total-list", {
   "page": 1,
-  "page_size": 1,
-  "type": "<type>"
+  "page_size": 10,
+  "type": "snapshot"
 });
 console.log(result.outputs);
 ```
@@ -51,8 +51,8 @@ console.log(result.outputs);
 c, _ := sandbase.NewClient("")
 run, err := c.Run(ctx, "douyin/billboard/hot-total-list", sandbase.Params{
 	"page": 1,
-	"page_size": 1,
-	"type": "<type>",
+	"page_size": 10,
+	"type": "snapshot",
 })
 ```
 
@@ -87,7 +87,7 @@ Look up overall trending search rankings on Douyin using `type`, `page`, and `pa
 curl -X POST "https://api.sandbase.ai/v1/api/douyin/billboard/hot-total-list" \
   -H "Authorization: Bearer $SANDBASE_API_KEY" \
   -H "Content-Type: application/json" \
-  -d '{"page": "<page>", "page_size": "<page_size>", "type": "<type>"}'
+  -d '{"page": 1, "page_size": 10, "type": "snapshot"}'
 ```
 
 ### Parameters

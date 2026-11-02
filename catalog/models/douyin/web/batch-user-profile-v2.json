@@ -30,6 +30,7 @@
       "sec_user_ids": {
         "type": "string",
         "title": "Sec User Ids",
+        "example": "MS4wLjABAAAANXSltcLCzDGmdNFI2Q_QixVTr67NiYzjKOIP5s03CAE,MS4wLjABAAAAW9FWcqS7RdQAWPd2AA5fL_ilmqsIFUCQ_Iym6Yh9_cUa6ZRqVLjVQSUjlHrfXY1Y",
         "description": "User sec_user_id list, separated by commas, up to 50"
       }
     }

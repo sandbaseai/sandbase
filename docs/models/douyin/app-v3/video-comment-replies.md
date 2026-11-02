@@ -81,7 +81,7 @@ Look up replies to a specific video comment on Douyin using `item_id` and `comme
 curl -X POST "https://api.sandbase.ai/v1/api/douyin/app-v3/video-comment-replies" \
   -H "Authorization: Bearer $SANDBASE_API_KEY" \
   -H "Content-Type: application/json" \
-  -d '{"comment_id": "<comment_id>", "item_id": "<item_id>"}'
+  -d '{"comment_id": "7354669356632638218", "item_id": "7354666303006723354"}'
 ```
 
 ### Parameters

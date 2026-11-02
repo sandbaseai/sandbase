@@ -79,7 +79,7 @@ Retrieve detailed information for a Bilibili video by providing the target `a_id
 curl -X POST "https://api.sandbase.ai/v1/api/bilibili/web/one-video-v2" \
   -H "Authorization: Bearer $SANDBASE_API_KEY" \
   -H "Content-Type: application/json" \
-  -d '{"a_id": "<a_id>", "c_id": "<c_id>"}'
+  -d '{"a_id": "114006081739452", "c_id": "28400484458"}'
 ```
 
 ### Parameters

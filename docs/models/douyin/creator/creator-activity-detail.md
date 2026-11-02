@@ -76,7 +76,7 @@ Look up comprehensive creator activity information by specifying an `activity_id
 curl -X POST "https://api.sandbase.ai/v1/api/douyin/creator/creator-activity-detail" \
   -H "Authorization: Bearer $SANDBASE_API_KEY" \
   -H "Content-Type: application/json" \
-  -d '{"activity_id": "<activity_id>"}'
+  -d '{"activity_id": "7545335931785450534"}'
 ```
 
 ### Parameters

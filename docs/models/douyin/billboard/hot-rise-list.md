@@ -84,7 +84,7 @@ Access the Douyin rising hot search ranking with pagination using `page` and `pa
 curl -X POST "https://api.sandbase.ai/v1/api/douyin/billboard/hot-rise-list" \
   -H "Authorization: Bearer $SANDBASE_API_KEY" \
   -H "Content-Type: application/json" \
-  -d '{"order": "<order>", "page": "<page>", "page_size": "<page_size>"}'
+  -d '{"order": "rank", "page": 1, "page_size": 10}'
 ```
 
 ### Parameters

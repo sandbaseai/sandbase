@@ -76,7 +76,7 @@ Fetch detailed information about a Douyin hashtag by querying its unique identif
 curl -X POST "https://api.sandbase.ai/v1/api/douyin/app-v3/hashtag-detail" \
   -H "Authorization: Bearer $SANDBASE_API_KEY" \
   -H "Content-Type: application/json" \
-  -d '{"ch_id": "<ch_id>"}'
+  -d '{"ch_id": 1575791821492238}'
 ```
 
 ### Parameters

@@ -30,6 +30,7 @@
       "ch_id": {
         "type": "integer",
         "title": "Ch Id",
+        "example": 1575791821492238,
         "description": "Hashtag id"
       }
     }
@@ -55,7 +56,7 @@
       }
     }
   ],
-  "readme": "# Douyin Hashtag Details API\n\nFetch detailed information about a Douyin hashtag by querying its unique identifier with `ch_id`.\n\n## Use cases\n\n- Retrieve metadata and profile details for a Douyin hashtag.\n- Monitor engagement metrics associated with specific topic tags.\n- Analyze hashtag performance for marketing campaign research.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/douyin/app-v3/hashtag-detail\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"ch_id\": \"<ch_id>\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `ch_id` | integer | Yes | Hashtag id |\n\n## Notes\n\n- Requires the hashtag identifier supplied via `ch_id`.\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [Douyin Brand Hot Search List](/model/douyin/app-v3/brand-hot-search-list): Returns the current Douyin brand hot search list and category data.\n- [Douyin Brand Hot Search List Detail](/model/douyin/app-v3/brand-hot-search-list-detail): Returns detailed brand hot search list data from Douyin for a specific category.\n- [Douyin Short Link Generator](/model/douyin/app-v3/generate-short-url): Converts a standard Douyin web link into a shortened Douyin URL.\n",
+  "readme": "# Douyin Hashtag Details API\n\nFetch detailed information about a Douyin hashtag by querying its unique identifier with `ch_id`.\n\n## Use cases\n\n- Retrieve metadata and profile details for a Douyin hashtag.\n- Monitor engagement metrics associated with specific topic tags.\n- Analyze hashtag performance for marketing campaign research.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/douyin/app-v3/hashtag-detail\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"ch_id\": 1575791821492238}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `ch_id` | integer | Yes | Hashtag id |\n\n## Notes\n\n- Requires the hashtag identifier supplied via `ch_id`.\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [Douyin Brand Hot Search List](/model/douyin/app-v3/brand-hot-search-list): Returns the current Douyin brand hot search list and category data.\n- [Douyin Brand Hot Search List Detail](/model/douyin/app-v3/brand-hot-search-list-detail): Returns detailed brand hot search list data from Douyin for a specific category.\n- [Douyin Short Link Generator](/model/douyin/app-v3/generate-short-url): Converts a standard Douyin web link into a shortened Douyin URL.\n",
   "page_url": "https://www.sandbase.ai/model/douyin/app-v3/hashtag-detail",
   "created_at": "2026-07-31T02:33:37.272Z"
 }

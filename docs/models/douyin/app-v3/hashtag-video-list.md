@@ -79,7 +79,7 @@ Query videos linked to a specific Douyin topic using `ch_id`. You can sort resul
 curl -X POST "https://api.sandbase.ai/v1/api/douyin/app-v3/hashtag-video-list" \
   -H "Authorization: Bearer $SANDBASE_API_KEY" \
   -H "Content-Type: application/json" \
-  -d '{"ch_id": "<ch_id>"}'
+  -d '{"ch_id": "1575791821492238"}'
 ```
 
 ### Parameters

@@ -79,7 +79,7 @@ Fetch creator learning courses for a specific category using `category_id`. Supp
 curl -X POST "https://api.sandbase.ai/v1/api/douyin/creator/creator-content-course" \
   -H "Authorization: Bearer $SANDBASE_API_KEY" \
   -H "Content-Type: application/json" \
-  -d '{"category_id": "<category_id>"}'
+  -d '{"category_id": 180}'
 ```
 
 ### Parameters

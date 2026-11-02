@@ -76,7 +76,7 @@ Call this endpoint with `category_id` to retrieve brand hot search list details 
 curl -X POST "https://api.sandbase.ai/v1/api/douyin/app-v3/brand-hot-search-list-detail" \
   -H "Authorization: Bearer $SANDBASE_API_KEY" \
   -H "Content-Type: application/json" \
-  -d '{"category_id": "<category_id>"}'
+  -d '{"category_id": 10}'
 ```
 
 ### Parameters

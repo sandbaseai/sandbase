@@ -79,7 +79,7 @@ Retrieve game video feeds from Douyin web by specifying `count` and an optional 
 curl -X POST "https://api.sandbase.ai/v1/api/douyin/web/game-aweme" \
   -H "Authorization: Bearer $SANDBASE_API_KEY" \
   -H "Content-Type: application/json" \
-  -d '{"count": "<count>"}'
+  -d '{"count": 16}'
 ```
 
 ### Parameters

@@ -79,7 +79,7 @@ Retrieve Douyin campaign and event activity listings by specifying `start_time` 
 curl -X POST "https://api.sandbase.ai/v1/api/douyin/creator/creator-activity-list" \
   -H "Authorization: Bearer $SANDBASE_API_KEY" \
   -H "Content-Type: application/json" \
-  -d '{"end_time": "<end_time>", "start_time": "<start_time>"}'
+  -d '{"end_time": 1759247999, "start_time": 1756656000}'
 ```
 
 ### Parameters

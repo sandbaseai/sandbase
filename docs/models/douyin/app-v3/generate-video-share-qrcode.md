@@ -76,7 +76,7 @@ Retrieve a Douyin share QR code for a video or author profile by specifying `obj
 curl -X POST "https://api.sandbase.ai/v1/api/douyin/app-v3/generate-video-share-qrcode" \
   -H "Authorization: Bearer $SANDBASE_API_KEY" \
   -H "Content-Type: application/json" \
-  -d '{"object_id": "<object_id>"}'
+  -d '{"object_id": "7348044435755846962"}'
 ```
 
 ### Parameters

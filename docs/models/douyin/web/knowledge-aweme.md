@@ -20,7 +20,7 @@ Modes: sync (default `sync`). Only pass `mode` values listed here. The SDKs' `ru
 ```bash
 curl https://api.sandbase.ai/v1/run \
   -H "Authorization: Bearer $SANDBASE_API_KEY" -H 'Content-Type: application/json' \
-  -d '{"model": "douyin/web/knowledge-aweme", "count": 1}'
+  -d '{"model": "douyin/web/knowledge-aweme", "count": 16}'
 ```
 
 **Python** ([sdk/python](../../../../sdk/python))
@@ -28,7 +28,7 @@ curl https://api.sandbase.ai/v1/run \
 ```python
 from sandbase import SandBase
 
-result = SandBase().run('douyin/web/knowledge-aweme', {'count': 1})
+result = SandBase().run('douyin/web/knowledge-aweme', {'count': 16})
 print(result["outputs"])
 ```
 
@@ -38,7 +38,7 @@ print(result["outputs"])
 import { SandBase } from "@sandbaseai/sdk";
 
 const result = await new SandBase().run("douyin/web/knowledge-aweme", {
-  "count": 1
+  "count": 16
 });
 console.log(result.outputs);
 ```
@@ -48,7 +48,7 @@ console.log(result.outputs);
 ```go
 c, _ := sandbase.NewClient("")
 run, err := c.Run(ctx, "douyin/web/knowledge-aweme", sandbase.Params{
-	"count": 1,
+	"count": 16,
 })
 ```
 
@@ -77,7 +77,7 @@ Access knowledge-oriented video feeds on Douyin Web by specifying `count` and pa
 curl -X POST "https://api.sandbase.ai/v1/api/douyin/web/knowledge-aweme" \
   -H "Authorization: Bearer $SANDBASE_API_KEY" \
   -H "Content-Type: application/json" \
-  -d '{"count": "<count>"}'
+  -d '{"count": 16}'
 ```
 
 ### Parameters

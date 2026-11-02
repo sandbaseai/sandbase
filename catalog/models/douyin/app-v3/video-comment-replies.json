@@ -41,11 +41,13 @@
       "item_id": {
         "type": "string",
         "title": "Item Id",
+        "example": "7354666303006723354",
         "description": "Video id"
       },
       "comment_id": {
         "type": "string",
         "title": "Comment Id",
+        "example": "7354669356632638218",
         "description": "Comment id"
       }
     }
@@ -72,7 +74,7 @@
       }
     }
   ],
-  "readme": "# Douyin Video Comment Replies (App V3) API\n\nLook up replies to a specific video comment on Douyin using `item_id` and `comment_id`. Supports iterating through reply threads with cursor pagination.\n\n## Use cases\n\n- Retrieve conversation threads under a specific Douyin video comment.\n- Analyze audience discussions and engagement within nested comment replies.\n- Monitor user responses directed at particular comment threads.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/douyin/app-v3/video-comment-replies\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"comment_id\": \"<comment_id>\", \"item_id\": \"<item_id>\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `item_id` | string | Yes | Video id |\n| `comment_id` | string | Yes | Comment id |\n| `count` | integer | No | Number Please keep the default, otherwise there will be BUG. |\n| `cursor` | integer | No | Cursor, used for paging, the first page is 0, the second page is the cursor value in the first response. |\n\n## Notes\n\n- Set `cursor` to 0 for the first page, then pass the returned cursor value for subsequent pages.\n- Keep `count` at its default value to prevent response issues.\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [Douyin Brand Hot Search List](/model/douyin/app-v3/brand-hot-search-list): Returns the current Douyin brand hot search list and category data.\n- [Douyin Brand Hot Search List Detail](/model/douyin/app-v3/brand-hot-search-list-detail): Returns detailed brand hot search list data from Douyin for a specific category.\n- [Douyin Short Link Generator](/model/douyin/app-v3/generate-short-url): Converts a standard Douyin web link into a shortened Douyin URL.\n",
+  "readme": "# Douyin Video Comment Replies (App V3) API\n\nLook up replies to a specific video comment on Douyin using `item_id` and `comment_id`. Supports iterating through reply threads with cursor pagination.\n\n## Use cases\n\n- Retrieve conversation threads under a specific Douyin video comment.\n- Analyze audience discussions and engagement within nested comment replies.\n- Monitor user responses directed at particular comment threads.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/douyin/app-v3/video-comment-replies\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"comment_id\": \"7354669356632638218\", \"item_id\": \"7354666303006723354\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `item_id` | string | Yes | Video id |\n| `comment_id` | string | Yes | Comment id |\n| `count` | integer | No | Number Please keep the default, otherwise there will be BUG. |\n| `cursor` | integer | No | Cursor, used for paging, the first page is 0, the second page is the cursor value in the first response. |\n\n## Notes\n\n- Set `cursor` to 0 for the first page, then pass the returned cursor value for subsequent pages.\n- Keep `count` at its default value to prevent response issues.\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [Douyin Brand Hot Search List](/model/douyin/app-v3/brand-hot-search-list): Returns the current Douyin brand hot search list and category data.\n- [Douyin Brand Hot Search List Detail](/model/douyin/app-v3/brand-hot-search-list-detail): Returns detailed brand hot search list data from Douyin for a specific category.\n- [Douyin Short Link Generator](/model/douyin/app-v3/generate-short-url): Converts a standard Douyin web link into a shortened Douyin URL.\n",
   "page_url": "https://www.sandbase.ai/model/douyin/app-v3/video-comment-replies",
   "created_at": "2026-07-31T02:34:29.191Z"
 }

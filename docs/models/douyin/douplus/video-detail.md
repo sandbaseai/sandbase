@@ -76,7 +76,7 @@ Retrieve detailed information for a Douyin video by providing the `video` parame
 curl -X POST "https://api.sandbase.ai/v1/api/douyin/douplus/video-detail" \
   -H "Authorization: Bearer $SANDBASE_API_KEY" \
   -H "Content-Type: application/json" \
-  -d '{"video": "<video>"}'
+  -d '{"video": "7651708301280906538"}'
 ```
 
 ### Parameters

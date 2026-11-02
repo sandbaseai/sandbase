@@ -77,7 +77,7 @@ Query videos inside a user collection folder by specifying `folder_id`. Use `pn`
 curl -X POST "https://api.sandbase.ai/v1/api/bilibili/web/user-collection-videos" \
   -H "Authorization: Bearer $SANDBASE_API_KEY" \
   -H "Content-Type: application/json" \
-  -d '{"folder_id": "<folder_id>"}'
+  -d '{"folder_id": "1756059545"}'
 ```
 
 ### Parameters

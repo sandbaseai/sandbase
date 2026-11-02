@@ -80,7 +80,7 @@ Retrieve category IDs and popularity data for Douyin hot lists by specifying `bi
 curl -X POST "https://api.sandbase.ai/v1/api/douyin/billboard/hot-category-list" \
   -H "Authorization: Bearer $SANDBASE_API_KEY" \
   -H "Content-Type: application/json" \
-  -d '{"billboard_type": "<billboard_type>"}'
+  -d '{"billboard_type": "rise"}'
 ```
 
 ### Parameters

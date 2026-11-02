@@ -32,16 +32,19 @@
       "count": {
         "type": "integer",
         "title": "Count",
+        "example": 16,
         "description": "Number per page, default is 16"
       },
       "offset": {
         "type": "integer",
         "title": "Offset",
+        "example": 0,
         "description": "Page number, default is 0"
       },
       "content_type": {
         "type": "integer",
         "title": "Content Type",
+        "example": 0,
         "description": "Subtype, default is 0"
       }
     }

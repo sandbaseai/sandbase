@@ -76,7 +76,7 @@ Returns detailed information for a Douyin billboard hot calendar activity using 
 curl -X POST "https://api.sandbase.ai/v1/api/douyin/billboard/hot-calendar-detail" \
   -H "Authorization: Bearer $SANDBASE_API_KEY" \
   -H "Content-Type: application/json" \
-  -d '{"calendar_id": "<calendar_id>"}'
+  -d '{"calendar_id": "1720"}'
 ```
 
 ### Parameters

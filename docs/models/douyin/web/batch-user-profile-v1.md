@@ -75,7 +75,7 @@ Use this endpoint to look up profile data for multiple Douyin creators at once b
 curl -X POST "https://api.sandbase.ai/v1/api/douyin/web/batch-user-profile-v1" \
   -H "Authorization: Bearer $SANDBASE_API_KEY" \
   -H "Content-Type: application/json" \
-  -d '{"sec_user_ids": "<sec_user_ids>"}'
+  -d '{"sec_user_ids": "MS4wLjABAAAANXSltcLCzDGmdNFI2Q_QixVTr67NiYzjKOIP5s03CAE,MS4wLjABAAAAW9FWcqS7RdQAWPd2AA5fL_ilmqsIFUCQ_Iym6Yh9_cUa6ZRqVLjVQSUjlHrfXY1Y"}'
 ```
 
 ### Parameters

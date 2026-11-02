@@ -32,16 +32,19 @@
       "room_id": {
         "type": "string",
         "title": "Room Id",
+        "example": "7382517534467115826",
         "description": "Room ID"
       },
       "user_agent": {
         "type": "string",
         "title": "User Agent",
+        "example": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36 Edg/130.0.0.0",
         "description": "User browser agent"
       },
       "user_unique_id": {
         "type": "string",
         "title": "User Unique Id",
+        "example": "7382524529011246630",
         "description": "User unique ID"
       }
     }
