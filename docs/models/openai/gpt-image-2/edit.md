@@ -1,6 +1,8 @@
-# GPT Image 2 Edit
+# GPT Image 2 Edit API: pricing, parameters and code examples
 
-`openai/gpt-image-2/edit` · image · OpenAI
+`openai/gpt-image-2/edit` · image generation model · OpenAI · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** from $0.02 to $0.73 per run, depending on parameters · **Modes:** async
 
 GPT Image 2 Editing supports image editing and multi-image synthesis with high-quality results.
 

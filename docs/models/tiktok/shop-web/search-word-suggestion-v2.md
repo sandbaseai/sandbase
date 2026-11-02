@@ -1,6 +1,8 @@
-# TikTok Shop Search Keyword Suggestions (V2)
+# TikTok Shop Search Keyword Suggestions (V2) API: pricing, parameters and code examples
 
-`tiktok/shop-web/search-word-suggestion-v2` · api · TikTok
+`tiktok/shop-web/search-word-suggestion-v2` · data API · TikTok · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns e-commerce search keyword suggestions based on an input query. Supports filtering by target region and language code.
 

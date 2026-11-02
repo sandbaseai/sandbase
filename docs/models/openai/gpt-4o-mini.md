@@ -1,6 +1,8 @@
-# OpenAI: GPT-4o-mini
+# OpenAI: GPT-4o-mini API: pricing, parameters and code examples
 
-`openai/gpt-4o-mini` · llm · OpenAI
+`openai/gpt-4o-mini` · LLM · OpenAI · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.15 input / $0.6 output per 1M tokens · **Modes:** sync
 
 GPT-4o mini is OpenAI's small, fast model from the GPT-4o family, released in July 2024 with text and image input and text output, including Structured Outputs. OpenAI positions it for focused tasks such as intent classification, keyword extraction, translation and tagging, and calls it ideal for fine-tuning, including distilling outputs from a larger model like GPT-4o. Pick it over GPT-4o when latency and throughput matter more than peak capability.
 

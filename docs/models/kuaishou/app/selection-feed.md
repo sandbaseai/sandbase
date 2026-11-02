@@ -1,6 +1,8 @@
-# Kuaishou App Selection Feed
+# Kuaishou App Selection Feed API: pricing, parameters and code examples
 
-`kuaishou/app/selection-feed` · api · Kuaishou
+`kuaishou/app/selection-feed` · data API · Kuaishou · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns the recommended selection feed from the Kuaishou app home page. The endpoint requires no parameters and provides fresh recommended video items on each call.
 

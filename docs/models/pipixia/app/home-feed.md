@@ -1,6 +1,8 @@
-# Pipixia App Home Feed
+# Pipixia App Home Feed API: pricing, parameters and code examples
 
-`pipixia/app/home-feed` · api · Pipixia
+`pipixia/app/home-feed` · data API · Pipixia · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns recommended posts from the Pipixia home feed. Supports cursor-based pagination to browse subsequent pages of feed items.
 

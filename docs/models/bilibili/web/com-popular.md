@@ -1,6 +1,8 @@
-# Bilibili Comprehensive Popular Videos
+# Bilibili Comprehensive Popular Videos API: pricing, parameters and code examples
 
-`bilibili/web/com-popular` · api · Bilibili
+`bilibili/web/com-popular` · data API · Bilibili · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns a comprehensive list of trending videos on Bilibili, including video metadata, author details, and engagement statistics across pages.
 

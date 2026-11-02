@@ -1,6 +1,8 @@
-# Instagram Hashtag Posts (V2)
+# Instagram Hashtag Posts (V2) API: pricing, parameters and code examples
 
-`instagram/v2/hashtag-posts` · api · Instagram
+`instagram/v2/hashtag-posts` · data API · Instagram · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.003 per call (free daily quota) · **Modes:** sync
 
 Returns posts associated with a specific hashtag. Supports filtering by top posts, recent posts, or reels along with cursor-based pagination.
 

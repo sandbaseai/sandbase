@@ -1,6 +1,8 @@
-# MarketBeat Competitors
+# MarketBeat Competitors API: pricing, parameters and code examples
 
-`marketbeat/competitors` · api · MarketBeat
+`marketbeat/competitors` · data API · MarketBeat · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.01 per call (free daily quota) · **Modes:** async
 
 Get competitor comparison data for a stock. Returns multiple comparison tables covering earnings/valuation, profitability, and analyst sentiment.
 

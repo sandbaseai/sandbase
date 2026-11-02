@@ -1,6 +1,8 @@
-# Douyin Xingtu Author Content Hot Keywords
+# Douyin Xingtu Author Content Hot Keywords API: pricing, parameters and code examples
 
-`douyin/xingtu-v2/author-content-hot-keywords` · api · Douyin
+`douyin/xingtu-v2/author-content-hot-keywords` · data API · Douyin · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns trending content keywords for a Douyin creator. Filter results by creator ID and specify an optional keyword type.
 

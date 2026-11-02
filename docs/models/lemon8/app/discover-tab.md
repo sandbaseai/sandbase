@@ -1,6 +1,8 @@
-# Lemon8 Discover Page Content
+# Lemon8 Discover Page Content API: pricing, parameters and code examples
 
-`lemon8/app/discover-tab` · api · Lemon8
+`lemon8/app/discover-tab` · data API · Lemon8 · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns the main content featured on the Lemon8 discover tab. Retrieve trending recommendations and highlighted posts directly from the app feed.
 

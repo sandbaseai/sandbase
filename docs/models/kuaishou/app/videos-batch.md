@@ -1,6 +1,8 @@
-# Kuaishou Batch Video Details
+# Kuaishou Batch Video Details API: pricing, parameters and code examples
 
-`kuaishou/app/videos-batch` · api · Kuaishou
+`kuaishou/app/videos-batch` · data API · Kuaishou · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.06 per call · **Modes:** sync
 
 Retrieves video details for multiple Kuaishou posts in a single request. Specify comma-separated photo IDs to look up information for up to 40 videos at once.
 

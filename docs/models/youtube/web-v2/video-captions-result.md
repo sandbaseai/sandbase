@@ -1,6 +1,8 @@
-# YouTube Video Captions Job Result
+# YouTube Video Captions Job Result API: pricing, parameters and code examples
 
-`youtube/web-v2/video-captions-result` · api · YouTube
+`youtube/web-v2/video-captions-result` · data API · YouTube · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns the status and finished captions for an asynchronous video caption request by job ID. Supports output formats including SRT, XML, JSON3, and TXT once completed.
 

@@ -1,6 +1,8 @@
-# HeyGen Voice Turbo
+# HeyGen Voice Turbo API: pricing, parameters and code examples
 
-`heygen/heygen-voice/turbo` · audio · HeyGen
+`heygen/heygen-voice/turbo` · audio model · HeyGen · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** from $0.004 per run, depending on parameters · **Modes:** async
 
 HeyGen Voice Turbo is the faster, lower-cost HeyGen text-to-speech model, with the same voices, languages and voice cloning.
 

@@ -1,6 +1,8 @@
-# Lemon8 Search
+# Lemon8 Search API: pricing, parameters and code examples
 
-`lemon8/app/search` · api · Lemon8
+`lemon8/app/search` · data API · Lemon8 · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Search Lemon8 posts and users by keyword: post titles, content, authors, images and engagement, with Top and other tabs, sorting and filters.
 

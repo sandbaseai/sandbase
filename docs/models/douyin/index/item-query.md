@@ -1,6 +1,8 @@
-# Douyin Index Video Search
+# Douyin Index Video Search API: pricing, parameters and code examples
 
-`douyin/index/item-query` · api · Douyin
+`douyin/index/item-query` · data API · Douyin · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Search Douyin Index videos by keyword with filters for post date, duration, category, and label type. Returns video metadata and performance metrics.
 

@@ -1,6 +1,8 @@
-# OpenAI: GPT-5.3-Codex
+# OpenAI: GPT-5.3-Codex API: pricing, parameters and code examples
 
-`openai/gpt-5.3-codex` · llm · OpenAI
+`openai/gpt-5.3-codex` · LLM · OpenAI · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $1.75 input / $14 output per 1M tokens · **Modes:** sync
 
 GPT-5.3-Codex is OpenAI's agentic coding model announced in February 2026, optimized for Codex and similar environments, with text and image input and text output. OpenAI called it its most capable agentic coding model at release and says it extends Codex from writing and reviewing code to most tasks developers and professionals do on a computer. It supports low to extra-high reasoning effort and suits long-running coding, debugging and computer-use agents.
 

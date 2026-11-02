@@ -1,6 +1,8 @@
-# Facebook Ad Transcript
+# Facebook Ad Transcript API: pricing, parameters and code examples
 
-`facebook/ad-transcript` · api · Facebook
+`facebook/ad-transcript` · data API · Facebook · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** about $0.0012 per call · **Modes:** sync
 
 Get the spoken-word transcript of a Meta Ad Library video ad by ad ID or URL.
 

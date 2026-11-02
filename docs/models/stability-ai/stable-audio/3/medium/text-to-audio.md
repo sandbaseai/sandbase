@@ -1,6 +1,8 @@
-# Stable Audio 3 Medium Text to Audio
+# Stable Audio 3 Medium Text to Audio API: pricing, parameters and code examples
 
-`stability-ai/stable-audio/3/medium/text-to-audio` · audio · stability-ai
+`stability-ai/stable-audio/3/medium/text-to-audio` · audio model · stability-ai · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0376 per call · **Modes:** async
 
 Stable Audio 3 Medium by Stability AI generates music, ambience and sound design up to about 6 minutes from a text prompt.
 

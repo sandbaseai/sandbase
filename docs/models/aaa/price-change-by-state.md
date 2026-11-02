@@ -1,6 +1,8 @@
-# AAA Price Change By State
+# AAA Price Change By State API: pricing, parameters and code examples
 
-`aaa/price-change-by-state` · api · AAA
+`aaa/price-change-by-state` · data API · AAA · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.02 per call · **Modes:** async
 
 Returns the price change (delta) for a state between the current price and historical averages (day, week, month, year) for all fuel grades. Positive values indicate prices have risen; negative values indicate prices.
 

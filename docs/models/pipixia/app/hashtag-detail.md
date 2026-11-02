@@ -1,6 +1,8 @@
-# Pipixia Hashtag Details
+# Pipixia Hashtag Details API: pricing, parameters and code examples
 
-`pipixia/app/hashtag-detail` · api · Pipixia
+`pipixia/app/hashtag-detail` · data API · Pipixia · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Retrieves metadata and profile assets for a specific Pipixia hashtag by its unique identifier.
 

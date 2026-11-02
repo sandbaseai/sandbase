@@ -1,6 +1,8 @@
-# Qwen: Qwen3.8 Max Prime
+# Qwen: Qwen3.8 Max Prime API: pricing, parameters and code examples
 
-`alibaba/qwen3.8-max-prime` · llm · Alibaba
+`alibaba/qwen3.8-max-prime` · LLM · Alibaba · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $4 input / $12 output per 1M tokens · **Modes:** sync
 
 Qwen3.8 Max Prime is the Fast mode (Prime) serving option for Alibaba's Qwen3.8 Max: the same model with the same vision input and reasoning, delivered at higher output speed. Alibaba states Fast mode raises tokens per second to about 1.5 to 2 times the standard API, aimed at latency-sensitive uses such as AI coding assistants, multi-step agent reasoning and real-time conversation. Pick it over standard Qwen3.8 Max when response speed matters; it adds no new capabilities.
 

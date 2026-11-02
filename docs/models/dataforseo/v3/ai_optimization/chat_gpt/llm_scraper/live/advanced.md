@@ -1,6 +1,8 @@
-# DataForSEO ChatGPT Search Answer
+# DataForSEO ChatGPT Search Answer API: pricing, parameters and code examples
 
-`dataforseo/v3/ai_optimization/chat_gpt/llm_scraper/live/advanced` · api · DataForSEO
+`dataforseo/v3/ai_optimization/chat_gpt/llm_scraper/live/advanced` · data API · DataForSEO · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.004 per call (free daily quota) · **Modes:** sync
 
 Get ChatGPT's answer to a query as a signed-out user would see it. ChatGPT (chatgpt.com) response for a keyword, location, and language as the public web UI shows it.
 

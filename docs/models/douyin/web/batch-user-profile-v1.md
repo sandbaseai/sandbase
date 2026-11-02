@@ -1,6 +1,8 @@
-# Douyin Batch User Profile
+# Douyin Batch User Profile API: pricing, parameters and code examples
 
-`douyin/web/batch-user-profile-v1` · api · Douyin
+`douyin/web/batch-user-profile-v1` · data API · Douyin · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.045 per call · **Modes:** sync
 
 Retrieves public profile information for multiple Douyin accounts in a single request. Specify up to 10 user IDs to return user details in batch.
 

@@ -1,6 +1,8 @@
-# LinkedIn Post or Article Detail
+# LinkedIn Post or Article Detail API: pricing, parameters and code examples
 
-`linkedin/web-v2/post-detail` · api · LinkedIn
+`linkedin/web-v2/post-detail` · data API · LinkedIn · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns content and metadata for a LinkedIn post or article using its web address. Works with both standard post and pulse article links.
 

@@ -1,6 +1,8 @@
-# CoinGecko Coin Price by Token Addresses
+# CoinGecko Coin Price by Token Addresses API: pricing, parameters and code examples
 
-`coingecko/simple-token-price` · api · CoinGecko
+`coingecko/simple-token-price` · data API · CoinGecko · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.008 per call (free daily quota) · **Modes:** sync
 
 Get one or more token prices using their token contract addresses
 

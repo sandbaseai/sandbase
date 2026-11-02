@@ -1,6 +1,8 @@
-# Douyin Video Search Suggestions
+# Douyin Video Search Suggestions API: pricing, parameters and code examples
 
-`douyin/index/item-sug` · api · Douyin
+`douyin/index/item-sug` · data API · Douyin · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns search suggestions and related video items based on a keyword query. Includes video titles, URLs, like counts, and author nicknames.
 

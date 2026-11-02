@@ -1,6 +1,8 @@
-# General search (raw data, recommend V2)
+# General search (raw data, recommend V2) API: pricing, parameters and code examples
 
-`youtube/web-v2/general-search` · api · YouTube
+`youtube/web-v2/general-search` · data API · YouTube · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 YouTube comprehensive search with multiple filter options for precise result filtering.
 

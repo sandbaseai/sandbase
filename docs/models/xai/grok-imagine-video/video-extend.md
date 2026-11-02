@@ -1,6 +1,8 @@
-# Grok Imagine Video Extend
+# Grok Imagine Video Extend API: pricing, parameters and code examples
 
-`xai/grok-imagine-video/video-extend` · video · xAI
+`xai/grok-imagine-video/video-extend` · video generation model · xAI · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** from $0.12 to $0.6 per run, depending on parameters · **Modes:** async
 
 Grok Imagine Video Extend is xAI's video-to-video AI model. Transform, enhance, and edit video content using text prompts - from style changes to object manipulation and scene modification.
 

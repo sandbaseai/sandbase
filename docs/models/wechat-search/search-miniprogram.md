@@ -1,6 +1,8 @@
-# WeChat Mini Program Search
+# WeChat Mini Program Search API: pricing, parameters and code examples
 
-`wechat-search/search-miniprogram` · api · WeChat Search
+`wechat-search/search-miniprogram` · data API · WeChat Search · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.111111 per call · **Modes:** sync
 
 Search WeChat Mini Programs by keyword with page, offset, and continuation-state pagination. Use it to discover mini programs related to a brand, service, topic, or product.
 

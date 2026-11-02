@@ -1,6 +1,8 @@
-# DataForSEO Content Analysis Search
+# DataForSEO Content Analysis Search API: pricing, parameters and code examples
 
-`dataforseo/v3/content_analysis/search/live` · api · DataForSEO
+`dataforseo/v3/content_analysis/search/live` · data API · DataForSEO · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.003 per call (free daily quota) · **Modes:** sync
 
 Returns web content analysis results matching specified search topics. Useful for evaluating online content, monitoring discussions, and performing natural language processing workflows across web sources.
 

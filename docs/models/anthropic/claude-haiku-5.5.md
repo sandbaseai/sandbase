@@ -1,6 +1,8 @@
-# Anthropic: Claude Haiku 5.5
+# Anthropic: Claude Haiku 5.5 API: pricing, parameters and code examples
 
-`anthropic/claude-haiku-5.5` · llm · Anthropic
+`anthropic/claude-haiku-5.5` · LLM · Anthropic · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.1 input / $0.5 output per 1M tokens · **Modes:** sync
 
 Claude Haiku 5.5 is Anthropic's small, fast model for high-volume, cost-sensitive work such as summarization, classification, compaction, subagents, and browser use. It succeeds Claude Haiku 4.5 with stronger coding, computer use, and knowledge work, adds an adjustable effort setting, and accepts text, image, and file input with a 1M-token context window.
 

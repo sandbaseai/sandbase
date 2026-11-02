@@ -1,6 +1,8 @@
-# OpenAI: GPT-6 Sol
+# OpenAI: GPT-6 Sol API: pricing, parameters and code examples
 
-`openai/gpt-6-sol` · llm · OpenAI
+`openai/gpt-6-sol` · LLM · OpenAI · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $2 input / $10 output per 1M tokens · **Modes:** sync
 
 GPT-6 Sol is the middle tier of OpenAI's GPT-6 reasoning family, released in September 2026 alongside GPT-6 Luna and built, according to OpenAI, for complex coding and agentic workflows, with text and image input. It was trained with methods similar to GPT-6 Astra to bring much of Astra's capability to a faster tier. OpenAI's docs now point to GPT-6.1 Sol as the updated Sol model, so this entry mainly suits workloads already validated on GPT-6 Sol.
 

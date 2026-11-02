@@ -1,6 +1,8 @@
-# Zhihu User Search
+# Zhihu User Search API: pricing, parameters and code examples
 
-`zhihu/web/user-search-v3` · api · Zhihu
+`zhihu/web/user-search-v3` · data API · Zhihu · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Search for Zhihu user profiles by query terms. Returns matching accounts along with follower numbers, article counts, and answer statistics.
 

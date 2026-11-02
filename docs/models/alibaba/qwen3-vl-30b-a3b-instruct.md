@@ -1,6 +1,8 @@
-# Qwen: Qwen3 VL 30B A3B Instruct
+# Qwen: Qwen3 VL 30B A3B Instruct API: pricing, parameters and code examples
 
-`alibaba/qwen3-vl-30b-a3b-instruct` · llm · Alibaba
+`alibaba/qwen3-vl-30b-a3b-instruct` · LLM · Alibaba · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.13 input / $0.52 output per 1M tokens · **Modes:** sync
 
 Qwen3-VL 30B A3B Instruct is the mid-size Mixture-of-Experts, non-thinking edition of Alibaba's open-weight Qwen3-VL vision-language family, activating about 3 billion parameters per token. Alibaba positions it for fast responses with upgraded image and video understanding, long videos and documents, spatial awareness, object recognition, multilingual OCR and visual agents that operate GUIs. It sits between Qwen3-VL 8B and 235B A22B in size and capability.
 

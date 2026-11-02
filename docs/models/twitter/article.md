@@ -1,6 +1,8 @@
-# X / Twitter Article
+# X / Twitter Article API: pricing, parameters and code examples
 
-`twitter/article` · api · X (Twitter)
+`twitter/article` · data API · X (Twitter) · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** about $0.00054 per call · **Modes:** sync
 
 Get a public X long-form article from its wrapper post URL, including its author, engagement, cover image, and structured content blocks.
 

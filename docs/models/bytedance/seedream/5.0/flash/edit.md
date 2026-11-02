@@ -1,6 +1,8 @@
-# Seedream 5.0 Flash Edit
+# Seedream 5.0 Flash Edit API: pricing, parameters and code examples
 
-`bytedance/seedream/5.0/flash/edit` · image · Bytedance
+`bytedance/seedream/5.0/flash/edit` · image generation model · Bytedance · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.018 per call · **Modes:** async
 
 Seedream 5.0 Flash Editing edits and fuses up to 10 reference images from a text instruction at one flat price per image, with fast 15–20 second turnaround.
 

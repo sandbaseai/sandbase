@@ -1,6 +1,8 @@
-# Kling 3.0 Omni Pro Video Edit
+# Kling 3.0 Omni Pro Video Edit API: pricing, parameters and code examples
 
-`kwaivgi/kling-video/3.0/omni/pro/video-to-video/edit` · video · KwaiVGI
+`kwaivgi/kling-video/3.0/omni/pro/video-to-video/edit` · video generation model · KwaiVGI · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** about $0.84 per call · **Modes:** async
 
 Kling 3.0 Omni Pro Video Edit by Kuaishou edits an input video from a text instruction, optionally guided by reference images, at 1080p.
 

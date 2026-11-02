@@ -1,6 +1,8 @@
-# TikTok Shop Product ID by Share Link
+# TikTok Shop Product ID by Share Link API: pricing, parameters and code examples
 
-`tiktok/shop-web/product-id-by-share-link` · api · TikTok
+`tiktok/shop-web/product-id-by-share-link` · data API · TikTok · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns the TikTok Shop product identifier extracted from a provided product share link. Takes a required share URL to resolve the associated product ID.
 

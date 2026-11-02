@@ -1,6 +1,8 @@
-# DataForSEO Backlinks Bulk Pages Summary
+# DataForSEO Backlinks Bulk Pages Summary API: pricing, parameters and code examples
 
-`dataforseo/v3/backlinks/bulk_pages_summary/live` · api · DataForSEO
+`dataforseo/v3/backlinks/bulk_pages_summary/live` · data API · DataForSEO · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** about $0.024072 per call · **Modes:** sync
 
 Backlink summary metrics (backlinks, referring domains, rank, spam score) for up to 1,000 pages, domains or subdomains.
 

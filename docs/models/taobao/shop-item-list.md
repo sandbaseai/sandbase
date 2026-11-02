@@ -1,6 +1,8 @@
-# Taobao Shop Product List
+# Taobao Shop Product List API: pricing, parameters and code examples
 
-`taobao/shop-item-list` · api · Taobao
+`taobao/shop-item-list` · data API · Taobao · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.027778 per call · **Modes:** sync
 
 Get products from a Taobao or Tmall shop using both seller or user ID and shop ID, with page-based pagination and sorting by sales, new arrivals, credit, or price. Use it to browse a known shop catalog.
 

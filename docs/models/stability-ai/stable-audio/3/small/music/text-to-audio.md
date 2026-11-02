@@ -1,6 +1,8 @@
-# Stable Audio 3 Small Music
+# Stable Audio 3 Small Music API: pricing, parameters and code examples
 
-`stability-ai/stable-audio/3/small/music/text-to-audio` · audio · stability-ai
+`stability-ai/stable-audio/3/small/music/text-to-audio` · audio model · stability-ai · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0217 per call · **Modes:** async
 
 Stable Audio 3 Small Music by Stability AI is a fast, low-cost music generator producing tracks up to 2 minutes from a text prompt.
 

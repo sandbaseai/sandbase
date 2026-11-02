@@ -1,6 +1,8 @@
-# Tencent: Hy3
+# Tencent: Hy3 API: pricing, parameters and code examples
 
-`tencent/hy3` · llm · Tencent
+`tencent/hy3` · LLM · Tencent · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.132 input / $0.528 output per 1M tokens · **Modes:** sync
 
 Hy3 is a 295B-parameter Mixture-of-Experts model from Tencent (21B active, 192 experts with top-8 routing) built for reasoning, agentic workflows, and real-world production use. It supports configurable reasoning effort.
 

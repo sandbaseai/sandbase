@@ -1,6 +1,8 @@
-# Polymarket Get last trade price
+# Polymarket Get last trade price API: pricing, parameters and code examples
 
-`polymarket/last-trade-price` · api · Polymarket
+`polymarket/last-trade-price` · data API · Polymarket · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.012 per call (free daily quota) · **Modes:** sync
 
 Retrieves the last trade price and side for a specific token ID. Returns default values of 0.5 for price and empty string for side if no trades found.
 

@@ -1,6 +1,8 @@
-# TikTok Creator Video Analytics Summary
+# TikTok Creator Video Analytics Summary API: pricing, parameters and code examples
 
-`tiktok/creator/video-analytics-summary` · api · TikTok
+`tiktok/creator/video-analytics-summary` · data API · TikTok · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns a video performance overview for a TikTok Shop creator account over a time range. Provides metrics including video count, views, new followers, and generated GMV.
 

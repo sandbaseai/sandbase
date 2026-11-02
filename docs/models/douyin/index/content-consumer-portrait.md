@@ -1,6 +1,8 @@
-# Douyin Content Consumer Portrait
+# Douyin Content Consumer Portrait API: pricing, parameters and code examples
 
-`douyin/index/content-consumer-portrait` · api · Douyin
+`douyin/index/content-consumer-portrait` · data API · Douyin · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns consumer viewer portrait data for audience members watching videos in a specified Douyin category over a given week or month.
 

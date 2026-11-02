@@ -1,6 +1,8 @@
-# Threads Post Detail (V2)
+# Threads Post Detail (V2) API: pricing, parameters and code examples
 
-`threads/web/post-detail-v2` · api · Threads
+`threads/web/post-detail-v2` · data API · Threads · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.003 per call (free daily quota) · **Modes:** sync
 
 Returns detailed information for a specific Threads post. Queries can be performed using either a full post link or a post short code as input.
 

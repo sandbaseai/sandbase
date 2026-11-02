@@ -1,6 +1,8 @@
-# LinkedIn Post Comments
+# LinkedIn Post Comments API: pricing, parameters and code examples
 
-`linkedin/post-comments` · api · LinkedIn
+`linkedin/post-comments` · data API · LinkedIn · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** about $0.0029 per call · **Modes:** sync
 
 List comments on a LinkedIn post - full text, commenter name/URL/job title, timestamps, and engagement.
 

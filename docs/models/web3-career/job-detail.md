@@ -1,6 +1,8 @@
-# Web3.career Job Detail
+# Web3.career Job Detail API: pricing, parameters and code examples
 
-`web3-career/job-detail` · api · Web3.career
+`web3-career/job-detail` · data API · Web3.career · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.01 per call (free daily quota) · **Modes:** async
 
 Fetch full details for a single job listing by URL. Returns the job title, company name, full description text, salary range, and application link.
 

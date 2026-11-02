@@ -1,6 +1,8 @@
-# TikTok Trending Feed
+# TikTok Trending Feed API: pricing, parameters and code examples
 
-`tiktok/trending-feed` · api · TikTok
+`tiktok/trending-feed` · data API · TikTok · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** about $0.0008 per call · **Modes:** sync
 
 Sample TikTok's For You feed as served to a viewer in one country (caption, views, likes, comments, author). Returns a rotating sample, not a ranked chart.
 

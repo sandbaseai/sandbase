@@ -1,6 +1,8 @@
-# Douyin Video Play Count
+# Douyin Video Play Count API: pricing, parameters and code examples
 
-`douyin/xingtu-v2/item-play-count` · api · Douyin
+`douyin/xingtu-v2/item-play-count` · data API · Douyin · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.003 per call (free daily quota) · **Modes:** sync
 
 Get the play count (watch_cnt) of a Douyin video from XingTu, plus video details such as author, cover, duration and publish time.
 

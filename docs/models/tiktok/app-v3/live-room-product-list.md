@@ -1,6 +1,8 @@
-# TikTok Livestream Room Product List
+# TikTok Livestream Room Product List API: pricing, parameters and code examples
 
-`tiktok/app-v3/live-room-product-list` · api · TikTok
+`tiktok/app-v3/live-room-product-list` · data API · TikTok · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns the list of showcase products featured in a broadcast session based on the specified room and author identifiers, with support for region filtering and pagination.
 

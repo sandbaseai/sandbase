@@ -1,6 +1,8 @@
-# Zhihu User Followed Topics
+# Zhihu User Followed Topics API: pricing, parameters and code examples
 
-`zhihu/web/user-follow-topics` · api · Zhihu
+`zhihu/web/user-follow-topics` · data API · Zhihu · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns the list of topics followed by a specific Zhihu user. Filter and paginate results using user token, limit, and offset values.
 

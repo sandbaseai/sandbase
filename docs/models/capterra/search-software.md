@@ -1,6 +1,8 @@
-# Capterra Search Software
+# Capterra Search Software API: pricing, parameters and code examples
 
-`capterra/search-software` · api · Capterra
+`capterra/search-software` · data API · Capterra · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.01 per call (free daily quota) · **Modes:** async
 
 Search for software products by keyword. Returns matching products with name, numeric ID, URL slug, and full URL.
 

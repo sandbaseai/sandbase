@@ -1,6 +1,8 @@
-# Douyin Low Fan Billboard Items
+# Douyin Low Fan Billboard Items API: pricing, parameters and code examples
 
-`douyin/billboard/hot-total-low-fan-list` · api · Douyin
+`douyin/billboard/hot-total-low-fan-list` · data API · Douyin · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns viral Douyin videos produced by creators with low follower counts. Filter results by search keyword, category tags, time window, and pagination.
 

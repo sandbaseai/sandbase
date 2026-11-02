@@ -1,6 +1,8 @@
-# Polymarket Get prices history
+# Polymarket Get prices history API: pricing, parameters and code examples
 
-`polymarket/prices-history` · api · Polymarket
+`polymarket/prices-history` · data API · Polymarket · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.012 per call (free daily quota) · **Modes:** sync
 
 Get prices history from Polymarket. Returns the official Polymarket API response unchanged.
 

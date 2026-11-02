@@ -1,6 +1,8 @@
-# Bilibili Search by Type
+# Bilibili Search by Type API: pricing, parameters and code examples
 
-`bilibili/app/search-by-type` · api · Bilibili
+`bilibili/app/search-by-type` · data API · Bilibili · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns categorized search results from Bilibili based on a target query string. Supports filtering by search type, adjusting sort order, and cursor-based pagination.
 

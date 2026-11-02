@@ -1,6 +1,8 @@
-# Seedream 5.0 Flash Text to Image
+# Seedream 5.0 Flash Text to Image API: pricing, parameters and code examples
 
-`bytedance/seedream/5.0/flash` · image · Bytedance
+`bytedance/seedream/5.0/flash` · image generation model · Bytedance · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.018 per call · **Modes:** async
 
 Seedream 5.0 Flash is ByteDance's fast, low-cost Seedream 5.0 tier for high-volume text-to-image generation, with roughly 15–20 second turnaround and one flat price per image.
 

@@ -1,6 +1,8 @@
-# YouTube Channel Information
+# YouTube Channel Information API: pricing, parameters and code examples
 
-`youtube/web/channel-info` · api · YouTube
+`youtube/web/channel-info` · data API · YouTube · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns profile details and external links for a specified YouTube channel. Look up channel data using a channel identifier.
 

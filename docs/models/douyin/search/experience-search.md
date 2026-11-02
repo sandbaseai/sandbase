@@ -1,6 +1,8 @@
-# Douyin Experience Content Search
+# Douyin Experience Content Search API: pricing, parameters and code examples
 
-`douyin/search/experience-search` · api · Douyin
+`douyin/search/experience-search` · data API · Douyin · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.015 per call (free daily quota) · **Modes:** sync
 
 Returns Douyin search results for tutorial, knowledge, and experience videos based on keyword queries. Supports filtering by release timing, sorting method, and video duration.
 

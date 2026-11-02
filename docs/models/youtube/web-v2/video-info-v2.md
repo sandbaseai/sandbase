@@ -1,6 +1,8 @@
-# YouTube Video Information (V2)
+# YouTube Video Information (V2) API: pricing, parameters and code examples
 
-`youtube/web-v2/video-info-v2` · api · YouTube
+`youtube/web-v2/video-info-v2` · data API · YouTube · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns comprehensive details for a YouTube video identified by its ID or direct URL, with an option to retrieve a cleaned payload format.
 

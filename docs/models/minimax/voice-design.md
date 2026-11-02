@@ -1,6 +1,8 @@
-# MiniMax Voice Design
+# MiniMax Voice Design API: pricing, parameters and code examples
 
-`minimax/voice-design` · audio · MiniMax
+`minimax/voice-design` · audio model · MiniMax · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** from $3.03 per run, depending on parameters · **Modes:** async
 
 MiniMax Voice Design by MiniMax creates a new reusable voice from a text description of its timbre, age, and style, and returns a spoken preview.
 

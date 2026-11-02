@@ -1,6 +1,8 @@
-# InfiniteTalk Image to Video
+# InfiniteTalk Image to Video API: pricing, parameters and code examples
 
-`meigen/infinitetalk/image-to-video` · video · MeiGen-AI
+`meigen/infinitetalk/image-to-video` · video generation model · MeiGen-AI · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** about $2.32 per call · **Modes:** async
 
 InfiniteTalk turns a portrait image and speech audio into a long-form talking video with natural lip sync, head and body motion.
 

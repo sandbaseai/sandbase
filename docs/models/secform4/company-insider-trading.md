@@ -1,6 +1,8 @@
-# SECForm4 Company Insider Trading
+# SECForm4 Company Insider Trading API: pricing, parameters and code examples
 
-`secform4/company-insider-trading` · api · SECForm4
+`secform4/company-insider-trading` · data API · SECForm4 · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.01 per call (free daily quota) · **Modes:** async
 
 Returns the full insider trading history for a specific company identified by its SEC CIK number. Includes all buy, sell, and option transactions filed in Form 4s for the company.
 

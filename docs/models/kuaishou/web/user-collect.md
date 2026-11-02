@@ -1,6 +1,8 @@
-# Kuaishou User Favorites
+# Kuaishou User Favorites API: pricing, parameters and code examples
 
-`kuaishou/web/user-collect` · api · Kuaishou
+`kuaishou/web/user-collect` · data API · Kuaishou · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.015 per call (free daily quota) · **Modes:** sync
 
 Retrieves the list of collected or favorited items for a specified Kuaishou account. Supports pagination through cursor tokens to browse older entries.
 

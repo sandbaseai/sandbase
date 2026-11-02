@@ -1,6 +1,8 @@
-# MarketBeat Stock Overview
+# MarketBeat Stock Overview API: pricing, parameters and code examples
 
-`marketbeat/stock-overview` · api · MarketBeat
+`marketbeat/stock-overview` · data API · MarketBeat · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.01 per call (free daily quota) · **Modes:** async
 
 Get comprehensive stock overview including current price, day change, key stats, company description, and company calendar for a given ticker. Key stats include P/E ratio, market cap, dividend yield, volume, and.
 

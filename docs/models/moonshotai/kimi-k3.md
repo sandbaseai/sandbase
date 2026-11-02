@@ -1,6 +1,8 @@
-# MoonshotAI: Kimi K3
+# MoonshotAI: Kimi K3 API: pricing, parameters and code examples
 
-`moonshotai/kimi-k3` · llm · Moonshotai
+`moonshotai/kimi-k3` · LLM · Moonshotai · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $3 input / $15 output per 1M tokens · **Modes:** sync
 
 Kimi K3 is Moonshot AI's flagship model, a 2.8-trillion-parameter open-weight mixture-of-experts model with native visual understanding and a 1M-token context. It is built on Kimi Delta Attention, a hybrid linear attention, plus Attention Residuals, and always runs in thinking mode with selectable effort. Moonshot positions it for long-horizon coding across large codebases and terminal tools, visual software tasks such as frontend and game work, and end-to-end knowledge work.
 

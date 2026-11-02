@@ -1,6 +1,8 @@
-# Capterra Product Reviews
+# Capterra Product Reviews API: pricing, parameters and code examples
 
-`capterra/product-reviews` · api · Capterra
+`capterra/product-reviews` · data API · Capterra · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.01 per call (free daily quota) · **Modes:** async
 
 Retrieve user reviews for a software product. Returns paginated reviews with title, date, overall rating, pros, and cons text (up to 25 reviews per page).
 

@@ -1,6 +1,8 @@
-# Ideogram 3.0 Edit
+# Ideogram 3.0 Edit API: pricing, parameters and code examples
 
-`ideogram-ai/ideogram-v3/edit` · image · Ideogram
+`ideogram-ai/ideogram-v3/edit` · image generation model · Ideogram · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** from $0.03 to $0.09 per run, depending on parameters · **Modes:** async
 
 Ideogram V3 Edit by ideogram-ai - AI-powered image editing, style transfer, and transformation. Edit photos with natural language instructions, remove backgrounds, change styles, and enhance images effortlessly.
 

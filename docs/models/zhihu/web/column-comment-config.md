@@ -1,6 +1,8 @@
-# Zhihu Column Comment Configuration
+# Zhihu Column Comment Configuration API: pricing, parameters and code examples
 
-`zhihu/web/column-comment-config` · api · Zhihu
+`zhihu/web/column-comment-config` · data API · Zhihu · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns comment settings and options for a Zhihu column article based on the provided article identifier.
 

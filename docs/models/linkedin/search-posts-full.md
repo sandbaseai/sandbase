@@ -1,6 +1,8 @@
-# LinkedIn Post Search (full)
+# LinkedIn Post Search (full) API: pricing, parameters and code examples
 
-`linkedin/search-posts-full` · api · LinkedIn
+`linkedin/search-posts-full` · data API · LinkedIn · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** about $0.004 per call · **Modes:** sync
 
 Search public LinkedIn posts with rich author, engagement, attachment, and poll details.
 

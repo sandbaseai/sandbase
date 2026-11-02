@@ -1,6 +1,8 @@
-# Substack Posts
+# Substack Posts API: pricing, parameters and code examples
 
-`substack/posts` · api · Substack
+`substack/posts` · data API · Substack · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** about $0.0444 per call · **Modes:** sync
 
 Pull posts from any Substack publication by its URL, or pass a single post URL (…/p/slug) to fetch just that one article. Returns title, subtitle, publish date, paywall status, word count, engagement (reactions, comments, restacks), author profile, publication details, the full article body as text, HTML and Markdown, and optional comment threads.
 

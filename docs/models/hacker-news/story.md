@@ -1,6 +1,8 @@
-# Hacker News Story
+# Hacker News Story API: pricing, parameters and code examples
 
-`hacker-news/story` · api · Hacker News
+`hacker-news/story` · data API · Hacker News · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** about $0.0015 per call · **Modes:** sync
 
 Get a Hacker News story by id - title, link, author, points, and comment count as clean JSON.
 

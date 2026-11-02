@@ -1,6 +1,8 @@
-# Similarweb PPC Spend
+# Similarweb PPC Spend API: pricing, parameters and code examples
 
-`similarweb/ppc-spend` · api · Similarweb
+`similarweb/ppc-spend` · data API · Similarweb · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** about $0.075 per call · **Modes:** sync
 
 Get a website's estimated monthly paid-search (PPC) ad spend in USD.
 

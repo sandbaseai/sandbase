@@ -1,6 +1,8 @@
-# Douyin Shop Item SKUs
+# Douyin Shop Item SKUs API: pricing, parameters and code examples
 
-`douyin/ec/item-skus` · api · Douyin
+`douyin/ec/item-skus` · data API · Douyin · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.034722 per call · **Modes:** sync
 
 Get the SKU list of a Douyin shop product by item ID: variant options with price and stock.
 

@@ -1,6 +1,8 @@
-# Douyin Xingtu Author Homepage Videos
+# Douyin Xingtu Author Homepage Videos API: pricing, parameters and code examples
 
-`douyin/xingtu-v2/author-homepage-videos` · api · Douyin
+`douyin/xingtu-v2/author-homepage-videos` · data API · Douyin · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.003 per call (free daily quota) · **Modes:** sync
 
 Retrieves homepage video records for a specified Douyin Xingtu creator. Filters results by post time range, pagination, and star item status.
 

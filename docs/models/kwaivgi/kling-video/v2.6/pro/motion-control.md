@@ -1,6 +1,8 @@
-# Kling V2.6 Pro Motion Control
+# Kling V2.6 Pro Motion Control API: pricing, parameters and code examples
 
-`kwaivgi/kling-video/v2.6/pro/motion-control` · video · KwaiVGI
+`kwaivgi/kling-video/v2.6/pro/motion-control` · video generation model · KwaiVGI · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** about $0.56 per call · **Modes:** async
 
 Kling V2.6 Pro Motion Control by Kuaishou transfers the motion, expressions, and camera movement of a reference video onto the character in an image, producing a 1080p video up to 30 seconds.
 

@@ -1,6 +1,8 @@
-# Xiaohongshu Pugongying Note Performance Metrics
+# Xiaohongshu Pugongying Note Performance Metrics API: pricing, parameters and code examples
 
-`xiaohongshu/pgy-v2/data-v3-notes-rate` · api · Xiaohongshu
+`xiaohongshu/pgy-v2/data-v3-notes-rate` · data API · Xiaohongshu · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.020833 per call · **Modes:** sync
 
 Get Xiaohongshu Pugongying aggregate note performance metrics for a creator with business, note-type, date-range, and advertisement filters. Use it to compare content performance across selected scopes.
 

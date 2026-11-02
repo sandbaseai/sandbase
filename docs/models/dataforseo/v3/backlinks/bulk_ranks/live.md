@@ -1,6 +1,8 @@
-# DataForSEO Backlinks Bulk Ranks
+# DataForSEO Backlinks Bulk Ranks API: pricing, parameters and code examples
 
-`dataforseo/v3/backlinks/bulk_ranks/live` · api · DataForSEO
+`dataforseo/v3/backlinks/bulk_ranks/live` · data API · DataForSEO · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.002 per call (free daily quota) · **Modes:** sync
 
 Returns rank metrics for multiple domains or pages in bulk. Evaluates backlink authority and score indicators across a list of target URLs.
 

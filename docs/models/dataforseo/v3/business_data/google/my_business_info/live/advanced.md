@@ -1,6 +1,8 @@
-# DataForSEO Google Business Listing Info
+# DataForSEO Google Business Listing Info API: pricing, parameters and code examples
 
-`dataforseo/v3/business_data/google/my_business_info/live/advanced` · api · DataForSEO
+`dataforseo/v3/business_data/google/my_business_info/live/advanced` · data API · DataForSEO · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.005 per call (free daily quota) · **Modes:** sync
 
 Returns comprehensive Google Business Profile data, including local listing details, customer reviews, ratings, and business attributes for targeted locations.
 

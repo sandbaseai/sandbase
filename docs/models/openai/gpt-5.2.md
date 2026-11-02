@@ -1,6 +1,8 @@
-# OpenAI: GPT-5.2
+# OpenAI: GPT-5.2 API: pricing, parameters and code examples
 
-`openai/gpt-5.2` · llm · OpenAI
+`openai/gpt-5.2` · LLM · OpenAI · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $1.75 input / $14 output per 1M tokens · **Modes:** sync
 
 GPT-5.2 is OpenAI's GPT-5 series flagship released in December 2025, positioned by OpenAI for complex professional work and long-running agents, with text and image input and text output. It offers configurable reasoning effort from none up to an extra-high setting, and OpenAI highlights its performance on well-specified knowledge work across dozens of occupations alongside coding and tool use. OpenAI now calls it a previous flagship, with GPT-5.4 following it.
 

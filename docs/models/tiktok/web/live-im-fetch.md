@@ -1,6 +1,8 @@
-# TikTok Room Danmaku Messages
+# TikTok Room Danmaku Messages API: pricing, parameters and code examples
 
-`tiktok/web/live-im-fetch` · api · TikTok
+`tiktok/web/live-im-fetch` · data API · TikTok · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Retrieves real-time danmaku and chat messages from a TikTok broadcast room. Requires a room ID and supports both protobuf and JSON output formats.
 

@@ -1,6 +1,8 @@
-# TikTok Video Transcript (speech to text)
+# TikTok Video Transcript (speech to text) API: pricing, parameters and code examples
 
-`tiktok/video-transcript-full` · api · TikTok
+`tiktok/video-transcript-full` · data API · TikTok · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** about $0.095 per call · **Modes:** sync
 
 Transcribe the spoken audio of a TikTok video with speech-to-text: timed sentence-level segments, speaker labels, detected language, and optional per-word timings, for videos TikTok publishes no caption track for and for videos whose caption track gets the words wrong. The service downloads the video and runs the audio through MAI-Transcribe-2 rather than reading anything TikTok wrote, which is why it handles non-English speech and hears words the native captions mishear. The answer also carries the video's id, URL, creator handle, and cover image. Turn on hostVideo to also get the MP4 on a hosted link that plays without TikTok's signed, short-lived CDN URL expiring on you. If you only want whatever TikTok itself published and you want it for a tenth of the price, tiktok.video_transcript is that.
 

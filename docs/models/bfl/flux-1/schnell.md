@@ -1,6 +1,8 @@
-# Flux 1 Schnell
+# Flux 1 Schnell API: pricing, parameters and code examples
 
-`bfl/flux-1/schnell` · image · BFL
+`bfl/flux-1/schnell` · image generation model · BFL · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.003 per call · **Modes:** async
 
 Flux 1 Schnell by BFL - generate stunning images from text prompts with state-of-the-art AI. Supports multiple aspect ratios, styles, and high-resolution output for creative and commercial use.
 

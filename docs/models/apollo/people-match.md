@@ -1,6 +1,8 @@
-# Apollo People Enrichment
+# Apollo People Enrichment API: pricing, parameters and code examples
 
-`apollo/people-match` · api · Apollo
+`apollo/people-match` · data API · Apollo · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.01975 per call · **Modes:** sync
 
 Enrich one person: give whatever identifiers you have and get back Apollo's full record for them. Send identifiers in the JSON request body, not the query string.
 

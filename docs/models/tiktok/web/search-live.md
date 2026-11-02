@@ -1,6 +1,8 @@
-# TikTok Web Stream Search
+# TikTok Web Stream Search API: pricing, parameters and code examples
 
-`tiktok/web/search-live` · api · TikTok
+`tiktok/web/search-live` · data API · TikTok · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Searches active TikTok web broadcasts matching a specified keyword. Returns stream details with pagination controls via count and offset parameters.
 

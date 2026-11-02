@@ -1,6 +1,8 @@
-# DataForSEO Google Play App Intersection
+# DataForSEO Google Play App Intersection API: pricing, parameters and code examples
 
-`dataforseo/v3/dataforseo_labs/google/app_intersection/live` · api · DataForSEO
+`dataforseo/v3/dataforseo_labs/google/app_intersection/live` · data API · DataForSEO · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.024 per call · **Modes:** sync
 
 Compare up to 20 Google Play apps and get the search keywords they rank for together, with each app's position.
 

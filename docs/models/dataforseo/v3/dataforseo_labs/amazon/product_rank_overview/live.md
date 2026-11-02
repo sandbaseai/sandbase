@@ -1,6 +1,8 @@
-# DataForSEO Amazon Product Rank Overview
+# DataForSEO Amazon Product Rank Overview API: pricing, parameters and code examples
 
-`dataforseo/v3/dataforseo_labs/amazon/product_rank_overview/live` · api · DataForSEO
+`dataforseo/v3/dataforseo_labs/amazon/product_rank_overview/live` · data API · DataForSEO · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.024 per call · **Modes:** sync
 
 Get Amazon organic and paid ranking metrics for up to 100 ASINs: keyword counts, position distribution and estimated visibility.
 

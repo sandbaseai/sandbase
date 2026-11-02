@@ -1,6 +1,8 @@
-# Weibo Post Detail
+# Weibo Post Detail API: pricing, parameters and code examples
 
-`weibo/web-v2/post-detail` · api · Weibo
+`weibo/web-v2/post-detail` · data API · Weibo · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Get the full data of a single Weibo post by its ID: text (including long posts), author, publish time, location and repost, comment and like counts.
 

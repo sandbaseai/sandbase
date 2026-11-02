@@ -1,6 +1,8 @@
-# Clutch List Categories
+# Clutch List Categories API: pricing, parameters and code examples
 
-`clutch/list-categories` · api · Clutch
+`clutch/list-categories` · data API · Clutch · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.01 per call (free daily quota) · **Modes:** async
 
 List top service categories available on Clutch.co. Returns a curated set of popular category slugs that can be used with search_companies to browse companies by service type.
 

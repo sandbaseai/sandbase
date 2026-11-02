@@ -1,6 +1,8 @@
-# Kuaishou Video Sub Comments (App)
+# Kuaishou Video Sub Comments (App) API: pricing, parameters and code examples
 
-`kuaishou/app/video-sub-comments` · api · Kuaishou
+`kuaishou/app/video-sub-comments` · data API · Kuaishou · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns sub comments and replies under a root comment for a Kuaishou video. Supports pagination using a cursor and page size configuration.
 

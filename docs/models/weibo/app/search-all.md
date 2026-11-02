@@ -1,6 +1,8 @@
-# Weibo Comprehensive Search
+# Weibo Comprehensive Search API: pricing, parameters and code examples
 
-`weibo/app/search-all` · api · Weibo
+`weibo/app/search-all` · data API · Weibo · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns comprehensive search results from Weibo for a specified keyword. Supports pagination and filtering by search type.
 

@@ -1,6 +1,8 @@
-# DataForSEO Bing Keyword Performance
+# DataForSEO Bing Keyword Performance API: pricing, parameters and code examples
 
-`dataforseo/v3/keywords_data/bing/keyword_performance/live` · api · DataForSEO
+`dataforseo/v3/keywords_data/bing/keyword_performance/live` · data API · DataForSEO · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.09 per call · **Modes:** sync
 
 Get Bing Ads impressions, clicks, and CTR by position for keywords. Bing Ads keyword performance for up to 1000 keywords.
 

@@ -1,6 +1,8 @@
-# AutoZone Category Listings
+# AutoZone Category Listings API: pricing, parameters and code examples
 
-`autozone/scrape/category` · api · AutoZone
+`autozone/scrape/category` · data API · AutoZone · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.012 per call (free daily quota) · **Modes:** async
 
 Extract product listings from an AutoZone category page URL with pagination and preferred-store pricing.
 

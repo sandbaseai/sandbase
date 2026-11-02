@@ -1,6 +1,8 @@
-# Douyin Xingtu Conversion Analysis
+# Douyin Xingtu Conversion Analysis API: pricing, parameters and code examples
 
-`douyin/xingtu-v3/data-sp-author-convert-ability` · api · Douyin
+`douyin/xingtu-v3/data-sp-author-convert-ability` · data API · Douyin · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.020833 per call · **Modes:** sync
 
 Get Douyin Creator Marketplace (Xingtu) conversion analysis for a creator, content channel, and 30- or 90-day period. Use it to compare creator conversion performance during commerce campaign planning.
 

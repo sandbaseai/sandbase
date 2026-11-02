@@ -1,6 +1,8 @@
-# Nasdaq Stock Quote
+# Nasdaq Stock Quote API: pricing, parameters and code examples
 
-`nasdaq/stock-quote` · api · Nasdaq
+`nasdaq/stock-quote` · data API · Nasdaq · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.01 per call (free daily quota) · **Modes:** async
 
 Real-time quote for a single equity including last sale price, net change, percentage change, bid/ask, volume, 52-week range, and market status. Response shape varies by asset class (stocks show keyStats; ETFs and.
 

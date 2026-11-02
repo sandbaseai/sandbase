@@ -1,6 +1,8 @@
-# WeChat Channels ID to Username
+# WeChat Channels ID to Username API: pricing, parameters and code examples
 
-`wechat-channels/v2/channel-id-to-username` · api · WeChat Channels
+`wechat-channels/v2/channel-id-to-username` · data API · WeChat Channels · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.015 per call (free daily quota) · **Modes:** sync
 
 Convert a public WeChat Channels Channel ID (sph… short ID) into the finder username (v2_…@finder) required by the other WeChat Channels APIs.
 

@@ -1,6 +1,8 @@
-# Twitter (X) User Followings
+# Twitter (X) User Followings API: pricing, parameters and code examples
 
-`twitter/web/user-followings` · api · Twitter
+`twitter/web/user-followings` · data API · Twitter · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns a list of accounts followed by a specified Twitter (X) user. Results provide follower counts, friend counts, media statistics, and profile details.
 

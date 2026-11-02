@@ -1,6 +1,8 @@
-# Grok Imagine Image Quality Edit
+# Grok Imagine Image Quality Edit API: pricing, parameters and code examples
 
-`xai/grok-imagine-image/quality/edit` · image · xAI
+`xai/grok-imagine-image/quality/edit` · image generation model · xAI · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** from $0.05 to $0.07 per run, depending on parameters · **Modes:** async
 
 Grok Imagine Image Quality Edit is xAI's intelligent image editing model. Transform, retouch, and reimagine existing images using text prompts - from background replacement to artistic style conversion.
 

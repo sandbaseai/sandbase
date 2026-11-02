@@ -1,6 +1,8 @@
-# Facebook Page Search
+# Facebook Page Search API: pricing, parameters and code examples
 
-`facebook/search-pages` · api · Facebook
+`facebook/search-pages` · data API · Facebook · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** about $0.123 per call · **Modes:** sync
 
 Search Facebook Pages by keyword, optionally narrowed to a location, and get structured page profiles (name, category, followers, contact details).
 

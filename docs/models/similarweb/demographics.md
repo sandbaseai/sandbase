@@ -1,6 +1,8 @@
-# Similarweb Demographics
+# Similarweb Demographics API: pricing, parameters and code examples
 
-`similarweb/demographics` · api · Similarweb
+`similarweb/demographics` · data API · Similarweb · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.6 per call · **Modes:** sync
 
 Get the age and gender breakdown of a website's visitors for the selected period.
 

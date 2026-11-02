@@ -1,6 +1,8 @@
-# TikTok User Published Posts
+# TikTok User Published Posts API: pricing, parameters and code examples
 
-`tiktok/user-post` · api · TikTok
+`tiktok/user-post` · data API · TikTok · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.013889 per call (free daily quota) · **Modes:** sync
 
 Get posts published by a TikTok user identified by secUid, with cursor pagination and latest or popular sorting. Use it to browse a creator's posting history or continue through their public post feed.
 

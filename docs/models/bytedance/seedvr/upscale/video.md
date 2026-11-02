@@ -1,6 +1,8 @@
-# SeedVR2 Video Upscale
+# SeedVR2 Video Upscale API: pricing, parameters and code examples
 
-`bytedance/seedvr/upscale/video` · video · Bytedance
+`bytedance/seedvr/upscale/video` · video generation model · Bytedance · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** about $0.31104 per call · **Modes:** async
 
 Seedvr Upscale Video by Bytedance - AI-powered video editing and transformation. Apply style transfer, motion control, lip-sync, and visual effects to existing videos with natural language instructions.
 

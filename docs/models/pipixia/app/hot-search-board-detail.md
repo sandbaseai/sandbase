@@ -1,6 +1,8 @@
-# Pipixia Hot Search Board Detail
+# Pipixia Hot Search Board Detail API: pricing, parameters and code examples
 
-`pipixia/app/hot-search-board-detail` · api · Pipixia
+`pipixia/app/hot-search-board-detail` · data API · Pipixia · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns detailed items from a Pipixia hot search board, including item identifiers, like metrics, and highlighted comments for a specified board type.
 

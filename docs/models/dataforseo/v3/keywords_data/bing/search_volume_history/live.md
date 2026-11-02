@@ -1,6 +1,8 @@
-# DataForSEO Bing Search Volume History
+# DataForSEO Bing Search Volume History API: pricing, parameters and code examples
 
-`dataforseo/v3/keywords_data/bing/search_volume_history/live` · api · DataForSEO
+`dataforseo/v3/keywords_data/bing/search_volume_history/live` · data API · DataForSEO · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.09 per call · **Modes:** sync
 
 Get monthly Bing search volume history for up to 1000 keywords. Bing Ads search volume history for a keyword list.
 

@@ -1,6 +1,8 @@
-# FRED Search Series
+# FRED Search Series API: pricing, parameters and code examples
 
-`fred/series-search` · api · FRED
+`fred/series-search` · data API · FRED · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $1e-05 per call (free daily quota) · **Modes:** sync
 
 Search Series from FRED. Returns the official FRED API response unchanged.
 

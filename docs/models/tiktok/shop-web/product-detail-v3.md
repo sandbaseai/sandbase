@@ -1,6 +1,8 @@
-# TikTok Shop Product Detail (V3)
+# TikTok Shop Product Detail (V3) API: pricing, parameters and code examples
 
-`tiktok/shop-web/product-detail-v3` · api · TikTok
+`tiktok/shop-web/product-detail-v3` · data API · TikTok · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns comprehensive TikTok Shop product data including shop information, videos, and recommendations for a given product ID across supported regions.
 

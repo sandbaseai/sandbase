@@ -1,6 +1,8 @@
-# Douyin Brand Popularity Cycles
+# Douyin Brand Popularity Cycles API: pricing, parameters and code examples
 
-`douyin/index/brand-cycles` · api · Douyin
+`douyin/index/brand-cycles` · data API · Douyin · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns periodic brand popularity and cycle analysis data across platforms for a specified brand name and date range.
 

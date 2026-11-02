@@ -1,6 +1,8 @@
-# Instagram Similar Users (V2)
+# Instagram Similar Users (V2) API: pricing, parameters and code examples
 
-`instagram/v2/similar-users` · api · Instagram
+`instagram/v2/similar-users` · data API · Instagram · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.003 per call (free daily quota) · **Modes:** sync
 
 Returns recommended similar accounts based on Instagram's recommendation algorithm. Accepts an Instagram username or numeric user ID.
 

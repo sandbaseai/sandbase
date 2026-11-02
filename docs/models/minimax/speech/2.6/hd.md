@@ -1,6 +1,8 @@
-# MiniMax Speech 2.6 HD
+# MiniMax Speech 2.6 HD API: pricing, parameters and code examples
 
-`minimax/speech/2.6/hd` · audio · MiniMax
+`minimax/speech/2.6/hd` · audio model · MiniMax · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** from $0.0026 per run, depending on parameters · **Modes:** async
 
 MiniMax Speech 2.6 HD by MiniMax converts text into natural, high-fidelity speech in 40+ languages with system or cloned voices and emotion control.
 

@@ -1,6 +1,8 @@
-# Anthropic: Claude Opus 4.5
+# Anthropic: Claude Opus 4.5 API: pricing, parameters and code examples
 
-`anthropic/claude-opus-4.5` · llm · Anthropic
+`anthropic/claude-opus-4.5` · LLM · Anthropic · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $5 input / $25 output per 1M tokens · **Modes:** sync
 
 Claude Opus 4.5 is Anthropic’s frontier reasoning model optimized for complex software engineering, agentic workflows, and long-horizon computer use. It offers strong multimodal capabilities, competitive performance across real-world coding and reasoning benchmarks, and improved robustness to prompt injection. The model is designed to operate efficiently across varied effort levels, enabling developers to trade off speed, depth, and token usage depending on task requirements. It comes with a new parameter to control token efficiency, which can be accessed using the verbosity parameter with low, medium, or high.
 

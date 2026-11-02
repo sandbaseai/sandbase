@@ -1,6 +1,8 @@
-# TikTok Profile Region
+# TikTok Profile Region API: pricing, parameters and code examples
 
-`tiktok/profile-region` · api · TikTok
+`tiktok/profile-region` · data API · TikTok · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** about $0.0012 per call · **Modes:** sync
 
 Resolve the home region (country) of a TikTok creator by handle.
 

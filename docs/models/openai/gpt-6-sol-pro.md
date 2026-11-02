@@ -1,6 +1,8 @@
-# OpenAI: GPT-6 Sol Pro
+# OpenAI: GPT-6 Sol Pro API: pricing, parameters and code examples
 
-`openai/gpt-6-sol-pro` · llm · OpenAI
+`openai/gpt-6-sol-pro` · LLM · OpenAI · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $2 input / $10 output per 1M tokens · **Modes:** sync
 
 GPT-6 Sol Pro is the same GPT-6 Sol model, the middle tier of OpenAI's GPT-6 family, served in OpenAI's pro reasoning mode rather than as a separate model. Pro mode does more model work on each request before returning a single final answer, which OpenAI suggests for difficult coding, review and deep analysis where quality outweighs speed. It adds latency and token usage compared with standard GPT-6 Sol, and OpenAI's docs point to GPT-6.1 Sol as the updated Sol model.
 

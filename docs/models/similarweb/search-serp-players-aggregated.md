@@ -1,6 +1,8 @@
-# Similarweb SERP Players - Aggregated
+# Similarweb SERP Players - Aggregated API: pricing, parameters and code examples
 
-`similarweb/search-serp-players-aggregated` · api · Similarweb
+`similarweb/search-serp-players-aggregated` · data API · Similarweb · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** about $0.15 per call · **Modes:** sync
 
 Get the websites that win clicks on search results for given keywords, with clicks, top URL and SERP features, aggregated over the period.
 

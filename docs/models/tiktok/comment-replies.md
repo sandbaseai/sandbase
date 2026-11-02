@@ -1,6 +1,8 @@
-# TikTok Comment Replies
+# TikTok Comment Replies API: pricing, parameters and code examples
 
-`tiktok/comment-replies` · api · TikTok
+`tiktok/comment-replies` · data API · TikTok · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** about $0.0006 per call · **Modes:** sync
 
 List the replies to a TikTok comment with cursor pagination (text, author, likes).
 

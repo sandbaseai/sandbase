@@ -1,6 +1,8 @@
-# CoinGecko Coin Historical Chart Data within Time Range by Token Address
+# CoinGecko Coin Historical Chart Data within Time Range by Token Address API: pricing, parameters and code examples
 
-`coingecko/coins-contract-market-chart-range` · api · CoinGecko
+`coingecko/coins-contract-market-chart-range` · data API · CoinGecko · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.008 per call (free daily quota) · **Modes:** sync
 
 Get the historical chart data within certain time range in UNIX along with price, market cap and 24hr volume based on asset platform and particular token contract address
 

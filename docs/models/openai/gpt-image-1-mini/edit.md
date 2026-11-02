@@ -1,6 +1,8 @@
-# GPT Image 1 Mini Edit
+# GPT Image 1 Mini Edit API: pricing, parameters and code examples
 
-`openai/gpt-image-1-mini/edit` · image · OpenAI
+`openai/gpt-image-1-mini/edit` · image generation model · OpenAI · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** from $0.007 to $0.054 per run, depending on parameters · **Modes:** async
 
 Gpt Image 1 Mini Edit is OpenAI's intelligent image editing model. Transform, retouch, and reimagine existing images using text prompts - from background replacement to artistic style conversion.
 

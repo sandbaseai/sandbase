@@ -1,6 +1,8 @@
-# Wan 2.6 Flash Reference to Video
+# Wan 2.6 Flash Reference to Video API: pricing, parameters and code examples
 
-`alibaba/wan/2.6/flash/reference-to-video` · video · Alibaba
+`alibaba/wan/2.6/flash/reference-to-video` · video generation model · Alibaba · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** from $0.25 to $1.5 per run, depending on parameters · **Modes:** async
 
 Alibaba Wan 2.6 Flash reference-to-video model that places characters from reference images or videos into a new scene, with optional generated audio and multi-shot control.
 

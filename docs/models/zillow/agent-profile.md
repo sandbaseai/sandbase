@@ -1,6 +1,8 @@
-# Zillow Agent Profile
+# Zillow Agent Profile API: pricing, parameters and code examples
 
-`zillow/agent-profile` · api · Zillow
+`zillow/agent-profile` · data API · Zillow · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.01 per call (free daily quota) · **Modes:** async
 
 Retrieve a real estate agent's full profile by their username/URL slug. Returns sales stats, reviews, listings, service areas, and professional information.
 

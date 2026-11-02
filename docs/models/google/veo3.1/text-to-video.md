@@ -1,6 +1,8 @@
-# Veo 3.1 Text to Video
+# Veo 3.1 Text to Video API: pricing, parameters and code examples
 
-`google/veo3.1/text-to-video` · video · Google
+`google/veo3.1/text-to-video` · video generation model · Google · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** from $0.8 to $4.8 per run, depending on parameters · **Modes:** async
 
 Veo3.1 by Google - generate cinematic videos from text descriptions with AI. Create high-quality video content with natural motion, camera control, and optional audio generation.
 

@@ -1,6 +1,8 @@
-# Douyin User Profile by Short ID
+# Douyin User Profile by Short ID API: pricing, parameters and code examples
 
-`douyin/web/user-profile-by-short-id` · api · Douyin
+`douyin/web/user-profile-by-short-id` · data API · Douyin · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Retrieves Douyin web user profile details using an account short ID. Returns profile metadata, title information, and engagement counters.
 

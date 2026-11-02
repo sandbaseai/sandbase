@@ -1,6 +1,8 @@
-# AAA News Articles
+# AAA News Articles API: pricing, parameters and code examples
 
-`aaa/news-articles` · api · AAA
+`aaa/news-articles` · data API · AAA · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.01 per call (free daily quota) · **Modes:** async
 
 Returns recent AAA gas price news articles with pagination support. Results include article title, publication date, excerpt, slug, and link.
 

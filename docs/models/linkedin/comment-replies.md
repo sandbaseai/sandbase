@@ -1,6 +1,8 @@
-# LinkedIn Comment Replies
+# LinkedIn Comment Replies API: pricing, parameters and code examples
 
-`linkedin/comment-replies` · api · LinkedIn
+`linkedin/comment-replies` · data API · LinkedIn · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** about $0.0026 per call · **Modes:** sync
 
 List up to the 10 newest replies to a comment on a LinkedIn post - reply text, replier name/URL/job title, timestamps, and likes.
 

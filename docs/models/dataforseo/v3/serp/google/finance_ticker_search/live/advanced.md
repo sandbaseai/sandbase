@@ -1,6 +1,8 @@
-# DataForSEO Google Finance Ticker Search
+# DataForSEO Google Finance Ticker Search API: pricing, parameters and code examples
 
-`dataforseo/v3/serp/google/finance_ticker_search/live/advanced` · api · DataForSEO
+`dataforseo/v3/serp/google/finance_ticker_search/live/advanced` · data API · DataForSEO · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.002 per call (free daily quota) · **Modes:** sync
 
 Resolve a company or instrument name to Google Finance tickers. Google Finance search for a company or instrument name.
 

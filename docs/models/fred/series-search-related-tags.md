@@ -1,6 +1,8 @@
-# FRED Search Series Related Tags
+# FRED Search Series Related Tags API: pricing, parameters and code examples
 
-`fred/series-search-related-tags` · api · FRED
+`fred/series-search-related-tags` · data API · FRED · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $1e-05 per call (free daily quota) · **Modes:** sync
 
 Search Series Related Tags from FRED. Returns the official FRED API response unchanged.
 

@@ -1,6 +1,8 @@
-# DataForSEO OnPage Lighthouse Audit
+# DataForSEO OnPage Lighthouse Audit API: pricing, parameters and code examples
 
-`dataforseo/v3/on_page/lighthouse/live/json` · api · DataForSEO
+`dataforseo/v3/on_page/lighthouse/live/json` · data API · DataForSEO · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.005 per call (free daily quota) · **Modes:** sync
 
 Returns real-time Google Lighthouse audit data and web performance metrics for target web pages. Helps assess on-page speed, accessibility, best practices, and search optimization standards.
 

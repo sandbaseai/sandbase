@@ -1,6 +1,8 @@
-# Zhihu Pin Detail
+# Zhihu Pin Detail API: pricing, parameters and code examples
 
-`zhihu/web/pin-detail` · api · Zhihu
+`zhihu/web/pin-detail` · data API · Zhihu · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Retrieves the full content and details of a single Zhihu pin using its unique pin identifier. Returns parsed text blocks, links, and formatting metadata.
 

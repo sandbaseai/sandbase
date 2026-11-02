@@ -1,6 +1,8 @@
-# IMDb Box Office Summary
+# IMDb Box Office Summary API: pricing, parameters and code examples
 
-`imdb/title-box-office-summary` · api · IMDb
+`imdb/title-box-office-summary` · data API · IMDb · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.006944 per call (free daily quota) · **Modes:** sync
 
 Get the IMDb box-office summary for a title ID using selected language and country preferences. Use it to research reported theatrical performance or compare titles.
 

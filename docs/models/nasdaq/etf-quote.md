@@ -1,6 +1,8 @@
-# Nasdaq Etf Quote
+# Nasdaq Etf Quote API: pricing, parameters and code examples
 
-`nasdaq/etf-quote` · api · Nasdaq
+`nasdaq/etf-quote` · data API · Nasdaq · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.01 per call (free daily quota) · **Modes:** async
 
 Real-time quote and details for an ETF including price, net change, percentage change, volume, and market status.
 

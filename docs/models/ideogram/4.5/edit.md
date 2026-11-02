@@ -1,6 +1,8 @@
-# Ideogram 4.5 Edit
+# Ideogram 4.5 Edit API: pricing, parameters and code examples
 
-`ideogram/4.5/edit` · image · Ideogram
+`ideogram/4.5/edit` · image generation model · Ideogram · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** from $0.008 to $0.22 per run, depending on parameters · **Modes:** async
 
 Ideogram 4.5 edits an image from a text instruction, with an optional mask and style references, with reliable text rendering and polished graphic design output.
 

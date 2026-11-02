@@ -1,6 +1,8 @@
-# Amazon Product Search
+# Amazon Product Search API: pricing, parameters and code examples
 
-`amazon/search-products` · api · Amazon
+`amazon/search-products` · data API · Amazon · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.013889 per call (free daily quota) · **Modes:** sync
 
 Search Amazon marketplace products by keyword or ASIN with country, sort, condition, Prime-only, deals, and page controls.
 

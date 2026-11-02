@@ -1,6 +1,8 @@
-# Xiaohongshu (RED) User Favorited Notes
+# Xiaohongshu (RED) User Favorited Notes API: pricing, parameters and code examples
 
-`xiaohongshu/app-v2/user-faved-notes` · api · Xiaohongshu
+`xiaohongshu/app-v2/user-faved-notes` · data API · Xiaohongshu · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.015 per call (free daily quota) · **Modes:** sync
 
 Returns a paginated list of notes favorited by a specified Xiaohongshu (RED) user. Supports querying by user ID or profile share link, with cursor-based pagination.
 

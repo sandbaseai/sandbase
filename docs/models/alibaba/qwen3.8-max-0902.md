@@ -1,6 +1,8 @@
-# Qwen: Qwen3.8 Max (0902)
+# Qwen: Qwen3.8 Max (0902) API: pricing, parameters and code examples
 
-`alibaba/qwen3.8-max-0902` · llm · Alibaba
+`alibaba/qwen3.8-max-0902` · LLM · Alibaba · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $2 input / $6 output per 1M tokens · **Modes:** sync
 
 Qwen3.8 Max (0902) is the pinned snapshot of Alibaba's Qwen3.8 Max dated September 2, 2026, intended for workloads that need a fixed version. Alibaba describes it as an upgraded snapshot with stronger engineering-scale coding and long-horizon autonomous development, steadier multi-tool orchestration and end-to-end task delivery, and refined chart reasoning, document parsing and multimodal perception. It keeps the flagship's vision input, thinking mode and full tool support.
 

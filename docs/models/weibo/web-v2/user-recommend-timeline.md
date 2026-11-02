@@ -1,6 +1,8 @@
-# Weibo Recommended Homepage Feed
+# Weibo Recommended Homepage Feed API: pricing, parameters and code examples
 
-`weibo/web-v2/user-recommend-timeline` · api · Weibo
+`weibo/web-v2/user-recommend-timeline` · data API · Weibo · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns recommended timeline posts from the Weibo homepage feed. Supports filtering by group ID or container ID, custom feed counts, refresh types, and cursor-based pagination.
 

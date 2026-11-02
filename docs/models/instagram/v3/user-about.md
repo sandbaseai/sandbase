@@ -1,6 +1,8 @@
-# Instagram User About Details
+# Instagram User About Details API: pricing, parameters and code examples
 
-`instagram/v3/user-about` · api · Instagram
+`instagram/v3/user-about` · data API · Instagram · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.012 per call (free daily quota) · **Modes:** sync
 
 Returns About This Account details for an Instagram profile using a target username. Output includes metadata such as account join date, location, and former usernames.
 

@@ -1,6 +1,8 @@
-# Flux 2 Flex Text to Image
+# Flux 2 Flex Text to Image API: pricing, parameters and code examples
 
-`bfl/flux-2/flex` · image · BFL
+`bfl/flux-2/flex` · image generation model · BFL · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** from $0.06 per run, depending on parameters · **Modes:** async
 
 Flux 2 Flex is BFL's advanced text-to-image AI model. Create photorealistic images, illustrations, and concept art from natural language descriptions with exceptional detail and prompt adherence.
 

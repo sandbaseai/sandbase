@@ -1,6 +1,8 @@
-# TikTok Room Active Status Batch Check
+# TikTok Room Active Status Batch Check API: pricing, parameters and code examples
 
-`tiktok/web/batch-check-live-alive` · api · TikTok
+`tiktok/web/batch-check-live-alive` · data API · TikTok · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.075 per call · **Modes:** sync
 
 Checks whether multiple TikTok broadcast rooms are currently active. Accepts a comma-separated list of room identifiers to return current status details.
 

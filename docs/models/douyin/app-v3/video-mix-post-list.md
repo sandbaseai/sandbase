@@ -1,6 +1,8 @@
-# Douyin Video Mix Post List
+# Douyin Video Mix Post List API: pricing, parameters and code examples
 
-`douyin/app-v3/video-mix-post-list` · api · Douyin
+`douyin/app-v3/video-mix-post-list` · data API · Douyin · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns a list of video posts belonging to a specific Douyin video compilation or mix. Query by mix_id with cursor-based pagination to retrieve post details and metadata.
 

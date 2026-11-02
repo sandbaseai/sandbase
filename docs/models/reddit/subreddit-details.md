@@ -1,6 +1,8 @@
-# Reddit Subreddit Details
+# Reddit Subreddit Details API: pricing, parameters and code examples
 
-`reddit/subreddit-details` · api · Reddit
+`reddit/subreddit-details` · data API · Reddit · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** about $0.00038 per call · **Modes:** sync
 
 Fetch a subreddit's metadata (weekly active users, description, and category).
 

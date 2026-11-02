@@ -1,6 +1,8 @@
-# CoinGecko Coins Categories List with Market Data
+# CoinGecko Coins Categories List with Market Data API: pricing, parameters and code examples
 
-`coingecko/coins-categories` · api · CoinGecko
+`coingecko/coins-categories` · data API · CoinGecko · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.008 per call (free daily quota) · **Modes:** sync
 
 Get all the coins categories with market data (market cap, volume, ...) on CoinGecko
 

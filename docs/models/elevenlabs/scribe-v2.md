@@ -1,6 +1,8 @@
-# Scribe V2
+# Scribe V2 API: pricing, parameters and code examples
 
-`elevenlabs/scribe-v2` · audio · ElevenLabs
+`elevenlabs/scribe-v2` · audio model · ElevenLabs · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** about $0.008 per call · **Modes:** async
 
 Scribe V2 is ElevenLabs's speech recognition model. Transcribe audio content with industry-leading accuracy across multiple languages and accents.
 

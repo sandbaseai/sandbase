@@ -1,6 +1,8 @@
-# DeepSeek: DeepSeek V4 Flash
+# DeepSeek: DeepSeek V4 Flash API: pricing, parameters and code examples
 
-`deepseek/deepseek-v4-flash` · llm · DeepSeek
+`deepseek/deepseek-v4-flash` · LLM · DeepSeek · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.3 input / $1.2 output per 1M tokens · **Modes:** sync
 
 DeepSeek V4 Flash is an efficiency-optimized Mixture-of-Experts model from DeepSeek with 284B total parameters and 13B activated parameters, supporting a 1M-token context window. It is designed for fast inference and high-throughput workloads, while maintaining strong reasoning and coding performance.
 

@@ -1,6 +1,8 @@
-# LinkedIn Company Posts (basic)
+# LinkedIn Company Posts (basic) API: pricing, parameters and code examples
 
-`linkedin/company-posts-thin` · api · LinkedIn
+`linkedin/company-posts-thin` · data API · LinkedIn · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** about $0.0012 per call · **Modes:** sync
 
 Post text and link only. No engagement counts, author details, media, or reaction breakdown - for those use linkedin.company_posts.
 

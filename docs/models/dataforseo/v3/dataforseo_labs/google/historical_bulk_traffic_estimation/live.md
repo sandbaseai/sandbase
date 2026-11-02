@@ -1,6 +1,8 @@
-# DataForSEO Labs Historical Bulk Traffic Estimation
+# DataForSEO Labs Historical Bulk Traffic Estimation API: pricing, parameters and code examples
 
-`dataforseo/v3/dataforseo_labs/google/historical_bulk_traffic_estimation/live` · api · DataForSEO
+`dataforseo/v3/dataforseo_labs/google/historical_bulk_traffic_estimation/live` · data API · DataForSEO · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** about $0.1224 per call · **Modes:** sync
 
 Monthly estimated organic and paid traffic history for up to 1,000 domains.
 

@@ -1,6 +1,8 @@
-# WeChat MP Account Profile
+# WeChat MP Account Profile API: pricing, parameters and code examples
 
-`wechat-mp/v2/account-profile` · api · WeChat MP
+`wechat-mp/v2/account-profile` · data API · WeChat MP · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.015 per call (free daily quota) · **Modes:** sync
 
 Retrieves the profile details of an official WeChat account, including name, avatar, signature, and verification entity type using its official account ID.
 

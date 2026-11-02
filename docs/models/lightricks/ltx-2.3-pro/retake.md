@@ -1,6 +1,8 @@
-# LTX 2.3 Pro Retake
+# LTX 2.3 Pro Retake API: pricing, parameters and code examples
 
-`lightricks/ltx-2.3-pro/retake` · video · Lightricks
+`lightricks/ltx-2.3-pro/retake` · video generation model · Lightricks · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** from $0.2 to $2 per run, depending on parameters · **Modes:** async
 
 Ltx 2.3 Pro Retake by Lightricks - AI-powered video editing and transformation. Apply style transfer, motion control, lip-sync, and visual effects to existing videos with natural language instructions.
 

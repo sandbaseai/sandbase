@@ -1,6 +1,8 @@
-# JD.com Shop Products
+# JD.com Shop Products API: pricing, parameters and code examples
 
-`jd/shop/items` · api · JD.com
+`jd/shop/items` · data API · JD.com · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.027778 per call · **Modes:** sync
 
 List products from a JD.com shop by shop ID, page by page, to collect item IDs for follow-up lookups.
 

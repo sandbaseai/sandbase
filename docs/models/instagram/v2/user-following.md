@@ -1,6 +1,8 @@
-# Instagram User Following
+# Instagram User Following API: pricing, parameters and code examples
 
-`instagram/v2/user-following` · api · Instagram
+`instagram/v2/user-following` · data API · Instagram · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.003 per call (free daily quota) · **Modes:** sync
 
 Returns the list of accounts that a specified Instagram user follows. Queries can be made using an account username or user ID, with support for pagination tokens.
 

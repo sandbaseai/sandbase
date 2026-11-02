@@ -1,6 +1,8 @@
-# TikTok Shop Search Suggestions
+# TikTok Shop Search Suggestions API: pricing, parameters and code examples
 
-`tiktok-shop/search-suggestions` · api · TikTok Shop
+`tiktok-shop/search-suggestions` · data API · TikTok Shop · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** about $0.00095 per call · **Modes:** sync
 
 Get TikTok Shop search autocomplete terms for a keyword: the long-tail queries shoppers actually type, for keyword and demand research.
 

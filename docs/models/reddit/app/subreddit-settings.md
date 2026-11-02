@@ -1,6 +1,8 @@
-# Reddit App Subreddit Settings
+# Reddit App Subreddit Settings API: pricing, parameters and code examples
 
-`reddit/app/subreddit-settings` · api · Reddit
+`reddit/app/subreddit-settings` · data API · Reddit · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns settings and configuration details for a specified Reddit subreddit, including posting rules, flair settings, and moderation configurations.
 

@@ -1,6 +1,8 @@
-# TikTok Music Details
+# TikTok Music Details API: pricing, parameters and code examples
 
-`tiktok/app-v3/music-detail` · api · TikTok
+`tiktok/app-v3/music-detail` · data API · TikTok · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns detailed track information for a specific audio track on TikTok using its identifier, including connected DSP song mappings.
 

@@ -1,6 +1,8 @@
-# Douyin Search Suggestions
+# Douyin Search Suggestions API: pricing, parameters and code examples
 
-`douyin/search/search-suggest` · api · Douyin
+`douyin/search/search-suggest` · data API · Douyin · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.015 per call (free daily quota) · **Modes:** sync
 
 Get Douyin search autocomplete suggestions for a keyword: the related queries users see while typing in the Douyin app.
 

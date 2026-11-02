@@ -1,6 +1,8 @@
-# Douban Recent Hot Tv
+# Douban Recent Hot Tv API: pricing, parameters and code examples
 
-`douban/recent-hot-tv` · api · Douban
+`douban/recent-hot-tv` · data API · Douban · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.013889 per call (free daily quota) · **Modes:** sync
 
 Get a paginated list of TV titles currently featured in Douban's recent-hot collection. Use it to discover popular series and continue through result pages.
 

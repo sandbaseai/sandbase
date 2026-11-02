@@ -1,6 +1,8 @@
-# TikTok User Posts
+# TikTok User Posts API: pricing, parameters and code examples
 
-`tiktok/web/user-post` · api · TikTok
+`tiktok/web/user-post` · data API · TikTok · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns a list of posts from a specific TikTok user using their `secUid`, including video details, author metrics, and interaction statistics.
 

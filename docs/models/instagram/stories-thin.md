@@ -1,6 +1,8 @@
-# Instagram Stories (basic)
+# Instagram Stories (basic) API: pricing, parameters and code examples
 
-`instagram/stories-thin` · api · Instagram
+`instagram/stories-thin` · data API · Instagram · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** about $0.00188 per call · **Modes:** sync
 
 Fetch a public Instagram account's currently live stories - media URL, owner, and posting time - by username. Lightweight projection; for media type, dimensions, and the 24h expiry time use instagram.stories_full.
 

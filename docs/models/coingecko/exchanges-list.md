@@ -1,6 +1,8 @@
-# CoinGecko Exchanges List (ID Map)
+# CoinGecko Exchanges List (ID Map) API: pricing, parameters and code examples
 
-`coingecko/exchanges-list` · api · CoinGecko
+`coingecko/exchanges-list` · data API · CoinGecko · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.008 per call (free daily quota) · **Modes:** sync
 
 Exchanges List (ID Map) from CoinGecko. Returns the official CoinGecko API response unchanged.
 

@@ -1,6 +1,8 @@
-# Xiaohongshu Pugongying Similar Creators
+# Xiaohongshu Pugongying Similar Creators API: pricing, parameters and code examples
 
-`xiaohongshu/pgy-v2/kol-similar-kol` · api · Xiaohongshu
+`xiaohongshu/pgy-v2/kol-similar-kol` · data API · Xiaohongshu · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.020833 per call · **Modes:** sync
 
 Get paginated Xiaohongshu Pugongying creators similar to a known creator. Use it to expand a campaign shortlist from an existing reference account.
 

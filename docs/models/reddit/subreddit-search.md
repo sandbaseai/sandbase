@@ -1,6 +1,8 @@
-# Reddit Subreddit Search
+# Reddit Subreddit Search API: pricing, parameters and code examples
 
-`reddit/subreddit-search` · api · Reddit
+`reddit/subreddit-search` · data API · Reddit · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** about $0.00035 per call · **Modes:** sync
 
 Search posts within a single subreddit by query, sort, and timeframe.
 

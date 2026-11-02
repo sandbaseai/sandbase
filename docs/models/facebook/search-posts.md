@@ -1,6 +1,8 @@
-# Facebook Post Search
+# Facebook Post Search API: pricing, parameters and code examples
 
-`facebook/search-posts` · api · Facebook
+`facebook/search-posts` · data API · Facebook · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** about $0.03 per call · **Modes:** sync
 
 Search public Facebook posts by keyword, optionally filtered by location, and get structured post records (text, author, engagement).
 

@@ -1,6 +1,8 @@
-# Seedance 2.0 Mini Text to Video
+# Seedance 2.0 Mini Text to Video API: pricing, parameters and code examples
 
-`bytedance/seedance/2.0/mini/text-to-video` · video · Bytedance
+`bytedance/seedance/2.0/mini/text-to-video` · video generation model · Bytedance · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** from $0.24 to $0.96 per run, depending on parameters · **Modes:** async
 
 Seedance 2.0 Mini is Bytedance's text-to-video AI model. Turn written scripts and prompts into professional-quality video clips with realistic motion, lighting, and scene composition.
 

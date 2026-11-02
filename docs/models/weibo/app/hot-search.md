@@ -1,6 +1,8 @@
-# Weibo Hot Search Rankings
+# Weibo Hot Search Rankings API: pricing, parameters and code examples
 
-`weibo/app/hot-search` · api · Weibo
+`weibo/app/hot-search` · data API · Weibo · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns current Weibo hot search rankings across various categories. Supports filtering by category such as realtime trends or by city name for regional topics.
 

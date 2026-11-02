@@ -1,6 +1,8 @@
-# LinkedIn Company (basic)
+# LinkedIn Company (basic) API: pricing, parameters and code examples
 
-`linkedin/company-thin` · api · LinkedIn
+`linkedin/company-thin` · data API · LinkedIn · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** about $0.001 per call · **Modes:** sync
 
 Basic company: name, description, employee count, industry, logo, website, tagline. No follower count, founded year, office locations, or funding data - for those use linkedin.company.
 

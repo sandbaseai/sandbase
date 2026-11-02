@@ -1,6 +1,8 @@
-# Kling 3.0 Omni Pro Reference to Video
+# Kling 3.0 Omni Pro Reference to Video API: pricing, parameters and code examples
 
-`kwaivgi/kling-video/3.0/omni/pro/reference-to-video` · video · KwaiVGI
+`kwaivgi/kling-video/3.0/omni/pro/reference-to-video` · video generation model · KwaiVGI · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** from $0.336 to $0.896 per run, depending on parameters · **Modes:** async
 
 Kling 3.0 Omni Pro Reference to Video by Kuaishou generates a 3-10 second 1080p video that keeps characters and objects from reference images consistent.
 

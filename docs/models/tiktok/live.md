@@ -1,6 +1,8 @@
-# TikTok Live
+# TikTok Live API: pricing, parameters and code examples
 
-`tiktok/live` · api · TikTok
+`tiktok/live` · data API · TikTok · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** about $0.0012 per call · **Modes:** sync
 
 Check whether a TikTok creator is live and get the current live room (title, viewers, start time) by handle.
 

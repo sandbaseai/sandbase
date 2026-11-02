@@ -1,6 +1,8 @@
-# TikTok Real msToken
+# TikTok Real msToken API: pricing, parameters and code examples
 
-`tiktok/web/generate-real-ms-token` · api · TikTok
+`tiktok/web/generate-real-ms-token` · data API · TikTok · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Produces a real msToken for TikTok web requests. Accepts optional configuration parameters including browser type and randomized string data.
 

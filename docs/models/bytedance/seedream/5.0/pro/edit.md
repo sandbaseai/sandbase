@@ -1,6 +1,8 @@
-# Seedream 5.0 Pro Edit
+# Seedream 5.0 Pro Edit API: pricing, parameters and code examples
 
-`bytedance/seedream/5.0/pro/edit` · image · Bytedance
+`bytedance/seedream/5.0/pro/edit` · image generation model · Bytedance · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** from $0.096 per run, depending on parameters · **Modes:** async
 
 Seedream 5.0 Pro is Bytedance's intelligent image editing model. Transform, retouch, and reimagine existing images using text prompts - from background replacement to artistic style conversion.
 

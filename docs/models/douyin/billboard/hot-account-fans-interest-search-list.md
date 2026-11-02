@@ -1,6 +1,8 @@
-# Douyin Account Fan Interest Search Terms
+# Douyin Account Fan Interest Search Terms API: pricing, parameters and code examples
 
-`douyin/billboard/hot-account-fans-interest-search-list` · api · Douyin
+`douyin/billboard/hot-account-fans-interest-search-list` · data API · Douyin · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns the top ten search terms reflecting fan interest over the last three days for a specified Douyin creator account using their user sec_id.
 

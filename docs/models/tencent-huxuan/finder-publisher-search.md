@@ -1,6 +1,8 @@
-# Tencent Huxuan Video Account Creator Search
+# Tencent Huxuan Video Account Creator Search API: pricing, parameters and code examples
 
-`tencent-huxuan/finder-publisher-search` · api · Tencent Huxuan
+`tencent-huxuan/finder-publisher-search` · data API · Tencent Huxuan · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.069444 per call · **Modes:** sync
 
 Search or browses QQ Huxuan Video Account creators by optional nickname keyword with page-number pagination. Use it to discover and shortlist video creators for Tencent Huxuan campaign planning.
 

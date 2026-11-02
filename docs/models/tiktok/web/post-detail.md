@@ -1,6 +1,8 @@
-# TikTok Video Detail
+# TikTok Video Detail API: pricing, parameters and code examples
 
-`tiktok/web/post-detail` · api · TikTok
+`tiktok/web/post-detail` · data API · TikTok · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns detailed data for a single TikTok video using its item ID. Supports filtering by region code to view localized post content.
 

@@ -1,6 +1,8 @@
-# Reddit App Subreddit Post Channels
+# Reddit App Subreddit Post Channels API: pricing, parameters and code examples
 
-`reddit/app/subreddit-post-channels` · api · Reddit
+`reddit/app/subreddit-post-channels` · data API · Reddit · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns post channel and flair details for a target subreddit. Supports custom sort methods and time range filters.
 

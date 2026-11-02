@@ -1,6 +1,8 @@
-# TikTok User Profile Details
+# TikTok User Profile Details API: pricing, parameters and code examples
 
-`tiktok/app-v3/user-profile` · api · TikTok
+`tiktok/app-v3/user-profile` · data API · TikTok · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns profile information for a specified TikTok user. Lookups can be performed using a numeric user ID, username, or sec_user_id.
 

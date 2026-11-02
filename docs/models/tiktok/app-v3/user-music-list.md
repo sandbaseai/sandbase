@@ -1,6 +1,8 @@
-# TikTok User Music List
+# TikTok User Music List API: pricing, parameters and code examples
 
-`tiktok/app-v3/user-music-list` · api · TikTok
+`tiktok/app-v3/user-music-list` · data API · TikTok · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns a list of audio tracks associated with a specific TikTok user. Queries require the user's `sec_uid` with optional cursor-based pagination.
 

@@ -1,6 +1,8 @@
-# JD.com Product Details
+# JD.com Product Details API: pricing, parameters and code examples
 
-`jd/item/detail` · api · JD.com
+`jd/item/detail` · data API · JD.com · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.027778 per call · **Modes:** sync
 
 Get a JD.com product by item ID: title, price, promotion price, brand, shop and images.
 

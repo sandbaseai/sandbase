@@ -1,6 +1,8 @@
-# Douyin User Liked Videos (Web)
+# Douyin User Liked Videos (Web) API: pricing, parameters and code examples
 
-`douyin/web/user-like-videos` · api · Douyin
+`douyin/web/user-like-videos` · data API · Douyin · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns videos liked by a specific Douyin web user. Filter results using the user security ID with pagination support via cursor and page size.
 

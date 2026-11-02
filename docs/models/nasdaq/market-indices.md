@@ -1,6 +1,8 @@
-# Nasdaq Market Indices
+# Nasdaq Market Indices API: pricing, parameters and code examples
 
-`nasdaq/market-indices` · api · Nasdaq
+`nasdaq/market-indices` · data API · Nasdaq · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.01 per call (free daily quota) · **Modes:** async
 
 Current values for the NASDAQ Composite index (COMP) including last price, net change, percentage change, volume, and daily high/low.
 

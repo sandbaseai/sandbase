@@ -1,6 +1,8 @@
-# Kuaishou Hot Board Categories
+# Kuaishou Hot Board Categories API: pricing, parameters and code examples
 
-`kuaishou/app/hot-board-categories` · api · Kuaishou
+`kuaishou/app/hot-board-categories` · data API · Kuaishou · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns the active list of hot board categories available in the Kuaishou app. Use this endpoint to inspect category identifiers and names for trending content rankings.
 

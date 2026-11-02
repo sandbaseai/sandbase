@@ -1,6 +1,8 @@
-# Kuaishou Video Comments (Web)
+# Kuaishou Video Comments (Web) API: pricing, parameters and code examples
 
-`kuaishou/web/one-video-comment` · api · Kuaishou
+`kuaishou/web/one-video-comment` · data API · Kuaishou · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.003 per call (free daily quota) · **Modes:** sync
 
 Returns root comments for a specified Kuaishou video, including author details, content, and like counts. Queries require a video ID and support cursor pagination.
 

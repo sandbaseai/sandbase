@@ -1,6 +1,8 @@
-# YouTube Video Transcript
+# YouTube Video Transcript API: pricing, parameters and code examples
 
-`youtube/video-transcript` · api · YouTube
+`youtube/video-transcript` · data API · YouTube · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** about $0.0009 per call · **Modes:** sync
 
 Fetch the transcript/captions of a YouTube video or Short by URL or ID.
 

@@ -1,6 +1,8 @@
-# Similarweb Keywords Overview
+# Similarweb Keywords Overview API: pricing, parameters and code examples
 
-`similarweb/keywords-overview` · api · Similarweb
+`similarweb/keywords-overview` · data API · Similarweb · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** about $1.275 per call · **Modes:** sync
 
 Get search metrics for keywords: clicks, volume, CPC, competition, intent and SERP features such as AI Overviews.
 

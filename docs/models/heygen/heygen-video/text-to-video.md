@@ -1,6 +1,8 @@
-# HeyGen Video Text to Video
+# HeyGen Video Text to Video API: pricing, parameters and code examples
 
-`heygen/heygen-video/text-to-video` · video · HeyGen
+`heygen/heygen-video/text-to-video` · video generation model · HeyGen · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** from $0.1 to $0.9 per run, depending on parameters · **Modes:** async
 
 HeyGen Video Text to Video turns a text prompt into a 5-15 second video at up to 2K resolution.
 

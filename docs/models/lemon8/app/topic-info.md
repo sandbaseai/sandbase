@@ -1,6 +1,8 @@
-# Lemon8 Topic Information
+# Lemon8 Topic Information API: pricing, parameters and code examples
 
-`lemon8/app/topic-info` · api · Lemon8
+`lemon8/app/topic-info` · data API · Lemon8 · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns detailed information and background visual assets for a specific Lemon8 topic using its unique forum identifier.
 

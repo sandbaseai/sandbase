@@ -1,6 +1,8 @@
-# InfiniteTalk Video to Video
+# InfiniteTalk Video to Video API: pricing, parameters and code examples
 
-`meigen/infinitetalk/video-to-video` · video · MeiGen-AI
+`meigen/infinitetalk/video-to-video` · video generation model · MeiGen-AI · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** about $3.48 per call · **Modes:** async
 
 InfiniteTalk dubs an existing video: it re-animates lips, face and body to match new speech audio.
 

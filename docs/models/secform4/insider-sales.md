@@ -1,6 +1,8 @@
-# SECForm4 Insider Sales
+# SECForm4 Insider Sales API: pricing, parameters and code examples
 
-`secform4/insider-sales` · api · SECForm4
+`secform4/insider-sales` · data API · SECForm4 · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.01 per call (free daily quota) · **Modes:** async
 
 Returns recent insider sale transactions from SEC Form 4 filings. Each transaction includes company info, insider relationship, share count, price, and filing link.
 

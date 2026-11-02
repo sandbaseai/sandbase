@@ -1,6 +1,8 @@
-# Douyin Xingtu Audience Touchpoint Distribution
+# Douyin Xingtu Audience Touchpoint Distribution API: pricing, parameters and code examples
 
-`douyin/xingtu-v3/data-sp-author-touch-distribution` · api · Douyin
+`douyin/xingtu-v3/data-sp-author-touch-distribution` · data API · Douyin · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.020833 per call · **Modes:** sync
 
 Get Douyin Creator Marketplace (Xingtu) audience-touchpoint distribution data for a specified creator and content channel. Use it to compare audience-contact patterns during campaign research.
 

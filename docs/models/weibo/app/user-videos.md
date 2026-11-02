@@ -1,6 +1,8 @@
-# Weibo User Videos
+# Weibo User Videos API: pricing, parameters and code examples
 
-`weibo/app/user-videos` · api · Weibo
+`weibo/app/user-videos` · data API · Weibo · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns the video feed for a specified Weibo user in a waterfall layout. Accepts a user identifier and an optional cursor for paginated results.
 

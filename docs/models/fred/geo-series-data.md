@@ -1,6 +1,8 @@
-# FRED GeoFRED Series Data
+# FRED GeoFRED Series Data API: pricing, parameters and code examples
 
-`fred/geo-series-data` · api · FRED
+`fred/geo-series-data` · data API · FRED · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $1e-05 per call (free daily quota) · **Modes:** sync
 
 GeoFRED Series Data from FRED. Returns the official FRED API response unchanged.
 

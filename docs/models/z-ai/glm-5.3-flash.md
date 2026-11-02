@@ -1,6 +1,8 @@
-# Z.ai: GLM 5.3 Flash
+# Z.ai: GLM 5.3 Flash API: pricing, parameters and code examples
 
-`z-ai/glm-5.3-flash` · llm · Z-Ai
+`z-ai/glm-5.3-flash` · LLM · Z-Ai · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.15 input / $0.5 output per 1M tokens · **Modes:** sync
 
 GLM-5.3-Flash is the first native multimodal model in Z.ai's GLM-5 series, a 320B-parameter mixture-of-experts model with 18B active parameters that combines sparse and linear attention to cut long-context compute and KV cache. Vision is built into its coding loop, letting it inspect rendered interfaces and GUI feedback for frontend, game and computer-use work, and it also handles office documents and financial research. Z.ai reports it outperforms GLM-5.2; GLM-5.3-FlashX serves it at higher speed.
 

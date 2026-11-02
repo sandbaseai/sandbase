@@ -1,6 +1,8 @@
-# Zhihu Pin Comments
+# Zhihu Pin Comments API: pricing, parameters and code examples
 
-`zhihu/web/pin-comments` · api · Zhihu
+`zhihu/web/pin-comments` · data API · Zhihu · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns comments for a Zhihu pin, including author details, like counts, and reply counts. Supports sorting by score or newest timestamp.
 

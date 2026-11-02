@@ -1,6 +1,8 @@
-# Google Videos
+# Google Videos API: pricing, parameters and code examples
 
-`google/videos` · api · Google
+`google/videos` · data API · Google · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** about $0.00085 per call · **Modes:** sync
 
 Search Google for video results (YouTube and others) with title, link, thumbnail, and source.
 

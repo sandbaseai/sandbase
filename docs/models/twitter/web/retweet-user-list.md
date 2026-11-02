@@ -1,6 +1,8 @@
-# Twitter (X) Retweet User List
+# Twitter (X) Retweet User List API: pricing, parameters and code examples
 
-`twitter/web/retweet-user-list` · api · Twitter
+`twitter/web/retweet-user-list` · data API · Twitter · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns a list of users who reposted a specific post using its tweet ID, including follower counts, media counts, and user identifiers.
 

@@ -1,6 +1,8 @@
-# Toutiao Profile User ID
+# Toutiao Profile User ID API: pricing, parameters and code examples
 
-`toutiao/app/user-id` · api · Toutiao
+`toutiao/app/user-id` · data API · Toutiao · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Resolves a Toutiao user profile URL into numeric and secure user identifiers. Returns the user ID and sec_user_id associated with the provided profile link.
 

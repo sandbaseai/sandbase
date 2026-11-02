@@ -1,6 +1,8 @@
-# TikTok Video Keyword Search
+# TikTok Video Keyword Search API: pricing, parameters and code examples
 
-`tiktok/app-v3/video-search-result` · api · TikTok
+`tiktok/app-v3/video-search-result` · data API · TikTok · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns a list of TikTok videos matching a search query. Supports filtering by target region, time range, and relevance or like count sorting.
 

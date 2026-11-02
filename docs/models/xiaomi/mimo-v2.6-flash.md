@@ -1,6 +1,8 @@
-# Xiaomi: MiMo-V2.6-Flash
+# Xiaomi: MiMo-V2.6-Flash API: pricing, parameters and code examples
 
-`xiaomi/mimo-v2.6-flash` · llm · Xiaomi
+`xiaomi/mimo-v2.6-flash` · LLM · Xiaomi · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.14 input / $0.28 output per 1M tokens · **Modes:** sync
 
 MiMo-V2.6-Flash is the efficiency tier of Xiaomi's open-source MiMo-V2.6 series, released in September 2026 as a natively omni-modal reasoning model that takes text, image, video and audio input and returns text. Xiaomi positions it as the balance of intelligence and efficiency for high-frequency calls and large-scale professional workflows, with a 1M-token context, tool calling and structured output. Xiaomi reports it surpasses MiMo-V2.5-Pro; choose MiMo-V2.6-Pro for the hardest tasks.
 

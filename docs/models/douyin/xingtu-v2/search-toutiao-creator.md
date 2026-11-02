@@ -1,6 +1,8 @@
-# Douyin Toutiao Creator Search
+# Douyin Toutiao Creator Search API: pricing, parameters and code examples
 
-`douyin/xingtu-v2/search-toutiao-creator` · api · Douyin
+`douyin/xingtu-v2/search-toutiao-creator` · data API · Douyin · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns Toutiao image-text creator profiles matching a search keyword and filters such as follower count, interaction rate, and industry categories.
 

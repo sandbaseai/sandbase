@@ -1,6 +1,8 @@
-# Douyin Index User ID Encryption
+# Douyin Index User ID Encryption API: pricing, parameters and code examples
 
-`douyin/index/encrypt-user-id` · api · Douyin
+`douyin/index/encrypt-user-id` · data API · Douyin · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Converts a standard numeric Douyin uid into the encrypted user_id required by Douyin Index endpoints for debugging or custom queries.
 

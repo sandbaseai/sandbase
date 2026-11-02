@@ -1,6 +1,8 @@
-# DataForSEO Backlinks Anchors
+# DataForSEO Backlinks Anchors API: pricing, parameters and code examples
 
-`dataforseo/v3/backlinks/anchors/live` · api · DataForSEO
+`dataforseo/v3/backlinks/anchors/live` · data API · DataForSEO · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.004 per call (free daily quota) · **Modes:** sync
 
 Returns anchor text distribution metrics for backlinks pointing to a target website or page. Helps SEO professionals analyze link profile diversity and anchor text optimization.
 

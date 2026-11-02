@@ -1,6 +1,8 @@
-# LinkedIn Group Search
+# LinkedIn Group Search API: pricing, parameters and code examples
 
-`linkedin/search-groups` · api · LinkedIn
+`linkedin/search-groups` · data API · LinkedIn · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** about $0.0013 per call · **Modes:** sync
 
 Search LinkedIn groups by keyword, 10 per page: group name, URL, member count, summary, and logo.
 

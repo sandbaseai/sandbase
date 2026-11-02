@@ -1,6 +1,8 @@
-# Wellfound Company Profile
+# Wellfound Company Profile API: pricing, parameters and code examples
 
-`wellfound/company-profile` · api · Wellfound
+`wellfound/company-profile` · data API · Wellfound · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.02 per call · **Modes:** async
 
 Retrieve a company profile by slug, including description, size, badges, and basic info. Returns stale_input if the company is not found.
 

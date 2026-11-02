@@ -1,6 +1,8 @@
-# Weibo Hot Search Categories
+# Weibo Hot Search Categories API: pricing, parameters and code examples
 
-`weibo/app/hot-search-categories` · api · Weibo
+`weibo/app/hot-search-categories` · data API · Weibo · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns all available hot search categories from Weibo. Enables browsing trending topics segmented by specific Weibo category classifications.
 

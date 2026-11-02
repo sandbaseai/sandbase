@@ -1,6 +1,8 @@
-# Qwen Image 3 Text to Image
+# Qwen Image 3 Text to Image API: pricing, parameters and code examples
 
-`alibaba/qwen-image-3/text-to-image` · image · Alibaba
+`alibaba/qwen-image-3/text-to-image` · image generation model · Alibaba · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** from $0.04 to $0.45 per run, depending on parameters · **Modes:** async
 
 Qwen Image 3 by Alibaba - generate stunning images from text prompts with state-of-the-art AI. Supports multiple aspect ratios, styles, and high-resolution output for creative and commercial use.
 

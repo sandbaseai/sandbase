@@ -1,6 +1,8 @@
-# DataForSEO Google Historical Keyword Data
+# DataForSEO Google Historical Keyword Data API: pricing, parameters and code examples
 
-`dataforseo/v3/dataforseo_labs/google/historical_keyword_data/live` · api · DataForSEO
+`dataforseo/v3/dataforseo_labs/google/historical_keyword_data/live` · data API · DataForSEO · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.024 per call · **Modes:** sync
 
 Get month-by-month history of search volume, CPC and competition for up to 100 Google keywords, going back to 2019.
 

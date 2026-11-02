@@ -1,6 +1,8 @@
-# Instagram Tagged Posts
+# Instagram Tagged Posts API: pricing, parameters and code examples
 
-`instagram/tagged-posts` · api · Instagram
+`instagram/tagged-posts` · data API · Instagram · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** about $0.00188 per call · **Modes:** sync
 
 List the posts an Instagram user is tagged in, with cursor pagination (author, caption, likes, comments).
 

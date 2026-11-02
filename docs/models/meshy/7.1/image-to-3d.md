@@ -1,6 +1,8 @@
-# Meshy 7.1 Image to 3D
+# Meshy 7.1 Image to 3D API: pricing, parameters and code examples
 
-`meshy/7.1/image-to-3d` · image · Meshy
+`meshy/7.1/image-to-3d` · image generation model · Meshy · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** from $0.96 to $2.304 per run, depending on parameters · **Modes:** async
 
 Meshy 7.1 turns a single image into a textured, optionally rigged and animated 3D model.
 

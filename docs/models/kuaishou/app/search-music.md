@@ -1,6 +1,8 @@
-# Kuaishou Music Search
+# Kuaishou Music Search API: pricing, parameters and code examples
 
-`kuaishou/app/search-music` · api · Kuaishou
+`kuaishou/app/search-music` · data API · Kuaishou · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.015 per call (free daily quota) · **Modes:** sync
 
 Searches for Kuaishou music tracks by song name or artist keyword. Returns matched audio results with support for cursor-based pagination.
 

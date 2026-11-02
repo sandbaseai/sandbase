@@ -1,6 +1,8 @@
-# TikTok Stream Analytics Summary
+# TikTok Stream Analytics Summary API: pricing, parameters and code examples
 
-`tiktok/creator/live-analytics-summary` · api · TikTok
+`tiktok/creator/live-analytics-summary` · data API · TikTok · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns streaming performance metrics for a TikTok Shop account over a monthly period. Accepts an optional `start_date` to review broadcast analytics for a calendar month.
 

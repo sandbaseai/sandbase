@@ -1,6 +1,8 @@
-# Reddit App Games Feed
+# Reddit App Games Feed API: pricing, parameters and code examples
 
-`reddit/app/games-feed` · api · Reddit
+`reddit/app/games-feed` · data API · Reddit · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns recommended gaming posts from Reddit app feeds. Supports filtering by sorting method and time range, with optional response formatting.
 

@@ -1,6 +1,8 @@
-# CoinGecko Exchanges List with Data
+# CoinGecko Exchanges List with Data API: pricing, parameters and code examples
 
-`coingecko/exchanges` · api · CoinGecko
+`coingecko/exchanges` · data API · CoinGecko · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.008 per call (free daily quota) · **Modes:** sync
 
 Get all the supported exchanges with exchanges' data (ID, name, country, ...) that have active trading volumes on CoinGecko
 

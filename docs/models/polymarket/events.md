@@ -1,6 +1,8 @@
-# Polymarket List events
+# Polymarket List events API: pricing, parameters and code examples
 
-`polymarket/events` · api · Polymarket
+`polymarket/events` · data API · Polymarket · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.00044 per call (free daily quota) · **Modes:** sync
 
 List events with offset based pagination and filter parameters.
 

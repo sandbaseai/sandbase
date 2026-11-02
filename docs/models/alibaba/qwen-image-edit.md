@@ -1,6 +1,8 @@
-# Qwen Image Edit
+# Qwen Image Edit API: pricing, parameters and code examples
 
-`alibaba/qwen-image-edit` · image · Alibaba
+`alibaba/qwen-image-edit` · image generation model · Alibaba · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.045 per call · **Modes:** async
 
 Qwen Image Edit is Alibaba's intelligent image editing model. Transform, retouch, and reimagine existing images using text prompts - from background replacement to artistic style conversion.
 

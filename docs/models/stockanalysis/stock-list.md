@@ -1,6 +1,8 @@
-# StockAnalysis Stock List
+# StockAnalysis Stock List API: pricing, parameters and code examples
 
-`stockanalysis/stock-list` · api · StockAnalysis
+`stockanalysis/stock-list` · data API · StockAnalysis · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.01 per call (free daily quota) · **Modes:** async
 
 Stocks from a curated stock list by URL slug. Returns the list title, description, stock count, and an array of stock entries with symbol, name, market cap, price, change, and revenue.
 

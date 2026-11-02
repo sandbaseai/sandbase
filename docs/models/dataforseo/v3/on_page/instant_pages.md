@@ -1,6 +1,8 @@
-# DataForSEO OnPage Instant Pages
+# DataForSEO OnPage Instant Pages API: pricing, parameters and code examples
 
-`dataforseo/v3/on_page/instant_pages` · api · DataForSEO
+`dataforseo/v3/on_page/instant_pages` · data API · DataForSEO · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.005 per call (free daily quota) · **Modes:** sync
 
 Returns instant page-level on-page SEO audit metrics for analyzed web pages. Inspect technical SEO elements and on-page optimization signals for audit workflows.
 

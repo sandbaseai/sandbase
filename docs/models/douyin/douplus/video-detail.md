@@ -1,6 +1,8 @@
-# Douyin Douplus Video Detail
+# Douyin Douplus Video Detail API: pricing, parameters and code examples
 
-`douyin/douplus/video-detail` · api · Douyin
+`douyin/douplus/video-detail` · data API · Douyin · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns Douyin video details using a direct video ID or a shared link. Input video identifiers or share text containing short links to inspect video metadata.
 

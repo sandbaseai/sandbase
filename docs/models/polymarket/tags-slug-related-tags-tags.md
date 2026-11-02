@@ -1,6 +1,8 @@
-# Polymarket Get tags related to a tag slug
+# Polymarket Get tags related to a tag slug API: pricing, parameters and code examples
 
-`polymarket/tags-slug-related-tags-tags` · api · Polymarket
+`polymarket/tags-slug-related-tags-tags` · data API · Polymarket · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.00044 per call (free daily quota) · **Modes:** sync
 
 Get tags related to a tag slug from Polymarket. Returns the official Polymarket API response unchanged.
 

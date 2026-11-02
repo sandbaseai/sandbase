@@ -1,6 +1,8 @@
-# Douyin Hot Account Work Analysis
+# Douyin Hot Account Work Analysis API: pricing, parameters and code examples
 
-`douyin/billboard/hot-account-item-analysis-list` · api · Douyin
+`douyin/billboard/hot-account-item-analysis-list` · data API · Douyin · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns analysis metrics for works associated with a specific hot Douyin account over the last week. Requires the target account user ID.
 

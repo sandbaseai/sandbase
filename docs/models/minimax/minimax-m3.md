@@ -1,6 +1,8 @@
-# MiniMax: MiniMax M3
+# MiniMax: MiniMax M3 API: pricing, parameters and code examples
 
-`minimax/minimax-m3` · llm · Minimax
+`minimax/minimax-m3` · LLM · Minimax · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.3 input / $1.2 output per 1M tokens · **Modes:** sync
 
 MiniMax-M3 is MiniMax's flagship multimodal foundation model, which MiniMax describes as open-weight. It is built on MiniMax Sparse Attention, which selects key-value blocks to cut long-context compute and supports up to a 1M-token context, and it was trained natively on text and visual data for image and video understanding. MiniMax positions it for long-horizon coding, agentic tool use and autonomous multi-step work such as research paper reproduction and GPU kernel optimization.
 

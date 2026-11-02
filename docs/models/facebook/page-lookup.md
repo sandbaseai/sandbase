@@ -1,6 +1,8 @@
-# Facebook Page Lookup
+# Facebook Page Lookup API: pricing, parameters and code examples
 
-`facebook/page-lookup` · api · Facebook
+`facebook/page-lookup` · data API · Facebook · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** about $0.00975 per call · **Modes:** sync
 
 Look up Facebook Pages and profiles by name with Facebook's own quick search. A name lookup that returns basic identity fields only: name, URL, profile image, Facebook id, and verified status. Matches can include personal profiles as well as Pages. For full Page details (category, followers, phone, website), use facebook.search_pages.
 

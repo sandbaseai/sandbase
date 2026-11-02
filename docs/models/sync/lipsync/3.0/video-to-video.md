@@ -1,6 +1,8 @@
-# Sync 3 Lipsync
+# Sync 3 Lipsync API: pricing, parameters and code examples
 
-`sync/lipsync/3.0/video-to-video` · video · Sync Labs
+`sync/lipsync/3.0/video-to-video` · video generation model · Sync Labs · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** about $0.675 per call · **Modes:** async
 
 Sync 3 by sync. re-animates the speaker's lips in an existing video to match new audio, with studio-grade identity preservation.
 

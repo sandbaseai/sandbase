@@ -1,6 +1,8 @@
-# DataForSEO Labs Google Keyword Suggestions
+# DataForSEO Labs Google Keyword Suggestions API: pricing, parameters and code examples
 
-`dataforseo/v3/dataforseo_labs/google/keyword_suggestions/live` · api · DataForSEO
+`dataforseo/v3/dataforseo_labs/google/keyword_suggestions/live` · data API · DataForSEO · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.024 per call · **Modes:** sync
 
 Returns Google keyword suggestions alongside relevant search metrics from DataForSEO Labs. Enables discovery of related search terms and query opportunities.
 

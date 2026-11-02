@@ -1,6 +1,8 @@
-# GetApp Software Alternatives
+# GetApp Software Alternatives API: pricing, parameters and code examples
 
-`getapp/software-alternatives` · api · GetApp
+`getapp/software-alternatives` · data API · GetApp · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.01 per call (free daily quota) · **Modes:** async
 
 Retrieve alternative software products for a given product, with detailed comparisons including ratings, pricing, and feature overlap.
 

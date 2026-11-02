@@ -1,6 +1,8 @@
-# TikTok LIVE Status
+# TikTok LIVE Status API: pricing, parameters and code examples
 
-`tiktok/app-v3/check-live-room-online` · api · TikTok
+`tiktok/app-v3/check-live-room-online` · data API · TikTok · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Check whether a TikTok LIVE room is currently live by room ID.
 

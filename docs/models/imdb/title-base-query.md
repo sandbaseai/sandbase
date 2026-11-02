@@ -1,6 +1,8 @@
-# IMDb Base Info
+# IMDb Base Info API: pricing, parameters and code examples
 
-`imdb/title-base-query` · api · IMDb
+`imdb/title-base-query` · data API · IMDb · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.006944 per call (free daily quota) · **Modes:** sync
 
 Get base IMDb information for a title ID using selected language and country preferences. Use it to perform a lightweight title lookup or populate basic catalog context.
 

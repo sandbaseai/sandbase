@@ -1,6 +1,8 @@
-# Instagram Comment Bulk Translation
+# Instagram Comment Bulk Translation API: pricing, parameters and code examples
 
-`instagram/v3/bulk-translate-comments` · api · Instagram
+`instagram/v3/bulk-translate-comments` · data API · Instagram · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.012 per call (free daily quota) · **Modes:** sync
 
 Returns bulk translations for multiple Instagram comments using a list of comment identifiers. Accepts up to 10 comma-separated IDs to translate multiple comments at once.
 

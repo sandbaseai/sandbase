@@ -1,6 +1,8 @@
-# Bilibili Video Playback URL
+# Bilibili Video Playback URL API: pricing, parameters and code examples
 
-`bilibili/web/video-playurl` · api · Bilibili
+`bilibili/web/video-playurl` · data API · Bilibili · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns video playback stream URLs and DASH metadata for a specified Bilibili video. Requires both the video identifier and the content identifier.
 

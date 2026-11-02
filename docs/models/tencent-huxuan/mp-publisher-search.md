@@ -1,6 +1,8 @@
-# Tencent Huxuan Official Account Creator Search
+# Tencent Huxuan Official Account Creator Search API: pricing, parameters and code examples
 
-`tencent-huxuan/mp-publisher-search` · api · Tencent Huxuan
+`tencent-huxuan/mp-publisher-search` · data API · Tencent Huxuan · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.069444 per call · **Modes:** sync
 
 Search or browses QQ Huxuan Official Account creators by optional nickname or account keyword with page-number pagination. Use it to discover and shortlist publishers for Tencent Huxuan campaign planning.
 

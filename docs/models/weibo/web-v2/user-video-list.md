@@ -1,6 +1,8 @@
-# Weibo User Video List
+# Weibo User Video List API: pricing, parameters and code examples
 
-`weibo/web-v2/user-video-list` · api · Weibo
+`weibo/web-v2/user-video-list` · data API · Weibo · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Retrieves a waterfall list of videos posted by a specified user. Supports pagination via cursor parameters to browse historical video entries.
 

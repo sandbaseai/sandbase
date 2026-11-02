@@ -1,6 +1,8 @@
-# Financial Datasets Metrics
+# Financial Datasets Metrics API: pricing, parameters and code examples
 
-`financial-datasets/kpi-metrics` · api · Financial Datasets
+`financial-datasets/kpi-metrics` · data API · Financial Datasets · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.02 per call · **Modes:** sync
 
 Get sector-specific operational KPIs for a ticker. Includes metrics like load factor, CET1 ratio, same-store sales, FFO per share, and more. Sourced from SEC 8-K earnings releases.
 

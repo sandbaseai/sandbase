@@ -1,6 +1,8 @@
-# Douyin Brand Trend Lines
+# Douyin Brand Trend Lines API: pricing, parameters and code examples
 
-`douyin/index/brand-lines` · api · Douyin
+`douyin/index/brand-lines` · data API · Douyin · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns brand trend line metrics and popularity trends over time for a specified brand name and date range across supported platforms.
 

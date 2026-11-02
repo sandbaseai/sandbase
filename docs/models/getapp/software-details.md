@@ -1,6 +1,8 @@
-# GetApp Software Details
+# GetApp Software Details API: pricing, parameters and code examples
 
-`getapp/software-details` · api · GetApp
+`getapp/software-details` · data API · GetApp · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.01 per call (free daily quota) · **Modes:** async
 
 Retrieve full details for a software product including description, ratings, reviews, features, integrations, pricing, screenshots, and alternatives. The slug is the product URL path (e.g.
 

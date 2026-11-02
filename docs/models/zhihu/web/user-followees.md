@@ -1,6 +1,8 @@
-# Zhihu User Followees
+# Zhihu User Followees API: pricing, parameters and code examples
 
-`zhihu/web/user-followees` · api · Zhihu
+`zhihu/web/user-followees` · data API · Zhihu · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns the list of accounts that a specific Zhihu user follows. Supports pagination through limit and offset parameters.
 

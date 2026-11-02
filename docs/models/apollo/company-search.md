@@ -1,6 +1,8 @@
-# Apollo Organization Search
+# Apollo Organization Search API: pricing, parameters and code examples
 
-`apollo/company-search` · api · Apollo
+`apollo/company-search` · data API · Apollo · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.01975 per call · **Modes:** sync
 
 Find companies matching criteria: name, domain, headcount, industry, location, funding stage and technologies in use.
 

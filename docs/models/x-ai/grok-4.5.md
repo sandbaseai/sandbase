@@ -1,6 +1,8 @@
-# xAI: Grok 4.5
+# xAI: Grok 4.5 API: pricing, parameters and code examples
 
-`x-ai/grok-4.5` · llm · xAI
+`x-ai/grok-4.5` · LLM · xAI · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $2 input / $6 output per 1M tokens · **Modes:** sync
 
 Grok 4.5 is an xAI reasoning model for coding, agentic tasks and knowledge work, released on the xAI API in July 2026 and trained alongside Cursor. xAI emphasizes token-efficient reasoning on real engineering tasks, fast serving, and office work such as building Excel models, PowerPoint diagrams and Word documents. It accepts text and image input with configurable reasoning effort; Grok 4.6 and Grok 4.7 later succeeded it as xAI's flagship.
 

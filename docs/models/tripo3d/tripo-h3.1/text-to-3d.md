@@ -1,6 +1,8 @@
-# Tripo H3.1 Text to 3D
+# Tripo H3.1 Text to 3D API: pricing, parameters and code examples
 
-`tripo3d/tripo-h3.1/text-to-3d` · image · Tripo3D
+`tripo3d/tripo-h3.1/text-to-3d` · image generation model · Tripo3D · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** from $0.12 to $0.66 per run, depending on parameters · **Modes:** async
 
 Tripo H3.1 is Tripo3D's text-to-3D AI model. Turn written descriptions into textured 3D objects with realistic geometry and materials.
 

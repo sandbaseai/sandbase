@@ -1,6 +1,8 @@
-# Douyin General Search
+# Douyin General Search API: pricing, parameters and code examples
 
-`douyin/search/general-search-v1` · api · Douyin
+`douyin/search/general-search-v1` · data API · Douyin · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.015 per call (free daily quota) · **Modes:** sync
 
 Search Douyin (Chinese TikTok) from the app's general search tab and get videos with descriptions, authors and play, like, comment and share counts. Filter by sort, publish time, duration and content type.
 

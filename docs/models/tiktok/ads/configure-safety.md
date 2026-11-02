@@ -1,6 +1,8 @@
-# TikTok Search Module Safety Configuration
+# TikTok Search Module Safety Configuration API: pricing, parameters and code examples
 
-`tiktok/ads/configure-safety` · api · TikTok
+`tiktok/ads/configure-safety` · data API · TikTok · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns the safety and availability configuration switches for TikTok Creative Center search modules. It indicates whether searches for top ads, keywords, hashtags, sounds, and creators are currently available.
 

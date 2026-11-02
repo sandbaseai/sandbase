@@ -1,6 +1,8 @@
-# Douyin Daren Core Metrics
+# Douyin Daren Core Metrics API: pricing, parameters and code examples
 
-`douyin/index/daren-great-item-mile-info` · api · Douyin
+`douyin/index/daren-great-item-mile-info` · data API · Douyin · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns core milestone and performance metrics for a specified Douyin creator. Queries metrics using the creator's unique numeric user ID.
 

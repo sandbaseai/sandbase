@@ -1,6 +1,8 @@
-# Douyin Creator Hot Spot Billboard
+# Douyin Creator Hot Spot Billboard API: pricing, parameters and code examples
 
-`douyin/creator/creator-hot-spot-billboard` · api · Douyin
+`douyin/creator/creator-hot-spot-billboard` · data API · Douyin · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns trending hot spot billboard rankings for Douyin creators, including hot scores and query identifiers filtered by search type, tag, or city code.
 

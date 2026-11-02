@@ -1,6 +1,8 @@
-# Douyin User Profile Details
+# Douyin User Profile Details API: pricing, parameters and code examples
 
-`douyin/web/user-profile-v3` · api · Douyin
+`douyin/web/user-profile-v3` · data API · Douyin · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns profile information and badges for a specified Douyin user using their account identifier. Query by providing the user's short ID.
 

@@ -1,6 +1,8 @@
-# MiniMax Hailuo 2.3 Pro Text to Video
+# MiniMax Hailuo 2.3 Pro Text to Video API: pricing, parameters and code examples
 
-`minimax/hailuo/2.3/pro/text-to-video` · video · MiniMax
+`minimax/hailuo/2.3/pro/text-to-video` · video generation model · MiniMax · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.49 per call · **Modes:** async
 
 MiniMax Hailuo 2.3 Pro by MiniMax turns a text prompt into a 6-second 1080P video with realistic motion and strong prompt following.
 

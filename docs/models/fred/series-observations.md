@@ -1,6 +1,8 @@
-# FRED Get Series Observations
+# FRED Get Series Observations API: pricing, parameters and code examples
 
-`fred/series-observations` · api · FRED
+`fred/series-observations` · data API · FRED · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $1e-05 per call (free daily quota) · **Modes:** sync
 
 Get Series Observations from FRED. Returns the official FRED API response unchanged.
 

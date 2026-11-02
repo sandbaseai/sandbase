@@ -1,6 +1,8 @@
-# Douyin Hot Search Keywords
+# Douyin Hot Search Keywords API: pricing, parameters and code examples
 
-`douyin/index/hot-words` · api · Douyin
+`douyin/index/hot-words` · data API · Douyin · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns a list of current trending search keywords and their growth rates on Douyin or Toutiao. Results can be filtered by the target platform application.
 

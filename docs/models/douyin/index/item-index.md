@@ -1,6 +1,8 @@
-# Douyin Video Index Trend
+# Douyin Video Index Trend API: pricing, parameters and code examples
 
-`douyin/index/item-index` · api · Douyin
+`douyin/index/item-index` · data API · Douyin · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns historical index trend data points for a specified Douyin video over a designated period defined by start and end dates.
 

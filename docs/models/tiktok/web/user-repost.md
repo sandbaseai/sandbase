@@ -1,6 +1,8 @@
-# TikTok User Reposts
+# TikTok User Reposts API: pricing, parameters and code examples
 
-`tiktok/web/user-repost` · api · TikTok
+`tiktok/web/user-repost` · data API · TikTok · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns a list of reposted videos for a specified TikTok profile. Results include video metadata, author statistics, and engagement metrics via user secUid.
 

@@ -1,6 +1,8 @@
-# Douyin Xingtu Commerce Seeding Base Info
+# Douyin Xingtu Commerce Seeding Base Info API: pricing, parameters and code examples
 
-`douyin/xingtu-v3/aggregator-author-commerce-seed-base-info` · api · Douyin
+`douyin/xingtu-v3/aggregator-author-commerce-seed-base-info` · data API · Douyin · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.020833 per call · **Modes:** sync
 
 Get Douyin Creator Marketplace (Xingtu) commerce-seeding baseline information for a creator over a selectable 30- or 90-day period. Use it to research creators for product-seeding campaigns.
 

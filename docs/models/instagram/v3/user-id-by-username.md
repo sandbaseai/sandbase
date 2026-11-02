@@ -1,6 +1,8 @@
-# Instagram User ID Lookup
+# Instagram User ID Lookup API: pricing, parameters and code examples
 
-`instagram/v3/user-id-by-username` · api · Instagram
+`instagram/v3/user-id-by-username` · data API · Instagram · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.012 per call (free daily quota) · **Modes:** sync
 
 Convert an Instagram username into its numeric user ID, the internal identifier needed by most Instagram profile, posts and followers APIs.
 

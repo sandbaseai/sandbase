@@ -1,6 +1,8 @@
-# Financial Datasets Get Latest Interest Rates
+# Financial Datasets Get Latest Interest Rates API: pricing, parameters and code examples
 
-`financial-datasets/macro-interest-rates-snapshot` · api · Financial Datasets
+`financial-datasets/macro-interest-rates-snapshot` · data API · Financial Datasets · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.02 per call · **Modes:** sync
 
 The newest published policy rate of every central bank we cover, one row per bank with the date it is in effect. Pass bank to get one bank only.
 

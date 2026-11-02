@@ -1,6 +1,8 @@
-# DataForSEO Google Top Searches
+# DataForSEO Google Top Searches API: pricing, parameters and code examples
 
-`dataforseo/v3/dataforseo_labs/google/top_searches/live` · api · DataForSEO
+`dataforseo/v3/dataforseo_labs/google/top_searches/live` · data API · DataForSEO · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.024 per call · **Modes:** sync
 
 Browse popular Google keywords for a location and language with search volume, CPC and competition, filtered and sorted as needed.
 

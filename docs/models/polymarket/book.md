@@ -1,6 +1,8 @@
-# Polymarket Get order book
+# Polymarket Get order book API: pricing, parameters and code examples
 
-`polymarket/book` · api · Polymarket
+`polymarket/book` · data API · Polymarket · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.012 per call (free daily quota) · **Modes:** sync
 
 Retrieves the order book summary for a specific token ID. Includes bids, asks, market details, and last trade price.
 

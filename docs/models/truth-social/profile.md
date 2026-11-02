@@ -1,6 +1,8 @@
-# Truth Social Profile
+# Truth Social Profile API: pricing, parameters and code examples
 
-`truth-social/profile` · api · Truth Social
+`truth-social/profile` · data API · Truth Social · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** about $0.0011 per call · **Modes:** sync
 
 Get a Truth Social account's public profile by handle - display name, bio, follower/following counts, and post count as clean JSON.
 

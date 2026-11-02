@@ -1,6 +1,8 @@
-# StockAnalysis Stock Overview
+# StockAnalysis Stock Overview API: pricing, parameters and code examples
 
-`stockanalysis/stock-overview` · api · StockAnalysis
+`stockanalysis/stock-overview` · data API · StockAnalysis · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.01 per call (free daily quota) · **Modes:** async
 
 Real-time quote overview for a stock symbol. Returns current price, change, volume, exchange, market status, 52-week range, and extended-hours data.
 

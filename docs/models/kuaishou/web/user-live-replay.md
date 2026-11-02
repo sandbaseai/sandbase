@@ -1,6 +1,8 @@
-# Kuaishou User Broadcast Replay
+# Kuaishou User Broadcast Replay API: pricing, parameters and code examples
 
-`kuaishou/web/user-live-replay` · api · Kuaishou
+`kuaishou/web/user-live-replay` · data API · Kuaishou · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.015 per call (free daily quota) · **Modes:** sync
 
 Returns recorded stream replay data for a specified Kuaishou user. The endpoint accepts a user identifier and an optional cursor parameter for paginating through past streams.
 

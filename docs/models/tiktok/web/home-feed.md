@@ -1,6 +1,8 @@
-# TikTok Web Home Feed
+# TikTok Web Home Feed API: pricing, parameters and code examples
 
-`tiktok/web/home-feed` · api · TikTok
+`tiktok/web/home-feed` · data API · TikTok · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns recommended video items and metadata from the TikTok web home feed. Supports filtering by target region code and page item count.
 

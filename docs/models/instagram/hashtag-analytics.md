@@ -1,6 +1,8 @@
-# Instagram Hashtag Analytics
+# Instagram Hashtag Analytics API: pricing, parameters and code examples
 
-`instagram/hashtag-analytics` · api · Instagram
+`instagram/hashtag-analytics` · data API · Instagram · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** about $0.0011 per call · **Modes:** sync
 
 Get the total post count for any Instagram hashtag.
 

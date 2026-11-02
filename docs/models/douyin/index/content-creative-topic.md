@@ -1,6 +1,8 @@
-# Douyin Content Creative Topics
+# Douyin Content Creative Topics API: pricing, parameters and code examples
 
-`douyin/index/content-creative-topic` · api · Douyin
+`douyin/index/content-creative-topic` · data API · Douyin · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns trending creative topics for a specific Douyin category. Filter results by category ID, evaluation period, ranking metric, and end date.
 

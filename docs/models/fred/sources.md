@@ -1,6 +1,8 @@
-# FRED Get Sources
+# FRED Get Sources API: pricing, parameters and code examples
 
-`fred/sources` · api · FRED
+`fred/sources` · data API · FRED · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $1e-05 per call (free daily quota) · **Modes:** sync
 
 Get Sources from FRED. Returns the official FRED API response unchanged.
 

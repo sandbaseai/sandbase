@@ -1,6 +1,8 @@
-# 1688 Category Products
+# 1688 Category Products API: pricing, parameters and code examples
 
-`1688/category/items` · api · 1688
+`1688/category/items` · data API · 1688 · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.013889 per call (free daily quota) · **Modes:** sync
 
 List 1688 wholesale products in a category with output language, sort, price, dropshipping and factory filters.
 

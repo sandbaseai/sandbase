@@ -1,6 +1,8 @@
-# Douyin Rising Hot Search List
+# Douyin Rising Hot Search List API: pricing, parameters and code examples
 
-`douyin/billboard/hot-rise-list` · api · Douyin
+`douyin/billboard/hot-rise-list` · data API · Douyin · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns Douyin rising hot search topics and billboard rankings. Results can be filtered by keyword, sorted by a specified order, and segmented by category tags.
 

@@ -1,6 +1,8 @@
-# Clutch Company Portfolio
+# Clutch Company Portfolio API: pricing, parameters and code examples
 
-`clutch/company-portfolio` · api · Clutch
+`clutch/company-portfolio` · data API · Clutch · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.01 per call (free daily quota) · **Modes:** async
 
 Get portfolio items (case studies/projects) for a company. Returns project titles and associated service lines.
 

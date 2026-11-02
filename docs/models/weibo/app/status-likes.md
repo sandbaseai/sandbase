@@ -1,6 +1,8 @@
-# Weibo Post Likes
+# Weibo Post Likes API: pricing, parameters and code examples
 
-`weibo/app/status-likes` · api · Weibo
+`weibo/app/status-likes` · data API · Weibo · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns the list of likes for a specified Weibo post or video. Supports filtering reactions using an attitude type parameter.
 

@@ -1,6 +1,8 @@
-# HeyGen Video Reference to Video
+# HeyGen Video Reference to Video API: pricing, parameters and code examples
 
-`heygen/heygen-video/reference-to-video` · video · HeyGen
+`heygen/heygen-video/reference-to-video` · video generation model · HeyGen · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** from $0.35 to $2.7 per run, depending on parameters · **Modes:** async
 
 HeyGen Video Reference to Video generates a 5-15 second video guided by reference images, videos and audio.
 

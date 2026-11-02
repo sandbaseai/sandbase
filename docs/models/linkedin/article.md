@@ -1,6 +1,8 @@
-# LinkedIn Article
+# LinkedIn Article API: pricing, parameters and code examples
 
-`linkedin/article` · api · LinkedIn
+`linkedin/article` · data API · LinkedIn · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** about $0.00569 per call · **Modes:** sync
 
 Read a public LinkedIn article or newsletter issue by URL, including its full body text, author, publication time, and engagement counts.
 

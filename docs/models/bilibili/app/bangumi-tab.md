@@ -1,6 +1,8 @@
-# Bilibili App Bangumi Tab
+# Bilibili App Bangumi Tab API: pricing, parameters and code examples
 
-`bilibili/app/bangumi-tab` · api · Bilibili
+`bilibili/app/bangumi-tab` · data API · Bilibili · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns Bilibili app bangumi tab data, providing curated anime recommendations, feed items, and category listings for mobile clients.
 

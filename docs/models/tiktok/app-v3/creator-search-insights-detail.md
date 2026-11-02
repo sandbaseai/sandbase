@@ -1,6 +1,8 @@
-# TikTok Creator Search Insights Detail
+# TikTok Creator Search Insights Detail API: pricing, parameters and code examples
 
-`tiktok/app-v3/creator-search-insights-detail` · api · TikTok
+`tiktok/app-v3/creator-search-insights-detail` · data API · TikTok · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Get detailed statistics for a TikTok Creator Search Insights query: popularity over time and audience breakdown by age, gender and country.
 

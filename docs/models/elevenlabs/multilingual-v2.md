@@ -1,6 +1,8 @@
-# Multilingual V2
+# Multilingual V2 API: pricing, parameters and code examples
 
-`elevenlabs/multilingual-v2` · audio · ElevenLabs
+`elevenlabs/multilingual-v2` · audio model · ElevenLabs · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** from $0.2 per run, depending on parameters · **Modes:** async
 
 Eleven Multilingual v2 is ElevenLabs' stable, lifelike text-to-speech model for 29 languages. Choose a voice, set stability and speaking speed, and turn written text into narration.
 

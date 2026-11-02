@@ -1,6 +1,8 @@
-# DataForSEO Google Page Intersection
+# DataForSEO Google Page Intersection API: pricing, parameters and code examples
 
-`dataforseo/v3/dataforseo_labs/google/page_intersection/live` · api · DataForSEO
+`dataforseo/v3/dataforseo_labs/google/page_intersection/live` · data API · DataForSEO · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.024 per call · **Modes:** sync
 
 Returns search keywords shared between multiple specified Google pages. Helps analyze overlapping search terms to evaluate organic search visibility and competitor overlap.
 

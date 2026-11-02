@@ -1,6 +1,8 @@
-# Qwen: Qwen3 8B
+# Qwen: Qwen3 8B API: pricing, parameters and code examples
 
-`alibaba/qwen3-8b` · llm · Alibaba
+`alibaba/qwen3-8b` · LLM · Alibaba · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.18 input / $0.7 output per 1M tokens · **Modes:** sync
 
 Qwen3 8B is a compact dense model in Alibaba's open-weight Qwen3 family, released in April 2025 with 8.2 billion parameters. Like its siblings, it switches between a thinking mode for math, coding and logical reasoning and a non-thinking mode for efficient dialogue, with tool use in both modes and coverage of more than 100 languages and dialects. Choose it for lightweight text reasoning and chat where Qwen3 32B is more than the task needs.
 

@@ -1,6 +1,8 @@
-# Douyin Xingtu Creator Side Base Info
+# Douyin Xingtu Creator Side Base Info API: pricing, parameters and code examples
 
-`douyin/xingtu-v3/aggregator-author-side-base-info` · api · Douyin
+`douyin/xingtu-v3/aggregator-author-side-base-info` · data API · Douyin · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.020833 per call · **Modes:** sync
 
 Get the Douyin Creator Marketplace (Xingtu) side-card baseline information for a specified creator. Use it to review a creator's marketplace overview during shortlisting.
 

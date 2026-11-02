@@ -1,6 +1,8 @@
-# Tencent Huxuan Hot Content Trends
+# Tencent Huxuan Hot Content Trends API: pricing, parameters and code examples
 
-`tencent-huxuan/finder-publisher-rank-finder-content` · api · Tencent Huxuan
+`tencent-huxuan/finder-publisher-rank-finder-content` · data API · Tencent Huxuan · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.041667 per call · **Modes:** sync
 
 List QQ Huxuan hot Video Account content by month and creator category, with six descending sort metrics and page-number pagination. Use it to research monthly content trends for Tencent Huxuan campaign planning.
 

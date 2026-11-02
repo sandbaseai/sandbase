@@ -1,6 +1,8 @@
-# DataForSEO Backlinks Referring Domains
+# DataForSEO Backlinks Referring Domains API: pricing, parameters and code examples
 
-`dataforseo/v3/backlinks/referring_domains/live` · api · DataForSEO
+`dataforseo/v3/backlinks/referring_domains/live` · data API · DataForSEO · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.004 per call (free daily quota) · **Modes:** sync
 
 Returns a list of referring domains that link to a specified target domain or page. Inspect inbound domain metrics, link counts, and authority data for SEO research.
 

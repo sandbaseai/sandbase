@@ -1,6 +1,8 @@
-# CoinGecko Coin Historical Chart Data within Time Range by ID
+# CoinGecko Coin Historical Chart Data within Time Range by ID API: pricing, parameters and code examples
 
-`coingecko/coins-market-chart-range` · api · CoinGecko
+`coingecko/coins-market-chart-range` · data API · CoinGecko · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.008 per call (free daily quota) · **Modes:** sync
 
 Get the historical chart data of a coin within certain time range in UNIX along with price, market cap and 24hr volume based on particular coin ID
 

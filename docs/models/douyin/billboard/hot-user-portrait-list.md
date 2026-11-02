@@ -1,6 +1,8 @@
-# Douyin Hot Video Audience Portrait
+# Douyin Hot Video Audience Portrait API: pricing, parameters and code examples
 
-`douyin/billboard/hot-user-portrait-list` · api · Douyin
+`douyin/billboard/hot-user-portrait-list` · data API · Douyin · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns audience persona and demographic data for trending Douyin videos. Look up user portraits by providing a specific work ID and optional display options.
 

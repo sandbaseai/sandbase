@@ -1,6 +1,8 @@
-# Qwen: Qwen2.5 VL 72B Instruct
+# Qwen: Qwen2.5 VL 72B Instruct API: pricing, parameters and code examples
 
-`alibaba/qwen2.5-vl-72b-instruct` · llm · Alibaba
+`alibaba/qwen2.5-vl-72b-instruct` · LLM · Alibaba · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.25 input / $0.75 output per 1M tokens · **Modes:** sync
 
 Qwen2.5-VL 72B Instruct is the largest instruction-tuned model in Alibaba's open-weight Qwen2.5-VL vision-language family, released in early 2025. Qwen highlights recognition of common objects and analysis of text, charts, icons and layouts in images, visual localization with bounding boxes or points, structured extraction from invoices, forms and tables, visual agent use and understanding of videos over an hour long. It predates the Qwen3-VL line and suits workloads validated on it.
 

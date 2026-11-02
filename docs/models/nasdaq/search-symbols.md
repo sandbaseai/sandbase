@@ -1,6 +1,8 @@
-# Nasdaq Search Symbols
+# Nasdaq Search Symbols API: pricing, parameters and code examples
 
-`nasdaq/search-symbols` · api · Nasdaq
+`nasdaq/search-symbols` · data API · Nasdaq · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.01 per call (free daily quota) · **Modes:** async
 
 Full-text search across stocks, ETFs, funds, and indices by symbol or company name. Returns scored results with metadata (exchange, asset type, market cap) and real-time market data (last sale, change, percent change).
 

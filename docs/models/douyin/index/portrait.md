@@ -1,6 +1,8 @@
-# Douyin Keyword Crowd Portrait
+# Douyin Keyword Crowd Portrait API: pricing, parameters and code examples
 
-`douyin/index/portrait` · api · Douyin
+`douyin/index/portrait` · data API · Douyin · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns crowd portrait analysis for a specific keyword over a defined date range. Allows querying data for Douyin or Toutiao platforms.
 

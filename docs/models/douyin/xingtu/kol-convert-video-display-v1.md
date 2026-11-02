@@ -1,6 +1,8 @@
-# Douyin Xingtu KOL Conversion Video Display
+# Douyin Xingtu KOL Conversion Video Display API: pricing, parameters and code examples
 
-`douyin/xingtu/kol-convert-video-display-v1` · api · Douyin
+`douyin/xingtu/kol-convert-video-display-v1` · data API · Douyin · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.03 per call · **Modes:** sync
 
 Returns Xingtu KOL conversion video metrics and product data for a specific creator. Filter records by detail type and navigate results using page numbers.
 

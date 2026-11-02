@@ -1,6 +1,8 @@
-# Wizper (Whisper v3)
+# Wizper (Whisper v3) API: pricing, parameters and code examples
 
-`openai/wizper` · audio · OpenAI
+`openai/wizper` · audio model · OpenAI · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.006 per call · **Modes:** async
 
 Wizper is a fast Whisper v3 speech-to-text model. It transcribes audio or video in about 100 languages, or translates the speech into English, with segment-level timestamps.
 

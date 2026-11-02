@@ -1,6 +1,8 @@
-# Polymarket Get market price
+# Polymarket Get market price API: pricing, parameters and code examples
 
-`polymarket/price` · api · Polymarket
+`polymarket/price` · data API · Polymarket · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.012 per call (free daily quota) · **Modes:** sync
 
 Retrieves the best market price for a specific token ID and side (bid or ask). Returns the best bid price for BUY side or best ask price for SELL side.
 

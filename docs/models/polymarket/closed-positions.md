@@ -1,6 +1,8 @@
-# Polymarket Get closed positions for a user
+# Polymarket Get closed positions for a user API: pricing, parameters and code examples
 
-`polymarket/closed-positions` · api · Polymarket
+`polymarket/closed-positions` · data API · Polymarket · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.012 per call (free daily quota) · **Modes:** sync
 
 Get closed positions for a user from Polymarket. Returns the official Polymarket API response unchanged.
 

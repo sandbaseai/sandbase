@@ -1,6 +1,8 @@
-# Financial Datasets Get Insider Trades
+# Financial Datasets Get Insider Trades API: pricing, parameters and code examples
 
-`financial-datasets/insider-trades` · api · Financial Datasets
+`financial-datasets/insider-trades` · data API · Financial Datasets · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.02 per call · **Modes:** sync
 
 Get insider trades like buys and sells for a ticker by a company insider.
 

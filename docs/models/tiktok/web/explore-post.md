@@ -1,6 +1,8 @@
-# TikTok Web Explore Posts
+# TikTok Web Explore Posts API: pricing, parameters and code examples
 
-`tiktok/web/explore-post` · api · TikTok
+`tiktok/web/explore-post` · data API · TikTok · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns explore feed posts from TikTok Web, filtered by video category and page count, along with author metrics and audio details.
 

@@ -1,6 +1,8 @@
-# Instagram User Profile
+# Instagram User Profile API: pricing, parameters and code examples
 
-`instagram/v2/user-info` · api · Instagram
+`instagram/v2/user-info` · data API · Instagram · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.003 per call (free daily quota) · **Modes:** sync
 
 Get an Instagram user profile by username or user ID: full name, bio, website, follower, following and post counts, verification and category.
 

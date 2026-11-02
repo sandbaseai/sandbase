@@ -1,6 +1,8 @@
-# DataForSEO Google SERP (Advanced)
+# DataForSEO Google SERP (Advanced) API: pricing, parameters and code examples
 
-`dataforseo/v3/serp/google/organic/live/advanced` · api · DataForSEO
+`dataforseo/v3/serp/google/organic/live/advanced` · data API · DataForSEO · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** from $0.003 per run, depending on parameters · **Modes:** sync
 
 Get live Google organic search results for any keyword, location and language, including AI Overviews, featured snippets, People Also Ask and other SERP features, with rank positions and URLs.
 

@@ -1,6 +1,8 @@
-# Gemini 3.1 Flash Tts
+# Gemini 3.1 Flash Tts API: pricing, parameters and code examples
 
-`google/gemini-3.1-flash-tts` · audio · Google
+`google/gemini-3.1-flash-tts` · audio model · Google · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** from $0.05 per run, depending on parameters · **Modes:** async
 
 Gemini 3.1 Flash Tts by Google - convert text to natural-sounding speech with AI. Supports multiple voices, languages, emotions, and speaking styles for content creation and accessibility.
 

@@ -1,6 +1,8 @@
-# Wan 3.0 Prime Video Extend
+# Wan 3.0 Prime Video Extend API: pricing, parameters and code examples
 
-`alibaba/wan/3.0/prime/video-extend` · video · Alibaba
+`alibaba/wan/3.0/prime/video-extend` · video generation model · Alibaba · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** about $2.8 per call · **Modes:** async
 
 Wan 3.0 Prime Video Extend by Alibaba continues an input video forward from a text instruction, optionally guided by reference images and audio, with native audio.
 

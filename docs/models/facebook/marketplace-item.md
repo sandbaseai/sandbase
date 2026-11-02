@@ -1,6 +1,8 @@
-# Facebook Marketplace Item
+# Facebook Marketplace Item API: pricing, parameters and code examples
 
-`facebook/marketplace-item` · api · Facebook
+`facebook/marketplace-item` · data API · Facebook · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** about $0.0012 per call · **Modes:** sync
 
 Fetch full details for a single Facebook Marketplace listing by ID or URL (title, price, location, photos, and attributes) as normalized JSON.
 

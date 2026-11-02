@@ -1,6 +1,8 @@
-# DataForSEO Google Business Questions and Answers
+# DataForSEO Google Business Questions and Answers API: pricing, parameters and code examples
 
-`dataforseo/v3/business_data/google/questions_and_answers/live` · api · DataForSEO
+`dataforseo/v3/business_data/google/questions_and_answers/live` · data API · DataForSEO · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** about $0.0054 per call · **Modes:** sync
 
 Questions and answers posted on a Google Business Profile, found by business name or place id.
 

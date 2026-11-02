@@ -1,6 +1,8 @@
-# TikTok Broadcast Danmaku
+# TikTok Broadcast Danmaku API: pricing, parameters and code examples
 
-`tiktok/web/live-room` · api · TikTok
+`tiktok/web/live-room` · data API · TikTok · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns danmaku and chat messages from a TikTok livestream room based on the provided room URL and message type.
 

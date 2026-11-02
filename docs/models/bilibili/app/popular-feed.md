@@ -1,6 +1,8 @@
-# Bilibili App Popular Feed
+# Bilibili App Popular Feed API: pricing, parameters and code examples
 
-`bilibili/app/popular-feed` · api · Bilibili
+`bilibili/app/popular-feed` · data API · Bilibili · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Retrieves popular video feed items from the Bilibili app. Supports pagination through page index and previous video identifiers.
 

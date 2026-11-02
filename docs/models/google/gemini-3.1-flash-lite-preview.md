@@ -1,6 +1,8 @@
-# Google: Gemini 3.1 Flash Lite Preview
+# Google: Gemini 3.1 Flash Lite Preview API: pricing, parameters and code examples
 
-`google/gemini-3.1-flash-lite-preview` · llm · Google
+`google/gemini-3.1-flash-lite-preview` · LLM · Google · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.25 input / $1.5 output per 1M tokens · **Modes:** sync
 
 Gemini 3.1 Flash Lite Preview is Google's high-efficiency model optimized for high-volume use cases. It outperforms Gemini 2.5 Flash Lite on overall quality and approaches Gemini 2.5 Flash performance across key capabilities. Improvements span audio input/ASR, RAG snippet ranking, translation, data extraction, and code completion. Supports full thinking levels (minimal, low, medium, high) for fine-grained cost/performance trade-offs. Priced at half the cost of Gemini 3 Flash.
 

@@ -1,6 +1,8 @@
-# X / Twitter Tweet Thread
+# X / Twitter Tweet Thread API: pricing, parameters and code examples
 
-`twitter/thread` · api · X (Twitter)
+`twitter/thread` · data API · X (Twitter) · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** about $0.00269 per call · **Modes:** sync
 
 Resolve the linear self-thread containing an X (Twitter) post, from its root through the author's linked continuations. This excludes replies from other users.
 

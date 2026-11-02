@@ -1,6 +1,8 @@
-# WeChat Channels Video Sub Comments
+# WeChat Channels Video Sub Comments API: pricing, parameters and code examples
 
-`wechat-channels/video-sub-comment` · api · WeChat Channels
+`wechat-channels/video-sub-comment` · data API · WeChat Channels · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.020833 per call · **Modes:** sync
 
 Get replies under a first-level WeChat Channels video comment using the video and root-comment IDs. Use it to continue a threaded comment discussion with buffer pagination.
 

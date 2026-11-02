@@ -1,6 +1,8 @@
-# Midjourney V8.1
+# Midjourney V8.1 API: pricing, parameters and code examples
 
-`midjourney/midjourney-v8.1` · image · Midjourney
+`midjourney/midjourney-v8.1` · image generation model · Midjourney · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** from $0.08 to $0.12 per run, depending on parameters · **Modes:** async
 
 Midjourney V8.1 text-to-image generation.
 

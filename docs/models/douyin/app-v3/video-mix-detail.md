@@ -1,6 +1,8 @@
-# Douyin Video Mix Detail
+# Douyin Video Mix Detail API: pricing, parameters and code examples
 
-`douyin/app-v3/video-mix-detail` · api · Douyin
+`douyin/app-v3/video-mix-detail` · data API · Douyin · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns detailed information about a specific Douyin video compilation playlist based on the provided mix identifier.
 

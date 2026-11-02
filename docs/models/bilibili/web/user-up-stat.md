@@ -1,6 +1,8 @@
-# Bilibili Creator View and Like Statistics
+# Bilibili Creator View and Like Statistics API: pricing, parameters and code examples
 
-`bilibili/web/user-up-stat` · api · Bilibili
+`bilibili/web/user-up-stat` · data API · Bilibili · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns total video view and like counts for a specified Bilibili creator account. Lookup requires the user unique identifier.
 

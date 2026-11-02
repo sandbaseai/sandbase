@@ -1,6 +1,8 @@
-# TikTok Creator Showcase Product List
+# TikTok Creator Showcase Product List API: pricing, parameters and code examples
 
-`tiktok/creator/showcase-product-list` · api · TikTok
+`tiktok/creator/showcase-product-list` · data API · TikTok · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns the list of products displayed in a TikTok Shop creator showcase. Supports pagination controls via offset and item count.
 

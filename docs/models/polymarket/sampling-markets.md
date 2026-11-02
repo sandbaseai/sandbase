@@ -1,6 +1,8 @@
-# Polymarket Get sampling markets
+# Polymarket Get sampling markets API: pricing, parameters and code examples
 
-`polymarket/sampling-markets` · api · Polymarket
+`polymarket/sampling-markets` · data API · Polymarket · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.012 per call (free daily quota) · **Modes:** sync
 
 Returns sampling markets with richer descriptive metadata, token summaries, and tags.
 

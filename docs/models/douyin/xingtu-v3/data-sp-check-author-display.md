@@ -1,6 +1,8 @@
-# Douyin Xingtu Creator Visibility Status
+# Douyin Xingtu Creator Visibility Status API: pricing, parameters and code examples
 
-`douyin/xingtu-v3/data-sp-check-author-display` · api · Douyin
+`douyin/xingtu-v3/data-sp-check-author-display` · data API · Douyin · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.020833 per call · **Modes:** sync
 
 Get whether a specified creator can be displayed in Douyin Creator Marketplace (Xingtu) for the selected content channel. Use it to check creator availability before building a campaign shortlist.
 

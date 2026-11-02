@@ -1,6 +1,8 @@
-# Wan 2.2 Animate Replace
+# Wan 2.2 Animate Replace API: pricing, parameters and code examples
 
-`alibaba/wan/2.2/animate/replace` · video · Alibaba
+`alibaba/wan/2.2/animate/replace` · video generation model · Alibaba · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** about $0.75 per call · **Modes:** async
 
 Wan 2.2 Animate Replace replaces the person in the reference video with the character from the image.
 

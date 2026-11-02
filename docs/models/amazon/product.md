@@ -1,6 +1,8 @@
-# Amazon Product
+# Amazon Product API: pricing, parameters and code examples
 
-`amazon/product` · api · Amazon
+`amazon/product` · data API · Amazon · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.015 per call (free daily quota) · **Modes:** async
 
 Get an Amazon product by ASIN: title, brand, price, rating, reviews, images, variants, availability, purchase options, about-this-item and description.
 

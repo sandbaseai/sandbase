@@ -533,10 +533,76 @@ def snippets_llm(name: str) -> list[str]:
     ]
 
 
+TYPE_NOUN = {"llm": "LLM", "image": "image generation model", "video": "video generation model",
+             "audio": "audio model", "embedding": "embedding model", "api": "data API"}
+
+
+def price_line(p: dict) -> str:
+    m = p.get("model")
+    if m == "per_call":
+        return f"${p['per_call']} per call" + (" (free daily quota)" if p.get("free_quota") else "")
+    if m == "free":
+        return "free"
+    if m == "per_token":
+        t = p.get("per_million_tokens", {})
+        return f"${t.get('input')} input / ${t.get('output')} output per 1M tokens"
+    rows = [r["usd"] for r in p.get("price_examples", []) if r.get("usd") is not None]
+    if rows:
+        lo, hi = min(rows), max(rows)
+        return f"from ${lo}" + (f" to ${hi}" if hi != lo else "") + " per run, depending on parameters"
+    if p.get("reference_price") is not None:
+        return f"about ${p['reference_price']} per call"
+    return ""
+
+
+def slug(text: str) -> str:
+    return re.sub(r"[^a-z0-9]+", "-", (text or "").lower()).strip("-") or "other"
+
+
+def write_platform_pages(records: dict[str, dict], generated_at: str) -> int:
+    """One landing page per vendor/platform, e.g. docs/platforms/tiktok.md (long-tail search: "TikTok API")."""
+    groups: dict[str, list[dict]] = defaultdict(list)
+    for r in records.values():
+        groups[r.get("vendor") or "Other"].append(r)
+    base = ROOT / "docs" / "platforms"
+    shutil.rmtree(base, ignore_errors=True)
+    base.mkdir(parents=True)
+    index = ["# Platforms", "", f"{len(groups)} platforms and model makers, each reachable with one SandBase API key.", "",
+             "| Platform | Capabilities | Types |", "|---|---|---|"]
+    for vendor, recs in sorted(groups.items(), key=lambda kv: (-len(kv[1]), kv[0].lower())):
+        recs.sort(key=lambda r: r["name"])
+        types = sorted({TYPE_NOUN.get(r["type"], r["type"]) for r in recs})
+        is_data = all(r["type"] == "api" for r in recs)
+        heading = f"{vendor} API" if is_data else f"{vendor} models API"
+        lines = [f"# {heading}: {len(recs)} endpoints with pricing and code examples", "",
+                 f"Call {len(recs)} {vendor} {'endpoints' if is_data else 'models'} through SandBase with one API key: "
+                 "no separate account, one balance, the same request format for every endpoint. "
+                 "Each page has the input schema, the price and curl / Python / TypeScript / Go examples.", "",
+                 "| Endpoint | What it does | Price |", "|---|---|---|"]
+        for r in recs:
+            lines.append(f"| [`{r['name']}`](../models/{r['name']}.md) | {md_escape(short(r.get('description', ''), 140))} | "
+                         f"{md_escape(price_line(r['pricing']))} |")
+        lines += ["", "## Quick start", "", "```bash", "curl https://api.sandbase.ai/v1/run \\",
+                  "  -H \"Authorization: Bearer $SANDBASE_API_KEY\" -H 'Content-Type: application/json' \\",
+                  f"  -d '{json.dumps({'model': recs[0]['name'], **sample_body(recs[0])}, ensure_ascii=False)[:600]}'", "```", "",
+                  "Get a key at [sandbase.ai](https://www.sandbase.ai/console). Back to [all platforms](README.md).", ""]
+        (base / f"{slug(vendor)}.md").write_text("\n".join(lines))
+        index.append(f"| [{md_escape(vendor)}]({slug(vendor)}.md) | {len(recs)} | {', '.join(types)} |")
+    (base / "README.md").write_text("\n".join(index) + "\n")
+    return len(groups)
+
+
 def render_md(rec: dict) -> str:
     n = rec["name"]
     p = rec["pricing"]
-    lines = [f"# {rec['display_name']}", "", f"`{n}` · {rec['type']} · {rec.get('vendor') or ''}", ""]
+    kind = TYPE_NOUN.get(rec["type"], "API")
+    title = rec["display_name"] if rec["display_name"].lower().endswith(" api") else f"{rec['display_name']} API"
+    lines = [f"# {title}: pricing, parameters and code examples", "",
+             f"`{n}` · {kind} · {rec.get('vendor') or ''} · callable with one SandBase API key "
+             f"from curl, Python, TypeScript and Go.", ""]
+    summary = price_line(rec["pricing"])
+    if summary:
+        lines += [f"**Price:** {summary} · **Modes:** {', '.join(rec.get('modes') or ['sync'])}", ""]
     if rec.get("description"):
         lines += [rec["description"], ""]
     lines += ["## Pricing", ""]
@@ -733,6 +799,45 @@ def update_readme_counts(index: dict):
         body = re.sub(rf"<!-- inside:{tag} -->.*?<!-- /inside:{tag} -->", lambda _: f"<!-- inside:{tag} -->\n{table}\n<!-- /inside:{tag} -->", body, flags=re.S)
         path.write_text(body)
 
+
+def write_llms_txt(index: dict) -> None:
+    """llms.txt (https://llmstxt.org): a map of this repository for AI assistants and agents."""
+    raw = "https://raw.githubusercontent.com/sandbaseai/sandbase/main"
+    by_type = Counter(m["type"] for m in index["models"])
+    vendors = Counter(m["vendor"] for m in index["models"])
+    lines = [
+        "# SandBase",
+        "",
+        "> AI models, data APIs, sandboxes and agents behind one API key, pay as you go. "
+        f"{nice(index['count'], True)} capabilities ({nice(by_type.get('api', 0))} data APIs, "
+        f"{nice(sum(n for t, n in by_type.items() if t != 'api'))} AI models), 100 free data-API calls a day, "
+        "free sandboxes (E2B-compatible) and free Agents (OpenAI Agents API-compatible).",
+        "",
+        "Base URL: https://api.sandbase.ai. Auth: `Authorization: Bearer $SANDBASE_API_KEY`. "
+        "Every non-LLM capability: `POST /v1/run` with `{\"model\": \"<name>\", ...fields}`; async runs return an id to poll "
+        "with `GET /v1/run/{id}`. LLMs: OpenAI-compatible `/v1/chat/completions` and `/v1/responses`, Anthropic `/v1/messages`.",
+        "",
+        "## Catalog",
+        f"- [catalog/index.json]({raw}/catalog/index.json): every capability with type, modes, endpoint and price summary",
+        f"- catalog/models/<name>.json ({raw}/catalog/models/openai/gpt-image-2.5-flare.json): input JSON Schema, output, modes, pricing, examples",
+        f"- [openapi/sandbase.openapi.json]({raw}/openapi/sandbase.openapi.json): OpenAPI 3.1",
+        f"- [docs/platforms/README.md]({raw}/docs/platforms/README.md): capabilities grouped by platform",
+        "",
+        "## Clients",
+        f"- [Python]({raw}/sdk/python/README.md), [TypeScript]({raw}/sdk/typescript/README.md), [Go]({raw}/sdk/go/README.md): `run()` waits for sync and async results; Agents helpers",
+        f"- [Sandboxes with the E2B SDK]({raw}/examples/sandbox/python/hello_sandbox.py)",
+        f"- [Agents with the OpenAI SDK]({raw}/examples/agents/python/openai_agents.py)",
+        "",
+        "## Top platforms",
+        "- " + ", ".join(v for v, _ in vendors.most_common(40)),
+        "",
+        "## Optional",
+        "- [SandBase CLI / MCP for coding agents](https://github.com/sandbaseai/cli)",
+        "- [Documentation](https://www.sandbase.ai/docs/)",
+    ]
+    (ROOT / "llms.txt").write_text("\n".join(lines) + "\n")
+
+
 # --------------------------------------------------------------------------- agents / skills / sandbox
 
 def build_platform(generated_at: str) -> dict:
@@ -852,6 +957,7 @@ def main() -> int:
             lines.append(f"| [`{r['name']}`](models/{r['name']}.md) | {ps} | {', '.join(r['modes'])} | {md_escape(short(r['description'], 120))} |")
     (ROOT / "docs" / "INDEX.md").write_text("\n".join(lines) + "\n")
 
+    write_platform_pages(records, generated_at)
     oa = build_openapi(records, generated_at)
     (ROOT / "openapi").mkdir(exist_ok=True)
     (ROOT / "openapi" / "sandbase.openapi.json").write_text(json.dumps(oa, ensure_ascii=False) + "\n")
@@ -871,6 +977,7 @@ def main() -> int:
     (ROOT / ".cache" / "review.md").write_text("\n".join(rv))
 
     update_readme_counts(index)
+    write_llms_txt(index)
     size = (ROOT / "openapi" / "sandbase.openapi.json").stat().st_size
     print(f"records: {len(records)}  flagged: {len(review['flags'])}  openapi: {size/1e6:.1f} MB")
     print("by type:", index["counts_by_type"])

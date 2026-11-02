@@ -1,6 +1,8 @@
-# Douyin Topic Search
+# Douyin Topic Search API: pricing, parameters and code examples
 
-`douyin/index/topic-query` · api · Douyin
+`douyin/index/topic-query` · data API · Douyin · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns Douyin topic performance metrics matching a search term over a specific date range, including item counts, like counts, and view counts.
 

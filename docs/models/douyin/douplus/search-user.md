@@ -1,6 +1,8 @@
-# Douyin DOU+ User Search
+# Douyin DOU+ User Search API: pricing, parameters and code examples
 
-`douyin/douplus/search-user` · api · Douyin
+`douyin/douplus/search-user` · data API · Douyin · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Searches for Douyin users in the DOU+ delivery context using a Douyin ID or nickname. Returns matching user profiles with support for cursor-based pagination.
 

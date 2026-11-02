@@ -1,6 +1,8 @@
-# Hunyuan 3D 3.1 Pro Image to 3D
+# Hunyuan 3D 3.1 Pro Image to 3D API: pricing, parameters and code examples
 
-`tencent/hunyuan-3d/3.1/pro/image-to-3d` · image · Tencent
+`tencent/hunyuan-3d/3.1/pro/image-to-3d` · image generation model · Tencent · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** from $0.525 to $0.675 per run, depending on parameters · **Modes:** async
 
 Hunyuan 3d 3.1 Pro by Tencent - convert 2D images into 3D models with AI. Generate textured 3D assets from single photos for games, AR/VR, e-commerce, and digital content creation.
 

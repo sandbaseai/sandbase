@@ -1,6 +1,8 @@
-# Instagram Keyword Search
+# Instagram Keyword Search API: pricing, parameters and code examples
 
-`instagram/v1/search` · api · Instagram
+`instagram/v1/search` · data API · Instagram · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns Instagram users, hashtags, or places matching a search keyword. Filter results by specific target types using an optional filter parameter.
 

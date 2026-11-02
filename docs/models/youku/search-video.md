@@ -1,6 +1,8 @@
-# Youku Video Search
+# Youku Video Search API: pricing, parameters and code examples
 
-`youku/search-video` · api · Youku
+`youku/search-video` · data API · Youku · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.013889 per call (free daily quota) · **Modes:** sync
 
 Search Youku videos by keyword with page-based pagination. Use it to discover videos related to a topic, title, creator, or other search term.
 

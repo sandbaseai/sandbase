@@ -1,6 +1,8 @@
-# HeyGen Lipsync Precision
+# HeyGen Lipsync Precision API: pricing, parameters and code examples
 
-`heygen/lipsync/precision` · video · HeyGen
+`heygen/lipsync/precision` · video generation model · HeyGen · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** about $0.5 per call · **Modes:** async
 
 HeyGen v3 Lipsync (precision) replaces the speech in a video and re-syncs the speaker's lips to the new audio.
 

@@ -1,6 +1,8 @@
-# GetApp Category Leaders
+# GetApp Category Leaders API: pricing, parameters and code examples
 
-`getapp/category-leaders` · api · GetApp
+`getapp/category-leaders` · data API · GetApp · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.01 per call (free daily quota) · **Modes:** async
 
 Retrieve the category page data including top-ranked software products, buyers guide content, facets, and pagination for a given category.
 

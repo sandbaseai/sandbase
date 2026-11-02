@@ -1,6 +1,8 @@
-# CoinGecko Exchange Data by ID
+# CoinGecko Exchange Data by ID API: pricing, parameters and code examples
 
-`coingecko/exchanges-by-id` · api · CoinGecko
+`coingecko/exchanges-by-id` · data API · CoinGecko · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.008 per call (free daily quota) · **Modes:** sync
 
 Get exchange's data (name, year established, country, ...), exchange volume in BTC and top 100 tickers based on exchange's ID
 

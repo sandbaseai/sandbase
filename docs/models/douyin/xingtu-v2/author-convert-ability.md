@@ -1,6 +1,8 @@
-# Douyin Xingtu Author Conversion Ability
+# Douyin Xingtu Author Conversion Ability API: pricing, parameters and code examples
 
-`douyin/xingtu-v2/author-convert-ability` · api · Douyin
+`douyin/xingtu-v2/author-convert-ability` · data API · Douyin · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.003 per call (free daily quota) · **Modes:** sync
 
 Returns creator conversion ability metrics including GMV, clicks, and conversion rate ranges filtered by creator, time range, and industry.
 

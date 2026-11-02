@@ -1,6 +1,8 @@
-# Flux 2 Klein 9B Edit
+# Flux 2 Klein 9B Edit API: pricing, parameters and code examples
 
-`bfl/flux-2/klein/9b/edit` · image · BFL
+`bfl/flux-2/klein/9b/edit` · image generation model · BFL · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.022 per call · **Modes:** async
 
 Flux 2 Klein 9b by BFL - AI-powered image editing, style transfer, and transformation. Edit photos with natural language instructions, remove backgrounds, change styles, and enhance images effortlessly.
 

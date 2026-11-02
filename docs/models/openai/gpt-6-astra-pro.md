@@ -1,6 +1,8 @@
-# OpenAI: GPT-6 Astra Pro
+# OpenAI: GPT-6 Astra Pro API: pricing, parameters and code examples
 
-`openai/gpt-6-astra-pro` · llm · OpenAI
+`openai/gpt-6-astra-pro` · LLM · OpenAI · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $10 input / $50 output per 1M tokens · **Modes:** sync
 
 GPT-6 Astra Pro is the same GPT-6 Astra model, OpenAI's most capable GPT-6 tier, served in OpenAI's pro reasoning mode rather than as different weights. In pro mode the model does more work on each request before returning one final answer, which OpenAI suggests for complex optimization, high-value coding or review, and deep analysis. Expect higher latency and token usage than standard Astra, so reserve it for problems where a marginal quality gain changes the outcome.
 

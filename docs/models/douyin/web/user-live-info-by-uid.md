@@ -1,6 +1,8 @@
-# Douyin User Stream Information by UID
+# Douyin User Stream Information by UID API: pricing, parameters and code examples
 
-`douyin/web/user-live-info-by-uid` · api · Douyin
+`douyin/web/user-live-info-by-uid` · data API · Douyin · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Retrieves stream session information and broadcast metadata for a Douyin user based on their unique identifier. Accepts a user UID to return stream scene and logging data.
 

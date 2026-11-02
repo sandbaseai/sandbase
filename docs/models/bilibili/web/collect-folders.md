@@ -1,6 +1,8 @@
-# Bilibili User Collection Folders
+# Bilibili User Collection Folders API: pricing, parameters and code examples
 
-`bilibili/web/collect-folders` · api · Bilibili
+`bilibili/web/collect-folders` · data API · Bilibili · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns the collection folders owned by a specific Bilibili user. Supply the user identifier via `uid` to inspect their public collection folders.
 

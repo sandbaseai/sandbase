@@ -1,6 +1,8 @@
-# Douyin App Device Registration
+# Douyin App Device Registration API: pricing, parameters and code examples
 
-`douyin/app-v3/register-device` · api · Douyin
+`douyin/app-v3/register-device` · data API · Douyin · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Registers a device in the Douyin app and returns device parameters such as device ID and version metadata, with an optional HTTP proxy setting.
 

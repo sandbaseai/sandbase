@@ -1,6 +1,8 @@
-# Zhihu Topic Search (V3)
+# Zhihu Topic Search (V3) API: pricing, parameters and code examples
 
-`zhihu/web/topic-search-v3` · api · Zhihu
+`zhihu/web/topic-search-v3` · data API · Zhihu · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Searches Zhihu topics by keyword and returns matching topic profiles, follower metrics, and highlighted text matches with pagination support.
 

@@ -1,6 +1,8 @@
-# Xiaohongshu Shop Product Search
+# Xiaohongshu Shop Product Search API: pricing, parameters and code examples
 
-`xiaohongshu/ec/search-products` · api · Xiaohongshu
+`xiaohongshu/ec/search-products` · data API · Xiaohongshu · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.027778 per call · **Modes:** sync
 
 Search products sold in Xiaohongshu (RedNote) shops by keyword, with price, sales and shop info.
 

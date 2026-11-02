@@ -1,6 +1,8 @@
-# Lyria 3.5
+# Lyria 3.5 API: pricing, parameters and code examples
 
-`google/lyria-3.5` · audio · Google
+`google/lyria-3.5` · audio model · Google · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0 input / $0 output per 1M tokens · **Modes:** async
 
 Lyria 3.5 is Google's flagship music generation model for full-length songs up to a few minutes, with verses, choruses, bridges, expressive vocals, timed lyrics, and rich instrumental arrangements. It generates high-quality 44.1kHz stereo audio from a text prompt, optionally guided by an image.
 

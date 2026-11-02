@@ -1,6 +1,8 @@
-# Weibo User Original Posts
+# Weibo User Original Posts API: pricing, parameters and code examples
 
-`weibo/web-v2/user-original-posts` · api · Weibo
+`weibo/web-v2/user-original-posts` · data API · Weibo · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns original posts shared by a specified user, excluding reposts. Results support pagination by page number or pagination identifier.
 

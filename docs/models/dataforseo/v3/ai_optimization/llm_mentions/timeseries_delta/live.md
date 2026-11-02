@@ -1,6 +1,8 @@
-# DataForSEO LLM Mentions Change Over Time
+# DataForSEO LLM Mentions Change Over Time API: pricing, parameters and code examples
 
-`dataforseo/v3/ai_optimization/llm_mentions/timeseries_delta/live` · api · DataForSEO
+`dataforseo/v3/ai_optimization/llm_mentions/timeseries_delta/live` · data API · DataForSEO · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** about $0.104 per call · **Modes:** sync
 
 Change in mention count and AI search volume for a domain or keyword between periods.
 

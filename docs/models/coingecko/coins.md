@@ -1,6 +1,8 @@
-# CoinGecko Coin Data by ID
+# CoinGecko Coin Data by ID API: pricing, parameters and code examples
 
-`coingecko/coins` · api · CoinGecko
+`coingecko/coins` · data API · CoinGecko · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.008 per call (free daily quota) · **Modes:** sync
 
 Get all the metadata (image, websites, socials, description, contract address, etc.) and market data (price, ATH, exchange tickers, etc.) of a coin from the CoinGecko coin page based on a particular coin ID
 

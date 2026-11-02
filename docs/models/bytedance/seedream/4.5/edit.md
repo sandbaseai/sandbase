@@ -1,6 +1,8 @@
-# Seedream 4.5 Edit
+# Seedream 4.5 Edit API: pricing, parameters and code examples
 
-`bytedance/seedream/4.5/edit` · image · Bytedance
+`bytedance/seedream/4.5/edit` · image generation model · Bytedance · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.04 per call · **Modes:** async
 
 A new-generation image creation model from ByteDance, Seedream 4.5 integrates text-to-image generation and image editing into a single unified architecture, delivering high-fidelity visuals, precise prompt control, and seamless creative workflows for professional AIGC applications.
 

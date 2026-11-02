@@ -1,6 +1,8 @@
-# Flux 2 Flash Edit
+# Flux 2 Flash Edit API: pricing, parameters and code examples
 
-`bfl/flux-2/flash/edit` · image · BFL
+`bfl/flux-2/flash/edit` · image generation model · BFL · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** from $0.03 per run, depending on parameters · **Modes:** async
 
 Flux 2 Flash Edit is BFL's intelligent image editing model. Transform, retouch, and reimagine existing images using text prompts - from background replacement to artistic style conversion.
 

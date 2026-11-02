@@ -1,6 +1,8 @@
-# DataForSEO Google SERP (Regular)
+# DataForSEO Google SERP (Regular) API: pricing, parameters and code examples
 
-`dataforseo/v3/serp/google/organic/live/regular` · api · DataForSEO
+`dataforseo/v3/serp/google/organic/live/regular` · data API · DataForSEO · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** from $0.002 per run, depending on parameters · **Modes:** sync
 
 Get live Google organic results for any keyword, location and language in a compact format: rank, title, URL, domain and description for each organic result.
 

@@ -1,6 +1,8 @@
-# Qwen: Qwen3.8 Max
+# Qwen: Qwen3.8 Max API: pricing, parameters and code examples
 
-`alibaba/qwen3.8-max` · llm · Alibaba
+`alibaba/qwen3.8-max` · LLM · Alibaba · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $2 input / $6 output per 1M tokens · **Modes:** sync
 
 Qwen3.8 Max is Alibaba's flagship Qwen3.8 model, a 2.4-trillion-parameter Mixture-of-Experts reasoning model with native vision understanding, released in August 2026. Alibaba positions it for long-horizon coding and office work, from multi-day autonomous development to professional legal, financial and design tasks, with vision used across planning, execution and verification. Model Studio recommends it when the strongest reasoning in the Qwen lineup is needed.
 

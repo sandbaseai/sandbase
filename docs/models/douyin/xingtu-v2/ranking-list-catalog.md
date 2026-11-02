@@ -1,6 +1,8 @@
-# Douyin Xingtu Ranking List Catalog
+# Douyin Xingtu Ranking List Catalog API: pricing, parameters and code examples
 
-`douyin/xingtu-v2/ranking-list-catalog` · api · Douyin
+`douyin/xingtu-v2/ranking-list-catalog` · data API · Douyin · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns the ranking list catalog from Douyin Xingtu, including available leaderboard dates and qualifiers. Accepts optional business scene and classification code filters.
 

@@ -1,6 +1,8 @@
-# Douyin Author Daily Fan Trend
+# Douyin Author Daily Fan Trend API: pricing, parameters and code examples
 
-`douyin/xingtu-v2/author-daily-fans` · api · Douyin
+`douyin/xingtu-v2/author-daily-fans` · data API · Douyin · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.003 per call (free daily quota) · **Modes:** sync
 
 Returns daily follower trend data for a specified Douyin creator. Supports filtering by date range, author type, and platform source.
 

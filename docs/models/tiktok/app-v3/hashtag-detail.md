@@ -1,6 +1,8 @@
-# TikTok Hashtag Detail
+# TikTok Hashtag Detail API: pricing, parameters and code examples
 
-`tiktok/app-v3/hashtag-detail` · api · TikTok
+`tiktok/app-v3/hashtag-detail` · data API · TikTok · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns detailed information for a specified TikTok hashtag. Queries require a hashtag identifier and accept an optional country region code.
 

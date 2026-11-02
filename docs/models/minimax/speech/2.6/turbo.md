@@ -1,6 +1,8 @@
-# MiniMax Speech 2.6 Turbo
+# MiniMax Speech 2.6 Turbo API: pricing, parameters and code examples
 
-`minimax/speech/2.6/turbo` · audio · MiniMax
+`minimax/speech/2.6/turbo` · audio model · MiniMax · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** from $0.00156 per run, depending on parameters · **Modes:** async
 
 MiniMax Speech 2.6 Turbo by MiniMax converts text into natural speech in 40+ languages with low latency, system or cloned voices, and emotion control.
 

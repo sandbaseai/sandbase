@@ -1,6 +1,8 @@
-# Douyin XingTu kolId by Douyin ID
+# Douyin XingTu kolId by Douyin ID API: pricing, parameters and code examples
 
-`douyin/xingtu-v2/xingtu-kolid-by-unique-id` · api · Douyin
+`douyin/xingtu-v2/xingtu-kolid-by-unique-id` · data API · Douyin · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.003 per call (free daily quota) · **Modes:** sync
 
 Returns Xingtu author profile details and platform identifiers matching a specified Douyin unique identifier.
 

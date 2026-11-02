@@ -1,6 +1,8 @@
-# Anthropic: Claude Opus 4.8
+# Anthropic: Claude Opus 4.8 API: pricing, parameters and code examples
 
-`anthropic/claude-opus-4.8` · llm · Anthropic
+`anthropic/claude-opus-4.8` · LLM · Anthropic · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $5 input / $25 output per 1M tokens · **Modes:** sync
 
 Claude Opus 4.8 is Anthropic's most capable generally available model in the Opus family. It supports text, image, and file inputs with text output, with reasoning support and a 1M-token context window. It is suited for highly autonomous agents, long-horizon agentic work, knowledge work, and memory-driven tasks where coherence over extended sessions matters.
 

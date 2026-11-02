@@ -1,6 +1,8 @@
-# Reddit Post
+# Reddit Post API: pricing, parameters and code examples
 
-`reddit/post` · api · Reddit
+`reddit/post` · data API · Reddit · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** about $0.0005 per call · **Modes:** sync
 
 Fetch a single Reddit post by URL, including its full body text, score, comment count, upvote ratio, and subreddit, as normalized JSON.
 

@@ -1,6 +1,8 @@
-# Douyin Creator Hot Topic Billboard
+# Douyin Creator Hot Topic Billboard API: pricing, parameters and code examples
 
-`douyin/creator/creator-hot-topic-billboard` · api · Douyin
+`douyin/creator/creator-hot-topic-billboard` · data API · Douyin · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns trending creator topic rankings on Douyin with engagement metrics like play, like, comment, and share counts based on time and tag filters.
 

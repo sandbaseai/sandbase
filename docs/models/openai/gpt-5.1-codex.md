@@ -1,6 +1,8 @@
-# OpenAI: GPT-5.1-Codex
+# OpenAI: GPT-5.1-Codex API: pricing, parameters and code examples
 
-`openai/gpt-5.1-codex` · llm · OpenAI
+`openai/gpt-5.1-codex` · LLM · OpenAI · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $1.25 input / $10 output per 1M tokens · **Modes:** sync
 
 GPT-5.1-Codex is a version of OpenAI's GPT-5.1 optimized for agentic coding in Codex and similar environments, released in November 2025 with text and image input and text output. It targets autonomous, long-running software engineering work inside coding agents and tools, and OpenAI notes its underlying snapshot is updated over time. Pick it over general GPT-5.1 when building coding agents; OpenAI serves it through the Responses API only.
 

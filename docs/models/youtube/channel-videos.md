@@ -1,6 +1,8 @@
-# YouTube Channel Videos
+# YouTube Channel Videos API: pricing, parameters and code examples
 
-`youtube/channel-videos` · api · YouTube
+`youtube/channel-videos` · data API · YouTube · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.013889 per call (free daily quota) · **Modes:** sync
 
 Get public videos from a YouTube channel, with optional cursor-based pagination. Use it to browse a channel's uploads and continue through additional result pages.
 

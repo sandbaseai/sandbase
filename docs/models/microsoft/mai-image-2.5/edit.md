@@ -1,6 +1,8 @@
-# MAI Image 2.5 Edit
+# MAI Image 2.5 Edit API: pricing, parameters and code examples
 
-`microsoft/mai-image-2.5/edit` · image · Microsoft
+`microsoft/mai-image-2.5/edit` · image generation model · Microsoft · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.05 per call · **Modes:** async
 
 Mai Image 2.5 Edit by Microsoft - AI-powered image editing, style transfer, and transformation. Edit photos with natural language instructions, remove backgrounds, change styles, and enhance images effortlessly.
 

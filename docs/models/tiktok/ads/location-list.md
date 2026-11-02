@@ -1,6 +1,8 @@
-# TikTok Ads Location List
+# TikTok Ads Location List API: pricing, parameters and code examples
 
-`tiktok/ads/location-list` · api · TikTok
+`tiktok/ads/location-list` · data API · TikTok · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns the list of supported locations available for advertising targeting on TikTok. Access standard geographical targets to configure ad campaigns.
 

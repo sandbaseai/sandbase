@@ -1,6 +1,8 @@
-# Douyin Video Share QR Code
+# Douyin Video Share QR Code API: pricing, parameters and code examples
 
-`douyin/app-v3/generate-video-share-qrcode` · api · Douyin
+`douyin/app-v3/generate-video-share-qrcode` · data API · Douyin · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns a Douyin share QR code for a designated target. Takes a video ID or author UID to retrieve the scannable code.
 

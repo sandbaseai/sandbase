@@ -1,6 +1,8 @@
-# GetApp Blog Research
+# GetApp Blog Research API: pricing, parameters and code examples
 
-`getapp/blog-research` · api · GetApp
+`getapp/blog-research` · data API · GetApp · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.01 per call (free daily quota) · **Modes:** async
 
 Retrieve blog posts and software research guides from GetApp's resources section. Returns all published posts with metadata, topics, and content hubs.
 

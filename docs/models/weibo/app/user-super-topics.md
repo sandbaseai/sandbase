@@ -1,6 +1,8 @@
-# Weibo User Super Topics
+# Weibo User Super Topics API: pricing, parameters and code examples
 
-`weibo/app/user-super-topics` · api · Weibo
+`weibo/app/user-super-topics` · data API · Weibo · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns the list of super topics that a specified Weibo user has joined or participated in, with optional pagination support.
 

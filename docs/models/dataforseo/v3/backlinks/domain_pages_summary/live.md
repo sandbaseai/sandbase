@@ -1,6 +1,8 @@
-# DataForSEO Backlinks Domain Pages Summary
+# DataForSEO Backlinks Domain Pages Summary API: pricing, parameters and code examples
 
-`dataforseo/v3/backlinks/domain_pages_summary/live` · api · DataForSEO
+`dataforseo/v3/backlinks/domain_pages_summary/live` · data API · DataForSEO · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** about $0.02436 per call · **Modes:** sync
 
 Backlink metrics for each page of a domain: backlinks, referring domains and rank per page.
 

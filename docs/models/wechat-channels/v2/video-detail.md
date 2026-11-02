@@ -1,6 +1,8 @@
-# WeChat Channels Video Detail
+# WeChat Channels Video Detail API: pricing, parameters and code examples
 
-`wechat-channels/v2/video-detail` · api · WeChat Channels
+`wechat-channels/v2/video-detail` · data API · WeChat Channels · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.015 per call (free daily quota) · **Modes:** sync
 
 Get the full detail of a WeChat Channels video: description, author, engagement counts and the media URL with decode key for download. Look up by object ID, export ID or share URL.
 

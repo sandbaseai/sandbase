@@ -1,6 +1,8 @@
-# Qwen Image 3 Edit
+# Qwen Image 3 Edit API: pricing, parameters and code examples
 
-`alibaba/qwen-image-3/edit` · image · Alibaba
+`alibaba/qwen-image-3/edit` · image generation model · Alibaba · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** from $0.043 per run, depending on parameters · **Modes:** async
 
 Alibaba Qwen Image 3 image editing model with support for up to three reference images.
 

@@ -1,6 +1,8 @@
-# CoinGecko Coins Categories List (ID Map)
+# CoinGecko Coins Categories List (ID Map) API: pricing, parameters and code examples
 
-`coingecko/coins-categories-list` · api · CoinGecko
+`coingecko/coins-categories-list` · data API · CoinGecko · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.008 per call (free daily quota) · **Modes:** sync
 
 Coins Categories List (ID Map) from CoinGecko. Returns the official CoinGecko API response unchanged.
 

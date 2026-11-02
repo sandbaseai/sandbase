@@ -1,6 +1,8 @@
-# Douyin Video Danmaku
+# Douyin Video Danmaku API: pricing, parameters and code examples
 
-`douyin/web/one-video-danmaku` · api · Douyin
+`douyin/web/one-video-danmaku` · data API · Douyin · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns danmaku comment records for a Douyin video across a specified playback interval. Filter by video ID, total duration, start time, and end time.
 

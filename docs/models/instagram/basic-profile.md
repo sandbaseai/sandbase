@@ -1,6 +1,8 @@
-# Instagram Basic Profile
+# Instagram Basic Profile API: pricing, parameters and code examples
 
-`instagram/basic-profile` · api · Instagram
+`instagram/basic-profile` · data API · Instagram · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** about $0.001 per call · **Modes:** sync
 
 Fetch an Instagram account's core public profile fields (followers, posts, bio, verification) by user id.
 

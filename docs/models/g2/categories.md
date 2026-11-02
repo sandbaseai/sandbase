@@ -1,6 +1,8 @@
-# G2 Categories
+# G2 Categories API: pricing, parameters and code examples
 
-`g2/categories` · api · G2
+`g2/categories` · data API · G2 · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.05 per call · **Modes:** async
 
 Retrieve the full list of software categories and subcategories available on G2. Returns all categories with name, slug, and URL.
 

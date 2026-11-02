@@ -1,6 +1,8 @@
-# Flux 3 Text to Image
+# Flux 3 Text to Image API: pricing, parameters and code examples
 
-`bfl/flux-3/text-to-image` · image · BFL
+`bfl/flux-3/text-to-image` · image generation model · BFL · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** from $0.041 to $0.607 per run, depending on parameters · **Modes:** async
 
 FLUX 3 by Black Forest Labs generates images from a text prompt, with strong prompt adherence and typography at 512px to 4K resolution tiers.
 

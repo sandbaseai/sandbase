@@ -1,6 +1,8 @@
-# Instagram Profile Embed
+# Instagram Profile Embed API: pricing, parameters and code examples
 
-`instagram/embed` · api · Instagram
+`instagram/embed` · data API · Instagram · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** about $0.0012 per call · **Modes:** sync
 
 Fetch the public embed HTML for an Instagram profile by handle.
 

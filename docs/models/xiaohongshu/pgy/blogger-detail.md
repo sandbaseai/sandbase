@@ -1,6 +1,8 @@
-# Xiaohongshu (RED) PGY Blogger Details
+# Xiaohongshu (RED) PGY Blogger Details API: pricing, parameters and code examples
 
-`xiaohongshu/pgy/blogger-detail` · api · Xiaohongshu
+`xiaohongshu/pgy/blogger-detail` · data API · Xiaohongshu · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.03 per call · **Modes:** sync
 
 Retrieves detailed profile information for a specific Xiaohongshu blogger on the PGY platform using their user ID. Returns creator metrics and account details.
 

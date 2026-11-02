@@ -1,6 +1,8 @@
-# Seedance 2.0 Fast Image to Video
+# Seedance 2.0 Fast Image to Video API: pricing, parameters and code examples
 
-`bytedance/seedance/2.0/fast/image-to-video` · video · Bytedance
+`bytedance/seedance/2.0/fast/image-to-video` · video generation model · Bytedance · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** from $0.4 to $1.6 per run, depending on parameters · **Modes:** async
 
 ByteDance's most advanced image-to-video model in its fast tier  delivering lower latency and cost without compromising on cinematic output, native audio, multi-shot editing, and director-level camera control for professional-grade video creation.
 

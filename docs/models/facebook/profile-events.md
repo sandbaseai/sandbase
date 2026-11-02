@@ -1,6 +1,8 @@
-# Facebook Page Events
+# Facebook Page Events API: pricing, parameters and code examples
 
-`facebook/profile-events` · api · Facebook
+`facebook/profile-events` · data API · Facebook · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** about $0.0012 per call · **Modes:** sync
 
 List upcoming and past events hosted by any public Facebook page by URL (name, schedule, venue, and host) as normalized JSON.
 

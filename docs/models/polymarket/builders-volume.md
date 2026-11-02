@@ -1,6 +1,8 @@
-# Polymarket Get daily builder volume time-series
+# Polymarket Get daily builder volume time-series API: pricing, parameters and code examples
 
-`polymarket/builders-volume` · api · Polymarket
+`polymarket/builders-volume` · data API · Polymarket · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.012 per call (free daily quota) · **Modes:** sync
 
 Get daily builder volume time-series from Polymarket. Returns the official Polymarket API response unchanged.
 

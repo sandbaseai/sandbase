@@ -1,6 +1,8 @@
-# OpenAI: GPT-5.6 Terra Pro
+# OpenAI: GPT-5.6 Terra Pro API: pricing, parameters and code examples
 
-`openai/gpt-5.6-terra-pro` · llm · OpenAI
+`openai/gpt-5.6-terra-pro` · LLM · OpenAI · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $2 input / $12 output per 1M tokens · **Modes:** sync
 
 GPT-5.6 Terra Pro is the same GPT-5.6 Terra model, the balanced middle tier of OpenAI's GPT-5.6 family, served in OpenAI's pro reasoning mode instead of standard mode. Pro mode applies more model work to each request and returns a single final answer, which OpenAI says can improve reliability on difficult problems while increasing latency and token usage. It fits harder coding, review or analysis tasks where Terra's tier is preferred but extra quality on a single answer matters.
 

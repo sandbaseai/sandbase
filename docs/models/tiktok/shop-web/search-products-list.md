@@ -1,6 +1,8 @@
-# TikTok Shop Product Search
+# TikTok Shop Product Search API: pricing, parameters and code examples
 
-`tiktok/shop-web/search-products-list` · api · TikTok
+`tiktok/shop-web/search-products-list` · data API · TikTok · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Searches TikTok Shop listings matching a keyword query and returns product details, seller profiles, ratings, and sales figures. Supports region filtering and pagination.
 

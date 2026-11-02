@@ -1,6 +1,8 @@
-# DataForSEO Technologies Summary by Region
+# DataForSEO Technologies Summary by Region API: pricing, parameters and code examples
 
-`dataforseo/v3/domain_analytics/technologies/technologies_summary/live` · api · DataForSEO
+`dataforseo/v3/domain_analytics/technologies/technologies_summary/live` · data API · DataForSEO · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** about $0.0132 per call · **Modes:** sync
 
 Number of websites using given technologies, broken down by country, language and category.
 

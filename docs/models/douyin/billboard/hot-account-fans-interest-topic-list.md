@@ -1,6 +1,8 @@
-# Douyin Account Fan Interest Topics
+# Douyin Account Fan Interest Topics API: pricing, parameters and code examples
 
-`douyin/billboard/hot-account-fans-interest-topic-list` · api · Douyin
+`douyin/billboard/hot-account-fans-interest-topic-list` · data API · Douyin · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns the top ten topics that an account's followers were interested in over the last three days based on a specified user ID.
 

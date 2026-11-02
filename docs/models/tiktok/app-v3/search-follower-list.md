@@ -1,6 +1,8 @@
-# TikTok User Follower Search
+# TikTok User Follower Search API: pricing, parameters and code examples
 
-`tiktok/app-v3/search-follower-list` · api · TikTok
+`tiktok/app-v3/search-follower-list` · data API · TikTok · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Searches a specific TikTok user's follower list for accounts matching a nickname keyword. Returns matching follower results and a count based on the provided user ID.
 

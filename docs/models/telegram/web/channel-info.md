@@ -1,6 +1,8 @@
-# Telegram Channel Info
+# Telegram Channel Info API: pricing, parameters and code examples
 
-`telegram/web/channel-info` · api · Telegram
+`telegram/web/channel-info` · data API · Telegram · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns public metadata for a Telegram channel, including title, description, verified status, and username, using the public web preview.
 

@@ -1,6 +1,8 @@
-# AliExpress Product Search
+# AliExpress Product Search API: pricing, parameters and code examples
 
-`aliexpress/search/products` · api · AliExpress
+`aliexpress/search/products` · data API · AliExpress · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.013889 per call (free daily quota) · **Modes:** sync
 
 Search AliExpress products by keyword with sort, category, brand, price, locale, region and currency filters.
 

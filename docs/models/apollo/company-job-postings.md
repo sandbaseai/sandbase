@@ -1,6 +1,8 @@
-# Apollo Organization Job Postings
+# Apollo Organization Job Postings API: pricing, parameters and code examples
 
-`apollo/company-job-postings` · api · Apollo
+`apollo/company-job-postings` · data API · Apollo · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.01975 per call · **Modes:** sync
 
 Live job postings for one company, by Apollo organization id. Each posting carries its title, location, posted date and source URL. Useful as a hiring signal — which functions a company is expanding, and where.
 

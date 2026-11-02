@@ -1,6 +1,8 @@
-# Xiaohongshu (RED) User Profile Information
+# Xiaohongshu (RED) User Profile Information API: pricing, parameters and code examples
 
-`xiaohongshu/web-v3/user-info` · api · Xiaohongshu
+`xiaohongshu/web-v3/user-info` · data API · Xiaohongshu · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.015 per call (free daily quota) · **Modes:** sync
 
 Returns public profile details and interaction metrics for a specific Xiaohongshu account based on the provided user ID.
 

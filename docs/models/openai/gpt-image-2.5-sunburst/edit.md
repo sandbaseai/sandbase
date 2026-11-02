@@ -1,6 +1,8 @@
-# GPT Image 2.5 Sunburst Edit
+# GPT Image 2.5 Sunburst Edit API: pricing, parameters and code examples
 
-`openai/gpt-image-2.5-sunburst/edit` · image · OpenAI
+`openai/gpt-image-2.5-sunburst/edit` · image generation model · OpenAI · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** from $0.025 to $1.015 per run, depending on parameters · **Modes:** sync, async
 
 GPT Image 2.5 Sunburst Edit prioritizes precision and visual fidelity for complex image editing workflows.
 

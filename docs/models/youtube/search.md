@@ -1,6 +1,8 @@
-# YouTube Search
+# YouTube Search API: pricing, parameters and code examples
 
-`youtube/search` · api · YouTube
+`youtube/search` · data API · YouTube · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** about $0.0005 per call · **Modes:** sync
 
 Search YouTube and get matching videos (title, channel, views, length, publish time) as normalized JSON.
 

@@ -1,6 +1,8 @@
-# Telegram Post Comments
+# Telegram Post Comments API: pricing, parameters and code examples
 
-`telegram/web/post-comments` · api · Telegram
+`telegram/web/post-comments` · data API · Telegram · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns comments from the linked discussion group of a specified Telegram channel post. Filters include the channel username, post ID, and an optional limit.
 

@@ -1,6 +1,8 @@
-# Weibo User Following List
+# Weibo User Following List API: pricing, parameters and code examples
 
-`weibo/web-v2/user-following` · api · Weibo
+`weibo/web-v2/user-following` · data API · Weibo · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns the list of accounts that a specified Weibo user follows. Accepts a user identifier and supports page-based pagination.
 

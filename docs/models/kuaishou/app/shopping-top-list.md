@@ -1,6 +1,8 @@
-# Kuaishou Shopping Top List
+# Kuaishou Shopping Top List API: pricing, parameters and code examples
 
-`kuaishou/app/shopping-top-list` · api · Kuaishou
+`kuaishou/app/shopping-top-list` · data API · Kuaishou · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns ranked shopping live streams and top product leaderboards from Kuaishou. Filter results by specific sub-tab identifiers or names.
 

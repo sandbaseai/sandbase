@@ -1,6 +1,8 @@
-# Tripo P2 Image to 3D
+# Tripo P2 Image to 3D API: pricing, parameters and code examples
 
-`tripo3d/tripo-p2/image-to-3d` · image · Tripo3D
+`tripo3d/tripo-p2/image-to-3d` · image generation model · Tripo3D · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** from $1.2 to $1.56 per run, depending on parameters · **Modes:** async
 
 Tripo P2 is Tripo3D's latest flagship 3D generation model. It reconstructs a production-ready mesh with optional PBR textures from a single image.
 

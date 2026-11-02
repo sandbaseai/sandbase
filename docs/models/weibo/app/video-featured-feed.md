@@ -1,6 +1,8 @@
-# Weibo Featured Video Feed
+# Weibo Featured Video Feed API: pricing, parameters and code examples
 
-`weibo/app/video-featured-feed` · api · Weibo
+`weibo/app/video-featured-feed` · data API · Weibo · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns featured video feed cards from the Weibo video section. Supports pagination using page numbers to browse recommended multimedia posts.
 

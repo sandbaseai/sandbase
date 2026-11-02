@@ -1,6 +1,8 @@
-# DataForSEO Backlinks New and Lost Over Time
+# DataForSEO Backlinks New and Lost Over Time API: pricing, parameters and code examples
 
-`dataforseo/v3/backlinks/timeseries_new_lost_summary/live` · api · DataForSEO
+`dataforseo/v3/backlinks/timeseries_new_lost_summary/live` · data API · DataForSEO · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** about $0.024144 per call · **Modes:** sync
 
 New and lost backlinks and referring domains for a domain, grouped by day, week, month or year.
 

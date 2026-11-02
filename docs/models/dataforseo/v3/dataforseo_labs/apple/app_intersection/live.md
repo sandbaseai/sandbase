@@ -1,6 +1,8 @@
-# DataForSEO App Store App Intersection
+# DataForSEO App Store App Intersection API: pricing, parameters and code examples
 
-`dataforseo/v3/dataforseo_labs/apple/app_intersection/live` · api · DataForSEO
+`dataforseo/v3/dataforseo_labs/apple/app_intersection/live` · data API · DataForSEO · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.024 per call · **Modes:** sync
 
 Compare up to 20 App Store apps and get the search keywords they rank for together, with each app's position.
 

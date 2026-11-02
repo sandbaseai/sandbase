@@ -1,6 +1,8 @@
-# Xiaohongshu Pugongying Creator Note List
+# Xiaohongshu Pugongying Creator Note List API: pricing, parameters and code examples
 
-`xiaohongshu/pgy-v2/data-v2-notes-detail` · api · Xiaohongshu
+`xiaohongshu/pgy-v2/data-v2-notes-detail` · data API · Xiaohongshu · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.020833 per call · **Modes:** sync
 
 Get a paginated Xiaohongshu Pugongying creator note list with advertisement, sort-order, note-type, and third-platform filters. Use it to browse selected content from a known creator.
 

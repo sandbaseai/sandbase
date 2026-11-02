@@ -1,6 +1,8 @@
-# Instagram User Info by Username
+# Instagram User Info by Username API: pricing, parameters and code examples
 
-`instagram/v1/user-info-by-username` · api · Instagram
+`instagram/v1/user-info-by-username` · data API · Instagram · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns Instagram user profile details and related account information for a specified Instagram handle. Input a username to view public profile data.
 

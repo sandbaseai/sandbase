@@ -1,6 +1,8 @@
-# TikTok User Liked Videos
+# TikTok User Liked Videos API: pricing, parameters and code examples
 
-`tiktok/app-v3/user-like-videos` · api · TikTok
+`tiktok/app-v3/user-like-videos` · data API · TikTok · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns liked videos for a specific user using their secure user ID. Supports cursor-based pagination and page size configuration.
 

@@ -1,6 +1,8 @@
-# DataForSEO Google Images SERP
+# DataForSEO Google Images SERP API: pricing, parameters and code examples
 
-`dataforseo/v3/serp/google/images/live/advanced` · api · DataForSEO
+`dataforseo/v3/serp/google/images/live/advanced` · data API · DataForSEO · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** from $0.003 per run, depending on parameters · **Modes:** sync
 
 Returns Google Images search engine results pages with detailed image metadata. Provides real-time SERP data for visual search queries across Google Images.
 

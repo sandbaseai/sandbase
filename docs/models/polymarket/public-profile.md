@@ -1,6 +1,8 @@
-# Polymarket Get public profile by wallet address
+# Polymarket Get public profile by wallet address API: pricing, parameters and code examples
 
-`polymarket/public-profile` · api · Polymarket
+`polymarket/public-profile` · data API · Polymarket · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.00044 per call (free daily quota) · **Modes:** sync
 
 Get public profile by wallet address from Polymarket. Returns the official Polymarket API response unchanged.
 

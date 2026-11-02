@@ -1,6 +1,8 @@
-# Tavily Search
+# Tavily Search API: pricing, parameters and code examples
 
-`tavily/search` · api · Tavily
+`tavily/search` · data API · Tavily · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.012 per call (free daily quota) · **Modes:** sync
 
 AI-optimized web search for agents and RAG: ranked results with titles, URLs and relevant content, depth control, news and finance topics, domain filters and an optional generated answer.
 

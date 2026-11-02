@@ -1,6 +1,8 @@
-# Qwen: Qwen3.5-35B-A3B
+# Qwen: Qwen3.5-35B-A3B API: pricing, parameters and code examples
 
-`alibaba/qwen3.5-35b-a3b` · llm · Alibaba
+`alibaba/qwen3.5-35b-a3b` · LLM · Alibaba · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.25 input / $2 output per 1M tokens · **Modes:** sync
 
 Qwen3.5 35B A3B is an open-weight native vision-language model from Alibaba's Qwen3.5 series, released in February 2026, pairing linear attention with a sparse Mixture-of-Experts design that activates about 3 billion of its 35 billion parameters. Alibaba describes its overall performance as comparable to Qwen3.5 27B with higher inference efficiency. It supports thinking mode, tool calling and image and video understanding, and is the open-weight counterpart of the hosted Qwen3.5 Flash.
 

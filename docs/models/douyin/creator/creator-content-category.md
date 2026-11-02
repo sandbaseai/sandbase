@@ -1,6 +1,8 @@
-# Douyin Content Categories
+# Douyin Content Categories API: pricing, parameters and code examples
 
-`douyin/creator/creator-content-category` · api · Douyin
+`douyin/creator/creator-content-category` · data API · Douyin · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns the list of content categories available on Douyin. Authors and applications can review official topic classifications without requiring input parameters.
 

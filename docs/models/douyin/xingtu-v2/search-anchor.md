@@ -1,6 +1,8 @@
-# Douyin Xingtu Anchor Search
+# Douyin Xingtu Anchor Search API: pricing, parameters and code examples
 
-`douyin/xingtu-v2/search-anchor` · api · Douyin
+`douyin/xingtu-v2/search-anchor` · data API · Douyin · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Search Douyin Xingtu anchors matching a specific query keyword, with filtering options for audience metrics, follower counts, and engagement rates.
 

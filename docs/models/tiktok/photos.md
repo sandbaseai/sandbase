@@ -1,6 +1,8 @@
-# TikTok Photos
+# TikTok Photos API: pricing, parameters and code examples
 
-`tiktok/photos` · api · TikTok
+`tiktok/photos` · data API · TikTok · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** about $0.0012 per call · **Modes:** sync
 
 Get every image in a TikTok photo-mode (slideshow) post by URL, in order, with pixel dimensions and both the clean and watermarked variant of each. Videos carry no images - use tiktok.video_download for those.
 

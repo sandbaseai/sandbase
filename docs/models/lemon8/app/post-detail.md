@@ -1,6 +1,8 @@
-# Lemon8 Post Details
+# Lemon8 Post Details API: pricing, parameters and code examples
 
-`lemon8/app/post-detail` · api · Lemon8
+`lemon8/app/post-detail` · data API · Lemon8 · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns detailed information for a specified Lemon8 post using its unique post ID. Retrieve post metadata and content metrics by providing the target item identifier.
 

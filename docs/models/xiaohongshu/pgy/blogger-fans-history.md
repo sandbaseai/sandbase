@@ -1,6 +1,8 @@
-# Xiaohongshu (RED) PGY Blogger Fan History
+# Xiaohongshu (RED) PGY Blogger Fan History API: pricing, parameters and code examples
 
-`xiaohongshu/pgy/blogger-fans-history` · api · Xiaohongshu
+`xiaohongshu/pgy/blogger-fans-history` · data API · Xiaohongshu · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.03 per call · **Modes:** sync
 
 Returns historical follower growth counts for a Xiaohongshu Pugongying blogger over time based on user ID and a selected date range.
 

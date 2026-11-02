@@ -1,6 +1,8 @@
-# Xiaohongshu (RED) Note Comments
+# Xiaohongshu (RED) Note Comments API: pricing, parameters and code examples
 
-`xiaohongshu/app-v2/note-comments` · api · Xiaohongshu
+`xiaohongshu/app-v2/note-comments` · data API · Xiaohongshu · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.015 per call (free daily quota) · **Modes:** sync
 
 Get the comments on a Xiaohongshu note: comment text, time, likes, reply counts and location, with sorting and cursor pagination.
 

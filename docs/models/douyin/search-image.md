@@ -1,6 +1,8 @@
-# Douyin Image Post Search
+# Douyin Image Post Search API: pricing, parameters and code examples
 
-`douyin/search-image` · api · Douyin
+`douyin/search-image` · data API · Douyin · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.027778 per call · **Modes:** sync
 
 Search Douyin (TikTok China) image posts by keyword with search-session pagination. Omit searchId for the first page, then use the search ID from the previous response to continue.
 

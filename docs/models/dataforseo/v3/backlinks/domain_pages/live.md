@@ -1,6 +1,8 @@
-# DataForSEO Backlinks Domain Pages
+# DataForSEO Backlinks Domain Pages API: pricing, parameters and code examples
 
-`dataforseo/v3/backlinks/domain_pages/live` · api · DataForSEO
+`dataforseo/v3/backlinks/domain_pages/live` · data API · DataForSEO · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.004 per call (free daily quota) · **Modes:** sync
 
 Returns a list of pages on a target domain along with their backlink metrics and link profile statistics.
 

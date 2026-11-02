@@ -1,6 +1,8 @@
-# Zillow Open Houses
+# Zillow Open Houses API: pricing, parameters and code examples
 
-`zillow/open-houses` · api · Zillow
+`zillow/open-houses` · data API · Zillow · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.03 per call · **Modes:** async
 
 Retrieve the scheduled open houses for a property listing by its Zillow property ID (zpid), together with the property's address for confirmation. Returns one record per property with an openHouses array (each entry.
 

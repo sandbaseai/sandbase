@@ -1,6 +1,8 @@
-# AAA State Price Details
+# AAA State Price Details API: pricing, parameters and code examples
 
-`aaa/state-price-details` · api · AAA
+`aaa/state-price-details` · data API · AAA · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.01 per call (free daily quota) · **Modes:** async
 
 Returns detailed gas price data for a specific state including current prices for all fuel grades, historical averages (yesterday, week ago, month ago, year ago), and all-time highest recorded prices with their dates.
 

@@ -1,6 +1,8 @@
-# Douyin Hot Search List
+# Douyin Hot Search List API: pricing, parameters and code examples
 
-`douyin/app-v3/hot-search-list` · api · Douyin
+`douyin/app-v3/hot-search-list` · data API · Douyin · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Get the Douyin hot search list and other boards (seeding, entertainment, social and challenge lists): trending words with heat values and video counts.
 

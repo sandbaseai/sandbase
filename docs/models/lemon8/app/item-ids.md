@@ -1,6 +1,8 @@
-# Lemon8 Post IDs from Share Links
+# Lemon8 Post IDs from Share Links API: pricing, parameters and code examples
 
-`lemon8/app/item-ids` · api · Lemon8
+`lemon8/app/item-ids` · data API · Lemon8 · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Batch resolves Lemon8 post IDs from shared URLs. Accepts an array of share links and returns corresponding post IDs for up to 10 links at a time.
 

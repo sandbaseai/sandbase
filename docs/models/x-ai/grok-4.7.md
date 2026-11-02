@@ -1,6 +1,8 @@
-# xAI: Grok 4.7
+# xAI: Grok 4.7 API: pricing, parameters and code examples
 
-`x-ai/grok-4.7` · llm · xAI
+`x-ai/grok-4.7` · LLM · xAI · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $2 input / $6 output per 1M tokens · **Modes:** sync
 
 Grok 4.7 is xAI's flagship reasoning model for coding, agentic tasks and knowledge work, released on the xAI API in September 2026 as the successor to Grok 4.6. xAI says it uses a larger base model and a longer reinforcement learning run weighted toward multi-hour problems, making it better at checking its own work, managing long context and producing documents and presentations. It accepts text and image input, returns text, and supports configurable reasoning effort.
 

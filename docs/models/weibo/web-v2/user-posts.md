@@ -1,6 +1,8 @@
-# Weibo User Posts
+# Weibo User Posts API: pricing, parameters and code examples
 
-`weibo/web-v2/user-posts` · api · Weibo
+`weibo/web-v2/user-posts` · data API · Weibo · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Get the posts published by a Weibo user: text, publish time, images, videos and repost, comment and like counts, with pagination.
 

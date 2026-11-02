@@ -1,6 +1,8 @@
-# Weibo User Fans
+# Weibo User Fans API: pricing, parameters and code examples
 
-`weibo/fans` · api · Weibo
+`weibo/fans` · data API · Weibo · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.013889 per call (free daily quota) · **Modes:** sync
 
 Get a page of fan accounts that follow a Weibo user identified by UID. Use it to browse the account's follower audience or continue through its fan list.
 

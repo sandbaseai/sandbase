@@ -1,6 +1,8 @@
-# DataForSEO LLM Mentions Target Metrics
+# DataForSEO LLM Mentions Target Metrics API: pricing, parameters and code examples
 
-`dataforseo/v3/ai_optimization/llm_mentions/target_metrics/live` · api · DataForSEO
+`dataforseo/v3/ai_optimization/llm_mentions/target_metrics/live` · data API · DataForSEO · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** about $0.101 per call · **Modes:** sync
 
 Mention counts and AI search volume for a domain or keyword in AI answers, with breakdowns by platform, location and source.
 

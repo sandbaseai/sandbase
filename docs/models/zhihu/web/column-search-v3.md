@@ -1,6 +1,8 @@
-# Zhihu Column Search
+# Zhihu Column Search API: pricing, parameters and code examples
 
-`zhihu/web/column-search-v3` · api · Zhihu
+`zhihu/web/column-search-v3` · data API · Zhihu · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Searches Zhihu columns matching a specified query term. Returns matching column profiles, follower counts, article totals, and snippet highlights with pagination support.
 

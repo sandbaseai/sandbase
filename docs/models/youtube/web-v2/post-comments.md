@@ -1,6 +1,8 @@
-# YouTube Community Post Comments
+# YouTube Community Post Comments API: pricing, parameters and code examples
 
-`youtube/web-v2/post-comments` · api · YouTube
+`youtube/web-v2/post-comments` · data API · YouTube · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns comments from a YouTube community post with support for pagination, formatted output, and regional localization settings.
 

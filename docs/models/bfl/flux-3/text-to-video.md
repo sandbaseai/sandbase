@@ -1,6 +1,8 @@
-# Flux 3 Text to Video
+# Flux 3 Text to Video API: pricing, parameters and code examples
 
-`bfl/flux-3/text-to-video` · video · BFL
+`bfl/flux-3/text-to-video` · video generation model · BFL · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** from $0.85 to $2.9 per run, depending on parameters · **Modes:** async
 
 Flux 3 by BFL - generate cinematic videos from text descriptions with AI. Create high-quality video content with natural motion, camera control, and optional audio generation.
 

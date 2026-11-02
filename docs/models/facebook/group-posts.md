@@ -1,6 +1,8 @@
-# Facebook Group Posts
+# Facebook Group Posts API: pricing, parameters and code examples
 
-`facebook/group-posts` · api · Facebook
+`facebook/group-posts` · data API · Facebook · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** about $0.0012 per call · **Modes:** sync
 
 Fetch recent posts from any public Facebook group by URL: text, author, reactions, and comment counts.
 

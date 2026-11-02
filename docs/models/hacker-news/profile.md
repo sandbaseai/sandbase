@@ -1,6 +1,8 @@
-# Hacker News Profile
+# Hacker News Profile API: pricing, parameters and code examples
 
-`hacker-news/profile` · api · Hacker News
+`hacker-news/profile` · data API · Hacker News · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** about $0.0015 per call · **Modes:** sync
 
 Get a Hacker News user's public profile by username - karma, bio, and account details as clean JSON.
 

@@ -1,6 +1,8 @@
-# Douyin Xingtu Creator Search
+# Douyin Xingtu Creator Search API: pricing, parameters and code examples
 
-`douyin/xingtu-v2/search-creator` · api · Douyin
+`douyin/xingtu-v2/search-creator` · data API · Douyin · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Searches Douyin Xingtu short-video creators by keyword, with filtering across metrics like follower count, interaction rate, and category tags.
 

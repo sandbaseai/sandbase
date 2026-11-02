@@ -1,6 +1,8 @@
-# OpenAI: Text Embedding 3 Large
+# OpenAI: Text Embedding 3 Large API: pricing, parameters and code examples
 
-`openai/text-embedding-3-large` · embedding · OpenAI
+`openai/text-embedding-3-large` · embedding model · OpenAI · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.13 input / $0 output per 1M tokens · **Modes:** sync
 
 OpenAI text-embedding-3-large creates embeddings for semantic search, retrieval, clustering, and classification.
 

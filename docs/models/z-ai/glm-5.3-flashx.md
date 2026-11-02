@@ -1,6 +1,8 @@
-# Z.ai: GLM 5.3 FlashX
+# Z.ai: GLM 5.3 FlashX API: pricing, parameters and code examples
 
-`z-ai/glm-5.3-flashx` · llm · Z-Ai
+`z-ai/glm-5.3-flashx` · LLM · Z-Ai · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.37 input / $1.25 output per 1M tokens · **Modes:** sync
 
 GLM-5.3-FlashX is the high-speed tier of Z.ai's GLM-5.3-Flash, documented together with Flash and delivering inference speeds of up to 200 tokens per second. It shares Flash's native multimodal design and hybrid sparse-plus-linear attention, with image, video and file input, always-on reasoning, tool calling and structured output. Pick it over standard Flash for latency-sensitive coding agents, GUI and browser tasks, and interactive chat.
 

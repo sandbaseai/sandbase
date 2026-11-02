@@ -1,6 +1,8 @@
-# Telegram Batch Channel Info
+# Telegram Batch Channel Info API: pricing, parameters and code examples
 
-`telegram/web/batch-channel-info` · api · Telegram
+`telegram/web/batch-channel-info` · data API · Telegram · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.012 per call (free daily quota) · **Modes:** sync
 
 Returns basic channel profile details including title, description, and verified status for multiple public Telegram channels at once.
 

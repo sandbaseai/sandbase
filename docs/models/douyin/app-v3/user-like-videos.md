@@ -1,6 +1,8 @@
-# Douyin User Liked Videos (App V3)
+# Douyin User Liked Videos (App V3) API: pricing, parameters and code examples
 
-`douyin/app-v3/user-like-videos` · api · Douyin
+`douyin/app-v3/user-like-videos` · data API · Douyin · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns a list of videos liked by a specific Douyin user. Supports cursor-based pagination and custom item counts per page.
 

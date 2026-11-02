@@ -1,6 +1,8 @@
-# Douyin Index Subscribed Keywords
+# Douyin Index Subscribed Keywords API: pricing, parameters and code examples
 
-`douyin/index/get-user-sub-word` · api · Douyin
+`douyin/index/get-user-sub-word` · data API · Douyin · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns the list of subscribed keywords configured by the current logged-in user on Douyin Index. Useful for retrieving tracked topics without manual lookup.
 

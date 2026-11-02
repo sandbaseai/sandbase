@@ -1,6 +1,8 @@
-# Facebook Ad Search
+# Facebook Ad Search API: pricing, parameters and code examples
 
-`facebook/ads-search` · api · Facebook
+`facebook/ads-search` · data API · Facebook · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** about $0.0011 per call · **Modes:** sync
 
 Search the Meta Ad Library by keyword and get matching ads (advertiser, creative text, CTA, platforms, and run dates) with cursor pagination.
 

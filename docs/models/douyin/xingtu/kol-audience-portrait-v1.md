@@ -1,6 +1,8 @@
-# Douyin Xingtu KOL Audience Portrait (V1)
+# Douyin Xingtu KOL Audience Portrait (V1) API: pricing, parameters and code examples
 
-`douyin/xingtu/kol-audience-portrait-v1` · api · Douyin
+`douyin/xingtu/kol-audience-portrait-v1` · data API · Douyin · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.03 per call · **Modes:** sync
 
 Returns audience demographic and portrait insights for a Douyin Xingtu creator. Requires a creator identifier to retrieve detailed follower profile data.
 

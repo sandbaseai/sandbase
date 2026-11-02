@@ -1,6 +1,8 @@
-# Douyin Discussion Search
+# Douyin Discussion Search API: pricing, parameters and code examples
 
-`douyin/search/discuss-search` · api · Douyin
+`douyin/search/discuss-search` · data API · Douyin · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.015 per call (free daily quota) · **Modes:** sync
 
 Returns discussion and question-and-answer search results from Douyin. Supports filtering by keyword, sort order, content type, post time, and video duration.
 

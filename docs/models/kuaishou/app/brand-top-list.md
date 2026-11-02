@@ -1,6 +1,8 @@
-# Kuaishou Brand Top List
+# Kuaishou Brand Top List API: pricing, parameters and code examples
 
-`kuaishou/app/brand-top-list` · api · Kuaishou
+`kuaishou/app/brand-top-list` · data API · Kuaishou · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns top brand rankings and related live stream links from Kuaishou. Allows filtering ranking data by sub-tab category ID or sub-tab name.
 

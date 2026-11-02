@@ -1,6 +1,8 @@
-# Youku User Profile
+# Youku User Profile API: pricing, parameters and code examples
 
-`youku/user-detail` · api · Youku
+`youku/user-detail` · data API · Youku · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.013889 per call (free daily quota) · **Modes:** sync
 
 Get a Youku user profile identified by UID. Use it to look up a known account for creator research, profile review, or related video discovery.
 

@@ -1,6 +1,8 @@
-# Reddit Trending Posts
+# Reddit Trending Posts API: pricing, parameters and code examples
 
-`reddit/trending-posts` · api · Reddit
+`reddit/trending-posts` · data API · Reddit · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** about $0.0003 per call · **Modes:** sync
 
 Get currently trending Reddit posts across all subreddits with stable cursor pagination.
 

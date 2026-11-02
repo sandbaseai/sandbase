@@ -1,6 +1,8 @@
-# MiniMax H3 Max Turbo Image to Video
+# MiniMax H3 Max Turbo Image to Video API: pricing, parameters and code examples
 
-`minimax/h3-max-turbo/image-to-video` · video · MiniMax
+`minimax/h3-max-turbo/image-to-video` · video generation model · MiniMax · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** from $0.125 to $1.2 per run, depending on parameters · **Modes:** async
 
 MiniMax H3 Max Turbo, the fastest tier of the H3 family, animates a first frame (and optional last frame) into a 5-15 second video with native audio.
 

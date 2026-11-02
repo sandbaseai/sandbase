@@ -1,6 +1,8 @@
-# Kling V4 Text to Video
+# Kling V4 Text to Video API: pricing, parameters and code examples
 
-`kwaivgi/kling-video/v4/text-to-video` · video · KwaiVGI
+`kwaivgi/kling-video/v4/text-to-video` · video generation model · KwaiVGI · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** from $0.471 to $7.05 per run, depending on parameters · **Modes:** async
 
 Kling V4 Text to Video by Kuaishou turns a text prompt into a 3-30 second video at 720p or 1080p.
 

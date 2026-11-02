@@ -1,6 +1,8 @@
-# Veo 3.1 Lite Text to Video
+# Veo 3.1 Lite Text to Video API: pricing, parameters and code examples
 
-`google/veo3.1/lite/text-to-video` · video · Google
+`google/veo3.1/lite/text-to-video` · video generation model · Google · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** from $0.12 to $0.64 per run, depending on parameters · **Modes:** async
 
 Veo3.1 Lite is Google's text-to-video AI model. Turn written scripts and prompts into professional-quality video clips with realistic motion, lighting, and scene composition.
 

@@ -1,6 +1,8 @@
-# DataForSEO Clickstream Bulk Search Volume
+# DataForSEO Clickstream Bulk Search Volume API: pricing, parameters and code examples
 
-`dataforseo/v3/keywords_data/clickstream_data/bulk_search_volume/live` · api · DataForSEO
+`dataforseo/v3/keywords_data/clickstream_data/bulk_search_volume/live` · data API · DataForSEO · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** about $0.01224 per call · **Modes:** sync
 
 Clickstream-based monthly search volume for up to 1,000 keywords in one request.
 

@@ -1,6 +1,8 @@
-# Kuaishou Image Post Search
+# Kuaishou Image Post Search API: pricing, parameters and code examples
 
-`kuaishou/app/search-image` · api · Kuaishou
+`kuaishou/app/search-image` · data API · Kuaishou · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.015 per call (free daily quota) · **Modes:** sync
 
 Searches Kuaishou image posts matching a specified search term. Returns feed details including captions, engagement metrics, and pagination tokens.
 

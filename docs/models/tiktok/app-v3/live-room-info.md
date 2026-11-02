@@ -1,6 +1,8 @@
-# TikTok Broadcast Room Information
+# TikTok Broadcast Room Information API: pricing, parameters and code examples
 
-`tiktok/app-v3/live-room-info` · api · TikTok
+`tiktok/app-v3/live-room-info` · data API · TikTok · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns data and details for a specified broadcast stream room on TikTok. Requires the unique target stream identifier to retrieve room status and metrics.
 

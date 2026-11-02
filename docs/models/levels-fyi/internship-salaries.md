@@ -1,6 +1,8 @@
-# Levels.fyi Internship Salaries
+# Levels.fyi Internship Salaries API: pricing, parameters and code examples
 
-`levels-fyi/internship-salaries` · api · Levels.fyi
+`levels-fyi/internship-salaries` · data API · Levels.fyi · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.01 per call (free daily quota) · **Modes:** async
 
 Retrieve internship salary data across all companies. Returns the full dataset including monthly and hourly pay, location, season, year, and education level for each record.
 

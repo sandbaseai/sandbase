@@ -1,6 +1,8 @@
-# Douyin City Hot List
+# Douyin City Hot List API: pricing, parameters and code examples
 
-`douyin/billboard/hot-city-list` · api · Douyin
+`douyin/billboard/hot-city-list` · data API · Douyin · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns Douyin trending topics filtered by city location. Allows sorting and filtering by city code, category tags, and search keywords.
 

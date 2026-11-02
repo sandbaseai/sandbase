@@ -1,6 +1,8 @@
-# Reddit App User Profile
+# Reddit App User Profile API: pricing, parameters and code examples
 
-`reddit/app/user-profile` · api · Reddit
+`reddit/app/user-profile` · data API · Reddit · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns detailed profile information for a specified Reddit app user by username. Supports an optional flag to clean and format the output data.
 

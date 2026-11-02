@@ -1,6 +1,8 @@
-# TikTok Ad Query Suggestions
+# TikTok Ad Query Suggestions API: pricing, parameters and code examples
 
-`tiktok/ads/query-suggestions` · api · TikTok
+`tiktok/ads/query-suggestions` · data API · TikTok · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns popular or keyword-based ad search suggestions across TikTok. Filter results by target country code, scenario type, and an optional query string.
 

@@ -1,6 +1,8 @@
-# Instagram Highlight Detail
+# Instagram Highlight Detail API: pricing, parameters and code examples
 
-`instagram/highlight-detail` · api · Instagram
+`instagram/highlight-detail` · data API · Instagram · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** about $0.0012 per call · **Modes:** sync
 
 Fetch the details and media items of a single Instagram story highlight by id.
 

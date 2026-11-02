@@ -1,6 +1,8 @@
-# Instagram User Highlights (V3)
+# Instagram User Highlights (V3) API: pricing, parameters and code examples
 
-`instagram/v3/user-highlights` · api · Instagram
+`instagram/v3/user-highlights` · data API · Instagram · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.012 per call (free daily quota) · **Modes:** sync
 
 Returns profile highlights for a specified Instagram account. Supports forward and backward cursor-based pagination to browse collections.
 

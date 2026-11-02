@@ -1,6 +1,8 @@
-# X (Twitter) Twitter Community Tweets
+# X (Twitter) Twitter Community Tweets API: pricing, parameters and code examples
 
-`twitter/community-tweets` · api · X (Twitter)
+`twitter/community-tweets` · data API · X (Twitter) · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** about $0.00045 per call · **Modes:** sync
 
 List recent tweets posted in a Twitter/X community by URL.
 

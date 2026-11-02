@@ -1,6 +1,8 @@
-# DataForSEO Content Analysis Summary
+# DataForSEO Content Analysis Summary API: pricing, parameters and code examples
 
-`dataforseo/v3/content_analysis/summary/live` · api · DataForSEO
+`dataforseo/v3/content_analysis/summary/live` · data API · DataForSEO · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.003 per call (free daily quota) · **Modes:** sync
 
 Returns aggregated content metrics and high-level citation statistics for content analysis workflows. Evaluates summary indicators across analyzed online content.
 

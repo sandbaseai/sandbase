@@ -1,6 +1,8 @@
-# Kuaishou Single User Data (V2)
+# Kuaishou Single User Data (V2) API: pricing, parameters and code examples
 
-`kuaishou/app/one-user-v2` · api · Kuaishou
+`kuaishou/app/one-user-v2` · data API · Kuaishou · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.015 per call (free daily quota) · **Modes:** sync
 
 Returns profile details and personal entrance configurations for a specific Kuaishou account using the target user identifier.
 

@@ -1,6 +1,8 @@
-# Instagram Comment Replies (V2)
+# Instagram Comment Replies (V2) API: pricing, parameters and code examples
 
-`instagram/v2/comment-replies` · api · Instagram
+`instagram/v2/comment-replies` · data API · Instagram · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.003 per call (free daily quota) · **Modes:** sync
 
 Retrieves a paginated list of replies to an Instagram comment using the post URL or shortcode and the target comment ID.
 

@@ -1,6 +1,8 @@
-# App Store Search
+# App Store Search API: pricing, parameters and code examples
 
-`app-store/search` · api · App Store
+`app-store/search` · data API · App Store · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.00015 per call (free daily quota) · **Modes:** async
 
 Search iPhone, iPad, and Mac apps or developers on the Apple App Store by storefront.
 

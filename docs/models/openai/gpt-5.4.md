@@ -1,6 +1,8 @@
-# OpenAI: GPT-5.4
+# OpenAI: GPT-5.4 API: pricing, parameters and code examples
 
-`openai/gpt-5.4` · llm · OpenAI
+`openai/gpt-5.4` · LLM · OpenAI · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $2.5 input / $15 output per 1M tokens · **Modes:** sync
 
 GPT-5.4 is OpenAI's flagship GPT-5.4 reasoning model for complex professional work, released in March 2026 with text and image input, text output and a context window of about 1.05M tokens. OpenAI positions it for coding, professional knowledge work and multi-step agent workflows, with configurable reasoning effort and broad tool support including web search, code interpreter, computer use and MCP. Choose it over GPT-5.4 mini or nano when task depth matters more than speed.
 

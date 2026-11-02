@@ -1,6 +1,8 @@
-# TikTok Creator Search Insights Videos
+# TikTok Creator Search Insights Videos API: pricing, parameters and code examples
 
-`tiktok/app-v3/creator-search-insights-videos` · api · TikTok
+`tiktok/app-v3/creator-search-insights-videos` · data API · TikTok · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns popular videos related to a specific search term from creator search insights. Results support pagination using offset and count parameters.
 

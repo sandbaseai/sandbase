@@ -1,6 +1,8 @@
-# WeChat Channels Video Metrics
+# WeChat Channels Video Metrics API: pricing, parameters and code examples
 
-`wechat-channels/video-metrics` · api · WeChat Channels
+`wechat-channels/video-metrics` · data API · WeChat Channels · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.020833 per call · **Modes:** sync
 
 Get interaction metrics for a WeChat Channels video by object ID with optional continuation-buffer input. Use it to review engagement for known video content.
 

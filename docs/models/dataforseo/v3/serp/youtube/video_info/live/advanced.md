@@ -1,6 +1,8 @@
-# DataForSEO YouTube Video Details
+# DataForSEO YouTube Video Details API: pricing, parameters and code examples
 
-`dataforseo/v3/serp/youtube/video_info/live/advanced` · api · DataForSEO
+`dataforseo/v3/serp/youtube/video_info/live/advanced` · data API · DataForSEO · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.006 per call (free daily quota) · **Modes:** sync
 
 Fetch metadata and stats for one YouTube video by id. Details of a YouTube video by video_id.
 

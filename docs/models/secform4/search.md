@@ -1,6 +1,8 @@
-# SECForm4 Search
+# SECForm4 Search API: pricing, parameters and code examples
 
-`secform4/search` · api · SECForm4
+`secform4/search` · data API · SECForm4 · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.01 per call (free daily quota) · **Modes:** async
 
 Searches for insider trading activity by company ticker symbol, CIK number, or company name. Returns all matching transaction records for the company including buys, sells, and option exercises.
 

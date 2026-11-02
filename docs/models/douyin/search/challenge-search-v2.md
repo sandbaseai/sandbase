@@ -1,6 +1,8 @@
-# Douyin Hashtag Challenge Search (V2)
+# Douyin Hashtag Challenge Search (V2) API: pricing, parameters and code examples
 
-`douyin/search/challenge-search-v2` · api · Douyin
+`douyin/search/challenge-search-v2` · data API · Douyin · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.015 per call (free daily quota) · **Modes:** sync
 
 Returns Douyin hashtag and challenge search results matching a query keyword. Supports filtering by sort type, content type, post date, and duration with cursor-based pagination.
 

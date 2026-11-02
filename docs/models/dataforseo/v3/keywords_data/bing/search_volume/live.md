@@ -1,6 +1,8 @@
-# DataForSEO Bing Keyword Search Volume
+# DataForSEO Bing Keyword Search Volume API: pricing, parameters and code examples
 
-`dataforseo/v3/keywords_data/bing/search_volume/live` · api · DataForSEO
+`dataforseo/v3/keywords_data/bing/search_volume/live` · data API · DataForSEO · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.003 per call (free daily quota) · **Modes:** sync
 
 Returns search volume metrics from Bing for specified target keywords. Helps track search query popularity and monthly demand trends directly on the Bing search engine.
 

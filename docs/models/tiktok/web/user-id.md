@@ -1,6 +1,8 @@
-# TikTok User ID from Profile Link
+# TikTok User ID from Profile Link API: pricing, parameters and code examples
 
-`tiktok/web/user-id` · api · TikTok
+`tiktok/web/user-id` · data API · TikTok · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Resolves a TikTok profile URL to extract and return the corresponding user ID. Input the profile homepage link to retrieve account identifiers.
 

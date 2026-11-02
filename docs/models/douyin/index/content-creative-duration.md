@@ -1,6 +1,8 @@
-# Douyin Content Creative Duration
+# Douyin Content Creative Duration API: pricing, parameters and code examples
 
-`douyin/index/content-creative-duration` · api · Douyin
+`douyin/index/content-creative-duration` · data API · Douyin · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns the video duration distribution for a specified Douyin category. Breaks down content duration patterns across weekly or monthly periods.
 

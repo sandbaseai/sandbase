@@ -1,6 +1,8 @@
-# Exa Contents
+# Exa Contents API: pricing, parameters and code examples
 
-`exa/contents` · api · Exa
+`exa/contents` · data API · Exa · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0045 per call · **Modes:** sync
 
 Extract clean page contents for a list of URLs: full text, highlights, AI summaries and metadata, from cache or with a live crawl.
 

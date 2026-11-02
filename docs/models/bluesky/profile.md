@@ -1,6 +1,8 @@
-# Bluesky Profile
+# Bluesky Profile API: pricing, parameters and code examples
 
-`bluesky/profile` · api · Bluesky
+`bluesky/profile` · data API · Bluesky · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** about $0.0011 per call · **Modes:** sync
 
 Get a Bluesky user's public profile by handle - display name, bio, follower and post counts as clean JSON.
 

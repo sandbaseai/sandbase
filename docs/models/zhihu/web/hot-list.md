@@ -1,6 +1,8 @@
-# Zhihu Hot List
+# Zhihu Hot List API: pricing, parameters and code examples
 
-`zhihu/web/hot-list` · api · Zhihu
+`zhihu/web/hot-list` · data API · Zhihu · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Get the Zhihu hot list: trending questions with title, excerpt, heat, answer and follower counts, and links.
 

@@ -1,6 +1,8 @@
-# Trustpilot Company Reviews
+# Trustpilot Company Reviews API: pricing, parameters and code examples
 
-`trustpilot/company-reviews` · api · Trustpilot
+`trustpilot/company-reviews` · data API · Trustpilot · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.03 per call · **Modes:** async
 
 Fetch paginated reviews for a company with optional star filtering, sort order, and keyword search.
 

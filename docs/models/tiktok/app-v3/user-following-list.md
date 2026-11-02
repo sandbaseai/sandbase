@@ -1,6 +1,8 @@
-# TikTok User Following List
+# TikTok User Following List API: pricing, parameters and code examples
 
-`tiktok/app-v3/user-following-list` · api · TikTok
+`tiktok/app-v3/user-following-list` · data API · TikTok · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns a list of accounts followed by a target TikTok user. Query using either a numeric user ID or a sec_user_id with support for token and timestamp pagination.
 

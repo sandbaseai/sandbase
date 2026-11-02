@@ -1,6 +1,8 @@
-# SECForm4 Significant Insider Buys
+# SECForm4 Significant Insider Buys API: pricing, parameters and code examples
 
-`secform4/significant-insider-buys` · api · SECForm4
+`secform4/significant-insider-buys` · data API · SECForm4 · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.01 per call (free daily quota) · **Modes:** async
 
 Returns insider purchase transactions filtered to significant buys only (larger dollar amounts). Same fields as get_insider_buys but limited to higher-value transactions.
 

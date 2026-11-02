@@ -1,6 +1,8 @@
-# Happy Horse Video Edit
+# Happy Horse Video Edit API: pricing, parameters and code examples
 
-`alibaba/happy-horse/video-edit` · video · Alibaba
+`alibaba/happy-horse/video-edit` · video generation model · Alibaba · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** about $1.4 per call · **Modes:** async
 
 Happy Horse Video Edit by Alibaba - AI-powered video editing and transformation. Apply style transfer, motion control, lip-sync, and visual effects to existing videos with natural language instructions.
 

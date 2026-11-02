@@ -1,6 +1,8 @@
-# Kling V4 Reference to Video
+# Kling V4 Reference to Video API: pricing, parameters and code examples
 
-`kwaivgi/kling-video/v4/reference-to-video` · video · KwaiVGI
+`kwaivgi/kling-video/v4/reference-to-video` · video generation model · KwaiVGI · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** about $1.175 per call · **Modes:** async
 
 Kling V4 Reference to Video by Kuaishou generates a 3-30 second video that keeps characters, objects and motion from reference images and videos.
 

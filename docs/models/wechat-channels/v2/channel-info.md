@@ -1,6 +1,8 @@
-# WeChat Channels Account Info
+# WeChat Channels Account Info API: pricing, parameters and code examples
 
-`wechat-channels/v2/channel-info` · api · WeChat Channels
+`wechat-channels/v2/channel-info` · data API · WeChat Channels · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.015 per call (free daily quota) · **Modes:** sync
 
 Get the public "More info" panel of a WeChat Channels account: Channel ID, IP and profile location, and verification details such as entity type, service category and license numbers.
 

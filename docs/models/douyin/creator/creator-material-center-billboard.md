@@ -1,6 +1,8 @@
-# Douyin Creator Material Center Billboard
+# Douyin Creator Material Center Billboard API: pricing, parameters and code examples
 
-`douyin/creator/creator-material-center-billboard` · api · Douyin
+`douyin/creator/creator-material-center-billboard` · data API · Douyin · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns trending billboard items from the Douyin Creator Material Center with interaction metrics. Supports filtering by time, billboard tag, and sorting order.
 

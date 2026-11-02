@@ -1,6 +1,8 @@
-# Weibo Hot Ranking Timeline
+# Weibo Hot Ranking Timeline API: pricing, parameters and code examples
 
-`weibo/web-v2/hot-ranking-timeline` · api · Weibo
+`weibo/web-v2/hot-ranking-timeline` · data API · Weibo · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns popular posts from Weibo hot rankings based on a specified ranking type. Supports pagination using cursor and identifier parameters.
 

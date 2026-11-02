@@ -1,6 +1,8 @@
-# Instagram Related Profiles
+# Instagram Related Profiles API: pricing, parameters and code examples
 
-`instagram/v1/related-profiles` · api · Instagram
+`instagram/v1/related-profiles` · data API · Instagram · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns related and similar user profile recommendations for a target Instagram account. Takes an Instagram user ID to look up connected profiles, usernames, and profile picture URLs.
 

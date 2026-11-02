@@ -1,6 +1,8 @@
-# FRED Get Series Tags
+# FRED Get Series Tags API: pricing, parameters and code examples
 
-`fred/series-tags` · api · FRED
+`fred/series-tags` · data API · FRED · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $1e-05 per call (free daily quota) · **Modes:** sync
 
 Get Series Tags from FRED. Returns the official FRED API response unchanged.
 

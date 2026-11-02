@@ -1,6 +1,8 @@
-# Bilibili Video Parts
+# Bilibili Video Parts API: pricing, parameters and code examples
 
-`bilibili/web/video-parts` · api · Bilibili
+`bilibili/web/video-parts` · data API · Bilibili · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns video part details for a specified Bilibili video using its video ID. The response includes the duration and creation timestamp for each segment.
 

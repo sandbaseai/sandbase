@@ -1,6 +1,8 @@
-# FRED Get Release Related Tags
+# FRED Get Release Related Tags API: pricing, parameters and code examples
 
-`fred/release-related-tags` · api · FRED
+`fred/release-related-tags` · data API · FRED · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $1e-05 per call (free daily quota) · **Modes:** sync
 
 Get Release Related Tags from FRED. Returns the official FRED API response unchanged.
 

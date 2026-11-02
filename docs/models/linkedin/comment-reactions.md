@@ -1,6 +1,8 @@
-# LinkedIn Comment Reactions
+# LinkedIn Comment Reactions API: pricing, parameters and code examples
 
-`linkedin/comment-reactions` · api · LinkedIn
+`linkedin/comment-reactions` · data API · LinkedIn · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** about $0.0026 per call · **Modes:** sync
 
 List who reacted to a comment on a LinkedIn post - reactor name, profile URL, job title, and reaction type, 100 per page.
 

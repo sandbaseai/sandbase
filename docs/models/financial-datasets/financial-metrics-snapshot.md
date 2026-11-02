@@ -1,6 +1,8 @@
-# Financial Datasets Get Financial Metrics Snapshot
+# Financial Datasets Get Financial Metrics Snapshot API: pricing, parameters and code examples
 
-`financial-datasets/financial-metrics-snapshot` · api · Financial Datasets
+`financial-datasets/financial-metrics-snapshot` · data API · Financial Datasets · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.02 per call · **Modes:** sync
 
 Get the real-time financial metrics snapshot for a stock, including valuation ratios, profitability, efficiency, liquidity, leverage, growth, and per share metrics.
 

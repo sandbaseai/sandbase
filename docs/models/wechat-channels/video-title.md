@@ -1,6 +1,8 @@
-# WeChat Channels Video Title
+# WeChat Channels Video Title API: pricing, parameters and code examples
 
-`wechat-channels/video-title` · api · WeChat Channels
+`wechat-channels/video-title` · data API · WeChat Channels · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.020833 per call · **Modes:** sync
 
 Get lightweight title information for a WeChat Channels video by object ID and optional nonce ID. Use it to identify known video content without requesting downloadable media.
 

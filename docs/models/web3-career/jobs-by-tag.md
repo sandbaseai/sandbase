@@ -1,6 +1,8 @@
-# Web3.career Jobs By Tag
+# Web3.career Jobs By Tag API: pricing, parameters and code examples
 
-`web3-career/jobs-by-tag` · api · Web3.career
+`web3-career/jobs-by-tag` · data API · Web3.career · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.01 per call (free daily quota) · **Modes:** async
 
 Fetch job listings filtered by a skill or category tag. Returns paginated results for the given tag.
 

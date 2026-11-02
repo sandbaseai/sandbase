@@ -1,6 +1,8 @@
-# Douyin Xingtu Author Show Items
+# Douyin Xingtu Author Show Items API: pricing, parameters and code examples
 
-`douyin/xingtu-v2/author-show-items` · api · Douyin
+`douyin/xingtu-v2/author-show-items` · data API · Douyin · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns a video list for a specified Douyin Xingtu author. Filter results by author ID via o_author_id, flow type, platform source, or restrict results to assigned Xingtu videos.
 

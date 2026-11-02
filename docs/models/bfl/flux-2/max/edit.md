@@ -1,6 +1,8 @@
-# Flux 2 Max Edit
+# Flux 2 Max Edit API: pricing, parameters and code examples
 
-`bfl/flux-2/max/edit` · image · BFL
+`bfl/flux-2/max/edit` · image generation model · BFL · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.1 per call · **Modes:** async
 
 Flux 2 Max Edit is BFL's intelligent image editing model. Transform, retouch, and reimagine existing images using text prompts - from background replacement to artistic style conversion.
 

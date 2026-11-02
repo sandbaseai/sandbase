@@ -1,6 +1,8 @@
-# Pipixia Post Statistics
+# Pipixia Post Statistics API: pricing, parameters and code examples
 
-`pipixia/app/post-statistics` · api · Pipixia
+`pipixia/app/post-statistics` · data API · Pipixia · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns engagement metrics and statistics for a single Pipixia post using its identifier. Includes figures such as likes, comments, and reposts.
 

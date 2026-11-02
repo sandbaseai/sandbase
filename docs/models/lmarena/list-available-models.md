@@ -1,6 +1,8 @@
-# LMArena List Available Models
+# LMArena List Available Models API: pricing, parameters and code examples
 
-`lmarena/list-available-models` · api · LMArena
+`lmarena/list-available-models` · data API · LMArena · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.01 per call (free daily quota) · **Modes:** async
 
 List all models available for direct interaction on LMArena, including their capabilities (input/output modalities), organization, selectability status, and per-modality rank. This is the full model catalog.
 

@@ -1,6 +1,8 @@
-# Kling O3 Pro Video Reference
+# Kling O3 Pro Video Reference API: pricing, parameters and code examples
 
-`kwaivgi/kling-video/o3/pro/video-to-video` · video · KwaiVGI
+`kwaivgi/kling-video/o3/pro/video-to-video` · video generation model · KwaiVGI · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** from $0.504 to $1.344 per run, depending on parameters · **Modes:** async
 
 Kling O3 Pro Video Reference by Kuaishou generates a new 1080p shot that follows the style and camera motion of a reference video, optionally guided by reference images.
 

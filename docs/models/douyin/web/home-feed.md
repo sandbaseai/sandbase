@@ -1,6 +1,8 @@
-# Douyin Web Home Feed
+# Douyin Web Home Feed API: pricing, parameters and code examples
 
-`douyin/web/home-feed` · api · Douyin
+`douyin/web/home-feed` · data API · Douyin · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Retrieves the Douyin web home feed containing video listings and media metadata. Supports setting the item count and pagination index.
 

@@ -1,6 +1,8 @@
-# 1688 Shop Products by URL
+# 1688 Shop Products by URL API: pricing, parameters and code examples
 
-`1688/shop/items-by-url` · api · 1688
+`1688/shop/items-by-url` · data API · 1688 · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.013889 per call (free daily quota) · **Modes:** sync
 
 List a 1688 shop's products from its homepage URL, with sort, page size and category filters.
 

@@ -1,6 +1,8 @@
-# Instagram Cities by Country
+# Instagram Cities by Country API: pricing, parameters and code examples
 
-`instagram/v1/cities` · api · Instagram
+`instagram/v1/cities` · data API · Instagram · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns a list of Instagram cities and regions for a specified country code. Allows developers to look up location identifiers by passing pagination parameters.
 

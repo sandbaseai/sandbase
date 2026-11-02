@@ -1,6 +1,8 @@
-# Exa Question Answering
+# Exa Question Answering API: pricing, parameters and code examples
 
-`exa/answer` · api · Exa
+`exa/answer` · data API · Exa · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0075 per call (free daily quota) · **Modes:** sync
 
 Returns direct answers and cited web sources for a given query. Supports custom retrieval modes, optional full page text, and structured schema definitions.
 

@@ -1,6 +1,8 @@
-# MiniMax: MiniMax M3.1 Flash
+# MiniMax: MiniMax M3.1 Flash API: pricing, parameters and code examples
 
-`minimax/minimax-m3.1-flash` · llm · Minimax
+`minimax/minimax-m3.1-flash` · LLM · Minimax · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.15 input / $0.6 output per 1M tokens · **Modes:** sync
 
 MiniMax-M3.1-Flash is the fast, cost-efficient tier of MiniMax's M3.1 generation, which MiniMax describes as an ultra-efficient open-weight model for everyday work. It is a multimodal coding model that accepts text, image and video input and supports a context window of up to 1M tokens. Thinking is always on, and its depth can be tuned with reasoning effort levels from low to max, making it suited to agentic coding, tool use and routine software development at lower latency and cost than MiniMax-M3.
 

@@ -1,6 +1,8 @@
-# Reddit App Trending Searches
+# Reddit App Trending Searches API: pricing, parameters and code examples
 
-`reddit/app/trending-searches` · api · Reddit
+`reddit/app/trending-searches` · data API · Reddit · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns currently trending search queries and topics from the Reddit mobile application, with an option to clean and format the output data.
 

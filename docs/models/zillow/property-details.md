@@ -1,6 +1,8 @@
-# Zillow Property Details
+# Zillow Property Details API: pricing, parameters and code examples
 
-`zillow/property-details` · api · Zillow
+`zillow/property-details` · data API · Zillow · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.01 per call (free daily quota) · **Modes:** async
 
 Retrieve full details for a specific property by its Zillow property ID (zpid). Returns comprehensive property information including price, address, lot size, tax assessment, and listing metadata.
 

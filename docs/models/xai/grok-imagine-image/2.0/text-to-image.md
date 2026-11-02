@@ -1,6 +1,8 @@
-# Grok Imagine Image 2.0 Text to Image
+# Grok Imagine Image 2.0 Text to Image API: pricing, parameters and code examples
 
-`xai/grok-imagine-image/2.0/text-to-image` · image · xAI
+`xai/grok-imagine-image/2.0/text-to-image` · image generation model · xAI · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** from $0.04 to $0.08 per run, depending on parameters · **Modes:** async
 
 Grok Imagine Image 2.0 by xAI - generate stunning images from text prompts with state-of-the-art AI. Supports multiple aspect ratios, styles, and high-resolution output for creative and commercial use.
 

@@ -1,6 +1,8 @@
-# Douyin Xingtu Signed Image URL
+# Douyin Xingtu Signed Image URL API: pricing, parameters and code examples
 
-`douyin/xingtu/sign-image` · api · Douyin
+`douyin/xingtu/sign-image` · data API · Douyin · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Resolves encrypted Xingtu image URIs into accessible image URLs. Callers can specify preferred image formats such as webp, jpg, or png along with link expiration times.
 

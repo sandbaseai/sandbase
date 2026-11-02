@@ -1,6 +1,8 @@
-# LTX 2.3 Pro Audio to Video
+# LTX 2.3 Pro Audio to Video API: pricing, parameters and code examples
 
-`lightricks/ltx-2.3-pro/audio-to-video` · video · Lightricks
+`lightricks/ltx-2.3-pro/audio-to-video` · video generation model · Lightricks · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** about $0.5 per call · **Modes:** async
 
 Ltx 2.3 Pro Audio To Video by Lightricks - advanced AI model for audio-to-video. Delivers high-quality results with fast inference, suitable for both creative and production workflows.
 

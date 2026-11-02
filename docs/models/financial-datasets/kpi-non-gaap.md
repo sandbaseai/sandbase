@@ -1,6 +1,8 @@
-# Financial Datasets Non-GAAP Metrics
+# Financial Datasets Non-GAAP Metrics API: pricing, parameters and code examples
 
-`financial-datasets/kpi-non-gaap` · api · Financial Datasets
+`financial-datasets/kpi-non-gaap` · data API · Financial Datasets · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.02 per call · **Modes:** sync
 
 Get non-GAAP financial metrics with GAAP equivalents and key adjustments.
 

@@ -1,6 +1,8 @@
-# Zhihu Preset Search
+# Zhihu Preset Search API: pricing, parameters and code examples
 
-`zhihu/web/preset-search` · api · Zhihu
+`zhihu/web/preset-search` · data API · Zhihu · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Retrieves preset search recommendations and default placeholder queries from Zhihu Web. Returns trending search terms without requiring input parameters.
 

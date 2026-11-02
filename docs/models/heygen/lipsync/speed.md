@@ -1,6 +1,8 @@
-# HeyGen Lipsync Speed
+# HeyGen Lipsync Speed API: pricing, parameters and code examples
 
-`heygen/lipsync/speed` · video · HeyGen
+`heygen/lipsync/speed` · video generation model · HeyGen · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** about $0.25 per call · **Modes:** async
 
 HeyGen v3 Lipsync (speed) replaces the speech in a video and re-syncs the speaker's lips to the new audio.
 

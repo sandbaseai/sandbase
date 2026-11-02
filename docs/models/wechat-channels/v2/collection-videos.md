@@ -1,6 +1,8 @@
-# WeChat Channels Collection Videos
+# WeChat Channels Collection Videos API: pricing, parameters and code examples
 
-`wechat-channels/v2/collection-videos` · api · WeChat Channels
+`wechat-channels/v2/collection-videos` · data API · WeChat Channels · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.015 per call (free daily quota) · **Modes:** sync
 
 Returns videos contained within a WeChat Channels collection using a collection ID. Provides video media URLs, decryption keys, and pagination cursors.
 

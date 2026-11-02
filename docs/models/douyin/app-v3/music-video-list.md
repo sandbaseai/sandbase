@@ -1,6 +1,8 @@
-# Douyin Music Video List
+# Douyin Music Video List API: pricing, parameters and code examples
 
-`douyin/app-v3/music-video-list` · api · Douyin
+`douyin/app-v3/music-video-list` · data API · Douyin · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns a paginated list of Douyin videos that feature a specified audio track, identified by its music ID.
 

@@ -1,6 +1,8 @@
-# Lemon8 Discover Editor Picks
+# Lemon8 Discover Editor Picks API: pricing, parameters and code examples
 
-`lemon8/app/discover-tab-information-tabs` · api · Lemon8
+`lemon8/app/discover-tab-information-tabs` · data API · Lemon8 · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns the Editor's Picks and discover tab information from the Lemon8 mobile app. Use this endpoint to inspect curated featured categories and discover sections.
 

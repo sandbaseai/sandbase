@@ -1,6 +1,8 @@
-# Amazon Product Details
+# Amazon Product Details API: pricing, parameters and code examples
 
-`amazon/product-detail` · api · Amazon
+`amazon/product-detail` · data API · Amazon · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.013889 per call (free daily quota) · **Modes:** sync
 
 Get details for an Amazon product identified by ASIN in a selected country marketplace. Use it to look up a known listing for catalog review, product comparison, or downstream commerce analysis.
 

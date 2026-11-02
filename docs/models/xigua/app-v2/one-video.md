@@ -1,6 +1,8 @@
-# Xigua Single Video Information
+# Xigua Single Video Information API: pricing, parameters and code examples
 
-`xigua/app-v2/one-video` · api · Xigua
+`xigua/app-v2/one-video` · data API · Xigua · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns lightweight single video data and associated related video information from Xigua for a specific post by its unique item ID.
 

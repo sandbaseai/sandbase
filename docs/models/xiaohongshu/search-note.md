@@ -1,6 +1,8 @@
-# Xiaohongshu Keyword Note Search
+# Xiaohongshu Keyword Note Search API: pricing, parameters and code examples
 
-`xiaohongshu/search-note` · api · Xiaohongshu
+`xiaohongshu/search-note` · data API · Xiaohongshu · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.020833 per call · **Modes:** sync
 
 Search Xiaohongshu (RedNote) notes by keyword with page-based pagination, sorting and note-type filters. The V2 noteTime filter may return notes outside the selected time range.
 

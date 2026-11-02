@@ -1,6 +1,8 @@
-# Wan 3.0 Prime Video
+# Wan 3.0 Prime Video API: pricing, parameters and code examples
 
-`alibaba/wan/3.0/prime/video` · video · Alibaba
+`alibaba/wan/3.0/prime/video` · video generation model · Alibaba · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** about $0.7 per call · **Modes:** async
 
 Alibaba Wan 3.0 Prime Video generates videos up to 30 seconds with native audio from text, a first/last frame, or reference images, videos, and audio.
 

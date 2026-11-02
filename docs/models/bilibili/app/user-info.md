@@ -1,6 +1,8 @@
-# Bilibili App User Info
+# Bilibili App User Info API: pricing, parameters and code examples
 
-`bilibili/app/user-info` · api · Bilibili
+`bilibili/app/user-info` · data API · Bilibili · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns account profile details and uploaded video archives for a specified Bilibili creator using their unique user identifier.
 

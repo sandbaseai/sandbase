@@ -1,6 +1,8 @@
-# LinkedIn Post Reactions
+# LinkedIn Post Reactions API: pricing, parameters and code examples
 
-`linkedin/post-reactions` · api · LinkedIn
+`linkedin/post-reactions` · data API · LinkedIn · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** about $0.0029 per call · **Modes:** sync
 
 List who reacted to a LinkedIn post - reactor name, profile URL, job title, and reaction type. Lead-gen grade.
 

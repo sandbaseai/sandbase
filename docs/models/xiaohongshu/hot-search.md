@@ -1,6 +1,8 @@
-# Xiaohongshu Hot Search
+# Xiaohongshu Hot Search API: pricing, parameters and code examples
 
-`xiaohongshu/hot-search` · api · Xiaohongshu
+`xiaohongshu/hot-search` · data API · Xiaohongshu · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.020833 per call · **Modes:** sync
 
 Search Xiaohongshu (RedNote) hot-content entries with optional keyword, content-category path, pagination, ranking metric, and time-range controls.
 

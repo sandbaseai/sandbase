@@ -1,6 +1,8 @@
-# Xiaohongshu (RED) Creator Hot Inspiration Feed
+# Xiaohongshu (RED) Creator Hot Inspiration Feed API: pricing, parameters and code examples
 
-`xiaohongshu/app-v2/creator-hot-inspiration-feed` · api · Xiaohongshu
+`xiaohongshu/app-v2/creator-hot-inspiration-feed` · data API · Xiaohongshu · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.015 per call (free daily quota) · **Modes:** sync
 
 Retrieves creator center hot inspiration feed items with topic titles, popularity scores, and deeplinks. Supports pagination using a cursor parameter.
 

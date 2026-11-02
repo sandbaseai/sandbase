@@ -1,6 +1,8 @@
-# Xiaohongshu Pugongying Creator Core Metrics
+# Xiaohongshu Pugongying Creator Core Metrics API: pricing, parameters and code examples
 
-`xiaohongshu/pgy-v2/data-core-data` · api · Xiaohongshu
+`xiaohongshu/pgy-v2/data-core-data` · data API · Xiaohongshu · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.020833 per call · **Modes:** sync
 
 Get Xiaohongshu Pugongying core data for a creator with business, note-type, date-range, and advertisement filters. Use it to compare creators within a selected analysis scope.
 

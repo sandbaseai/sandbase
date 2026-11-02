@@ -1,6 +1,8 @@
-# DataForSEO Google Ranked Keywords
+# DataForSEO Google Ranked Keywords API: pricing, parameters and code examples
 
-`dataforseo/v3/dataforseo_labs/google/ranked_keywords/live` · api · DataForSEO
+`dataforseo/v3/dataforseo_labs/google/ranked_keywords/live` · data API · DataForSEO · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.024 per call · **Modes:** sync
 
 Returns all Google search keywords for which a specified domain currently ranks. Provides ranking keyword metrics and organic search performance data.
 

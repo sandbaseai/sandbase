@@ -1,6 +1,8 @@
-# Douyin Web TTWID Generator
+# Douyin Web TTWID Generator API: pricing, parameters and code examples
 
-`douyin/web/generate-ttwid` · api · Douyin
+`douyin/web/generate-ttwid` · data API · Douyin · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns a Douyin web ttwid cookie value required for web session authentication. Accepts an optional custom user agent string.
 

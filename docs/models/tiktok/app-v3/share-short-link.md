@@ -1,6 +1,8 @@
-# TikTok Share Short Link
+# TikTok Share Short Link API: pricing, parameters and code examples
 
-`tiktok/app-v3/share-short-link` · api · TikTok
+`tiktok/app-v3/share-short-link` · data API · TikTok · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Converts standard TikTok long links into shortened shareable URLs. Supply the full target web address to return the compressed redirect URL.
 

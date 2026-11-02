@@ -1,6 +1,8 @@
-# Xiaohongshu (RED) Homepage Categories
+# Xiaohongshu (RED) Homepage Categories API: pricing, parameters and code examples
 
-`xiaohongshu/web-v3/homefeed-categories` · api · Xiaohongshu
+`xiaohongshu/web-v3/homefeed-categories` · data API · Xiaohongshu · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.015 per call (free daily quota) · **Modes:** sync
 
 Returns a list of available homefeed category channels on Xiaohongshu (RED). Use this endpoint to inspect valid category identifiers for content discovery.
 

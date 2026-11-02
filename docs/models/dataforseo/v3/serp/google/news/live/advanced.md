@@ -1,6 +1,8 @@
-# DataForSEO Google News SERP
+# DataForSEO Google News SERP API: pricing, parameters and code examples
 
-`dataforseo/v3/serp/google/news/live/advanced` · api · DataForSEO
+`dataforseo/v3/serp/google/news/live/advanced` · data API · DataForSEO · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** from $0.003 per run, depending on parameters · **Modes:** sync
 
 Get live Google News results for any keyword, location and language: headlines, sources, URLs, dates and rank.
 

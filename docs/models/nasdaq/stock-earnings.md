@@ -1,6 +1,8 @@
-# Nasdaq Stock Earnings
+# Nasdaq Stock Earnings API: pricing, parameters and code examples
 
-`nasdaq/stock-earnings` · api · Nasdaq
+`nasdaq/stock-earnings` · data API · Nasdaq · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.01 per call (free daily quota) · **Modes:** async
 
 Earnings data for a stock: EPS history (previous and upcoming quarters with consensus vs actual) and upcoming earnings date with analyst forecast information.
 

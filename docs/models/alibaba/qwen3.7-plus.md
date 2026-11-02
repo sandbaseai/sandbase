@@ -1,6 +1,8 @@
-# Qwen: Qwen3.7 Plus
+# Qwen: Qwen3.7 Plus API: pricing, parameters and code examples
 
-`alibaba/qwen3.7-plus` · llm · Alibaba
+`alibaba/qwen3.7-plus` · LLM · Alibaba · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.4 input / $1.6 output per 1M tokens · **Modes:** sync
 
 Qwen3.7 Plus is the balanced Plus tier of Alibaba's Qwen3.7 series, a reasoning model with text and image input released in June 2026. Alibaba highlights its multimodal hybrid agent abilities: perceiving real-world scenes, reading screens and operating GUIs, generating code from visual references and navigating mobile apps end to end, alongside coding, tool use and productivity work. Model Studio recommends it as its default for general and coding workloads, with Qwen3.8 Max for harder reasoning.
 

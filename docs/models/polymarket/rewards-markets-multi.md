@@ -1,6 +1,8 @@
-# Polymarket Get multiple markets with rewards
+# Polymarket Get multiple markets with rewards API: pricing, parameters and code examples
 
-`polymarket/rewards-markets-multi` · api · Polymarket
+`polymarket/rewards-markets-multi` · data API · Polymarket · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.012 per call (free daily quota) · **Modes:** sync
 
 Returns multiple markets with rewards and supports filtering and sorting.
 

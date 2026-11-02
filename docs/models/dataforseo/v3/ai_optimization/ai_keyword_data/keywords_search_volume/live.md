@@ -1,6 +1,8 @@
-# DataForSEO AI Keyword Search Volume
+# DataForSEO AI Keyword Search Volume API: pricing, parameters and code examples
 
-`dataforseo/v3/ai_optimization/ai_keyword_data/keywords_search_volume/live` · api · DataForSEO
+`dataforseo/v3/ai_optimization/ai_keyword_data/keywords_search_volume/live` · data API · DataForSEO · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** about $0.0102 per call · **Modes:** sync
 
 Estimated search volume of keywords inside AI tools such as ChatGPT and AI Overviews.
 

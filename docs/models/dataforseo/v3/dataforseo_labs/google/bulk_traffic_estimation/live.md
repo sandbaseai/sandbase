@@ -1,6 +1,8 @@
-# DataForSEO Google Bulk Traffic Estimation
+# DataForSEO Google Bulk Traffic Estimation API: pricing, parameters and code examples
 
-`dataforseo/v3/dataforseo_labs/google/bulk_traffic_estimation/live` · api · DataForSEO
+`dataforseo/v3/dataforseo_labs/google/bulk_traffic_estimation/live` · data API · DataForSEO · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.024 per call · **Modes:** sync
 
 Estimate monthly organic and paid traffic for up to 100 domains, subdomains or URLs in Google by location and language.
 

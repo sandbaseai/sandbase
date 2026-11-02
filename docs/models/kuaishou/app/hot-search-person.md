@@ -1,6 +1,8 @@
-# Kuaishou Hot Search Person Board
+# Kuaishou Hot Search Person Board API: pricing, parameters and code examples
 
-`kuaishou/app/hot-search-person` · api · Kuaishou
+`kuaishou/app/hot-search-person` · data API · Kuaishou · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns the current Kuaishou hot search person board rankings. Delivers real-time trending individuals and popular figures featured across the platform.
 

@@ -1,6 +1,8 @@
-# WeChat MP Search Suggestions
+# WeChat MP Search Suggestions API: pricing, parameters and code examples
 
-`wechat-mp/search-suggestions` · api · WeChat MP
+`wechat-mp/search-suggestions` · data API · WeChat MP · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.111111 per call · **Modes:** sync
 
 Get WeChat search suggestions for a keyword, optionally scoped by a supported business type. Use it to expand or refine a query before a targeted WeChat search.
 

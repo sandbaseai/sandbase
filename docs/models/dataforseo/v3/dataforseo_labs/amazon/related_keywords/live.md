@@ -1,6 +1,8 @@
-# DataForSEO Amazon Related Keywords
+# DataForSEO Amazon Related Keywords API: pricing, parameters and code examples
 
-`dataforseo/v3/dataforseo_labs/amazon/related_keywords/live` · api · DataForSEO
+`dataforseo/v3/dataforseo_labs/amazon/related_keywords/live` · data API · DataForSEO · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.024 per call · **Modes:** sync
 
 Get Amazon keywords related to a seed, with search volume.
 

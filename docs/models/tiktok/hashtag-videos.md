@@ -1,6 +1,8 @@
-# TikTok Hashtag Videos
+# TikTok Hashtag Videos API: pricing, parameters and code examples
 
-`tiktok/hashtag-videos` · api · TikTok
+`tiktok/hashtag-videos` · data API · TikTok · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** about $0.0012 per call · **Modes:** sync
 
 List recent TikTok videos for a hashtag (creator, caption, views, likes, shares).
 

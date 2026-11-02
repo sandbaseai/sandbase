@@ -1,6 +1,8 @@
-# Douyin General Search (V2)
+# Douyin General Search (V2) API: pricing, parameters and code examples
 
-`douyin/search/general-search-v2` · api · Douyin
+`douyin/search/general-search-v2` · data API · Douyin · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.015 per call (free daily quota) · **Modes:** sync
 
 Returns search results from Douyin's general search tab. Supports filtering by keyword, sort method, post date, video duration, and content type.
 

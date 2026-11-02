@@ -1,6 +1,8 @@
-# Reddit App Search Typeahead
+# Reddit App Search Typeahead API: pricing, parameters and code examples
 
-`reddit/app/search-typeahead` · api · Reddit
+`reddit/app/search-typeahead` · data API · Reddit · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns autocomplete suggestions for the Reddit search box based on typed input. Includes options to toggle adult content, apply safe search settings, and format response data.
 

@@ -1,6 +1,8 @@
-# TikTok Video App Share Link
+# TikTok Video App Share Link API: pricing, parameters and code examples
 
-`tiktok/app-v3/open-app-to-video-detail` · api · TikTok
+`tiktok/app-v3/open-app-to-video-detail` · data API · TikTok · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns a shareable short URL that opens a specific video directly in the TikTok mobile application. Requires the target video identifier.
 

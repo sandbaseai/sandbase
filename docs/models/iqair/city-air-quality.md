@@ -1,6 +1,8 @@
-# IQAir City Air Quality
+# IQAir City Air Quality API: pricing, parameters and code examples
 
-`iqair/city-air-quality` · api · IQAir
+`iqair/city-air-quality` · data API · IQAir · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.01 per call (free daily quota) · **Modes:** async
 
 Full air quality details for a specific city including current conditions, pollutant breakdown with concentrations, hourly and daily forecasts, weather data, pollen indices, and health recommendations. City, state,.
 

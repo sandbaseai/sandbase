@@ -1,6 +1,8 @@
-# G2 Search Software
+# G2 Search Software API: pricing, parameters and code examples
 
-`g2/search-software` · api · G2
+`g2/search-software` · data API · G2 · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.02 per call · **Modes:** async
 
 Full-text search over G2's software product catalog. Returns matching products with name, slug, rating, review count, and description.
 

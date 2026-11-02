@@ -1,6 +1,8 @@
-# FRED category
+# FRED category API: pricing, parameters and code examples
 
-`fred/category` · api · FRED
+`fred/category` · data API · FRED · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $1e-05 per call (free daily quota) · **Modes:** sync
 
 category from FRED. Returns the official FRED API response unchanged.
 

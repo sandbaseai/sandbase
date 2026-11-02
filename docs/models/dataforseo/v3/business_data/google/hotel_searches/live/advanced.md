@@ -1,6 +1,8 @@
-# DataForSEO Google Hotel Search Advanced
+# DataForSEO Google Hotel Search Advanced API: pricing, parameters and code examples
 
-`dataforseo/v3/business_data/google/hotel_searches/live/advanced` · api · DataForSEO
+`dataforseo/v3/business_data/google/hotel_searches/live/advanced` · data API · DataForSEO · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.005 per call (free daily quota) · **Modes:** sync
 
 Returns detailed Google Hotel search results and business data for target locations. Provides hotel listings, guest ratings, and business attributes directly from Google.
 

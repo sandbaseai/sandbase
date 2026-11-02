@@ -1,6 +1,8 @@
-# Weather Underground Historical Airport Temperature Series
+# Weather Underground Historical Airport Temperature Series API: pricing, parameters and code examples
 
-`weather-underground/historical-airport-temperature-series` · api · Weather Underground
+`weather-underground/historical-airport-temperature-series` · data API · Weather Underground · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.01 per call (free daily quota) · **Modes:** async
 
 Retrieve a complete year-scale airport observation temperature series for settlement calibration. Returns every observation within the requested local-date range (up to 366 days), preserving the full intraday path.
 

@@ -1,6 +1,8 @@
-# Segari Product Page
+# Segari Product Page API: pricing, parameters and code examples
 
-`segari/scrape/product` · api · Segari
+`segari/scrape/product` · data API · Segari · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.024 per call · **Modes:** async
 
 Extract structured data from a Segari product page URL: price, availability and product details.
 

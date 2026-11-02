@@ -1,6 +1,8 @@
-# Financial Datasets Get Analyst Estimates
+# Financial Datasets Get Analyst Estimates API: pricing, parameters and code examples
 
-`financial-datasets/analyst-estimates` · api · Financial Datasets
+`financial-datasets/analyst-estimates` · data API · Financial Datasets · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.02 per call · **Modes:** sync
 
 Get Analyst Estimates from Financial Datasets. Returns the official Financial Datasets API response unchanged.
 

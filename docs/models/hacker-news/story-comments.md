@@ -1,6 +1,8 @@
-# Hacker News Story Comments
+# Hacker News Story Comments API: pricing, parameters and code examples
 
-`hacker-news/story-comments` · api · Hacker News
+`hacker-news/story-comments` · data API · Hacker News · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** about $0.0015 per call · **Modes:** sync
 
 List the comments on a Hacker News story by id - text, author, and timestamp as clean JSON.
 

@@ -1,6 +1,8 @@
-# Toutiao Video Information
+# Toutiao Video Information API: pricing, parameters and code examples
 
-`toutiao/app/video-info` · api · Toutiao
+`toutiao/app/video-info` · data API · Toutiao · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns detailed information for a specified Toutiao video using its post identifier. Useful for retrieving metadata and content status from Toutiao posts.
 

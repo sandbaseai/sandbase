@@ -1,6 +1,8 @@
-# Instagram Location Details (V3)
+# Instagram Location Details (V3) API: pricing, parameters and code examples
 
-`instagram/v3/location-info` · api · Instagram
+`instagram/v3/location-info` · data API · Instagram · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.012 per call (free daily quota) · **Modes:** sync
 
 Returns detailed place information including name, address, coordinates, and nearby places for an Instagram location. Queries are based on a specific location ID.
 

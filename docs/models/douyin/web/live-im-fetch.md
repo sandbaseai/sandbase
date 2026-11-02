@@ -1,6 +1,8 @@
-# Douyin Room Danmaku Parameters
+# Douyin Room Danmaku Parameters API: pricing, parameters and code examples
 
-`douyin/web/live-im-fetch` · api · Douyin
+`douyin/web/live-im-fetch` · data API · Douyin · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Retrieves chat and danmaku parameters for a Douyin broadcast session. Requires the target room identifier and user unique identifier.
 

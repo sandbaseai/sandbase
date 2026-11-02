@@ -1,6 +1,8 @@
-# TikTok Profile Unique IDs
+# TikTok Profile Unique IDs API: pricing, parameters and code examples
 
-`tiktok/web/all-unique-id` · api · TikTok
+`tiktok/web/all-unique-id` · data API · TikTok · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Resolves a batch of TikTok user homepage links to retrieve their corresponding unique identifiers. Accepts a list of profile URLs in the request payload.
 

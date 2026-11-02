@@ -1,6 +1,8 @@
-# Douyin Image Search
+# Douyin Image Search API: pricing, parameters and code examples
 
-`douyin/search/image-search` · api · Douyin
+`douyin/search/image-search` · data API · Douyin · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.015 per call (free daily quota) · **Modes:** sync
 
 Returns image-based search results from Douyin matching a search keyword. Supports sorting, content filtering, post date filters, and pagination parameters.
 

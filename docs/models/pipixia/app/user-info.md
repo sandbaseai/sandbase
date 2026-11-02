@@ -1,6 +1,8 @@
-# Pipixia User Information
+# Pipixia User Information API: pricing, parameters and code examples
 
-`pipixia/app/user-info` · api · Pipixia
+`pipixia/app/user-info` · data API · Pipixia · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Retrieves public profile details for a Pipixia user, including avatar image URLs. Takes a user identifier obtained from a share link.
 

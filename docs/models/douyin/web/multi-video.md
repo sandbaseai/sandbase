@@ -1,6 +1,8 @@
-# Douyin Batch Video Information (Web)
+# Douyin Batch Video Information (Web) API: pricing, parameters and code examples
 
-`douyin/web/multi-video` · api · Douyin
+`douyin/web/multi-video` · data API · Douyin · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.075 per call · **Modes:** sync
 
 Retrieves details for multiple Douyin videos in a single batch request via the web interface. Accepts an array of video identifiers in the request payload.
 

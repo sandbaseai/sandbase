@@ -1,6 +1,8 @@
-# Similarweb SERP Players - Clicks over time
+# Similarweb SERP Players - Clicks over time API: pricing, parameters and code examples
 
-`similarweb/search-serp-players-timeseries` · api · Similarweb
+`similarweb/search-serp-players-timeseries` · data API · Similarweb · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** about $0.075 per call · **Modes:** sync
 
 Get month-by-month clicks for the websites that appear on search results for given keywords.
 

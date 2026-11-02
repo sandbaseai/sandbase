@@ -1,6 +1,8 @@
-# Douyin DOU+ Video Ranking
+# Douyin DOU+ Video Ranking API: pricing, parameters and code examples
 
-`douyin/douplus/video-ranking` · api · Douyin
+`douyin/douplus/video-ranking` · data API · Douyin · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Retrieves DOU+ video leaderboard metrics filterable by category, ranking dimension, and time range. Returns video titles, author details, and engagement statistics.
 

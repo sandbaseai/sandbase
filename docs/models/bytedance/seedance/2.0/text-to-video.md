@@ -1,6 +1,8 @@
-# Seedance 2.0 Text to Video
+# Seedance 2.0 Text to Video API: pricing, parameters and code examples
 
-`bytedance/seedance/2.0/text-to-video` · video · Bytedance
+`bytedance/seedance/2.0/text-to-video` · video generation model · Bytedance · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** from $0.48 to $9.6 per run, depending on parameters · **Modes:** async
 
 ByteDance's most advanced text-to-video model  delivering cinematic output, native audio, multi-shot editing, and director-level camera control for professional-grade video creation.
 

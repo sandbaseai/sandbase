@@ -1,6 +1,8 @@
-# Kuaishou User ID Lookup
+# Kuaishou User ID Lookup API: pricing, parameters and code examples
 
-`kuaishou/web/get-user-id` · api · Kuaishou
+`kuaishou/web/get-user-id` · data API · Kuaishou · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Resolves a Kuaishou user ID from a provided user share link. Useful for extracting internal profile identifiers from public sharing URLs.
 

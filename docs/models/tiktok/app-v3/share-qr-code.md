@@ -1,6 +1,8 @@
-# TikTok Share QR Code
+# TikTok Share QR Code API: pricing, parameters and code examples
 
-`tiktok/app-v3/share-qr-code` · api · TikTok
+`tiktok/app-v3/share-qr-code` · data API · TikTok · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns a shareable QR code for a target TikTok profile. Requests require an object identifier and accept an optional schema type configuration.
 

@@ -1,6 +1,8 @@
-# WeChat Channels User Videos
+# WeChat Channels User Videos API: pricing, parameters and code examples
 
-`wechat-channels/v2/user-videos` · api · WeChat Channels
+`wechat-channels/v2/user-videos` · data API · WeChat Channels · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.015 per call (free daily quota) · **Modes:** sync
 
 Get the videos on a WeChat Channels account's homepage with descriptions, publish time, like, comment, share and favorite counts, and media download info, with cursor pagination.
 

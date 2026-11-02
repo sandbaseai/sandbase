@@ -1,6 +1,8 @@
-# TikTok Audience Demographics
+# TikTok Audience Demographics API: pricing, parameters and code examples
 
-`tiktok/audience-demographics` · api · TikTok
+`tiktok/audience-demographics` · data API · TikTok · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** about $0.018 per call · **Modes:** sync
 
 Get the audience country breakdown (follower count and share per country) for a TikTok creator by handle.
 

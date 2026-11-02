@@ -1,6 +1,8 @@
-# Douyin User Search (V2)
+# Douyin User Search (V2) API: pricing, parameters and code examples
 
-`douyin/search/user-search-v2` · api · Douyin
+`douyin/search/user-search-v2` · data API · Douyin · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Searches for Douyin users matching specified search keywords and returns user metrics such as follower and like counts. Supports cursor-based pagination.
 

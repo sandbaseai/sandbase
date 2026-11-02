@@ -1,6 +1,8 @@
-# TikTok Stream Status Check
+# TikTok Stream Status Check API: pricing, parameters and code examples
 
-`tiktok/web/check-live-alive` · api · TikTok
+`tiktok/web/check-live-alive` · data API · TikTok · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.003 per call (free daily quota) · **Modes:** sync
 
 Checks the active broadcast state of a specified TikTok room. Returns room identifier data and a boolean flag indicating whether the stream is active.
 

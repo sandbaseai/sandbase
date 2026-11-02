@@ -1,6 +1,8 @@
-# Instagram Location Search by Coordinates (V3)
+# Instagram Location Search by Coordinates (V3) API: pricing, parameters and code examples
 
-`instagram/v3/search-by-coordinates` · api · Instagram
+`instagram/v3/search-by-coordinates` · data API · Instagram · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.012 per call (free daily quota) · **Modes:** sync
 
 Returns nearby Instagram locations matching specific GPS coordinates. Provide latitude and longitude coordinates to discover venues and their external IDs.
 

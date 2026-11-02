@@ -1,6 +1,8 @@
-# Google Play Reviews
+# Google Play Reviews API: pricing, parameters and code examples
 
-`google-play/reviews` · api · Google Play
+`google-play/reviews` · data API · Google Play · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.00015 per call (free daily quota) · **Modes:** async
 
 Get Google Play reviews for a product with rating, sort, platform, and paging.
 

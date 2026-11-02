@@ -1,0 +1,23 @@
+# SandBase
+
+> AI models, data APIs, sandboxes and agents behind one API key, pay as you go. 2,000+ capabilities (1,700+ data APIs, 400+ AI models), 100 free data-API calls a day, free sandboxes (E2B-compatible) and free Agents (OpenAI Agents API-compatible).
+
+Base URL: https://api.sandbase.ai. Auth: `Authorization: Bearer $SANDBASE_API_KEY`. Every non-LLM capability: `POST /v1/run` with `{"model": "<name>", ...fields}`; async runs return an id to poll with `GET /v1/run/{id}`. LLMs: OpenAI-compatible `/v1/chat/completions` and `/v1/responses`, Anthropic `/v1/messages`.
+
+## Catalog
+- [catalog/index.json](https://raw.githubusercontent.com/sandbaseai/sandbase/main/catalog/index.json): every capability with type, modes, endpoint and price summary
+- catalog/models/<name>.json (https://raw.githubusercontent.com/sandbaseai/sandbase/main/catalog/models/openai/gpt-image-2.5-flare.json): input JSON Schema, output, modes, pricing, examples
+- [openapi/sandbase.openapi.json](https://raw.githubusercontent.com/sandbaseai/sandbase/main/openapi/sandbase.openapi.json): OpenAPI 3.1
+- [docs/platforms/README.md](https://raw.githubusercontent.com/sandbaseai/sandbase/main/docs/platforms/README.md): capabilities grouped by platform
+
+## Clients
+- [Python](https://raw.githubusercontent.com/sandbaseai/sandbase/main/sdk/python/README.md), [TypeScript](https://raw.githubusercontent.com/sandbaseai/sandbase/main/sdk/typescript/README.md), [Go](https://raw.githubusercontent.com/sandbaseai/sandbase/main/sdk/go/README.md): `run()` waits for sync and async results; Agents helpers
+- [Sandboxes with the E2B SDK](https://raw.githubusercontent.com/sandbaseai/sandbase/main/examples/sandbox/python/hello_sandbox.py)
+- [Agents with the OpenAI SDK](https://raw.githubusercontent.com/sandbaseai/sandbase/main/examples/agents/python/openai_agents.py)
+
+## Top platforms
+- Douyin, TikTok, DataForSEO, Instagram, Alibaba, Weibo, Polymarket, Google, Xiaohongshu, YouTube, Zhihu, OpenAI, Bilibili, KwaiVGI, Kuaishou, LinkedIn, FRED, Reddit, Bytedance, Facebook, Similarweb, MiniMax, CoinGecko, WeChat Channels, BFL, Financial Datasets, xAI, IMDb, Nasdaq, Pipixia, Twitter, Lemon8, WeChat MP, Anthropic, 1688, AAA, MarketBeat, ElevenLabs, X (Twitter), GetApp
+
+## Optional
+- [SandBase CLI / MCP for coding agents](https://github.com/sandbaseai/cli)
+- [Documentation](https://www.sandbase.ai/docs/)

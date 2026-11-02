@@ -1,6 +1,8 @@
-# Instagram Post Details
+# Instagram Post Details API: pricing, parameters and code examples
 
-`instagram/post-detail` · api · Instagram
+`instagram/post-detail` · data API · Instagram · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.013889 per call (free daily quota) · **Modes:** sync
 
 Get an Instagram post by its shortcode. Use it to look up a known post before content review, archiving, comment analysis, or related workflows.
 

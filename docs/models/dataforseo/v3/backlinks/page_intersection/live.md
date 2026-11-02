@@ -1,6 +1,8 @@
-# DataForSEO Backlinks Page Intersection
+# DataForSEO Backlinks Page Intersection API: pricing, parameters and code examples
 
-`dataforseo/v3/backlinks/page_intersection/live` · api · DataForSEO
+`dataforseo/v3/backlinks/page_intersection/live` · data API · DataForSEO · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** about $0.02436 per call · **Modes:** sync
 
 Referring pages that link to all (or some) of up to 20 target pages or domains.
 

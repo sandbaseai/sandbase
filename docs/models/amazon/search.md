@@ -1,6 +1,8 @@
-# Amazon Search
+# Amazon Search API: pricing, parameters and code examples
 
-`amazon/search` · api · Amazon
+`amazon/search` · data API · Amazon · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.015 per call (free daily quota) · **Modes:** async
 
 Search Amazon by keyword: organic results with ASIN, title, price, old price, rating, reviews, Prime and delivery info, plus sponsored products and pagination.
 

@@ -1,6 +1,8 @@
-# Douyin Video Detail
+# Douyin Video Detail API: pricing, parameters and code examples
 
-`douyin/app-v3/one-video-v3` · api · Douyin
+`douyin/app-v3/one-video-v3` · data API · Douyin · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Get the full data of a single Douyin post by ID (video, photo or article): description, author, hashtags, music, statistics and play URLs.
 

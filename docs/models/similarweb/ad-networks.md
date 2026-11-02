@@ -1,6 +1,8 @@
-# Similarweb Ad Networks
+# Similarweb Ad Networks API: pricing, parameters and code examples
 
-`similarweb/ad-networks` · api · Similarweb
+`similarweb/ad-networks` · data API · Similarweb · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** about $0.225 per call · **Modes:** sync
 
 Get the ad networks behind a website's display-ad traffic, with each network's traffic share and change over the selected months.
 

@@ -1,6 +1,8 @@
-# Hunyuan Image 3.0 Edit
+# Hunyuan Image 3.0 Edit API: pricing, parameters and code examples
 
-`tencent/hunyuan-image/3.0/edit` · image · Tencent
+`tencent/hunyuan-image/3.0/edit` · image generation model · Tencent · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.45 per call · **Modes:** async
 
 Hunyuan Image 3.0 Edit by Tencent - AI-powered image editing, style transfer, and transformation. Edit photos with natural language instructions, remove backgrounds, change styles, and enhance images effortlessly.
 

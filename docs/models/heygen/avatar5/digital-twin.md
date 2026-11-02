@@ -1,6 +1,8 @@
-# HeyGen Avatar 5 Digital Twin
+# HeyGen Avatar 5 Digital Twin API: pricing, parameters and code examples
 
-`heygen/avatar5/digital-twin` · video · HeyGen
+`heygen/avatar5/digital-twin` · video generation model · HeyGen · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** about $0.6 per call · **Modes:** async
 
 Avatar5 Digital Twin by HeyGen - generate cinematic videos from text descriptions with AI. Create high-quality video content with natural motion, camera control, and optional audio generation.
 

@@ -1,6 +1,8 @@
-# LinkedIn Jobs (index)
+# LinkedIn Jobs (index) API: pricing, parameters and code examples
 
-`linkedin/jobs-thin` · api · LinkedIn
+`linkedin/jobs-thin` · data API · LinkedIn · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** about $0.00066 per call · **Modes:** sync
 
 Cheap job index: title, company, location, posted date, URL. No description, salary, applicant counts, or seniority - for those use linkedin.jobs.
 

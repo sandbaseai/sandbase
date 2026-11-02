@@ -1,6 +1,8 @@
-# Instagram Explore Section Posts
+# Instagram Explore Section Posts API: pricing, parameters and code examples
 
-`instagram/v1/section-posts` · api · Instagram
+`instagram/v1/section-posts` · data API · Instagram · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns posts listed under a specific Instagram explore section. Supports pagination controls and page size configuration by section ID.
 

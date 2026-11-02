@@ -1,6 +1,8 @@
-# Artificial Analysis Models List
+# Artificial Analysis Models List API: pricing, parameters and code examples
 
-`artificial-analysis/models-list` · api · Artificial Analysis
+`artificial-analysis/models-list` · data API · Artificial Analysis · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.02 per call · **Modes:** async
 
 Get a list of all LLM models (one row per model variant, e.g. each effort level) with slug, display name, the release it belongs to (releaseSlug and a release object), deprecation flag, release date, and creator.
 

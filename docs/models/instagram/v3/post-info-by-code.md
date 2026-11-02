@@ -1,6 +1,8 @@
-# Instagram Post Info by Shortcode
+# Instagram Post Info by Shortcode API: pricing, parameters and code examples
 
-`instagram/v3/post-info-by-code` · api · Instagram
+`instagram/v3/post-info-by-code` · data API · Instagram · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.012 per call (free daily quota) · **Modes:** sync
 
 Retrieves detailed post information and media items for an Instagram post using its shortcode. Provides carousel media details, accessibility captions, and post identifiers.
 

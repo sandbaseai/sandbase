@@ -1,6 +1,8 @@
-# Apollo Bulk Organization Enrichment
+# Apollo Bulk Organization Enrichment API: pricing, parameters and code examples
 
-`apollo/company-bulk-enrich` · api · Apollo
+`apollo/company-bulk-enrich` · data API · Apollo · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** from $0.01975 per run, depending on parameters · **Modes:** sync
 
 Enrich up to 10 companies in one call. Body takes `domains`, an array of bare domains.
 

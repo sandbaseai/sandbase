@@ -1,6 +1,8 @@
-# AAA Ev Charging Prices
+# AAA Ev Charging Prices API: pricing, parameters and code examples
 
-`aaa/ev-charging-prices` · api · AAA
+`aaa/ev-charging-prices` · data API · AAA · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.01 per call (free daily quota) · **Modes:** async
 
 Returns national and per-state EV charging price data including cost per kWh and total charger counts for each state. Data sourced from a public Google Sheets dataset maintained by AAA.
 

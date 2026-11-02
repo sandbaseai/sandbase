@@ -1,6 +1,8 @@
-# OpenAI: GPT-5.4 Mini
+# OpenAI: GPT-5.4 Mini API: pricing, parameters and code examples
 
-`openai/gpt-5.4-mini` · llm · OpenAI
+`openai/gpt-5.4-mini` · LLM · OpenAI · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.75 input / $4.5 output per 1M tokens · **Modes:** sync
 
 GPT-5.4 mini is the smaller, faster tier of OpenAI's GPT-5.4 family, released in March 2026 with text and image input and text output. OpenAI describes it as its strongest mini model at release for coding, computer use and subagents, bringing much of GPT-5.4's capability to high-volume workloads at more than twice the speed of GPT-5 mini. Pick it over full GPT-5.4 for responsive coding assistants and agent fleets, and over nano when tasks need computer use.
 

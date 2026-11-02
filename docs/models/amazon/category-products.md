@@ -1,6 +1,8 @@
-# Amazon Products By Category
+# Amazon Products By Category API: pricing, parameters and code examples
 
-`amazon/category-products` · api · Amazon
+`amazon/category-products` · data API · Amazon · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.013889 per call (free daily quota) · **Modes:** sync
 
 Get paginated Amazon products for a numeric category node in a selected country marketplace, with configurable result sorting.
 

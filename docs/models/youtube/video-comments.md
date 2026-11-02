@@ -1,6 +1,8 @@
-# YouTube Video Comments
+# YouTube Video Comments API: pricing, parameters and code examples
 
-`youtube/video-comments` · api · YouTube
+`youtube/video-comments` · data API · YouTube · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** about $0.0008 per call · **Modes:** sync
 
 List the comments on a YouTube video or Short by URL with cursor pagination (text, author, likes, reply count).
 

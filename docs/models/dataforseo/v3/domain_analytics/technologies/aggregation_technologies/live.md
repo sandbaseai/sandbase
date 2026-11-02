@@ -1,6 +1,8 @@
-# DataForSEO Domain Technology Aggregations
+# DataForSEO Domain Technology Aggregations API: pricing, parameters and code examples
 
-`dataforseo/v3/domain_analytics/technologies/aggregation_technologies/live` · api · DataForSEO
+`dataforseo/v3/domain_analytics/technologies/aggregation_technologies/live` · data API · DataForSEO · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.003 per call (free daily quota) · **Modes:** sync
 
 Returns aggregated domain technology data across tracked websites. Analyze the distribution and adoption trends of specific web technologies and platforms.
 

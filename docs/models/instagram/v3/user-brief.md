@@ -1,6 +1,8 @@
-# Instagram User Brief Info
+# Instagram User Brief Info API: pricing, parameters and code examples
 
-`instagram/v3/user-brief` · api · Instagram
+`instagram/v3/user-brief` · data API · Instagram · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.012 per call (free daily quota) · **Modes:** sync
 
 Returns summary profile metrics and metadata for an Instagram account, including follower counts, media count, and profile picture URL, using user_id and username.
 

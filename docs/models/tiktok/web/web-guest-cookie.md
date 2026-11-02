@@ -1,6 +1,8 @@
-# TikTok Web Guest Cookie
+# TikTok Web Guest Cookie API: pricing, parameters and code examples
 
-`tiktok/web/web-guest-cookie` · api · TikTok
+`tiktok/web/web-guest-cookie` · data API · TikTok · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.003 per call (free daily quota) · **Modes:** sync
 
 Returns guest session cookies for TikTok Web based on a specified browser user agent string. Helps maintain session identity when querying web-based TikTok data.
 

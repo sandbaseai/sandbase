@@ -1,6 +1,8 @@
-# Xiaohongshu (RED) Topic Feed
+# Xiaohongshu (RED) Topic Feed API: pricing, parameters and code examples
 
-`xiaohongshu/app-v2/topic-feed` · api · Xiaohongshu
+`xiaohongshu/app-v2/topic-feed` · data API · Xiaohongshu · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.015 per call (free daily quota) · **Modes:** sync
 
 Returns a list of notes listed under a specified topic page on Xiaohongshu (RED). Supports sorting options and cursor pagination using previous response indicators.
 

@@ -1,6 +1,8 @@
-# LinkedIn Jobs
+# LinkedIn Jobs API: pricing, parameters and code examples
 
-`linkedin/jobs` · api · LinkedIn
+`linkedin/jobs` · data API · LinkedIn · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** about $0.0195 per call · **Modes:** sync
 
 Search LinkedIn job listings by title and location - full records with description, salary, applicant count, seniority, company details, and benefits. Up to 25 jobs per request.
 

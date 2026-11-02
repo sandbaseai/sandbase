@@ -1,6 +1,8 @@
-# Kuaishou Video Details by URL
+# Kuaishou Video Details by URL API: pricing, parameters and code examples
 
-`kuaishou/app/one-video-by-url` · api · Kuaishou
+`kuaishou/app/one-video-by-url` · data API · Kuaishou · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns video and photo information for a single Kuaishou post using its shared link. Input the full share URL to retrieve media metadata.
 

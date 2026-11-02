@@ -1,6 +1,8 @@
-# DeepSeek: DeepSeek V4 Flash Vision Exp (Experimental)
+# DeepSeek: DeepSeek V4 Flash Vision Exp (Experimental) API: pricing, parameters and code examples
 
-`deepseek/deepseek-v4-flash-vision-exp` · llm · DeepSeek
+`deepseek/deepseek-v4-flash-vision-exp` · LLM · DeepSeek · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.3 input / $1.2 output per 1M tokens · **Modes:** sync
 
 DeepSeek V4 Flash Vision Exp is an experimental multimodal understanding model that accepts mixed text and image input and produces text output. It supports OpenAI-compatible image URL and base64 data URL content parts while retaining the text, reasoning, tool-calling, and JSON-output capabilities of DeepSeek V4 Flash.
 

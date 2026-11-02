@@ -1,6 +1,8 @@
-# Flux 2 Pro Text to Image
+# Flux 2 Pro Text to Image API: pricing, parameters and code examples
 
-`bfl/flux-2/pro` · image · BFL
+`bfl/flux-2/pro` · image generation model · BFL · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.03 per call · **Modes:** async
 
 Flux 2 Pro by BFL - generate stunning images from text prompts with state-of-the-art AI. Supports multiple aspect ratios, styles, and high-resolution output for creative and commercial use.
 

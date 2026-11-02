@@ -1,6 +1,8 @@
-# MiniMax Hailuo 2.3 Fast Pro Image to Video
+# MiniMax Hailuo 2.3 Fast Pro Image to Video API: pricing, parameters and code examples
 
-`minimax/hailuo/2.3-fast/pro/image-to-video` · video · MiniMax
+`minimax/hailuo/2.3-fast/pro/image-to-video` · video generation model · MiniMax · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.33 per call · **Modes:** async
 
 MiniMax Hailuo 2.3 Fast Pro by MiniMax animates a still image into a 6-second 1080P video at lower cost and latency than Hailuo 2.3 Pro.
 

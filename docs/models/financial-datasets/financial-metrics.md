@@ -1,6 +1,8 @@
-# Financial Datasets Get Financial Metrics
+# Financial Datasets Get Financial Metrics API: pricing, parameters and code examples
 
-`financial-datasets/financial-metrics` · api · Financial Datasets
+`financial-datasets/financial-metrics` · data API · Financial Datasets · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.02 per call · **Modes:** sync
 
 Get financial metrics for a ticker, including valuation, profitability, efficiency, liquidity, leverage, growth, and per share metrics.
 

@@ -1,6 +1,8 @@
-# 1688 Product Details
+# 1688 Product Details API: pricing, parameters and code examples
 
-`1688/item/detail` · api · 1688
+`1688/item/detail` · data API · 1688 · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.013889 per call (free daily quota) · **Modes:** sync
 
 Get a 1688 wholesale product by item ID: images, video, SKU options and prices, tiered pricing, minimum order, seller and shop details.
 

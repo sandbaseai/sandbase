@@ -1,6 +1,8 @@
-# Meijer Product Page
+# Meijer Product Page API: pricing, parameters and code examples
 
-`meijer/scrape/product` · api · Meijer
+`meijer/scrape/product` · data API · Meijer · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.01 per call (free daily quota) · **Modes:** async
 
 Extract structured data from a Meijer product page URL: price, availability and product details, optionally localized by ZIP code.
 

@@ -1,6 +1,8 @@
-# Douyin Xingtu Creator Contract Base Info
+# Douyin Xingtu Creator Contract Base Info API: pricing, parameters and code examples
 
-`douyin/xingtu-v3/aggregator-author-contract-base-info` · api · Douyin
+`douyin/xingtu-v3/aggregator-author-contract-base-info` · data API · Douyin · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.020833 per call · **Modes:** sync
 
 Get Douyin Creator Marketplace (Xingtu) contract-related baseline information for a creator over a selectable 30- or 90-day period. Use it to review creator contract context during campaign planning.
 

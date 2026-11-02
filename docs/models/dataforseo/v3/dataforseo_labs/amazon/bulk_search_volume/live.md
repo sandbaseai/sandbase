@@ -1,6 +1,8 @@
-# DataForSEO Amazon Bulk Search Volume
+# DataForSEO Amazon Bulk Search Volume API: pricing, parameters and code examples
 
-`dataforseo/v3/dataforseo_labs/amazon/bulk_search_volume/live` · api · DataForSEO
+`dataforseo/v3/dataforseo_labs/amazon/bulk_search_volume/live` · data API · DataForSEO · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.024 per call · **Modes:** sync
 
 Get Amazon search volume for up to 100 keywords at once by location and language, to size product demand on Amazon.
 

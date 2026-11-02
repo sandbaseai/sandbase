@@ -1,6 +1,8 @@
-# Instagram Hashtag Recent Posts
+# Instagram Hashtag Recent Posts API: pricing, parameters and code examples
 
-`instagram/hashtag-recent-posts` · api · Instagram
+`instagram/hashtag-recent-posts` · data API · Instagram · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** about $0.0012 per call · **Modes:** sync
 
 Instagram posts published under a hashtag, newest first, read from its live chronological feed rather than a web search index. Built for monitoring: results arrive within a couple of minutes of posting, so engagement counts are usually still zero and reels do not appear (Instagram keeps those on a separate tab). For engagement-ranked results use instagram.hashtag_top_posts; for older relevance-ranked results use instagram.search_hashtag.
 

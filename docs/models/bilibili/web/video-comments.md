@@ -1,6 +1,8 @@
-# Bilibili Video Comments (Web)
+# Bilibili Video Comments (Web) API: pricing, parameters and code examples
 
-`bilibili/web/video-comments` · api · Bilibili
+`bilibili/web/video-comments` · data API · Bilibili · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns comment threads and reply metadata for a specific Bilibili video. Query by video ID with optional page numbering.
 

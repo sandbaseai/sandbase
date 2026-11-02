@@ -1,6 +1,8 @@
-# Weibo Advanced Search
+# Weibo Advanced Search API: pricing, parameters and code examples
 
-`weibo/web-v2/advanced-search` · api · Weibo
+`weibo/web-v2/advanced-search` · data API · Weibo · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Search Weibo posts by keyword with filters for time range, post type (hot, original, verified, media) and content type (images, video, links). Returns post text, author, time and engagement.
 

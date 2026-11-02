@@ -1,6 +1,8 @@
-# Xiaohongshu User Notes
+# Xiaohongshu User Notes API: pricing, parameters and code examples
 
-`xiaohongshu/user-note-list` · api · Xiaohongshu
+`xiaohongshu/user-note-list` · data API · Xiaohongshu · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.020833 per call · **Modes:** sync
 
 Get a user's published public Xiaohongshu (RedNote) notes by user ID or supported profile URL, with lastCursor pagination. This endpoint does not create, upload or publish notes.
 

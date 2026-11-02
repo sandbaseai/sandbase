@@ -1,6 +1,8 @@
-# Douyin XingTu kolId Lookup
+# Douyin XingTu kolId Lookup API: pricing, parameters and code examples
 
-`douyin/xingtu/xingtu-kolid-by-sec-user-id` · api · Douyin
+`douyin/xingtu/xingtu-kolid-by-sec-user-id` · data API · Douyin · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Convert a Douyin user's sec_user_id into the XingTu kolId used by the XingTu KOL profile, price, fan portrait and performance APIs.
 

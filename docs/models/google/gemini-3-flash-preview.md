@@ -1,6 +1,8 @@
-# Google: Gemini 3 Flash Preview
+# Google: Gemini 3 Flash Preview API: pricing, parameters and code examples
 
-`google/gemini-3-flash-preview` · llm · Google
+`google/gemini-3-flash-preview` · LLM · Google · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.5 input / $3 output per 1M tokens · **Modes:** sync
 
 Gemini 3 Flash Preview is the preview release of the Flash tier in Google's Gemini 3 series, released in December 2025. Google described it at launch as its most powerful agentic and vibe-coding model to that point, built on Gemini 3 reasoning with multimodal understanding across text, image, video, audio and PDF input. It remains a preview endpoint with no announced shutdown date, and Google recommends Gemini 3.6 Flash as its replacement.
 

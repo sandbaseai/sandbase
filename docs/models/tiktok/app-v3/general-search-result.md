@@ -1,6 +1,8 @@
-# TikTok Search
+# TikTok Search API: pricing, parameters and code examples
 
-`tiktok/app-v3/general-search-result` · api · TikTok
+`tiktok/app-v3/general-search-result` · data API · TikTok · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Search TikTok by keyword across videos and users (Top tab). Returns videos with descriptions, authors and play, like, comment and share counts, with sort and publish-time filters.
 

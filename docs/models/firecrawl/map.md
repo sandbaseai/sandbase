@@ -1,6 +1,8 @@
-# Firecrawl URL Discovery
+# Firecrawl URL Discovery API: pricing, parameters and code examples
 
-`firecrawl/map` · api · Firecrawl
+`firecrawl/map` · data API · Firecrawl · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0075 per call (free daily quota) · **Modes:** sync
 
 Discovers and returns URLs found across a target website. Provide an HTTPS target address and define the maximum link count to map site pages.
 

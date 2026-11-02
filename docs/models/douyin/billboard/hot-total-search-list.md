@@ -1,6 +1,8 @@
-# Douyin Hot Total Search List
+# Douyin Hot Total Search List API: pricing, parameters and code examples
 
-`douyin/billboard/hot-total-search-list` · api · Douyin
+`douyin/billboard/hot-total-search-list` · data API · Douyin · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns Douyin billboard search hot list rankings and search trend metrics. Supports filtering by keyword, date window timeframe, and pagination.
 

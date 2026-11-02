@@ -1,6 +1,8 @@
-# Artificial Analysis Search Models
+# Artificial Analysis Search Models API: pricing, parameters and code examples
 
-`artificial-analysis/search-models` · api · Artificial Analysis
+`artificial-analysis/search-models` · data API · Artificial Analysis · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.01 per call (free daily quota) · **Modes:** async
 
 Search for models by name or slug. Performs client-side filtering against the full models list, matching the query string against model name, slug, and shortName fields (case-insensitive substring match).
 

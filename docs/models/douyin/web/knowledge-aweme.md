@@ -1,6 +1,8 @@
-# Douyin Web Knowledge Videos
+# Douyin Web Knowledge Videos API: pricing, parameters and code examples
 
-`douyin/web/knowledge-aweme` · api · Douyin
+`douyin/web/knowledge-aweme` · data API · Douyin · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Retrieves a feed of knowledge-focused videos from Douyin Web. Supports pagination controls using item count and refresh index parameters.
 

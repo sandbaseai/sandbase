@@ -1,6 +1,8 @@
-# Kuaishou Stream Top List
+# Kuaishou Stream Top List API: pricing, parameters and code examples
 
-`kuaishou/app/live-top-list` · api · Kuaishou
+`kuaishou/app/live-top-list` · data API · Kuaishou · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns ranking information for trending streams on Kuaishou. Accepts optional tab parameters to filter leaderboards by category.
 

@@ -1,6 +1,8 @@
-# Xiaohongshu Pugongying Creator Search
+# Xiaohongshu Pugongying Creator Search API: pricing, parameters and code examples
 
-`xiaohongshu/pgy-v2/blogger-v2` · api · Xiaohongshu
+`xiaohongshu/pgy-v2/blogger-v2` · data API · Xiaohongshu · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.069444 per call · **Modes:** sync
 
 Search Xiaohongshu Pugongying creators with campaign filters and sorting by followers, daily-note median reads or interactions, or quoted price. Use it to build a creator shortlist.
 

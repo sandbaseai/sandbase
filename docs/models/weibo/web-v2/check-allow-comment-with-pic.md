@@ -1,6 +1,8 @@
-# Weibo Image Comment Permission Check
+# Weibo Image Comment Permission Check API: pricing, parameters and code examples
 
-`weibo/web-v2/check-allow-comment-with-pic` · api · Weibo
+`weibo/web-v2/check-allow-comment-with-pic` · data API · Weibo · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Checks whether a specific Weibo post permits image attachments in user comments. Returns the image comment eligibility status using the provided post ID.
 

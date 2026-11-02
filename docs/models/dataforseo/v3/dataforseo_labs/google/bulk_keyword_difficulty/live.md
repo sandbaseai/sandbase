@@ -1,6 +1,8 @@
-# DataForSEO Labs Google Bulk Keyword Difficulty
+# DataForSEO Labs Google Bulk Keyword Difficulty API: pricing, parameters and code examples
 
-`dataforseo/v3/dataforseo_labs/google/bulk_keyword_difficulty/live` · api · DataForSEO
+`dataforseo/v3/dataforseo_labs/google/bulk_keyword_difficulty/live` · data API · DataForSEO · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.024 per call · **Modes:** sync
 
 Returns Google keyword difficulty metrics in bulk for target search queries. Enables large-scale SEO competition analysis across multiple keywords simultaneously.
 

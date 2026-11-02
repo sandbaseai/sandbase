@@ -1,6 +1,8 @@
-# IMDb User Reviews Summary
+# IMDb User Reviews Summary API: pricing, parameters and code examples
 
-`imdb/title-user-reviews-summary-query` · api · IMDb
+`imdb/title-user-reviews-summary-query` · data API · IMDb · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.006944 per call (free daily quota) · **Modes:** sync
 
 Get the IMDb user-reviews summary for a title ID using selected language and country preferences. Use it to review audience reception or support title comparison and research.
 

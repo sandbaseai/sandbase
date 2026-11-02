@@ -1,6 +1,8 @@
-# Google: Gemini 2.5 Flash
+# Google: Gemini 2.5 Flash API: pricing, parameters and code examples
 
-`google/gemini-2.5-flash` · llm · Google
+`google/gemini-2.5-flash` · LLM · Google · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.3 input / $2.5 output per 1M tokens · **Modes:** sync
 
 Gemini 2.5 Flash is the workhorse model of Google's Gemini 2.5 family, a thinking model released as stable in June 2025. Google positions it for large-scale processing, low-latency and high-volume tasks that require reasoning, and agentic use cases, with text, image, video and audio input. It sits between 2.5 Flash-Lite and 2.5 Pro in the same generation and remains a stable model with no announced shutdown date.
 

@@ -1,6 +1,8 @@
-# TikTok Web Hashed ID
+# TikTok Web Hashed ID API: pricing, parameters and code examples
 
-`tiktok/web/generate-hashed-id` · api · TikTok
+`tiktok/web/generate-hashed-id` · data API · TikTok · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Calculates a hashed identifier for TikTok Web based on a provided email address. This endpoint takes an email input and returns the corresponding hashed ID value.
 

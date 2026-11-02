@@ -1,6 +1,8 @@
-# DataForSEO Backlinks Domain Intersection
+# DataForSEO Backlinks Domain Intersection API: pricing, parameters and code examples
 
-`dataforseo/v3/backlinks/domain_intersection/live` · api · DataForSEO
+`dataforseo/v3/backlinks/domain_intersection/live` · data API · DataForSEO · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** about $0.02436 per call · **Modes:** sync
 
 Referring domains that link to all (or some) of up to 20 target domains, for link-gap analysis.
 

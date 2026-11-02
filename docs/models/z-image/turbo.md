@@ -1,6 +1,8 @@
-# Z-Image Turbo Text to Image
+# Z-Image Turbo Text to Image API: pricing, parameters and code examples
 
-`z-image/turbo` · image · Z-Image
+`z-image/turbo` · image generation model · Z-Image · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.015 per call · **Modes:** async
 
 Turbo is Z-Image's advanced text-to-image AI model. Create photorealistic images, illustrations, and concept art from natural language descriptions with exceptional detail and prompt adherence.
 

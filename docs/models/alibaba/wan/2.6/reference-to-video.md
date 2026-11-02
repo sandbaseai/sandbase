@@ -1,6 +1,8 @@
-# Wan 2.6 Reference to Video
+# Wan 2.6 Reference to Video API: pricing, parameters and code examples
 
-`alibaba/wan/2.6/reference-to-video` · video · Alibaba
+`alibaba/wan/2.6/reference-to-video` · video generation model · Alibaba · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** from $1 to $2.25 per run, depending on parameters · **Modes:** async
 
 Alibaba Wan 2.6 reference-to-video model generating video guided by reference content.
 

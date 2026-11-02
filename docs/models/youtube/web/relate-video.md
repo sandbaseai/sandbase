@@ -1,6 +1,8 @@
-# YouTube Related Videos (Web)
+# YouTube Related Videos (Web) API: pricing, parameters and code examples
 
-`youtube/web/relate-video` · api · YouTube
+`youtube/web/relate-video` · data API · YouTube · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns a list of related videos for a given YouTube video ID. Supports pagination using a continuation token to retrieve additional recommendations.
 

@@ -1,6 +1,8 @@
-# Toutiao Web Keyword Search
+# Toutiao Web Keyword Search API: pricing, parameters and code examples
 
-`toutiao/search` · api · Toutiao
+`toutiao/search` · data API · Toutiao · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.069444 per call · **Modes:** sync
 
 Search Toutiao web articles by keyword. Use it to discover relevant articles for topic research, media monitoring, or source collection.
 

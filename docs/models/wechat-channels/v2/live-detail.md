@@ -1,6 +1,8 @@
-# WeChat Channels Stream Detail
+# WeChat Channels Stream Detail API: pricing, parameters and code examples
 
-`wechat-channels/v2/live-detail` · api · WeChat Channels
+`wechat-channels/v2/live-detail` · data API · WeChat Channels · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.015 per call (free daily quota) · **Modes:** sync
 
 Returns live-room details including anchor info, status, online count, and replay data using a live ID. Allows switching between raw and parsed output formats.
 

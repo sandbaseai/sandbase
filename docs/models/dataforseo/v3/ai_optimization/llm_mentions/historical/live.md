@@ -1,6 +1,8 @@
-# DataForSEO LLM Mentions History
+# DataForSEO LLM Mentions History API: pricing, parameters and code examples
 
-`dataforseo/v3/ai_optimization/llm_mentions/historical/live` · api · DataForSEO
+`dataforseo/v3/ai_optimization/llm_mentions/historical/live` · data API · DataForSEO · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** about $0.101 per call · **Modes:** sync
 
 Monthly mention counts and AI search volume for a domain or keyword since August 2025.
 

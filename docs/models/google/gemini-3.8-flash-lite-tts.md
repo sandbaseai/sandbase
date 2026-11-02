@@ -1,6 +1,8 @@
-# Gemini 3.8 Flash Lite TTS
+# Gemini 3.8 Flash Lite TTS API: pricing, parameters and code examples
 
-`google/gemini-3.8-flash-lite-tts` · audio · Google
+`google/gemini-3.8-flash-lite-tts` · audio model · Google · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** from $0.03 per run, depending on parameters · **Modes:** async
 
 Gemini 3.8 Flash Lite TTS by Google turns text into expressive speech with 30 prebuilt voices and natural-language style direction.
 

@@ -1,6 +1,8 @@
-# LTX 2.3 Pro Text to Video
+# LTX 2.3 Pro Text to Video API: pricing, parameters and code examples
 
-`lightricks/ltx-2.3-pro/text-to-video` · video · Lightricks
+`lightricks/ltx-2.3-pro/text-to-video` · video generation model · Lightricks · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** from $0.48 to $3.2 per run, depending on parameters · **Modes:** async
 
 Ltx 2.3 Pro is Lightricks's text-to-video AI model. Turn written scripts and prompts into professional-quality video clips with realistic motion, lighting, and scene composition.
 

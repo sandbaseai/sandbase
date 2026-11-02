@@ -1,6 +1,8 @@
-# Happy Horse 1.1 Reference to Video
+# Happy Horse 1.1 Reference to Video API: pricing, parameters and code examples
 
-`alibaba/happy-horse/1.1/reference-to-video` · video · Alibaba
+`alibaba/happy-horse/1.1/reference-to-video` · video generation model · Alibaba · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** from $0.21 to $1.44 per run, depending on parameters · **Modes:** async
 
 Happy Horse 1.1 by Alibaba - animate still images into dynamic videos with AI. Transform photos into cinematic clips with natural motion, camera movement, and optional audio generation.
 

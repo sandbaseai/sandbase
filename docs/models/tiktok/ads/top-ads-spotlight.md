@@ -1,6 +1,8 @@
-# TikTok Top Ads Spotlight
+# TikTok Top Ads Spotlight API: pricing, parameters and code examples
 
-`tiktok/ads/top-ads-spotlight` · api · TikTok
+`tiktok/ads/top-ads-spotlight` · data API · TikTok · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns top spotlight ad cases, highlights, and performance metrics across industries or filtered by a specific industry ID. Supports pagination via page and limit parameters.
 

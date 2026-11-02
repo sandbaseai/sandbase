@@ -1,6 +1,8 @@
-# GPT Image 1.5 Edit
+# GPT Image 1.5 Edit API: pricing, parameters and code examples
 
-`openai/gpt-image-1.5/edit` · image · OpenAI
+`openai/gpt-image-1.5/edit` · image generation model · OpenAI · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** from $0.009 to $0.2 per run, depending on parameters · **Modes:** async
 
 Gpt Image 1.5 Edit by OpenAI - AI-powered image editing, style transfer, and transformation. Edit photos with natural language instructions, remove backgrounds, change styles, and enhance images effortlessly.
 

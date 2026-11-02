@@ -1,6 +1,8 @@
-# Firecrawl Crawl
+# Firecrawl Crawl API: pricing, parameters and code examples
 
-`firecrawl/crawl` · api · Firecrawl
+`firecrawl/crawl` · data API · Firecrawl · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** from $0.0075 per run, depending on parameters · **Modes:** async
 
 Crawl an entire website starting from a URL. Discovers and scrapes all reachable pages, returning clean markdown for each. Runs asynchronously — submit the job, then poll for results.
 

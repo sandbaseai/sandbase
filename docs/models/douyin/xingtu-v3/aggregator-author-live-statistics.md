@@ -1,6 +1,8 @@
-# Douyin Xingtu Live Statistics
+# Douyin Xingtu Live Statistics API: pricing, parameters and code examples
 
-`douyin/xingtu-v3/aggregator-author-live-statistics` · api · Douyin
+`douyin/xingtu-v3/aggregator-author-live-statistics` · data API · Douyin · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.020833 per call · **Modes:** sync
 
 Get Douyin Creator Marketplace (Xingtu) live-stream statistics for a creator, with live-room, period, marketplace-order, and flow filters. Use it to compare live-streaming creators for campaign planning.
 

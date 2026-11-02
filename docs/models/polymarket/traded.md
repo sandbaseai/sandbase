@@ -1,6 +1,8 @@
-# Polymarket Get total markets a user has traded
+# Polymarket Get total markets a user has traded API: pricing, parameters and code examples
 
-`polymarket/traded` · api · Polymarket
+`polymarket/traded` · data API · Polymarket · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.012 per call (free daily quota) · **Modes:** sync
 
 Get total markets a user has traded from Polymarket. Returns the official Polymarket API response unchanged.
 

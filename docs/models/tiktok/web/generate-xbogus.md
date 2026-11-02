@@ -1,6 +1,8 @@
-# TikTok Web X-Bogus Signature
+# TikTok Web X-Bogus Signature API: pricing, parameters and code examples
 
-`tiktok/web/generate-xbogus` · api · TikTok
+`tiktok/web/generate-xbogus` · data API · TikTok · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns a signed TikTok Web request URL containing the required X-Bogus token. The endpoint takes an unsigned target API URL and a browser User-Agent string.
 

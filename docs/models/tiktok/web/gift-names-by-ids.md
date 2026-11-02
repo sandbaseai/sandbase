@@ -1,6 +1,8 @@
-# TikTok Gift Names by IDs
+# TikTok Gift Names by IDs API: pricing, parameters and code examples
 
-`tiktok/web/gift-names-by-ids` · api · TikTok
+`tiktok/web/gift-names-by-ids` · data API · TikTok · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0375 per call · **Modes:** sync
 
 Returns gift names for a batch of TikTok gift identifiers. Provide a list of gift IDs to look up their corresponding gift labels.
 

@@ -1,6 +1,8 @@
-# WeChat Channels Account Search
+# WeChat Channels Account Search API: pricing, parameters and code examples
 
-`wechat-channels/search-account` · api · WeChat Channels
+`wechat-channels/search-account` · data API · WeChat Channels · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.069444 per call · **Modes:** sync
 
 Looks up a specific WeChat Channels account identity by keyword. Use it to resolve a creator name or account term to the identifier required by account-video queries.
 

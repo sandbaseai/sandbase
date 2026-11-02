@@ -1,6 +1,8 @@
-# Watsons Category Listings
+# Watsons Category Listings API: pricing, parameters and code examples
 
-`watsons/scrape/category` · api · Watsons
+`watsons/scrape/category` · data API · Watsons · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.021 per call · **Modes:** async
 
 Extract product listings from a Watsons category page URL, including names, prices and promotions.
 

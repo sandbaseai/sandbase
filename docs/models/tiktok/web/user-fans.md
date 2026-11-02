@@ -1,6 +1,8 @@
-# TikTok User Followers
+# TikTok User Followers API: pricing, parameters and code examples
 
-`tiktok/web/user-fans` · api · TikTok
+`tiktok/web/user-fans` · data API · TikTok · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns a list of followers for a specified TikTok profile along with follower account stats. Supports pagination through cursor and count parameters.
 

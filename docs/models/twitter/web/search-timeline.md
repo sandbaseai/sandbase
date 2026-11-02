@@ -1,6 +1,8 @@
-# Twitter (X) Search
+# Twitter (X) Search API: pricing, parameters and code examples
 
-`twitter/web/search-timeline` · api · Twitter
+`twitter/web/search-timeline` · data API · Twitter · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Search Twitter / X posts by keyword and get tweets with text, author, time and engagement counts (likes, retweets, replies, views). Supports Top, Latest, Media, People and Lists results.
 

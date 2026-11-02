@@ -1,6 +1,8 @@
-# Kling AI Avatar 2.0 Pro
+# Kling AI Avatar 2.0 Pro API: pricing, parameters and code examples
 
-`kwaivgi/kling-video/ai-avatar/2.0/pro` · video · KwaiVGI
+`kwaivgi/kling-video/ai-avatar/2.0/pro` · video generation model · KwaiVGI · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** about $0.575 per call · **Modes:** async
 
 Kling AI Avatar 2.0 Pro by Kuaishou animates a portrait image into a talking-head video lip-synced to an input audio track, at Pro quality.
 

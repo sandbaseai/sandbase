@@ -1,6 +1,8 @@
-# Polymarket Get current positions for a user
+# Polymarket Get current positions for a user API: pricing, parameters and code examples
 
-`polymarket/positions` · api · Polymarket
+`polymarket/positions` · data API · Polymarket · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.012 per call (free daily quota) · **Modes:** sync
 
 Get current positions for a user from Polymarket. Returns the official Polymarket API response unchanged.
 

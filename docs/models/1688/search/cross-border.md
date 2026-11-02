@@ -1,6 +1,8 @@
-# 1688 Cross-border Product Search
+# 1688 Cross-border Product Search API: pricing, parameters and code examples
 
-`1688/search/cross-border` · api · 1688
+`1688/search/cross-border` · data API · 1688 · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.013889 per call (free daily quota) · **Modes:** sync
 
 Search 1688 cross-border products by keyword or category with translated titles, sort and sourcing filters.
 

@@ -1,6 +1,8 @@
-# Polymarket Get spread
+# Polymarket Get spread API: pricing, parameters and code examples
 
-`polymarket/spread` · api · Polymarket
+`polymarket/spread` · data API · Polymarket · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.012 per call (free daily quota) · **Modes:** sync
 
 Retrieves the spread for a specific token ID. The spread is the difference between the best ask and best bid prices.
 

@@ -1,6 +1,8 @@
-# Douyin Weekly Brand Initiative Ranking
+# Douyin Weekly Brand Initiative Ranking API: pricing, parameters and code examples
 
-`douyin/index/brand-initiative-rank-weekly` · api · Douyin
+`douyin/index/brand-initiative-rank-weekly` · data API · Douyin · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns weekly brand initiative ranking metrics from Douyin Index for a specified brand and date range. Supports filtering by platform such as Douyin or Toutiao.
 

@@ -1,6 +1,8 @@
-# GetApp Software Pricing
+# GetApp Software Pricing API: pricing, parameters and code examples
 
-`getapp/software-pricing` · api · GetApp
+`getapp/software-pricing` · data API · GetApp · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.01 per call (free daily quota) · **Modes:** async
 
 Retrieve detailed pricing plans for a software product, including plan names, starting prices, and feature lists per plan.
 

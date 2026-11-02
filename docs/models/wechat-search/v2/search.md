@@ -1,6 +1,8 @@
-# WeChat Search
+# WeChat Search API: pricing, parameters and code examples
 
-`wechat-search/v2/search` · api · WeChat Search
+`wechat-search/v2/search` · data API · WeChat Search · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.015 per call (free daily quota) · **Modes:** sync
 
 Search WeChat with one endpoint: official account articles, accounts, Channels videos, live streams, news and more. Filter by vertical, sort and publish time, with cursor pagination.
 

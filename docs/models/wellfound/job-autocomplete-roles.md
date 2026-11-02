@@ -1,6 +1,8 @@
-# Wellfound Job Autocomplete Roles
+# Wellfound Job Autocomplete Roles API: pricing, parameters and code examples
 
-`wellfound/job-autocomplete-roles` · api · Wellfound
+`wellfound/job-autocomplete-roles` · data API · Wellfound · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.01 per call (free daily quota) · **Modes:** async
 
 Get a list of common job role slugs available on Wellfound. These slugs can be used to construct Wellfound role search URLs.
 

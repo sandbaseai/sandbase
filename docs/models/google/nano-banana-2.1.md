@@ -1,6 +1,8 @@
-# Nano Banana 2.1 Text to Image
+# Nano Banana 2.1 Text to Image API: pricing, parameters and code examples
 
-`google/nano-banana-2.1` · image · Google
+`google/nano-banana-2.1` · image generation model · Google · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** from $0.04 to $0.149 per run, depending on parameters · **Modes:** async
 
 Nano Banana 2.1 is Google's latest fast image generation model, with better prompt adherence, cleaner text rendering, extreme aspect ratios and 1K to 4K output.
 

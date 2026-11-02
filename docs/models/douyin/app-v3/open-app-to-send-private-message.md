@@ -1,6 +1,8 @@
-# Douyin Direct Message Deep Link
+# Douyin Direct Message Deep Link API: pricing, parameters and code examples
 
-`douyin/app-v3/open-app-to-send-private-message` · api · Douyin
+`douyin/app-v3/open-app-to-send-private-message` · data API · Douyin · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Generates a Douyin deep link to open the mobile application directly to a user conversation. Requires the target user's uid and sec_uid to return a shortened URL.
 

@@ -1,6 +1,8 @@
-# Topaz Video Upscale
+# Topaz Video Upscale API: pricing, parameters and code examples
 
-`topaz/upscale/video` · video · Topaz Labs
+`topaz/upscale/video` · video generation model · Topaz Labs · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** about $0.1 per call · **Modes:** async
 
 Upscale Video is Topaz Labs's video-to-video AI model. Transform, enhance, and edit video content using text prompts - from style changes to object manipulation and scene modification.
 

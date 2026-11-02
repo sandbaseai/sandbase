@@ -1,6 +1,8 @@
-# X / Twitter Community Search
+# X / Twitter Community Search API: pricing, parameters and code examples
 
-`twitter/search-communities` · api · X (Twitter)
+`twitter/search-communities` · data API · X (Twitter) · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** about $0.0011 per call · **Modes:** sync
 
 Search X (Twitter) communities by keyword and get their id, name, topic, and member count with cursor pagination. This is how you find a community URL to pass to twitter.community or twitter.community_tweets.
 

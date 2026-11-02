@@ -1,6 +1,8 @@
-# Kalshi Get Kalshi Trades
+# Kalshi Get Kalshi Trades API: pricing, parameters and code examples
 
-`kalshi/trades` · api · Kalshi
+`kalshi/trades` · data API · Kalshi · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.02 per call · **Modes:** sync
 
 Get Kalshi Trades from Kalshi. Returns the official Kalshi API response unchanged.
 

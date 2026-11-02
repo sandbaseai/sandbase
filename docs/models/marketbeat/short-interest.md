@@ -1,6 +1,8 @@
-# MarketBeat Short Interest
+# MarketBeat Short Interest API: pricing, parameters and code examples
 
-`marketbeat/short-interest` · api · MarketBeat
+`marketbeat/short-interest` · data API · MarketBeat · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.01 per call (free daily quota) · **Modes:** async
 
 Get short interest statistics and historical short interest data for a stock. Summary includes current short interest, change vs previous month, days to cover, and percent of float shorted.
 

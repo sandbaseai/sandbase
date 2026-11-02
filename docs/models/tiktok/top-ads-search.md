@@ -1,6 +1,8 @@
-# TikTok Top Ads Search
+# TikTok Top Ads Search API: pricing, parameters and code examples
 
-`tiktok/top-ads-search` · api · TikTok
+`tiktok/top-ads-search` · data API · TikTok · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** about $0.0012 per call · **Modes:** sync
 
 Search TikTok Creative Center top video ads by keyword, with campaign objective, performance percentile, and time-window filters.
 

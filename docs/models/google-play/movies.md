@@ -1,6 +1,8 @@
-# Google Play Movies
+# Google Play Movies API: pricing, parameters and code examples
 
-`google-play/movies` · api · Google Play
+`google-play/movies` · data API · Google Play · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.00015 per call (free daily quota) · **Modes:** async
 
 Search or browse movies, TV shows, episodes, categories, and charts on Google Play.
 

@@ -1,6 +1,8 @@
-# Douyin Music Search
+# Douyin Music Search API: pricing, parameters and code examples
 
-`douyin/search/music-search` · api · Douyin
+`douyin/search/music-search` · data API · Douyin · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.015 per call (free daily quota) · **Modes:** sync
 
 Returns music search results from Douyin based on keywords and filters such as sort type, content type, and duration.
 

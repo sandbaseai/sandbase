@@ -1,6 +1,8 @@
-# SeedVR2 Image Upscale
+# SeedVR2 Image Upscale API: pricing, parameters and code examples
 
-`bytedance/seedvr/upscale/image` · image · Bytedance
+`bytedance/seedvr/upscale/image` · image generation model · Bytedance · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.01 per call · **Modes:** async
 
 Seedvr Upscale Image by Bytedance - AI-powered image editing, style transfer, and transformation. Edit photos with natural language instructions, remove backgrounds, change styles, and enhance images effortlessly.
 

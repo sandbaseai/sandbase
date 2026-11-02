@@ -1,6 +1,8 @@
-# Wan 2.2 Speech to Video
+# Wan 2.2 Speech to Video API: pricing, parameters and code examples
 
-`alibaba/wan/2.2/speech-to-video` · video · Alibaba
+`alibaba/wan/2.2/speech-to-video` · video generation model · Alibaba · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** about $1 per call · **Modes:** async
 
 Wan 2.2 Speech to Video turns a portrait image and a speech audio into a talking video guided by a prompt.
 

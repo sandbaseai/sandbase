@@ -1,6 +1,8 @@
-# SECForm4 Insider Buy Sell Ratios
+# SECForm4 Insider Buy Sell Ratios API: pricing, parameters and code examples
 
-`secform4/insider-buy-sell-ratios` · api · SECForm4
+`secform4/insider-buy-sell-ratios` · data API · SECForm4 · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.01 per call (free daily quota) · **Modes:** async
 
 Returns aggregate insider buy/sell ratio data with daily data points going back to 2003. Includes buy count, sell count, buy dollar volume, sell dollar volume per day, plus market index comparison data for S&P 500,.
 

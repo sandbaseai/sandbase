@@ -1,6 +1,8 @@
-# Anthropic: Claude Fable 5
+# Anthropic: Claude Fable 5 API: pricing, parameters and code examples
 
-`anthropic/claude-fable-5` · llm · Anthropic
+`anthropic/claude-fable-5` · LLM · Anthropic · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $10 input / $50 output per 1M tokens · **Modes:** sync
 
 Claude Fable 5 is a Mythos-class model from Anthropic, built for autonomous knowledge work and coding. It supports text, image, and file inputs with text output, with reasoning support and a 1M-token context window. It is suited for long-running, complex, and asynchronous tasks that previously required frequent human check-ins.
 

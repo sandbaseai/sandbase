@@ -1,6 +1,8 @@
-# StockAnalysis Stock Statistics
+# StockAnalysis Stock Statistics API: pricing, parameters and code examples
 
-`stockanalysis/stock-statistics` · api · StockAnalysis
+`stockanalysis/stock-statistics` · data API · StockAnalysis · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.01 per call (free daily quota) · **Modes:** async
 
 Comprehensive statistics for a stock organized into categorized sections. Each section contains a text summary and a data array of key-value stat entries with id, title, value, and hover fields.
 

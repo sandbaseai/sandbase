@@ -1,6 +1,8 @@
-# App Store Product
+# App Store Product API: pricing, parameters and code examples
 
-`app-store/product` · api · App Store
+`app-store/product` · data API · App Store · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.00015 per call (free daily quota) · **Modes:** async
 
 Read an iOS or Mac app's details, version history, ratings, privacy, and related apps.
 

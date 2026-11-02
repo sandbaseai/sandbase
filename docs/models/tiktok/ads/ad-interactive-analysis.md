@@ -1,6 +1,8 @@
-# TikTok Ad Interactive Analysis
+# TikTok Ad Interactive Analysis API: pricing, parameters and code examples
 
-`tiktok/ads/ad-interactive-analysis` · api · TikTok
+`tiktok/ads/ad-interactive-analysis` · data API · TikTok · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns audience retention and interaction analytics across video timestamps for a specified ad creative. Supports filtering by analysis metric and time period.
 

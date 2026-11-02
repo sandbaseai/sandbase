@@ -1,6 +1,8 @@
-# Douyin Xingtu KOL Touch Distribution
+# Douyin Xingtu KOL Touch Distribution API: pricing, parameters and code examples
 
-`douyin/xingtu/kol-touch-distribution-v1` · api · Douyin
+`douyin/xingtu/kol-touch-distribution-v1` · data API · Douyin · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.03 per call · **Modes:** sync
 
 Returns touch distribution data for a Douyin Xingtu creator using their unique KOL identifier. Helps evaluate audience contact points and reach patterns.
 

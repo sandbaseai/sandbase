@@ -1,6 +1,8 @@
-# Douyin Brand Radar Chart
+# Douyin Brand Radar Chart API: pricing, parameters and code examples
 
-`douyin/index/brand-radar-chart` · api · Douyin
+`douyin/index/brand-radar-chart` · data API · Douyin · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns multi-dimensional brand radar chart scores across Douyin or Toutiao. Query by brand name and a custom date range in YYYYMMDD format.
 

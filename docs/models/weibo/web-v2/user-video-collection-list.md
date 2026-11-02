@@ -1,6 +1,8 @@
-# Weibo User Video Collection List
+# Weibo User Video Collection List API: pricing, parameters and code examples
 
-`weibo/web-v2/user-video-collection-list` · api · Weibo
+`weibo/web-v2/user-video-collection-list` · data API · Weibo · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns the video collection list belonging to a specified Weibo user. Provide the target account identifier using the uid parameter to retrieve their curated video playlists.
 

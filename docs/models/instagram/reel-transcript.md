@@ -1,6 +1,8 @@
-# Instagram Reel Transcript
+# Instagram Reel Transcript API: pricing, parameters and code examples
 
-`instagram/reel-transcript` · api · Instagram
+`instagram/reel-transcript` · data API · Instagram · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** about $0.095 per call · **Modes:** sync
 
 Transcribe any public Instagram reel or video post: the full speech transcript, speaker labels, and word-level timestamps, from a reel, /p/, or /tv/ URL or an Instagram CDN media URL you already hold. A video post is transcribed exactly like a reel. A photo post comes back found with its record and an empty transcript, charged the request price only. Transcription runs on MAI-Transcribe-2, chosen for its accuracy and its speaker labels. Turn on hostVideo to also get the MP4 on a hosted link that plays without an Instagram session. If you only want the text, instagram.media_transcript is the cheaper transcript-only option; if you only want the file, instagram.post is where you go.
 

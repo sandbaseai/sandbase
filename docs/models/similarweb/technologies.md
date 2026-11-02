@@ -1,6 +1,8 @@
-# Similarweb Website Technologies
+# Similarweb Website Technologies API: pricing, parameters and code examples
 
-`similarweb/technologies` · api · Similarweb
+`similarweb/technologies` · data API · Similarweb · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.75 per call · **Modes:** sync
 
 Get the technologies a website uses (analytics, advertising, CMS and more), with category and first-seen date.
 

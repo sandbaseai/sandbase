@@ -1,6 +1,8 @@
-# DataForSEO Labs Historical SERPs
+# DataForSEO Labs Historical SERPs API: pricing, parameters and code examples
 
-`dataforseo/v3/dataforseo_labs/google/historical_serps/live` · api · DataForSEO
+`dataforseo/v3/dataforseo_labs/google/historical_serps/live` · data API · DataForSEO · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** about $0.00024 per call · **Modes:** sync
 
 Past Google search results for a keyword within a date range.
 

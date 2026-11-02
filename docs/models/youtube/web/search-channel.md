@@ -1,6 +1,8 @@
-# YouTube Channel Video Search
+# YouTube Channel Video Search API: pricing, parameters and code examples
 
-`youtube/web/search-channel` · api · YouTube
+`youtube/web/search-channel` · data API · YouTube · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Searches videos within a specific YouTube channel using a keyword query. Returns matching video details including title, view count, post date, and video ID.
 

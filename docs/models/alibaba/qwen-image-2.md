@@ -1,6 +1,8 @@
-# Qwen Image 2
+# Qwen Image 2 API: pricing, parameters and code examples
 
-`alibaba/qwen-image-2` · image · Alibaba
+`alibaba/qwen-image-2` · image generation model · Alibaba · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** from $0.035 per run, depending on parameters · **Modes:** async
 
 Alibaba Qwen Image 2 text-to-image model with high-quality generation and configurable output format.
 

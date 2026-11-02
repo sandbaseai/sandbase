@@ -1,6 +1,8 @@
-# Similarweb Marketing Channel Sources
+# Similarweb Marketing Channel Sources API: pricing, parameters and code examples
 
-`similarweb/marketing-channel-sources-legacy` · api · Similarweb
+`similarweb/marketing-channel-sources-legacy` · data API · Similarweb · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** about $0.525 per call · **Modes:** sync
 
 Get a website's visits by marketing channel (direct, search, social, referrals, mail, display) month by month.
 

@@ -1,6 +1,6 @@
-# Anthropic: Claude Fable 5.5
+# Anthropic: Claude Fable 5.5 API: pricing, parameters and code examples
 
-`anthropic/claude-fable-5.5` · llm · Anthropic
+`anthropic/claude-fable-5.5` · LLM · Anthropic · callable with one SandBase API key from curl, Python, TypeScript and Go.
 
 Claude Fable 5.5 is the expected successor to Claude Fable 5.1, Anthropic's tier above Opus for repository-scale coding, long-running agents and high-stakes review. Anthropic has not officially released it yet; specifications, pricing and API availability will be confirmed at launch.
 

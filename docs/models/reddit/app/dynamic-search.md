@@ -1,6 +1,8 @@
-# Reddit Search
+# Reddit Search API: pricing, parameters and code examples
 
-`reddit/app/dynamic-search` · api · Reddit
+`reddit/app/dynamic-search` · data API · Reddit · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Search Reddit posts, communities, comments, media and users with the Reddit app search. Sort by relevance, hot, top, new or comments and filter by time range, with NSFW and safe-search controls.
 

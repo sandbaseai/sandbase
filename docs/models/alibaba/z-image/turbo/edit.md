@@ -1,6 +1,8 @@
-# Z-Image Turbo Edit
+# Z-Image Turbo Edit API: pricing, parameters and code examples
 
-`alibaba/z-image/turbo/edit` · image · Alibaba
+`alibaba/z-image/turbo/edit` · image generation model · Alibaba · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.005 per call · **Modes:** async
 
 Z Image Turbo Edit by Alibaba - AI-powered image editing, style transfer, and transformation. Edit photos with natural language instructions, remove backgrounds, change styles, and enhance images effortlessly.
 

@@ -1,6 +1,8 @@
-# Zillow Mortgage Rates
+# Zillow Mortgage Rates API: pricing, parameters and code examples
 
-`zillow/mortgage-rates` · api · Zillow
+`zillow/mortgage-rates` · data API · Zillow · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.05 per call · **Modes:** async
 
 Retrieve current mortgage interest rates from Zillow Home Loans. Returns rates for various loan types including conventional fixed (10/15/20/30-year), FHA fixed, VA fixed, jumbo fixed, and adjustable-rate mortgages.
 

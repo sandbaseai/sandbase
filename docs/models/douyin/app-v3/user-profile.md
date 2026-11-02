@@ -1,6 +1,8 @@
-# Douyin User Profile (App V3)
+# Douyin User Profile (App V3) API: pricing, parameters and code examples
 
-`douyin/app-v3/user-profile` · api · Douyin
+`douyin/app-v3/user-profile` · data API · Douyin · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns profile information and follower statistics for a specified Douyin user based on their unique secure user identifier.
 

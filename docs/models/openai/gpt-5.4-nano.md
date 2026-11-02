@@ -1,6 +1,8 @@
-# OpenAI: GPT-5.4 Nano
+# OpenAI: GPT-5.4 Nano API: pricing, parameters and code examples
 
-`openai/gpt-5.4-nano` · llm · OpenAI
+`openai/gpt-5.4-nano` · LLM · OpenAI · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.2 input / $1.25 output per 1M tokens · **Modes:** sync
 
 GPT-5.4 nano is the smallest and fastest tier of OpenAI's GPT-5.4 family, released in March 2026 with text and image input and text output. OpenAI recommends it for tasks where speed matters most, such as classification, data extraction, ranking and coding subagents that handle simpler supporting work. Choose it for high-volume pipelines; unlike GPT-5.4 mini, it does not support the computer use or tool search tools.
 

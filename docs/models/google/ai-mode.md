@@ -1,6 +1,8 @@
-# Google AI Mode
+# Google AI Mode API: pricing, parameters and code examples
 
-`google/ai-mode` · api · Google
+`google/ai-mode` · data API · Google · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** about $0.002 per call · **Modes:** sync
 
 Ask Google AI Mode a prompt and receive the cited answer it generates. AI Mode composes the answer at search time, so repeat calls on one prompt can differ in wording and in which sources are cited.
 

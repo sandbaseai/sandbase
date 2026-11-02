@@ -1,6 +1,8 @@
-# Threads User Info by ID
+# Threads User Info by ID API: pricing, parameters and code examples
 
-`threads/web/user-info-by-id` · api · Threads
+`threads/web/user-info-by-id` · data API · Threads · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.003 per call (free daily quota) · **Modes:** sync
 
 Returns detailed Threads user profile information based on a specified user ID. Ideal for retrieving public account metadata directly through web identifiers.
 

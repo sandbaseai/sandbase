@@ -1,6 +1,8 @@
-# Recraft V4.1 Utility
+# Recraft V4.1 Utility API: pricing, parameters and code examples
 
-`recraft/recraft/v4.1/utility` · image · Recraft
+`recraft/recraft/v4.1/utility` · image generation model · Recraft · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** from $0.04 per run, depending on parameters · **Modes:** async
 
 Recraft V4.1 Utility by Recraft - generate stunning images from text prompts with state-of-the-art AI. Supports multiple aspect ratios, styles, and high-resolution output for creative and commercial use.
 

@@ -1,6 +1,8 @@
-# Pipixia Home Short Drama Feed
+# Pipixia Home Short Drama Feed API: pricing, parameters and code examples
 
-`pipixia/app/home-short-drama-feed` · api · Pipixia
+`pipixia/app/home-short-drama-feed` · data API · Pipixia · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns short drama and novel recommendations from the Pipixia home feed. Supports pagination to browse through items sequentially.
 

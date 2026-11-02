@@ -1,6 +1,8 @@
-# Flux 3 Image to Video
+# Flux 3 Image to Video API: pricing, parameters and code examples
 
-`bfl/flux-3/image-to-video` · video · BFL
+`bfl/flux-3/image-to-video` · video generation model · BFL · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** from $0.85 to $2.9 per run, depending on parameters · **Modes:** async
 
 Flux 3 is BFL's image-to-video AI model. Bring static images to life with fluid animation, consistent character motion, and professional-grade video output.
 

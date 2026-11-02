@@ -1,6 +1,8 @@
-# Weibo Similar Search Recommendations
+# Weibo Similar Search Recommendations API: pricing, parameters and code examples
 
-`weibo/web-v2/similar-search` · api · Weibo
+`weibo/web-v2/similar-search` · data API · Weibo · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns related search keyword recommendations and hot query suggestions based on a target query. Supports topic tag formatting.
 

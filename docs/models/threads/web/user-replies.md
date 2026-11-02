@@ -1,6 +1,8 @@
-# Threads User Replies
+# Threads User Replies API: pricing, parameters and code examples
 
-`threads/web/user-replies` · api · Threads
+`threads/web/user-replies` · data API · Threads · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.003 per call (free daily quota) · **Modes:** sync
 
 Returns a list of replies posted by a specific Threads user. Query replies using a target user identifier and an optional pagination cursor.
 

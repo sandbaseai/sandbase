@@ -1,6 +1,8 @@
-# Crunchbase Search Investors
+# Crunchbase Search Investors API: pricing, parameters and code examples
 
-`crunchbase/search-investors` · api · Crunchbase
+`crunchbase/search-investors` · data API · Crunchbase · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.02 per call · **Modes:** async
 
 Full-text search over Crunchbase investors. Returns results with investor details including number of investments, exits, location, and investor type.
 

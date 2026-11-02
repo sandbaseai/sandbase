@@ -1,6 +1,8 @@
-# DataForSEO Backlinks History
+# DataForSEO Backlinks History API: pricing, parameters and code examples
 
-`dataforseo/v3/backlinks/history/live` · api · DataForSEO
+`dataforseo/v3/backlinks/history/live` · data API · DataForSEO · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** about $0.024324 per call · **Modes:** sync
 
 Monthly history of backlinks, referring domains and rank for a domain since 2019.
 

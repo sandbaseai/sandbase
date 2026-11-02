@@ -1,6 +1,8 @@
-# Weibo Video Search
+# Weibo Video Search API: pricing, parameters and code examples
 
-`weibo/web-v2/video-search` · api · Weibo
+`weibo/web-v2/video-search` · data API · Weibo · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Searches Weibo video posts by keyword with sorting options for popular or all results, returning matching posts, user details, and engagement counts.
 

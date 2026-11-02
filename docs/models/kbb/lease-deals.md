@@ -1,6 +1,8 @@
-# Kelley Blue Book Lease Deals
+# Kelley Blue Book Lease Deals API: pricing, parameters and code examples
 
-`kbb/lease-deals` · api · Kelley Blue Book
+`kbb/lease-deals` · data API · Kelley Blue Book · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.01 per call (free daily quota) · **Modes:** async
 
 Retrieve the current '10 Best Lease Deals Around $200' editorial list from Kelley Blue Book in one round trip. Each deal carries the vehicle name as one string (e.g.
 

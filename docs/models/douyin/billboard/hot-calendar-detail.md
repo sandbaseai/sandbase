@@ -1,6 +1,8 @@
-# Douyin Billboard Hot Calendar Detail
+# Douyin Billboard Hot Calendar Detail API: pricing, parameters and code examples
 
-`douyin/billboard/hot-calendar-detail` · api · Douyin
+`douyin/billboard/hot-calendar-detail` · data API · Douyin · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns detailed information for a Douyin billboard hot calendar event based on the specified activity identifier. Use this endpoint to inspect schedule metadata and billboard campaign details.
 

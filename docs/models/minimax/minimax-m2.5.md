@@ -1,6 +1,8 @@
-# MiniMax: MiniMax M2.5
+# MiniMax: MiniMax M2.5 API: pricing, parameters and code examples
 
-`minimax/minimax-m2.5` · llm · Minimax
+`minimax/minimax-m2.5` · LLM · Minimax · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.3 input / $1.2 output per 1M tokens · **Modes:** sync
 
 MiniMax-M2.5 is a MiniMax M2-series language model released in February 2026 for real-world productivity, trained with reinforcement learning across hundreds of thousands of complex real-world environments. MiniMax highlights coding across more than ten languages and the full development lifecycle, planning projects like a software architect before writing code, plus agentic search, tool use and office work. MiniMax now lists it as a legacy model behind M2.7 and M3.
 

@@ -1,6 +1,8 @@
-# StockAnalysis Market Movers Premarket
+# StockAnalysis Market Movers Premarket API: pricing, parameters and code examples
 
-`stockanalysis/market-movers-premarket` · api · StockAnalysis
+`stockanalysis/market-movers-premarket` · data API · StockAnalysis · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.01 per call (free daily quota) · **Modes:** async
 
 Top gainers, losers, and most active stocks in the pre-market session. Each category contains query metadata and a data array of stock entries with symbol, name, premarket change percent, premarket price, premarket.
 

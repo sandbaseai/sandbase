@@ -1,6 +1,8 @@
-# Xigua Video Play URL
+# Xigua Video Play URL API: pricing, parameters and code examples
 
-`xigua/app-v2/one-video-play-url` · api · Xigua
+`xigua/app-v2/one-video-play-url` · data API · Xigua · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns the direct playback URL for a specific Xigua video using its unique item identifier. Developers supply the target video ID to retrieve playable media links.
 

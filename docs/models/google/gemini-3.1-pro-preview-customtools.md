@@ -1,6 +1,8 @@
-# Google: Gemini 3.1 Pro Preview Custom Tools
+# Google: Gemini 3.1 Pro Preview Custom Tools API: pricing, parameters and code examples
 
-`google/gemini-3.1-pro-preview-customtools` · llm · Google
+`google/gemini-3.1-pro-preview-customtools` · LLM · Google · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $2 input / $12 output per 1M tokens · **Modes:** sync
 
 Gemini 3.1 Pro Preview Custom Tools is a separate endpoint of Google's Gemini 3.1 Pro Preview, the Pro-tier reasoning model of the Gemini 3 series, tuned for agentic workflows that mix bash with custom tools. Google says it is better at prioritizing user-defined functions, such as file viewing or code search tools, over a general bash tool. Pick it for coding agents built on custom tools; Google notes quality may fluctuate in use cases that do not benefit from such tools, where the standard 3.1 Pro Preview fits better.
 

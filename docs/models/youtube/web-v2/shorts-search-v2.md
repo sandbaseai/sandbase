@@ -1,6 +1,8 @@
-# YouTube Shorts Search (V2)
+# YouTube Shorts Search (V2) API: pricing, parameters and code examples
 
-`youtube/web-v2/shorts-search-v2` · api · YouTube
+`youtube/web-v2/shorts-search-v2` · data API · YouTube · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.003 per call (free daily quota) · **Modes:** sync
 
 Searches for YouTube Shorts matching a query keyword. Results can be filtered by upload date and sorted by relevance, upload date, view count, or rating.
 

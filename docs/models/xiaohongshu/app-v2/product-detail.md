@@ -1,6 +1,8 @@
-# Xiaohongshu (RED) Product Detail
+# Xiaohongshu (RED) Product Detail API: pricing, parameters and code examples
 
-`xiaohongshu/app-v2/product-detail` · api · Xiaohongshu
+`xiaohongshu/app-v2/product-detail` · data API · Xiaohongshu · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.015 per call (free daily quota) · **Modes:** sync
 
 Returns detailed product information for a specified SKU on Xiaohongshu (RED). Supply a product SKU identifier along with optional source page context.
 

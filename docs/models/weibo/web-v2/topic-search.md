@@ -1,6 +1,8 @@
-# Weibo Topic Search
+# Weibo Topic Search API: pricing, parameters and code examples
 
-`weibo/web-v2/topic-search` · api · Weibo
+`weibo/web-v2/topic-search` · data API · Weibo · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Searches Weibo topics matching a keyword and returns topic names, URLs, discussion counts, and read metrics across paginated results.
 

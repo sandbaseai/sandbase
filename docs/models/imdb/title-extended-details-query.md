@@ -1,6 +1,8 @@
-# IMDb Extended Details
+# IMDb Extended Details API: pricing, parameters and code examples
 
-`imdb/title-extended-details-query` · api · IMDb
+`imdb/title-extended-details-query` · data API · IMDb · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.006944 per call (free daily quota) · **Modes:** sync
 
 Get extended IMDb details for a title ID using selected language and country preferences. Use it to enrich a title catalog or perform deeper research after a basic lookup.
 

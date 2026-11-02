@@ -1,6 +1,8 @@
-# TikTok Ad Material Percentile Rankings
+# TikTok Ad Material Percentile Rankings API: pricing, parameters and code examples
 
-`tiktok/ads/ad-percentile` · api · TikTok
+`tiktok/ads/ad-percentile` · data API · TikTok · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns ad performance percentile rankings within the industry for a specific ad material. Supports filtering by metrics like CTR or conversion rate and time period.
 

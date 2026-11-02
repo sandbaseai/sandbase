@@ -1,6 +1,8 @@
-# TikTok Hashtag Search Results
+# TikTok Hashtag Search Results API: pricing, parameters and code examples
 
-`tiktok/app-v3/hashtag-search-result` · api · TikTok
+`tiktok/app-v3/hashtag-search-result` · data API · TikTok · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns TikTok hashtag search results matching a specified search keyword. Includes challenge details such as hashtag name, use count, and user count.
 

@@ -1,6 +1,8 @@
-# CoinGecko Coins List (ID Map)
+# CoinGecko Coins List (ID Map) API: pricing, parameters and code examples
 
-`coingecko/coins-list` · api · CoinGecko
+`coingecko/coins-list` · data API · CoinGecko · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.008 per call (free daily quota) · **Modes:** sync
 
 Get all the supported coins on CoinGecko with coins ID, name and symbol
 

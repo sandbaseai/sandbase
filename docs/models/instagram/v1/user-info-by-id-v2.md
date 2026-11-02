@@ -1,6 +1,8 @@
-# Instagram User Details by ID (V2)
+# Instagram User Details by ID (V2) API: pricing, parameters and code examples
 
-`instagram/v1/user-info-by-id-v2` · api · Instagram
+`instagram/v1/user-info-by-id-v2` · data API · Instagram · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns detailed Instagram user information including bio links by providing an account identifier. Query the endpoint using an Instagram user ID to inspect profile metadata.
 

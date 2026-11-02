@@ -1,6 +1,8 @@
-# Douyin Daren Fan Analysis
+# Douyin Daren Fan Analysis API: pricing, parameters and code examples
 
-`douyin/index/daren-great-user-fans-info` · api · Douyin
+`douyin/index/daren-great-user-fans-info` · data API · Douyin · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns audience and follower analysis data for a specified Douyin influencer. Queries metrics using the influencer's numeric user ID.
 

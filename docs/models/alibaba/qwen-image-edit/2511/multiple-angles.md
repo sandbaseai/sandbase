@@ -1,6 +1,8 @@
-# Qwen Image Edit 2511 Multiple Angles
+# Qwen Image Edit 2511 Multiple Angles API: pricing, parameters and code examples
 
-`alibaba/qwen-image-edit/2511/multiple-angles` · image · Alibaba
+`alibaba/qwen-image-edit/2511/multiple-angles` · image generation model · Alibaba · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.035 per call · **Modes:** async
 
 Qwen Image Edit 2511 Multiple Angles by Alibaba - AI-powered image editing, style transfer, and transformation. Edit photos with natural language instructions, remove backgrounds, change styles, and enhance images effortlessly.
 

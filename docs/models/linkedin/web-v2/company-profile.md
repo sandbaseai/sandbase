@@ -1,6 +1,8 @@
-# LinkedIn Company Profile
+# LinkedIn Company Profile API: pricing, parameters and code examples
 
-`linkedin/web-v2/company-profile` · api · LinkedIn
+`linkedin/web-v2/company-profile` · data API · LinkedIn · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns LinkedIn company profile details, including affiliated organizations, using a direct company page URL.
 

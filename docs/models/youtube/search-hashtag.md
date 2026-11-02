@@ -1,6 +1,8 @@
-# YouTube Hashtag Search
+# YouTube Hashtag Search API: pricing, parameters and code examples
 
-`youtube/search-hashtag` · api · YouTube
+`youtube/search-hashtag` · data API · YouTube · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** about $0.0012 per call · **Modes:** sync
 
 Search YouTube videos by hashtag with cursor pagination (title, channel, views, length, publish time).
 

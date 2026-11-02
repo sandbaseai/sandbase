@@ -1,6 +1,8 @@
-# DataForSEO Keyword Trend Overview
+# DataForSEO Keyword Trend Overview API: pricing, parameters and code examples
 
-`dataforseo/v3/keywords_data/dataforseo_trends/merged_data/live` · api · DataForSEO
+`dataforseo/v3/keywords_data/dataforseo_trends/merged_data/live` · data API · DataForSEO · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.006 per call (free daily quota) · **Modes:** sync
 
 Get trend series, subregion, and demographic data for keywords in one call. DataForSEO Trends merged data for up to 5 keywords: the interest-over-time graph, subregion interests, and demographic split in one response.
 

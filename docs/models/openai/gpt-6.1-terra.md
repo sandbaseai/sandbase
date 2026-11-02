@@ -1,6 +1,8 @@
-# OpenAI: GPT-6.1 Terra
+# OpenAI: GPT-6.1 Terra API: pricing, parameters and code examples
 
-`openai/gpt-6.1-terra` · llm · OpenAI
+`openai/gpt-6.1-terra` · LLM · OpenAI · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $1 input / $5 output per 1M tokens · **Modes:** sync
 
 GPT-6.1 Terra is the middle tier of OpenAI's GPT-6.1 family and the replacement for GPT-5.6 Terra, with text and image input. OpenAI positions it for everyday agentic, coding and writing work, with particular gains in visual reasoning over screenshots and documents and in computer use, at half the price of GPT-6.1 Sol. Reasoning effort ranges from none to max with medium as the default; choose GPT-6.1 Sol for harder work or GPT-6 Luna for the highest-volume tasks.
 

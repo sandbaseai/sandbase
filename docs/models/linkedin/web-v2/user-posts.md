@@ -1,6 +1,8 @@
-# LinkedIn User Posts
+# LinkedIn User Posts API: pricing, parameters and code examples
 
-`linkedin/web-v2/user-posts` · api · LinkedIn
+`linkedin/web-v2/user-posts` · data API · LinkedIn · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.015 per call (free daily quota) · **Modes:** sync
 
 Retrieves a member's posts, commented posts, or reacted posts using their profile URL. Supports filtering by activity type and paginating through results.
 

@@ -1,6 +1,8 @@
-# Levels.fyi Job Families
+# Levels.fyi Job Families API: pricing, parameters and code examples
 
-`levels-fyi/job-families` · api · Levels.fyi
+`levels-fyi/job-families` · data API · Levels.fyi · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.01 per call (free daily quota) · **Modes:** async
 
 Retrieve the full directory of job titles and families organized as a flat list. Each job family includes slug, name, category, focus tags, and job titles.
 

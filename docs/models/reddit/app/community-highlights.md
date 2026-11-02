@@ -1,6 +1,8 @@
-# Reddit Community Highlights
+# Reddit Community Highlights API: pricing, parameters and code examples
 
-`reddit/app/community-highlights` · api · Reddit
+`reddit/app/community-highlights` · data API · Reddit · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns featured highlight content for a designated Reddit community, such as popular posts and announcements, by subreddit ID. Supports optional response data formatting.
 

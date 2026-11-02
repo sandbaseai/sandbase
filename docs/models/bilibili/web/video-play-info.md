@@ -1,6 +1,8 @@
-# Bilibili Single Video Play Info
+# Bilibili Single Video Play Info API: pricing, parameters and code examples
 
-`bilibili/web/video-play-info` · api · Bilibili
+`bilibili/web/video-play-info` · data API · Bilibili · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns playback stream information, including video stream URLs, MIME types, and frame rates, for a single Bilibili video URL.
 

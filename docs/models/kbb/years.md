@@ -1,6 +1,8 @@
-# Kelley Blue Book Years
+# Kelley Blue Book Years API: pricing, parameters and code examples
 
-`kbb/years` · api · Kelley Blue Book
+`kbb/years` · data API · Kelley Blue Book · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.01 per call (free daily quota) · **Modes:** async
 
 Retrieve all available vehicle model years from Kelley Blue Book in one round trip. Returns an array of integer years in descending order, from the newest model year the site currently lists (one year beyond the next.
 

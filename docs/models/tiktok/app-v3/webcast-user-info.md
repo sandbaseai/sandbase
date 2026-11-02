@@ -1,6 +1,8 @@
-# TikTok Webcast User Information
+# TikTok Webcast User Information API: pricing, parameters and code examples
 
-`tiktok/app-v3/webcast-user-info` · api · TikTok
+`tiktok/app-v3/webcast-user-info` · data API · TikTok · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Retrieves profile information for a specified TikTok Webcast user. Queries data using either a numeric user ID or a secure user ID.
 

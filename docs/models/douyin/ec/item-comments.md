@@ -1,6 +1,8 @@
-# Douyin Shop Item Comments
+# Douyin Shop Item Comments API: pricing, parameters and code examples
 
-`douyin/ec/item-comments` · api · Douyin
+`douyin/ec/item-comments` · data API · Douyin · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.025 per call · **Modes:** sync
 
 Get paginated buyer comments for a Douyin shop product by item ID, with rating, text and media.
 

@@ -1,6 +1,8 @@
-# DataForSEO Backlinks Summary
+# DataForSEO Backlinks Summary API: pricing, parameters and code examples
 
-`dataforseo/v3/backlinks/summary/live` · api · DataForSEO
+`dataforseo/v3/backlinks/summary/live` · data API · DataForSEO · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.004 per call (free daily quota) · **Modes:** sync
 
 Returns high-level backlink profile metrics and overview data for a target domain or URL. Helps evaluate link authority and overall link counts for SEO analysis.
 

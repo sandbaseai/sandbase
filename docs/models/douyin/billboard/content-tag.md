@@ -1,6 +1,8 @@
-# Douyin Billboard Vertical Content Tags
+# Douyin Billboard Vertical Content Tags API: pricing, parameters and code examples
 
-`douyin/billboard/content-tag` · api · Douyin
+`douyin/billboard/content-tag` · data API · Douyin · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns a list of vertical content tags available on the Douyin billboard platform. Useful for categorizing trending topics and discovering niche content segments.
 

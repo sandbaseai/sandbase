@@ -1,6 +1,8 @@
-# DataForSEO YouTube Video Comments
+# DataForSEO YouTube Video Comments API: pricing, parameters and code examples
 
-`dataforseo/v3/serp/youtube/video_comments/live/advanced` · api · DataForSEO
+`dataforseo/v3/serp/youtube/video_comments/live/advanced` · data API · DataForSEO · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** about $0.002 per call · **Modes:** sync
 
 Top-level comments on a YouTube video by video id, with author, text, likes, reply counts and timestamps.
 

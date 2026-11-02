@@ -1,6 +1,8 @@
-# Yahoo Finance Search Tickers
+# Yahoo Finance Search Tickers API: pricing, parameters and code examples
 
-`yahoo-finance/search-tickers` · api · Yahoo Finance
+`yahoo-finance/search-tickers` · data API · Yahoo Finance · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.05 per call · **Modes:** async
 
 Search for stock tickers and companies by name or keyword. Returns matching equities, ETFs, and other instruments across global exchanges with symbol, name, exchange, quote type, sector, and industry.
 

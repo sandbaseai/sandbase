@@ -1,6 +1,8 @@
-# Douyin Douplus User Posts
+# Douyin Douplus User Posts API: pricing, parameters and code examples
 
-`douyin/douplus/user-posts` · api · Douyin
+`douyin/douplus/user-posts` · data API · Douyin · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns a concise list of homepage video posts for a specified Douyin user. Supports cursor-based pagination and custom result counts.
 

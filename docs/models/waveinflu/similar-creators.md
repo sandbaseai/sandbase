@@ -1,6 +1,8 @@
-# Waveinflu Similar Creators
+# Waveinflu Similar Creators API: pricing, parameters and code examples
 
-`waveinflu/similar-creators` · api · Waveinflu
+`waveinflu/similar-creators` · data API · Waveinflu · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** from $0.004977 to $0.4977 per run, depending on parameters · **Modes:** sync
 
 Finds creators similar to a seed account on Instagram, TikTok, or YouTube.
 

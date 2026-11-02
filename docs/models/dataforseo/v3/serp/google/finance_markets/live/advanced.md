@@ -1,6 +1,8 @@
-# DataForSEO Google Finance Markets
+# DataForSEO Google Finance Markets API: pricing, parameters and code examples
 
-`dataforseo/v3/serp/google/finance_markets/live/advanced` · api · DataForSEO
+`dataforseo/v3/serp/google/finance_markets/live/advanced` · data API · DataForSEO · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.002 per call (free daily quota) · **Modes:** sync
 
 Fetch Google Finance market summaries by region or asset class. Google Finance markets page for a market_type (indexes by region, most active, gainers, losers, climate leaders, crypto, currencies).
 

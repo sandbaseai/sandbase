@@ -1,6 +1,8 @@
-# Douyin Hashtag Video List
+# Douyin Hashtag Video List API: pricing, parameters and code examples
 
-`douyin/app-v3/hashtag-video-list` · api · Douyin
+`douyin/app-v3/hashtag-video-list` · data API · Douyin · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns a list of videos associated with a specific Douyin hashtag. Supports sorting by comprehensive rank, most likes, or latest release along with cursor pagination.
 

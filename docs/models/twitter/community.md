@@ -1,6 +1,8 @@
-# X (Twitter) Twitter Community
+# X (Twitter) Twitter Community API: pricing, parameters and code examples
 
-`twitter/community` · api · X (Twitter)
+`twitter/community` · data API · X (Twitter) · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** about $0.0001 per call · **Modes:** sync
 
 Fetch a Twitter/X community's public details (name, description, member count, join policy) by URL.
 

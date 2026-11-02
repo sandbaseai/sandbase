@@ -1,6 +1,8 @@
-# IQAir Live City Ranking
+# IQAir Live City Ranking API: pricing, parameters and code examples
 
-`iqair/live-city-ranking` · api · IQAir
+`iqair/live-city-ranking` · data API · IQAir · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.01 per call (free daily quota) · **Modes:** async
 
 Real-time global city air quality rankings sorted by AQI descending. Returns up to 122 major cities with current AQI values, geographic metadata, and follower counts.
 

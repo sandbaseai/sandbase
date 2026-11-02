@@ -1,6 +1,8 @@
-# Google: Gemini 4 Argon
+# Google: Gemini 4 Argon API: pricing, parameters and code examples
 
-`google/gemini-4-argon` · llm · Google
+`google/gemini-4-argon` · LLM · Google · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $4 input / $20 output per 1M tokens · **Modes:** sync
 
 Gemini 4 Argon is Google's flagship reasoning model and the first model of the Gemini 4 generation, generally available since October 13, 2026. Google trained it to keep context and precision across long, multi-step work such as complex software engineering, legal and financial research, and cybersecurity defense. It accepts text, image, video, audio and PDF input with a 1M-token context window, always reasons before answering with low, medium or high effort, and supports function calling and structured output.
 

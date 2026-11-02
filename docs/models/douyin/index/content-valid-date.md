@@ -1,6 +1,8 @@
-# Douyin Content Guide Valid Dates
+# Douyin Content Guide Valid Dates API: pricing, parameters and code examples
 
-`douyin/index/content-valid-date` · api · Douyin
+`douyin/index/content-valid-date` · data API · Douyin · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns the valid date ranges supported by the Douyin content guide index. Helps clients determine allowable date intervals before requesting trend and guide statistics.
 

@@ -1,6 +1,8 @@
-# Weibo Post Detail (App)
+# Weibo Post Detail (App) API: pricing, parameters and code examples
 
-`weibo/app/status-detail` · api · Weibo
+`weibo/app/status-detail` · data API · Weibo · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns detailed post information from the Weibo app based on a specified post identifier. Use this endpoint to inspect post metadata and actions.
 

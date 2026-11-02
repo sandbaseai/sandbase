@@ -1,6 +1,8 @@
-# Douyin DOU+ Talents by Category
+# Douyin DOU+ Talents by Category API: pricing, parameters and code examples
 
-`douyin/douplus/talents-by-category` · api · Douyin
+`douyin/douplus/talents-by-category` · data API · Douyin · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns a list of DOU+ talents filtered by category name or keyword. Supports pagination through page index and page size parameters.
 

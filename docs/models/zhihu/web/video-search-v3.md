@@ -1,6 +1,8 @@
-# Zhihu Video Search (V3)
+# Zhihu Video Search (V3) API: pricing, parameters and code examples
 
-`zhihu/web/video-search-v3` · api · Zhihu
+`zhihu/web/video-search-v3` · data API · Zhihu · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns Zhihu video search results matching a specified keyword. Supports pagination using offset and limit parameters, and accepts a search hash ID.
 

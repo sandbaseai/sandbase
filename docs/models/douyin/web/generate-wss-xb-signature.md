@@ -1,6 +1,8 @@
-# Douyin Barrage WSS XB Signature
+# Douyin Barrage WSS XB Signature API: pricing, parameters and code examples
 
-`douyin/web/generate-wss-xb-signature` · api · Douyin
+`douyin/web/generate-wss-xb-signature` · data API · Douyin · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns a signed xb parameter for Douyin web barrage WebSocket connections using a specified room ID, user browser agent, and unique user identifier.
 

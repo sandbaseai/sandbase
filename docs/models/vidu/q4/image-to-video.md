@@ -1,6 +1,8 @@
-# Vidu Q4 Image to Video
+# Vidu Q4 Image to Video API: pricing, parameters and code examples
 
-`vidu/q4/image-to-video` · video · Vidu
+`vidu/q4/image-to-video` · video generation model · Vidu · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** from $0.135 to $6.24 per run, depending on parameters · **Modes:** async
 
 Vidu Q4 Preview by Shengshu animates a first-frame image into a 3 to 16 second video at up to 4K. Prompts can direct motion, camera cuts, and spoken dialogue, with native speech and sound effects.
 

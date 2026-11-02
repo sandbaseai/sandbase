@@ -1,6 +1,8 @@
-# Qwen: Qwen3.6 Plus
+# Qwen: Qwen3.6 Plus API: pricing, parameters and code examples
 
-`alibaba/qwen3.6-plus` · llm · Alibaba
+`alibaba/qwen3.6-plus` · LLM · Alibaba · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.5 input / $3 output per 1M tokens · **Modes:** sync
 
 Qwen3.6 Plus is the Plus tier of Alibaba's Qwen3.6 series, a hosted native vision-language reasoning model released in April 2026. Alibaba reports marked gains over the Qwen3.5 series in agentic coding, front-end development and vibe coding, along with multimodal object recognition, OCR and object localization. Model Studio now lists it as a legacy model, with Qwen3.7 Plus as the recommended Plus-tier option, so it fits workloads already validated on this version.
 

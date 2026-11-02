@@ -1,6 +1,8 @@
-# Facebook Ad Creative Details
+# Facebook Ad Creative Details API: pricing, parameters and code examples
 
-`facebook/ad-details-full` · api · Facebook
+`facebook/ad-details-full` · data API · Facebook · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** about $0.00462 per call · **Modes:** sync
 
 Pull one Meta Ad Library ad with its creative: every carousel variant, image and video URL, headline, body, and call to action.
 

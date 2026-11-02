@@ -1,6 +1,8 @@
-# Ahrefs Ahrefs Domain Rating
+# Ahrefs Ahrefs Domain Rating API: pricing, parameters and code examples
 
-`ahrefs/domain-rating` · api · Ahrefs
+`ahrefs/domain-rating` · data API · Ahrefs · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.08 per call · **Modes:** sync
 
 Return the Ahrefs Domain Rating (0-100 authority score) and Ahrefs Rank for a target domain on a given date. 4xx/5xx are not charged.
 

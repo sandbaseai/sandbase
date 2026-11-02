@@ -1,6 +1,8 @@
-# TikTok Batch Video Info (App V3, V2)
+# TikTok Batch Video Info (App V3, V2) API: pricing, parameters and code examples
 
-`tiktok/app-v3/multi-video-v2` · api · TikTok
+`tiktok/app-v3/multi-video-v2` · data API · TikTok · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0375 per call · **Modes:** sync
 
 Returns metadata and details for multiple TikTok videos in a single request using an array of video identifiers.
 

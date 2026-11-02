@@ -1,6 +1,8 @@
-# TikTok Keyword Search Deep Link
+# TikTok Keyword Search Deep Link API: pricing, parameters and code examples
 
-`tiktok/app-v3/open-app-to-keyword-search` · api · TikTok
+`tiktok/app-v3/open-app-to-keyword-search` · data API · TikTok · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns a TikTok share link that directs users to search results for a specified keyword inside the TikTok mobile application.
 

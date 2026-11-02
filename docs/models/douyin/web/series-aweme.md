@@ -1,6 +1,8 @@
-# Douyin Web Series Videos
+# Douyin Web Series Videos API: pricing, parameters and code examples
 
-`douyin/web/series-aweme` · api · Douyin
+`douyin/web/series-aweme` · data API · Douyin · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns a paginated list of series videos from the Douyin web platform. Results can be filtered by content subtype, page number, and page size.
 

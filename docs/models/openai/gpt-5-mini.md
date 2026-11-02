@@ -1,6 +1,8 @@
-# OpenAI: GPT-5 Mini
+# OpenAI: GPT-5 Mini API: pricing, parameters and code examples
 
-`openai/gpt-5-mini` · llm · OpenAI
+`openai/gpt-5-mini` · LLM · OpenAI · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.25 input / $2 output per 1M tokens · **Modes:** sync
 
 GPT-5 mini is the faster, more efficient tier of OpenAI's GPT-5 reasoning family, released in August 2025 with text and image input and text output. OpenAI recommends it for well-defined tasks and precise prompts in low-latency, high-volume workloads, keeping GPT-5's configurable reasoning. Choose it over full GPT-5 when speed and throughput matter more than maximum depth; OpenAI's later small models are its suggested successors.
 

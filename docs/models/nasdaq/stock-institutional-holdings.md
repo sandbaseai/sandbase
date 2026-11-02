@@ -1,6 +1,8 @@
-# Nasdaq Stock Institutional Holdings
+# Nasdaq Stock Institutional Holdings API: pricing, parameters and code examples
 
-`nasdaq/stock-institutional-holdings` · api · Nasdaq
+`nasdaq/stock-institutional-holdings` · data API · Nasdaq · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.01 per call (free daily quota) · **Modes:** async
 
 Institutional holdings data for a stock: ownership summary, active/new/sold-out position counts, and individual holder transactions sorted by market value.
 

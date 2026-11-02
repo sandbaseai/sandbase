@@ -1,6 +1,8 @@
-# Anthropic: Claude Opus 4.7
+# Anthropic: Claude Opus 4.7 API: pricing, parameters and code examples
 
-`anthropic/claude-opus-4.7` · llm · Anthropic
+`anthropic/claude-opus-4.7` · LLM · Anthropic · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $5 input / $25 output per 1M tokens · **Modes:** sync
 
 Opus 4.7 is the next generation of Anthropic's Opus family, built for long-running, asynchronous agents. Building on the coding and agentic strengths of Opus 4.6, it delivers stronger performance on complex, multi-step tasks and more reliable agentic execution across extended workflows. It is especially effective for asynchronous agent pipelines where tasks unfold over time - large codebases, multi-stage debugging, and end-to-end project orchestration.
 

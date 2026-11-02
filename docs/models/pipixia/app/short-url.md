@@ -1,6 +1,8 @@
-# Pipixia Short URL Conversion
+# Pipixia Short URL Conversion API: pricing, parameters and code examples
 
-`pipixia/app/short-url` · api · Pipixia
+`pipixia/app/short-url` · data API · Pipixia · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns a shortened link for a specified web address. Takes an original web link as input and converts it into a Pipixia-compatible short URL format.
 

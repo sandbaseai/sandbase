@@ -1,6 +1,8 @@
-# Vidu Q3 Text to Video Turbo
+# Vidu Q3 Text to Video Turbo API: pricing, parameters and code examples
 
-`vidu/q3/text-to-video/turbo` · video · Vidu
+`vidu/q3/text-to-video/turbo` · video generation model · Vidu · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** from $0.04 to $1.28 per run, depending on parameters · **Modes:** async
 
 Vidu Q3 Turbo is Shengshu's text-to-video AI model. Turn written scripts and prompts into professional-quality video clips with realistic motion, lighting, and scene composition.
 

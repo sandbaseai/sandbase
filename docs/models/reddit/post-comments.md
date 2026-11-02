@@ -1,6 +1,8 @@
-# Reddit Post Comments
+# Reddit Post Comments API: pricing, parameters and code examples
 
-`reddit/post-comments` · api · Reddit
+`reddit/post-comments` · data API · Reddit · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** about $0.0006 per call · **Modes:** sync
 
 List the comments on a Reddit post by URL (author, body, score, timestamp, parent comment). Replies carry the parentId of the comment they answer.
 

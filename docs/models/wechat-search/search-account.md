@@ -1,6 +1,8 @@
-# WeChat Account Search
+# WeChat Account Search API: pricing, parameters and code examples
 
-`wechat-search/search-account` · api · WeChat Search
+`wechat-search/search-account` · data API · WeChat Search · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.055556 per call · **Modes:** sync
 
 Search WeChat Official Accounts by keyword with page-number pagination and one result per page. Use it to find an account by name or related term before profile or article lookup.
 

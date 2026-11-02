@@ -1,6 +1,8 @@
-# Similarweb Website Top Geographies
+# Similarweb Website Top Geographies API: pricing, parameters and code examples
 
-`similarweb/website-top-geographies` · api · Similarweb
+`similarweb/website-top-geographies` · data API · Similarweb · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** about $0.225 per call · **Modes:** sync
 
 Get the countries a website's traffic comes from, with share and visits for each country.
 

@@ -1,6 +1,8 @@
-# Douyin Video Search Filter Options
+# Douyin Video Search Filter Options API: pricing, parameters and code examples
 
-`douyin/index/item-filter-options` · api · Douyin
+`douyin/index/item-filter-options` · data API · Douyin · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns all supported filter options and permissible values for Douyin video search queries. Use these criteria to construct structured search requests.
 

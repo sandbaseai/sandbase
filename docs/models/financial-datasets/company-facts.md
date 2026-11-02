@@ -1,6 +1,8 @@
-# Financial Datasets Get Company Facts
+# Financial Datasets Get Company Facts API: pricing, parameters and code examples
 
-`financial-datasets/company-facts` · api · Financial Datasets
+`financial-datasets/company-facts` · data API · Financial Datasets · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.02 per call · **Modes:** sync
 
 Get Company Facts from Financial Datasets. Returns the official Financial Datasets API response unchanged.
 

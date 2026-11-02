@@ -1,6 +1,8 @@
-# Xiaohongshu (RED) User Posted Notes
+# Xiaohongshu (RED) User Posted Notes API: pricing, parameters and code examples
 
-`xiaohongshu/app-v2/user-posted-notes` · api · Xiaohongshu
+`xiaohongshu/app-v2/user-posted-notes` · data API · Xiaohongshu · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.015 per call (free daily quota) · **Modes:** sync
 
 Retrieves a list of notes posted by a specific Xiaohongshu user with cursor pagination. Query by providing a user identifier or a shared post link.
 

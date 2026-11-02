@@ -1,6 +1,8 @@
-# Tavily URL Content Extraction
+# Tavily URL Content Extraction API: pricing, parameters and code examples
 
-`tavily/extract` · api · Tavily
+`tavily/extract` · data API · Tavily · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.012 per call (free daily quota) · **Modes:** sync
 
 Extracts clean text content from specified web pages using their URLs. Supports basic or advanced extraction depth and optional image inclusion.
 

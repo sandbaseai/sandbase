@@ -1,6 +1,8 @@
-# Douyin Xingtu Creator Link Structure
+# Douyin Xingtu Creator Link Structure API: pricing, parameters and code examples
 
-`douyin/xingtu-v3/data-sp-author-link-struct` · api · Douyin
+`douyin/xingtu-v3/data-sp-author-link-struct` · data API · Douyin · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.020833 per call · **Modes:** sync
 
 Get Douyin Creator Marketplace (Xingtu) creator-link structure data for a specified creator and content channel. Use it to compare creator link structures during performance research.
 

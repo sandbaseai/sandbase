@@ -1,6 +1,8 @@
-# Instagram Location Posts (V3)
+# Instagram Location Posts (V3) API: pricing, parameters and code examples
 
-`instagram/v3/location-posts` · api · Instagram
+`instagram/v3/location-posts` · data API · Instagram · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.012 per call (free daily quota) · **Modes:** sync
 
 Returns Instagram posts associated with a specific location. Supports sorting by ranked or recent media alongside pagination controls.
 

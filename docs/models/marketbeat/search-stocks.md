@@ -1,6 +1,8 @@
-# MarketBeat Search Stocks
+# MarketBeat Search Stocks API: pricing, parameters and code examples
 
-`marketbeat/search-stocks` · api · MarketBeat
+`marketbeat/search-stocks` · data API · MarketBeat · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.01 per call (free daily quota) · **Modes:** async
 
 Search for stock tickers by company name or symbol. Returns matching stocks with ticker, exchange, name, and URL path.
 

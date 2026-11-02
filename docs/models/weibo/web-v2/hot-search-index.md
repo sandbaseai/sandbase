@@ -1,6 +1,8 @@
-# Weibo Hot Search Index
+# Weibo Hot Search Index API: pricing, parameters and code examples
 
-`weibo/web-v2/hot-search-index` · api · Weibo
+`weibo/web-v2/hot-search-index` · data API · Weibo · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns the top 10 hot search ranking items currently trending on Weibo. It delivers active search topics without requiring any input parameters.
 

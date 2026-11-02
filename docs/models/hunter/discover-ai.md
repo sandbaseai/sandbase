@@ -1,6 +1,8 @@
-# Hunter Discover Ai
+# Hunter Discover Ai API: pricing, parameters and code examples
 
-`hunter/discover-ai` · api · Hunter
+`hunter/discover-ai` · data API · Hunter · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.1 per call · **Modes:** async
 
 Describe target companies in plain language; an AI picks the filters and runs the search.
 

@@ -1,6 +1,8 @@
-# Twitter Post Detail
+# Twitter Post Detail API: pricing, parameters and code examples
 
-`twitter/post-detail` · api · Twitter
+`twitter/post-detail` · data API · Twitter · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.013889 per call (free daily quota) · **Modes:** sync
 
 Get the full detail of an X (Twitter) post identified by its tweet ID. Use it to inspect a known post after finding it through search, a user timeline, or an existing post URL.
 

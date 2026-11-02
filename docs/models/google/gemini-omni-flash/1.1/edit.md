@@ -1,6 +1,8 @@
-# Gemini Omni Flash 1.1 Edit
+# Gemini Omni Flash 1.1 Edit API: pricing, parameters and code examples
 
-`google/gemini-omni-flash/1.1/edit` · video · Google
+`google/gemini-omni-flash/1.1/edit` · video generation model · Google · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** about $1.12 per call · **Modes:** async
 
 Gemini Omni Flash 1.1 Edit by Google applies natural-language edits to an existing video of up to ten seconds, such as changing style, lighting, or objects, at 360p to 4K output.
 

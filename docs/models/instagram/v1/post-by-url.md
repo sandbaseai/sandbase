@@ -1,6 +1,8 @@
-# Instagram Post Details by URL
+# Instagram Post Details by URL API: pricing, parameters and code examples
 
-`instagram/v1/post-by-url` · api · Instagram
+`instagram/v1/post-by-url` · data API · Instagram · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns details and display resources for a single Instagram post. Queries the platform using a target post link.
 

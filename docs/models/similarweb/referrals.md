@@ -1,6 +1,8 @@
-# Similarweb Referrals
+# Similarweb Referrals API: pricing, parameters and code examples
 
-`similarweb/referrals` · api · Similarweb
+`similarweb/referrals` · data API · Similarweb · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** about $0.3 per call · **Modes:** sync
 
 Get the websites a site's referral traffic comes from, with visits, share and change for each referrer.
 

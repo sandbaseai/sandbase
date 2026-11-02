@@ -1,6 +1,8 @@
-# Xiaohongshu (RED) Image Search
+# Xiaohongshu (RED) Image Search API: pricing, parameters and code examples
 
-`xiaohongshu/app-v2/search-images` · api · Xiaohongshu
+`xiaohongshu/app-v2/search-images` · data API · Xiaohongshu · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.015 per call (free daily quota) · **Modes:** sync
 
 Returns image notes and matching post metadata for a specified search keyword. Results include image URLs, engagement metrics, note identifiers, and author information.
 

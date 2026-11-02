@@ -1,6 +1,8 @@
-# DataForSEO Merchant Amazon Sellers
+# DataForSEO Merchant Amazon Sellers API: pricing, parameters and code examples
 
-`dataforseo/v3/merchant/amazon/sellers/live/advanced` · api · DataForSEO
+`dataforseo/v3/merchant/amazon/sellers/live/advanced` · data API · DataForSEO · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.005 per call (free daily quota) · **Modes:** sync
 
 Retrieves real-time Amazon seller information and merchant data across e-commerce listings. Returns merchant profiles, ratings, and seller metrics for competitive analysis.
 

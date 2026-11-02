@@ -1,6 +1,8 @@
-# GPT Image 2.5 Sunburst Text to Image
+# GPT Image 2.5 Sunburst Text to Image API: pricing, parameters and code examples
 
-`openai/gpt-image-2.5-sunburst` · image · OpenAI
+`openai/gpt-image-2.5-sunburst` · image generation model · OpenAI · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** from $0.01 to $1 per run, depending on parameters · **Modes:** sync, async
 
 GPT Image 2.5 Sunburst prioritizes visual fidelity and precision for complex image generation workflows.
 

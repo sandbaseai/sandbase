@@ -1,6 +1,8 @@
-# Similarweb Website Traffic Trend
+# Similarweb Website Traffic Trend API: pricing, parameters and code examples
 
-`similarweb/website-traffic-trend` · api · Similarweb
+`similarweb/website-traffic-trend` · data API · Similarweb · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.45 per call · **Modes:** sync
 
 Get a website's monthly traffic trend for chosen metrics over a date range.
 

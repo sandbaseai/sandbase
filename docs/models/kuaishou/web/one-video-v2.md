@@ -1,6 +1,8 @@
-# Kuaishou Single Video Details (V2)
+# Kuaishou Single Video Details (V2) API: pricing, parameters and code examples
 
-`kuaishou/web/one-video-v2` · api · Kuaishou
+`kuaishou/web/one-video-v2` · data API · Kuaishou · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.003 per call (free daily quota) · **Modes:** sync
 
 Retrieves video streaming manifests and media details for a specific Kuaishou video using its unique identifier.
 

@@ -1,6 +1,8 @@
-# Bilibili Hot Searches
+# Bilibili Hot Searches API: pricing, parameters and code examples
 
-`bilibili/web/hot-search` · api · Bilibili
+`bilibili/web/hot-search` · data API · Bilibili · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns current trending search keywords along with their heat scores from Bilibili. Results are restricted according to the specified count limit.
 

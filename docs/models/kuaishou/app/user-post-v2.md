@@ -1,6 +1,8 @@
-# Kuaishou User Video List (V2)
+# Kuaishou User Video List (V2) API: pricing, parameters and code examples
 
-`kuaishou/app/user-post-v2` · api · Kuaishou
+`kuaishou/app/user-post-v2` · data API · Kuaishou · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.015 per call (free daily quota) · **Modes:** sync
 
 Retrieves a list of video feeds posted by a specific Kuaishou user. Supports sorting by latest or hot posts and cursor-based pagination.
 

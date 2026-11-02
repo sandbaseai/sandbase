@@ -1,6 +1,8 @@
-# Wan 2.7 Image to Image
+# Wan 2.7 Image to Image API: pricing, parameters and code examples
 
-`alibaba/wan/2.7/image-to-image` · image · Alibaba
+`alibaba/wan/2.7/image-to-image` · image generation model · Alibaba · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** from $0.03 per run, depending on parameters · **Modes:** async
 
 Alibaba Wan 2.7 image-to-image model that edits images from a natural-language instruction, with multi-reference support and selectable aspect ratio.
 

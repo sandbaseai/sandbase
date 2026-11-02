@@ -1,6 +1,8 @@
-# DataForSEO Google Ads Traffic by Keywords
+# DataForSEO Google Ads Traffic by Keywords API: pricing, parameters and code examples
 
-`dataforseo/v3/keywords_data/google_ads/ad_traffic_by_keywords/live` · api · DataForSEO
+`dataforseo/v3/keywords_data/google_ads/ad_traffic_by_keywords/live` · data API · DataForSEO · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.003 per call (free daily quota) · **Modes:** sync
 
 Returns estimated Google Ads ad traffic metrics for specified search terms. It provides estimates for search volume, potential impressions, clicks, and advertising performance.
 

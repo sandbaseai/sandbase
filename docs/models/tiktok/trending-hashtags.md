@@ -1,6 +1,8 @@
-# TikTok Trending Hashtags
+# TikTok Trending Hashtags API: pricing, parameters and code examples
 
-`tiktok/trending-hashtags` · api · TikTok
+`tiktok/trending-hashtags` · data API · TikTok · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** about $0.0012 per call · **Modes:** sync
 
 Rank TikTok's trending hashtags for one country and industry, with each hashtag's daily popularity curve, post count, video views, and leading creators. Ranks 15 industry categories, or omit industry for the all-industries board. TikTok publishes only the top 3 hashtags per board to anonymous callers, so limit 1-3 is served cheaply; a limit above 3 routes to a dearer authenticated source that returns the full ranking. Covers 27 markets: AE, AR, AU, BR, CA, CO, DE, EG, ES, FR, GB, ID, IL, IT, JP, KR, MX, MY, PH, SA, SG, TH, TR, TW, US, VN, ZA.
 

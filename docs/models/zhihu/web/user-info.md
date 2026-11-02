@@ -1,6 +1,8 @@
-# Zhihu Web User Profile
+# Zhihu Web User Profile API: pricing, parameters and code examples
 
-`zhihu/web/user-info` · api · Zhihu
+`zhihu/web/user-info` · data API · Zhihu · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Retrieves public profile metrics and details for a Zhihu user. Returns article counts, answer counts, follower totals, and user account metadata.
 

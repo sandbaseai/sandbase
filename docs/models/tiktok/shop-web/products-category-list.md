@@ -1,6 +1,8 @@
-# TikTok Shop Product Category List
+# TikTok Shop Product Category List API: pricing, parameters and code examples
 
-`tiktok/shop-web/products-category-list` · api · TikTok
+`tiktok/shop-web/products-category-list` · data API · TikTok · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns the available product categories for TikTok Shop across supported regional marketplaces. Allows filtering the taxonomy by the specified region code.
 

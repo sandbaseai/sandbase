@@ -1,6 +1,8 @@
-# DeepSeek: DeepSeek V3.2
+# DeepSeek: DeepSeek V3.2 API: pricing, parameters and code examples
 
-`deepseek/deepseek-v3.2` · llm · DeepSeek
+`deepseek/deepseek-v3.2` · LLM · DeepSeek · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.252 input / $0.378 output per 1M tokens · **Modes:** sync
 
 DeepSeek-V3.2 is DeepSeek's open-weight, reasoning-first model released in December 2025 as the official successor to V3.2-Exp. It introduces DeepSeek Sparse Attention to reduce long-context training and inference compute and is DeepSeek's first model to integrate thinking directly into tool use, trained on agent data synthesized across more than 1,800 environments. It supports tool calling in both thinking and non-thinking modes, suiting agents and general reasoning.
 

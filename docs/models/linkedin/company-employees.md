@@ -1,6 +1,8 @@
-# LinkedIn Company Employees
+# LinkedIn Company Employees API: pricing, parameters and code examples
 
-`linkedin/company-employees` · api · LinkedIn
+`linkedin/company-employees` · data API · LinkedIn · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** about $0.006 per call · **Modes:** sync
 
 List the employees of a LinkedIn company by name or company URL, with optional job-title filtering.
 

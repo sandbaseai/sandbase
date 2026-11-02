@@ -1,6 +1,8 @@
-# Douyin User Videos
+# Douyin User Videos API: pricing, parameters and code examples
 
-`douyin/app-v3/user-post-videos` · api · Douyin
+`douyin/app-v3/user-post-videos` · data API · Douyin · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Get the videos on a Douyin user's profile with descriptions, publish time and play, like, comment and share counts. Sort by latest or most popular, with cursor pagination.
 

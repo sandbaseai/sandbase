@@ -1,6 +1,8 @@
-# WeChat MP Article Metrics
+# WeChat MP Article Metrics API: pricing, parameters and code examples
 
-`wechat-mp/article-metrics` · api · WeChat MP
+`wechat-mp/article-metrics` · data API · WeChat MP · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.020833 per call · **Modes:** sync
 
 Get basic interaction metrics for a WeChat Official Account article URL that ends with #rd or #wechat_redirect. Use it to perform a lightweight popularity check for a known article.
 

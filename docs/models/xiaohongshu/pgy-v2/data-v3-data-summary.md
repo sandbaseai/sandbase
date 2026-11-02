@@ -1,6 +1,8 @@
-# Xiaohongshu Pugongying Data Summary
+# Xiaohongshu Pugongying Data Summary API: pricing, parameters and code examples
 
-`xiaohongshu/pgy-v2/data-v3-data-summary` · api · Xiaohongshu
+`xiaohongshu/pgy-v2/data-v3-data-summary` · data API · Xiaohongshu · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.020833 per call · **Modes:** sync
 
 Get the Xiaohongshu Pugongying data summary for a creator's daily or cooperation notes. Use it to compare aggregate creator performance between business modes.
 

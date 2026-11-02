@@ -1,6 +1,8 @@
-# TikTok Video Download
+# TikTok Video Download API: pricing, parameters and code examples
 
-`tiktok/video-download` · api · TikTok
+`tiktok/video-download` · data API · TikTok · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** about $0.0008 per call · **Modes:** sync
 
 Get the playable media files behind a TikTok video URL: the clean no-watermark MP4, the watermarked one TikTok's own save button produces, and the cover image, with duration and pixel dimensions. Photo-mode posts carry no video file - use tiktok.photos for those.
 

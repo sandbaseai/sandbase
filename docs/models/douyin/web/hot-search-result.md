@@ -1,6 +1,8 @@
-# Douyin Web Hot Search Results
+# Douyin Web Hot Search Results API: pricing, parameters and code examples
 
-`douyin/web/hot-search-result` · api · Douyin
+`douyin/web/hot-search-result` · data API · Douyin · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns current hot search rankings and trending query results from Douyin web. Access active search trends directly without required query parameters.
 

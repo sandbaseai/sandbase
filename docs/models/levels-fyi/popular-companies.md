@@ -1,6 +1,8 @@
-# Levels.fyi Popular Companies
+# Levels.fyi Popular Companies API: pricing, parameters and code examples
 
-`levels-fyi/popular-companies` · api · Levels.fyi
+`levels-fyi/popular-companies` · data API · Levels.fyi · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.01 per call (free daily quota) · **Modes:** async
 
 Retrieve a list of popular companies from the Levels.fyi directory with their slugs and salary page URLs. Returns approximately 24 top companies.
 

@@ -1,6 +1,8 @@
-# Instagram Location Search
+# Instagram Location Search API: pricing, parameters and code examples
 
-`instagram/search-locations` · api · Instagram
+`instagram/search-locations` · data API · Instagram · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** about $0.0011 per call · **Modes:** sync
 
 Search Instagram locations by keyword and return each place's id, name, address and coordinates.
 

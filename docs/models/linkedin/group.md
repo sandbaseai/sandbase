@@ -1,6 +1,8 @@
-# LinkedIn Group
+# LinkedIn Group API: pricing, parameters and code examples
 
-`linkedin/group` · api · LinkedIn
+`linkedin/group` · data API · LinkedIn · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** about $0.0013 per call · **Modes:** sync
 
 Fetch one LinkedIn group by URL or id: name, description, rules, member count, logo and cover image, creation date, visibility and join settings, and its admins.
 

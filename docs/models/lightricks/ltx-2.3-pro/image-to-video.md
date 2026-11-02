@@ -1,6 +1,8 @@
-# LTX 2.3 Pro Image to Video
+# LTX 2.3 Pro Image to Video API: pricing, parameters and code examples
 
-`lightricks/ltx-2.3-pro/image-to-video` · video · Lightricks
+`lightricks/ltx-2.3-pro/image-to-video` · video generation model · Lightricks · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** from $0.48 to $3.2 per run, depending on parameters · **Modes:** async
 
 Ltx 2.3 Pro by Lightricks - animate still images into dynamic videos with AI. Transform photos into cinematic clips with natural motion, camera movement, and optional audio generation.
 

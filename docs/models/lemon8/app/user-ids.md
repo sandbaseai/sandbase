@@ -1,6 +1,8 @@
-# Lemon8 User IDs by Share Links
+# Lemon8 User IDs by Share Links API: pricing, parameters and code examples
 
-`lemon8/app/user-ids` · api · Lemon8
+`lemon8/app/user-ids` · data API · Lemon8 · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Resolves Lemon8 user identifiers in batch from shared profile links. Accepts an array of up to 10 share links per request and returns the corresponding user IDs.
 

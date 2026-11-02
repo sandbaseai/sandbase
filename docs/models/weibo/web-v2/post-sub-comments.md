@@ -1,6 +1,8 @@
-# Weibo Post Sub-Comments
+# Weibo Post Sub-Comments API: pricing, parameters and code examples
 
-`weibo/web-v2/post-sub-comments` · api · Weibo
+`weibo/web-v2/post-sub-comments` · data API · Weibo · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns the list of sub-comments or replies for a specific Weibo comment. Supports pagination cursors and adjustable result counts per request.
 

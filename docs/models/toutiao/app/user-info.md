@@ -1,6 +1,8 @@
-# Toutiao User Profile
+# Toutiao User Profile API: pricing, parameters and code examples
 
-`toutiao/app/user-info` · api · Toutiao
+`toutiao/app/user-info` · data API · Toutiao · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Get a Toutiao (Jinri Toutiao) user profile by user ID: name, bio, avatar, follower, following and like counts, and content tabs.
 

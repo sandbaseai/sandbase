@@ -1,6 +1,8 @@
-# TikTok Livestream Homepage Recommendations
+# TikTok Livestream Homepage Recommendations API: pricing, parameters and code examples
 
-`tiktok/web/live-recommend` · api · TikTok
+`tiktok/web/live-recommend` · data API · TikTok · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns recommended livestreams from the TikTok homepage for a specified category tag. Requires selecting a category tag to retrieve relevant active broadcast recommendations.
 

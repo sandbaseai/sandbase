@@ -1,6 +1,8 @@
-# GetApp List Categories
+# GetApp List Categories API: pricing, parameters and code examples
 
-`getapp/list-categories` · api · GetApp
+`getapp/list-categories` · data API · GetApp · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.01 per call (free daily quota) · **Modes:** async
 
 List all software categories available on GetApp, organized by group header. Returns category names, slugs, header groups, and listing counts.
 

@@ -1,6 +1,8 @@
-# DataForSEO LLM Mentions New and Lost
+# DataForSEO LLM Mentions New and Lost API: pricing, parameters and code examples
 
-`dataforseo/v3/ai_optimization/llm_mentions/timeseries_new_lost/live` · api · DataForSEO
+`dataforseo/v3/ai_optimization/llm_mentions/timeseries_new_lost/live` · data API · DataForSEO · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** about $0.104 per call · **Modes:** sync
 
 New and lost mentions of a domain or keyword in AI answers per period.
 

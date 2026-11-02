@@ -1,6 +1,8 @@
-# Capterra Category Products
+# Capterra Category Products API: pricing, parameters and code examples
 
-`capterra/category-products` · api · Capterra
+`capterra/category-products` · data API · Capterra · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.01 per call (free daily quota) · **Modes:** async
 
 Retrieve products listed within a specific software category. Returns product names, numeric IDs, URL slugs, and full URLs.
 

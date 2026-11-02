@@ -1,6 +1,8 @@
-# xAI: Grok 4.3
+# xAI: Grok 4.3 API: pricing, parameters and code examples
 
-`x-ai/grok-4.3` · llm · xAI
+`x-ai/grok-4.3` · LLM · xAI · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $1.25 input / $2.5 output per 1M tokens · **Modes:** sync
 
 Grok 4.3 is an xAI reasoning model that xAI describes as fast and reliable, with strong tool calling and instruction following. It accepts text and image input with text output, offers a 1M-token context window, and supports configurable reasoning effort that can be switched off or raised, defaulting to low. It suits agentic workflows, long-document analysis and high-volume instruction-following tasks, while Grok 4.5 through 4.7 later took over as xAI's flagship for coding.
 

@@ -1,6 +1,8 @@
-# GetApp Software Reviews
+# GetApp Software Reviews API: pricing, parameters and code examples
 
-`getapp/software-reviews` · api · GetApp
+`getapp/software-reviews` · data API · GetApp · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.01 per call (free daily quota) · **Modes:** async
 
 Retrieve user reviews and rating breakdowns for a software product, including review snippets, individual reviews, and field-level ratings.
 

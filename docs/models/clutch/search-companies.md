@@ -1,6 +1,8 @@
-# Clutch Search Companies
+# Clutch Search Companies API: pricing, parameters and code examples
 
-`clutch/search-companies` · api · Clutch
+`clutch/search-companies` · data API · Clutch · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.01 per call (free daily quota) · **Modes:** async
 
 Search for companies in a specific service category on Clutch.co. Returns a paginated list of company summaries.
 

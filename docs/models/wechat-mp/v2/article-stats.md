@@ -1,6 +1,8 @@
-# WeChat MP Article Stats
+# WeChat MP Article Stats API: pricing, parameters and code examples
 
-`wechat-mp/v2/article-stats` · api · WeChat MP
+`wechat-mp/v2/article-stats` · data API · WeChat MP · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.015 per call (free daily quota) · **Modes:** sync
 
 Get the engagement metrics of a WeChat official account article from its URL: reads, likes, "wow" count, shares, favorites and comments.
 

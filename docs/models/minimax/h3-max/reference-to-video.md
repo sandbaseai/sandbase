@@ -1,6 +1,8 @@
-# MiniMax H3 Max Reference to Video
+# MiniMax H3 Max Reference to Video API: pricing, parameters and code examples
 
-`minimax/h3-max/reference-to-video` · video · MiniMax
+`minimax/h3-max/reference-to-video` · video generation model · MiniMax · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** about $0.4 per call · **Modes:** async
 
 MiniMax H3 Max by MiniMax generates a 5-15 second video with native audio at 480P or 768P that keeps subjects, motion, and voice consistent with reference images, videos, and audio.
 

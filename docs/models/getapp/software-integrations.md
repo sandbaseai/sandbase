@@ -1,6 +1,8 @@
-# GetApp Software Integrations
+# GetApp Software Integrations API: pricing, parameters and code examples
 
-`getapp/software-integrations` · api · GetApp
+`getapp/software-integrations` · data API · GetApp · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.01 per call (free daily quota) · **Modes:** async
 
 Retrieve integrations for a software product, including integration names, ratings, and review summaries.
 

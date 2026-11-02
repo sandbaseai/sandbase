@@ -1,6 +1,8 @@
-# Wan 3.0 Reference to Video
+# Wan 3.0 Reference to Video API: pricing, parameters and code examples
 
-`alibaba/wan/3.0/reference-to-video` · video · Alibaba
+`alibaba/wan/3.0/reference-to-video` · video generation model · Alibaba · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** about $0.5 per call · **Modes:** async
 
 Wan 3.0 by Alibaba generates up to 30-second videos with native audio from reference images, videos, and audio, keeping subjects, motion, and voice consistent with the references.
 

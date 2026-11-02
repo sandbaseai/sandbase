@@ -1,6 +1,8 @@
-# Kling V2.6 Pro Image to Video
+# Kling V2.6 Pro Image to Video API: pricing, parameters and code examples
 
-`kwaivgi/kling-video/v2.6/pro/image-to-video` · video · KwaiVGI
+`kwaivgi/kling-video/v2.6/pro/image-to-video` · video generation model · KwaiVGI · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** from $0.35 to $1.4 per run, depending on parameters · **Modes:** async
 
 Kling V2.6 Pro Image to Video by Kuaishou animates a start image, optionally toward an end image, into a 5 or 10 second 1080p video with optional native audio and voice control.
 

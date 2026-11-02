@@ -1,6 +1,8 @@
-# IMDb Recommendations
+# IMDb Recommendations API: pricing, parameters and code examples
 
-`imdb/title-more-like-this-query` · api · IMDb
+`imdb/title-more-like-this-query` · data API · IMDb · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.006944 per call (free daily quota) · **Modes:** sync
 
 Get IMDb titles similar to a specified title ID using selected language and country preferences. Use it to support related-title discovery, recommendations, or catalog curation.
 

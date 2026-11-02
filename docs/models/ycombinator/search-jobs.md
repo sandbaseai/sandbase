@@ -1,6 +1,8 @@
-# Y Combinator Search Jobs
+# Y Combinator Search Jobs API: pricing, parameters and code examples
 
-`ycombinator/search-jobs` · api · Y Combinator
+`ycombinator/search-jobs` · data API · Y Combinator · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.01 per call (free daily quota) · **Modes:** async
 
 List job openings at YC companies from workatastartup.com, filtered by role category. Returns up to 30 jobs per call with title, salary range, location, and company info.
 

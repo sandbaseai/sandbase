@@ -1,6 +1,8 @@
-# Pipixia Post Comments
+# Pipixia Post Comments API: pricing, parameters and code examples
 
-`pipixia/app/post-comment-list` · api · Pipixia
+`pipixia/app/post-comment-list` · data API · Pipixia · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns comments for a Pipixia post using its video identifier. Supports cursor-based pagination and cell type filtering to browse feedback.
 

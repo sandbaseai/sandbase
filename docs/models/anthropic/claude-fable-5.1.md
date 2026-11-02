@@ -1,6 +1,8 @@
-# Anthropic: Claude Fable 5.1
+# Anthropic: Claude Fable 5.1 API: pricing, parameters and code examples
 
-`anthropic/claude-fable-5.1` · llm · Anthropic
+`anthropic/claude-fable-5.1` · LLM · Anthropic · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $10 input / $50 output per 1M tokens · **Modes:** sync
 
 Claude Fable 5.1 improves on Claude Fable 5 across the board, with the biggest gains in agentic coding, long-running agentic workflows, and knowledge work: long code refactors, front-end and visual...
 

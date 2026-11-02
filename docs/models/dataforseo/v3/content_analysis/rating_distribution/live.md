@@ -1,6 +1,8 @@
-# DataForSEO Content Analysis Rating Distribution
+# DataForSEO Content Analysis Rating Distribution API: pricing, parameters and code examples
 
-`dataforseo/v3/content_analysis/rating_distribution/live` · api · DataForSEO
+`dataforseo/v3/content_analysis/rating_distribution/live` · data API · DataForSEO · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.003 per call (free daily quota) · **Modes:** sync
 
 Returns the distribution of ratings across analyzed web content and media sources. Helps evaluate audience sentiment and review scores across aggregated citations.
 

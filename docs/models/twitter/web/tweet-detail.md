@@ -1,6 +1,8 @@
-# Twitter Tweet Detail
+# Twitter Tweet Detail API: pricing, parameters and code examples
 
-`twitter/web/tweet-detail` · api · Twitter
+`twitter/web/tweet-detail` · data API · Twitter · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Get a single tweet (X post) by ID: full text, author, media, and like, retweet, reply, quote, bookmark and view counts.
 

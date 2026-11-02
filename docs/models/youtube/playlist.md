@@ -1,6 +1,8 @@
-# YouTube Playlist
+# YouTube Playlist API: pricing, parameters and code examples
 
-`youtube/playlist` · api · YouTube
+`youtube/playlist` · data API · YouTube · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** about $0.0012 per call · **Modes:** sync
 
 List every video in a YouTube playlist (title, length, and channel per video plus playlist owner and totals).
 

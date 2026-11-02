@@ -1,6 +1,8 @@
-# MiniMax H3 Image to Video
+# MiniMax H3 Image to Video API: pricing, parameters and code examples
 
-`minimax/h3/image-to-video` · video · MiniMax
+`minimax/h3/image-to-video` · video generation model · MiniMax · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** about $0.65 per call · **Modes:** async
 
 Generate native-stereo 2K video from a first frame and optional last frame with MiniMax H3.
 

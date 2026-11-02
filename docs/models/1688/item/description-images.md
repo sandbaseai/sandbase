@@ -1,6 +1,8 @@
-# 1688 Product Description Images
+# 1688 Product Description Images API: pricing, parameters and code examples
 
-`1688/item/description-images` · api · 1688
+`1688/item/description-images` · data API · 1688 · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.013889 per call (free daily quota) · **Modes:** sync
 
 Get the description images of a 1688 product listing by item ID, for catalog preparation and product research.
 

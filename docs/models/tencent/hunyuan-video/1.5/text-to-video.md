@@ -1,6 +1,8 @@
-# Hunyuan Video 1.5 Text to Video
+# Hunyuan Video 1.5 Text to Video API: pricing, parameters and code examples
 
-`tencent/hunyuan-video/1.5/text-to-video` · video · Tencent
+`tencent/hunyuan-video/1.5/text-to-video` · video generation model · Tencent · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** about $0.375 per call · **Modes:** async
 
 Hunyuan Video 1.5 is Tencent's text-to-video AI model. Turn written scripts and prompts into professional-quality video clips with realistic motion, lighting, and scene composition.
 

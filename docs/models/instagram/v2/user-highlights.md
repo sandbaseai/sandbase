@@ -1,6 +1,8 @@
-# Instagram User Highlights (V2)
+# Instagram User Highlights (V2) API: pricing, parameters and code examples
 
-`instagram/v2/user-highlights` · api · Instagram
+`instagram/v2/user-highlights` · data API · Instagram · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.003 per call (free daily quota) · **Modes:** sync
 
 Returns an Instagram user's list of highlights and saved story collections. Query using either a target user ID or account username.
 

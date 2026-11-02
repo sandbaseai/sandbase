@@ -1,6 +1,8 @@
-# CoinGecko Supported Currencies List
+# CoinGecko Supported Currencies List API: pricing, parameters and code examples
 
-`coingecko/simple-supported-vs-currencies` · api · CoinGecko
+`coingecko/simple-supported-vs-currencies` · data API · CoinGecko · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.008 per call (free daily quota) · **Modes:** sync
 
 Supported Currencies List from CoinGecko. Returns the official CoinGecko API response unchanged.
 

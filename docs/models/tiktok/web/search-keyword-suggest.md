@@ -1,6 +1,8 @@
-# TikTok Search Keyword Suggestions
+# TikTok Search Keyword Suggestions API: pricing, parameters and code examples
 
-`tiktok/web/search-keyword-suggest` · api · TikTok
+`tiktok/web/search-keyword-suggest` · data API · TikTok · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns autocomplete and related search suggestions for a given query term on TikTok Web. Use this to discover trending search variations based on input keywords.
 

@@ -1,6 +1,8 @@
-# Reddit App Popular Feed
+# Reddit App Popular Feed API: pricing, parameters and code examples
 
-`reddit/app/popular-feed` · api · Reddit
+`reddit/app/popular-feed` · data API · Reddit · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns trending and popular posts across Reddit with engagement metrics, subreddit details, and media metadata. Supports sorting and time filters.
 

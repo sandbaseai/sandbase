@@ -1,6 +1,8 @@
-# Douyin User Profile Share Link
+# Douyin User Profile Share Link API: pricing, parameters and code examples
 
-`douyin/app-v3/open-app-to-user-profile` · api · Douyin
+`douyin/app-v3/open-app-to-user-profile` · data API · Douyin · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Generates a Douyin app share link that redirects to a specific user profile using a provided user ID and secure user ID.
 

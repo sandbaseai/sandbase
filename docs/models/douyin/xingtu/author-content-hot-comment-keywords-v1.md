@@ -1,6 +1,8 @@
-# Douyin Xingtu Author Hot Comment Keywords
+# Douyin Xingtu Author Hot Comment Keywords API: pricing, parameters and code examples
 
-`douyin/xingtu/author-content-hot-comment-keywords-v1` · api · Douyin
+`douyin/xingtu/author-content-hot-comment-keywords-v1` · data API · Douyin · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.03 per call · **Modes:** sync
 
 Returns hot comment keywords from content produced by a Douyin Xingtu creator. Queries data using the creator's KOL identifier.
 

@@ -1,6 +1,8 @@
-# Weibo Real-Time Search
+# Weibo Real-Time Search API: pricing, parameters and code examples
 
-`weibo/web-v2/realtime-search` · api · Weibo
+`weibo/web-v2/realtime-search` · data API · Weibo · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Search the latest Weibo posts for a keyword, sorted by time: post text, author, publish time and interaction counts.
 

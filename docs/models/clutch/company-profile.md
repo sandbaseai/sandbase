@@ -1,6 +1,8 @@
-# Clutch Company Profile
+# Clutch Company Profile API: pricing, parameters and code examples
 
-`clutch/company-profile` · api · Clutch
+`clutch/company-profile` · data API · Clutch · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.02 per call · **Modes:** async
 
 Get detailed profile of a company by its slug. Returns company name, rating, tagline, key details (project size, hourly rate, employees, year founded), website URL, and service line breakdown with percentages.
 

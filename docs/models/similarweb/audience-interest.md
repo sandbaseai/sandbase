@@ -1,6 +1,8 @@
-# Similarweb Audience Interest
+# Similarweb Audience Interest API: pricing, parameters and code examples
 
-`similarweb/audience-interest` · api · Similarweb
+`similarweb/audience-interest` · data API · Similarweb · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** about $0.375 per call · **Modes:** sync
 
 Get the other websites a site's audience also visits, with affinity and audience overlap scores.
 

@@ -1,6 +1,8 @@
-# Bilibili Video Details
+# Bilibili Video Details API: pricing, parameters and code examples
 
-`bilibili/video-detail` · api · Bilibili
+`bilibili/video-detail` · data API · Bilibili · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.013889 per call (free daily quota) · **Modes:** sync
 
 Get details for a Bilibili video identified by its BVID. Use it to look up a known video for content review, cataloging, or subsequent engagement analysis.
 

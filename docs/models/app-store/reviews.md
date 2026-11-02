@@ -1,6 +1,8 @@
-# App Store Reviews
+# App Store Reviews API: pricing, parameters and code examples
 
-`app-store/reviews` · api · App Store
+`app-store/reviews` · data API · App Store · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.00015 per call (free daily quota) · **Modes:** async
 
 Read Apple App Store reviews for an app in one storefront country, page by page.
 

@@ -1,6 +1,8 @@
-# Wan 2.5 Text to Image
+# Wan 2.5 Text to Image API: pricing, parameters and code examples
 
-`alibaba/wan/2.5/text-to-image` · image · Alibaba
+`alibaba/wan/2.5/text-to-image` · image generation model · Alibaba · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** from $0.05 per run, depending on parameters · **Modes:** async
 
 Wan 2.5 is Alibaba's advanced text-to-image AI model. Create photorealistic images, illustrations, and concept art from natural language descriptions with exceptional detail and prompt adherence.
 

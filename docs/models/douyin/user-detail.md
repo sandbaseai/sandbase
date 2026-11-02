@@ -1,6 +1,8 @@
-# Douyin User Profile
+# Douyin User Profile API: pricing, parameters and code examples
 
-`douyin/user-detail` · api · Douyin
+`douyin/user-detail` · data API · Douyin · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.013889 per call (free daily quota) · **Modes:** sync
 
 Get a Douyin (TikTok China) user profile by secUid. Use it to review a known creator or account before monitoring related content or conducting account research.
 

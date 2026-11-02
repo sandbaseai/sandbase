@@ -1,6 +1,8 @@
-# Douyin Brand Valid Information
+# Douyin Brand Valid Information API: pricing, parameters and code examples
 
-`douyin/index/brand-valid-info` · api · Douyin
+`douyin/index/brand-valid-info` · data API · Douyin · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns brand details including brand ID and category information on Douyin. Queries are filtered using comma-separated brand keywords.
 

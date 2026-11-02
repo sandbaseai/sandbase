@@ -1,6 +1,8 @@
-# Kuaishou Single Video by URL
+# Kuaishou Single Video by URL API: pricing, parameters and code examples
 
-`kuaishou/web/one-video-by-url` · api · Kuaishou
+`kuaishou/web/one-video-by-url` · data API · Kuaishou · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.003 per call (free daily quota) · **Modes:** sync
 
 Retrieves video manifest data and streaming representation details for a specific Kuaishou post using its web link. Returns media properties such as resolution, frame rate, and direct video URLs.
 

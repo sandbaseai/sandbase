@@ -1,6 +1,8 @@
-# Nasdaq Stock Sec Filings
+# Nasdaq Stock Sec Filings API: pricing, parameters and code examples
 
-`nasdaq/stock-sec-filings` · api · Nasdaq
+`nasdaq/stock-sec-filings` · data API · Nasdaq · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.01 per call (free daily quota) · **Modes:** async
 
 SEC filings for a stock symbol including 10-K, 10-Q, 8-K, and other filing types. Returns filing metadata with links to view documents.
 

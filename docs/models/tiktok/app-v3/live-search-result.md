@@ -1,6 +1,8 @@
-# TikTok Stream Search Results
+# TikTok Stream Search Results API: pricing, parameters and code examples
 
-`tiktok/app-v3/live-search-result` · api · TikTok
+`tiktok/app-v3/live-search-result` · data API · TikTok · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns search results for active broadcasts matching a specified keyword. Supports filtering by country code and paginating via offset and count limits.
 

@@ -1,6 +1,8 @@
-# CoinGecko Coin OHLC Chart by ID
+# CoinGecko Coin OHLC Chart by ID API: pricing, parameters and code examples
 
-`coingecko/coins-ohlc` · api · CoinGecko
+`coingecko/coins-ohlc` · data API · CoinGecko · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.008 per call (free daily quota) · **Modes:** sync
 
 Get the OHLC chart (Open, High, Low, Close) of a coin based on particular coin ID
 

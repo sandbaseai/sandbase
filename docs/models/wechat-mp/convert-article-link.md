@@ -1,6 +1,8 @@
-# WeChat MP Article Link Conversion
+# WeChat MP Article Link Conversion API: pricing, parameters and code examples
 
-`wechat-mp/convert-article-link` · api · WeChat MP
+`wechat-mp/convert-article-link` · data API · WeChat MP · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.013889 per call (free daily quota) · **Modes:** sync
 
 Expands a WeChat Official Account article link to its resolved long-form destination. Use it to normalize a short or intermediate link before article lookup or collection.
 

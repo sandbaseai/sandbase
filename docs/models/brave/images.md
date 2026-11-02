@@ -1,6 +1,8 @@
-# Brave Image Search
+# Brave Image Search API: pricing, parameters and code examples
 
-`brave/images` · api · Brave
+`brave/images` · data API · Brave · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.005 per call (free daily quota) · **Modes:** sync
 
 Image Search from Brave. Returns the official Brave API response unchanged.
 

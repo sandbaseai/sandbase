@@ -1,6 +1,8 @@
-# Pipixia Post View Count Increment
+# Pipixia Post View Count Increment API: pricing, parameters and code examples
 
-`pipixia/app/increase-post-view-count` · api · Pipixia
+`pipixia/app/increase-post-view-count` · data API · Pipixia · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Registers an increment for a Pipixia post view count using the specified cell ID. Returns a status code along with a response timestamp.
 

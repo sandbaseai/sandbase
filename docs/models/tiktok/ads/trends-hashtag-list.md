@@ -1,6 +1,8 @@
-# TikTok Trending Hashtags
+# TikTok Trending Hashtags API: pricing, parameters and code examples
 
-`tiktok/ads/trends-hashtag-list` · api · TikTok
+`tiktok/ads/trends-hashtag-list` · data API · TikTok · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Get trending TikTok hashtags from TikTok Creative Center by country and industry: rank, posts, views and popularity curve over 7, 30 or 90 days.
 

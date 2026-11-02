@@ -1,6 +1,8 @@
-# YouTube Channel Community Posts
+# YouTube Channel Community Posts API: pricing, parameters and code examples
 
-`youtube/web-v2/channel-community-posts` · api · YouTube
+`youtube/web-v2/channel-community-posts` · data API · YouTube · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns community posts from a specific YouTube channel, including text content, polls, votes, and comment counts. Supports pagination via a continuation token.
 

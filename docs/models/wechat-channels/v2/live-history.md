@@ -1,6 +1,8 @@
-# WeChat Channels Stream Replay History
+# WeChat Channels Stream Replay History API: pricing, parameters and code examples
 
-`wechat-channels/v2/live-history` · api · WeChat Channels
+`wechat-channels/v2/live-history` · data API · WeChat Channels · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.015 per call (free daily quota) · **Modes:** sync
 
 Returns a creator's broadcast replay list, including media download URLs and decryption keys. Supports cursor pagination via a finder username.
 

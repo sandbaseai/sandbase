@@ -1,6 +1,8 @@
-# Vidu Q3 Image to Video Turbo
+# Vidu Q3 Image to Video Turbo API: pricing, parameters and code examples
 
-`vidu/q3/image-to-video/turbo` · video · Vidu
+`vidu/q3/image-to-video/turbo` · video generation model · Vidu · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** from $0.04 to $1.28 per run, depending on parameters · **Modes:** async
 
 Vidu Q3 Turbo by Shengshu - animate still images into dynamic videos with AI. Transform photos into cinematic clips with natural motion, camera movement, and optional audio generation.
 

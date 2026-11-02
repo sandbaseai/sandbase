@@ -1,6 +1,8 @@
-# Telegram Similar Channels
+# Telegram Similar Channels API: pricing, parameters and code examples
 
-`telegram/web/similar-channels` · api · Telegram
+`telegram/web/similar-channels` · data API · Telegram · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns Telegram's official similar channel recommendations based on a specified channel username for channel discovery and audience research.
 

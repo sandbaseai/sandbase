@@ -1,6 +1,8 @@
-# GPT Image 2 Text to Image
+# GPT Image 2 Text to Image API: pricing, parameters and code examples
 
-`openai/gpt-image-2` · image · OpenAI
+`openai/gpt-image-2` · image generation model · OpenAI · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** from $0.01 to $0.72 per run, depending on parameters · **Modes:** async
 
 GPT Image 2, OpenAI's latest image model, is capable of making fine-grained, detailed edits to images.
 

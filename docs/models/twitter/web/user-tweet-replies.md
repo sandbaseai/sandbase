@@ -1,6 +1,8 @@
-# Twitter (X) User Tweet Replies
+# Twitter (X) User Tweet Replies API: pricing, parameters and code examples
 
-`twitter/web/user-tweet-replies` · api · Twitter
+`twitter/web/user-tweet-replies` · data API · Twitter · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns a timeline of replies posted by a specific Twitter user. Filter by username and paginate through responses using cursor tokens.
 

@@ -1,6 +1,8 @@
-# Xiaohongshu (RED) PGY Blogger Note Rates
+# Xiaohongshu (RED) PGY Blogger Note Rates API: pricing, parameters and code examples
 
-`xiaohongshu/pgy/blogger-notes-rate` · api · Xiaohongshu
+`xiaohongshu/pgy/blogger-notes-rate` · data API · Xiaohongshu · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.03 per call · **Modes:** sync
 
 Returns overall note performance metrics from a creator's data overview on Pugongying. Supports filtering by date range, note format, and advertising traffic.
 

@@ -1,6 +1,8 @@
-# Reddit Post Details Large Batch
+# Reddit Post Details Large Batch API: pricing, parameters and code examples
 
-`reddit/app/post-details-batch-large` · api · Reddit
+`reddit/app/post-details-batch-large` · data API · Reddit · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0375 per call · **Modes:** sync
 
 Returns details for up to 30 Reddit posts in a single request using comma-separated post IDs. Supports optional comment context and formatted output data.
 

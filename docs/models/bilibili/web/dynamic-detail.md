@@ -1,6 +1,8 @@
-# Bilibili Dynamic Detail
+# Bilibili Dynamic Detail API: pricing, parameters and code examples
 
-`bilibili/web/dynamic-detail` · api · Bilibili
+`bilibili/web/dynamic-detail` · data API · Bilibili · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns detailed information for a specified Bilibili dynamic post, such as image, text, or article dynamics, using its unique dynamic ID.
 

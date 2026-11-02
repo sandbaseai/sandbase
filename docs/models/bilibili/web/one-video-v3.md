@@ -1,6 +1,8 @@
-# Bilibili Single Video Details
+# Bilibili Single Video Details API: pricing, parameters and code examples
 
-`bilibili/web/one-video-v3` · api · Bilibili
+`bilibili/web/one-video-v3` · data API · Bilibili · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns detailed metadata for a single Bilibili video, including season information, episode titles, duration, and post timestamps via its URL.
 

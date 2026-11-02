@@ -1,6 +1,8 @@
-# Weibo AI Related Search Content
+# Weibo AI Related Search Content API: pricing, parameters and code examples
 
-`weibo/web-v2/ai-related-search` · api · Weibo
+`weibo/web-v2/ai-related-search` · data API · Weibo · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns AI-generated content extensions for a keyword, including related questions, recommended bloggers, and reference posts.
 

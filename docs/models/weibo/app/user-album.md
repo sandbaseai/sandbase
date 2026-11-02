@@ -1,6 +1,8 @@
-# Weibo User Album
+# Weibo User Album API: pricing, parameters and code examples
 
-`weibo/app/user-album` · api · Weibo
+`weibo/app/user-album` · data API · Weibo · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns the photo and media album content of a specified Weibo user. Supports cursor-based pagination using the since_id parameter.
 

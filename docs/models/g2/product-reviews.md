@@ -1,6 +1,8 @@
-# G2 Product Reviews
+# G2 Product Reviews API: pricing, parameters and code examples
 
-`g2/product-reviews` · api · G2
+`g2/product-reviews` · data API · G2 · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.05 per call · **Modes:** async
 
 Retrieve paginated user reviews for a given software product, 10 reviews per page, newest-first in G2's default order. Each review includes author, designation, segment, title, date (ISO YYYY-MM-DD), rating (0-5 on a.
 

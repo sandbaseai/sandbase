@@ -1,6 +1,8 @@
-# Anthropic: Claude Opus 5.5
+# Anthropic: Claude Opus 5.5 API: pricing, parameters and code examples
 
-`anthropic/claude-opus-5.5` · llm · Anthropic
+`anthropic/claude-opus-5.5` · LLM · Anthropic · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $4 input / $20 output per 1M tokens · **Modes:** sync
 
 Claude Opus 5.5 is the most powerful model in the Claude 5 family from Anthropic. It excels at complex reasoning, analysis, and creative tasks with superior accuracy and nuance. It supports text, image, and file inputs with text output, reasoning support and a 1M-token context window.
 

@@ -1,6 +1,8 @@
-# Douyin Xingtu Creator Order Experience
+# Douyin Xingtu Creator Order Experience API: pricing, parameters and code examples
 
-`douyin/xingtu-v3/aggregator-author-order-experience` · api · Douyin
+`douyin/xingtu-v3/aggregator-author-order-experience` · data API · Douyin · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.020833 per call · **Modes:** sync
 
 Get Douyin Creator Marketplace (Xingtu) creator order-experience information for the last 30 or 90 days. Use it to review marketplace order history during creator evaluation.
 

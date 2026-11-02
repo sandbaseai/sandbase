@@ -1,6 +1,8 @@
-# 1688 Product Details by URL
+# 1688 Product Details by URL API: pricing, parameters and code examples
 
-`1688/item/detail-by-url` · api · 1688
+`1688/item/detail-by-url` · data API · 1688 · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.013889 per call (free daily quota) · **Modes:** sync
 
 Get 1688 product details from a product URL: prices by quantity, SKUs, MOQ and supplier, in the chosen language.
 

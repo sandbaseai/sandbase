@@ -1,6 +1,8 @@
-# Levels.fyi H1B Salaries
+# Levels.fyi H1B Salaries API: pricing, parameters and code examples
 
-`levels-fyi/h1b-salaries` · api · Levels.fyi
+`levels-fyi/h1b-salaries` · data API · Levels.fyi · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.01 per call (free daily quota) · **Modes:** async
 
 Retrieve paginated H-1B visa salary records for a given year, sorted by date descending. Each record includes company, job title, wage, location (city/state), and certification status.
 

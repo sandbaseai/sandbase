@@ -1,6 +1,8 @@
-# Instagram User Posts (V1)
+# Instagram User Posts (V1) API: pricing, parameters and code examples
 
-`instagram/v1/user-posts` · api · Instagram
+`instagram/v1/user-posts` · data API · Instagram · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns a paginated list of posts for a specified Instagram account. Results include captions, like counts, comment counts, and media details.
 

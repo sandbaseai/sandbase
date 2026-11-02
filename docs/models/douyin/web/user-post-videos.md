@@ -1,6 +1,8 @@
-# Douyin User Video Posts
+# Douyin User Video Posts API: pricing, parameters and code examples
 
-`douyin/web/user-post-videos` · api · Douyin
+`douyin/web/user-post-videos` · data API · Douyin · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns video data posted on a Douyin user homepage. Query by user identifier with support for pagination and sorting by popularity or default order.
 

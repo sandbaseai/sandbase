@@ -1,6 +1,8 @@
-# Brave Place Search
+# Brave Place Search API: pricing, parameters and code examples
 
-`brave/local-place-search` · api · Brave
+`brave/local-place-search` · data API · Brave · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.005 per call (free daily quota) · **Modes:** sync
 
 Place Search from Brave. Returns the official Brave API response unchanged.
 

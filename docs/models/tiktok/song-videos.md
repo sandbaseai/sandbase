@@ -1,6 +1,8 @@
-# TikTok Song Videos
+# TikTok Song Videos API: pricing, parameters and code examples
 
-`tiktok/song-videos` · api · TikTok
+`tiktok/song-videos` · data API · TikTok · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** about $0.0006 per call · **Modes:** sync
 
 List TikTok videos that use a given song or sound (with descriptions, authors, and engagement stats).
 

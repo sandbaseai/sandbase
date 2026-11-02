@@ -1,6 +1,8 @@
-# DataForSEO Google Relevant Pages
+# DataForSEO Google Relevant Pages API: pricing, parameters and code examples
 
-`dataforseo/v3/dataforseo_labs/google/relevant_pages/live` · api · DataForSEO
+`dataforseo/v3/dataforseo_labs/google/relevant_pages/live` · data API · DataForSEO · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.024 per call · **Modes:** sync
 
 List a domain's pages that rank in Google, with the keywords, positions, estimated traffic and SERP features each page earns.
 

@@ -1,6 +1,8 @@
-# FlashVSR
+# FlashVSR API: pricing, parameters and code examples
 
-`alibaba/flashvsr` · video · Alibaba
+`alibaba/flashvsr` · video generation model · Alibaba · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** about $0.155 per call · **Modes:** async
 
 FlashVSR is a video super-resolution model that upscales videos to higher resolutions (720p / 1080p / 2K / 4K) with fast inference.
 

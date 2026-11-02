@@ -1,6 +1,8 @@
-# Apollo Get Complete Organization Info
+# Apollo Get Complete Organization Info API: pricing, parameters and code examples
 
-`apollo/company-record` · api · Apollo
+`apollo/company-record` · data API · Apollo · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.01975 per call · **Modes:** sync
 
 The complete Apollo record for one company, by Apollo organization id (not by domain).
 

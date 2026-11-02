@@ -1,6 +1,8 @@
-# Zhihu Answer List
+# Zhihu Answer List API: pricing, parameters and code examples
 
-`zhihu/answer-list` · api · Zhihu
+`zhihu/answer-list` · data API · Zhihu · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.013889 per call (free daily quota) · **Modes:** sync
 
 Get answers for a Zhihu question with sorting and pagination controls. Use it to browse responses to a known question and continue through additional answer pages.
 

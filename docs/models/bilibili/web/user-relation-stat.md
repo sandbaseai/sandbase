@@ -1,6 +1,8 @@
-# Bilibili User Relation Statistics
+# Bilibili User Relation Statistics API: pricing, parameters and code examples
 
-`bilibili/web/user-relation-stat` · api · Bilibili
+`bilibili/web/user-relation-stat` · data API · Bilibili · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns relationship statistics, including following and follower counts, for a specified Bilibili account using their user ID.
 

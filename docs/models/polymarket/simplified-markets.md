@@ -1,6 +1,8 @@
-# Polymarket Get simplified markets
+# Polymarket Get simplified markets API: pricing, parameters and code examples
 
-`polymarket/simplified-markets` · api · Polymarket
+`polymarket/simplified-markets` · data API · Polymarket · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.012 per call (free daily quota) · **Modes:** sync
 
 Returns simplified CLOB markets with token and reward summaries.
 

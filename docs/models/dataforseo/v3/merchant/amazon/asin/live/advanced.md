@@ -1,6 +1,8 @@
-# DataForSEO Merchant Amazon ASIN
+# DataForSEO Merchant Amazon ASIN API: pricing, parameters and code examples
 
-`dataforseo/v3/merchant/amazon/asin/live/advanced` · api · DataForSEO
+`dataforseo/v3/merchant/amazon/asin/live/advanced` · data API · DataForSEO · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.005 per call (free daily quota) · **Modes:** sync
 
 Returns real-time Amazon product details for a single ASIN: title, brand, price, availability, rating and review count, images, bullet points, specifications, variants and buy-box seller.
 

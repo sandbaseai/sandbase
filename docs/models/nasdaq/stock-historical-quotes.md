@@ -1,6 +1,8 @@
-# Nasdaq Stock Historical Quotes
+# Nasdaq Stock Historical Quotes API: pricing, parameters and code examples
 
-`nasdaq/stock-historical-quotes` · api · Nasdaq
+`nasdaq/stock-historical-quotes` · data API · Nasdaq · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.01 per call (free daily quota) · **Modes:** async
 
 Historical OHLCV price data for a symbol. Without explicit date range, defaults to one year ending today.
 

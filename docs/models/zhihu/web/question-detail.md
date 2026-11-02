@@ -1,6 +1,8 @@
-# Zhihu Question Detail
+# Zhihu Question Detail API: pricing, parameters and code examples
 
-`zhihu/web/question-detail` · api · Zhihu
+`zhihu/web/question-detail` · data API · Zhihu · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Retrieves question information on Zhihu using a question ID. Returns the question title, answer counts, comment counts, follower counts, and view statistics.
 

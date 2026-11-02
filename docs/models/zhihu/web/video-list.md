@@ -1,6 +1,8 @@
-# Zhihu Video List
+# Zhihu Video List API: pricing, parameters and code examples
 
-`zhihu/web/video-list` · api · Zhihu
+`zhihu/web/video-list` · data API · Zhihu · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Retrieves a paginated list of videos from the Zhihu web platform. Supports pagination controls through page size and offset index parameters.
 

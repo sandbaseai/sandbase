@@ -1,6 +1,8 @@
-# TikTok Web Browser Fingerprint
+# TikTok Web Browser Fingerprint API: pricing, parameters and code examples
 
-`tiktok/web/generate-fingerprint` · api · TikTok
+`tiktok/web/generate-fingerprint` · data API · TikTok · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns browser fingerprint configurations for web requests. Allows tailoring the profile based on an optional browser type parameter.
 

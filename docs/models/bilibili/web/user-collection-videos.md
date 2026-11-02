@@ -1,6 +1,8 @@
-# Bilibili User Collection Folder Videos
+# Bilibili User Collection Folder Videos API: pricing, parameters and code examples
 
-`bilibili/web/user-collection-videos` · api · Bilibili
+`bilibili/web/user-collection-videos` · data API · Bilibili · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns video data stored within a specified collection folder on Bilibili. Supports pagination to browse through items in the folder.
 

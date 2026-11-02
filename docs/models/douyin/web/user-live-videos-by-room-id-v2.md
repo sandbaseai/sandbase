@@ -1,6 +1,8 @@
-# Douyin Stream Data by Room ID (V2)
+# Douyin Stream Data by Room ID (V2) API: pricing, parameters and code examples
 
-`douyin/web/user-live-videos-by-room-id-v2` · api · Douyin
+`douyin/web/user-live-videos-by-room-id-v2` · data API · Douyin · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns stream data for a specified Douyin user using a room identifier. Provide a valid room ID to inspect stream metadata and broadcast details.
 

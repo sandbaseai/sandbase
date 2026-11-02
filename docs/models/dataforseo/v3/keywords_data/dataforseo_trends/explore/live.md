@@ -1,6 +1,8 @@
-# DataForSEO Keyword Trend Explore
+# DataForSEO Keyword Trend Explore API: pricing, parameters and code examples
 
-`dataforseo/v3/keywords_data/dataforseo_trends/explore/live` · api · DataForSEO
+`dataforseo/v3/keywords_data/dataforseo_trends/explore/live` · data API · DataForSEO · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0012 per call (free daily quota) · **Modes:** sync
 
 Get keyword search trend series from an independent trends dataset. DataForSEO Trends explore for up to 5 keywords.
 

@@ -1,6 +1,8 @@
-# Taobao Product Search
+# Taobao Product Search API: pricing, parameters and code examples
 
-`taobao/search/items` · api · Taobao
+`taobao/search/items` · data API · Taobao · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.027778 per call · **Modes:** sync
 
 Search Taobao and Tmall products by keyword with titles, prices, images, sales and shop info. Sort by sales or price, filter to Tmall only and by price range.
 

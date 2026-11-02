@@ -1,6 +1,8 @@
-# YouTube Video Search
+# YouTube Video Search API: pricing, parameters and code examples
 
-`youtube/web/search-video` · api · YouTube
+`youtube/web/search-video` · data API · YouTube · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Search YouTube videos by keyword and get video ID, title, channel, views, length and publish time, with country, language and upload-date filters and continuation-token pagination.
 

@@ -1,6 +1,8 @@
-# Web3.career Job Listings
+# Web3.career Job Listings API: pricing, parameters and code examples
 
-`web3-career/job-listings` · api · Web3.career
+`web3-career/job-listings` · data API · Web3.career · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.01 per call (free daily quota) · **Modes:** async
 
 Fetch general job listings from the homepage with pagination. Returns Web3 job postings including title, company, location, salary, tags, and posting date.
 

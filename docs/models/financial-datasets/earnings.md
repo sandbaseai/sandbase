@@ -1,6 +1,8 @@
-# Financial Datasets Get Earnings Data
+# Financial Datasets Get Earnings Data API: pricing, parameters and code examples
 
-`financial-datasets/earnings` · api · Financial Datasets
+`financial-datasets/earnings` · data API · Financial Datasets · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.02 per call · **Modes:** sync
 
 Get the most recent earnings snapshot for a ticker. Optional change fields are returned only when available.
 

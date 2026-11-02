@@ -1,6 +1,8 @@
-# Pipixia User Follower List
+# Pipixia User Follower List API: pricing, parameters and code examples
 
-`pipixia/app/user-follower-list` · api · Pipixia
+`pipixia/app/user-follower-list` · data API · Pipixia · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns a list of followers for a specified Pipixia user account. Supports pagination through cursor tokens to navigate subsequent pages.
 

@@ -1,6 +1,8 @@
-# Amazon Best Sellers
+# Amazon Best Sellers API: pricing, parameters and code examples
 
-`amazon/best-sellers` · api · Amazon
+`amazon/best-sellers` · data API · Amazon · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.013889 per call (free daily quota) · **Modes:** sync
 
 Get the Amazon Best Sellers list for a category path in a chosen marketplace country, with rank, title, price, rating and ASIN, page by page.
 

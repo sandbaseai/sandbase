@@ -1,6 +1,8 @@
-# Target Search
+# Target Search API: pricing, parameters and code examples
 
-`target/search` · api · Target
+`target/search` · data API · Target · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.015 per call (free daily quota) · **Modes:** async
 
 Search Target products by keyword with TCIN, brand, price, sale price, rating, reviews and pickup, delivery and shipping availability.
 

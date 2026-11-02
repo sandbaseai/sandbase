@@ -29,7 +29,7 @@
 | 更多 | 30+ | IMDb, AAA, IQAir, AccuWeather, Weather Underground 等 |
 <!-- /inside:zh -->
 
-完整列表和每个能力的精确价格见 `catalog/index.json` 和 `docs/INDEX.md`。
+完整列表和每个能力的精确价格见 `catalog/index.json` 和 `docs/INDEX.md`。也可以[按平台浏览](docs/platforms/README.md)：[抖音](docs/platforms/douyin.md)、[小红书](docs/platforms/xiaohongshu.md)、[TikTok](docs/platforms/tiktok.md)、[Instagram](docs/platforms/instagram.md)、[YouTube](docs/platforms/youtube.md)、[微博](docs/platforms/weibo.md)、[知乎](docs/platforms/zhihu.md)、[B 站](docs/platforms/bilibili.md)、[OpenAI](docs/platforms/openai.md)、[可灵](docs/platforms/kwaivgi.md) 等。
 
 ## 快速上手
 
@@ -72,3 +72,10 @@ AI Agent 客户端（Claude Code、Codex、Cursor 等 25 个）可以用 [SandBa
 ## 接入你的 API
 
 API 提供方可以在 [`integrations/`](integrations/README.md) 下提交 PR 来申请接入。CI 会自动校验提交的文件，维护者审核后会和你联系，确认 API 访问方式。PR 合并后自动进入上线流程，上线后会出现在目录里，所有 SandBase key 都能直接调用。Issue 和 PR 请用英文。
+
+## 常见问题
+
+- **兼容 OpenAI 吗？** 兼容。Chat Completions、Responses 和 Agents API 都可以直接用 OpenAI 官方 SDK，把 `base_url` 设为 `https://api.sandbase.ai/v1` 即可。Anthropic Messages 和 Gemini 格式也支持。
+- **E2B 代码能直接用吗？** 能。只改 `E2B_API_KEY`、`E2B_API_URL`、`E2B_DOMAIN` 三个环境变量就行，沙箱免费。
+- **怎么调用抖音、小红书、TikTok、YouTube 的数据？** 在[平台页](docs/platforms/README.md)找到对应接口，用 `POST /v1/run` 加上它的 `model` 名称调用。不需要分别注册这些平台的账号。
+- **哪些是免费的？** 沙箱、Agent，以及每个组织每天 100 次数据 API 调用。其他调用按目录价格计费，调用失败不收费。

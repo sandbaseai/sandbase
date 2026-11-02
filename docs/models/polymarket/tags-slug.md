@@ -1,6 +1,8 @@
-# Polymarket Get tag by slug
+# Polymarket Get tag by slug API: pricing, parameters and code examples
 
-`polymarket/tags-slug` · api · Polymarket
+`polymarket/tags-slug` · data API · Polymarket · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.00044 per call (free daily quota) · **Modes:** sync
 
 Get tag by slug from Polymarket. Returns the official Polymarket API response unchanged.
 

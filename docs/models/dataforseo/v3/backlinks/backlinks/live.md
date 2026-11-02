@@ -1,6 +1,8 @@
-# DataForSEO Backlinks List
+# DataForSEO Backlinks List API: pricing, parameters and code examples
 
-`dataforseo/v3/backlinks/backlinks/live` · api · DataForSEO
+`dataforseo/v3/backlinks/backlinks/live` · data API · DataForSEO · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.004 per call (free daily quota) · **Modes:** sync
 
 Returns a list of external backlinks pointing to a specified target domain or webpage. Helps SEO teams audit incoming link profiles and evaluate referring page details.
 

@@ -1,6 +1,8 @@
-# DataForSEO Business Listings Search
+# DataForSEO Business Listings Search API: pricing, parameters and code examples
 
-`dataforseo/v3/business_data/business_listings/search/live` · api · DataForSEO
+`dataforseo/v3/business_data/business_listings/search/live` · data API · DataForSEO · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** about $0.0156 per call · **Modes:** sync
 
 Search Google Maps business listings by category, name or location radius, with ratings, contact details and work hours.
 

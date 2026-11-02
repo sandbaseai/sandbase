@@ -1,6 +1,8 @@
-# Kuaishou Web Hot List (V2)
+# Kuaishou Web Hot List (V2) API: pricing, parameters and code examples
 
-`kuaishou/web/hot-list-v2` · api · Kuaishou
+`kuaishou/web/hot-list-v2` · data API · Kuaishou · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns current trending search rankings and hot topics on Kuaishou web. Supports selecting different ranking boards using the board type parameter.
 

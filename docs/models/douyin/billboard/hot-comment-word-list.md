@@ -1,6 +1,8 @@
-# Douyin Work Hot Comment Word Cloud
+# Douyin Work Hot Comment Word Cloud API: pricing, parameters and code examples
 
-`douyin/billboard/hot-comment-word-list` · api · Douyin
+`douyin/billboard/hot-comment-word-list` · data API · Douyin · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns word cloud analysis data and keyword weights extracted from comments on a Douyin video. Input a target video identifier to analyze audience feedback topics.
 

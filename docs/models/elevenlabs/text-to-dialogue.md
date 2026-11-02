@@ -1,6 +1,8 @@
-# Text To Dialogue
+# Text To Dialogue API: pricing, parameters and code examples
 
-`elevenlabs/text-to-dialogue` · audio · ElevenLabs
+`elevenlabs/text-to-dialogue` · audio model · ElevenLabs · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** about $0.2 per call · **Modes:** async
 
 ElevenLabs Text to Dialogue uses Eleven v3 to turn a list of lines into a multi-speaker conversation, with a separate voice for each line and inline audio tags for delivery.
 

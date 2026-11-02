@@ -1,6 +1,8 @@
-# Tripo H3.1 Image to 3D
+# Tripo H3.1 Image to 3D API: pricing, parameters and code examples
 
-`tripo3d/tripo-h3.1/image-to-3d` · image · Tripo3D
+`tripo3d/tripo-h3.1/image-to-3d` · image generation model · Tripo3D · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** from $0.24 to $0.78 per run, depending on parameters · **Modes:** async
 
 Tripo H3.1 by Tripo3D - convert 2D images into 3D models with AI. Generate textured 3D assets from single photos for games, AR/VR, e-commerce, and digital content creation.
 

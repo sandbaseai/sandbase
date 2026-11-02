@@ -1,6 +1,8 @@
-# Douyin Creator Activity Details
+# Douyin Creator Activity Details API: pricing, parameters and code examples
 
-`douyin/creator/creator-activity-detail` · api · Douyin
+`douyin/creator/creator-activity-detail` · data API · Douyin · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns detailed information for a specific Douyin creator activity. Queries campaign details using a designated activity identifier.
 

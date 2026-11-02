@@ -1,6 +1,8 @@
-# Facebook Event Details
+# Facebook Event Details API: pricing, parameters and code examples
 
-`facebook/event-details` · api · Facebook
+`facebook/event-details` · data API · Facebook · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** about $0.0012 per call · **Modes:** sync
 
 Fetch full details for a single Facebook event by ID or URL (name, schedule, venue, hosts, and attendance) as normalized JSON.
 

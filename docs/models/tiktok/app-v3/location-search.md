@@ -1,6 +1,8 @@
-# TikTok Location Search
+# TikTok Location Search API: pricing, parameters and code examples
 
-`tiktok/app-v3/location-search` · api · TikTok
+`tiktok/app-v3/location-search` · data API · TikTok · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Searches for locations on TikTok using a text query. Returns matching place results with pagination support via offset and count parameters.
 

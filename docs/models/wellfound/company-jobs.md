@@ -1,6 +1,8 @@
-# Wellfound Company Jobs
+# Wellfound Company Jobs API: pricing, parameters and code examples
 
-`wellfound/company-jobs` · api · Wellfound
+`wellfound/company-jobs` · data API · Wellfound · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.02 per call · **Modes:** async
 
 List all open job positions at a specific company. Returns job listings with title, compensation, location, and job type.
 

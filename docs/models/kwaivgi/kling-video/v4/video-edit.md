@@ -1,6 +1,8 @@
-# Kling V4 Video Edit
+# Kling V4 Video Edit API: pricing, parameters and code examples
 
-`kwaivgi/kling-video/v4/video-edit` · video · KwaiVGI
+`kwaivgi/kling-video/v4/video-edit` · video generation model · KwaiVGI · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** about $8.46 per call · **Modes:** async
 
 Kling V4 Video Edit by Kuaishou edits a 3-30 second source video from a text instruction and optional reference images.
 

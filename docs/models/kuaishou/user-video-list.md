@@ -1,6 +1,8 @@
-# Kuaishou User Published Videos
+# Kuaishou User Published Videos API: pricing, parameters and code examples
 
-`kuaishou/user-video-list` · api · Kuaishou
+`kuaishou/user-video-list` · data API · Kuaishou · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.013889 per call (free daily quota) · **Modes:** sync
 
 Get public videos published by a Kuaishou user, with optional cursor-based pagination. Use it to review a creator's content history or select videos for detail and comment requests.
 

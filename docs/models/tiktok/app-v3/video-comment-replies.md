@@ -1,6 +1,8 @@
-# TikTok Video Comment Replies
+# TikTok Video Comment Replies API: pricing, parameters and code examples
 
-`tiktok/app-v3/video-comment-replies` · api · TikTok
+`tiktok/app-v3/video-comment-replies` · data API · TikTok · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns reply threads for a specific comment on a TikTok video. Queries rely on the video identifier and comment identifier, with support for cursor-based pagination.
 

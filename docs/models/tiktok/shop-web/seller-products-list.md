@@ -1,6 +1,8 @@
-# TikTok Seller Products List
+# TikTok Seller Products List API: pricing, parameters and code examples
 
-`tiktok/shop-web/seller-products-list` · api · TikTok
+`tiktok/shop-web/seller-products-list` · data API · TikTok · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns product listings and SKU details for a designated TikTok Shop merchant. Filter items by seller ID, target region, and pagination parameters.
 

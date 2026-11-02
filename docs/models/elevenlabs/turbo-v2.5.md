@@ -1,6 +1,8 @@
-# Turbo V2.5
+# Turbo V2.5 API: pricing, parameters and code examples
 
-`elevenlabs/turbo-v2.5` · audio · ElevenLabs
+`elevenlabs/turbo-v2.5` · audio model · ElevenLabs · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** from $0.1 per run, depending on parameters · **Modes:** async
 
 Turbo V2.5 by ElevenLabs - convert text to natural-sounding speech with AI. Supports multiple voices, languages, emotions, and speaking styles for content creation and accessibility.
 

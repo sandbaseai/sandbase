@@ -1,6 +1,8 @@
-# MoonshotAI: Kimi K3.1 Pro
+# MoonshotAI: Kimi K3.1 Pro API: pricing, parameters and code examples
 
-`moonshotai/kimi-k3.1-pro` · llm · Moonshotai
+`moonshotai/kimi-k3.1-pro` · LLM · Moonshotai · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $2 input / $10 output per 1M tokens · **Modes:** sync
 
 Kimi K3.1 Pro is Moonshot AI's flagship open-weight multimodal reasoning model, a post-trained successor to Kimi K3 with a 1M-token context window. It accepts text, image and video input and is built for long-horizon coding, agentic tool use and visual software work.
 

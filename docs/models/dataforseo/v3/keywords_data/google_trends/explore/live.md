@@ -1,6 +1,8 @@
-# DataForSEO Google Trends
+# DataForSEO Google Trends API: pricing, parameters and code examples
 
-`dataforseo/v3/keywords_data/google_trends/explore/live` · api · DataForSEO
+`dataforseo/v3/keywords_data/google_trends/explore/live` · data API · DataForSEO · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.002 per call (free daily quota) · **Modes:** sync
 
 Get Google Trends interest over time for up to 5 keywords by location, language and time range, with weekly values on a 0–100 scale.
 

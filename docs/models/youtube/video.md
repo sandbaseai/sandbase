@@ -1,6 +1,8 @@
-# YouTube Video
+# YouTube Video API: pricing, parameters and code examples
 
-`youtube/video` · api · YouTube
+`youtube/video` · data API · YouTube · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** about $0.0008 per call · **Modes:** sync
 
 Fetch a YouTube video or Short's metadata (title, channel, views, likes, duration, publish date) by URL or ID.
 

@@ -1,6 +1,8 @@
-# Meshy 7 Retexture
+# Meshy 7 Retexture API: pricing, parameters and code examples
 
-`meshy/7.0/retexture` · image · Meshy
+`meshy/7.0/retexture` · image generation model · Meshy · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** from $0.33 to $0.5 per run, depending on parameters · **Modes:** async
 
 Meshy 7 Retexture repaints an existing 3D model from a text or image style, with optional PBR maps and up to 8K textures.
 

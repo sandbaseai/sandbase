@@ -1,6 +1,8 @@
-# AAA Lowest Metro Prices
+# AAA Lowest Metro Prices API: pricing, parameters and code examples
 
-`aaa/lowest-metro-prices` · api · AAA
+`aaa/lowest-metro-prices` · data API · AAA · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.01 per call (free daily quota) · **Modes:** async
 
 Returns metro areas within a state sorted by lowest regular gas price ascending. Useful for finding the cheapest metros within a state.
 

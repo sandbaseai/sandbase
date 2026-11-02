@@ -1,6 +1,8 @@
-# LinkedIn Ads Library
+# LinkedIn Ads Library API: pricing, parameters and code examples
 
-`linkedin/ads` · api · LinkedIn
+`linkedin/ads` · data API · LinkedIn · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** about $0.0331 per call · **Modes:** sync
 
 Search the LinkedIn Ad Library by search URL and list the matching ads (advertiser, creative text, format).
 

@@ -1,6 +1,8 @@
-# Similarweb Top Sites Ranking
+# Similarweb Top Sites Ranking API: pricing, parameters and code examples
 
-`similarweb/top-sites-ranking` · api · Similarweb
+`similarweb/top-sites-ranking` · data API · Similarweb · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** about $0.075 per call · **Modes:** sync
 
 Get the top-ranked websites worldwide or in a category, ordered by traffic rank.
 

@@ -1,6 +1,8 @@
-# Nasdaq Mutual Fund Quote
+# Nasdaq Mutual Fund Quote API: pricing, parameters and code examples
 
-`nasdaq/mutual-fund-quote` · api · Nasdaq
+`nasdaq/mutual-fund-quote` · data API · Nasdaq · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.01 per call (free daily quota) · **Modes:** async
 
 Quote and details for a mutual fund including NAV and daily change. Mutual funds show isRealTime=false and have no bid/ask/volume data.
 

@@ -1,6 +1,8 @@
-# 1688 Factory Search
+# 1688 Factory Search API: pricing, parameters and code examples
 
-`1688/search/factories` · api · 1688
+`1688/search/factories` · data API · 1688 · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.013889 per call (free daily quota) · **Modes:** sync
 
 Search 1688 factories and manufacturers by keyword, sorted by default order or repurchase rate.
 

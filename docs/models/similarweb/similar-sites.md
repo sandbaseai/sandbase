@@ -1,6 +1,8 @@
-# Similarweb SimilarSites
+# Similarweb SimilarSites API: pricing, parameters and code examples
 
-`similarweb/similar-sites` · api · Similarweb
+`similarweb/similar-sites` · data API · Similarweb · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** about $0.375 per call · **Modes:** sync
 
 Get websites similar to a domain, with affinity score, category and global rank. The date range must span exactly 3 months.
 

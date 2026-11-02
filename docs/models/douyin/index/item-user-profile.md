@@ -1,6 +1,8 @@
-# Douyin Video Audience Profile
+# Douyin Video Audience Profile API: pricing, parameters and code examples
 
-`douyin/index/item-user-profile` · api · Douyin
+`douyin/index/item-user-profile` · data API · Douyin · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns the audience portrait and demographic breakdown for a Douyin video across a specified date range. Filter results using item ID and date parameters.
 

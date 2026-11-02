@@ -1,6 +1,8 @@
-# Polymarket Get server time
+# Polymarket Get server time API: pricing, parameters and code examples
 
-`polymarket/time` · api · Polymarket
+`polymarket/time` · data API · Polymarket · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.012 per call (free daily quota) · **Modes:** sync
 
 Returns the current Unix timestamp of the server. This can be used to synchronize client time with server time.
 

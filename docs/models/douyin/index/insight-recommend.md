@@ -1,6 +1,8 @@
-# Douyin Recommended Insight Reports
+# Douyin Recommended Insight Reports API: pricing, parameters and code examples
 
-`douyin/index/insight-recommend` · api · Douyin
+`douyin/index/insight-recommend` · data API · Douyin · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns recommended trend insight reports featured on the Douyin index home page. Useful for tracking high-level platform trends and discovering top reports without specifying filters.
 

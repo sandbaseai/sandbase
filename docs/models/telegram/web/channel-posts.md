@@ -1,6 +1,8 @@
-# Telegram Channel Posts
+# Telegram Channel Posts API: pricing, parameters and code examples
 
-`telegram/web/channel-posts` · api · Telegram
+`telegram/web/channel-posts` · data API · Telegram · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Get a public Telegram channel's recent posts: text, media, forwards, replies, link previews, reactions, views and time, with cursor pagination.
 

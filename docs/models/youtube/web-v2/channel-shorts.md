@@ -1,6 +1,8 @@
-# YouTube Channel Shorts
+# YouTube Channel Shorts API: pricing, parameters and code examples
 
-`youtube/web-v2/channel-shorts` · api · YouTube
+`youtube/web-v2/channel-shorts` · data API · YouTube · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns a list of YouTube Shorts from a specified channel. Supports lookups by channel identifier or URL, optional response formatting, and pagination tokens for next-page results.
 

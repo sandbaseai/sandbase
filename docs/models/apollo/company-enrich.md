@@ -1,6 +1,8 @@
-# Apollo Organization Enrichment
+# Apollo Organization Enrichment API: pricing, parameters and code examples
 
-`apollo/company-enrich` · api · Apollo
+`apollo/company-enrich` · data API · Apollo · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.01975 per call · **Modes:** sync
 
 Enrich one company by domain. `domain` is the only parameter and it must be the bare domain (apple.com), not a full URL.
 

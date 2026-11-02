@@ -1,6 +1,8 @@
-# ByteDance: Seed-2.1-Pro
+# ByteDance: Seed-2.1-Pro API: pricing, parameters and code examples
 
-`bytedance/seed-2.1-pro` · llm · Bytedance
+`bytedance/seed-2.1-pro` · LLM · Bytedance · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.890208 input / $4.451039 output per 1M tokens · **Modes:** sync
 
 Seed 2.1 Pro is the larger of the two models in ByteDance Seed's Seed2.1 family, offered as Doubao-Seed-2.1-Pro through Doubao and Volcano Engine. ByteDance built Seed2.1 for real-world productivity: multi-step general agent work such as planning, document processing and tool use, end-to-end coding from requirement analysis to validation, and computer-use tasks. It also brings strong image, document and long-video understanding, and Seed 2.1 Turbo is the smaller sibling.
 

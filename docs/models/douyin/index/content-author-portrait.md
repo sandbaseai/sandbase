@@ -1,6 +1,8 @@
-# Douyin Content Author Portrait
+# Douyin Content Author Portrait API: pricing, parameters and code examples
 
-`douyin/index/content-author-portrait` · api · Douyin
+`douyin/index/content-author-portrait` · data API · Douyin · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns demographic profiles of creators posting within a specific category, including gender, age, region, and activity times based on category ID and selected period.
 

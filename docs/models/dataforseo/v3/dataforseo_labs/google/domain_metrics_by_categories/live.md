@@ -1,6 +1,8 @@
-# DataForSEO Labs Domain Metrics by Categories
+# DataForSEO Labs Domain Metrics by Categories API: pricing, parameters and code examples
 
-`dataforseo/v3/dataforseo_labs/google/domain_metrics_by_categories/live` · api · DataForSEO
+`dataforseo/v3/dataforseo_labs/google/domain_metrics_by_categories/live` · data API · DataForSEO · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** about $0.132 per call · **Modes:** sync
 
 Top domains in product or service categories with organic traffic and keyword metrics on two dates.
 

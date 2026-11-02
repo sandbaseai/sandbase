@@ -1,6 +1,8 @@
-# Douyin Xingtu Creator Business Card
+# Douyin Xingtu Creator Business Card API: pricing, parameters and code examples
 
-`douyin/xingtu-v3/gauthor-author-business-card-info` · api · Douyin
+`douyin/xingtu-v3/gauthor-author-business-card-info` · data API · Douyin · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.020833 per call · **Modes:** sync
 
 Get the Douyin Creator Marketplace (Xingtu) business-card profile for a specified creator. Use it to review creator identity and business context before campaign outreach.
 

@@ -1,6 +1,8 @@
-# YouTube Post Comment Replies
+# YouTube Post Comment Replies API: pricing, parameters and code examples
 
-`youtube/web-v2/post-comment-replies` · api · YouTube
+`youtube/web-v2/post-comment-replies` · data API · YouTube · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns second-level comment replies for a YouTube post. Supports pagination using continuation tokens, along with optional country and language localization settings.
 

@@ -1,6 +1,8 @@
-# Google: Gemini 3.5 Flash Lite
+# Google: Gemini 3.5 Flash Lite API: pricing, parameters and code examples
 
-`google/gemini-3.5-flash-lite` · llm · Google
+`google/gemini-3.5-flash-lite` · LLM · Google · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.3 input / $2.5 output per 1M tokens · **Modes:** sync
 
 Gemini 3.5 Flash-Lite is the low-latency, high-throughput tier of Google's Gemini 3.5 family, released in July 2026 and described by Google as its fastest 3.5-class model. It is optimized for subagent tasks, document parsing, high-volume agentic workflows and simple data extraction where latency and throughput matter most. It accepts text, image, video, audio and PDF input, supports thinking and tool use, and is Google's recommended successor to Gemini 3.1 Flash-Lite.
 

@@ -1,6 +1,8 @@
-# YouTube Video Captions
+# YouTube Video Captions API: pricing, parameters and code examples
 
-`youtube/web-v2/video-captions` · api · YouTube
+`youtube/web-v2/video-captions` · data API · YouTube · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.012 per call (free daily quota) · **Modes:** sync
 
 Returns available video caption tracks or transcripts in multiple formats, filtered by video identifier and language code.
 

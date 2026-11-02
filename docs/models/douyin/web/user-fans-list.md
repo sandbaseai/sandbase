@@ -1,6 +1,8 @@
-# Douyin Web User Fans List
+# Douyin Web User Fans List API: pricing, parameters and code examples
 
-`douyin/web/user-fans-list` · api · Douyin
+`douyin/web/user-fans-list` · data API · Douyin · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns a list of followers for a specified Douyin user account. Supports result pagination via timestamp parameters and custom page counts.
 

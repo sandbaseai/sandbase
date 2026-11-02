@@ -1,6 +1,8 @@
-# Douyin Brand Search Suggestions
+# Douyin Brand Search Suggestions API: pricing, parameters and code examples
 
-`douyin/index/brand-suggest` · api · Douyin
+`douyin/index/brand-suggest` · data API · Douyin · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns a list of brand auto-complete suggestions based on a query keyword. Results include brand identifiers, names, categories, and logo image links.
 

@@ -1,6 +1,8 @@
-# DataForSEO Google Play Keywords for App
+# DataForSEO Google Play Keywords for App API: pricing, parameters and code examples
 
-`dataforseo/v3/dataforseo_labs/google/keywords_for_app/live` · api · DataForSEO
+`dataforseo/v3/dataforseo_labs/google/keywords_for_app/live` · data API · DataForSEO · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.024 per call · **Modes:** sync
 
 List the Google Play search keywords an Android app ranks for, with positions and search volume, by app ID, location and language.
 

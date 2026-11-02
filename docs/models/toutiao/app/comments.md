@@ -1,6 +1,8 @@
-# Toutiao Post Comments
+# Toutiao Post Comments API: pricing, parameters and code examples
 
-`toutiao/app/comments` · api · Toutiao
+`toutiao/app/comments` · data API · Toutiao · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns user comments and interaction metrics for a specific Toutiao post. Results can be paginated through comment batches using an offset index.
 

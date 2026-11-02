@@ -1,6 +1,8 @@
-# Douyin Xingtu IP Activity List
+# Douyin Xingtu IP Activity List API: pricing, parameters and code examples
 
-`douyin/xingtu-v2/ip-activity-list` · api · Douyin
+`douyin/xingtu-v2/ip-activity-list` · data API · Douyin · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.003 per call (free daily quota) · **Modes:** sync
 
 Returns Xingtu IP calendar activities across designated time windows, with optional filters for activity status, categories, and industries.
 

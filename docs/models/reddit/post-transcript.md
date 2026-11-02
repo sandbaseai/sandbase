@@ -1,6 +1,8 @@
-# Reddit Post Transcript
+# Reddit Post Transcript API: pricing, parameters and code examples
 
-`reddit/post-transcript` · api · Reddit
+`reddit/post-transcript` · data API · Reddit · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** about $0.0012 per call · **Modes:** sync
 
 Extract the spoken transcript from a Reddit video post by URL.
 

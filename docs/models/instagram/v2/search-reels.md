@@ -1,6 +1,8 @@
-# Instagram Reels Search
+# Instagram Reels Search API: pricing, parameters and code examples
 
-`instagram/v2/search-reels` · api · Instagram
+`instagram/v2/search-reels` · data API · Instagram · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.003 per call (free daily quota) · **Modes:** sync
 
 Search Instagram Reels by keyword: reel IDs, captions, creators, play, like and comment counts, with pagination.
 

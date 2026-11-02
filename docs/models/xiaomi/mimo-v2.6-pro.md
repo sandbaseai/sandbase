@@ -1,6 +1,8 @@
-# Xiaomi: MiMo-V2.6-Pro
+# Xiaomi: MiMo-V2.6-Pro API: pricing, parameters and code examples
 
-`xiaomi/mimo-v2.6-pro` · llm · Xiaomi
+`xiaomi/mimo-v2.6-pro` · LLM · Xiaomi · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.435 input / $0.87 output per 1M tokens · **Modes:** sync
 
 MiMo-V2.6-Pro is the flagship of Xiaomi's open-source MiMo-V2.6 series, a trillion-parameter, natively omni-modal reasoning model released in September 2026 that takes text, image, video and audio input. Xiaomi built it for complex projects, long-horizon agents, coding, office and design work, cybersecurity, computer operation and research, with a 1M-token context. Pick it over MiMo-V2.6-Flash when task difficulty matters more than speed and volume.
 

@@ -1,6 +1,8 @@
-# WeChat Channels User Profile
+# WeChat Channels User Profile API: pricing, parameters and code examples
 
-`wechat-channels/v2/user-profile` · api · WeChat Channels
+`wechat-channels/v2/user-profile` · data API · WeChat Channels · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.015 per call (free daily quota) · **Modes:** sync
 
 Get a WeChat Channels creator's profile and stats: nickname, bio, region, follower, video, like and favorite counts, and linked accounts.
 

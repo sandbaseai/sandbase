@@ -1,6 +1,8 @@
-# Flux 2 Dev Edit
+# Flux 2 Dev Edit API: pricing, parameters and code examples
 
-`bfl/flux-2/dev/edit` · image · BFL
+`bfl/flux-2/dev/edit` · image generation model · BFL · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.024 per call · **Modes:** async
 
 Flux 2 Dev Edit is BFL's intelligent image editing model. Transform, retouch, and reimagine existing images using text prompts - from background replacement to artistic style conversion.
 

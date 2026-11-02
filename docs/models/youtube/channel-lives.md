@@ -1,6 +1,8 @@
-# YouTube Channel Live Streams
+# YouTube Channel Live Streams API: pricing, parameters and code examples
 
-`youtube/channel-lives` · api · YouTube
+`youtube/channel-lives` · data API · YouTube · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** about $0.0012 per call · **Modes:** sync
 
 List a YouTube channel's live and past-live streams by handle or channel ID with cursor pagination (title, views, length, publish time).
 

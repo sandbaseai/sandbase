@@ -1,6 +1,8 @@
-# SECForm4 13G Filings
+# SECForm4 13G Filings API: pricing, parameters and code examples
 
-`secform4/13g-filings` · api · SECForm4
+`secform4/13g-filings` · data API · SECForm4 · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.01 per call (free daily quota) · **Modes:** async
 
 Returns recent Schedule 13G filings showing passive ownership positions (>5%) in public companies. 13G filers are passive investors who do not intend to influence the company.
 

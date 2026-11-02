@@ -1,6 +1,8 @@
-# Douyin KOL Xingtu Index
+# Douyin KOL Xingtu Index API: pricing, parameters and code examples
 
-`douyin/xingtu/kol-xingtu-index-v1` · api · Douyin
+`douyin/xingtu/kol-xingtu-index-v1` · data API · Douyin · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.03 per call · **Modes:** sync
 
 Returns Xingtu index metrics for a specific Douyin creator based on their KOL identifier. Useful for tracking creator performance scores.
 

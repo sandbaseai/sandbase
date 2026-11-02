@@ -1,6 +1,8 @@
-# Similarweb Keyword Competitors
+# Similarweb Keyword Competitors API: pricing, parameters and code examples
 
-`similarweb/search-keyword-competitors` · api · Similarweb
+`similarweb/search-keyword-competitors` · data API · Similarweb · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** about $0.075 per call · **Modes:** sync
 
 Get the websites that compete with a domain for the same search keywords, with a competition score and shared-keyword ratio.
 

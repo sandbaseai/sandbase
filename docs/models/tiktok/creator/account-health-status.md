@@ -1,6 +1,8 @@
-# TikTok Creator Account Health Status
+# TikTok Creator Account Health Status API: pricing, parameters and code examples
 
-`tiktok/creator/account-health-status` · api · TikTok
+`tiktok/creator/account-health-status` · data API · TikTok · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns the health status of a TikTok Shop creator account. Provides the 90-day health score and accumulated violation points to evaluate account standing.
 

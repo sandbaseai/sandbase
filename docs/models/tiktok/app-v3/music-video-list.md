@@ -1,6 +1,8 @@
-# TikTok Music Video List
+# TikTok Music Video List API: pricing, parameters and code examples
 
-`tiktok/app-v3/music-video-list` · api · TikTok
+`tiktok/app-v3/music-video-list` · data API · TikTok · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Retrieves a paginated list of videos associated with a specific TikTok audio track. Filter results by music ID and control pagination using cursor values.
 

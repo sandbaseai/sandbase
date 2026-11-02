@@ -1,6 +1,8 @@
-# Bilibili Video Search
+# Bilibili Video Search API: pricing, parameters and code examples
 
-`bilibili/search-video` · api · Bilibili
+`bilibili/search-video` · data API · Bilibili · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.013889 per call (free daily quota) · **Modes:** sync
 
 Search Bilibili videos by keyword with page-based pagination and sorting by general ranking, play count, publish time, danmaku count, or favorites.
 

@@ -1,6 +1,8 @@
-# Bilibili Streaming Areas
+# Bilibili Streaming Areas API: pricing, parameters and code examples
 
-`bilibili/web/all-live-areas` · api · Bilibili
+`bilibili/web/all-live-areas` · data API · Bilibili · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns the complete list of streaming broadcast areas and categories on Bilibili. This endpoint provides category identifiers and partition structures without requiring any parameters.
 

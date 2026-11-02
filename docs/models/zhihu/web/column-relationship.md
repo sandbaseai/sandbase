@@ -1,6 +1,8 @@
-# Zhihu Column Article Relationship
+# Zhihu Column Article Relationship API: pricing, parameters and code examples
 
-`zhihu/web/column-relationship` · api · Zhihu
+`zhihu/web/column-relationship` · data API · Zhihu · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns interaction details and relationship metadata for a Zhihu column article, including endorsement reaction text and navigation action links by article ID.
 

@@ -1,6 +1,8 @@
-# TikTok Video Product Association Statistics
+# TikTok Video Product Association Statistics API: pricing, parameters and code examples
 
-`tiktok/creator/video-to-product-stats` · api · TikTok
+`tiktok/creator/video-to-product-stats` · data API · TikTok · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns promotional metrics linking a TikTok video to a specific product, including views, clicks, orders, and revenue trends over time based on video and product identifiers.
 

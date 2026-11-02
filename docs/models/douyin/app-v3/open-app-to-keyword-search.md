@@ -1,6 +1,8 @@
-# Douyin Keyword Search Share Link
+# Douyin Keyword Search Share Link API: pricing, parameters and code examples
 
-`douyin/app-v3/open-app-to-keyword-search` · api · Douyin
+`douyin/app-v3/open-app-to-keyword-search` · data API · Douyin · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns a Douyin short share link that launches the Douyin application directly to search results for a specified query term.
 

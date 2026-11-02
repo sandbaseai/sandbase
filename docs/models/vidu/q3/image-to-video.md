@@ -1,6 +1,8 @@
-# Vidu Q3 Image to Video
+# Vidu Q3 Image to Video API: pricing, parameters and code examples
 
-`vidu/q3/image-to-video` · video · Vidu
+`vidu/q3/image-to-video` · video generation model · Vidu · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** from $0.07 to $2.56 per run, depending on parameters · **Modes:** async
 
 Vidu Q3 by Shengshu - animate still images into dynamic videos with AI. Transform photos into cinematic clips with natural motion, camera movement, and optional audio generation.
 

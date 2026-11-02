@@ -1,6 +1,8 @@
-# Z.ai: GLM 5.3
+# Z.ai: GLM 5.3 API: pricing, parameters and code examples
 
-`z-ai/glm-5.3` · llm · Z-Ai
+`z-ai/glm-5.3` · LLM · Z-Ai · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $1.4 input / $4.4 output per 1M tokens · **Modes:** sync
 
 GLM-5.3 is Z.ai's flagship text model for complex software engineering and long-horizon agent work, built on the same base model as GLM-5.2 with all gains coming from expanded post-training. Z.ai highlights stronger agentic coding, terminal operation, and vulnerability discovery and exploitation analysis for security work. It always runs with reasoning enabled at selectable effort levels and accepts text only; choose GLM-5.3-Flash for image input or lighter, faster serving.
 

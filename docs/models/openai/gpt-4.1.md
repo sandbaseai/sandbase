@@ -1,6 +1,8 @@
-# OpenAI: GPT-4.1
+# OpenAI: GPT-4.1 API: pricing, parameters and code examples
 
-`openai/gpt-4.1` · llm · OpenAI
+`openai/gpt-4.1` · LLM · OpenAI · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $2 input / $8 output per 1M tokens · **Modes:** sync
 
 GPT-4.1 is OpenAI's flagship non-reasoning model in the GPT-4.1 series, released in April 2025 alongside GPT-4.1 mini and nano, with text and image input and text output. OpenAI positions it for instruction following, tool calling and coding, with improved long-context comprehension across its 1M-token window and low latency because it skips a separate reasoning step. Pick it over the mini and nano tiers when output quality matters more than speed; OpenAI suggests GPT-5-class models for the most complex tasks.
 

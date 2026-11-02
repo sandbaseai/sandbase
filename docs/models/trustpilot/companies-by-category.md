@@ -1,6 +1,8 @@
-# Trustpilot Companies By Category
+# Trustpilot Companies By Category API: pricing, parameters and code examples
 
-`trustpilot/companies-by-category` · api · Trustpilot
+`trustpilot/companies-by-category` · data API · Trustpilot · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.01 per call (free daily quota) · **Modes:** async
 
 List companies within a specific category with pagination. Returns companies sorted by trust score.
 

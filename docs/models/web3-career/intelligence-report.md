@@ -1,6 +1,8 @@
-# Web3.career Intelligence Report
+# Web3.career Intelligence Report API: pricing, parameters and code examples
 
-`web3-career/intelligence-report` · api · Web3.career
+`web3-career/intelligence-report` · data API · Web3.career · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.01 per call (free daily quota) · **Modes:** async
 
 Fetch the Web3 Career Intelligence Report content and statistics. Returns the report title, full text content, key statistical findings, and a link to the embedded Google Slides presentation.
 

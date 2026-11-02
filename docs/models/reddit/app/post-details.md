@@ -1,6 +1,8 @@
-# Reddit Post Details
+# Reddit Post Details API: pricing, parameters and code examples
 
-`reddit/app/post-details` · api · Reddit
+`reddit/app/post-details` · data API · Reddit · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns detailed metadata for a Reddit post by ID, including engagement metrics, author info, and subreddit data. Supports optional comment context.
 

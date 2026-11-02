@@ -1,6 +1,8 @@
-# Douyin Challenge Search
+# Douyin Challenge Search API: pricing, parameters and code examples
 
-`douyin/search/challenge-search-v1` · api · Douyin
+`douyin/search/challenge-search-v1` · data API · Douyin · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.015 per call (free daily quota) · **Modes:** sync
 
 Returns Douyin challenge and hashtag search results matching a query. Supports filtering by date, content type, duration, and sorting method.
 

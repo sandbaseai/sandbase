@@ -1,6 +1,8 @@
-# Douyin Fan Interest Account List
+# Douyin Fan Interest Account List API: pricing, parameters and code examples
 
-`douyin/billboard/hot-account-fans-interest-account-list` · api · Douyin
+`douyin/billboard/hot-account-fans-interest-account-list` · data API · Douyin · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns a list of 20 accounts that followers of a target creator are interested in on Douyin. Queries Douyin billboard analytics using the creator's unique `sec_uid`.
 

@@ -1,6 +1,8 @@
-# GPT Image 1.5 Text to Image
+# GPT Image 1.5 Text to Image API: pricing, parameters and code examples
 
-`openai/gpt-image-1.5` · image · OpenAI
+`openai/gpt-image-1.5` · image generation model · OpenAI · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** from $0.014 to $0.205 per run, depending on parameters · **Modes:** async
 
 Gpt Image 1.5 is OpenAI's advanced text-to-image AI model. Create photorealistic images, illustrations, and concept art from natural language descriptions with exceptional detail and prompt adherence.
 

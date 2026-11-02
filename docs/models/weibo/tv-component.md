@@ -1,6 +1,8 @@
-# Weibo TV Video Details
+# Weibo TV Video Details API: pricing, parameters and code examples
 
-`weibo/tv-component` · api · Weibo
+`weibo/tv-component` · data API · Weibo · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.013889 per call (free daily quota) · **Modes:** sync
 
 Get Weibo TV video details for a colon-delimited object ID (OID). Use it to look up a known TV video for content review, cataloging, or downstream processing.
 

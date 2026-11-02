@@ -1,6 +1,8 @@
-# TikTok Video Audience Stats
+# TikTok Video Audience Stats API: pricing, parameters and code examples
 
-`tiktok/creator/video-audience-stats` · api · TikTok
+`tiktok/creator/video-audience-stats` · data API · TikTok · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns audience profile statistics for a TikTok video by ID, covering gender, age, and regional breakdowns. Supports filtering starting from an optional date.
 

@@ -1,6 +1,8 @@
-# DeepSeek: DeepSeek V3
+# DeepSeek: DeepSeek V3 API: pricing, parameters and code examples
 
-`deepseek/deepseek-chat` · llm · DeepSeek
+`deepseek/deepseek-chat` · LLM · DeepSeek · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.32 input / $0.89 output per 1M tokens · **Modes:** sync
 
 DeepSeek-V3 is the latest model from the DeepSeek team, building upon the instruction following and coding abilities of the previous versions. Pre-trained on nearly 15 trillion tokens, the reported evaluations reveal that the model outperforms other open-source models and rivals leading closed-source models.
 

@@ -1,6 +1,8 @@
-# Veo 3.1 Video Extend
+# Veo 3.1 Video Extend API: pricing, parameters and code examples
 
-`google/veo3.1/video-extend` · video · Google
+`google/veo3.1/video-extend` · video generation model · Google · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** from $1.4 to $2.8 per run, depending on parameters · **Modes:** async
 
 Veo3.1 Extend Video is Google's video-to-video AI model. Transform, enhance, and edit video content using text prompts - from style changes to object manipulation and scene modification.
 

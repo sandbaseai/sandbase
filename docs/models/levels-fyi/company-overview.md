@@ -1,6 +1,8 @@
-# Levels.fyi Company Overview
+# Levels.fyi Company Overview API: pricing, parameters and code examples
 
-`levels-fyi/company-overview` · api · Levels.fyi
+`levels-fyi/company-overview` · data API · Levels.fyi · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.01 per call (free daily quota) · **Modes:** async
 
 Retrieve a company profile overview including full company details (name, description, industry, ticker, HQ location, vesting info), a structured overview summary, related companies, and available job families at the.
 

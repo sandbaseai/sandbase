@@ -1,6 +1,8 @@
-# Xiaohongshu Pugongying Follower Distribution
+# Xiaohongshu Pugongying Follower Distribution API: pricing, parameters and code examples
 
-`xiaohongshu/pgy-v2/user-id-fans-profile` · api · Xiaohongshu
+`xiaohongshu/pgy-v2/user-id-fans-profile` · data API · Xiaohongshu · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.020833 per call · **Modes:** sync
 
 Get Xiaohongshu Pugongying follower profile data for a known creator. Use it to review a creator's audience profile during campaign planning.
 

@@ -1,6 +1,8 @@
-# Bilibili Video Danmaku
+# Bilibili Video Danmaku API: pricing, parameters and code examples
 
-`bilibili/web/video-danmaku` · api · Bilibili
+`bilibili/web/video-danmaku` · data API · Bilibili · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns timed on-screen danmaku comments for a specified Bilibili video in XML format using the video content identifier (cid).
 

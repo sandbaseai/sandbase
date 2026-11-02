@@ -1,6 +1,8 @@
-# Douyin Content Volume Trend
+# Douyin Content Volume Trend API: pricing, parameters and code examples
 
-`douyin/index/content-publish-trend` · api · Douyin
+`douyin/index/content-publish-trend` · data API · Douyin · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns content posting volume trends over time for a specified category. Requires a category identifier alongside inclusive start and end dates.
 

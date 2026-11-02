@@ -1,6 +1,8 @@
-# Polymarket Get tick size by path parameter
+# Polymarket Get tick size by path parameter API: pricing, parameters and code examples
 
-`polymarket/tick-size-by-token-id` · api · Polymarket
+`polymarket/tick-size-by-token-id` · data API · Polymarket · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.012 per call (free daily quota) · **Modes:** sync
 
 Retrieves the minimum tick size (price increment) for a specific token ID using the token ID as a path parameter.
 

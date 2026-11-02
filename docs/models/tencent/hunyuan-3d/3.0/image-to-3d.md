@@ -1,6 +1,8 @@
-# Hunyuan 3D 3.0 Image to 3D
+# Hunyuan 3D 3.0 Image to 3D API: pricing, parameters and code examples
 
-`tencent/hunyuan-3d/3.0/image-to-3d` · image · Tencent
+`tencent/hunyuan-3d/3.0/image-to-3d` · image generation model · Tencent · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** from $0.45 to $0.9 per run, depending on parameters · **Modes:** async
 
 Hunyuan 3d V3 is Tencent's image-to-3D AI model. Transform photographs into production-ready 3D meshes with accurate geometry and texture mapping.
 

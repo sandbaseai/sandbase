@@ -1,6 +1,8 @@
-# YouTube Signed Video Stream URL
+# YouTube Signed Video Stream URL API: pricing, parameters and code examples
 
-`youtube/web-v2/signed-stream-url` · api · YouTube
+`youtube/web-v2/signed-stream-url` · data API · YouTube · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns a signed playback stream URL for a specific YouTube video format. Requires a format itag identifier alongside either a video ID or full video link.
 

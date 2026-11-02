@@ -1,6 +1,8 @@
-# Artificial Analysis Cost Per Task
+# Artificial Analysis Cost Per Task API: pricing, parameters and code examples
 
-`artificial-analysis/cost-per-task` · api · Artificial Analysis
+`artificial-analysis/cost-per-task` · data API · Artificial Analysis · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.05 per call · **Modes:** async
 
 Get per-model cost-per-task data from the Artificial Analysis homepage. Returns Intelligence Index score, cost per task (USD) with granular cost breakdown, time per task, end-to-end response time, TTFT, token counts.
 

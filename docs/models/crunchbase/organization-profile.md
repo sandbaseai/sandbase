@@ -1,6 +1,8 @@
-# Crunchbase Organization Profile
+# Crunchbase Organization Profile API: pricing, parameters and code examples
 
-`crunchbase/organization-profile` · api · Crunchbase
+`crunchbase/organization-profile` · data API · Crunchbase · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.02 per call · **Modes:** async
 
 Fetch a single organization's full profile by its slug (permalink). Returns the organization's properties including categories, location, employee count, rank, and funding status.
 

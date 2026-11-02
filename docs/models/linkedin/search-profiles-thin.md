@@ -1,6 +1,8 @@
-# LinkedIn Profile Search (basic)
+# LinkedIn Profile Search (basic) API: pricing, parameters and code examples
 
-`linkedin/search-profiles-thin` · api · LinkedIn
+`linkedin/search-profiles-thin` · data API · LinkedIn · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** about $0.036 per call · **Modes:** sync
 
 Cheap people search: name/handle, headline, VANITY profile URL, location. No full profile or email - for full profiles per hit use linkedin.search_profiles, add emails with linkedin.search_profiles_email.
 

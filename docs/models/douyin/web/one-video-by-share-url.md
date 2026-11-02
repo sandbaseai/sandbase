@@ -1,6 +1,8 @@
-# Douyin Video Details by Share URL
+# Douyin Video Details by Share URL API: pricing, parameters and code examples
 
-`douyin/web/one-video-by-share-url` · api · Douyin
+`douyin/web/one-video-by-share-url` · data API · Douyin · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns detailed video information and available stream bitrate qualities for a single Douyin video using its web sharing link.
 

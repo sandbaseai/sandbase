@@ -1,6 +1,8 @@
-# Financial Datasets Get Balance Sheets
+# Financial Datasets Get Balance Sheets API: pricing, parameters and code examples
 
-`financial-datasets/financials-balance-sheets` · api · Financial Datasets
+`financial-datasets/financials-balance-sheets` · data API · Financial Datasets · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.02 per call · **Modes:** sync
 
 Get Balance Sheets from Financial Datasets. Returns the official Financial Datasets API response unchanged.
 

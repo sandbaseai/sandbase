@@ -1,6 +1,8 @@
-# Web3.career Remote Jobs
+# Web3.career Remote Jobs API: pricing, parameters and code examples
 
-`web3-career/remote-jobs` · api · Web3.career
+`web3-career/remote-jobs` · data API · Web3.career · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.01 per call (free daily quota) · **Modes:** async
 
 Fetch remote-only job listings with pagination. Filters to positions explicitly tagged as remote work opportunities.
 

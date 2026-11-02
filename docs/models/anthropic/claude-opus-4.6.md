@@ -1,6 +1,8 @@
-# Anthropic: Claude Opus 4.6
+# Anthropic: Claude Opus 4.6 API: pricing, parameters and code examples
 
-`anthropic/claude-opus-4.6` · llm · Anthropic
+`anthropic/claude-opus-4.6` · LLM · Anthropic · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $5 input / $25 output per 1M tokens · **Modes:** sync
 
 Opus 4.6 is Anthropic’s strongest model for coding and long-running professional tasks. It is built for agents that operate across entire workflows rather than single prompts, making it especially effective for large codebases, complex refactors, and multi-step debugging that unfolds over time. The model shows deeper contextual understanding, stronger problem decomposition, and greater reliability on hard engineering tasks than prior generations.
 

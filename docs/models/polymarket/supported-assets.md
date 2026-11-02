@@ -1,6 +1,8 @@
-# Polymarket Get supported assets
+# Polymarket Get supported assets API: pricing, parameters and code examples
 
-`polymarket/supported-assets` · api · Polymarket
+`polymarket/supported-assets` · data API · Polymarket · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.012 per call (free daily quota) · **Modes:** sync
 
 Get supported assets for deposits and withdrawals on the bridge.
 

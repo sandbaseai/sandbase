@@ -1,6 +1,8 @@
-# Reddit Profile
+# Reddit Profile API: pricing, parameters and code examples
 
-`reddit/profile` · api · Reddit
+`reddit/profile` · data API · Reddit · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** about $0.0008 per call · **Modes:** sync
 
 Fetch a Reddit user's public profile (karma split, post and comment counts, bio, avatar, account age) by username.
 

@@ -1,6 +1,8 @@
-# Trustpilot Search Companies
+# Trustpilot Search Companies API: pricing, parameters and code examples
 
-`trustpilot/search-companies` · api · Trustpilot
+`trustpilot/search-companies` · data API · Trustpilot · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.03 per call · **Modes:** async
 
 Search for companies by name or keyword. Returns basic company info including domain, trust score, star rating, and review count.
 

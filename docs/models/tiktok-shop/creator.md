@@ -1,6 +1,8 @@
-# TikTok Shop Creator
+# TikTok Shop Creator API: pricing, parameters and code examples
 
-`tiktok-shop/creator` · api · TikTok Shop
+`tiktok-shop/creator` · data API · TikTok Shop · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** about $0.0055 per call · **Modes:** sync
 
 TikTok Shop creator performance by handle: GMV range, promoted product count, brand collaborations, follower age/gender/location demographics, category GMV split, and video versus live engagement.
 

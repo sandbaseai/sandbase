@@ -1,6 +1,8 @@
-# Douyin School Search
+# Douyin School Search API: pricing, parameters and code examples
 
-`douyin/search/school-search` · api · Douyin
+`douyin/search/school-search` · data API · Douyin · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.015 per call (free daily quota) · **Modes:** sync
 
 Returns school information search results from Douyin matching search queries. Filter schools by entering a specific school name or city query via the keyword parameter.
 

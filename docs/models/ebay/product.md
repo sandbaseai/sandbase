@@ -1,6 +1,8 @@
-# eBay Product
+# eBay Product API: pricing, parameters and code examples
 
-`ebay/product` · api · eBay
+`ebay/product` · data API · eBay · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.015 per call (free daily quota) · **Modes:** async
 
 Get an eBay product by product ID: title, price, condition, quantity sold, item specifics, media, shipping, returns and seller details.
 

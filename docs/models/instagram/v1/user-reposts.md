@@ -1,6 +1,8 @@
-# Instagram User Reposts
+# Instagram User Reposts API: pricing, parameters and code examples
 
-`instagram/v1/user-reposts` · api · Instagram
+`instagram/v1/user-reposts` · data API · Instagram · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns a paginated list of reposts and shared media for a specified Instagram account. Includes engagement metrics, captions, and original owner details.
 

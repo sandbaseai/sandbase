@@ -1,6 +1,8 @@
-# Douyin Xingtu Author Spread Info
+# Douyin Xingtu Author Spread Info API: pricing, parameters and code examples
 
-`douyin/xingtu-v2/author-spread-info` · api · Douyin
+`douyin/xingtu-v2/author-spread-info` · data API · Douyin · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Retrieves commercial spread and reach capability data for a specific creator. Accepts filtering by time range, video type, flow type, and assignment status.
 

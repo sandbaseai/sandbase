@@ -1,6 +1,8 @@
-# Douyin User Search
+# Douyin User Search API: pricing, parameters and code examples
 
-`douyin/search-user` · api · Douyin
+`douyin/search-user` · data API · Douyin · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.013889 per call (free daily quota) · **Modes:** sync
 
 Search Douyin (TikTok China) users by keyword with page-based pagination and optional account-type filtering. Use it to discover creators, brands, or verified accounts for research.
 

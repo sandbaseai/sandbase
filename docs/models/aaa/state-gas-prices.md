@@ -1,6 +1,8 @@
-# AAA State Gas Prices
+# AAA State Gas Prices API: pricing, parameters and code examples
 
-`aaa/state-gas-prices` · api · AAA
+`aaa/state-gas-prices` · data API · AAA · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.01 per call (free daily quota) · **Modes:** async
 
 Returns current average gas prices for all 50 US states plus DC across all four fuel grades (Regular, Mid-Grade, Premium, Diesel). States are listed in alphabetical order by full state name.
 

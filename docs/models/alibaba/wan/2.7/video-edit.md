@@ -1,6 +1,8 @@
-# Wan 2.7 Video Edit
+# Wan 2.7 Video Edit API: pricing, parameters and code examples
 
-`alibaba/wan/2.7/video-edit` · video · Alibaba
+`alibaba/wan/2.7/video-edit` · video generation model · Alibaba · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** about $0.5 per call · **Modes:** async
 
 Alibaba Wan 2.7 video editing model.
 

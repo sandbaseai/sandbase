@@ -1,6 +1,8 @@
-# Weibo All Groups Information
+# Weibo All Groups Information API: pricing, parameters and code examples
 
-`weibo/web-v2/all-groups` · api · Weibo
+`weibo/web-v2/all-groups` · data API · Weibo · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Retrieves complete group information on the Weibo platform. Returns details for both default system groups and user-defined custom groups.
 

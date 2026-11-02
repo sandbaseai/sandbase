@@ -1,6 +1,8 @@
-# Xiaohongshu (RED) Product Search
+# Xiaohongshu (RED) Product Search API: pricing, parameters and code examples
 
-`xiaohongshu/app-v2/search-products` · api · Xiaohongshu
+`xiaohongshu/app-v2/search-products` · data API · Xiaohongshu · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.015 per call (free daily quota) · **Modes:** sync
 
 Returns Xiaohongshu product search results based on a target keyword. Includes product card details, goods identifiers, stock status, and item titles across paginated listings.
 

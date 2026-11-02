@@ -1,6 +1,8 @@
-# Twitter (X) User Media
+# Twitter (X) User Media API: pricing, parameters and code examples
 
-`twitter/web/user-media` · api · Twitter
+`twitter/web/user-media` · data API · Twitter · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns media posts and timeline items for a specified user profile, queried by screen name or user ID. Supports cursor-based pagination for browsing past media posts.
 

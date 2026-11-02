@@ -1,6 +1,8 @@
-# DataForSEO Google Domain Rank Overview
+# DataForSEO Google Domain Rank Overview API: pricing, parameters and code examples
 
-`dataforseo/v3/dataforseo_labs/google/domain_rank_overview/live` · api · DataForSEO
+`dataforseo/v3/dataforseo_labs/google/domain_rank_overview/live` · data API · DataForSEO · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.024 per call · **Modes:** sync
 
 Returns Google domain ranking overview metrics and search visibility details. It provides high-level ranking metrics to evaluate domain performance across search engine results.
 

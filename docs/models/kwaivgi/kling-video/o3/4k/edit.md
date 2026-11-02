@@ -1,6 +1,8 @@
-# Kling O3 4K Video Edit
+# Kling O3 4K Video Edit API: pricing, parameters and code examples
 
-`kwaivgi/kling-video/o3/4k/edit` · video · KwaiVGI
+`kwaivgi/kling-video/o3/4k/edit` · video generation model · KwaiVGI · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** about $2.1 per call · **Modes:** async
 
 Kling O3 4K Video Edit by Kuaishou edits an input video from a text instruction, optionally guided by reference images, at native 4K.
 

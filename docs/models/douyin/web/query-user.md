@@ -1,6 +1,8 @@
-# Douyin Web User Information
+# Douyin Web User Information API: pricing, parameters and code examples
 
-`douyin/web/query-user` · api · Douyin
+`douyin/web/query-user` · data API · Douyin · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns basic profile information for a Douyin web user account. The endpoint accepts a ttwid cookie string in the request body to retrieve account details.
 

@@ -1,6 +1,8 @@
-# TikTok Direct Message Share Link
+# TikTok Direct Message Share Link API: pricing, parameters and code examples
 
-`tiktok/app-v3/open-app-to-send-private-message` · api · TikTok
+`tiktok/app-v3/open-app-to-send-private-message` · data API · TikTok · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns a TikTok share short URL to launch the TikTok application and open a direct message conversation with a designated user ID.
 

@@ -1,6 +1,8 @@
-# Snapchat Profile
+# Snapchat Profile API: pricing, parameters and code examples
 
-`snapchat/profile` · api · Snapchat
+`snapchat/profile` · data API · Snapchat · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** about $0.0011 per call · **Modes:** sync
 
 Fetch a Snapchat user's public profile by username: display name, bio, subscriber count, and recent public content.
 

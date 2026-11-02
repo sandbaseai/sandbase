@@ -1,6 +1,8 @@
-# Douyin Index Area List
+# Douyin Index Area List API: pricing, parameters and code examples
 
-`douyin/index/all-area` · api · Douyin
+`douyin/index/all-area` · data API · Douyin · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns the complete list of supported geographic areas available for Douyin Index queries. Use this data to map regional codes and locations for trend analysis.
 

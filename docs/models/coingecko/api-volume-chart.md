@@ -1,6 +1,8 @@
-# CoinGecko Exchange Volume Chart by ID
+# CoinGecko Exchange Volume Chart by ID API: pricing, parameters and code examples
 
-`coingecko/api-volume-chart` · api · CoinGecko
+`coingecko/api-volume-chart` · data API · CoinGecko · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.008 per call (free daily quota) · **Modes:** sync
 
 Get the historical volume chart data with time in UNIX and trading volume data in BTC based on exchange's ID
 

@@ -1,6 +1,8 @@
-# Douyin Current Hot Topics Leaderboard
+# Douyin Current Hot Topics Leaderboard API: pricing, parameters and code examples
 
-`douyin/index/current-hot-topic` · api · Douyin
+`douyin/index/current-hot-topic` · data API · Douyin · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns Douyin real-time hot topics and the trending topics leaderboard. Use this endpoint to observe currently viral subjects and platform-wide discussions.
 

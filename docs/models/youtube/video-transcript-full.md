@@ -1,6 +1,8 @@
-# YouTube Video Transcript (Provenance)
+# YouTube Video Transcript (Provenance) API: pricing, parameters and code examples
 
-`youtube/video-transcript-full` · api · YouTube
+`youtube/video-transcript-full` · data API · YouTube · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** about $0.002 per call · **Modes:** sync
 
 Fetch a YouTube video or Short transcript with timed segments and its provenance: whether the words are creator-written captions or machine speech recognition.
 

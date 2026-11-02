@@ -1,6 +1,8 @@
-# Artificial Analysis Llm Providers Leaderboard
+# Artificial Analysis Llm Providers Leaderboard API: pricing, parameters and code examples
 
-`artificial-analysis/llm-providers-leaderboard` · api · Artificial Analysis
+`artificial-analysis/llm-providers-leaderboard` · data API · Artificial Analysis · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.01 per call (free daily quota) · **Modes:** async
 
 Get the main LLM API Providers Leaderboard data, including all model endpoints and their performance metrics (speed, latency, price, etc.). Returns a large dataset of provider-model combinations with pricing,.
 

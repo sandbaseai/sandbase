@@ -1,6 +1,8 @@
-# Polymarket Get positions for a market
+# Polymarket Get positions for a market API: pricing, parameters and code examples
 
-`polymarket/market-positions` · api · Polymarket
+`polymarket/market-positions` · data API · Polymarket · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.012 per call (free daily quota) · **Modes:** sync
 
 Returns positions for a market, optionally filtered to a single user.
 

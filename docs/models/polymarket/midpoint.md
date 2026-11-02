@@ -1,6 +1,8 @@
-# Polymarket Get midpoint price
+# Polymarket Get midpoint price API: pricing, parameters and code examples
 
-`polymarket/midpoint` · api · Polymarket
+`polymarket/midpoint` · data API · Polymarket · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.012 per call (free daily quota) · **Modes:** sync
 
 Retrieves the midpoint price for a specific token ID. The midpoint is calculated as the average of the best bid and best ask prices.
 

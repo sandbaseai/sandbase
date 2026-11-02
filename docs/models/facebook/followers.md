@@ -1,6 +1,8 @@
-# Facebook Followers
+# Facebook Followers API: pricing, parameters and code examples
 
-`facebook/followers` · api · Facebook
+`facebook/followers` · data API · Facebook · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** about $0.12 per call · **Modes:** sync
 
 List the public followers (or accounts followed) of any Facebook page or profile URL as normalized JSON records.
 

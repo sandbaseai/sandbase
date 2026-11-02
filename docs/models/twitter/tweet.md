@@ -1,6 +1,8 @@
-# X (Twitter) Twitter Tweet
+# X (Twitter) Twitter Tweet API: pricing, parameters and code examples
 
-`twitter/tweet` · api · X (Twitter)
+`twitter/tweet` · data API · X (Twitter) · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** about $0.00022 per call · **Modes:** sync
 
 Fetch a single Twitter/X tweet by URL with its full text and engagement counts (likes, retweets, replies, quotes, bookmarks, views).
 

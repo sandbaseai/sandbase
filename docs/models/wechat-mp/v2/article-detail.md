@@ -1,6 +1,8 @@
-# WeChat MP Article Detail
+# WeChat MP Article Detail API: pricing, parameters and code examples
 
-`wechat-mp/v2/article-detail` · api · WeChat MP
+`wechat-mp/v2/article-detail` · data API · WeChat MP · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.015 per call (free daily quota) · **Modes:** sync
 
 Get a WeChat official account (MP) article from its URL: title, author, account, publish time, cover, full text and HTML content, and album info.
 

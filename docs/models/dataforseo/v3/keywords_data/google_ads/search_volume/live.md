@@ -1,6 +1,8 @@
-# DataForSEO Google Ads Keyword Search Volume
+# DataForSEO Google Ads Keyword Search Volume API: pricing, parameters and code examples
 
-`dataforseo/v3/keywords_data/google_ads/search_volume/live` · api · DataForSEO
+`dataforseo/v3/keywords_data/google_ads/search_volume/live` · data API · DataForSEO · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.003 per call (free daily quota) · **Modes:** sync
 
 Get Google Ads search volume, CPC, competition and 12-month trend for up to 1,000 keywords per request, by location and language.
 

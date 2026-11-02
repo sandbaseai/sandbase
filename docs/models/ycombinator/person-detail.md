@@ -1,6 +1,8 @@
-# Y Combinator Person Detail
+# Y Combinator Person Detail API: pricing, parameters and code examples
 
-`ycombinator/person-detail` · api · Y Combinator
+`ycombinator/person-detail` · data API · Y Combinator · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.01 per call (free daily quota) · **Modes:** async
 
 Get a detailed profile for a YC partner by slug. Returns full biography, achievement stats, associated companies, blog posts, press articles, tweets, and videos.
 

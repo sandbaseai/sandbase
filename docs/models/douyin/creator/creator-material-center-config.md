@@ -1,6 +1,8 @@
-# Douyin Material Center Configuration
+# Douyin Material Center Configuration API: pricing, parameters and code examples
 
-`douyin/creator/creator-material-center-config` · api · Douyin
+`douyin/creator/creator-material-center-config` · data API · Douyin · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns configuration details and settings for the Douyin material center. Provides system parameters and feature availability for account asset workflows.
 

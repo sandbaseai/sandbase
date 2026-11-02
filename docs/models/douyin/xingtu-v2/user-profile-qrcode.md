@@ -1,6 +1,8 @@
-# Douyin Xingtu User Profile QR Code
+# Douyin Xingtu User Profile QR Code API: pricing, parameters and code examples
 
-`douyin/xingtu-v2/user-profile-qrcode` · api · Douyin
+`douyin/xingtu-v2/user-profile-qrcode` · data API · Douyin · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.003 per call (free daily quota) · **Modes:** sync
 
 Returns a QR code for a Douyin Xingtu creator profile. Look up the profile QR code by providing either a user core ID or sec_uid.
 

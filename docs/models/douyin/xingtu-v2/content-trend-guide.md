@@ -1,6 +1,8 @@
-# Douyin Xingtu Content Trend Guide
+# Douyin Xingtu Content Trend Guide API: pricing, parameters and code examples
 
-`douyin/xingtu-v2/content-trend-guide` · api · Douyin
+`douyin/xingtu-v2/content-trend-guide` · data API · Douyin · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns content trend guide data from Douyin Xingtu via static CDN JSON. Provides insights into trending content directions without requiring session cookies.
 

@@ -1,6 +1,8 @@
-# Douyin Content Consumption Trend
+# Douyin Content Consumption Trend API: pricing, parameters and code examples
 
-`douyin/index/content-consume-trend` · api · Douyin
+`douyin/index/content-consume-trend` · data API · Douyin · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns content consumption metrics such as play counts and watch duration trends over time for a specified Douyin category within a selected date range.
 

@@ -1,6 +1,8 @@
-# DataForSEO Global Search Volume
+# DataForSEO Global Search Volume API: pricing, parameters and code examples
 
-`dataforseo/v3/keywords_data/clickstream_data/global_search_volume/live` · api · DataForSEO
+`dataforseo/v3/keywords_data/clickstream_data/global_search_volume/live` · data API · DataForSEO · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.18 per call · **Modes:** sync
 
 Get worldwide clickstream search volume for keywords split by country. DataForSEO clickstream global search volume for a keyword list.
 

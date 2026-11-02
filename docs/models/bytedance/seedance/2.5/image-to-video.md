@@ -1,6 +1,8 @@
-# Seedance 2.5 Image to Video
+# Seedance 2.5 Image to Video API: pricing, parameters and code examples
 
-`bytedance/seedance/2.5/image-to-video` · video · Bytedance
+`bytedance/seedance/2.5/image-to-video` · video generation model · Bytedance · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** from $0.72 to $7.2 per run, depending on parameters · **Modes:** async
 
 ByteDance's next-generation image-to-video model, animating a single still into a native clip up to 30 seconds at 720p with continuous, coherent motion, native audio, and director-level camera control.
 

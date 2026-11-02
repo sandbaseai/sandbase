@@ -1,6 +1,8 @@
-# Toutiao Article Details (Web)
+# Toutiao Article Details (Web) API: pricing, parameters and code examples
 
-`toutiao/web/article-info` · api · Toutiao
+`toutiao/web/article-info` · data API · Toutiao · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns detailed post information and interface action settings for a specified Toutiao article based on its unique post identifier.
 

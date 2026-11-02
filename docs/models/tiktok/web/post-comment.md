@@ -1,6 +1,8 @@
-# TikTok Video Comments (Web)
+# TikTok Video Comments (Web) API: pricing, parameters and code examples
 
-`tiktok/web/post-comment` · api · TikTok
+`tiktok/web/post-comment` · data API · TikTok · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns user comments for a specific TikTok video using its video ID. Supports cursor-based pagination and optional region filtering.
 

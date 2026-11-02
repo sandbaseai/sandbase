@@ -1,6 +1,8 @@
-# Reddit App Comment Replies
+# Reddit App Comment Replies API: pricing, parameters and code examples
 
-`reddit/app/comment-replies` · api · Reddit
+`reddit/app/comment-replies` · data API · Reddit · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns replies and nested sub-comments under a Reddit post comment using a continuation cursor. Supports custom sorting methods and data formatting options.
 

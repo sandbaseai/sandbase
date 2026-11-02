@@ -1,6 +1,8 @@
-# Lemon8 Post Comments List
+# Lemon8 Post Comments List API: pricing, parameters and code examples
 
-`lemon8/app/post-comment-list` · api · Lemon8
+`lemon8/app/post-comment-list` · data API · Lemon8 · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Retrieves the list of comments for a specific Lemon8 post. Requires the post item ID, group ID, and media ID with support for paginated results.
 

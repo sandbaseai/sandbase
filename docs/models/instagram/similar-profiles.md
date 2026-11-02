@@ -1,6 +1,8 @@
-# Instagram Similar Profiles
+# Instagram Similar Profiles API: pricing, parameters and code examples
 
-`instagram/similar-profiles` · api · Instagram
+`instagram/similar-profiles` · data API · Instagram · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** about $0.00175 per call · **Modes:** sync
 
 List the accounts Instagram recommends as similar to a public profile, with each account's handle, display name, verified flag and avatar.
 

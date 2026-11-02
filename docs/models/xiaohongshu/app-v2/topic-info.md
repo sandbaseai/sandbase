@@ -1,6 +1,8 @@
-# Xiaohongshu (RED) Topic Details
+# Xiaohongshu (RED) Topic Details API: pricing, parameters and code examples
 
-`xiaohongshu/app-v2/topic-info` · api · Xiaohongshu
+`xiaohongshu/app-v2/topic-info` · data API · Xiaohongshu · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.015 per call (free daily quota) · **Modes:** sync
 
 Returns topic page details such as topic name, view count, discussion count, and share info by topic page ID. Supports passing optional context like source note ID.
 

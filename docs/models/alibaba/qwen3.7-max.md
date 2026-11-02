@@ -1,6 +1,8 @@
-# Qwen: Qwen3.7 Max
+# Qwen: Qwen3.7 Max API: pricing, parameters and code examples
 
-`alibaba/qwen3.7-max` · llm · Alibaba
+`alibaba/qwen3.7-max` · LLM · Alibaba · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $2.5 input / $7.5 output per 1M tokens · **Modes:** sync
 
 Qwen3.7 Max is the largest and most capable model in Alibaba's Qwen3.7 series as of its May 2026 release, a reasoning model built for agent-centric work and offered here with text input and output. Alibaba highlights its strengths in programming, office and productivity tasks, and long-running autonomous execution. Model Studio now lists the Qwen3.7 line as legacy and recommends Qwen3.8 Max for the strongest reasoning, so it fits workloads already validated on Qwen3.7 Max.
 

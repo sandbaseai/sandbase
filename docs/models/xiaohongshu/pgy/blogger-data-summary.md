@@ -1,6 +1,8 @@
-# Xiaohongshu (RED) PGY Blogger Data Summary
+# Xiaohongshu (RED) PGY Blogger Data Summary API: pricing, parameters and code examples
 
-`xiaohongshu/pgy/blogger-data-summary` · api · Xiaohongshu
+`xiaohongshu/pgy/blogger-data-summary` · data API · Xiaohongshu · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.03 per call · **Modes:** sync
 
 Returns an account-level data summary for a Xiaohongshu blogger on the Pugongying (PGY) platform based on the specified blogger user ID.
 

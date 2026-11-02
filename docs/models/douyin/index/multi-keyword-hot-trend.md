@@ -1,6 +1,8 @@
-# Douyin Multi Keyword Hot Trend
+# Douyin Multi Keyword Hot Trend API: pricing, parameters and code examples
 
-`douyin/index/multi-keyword-hot-trend` · api · Douyin
+`douyin/index/multi-keyword-hot-trend` · data API · Douyin · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0045 per call (free daily quota) · **Modes:** sync
 
 Returns hot trend data for multiple keywords over a specified date range. Filter by platform and geographical region to compare trend metrics.
 

@@ -1,6 +1,8 @@
-# Douyin Author Market Fields
+# Douyin Author Market Fields API: pricing, parameters and code examples
 
-`douyin/xingtu-v2/author-market-fields` · api · Douyin
+`douyin/xingtu-v2/author-market-fields` · data API · Douyin · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns all filter field options available within the Douyin creator marketplace. Accepts an optional marketplace scene identifier to tailor field choices.
 

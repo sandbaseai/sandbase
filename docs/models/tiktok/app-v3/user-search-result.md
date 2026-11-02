@@ -1,6 +1,8 @@
-# TikTok User Search Results
+# TikTok User Search Results API: pricing, parameters and code examples
 
-`tiktok/app-v3/user-search-result` · api · TikTok
+`tiktok/app-v3/user-search-result` · data API · TikTok · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns a list of user profiles matching specified keywords, with options to filter by account type, follower count, and preferences.
 

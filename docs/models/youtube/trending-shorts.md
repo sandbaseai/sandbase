@@ -1,6 +1,8 @@
-# YouTube Trending Shorts
+# YouTube Trending Shorts API: pricing, parameters and code examples
 
-`youtube/trending-shorts` · api · YouTube
+`youtube/trending-shorts` · data API · YouTube · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** about $0.0012 per call · **Modes:** sync
 
 List currently trending YouTube Shorts (title, channel, views, likes, duration).
 

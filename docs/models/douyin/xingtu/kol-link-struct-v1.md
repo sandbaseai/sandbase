@@ -1,6 +1,8 @@
-# Douyin Xingtu KOL Link Structure
+# Douyin Xingtu KOL Link Structure API: pricing, parameters and code examples
 
-`douyin/xingtu/kol-link-struct-v1` · api · Douyin
+`douyin/xingtu/kol-link-struct-v1` · data API · Douyin · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.03 per call · **Modes:** sync
 
 Returns the link structure data for a Douyin Xingtu creator. Queries the platform structure by specifying the creator's KOL identifier.
 

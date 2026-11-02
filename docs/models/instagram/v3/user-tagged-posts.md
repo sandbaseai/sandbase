@@ -1,6 +1,8 @@
-# Instagram User Tagged Posts (V3)
+# Instagram User Tagged Posts (V3) API: pricing, parameters and code examples
 
-`instagram/v3/user-tagged-posts` · api · Instagram
+`instagram/v3/user-tagged-posts` · data API · Instagram · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.012 per call (free daily quota) · **Modes:** sync
 
 Returns a list of posts where a specified Instagram account is tagged by other users. Supports both forward and backward cursor pagination.
 

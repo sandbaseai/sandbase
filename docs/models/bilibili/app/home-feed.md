@@ -1,6 +1,8 @@
-# Bilibili App Home Feed
+# Bilibili App Home Feed API: pricing, parameters and code examples
 
-`bilibili/app/home-feed` · api · Bilibili
+`bilibili/app/home-feed` · data API · Bilibili · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns recommended video items from the Bilibili app home feed. Supports pagination via timestamp index and pull-to-refresh controls.
 

@@ -1,6 +1,8 @@
-# Instagram Hashtag Top Posts
+# Instagram Hashtag Top Posts API: pricing, parameters and code examples
 
-`instagram/hashtag-top-posts` · api · Instagram
+`instagram/hashtag-top-posts` · data API · Instagram · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** about $0.0011 per call · **Modes:** sync
 
 Instagram's own top-ranked posts for a hashtag, read from its live hashtag feed rather than a web search index, with view, like, and comment counts. Reels-heavy and engagement-ranked, so it answers what is performing on a tag right now. For older relevance-ranked results with date and media-type filters use instagram.search_hashtag; for the chronological feed use instagram.hashtag_recent_posts.
 

@@ -1,6 +1,8 @@
-# TikTok User Likes
+# TikTok User Likes API: pricing, parameters and code examples
 
-`tiktok/web/user-like` · api · TikTok
+`tiktok/web/user-like` · data API · TikTok · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns a list of videos liked by a specific TikTok profile based on their secUid. Supports pagination via cursor tokens and optional sort type settings.
 

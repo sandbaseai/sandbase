@@ -1,6 +1,8 @@
-# Seedance 2.0 Mini Reference to Video
+# Seedance 2.0 Mini Reference to Video API: pricing, parameters and code examples
 
-`bytedance/seedance/2.0/mini/reference-to-video` · video · Bytedance
+`bytedance/seedance/2.0/mini/reference-to-video` · video generation model · Bytedance · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** about $0.6 per call · **Modes:** async
 
 Seedance 2.0 Mini by Bytedance - animate still images into dynamic videos with AI. Transform photos into cinematic clips with natural motion, camera movement, and optional audio generation.
 

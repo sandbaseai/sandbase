@@ -1,6 +1,8 @@
-# Douyin Creative Keyword Related Videos
+# Douyin Creative Keyword Related Videos API: pricing, parameters and code examples
 
-`douyin/index/content-creative-keyword-items` · api · Douyin
+`douyin/index/content-creative-keyword-items` · data API · Douyin · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns videos associated with a specific trending keyword in a category. Filters include category ID, target keyword, analysis period, and end date.
 

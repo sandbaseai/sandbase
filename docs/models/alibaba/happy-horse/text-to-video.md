@@ -1,6 +1,8 @@
-# Happy Horse Text to Video
+# Happy Horse Text to Video API: pricing, parameters and code examples
 
-`alibaba/happy-horse/text-to-video` · video · Alibaba
+`alibaba/happy-horse/text-to-video` · video generation model · Alibaba · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** from $0.42 to $1.92 per run, depending on parameters · **Modes:** async
 
 Alibaba's #1-ranked Happy Horse 1.0 generates stunning 1080p videos with synchronized native audio and multilingual lip-sync, transforming text prompts or images into cinematic, true-to-life motion content for next-generation AIGC creation.
 

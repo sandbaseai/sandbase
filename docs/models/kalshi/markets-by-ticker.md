@@ -1,6 +1,8 @@
-# Kalshi Get Market Price
+# Kalshi Get Market Price API: pricing, parameters and code examples
 
-`kalshi/markets-by-ticker` · api · Kalshi
+`kalshi/markets-by-ticker` · data API · Kalshi · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.02 per call · **Modes:** sync
 
 Get Market Price from Kalshi. Returns the official Kalshi API response unchanged.
 

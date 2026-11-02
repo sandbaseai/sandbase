@@ -1,6 +1,8 @@
-# Polymarket List teams
+# Polymarket List teams API: pricing, parameters and code examples
 
-`polymarket/teams` · api · Polymarket
+`polymarket/teams` · data API · Polymarket · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.00044 per call (free daily quota) · **Modes:** sync
 
 List teams from Polymarket. Returns the official Polymarket API response unchanged.
 

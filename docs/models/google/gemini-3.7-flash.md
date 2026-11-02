@@ -1,6 +1,8 @@
-# Google: Gemini 3.7 Flash
+# Google: Gemini 3.7 Flash API: pricing, parameters and code examples
 
-`google/gemini-3.7-flash` · llm · Google
+`google/gemini-3.7-flash` · LLM · Google · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $1.5 input / $7.5 output per 1M tokens · **Modes:** sync
 
 Gemini 3.7 Flash is a natively multimodal reasoning model in Google's Gemini 3 Flash line, released in August 2026, three weeks after 3.6 Flash. Google positions it as an everyday driver for developers, with improvements in software engineering, knowledge work, web development, instruction following and tool calling. It takes text, image, video, audio and PDF input and returns text; Gemini 3.8 Flash, released in September 2026, has since succeeded it as Google's top Flash model.
 

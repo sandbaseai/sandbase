@@ -1,6 +1,8 @@
-# Similarweb Audience Overlap
+# Similarweb Audience Overlap API: pricing, parameters and code examples
 
-`similarweb/audience-overlap` · api · Similarweb
+`similarweb/audience-overlap` · data API · Similarweb · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** about $0.15 per call · **Modes:** sync
 
 Compare the audiences of up to 5 websites: unique visitors per site, overlapping visitors and the combined audience.
 

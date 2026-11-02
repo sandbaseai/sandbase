@@ -1,6 +1,8 @@
-# Nano Banana 2 Lite Text to Image
+# Nano Banana 2 Lite Text to Image API: pricing, parameters and code examples
 
-`google/nano-banana-2-lite` · image · Google
+`google/nano-banana-2-lite` · image generation model · Google · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0336 per call · **Modes:** async
 
 Nano Banana 2 Lite by Google - generate stunning images from text prompts with state-of-the-art AI. Supports multiple aspect ratios, styles, and high-resolution output for creative and commercial use.
 

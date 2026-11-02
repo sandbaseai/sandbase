@@ -1,6 +1,8 @@
-# Wan 3.0 Prime Video Edit
+# Wan 3.0 Prime Video Edit API: pricing, parameters and code examples
 
-`alibaba/wan/3.0/prime/video-edit` · video · Alibaba
+`alibaba/wan/3.0/prime/video-edit` · video generation model · Alibaba · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** about $1.4 per call · **Modes:** async
 
 Wan 3.0 Prime Video Edit by Alibaba restyles or modifies an input video from a text instruction, optionally guided by reference images and audio, keeping the original length.
 

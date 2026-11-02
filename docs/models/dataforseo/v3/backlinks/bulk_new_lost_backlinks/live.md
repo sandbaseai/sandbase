@@ -1,6 +1,8 @@
-# DataForSEO Backlinks Bulk New and Lost Backlinks
+# DataForSEO Backlinks Bulk New and Lost Backlinks API: pricing, parameters and code examples
 
-`dataforseo/v3/backlinks/bulk_new_lost_backlinks/live` · api · DataForSEO
+`dataforseo/v3/backlinks/bulk_new_lost_backlinks/live` · data API · DataForSEO · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** about $0.024072 per call · **Modes:** sync
 
 New and lost backlink counts since a date for up to 1,000 targets.
 

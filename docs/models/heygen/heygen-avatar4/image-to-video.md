@@ -1,6 +1,8 @@
-# HeyGen Avatar 4 Image to Video
+# HeyGen Avatar 4 Image to Video API: pricing, parameters and code examples
 
-`heygen/heygen-avatar4/image-to-video` · video · HeyGen
+`heygen/heygen-avatar4/image-to-video` · video generation model · HeyGen · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** about $0.5 per call · **Modes:** async
 
 Heygen Avatar4 is HeyGen's image-to-video AI model. Bring static images to life with fluid animation, consistent character motion, and professional-grade video output.
 

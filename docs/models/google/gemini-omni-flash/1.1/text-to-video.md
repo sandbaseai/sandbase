@@ -1,6 +1,8 @@
-# Gemini Omni Flash 1.1 Text to Video
+# Gemini Omni Flash 1.1 Text to Video API: pricing, parameters and code examples
 
-`google/gemini-omni-flash/1.1/text-to-video` · video · Google
+`google/gemini-omni-flash/1.1/text-to-video` · video generation model · Google · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** from $0.09 to $3 per run, depending on parameters · **Modes:** async
 
 Gemini Omni Flash 1.1 is Google's text-to-video AI model. Turn written scripts and prompts into professional-quality video clips with realistic motion, lighting, and scene composition.
 

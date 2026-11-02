@@ -1,6 +1,8 @@
-# Douban Movie Reviews
+# Douban Movie Reviews API: pricing, parameters and code examples
 
-`douban/movie-reviews` · api · Douban
+`douban/movie-reviews` · data API · Douban · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.013889 per call (free daily quota) · **Modes:** sync
 
 Get paginated Douban long-form reviews for a movie or TV subject, ordered by time or popularity. Use it to browse in-depth audience reviews for a known subject.
 

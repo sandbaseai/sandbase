@@ -1,6 +1,8 @@
-# Douyin sec_user_ids from URLs (Batch)
+# Douyin sec_user_ids from URLs (Batch) API: pricing, parameters and code examples
 
-`douyin/web/all-sec-user-id` · api · Douyin
+`douyin/web/all-sec-user-id` · data API · Douyin · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Extracts Douyin sec_user_id values in bulk from a list of user homepage URLs. Accepts an array of profile links to return the corresponding platform identifiers.
 

@@ -1,6 +1,8 @@
-# Douyin XingTu KOL ID by User ID
+# Douyin XingTu KOL ID by User ID API: pricing, parameters and code examples
 
-`douyin/xingtu/xingtu-kolid-by-uid` · api · Douyin
+`douyin/xingtu/xingtu-kolid-by-uid` · data API · Douyin · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns the XingTu creator identifier, nickname, tag, and performance metrics for a specific Douyin account using their Douyin user ID.
 

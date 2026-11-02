@@ -1,6 +1,8 @@
-# FRED Get Releases
+# FRED Get Releases API: pricing, parameters and code examples
 
-`fred/releases` · api · FRED
+`fred/releases` · data API · FRED · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $1e-05 per call (free daily quota) · **Modes:** sync
 
 Get Releases from FRED. Returns the official FRED API response unchanged.
 

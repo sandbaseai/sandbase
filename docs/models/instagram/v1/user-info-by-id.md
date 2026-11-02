@@ -1,6 +1,8 @@
-# Instagram User Profile by ID
+# Instagram User Profile by ID API: pricing, parameters and code examples
 
-`instagram/v1/user-info-by-id` · api · Instagram
+`instagram/v1/user-info-by-id` · data API · Instagram · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns Instagram account information and recent timeline media details for a specified account. Queries using the unique numerical user ID.
 

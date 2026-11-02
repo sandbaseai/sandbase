@@ -1,6 +1,8 @@
-# Tavily Site Map
+# Tavily Site Map API: pricing, parameters and code examples
 
-`tavily/map` · api · Tavily
+`tavily/map` · data API · Tavily · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.012 per call · **Modes:** sync
 
 Discovers the URL structure of a target website without extracting full page content. Accepts a starting URL, maximum traversal depth, and URL discovery limits.
 

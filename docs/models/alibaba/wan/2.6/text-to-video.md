@@ -1,6 +1,8 @@
-# Wan 2.6 Text to Video
+# Wan 2.6 Text to Video API: pricing, parameters and code examples
 
-`alibaba/wan/2.6/text-to-video` · video · Alibaba
+`alibaba/wan/2.6/text-to-video` · video generation model · Alibaba · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** from $0.5 to $1.5 per run, depending on parameters · **Modes:** async
 
 Alibaba Wan 2.6 text-to-video model with cinematic visuals, configurable duration (5 or 10 seconds) and resolution.
 

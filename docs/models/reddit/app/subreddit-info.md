@@ -1,6 +1,8 @@
-# Reddit App Subreddit Info
+# Reddit App Subreddit Info API: pricing, parameters and code examples
 
-`reddit/app/subreddit-info` · api · Reddit
+`reddit/app/subreddit-info` · data API · Reddit · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns detailed metadata for a Reddit subreddit, such as rules, descriptions, and app installations. Look up data by subreddit name with optional response formatting.
 

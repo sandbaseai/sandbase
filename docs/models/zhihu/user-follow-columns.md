@@ -1,6 +1,8 @@
-# Zhihu User Follow Columns
+# Zhihu User Follow Columns API: pricing, parameters and code examples
 
-`zhihu/user-follow-columns` · api · Zhihu
+`zhihu/user-follow-columns` · data API · Zhihu · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.013889 per call (free daily quota) · **Modes:** sync
 
 Get Zhihu columns followed by a user, with offset pagination. Use it to browse the columns associated with a known account's follow activity.
 

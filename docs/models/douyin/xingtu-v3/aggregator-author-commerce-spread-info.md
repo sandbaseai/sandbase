@@ -1,6 +1,8 @@
-# Douyin Xingtu Creator Commerce Spread Info
+# Douyin Xingtu Creator Commerce Spread Info API: pricing, parameters and code examples
 
-`douyin/xingtu-v3/aggregator-author-commerce-spread-info` · api · Douyin
+`douyin/xingtu-v3/aggregator-author-commerce-spread-info` · data API · Douyin · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.020833 per call · **Modes:** sync
 
 Get Douyin Creator Marketplace (Xingtu) commerce spread information for a specified creator. Use it to compare creators during commerce campaign planning.
 

@@ -1,6 +1,8 @@
-# Polymarket Get comments by user address
+# Polymarket Get comments by user address API: pricing, parameters and code examples
 
-`polymarket/comments-user-address` · api · Polymarket
+`polymarket/comments-user-address` · data API · Polymarket · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.00044 per call (free daily quota) · **Modes:** sync
 
 Get comments by user address from Polymarket. Returns the official Polymarket API response unchanged.
 

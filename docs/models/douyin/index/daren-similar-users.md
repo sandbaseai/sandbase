@@ -1,6 +1,8 @@
-# Douyin Similar Daren Accounts
+# Douyin Similar Daren Accounts API: pricing, parameters and code examples
 
-`douyin/index/daren-similar-users` · api · Douyin
+`douyin/index/daren-similar-users` · data API · Douyin · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns a list of similar Douyin daren accounts based on a specified user profile. Supply a target user identifier to discover comparable talent and content channels across the platform.
 

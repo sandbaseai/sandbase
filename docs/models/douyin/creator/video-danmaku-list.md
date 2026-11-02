@@ -1,6 +1,8 @@
-# Douyin Creator Video Danmaku List
+# Douyin Creator Video Danmaku List API: pricing, parameters and code examples
 
-`douyin/creator/video-danmaku-list` · api · Douyin
+`douyin/creator/video-danmaku-list` · data API · Douyin · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns the danmaku bullet comment list for a specified Douyin video. Filter by blocked status and order results by timestamp or engagement with pagination support.
 

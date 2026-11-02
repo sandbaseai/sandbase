@@ -1,6 +1,8 @@
-# X (Twitter) Twitter Tweet Transcript
+# X (Twitter) Twitter Tweet Transcript API: pricing, parameters and code examples
 
-`twitter/tweet-transcript` · api · X (Twitter)
+`twitter/tweet-transcript` · data API · X (Twitter) · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** about $0.0012 per call · **Modes:** sync
 
 Extract the spoken transcript from a Twitter/X video tweet by URL.
 

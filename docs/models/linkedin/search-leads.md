@@ -1,6 +1,8 @@
-# LinkedIn Sales Navigator Lead Search
+# LinkedIn Sales Navigator Lead Search API: pricing, parameters and code examples
 
-`linkedin/search-leads` · api · LinkedIn
+`linkedin/search-leads` · data API · LinkedIn · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** about $0.07 per call · **Modes:** sync
 
 LinkedIn lead search with Sales Navigator's search and filters: one call returns a page of up to 25 people matching a keyword and Sales Navigator lead filters (location, job title, current and past company, school, seniority, function, company size, and more), or the results of a Sales Navigator lead-search URL you built yourself. Each lead comes with name, current positions, location, summary, and photo, and its url opens the profile and can be passed to linkedin.profile for the full record. For full profiles in one call use linkedin.search_profiles.
 

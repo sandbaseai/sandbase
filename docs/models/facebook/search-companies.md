@@ -1,6 +1,8 @@
-# Facebook Company Search
+# Facebook Company Search API: pricing, parameters and code examples
 
-`facebook/search-companies` · api · Facebook
+`facebook/search-companies` · data API · Facebook · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** about $0.0011 per call · **Modes:** sync
 
 Search the Meta Ad Library for advertisers by keyword and get matching pages: page ID, category, verification, follower counts, and linked Instagram.
 

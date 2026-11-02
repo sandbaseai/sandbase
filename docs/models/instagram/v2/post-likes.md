@@ -1,6 +1,8 @@
-# Instagram Post Likes (V2)
+# Instagram Post Likes (V2) API: pricing, parameters and code examples
 
-`instagram/v2/post-likes` · api · Instagram
+`instagram/v2/post-likes` · data API · Instagram · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.003 per call (free daily quota) · **Modes:** sync
 
 Returns the list of users who liked an Instagram post by shortcode or URL. Supports cursor-based pagination to retrieve subsequent pages.
 

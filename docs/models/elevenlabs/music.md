@@ -1,6 +1,8 @@
-# ElevenLabs Music
+# ElevenLabs Music API: pricing, parameters and code examples
 
-`elevenlabs/music` · audio · ElevenLabs
+`elevenlabs/music` · audio model · ElevenLabs · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** from $0.6 to $6 per run, depending on parameters · **Modes:** async
 
 Music is ElevenLabs's AI audio generation model. Produce high-quality music tracks, sound effects, and audio landscapes from natural language prompts.
 

@@ -1,6 +1,8 @@
-# SECForm4 Insider Buys
+# SECForm4 Insider Buys API: pricing, parameters and code examples
 
-`secform4/insider-buys` · api · SECForm4
+`secform4/insider-buys` · data API · SECForm4 · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.01 per call (free daily quota) · **Modes:** async
 
 Returns recent insider purchase transactions from SEC Form 4 filings. Data is delayed by 6 months for public users.
 

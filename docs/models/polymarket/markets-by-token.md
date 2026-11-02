@@ -1,6 +1,8 @@
-# Polymarket Get market by token
+# Polymarket Get market by token API: pricing, parameters and code examples
 
-`polymarket/markets-by-token` · api · Polymarket
+`polymarket/markets-by-token` · data API · Polymarket · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.00044 per call (free daily quota) · **Modes:** sync
 
 Get market by token from Polymarket. Returns the official Polymarket API response unchanged.
 

@@ -1,6 +1,8 @@
-# Weibo User Profile
+# Weibo User Profile API: pricing, parameters and code examples
 
-`weibo/user-detail` · api · Weibo
+`weibo/user-detail` · data API · Weibo · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.013889 per call (free daily quota) · **Modes:** sync
 
 Get a Weibo user profile identified by UID. Use it to look up a known account for creator research, profile review, or subsequent retrieval of that user's posts and videos.
 

@@ -1,6 +1,8 @@
-# Y Combinator Search Founders
+# Y Combinator Search Founders API: pricing, parameters and code examples
 
-`ycombinator/search-founders` · api · Y Combinator
+`ycombinator/search-founders` · data API · Y Combinator · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.01 per call (free daily quota) · **Modes:** async
 
 Search the YC founder directory via Algolia. Returns paginated results with founder metadata including name, current company, title, batches, and industries.
 

@@ -1,6 +1,8 @@
-# Douyin Xingtu Author Fan Distribution
+# Douyin Xingtu Author Fan Distribution API: pricing, parameters and code examples
 
-`douyin/xingtu-v2/author-fans-distribution` · api · Douyin
+`douyin/xingtu-v2/author-fans-distribution` · data API · Douyin · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.003 per call (free daily quota) · **Modes:** sync
 
 Returns audience profile metrics for a Xingtu creator, including gender, age, geographic region, and interests based on creator ID.
 

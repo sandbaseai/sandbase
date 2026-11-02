@@ -1,6 +1,8 @@
-# Zhihu User Answers
+# Zhihu User Answers API: pricing, parameters and code examples
 
-`zhihu/web/user-answers` · api · Zhihu
+`zhihu/web/user-answers` · data API · Zhihu · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns answers posted by a specific Zhihu user based on their user token. Supports pagination and sorting results by creation date or upvote count.
 

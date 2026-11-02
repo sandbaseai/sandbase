@@ -1,6 +1,8 @@
-# Meta: Llama 3.3 70B Instruct
+# Meta: Llama 3.3 70B Instruct API: pricing, parameters and code examples
 
-`meta/llama-3.3-70b-instruct` · llm · Meta
+`meta/llama-3.3-70b-instruct` · LLM · Meta · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.1 input / $0.32 output per 1M tokens · **Modes:** sync
 
 Llama 3.3 70B Instruct is Meta's instruction-tuned, text-only multilingual model released on December 6, 2024, built on an optimized transformer with grouped-query attention and a 128K-token context. It is optimized for assistant-style multilingual dialogue in eight officially supported languages, including English, German, French, Spanish, Hindi and Thai. It is a static open-weight model with a December 2023 knowledge cutoff, and its license also permits synthetic data generation and distillation.
 

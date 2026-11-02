@@ -1,6 +1,8 @@
-# IMDb Awards Summary
+# IMDb Awards Summary API: pricing, parameters and code examples
 
-`imdb/title-awards-summary-query` · api · IMDb
+`imdb/title-awards-summary-query` · data API · IMDb · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.006944 per call (free daily quota) · **Modes:** sync
 
 Get the IMDb awards summary for a title ID using selected language and country preferences. Use it to research a title's awards record or support awards-focused catalog review.
 

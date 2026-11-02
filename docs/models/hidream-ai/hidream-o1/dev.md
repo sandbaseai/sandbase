@@ -1,6 +1,8 @@
-# HiDream O1 Dev
+# HiDream O1 Dev API: pricing, parameters and code examples
 
-`hidream-ai/hidream-o1/dev` · image · HiDream
+`hidream-ai/hidream-o1/dev` · image generation model · HiDream · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.02 per call · **Modes:** async
 
 Hidream O1 Dev by hidream-ai - generate stunning images from text prompts with state-of-the-art AI. Supports multiple aspect ratios, styles, and high-resolution output for creative and commercial use.
 

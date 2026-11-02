@@ -1,6 +1,8 @@
-# Douyin Music Hot Search List
+# Douyin Music Hot Search List API: pricing, parameters and code examples
 
-`douyin/app-v3/music-hot-search-list` · api · Douyin
+`douyin/app-v3/music-hot-search-list` · data API · Douyin · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Retrieves Douyin hot search music rankings, audio details, and artist metadata based on the selected chart category and pagination cursor.
 

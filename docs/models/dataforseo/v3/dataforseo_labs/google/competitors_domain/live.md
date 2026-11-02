@@ -1,6 +1,8 @@
-# DataForSEO Google Competitors Domain
+# DataForSEO Google Competitors Domain API: pricing, parameters and code examples
 
-`dataforseo/v3/dataforseo_labs/google/competitors_domain/live` · api · DataForSEO
+`dataforseo/v3/dataforseo_labs/google/competitors_domain/live` · data API · DataForSEO · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.024 per call · **Modes:** sync
 
 Returns Google organic search competitor domains and comparative ranking metrics for a specified domain, enabling competitive research and market analysis.
 

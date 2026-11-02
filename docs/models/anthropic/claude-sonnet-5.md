@@ -1,6 +1,8 @@
-# Anthropic: Claude Sonnet 5
+# Anthropic: Claude Sonnet 5 API: pricing, parameters and code examples
 
-`anthropic/claude-sonnet-5` · llm · Anthropic
+`anthropic/claude-sonnet-5` · LLM · Anthropic · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $2 input / $10 output per 1M tokens · **Modes:** sync
 
 Claude Sonnet 5 is a Sonnet-class model for high-quality coding, agentic workflows, reasoning, vision, structured outputs, and tool use.
 

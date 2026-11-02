@@ -1,6 +1,8 @@
-# AccuWeather Search Locations
+# AccuWeather Search Locations API: pricing, parameters and code examples
 
-`accuweather/search-locations` · api · AccuWeather
+`accuweather/search-locations` · data API · AccuWeather · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.01 per call (free daily quota) · **Modes:** async
 
 Search for location keys and metadata by query string. Returns matching cities with their AccuWeather location keys, geographic coordinates, timezone information, and available datasets.
 

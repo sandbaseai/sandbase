@@ -1,6 +1,8 @@
-# Douyin Hashtag Suggestions
+# Douyin Hashtag Suggestions API: pricing, parameters and code examples
 
-`douyin/search/challenge-suggest` · api · Douyin
+`douyin/search/challenge-suggest` · data API · Douyin · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.015 per call (free daily quota) · **Modes:** sync
 
 Returns a list of suggested Douyin hashtags and challenges matching a query keyword, including challenge IDs and view counts.
 

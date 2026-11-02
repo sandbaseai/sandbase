@@ -1,6 +1,8 @@
-# DataForSEO App Store App Competitors
+# DataForSEO App Store App Competitors API: pricing, parameters and code examples
 
-`dataforseo/v3/dataforseo_labs/apple/app_competitors/live` · api · DataForSEO
+`dataforseo/v3/dataforseo_labs/apple/app_competitors/live` · data API · DataForSEO · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.024 per call · **Modes:** sync
 
 Find App Store apps that compete with an iOS app for the same search keywords, with intersecting keyword counts and positions.
 

@@ -1,6 +1,8 @@
-# Grok Imagine Video Edit
+# Grok Imagine Video Edit API: pricing, parameters and code examples
 
-`xai/grok-imagine-video/video-edit` · video · xAI
+`xai/grok-imagine-video/video-edit` · video generation model · xAI · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** about $0.3 per call · **Modes:** async
 
 Grok Imagine Video Edit is xAI's video-to-video AI model. Transform, enhance, and edit video content using text prompts - from style changes to object manipulation and scene modification.
 

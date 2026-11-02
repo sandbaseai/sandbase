@@ -1,6 +1,8 @@
-# DataForSEO Google Dataset Search Results
+# DataForSEO Google Dataset Search Results API: pricing, parameters and code examples
 
-`dataforseo/v3/serp/google/dataset_search/live/advanced` · api · DataForSEO
+`dataforseo/v3/serp/google/dataset_search/live/advanced` · data API · DataForSEO · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** about $0.002 per call · **Modes:** sync
 
 Google Dataset Search results for a keyword: dataset titles, providers, formats and update dates.
 

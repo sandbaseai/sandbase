@@ -1,6 +1,8 @@
-# Polymarket Get sports metadata information
+# Polymarket Get sports metadata information API: pricing, parameters and code examples
 
-`polymarket/sports` · api · Polymarket
+`polymarket/sports` · data API · Polymarket · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.00044 per call (free daily quota) · **Modes:** sync
 
 Get sports metadata information from Polymarket. Returns the official Polymarket API response unchanged.
 

@@ -1,6 +1,8 @@
-# Nasdaq Stock Financials
+# Nasdaq Stock Financials API: pricing, parameters and code examples
 
-`nasdaq/stock-financials` · api · Nasdaq
+`nasdaq/stock-financials` · data API · Nasdaq · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.01 per call (free daily quota) · **Modes:** async
 
 Financial statements for a stock: Income Statement, Balance Sheet, Cash Flow, and Financial Ratios. Returns 4 periods of data (annual or quarterly based on frequency parameter).
 

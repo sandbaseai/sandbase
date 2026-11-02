@@ -1,6 +1,8 @@
-# OpenAI: gpt-oss-120b
+# OpenAI: gpt-oss-120b API: pricing, parameters and code examples
 
-`openai/gpt-oss-120b` · llm · OpenAI
+`openai/gpt-oss-120b` · LLM · OpenAI · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.039 input / $0.18 output per 1M tokens · **Modes:** sync
 
 gpt-oss-120b is OpenAI's largest open-weight reasoning model, released in August 2025 under the Apache 2.0 license: a 117B-parameter mixture-of-experts model with 5.1B active parameters that fits on a single 80GB GPU. OpenAI positions it for production, general-purpose and high-reasoning use, with adjustable low, medium or high reasoning, full chain-of-thought access, and native function calling, browsing, Python execution and structured outputs. It is text-only and can be self-hosted or fine-tuned.
 

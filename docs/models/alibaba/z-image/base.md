@@ -1,6 +1,8 @@
-# Z Image Base
+# Z Image Base API: pricing, parameters and code examples
 
-`alibaba/z-image/base` · image · Alibaba
+`alibaba/z-image/base` · image generation model · Alibaba · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.01 per call · **Modes:** async
 
 Z Image Base by Alibaba - generate stunning images from text prompts with state-of-the-art AI. Supports multiple aspect ratios, styles, and high-resolution output for creative and commercial use.
 

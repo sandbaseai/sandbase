@@ -1,6 +1,8 @@
-# X / Twitter Following
+# X / Twitter Following API: pricing, parameters and code examples
 
-`twitter/following` · api · X (Twitter)
+`twitter/following` · data API · X (Twitter) · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** about $0.00045 per call · **Modes:** sync
 
 List the accounts a public X (Twitter) account follows by username with cursor pagination. Limit is a per-page maximum; follow the response's nextCursor for more.
 

@@ -1,6 +1,8 @@
-# Google AI Overview
+# Google AI Overview API: pricing, parameters and code examples
 
-`google/ai-overview` · api · Google
+`google/ai-overview` · data API · Google · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** about $0.0015 per call · **Modes:** sync
 
 Ask Google Search a prompt and receive the AI Overview it generated for that scrape, with every source Google listed. Google regenerates the overview per search, so the same prompt can return different wording and a different source list.
 

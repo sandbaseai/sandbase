@@ -1,6 +1,8 @@
-# YouTube Comment Replies
+# YouTube Comment Replies API: pricing, parameters and code examples
 
-`youtube/comment-replies` · api · YouTube
+`youtube/comment-replies` · data API · YouTube · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** about $0.0012 per call · **Modes:** sync
 
 List replies to a YouTube comment using a continuation token with cursor pagination (text, author, likes, publish time).
 

@@ -1,6 +1,8 @@
-# Bing Maps Maps
+# Bing Maps Maps API: pricing, parameters and code examples
 
-`bing-maps/maps` · api · Bing Maps
+`bing-maps/maps` · data API · Bing Maps · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.00015 per call (free daily quota) · **Modes:** async
 
 Search Bing Maps listings around a map center, or look up one entity by id.
 

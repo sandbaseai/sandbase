@@ -1,6 +1,8 @@
-# SAM 3 3D Objects
+# SAM 3 3D Objects API: pricing, parameters and code examples
 
-`meta/sam-3/3d-objects` · image · Meta
+`meta/sam-3/3d-objects` · image generation model · Meta · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** from $0.024 per run, depending on parameters · **Modes:** async
 
 Sam 3 3d Objects by Meta - convert 2D images into 3D models with AI. Generate textured 3D assets from single photos for games, AR/VR, e-commerce, and digital content creation.
 

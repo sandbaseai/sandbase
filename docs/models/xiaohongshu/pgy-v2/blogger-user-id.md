@@ -1,6 +1,8 @@
-# Xiaohongshu Pugongying Creator Profile
+# Xiaohongshu Pugongying Creator Profile API: pricing, parameters and code examples
 
-`xiaohongshu/pgy-v2/blogger-user-id` · api · Xiaohongshu
+`xiaohongshu/pgy-v2/blogger-user-id` · data API · Xiaohongshu · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.020833 per call · **Modes:** sync
 
 Get a Xiaohongshu Pugongying creator profile and cooperation quote information for a known user ID. Use it to review a creator before campaign outreach or pricing comparison.
 

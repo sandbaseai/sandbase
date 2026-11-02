@@ -1,6 +1,8 @@
-# Google: Gemini 3.1 Flash Lite
+# Google: Gemini 3.1 Flash Lite API: pricing, parameters and code examples
 
-`google/gemini-3.1-flash-lite` · llm · Google
+`google/gemini-3.1-flash-lite` · LLM · Google · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.25 input / $1.5 output per 1M tokens · **Modes:** sync
 
 Gemini 3.1 Flash-Lite is the generally available, low-latency Flash-Lite tier of Google's Gemini 3 series, released in May 2026 as the stable successor to the 3.1 Flash-Lite preview. Google targets it at high-frequency, lightweight tasks such as high-volume translation, transcription, entity extraction, document summarization and routing queries between larger models. Google has scheduled its shutdown for May 7, 2027 and recommends Gemini 3.5 Flash-Lite as the replacement.
 

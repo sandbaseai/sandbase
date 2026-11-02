@@ -1,6 +1,8 @@
-# Similarweb Traffic & Engagement
+# Similarweb Traffic & Engagement API: pricing, parameters and code examples
 
-`similarweb/traffic-engagement` · api · Similarweb
+`similarweb/traffic-engagement` · data API · Similarweb · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** about $0.075 per call · **Modes:** sync
 
 Get a website's traffic and engagement metrics month by month: visits, page views, visit duration, bounce rate and more.
 

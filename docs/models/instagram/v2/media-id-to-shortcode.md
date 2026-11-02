@@ -1,6 +1,8 @@
-# Instagram Media ID to Shortcode (V2)
+# Instagram Media ID to Shortcode (V2) API: pricing, parameters and code examples
 
-`instagram/v2/media-id-to-shortcode` · api · Instagram
+`instagram/v2/media-id-to-shortcode` · data API · Instagram · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.003 per call (free daily quota) · **Modes:** sync
 
 Converts an Instagram post media identifier into its corresponding shortcode. Useful for reconstructing direct post URLs from numeric identifiers.
 

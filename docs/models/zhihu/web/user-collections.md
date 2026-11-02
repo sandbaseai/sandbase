@@ -1,6 +1,8 @@
-# Zhihu User Collections
+# Zhihu User Collections API: pricing, parameters and code examples
 
-`zhihu/web/user-collections` · api · Zhihu
+`zhihu/web/user-collections` · data API · Zhihu · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns collections curated by a specific Zhihu user using their user URL token. Supports pagination controls via limit and offset parameters.
 

@@ -1,6 +1,8 @@
-# Reddit User Comments
+# Reddit User Comments API: pricing, parameters and code examples
 
-`reddit/app/user-comments` · api · Reddit
+`reddit/app/user-comments` · data API · Reddit · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns a list of comments submitted by a specified Reddit user. Supports multiple sorting options, customizable page sizes, and pagination tokens.
 

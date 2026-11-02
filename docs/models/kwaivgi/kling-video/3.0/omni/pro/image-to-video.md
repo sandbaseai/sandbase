@@ -1,6 +1,8 @@
-# Kling 3.0 Omni Pro Image to Video
+# Kling 3.0 Omni Pro Image to Video API: pricing, parameters and code examples
 
-`kwaivgi/kling-video/3.0/omni/pro/image-to-video` · video · KwaiVGI
+`kwaivgi/kling-video/3.0/omni/pro/image-to-video` · video generation model · KwaiVGI · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** from $0.336 to $0.896 per run, depending on parameters · **Modes:** async
 
 Kling 3.0 Omni Pro Image to Video by Kuaishou animates a start image, optionally toward an end image, into a 3-10 second 1080p video.
 

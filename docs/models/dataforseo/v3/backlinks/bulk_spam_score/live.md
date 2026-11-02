@@ -1,6 +1,8 @@
-# DataForSEO Backlinks Bulk Spam Score
+# DataForSEO Backlinks Bulk Spam Score API: pricing, parameters and code examples
 
-`dataforseo/v3/backlinks/bulk_spam_score/live` · api · DataForSEO
+`dataforseo/v3/backlinks/bulk_spam_score/live` · data API · DataForSEO · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** about $0.024072 per call · **Modes:** sync
 
 Backlink spam scores for up to 1,000 domains, subdomains or pages.
 

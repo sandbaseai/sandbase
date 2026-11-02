@@ -1,6 +1,8 @@
-# JD.com Product Search
+# JD.com Product Search API: pricing, parameters and code examples
 
-`jd/search/items` · api · JD.com
+`jd/search/items` · data API · JD.com · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.020834 per call · **Modes:** sync
 
 Search JD.com products by keyword with item IDs, titles, images, categories and shop names, with page-based pagination.
 

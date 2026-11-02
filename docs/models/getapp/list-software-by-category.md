@@ -1,6 +1,8 @@
-# GetApp List Software By Category
+# GetApp List Software By Category API: pricing, parameters and code examples
 
-`getapp/list-software-by-category` · api · GetApp
+`getapp/list-software-by-category` · data API · GetApp · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.01 per call (free daily quota) · **Modes:** async
 
 List software products in a specific category with pagination. Returns listings with ratings, reviews, pricing info, and facets for filtering.
 

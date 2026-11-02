@@ -1,6 +1,8 @@
-# Pipixia Hot Search
+# Pipixia Hot Search API: pricing, parameters and code examples
 
-`pipixia/app/hot-search-board-list` · api · Pipixia
+`pipixia/app/hot-search-board-list` · data API · Pipixia · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Get the Pipixia hot search boards: trending posts with daily likes and top comments.
 

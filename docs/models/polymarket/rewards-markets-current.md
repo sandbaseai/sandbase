@@ -1,6 +1,8 @@
-# Polymarket Get current active rewards configurations
+# Polymarket Get current active rewards configurations API: pricing, parameters and code examples
 
-`polymarket/rewards-markets-current` · api · Polymarket
+`polymarket/rewards-markets-current` · data API · Polymarket · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.012 per call (free daily quota) · **Modes:** sync
 
 Returns the current active rewards configurations for markets.
 

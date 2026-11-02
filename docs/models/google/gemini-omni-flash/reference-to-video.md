@@ -1,6 +1,8 @@
-# Gemini Omni Flash Reference to Video
+# Gemini Omni Flash Reference to Video API: pricing, parameters and code examples
 
-`google/gemini-omni-flash/reference-to-video` · video · Google
+`google/gemini-omni-flash/reference-to-video` · video generation model · Google · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** from $0.39 to $1.3 per run, depending on parameters · **Modes:** async
 
 Gemini Omni Flash Reference to Video by Google generates a short video with synchronized audio that keeps subjects, products, or style consistent with up to ten reference images.
 

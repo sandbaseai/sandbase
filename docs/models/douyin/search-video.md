@@ -1,6 +1,8 @@
-# Douyin Video Search
+# Douyin Video Search API: pricing, parameters and code examples
 
-`douyin/search-video` · api · Douyin
+`douyin/search-video` · data API · Douyin · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.013889 per call (free daily quota) · **Modes:** sync
 
 Search Douyin (TikTok China) videos by keyword with sort, publish-time, duration, and page filters; later pages require the previous search ID. Use it to support content discovery and trend research.
 

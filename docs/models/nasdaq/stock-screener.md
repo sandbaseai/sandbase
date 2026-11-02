@@ -1,6 +1,8 @@
-# Nasdaq Stock Screener
+# Nasdaq Stock Screener API: pricing, parameters and code examples
 
-`nasdaq/stock-screener` · api · Nasdaq
+`nasdaq/stock-screener` · data API · Nasdaq · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.01 per call (free daily quota) · **Modes:** async
 
 Screen stocks by exchange and market capitalization. Returns paginated results with symbol, name, last sale, change, and market cap.
 

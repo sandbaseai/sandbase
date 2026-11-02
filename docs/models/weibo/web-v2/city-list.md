@@ -1,6 +1,8 @@
-# Weibo Region City List
+# Weibo Region City List API: pricing, parameters and code examples
 
-`weibo/web-v2/city-list` · api · Weibo
+`weibo/web-v2/city-list` · data API · Weibo · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns a directory of provinces and cities on Weibo. Supports toggling a normalized data structure via the normalized parameter.
 

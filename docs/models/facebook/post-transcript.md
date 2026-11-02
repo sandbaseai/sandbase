@@ -1,6 +1,8 @@
-# Facebook Post Transcript
+# Facebook Post Transcript API: pricing, parameters and code examples
 
-`facebook/post-transcript` · api · Facebook
+`facebook/post-transcript` · data API · Facebook · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** about $0.0012 per call · **Modes:** sync
 
 Get the spoken-word transcript of any public Facebook video post by URL as normalized JSON.
 

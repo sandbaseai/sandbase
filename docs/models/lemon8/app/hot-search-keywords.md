@@ -1,6 +1,8 @@
-# Lemon8 Hot Search Keywords
+# Lemon8 Hot Search Keywords API: pricing, parameters and code examples
 
-`lemon8/app/hot-search-keywords` · api · Lemon8
+`lemon8/app/hot-search-keywords` · data API · Lemon8 · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns trending search keywords and topics currently popular on Lemon8. Call this endpoint to track real-time user discovery trends across the app.
 

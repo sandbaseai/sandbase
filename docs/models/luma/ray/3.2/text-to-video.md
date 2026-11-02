@@ -1,6 +1,8 @@
-# Luma Ray 3.2 Text to Video
+# Luma Ray 3.2 Text to Video API: pricing, parameters and code examples
 
-`luma/ray/3.2/text-to-video` · video · Luma
+`luma/ray/3.2/text-to-video` · video generation model · Luma · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** from $0.5 to $4 per run, depending on parameters · **Modes:** async
 
 Agent Ray 3.2 is Luma's text-to-video AI model. Turn written scripts and prompts into professional-quality video clips with realistic motion, lighting, and scene composition.
 

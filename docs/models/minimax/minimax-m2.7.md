@@ -1,6 +1,8 @@
-# MiniMax: MiniMax M2.7
+# MiniMax: MiniMax M2.7 API: pricing, parameters and code examples
 
-`minimax/minimax-m2.7` · llm · Minimax
+`minimax/minimax-m2.7` · LLM · Minimax · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.3 input / $1.2 output per 1M tokens · **Modes:** sync
 
 MiniMax-M2.7 is a MiniMax M2-series language model that MiniMax describes as its first model to take part in its own development, building agent harnesses, skills and memory for reinforcement learning experiments. It is positioned for end-to-end software engineering including log analysis, bug troubleshooting and code security, high-fidelity editing in Excel, PowerPoint and Word, and character-consistent interaction. A faster highspeed variant exists, and MiniMax-M3 adds multimodality and longer context.
 

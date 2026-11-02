@@ -1,6 +1,8 @@
-# Nasdaq Cryptocurrency Quote
+# Nasdaq Cryptocurrency Quote API: pricing, parameters and code examples
 
-`nasdaq/cryptocurrency-quote` · api · Nasdaq
+`nasdaq/cryptocurrency-quote` · data API · Nasdaq · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.01 per call (free daily quota) · **Modes:** async
 
 Real-time cryptocurrency price and daily change. Coverage limited to major coins supported by Nasdaq (confirmed: BTC, ETH).
 

@@ -1,6 +1,8 @@
-# Douyin Creator Search Suggestions
+# Douyin Creator Search Suggestions API: pricing, parameters and code examples
 
-`douyin/index/daren-sug-great-user-list` · api · Douyin
+`douyin/index/daren-sug-great-user-list` · data API · Douyin · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns creator suggestions on Douyin matching a query nickname. Includes profile details, content category tags, follower totals, and item counts.
 

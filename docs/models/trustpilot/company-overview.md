@@ -1,6 +1,8 @@
-# Trustpilot Company Overview
+# Trustpilot Company Overview API: pricing, parameters and code examples
 
-`trustpilot/company-overview` · api · Trustpilot
+`trustpilot/company-overview` · data API · Trustpilot · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.03 per call · **Modes:** async
 
 Get full company profile overview including TrustScore, rating distribution, AI summary, and initial reviews.
 

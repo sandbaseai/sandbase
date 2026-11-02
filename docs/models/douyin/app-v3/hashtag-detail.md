@@ -1,6 +1,8 @@
-# Douyin Hashtag Details
+# Douyin Hashtag Details API: pricing, parameters and code examples
 
-`douyin/app-v3/hashtag-detail` · api · Douyin
+`douyin/app-v3/hashtag-detail` · data API · Douyin · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Retrieves comprehensive information and metadata for a specific Douyin hashtag using its unique challenge identifier.
 

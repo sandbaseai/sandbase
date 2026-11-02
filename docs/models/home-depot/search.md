@@ -1,6 +1,8 @@
-# Home Depot Search
+# Home Depot Search API: pricing, parameters and code examples
 
-`home-depot/search` · api · Home Depot
+`home-depot/search` · data API · Home Depot · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.015 per call (free daily quota) · **Modes:** async
 
 Search Home Depot products by keyword with price, brand, model number, rating, delivery and pickup availability, filters and pagination.
 

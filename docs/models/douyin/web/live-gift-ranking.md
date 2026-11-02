@@ -1,6 +1,8 @@
-# Douyin Live Room Gift User Ranking
+# Douyin Live Room Gift User Ranking API: pricing, parameters and code examples
 
-`douyin/web/live-gift-ranking` · api · Douyin
+`douyin/web/live-gift-ranking` · data API · Douyin · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Retrieves the contributor gift ranking for a specific Douyin live stream room. Query by room ID and leaderboard type to inspect top gift givers.
 

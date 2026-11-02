@@ -1,6 +1,8 @@
-# Polymarket List comments
+# Polymarket List comments API: pricing, parameters and code examples
 
-`polymarket/comments` · api · Polymarket
+`polymarket/comments` · data API · Polymarket · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.00044 per call (free daily quota) · **Modes:** sync
 
 List comments from Polymarket. Returns the official Polymarket API response unchanged.
 

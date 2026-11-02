@@ -1,6 +1,8 @@
-# WeChat MP Article Ads
+# WeChat MP Article Ads API: pricing, parameters and code examples
 
-`wechat-mp/v2/article-ad` · api · WeChat MP
+`wechat-mp/v2/article-ad` · data API · WeChat MP · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.015 per call (free daily quota) · **Modes:** sync
 
 Returns embedded ad slot information for a specified WeChat MP article URL. Supports choosing between the full raw response or a flattened ad list.
 

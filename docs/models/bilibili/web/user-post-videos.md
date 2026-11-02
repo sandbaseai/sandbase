@@ -1,6 +1,8 @@
-# Bilibili User Post Videos
+# Bilibili User Post Videos API: pricing, parameters and code examples
 
-`bilibili/web/user-post-videos` · api · Bilibili
+`bilibili/web/user-post-videos` · data API · Bilibili · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns videos posted on a Bilibili user's homepage. Query by user identifier with options to control sorting order and page number.
 

@@ -1,6 +1,8 @@
-# DataForSEO Google Autocomplete Advanced
+# DataForSEO Google Autocomplete Advanced API: pricing, parameters and code examples
 
-`dataforseo/v3/serp/google/autocomplete/live/advanced` · api · DataForSEO
+`dataforseo/v3/serp/google/autocomplete/live/advanced` · data API · DataForSEO · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.001 per call (free daily quota) · **Modes:** sync
 
 Returns real-time Google autocomplete search suggestions and related keyword prompts. Delivers SERP autocomplete data for market research and search query analysis.
 

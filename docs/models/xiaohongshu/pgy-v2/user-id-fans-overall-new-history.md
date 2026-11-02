@@ -1,6 +1,8 @@
-# Xiaohongshu Pugongying Follower Growth History
+# Xiaohongshu Pugongying Follower Growth History API: pricing, parameters and code examples
 
-`xiaohongshu/pgy-v2/user-id-fans-overall-new-history` · api · Xiaohongshu
+`xiaohongshu/pgy-v2/user-id-fans-overall-new-history` · data API · Xiaohongshu · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.020833 per call · **Modes:** sync
 
 Get Xiaohongshu Pugongying follower history for a creator over the selected 30- or 90-day period. Use it to track total followers or new-follower growth over time.
 

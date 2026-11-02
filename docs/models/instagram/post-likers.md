@@ -1,6 +1,8 @@
-# Instagram Post Likers
+# Instagram Post Likers API: pricing, parameters and code examples
 
-`instagram/post-likers` · api · Instagram
+`instagram/post-likers` · data API · Instagram · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** about $0.0024 per call · **Modes:** sync
 
 List the accounts that liked a public Instagram post, one page of likers per call, with each liker's handle, display name, verified flag and avatar.
 

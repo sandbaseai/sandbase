@@ -1,6 +1,8 @@
-# Anthropic: Claude Sonnet 4.6
+# Anthropic: Claude Sonnet 4.6 API: pricing, parameters and code examples
 
-`anthropic/claude-sonnet-4.6` · llm · Anthropic
+`anthropic/claude-sonnet-4.6` · LLM · Anthropic · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $3 input / $15 output per 1M tokens · **Modes:** sync
 
 Sonnet 4.6 is Anthropic's most capable Sonnet-class model yet, with frontier performance across coding, agents, and professional work. It excels at iterative development, complex codebase navigation, end-to-end project management with memory, polished document creation, and confident computer use for web QA and workflow automation.
 

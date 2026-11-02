@@ -1,6 +1,8 @@
-# Reddit Subreddit Mute Status
+# Reddit Subreddit Mute Status API: pricing, parameters and code examples
 
-`reddit/app/check-subreddit-muted` · api · Reddit
+`reddit/app/check-subreddit-muted` · data API · Reddit · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Checks whether a specified Reddit subreddit is muted by the current account using its ID. Supports an optional flag to format the returned output.
 

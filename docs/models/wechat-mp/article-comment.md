@@ -1,6 +1,8 @@
-# WeChat MP Article Comments
+# WeChat MP Article Comments API: pricing, parameters and code examples
 
-`wechat-mp/article-comment` · api · WeChat MP
+`wechat-mp/article-comment` · data API · WeChat MP · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.027778 per call · **Modes:** sync
 
 Get top-level comments for a WeChat Official Account article by URL, with an optional buffer cursor for pagination. Use it to review reader discussion or continue through comment pages for a known article.
 

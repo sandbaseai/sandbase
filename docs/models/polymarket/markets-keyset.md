@@ -1,6 +1,8 @@
-# Polymarket List markets (keyset pagination)
+# Polymarket List markets (keyset pagination) API: pricing, parameters and code examples
 
-`polymarket/markets-keyset` · api · Polymarket
+`polymarket/markets-keyset` · data API · Polymarket · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.00044 per call (free daily quota) · **Modes:** sync
 
 List markets (keyset pagination) from Polymarket. Returns the official Polymarket API response unchanged.
 

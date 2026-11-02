@@ -1,6 +1,8 @@
-# Kuaishou Comprehensive Search
+# Kuaishou Comprehensive Search API: pricing, parameters and code examples
 
-`kuaishou/app/search-comprehensive` · api · Kuaishou
+`kuaishou/app/search-comprehensive` · data API · Kuaishou · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.015 per call (free daily quota) · **Modes:** sync
 
 Returns aggregated search feeds across videos and users on Kuaishou, with filtering options for duration, sort order, and release timeframe.
 

@@ -1,6 +1,8 @@
-# Xigua User Profile Details
+# Xigua User Profile Details API: pricing, parameters and code examples
 
-`xigua/app-v2/user-info` · api · Xigua
+`xigua/app-v2/user-info` · data API · Xigua · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns profile and personal information for a specified Xigua account. Queries details using the target user identifier.
 

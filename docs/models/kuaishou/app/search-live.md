@@ -1,6 +1,8 @@
-# Kuaishou Livestream Search
+# Kuaishou Livestream Search API: pricing, parameters and code examples
 
-`kuaishou/app/search-live` · api · Kuaishou
+`kuaishou/app/search-live` · data API · Kuaishou · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.015 per call (free daily quota) · **Modes:** sync
 
 Searches Kuaishou livestreams using a specified search term. Returns matching active broadcast rooms with cursor pagination support.
 

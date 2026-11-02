@@ -1,6 +1,8 @@
-# Douyin Video Channel Feed
+# Douyin Video Channel Feed API: pricing, parameters and code examples
 
-`douyin/web/video-channel-result` · api · Douyin
+`douyin/web/video-channel-result` · data API · Douyin · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns video listings from a specific Douyin channel page. Requires a channel tag ID and supports pagination through count and refresh index parameters.
 

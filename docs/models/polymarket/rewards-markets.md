@@ -1,6 +1,8 @@
-# Polymarket Get raw rewards for a specific market
+# Polymarket Get raw rewards for a specific market API: pricing, parameters and code examples
 
-`polymarket/rewards-markets` · api · Polymarket
+`polymarket/rewards-markets` · data API · Polymarket · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.012 per call (free daily quota) · **Modes:** sync
 
 Get raw rewards for a specific market from Polymarket. Returns the official Polymarket API response unchanged.
 

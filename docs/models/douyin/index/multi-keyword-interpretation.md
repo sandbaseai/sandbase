@@ -1,6 +1,8 @@
-# Douyin Multi-Keyword Index Interpretation
+# Douyin Multi-Keyword Index Interpretation API: pricing, parameters and code examples
 
-`douyin/index/multi-keyword-interpretation` · api · Douyin
+`douyin/index/multi-keyword-interpretation` · data API · Douyin · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns index interpretation metrics for multiple keywords across selected time periods. Includes comparison metrics like period-over-period and year-over-year differences.
 

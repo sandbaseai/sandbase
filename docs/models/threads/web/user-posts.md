@@ -1,6 +1,8 @@
-# Threads User Posts
+# Threads User Posts API: pricing, parameters and code examples
 
-`threads/web/user-posts` · api · Threads
+`threads/web/user-posts` · data API · Threads · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.003 per call (free daily quota) · **Modes:** sync
 
 Returns a list of posts from a specified Threads account. Accepts a user identifier and an optional pagination cursor to retrieve subsequent pages of data.
 

@@ -1,6 +1,8 @@
-# TikTok Photo Search
+# TikTok Photo Search API: pricing, parameters and code examples
 
-`tiktok/web/search-photo` · api · TikTok
+`tiktok/web/search-photo` · data API · TikTok · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Searches TikTok photo posts matching a query keyword. Returns post details, author statistics, music metadata, and engagement metrics with cursor pagination support.
 

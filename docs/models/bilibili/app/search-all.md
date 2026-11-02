@@ -1,6 +1,8 @@
-# Bilibili App Search All
+# Bilibili App Search All API: pricing, parameters and code examples
 
-`bilibili/app/search-all` · api · Bilibili
+`bilibili/app/search-all` · data API · Bilibili · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns comprehensive search results across Bilibili content via the mobile app interface. Filters results by search keyword, sorting order, and pagination parameters.
 

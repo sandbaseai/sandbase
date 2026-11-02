@@ -1,6 +1,8 @@
-# LTX 2.3 Pro Video Extend
+# LTX 2.3 Pro Video Extend API: pricing, parameters and code examples
 
-`lightricks/ltx-2.3-pro/video-extend` · video · Lightricks
+`lightricks/ltx-2.3-pro/video-extend` · video generation model · Lightricks · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** from $0.2 to $2 per run, depending on parameters · **Modes:** async
 
 Ltx 2.3 Pro Extend by Lightricks - AI-powered video editing and transformation. Apply style transfer, motion control, lip-sync, and visual effects to existing videos with natural language instructions.
 

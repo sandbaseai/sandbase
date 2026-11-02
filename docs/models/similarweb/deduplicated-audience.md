@@ -1,6 +1,8 @@
-# Similarweb Deduplicated Audience
+# Similarweb Deduplicated Audience API: pricing, parameters and code examples
 
-`similarweb/deduplicated-audience` · api · Similarweb
+`similarweb/deduplicated-audience` · data API · Similarweb · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** about $0.525 per call · **Modes:** sync
 
 Get a website's deduplicated monthly audience across desktop and mobile web, with each platform's share.
 

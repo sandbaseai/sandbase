@@ -1,6 +1,8 @@
-# Kuaishou App Share Link
+# Kuaishou App Share Link API: pricing, parameters and code examples
 
-`kuaishou/app/generate-share-link` · api · Kuaishou
+`kuaishou/app/generate-share-link` · data API · Kuaishou · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Generates a shareable URL for Kuaishou application content using a specified object identifier. Returns share link details for the target item.
 

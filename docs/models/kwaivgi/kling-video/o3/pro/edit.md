@@ -1,6 +1,8 @@
-# Kling O3 Pro Video Edit
+# Kling O3 Pro Video Edit API: pricing, parameters and code examples
 
-`kwaivgi/kling-video/o3/pro/edit` · video · KwaiVGI
+`kwaivgi/kling-video/o3/pro/edit` · video generation model · KwaiVGI · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** about $0.84 per call · **Modes:** async
 
 Kling O3 Pro Video Edit by Kuaishou edits an input video from a text instruction, optionally guided by reference images, at 1080p.
 

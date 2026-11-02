@@ -1,6 +1,8 @@
-# Y Combinator Search Companies
+# Y Combinator Search Companies API: pricing, parameters and code examples
 
-`ycombinator/search-companies` · api · Y Combinator
+`ycombinator/search-companies` · data API · Y Combinator · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.01 per call (free daily quota) · **Modes:** async
 
 Search and filter the YC company directory via Algolia. Returns paginated results with company metadata including name, batch, industry, team size, and hiring status.
 

@@ -1,6 +1,8 @@
-# Douyin Relation Analysis Valid Dates
+# Douyin Relation Analysis Valid Dates API: pricing, parameters and code examples
 
-`douyin/index/valid-date-for-relation` · api · Douyin
+`douyin/index/valid-date-for-relation` · data API · Douyin · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns the valid date range available for relation analysis on Douyin. Use this endpoint to discover supported timeframes before requesting relationship metrics.
 

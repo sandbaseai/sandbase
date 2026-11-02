@@ -1,6 +1,8 @@
-# Douyin Webcast ID Extractor
+# Douyin Webcast ID Extractor API: pricing, parameters and code examples
 
-`douyin/web/webcast-id` · api · Douyin
+`douyin/web/webcast-id` · data API · Douyin · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Resolves and returns the webcast ID from a Douyin live stream web link. Requires the stream URL as input to retrieve internal webcast identifiers.
 

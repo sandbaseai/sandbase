@@ -1,6 +1,8 @@
-# Web3.career Web3 Salaries
+# Web3.career Web3 Salaries API: pricing, parameters and code examples
 
-`web3-career/web3-salaries` · api · Web3.career
+`web3-career/web3-salaries` · data API · Web3.career · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.01 per call (free daily quota) · **Modes:** async
 
 Fetch average salaries for various Web3 roles. Returns a list of roles with their average salary and a link to the role's detail page.
 

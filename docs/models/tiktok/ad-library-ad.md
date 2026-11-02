@@ -1,6 +1,8 @@
-# TikTok Ad Library Ad
+# TikTok Ad Library Ad API: pricing, parameters and code examples
 
-`tiktok/ad-library-ad` · api · TikTok
+`tiktok/ad-library-ad` · data API · TikTok · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** about $0.0012 per call · **Modes:** sync
 
 Fetch full details for a single TikTok ad (brand, title, spend, CTR, objectives, landing page, and video info).
 

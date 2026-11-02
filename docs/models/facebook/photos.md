@@ -1,6 +1,8 @@
-# Facebook Page Photos
+# Facebook Page Photos API: pricing, parameters and code examples
 
-`facebook/photos` · api · Facebook
+`facebook/photos` · data API · Facebook · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** about $0.0012 per call · **Modes:** sync
 
 Fetch recent photos posted by any public Facebook page or profile (image URLs, captions, and dimensions) as normalized JSON.
 

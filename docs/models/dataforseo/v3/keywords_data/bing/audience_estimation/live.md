@@ -1,6 +1,8 @@
-# DataForSEO Bing Audience Estimation
+# DataForSEO Bing Audience Estimation API: pricing, parameters and code examples
 
-`dataforseo/v3/keywords_data/bing/audience_estimation/live` · api · DataForSEO
+`dataforseo/v3/keywords_data/bing/audience_estimation/live` · data API · DataForSEO · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.09 per call · **Modes:** sync
 
 Estimate Microsoft Ads audience size for targeting criteria. Bing Ads audience estimate for a location plus optional age, gender, industry, and job_function targeting, bid, and daily budget.
 

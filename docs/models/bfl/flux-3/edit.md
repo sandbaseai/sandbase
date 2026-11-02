@@ -1,6 +1,8 @@
-# Flux 3 Edit
+# Flux 3 Edit API: pricing, parameters and code examples
 
-`bfl/flux-3/edit` · image · BFL
+`bfl/flux-3/edit` · image generation model · BFL · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** from $0.041 to $0.607 per run, depending on parameters · **Modes:** async
 
 FLUX 3 by Black Forest Labs edits up to 10 reference images from a text instruction, with strong prompt adherence and typography at 512px to 4K resolution tiers.
 

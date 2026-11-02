@@ -1,6 +1,8 @@
-# Zhihu Column Articles
+# Zhihu Column Articles API: pricing, parameters and code examples
 
-`zhihu/web/column-articles` · api · Zhihu
+`zhihu/web/column-articles` · data API · Zhihu · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns articles from a specific Zhihu column, including titles, content snippets, vote counts, and author profile details.
 

@@ -1,6 +1,8 @@
-# Douyin Music Details
+# Douyin Music Details API: pricing, parameters and code examples
 
-`douyin/app-v3/music-detail` · api · Douyin
+`douyin/app-v3/music-detail` · data API · Douyin · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns detailed information for a specified Douyin audio track using its unique identifier.
 

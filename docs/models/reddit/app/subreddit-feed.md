@@ -1,6 +1,8 @@
-# Reddit Subreddit Feed
+# Reddit Subreddit Feed API: pricing, parameters and code examples
 
-`reddit/app/subreddit-feed` · api · Reddit
+`reddit/app/subreddit-feed` · data API · Reddit · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns the post stream for a specified subreddit. Supports sorting methods, cursor pagination, and filters to exclude specific post IDs.
 

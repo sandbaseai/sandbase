@@ -1,6 +1,8 @@
-# TikTok Video Associated Product List
+# TikTok Video Associated Product List API: pricing, parameters and code examples
 
-`tiktok/creator/video-associated-product-list` · api · TikTok
+`tiktok/creator/video-associated-product-list` · data API · TikTok · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns products tied to specified TikTok Shop videos along with promotional performance metrics. Filter results by video IDs and an optional query start date.
 

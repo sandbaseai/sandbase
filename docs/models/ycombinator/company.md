@@ -1,6 +1,8 @@
-# Y Combinator Company
+# Y Combinator Company API: pricing, parameters and code examples
 
-`ycombinator/company` · api · Y Combinator
+`ycombinator/company` · data API · Y Combinator · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.01 per call (free daily quota) · **Modes:** async
 
 Retrieve full details for a YC company by its slug. Returns comprehensive company profile including founders with bios, social links, team size, description, and funding information.
 

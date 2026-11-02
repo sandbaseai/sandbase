@@ -1,6 +1,8 @@
-# Douyin Xingtu KOL Recommended Videos
+# Douyin Xingtu KOL Recommended Videos API: pricing, parameters and code examples
 
-`douyin/xingtu/kol-rec-videos-v1` · api · Douyin
+`douyin/xingtu/kol-rec-videos-v1` · data API · Douyin · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.03 per call · **Modes:** sync
 
 Returns recommended videos for a Douyin Xingtu creator based on the provided creator ID. Useful for discovering high-performing content from specific influencers.
 

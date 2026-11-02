@@ -1,6 +1,8 @@
-# IMDb Plot Summary
+# IMDb Plot Summary API: pricing, parameters and code examples
 
-`imdb/title-plot-query` · api · IMDb
+`imdb/title-plot-query` · data API · IMDb · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.006944 per call (free daily quota) · **Modes:** sync
 
 Get IMDb plot information for a title ID using selected language and country preferences. Use it to review a movie or series storyline or enrich title descriptions.
 

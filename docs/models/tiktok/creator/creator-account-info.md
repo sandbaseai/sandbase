@@ -1,6 +1,8 @@
-# TikTok Creator Account Info
+# TikTok Creator Account Info API: pricing, parameters and code examples
 
-`tiktok/creator/creator-account-info` · api · TikTok
+`tiktok/creator/creator-account-info` · data API · TikTok · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns basic profile details for a TikTok Shop creator account, including username, avatar URLs, account ID, region, partner bindings, and permissions.
 

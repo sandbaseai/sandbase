@@ -1,6 +1,8 @@
-# Polymarket Get market tags by id
+# Polymarket Get market tags by id API: pricing, parameters and code examples
 
-`polymarket/markets-tags` · api · Polymarket
+`polymarket/markets-tags` · data API · Polymarket · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.00044 per call (free daily quota) · **Modes:** sync
 
 Get market tags by id from Polymarket. Returns the official Polymarket API response unchanged.
 

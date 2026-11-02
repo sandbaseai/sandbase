@@ -1,6 +1,8 @@
-# Wellfound Trending Jobs
+# Wellfound Trending Jobs API: pricing, parameters and code examples
 
-`wellfound/trending-jobs` · api · Wellfound
+`wellfound/trending-jobs` · data API · Wellfound · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.01 per call (free daily quota) · **Modes:** async
 
 Fetch featured/trending jobs from the Wellfound homepage, organized by category (trending, engineering, product, design, data, sales, marketing, operations, recruiting, finance). Each category contains 3 recently.
 

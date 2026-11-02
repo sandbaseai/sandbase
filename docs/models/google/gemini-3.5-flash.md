@@ -1,6 +1,8 @@
-# Google: Gemini 3.5 Flash
+# Google: Gemini 3.5 Flash API: pricing, parameters and code examples
 
-`google/gemini-3.5-flash` · llm · Google
+`google/gemini-3.5-flash` · LLM · Google · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $1.5 input / $9 output per 1M tokens · **Modes:** sync
 
 Gemini 3.5 Flash is the Flash model of Google's Gemini 3.5 family, introduced at Google I/O in May 2026. Google positions it as delivering frontier-level intelligence at Flash speed, built for sub-agent deployment, multi-step workflows and long-horizon tasks at scale, and particularly effective in rapid agentic loops with complex coding iterations. It takes text, image, video, audio and PDF input with text output; Google's model list now labels it a legacy Flash model behind 3.6, 3.7 and 3.8 Flash.
 

@@ -1,6 +1,8 @@
-# Bilibili BV to AID Converter
+# Bilibili BV to AID Converter API: pricing, parameters and code examples
 
-`bilibili/web/bv-to-aid` · api · Bilibili
+`bilibili/web/bv-to-aid` · data API · Bilibili · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Converts a Bilibili BV identifier to its corresponding numeric AID value. Input the target video BV string to return the legacy video identifier.
 

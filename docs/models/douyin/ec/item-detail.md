@@ -1,6 +1,8 @@
-# Douyin Shop Item Details
+# Douyin Shop Item Details API: pricing, parameters and code examples
 
-`douyin/ec/item-detail` · api · Douyin
+`douyin/ec/item-detail` · data API · Douyin · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.025 per call · **Modes:** sync
 
 Get a Douyin shop product by item ID: title, price, sales, images, specs and shop information.
 

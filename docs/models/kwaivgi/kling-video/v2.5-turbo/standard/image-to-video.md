@@ -1,6 +1,8 @@
-# Kling V2.5 Turbo Standard Image to Video
+# Kling V2.5 Turbo Standard Image to Video API: pricing, parameters and code examples
 
-`kwaivgi/kling-video/v2.5-turbo/standard/image-to-video` · video · KwaiVGI
+`kwaivgi/kling-video/v2.5-turbo/standard/image-to-video` · video generation model · KwaiVGI · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** from $0.21 to $0.42 per run, depending on parameters · **Modes:** async
 
 Kling V2.5 Turbo Standard Image to Video by Kuaishou animates a start image into a 5 or 10 second 720p video.
 

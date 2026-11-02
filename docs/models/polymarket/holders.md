@@ -1,6 +1,8 @@
-# Polymarket Get top holders for markets
+# Polymarket Get top holders for markets API: pricing, parameters and code examples
 
-`polymarket/holders` · api · Polymarket
+`polymarket/holders` · data API · Polymarket · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.00044 per call (free daily quota) · **Modes:** sync
 
 Get top holders for markets from Polymarket. Returns the official Polymarket API response unchanged.
 

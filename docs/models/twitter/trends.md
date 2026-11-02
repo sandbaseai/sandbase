@@ -1,6 +1,8 @@
-# X / Twitter Trends
+# X / Twitter Trends API: pricing, parameters and code examples
 
-`twitter/trends` · api · X (Twitter)
+`twitter/trends` · data API · X (Twitter) · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** about $0.0001 per call · **Modes:** sync
 
 Get current X (Twitter) trends for worldwide, a country, or a city in X ranking order, including the resolved location.
 

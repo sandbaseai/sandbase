@@ -1,6 +1,8 @@
-# Google Lens
+# Google Lens API: pricing, parameters and code examples
 
-`google/lens` · api · Google
+`google/lens` · data API · Google · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** about $0.00085 per call · **Modes:** sync
 
 Reverse image search: find web pages and visual matches for an image URL.
 

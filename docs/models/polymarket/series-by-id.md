@@ -1,6 +1,8 @@
-# Polymarket Get series by id
+# Polymarket Get series by id API: pricing, parameters and code examples
 
-`polymarket/series-by-id` · api · Polymarket
+`polymarket/series-by-id` · data API · Polymarket · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.00044 per call (free daily quota) · **Modes:** sync
 
 Get series by id from Polymarket. Returns the official Polymarket API response unchanged.
 

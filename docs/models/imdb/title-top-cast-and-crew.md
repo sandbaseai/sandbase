@@ -1,6 +1,8 @@
-# IMDb Top Cast and Crew
+# IMDb Top Cast and Crew API: pricing, parameters and code examples
 
-`imdb/title-top-cast-and-crew` · api · IMDb
+`imdb/title-top-cast-and-crew` · data API · IMDb · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.006944 per call (free daily quota) · **Modes:** sync
 
 Get IMDb top cast and crew information for a title ID using selected language and country preferences. Use it to research principal talent or enrich title credits.
 

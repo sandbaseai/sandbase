@@ -1,6 +1,8 @@
-# DataForSEO Bing Keywords for Site
+# DataForSEO Bing Keywords for Site API: pricing, parameters and code examples
 
-`dataforseo/v3/keywords_data/bing/keywords_for_site/live` · api · DataForSEO
+`dataforseo/v3/keywords_data/bing/keywords_for_site/live` · data API · DataForSEO · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.003 per call (free daily quota) · **Modes:** sync
 
 Returns Bing keyword suggestions and search metrics associated with a specified target website. Helps teams discover search terms relevant to a site domain.
 

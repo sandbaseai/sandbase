@@ -1,6 +1,8 @@
-# InfiniteTalk Text to Video
+# InfiniteTalk Text to Video API: pricing, parameters and code examples
 
-`meigen/infinitetalk/text-to-video` · video · MeiGen-AI
+`meigen/infinitetalk/text-to-video` · video generation model · MeiGen-AI · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** about $2.32 per call · **Modes:** async
 
 InfiniteTalk speaks the given text with a chosen voice and animates the portrait into a talking video.
 

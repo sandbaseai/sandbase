@@ -1,6 +1,8 @@
-# DataForSEO OnPage Content Parsing
+# DataForSEO OnPage Content Parsing API: pricing, parameters and code examples
 
-`dataforseo/v3/on_page/content_parsing/live` · api · DataForSEO
+`dataforseo/v3/on_page/content_parsing/live` · data API · DataForSEO · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.002 per call (free daily quota) · **Modes:** sync
 
 Parses and returns structured on-page content directly from a specified webpage URL. Inspect page elements, headings, text blocks, and page layout details for SEO analysis.
 

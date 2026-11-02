@@ -1,6 +1,8 @@
-# DuckDuckGo Maps
+# DuckDuckGo Maps API: pricing, parameters and code examples
 
-`duckduckgo/maps` · api · DuckDuckGo
+`duckduckgo/maps` · data API · DuckDuckGo · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.00015 per call (free daily quota) · **Modes:** async
 
 Search DuckDuckGo Maps for places inside a viewport rectangle or around a center.
 

@@ -1,6 +1,8 @@
-# Bilibili User Dynamics
+# Bilibili User Dynamics API: pricing, parameters and code examples
 
-`bilibili/web/user-dynamic` · api · Bilibili
+`bilibili/web/user-dynamic` · data API · Bilibili · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Retrieves dynamic feed posts and timeline updates for a specified Bilibili user by UID, with optional offset-based pagination.
 

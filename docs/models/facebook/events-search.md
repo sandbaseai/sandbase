@@ -1,6 +1,8 @@
-# Facebook Events Search
+# Facebook Events Search API: pricing, parameters and code examples
 
-`facebook/events-search` · api · Facebook
+`facebook/events-search` · data API · Facebook · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** about $0.0012 per call · **Modes:** sync
 
 Search public Facebook events by keyword and get structured event records (name, schedule, venue, pricing, and attendance) as normalized JSON.
 

@@ -1,6 +1,8 @@
-# Bilibili Video Subtitle Details
+# Bilibili Video Subtitle Details API: pricing, parameters and code examples
 
-`bilibili/web/video-subtitle` · api · Bilibili
+`bilibili/web/video-subtitle` · data API · Bilibili · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns subtitle data for a specified Bilibili video based on its video ID and CID. Helps retrieve available caption tracks and related metadata.
 

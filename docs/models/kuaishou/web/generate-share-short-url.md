@@ -1,6 +1,8 @@
-# Kuaishou Web Share Short URL
+# Kuaishou Web Share Short URL API: pricing, parameters and code examples
 
-`kuaishou/web/generate-share-short-url` · api · Kuaishou
+`kuaishou/web/generate-share-short-url` · data API · Kuaishou · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns a shareable short URL for a specified Kuaishou video or photo post. Supply the target post identifier using the photo_id query parameter.
 

@@ -1,6 +1,8 @@
-# DataForSEO ChatGPT LLM Response
+# DataForSEO ChatGPT LLM Response API: pricing, parameters and code examples
 
-`dataforseo/v3/ai_optimization/chat_gpt/llm_responses/live` · api · DataForSEO
+`dataforseo/v3/ai_optimization/chat_gpt/llm_responses/live` · data API · DataForSEO · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** about $0.000724 per call · **Modes:** sync
 
 Send a prompt to ChatGPT and get the answer with token usage, for AI visibility checks.
 

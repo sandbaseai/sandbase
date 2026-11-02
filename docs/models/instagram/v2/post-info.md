@@ -1,6 +1,8 @@
-# Instagram Post Details (V2)
+# Instagram Post Details (V2) API: pricing, parameters and code examples
 
-`instagram/v2/post-info` · api · Instagram
+`instagram/v2/post-info` · data API · Instagram · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.003 per call (free daily quota) · **Modes:** sync
 
 Returns detailed information for an Instagram post, including available media streams and video versions, using a post shortcode or full URL.
 

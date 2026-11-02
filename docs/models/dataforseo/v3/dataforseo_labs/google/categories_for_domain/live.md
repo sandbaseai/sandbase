@@ -1,6 +1,8 @@
-# DataForSEO Google Categories for Domain
+# DataForSEO Google Categories for Domain API: pricing, parameters and code examples
 
-`dataforseo/v3/dataforseo_labs/google/categories_for_domain/live` · api · DataForSEO
+`dataforseo/v3/dataforseo_labs/google/categories_for_domain/live` · data API · DataForSEO · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.024 per call · **Modes:** sync
 
 See which Google product and service categories a domain ranks for, with keyword counts and estimated traffic per category.
 

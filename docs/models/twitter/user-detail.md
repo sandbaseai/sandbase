@@ -1,6 +1,8 @@
-# Twitter User Profile
+# Twitter User Profile API: pricing, parameters and code examples
 
-`twitter/user-detail` · api · Twitter
+`twitter/user-detail` · data API · Twitter · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.013889 per call (free daily quota) · **Modes:** sync
 
 Get an X (Twitter) user profile identified by its numeric Rest ID. Use it to review a known account before monitoring its posts or conducting creator and account research.
 

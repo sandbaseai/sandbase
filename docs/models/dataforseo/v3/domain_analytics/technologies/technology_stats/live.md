@@ -1,6 +1,8 @@
-# DataForSEO Domain Analytics Technology Stats
+# DataForSEO Domain Analytics Technology Stats API: pricing, parameters and code examples
 
-`dataforseo/v3/domain_analytics/technologies/technology_stats/live` · api · DataForSEO
+`dataforseo/v3/domain_analytics/technologies/technology_stats/live` · data API · DataForSEO · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.003 per call (free daily quota) · **Modes:** sync
 
 Returns aggregated technology usage statistics across websites and web domains. Enables analysis of market adoption and trends for specific web technologies.
 

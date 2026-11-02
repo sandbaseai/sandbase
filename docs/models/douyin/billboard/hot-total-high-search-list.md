@@ -1,6 +1,8 @@
-# Douyin Billboard Rising Search List
+# Douyin Billboard Rising Search List API: pricing, parameters and code examples
 
-`douyin/billboard/hot-total-high-search-list` · api · Douyin
+`douyin/billboard/hot-total-high-search-list` · data API · Douyin · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns rising search queries and trend data from the Douyin billboard. Supports filtering by search keyword, time window, and standard pagination options.
 

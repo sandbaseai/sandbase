@@ -1,6 +1,8 @@
-# AAA National Average
+# AAA National Average API: pricing, parameters and code examples
 
-`aaa/national-average` · api · AAA
+`aaa/national-average` · data API · AAA · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.02 per call · **Modes:** async
 
 Returns today's AAA national average gas price for all fuel grades (Regular, Mid-Grade, Premium, Diesel) with historical comparisons to yesterday, one week ago, one month ago, and one year ago. Includes the date the.
 

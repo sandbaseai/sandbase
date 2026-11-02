@@ -1,6 +1,8 @@
-# MiniMax Voice Clone
+# MiniMax Voice Clone API: pricing, parameters and code examples
 
-`minimax/voice-clone` · audio · MiniMax
+`minimax/voice-clone` · audio model · MiniMax · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** from $1.8 per run, depending on parameters · **Modes:** async
 
 MiniMax Voice Clone by MiniMax creates a reusable custom voice from a reference recording of at least 10 seconds and returns a short preview spoken in that voice.
 

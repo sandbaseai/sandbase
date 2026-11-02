@@ -1,6 +1,8 @@
-# Weibo Keyword Search
+# Weibo Keyword Search API: pricing, parameters and code examples
 
-`weibo/search-all` · api · Weibo
+`weibo/search-all` · data API · Weibo · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.013889 per call (free daily quota) · **Modes:** sync
 
 Search Weibo posts by keyword within a required day-and-hour time range, with page-based pagination, hot or time sorting, and filters for pictures, video, music, or links.
 

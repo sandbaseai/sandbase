@@ -1,6 +1,8 @@
-# CoinGecko Coin Price by IDs, Symbols, or Names
+# CoinGecko Coin Price by IDs, Symbols, or Names API: pricing, parameters and code examples
 
-`coingecko/simple-price` · api · CoinGecko
+`coingecko/simple-price` · data API · CoinGecko · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.008 per call (free daily quota) · **Modes:** sync
 
 Get the prices of one or more coins by using their unique Coin API IDs, symbols, or names
 

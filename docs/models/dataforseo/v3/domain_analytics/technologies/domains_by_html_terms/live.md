@@ -1,6 +1,8 @@
-# DataForSEO Domains by HTML Terms
+# DataForSEO Domains by HTML Terms API: pricing, parameters and code examples
 
-`dataforseo/v3/domain_analytics/technologies/domains_by_html_terms/live` · api · DataForSEO
+`dataforseo/v3/domain_analytics/technologies/domains_by_html_terms/live` · data API · DataForSEO · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.003 per call (free daily quota) · **Modes:** sync
 
 Finds domains that contain specific HTML patterns or terms. Returns matching domain profiles and technology footprints based on the analyzed web markup.
 

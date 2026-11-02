@@ -1,6 +1,8 @@
-# TikTok Hashtag Video List
+# TikTok Hashtag Video List API: pricing, parameters and code examples
 
-`tiktok/app-v3/hashtag-video-list` · api · TikTok
+`tiktok/app-v3/hashtag-video-list` · data API · TikTok · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns a list of videos associated with a specific hashtag on TikTok. Filter results by region and paginate through records using cursor controls.
 

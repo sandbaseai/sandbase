@@ -1,6 +1,8 @@
-# Xiaohongshu (RED) Note Search
+# Xiaohongshu (RED) Note Search API: pricing, parameters and code examples
 
-`xiaohongshu/app-v2/search-notes` · api · Xiaohongshu
+`xiaohongshu/app-v2/search-notes` · data API · Xiaohongshu · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.015 per call (free daily quota) · **Modes:** sync
 
 Search Xiaohongshu (RED / Little Red Book) notes by keyword and get titles, authors, cover images and like, collect, comment and share counts, with sort, note-type and time filters.
 

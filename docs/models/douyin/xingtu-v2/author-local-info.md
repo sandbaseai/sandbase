@@ -1,6 +1,8 @@
-# Douyin Xingtu Author Location Info
+# Douyin Xingtu Author Location Info API: pricing, parameters and code examples
 
-`douyin/xingtu-v2/author-local-info` · api · Douyin
+`douyin/xingtu-v2/author-local-info` · data API · Douyin · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns location details for a Douyin Xingtu creator using their author ID, with optional filters for time range and platform settings.
 

@@ -1,6 +1,8 @@
-# Alibaba Text Embedding v4
+# Alibaba Text Embedding v4 API: pricing, parameters and code examples
 
-`alibaba/text-embedding-v4` · embedding · Alibaba
+`alibaba/text-embedding-v4` · embedding model · Alibaba · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.1 input / $0 output per 1M tokens · **Modes:** sync
 
 Alibaba Cloud Model Studio text-embedding-v4 is a Qwen3-Embedding series text embedding model for semantic search, retrieval-augmented generation, clustering, classification, and multilingual code/text retrieval. It supports configurable output dimensions and OpenAI-compatible embeddings requests.
 

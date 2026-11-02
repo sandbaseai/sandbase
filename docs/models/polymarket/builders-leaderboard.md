@@ -1,6 +1,8 @@
-# Polymarket Get aggregated builder leaderboard
+# Polymarket Get aggregated builder leaderboard API: pricing, parameters and code examples
 
-`polymarket/builders-leaderboard` · api · Polymarket
+`polymarket/builders-leaderboard` · data API · Polymarket · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.012 per call (free daily quota) · **Modes:** sync
 
 Get aggregated builder leaderboard from Polymarket. Returns the official Polymarket API response unchanged.
 

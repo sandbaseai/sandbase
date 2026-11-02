@@ -1,6 +1,8 @@
-# Google: Gemini 3.1 Pro Preview
+# Google: Gemini 3.1 Pro Preview API: pricing, parameters and code examples
 
-`google/gemini-3.1-pro-preview` · llm · Google
+`google/gemini-3.1-pro-preview` · LLM · Google · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $2 input / $12 output per 1M tokens · **Modes:** sync
 
 Gemini 3.1 Pro Preview is the Pro-tier reasoning model of Google's Gemini 3 series, released in February 2026 to refine Gemini 3 Pro with better thinking, improved token efficiency and more grounded, factually consistent answers. Google optimizes it for software engineering and for agentic workflows that need precise tool use and reliable multi-step execution across real-world domains. It accepts text, image, video, audio and PDF input, remains a preview model, and is Google's recommended replacement for the retired Gemini 3 Pro Preview.
 

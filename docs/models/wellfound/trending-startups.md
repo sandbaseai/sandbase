@@ -1,6 +1,8 @@
-# Wellfound Trending Startups
+# Wellfound Trending Startups API: pricing, parameters and code examples
 
-`wellfound/trending-startups` · api · Wellfound
+`wellfound/trending-startups` · data API · Wellfound · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.02 per call · **Modes:** async
 
 Fetch trending startups currently hiring from the Wellfound homepage. Returns a curated list of startups that Wellfound is currently featuring, with basic company info and active job counts.
 

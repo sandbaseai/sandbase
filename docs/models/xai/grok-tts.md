@@ -1,6 +1,8 @@
-# xAI Text to Speech
+# xAI Text to Speech API: pricing, parameters and code examples
 
-`xai/grok-tts` · audio · xAI
+`xai/grok-tts` · audio model · xAI · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** from $0.015 per run, depending on parameters · **Modes:** async
 
 Grok Tts by xAI - convert text to natural-sounding speech with AI. Supports multiple voices, languages, emotions, and speaking styles for content creation and accessibility.
 

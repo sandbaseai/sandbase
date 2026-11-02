@@ -1,6 +1,8 @@
-# Yahoo Finance Stock News
+# Yahoo Finance Stock News API: pricing, parameters and code examples
 
-`yahoo-finance/stock-news` · api · Yahoo Finance
+`yahoo-finance/stock-news` · data API · Yahoo Finance · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.05 per call · **Modes:** async
 
 Gather the latest financial news articles related to a specified stock ticker. Returns headlines, publishers, links, publish timestamps, and related tickers for each article.
 

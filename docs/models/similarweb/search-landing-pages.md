@@ -1,6 +1,8 @@
-# Similarweb Landing Pages
+# Similarweb Landing Pages API: pricing, parameters and code examples
 
-`similarweb/search-landing-pages` · api · Similarweb
+`similarweb/search-landing-pages` · data API · Similarweb · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** about $0.15 per call · **Modes:** sync
 
 Get the landing pages that receive a website's search traffic, with clicks, keyword counts and desktop/mobile split.
 

@@ -1,6 +1,8 @@
-# Instagram Recommended Reels Feed
+# Instagram Recommended Reels Feed API: pricing, parameters and code examples
 
-`instagram/v3/recommended-reels` · api · Instagram
+`instagram/v3/recommended-reels` · data API · Instagram · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.012 per call (free daily quota) · **Modes:** sync
 
 Returns the Instagram Reels recommendation feed with media details and pagination support. Use optional pagination parameters to control page size and navigate subsequent results.
 

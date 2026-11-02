@@ -1,6 +1,8 @@
-# TikTok Creative Center Ad Search
+# TikTok Creative Center Ad Search API: pricing, parameters and code examples
 
-`tiktok/ads/search-ads` · api · TikTok
+`tiktok/ads/search-ads` · data API · TikTok · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Searches ad materials in the TikTok Creative Center using filters such as keyword, industry, country, and performance metrics. Returns ad titles, brand names, IDs, and video metadata.
 

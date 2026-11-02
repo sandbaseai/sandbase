@@ -1,6 +1,8 @@
-# DataForSEO Perplexity LLM Response
+# DataForSEO Perplexity LLM Response API: pricing, parameters and code examples
 
-`dataforseo/v3/ai_optimization/perplexity/llm_responses/live` · api · DataForSEO
+`dataforseo/v3/ai_optimization/perplexity/llm_responses/live` · data API · DataForSEO · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** about $0.005824 per call · **Modes:** sync
 
 Send a prompt to Perplexity and get the answer with token usage, for AI visibility checks.
 

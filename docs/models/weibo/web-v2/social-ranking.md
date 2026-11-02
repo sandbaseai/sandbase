@@ -1,6 +1,8 @@
-# Weibo Social Ranking
+# Weibo Social Ranking API: pricing, parameters and code examples
 
-`weibo/web-v2/social-ranking` · api · Weibo
+`weibo/web-v2/social-ranking` · data API · Weibo · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns Weibo social ranking data covering current affairs, social hotspots, and livelihood topics. Call this endpoint to track top-trending public interest discussions.
 

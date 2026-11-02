@@ -1,6 +1,8 @@
-# Grok Imagine Video Text to Video
+# Grok Imagine Video Text to Video API: pricing, parameters and code examples
 
-`xai/grok-imagine-video/text-to-video` · video · xAI
+`xai/grok-imagine-video/text-to-video` · video generation model · xAI · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** from $0.05 to $0.75 per run, depending on parameters · **Modes:** async
 
 Grok Imagine Video by xAI - generate cinematic videos from text descriptions with AI. Create high-quality video content with natural motion, camera control, and optional audio generation.
 

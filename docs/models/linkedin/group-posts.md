@@ -1,6 +1,8 @@
-# LinkedIn Group Posts
+# LinkedIn Group Posts API: pricing, parameters and code examples
 
-`linkedin/group-posts` · api · LinkedIn
+`linkedin/group-posts` · data API · LinkedIn · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** about $0.0026 per call · **Modes:** sync
 
 List the posts in a LinkedIn group by group URL, newest first: full text, canonical link, publish date, author, engagement counts with a per-reaction breakdown, and attached media. One call returns a page of about 100 posts; pass page to go further back.
 

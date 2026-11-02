@@ -1,6 +1,8 @@
-# Shorts search (raw data, recommend V2)
+# Shorts search (raw data, recommend V2) API: pricing, parameters and code examples
 
-`youtube/web-v2/shorts-search` · api · YouTube
+`youtube/web-v2/shorts-search` · data API · YouTube · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 YouTube Shorts specialized search using native YouTube API.
 

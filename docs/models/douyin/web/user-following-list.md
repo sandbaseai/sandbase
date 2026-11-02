@@ -1,6 +1,8 @@
-# Douyin Web User Following List
+# Douyin Web User Following List API: pricing, parameters and code examples
 
-`douyin/web/user-following-list` · api · Douyin
+`douyin/web/user-following-list` · data API · Douyin · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns a list of accounts followed by a Douyin user. Filter by target user security ID and navigate paginated results using timestamps.
 

@@ -1,6 +1,8 @@
-# Zhihu Ebook Search
+# Zhihu Ebook Search API: pricing, parameters and code examples
 
-`zhihu/web/ebook-search-v3` · api · Zhihu
+`zhihu/web/ebook-search-v3` · data API · Zhihu · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Searches Zhihu for ebooks matching a query term. Returns publication details including commodity IDs, SKU IDs, and direct product links.
 

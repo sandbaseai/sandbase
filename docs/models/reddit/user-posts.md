@@ -1,6 +1,8 @@
-# Reddit User Posts
+# Reddit User Posts API: pricing, parameters and code examples
 
-`reddit/user-posts` · api · Reddit
+`reddit/user-posts` · data API · Reddit · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** about $0.00038 per call · **Modes:** sync
 
 List a Reddit user's posts by username, sorted by new, top, hot, or controversial, with cursor pagination.
 

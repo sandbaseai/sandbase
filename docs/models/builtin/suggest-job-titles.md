@@ -1,6 +1,8 @@
-# Built In Suggest Job Titles
+# Built In Suggest Job Titles API: pricing, parameters and code examples
 
-`builtin/suggest-job-titles` · api · Built In
+`builtin/suggest-job-titles` · data API · Built In · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.01 per call (free daily quota) · **Modes:** async
 
 Returns up to 10 autocomplete suggestions for job title searches, matching the query prefix against Built In's job title index. Useful for building type-ahead search interfaces.
 

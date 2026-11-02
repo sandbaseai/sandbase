@@ -1,6 +1,8 @@
-# MiniMax H3 Max Turbo Video Extend
+# MiniMax H3 Max Turbo Video Extend API: pricing, parameters and code examples
 
-`minimax/h3-max-turbo/video-extend` · video · MiniMax
+`minimax/h3-max-turbo/video-extend` · video generation model · MiniMax · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** from $0.025 to $2.4 per run, depending on parameters · **Modes:** async
 
 MiniMax H3 Max Turbo, the fastest tier of the H3 family, continues an existing video with 1-15 seconds of new footage with native audio.
 

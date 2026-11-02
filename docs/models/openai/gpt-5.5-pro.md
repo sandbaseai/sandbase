@@ -1,6 +1,8 @@
-# OpenAI: GPT-5.5 Pro
+# OpenAI: GPT-5.5 Pro API: pricing, parameters and code examples
 
-`openai/gpt-5.5-pro` · llm · OpenAI
+`openai/gpt-5.5-pro` · LLM · OpenAI · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $30 input / $180 output per 1M tokens · **Modes:** sync
 
 GPT-5.5 Pro is a separate OpenAI model in the GPT-5.5 family that uses more compute to think harder and give consistently better answers, according to OpenAI. It is intended for tough, high-stakes problems where answer quality matters more than speed, and some requests can take several minutes to finish. Choose it over standard GPT-5.5 when reliability on difficult reasoning, coding or analysis justifies the extra latency; OpenAI serves it for multi-turn and batch API requests.
 

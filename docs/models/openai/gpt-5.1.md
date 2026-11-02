@@ -1,6 +1,8 @@
-# OpenAI: GPT-5.1
+# OpenAI: GPT-5.1 API: pricing, parameters and code examples
 
-`openai/gpt-5.1` · llm · OpenAI
+`openai/gpt-5.1` · LLM · OpenAI · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $1.25 input / $10 output per 1M tokens · **Modes:** sync
 
 GPT-5.1 is OpenAI's GPT-5 series flagship released in November 2025 for coding and agentic tasks, with text and image input and text output. It adapts how long it thinks to task complexity, spending fewer tokens on simple requests and staying persistent on hard ones, and adds a no-reasoning mode that behaves like a low-latency non-reasoning model with strong tool calling. It succeeds GPT-5 as the full-size general-purpose option in that line.
 

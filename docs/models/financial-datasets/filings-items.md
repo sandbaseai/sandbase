@@ -1,6 +1,8 @@
-# Financial Datasets Get SEC Filing Items
+# Financial Datasets Get SEC Filing Items API: pricing, parameters and code examples
 
-`financial-datasets/filings-items` · api · Financial Datasets
+`financial-datasets/filings-items` · data API · Financial Datasets · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.02 per call · **Modes:** sync
 
 Get SEC Filing Items from Financial Datasets. Returns the official Financial Datasets API response unchanged.
 

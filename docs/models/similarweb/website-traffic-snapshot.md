@@ -1,6 +1,8 @@
-# Similarweb Website Traffic Snapshot
+# Similarweb Website Traffic Snapshot API: pricing, parameters and code examples
 
-`similarweb/website-traffic-snapshot` · api · Similarweb
+`similarweb/website-traffic-snapshot` · data API · Similarweb · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.3 per call · **Modes:** sync
 
 Get a one-month snapshot of a website's traffic: visits, visit duration, pages per visit and bounce rate.
 

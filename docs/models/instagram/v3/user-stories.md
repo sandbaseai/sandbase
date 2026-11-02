@@ -1,6 +1,8 @@
-# Instagram User Stories (V3)
+# Instagram User Stories (V3) API: pricing, parameters and code examples
 
-`instagram/v3/user-stories` · api · Instagram
+`instagram/v3/user-stories` · data API · Instagram · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.012 per call (free daily quota) · **Modes:** sync
 
 Returns active Instagram stories posted by a user within the last 24 hours. Queries data using the target profile username.
 

@@ -1,6 +1,8 @@
-# Douyin Single Video Details (V1)
+# Douyin Single Video Details (V1) API: pricing, parameters and code examples
 
-`douyin/web/one-video` · api · Douyin
+`douyin/web/one-video` · data API · Douyin · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns detailed metadata for a single Douyin video using its video ID. Supports optional inclusion of anchor details such as location and merchant data.
 

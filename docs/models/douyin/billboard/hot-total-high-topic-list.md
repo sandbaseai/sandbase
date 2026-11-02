@@ -1,6 +1,8 @@
-# Douyin Rising Popularity Topic List
+# Douyin Rising Popularity Topic List API: pricing, parameters and code examples
 
-`douyin/billboard/hot-total-high-topic-list` · api · Douyin
+`douyin/billboard/hot-total-high-topic-list` · data API · Douyin · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns trending Douyin topics with rising popularity and historical trend metrics. Supports filtering by keyword, vertical category tags, time window, and pagination parameters.
 

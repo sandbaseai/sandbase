@@ -1,6 +1,8 @@
-# Reddit Subreddit Posts
+# Reddit Subreddit Posts API: pricing, parameters and code examples
 
-`reddit/subreddit-posts` · api · Reddit
+`reddit/subreddit-posts` · data API · Reddit · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** about $0.00038 per call · **Modes:** sync
 
 Fetch posts from a subreddit listing (hot, new, or top).
 

@@ -1,6 +1,8 @@
-# Qwen: Qwen3 VL 8B Instruct
+# Qwen: Qwen3 VL 8B Instruct API: pricing, parameters and code examples
 
-`alibaba/qwen3-vl-8b-instruct` · llm · Alibaba
+`alibaba/qwen3-vl-8b-instruct` · LLM · Alibaba · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.18 input / $0.7 output per 1M tokens · **Modes:** sync
 
 Qwen3-VL 8B Instruct is the 8-billion-parameter dense, non-thinking edition of Alibaba's open-weight Qwen3-VL vision-language family. Alibaba notes it needs less GPU memory while keeping the series' upgraded image and video understanding, long-document and long-video handling, spatial awareness, object recognition, multilingual OCR and GUI agent abilities. Pick it for lighter multimodal deployments; the 30B A3B and 235B A22B models trade size for more capability.
 

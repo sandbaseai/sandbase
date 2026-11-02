@@ -1,6 +1,8 @@
-# Happy Horse 1.1 Text to Video
+# Happy Horse 1.1 Text to Video API: pricing, parameters and code examples
 
-`alibaba/happy-horse/1.1/text-to-video` · video · Alibaba
+`alibaba/happy-horse/1.1/text-to-video` · video generation model · Alibaba · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** from $0.21 to $1.44 per run, depending on parameters · **Modes:** async
 
 Happy Horse 1.1 is Alibaba's text-to-video AI model. Turn written scripts and prompts into professional-quality video clips with realistic motion, lighting, and scene composition.
 

@@ -1,6 +1,8 @@
-# Xiaohongshu (RED) Web Note Details
+# Xiaohongshu (RED) Web Note Details API: pricing, parameters and code examples
 
-`xiaohongshu/web-v3/note-detail` · api · Xiaohongshu
+`xiaohongshu/web-v3/note-detail` · data API · Xiaohongshu · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.015 per call (free daily quota) · **Modes:** sync
 
 Returns detailed information for a specific Xiaohongshu note using its identifier and security token obtained from a web share link.
 

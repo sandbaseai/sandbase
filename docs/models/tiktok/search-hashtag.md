@@ -1,6 +1,8 @@
-# TikTok Hashtag Search
+# TikTok Hashtag Search API: pricing, parameters and code examples
 
-`tiktok/search-hashtag` · api · TikTok
+`tiktok/search-hashtag` · data API · TikTok · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** about $0.0012 per call · **Modes:** sync
 
 Search TikTok by hashtag and get matching videos (caption, views, likes, comments, shares) as normalized JSON.
 

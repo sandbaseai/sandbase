@@ -1,6 +1,8 @@
-# Douyin Xingtu Creator Link Indices
+# Douyin Xingtu Creator Link Indices API: pricing, parameters and code examples
 
-`douyin/xingtu-v2/author-link-info` · api · Douyin
+`douyin/xingtu-v2/author-link-info` · data API · Douyin · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.003 per call (free daily quota) · **Modes:** sync
 
 Returns Xingtu link indices for a Douyin creator, including cooperation, CP, conversion, and shopping indices filtered by industry tag.
 

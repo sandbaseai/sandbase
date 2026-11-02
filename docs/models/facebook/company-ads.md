@@ -1,6 +1,8 @@
-# Facebook Company Ads
+# Facebook Company Ads API: pricing, parameters and code examples
 
-`facebook/company-ads` · api · Facebook
+`facebook/company-ads` · data API · Facebook · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** about $0.0011 per call · **Modes:** sync
 
 List the Meta Ad Library ads a company is running by page ID or company name (creative text, format, platforms, and run dates) with cursor pagination.
 

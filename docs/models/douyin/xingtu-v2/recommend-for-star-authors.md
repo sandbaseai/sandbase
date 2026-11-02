@@ -1,6 +1,8 @@
-# Douyin Xingtu Similar Star Authors
+# Douyin Xingtu Similar Star Authors API: pricing, parameters and code examples
 
-`douyin/xingtu-v2/recommend-for-star-authors` · api · Douyin
+`douyin/xingtu-v2/recommend-for-star-authors` · data API · Douyin · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns recommended similar Douyin Xingtu creators based on a specified list of author IDs and an optional similarity type.
 

@@ -1,6 +1,8 @@
-# LinkedIn Company
+# LinkedIn Company API: pricing, parameters and code examples
 
-`linkedin/company` · api · LinkedIn
+`linkedin/company` · data API · LinkedIn · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** about $0.0011 per call · **Modes:** sync
 
 Fetch a full LinkedIn company page by URL: name, description, industry, employee count and range, follower count, founded year, headquarters and office locations, funding data, tagline, logo, website, and specialities.
 

@@ -1,6 +1,8 @@
-# Instagram User Highlights
+# Instagram User Highlights API: pricing, parameters and code examples
 
-`instagram/user-highlights` · api · Instagram
+`instagram/user-highlights` · data API · Instagram · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** about $0.0012 per call · **Modes:** sync
 
 List an Instagram account's story highlight reels by handle.
 

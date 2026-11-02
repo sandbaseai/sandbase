@@ -1,6 +1,8 @@
-# Polymarket List series
+# Polymarket List series API: pricing, parameters and code examples
 
-`polymarket/series` · api · Polymarket
+`polymarket/series` · data API · Polymarket · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.00044 per call (free daily quota) · **Modes:** sync
 
 List series from Polymarket. Returns the official Polymarket API response unchanged.
 

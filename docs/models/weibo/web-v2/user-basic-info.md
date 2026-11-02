@@ -1,6 +1,8 @@
-# Weibo User Basic Information
+# Weibo User Basic Information API: pricing, parameters and code examples
 
-`weibo/web-v2/user-basic-info` · api · Weibo
+`weibo/web-v2/user-basic-info` · data API · Weibo · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns lightweight basic profile information for a specified Weibo user. Provide the target account identifier to retrieve user details.
 

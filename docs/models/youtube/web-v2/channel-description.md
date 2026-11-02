@@ -1,6 +1,8 @@
-# YouTube Channel Description
+# YouTube Channel Description API: pricing, parameters and code examples
 
-`youtube/web-v2/channel-description` · api · YouTube
+`youtube/web-v2/channel-description` · data API · YouTube · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns YouTube channel details including subscriber counts, video totals, view counts, joined date, and social links. Filter by country and language.
 

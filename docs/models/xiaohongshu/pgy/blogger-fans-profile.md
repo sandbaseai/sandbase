@@ -1,6 +1,8 @@
-# Xiaohongshu (RED) PGY Blogger Fan Profile
+# Xiaohongshu (RED) PGY Blogger Fan Profile API: pricing, parameters and code examples
 
-`xiaohongshu/pgy/blogger-fans-profile` · api · Xiaohongshu
+`xiaohongshu/pgy/blogger-fans-profile` · data API · Xiaohongshu · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.03 per call · **Modes:** sync
 
 Returns demographic distributions for a blogger's follower base, including gender, age, region, interests, and device types, filtered by user ID.
 

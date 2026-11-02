@@ -1,6 +1,8 @@
-# LinkedIn Profile Posts (full)
+# LinkedIn Profile Posts (full) API: pricing, parameters and code examples
 
-`linkedin/profile-posts-full` · api · LinkedIn
+`linkedin/profile-posts-full` · data API · LinkedIn · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** about $0.005 per call · **Modes:** sync
 
 Fetch recent public LinkedIn profile posts with enriched author, engagement, article, newsletter, media, annotation, repost, and social activity details.
 

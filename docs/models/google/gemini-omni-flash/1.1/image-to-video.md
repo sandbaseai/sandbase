@@ -1,6 +1,8 @@
-# Gemini Omni Flash 1.1 Image to Video
+# Gemini Omni Flash 1.1 Image to Video API: pricing, parameters and code examples
 
-`google/gemini-omni-flash/1.1/image-to-video` · video · Google
+`google/gemini-omni-flash/1.1/image-to-video` · video generation model · Google · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** from $0.09 to $3 per run, depending on parameters · **Modes:** async
 
 Gemini Omni Flash 1.1 by Google - animate still images into dynamic videos with AI. Transform photos into cinematic clips with natural motion, camera movement, and optional audio generation.
 

@@ -1,6 +1,8 @@
-# Polymarket Get comments by comment id
+# Polymarket Get comments by comment id API: pricing, parameters and code examples
 
-`polymarket/comments-by-id` · api · Polymarket
+`polymarket/comments-by-id` · data API · Polymarket · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.00044 per call (free daily quota) · **Modes:** sync
 
 Get comments by comment id from Polymarket. Returns the official Polymarket API response unchanged.
 

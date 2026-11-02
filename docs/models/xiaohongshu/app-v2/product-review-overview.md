@@ -1,6 +1,8 @@
-# Xiaohongshu (RED) Product Review Overview
+# Xiaohongshu (RED) Product Review Overview API: pricing, parameters and code examples
 
-`xiaohongshu/app-v2/product-review-overview` · api · Xiaohongshu
+`xiaohongshu/app-v2/product-review-overview` · data API · Xiaohongshu · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.015 per call (free daily quota) · **Modes:** sync
 
 Returns product review statistics and feedback details for a specific item on Xiaohongshu (RED), filtered by SKU identifier and tab type.
 

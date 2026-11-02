@@ -1,6 +1,8 @@
-# Lemon8 Topic Post List
+# Lemon8 Topic Post List API: pricing, parameters and code examples
 
-`lemon8/app/topic-post-list` · api · Lemon8
+`lemon8/app/topic-post-list` · data API · Lemon8 · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns posts under a specific topic or hashtag on Lemon8. Requires the topic category ID, category parameter, and hashtag name.
 

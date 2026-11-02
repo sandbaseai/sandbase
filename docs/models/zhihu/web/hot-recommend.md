@@ -1,6 +1,8 @@
-# Zhihu Hot Recommendations
+# Zhihu Hot Recommendations API: pricing, parameters and code examples
 
-`zhihu/web/hot-recommend` · api · Zhihu
+`zhihu/web/hot-recommend` · data API · Zhihu · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns hot recommendation items and content snippets from Zhihu Web. Supports pagination through offset and page_number alongside an optional session_token.
 

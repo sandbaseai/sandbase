@@ -1,6 +1,8 @@
-# Lemon8 User Following List
+# Lemon8 User Following List API: pricing, parameters and code examples
 
-`lemon8/app/user-following-list` · api · Lemon8
+`lemon8/app/user-following-list` · data API · Lemon8 · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns the list of accounts followed by a specified Lemon8 user. Accepts a user identifier and supports cursor-based pagination for browsing results.
 

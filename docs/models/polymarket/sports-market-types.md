@@ -1,6 +1,8 @@
-# Polymarket Get valid sports market types
+# Polymarket Get valid sports market types API: pricing, parameters and code examples
 
-`polymarket/sports-market-types` · api · Polymarket
+`polymarket/sports-market-types` · data API · Polymarket · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.00044 per call (free daily quota) · **Modes:** sync
 
 Get valid sports market types from Polymarket. Returns the official Polymarket API response unchanged.
 

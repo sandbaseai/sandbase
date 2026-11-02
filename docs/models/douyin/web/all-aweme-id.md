@@ -1,6 +1,8 @@
-# Douyin Batch Video ID Extraction
+# Douyin Batch Video ID Extraction API: pricing, parameters and code examples
 
-`douyin/web/all-aweme-id` · api · Douyin
+`douyin/web/all-aweme-id` · data API · Douyin · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Extracts video IDs from a list of Douyin video URLs. Accepts an array of links and returns the corresponding item identifiers.
 

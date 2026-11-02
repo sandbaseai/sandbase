@@ -1,6 +1,8 @@
-# Douban Recent Hot Movie
+# Douban Recent Hot Movie API: pricing, parameters and code examples
 
-`douban/recent-hot-movie` · api · Douban
+`douban/recent-hot-movie` · data API · Douban · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.013889 per call (free daily quota) · **Modes:** sync
 
 Get a paginated list of movies currently featured in Douban's recent-hot collection. Use it to discover popular movie titles and continue through result pages.
 

@@ -1,6 +1,8 @@
-# Douyin Material Center Related Videos
+# Douyin Material Center Related Videos API: pricing, parameters and code examples
 
-`douyin/creator/creator-material-center-related` · api · Douyin
+`douyin/creator/creator-material-center-related` · data API · Douyin · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns related videos for a specific topic, hot spot, prop, or music entry from the Douyin creator material center. Supports pagination controls and filtering by billboard type.
 

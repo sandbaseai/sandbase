@@ -1,6 +1,8 @@
-# Qwen: Qwen3.6 27B
+# Qwen: Qwen3.6 27B API: pricing, parameters and code examples
 
-`alibaba/qwen3.6-27b` · llm · Alibaba
+`alibaba/qwen3.6-27b` · LLM · Alibaba · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.6 input / $3.6 output per 1M tokens · **Modes:** sync
 
 Qwen3.6 27B is an open-weight dense 27-billion-parameter vision-language model in Alibaba's Qwen3.6 family, released in April 2026 with thinking and non-thinking modes. Qwen positions it for agentic coding, including front-end workflows and repository-level reasoning, plus STEM reasoning, spatial understanding, object localization, document OCR and video understanding. Its dense design is simple to deploy, and it can retain reasoning context across turns for iterative development.
 

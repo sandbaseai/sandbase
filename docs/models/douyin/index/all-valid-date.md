@@ -1,6 +1,8 @@
-# Douyin Index Valid Dates
+# Douyin Index Valid Dates API: pricing, parameters and code examples
 
-`douyin/index/all-valid-date` · api · Douyin
+`douyin/index/all-valid-date` · data API · Douyin · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns the latest valid dates available for each data type in Douyin Index. Helps verify data availability before querying index metrics.
 

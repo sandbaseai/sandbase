@@ -1,6 +1,8 @@
-# DataForSEO Google Keywords for Categories
+# DataForSEO Google Keywords for Categories API: pricing, parameters and code examples
 
-`dataforseo/v3/dataforseo_labs/google/keywords_for_categories/live` · api · DataForSEO
+`dataforseo/v3/dataforseo_labs/google/keywords_for_categories/live` · data API · DataForSEO · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.024 per call · **Modes:** sync
 
 Get Google keywords that belong to the product and service categories you pass, with search volume, CPC and competition.
 

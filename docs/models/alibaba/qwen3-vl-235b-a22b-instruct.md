@@ -1,6 +1,8 @@
-# Qwen: Qwen3 VL 235B A22B Instruct
+# Qwen: Qwen3 VL 235B A22B Instruct API: pricing, parameters and code examples
 
-`alibaba/qwen3-vl-235b-a22b-instruct` · llm · Alibaba
+`alibaba/qwen3-vl-235b-a22b-instruct` · LLM · Alibaba · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.4 input / $1.6 output per 1M tokens · **Modes:** sync
 
 Qwen3-VL 235B A22B Instruct is the largest Mixture-of-Experts model in Alibaba's open-weight Qwen3-VL vision-language family, in its non-thinking Instruct edition, released in September 2025. Qwen positions it for visual agents that operate PC and mobile GUIs, generating HTML, CSS or diagrams from images and video, 2D and 3D grounding, long-video understanding and OCR in 32 languages. Choose it for direct answers; a separate Thinking edition targets multimodal STEM reasoning.
 

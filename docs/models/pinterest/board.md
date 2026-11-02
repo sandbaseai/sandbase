@@ -1,6 +1,8 @@
-# Pinterest Board Pins
+# Pinterest Board Pins API: pricing, parameters and code examples
 
-`pinterest/board` · api · Pinterest
+`pinterest/board` · data API · Pinterest · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.018 per call · **Modes:** sync
 
 Returns a paginated list of pins from a specified Pinterest board URL, including pin metadata, images, and aggregated pin metrics.
 

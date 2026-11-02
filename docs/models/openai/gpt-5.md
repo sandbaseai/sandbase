@@ -1,6 +1,8 @@
-# OpenAI: GPT-5
+# OpenAI: GPT-5 API: pricing, parameters and code examples
 
-`openai/gpt-5` · llm · OpenAI
+`openai/gpt-5` · LLM · OpenAI · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $1.25 input / $10 output per 1M tokens · **Modes:** sync
 
 GPT-5 is OpenAI's reasoning model released in August 2025 for coding, reasoning and agentic tasks across domains, accepting text and image input and producing text. OpenAI describes it as a coding collaborator for fixing bugs, editing code and answering questions about complex codebases, with configurable reasoning effort that includes a minimal setting for quicker replies. OpenAI now labels it a previous model, and later GPT-5.x releases are its recommended successors for fresh work.
 

@@ -1,6 +1,8 @@
-# LoopNet Broker Profile
+# LoopNet Broker Profile API: pricing, parameters and code examples
 
-`loopnet/broker-profile` · api · LoopNet
+`loopnet/broker-profile` · data API · LoopNet · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.03 per call · **Modes:** async
 
 Get broker profile and contact information including phone numbers, company name, and professional designations. The profile_url can be a full URL or relative path obtainable from search_brokers results or.
 

@@ -1,6 +1,8 @@
-# WeChat Search for Channels Videos
+# WeChat Search for Channels Videos API: pricing, parameters and code examples
 
-`wechat-search/v2/search-videos` · api · WeChat Search
+`wechat-search/v2/search-videos` · data API · WeChat Search · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.015 per call (free daily quota) · **Modes:** sync
 
 Search WeChat Channels videos by keyword with duration, sort (relevance, newest, most liked) and publish-time filters. Returns titles, creators, duration, likes and publish time.
 

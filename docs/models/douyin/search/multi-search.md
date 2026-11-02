@@ -1,6 +1,8 @@
-# Douyin Multi Search
+# Douyin Multi Search API: pricing, parameters and code examples
 
-`douyin/search/multi-search` · api · Douyin
+`douyin/search/multi-search` · data API · Douyin · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.015 per call (free daily quota) · **Modes:** sync
 
 Returns multi-type search results across videos, users, music, and hashtags on Douyin. Supports filtering by keyword, sort order, content type, duration, and post date.
 

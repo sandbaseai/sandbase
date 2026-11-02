@@ -1,6 +1,8 @@
-# TikTok Ad Transparency Search
+# TikTok Ad Transparency Search API: pricing, parameters and code examples
 
-`tiktok/ad-transparency-search` · api · TikTok
+`tiktok/ad-transparency-search` · data API · TikTok · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** about $0.0008 per call · **Modes:** sync
 
 Search TikTok's EU Commercial Content Library by keyword or advertiser ID.
 

@@ -1,6 +1,8 @@
-# Weibo Home Recommend Feed
+# Weibo Home Recommend Feed API: pricing, parameters and code examples
 
-`weibo/app/home-recommend-feed` · api · Weibo
+`weibo/app/home-recommend-feed` · data API · Weibo · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns recommended feed items from the Weibo app homepage, with options to paginate and specify the number of items per request.
 

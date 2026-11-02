@@ -1,6 +1,8 @@
-# Kuaishou User Profile
+# Kuaishou User Profile API: pricing, parameters and code examples
 
-`kuaishou/user-detail` · api · Kuaishou
+`kuaishou/user-detail` · data API · Kuaishou · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.013889 per call (free daily quota) · **Modes:** sync
 
 Get the public profile for a Kuaishou user identified by user ID. Use it to inspect an account found through user or video results.
 

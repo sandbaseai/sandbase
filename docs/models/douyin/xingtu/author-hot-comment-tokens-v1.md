@@ -1,6 +1,8 @@
-# Douyin Xingtu Author Hot Comment Tokens (Xingtu)
+# Douyin Xingtu Author Hot Comment Tokens (Xingtu) API: pricing, parameters and code examples
 
-`douyin/xingtu/author-hot-comment-tokens-v1` · api · Douyin
+`douyin/xingtu/author-hot-comment-tokens-v1` · data API · Douyin · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.03 per call · **Modes:** sync
 
 Returns hot comment tokens for a Douyin Xingtu creator based on the specified creator ID. Analyze audience sentiment and recurring keywords in creator comments.
 

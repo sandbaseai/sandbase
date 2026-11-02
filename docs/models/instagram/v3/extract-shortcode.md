@@ -1,6 +1,8 @@
-# Instagram Shortcode Extractor
+# Instagram Shortcode Extractor API: pricing, parameters and code examples
 
-`instagram/v3/extract-shortcode` · api · Instagram
+`instagram/v3/extract-shortcode` · data API · Instagram · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.003 per call (free daily quota) · **Modes:** sync
 
 Extracts and returns the unique shortcode identifier from an Instagram post, reel, or TV URL. Requires the full target post URL as input.
 

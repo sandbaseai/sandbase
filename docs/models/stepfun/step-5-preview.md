@@ -1,6 +1,8 @@
-# StepFun: Step 5 Preview
+# StepFun: Step 5 Preview API: pricing, parameters and code examples
 
-`stepfun/step-5-preview` · llm · Stepfun
+`stepfun/step-5-preview` · LLM · Stepfun · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $1 input / $2.7 output per 1M tokens · **Modes:** sync
 
 Step 5 Preview is StepFun's flagship model for agentic work, built on a sparse Mixture-of-Experts architecture with 27B active and 600B total parameters. It accepts text, image, and video input with a 1M-token context window, and supports tool calling, structured outputs, and configurable reasoning.
 

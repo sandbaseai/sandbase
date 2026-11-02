@@ -1,6 +1,8 @@
-# TikTok Web X-Gnarly and X-Bogus Signatures
+# TikTok Web X-Gnarly and X-Bogus Signatures API: pricing, parameters and code examples
 
-`tiktok/web/generate-xgnarly-and-xbogus` · api · TikTok
+`tiktok/web/generate-xgnarly-and-xbogus` · data API · TikTok · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0075 per call (free daily quota) · **Modes:** sync
 
 Generates X-Gnarly and X-Bogus signature tokens for TikTok web requests using a target endpoint URL and optional request body parameters.
 

@@ -1,6 +1,8 @@
-# Douyin Creator Hot Music Billboard
+# Douyin Creator Hot Music Billboard API: pricing, parameters and code examples
 
-`douyin/creator/creator-hot-music-billboard` · api · Douyin
+`douyin/creator/creator-hot-music-billboard` · data API · Douyin · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns trending music rankings from the Douyin creator platform. Filters allow sorting by view metrics, like counts, popularity, or submission volumes across customizable time ranges.
 

@@ -1,6 +1,8 @@
-# Douyin Video Comment Replies (Web)
+# Douyin Video Comment Replies (Web) API: pricing, parameters and code examples
 
-`douyin/web/video-comment-replies` · api · Douyin
+`douyin/web/video-comment-replies` · data API · Douyin · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns reply data for a specific comment on a Douyin video. Supports pagination controls through cursor and count parameters.
 

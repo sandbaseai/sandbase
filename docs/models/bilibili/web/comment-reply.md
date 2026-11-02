@@ -1,6 +1,8 @@
-# Bilibili Comment Replies
+# Bilibili Comment Replies API: pricing, parameters and code examples
 
-`bilibili/web/comment-reply` · api · Bilibili
+`bilibili/web/comment-reply` · data API · Bilibili · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns replies to a specific comment on a Bilibili video by video ID and comment ID. Supports pagination to browse threaded discussion replies.
 

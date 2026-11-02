@@ -1,6 +1,8 @@
-# TikTok Song
+# TikTok Song API: pricing, parameters and code examples
 
-`tiktok/song` · api · TikTok
+`tiktok/song` · data API · TikTok · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** about $0.0006 per call · **Modes:** sync
 
 Fetch details for a TikTok song or sound (title, author, duration, cover art, and how many videos use it).
 

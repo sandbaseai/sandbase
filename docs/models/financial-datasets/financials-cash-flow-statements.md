@@ -1,6 +1,8 @@
-# Financial Datasets Get Cash Flow Statements
+# Financial Datasets Get Cash Flow Statements API: pricing, parameters and code examples
 
-`financial-datasets/financials-cash-flow-statements` · api · Financial Datasets
+`financial-datasets/financials-cash-flow-statements` · data API · Financial Datasets · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.02 per call · **Modes:** sync
 
 Get Cash Flow Statements from Financial Datasets. Returns the official Financial Datasets API response unchanged.
 

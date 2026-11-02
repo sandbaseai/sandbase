@@ -1,6 +1,8 @@
-# YouTube Channel ID Lookup
+# YouTube Channel ID Lookup API: pricing, parameters and code examples
 
-`youtube/web/channel-id` · api · YouTube
+`youtube/web/channel-id` · data API · YouTube · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Retrieves the unique YouTube channel ID associated with a specific channel name. Provide the target channel name to receive the matching channel identifier.
 

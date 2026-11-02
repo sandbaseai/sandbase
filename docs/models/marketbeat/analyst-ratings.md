@@ -1,6 +1,8 @@
-# MarketBeat Analyst Ratings
+# MarketBeat Analyst Ratings API: pricing, parameters and code examples
 
-`marketbeat/analyst-ratings` · api · MarketBeat
+`marketbeat/analyst-ratings` · data API · MarketBeat · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.02 per call · **Modes:** async
 
 Get historical monthly analyst rating counts and breakdown. Returns time series data with buy, hold, sell, strong buy counts and total ratings per month, typically covering 3 years of history.
 

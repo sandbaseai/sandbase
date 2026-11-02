@@ -1,6 +1,8 @@
-# IMDb News by Category
+# IMDb News by Category API: pricing, parameters and code examples
 
-`imdb/news-by-category-query` · api · IMDb
+`imdb/news-by-category-query` · data API · IMDb · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.006944 per call (free daily quota) · **Modes:** sync
 
 Get IMDb news for a selected top, movie, TV, or celebrity category using language and country preferences. Use it to monitor entertainment news or research a specific category.
 

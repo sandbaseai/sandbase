@@ -1,6 +1,8 @@
-# YouTube Channel
+# YouTube Channel API: pricing, parameters and code examples
 
-`youtube/channel` · api · YouTube
+`youtube/channel` · data API · YouTube · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** about $0.00045 per call · **Modes:** sync
 
 Fetch a YouTube channel's stats (subscribers, video count, total views, description) and the links on its About page, by handle or channel ID.
 

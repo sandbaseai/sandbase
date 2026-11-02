@@ -1,6 +1,8 @@
-# WeChat Channels Video Share URL
+# WeChat Channels Video Share URL API: pricing, parameters and code examples
 
-`wechat-channels/v2/video-share-url` · api · WeChat Channels
+`wechat-channels/v2/video-share-url` · data API · WeChat Channels · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.015 per call (free daily quota) · **Modes:** sync
 
 Returns the share URL for a specific WeChat Channels video using its numeric object ID. Supports both raw and simplified parsed response formats.
 

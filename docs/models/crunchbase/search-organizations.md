@@ -1,6 +1,8 @@
-# Crunchbase Search Organizations
+# Crunchbase Search Organizations API: pricing, parameters and code examples
 
-`crunchbase/search-organizations` · api · Crunchbase
+`crunchbase/search-organizations` · data API · Crunchbase · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.02 per call · **Modes:** async
 
 Full-text search over Crunchbase organizations. Returns results with organization details including categories, location, employee count, rank, and operating status.
 

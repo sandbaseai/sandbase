@@ -1,6 +1,8 @@
-# Brave News Search
+# Brave News Search API: pricing, parameters and code examples
 
-`brave/news` · api · Brave
+`brave/news` · data API · Brave · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.005 per call (free daily quota) · **Modes:** sync
 
 News Search from Brave. Returns the official Brave API response unchanged.
 

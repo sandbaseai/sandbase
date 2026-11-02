@@ -1,6 +1,8 @@
-# ElevenLabs Dubbing
+# ElevenLabs Dubbing API: pricing, parameters and code examples
 
-`elevenlabs/dubbing` · video · ElevenLabs
+`elevenlabs/dubbing` · video generation model · ElevenLabs · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** about $0.6 per call · **Modes:** async
 
 ElevenLabs Dubbing translates the speech in a video into another language while preserving each speaker's voice, timing, and background audio.
 

@@ -1,6 +1,8 @@
-# Bluesky User Posts
+# Bluesky User Posts API: pricing, parameters and code examples
 
-`bluesky/user-posts` · api · Bluesky
+`bluesky/user-posts` · data API · Bluesky · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** about $0.0011 per call · **Modes:** sync
 
 List a Bluesky account's recent posts (text, author handle, like, reply, and repost counts) by handle as clean JSON.
 

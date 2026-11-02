@@ -1,6 +1,8 @@
-# Douyin Food Videos
+# Douyin Food Videos API: pricing, parameters and code examples
 
-`douyin/web/food-aweme` · api · Douyin
+`douyin/web/food-aweme` · data API · Douyin · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns a feed of food-related videos from Douyin Web. Results can be paginated using count and refresh index parameters.
 

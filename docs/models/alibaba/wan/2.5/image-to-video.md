@@ -1,6 +1,8 @@
-# Wan 2.5 Image to Video
+# Wan 2.5 Image to Video API: pricing, parameters and code examples
 
-`alibaba/wan/2.5/image-to-video` · video · Alibaba
+`alibaba/wan/2.5/image-to-video` · video generation model · Alibaba · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** from $0.25 to $1.5 per run, depending on parameters · **Modes:** async
 
 Wan 2.5 by Alibaba - animate still images into dynamic videos with AI. Transform photos into cinematic clips with natural motion, camera movement, and optional audio generation.
 

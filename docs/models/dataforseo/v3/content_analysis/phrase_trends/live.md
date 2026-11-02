@@ -1,6 +1,8 @@
-# DataForSEO Content Analysis Phrase Trends
+# DataForSEO Content Analysis Phrase Trends API: pricing, parameters and code examples
 
-`dataforseo/v3/content_analysis/phrase_trends/live` · api · DataForSEO
+`dataforseo/v3/content_analysis/phrase_trends/live` · data API · DataForSEO · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** about $0.024324 per call · **Modes:** sync
 
 Citation counts, sentiment and top domains over time for a keyword across web content.
 

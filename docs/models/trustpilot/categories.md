@@ -1,6 +1,8 @@
-# Trustpilot Categories
+# Trustpilot Categories API: pricing, parameters and code examples
 
-`trustpilot/categories` · api · Trustpilot
+`trustpilot/categories` · data API · Trustpilot · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.01 per call (free daily quota) · **Modes:** async
 
 Retrieve all top-level categories and their sub-categories available on Trustpilot.
 

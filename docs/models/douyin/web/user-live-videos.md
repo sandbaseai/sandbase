@@ -1,6 +1,8 @@
-# Douyin User Webcast Video Records
+# Douyin User Webcast Video Records API: pricing, parameters and code examples
 
-`douyin/web/user-live-videos` · api · Douyin
+`douyin/web/user-live-videos` · data API · Douyin · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Retrieves user broadcast video data from Douyin Web using a specific room identifier. Input the webcast ID to look up associated room records.
 

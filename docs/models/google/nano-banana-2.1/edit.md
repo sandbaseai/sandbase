@@ -1,6 +1,8 @@
-# Nano Banana 2.1 Edit
+# Nano Banana 2.1 Edit API: pricing, parameters and code examples
 
-`google/nano-banana-2.1/edit` · image · Google
+`google/nano-banana-2.1/edit` · image generation model · Google · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** from $0.044 to $0.153 per run, depending on parameters · **Modes:** async
 
 Nano Banana 2.1 Edit is Google's latest fast image editing model, fusing up to 14 reference images with stronger subject consistency and 1K to 4K output.
 

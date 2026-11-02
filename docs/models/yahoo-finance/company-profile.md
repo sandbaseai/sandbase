@@ -1,6 +1,8 @@
-# Yahoo Finance Company Profile
+# Yahoo Finance Company Profile API: pricing, parameters and code examples
 
-`yahoo-finance/company-profile` · api · Yahoo Finance
+`yahoo-finance/company-profile` · data API · Yahoo Finance · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.05 per call · **Modes:** async
 
 Obtain a detailed company profile including business summary, key executives, sector, industry, and financial metrics such as revenue, profit margins, and analyst recommendations. Returns structured modules:.
 

@@ -1,6 +1,8 @@
-# Polymarket List events (keyset pagination)
+# Polymarket List events (keyset pagination) API: pricing, parameters and code examples
 
-`polymarket/events-keyset` · api · Polymarket
+`polymarket/events-keyset` · data API · Polymarket · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.00044 per call (free daily quota) · **Modes:** sync
 
 List events with cursor based keyset pagination. Use next_cursor as after_cursor to fetch the next page. The offset parameter is rejected.
 

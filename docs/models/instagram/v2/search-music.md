@@ -1,6 +1,8 @@
-# Instagram Music Search
+# Instagram Music Search API: pricing, parameters and code examples
 
-`instagram/v2/search-music` · api · Instagram
+`instagram/v2/search-music` · data API · Instagram · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.003 per call (free daily quota) · **Modes:** sync
 
 Search available music tracks on Instagram using a keyword. Returns matching audio items with audio IDs, track titles, duration, and licensing details.
 

@@ -1,6 +1,8 @@
-# Zhihu User Followed Questions
+# Zhihu User Followed Questions API: pricing, parameters and code examples
 
-`zhihu/web/user-follow-questions` · api · Zhihu
+`zhihu/web/user-follow-questions` · data API · Zhihu · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns a list of questions followed by a specified Zhihu user. Supports pagination controls through page size and offset parameters.
 

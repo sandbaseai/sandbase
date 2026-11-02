@@ -1,6 +1,8 @@
-# TikTok Web String Data Decryption
+# TikTok Web String Data Decryption API: pricing, parameters and code examples
 
-`tiktok/web/decrypt-str-data` · api · TikTok
+`tiktok/web/decrypt-str-data` · data API · TikTok · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Decrypts encrypted strData captured from TikTok web network traffic. Pass the captured string to reveal the underlying plaintext response payload.
 

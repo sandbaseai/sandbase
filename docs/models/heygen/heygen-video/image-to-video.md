@@ -1,6 +1,8 @@
-# HeyGen Video Image to Video
+# HeyGen Video Image to Video API: pricing, parameters and code examples
 
-`heygen/heygen-video/image-to-video` · video · HeyGen
+`heygen/heygen-video/image-to-video` · video generation model · HeyGen · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** from $0.1 to $1.5 per run, depending on parameters · **Modes:** async
 
 HeyGen Video Image to Video animates a first-frame image into a 5-15 second video at up to 2K resolution.
 

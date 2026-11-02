@@ -1,6 +1,6 @@
-# Z.ai: GLM 5.5
+# Z.ai: GLM 5.5 API: pricing, parameters and code examples
 
-`z-ai/glm-5.5` · llm · Z-Ai
+`z-ai/glm-5.5` · LLM · Z-Ai · callable with one SandBase API key from curl, Python, TypeScript and Go.
 
 GLM 5.5 is listed on SandBase as an upcoming model in Z.ai's GLM series and is not yet available on SandBase. As of early October 2026, Z.ai has not officially announced GLM 5.5 or published its capabilities, specifications or release date. Specifications and pricing will be confirmed at launch, once Z.ai publishes official details.
 

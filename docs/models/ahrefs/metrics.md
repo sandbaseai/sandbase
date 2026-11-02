@@ -1,6 +1,8 @@
-# Ahrefs Ahrefs Site Metrics
+# Ahrefs Ahrefs Site Metrics API: pricing, parameters and code examples
 
-`ahrefs/metrics` · api · Ahrefs
+`ahrefs/metrics` · data API · Ahrefs · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.08 per call · **Modes:** sync
 
 Return core Site Explorer metrics for a target domain on a given date: organic and paid keyword counts, top-3 keyword count, organic traffic, and traffic value. 4xx/5xx are not charged.
 

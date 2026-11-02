@@ -1,6 +1,8 @@
-# TikTok User ID by Username
+# TikTok User ID by Username API: pricing, parameters and code examples
 
-`tiktok/app-v3/user-id-and-sec-user-id-by-username` · api · TikTok
+`tiktok/app-v3/user-id-and-sec-user-id-by-username` · data API · TikTok · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns the user_id and sec_user_id associated with a specific TikTok username. Provide a profile username to resolve account identifiers.
 

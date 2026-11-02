@@ -1,6 +1,8 @@
-# MarketBeat Earnings
+# MarketBeat Earnings API: pricing, parameters and code examples
 
-`marketbeat/earnings` · api · MarketBeat
+`marketbeat/earnings` · data API · MarketBeat · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.01 per call (free daily quota) · **Modes:** async
 
 Get earnings estimates and historical earnings data including EPS estimates (low, high, average), number of analyst estimates, revenue estimates, and company revenue guidance. Covers both quarterly and fiscal year.
 

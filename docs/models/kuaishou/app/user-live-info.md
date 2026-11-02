@@ -1,6 +1,8 @@
-# Kuaishou User Broadcast Details
+# Kuaishou User Broadcast Details API: pricing, parameters and code examples
 
-`kuaishou/app/user-live-info` · api · Kuaishou
+`kuaishou/app/user-live-info` · data API · Kuaishou · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns broadcast information and stream status for a specified Kuaishou account. Requests target a creator profile using the unique user identifier.
 

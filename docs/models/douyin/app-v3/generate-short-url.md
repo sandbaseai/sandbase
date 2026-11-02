@@ -1,6 +1,8 @@
-# Douyin Short Link Generator
+# Douyin Short Link Generator API: pricing, parameters and code examples
 
-`douyin/app-v3/generate-short-url` · api · Douyin
+`douyin/app-v3/generate-short-url` · data API · Douyin · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Converts a standard Douyin web link into a shortened Douyin URL. Returns the shortened link string and operation status for the provided URL.
 

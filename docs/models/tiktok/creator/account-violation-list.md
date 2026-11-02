@@ -1,6 +1,8 @@
-# TikTok Creator Account Violations
+# TikTok Creator Account Violations API: pricing, parameters and code examples
 
-`tiktok/creator/account-violation-list` · api · TikTok
+`tiktok/creator/account-violation-list` · data API · TikTok · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns the violation history and enforcement actions for a TikTok Shop creator account. Supports chronological pagination across historical violation records.
 

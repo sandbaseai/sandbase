@@ -1,6 +1,8 @@
-# Nano Banana 2 Lite Edit
+# Nano Banana 2 Lite Edit API: pricing, parameters and code examples
 
-`google/nano-banana-2-lite/edit` · image · Google
+`google/nano-banana-2-lite/edit` · image generation model · Google · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0336 per call · **Modes:** async
 
 Nano Banana 2 Lite Edit is Google's low-latency, cost-efficient image editing model (Gemini 3.1 Flash Lite Image). Edit and combine supplied images with a text prompt; output is a 1K image.
 

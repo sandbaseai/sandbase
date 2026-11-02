@@ -1,6 +1,8 @@
-# Weibo Post Comments
+# Weibo Post Comments API: pricing, parameters and code examples
 
-`weibo/post-comments` · api · Weibo
+`weibo/post-comments` · data API · Weibo · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.013889 per call (free daily quota) · **Modes:** sync
 
 Get comments for a Weibo post identified by MID, with optional maxId cursor pagination and time or hot sorting.
 

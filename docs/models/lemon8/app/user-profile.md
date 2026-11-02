@@ -1,6 +1,8 @@
-# Lemon8 User Profile Details
+# Lemon8 User Profile Details API: pricing, parameters and code examples
 
-`lemon8/app/user-profile` · api · Lemon8
+`lemon8/app/user-profile` · data API · Lemon8 · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns profile information for a specified Lemon8 user. The query requires a unique user identifier.
 

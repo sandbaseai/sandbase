@@ -1,6 +1,8 @@
-# Weibo Post Comments
+# Weibo Post Comments API: pricing, parameters and code examples
 
-`weibo/web-v2/post-comments` · api · Weibo
+`weibo/web-v2/post-comments` · data API · Weibo · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Get the first-level comments on a Weibo post: comment text, author, time, likes and reply counts, with cursor pagination.
 

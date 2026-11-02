@@ -1,6 +1,8 @@
-# Kuaishou Video Search (V2)
+# Kuaishou Video Search (V2) API: pricing, parameters and code examples
 
-`kuaishou/app/search-video-v2` · api · Kuaishou
+`kuaishou/app/search-video-v2` · data API · Kuaishou · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.015 per call (free daily quota) · **Modes:** sync
 
 Searches for Kuaishou videos matching a designated keyword query. Returns matching video results with support for cursor-based pagination across multiple pages.
 

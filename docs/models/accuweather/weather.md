@@ -1,6 +1,8 @@
-# AccuWeather Weather
+# AccuWeather Weather API: pricing, parameters and code examples
 
-`accuweather/weather` · api · AccuWeather
+`accuweather/weather` · data API · AccuWeather · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.05 per call · **Modes:** async
 
 Get comprehensive weather data for a city including current conditions, daily and hourly forecasts, alerts, allergens, and radar metadata. Resolves city name to a location key internally, then fetches multiple data.
 

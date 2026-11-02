@@ -1,6 +1,8 @@
-# Yahoo Finance Closing Price
+# Yahoo Finance Closing Price API: pricing, parameters and code examples
 
-`yahoo-finance/closing-price` · api · Yahoo Finance
+`yahoo-finance/closing-price` · data API · Yahoo Finance · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.05 per call · **Modes:** async
 
 Return the official daily closing price for a single ticker on one specific calendar date, interpreted in the listing exchange's local timezone (returned as exchange_timezone). One request per call.
 

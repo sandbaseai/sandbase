@@ -1,6 +1,8 @@
-# Kling Create Voice
+# Kling Create Voice API: pricing, parameters and code examples
 
-`kwaivgi/kling-video/create-voice` · audio · KwaiVGI
+`kwaivgi/kling-video/create-voice` · audio model · KwaiVGI · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.035 per call · **Modes:** async
 
 Kling Create Voice clones a reusable custom voice from a 5-30 second recording of a single speaker and returns a voice ID for Kling V4 reference-to-video, plus a short preview clip.
 

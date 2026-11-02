@@ -1,6 +1,8 @@
-# Kuaishou Web Hot List
+# Kuaishou Web Hot List API: pricing, parameters and code examples
 
-`kuaishou/web/hot-list-v1` · api · Kuaishou
+`kuaishou/web/hot-list-v1` · data API · Kuaishou · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns the current trending hot list from Kuaishou Web. It delivers trending topics and popular content rankings directly from the platform.
 

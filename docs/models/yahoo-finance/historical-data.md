@@ -1,6 +1,8 @@
-# Yahoo Finance Historical Data
+# Yahoo Finance Historical Data API: pricing, parameters and code examples
 
-`yahoo-finance/historical-data` · api · Yahoo Finance
+`yahoo-finance/historical-data` · data API · Yahoo Finance · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.05 per call · **Modes:** async
 
 Extract historical OHLCV price data for a single ticker over a configurable date range and interval. Returns timestamped records suitable for charting and technical analysis.
 

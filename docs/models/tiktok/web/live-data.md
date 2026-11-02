@@ -1,6 +1,8 @@
-# TikTok Stream Room Information
+# TikTok Stream Room Information API: pricing, parameters and code examples
 
-`tiktok/web/live-data` · api · TikTok
+`tiktok/web/live-data` · data API · TikTok · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns information about a TikTok stream room using a broadcast link. Supports retrieving details for offline stream rooms via the provided URL.
 

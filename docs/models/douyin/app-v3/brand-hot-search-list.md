@@ -1,6 +1,8 @@
-# Douyin Brand Hot Search List
+# Douyin Brand Hot Search List API: pricing, parameters and code examples
 
-`douyin/app-v3/brand-hot-search-list` · api · Douyin
+`douyin/app-v3/brand-hot-search-list` · data API · Douyin · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns the current Douyin brand hot search list and category data. Use it to track trending brand searches and popular brand rankings across the platform.
 

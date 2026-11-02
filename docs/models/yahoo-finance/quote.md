@@ -1,6 +1,8 @@
-# Yahoo Finance Quote
+# Yahoo Finance Quote API: pricing, parameters and code examples
 
-`yahoo-finance/quote` · api · Yahoo Finance
+`yahoo-finance/quote` · data API · Yahoo Finance · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.05 per call · **Modes:** async
 
 Retrieve real-time stock quotes including current price, bid/ask, volume, market cap, and market status for one or more tickers. Supports batch lookups via comma-separated symbols.
 

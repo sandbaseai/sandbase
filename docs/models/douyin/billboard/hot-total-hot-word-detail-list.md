@@ -1,6 +1,8 @@
-# Douyin Billboard Hot Word Details
+# Douyin Billboard Hot Word Details API: pricing, parameters and code examples
 
-`douyin/billboard/hot-total-hot-word-detail-list` · api · Douyin
+`douyin/billboard/hot-total-hot-word-detail-list` · data API · Douyin · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns detailed billboard metrics for a specific Douyin content word. Filters include the search keyword, word identifier, and target query date.
 

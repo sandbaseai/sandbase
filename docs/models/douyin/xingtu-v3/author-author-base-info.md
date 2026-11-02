@@ -1,6 +1,8 @@
-# Douyin Xingtu Creator Profile
+# Douyin Xingtu Creator Profile API: pricing, parameters and code examples
 
-`douyin/xingtu-v3/author-author-base-info` · api · Douyin
+`douyin/xingtu-v3/author-author-base-info` · data API · Douyin · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.020833 per call · **Modes:** sync
 
 Get the Douyin Creator Marketplace (Xingtu) profile for a specified creator and content channel. Use it to review creator information before shortlisting or campaign outreach.
 

@@ -1,6 +1,8 @@
-# Douyin Creator Hot Courses
+# Douyin Creator Hot Courses API: pricing, parameters and code examples
 
-`douyin/creator/creator-hot-course` · api · Douyin
+`douyin/creator/creator-hot-course` · data API · Douyin · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns trending creator courses or curated topic lessons from Douyin. Results can be filtered by topic category and sorted by recommendation, popularity, or upload date.
 

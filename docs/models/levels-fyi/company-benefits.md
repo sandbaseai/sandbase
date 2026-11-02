@@ -1,6 +1,8 @@
-# Levels.fyi Company Benefits
+# Levels.fyi Company Benefits API: pricing, parameters and code examples
 
-`levels-fyi/company-benefits` · api · Levels.fyi
+`levels-fyi/company-benefits` · data API · Levels.fyi · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.01 per call (free daily quota) · **Modes:** async
 
 Retrieve benefits and perks data for a specific company including benefit categories, descriptions, field values, and computed monetary values. Each benefit includes its perk definition, category tag, and any.
 

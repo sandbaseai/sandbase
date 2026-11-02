@@ -1,6 +1,8 @@
-# Kalshi Get Kalshi Market OrderBook
+# Kalshi Get Kalshi Market OrderBook API: pricing, parameters and code examples
 
-`kalshi/markets-orderbook` · api · Kalshi
+`kalshi/markets-orderbook` · data API · Kalshi · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.02 per call · **Modes:** sync
 
 Get Kalshi Market OrderBook from Kalshi. Returns the official Kalshi API response unchanged.
 

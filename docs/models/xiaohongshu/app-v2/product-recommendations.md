@@ -1,6 +1,8 @@
-# Xiaohongshu (RED) Product Recommendations
+# Xiaohongshu (RED) Product Recommendations API: pricing, parameters and code examples
 
-`xiaohongshu/app-v2/product-recommendations` · api · Xiaohongshu
+`xiaohongshu/app-v2/product-recommendations` · data API · Xiaohongshu · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.015 per call (free daily quota) · **Modes:** sync
 
 Returns a list of recommended products based on a specified product SKU ID. Supports region-based filtering and cursor pagination.
 

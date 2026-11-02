@@ -1,6 +1,8 @@
-# Seedream 5.0 Pro Text to Image
+# Seedream 5.0 Pro Text to Image API: pricing, parameters and code examples
 
-`bytedance/seedream/5.0/pro` · image · Bytedance
+`bytedance/seedream/5.0/pro` · image generation model · Bytedance · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** from $0.09 per run, depending on parameters · **Modes:** async
 
 Seedream 5.0 Pro by Bytedance - generate stunning images from text prompts with state-of-the-art AI. Supports multiple aspect ratios, styles, and high-resolution output for creative and commercial use.
 

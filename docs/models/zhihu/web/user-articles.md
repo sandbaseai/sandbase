@@ -1,6 +1,8 @@
-# Zhihu User Articles
+# Zhihu User Articles API: pricing, parameters and code examples
 
-`zhihu/web/user-articles` · api · Zhihu
+`zhihu/web/user-articles` · data API · Zhihu · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Retrieves articles posted by a specific Zhihu author using their user identifier. Supports sorting by post date or upvotes alongside pagination controls.
 

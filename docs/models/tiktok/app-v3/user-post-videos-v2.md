@@ -1,6 +1,8 @@
-# TikTok User Videos (App V3, V2)
+# TikTok User Videos (App V3, V2) API: pricing, parameters and code examples
 
-`tiktok/app-v3/user-post-videos-v2` · api · TikTok
+`tiktok/app-v3/user-post-videos-v2` · data API · TikTok · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns video data from a TikTok user homepage based on their profile identifier or username, with options for sorting and pagination.
 

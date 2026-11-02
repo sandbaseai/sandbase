@@ -1,6 +1,8 @@
-# DataForSEO Website Screenshot
+# DataForSEO Website Screenshot API: pricing, parameters and code examples
 
-`dataforseo/v3/on_page/page_screenshot` · api · DataForSEO
+`dataforseo/v3/on_page/page_screenshot` · data API · DataForSEO · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.004 per call (free daily quota) · **Modes:** sync
 
 Capture a full-page or viewport screenshot of any URL in desktop, mobile or tablet view. Options for custom screen size, language, user agent and dismissing cookie pop-ups.
 

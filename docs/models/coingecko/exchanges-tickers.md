@@ -1,6 +1,8 @@
-# CoinGecko Exchange Tickers by ID
+# CoinGecko Exchange Tickers by ID API: pricing, parameters and code examples
 
-`coingecko/exchanges-tickers` · api · CoinGecko
+`coingecko/exchanges-tickers` · data API · CoinGecko · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.008 per call (free daily quota) · **Modes:** sync
 
 Exchange Tickers by ID from CoinGecko. Returns the official CoinGecko API response unchanged.
 

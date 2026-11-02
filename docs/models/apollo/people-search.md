@@ -1,6 +1,8 @@
-# Apollo People API Search
+# Apollo People API Search API: pricing, parameters and code examples
 
-`apollo/people-search` · api · Apollo
+`apollo/people-search` · data API · Apollo · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.012 per call (free daily quota) · **Modes:** sync
 
 Use the People API Search endpoint to find net new people in the Apollo database. Several filters are available to help narrow your search. This endpoint is optimized for API usage and does not consume credits.
 

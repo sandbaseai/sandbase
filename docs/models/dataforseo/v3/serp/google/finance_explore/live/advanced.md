@@ -1,6 +1,8 @@
-# DataForSEO Google Finance Explore
+# DataForSEO Google Finance Explore API: pricing, parameters and code examples
 
-`dataforseo/v3/serp/google/finance_explore/live/advanced` · api · DataForSEO
+`dataforseo/v3/serp/google/finance_explore/live/advanced` · data API · DataForSEO · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.002 per call (free daily quota) · **Modes:** sync
 
 Fetch Google Finance's explore page: market movers, indexes, and news. Google Finance explore data for a location.
 

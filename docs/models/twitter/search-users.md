@@ -1,6 +1,8 @@
-# X / Twitter User Search
+# X / Twitter User Search API: pricing, parameters and code examples
 
-`twitter/search-users` · api · X (Twitter)
+`twitter/search-users` · data API · X (Twitter) · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** about $0.00054 per call · **Modes:** sync
 
 Search X (Twitter) accounts by keyword - the People tab of X search. Matches handles, display names, and profile bios, and returns normalized profile records with follower, following, and post counts plus cursor pagination. Use twitter.search for posts.
 

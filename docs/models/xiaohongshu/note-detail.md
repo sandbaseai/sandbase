@@ -1,6 +1,8 @@
-# Xiaohongshu Note Details
+# Xiaohongshu Note Details API: pricing, parameters and code examples
 
-`xiaohongshu/note-detail` · api · Xiaohongshu
+`xiaohongshu/note-detail` · data API · Xiaohongshu · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.020833 per call · **Modes:** sync
 
 Get Xiaohongshu (RedNote) details for a note identified by a note ID or supported explore URL. Use it to perform direct note lookup and content review from stored identifiers or shared explore links.
 

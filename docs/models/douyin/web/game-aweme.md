@@ -1,6 +1,8 @@
-# Douyin Game Videos
+# Douyin Game Videos API: pricing, parameters and code examples
 
-`douyin/web/game-aweme` · api · Douyin
+`douyin/web/game-aweme` · data API · Douyin · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns a paginated list of game-related videos from Douyin web. Callers specify the number of items per page and a refresh index to navigate through video feeds.
 

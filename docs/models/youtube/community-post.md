@@ -1,6 +1,8 @@
-# YouTube Community Post
+# YouTube Community Post API: pricing, parameters and code examples
 
-`youtube/community-post` · api · YouTube
+`youtube/community-post` · data API · YouTube · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** about $0.0012 per call · **Modes:** sync
 
 Fetch a single YouTube community post by URL (text, images, channel, publish time).
 

@@ -1,6 +1,8 @@
-# Douyin Xingtu Batch Author Details
+# Douyin Xingtu Batch Author Details API: pricing, parameters and code examples
 
-`douyin/xingtu-v2/multi-get-author-info` · api · Douyin
+`douyin/xingtu-v2/multi-get-author-info` · data API · Douyin · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.003 per call (free daily quota) · **Modes:** sync
 
 Returns Xingtu creator profile information for multiple creator accounts in a single request. It takes a list of creator IDs along with optional platform source and channel options.
 

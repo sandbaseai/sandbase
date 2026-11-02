@@ -1,6 +1,8 @@
-# Douyin Xingtu Marketing Metrics
+# Douyin Xingtu Marketing Metrics API: pricing, parameters and code examples
 
-`douyin/xingtu-v3/author-author-marketing-info` · api · Douyin
+`douyin/xingtu-v3/author-author-marketing-info` · data API · Douyin · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.020833 per call · **Modes:** sync
 
 Get Douyin Creator Marketplace (Xingtu) marketing information for a specified creator and content channel. Use it to compare creator commercial offerings during campaign planning.
 

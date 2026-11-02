@@ -1,6 +1,8 @@
-# Instagram Trending Reels
+# Instagram Trending Reels API: pricing, parameters and code examples
 
-`instagram/trending-reels` · api · Instagram
+`instagram/trending-reels` · data API · Instagram · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** about $0.0012 per call · **Modes:** sync
 
 List currently trending Instagram reels. Instagram does not return play counts on this feed.
 

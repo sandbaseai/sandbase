@@ -1,6 +1,8 @@
-# Kelley Blue Book Obd Codes
+# Kelley Blue Book Obd Codes API: pricing, parameters and code examples
 
-`kbb/obd-codes` · api · Kelley Blue Book
+`kbb/obd-codes` · data API · Kelley Blue Book · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.01 per call (free daily quota) · **Modes:** async
 
 Retrieve OBD-II diagnostic trouble code descriptions from KBB. Currently supports powertrain (P) codes only.
 

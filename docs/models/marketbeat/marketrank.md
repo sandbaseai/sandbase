@@ -1,6 +1,8 @@
-# MarketBeat Marketrank
+# MarketBeat Marketrank API: pricing, parameters and code examples
 
-`marketbeat/marketrank` · api · MarketBeat
+`marketbeat/marketrank` · data API · MarketBeat · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.01 per call (free daily quota) · **Modes:** async
 
 Get MarketRank scores and component details for a stock. Includes overall percentile score and individual category scores for Analyst Opinion, Earnings and Valuation, Short Interest, Dividend, News/Social Media, and.
 

@@ -1,6 +1,8 @@
-# Polymarket Get event by slug
+# Polymarket Get event by slug API: pricing, parameters and code examples
 
-`polymarket/events-slug` · api · Polymarket
+`polymarket/events-slug` · data API · Polymarket · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.00044 per call (free daily quota) · **Modes:** sync
 
 Get event by slug from Polymarket. Returns the official Polymarket API response unchanged.
 

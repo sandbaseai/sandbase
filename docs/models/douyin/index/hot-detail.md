@@ -1,6 +1,8 @@
-# Douyin Hot Topic Detail Analysis
+# Douyin Hot Topic Detail Analysis API: pricing, parameters and code examples
 
-`douyin/index/hot-detail` · api · Douyin
+`douyin/index/hot-detail` · data API · Douyin · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns comprehensive trend analysis metrics for a specified Douyin hot topic. Requires a topic name sourced from the hot topic list.
 

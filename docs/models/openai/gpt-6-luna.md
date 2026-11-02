@@ -1,6 +1,8 @@
-# OpenAI: GPT-6 Luna
+# OpenAI: GPT-6 Luna API: pricing, parameters and code examples
 
-`openai/gpt-6-luna` · llm · OpenAI
+`openai/gpt-6-luna` · LLM · OpenAI · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.1 input / $0.5 output per 1M tokens · **Modes:** sync
 
 GPT-6 Luna is the smallest, fastest tier of OpenAI's GPT-6 reasoning family, described by OpenAI as its most efficient model for focused, high-volume tasks, with text and image input. It was trained with methods similar to GPT-6 Astra to carry much of that model's strengths into a faster tier. Choose it for high-throughput chat, extraction and lightweight agent steps, and move to GPT-6.1 Sol or GPT-6 Astra when work needs deeper reasoning.
 

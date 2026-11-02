@@ -1,6 +1,8 @@
-# Xigua Video Search
+# Xigua Video Search API: pricing, parameters and code examples
 
-`xigua/app-v2/search-video` · api · Xigua
+`xigua/app-v2/search-video` · data API · Xigua · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Search Xigua Video (ByteDance long-form video) by keyword: titles, creators, duration, publish time and comment counts, with sort and duration filters.
 

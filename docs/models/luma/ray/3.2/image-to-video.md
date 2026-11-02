@@ -1,6 +1,8 @@
-# Luma Ray 3.2 Image to Video
+# Luma Ray 3.2 Image to Video API: pricing, parameters and code examples
 
-`luma/ray/3.2/image-to-video` · video · Luma
+`luma/ray/3.2/image-to-video` · video generation model · Luma · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** from $0.5 to $12 per run, depending on parameters · **Modes:** async
 
 Agent Ray 3.2 by Luma - animate still images into dynamic videos with AI. Transform photos into cinematic clips with natural motion, camera movement, and optional audio generation.
 

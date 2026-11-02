@@ -1,6 +1,8 @@
-# Douyin User Broadcast Videos
+# Douyin User Broadcast Videos API: pricing, parameters and code examples
 
-`douyin/web/user-live-videos-by-sec-uid` · api · Douyin
+`douyin/web/user-live-videos-by-sec-uid` · data API · Douyin · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns broadcast video data for a specified Douyin user using their security identifier. Provide the account identifier to inspect streaming content and badge details.
 

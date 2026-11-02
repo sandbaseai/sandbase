@@ -1,6 +1,8 @@
-# Wan 3.0 Prime Text to Video
+# Wan 3.0 Prime Text to Video API: pricing, parameters and code examples
 
-`alibaba/wan/3.0/prime/text-to-video` · video · Alibaba
+`alibaba/wan/3.0/prime/text-to-video` · video generation model · Alibaba · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** from $0.136 to $1.68 per run, depending on parameters · **Modes:** async
 
 Wan 3.0 Prime by Alibaba turns a text prompt into a video of up to 30 seconds at 30fps, with native dialogue, music, and sound effects.
 

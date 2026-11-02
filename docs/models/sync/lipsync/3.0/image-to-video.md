@@ -1,6 +1,8 @@
-# Sync 3 Avatar Image to Video
+# Sync 3 Avatar Image to Video API: pricing, parameters and code examples
 
-`sync/lipsync/3.0/image-to-video` · video · Sync Labs
+`sync/lipsync/3.0/image-to-video` · video generation model · Sync Labs · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** about $0.675 per call · **Modes:** async
 
 Sync 3 animates the face in a still image so it speaks the provided audio; the output matches the audio length.
 

@@ -1,6 +1,8 @@
-# IMDb 'Did You Know' Insights
+# IMDb 'Did You Know' Insights API: pricing, parameters and code examples
 
-`imdb/title-did-you-know-query` · api · IMDb
+`imdb/title-did-you-know-query` · data API · IMDb · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.006944 per call (free daily quota) · **Modes:** sync
 
 Get IMDb 'Did You Know' information for a title ID using selected language and country preferences. Use it to research title trivia and add editorial context.
 

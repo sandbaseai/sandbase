@@ -1,6 +1,8 @@
-# Douyin Web Music Videos
+# Douyin Web Music Videos API: pricing, parameters and code examples
 
-`douyin/web/music-aweme` · api · Douyin
+`douyin/web/music-aweme` · data API · Douyin · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Retrieves music videos from Douyin Web based on pagination settings. Returns a list of video items using the specified count and refresh index parameters.
 

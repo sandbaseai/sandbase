@@ -1,6 +1,8 @@
-# Douyin Billboard Hot Category List
+# Douyin Billboard Hot Category List API: pricing, parameters and code examples
 
-`douyin/billboard/hot-category-list` · api · Douyin
+`douyin/billboard/hot-category-list` · data API · Douyin · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns category IDs and popularity metrics from Douyin hot list billboards. Supports filtering by billboard type, search keywords, and snapshot time ranges.
 

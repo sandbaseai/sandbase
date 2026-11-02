@@ -1,6 +1,8 @@
-# Bilibili Video Captions
+# Bilibili Video Captions API: pricing, parameters and code examples
 
-`bilibili/video-caption` · api · Bilibili
+`bilibili/video-caption` · data API · Bilibili · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.013889 per call (free daily quota) · **Modes:** sync
 
 Get caption data for a Bilibili video segment identified by BVID, AID, and CID. Use it to obtain subtitles for transcript extraction, accessibility review, or language-focused content analysis.
 

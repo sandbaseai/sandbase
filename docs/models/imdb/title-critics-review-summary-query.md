@@ -1,6 +1,8 @@
-# IMDb Critics Review Summary
+# IMDb Critics Review Summary API: pricing, parameters and code examples
 
-`imdb/title-critics-review-summary-query` · api · IMDb
+`imdb/title-critics-review-summary-query` · data API · IMDb · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.006944 per call (free daily quota) · **Modes:** sync
 
 Get the IMDb critics-review summary for a title ID using selected language and country preferences. Use it to review critical reception or compare titles during research.
 

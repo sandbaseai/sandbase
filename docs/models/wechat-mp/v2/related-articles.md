@@ -1,6 +1,8 @@
-# WeChat MP Related Articles
+# WeChat MP Related Articles API: pricing, parameters and code examples
 
-`wechat-mp/v2/related-articles` · api · WeChat MP
+`wechat-mp/v2/related-articles` · data API · WeChat MP · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.015 per call (free daily quota) · **Modes:** sync
 
 Retrieves the list of related articles displayed at the bottom of a WeChat MP post using its link. Supports choosing between raw and simplified response formats.
 

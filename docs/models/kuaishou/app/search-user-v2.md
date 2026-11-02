@@ -1,6 +1,8 @@
-# Kuaishou User Search (V2)
+# Kuaishou User Search (V2) API: pricing, parameters and code examples
 
-`kuaishou/app/search-user-v2` · api · Kuaishou
+`kuaishou/app/search-user-v2` · data API · Kuaishou · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.015 per call (free daily quota) · **Modes:** sync
 
 Searches for Kuaishou accounts matching a query term. Results can be filtered by gender and account relationship status, as well as sorted by follower count.
 

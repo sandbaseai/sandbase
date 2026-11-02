@@ -1,6 +1,8 @@
-# Xiaohongshu User Profile
+# Xiaohongshu User Profile API: pricing, parameters and code examples
 
-`xiaohongshu/user` · api · Xiaohongshu
+`xiaohongshu/user` · data API · Xiaohongshu · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.020833 per call · **Modes:** sync
 
 Get a Xiaohongshu (RedNote) user profile from a user ID or supported profile URL. Use it to support creator discovery, account research, and reviewing a known profile before related content analysis.
 

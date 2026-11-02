@@ -1,6 +1,8 @@
-# Polymarket Get fee rate
+# Polymarket Get fee rate API: pricing, parameters and code examples
 
-`polymarket/fee-rate` · api · Polymarket
+`polymarket/fee-rate` · data API · Polymarket · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.012 per call (free daily quota) · **Modes:** sync
 
 Retrieves the base fee rate for a specific token ID. The fee rate can be provided either as a query parameter or as a path parameter.
 

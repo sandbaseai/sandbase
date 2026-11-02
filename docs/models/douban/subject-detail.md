@@ -1,6 +1,8 @@
-# Douban Subject Details
+# Douban Subject Details API: pricing, parameters and code examples
 
-`douban/subject-detail` · api · Douban
+`douban/subject-detail` · data API · Douban · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.013889 per call (free daily quota) · **Modes:** sync
 
 Get the public detail page data for a Douban movie or TV subject by subject ID. Use it to inspect a known title before requesting its reviews or comments.
 

@@ -1,6 +1,8 @@
-# Zhihu Scholar Paper Search
+# Zhihu Scholar Paper Search API: pricing, parameters and code examples
 
-`zhihu/web/scholar-search-v3` · api · Zhihu
+`zhihu/web/scholar-search-v3` · data API · Zhihu · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Search Zhihu Scholar papers matching specified keywords and filters. Returns paper details including IDs, titles, highlight snippets, and Zhihu paper URLs.
 

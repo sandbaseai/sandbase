@@ -1,6 +1,8 @@
-# Financial Datasets Guidance
+# Financial Datasets Guidance API: pricing, parameters and code examples
 
-`financial-datasets/kpi-guidance` · api · Financial Datasets
+`financial-datasets/kpi-guidance` · data API · Financial Datasets · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.02 per call · **Modes:** sync
 
 Get structured forward guidance from earnings releases. Returns ranges, point estimates, and directional signals.
 

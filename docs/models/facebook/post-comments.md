@@ -1,6 +1,8 @@
-# Facebook Post Comments
+# Facebook Post Comments API: pricing, parameters and code examples
 
-`facebook/post-comments` · api · Facebook
+`facebook/post-comments` · data API · Facebook · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.027778 per call · **Modes:** sync
 
 Get comments for a Facebook post ID with cursor pagination. Use it to review discussion associated with a known public post or continue through subsequent comment pages.
 

@@ -1,6 +1,8 @@
-# DataForSEO Backlinks Competitors
+# DataForSEO Backlinks Competitors API: pricing, parameters and code examples
 
-`dataforseo/v3/backlinks/competitors/live` · api · DataForSEO
+`dataforseo/v3/backlinks/competitors/live` · data API · DataForSEO · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.004 per call (free daily quota) · **Modes:** sync
 
 Returns domains that compete for similar backlink profiles. Analyze competitor backlink sources and compare link-building overlaps across related websites.
 

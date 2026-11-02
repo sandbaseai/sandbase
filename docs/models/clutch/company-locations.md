@@ -1,6 +1,8 @@
-# Clutch Company Locations
+# Clutch Company Locations API: pricing, parameters and code examples
 
-`clutch/company-locations` · api · Clutch
+`clutch/company-locations` · data API · Clutch · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.01 per call (free daily quota) · **Modes:** async
 
 Get office locations for a company including addresses, phone numbers, and employee counts per location.
 

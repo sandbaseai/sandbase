@@ -1,6 +1,8 @@
-# Seedream 5.0 Lite Edit
+# Seedream 5.0 Lite Edit API: pricing, parameters and code examples
 
-`bytedance/seedream/5.0/lite/edit` · image · Bytedance
+`bytedance/seedream/5.0/lite/edit` · image generation model · Bytedance · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.035 per call · **Modes:** async
 
 Seedream 5.0 Lite — Fast Text-to-Image API The lightweight version of Seedream 5.0, delivering high-quality, low-latency AI image generation from text prompts. Ideal for real-time creative tools, e-commerce visuals, and high-volume AIGC pipelines.
 

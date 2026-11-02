@@ -1,6 +1,8 @@
-# Nasdaq Index Detail
+# Nasdaq Index Detail API: pricing, parameters and code examples
 
-`nasdaq/index-detail` · api · Nasdaq
+`nasdaq/index-detail` · data API · Nasdaq · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.01 per call (free daily quota) · **Modes:** async
 
 Detailed quote data for a specific market index including price, net change, percentage change, volume, and daily high/low.
 

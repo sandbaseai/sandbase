@@ -1,6 +1,8 @@
-# OpenAI: GPT-6 Astra
+# OpenAI: GPT-6 Astra API: pricing, parameters and code examples
 
-`openai/gpt-6-astra` · llm · OpenAI
+`openai/gpt-6-astra` · LLM · OpenAI · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $10 input / $50 output per 1M tokens · **Modes:** sync
 
 GPT-6 Astra is OpenAI's flagship GPT-6 reasoning model, described by OpenAI as its most capable model for the most demanding work, with text and image input. OpenAI recommends it for complex reasoning, coding, computer use, research and document creation, including multi-step workflows across code, browsers and professional software. It is the top tier above GPT-6.1 Sol and GPT-6 Luna; choose it when quality matters most, or the Astra Pro variant for the hardest requests.
 

@@ -1,6 +1,8 @@
-# Pipixia Hashtag Post List
+# Pipixia Hashtag Post List API: pricing, parameters and code examples
 
-`pipixia/app/hashtag-post-list` · api · Pipixia
+`pipixia/app/hashtag-post-list` · data API · Pipixia · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns a list of posts associated with a specific hashtag on Pipixia. Filter by hashtag identifier, sort options, and paginate through results.
 

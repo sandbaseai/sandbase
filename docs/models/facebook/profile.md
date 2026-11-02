@@ -1,6 +1,8 @@
-# Facebook Profile
+# Facebook Profile API: pricing, parameters and code examples
 
-`facebook/profile` · api · Facebook
+`facebook/profile` · data API · Facebook · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** about $0.0012 per call · **Modes:** sync
 
 Fetch a Facebook page's public profile (likes, followers, category, about) by URL or handle.
 

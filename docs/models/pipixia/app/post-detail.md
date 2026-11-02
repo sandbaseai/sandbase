@@ -1,6 +1,8 @@
-# Pipixia Post Detail
+# Pipixia Post Detail API: pricing, parameters and code examples
 
-`pipixia/app/post-detail` · api · Pipixia
+`pipixia/app/post-detail` · data API · Pipixia · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns detailed data for a Pipixia post, including video and photo content, using a specific post identifier and optional post type.
 

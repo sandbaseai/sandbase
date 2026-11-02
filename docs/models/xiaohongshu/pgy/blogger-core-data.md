@@ -1,6 +1,8 @@
-# Xiaohongshu (RED) Blogger Core Data
+# Xiaohongshu (RED) Blogger Core Data API: pricing, parameters and code examples
 
-`xiaohongshu/pgy/blogger-core-data` · api · Xiaohongshu
+`xiaohongshu/pgy/blogger-core-data` · data API · Xiaohongshu · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.03 per call · **Modes:** sync
 
 Returns Pugongying core performance metrics and daily trend data for a specified Xiaohongshu blogger, filterable by date range, note type, and traffic source.
 

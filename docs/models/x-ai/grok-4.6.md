@@ -1,6 +1,8 @@
-# xAI: Grok 4.6
+# xAI: Grok 4.6 API: pricing, parameters and code examples
 
-`x-ai/grok-4.6` · llm · xAI
+`x-ai/grok-4.6` · LLM · xAI · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $2 input / $6 output per 1M tokens · **Modes:** sync
 
 Grok 4.6 is xAI's frontier reasoning model for coding, agentic tasks and knowledge work, released in August 2026 as the successor to Grok 4.5. xAI focused it on long-running agents and ambitious interactive and visual projects, such as turning a broad product idea into a working first version and refining it over several rounds. It accepts text and image input with text output and configurable reasoning effort; Grok 4.7 succeeded it in September 2026.
 

@@ -1,6 +1,8 @@
-# 1688 Product Reviews
+# 1688 Product Reviews API: pricing, parameters and code examples
 
-`1688/item/reviews` · api · 1688
+`1688/item/reviews` · data API · 1688 · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.013889 per call (free daily quota) · **Modes:** sync
 
 Get buyer reviews for a 1688 product by item ID with pagination and default or latest sorting, for supplier and product quality research.
 

@@ -1,6 +1,8 @@
-# TikTok Stream Recommendation Tabs
+# TikTok Stream Recommendation Tabs API: pricing, parameters and code examples
 
-`tiktok/web/live-recommend-tabs` · api · TikTok
+`tiktok/web/live-recommend-tabs` · data API · TikTok · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns available recommendation tabs and category tags for TikTok broadcast homepages. Supports pagination via a log identifier cursor.
 

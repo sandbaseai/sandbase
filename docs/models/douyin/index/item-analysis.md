@@ -1,6 +1,8 @@
-# Douyin Video Comparison Analysis
+# Douyin Video Comparison Analysis API: pricing, parameters and code examples
 
-`douyin/index/item-analysis` · api · Douyin
+`douyin/index/item-analysis` · data API · Douyin · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns comparison analysis and metric trends for a Douyin video relative to benchmarks or similar content over a date range, based on the specified video ID.
 

@@ -1,6 +1,8 @@
-# Financial Datasets Get Historical Stock Prices
+# Financial Datasets Get Historical Stock Prices API: pricing, parameters and code examples
 
-`financial-datasets/prices` · api · Financial Datasets
+`financial-datasets/prices` · data API · Financial Datasets · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.02 per call · **Modes:** sync
 
 Get Historical Stock Prices from Financial Datasets. Returns the official Financial Datasets API response unchanged.
 

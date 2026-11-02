@@ -1,6 +1,8 @@
-# Twitter (X) User Posts
+# Twitter (X) User Posts API: pricing, parameters and code examples
 
-`twitter/web/user-post-tweet` · api · Twitter
+`twitter/web/user-post-tweet` · data API · Twitter · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns posts and tweets from a specified Twitter (X) user timeline. Users can be identified by either their screen name or numeric user ID, with cursor pagination supported.
 

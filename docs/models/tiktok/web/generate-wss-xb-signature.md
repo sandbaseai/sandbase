@@ -1,6 +1,8 @@
-# TikTok WSS X-Bogus Signature
+# TikTok WSS X-Bogus Signature API: pricing, parameters and code examples
 
-`tiktok/web/generate-wss-xb-signature` · api · TikTok
+`tiktok/web/generate-wss-xb-signature` · data API · TikTok · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Generates the X-Bogus signature required for TikTok WebSocket connections. Accepts an optional custom browser user-agent string.
 

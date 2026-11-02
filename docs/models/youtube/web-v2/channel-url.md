@@ -1,6 +1,8 @@
-# YouTube Channel URL by ID
+# YouTube Channel URL by ID API: pricing, parameters and code examples
 
-`youtube/web-v2/channel-url` · api · YouTube
+`youtube/web-v2/channel-url` · data API · YouTube · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns standard and vanity channel URLs for a specified YouTube channel. Takes a unique channel ID to look up the corresponding handle and profile links.
 

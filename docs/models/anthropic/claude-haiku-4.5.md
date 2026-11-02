@@ -1,6 +1,8 @@
-# Anthropic: Claude Haiku 4.5
+# Anthropic: Claude Haiku 4.5 API: pricing, parameters and code examples
 
-`anthropic/claude-haiku-4.5` · llm · Anthropic
+`anthropic/claude-haiku-4.5` · LLM · Anthropic · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $1 input / $5 output per 1M tokens · **Modes:** sync
 
 Claude Haiku 4.5 is Anthropic’s fastest and most efficient model, delivering near-frontier intelligence at a fraction of the cost and latency of larger Claude models. Matching Claude Sonnet 4’s performance across reasoning, coding, and computer-use tasks, Haiku 4.5 brings frontier-level capability to real-time and high-volume applications.
 

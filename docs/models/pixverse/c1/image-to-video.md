@@ -1,6 +1,8 @@
-# PixVerse C1 Image to Video
+# PixVerse C1 Image to Video API: pricing, parameters and code examples
 
-`pixverse/c1/image-to-video` · video · PixVerse
+`pixverse/c1/image-to-video` · video generation model · PixVerse · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** from $0.03 to $1.8 per run, depending on parameters · **Modes:** async
 
 C1 is PixVerse's image-to-video AI model. Bring static images to life with fluid animation, consistent character motion, and professional-grade video output.
 

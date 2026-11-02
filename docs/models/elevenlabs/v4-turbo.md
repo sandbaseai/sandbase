@@ -1,6 +1,8 @@
-# ElevenLabs Eleven v4 Turbo
+# ElevenLabs Eleven v4 Turbo API: pricing, parameters and code examples
 
-`elevenlabs/v4-turbo` · audio · ElevenLabs
+`elevenlabs/v4-turbo` · audio model · ElevenLabs · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** from $0.04 per run, depending on parameters · **Modes:** async
 
 Eleven v4 Turbo is the low-latency tier of ElevenLabs' v4 text-to-speech generation, for real-time and high-volume narration.
 

@@ -1,6 +1,8 @@
-# DataForSEO Google Maps Local SERP
+# DataForSEO Google Maps Local SERP API: pricing, parameters and code examples
 
-`dataforseo/v3/serp/google/maps/live/advanced` · api · DataForSEO
+`dataforseo/v3/serp/google/maps/live/advanced` · data API · DataForSEO · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** from $0.003 per run, depending on parameters · **Modes:** sync
 
 Returns real-time Google Maps search engine results pages and local business listings. Supports local SEO monitoring and geographical business discovery directly from Google Maps.
 

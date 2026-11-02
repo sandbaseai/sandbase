@@ -1,6 +1,8 @@
-# Douyin Content Creative Keywords
+# Douyin Content Creative Keywords API: pricing, parameters and code examples
 
-`douyin/index/content-creative-keywords` · api · Douyin
+`douyin/index/content-creative-keywords` · data API · Douyin · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns creative hot keywords for a specified category from the Douyin index. Filter keywords by category ID, end date, and time intervals of one, three, or seven days.
 

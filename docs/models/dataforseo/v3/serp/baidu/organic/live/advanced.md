@@ -1,6 +1,8 @@
-# DataForSEO Baidu Organic SERP Advanced
+# DataForSEO Baidu Organic SERP Advanced API: pricing, parameters and code examples
 
-`dataforseo/v3/serp/baidu/organic/live/advanced` · api · DataForSEO
+`dataforseo/v3/serp/baidu/organic/live/advanced` · data API · DataForSEO · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.003 per call (free daily quota) · **Modes:** sync
 
 Retrieves advanced organic search engine results pages from Baidu. Returns organic listings, ranking positions, and associated search metadata for search queries.
 

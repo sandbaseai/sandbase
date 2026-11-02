@@ -1,6 +1,8 @@
-# Similarweb Demographics - Specific Groups
+# Similarweb Demographics - Specific Groups API: pricing, parameters and code examples
 
-`similarweb/traffic-by-demographics-aggregated` · api · Similarweb
+`similarweb/traffic-by-demographics-aggregated` · data API · Similarweb · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** about $0.45 per call · **Modes:** sync
 
 Get the traffic share of one visitor age group on a website for the selected period.
 

@@ -1,6 +1,8 @@
-# Threads User Profile
+# Threads User Profile API: pricing, parameters and code examples
 
-`threads/web/user-info` · api · Threads
+`threads/web/user-info` · data API · Threads · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.003 per call (free daily quota) · **Modes:** sync
 
 Get a Threads (Meta) user profile by username: name, bio, follower count and verification status.
 

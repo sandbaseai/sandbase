@@ -1,6 +1,8 @@
-# TikTok Single Video Details (V2)
+# TikTok Single Video Details (V2) API: pricing, parameters and code examples
 
-`tiktok/app-v3/one-video-v2` · api · TikTok
+`tiktok/app-v3/one-video-v2` · data API · TikTok · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns detailed post information and comment configuration for a specific TikTok video using its unique post identifier. Provide the video ID to retrieve item metadata.
 

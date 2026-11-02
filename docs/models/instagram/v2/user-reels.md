@@ -1,6 +1,8 @@
-# Instagram User Reels (V2)
+# Instagram User Reels (V2) API: pricing, parameters and code examples
 
-`instagram/v2/user-reels` · api · Instagram
+`instagram/v2/user-reels` · data API · Instagram · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.003 per call (free daily quota) · **Modes:** sync
 
 Returns a list of Reels from an Instagram account by username or user ID. Supports cursor-based pagination to browse past video content.
 

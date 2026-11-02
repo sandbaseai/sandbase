@@ -1,6 +1,8 @@
-# Google: Nano Banana 2 (Gemini 3.1 Flash Image)
+# Google: Nano Banana 2 (Gemini 3.1 Flash Image) API: pricing, parameters and code examples
 
-`google/gemini-3.1-flash-image` · llm · Google
+`google/gemini-3.1-flash-image` · LLM · Google · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.5 input / $3 output per 1M tokens · **Modes:** sync
 
 Nano Banana 2 (Gemini 3.1 Flash Image) is Google's image generation and conversational image editing model in the Gemini 3 series, producing images alongside text from text, image, video and PDF input. Google positions it as the high-efficiency, low-latency counterpart to Nano Banana Pro for high-volume developer use, adding output resolutions from 0.5K to 4K, extra wide and tall aspect ratios, image search grounding and improved multilingual text rendering. Choose Nano Banana Pro for complex, precision design work.
 

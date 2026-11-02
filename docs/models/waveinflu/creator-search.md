@@ -1,6 +1,8 @@
-# Waveinflu Creator AI Search
+# Waveinflu Creator AI Search API: pricing, parameters and code examples
 
-`waveinflu/creator-search` · api · Waveinflu
+`waveinflu/creator-search` · data API · Waveinflu · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** from $0.004977 to $0.4977 per run, depending on parameters · **Modes:** sync
 
 Finds creators from a natural-language brief instead of a seed account. `platform` and `query` are required; add `limit` (1–100, default 40) and the same optional `filters` as Similar Creators.
 

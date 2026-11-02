@@ -1,6 +1,8 @@
-# DataForSEO LLM Mentions Top Brands Lite
+# DataForSEO LLM Mentions Top Brands Lite API: pricing, parameters and code examples
 
-`dataforseo/v3/ai_optimization/llm_mentions/top_mentioned_brands_lite/live` · api · DataForSEO
+`dataforseo/v3/ai_optimization/llm_mentions/top_mentioned_brands_lite/live` · data API · DataForSEO · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** about $0.105 per call · **Modes:** sync
 
 The brands most often mentioned in AI answers that match a keyword or domain, with counts only.
 

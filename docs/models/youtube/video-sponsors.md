@@ -1,6 +1,8 @@
-# YouTube Video Sponsors
+# YouTube Video Sponsors API: pricing, parameters and code examples
 
-`youtube/video-sponsors` · api · YouTube
+`youtube/video-sponsors` · data API · YouTube · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** about $0.0012 per call · **Modes:** sync
 
 Detect suspected sponsors and paid promotions in a YouTube video by URL (sponsor names, websites, confidence).
 

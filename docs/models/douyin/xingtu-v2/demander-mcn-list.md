@@ -1,6 +1,8 @@
-# Douyin Xingtu Demander MCN List
+# Douyin Xingtu Demander MCN List API: pricing, parameters and code examples
 
-`douyin/xingtu-v2/demander-mcn-list` · api · Douyin
+`douyin/xingtu-v2/demander-mcn-list` · data API · Douyin · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0075 per call (free daily quota) · **Modes:** sync
 
 Returns a directory of MCN organizations on Douyin Xingtu with creator counts and performance scores, filterable by name and sorted by platform scores.
 

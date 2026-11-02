@@ -1,6 +1,8 @@
-# TikTok Ad Library Search
+# TikTok Ad Library Search API: pricing, parameters and code examples
 
-`tiktok/ad-library-search` · api · TikTok
+`tiktok/ad-library-search` · data API · TikTok · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** about $0.0008 per call · **Modes:** sync
 
 Search TikTok's public Ads Library by keyword or advertiser (advertiser, title, audience band, run dates, library link, and video).
 

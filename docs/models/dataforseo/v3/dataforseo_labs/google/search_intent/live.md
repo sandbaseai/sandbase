@@ -1,6 +1,8 @@
-# DataForSEO Google Search Intent
+# DataForSEO Google Search Intent API: pricing, parameters and code examples
 
-`dataforseo/v3/dataforseo_labs/google/search_intent/live` · api · DataForSEO
+`dataforseo/v3/dataforseo_labs/google/search_intent/live` · data API · DataForSEO · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.024 per call · **Modes:** sync
 
 Classify up to 100 keywords by search intent (informational, navigational, commercial, transactional) with a probability for each label.
 

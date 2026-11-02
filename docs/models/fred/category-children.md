@@ -1,6 +1,8 @@
-# FRED Get Category Children
+# FRED Get Category Children API: pricing, parameters and code examples
 
-`fred/category-children` · api · FRED
+`fred/category-children` · data API · FRED · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $1e-05 per call (free daily quota) · **Modes:** sync
 
 Get Category Children from FRED. Returns the official FRED API response unchanged.
 

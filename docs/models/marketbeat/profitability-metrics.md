@@ -1,6 +1,8 @@
-# MarketBeat Profitability Metrics
+# MarketBeat Profitability Metrics API: pricing, parameters and code examples
 
-`marketbeat/profitability-metrics` · api · MarketBeat
+`marketbeat/profitability-metrics` · data API · MarketBeat · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.01 per call (free daily quota) · **Modes:** async
 
 Get key profitability, valuation, debt, and other financial metrics for a stock. Returns a flat key-value mapping of metrics including EPS, P/E Ratio, Net Margins, Return on Equity, Debt-to-Equity Ratio, Market Cap,.
 

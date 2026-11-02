@@ -1,6 +1,8 @@
-# Zhihu Sub Comments
+# Zhihu Sub Comments API: pricing, parameters and code examples
 
-`zhihu/web/sub-comment-v5` · api · Zhihu
+`zhihu/web/sub-comment-v5` · data API · Zhihu · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns replies to a specific Zhihu comment. Supports pagination through limit and offset parameters alongside custom sorting options.
 

@@ -1,6 +1,8 @@
-# Financial Datasets Get Stock Price Snapshot
+# Financial Datasets Get Stock Price Snapshot API: pricing, parameters and code examples
 
-`financial-datasets/prices-snapshot` · api · Financial Datasets
+`financial-datasets/prices-snapshot` · data API · Financial Datasets · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.02 per call · **Modes:** sync
 
 Get the real-time price snapshot for a stock, including the current price, day change, and day change percent.
 

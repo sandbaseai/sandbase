@@ -1,6 +1,8 @@
-# TikTok Post Search
+# TikTok Post Search API: pricing, parameters and code examples
 
-`tiktok/search-post` · api · TikTok
+`tiktok/search-post` · data API · TikTok · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.013889 per call (free daily quota) · **Modes:** sync
 
 Search TikTok posts by keyword with offset pagination plus sorting, publish-time, and region controls. Use it to support regional content discovery, topic research, or monitoring keyword-related videos.
 

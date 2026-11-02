@@ -1,6 +1,8 @@
-# DataForSEO LLM Mentions Search
+# DataForSEO LLM Mentions Search API: pricing, parameters and code examples
 
-`dataforseo/v3/ai_optimization/llm_mentions/search_mentions/live` · api · DataForSEO
+`dataforseo/v3/ai_optimization/llm_mentions/search_mentions/live` · data API · DataForSEO · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** about $0.105 per call · **Modes:** sync
 
 AI answers (Google AI Overviews, ChatGPT) that mention a domain or keyword, with the question, answer and sources.
 

@@ -1,6 +1,8 @@
-# G2 Product Overview
+# G2 Product Overview API: pricing, parameters and code examples
 
-`g2/product-overview` · api · G2
+`g2/product-overview` · data API · G2 · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.01 per call (free daily quota) · **Modes:** async
 
 Retrieve product overview information for a given product slug, including name, description, rating, review count, and logo URL. Uses search to locate the product and extract its details.
 

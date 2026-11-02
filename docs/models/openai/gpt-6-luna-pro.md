@@ -1,6 +1,8 @@
-# OpenAI: GPT-6 Luna Pro
+# OpenAI: GPT-6 Luna Pro API: pricing, parameters and code examples
 
-`openai/gpt-6-luna-pro` · llm · OpenAI
+`openai/gpt-6-luna-pro` · LLM · OpenAI · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.1 input / $0.5 output per 1M tokens · **Modes:** sync
 
 GPT-6 Luna Pro is the same GPT-6 Luna model, OpenAI's most efficient GPT-6 tier, served in OpenAI's pro reasoning mode instead of standard mode. Pro mode spends more model work per request and returns one final answer, which OpenAI says can improve reliability on difficult tasks while raising latency and token usage. It suits occasional hard requests in a Luna-based workload; for routine, latency-sensitive or high-volume traffic, OpenAI recommends standard mode.
 

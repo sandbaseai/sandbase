@@ -1,6 +1,8 @@
-# MarketBeat Stock Forecast
+# MarketBeat Stock Forecast API: pricing, parameters and code examples
 
-`marketbeat/stock-forecast` · api · MarketBeat
+`marketbeat/stock-forecast` · data API · MarketBeat · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.01 per call (free daily quota) · **Modes:** async
 
 Get analyst forecast data including consensus rating breakdown over time periods, consensus comparison against sector and S&P 500, and a summary of analyst opinions. Breakdown shows Strong Buy, Buy, Hold, Sell counts.
 

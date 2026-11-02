@@ -1,6 +1,8 @@
-# Pinterest User Boards
+# Pinterest User Boards API: pricing, parameters and code examples
 
-`pinterest/user-boards` · api · Pinterest
+`pinterest/user-boards` · data API · Pinterest · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.018 per call · **Modes:** sync
 
 Get a Pinterest user's boards by username: board name, URL, description, pin and follower counts, cover images and creation date.
 

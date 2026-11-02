@@ -1,6 +1,8 @@
-# TikTok Creator Info and Milestones
+# TikTok Creator Info and Milestones API: pricing, parameters and code examples
 
-`tiktok/analytics/creator-info-and-milestones` · api · TikTok
+`tiktok/analytics/creator-info-and-milestones` · data API · TikTok · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns creator details and milestone history for a specified TikTok account. Looks up account growth events and metrics using the creator's user ID.
 

@@ -1,6 +1,8 @@
-# YouTube General Search (Web V2, V2)
+# YouTube General Search (Web V2, V2) API: pricing, parameters and code examples
 
-`youtube/web-v2/general-search-v2` · api · YouTube
+`youtube/web-v2/general-search-v2` · data API · YouTube · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.003 per call (free daily quota) · **Modes:** sync
 
 Returns YouTube search results matching a query keyword. Supports filtering by content type, upload date, duration, features, and sorting options, with pagination via tokens.
 

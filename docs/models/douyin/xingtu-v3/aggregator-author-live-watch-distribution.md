@@ -1,6 +1,8 @@
-# Douyin Xingtu Live Watch Distribution
+# Douyin Xingtu Live Watch Distribution API: pricing, parameters and code examples
 
-`douyin/xingtu-v3/aggregator-author-live-watch-distribution` · api · Douyin
+`douyin/xingtu-v3/aggregator-author-live-watch-distribution` · data API · Douyin · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.020833 per call · **Modes:** sync
 
 Get Douyin Creator Marketplace (Xingtu) live audience or follower watch-distribution data for a creator and selected live-room type. Use it to assess live audience fit for a campaign.
 

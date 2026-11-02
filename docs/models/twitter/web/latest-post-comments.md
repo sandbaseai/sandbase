@@ -1,6 +1,8 @@
-# Twitter (X) Latest Tweet Comments
+# Twitter (X) Latest Tweet Comments API: pricing, parameters and code examples
 
-`twitter/web/latest-post-comments` · api · Twitter
+`twitter/web/latest-post-comments` · data API · Twitter · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns recent replies and comment timelines for a specific post using its tweet ID, with cursor support for multi-page results.
 

@@ -1,6 +1,8 @@
-# DataForSEO Backlinks Referring Networks
+# DataForSEO Backlinks Referring Networks API: pricing, parameters and code examples
 
-`dataforseo/v3/backlinks/referring_networks/live` · api · DataForSEO
+`dataforseo/v3/backlinks/referring_networks/live` · data API · DataForSEO · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** about $0.02436 per call · **Modes:** sync
 
 Referring IP addresses or subnets pointing to a target, with backlink counts per network.
 

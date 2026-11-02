@@ -1,6 +1,8 @@
-# WeChat Channels Export Id Conversion
+# WeChat Channels Export Id Conversion API: pricing, parameters and code examples
 
-`wechat-channels/convert-export-id` · api · WeChat Channels
+`wechat-channels/convert-export-id` · data API · WeChat Channels · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.020833 per call · **Modes:** sync
 
 Convert an encrypted WeChat Channels export ID from search results into a usable video object identity. Use it to prepare the identifier required by video lookup endpoints.
 

@@ -1,6 +1,8 @@
-# TikTok LIVE Ranking
+# TikTok LIVE Ranking API: pricing, parameters and code examples
 
-`tiktok/app-v3/live-daily-rank` · api · TikTok
+`tiktok/app-v3/live-daily-rank` · data API · TikTok · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Get TikTok LIVE rankings: hourly, weekly, rookie and other leaderboards with rank, score and creator.
 

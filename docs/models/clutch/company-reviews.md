@@ -1,6 +1,8 @@
-# Clutch Company Reviews
+# Clutch Company Reviews API: pricing, parameters and code examples
 
-`clutch/company-reviews` · api · Clutch
+`clutch/company-reviews` · data API · Clutch · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.01 per call (free daily quota) · **Modes:** async
 
 Get paginated reviews for a company. Returns review titles, ratings, dates, and project information (services, project size, project length).
 

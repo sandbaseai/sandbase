@@ -1,6 +1,8 @@
-# Financial Datasets Get Financial Statements
+# Financial Datasets Get Financial Statements API: pricing, parameters and code examples
 
-`financial-datasets/financials` · api · Financial Datasets
+`financial-datasets/financials` · data API · Financial Datasets · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.02 per call · **Modes:** sync
 
 Get Financial Statements from Financial Datasets. Returns the official Financial Datasets API response unchanged.
 

@@ -1,6 +1,8 @@
-# DataForSEO Google Local Finder Advanced
+# DataForSEO Google Local Finder Advanced API: pricing, parameters and code examples
 
-`dataforseo/v3/serp/google/local_finder/live/advanced` · api · DataForSEO
+`dataforseo/v3/serp/google/local_finder/live/advanced` · data API · DataForSEO · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** from $0.003 per run, depending on parameters · **Modes:** sync
 
 Returns real-time Google Local Finder search engine results page data. Retrieves local business listings, map results, and advanced SERP elements based on search queries.
 

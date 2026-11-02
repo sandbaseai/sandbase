@@ -1,6 +1,8 @@
-# DeepSeek: DeepSeek V4 Flash 0731
+# DeepSeek: DeepSeek V4 Flash 0731 API: pricing, parameters and code examples
 
-`deepseek/deepseek-v4-flash-0731` · llm · DeepSeek
+`deepseek/deepseek-v4-flash-0731` · LLM · DeepSeek · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.3 input / $1.2 output per 1M tokens · **Modes:** sync
 
 DeepSeek V4 Flash 0731 is a sparse mixture-of-experts model from DeepSeek, with 13B active parameters out of 284B total. This re-post-trained revision is suited for coding, reasoning, and agent workflows.
 

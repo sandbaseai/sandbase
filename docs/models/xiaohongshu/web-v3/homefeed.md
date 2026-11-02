@@ -1,6 +1,8 @@
-# Xiaohongshu (RED) Homepage Feed
+# Xiaohongshu (RED) Homepage Feed API: pricing, parameters and code examples
 
-`xiaohongshu/web-v3/homefeed` · api · Xiaohongshu
+`xiaohongshu/web-v3/homefeed` · data API · Xiaohongshu · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.015 per call (free daily quota) · **Modes:** sync
 
 Retrieves recommended notes from the Xiaohongshu homepage feed. Supports filtering by category channel, restricting results to image notes, and paginating via cursor score.
 

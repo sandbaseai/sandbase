@@ -1,6 +1,8 @@
-# Polymarket Get CLOB market info
+# Polymarket Get CLOB market info API: pricing, parameters and code examples
 
-`polymarket/clob-markets` · api · Polymarket
+`polymarket/clob-markets` · data API · Polymarket · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.012 per call (free daily quota) · **Modes:** sync
 
 Returns all CLOB-level parameters for a market in a single call — tokens, tick size, base fees, rewards, RFQ status, and fee details.
 

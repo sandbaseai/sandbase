@@ -1,6 +1,8 @@
-# Douyin Video Index Interpretation
+# Douyin Video Index Interpretation API: pricing, parameters and code examples
 
-`douyin/index/item-index-interpret` · api · Douyin
+`douyin/index/item-index-interpret` · data API · Douyin · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns index breakdown metrics for a specified Douyin video across a date range. It provides sub-index interpretations using a video ID with start and end dates.
 

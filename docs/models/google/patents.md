@@ -1,6 +1,8 @@
-# Google Patents
+# Google Patents API: pricing, parameters and code examples
 
-`google/patents` · api · Google
+`google/patents` · data API · Google · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** about $0.00085 per call · **Modes:** sync
 
 Search Google Patents with title, patent number, inventor, assignee, key dates, and PDF link.
 

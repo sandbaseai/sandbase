@@ -1,6 +1,8 @@
-# Douyin User Series List
+# Douyin User Series List API: pricing, parameters and code examples
 
-`douyin/app-v3/user-series-list` · api · Douyin
+`douyin/app-v3/user-series-list` · data API · Douyin · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns a list of video series or playlet collections for a specific Douyin user. Query by user ID or encrypted user ID, with pagination supported via a cursor.
 

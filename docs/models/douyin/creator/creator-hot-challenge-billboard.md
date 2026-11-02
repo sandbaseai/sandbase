@@ -1,6 +1,8 @@
-# Douyin Hot Challenge Billboard
+# Douyin Hot Challenge Billboard API: pricing, parameters and code examples
 
-`douyin/creator/creator-hot-challenge-billboard` · api · Douyin
+`douyin/creator/creator-hot-challenge-billboard` · data API · Douyin · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns trending challenge billboard rankings directly from Douyin. Discover active community challenges and monitor popular campaign topics.
 

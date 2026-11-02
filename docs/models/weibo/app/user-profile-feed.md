@@ -1,6 +1,8 @@
-# Weibo App User Profile Feed
+# Weibo App User Profile Feed API: pricing, parameters and code examples
 
-`weibo/app/user-profile-feed` · api · Weibo
+`weibo/app/user-profile-feed` · data API · Weibo · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Retrieves the profile feed cards for a specified user on Weibo. Query by target user identifier with support for cursor-based pagination.
 

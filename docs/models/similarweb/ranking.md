@@ -1,6 +1,8 @@
-# Similarweb Website Ranking
+# Similarweb Website Ranking API: pricing, parameters and code examples
 
-`similarweb/ranking` · api · Similarweb
+`similarweb/ranking` · data API · Similarweb · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** about $0.15 per call · **Modes:** sync
 
 Get a website's global, country and category traffic rank month by month.
 

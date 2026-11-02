@@ -1,6 +1,8 @@
-# DataForSEO YouTube Subtitles
+# DataForSEO YouTube Subtitles API: pricing, parameters and code examples
 
-`dataforseo/v3/serp/youtube/video_subtitles/live/advanced` · api · DataForSEO
+`dataforseo/v3/serp/youtube/video_subtitles/live/advanced` · data API · DataForSEO · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.006 per call (free daily quota) · **Modes:** sync
 
 Fetch the subtitle track of a YouTube video with timestamps. Subtitles of a YouTube video by video_id and language.
 

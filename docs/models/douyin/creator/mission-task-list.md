@@ -1,6 +1,8 @@
-# Douyin Creator Mission Task List
+# Douyin Creator Mission Task List API: pricing, parameters and code examples
 
-`douyin/creator/mission-task-list` · api · Douyin
+`douyin/creator/mission-task-list` · data API · Douyin · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns creator mission tasks from Douyin with filtering options. Supports filters for industry classification, search keywords, mission type, and release timeframes.
 

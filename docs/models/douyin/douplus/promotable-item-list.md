@@ -1,6 +1,8 @@
-# Douyin DOU+ Promotable Items
+# Douyin DOU+ Promotable Items API: pricing, parameters and code examples
 
-`douyin/douplus/promotable-item-list` · api · Douyin
+`douyin/douplus/promotable-item-list` · data API · Douyin · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns the promotable video item list for a Douyin account on the DOU+ promotion page. Includes item details based on specified promotion targets and optimization objectives.
 

@@ -1,6 +1,8 @@
-# Kuaishou Video Sub Comments (Web)
+# Kuaishou Video Sub Comments (Web) API: pricing, parameters and code examples
 
-`kuaishou/web/one-video-sub-comment` · api · Kuaishou
+`kuaishou/web/one-video-sub-comment` · data API · Kuaishou · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.015 per call (free daily quota) · **Modes:** sync
 
 Returns sub-comments and replies for a specific comment on a Kuaishou video. Requires the video ID and root comment ID with optional cursor pagination.
 

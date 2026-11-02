@@ -1,6 +1,8 @@
-# Bilibili User Profile
+# Bilibili User Profile API: pricing, parameters and code examples
 
-`bilibili/web/user-profile` · api · Bilibili
+`bilibili/web/user-profile` · data API · Bilibili · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns profile details and charging sponsor information for a specified Bilibili account based on the provided user UID.
 

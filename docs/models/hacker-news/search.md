@@ -1,6 +1,8 @@
-# Hacker News Search
+# Hacker News Search API: pricing, parameters and code examples
 
-`hacker-news/search` · api · Hacker News
+`hacker-news/search` · data API · Hacker News · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** about $0.0015 per call · **Modes:** sync
 
 Search Hacker News by keyword - matching stories with title, link, author, points, and comment count as clean JSON.
 

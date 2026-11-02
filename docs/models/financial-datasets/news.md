@@ -1,6 +1,8 @@
-# Financial Datasets Get Company News
+# Financial Datasets Get Company News API: pricing, parameters and code examples
 
-`financial-datasets/news` · api · Financial Datasets
+`financial-datasets/news` · data API · Financial Datasets · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.02 per call · **Modes:** sync
 
 Get recent news articles for a specific company or the broad market. Pass a ticker for company-specific news, or omit the ticker for general market news.
 

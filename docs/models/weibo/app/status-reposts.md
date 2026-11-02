@@ -1,6 +1,8 @@
-# Weibo Post Reposts
+# Weibo Post Reposts API: pricing, parameters and code examples
 
-`weibo/app/status-reposts` · api · Weibo
+`weibo/app/status-reposts` · data API · Weibo · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns a list of reposts for a specified Weibo post or video. Output includes repost details and engagement metrics with pagination support.
 

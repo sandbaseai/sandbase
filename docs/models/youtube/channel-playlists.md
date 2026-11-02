@@ -1,6 +1,8 @@
-# YouTube Channel Playlists
+# YouTube Channel Playlists API: pricing, parameters and code examples
 
-`youtube/channel-playlists` · api · YouTube
+`youtube/channel-playlists` · data API · YouTube · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** about $0.0012 per call · **Modes:** sync
 
 List a YouTube channel's playlists by handle or channel ID with cursor pagination (title, video count, thumbnail).
 

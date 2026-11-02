@@ -1,6 +1,8 @@
-# Firecrawl Batch Scrape
+# Firecrawl Batch Scrape API: pricing, parameters and code examples
 
-`firecrawl/batch/scrape` · api · Firecrawl
+`firecrawl/batch/scrape` · data API · Firecrawl · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** from $0.0075 per run, depending on parameters · **Modes:** async
 
 Scrape multiple URLs in a single batch job. Submit a list of URLs and poll for results as each page completes.
 

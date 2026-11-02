@@ -1,6 +1,8 @@
-# Wan 2.7 Video Extend
+# Wan 2.7 Video Extend API: pricing, parameters and code examples
 
-`alibaba/wan/2.7/video-extend` · video · Alibaba
+`alibaba/wan/2.7/video-extend` · video generation model · Alibaba · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** from $0.2 to $1.05 per run, depending on parameters · **Modes:** async
 
 Alibaba Wan 2.7 Video Extend continues an input clip from a text instruction, optionally ending on a chosen last frame, for a total length of up to 15 seconds.
 

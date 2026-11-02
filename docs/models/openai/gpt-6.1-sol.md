@@ -1,6 +1,8 @@
-# OpenAI: GPT-6.1 Sol
+# OpenAI: GPT-6.1 Sol API: pricing, parameters and code examples
 
-`openai/gpt-6.1-sol` · llm · OpenAI
+`openai/gpt-6.1-sol` · LLM · OpenAI · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $2 input / $10 output per 1M tokens · **Modes:** sync
 
 GPT-6.1 Sol is OpenAI's upgrade to GPT-6 Sol, introduced at DevDay 2026 and positioned between GPT-6 Astra and GPT-6 Luna, with text and image input. OpenAI says it delivers near-Astra performance for complex coding, computer use and professional work, and recommends comparing it with Astra on your own tasks. Pick it for demanding agentic work at scale when Astra's full depth is not required; it always reasons at least at a low level and has no reasoning-off option.
 

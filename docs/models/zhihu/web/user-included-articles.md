@@ -1,6 +1,8 @@
-# Zhihu User Included Articles
+# Zhihu User Included Articles API: pricing, parameters and code examples
 
-`zhihu/web/user-included-articles` · api · Zhihu
+`zhihu/web/user-included-articles` · data API · Zhihu · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns articles included or featured by a specific Zhihu user. Filter results using pagination parameters alongside the target user identifier.
 

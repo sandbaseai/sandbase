@@ -1,6 +1,8 @@
-# AccuWeather List Cities
+# AccuWeather List Cities API: pricing, parameters and code examples
 
-`accuweather/list-cities` · api · AccuWeather
+`accuweather/list-cities` · data API · AccuWeather · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.01 per call (free daily quota) · **Modes:** async
 
 List all provinces or major administrative divisions within a country by its ISO 2-letter code. Searches across regional browse pages to find the country.
 

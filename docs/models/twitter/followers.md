@@ -1,6 +1,8 @@
-# X / Twitter Followers
+# X / Twitter Followers API: pricing, parameters and code examples
 
-`twitter/followers` · api · X (Twitter)
+`twitter/followers` · data API · X (Twitter) · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** about $0.00045 per call · **Modes:** sync
 
 Fetch the follower list of any public X (Twitter) account by username with cursor pagination. Limit is a per-page maximum and a native page holds up to 200 accounts; follow the response's nextCursor for more.
 

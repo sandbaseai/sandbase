@@ -1,6 +1,8 @@
-# TikTok Video Metrics
+# TikTok Video Metrics API: pricing, parameters and code examples
 
-`tiktok/analytics/video-metrics` · api · TikTok
+`tiktok/analytics/video-metrics` · data API · TikTok · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Retrieve detailed analytics for TikTok videos, including total views, likes, comments, favorites, and 14-day daily performance trends using a video identifier.
 

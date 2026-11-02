@@ -1,6 +1,8 @@
-# TikTok Web General Search
+# TikTok Web General Search API: pricing, parameters and code examples
 
-`tiktok/web/general-search` · api · TikTok
+`tiktok/web/general-search` · data API · TikTok · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns general TikTok search results matching a specified keyword. Supports pagination through offset and search ID parameters.
 

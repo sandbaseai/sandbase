@@ -1,6 +1,8 @@
-# Polymarket Get trader leaderboard rankings
+# Polymarket Get trader leaderboard rankings API: pricing, parameters and code examples
 
-`polymarket/leaderboard` · api · Polymarket
+`polymarket/leaderboard` · data API · Polymarket · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.012 per call (free daily quota) · **Modes:** sync
 
 Returns trader leaderboard rankings for a selected category and time period.
 

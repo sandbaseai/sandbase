@@ -1,6 +1,8 @@
-# DeepSeek: DeepSeek V4.1 Flash
+# DeepSeek: DeepSeek V4.1 Flash API: pricing, parameters and code examples
 
-`deepseek/deepseek-v4.1-flash` · llm · DeepSeek
+`deepseek/deepseek-v4.1-flash` · LLM · DeepSeek · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.3 input / $1.2 output per 1M tokens · **Modes:** sync
 
 DeepSeek V4.1 Flash is the smallest model in DeepSeek's V4.1 architecture family, released in September 2026 with native visual understanding. It is a 552B-parameter mixture-of-experts model using a Causal Encoder-Decoder design that activates 8B parameters for input and 16B for output, with a KV cache about a quarter the size of the previous Flash generation. DeepSeek positions it for agentic coding and long-context work and reports it ahead of V4 Pro, replacing V4 Flash and V4 Flash Vision Exp on its API.
 

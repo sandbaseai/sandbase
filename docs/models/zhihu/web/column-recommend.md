@@ -1,6 +1,8 @@
-# Zhihu Similar Column Recommendations
+# Zhihu Similar Column Recommendations API: pricing, parameters and code examples
 
-`zhihu/web/column-recommend` · api · Zhihu
+`zhihu/web/column-recommend` · data API · Zhihu · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns recommended similar columns and articles for a specified Zhihu article ID, with support for pagination limits and offsets.
 

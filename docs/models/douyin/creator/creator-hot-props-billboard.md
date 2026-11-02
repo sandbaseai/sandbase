@@ -1,6 +1,8 @@
-# Douyin Creator Hot Props Billboard
+# Douyin Creator Hot Props Billboard API: pricing, parameters and code examples
 
-`douyin/creator/creator-hot-props-billboard` · api · Douyin
+`douyin/creator/creator-hot-props-billboard` · data API · Douyin · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns trending creator prop rankings and performance metrics on Douyin. Supports filtering by sorting sequence, time interval, and prop category tag.
 

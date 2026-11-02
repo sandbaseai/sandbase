@@ -1,6 +1,8 @@
-# Reddit User Public Trophies
+# Reddit User Public Trophies API: pricing, parameters and code examples
 
-`reddit/app/user-trophies` · api · Reddit
+`reddit/app/user-trophies` · data API · Reddit · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns a list of public trophies and achievements for a specified Reddit account. Users can supply a username and optionally request cleaned, formatted data.
 

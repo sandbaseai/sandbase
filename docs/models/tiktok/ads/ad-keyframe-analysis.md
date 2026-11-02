@@ -1,6 +1,8 @@
-# TikTok Ad Keyframe Analysis
+# TikTok Ad Keyframe Analysis API: pricing, parameters and code examples
 
-`tiktok/ads/ad-keyframe-analysis` · api · TikTok
+`tiktok/ads/ad-keyframe-analysis` · data API · TikTok · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns keyframe performance metrics across video ad timestamps for a specified material ID, including retention and conversion figures.
 

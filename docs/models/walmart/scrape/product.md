@@ -1,6 +1,8 @@
-# Walmart Product Page
+# Walmart Product Page API: pricing, parameters and code examples
 
-`walmart/scrape/product` · api · Walmart
+`walmart/scrape/product` · data API · Walmart · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.01 per call (free daily quota) · **Modes:** async
 
 Extract structured data from a Walmart product page URL: name, current and list price, stock, delivery estimate, ratings and seller details.
 

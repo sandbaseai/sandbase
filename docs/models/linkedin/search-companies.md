@@ -1,6 +1,8 @@
-# LinkedIn Company Search
+# LinkedIn Company Search API: pricing, parameters and code examples
 
-`linkedin/search-companies` · api · LinkedIn
+`linkedin/search-companies` · data API · LinkedIn · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** about $0.005 per call · **Modes:** sync
 
 Search LinkedIn companies by keyword with optional location filtering, returning normalized company records.
 

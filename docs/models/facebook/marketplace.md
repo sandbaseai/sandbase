@@ -1,6 +1,8 @@
-# Facebook Marketplace
+# Facebook Marketplace API: pricing, parameters and code examples
 
-`facebook/marketplace` · api · Facebook
+`facebook/marketplace` · data API · Facebook · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** about $0.0012 per call · **Modes:** sync
 
 Search Facebook Marketplace listings by keyword near a location, filter by price, condition, delivery, recency, and availability, and get title, price, location, and image as normalized JSON.
 

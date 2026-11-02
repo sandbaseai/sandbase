@@ -1,6 +1,8 @@
-# Wan 2.2 Animate Move
+# Wan 2.2 Animate Move API: pricing, parameters and code examples
 
-`alibaba/wan/2.2/animate/move` · video · Alibaba
+`alibaba/wan/2.2/animate/move` · video generation model · Alibaba · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** about $0.75 per call · **Modes:** async
 
 Wan 2.2 Animate Move animates the character in the image with the motion of the reference video.
 

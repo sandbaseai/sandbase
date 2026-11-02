@@ -1,6 +1,8 @@
-# Clarity Upscaler
+# Clarity Upscaler API: pricing, parameters and code examples
 
-`clarity-ai/clarity-upscaler` · image · ClarityAI
+`clarity-ai/clarity-upscaler` · image generation model · ClarityAI · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.03 per call · **Modes:** async
 
 Clarity Upscaler by ClarityAI - AI-powered image editing, style transfer, and transformation. Edit photos with natural language instructions, remove backgrounds, change styles, and enhance images effortlessly.
 

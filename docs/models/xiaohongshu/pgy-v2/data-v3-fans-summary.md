@@ -1,6 +1,8 @@
-# Xiaohongshu Pugongying Follower Summary
+# Xiaohongshu Pugongying Follower Summary API: pricing, parameters and code examples
 
-`xiaohongshu/pgy-v2/data-v3-fans-summary` · api · Xiaohongshu
+`xiaohongshu/pgy-v2/data-v3-fans-summary` · data API · Xiaohongshu · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.020833 per call · **Modes:** sync
 
 Get the Xiaohongshu Pugongying follower summary for a known creator. Use it to review the account's aggregate audience status before deeper demographic or trend analysis.
 

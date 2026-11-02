@@ -1,6 +1,8 @@
-# Douyin XingTu Ranking List Data
+# Douyin XingTu Ranking List Data API: pricing, parameters and code examples
 
-`douyin/xingtu-v2/ranking-list-data` · api · Douyin
+`douyin/xingtu-v2/ranking-list-data` · data API · Douyin · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.003 per call (free daily quota) · **Modes:** sync
 
 Returns Douyin XingTu author business ranking records by type, date, and category qualifier. It provides author rankings, performance scores, and order metrics.
 

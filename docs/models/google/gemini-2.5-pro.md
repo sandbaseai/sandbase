@@ -1,6 +1,8 @@
-# Google: Gemini 2.5 Pro
+# Google: Gemini 2.5 Pro API: pricing, parameters and code examples
 
-`google/gemini-2.5-pro` · llm · Google
+`google/gemini-2.5-pro` · LLM · Google · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $1.25 input / $10 output per 1M tokens · **Modes:** sync
 
 Gemini 2.5 Pro is the Pro-tier thinking model of Google's Gemini 2.5 family, released as stable in June 2025 and described by Google as its most advanced model in that family. It is built for reasoning over complex problems in code, math and STEM, and for analyzing large datasets, codebases and documents using long context. It accepts audio, image, video, text and PDF input; Gemini 3.1 Pro Preview is the Pro-tier successor in the Gemini 3 series.
 

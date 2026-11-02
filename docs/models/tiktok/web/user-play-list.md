@@ -1,6 +1,8 @@
-# TikTok User Playlists
+# TikTok User Playlists API: pricing, parameters and code examples
 
-`tiktok/web/user-play-list` · api · TikTok
+`tiktok/web/user-play-list` · data API · TikTok · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns the public playlists or mixes associated with a TikTok user using their secure user ID. Includes playlist metadata, video counts, and creator details.
 

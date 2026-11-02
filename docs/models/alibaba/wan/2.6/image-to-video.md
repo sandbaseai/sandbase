@@ -1,6 +1,8 @@
-# Wan 2.6 Image to Video
+# Wan 2.6 Image to Video API: pricing, parameters and code examples
 
-`alibaba/wan/2.6/image-to-video` · video · Alibaba
+`alibaba/wan/2.6/image-to-video` · video generation model · Alibaba · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** from $0.5 to $1.5 per run, depending on parameters · **Modes:** async
 
 Alibaba Wan 2.6 image-to-video model transforming still images into video. Supports first-frame-to-video only.
 

@@ -1,6 +1,8 @@
-# Facebook Ad Details
+# Facebook Ad Details API: pricing, parameters and code examples
 
-`facebook/ad-details` · api · Facebook
+`facebook/ad-details` · data API · Facebook · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** about $0.0012 per call · **Modes:** sync
 
 Look up a single Meta Ad Library ad by ID or URL and get the advertiser, creative text, call-to-action, platforms, and run dates as clean JSON.
 

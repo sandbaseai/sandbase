@@ -1,6 +1,8 @@
-# DeepSeek: DeepSeek V4 Pro
+# DeepSeek: DeepSeek V4 Pro API: pricing, parameters and code examples
 
-`deepseek/deepseek-v4-pro` · llm · DeepSeek
+`deepseek/deepseek-v4-pro` · LLM · DeepSeek · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $1.32 input / $3.96 output per 1M tokens · **Modes:** sync
 
 DeepSeek V4 Pro is the large tier of DeepSeek's V4 family, a 1.6T-parameter mixture-of-experts model with 49B active parameters, introduced as an open-weight preview in April 2026 with a 1M-token context. It combines token-wise compression with DeepSeek Sparse Attention and supports thinking and non-thinking modes, aimed at agentic coding, advanced reasoning and knowledge-heavy work. On DeepSeek's API this name now serves the August 2026 GA revision; use the 0813 entry to pin that version.
 

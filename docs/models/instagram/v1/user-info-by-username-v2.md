@@ -1,6 +1,8 @@
-# Instagram User Data by Username (V2)
+# Instagram User Data by Username (V2) API: pricing, parameters and code examples
 
-`instagram/v1/user-info-by-username-v2` · api · Instagram
+`instagram/v1/user-info-by-username-v2` · data API · Instagram · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns user profile details and recent timeline media for a specified Instagram account. Input the target handle to retrieve media nodes and account data.
 

@@ -1,6 +1,8 @@
-# TikTok Tag Posts
+# TikTok Tag Posts API: pricing, parameters and code examples
 
-`tiktok/web/tag-post` · api · TikTok
+`tiktok/web/tag-post` · data API · TikTok · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns a list of TikTok videos associated with a specific tag or challenge ID. Supports pagination using cursor and count parameters.
 

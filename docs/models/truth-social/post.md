@@ -1,6 +1,8 @@
-# Truth Social Post
+# Truth Social Post API: pricing, parameters and code examples
 
-`truth-social/post` · api · Truth Social
+`truth-social/post` · data API · Truth Social · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** about $0.0011 per call · **Modes:** sync
 
 Get a single Truth Social post by its URL - text, author, engagement (likes, comments, shares), and timestamp as clean JSON.
 

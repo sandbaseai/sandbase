@@ -1,6 +1,8 @@
-# TikTok Video Comment Keywords
+# TikTok Video Comment Keywords API: pricing, parameters and code examples
 
-`tiktok/analytics/comment-keywords` · api · TikTok
+`tiktok/analytics/comment-keywords` · data API · TikTok · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns extracted keywords and topics from user comments on a TikTok video. Queries are filtered by the unique video identifier.
 

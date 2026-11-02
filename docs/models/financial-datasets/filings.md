@@ -1,6 +1,8 @@
-# Financial Datasets Get Company SEC Filings
+# Financial Datasets Get Company SEC Filings API: pricing, parameters and code examples
 
-`financial-datasets/filings` · api · Financial Datasets
+`financial-datasets/filings` · data API · Financial Datasets · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.02 per call · **Modes:** sync
 
 Get Company SEC Filings from Financial Datasets. Returns the official Financial Datasets API response unchanged.
 

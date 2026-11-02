@@ -1,6 +1,8 @@
-# TikTok User Mix Video List
+# TikTok User Mix Video List API: pricing, parameters and code examples
 
-`tiktok/web/user-mix` · api · TikTok
+`tiktok/web/user-mix` · data API · TikTok · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns videos compiled inside a specific TikTok user mix or playlist. Supports pagination through cursor and count parameters.
 

@@ -1,6 +1,8 @@
-# Kuaishou User Search
+# Kuaishou User Search API: pricing, parameters and code examples
 
-`kuaishou/search-user` · api · Kuaishou
+`kuaishou/search-user` · data API · Kuaishou · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.013889 per call (free daily quota) · **Modes:** sync
 
 Search public Kuaishou user accounts by keyword with page-number pagination. Use it to discover relevant creators or accounts before requesting profile and published-video data.
 

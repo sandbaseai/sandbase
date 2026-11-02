@@ -1,6 +1,8 @@
-# TikTok Video Details (V3)
+# TikTok Video Details (V3) API: pricing, parameters and code examples
 
-`tiktok/app-v3/one-video-v3` · api · TikTok
+`tiktok/app-v3/one-video-v3` · data API · TikTok · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns comprehensive details for a single TikTok video based on its video ID and optional country code.
 

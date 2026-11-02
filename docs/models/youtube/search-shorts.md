@@ -1,6 +1,8 @@
-# YouTube Shorts Search
+# YouTube Shorts Search API: pricing, parameters and code examples
 
-`youtube/search-shorts` · api · YouTube
+`youtube/search-shorts` · data API · YouTube · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** about $0.0012 per call · **Modes:** sync
 
 Search YouTube Shorts by keyword and get matching Shorts (title, views, URL) with cursor pagination as normalized JSON.
 

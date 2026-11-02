@@ -1,6 +1,8 @@
-# Douyin XingTu KOL Price
+# Douyin XingTu KOL Price API: pricing, parameters and code examples
 
-`douyin/xingtu/kol-service-price-v1` · api · Douyin
+`douyin/xingtu/kol-service-price-v1` · data API · Douyin · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.03 per call · **Modes:** sync
 
 Get the XingTu rate card of a Douyin KOL: price per collaboration type (sponsored video, live and more), settlement type and industry tags.
 

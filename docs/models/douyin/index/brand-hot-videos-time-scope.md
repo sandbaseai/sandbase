@@ -1,6 +1,8 @@
-# Douyin Brand Hot Videos Time Scope
+# Douyin Brand Hot Videos Time Scope API: pricing, parameters and code examples
 
-`douyin/index/brand-hot-videos-time-scope` · api · Douyin
+`douyin/index/brand-hot-videos-time-scope` · data API · Douyin · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns the queryable time scope for Douyin brand hot videos. Allows systems to check valid date ranges before querying related brand analytics endpoints.
 

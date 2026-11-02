@@ -1,6 +1,8 @@
-# IMDb Countries of Origin
+# IMDb Countries of Origin API: pricing, parameters and code examples
 
-`imdb/title-countries-of-origin` · api · IMDb
+`imdb/title-countries-of-origin` · data API · IMDb · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.006944 per call (free daily quota) · **Modes:** sync
 
 Get countries of origin associated with an IMDb title ID using selected language and country preferences. Use it to enrich regional catalog metadata or support origin-based analysis.
 

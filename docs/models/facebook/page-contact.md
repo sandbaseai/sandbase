@@ -1,6 +1,8 @@
-# Facebook Page Contact Info
+# Facebook Page Contact Info API: pricing, parameters and code examples
 
-`facebook/page-contact` · api · Facebook
+`facebook/page-contact` · data API · Facebook · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** about $0.0012 per call · **Modes:** sync
 
 Look up a Facebook Page's public contact details (email, phone, website, and address) by page URL or ID.
 

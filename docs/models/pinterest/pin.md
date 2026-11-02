@@ -1,6 +1,8 @@
-# Pinterest Pin Details
+# Pinterest Pin Details API: pricing, parameters and code examples
 
-`pinterest/pin` · api · Pinterest
+`pinterest/pin` · data API · Pinterest · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.018 per call · **Modes:** sync
 
 Returns detailed information for a single Pinterest pin using its page URL. Supports an optional setting to return a trimmed response payload.
 

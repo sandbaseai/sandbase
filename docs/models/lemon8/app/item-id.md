@@ -1,6 +1,8 @@
-# Lemon8 Post ID from Share Link
+# Lemon8 Post ID from Share Link API: pricing, parameters and code examples
 
-`lemon8/app/item-id` · api · Lemon8
+`lemon8/app/item-id` · data API · Lemon8 · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Resolves a Lemon8 share URL into its canonical post ID. Accepts both long and short sharing links copied from the web platform or mobile app.
 

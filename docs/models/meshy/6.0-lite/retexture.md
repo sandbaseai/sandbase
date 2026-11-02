@@ -1,6 +1,8 @@
-# Meshy 6 Lite Retexture
+# Meshy 6 Lite Retexture API: pricing, parameters and code examples
 
-`meshy/6.0-lite/retexture` · image · Meshy
+`meshy/6.0-lite/retexture` · image generation model · Meshy · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.36 per call · **Modes:** async
 
 Meshy 6 Lite Retexture is the lower-cost Meshy retexturing model: repaint an existing 3D model from a text or image style.
 

@@ -1,6 +1,8 @@
-# TikTok Following
+# TikTok Following API: pricing, parameters and code examples
 
-`tiktok/following` · api · TikTok
+`tiktok/following` · data API · TikTok · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** about $0.0008 per call · **Modes:** sync
 
 List the accounts a TikTok user follows (handle, display name, follower count, bio) by username.
 

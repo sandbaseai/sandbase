@@ -1,6 +1,8 @@
-# Pinterest Search
+# Pinterest Search API: pricing, parameters and code examples
 
-`pinterest/search` · api · Pinterest
+`pinterest/search` · data API · Pinterest · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.018 per call · **Modes:** sync
 
 Search Pinterest pins by keyword and get pin IDs, URLs, titles, descriptions and images, with cursor pagination.
 

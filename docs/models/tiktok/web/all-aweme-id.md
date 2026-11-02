@@ -1,6 +1,8 @@
-# TikTok Video IDs from URLs (Batch)
+# TikTok Video IDs from URLs (Batch) API: pricing, parameters and code examples
 
-`tiktok/web/all-aweme-id` · api · TikTok
+`tiktok/web/all-aweme-id` · data API · TikTok · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Resolves and extracts TikTok video IDs from a list of video URLs. Takes a list of video links to return corresponding item identifiers.
 

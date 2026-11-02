@@ -1,6 +1,8 @@
-# MarketBeat Institutional Ownership
+# MarketBeat Institutional Ownership API: pricing, parameters and code examples
 
-`marketbeat/institutional-ownership` · api · MarketBeat
+`marketbeat/institutional-ownership` · data API · MarketBeat · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.01 per call (free daily quota) · **Modes:** async
 
 Get institutional ownership data including top institutional holders, their share positions, market value, portfolio percentage, quarterly change in shares, and ownership percentage in company.
 

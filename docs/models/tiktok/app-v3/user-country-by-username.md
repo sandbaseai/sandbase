@@ -1,6 +1,8 @@
-# TikTok User Country by Username
+# TikTok User Country by Username API: pricing, parameters and code examples
 
-`tiktok/app-v3/user-country-by-username` · api · TikTok
+`tiktok/app-v3/user-country-by-username` · data API · TikTok · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns the registered country code, user IDs, and username modification timestamp for a specified TikTok profile using their username.
 

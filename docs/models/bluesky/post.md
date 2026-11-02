@@ -1,6 +1,8 @@
-# Bluesky Post
+# Bluesky Post API: pricing, parameters and code examples
 
-`bluesky/post` · api · Bluesky
+`bluesky/post` · data API · Bluesky · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** about $0.0011 per call · **Modes:** sync
 
 Get a single Bluesky post by URL - text, author handle, like, reply, and repost counts as clean JSON.
 

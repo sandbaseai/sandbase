@@ -1,6 +1,8 @@
-# TikTok Web Device Registration
+# TikTok Web Device Registration API: pricing, parameters and code examples
 
-`tiktok/web/device-register` · api · TikTok
+`tiktok/web/device-register` · data API · TikTok · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.003 per call (free daily quota) · **Modes:** sync
 
 Registers a virtual client session to generate a device ID and guest cookie for TikTok Web requests. Returns device tokens and session parameters.
 

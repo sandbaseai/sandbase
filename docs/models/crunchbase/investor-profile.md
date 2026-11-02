@@ -1,6 +1,8 @@
-# Crunchbase Investor Profile
+# Crunchbase Investor Profile API: pricing, parameters and code examples
 
-`crunchbase/investor-profile` · api · Crunchbase
+`crunchbase/investor-profile` · data API · Crunchbase · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.01 per call (free daily quota) · **Modes:** async
 
 Fetch a comprehensive investor profile by permalink/slug. Makes two API calls: one to retrieve investor-specific data (investment count, exits, investor rank, diversity investments, investor type/stage) and one for.
 

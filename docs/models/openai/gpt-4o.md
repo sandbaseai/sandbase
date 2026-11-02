@@ -1,6 +1,8 @@
-# OpenAI: GPT-4o
+# OpenAI: GPT-4o API: pricing, parameters and code examples
 
-`openai/gpt-4o` · llm · OpenAI
+`openai/gpt-4o` · LLM · OpenAI · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $2.5 input / $10 output per 1M tokens · **Modes:** sync
 
 GPT-4o ("o" for "omni") is OpenAI's versatile, high-intelligence GPT model released in May 2024, accepting text and image input and producing text output, including Structured Outputs. OpenAI describes it as fast and flexible, suited to general-purpose chat, image understanding, function calling and non-English language tasks. This entry tracks OpenAI's default GPT-4o alias; use one of the dated GPT-4o snapshots when a workload needs fixed behavior.
 

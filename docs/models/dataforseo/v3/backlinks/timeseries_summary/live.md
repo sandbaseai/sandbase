@@ -1,6 +1,8 @@
-# DataForSEO Backlinks Totals Over Time
+# DataForSEO Backlinks Totals Over Time API: pricing, parameters and code examples
 
-`dataforseo/v3/backlinks/timeseries_summary/live` · api · DataForSEO
+`dataforseo/v3/backlinks/timeseries_summary/live` · data API · DataForSEO · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** about $0.024144 per call · **Modes:** sync
 
 Backlink and referring domain totals for a domain over time, grouped by day, week, month or year.
 

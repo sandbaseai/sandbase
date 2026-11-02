@@ -1,6 +1,8 @@
-# Pipixia User Post List
+# Pipixia User Post List API: pricing, parameters and code examples
 
-`pipixia/app/user-post-list` · api · Pipixia
+`pipixia/app/user-post-list` · data API · Pipixia · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns a list of posts, including videos and photos, for a specified user profile. Supports pagination via cursor and feed count parameters.
 

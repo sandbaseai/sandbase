@@ -1,6 +1,8 @@
-# DeepSeek: DeepSeek V4 Pro 0813
+# DeepSeek: DeepSeek V4 Pro 0813 API: pricing, parameters and code examples
 
-`deepseek/deepseek-v4-pro-0813` · llm · DeepSeek
+`deepseek/deepseek-v4-pro-0813` · LLM · DeepSeek · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $1.32 input / $3.96 output per 1M tokens · **Modes:** sync
 
 DeepSeek V4 Pro 0813 is the pinned GA release of DeepSeek V4 Pro from August 2026, for workloads that need a fixed version. It keeps V4 Pro's 1.6T-parameter mixture-of-experts design and 1M-token context, with thinking and non-thinking modes, tool calls and JSON output, and DeepSeek reports much stronger agent performance than the April preview, especially in production. DeepSeek has said it will keep serving V4 Pro alongside V4.1 Flash.
 

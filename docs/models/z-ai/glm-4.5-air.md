@@ -1,6 +1,8 @@
-# Z.ai: GLM 4.5 Air
+# Z.ai: GLM 4.5 Air API: pricing, parameters and code examples
 
-`z-ai/glm-4.5-air` · llm · Z-Ai
+`z-ai/glm-4.5-air` · LLM · Z-Ai · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.2 input / $1.1 output per 1M tokens · **Modes:** sync
 
 GLM-4.5-Air is the lightweight member of Z.ai's GLM-4.5 family, a mixture-of-experts model with 106B total and 12B active parameters built as a foundation model for agent-oriented applications. It offers hybrid reasoning, with a thinking mode for complex reasoning and tool use and a non-thinking mode for instant replies, and is tuned for tool calling, web browsing, software engineering and front-end development. Choose GLM-4.5 for more capacity.
 

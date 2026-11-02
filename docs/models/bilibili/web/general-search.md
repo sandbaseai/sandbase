@@ -1,6 +1,8 @@
-# Bilibili Web General Search
+# Bilibili Web General Search API: pricing, parameters and code examples
 
-`bilibili/web/general-search` · api · Bilibili
+`bilibili/web/general-search` · data API · Bilibili · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns search results from Bilibili based on a search keyword, with sorting options and filters for duration and publication date range.
 

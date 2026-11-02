@@ -1,6 +1,8 @@
-# Zhihu AI Search Stream
+# Zhihu AI Search Stream API: pricing, parameters and code examples
 
-`zhihu/web/ai-search-stream` · api · Zhihu
+`zhihu/web/ai-search-stream` · data API · Zhihu · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0075 per call (free daily quota) · **Modes:** sync
 
 Returns streaming AI search results from Zhihu based on a query prompt. Supports conversational multi-turn sessions and chat modes.
 

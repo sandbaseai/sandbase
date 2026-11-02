@@ -1,6 +1,8 @@
-# Apollo News Articles Search
+# Apollo News Articles Search API: pricing, parameters and code examples
 
-`apollo/company-news-search` · api · Apollo
+`apollo/company-news-search` · data API · Apollo · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.01975 per call · **Modes:** sync
 
 News Articles Search from Apollo. Returns the official Apollo API response unchanged.
 

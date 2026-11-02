@@ -1,6 +1,8 @@
-# Douyin Topic Search Suggestions
+# Douyin Topic Search Suggestions API: pricing, parameters and code examples
 
-`douyin/index/topic-suggest` · api · Douyin
+`douyin/index/topic-suggest` · data API · Douyin · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns autocomplete topic suggestions based on a search query. Supports filtering by target platform such as Douyin or Toutiao.
 

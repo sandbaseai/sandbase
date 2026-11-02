@@ -1,6 +1,8 @@
-# MarketBeat Financial Statements
+# MarketBeat Financial Statements API: pricing, parameters and code examples
 
-`marketbeat/financial-statements` · api · MarketBeat
+`marketbeat/financial-statements` · data API · MarketBeat · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.02 per call · **Modes:** async
 
 Get financial statements including annual and quarterly income statements, cash flow statements, balance sheets, and metrics/ratios. Each statement is a table with metrics as rows and time periods as columns,.
 

@@ -1,6 +1,8 @@
-# Firecrawl Web Search
+# Firecrawl Web Search API: pricing, parameters and code examples
 
-`firecrawl/search` · api · Firecrawl
+`firecrawl/search` · data API · Firecrawl · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.015 per call · **Modes:** sync
 
 Searches the web using a text query and returns relevant pages with their titles, descriptions, and source URLs. Supports adjusting result counts.
 

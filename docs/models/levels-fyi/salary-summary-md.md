@@ -1,6 +1,8 @@
-# Levels.fyi Salary Summary Md
+# Levels.fyi Salary Summary Md API: pricing, parameters and code examples
 
-`levels-fyi/salary-summary-md` · api · Levels.fyi
+`levels-fyi/salary-summary-md` · data API · Levels.fyi · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.01 per call (free daily quota) · **Modes:** async
 
 Retrieve an aggregate salary summary in Markdown format for a given company and optional job family. Includes median compensation, level breakdowns by job family, and attribution information.
 

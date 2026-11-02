@@ -1,6 +1,8 @@
-# YouTube Community Post Details
+# YouTube Community Post Details API: pricing, parameters and code examples
 
-`youtube/web-v2/post-detail` · api · YouTube
+`youtube/web-v2/post-detail` · data API · YouTube · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns detailed information for a YouTube community post, including post text, media attachments, and engagement metrics. Filter results by post ID, language, and country.
 

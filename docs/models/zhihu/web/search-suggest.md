@@ -1,6 +1,8 @@
-# Zhihu Search Suggestions
+# Zhihu Search Suggestions API: pricing, parameters and code examples
 
-`zhihu/web/search-suggest` · api · Zhihu
+`zhihu/web/search-suggest` · data API · Zhihu · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns search query suggestions and related topics from Zhihu based on a specified search keyword.
 

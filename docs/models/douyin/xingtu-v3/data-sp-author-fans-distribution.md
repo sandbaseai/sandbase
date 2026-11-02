@@ -1,6 +1,8 @@
-# Douyin Xingtu Follower Distribution
+# Douyin Xingtu Follower Distribution API: pricing, parameters and code examples
 
-`douyin/xingtu-v3/data-sp-author-fans-distribution` · api · Douyin
+`douyin/xingtu-v3/data-sp-author-fans-distribution` · data API · Douyin · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.020833 per call · **Modes:** sync
 
 Get Douyin Creator Marketplace (Xingtu) follower or loyal-follower distribution data for a specified creator. Use it to compare audience-profile distributions during creator selection.
 

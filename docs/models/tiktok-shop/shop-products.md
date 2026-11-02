@@ -1,6 +1,8 @@
-# TikTok Shop Store Products
+# TikTok Shop Store Products API: pricing, parameters and code examples
 
-`tiktok-shop/shop-products` · api · TikTok Shop
+`tiktok-shop/shop-products` · data API · TikTok Shop · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** about $0.0012 per call · **Modes:** sync
 
 List every product of a TikTok Shop store by URL (title, price, sales, and rating per product plus shop-level stats) with cursor pagination.
 

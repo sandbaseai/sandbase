@@ -1,6 +1,8 @@
-# Twitter (X) Tweet Comments
+# Twitter (X) Tweet Comments API: pricing, parameters and code examples
 
-`twitter/web/post-comments` · api · Twitter
+`twitter/web/post-comments` · data API · Twitter · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns comment threads and replies under a specified tweet. Provide a tweet ID and paginate through conversations using cursor values.
 

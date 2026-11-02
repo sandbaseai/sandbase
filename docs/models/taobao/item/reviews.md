@@ -1,6 +1,8 @@
-# Taobao Product Reviews
+# Taobao Product Reviews API: pricing, parameters and code examples
 
-`taobao/item/reviews` · api · Taobao
+`taobao/item/reviews` · data API · Taobao · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.027778 per call · **Modes:** sync
 
 Get Taobao and Tmall product reviews by item ID with pagination, sorted by latest or default, for customer feedback analysis.
 

@@ -1,6 +1,8 @@
-# TikTok Web StrData Encryption
+# TikTok Web StrData Encryption API: pricing, parameters and code examples
 
-`tiktok/web/encrypt-str-data` · api · TikTok
+`tiktok/web/encrypt-str-data` · data API · TikTok · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Encrypts raw fingerprint string data for TikTok web requests. Takes a stringified JSON fingerprint payload via the data parameter and returns the encrypted string.
 

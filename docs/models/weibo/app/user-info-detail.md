@@ -1,6 +1,8 @@
-# Weibo User Profile Details (App)
+# Weibo User Profile Details (App) API: pricing, parameters and code examples
 
-`weibo/app/user-info-detail` · api · Weibo
+`weibo/app/user-info-detail` · data API · Weibo · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns comprehensive profile information for a Weibo user, including verification status, account level, and tags based on the specified user ID.
 

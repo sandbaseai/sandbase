@@ -1,6 +1,8 @@
-# IMDb Redux Overview
+# IMDb Redux Overview API: pricing, parameters and code examples
 
-`imdb/title-redux-overview-query` · api · IMDb
+`imdb/title-redux-overview-query` · data API · IMDb · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.006944 per call (free daily quota) · **Modes:** sync
 
 Get the IMDb Redux overview for a title ID using selected language and country preferences. Use it to obtain a consolidated title overview for catalog review or content research.
 

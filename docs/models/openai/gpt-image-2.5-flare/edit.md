@@ -1,6 +1,8 @@
-# GPT Image 2.5 Flare Edit
+# GPT Image 2.5 Flare Edit API: pricing, parameters and code examples
 
-`openai/gpt-image-2.5-flare/edit` · image · OpenAI
+`openai/gpt-image-2.5-flare/edit` · image generation model · OpenAI · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** from $0.025 to $1.015 per run, depending on parameters · **Modes:** sync, async
 
 GPT Image 2.5 Flare Edit is optimized for fast, high-quality image editing and multi-image composition.
 

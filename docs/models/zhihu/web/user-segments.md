@@ -1,6 +1,8 @@
-# Zhihu User Highlighted Segments
+# Zhihu User Highlighted Segments API: pricing, parameters and code examples
 
-`zhihu/web/user-segments` · api · Zhihu
+`zhihu/web/user-segments` · data API · Zhihu · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns highlighted text segments and line comments for a specified Zhihu member. Supports filtering by content type along with offset pagination.
 

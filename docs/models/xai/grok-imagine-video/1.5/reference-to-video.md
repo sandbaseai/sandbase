@@ -1,6 +1,8 @@
-# Grok Imagine Video 1.5 Reference to Video
+# Grok Imagine Video 1.5 Reference to Video API: pricing, parameters and code examples
 
-`xai/grok-imagine-video/1.5/reference-to-video` · video · xAI
+`xai/grok-imagine-video/1.5/reference-to-video` · video generation model · xAI · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** from $0.09 to $2.11 per run, depending on parameters · **Modes:** async
 
 Grok Imagine Video 1.5 is xAI's image-to-video AI model. Bring static images to life with fluid animation, consistent character motion, and professional-grade video output.
 

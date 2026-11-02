@@ -1,6 +1,8 @@
-# Qwen: Qwen3.8 2.4T A95B
+# Qwen: Qwen3.8 2.4T A95B API: pricing, parameters and code examples
 
-`alibaba/qwen3.8-2.4t-a95b` · llm · Alibaba
+`alibaba/qwen3.8-2.4t-a95b` · LLM · Alibaba · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $2 input / $6 output per 1M tokens · **Modes:** sync
 
 Qwen3.8 2.4T A95B is the open-weight release of Alibaba's Qwen3.8 Max-class model, a sparse Mixture-of-Experts with 2.4 trillion total and about 95 billion active parameters, published in August 2026 as the first Qwen-Max-class open model. It targets coding, professional work, research and long-horizon agentic tasks, with tunable reasoning depth. Alibaba's hosted Qwen3.8 Max builds on it and adds vision input, a non-thinking mode and official built-in tools.
 

@@ -1,6 +1,8 @@
-# Similarweb Popular Pages
+# Similarweb Popular Pages API: pricing, parameters and code examples
 
-`similarweb/popular-pages` · api · Similarweb
+`similarweb/popular-pages` · data API · Similarweb · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** about $0.225 per call · **Modes:** sync
 
 Get a website's most visited pages with each page's traffic share and change.
 

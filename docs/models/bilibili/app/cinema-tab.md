@@ -1,6 +1,8 @@
-# Bilibili App Cinema Tab
+# Bilibili App Cinema Tab API: pricing, parameters and code examples
 
-`bilibili/app/cinema-tab` · api · Bilibili
+`bilibili/app/cinema-tab` · data API · Bilibili · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns cinema tab content from the Bilibili app, featuring curated movies, TV shows, and entertainment recommendations without requiring additional query parameters.
 

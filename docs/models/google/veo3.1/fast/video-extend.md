@@ -1,6 +1,8 @@
-# Veo 3.1 Fast Video Extend
+# Veo 3.1 Fast Video Extend API: pricing, parameters and code examples
 
-`google/veo3.1/fast/video-extend` · video · Google
+`google/veo3.1/fast/video-extend` · video generation model · Google · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** from $0.56 to $0.7 per run, depending on parameters · **Modes:** async
 
 Veo3.1 Fast Extend Video by Google - AI-powered video editing and transformation. Apply style transfer, motion control, lip-sync, and visual effects to existing videos with natural language instructions.
 

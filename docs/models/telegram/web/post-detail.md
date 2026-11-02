@@ -1,6 +1,8 @@
-# Telegram Channel Post Details
+# Telegram Channel Post Details API: pricing, parameters and code examples
 
-`telegram/web/post-detail` · api · Telegram
+`telegram/web/post-detail` · data API · Telegram · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Retrieves details for a single public Telegram channel post parsed from the web embed view. Provide the channel username and post ID to view reactions and post data.
 

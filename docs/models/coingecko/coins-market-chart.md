@@ -1,6 +1,8 @@
-# CoinGecko Coin Historical Chart Data by ID
+# CoinGecko Coin Historical Chart Data by ID API: pricing, parameters and code examples
 
-`coingecko/coins-market-chart` · api · CoinGecko
+`coingecko/coins-market-chart` · data API · CoinGecko · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.008 per call (free daily quota) · **Modes:** sync
 
 Get the historical chart data of a coin including time in UNIX, price, market cap and 24hr volume based on particular coin ID
 

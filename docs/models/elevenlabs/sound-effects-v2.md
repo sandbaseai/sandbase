@@ -1,6 +1,8 @@
-# Sound Effects V2
+# Sound Effects V2 API: pricing, parameters and code examples
 
-`elevenlabs/sound-effects-v2` · audio · ElevenLabs
+`elevenlabs/sound-effects-v2` · audio model · ElevenLabs · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** from $0.001 to $0.044 per run, depending on parameters · **Modes:** async
 
 Sound Effects V2 by ElevenLabs - generate music, sound effects, and audio from text descriptions with AI. Create original compositions, ambient sounds, and audio content for any creative project.
 

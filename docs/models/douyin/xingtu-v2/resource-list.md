@@ -1,6 +1,8 @@
-# Douyin Xingtu Resource List
+# Douyin Xingtu Resource List API: pricing, parameters and code examples
 
-`douyin/xingtu-v2/resource-list` · api · Douyin
+`douyin/xingtu-v2/resource-list` · data API · Douyin · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns marketing activity resources from Douyin Xingtu. Queries resource details using a specific resource identifier.
 

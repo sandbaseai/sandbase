@@ -1,6 +1,8 @@
-# Google: Nano Banana 2.1 (Gemini Nano Banana 2.1)
+# Google: Nano Banana 2.1 (Gemini Nano Banana 2.1) API: pricing, parameters and code examples
 
-`google/gemini-nano-banana-2.1` · llm · Google
+`google/gemini-nano-banana-2.1` · LLM · Google · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $1.5 input / $7.5 output per 1M tokens · **Modes:** sync
 
 Nano Banana 2.1 (Gemini Nano Banana 2.1) is Google's Flash-tier image generation and editing model, succeeding Nano Banana 2 and producing images alongside text through the native Gemini generateContent API. It improves prompt adherence, text rendering, product recontextualization and multi-turn editing consistency, supports extreme aspect ratios and 1K to 4K output, and can ground generation with Google web and image search. Pick Nano Banana Pro instead for the most demanding professional design work.
 

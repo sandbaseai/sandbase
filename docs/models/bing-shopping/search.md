@@ -1,6 +1,8 @@
-# Bing Shopping Search
+# Bing Shopping Search API: pricing, parameters and code examples
 
-`bing-shopping/search` · api · Bing Shopping
+`bing-shopping/search` · data API · Bing Shopping · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.015 per call (free daily quota) · **Modes:** async
 
 Search Bing Shopping by keyword: product title, price, old price, seller, rating, reviews and shipping, with market and filter options.
 

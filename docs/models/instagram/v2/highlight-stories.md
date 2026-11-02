@@ -1,6 +1,8 @@
-# Instagram Highlight Stories
+# Instagram Highlight Stories API: pricing, parameters and code examples
 
-`instagram/v2/highlight-stories` · api · Instagram
+`instagram/v2/highlight-stories` · data API · Instagram · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.003 per call (free daily quota) · **Modes:** sync
 
 Returns all stories contained within a specific Instagram highlight using its unique identifier. Requires an existing highlight ID obtained from user highlight endpoints.
 

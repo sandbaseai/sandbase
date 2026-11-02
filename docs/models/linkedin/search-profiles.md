@@ -1,6 +1,8 @@
-# LinkedIn Profile Search
+# LinkedIn Profile Search API: pricing, parameters and code examples
 
-`linkedin/search-profiles` · api · LinkedIn
+`linkedin/search-profiles` · data API · LinkedIn · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** about $0.198 per call · **Modes:** sync
 
 Search LinkedIn profiles by keyword with optional location and job-title filters. Each match returns a full profile record: name, headline, location, current position, work experience, education, and skills, plus the profile URL, handle, and id. For a cheaper name/headline/URL-only search use linkedin.search_profiles_thin; add emails with linkedin.search_profiles_email.
 

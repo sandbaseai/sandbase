@@ -1,6 +1,8 @@
-# AAA Metro Prices By State
+# AAA Metro Prices By State API: pricing, parameters and code examples
 
-`aaa/metro-prices-by-state` · api · AAA
+`aaa/metro-prices-by-state` · data API · AAA · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.01 per call (free daily quota) · **Modes:** async
 
 Returns gas price data for all metro/city areas within a given state, including current and historical prices (yesterday, week ago, month ago, year ago) for all fuel grades. Each metro includes top-level.
 

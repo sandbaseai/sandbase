@@ -1,6 +1,8 @@
-# Douyin URL Shortener
+# Douyin URL Shortener API: pricing, parameters and code examples
 
-`douyin/web/shorten-url` · api · Douyin
+`douyin/web/shorten-url` · data API · Douyin · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Shortens a target web address for Douyin web workflows. Accepts a full destination link and returns a compact shortened URL.
 

@@ -1,6 +1,8 @@
-# Ideogram 3.0 Text to Image
+# Ideogram 3.0 Text to Image API: pricing, parameters and code examples
 
-`ideogram-ai/ideogram-v3` · image · Ideogram
+`ideogram-ai/ideogram-v3` · image generation model · Ideogram · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** from $0.03 to $0.09 per run, depending on parameters · **Modes:** async
 
 3.0 is Ideogram's advanced text-to-image AI model. Create photorealistic images, illustrations, and concept art from natural language descriptions with exceptional detail and prompt adherence.
 

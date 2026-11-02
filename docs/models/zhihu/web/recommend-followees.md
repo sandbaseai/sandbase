@@ -1,6 +1,8 @@
-# Zhihu Recommended Followees
+# Zhihu Recommended Followees API: pricing, parameters and code examples
 
-`zhihu/web/recommend-followees` · api · Zhihu
+`zhihu/web/recommend-followees` · data API · Zhihu · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns a list of recommended users to follow on Zhihu. Access personalized author and contributor suggestions directly from Zhihu web.
 

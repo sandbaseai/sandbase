@@ -1,6 +1,8 @@
-# Reddit Subreddit Rules and Style Info
+# Reddit Subreddit Rules and Style Info API: pricing, parameters and code examples
 
-`reddit/app/subreddit-style` · api · Reddit
+`reddit/app/subreddit-style` · data API · Reddit · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns rules, styling details, and moderator information for a designated Reddit subreddit. Accepts the subreddit name and an optional formatting toggle.
 

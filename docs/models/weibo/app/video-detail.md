@@ -1,6 +1,8 @@
-# Weibo Video Detail
+# Weibo Video Detail API: pricing, parameters and code examples
 
-`weibo/app/video-detail` · api · Weibo
+`weibo/app/video-detail` · data API · Weibo · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Retrieves detailed information for a single Weibo video, including playback URLs and metadata, based on a specified post identifier.
 

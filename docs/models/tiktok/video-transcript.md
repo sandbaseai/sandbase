@@ -1,6 +1,8 @@
-# TikTok Video Transcript (native captions)
+# TikTok Video Transcript (native captions) API: pricing, parameters and code examples
 
-`tiktok/video-transcript` · api · TikTok
+`tiktok/video-transcript` · data API · TikTok · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** about $0.0011 per call · **Modes:** sync
 
 Fetch the caption track TikTok itself published for a video, as TikTok wrote it. It is the cheapest way to get the words, and it is only as good as TikTok's own transcription: it mishears names and uncommon words, and many videos - especially non-English ones - have no caption track at all, which comes back as not found. When you need the words to be right, or there is no track to read, tiktok.video_transcript_full transcribes the audio with speech-to-text instead.
 

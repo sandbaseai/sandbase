@@ -1,6 +1,8 @@
-# OpenAI: GPT-4.1 Nano
+# OpenAI: GPT-4.1 Nano API: pricing, parameters and code examples
 
-`openai/gpt-4.1-nano` · llm · OpenAI
+`openai/gpt-4.1-nano` · LLM · OpenAI · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.1 input / $0.4 output per 1M tokens · **Modes:** sync
 
 GPT-4.1 nano is the fastest and smallest tier of OpenAI's GPT-4.1 series, released in April 2025 as a non-reasoning model with text and image input and text output. It keeps the 1M-token context window and the instruction-following and tool-calling focus of its siblings, and OpenAI points to low-latency tasks such as classification and autocompletion. Choose it for high-volume, simple workloads; GPT-4.1 mini or GPT-4.1 handle harder prompts better.
 

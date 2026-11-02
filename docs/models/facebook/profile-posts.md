@@ -1,6 +1,8 @@
-# Facebook Get Profile Posts
+# Facebook Get Profile Posts API: pricing, parameters and code examples
 
-`facebook/profile-posts` · api · Facebook
+`facebook/profile-posts` · data API · Facebook · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.027778 per call · **Modes:** sync
 
 Get public posts for a Facebook profile ID with cursor pagination. Use it to browse a known profile's public posting history or continue through subsequent post pages.
 

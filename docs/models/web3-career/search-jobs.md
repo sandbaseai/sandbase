@@ -1,6 +1,8 @@
-# Web3.career Search Jobs
+# Web3.career Search Jobs API: pricing, parameters and code examples
 
-`web3-career/search-jobs` · api · Web3.career
+`web3-career/search-jobs` · data API · Web3.career · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.01 per call (free daily quota) · **Modes:** async
 
 Search for jobs using a keyword query. Returns paginated job listings matching the search term.
 

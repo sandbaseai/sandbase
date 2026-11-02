@@ -1,6 +1,8 @@
-# Linktree Profile
+# Linktree Profile API: pricing, parameters and code examples
 
-`linktree/profile` · api · Linktree
+`linktree/profile` · data API · Linktree · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** about $0.0011 per call · **Modes:** sync
 
 Get a public Linktree page by URL: title, bio, picture, contact email, linked social accounts, and every link card with its destination.
 

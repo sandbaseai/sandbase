@@ -1,6 +1,8 @@
-# Instagram Post Comment List
+# Instagram Post Comment List API: pricing, parameters and code examples
 
-`instagram/post-comments` · api · Instagram
+`instagram/post-comments` · data API · Instagram · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.013889 per call (free daily quota) · **Modes:** sync
 
 Get top-level comments for an Instagram post by shortcode, with cursor pagination and popular or newest sorting. Use it to review audience feedback or analyze discussion around a known post.
 

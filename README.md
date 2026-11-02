@@ -9,8 +9,16 @@
 <p align="center">HTTP · curl · Python · TypeScript · Go · OpenAPI 3.1 · OpenAI SDK · E2B SDK</p>
 
 <p align="center">
+<a href="https://github.com/sandbaseai/sandbase/actions/workflows/ci.yml"><img src="https://github.com/sandbaseai/sandbase/actions/workflows/ci.yml/badge.svg" alt="CI"></a>
+<a href="https://github.com/sandbaseai/sandbase/actions/workflows/refresh.yml"><img src="https://github.com/sandbaseai/sandbase/actions/workflows/refresh.yml/badge.svg" alt="Catalog refreshed daily"></a>
+<a href="LICENSE"><img src="https://img.shields.io/badge/license-Apache--2.0-blue" alt="Apache-2.0"></a>
+<a href="https://github.com/sandbaseai/sandbase/stargazers"><img src="https://img.shields.io/github/stars/sandbaseai/sandbase?style=social" alt="GitHub stars"></a>
+</p>
+
+<p align="center">
 <a href="https://www.sandbase.ai/console">Get a key</a> ·
 <a href="docs/INDEX.md">Models &amp; APIs</a> ·
+<a href="docs/platforms/README.md">By platform</a> ·
 <a href="docs/SKILLS.md">Skills</a> ·
 <a href="catalog/index.json">catalog.json</a> ·
 <a href="openapi/sandbase.openapi.json">OpenAPI</a> ·
@@ -42,7 +50,7 @@ Most platforms cover one layer: an LLM gateway, a media API, a sandbox, or a too
 | More | 30+ | IMDb, AAA, IQAir, AccuWeather, Weather Underground, … |
 <!-- /inside:en -->
 
-Every entry is in [`catalog/index.json`](catalog/index.json) and [`docs/INDEX.md`](docs/INDEX.md), with its exact price.
+Every entry is in [`catalog/index.json`](catalog/index.json) and [`docs/INDEX.md`](docs/INDEX.md), with its exact price. Browse [by platform](docs/platforms/README.md): [TikTok](docs/platforms/tiktok.md), [Instagram](docs/platforms/instagram.md), [YouTube](docs/platforms/youtube.md), [LinkedIn](docs/platforms/linkedin.md), [Reddit](docs/platforms/reddit.md), [Douyin](docs/platforms/douyin.md), [Xiaohongshu](docs/platforms/xiaohongshu.md), [DataForSEO](docs/platforms/dataforseo.md), [Polymarket](docs/platforms/polymarket.md), [OpenAI](docs/platforms/openai.md), [Google](docs/platforms/google.md), [Kling](docs/platforms/kwaivgi.md) and more.
 
 This repository is where integration starts:
 
@@ -219,6 +227,20 @@ Prices are SandBase list prices in USD. Sandboxes and Agents are free; Agents ar
 - **AI agents** (Claude Code, Codex, Cursor and 22 more): [SandBase CLI / MCP](https://github.com/sandbaseai/cli) lets them discover and run these capabilities at run time.
 - **Docs**: [sandbase.ai/docs](https://www.sandbase.ai/docs/)
 
+## FAQ
+
+**Is SandBase OpenAI-compatible?** Yes. Chat Completions, Responses and the Agents API work with the official OpenAI SDKs. Set `base_url` to `https://api.sandbase.ai/v1`. The Anthropic Messages and Gemini formats are also accepted.
+
+**Can I keep my E2B code?** Yes. Change `E2B_API_KEY`, `E2B_API_URL` and `E2B_DOMAIN` and keep the official E2B SDK. Sandboxes are free.
+
+**How do I call TikTok, Instagram, YouTube, Douyin or Xiaohongshu data?** Find the endpoint on the [platform page](docs/platforms/README.md) and call `POST /v1/run` with its `model` name. You don't need a separate account with each platform.
+
+**What is free?** Sandboxes, Agents, and 100 data-API calls per organization per day. Models and the remaining API calls are pay as you go at the prices in the catalog. Failed calls are not charged.
+
+**How do I know the price before calling?** Read `pricing` in the model's JSON record. For parameter-dependent prices, `price_examples` lists the price for each combination.
+
+**Can I add my own API?** Yes. Open a pull request under [`integrations/`](integrations/README.md).
+
 ## Add your API
 
 API owners can propose an integration with a pull request under [`integrations/`](integrations/README.md). CI validates the proposal. A maintainer reviews it and arranges access with you. Merging starts an automated rollout, and the API then appears in this catalog and is callable with every SandBase key.
@@ -226,6 +248,10 @@ API owners can propose an integration with a pull request under [`integrations/`
 ## Contributing
 
 Found a wrong field or price? Open a [catalog issue](../../issues/new?template=catalog-issue.yml). The catalog files are generated, so we fix the source and the next daily refresh picks up the fix. SDK and example improvements are welcome as pull requests. See [CONTRIBUTING.md](CONTRIBUTING.md).
+
+## Support the project
+
+If SandBase saves you an integration, a ⭐ helps other developers find it.
 
 ## License
 

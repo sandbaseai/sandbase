@@ -1,6 +1,8 @@
-# Weibo User Timeline
+# Weibo User Timeline API: pricing, parameters and code examples
 
-`weibo/app/user-timeline` · api · Weibo
+`weibo/app/user-timeline` · data API · Weibo · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Get the posts on a Weibo user's timeline: text, publish time, region, images and repost, comment and like counts, with page and month filters.
 

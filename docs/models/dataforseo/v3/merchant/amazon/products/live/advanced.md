@@ -1,6 +1,8 @@
-# DataForSEO Merchant Amazon Products
+# DataForSEO Merchant Amazon Products API: pricing, parameters and code examples
 
-`dataforseo/v3/merchant/amazon/products/live/advanced` · api · DataForSEO
+`dataforseo/v3/merchant/amazon/products/live/advanced` · data API · DataForSEO · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.005 per call (free daily quota) · **Modes:** sync
 
 Returns real-time advanced product data from Amazon merchant search results. Provides item details, ratings, seller information, and ranking positions.
 

@@ -1,6 +1,8 @@
-# Scholar Smart Search
+# Scholar Smart Search API: pricing, parameters and code examples
 
-`scholar/search-mixed` · api · Scholar
+`scholar/search-mixed` · data API · Scholar · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0036 per call (free daily quota) · **Modes:** sync
 
 Returns scholarly and academic search results matching a query. Supports filtering by publication year range and limiting the total number of returned entries.
 

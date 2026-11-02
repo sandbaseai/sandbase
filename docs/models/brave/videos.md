@@ -1,6 +1,8 @@
-# Brave Video Search
+# Brave Video Search API: pricing, parameters and code examples
 
-`brave/videos` · api · Brave
+`brave/videos` · data API · Brave · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.005 per call (free daily quota) · **Modes:** sync
 
 Video Search from Brave. Returns the official Brave API response unchanged.
 

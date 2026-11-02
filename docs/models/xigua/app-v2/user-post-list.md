@@ -1,6 +1,8 @@
-# Xigua User Post List
+# Xigua User Post List API: pricing, parameters and code examples
 
-`xigua/app-v2/user-post-list` · api · Xigua
+`xigua/app-v2/user-post-list` · data API · Xigua · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns a list of posts from a specific Xigua user account. Supports paginated results using timestamp cursor tokens.
 

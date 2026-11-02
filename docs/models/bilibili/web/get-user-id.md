@@ -1,6 +1,8 @@
-# Bilibili User ID Extraction
+# Bilibili User ID Extraction API: pricing, parameters and code examples
 
-`bilibili/web/get-user-id` · api · Bilibili
+`bilibili/web/get-user-id` · data API · Bilibili · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Extracts and returns a Bilibili user ID from a provided space share link. Takes a user profile URL and resolves the numeric account identifier.
 

@@ -1,6 +1,8 @@
-# Kling Image O3 Edit
+# Kling Image O3 Edit API: pricing, parameters and code examples
 
-`kwaivgi/kling-image/o3/edit` · image · KwaiVGI
+`kwaivgi/kling-image/o3/edit` · image generation model · KwaiVGI · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** from $0.028 to $0.056 per run, depending on parameters · **Modes:** async
 
 Kling Image O3 Edit by Kuaishou edits or recomposes images from a text instruction using up to 10 reference images, with 1K, 2K, or 4K output.
 

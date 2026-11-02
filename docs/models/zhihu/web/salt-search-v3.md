@@ -1,6 +1,8 @@
-# Zhihu Salt Content Search
+# Zhihu Salt Content Search API: pricing, parameters and code examples
 
-`zhihu/web/salt-search-v3` · api · Zhihu
+`zhihu/web/salt-search-v3` · data API · Zhihu · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns Zhihu Salt column and chapter search results matching a specified keyword. Supports pagination with offset and limit parameters.
 

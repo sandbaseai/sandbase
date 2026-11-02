@@ -1,6 +1,8 @@
-# Google: Gemini 2.5 Flash Lite
+# Google: Gemini 2.5 Flash Lite API: pricing, parameters and code examples
 
-`google/gemini-2.5-flash-lite` · llm · Google
+`google/gemini-2.5-flash-lite` · LLM · Google · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.1 input / $0.4 output per 1M tokens · **Modes:** sync
 
 Gemini 2.5 Flash-Lite is the lightweight tier of Google's Gemini 2.5 family, released in July 2025 and described by Google as the fastest multimodal model in that family. It is aimed at high-volume classification, simple data extraction and very low-latency applications, with optional thinking and support for text, image, video, audio and PDF input. It remains a stable model with no announced shutdown date; pick Gemini 2.5 Flash for more capability within the same generation.
 

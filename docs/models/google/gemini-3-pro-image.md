@@ -1,6 +1,8 @@
-# Google: Nano Banana Pro (Gemini 3 Pro Image)
+# Google: Nano Banana Pro (Gemini 3 Pro Image) API: pricing, parameters and code examples
 
-`google/gemini-3-pro-image` · llm · Google
+`google/gemini-3-pro-image` · LLM · Google · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $2 input / $12 output per 1M tokens · **Modes:** sync
 
 Nano Banana Pro (Gemini 3 Pro Image) is the Pro-tier image generation and editing model of Google's Gemini 3 line, using a reasoning core and producing images alongside text. Google positions it for professional work such as complex graphic design, high-fidelity product mockups and factual data visualizations that need accurate text rendering, with real-world grounding via Google Search and studio-quality visuals up to 4K. Pick Nano Banana 2 instead for faster, higher-volume generation.
 

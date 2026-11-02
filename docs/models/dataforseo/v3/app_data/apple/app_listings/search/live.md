@@ -1,6 +1,8 @@
-# DataForSEO App Store App Listings Search
+# DataForSEO App Store App Listings Search API: pricing, parameters and code examples
 
-`dataforseo/v3/app_data/apple/app_listings/search/live` · api · DataForSEO
+`dataforseo/v3/app_data/apple/app_listings/search/live` · data API · DataForSEO · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** about $0.11 per call · **Modes:** sync
 
 Search the Apple App Store catalog by app title or description and get ratings, review counts and prices for each match.
 

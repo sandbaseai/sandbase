@@ -1,6 +1,8 @@
-# MoonshotAI: Kimi K2.6
+# MoonshotAI: Kimi K2.6 API: pricing, parameters and code examples
 
-`moonshotai/kimi-k2.6` · llm · Moonshotai
+`moonshotai/kimi-k2.6` · LLM · Moonshotai · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.95 input / $4 output per 1M tokens · **Modes:** sync
 
 Kimi K2.6 is Moonshot AI's general-purpose multimodal model, taking text, image and video input with both thinking and non-thinking modes and a 256K-token context. Moonshot highlights more reliable long-horizon coding across languages such as Rust, Go and Python and tasks like frontend, DevOps and performance optimization, along with stronger instruction following, self-correction and autonomous agent execution. Choose Kimi K3 for flagship-level work with a 1M context.
 

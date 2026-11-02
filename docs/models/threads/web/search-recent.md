@@ -1,6 +1,8 @@
-# Threads Recent Content Search
+# Threads Recent Content Search API: pricing, parameters and code examples
 
-`threads/web/search-recent` · api · Threads
+`threads/web/search-recent` · data API · Threads · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.003 per call (free daily quota) · **Modes:** sync
 
 Searches recent Threads content matching a specified keyword query. Returns matching web posts with cursor-based pagination support.
 

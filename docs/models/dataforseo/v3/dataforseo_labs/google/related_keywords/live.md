@@ -1,6 +1,8 @@
-# DataForSEO Google Related Keywords
+# DataForSEO Google Related Keywords API: pricing, parameters and code examples
 
-`dataforseo/v3/dataforseo_labs/google/related_keywords/live` · api · DataForSEO
+`dataforseo/v3/dataforseo_labs/google/related_keywords/live` · data API · DataForSEO · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.024 per call · **Modes:** sync
 
 Returns related search terms that share Google SERP rankings with specified keywords. Helps identify semantically connected queries and search patterns.
 

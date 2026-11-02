@@ -1,6 +1,8 @@
-# Qwen: Qwen3 32B
+# Qwen: Qwen3 32B API: pricing, parameters and code examples
 
-`alibaba/qwen3-32b` · llm · Alibaba
+`alibaba/qwen3-32b` · LLM · Alibaba · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.16 input / $0.64 output per 1M tokens · **Modes:** sync
 
 Qwen3 32B is the largest dense model in Alibaba's open-weight Qwen3 family, released in April 2025 with 32.8 billion parameters. One model switches between a thinking mode for complex logic, math and coding and a non-thinking mode for fast general dialogue. Qwen highlights tool integration in both modes, creative writing, role-play, multi-turn conversation and support for more than 100 languages and dialects. It suits text workloads that want a mid-size open model with optional reasoning.
 

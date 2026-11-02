@@ -1,6 +1,8 @@
-# Douyin Xingtu Conversion Resources
+# Douyin Xingtu Conversion Resources API: pricing, parameters and code examples
 
-`douyin/xingtu-v3/data-sp-author-convert-videos-or-products` · api · Douyin
+`douyin/xingtu-v3/data-sp-author-convert-videos-or-products` · data API · Douyin · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.020833 per call · **Modes:** sync
 
 List Douyin Creator Marketplace (Xingtu) conversion-related videos or products for a creator, with industry, period, resource-type, and page filters. Use it to review commerce examples before creator selection.
 

@@ -1,6 +1,8 @@
-# TikTok Video
+# TikTok Video API: pricing, parameters and code examples
 
-`tiktok/video` · api · TikTok
+`tiktok/video` · data API · TikTok · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** about $0.0004 per call · **Modes:** sync
 
 Fetch a single TikTok video by URL with its caption and engagement counts (views, likes, comments, shares, saves).
 

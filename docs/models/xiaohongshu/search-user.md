@@ -1,6 +1,8 @@
-# Xiaohongshu User Search
+# Xiaohongshu User Search API: pricing, parameters and code examples
 
-`xiaohongshu/search-user` · api · Xiaohongshu
+`xiaohongshu/search-user` · data API · Xiaohongshu · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.020833 per call · **Modes:** sync
 
 Search Xiaohongshu (RedNote) users by keyword with page-based pagination. Use it to support creator discovery, account research, and finding profiles related to a topic, name, or brand term.
 

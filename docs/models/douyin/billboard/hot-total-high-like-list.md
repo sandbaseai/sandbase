@@ -1,6 +1,8 @@
-# Douyin High Like Rate Billboard
+# Douyin High Like Rate Billboard API: pricing, parameters and code examples
 
-`douyin/billboard/hot-total-high-like-list` · api · Douyin
+`douyin/billboard/hot-total-high-like-list` · data API · Douyin · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns trending Douyin videos ranked by high like rates. Filter results by category tags, search keywords, time windows, and pagination parameters.
 

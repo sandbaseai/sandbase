@@ -1,6 +1,8 @@
-# Douyin Hot Account List
+# Douyin Hot Account List API: pricing, parameters and code examples
 
-`douyin/billboard/hot-account-list` · api · Douyin
+`douyin/billboard/hot-account-list` · data API · Douyin · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns trending Douyin accounts from the billboard ranking with engagement metrics. Supports filtering by category tag via query_tag and time window via date_window.
 

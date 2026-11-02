@@ -1,6 +1,8 @@
-# AAA News Article Detail
+# AAA News Article Detail API: pricing, parameters and code examples
 
-`aaa/news-article-detail` · api · AAA
+`aaa/news-article-detail` · data API · AAA · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.01 per call (free daily quota) · **Modes:** async
 
 Returns the full content of a specific news article identified by its URL slug. The slug is obtainable from get_news_articles results.
 

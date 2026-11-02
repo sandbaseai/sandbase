@@ -1,6 +1,8 @@
-# Douyin Billboard City List
+# Douyin Billboard City List API: pricing, parameters and code examples
 
-`douyin/billboard/city-list` · api · Douyin
+`douyin/billboard/city-list` · data API · Douyin · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns the list of Chinese cities supported by Douyin billboard rankings. Use this data to populate regional filters for location-specific trending lists.
 

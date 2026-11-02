@@ -1,6 +1,8 @@
-# OpenAI: GPT-4.1 Mini
+# OpenAI: GPT-4.1 Mini API: pricing, parameters and code examples
 
-`openai/gpt-4.1-mini` · llm · OpenAI
+`openai/gpt-4.1-mini` · LLM · OpenAI · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.4 input / $1.6 output per 1M tokens · **Modes:** sync
 
 GPT-4.1 mini is the smaller, faster tier of OpenAI's GPT-4.1 series, released in April 2025 as a non-reasoning model that accepts text and images and returns text. OpenAI describes it as strong at instruction following and tool calling, with the same 1M-token context window as GPT-4.1 and lower latency. It suits interactive apps, chat and agent tool calls where responsiveness matters more than the extra depth of full GPT-4.1.
 

@@ -1,6 +1,8 @@
-# Douyin Xingtu IP Activity Industry List
+# Douyin Xingtu IP Activity Industry List API: pricing, parameters and code examples
 
-`douyin/xingtu-v2/ip-activity-industry-list` · api · Douyin
+`douyin/xingtu-v2/ip-activity-industry-list` · data API · Douyin · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns the list of supported industries for the Xingtu IP calendar on Douyin. Use this reference data to filter and categorize upcoming IP activities.
 

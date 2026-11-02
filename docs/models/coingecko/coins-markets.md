@@ -1,6 +1,8 @@
-# CoinGecko Coins List with Market Data
+# CoinGecko Coins List with Market Data API: pricing, parameters and code examples
 
-`coingecko/coins-markets` · api · CoinGecko
+`coingecko/coins-markets` · data API · CoinGecko · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.008 per call (free daily quota) · **Modes:** sync
 
 Get all the supported coins with price, market cap, volume and market related data
 

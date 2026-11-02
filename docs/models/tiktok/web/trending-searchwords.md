@@ -1,6 +1,8 @@
-# TikTok Daily Trending Search Words
+# TikTok Daily Trending Search Words API: pricing, parameters and code examples
 
-`tiktok/web/trending-searchwords` · api · TikTok
+`tiktok/web/trending-searchwords` · data API · TikTok · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns daily trending search terms and keywords from TikTok Web. Use this endpoint to monitor popular search queries and emerging platform topics.
 

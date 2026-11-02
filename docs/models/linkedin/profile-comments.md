@@ -1,6 +1,8 @@
-# LinkedIn Profile Comments
+# LinkedIn Profile Comments API: pricing, parameters and code examples
 
-`linkedin/profile-comments` · api · LinkedIn
+`linkedin/profile-comments` · data API · LinkedIn · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** about $0.0029 per call · **Modes:** sync
 
 List the comments a LinkedIn member has left on other people's posts - the comment text, its permalink and timestamp, plus the post it was left on and that post's author and engagement.
 

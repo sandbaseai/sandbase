@@ -1,6 +1,8 @@
-# TikTok Similar User Recommendations
+# TikTok Similar User Recommendations API: pricing, parameters and code examples
 
-`tiktok/app-v3/similar-user-recommendations` · api · TikTok
+`tiktok/app-v3/similar-user-recommendations` · data API · TikTok · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns recommended similar user profiles for a target TikTok account based on its secure user identifier, with support for cursor-based pagination.
 

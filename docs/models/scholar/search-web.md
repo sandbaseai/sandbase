@@ -1,6 +1,8 @@
-# Scholar Web Search
+# Scholar Web Search API: pricing, parameters and code examples
 
-`scholar/search-web` · api · Scholar
+`scholar/search-web` · data API · Scholar · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0036 per call (free daily quota) · **Modes:** sync
 
 Returns web search results tailored to academic and research topics. Supports filtering by publication year ranges and limiting the total result count.
 

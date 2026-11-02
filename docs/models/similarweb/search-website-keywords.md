@@ -1,6 +1,8 @@
-# Similarweb Website Keywords
+# Similarweb Website Keywords API: pricing, parameters and code examples
 
-`similarweb/search-website-keywords` · api · Similarweb
+`similarweb/search-website-keywords` · data API · Similarweb · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** about $0.15 per call · **Modes:** sync
 
 Get the search keywords a website's search traffic comes from, with clicks, position, competition and search intent.
 

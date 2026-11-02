@@ -1,6 +1,8 @@
-# LinkedIn User Profile
+# LinkedIn User Profile API: pricing, parameters and code examples
 
-`linkedin/web-v2/user-profile` · api · LinkedIn
+`linkedin/web-v2/user-profile` · data API · LinkedIn · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Retrieves public profile details for a LinkedIn member. Input the full profile link to look up member information.
 

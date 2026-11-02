@@ -1,6 +1,8 @@
-# Qwen: Qwen3.7 Flash
+# Qwen: Qwen3.7 Flash API: pricing, parameters and code examples
 
-`alibaba/qwen3.7-flash` · llm · Alibaba
+`alibaba/qwen3.7-flash` · LLM · Alibaba · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.03 input / $0.13 output per 1M tokens · **Modes:** sync
 
 Qwen3.7 Flash is the Flash tier of Alibaba's Qwen3.7 series, a native vision-language reasoning model that accepts text, images and video, released in July 2026. Alibaba describes it as an upgrade over Qwen3.6 Flash in multimodal understanding, object recognition, spatial perception and agent execution, with more stable search and multimodal coding agents. Choose it over Qwen3.7 Plus or Max when speed and high-volume throughput matter more than peak capability.
 

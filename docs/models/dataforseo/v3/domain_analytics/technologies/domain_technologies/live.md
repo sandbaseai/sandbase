@@ -1,6 +1,8 @@
-# DataForSEO Domain Technologies
+# DataForSEO Domain Technologies API: pricing, parameters and code examples
 
-`dataforseo/v3/domain_analytics/technologies/domain_technologies/live` · api · DataForSEO
+`dataforseo/v3/domain_analytics/technologies/domain_technologies/live` · data API · DataForSEO · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.003 per call (free daily quota) · **Modes:** sync
 
 Returns technology stack details and software detected on a target website. Use this endpoint to inspect frameworks, libraries, and tools active on a specified domain.
 

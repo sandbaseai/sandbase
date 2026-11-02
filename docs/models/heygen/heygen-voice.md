@@ -1,6 +1,8 @@
-# HeyGen Voice
+# HeyGen Voice API: pricing, parameters and code examples
 
-`heygen/heygen-voice` · audio · HeyGen
+`heygen/heygen-voice` · audio model · HeyGen · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** from $0.03 per run, depending on parameters · **Modes:** async
 
 HeyGen Voice turns text into natural speech in 39 languages, with 24 public voices or a cloned voice from a reference recording.
 

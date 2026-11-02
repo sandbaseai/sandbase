@@ -1,6 +1,8 @@
-# Douyin Hot Video Ranking
+# Douyin Hot Video Ranking API: pricing, parameters and code examples
 
-`douyin/billboard/hot-total-video-list` · api · Douyin
+`douyin/billboard/hot-total-video-list` · data API · Douyin · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Get Douyin hot video rankings: overall hot videos, low-follower breakouts, high completion, follower growth and like-rate lists, with play, like and follower stats, filters by category and time window.
 

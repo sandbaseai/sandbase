@@ -1,6 +1,8 @@
-# Douyin High Completion Rate Billboard
+# Douyin High Completion Rate Billboard API: pricing, parameters and code examples
 
-`douyin/billboard/hot-total-high-play-list` · api · Douyin
+`douyin/billboard/hot-total-high-play-list` · data API · Douyin · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns Douyin billboard rankings for videos with high completion rates. Filter results by search keyword, category tags, time window, and pagination settings.
 

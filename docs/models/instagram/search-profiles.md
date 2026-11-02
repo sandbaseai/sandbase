@@ -1,6 +1,8 @@
-# Instagram Profile Search
+# Instagram Profile Search API: pricing, parameters and code examples
 
-`instagram/search-profiles` · api · Instagram
+`instagram/search-profiles` · data API · Instagram · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** about $0.0012 per call · **Modes:** sync
 
 Search public Instagram profiles by a bio or caption keyword.
 

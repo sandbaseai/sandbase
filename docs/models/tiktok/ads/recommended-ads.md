@@ -1,6 +1,8 @@
-# TikTok Recommended Ads
+# TikTok Recommended Ads API: pricing, parameters and code examples
 
-`tiktok/ads/recommended-ads` · api · TikTok
+`tiktok/ads/recommended-ads` · data API · TikTok · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns similar recommended TikTok ads based on a specified ad material ID. Supports optional filtering by industry ID and country code.
 

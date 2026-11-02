@@ -1,6 +1,8 @@
-# Reddit App Home Feed
+# Reddit App Home Feed API: pricing, parameters and code examples
 
-`reddit/app/home-feed` · api · Reddit
+`reddit/app/home-feed` · data API · Reddit · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns Reddit mobile app home feed content including post metadata, author details, scores, and media links. Supports sorting methods, pagination tokens, and post exclusion lists.
 

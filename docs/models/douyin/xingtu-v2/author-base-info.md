@@ -1,6 +1,8 @@
-# Douyin Xingtu Author Base Info
+# Douyin Xingtu Author Base Info API: pricing, parameters and code examples
 
-`douyin/xingtu-v2/author-base-info` · api · Douyin
+`douyin/xingtu-v2/author-base-info` · data API · Douyin · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns basic creator profile data from Douyin Xingtu by author identifier, with options to include recommendation details and linkage information.
 

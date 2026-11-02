@@ -1,6 +1,8 @@
-# Bilibili Live Room Details
+# Bilibili Live Room Details API: pricing, parameters and code examples
 
-`bilibili/web/live-room-detail` · api · Bilibili
+`bilibili/web/live-room-detail` · data API · Bilibili · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns detailed metadata and status information for a specified Bilibili live broadcast room based on the provided room identifier.
 

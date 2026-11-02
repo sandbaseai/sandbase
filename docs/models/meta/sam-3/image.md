@@ -1,6 +1,8 @@
-# SAM 3 Image
+# SAM 3 Image API: pricing, parameters and code examples
 
-`meta/sam-3/image` · image · Meta
+`meta/sam-3/image` · image generation model · Meta · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.005 per call · **Modes:** async
 
 SAM 3 Image is Meta's segmentation model. It finds objects in an image from a text, point, or box prompt and returns masks and the masked image, with optional confidence scores.
 

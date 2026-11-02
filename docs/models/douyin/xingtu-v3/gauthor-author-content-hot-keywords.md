@@ -1,6 +1,8 @@
-# Douyin Xingtu Content Keyword Analysis
+# Douyin Xingtu Content Keyword Analysis API: pricing, parameters and code examples
 
-`douyin/xingtu-v3/gauthor-author-content-hot-keywords` · api · Douyin
+`douyin/xingtu-v3/gauthor-author-content-hot-keywords` · data API · Douyin · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.020833 per call · **Modes:** sync
 
 Get Douyin Creator Marketplace (Xingtu) content keyword analysis for a specified creator. Use it to identify recurring content themes during creator positioning research.
 

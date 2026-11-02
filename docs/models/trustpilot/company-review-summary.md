@@ -1,6 +1,8 @@
-# Trustpilot Company Review Summary
+# Trustpilot Company Review Summary API: pricing, parameters and code examples
 
-`trustpilot/company-review-summary` · api · Trustpilot
+`trustpilot/company-review-summary` · data API · Trustpilot · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.05 per call · **Modes:** async
 
 Get AI summary, review topics, rating breakdown, and recent review texts for a company. Accepts either a direct company domain or a search query.
 

@@ -1,6 +1,8 @@
-# DataForSEO Amazon Product Keyword Intersections
+# DataForSEO Amazon Product Keyword Intersections API: pricing, parameters and code examples
 
-`dataforseo/v3/dataforseo_labs/amazon/product_keyword_intersections/live` · api · DataForSEO
+`dataforseo/v3/dataforseo_labs/amazon/product_keyword_intersections/live` · data API · DataForSEO · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.024 per call · **Modes:** sync
 
 List keywords several ASINs rank for together, with positions.
 

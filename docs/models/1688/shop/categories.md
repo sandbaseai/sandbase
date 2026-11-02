@@ -1,6 +1,8 @@
-# 1688 Shop Categories
+# 1688 Shop Categories API: pricing, parameters and code examples
 
-`1688/shop/categories` · api · 1688
+`1688/shop/categories` · data API · 1688 · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.013889 per call (free daily quota) · **Modes:** sync
 
 List all product categories of a 1688 shop by shop URL or seller member ID.
 

@@ -1,6 +1,8 @@
-# Douyin Trend Report Search
+# Douyin Trend Report Search API: pricing, parameters and code examples
 
-`douyin/index/report-search` · api · Douyin
+`douyin/index/report-search` · data API · Douyin · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns trend insight reports from Douyin Index. Supports filtering by keyword, report type, product line, category ID, and release year.
 

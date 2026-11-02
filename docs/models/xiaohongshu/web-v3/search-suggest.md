@@ -1,6 +1,8 @@
-# Xiaohongshu (RED) Search Suggestions
+# Xiaohongshu (RED) Search Suggestions API: pricing, parameters and code examples
 
-`xiaohongshu/web-v3/search-suggest` · api · Xiaohongshu
+`xiaohongshu/web-v3/search-suggest` · data API · Xiaohongshu · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.015 per call (free daily quota) · **Modes:** sync
 
 Returns search query suggestions and autocomplete terms from Xiaohongshu (RED). Accepts an optional search query prefix to surface matching keyword recommendations.
 

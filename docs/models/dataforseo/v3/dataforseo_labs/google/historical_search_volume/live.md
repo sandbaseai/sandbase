@@ -1,6 +1,8 @@
-# DataForSEO Google Historical Search Volume
+# DataForSEO Google Historical Search Volume API: pricing, parameters and code examples
 
-`dataforseo/v3/dataforseo_labs/google/historical_search_volume/live` · api · DataForSEO
+`dataforseo/v3/dataforseo_labs/google/historical_search_volume/live` · data API · DataForSEO · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.024 per call · **Modes:** sync
 
 Get historical Google search volume for keywords from DataForSEO Labs: monthly searches, CPC, competition and keyword properties by location and language.
 

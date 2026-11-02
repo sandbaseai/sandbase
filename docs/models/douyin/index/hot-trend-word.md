@@ -1,6 +1,8 @@
-# Douyin Hot Trend Words
+# Douyin Hot Trend Words API: pricing, parameters and code examples
 
-`douyin/index/hot-trend-word` · api · Douyin
+`douyin/index/hot-trend-word` · data API · Douyin · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns trending search words suggested in the keyword index search box. Filter by platform and word type to retrieve relevant search suggestions.
 

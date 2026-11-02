@@ -1,6 +1,8 @@
-# Brave Web Search
+# Brave Web Search API: pricing, parameters and code examples
 
-`brave/web` · api · Brave
+`brave/web` · data API · Brave · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.005 per call (free daily quota) · **Modes:** sync
 
 Web Search from Brave. Returns the official Brave API response unchanged.
 

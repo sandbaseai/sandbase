@@ -1,6 +1,8 @@
-# Douyin Web Guest Cookie
+# Douyin Web Guest Cookie API: pricing, parameters and code examples
 
-`douyin/web/web-guest-cookie` · api · Douyin
+`douyin/web/web-guest-cookie` · data API · Douyin · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns a guest cookie for Douyin Web based on a specified browser user agent string. This cookie helps establish identity for browsing web endpoints.
 

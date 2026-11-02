@@ -1,6 +1,8 @@
-# DataForSEO YouTube Search Results
+# DataForSEO YouTube Search Results API: pricing, parameters and code examples
 
-`dataforseo/v3/serp/youtube/organic/live/advanced` · api · DataForSEO
+`dataforseo/v3/serp/youtube/organic/live/advanced` · data API · DataForSEO · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** about $0.002 per call · **Modes:** sync
 
 YouTube search results for a keyword: videos, channels and playlists with titles, views, durations and publish dates.
 

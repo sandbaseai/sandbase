@@ -1,6 +1,8 @@
-# Veo 3.1 Fast First-Last Frame to Video
+# Veo 3.1 Fast First-Last Frame to Video API: pricing, parameters and code examples
 
-`google/veo3.1/fast/first-last-frame-to-video` · video · Google
+`google/veo3.1/fast/first-last-frame-to-video` · video generation model · Google · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** from $0.32 to $2.4 per run, depending on parameters · **Modes:** async
 
 Veo3.1 Fast First Last Frame To Video is Google's image-to-video AI model. Bring static images to life with fluid animation, consistent character motion, and professional-grade video output.
 

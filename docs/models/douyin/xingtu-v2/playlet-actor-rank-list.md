@@ -1,6 +1,8 @@
-# Douyin Xingtu Playlet Actor Ranking List
+# Douyin Xingtu Playlet Actor Ranking List API: pricing, parameters and code examples
 
-`douyin/xingtu-v2/playlet-actor-rank-list` · api · Douyin
+`douyin/xingtu-v2/playlet-actor-rank-list` · data API · Douyin · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.003 per call (free daily quota) · **Modes:** sync
 
 Returns Xingtu ranking lists for Douyin playlet actors based on specified dates and evaluation periods. Filter rankings by actor category and ranking types.
 

@@ -1,6 +1,8 @@
-# Instagram Explore Feed
+# Instagram Explore Feed API: pricing, parameters and code examples
 
-`instagram/v3/explore` · api · Instagram
+`instagram/v3/explore` · data API · Instagram · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.012 per call (free daily quota) · **Modes:** sync
 
 Returns curated sectional items from the Instagram explore feed, including layout formats and feed types. Supports cursor-based pagination.
 

@@ -1,6 +1,8 @@
-# Instagram Reels by Audio
+# Instagram Reels by Audio API: pricing, parameters and code examples
 
-`instagram/audio-reels` · api · Instagram
+`instagram/audio-reels` · data API · Instagram · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** about $0.0011 per call · **Modes:** sync
 
 List Instagram reels that use a given audio track by audio id.
 

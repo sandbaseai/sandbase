@@ -1,6 +1,8 @@
-# Douyin Index Keyword Valid Dates
+# Douyin Index Keyword Valid Dates API: pricing, parameters and code examples
 
-`douyin/index/keyword-valid-date` · api · Douyin
+`douyin/index/keyword-valid-date` · data API · Douyin · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns the valid date ranges available for specified search terms in the Douyin Index. Queries accept a comma-separated list of keywords to identify data availability periods.
 

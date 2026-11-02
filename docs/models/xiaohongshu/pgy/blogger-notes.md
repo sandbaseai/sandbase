@@ -1,6 +1,8 @@
-# Xiaohongshu (RED) PGY Blogger Notes
+# Xiaohongshu (RED) PGY Blogger Notes API: pricing, parameters and code examples
 
-`xiaohongshu/pgy/blogger-notes` · api · Xiaohongshu
+`xiaohongshu/pgy/blogger-notes` · data API · Xiaohongshu · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.03 per call · **Modes:** sync
 
 Returns notes posted by a specific blogger on the Xiaohongshu Pugongying platform. Supports filtering by note type, content tag, feature tag, and traffic source.
 

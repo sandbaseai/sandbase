@@ -1,6 +1,8 @@
-# TikTok Stream Audience Ranking List
+# TikTok Stream Audience Ranking List API: pricing, parameters and code examples
 
-`tiktok/app-v3/live-ranking-list` · api · TikTok
+`tiktok/app-v3/live-ranking-list` · data API · TikTok · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns the audience ranking list for a stream room based on the specified room identifier and anchor identifier. Helps inspect top viewer participation.
 

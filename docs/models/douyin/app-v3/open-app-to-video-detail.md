@@ -1,6 +1,8 @@
-# Douyin Video Detail App Link
+# Douyin Video Detail App Link API: pricing, parameters and code examples
 
-`douyin/app-v3/open-app-to-video-detail` · api · Douyin
+`douyin/app-v3/open-app-to-video-detail` · data API · Douyin · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns a Douyin share URL for a given video ID. The resulting link opens the Douyin mobile application directly to the specified video detail screen.
 

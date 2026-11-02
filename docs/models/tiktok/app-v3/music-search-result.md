@@ -1,6 +1,8 @@
-# TikTok Music Search
+# TikTok Music Search API: pricing, parameters and code examples
 
-`tiktok/app-v3/music-search-result` · api · TikTok
+`tiktok/app-v3/music-search-result` · data API · TikTok · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns TikTok music search results matching specified keywords, with options to filter by title or author and sort by usage or duration.
 

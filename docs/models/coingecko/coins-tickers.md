@@ -1,6 +1,8 @@
-# CoinGecko Coin Tickers by ID
+# CoinGecko Coin Tickers by ID API: pricing, parameters and code examples
 
-`coingecko/coins-tickers` · api · CoinGecko
+`coingecko/coins-tickers` · data API · CoinGecko · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.008 per call (free daily quota) · **Modes:** sync
 
 Get the coin tickers on both centralized exchange (CEX) and decentralized exchange (DEX) based on a particular coin ID
 

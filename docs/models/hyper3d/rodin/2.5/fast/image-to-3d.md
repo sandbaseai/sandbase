@@ -1,6 +1,8 @@
-# Rodin 2.5 Fast Image to 3D
+# Rodin 2.5 Fast Image to 3D API: pricing, parameters and code examples
 
-`hyper3d/rodin/2.5/fast/image-to-3d` · image · hyper3d
+`hyper3d/rodin/2.5/fast/image-to-3d` · image generation model · hyper3d · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.1 per call · **Modes:** async
 
 Rodin Gen-2.5 by Hyper3D (Deemos) generates game- and production-ready 3D assets from one to five reference images, tuned for speed with the low tiers.
 

@@ -1,6 +1,8 @@
-# G2 Category Products
+# G2 Category Products API: pricing, parameters and code examples
 
-`g2/category-products` · api · G2
+`g2/category-products` · data API · G2 · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.05 per call · **Modes:** async
 
 List software products within a given G2 category. Returns products with name, slug, rating, and review count.
 

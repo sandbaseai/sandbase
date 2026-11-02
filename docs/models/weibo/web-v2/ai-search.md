@@ -1,6 +1,8 @@
-# Weibo AI Search
+# Weibo AI Search API: pricing, parameters and code examples
 
-`weibo/web-v2/ai-search` · api · Weibo
+`weibo/web-v2/ai-search` · data API · Weibo · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns multimodal search results and relevance scores from Weibo intelligent search for a specified keyword or topic query.
 

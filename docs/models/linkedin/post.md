@@ -1,6 +1,8 @@
-# LinkedIn Post
+# LinkedIn Post API: pricing, parameters and code examples
 
-`linkedin/post` · api · LinkedIn
+`linkedin/post` · data API · LinkedIn · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** about $0.0008 per call · **Modes:** sync
 
 Fetch a single LinkedIn post or article by URL (title, text, author, like and comment counts, publish date).
 

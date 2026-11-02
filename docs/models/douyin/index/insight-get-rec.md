@@ -1,6 +1,8 @@
-# Douyin Related Insight Recommendations
+# Douyin Related Insight Recommendations API: pricing, parameters and code examples
 
-`douyin/index/insight-get-rec` · api · Douyin
+`douyin/index/insight-get-rec` · data API · Douyin · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns related insight report recommendations for a specified report ID. Useful for populating related content sections on report detail pages.
 

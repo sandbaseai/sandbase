@@ -1,6 +1,8 @@
-# TikTok Shop Product Reviews
+# TikTok Shop Product Reviews API: pricing, parameters and code examples
 
-`tiktok/shop-web/product-reviews-v2` · api · TikTok
+`tiktok/shop-web/product-reviews-v2` · data API · TikTok · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Get TikTok Shop product reviews by product ID: rating, review text, SKU, reviewer country and time, with star filters, sorting and pagination across regions.
 

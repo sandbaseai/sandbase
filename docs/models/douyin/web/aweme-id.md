@@ -1,6 +1,8 @@
-# Douyin Video ID Extractor
+# Douyin Video ID Extractor API: pricing, parameters and code examples
 
-`douyin/web/aweme-id` · api · Douyin
+`douyin/web/aweme-id` · data API · Douyin · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Extracts the internal video ID from a given Douyin video web URL. Useful for parsing links before calling downstream video detail endpoints.
 

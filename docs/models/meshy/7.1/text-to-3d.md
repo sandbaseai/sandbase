@@ -1,6 +1,8 @@
-# Meshy 7.1 Text to 3D
+# Meshy 7.1 Text to 3D API: pricing, parameters and code examples
 
-`meshy/7.1/text-to-3d` · image · Meshy
+`meshy/7.1/text-to-3d` · image generation model · Meshy · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** from $1.44 to $2.304 per run, depending on parameters · **Modes:** async
 
 Meshy 7.1 generates a textured, optionally rigged and animated 3D model from a text prompt.
 

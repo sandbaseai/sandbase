@@ -1,6 +1,8 @@
-# Douyin Relation Word Analysis
+# Douyin Relation Word Analysis API: pricing, parameters and code examples
 
-`douyin/index/relation-word` · api · Douyin
+`douyin/index/relation-word` · data API · Douyin · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns search and content relation word graphs and rankings for a keyword. Query by target keyword, platform selection, and weekly date intervals.
 

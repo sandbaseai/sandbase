@@ -1,6 +1,8 @@
-# Douyin Creator Industry Category Config
+# Douyin Creator Industry Category Config API: pricing, parameters and code examples
 
-`douyin/creator/industry-category-config` · api · Douyin
+`douyin/creator/industry-category-config` · data API · Douyin · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns industry category configuration details for Douyin creators. Use this endpoint to inspect supported creator categories and related industry settings.
 

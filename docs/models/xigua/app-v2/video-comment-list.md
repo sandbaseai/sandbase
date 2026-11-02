@@ -1,6 +1,8 @@
-# Xigua Video Comment List
+# Xigua Video Comment List API: pricing, parameters and code examples
 
-`xigua/app-v2/video-comment-list` · api · Xigua
+`xigua/app-v2/video-comment-list` · data API · Xigua · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns comments for a specified Xigua video. Supports paginating through discussion threads using offset and result count parameters.
 

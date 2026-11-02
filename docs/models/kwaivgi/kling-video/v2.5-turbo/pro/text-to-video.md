@@ -1,6 +1,8 @@
-# Kling V2.5 Turbo Pro Text to Video
+# Kling V2.5 Turbo Pro Text to Video API: pricing, parameters and code examples
 
-`kwaivgi/kling-video/v2.5-turbo/pro/text-to-video` · video · KwaiVGI
+`kwaivgi/kling-video/v2.5-turbo/pro/text-to-video` · video generation model · KwaiVGI · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** from $0.35 to $0.7 per run, depending on parameters · **Modes:** async
 
 Kling V2.5 Turbo Pro Text to Video by Kuaishou turns a text prompt into a 5 or 10 second 1080p video.
 

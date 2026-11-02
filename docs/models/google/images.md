@@ -1,6 +1,8 @@
-# Google Images
+# Google Images API: pricing, parameters and code examples
 
-`google/images` · api · Google
+`google/images` · data API · Google · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** about $0.00085 per call · **Modes:** sync
 
 Run a Google Images search and get structured results: image URLs, dimensions, titles, and source pages.
 

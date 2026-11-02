@@ -1,6 +1,8 @@
-# Kuaishou Hot Board Detail
+# Kuaishou Hot Board Detail API: pricing, parameters and code examples
 
-`kuaishou/app/hot-board-detail` · api · Kuaishou
+`kuaishou/app/hot-board-detail` · data API · Kuaishou · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns trending topics and search keywords from Kuaishou hot boards based on the specified board identifier and board type.
 

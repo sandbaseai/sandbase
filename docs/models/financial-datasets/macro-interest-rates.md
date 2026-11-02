@@ -1,6 +1,8 @@
-# Financial Datasets Get Historical Interest Rates
+# Financial Datasets Get Historical Interest Rates API: pricing, parameters and code examples
 
-`financial-datasets/macro-interest-rates` · api · Financial Datasets
+`financial-datasets/macro-interest-rates` · data API · Financial Datasets · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.02 per call · **Modes:** sync
 
 The daily policy rate of one central bank: one row per calendar day, newest first, 10 rows per page. A rate change appears on the first day the new rate is in effect.
 

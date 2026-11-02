@@ -1,6 +1,8 @@
-# TikTok User Sec User ID Extractor
+# TikTok User Sec User ID Extractor API: pricing, parameters and code examples
 
-`tiktok/web/all-sec-user-id` · api · TikTok
+`tiktok/web/all-sec-user-id` · data API · TikTok · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns a list of sec_user_id identifiers corresponding to TikTok user profile URLs. Provide an array of user homepage links in the request body to retrieve their unique security IDs.
 

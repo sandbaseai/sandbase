@@ -1,6 +1,8 @@
-# YouTube Video Streams (V2)
+# YouTube Video Streams (V2) API: pricing, parameters and code examples
 
-`youtube/web-v2/video-streams-v2` · api · YouTube
+`youtube/web-v2/video-streams-v2` · data API · YouTube · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0045 per call (free daily quota) · **Modes:** sync
 
 Retrieves stream information and playback details for a YouTube video. Queries data using either a video ID or a full video URL.
 

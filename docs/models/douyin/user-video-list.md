@@ -1,6 +1,8 @@
-# Douyin User Published Videos
+# Douyin User Published Videos API: pricing, parameters and code examples
 
-`douyin/user-video-list` · api · Douyin
+`douyin/user-video-list` · data API · Douyin · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.013889 per call (free daily quota) · **Modes:** sync
 
 Get videos published by a Douyin (TikTok China) user, with cursor pagination and newest or most-popular sorting. Use it to browse or monitor a creator's public video output.
 

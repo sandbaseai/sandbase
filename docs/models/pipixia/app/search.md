@@ -1,6 +1,8 @@
-# Pipixia Search
+# Pipixia Search API: pricing, parameters and code examples
 
-`pipixia/app/search` · api · Pipixia
+`pipixia/app/search` · data API · Pipixia · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Search Pipixia (ByteDance humor community) by keyword across posts, videos, images, users and hashtags.
 

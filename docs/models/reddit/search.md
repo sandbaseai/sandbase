@@ -1,6 +1,8 @@
-# Reddit Keyword Search
+# Reddit Keyword Search API: pricing, parameters and code examples
 
-`reddit/search` · api · Reddit
+`reddit/search` · data API · Reddit · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.013889 per call (free daily quota) · **Modes:** sync
 
 Search Reddit posts by keyword with an optional continuation token. Use it to discover topic-related discussions or continue through additional search-result pages.
 

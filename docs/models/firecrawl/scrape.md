@@ -1,6 +1,8 @@
-# Firecrawl Page Scraper
+# Firecrawl Page Scraper API: pricing, parameters and code examples
 
-`firecrawl/scrape` · api · Firecrawl
+`firecrawl/scrape` · data API · Firecrawl · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0075 per call (free daily quota) · **Modes:** sync
 
 Scrapes content from target web pages with automatic handling of JavaScript rendering. Returns extracted page data based on specified formats and proxy settings.
 

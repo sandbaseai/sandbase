@@ -1,6 +1,8 @@
-# PixVerse V6 Image to Video
+# PixVerse V6 Image to Video API: pricing, parameters and code examples
 
-`pixverse/v6/image-to-video` · video · PixVerse
+`pixverse/v6/image-to-video` · video generation model · PixVerse · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** from $0.025 to $1.725 per run, depending on parameters · **Modes:** async
 
 V6 is PixVerse's image-to-video AI model. Bring static images to life with fluid animation, consistent character motion, and professional-grade video output.
 

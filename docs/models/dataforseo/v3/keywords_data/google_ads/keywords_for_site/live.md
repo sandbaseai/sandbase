@@ -1,6 +1,8 @@
-# DataForSEO Google Ads Keywords for Site
+# DataForSEO Google Ads Keywords for Site API: pricing, parameters and code examples
 
-`dataforseo/v3/keywords_data/google_ads/keywords_for_site/live` · api · DataForSEO
+`dataforseo/v3/keywords_data/google_ads/keywords_for_site/live` · data API · DataForSEO · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.003 per call (free daily quota) · **Modes:** sync
 
 Returns Google Ads keyword suggestions tailored to a target website or webpage. Helps discover relevant search terms and search advertising keywords based on site content.
 

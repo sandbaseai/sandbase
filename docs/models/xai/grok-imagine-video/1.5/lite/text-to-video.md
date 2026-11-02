@@ -1,6 +1,8 @@
-# Grok Imagine Video 1.5 Lite Text to Video
+# Grok Imagine Video 1.5 Lite Text to Video API: pricing, parameters and code examples
 
-`xai/grok-imagine-video/1.5/lite/text-to-video` · video · xAI
+`xai/grok-imagine-video/1.5/lite/text-to-video` · video generation model · xAI · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** from $0.02 to $2.1 per run, depending on parameters · **Modes:** async
 
 Grok Imagine Video 1.5 Lite, the low-cost tier of xAI's video model, turns a text prompt into a 1-15 second video with native audio.
 

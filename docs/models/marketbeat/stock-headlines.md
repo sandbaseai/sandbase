@@ -1,6 +1,8 @@
-# MarketBeat Stock Headlines
+# MarketBeat Stock Headlines API: pricing, parameters and code examples
 
-`marketbeat/stock-headlines` · api · MarketBeat
+`marketbeat/stock-headlines` · data API · MarketBeat · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.01 per call (free daily quota) · **Modes:** async
 
 Get recent news headlines for a stock from various sources. Each headline includes the title, URL, relative date, and source domain.
 

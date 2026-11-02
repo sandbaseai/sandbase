@@ -1,6 +1,8 @@
-# Polymarket Get market by slug
+# Polymarket Get market by slug API: pricing, parameters and code examples
 
-`polymarket/markets-slug` · api · Polymarket
+`polymarket/markets-slug` · data API · Polymarket · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.00044 per call (free daily quota) · **Modes:** sync
 
 Get market by slug from Polymarket. Returns the official Polymarket API response unchanged.
 

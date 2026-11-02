@@ -1,6 +1,8 @@
-# TikTok Shop Product
+# TikTok Shop Product API: pricing, parameters and code examples
 
-`tiktok-shop/product` · api · TikTok Shop
+`tiktok-shop/product` · data API · TikTok Shop · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** about $0.0012 per call · **Modes:** sync
 
 Fetch TikTok Shop product details (title, price, sales, seller, and ratings) from a product URL.
 

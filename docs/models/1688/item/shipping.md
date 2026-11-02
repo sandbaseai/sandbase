@@ -1,6 +1,8 @@
-# 1688 Product Shipping Fee
+# 1688 Product Shipping Fee API: pricing, parameters and code examples
 
-`1688/item/shipping` · api · 1688
+`1688/item/shipping` · data API · 1688 · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.013889 per call (free daily quota) · **Modes:** sync
 
 Estimate domestic shipping for a 1688 product to a Chinese province, by quantity and optional total weight.
 

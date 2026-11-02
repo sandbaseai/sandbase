@@ -1,6 +1,8 @@
-# DataForSEO Google Keywords for Site
+# DataForSEO Google Keywords for Site API: pricing, parameters and code examples
 
-`dataforseo/v3/dataforseo_labs/google/keywords_for_site/live` · api · DataForSEO
+`dataforseo/v3/dataforseo_labs/google/keywords_for_site/live` · data API · DataForSEO · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.024 per call · **Modes:** sync
 
 DataForSEO Google Keywords for Site returns Google search keywords that a specified domain ranks for, sourced from the DataForSEO Labs database.
 

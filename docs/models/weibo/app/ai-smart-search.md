@@ -1,6 +1,8 @@
-# Weibo App AI Smart Search
+# Weibo App AI Smart Search API: pricing, parameters and code examples
 
-`weibo/app/ai-smart-search` · api · Weibo
+`weibo/app/ai-smart-search` · data API · Weibo · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns AI smart search channel results and feed metadata from Weibo for a specified keyword query, with optional page-based pagination.
 

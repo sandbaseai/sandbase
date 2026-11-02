@@ -1,6 +1,8 @@
-# Douyin Xingtu KOL Search (V2)
+# Douyin Xingtu KOL Search (V2) API: pricing, parameters and code examples
 
-`douyin/xingtu/search-kol-v2` · api · Douyin
+`douyin/xingtu/search-kol-v2` · data API · Douyin · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.03 per call · **Modes:** sync
 
 Searches Douyin Xingtu creators by keyword, content tags, and follower count ranges. Returns creator identifiers, task rate tiers, and qualification levels.
 

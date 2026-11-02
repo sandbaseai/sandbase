@@ -1,6 +1,8 @@
-# Nano Banana Pro Edit
+# Nano Banana Pro Edit API: pricing, parameters and code examples
 
-`google/nano-banana-pro/edit` · image · Google
+`google/nano-banana-pro/edit` · image generation model · Google · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** from $0.1362 to $0.2422 per run, depending on parameters · **Modes:** async
 
 Nano Banana Pro is Google's new state-of-the-art image generation and editing model
 

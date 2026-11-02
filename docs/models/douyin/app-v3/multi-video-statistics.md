@@ -1,6 +1,8 @@
-# Douyin Video Statistics (Batch)
+# Douyin Video Statistics (Batch) API: pricing, parameters and code examples
 
-`douyin/app-v3/multi-video-statistics` · api · Douyin
+`douyin/app-v3/multi-video-statistics` · data API · Douyin · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0375 per call · **Modes:** sync
 
 Get play, like, share and download counts for up to 50 Douyin videos in one request by passing comma-separated video IDs.
 

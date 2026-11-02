@@ -1,6 +1,8 @@
-# Home Depot Product Reviews
+# Home Depot Product Reviews API: pricing, parameters and code examples
 
-`home-depot/product-reviews` · api · Home Depot
+`home-depot/product-reviews` · data API · Home Depot · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.015 per call (free daily quota) · **Modes:** async
 
 Get Home Depot product reviews by product ID: overall rating, ratings histogram, recommendation counts, and reviews with filters and sorting.
 

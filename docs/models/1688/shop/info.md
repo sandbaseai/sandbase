@@ -1,6 +1,8 @@
-# 1688 Shop Info
+# 1688 Shop Info API: pricing, parameters and code examples
 
-`1688/shop/info` · api · 1688
+`1688/shop/info` · data API · 1688 · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.013889 per call (free daily quota) · **Modes:** sync
 
 Get 1688 shop information by shop URL or seller member ID: company, location, ratings and business type.
 

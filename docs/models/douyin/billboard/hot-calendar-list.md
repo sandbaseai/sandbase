@@ -1,6 +1,8 @@
-# Douyin Billboard Hot Calendar List
+# Douyin Billboard Hot Calendar List API: pricing, parameters and code examples
 
-`douyin/billboard/hot-calendar-list` · api · Douyin
+`douyin/billboard/hot-calendar-list` · data API · Douyin · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Retrieves the Douyin trending activity calendar with event details, schedules, and categories. Supports filtering by date range, city code, and category code.
 

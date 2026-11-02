@@ -1,6 +1,8 @@
-# Google: Gemini 3.8 Flash
+# Google: Gemini 3.8 Flash API: pricing, parameters and code examples
 
-`google/gemini-3.8-flash` · llm · Google
+`google/gemini-3.8-flash` · LLM · Google · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $1.5 input / $7.5 output per 1M tokens · **Modes:** sync
 
 Gemini 3.8 Flash is a Flash-tier reasoning model in Google's Gemini 3 series, released in September 2026 and described by Google as its most intelligent Flash model as of release. Google positions it for long-horizon software engineering, autonomous agents and complex enterprise workflows, with significant gains over 3.7 Flash in coding, agentic tasks and multi-step reasoning in specialized domains. It accepts text, image, video, audio and PDF input with text output, and suits demanding agentic and coding work.
 

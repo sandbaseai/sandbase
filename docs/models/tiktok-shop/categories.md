@@ -1,6 +1,8 @@
-# TikTok Shop Categories
+# TikTok Shop Categories API: pricing, parameters and code examples
 
-`tiktok-shop/categories` · api · TikTok Shop
+`tiktok-shop/categories` · data API · TikTok Shop · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** about $0.0012 per call · **Modes:** sync
 
 List the TikTok Shop category tree for a market: top-level categories with ids, slugs, and images, each with its child categories.
 

@@ -1,6 +1,8 @@
-# ByteDance Video Upscaler
+# ByteDance Video Upscaler API: pricing, parameters and code examples
 
-`bytedance/upscaler/video` · video · Bytedance
+`bytedance/upscaler/video` · video generation model · Bytedance · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** about $0.036 per call · **Modes:** async
 
 Bytedance Video Upscaler upscales videos to 4K resolution with AI-powered enhancement. Supports multiple quality tiers (fast, standard, pro), frame rate interpolation to 60fps, and presets optimized for UGC, short series, AIGC, and old film restoration.
 

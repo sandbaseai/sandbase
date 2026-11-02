@@ -1,6 +1,8 @@
-# Xiaohongshu Keyword Suggestions
+# Xiaohongshu Keyword Suggestions API: pricing, parameters and code examples
 
-`xiaohongshu/search-recommend` · api · Xiaohongshu
+`xiaohongshu/search-recommend` · data API · Xiaohongshu · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.020833 per call · **Modes:** sync
 
 Get Xiaohongshu (RedNote) search keyword suggestions for a submitted seed term. Use it to expand query sets, refine content-research searches, and plan SEO or programmatic SEO keyword coverage.
 

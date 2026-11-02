@@ -1,6 +1,8 @@
-# DataForSEO Google Domain Intersection
+# DataForSEO Google Domain Intersection API: pricing, parameters and code examples
 
-`dataforseo/v3/dataforseo_labs/google/domain_intersection/live` · api · DataForSEO
+`dataforseo/v3/dataforseo_labs/google/domain_intersection/live` · data API · DataForSEO · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.024 per call · **Modes:** sync
 
 Returns common Google search keywords shared between specified domains. Helps analyze competitive keyword overlap and search ranking intersections.
 

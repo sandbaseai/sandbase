@@ -1,6 +1,8 @@
-# Qwen: Qwen3.8 Omni Flash
+# Qwen: Qwen3.8 Omni Flash API: pricing, parameters and code examples
 
-`alibaba/qwen3.8-omni-flash` · llm · Alibaba
+`alibaba/qwen3.8-omni-flash` · LLM · Alibaba · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.15 input / $0.47 output per 1M tokens · **Modes:** sync
 
 Qwen3.8 Omni Flash is Alibaba's omni-modal reasoning model in the Qwen3.8 family, accepting text, image, audio and video input and returning text, with a 1M-token context window. Alibaba positions it for audio and video understanding and content analysis, including transcription-aware summarization, meeting and lecture review, and multimodal agent steps, with tool calling and adjustable reasoning effort. Pick Qwen3.8 Flash for text and image workloads that do not need audio or video input.
 

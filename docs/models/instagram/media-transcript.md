@@ -1,6 +1,8 @@
-# Instagram Media Transcript
+# Instagram Media Transcript API: pricing, parameters and code examples
 
-`instagram/media-transcript` · api · Instagram
+`instagram/media-transcript` · data API · Instagram · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** about $0.0012 per call · **Modes:** sync
 
 Get the spoken-audio transcript text for an Instagram post or reel by URL.
 

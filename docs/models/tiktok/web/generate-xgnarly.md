@@ -1,6 +1,8 @@
-# TikTok Web X-Gnarly Signature
+# TikTok Web X-Gnarly Signature API: pricing, parameters and code examples
 
-`tiktok/web/generate-xgnarly` · api · TikTok
+`tiktok/web/generate-xgnarly` · data API · TikTok · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.003 per call (free daily quota) · **Modes:** sync
 
 Returns generated X-Gnarly signature values for TikTok web requests based on a target endpoint URL and optional request body data.
 

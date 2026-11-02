@@ -1,6 +1,8 @@
-# LinkedIn Profile Reactions
+# LinkedIn Profile Reactions API: pricing, parameters and code examples
 
-`linkedin/profile-reactions` · api · LinkedIn
+`linkedin/profile-reactions` · data API · LinkedIn · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** about $0.0029 per call · **Modes:** sync
 
 List the posts a LinkedIn member has reacted to - the reaction, its timestamp, and the full post it was made on with author and engagement.
 

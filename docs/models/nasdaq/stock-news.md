@@ -1,6 +1,8 @@
-# Nasdaq Stock News
+# Nasdaq Stock News API: pricing, parameters and code examples
 
-`nasdaq/stock-news` · api · Nasdaq
+`nasdaq/stock-news` · data API · Nasdaq · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.01 per call (free daily quota) · **Modes:** async
 
 Latest news headlines for a stock symbol. Returns articles where the symbol appears as primary or related symbol, with title, publisher, description, and publication date.
 

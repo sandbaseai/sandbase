@@ -1,6 +1,8 @@
-# Douyin Series Video List
+# Douyin Series Video List API: pricing, parameters and code examples
 
-`douyin/app-v3/series-video-list` · api · Douyin
+`douyin/app-v3/series-video-list` · data API · Douyin · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns the list of videos included in a specific Douyin series or playlet using a series identifier and cursor-based pagination.
 

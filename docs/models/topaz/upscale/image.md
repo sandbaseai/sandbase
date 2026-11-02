@@ -1,6 +1,8 @@
-# Topaz Upscale
+# Topaz Upscale API: pricing, parameters and code examples
 
-`topaz/upscale/image` · image · Topaz Labs
+`topaz/upscale/image` · image generation model · Topaz Labs · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** about $0.08 per call · **Modes:** async
 
 Upscale Image is Topaz Labs's intelligent image editing model. Transform, retouch, and reimagine existing images using text prompts - from background replacement to artistic style conversion.
 

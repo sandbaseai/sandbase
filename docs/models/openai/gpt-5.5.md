@@ -1,6 +1,8 @@
-# OpenAI: GPT-5.5
+# OpenAI: GPT-5.5 API: pricing, parameters and code examples
 
-`openai/gpt-5.5` · llm · OpenAI
+`openai/gpt-5.5` · LLM · OpenAI · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $5 input / $30 output per 1M tokens · **Modes:** sync
 
 GPT-5.5 is an OpenAI flagship reasoning model with text and image input, made available in the API in April 2026 and described by OpenAI as built for complex professional work. OpenAI positions it for writing and debugging code, online research, data analysis, creating documents and spreadsheets, and operating software across tools until a task is done. It succeeds GPT-5.4 at similar per-token latency, and a pinned snapshot dated 2026-04-23 is available for fixed-version workloads.
 

@@ -1,6 +1,8 @@
-# Pipixia Hot Search Words
+# Pipixia Hot Search Words API: pricing, parameters and code examples
 
-`pipixia/app/hot-search-words` · api · Pipixia
+`pipixia/app/hot-search-words` · data API · Pipixia · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns the current list of trending search keywords from Pipixia. Helps track popular search topics and user query trends across the platform without requiring input parameters.
 

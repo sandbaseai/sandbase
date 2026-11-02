@@ -1,6 +1,8 @@
-# Bilibili Room Stream Data
+# Bilibili Room Stream Data API: pricing, parameters and code examples
 
-`bilibili/web/live-videos` · api · Bilibili
+`bilibili/web/live-videos` · data API · Bilibili · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Returns stream URLs and playback connection details for a specific Bilibili broadcast room. Filter using the unique room identifier.
 

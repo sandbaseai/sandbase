@@ -1,6 +1,8 @@
-# DataForSEO Whois Overview with Site Metrics
+# DataForSEO Whois Overview with Site Metrics API: pricing, parameters and code examples
 
-`dataforseo/v3/domain_analytics/whois/overview/live` · api · DataForSEO
+`dataforseo/v3/domain_analytics/whois/overview/live` · data API · DataForSEO · callable with one SandBase API key from curl, Python, TypeScript and Go.
+
+**Price:** about $0.1212 per call · **Modes:** sync
 
 Whois records for domains matching filters, enriched with backlink and organic traffic metrics.
 
