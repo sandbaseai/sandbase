@@ -33,7 +33,7 @@ jobs:
         run: |
           paths="catalog docs openapi exports llms.txt README.md README.zh-CN.md"
           # skip runs where only the generation timestamp moved
-          if git diff --quiet -I 'generated' -- $paths && [ -z "$(git ls-files --others --exclude-standard -- $paths)" ]; then
+          if git diff --quiet -I '[Gg]enerated' -- $paths && [ -z "$(git ls-files --others --exclude-standard -- $paths)" ]; then
             echo "no catalog changes"; exit 0
           fi
           git config user.name "sandbase-catalog-bot"
