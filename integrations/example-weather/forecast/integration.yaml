@@ -1,0 +1,42 @@
+# Copy this folder to integrations/<vendor-slug>/<capability>/ and fill it in.
+# Never put API keys or secrets in this file: maintainers arrange access after review.
+id: example-weather/forecast
+display_name: Example Weather Forecast
+vendor: Example Weather
+category: more            # social | search | commerce | finance | business | ai-model | more
+description: >-
+  Returns an hourly weather forecast for up to 7 days for a latitude and longitude,
+  including temperature, precipitation probability and wind speed.
+homepage: https://example-weather.com
+docs_url: https://example-weather.com/docs/forecast
+contact: api-team@example-weather.com
+tags: [weather, forecast]
+
+request:
+  method: GET
+  base_url: https://api.example-weather.com
+  path: /v1/forecast
+  auth:
+    type: header            # bearer | header | query | none
+    name: X-API-Key
+
+execution:
+  mode: sync                # async APIs also set poll_path, task_id_field, status_field, status_map
+
+input_schema:
+  type: object
+  required: [lat, lon]
+  properties:
+    lat: { type: number, minimum: -90, maximum: 90, description: Latitude }
+    lon: { type: number, minimum: -180, maximum: 180, description: Longitude }
+    days: { type: integer, minimum: 1, maximum: 7, default: 3, description: Number of forecast days }
+
+output_example:
+  location: { lat: 37.77, lon: -122.42 }
+  hourly:
+    - { time: "2026-11-01T00:00:00Z", temperature_c: 14.2, precipitation_probability: 0.1, wind_kph: 9 }
+
+pricing:
+  model: per_call           # per_call | per_unit | free
+  usd: 0.001
+  source_url: https://example-weather.com/pricing
