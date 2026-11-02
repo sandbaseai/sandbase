@@ -1,0 +1,22 @@
+name: Publish Go module to pkg.go.dev
+
+on:
+  push:
+    tags: ["sdk/go/v*"]
+  workflow_dispatch:
+    inputs:
+      version:
+        description: "Go SDK version, e.g. v0.1.0"
+        required: true
+
+jobs:
+  index:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Ask the Go module proxy to fetch the release
+        run: |
+          v="${{ github.event.inputs.version }}"
+          [ -z "$v" ] && v="${GITHUB_REF_NAME#sdk/go/}"
+          curl -fsS "https://proxy.golang.org/github.com/sandbaseai/sandbase/sdk/go/@v/${v}.info"
+          echo
+          curl -fsS -X POST "https://pkg.go.dev/fetch/github.com/sandbaseai/sandbase/sdk/go@${v}" || true
