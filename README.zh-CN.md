@@ -3,7 +3,7 @@
 </p>
 
 <p align="center">
-  <b>AI 模型、数据 API、沙箱和 Agent。一个 Key，按量付费。</b>
+  <b>一个 API Key，打造你的个人 Agent。</b>
 </p>
 
 <p align="center">
@@ -20,22 +20,41 @@
 
 ---
 
-## 为什么选 SandBase
+## 一次调用，拥有你的个人 Agent
 
-大多数平台只做其中一层：LLM 网关、媒体 API、沙箱，或者工具目录。SandBase 把四层都放在**同一个 key、同一份余额、同一张账单**下，而且四层可以互相调用：Agent 能直接调用目录里的模型和 API，代码在 SandBase 的沙箱里运行。
+创建一个 Agent，交给它任务，拿到结果。每个 Agent 都能自己找到并调用 SandBase 上的 2,000+ 模型和 API，在自己的沙箱里干活。Agent 和沙箱免费，只为 Agent 用到的模型和 API 付费。
 
-| | 内容 | 价格 | 兼容 |
-|---|---|---|---|
-| 🧠 **模型** | LLM、图像、视频、音频、Embedding | 按次或按 token 计费 | OpenAI、Anthropic、Gemini SDK |
-| 🔌 **数据 API** | 社媒、搜索、SEO、电商、金融等 | **每天 100 次免费**，超出后按次计费 | 所有 API 统一用 `POST /v1/run` |
-| 📦 **沙箱** | 隔离环境，可以执行代码、运行命令、读写文件 | **免费** | E2B 官方 SDK |
-| 🤖 **Agent** | Agent、Session、HTTP Service、定时任务、Skill | **免费**（Agent 调用的模型和 API 照常计费） | OpenAI Agents API |
+```python
+# pip install "git+https://github.com/sandbaseai/sandbase#subdirectory=sdk/python"
+from sandbase import SandBase
+
+sb = SandBase()  # 读取 SANDBASE_API_KEY
+
+agent = sb.create_agent(
+    "deepseek/deepseek-v4-flash",
+    instructions="你是我的研究助理，需要实时数据时使用 SandBase 工具。",
+)
+
+reply = sb.run_agent(agent["id"], "今天 X 上大家怎么讨论 AI Agent？")
+print(reply["output"])
+```
+
+实测中，Agent 自己找到了 X 的 API，读取了 schema 和价格，调用后返回三条真实帖子和链接。全程 45 秒，除了 key 不需要任何配置。
+
+用 `sb.send(reply["session_id"], "...")` 继续对话。调好之后可以部署成 HTTP Service 或定时任务。Agent 兼容 OpenAI Agents API，也可以直接用 OpenAI 官方 SDK。
+
+| | 你的 Agent 得到什么 | 价格 |
+|---|---|---|
+| 🧰 **工具箱** | 2,000+ 模型和 API：LLM、图像、视频、音频，以及 100+ 平台的社媒、搜索、SEO、电商、金融数据 | 按量付费 · **每天 100 次免费 API 调用** |
+| 📦 **工作环境** | 隔离沙箱，可以运行代码、执行命令、读写文件，兼容 E2B SDK | **免费** |
+| 🤖 **任务** | 基于 OpenAgentCore 运行时的 Session、HTTP Service、定时任务，通过 OpenAI Agents API 调用 | **免费** |
 
 ## 选择你的场景
 
 | 你是 | 从这里开始 |
 |---|---|
-| **开发应用** | 下面的「快速开始」，以及 [Python](sdk/python) · [TypeScript](sdk/typescript) · [Go](sdk/go) 客户端 |
+| **打造个人 Agent** | 上面的示例 |
+| **在应用里直接调用模型或 API** | 下面的「快速开始」，以及 [Python](sdk/python) · [TypeScript](sdk/typescript) · [Go](sdk/go) 客户端 |
 | **运营中转平台或网关**（new-api、one-api、LiteLLM） | [中转接入指南](docs/guides/relay-platforms.md)（英文）和可直接导入的[价格文件](exports/) |
 | **使用 AI 编程工具**（Claude Code、Codex、Cursor） | [SandBase CLI / MCP](https://github.com/sandbaseai/cli) |
 | **API 提供方** | 通过 PR [接入你的 API](integrations/README.md) |

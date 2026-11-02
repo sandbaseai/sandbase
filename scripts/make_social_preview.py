@@ -113,16 +113,17 @@ def main():
     draw_mark(img, mark, m, 64 * SS, 30 * SS)
     d.text((m + 38 * SS, 62 * SS), "SandBase", font=font(28, "500"), fill=WHITE)
 
-    h1 = font(72)
-    d.text((m - 4 * SS, 214 * SS), "One API Key.", font=h1, fill=WHITE)
-    word = "Every Model."
+    h1 = font(64)
+    d.text((m - 4 * SS, 150 * SS), "One API Key.", font=h1, fill=WHITE)
+    d.text((m - 4 * SS, 230 * SS), "Build Your", font=h1, fill=WHITE)
+    word = "Personal Agent."
     bbox = d.textbbox((0, 0), word, font=h1)
-    x0, y0 = m - 4 * SS, 304 * SS
-    d.rectangle([x0, y0 + 10 * SS, x0 + bbox[2] + 22 * SS, y0 + 96 * SS], fill=LIME)
+    x0, y0 = m - 4 * SS, 310 * SS
+    d.rectangle([x0, y0 + 8 * SS, x0 + bbox[2] + 22 * SS, y0 + 86 * SS], fill=LIME)
     d.text((x0 + 11 * SS, y0), word, font=h1, fill=BG)
 
-    d.text((m, 438 * SS), "Models · Data APIs · Sandboxes · Agents", font=font(26, "500"), fill=WHITE)
-    d.text((m, 478 * SS), "2,000+ capabilities  ·  sandboxes & agents free", font=font(22), fill=MUTED)
+    d.text((m, 440 * SS), "2,000+ models & APIs across 100+ platforms", font=font(26, "500"), fill=WHITE)
+    d.text((m, 480 * SS), "100 free API calls daily · Free sandboxes · Free agents", font=font(22), fill=MUTED)
     d.text((m, 570 * SS), "github.com/sandbaseai/sandbase", font=font(20), fill=MUTED)
 
     img = img.resize((W, H), Image.LANCZOS)

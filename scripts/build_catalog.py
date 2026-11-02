@@ -831,7 +831,7 @@ def write_llms_txt(index: dict) -> None:
     lines = [
         "# SandBase",
         "",
-        "> AI models, data APIs, sandboxes and agents behind one API key, pay as you go. "
+        "> One API key to build your personal agent: AI models, data APIs, sandboxes and agents, pay as you go. "
         f"{nice(index['count'], True)} capabilities ({nice(by_type.get('api', 0))} data APIs, "
         f"{nice(sum(n for t, n in by_type.items() if t != 'api'))} AI models), 100 free data-API calls a day, "
         "free sandboxes (E2B-compatible) and free Agents (OpenAI Agents API-compatible).",

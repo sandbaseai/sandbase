@@ -1,10 +1,8 @@
 <p align="center">
-  <a href="https://www.sandbase.ai"><img src=".github/social-preview.png" alt="SandBase: one API key for models, data APIs, sandboxes and agents" width="100%"></a>
+  <a href="https://www.sandbase.ai"><img src=".github/social-preview.png" alt="SandBase: one API key, build your personal agent" width="100%"></a>
 </p>
 
-<p align="center">
-  <b>AI models, data APIs, sandboxes and agents. One key. Pay as you go.</b>
-</p>
+<h3 align="center">One API Key. Build Your Personal Agent.</h3>
 
 <p align="center">
   <!-- counts:en --><b>2,000+ models &amp; APIs</b> · 400+ AI models · 1,700+ data APIs from 100+ platforms<br><b>100 free API calls / day</b> · <b>Free sandboxes</b> · <b>Free agents</b><!-- /counts:en -->
@@ -27,61 +25,84 @@
 
 ---
 
-## Why SandBase
+## Your personal agent in one call
 
-Most platforms cover one layer: an LLM gateway, a media API, a sandbox, or a tool catalog. SandBase covers all four with **one key, one balance and one bill**, and the layers work together. Agents call any model or API in the catalog, and their code runs in SandBase sandboxes.
+Create an agent, give it a job, get the answer. Every agent can find and call any of the 2,000+ models and APIs on SandBase on its own, and it works in its own sandbox. Agents and sandboxes are free. You pay only for the models and APIs your agent uses.
 
-| | What you get | Price | Works with |
-|---|---|---|---|
-| 🧠 **Models** | LLM, image, video, audio, embedding | Pay per call or per token | OpenAI, Anthropic and Gemini SDKs |
-| 🔌 **Data APIs** | Social, search, SEO, e-commerce, finance and more | **100 free calls / day**, then pay per call | One `POST /v1/run` for every API |
-| 📦 **Sandboxes** | Isolated machines for code, commands and files | **Free** | The official E2B SDK |
-| 🤖 **Agents** | Agents, Sessions, HTTP Services, Schedules, Skills | **Free** (you pay for the models and APIs they call) | The official OpenAI Agents API |
+```python
+# pip install "git+https://github.com/sandbaseai/sandbase#subdirectory=sdk/python"
+from sandbase import SandBase
+
+sb = SandBase()  # reads SANDBASE_API_KEY
+
+agent = sb.create_agent(
+    "deepseek/deepseek-v4-flash",
+    instructions="You are my research agent. Use SandBase tools for live data.",
+)
+
+reply = sb.run_agent(agent["id"], "What are people on X saying about AI agents today?")
+print(reply["output"])
+```
+
+In our test run the agent searched for an X API, read its schema and price, called it, and answered with three real posts and their links. It took 45 seconds and needed no setup beyond the key.
+
+Keep the conversation going with `sb.send(reply["session_id"], "...")`. When the agent is ready, deploy it as an [HTTP Service](https://www.sandbase.ai/docs/agents/services) (`sb.invoke_service(...)`) or put it on a [Schedule](https://www.sandbase.ai/docs/agents/schedules). Agents follow the OpenAI Agents API, so the official OpenAI SDK works as well (`client.beta.agents`, [example](examples/agents/python/openai_agents.py)). TypeScript and Go have the same helpers: `runAgent` and `RunAgent`.
+
+## What your agent gets
+
+| | | Price |
+|---|---|---|
+| 🧰 **A toolkit** | 2,000+ models and APIs: LLMs, image, video and audio models, plus social, search, SEO, e-commerce and finance data from 100+ platforms | Pay as you go · **100 free API calls / day** |
+| 📦 **A place to work** | An isolated sandbox for code, commands and files, compatible with the E2B SDK | **Free** |
+| 🤖 **A job** | Sessions, HTTP Services and Schedules on the OpenAgentCore runtime, called through the OpenAI Agents API | **Free** |
 
 ## Pick your path
 
 | You are | Start here |
 |---|---|
-| **Building an app** | [Quickstart](#quickstart) and the [Python](sdk/python) · [TypeScript](sdk/typescript) · [Go](sdk/go) clients |
-| **Running a gateway or relay** (new-api, one-api, LiteLLM) | [Relay guide](docs/guides/relay-platforms.md) and ready-to-import [price files](exports/) |
-| **Using an AI coding agent** (Claude Code, Codex, Cursor) | [SandBase CLI / MCP](https://github.com/sandbaseai/cli) |
+| **Building a personal agent** | [The example above](#your-personal-agent-in-one-call) and the [Python](sdk/python) · [TypeScript](sdk/typescript) · [Go](sdk/go) clients |
+| **Using Claude Code, Codex or Cursor** | Paste into your agent: `npm install -g @sandbaseai/cli && sandbase connect` ([CLI / MCP](https://github.com/sandbaseai/cli)) |
+| **Calling a model or API from your app** | [Call the pieces directly](#call-the-pieces-directly) |
+| **Running a gateway or relay** (new-api, one-api, LiteLLM) | [Relay guide](docs/guides/relay-platforms.md) and [price files](exports/) |
 | **An API provider** | [Add your API](integrations/README.md) with a pull request |
 
-## Quickstart
+## Call the pieces directly
 
-Get a key at [sandbase.ai/console](https://www.sandbase.ai/console), then call any model or API:
+Everything your agent uses is also available to your own code with the same key.
+
+**Any model or API.** Every capability takes the same request: `model` plus its own fields.
 
 ```bash
-export SANDBASE_API_KEY=sk-...
-
 curl https://api.sandbase.ai/v1/run \
   -H "Authorization: Bearer $SANDBASE_API_KEY" \
   -H "Content-Type: application/json" \
   -d '{"model": "exa/search", "query": "AI agents"}'
 ```
 
-Every capability takes the same request: `model` plus its own fields. In the clients, `run()` returns the finished result for sync and async calls alike:
-
-Install the Python client:
-
-```bash
-pip install "git+https://github.com/sandbaseai/sandbase#subdirectory=sdk/python"
-```
-
 ```python
-from sandbase import SandBase
+sb.run("exa/search", query="AI agents")  # a data API (sync)
 
-sb = SandBase()
-
-# a data API (sync)
-sb.run("exa/search", query="AI agents")
-
-# a video model (async, run() waits)
-sb.run(
+sb.run(                                  # a video model (async, run() waits)
     "bytedance/seedance/2.5/text-to-video",
     prompt="a cat surfing",
     duration=4,
 )
+```
+
+**A sandbox.** Keep the official E2B SDK and point it at SandBase:
+
+```python
+# pip install e2b
+import os
+from e2b import Sandbox
+
+os.environ["E2B_API_KEY"] = os.environ["SANDBASE_API_KEY"]
+os.environ["E2B_API_URL"] = "https://sandbox.sandbase.ai"
+os.environ["E2B_DOMAIN"] = "sandbox.sandbase.ai"
+
+sbx = Sandbox.create("tpl_...", timeout=120)  # template ids: catalog/sandbox.json
+print(sbx.commands.run("python3 -c 'print(40 + 2)'").stdout)
+sbx.kill()
 ```
 
 <details>
@@ -152,48 +173,6 @@ Open [`examples/http/sandbase.http`](examples/http/sandbase.http) and click *Sen
 <!-- /inside:en -->
 
 Every entry has a page with its schema, price and code in four languages. See [all models &amp; APIs](docs/INDEX.md) or [browse by platform](docs/platforms/README.md): [TikTok](docs/platforms/tiktok.md) · [Instagram](docs/platforms/instagram.md) · [YouTube](docs/platforms/youtube.md) · [LinkedIn](docs/platforms/linkedin.md) · [Reddit](docs/platforms/reddit.md) · [Douyin](docs/platforms/douyin.md) · [Xiaohongshu](docs/platforms/xiaohongshu.md) · [DataForSEO](docs/platforms/dataforseo.md) · [Polymarket](docs/platforms/polymarket.md) · [OpenAI](docs/platforms/openai.md) · [Google](docs/platforms/google.md) · [Kling](docs/platforms/kwaivgi.md)
-
-## Sandboxes
-
-Sandboxes are free and speak the E2B protocol. Keep the official E2B SDK and point it at SandBase:
-
-```python
-# pip install e2b
-import os
-from e2b import Sandbox
-
-os.environ["E2B_API_KEY"] = os.environ["SANDBASE_API_KEY"]
-os.environ["E2B_API_URL"] = "https://sandbox.sandbase.ai"
-os.environ["E2B_DOMAIN"] = "sandbox.sandbase.ai"
-
-# template ids: catalog/sandbox.json
-sbx = Sandbox.create("tpl_...", timeout=120)
-print(sbx.commands.run("python3 -c 'print(40 + 2)'").stdout)
-sbx.kill()
-```
-
-Full examples: [Python](examples/sandbox/python/hello_sandbox.py) · [TypeScript](examples/sandbox/typescript/hello-sandbox.mjs)
-
-## Agents
-
-Agents are free to create and run. You pay only for the models and APIs they call.
-
-The quickest path is the client in this repo. `run_agent()` creates a Session and waits for the answer:
-
-```python
-agent = sb.create_agent(
-    "deepseek/deepseek-v4-flash",
-    instructions="Answer in one short sentence.",
-)
-
-reply = sb.run_agent(agent["id"], "What is 2+2?")
-print(reply["output"])  # 2 + 2 = 4.
-
-# a follow-up in the same Session
-sb.send(reply["session_id"], "And times 10?")
-```
-
-SandBase implements the OpenAI Agents API, so you can also use the official OpenAI SDK (`client.beta.agents`) with `base_url="https://api.sandbase.ai/v1"`. See the [streaming example](examples/agents/python/openai_agents.py). TypeScript and Go have the same helpers: `runAgent` and `RunAgent`.
 
 ## Pricing
 
