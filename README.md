@@ -49,6 +49,25 @@ print(reply["output"])
 
 In our test run the agent searched for an X API, read its schema and price, called it, and answered with three real posts and their links. It took 45 seconds and needed no setup beyond the key.
 
+<details>
+<summary><b>How the agent gets its tools</b></summary>
+
+Every new agent comes with the SandBase tools (discover, inspect, run) by default. You don't need to configure anything. If you set `mcp_connections` yourself, the list replaces the default:
+
+```python
+# add your own MCP server and keep the SandBase tools
+mcp_connections=[
+    {"connection_id": "builtin:sandbase", "server_label": "sandbase_builtin", "required": True},
+    {"connection_id": "mcp_...", "server_label": "github", "required": True},
+]
+
+# a plain chat agent without tools
+mcp_connections=[]
+```
+
+The built-in entry must use `server_label: "sandbase_builtin"`. Any other label returns `400`.
+</details>
+
 Keep the conversation going with `sb.send(reply["session_id"], "...")`. When the agent is ready, deploy it as an [HTTP Service](https://www.sandbase.ai/docs/agents/services) (`sb.invoke_service(...)`) or put it on a [Schedule](https://www.sandbase.ai/docs/agents/schedules). Agents follow the OpenAI Agents API, so the official OpenAI SDK works as well (`client.beta.agents`, [example](examples/agents/python/openai_agents.py)). TypeScript and Go have the same helpers: `runAgent` and `RunAgent`.
 
 ## What your agent gets

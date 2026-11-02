@@ -41,6 +41,8 @@ print(reply["output"])
 
 实测中，Agent 自己找到了 X 的 API，读取了 schema 和价格，调用后返回三条真实帖子和链接。全程 45 秒，除了 key 不需要任何配置。
 
+新建的 Agent 默认自带 SandBase 工具（discover、inspect、run），不需要配置。如果自己设置 `mcp_connections`，这个列表会替换默认值：要保留 SandBase 工具，就把 `{"connection_id": "builtin:sandbase", "server_label": "sandbase_builtin"}` 一起写进去；只想要纯对话、不带工具，就传 `[]`。
+
 用 `sb.send(reply["session_id"], "...")` 继续对话。调好之后可以部署成 HTTP Service 或定时任务。Agent 兼容 OpenAI Agents API，也可以直接用 OpenAI 官方 SDK。
 
 | | 你的 Agent 得到什么 | 价格 |
