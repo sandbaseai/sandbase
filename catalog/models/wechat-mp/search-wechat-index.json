@@ -43,7 +43,7 @@
   "pricing": {
     "currency": "USD",
     "model": "per_call",
-    "per_call": 0.111111
+    "per_call": 0.114286
   },
   "readme": "# WeChat MP WeChat Index Search API\n\nQuery WeChat Index for a keyword. Use it to examine trend interest within WeChat before planning content, campaigns, or further article research.\n\nThe response is the platform's original data structure.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/wechat-mp/search-wechat-index\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"keyword\": \"人工智能\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `keyword` | string | Yes | Keyword used to query WeChat Index trend signals. |\n\n## Pricing\n\nFlat price per call. Failed calls and empty results are not charged.\n",
   "page_url": "https://www.sandbase.ai/model/wechat-mp/search-wechat-index",

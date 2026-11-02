@@ -2,13 +2,13 @@
 
 `xiaohongshu/app-v2/search-products` · data API · Xiaohongshu · callable with one SandBase API key from curl, Python, TypeScript and Go.
 
-**Price:** $0.015 per call (free daily quota) · **Modes:** sync
+**Price:** $0.01 per call (free daily quota) · **Modes:** sync
 
 Returns Xiaohongshu product search results based on a target keyword. Includes product card details, goods identifiers, stock status, and item titles across paginated listings.
 
 ## Pricing
 
-- **$0.015 per call** (USD)
+- **$0.01 per call** (USD)
 - Free quota: 100 calls/day per organization (shared across free-quota APIs).
 
 ## Call it

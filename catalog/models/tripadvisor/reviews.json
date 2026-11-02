@@ -1,0 +1,110 @@
+{
+  "name": "tripadvisor/reviews",
+  "display_name": "Tripadvisor Reviews",
+  "type": "api",
+  "vendor": "Tripadvisor",
+  "vendor_slug": "tripadvisor",
+  "description": "Public reviews of a Tripadvisor hotel, restaurant or attraction by place ID: rating, title, text, date and reviewer.",
+  "tags": [
+    "api",
+    "tripadvisor",
+    "reviews"
+  ],
+  "capabilities": [
+    "api",
+    "tripadvisor",
+    "reviews"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/tripadvisor/reviews"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "place_id"
+    ],
+    "properties": {
+      "num": {
+        "type": "integer",
+        "default": 10,
+        "example": 5,
+        "description": "Number of reviews, 1 through 50."
+      },
+      "start": {
+        "type": "integer",
+        "default": 0,
+        "description": "Review offset from 0 through 10,000."
+      },
+      "locale": {
+        "type": "string",
+        "default": "en-US",
+        "description": "Lowercase language code with an optional uppercase country, such as en or en-US."
+      },
+      "sort_by": {
+        "enum": [
+          "recent",
+          "relevance"
+        ],
+        "type": "string",
+        "default": "recent",
+        "description": "Review order: recent (newest first) or relevance."
+      },
+      "timeout": {
+        "type": "number",
+        "description": "Optional budget for the entire request in seconds, measured from gateway receipt until the response is ready to send. Includes admission, queueing and settlement. Must be greater than 0 and at most 90. On expiry, the call is not billed and returns 503 request_deadline_exceeded with retryable=true an"
+      },
+      "place_id": {
+        "type": "integer",
+        "example": 18941405,
+        "description": "Numeric Tripadvisor place ID, up to 16 digits."
+      },
+      "translate": {
+        "type": "boolean",
+        "default": false,
+        "description": "Request Tripadvisor's machine translation of reviews."
+      },
+      "tripadvisor_domain": {
+        "type": "string",
+        "description": "Supported first-party localized Tripadvisor hostname, such as www.tripadvisor.co.uk."
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "required": [
+      "id",
+      "status",
+      "model"
+    ],
+    "properties": {
+      "id": {
+        "type": "string"
+      },
+      "model": {
+        "type": "string"
+      },
+      "status": {
+        "type": "string"
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.00015,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "readme": "# Tripadvisor Reviews API\n\nPublic reviews of a Tripadvisor hotel, restaurant or attraction by place ID: rating, title, text, date and reviewer.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/tripadvisor/reviews\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"place_id\": 18941405, \"num\": 5}'\n```\n\nThe result is returned in `outputs[0].data`.\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `place_id` | integer | Yes | Numeric Tripadvisor place ID, up to 16 digits. |\n| `locale` | string | No | Lowercase language code with an optional uppercase country, such as en or en-US. |\n| `num` | integer | No | Number of reviews, 1 through 50. |\n| `sort_by` | string | No | Review order: recent (newest first) or relevance. |\n| `start` | integer | No | Review offset from 0 through 10,000. |\n| `timeout` | number | No | Optional budget for the entire request in seconds, measured from gateway receipt until the response is ready to send. Includes admission, queueing and settlement. Must be greater t |\n| `translate` | boolean | No | Request Tripadvisor's machine translation of reviews. |\n| `tripadvisor_domain` | string | No | Supported first-party localized Tripadvisor hostname, such as www.tripadvisor.co.uk. |\n\n## Pricing\n\nFlat price per call. Failed calls are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/tripadvisor/reviews",
+  "published_at": "2026-11-02T00:00:00Z",
+  "created_at": "2026-11-02T10:10:23.241Z"
+}

@@ -2,13 +2,13 @@
 
 `douyin/xingtu-v3/data-sp-author-audience-distribution` · data API · Douyin · callable with one SandBase API key from curl, Python, TypeScript and Go.
 
-**Price:** $0.020833 per call · **Modes:** sync
+**Price:** $0.021429 per call · **Modes:** sync
 
 Get Douyin Creator Marketplace (Xingtu) audience-distribution data for a creator, content channel, and selected relationship stage. Use it to assess audience fit for campaign targeting.
 
 ## Pricing
 
-- **$0.020833 per call** (USD)
+- **$0.021429 per call** (USD)
 
 ## Call it
 

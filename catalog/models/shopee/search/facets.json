@@ -54,7 +54,7 @@
   "pricing": {
     "currency": "USD",
     "model": "per_call",
-    "per_call": 0.027778
+    "per_call": 0.028571
   },
   "readme": "# Shopee Search Category Facets API\n\nGet the category facets Shopee shows for a search keyword, to see which categories a query maps to on each site.\n\nThe response is the platform's original data structure.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/shopee/search/facets\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"site\": \"TW\", \"keyword\": \"iphone case\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `site` | string | Yes | Shopee marketplace site. |\n| `keyword` | string | Yes | Product search keyword. |\n\n## Pricing\n\nFlat price per call. Failed calls and empty results are not charged.\n",
   "page_url": "https://www.sandbase.ai/model/shopee/search/facets",

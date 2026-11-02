@@ -1,0 +1,79 @@
+{
+  "name": "cn-social/search",
+  "display_name": "China Social Media Search",
+  "type": "api",
+  "vendor": "China Social Media",
+  "vendor_slug": "cn-social",
+  "description": "Search recent posts and articles across Chinese news sites, Weibo, WeChat, Zhihu, Douyin, Xiaohongshu, Bilibili and Kuaishou by keyword, with source and time-range filters. Results come from a cached index, so rare keywords can return few items.",
+  "tags": [
+    "api",
+    "cn-social",
+    "social-media"
+  ],
+  "capabilities": [
+    "api",
+    "cn-social",
+    "social-media"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/cn-social/search"
+  },
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "end": {
+        "type": "string",
+        "example": "2026-11-02 00:00:00",
+        "description": "End time of the search period (yyyy-MM-dd HH:mm:ss). Required for initial request."
+      },
+      "start": {
+        "type": "string",
+        "example": "2026-10-19 00:00:00",
+        "description": "Start time of the search period (yyyy-MM-dd HH:mm:ss). Required for initial request."
+      },
+      "source": {
+        "enum": [
+          "ALL",
+          "NEWS",
+          "WEIBO",
+          "WEIXIN",
+          "ZHIHU",
+          "DOUYIN",
+          "XIAOHONGSHU",
+          "BILIBILI",
+          "KUAISHOU"
+        ],
+        "type": "string",
+        "default": "ALL",
+        "example": "ALL",
+        "description": "Target social media platform for search filtering."
+      },
+      "keyword": {
+        "type": "string",
+        "example": "人工智能",
+        "description": "Search query string. Supports these five syntax forms: - AND (&&): A && B matches content containing both A and B. - OR (||): A || B matches content containing A or B. - Exclusion (-): -A matches content that does not contain A. - Parentheses (): (A && B) || C matches content containing C, or both A and B. - English double quotes (\"\"): \"A\" disables tokenization and requires an exact match for A."
+      },
+      "nextCursor": {
+        "type": "string",
+        "description": "Pagination cursor provided by the 'nextCursor' field in the previous response."
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.028571
+  },
+  "readme": "# China Social Media Search API\n\nSearch recent posts and articles across Chinese news sites, Weibo, WeChat, Zhihu, Douyin, Xiaohongshu, Bilibili and Kuaishou by keyword, with source and time-range filters. Results come from a cached index, so rare keywords can return few items.\n\nThe result is returned in `outputs[0].data` in the platform's original structure.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/cn-social/search\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"keyword\": \"人工智能\", \"source\": \"ALL\", \"start\": \"2026-10-19 00:00:00\", \"end\": \"2026-11-02 00:00:00\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `keyword` | string | No | Search query string. Supports these five syntax forms: - AND (&&): A && B matches content containing both A and B. - OR (||): A || B matches content containing A or B. - Exclusion (-): -A matches content that does not contain A. - Parentheses (): (A && B) || C matches content containing C, or both A and B. - English double quotes (\"\"): \"A\" disables tokenization and requires an exact match for A. |\n| `source` | string | No | Target social media platform for search filtering. |\n| `start` | string | No | Start time of the search period (yyyy-MM-dd HH:mm:ss). Required for initial request. |\n| `end` | string | No | End time of the search period (yyyy-MM-dd HH:mm:ss). Required for initial request. |\n| `nextCursor` | string | No | Pagination cursor provided by the 'nextCursor' field in the previous response. |\n\n## Pricing\n\nFlat price per call. Failed calls and empty results are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/cn-social/search",
+  "created_at": "2026-11-02T04:35:45.308Z"
+}

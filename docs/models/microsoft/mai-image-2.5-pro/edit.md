@@ -25,7 +25,7 @@ Modes: async (default `async`). Only pass `mode` values listed here. The SDKs' `
 ```bash
 curl https://api.sandbase.ai/v1/run \
   -H "Authorization: Bearer $SANDBASE_API_KEY" -H 'Content-Type: application/json' \
-  -d '{"model": "microsoft/mai-image-2.5-pro/edit", "prompt": "<prompt>", "image": ""}'
+  -d '{"model": "microsoft/mai-image-2.5-pro/edit", "prompt": "Turn this into a clean, futuristic product shot with soft studio lighting.", "image": "https://storage.googleapis.com/falserverless/example_inputs/nano-banana-edit-input.png"}'
 ```
 
 **Python** ([sdk/python](../../../../sdk/python))
@@ -33,7 +33,7 @@ curl https://api.sandbase.ai/v1/run \
 ```python
 from sandbase import SandBase
 
-result = SandBase().run('microsoft/mai-image-2.5-pro/edit', {'prompt': '<prompt>', 'image': ''})
+result = SandBase().run('microsoft/mai-image-2.5-pro/edit', {'prompt': 'Turn this into a clean, futuristic product shot with soft studio lighting.', 'image': 'https://storage.googleapis.com/falserverless/example_inputs/nano-banana-edit-input.png'})
 print(result["outputs"])
 ```
 
@@ -43,8 +43,8 @@ print(result["outputs"])
 import { SandBase } from "@sandbaseai/sdk";
 
 const result = await new SandBase().run("microsoft/mai-image-2.5-pro/edit", {
-  "prompt": "<prompt>",
-  "image": ""
+  "prompt": "Turn this into a clean, futuristic product shot with soft studio lighting.",
+  "image": "https://storage.googleapis.com/falserverless/example_inputs/nano-banana-edit-input.png"
 });
 console.log(result.outputs);
 ```
@@ -54,8 +54,8 @@ console.log(result.outputs);
 ```go
 c, _ := sandbase.NewClient("")
 run, err := c.Run(ctx, "microsoft/mai-image-2.5-pro/edit", sandbase.Params{
-	"prompt": "<prompt>",
-	"image": "",
+	"prompt": "Turn this into a clean, futuristic product shot with soft studio lighting.",
+	"image": "https://storage.googleapis.com/falserverless/example_inputs/nano-banana-edit-input.png",
 })
 ```
 

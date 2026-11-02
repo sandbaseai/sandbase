@@ -25,7 +25,18 @@
   },
   "input_schema": {
     "type": "object",
-    "properties": {},
+    "properties": {
+      "keywords": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        },
+        "example": [
+          "running shoes"
+        ],
+        "description": "List of keywords (up to 100 per call)."
+      }
+    },
     "description": "Request parameters forwarded to DataForSEO /v3/keywords_data/clickstream_data/global_search_volume/live. See DataForSEO docs for full schema.",
     "additionalProperties": true
   },

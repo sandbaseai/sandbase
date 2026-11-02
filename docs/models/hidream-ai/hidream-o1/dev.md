@@ -19,7 +19,7 @@ Modes: async (default `async`). Only pass `mode` values listed here. The SDKs' `
 ```bash
 curl https://api.sandbase.ai/v1/run \
   -H "Authorization: Bearer $SANDBASE_API_KEY" -H 'Content-Type: application/json' \
-  -d '{"model": "hidream-ai/hidream-o1/dev", "prompt": "<prompt>"}'
+  -d '{"model": "hidream-ai/hidream-o1/dev", "prompt": "A cinematic product photo of a ceramic mug on a marble counter, soft window light, shallow depth of field."}'
 ```
 
 **Python** ([sdk/python](../../../../sdk/python))
@@ -27,7 +27,7 @@ curl https://api.sandbase.ai/v1/run \
 ```python
 from sandbase import SandBase
 
-result = SandBase().run('hidream-ai/hidream-o1/dev', {'prompt': '<prompt>'})
+result = SandBase().run('hidream-ai/hidream-o1/dev', {'prompt': 'A cinematic product photo of a ceramic mug on a marble counter, soft window light, shallow depth of field.'})
 print(result["outputs"])
 ```
 
@@ -37,7 +37,7 @@ print(result["outputs"])
 import { SandBase } from "@sandbaseai/sdk";
 
 const result = await new SandBase().run("hidream-ai/hidream-o1/dev", {
-  "prompt": "<prompt>"
+  "prompt": "A cinematic product photo of a ceramic mug on a marble counter, soft window light, shallow depth of field."
 });
 console.log(result.outputs);
 ```
@@ -47,7 +47,7 @@ console.log(result.outputs);
 ```go
 c, _ := sandbase.NewClient("")
 run, err := c.Run(ctx, "hidream-ai/hidream-o1/dev", sandbase.Params{
-	"prompt": "<prompt>",
+	"prompt": "A cinematic product photo of a ceramic mug on a marble counter, soft window light, shallow depth of field.",
 })
 ```
 

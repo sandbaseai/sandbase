@@ -1,0 +1,92 @@
+{
+  "name": "google-flights/search",
+  "display_name": "Google Flights Search",
+  "type": "api",
+  "vendor": "Google Flights",
+  "vendor_slug": "google-flights",
+  "description": "Google Flights itineraries for a route and date: airlines, times, stops, durations, prices and price insights.",
+  "tags": [
+    "api",
+    "google-flights",
+    "search"
+  ],
+  "capabilities": [
+    "api",
+    "google-flights",
+    "search"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/google-flights/search"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "departure_id",
+      "arrival_id",
+      "outbound_date"
+    ],
+    "properties": {
+      "type": {
+        "type": "string",
+        "example": "2",
+        "description": "1 round trip (default) | 2 one way | 3 multi-city"
+      },
+      "currency": {
+        "type": "string",
+        "description": "currency"
+      },
+      "arrival_id": {
+        "type": "string",
+        "example": "AUS",
+        "description": "destination airport/location code"
+      },
+      "return_date": {
+        "type": "string",
+        "description": "YYYY-MM-DD, required when type=1"
+      },
+      "departure_id": {
+        "type": "string",
+        "example": "CDG",
+        "description": "origin airport/location code"
+      },
+      "outbound_date": {
+        "type": "string",
+        "example": "2026-12-15",
+        "description": "YYYY-MM-DD"
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "required": [
+      "id",
+      "status",
+      "model"
+    ],
+    "properties": {
+      "id": {
+        "type": "string"
+      },
+      "model": {
+        "type": "string"
+      },
+      "status": {
+        "type": "string"
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.015
+  },
+  "readme": "# Google Flights Search API\n\nGoogle Flights itineraries for a route and date: airlines, times, stops, durations, prices and price insights.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/google-flights/search\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"departure_id\": \"CDG\", \"arrival_id\": \"AUS\", \"outbound_date\": \"2026-12-15\", \"type\": \"2\"}'\n```\n\nThe result is returned in `outputs[0].data`.\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `arrival_id` | string | Yes | destination airport/location code |\n| `departure_id` | string | Yes | origin airport/location code |\n| `outbound_date` | string | Yes | YYYY-MM-DD |\n| `currency` | string | No | currency |\n| `return_date` | string | No | YYYY-MM-DD, required when type=1 |\n| `type` | string | No | 1 round trip (default) / 2 one way / 3 multi-city |\n\n## Pricing\n\nFlat price per call. Failed calls are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/google-flights/search",
+  "published_at": "2026-11-02T00:00:00Z",
+  "created_at": "2026-11-02T10:06:50.476Z"
+}

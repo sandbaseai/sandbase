@@ -25,7 +25,32 @@
   },
   "input_schema": {
     "type": "object",
-    "properties": {},
+    "properties": {
+      "date_to": {
+        "type": "string",
+        "description": "Optional end date."
+      },
+      "keyword": {
+        "type": "string",
+        "example": "coffee",
+        "description": "Keyword."
+      },
+      "date_from": {
+        "type": "string",
+        "example": "2026-06-01",
+        "description": "Optional start date, \"yyyy-mm-dd\"."
+      },
+      "language_code": {
+        "type": "string",
+        "example": "en",
+        "description": "Language code, e.g. \"en\"."
+      },
+      "location_code": {
+        "type": "integer",
+        "example": 2840,
+        "description": "Location code, e.g. 2840 for the United States."
+      }
+    },
     "description": "Request parameters forwarded to DataForSEO /v3/dataforseo_labs/google/historical_serps/live. See DataForSEO docs for full schema.",
     "additionalProperties": true
   },

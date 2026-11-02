@@ -2,13 +2,13 @@
 
 `kuaishou/web/user-live-replay` · data API · Kuaishou · callable with one SandBase API key from curl, Python, TypeScript and Go.
 
-**Price:** $0.015 per call (free daily quota) · **Modes:** sync
+**Price:** $0.01 per call (free daily quota) · **Modes:** sync
 
 Returns recorded stream replay data for a specified Kuaishou user. The endpoint accepts a user identifier and an optional cursor parameter for paginating through past streams.
 
 ## Pricing
 
-- **$0.015 per call** (USD)
+- **$0.01 per call** (USD)
 - Free quota: 100 calls/day per organization (shared across free-quota APIs).
 
 ## Call it

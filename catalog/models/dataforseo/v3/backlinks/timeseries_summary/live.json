@@ -25,7 +25,28 @@
   },
   "input_schema": {
     "type": "object",
-    "properties": {},
+    "properties": {
+      "target": {
+        "type": "string",
+        "example": "nike.com",
+        "description": "Domain, e.g. \"nike.com\"."
+      },
+      "date_to": {
+        "type": "string",
+        "example": "2026-10-01",
+        "description": "End date, \"yyyy-mm-dd\"."
+      },
+      "date_from": {
+        "type": "string",
+        "example": "2026-07-01",
+        "description": "Start date, \"yyyy-mm-dd\"."
+      },
+      "group_range": {
+        "type": "string",
+        "example": "month",
+        "description": "\"day\", \"week\", \"month\" or \"year\"."
+      }
+    },
     "description": "Request parameters forwarded to DataForSEO /v3/backlinks/timeseries_summary/live. See DataForSEO docs for full schema.",
     "additionalProperties": true
   },

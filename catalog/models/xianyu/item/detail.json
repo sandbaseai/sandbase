@@ -43,7 +43,7 @@
   "pricing": {
     "currency": "USD",
     "model": "per_call",
-    "per_call": 0.027778
+    "per_call": 0.028571
   },
   "readme": "# Xianyu Item Details API\n\nGet a Xianyu (Goofish) second-hand listing by item ID: title, price, description, images, seller and location.\n\nThe response is the platform's original data structure.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/xianyu/item/detail\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"itemId\": \"1043659406022\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `itemId` | string | Yes | A unique product identifier on Xianyu. |\n\n## Pricing\n\nFlat price per call. Failed calls and empty results are not charged.\n",
   "page_url": "https://www.sandbase.ai/model/xianyu/item/detail",

@@ -2,13 +2,13 @@
 
 `tiktok/web/home-feed` · data API · TikTok · callable with one SandBase API key from curl, Python, TypeScript and Go.
 
-**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
+**Price:** $0.001 per call (free daily quota) · **Modes:** sync
 
 Returns recommended video items and metadata from the TikTok web home feed. Supports filtering by target region code and page item count.
 
 ## Pricing
 
-- **$0.0015 per call** (USD)
+- **$0.001 per call** (USD)
 - Free quota: 100 calls/day per organization (shared across free-quota APIs).
 
 ## Call it

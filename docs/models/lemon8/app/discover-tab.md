@@ -2,13 +2,13 @@
 
 `lemon8/app/discover-tab` · data API · Lemon8 · callable with one SandBase API key from curl, Python, TypeScript and Go.
 
-**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
+**Price:** $0.001 per call (free daily quota) · **Modes:** sync
 
 Returns the main content featured on the Lemon8 discover tab. Retrieve trending recommendations and highlighted posts directly from the app feed.
 
 ## Pricing
 
-- **$0.0015 per call** (USD)
+- **$0.001 per call** (USD)
 - Free quota: 100 calls/day per organization (shared across free-quota APIs).
 
 ## Call it

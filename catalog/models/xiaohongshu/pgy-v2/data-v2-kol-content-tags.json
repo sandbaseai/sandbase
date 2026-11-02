@@ -1,0 +1,51 @@
+{
+  "name": "xiaohongshu/pgy-v2/data-v2-kol-content-tags",
+  "display_name": "Xiaohongshu PGY Creator Content Tags",
+  "type": "api",
+  "vendor": "Xiaohongshu",
+  "vendor_slug": "xiaohongshu",
+  "description": "Content category tags of a Xiaohongshu (RedNote) Pugongying creator by user ID, showing which subjects the creator publishes about.",
+  "tags": [
+    "api",
+    "xiaohongshu",
+    "social-media"
+  ],
+  "capabilities": [
+    "api",
+    "xiaohongshu",
+    "social-media"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/xiaohongshu/pgy-v2/data-v2-kol-content-tags"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "userId"
+    ],
+    "properties": {
+      "userId": {
+        "type": "string",
+        "example": "5c668b3e0000000012021605",
+        "description": "KOL's user ID."
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.021429
+  },
+  "readme": "# Xiaohongshu PGY Creator Content Tags API\n\nContent category tags of a Xiaohongshu (RedNote) Pugongying creator by user ID, showing which subjects the creator publishes about.\n\nThe result is returned in `outputs[0].data` in the platform's original structure.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/xiaohongshu/pgy-v2/data-v2-kol-content-tags\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"userId\": \"5c668b3e0000000012021605\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `userId` | string | Yes | KOL's user ID. |\n\n## Pricing\n\nFlat price per call. Failed calls and empty results are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/xiaohongshu/pgy-v2/data-v2-kol-content-tags",
+  "created_at": "2026-11-02T04:36:34.515Z"
+}

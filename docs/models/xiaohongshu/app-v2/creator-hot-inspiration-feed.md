@@ -2,13 +2,13 @@
 
 `xiaohongshu/app-v2/creator-hot-inspiration-feed` · data API · Xiaohongshu · callable with one SandBase API key from curl, Python, TypeScript and Go.
 
-**Price:** $0.015 per call (free daily quota) · **Modes:** sync
+**Price:** $0.01 per call (free daily quota) · **Modes:** sync
 
 Retrieves creator center hot inspiration feed items with topic titles, popularity scores, and deeplinks. Supports pagination using a cursor parameter.
 
 ## Pricing
 
-- **$0.015 per call** (USD)
+- **$0.01 per call** (USD)
 - Free quota: 100 calls/day per organization (shared across free-quota APIs).
 
 ## Call it

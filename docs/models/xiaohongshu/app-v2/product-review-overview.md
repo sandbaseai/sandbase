@@ -2,13 +2,13 @@
 
 `xiaohongshu/app-v2/product-review-overview` · data API · Xiaohongshu · callable with one SandBase API key from curl, Python, TypeScript and Go.
 
-**Price:** $0.015 per call (free daily quota) · **Modes:** sync
+**Price:** $0.01 per call (free daily quota) · **Modes:** sync
 
 Returns product review statistics and feedback details for a specific item on Xiaohongshu (RED), filtered by SKU identifier and tab type.
 
 ## Pricing
 
-- **$0.015 per call** (USD)
+- **$0.01 per call** (USD)
 - Free quota: 100 calls/day per organization (shared across free-quota APIs).
 
 ## Call it

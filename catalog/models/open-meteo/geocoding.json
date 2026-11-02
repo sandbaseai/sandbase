@@ -1,0 +1,82 @@
+{
+  "name": "open-meteo/geocoding",
+  "display_name": "Open-Meteo Geocoding",
+  "type": "api",
+  "vendor": "Open-Meteo",
+  "vendor_slug": "open-meteo",
+  "description": "Look up places by name and get coordinates, country, timezone, population and elevation for use with the weather APIs.",
+  "tags": [
+    "api",
+    "open-meteo",
+    "weather"
+  ],
+  "capabilities": [
+    "api",
+    "open-meteo",
+    "weather"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/open-meteo/geocoding"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "name"
+    ],
+    "properties": {
+      "name": {
+        "type": "string",
+        "example": "Berlin",
+        "description": "Location name or postal code. Append `, ` or `, ` to narrow results."
+      },
+      "count": {
+        "type": "integer",
+        "default": 10,
+        "example": 5,
+        "description": "Maximum number of results (1-100). Default 10."
+      },
+      "format": {
+        "enum": [
+          "json",
+          "protobuf"
+        ],
+        "type": "string",
+        "default": "json",
+        "description": "Response format. Default `json`."
+      },
+      "language": {
+        "type": "string",
+        "default": "en",
+        "example": "en",
+        "description": "Two-letter language code for translated names. Default `en`."
+      },
+      "countryCode": {
+        "type": "string",
+        "example": "DE",
+        "description": "ISO-3166-1 alpha-2 country code to filter results."
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.0001,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "readme": "# Open-Meteo Geocoding API\n\nLook up places by name and get coordinates, country, timezone, population and elevation for use with the weather APIs.\n\nThe result is returned in `outputs[0].data` as the official Open-Meteo API response, unchanged.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/open-meteo/geocoding\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"name\": \"Berlin\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `count` | integer | No | Maximum number of results (1-100). Default 10. |\n| `countryCode` | string | No | ISO-3166-1 alpha-2 country code to filter results. |\n| `format` | string | No | Response format. Default `json`. |\n| `language` | string | No | Two-letter language code for translated names. Default `en`. |\n| `name` | string | Yes | Location name or postal code. Append `, ` or `, ` to narrow results. |\n\n## Pricing\n\nFlat price per call. Failed calls are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/open-meteo/geocoding",
+  "created_at": "2026-11-02T05:24:43.468Z"
+}

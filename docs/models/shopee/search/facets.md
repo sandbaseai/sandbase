@@ -2,13 +2,13 @@
 
 `shopee/search/facets` · data API · Shopee · callable with one SandBase API key from curl, Python, TypeScript and Go.
 
-**Price:** $0.027778 per call · **Modes:** sync
+**Price:** $0.028571 per call · **Modes:** sync
 
 Get the category facets Shopee shows for a search keyword, to see which categories a query maps to on each site.
 
 ## Pricing
 
-- **$0.027778 per call** (USD)
+- **$0.028571 per call** (USD)
 
 ## Call it
 

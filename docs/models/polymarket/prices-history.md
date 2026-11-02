@@ -20,7 +20,7 @@ Modes: sync (default `sync`). Only pass `mode` values listed here. The SDKs' `ru
 ```bash
 curl https://api.sandbase.ai/v1/run \
   -H "Authorization: Bearer $SANDBASE_API_KEY" -H 'Content-Type: application/json' \
-  -d '{"model": "polymarket/prices-history", "market": "<market>"}'
+  -d '{"model": "polymarket/prices-history", "market": "32338220190071351435772801779725302244575775216413325951443816017994629993401"}'
 ```
 
 **Python** ([sdk/python](../../../sdk/python))
@@ -28,7 +28,7 @@ curl https://api.sandbase.ai/v1/run \
 ```python
 from sandbase import SandBase
 
-result = SandBase().run('polymarket/prices-history', {'market': '<market>'})
+result = SandBase().run('polymarket/prices-history', {'market': '32338220190071351435772801779725302244575775216413325951443816017994629993401'})
 print(result["outputs"])
 ```
 
@@ -38,7 +38,7 @@ print(result["outputs"])
 import { SandBase } from "@sandbaseai/sdk";
 
 const result = await new SandBase().run("polymarket/prices-history", {
-  "market": "<market>"
+  "market": "32338220190071351435772801779725302244575775216413325951443816017994629993401"
 });
 console.log(result.outputs);
 ```
@@ -48,7 +48,7 @@ console.log(result.outputs);
 ```go
 c, _ := sandbase.NewClient("")
 run, err := c.Run(ctx, "polymarket/prices-history", sandbase.Params{
-	"market": "<market>",
+	"market": "32338220190071351435772801779725302244575775216413325951443816017994629993401",
 })
 ```
 

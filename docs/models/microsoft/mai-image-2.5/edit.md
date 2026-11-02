@@ -19,7 +19,7 @@ Modes: async (default `async`). Only pass `mode` values listed here. The SDKs' `
 ```bash
 curl https://api.sandbase.ai/v1/run \
   -H "Authorization: Bearer $SANDBASE_API_KEY" -H 'Content-Type: application/json' \
-  -d '{"model": "microsoft/mai-image-2.5/edit", "prompt": "<prompt>"}'
+  -d '{"model": "microsoft/mai-image-2.5/edit", "prompt": "Turn this into a clean, futuristic product shot with soft studio lighting."}'
 ```
 
 **Python** ([sdk/python](../../../../sdk/python))
@@ -27,7 +27,7 @@ curl https://api.sandbase.ai/v1/run \
 ```python
 from sandbase import SandBase
 
-result = SandBase().run('microsoft/mai-image-2.5/edit', {'prompt': '<prompt>'})
+result = SandBase().run('microsoft/mai-image-2.5/edit', {'prompt': 'Turn this into a clean, futuristic product shot with soft studio lighting.'})
 print(result["outputs"])
 ```
 
@@ -37,7 +37,7 @@ print(result["outputs"])
 import { SandBase } from "@sandbaseai/sdk";
 
 const result = await new SandBase().run("microsoft/mai-image-2.5/edit", {
-  "prompt": "<prompt>"
+  "prompt": "Turn this into a clean, futuristic product shot with soft studio lighting."
 });
 console.log(result.outputs);
 ```
@@ -47,7 +47,7 @@ console.log(result.outputs);
 ```go
 c, _ := sandbase.NewClient("")
 run, err := c.Run(ctx, "microsoft/mai-image-2.5/edit", sandbase.Params{
-	"prompt": "<prompt>",
+	"prompt": "Turn this into a clean, futuristic product shot with soft studio lighting.",
 })
 ```
 

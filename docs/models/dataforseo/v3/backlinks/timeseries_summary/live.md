@@ -49,6 +49,15 @@ run, err := c.Run(ctx, "dataforseo/v3/backlinks/timeseries_summary/live", sandba
 
 Same call via the path form: `POST /v1/api/dataforseo/v3/backlinks/timeseries_summary/live` with the body above minus `model`.
 
+## Parameters
+
+| name | type | required | description |
+|---|---|---|---|
+| `target` | string |  | Domain, e.g. "nike.com".  |
+| `date_to` | string |  | End date, "yyyy-mm-dd".  |
+| `date_from` | string |  | Start date, "yyyy-mm-dd".  |
+| `group_range` | string |  | "day", "week", "month" or "year".  |
+
 ## Details
 
 Backlink and referring domain totals for a domain over time, grouped by day, week, month or year.

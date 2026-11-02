@@ -2,13 +2,13 @@
 
 `xiaohongshu/user-note-list` · data API · Xiaohongshu · callable with one SandBase API key from curl, Python, TypeScript and Go.
 
-**Price:** $0.020833 per call · **Modes:** sync
+**Price:** $0.021429 per call · **Modes:** sync
 
 Get a user's published public Xiaohongshu (RedNote) notes by user ID or supported profile URL, with lastCursor pagination. This endpoint does not create, upload or publish notes.
 
 ## Pricing
 
-- **$0.020833 per call** (USD)
+- **$0.021429 per call** (USD)
 
 ## Call it
 
@@ -19,7 +19,7 @@ Modes: sync (default `sync`). Only pass `mode` values listed here. The SDKs' `ru
 ```bash
 curl https://api.sandbase.ai/v1/run \
   -H "Authorization: Bearer $SANDBASE_API_KEY" -H 'Content-Type: application/json' \
-  -d '{"model": "xiaohongshu/user-note-list", "userId": "<userId>"}'
+  -d '{"model": "xiaohongshu/user-note-list", "userId": "64b898310000000014037b21"}'
 ```
 
 **Python** ([sdk/python](../../../sdk/python))
@@ -27,7 +27,7 @@ curl https://api.sandbase.ai/v1/run \
 ```python
 from sandbase import SandBase
 
-result = SandBase().run('xiaohongshu/user-note-list', {'userId': '<userId>'})
+result = SandBase().run('xiaohongshu/user-note-list', {'userId': '64b898310000000014037b21'})
 print(result["outputs"])
 ```
 
@@ -37,7 +37,7 @@ print(result["outputs"])
 import { SandBase } from "@sandbaseai/sdk";
 
 const result = await new SandBase().run("xiaohongshu/user-note-list", {
-  "userId": "<userId>"
+  "userId": "64b898310000000014037b21"
 });
 console.log(result.outputs);
 ```
@@ -47,7 +47,7 @@ console.log(result.outputs);
 ```go
 c, _ := sandbase.NewClient("")
 run, err := c.Run(ctx, "xiaohongshu/user-note-list", sandbase.Params{
-	"userId": "<userId>",
+	"userId": "64b898310000000014037b21",
 })
 ```
 

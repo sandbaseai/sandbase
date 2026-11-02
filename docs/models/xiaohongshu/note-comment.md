@@ -2,13 +2,13 @@
 
 `xiaohongshu/note-comment` · data API · Xiaohongshu · callable with one SandBase API key from curl, Python, TypeScript and Go.
 
-**Price:** $0.020833 per call · **Modes:** sync
+**Price:** $0.021429 per call · **Modes:** sync
 
 Get comments for a Xiaohongshu (RedNote) note with cursor pagination and normal, latest, or like-count sorting. Use it to support feedback review, discussion analysis, and comment moderation workflows.
 
 ## Pricing
 
-- **$0.020833 per call** (USD)
+- **$0.021429 per call** (USD)
 
 ## Call it
 

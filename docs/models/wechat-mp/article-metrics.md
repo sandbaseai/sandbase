@@ -2,13 +2,13 @@
 
 `wechat-mp/article-metrics` · data API · WeChat MP · callable with one SandBase API key from curl, Python, TypeScript and Go.
 
-**Price:** $0.020833 per call · **Modes:** sync
+**Price:** $0.021429 per call · **Modes:** sync
 
 Get basic interaction metrics for a WeChat Official Account article URL that ends with #rd or #wechat_redirect. Use it to perform a lightweight popularity check for a known article.
 
 ## Pricing
 
-- **$0.020833 per call** (USD)
+- **$0.021429 per call** (USD)
 
 ## Call it
 

@@ -25,7 +25,28 @@
   },
   "input_schema": {
     "type": "object",
-    "properties": {},
+    "properties": {
+      "keywords": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        },
+        "example": [
+          "running shoes"
+        ],
+        "description": "List of keywords (up to 100 per call)."
+      },
+      "language_code": {
+        "type": "string",
+        "example": "en",
+        "description": "Language code, e.g. \"en\"."
+      },
+      "location_code": {
+        "type": "integer",
+        "example": 2840,
+        "description": "Location code, e.g. 2840 for the United States."
+      }
+    },
     "description": "Request parameters forwarded to DataForSEO /v3/keywords_data/bing/search_volume_history/live. See DataForSEO docs for full schema.",
     "additionalProperties": true
   },

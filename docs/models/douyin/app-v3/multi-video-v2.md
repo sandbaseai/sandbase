@@ -2,13 +2,13 @@
 
 `douyin/app-v3/multi-video-v2` · data API · Douyin · callable with one SandBase API key from curl, Python, TypeScript and Go.
 
-**Price:** $0.075 per call · **Modes:** sync
+**Price:** $0.05 per call · **Modes:** sync
 
 Returns metadata and details for multiple Douyin videos in a single batch request using an array provided in the request payload.
 
 ## Pricing
 
-- **$0.075 per call** (USD)
+- **$0.05 per call** (USD)
 
 ## Call it
 

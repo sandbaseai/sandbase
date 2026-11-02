@@ -2,13 +2,13 @@
 
 `xiaohongshu/ec/search-products` · data API · Xiaohongshu · callable with one SandBase API key from curl, Python, TypeScript and Go.
 
-**Price:** $0.027778 per call · **Modes:** sync
+**Price:** $0.028571 per call · **Modes:** sync
 
 Search products sold in Xiaohongshu (RedNote) shops by keyword, with price, sales and shop info.
 
 ## Pricing
 
-- **$0.027778 per call** (USD)
+- **$0.028571 per call** (USD)
 
 ## Call it
 

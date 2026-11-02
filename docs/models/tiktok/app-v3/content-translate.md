@@ -2,13 +2,13 @@
 
 `tiktok/app-v3/content-translate` · data API · TikTok · callable with one SandBase API key from curl, Python, TypeScript and Go.
 
-**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
+**Price:** $0.001 per call (free daily quota) · **Modes:** sync
 
 Translates provided text content into a designated target language. Accepts source text up to 5000 characters and returns the corresponding translated text string.
 
 ## Pricing
 
-- **$0.0015 per call** (USD)
+- **$0.001 per call** (USD)
 - Free quota: 100 calls/day per organization (shared across free-quota APIs).
 
 ## Call it

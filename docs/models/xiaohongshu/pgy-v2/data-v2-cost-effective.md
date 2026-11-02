@@ -2,13 +2,13 @@
 
 `xiaohongshu/pgy-v2/data-v2-cost-effective` · data API · Xiaohongshu · callable with one SandBase API key from curl, Python, TypeScript and Go.
 
-**Price:** $0.020833 per call · **Modes:** sync
+**Price:** $0.021429 per call · **Modes:** sync
 
 Get the Xiaohongshu Pugongying cost-effectiveness analysis for a known creator. Use it to assess cooperation efficiency when comparing creators for a campaign.
 
 ## Pricing
 
-- **$0.020833 per call** (USD)
+- **$0.021429 per call** (USD)
 
 ## Call it
 

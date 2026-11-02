@@ -2,14 +2,13 @@
 
 `dataforseo/v3/on_page/page_screenshot` · data API · DataForSEO · callable with one SandBase API key from curl, Python, TypeScript and Go.
 
-**Price:** $0.004 per call (free daily quota) · **Modes:** sync
+**Price:** about $0.0048 per call · **Modes:** sync
 
 Capture a full-page or viewport screenshot of any URL in desktop, mobile or tablet view. Options for custom screen size, language, user agent and dismissing cookie pop-ups.
 
 ## Pricing
 
-- **$0.004 per call** (USD)
-- Free quota: 100 calls/day per organization (shared across free-quota APIs).
+- Usage-based. Billed per call from metered usage; the reference price is typical. Reference: **$0.0048**
 
 ## Call it
 
@@ -151,7 +150,7 @@ Real response for the request above, trimmed to the main fields. User names and 
 
 ### Pricing
 
-Flat price per call. Failed calls are not charged.
+Billed at the actual cost of each call, about $0.0048 for the request above. The cost grows with the number of rows, targets or pages a call returns. Failed calls are not charged. Searches with no results are billed at their actual cost.
 
 ### Related APIs
 

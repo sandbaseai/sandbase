@@ -25,7 +25,27 @@
   },
   "input_schema": {
     "type": "object",
-    "properties": {},
+    "properties": {
+      "target": {
+        "type": "string",
+        "example": "nike.com",
+        "description": "Domain, e.g. \"nike.com\"."
+      },
+      "date_from": {
+        "type": "string",
+        "description": "Optional start date, \"yyyy-mm-dd\"."
+      },
+      "language_code": {
+        "type": "string",
+        "example": "en",
+        "description": "Language code, e.g. \"en\"."
+      },
+      "location_code": {
+        "type": "integer",
+        "example": 2840,
+        "description": "Location code, e.g. 2840 for the United States."
+      }
+    },
     "description": "Request parameters forwarded to DataForSEO /v3/dataforseo_labs/google/historical_rank_overview/live. See DataForSEO docs for full schema.",
     "additionalProperties": true
   },

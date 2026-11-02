@@ -30,7 +30,7 @@ Modes: async (default `async`). Only pass `mode` values listed here. The SDKs' `
 ```bash
 curl https://api.sandbase.ai/v1/run \
   -H "Authorization: Bearer $SANDBASE_API_KEY" -H 'Content-Type: application/json' \
-  -d '{"model": "luma/ray/3.2/text-to-video", "prompt": "<prompt>"}'
+  -d '{"model": "luma/ray/3.2/text-to-video", "prompt": "A herd of wild horses galloping across a dusty desert plain under a blazing midday sun, their manes flying in the wind; wide tracking shot."}'
 ```
 
 **Python** ([sdk/python](../../../../../sdk/python))
@@ -38,7 +38,7 @@ curl https://api.sandbase.ai/v1/run \
 ```python
 from sandbase import SandBase
 
-result = SandBase().run('luma/ray/3.2/text-to-video', {'prompt': '<prompt>'})
+result = SandBase().run('luma/ray/3.2/text-to-video', {'prompt': 'A herd of wild horses galloping across a dusty desert plain under a blazing midday sun, their manes flying in the wind; wide tracking shot.'})
 print(result["outputs"])
 ```
 
@@ -48,7 +48,7 @@ print(result["outputs"])
 import { SandBase } from "@sandbaseai/sdk";
 
 const result = await new SandBase().run("luma/ray/3.2/text-to-video", {
-  "prompt": "<prompt>"
+  "prompt": "A herd of wild horses galloping across a dusty desert plain under a blazing midday sun, their manes flying in the wind; wide tracking shot."
 });
 console.log(result.outputs);
 ```
@@ -58,7 +58,7 @@ console.log(result.outputs);
 ```go
 c, _ := sandbase.NewClient("")
 run, err := c.Run(ctx, "luma/ray/3.2/text-to-video", sandbase.Params{
-	"prompt": "<prompt>",
+	"prompt": "A herd of wild horses galloping across a dusty desert plain under a blazing midday sun, their manes flying in the wind; wide tracking shot.",
 })
 ```
 

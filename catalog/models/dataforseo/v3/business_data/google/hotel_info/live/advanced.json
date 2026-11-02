@@ -25,7 +25,23 @@
   },
   "input_schema": {
     "type": "object",
-    "properties": {},
+    "properties": {
+      "language_code": {
+        "type": "string",
+        "example": "en",
+        "description": "Language code, e.g. \"en\"."
+      },
+      "location_code": {
+        "type": "integer",
+        "example": 2840,
+        "description": "Location code, e.g. 2840 for the United States."
+      },
+      "hotel_identifier": {
+        "type": "string",
+        "example": "ChYIq6SB--i6p6cpGgovbS8wN2s5ODZfEAE",
+        "description": "Google hotel identifier from hotel search results."
+      }
+    },
     "description": "Request parameters forwarded to DataForSEO /v3/business_data/google/hotel_info/live/advanced. See DataForSEO docs for full schema.",
     "additionalProperties": true
   },

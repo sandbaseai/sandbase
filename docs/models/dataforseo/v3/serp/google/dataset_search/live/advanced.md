@@ -4,7 +4,7 @@
 
 **Price:** about $0.002 per call · **Modes:** sync
 
-Google Dataset Search results for a keyword: dataset titles, providers, formats and update dates.
+Google Dataset Search results for a keyword: dataset titles, providers, formats and last-modified dates.
 
 ## Pricing
 
@@ -49,9 +49,17 @@ run, err := c.Run(ctx, "dataforseo/v3/serp/google/dataset_search/live/advanced",
 
 Same call via the path form: `POST /v1/api/dataforseo/v3/serp/google/dataset_search/live/advanced` with the body above minus `model`.
 
+## Parameters
+
+| name | type | required | description |
+|---|---|---|---|
+| `keyword` | string |  | Search query.  |
+| `language_code` | string |  | Language code, e.g. "en".  |
+| `location_code` | integer |  | Location code, e.g. 2840 for the United States.  |
+
 ## Details
 
-Google Dataset Search results for a keyword: dataset titles, providers, formats and update dates.
+Google Dataset Search results for a keyword: dataset titles, providers, formats and last-modified dates.
 
 Request fields follow the official DataForSEO `/v3/serp/google/dataset_search/live/advanced` task schema (one task per call). The response is DataForSEO's original JSON; results are in `tasks[].result`.
 

@@ -25,7 +25,23 @@
   },
   "input_schema": {
     "type": "object",
-    "properties": {},
+    "properties": {
+      "keyword": {
+        "type": "string",
+        "example": "running shoes",
+        "description": "Search query."
+      },
+      "language_code": {
+        "type": "string",
+        "example": "en",
+        "description": "Language code, e.g. \"en\"."
+      },
+      "location_code": {
+        "type": "integer",
+        "example": 2840,
+        "description": "Location code, e.g. 2840 for the United States."
+      }
+    },
     "description": "Request parameters forwarded to DataForSEO /v3/serp/google/autocomplete/live/advanced. See DataForSEO docs for full schema.",
     "additionalProperties": true
   },
@@ -35,20 +51,16 @@
   },
   "pricing": {
     "currency": "USD",
-    "model": "per_call",
-    "per_call": 0.001,
-    "free_quota": {
-      "eligible": true,
-      "daily_calls_per_org": 100,
-      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
-    }
+    "model": "usage_based",
+    "note": "Billed per call from metered usage; the reference price is typical.",
+    "reference_price": 0.002
   },
   "examples": [
     {
       "input": {}
     }
   ],
-  "readme": "# DataForSEO Google Autocomplete Advanced API\n\nThis endpoint delivers real-time Google autocomplete suggestions directly from search results. Use it to inspect keyword search predictions and analyze user query patterns.\n\n## Use cases\n\n- Analyze search intent and emerging query trends on Google.\n- Discover long-tail keyword variations for content planning.\n- Power search box autocompletion features in custom applications.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/dataforseo/v3/serp/google/autocomplete/live/advanced\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"keyword\": \"running shoes\", \"location_code\": 2840, \"language_code\": \"en\"}'\n```\n\n## Parameters\n\nThe JSON body is forwarded to the upstream endpoint (one task per call). Fields used above:\n\n| Name | Description |\n|---|---|\n| `keyword` | Search query. |\n| `location_code` | Location code, e.g. 2840 for the United States. |\n| `language_code` | Language code, e.g. \"en\". |\n\n## Pricing\n\nFlat price per call. Failed calls are not charged.\n\n## Related APIs\n\n- [DataForSEO Backlinks Anchors](/model/dataforseo/v3/backlinks/anchors/live): Returns anchor text distribution metrics for backlinks pointing to a target website or page.\n- [DataForSEO Backlinks List](/model/dataforseo/v3/backlinks/backlinks/live): Returns a list of external backlinks pointing to a specified target domain or webpage.\n- [DataForSEO Backlinks Bulk Ranks](/model/dataforseo/v3/backlinks/bulk_ranks/live): Returns rank metrics for multiple domains or pages in bulk.\n",
+  "readme": "# DataForSEO Google Autocomplete Advanced API\n\nThis endpoint delivers real-time Google autocomplete suggestions directly from search results. Use it to inspect keyword search predictions and analyze user query patterns.\n\n## Use cases\n\n- Analyze search intent and emerging query trends on Google.\n- Discover long-tail keyword variations for content planning.\n- Power search box autocompletion features in custom applications.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/dataforseo/v3/serp/google/autocomplete/live/advanced\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"keyword\": \"running shoes\", \"location_code\": 2840, \"language_code\": \"en\"}'\n```\n\n## Parameters\n\nThe JSON body is forwarded to the upstream endpoint (one task per call). Fields used above:\n\n| Name | Description |\n|---|---|\n| `keyword` | Search query. |\n| `location_code` | Location code, e.g. 2840 for the United States. |\n| `language_code` | Language code, e.g. \"en\". |\n\n## Pricing\n\nBilled at the actual cost of each call, about $0.002 for the request above. The cost grows with the number of rows, targets or pages a call returns. Failed calls are not charged. Searches with no results are billed at their actual cost.\n\n## Related APIs\n\n- [DataForSEO Backlinks Anchors](/model/dataforseo/v3/backlinks/anchors/live): Returns anchor text distribution metrics for backlinks pointing to a target website or page.\n- [DataForSEO Backlinks List](/model/dataforseo/v3/backlinks/backlinks/live): Returns a list of external backlinks pointing to a specified target domain or webpage.\n- [DataForSEO Backlinks Bulk Ranks](/model/dataforseo/v3/backlinks/bulk_ranks/live): Returns rank metrics for multiple domains or pages in bulk.\n",
   "page_url": "https://www.sandbase.ai/model/dataforseo/v3/serp/google/autocomplete/live/advanced",
   "published_at": "2024-01-01T00:00:00Z",
   "created_at": "2026-08-02T14:45:55.402Z"

@@ -1,0 +1,70 @@
+{
+  "name": "douyin/search/video-search-v3",
+  "display_name": "Douyin Video search V3",
+  "type": "api",
+  "vendor": "Douyin",
+  "vendor_slug": "douyin",
+  "description": "Fetch video search V3 on Douyin. Returns the platform data as structured JSON.",
+  "tags": [
+    "api",
+    "douyin"
+  ],
+  "capabilities": [
+    "api",
+    "douyin"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/douyin/search/video-search-v3"
+  },
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "query": {
+        "type": "string",
+        "title": "Query",
+        "default": "美食",
+        "example": "美食",
+        "description": "Search keyword"
+      },
+      "date_type": {
+        "type": "integer",
+        "title": "Date Type",
+        "default": 0,
+        "example": 0,
+        "description": "Publish date filter: 0=any, 3=last 3 days, 7=last 7 days, 30=last 30 days"
+      },
+      "label_type": {
+        "type": "integer",
+        "title": "Label Type",
+        "default": 0,
+        "example": 0,
+        "description": "Video type filter: 0=any, 1=low-follower hit, 2=high completion rate, 3=high follower growth, 4=high like rate"
+      },
+      "duration_type": {
+        "type": "integer",
+        "title": "Duration Type",
+        "default": 0,
+        "example": 0,
+        "description": "Duration filter: 0=any, 1=0-15s, 6=15-60s, 7=60-120s, 8=120-180s, 9=over 180s"
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.01
+  },
+  "readme": "# Douyin Video search V3 API\n\nFetch video search V3 on Douyin. Returns the platform data as structured JSON.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/douyin/search/video-search-v3\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"query\": \"美食\", \"date_type\": 0, \"label_type\": 0, \"duration_type\": 0}'\n```\n\nThe result is returned in `outputs[0].data`.\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `date_type` | integer | No | Publish date filter: 0=any, 3=last 3 days, 7=last 7 days, 30=last 30 days |\n| `duration_type` | integer | No | Duration filter: 0=any, 1=0-15s, 6=15-60s, 7=60-120s, 8=120-180s, 9=over 180s |\n| `label_type` | integer | No | Video type filter: 0=any, 1=low-follower hit, 2=high completion rate, 3=high follower growth, 4=high like rate |\n| `query` | string | No | Search keyword |\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/douyin/search/video-search-v3",
+  "published_at": "2026-11-02T00:00:00Z",
+  "created_at": "2026-11-02T00:17:13.985Z"
+}

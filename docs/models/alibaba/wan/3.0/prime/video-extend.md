@@ -21,7 +21,7 @@ Modes: async (default `async`). Only pass `mode` values listed here. The SDKs' `
 ```bash
 curl https://api.sandbase.ai/v1/run \
   -H "Authorization: Bearer $SANDBASE_API_KEY" -H 'Content-Type: application/json' \
-  -d '{"model": "alibaba/wan/3.0/prime/video-extend", "prompt": "<prompt>", "video": "<video>"}'
+  -d '{"model": "alibaba/wan/3.0/prime/video-extend", "prompt": "A red fox runs through a snowy forest at sunrise, cinematic tracking shot", "video": "https://help-static-aliyun-doc.aliyuncs.com/file-manage-files/zh-CN/20260402/ldnfdf/wan2.7-videoedit-style-change.mp4"}'
 ```
 
 **Python** ([sdk/python](../../../../../../sdk/python))
@@ -29,7 +29,7 @@ curl https://api.sandbase.ai/v1/run \
 ```python
 from sandbase import SandBase
 
-result = SandBase().run('alibaba/wan/3.0/prime/video-extend', {'prompt': '<prompt>', 'video': '<video>'})
+result = SandBase().run('alibaba/wan/3.0/prime/video-extend', {'prompt': 'A red fox runs through a snowy forest at sunrise, cinematic tracking shot', 'video': 'https://help-static-aliyun-doc.aliyuncs.com/file-manage-files/zh-CN/20260402/ldnfdf/wan2.7-videoedit-style-change.mp4'})
 print(result["outputs"])
 ```
 
@@ -39,8 +39,8 @@ print(result["outputs"])
 import { SandBase } from "@sandbaseai/sdk";
 
 const result = await new SandBase().run("alibaba/wan/3.0/prime/video-extend", {
-  "prompt": "<prompt>",
-  "video": "<video>"
+  "prompt": "A red fox runs through a snowy forest at sunrise, cinematic tracking shot",
+  "video": "https://help-static-aliyun-doc.aliyuncs.com/file-manage-files/zh-CN/20260402/ldnfdf/wan2.7-videoedit-style-change.mp4"
 });
 console.log(result.outputs);
 ```
@@ -50,8 +50,8 @@ console.log(result.outputs);
 ```go
 c, _ := sandbase.NewClient("")
 run, err := c.Run(ctx, "alibaba/wan/3.0/prime/video-extend", sandbase.Params{
-	"prompt": "<prompt>",
-	"video": "<video>",
+	"prompt": "A red fox runs through a snowy forest at sunrise, cinematic tracking shot",
+	"video": "https://help-static-aliyun-doc.aliyuncs.com/file-manage-files/zh-CN/20260402/ldnfdf/wan2.7-videoedit-style-change.mp4",
 })
 ```
 

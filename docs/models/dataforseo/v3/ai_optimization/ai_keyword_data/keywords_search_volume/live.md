@@ -49,6 +49,14 @@ run, err := c.Run(ctx, "dataforseo/v3/ai_optimization/ai_keyword_data/keywords_s
 
 Same call via the path form: `POST /v1/api/dataforseo/v3/ai_optimization/ai_keyword_data/keywords_search_volume/live` with the body above minus `model`.
 
+## Parameters
+
+| name | type | required | description |
+|---|---|---|---|
+| `keywords` | array |  | Array of keywords (up to 1,000).  |
+| `language_code` | string |  | Language code, e.g. "en".  |
+| `location_code` | integer |  | Location code, e.g. 2840 for the United States.  |
+
 ## Details
 
 Estimated search volume of keywords inside AI tools such as ChatGPT and AI Overviews.

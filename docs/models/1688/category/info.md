@@ -2,13 +2,13 @@
 
 `1688/category/info` · data API · 1688 · callable with one SandBase API key from curl, Python, TypeScript and Go.
 
-**Price:** $0.013889 per call (free daily quota) · **Modes:** sync
+**Price:** $0.014286 per call (free daily quota) · **Modes:** sync
 
 Get a 1688 category and its child categories by category ID, or the root categories when no ID is given.
 
 ## Pricing
 
-- **$0.013889 per call** (USD)
+- **$0.014286 per call** (USD)
 - Free quota: 100 calls/day per organization (shared across free-quota APIs).
 
 ## Call it

@@ -2,13 +2,13 @@
 
 `weibo/web-v2/hot-search-summary` · data API · Weibo · callable with one SandBase API key from curl, Python, TypeScript and Go.
 
-**Price:** $0.00225 per call (free daily quota) · **Modes:** sync
+**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
 
 Get the complete real-time Weibo hot search ranking (top 50): keyword, rank, heat tag and search link for each trending topic.
 
 ## Pricing
 
-- **$0.00225 per call** (USD)
+- **$0.0015 per call** (USD)
 - Free quota: 100 calls/day per organization (shared across free-quota APIs).
 
 ## Call it

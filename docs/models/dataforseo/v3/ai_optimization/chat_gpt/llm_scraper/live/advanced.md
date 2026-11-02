@@ -50,6 +50,14 @@ run, err := c.Run(ctx, "dataforseo/v3/ai_optimization/chat_gpt/llm_scraper/live/
 
 Same call via the path form: `POST /v1/api/dataforseo/v3/ai_optimization/chat_gpt/llm_scraper/live/advanced` with the body above minus `model`.
 
+## Parameters
+
+| name | type | required | description |
+|---|---|---|---|
+| `keyword` | string |  | Search query.  |
+| `language_code` | string |  | Language code, e.g. "en".  |
+| `location_code` | integer |  | Location code, e.g. 2840 for the United States.  |
+
 ## Details
 
 Get ChatGPT's answer to a query as a signed-out user would see it.

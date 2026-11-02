@@ -2,13 +2,13 @@
 
 `zhihu/web/comment-v5` · data API · Zhihu · callable with one SandBase API key from curl, Python, TypeScript and Go.
 
-**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
+**Price:** $0.001 per call (free daily quota) · **Modes:** sync
 
 Get the comments on a Zhihu answer: comment text, author, time, like and reply counts, with sorting and pagination.
 
 ## Pricing
 
-- **$0.0015 per call** (USD)
+- **$0.001 per call** (USD)
 - Free quota: 100 calls/day per organization (shared across free-quota APIs).
 
 ## Call it

@@ -25,7 +25,47 @@
   },
   "input_schema": {
     "type": "object",
-    "properties": {},
+    "properties": {
+      "targets": {
+        "type": "array",
+        "items": {
+          "type": "object"
+        },
+        "example": [
+          {
+            "key": "nike",
+            "target": [
+              {
+                "domain": "nike.com"
+              }
+            ]
+          },
+          {
+            "key": "adidas",
+            "target": [
+              {
+                "domain": "adidas.com"
+              }
+            ]
+          }
+        ],
+        "description": "Array of 2 to 10 objects, each with a `key` label and a `target` array of domain or keyword entities."
+      },
+      "platform": {
+        "type": "string",
+        "description": "Optional: \"google\" (AI Overviews) or \"chat_gpt\". Omit for both."
+      },
+      "language_code": {
+        "type": "string",
+        "example": "en",
+        "description": "Language code; default \"en\"."
+      },
+      "location_code": {
+        "type": "integer",
+        "example": 2840,
+        "description": "Location code; default 2840 (United States)."
+      }
+    },
     "description": "Request parameters forwarded to DataForSEO /v3/ai_optimization/llm_mentions/multi_target_metrics/live. See DataForSEO docs for full schema.",
     "additionalProperties": true
   },

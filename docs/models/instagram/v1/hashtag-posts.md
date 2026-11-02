@@ -2,13 +2,13 @@
 
 `instagram/v1/hashtag-posts` · data API · Instagram · callable with one SandBase API key from curl, Python, TypeScript and Go.
 
-**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
+**Price:** $0.001 per call (free daily quota) · **Modes:** sync
 
 Returns public Instagram posts associated with a specific hashtag. Filter by hashtag name and paginate through media results using a cursor.
 
 ## Pricing
 
-- **$0.0015 per call** (USD)
+- **$0.001 per call** (USD)
 - Free quota: 100 calls/day per organization (shared across free-quota APIs).
 
 ## Call it

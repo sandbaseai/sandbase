@@ -1,0 +1,124 @@
+{
+  "name": "google-play/apps",
+  "display_name": "Google Play App Search",
+  "type": "api",
+  "vendor": "Google Play",
+  "vendor_slug": "google-play",
+  "description": "Search Google Play apps by keyword or browse categories and top charts, with rating, price and developer.",
+  "tags": [
+    "api",
+    "google-play",
+    "apps"
+  ],
+  "capabilities": [
+    "api",
+    "google-play",
+    "apps"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/google-play/apps"
+  },
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "q": {
+        "type": "string",
+        "example": "Duolingo",
+        "description": "At most 2,048 UTF-8 bytes."
+      },
+      "gl": {
+        "type": "string",
+        "default": "us",
+        "description": "Two-letter country code."
+      },
+      "hl": {
+        "type": "string",
+        "default": "en",
+        "description": "Storefront language, such as en, de, or zh-TW. Maximum 32 characters."
+      },
+      "age": {
+        "enum": [
+          "AGE_RANGE1",
+          "AGE_RANGE2",
+          "AGE_RANGE3"
+        ],
+        "type": "string",
+        "description": "Children's age range. Requires apps_category=FAMILY."
+      },
+      "chart": {
+        "type": "string",
+        "description": "Chart identifier such as topselling_free, topselling_paid, or topgrossing. Excludes q and all pagination selectors. Apps and games charts require phone or an omitted store_device."
+      },
+      "timeout": {
+        "type": "number",
+        "description": "Optional budget for the entire request in seconds, measured from gateway receipt until the response is ready to send. Includes admission, queueing and settlement. Must be greater than 0 and at most 90. On expiry, the call is not billed and returns 503 request_deadline_exceeded with retryable=true an"
+      },
+      "store_device": {
+        "enum": [
+          "phone",
+          "tablet",
+          "tv",
+          "chromebook",
+          "watch",
+          "car"
+        ],
+        "type": "string",
+        "description": "Omit for the default phone storefront. An explicit selection excludes q and category."
+      },
+      "apps_category": {
+        "type": "string",
+        "description": "Native app category identifier, such as MEDICAL. Excludes q and an explicit store_device."
+      },
+      "see_more_token": {
+        "type": "string",
+        "description": "Open a result collection using its returned token and the same parameters. Excludes the other pagination selectors and chart."
+      },
+      "next_page_token": {
+        "type": "string",
+        "description": "Use the returned next_page_token with the same parameters. Excludes chart, section_page_token, and see_more_token."
+      },
+      "section_page_token": {
+        "type": "string",
+        "description": "Continue one result group using its returned token and the same parameters. Excludes the other pagination selectors and chart."
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "required": [
+      "id",
+      "status",
+      "model"
+    ],
+    "properties": {
+      "id": {
+        "type": "string"
+      },
+      "model": {
+        "type": "string"
+      },
+      "status": {
+        "type": "string"
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.00015,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "readme": "# Google Play App Search API\n\nSearch Google Play apps by keyword or browse categories and top charts, with rating, price and developer.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/google-play/apps\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"q\": \"Duolingo\"}'\n```\n\nThe result is returned in `outputs[0].data`.\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `age` | string | No | Children's age range. Requires apps_category=FAMILY. |\n| `apps_category` | string | No | Native app category identifier, such as MEDICAL. Excludes q and an explicit store_device. |\n| `chart` | string | No | Chart identifier such as topselling_free, topselling_paid, or topgrossing. Excludes q and all pagination selectors. Apps and games charts require phone or an omitted store_device. |\n| `gl` | string | No | Two-letter country code. |\n| `hl` | string | No | Storefront language, such as en, de, or zh-TW. Maximum 32 characters. |\n| `next_page_token` | string | No | Use the returned next_page_token with the same parameters. Excludes chart, section_page_token, and see_more_token. |\n| `q` | string | No | At most 2,048 UTF-8 bytes. |\n| `section_page_token` | string | No | Continue one result group using its returned token and the same parameters. Excludes the other pagination selectors and chart. |\n| `see_more_token` | string | No | Open a result collection using its returned token and the same parameters. Excludes the other pagination selectors and chart. |\n| `store_device` | string | No | Omit for the default phone storefront. An explicit selection excludes q and category. |\n| `timeout` | number | No | Optional budget for the entire request in seconds, measured from gateway receipt until the response is ready to send. Includes admission, queueing and settlement. Must be greater t |\n\n## Pricing\n\nFlat price per call. Failed calls are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/google-play/apps",
+  "published_at": "2026-11-02T00:00:00Z",
+  "created_at": "2026-11-02T10:08:26.811Z"
+}

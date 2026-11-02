@@ -50,6 +50,14 @@ run, err := c.Run(ctx, "dataforseo/v3/business_data/google/hotel_info/live/advan
 
 Same call via the path form: `POST /v1/api/dataforseo/v3/business_data/google/hotel_info/live/advanced` with the body above minus `model`.
 
+## Parameters
+
+| name | type | required | description |
+|---|---|---|---|
+| `language_code` | string |  | Language code, e.g. "en".  |
+| `location_code` | integer |  | Location code, e.g. 2840 for the United States.  |
+| `hotel_identifier` | string |  | Google hotel identifier from hotel search results.  |
+
 ## Details
 
 Fetch a Google Hotels page: rates by provider, amenities, reviews.

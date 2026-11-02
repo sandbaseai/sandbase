@@ -48,7 +48,7 @@ Modes: async (default `async`). Only pass `mode` values listed here. The SDKs' `
 ```bash
 curl https://api.sandbase.ai/v1/run \
   -H "Authorization: Bearer $SANDBASE_API_KEY" -H 'Content-Type: application/json' \
-  -d '{"model": "tripo3d/tripo-h3.1/text-to-3d", "prompt": "<prompt>"}'
+  -d '{"model": "tripo3d/tripo-h3.1/text-to-3d", "prompt": "A small house with a red roof and white walls"}'
 ```
 
 **Python** ([sdk/python](../../../../sdk/python))
@@ -56,7 +56,7 @@ curl https://api.sandbase.ai/v1/run \
 ```python
 from sandbase import SandBase
 
-result = SandBase().run('tripo3d/tripo-h3.1/text-to-3d', {'prompt': '<prompt>'})
+result = SandBase().run('tripo3d/tripo-h3.1/text-to-3d', {'prompt': 'A small house with a red roof and white walls'})
 print(result["outputs"])
 ```
 
@@ -66,7 +66,7 @@ print(result["outputs"])
 import { SandBase } from "@sandbaseai/sdk";
 
 const result = await new SandBase().run("tripo3d/tripo-h3.1/text-to-3d", {
-  "prompt": "<prompt>"
+  "prompt": "A small house with a red roof and white walls"
 });
 console.log(result.outputs);
 ```
@@ -76,7 +76,7 @@ console.log(result.outputs);
 ```go
 c, _ := sandbase.NewClient("")
 run, err := c.Run(ctx, "tripo3d/tripo-h3.1/text-to-3d", sandbase.Params{
-	"prompt": "<prompt>",
+	"prompt": "A small house with a red roof and white walls",
 })
 ```
 

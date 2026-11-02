@@ -50,6 +50,14 @@ run, err := c.Run(ctx, "dataforseo/v3/serp/google/finance_markets/live/advanced"
 
 Same call via the path form: `POST /v1/api/dataforseo/v3/serp/google/finance_markets/live/advanced` with the body above minus `model`.
 
+## Parameters
+
+| name | type | required | description |
+|---|---|---|---|
+| `market_type` | string |  | Market type, e.g. "indexes".  |
+| `language_code` | string |  | Language code, e.g. "en".  |
+| `location_code` | integer |  | Location code, e.g. 2840 for the United States.  |
+
 ## Details
 
 Fetch Google Finance market summaries by region or asset class.

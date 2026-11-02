@@ -49,6 +49,15 @@ run, err := c.Run(ctx, "dataforseo/v3/ai_optimization/llm_mentions/multi_target_
 
 Same call via the path form: `POST /v1/api/dataforseo/v3/ai_optimization/llm_mentions/multi_target_metrics/live` with the body above minus `model`.
 
+## Parameters
+
+| name | type | required | description |
+|---|---|---|---|
+| `targets` | array |  | Array of 2 to 10 objects, each with a `key` label and a `target` array of domain or keyword entities.  |
+| `platform` | string |  | Optional: "google" (AI Overviews) or "chat_gpt". Omit for both.  |
+| `language_code` | string |  | Language code; default "en".  |
+| `location_code` | integer |  | Location code; default 2840 (United States).  |
+
 ## Details
 
 Mention metrics for 2 to 10 domains or keywords side by side, for share-of-voice comparisons in AI answers.

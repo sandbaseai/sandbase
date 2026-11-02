@@ -49,6 +49,15 @@ run, err := c.Run(ctx, "dataforseo/v3/dataforseo_labs/google/historical_bulk_tra
 
 Same call via the path form: `POST /v1/api/dataforseo/v3/dataforseo_labs/google/historical_bulk_traffic_estimation/live` with the body above minus `model`.
 
+## Parameters
+
+| name | type | required | description |
+|---|---|---|---|
+| `targets` | array |  | Array of domains (up to 1,000).  |
+| `date_from` | string |  | Optional start date, "yyyy-mm-dd".  |
+| `language_code` | string |  | Language code, e.g. "en".  |
+| `location_code` | integer |  | Location code, e.g. 2840 for the United States.  |
+
 ## Details
 
 Monthly estimated organic and paid traffic history for up to 1,000 domains.

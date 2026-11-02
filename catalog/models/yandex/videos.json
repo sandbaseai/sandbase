@@ -1,0 +1,67 @@
+{
+  "name": "yandex/videos",
+  "display_name": "Yandex Videos Search",
+  "type": "api",
+  "vendor": "Yandex",
+  "vendor_slug": "yandex",
+  "description": "Yandex Videos results for a keyword: titles, thumbnails, durations and source sites.",
+  "tags": [
+    "api",
+    "yandex",
+    "serp"
+  ],
+  "capabilities": [
+    "api",
+    "yandex",
+    "serp"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/yandex/videos"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "text"
+    ],
+    "properties": {
+      "text": {
+        "type": "string",
+        "example": "coffee",
+        "description": "text"
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "required": [
+      "id",
+      "status",
+      "model"
+    ],
+    "properties": {
+      "id": {
+        "type": "string"
+      },
+      "model": {
+        "type": "string"
+      },
+      "status": {
+        "type": "string"
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.015
+  },
+  "readme": "# Yandex Videos Search API\n\nYandex Videos results for a keyword: titles, thumbnails, durations and source sites.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/yandex/videos\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"text\": \"coffee\"}'\n```\n\nThe result is returned in `outputs[0].data`.\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `text` | string | Yes | text |\n\n## Pricing\n\nFlat price per call. Failed calls are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/yandex/videos",
+  "published_at": "2026-11-02T00:00:00Z",
+  "created_at": "2026-11-02T10:06:47.241Z"
+}

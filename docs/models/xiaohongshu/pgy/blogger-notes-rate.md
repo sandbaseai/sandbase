@@ -2,13 +2,13 @@
 
 `xiaohongshu/pgy/blogger-notes-rate` · data API · Xiaohongshu · callable with one SandBase API key from curl, Python, TypeScript and Go.
 
-**Price:** $0.03 per call · **Modes:** sync
+**Price:** $0.02 per call · **Modes:** sync
 
 Returns overall note performance metrics from a creator's data overview on Pugongying. Supports filtering by date range, note format, and advertising traffic.
 
 ## Pricing
 
-- **$0.03 per call** (USD)
+- **$0.02 per call** (USD)
 
 ## Call it
 

@@ -2,13 +2,13 @@
 
 `douyin/xingtu-v2/multi-get-item-stats` · data API · Douyin · callable with one SandBase API key from curl, Python, TypeScript and Go.
 
-**Price:** $0.06 per call · **Modes:** sync
+**Price:** $0.04 per call · **Modes:** sync
 
 Returns batch performance statistics and details for up to 20 videos, including play counts, engagement metrics, and watch durations.
 
 ## Pricing
 
-- **$0.06 per call** (USD)
+- **$0.04 per call** (USD)
 
 ## Call it
 

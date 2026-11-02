@@ -26,7 +26,7 @@ Modes: async (default `async`). Only pass `mode` values listed here. The SDKs' `
 ```bash
 curl https://api.sandbase.ai/v1/run \
   -H "Authorization: Bearer $SANDBASE_API_KEY" -H 'Content-Type: application/json' \
-  -d '{"model": "google/veo3.1/video-extend", "prompt": "<prompt>", "video": "<video>"}'
+  -d '{"model": "google/veo3.1/video-extend", "prompt": "Continue the scene naturally, maintaining the same style and motion.", "video": "<video>"}'
 ```
 
 **Python** ([sdk/python](../../../../sdk/python))
@@ -34,7 +34,7 @@ curl https://api.sandbase.ai/v1/run \
 ```python
 from sandbase import SandBase
 
-result = SandBase().run('google/veo3.1/video-extend', {'prompt': '<prompt>', 'video': '<video>'})
+result = SandBase().run('google/veo3.1/video-extend', {'prompt': 'Continue the scene naturally, maintaining the same style and motion.', 'video': '<video>'})
 print(result["outputs"])
 ```
 
@@ -44,7 +44,7 @@ print(result["outputs"])
 import { SandBase } from "@sandbaseai/sdk";
 
 const result = await new SandBase().run("google/veo3.1/video-extend", {
-  "prompt": "<prompt>",
+  "prompt": "Continue the scene naturally, maintaining the same style and motion.",
   "video": "<video>"
 });
 console.log(result.outputs);
@@ -55,7 +55,7 @@ console.log(result.outputs);
 ```go
 c, _ := sandbase.NewClient("")
 run, err := c.Run(ctx, "google/veo3.1/video-extend", sandbase.Params{
-	"prompt": "<prompt>",
+	"prompt": "Continue the scene naturally, maintaining the same style and motion.",
 	"video": "<video>",
 })
 ```

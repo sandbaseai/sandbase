@@ -1,0 +1,58 @@
+{
+  "name": "semrush/keyword-difficulty",
+  "display_name": "Semrush Keyword Difficulty",
+  "type": "api",
+  "vendor": "Semrush",
+  "vendor_slug": "semrush",
+  "description": "Keyword difficulty score (0-100) for a phrase in a regional Semrush database.",
+  "tags": [
+    "api",
+    "semrush",
+    "seo"
+  ],
+  "capabilities": [
+    "api",
+    "semrush",
+    "seo"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/semrush/keyword-difficulty"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "phrase",
+      "database"
+    ],
+    "properties": {
+      "phrase": {
+        "type": "string",
+        "example": "running shoes",
+        "description": "Keyword to analyze, e.g. \"running shoes\"."
+      },
+      "database": {
+        "type": "string",
+        "example": "us",
+        "description": "Regional Semrush database, e.g. \"us\", \"uk\", \"de\"."
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "usage_based",
+    "note": "Billed per call from metered usage; the reference price is typical.",
+    "reference_price": 0.005
+  },
+  "readme": "# Semrush Keyword Difficulty API\n\nKeyword difficulty score (0-100) for a phrase in a regional Semrush database.\n\nThe result is returned in `outputs[0].data` as the official Semrush API response, unchanged.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/semrush/keyword-difficulty\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"phrase\": \"running shoes\", \"database\": \"us\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `database` | string | No | Regional Semrush database, e.g. \"us\", \"uk\", \"de\". |\n| `phrase` | string | Yes | Keyword to analyze, e.g. \"running shoes\". |\n\n## Pricing\n\nBilled at the actual cost of each call, about $0.005 for a typical request; the cost grows with the number of rows returned. Searches with no results are billed at their actual cost. Failed calls are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/semrush/keyword-difficulty",
+  "created_at": "2026-11-02T05:25:59.342Z"
+}

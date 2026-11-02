@@ -51,7 +51,7 @@
   "pricing": {
     "currency": "USD",
     "model": "per_call",
-    "per_call": 0.034722
+    "per_call": 0.035714
   },
   "readme": "# Douyin Shop Product Search API\n\nSearch products sold in Douyin shops by keyword, with price, sales and shop info; pages after the first use searchId.\n\nThe response is the platform's original data structure.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/douyin/ec/search-items\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"keyword\": \"防晒霜\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `keyword` | string | Yes | Search keyword. |\n| `page` | string | No | Page number for pagination. |\n| `searchId` | string | No | Search ID; use the search_id value returned by the last response for subsequent pages. |\n\n## Pricing\n\nFlat price per call. Failed calls and empty results are not charged.\n",
   "page_url": "https://www.sandbase.ai/model/douyin/ec/search-items",

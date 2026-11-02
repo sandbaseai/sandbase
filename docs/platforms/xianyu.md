@@ -4,8 +4,8 @@ Call 2 Xianyu endpoints through SandBase with one API key: no separate account, 
 
 | Endpoint | What it does | Price |
 |---|---|---|
-| [`xianyu/item/detail`](../models/xianyu/item/detail.md) | Get a Xianyu (Goofish) second-hand listing by item ID: title, price, description, images, seller and location. | $0.027778 per call |
-| [`xianyu/search/items`](../models/xianyu/search/items.md) | Search Xianyu (Goofish) second-hand listings by keyword, sorted by activity, recency, seller credit or price. | $0.027778 per call |
+| [`xianyu/item/detail`](../models/xianyu/item/detail.md) | Get a Xianyu (Goofish) second-hand listing by item ID: title, price, description, images, seller and location. | $0.028571 per call |
+| [`xianyu/search/items`](../models/xianyu/search/items.md) | Search Xianyu (Goofish) second-hand listings by keyword, sorted by activity, recency, seller credit or price. | $0.028571 per call |
 
 ## Quick start
 

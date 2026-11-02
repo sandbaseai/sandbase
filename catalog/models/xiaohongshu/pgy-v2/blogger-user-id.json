@@ -43,7 +43,7 @@
   "pricing": {
     "currency": "USD",
     "model": "per_call",
-    "per_call": 0.020833
+    "per_call": 0.021429
   },
   "readme": "# Xiaohongshu Pugongying Creator Profile API\n\nGet a Xiaohongshu Pugongying creator profile and cooperation quote information for a known user ID. Use it to review a creator before campaign outreach or pricing comparison.\n\nThe response is the platform's original data structure.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/xiaohongshu/pgy-v2/blogger-user-id\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"userId\": \"5a73c5fa4eacab4c4ccc9778\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `userId` | string | Yes | Blogger's user ID. |\n\n## Pricing\n\nFlat price per call. Failed calls and empty results are not charged.\n",
   "page_url": "https://www.sandbase.ai/model/xiaohongshu/pgy-v2/blogger-user-id",

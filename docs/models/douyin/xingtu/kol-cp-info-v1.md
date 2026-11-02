@@ -2,13 +2,13 @@
 
 `douyin/xingtu/kol-cp-info-v1` · data API · Douyin · callable with one SandBase API key from curl, Python, TypeScript and Go.
 
-**Price:** $0.03 per call · **Modes:** sync
+**Price:** $0.02 per call · **Modes:** sync
 
 Get expected campaign metrics for a Douyin KOL from XingTu: expected views, CPM and CPE estimates, and hot-video counts.
 
 ## Pricing
 
-- **$0.03 per call** (USD)
+- **$0.02 per call** (USD)
 
 ## Call it
 

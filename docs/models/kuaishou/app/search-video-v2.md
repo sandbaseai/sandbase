@@ -2,13 +2,13 @@
 
 `kuaishou/app/search-video-v2` · data API · Kuaishou · callable with one SandBase API key from curl, Python, TypeScript and Go.
 
-**Price:** $0.015 per call (free daily quota) · **Modes:** sync
+**Price:** $0.01 per call (free daily quota) · **Modes:** sync
 
 Searches for Kuaishou videos matching a designated keyword query. Returns matching video results with support for cursor-based pagination across multiple pages.
 
 ## Pricing
 
-- **$0.015 per call** (USD)
+- **$0.01 per call** (USD)
 - Free quota: 100 calls/day per organization (shared across free-quota APIs).
 
 ## Call it

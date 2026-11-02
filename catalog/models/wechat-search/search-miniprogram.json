@@ -53,7 +53,7 @@
   "pricing": {
     "currency": "USD",
     "model": "per_call",
-    "per_call": 0.111111
+    "per_call": 0.114286
   },
   "readme": "# WeChat Mini Program Search API\n\nSearch WeChat Mini Programs by keyword with page, offset, and continuation-state pagination. Use it to discover mini programs related to a brand, service, topic, or product.\n\nThe response is the platform's original data structure.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/wechat-search/search-miniprogram\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"keyword\": \"人工智能\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `keyword` | string | Yes | Search keyword for WeChat mini program web search. |\n| `currentPage` | integer | No | Current page number starting from 1 for WeChat web search pagination. |\n| `offset` | integer | No | Search result offset returned by the previous response. Use 0 for the first page. |\n\n## Pricing\n\nFlat price per call. Failed calls and empty results are not charged.\n",
   "page_url": "https://www.sandbase.ai/model/wechat-search/search-miniprogram",

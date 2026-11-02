@@ -2,13 +2,13 @@
 
 `douyin/xingtu/xingtu-kolid-by-sec-user-id` · data API · Douyin · callable with one SandBase API key from curl, Python, TypeScript and Go.
 
-**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
+**Price:** $0.001 per call (free daily quota) · **Modes:** sync
 
 Convert a Douyin user's sec_user_id into the XingTu kolId used by the XingTu KOL profile, price, fan portrait and performance APIs.
 
 ## Pricing
 
-- **$0.0015 per call** (USD)
+- **$0.001 per call** (USD)
 - Free quota: 100 calls/day per organization (shared across free-quota APIs).
 
 ## Call it

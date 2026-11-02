@@ -19,7 +19,7 @@ Modes: async (default `async`). Only pass `mode` values listed here. The SDKs' `
 ```bash
 curl https://api.sandbase.ai/v1/run \
   -H "Authorization: Bearer $SANDBASE_API_KEY" -H 'Content-Type: application/json' \
-  -d '{"model": "clarity-ai/clarity-upscaler", "prompt": "masterpiece, best quality, highres", "image": "<image>"}'
+  -d '{"model": "clarity-ai/clarity-upscaler", "prompt": "masterpiece, best quality, highres", "image": "https://static.sandbase.ai/examples/bytedance/seedvr/upscale/image/input_image_0.png"}'
 ```
 
 **Python** ([sdk/python](../../../sdk/python))
@@ -27,7 +27,7 @@ curl https://api.sandbase.ai/v1/run \
 ```python
 from sandbase import SandBase
 
-result = SandBase().run('clarity-ai/clarity-upscaler', {'prompt': 'masterpiece, best quality, highres', 'image': '<image>'})
+result = SandBase().run('clarity-ai/clarity-upscaler', {'prompt': 'masterpiece, best quality, highres', 'image': 'https://static.sandbase.ai/examples/bytedance/seedvr/upscale/image/input_image_0.png'})
 print(result["outputs"])
 ```
 
@@ -38,7 +38,7 @@ import { SandBase } from "@sandbaseai/sdk";
 
 const result = await new SandBase().run("clarity-ai/clarity-upscaler", {
   "prompt": "masterpiece, best quality, highres",
-  "image": "<image>"
+  "image": "https://static.sandbase.ai/examples/bytedance/seedvr/upscale/image/input_image_0.png"
 });
 console.log(result.outputs);
 ```
@@ -49,7 +49,7 @@ console.log(result.outputs);
 c, _ := sandbase.NewClient("")
 run, err := c.Run(ctx, "clarity-ai/clarity-upscaler", sandbase.Params{
 	"prompt": "masterpiece, best quality, highres",
-	"image": "<image>",
+	"image": "https://static.sandbase.ai/examples/bytedance/seedvr/upscale/image/input_image_0.png",
 })
 ```
 

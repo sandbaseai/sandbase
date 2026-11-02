@@ -25,7 +25,28 @@
   },
   "input_schema": {
     "type": "object",
-    "properties": {},
+    "properties": {
+      "depth": {
+        "type": "integer",
+        "example": 20,
+        "description": "Number of results to return (default 100)."
+      },
+      "keyword": {
+        "type": "string",
+        "example": "running shoes",
+        "description": "Search query, e.g. \"openai api\"."
+      },
+      "language_code": {
+        "type": "string",
+        "example": "en",
+        "description": "Language code, e.g. \"en\"."
+      },
+      "location_code": {
+        "type": "integer",
+        "example": 2840,
+        "description": "DataForSEO location code, e.g. 2840 for the United States."
+      }
+    },
     "description": "Request parameters forwarded to DataForSEO /v3/serp/google/organic/live/regular. See DataForSEO docs for full schema.",
     "additionalProperties": true
   },

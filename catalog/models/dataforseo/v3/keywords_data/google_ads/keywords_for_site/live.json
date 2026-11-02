@@ -25,7 +25,23 @@
   },
   "input_schema": {
     "type": "object",
-    "properties": {},
+    "properties": {
+      "target": {
+        "type": "string",
+        "example": "nike.com",
+        "description": "Target domain or page, e.g. \"nike.com\"."
+      },
+      "language_code": {
+        "type": "string",
+        "example": "en",
+        "description": "Language code, e.g. \"en\"."
+      },
+      "location_code": {
+        "type": "integer",
+        "example": 2840,
+        "description": "Location code, e.g. 2840 for the United States."
+      }
+    },
     "description": "Request parameters forwarded to DataForSEO /v3/keywords_data/google_ads/keywords_for_site/live. See DataForSEO docs for full schema.",
     "additionalProperties": true
   },
@@ -35,20 +51,16 @@
   },
   "pricing": {
     "currency": "USD",
-    "model": "per_call",
-    "per_call": 0.003,
-    "free_quota": {
-      "eligible": true,
-      "daily_calls_per_org": 100,
-      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
-    }
+    "model": "usage_based",
+    "note": "Billed per call from metered usage; the reference price is typical.",
+    "reference_price": 0.09
   },
   "examples": [
     {
       "input": {}
     }
   ],
-  "readme": "# DataForSEO Google Ads Keywords for Site API\n\nRetrieve Google Ads keyword suggestions associated with a target website. Use this endpoint to inspect search terms related to specific web pages or domains.\n\n## Use cases\n\n- Identify keyword opportunities based on competitor website content.\n- Discover relevant search terms for Google Ads campaign planning.\n- Analyze website-relevant search queries for search engine optimization.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/dataforseo/v3/keywords_data/google_ads/keywords_for_site/live\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"target\": \"nike.com\", \"location_code\": 2840, \"language_code\": \"en\"}'\n```\n\n## Parameters\n\nThe JSON body is forwarded to the upstream endpoint (one task per call). Fields used above:\n\n| Name | Description |\n|---|---|\n| `target` | Target domain or page, e.g. \"nike.com\". |\n| `location_code` | Location code, e.g. 2840 for the United States. |\n| `language_code` | Language code, e.g. \"en\". |\n\n## Pricing\n\nFlat price per call. Failed calls are not charged.\n\n## Related APIs\n\n- [DataForSEO Backlinks Anchors](/model/dataforseo/v3/backlinks/anchors/live): Returns anchor text distribution metrics for backlinks pointing to a target website or page.\n- [DataForSEO Backlinks List](/model/dataforseo/v3/backlinks/backlinks/live): Returns a list of external backlinks pointing to a specified target domain or webpage.\n- [DataForSEO Backlinks Bulk Ranks](/model/dataforseo/v3/backlinks/bulk_ranks/live): Returns rank metrics for multiple domains or pages in bulk.\n",
+  "readme": "# DataForSEO Google Ads Keywords for Site API\n\nRetrieve Google Ads keyword suggestions associated with a target website. Use this endpoint to inspect search terms related to specific web pages or domains.\n\n## Use cases\n\n- Identify keyword opportunities based on competitor website content.\n- Discover relevant search terms for Google Ads campaign planning.\n- Analyze website-relevant search queries for search engine optimization.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/dataforseo/v3/keywords_data/google_ads/keywords_for_site/live\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"target\": \"nike.com\", \"location_code\": 2840, \"language_code\": \"en\"}'\n```\n\n## Parameters\n\nThe JSON body is forwarded to the upstream endpoint (one task per call). Fields used above:\n\n| Name | Description |\n|---|---|\n| `target` | Target domain or page, e.g. \"nike.com\". |\n| `location_code` | Location code, e.g. 2840 for the United States. |\n| `language_code` | Language code, e.g. \"en\". |\n\n## Pricing\n\nBilled at the actual cost of each call, about $0.09 for the request above. The cost grows with the number of rows, targets or pages a call returns. Failed calls are not charged. Searches with no results are billed at their actual cost.\n\n## Related APIs\n\n- [DataForSEO Backlinks Anchors](/model/dataforseo/v3/backlinks/anchors/live): Returns anchor text distribution metrics for backlinks pointing to a target website or page.\n- [DataForSEO Backlinks List](/model/dataforseo/v3/backlinks/backlinks/live): Returns a list of external backlinks pointing to a specified target domain or webpage.\n- [DataForSEO Backlinks Bulk Ranks](/model/dataforseo/v3/backlinks/bulk_ranks/live): Returns rank metrics for multiple domains or pages in bulk.\n",
   "page_url": "https://www.sandbase.ai/model/dataforseo/v3/keywords_data/google_ads/keywords_for_site/live",
   "published_at": "2024-01-01T00:00:00Z",
   "created_at": "2026-08-02T14:44:14.422Z"

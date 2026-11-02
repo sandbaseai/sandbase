@@ -42,7 +42,7 @@ Modes: async (default `async`). Only pass `mode` values listed here. The SDKs' `
 ```bash
 curl https://api.sandbase.ai/v1/run \
   -H "Authorization: Bearer $SANDBASE_API_KEY" -H 'Content-Type: application/json' \
-  -d '{"model": "google/veo3.1/fast/first-last-frame-to-video", "prompt": "<prompt>", "image": "<image>", "end_image": "<end_image>"}'
+  -d '{"model": "google/veo3.1/fast/first-last-frame-to-video", "prompt": "A red fox runs through a snowy forest at sunrise, cinematic tracking shot", "image": "<image>", "end_image": "<end_image>"}'
 ```
 
 **Python** ([sdk/python](../../../../../sdk/python))
@@ -50,7 +50,7 @@ curl https://api.sandbase.ai/v1/run \
 ```python
 from sandbase import SandBase
 
-result = SandBase().run('google/veo3.1/fast/first-last-frame-to-video', {'prompt': '<prompt>', 'image': '<image>', 'end_image': '<end_image>'})
+result = SandBase().run('google/veo3.1/fast/first-last-frame-to-video', {'prompt': 'A red fox runs through a snowy forest at sunrise, cinematic tracking shot', 'image': '<image>', 'end_image': '<end_image>'})
 print(result["outputs"])
 ```
 
@@ -60,7 +60,7 @@ print(result["outputs"])
 import { SandBase } from "@sandbaseai/sdk";
 
 const result = await new SandBase().run("google/veo3.1/fast/first-last-frame-to-video", {
-  "prompt": "<prompt>",
+  "prompt": "A red fox runs through a snowy forest at sunrise, cinematic tracking shot",
   "image": "<image>",
   "end_image": "<end_image>"
 });
@@ -72,7 +72,7 @@ console.log(result.outputs);
 ```go
 c, _ := sandbase.NewClient("")
 run, err := c.Run(ctx, "google/veo3.1/fast/first-last-frame-to-video", sandbase.Params{
-	"prompt": "<prompt>",
+	"prompt": "A red fox runs through a snowy forest at sunrise, cinematic tracking shot",
 	"image": "<image>",
 	"end_image": "<end_image>",
 })

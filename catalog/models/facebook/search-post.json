@@ -55,7 +55,7 @@
   "pricing": {
     "currency": "USD",
     "model": "per_call",
-    "per_call": 0.027778
+    "per_call": 0.028571
   },
   "readme": "# Facebook Post Search API\n\nSearch public Facebook posts by keyword with optional inclusive date-range filters and cursor pagination. Use it to find topic-related posts or continue a time-bounded public-content search.\n\nThe response is the platform's original data structure.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/facebook/search-post\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"keyword\": \"iphone\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `keyword` | string | Yes | Keyword to search for in public posts. Supports basic text matching. |\n| `startDate` | string | No | Start date for the search range (inclusive), formatted as yyyy-MM-dd. |\n| `endDate` | string | No | End date for the search range (inclusive), formatted as yyyy-MM-dd. |\n| `cursor` | string | No | Pagination cursor for fetching the next set of results. |\n\n## Pricing\n\nFlat price per call. Failed calls and empty results are not charged.\n",
   "page_url": "https://www.sandbase.ai/model/facebook/search-post",

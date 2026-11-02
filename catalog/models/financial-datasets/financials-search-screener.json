@@ -1,0 +1,104 @@
+{
+  "name": "financial-datasets/financials-search-screener",
+  "display_name": "Financial Datasets Stock Screener",
+  "type": "api",
+  "vendor": "Financial Datasets",
+  "vendor_slug": "financial-datasets",
+  "description": "Screen US public companies by financial metrics such as revenue, net income or P/E, with gt/lt/eq filters and ticker lists.",
+  "tags": [
+    "api",
+    "financial-datasets",
+    "stocks"
+  ],
+  "capabilities": [
+    "api",
+    "financial-datasets",
+    "stocks"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/financial-datasets/financials-search-screener"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "filters"
+    ],
+    "properties": {
+      "limit": {
+        "type": "integer",
+        "default": 10,
+        "minimum": 1,
+        "description": "The maximum number of results to return."
+      },
+      "filters": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "required": [
+            "field",
+            "operator",
+            "value"
+          ],
+          "properties": {
+            "field": {
+              "type": "string",
+              "description": "The criteria to filter on.  For financial metric fields, use 'gt', 'lt', 'gte', 'lte', 'eq' operators.  For 'ticker' and 'cik' fields, use the 'in' operator to filter against multiple values."
+            },
+            "value": {
+              "oneOf": [
+                {
+                  "type": "number",
+                  "description": "The value to compare against for single-value operators (gt, lt, gte, lte, eq)"
+                },
+                {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  },
+                  "description": "Array of ticker or cik values to compare against when using the 'in' operator"
+                }
+              ]
+            },
+            "operator": {
+              "enum": [
+                "gt",
+                "lt",
+                "gte",
+                "lte",
+                "eq",
+                "in"
+              ],
+              "type": "string",
+              "description": "The comparison operator. The 'in' operator can only be used with a field value of 'ticker' or 'cik' and lets you filter against multiple values."
+            }
+          }
+        },
+        "example": [
+          {
+            "field": "revenue",
+            "value": 100000000000,
+            "operator": "gt"
+          }
+        ],
+        "description": "An array of filter objects to apply to the search."
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.02
+  },
+  "readme": "# Financial Datasets Stock Screener API\n\nScreen US public companies by financial metrics such as revenue, net income or P/E, with gt/lt/eq filters and ticker lists.\n\nThe result is returned in `outputs[0].data` as the official Financial Datasets API response, unchanged.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/financial-datasets/financials-search-screener\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"filters\": [{\"field\": \"revenue\", \"operator\": \"gt\", \"value\": 100000000000}], \"limit\": 5}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `filters` | array | Yes | An array of filter objects to apply to the search. |\n| `limit` | integer | No | The maximum number of results to return. |\n\n## Pricing\n\nFlat price per call. Failed calls are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/financial-datasets/financials-search-screener",
+  "created_at": "2026-11-02T08:48:08.089Z"
+}

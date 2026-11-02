@@ -19,7 +19,7 @@ Modes: async (default `async`). Only pass `mode` values listed here. The SDKs' `
 ```bash
 curl https://api.sandbase.ai/v1/run \
   -H "Authorization: Bearer $SANDBASE_API_KEY" -H 'Content-Type: application/json' \
-  -d '{"model": "kwaivgi/kling-video/create-voice", "voice_url": "<voice_url>"}'
+  -d '{"model": "kwaivgi/kling-video/create-voice", "voice_url": "https://static.sandbase.ai/examples/kwaivgi/kling-video/create-voice/input_voice_url_0.wav"}'
 ```
 
 **Python** ([sdk/python](../../../../sdk/python))
@@ -27,7 +27,7 @@ curl https://api.sandbase.ai/v1/run \
 ```python
 from sandbase import SandBase
 
-result = SandBase().run('kwaivgi/kling-video/create-voice', {'voice_url': '<voice_url>'})
+result = SandBase().run('kwaivgi/kling-video/create-voice', {'voice_url': 'https://static.sandbase.ai/examples/kwaivgi/kling-video/create-voice/input_voice_url_0.wav'})
 print(result["outputs"])
 ```
 
@@ -37,7 +37,7 @@ print(result["outputs"])
 import { SandBase } from "@sandbaseai/sdk";
 
 const result = await new SandBase().run("kwaivgi/kling-video/create-voice", {
-  "voice_url": "<voice_url>"
+  "voice_url": "https://static.sandbase.ai/examples/kwaivgi/kling-video/create-voice/input_voice_url_0.wav"
 });
 console.log(result.outputs);
 ```
@@ -47,7 +47,7 @@ console.log(result.outputs);
 ```go
 c, _ := sandbase.NewClient("")
 run, err := c.Run(ctx, "kwaivgi/kling-video/create-voice", sandbase.Params{
-	"voice_url": "<voice_url>",
+	"voice_url": "https://static.sandbase.ai/examples/kwaivgi/kling-video/create-voice/input_voice_url_0.wav",
 })
 ```
 

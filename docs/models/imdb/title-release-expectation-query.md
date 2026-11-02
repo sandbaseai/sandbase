@@ -2,13 +2,13 @@
 
 `imdb/title-release-expectation-query` · data API · IMDb · callable with one SandBase API key from curl, Python, TypeScript and Go.
 
-**Price:** $0.006944 per call (free daily quota) · **Modes:** sync
+**Price:** $0.007143 per call (free daily quota) · **Modes:** sync
 
 Get IMDb release-expectation information for a title ID using selected language and country preferences. Use it to monitor a title's release context or support release-planning research.
 
 ## Pricing
 
-- **$0.006944 per call** (USD)
+- **$0.007143 per call** (USD)
 - Free quota: 100 calls/day per organization (shared across free-quota APIs).
 
 ## Call it

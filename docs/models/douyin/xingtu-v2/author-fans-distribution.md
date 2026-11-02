@@ -2,13 +2,13 @@
 
 `douyin/xingtu-v2/author-fans-distribution` · data API · Douyin · callable with one SandBase API key from curl, Python, TypeScript and Go.
 
-**Price:** $0.003 per call (free daily quota) · **Modes:** sync
+**Price:** $0.002 per call (free daily quota) · **Modes:** sync
 
 Returns audience profile metrics for a Xingtu creator, including gender, age, geographic region, and interests based on creator ID.
 
 ## Pricing
 
-- **$0.003 per call** (USD)
+- **$0.002 per call** (USD)
 - Free quota: 100 calls/day per organization (shared across free-quota APIs).
 
 ## Call it

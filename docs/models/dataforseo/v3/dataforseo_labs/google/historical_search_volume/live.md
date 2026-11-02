@@ -2,13 +2,13 @@
 
 `dataforseo/v3/dataforseo_labs/google/historical_search_volume/live` · data API · DataForSEO · callable with one SandBase API key from curl, Python, TypeScript and Go.
 
-**Price:** $0.024 per call · **Modes:** sync
+**Price:** about $0.01212 per call · **Modes:** sync
 
 Get historical Google search volume for keywords from DataForSEO Labs: monthly searches, CPC, competition and keyword properties by location and language.
 
 ## Pricing
 
-- **$0.024 per call** (USD)
+- Usage-based. Billed per call from metered usage; the reference price is typical. Reference: **$0.01212**
 
 ## Call it
 
@@ -48,6 +48,14 @@ run, err := c.Run(ctx, "dataforseo/v3/dataforseo_labs/google/historical_search_v
 ```
 
 Same call via the path form: `POST /v1/api/dataforseo/v3/dataforseo_labs/google/historical_search_volume/live` with the body above minus `model`.
+
+## Parameters
+
+| name | type | required | description |
+|---|---|---|---|
+| `keywords` | array |  | Keywords to look up.  |
+| `language_code` | string |  | Language code, e.g. "en".  |
+| `location_code` | integer |  | DataForSEO location code, e.g. 2840 for the United States.  |
 
 ## Details
 
@@ -123,7 +131,7 @@ Real response for the request above, trimmed to the main fields. User names and 
 
 ### Pricing
 
-Flat price per call. Failed calls are not charged.
+Billed at the actual cost of each call, about $0.01212 for the request above. The cost grows with the number of rows, targets or pages a call returns. Failed calls are not charged. Searches with no results are billed at their actual cost.
 
 ### Related APIs
 

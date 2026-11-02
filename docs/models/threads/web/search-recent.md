@@ -2,13 +2,13 @@
 
 `threads/web/search-recent` · data API · Threads · callable with one SandBase API key from curl, Python, TypeScript and Go.
 
-**Price:** $0.003 per call (free daily quota) · **Modes:** sync
+**Price:** $0.002 per call (free daily quota) · **Modes:** sync
 
-Searches recent Threads content matching a specified keyword query. Returns matching web posts with cursor-based pagination support.
+Searches recent public Threads posts matching a specified keyword or hashtag.
 
 ## Pricing
 
-- **$0.003 per call** (USD)
+- **$0.002 per call** (USD)
 - Free quota: 100 calls/day per organization (shared across free-quota APIs).
 
 ## Call it
@@ -59,11 +59,11 @@ Same call via the path form: `POST /v1/api/threads/web/search-recent` with the b
 | name | type | required | description |
 |---|---|---|---|
 | `query` | string | yes | Search query, for example: bitcoin  |
-| `end_cursor` | string |  | Pagination cursor (optional), used to get next page data  |
+| `end_cursor` | string |  | Deprecated compatibility field. The current upstream does not support cursor pagination.  |
 
 ## Details
 
-Search recent posts on Threads by providing a search keyword in `query`. For multi-page results, pass `end_cursor` to retrieve subsequent batches.
+Search recent public posts on Threads by providing a keyword or hashtag in `query`.
 
 ### Use cases
 
@@ -84,12 +84,8 @@ curl -X POST "https://api.sandbase.ai/v1/api/threads/web/search-recent" \
 
 | Name | Type | Required | Description |
 |---|---|---|---|
-| `query` | string | Yes | Search query, for example: bitcoin |
-| `end_cursor` | string | No | Pagination cursor (optional), used to get next page data |
-
-### Notes
-
-- Use `end_cursor` to paginate through subsequent pages of search results.
+| `query` | string | Yes | Keyword or hashtag to search for, for example: bitcoin |
+| `end_cursor` | string | No | Deprecated compatibility field; currently ignored because the upstream does not support cursor pagination. |
 
 ### Pricing
 

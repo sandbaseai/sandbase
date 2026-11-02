@@ -2,13 +2,13 @@
 
 `tiktok/shop-web/product-detail-v2` · data API · TikTok · callable with one SandBase API key from curl, Python, TypeScript and Go.
 
-**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
+**Price:** $0.001 per call (free daily quota) · **Modes:** sync
 
 Returns basic product details from TikTok Shop for a specified item. Query by product identifier with optional region and seller filters.
 
 ## Pricing
 
-- **$0.0015 per call** (USD)
+- **$0.001 per call** (USD)
 - Free quota: 100 calls/day per organization (shared across free-quota APIs).
 
 ## Call it

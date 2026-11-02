@@ -49,6 +49,14 @@ run, err := c.Run(ctx, "dataforseo/v3/domain_analytics/technologies/technologies
 
 Same call via the path form: `POST /v1/api/dataforseo/v3/domain_analytics/technologies/technologies_summary/live` with the body above minus `model`.
 
+## Parameters
+
+| name | type | required | description |
+|---|---|---|---|
+| `keywords` | string |  | Optional keywords to match in site titles.  |
+| `countries` | array |  | Optional array of country codes.  |
+| `technologies` | array |  | Array of technology names, e.g. ["Nginx"].  |
+
 ## Details
 
 Number of websites using given technologies, broken down by country, language and category.

@@ -2,13 +2,13 @@
 
 `wechat-channels/v2/video-comments` · data API · WeChat Channels · callable with one SandBase API key from curl, Python, TypeScript and Go.
 
-**Price:** $0.015 per call (free daily quota) · **Modes:** sync
+**Price:** $0.01 per call (free daily quota) · **Modes:** sync
 
 Returns first-level comments or nested replies for a WeChat Channels video, including like counts and IP regions, using the video object ID.
 
 ## Pricing
 
-- **$0.015 per call** (USD)
+- **$0.01 per call** (USD)
 - Free quota: 100 calls/day per organization (shared across free-quota APIs).
 
 ## Call it

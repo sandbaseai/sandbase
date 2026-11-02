@@ -43,7 +43,7 @@
   "pricing": {
     "currency": "USD",
     "model": "per_call",
-    "per_call": 0.020833
+    "per_call": 0.021429
   },
   "readme": "# Xiaohongshu Pugongying Follower Summary API\n\nGet the Xiaohongshu Pugongying follower summary for a known creator. Use it to review the account's aggregate audience status before deeper demographic or trend analysis.\n\nThe response is the platform's original data structure.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/xiaohongshu/pgy-v2/data-v3-fans-summary\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"userId\": \"5a73c5fa4eacab4c4ccc9778\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `userId` | string | Yes | KOL's user ID. |\n\n## Pricing\n\nFlat price per call. Failed calls and empty results are not charged.\n",
   "page_url": "https://www.sandbase.ai/model/xiaohongshu/pgy-v2/data-v3-fans-summary",

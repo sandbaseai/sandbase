@@ -1,10 +1,10 @@
 {
   "name": "polymarket/live-volume",
-  "display_name": "Polymarket Get live volume for an event",
+  "display_name": "Polymarket Live Event Volume",
   "type": "api",
   "vendor": "Polymarket",
   "vendor_slug": "polymarket",
-  "description": "Get live volume for an event from Polymarket. Returns the official Polymarket API response unchanged.",
+  "description": "Live taker volume for an event by event ID, in total and per market.",
   "tags": [
     "api",
     "polymarket",
@@ -26,14 +26,13 @@
   "input_schema": {
     "type": "object",
     "required": [
-      "id"
+      "event_id"
     ],
     "properties": {
-      "id": {
-        "type": "integer",
-        "example": 2890,
-        "minimum": 1,
-        "description": "id"
+      "event_id": {
+        "type": "string",
+        "example": "1262243",
+        "description": "Event id(s), comma-separated (at most 20 distinct values). Required. `event_id` is the unified key across v2 (same as the feeds); `id` and `eventId` are accepted aliases."
       }
     }
   },
@@ -51,7 +50,7 @@
       "note": "Shared across all free-quota APIs, resets 00:00 UTC."
     }
   },
-  "readme": "# Polymarket Get live volume for an event API\n\nGet live volume for an event from Polymarket. Returns the official Polymarket API response unchanged.\n\nThe response is the official Polymarket API response, unchanged.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/polymarket/live-volume\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"id\": 2890}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `id` | integer | Yes | id |\n\n## Pricing\n\nFlat price per call. Failed calls are not charged.\n",
+  "readme": "# Polymarket Live Event Volume API\n\nLive taker volume for an event by event ID, in total and per market.\n\nServed from the Polymarket Data API v2. The result is returned in `outputs[0].data`: rows are under `data`, and paginated routes add `pagination.next_cursor` (pass it back as `cursor`).\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/polymarket/live-volume\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"event_id\": \"1262243\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `event_id` | string | Yes | Event id(s), comma-separated (at most 20 distinct values). Required. `event_id` is the unified key across v2 (same as the feeds); `id` and `eventId` are accepted aliases. |\n\n## Reference\n\n- Official docs: https://docs.polymarket.com/api-reference/data-api/overview\n\n## Pricing\n\nFlat price per call. Failed calls are not charged.\n",
   "page_url": "https://www.sandbase.ai/model/polymarket/live-volume",
   "created_at": "2026-10-30T03:11:27.346Z"
 }

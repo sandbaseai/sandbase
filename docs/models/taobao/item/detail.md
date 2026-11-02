@@ -2,13 +2,13 @@
 
 `taobao/item/detail` · data API · Taobao · callable with one SandBase API key from curl, Python, TypeScript and Go.
 
-**Price:** $0.020834 per call · **Modes:** sync
+**Price:** $0.021429 per call · **Modes:** sync
 
 Get a Taobao or Tmall product by item ID: title, images, price, SKU options, delivery and seller details.
 
 ## Pricing
 
-- **$0.020834 per call** (USD)
+- **$0.021429 per call** (USD)
 
 ## Call it
 

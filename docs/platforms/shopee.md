@@ -4,7 +4,7 @@ Call 1 Shopee endpoints through SandBase with one API key: no separate account, 
 
 | Endpoint | What it does | Price |
 |---|---|---|
-| [`shopee/search/facets`](../models/shopee/search/facets.md) | Get the category facets Shopee shows for a search keyword, to see which categories a query maps to on each site. | $0.027778 per call |
+| [`shopee/search/facets`](../models/shopee/search/facets.md) | Get the category facets Shopee shows for a search keyword, to see which categories a query maps to on each site. | $0.028571 per call |
 
 ## Quick start
 

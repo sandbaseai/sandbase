@@ -1,0 +1,184 @@
+{
+  "name": "xiaohongshu/pgy/content-square",
+  "display_name": "Xiaohongshu PGY content square leaderboards",
+  "type": "api",
+  "vendor": "Xiaohongshu",
+  "vendor_slug": "xiaohongshu",
+  "description": "PGY content square leaderboards on Xiaohongshu. Returns the platform data as structured JSON.",
+  "tags": [
+    "api",
+    "xiaohongshu"
+  ],
+  "capabilities": [
+    "api",
+    "xiaohongshu"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/xiaohongshu/pgy/content-square"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "biz_type"
+    ],
+    "properties": {
+      "fans": {
+        "type": "object",
+        "title": "RangeFilter",
+        "description": "Creator fans range, board 4 only"
+      },
+      "price": {
+        "type": "object",
+        "title": "PriceFilter",
+        "description": "Creator price, board 4 only"
+      },
+      "theme": {
+        "type": "string",
+        "title": "theme",
+        "description": "4/5/7/Theme"
+      },
+      "biz_type": {
+        "enum": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8
+        ],
+        "type": "integer",
+        "title": "Biz Type",
+        "example": 1,
+        "description": "Leaderboard"
+      },
+      "category": {
+        "type": "string",
+        "title": "category",
+        "description": "Board 1 only"
+      },
+      "industry": {
+        "type": "string",
+        "title": "industry",
+        "description": "3/4/5/6/7/Industry, values differ per board"
+      },
+      "order_by": {
+        "type": "string",
+        "title": "Order By",
+        "description": "Sort field, empty=board default"
+      },
+      "page_num": {
+        "type": "integer",
+        "title": "Page Num",
+        "default": 1,
+        "example": 1,
+        "description": "Page; each board has only 100 items"
+      },
+      "note_type": {
+        "enum": [
+          1,
+          2
+        ],
+        "type": "integer",
+        "title": "note_type",
+        "description": "Content type"
+      },
+      "page_size": {
+        "type": "integer",
+        "title": "Page Size",
+        "default": 34,
+        "example": 20,
+        "description": "Page size, 1-34"
+      },
+      "placement": {
+        "enum": [
+          1,
+          2,
+          3
+        ],
+        "type": "integer",
+        "title": "placement",
+        "description": "3/5/7/Traffic placement"
+      },
+      "date_range": {
+        "enum": [
+          3,
+          7,
+          14,
+          30
+        ],
+        "type": "integer",
+        "title": "Date Range",
+        "default": 7,
+        "example": 7,
+        "description": "7/14/Date window in days"
+      },
+      "author_type": {
+        "enum": [
+          1,
+          2
+        ],
+        "type": "integer",
+        "title": "author_type",
+        "description": "Board 4 only"
+      },
+      "search_word": {
+        "type": "string",
+        "title": "Search Word",
+        "description": "Keyword, comma-separated for batch"
+      },
+      "content_type": {
+        "enum": [
+          1,
+          2,
+          3,
+          5,
+          6,
+          11,
+          -1
+        ],
+        "type": "integer",
+        "title": "content_type",
+        "description": "Content source"
+      },
+      "sub_biz_type": {
+        "enum": [
+          1,
+          2,
+          3
+        ],
+        "type": "integer",
+        "title": "sub_biz_type",
+        "description": "Board 8 only"
+      },
+      "marketing_target": {
+        "enum": [
+          3,
+          8
+        ],
+        "type": "integer",
+        "title": "marketing_target",
+        "description": "Board 3 only"
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.02
+  },
+  "readme": "# Xiaohongshu PGY content square leaderboards API\n\nPGY content square leaderboards on Xiaohongshu. Returns the platform data as structured JSON.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/xiaohongshu/pgy/content-square\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"biz_type\": 1, \"page_num\": 1, \"page_size\": 20, \"date_range\": 7}'\n```\n\nThe result is returned in `outputs[0].data`.\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `biz_type` | integer | Yes | Leaderboard |\n| `author_type` | integer | No | Board 4 only |\n| `category` | string | No | Board 1 only |\n| `content_type` | integer | No | Content source |\n| `date_range` | integer | No | 7/14/Date window in days |\n| `fans` | object | No | Creator fans range, board 4 only |\n| `industry` | string | No | 3/4/5/6/7/Industry, values differ per board |\n| `marketing_target` | integer | No | Board 3 only |\n| `note_type` | integer | No | Content type |\n| `order_by` | string | No | Sort field, empty=board default |\n| `page_num` | integer | No | Page; each board has only 100 items |\n| `page_size` | integer | No | Page size, 1-34 |\n| `placement` | integer | No | 3/5/7/Traffic placement |\n| `price` | object | No | Creator price, board 4 only |\n| `search_word` | string | No | Keyword, comma-separated for batch |\n| `sub_biz_type` | integer | No | Board 8 only |\n| `theme` | string | No | 4/5/7/Theme |\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/xiaohongshu/pgy/content-square",
+  "published_at": "2026-11-02T00:00:00Z",
+  "created_at": "2026-11-02T00:28:30.005Z"
+}

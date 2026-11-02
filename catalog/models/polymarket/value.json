@@ -1,10 +1,10 @@
 {
   "name": "polymarket/value",
-  "display_name": "Polymarket Get total value of a user's positions",
+  "display_name": "Polymarket Portfolio Value",
   "type": "api",
   "vendor": "Polymarket",
   "vendor_slug": "polymarket",
-  "description": "Get total value of a user's positions from Polymarket. Returns the official Polymarket API response unchanged.",
+  "description": "Current USD value of a wallet's open positions, optionally limited to given markets.",
   "tags": [
     "api",
     "polymarket",
@@ -31,15 +31,12 @@
     "properties": {
       "user": {
         "type": "string",
-        "example": "0x56687bf447db6ffa42ffe2204a05edaa20f55839",
-        "description": "User Profile Address (0x-prefixed, 40 hex chars)"
+        "example": "0xfe787d2da716d60e8acff57fb87eb13cd4d10319",
+        "description": "The wallet whose portfolio value to return. Required."
       },
-      "market": {
-        "type": "array",
-        "items": {
-          "type": "string"
-        },
-        "description": "market"
+      "condition": {
+        "type": "string",
+        "description": "Comma-separated `condition_id`s (at most 20 distinct values); omit for the full portfolio."
       }
     }
   },
@@ -57,7 +54,7 @@
       "note": "Shared across all free-quota APIs, resets 00:00 UTC."
     }
   },
-  "readme": "# Polymarket Get total value of a user's positions API\n\nGet total value of a user's positions from Polymarket. Returns the official Polymarket API response unchanged.\n\nThe response is the official Polymarket API response, unchanged.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/polymarket/value\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"user\": \"0xfe787d2da716d60e8acff57fb87eb13cd4d10319\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `market` | array | No | market |\n| `user` | string | Yes | User Profile Address (0x-prefixed, 40 hex chars) |\n\n## Pricing\n\nFlat price per call. Failed calls are not charged.\n",
+  "readme": "# Polymarket Portfolio Value API\n\nCurrent USD value of a wallet's open positions, optionally limited to given markets.\n\nServed from the Polymarket Data API v2. The result is returned in `outputs[0].data`: rows are under `data`, and paginated routes add `pagination.next_cursor` (pass it back as `cursor`).\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/polymarket/value\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"user\": \"0xfe787d2da716d60e8acff57fb87eb13cd4d10319\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `user` | string | Yes | The wallet whose portfolio value to return. Required. |\n| `condition` | string | No | Comma-separated `condition_id`s (at most 20 distinct values); omit for the full portfolio. |\n\n## Reference\n\n- Official docs: https://docs.polymarket.com/api-reference/data-api/overview\n\n## Pricing\n\nFlat price per call. Failed calls are not charged.\n",
   "page_url": "https://www.sandbase.ai/model/polymarket/value",
   "created_at": "2026-10-30T03:12:21.818Z"
 }

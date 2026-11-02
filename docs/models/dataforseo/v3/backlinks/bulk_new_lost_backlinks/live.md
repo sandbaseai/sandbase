@@ -49,6 +49,13 @@ run, err := c.Run(ctx, "dataforseo/v3/backlinks/bulk_new_lost_backlinks/live", s
 
 Same call via the path form: `POST /v1/api/dataforseo/v3/backlinks/bulk_new_lost_backlinks/live` with the body above minus `model`.
 
+## Parameters
+
+| name | type | required | description |
+|---|---|---|---|
+| `targets` | array |  | Array of domains, subdomains or page URLs (up to 1,000).  |
+| `date_from` | string |  | Optional start date, "yyyy-mm-dd".  |
+
 ## Details
 
 New and lost backlink counts since a date for up to 1,000 targets.

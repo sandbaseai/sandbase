@@ -87,7 +87,7 @@
   "pricing": {
     "currency": "USD",
     "model": "per_call",
-    "per_call": 0.020833
+    "per_call": 0.021429
   },
   "readme": "# Xiaohongshu Pugongying Creator Note List API\n\nGet a paginated Xiaohongshu Pugongying creator note list with advertisement, sort-order, note-type, and third-platform filters. Use it to browse selected content from a known creator.\n\nThe response is the platform's original data structure.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/xiaohongshu/pgy-v2/data-v2-notes-detail\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"userId\": \"64b898310000000014037b21\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `userId` | string | Yes | KOL's user ID. |\n| `advertiseSwitch` | string | No | Advertisement filter. |\n| `orderType` | string | No | Sorting order. |\n| `noteType` | string | No | Type of note. |\n| `isThirdPlatform` | string | No | Whether from third-party platform. |\n| `pageNumber` | integer | No | Page number. |\n\n## Pricing\n\nFlat price per call. Failed calls and empty results are not charged.\n",
   "page_url": "https://www.sandbase.ai/model/xiaohongshu/pgy-v2/data-v2-notes-detail",

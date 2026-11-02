@@ -2,13 +2,13 @@
 
 `lemon8/app/discover-banners` · data API · Lemon8 · callable with one SandBase API key from curl, Python, TypeScript and Go.
 
-**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
+**Price:** $0.001 per call (free daily quota) · **Modes:** sync
 
 Returns the current promotional and featured banners displayed on the Lemon8 discover page. Applications can use this data to inspect active platform campaigns and highlighted topics.
 
 ## Pricing
 
-- **$0.0015 per call** (USD)
+- **$0.001 per call** (USD)
 - Free quota: 100 calls/day per organization (shared across free-quota APIs).
 
 ## Call it

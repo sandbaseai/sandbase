@@ -49,6 +49,14 @@ run, err := c.Run(ctx, "dataforseo/v3/business_data/google/questions_and_answers
 
 Same call via the path form: `POST /v1/api/dataforseo/v3/business_data/google/questions_and_answers/live` with the body above minus `model`.
 
+## Parameters
+
+| name | type | required | description |
+|---|---|---|---|
+| `keyword` | string |  | Business name, or "cid:<id>" / "place_id:<id>".  |
+| `language_code` | string |  | Language code, e.g. "en".  |
+| `location_code` | integer |  | Location code, e.g. 2840 for the United States.  |
+
 ## Details
 
 Questions and answers posted on a Google Business Profile, found by business name or place id.

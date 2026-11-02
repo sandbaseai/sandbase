@@ -27,7 +27,28 @@
   },
   "input_schema": {
     "type": "object",
-    "properties": {},
+    "properties": {
+      "keywords": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        },
+        "example": [
+          "running shoes"
+        ],
+        "description": "Keywords to look up."
+      },
+      "language_code": {
+        "type": "string",
+        "example": "en",
+        "description": "Language code, e.g. \"en\"."
+      },
+      "location_code": {
+        "type": "integer",
+        "example": 2840,
+        "description": "DataForSEO location code, e.g. 2840 for the United States."
+      }
+    },
     "description": "Request parameters forwarded to DataForSEO /v3/dataforseo_labs/google/historical_search_volume/live. See DataForSEO docs for full schema.",
     "additionalProperties": true
   },
@@ -37,15 +58,16 @@
   },
   "pricing": {
     "currency": "USD",
-    "model": "per_call",
-    "per_call": 0.024
+    "model": "usage_based",
+    "note": "Billed per call from metered usage; the reference price is typical.",
+    "reference_price": 0.01212
   },
   "examples": [
     {
       "input": {}
     }
   ],
-  "readme": "# Google Historical Search Volume API\n\nSend keywords with a location and language and get their search volume history and keyword metrics.\n\n## Use cases\n\n- Analyze seasonality and long-term demand.\n- Compare keyword trends year over year.\n- Prioritize SEO keywords.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/dataforseo/v3/dataforseo_labs/google/historical_search_volume/live\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"keywords\": [\"running shoes\"], \"location_code\": 2840, \"language_code\": \"en\"}'\n```\n\n## Parameters\n\nThe body is passed through to DataForSEO. Common fields:\n\n| Name | Type | Description |\n|---|---|---|\n| `keywords` | array | Keywords to look up. |\n| `location_code` | integer | DataForSEO location code, e.g. 2840 for the United States. |\n| `language_code` | string | Language code, e.g. \"en\". |\n\n## Example response\n\nReal response for the request above, trimmed to the main fields. User names and long IDs are masked.\n\n```json\n{\n  \"status_code\": 20000,\n  \"tasks\": [\n    {\n      \"result\": [\n        {\n          \"items\": [\n            {\n              \"keyword\": \"openai api\",\n              \"location_code\": 2840,\n              \"keyword_info\": {\n                \"search_volume\": 49500,\n                \"cpc\": 11.63,\n                \"competition\": 0.07,\n                \"competition_level\": \"LOW\",\n                \"last_updated_time\": \"2026-09-16 14:09:04 +00:00\",\n                \"monthly_searches\": [\n                  {\n                    \"month\": 8,\n                    \"search_volume\": 49500,\n                    \"year\": 2026\n                  },\n                  {\n                    \"month\": 7,\n                    \"search_volume\": 49500,\n                    \"year\": 2026\n                  }\n                ]\n              }\n            }\n          ]\n        }\n      ]\n    }\n  ]\n}\n```\n\n## Pricing\n\nFlat price per call. Failed calls are not charged.\n\n## Related APIs\n\n- [DataForSEO Google Ads Keyword Search Volume](/model/dataforseo/v3/keywords_data/google_ads/search_volume/live): Get Google Ads search volume, CPC, competition and 12-month trend for up to 1,000 keywords per request, by location and language.\n- [DataForSEO Google Trends](/model/dataforseo/v3/keywords_data/google_trends/explore/live): Get Google Trends interest over time for up to 5 keywords by location, language and time range, with weekly values on a 0–100 scale.\n- [DataForSEO Website Screenshot](/model/dataforseo/v3/on_page/page_screenshot): Capture a full-page or viewport screenshot of any URL in desktop, mobile or tablet view.\n",
+  "readme": "# Google Historical Search Volume API\n\nSend keywords with a location and language and get their search volume history and keyword metrics.\n\n## Use cases\n\n- Analyze seasonality and long-term demand.\n- Compare keyword trends year over year.\n- Prioritize SEO keywords.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/dataforseo/v3/dataforseo_labs/google/historical_search_volume/live\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"keywords\": [\"running shoes\"], \"location_code\": 2840, \"language_code\": \"en\"}'\n```\n\n## Parameters\n\nThe body is passed through to DataForSEO. Common fields:\n\n| Name | Type | Description |\n|---|---|---|\n| `keywords` | array | Keywords to look up. |\n| `location_code` | integer | DataForSEO location code, e.g. 2840 for the United States. |\n| `language_code` | string | Language code, e.g. \"en\". |\n\n## Example response\n\nReal response for the request above, trimmed to the main fields. User names and long IDs are masked.\n\n```json\n{\n  \"status_code\": 20000,\n  \"tasks\": [\n    {\n      \"result\": [\n        {\n          \"items\": [\n            {\n              \"keyword\": \"openai api\",\n              \"location_code\": 2840,\n              \"keyword_info\": {\n                \"search_volume\": 49500,\n                \"cpc\": 11.63,\n                \"competition\": 0.07,\n                \"competition_level\": \"LOW\",\n                \"last_updated_time\": \"2026-09-16 14:09:04 +00:00\",\n                \"monthly_searches\": [\n                  {\n                    \"month\": 8,\n                    \"search_volume\": 49500,\n                    \"year\": 2026\n                  },\n                  {\n                    \"month\": 7,\n                    \"search_volume\": 49500,\n                    \"year\": 2026\n                  }\n                ]\n              }\n            }\n          ]\n        }\n      ]\n    }\n  ]\n}\n```\n\n## Pricing\n\nBilled at the actual cost of each call, about $0.01212 for the request above. The cost grows with the number of rows, targets or pages a call returns. Failed calls are not charged. Searches with no results are billed at their actual cost.\n\n## Related APIs\n\n- [DataForSEO Google Ads Keyword Search Volume](/model/dataforseo/v3/keywords_data/google_ads/search_volume/live): Get Google Ads search volume, CPC, competition and 12-month trend for up to 1,000 keywords per request, by location and language.\n- [DataForSEO Google Trends](/model/dataforseo/v3/keywords_data/google_trends/explore/live): Get Google Trends interest over time for up to 5 keywords by location, language and time range, with weekly values on a 0–100 scale.\n- [DataForSEO Website Screenshot](/model/dataforseo/v3/on_page/page_screenshot): Capture a full-page or viewport screenshot of any URL in desktop, mobile or tablet view.\n",
   "page_url": "https://www.sandbase.ai/model/dataforseo/v3/dataforseo_labs/google/historical_search_volume/live",
   "published_at": "2024-01-01T00:00:00Z",
   "created_at": "2026-08-02T14:42:58.177Z"

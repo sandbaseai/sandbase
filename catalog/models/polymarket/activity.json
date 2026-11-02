@@ -1,10 +1,10 @@
 {
   "name": "polymarket/activity",
-  "display_name": "Polymarket Get user activity",
+  "display_name": "Polymarket Wallet Activity",
   "type": "api",
   "vendor": "Polymarket",
   "vendor_slug": "polymarket",
-  "description": "Get user activity from Polymarket. Returns the official Polymarket API response unchanged.",
+  "description": "A wallet's activity feed: trades, splits, merges, redemptions, rewards and conversions, with time-range and type filters.",
   "tags": [
     "api",
     "polymarket",
@@ -31,86 +31,55 @@
     "properties": {
       "end": {
         "type": "integer",
-        "minimum": 0,
-        "description": "Upper-bound timestamp (epoch seconds) for the activity window. Omit for the default (current time); rows newer than `end` are excluded."
+        "description": "Window end, epoch seconds (inclusive); omitted or `0` means now plus one day."
       },
       "side": {
-        "enum": [
-          "BUY",
-          "SELL"
-        ],
         "type": "string",
-        "description": "side"
+        "description": "BUY or SELL."
       },
       "type": {
-        "type": "array",
-        "items": {
-          "type": "string"
-        },
-        "description": "Comma-separated list of activity types to include. DEPOSIT and WITHDRAWAL records also require `excludeDepositsWithdrawals=false`."
+        "type": "string",
+        "description": "Activity type(s), comma-separated. Accepted values: `TRADE`, `SPLIT`, `MERGE`, `REDEEM` (automatic redemptions included), `CONVERSION`, `MIGRATION`, `REWARD`, `YIELD`, `MAKER_REBATE`, `TAKER_REBATE`, `REFERRAL_REWARD`, `DEPOSIT`, `WITHDRAWAL`, `DIRECTIONAL_SPLIT`, `DIRECTIONAL_MERGE`, `THRESHOLD_COM"
       },
       "user": {
         "type": "string",
-        "example": "0x56687bf447db6ffa42ffe2204a05edaa20f55839",
-        "description": "User Profile Address (0x-prefixed, 40 hex chars)"
+        "example": "0xfe787d2da716d60e8acff57fb87eb13cd4d10319",
+        "description": "Required; the feed is user-anchored."
       },
       "limit": {
         "type": "integer",
-        "default": 100,
         "example": 2,
-        "maximum": 500,
+        "maximum": 1000,
         "minimum": 0,
-        "description": "Page size. Values above the maximum are clamped to 500."
+        "description": "Page size; default 100, max 1000, past-cap rejected."
       },
       "start": {
         "type": "integer",
-        "minimum": 0,
-        "description": "Lower-bound timestamp (epoch seconds) for the activity window. Omit or pass `0` for the default window (most recent ~3 years); pass a positive epoch (e.g. `1`) to retrieve full history. With `sortDirection=ASC`, omitting `start` already reads from the beginning of the account's history (no default w"
+        "description": "Window start on `block_timestamp`, epoch seconds (inclusive). Omitted or `0` floors to three years back; pass `start=1` for full history."
       },
-      "market": {
-        "type": "array",
-        "items": {
-          "type": "string"
-        },
-        "description": "Comma-separated list of condition IDs. Mutually exclusive with eventId."
-      },
-      "offset": {
-        "type": "integer",
-        "default": 0,
-        "maximum": 5000,
-        "minimum": 0,
-        "description": "Starting index for pagination. Requests past the cap are rejected with a 400 (never silently clamped). To read history deeper than offset 5000, page inside `start`/`end` windows — each window has its own offset budget."
-      },
-      "sortBy": {
-        "enum": [
-          "TIMESTAMP",
-          "TOKENS",
-          "CASH"
-        ],
+      "cursor": {
         "type": "string",
-        "default": "TIMESTAMP",
-        "description": "sortBy"
+        "description": "Opaque cursor from a prior response's `next_cursor`; binds the sort direction it was minted under."
       },
-      "eventId": {
-        "type": "array",
-        "items": {
-          "type": "integer"
-        },
-        "description": "Comma-separated list of event IDs. Mutually exclusive with market."
-      },
-      "sortDirection": {
-        "enum": [
-          "ASC",
-          "DESC"
-        ],
+      "sort_by": {
         "type": "string",
-        "default": "DESC",
-        "description": "`DESC` (default) returns the newest rows first; `ASC` the oldest first. Both orders are stable — the same query returns the same rows at any `limit`/`offset`, so pages compose without gaps or repeats."
+        "description": "Only `TIMESTAMP` is supported (v2 pages by keyset)."
       },
-      "excludeDepositsWithdrawals": {
+      "event_id": {
+        "type": "string",
+        "description": "Gamma event id(s), comma-separated (at most 20 distinct values); resolves to the events' markets. Mutually exclusive with `condition`."
+      },
+      "condition": {
+        "type": "string",
+        "description": "Condition id(s), comma-separated (at most 20 distinct values). `condition_id` / `conditionId` are accepted aliases."
+      },
+      "sort_direction": {
+        "type": "string",
+        "description": "`ASC` or `DESC` (default). The keyset seeks in the chosen direction; the minted cursor binds it, so pass it consistently when paging."
+      },
+      "exclude_deposits_withdrawals": {
         "type": "boolean",
-        "default": true,
-        "description": "Excludes deposit and withdrawal records. The default `true` applies even when `type` requests those records, so to get deposits and withdrawals you must pass `false`."
+        "description": "Defaults to `true`, which drops `DEPOSIT` and `WITHDRAWAL` rows from the page, including when `type` names them. Pass `false` to include them."
       }
     }
   },
@@ -128,7 +97,7 @@
       "note": "Shared across all free-quota APIs, resets 00:00 UTC."
     }
   },
-  "readme": "# Polymarket Get user activity API\n\nGet user activity from Polymarket. Returns the official Polymarket API response unchanged.\n\nThe response is the official Polymarket API response, unchanged.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/polymarket/activity\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"user\": \"0xfe787d2da716d60e8acff57fb87eb13cd4d10319\", \"limit\": 2}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `end` | integer | No | Upper-bound timestamp (epoch seconds) for the activity window. Omit for the default (current time); rows newer than `end` are excluded. |\n| `eventId` | array | No | Comma-separated list of event IDs. Mutually exclusive with market. |\n| `excludeDepositsWithdrawals` | boolean | No | Excludes deposit and withdrawal records. The default `true` applies even when `type` requests those records, so to get deposits and withdrawals you must pass `f |\n| `limit` | integer | No | Page size. Values above the maximum are clamped to 500. |\n| `market` | array | No | Comma-separated list of condition IDs. Mutually exclusive with eventId. |\n| `offset` | integer | No | Starting index for pagination. Requests past the cap are rejected with a 400 (never silently clamped). To read history deeper than offset 5000, page inside `sta |\n| `side` | string | No | side |\n| `sortBy` | string | No | sortBy |\n| `sortDirection` | string | No | `DESC` (default) returns the newest rows first; `ASC` the oldest first. Both orders are stable — the same query returns the same rows at any `limit`/`offset`, s |\n| `start` | integer | No | Lower-bound timestamp (epoch seconds) for the activity window. Omit or pass `0` for the default window (most recent ~3 years); pass a positive epoch (e.g. `1`)  |\n| `type` | array | No | Comma-separated list of activity types to include. DEPOSIT and WITHDRAWAL records also require `excludeDepositsWithdrawals=false`. |\n| `user` | string | Yes | User Profile Address (0x-prefixed, 40 hex chars) |\n\n## Pricing\n\nFlat price per call. Failed calls are not charged.\n",
+  "readme": "# Polymarket Wallet Activity API\n\nA wallet's activity feed: trades, splits, merges, redemptions, rewards and conversions, with time-range and type filters.\n\nServed from the Polymarket Data API v2. The result is returned in `outputs[0].data`: rows are under `data`, and paginated routes add `pagination.next_cursor` (pass it back as `cursor`).\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/polymarket/activity\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"user\": \"0xfe787d2da716d60e8acff57fb87eb13cd4d10319\", \"limit\": 2}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `user` | string | Yes | Required; the feed is user-anchored. |\n| `limit` | integer | No | Page size; default 100, max 1000, past-cap rejected. |\n| `cursor` | string | No | Opaque cursor from a prior response's `next_cursor`; binds the sort direction it was minted under. |\n| `type` | string | No | Activity type(s), comma-separated. Accepted values: `TRADE`, `SPLIT`, `MERGE`, `REDEEM` (automatic redemptions included), `CONVERSION`, `MIGRATION`, `REWARD`, `YIELD`, `MAKER_REBATE`, `TAKER_REBATE`,  |\n| `condition` | string | No | Condition id(s), comma-separated (at most 20 distinct values). `condition_id` / `conditionId` are accepted aliases. |\n| `event_id` | string | No | Gamma event id(s), comma-separated (at most 20 distinct values); resolves to the events' markets. Mutually exclusive with `condition`. |\n| `side` | string | No | BUY or SELL. |\n| `start` | integer | No | Window start on `block_timestamp`, epoch seconds (inclusive). Omitted or `0` floors to three years back; pass `start=1` for full history. |\n| `end` | integer | No | Window end, epoch seconds (inclusive); omitted or `0` means now plus one day. |\n| `sort_by` | string | No | Only `TIMESTAMP` is supported (v2 pages by keyset). |\n| `sort_direction` | string | No | `ASC` or `DESC` (default). The keyset seeks in the chosen direction; the minted cursor binds it, so pass it consistently when paging. |\n| `exclude_deposits_withdrawals` | boolean | No | Defaults to `true`, which drops `DEPOSIT` and `WITHDRAWAL` rows from the page, including when `type` names them. Pass `false` to include them. |\n\n## Reference\n\n- Official docs: https://docs.polymarket.com/api-reference/data-api/overview\n\n## Pricing\n\nFlat price per call. Failed calls are not charged.\n",
   "page_url": "https://www.sandbase.ai/model/polymarket/activity",
   "created_at": "2026-10-30T03:10:45.355Z"
 }

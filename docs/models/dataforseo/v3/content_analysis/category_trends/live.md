@@ -49,6 +49,15 @@ run, err := c.Run(ctx, "dataforseo/v3/content_analysis/category_trends/live", sa
 
 Same call via the path form: `POST /v1/api/dataforseo/v3/content_analysis/category_trends/live` with the body above minus `model`.
 
+## Parameters
+
+| name | type | required | description |
+|---|---|---|---|
+| `date_to` | string |  | Optional end date.  |
+| `date_from` | string |  | Start date, "yyyy-mm-dd".  |
+| `date_group` | string |  | "day", "week" or "month".  |
+| `category_code` | integer |  | Content category code, e.g. 10994.  |
+
 ## Details
 
 Citation counts, sentiment and top domains over time for a content category.

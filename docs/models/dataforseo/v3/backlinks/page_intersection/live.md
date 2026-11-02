@@ -49,6 +49,13 @@ run, err := c.Run(ctx, "dataforseo/v3/backlinks/page_intersection/live", sandbas
 
 Same call via the path form: `POST /v1/api/dataforseo/v3/backlinks/page_intersection/live` with the body above minus `model`.
 
+## Parameters
+
+| name | type | required | description |
+|---|---|---|---|
+| `limit` | integer |  | Maximum number of referring pages to return.  |
+| `targets` | object |  | Object of up to 20 targets keyed "1", "2", ... (pages or domains).  |
+
 ## Details
 
 Referring pages that link to all (or some) of up to 20 target pages or domains.

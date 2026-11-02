@@ -49,6 +49,14 @@ run, err := c.Run(ctx, "dataforseo/v3/business_data/business_listings/categories
 
 Same call via the path form: `POST /v1/api/dataforseo/v3/business_data/business_listings/categories_aggregation/live` with the body above minus `model`.
 
+## Parameters
+
+| name | type | required | description |
+|---|---|---|---|
+| `limit` | string |  | Maximum number of categories to return.  |
+| `categories` | array |  | Optional array of category ids to aggregate.  |
+| `location_coordinate` | string |  | "latitude,longitude,radius_km".  |
+
 ## Details
 
 Business category counts for a location or filter set, for local market sizing.

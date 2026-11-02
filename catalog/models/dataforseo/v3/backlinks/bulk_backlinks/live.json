@@ -25,7 +25,19 @@
   },
   "input_schema": {
     "type": "object",
-    "properties": {},
+    "properties": {
+      "targets": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        },
+        "example": [
+          "nike.com",
+          "adidas.com"
+        ],
+        "description": "Array of domains, subdomains or page URLs (up to 1,000)."
+      }
+    },
     "description": "Request parameters forwarded to DataForSEO /v3/backlinks/bulk_backlinks/live. See DataForSEO docs for full schema.",
     "additionalProperties": true
   },

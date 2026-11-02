@@ -2,13 +2,13 @@
 
 `wechat-mp/search-suggestions` · data API · WeChat MP · callable with one SandBase API key from curl, Python, TypeScript and Go.
 
-**Price:** $0.111111 per call · **Modes:** sync
+**Price:** $0.114286 per call · **Modes:** sync
 
 Get WeChat search suggestions for a keyword, optionally scoped by a supported business type. Use it to expand or refine a query before a targeted WeChat search.
 
 ## Pricing
 
-- **$0.111111 per call** (USD)
+- **$0.114286 per call** (USD)
 
 ## Call it
 

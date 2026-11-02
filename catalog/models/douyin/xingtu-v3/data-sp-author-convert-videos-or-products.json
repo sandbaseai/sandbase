@@ -122,7 +122,7 @@
   "pricing": {
     "currency": "USD",
     "model": "per_call",
-    "per_call": 0.020833
+    "per_call": 0.021429
   },
   "readme": "# Douyin Xingtu Conversion Resources API\n\nList Douyin Creator Marketplace (Xingtu) conversion-related videos or products for a creator, with industry, period, resource-type, and page filters. Use it to review commerce examples before creator selection.\n\nThe response is the platform's original data structure.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/douyin/xingtu-v3/data-sp-author-convert-videos-or-products\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"oAuthorId\": \"6870161898013196295\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `oAuthorId` | string | Yes | Author's unique ID. |\n| `platform` | string | No | Platform type. |\n| `industryId` | string | No | Industry category. |\n| `range` | string | No | Time range. |\n| `detailType` | string | No | Resource type. |\n| `page` | integer | No | Page number. |\n\n## Pricing\n\nFlat price per call. Failed calls and empty results are not charged.\n",
   "page_url": "https://www.sandbase.ai/model/douyin/xingtu-v3/data-sp-author-convert-videos-or-products",

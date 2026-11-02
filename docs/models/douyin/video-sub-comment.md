@@ -2,13 +2,13 @@
 
 `douyin/video-sub-comment` · data API · Douyin · callable with one SandBase API key from curl, Python, TypeScript and Go.
 
-**Price:** $0.013889 per call (free daily quota) · **Modes:** sync
+**Price:** $0.014286 per call (free daily quota) · **Modes:** sync
 
 Get replies to a top-level Douyin (TikTok China) video comment with page-based pagination. Use it to inspect threaded discussions and review feedback under a known comment.
 
 ## Pricing
 
-- **$0.013889 per call** (USD)
+- **$0.014286 per call** (USD)
 - Free quota: 100 calls/day per organization (shared across free-quota APIs).
 
 ## Call it

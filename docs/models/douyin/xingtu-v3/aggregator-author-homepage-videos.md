@@ -2,13 +2,13 @@
 
 `douyin/xingtu-v3/aggregator-author-homepage-videos` · data API · Douyin · callable with one SandBase API key from curl, Python, TypeScript and Go.
 
-**Price:** $0.069444 per call · **Modes:** sync
+**Price:** $0.071429 per call · **Modes:** sync
 
 List a Douyin Creator Marketplace (Xingtu) creator's homepage videos with keyword, video-type, assignment, date, and page filters. Use it to review relevant content before campaign selection.
 
 ## Pricing
 
-- **$0.069444 per call** (USD)
+- **$0.071429 per call** (USD)
 
 ## Call it
 

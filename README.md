@@ -5,7 +5,7 @@
 <h3 align="center">One API Key. Build Your Personal Agent.</h3>
 
 <p align="center">
-  <!-- counts:en --><b>2,000+ models &amp; APIs</b> · 400+ AI models · 1,700+ data APIs from 100+ platforms<br><b>100 free API calls / day</b> · <b>Free sandboxes</b> · <b>Free agents</b><!-- /counts:en -->
+  <!-- counts:en --><b>2,000+ models &amp; APIs</b> · 400+ AI models · 1,800+ data APIs from 100+ platforms<br><b>100 free API calls / day</b> · <b>Free sandboxes</b> · <b>Free agents</b><!-- /counts:en -->
 </p>
 
 <p align="center">
@@ -186,12 +186,12 @@ Open [`examples/http/sandbase.http`](examples/http/sandbase.http) and click *Sen
 | | Count | Includes |
 |---|---|---|
 | **AI models** | 400+ | 100+ LLMs, 150+ video, 100+ image, 30+ audio: Alibaba, Google, OpenAI, Kling, ByteDance, MiniMax, Black Forest Labs, xAI, … |
-| Social & content | 1,100+ | Douyin, TikTok, Instagram, Weibo, Xiaohongshu, YouTube, Zhihu, Bilibili, Kuaishou, LinkedIn, … |
-| Search, SEO & web data | 200+ | DataForSEO, Similarweb, Brave, Google, Firecrawl, Artificial Analysis, Exa, Scholar, Tavily, Ahrefs, … |
-| E-commerce, apps & reviews | 100+ | 1688, GetApp, TikTok Shop, Amazon, Clutch, Trustpilot, G2, JD.com, Taobao, Zillow, … |
-| Finance, crypto & markets | 150+ | Polymarket, FRED, CoinGecko, Financial Datasets, Nasdaq, MarketBeat, SECForm4, StockAnalysis, Yahoo Finance, Kalshi, … |
+| Social & content | 1,200+ | Douyin, TikTok, Instagram, Xiaohongshu, Weibo, YouTube, Zhihu, Bilibili, Kuaishou, LinkedIn, … |
+| Search, SEO & web data | 200+ | DataForSEO, Similarweb, Brave, Google, Firecrawl, Artificial Analysis, Bing, DuckDuckGo, Exa, Scholar, … |
+| E-commerce, apps & reviews | 100+ | 1688, GetApp, TikTok Shop, Amazon, Clutch, Google Play, Trustpilot, G2, JD.com, Taobao, … |
+| Finance, crypto & markets | 150+ | Polymarket, FRED, Financial Datasets, CoinGecko, Nasdaq, MarketBeat, SECForm4, StockAnalysis, Yahoo Finance, Kalshi, … |
 | Companies, people & jobs | 40+ | Web3.career, Apollo, Levels.fyi, Y Combinator, Wellfound, Crunchbase, Hunter, Built In, Indeed, … |
-| More | 30+ | IMDb, AAA, IQAir, AccuWeather, Weather Underground, … |
+| More | 70+ | Semrush, IMDb, AAA, Open-Meteo, IQAir, AccuWeather, Yahoo, Yandex, Baidu, China Social Media, … |
 <!-- /inside:en -->
 
 Every entry has a page with its schema, price and code in four languages. See [all models &amp; APIs](docs/INDEX.md) or [browse by platform](docs/platforms/README.md): [TikTok](docs/platforms/tiktok.md) · [Instagram](docs/platforms/instagram.md) · [YouTube](docs/platforms/youtube.md) · [LinkedIn](docs/platforms/linkedin.md) · [Reddit](docs/platforms/reddit.md) · [Douyin](docs/platforms/douyin.md) · [Xiaohongshu](docs/platforms/xiaohongshu.md) · [DataForSEO](docs/platforms/dataforseo.md) · [Polymarket](docs/platforms/polymarket.md) · [OpenAI](docs/platforms/openai.md) · [Google](docs/platforms/google.md) · [Kling](docs/platforms/kwaivgi.md)

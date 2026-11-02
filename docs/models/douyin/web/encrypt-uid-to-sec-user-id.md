@@ -2,13 +2,13 @@
 
 `douyin/web/encrypt-uid-to-sec-user-id` · data API · Douyin · callable with one SandBase API key from curl, Python, TypeScript and Go.
 
-**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
+**Price:** $0.001 per call (free daily quota) · **Modes:** sync
 
 Converts a standard Douyin user UID into an encrypted sec_user_id. It takes a short_id value and returns the corresponding secure identifier.
 
 ## Pricing
 
-- **$0.0015 per call** (USD)
+- **$0.001 per call** (USD)
 - Free quota: 100 calls/day per organization (shared across free-quota APIs).
 
 ## Call it

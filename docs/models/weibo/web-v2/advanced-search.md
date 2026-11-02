@@ -2,13 +2,13 @@
 
 `weibo/web-v2/advanced-search` · data API · Weibo · callable with one SandBase API key from curl, Python, TypeScript and Go.
 
-**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
+**Price:** $0.001 per call (free daily quota) · **Modes:** sync
 
 Search Weibo posts by keyword with filters for time range, post type (hot, original, verified, media) and content type (images, video, links). Returns post text, author, time and engagement.
 
 ## Pricing
 
-- **$0.0015 per call** (USD)
+- **$0.001 per call** (USD)
 - Free quota: 100 calls/day per organization (shared across free-quota APIs).
 
 ## Call it

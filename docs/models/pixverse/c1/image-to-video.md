@@ -48,7 +48,7 @@ Modes: async (default `async`). Only pass `mode` values listed here. The SDKs' `
 ```bash
 curl https://api.sandbase.ai/v1/run \
   -H "Authorization: Bearer $SANDBASE_API_KEY" -H 'Content-Type: application/json' \
-  -d '{"model": "pixverse/c1/image-to-video", "prompt": "<prompt>", "image": "<image>"}'
+  -d '{"model": "pixverse/c1/image-to-video", "prompt": "A woman warrior with her hammer walking with his glacier wolf.", "image": "https://static.sandbase.ai/examples/pixverse/c1/image-to-video/output_url_0.png"}'
 ```
 
 **Python** ([sdk/python](../../../../sdk/python))
@@ -56,7 +56,7 @@ curl https://api.sandbase.ai/v1/run \
 ```python
 from sandbase import SandBase
 
-result = SandBase().run('pixverse/c1/image-to-video', {'prompt': '<prompt>', 'image': '<image>'})
+result = SandBase().run('pixverse/c1/image-to-video', {'prompt': 'A woman warrior with her hammer walking with his glacier wolf.', 'image': 'https://static.sandbase.ai/examples/pixverse/c1/image-to-video/output_url_0.png'})
 print(result["outputs"])
 ```
 
@@ -66,8 +66,8 @@ print(result["outputs"])
 import { SandBase } from "@sandbaseai/sdk";
 
 const result = await new SandBase().run("pixverse/c1/image-to-video", {
-  "prompt": "<prompt>",
-  "image": "<image>"
+  "prompt": "A woman warrior with her hammer walking with his glacier wolf.",
+  "image": "https://static.sandbase.ai/examples/pixverse/c1/image-to-video/output_url_0.png"
 });
 console.log(result.outputs);
 ```
@@ -77,8 +77,8 @@ console.log(result.outputs);
 ```go
 c, _ := sandbase.NewClient("")
 run, err := c.Run(ctx, "pixverse/c1/image-to-video", sandbase.Params{
-	"prompt": "<prompt>",
-	"image": "<image>",
+	"prompt": "A woman warrior with her hammer walking with his glacier wolf.",
+	"image": "https://static.sandbase.ai/examples/pixverse/c1/image-to-video/output_url_0.png",
 })
 ```
 

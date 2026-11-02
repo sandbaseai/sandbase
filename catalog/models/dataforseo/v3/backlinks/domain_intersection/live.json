@@ -25,7 +25,25 @@
   },
   "input_schema": {
     "type": "object",
-    "properties": {},
+    "properties": {
+      "limit": {
+        "type": "integer",
+        "example": 10,
+        "description": "Maximum number of referring domains to return."
+      },
+      "targets": {
+        "type": "object",
+        "example": {
+          "1": "nike.com",
+          "2": "adidas.com"
+        },
+        "description": "Object of up to 20 targets keyed \"1\", \"2\", ... (domains or subdomains)."
+      },
+      "exclude_targets": {
+        "type": "string",
+        "description": "Optional array of domains whose referrers are excluded."
+      }
+    },
     "description": "Request parameters forwarded to DataForSEO /v3/backlinks/domain_intersection/live. See DataForSEO docs for full schema.",
     "additionalProperties": true
   },

@@ -49,6 +49,18 @@ run, err := c.Run(ctx, "dataforseo/v3/ai_optimization/llm_mentions/timeseries_de
 
 Same call via the path form: `POST /v1/api/dataforseo/v3/ai_optimization/llm_mentions/timeseries_delta/live` with the body above minus `model`.
 
+## Parameters
+
+| name | type | required | description |
+|---|---|---|---|
+| `target` | array |  | Array of up to 10 entities, each with one `domain` or one `keyword` (optional `search_filter`, `search_scope`, `match_type`).  |
+| `date_to` | string |  | End date, "yyyy-mm-dd".  |
+| `platform` | string |  | Optional: "google" (AI Overviews) or "chat_gpt". Omit for both.  |
+| `date_from` | string |  | Start date, "yyyy-mm-dd" (from 2025-08-01).  |
+| `group_range` | string |  | "day", "week", "month" or "year".  |
+| `language_code` | string |  | Language code; default "en".  |
+| `location_code` | string |  | Location code; default 2840 (United States).  |
+
 ## Details
 
 Change in mention count and AI search volume for a domain or keyword between periods.

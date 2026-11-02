@@ -54,7 +54,7 @@ Call 44 KwaiVGI models through SandBase with one API key: no separate account, o
 ```bash
 curl https://api.sandbase.ai/v1/run \
   -H "Authorization: Bearer $SANDBASE_API_KEY" -H 'Content-Type: application/json' \
-  -d '{"model": "kwaivgi/kling-image/o3", "prompt": "<prompt>"}'
+  -d '{"model": "kwaivgi/kling-image/o3", "prompt": "A red fox in a snowy forest at sunrise, photorealistic"}'
 ```
 
 Get a key at [sandbase.ai](https://www.sandbase.ai/console). Back to [all platforms](README.md).

@@ -23,7 +23,22 @@
   },
   "input_schema": {
     "type": "object",
-    "properties": {},
+    "properties": {
+      "limit": {
+        "type": "integer",
+        "example": 10,
+        "description": "Maximum number of networks to return."
+      },
+      "target": {
+        "type": "string",
+        "example": "nike.com",
+        "description": "Domain, subdomain or page URL."
+      },
+      "network_address_type": {
+        "type": "string",
+        "description": "Optional: \"ip\" or \"subnet\" (default \"ip\")."
+      }
+    },
     "description": "Request parameters forwarded to DataForSEO /v3/backlinks/referring_networks/live. See DataForSEO docs for full schema.",
     "additionalProperties": true
   },

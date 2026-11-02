@@ -2,13 +2,13 @@
 
 `douban/movie-review-detail` · data API · Douban · callable with one SandBase API key from curl, Python, TypeScript and Go.
 
-**Price:** $0.013889 per call (free daily quota) · **Modes:** sync
+**Price:** $0.014286 per call (free daily quota) · **Modes:** sync
 
 Get a single Douban long-form review by its review ID. Use it to inspect a known review after discovering it in a subject's review list.
 
 ## Pricing
 
-- **$0.013889 per call** (USD)
+- **$0.014286 per call** (USD)
 - Free quota: 100 calls/day per organization (shared across free-quota APIs).
 
 ## Call it

@@ -49,6 +49,14 @@ run, err := c.Run(ctx, "dataforseo/v3/backlinks/domain_intersection/live", sandb
 
 Same call via the path form: `POST /v1/api/dataforseo/v3/backlinks/domain_intersection/live` with the body above minus `model`.
 
+## Parameters
+
+| name | type | required | description |
+|---|---|---|---|
+| `limit` | integer |  | Maximum number of referring domains to return.  |
+| `targets` | object |  | Object of up to 20 targets keyed "1", "2", ... (domains or subdomains).  |
+| `exclude_targets` | string |  | Optional array of domains whose referrers are excluded.  |
+
 ## Details
 
 Referring domains that link to all (or some) of up to 20 target domains, for link-gap analysis.

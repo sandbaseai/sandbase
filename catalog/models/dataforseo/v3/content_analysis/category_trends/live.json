@@ -25,7 +25,27 @@
   },
   "input_schema": {
     "type": "object",
-    "properties": {},
+    "properties": {
+      "date_to": {
+        "type": "string",
+        "description": "Optional end date."
+      },
+      "date_from": {
+        "type": "string",
+        "example": "2026-09-01",
+        "description": "Start date, \"yyyy-mm-dd\"."
+      },
+      "date_group": {
+        "type": "string",
+        "example": "week",
+        "description": "\"day\", \"week\" or \"month\"."
+      },
+      "category_code": {
+        "type": "integer",
+        "example": 10994,
+        "description": "Content category code, e.g. 10994."
+      }
+    },
     "description": "Request parameters forwarded to DataForSEO /v3/content_analysis/category_trends/live. See DataForSEO docs for full schema.",
     "additionalProperties": true
   },

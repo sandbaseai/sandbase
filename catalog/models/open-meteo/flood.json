@@ -1,0 +1,117 @@
+{
+  "name": "open-meteo/flood",
+  "display_name": "Open-Meteo Flood Forecast",
+  "type": "api",
+  "vendor": "Open-Meteo",
+  "vendor_slug": "open-meteo",
+  "description": "Daily river discharge forecast and history for any coordinates from the GloFAS flood model.",
+  "tags": [
+    "api",
+    "open-meteo",
+    "weather"
+  ],
+  "capabilities": [
+    "api",
+    "open-meteo",
+    "weather"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/open-meteo/flood"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "latitude",
+      "longitude"
+    ],
+    "properties": {
+      "daily": {
+        "type": "string",
+        "example": "river_discharge",
+        "description": "Comma-separated list of daily aggregation variables to return. Requires `timezone`. Common values: `river_discharge`, `river_discharge_mean`, `river_discharge_median`, `river_discharge_max`, `river_discharge_min`, `river_discharge_p25`, `river_discharge_p75`."
+      },
+      "models": {
+        "type": "string",
+        "example": "seamless_v4",
+        "description": "Comma-separated GloFAS models. Default best match."
+      },
+      "end_date": {
+        "type": "string",
+        "example": "2024-01-07",
+        "description": "End of the interval, `yyyy-mm-dd` (ISO 8601)."
+      },
+      "ensemble": {
+        "type": "boolean",
+        "default": false,
+        "description": "Return all ensemble members instead of the aggregate. Default `false`."
+      },
+      "latitude": {
+        "type": "string",
+        "example": "52.52",
+        "description": "WGS84 latitude of the location. Multiple coordinates can be comma-separated."
+      },
+      "longitude": {
+        "type": "string",
+        "example": "13.41",
+        "description": "WGS84 longitude of the location (negative for the Americas). Multiple coordinates can be comma-separated."
+      },
+      "past_days": {
+        "type": "integer",
+        "default": 0,
+        "description": "Number of past days to include (0-92). Default 0."
+      },
+      "start_date": {
+        "type": "string",
+        "example": "2024-01-01",
+        "description": "Start of the interval, `yyyy-mm-dd` (ISO 8601)."
+      },
+      "timeformat": {
+        "enum": [
+          "iso8601",
+          "unixtime"
+        ],
+        "type": "string",
+        "default": "iso8601",
+        "description": "Time output format. Default `iso8601`."
+      },
+      "forecast_days": {
+        "type": "integer",
+        "default": 92,
+        "example": 7,
+        "description": "Number of forecast days to return (0-210). Default 92."
+      },
+      "cell_selection": {
+        "enum": [
+          "land",
+          "sea",
+          "nearest"
+        ],
+        "type": "string",
+        "default": "nearest",
+        "description": "Grid-cell preference for the coordinate. Default `nearest`."
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.0001,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "readme": "# Open-Meteo Flood Forecast API\n\nDaily river discharge forecast and history for any coordinates from the GloFAS flood model.\n\nThe result is returned in `outputs[0].data` as the official Open-Meteo API response, unchanged.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/open-meteo/flood\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"latitude\": \"52.52\", \"longitude\": \"13.41\", \"daily\": \"river_discharge\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `cell_selection` | string | No | Grid-cell preference for the coordinate. Default `nearest`. |\n| `daily` | string | No | Comma-separated list of daily aggregation variables to return. Requires `timezone`. Common values: `river_discharge`, `river_discharge_mean`, `river_discharge_m |\n| `end_date` | string | No | End of the interval, `yyyy-mm-dd` (ISO 8601). |\n| `ensemble` | boolean | No | Return all ensemble members instead of the aggregate. Default `false`. |\n| `forecast_days` | integer | No | Number of forecast days to return (0-210). Default 92. |\n| `latitude` | string | Yes | WGS84 latitude of the location. Multiple coordinates can be comma-separated. |\n| `longitude` | string | Yes | WGS84 longitude of the location (negative for the Americas). Multiple coordinates can be comma-separated. |\n| `models` | string | No | Comma-separated GloFAS models. Default best match. |\n| `past_days` | integer | No | Number of past days to include (0-92). Default 0. |\n| `start_date` | string | No | Start of the interval, `yyyy-mm-dd` (ISO 8601). |\n| `timeformat` | string | No | Time output format. Default `iso8601`. |\n\n## Pricing\n\nFlat price per call. Failed calls are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/open-meteo/flood",
+  "created_at": "2026-11-02T05:24:38.073Z"
+}

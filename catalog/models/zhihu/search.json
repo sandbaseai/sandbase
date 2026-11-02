@@ -86,7 +86,7 @@
   "pricing": {
     "currency": "USD",
     "model": "per_call",
-    "per_call": 0.027778
+    "per_call": 0.028571
   },
   "readme": "# Zhihu Keyword Search API\n\nSearch Zhihu by keyword with optional result-type, sort, time-interval, topic-display, and offset controls. Use it to find relevant answers, articles, or videos.\n\nThe response is the platform's original data structure.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/zhihu/search\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"keyword\": \"人工智能\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `keyword` | string | Yes | Search keywords. |\n| `offset` | integer | No | Start offset, begins with 0. |\n| `showAllTopics` | string | No | Whether to show all topics. |\n| `vertical` | string | No | Result type filter. |\n| `sort` | string | No | Sorting criteria. |\n| `timeInterval` | string | No | Publish time interval filter. |\n\n## Pricing\n\nFlat price per call. Failed calls and empty results are not charged.\n",
   "page_url": "https://www.sandbase.ai/model/zhihu/search",

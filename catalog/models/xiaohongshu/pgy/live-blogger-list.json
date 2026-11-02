@@ -1,0 +1,98 @@
+{
+  "name": "xiaohongshu/pgy/live-blogger-list",
+  "display_name": "Xiaohongshu PGY live blogger square",
+  "type": "api",
+  "vendor": "Xiaohongshu",
+  "vendor_slug": "xiaohongshu",
+  "description": "PGY live blogger square on Xiaohongshu. Returns the platform data as structured JSON.",
+  "tags": [
+    "api",
+    "xiaohongshu"
+  ],
+  "capabilities": [
+    "api",
+    "xiaohongshu"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/xiaohongshu/pgy/live-blogger-list"
+  },
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "ecom": {
+        "type": "object",
+        "title": "EcomFilter",
+        "description": "E-commerce conversion filters"
+      },
+      "fans": {
+        "type": "object",
+        "title": "FansFilter",
+        "description": "Fans purchasing power filters"
+      },
+      "live": {
+        "type": "object",
+        "title": "LiveFilter",
+        "description": "Live activity & performance filters"
+      },
+      "seed": {
+        "type": "integer",
+        "title": "Seed",
+        "default": 0,
+        "example": 0,
+        "description": "Paging seed, echo back from previous page"
+      },
+      "buyer": {
+        "type": "object",
+        "title": "BuyerFilter",
+        "description": "Buyer group & persona filters"
+      },
+      "flags": {
+        "type": "object",
+        "title": "FlagFilter",
+        "description": "Platform recommendation flags"
+      },
+      "category": {
+        "type": "object",
+        "title": "CategoryFilter",
+        "description": "Category filters"
+      },
+      "page_num": {
+        "type": "integer",
+        "title": "Page Num",
+        "default": 1,
+        "example": 1,
+        "description": "Page, 1-250"
+      },
+      "nick_name": {
+        "type": "string",
+        "title": "Nick Name",
+        "description": "Search by nickname"
+      },
+      "page_size": {
+        "type": "integer",
+        "title": "Page Size",
+        "default": 20,
+        "example": 20,
+        "description": "Page size, 1-20"
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.02
+  },
+  "readme": "# Xiaohongshu PGY live blogger square API\n\nPGY live blogger square on Xiaohongshu. Returns the platform data as structured JSON.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/xiaohongshu/pgy/live-blogger-list\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"page_num\": 1, \"page_size\": 20, \"seed\": 0}'\n```\n\nThe result is returned in `outputs[0].data`.\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `buyer` | object | No | Buyer group & persona filters |\n| `category` | object | No | Category filters |\n| `ecom` | object | No | E-commerce conversion filters |\n| `fans` | object | No | Fans purchasing power filters |\n| `flags` | object | No | Platform recommendation flags |\n| `live` | object | No | Live activity & performance filters |\n| `nick_name` | string | No | Search by nickname |\n| `page_num` | integer | No | Page, 1-250 |\n| `page_size` | integer | No | Page size, 1-20 |\n| `seed` | integer | No | Paging seed, echo back from previous page |\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/xiaohongshu/pgy/live-blogger-list",
+  "published_at": "2026-11-02T00:00:00Z",
+  "created_at": "2026-11-02T00:28:20.2Z"
+}

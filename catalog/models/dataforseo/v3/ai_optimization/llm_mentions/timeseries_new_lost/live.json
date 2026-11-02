@@ -25,7 +25,47 @@
   },
   "input_schema": {
     "type": "object",
-    "properties": {},
+    "properties": {
+      "target": {
+        "type": "array",
+        "items": {
+          "type": "object"
+        },
+        "example": [
+          {
+            "domain": "nike.com"
+          }
+        ],
+        "description": "Array of up to 10 entities, each with one `domain` or one `keyword` (optional `search_filter`, `search_scope`, `match_type`)."
+      },
+      "date_to": {
+        "type": "string",
+        "example": "2026-10-01",
+        "description": "End date, \"yyyy-mm-dd\"."
+      },
+      "platform": {
+        "type": "string",
+        "description": "Optional: \"google\" (AI Overviews) or \"chat_gpt\". Omit for both."
+      },
+      "date_from": {
+        "type": "string",
+        "example": "2026-07-01",
+        "description": "Start date, \"yyyy-mm-dd\" (from 2025-08-01)."
+      },
+      "group_range": {
+        "type": "string",
+        "example": "month",
+        "description": "\"day\", \"week\", \"month\" or \"year\"."
+      },
+      "language_code": {
+        "type": "string",
+        "description": "Language code; default \"en\"."
+      },
+      "location_code": {
+        "type": "string",
+        "description": "Location code; default 2840 (United States)."
+      }
+    },
     "description": "Request parameters forwarded to DataForSEO /v3/ai_optimization/llm_mentions/timeseries_new_lost/live. See DataForSEO docs for full schema.",
     "additionalProperties": true
   },

@@ -2,13 +2,13 @@
 
 `xiaohongshu/pgy/blogger-list` · data API · Xiaohongshu · callable with one SandBase API key from curl, Python, TypeScript and Go.
 
-**Price:** $0.03 per call · **Modes:** sync
+**Price:** $0.02 per call · **Modes:** sync
 
 Returns a paginated list of cooperable Xiaohongshu Pugongying bloggers matched under a specific brand. Filter candidate creators using keyword searches, audience profiles, performance metrics, and similar creator IDs.
 
 ## Pricing
 
-- **$0.03 per call** (USD)
+- **$0.02 per call** (USD)
 
 ## Call it
 

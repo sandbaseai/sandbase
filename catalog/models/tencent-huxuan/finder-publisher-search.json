@@ -44,7 +44,7 @@
   "pricing": {
     "currency": "USD",
     "model": "per_call",
-    "per_call": 0.069444
+    "per_call": 0.071429
   },
   "readme": "# Tencent Huxuan Video Account Creator Search API\n\nSearch or browses QQ Huxuan Video Account creators by optional nickname keyword with page-number pagination. Use it to discover and shortlist video creators for Tencent Huxuan campaign planning.\n\nThe response is the platform's original data structure.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/tencent-huxuan/finder-publisher-search\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `keyword` | string | No | Creator nickname keyword. Leave empty to browse the default marketplace list. |\n| `page` | integer | No | Page number. The first page is 1. |\n\n## Pricing\n\nFlat price per call. Failed calls and empty results are not charged.\n",
   "page_url": "https://www.sandbase.ai/model/tencent-huxuan/finder-publisher-search",

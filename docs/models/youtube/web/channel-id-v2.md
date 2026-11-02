@@ -2,13 +2,13 @@
 
 `youtube/web/channel-id-v2` · data API · YouTube · callable with one SandBase API key from curl, Python, TypeScript and Go.
 
-**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
+**Price:** $0.001 per call (free daily quota) · **Modes:** sync
 
 Resolves a YouTube channel URL into its unique channel ID and standardized channel URL. Accepts various URL formats including handles, custom URLs, and user links.
 
 ## Pricing
 
-- **$0.0015 per call** (USD)
+- **$0.001 per call** (USD)
 - Free quota: 100 calls/day per organization (shared across free-quota APIs).
 
 ## Call it

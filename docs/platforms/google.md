@@ -1,9 +1,10 @@
-# Google models API: 57 endpoints with pricing and code examples
+# Google models API: 58 endpoints with pricing and code examples
 
-Call 57 Google models through SandBase with one API key: no separate account, one balance, the same request format for every endpoint. Each page has the input schema, the price and curl / Python / TypeScript / Go examples.
+Call 58 Google models through SandBase with one API key: no separate account, one balance, the same request format for every endpoint. Each page has the input schema, the price and curl / Python / TypeScript / Go examples.
 
 | Endpoint | What it does | Price |
 |---|---|---|
+| [`google/ads-transparency`](../models/google/ads-transparency.md) | Ads an advertiser is running on Google, from the Ads Transparency Center: creatives, formats, first and last shown dates. | $0.015 per call |
 | [`google/ai-mode`](../models/google/ai-mode.md) | Ask Google AI Mode a prompt and receive the cited answer it generates. AI Mode composes the answer at search time, so repeat calls on one… | about $0.002 per call |
 | [`google/ai-overview`](../models/google/ai-overview.md) | Ask Google Search a prompt and receive the AI Overview it generated for that scrape, with every source Google listed. Google regenerates… | about $0.0015 per call |
 | [`google/gemini-2.5-flash`](../models/google/gemini-2.5-flash.md) | Gemini 2.5 Flash is the workhorse model of Google's Gemini 2.5 family, a thinking model released as stable in June 2025. Google positions… | $0.3 input / $2.5 output per 1M tokens |
@@ -67,7 +68,7 @@ Call 57 Google models through SandBase with one API key: no separate account, on
 ```bash
 curl https://api.sandbase.ai/v1/run \
   -H "Authorization: Bearer $SANDBASE_API_KEY" -H 'Content-Type: application/json' \
-  -d '{"model": "google/ai-mode", "prompt": "What are the most useful open-source AI agent frameworks?"}'
+  -d '{"model": "google/ads-transparency"}'
 ```
 
 Get a key at [sandbase.ai](https://www.sandbase.ai/console). Back to [all platforms](README.md).

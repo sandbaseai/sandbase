@@ -2,13 +2,13 @@
 
 `youtube/web-v2/video-info` · data API · YouTube · callable with one SandBase API key from curl, Python, TypeScript and Go.
 
-**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
+**Price:** $0.001 per call (free daily quota) · **Modes:** sync
 
 Returns detailed video information and caption tracks for a specified YouTube video ID. Supports optional parameters to format output data and set language preferences.
 
 ## Pricing
 
-- **$0.0015 per call** (USD)
+- **$0.001 per call** (USD)
 - Free quota: 100 calls/day per organization (shared across free-quota APIs).
 
 ## Call it

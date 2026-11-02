@@ -2,14 +2,13 @@
 
 `dataforseo/v3/on_page/content_parsing/live` · data API · DataForSEO · callable with one SandBase API key from curl, Python, TypeScript and Go.
 
-**Price:** $0.002 per call (free daily quota) · **Modes:** sync
+**Price:** about $0.00015 per call · **Modes:** sync
 
 Parses and returns structured on-page content directly from a specified webpage URL. Inspect page elements, headings, text blocks, and page layout details for SEO analysis.
 
 ## Pricing
 
-- **$0.002 per call** (USD)
-- Free quota: 100 calls/day per organization (shared across free-quota APIs).
+- Usage-based. Billed per call from metered usage; the reference price is typical. Reference: **$0.00015**
 
 ## Call it
 
@@ -60,6 +59,12 @@ run, err := c.Run(ctx, "dataforseo/v3/on_page/content_parsing/live", sandbase.Pa
 
 Same call via the path form: `POST /v1/api/dataforseo/v3/on_page/content_parsing/live` with the body above minus `model`.
 
+## Parameters
+
+| name | type | required | description |
+|---|---|---|---|
+| `url` | string |  | Page URL.  |
+
 ## Details
 
 Parses structured content elements directly from a target webpage. Useful for auditing on-page text, headings, and structure.
@@ -89,7 +94,7 @@ The JSON body is forwarded to the upstream endpoint (one task per call). Fields 
 
 ### Pricing
 
-Flat price per call. Failed calls are not charged.
+Billed at the actual cost of each call, about $0.00015 for the request above. The cost grows with the number of rows, targets or pages a call returns. Failed calls are not charged. Searches with no results are billed at their actual cost.
 
 ### Related APIs
 

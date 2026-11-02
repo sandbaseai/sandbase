@@ -1,0 +1,147 @@
+{
+  "name": "open-meteo/archive",
+  "display_name": "Open-Meteo Historical Weather",
+  "type": "api",
+  "vendor": "Open-Meteo",
+  "vendor_slug": "open-meteo",
+  "description": "Historical weather by coordinates and date range from the ERA5 reanalysis, back to 1940, with hourly and daily variables.",
+  "tags": [
+    "api",
+    "open-meteo",
+    "weather"
+  ],
+  "capabilities": [
+    "api",
+    "open-meteo",
+    "weather"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/open-meteo/archive"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "end_date",
+      "latitude",
+      "longitude",
+      "start_date"
+    ],
+    "properties": {
+      "daily": {
+        "type": "string",
+        "example": "temperature_2m_max,precipitation_sum",
+        "description": "Comma-separated list of daily aggregation variables to return. Requires `timezone`. Common values: `temperature_2m_max`, `temperature_2m_min`, `temperature_2m_mean`, `precipitation_sum`, `rain_sum`, `snowfall_sum`, `weather_code`, `sunrise`, `sunset`, `sunshine_duration`, `wind_speed_10m_max`, `uv_i"
+      },
+      "hourly": {
+        "type": "string",
+        "example": "temperature_2m,precipitation",
+        "description": "Comma-separated list of hourly variables to return. Common values: `temperature_2m`, `relative_humidity_2m`, `dew_point_2m`, `apparent_temperature`, `precipitation`, `rain`, `showers`, `snowfall`, `weather_code`, `pressure_msl`, `cloud_cover`, `wind_speed_10m`, `wind_direction_10m`, `wind_gusts_10m`"
+      },
+      "models": {
+        "type": "string",
+        "example": "era5",
+        "description": "Comma-separated reanalysis models, e.g. `era5`, `era5_land`, `ecmwf_ifs`, `cerra`. Default best match."
+      },
+      "end_date": {
+        "type": "string",
+        "example": "2024-01-07",
+        "description": "End of the interval, `yyyy-mm-dd` (ISO 8601)."
+      },
+      "latitude": {
+        "type": "string",
+        "example": "52.52",
+        "description": "WGS84 latitude of the location. Multiple coordinates can be comma-separated."
+      },
+      "timezone": {
+        "type": "string",
+        "example": "auto",
+        "description": "IANA time zone name (e.g. `Europe/Berlin`) or `auto` to resolve from coordinates. Defaults to `GMT`."
+      },
+      "elevation": {
+        "type": "string",
+        "example": "38",
+        "description": "Manual elevation (meters). Defaults to a 90m DEM."
+      },
+      "longitude": {
+        "type": "string",
+        "example": "13.41",
+        "description": "WGS84 longitude of the location (negative for the Americas). Multiple coordinates can be comma-separated."
+      },
+      "start_date": {
+        "type": "string",
+        "example": "2024-01-01",
+        "description": "Start of the interval, `yyyy-mm-dd` (ISO 8601)."
+      },
+      "timeformat": {
+        "enum": [
+          "iso8601",
+          "unixtime"
+        ],
+        "type": "string",
+        "default": "iso8601",
+        "description": "Time output format. Default `iso8601`."
+      },
+      "cell_selection": {
+        "enum": [
+          "land",
+          "sea",
+          "nearest"
+        ],
+        "type": "string",
+        "default": "land",
+        "description": "Grid-cell preference for the coordinate. Default `land`."
+      },
+      "wind_speed_unit": {
+        "enum": [
+          "kmh",
+          "ms",
+          "mph",
+          "kn"
+        ],
+        "type": "string",
+        "default": "kmh",
+        "description": "Wind speed unit. Default `kmh`."
+      },
+      "temperature_unit": {
+        "enum": [
+          "celsius",
+          "fahrenheit"
+        ],
+        "type": "string",
+        "default": "celsius",
+        "description": "Temperature unit. Default `celsius`."
+      },
+      "precipitation_unit": {
+        "enum": [
+          "mm",
+          "inch"
+        ],
+        "type": "string",
+        "default": "mm",
+        "description": "Precipitation unit. Default `mm`."
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.0001,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "readme": "# Open-Meteo Historical Weather API\n\nHistorical weather by coordinates and date range from the ERA5 reanalysis, back to 1940, with hourly and daily variables.\n\nThe result is returned in `outputs[0].data` as the official Open-Meteo API response, unchanged.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/open-meteo/archive\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"end_date\": \"2024-01-07\", \"latitude\": \"52.52\", \"longitude\": \"13.41\", \"start_date\": \"2024-01-01\", \"daily\": \"temperature_2m_max,precipitation_sum\", \"timezone\": \"auto\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `cell_selection` | string | No | Grid-cell preference for the coordinate. Default `land`. |\n| `daily` | string | No | Comma-separated list of daily aggregation variables to return. Requires `timezone`. Common values: `temperature_2m_max`, `temperature_2m_min`, `temperature_2m_m |\n| `elevation` | string | No | Manual elevation (meters). Defaults to a 90m DEM. |\n| `end_date` | string | Yes | End of the interval, `yyyy-mm-dd` (ISO 8601). |\n| `hourly` | string | No | Comma-separated list of hourly variables to return. Common values: `temperature_2m`, `relative_humidity_2m`, `dew_point_2m`, `apparent_temperature`, `precipitat |\n| `latitude` | string | Yes | WGS84 latitude of the location. Multiple coordinates can be comma-separated. |\n| `longitude` | string | Yes | WGS84 longitude of the location (negative for the Americas). Multiple coordinates can be comma-separated. |\n| `models` | string | No | Comma-separated reanalysis models, e.g. `era5`, `era5_land`, `ecmwf_ifs`, `cerra`. Default best match. |\n| `precipitation_unit` | string | No | Precipitation unit. Default `mm`. |\n| `start_date` | string | Yes | Start of the interval, `yyyy-mm-dd` (ISO 8601). |\n| `temperature_unit` | string | No | Temperature unit. Default `celsius`. |\n| `timeformat` | string | No | Time output format. Default `iso8601`. |\n| `timezone` | string | No | IANA time zone name (e.g. `Europe/Berlin`) or `auto` to resolve from coordinates. Defaults to `GMT`. |\n| `wind_speed_unit` | string | No | Wind speed unit. Default `kmh`. |\n\n## Pricing\n\nFlat price per call. Failed calls are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/open-meteo/archive",
+  "created_at": "2026-11-02T05:24:31.73Z"
+}

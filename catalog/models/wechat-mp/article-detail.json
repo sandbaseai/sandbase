@@ -52,7 +52,7 @@
   "pricing": {
     "currency": "USD",
     "model": "per_call",
-    "per_call": 0.020833
+    "per_call": 0.021429
   },
   "readme": "# WeChat MP Article Details API\n\nGet a WeChat Official Account article by URL with selectable plain-text or rich-text content mode. Use it to collect a known article in the preferred representation for reading, extraction, or storage.\n\nThe response is the platform's original data structure.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/wechat-mp/article-detail\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"articleUrl\": \"http://mp.weixin.qq.com/s?__biz=MjM5NzI3NDg4MA==&mid=2659064933&idx=1&sn=c536f78d7358bc2dfe90cde700e21d55&chksm=bc881cb3f28a27f35e0711803b28d8110305cfc1b8beb651674e1aa7870ddf963c658f4dc19a&scene=7#rd\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `articleUrl` | string | Yes | WeChat Official Account article URL used to fetch article detail content and metadata. |\n| `mode` | string | No | Article body format. TEXT returns plain text, and RICH_TEXT returns rich text when supported. |\n\n## Pricing\n\nFlat price per call. Failed calls and empty results are not charged.\n",
   "page_url": "https://www.sandbase.ai/model/wechat-mp/article-detail",

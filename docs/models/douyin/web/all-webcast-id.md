@@ -2,13 +2,13 @@
 
 `douyin/web/all-webcast-id` · data API · Douyin · callable with one SandBase API key from curl, Python, TypeScript and Go.
 
-**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
+**Price:** $0.001 per call (free daily quota) · **Modes:** sync
 
 Extracts webcast IDs from a submitted list of Douyin live room links. Useful for resolving live stream identifiers across multiple URLs in bulk.
 
 ## Pricing
 
-- **$0.0015 per call** (USD)
+- **$0.001 per call** (USD)
 - Free quota: 100 calls/day per organization (shared across free-quota APIs).
 
 ## Call it
@@ -20,7 +20,7 @@ Modes: sync (default `sync`). Only pass `mode` values listed here. The SDKs' `ru
 ```bash
 curl https://api.sandbase.ai/v1/run \
   -H "Authorization: Bearer $SANDBASE_API_KEY" -H 'Content-Type: application/json' \
-  -d '{"model": "douyin/web/all-webcast-id", "body": "<body>"}'
+  -d '{"model": "douyin/web/all-webcast-id", "body": ["<body>"]}'
 ```
 
 **Python** ([sdk/python](../../../../sdk/python))
@@ -28,7 +28,7 @@ curl https://api.sandbase.ai/v1/run \
 ```python
 from sandbase import SandBase
 
-result = SandBase().run('douyin/web/all-webcast-id', {'body': '<body>'})
+result = SandBase().run('douyin/web/all-webcast-id', {'body': ['<body>']})
 print(result["outputs"])
 ```
 
@@ -38,7 +38,9 @@ print(result["outputs"])
 import { SandBase } from "@sandbaseai/sdk";
 
 const result = await new SandBase().run("douyin/web/all-webcast-id", {
-  "body": "<body>"
+  "body": [
+    "<body>"
+  ]
 });
 console.log(result.outputs);
 ```
@@ -48,7 +50,7 @@ console.log(result.outputs);
 ```go
 c, _ := sandbase.NewClient("")
 run, err := c.Run(ctx, "douyin/web/all-webcast-id", sandbase.Params{
-	"body": "<body>",
+	"body": []any{"<body>"},
 })
 ```
 

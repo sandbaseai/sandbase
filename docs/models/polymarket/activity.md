@@ -1,10 +1,10 @@
-# Polymarket Get user activity API: pricing, parameters and code examples
+# Polymarket Wallet Activity API: pricing, parameters and code examples
 
 `polymarket/activity` · data API · Polymarket · callable with one SandBase API key from curl, Python, TypeScript and Go.
 
 **Price:** $0.012 per call (free daily quota) · **Modes:** sync
 
-Get user activity from Polymarket. Returns the official Polymarket API response unchanged.
+A wallet's activity feed: trades, splits, merges, redemptions, rewards and conversions, with time-range and type filters.
 
 ## Pricing
 
@@ -20,7 +20,7 @@ Modes: sync (default `sync`). Only pass `mode` values listed here. The SDKs' `ru
 ```bash
 curl https://api.sandbase.ai/v1/run \
   -H "Authorization: Bearer $SANDBASE_API_KEY" -H 'Content-Type: application/json' \
-  -d '{"model": "polymarket/activity", "user": "0x56687bf447db6ffa42ffe2204a05edaa20f55839"}'
+  -d '{"model": "polymarket/activity", "user": "0xfe787d2da716d60e8acff57fb87eb13cd4d10319"}'
 ```
 
 **Python** ([sdk/python](../../../sdk/python))
@@ -28,7 +28,7 @@ curl https://api.sandbase.ai/v1/run \
 ```python
 from sandbase import SandBase
 
-result = SandBase().run('polymarket/activity', {'user': '0x56687bf447db6ffa42ffe2204a05edaa20f55839'})
+result = SandBase().run('polymarket/activity', {'user': '0xfe787d2da716d60e8acff57fb87eb13cd4d10319'})
 print(result["outputs"])
 ```
 
@@ -38,7 +38,7 @@ print(result["outputs"])
 import { SandBase } from "@sandbaseai/sdk";
 
 const result = await new SandBase().run("polymarket/activity", {
-  "user": "0x56687bf447db6ffa42ffe2204a05edaa20f55839"
+  "user": "0xfe787d2da716d60e8acff57fb87eb13cd4d10319"
 });
 console.log(result.outputs);
 ```
@@ -48,7 +48,7 @@ console.log(result.outputs);
 ```go
 c, _ := sandbase.NewClient("")
 run, err := c.Run(ctx, "polymarket/activity", sandbase.Params{
-	"user": "0x56687bf447db6ffa42ffe2204a05edaa20f55839",
+	"user": "0xfe787d2da716d60e8acff57fb87eb13cd4d10319",
 })
 ```
 
@@ -58,24 +58,24 @@ Same call via the path form: `POST /v1/api/polymarket/activity` with the body ab
 
 | name | type | required | description |
 |---|---|---|---|
-| `end` | integer |  | Upper-bound timestamp (epoch seconds) for the activity window. Omit for the default (current time); rows newer than `end` are excluded. range 0– |
-| `side` | string |  | side one of: `BUY`, `SELL` |
-| `type` | array |  | Comma-separated list of activity types to include. DEPOSIT and WITHDRAWAL records also require `excludeDepositsWithdrawals=false`.  |
-| `user` | string | yes | User Profile Address (0x-prefixed, 40 hex chars)  |
-| `limit` | integer |  | Page size. Values above the maximum are clamped to 500. default `100`; range 0–500 |
-| `start` | integer |  | Lower-bound timestamp (epoch seconds) for the activity window. Omit or pass `0` for the default window (most recent ~3 years); pass a positive epoch (e.g. `1`) to retrieve full history. With `sortDirection=ASC`,… range 0– |
-| `market` | array |  | Comma-separated list of condition IDs. Mutually exclusive with eventId.  |
-| `offset` | integer |  | Starting index for pagination. Requests past the cap are rejected with a 400 (never silently clamped). To read history deeper than offset 5000, page inside `start`/`end` windows — each window has its own offset budget. default `0`; range 0–5000 |
-| `sortBy` | string |  | sortBy one of: `TIMESTAMP`, `TOKENS`, `CASH`; default `"TIMESTAMP"` |
-| `eventId` | array |  | Comma-separated list of event IDs. Mutually exclusive with market.  |
-| `sortDirection` | string |  | `DESC` (default) returns the newest rows first; `ASC` the oldest first. Both orders are stable — the same query returns the same rows at any `limit`/`offset`, so pages compose without gaps or repeats. one of: `ASC`, `DESC`; default `"DESC"` |
-| `excludeDepositsWithdrawals` | boolean |  | Excludes deposit and withdrawal records. The default `true` applies even when `type` requests those records, so to get deposits and withdrawals you must pass `false`. default `true` |
+| `end` | integer |  | Window end, epoch seconds (inclusive); omitted or `0` means now plus one day.  |
+| `side` | string |  | BUY or SELL.  |
+| `type` | string |  | Activity type(s), comma-separated. Accepted values: `TRADE`, `SPLIT`, `MERGE`, `REDEEM` (automatic redemptions included), `CONVERSION`, `MIGRATION`, `REWARD`, `YIELD`, `MAKER_REBATE`, `TAKER_REBATE`, `REFERRAL_REWARD`,…  |
+| `user` | string | yes | Required; the feed is user-anchored.  |
+| `limit` | integer |  | Page size; default 100, max 1000, past-cap rejected. range 0–1000 |
+| `start` | integer |  | Window start on `block_timestamp`, epoch seconds (inclusive). Omitted or `0` floors to three years back; pass `start=1` for full history.  |
+| `cursor` | string |  | Opaque cursor from a prior response's `next_cursor`; binds the sort direction it was minted under.  |
+| `sort_by` | string |  | Only `TIMESTAMP` is supported (v2 pages by keyset).  |
+| `event_id` | string |  | Gamma event id(s), comma-separated (at most 20 distinct values); resolves to the events' markets. Mutually exclusive with `condition`.  |
+| `condition` | string |  | Condition id(s), comma-separated (at most 20 distinct values). `condition_id` / `conditionId` are accepted aliases.  |
+| `sort_direction` | string |  | `ASC` or `DESC` (default). The keyset seeks in the chosen direction; the minted cursor binds it, so pass it consistently when paging.  |
+| `exclude_deposits_withdrawals` | boolean |  | Defaults to `true`, which drops `DEPOSIT` and `WITHDRAWAL` rows from the page, including when `type` names them. Pass `false` to include them.  |
 
 ## Details
 
-Get user activity from Polymarket. Returns the official Polymarket API response unchanged.
+A wallet's activity feed: trades, splits, merges, redemptions, rewards and conversions, with time-range and type filters.
 
-The response is the official Polymarket API response, unchanged.
+Served from the Polymarket Data API v2. The result is returned in `outputs[0].data`: rows are under `data`, and paginated routes add `pagination.next_cursor` (pass it back as `cursor`).
 
 ### Request
 
@@ -90,18 +90,22 @@ curl -X POST "https://api.sandbase.ai/v1/api/polymarket/activity" \
 
 | Name | Type | Required | Description |
 |---|---|---|---|
-| `end` | integer | No | Upper-bound timestamp (epoch seconds) for the activity window. Omit for the default (current time); rows newer than `end` are excluded. |
-| `eventId` | array | No | Comma-separated list of event IDs. Mutually exclusive with market. |
-| `excludeDepositsWithdrawals` | boolean | No | Excludes deposit and withdrawal records. The default `true` applies even when `type` requests those records, so to get deposits and withdrawals you must pass `f |
-| `limit` | integer | No | Page size. Values above the maximum are clamped to 500. |
-| `market` | array | No | Comma-separated list of condition IDs. Mutually exclusive with eventId. |
-| `offset` | integer | No | Starting index for pagination. Requests past the cap are rejected with a 400 (never silently clamped). To read history deeper than offset 5000, page inside `sta |
-| `side` | string | No | side |
-| `sortBy` | string | No | sortBy |
-| `sortDirection` | string | No | `DESC` (default) returns the newest rows first; `ASC` the oldest first. Both orders are stable — the same query returns the same rows at any `limit`/`offset`, s |
-| `start` | integer | No | Lower-bound timestamp (epoch seconds) for the activity window. Omit or pass `0` for the default window (most recent ~3 years); pass a positive epoch (e.g. `1`)  |
-| `type` | array | No | Comma-separated list of activity types to include. DEPOSIT and WITHDRAWAL records also require `excludeDepositsWithdrawals=false`. |
-| `user` | string | Yes | User Profile Address (0x-prefixed, 40 hex chars) |
+| `user` | string | Yes | Required; the feed is user-anchored. |
+| `limit` | integer | No | Page size; default 100, max 1000, past-cap rejected. |
+| `cursor` | string | No | Opaque cursor from a prior response's `next_cursor`; binds the sort direction it was minted under. |
+| `type` | string | No | Activity type(s), comma-separated. Accepted values: `TRADE`, `SPLIT`, `MERGE`, `REDEEM` (automatic redemptions included), `CONVERSION`, `MIGRATION`, `REWARD`, `YIELD`, `MAKER_REBATE`, `TAKER_REBATE`,  |
+| `condition` | string | No | Condition id(s), comma-separated (at most 20 distinct values). `condition_id` / `conditionId` are accepted aliases. |
+| `event_id` | string | No | Gamma event id(s), comma-separated (at most 20 distinct values); resolves to the events' markets. Mutually exclusive with `condition`. |
+| `side` | string | No | BUY or SELL. |
+| `start` | integer | No | Window start on `block_timestamp`, epoch seconds (inclusive). Omitted or `0` floors to three years back; pass `start=1` for full history. |
+| `end` | integer | No | Window end, epoch seconds (inclusive); omitted or `0` means now plus one day. |
+| `sort_by` | string | No | Only `TIMESTAMP` is supported (v2 pages by keyset). |
+| `sort_direction` | string | No | `ASC` or `DESC` (default). The keyset seeks in the chosen direction; the minted cursor binds it, so pass it consistently when paging. |
+| `exclude_deposits_withdrawals` | boolean | No | Defaults to `true`, which drops `DEPOSIT` and `WITHDRAWAL` rows from the page, including when `type` names them. Pass `false` to include them. |
+
+### Reference
+
+- Official docs: https://docs.polymarket.com/api-reference/data-api/overview
 
 ### Pricing
 

@@ -2,13 +2,13 @@
 
 `bilibili/web/one-video-v2` · data API · Bilibili · callable with one SandBase API key from curl, Python, TypeScript and Go.
 
-**Price:** $0.003 per call (free daily quota) · **Modes:** sync
+**Price:** $0.002 per call (free daily quota) · **Modes:** sync
 
 Returns detailed metadata and playback information for a specific Bilibili video using its unique video and CID identifiers.
 
 ## Pricing
 
-- **$0.003 per call** (USD)
+- **$0.002 per call** (USD)
 - Free quota: 100 calls/day per organization (shared across free-quota APIs).
 
 ## Call it

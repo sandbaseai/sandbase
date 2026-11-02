@@ -2,13 +2,13 @@
 
 `kuaishou/web/one-video-sub-comment` · data API · Kuaishou · callable with one SandBase API key from curl, Python, TypeScript and Go.
 
-**Price:** $0.015 per call (free daily quota) · **Modes:** sync
+**Price:** $0.01 per call (free daily quota) · **Modes:** sync
 
 Returns sub-comments and replies for a specific comment on a Kuaishou video. Requires the video ID and root comment ID with optional cursor pagination.
 
 ## Pricing
 
-- **$0.015 per call** (USD)
+- **$0.01 per call** (USD)
 - Free quota: 100 calls/day per organization (shared across free-quota APIs).
 
 ## Call it

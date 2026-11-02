@@ -50,6 +50,14 @@ run, err := c.Run(ctx, "dataforseo/v3/merchant/amazon/asin/live/advanced", sandb
 
 Same call via the path form: `POST /v1/api/dataforseo/v3/merchant/amazon/asin/live/advanced` with the body above minus `model`.
 
+## Parameters
+
+| name | type | required | description |
+|---|---|---|---|
+| `asin` | string |  | Amazon product ASIN.  |
+| `language_code` | string |  | Language code, e.g. "en".  |
+| `location_code` | integer |  | Location code, e.g. 2840 for the United States.  |
+
 ## Details
 
 Retrieves live Amazon product details for one ASIN in a chosen marketplace location.

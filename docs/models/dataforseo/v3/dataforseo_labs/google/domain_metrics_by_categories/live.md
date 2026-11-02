@@ -49,6 +49,17 @@ run, err := c.Run(ctx, "dataforseo/v3/dataforseo_labs/google/domain_metrics_by_c
 
 Same call via the path form: `POST /v1/api/dataforseo/v3/dataforseo_labs/google/domain_metrics_by_categories/live` with the body above minus `model`.
 
+## Parameters
+
+| name | type | required | description |
+|---|---|---|---|
+| `limit` | integer |  | Maximum number of domains to return.  |
+| `first_date` | string |  | First comparison date, "yyyy-mm-dd".  |
+| `second_date` | string |  | Second comparison date, "yyyy-mm-dd".  |
+| `language_code` | string |  | Language code, e.g. "en".  |
+| `location_code` | integer |  | Location code, e.g. 2840 for the United States.  |
+| `category_codes` | array |  | Array of category codes.  |
+
 ## Details
 
 Top domains in product or service categories with organic traffic and keyword metrics on two dates.

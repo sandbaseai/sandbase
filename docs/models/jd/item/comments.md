@@ -2,13 +2,13 @@
 
 `jd/item/comments` · data API · JD.com · callable with one SandBase API key from curl, Python, TypeScript and Go.
 
-**Price:** $0.027778 per call · **Modes:** sync
+**Price:** $0.028571 per call · **Modes:** sync
 
 Get paginated customer comments for a JD.com product by item ID, for buyer feedback and product quality research.
 
 ## Pricing
 
-- **$0.027778 per call** (USD)
+- **$0.028571 per call** (USD)
 
 ## Call it
 

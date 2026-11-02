@@ -2,13 +2,13 @@
 
 `zhihu/user-info` · data API · Zhihu · callable with one SandBase API key from curl, Python, TypeScript and Go.
 
-**Price:** $0.013889 per call (free daily quota) · **Modes:** sync
+**Price:** $0.014286 per call (free daily quota) · **Modes:** sync
 
 Get the public profile for a Zhihu user identified by URL token. Use it to inspect an account found through Zhihu content or relationship data.
 
 ## Pricing
 
-- **$0.013889 per call** (USD)
+- **$0.014286 per call** (USD)
 - Free quota: 100 calls/day per organization (shared across free-quota APIs).
 
 ## Call it

@@ -47,7 +47,7 @@
   "pricing": {
     "currency": "USD",
     "model": "per_call",
-    "per_call": 0.03
+    "per_call": 0.02
   },
   "examples": [
     {

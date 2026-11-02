@@ -2,13 +2,13 @@
 
 `taobao/item/questions` · data API · Taobao · callable with one SandBase API key from curl, Python, TypeScript and Go.
 
-**Price:** $0.020833 per call · **Modes:** sync
+**Price:** $0.021429 per call · **Modes:** sync
 
 Get buyer questions and answers for a Taobao or Tmall product by item ID, page by page.
 
 ## Pricing
 
-- **$0.020833 per call** (USD)
+- **$0.021429 per call** (USD)
 
 ## Call it
 

@@ -2,13 +2,13 @@
 
 `imdb/title-top-cast-and-crew` · data API · IMDb · callable with one SandBase API key from curl, Python, TypeScript and Go.
 
-**Price:** $0.006944 per call (free daily quota) · **Modes:** sync
+**Price:** $0.007143 per call (free daily quota) · **Modes:** sync
 
 Get IMDb top cast and crew information for a title ID using selected language and country preferences. Use it to research principal talent or enrich title credits.
 
 ## Pricing
 
-- **$0.006944 per call** (USD)
+- **$0.007143 per call** (USD)
 - Free quota: 100 calls/day per organization (shared across free-quota APIs).
 
 ## Call it

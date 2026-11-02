@@ -4,9 +4,9 @@ Call 3 Youku endpoints through SandBase with one API key: no separate account, o
 
 | Endpoint | What it does | Price |
 |---|---|---|
-| [`youku/search-video`](../models/youku/search-video.md) | Search Youku videos by keyword with page-based pagination. Use it to discover videos related to a topic, title, creator, or other search… | $0.013889 per call (free daily quota) |
-| [`youku/user-detail`](../models/youku/user-detail.md) | Get a Youku user profile identified by UID. Use it to look up a known account for creator research, profile review, or related video… | $0.013889 per call (free daily quota) |
-| [`youku/video-detail`](../models/youku/video-detail.md) | Get details for a Youku video identified by video ID. Use it to look up a known video for content review, cataloging, or subsequent video… | $0.013889 per call (free daily quota) |
+| [`youku/search-video`](../models/youku/search-video.md) | Search Youku videos by keyword with page-based pagination. Use it to discover videos related to a topic, title, creator, or other search… | $0.014286 per call (free daily quota) |
+| [`youku/user-detail`](../models/youku/user-detail.md) | Get a Youku user profile identified by UID. Use it to look up a known account for creator research, profile review, or related video… | $0.014286 per call (free daily quota) |
+| [`youku/video-detail`](../models/youku/video-detail.md) | Get details for a Youku video identified by video ID. Use it to look up a known video for content review, cataloging, or subsequent video… | $0.014286 per call (free daily quota) |
 
 ## Quick start
 

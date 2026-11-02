@@ -19,7 +19,7 @@ Modes: async (default `async`). Only pass `mode` values listed here. The SDKs' `
 ```bash
 curl https://api.sandbase.ai/v1/run \
   -H "Authorization: Bearer $SANDBASE_API_KEY" -H 'Content-Type: application/json' \
-  -d '{"model": "zillow/zestimate", "zpid": "<zpid>"}'
+  -d '{"model": "zillow/zestimate", "zpid": "2080998636"}'
 ```
 
 **Python** ([sdk/python](../../../sdk/python))
@@ -27,7 +27,7 @@ curl https://api.sandbase.ai/v1/run \
 ```python
 from sandbase import SandBase
 
-result = SandBase().run('zillow/zestimate', {'zpid': '<zpid>'})
+result = SandBase().run('zillow/zestimate', {'zpid': '2080998636'})
 print(result["outputs"])
 ```
 
@@ -37,7 +37,7 @@ print(result["outputs"])
 import { SandBase } from "@sandbaseai/sdk";
 
 const result = await new SandBase().run("zillow/zestimate", {
-  "zpid": "<zpid>"
+  "zpid": "2080998636"
 });
 console.log(result.outputs);
 ```
@@ -47,7 +47,7 @@ console.log(result.outputs);
 ```go
 c, _ := sandbase.NewClient("")
 run, err := c.Run(ctx, "zillow/zestimate", sandbase.Params{
-	"zpid": "<zpid>",
+	"zpid": "2080998636",
 })
 ```
 

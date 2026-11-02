@@ -1,0 +1,67 @@
+{
+  "name": "twitter/community-search-tweets",
+  "display_name": "X (Twitter) Search Tweets Across Communities",
+  "type": "api",
+  "vendor": "X (Twitter)",
+  "vendor_slug": "twitter",
+  "description": "Search tweets posted in all X Communities by keyword, sorted by Latest or Top.",
+  "tags": [
+    "api",
+    "twitter",
+    "social-media"
+  ],
+  "capabilities": [
+    "api",
+    "twitter",
+    "social-media"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/twitter/community-search-tweets"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "query",
+      "queryType"
+    ],
+    "properties": {
+      "query": {
+        "type": "string",
+        "example": "AI",
+        "description": "Search query (e.g., keyword)"
+      },
+      "cursor": {
+        "type": "string",
+        "description": "Cursor for pagination"
+      },
+      "queryType": {
+        "enum": [
+          "Latest",
+          "Top"
+        ],
+        "type": "string",
+        "default": "Latest",
+        "example": "Latest",
+        "description": "Query type (Latest or Top)"
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "usage_based",
+    "note": "Billed per call from metered usage; the reference price is typical.",
+    "reference_price": 0.003
+  },
+  "readme": "# X (Twitter) Search Tweets Across Communities API\n\nSearch tweets posted in all X Communities by keyword, sorted by Latest or Top.\n\nThe result is returned in `outputs[0].data` as the official X (Twitter) API response, unchanged.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/twitter/community-search-tweets\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"query\": \"AI\", \"queryType\": \"Latest\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `cursor` | string | No | Cursor for pagination |\n| `query` | string | Yes | Search query (e.g., keyword) |\n| `queryType` | string | Yes | Query type (Latest or Top) |\n\n## Pricing\n\nBilled at the actual cost of each call, about $0.003 for a typical request; the cost grows with the number of rows returned. Searches with no results are billed at their actual cost. Failed calls are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/twitter/community-search-tweets",
+  "created_at": "2026-11-02T05:45:15.823Z"
+}

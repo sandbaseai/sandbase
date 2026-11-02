@@ -2,13 +2,13 @@
 
 `wechat-mp/account-basic-info` · data API · WeChat MP · callable with one SandBase API key from curl, Python, TypeScript and Go.
 
-**Price:** $0.138889 per call · **Modes:** sync
+**Price:** $0.142857 per call · **Modes:** sync
 
 Get basic profile information for a WeChat Official Account by account name. Use it to identify or enrich a known account before article, ownership, or publishing research.
 
 ## Pricing
 
-- **$0.138889 per call** (USD)
+- **$0.142857 per call** (USD)
 
 ## Call it
 

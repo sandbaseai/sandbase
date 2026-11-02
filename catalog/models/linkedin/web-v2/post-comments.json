@@ -90,12 +90,7 @@
   "pricing": {
     "currency": "USD",
     "model": "per_call",
-    "per_call": 0.015,
-    "free_quota": {
-      "eligible": true,
-      "daily_calls_per_org": 100,
-      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
-    }
+    "per_call": 0.05
   },
   "examples": [
     {

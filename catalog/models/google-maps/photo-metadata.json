@@ -1,0 +1,90 @@
+{
+  "name": "google-maps/photo-metadata",
+  "display_name": "Google Maps Photo Metadata",
+  "type": "api",
+  "vendor": "Google Maps",
+  "vendor_slug": "google-maps",
+  "description": "Contributor, place, coordinates, type and date of one Google Maps photo by its data ID.",
+  "tags": [
+    "api",
+    "google-maps",
+    "places"
+  ],
+  "capabilities": [
+    "api",
+    "google-maps",
+    "places"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/google-maps/photo-metadata"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "data_id"
+    ],
+    "properties": {
+      "gl": {
+        "type": "string",
+        "description": "Two-letter country code used to localize results."
+      },
+      "hl": {
+        "type": "string",
+        "default": "en",
+        "description": "Language code such as en, en-GB, or de."
+      },
+      "data_id": {
+        "type": "string",
+        "example": "CIABIhAAQr6KrxiC_knILBjf2RxL",
+        "description": "Required Google Maps photo ID. Follow a photo_meta_link from a Google Maps place response or copy the nested photo data_id."
+      },
+      "timeout": {
+        "type": "number",
+        "description": "Optional budget for the entire request in seconds, measured from gateway receipt until the response is ready to send. Includes admission, queueing and settlement. Must be greater than 0 and at most 90. On expiry, the call is not billed and returns 503 request_deadline_exceeded with retryable=true an"
+      },
+      "google_domain": {
+        "type": "string",
+        "default": "google.com",
+        "description": "Google domain used for the request."
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "required": [
+      "id",
+      "status",
+      "model"
+    ],
+    "properties": {
+      "id": {
+        "type": "string"
+      },
+      "model": {
+        "type": "string"
+      },
+      "status": {
+        "type": "string"
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.00015,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "readme": "# Google Maps Photo Metadata API\n\nContributor, place, coordinates, type and date of one Google Maps photo by its data ID.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/google-maps/photo-metadata\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"data_id\": \"CIABIhAAQr6KrxiC_knILBjf2RxL\"}'\n```\n\nThe result is returned in `outputs[0].data`.\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `data_id` | string | Yes | Required Google Maps photo ID. Follow a photo_meta_link from a Google Maps place response or copy the nested photo data_id. |\n| `gl` | string | No | Two-letter country code used to localize results. |\n| `google_domain` | string | No | Google domain used for the request. |\n| `hl` | string | No | Language code such as en, en-GB, or de. |\n| `timeout` | number | No | Optional budget for the entire request in seconds, measured from gateway receipt until the response is ready to send. Includes admission, queueing and settlement. Must be greater t |\n\n## Pricing\n\nFlat price per call. Failed calls are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/google-maps/photo-metadata",
+  "published_at": "2026-11-02T00:00:00Z",
+  "created_at": "2026-11-02T10:09:26.038Z"
+}

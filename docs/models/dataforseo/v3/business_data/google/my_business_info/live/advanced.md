@@ -2,14 +2,13 @@
 
 `dataforseo/v3/business_data/google/my_business_info/live/advanced` · data API · DataForSEO · callable with one SandBase API key from curl, Python, TypeScript and Go.
 
-**Price:** $0.005 per call (free daily quota) · **Modes:** sync
+**Price:** about $0.0054 per call · **Modes:** sync
 
 Returns comprehensive Google Business Profile data, including local listing details, customer reviews, ratings, and business attributes for targeted locations.
 
 ## Pricing
 
-- **$0.005 per call** (USD)
-- Free quota: 100 calls/day per organization (shared across free-quota APIs).
+- Usage-based. Billed per call from metered usage; the reference price is typical. Reference: **$0.0054**
 
 ## Call it
 
@@ -50,6 +49,14 @@ run, err := c.Run(ctx, "dataforseo/v3/business_data/google/my_business_info/live
 
 Same call via the path form: `POST /v1/api/dataforseo/v3/business_data/google/my_business_info/live/advanced` with the body above minus `model`.
 
+## Parameters
+
+| name | type | required | description |
+|---|---|---|---|
+| `keyword` | string |  | Search query.  |
+| `language_code` | string |  | Language code, e.g. "en".  |
+| `location_code` | integer |  | Location code, e.g. 2840 for the United States.  |
+
 ## Details
 
 Retrieves Google Business Profile listing data directly from Google local results. Call this endpoint to inspect localized merchant profiles and business attributes.
@@ -81,7 +88,7 @@ The JSON body is forwarded to the upstream endpoint (one task per call). Fields 
 
 ### Pricing
 
-Flat price per call. Failed calls are not charged.
+Billed at the actual cost of each call, about $0.0054 for the request above. The cost grows with the number of rows, targets or pages a call returns. Failed calls are not charged. Searches with no results are billed at their actual cost.
 
 ### Related APIs
 

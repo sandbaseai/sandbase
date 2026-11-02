@@ -1,0 +1,85 @@
+{
+  "name": "google-hotels/search",
+  "display_name": "Google Hotels Search",
+  "type": "api",
+  "vendor": "Google Hotels",
+  "vendor_slug": "google-hotels",
+  "description": "Google Hotels results for a destination and stay dates: hotels, nightly rates, ratings, amenities and offers.",
+  "tags": [
+    "api",
+    "google-hotels",
+    "search"
+  ],
+  "capabilities": [
+    "api",
+    "google-hotels",
+    "search"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/google-hotels/search"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "q",
+      "check_in_date",
+      "check_out_date",
+      "adults"
+    ],
+    "properties": {
+      "q": {
+        "type": "string",
+        "example": "Bali Resorts",
+        "description": "q"
+      },
+      "adults": {
+        "type": "integer",
+        "example": 2,
+        "description": "adults"
+      },
+      "check_in_date": {
+        "type": "string",
+        "example": "2026-12-15",
+        "description": "YYYY-MM-DD"
+      },
+      "check_out_date": {
+        "type": "string",
+        "example": "2026-12-16",
+        "description": "YYYY-MM-DD"
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "required": [
+      "id",
+      "status",
+      "model"
+    ],
+    "properties": {
+      "id": {
+        "type": "string"
+      },
+      "model": {
+        "type": "string"
+      },
+      "status": {
+        "type": "string"
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.015
+  },
+  "readme": "# Google Hotels Search API\n\nGoogle Hotels results for a destination and stay dates: hotels, nightly rates, ratings, amenities and offers.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/google-hotels/search\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"q\": \"Bali Resorts\", \"check_in_date\": \"2026-12-15\", \"check_out_date\": \"2026-12-16\", \"adults\": 2}'\n```\n\nThe result is returned in `outputs[0].data`.\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `adults` | integer | Yes | adults |\n| `check_in_date` | string | Yes | YYYY-MM-DD |\n| `check_out_date` | string | Yes | YYYY-MM-DD |\n| `q` | string | Yes | q |\n\n## Pricing\n\nFlat price per call. Failed calls are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/google-hotels/search",
+  "published_at": "2026-11-02T00:00:00Z",
+  "created_at": "2026-11-02T10:07:34.565Z"
+}

@@ -2,13 +2,13 @@
 
 `wechat-channels/account-videos` · data API · WeChat Channels · callable with one SandBase API key from curl, Python, TypeScript and Go.
 
-**Price:** $0.069444 per call · **Modes:** sync
+**Price:** $0.071429 per call · **Modes:** sync
 
 Get a paginated WeChat Channels account feed by v2Name with continuation-buffer support. Use it to browse videos and other feed entries published by a known creator account.
 
 ## Pricing
 
-- **$0.069444 per call** (USD)
+- **$0.071429 per call** (USD)
 
 ## Call it
 

@@ -50,6 +50,13 @@ run, err := c.Run(ctx, "dataforseo/v3/serp/google/finance_explore/live/advanced"
 
 Same call via the path form: `POST /v1/api/dataforseo/v3/serp/google/finance_explore/live/advanced` with the body above minus `model`.
 
+## Parameters
+
+| name | type | required | description |
+|---|---|---|---|
+| `language_code` | string |  | Language code, e.g. "en".  |
+| `location_code` | integer |  | Location code, e.g. 2840 for the United States.  |
+
 ## Details
 
 Fetch Google Finance's explore page: market movers, indexes, and news.

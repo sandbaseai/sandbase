@@ -2,13 +2,13 @@
 
 `douyin/ec/search-items` · data API · Douyin · callable with one SandBase API key from curl, Python, TypeScript and Go.
 
-**Price:** $0.034722 per call · **Modes:** sync
+**Price:** $0.035714 per call · **Modes:** sync
 
 Search products sold in Douyin shops by keyword, with price, sales and shop info; pages after the first use searchId.
 
 ## Pricing
 
-- **$0.034722 per call** (USD)
+- **$0.035714 per call** (USD)
 
 ## Call it
 

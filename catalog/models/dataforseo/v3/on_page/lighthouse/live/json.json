@@ -25,7 +25,13 @@
   },
   "input_schema": {
     "type": "object",
-    "properties": {},
+    "properties": {
+      "url": {
+        "type": "string",
+        "example": "https://www.python.org/",
+        "description": "Page URL."
+      }
+    },
     "description": "Request parameters forwarded to DataForSEO /v3/on_page/lighthouse/live/json. See DataForSEO docs for full schema.",
     "additionalProperties": true
   },

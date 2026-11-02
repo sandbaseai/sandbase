@@ -1,0 +1,56 @@
+{
+  "name": "douyin/xingtu-v2/search-field-options",
+  "display_name": "Douyin Search Field Options",
+  "type": "api",
+  "vendor": "Douyin",
+  "vendor_slug": "douyin",
+  "description": "Get Search Field Options on Douyin. Returns the platform data as structured JSON.",
+  "tags": [
+    "api",
+    "douyin"
+  ],
+  "capabilities": [
+    "api",
+    "douyin"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/douyin/xingtu-v2/search-field-options"
+  },
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "task_category": {
+        "type": "integer",
+        "title": "Task Category",
+        "default": 1,
+        "example": 1,
+        "description": "Task category, 1=Douyin video, 6=Douyin live, 11=Toutiao article"
+      },
+      "platform_source": {
+        "type": "integer",
+        "title": "Platform Source",
+        "default": 1,
+        "example": 1,
+        "description": "Platform source, 1=Douyin, 2=Toutiao"
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.002
+  },
+  "readme": "# Douyin Search Field Options API\n\nGet Search Field Options on Douyin. Returns the platform data as structured JSON.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/douyin/xingtu-v2/search-field-options\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"platform_source\": 1, \"task_category\": 1}'\n```\n\nThe result is returned in `outputs[0].data`.\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `platform_source` | integer | No | Platform source, 1=Douyin, 2=Toutiao |\n| `task_category` | integer | No | Task category, 1=Douyin video, 6=Douyin live, 11=Toutiao article |\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/douyin/xingtu-v2/search-field-options",
+  "published_at": "2026-11-02T00:00:00Z",
+  "created_at": "2026-11-02T00:25:21.17Z"
+}

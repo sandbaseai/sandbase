@@ -1,10 +1,10 @@
 {
   "name": "polymarket/market-positions",
-  "display_name": "Polymarket Get positions for a market",
+  "display_name": "Polymarket Market Positions",
   "type": "api",
   "vendor": "Polymarket",
   "vendor_slug": "polymarket",
-  "description": "Returns positions for a market, optionally filtered to a single user.",
+  "description": "Positions held in one market by condition ID, with each holder wallet, size, value and PnL.",
   "tags": [
     "api",
     "polymarket",
@@ -26,63 +26,68 @@
   "input_schema": {
     "type": "object",
     "required": [
-      "market"
+      "condition"
     ],
     "properties": {
+      "end": {
+        "type": "integer",
+        "description": "Inclusive upper bound on `last_event_at`, epoch seconds; omit or `0` for unbounded. A position with no native economics carries no `last_event_at` and is therefore **excluded by any bound**, in either direction; a window asks which positions moved inside it, and a row with no clock has no answer. Un"
+      },
       "user": {
         "type": "string",
-        "example": "0x56687bf447db6ffa42ffe2204a05edaa20f55839",
-        "description": "Filter to a single user by proxy wallet address"
+        "description": "The wallet to anchor on. At least one of `user`/`condition` is required."
       },
       "limit": {
         "type": "integer",
-        "default": 50,
         "example": 2,
-        "maximum": 500,
+        "maximum": 1000,
         "minimum": 0,
-        "description": "Max number of positions to return per outcome token"
+        "description": "First-page size. Ignored when `cursor` is supplied (the cursor's size wins)."
       },
-      "market": {
-        "type": "string",
-        "example": "0xdd22472e552920b8438158ea7238bfadfa4f736aa4cee91a6b86c39ead110917",
-        "description": "The condition ID of the market to query positions for"
-      },
-      "offset": {
+      "start": {
         "type": "integer",
-        "default": 0,
-        "maximum": 10000,
-        "minimum": 0,
-        "description": "Pagination offset per outcome token"
+        "description": "Inclusive lower bound on `last_event_at`, epoch seconds; omit or `0` for unbounded (the `/v2/activity` + `/v2/trades` vocabulary)."
       },
-      "sortBy": {
-        "enum": [
-          "TOKENS",
-          "CASH_PNL",
-          "REALIZED_PNL",
-          "TOTAL_PNL"
-        ],
+      "title": {
         "type": "string",
-        "default": "TOTAL_PNL",
-        "description": "Sort positions by: - `TOKENS` — Position size (number of tokens) - `CASH_PNL` — Unrealized cash PnL - `REALIZED_PNL` — Realized PnL - `TOTAL_PNL` — Total PnL (cash_pnl + realized_pnl)"
+        "description": "Case-insensitive market-title substring filter, honoured on every anchor and status. SQL LIKE wildcards (`%`, `_`) keep their usual meaning; empty or whitespace-only is treated as absent; at most 200 characters. NOT carried by the cursor: re-send it on every page of a walk (like `condition` and the "
+      },
+      "cursor": {
+        "type": "string",
+        "description": "Opaque pagination cursor from a prior response's `next_cursor`. It carries the page position, page size, and the status/sort/direction it was minted under."
       },
       "status": {
-        "enum": [
-          "OPEN",
-          "CLOSED",
-          "ALL"
-        ],
         "type": "string",
-        "default": "ALL",
-        "description": "Filter positions by status. - `OPEN` — Only positions with size > 0.01 - `CLOSED` — Only positions with size <= 0.01 - `ALL` — All positions regardless of size"
+        "description": "One of `OPEN`, `REDEEMABLE`, `REDEEMABLE_LOST`, `MERGEABLE`, or `CLOSED`; defaults to `OPEN`. `REDEEMABLE_LOST` requires `user`, supports all six sorts, and defaults to `CURRENT_VALUE`; it preserves row status `REDEEMABLE`. `MERGEABLE` is `OPEN` narrowed to live complementary pairs (conditions where"
       },
-      "sortDirection": {
-        "enum": [
-          "ASC",
-          "DESC"
-        ],
+      "sort_by": {
         "type": "string",
-        "default": "DESC",
-        "description": "sortDirection"
+        "description": "One of `CURRENT_VALUE`, `PRICE`, `TOKENS`, `UNREALIZED_PNL`, `REALIZED_PNL`, `TOTAL_PNL`, or `TIMESTAMP` (the row's `last_event_at`). `PRICE` ranks by the response's effective `current_price` on every supported anchor and status. On `REDEEMABLE`, the existing winners-first partition remains ahead of"
+      },
+      "event_id": {
+        "type": "string",
+        "description": "Event id(s), comma-separated (at most 20 distinct values). User-anchored only."
+      },
+      "condition": {
+        "type": "string",
+        "example": "0xc5eae79d1ffe716572353962eb926b1e3964c500a4880a7a94f58408218ee76b",
+        "description": "Condition id(s), comma-separated (at most 20 distinct values). With `user`, narrows that user's positions (all ids honoured). Without `user`, anchors on the market's holders; exactly one id is accepted there, and a multi-id list is rejected rather than silently truncated."
+      },
+      "filter_type": {
+        "type": "string",
+        "description": "`CASH` or `TOKENS`; defaults to `TOKENS` (the /v2/trades-homogenized filter pair, replacing the former `size_threshold`)."
+      },
+      "filter_amount": {
+        "type": "number",
+        "description": "The filter floor. `TOKENS`: minimum CURRENT holding in shares (defaults to the 0.1 dust floor; applies to `OPEN`/`REDEEMABLE`; a user's `CLOSED` set is not narrowed by it, and on a market anchor it moves the OPEN/CLOSED boundary). `CASH`: minimum mark-to-market `current_value` in USDC, on top of the"
+      },
+      "sort_direction": {
+        "type": "string",
+        "description": "`ASC` or `DESC`; defaults to `DESC`."
+      },
+      "include_archived": {
+        "type": "boolean",
+        "description": "Also include positions on archived markets; defaults to `false`. `OPEN`/`REDEEMABLE`/`REDEEMABLE_LOST`/`MERGEABLE` only; combining it with `status=CLOSED` is rejected. Inactive markets remain excluded either way."
       }
     }
   },
@@ -100,7 +105,7 @@
       "note": "Shared across all free-quota APIs, resets 00:00 UTC."
     }
   },
-  "readme": "# Polymarket Get positions for a market API\n\nReturns positions for a market, optionally filtered to a single user.\n\nThe response is the official Polymarket API response, unchanged.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/polymarket/market-positions\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"market\": \"0xa467b14d51f01b957109d9cbb1d6c124fab2a089d52ed8f471d23c2812e743b7\", \"limit\": 2}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `limit` | integer | No | Max number of positions to return per outcome token |\n| `market` | string | Yes | The condition ID of the market to query positions for |\n| `offset` | integer | No | Pagination offset per outcome token |\n| `sortBy` | string | No | Sort positions by: - `TOKENS` — Position size (number of tokens) - `CASH_PNL` — Unrealized cash PnL - `REALIZED_PNL` — Realized PnL - `TOTAL_PNL` — Total PnL (c |\n| `sortDirection` | string | No | sortDirection |\n| `status` | string | No | Filter positions by status. - `OPEN` — Only positions with size > 0.01 - `CLOSED` — Only positions with size <= 0.01 - `ALL` — All positions regardless of size |\n| `user` | string | No | Filter to a single user by proxy wallet address |\n\n## Pricing\n\nFlat price per call. Failed calls are not charged.\n",
+  "readme": "# Polymarket Market Positions API\n\nPositions held in one market by condition ID, with each holder wallet, size, value and PnL.\n\nServed from the Polymarket Data API v2. The result is returned in `outputs[0].data`: rows are under `data`, and paginated routes add `pagination.next_cursor` (pass it back as `cursor`).\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/polymarket/market-positions\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"condition\": \"0xc5eae79d1ffe716572353962eb926b1e3964c500a4880a7a94f58408218ee76b\", \"limit\": 2}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `user` | string | No | The wallet to anchor on. At least one of `user`/`condition` is required. |\n| `condition` | string | Yes | Condition id(s), comma-separated (at most 20 distinct values). With `user`, narrows that user's positions (all ids honoured). Without `user`, anchors on the market's holders; exactly one id is accepte |\n| `limit` | integer | No | First-page size. Ignored when `cursor` is supplied (the cursor's size wins). |\n| `cursor` | string | No | Opaque pagination cursor from a prior response's `next_cursor`. It carries the page position, page size, and the status/sort/direction it was minted under. |\n| `status` | string | No | One of `OPEN`, `REDEEMABLE`, `REDEEMABLE_LOST`, `MERGEABLE`, or `CLOSED`; defaults to `OPEN`. `REDEEMABLE_LOST` requires `user`, supports all six sorts, and defaults to `CURRENT_VALUE`; it preserves r |\n| `event_id` | string | No | Event id(s), comma-separated (at most 20 distinct values). User-anchored only. |\n| `title` | string | No | Case-insensitive market-title substring filter, honoured on every anchor and status. SQL LIKE wildcards (`%`, `_`) keep their usual meaning; empty or whitespace-only is treated as absent; at most 200  |\n| `filter_type` | string | No | `CASH` or `TOKENS`; defaults to `TOKENS` (the /v2/trades-homogenized filter pair, replacing the former `size_threshold`). |\n| `filter_amount` | number | No | The filter floor. `TOKENS`: minimum CURRENT holding in shares (defaults to the 0.1 dust floor; applies to `OPEN`/`REDEEMABLE`; a user's `CLOSED` set is not narrowed by it, and on a market anchor it mo |\n| `include_archived` | boolean | No | Also include positions on archived markets; defaults to `false`. `OPEN`/`REDEEMABLE`/`REDEEMABLE_LOST`/`MERGEABLE` only; combining it with `status=CLOSED` is rejected. Inactive markets remain excluded |\n| `sort_by` | string | No | One of `CURRENT_VALUE`, `PRICE`, `TOKENS`, `UNREALIZED_PNL`, `REALIZED_PNL`, `TOTAL_PNL`, or `TIMESTAMP` (the row's `last_event_at`). `PRICE` ranks by the response's effective `current_price` on every |\n| `start` | integer | No | Inclusive lower bound on `last_event_at`, epoch seconds; omit or `0` for unbounded (the `/v2/activity` + `/v2/trades` vocabulary). |\n| `end` | integer | No | Inclusive upper bound on `last_event_at`, epoch seconds; omit or `0` for unbounded. A position with no native economics carries no `last_event_at` and is therefore **excluded by any bound**, in either |\n| `sort_direction` | string | No | `ASC` or `DESC`; defaults to `DESC`. |\n\n## Reference\n\n- Official docs: https://docs.polymarket.com/api-reference/data-api/overview\n\n## Pricing\n\nFlat price per call. Failed calls are not charged.\n",
   "page_url": "https://www.sandbase.ai/model/polymarket/market-positions",
   "created_at": "2026-10-30T03:11:30.107Z"
 }

@@ -4,7 +4,7 @@ Call 1 AliExpress endpoints through SandBase with one API key: no separate accou
 
 | Endpoint | What it does | Price |
 |---|---|---|
-| [`aliexpress/search/products`](../models/aliexpress/search/products.md) | Search AliExpress products by keyword with sort, category, brand, price, locale, region and currency filters. | $0.013889 per call (free daily quota) |
+| [`aliexpress/search/products`](../models/aliexpress/search/products.md) | Search AliExpress products by keyword with sort, category, brand, price, locale, region and currency filters. | $0.014286 per call (free daily quota) |
 
 ## Quick start
 

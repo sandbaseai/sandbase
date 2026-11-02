@@ -2,13 +2,13 @@
 
 `zhihu/search` · data API · Zhihu · callable with one SandBase API key from curl, Python, TypeScript and Go.
 
-**Price:** $0.027778 per call · **Modes:** sync
+**Price:** $0.028571 per call · **Modes:** sync
 
 Search Zhihu by keyword with optional result-type, sort, time-interval, topic-display, and offset controls. Use it to find relevant answers, articles, or videos.
 
 ## Pricing
 
-- **$0.027778 per call** (USD)
+- **$0.028571 per call** (USD)
 
 ## Call it
 

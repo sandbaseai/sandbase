@@ -2,13 +2,13 @@
 
 `tiktok/ads/search-ads` · data API · TikTok · callable with one SandBase API key from curl, Python, TypeScript and Go.
 
-**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
+**Price:** $0.001 per call (free daily quota) · **Modes:** sync
 
 Searches ad materials in the TikTok Creative Center using filters such as keyword, industry, country, and performance metrics. Returns ad titles, brand names, IDs, and video metadata.
 
 ## Pricing
 
-- **$0.0015 per call** (USD)
+- **$0.001 per call** (USD)
 - Free quota: 100 calls/day per organization (shared across free-quota APIs).
 
 ## Call it

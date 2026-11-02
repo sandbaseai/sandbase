@@ -2,13 +2,13 @@
 
 `xiaohongshu/pgy/note-detail` · data API · Xiaohongshu · callable with one SandBase API key from curl, Python, TypeScript and Go.
 
-**Price:** $0.03 per call · **Modes:** sync
+**Price:** $0.02 per call · **Modes:** sync
 
 Returns detailed information for a specific Pugongying (PGY) note on Xiaohongshu (RED). Look up content and metadata using a note identifier.
 
 ## Pricing
 
-- **$0.03 per call** (USD)
+- **$0.02 per call** (USD)
 
 ## Call it
 

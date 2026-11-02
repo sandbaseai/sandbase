@@ -49,6 +49,16 @@ run, err := c.Run(ctx, "dataforseo/v3/keywords_data/bing/audience_estimation/liv
 
 Same call via the path form: `POST /v1/api/dataforseo/v3/keywords_data/bing/audience_estimation/live` with the body above minus `model`.
 
+## Parameters
+
+| name | type | required | description |
+|---|---|---|---|
+| `age` | array |  | Audience age groups.  |
+| `bid` | integer |  | Bid in USD.  |
+| `daily_budget` | integer |  | Daily budget in USD.  |
+| `language_code` | string |  | Language code, e.g. "en".  |
+| `location_code` | integer |  | Location code, e.g. 2840 for the United States.  |
+
 ## Details
 
 Estimate Microsoft Ads audience size for targeting criteria.

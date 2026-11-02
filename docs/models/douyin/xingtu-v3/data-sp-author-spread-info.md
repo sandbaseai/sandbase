@@ -2,13 +2,13 @@
 
 `douyin/xingtu-v3/data-sp-author-spread-info` · data API · Douyin · callable with one SandBase API key from curl, Python, TypeScript and Go.
 
-**Price:** $0.069444 per call · **Modes:** sync
+**Price:** $0.071429 per call · **Modes:** sync
 
 Get Douyin Creator Marketplace (Xingtu) spread metrics for a creator, with channel, period, video-type, assignment, and flow filters. Use it to compare creator spread performance during campaign planning.
 
 ## Pricing
 
-- **$0.069444 per call** (USD)
+- **$0.071429 per call** (USD)
 
 ## Call it
 

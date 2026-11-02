@@ -4,7 +4,7 @@
 
 **Price:** about $0.002 per call · **Modes:** sync
 
-YouTube search results for a keyword: videos, channels and playlists with titles, views, durations and publish dates.
+YouTube search results for a keyword: videos, channels and playlists with titles, views, durations and upload dates.
 
 ## Pricing
 
@@ -49,9 +49,17 @@ run, err := c.Run(ctx, "dataforseo/v3/serp/youtube/organic/live/advanced", sandb
 
 Same call via the path form: `POST /v1/api/dataforseo/v3/serp/youtube/organic/live/advanced` with the body above minus `model`.
 
+## Parameters
+
+| name | type | required | description |
+|---|---|---|---|
+| `keyword` | string |  | Search query.  |
+| `language_code` | string |  | Language code, e.g. "en".  |
+| `location_code` | integer |  | Location code, e.g. 2840 for the United States.  |
+
 ## Details
 
-YouTube search results for a keyword: videos, channels and playlists with titles, views, durations and publish dates.
+YouTube search results for a keyword: videos, channels and playlists with titles, views, durations and upload dates.
 
 Request fields follow the official DataForSEO `/v3/serp/youtube/organic/live/advanced` task schema (one task per call). The response is DataForSEO's original JSON; results are in `tasks[].result`.
 

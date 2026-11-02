@@ -2,13 +2,13 @@
 
 `dataforseo/v3/dataforseo_labs/google/bulk_keyword_difficulty/live` · data API · DataForSEO · callable with one SandBase API key from curl, Python, TypeScript and Go.
 
-**Price:** $0.024 per call · **Modes:** sync
+**Price:** about $0.01224 per call · **Modes:** sync
 
 Returns Google keyword difficulty metrics in bulk for target search queries. Enables large-scale SEO competition analysis across multiple keywords simultaneously.
 
 ## Pricing
 
-- **$0.024 per call** (USD)
+- Usage-based. Billed per call from metered usage; the reference price is typical. Reference: **$0.01224**
 
 ## Call it
 
@@ -49,6 +49,14 @@ run, err := c.Run(ctx, "dataforseo/v3/dataforseo_labs/google/bulk_keyword_diffic
 
 Same call via the path form: `POST /v1/api/dataforseo/v3/dataforseo_labs/google/bulk_keyword_difficulty/live` with the body above minus `model`.
 
+## Parameters
+
+| name | type | required | description |
+|---|---|---|---|
+| `keywords` | array |  | List of keywords (up to 100 per call).  |
+| `language_code` | string |  | Language code, e.g. "en".  |
+| `location_code` | integer |  | Location code, e.g. 2840 for the United States.  |
+
 ## Details
 
 Look up keyword difficulty scores for multiple Google search terms in bulk.
@@ -80,7 +88,7 @@ The JSON body is forwarded to the upstream endpoint (one task per call). Fields 
 
 ### Pricing
 
-Flat price per call. Failed calls are not charged.
+Billed at the actual cost of each call, about $0.01224 for the request above. The cost grows with the number of rows, targets or pages a call returns. Failed calls are not charged. Searches with no results are billed at their actual cost.
 
 ### Related APIs
 

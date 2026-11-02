@@ -2,13 +2,13 @@
 
 `wechat-channels/video-download-url` · data API · WeChat Channels · callable with one SandBase API key from curl, Python, TypeScript and Go.
 
-**Price:** $0.041667 per call · **Modes:** sync
+**Price:** $0.042857 per call · **Modes:** sync
 
 Get a downloadable media URL for a WeChat Channels video by object ID and optional nonce ID. Use it to download or play media from a known Channels video.
 
 ## Pricing
 
-- **$0.041667 per call** (USD)
+- **$0.042857 per call** (USD)
 
 ## Call it
 

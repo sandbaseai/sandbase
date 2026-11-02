@@ -25,7 +25,26 @@
   },
   "input_schema": {
     "type": "object",
-    "properties": {},
+    "properties": {
+      "limit": {
+        "type": "integer",
+        "example": 10,
+        "description": "Maximum number of apps to return."
+      },
+      "title": {
+        "type": "string",
+        "example": "vpn",
+        "description": "Words to match in app titles."
+      },
+      "filters": {
+        "type": "string",
+        "description": "Optional filter array, e.g. [[\"rating.value\", \">\", 4]]."
+      },
+      "description": {
+        "type": "string",
+        "description": "Optional words to match in app descriptions."
+      }
+    },
     "description": "Request parameters forwarded to DataForSEO /v3/app_data/google/app_listings/search/live. See DataForSEO docs for full schema.",
     "additionalProperties": true
   },

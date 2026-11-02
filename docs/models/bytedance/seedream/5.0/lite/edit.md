@@ -19,7 +19,7 @@ Modes: async (default `async`). Only pass `mode` values listed here. The SDKs' `
 ```bash
 curl https://api.sandbase.ai/v1/run \
   -H "Authorization: Bearer $SANDBASE_API_KEY" -H 'Content-Type: application/json' \
-  -d '{"model": "bytedance/seedream/5.0/lite/edit", "prompt": "Generate 3 images of a girl and a cow plushie happily riding a roller coaster in an amusement park, depicting morning, noon, and night.", "images": "<images>"}'
+  -d '{"model": "bytedance/seedream/5.0/lite/edit", "prompt": "Generate 3 images of a girl and a cow plushie happily riding a roller coaster in an amusement park, depicting morning, noon, and night.", "images": "https://p9-arcosite.byteimg.com/tos-cn-i-goo7wpa0wc/77024d8e03f24862b066bfc385301120~tplv-goo7wpa0wc-image.image"}'
 ```
 
 **Python** ([sdk/python](../../../../../../sdk/python))
@@ -27,7 +27,7 @@ curl https://api.sandbase.ai/v1/run \
 ```python
 from sandbase import SandBase
 
-result = SandBase().run('bytedance/seedream/5.0/lite/edit', {'prompt': 'Generate 3 images of a girl and a cow plushie happily riding a roller coaster in an amusement park, depicting morning, noon, and night.', 'images': '<images>'})
+result = SandBase().run('bytedance/seedream/5.0/lite/edit', {'prompt': 'Generate 3 images of a girl and a cow plushie happily riding a roller coaster in an amusement park, depicting morning, noon, and night.', 'images': 'https://p9-arcosite.byteimg.com/tos-cn-i-goo7wpa0wc/77024d8e03f24862b066bfc385301120~tplv-goo7wpa0wc-image.image'})
 print(result["outputs"])
 ```
 
@@ -38,7 +38,7 @@ import { SandBase } from "@sandbaseai/sdk";
 
 const result = await new SandBase().run("bytedance/seedream/5.0/lite/edit", {
   "prompt": "Generate 3 images of a girl and a cow plushie happily riding a roller coaster in an amusement park, depicting morning, noon, and night.",
-  "images": "<images>"
+  "images": "https://p9-arcosite.byteimg.com/tos-cn-i-goo7wpa0wc/77024d8e03f24862b066bfc385301120~tplv-goo7wpa0wc-image.image"
 });
 console.log(result.outputs);
 ```
@@ -49,7 +49,7 @@ console.log(result.outputs);
 c, _ := sandbase.NewClient("")
 run, err := c.Run(ctx, "bytedance/seedream/5.0/lite/edit", sandbase.Params{
 	"prompt": "Generate 3 images of a girl and a cow plushie happily riding a roller coaster in an amusement park, depicting morning, noon, and night.",
-	"images": "<images>",
+	"images": "https://p9-arcosite.byteimg.com/tos-cn-i-goo7wpa0wc/77024d8e03f24862b066bfc385301120~tplv-goo7wpa0wc-image.image",
 })
 ```
 

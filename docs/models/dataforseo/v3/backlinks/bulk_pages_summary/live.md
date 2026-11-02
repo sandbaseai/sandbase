@@ -49,6 +49,12 @@ run, err := c.Run(ctx, "dataforseo/v3/backlinks/bulk_pages_summary/live", sandba
 
 Same call via the path form: `POST /v1/api/dataforseo/v3/backlinks/bulk_pages_summary/live` with the body above minus `model`.
 
+## Parameters
+
+| name | type | required | description |
+|---|---|---|---|
+| `targets` | array |  | Array of page URLs, domains or subdomains (up to 1,000).  |
+
 ## Details
 
 Backlink summary metrics (backlinks, referring domains, rank, spam score) for up to 1,000 pages, domains or subdomains.

@@ -2,13 +2,13 @@
 
 `douyin/xingtu-v2/demander-mcn-list` · data API · Douyin · callable with one SandBase API key from curl, Python, TypeScript and Go.
 
-**Price:** $0.0075 per call (free daily quota) · **Modes:** sync
+**Price:** $0.005 per call (free daily quota) · **Modes:** sync
 
 Returns a directory of MCN organizations on Douyin Xingtu with creator counts and performance scores, filterable by name and sorted by platform scores.
 
 ## Pricing
 
-- **$0.0075 per call** (USD)
+- **$0.005 per call** (USD)
 - Free quota: 100 calls/day per organization (shared across free-quota APIs).
 
 ## Call it

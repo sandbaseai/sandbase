@@ -2,13 +2,13 @@
 
 `instagram/v2/search-music` · data API · Instagram · callable with one SandBase API key from curl, Python, TypeScript and Go.
 
-**Price:** $0.003 per call (free daily quota) · **Modes:** sync
+**Price:** $0.002 per call (free daily quota) · **Modes:** sync
 
 Search available music tracks on Instagram using a keyword. Returns matching audio items with audio IDs, track titles, duration, and licensing details.
 
 ## Pricing
 
-- **$0.003 per call** (USD)
+- **$0.002 per call** (USD)
 - Free quota: 100 calls/day per organization (shared across free-quota APIs).
 
 ## Call it

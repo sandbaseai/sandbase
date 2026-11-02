@@ -2,13 +2,13 @@
 
 `wechat-channels/video-share-url` · data API · WeChat Channels · callable with one SandBase API key from curl, Python, TypeScript and Go.
 
-**Price:** $0.027778 per call · **Modes:** sync
+**Price:** $0.028571 per call · **Modes:** sync
 
 Generates a share link for a WeChat Channels video identified by objectId. Use it to share a known Channels video or obtain its link for a subsequent lookup.
 
 ## Pricing
 
-- **$0.027778 per call** (USD)
+- **$0.028571 per call** (USD)
 
 ## Call it
 

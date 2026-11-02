@@ -12,7 +12,7 @@ Call 2 Luma models through SandBase with one API key: no separate account, one b
 ```bash
 curl https://api.sandbase.ai/v1/run \
   -H "Authorization: Bearer $SANDBASE_API_KEY" -H 'Content-Type: application/json' \
-  -d '{"model": "luma/ray/3.2/image-to-video", "prompt": "<prompt>", "image": "<image>"}'
+  -d '{"model": "luma/ray/3.2/image-to-video", "prompt": "Low-angle shot of a majestic tiger prowling through a snowy landscape, leaving paw prints on the white blanket.", "image": "https://storage.googleapis.com/falserverless/gallery/example_inputs_liuyifei.png"}'
 ```
 
 Get a key at [sandbase.ai](https://www.sandbase.ai/console). Back to [all platforms](README.md).

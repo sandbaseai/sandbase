@@ -50,6 +50,14 @@ run, err := c.Run(ctx, "dataforseo/v3/serp/youtube/video_info/live/advanced", sa
 
 Same call via the path form: `POST /v1/api/dataforseo/v3/serp/youtube/video_info/live/advanced` with the body above minus `model`.
 
+## Parameters
+
+| name | type | required | description |
+|---|---|---|---|
+| `video_id` | string |  | YouTube video ID.  |
+| `language_code` | string |  | Language code, e.g. "en".  |
+| `location_code` | integer |  | Location code, e.g. 2840 for the United States.  |
+
 ## Details
 
 Fetch metadata and stats for one YouTube video by id.

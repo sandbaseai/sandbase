@@ -2,13 +2,13 @@
 
 `douyin/app-v3/open-app-to-send-private-message` · data API · Douyin · callable with one SandBase API key from curl, Python, TypeScript and Go.
 
-**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
+**Price:** $0.001 per call (free daily quota) · **Modes:** sync
 
 Generates a Douyin deep link to open the mobile application directly to a user conversation. Requires the target user's uid and sec_uid to return a shortened URL.
 
 ## Pricing
 
-- **$0.0015 per call** (USD)
+- **$0.001 per call** (USD)
 - Free quota: 100 calls/day per organization (shared across free-quota APIs).
 
 ## Call it
@@ -20,7 +20,7 @@ Modes: sync (default `sync`). Only pass `mode` values listed here. The SDKs' `ru
 ```bash
 curl https://api.sandbase.ai/v1/run \
   -H "Authorization: Bearer $SANDBASE_API_KEY" -H 'Content-Type: application/json' \
-  -d '{"model": "douyin/app-v3/open-app-to-send-private-message", "sec_uid": "<sec_uid>", "uid": "<uid>"}'
+  -d '{"model": "douyin/app-v3/open-app-to-send-private-message", "sec_uid": "MS4wLjABAAAAr52fXcfmzqOZJM_smap9Uuxtm16h8BupkCVaCt89BENq3E91mHCvtz5Z5TkXPHq_", "uid": "92769419069"}'
 ```
 
 **Python** ([sdk/python](../../../../sdk/python))
@@ -28,7 +28,7 @@ curl https://api.sandbase.ai/v1/run \
 ```python
 from sandbase import SandBase
 
-result = SandBase().run('douyin/app-v3/open-app-to-send-private-message', {'sec_uid': '<sec_uid>', 'uid': '<uid>'})
+result = SandBase().run('douyin/app-v3/open-app-to-send-private-message', {'sec_uid': 'MS4wLjABAAAAr52fXcfmzqOZJM_smap9Uuxtm16h8BupkCVaCt89BENq3E91mHCvtz5Z5TkXPHq_', 'uid': '92769419069'})
 print(result["outputs"])
 ```
 
@@ -38,8 +38,8 @@ print(result["outputs"])
 import { SandBase } from "@sandbaseai/sdk";
 
 const result = await new SandBase().run("douyin/app-v3/open-app-to-send-private-message", {
-  "sec_uid": "<sec_uid>",
-  "uid": "<uid>"
+  "sec_uid": "MS4wLjABAAAAr52fXcfmzqOZJM_smap9Uuxtm16h8BupkCVaCt89BENq3E91mHCvtz5Z5TkXPHq_",
+  "uid": "92769419069"
 });
 console.log(result.outputs);
 ```
@@ -49,8 +49,8 @@ console.log(result.outputs);
 ```go
 c, _ := sandbase.NewClient("")
 run, err := c.Run(ctx, "douyin/app-v3/open-app-to-send-private-message", sandbase.Params{
-	"sec_uid": "<sec_uid>",
-	"uid": "<uid>",
+	"sec_uid": "MS4wLjABAAAAr52fXcfmzqOZJM_smap9Uuxtm16h8BupkCVaCt89BENq3E91mHCvtz5Z5TkXPHq_",
+	"uid": "92769419069",
 })
 ```
 

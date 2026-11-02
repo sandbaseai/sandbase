@@ -2,13 +2,13 @@
 
 `instagram/v2/search-users` · data API · Instagram · callable with one SandBase API key from curl, Python, TypeScript and Go.
 
-**Price:** $0.003 per call (free daily quota) · **Modes:** sync
+**Price:** $0.002 per call (free daily quota) · **Modes:** sync
 
 Searches for Instagram users matching a specified keyword. Returns a list of user accounts including user IDs, usernames, full names, and profile picture URLs.
 
 ## Pricing
 
-- **$0.003 per call** (USD)
+- **$0.002 per call** (USD)
 - Free quota: 100 calls/day per organization (shared across free-quota APIs).
 
 ## Call it

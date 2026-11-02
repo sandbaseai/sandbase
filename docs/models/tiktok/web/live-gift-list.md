@@ -2,13 +2,13 @@
 
 `tiktok/web/live-gift-list` · data API · TikTok · callable with one SandBase API key from curl, Python, TypeScript and Go.
 
-**Price:** $0.0375 per call · **Modes:** sync
+**Price:** $0.025 per call · **Modes:** sync
 
 Returns the catalog of gifts available in a TikTok broadcast, including gift identifiers, names, and diamond values. Accepts an optional room identifier to retrieve room-specific options.
 
 ## Pricing
 
-- **$0.0375 per call** (USD)
+- **$0.025 per call** (USD)
 
 ## Call it
 

@@ -12,7 +12,7 @@ Call 2 Microsoft models through SandBase with one API key: no separate account, 
 ```bash
 curl https://api.sandbase.ai/v1/run \
   -H "Authorization: Bearer $SANDBASE_API_KEY" -H 'Content-Type: application/json' \
-  -d '{"model": "microsoft/mai-image-2.5-pro/edit", "prompt": "<prompt>", "image": ""}'
+  -d '{"model": "microsoft/mai-image-2.5-pro/edit", "prompt": "Turn this into a clean, futuristic product shot with soft studio lighting.", "image": "https://storage.googleapis.com/falserverless/example_inputs/nano-banana-edit-input.png"}'
 ```
 
 Get a key at [sandbase.ai](https://www.sandbase.ai/console). Back to [all platforms](README.md).

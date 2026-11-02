@@ -1,10 +1,10 @@
 {
   "name": "polymarket/builders-volume",
-  "display_name": "Polymarket Get daily builder volume time-series",
+  "display_name": "Polymarket Builders Volume",
   "type": "api",
   "vendor": "Polymarket",
   "vendor_slug": "polymarket",
-  "description": "Get daily builder volume time-series from Polymarket. Returns the official Polymarket API response unchanged.",
+  "description": "Daily, weekly or monthly volume of Polymarket builders over time.",
   "tags": [
     "api",
     "polymarket",
@@ -26,16 +26,16 @@
   "input_schema": {
     "type": "object",
     "properties": {
-      "timePeriod": {
-        "enum": [
-          "WEEK",
-          "MONTH",
-          "ALL"
-        ],
+      "limit": {
+        "type": "integer",
+        "example": 2,
+        "maximum": 90,
+        "minimum": 0,
+        "description": "How many of the most recent buckets to return. Defaults to 30, capped at 90; a lower ceiling than the rest of the surface, because only ~308 daily buckets exist and the family maximum would return the whole series. Bounds BUCKETS, not rows: a row limit would cut a bucket in half and leave a partial "
+      },
+      "interval": {
         "type": "string",
-        "default": "WEEK",
-        "example": "MONTH",
-        "description": "The time period to fetch records for. DAY is not offered because its response (about 18 MB) exceeds the 10 MB response limit."
+        "description": "Bucket width: `day` | `week` | `month` | `all`. Defaults to `day`. `timePeriod` and `time_period` are accepted aliases."
       }
     }
   },
@@ -53,7 +53,7 @@
       "note": "Shared across all free-quota APIs, resets 00:00 UTC."
     }
   },
-  "readme": "# Polymarket Get daily builder volume time-series API\n\nGet daily builder volume time-series from Polymarket. Returns the official Polymarket API response unchanged.\n\nThe response is the official Polymarket API response, unchanged.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/polymarket/builders-volume\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"timePeriod\": \"MONTH\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `timePeriod` | string | No | WEEK (default), MONTH or ALL. DAY is not offered because its response (about 18 MB) exceeds the 10 MB response limit. |\n\n## Pricing\n\nFlat price per call. Failed calls are not charged.\n",
+  "readme": "# Polymarket Builders Volume API\n\nDaily, weekly or monthly volume of Polymarket builders over time.\n\nServed from the Polymarket Data API v2. The result is returned in `outputs[0].data`: rows are under `data`, and paginated routes add `pagination.next_cursor` (pass it back as `cursor`).\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/polymarket/builders-volume\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"limit\": 2}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `interval` | string | No | Bucket width: `day` / `week` / `month` / `all`. Defaults to `day`. `timePeriod` and `time_period` are accepted aliases. |\n| `limit` | integer | No | How many of the most recent buckets to return. Defaults to 30, capped at 90; a lower ceiling than the rest of the surface, because only ~308 daily buckets exist and the family maximum would return the |\n\n## Reference\n\n- Official docs: https://docs.polymarket.com/api-reference/data-api/overview\n\n## Pricing\n\nFlat price per call. Failed calls are not charged.\n",
   "page_url": "https://www.sandbase.ai/model/polymarket/builders-volume",
   "created_at": "2026-10-30T03:11:07.527Z"
 }

@@ -2,14 +2,13 @@
 
 `dataforseo/v3/domain_analytics/technologies/domains_by_technology/live` · data API · DataForSEO · callable with one SandBase API key from curl, Python, TypeScript and Go.
 
-**Price:** $0.003 per call (free daily quota) · **Modes:** sync
+**Price:** about $0.018 per call · **Modes:** sync
 
 Returns a list of websites and domains that utilize a specific technology or software stack. Useful for analyzing competitor adoption, market share, and tech stack distribution.
 
 ## Pricing
 
-- **$0.003 per call** (USD)
-- Free quota: 100 calls/day per organization (shared across free-quota APIs).
+- Usage-based. Billed per call from metered usage; the reference price is typical. Reference: **$0.018**
 
 ## Call it
 
@@ -50,6 +49,13 @@ run, err := c.Run(ctx, "dataforseo/v3/domain_analytics/technologies/domains_by_t
 
 Same call via the path form: `POST /v1/api/dataforseo/v3/domain_analytics/technologies/domains_by_technology/live` with the body above minus `model`.
 
+## Parameters
+
+| name | type | required | description |
+|---|---|---|---|
+| `limit` | integer |  | Maximum number of results (up to 100).  |
+| `technologies` | array |  | Technology names.  |
+
 ## Details
 
 Query domains based on target `technology` identifiers to evaluate software adoption across the web. This endpoint returns domain analytics data for sites deploying specified tech stacks.
@@ -80,7 +86,7 @@ The JSON body is forwarded to the upstream endpoint (one task per call). Fields 
 
 ### Pricing
 
-Flat price per call. Failed calls are not charged.
+Billed at the actual cost of each call, about $0.018 for the request above. The cost grows with the number of rows, targets or pages a call returns. Failed calls are not charged. Searches with no results are billed at their actual cost.
 
 ### Related APIs
 

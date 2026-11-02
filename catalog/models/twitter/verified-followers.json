@@ -1,0 +1,56 @@
+{
+  "name": "twitter/verified-followers",
+  "display_name": "X (Twitter) Verified Followers",
+  "type": "api",
+  "vendor": "X (Twitter)",
+  "vendor_slug": "twitter",
+  "description": "Verified (blue check) followers of a user by numeric user ID, with profile details and cursor pagination.",
+  "tags": [
+    "api",
+    "twitter",
+    "social-media"
+  ],
+  "capabilities": [
+    "api",
+    "twitter",
+    "social-media"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/twitter/verified-followers"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "user_id"
+    ],
+    "properties": {
+      "cursor": {
+        "type": "string",
+        "description": "The cursor to paginate through the results. First page is empty."
+      },
+      "user_id": {
+        "type": "string",
+        "example": "11348282",
+        "description": "User ID of the user."
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "usage_based",
+    "note": "Billed per call from metered usage; the reference price is typical.",
+    "reference_price": 0.006
+  },
+  "readme": "# X (Twitter) Verified Followers API\n\nVerified (blue check) followers of a user by numeric user ID, with profile details and cursor pagination.\n\nThe result is returned in `outputs[0].data` as the official X (Twitter) API response, unchanged.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/twitter/verified-followers\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"user_id\": \"11348282\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `cursor` | string | No | The cursor to paginate through the results. First page is empty. |\n| `user_id` | string | Yes | User ID of the user. |\n\n## Pricing\n\nBilled at the actual cost of each call, about $0.006 for a typical request; the cost grows with the number of rows returned. Searches with no results are billed at their actual cost. Failed calls are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/twitter/verified-followers",
+  "created_at": "2026-11-02T05:43:31.069Z"
+}

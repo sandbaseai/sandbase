@@ -1,0 +1,67 @@
+{
+  "name": "naver/ai-overview",
+  "display_name": "Naver AI Overview",
+  "type": "api",
+  "vendor": "Naver",
+  "vendor_slug": "naver",
+  "description": "Naver's AI-generated overview answer for a search query, with the cited sources.",
+  "tags": [
+    "api",
+    "naver",
+    "search"
+  ],
+  "capabilities": [
+    "api",
+    "naver",
+    "search"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/naver/ai-overview"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "query"
+    ],
+    "properties": {
+      "query": {
+        "type": "string",
+        "example": "coffee",
+        "description": "param name inferred from sibling engine=naver, not independently confirmed"
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "required": [
+      "id",
+      "status",
+      "model"
+    ],
+    "properties": {
+      "id": {
+        "type": "string"
+      },
+      "model": {
+        "type": "string"
+      },
+      "status": {
+        "type": "string"
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.015
+  },
+  "readme": "# Naver AI Overview API\n\nNaver's AI-generated overview answer for a search query, with the cited sources.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/naver/ai-overview\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"query\": \"coffee\"}'\n```\n\nThe result is returned in `outputs[0].data`.\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `query` | string | Yes | param name inferred from sibling engine=naver, not independently confirmed |\n\n## Pricing\n\nFlat price per call. Failed calls are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/naver/ai-overview",
+  "published_at": "2026-11-02T00:00:00Z",
+  "created_at": "2026-11-02T10:04:19.937Z"
+}

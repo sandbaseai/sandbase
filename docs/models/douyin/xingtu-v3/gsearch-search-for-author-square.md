@@ -2,13 +2,13 @@
 
 `douyin/xingtu-v3/gsearch-search-for-author-square` · data API · Douyin · callable with one SandBase API key from curl, Python, TypeScript and Go.
 
-**Price:** $0.069444 per call · **Modes:** sync
+**Price:** $0.071429 per call · **Modes:** sync
 
 Search Douyin Creator Marketplace (Xingtu) creators by keyword and structured filters for audience, pricing, content, performance, and campaign fit. Use it to build and compare campaign shortlists.
 
 ## Pricing
 
-- **$0.069444 per call** (USD)
+- **$0.071429 per call** (USD)
 
 ## Call it
 

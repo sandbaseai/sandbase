@@ -2,13 +2,13 @@
 
 `douyin/xingtu/kol-daily-fans-v1` · data API · Douyin · callable with one SandBase API key from curl, Python, TypeScript and Go.
 
-**Price:** $0.03 per call · **Modes:** sync
+**Price:** $0.02 per call · **Modes:** sync
 
 Returns daily fan statistics for a Douyin Xingtu creator over a specified date range. Requires the creator ID alongside the start and end dates formatted as yyyy-MM-dd.
 
 ## Pricing
 
-- **$0.03 per call** (USD)
+- **$0.02 per call** (USD)
 
 ## Call it
 

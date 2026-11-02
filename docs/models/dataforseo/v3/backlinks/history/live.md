@@ -49,6 +49,14 @@ run, err := c.Run(ctx, "dataforseo/v3/backlinks/history/live", sandbase.Params{}
 
 Same call via the path form: `POST /v1/api/dataforseo/v3/backlinks/history/live` with the body above minus `model`.
 
+## Parameters
+
+| name | type | required | description |
+|---|---|---|---|
+| `target` | string |  | Domain, e.g. "nike.com".  |
+| `date_to` | string |  | Optional end date, "yyyy-mm-dd".  |
+| `date_from` | string |  | Optional start date, "yyyy-mm-dd".  |
+
 ## Details
 
 Monthly history of backlinks, referring domains and rank for a domain since 2019.

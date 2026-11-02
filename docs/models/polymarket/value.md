@@ -1,10 +1,10 @@
-# Polymarket Get total value of a user's positions API: pricing, parameters and code examples
+# Polymarket Portfolio Value API: pricing, parameters and code examples
 
 `polymarket/value` · data API · Polymarket · callable with one SandBase API key from curl, Python, TypeScript and Go.
 
 **Price:** $0.012 per call (free daily quota) · **Modes:** sync
 
-Get total value of a user's positions from Polymarket. Returns the official Polymarket API response unchanged.
+Current USD value of a wallet's open positions, optionally limited to given markets.
 
 ## Pricing
 
@@ -20,7 +20,7 @@ Modes: sync (default `sync`). Only pass `mode` values listed here. The SDKs' `ru
 ```bash
 curl https://api.sandbase.ai/v1/run \
   -H "Authorization: Bearer $SANDBASE_API_KEY" -H 'Content-Type: application/json' \
-  -d '{"model": "polymarket/value", "user": "0x56687bf447db6ffa42ffe2204a05edaa20f55839"}'
+  -d '{"model": "polymarket/value", "user": "0xfe787d2da716d60e8acff57fb87eb13cd4d10319"}'
 ```
 
 **Python** ([sdk/python](../../../sdk/python))
@@ -28,7 +28,7 @@ curl https://api.sandbase.ai/v1/run \
 ```python
 from sandbase import SandBase
 
-result = SandBase().run('polymarket/value', {'user': '0x56687bf447db6ffa42ffe2204a05edaa20f55839'})
+result = SandBase().run('polymarket/value', {'user': '0xfe787d2da716d60e8acff57fb87eb13cd4d10319'})
 print(result["outputs"])
 ```
 
@@ -38,7 +38,7 @@ print(result["outputs"])
 import { SandBase } from "@sandbaseai/sdk";
 
 const result = await new SandBase().run("polymarket/value", {
-  "user": "0x56687bf447db6ffa42ffe2204a05edaa20f55839"
+  "user": "0xfe787d2da716d60e8acff57fb87eb13cd4d10319"
 });
 console.log(result.outputs);
 ```
@@ -48,7 +48,7 @@ console.log(result.outputs);
 ```go
 c, _ := sandbase.NewClient("")
 run, err := c.Run(ctx, "polymarket/value", sandbase.Params{
-	"user": "0x56687bf447db6ffa42ffe2204a05edaa20f55839",
+	"user": "0xfe787d2da716d60e8acff57fb87eb13cd4d10319",
 })
 ```
 
@@ -58,14 +58,14 @@ Same call via the path form: `POST /v1/api/polymarket/value` with the body above
 
 | name | type | required | description |
 |---|---|---|---|
-| `user` | string | yes | User Profile Address (0x-prefixed, 40 hex chars)  |
-| `market` | array |  | market  |
+| `user` | string | yes | The wallet whose portfolio value to return. Required.  |
+| `condition` | string |  | Comma-separated `condition_id`s (at most 20 distinct values); omit for the full portfolio.  |
 
 ## Details
 
-Get total value of a user's positions from Polymarket. Returns the official Polymarket API response unchanged.
+Current USD value of a wallet's open positions, optionally limited to given markets.
 
-The response is the official Polymarket API response, unchanged.
+Served from the Polymarket Data API v2. The result is returned in `outputs[0].data`: rows are under `data`, and paginated routes add `pagination.next_cursor` (pass it back as `cursor`).
 
 ### Request
 
@@ -80,8 +80,12 @@ curl -X POST "https://api.sandbase.ai/v1/api/polymarket/value" \
 
 | Name | Type | Required | Description |
 |---|---|---|---|
-| `market` | array | No | market |
-| `user` | string | Yes | User Profile Address (0x-prefixed, 40 hex chars) |
+| `user` | string | Yes | The wallet whose portfolio value to return. Required. |
+| `condition` | string | No | Comma-separated `condition_id`s (at most 20 distinct values); omit for the full portfolio. |
+
+### Reference
+
+- Official docs: https://docs.polymarket.com/api-reference/data-api/overview
 
 ### Pricing
 

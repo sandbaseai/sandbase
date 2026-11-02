@@ -1,0 +1,72 @@
+{
+  "name": "twitter/tweet-quotes",
+  "display_name": "X (Twitter) Tweet Quotes",
+  "type": "api",
+  "vendor": "X (Twitter)",
+  "vendor_slug": "twitter",
+  "description": "Quote tweets of a post by tweet ID, newest first, with optional time range and cursor pagination.",
+  "tags": [
+    "api",
+    "twitter",
+    "social-media"
+  ],
+  "capabilities": [
+    "api",
+    "twitter",
+    "social-media"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/twitter/tweet-quotes"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "tweetId"
+    ],
+    "properties": {
+      "cursor": {
+        "type": "string",
+        "description": "Cursor for pagination."
+      },
+      "tweetId": {
+        "type": "string",
+        "example": "1585341984679469056",
+        "description": "The tweet ID to get quotes for."
+      },
+      "sinceTime": {
+        "type": "integer",
+        "maximum": 9223372036854776000,
+        "minimum": 0,
+        "description": "On or after a specified unix timestamp in seconds. Provider reference (supplier schema): `{\"format\":\"int64\",\"type\":\"integer\"}`."
+      },
+      "untilTime": {
+        "type": "integer",
+        "maximum": 9223372036854776000,
+        "minimum": 0,
+        "description": "Before a specified unix timestamp in seconds. Provider reference (supplier schema): `{\"format\":\"int64\",\"type\":\"integer\"}`."
+      },
+      "includeReplies": {
+        "type": "boolean",
+        "description": "Whether to include replies in the results. Default is True. Provider reference (supplier schema): `{\"default\":true,\"type\":\"boolean\"}`."
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "usage_based",
+    "note": "Billed per call from metered usage; the reference price is typical.",
+    "reference_price": 0.003
+  },
+  "readme": "# X (Twitter) Tweet Quotes API\n\nQuote tweets of a post by tweet ID, newest first, with optional time range and cursor pagination.\n\nThe result is returned in `outputs[0].data` as the official X (Twitter) API response, unchanged.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/twitter/tweet-quotes\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"tweetId\": \"1585341984679469056\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `cursor` | string | No | Cursor for pagination. |\n| `includeReplies` | boolean | No | Whether to include replies in the results. Default is True. Provider reference (supplier schema): `{\"default\":true,\"type\":\"boolean\"}`. |\n| `sinceTime` | integer | No | On or after a specified unix timestamp in seconds. Provider reference (supplier schema): `{\"format\":\"int64\",\"type\":\"integer\"}`. |\n| `tweetId` | string | No | The tweet ID to get quotes for. |\n| `untilTime` | integer | No | Before a specified unix timestamp in seconds. Provider reference (supplier schema): `{\"format\":\"int64\",\"type\":\"integer\"}`. |\n\n## Pricing\n\nBilled at the actual cost of each call, about $0.003 for a typical request; the cost grows with the number of rows returned. Searches with no results are billed at their actual cost. Failed calls are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/twitter/tweet-quotes",
+  "created_at": "2026-11-02T05:41:49.328Z"
+}

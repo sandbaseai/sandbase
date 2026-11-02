@@ -2,14 +2,13 @@
 
 `linkedin/web-v2/company-posts` · data API · LinkedIn · callable with one SandBase API key from curl, Python, TypeScript and Go.
 
-**Price:** $0.015 per call (free daily quota) · **Modes:** sync
+**Price:** $0.05 per call · **Modes:** sync
 
 Returns posts from a LinkedIn organization page using the company URL. Supports ordering by top or recent posts and offset or token pagination.
 
 ## Pricing
 
-- **$0.015 per call** (USD)
-- Free quota: 100 calls/day per organization (shared across free-quota APIs).
+- **$0.05 per call** (USD)
 
 ## Call it
 

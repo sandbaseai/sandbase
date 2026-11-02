@@ -1,0 +1,56 @@
+{
+  "name": "semrush/backlinks-overview",
+  "display_name": "Semrush Backlinks Overview",
+  "type": "api",
+  "vendor": "Semrush",
+  "vendor_slug": "semrush",
+  "description": "Backlink summary for a domain or URL: Authority Score, total backlinks, referring domains, URLs and IPs.",
+  "tags": [
+    "api",
+    "semrush",
+    "seo"
+  ],
+  "capabilities": [
+    "api",
+    "semrush",
+    "seo"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/semrush/backlinks-overview"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "target"
+    ],
+    "properties": {
+      "target": {
+        "type": "string",
+        "example": "nike.com",
+        "description": "Domain, subdomain or URL to analyze, e.g. \"nike.com\"."
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.004,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "readme": "# Semrush Backlinks Overview API\n\nBacklink summary for a domain or URL: Authority Score, total backlinks, referring domains, URLs and IPs.\n\nThe result is returned in `outputs[0].data` as the official Semrush API response, unchanged.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/semrush/backlinks-overview\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"target\": \"nike.com\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `target` | string | Yes | Domain, subdomain or URL to analyze, e.g. \"nike.com\". |\n\n## Pricing\n\nFlat price per call. Failed calls are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/semrush/backlinks-overview",
+  "created_at": "2026-11-02T05:25:44.719Z"
+}

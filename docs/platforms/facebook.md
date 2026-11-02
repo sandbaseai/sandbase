@@ -1,6 +1,6 @@
-# Facebook API: 27 endpoints with pricing and code examples
+# Facebook API: 28 endpoints with pricing and code examples
 
-Call 27 Facebook endpoints through SandBase with one API key: no separate account, one balance, the same request format for every endpoint. Each page has the input schema, the price and curl / Python / TypeScript / Go examples.
+Call 28 Facebook endpoints through SandBase with one API key: no separate account, one balance, the same request format for every endpoint. Each page has the input schema, the price and curl / Python / TypeScript / Go examples.
 
 | Endpoint | What it does | Price |
 |---|---|---|
@@ -21,15 +21,16 @@ Call 27 Facebook endpoints through SandBase with one API key: no separate accoun
 | [`facebook/page-lookup`](../models/facebook/page-lookup.md) | Look up Facebook Pages and profiles by name with Facebook's own quick search. A name lookup that returns basic identity fields only: name,… | about $0.00975 per call |
 | [`facebook/photos`](../models/facebook/photos.md) | Fetch recent photos posted by any public Facebook page or profile (image URLs, captions, and dimensions) as normalized JSON. | about $0.0012 per call |
 | [`facebook/post`](../models/facebook/post.md) | Fetch a single Facebook post by URL with its text and engagement counts (likes, comments, shares, views). | about $0.0012 per call |
-| [`facebook/post-comments`](../models/facebook/post-comments.md) | Get comments for a Facebook post ID with cursor pagination. Use it to review discussion associated with a known public post or continue… | $0.027778 per call |
+| [`facebook/post-comments`](../models/facebook/post-comments.md) | Get comments for a Facebook post ID with cursor pagination. Use it to review discussion associated with a known public post or continue… | $0.028571 per call |
 | [`facebook/post-transcript`](../models/facebook/post-transcript.md) | Get the spoken-word transcript of any public Facebook video post by URL as normalized JSON. | about $0.0012 per call |
 | [`facebook/profile`](../models/facebook/profile.md) | Fetch a Facebook page's public profile (likes, followers, category, about) by URL or handle. | about $0.0012 per call |
 | [`facebook/profile-events`](../models/facebook/profile-events.md) | List upcoming and past events hosted by any public Facebook page by URL (name, schedule, venue, and host) as normalized JSON. | about $0.0012 per call |
-| [`facebook/profile-posts`](../models/facebook/profile-posts.md) | Get public posts for a Facebook profile ID with cursor pagination. Use it to browse a known profile's public posting history or continue… | $0.027778 per call |
+| [`facebook/profile-id`](../models/facebook/profile-id.md) | Resolve the numeric Facebook profile ID behind a profile path such as "zuck", for use with endpoints that need a profile ID. | $0.028571 per call |
+| [`facebook/profile-posts`](../models/facebook/profile-posts.md) | Get public posts for a Facebook profile ID with cursor pagination. Use it to browse a known profile's public posting history or continue… | $0.028571 per call |
 | [`facebook/profile-reels`](../models/facebook/profile-reels.md) | List a Facebook page's reels by URL with cursor pagination (caption, view count, permalink, thumbnail). | about $0.0012 per call |
 | [`facebook/search-companies`](../models/facebook/search-companies.md) | Search the Meta Ad Library for advertisers by keyword and get matching pages: page ID, category, verification, follower counts, and linked… | about $0.0011 per call |
 | [`facebook/search-pages`](../models/facebook/search-pages.md) | Search Facebook Pages by keyword, optionally narrowed to a location, and get structured page profiles (name, category, followers, contact… | about $0.123 per call |
-| [`facebook/search-post`](../models/facebook/search-post.md) | Search public Facebook posts by keyword with optional inclusive date-range filters and cursor pagination. Use it to find topic-related… | $0.027778 per call |
+| [`facebook/search-post`](../models/facebook/search-post.md) | Search public Facebook posts by keyword with optional inclusive date-range filters and cursor pagination. Use it to find topic-related… | $0.028571 per call |
 | [`facebook/search-posts`](../models/facebook/search-posts.md) | Search public Facebook posts by keyword, optionally filtered by location, and get structured post records (text, author, engagement). | about $0.03 per call |
 
 ## Quick start

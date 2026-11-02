@@ -1,0 +1,51 @@
+{
+  "name": "xiaohongshu/pgy/keyword-daily",
+  "display_name": "Xiaohongshu PGY keyword daily trend",
+  "type": "api",
+  "vendor": "Xiaohongshu",
+  "vendor_slug": "xiaohongshu",
+  "description": "PGY keyword daily trend on Xiaohongshu. Returns the platform data as structured JSON.",
+  "tags": [
+    "api",
+    "xiaohongshu"
+  ],
+  "capabilities": [
+    "api",
+    "xiaohongshu"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/xiaohongshu/pgy/keyword-daily"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "search_word"
+    ],
+    "properties": {
+      "search_word": {
+        "type": "string",
+        "title": "Search Word",
+        "example": "面膜",
+        "description": "Keyword"
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.02
+  },
+  "readme": "# Xiaohongshu PGY keyword daily trend API\n\nPGY keyword daily trend on Xiaohongshu. Returns the platform data as structured JSON.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/xiaohongshu/pgy/keyword-daily\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"search_word\": \"面膜\"}'\n```\n\nThe result is returned in `outputs[0].data`.\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `search_word` | string | Yes | Keyword |\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/xiaohongshu/pgy/keyword-daily",
+  "published_at": "2026-11-02T00:00:00Z",
+  "created_at": "2026-11-02T00:29:07.341Z"
+}

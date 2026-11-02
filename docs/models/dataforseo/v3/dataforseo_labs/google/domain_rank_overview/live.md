@@ -2,13 +2,13 @@
 
 `dataforseo/v3/dataforseo_labs/google/domain_rank_overview/live` · data API · DataForSEO · callable with one SandBase API key from curl, Python, TypeScript and Go.
 
-**Price:** $0.024 per call · **Modes:** sync
+**Price:** about $0.01212 per call · **Modes:** sync
 
 Returns Google domain ranking overview metrics and search visibility details. It provides high-level ranking metrics to evaluate domain performance across search engine results.
 
 ## Pricing
 
-- **$0.024 per call** (USD)
+- Usage-based. Billed per call from metered usage; the reference price is typical. Reference: **$0.01212**
 
 ## Call it
 
@@ -49,6 +49,14 @@ run, err := c.Run(ctx, "dataforseo/v3/dataforseo_labs/google/domain_rank_overvie
 
 Same call via the path form: `POST /v1/api/dataforseo/v3/dataforseo_labs/google/domain_rank_overview/live` with the body above minus `model`.
 
+## Parameters
+
+| name | type | required | description |
+|---|---|---|---|
+| `target` | string |  | Target domain or page, e.g. "nike.com".  |
+| `language_code` | string |  | Language code, e.g. "en".  |
+| `location_code` | integer |  | Location code, e.g. 2840 for the United States.  |
+
 ## Details
 
 This endpoint provides Google domain rank overview metrics. Use it to inspect domain-level visibility and ranking statistics across search results.
@@ -80,7 +88,7 @@ The JSON body is forwarded to the upstream endpoint (one task per call). Fields 
 
 ### Pricing
 
-Flat price per call. Failed calls are not charged.
+Billed at the actual cost of each call, about $0.01212 for the request above. The cost grows with the number of rows, targets or pages a call returns. Failed calls are not charged. Searches with no results are billed at their actual cost.
 
 ### Related APIs
 

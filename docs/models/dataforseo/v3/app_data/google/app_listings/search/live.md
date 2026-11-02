@@ -49,6 +49,15 @@ run, err := c.Run(ctx, "dataforseo/v3/app_data/google/app_listings/search/live",
 
 Same call via the path form: `POST /v1/api/dataforseo/v3/app_data/google/app_listings/search/live` with the body above minus `model`.
 
+## Parameters
+
+| name | type | required | description |
+|---|---|---|---|
+| `limit` | integer |  | Maximum number of apps to return.  |
+| `title` | string |  | Words to match in app titles.  |
+| `filters` | string |  | Optional filter array, e.g. [["rating.value", ">", 4]].  |
+| `description` | string |  | Optional words to match in app descriptions.  |
+
 ## Details
 
 Search the Google Play catalog by app title or description and get ratings, review counts, installs and prices for each match.

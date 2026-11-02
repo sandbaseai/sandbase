@@ -30,7 +30,7 @@ Modes: async (default `async`). Only pass `mode` values listed here. The SDKs' `
 ```bash
 curl https://api.sandbase.ai/v1/run \
   -H "Authorization: Bearer $SANDBASE_API_KEY" -H 'Content-Type: application/json' \
-  -d '{"model": "hyper3d/rodin/2.5/image-to-3d", "images": "<images>"}'
+  -d '{"model": "hyper3d/rodin/2.5/image-to-3d", "images": ["<images>"]}'
 ```
 
 **Python** ([sdk/python](../../../../../sdk/python))
@@ -38,7 +38,7 @@ curl https://api.sandbase.ai/v1/run \
 ```python
 from sandbase import SandBase
 
-result = SandBase().run('hyper3d/rodin/2.5/image-to-3d', {'images': '<images>'})
+result = SandBase().run('hyper3d/rodin/2.5/image-to-3d', {'images': ['<images>']})
 print(result["outputs"])
 ```
 
@@ -48,7 +48,9 @@ print(result["outputs"])
 import { SandBase } from "@sandbaseai/sdk";
 
 const result = await new SandBase().run("hyper3d/rodin/2.5/image-to-3d", {
-  "images": "<images>"
+  "images": [
+    "<images>"
+  ]
 });
 console.log(result.outputs);
 ```
@@ -58,7 +60,7 @@ console.log(result.outputs);
 ```go
 c, _ := sandbase.NewClient("")
 run, err := c.Run(ctx, "hyper3d/rodin/2.5/image-to-3d", sandbase.Params{
-	"images": "<images>",
+	"images": []any{"<images>"},
 })
 ```
 

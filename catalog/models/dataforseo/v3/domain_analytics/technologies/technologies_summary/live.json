@@ -23,7 +23,32 @@
   },
   "input_schema": {
     "type": "object",
-    "properties": {},
+    "properties": {
+      "keywords": {
+        "type": "string",
+        "description": "Optional keywords to match in site titles."
+      },
+      "countries": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        },
+        "example": [
+          "US"
+        ],
+        "description": "Optional array of country codes."
+      },
+      "technologies": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        },
+        "example": [
+          "Nginx"
+        ],
+        "description": "Array of technology names, e.g. [\"Nginx\"]."
+      }
+    },
     "description": "Request parameters forwarded to DataForSEO /v3/domain_analytics/technologies/technologies_summary/live. See DataForSEO docs for full schema.",
     "additionalProperties": true
   },

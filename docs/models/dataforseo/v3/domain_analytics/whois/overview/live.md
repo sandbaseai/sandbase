@@ -49,6 +49,13 @@ run, err := c.Run(ctx, "dataforseo/v3/domain_analytics/whois/overview/live", san
 
 Same call via the path form: `POST /v1/api/dataforseo/v3/domain_analytics/whois/overview/live` with the body above minus `model`.
 
+## Parameters
+
+| name | type | required | description |
+|---|---|---|---|
+| `limit` | integer |  | Maximum number of domains to return.  |
+| `filters` | array |  | Filter array, e.g. [["domain", "=", "nike.com"]].  |
+
 ## Details
 
 Whois records for domains matching filters, enriched with backlink and organic traffic metrics.

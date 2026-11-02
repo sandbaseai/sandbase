@@ -32,7 +32,7 @@ Modes: async (default `async`). Only pass `mode` values listed here. The SDKs' `
 ```bash
 curl https://api.sandbase.ai/v1/run \
   -H "Authorization: Bearer $SANDBASE_API_KEY" -H 'Content-Type: application/json' \
-  -d '{"model": "tencent/hunyuan-3d/3.1/pro/text-to-3d", "prompt": "<prompt>"}'
+  -d '{"model": "tencent/hunyuan-3d/3.1/pro/text-to-3d", "prompt": "A super cool space ship with details"}'
 ```
 
 **Python** ([sdk/python](../../../../../../sdk/python))
@@ -40,7 +40,7 @@ curl https://api.sandbase.ai/v1/run \
 ```python
 from sandbase import SandBase
 
-result = SandBase().run('tencent/hunyuan-3d/3.1/pro/text-to-3d', {'prompt': '<prompt>'})
+result = SandBase().run('tencent/hunyuan-3d/3.1/pro/text-to-3d', {'prompt': 'A super cool space ship with details'})
 print(result["outputs"])
 ```
 
@@ -50,7 +50,7 @@ print(result["outputs"])
 import { SandBase } from "@sandbaseai/sdk";
 
 const result = await new SandBase().run("tencent/hunyuan-3d/3.1/pro/text-to-3d", {
-  "prompt": "<prompt>"
+  "prompt": "A super cool space ship with details"
 });
 console.log(result.outputs);
 ```
@@ -60,7 +60,7 @@ console.log(result.outputs);
 ```go
 c, _ := sandbase.NewClient("")
 run, err := c.Run(ctx, "tencent/hunyuan-3d/3.1/pro/text-to-3d", sandbase.Params{
-	"prompt": "<prompt>",
+	"prompt": "A super cool space ship with details",
 })
 ```
 

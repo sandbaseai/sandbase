@@ -1,0 +1,120 @@
+{
+  "name": "tripadvisor/search",
+  "display_name": "Tripadvisor Search",
+  "type": "api",
+  "vendor": "Tripadvisor",
+  "vendor_slug": "tripadvisor",
+  "description": "Search Tripadvisor hotels, restaurants, attractions and places by keyword.",
+  "tags": [
+    "api",
+    "tripadvisor",
+    "places"
+  ],
+  "capabilities": [
+    "api",
+    "tripadvisor",
+    "places"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/tripadvisor/search"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "q"
+    ],
+    "properties": {
+      "q": {
+        "type": "string",
+        "example": "hotels in Austin Texas",
+        "description": "Search text, 1 to 500 characters."
+      },
+      "lat": {
+        "type": "number",
+        "description": "Search center latitude from -90 through 90. Requires lon."
+      },
+      "lon": {
+        "type": "number",
+        "description": "Search center longitude from -180 through 180. Requires lat."
+      },
+      "num": {
+        "type": "integer",
+        "default": 30,
+        "description": "Maximum number of search_results, 1 through 30, including any leading exact match."
+      },
+      "start": {
+        "type": "integer",
+        "default": 0,
+        "description": "Result offset from 0 through 10,000. Offsets and positions count any leading exact match."
+      },
+      "geo_id": {
+        "type": "integer",
+        "description": "Tripadvisor geography ID to search within."
+      },
+      "locale": {
+        "type": "string",
+        "default": "en-US",
+        "description": "Lowercase language code with an optional uppercase country, such as en or en-US."
+      },
+      "timeout": {
+        "type": "number",
+        "description": "Optional budget for the entire request in seconds, measured from gateway receipt until the response is ready to send. Includes admission, queueing and settlement. Must be greater than 0 and at most 90. On expiry, the call is not billed and returns 503 request_deadline_exceeded with retryable=true an"
+      },
+      "place_type": {
+        "enum": [
+          "all",
+          "accommodation",
+          "attraction",
+          "attraction_product",
+          "eatery",
+          "geo"
+        ],
+        "type": "string",
+        "default": "all",
+        "description": "Restrict results to one entity type."
+      },
+      "tripadvisor_domain": {
+        "type": "string",
+        "description": "Supported first-party localized Tripadvisor hostname, such as www.tripadvisor.co.uk."
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "required": [
+      "id",
+      "status",
+      "model"
+    ],
+    "properties": {
+      "id": {
+        "type": "string"
+      },
+      "model": {
+        "type": "string"
+      },
+      "status": {
+        "type": "string"
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.00015,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "readme": "# Tripadvisor Search API\n\nSearch Tripadvisor hotels, restaurants, attractions and places by keyword.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/tripadvisor/search\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"q\": \"hotels in Austin Texas\"}'\n```\n\nThe result is returned in `outputs[0].data`.\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `q` | string | Yes | Search text, 1 to 500 characters. |\n| `geo_id` | integer | No | Tripadvisor geography ID to search within. |\n| `lat` | number | No | Search center latitude from -90 through 90. Requires lon. |\n| `locale` | string | No | Lowercase language code with an optional uppercase country, such as en or en-US. |\n| `lon` | number | No | Search center longitude from -180 through 180. Requires lat. |\n| `num` | integer | No | Maximum number of search_results, 1 through 30, including any leading exact match. |\n| `place_type` | string | No | Restrict results to one entity type. |\n| `start` | integer | No | Result offset from 0 through 10,000. Offsets and positions count any leading exact match. |\n| `timeout` | number | No | Optional budget for the entire request in seconds, measured from gateway receipt until the response is ready to send. Includes admission, queueing and settlement. Must be greater t |\n| `tripadvisor_domain` | string | No | Supported first-party localized Tripadvisor hostname, such as www.tripadvisor.co.uk. |\n\n## Pricing\n\nFlat price per call. Failed calls are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/tripadvisor/search",
+  "published_at": "2026-11-02T00:00:00Z",
+  "created_at": "2026-11-02T10:10:15.637Z"
+}

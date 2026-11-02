@@ -47,7 +47,7 @@
   "pricing": {
     "currency": "USD",
     "model": "per_call",
-    "per_call": 0.027778
+    "per_call": 0.028571
   },
   "readme": "# Facebook Get Profile Posts API\n\nGet public posts for a Facebook profile ID with cursor pagination. Use it to browse a known profile's public posting history or continue through subsequent post pages.\n\nThe response is the platform's original data structure.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/facebook/profile-posts\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"profileId\": \"4\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `profileId` | string | Yes | The unique Facebook profile ID. |\n| `cursor` | string | No | Pagination cursor for fetching the next set of results. |\n\n## Pricing\n\nFlat price per call. Failed calls and empty results are not charged.\n",
   "page_url": "https://www.sandbase.ai/model/facebook/profile-posts",

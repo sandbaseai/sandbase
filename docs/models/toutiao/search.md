@@ -2,13 +2,13 @@
 
 `toutiao/search` · data API · Toutiao · callable with one SandBase API key from curl, Python, TypeScript and Go.
 
-**Price:** $0.069444 per call · **Modes:** sync
+**Price:** $0.071429 per call · **Modes:** sync
 
 Search Toutiao web articles by keyword. Use it to discover relevant articles for topic research, media monitoring, or source collection.
 
 ## Pricing
 
-- **$0.069444 per call** (USD)
+- **$0.071429 per call** (USD)
 
 ## Call it
 

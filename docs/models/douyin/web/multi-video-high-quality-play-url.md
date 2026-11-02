@@ -2,13 +2,13 @@
 
 `douyin/web/multi-video-high-quality-play-url` · data API · Douyin · callable with one SandBase API key from curl, Python, TypeScript and Go.
 
-**Price:** $0.375 per call · **Modes:** sync
+**Price:** $0.25 per call · **Modes:** sync
 
 Returns direct high-quality playback URLs for multiple Douyin videos using comma-separated video IDs and an optional region code.
 
 ## Pricing
 
-- **$0.375 per call** (USD)
+- **$0.25 per call** (USD)
 
 ## Call it
 

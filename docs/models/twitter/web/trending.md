@@ -2,13 +2,13 @@
 
 `twitter/web/trending` · data API · Twitter · callable with one SandBase API key from curl, Python, TypeScript and Go.
 
-**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
+**Price:** $0.001 per call (free daily quota) · **Modes:** sync
 
 Get trending topics on Twitter / X by country: trend names with their category context, for the United States, Japan, India, the UK and other markets.
 
 ## Pricing
 
-- **$0.0015 per call** (USD)
+- **$0.001 per call** (USD)
 - Free quota: 100 calls/day per organization (shared across free-quota APIs).
 
 ## Call it

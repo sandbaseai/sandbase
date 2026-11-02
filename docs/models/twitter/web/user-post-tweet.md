@@ -2,13 +2,13 @@
 
 `twitter/web/user-post-tweet` · data API · Twitter · callable with one SandBase API key from curl, Python, TypeScript and Go.
 
-**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
+**Price:** $0.001 per call (free daily quota) · **Modes:** sync
 
 Returns posts and tweets from a specified Twitter (X) user timeline. Users can be identified by either their screen name or numeric user ID, with cursor pagination supported.
 
 ## Pricing
 
-- **$0.0015 per call** (USD)
+- **$0.001 per call** (USD)
 - Free quota: 100 calls/day per organization (shared across free-quota APIs).
 
 ## Call it

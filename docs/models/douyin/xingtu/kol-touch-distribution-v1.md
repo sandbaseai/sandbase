@@ -2,13 +2,13 @@
 
 `douyin/xingtu/kol-touch-distribution-v1` · data API · Douyin · callable with one SandBase API key from curl, Python, TypeScript and Go.
 
-**Price:** $0.03 per call · **Modes:** sync
+**Price:** $0.02 per call · **Modes:** sync
 
 Returns touch distribution data for a Douyin Xingtu creator using their unique KOL identifier. Helps evaluate audience contact points and reach patterns.
 
 ## Pricing
 
-- **$0.03 per call** (USD)
+- **$0.02 per call** (USD)
 
 ## Call it
 

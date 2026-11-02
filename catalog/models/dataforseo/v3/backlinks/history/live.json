@@ -25,7 +25,22 @@
   },
   "input_schema": {
     "type": "object",
-    "properties": {},
+    "properties": {
+      "target": {
+        "type": "string",
+        "example": "nike.com",
+        "description": "Domain, e.g. \"nike.com\"."
+      },
+      "date_to": {
+        "type": "string",
+        "description": "Optional end date, \"yyyy-mm-dd\"."
+      },
+      "date_from": {
+        "type": "string",
+        "example": "2026-01-01",
+        "description": "Optional start date, \"yyyy-mm-dd\"."
+      }
+    },
     "description": "Request parameters forwarded to DataForSEO /v3/backlinks/history/live. See DataForSEO docs for full schema.",
     "additionalProperties": true
   },

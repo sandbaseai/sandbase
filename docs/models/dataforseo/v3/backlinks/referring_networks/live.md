@@ -49,6 +49,14 @@ run, err := c.Run(ctx, "dataforseo/v3/backlinks/referring_networks/live", sandba
 
 Same call via the path form: `POST /v1/api/dataforseo/v3/backlinks/referring_networks/live` with the body above minus `model`.
 
+## Parameters
+
+| name | type | required | description |
+|---|---|---|---|
+| `limit` | integer |  | Maximum number of networks to return.  |
+| `target` | string |  | Domain, subdomain or page URL.  |
+| `network_address_type` | string |  | Optional: "ip" or "subnet" (default "ip").  |
+
 ## Details
 
 Referring IP addresses or subnets pointing to a target, with backlink counts per network.

@@ -2,13 +2,13 @@
 
 `douyin/xingtu/kol-video-performance-v1` · data API · Douyin · callable with one SandBase API key from curl, Python, TypeScript and Go.
 
-**Price:** $0.03 per call · **Modes:** sync
+**Price:** $0.02 per call · **Modes:** sync
 
 Get a Douyin KOL's video performance from XingTu: interaction and play benchmarks versus peers, plus recent videos with likes, plays, comments and shares.
 
 ## Pricing
 
-- **$0.03 per call** (USD)
+- **$0.02 per call** (USD)
 
 ## Call it
 

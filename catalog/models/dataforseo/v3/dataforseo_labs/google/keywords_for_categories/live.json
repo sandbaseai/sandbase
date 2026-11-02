@@ -27,7 +27,29 @@
   },
   "input_schema": {
     "type": "object",
-    "properties": {},
+    "properties": {
+      "limit": {
+        "type": "integer",
+        "example": 10
+      },
+      "language_code": {
+        "type": "string",
+        "example": "en"
+      },
+      "location_code": {
+        "type": "integer",
+        "example": 2840
+      },
+      "category_codes": {
+        "type": "array",
+        "items": {
+          "type": "integer"
+        },
+        "example": [
+          13418
+        ]
+      }
+    },
     "description": "Request parameters forwarded to DataForSEO /v3/dataforseo_labs/google/keywords_for_categories/live. See DataForSEO docs for full schema.",
     "additionalProperties": true
   },
@@ -37,10 +59,11 @@
   },
   "pricing": {
     "currency": "USD",
-    "model": "per_call",
-    "per_call": 0.024
+    "model": "usage_based",
+    "note": "Billed per call from metered usage; the reference price is typical.",
+    "reference_price": 0.0132
   },
-  "readme": "# Google Keywords for Categories API\n\nGet Google keywords that belong to the product and service categories you pass, with search volume, CPC and competition.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/dataforseo/v3/dataforseo_labs/google/keywords_for_categories/live\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"category_codes\": [13418], \"location_code\": 2840, \"language_code\": \"en\", \"limit\": 10}'\n```\n\n## Parameters\n\nThe body is passed through to DataForSEO. See the [official documentation](https://docs.dataforseo.com/v3/dataforseo_labs/google/keywords_for_categories/live/) for every field.\n\n## Pricing\n\nFlat price per call. One task per request; `limit` is capped at 100 and input lists (`keywords`, `targets`, `asins`, `app_ids` ...) accept at most 100 items. Failed calls are not charged.\n",
+  "readme": "# Google Keywords for Categories API\n\nGet Google keywords that belong to the product and service categories you pass, with search volume, CPC and competition.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/dataforseo/v3/dataforseo_labs/google/keywords_for_categories/live\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"category_codes\": [13418], \"location_code\": 2840, \"language_code\": \"en\", \"limit\": 10}'\n```\n\n## Parameters\n\nThe body is passed through to DataForSEO. See the [official documentation](https://docs.dataforseo.com/v3/dataforseo_labs/google/keywords_for_categories/live/) for every field.\n\n## Pricing\n\nBilled at the actual cost of each call, about $0.0132 for the request above. The cost grows with the number of rows, targets or pages a call returns. One task per request; `limit` is capped at 100 and input lists (`keywords`, `targets`, `asins`, `app_ids` ...) accept at most 100 items. Failed calls are not charged. Searches with no results are billed at their actual cost.\n",
   "page_url": "https://www.sandbase.ai/model/dataforseo/v3/dataforseo_labs/google/keywords_for_categories/live",
   "published_at": "2024-01-01T00:00:00Z",
   "created_at": "2026-10-29T09:33:59.89Z"

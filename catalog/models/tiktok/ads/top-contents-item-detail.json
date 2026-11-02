@@ -1,0 +1,82 @@
+{
+  "name": "tiktok/ads/top-contents-item-detail",
+  "display_name": "TikTok Top contents item detail",
+  "type": "api",
+  "vendor": "TikTok",
+  "vendor_slug": "tiktok",
+  "description": "Get top contents item detail on TikTok. Returns the platform data as structured JSON.",
+  "tags": [
+    "api",
+    "tiktok"
+  ],
+  "capabilities": [
+    "api",
+    "tiktok"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/tiktok/ads/top-contents-item-detail"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "item_id",
+      "period_end_timestamp"
+    ],
+    "properties": {
+      "cookie": {
+        "type": "string",
+        "title": "Cookie",
+        "description": "Custom Cookie string (optional)"
+      },
+      "item_id": {
+        "type": "string",
+        "title": "Item Id",
+        "example": "7684011124739656991",
+        "description": "Video item ID"
+      },
+      "country_code": {
+        "type": "string",
+        "title": "Country Code",
+        "default": "US",
+        "example": "US",
+        "description": "Country code of the ranking"
+      },
+      "period_dimension": {
+        "type": "integer",
+        "title": "Period Dimension",
+        "default": 3,
+        "example": 3,
+        "description": "3/5 /Period dimension"
+      },
+      "period_end_timestamp": {
+        "type": "integer",
+        "title": "Period End Timestamp",
+        "example": 1793318400,
+        "description": "The caller must generate this 10-digit Unix timestamp in seconds from the target ranking date, for example 1785024000; do not pass 0 because it returns an empty result"
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.001,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "readme": "# TikTok Top contents item detail API\n\nGet top contents item detail on TikTok. Returns the platform data as structured JSON.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/tiktok/ads/top-contents-item-detail\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"item_id\": \"7684011124739656991\", \"period_end_timestamp\": 1793318400, \"period_dimension\": 3, \"country_code\": \"US\"}'\n```\n\nThe result is returned in `outputs[0].data`. Use an `itemID` from Top Contents List with the same `period_end_timestamp` and `country_code`.\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `item_id` | string | Yes | Video item ID |\n| `period_end_timestamp` | integer | Yes | The caller must generate this 10-digit Unix timestamp in seconds from the target ranking date, for example 1785024000; do not pass 0 because it returns an empty result |\n| `cookie` | string | No | Custom Cookie string (optional) |\n| `country_code` | string | No | Country code of the ranking |\n| `period_dimension` | integer | No | 3/5 /Period dimension |\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/tiktok/ads/top-contents-item-detail",
+  "published_at": "2026-11-02T00:00:00Z",
+  "created_at": "2026-11-02T00:16:29.05Z"
+}

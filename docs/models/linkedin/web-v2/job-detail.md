@@ -2,13 +2,13 @@
 
 `linkedin/web-v2/job-detail` · data API · LinkedIn · callable with one SandBase API key from curl, Python, TypeScript and Go.
 
-**Price:** $0.045 per call · **Modes:** sync
+**Price:** $0.05 per call · **Modes:** sync
 
 Returns detailed information for a specific LinkedIn job posting via its URL. Allows optional inclusion of required skills and hiring team details.
 
 ## Pricing
 
-- **$0.045 per call** (USD)
+- **$0.05 per call** (USD)
 
 ## Call it
 

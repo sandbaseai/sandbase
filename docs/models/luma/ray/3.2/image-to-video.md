@@ -48,7 +48,7 @@ Modes: async (default `async`). Only pass `mode` values listed here. The SDKs' `
 ```bash
 curl https://api.sandbase.ai/v1/run \
   -H "Authorization: Bearer $SANDBASE_API_KEY" -H 'Content-Type: application/json' \
-  -d '{"model": "luma/ray/3.2/image-to-video", "prompt": "<prompt>", "image": "<image>"}'
+  -d '{"model": "luma/ray/3.2/image-to-video", "prompt": "Low-angle shot of a majestic tiger prowling through a snowy landscape, leaving paw prints on the white blanket.", "image": "https://storage.googleapis.com/falserverless/gallery/example_inputs_liuyifei.png"}'
 ```
 
 **Python** ([sdk/python](../../../../../sdk/python))
@@ -56,7 +56,7 @@ curl https://api.sandbase.ai/v1/run \
 ```python
 from sandbase import SandBase
 
-result = SandBase().run('luma/ray/3.2/image-to-video', {'prompt': '<prompt>', 'image': '<image>'})
+result = SandBase().run('luma/ray/3.2/image-to-video', {'prompt': 'Low-angle shot of a majestic tiger prowling through a snowy landscape, leaving paw prints on the white blanket.', 'image': 'https://storage.googleapis.com/falserverless/gallery/example_inputs_liuyifei.png'})
 print(result["outputs"])
 ```
 
@@ -66,8 +66,8 @@ print(result["outputs"])
 import { SandBase } from "@sandbaseai/sdk";
 
 const result = await new SandBase().run("luma/ray/3.2/image-to-video", {
-  "prompt": "<prompt>",
-  "image": "<image>"
+  "prompt": "Low-angle shot of a majestic tiger prowling through a snowy landscape, leaving paw prints on the white blanket.",
+  "image": "https://storage.googleapis.com/falserverless/gallery/example_inputs_liuyifei.png"
 });
 console.log(result.outputs);
 ```
@@ -77,8 +77,8 @@ console.log(result.outputs);
 ```go
 c, _ := sandbase.NewClient("")
 run, err := c.Run(ctx, "luma/ray/3.2/image-to-video", sandbase.Params{
-	"prompt": "<prompt>",
-	"image": "<image>",
+	"prompt": "Low-angle shot of a majestic tiger prowling through a snowy landscape, leaving paw prints on the white blanket.",
+	"image": "https://storage.googleapis.com/falserverless/gallery/example_inputs_liuyifei.png",
 })
 ```
 

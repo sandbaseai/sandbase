@@ -65,6 +65,15 @@ run, err := c.Run(ctx, "dataforseo/v3/serp/google/organic/live/regular", sandbas
 
 Same call via the path form: `POST /v1/api/dataforseo/v3/serp/google/organic/live/regular` with the body above minus `model`.
 
+## Parameters
+
+| name | type | required | description |
+|---|---|---|---|
+| `depth` | integer |  | Number of results to return (default 100).  |
+| `keyword` | string |  | Search query, e.g. "openai api".  |
+| `language_code` | string |  | Language code, e.g. "en".  |
+| `location_code` | integer |  | DataForSEO location code, e.g. 2840 for the United States.  |
+
 ## Details
 
 The regular SERP endpoint returns only the organic results (rank, title, URL, description) without SERP feature details, which keeps responses small and fast to process.

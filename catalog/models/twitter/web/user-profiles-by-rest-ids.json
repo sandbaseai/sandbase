@@ -1,0 +1,56 @@
+{
+  "name": "twitter/web/user-profiles-by-rest-ids",
+  "display_name": "Twitter Profiles by rest ids",
+  "type": "api",
+  "vendor": "X (Twitter)",
+  "vendor_slug": "twitter",
+  "description": "Get profiles by rest ids on Twitter. Returns the platform data as structured JSON.",
+  "tags": [
+    "api",
+    "twitter"
+  ],
+  "capabilities": [
+    "api",
+    "twitter"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/twitter/web/user-profiles-by-rest-ids"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "rest_ids"
+    ],
+    "properties": {
+      "rest_ids": {
+        "type": "string",
+        "title": "Rest Ids",
+        "example": "44196397,34743251",
+        "description": "User IDs, comma separated"
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.001,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "readme": "# Twitter Profiles by rest ids API\n\nGet profiles by rest ids on Twitter. Returns the platform data as structured JSON.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/twitter/web/user-profiles-by-rest-ids\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"rest_ids\": \"44196397,34743251\"}'\n```\n\nThe result is returned in `outputs[0].data`.\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `rest_ids` | string | Yes | User IDs, comma separated |\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/twitter/web/user-profiles-by-rest-ids",
+  "published_at": "2026-11-02T00:00:00Z",
+  "created_at": "2026-11-02T00:32:33.62Z"
+}

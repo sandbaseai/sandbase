@@ -2,13 +2,13 @@
 
 `xiaohongshu/web-v3/homefeed` · data API · Xiaohongshu · callable with one SandBase API key from curl, Python, TypeScript and Go.
 
-**Price:** $0.015 per call (free daily quota) · **Modes:** sync
+**Price:** $0.01 per call (free daily quota) · **Modes:** sync
 
 Retrieves recommended notes from the Xiaohongshu homepage feed. Supports filtering by category channel, restricting results to image notes, and paginating via cursor score.
 
 ## Pricing
 
-- **$0.015 per call** (USD)
+- **$0.01 per call** (USD)
 - Free quota: 100 calls/day per organization (shared across free-quota APIs).
 
 ## Call it

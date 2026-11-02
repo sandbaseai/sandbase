@@ -2,13 +2,13 @@
 
 `weibo/app/user-info` · data API · Weibo · callable with one SandBase API key from curl, Python, TypeScript and Go.
 
-**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
+**Price:** $0.001 per call (free daily quota) · **Modes:** sync
 
 Returns basic profile information for a Weibo user, including nickname, avatar, biography, follower counts, and channel metadata, using a user ID.
 
 ## Pricing
 
-- **$0.0015 per call** (USD)
+- **$0.001 per call** (USD)
 - Free quota: 100 calls/day per organization (shared across free-quota APIs).
 
 ## Call it

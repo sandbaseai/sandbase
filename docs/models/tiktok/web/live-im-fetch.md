@@ -2,13 +2,13 @@
 
 `tiktok/web/live-im-fetch` · data API · TikTok · callable with one SandBase API key from curl, Python, TypeScript and Go.
 
-**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
+**Price:** $0.001 per call (free daily quota) · **Modes:** sync
 
 Retrieves real-time danmaku and chat messages from a TikTok broadcast room. Requires a room ID and supports both protobuf and JSON output formats.
 
 ## Pricing
 
-- **$0.0015 per call** (USD)
+- **$0.001 per call** (USD)
 - Free quota: 100 calls/day per organization (shared across free-quota APIs).
 
 ## Call it

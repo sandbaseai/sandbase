@@ -1,0 +1,131 @@
+{
+  "name": "open-meteo/marine",
+  "display_name": "Open-Meteo Marine Forecast",
+  "type": "api",
+  "vendor": "Open-Meteo",
+  "vendor_slug": "open-meteo",
+  "description": "Hourly and daily marine forecast by coordinates: wave height, direction and period, swell and ocean currents.",
+  "tags": [
+    "api",
+    "open-meteo",
+    "weather"
+  ],
+  "capabilities": [
+    "api",
+    "open-meteo",
+    "weather"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/open-meteo/marine"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "latitude",
+      "longitude"
+    ],
+    "properties": {
+      "daily": {
+        "type": "string",
+        "example": "wave_height_max",
+        "description": "Comma-separated list of daily aggregation variables to return. Requires `timezone`. Common values: `wave_height_max`, `wave_direction_dominant`, `wave_period_max`, `wind_wave_height_max`, `swell_wave_height_max`."
+      },
+      "hourly": {
+        "type": "string",
+        "example": "wave_height",
+        "description": "Comma-separated list of hourly variables to return. Common values: `wave_height`, `wave_direction`, `wave_period`, `wind_wave_height`, `wind_wave_direction`, `wind_wave_period`, `swell_wave_height`, `swell_wave_direction`, `swell_wave_period`, `ocean_current_velocity`, `ocean_current_direction`, `se"
+      },
+      "current": {
+        "type": "string",
+        "example": "wave_height,wave_period",
+        "description": "Comma-separated list of current-condition variables to return. Same variable set as `hourly`."
+      },
+      "end_date": {
+        "type": "string",
+        "example": "2024-01-07",
+        "description": "End of the interval, `yyyy-mm-dd` (ISO 8601)."
+      },
+      "latitude": {
+        "type": "string",
+        "example": "54.54",
+        "description": "WGS84 latitude of the location. Multiple coordinates can be comma-separated."
+      },
+      "timezone": {
+        "type": "string",
+        "example": "Europe/Berlin",
+        "description": "IANA time zone name (e.g. `Europe/Berlin`) or `auto` to resolve from coordinates. Defaults to `GMT`."
+      },
+      "longitude": {
+        "type": "string",
+        "example": "10.23",
+        "description": "WGS84 longitude of the location (negative for the Americas). Multiple coordinates can be comma-separated."
+      },
+      "past_days": {
+        "type": "integer",
+        "default": 0,
+        "description": "Number of past days to include (0-92). Default 0."
+      },
+      "start_date": {
+        "type": "string",
+        "example": "2024-01-01",
+        "description": "Start of the interval, `yyyy-mm-dd` (ISO 8601)."
+      },
+      "timeformat": {
+        "enum": [
+          "iso8601",
+          "unixtime"
+        ],
+        "type": "string",
+        "default": "iso8601",
+        "description": "Time output format. Default `iso8601`."
+      },
+      "length_unit": {
+        "enum": [
+          "metric",
+          "imperial"
+        ],
+        "type": "string",
+        "default": "metric",
+        "description": "Unit for wave heights. Default `metric`."
+      },
+      "forecast_days": {
+        "type": "integer",
+        "default": 5,
+        "example": 1,
+        "description": "Number of forecast days to return (0-8). Default 5."
+      },
+      "cell_selection": {
+        "enum": [
+          "land",
+          "sea",
+          "nearest"
+        ],
+        "type": "string",
+        "default": "sea",
+        "description": "Grid-cell preference for the coordinate. Default `sea`."
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.0001,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "readme": "# Open-Meteo Marine Forecast API\n\nHourly and daily marine forecast by coordinates: wave height, direction and period, swell and ocean currents.\n\nThe result is returned in `outputs[0].data` as the official Open-Meteo API response, unchanged.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/open-meteo/marine\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"latitude\": \"54.54\", \"longitude\": \"10.23\", \"hourly\": \"wave_height\", \"forecast_days\": 1}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `cell_selection` | string | No | Grid-cell preference for the coordinate. Default `sea`. |\n| `current` | string | No | Comma-separated list of current-condition variables to return. Same variable set as `hourly`. |\n| `daily` | string | No | Comma-separated list of daily aggregation variables to return. Requires `timezone`. Common values: `wave_height_max`, `wave_direction_dominant`, `wave_period_ma |\n| `end_date` | string | No | End of the interval, `yyyy-mm-dd` (ISO 8601). |\n| `forecast_days` | integer | No | Number of forecast days to return (0-8). Default 5. |\n| `hourly` | string | No | Comma-separated list of hourly variables to return. Common values: `wave_height`, `wave_direction`, `wave_period`, `wind_wave_height`, `wind_wave_direction`, `w |\n| `latitude` | string | Yes | WGS84 latitude of the location. Multiple coordinates can be comma-separated. |\n| `length_unit` | string | No | Unit for wave heights. Default `metric`. |\n| `longitude` | string | Yes | WGS84 longitude of the location (negative for the Americas). Multiple coordinates can be comma-separated. |\n| `past_days` | integer | No | Number of past days to include (0-92). Default 0. |\n| `start_date` | string | No | Start of the interval, `yyyy-mm-dd` (ISO 8601). |\n| `timeformat` | string | No | Time output format. Default `iso8601`. |\n| `timezone` | string | No | IANA time zone name (e.g. `Europe/Berlin`) or `auto` to resolve from coordinates. Defaults to `GMT`. |\n\n## Pricing\n\nFlat price per call. Failed calls are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/open-meteo/marine",
+  "created_at": "2026-11-02T05:24:46.676Z"
+}

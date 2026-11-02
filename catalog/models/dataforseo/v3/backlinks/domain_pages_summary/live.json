@@ -23,7 +23,18 @@
   },
   "input_schema": {
     "type": "object",
-    "properties": {},
+    "properties": {
+      "limit": {
+        "type": "integer",
+        "example": 10,
+        "description": "Maximum number of pages to return."
+      },
+      "target": {
+        "type": "string",
+        "example": "nike.com",
+        "description": "Domain or subdomain, e.g. \"nike.com\"."
+      }
+    },
     "description": "Request parameters forwarded to DataForSEO /v3/backlinks/domain_pages_summary/live. See DataForSEO docs for full schema.",
     "additionalProperties": true
   },

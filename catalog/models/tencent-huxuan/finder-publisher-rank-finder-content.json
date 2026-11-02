@@ -87,7 +87,7 @@
   "pricing": {
     "currency": "USD",
     "model": "per_call",
-    "per_call": 0.041667
+    "per_call": 0.042857
   },
   "readme": "# Tencent Huxuan Hot Content Trends API\n\nList QQ Huxuan hot Video Account content by month and creator category, with six descending sort metrics and page-number pagination. Use it to research monthly content trends for Tencent Huxuan campaign planning.\n\nThe response is the platform's original data structure.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/tencent-huxuan/finder-publisher-rank-finder-content\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `category` | string | No | Creator category. ALL includes every category. |\n| `sort` | string | No | Sort metric. Results are sorted in descending order. |\n| `month` | string | No | Statistics month in yyyy-MM format. Omit to use the latest month available on QQ Huxuan. |\n| `page` | integer | No | Page number, starting at 1. Each page contains up to 48 items. |\n\n## Pricing\n\nFlat price per call. Failed calls and empty results are not charged.\n",
   "page_url": "https://www.sandbase.ai/model/tencent-huxuan/finder-publisher-rank-finder-content",

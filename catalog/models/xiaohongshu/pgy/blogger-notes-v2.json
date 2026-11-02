@@ -1,0 +1,89 @@
+{
+  "name": "xiaohongshu/pgy/blogger-notes-v2",
+  "display_name": "Xiaohongshu PGY blogger note cases v2 (cross-platform)",
+  "type": "api",
+  "vendor": "Xiaohongshu",
+  "vendor_slug": "xiaohongshu",
+  "description": "Get PGY blogger note cases v2 (cross-platform) on Xiaohongshu. Returns the platform data as structured JSON.",
+  "tags": [
+    "api",
+    "xiaohongshu"
+  ],
+  "capabilities": [
+    "api",
+    "xiaohongshu"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/xiaohongshu/pgy/blogger-notes-v2"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "user_id"
+    ],
+    "properties": {
+      "user_id": {
+        "type": "string",
+        "title": "User Id",
+        "example": "5c668b3e0000000012021605",
+        "description": "Blogger user ID"
+      },
+      "note_type": {
+        "enum": [
+          0,
+          1,
+          2
+        ],
+        "type": "integer",
+        "title": "Note Type",
+        "default": 0,
+        "example": 0,
+        "description": "Note type"
+      },
+      "page_size": {
+        "type": "integer",
+        "title": "Page Size",
+        "default": 8,
+        "example": 8,
+        "description": "Page size, 1-8 (fixed at 8 on PGY web)"
+      },
+      "order_type": {
+        "enum": [
+          1,
+          2,
+          3
+        ],
+        "type": "integer",
+        "title": "Order Type",
+        "default": 1,
+        "example": 1,
+        "description": "Sort"
+      },
+      "page_number": {
+        "type": "integer",
+        "title": "Page Number",
+        "default": 1,
+        "example": 1,
+        "description": "Page number, from 1"
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.02
+  },
+  "readme": "# Xiaohongshu PGY blogger note cases v2 (cross-platform) API\n\nGet PGY blogger note cases v2 (cross-platform) on Xiaohongshu. Returns the platform data as structured JSON.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/xiaohongshu/pgy/blogger-notes-v2\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"user_id\": \"5c668b3e0000000012021605\", \"page_number\": 1, \"page_size\": 8, \"note_type\": 0, \"order_type\": 1}'\n```\n\nThe result is returned in `outputs[0].data`.\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `user_id` | string | Yes | Blogger user ID |\n| `note_type` | integer | No | Note type |\n| `order_type` | integer | No | Sort |\n| `page_number` | integer | No | Page number, from 1 |\n| `page_size` | integer | No | Page size, 1-8 (fixed at 8 on PGY web) |\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/xiaohongshu/pgy/blogger-notes-v2",
+  "published_at": "2026-11-02T00:00:00Z",
+  "created_at": "2026-11-02T00:27:33.078Z"
+}

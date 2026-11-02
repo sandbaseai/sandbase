@@ -1,0 +1,68 @@
+{
+  "name": "weibo/app/user-following",
+  "display_name": "Weibo User following",
+  "type": "api",
+  "vendor": "Weibo",
+  "vendor_slug": "weibo",
+  "description": "Get user following on Weibo. Returns the platform data as structured JSON.",
+  "tags": [
+    "api",
+    "weibo"
+  ],
+  "capabilities": [
+    "api",
+    "weibo"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/weibo/app/user-following"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "uid"
+    ],
+    "properties": {
+      "uid": {
+        "type": "string",
+        "title": "Uid",
+        "example": "1856404484",
+        "description": ""
+      },
+      "since_id": {
+        "type": "string",
+        "title": "since_id",
+        "description": ""
+      },
+      "sort_type": {
+        "type": "integer",
+        "title": "Sort Type",
+        "default": 2,
+        "example": 2,
+        "description": ""
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.001,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "readme": "# Weibo User following API\n\nGet user following on Weibo. Returns the platform data as structured JSON.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/weibo/app/user-following\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"uid\": \"1856404484\", \"sort_type\": 2}'\n```\n\nThe result is returned in `outputs[0].data`.\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `uid` | string | Yes |  |\n| `since_id` | string | No |  |\n| `sort_type` | integer | No |  |\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/weibo/app/user-following",
+  "published_at": "2026-11-02T00:00:00Z",
+  "created_at": "2026-11-02T00:30:21.868Z"
+}

@@ -58,7 +58,7 @@
   "pricing": {
     "currency": "USD",
     "model": "per_call",
-    "per_call": 0.041667
+    "per_call": 0.042857
   },
   "readme": "# WeChat MP Account Historical Articles API\n\nGet historical posts for a WeChat Official Account by username, with cursor pagination and article, video, audio, or image content tabs. Use it to browse an account's publishing history.\n\nThe response is the platform's original data structure.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/wechat-mp/account-history-articles\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"username\": \"worldofai\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `username` | string | Yes | WeChat Official Account username with the gh_ prefix. |\n| `offset` | string | No | Base64 pagination cursor. Leave empty for the first page; pass next_offset from the previous response for the next page. Send it in the URL-encoded form body. |\n| `itemShowType` | string | No | Content tab. Defaults to ARTICLE. |\n\n## Pricing\n\nFlat price per call. Failed calls and empty results are not charged.\n",
   "page_url": "https://www.sandbase.ai/model/wechat-mp/account-history-articles",

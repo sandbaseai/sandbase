@@ -1,10 +1,10 @@
-# Polymarket Get aggregated builder leaderboard API: pricing, parameters and code examples
+# Polymarket Builders Leaderboard API: pricing, parameters and code examples
 
 `polymarket/builders-leaderboard` · data API · Polymarket · callable with one SandBase API key from curl, Python, TypeScript and Go.
 
 **Price:** $0.012 per call (free daily quota) · **Modes:** sync
 
-Get aggregated builder leaderboard from Polymarket. Returns the official Polymarket API response unchanged.
+Leaderboard of Polymarket builders (apps routing orders) by volume for a time period.
 
 ## Pricing
 
@@ -54,15 +54,15 @@ Same call via the path form: `POST /v1/api/polymarket/builders-leaderboard` with
 
 | name | type | required | description |
 |---|---|---|---|
-| `limit` | integer |  | Maximum number of builders to return default `25`; range 0–50 |
-| `offset` | integer |  | Starting index for pagination default `0`; range 0–1000 |
-| `timePeriod` | string |  | The time period to aggregate results over. one of: `DAY`, `WEEK`, `MONTH`, `ALL`; default `"DAY"` |
+| `limit` | integer |  | First-page size. Ignored when `cursor` is supplied. range 0–1000 |
+| `cursor` | string |  | Opaque pagination cursor from a prior response's `next_cursor`.  |
+| `time_period` | string |  | Window: `day` \| `week` \| `month` \| `all`. Defaults to `day`.  |
 
 ## Details
 
-Get aggregated builder leaderboard from Polymarket. Returns the official Polymarket API response unchanged.
+Leaderboard of Polymarket builders (apps routing orders) by volume for a time period.
 
-The response is the official Polymarket API response, unchanged.
+Served from the Polymarket Data API v2. The result is returned in `outputs[0].data`: rows are under `data`, and paginated routes add `pagination.next_cursor` (pass it back as `cursor`).
 
 ### Request
 
@@ -77,9 +77,13 @@ curl -X POST "https://api.sandbase.ai/v1/api/polymarket/builders-leaderboard" \
 
 | Name | Type | Required | Description |
 |---|---|---|---|
-| `limit` | integer | No | Maximum number of builders to return |
-| `offset` | integer | No | Starting index for pagination |
-| `timePeriod` | string | No | The time period to aggregate results over. |
+| `time_period` | string | No | Window: `day` / `week` / `month` / `all`. Defaults to `day`. |
+| `limit` | integer | No | First-page size. Ignored when `cursor` is supplied. |
+| `cursor` | string | No | Opaque pagination cursor from a prior response's `next_cursor`. |
+
+### Reference
+
+- Official docs: https://docs.polymarket.com/api-reference/data-api/overview
 
 ### Pricing
 

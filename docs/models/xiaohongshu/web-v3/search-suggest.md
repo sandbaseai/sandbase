@@ -2,13 +2,13 @@
 
 `xiaohongshu/web-v3/search-suggest` · data API · Xiaohongshu · callable with one SandBase API key from curl, Python, TypeScript and Go.
 
-**Price:** $0.015 per call (free daily quota) · **Modes:** sync
+**Price:** $0.01 per call (free daily quota) · **Modes:** sync
 
 Returns search query suggestions and autocomplete terms from Xiaohongshu (RED). Accepts an optional search query prefix to surface matching keyword recommendations.
 
 ## Pricing
 
-- **$0.015 per call** (USD)
+- **$0.01 per call** (USD)
 - Free quota: 100 calls/day per organization (shared across free-quota APIs).
 
 ## Call it

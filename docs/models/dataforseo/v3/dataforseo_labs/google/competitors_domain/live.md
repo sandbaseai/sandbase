@@ -2,13 +2,13 @@
 
 `dataforseo/v3/dataforseo_labs/google/competitors_domain/live` · data API · DataForSEO · callable with one SandBase API key from curl, Python, TypeScript and Go.
 
-**Price:** $0.024 per call · **Modes:** sync
+**Price:** about $0.0126 per call · **Modes:** sync
 
 Returns Google organic search competitor domains and comparative ranking metrics for a specified domain, enabling competitive research and market analysis.
 
 ## Pricing
 
-- **$0.024 per call** (USD)
+- Usage-based. Billed per call from metered usage; the reference price is typical. Reference: **$0.0126**
 
 ## Call it
 
@@ -49,6 +49,15 @@ run, err := c.Run(ctx, "dataforseo/v3/dataforseo_labs/google/competitors_domain/
 
 Same call via the path form: `POST /v1/api/dataforseo/v3/dataforseo_labs/google/competitors_domain/live` with the body above minus `model`.
 
+## Parameters
+
+| name | type | required | description |
+|---|---|---|---|
+| `limit` | integer |  | Maximum number of results (up to 100).  |
+| `target` | string |  | Target domain or page, e.g. "nike.com".  |
+| `language_code` | string |  | Language code, e.g. "en".  |
+| `location_code` | integer |  | Location code, e.g. 2840 for the United States.  |
+
 ## Details
 
 Analyze Google search competitors for a target `domain`. This endpoint returns competing domains and organic search competition metrics.
@@ -81,7 +90,7 @@ The JSON body is forwarded to the upstream endpoint (one task per call). Fields 
 
 ### Pricing
 
-Flat price per call. Failed calls are not charged.
+Billed at the actual cost of each call, about $0.0126 for the request above. The cost grows with the number of rows, targets or pages a call returns. Failed calls are not charged. Searches with no results are billed at their actual cost.
 
 ### Related APIs
 

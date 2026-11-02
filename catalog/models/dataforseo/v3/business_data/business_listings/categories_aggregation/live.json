@@ -25,7 +25,27 @@
   },
   "input_schema": {
     "type": "object",
-    "properties": {},
+    "properties": {
+      "limit": {
+        "type": "string",
+        "description": "Maximum number of categories to return."
+      },
+      "categories": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        },
+        "example": [
+          "pizza_restaurant"
+        ],
+        "description": "Optional array of category ids to aggregate."
+      },
+      "location_coordinate": {
+        "type": "string",
+        "example": "40.7128,-74.0060,10",
+        "description": "\"latitude,longitude,radius_km\"."
+      }
+    },
     "description": "Request parameters forwarded to DataForSEO /v3/business_data/business_listings/categories_aggregation/live. See DataForSEO docs for full schema.",
     "additionalProperties": true
   },

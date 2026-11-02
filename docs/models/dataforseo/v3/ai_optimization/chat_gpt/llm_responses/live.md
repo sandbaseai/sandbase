@@ -4,7 +4,7 @@
 
 **Price:** about $0.000724 per call · **Modes:** sync
 
-Send a prompt to ChatGPT and get the answer with token usage, for AI visibility checks.
+Ask ChatGPT a prompt and get its answer with token usage, for AI visibility checks.
 
 ## Pricing
 
@@ -49,9 +49,19 @@ run, err := c.Run(ctx, "dataforseo/v3/ai_optimization/chat_gpt/llm_responses/liv
 
 Same call via the path form: `POST /v1/api/dataforseo/v3/ai_optimization/chat_gpt/llm_responses/live` with the body above minus `model`.
 
+## Parameters
+
+| name | type | required | description |
+|---|---|---|---|
+| `model_name` | string |  | Model name from the vendor's model list.  |
+| `web_search` | string |  | Optional: let the model search the web (where supported).  |
+| `user_prompt` | string |  | The prompt to send.  |
+| `system_message` | string |  | Optional system instruction.  |
+| `max_output_tokens` | integer |  | Optional cap on answer length; longer answers cost more.  |
+
 ## Details
 
-Send a prompt to ChatGPT and get the answer with token usage, for AI visibility checks.
+Ask ChatGPT a prompt and get its answer with token usage, for AI visibility checks.
 
 Request fields follow the official DataForSEO `/v3/ai_optimization/chat_gpt/llm_responses/live` task schema (one task per call). The response is DataForSEO's original JSON; results are in `tasks[].result`.
 

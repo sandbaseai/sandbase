@@ -27,7 +27,31 @@
   },
   "input_schema": {
     "type": "object",
-    "properties": {},
+    "properties": {
+      "limit": {
+        "type": "integer",
+        "example": 5,
+        "description": "Maximum number of results (up to 100)."
+      },
+      "pages": {
+        "type": "object",
+        "example": {
+          "1": "https://www.nike.com/",
+          "2": "https://www.adidas.com/us"
+        },
+        "description": "Pages to compare, keyed \"1\", \"2\", ..."
+      },
+      "language_code": {
+        "type": "string",
+        "example": "en",
+        "description": "Language code, e.g. \"en\"."
+      },
+      "location_code": {
+        "type": "integer",
+        "example": 2840,
+        "description": "Location code, e.g. 2840 for the United States."
+      }
+    },
     "description": "Request parameters forwarded to DataForSEO /v3/dataforseo_labs/google/page_intersection/live. See DataForSEO docs for full schema.",
     "additionalProperties": true
   },
@@ -37,15 +61,16 @@
   },
   "pricing": {
     "currency": "USD",
-    "model": "per_call",
-    "per_call": 0.024
+    "model": "usage_based",
+    "note": "Billed per call from metered usage; the reference price is typical.",
+    "reference_price": 0.0126
   },
   "examples": [
     {
       "input": {}
     }
   ],
-  "readme": "# DataForSEO Google Page Intersection API\n\nThis endpoint returns keywords shared between target `pages` on Google. Use it to compare ranking overlap and discover intersecting search queries across competing URLs.\n\n## Use cases\n\n- Identify search queries shared across competing webpage URLs.\n- Uncover keyword overlap between specific pages to benchmark search visibility.\n- Analyze content opportunities based on common search term rankings.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/dataforseo/v3/dataforseo_labs/google/page_intersection/live\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"pages\": {\"1\": \"https://www.nike.com/\", \"2\": \"https://www.adidas.com/us\"}, \"limit\": 5, \"location_code\": 2840, \"language_code\": \"en\"}'\n```\n\n## Parameters\n\nThe JSON body is forwarded to the upstream endpoint (one task per call). Fields used above:\n\n| Name | Description |\n|---|---|\n| `pages` | Pages to compare, keyed \"1\", \"2\", ... |\n| `limit` | Maximum number of results (up to 100). |\n| `location_code` | Location code, e.g. 2840 for the United States. |\n| `language_code` | Language code, e.g. \"en\". |\n\n## Pricing\n\nFlat price per call. Failed calls are not charged.\n\n## Related APIs\n\n- [DataForSEO Backlinks Anchors](/model/dataforseo/v3/backlinks/anchors/live): Returns anchor text distribution metrics for backlinks pointing to a target website or page.\n- [DataForSEO Backlinks List](/model/dataforseo/v3/backlinks/backlinks/live): Returns a list of external backlinks pointing to a specified target domain or webpage.\n- [DataForSEO Backlinks Bulk Ranks](/model/dataforseo/v3/backlinks/bulk_ranks/live): Returns rank metrics for multiple domains or pages in bulk.\n",
+  "readme": "# DataForSEO Google Page Intersection API\n\nThis endpoint returns keywords shared between target `pages` on Google. Use it to compare ranking overlap and discover intersecting search queries across competing URLs.\n\n## Use cases\n\n- Identify search queries shared across competing webpage URLs.\n- Uncover keyword overlap between specific pages to benchmark search visibility.\n- Analyze content opportunities based on common search term rankings.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/dataforseo/v3/dataforseo_labs/google/page_intersection/live\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"pages\": {\"1\": \"https://www.nike.com/\", \"2\": \"https://www.adidas.com/us\"}, \"limit\": 5, \"location_code\": 2840, \"language_code\": \"en\"}'\n```\n\n## Parameters\n\nThe JSON body is forwarded to the upstream endpoint (one task per call). Fields used above:\n\n| Name | Description |\n|---|---|\n| `pages` | Pages to compare, keyed \"1\", \"2\", ... |\n| `limit` | Maximum number of results (up to 100). |\n| `location_code` | Location code, e.g. 2840 for the United States. |\n| `language_code` | Language code, e.g. \"en\". |\n\n## Pricing\n\nBilled at the actual cost of each call, about $0.0126 for the request above. The cost grows with the number of rows, targets or pages a call returns. Failed calls are not charged. Searches with no results are billed at their actual cost.\n\n## Related APIs\n\n- [DataForSEO Backlinks Anchors](/model/dataforseo/v3/backlinks/anchors/live): Returns anchor text distribution metrics for backlinks pointing to a target website or page.\n- [DataForSEO Backlinks List](/model/dataforseo/v3/backlinks/backlinks/live): Returns a list of external backlinks pointing to a specified target domain or webpage.\n- [DataForSEO Backlinks Bulk Ranks](/model/dataforseo/v3/backlinks/bulk_ranks/live): Returns rank metrics for multiple domains or pages in bulk.\n",
   "page_url": "https://www.sandbase.ai/model/dataforseo/v3/dataforseo_labs/google/page_intersection/live",
   "published_at": "2024-01-01T00:00:00Z",
   "created_at": "2026-08-02T14:43:15.254Z"

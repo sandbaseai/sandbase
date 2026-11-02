@@ -25,7 +25,43 @@
   },
   "input_schema": {
     "type": "object",
-    "properties": {},
+    "properties": {
+      "limit": {
+        "type": "integer",
+        "example": 10,
+        "description": "Maximum number of domains to return."
+      },
+      "first_date": {
+        "type": "string",
+        "example": "2026-01-01",
+        "description": "First comparison date, \"yyyy-mm-dd\"."
+      },
+      "second_date": {
+        "type": "string",
+        "example": "2026-06-01",
+        "description": "Second comparison date, \"yyyy-mm-dd\"."
+      },
+      "language_code": {
+        "type": "string",
+        "example": "en",
+        "description": "Language code, e.g. \"en\"."
+      },
+      "location_code": {
+        "type": "integer",
+        "example": 2840,
+        "description": "Location code, e.g. 2840 for the United States."
+      },
+      "category_codes": {
+        "type": "array",
+        "items": {
+          "type": "integer"
+        },
+        "example": [
+          10994
+        ],
+        "description": "Array of category codes."
+      }
+    },
     "description": "Request parameters forwarded to DataForSEO /v3/dataforseo_labs/google/domain_metrics_by_categories/live. See DataForSEO docs for full schema.",
     "additionalProperties": true
   },

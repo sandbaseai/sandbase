@@ -72,7 +72,7 @@
   "pricing": {
     "currency": "USD",
     "model": "per_call",
-    "per_call": 0.027778
+    "per_call": 0.028571
   },
   "readme": "# Taobao Product Search API\n\nSearch Taobao and Tmall products by keyword with titles, prices, images, sales and shop info. Sort by sales or price, filter to Tmall only and by price range.\n\nThe response is the platform's original data structure.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/taobao/search/items\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"keyword\": \"手机壳\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `keyword` | string | Yes | Search keyword. |\n| `sort` | string | No | Sort order for the result set. |\n| `tmall` | boolean | No | Whether to filter results to Tmall only. |\n| `startPrice` | string | No | Minimum price filter (inclusive). |\n| `endPrice` | string | No | Maximum price filter (inclusive). |\n| `page` | integer | No | Page number for pagination. |\n\n## Pricing\n\nFlat price per call. Failed calls are not charged.\n",
   "page_url": "https://www.sandbase.ai/model/taobao/search/items",

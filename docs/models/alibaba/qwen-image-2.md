@@ -25,7 +25,7 @@ Modes: async (default `async`). Only pass `mode` values listed here. The SDKs' `
 ```bash
 curl https://api.sandbase.ai/v1/run \
   -H "Authorization: Bearer $SANDBASE_API_KEY" -H 'Content-Type: application/json' \
-  -d '{"model": "alibaba/qwen-image-2", "prompt": "<prompt>"}'
+  -d '{"model": "alibaba/qwen-image-2", "prompt": "A red fox in a snowy forest at sunrise, photorealistic"}'
 ```
 
 **Python** ([sdk/python](../../../sdk/python))
@@ -33,7 +33,7 @@ curl https://api.sandbase.ai/v1/run \
 ```python
 from sandbase import SandBase
 
-result = SandBase().run('alibaba/qwen-image-2', {'prompt': '<prompt>'})
+result = SandBase().run('alibaba/qwen-image-2', {'prompt': 'A red fox in a snowy forest at sunrise, photorealistic'})
 print(result["outputs"])
 ```
 
@@ -43,7 +43,7 @@ print(result["outputs"])
 import { SandBase } from "@sandbaseai/sdk";
 
 const result = await new SandBase().run("alibaba/qwen-image-2", {
-  "prompt": "<prompt>"
+  "prompt": "A red fox in a snowy forest at sunrise, photorealistic"
 });
 console.log(result.outputs);
 ```
@@ -53,7 +53,7 @@ console.log(result.outputs);
 ```go
 c, _ := sandbase.NewClient("")
 run, err := c.Run(ctx, "alibaba/qwen-image-2", sandbase.Params{
-	"prompt": "<prompt>",
+	"prompt": "A red fox in a snowy forest at sunrise, photorealistic",
 })
 ```
 

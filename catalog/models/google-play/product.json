@@ -1,0 +1,102 @@
+{
+  "name": "google-play/product",
+  "display_name": "Google Play Product Details",
+  "type": "api",
+  "vendor": "Google Play",
+  "vendor_slug": "google-play",
+  "description": "Details of a Google Play app, game, ebook, audiobook or movie by product ID: rating, downloads, price, developer and description.",
+  "tags": [
+    "api",
+    "google-play",
+    "apps"
+  ],
+  "capabilities": [
+    "api",
+    "google-play",
+    "apps"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/google-play/product"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "product_id"
+    ],
+    "properties": {
+      "gl": {
+        "type": "string",
+        "default": "us",
+        "description": "Two-letter country code."
+      },
+      "hl": {
+        "type": "string",
+        "default": "en",
+        "description": "Storefront language, such as en, de, or zh-TW. Maximum 32 characters."
+      },
+      "store": {
+        "enum": [
+          "apps",
+          "books",
+          "audiobooks",
+          "movies",
+          "tv"
+        ],
+        "type": "string",
+        "default": "apps",
+        "description": "Product catalog containing this identifier."
+      },
+      "timeout": {
+        "type": "number",
+        "description": "Optional budget for the entire request in seconds, measured from gateway receipt until the response is ready to send. Includes admission, queueing and settlement. Must be greater than 0 and at most 90. On expiry, the call is not billed and returns 503 request_deadline_exceeded with retryable=true an"
+      },
+      "season_id": {
+        "type": "string",
+        "description": "Native season identifier, such as tvseason-OVPad1njPzI.P. Requires store=tv."
+      },
+      "product_id": {
+        "type": "string",
+        "example": "com.duolingo",
+        "description": "Native Google Play product identifier, with 1 to 512 letters, digits, underscores, dots, or hyphens."
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "required": [
+      "id",
+      "status",
+      "model"
+    ],
+    "properties": {
+      "id": {
+        "type": "string"
+      },
+      "model": {
+        "type": "string"
+      },
+      "status": {
+        "type": "string"
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.00015,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "readme": "# Google Play Product Details API\n\nDetails of a Google Play app, game, ebook, audiobook or movie by product ID: rating, downloads, price, developer and description.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/google-play/product\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"product_id\": \"com.duolingo\"}'\n```\n\nThe result is returned in `outputs[0].data`.\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `product_id` | string | Yes | Native Google Play product identifier, with 1 to 512 letters, digits, underscores, dots, or hyphens. |\n| `gl` | string | No | Two-letter country code. |\n| `hl` | string | No | Storefront language, such as en, de, or zh-TW. Maximum 32 characters. |\n| `season_id` | string | No | Native season identifier, such as tvseason-OVPad1njPzI.P. Requires store=tv. |\n| `store` | string | No | Product catalog containing this identifier. |\n| `timeout` | number | No | Optional budget for the entire request in seconds, measured from gateway receipt until the response is ready to send. Includes admission, queueing and settlement. Must be greater t |\n\n## Pricing\n\nFlat price per call. Failed calls are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/google-play/product",
+  "published_at": "2026-11-02T00:00:00Z",
+  "created_at": "2026-11-02T10:07:45.797Z"
+}

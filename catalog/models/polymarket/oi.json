@@ -1,10 +1,10 @@
 {
   "name": "polymarket/oi",
-  "display_name": "Polymarket Get open interest",
+  "display_name": "Polymarket Open Interest",
   "type": "api",
   "vendor": "Polymarket",
   "vendor_slug": "polymarket",
-  "description": "Get open interest from Polymarket. Returns the official Polymarket API response unchanged.",
+  "description": "Open interest in USDC for one or more markets by condition ID.",
   "tags": [
     "api",
     "polymarket",
@@ -25,13 +25,14 @@
   },
   "input_schema": {
     "type": "object",
+    "required": [
+      "condition"
+    ],
     "properties": {
-      "market": {
-        "type": "array",
-        "items": {
-          "type": "string"
-        },
-        "description": "market"
+      "condition": {
+        "type": "string",
+        "example": "0xc5eae79d1ffe716572353962eb926b1e3964c500a4880a7a94f58408218ee76b",
+        "description": "Condition id(s), comma-separated (at most 20 distinct values). `condition` is the unified key across v2 (same as the feeds); `condition_id` / `conditionId` are accepted aliases. Omit for global open interest."
       }
     }
   },
@@ -49,7 +50,7 @@
       "note": "Shared across all free-quota APIs, resets 00:00 UTC."
     }
   },
-  "readme": "# Polymarket Get open interest API\n\nGet open interest from Polymarket. Returns the official Polymarket API response unchanged.\n\nThe response is the official Polymarket API response, unchanged.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/polymarket/oi\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `market` | array | No | market |\n\n## Pricing\n\nFlat price per call. Failed calls are not charged.\n",
+  "readme": "# Polymarket Open Interest API\n\nOpen interest in USDC for one or more markets by condition ID.\n\nServed from the Polymarket Data API v2. The result is returned in `outputs[0].data`: rows are under `data`, and paginated routes add `pagination.next_cursor` (pass it back as `cursor`).\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/polymarket/oi\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"condition\": \"0xc5eae79d1ffe716572353962eb926b1e3964c500a4880a7a94f58408218ee76b\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `condition` | string | Yes | Condition id(s), comma-separated (at most 20 distinct values). `condition` is the unified key across v2 (same as the feeds); `condition_id` / `conditionId` are accepted aliases. Omit for global open i |\n\n## Reference\n\n- Official docs: https://docs.polymarket.com/api-reference/data-api/overview\n\n## Pricing\n\nFlat price per call. Failed calls are not charged.\n",
   "page_url": "https://www.sandbase.ai/model/polymarket/oi",
   "created_at": "2026-10-30T03:11:39.409Z"
 }

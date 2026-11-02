@@ -1,0 +1,53 @@
+{
+  "name": "financial-datasets/ipos",
+  "display_name": "Financial Datasets IPO Filings",
+  "type": "api",
+  "vendor": "Financial Datasets",
+  "vendor_slug": "financial-datasets",
+  "description": "Recent US IPO and registration filings (S-1, F-1 and amendments) with company, form type and filing links.",
+  "tags": [
+    "api",
+    "financial-datasets",
+    "stocks"
+  ],
+  "capabilities": [
+    "api",
+    "financial-datasets",
+    "stocks"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/financial-datasets/ipos"
+  },
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "limit": {
+        "type": "integer",
+        "example": 5,
+        "description": "Maximum number of filings to return."
+      },
+      "cursor": {
+        "type": "string",
+        "description": "Opaque pagination cursor from a previous response's next_page_url."
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.16
+  },
+  "readme": "# Financial Datasets IPO Filings API\n\nRecent US IPO and registration filings (S-1, F-1 and amendments) with company, form type and filing links.\n\nThe result is returned in `outputs[0].data` as the official Financial Datasets API response, unchanged.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/financial-datasets/ipos\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"limit\": 5}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `limit` | integer | No | Maximum number of filings to return. |\n| `cursor` | string | No | Opaque pagination cursor from a previous response's next_page_url. |\n\n## Pricing\n\nFlat price per call. Failed calls are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/financial-datasets/ipos",
+  "published_at": "2026-11-02T00:00:00Z",
+  "created_at": "2026-11-02T08:47:27.26Z"
+}

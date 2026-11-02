@@ -2,14 +2,13 @@
 
 `dataforseo/v3/backlinks/bulk_ranks/live` · data API · DataForSEO · callable with one SandBase API key from curl, Python, TypeScript and Go.
 
-**Price:** $0.002 per call (free daily quota) · **Modes:** sync
+**Price:** about $0.024072 per call · **Modes:** sync
 
 Returns rank metrics for multiple domains or pages in bulk. Evaluates backlink authority and score indicators across a list of target URLs.
 
 ## Pricing
 
-- **$0.002 per call** (USD)
-- Free quota: 100 calls/day per organization (shared across free-quota APIs).
+- Usage-based. Billed per call from metered usage; the reference price is typical. Reference: **$0.024072**
 
 ## Call it
 
@@ -50,6 +49,12 @@ run, err := c.Run(ctx, "dataforseo/v3/backlinks/bulk_ranks/live", sandbase.Param
 
 Same call via the path form: `POST /v1/api/dataforseo/v3/backlinks/bulk_ranks/live` with the body above minus `model`.
 
+## Parameters
+
+| name | type | required | description |
+|---|---|---|---|
+| `targets` | array |  | Target domains or pages.  |
+
 ## Details
 
 This endpoint retrieves backlink ranks and authority metrics for multiple targets in bulk. It returns evaluation data across specified domains or URLs.
@@ -79,7 +84,7 @@ The JSON body is forwarded to the upstream endpoint (one task per call). Fields 
 
 ### Pricing
 
-Flat price per call. Failed calls are not charged.
+Billed at the actual cost of each call, about $0.024072 for the request above. The cost grows with the number of rows, targets or pages a call returns. Failed calls are not charged. Searches with no results are billed at their actual cost.
 
 ### Related APIs
 

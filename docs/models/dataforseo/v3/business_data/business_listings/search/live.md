@@ -49,6 +49,15 @@ run, err := c.Run(ctx, "dataforseo/v3/business_data/business_listings/search/liv
 
 Same call via the path form: `POST /v1/api/dataforseo/v3/business_data/business_listings/search/live` with the body above minus `model`.
 
+## Parameters
+
+| name | type | required | description |
+|---|---|---|---|
+| `limit` | integer |  | Maximum number of listings to return.  |
+| `title` | string |  | Optional business name to match.  |
+| `categories` | array |  | Array of business category ids, e.g. ["pizza_restaurant"].  |
+| `location_coordinate` | string |  | "latitude,longitude,radius_km".  |
+
 ## Details
 
 Search Google Maps business listings by category, name or location radius, with ratings, contact details and work hours.

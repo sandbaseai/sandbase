@@ -2,13 +2,13 @@
 
 `tiktok/web/generate-x-mssdk-info` · data API · TikTok · callable with one SandBase API key from curl, Python, TypeScript and Go.
 
-**Price:** $0.003 per call (free daily quota) · **Modes:** sync
+**Price:** $0.002 per call (free daily quota) · **Modes:** sync
 
 Generates X-Mssdk-Info and X-Mssdk-RC values for TikTok Web authentication scenarios, accepting an optional user agent string.
 
 ## Pricing
 
-- **$0.003 per call** (USD)
+- **$0.002 per call** (USD)
 - Free quota: 100 calls/day per organization (shared across free-quota APIs).
 
 ## Call it

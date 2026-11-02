@@ -49,6 +49,15 @@ run, err := c.Run(ctx, "dataforseo/v3/backlinks/timeseries_new_lost_summary/live
 
 Same call via the path form: `POST /v1/api/dataforseo/v3/backlinks/timeseries_new_lost_summary/live` with the body above minus `model`.
 
+## Parameters
+
+| name | type | required | description |
+|---|---|---|---|
+| `target` | string |  | Domain, e.g. "nike.com".  |
+| `date_to` | string |  | End date, "yyyy-mm-dd".  |
+| `date_from` | string |  | Start date, "yyyy-mm-dd".  |
+| `group_range` | string |  | "day", "week", "month" or "year".  |
+
 ## Details
 
 New and lost backlinks and referring domains for a domain, grouped by day, week, month or year.

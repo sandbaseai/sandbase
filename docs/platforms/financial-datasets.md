@@ -1,6 +1,6 @@
-# Financial Datasets API: 20 endpoints with pricing and code examples
+# Financial Datasets API: 24 endpoints with pricing and code examples
 
-Call 20 Financial Datasets endpoints through SandBase with one API key: no separate account, one balance, the same request format for every endpoint. Each page has the input schema, the price and curl / Python / TypeScript / Go examples.
+Call 24 Financial Datasets endpoints through SandBase with one API key: no separate account, one balance, the same request format for every endpoint. Each page has the input schema, the price and curl / Python / TypeScript / Go examples.
 
 | Endpoint | What it does | Price |
 |---|---|---|
@@ -15,7 +15,11 @@ Call 20 Financial Datasets endpoints through SandBase with one API key: no separ
 | [`financial-datasets/financials-balance-sheets`](../models/financial-datasets/financials-balance-sheets.md) | Get Balance Sheets from Financial Datasets. Returns the official Financial Datasets API response unchanged. | $0.02 per call |
 | [`financial-datasets/financials-cash-flow-statements`](../models/financial-datasets/financials-cash-flow-statements.md) | Get Cash Flow Statements from Financial Datasets. Returns the official Financial Datasets API response unchanged. | $0.02 per call |
 | [`financial-datasets/financials-income-statements`](../models/financial-datasets/financials-income-statements.md) | Get Income Statements from Financial Datasets. Returns the official Financial Datasets API response unchanged. | $0.02 per call |
+| [`financial-datasets/financials-search-screener`](../models/financial-datasets/financials-search-screener.md) | Screen US public companies by financial metrics such as revenue, net income or P/E, with gt/lt/eq filters and ticker lists. | $0.02 per call |
+| [`financial-datasets/index-funds`](../models/financial-datasets/index-funds.md) | Holdings of an ETF or index fund by ticker, with fund name, asset class, net assets and each holding's weight. | $0.02 per call |
 | [`financial-datasets/insider-trades`](../models/financial-datasets/insider-trades.md) | Get insider trades like buys and sells for a ticker by a company insider. | $0.02 per call |
+| [`financial-datasets/institutional-holdings`](../models/financial-datasets/institutional-holdings.md) | 13F institutional holdings of a US stock by ticker: holder, shares, value and report period. | $0.02 per call |
+| [`financial-datasets/ipos`](../models/financial-datasets/ipos.md) | Recent US IPO and registration filings (S-1, F-1 and amendments) with company, form type and filing links. | $0.16 per call |
 | [`financial-datasets/kpi-guidance`](../models/financial-datasets/kpi-guidance.md) | Get structured forward guidance from earnings releases. Returns ranges, point estimates, and directional signals. | $0.02 per call |
 | [`financial-datasets/kpi-metrics`](../models/financial-datasets/kpi-metrics.md) | Get sector-specific operational KPIs for a ticker. Includes metrics like load factor, CET1 ratio, same-store sales, FFO per share, and… | $0.02 per call |
 | [`financial-datasets/kpi-non-gaap`](../models/financial-datasets/kpi-non-gaap.md) | Get non-GAAP financial metrics with GAAP equivalents and key adjustments. | $0.02 per call |

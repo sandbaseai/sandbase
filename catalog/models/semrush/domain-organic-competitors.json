@@ -1,0 +1,58 @@
+{
+  "name": "semrush/domain-organic-competitors",
+  "display_name": "Semrush Organic Competitors",
+  "type": "api",
+  "vendor": "Semrush",
+  "vendor_slug": "semrush",
+  "description": "Domains competing with the target in Google organic results, with relevance and common keywords.",
+  "tags": [
+    "api",
+    "semrush",
+    "seo"
+  ],
+  "capabilities": [
+    "api",
+    "semrush",
+    "seo"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/semrush/domain-organic-competitors"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "database",
+      "domain"
+    ],
+    "properties": {
+      "domain": {
+        "type": "string",
+        "example": "nike.com",
+        "description": "Domain to analyze, e.g. \"nike.com\"."
+      },
+      "database": {
+        "type": "string",
+        "example": "us",
+        "description": "Regional Semrush database, e.g. \"us\", \"uk\", \"de\"."
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "usage_based",
+    "note": "Billed per call from metered usage; the reference price is typical.",
+    "reference_price": 0.08
+  },
+  "readme": "# Semrush Organic Competitors API\n\nDomains competing with the target in Google organic results, with relevance and common keywords.\n\nThe result is returned in `outputs[0].data` as the official Semrush API response, unchanged.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/semrush/domain-organic-competitors\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"database\": \"us\", \"domain\": \"nike.com\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `database` | string | Yes | Regional Semrush database, e.g. \"us\", \"uk\", \"de\". |\n| `domain` | string | Yes | Domain to analyze, e.g. \"nike.com\". |\n\n## Pricing\n\nBilled at the actual cost of each call, about $0.08 for a typical request; the cost grows with the number of rows returned. Searches with no results are billed at their actual cost. Failed calls are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/semrush/domain-organic-competitors",
+  "created_at": "2026-11-02T05:25:47.668Z"
+}

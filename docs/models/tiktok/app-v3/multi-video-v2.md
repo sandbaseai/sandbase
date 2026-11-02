@@ -2,13 +2,13 @@
 
 `tiktok/app-v3/multi-video-v2` · data API · TikTok · callable with one SandBase API key from curl, Python, TypeScript and Go.
 
-**Price:** $0.0375 per call · **Modes:** sync
+**Price:** $0.025 per call · **Modes:** sync
 
 Returns metadata and details for multiple TikTok videos in a single request using an array of video identifiers.
 
 ## Pricing
 
-- **$0.0375 per call** (USD)
+- **$0.025 per call** (USD)
 
 ## Call it
 

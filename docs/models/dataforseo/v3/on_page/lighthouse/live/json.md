@@ -50,6 +50,12 @@ run, err := c.Run(ctx, "dataforseo/v3/on_page/lighthouse/live/json", sandbase.Pa
 
 Same call via the path form: `POST /v1/api/dataforseo/v3/on_page/lighthouse/live/json` with the body above minus `model`.
 
+## Parameters
+
+| name | type | required | description |
+|---|---|---|---|
+| `url` | string |  | Page URL.  |
+
 ## Details
 
 Runs Google Lighthouse audits on web pages and returns detailed diagnostic reports. Pass target `url` values to evaluate on-page performance, SEO, and accessibility metrics.

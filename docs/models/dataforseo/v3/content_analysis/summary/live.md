@@ -2,14 +2,13 @@
 
 `dataforseo/v3/content_analysis/summary/live` · data API · DataForSEO · callable with one SandBase API key from curl, Python, TypeScript and Go.
 
-**Price:** $0.003 per call (free daily quota) · **Modes:** sync
+**Price:** about $0.024036 per call · **Modes:** sync
 
 Returns aggregated content metrics and high-level citation statistics for content analysis workflows. Evaluates summary indicators across analyzed online content.
 
 ## Pricing
 
-- **$0.003 per call** (USD)
-- Free quota: 100 calls/day per organization (shared across free-quota APIs).
+- Usage-based. Billed per call from metered usage; the reference price is typical. Reference: **$0.024036**
 
 ## Call it
 
@@ -50,6 +49,12 @@ run, err := c.Run(ctx, "dataforseo/v3/content_analysis/summary/live", sandbase.P
 
 Same call via the path form: `POST /v1/api/dataforseo/v3/content_analysis/summary/live` with the body above minus `model`.
 
+## Parameters
+
+| name | type | required | description |
+|---|---|---|---|
+| `keyword` | string |  | Search query.  |
+
 ## Details
 
 Returns aggregated content metrics and performance indicators for content analysis workflows. Use this endpoint to inspect summary content analytics.
@@ -79,7 +84,7 @@ The JSON body is forwarded to the upstream endpoint (one task per call). Fields 
 
 ### Pricing
 
-Flat price per call. Failed calls are not charged.
+Billed at the actual cost of each call, about $0.024036 for the request above. The cost grows with the number of rows, targets or pages a call returns. Failed calls are not charged. Searches with no results are billed at their actual cost.
 
 ### Related APIs
 

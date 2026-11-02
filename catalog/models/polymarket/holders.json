@@ -1,10 +1,10 @@
 {
   "name": "polymarket/holders",
-  "display_name": "Polymarket Get top holders for markets",
+  "display_name": "Polymarket Market Holders",
   "type": "api",
   "vendor": "Polymarket",
   "vendor_slug": "polymarket",
-  "description": "Get top holders for markets from Polymarket. Returns the official Polymarket API response unchanged.",
+  "description": "Top holders of each outcome token in a market by condition ID, with balances and optional PnL.",
   "tags": [
     "api",
     "polymarket",
@@ -26,33 +26,32 @@
   "input_schema": {
     "type": "object",
     "required": [
-      "market"
+      "condition"
     ],
     "properties": {
       "limit": {
         "type": "integer",
-        "default": 20,
         "example": 2,
-        "maximum": 20,
+        "maximum": 1000,
         "minimum": 0,
-        "description": "Maximum number of holders to return per token. Capped at 20."
+        "description": "Rows per outcome token; defaults to 100, maximum 1000 (100 with `include_pnl=true`)."
       },
-      "market": {
-        "type": "array",
-        "items": {
-          "type": "string"
-        },
-        "example": [
-          "0xa467b14d51f01b957109d9cbb1d6c124fab2a089d52ed8f471d23c2812e743b7"
-        ],
-        "description": "Comma-separated list of condition IDs."
+      "cursor": {
+        "type": "string",
+        "description": "Opaque pagination cursor from a prior response's `next_cursor`; carries the per-token `(limit, offset)` window and overrides `limit`. Paging past the first page is cursor-only."
       },
-      "minBalance": {
-        "type": "integer",
-        "default": 1,
-        "maximum": 999999,
-        "minimum": 0,
-        "description": "minBalance"
+      "condition": {
+        "type": "string",
+        "example": "0xc5eae79d1ffe716572353962eb926b1e3964c500a4880a7a94f58408218ee76b",
+        "description": "Comma-separated `condition_id`s (at most 20 distinct values; exactly one with `include_pnl=true`). Required. `condition` is the unified key across v2 (same as the feeds and `/v2/oi`); `condition_id` / `conditionId` are accepted aliases."
+      },
+      "include_pnl": {
+        "type": "boolean",
+        "description": "Opt into per-holder position economics (default `false`; `includePnl` is an accepted alias). Adds `avg_price`, `entry_cost_usdc`, `current_price`, `current_value`, `realized_pnl`, `unrealized_pnl` and `total_pnl` to every holder row, and switches the served amounts to per-side gross balances: a wall"
+      },
+      "min_balance": {
+        "type": "number",
+        "description": "Minimum net balance in shares (default 0), applied post-netting. With `include_pnl=true` it applies to the served per-side gross amount instead."
       }
     }
   },
@@ -70,7 +69,7 @@
       "note": "Shared across all free-quota APIs, resets 00:00 UTC."
     }
   },
-  "readme": "# Polymarket Get top holders for markets API\n\nGet top holders for markets from Polymarket. Returns the official Polymarket API response unchanged.\n\nThe response is the official Polymarket API response, unchanged.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/polymarket/holders\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"market\": [\"0xa467b14d51f01b957109d9cbb1d6c124fab2a089d52ed8f471d23c2812e743b7\"], \"limit\": 2}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `limit` | integer | No | Maximum number of holders to return per token. Capped at 20. |\n| `market` | array | Yes | Comma-separated list of condition IDs. |\n| `minBalance` | integer | No | minBalance |\n\n## Pricing\n\nFlat price per call. Failed calls are not charged.\n",
+  "readme": "# Polymarket Market Holders API\n\nTop holders of each outcome token in a market by condition ID, with balances and optional PnL.\n\nServed from the Polymarket Data API v2. The result is returned in `outputs[0].data`: rows are under `data`, and paginated routes add `pagination.next_cursor` (pass it back as `cursor`).\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/polymarket/holders\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"condition\": \"0xc5eae79d1ffe716572353962eb926b1e3964c500a4880a7a94f58408218ee76b\", \"limit\": 2}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `condition` | string | Yes | Comma-separated `condition_id`s (at most 20 distinct values; exactly one with `include_pnl=true`). Required. `condition` is the unified key across v2 (same as the feeds and `/v2/oi`); `condition_id` / |\n| `limit` | integer | No | Rows per outcome token; defaults to 100, maximum 1000 (100 with `include_pnl=true`). |\n| `cursor` | string | No | Opaque pagination cursor from a prior response's `next_cursor`; carries the per-token `(limit, offset)` window and overrides `limit`. Paging past the first page is cursor-only. |\n| `min_balance` | number | No | Minimum net balance in shares (default 0), applied post-netting. With `include_pnl=true` it applies to the served per-side gross amount instead. |\n| `include_pnl` | boolean | No | Opt into per-holder position economics (default `false`; `includePnl` is an accepted alias). Adds `avg_price`, `entry_cost_usdc`, `current_price`, `current_value`, `realized_pnl`, `unrealized_pnl` and |\n\n## Reference\n\n- Official docs: https://docs.polymarket.com/api-reference/data-api/overview\n\n## Pricing\n\nFlat price per call. Failed calls are not charged.\n",
   "page_url": "https://www.sandbase.ai/model/polymarket/holders",
   "created_at": "2026-10-30T03:11:23.626Z"
 }

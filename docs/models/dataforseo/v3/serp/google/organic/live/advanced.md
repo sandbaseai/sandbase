@@ -2,19 +2,13 @@
 
 `dataforseo/v3/serp/google/organic/live/advanced` · data API · DataForSEO · callable with one SandBase API key from curl, Python, TypeScript and Go.
 
-**Price:** from $0.003 per run, depending on parameters · **Modes:** sync
+**Price:** about $0.002 per call · **Modes:** sync
 
 Get live Google organic search results for any keyword, location and language, including AI Overviews, featured snippets, People Also Ask and other SERP features, with rank positions and URLs.
 
 ## Pricing
 
-- Depends on parameters (`params.depth`).
-
-| parameters | USD |
-|---|---|
-| defaults | 0.003 |
-
-Formula: `0.003 * Math.ceil(Math.max(params.depth ?? 10.0, 1.0) / 10.0)`
+- Usage-based. Billed per call from metered usage; the reference price is typical. Reference: **$0.002**
 
 ## Call it
 
@@ -66,6 +60,15 @@ run, err := c.Run(ctx, "dataforseo/v3/serp/google/organic/live/advanced", sandba
 ```
 
 Same call via the path form: `POST /v1/api/dataforseo/v3/serp/google/organic/live/advanced` with the body above minus `model`.
+
+## Parameters
+
+| name | type | required | description |
+|---|---|---|---|
+| `depth` | string |  | Number of results to return (default 100).  |
+| `keyword` | string |  | Search query, e.g. "openai api".  |
+| `language_code` | string |  | Language code, e.g. "en".  |
+| `location_code` | integer |  | DataForSEO location code, e.g. 2840 for the United States.  |
 
 ## Details
 
@@ -144,7 +147,7 @@ Real response for the request above, trimmed to the main fields. User names and 
 
 ### Pricing
 
-$0.003 per page of 10 results. The default depth (10) is one page; for example depth 50 costs 5 pages. Failed calls are not charged. Extra crawled pages, pixel rankings, async AI overview, People Also Ask clicks and search operators (site:, intitle: ...) are not supported.
+Billed at the actual cost of each call, about $0.002 for the request above. The cost grows with the number of rows, targets or pages a call returns. `depth` sets how many result pages are fetched. Extra crawled pages, pixel rankings, async AI overview, People Also Ask clicks and search operators (site:, intitle: ...) are not supported. Failed calls are not charged. Searches with no results are billed at their actual cost.
 
 ### Related APIs
 

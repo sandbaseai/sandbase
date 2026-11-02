@@ -30,7 +30,7 @@ Modes: async (default `async`). Only pass `mode` values listed here. The SDKs' `
 ```bash
 curl https://api.sandbase.ai/v1/run \
   -H "Authorization: Bearer $SANDBASE_API_KEY" -H 'Content-Type: application/json' \
-  -d '{"model": "tencent/hunyuan-3d/3.0/image-to-3d", "image": "<image>"}'
+  -d '{"model": "tencent/hunyuan-3d/3.0/image-to-3d", "image": "https://static.sandbase.ai/examples/tencent/hunyuan-3d/v3/input_image_0.png"}'
 ```
 
 **Python** ([sdk/python](../../../../../sdk/python))
@@ -38,7 +38,7 @@ curl https://api.sandbase.ai/v1/run \
 ```python
 from sandbase import SandBase
 
-result = SandBase().run('tencent/hunyuan-3d/3.0/image-to-3d', {'image': '<image>'})
+result = SandBase().run('tencent/hunyuan-3d/3.0/image-to-3d', {'image': 'https://static.sandbase.ai/examples/tencent/hunyuan-3d/v3/input_image_0.png'})
 print(result["outputs"])
 ```
 
@@ -48,7 +48,7 @@ print(result["outputs"])
 import { SandBase } from "@sandbaseai/sdk";
 
 const result = await new SandBase().run("tencent/hunyuan-3d/3.0/image-to-3d", {
-  "image": "<image>"
+  "image": "https://static.sandbase.ai/examples/tencent/hunyuan-3d/v3/input_image_0.png"
 });
 console.log(result.outputs);
 ```
@@ -58,7 +58,7 @@ console.log(result.outputs);
 ```go
 c, _ := sandbase.NewClient("")
 run, err := c.Run(ctx, "tencent/hunyuan-3d/3.0/image-to-3d", sandbase.Params{
-	"image": "<image>",
+	"image": "https://static.sandbase.ai/examples/tencent/hunyuan-3d/v3/input_image_0.png",
 })
 ```
 

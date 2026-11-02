@@ -2,13 +2,13 @@
 
 `xianyu/item/detail` · data API · Xianyu · callable with one SandBase API key from curl, Python, TypeScript and Go.
 
-**Price:** $0.027778 per call · **Modes:** sync
+**Price:** $0.028571 per call · **Modes:** sync
 
 Get a Xianyu (Goofish) second-hand listing by item ID: title, price, description, images, seller and location.
 
 ## Pricing
 
-- **$0.027778 per call** (USD)
+- **$0.028571 per call** (USD)
 
 ## Call it
 

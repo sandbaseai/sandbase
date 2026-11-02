@@ -1,48 +1,50 @@
 # Platforms
 
-138 platforms and model makers, each reachable with one SandBase API key.
+152 platforms and model makers, each reachable with one SandBase API key.
 
 | Platform | Capabilities | Types |
 |---|---|---|
-| [Douyin](douyin.md) | 306 | data API |
-| [TikTok](tiktok.md) | 171 | data API |
+| [Douyin](douyin.md) | 320 | data API |
+| [TikTok](tiktok.md) | 175 | data API |
 | [DataForSEO](dataforseo.md) | 148 | data API |
 | [Instagram](instagram.md) | 107 | data API |
 | [Alibaba](alibaba.md) | 72 | LLM, audio model, embedding model, image generation model, video generation model |
-| [Weibo](weibo.md) | 61 | data API |
+| [Xiaohongshu](xiaohongshu.md) | 67 | data API |
+| [Weibo](weibo.md) | 63 | data API |
 | [Polymarket](polymarket.md) | 59 | data API |
-| [Google](google.md) | 57 | LLM, audio model, data API, image generation model, video generation model |
-| [Xiaohongshu](xiaohongshu.md) | 57 | data API |
+| [Google](google.md) | 58 | LLM, audio model, data API, image generation model, video generation model |
 | [YouTube](youtube.md) | 54 | data API |
 | [Zhihu](zhihu.md) | 51 | data API |
 | [OpenAI](openai.md) | 47 | LLM, audio model, embedding model, image generation model |
-| [Bilibili](bilibili.md) | 45 | data API |
+| [Bilibili](bilibili.md) | 46 | data API |
 | [KwaiVGI](kwaivgi.md) | 44 | audio model, image generation model, video generation model |
 | [Kuaishou](kuaishou.md) | 40 | data API |
 | [LinkedIn](linkedin.md) | 38 | data API |
 | [FRED](fred.md) | 35 | data API |
 | [Reddit](reddit.md) | 35 | data API |
+| [X (Twitter)](x-twitter.md) | 30 | data API |
 | [Bytedance](bytedance.md) | 28 | LLM, audio model, image generation model, video generation model |
-| [Facebook](facebook.md) | 27 | data API |
+| [Facebook](facebook.md) | 28 | data API |
 | [Similarweb](similarweb.md) | 25 | data API |
+| [Financial Datasets](financial-datasets.md) | 24 | data API |
 | [MiniMax](minimax.md) | 23 | audio model, video generation model |
 | [BFL](bfl.md) | 22 | image generation model, video generation model |
 | [CoinGecko](coingecko.md) | 22 | data API |
 | [WeChat Channels](wechat-channels.md) | 22 | data API |
-| [Financial Datasets](financial-datasets.md) | 20 | data API |
 | [xAI](xai.md) | 20 | LLM, audio model, image generation model, video generation model |
+| [Semrush](semrush.md) | 19 | data API |
+| [WeChat MP](wechat-mp.md) | 18 | data API |
 | [IMDb](imdb.md) | 17 | data API |
 | [Nasdaq](nasdaq.md) | 17 | data API |
 | [Pipixia](pipixia.md) | 17 | data API |
 | [Twitter](twitter.md) | 17 | data API |
 | [Lemon8](lemon8.md) | 16 | data API |
-| [WeChat MP](wechat-mp.md) | 16 | data API |
+| [1688](1688.md) | 15 | data API |
 | [Anthropic](anthropic.md) | 15 | LLM |
-| [1688](1688.md) | 14 | data API |
 | [AAA](aaa.md) | 13 | data API |
 | [MarketBeat](marketbeat.md) | 13 | data API |
 | [ElevenLabs](elevenlabs.md) | 12 | audio model, video generation model |
-| [X (Twitter)](x-twitter.md) | 11 | data API |
+| [Open-Meteo](open-meteo.md) | 12 | data API |
 | [GetApp](getapp.md) | 10 | data API |
 | [HeyGen](heygen.md) | 10 | audio model, video generation model |
 | [Brave](brave.md) | 9 | data API |
@@ -60,6 +62,8 @@
 | [Vidu](vidu.md) | 7 | video generation model |
 | [Amazon](amazon.md) | 6 | data API |
 | [Clutch](clutch.md) | 6 | data API |
+| [Douban](douban.md) | 6 | data API |
+| [Google Play](google-play.md) | 6 | data API |
 | [Meshy](meshy.md) | 6 | image generation model |
 | [StockAnalysis](stockanalysis.md) | 6 | data API |
 | [Trustpilot](trustpilot.md) | 6 | data API |
@@ -67,7 +71,6 @@
 | [Y Combinator](y-combinator.md) | 6 | data API |
 | [Yahoo Finance](yahoo-finance.md) | 6 | data API |
 | [Z-Ai](z-ai.md) | 6 | LLM |
-| [Douban](douban.md) | 5 | data API |
 | [Firecrawl](firecrawl.md) | 5 | data API |
 | [G2](g2.md) | 5 | data API |
 | [JD.com](jd-com.md) | 5 | data API |
@@ -89,7 +92,9 @@
 | [Pinterest](pinterest.md) | 4 | data API |
 | [AccuWeather](accuweather.md) | 3 | data API |
 | [App Store](app-store.md) | 3 | data API |
+| [Bing](bing.md) | 3 | data API |
 | [Bluesky](bluesky.md) | 3 | data API |
+| [DuckDuckGo](duckduckgo.md) | 3 | data API |
 | [Exa](exa.md) | 3 | data API |
 | [Home Depot](home-depot.md) | 3 | data API |
 | [Kelley Blue Book](kelley-blue-book.md) | 3 | data API |
@@ -104,7 +109,7 @@
 | [Youku](youku.md) | 3 | data API |
 | [Ahrefs](ahrefs.md) | 2 | data API |
 | [eBay](ebay.md) | 2 | data API |
-| [Google Play](google-play.md) | 2 | data API |
+| [Google Shopping](google-shopping.md) | 2 | data API |
 | [Hunter](hunter.md) | 2 | data API |
 | [Luma](luma.md) | 2 | video generation model |
 | [Microsoft](microsoft.md) | 2 | image generation model |
@@ -113,25 +118,34 @@
 | [stability-ai](stability-ai.md) | 2 | audio model |
 | [Sync Labs](sync-labs.md) | 2 | video generation model |
 | [Topaz Labs](topaz-labs.md) | 2 | image generation model, video generation model |
+| [Tripadvisor](tripadvisor.md) | 2 | data API |
 | [TypeSafe](typesafe.md) | 2 | LLM |
 | [Xianyu](xianyu.md) | 2 | data API |
 | [Xiaomi](xiaomi.md) | 2 | LLM |
+| [Yahoo](yahoo.md) | 2 | data API |
+| [Yandex](yandex.md) | 2 | data API |
+| [Yelp](yelp.md) | 2 | data API |
 | [AliExpress](aliexpress.md) | 1 | data API |
 | [AutoZone](autozone.md) | 1 | data API |
+| [Baidu](baidu.md) | 1 | data API |
 | [Bing Maps](bing-maps.md) | 1 | data API |
 | [Bing Shopping](bing-shopping.md) | 1 | data API |
 | [Built In](built-in.md) | 1 | data API |
+| [China Social Media](china-social-media.md) | 1 | data API |
 | [ClarityAI](clarityai.md) | 1 | image generation model |
 | [Cloudsway](cloudsway.md) | 1 | data API |
-| [DuckDuckGo](duckduckgo.md) | 1 | data API |
-| [Google Shopping](google-shopping.md) | 1 | data API |
+| [Google Flights](google-flights.md) | 1 | data API |
+| [Google Hotels](google-hotels.md) | 1 | data API |
+| [Google Maps](google-maps.md) | 1 | data API |
 | [HiDream](hidream.md) | 1 | image generation model |
+| [Hybrid](hybrid.md) | 1 | data API |
 | [Indeed](indeed.md) | 1 | data API |
 | [Linktree](linktree.md) | 1 | data API |
 | [LMArena](lmarena.md) | 1 | data API |
 | [LoopNet](loopnet.md) | 1 | data API |
 | [Meijer](meijer.md) | 1 | data API |
 | [Midjourney](midjourney.md) | 1 | image generation model |
+| [Naver](naver.md) | 1 | data API |
 | [Segari](segari.md) | 1 | data API |
 | [Shopee](shopee.md) | 1 | data API |
 | [Snapchat](snapchat.md) | 1 | data API |

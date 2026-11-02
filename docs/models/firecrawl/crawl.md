@@ -25,7 +25,7 @@ Modes: async (default `async`). Only pass `mode` values listed here. The SDKs' `
 ```bash
 curl https://api.sandbase.ai/v1/run \
   -H "Authorization: Bearer $SANDBASE_API_KEY" -H 'Content-Type: application/json' \
-  -d '{"model": "firecrawl/crawl", "url": "<url>", "limit": "<limit>"}'
+  -d '{"model": "firecrawl/crawl", "url": "https://example.com", "limit": 2}'
 ```
 
 **Python** ([sdk/python](../../../sdk/python))
@@ -33,7 +33,7 @@ curl https://api.sandbase.ai/v1/run \
 ```python
 from sandbase import SandBase
 
-result = SandBase().run('firecrawl/crawl', {'url': '<url>', 'limit': '<limit>'})
+result = SandBase().run('firecrawl/crawl', {'url': 'https://example.com', 'limit': 2})
 print(result["outputs"])
 ```
 
@@ -43,8 +43,8 @@ print(result["outputs"])
 import { SandBase } from "@sandbaseai/sdk";
 
 const result = await new SandBase().run("firecrawl/crawl", {
-  "url": "<url>",
-  "limit": "<limit>"
+  "url": "https://example.com",
+  "limit": 2
 });
 console.log(result.outputs);
 ```
@@ -54,8 +54,8 @@ console.log(result.outputs);
 ```go
 c, _ := sandbase.NewClient("")
 run, err := c.Run(ctx, "firecrawl/crawl", sandbase.Params{
-	"url": "<url>",
-	"limit": "<limit>",
+	"url": "https://example.com",
+	"limit": 2,
 })
 ```
 

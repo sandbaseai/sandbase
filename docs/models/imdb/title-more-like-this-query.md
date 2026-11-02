@@ -2,13 +2,13 @@
 
 `imdb/title-more-like-this-query` · data API · IMDb · callable with one SandBase API key from curl, Python, TypeScript and Go.
 
-**Price:** $0.006944 per call (free daily quota) · **Modes:** sync
+**Price:** $0.007143 per call (free daily quota) · **Modes:** sync
 
 Get IMDb titles similar to a specified title ID using selected language and country preferences. Use it to support related-title discovery, recommendations, or catalog curation.
 
 ## Pricing
 
-- **$0.006944 per call** (USD)
+- **$0.007143 per call** (USD)
 - Free quota: 100 calls/day per organization (shared across free-quota APIs).
 
 ## Call it

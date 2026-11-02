@@ -50,6 +50,13 @@ run, err := c.Run(ctx, "dataforseo/v3/keywords_data/dataforseo_trends/demography
 
 Same call via the path form: `POST /v1/api/dataforseo/v3/keywords_data/dataforseo_trends/demography/live` with the body above minus `model`.
 
+## Parameters
+
+| name | type | required | description |
+|---|---|---|---|
+| `keywords` | array |  | List of keywords (up to 100 per call).  |
+| `location_code` | integer |  | Location code, e.g. 2840 for the United States.  |
+
 ## Details
 
 Get keyword interest split by age and gender from an independent trends dataset.

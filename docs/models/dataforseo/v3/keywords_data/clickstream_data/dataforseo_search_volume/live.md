@@ -49,6 +49,14 @@ run, err := c.Run(ctx, "dataforseo/v3/keywords_data/clickstream_data/dataforseo_
 
 Same call via the path form: `POST /v1/api/dataforseo/v3/keywords_data/clickstream_data/dataforseo_search_volume/live` with the body above minus `model`.
 
+## Parameters
+
+| name | type | required | description |
+|---|---|---|---|
+| `keywords` | array |  | List of keywords (up to 100 per call).  |
+| `language_code` | string |  | Language code, e.g. "en".  |
+| `location_code` | integer |  | Location code, e.g. 2840 for the United States.  |
+
 ## Details
 
 Get clickstream-based search volume for up to 1000 keywords.

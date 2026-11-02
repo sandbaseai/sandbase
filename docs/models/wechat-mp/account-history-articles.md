@@ -2,13 +2,13 @@
 
 `wechat-mp/account-history-articles` · data API · WeChat MP · callable with one SandBase API key from curl, Python, TypeScript and Go.
 
-**Price:** $0.041667 per call · **Modes:** sync
+**Price:** $0.042857 per call · **Modes:** sync
 
 Get historical posts for a WeChat Official Account by username, with cursor pagination and article, video, audio, or image content tabs. Use it to browse an account's publishing history.
 
 ## Pricing
 
-- **$0.041667 per call** (USD)
+- **$0.042857 per call** (USD)
 
 ## Call it
 

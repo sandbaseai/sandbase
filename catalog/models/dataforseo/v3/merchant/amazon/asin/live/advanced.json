@@ -25,7 +25,23 @@
   },
   "input_schema": {
     "type": "object",
-    "properties": {},
+    "properties": {
+      "asin": {
+        "type": "string",
+        "example": "B0CP9YB3Q4",
+        "description": "Amazon product ASIN."
+      },
+      "language_code": {
+        "type": "string",
+        "example": "en_US",
+        "description": "Language code, e.g. \"en\"."
+      },
+      "location_code": {
+        "type": "integer",
+        "example": 2840,
+        "description": "Location code, e.g. 2840 for the United States."
+      }
+    },
     "description": "Request parameters forwarded to DataForSEO /v3/merchant/amazon/asin/live/advanced. See DataForSEO docs for full schema.",
     "additionalProperties": true
   },

@@ -49,6 +49,13 @@ run, err := c.Run(ctx, "dataforseo/v3/backlinks/domain_pages_summary/live", sand
 
 Same call via the path form: `POST /v1/api/dataforseo/v3/backlinks/domain_pages_summary/live` with the body above minus `model`.
 
+## Parameters
+
+| name | type | required | description |
+|---|---|---|---|
+| `limit` | integer |  | Maximum number of pages to return.  |
+| `target` | string |  | Domain or subdomain, e.g. "nike.com".  |
+
 ## Details
 
 Backlink metrics for each page of a domain: backlinks, referring domains and rank per page.

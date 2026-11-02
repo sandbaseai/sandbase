@@ -2,13 +2,13 @@
 
 `tiktok/app-v3/open-app-to-send-private-message` · data API · TikTok · callable with one SandBase API key from curl, Python, TypeScript and Go.
 
-**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
+**Price:** $0.001 per call (free daily quota) · **Modes:** sync
 
 Returns a TikTok share short URL to launch the TikTok application and open a direct message conversation with a designated user ID.
 
 ## Pricing
 
-- **$0.0015 per call** (USD)
+- **$0.001 per call** (USD)
 - Free quota: 100 calls/day per organization (shared across free-quota APIs).
 
 ## Call it
@@ -20,7 +20,7 @@ Modes: sync (default `sync`). Only pass `mode` values listed here. The SDKs' `ru
 ```bash
 curl https://api.sandbase.ai/v1/run \
   -H "Authorization: Bearer $SANDBASE_API_KEY" -H 'Content-Type: application/json' \
-  -d '{"model": "tiktok/app-v3/open-app-to-send-private-message", "uid": "<uid>"}'
+  -d '{"model": "tiktok/app-v3/open-app-to-send-private-message", "uid": "6860674014860641286"}'
 ```
 
 **Python** ([sdk/python](../../../../sdk/python))
@@ -28,7 +28,7 @@ curl https://api.sandbase.ai/v1/run \
 ```python
 from sandbase import SandBase
 
-result = SandBase().run('tiktok/app-v3/open-app-to-send-private-message', {'uid': '<uid>'})
+result = SandBase().run('tiktok/app-v3/open-app-to-send-private-message', {'uid': '6860674014860641286'})
 print(result["outputs"])
 ```
 
@@ -38,7 +38,7 @@ print(result["outputs"])
 import { SandBase } from "@sandbaseai/sdk";
 
 const result = await new SandBase().run("tiktok/app-v3/open-app-to-send-private-message", {
-  "uid": "<uid>"
+  "uid": "6860674014860641286"
 });
 console.log(result.outputs);
 ```
@@ -48,7 +48,7 @@ console.log(result.outputs);
 ```go
 c, _ := sandbase.NewClient("")
 run, err := c.Run(ctx, "tiktok/app-v3/open-app-to-send-private-message", sandbase.Params{
-	"uid": "<uid>",
+	"uid": "6860674014860641286",
 })
 ```
 

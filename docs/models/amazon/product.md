@@ -20,7 +20,7 @@ Modes: async (default `async`). Only pass `mode` values listed here. The SDKs' `
 ```bash
 curl https://api.sandbase.ai/v1/run \
   -H "Authorization: Bearer $SANDBASE_API_KEY" -H 'Content-Type: application/json' \
-  -d '{"model": "amazon/product", "asin": "<asin>"}'
+  -d '{"model": "amazon/product", "asin": "B0CP9YB3Q4"}'
 ```
 
 **Python** ([sdk/python](../../../sdk/python))
@@ -28,7 +28,7 @@ curl https://api.sandbase.ai/v1/run \
 ```python
 from sandbase import SandBase
 
-result = SandBase().run('amazon/product', {'asin': '<asin>'})
+result = SandBase().run('amazon/product', {'asin': 'B0CP9YB3Q4'})
 print(result["outputs"])
 ```
 
@@ -38,7 +38,7 @@ print(result["outputs"])
 import { SandBase } from "@sandbaseai/sdk";
 
 const result = await new SandBase().run("amazon/product", {
-  "asin": "<asin>"
+  "asin": "B0CP9YB3Q4"
 });
 console.log(result.outputs);
 ```
@@ -48,7 +48,7 @@ console.log(result.outputs);
 ```go
 c, _ := sandbase.NewClient("")
 run, err := c.Run(ctx, "amazon/product", sandbase.Params{
-	"asin": "<asin>",
+	"asin": "B0CP9YB3Q4",
 })
 ```
 

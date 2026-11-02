@@ -1,0 +1,61 @@
+{
+  "name": "financial-datasets/institutional-holdings",
+  "display_name": "Financial Datasets Institutional Holdings",
+  "type": "api",
+  "vendor": "Financial Datasets",
+  "vendor_slug": "financial-datasets",
+  "description": "13F institutional holdings of a US stock by ticker: holder, shares, value and report period.",
+  "tags": [
+    "api",
+    "financial-datasets",
+    "stocks"
+  ],
+  "capabilities": [
+    "api",
+    "financial-datasets",
+    "stocks"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/financial-datasets/institutional-holdings"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "ticker"
+    ],
+    "properties": {
+      "limit": {
+        "type": "integer",
+        "example": 5,
+        "description": "Maximum number of holdings to return."
+      },
+      "cursor": {
+        "type": "string",
+        "description": "Opaque pagination cursor from a previous response's next_page_url."
+      },
+      "ticker": {
+        "type": "string",
+        "example": "AAPL",
+        "description": "Stock ticker, e.g. `AAPL`."
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.02
+  },
+  "readme": "# Financial Datasets Institutional Holdings API\n\n13F institutional holdings of a US stock by ticker: holder, shares, value and report period.\n\nThe result is returned in `outputs[0].data` as the official Financial Datasets API response, unchanged.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/financial-datasets/institutional-holdings\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"ticker\": \"AAPL\", \"limit\": 5}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `ticker` | string | Yes | Stock ticker, e.g. `AAPL`. |\n| `limit` | integer | No | Maximum number of holdings to return. |\n| `cursor` | string | No | Opaque pagination cursor from a previous response's next_page_url. |\n\n## Pricing\n\nFlat price per call. Failed calls are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/financial-datasets/institutional-holdings",
+  "published_at": "2026-11-02T00:00:00Z",
+  "created_at": "2026-11-02T08:46:43.932Z"
+}

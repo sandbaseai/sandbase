@@ -2,13 +2,13 @@
 
 `tiktok/analytics/detect-fake-views` · data API · TikTok · callable with one SandBase API key from curl, Python, TypeScript and Go.
 
-**Price:** $0.015 per call (free daily quota) · **Modes:** sync
+**Price:** $0.01 per call (free daily quota) · **Modes:** sync
 
 Check whether a TikTok video has fake views. Paste a video ID and get a fake-view score, the estimated share of inflated views, and a risk level, based on engagement ratios, follower growth, creator credibility and TikTok's traffic-pool tiers. Built for creators, MCN agencies and brands vetting influencers.
 
 ## Pricing
 
-- **$0.015 per call** (USD)
+- **$0.01 per call** (USD)
 - Free quota: 100 calls/day per organization (shared across free-quota APIs).
 
 ## Call it

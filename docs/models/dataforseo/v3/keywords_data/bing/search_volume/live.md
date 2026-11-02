@@ -2,14 +2,13 @@
 
 `dataforseo/v3/keywords_data/bing/search_volume/live` · data API · DataForSEO · callable with one SandBase API key from curl, Python, TypeScript and Go.
 
-**Price:** $0.003 per call (free daily quota) · **Modes:** sync
+**Price:** about $0.09 per call · **Modes:** sync
 
 Returns search volume metrics from Bing for specified target keywords. Helps track search query popularity and monthly demand trends directly on the Bing search engine.
 
 ## Pricing
 
-- **$0.003 per call** (USD)
-- Free quota: 100 calls/day per organization (shared across free-quota APIs).
+- Usage-based. Billed per call from metered usage; the reference price is typical. Reference: **$0.09**
 
 ## Call it
 
@@ -61,6 +60,14 @@ run, err := c.Run(ctx, "dataforseo/v3/keywords_data/bing/search_volume/live", sa
 
 Same call via the path form: `POST /v1/api/dataforseo/v3/keywords_data/bing/search_volume/live` with the body above minus `model`.
 
+## Parameters
+
+| name | type | required | description |
+|---|---|---|---|
+| `keywords` | array |  | List of keywords (up to 100 per call).  |
+| `language_code` | string |  | Language code, e.g. "en".  |
+| `location_code` | integer |  | Location code, e.g. 2840 for the United States.  |
+
 ## Details
 
 Access Bing search volume metrics in real time for specified keyword lists to analyze Bing search trends.
@@ -92,7 +99,7 @@ The JSON body is forwarded to the upstream endpoint (one task per call). Fields 
 
 ### Pricing
 
-Flat price per call. Failed calls are not charged.
+Billed at the actual cost of each call, about $0.09 for the request above. The cost grows with the number of rows, targets or pages a call returns. Failed calls are not charged. Searches with no results are billed at their actual cost.
 
 ### Related APIs
 

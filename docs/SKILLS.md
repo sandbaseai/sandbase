@@ -1,6 +1,6 @@
 # Skills
 
-88 public Skills · generated 2026-11-01T15:05:15Z. Attach them to an Agent with `skills: [{"skill_id": "skl_…"}]`.
+88 public Skills · generated 2026-11-02T23:32:10Z. Attach them to an Agent with `skills: [{"skill_id": "skl_…"}]`.
 
 | Skill | Description |
 |---|---|

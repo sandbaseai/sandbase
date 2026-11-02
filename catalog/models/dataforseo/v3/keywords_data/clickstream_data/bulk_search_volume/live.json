@@ -25,7 +25,24 @@
   },
   "input_schema": {
     "type": "object",
-    "properties": {},
+    "properties": {
+      "keywords": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        },
+        "example": [
+          "coffee",
+          "tea"
+        ],
+        "description": "Array of keywords (up to 1,000)."
+      },
+      "location_code": {
+        "type": "integer",
+        "example": 2840,
+        "description": "Location code, e.g. 2840 for the United States."
+      }
+    },
     "description": "Request parameters forwarded to DataForSEO /v3/keywords_data/clickstream_data/bulk_search_volume/live. See DataForSEO docs for full schema.",
     "additionalProperties": true
   },

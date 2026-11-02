@@ -23,7 +23,39 @@
   },
   "input_schema": {
     "type": "object",
-    "properties": {},
+    "properties": {
+      "limit": {
+        "type": "integer",
+        "example": 5,
+        "description": "Maximum number of items to return."
+      },
+      "target": {
+        "type": "array",
+        "items": {
+          "type": "object"
+        },
+        "example": [
+          {
+            "keyword": "running shoes"
+          }
+        ],
+        "description": "Array of up to 10 entities, each with one `domain` or one `keyword` (optional `search_filter`, `search_scope`, `match_type`)."
+      },
+      "platform": {
+        "type": "string",
+        "description": "Optional: \"google\" (AI Overviews) or \"chat_gpt\". Omit for both."
+      },
+      "language_code": {
+        "type": "string",
+        "example": "en",
+        "description": "Language code; default \"en\"."
+      },
+      "location_code": {
+        "type": "integer",
+        "example": 2840,
+        "description": "Location code; default 2840 (United States)."
+      }
+    },
     "description": "Request parameters forwarded to DataForSEO /v3/ai_optimization/llm_mentions/top_mentioned_brands/live. See DataForSEO docs for full schema.",
     "additionalProperties": true
   },

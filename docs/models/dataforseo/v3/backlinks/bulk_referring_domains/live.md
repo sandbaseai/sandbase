@@ -49,6 +49,12 @@ run, err := c.Run(ctx, "dataforseo/v3/backlinks/bulk_referring_domains/live", sa
 
 Same call via the path form: `POST /v1/api/dataforseo/v3/backlinks/bulk_referring_domains/live` with the body above minus `model`.
 
+## Parameters
+
+| name | type | required | description |
+|---|---|---|---|
+| `targets` | array |  | Array of domains, subdomains or page URLs (up to 1,000).  |
+
 ## Details
 
 Referring domain counts for up to 1,000 domains, subdomains or pages in one request.

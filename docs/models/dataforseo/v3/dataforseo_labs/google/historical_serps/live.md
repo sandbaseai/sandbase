@@ -49,6 +49,16 @@ run, err := c.Run(ctx, "dataforseo/v3/dataforseo_labs/google/historical_serps/li
 
 Same call via the path form: `POST /v1/api/dataforseo/v3/dataforseo_labs/google/historical_serps/live` with the body above minus `model`.
 
+## Parameters
+
+| name | type | required | description |
+|---|---|---|---|
+| `date_to` | string |  | Optional end date.  |
+| `keyword` | string |  | Keyword.  |
+| `date_from` | string |  | Optional start date, "yyyy-mm-dd".  |
+| `language_code` | string |  | Language code, e.g. "en".  |
+| `location_code` | integer |  | Location code, e.g. 2840 for the United States.  |
+
 ## Details
 
 Past Google search results for a keyword within a date range.

@@ -2,19 +2,13 @@
 
 `dataforseo/v3/serp/yahoo/organic/live/advanced` · data API · DataForSEO · callable with one SandBase API key from curl, Python, TypeScript and Go.
 
-**Price:** from $0.003 per run, depending on parameters · **Modes:** sync
+**Price:** about $0.002 per call · **Modes:** sync
 
 Returns real-time organic search engine results pages from Yahoo. Delivers detailed rank positions, titles, URLs, and SERP snippet data for specified search queries.
 
 ## Pricing
 
-- Depends on parameters (`params.depth`).
-
-| parameters | USD |
-|---|---|
-| defaults | 0.003 |
-
-Formula: `0.003 * Math.ceil(Math.max(params.depth ?? 6.0, 1.0) / 6.0)`
+- Usage-based. Billed per call from metered usage; the reference price is typical. Reference: **$0.002**
 
 ## Call it
 
@@ -55,6 +49,14 @@ run, err := c.Run(ctx, "dataforseo/v3/serp/yahoo/organic/live/advanced", sandbas
 
 Same call via the path form: `POST /v1/api/dataforseo/v3/serp/yahoo/organic/live/advanced` with the body above minus `model`.
 
+## Parameters
+
+| name | type | required | description |
+|---|---|---|---|
+| `keyword` | string |  | Search query.  |
+| `language_code` | string |  | Language code, e.g. "en".  |
+| `location_code` | integer |  | Location code, e.g. 2840 for the United States.  |
+
 ## Details
 
 Returns real-time organic Yahoo search engine results pages (SERP) for query keywords and target locations.
@@ -86,7 +88,7 @@ The JSON body is forwarded to the upstream endpoint (one task per call). Fields 
 
 ### Pricing
 
-$0.003 per page of 6 results. The default depth (6) is one page; for example depth 30 costs 5 pages. Failed calls are not charged. Extra crawled pages, pixel rankings, async AI overview, People Also Ask clicks and search operators (site:, intitle: ...) are not supported.
+Billed at the actual cost of each call, about $0.002 for the request above. The cost grows with the number of rows, targets or pages a call returns. `depth` sets how many result pages are fetched. Extra crawled pages, pixel rankings, async AI overview, People Also Ask clicks and search operators (site:, intitle: ...) are not supported. Failed calls are not charged. Searches with no results are billed at their actual cost.
 
 ### Related APIs
 

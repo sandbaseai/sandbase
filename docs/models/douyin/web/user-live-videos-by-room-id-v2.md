@@ -2,13 +2,13 @@
 
 `douyin/web/user-live-videos-by-room-id-v2` · data API · Douyin · callable with one SandBase API key from curl, Python, TypeScript and Go.
 
-**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
+**Price:** $0.001 per call (free daily quota) · **Modes:** sync
 
 Returns stream data for a specified Douyin user using a room identifier. Provide a valid room ID to inspect stream metadata and broadcast details.
 
 ## Pricing
 
-- **$0.0015 per call** (USD)
+- **$0.001 per call** (USD)
 - Free quota: 100 calls/day per organization (shared across free-quota APIs).
 
 ## Call it

@@ -25,7 +25,38 @@
   },
   "input_schema": {
     "type": "object",
-    "properties": {},
+    "properties": {
+      "age": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        },
+        "example": [
+          "twenty_five_to_thirty_four"
+        ],
+        "description": "Audience age groups."
+      },
+      "bid": {
+        "type": "integer",
+        "example": 1,
+        "description": "Bid in USD."
+      },
+      "daily_budget": {
+        "type": "integer",
+        "example": 100,
+        "description": "Daily budget in USD."
+      },
+      "language_code": {
+        "type": "string",
+        "example": "en",
+        "description": "Language code, e.g. \"en\"."
+      },
+      "location_code": {
+        "type": "integer",
+        "example": 2840,
+        "description": "Location code, e.g. 2840 for the United States."
+      }
+    },
     "description": "Request parameters forwarded to DataForSEO /v3/keywords_data/bing/audience_estimation/live. See DataForSEO docs for full schema.",
     "additionalProperties": true
   },

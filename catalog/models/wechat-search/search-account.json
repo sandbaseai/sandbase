@@ -48,7 +48,7 @@
   "pricing": {
     "currency": "USD",
     "model": "per_call",
-    "per_call": 0.055556
+    "per_call": 0.057143
   },
   "readme": "# WeChat Account Search API\n\nSearch WeChat Official Accounts by keyword with page-number pagination and one result per page. Use it to find an account by name or related term before profile or article lookup.\n\nThe response is the platform's original data structure.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/wechat-search/search-account\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"keyword\": \"人工智能\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `keyword` | string | Yes | Search keyword for WeChat Official Account profiles. |\n| `page` | integer | No | Page number starting from 1 for WeChat Official Account profile search. |\n\n## Pricing\n\nFlat price per call. Failed calls and empty results are not charged.\n",
   "page_url": "https://www.sandbase.ai/model/wechat-search/search-account",

@@ -2,13 +2,13 @@
 
 `wechat-mp/search-wechat-index` · data API · WeChat MP · callable with one SandBase API key from curl, Python, TypeScript and Go.
 
-**Price:** $0.111111 per call · **Modes:** sync
+**Price:** $0.114286 per call · **Modes:** sync
 
 Query WeChat Index for a keyword. Use it to examine trend interest within WeChat before planning content, campaigns, or further article research.
 
 ## Pricing
 
-- **$0.111111 per call** (USD)
+- **$0.114286 per call** (USD)
 
 ## Call it
 

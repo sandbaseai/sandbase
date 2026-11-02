@@ -20,7 +20,7 @@ Modes: sync (default `sync`). Only pass `mode` values listed here. The SDKs' `ru
 ```bash
 curl https://api.sandbase.ai/v1/run \
   -H "Authorization: Bearer $SANDBASE_API_KEY" -H 'Content-Type: application/json' \
-  -d '{"model": "polymarket/public-profile", "address": "<address>"}'
+  -d '{"model": "polymarket/public-profile", "address": "0xfe787d2da716d60e8acff57fb87eb13cd4d10319"}'
 ```
 
 **Python** ([sdk/python](../../../sdk/python))
@@ -28,7 +28,7 @@ curl https://api.sandbase.ai/v1/run \
 ```python
 from sandbase import SandBase
 
-result = SandBase().run('polymarket/public-profile', {'address': '<address>'})
+result = SandBase().run('polymarket/public-profile', {'address': '0xfe787d2da716d60e8acff57fb87eb13cd4d10319'})
 print(result["outputs"])
 ```
 
@@ -38,7 +38,7 @@ print(result["outputs"])
 import { SandBase } from "@sandbaseai/sdk";
 
 const result = await new SandBase().run("polymarket/public-profile", {
-  "address": "<address>"
+  "address": "0xfe787d2da716d60e8acff57fb87eb13cd4d10319"
 });
 console.log(result.outputs);
 ```
@@ -48,7 +48,7 @@ console.log(result.outputs);
 ```go
 c, _ := sandbase.NewClient("")
 run, err := c.Run(ctx, "polymarket/public-profile", sandbase.Params{
-	"address": "<address>",
+	"address": "0xfe787d2da716d60e8acff57fb87eb13cd4d10319",
 })
 ```
 

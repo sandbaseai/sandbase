@@ -1,0 +1,138 @@
+{
+  "name": "open-meteo/climate",
+  "display_name": "Open-Meteo Climate Projections",
+  "type": "api",
+  "vendor": "Open-Meteo",
+  "vendor_slug": "open-meteo",
+  "description": "Daily climate model projections to 2050 for any coordinates, from CMIP6 high-resolution models.",
+  "tags": [
+    "api",
+    "open-meteo",
+    "weather"
+  ],
+  "capabilities": [
+    "api",
+    "open-meteo",
+    "weather"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/open-meteo/climate"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "end_date",
+      "latitude",
+      "longitude",
+      "models",
+      "start_date"
+    ],
+    "properties": {
+      "daily": {
+        "type": "string",
+        "example": "temperature_2m_max",
+        "description": "Comma-separated list of daily aggregation variables to return. Requires `timezone`. Common values: `temperature_2m_max`, `temperature_2m_min`, `temperature_2m_mean`, `precipitation_sum`, `rain_sum`, `snowfall_sum`, `wind_speed_10m_mean`, `wind_speed_10m_max`, `cloud_cover_mean`, `relative_humidity_2"
+      },
+      "models": {
+        "type": "string",
+        "example": "MRI_AGCM3_2_S,EC_Earth3P_HR",
+        "description": "Required. Comma-separated climate models: `CMCC_CM2_VHR4`, `FGOALS_f3_H`, `HiRAM_SIT_HR`, `MRI_AGCM3_2_S`, `EC_Earth3P_HR`, `MPI_ESM1_2_XR`, `NICAM16_8S`."
+      },
+      "end_date": {
+        "type": "string",
+        "example": "2024-01-07",
+        "description": "End of the interval, `yyyy-mm-dd` (ISO 8601)."
+      },
+      "latitude": {
+        "type": "string",
+        "example": "52.52",
+        "description": "WGS84 latitude of the location. Multiple coordinates can be comma-separated."
+      },
+      "longitude": {
+        "type": "string",
+        "example": "13.41",
+        "description": "WGS84 longitude of the location (negative for the Americas). Multiple coordinates can be comma-separated."
+      },
+      "start_date": {
+        "type": "string",
+        "example": "2024-01-01",
+        "description": "Start of the interval, `yyyy-mm-dd` (ISO 8601)."
+      },
+      "timeformat": {
+        "enum": [
+          "iso8601",
+          "unixtime"
+        ],
+        "type": "string",
+        "default": "iso8601",
+        "description": "Time output format. Default `iso8601`."
+      },
+      "cell_selection": {
+        "enum": [
+          "land",
+          "sea",
+          "nearest"
+        ],
+        "type": "string",
+        "default": "land",
+        "description": "Grid-cell preference for the coordinate. Default `land`."
+      },
+      "wind_speed_unit": {
+        "enum": [
+          "kmh",
+          "ms",
+          "mph",
+          "kn"
+        ],
+        "type": "string",
+        "default": "kmh",
+        "description": "Wind speed unit. Default `kmh`."
+      },
+      "temperature_unit": {
+        "enum": [
+          "celsius",
+          "fahrenheit"
+        ],
+        "type": "string",
+        "default": "celsius",
+        "description": "Temperature unit. Default `celsius`."
+      },
+      "precipitation_unit": {
+        "enum": [
+          "mm",
+          "inch"
+        ],
+        "type": "string",
+        "default": "mm",
+        "description": "Precipitation unit. Default `mm`."
+      },
+      "disable_bias_correction": {
+        "type": "boolean",
+        "default": false,
+        "description": "Return raw model output without statistical bias correction. Default `false`."
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.0001,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "readme": "# Open-Meteo Climate Projections API\n\nDaily climate model projections to 2050 for any coordinates, from CMIP6 high-resolution models.\n\nThe result is returned in `outputs[0].data` as the official Open-Meteo API response, unchanged.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/open-meteo/climate\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"end_date\": \"2024-01-07\", \"latitude\": \"52.52\", \"longitude\": \"13.41\", \"models\": \"MRI_AGCM3_2_S,EC_Earth3P_HR\", \"start_date\": \"2024-01-01\", \"daily\": \"temperature_2m_max\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `cell_selection` | string | No | Grid-cell preference for the coordinate. Default `land`. |\n| `daily` | string | No | Comma-separated list of daily aggregation variables to return. Requires `timezone`. Common values: `temperature_2m_max`, `temperature_2m_min`, `temperature_2m_m |\n| `disable_bias_correction` | boolean | No | Return raw model output without statistical bias correction. Default `false`. |\n| `end_date` | string | Yes | End of the interval, `yyyy-mm-dd` (ISO 8601). |\n| `latitude` | string | Yes | WGS84 latitude of the location. Multiple coordinates can be comma-separated. |\n| `longitude` | string | Yes | WGS84 longitude of the location (negative for the Americas). Multiple coordinates can be comma-separated. |\n| `models` | string | Yes | Required. Comma-separated climate models: `CMCC_CM2_VHR4`, `FGOALS_f3_H`, `HiRAM_SIT_HR`, `MRI_AGCM3_2_S`, `EC_Earth3P_HR`, `MPI_ESM1_2_XR`, `NICAM16_8S`. |\n| `precipitation_unit` | string | No | Precipitation unit. Default `mm`. |\n| `start_date` | string | Yes | Start of the interval, `yyyy-mm-dd` (ISO 8601). |\n| `temperature_unit` | string | No | Temperature unit. Default `celsius`. |\n| `timeformat` | string | No | Time output format. Default `iso8601`. |\n| `wind_speed_unit` | string | No | Wind speed unit. Default `kmh`. |\n\n## Pricing\n\nFlat price per call. Failed calls are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/open-meteo/climate",
+  "created_at": "2026-11-02T05:24:32.963Z"
+}

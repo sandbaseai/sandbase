@@ -25,7 +25,23 @@
   },
   "input_schema": {
     "type": "object",
-    "properties": {},
+    "properties": {
+      "keyword": {
+        "type": "string",
+        "example": "running shoes",
+        "description": "Search query."
+      },
+      "language_code": {
+        "type": "string",
+        "example": "en",
+        "description": "Language code, e.g. \"en\"."
+      },
+      "location_code": {
+        "type": "integer",
+        "example": 2840,
+        "description": "Location code, e.g. 2840 for the United States."
+      }
+    },
     "description": "Request parameters forwarded to DataForSEO /v3/serp/google/ai_mode/live/advanced. See DataForSEO docs for full schema.",
     "additionalProperties": true
   },

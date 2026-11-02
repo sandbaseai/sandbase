@@ -113,7 +113,7 @@
   "pricing": {
     "currency": "USD",
     "model": "per_call",
-    "per_call": 0.015,
+    "per_call": 0.01,
     "free_quota": {
       "eligible": true,
       "daily_calls_per_org": 100,

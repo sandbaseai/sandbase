@@ -1,0 +1,56 @@
+{
+  "name": "douyin/search/live-search-v2",
+  "display_name": "Douyin Live search V2",
+  "type": "api",
+  "vendor": "Douyin",
+  "vendor_slug": "douyin",
+  "description": "Fetch live search V2 on Douyin. Returns the platform data as structured JSON.",
+  "tags": [
+    "api",
+    "douyin"
+  ],
+  "capabilities": [
+    "api",
+    "douyin"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/douyin/search/live-search-v2"
+  },
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "cursor": {
+        "type": "integer",
+        "title": "Cursor",
+        "default": 0,
+        "example": 0,
+        "description": "Pagination cursor, 0 for the first request, then the cursor from the last response"
+      },
+      "keyword": {
+        "type": "string",
+        "title": "Keyword",
+        "default": "小耳朵",
+        "example": "小耳朵",
+        "description": "Douyin ID or nickname"
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.01
+  },
+  "readme": "# Douyin Live search V2 API\n\nFetch live search V2 on Douyin. Returns the platform data as structured JSON.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/douyin/search/live-search-v2\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"keyword\": \"小耳朵\", \"cursor\": 0}'\n```\n\nThe result is returned in `outputs[0].data`.\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `cursor` | integer | No | Pagination cursor, 0 for the first request, then the cursor from the last response |\n| `keyword` | string | No | Douyin ID or nickname |\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/douyin/search/live-search-v2",
+  "published_at": "2026-11-02T00:00:00Z",
+  "created_at": "2026-11-02T00:24:30.138Z"
+}

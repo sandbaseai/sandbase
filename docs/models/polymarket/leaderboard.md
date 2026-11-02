@@ -1,10 +1,10 @@
-# Polymarket Get trader leaderboard rankings API: pricing, parameters and code examples
+# Polymarket Trader Leaderboard API: pricing, parameters and code examples
 
 `polymarket/leaderboard` · data API · Polymarket · callable with one SandBase API key from curl, Python, TypeScript and Go.
 
 **Price:** $0.012 per call (free daily quota) · **Modes:** sync
 
-Returns trader leaderboard rankings for a selected category and time period.
+Polymarket trader leaderboard by PnL or volume, for a time period and category.
 
 ## Pricing
 
@@ -54,19 +54,18 @@ Same call via the path form: `POST /v1/api/polymarket/leaderboard` with the body
 
 | name | type | required | description |
 |---|---|---|---|
-| `user` | string |  | Limit leaderboard to a single user by address  |
-| `limit` | integer |  | Max number of leaderboard traders to return default `25`; range 1–50 |
-| `offset` | integer |  | Starting index for pagination default `0`; range 0–1000 |
-| `orderBy` | string |  | Leaderboard ordering criteria one of: `PNL`, `VOL`; default `"PNL"` |
-| `category` | string |  | Market category for the leaderboard one of: `OVERALL`, `POLITICS`, `SPORTS`, `ESPORTS`, `CRYPTO`, `CULTURE`, `MENTIONS`, `WEATHER`, `ECONOMICS`, `TECH`, `FINANCE`; default `"OVERALL"` |
-| `userName` | string |  | Limit leaderboard to a single username  |
-| `timePeriod` | string |  | Time period for leaderboard results one of: `DAY`, `WEEK`, `MONTH`, `ALL`; default `"DAY"` |
+| `user` | string |  | Look up one wallet's standing instead of reading the board. Returns a single object carrying both ranks, not a page.  |
+| `limit` | integer |  | First-page size. Ignored when `cursor` is supplied. range 0–1000 |
+| `cursor` | string |  | Opaque pagination cursor from a prior response's `next_cursor`.  |
+| `sort_by` | string |  | Which board: `PNL` (default) or `VOLUME`.  |
+| `category` | string |  | `overall` (default), a Gamma market category (e.g. `sports`), or a synthetic category: `combos` (combinatorial positions; PNL boards only; the volume board has no combos rows) or `esports` (promoted subcategory).  |
+| `time_period` | string |  | Window: `day` \| `week` \| `month` \| `all`. Defaults to `day`.  |
 
 ## Details
 
-Returns trader leaderboard rankings for a selected category and time period.
+Polymarket trader leaderboard by PnL or volume, for a time period and category.
 
-The response is the official Polymarket API response, unchanged.
+Served from the Polymarket Data API v2. The result is returned in `outputs[0].data`: rows are under `data`, and paginated routes add `pagination.next_cursor` (pass it back as `cursor`).
 
 ### Request
 
@@ -81,13 +80,16 @@ curl -X POST "https://api.sandbase.ai/v1/api/polymarket/leaderboard" \
 
 | Name | Type | Required | Description |
 |---|---|---|---|
-| `category` | string | No | Market category for the leaderboard |
-| `limit` | integer | No | Max number of leaderboard traders to return |
-| `offset` | integer | No | Starting index for pagination |
-| `orderBy` | string | No | Leaderboard ordering criteria |
-| `timePeriod` | string | No | Time period for leaderboard results |
-| `user` | string | No | Limit leaderboard to a single user by address |
-| `userName` | string | No | Limit leaderboard to a single username |
+| `time_period` | string | No | Window: `day` / `week` / `month` / `all`. Defaults to `day`. |
+| `category` | string | No | `overall` (default), a Gamma market category (e.g. `sports`), or a synthetic category: `combos` (combinatorial positions; PNL boards only; the volume board has no combos rows) or `esports` (promoted s |
+| `sort_by` | string | No | Which board: `PNL` (default) or `VOLUME`. |
+| `user` | string | No | Look up one wallet's standing instead of reading the board. Returns a single object carrying both ranks, not a page. |
+| `limit` | integer | No | First-page size. Ignored when `cursor` is supplied. |
+| `cursor` | string | No | Opaque pagination cursor from a prior response's `next_cursor`. |
+
+### Reference
+
+- Official docs: https://docs.polymarket.com/api-reference/data-api/overview
 
 ### Pricing
 

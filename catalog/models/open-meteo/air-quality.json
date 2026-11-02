@@ -1,0 +1,135 @@
+{
+  "name": "open-meteo/air-quality",
+  "display_name": "Open-Meteo Air Quality",
+  "type": "api",
+  "vendor": "Open-Meteo",
+  "vendor_slug": "open-meteo",
+  "description": "Hourly air quality forecast for any coordinates: PM2.5, PM10, ozone, NO2, CO, dust, pollen and European/US AQI.",
+  "tags": [
+    "api",
+    "open-meteo",
+    "weather"
+  ],
+  "capabilities": [
+    "api",
+    "open-meteo",
+    "weather"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/open-meteo/air-quality"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "latitude",
+      "longitude"
+    ],
+    "properties": {
+      "hourly": {
+        "type": "string",
+        "example": "pm10,pm2_5",
+        "description": "Comma-separated list of hourly variables to return. Common values: `pm10`, `pm2_5`, `carbon_monoxide`, `nitrogen_dioxide`, `sulphur_dioxide`, `ozone`, `aerosol_optical_depth`, `dust`, `uv_index`, `ammonia`, `european_aqi`, `us_aqi`, and pollen (`alder_pollen`, `birch_pollen`, `grass_pollen`, `mugwor"
+      },
+      "current": {
+        "type": "string",
+        "example": "european_aqi,pm2_5",
+        "description": "Comma-separated list of current-condition variables to return. Same variable set as `hourly`."
+      },
+      "domains": {
+        "enum": [
+          "auto",
+          "cams_europe",
+          "cams_global"
+        ],
+        "type": "string",
+        "default": "auto",
+        "description": "Model domain. Default `auto`."
+      },
+      "end_date": {
+        "type": "string",
+        "example": "2024-01-07",
+        "description": "End of the interval, `yyyy-mm-dd` (ISO 8601)."
+      },
+      "latitude": {
+        "type": "string",
+        "example": "52.52",
+        "description": "WGS84 latitude of the location. Multiple coordinates can be comma-separated."
+      },
+      "timezone": {
+        "type": "string",
+        "example": "Europe/Berlin",
+        "description": "IANA time zone name (e.g. `Europe/Berlin`) or `auto` to resolve from coordinates. Defaults to `GMT`."
+      },
+      "longitude": {
+        "type": "string",
+        "example": "13.41",
+        "description": "WGS84 longitude of the location (negative for the Americas). Multiple coordinates can be comma-separated."
+      },
+      "past_days": {
+        "type": "integer",
+        "default": 0,
+        "description": "Number of past days to include (0-92). Default 0."
+      },
+      "past_hours": {
+        "type": "integer",
+        "description": "Include a given number of past hours."
+      },
+      "start_date": {
+        "type": "string",
+        "example": "2024-01-01",
+        "description": "Start of the interval, `yyyy-mm-dd` (ISO 8601)."
+      },
+      "timeformat": {
+        "enum": [
+          "iso8601",
+          "unixtime"
+        ],
+        "type": "string",
+        "default": "iso8601",
+        "description": "Time output format. Default `iso8601`."
+      },
+      "forecast_days": {
+        "type": "integer",
+        "default": 5,
+        "example": 1,
+        "description": "Number of forecast days to return (0-7). Default 5."
+      },
+      "cell_selection": {
+        "enum": [
+          "land",
+          "sea",
+          "nearest"
+        ],
+        "type": "string",
+        "default": "nearest",
+        "description": "Grid-cell preference for the coordinate. Default `nearest`."
+      },
+      "forecast_hours": {
+        "type": "integer",
+        "description": "Limit forecast to a given number of hours."
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.0001,
+    "free_quota": {
+      "eligible": true,
+      "daily_calls_per_org": 100,
+      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
+    }
+  },
+  "readme": "# Open-Meteo Air Quality API\n\nHourly air quality forecast for any coordinates: PM2.5, PM10, ozone, NO2, CO, dust, pollen and European/US AQI.\n\nThe result is returned in `outputs[0].data` as the official Open-Meteo API response, unchanged.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/open-meteo/air-quality\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"latitude\": \"52.52\", \"longitude\": \"13.41\", \"hourly\": \"pm10,pm2_5\", \"forecast_days\": 1}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `cell_selection` | string | No | Grid-cell preference for the coordinate. Default `nearest`. |\n| `current` | string | No | Comma-separated list of current-condition variables to return. Same variable set as `hourly`. |\n| `domains` | string | No | Model domain. Default `auto`. |\n| `end_date` | string | No | End of the interval, `yyyy-mm-dd` (ISO 8601). |\n| `forecast_days` | integer | No | Number of forecast days to return (0-7). Default 5. |\n| `forecast_hours` | integer | No | Limit forecast to a given number of hours. |\n| `hourly` | string | No | Comma-separated list of hourly variables to return. Common values: `pm10`, `pm2_5`, `carbon_monoxide`, `nitrogen_dioxide`, `sulphur_dioxide`, `ozone`, `aerosol_ |\n| `latitude` | string | Yes | WGS84 latitude of the location. Multiple coordinates can be comma-separated. |\n| `longitude` | string | Yes | WGS84 longitude of the location (negative for the Americas). Multiple coordinates can be comma-separated. |\n| `past_days` | integer | No | Number of past days to include (0-92). Default 0. |\n| `past_hours` | integer | No | Include a given number of past hours. |\n| `start_date` | string | No | Start of the interval, `yyyy-mm-dd` (ISO 8601). |\n| `timeformat` | string | No | Time output format. Default `iso8601`. |\n| `timezone` | string | No | IANA time zone name (e.g. `Europe/Berlin`) or `auto` to resolve from coordinates. Defaults to `GMT`. |\n\n## Pricing\n\nFlat price per call. Failed calls are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/open-meteo/air-quality",
+  "created_at": "2026-11-02T05:23:56.38Z"
+}

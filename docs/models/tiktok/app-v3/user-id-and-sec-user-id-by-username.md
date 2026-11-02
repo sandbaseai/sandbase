@@ -2,13 +2,13 @@
 
 `tiktok/app-v3/user-id-and-sec-user-id-by-username` · data API · TikTok · callable with one SandBase API key from curl, Python, TypeScript and Go.
 
-**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
+**Price:** $0.001 per call (free daily quota) · **Modes:** sync
 
 Returns the user_id and sec_user_id associated with a specific TikTok username. Provide a profile username to resolve account identifiers.
 
 ## Pricing
 
-- **$0.0015 per call** (USD)
+- **$0.001 per call** (USD)
 - Free quota: 100 calls/day per organization (shared across free-quota APIs).
 
 ## Call it

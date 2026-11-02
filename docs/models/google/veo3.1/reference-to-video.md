@@ -30,7 +30,7 @@ Modes: async (default `async`). Only pass `mode` values listed here. The SDKs' `
 ```bash
 curl https://api.sandbase.ai/v1/run \
   -H "Authorization: Bearer $SANDBASE_API_KEY" -H 'Content-Type: application/json' \
-  -d '{"model": "google/veo3.1/reference-to-video", "prompt": "<prompt>", "images": "<images>"}'
+  -d '{"model": "google/veo3.1/reference-to-video", "prompt": "A chimpanzee wearing overalls frolics in the grassy field, gently playing with the butterflies. In the background, a circus tent and carousel beckon.", "images": ["<images>"]}'
 ```
 
 **Python** ([sdk/python](../../../../sdk/python))
@@ -38,7 +38,7 @@ curl https://api.sandbase.ai/v1/run \
 ```python
 from sandbase import SandBase
 
-result = SandBase().run('google/veo3.1/reference-to-video', {'prompt': '<prompt>', 'images': '<images>'})
+result = SandBase().run('google/veo3.1/reference-to-video', {'prompt': 'A chimpanzee wearing overalls frolics in the grassy field, gently playing with the butterflies. In the background, a circus tent and carousel beckon.', 'images': ['<images>']})
 print(result["outputs"])
 ```
 
@@ -48,8 +48,10 @@ print(result["outputs"])
 import { SandBase } from "@sandbaseai/sdk";
 
 const result = await new SandBase().run("google/veo3.1/reference-to-video", {
-  "prompt": "<prompt>",
-  "images": "<images>"
+  "prompt": "A chimpanzee wearing overalls frolics in the grassy field, gently playing with the butterflies. In the background, a circus tent and carousel beckon.",
+  "images": [
+    "<images>"
+  ]
 });
 console.log(result.outputs);
 ```
@@ -59,8 +61,8 @@ console.log(result.outputs);
 ```go
 c, _ := sandbase.NewClient("")
 run, err := c.Run(ctx, "google/veo3.1/reference-to-video", sandbase.Params{
-	"prompt": "<prompt>",
-	"images": "<images>",
+	"prompt": "A chimpanzee wearing overalls frolics in the grassy field, gently playing with the butterflies. In the background, a circus tent and carousel beckon.",
+	"images": []any{"<images>"},
 })
 ```
 

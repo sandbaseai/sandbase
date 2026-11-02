@@ -4,11 +4,11 @@ Call 5 JD.com endpoints through SandBase with one API key: no separate account, 
 
 | Endpoint | What it does | Price |
 |---|---|---|
-| [`jd/item/comments`](../models/jd/item/comments.md) | Get paginated customer comments for a JD.com product by item ID, for buyer feedback and product quality research. | $0.027778 per call |
-| [`jd/item/description-images`](../models/jd/item/description-images.md) | Get the description images and product attributes of a JD.com product by item ID. | $0.020833 per call |
-| [`jd/item/detail`](../models/jd/item/detail.md) | Get a JD.com product by item ID: title, price, promotion price, brand, shop and images. | $0.027778 per call |
-| [`jd/search/items`](../models/jd/search/items.md) | Search JD.com products by keyword with item IDs, titles, images, categories and shop names, with page-based pagination. | $0.020834 per call |
-| [`jd/shop/items`](../models/jd/shop/items.md) | List products from a JD.com shop by shop ID, page by page, to collect item IDs for follow-up lookups. | $0.027778 per call |
+| [`jd/item/comments`](../models/jd/item/comments.md) | Get paginated customer comments for a JD.com product by item ID, for buyer feedback and product quality research. | $0.028571 per call |
+| [`jd/item/description-images`](../models/jd/item/description-images.md) | Get the description images and product attributes of a JD.com product by item ID. | $0.021429 per call |
+| [`jd/item/detail`](../models/jd/item/detail.md) | Get a JD.com product by item ID: title, price, promotion price, brand, shop and images. | $0.028571 per call |
+| [`jd/search/items`](../models/jd/search/items.md) | Search JD.com products by keyword with item IDs, titles, images, categories and shop names, with page-based pagination. | $0.021429 per call |
+| [`jd/shop/items`](../models/jd/shop/items.md) | List products from a JD.com shop by shop ID, page by page, to collect item IDs for follow-up lookups. | $0.028571 per call |
 
 ## Quick start
 

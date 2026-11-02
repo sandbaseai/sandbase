@@ -1,10 +1,10 @@
-# Polymarket Get total markets a user has traded API: pricing, parameters and code examples
+# Polymarket User Stats API: pricing, parameters and code examples
 
 `polymarket/traded` · data API · Polymarket · callable with one SandBase API key from curl, Python, TypeScript and Go.
 
 **Price:** $0.012 per call (free daily quota) · **Modes:** sync
 
-Get total markets a user has traded from Polymarket. Returns the official Polymarket API response unchanged.
+A wallet's profile stats: total trades, biggest win, profile views and join date.
 
 ## Pricing
 
@@ -20,7 +20,7 @@ Modes: sync (default `sync`). Only pass `mode` values listed here. The SDKs' `ru
 ```bash
 curl https://api.sandbase.ai/v1/run \
   -H "Authorization: Bearer $SANDBASE_API_KEY" -H 'Content-Type: application/json' \
-  -d '{"model": "polymarket/traded", "user": "0x56687bf447db6ffa42ffe2204a05edaa20f55839"}'
+  -d '{"model": "polymarket/traded", "user": "0xfe787d2da716d60e8acff57fb87eb13cd4d10319"}'
 ```
 
 **Python** ([sdk/python](../../../sdk/python))
@@ -28,7 +28,7 @@ curl https://api.sandbase.ai/v1/run \
 ```python
 from sandbase import SandBase
 
-result = SandBase().run('polymarket/traded', {'user': '0x56687bf447db6ffa42ffe2204a05edaa20f55839'})
+result = SandBase().run('polymarket/traded', {'user': '0xfe787d2da716d60e8acff57fb87eb13cd4d10319'})
 print(result["outputs"])
 ```
 
@@ -38,7 +38,7 @@ print(result["outputs"])
 import { SandBase } from "@sandbaseai/sdk";
 
 const result = await new SandBase().run("polymarket/traded", {
-  "user": "0x56687bf447db6ffa42ffe2204a05edaa20f55839"
+  "user": "0xfe787d2da716d60e8acff57fb87eb13cd4d10319"
 });
 console.log(result.outputs);
 ```
@@ -48,7 +48,7 @@ console.log(result.outputs);
 ```go
 c, _ := sandbase.NewClient("")
 run, err := c.Run(ctx, "polymarket/traded", sandbase.Params{
-	"user": "0x56687bf447db6ffa42ffe2204a05edaa20f55839",
+	"user": "0xfe787d2da716d60e8acff57fb87eb13cd4d10319",
 })
 ```
 
@@ -58,13 +58,13 @@ Same call via the path form: `POST /v1/api/polymarket/traded` with the body abov
 
 | name | type | required | description |
 |---|---|---|---|
-| `user` | string | yes | User Profile Address (0x-prefixed, 40 hex chars)  |
+| `user` | string | yes | The wallet whose profile stats to return. Required; `0x` followed by 40 hexadecimal characters.  |
 
 ## Details
 
-Get total markets a user has traded from Polymarket. Returns the official Polymarket API response unchanged.
+A wallet's profile stats: total trades, biggest win, profile views and join date.
 
-The response is the official Polymarket API response, unchanged.
+Served from the Polymarket Data API v2. The result is returned in `outputs[0].data`: rows are under `data`, and paginated routes add `pagination.next_cursor` (pass it back as `cursor`).
 
 ### Request
 
@@ -79,7 +79,11 @@ curl -X POST "https://api.sandbase.ai/v1/api/polymarket/traded" \
 
 | Name | Type | Required | Description |
 |---|---|---|---|
-| `user` | string | Yes | User Profile Address (0x-prefixed, 40 hex chars) |
+| `user` | string | Yes | The wallet whose profile stats to return. Required; `0x` followed by 40 hexadecimal characters. |
+
+### Reference
+
+- Official docs: https://docs.polymarket.com/api-reference/data-api/overview
 
 ### Pricing
 

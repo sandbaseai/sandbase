@@ -52,7 +52,7 @@
   "pricing": {
     "currency": "USD",
     "model": "per_call",
-    "per_call": 0.020833
+    "per_call": 0.021429
   },
   "readme": "# WeChat Channels Video Metrics API\n\nGet interaction metrics for a WeChat Channels video by object ID with optional continuation-buffer input. Use it to review engagement for known video content.\n\nThe response is the platform's original data structure.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/wechat-channels/video-metrics\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"objectId\": \"15042116979764234697\", \"objectNonceId\": \"13454967799950666727_0_0_4_32_0_45d03c48-d38a-11f1-8fe5-9b7987977b23\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `objectId` | string | Yes | WeChat Channels video object id used to fetch interaction metrics. |\n| `objectNonceId` | string | No | Optional WeChat Channels object nonce id. |\n| `last_buffer` | string | No | Pagination buffer returned by the previous WeChat Channels metrics response. Leave it empty for the first page. For this POST endpoint, send it in an application/x-www-form-urlencoded form body. |\n\n## Pricing\n\nFlat price per call. Failed calls and empty results are not charged.\n",
   "page_url": "https://www.sandbase.ai/model/wechat-channels/video-metrics",

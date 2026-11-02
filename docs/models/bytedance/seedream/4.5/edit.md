@@ -19,7 +19,7 @@ Modes: async (default `async`). Only pass `mode` values listed here. The SDKs' `
 ```bash
 curl https://api.sandbase.ai/v1/run \
   -H "Authorization: Bearer $SANDBASE_API_KEY" -H 'Content-Type: application/json' \
-  -d '{"model": "bytedance/seedream/4.5/edit", "prompt": "Replace the clothing in image 1 with the outfit from image 2.", "images": "<images>"}'
+  -d '{"model": "bytedance/seedream/4.5/edit", "prompt": "Replace the clothing in image 1 with the outfit from image 2.", "images": "https://p9-arcosite.byteimg.com/tos-cn-i-goo7wpa0wc/4b4464161cf3463db6f9463b10939178~tplv-goo7wpa0wc-image.image"}'
 ```
 
 **Python** ([sdk/python](../../../../../sdk/python))
@@ -27,7 +27,7 @@ curl https://api.sandbase.ai/v1/run \
 ```python
 from sandbase import SandBase
 
-result = SandBase().run('bytedance/seedream/4.5/edit', {'prompt': 'Replace the clothing in image 1 with the outfit from image 2.', 'images': '<images>'})
+result = SandBase().run('bytedance/seedream/4.5/edit', {'prompt': 'Replace the clothing in image 1 with the outfit from image 2.', 'images': 'https://p9-arcosite.byteimg.com/tos-cn-i-goo7wpa0wc/4b4464161cf3463db6f9463b10939178~tplv-goo7wpa0wc-image.image'})
 print(result["outputs"])
 ```
 
@@ -38,7 +38,7 @@ import { SandBase } from "@sandbaseai/sdk";
 
 const result = await new SandBase().run("bytedance/seedream/4.5/edit", {
   "prompt": "Replace the clothing in image 1 with the outfit from image 2.",
-  "images": "<images>"
+  "images": "https://p9-arcosite.byteimg.com/tos-cn-i-goo7wpa0wc/4b4464161cf3463db6f9463b10939178~tplv-goo7wpa0wc-image.image"
 });
 console.log(result.outputs);
 ```
@@ -49,7 +49,7 @@ console.log(result.outputs);
 c, _ := sandbase.NewClient("")
 run, err := c.Run(ctx, "bytedance/seedream/4.5/edit", sandbase.Params{
 	"prompt": "Replace the clothing in image 1 with the outfit from image 2.",
-	"images": "<images>",
+	"images": "https://p9-arcosite.byteimg.com/tos-cn-i-goo7wpa0wc/4b4464161cf3463db6f9463b10939178~tplv-goo7wpa0wc-image.image",
 })
 ```
 

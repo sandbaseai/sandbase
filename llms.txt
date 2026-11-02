@@ -1,6 +1,6 @@
 # SandBase
 
-> One API key to build your personal agent: AI models, data APIs, sandboxes and agents, pay as you go. 2,000+ capabilities (1,700+ data APIs, 400+ AI models), 100 free data-API calls a day, free sandboxes (E2B-compatible) and free Agents (OpenAI Agents API-compatible).
+> One API key to build your personal agent: AI models, data APIs, sandboxes and agents, pay as you go. 2,000+ capabilities (1,800+ data APIs, 400+ AI models), 100 free data-API calls a day, free sandboxes (E2B-compatible) and free Agents (OpenAI Agents API-compatible).
 
 Base URL: https://api.sandbase.ai. Auth: `Authorization: Bearer $SANDBASE_API_KEY`. Every non-LLM capability: `POST /v1/run` with `{"model": "<name>", ...fields}`; async runs return an id to poll with `GET /v1/run/{id}`. LLMs: OpenAI-compatible `/v1/chat/completions` and `/v1/responses`, Anthropic `/v1/messages`.
 
@@ -18,7 +18,7 @@ Base URL: https://api.sandbase.ai. Auth: `Authorization: Bearer $SANDBASE_API_KE
 - [Agents with the OpenAI SDK](https://raw.githubusercontent.com/sandbaseai/sandbase/main/examples/agents/python/openai_agents.py)
 
 ## Top platforms
-- Douyin, TikTok, DataForSEO, Instagram, Alibaba, Weibo, Polymarket, Google, Xiaohongshu, YouTube, Zhihu, OpenAI, Bilibili, KwaiVGI, Kuaishou, LinkedIn, FRED, Reddit, Bytedance, Facebook, Similarweb, MiniMax, CoinGecko, WeChat Channels, BFL, Financial Datasets, xAI, IMDb, Nasdaq, Pipixia, Twitter, Lemon8, WeChat MP, Anthropic, 1688, AAA, MarketBeat, ElevenLabs, X (Twitter), GetApp
+- Douyin, TikTok, DataForSEO, Instagram, Alibaba, Xiaohongshu, Weibo, Polymarket, Google, YouTube, Zhihu, OpenAI, Bilibili, KwaiVGI, Kuaishou, LinkedIn, FRED, Reddit, X (Twitter), Facebook, Bytedance, Similarweb, Financial Datasets, MiniMax, CoinGecko, WeChat Channels, BFL, xAI, Semrush, WeChat MP, IMDb, Nasdaq, Pipixia, Twitter, Lemon8, 1688, Anthropic, AAA, MarketBeat, Open-Meteo
 
 ## Optional
 - [SandBase CLI / MCP for coding agents](https://github.com/sandbaseai/cli)

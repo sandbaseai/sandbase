@@ -2,13 +2,13 @@
 
 `xiaohongshu/pgy/blogger-fans-summary` · data API · Xiaohongshu · callable with one SandBase API key from curl, Python, TypeScript and Go.
 
-**Price:** $0.03 per call · **Modes:** sync
+**Price:** $0.02 per call · **Modes:** sync
 
 Returns an overview of a Xiaohongshu blogger audience on PGY, including fan scale and activity metrics. Looks up fan statistics for a specified blogger user ID.
 
 ## Pricing
 
-- **$0.03 per call** (USD)
+- **$0.02 per call** (USD)
 
 ## Call it
 

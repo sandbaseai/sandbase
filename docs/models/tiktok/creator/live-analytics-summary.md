@@ -2,13 +2,13 @@
 
 `tiktok/creator/live-analytics-summary` · data API · TikTok · callable with one SandBase API key from curl, Python, TypeScript and Go.
 
-**Price:** $0.0015 per call (free daily quota) · **Modes:** sync
+**Price:** $0.001 per call (free daily quota) · **Modes:** sync
 
 Returns streaming performance metrics for a TikTok Shop account over a monthly period. Accepts an optional `start_date` to review broadcast analytics for a calendar month.
 
 ## Pricing
 
-- **$0.0015 per call** (USD)
+- **$0.001 per call** (USD)
 - Free quota: 100 calls/day per organization (shared across free-quota APIs).
 
 ## Call it

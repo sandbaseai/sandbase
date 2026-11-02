@@ -49,6 +49,12 @@ run, err := c.Run(ctx, "dataforseo/v3/backlinks/bulk_backlinks/live", sandbase.P
 
 Same call via the path form: `POST /v1/api/dataforseo/v3/backlinks/bulk_backlinks/live` with the body above minus `model`.
 
+## Parameters
+
+| name | type | required | description |
+|---|---|---|---|
+| `targets` | array |  | Array of domains, subdomains or page URLs (up to 1,000).  |
+
 ## Details
 
 Backlink counts for up to 1,000 domains, subdomains or pages in one request.

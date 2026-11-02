@@ -1,0 +1,68 @@
+{
+  "name": "twitter/user-mentions",
+  "display_name": "X (Twitter) User Mentions",
+  "type": "api",
+  "vendor": "X (Twitter)",
+  "vendor_slug": "twitter",
+  "description": "Recent tweets that mention a user by username, with optional time range and cursor pagination.",
+  "tags": [
+    "api",
+    "twitter",
+    "social-media"
+  ],
+  "capabilities": [
+    "api",
+    "twitter",
+    "social-media"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/twitter/user-mentions"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "userName"
+    ],
+    "properties": {
+      "cursor": {
+        "type": "string",
+        "description": "The cursor to paginate through the results. First page is empty."
+      },
+      "userName": {
+        "type": "string",
+        "example": "NASA",
+        "description": "The user screen name to get mentions for."
+      },
+      "sinceTime": {
+        "type": "integer",
+        "maximum": 9223372036854776000,
+        "minimum": 0,
+        "description": "On or after a specified unix timestamp in seconds. Provider reference (supplier schema): `{\"format\":\"int64\",\"type\":\"integer\"}`."
+      },
+      "untilTime": {
+        "type": "integer",
+        "maximum": 9223372036854776000,
+        "minimum": 0,
+        "description": "Before a specified unix timestamp in seconds. Provider reference (supplier schema): `{\"format\":\"int64\",\"type\":\"integer\"}`."
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "usage_based",
+    "note": "Billed per call from metered usage; the reference price is typical.",
+    "reference_price": 0.003
+  },
+  "readme": "# X (Twitter) User Mentions API\n\nRecent tweets that mention a user by username, with optional time range and cursor pagination.\n\nThe result is returned in `outputs[0].data` as the official X (Twitter) API response, unchanged.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/twitter/user-mentions\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"userName\": \"NASA\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `cursor` | string | No | The cursor to paginate through the results. First page is empty. |\n| `sinceTime` | integer | No | On or after a specified unix timestamp in seconds. Provider reference (supplier schema): `{\"format\":\"int64\",\"type\":\"integer\"}`. |\n| `untilTime` | integer | No | Before a specified unix timestamp in seconds. Provider reference (supplier schema): `{\"format\":\"int64\",\"type\":\"integer\"}`. |\n| `userName` | string | No | The user screen name to get mentions for. |\n\n## Pricing\n\nBilled at the actual cost of each call, about $0.003 for a typical request; the cost grows with the number of rows returned. Searches with no results are billed at their actual cost. Failed calls are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/twitter/user-mentions",
+  "created_at": "2026-11-02T05:42:38.072Z"
+}

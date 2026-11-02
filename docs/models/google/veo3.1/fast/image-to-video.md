@@ -42,7 +42,7 @@ Modes: async (default `async`). Only pass `mode` values listed here. The SDKs' `
 ```bash
 curl https://api.sandbase.ai/v1/run \
   -H "Authorization: Bearer $SANDBASE_API_KEY" -H 'Content-Type: application/json' \
-  -d '{"model": "google/veo3.1/fast/image-to-video", "prompt": "<prompt>", "image": "<image>"}'
+  -d '{"model": "google/veo3.1/fast/image-to-video", "prompt": "A monkey and polar bear host a casual podcast about AI inference, bringing their unique perspectives from different environments (tropical vs. arctic) to discuss how AI systems make decisions and process information.\nSample Dialogue:\nMonkey (Banana): \"Welcome back to Bananas & Ice! I am Banana\"\nPolar Bear (Ice): \"And I'\''m Ice!\"", "image": "<image>"}'
 ```
 
 **Python** ([sdk/python](../../../../../sdk/python))
@@ -50,7 +50,7 @@ curl https://api.sandbase.ai/v1/run \
 ```python
 from sandbase import SandBase
 
-result = SandBase().run('google/veo3.1/fast/image-to-video', {'prompt': '<prompt>', 'image': '<image>'})
+result = SandBase().run('google/veo3.1/fast/image-to-video', {'prompt': 'A monkey and polar bear host a casual podcast about AI inference, bringing their unique perspectives from different environments (tropical vs. arctic) to discuss how AI systems make decisions and process information.\nSample Dialogue:\nMonkey (Banana): "Welcome back to Bananas & Ice! I am Banana"\nPolar Bear (Ice): "And I\'m Ice!"', 'image': '<image>'})
 print(result["outputs"])
 ```
 
@@ -60,7 +60,7 @@ print(result["outputs"])
 import { SandBase } from "@sandbaseai/sdk";
 
 const result = await new SandBase().run("google/veo3.1/fast/image-to-video", {
-  "prompt": "<prompt>",
+  "prompt": "A monkey and polar bear host a casual podcast about AI inference, bringing their unique perspectives from different environments (tropical vs. arctic) to discuss how AI systems make decisions and process information.\nSample Dialogue:\nMonkey (Banana): \"Welcome back to Bananas & Ice! I am Banana\"\nPolar Bear (Ice): \"And I'm Ice!\"",
   "image": "<image>"
 });
 console.log(result.outputs);
@@ -71,7 +71,7 @@ console.log(result.outputs);
 ```go
 c, _ := sandbase.NewClient("")
 run, err := c.Run(ctx, "google/veo3.1/fast/image-to-video", sandbase.Params{
-	"prompt": "<prompt>",
+	"prompt": "A monkey and polar bear host a casual podcast about AI inference, bringing their unique perspectives from different environments (tropical vs. arctic) to discuss how AI systems make decisions and process information.\nSample Dialogue:\nMonkey (Banana): \"Welcome back to Bananas & Ice! I am Banana\"\nPolar Bear (Ice): \"And I'm Ice!\"",
 	"image": "<image>",
 })
 ```

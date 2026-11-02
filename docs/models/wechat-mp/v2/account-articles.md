@@ -2,13 +2,13 @@
 
 `wechat-mp/v2/account-articles` · data API · WeChat MP · callable with one SandBase API key from curl, Python, TypeScript and Go.
 
-**Price:** $0.015 per call (free daily quota) · **Modes:** sync
+**Price:** $0.01 per call (free daily quota) · **Modes:** sync
 
 Get the published articles of a WeChat official account by its gh_ username: titles, links, covers and post dates, one page at a time, including video and audio tabs.
 
 ## Pricing
 
-- **$0.015 per call** (USD)
+- **$0.01 per call** (USD)
 - Free quota: 100 calls/day per organization (shared across free-quota APIs).
 
 ## Call it

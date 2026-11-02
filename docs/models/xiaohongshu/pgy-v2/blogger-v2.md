@@ -2,13 +2,13 @@
 
 `xiaohongshu/pgy-v2/blogger-v2` · data API · Xiaohongshu · callable with one SandBase API key from curl, Python, TypeScript and Go.
 
-**Price:** $0.069444 per call · **Modes:** sync
+**Price:** $0.071429 per call · **Modes:** sync
 
 Search Xiaohongshu Pugongying creators with campaign filters and sorting by followers, daily-note median reads or interactions, or quoted price. Use it to build a creator shortlist.
 
 ## Pricing
 
-- **$0.069444 per call** (USD)
+- **$0.071429 per call** (USD)
 
 ## Call it
 

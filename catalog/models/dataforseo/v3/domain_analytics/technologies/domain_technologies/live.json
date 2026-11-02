@@ -23,7 +23,13 @@
   },
   "input_schema": {
     "type": "object",
-    "properties": {},
+    "properties": {
+      "target": {
+        "type": "string",
+        "example": "nike.com",
+        "description": "Target domain or page, e.g. \"nike.com\"."
+      }
+    },
     "description": "Request parameters forwarded to DataForSEO /v3/domain_analytics/technologies/domain_technologies/live. See DataForSEO docs for full schema.",
     "additionalProperties": true
   },
@@ -33,20 +39,16 @@
   },
   "pricing": {
     "currency": "USD",
-    "model": "per_call",
-    "per_call": 0.003,
-    "free_quota": {
-      "eligible": true,
-      "daily_calls_per_org": 100,
-      "note": "Shared across all free-quota APIs, resets 00:00 UTC."
-    }
+    "model": "usage_based",
+    "note": "Billed per call from metered usage; the reference price is typical.",
+    "reference_price": 0.012
   },
   "examples": [
     {
       "input": {}
     }
   ],
-  "readme": "# DataForSEO Domain Technologies API\n\nRetrieve the technology stack and software components detected on a target domain using live domain analytics.\n\n## Use cases\n\n- Inspect frameworks and software tools implemented on a target website.\n- Analyze the technical infrastructure and CMS choices of competitor domains.\n- Audit web properties to identify third-party technology integrations.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/dataforseo/v3/domain_analytics/technologies/domain_technologies/live\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"target\": \"nike.com\"}'\n```\n\n## Parameters\n\nThe JSON body is forwarded to the upstream endpoint (one task per call). Fields used above:\n\n| Name | Description |\n|---|---|\n| `target` | Target domain or page, e.g. \"nike.com\". |\n\n## Pricing\n\nFlat price per call. Failed calls are not charged.\n\n## Related APIs\n\n- [DataForSEO Backlinks Anchors](/model/dataforseo/v3/backlinks/anchors/live): Returns anchor text distribution metrics for backlinks pointing to a target website or page.\n- [DataForSEO Backlinks List](/model/dataforseo/v3/backlinks/backlinks/live): Returns a list of external backlinks pointing to a specified target domain or webpage.\n- [DataForSEO Backlinks Bulk Ranks](/model/dataforseo/v3/backlinks/bulk_ranks/live): Returns rank metrics for multiple domains or pages in bulk.\n",
+  "readme": "# DataForSEO Domain Technologies API\n\nRetrieve the technology stack and software components detected on a target domain using live domain analytics.\n\n## Use cases\n\n- Inspect frameworks and software tools implemented on a target website.\n- Analyze the technical infrastructure and CMS choices of competitor domains.\n- Audit web properties to identify third-party technology integrations.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/dataforseo/v3/domain_analytics/technologies/domain_technologies/live\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"target\": \"nike.com\"}'\n```\n\n## Parameters\n\nThe JSON body is forwarded to the upstream endpoint (one task per call). Fields used above:\n\n| Name | Description |\n|---|---|\n| `target` | Target domain or page, e.g. \"nike.com\". |\n\n## Pricing\n\nBilled at the actual cost of each call, about $0.012 for the request above. The cost grows with the number of rows, targets or pages a call returns. Failed calls are not charged. Searches with no results are billed at their actual cost.\n\n## Related APIs\n\n- [DataForSEO Backlinks Anchors](/model/dataforseo/v3/backlinks/anchors/live): Returns anchor text distribution metrics for backlinks pointing to a target website or page.\n- [DataForSEO Backlinks List](/model/dataforseo/v3/backlinks/backlinks/live): Returns a list of external backlinks pointing to a specified target domain or webpage.\n- [DataForSEO Backlinks Bulk Ranks](/model/dataforseo/v3/backlinks/bulk_ranks/live): Returns rank metrics for multiple domains or pages in bulk.\n",
   "page_url": "https://www.sandbase.ai/model/dataforseo/v3/domain_analytics/technologies/domain_technologies/live",
   "published_at": "2024-01-01T00:00:00Z",
   "created_at": "2026-08-02T14:43:36.483Z"
