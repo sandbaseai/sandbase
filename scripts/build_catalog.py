@@ -761,16 +761,17 @@ def update_readme_counts(index: dict):
     vendors = Counter(m["vendor"] for m in apis)
     fq = index.get("free_quota") or {}
 
-    en = (f"**{nice(index['count'], True)} models and APIs** · {nice(n_ai)} AI models · {nice(len(apis))} data APIs "
-          f"from {nice(len(vendors))} platforms<br>**{fq.get('daily_calls_per_org', 100)} free API calls every day**"
-          " · **Sandboxes free** · **Agents free**")
-    zh = (f"**{nice(index['count'], True)} 个模型和 API** · {nice(n_ai)} 个 AI 模型 · {nice(len(apis))} 个数据 API，"
-          f"来自 {nice(len(vendors))} 个平台<br>**每天 {fq.get('daily_calls_per_org', 100)} 次免费 API 调用**"
-          " · **沙箱免费** · **Agent 免费**")
+    en = (f"<b>{nice(index['count'], True)} models &amp; APIs</b> · {nice(n_ai)} AI models · {nice(len(apis))} data APIs "
+          f"from {nice(len(vendors))} platforms<br><b>{fq.get('daily_calls_per_org', 100)} free API calls / day</b>"
+          " · <b>Free sandboxes</b> · <b>Free agents</b>")
+    zh = (f"<b>{nice(index['count'], True)} 个模型和 API</b> · {nice(n_ai)} 个 AI 模型 · {nice(len(apis))} 个数据 API，"
+          f"来自 {nice(len(vendors))} 个平台<br><b>每天 {fq.get('daily_calls_per_org', 100)} 次免费 API 调用</b>"
+          " · <b>沙箱免费</b> · <b>Agent 免费</b>")
 
     # What's inside: AI models by type, data APIs by category with the busiest platforms as examples
     media_vendors = Counter(m["vendor"] for m in models if m["type"] in ai)
-    top_media = ", ".join(v for v, _ in media_vendors.most_common(8))
+    alias = cfg.get("display", {})
+    top_media = ", ".join(alias.get(v, v) for v, _ in media_vendors.most_common(8))
     owner = {v: cat for cat, vs in cfg["vendors"].items() for v in vs}
     cats: dict[str, Counter] = {c: Counter() for c in cfg["order"]}
     for v, n in vendors.items():
@@ -783,7 +784,7 @@ def update_readme_counts(index: dict):
         cnt = cats[c]
         if not cnt:
             continue
-        examples = ", ".join(v for v, _ in cnt.most_common(10))
+        examples = ", ".join(alias.get(v, v) for v, _ in cnt.most_common(10))
         en_label, zh_label = cfg["labels"][c]
         rows_en.append(f"| {en_label} | {nice(sum(cnt.values()))} | {examples}, … |")
         rows_zh.append(f"| {zh_label} | {nice(sum(cnt.values()))} | {examples} 等 |")

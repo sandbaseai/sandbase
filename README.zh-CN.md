@@ -1,26 +1,65 @@
-<h1 align="center">SandBase</h1>
+<p align="center">
+  <a href="https://www.sandbase.ai"><img src=".github/social-preview.png" alt="SandBase：一个 Key 用上模型、数据 API、沙箱和 Agent" width="100%"></a>
+</p>
 
-<p align="center"><b>AI 模型、数据 API、沙箱和 Agent。一个 Key，按量付费。</b></p>
+<p align="center">
+  <b>AI 模型、数据 API、沙箱和 Agent。一个 Key，按量付费。</b>
+</p>
 
-<p align="center"><!-- counts:zh -->**2,000+ 个模型和 API** · 400+ 个 AI 模型 · 1,700+ 个数据 API，来自 100+ 个平台<br>**每天 100 次免费 API 调用** · **沙箱免费** · **Agent 免费**<!-- /counts:zh --><br>HTTP · curl · Python · TypeScript · Go · OpenAPI 3.1 · E2B SDK · OpenAI SDK</p>
+<p align="center">
+  <!-- counts:zh --><b>2,000+ 个模型和 API</b> · 400+ 个 AI 模型 · 1,700+ 个数据 API，来自 100+ 个平台<br><b>每天 100 次免费 API 调用</b> · <b>沙箱免费</b> · <b>Agent 免费</b><!-- /counts:zh -->
+</p>
+
+<p align="center">
+  <a href="https://www.sandbase.ai/console"><b>获取 API Key</b></a> ·
+  <a href="docs/INDEX.md">全部模型和 API</a> ·
+  <a href="docs/platforms/README.md">按平台浏览</a> ·
+  <a href="https://www.sandbase.ai/docs/">文档</a> ·
+  <a href="README.md">English</a>
+</p>
 
 ---
 
-大多数平台只做其中一层：LLM 网关、媒体生成 API、沙箱，或者工具目录。SandBase 把这四层都放在**同一个 key、同一份余额、同一张账单**下，而且四层之间可以互相调用：你在 SandBase 定义的 Agent 能调用目录里的任何模型和数据 API，代码在 SandBase 的沙箱里运行。
+## 为什么选 SandBase
 
-| 层 | 内容 | 价格 | 调用方式 |
+大多数平台只做其中一层：LLM 网关、媒体 API、沙箱，或者工具目录。SandBase 把四层都放在**同一个 key、同一份余额、同一张账单**下，而且四层可以互相调用：Agent 能直接调用目录里的模型和 API，代码在 SandBase 的沙箱里运行。
+
+| | 内容 | 价格 | 兼容 |
 |---|---|---|---|
-| **模型** | LLM、图像、视频、音频、Embedding | 按次或按 token，价格见目录 | OpenAI、Anthropic、Gemini 官方 SDK，或 `POST /v1/run` |
-| **API** | 搜索、抓取、社媒、电商、SEO、金融等数据 API | **每天 100 次免费**，超出后按次计费 | `POST /v1/run` 或 `POST /v1/api/<name>` |
-| **沙箱** | 隔离的机器，可以执行命令、读写文件、运行代码 | **免费** | 官方 **E2B SDK**：只改地址和 key，代码不用动 |
-| **Agent** | 带版本的 Agent、Session、HTTP Service、定时任务、Skill、MCP | **免费**，Agent 调用的模型和 API 照常计费 | 官方 **OpenAI SDK**（`client.beta.agents`），或本仓库的客户端 |
+| 🧠 **模型** | LLM、图像、视频、音频、Embedding | 按次或按 token 计费 | OpenAI、Anthropic、Gemini SDK |
+| 🔌 **数据 API** | 社媒、搜索、SEO、电商、金融等 | **每天 100 次免费**，超出后按次计费 | 所有 API 统一用 `POST /v1/run` |
+| 📦 **沙箱** | 隔离环境，可以执行代码、运行命令、读写文件 | **免费** | E2B 官方 SDK |
+| 🤖 **Agent** | Agent、Session、HTTP Service、定时任务、Skill | **免费**（Agent 调用的模型和 API 照常计费） | OpenAI Agents API |
+
+## 快速开始
+
+在 [sandbase.ai/console](https://www.sandbase.ai/console) 获取 key 后：
+
+```bash
+export SANDBASE_API_KEY=sk-...
+
+curl https://api.sandbase.ai/v1/run \
+  -H "Authorization: Bearer $SANDBASE_API_KEY" -H "Content-Type: application/json" \
+  -d '{"model": "exa/search", "query": "AI agents", "numResults": 3}'
+```
+
+```python
+# pip install "git+https://github.com/sandbaseai/sandbase#subdirectory=sdk/python"
+from sandbase import SandBase
+
+sb = SandBase()
+sb.run("exa/search", query="AI agents")                                             # 同步
+sb.run("bytedance/seedance/2.5/text-to-video", prompt="a cat surfing", duration=4)  # 异步，自动等待结果
+```
+
+TypeScript 和 Go 的用法完全一样，见 [`sdk/typescript`](sdk/typescript) 和 [`sdk/go`](sdk/go)。调用 LLM 时，直接用 OpenAI 官方 SDK，把 `base_url` 设为 `https://api.sandbase.ai/v1`。
 
 ## 包含哪些
 
 <!-- inside:zh -->
 | | 数量 | 包括 |
 |---|---|---|
-| **AI 模型** | 400+ | LLM 100+、视频 150+、图像 100+、音频 30+：Alibaba, Google, OpenAI, KwaiVGI, Bytedance, MiniMax, BFL, xAI 等 |
+| **AI 模型** | 400+ | LLM 100+、视频 150+、图像 100+、音频 30+：Alibaba, Google, OpenAI, Kling, ByteDance, MiniMax, Black Forest Labs, xAI 等 |
 | 社媒与内容 | 1,100+ | Douyin, TikTok, Instagram, Weibo, Xiaohongshu, YouTube, Zhihu, Bilibili, Kuaishou, LinkedIn 等 |
 | 搜索、SEO 与网页数据 | 200+ | DataForSEO, Similarweb, Brave, Google, Firecrawl, Artificial Analysis, Exa, Scholar, Tavily, Ahrefs 等 |
 | 电商、应用与点评 | 100+ | 1688, GetApp, TikTok Shop, Amazon, Clutch, Trustpilot, G2, JD.com, Taobao, Zillow 等 |
@@ -29,53 +68,31 @@
 | 更多 | 30+ | IMDb, AAA, IQAir, AccuWeather, Weather Underground 等 |
 <!-- /inside:zh -->
 
-完整列表和每个能力的精确价格见 `catalog/index.json` 和 `docs/INDEX.md`。也可以[按平台浏览](docs/platforms/README.md)：[抖音](docs/platforms/douyin.md)、[小红书](docs/platforms/xiaohongshu.md)、[TikTok](docs/platforms/tiktok.md)、[Instagram](docs/platforms/instagram.md)、[YouTube](docs/platforms/youtube.md)、[微博](docs/platforms/weibo.md)、[知乎](docs/platforms/zhihu.md)、[B 站](docs/platforms/bilibili.md)、[OpenAI](docs/platforms/openai.md)、[可灵](docs/platforms/kwaivgi.md) 等。
+每个模型和 API 都有一页文档，写明 schema、价格，并附四种语言的示例。完整列表见[全部模型和 API](docs/INDEX.md)，也可以[按平台浏览](docs/platforms/README.md)：[抖音](docs/platforms/douyin.md) · [小红书](docs/platforms/xiaohongshu.md) · [TikTok](docs/platforms/tiktok.md) · [Instagram](docs/platforms/instagram.md) · [YouTube](docs/platforms/youtube.md) · [微博](docs/platforms/weibo.md) · [知乎](docs/platforms/zhihu.md) · [B 站](docs/platforms/bilibili.md) · [OpenAI](docs/platforms/openai.md) · [可灵](docs/platforms/kwaivgi.md)
 
-## 快速上手
+## 沙箱与 Agent
 
-```bash
-export SANDBASE_API_KEY=sk-...
-```
+- **沙箱（免费）**：继续用 E2B 官方 SDK，只需设置三个环境变量：`E2B_API_KEY=$SANDBASE_API_KEY`、`E2B_API_URL=https://sandbox.sandbase.ai`、`E2B_DOMAIN=sandbox.sandbase.ai`。示例见 [`examples/sandbox`](examples/sandbox)。
+- **Agent（免费）**：直接用 OpenAI 官方 SDK 的 `client.beta.agents`。如果只想拿到结果，用本仓库客户端的一行调用：`sb.run_agent(agent_id, "任务")`。示例见 [`examples/agents`](examples/agents)。
 
-```python
-from sandbase import SandBase        # pip install "git+https://github.com/sandbaseai/sandbase#subdirectory=sdk/python"
-sb = SandBase()
+## 价格
 
-sb.run("exa/search", query="AI agents")                                             # 数据 API，同步调用
-sb.run("bytedance/seedance/2.5/text-to-video", prompt="a cat surfing", duration=4)  # 视频，异步，会自动等待结果
-
-agent = sb.create_agent("deepseek/deepseek-v4-flash", "用一句话回答。")
-r = sb.run_agent(agent["id"], "2+2 等于几？")                                         # 运行一次 Agent
-print(r["output"], sb.send(r["session_id"], "再乘以 10？")["output"])
-```
-
-Agent：直接用 OpenAI 官方 SDK，把 `base_url` 设为 `https://api.sandbase.ai/v1`，示例见 `examples/agents/python/openai_agents.py`。
-
-沙箱：保留 E2B 官方 SDK，只需设置这三个环境变量：`E2B_API_KEY=$SANDBASE_API_KEY`、`E2B_API_URL=https://sandbox.sandbase.ai`、`E2B_DOMAIN=sandbox.sandbase.ai`。完整示例在 `examples/sandbox/`。
-
-TypeScript 和 Go 的用法和 Python 一样，见 `sdk/typescript` 和 `sdk/go`。
-
-## 调用前就知道价格
-
-每个模型都有结构化的价格字段。价格随参数变化的模型附带 `price_examples` 价格表，例如 gpt-image-2.5-flare 分 15 档，从 $0.01 到 $1。目录每天刷新，`git log -p catalog/` 可以看到每一次改价。实际扣费用 `sb.cost(id)` 查询，账户折扣在计费时扣减。
-
-## 仓库内容
-
-- `catalog/`：每个模型和 API 的说明、schema、价格；另有 Skill 和沙箱模板。
-- `docs/`：按模型生成的文档页，每页带 curl、Python、TypeScript、Go 示例。
-- `openapi/`：OpenAPI 3.1 文件，可以导入 Postman、Apifox、API 网关或你自己的平台。
-- `sdk/`：Python、TypeScript、Go 三个客户端，覆盖模型、API 和 Agent。
-- `examples/`：`.http`、curl、沙箱（E2B）、Agent（OpenAI SDK）示例。
-
-AI Agent 客户端（Claude Code、Codex、Cursor 等 25 个）可以用 [SandBase CLI / MCP](https://github.com/sandbaseai/cli) 接入。
+- **免费**：沙箱、Agent，以及每个组织每天 100 次数据 API 调用（UTC 0 点重置）。
+- **按量付费**：其他调用都按目录里的美元标价计费，调用失败不收费。
+- **调用前算价格**：价格随参数变化的模型，附有 `price_examples` 价格表。例如 gpt-image-2.5-flare 分 15 档，从 $0.01 到 $1。
+- **查实际费用**：用 `sb.cost(id)` 查询某次调用的实际扣费。目录每天刷新，`git log -p catalog/` 可以看到每一次改价。
 
 ## 接入你的 API
 
-API 提供方可以在 [`integrations/`](integrations/README.md) 下提交 PR 来申请接入。CI 会自动校验提交的文件，维护者审核后会和你联系，确认 API 访问方式。PR 合并后自动进入上线流程，上线后会出现在目录里，所有 SandBase key 都能直接调用。Issue 和 PR 请用英文。
+API 提供方可以在 [`integrations/`](integrations/README.md) 下提交 PR 申请接入。CI 会自动校验，维护者审核通过后自动上线，上线后所有 SandBase key 都能调用。Issue 和 PR 请使用英文。
 
-## 常见问题
+<details>
+<summary><b>常见问题</b></summary>
 
-- **兼容 OpenAI 吗？** 兼容。Chat Completions、Responses 和 Agents API 都可以直接用 OpenAI 官方 SDK，把 `base_url` 设为 `https://api.sandbase.ai/v1` 即可。Anthropic Messages 和 Gemini 格式也支持。
-- **E2B 代码能直接用吗？** 能。只改 `E2B_API_KEY`、`E2B_API_URL`、`E2B_DOMAIN` 三个环境变量就行，沙箱免费。
-- **怎么调用抖音、小红书、TikTok、YouTube 的数据？** 在[平台页](docs/platforms/README.md)找到对应接口，用 `POST /v1/run` 加上它的 `model` 名称调用。不需要分别注册这些平台的账号。
-- **哪些是免费的？** 沙箱、Agent，以及每个组织每天 100 次数据 API 调用。其他调用按目录价格计费，调用失败不收费。
+- **兼容 OpenAI 吗？** 兼容。Chat Completions、Responses 和 Agents API 都可以直接用 OpenAI 官方 SDK，Anthropic 和 Gemini 格式也支持。
+- **E2B 代码能直接用吗？** 能，只需要改三个环境变量。
+- **怎么调用抖音、小红书、TikTok、YouTube 的数据？** 在[平台页](docs/platforms/README.md)找到对应接口，用 `POST /v1/run` 加上它的 `model` 名称调用，不需要分别注册这些平台的账号。
+- **AI 编程工具能用吗？** 能。[SandBase CLI / MCP](https://github.com/sandbaseai/cli) 支持 Claude Code、Codex、Cursor 等 25 个客户端。
+</details>
+
+代码采用 [Apache-2.0](LICENSE) 许可。目录数据的使用说明见 [NOTICE.md](NOTICE.md)。如果这个项目对你有帮助，欢迎点个 ⭐。

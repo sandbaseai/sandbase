@@ -171,5 +171,12 @@
       "OpenCorporates",
       "Built In"
     ]
+  },
+  "display": {
+    "KwaiVGI": "Kling",
+    "Bytedance": "ByteDance",
+    "BFL": "Black Forest Labs",
+    "Z-Ai": "Zhipu",
+    "Moonshotai": "Moonshot"
   }
 }
