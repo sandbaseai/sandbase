@@ -40,5 +40,6 @@
   },
   "page_url": "https://www.sandbase.ai/model/moonshotai/kimi-k3.1-pro",
   "published_at": "2026-10-23T00:00:00Z",
-  "created_at": "2026-10-24T00:23:37.417Z"
+  "created_at": "2026-10-24T00:23:37.417Z",
+  "context_length": 1048576
 }

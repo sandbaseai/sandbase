@@ -34,5 +34,6 @@
   },
   "readme": "OpenAI text-embedding-3-large produces embeddings with up to 3072 dimensions.",
   "page_url": "https://www.sandbase.ai/model/openai/text-embedding-3-large",
-  "created_at": "2026-09-09T09:34:02.532Z"
+  "created_at": "2026-09-09T09:34:02.532Z",
+  "context_length": 8191
 }

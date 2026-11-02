@@ -20,7 +20,13 @@ jobs:
           python-version: "3.12"
       - run: pip install pyyaml jsonschema
       - name: Validate proposals
-        run: python scripts/validate_integrations.py
+        run: |
+          set -o pipefail
+          python scripts/validate_integrations.py | tee result.txt
+      - name: Summary
+        if: always()
+        run: |
+          { echo "## Integration check"; echo; echo '```'; cat result.txt 2>/dev/null; echo '```'; } >> "$GITHUB_STEP_SUMMARY"
 
   # A merge to main is the maintainer's approval. Hand the approved files to the private
   # SandBase pipeline, which registers them disabled, verifies them and then enables them.

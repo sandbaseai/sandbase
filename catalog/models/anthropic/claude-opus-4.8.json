@@ -40,5 +40,6 @@
   },
   "page_url": "https://www.sandbase.ai/model/anthropic/claude-opus-4.8",
   "published_at": "2026-05-27T18:04:51.937Z",
-  "created_at": "2026-05-31T08:25:11.33Z"
+  "created_at": "2026-05-31T08:25:11.33Z",
+  "context_length": 1000000
 }

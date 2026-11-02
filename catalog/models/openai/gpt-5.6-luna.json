@@ -48,5 +48,6 @@
   "cover_url": "https://t0.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=https://openai.com&size=256",
   "page_url": "https://www.sandbase.ai/model/openai/gpt-5.6-luna",
   "published_at": "2026-07-09T09:54:24Z",
-  "created_at": "2026-07-11T02:08:11.001Z"
+  "created_at": "2026-07-11T02:08:11.001Z",
+  "context_length": 1050000
 }

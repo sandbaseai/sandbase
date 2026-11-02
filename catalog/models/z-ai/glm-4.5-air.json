@@ -36,5 +36,6 @@
   "cover_url": "https://t0.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=https://chutes.ai/&size=256",
   "page_url": "https://www.sandbase.ai/model/z-ai/glm-4.5-air",
   "published_at": "2025-07-25T19:20:58.066Z",
-  "created_at": "2026-05-08T23:58:49.747Z"
+  "created_at": "2026-05-08T23:58:49.747Z",
+  "context_length": 131072
 }

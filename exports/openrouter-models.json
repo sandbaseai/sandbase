@@ -1,0 +1,1432 @@
+{
+ "data": [
+  {
+   "id": "alibaba/qwen2.5-vl-72b-instruct",
+   "name": "Qwen: Qwen2.5 VL 72B Instruct",
+   "description": "Qwen2.5-VL 72B Instruct is the largest instruction-tuned model in Alibaba's open-weight Qwen2.5-VL vision-language family, released in early 2025. Qwen highlights recognition of common objects and analysis of text, charts, icons and layouts in images, visual localization with bounding boxes or points, structured extraction from invoices, forms and tables, visual agent use and understanding of videos over an hour long. It predates the Qwen3-VL line and suits workloads validated on it.",
+   "context_length": 128000,
+   "pricing": {
+    "prompt": "0.00000025",
+    "completion": "0.00000075",
+    "request": "0",
+    "image": "0"
+   }
+  },
+  {
+   "id": "alibaba/qwen3-32b",
+   "name": "Qwen: Qwen3 32B",
+   "description": "Qwen3 32B is the largest dense model in Alibaba's open-weight Qwen3 family, released in April 2025 with 32.8 billion parameters. One model switches between a thinking mode for complex logic, math and coding and a non-thinking mode for fast general dialogue. Qwen highlights tool integration in both modes, creative writing, role-play, multi-turn conversation and support for more than 100 languages and dialects. It suits text workloads that want a mid-size open model with optional reasoning.",
+   "context_length": 131072,
+   "pricing": {
+    "prompt": "0.00000016",
+    "completion": "0.00000064",
+    "request": "0",
+    "image": "0"
+   }
+  },
+  {
+   "id": "alibaba/qwen3-8b",
+   "name": "Qwen: Qwen3 8B",
+   "description": "Qwen3 8B is a compact dense model in Alibaba's open-weight Qwen3 family, released in April 2025 with 8.2 billion parameters. Like its siblings, it switches between a thinking mode for math, coding and logical reasoning and a non-thinking mode for efficient dialogue, with tool use in both modes and coverage of more than 100 languages and dialects. Choose it for lightweight text reasoning and chat where Qwen3 32B is more than the task needs.",
+   "context_length": 131072,
+   "pricing": {
+    "prompt": "0.00000018",
+    "completion": "0.0000007",
+    "request": "0",
+    "image": "0"
+   }
+  },
+  {
+   "id": "alibaba/qwen3-vl-235b-a22b-instruct",
+   "name": "Qwen: Qwen3 VL 235B A22B Instruct",
+   "description": "Qwen3-VL 235B A22B Instruct is the largest Mixture-of-Experts model in Alibaba's open-weight Qwen3-VL vision-language family, in its non-thinking Instruct edition, released in September 2025. Qwen positions it for visual agents that operate PC and mobile GUIs, generating HTML, CSS or diagrams from images and video, 2D and 3D grounding, long-video understanding and OCR in 32 languages. Choose it for direct answers; a separate Thinking edition targets multimodal STEM reasoning.",
+   "context_length": 131072,
+   "pricing": {
+    "prompt": "0.0000004",
+    "completion": "0.0000016",
+    "request": "0",
+    "image": "0"
+   }
+  },
+  {
+   "id": "alibaba/qwen3-vl-30b-a3b-instruct",
+   "name": "Qwen: Qwen3 VL 30B A3B Instruct",
+   "description": "Qwen3-VL 30B A3B Instruct is the mid-size Mixture-of-Experts, non-thinking edition of Alibaba's open-weight Qwen3-VL vision-language family, activating about 3 billion parameters per token. Alibaba positions it for fast responses with upgraded image and video understanding, long videos and documents, spatial awareness, object recognition, multilingual OCR and visual agents that operate GUIs. It sits between Qwen3-VL 8B and 235B A22B in size and capability.",
+   "context_length": 131072,
+   "pricing": {
+    "prompt": "0.00000013",
+    "completion": "0.00000052",
+    "request": "0",
+    "image": "0"
+   }
+  },
+  {
+   "id": "alibaba/qwen3-vl-8b-instruct",
+   "name": "Qwen: Qwen3 VL 8B Instruct",
+   "description": "Qwen3-VL 8B Instruct is the 8-billion-parameter dense, non-thinking edition of Alibaba's open-weight Qwen3-VL vision-language family. Alibaba notes it needs less GPU memory while keeping the series' upgraded image and video understanding, long-document and long-video handling, spatial awareness, object recognition, multilingual OCR and GUI agent abilities. Pick it for lighter multimodal deployments; the 30B A3B and 235B A22B models trade size for more capability.",
+   "context_length": 131072,
+   "pricing": {
+    "prompt": "0.00000018",
+    "completion": "0.0000007",
+    "request": "0",
+    "image": "0"
+   }
+  },
+  {
+   "id": "alibaba/qwen3.5-35b-a3b",
+   "name": "Qwen: Qwen3.5-35B-A3B",
+   "description": "Qwen3.5 35B A3B is an open-weight native vision-language model from Alibaba's Qwen3.5 series, released in February 2026, pairing linear attention with a sparse Mixture-of-Experts design that activates about 3 billion of its 35 billion parameters. Alibaba describes its overall performance as comparable to Qwen3.5 27B with higher inference efficiency. It supports thinking mode, tool calling and image and video understanding, and is the open-weight counterpart of the hosted Qwen3.5 Flash.",
+   "context_length": 262144,
+   "pricing": {
+    "prompt": "0.00000025",
+    "completion": "0.000002",
+    "request": "0",
+    "image": "0"
+   }
+  },
+  {
+   "id": "alibaba/qwen3.6-27b",
+   "name": "Qwen: Qwen3.6 27B",
+   "description": "Qwen3.6 27B is an open-weight dense 27-billion-parameter vision-language model in Alibaba's Qwen3.6 family, released in April 2026 with thinking and non-thinking modes. Qwen positions it for agentic coding, including front-end workflows and repository-level reasoning, plus STEM reasoning, spatial understanding, object localization, document OCR and video understanding. Its dense design is simple to deploy, and it can retain reasoning context across turns for iterative development.",
+   "context_length": 262144,
+   "pricing": {
+    "prompt": "0.0000006",
+    "completion": "0.0000036",
+    "request": "0",
+    "image": "0"
+   }
+  },
+  {
+   "id": "alibaba/qwen3.6-plus",
+   "name": "Qwen: Qwen3.6 Plus",
+   "description": "Qwen3.6 Plus is the Plus tier of Alibaba's Qwen3.6 series, a hosted native vision-language reasoning model released in April 2026. Alibaba reports marked gains over the Qwen3.5 series in agentic coding, front-end development and vibe coding, along with multimodal object recognition, OCR and object localization. Model Studio now lists it as a legacy model, with Qwen3.7 Plus as the recommended Plus-tier option, so it fits workloads already validated on this version.",
+   "context_length": 1000000,
+   "pricing": {
+    "prompt": "0.0000005",
+    "completion": "0.000003",
+    "request": "0",
+    "image": "0"
+   }
+  },
+  {
+   "id": "alibaba/qwen3.7-flash",
+   "name": "Qwen: Qwen3.7 Flash",
+   "description": "Qwen3.7 Flash is the Flash tier of Alibaba's Qwen3.7 series, a native vision-language reasoning model that accepts text, images and video, released in July 2026. Alibaba describes it as an upgrade over Qwen3.6 Flash in multimodal understanding, object recognition, spatial perception and agent execution, with more stable search and multimodal coding agents. Choose it over Qwen3.7 Plus or Max when speed and high-volume throughput matter more than peak capability.",
+   "context_length": 1000000,
+   "pricing": {
+    "prompt": "0.00000003",
+    "completion": "0.00000013",
+    "request": "0",
+    "image": "0"
+   }
+  },
+  {
+   "id": "alibaba/qwen3.7-max",
+   "name": "Qwen: Qwen3.7 Max",
+   "description": "Qwen3.7 Max is the largest and most capable model in Alibaba's Qwen3.7 series as of its May 2026 release, a reasoning model built for agent-centric work and offered here with text input and output. Alibaba highlights its strengths in programming, office and productivity tasks, and long-running autonomous execution. Model Studio now lists the Qwen3.7 line as legacy and recommends Qwen3.8 Max for the strongest reasoning, so it fits workloads already validated on Qwen3.7 Max.",
+   "context_length": 1000000,
+   "pricing": {
+    "prompt": "0.0000025",
+    "completion": "0.0000075",
+    "request": "0",
+    "image": "0"
+   }
+  },
+  {
+   "id": "alibaba/qwen3.7-plus",
+   "name": "Qwen: Qwen3.7 Plus",
+   "description": "Qwen3.7 Plus is the balanced Plus tier of Alibaba's Qwen3.7 series, a reasoning model with text and image input released in June 2026. Alibaba highlights its multimodal hybrid agent abilities: perceiving real-world scenes, reading screens and operating GUIs, generating code from visual references and navigating mobile apps end to end, alongside coding, tool use and productivity work. Model Studio recommends it as its default for general and coding workloads, with Qwen3.8 Max for harder\u2026",
+   "context_length": 1000000,
+   "pricing": {
+    "prompt": "0.0000004",
+    "completion": "0.0000016",
+    "request": "0",
+    "image": "0"
+   }
+  },
+  {
+   "id": "alibaba/qwen3.8-2.4t-a95b",
+   "name": "Qwen: Qwen3.8 2.4T A95B",
+   "description": "Qwen3.8 2.4T A95B is the open-weight release of Alibaba's Qwen3.8 Max-class model, a sparse Mixture-of-Experts with 2.4 trillion total and about 95 billion active parameters, published in August 2026 as the first Qwen-Max-class open model. It targets coding, professional work, research and long-horizon agentic tasks, with tunable reasoning depth. Alibaba's hosted Qwen3.8 Max builds on it and adds vision input, a non-thinking mode and official built-in tools.",
+   "context_length": 1000000,
+   "pricing": {
+    "prompt": "0.000002",
+    "completion": "0.000006",
+    "request": "0",
+    "image": "0"
+   }
+  },
+  {
+   "id": "alibaba/qwen3.8-27b",
+   "name": "Qwen: Qwen3.8 27B",
+   "description": "Qwen3.8 27B is the compact dense member of Alibaba's Qwen3.8 family, an open-weight native vision-language model that understands images and video, with thinking mode on by default. Compared with Qwen3.6 27B, Alibaba focuses the upgrade on coding and office tasks across text and visual inputs, aiming for more reliable end-to-end completion of complex multi-step work. It suits teams that want Qwen3.8-generation agent skills in a smaller, deployment-friendly model.",
+   "context_length": 1000000,
+   "pricing": {
+    "prompt": "0.0000005",
+    "completion": "0.000003",
+    "request": "0",
+    "image": "0"
+   }
+  },
+  {
+   "id": "alibaba/qwen3.8-max",
+   "name": "Qwen: Qwen3.8 Max",
+   "description": "Qwen3.8 Max is Alibaba's flagship Qwen3.8 model, a 2.4-trillion-parameter Mixture-of-Experts reasoning model with native vision understanding, released in August 2026. Alibaba positions it for long-horizon coding and office work, from multi-day autonomous development to professional legal, financial and design tasks, with vision used across planning, execution and verification. Model Studio recommends it when the strongest reasoning in the Qwen lineup is needed.",
+   "context_length": 1000000,
+   "pricing": {
+    "prompt": "0.000002",
+    "completion": "0.000006",
+    "request": "0",
+    "image": "0"
+   }
+  },
+  {
+   "id": "alibaba/qwen3.8-max-0902",
+   "name": "Qwen: Qwen3.8 Max (0902)",
+   "description": "Qwen3.8 Max (0902) is the pinned snapshot of Alibaba's Qwen3.8 Max dated September 2, 2026, intended for workloads that need a fixed version. Alibaba describes it as an upgraded snapshot with stronger engineering-scale coding and long-horizon autonomous development, steadier multi-tool orchestration and end-to-end task delivery, and refined chart reasoning, document parsing and multimodal perception. It keeps the flagship's vision input, thinking mode and full tool support.",
+   "context_length": 1000000,
+   "pricing": {
+    "prompt": "0.000002",
+    "completion": "0.000006",
+    "request": "0",
+    "image": "0"
+   }
+  },
+  {
+   "id": "alibaba/qwen3.8-max-prime",
+   "name": "Qwen: Qwen3.8 Max Prime",
+   "description": "Qwen3.8 Max Prime is the Fast mode (Prime) serving option for Alibaba's Qwen3.8 Max: the same model with the same vision input and reasoning, delivered at higher output speed. Alibaba states Fast mode raises tokens per second to about 1.5 to 2 times the standard API, aimed at latency-sensitive uses such as AI coding assistants, multi-step agent reasoning and real-time conversation. Pick it over standard Qwen3.8 Max when response speed matters; it adds no new capabilities.",
+   "context_length": 1000000,
+   "pricing": {
+    "prompt": "0.000004",
+    "completion": "0.000012",
+    "request": "0",
+    "image": "0"
+   }
+  },
+  {
+   "id": "alibaba/qwen3.8-omni-flash",
+   "name": "Qwen: Qwen3.8 Omni Flash",
+   "description": "Qwen3.8 Omni Flash is Alibaba's omni-modal reasoning model in the Qwen3.8 family, accepting text, image, audio and video input and returning text, with a 1M-token context window. Alibaba positions it for audio and video understanding and content analysis, including transcription-aware summarization, meeting and lecture review, and multimodal agent steps, with tool calling and adjustable reasoning effort. Pick Qwen3.8 Flash for text and image workloads that do not need audio or video input.",
+   "context_length": 1000000,
+   "pricing": {
+    "prompt": "0.00000015",
+    "completion": "0.00000047",
+    "request": "0",
+    "image": "0"
+   }
+  },
+  {
+   "id": "anthropic/claude-fable-5",
+   "name": "Anthropic: Claude Fable 5",
+   "description": "Claude Fable 5 is a Mythos-class model from Anthropic, built for autonomous knowledge work and coding. It supports text, image, and file inputs with text output, with reasoning support and a 1M-token context window. It is suited for long-running, complex, and asynchronous tasks that previously required frequent human check-ins. It is particularly strong at end-to-end work that would otherwise take a person hours, days, or weeks - taking on problems that are long-running, ambiguous, or highly\u2026",
+   "context_length": 1000000,
+   "pricing": {
+    "prompt": "0.00001",
+    "completion": "0.00005",
+    "request": "0",
+    "image": "0"
+   }
+  },
+  {
+   "id": "anthropic/claude-fable-5.1",
+   "name": "Anthropic: Claude Fable 5.1",
+   "description": "Claude Fable 5.1 improves on Claude Fable 5 across the board, with the biggest gains in agentic coding, long-running agentic workflows, and knowledge work: long code refactors, front-end and visual...",
+   "context_length": 1000000,
+   "pricing": {
+    "prompt": "0.00001",
+    "completion": "0.00005",
+    "request": "0",
+    "image": "0"
+   }
+  },
+  {
+   "id": "anthropic/claude-haiku-4.5",
+   "name": "Anthropic: Claude Haiku 4.5",
+   "description": "Claude Haiku 4.5 is Anthropic\u2019s fastest and most efficient model, delivering near-frontier intelligence at a fraction of the cost and latency of larger Claude models. Matching Claude Sonnet 4\u2019s performance across reasoning, coding, and computer-use tasks, Haiku 4.5 brings frontier-level capability to real-time and high-volume applications. It introduces extended thinking to the Haiku line; enabling controllable reasoning depth, summarized or interleaved thought output, and tool-assisted\u2026",
+   "context_length": 200000,
+   "pricing": {
+    "prompt": "0.000001",
+    "completion": "0.000005",
+    "request": "0",
+    "image": "0"
+   }
+  },
+  {
+   "id": "anthropic/claude-haiku-5.5",
+   "name": "Anthropic: Claude Haiku 5.5",
+   "description": "Claude Haiku 5.5 is Anthropic's small, fast model for high-volume, cost-sensitive work such as summarization, classification, compaction, subagents, and browser use. It succeeds Claude Haiku 4.5 with stronger coding, computer use, and knowledge work, adds an adjustable effort setting, and accepts text, image, and file input with a 1M-token context window.",
+   "context_length": 1000000,
+   "pricing": {
+    "prompt": "0.0000001",
+    "completion": "0.0000005",
+    "request": "0",
+    "image": "0"
+   }
+  },
+  {
+   "id": "anthropic/claude-opus-4.5",
+   "name": "Anthropic: Claude Opus 4.5",
+   "description": "Claude Opus 4.5 is Anthropic\u2019s frontier reasoning model optimized for complex software engineering, agentic workflows, and long-horizon computer use. It offers strong multimodal capabilities, competitive performance across real-world coding and reasoning benchmarks, and improved robustness to prompt injection. The model is designed to operate efficiently across varied effort levels, enabling developers to trade off speed, depth, and token usage depending on task requirements. It comes with a\u2026",
+   "context_length": 200000,
+   "pricing": {
+    "prompt": "0.000005",
+    "completion": "0.000025",
+    "request": "0",
+    "image": "0"
+   }
+  },
+  {
+   "id": "anthropic/claude-opus-4.6",
+   "name": "Anthropic: Claude Opus 4.6",
+   "description": "Opus 4.6 is Anthropic\u2019s strongest model for coding and long-running professional tasks. It is built for agents that operate across entire workflows rather than single prompts, making it especially effective for large codebases, complex refactors, and multi-step debugging that unfolds over time. The model shows deeper contextual understanding, stronger problem decomposition, and greater reliability on hard engineering tasks than prior generations. Beyond coding, Opus 4.6 excels at sustained\u2026",
+   "context_length": 1000000,
+   "pricing": {
+    "prompt": "0.000005",
+    "completion": "0.000025",
+    "request": "0",
+    "image": "0"
+   }
+  },
+  {
+   "id": "anthropic/claude-opus-4.7",
+   "name": "Anthropic: Claude Opus 4.7",
+   "description": "Opus 4.7 is the next generation of Anthropic's Opus family, built for long-running, asynchronous agents. Building on the coding and agentic strengths of Opus 4.6, it delivers stronger performance on complex, multi-step tasks and more reliable agentic execution across extended workflows. It is especially effective for asynchronous agent pipelines where tasks unfold over time - large codebases, multi-stage debugging, and end-to-end project orchestration. Beyond coding, Opus 4.7 brings improved\u2026",
+   "context_length": 1000000,
+   "pricing": {
+    "prompt": "0.000005",
+    "completion": "0.000025",
+    "request": "0",
+    "image": "0"
+   }
+  },
+  {
+   "id": "anthropic/claude-opus-4.8",
+   "name": "Anthropic: Claude Opus 4.8",
+   "description": "Claude Opus 4.8 is Anthropic's most capable generally available model in the Opus family. It supports text, image, and file inputs with text output, with reasoning support and a 1M-token context window. It is suited for highly autonomous agents, long-horizon agentic work, knowledge work, and memory-driven tasks where coherence over extended sessions matters. It is particularly strong on multi-step reasoning, complex coding, and end-to-end project orchestration - large codebases, multi-stage\u2026",
+   "context_length": 1000000,
+   "pricing": {
+    "prompt": "0.000005",
+    "completion": "0.000025",
+    "request": "0",
+    "image": "0"
+   }
+  },
+  {
+   "id": "anthropic/claude-opus-5",
+   "name": "Anthropic: Claude Opus 5",
+   "description": "Claude Opus 5 is the most powerful model in the Claude 5 family from Anthropic. It excels at complex reasoning, analysis, and creative tasks with superior accuracy and nuance. It supports text, image, and file inputs with text output, reasoning support and a 1M-token context window.",
+   "context_length": 1000000,
+   "pricing": {
+    "prompt": "0.000005",
+    "completion": "0.000025",
+    "request": "0",
+    "image": "0"
+   }
+  },
+  {
+   "id": "anthropic/claude-opus-5.5",
+   "name": "Anthropic: Claude Opus 5.5",
+   "description": "Claude Opus 5.5 is the most powerful model in the Claude 5 family from Anthropic. It excels at complex reasoning, analysis, and creative tasks with superior accuracy and nuance. It supports text, image, and file inputs with text output, reasoning support and a 1M-token context window.",
+   "context_length": 1000000,
+   "pricing": {
+    "prompt": "0.000004",
+    "completion": "0.00002",
+    "request": "0",
+    "image": "0"
+   }
+  },
+  {
+   "id": "anthropic/claude-sonnet-4.5",
+   "name": "Anthropic: Claude Sonnet 4.5",
+   "description": "Claude Sonnet 4.5 is Anthropic\u2019s most advanced Sonnet model to date, optimized for real-world agents and coding workflows. It delivers state-of-the-art performance on coding benchmarks such as SWE-bench Verified, with improvements across system design, code security, and specification adherence. The model is designed for extended autonomous operation, maintaining task continuity across sessions and providing fact-based progress tracking. Sonnet 4.5 also introduces stronger agentic\u2026",
+   "context_length": 200000,
+   "pricing": {
+    "prompt": "0.000003",
+    "completion": "0.000015",
+    "request": "0",
+    "image": "0"
+   }
+  },
+  {
+   "id": "anthropic/claude-sonnet-4.6",
+   "name": "Anthropic: Claude Sonnet 4.6",
+   "description": "Sonnet 4.6 is Anthropic's most capable Sonnet-class model yet, with frontier performance across coding, agents, and professional work. It excels at iterative development, complex codebase navigation, end-to-end project management with memory, polished document creation, and confident computer use for web QA and workflow automation.",
+   "context_length": 1000000,
+   "pricing": {
+    "prompt": "0.000003",
+    "completion": "0.000015",
+    "request": "0",
+    "image": "0"
+   }
+  },
+  {
+   "id": "anthropic/claude-sonnet-5",
+   "name": "Anthropic: Claude Sonnet 5",
+   "description": "Claude Sonnet 5 is a Sonnet-class model for high-quality coding, agentic workflows, reasoning, vision, structured outputs, and tool use.",
+   "context_length": 1000000,
+   "pricing": {
+    "prompt": "0.000002",
+    "completion": "0.00001",
+    "request": "0",
+    "image": "0"
+   }
+  },
+  {
+   "id": "anthropic/claude-sonnet-5.5",
+   "name": "Anthropic: Claude Sonnet 5.5",
+   "description": "Claude Sonnet 5.5 is Anthropic's Sonnet-class model for well-scoped everyday work, succeeding Claude Sonnet 5 as a direct upgrade. It is especially strong at building features and fixing bugs, with a 1M-token context window and text, image, and file input.",
+   "context_length": 1000000,
+   "pricing": {
+    "prompt": "0.000002",
+    "completion": "0.00001",
+    "request": "0",
+    "image": "0"
+   }
+  },
+  {
+   "id": "bytedance/seed-2.1-pro",
+   "name": "ByteDance: Seed-2.1-Pro",
+   "description": "Seed 2.1 Pro is the larger of the two models in ByteDance Seed's Seed2.1 family, offered as Doubao-Seed-2.1-Pro through Doubao and Volcano Engine. ByteDance built Seed2.1 for real-world productivity: multi-step general agent work such as planning, document processing and tool use, end-to-end coding from requirement analysis to validation, and computer-use tasks. It also brings strong image, document and long-video understanding, and Seed 2.1 Turbo is the smaller sibling.",
+   "context_length": 1048576,
+   "pricing": {
+    "prompt": "0.000000890208",
+    "completion": "0.000004451039",
+    "request": "0",
+    "image": "0"
+   }
+  },
+  {
+   "id": "deepseek/deepseek-chat",
+   "name": "DeepSeek: DeepSeek V3",
+   "description": "DeepSeek-V3 is the latest model from the DeepSeek team, building upon the instruction following and coding abilities of the previous versions. Pre-trained on nearly 15 trillion tokens, the reported evaluations reveal that the model outperforms other open-source models and rivals leading closed-source models. For model details, please visit [the DeepSeek-V3 repo](https://github.com/deepseek-ai/DeepSeek-V3) for more information, or see the [launch\u2026",
+   "context_length": 163840,
+   "pricing": {
+    "prompt": "0.00000032",
+    "completion": "0.00000089",
+    "request": "0",
+    "image": "0"
+   }
+  },
+  {
+   "id": "deepseek/deepseek-v3.2",
+   "name": "DeepSeek: DeepSeek V3.2",
+   "description": "DeepSeek-V3.2 is DeepSeek's open-weight, reasoning-first model released in December 2025 as the official successor to V3.2-Exp. It introduces DeepSeek Sparse Attention to reduce long-context training and inference compute and is DeepSeek's first model to integrate thinking directly into tool use, trained on agent data synthesized across more than 1,800 environments. It supports tool calling in both thinking and non-thinking modes, suiting agents and general reasoning.",
+   "context_length": 131072,
+   "pricing": {
+    "prompt": "0.000000252",
+    "completion": "0.000000378",
+    "request": "0",
+    "image": "0"
+   }
+  },
+  {
+   "id": "deepseek/deepseek-v4-flash",
+   "name": "DeepSeek: DeepSeek V4 Flash",
+   "description": "DeepSeek V4 Flash is an efficiency-optimized Mixture-of-Experts model from DeepSeek with 284B total parameters and 13B activated parameters, supporting a 1M-token context window. It is designed for fast inference and high-throughput workloads, while maintaining strong reasoning and coding performance. The model includes hybrid attention for efficient long-context processing. Reasoning efforts `high` and `xhigh` are supported; `xhigh` maps to max reasoning. It is well suited for applications\u2026",
+   "context_length": 1048576,
+   "pricing": {
+    "prompt": "0.0000003",
+    "completion": "0.0000012",
+    "request": "0",
+    "image": "0"
+   }
+  },
+  {
+   "id": "deepseek/deepseek-v4-flash-0731",
+   "name": "DeepSeek: DeepSeek V4 Flash 0731",
+   "description": "DeepSeek V4 Flash 0731 is a sparse mixture-of-experts model from DeepSeek, with 13B active parameters out of 284B total. This re-post-trained revision is suited for coding, reasoning, and agent workflows.",
+   "context_length": 1048576,
+   "pricing": {
+    "prompt": "0.0000003",
+    "completion": "0.0000012",
+    "request": "0",
+    "image": "0"
+   }
+  },
+  {
+   "id": "deepseek/deepseek-v4-flash-vision-exp",
+   "name": "DeepSeek: DeepSeek V4 Flash Vision Exp (Experimental)",
+   "description": "DeepSeek V4 Flash Vision Exp is an experimental multimodal understanding model that accepts mixed text and image input and produces text output. It supports OpenAI-compatible image URL and base64 data URL content parts while retaining the text, reasoning, tool-calling, and JSON-output capabilities of DeepSeek V4 Flash.",
+   "context_length": 1048576,
+   "pricing": {
+    "prompt": "0.0000003",
+    "completion": "0.0000012",
+    "request": "0",
+    "image": "0"
+   }
+  },
+  {
+   "id": "deepseek/deepseek-v4-pro",
+   "name": "DeepSeek: DeepSeek V4 Pro",
+   "description": "DeepSeek V4 Pro is the large tier of DeepSeek's V4 family, a 1.6T-parameter mixture-of-experts model with 49B active parameters, introduced as an open-weight preview in April 2026 with a 1M-token context. It combines token-wise compression with DeepSeek Sparse Attention and supports thinking and non-thinking modes, aimed at agentic coding, advanced reasoning and knowledge-heavy work. On DeepSeek's API this name now serves the August 2026 GA revision; use the 0813 entry to pin that version.",
+   "context_length": 1048576,
+   "pricing": {
+    "prompt": "0.00000132",
+    "completion": "0.00000396",
+    "request": "0",
+    "image": "0"
+   }
+  },
+  {
+   "id": "deepseek/deepseek-v4-pro-0813",
+   "name": "DeepSeek: DeepSeek V4 Pro 0813",
+   "description": "DeepSeek V4 Pro 0813 is the pinned GA release of DeepSeek V4 Pro from August 2026, for workloads that need a fixed version. It keeps V4 Pro's 1.6T-parameter mixture-of-experts design and 1M-token context, with thinking and non-thinking modes, tool calls and JSON output, and DeepSeek reports much stronger agent performance than the April preview, especially in production. DeepSeek has said it will keep serving V4 Pro alongside V4.1 Flash.",
+   "context_length": 1048576,
+   "pricing": {
+    "prompt": "0.00000132",
+    "completion": "0.00000396",
+    "request": "0",
+    "image": "0"
+   }
+  },
+  {
+   "id": "deepseek/deepseek-v4.1-flash",
+   "name": "DeepSeek: DeepSeek V4.1 Flash",
+   "description": "DeepSeek V4.1 Flash is the smallest model in DeepSeek's V4.1 architecture family, released in September 2026 with native visual understanding. It is a 552B-parameter mixture-of-experts model using a Causal Encoder-Decoder design that activates 8B parameters for input and 16B for output, with a KV cache about a quarter the size of the previous Flash generation. DeepSeek positions it for agentic coding and long-context work and reports it ahead of V4 Pro, replacing V4 Flash and V4 Flash Vision\u2026",
+   "context_length": 1048576,
+   "pricing": {
+    "prompt": "0.0000003",
+    "completion": "0.0000012",
+    "request": "0",
+    "image": "0"
+   }
+  },
+  {
+   "id": "google/gemini-2.5-flash",
+   "name": "Google: Gemini 2.5 Flash",
+   "description": "Gemini 2.5 Flash is the workhorse model of Google's Gemini 2.5 family, a thinking model released as stable in June 2025. Google positions it for large-scale processing, low-latency and high-volume tasks that require reasoning, and agentic use cases, with text, image, video and audio input. It sits between 2.5 Flash-Lite and 2.5 Pro in the same generation and remains a stable model with no announced shutdown date.",
+   "context_length": 1048576,
+   "pricing": {
+    "prompt": "0.0000003",
+    "completion": "0.0000025",
+    "request": "0",
+    "image": "0"
+   }
+  },
+  {
+   "id": "google/gemini-2.5-flash-lite",
+   "name": "Google: Gemini 2.5 Flash Lite",
+   "description": "Gemini 2.5 Flash-Lite is the lightweight tier of Google's Gemini 2.5 family, released in July 2025 and described by Google as the fastest multimodal model in that family. It is aimed at high-volume classification, simple data extraction and very low-latency applications, with optional thinking and support for text, image, video, audio and PDF input. It remains a stable model with no announced shutdown date; pick Gemini 2.5 Flash for more capability within the same generation.",
+   "context_length": 1048576,
+   "pricing": {
+    "prompt": "0.0000001",
+    "completion": "0.0000004",
+    "request": "0",
+    "image": "0"
+   }
+  },
+  {
+   "id": "google/gemini-2.5-pro",
+   "name": "Google: Gemini 2.5 Pro",
+   "description": "Gemini 2.5 Pro is the Pro-tier thinking model of Google's Gemini 2.5 family, released as stable in June 2025 and described by Google as its most advanced model in that family. It is built for reasoning over complex problems in code, math and STEM, and for analyzing large datasets, codebases and documents using long context. It accepts audio, image, video, text and PDF input; Gemini 3.1 Pro Preview is the Pro-tier successor in the Gemini 3 series.",
+   "context_length": 1048576,
+   "pricing": {
+    "prompt": "0.00000125",
+    "completion": "0.00001",
+    "request": "0",
+    "image": "0"
+   }
+  },
+  {
+   "id": "google/gemini-3-flash-preview",
+   "name": "Google: Gemini 3 Flash Preview",
+   "description": "Gemini 3 Flash Preview is the preview release of the Flash tier in Google's Gemini 3 series, released in December 2025. Google described it at launch as its most powerful agentic and vibe-coding model to that point, built on Gemini 3 reasoning with multimodal understanding across text, image, video, audio and PDF input. It remains a preview endpoint with no announced shutdown date, and Google recommends Gemini 3.6 Flash as its replacement.",
+   "context_length": 1048576,
+   "pricing": {
+    "prompt": "0.0000005",
+    "completion": "0.000003",
+    "request": "0",
+    "image": "0"
+   }
+  },
+  {
+   "id": "google/gemini-3-pro-image",
+   "name": "Google: Nano Banana Pro (Gemini 3 Pro Image)",
+   "description": "Nano Banana Pro (Gemini 3 Pro Image) is the Pro-tier image generation and editing model of Google's Gemini 3 line, using a reasoning core and producing images alongside text. Google positions it for professional work such as complex graphic design, high-fidelity product mockups and factual data visualizations that need accurate text rendering, with real-world grounding via Google Search and studio-quality visuals up to 4K. Pick Nano Banana 2 instead for faster, higher-volume generation.",
+   "context_length": 65536,
+   "pricing": {
+    "prompt": "0.000002",
+    "completion": "0.000012",
+    "request": "0",
+    "image": "0"
+   }
+  },
+  {
+   "id": "google/gemini-3.1-flash-image",
+   "name": "Google: Nano Banana 2 (Gemini 3.1 Flash Image)",
+   "description": "Nano Banana 2 (Gemini 3.1 Flash Image) is Google's image generation and conversational image editing model in the Gemini 3 series, producing images alongside text from text, image, video and PDF input. Google positions it as the high-efficiency, low-latency counterpart to Nano Banana Pro for high-volume developer use, adding output resolutions from 0.5K to 4K, extra wide and tall aspect ratios, image search grounding and improved multilingual text rendering. Choose Nano Banana Pro for complex,\u2026",
+   "context_length": 131072,
+   "pricing": {
+    "prompt": "0.0000005",
+    "completion": "0.000003",
+    "request": "0",
+    "image": "0"
+   }
+  },
+  {
+   "id": "google/gemini-3.1-flash-lite",
+   "name": "Google: Gemini 3.1 Flash Lite",
+   "description": "Gemini 3.1 Flash-Lite is the generally available, low-latency Flash-Lite tier of Google's Gemini 3 series, released in May 2026 as the stable successor to the 3.1 Flash-Lite preview. Google targets it at high-frequency, lightweight tasks such as high-volume translation, transcription, entity extraction, document summarization and routing queries between larger models. Google has scheduled its shutdown for May 7, 2027 and recommends Gemini 3.5 Flash-Lite as the replacement.",
+   "context_length": 1048576,
+   "pricing": {
+    "prompt": "0.00000025",
+    "completion": "0.0000015",
+    "request": "0",
+    "image": "0"
+   }
+  },
+  {
+   "id": "google/gemini-3.1-flash-lite-preview",
+   "name": "Google: Gemini 3.1 Flash Lite Preview",
+   "description": "Gemini 3.1 Flash Lite Preview is Google's high-efficiency model optimized for high-volume use cases. It outperforms Gemini 2.5 Flash Lite on overall quality and approaches Gemini 2.5 Flash performance across key capabilities. Improvements span audio input/ASR, RAG snippet ranking, translation, data extraction, and code completion. Supports full thinking levels (minimal, low, medium, high) for fine-grained cost/performance trade-offs. Priced at half the cost of Gemini 3 Flash.",
+   "context_length": 1048576,
+   "pricing": {
+    "prompt": "0.00000025",
+    "completion": "0.0000015",
+    "request": "0",
+    "image": "0"
+   }
+  },
+  {
+   "id": "google/gemini-3.1-pro-preview",
+   "name": "Google: Gemini 3.1 Pro Preview",
+   "description": "Gemini 3.1 Pro Preview is the Pro-tier reasoning model of Google's Gemini 3 series, released in February 2026 to refine Gemini 3 Pro with better thinking, improved token efficiency and more grounded, factually consistent answers. Google optimizes it for software engineering and for agentic workflows that need precise tool use and reliable multi-step execution across real-world domains. It accepts text, image, video, audio and PDF input, remains a preview model, and is Google's recommended\u2026",
+   "context_length": 1048576,
+   "pricing": {
+    "prompt": "0.000002",
+    "completion": "0.000012",
+    "request": "0",
+    "image": "0"
+   }
+  },
+  {
+   "id": "google/gemini-3.1-pro-preview-customtools",
+   "name": "Google: Gemini 3.1 Pro Preview Custom Tools",
+   "description": "Gemini 3.1 Pro Preview Custom Tools is a separate endpoint of Google's Gemini 3.1 Pro Preview, the Pro-tier reasoning model of the Gemini 3 series, tuned for agentic workflows that mix bash with custom tools. Google says it is better at prioritizing user-defined functions, such as file viewing or code search tools, over a general bash tool. Pick it for coding agents built on custom tools; Google notes quality may fluctuate in use cases that do not benefit from such tools, where the standard\u2026",
+   "context_length": 1048576,
+   "pricing": {
+    "prompt": "0.000002",
+    "completion": "0.000012",
+    "request": "0",
+    "image": "0"
+   }
+  },
+  {
+   "id": "google/gemini-3.5-flash",
+   "name": "Google: Gemini 3.5 Flash",
+   "description": "Gemini 3.5 Flash is the Flash model of Google's Gemini 3.5 family, introduced at Google I/O in May 2026. Google positions it as delivering frontier-level intelligence at Flash speed, built for sub-agent deployment, multi-step workflows and long-horizon tasks at scale, and particularly effective in rapid agentic loops with complex coding iterations. It takes text, image, video, audio and PDF input with text output; Google's model list now labels it a legacy Flash model behind 3.6, 3.7 and 3.8\u2026",
+   "context_length": 1048576,
+   "pricing": {
+    "prompt": "0.0000015",
+    "completion": "0.000009",
+    "request": "0",
+    "image": "0"
+   }
+  },
+  {
+   "id": "google/gemini-3.5-flash-lite",
+   "name": "Google: Gemini 3.5 Flash Lite",
+   "description": "Gemini 3.5 Flash-Lite is the low-latency, high-throughput tier of Google's Gemini 3.5 family, released in July 2026 and described by Google as its fastest 3.5-class model. It is optimized for subagent tasks, document parsing, high-volume agentic workflows and simple data extraction where latency and throughput matter most. It accepts text, image, video, audio and PDF input, supports thinking and tool use, and is Google's recommended successor to Gemini 3.1 Flash-Lite.",
+   "context_length": 1048576,
+   "pricing": {
+    "prompt": "0.0000003",
+    "completion": "0.0000025",
+    "request": "0",
+    "image": "0"
+   }
+  },
+  {
+   "id": "google/gemini-3.6-flash",
+   "name": "Google: Gemini 3.6 Flash",
+   "description": "Gemini 3.6 Flash is a multimodal reasoning model in Google's Gemini 3 Flash line, released in July 2026 alongside 3.5 Flash-Lite. Google describes it as delivering frontier-level intelligence at higher speed for real-world agentic work, excelling at code generation, agentic execution and spatial reasoning, and particularly effective in rapid agentic loops with repeated coding iterations. It is Google's recommended replacement for the Gemini 3 Flash preview; 3.7 Flash and 3.8 Flash followed it.",
+   "context_length": 1048576,
+   "pricing": {
+    "prompt": "0.00000075",
+    "completion": "0.00000375",
+    "request": "0",
+    "image": "0"
+   }
+  },
+  {
+   "id": "google/gemini-3.7-flash",
+   "name": "Google: Gemini 3.7 Flash",
+   "description": "Gemini 3.7 Flash is a natively multimodal reasoning model in Google's Gemini 3 Flash line, released in August 2026, three weeks after 3.6 Flash. Google positions it as an everyday driver for developers, with improvements in software engineering, knowledge work, web development, instruction following and tool calling. It takes text, image, video, audio and PDF input and returns text; Gemini 3.8 Flash, released in September 2026, has since succeeded it as Google's top Flash model.",
+   "context_length": 1048576,
+   "pricing": {
+    "prompt": "0.0000015",
+    "completion": "0.0000075",
+    "request": "0",
+    "image": "0"
+   }
+  },
+  {
+   "id": "google/gemini-3.8-flash",
+   "name": "Google: Gemini 3.8 Flash",
+   "description": "Gemini 3.8 Flash is a Flash-tier reasoning model in Google's Gemini 3 series, released in September 2026 and described by Google as its most intelligent Flash model as of release. Google positions it for long-horizon software engineering, autonomous agents and complex enterprise workflows, with significant gains over 3.7 Flash in coding, agentic tasks and multi-step reasoning in specialized domains. It accepts text, image, video, audio and PDF input with text output, and suits demanding\u2026",
+   "context_length": 1048576,
+   "pricing": {
+    "prompt": "0.0000015",
+    "completion": "0.0000075",
+    "request": "0",
+    "image": "0"
+   }
+  },
+  {
+   "id": "google/gemini-4-argon",
+   "name": "Google: Gemini 4 Argon",
+   "description": "Gemini 4 Argon is Google's flagship reasoning model and the first model of the Gemini 4 generation, generally available since October 13, 2026. Google trained it to keep context and precision across long, multi-step work such as complex software engineering, legal and financial research, and cybersecurity defense. It accepts text, image, video, audio and PDF input with a 1M-token context window, always reasons before answering with low, medium or high effort, and supports function calling and\u2026",
+   "context_length": 1048576,
+   "pricing": {
+    "prompt": "0.000004",
+    "completion": "0.00002",
+    "request": "0",
+    "image": "0"
+   }
+  },
+  {
+   "id": "google/gemini-nano-banana-2.1",
+   "name": "Google: Nano Banana 2.1 (Gemini Nano Banana 2.1)",
+   "description": "Nano Banana 2.1 (Gemini Nano Banana 2.1) is Google's Flash-tier image generation and editing model, succeeding Nano Banana 2 and producing images alongside text through the native Gemini generateContent API. It improves prompt adherence, text rendering, product recontextualization and multi-turn editing consistency, supports extreme aspect ratios and 1K to 4K output, and can ground generation with Google web and image search. Pick Nano Banana Pro instead for the most demanding professional\u2026",
+   "context_length": 65536,
+   "pricing": {
+    "prompt": "0.0000015",
+    "completion": "0.0000075",
+    "request": "0",
+    "image": "0"
+   }
+  },
+  {
+   "id": "meta/llama-3.3-70b-instruct",
+   "name": "Meta: Llama 3.3 70B Instruct",
+   "description": "Llama 3.3 70B Instruct is Meta's instruction-tuned, text-only multilingual model released on December 6, 2024, built on an optimized transformer with grouped-query attention and a 128K-token context. It is optimized for assistant-style multilingual dialogue in eight officially supported languages, including English, German, French, Spanish, Hindi and Thai. It is a static open-weight model with a December 2023 knowledge cutoff, and its license also permits synthetic data generation and\u2026",
+   "context_length": 131072,
+   "pricing": {
+    "prompt": "0.0000001",
+    "completion": "0.00000032",
+    "request": "0",
+    "image": "0"
+   }
+  },
+  {
+   "id": "minimax/minimax-m2.5",
+   "name": "MiniMax: MiniMax M2.5",
+   "description": "MiniMax-M2.5 is a MiniMax M2-series language model released in February 2026 for real-world productivity, trained with reinforcement learning across hundreds of thousands of complex real-world environments. MiniMax highlights coding across more than ten languages and the full development lifecycle, planning projects like a software architect before writing code, plus agentic search, tool use and office work. MiniMax now lists it as a legacy model behind M2.7 and M3.",
+   "context_length": 204800,
+   "pricing": {
+    "prompt": "0.0000003",
+    "completion": "0.0000012",
+    "request": "0",
+    "image": "0"
+   }
+  },
+  {
+   "id": "minimax/minimax-m2.7",
+   "name": "MiniMax: MiniMax M2.7",
+   "description": "MiniMax-M2.7 is a MiniMax M2-series language model that MiniMax describes as its first model to take part in its own development, building agent harnesses, skills and memory for reinforcement learning experiments. It is positioned for end-to-end software engineering including log analysis, bug troubleshooting and code security, high-fidelity editing in Excel, PowerPoint and Word, and character-consistent interaction. A faster highspeed variant exists, and MiniMax-M3 adds multimodality and\u2026",
+   "context_length": 204800,
+   "pricing": {
+    "prompt": "0.0000003",
+    "completion": "0.0000012",
+    "request": "0",
+    "image": "0"
+   }
+  },
+  {
+   "id": "minimax/minimax-m3",
+   "name": "MiniMax: MiniMax M3",
+   "description": "MiniMax-M3 is MiniMax's flagship multimodal foundation model, which MiniMax describes as open-weight. It is built on MiniMax Sparse Attention, which selects key-value blocks to cut long-context compute and supports up to a 1M-token context, and it was trained natively on text and visual data for image and video understanding. MiniMax positions it for long-horizon coding, agentic tool use and autonomous multi-step work such as research paper reproduction and GPU kernel optimization.",
+   "context_length": 1000000,
+   "pricing": {
+    "prompt": "0.0000003",
+    "completion": "0.0000012",
+    "request": "0",
+    "image": "0"
+   }
+  },
+  {
+   "id": "minimax/minimax-m3.1-flash",
+   "name": "MiniMax: MiniMax M3.1 Flash",
+   "description": "MiniMax-M3.1-Flash is the fast, cost-efficient tier of MiniMax's M3.1 generation, which MiniMax describes as an ultra-efficient open-weight model for everyday work. It is a multimodal coding model that accepts text, image and video input and supports a context window of up to 1M tokens. Thinking is always on, and its depth can be tuned with reasoning effort levels from low to max, making it suited to agentic coding, tool use and routine software development at lower latency and cost than\u2026",
+   "context_length": 1000000,
+   "pricing": {
+    "prompt": "0.00000015",
+    "completion": "0.0000006",
+    "request": "0",
+    "image": "0"
+   }
+  },
+  {
+   "id": "moonshotai/kimi-k2.5",
+   "name": "MoonshotAI: Kimi K2.5",
+   "description": "Kimi K2.5 is Moonshot AI's open-source native multimodal agentic model, built by continuing pretraining of Kimi K2 on about 15 trillion mixed visual and text tokens. It is a 1T-parameter mixture-of-experts model with 32B active parameters and a 256K-token context, offering instant and thinking modes. Moonshot highlights coding from visual specifications such as UI designs and an agent swarm mode that splits complex tasks across parallel sub-agents; Kimi K2.6 later succeeded it.",
+   "context_length": 262144,
+   "pricing": {
+    "prompt": "0.0000006",
+    "completion": "0.000003",
+    "request": "0",
+    "image": "0"
+   }
+  },
+  {
+   "id": "moonshotai/kimi-k2.6",
+   "name": "MoonshotAI: Kimi K2.6",
+   "description": "Kimi K2.6 is Moonshot AI's general-purpose multimodal model, taking text, image and video input with both thinking and non-thinking modes and a 256K-token context. Moonshot highlights more reliable long-horizon coding across languages such as Rust, Go and Python and tasks like frontend, DevOps and performance optimization, along with stronger instruction following, self-correction and autonomous agent execution. Choose Kimi K3 for flagship-level work with a 1M context.",
+   "context_length": 262144,
+   "pricing": {
+    "prompt": "0.00000095",
+    "completion": "0.000004",
+    "request": "0",
+    "image": "0"
+   }
+  },
+  {
+   "id": "moonshotai/kimi-k3",
+   "name": "MoonshotAI: Kimi K3",
+   "description": "Kimi K3 is Moonshot AI's flagship model, a 2.8-trillion-parameter open-weight mixture-of-experts model with native visual understanding and a 1M-token context. It is built on Kimi Delta Attention, a hybrid linear attention, plus Attention Residuals, and always runs in thinking mode with selectable effort. Moonshot positions it for long-horizon coding across large codebases and terminal tools, visual software tasks such as frontend and game work, and end-to-end knowledge work.",
+   "context_length": 1048576,
+   "pricing": {
+    "prompt": "0.000003",
+    "completion": "0.000015",
+    "request": "0",
+    "image": "0"
+   }
+  },
+  {
+   "id": "moonshotai/kimi-k3.1-pro",
+   "name": "MoonshotAI: Kimi K3.1 Pro",
+   "description": "Kimi K3.1 Pro is Moonshot AI's flagship open-weight multimodal reasoning model, a post-trained successor to Kimi K3 with a 1M-token context window. It accepts text, image and video input and is built for long-horizon coding, agentic tool use and visual software work.",
+   "context_length": 1048576,
+   "pricing": {
+    "prompt": "0.000002",
+    "completion": "0.00001",
+    "request": "0",
+    "image": "0"
+   }
+  },
+  {
+   "id": "openai/gpt-4.1",
+   "name": "OpenAI: GPT-4.1",
+   "description": "GPT-4.1 is OpenAI's flagship non-reasoning model in the GPT-4.1 series, released in April 2025 alongside GPT-4.1 mini and nano, with text and image input and text output. OpenAI positions it for instruction following, tool calling and coding, with improved long-context comprehension across its 1M-token window and low latency because it skips a separate reasoning step. Pick it over the mini and nano tiers when output quality matters more than speed; OpenAI suggests GPT-5-class models for the\u2026",
+   "context_length": 1047576,
+   "pricing": {
+    "prompt": "0.000002",
+    "completion": "0.000008",
+    "request": "0",
+    "image": "0"
+   }
+  },
+  {
+   "id": "openai/gpt-4.1-mini",
+   "name": "OpenAI: GPT-4.1 Mini",
+   "description": "GPT-4.1 mini is the smaller, faster tier of OpenAI's GPT-4.1 series, released in April 2025 as a non-reasoning model that accepts text and images and returns text. OpenAI describes it as strong at instruction following and tool calling, with the same 1M-token context window as GPT-4.1 and lower latency. It suits interactive apps, chat and agent tool calls where responsiveness matters more than the extra depth of full GPT-4.1.",
+   "context_length": 1047576,
+   "pricing": {
+    "prompt": "0.0000004",
+    "completion": "0.0000016",
+    "request": "0",
+    "image": "0"
+   }
+  },
+  {
+   "id": "openai/gpt-4.1-nano",
+   "name": "OpenAI: GPT-4.1 Nano",
+   "description": "GPT-4.1 nano is the fastest and smallest tier of OpenAI's GPT-4.1 series, released in April 2025 as a non-reasoning model with text and image input and text output. It keeps the 1M-token context window and the instruction-following and tool-calling focus of its siblings, and OpenAI points to low-latency tasks such as classification and autocompletion. Choose it for high-volume, simple workloads; GPT-4.1 mini or GPT-4.1 handle harder prompts better.",
+   "context_length": 1047576,
+   "pricing": {
+    "prompt": "0.0000001",
+    "completion": "0.0000004",
+    "request": "0",
+    "image": "0"
+   }
+  },
+  {
+   "id": "openai/gpt-4o",
+   "name": "OpenAI: GPT-4o",
+   "description": "GPT-4o (\"o\" for \"omni\") is OpenAI's versatile, high-intelligence GPT model released in May 2024, accepting text and image input and producing text output, including Structured Outputs. OpenAI describes it as fast and flexible, suited to general-purpose chat, image understanding, function calling and non-English language tasks. This entry tracks OpenAI's default GPT-4o alias; use one of the dated GPT-4o snapshots when a workload needs fixed behavior.",
+   "context_length": 128000,
+   "pricing": {
+    "prompt": "0.0000025",
+    "completion": "0.00001",
+    "request": "0",
+    "image": "0"
+   }
+  },
+  {
+   "id": "openai/gpt-4o-2024-05-13",
+   "name": "OpenAI: GPT-4o (2024-05-13)",
+   "description": "This is the pinned May 13, 2024 snapshot of OpenAI's GPT-4o, the original API release of the model, with text and image input and text output. It is intended for workloads that need a fixed, reproducible version of the launch-era GPT-4o rather than the moving GPT-4o alias. Later snapshots from August and November 2024 add Structured Outputs with JSON schemas and a larger output limit, so most fresh projects start with one of those.",
+   "context_length": 128000,
+   "pricing": {
+    "prompt": "0.000005",
+    "completion": "0.000015",
+    "request": "0",
+    "image": "0"
+   }
+  },
+  {
+   "id": "openai/gpt-4o-2024-08-06",
+   "name": "OpenAI: GPT-4o (2024-08-06)",
+   "description": "This is the pinned August 6, 2024 snapshot of OpenAI's GPT-4o, accepting text and image input and producing text output. It was the first GPT-4o snapshot to support Structured Outputs, letting developers supply a JSON schema that responses follow, and it raised the output limit over the May 2024 release. Use it for workloads that need a fixed GPT-4o version, especially schema-constrained extraction and function-calling pipelines.",
+   "context_length": 128000,
+   "pricing": {
+    "prompt": "0.0000025",
+    "completion": "0.00001",
+    "request": "0",
+    "image": "0"
+   }
+  },
+  {
+   "id": "openai/gpt-4o-2024-11-20",
+   "name": "OpenAI: GPT-4o (2024-11-20)",
+   "description": "This is the pinned November 20, 2024 snapshot of OpenAI's GPT-4o, with text and image input and text output, plus Structured Outputs and function calling. It is the most recent of the dated GPT-4o snapshots OpenAI lists in the API, following the August 2024 release. Use it for workloads that need a fixed GPT-4o version from late 2024 rather than the moving GPT-4o alias.",
+   "context_length": 128000,
+   "pricing": {
+    "prompt": "0.0000025",
+    "completion": "0.00001",
+    "request": "0",
+    "image": "0"
+   }
+  },
+  {
+   "id": "openai/gpt-4o-mini",
+   "name": "OpenAI: GPT-4o-mini",
+   "description": "GPT-4o mini is OpenAI's small, fast model from the GPT-4o family, released in July 2024 with text and image input and text output, including Structured Outputs. OpenAI positions it for focused tasks such as intent classification, keyword extraction, translation and tagging, and calls it ideal for fine-tuning, including distilling outputs from a larger model like GPT-4o. Pick it over GPT-4o when latency and throughput matter more than peak capability.",
+   "context_length": 128000,
+   "pricing": {
+    "prompt": "0.00000015",
+    "completion": "0.0000006",
+    "request": "0",
+    "image": "0"
+   }
+  },
+  {
+   "id": "openai/gpt-5",
+   "name": "OpenAI: GPT-5",
+   "description": "GPT-5 is OpenAI's reasoning model released in August 2025 for coding, reasoning and agentic tasks across domains, accepting text and image input and producing text. OpenAI describes it as a coding collaborator for fixing bugs, editing code and answering questions about complex codebases, with configurable reasoning effort that includes a minimal setting for quicker replies. OpenAI now labels it a previous model, and later GPT-5.x releases are its recommended successors for fresh work.",
+   "context_length": 400000,
+   "pricing": {
+    "prompt": "0.00000125",
+    "completion": "0.00001",
+    "request": "0",
+    "image": "0"
+   }
+  },
+  {
+   "id": "openai/gpt-5-mini",
+   "name": "OpenAI: GPT-5 Mini",
+   "description": "GPT-5 mini is the faster, more efficient tier of OpenAI's GPT-5 reasoning family, released in August 2025 with text and image input and text output. OpenAI recommends it for well-defined tasks and precise prompts in low-latency, high-volume workloads, keeping GPT-5's configurable reasoning. Choose it over full GPT-5 when speed and throughput matter more than maximum depth; OpenAI's later small models are its suggested successors.",
+   "context_length": 400000,
+   "pricing": {
+    "prompt": "0.00000025",
+    "completion": "0.000002",
+    "request": "0",
+    "image": "0"
+   }
+  },
+  {
+   "id": "openai/gpt-5.1",
+   "name": "OpenAI: GPT-5.1",
+   "description": "GPT-5.1 is OpenAI's GPT-5 series flagship released in November 2025 for coding and agentic tasks, with text and image input and text output. It adapts how long it thinks to task complexity, spending fewer tokens on simple requests and staying persistent on hard ones, and adds a no-reasoning mode that behaves like a low-latency non-reasoning model with strong tool calling. It succeeds GPT-5 as the full-size general-purpose option in that line.",
+   "context_length": 400000,
+   "pricing": {
+    "prompt": "0.00000125",
+    "completion": "0.00001",
+    "request": "0",
+    "image": "0"
+   }
+  },
+  {
+   "id": "openai/gpt-5.1-codex",
+   "name": "OpenAI: GPT-5.1-Codex",
+   "description": "GPT-5.1-Codex is a version of OpenAI's GPT-5.1 optimized for agentic coding in Codex and similar environments, released in November 2025 with text and image input and text output. It targets autonomous, long-running software engineering work inside coding agents and tools, and OpenAI notes its underlying snapshot is updated over time. Pick it over general GPT-5.1 when building coding agents; OpenAI serves it through the Responses API only.",
+   "context_length": 400000,
+   "pricing": {
+    "prompt": "0.00000125",
+    "completion": "0.00001",
+    "request": "0",
+    "image": "0"
+   }
+  },
+  {
+   "id": "openai/gpt-5.2",
+   "name": "OpenAI: GPT-5.2",
+   "description": "GPT-5.2 is OpenAI's GPT-5 series flagship released in December 2025, positioned by OpenAI for complex professional work and long-running agents, with text and image input and text output. It offers configurable reasoning effort from none up to an extra-high setting, and OpenAI highlights its performance on well-specified knowledge work across dozens of occupations alongside coding and tool use. OpenAI now calls it a previous flagship, with GPT-5.4 following it.",
+   "context_length": 400000,
+   "pricing": {
+    "prompt": "0.00000175",
+    "completion": "0.000014",
+    "request": "0",
+    "image": "0"
+   }
+  },
+  {
+   "id": "openai/gpt-5.3-codex",
+   "name": "OpenAI: GPT-5.3-Codex",
+   "description": "GPT-5.3-Codex is OpenAI's agentic coding model announced in February 2026, optimized for Codex and similar environments, with text and image input and text output. OpenAI called it its most capable agentic coding model at release and says it extends Codex from writing and reviewing code to most tasks developers and professionals do on a computer. It supports low to extra-high reasoning effort and suits long-running coding, debugging and computer-use agents.",
+   "context_length": 400000,
+   "pricing": {
+    "prompt": "0.00000175",
+    "completion": "0.000014",
+    "request": "0",
+    "image": "0"
+   }
+  },
+  {
+   "id": "openai/gpt-5.4",
+   "name": "OpenAI: GPT-5.4",
+   "description": "GPT-5.4 is OpenAI's flagship GPT-5.4 reasoning model for complex professional work, released in March 2026 with text and image input, text output and a context window of about 1.05M tokens. OpenAI positions it for coding, professional knowledge work and multi-step agent workflows, with configurable reasoning effort and broad tool support including web search, code interpreter, computer use and MCP. Choose it over GPT-5.4 mini or nano when task depth matters more than speed.",
+   "context_length": 1050000,
+   "pricing": {
+    "prompt": "0.0000025",
+    "completion": "0.000015",
+    "request": "0",
+    "image": "0"
+   }
+  },
+  {
+   "id": "openai/gpt-5.4-mini",
+   "name": "OpenAI: GPT-5.4 Mini",
+   "description": "GPT-5.4 mini is the smaller, faster tier of OpenAI's GPT-5.4 family, released in March 2026 with text and image input and text output. OpenAI describes it as its strongest mini model at release for coding, computer use and subagents, bringing much of GPT-5.4's capability to high-volume workloads at more than twice the speed of GPT-5 mini. Pick it over full GPT-5.4 for responsive coding assistants and agent fleets, and over nano when tasks need computer use.",
+   "context_length": 400000,
+   "pricing": {
+    "prompt": "0.00000075",
+    "completion": "0.0000045",
+    "request": "0",
+    "image": "0"
+   }
+  },
+  {
+   "id": "openai/gpt-5.4-nano",
+   "name": "OpenAI: GPT-5.4 Nano",
+   "description": "GPT-5.4 nano is the smallest and fastest tier of OpenAI's GPT-5.4 family, released in March 2026 with text and image input and text output. OpenAI recommends it for tasks where speed matters most, such as classification, data extraction, ranking and coding subagents that handle simpler supporting work. Choose it for high-volume pipelines; unlike GPT-5.4 mini, it does not support the computer use or tool search tools.",
+   "context_length": 400000,
+   "pricing": {
+    "prompt": "0.0000002",
+    "completion": "0.00000125",
+    "request": "0",
+    "image": "0"
+   }
+  },
+  {
+   "id": "openai/gpt-5.5",
+   "name": "OpenAI: GPT-5.5",
+   "description": "GPT-5.5 is an OpenAI flagship reasoning model with text and image input, made available in the API in April 2026 and described by OpenAI as built for complex professional work. OpenAI positions it for writing and debugging code, online research, data analysis, creating documents and spreadsheets, and operating software across tools until a task is done. It succeeds GPT-5.4 at similar per-token latency, and a pinned snapshot dated 2026-04-23 is available for fixed-version workloads.",
+   "context_length": 1050000,
+   "pricing": {
+    "prompt": "0.000005",
+    "completion": "0.00003",
+    "request": "0",
+    "image": "0"
+   }
+  },
+  {
+   "id": "openai/gpt-5.5-pro",
+   "name": "OpenAI: GPT-5.5 Pro",
+   "description": "GPT-5.5 Pro is a separate OpenAI model in the GPT-5.5 family that uses more compute to think harder and give consistently better answers, according to OpenAI. It is intended for tough, high-stakes problems where answer quality matters more than speed, and some requests can take several minutes to finish. Choose it over standard GPT-5.5 when reliability on difficult reasoning, coding or analysis justifies the extra latency; OpenAI serves it for multi-turn and batch API requests.",
+   "context_length": 1050000,
+   "pricing": {
+    "prompt": "0.00003",
+    "completion": "0.00018",
+    "request": "0",
+    "image": "0"
+   }
+  },
+  {
+   "id": "openai/gpt-5.6-luna",
+   "name": "OpenAI: GPT-5.6 Luna",
+   "description": "GPT-5.6 Luna is the smallest, fastest tier of OpenAI's GPT-5.6 reasoning family, with text and image input; OpenAI says it roughly corresponds to the nano tier of earlier GPT-5 families. It is designed for high-volume workloads such as classification, extraction, routing, chat and lightweight agent steps where throughput and latency matter. Pick GPT-5.6 Terra or GPT-5.6 Sol when tasks need more capability, and the pro variant when a hard request needs more reasoning work.",
+   "context_length": 1050000,
+   "pricing": {
+    "prompt": "0.0000002",
+    "completion": "0.0000012",
+    "request": "0",
+    "image": "0"
+   }
+  },
+  {
+   "id": "openai/gpt-5.6-luna-pro",
+   "name": "OpenAI: GPT-5.6 Luna Pro",
+   "description": "GPT-5.6 Luna Pro is the same GPT-5.6 Luna model, OpenAI's smallest GPT-5.6 tier, served in OpenAI's pro reasoning mode rather than as different weights. In pro mode the model performs more work on each request before returning a single final answer, which OpenAI says can improve reliability on difficult tasks at the expense of higher latency and token usage. Use it when Luna's speed tier is preferred but a particular request is hard; keep standard Luna for routine, high-volume traffic.",
+   "context_length": 1050000,
+   "pricing": {
+    "prompt": "0.0000002",
+    "completion": "0.0000012",
+    "request": "0",
+    "image": "0"
+   }
+  },
+  {
+   "id": "openai/gpt-5.6-sol",
+   "name": "OpenAI: GPT-5.6 Sol",
+   "description": "GPT-5.6 Sol is the flagship tier of OpenAI's GPT-5.6 reasoning family, accepting text and image input; OpenAI says it roughly corresponds to the unsuffixed tier of earlier GPT-5 families, and the plain GPT-5.6 name routes to it. OpenAI positions it for complex professional work, including coding, knowledge work, cybersecurity and science. Pick it over GPT-5.6 Terra or Luna when tasks need the most capability in this family, or the Sol Pro variant for the hardest requests.",
+   "context_length": 1050000,
+   "pricing": {
+    "prompt": "0.000004",
+    "completion": "0.00002",
+    "request": "0",
+    "image": "0"
+   }
+  },
+  {
+   "id": "openai/gpt-5.6-sol-pro",
+   "name": "OpenAI: GPT-5.6 Sol Pro",
+   "description": "GPT-5.6 Sol Pro is the same GPT-5.6 Sol model, the flagship of OpenAI's GPT-5.6 family, served in OpenAI's pro reasoning mode rather than as a separate model. Pro mode spends more model work on each request before returning one final answer, which OpenAI recommends for complex optimization, high-value coding or review, and deep analysis. It brings higher latency and token usage, so standard Sol remains the better choice for routine or latency-sensitive work.",
+   "context_length": 1050000,
+   "pricing": {
+    "prompt": "0.000004",
+    "completion": "0.00002",
+    "request": "0",
+    "image": "0"
+   }
+  },
+  {
+   "id": "openai/gpt-5.6-terra",
+   "name": "OpenAI: GPT-5.6 Terra",
+   "description": "GPT-5.6 Terra is the middle tier of OpenAI's GPT-5.6 reasoning family, with text and image input, and is described by OpenAI as a balanced model for everyday work; it roughly corresponds to the mini tier of earlier GPT-5 families. It suits day-to-day coding, analysis and agentic tasks that need solid reasoning without flagship-level depth. Choose GPT-5.6 Sol for the most demanding work, GPT-5.6 Luna for the highest-volume tasks, or Terra Pro for hard individual requests.",
+   "context_length": 1050000,
+   "pricing": {
+    "prompt": "0.000002",
+    "completion": "0.000012",
+    "request": "0",
+    "image": "0"
+   }
+  },
+  {
+   "id": "openai/gpt-5.6-terra-pro",
+   "name": "OpenAI: GPT-5.6 Terra Pro",
+   "description": "GPT-5.6 Terra Pro is the same GPT-5.6 Terra model, the balanced middle tier of OpenAI's GPT-5.6 family, served in OpenAI's pro reasoning mode instead of standard mode. Pro mode applies more model work to each request and returns a single final answer, which OpenAI says can improve reliability on difficult problems while increasing latency and token usage. It fits harder coding, review or analysis tasks where Terra's tier is preferred but extra quality on a single answer matters.",
+   "context_length": 1050000,
+   "pricing": {
+    "prompt": "0.000002",
+    "completion": "0.000012",
+    "request": "0",
+    "image": "0"
+   }
+  },
+  {
+   "id": "openai/gpt-6-astra",
+   "name": "OpenAI: GPT-6 Astra",
+   "description": "GPT-6 Astra is OpenAI's flagship GPT-6 reasoning model, described by OpenAI as its most capable model for the most demanding work, with text and image input. OpenAI recommends it for complex reasoning, coding, computer use, research and document creation, including multi-step workflows across code, browsers and professional software. It is the top tier above GPT-6.1 Sol and GPT-6 Luna; choose it when quality matters most, or the Astra Pro variant for the hardest requests.",
+   "context_length": 1050000,
+   "pricing": {
+    "prompt": "0.00001",
+    "completion": "0.00005",
+    "request": "0",
+    "image": "0"
+   }
+  },
+  {
+   "id": "openai/gpt-6-astra-pro",
+   "name": "OpenAI: GPT-6 Astra Pro",
+   "description": "GPT-6 Astra Pro is the same GPT-6 Astra model, OpenAI's most capable GPT-6 tier, served in OpenAI's pro reasoning mode rather than as different weights. In pro mode the model does more work on each request before returning one final answer, which OpenAI suggests for complex optimization, high-value coding or review, and deep analysis. Expect higher latency and token usage than standard Astra, so reserve it for problems where a marginal quality gain changes the outcome.",
+   "context_length": 1050000,
+   "pricing": {
+    "prompt": "0.00001",
+    "completion": "0.00005",
+    "request": "0",
+    "image": "0"
+   }
+  },
+  {
+   "id": "openai/gpt-6-luna",
+   "name": "OpenAI: GPT-6 Luna",
+   "description": "GPT-6 Luna is the smallest, fastest tier of OpenAI's GPT-6 reasoning family, described by OpenAI as its most efficient model for focused, high-volume tasks, with text and image input. It was trained with methods similar to GPT-6 Astra to carry much of that model's strengths into a faster tier. Choose it for high-throughput chat, extraction and lightweight agent steps, and move to GPT-6.1 Sol or GPT-6 Astra when work needs deeper reasoning.",
+   "context_length": 1050000,
+   "pricing": {
+    "prompt": "0.0000001",
+    "completion": "0.0000005",
+    "request": "0",
+    "image": "0"
+   }
+  },
+  {
+   "id": "openai/gpt-6-luna-pro",
+   "name": "OpenAI: GPT-6 Luna Pro",
+   "description": "GPT-6 Luna Pro is the same GPT-6 Luna model, OpenAI's most efficient GPT-6 tier, served in OpenAI's pro reasoning mode instead of standard mode. Pro mode spends more model work per request and returns one final answer, which OpenAI says can improve reliability on difficult tasks while raising latency and token usage. It suits occasional hard requests in a Luna-based workload; for routine, latency-sensitive or high-volume traffic, OpenAI recommends standard mode.",
+   "context_length": 1050000,
+   "pricing": {
+    "prompt": "0.0000001",
+    "completion": "0.0000005",
+    "request": "0",
+    "image": "0"
+   }
+  },
+  {
+   "id": "openai/gpt-6-sol",
+   "name": "OpenAI: GPT-6 Sol",
+   "description": "GPT-6 Sol is the middle tier of OpenAI's GPT-6 reasoning family, released in September 2026 alongside GPT-6 Luna and built, according to OpenAI, for complex coding and agentic workflows, with text and image input. It was trained with methods similar to GPT-6 Astra to bring much of Astra's capability to a faster tier. OpenAI's docs now point to GPT-6.1 Sol as the updated Sol model, so this entry mainly suits workloads already validated on GPT-6 Sol.",
+   "context_length": 1050000,
+   "pricing": {
+    "prompt": "0.000002",
+    "completion": "0.00001",
+    "request": "0",
+    "image": "0"
+   }
+  },
+  {
+   "id": "openai/gpt-6-sol-pro",
+   "name": "OpenAI: GPT-6 Sol Pro",
+   "description": "GPT-6 Sol Pro is the same GPT-6 Sol model, the middle tier of OpenAI's GPT-6 family, served in OpenAI's pro reasoning mode rather than as a separate model. Pro mode does more model work on each request before returning a single final answer, which OpenAI suggests for difficult coding, review and deep analysis where quality outweighs speed. It adds latency and token usage compared with standard GPT-6 Sol, and OpenAI's docs point to GPT-6.1 Sol as the updated Sol model.",
+   "context_length": 1050000,
+   "pricing": {
+    "prompt": "0.000002",
+    "completion": "0.00001",
+    "request": "0",
+    "image": "0"
+   }
+  },
+  {
+   "id": "openai/gpt-6.1-sol",
+   "name": "OpenAI: GPT-6.1 Sol",
+   "description": "GPT-6.1 Sol is OpenAI's upgrade to GPT-6 Sol, introduced at DevDay 2026 and positioned between GPT-6 Astra and GPT-6 Luna, with text and image input. OpenAI says it delivers near-Astra performance for complex coding, computer use and professional work, and recommends comparing it with Astra on your own tasks. Pick it for demanding agentic work at scale when Astra's full depth is not required; it always reasons at least at a low level and has no reasoning-off option.",
+   "context_length": 1050000,
+   "pricing": {
+    "prompt": "0.000002",
+    "completion": "0.00001",
+    "request": "0",
+    "image": "0"
+   }
+  },
+  {
+   "id": "openai/gpt-6.1-sol-pro",
+   "name": "OpenAI: GPT-6.1 Sol Pro",
+   "description": "GPT-6.1 Sol Pro is the same GPT-6.1 Sol model, OpenAI's near-Astra GPT-6 tier, served in OpenAI's pro reasoning mode rather than as different weights. Pro mode spends more model work on each request before returning a single final answer, which OpenAI says can improve reliability on difficult tasks such as complex optimization, high-value code review and deep analysis. It increases latency and token usage, so standard GPT-6.1 Sol remains the default for routine work.",
+   "context_length": 1050000,
+   "pricing": {
+    "prompt": "0.000002",
+    "completion": "0.00001",
+    "request": "0",
+    "image": "0"
+   }
+  },
+  {
+   "id": "openai/gpt-6.1-terra",
+   "name": "OpenAI: GPT-6.1 Terra",
+   "description": "GPT-6.1 Terra is the middle tier of OpenAI's GPT-6.1 family and the replacement for GPT-5.6 Terra, with text and image input. OpenAI positions it for everyday agentic, coding and writing work, with particular gains in visual reasoning over screenshots and documents and in computer use, at half the price of GPT-6.1 Sol. Reasoning effort ranges from none to max with medium as the default; choose GPT-6.1 Sol for harder work or GPT-6 Luna for the highest-volume tasks.",
+   "context_length": 1050000,
+   "pricing": {
+    "prompt": "0.000001",
+    "completion": "0.000005",
+    "request": "0",
+    "image": "0"
+   }
+  },
+  {
+   "id": "openai/gpt-6.1-terra-pro",
+   "name": "OpenAI: GPT-6.1 Terra Pro",
+   "description": "GPT-6.1 Terra Pro is the same GPT-6.1 Terra model, the balanced middle tier of OpenAI's GPT-6.1 family, served in OpenAI's pro reasoning mode instead of standard mode. Pro mode applies more model work to each request and returns a single final answer, which OpenAI says can improve reliability on difficult problems while increasing latency and token usage. It fits harder coding, review or analysis tasks where Terra's tier is preferred but extra quality on a single answer matters.",
+   "context_length": 1050000,
+   "pricing": {
+    "prompt": "0.000001",
+    "completion": "0.000005",
+    "request": "0",
+    "image": "0"
+   }
+  },
+  {
+   "id": "openai/gpt-oss-120b",
+   "name": "OpenAI: gpt-oss-120b",
+   "description": "gpt-oss-120b is OpenAI's largest open-weight reasoning model, released in August 2025 under the Apache 2.0 license: a 117B-parameter mixture-of-experts model with 5.1B active parameters that fits on a single 80GB GPU. OpenAI positions it for production, general-purpose and high-reasoning use, with adjustable low, medium or high reasoning, full chain-of-thought access, and native function calling, browsing, Python execution and structured outputs. It is text-only and can be self-hosted or\u2026",
+   "context_length": 131072,
+   "pricing": {
+    "prompt": "0.000000039",
+    "completion": "0.00000018",
+    "request": "0",
+    "image": "0"
+   }
+  },
+  {
+   "id": "stepfun/step-5-preview",
+   "name": "StepFun: Step 5 Preview",
+   "description": "Step 5 Preview is StepFun's flagship model for agentic work, built on a sparse Mixture-of-Experts architecture with 27B active and 600B total parameters. It accepts text, image, and video input with a 1M-token context window, and supports tool calling, structured outputs, and configurable reasoning. It is designed for software engineering, long-horizon agent workflows, and professional knowledge tasks. As a preview release, its behavior may change before the stable version.",
+   "context_length": 1000000,
+   "pricing": {
+    "prompt": "0.000001",
+    "completion": "0.0000027",
+    "request": "0",
+    "image": "0"
+   }
+  },
+  {
+   "id": "tencent/hy3",
+   "name": "Tencent: Hy3",
+   "description": "Hy3 is a 295B-parameter Mixture-of-Experts model from Tencent (21B active, 192 experts with top-8 routing) built for reasoning, agentic workflows, and real-world production use. It supports configurable reasoning effort.",
+   "context_length": 262144,
+   "pricing": {
+    "prompt": "0.000000132",
+    "completion": "0.000000528",
+    "request": "0",
+    "image": "0"
+   }
+  },
+  {
+   "id": "tencent/hy4-preview",
+   "name": "Tencent: Hy4 preview",
+   "description": "Hy4 preview is Tencent Hunyuan's open-source preview of its Hy4 generation, a mixture-of-experts language model with 770B total and 49B active parameters and a context window exceeding 1M tokens. Tencent built it for real-world productivity: long-context software development and front-end work, office and financial analysis, game prototyping and scientific research. Tencent follows a preview-first approach, with official Hy4 releases to come after this model.",
+   "context_length": 1048576,
+   "pricing": {
+    "prompt": "0.000000834",
+    "completion": "0.000002501",
+    "request": "0",
+    "image": "0"
+   }
+  },
+  {
+   "id": "typesafe/jev-1.13",
+   "name": "TypeSafe: Jev 1.13",
+   "description": "Jev 1.13 is a version of Jev, TypeSafe AI's flagship and first public System One model, which makes structured decisions for software instead of generating text. Given a state and typed questions, it returns a chosen option, a rubric score or the probability that a statement is true, with confidence estimates that code can threshold. TypeSafe positions it for automated decision points that software can branch on, sort or route with, with complex judgments split into atomic questions combined\u2026",
+   "context_length": 32000,
+   "pricing": {
+    "prompt": "0.000000042",
+    "completion": "0",
+    "request": "0",
+    "image": "0"
+   }
+  },
+  {
+   "id": "typesafe/jev-1.14",
+   "name": "TypeSafe: Jev 1.14",
+   "description": "Jev 1.14 is the latest version of Jev, TypeSafe AI's flagship and first public System One model, which makes structured decisions for software instead of generating text. Given a state and typed questions, it returns a chosen option, a rubric score or the probability that a statement is true, with confidence estimates that code can threshold. Compared with Jev 1.13 it brings small improvements across the board, with the largest gains in multilingual support. TypeSafe positions it for automated\u2026",
+   "context_length": 32000,
+   "pricing": {
+    "prompt": "0.000000042",
+    "completion": "0",
+    "request": "0",
+    "image": "0"
+   }
+  },
+  {
+   "id": "x-ai/grok-4.3",
+   "name": "xAI: Grok 4.3",
+   "description": "Grok 4.3 is an xAI reasoning model that xAI describes as fast and reliable, with strong tool calling and instruction following. It accepts text and image input with text output, offers a 1M-token context window, and supports configurable reasoning effort that can be switched off or raised, defaulting to low. It suits agentic workflows, long-document analysis and high-volume instruction-following tasks, while Grok 4.5 through 4.7 later took over as xAI's flagship for coding.",
+   "context_length": 1000000,
+   "pricing": {
+    "prompt": "0.00000125",
+    "completion": "0.0000025",
+    "request": "0",
+    "image": "0"
+   }
+  },
+  {
+   "id": "x-ai/grok-4.5",
+   "name": "xAI: Grok 4.5",
+   "description": "Grok 4.5 is an xAI reasoning model for coding, agentic tasks and knowledge work, released on the xAI API in July 2026 and trained alongside Cursor. xAI emphasizes token-efficient reasoning on real engineering tasks, fast serving, and office work such as building Excel models, PowerPoint diagrams and Word documents. It accepts text and image input with configurable reasoning effort; Grok 4.6 and Grok 4.7 later succeeded it as xAI's flagship.",
+   "context_length": 500000,
+   "pricing": {
+    "prompt": "0.000002",
+    "completion": "0.000006",
+    "request": "0",
+    "image": "0"
+   }
+  },
+  {
+   "id": "x-ai/grok-4.6",
+   "name": "xAI: Grok 4.6",
+   "description": "Grok 4.6 is xAI's frontier reasoning model for coding, agentic tasks and knowledge work, released in August 2026 as the successor to Grok 4.5. xAI focused it on long-running agents and ambitious interactive and visual projects, such as turning a broad product idea into a working first version and refining it over several rounds. It accepts text and image input with text output and configurable reasoning effort; Grok 4.7 succeeded it in September 2026.",
+   "context_length": 500000,
+   "pricing": {
+    "prompt": "0.000002",
+    "completion": "0.000006",
+    "request": "0",
+    "image": "0"
+   }
+  },
+  {
+   "id": "x-ai/grok-4.7",
+   "name": "xAI: Grok 4.7",
+   "description": "Grok 4.7 is xAI's flagship reasoning model for coding, agentic tasks and knowledge work, released on the xAI API in September 2026 as the successor to Grok 4.6. xAI says it uses a larger base model and a longer reinforcement learning run weighted toward multi-hour problems, making it better at checking its own work, managing long context and producing documents and presentations. It accepts text and image input, returns text, and supports configurable reasoning effort.",
+   "context_length": 500000,
+   "pricing": {
+    "prompt": "0.000002",
+    "completion": "0.000006",
+    "request": "0",
+    "image": "0"
+   }
+  },
+  {
+   "id": "xiaomi/mimo-v2.6-flash",
+   "name": "Xiaomi: MiMo-V2.6-Flash",
+   "description": "MiMo-V2.6-Flash is the efficiency tier of Xiaomi's open-source MiMo-V2.6 series, released in September 2026 as a natively omni-modal reasoning model that takes text, image, video and audio input and returns text. Xiaomi positions it as the balance of intelligence and efficiency for high-frequency calls and large-scale professional workflows, with a 1M-token context, tool calling and structured output. Xiaomi reports it surpasses MiMo-V2.5-Pro; choose MiMo-V2.6-Pro for the hardest tasks.",
+   "context_length": 1050000,
+   "pricing": {
+    "prompt": "0.00000014",
+    "completion": "0.00000028",
+    "request": "0",
+    "image": "0"
+   }
+  },
+  {
+   "id": "xiaomi/mimo-v2.6-pro",
+   "name": "Xiaomi: MiMo-V2.6-Pro",
+   "description": "MiMo-V2.6-Pro is the flagship of Xiaomi's open-source MiMo-V2.6 series, a trillion-parameter, natively omni-modal reasoning model released in September 2026 that takes text, image, video and audio input. Xiaomi built it for complex projects, long-horizon agents, coding, office and design work, cybersecurity, computer operation and research, with a 1M-token context. Pick it over MiMo-V2.6-Flash when task difficulty matters more than speed and volume.",
+   "context_length": 1050000,
+   "pricing": {
+    "prompt": "0.000000435",
+    "completion": "0.00000087",
+    "request": "0",
+    "image": "0"
+   }
+  },
+  {
+   "id": "z-ai/glm-4.5-air",
+   "name": "Z.ai: GLM 4.5 Air",
+   "description": "GLM-4.5-Air is the lightweight member of Z.ai's GLM-4.5 family, a mixture-of-experts model with 106B total and 12B active parameters built as a foundation model for agent-oriented applications. It offers hybrid reasoning, with a thinking mode for complex reasoning and tool use and a non-thinking mode for instant replies, and is tuned for tool calling, web browsing, software engineering and front-end development. Choose GLM-4.5 for more capacity.",
+   "context_length": 131072,
+   "pricing": {
+    "prompt": "0.0000002",
+    "completion": "0.0000011",
+    "request": "0",
+    "image": "0"
+   }
+  },
+  {
+   "id": "z-ai/glm-5.2",
+   "name": "Z.ai: GLM 5.2",
+   "description": "GLM-5.2 is Z.ai's open-weight flagship text model released in June 2026 for long-horizon tasks, and the first GLM model to deliver that capability on a usable 1M-token context. Z.ai positions it for project-scale software engineering, deep debugging and full development workflows from requirements to deployable products, with steadier long-task execution and closer adherence to engineering standards. GLM-5.3 builds on the same base model with further post-training for coding.",
+   "context_length": 1048576,
+   "pricing": {
+    "prompt": "0.0000014",
+    "completion": "0.0000044",
+    "request": "0",
+    "image": "0"
+   }
+  },
+  {
+   "id": "z-ai/glm-5.3",
+   "name": "Z.ai: GLM 5.3",
+   "description": "GLM-5.3 is Z.ai's flagship text model for complex software engineering and long-horizon agent work, built on the same base model as GLM-5.2 with all gains coming from expanded post-training. Z.ai highlights stronger agentic coding, terminal operation, and vulnerability discovery and exploitation analysis for security work. It always runs with reasoning enabled at selectable effort levels and accepts text only; choose GLM-5.3-Flash for image input or lighter, faster serving.",
+   "context_length": 1048576,
+   "pricing": {
+    "prompt": "0.0000014",
+    "completion": "0.0000044",
+    "request": "0",
+    "image": "0"
+   }
+  },
+  {
+   "id": "z-ai/glm-5.3-flash",
+   "name": "Z.ai: GLM 5.3 Flash",
+   "description": "GLM-5.3-Flash is the first native multimodal model in Z.ai's GLM-5 series, a 320B-parameter mixture-of-experts model with 18B active parameters that combines sparse and linear attention to cut long-context compute and KV cache. Vision is built into its coding loop, letting it inspect rendered interfaces and GUI feedback for frontend, game and computer-use work, and it also handles office documents and financial research. Z.ai reports it outperforms GLM-5.2; GLM-5.3-FlashX serves it at higher\u2026",
+   "context_length": 1048576,
+   "pricing": {
+    "prompt": "0.00000015",
+    "completion": "0.0000005",
+    "request": "0",
+    "image": "0"
+   }
+  },
+  {
+   "id": "z-ai/glm-5.3-flashx",
+   "name": "Z.ai: GLM 5.3 FlashX",
+   "description": "GLM-5.3-FlashX is the high-speed tier of Z.ai's GLM-5.3-Flash, documented together with Flash and delivering inference speeds of up to 200 tokens per second. It shares Flash's native multimodal design and hybrid sparse-plus-linear attention, with image, video and file input, always-on reasoning, tool calling and structured output. Pick it over standard Flash for latency-sensitive coding agents, GUI and browser tasks, and interactive chat.",
+   "context_length": 1048576,
+   "pricing": {
+    "prompt": "0.00000037",
+    "completion": "0.00000125",
+    "request": "0",
+    "image": "0"
+   }
+  }
+ ]
+}

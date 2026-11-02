@@ -47,5 +47,6 @@
   },
   "page_url": "https://www.sandbase.ai/model/google/gemini-3.1-pro-preview",
   "published_at": "2026-02-19T14:00:27Z",
-  "created_at": "2026-05-08T23:49:19.789Z"
+  "created_at": "2026-05-08T23:49:19.789Z",
+  "context_length": 1048576
 }

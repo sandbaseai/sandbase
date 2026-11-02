@@ -1,0 +1,27 @@
+name: Label
+
+# pull_request_target runs with a token that can label fork PRs. It never checks out
+# or runs code from the pull request.
+on:
+  pull_request_target:
+    types: [opened, synchronize, reopened]
+
+permissions:
+  pull-requests: write
+
+jobs:
+  label:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Label by changed paths
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PR: ${{ github.event.pull_request.number }}
+          REPO: ${{ github.repository }}
+        run: |
+          files=$(gh pr view "$PR" -R "$REPO" --json files --jq '.files[].path')
+          labels=()
+          grep -q '^integrations/' <<<"$files" && labels+=(integration)
+          grep -q '^sdk/' <<<"$files" && labels+=(sdk)
+          grep -qE '^(docs|README|examples)/?' <<<"$files" && labels+=(docs)
+          for l in "${labels[@]}"; do gh pr edit "$PR" -R "$REPO" --add-label "$l"; done

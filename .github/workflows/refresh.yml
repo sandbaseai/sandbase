@@ -30,11 +30,11 @@ jobs:
         run: python scripts/build_catalog.py --strict
       - name: Commit changes
         run: |
-          if git diff --quiet -- catalog docs openapi llms.txt README.md README.zh-CN.md; then
+          if git diff --quiet -- catalog docs openapi exports llms.txt README.md README.zh-CN.md; then
             echo "no catalog changes"; exit 0
           fi
           git config user.name "sandbase-catalog-bot"
           git config user.email "catalog-bot@users.noreply.github.com"
-          git add catalog docs openapi llms.txt README.md README.zh-CN.md
+          git add catalog docs openapi exports llms.txt README.md README.zh-CN.md
           git commit -m "chore(catalog): refresh $(date -u +%Y-%m-%d)"
           git push

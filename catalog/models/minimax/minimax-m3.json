@@ -40,5 +40,6 @@
   "cover_url": "https://t0.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=https://minimaxi.com/&size=256",
   "page_url": "https://www.sandbase.ai/model/minimax/minimax-m3",
   "published_at": "2026-05-31T16:36:14.509Z",
-  "created_at": "2026-06-04T07:18:09.708Z"
+  "created_at": "2026-06-04T07:18:09.708Z",
+  "context_length": 1000000
 }

@@ -31,6 +31,15 @@
 | 📦 **沙箱** | 隔离环境，可以执行代码、运行命令、读写文件 | **免费** | E2B 官方 SDK |
 | 🤖 **Agent** | Agent、Session、HTTP Service、定时任务、Skill | **免费**（Agent 调用的模型和 API 照常计费） | OpenAI Agents API |
 
+## 选择你的场景
+
+| 你是 | 从这里开始 |
+|---|---|
+| **开发应用** | 下面的「快速开始」，以及 [Python](sdk/python) · [TypeScript](sdk/typescript) · [Go](sdk/go) 客户端 |
+| **运营中转平台或网关**（new-api、one-api、LiteLLM） | [中转接入指南](docs/guides/relay-platforms.md)（英文）和可直接导入的[价格文件](exports/) |
+| **使用 AI 编程工具**（Claude Code、Codex、Cursor） | [SandBase CLI / MCP](https://github.com/sandbaseai/cli) |
+| **API 提供方** | 通过 PR [接入你的 API](integrations/README.md) |
+
 ## 快速开始
 
 在 [sandbase.ai/console](https://www.sandbase.ai/console) 获取 key 后：

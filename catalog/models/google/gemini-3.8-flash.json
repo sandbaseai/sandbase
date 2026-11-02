@@ -41,5 +41,6 @@
   },
   "page_url": "https://www.sandbase.ai/model/google/gemini-3.8-flash",
   "published_at": "2026-09-02T15:14:16Z",
-  "created_at": "2026-09-03T09:22:34.062Z"
+  "created_at": "2026-09-03T09:22:34.062Z",
+  "context_length": 1048576
 }

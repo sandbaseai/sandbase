@@ -48,5 +48,6 @@
   "cover_url": "https://t0.gstatic.com/faviconV2?client=SOCIAL\\u0026type=FAVICON\\u0026fallback_opts=TYPE,SIZE,URL\\u0026url=https://openai.com\\u0026size=256",
   "page_url": "https://www.sandbase.ai/model/openai/gpt-6-astra-pro",
   "published_at": "2026-09-04T20:13:55Z",
-  "created_at": "2026-10-03T06:31:41.161Z"
+  "created_at": "2026-10-03T06:31:41.161Z",
+  "context_length": 1050000
 }

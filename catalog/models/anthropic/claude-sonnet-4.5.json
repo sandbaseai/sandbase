@@ -40,5 +40,6 @@
   },
   "page_url": "https://www.sandbase.ai/model/anthropic/claude-sonnet-4.5",
   "published_at": "2025-09-29T16:01:16.552Z",
-  "created_at": "2026-05-08T23:47:04.629Z"
+  "created_at": "2026-05-08T23:47:04.629Z",
+  "context_length": 200000
 }

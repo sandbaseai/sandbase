@@ -39,5 +39,6 @@
   },
   "page_url": "https://www.sandbase.ai/model/z-ai/glm-5.3-flashx",
   "published_at": "2026-09-18T15:07:00Z",
-  "created_at": "2026-10-03T04:21:07.385Z"
+  "created_at": "2026-10-03T04:21:07.385Z",
+  "context_length": 1048576
 }

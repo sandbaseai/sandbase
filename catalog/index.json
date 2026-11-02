@@ -40345,6 +40345,7 @@
    "price": {
     "model": "unknown"
    },
+   "status": "coming_soon",
    "record": "catalog/models/anthropic/claude-fable-5.5.json"
   },
   {
@@ -42920,6 +42921,7 @@
    "price": {
     "model": "unknown"
    },
+   "status": "coming_soon",
    "record": "catalog/models/z-ai/glm-5.5.json"
   },
   {

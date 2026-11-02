@@ -48,5 +48,6 @@
   "cover_url": "https://t0.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=https://openai.com&size=256",
   "page_url": "https://www.sandbase.ai/model/openai/gpt-6-sol",
   "published_at": "2026-09-22T00:00:00Z",
-  "created_at": "2026-09-24T10:17:36.387Z"
+  "created_at": "2026-09-24T10:17:36.387Z",
+  "context_length": 1050000
 }

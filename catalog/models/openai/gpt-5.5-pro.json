@@ -44,5 +44,6 @@
   "cover_url": "https://t0.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=https://openai.com&size=256",
   "page_url": "https://www.sandbase.ai/model/openai/gpt-5.5-pro",
   "published_at": "2026-04-24T17:31:36.719Z",
-  "created_at": "2026-05-08T23:55:50.137Z"
+  "created_at": "2026-05-08T23:55:50.137Z",
+  "context_length": 1050000
 }

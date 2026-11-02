@@ -34,5 +34,6 @@
   },
   "page_url": "https://www.sandbase.ai/model/meta/llama-3.3-70b-instruct",
   "published_at": "2024-12-06T17:28:57Z",
-  "created_at": "2026-05-08T23:50:53.412Z"
+  "created_at": "2026-05-08T23:50:53.412Z",
+  "context_length": 131072
 }

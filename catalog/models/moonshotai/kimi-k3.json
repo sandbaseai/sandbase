@@ -40,5 +40,6 @@
   },
   "page_url": "https://www.sandbase.ai/model/moonshotai/kimi-k3",
   "published_at": "2026-07-26T00:00:00Z",
-  "created_at": "2026-07-27T09:11:12.546Z"
+  "created_at": "2026-07-27T09:11:12.546Z",
+  "context_length": 1048576
 }

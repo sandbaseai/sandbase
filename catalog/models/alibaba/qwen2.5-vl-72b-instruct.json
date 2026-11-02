@@ -35,5 +35,6 @@
   "cover_url": "https://t0.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=https://www.alibabacloud.com&size=256",
   "page_url": "https://www.sandbase.ai/model/alibaba/qwen2.5-vl-72b-instruct",
   "published_at": "2025-02-01T11:45:11Z",
-  "created_at": "2026-05-08T23:44:46.144Z"
+  "created_at": "2026-05-08T23:44:46.144Z",
+  "context_length": 128000
 }

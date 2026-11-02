@@ -36,5 +36,6 @@
   },
   "readme": "Alibaba text-embedding-v4 converts text into dense vectors for semantic search, RAG, clustering, classification, and multilingual retrieval. It belongs to the Qwen3-Embedding series and supports configurable output dimensions: 2048, 1536, 1024, 768, 512, 256, 128, and 64.",
   "page_url": "https://www.sandbase.ai/model/alibaba/text-embedding-v4",
-  "created_at": "2026-07-07T07:37:40.547Z"
+  "created_at": "2026-07-07T07:37:40.547Z",
+  "context_length": 8192
 }

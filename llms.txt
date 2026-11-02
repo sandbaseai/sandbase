@@ -9,6 +9,8 @@ Base URL: https://api.sandbase.ai. Auth: `Authorization: Bearer $SANDBASE_API_KE
 - catalog/models/<name>.json (https://raw.githubusercontent.com/sandbaseai/sandbase/main/catalog/models/openai/gpt-image-2.5-flare.json): input JSON Schema, output, modes, pricing, examples
 - [openapi/sandbase.openapi.json](https://raw.githubusercontent.com/sandbaseai/sandbase/main/openapi/sandbase.openapi.json): OpenAPI 3.1
 - [docs/platforms/README.md](https://raw.githubusercontent.com/sandbaseai/sandbase/main/docs/platforms/README.md): capabilities grouped by platform
+- [exports/](https://raw.githubusercontent.com/sandbaseai/sandbase/main/exports/README.md): price files for new-api / one-api, LiteLLM, OpenRouter-format tools and CSV
+- [docs/guides/relay-platforms.md](https://raw.githubusercontent.com/sandbaseai/sandbase/main/docs/guides/relay-platforms.md): using SandBase as an upstream for gateways and relays
 
 ## Clients
 - [Python](https://raw.githubusercontent.com/sandbaseai/sandbase/main/sdk/python/README.md), [TypeScript](https://raw.githubusercontent.com/sandbaseai/sandbase/main/sdk/typescript/README.md), [Go](https://raw.githubusercontent.com/sandbaseai/sandbase/main/sdk/go/README.md): `run()` waits for sync and async results; Agents helpers

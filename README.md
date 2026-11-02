@@ -38,6 +38,15 @@ Most platforms cover one layer: an LLM gateway, a media API, a sandbox, or a too
 | 📦 **Sandboxes** | Isolated machines for code, commands and files | **Free** | The official E2B SDK |
 | 🤖 **Agents** | Agents, Sessions, HTTP Services, Schedules, Skills | **Free** (you pay for the models and APIs they call) | The official OpenAI Agents API |
 
+## Pick your path
+
+| You are | Start here |
+|---|---|
+| **Building an app** | [Quickstart](#quickstart) and the [Python](sdk/python) · [TypeScript](sdk/typescript) · [Go](sdk/go) clients |
+| **Running a gateway or relay** (new-api, one-api, LiteLLM) | [Relay guide](docs/guides/relay-platforms.md) and ready-to-import [price files](exports/) |
+| **Using an AI coding agent** (Claude Code, Codex, Cursor) | [SandBase CLI / MCP](https://github.com/sandbaseai/cli) |
+| **An API provider** | [Add your API](integrations/README.md) with a pull request |
+
 ## Quickstart
 
 Get a key at [sandbase.ai/console](https://www.sandbase.ai/console), then:
@@ -208,6 +217,7 @@ Every model record in `catalog/models/<name>.json` has a structured `pricing` fi
 | `openapi/sandbase.openapi.json` | OpenAPI 3.1. Import it into Postman, Apifox, gateways or SDK generators |
 | `sdk/python`, `sdk/typescript`, `sdk/go` | Dependency-free clients for models, APIs and Agents |
 | `examples/` | `.http`, curl, sandboxes (E2B), Agents (OpenAI SDK) |
+| `exports/` | Price and model files for new-api / one-api, LiteLLM, OpenRouter-format tools, and CSV |
 | `llms.txt` | A map of this repository for AI assistants |
 </details>
 

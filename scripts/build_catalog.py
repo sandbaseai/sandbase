@@ -31,6 +31,26 @@ BASE_URL = "https://api.sandbase.ai"
 PAGE_URL = "https://www.sandbase.ai/model/{name}"
 MEDIA_TYPES = {"image", "video", "audio"}
 CATALOG_VERSION = "1"
+# Everything generated is written to OUT first and swapped into the repository at the
+# end (publish_outputs), so a half-finished build never shows up in the working tree.
+OUT = ROOT / ".cache" / "build"
+GENERATED = ["catalog", "docs/models", "docs/platforms", "docs/INDEX.md", "docs/SKILLS.md", "openapi", "exports", "llms.txt"]
+
+
+def publish_outputs() -> None:
+    for rel in GENERATED:
+        src, dst = OUT / rel, ROOT / rel
+        if not src.exists():
+            continue
+        dst.parent.mkdir(parents=True, exist_ok=True)
+        old = ROOT / ".cache" / "build-old" / rel
+        shutil.rmtree(old, ignore_errors=True) if old.is_dir() else old.unlink(missing_ok=True)
+        old.parent.mkdir(parents=True, exist_ok=True)
+        if dst.exists():
+            dst.rename(old)
+        src.rename(dst)
+    shutil.rmtree(ROOT / ".cache" / "build-old", ignore_errors=True)
+    shutil.rmtree(OUT, ignore_errors=True)
 
 
 # --------------------------------------------------------------------------- helpers
@@ -357,6 +377,8 @@ def build_record(raw: dict, review: dict) -> dict:
         "published_at": raw.get("published_at"),
         "created_at": raw.get("created_at"),
     }
+    if "coming-soon" in (raw.get("capability_tags") or []):
+        rec["status"] = "coming_soon"           # listed, but not callable yet
     rec = {k: v for k, v in rec.items() if v not in (None, [], {})}
 
     # final leak scan on everything we are about to publish
@@ -564,7 +586,7 @@ def write_platform_pages(records: dict[str, dict], generated_at: str) -> int:
     groups: dict[str, list[dict]] = defaultdict(list)
     for r in records.values():
         groups[r.get("vendor") or "Other"].append(r)
-    base = ROOT / "docs" / "platforms"
+    base = OUT / "docs" / "platforms"
     shutil.rmtree(base, ignore_errors=True)
     base.mkdir(parents=True)
     index = ["# Platforms", "", f"{len(groups)} platforms and model makers, each reachable with one SandBase API key.", "",
@@ -823,6 +845,8 @@ def write_llms_txt(index: dict) -> None:
         f"- catalog/models/<name>.json ({raw}/catalog/models/openai/gpt-image-2.5-flare.json): input JSON Schema, output, modes, pricing, examples",
         f"- [openapi/sandbase.openapi.json]({raw}/openapi/sandbase.openapi.json): OpenAPI 3.1",
         f"- [docs/platforms/README.md]({raw}/docs/platforms/README.md): capabilities grouped by platform",
+        f"- [exports/]({raw}/exports/README.md): price files for new-api / one-api, LiteLLM, OpenRouter-format tools and CSV",
+        f"- [docs/guides/relay-platforms.md]({raw}/docs/guides/relay-platforms.md): using SandBase as an upstream for gateways and relays",
         "",
         "## Clients",
         f"- [Python]({raw}/sdk/python/README.md), [TypeScript]({raw}/sdk/typescript/README.md), [Go]({raw}/sdk/go/README.md): `run()` waits for sync and async results; Agents helpers",
@@ -836,7 +860,97 @@ def write_llms_txt(index: dict) -> None:
         "- [SandBase CLI / MCP for coding agents](https://github.com/sandbaseai/cli)",
         "- [Documentation](https://www.sandbase.ai/docs/)",
     ]
-    (ROOT / "llms.txt").write_text("\n".join(lines) + "\n")
+    (OUT / "llms.txt").write_text("\n".join(lines) + "\n")
+
+
+
+# --------------------------------------------------------------------------- exports for other platforms
+
+def write_exports(records: dict[str, dict], generated_at: str) -> None:
+    """Price and model files in the formats that gateways, relay platforms and tools import."""
+    out = OUT / "exports"
+    (out / "new-api").mkdir(parents=True, exist_ok=True)
+    (out / "litellm").mkdir(parents=True, exist_ok=True)
+    records = {n: r for n, r in records.items() if r.get("status") != "coming_soon"}
+    token_models = {n: r for n, r in sorted(records.items())
+                    if r["type"] in ("llm", "embedding") and r["pricing"].get("per_million_tokens", {}).get("input") is not None}
+
+    # CSV: one row per capability
+    import csv
+    with (out / "pricing.csv").open("w", newline="") as fh:
+        w = csv.writer(fh)
+        w.writerow(["name", "type", "vendor", "pricing_model", "usd_per_call", "usd_per_1m_input_tokens",
+                    "usd_per_1m_output_tokens", "usd_from", "usd_to", "free_daily_quota", "modes", "endpoint"])
+        for n, r in sorted(records.items()):
+            p, t = r["pricing"], r["pricing"].get("per_million_tokens", {})
+            rows = [x["usd"] for x in p.get("price_examples", []) if x.get("usd") is not None]
+            w.writerow([n, r["type"], r.get("vendor") or "", p.get("model") or "", p.get("per_call", ""),
+                        t.get("input", ""), t.get("output", ""), min(rows) if rows else p.get("reference_price", ""),
+                        max(rows) if rows else p.get("reference_price", ""), "yes" if p.get("free_quota") else "",
+                        " ".join(r["modes"]), next(iter(r["endpoints"].values()))])
+
+    # OpenAI /v1/models list
+    (out / "openai-models.json").write_text(json.dumps({"object": "list", "data": [
+        {"id": n, "object": "model", "created": 0, "owned_by": r.get("vendor_slug") or "sandbase"}
+        for n, r in sorted(records.items()) if r["type"] == "llm"]}, indent=1) + "\n")
+
+    # OpenRouter-style model list (used by many chat clients and routers)
+    def per_token(v):
+        return "0" if v in (None, 0) else f"{v / 1_000_000:.12f}".rstrip("0").rstrip(".")
+    (out / "openrouter-models.json").write_text(json.dumps({"data": [{
+        "id": n, "name": r["display_name"], "description": short(r.get("description", ""), 500),
+        "context_length": r.get("context_length"),
+        "pricing": {"prompt": per_token(r["pricing"]["per_million_tokens"].get("input")),
+                    "completion": per_token(r["pricing"]["per_million_tokens"].get("output")), "request": "0", "image": "0"},
+    } for n, r in token_models.items() if r["type"] == "llm"]}, indent=1) + "\n")
+
+    # LiteLLM: custom pricing map and a proxy config
+    litellm_prices = {}
+    config = ["# LiteLLM proxy: export SANDBASE_API_KEY=... LITELLM_MASTER_KEY=sk-...; litellm --config config.yaml",
+              "general_settings:", "  master_key: os.environ/LITELLM_MASTER_KEY", "model_list:"]
+    for n, r in token_models.items():
+        t = r["pricing"]["per_million_tokens"]
+        entry = {"litellm_provider": "openai", "mode": "chat" if r["type"] == "llm" else "embedding",
+                 "input_cost_per_token": (t.get("input") or 0) / 1_000_000,
+                 "output_cost_per_token": (t.get("output") or 0) / 1_000_000}
+        if r.get("context_length"):
+            entry["max_input_tokens"] = r["context_length"]
+        litellm_prices[f"sandbase/{n}"] = entry
+        config += [f"  - model_name: {n}", "    litellm_params:", f"      model: openai/{n}",
+                   "      api_base: https://api.sandbase.ai/v1", "      api_key: os.environ/SANDBASE_API_KEY",
+                   "    model_info:", f"      input_cost_per_token: {entry['input_cost_per_token']:.12g}",
+                   f"      output_cost_per_token: {entry['output_cost_per_token']:.12g}"]
+    (out / "litellm" / "model_prices.json").write_text(json.dumps(litellm_prices, indent=1) + "\n")
+    (out / "litellm" / "config.yaml").write_text("\n".join(config) + "\n")
+
+    # new-api / one-api ratio settings. Ratio 1 = $0.002 per 1K tokens = $2 per 1M tokens.
+    model_ratio, completion_ratio, cache_ratio = {}, {}, {}
+    for n, r in token_models.items():
+        t = r["pricing"]["per_million_tokens"]
+        inp, outp = t.get("input") or 0, t.get("output")
+        model_ratio[n] = round(inp / 2, 6)
+        if inp and outp is not None:
+            completion_ratio[n] = round(outp / inp, 6)
+        if t.get("cache_read_multiplier") is not None:
+            cache_ratio[n] = t["cache_read_multiplier"]
+    for fname, data in (("model_ratio.json", model_ratio), ("completion_ratio.json", completion_ratio),
+                        ("cache_ratio.json", cache_ratio)):
+        (out / "new-api" / fname).write_text(json.dumps(data, indent=1, sort_keys=True) + "\n")
+    (out / "new-api" / "models.txt").write_text(",".join(n for n, r in token_models.items() if r["type"] == "llm") + "\n")
+    (out / "README.md").write_text(f"""# Exports
+
+Generated from the catalog on {generated_at}. Do not edit by hand.
+
+| File | Use it for |
+|---|---|
+| `pricing.csv` | Spreadsheets and BI: one row per capability with its price |
+| `openai-models.json` | The OpenAI `/v1/models` list of SandBase LLMs |
+| `openrouter-models.json` | Tools that read the OpenRouter model list format (per-token USD prices as strings) |
+| `litellm/config.yaml`, `litellm/model_prices.json` | A LiteLLM proxy with every SandBase LLM and its price |
+| `new-api/*` | new-api / one-api channel model list and ratio settings |
+
+See [docs/guides/relay-platforms.md](../docs/guides/relay-platforms.md) for setup steps.
+""")
 
 
 # --------------------------------------------------------------------------- agents / skills / sandbox
@@ -862,13 +976,13 @@ def build_platform(generated_at: str) -> dict:
     }
     for leak in MARKERS.findall(json.dumps(platform, ensure_ascii=False)):
         print(f"WARNING: platform catalog mentions upstream marker '{leak}'", file=sys.stderr)
-    (ROOT / "catalog" / "skills.json").write_text(json.dumps(platform["skills"], ensure_ascii=False, indent=2) + "\n")
-    (ROOT / "catalog" / "sandbox.json").write_text(json.dumps(platform["sandbox"], ensure_ascii=False, indent=2) + "\n")
+    (OUT / "catalog" / "skills.json").write_text(json.dumps(platform["skills"], ensure_ascii=False, indent=2) + "\n")
+    (OUT / "catalog" / "sandbox.json").write_text(json.dumps(platform["sandbox"], ensure_ascii=False, indent=2) + "\n")
 
     lines = ["# Skills", "", f"{len(skills)} public Skills · generated {generated_at}. Attach them to an Agent with "
              "`skills: [{\"skill_id\": \"skl_…\"}]`.", "", "| Skill | Description |", "|---|---|"]
     lines += [f"| **{md_escape(s['name'])}**<br>`{s['id']}` | {md_escape(short(s['description'] or '', 200))} |" for s in platform["skills"]]
-    (ROOT / "docs" / "SKILLS.md").write_text("\n".join(lines) + "\n")
+    (OUT / "docs" / "SKILLS.md").write_text("\n".join(lines) + "\n")
     return {"skills": len(skills), "sandbox_templates": len(templates)}
 
 
@@ -894,19 +1008,21 @@ def main() -> int:
         raw = json.loads((RAW / "models" / f"{item['id']}.json").read_text())
         if not raw.get("enabled", True):
             continue
-        records[raw["name"]] = build_record(raw, review)
+        rec = build_record(raw, review)
+        if raw["type"] in ("llm", "embedding") and (item.get("context_length") or 0) > 0:
+            rec["context_length"] = item["context_length"]
+        records[raw["name"]] = rec
     attach_price_examples(records)
 
-    shutil.rmtree(ROOT / "catalog", ignore_errors=True)
-    shutil.rmtree(ROOT / "docs" / "models", ignore_errors=True)
-    shutil.rmtree(ROOT / "openapi", ignore_errors=True)
+    shutil.rmtree(OUT, ignore_errors=True)
+    OUT.mkdir(parents=True)
 
     generated_at = meta["fetched_at"]
     for name, rec in records.items():
-        path = ROOT / "catalog" / "models" / f"{name}.json"
+        path = OUT / "catalog" / "models" / f"{name}.json"
         path.parent.mkdir(parents=True, exist_ok=True)
         path.write_text(json.dumps(rec, ensure_ascii=False, indent=2) + "\n")
-        doc = ROOT / "docs" / "models" / f"{name}.md"
+        doc = OUT / "docs" / "models" / f"{name}.md"
         doc.parent.mkdir(parents=True, exist_ok=True)
         depth = name.count("/")
         # render_md writes repo-root links as ../../<path>; rebase them for the page's depth
@@ -922,6 +1038,7 @@ def main() -> int:
             "name": r["name"], "display_name": r["display_name"], "type": r["type"], "vendor": r.get("vendor"),
             "description": short(r.get("description", "")), "tags": r.get("tags", []), "modes": r["modes"],
             "endpoint": next(iter(r["endpoints"].values())), "price": price_summary(r["pricing"]),
+            **({"status": r["status"]} if r.get("status") else {}),
             "record": f"catalog/models/{r['name']}.json",
         } for r in sorted(records.values(), key=lambda r: (r["type"], r["name"]))],
     }
@@ -932,7 +1049,7 @@ def main() -> int:
     platform_counts = build_platform(generated_at)
     if platform_counts:
         index["platform"] = {**platform_counts, "files": ["catalog/skills.json", "catalog/sandbox.json"]}
-    (ROOT / "catalog" / "index.json").write_text(json.dumps(index, ensure_ascii=False, indent=1) + "\n")
+    (OUT / "catalog" / "index.json").write_text(json.dumps(index, ensure_ascii=False, indent=1) + "\n")
 
     by_type = defaultdict(list)
     for r in index["models"]:
@@ -956,12 +1073,13 @@ def main() -> int:
             if pr.get("free_quota"):
                 ps += " (free quota)"
             lines.append(f"| [`{r['name']}`](models/{r['name']}.md) | {ps} | {', '.join(r['modes'])} | {md_escape(short(r['description'], 120))} |")
-    (ROOT / "docs" / "INDEX.md").write_text("\n".join(lines) + "\n")
+    (OUT / "docs" / "INDEX.md").write_text("\n".join(lines) + "\n")
 
     write_platform_pages(records, generated_at)
+    write_exports(records, generated_at)
     oa = build_openapi(records, generated_at)
-    (ROOT / "openapi").mkdir(exist_ok=True)
-    (ROOT / "openapi" / "sandbase.openapi.json").write_text(json.dumps(oa, ensure_ascii=False) + "\n")
+    (OUT / "openapi").mkdir(exist_ok=True)
+    (OUT / "openapi" / "sandbase.openapi.json").write_text(json.dumps(oa, ensure_ascii=False) + "\n")
 
     # internal review report
     rv = ["# Publishing review (internal, not published)", "", f"Generated {generated_at}. Records: {len(records)}.",
@@ -979,7 +1097,7 @@ def main() -> int:
 
     update_readme_counts(index)
     write_llms_txt(index)
-    size = (ROOT / "openapi" / "sandbase.openapi.json").stat().st_size
+    size = (OUT / "openapi" / "sandbase.openapi.json").stat().st_size
     print(f"records: {len(records)}  flagged: {len(review['flags'])}  openapi: {size/1e6:.1f} MB")
     print("by type:", index["counts_by_type"])
     print("pricing models:", dict(Counter(r["pricing"].get("model") for r in records.values())))
@@ -988,8 +1106,9 @@ def main() -> int:
     blocking = {n: fl for n, fl in blocking.items() if fl}
     print("blocking review items:", len(blocking))
     if args.strict and blocking:
-        print("strict: unresolved review flags, see .cache/review.md", file=sys.stderr)
+        print("strict: unresolved review flags, see .cache/review.md (nothing published)", file=sys.stderr)
         return 2
+    publish_outputs()
     return 0
 
 

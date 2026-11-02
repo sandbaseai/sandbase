@@ -1,0 +1,972 @@
+# LiteLLM proxy: export SANDBASE_API_KEY=... LITELLM_MASTER_KEY=sk-...; litellm --config config.yaml
+general_settings:
+  master_key: os.environ/LITELLM_MASTER_KEY
+model_list:
+  - model_name: alibaba/qwen2.5-vl-72b-instruct
+    litellm_params:
+      model: openai/alibaba/qwen2.5-vl-72b-instruct
+      api_base: https://api.sandbase.ai/v1
+      api_key: os.environ/SANDBASE_API_KEY
+    model_info:
+      input_cost_per_token: 2.5e-07
+      output_cost_per_token: 7.5e-07
+  - model_name: alibaba/qwen3-32b
+    litellm_params:
+      model: openai/alibaba/qwen3-32b
+      api_base: https://api.sandbase.ai/v1
+      api_key: os.environ/SANDBASE_API_KEY
+    model_info:
+      input_cost_per_token: 1.6e-07
+      output_cost_per_token: 6.4e-07
+  - model_name: alibaba/qwen3-8b
+    litellm_params:
+      model: openai/alibaba/qwen3-8b
+      api_base: https://api.sandbase.ai/v1
+      api_key: os.environ/SANDBASE_API_KEY
+    model_info:
+      input_cost_per_token: 1.8e-07
+      output_cost_per_token: 7e-07
+  - model_name: alibaba/qwen3-vl-235b-a22b-instruct
+    litellm_params:
+      model: openai/alibaba/qwen3-vl-235b-a22b-instruct
+      api_base: https://api.sandbase.ai/v1
+      api_key: os.environ/SANDBASE_API_KEY
+    model_info:
+      input_cost_per_token: 4e-07
+      output_cost_per_token: 1.6e-06
+  - model_name: alibaba/qwen3-vl-30b-a3b-instruct
+    litellm_params:
+      model: openai/alibaba/qwen3-vl-30b-a3b-instruct
+      api_base: https://api.sandbase.ai/v1
+      api_key: os.environ/SANDBASE_API_KEY
+    model_info:
+      input_cost_per_token: 1.3e-07
+      output_cost_per_token: 5.2e-07
+  - model_name: alibaba/qwen3-vl-8b-instruct
+    litellm_params:
+      model: openai/alibaba/qwen3-vl-8b-instruct
+      api_base: https://api.sandbase.ai/v1
+      api_key: os.environ/SANDBASE_API_KEY
+    model_info:
+      input_cost_per_token: 1.8e-07
+      output_cost_per_token: 7e-07
+  - model_name: alibaba/qwen3.5-35b-a3b
+    litellm_params:
+      model: openai/alibaba/qwen3.5-35b-a3b
+      api_base: https://api.sandbase.ai/v1
+      api_key: os.environ/SANDBASE_API_KEY
+    model_info:
+      input_cost_per_token: 2.5e-07
+      output_cost_per_token: 2e-06
+  - model_name: alibaba/qwen3.6-27b
+    litellm_params:
+      model: openai/alibaba/qwen3.6-27b
+      api_base: https://api.sandbase.ai/v1
+      api_key: os.environ/SANDBASE_API_KEY
+    model_info:
+      input_cost_per_token: 6e-07
+      output_cost_per_token: 3.6e-06
+  - model_name: alibaba/qwen3.6-plus
+    litellm_params:
+      model: openai/alibaba/qwen3.6-plus
+      api_base: https://api.sandbase.ai/v1
+      api_key: os.environ/SANDBASE_API_KEY
+    model_info:
+      input_cost_per_token: 5e-07
+      output_cost_per_token: 3e-06
+  - model_name: alibaba/qwen3.7-flash
+    litellm_params:
+      model: openai/alibaba/qwen3.7-flash
+      api_base: https://api.sandbase.ai/v1
+      api_key: os.environ/SANDBASE_API_KEY
+    model_info:
+      input_cost_per_token: 3e-08
+      output_cost_per_token: 1.3e-07
+  - model_name: alibaba/qwen3.7-max
+    litellm_params:
+      model: openai/alibaba/qwen3.7-max
+      api_base: https://api.sandbase.ai/v1
+      api_key: os.environ/SANDBASE_API_KEY
+    model_info:
+      input_cost_per_token: 2.5e-06
+      output_cost_per_token: 7.5e-06
+  - model_name: alibaba/qwen3.7-plus
+    litellm_params:
+      model: openai/alibaba/qwen3.7-plus
+      api_base: https://api.sandbase.ai/v1
+      api_key: os.environ/SANDBASE_API_KEY
+    model_info:
+      input_cost_per_token: 4e-07
+      output_cost_per_token: 1.6e-06
+  - model_name: alibaba/qwen3.8-2.4t-a95b
+    litellm_params:
+      model: openai/alibaba/qwen3.8-2.4t-a95b
+      api_base: https://api.sandbase.ai/v1
+      api_key: os.environ/SANDBASE_API_KEY
+    model_info:
+      input_cost_per_token: 2e-06
+      output_cost_per_token: 6e-06
+  - model_name: alibaba/qwen3.8-27b
+    litellm_params:
+      model: openai/alibaba/qwen3.8-27b
+      api_base: https://api.sandbase.ai/v1
+      api_key: os.environ/SANDBASE_API_KEY
+    model_info:
+      input_cost_per_token: 5e-07
+      output_cost_per_token: 3e-06
+  - model_name: alibaba/qwen3.8-max
+    litellm_params:
+      model: openai/alibaba/qwen3.8-max
+      api_base: https://api.sandbase.ai/v1
+      api_key: os.environ/SANDBASE_API_KEY
+    model_info:
+      input_cost_per_token: 2e-06
+      output_cost_per_token: 6e-06
+  - model_name: alibaba/qwen3.8-max-0902
+    litellm_params:
+      model: openai/alibaba/qwen3.8-max-0902
+      api_base: https://api.sandbase.ai/v1
+      api_key: os.environ/SANDBASE_API_KEY
+    model_info:
+      input_cost_per_token: 2e-06
+      output_cost_per_token: 6e-06
+  - model_name: alibaba/qwen3.8-max-prime
+    litellm_params:
+      model: openai/alibaba/qwen3.8-max-prime
+      api_base: https://api.sandbase.ai/v1
+      api_key: os.environ/SANDBASE_API_KEY
+    model_info:
+      input_cost_per_token: 4e-06
+      output_cost_per_token: 1.2e-05
+  - model_name: alibaba/qwen3.8-omni-flash
+    litellm_params:
+      model: openai/alibaba/qwen3.8-omni-flash
+      api_base: https://api.sandbase.ai/v1
+      api_key: os.environ/SANDBASE_API_KEY
+    model_info:
+      input_cost_per_token: 1.5e-07
+      output_cost_per_token: 4.7e-07
+  - model_name: alibaba/text-embedding-v4
+    litellm_params:
+      model: openai/alibaba/text-embedding-v4
+      api_base: https://api.sandbase.ai/v1
+      api_key: os.environ/SANDBASE_API_KEY
+    model_info:
+      input_cost_per_token: 1e-07
+      output_cost_per_token: 0
+  - model_name: anthropic/claude-fable-5
+    litellm_params:
+      model: openai/anthropic/claude-fable-5
+      api_base: https://api.sandbase.ai/v1
+      api_key: os.environ/SANDBASE_API_KEY
+    model_info:
+      input_cost_per_token: 1e-05
+      output_cost_per_token: 5e-05
+  - model_name: anthropic/claude-fable-5.1
+    litellm_params:
+      model: openai/anthropic/claude-fable-5.1
+      api_base: https://api.sandbase.ai/v1
+      api_key: os.environ/SANDBASE_API_KEY
+    model_info:
+      input_cost_per_token: 1e-05
+      output_cost_per_token: 5e-05
+  - model_name: anthropic/claude-haiku-4.5
+    litellm_params:
+      model: openai/anthropic/claude-haiku-4.5
+      api_base: https://api.sandbase.ai/v1
+      api_key: os.environ/SANDBASE_API_KEY
+    model_info:
+      input_cost_per_token: 1e-06
+      output_cost_per_token: 5e-06
+  - model_name: anthropic/claude-haiku-5.5
+    litellm_params:
+      model: openai/anthropic/claude-haiku-5.5
+      api_base: https://api.sandbase.ai/v1
+      api_key: os.environ/SANDBASE_API_KEY
+    model_info:
+      input_cost_per_token: 1e-07
+      output_cost_per_token: 5e-07
+  - model_name: anthropic/claude-opus-4.5
+    litellm_params:
+      model: openai/anthropic/claude-opus-4.5
+      api_base: https://api.sandbase.ai/v1
+      api_key: os.environ/SANDBASE_API_KEY
+    model_info:
+      input_cost_per_token: 5e-06
+      output_cost_per_token: 2.5e-05
+  - model_name: anthropic/claude-opus-4.6
+    litellm_params:
+      model: openai/anthropic/claude-opus-4.6
+      api_base: https://api.sandbase.ai/v1
+      api_key: os.environ/SANDBASE_API_KEY
+    model_info:
+      input_cost_per_token: 5e-06
+      output_cost_per_token: 2.5e-05
+  - model_name: anthropic/claude-opus-4.7
+    litellm_params:
+      model: openai/anthropic/claude-opus-4.7
+      api_base: https://api.sandbase.ai/v1
+      api_key: os.environ/SANDBASE_API_KEY
+    model_info:
+      input_cost_per_token: 5e-06
+      output_cost_per_token: 2.5e-05
+  - model_name: anthropic/claude-opus-4.8
+    litellm_params:
+      model: openai/anthropic/claude-opus-4.8
+      api_base: https://api.sandbase.ai/v1
+      api_key: os.environ/SANDBASE_API_KEY
+    model_info:
+      input_cost_per_token: 5e-06
+      output_cost_per_token: 2.5e-05
+  - model_name: anthropic/claude-opus-5
+    litellm_params:
+      model: openai/anthropic/claude-opus-5
+      api_base: https://api.sandbase.ai/v1
+      api_key: os.environ/SANDBASE_API_KEY
+    model_info:
+      input_cost_per_token: 5e-06
+      output_cost_per_token: 2.5e-05
+  - model_name: anthropic/claude-opus-5.5
+    litellm_params:
+      model: openai/anthropic/claude-opus-5.5
+      api_base: https://api.sandbase.ai/v1
+      api_key: os.environ/SANDBASE_API_KEY
+    model_info:
+      input_cost_per_token: 4e-06
+      output_cost_per_token: 2e-05
+  - model_name: anthropic/claude-sonnet-4.5
+    litellm_params:
+      model: openai/anthropic/claude-sonnet-4.5
+      api_base: https://api.sandbase.ai/v1
+      api_key: os.environ/SANDBASE_API_KEY
+    model_info:
+      input_cost_per_token: 3e-06
+      output_cost_per_token: 1.5e-05
+  - model_name: anthropic/claude-sonnet-4.6
+    litellm_params:
+      model: openai/anthropic/claude-sonnet-4.6
+      api_base: https://api.sandbase.ai/v1
+      api_key: os.environ/SANDBASE_API_KEY
+    model_info:
+      input_cost_per_token: 3e-06
+      output_cost_per_token: 1.5e-05
+  - model_name: anthropic/claude-sonnet-5
+    litellm_params:
+      model: openai/anthropic/claude-sonnet-5
+      api_base: https://api.sandbase.ai/v1
+      api_key: os.environ/SANDBASE_API_KEY
+    model_info:
+      input_cost_per_token: 2e-06
+      output_cost_per_token: 1e-05
+  - model_name: anthropic/claude-sonnet-5.5
+    litellm_params:
+      model: openai/anthropic/claude-sonnet-5.5
+      api_base: https://api.sandbase.ai/v1
+      api_key: os.environ/SANDBASE_API_KEY
+    model_info:
+      input_cost_per_token: 2e-06
+      output_cost_per_token: 1e-05
+  - model_name: bytedance/seed-2.1-pro
+    litellm_params:
+      model: openai/bytedance/seed-2.1-pro
+      api_base: https://api.sandbase.ai/v1
+      api_key: os.environ/SANDBASE_API_KEY
+    model_info:
+      input_cost_per_token: 8.90208e-07
+      output_cost_per_token: 4.451039e-06
+  - model_name: deepseek/deepseek-chat
+    litellm_params:
+      model: openai/deepseek/deepseek-chat
+      api_base: https://api.sandbase.ai/v1
+      api_key: os.environ/SANDBASE_API_KEY
+    model_info:
+      input_cost_per_token: 3.2e-07
+      output_cost_per_token: 8.9e-07
+  - model_name: deepseek/deepseek-v3.2
+    litellm_params:
+      model: openai/deepseek/deepseek-v3.2
+      api_base: https://api.sandbase.ai/v1
+      api_key: os.environ/SANDBASE_API_KEY
+    model_info:
+      input_cost_per_token: 2.52e-07
+      output_cost_per_token: 3.78e-07
+  - model_name: deepseek/deepseek-v4-flash
+    litellm_params:
+      model: openai/deepseek/deepseek-v4-flash
+      api_base: https://api.sandbase.ai/v1
+      api_key: os.environ/SANDBASE_API_KEY
+    model_info:
+      input_cost_per_token: 3e-07
+      output_cost_per_token: 1.2e-06
+  - model_name: deepseek/deepseek-v4-flash-0731
+    litellm_params:
+      model: openai/deepseek/deepseek-v4-flash-0731
+      api_base: https://api.sandbase.ai/v1
+      api_key: os.environ/SANDBASE_API_KEY
+    model_info:
+      input_cost_per_token: 3e-07
+      output_cost_per_token: 1.2e-06
+  - model_name: deepseek/deepseek-v4-flash-vision-exp
+    litellm_params:
+      model: openai/deepseek/deepseek-v4-flash-vision-exp
+      api_base: https://api.sandbase.ai/v1
+      api_key: os.environ/SANDBASE_API_KEY
+    model_info:
+      input_cost_per_token: 3e-07
+      output_cost_per_token: 1.2e-06
+  - model_name: deepseek/deepseek-v4-pro
+    litellm_params:
+      model: openai/deepseek/deepseek-v4-pro
+      api_base: https://api.sandbase.ai/v1
+      api_key: os.environ/SANDBASE_API_KEY
+    model_info:
+      input_cost_per_token: 1.32e-06
+      output_cost_per_token: 3.96e-06
+  - model_name: deepseek/deepseek-v4-pro-0813
+    litellm_params:
+      model: openai/deepseek/deepseek-v4-pro-0813
+      api_base: https://api.sandbase.ai/v1
+      api_key: os.environ/SANDBASE_API_KEY
+    model_info:
+      input_cost_per_token: 1.32e-06
+      output_cost_per_token: 3.96e-06
+  - model_name: deepseek/deepseek-v4.1-flash
+    litellm_params:
+      model: openai/deepseek/deepseek-v4.1-flash
+      api_base: https://api.sandbase.ai/v1
+      api_key: os.environ/SANDBASE_API_KEY
+    model_info:
+      input_cost_per_token: 3e-07
+      output_cost_per_token: 1.2e-06
+  - model_name: google/gemini-2.5-flash
+    litellm_params:
+      model: openai/google/gemini-2.5-flash
+      api_base: https://api.sandbase.ai/v1
+      api_key: os.environ/SANDBASE_API_KEY
+    model_info:
+      input_cost_per_token: 3e-07
+      output_cost_per_token: 2.5e-06
+  - model_name: google/gemini-2.5-flash-lite
+    litellm_params:
+      model: openai/google/gemini-2.5-flash-lite
+      api_base: https://api.sandbase.ai/v1
+      api_key: os.environ/SANDBASE_API_KEY
+    model_info:
+      input_cost_per_token: 1e-07
+      output_cost_per_token: 4e-07
+  - model_name: google/gemini-2.5-pro
+    litellm_params:
+      model: openai/google/gemini-2.5-pro
+      api_base: https://api.sandbase.ai/v1
+      api_key: os.environ/SANDBASE_API_KEY
+    model_info:
+      input_cost_per_token: 1.25e-06
+      output_cost_per_token: 1e-05
+  - model_name: google/gemini-3-flash-preview
+    litellm_params:
+      model: openai/google/gemini-3-flash-preview
+      api_base: https://api.sandbase.ai/v1
+      api_key: os.environ/SANDBASE_API_KEY
+    model_info:
+      input_cost_per_token: 5e-07
+      output_cost_per_token: 3e-06
+  - model_name: google/gemini-3-pro-image
+    litellm_params:
+      model: openai/google/gemini-3-pro-image
+      api_base: https://api.sandbase.ai/v1
+      api_key: os.environ/SANDBASE_API_KEY
+    model_info:
+      input_cost_per_token: 2e-06
+      output_cost_per_token: 1.2e-05
+  - model_name: google/gemini-3.1-flash-image
+    litellm_params:
+      model: openai/google/gemini-3.1-flash-image
+      api_base: https://api.sandbase.ai/v1
+      api_key: os.environ/SANDBASE_API_KEY
+    model_info:
+      input_cost_per_token: 5e-07
+      output_cost_per_token: 3e-06
+  - model_name: google/gemini-3.1-flash-lite
+    litellm_params:
+      model: openai/google/gemini-3.1-flash-lite
+      api_base: https://api.sandbase.ai/v1
+      api_key: os.environ/SANDBASE_API_KEY
+    model_info:
+      input_cost_per_token: 2.5e-07
+      output_cost_per_token: 1.5e-06
+  - model_name: google/gemini-3.1-flash-lite-preview
+    litellm_params:
+      model: openai/google/gemini-3.1-flash-lite-preview
+      api_base: https://api.sandbase.ai/v1
+      api_key: os.environ/SANDBASE_API_KEY
+    model_info:
+      input_cost_per_token: 2.5e-07
+      output_cost_per_token: 1.5e-06
+  - model_name: google/gemini-3.1-pro-preview
+    litellm_params:
+      model: openai/google/gemini-3.1-pro-preview
+      api_base: https://api.sandbase.ai/v1
+      api_key: os.environ/SANDBASE_API_KEY
+    model_info:
+      input_cost_per_token: 2e-06
+      output_cost_per_token: 1.2e-05
+  - model_name: google/gemini-3.1-pro-preview-customtools
+    litellm_params:
+      model: openai/google/gemini-3.1-pro-preview-customtools
+      api_base: https://api.sandbase.ai/v1
+      api_key: os.environ/SANDBASE_API_KEY
+    model_info:
+      input_cost_per_token: 2e-06
+      output_cost_per_token: 1.2e-05
+  - model_name: google/gemini-3.5-flash
+    litellm_params:
+      model: openai/google/gemini-3.5-flash
+      api_base: https://api.sandbase.ai/v1
+      api_key: os.environ/SANDBASE_API_KEY
+    model_info:
+      input_cost_per_token: 1.5e-06
+      output_cost_per_token: 9e-06
+  - model_name: google/gemini-3.5-flash-lite
+    litellm_params:
+      model: openai/google/gemini-3.5-flash-lite
+      api_base: https://api.sandbase.ai/v1
+      api_key: os.environ/SANDBASE_API_KEY
+    model_info:
+      input_cost_per_token: 3e-07
+      output_cost_per_token: 2.5e-06
+  - model_name: google/gemini-3.6-flash
+    litellm_params:
+      model: openai/google/gemini-3.6-flash
+      api_base: https://api.sandbase.ai/v1
+      api_key: os.environ/SANDBASE_API_KEY
+    model_info:
+      input_cost_per_token: 7.5e-07
+      output_cost_per_token: 3.75e-06
+  - model_name: google/gemini-3.7-flash
+    litellm_params:
+      model: openai/google/gemini-3.7-flash
+      api_base: https://api.sandbase.ai/v1
+      api_key: os.environ/SANDBASE_API_KEY
+    model_info:
+      input_cost_per_token: 1.5e-06
+      output_cost_per_token: 7.5e-06
+  - model_name: google/gemini-3.8-flash
+    litellm_params:
+      model: openai/google/gemini-3.8-flash
+      api_base: https://api.sandbase.ai/v1
+      api_key: os.environ/SANDBASE_API_KEY
+    model_info:
+      input_cost_per_token: 1.5e-06
+      output_cost_per_token: 7.5e-06
+  - model_name: google/gemini-4-argon
+    litellm_params:
+      model: openai/google/gemini-4-argon
+      api_base: https://api.sandbase.ai/v1
+      api_key: os.environ/SANDBASE_API_KEY
+    model_info:
+      input_cost_per_token: 4e-06
+      output_cost_per_token: 2e-05
+  - model_name: google/gemini-nano-banana-2.1
+    litellm_params:
+      model: openai/google/gemini-nano-banana-2.1
+      api_base: https://api.sandbase.ai/v1
+      api_key: os.environ/SANDBASE_API_KEY
+    model_info:
+      input_cost_per_token: 1.5e-06
+      output_cost_per_token: 7.5e-06
+  - model_name: meta/llama-3.3-70b-instruct
+    litellm_params:
+      model: openai/meta/llama-3.3-70b-instruct
+      api_base: https://api.sandbase.ai/v1
+      api_key: os.environ/SANDBASE_API_KEY
+    model_info:
+      input_cost_per_token: 1e-07
+      output_cost_per_token: 3.2e-07
+  - model_name: minimax/minimax-m2.5
+    litellm_params:
+      model: openai/minimax/minimax-m2.5
+      api_base: https://api.sandbase.ai/v1
+      api_key: os.environ/SANDBASE_API_KEY
+    model_info:
+      input_cost_per_token: 3e-07
+      output_cost_per_token: 1.2e-06
+  - model_name: minimax/minimax-m2.7
+    litellm_params:
+      model: openai/minimax/minimax-m2.7
+      api_base: https://api.sandbase.ai/v1
+      api_key: os.environ/SANDBASE_API_KEY
+    model_info:
+      input_cost_per_token: 3e-07
+      output_cost_per_token: 1.2e-06
+  - model_name: minimax/minimax-m3
+    litellm_params:
+      model: openai/minimax/minimax-m3
+      api_base: https://api.sandbase.ai/v1
+      api_key: os.environ/SANDBASE_API_KEY
+    model_info:
+      input_cost_per_token: 3e-07
+      output_cost_per_token: 1.2e-06
+  - model_name: minimax/minimax-m3.1-flash
+    litellm_params:
+      model: openai/minimax/minimax-m3.1-flash
+      api_base: https://api.sandbase.ai/v1
+      api_key: os.environ/SANDBASE_API_KEY
+    model_info:
+      input_cost_per_token: 1.5e-07
+      output_cost_per_token: 6e-07
+  - model_name: moonshotai/kimi-k2.5
+    litellm_params:
+      model: openai/moonshotai/kimi-k2.5
+      api_base: https://api.sandbase.ai/v1
+      api_key: os.environ/SANDBASE_API_KEY
+    model_info:
+      input_cost_per_token: 6e-07
+      output_cost_per_token: 3e-06
+  - model_name: moonshotai/kimi-k2.6
+    litellm_params:
+      model: openai/moonshotai/kimi-k2.6
+      api_base: https://api.sandbase.ai/v1
+      api_key: os.environ/SANDBASE_API_KEY
+    model_info:
+      input_cost_per_token: 9.5e-07
+      output_cost_per_token: 4e-06
+  - model_name: moonshotai/kimi-k3
+    litellm_params:
+      model: openai/moonshotai/kimi-k3
+      api_base: https://api.sandbase.ai/v1
+      api_key: os.environ/SANDBASE_API_KEY
+    model_info:
+      input_cost_per_token: 3e-06
+      output_cost_per_token: 1.5e-05
+  - model_name: moonshotai/kimi-k3.1-pro
+    litellm_params:
+      model: openai/moonshotai/kimi-k3.1-pro
+      api_base: https://api.sandbase.ai/v1
+      api_key: os.environ/SANDBASE_API_KEY
+    model_info:
+      input_cost_per_token: 2e-06
+      output_cost_per_token: 1e-05
+  - model_name: openai/gpt-4.1
+    litellm_params:
+      model: openai/openai/gpt-4.1
+      api_base: https://api.sandbase.ai/v1
+      api_key: os.environ/SANDBASE_API_KEY
+    model_info:
+      input_cost_per_token: 2e-06
+      output_cost_per_token: 8e-06
+  - model_name: openai/gpt-4.1-mini
+    litellm_params:
+      model: openai/openai/gpt-4.1-mini
+      api_base: https://api.sandbase.ai/v1
+      api_key: os.environ/SANDBASE_API_KEY
+    model_info:
+      input_cost_per_token: 4e-07
+      output_cost_per_token: 1.6e-06
+  - model_name: openai/gpt-4.1-nano
+    litellm_params:
+      model: openai/openai/gpt-4.1-nano
+      api_base: https://api.sandbase.ai/v1
+      api_key: os.environ/SANDBASE_API_KEY
+    model_info:
+      input_cost_per_token: 1e-07
+      output_cost_per_token: 4e-07
+  - model_name: openai/gpt-4o
+    litellm_params:
+      model: openai/openai/gpt-4o
+      api_base: https://api.sandbase.ai/v1
+      api_key: os.environ/SANDBASE_API_KEY
+    model_info:
+      input_cost_per_token: 2.5e-06
+      output_cost_per_token: 1e-05
+  - model_name: openai/gpt-4o-2024-05-13
+    litellm_params:
+      model: openai/openai/gpt-4o-2024-05-13
+      api_base: https://api.sandbase.ai/v1
+      api_key: os.environ/SANDBASE_API_KEY
+    model_info:
+      input_cost_per_token: 5e-06
+      output_cost_per_token: 1.5e-05
+  - model_name: openai/gpt-4o-2024-08-06
+    litellm_params:
+      model: openai/openai/gpt-4o-2024-08-06
+      api_base: https://api.sandbase.ai/v1
+      api_key: os.environ/SANDBASE_API_KEY
+    model_info:
+      input_cost_per_token: 2.5e-06
+      output_cost_per_token: 1e-05
+  - model_name: openai/gpt-4o-2024-11-20
+    litellm_params:
+      model: openai/openai/gpt-4o-2024-11-20
+      api_base: https://api.sandbase.ai/v1
+      api_key: os.environ/SANDBASE_API_KEY
+    model_info:
+      input_cost_per_token: 2.5e-06
+      output_cost_per_token: 1e-05
+  - model_name: openai/gpt-4o-mini
+    litellm_params:
+      model: openai/openai/gpt-4o-mini
+      api_base: https://api.sandbase.ai/v1
+      api_key: os.environ/SANDBASE_API_KEY
+    model_info:
+      input_cost_per_token: 1.5e-07
+      output_cost_per_token: 6e-07
+  - model_name: openai/gpt-5
+    litellm_params:
+      model: openai/openai/gpt-5
+      api_base: https://api.sandbase.ai/v1
+      api_key: os.environ/SANDBASE_API_KEY
+    model_info:
+      input_cost_per_token: 1.25e-06
+      output_cost_per_token: 1e-05
+  - model_name: openai/gpt-5-mini
+    litellm_params:
+      model: openai/openai/gpt-5-mini
+      api_base: https://api.sandbase.ai/v1
+      api_key: os.environ/SANDBASE_API_KEY
+    model_info:
+      input_cost_per_token: 2.5e-07
+      output_cost_per_token: 2e-06
+  - model_name: openai/gpt-5.1
+    litellm_params:
+      model: openai/openai/gpt-5.1
+      api_base: https://api.sandbase.ai/v1
+      api_key: os.environ/SANDBASE_API_KEY
+    model_info:
+      input_cost_per_token: 1.25e-06
+      output_cost_per_token: 1e-05
+  - model_name: openai/gpt-5.1-codex
+    litellm_params:
+      model: openai/openai/gpt-5.1-codex
+      api_base: https://api.sandbase.ai/v1
+      api_key: os.environ/SANDBASE_API_KEY
+    model_info:
+      input_cost_per_token: 1.25e-06
+      output_cost_per_token: 1e-05
+  - model_name: openai/gpt-5.2
+    litellm_params:
+      model: openai/openai/gpt-5.2
+      api_base: https://api.sandbase.ai/v1
+      api_key: os.environ/SANDBASE_API_KEY
+    model_info:
+      input_cost_per_token: 1.75e-06
+      output_cost_per_token: 1.4e-05
+  - model_name: openai/gpt-5.3-codex
+    litellm_params:
+      model: openai/openai/gpt-5.3-codex
+      api_base: https://api.sandbase.ai/v1
+      api_key: os.environ/SANDBASE_API_KEY
+    model_info:
+      input_cost_per_token: 1.75e-06
+      output_cost_per_token: 1.4e-05
+  - model_name: openai/gpt-5.4
+    litellm_params:
+      model: openai/openai/gpt-5.4
+      api_base: https://api.sandbase.ai/v1
+      api_key: os.environ/SANDBASE_API_KEY
+    model_info:
+      input_cost_per_token: 2.5e-06
+      output_cost_per_token: 1.5e-05
+  - model_name: openai/gpt-5.4-mini
+    litellm_params:
+      model: openai/openai/gpt-5.4-mini
+      api_base: https://api.sandbase.ai/v1
+      api_key: os.environ/SANDBASE_API_KEY
+    model_info:
+      input_cost_per_token: 7.5e-07
+      output_cost_per_token: 4.5e-06
+  - model_name: openai/gpt-5.4-nano
+    litellm_params:
+      model: openai/openai/gpt-5.4-nano
+      api_base: https://api.sandbase.ai/v1
+      api_key: os.environ/SANDBASE_API_KEY
+    model_info:
+      input_cost_per_token: 2e-07
+      output_cost_per_token: 1.25e-06
+  - model_name: openai/gpt-5.5
+    litellm_params:
+      model: openai/openai/gpt-5.5
+      api_base: https://api.sandbase.ai/v1
+      api_key: os.environ/SANDBASE_API_KEY
+    model_info:
+      input_cost_per_token: 5e-06
+      output_cost_per_token: 3e-05
+  - model_name: openai/gpt-5.5-pro
+    litellm_params:
+      model: openai/openai/gpt-5.5-pro
+      api_base: https://api.sandbase.ai/v1
+      api_key: os.environ/SANDBASE_API_KEY
+    model_info:
+      input_cost_per_token: 3e-05
+      output_cost_per_token: 0.00018
+  - model_name: openai/gpt-5.6-luna
+    litellm_params:
+      model: openai/openai/gpt-5.6-luna
+      api_base: https://api.sandbase.ai/v1
+      api_key: os.environ/SANDBASE_API_KEY
+    model_info:
+      input_cost_per_token: 2e-07
+      output_cost_per_token: 1.2e-06
+  - model_name: openai/gpt-5.6-luna-pro
+    litellm_params:
+      model: openai/openai/gpt-5.6-luna-pro
+      api_base: https://api.sandbase.ai/v1
+      api_key: os.environ/SANDBASE_API_KEY
+    model_info:
+      input_cost_per_token: 2e-07
+      output_cost_per_token: 1.2e-06
+  - model_name: openai/gpt-5.6-sol
+    litellm_params:
+      model: openai/openai/gpt-5.6-sol
+      api_base: https://api.sandbase.ai/v1
+      api_key: os.environ/SANDBASE_API_KEY
+    model_info:
+      input_cost_per_token: 4e-06
+      output_cost_per_token: 2e-05
+  - model_name: openai/gpt-5.6-sol-pro
+    litellm_params:
+      model: openai/openai/gpt-5.6-sol-pro
+      api_base: https://api.sandbase.ai/v1
+      api_key: os.environ/SANDBASE_API_KEY
+    model_info:
+      input_cost_per_token: 4e-06
+      output_cost_per_token: 2e-05
+  - model_name: openai/gpt-5.6-terra
+    litellm_params:
+      model: openai/openai/gpt-5.6-terra
+      api_base: https://api.sandbase.ai/v1
+      api_key: os.environ/SANDBASE_API_KEY
+    model_info:
+      input_cost_per_token: 2e-06
+      output_cost_per_token: 1.2e-05
+  - model_name: openai/gpt-5.6-terra-pro
+    litellm_params:
+      model: openai/openai/gpt-5.6-terra-pro
+      api_base: https://api.sandbase.ai/v1
+      api_key: os.environ/SANDBASE_API_KEY
+    model_info:
+      input_cost_per_token: 2e-06
+      output_cost_per_token: 1.2e-05
+  - model_name: openai/gpt-6-astra
+    litellm_params:
+      model: openai/openai/gpt-6-astra
+      api_base: https://api.sandbase.ai/v1
+      api_key: os.environ/SANDBASE_API_KEY
+    model_info:
+      input_cost_per_token: 1e-05
+      output_cost_per_token: 5e-05
+  - model_name: openai/gpt-6-astra-pro
+    litellm_params:
+      model: openai/openai/gpt-6-astra-pro
+      api_base: https://api.sandbase.ai/v1
+      api_key: os.environ/SANDBASE_API_KEY
+    model_info:
+      input_cost_per_token: 1e-05
+      output_cost_per_token: 5e-05
+  - model_name: openai/gpt-6-luna
+    litellm_params:
+      model: openai/openai/gpt-6-luna
+      api_base: https://api.sandbase.ai/v1
+      api_key: os.environ/SANDBASE_API_KEY
+    model_info:
+      input_cost_per_token: 1e-07
+      output_cost_per_token: 5e-07
+  - model_name: openai/gpt-6-luna-pro
+    litellm_params:
+      model: openai/openai/gpt-6-luna-pro
+      api_base: https://api.sandbase.ai/v1
+      api_key: os.environ/SANDBASE_API_KEY
+    model_info:
+      input_cost_per_token: 1e-07
+      output_cost_per_token: 5e-07
+  - model_name: openai/gpt-6-sol
+    litellm_params:
+      model: openai/openai/gpt-6-sol
+      api_base: https://api.sandbase.ai/v1
+      api_key: os.environ/SANDBASE_API_KEY
+    model_info:
+      input_cost_per_token: 2e-06
+      output_cost_per_token: 1e-05
+  - model_name: openai/gpt-6-sol-pro
+    litellm_params:
+      model: openai/openai/gpt-6-sol-pro
+      api_base: https://api.sandbase.ai/v1
+      api_key: os.environ/SANDBASE_API_KEY
+    model_info:
+      input_cost_per_token: 2e-06
+      output_cost_per_token: 1e-05
+  - model_name: openai/gpt-6.1-sol
+    litellm_params:
+      model: openai/openai/gpt-6.1-sol
+      api_base: https://api.sandbase.ai/v1
+      api_key: os.environ/SANDBASE_API_KEY
+    model_info:
+      input_cost_per_token: 2e-06
+      output_cost_per_token: 1e-05
+  - model_name: openai/gpt-6.1-sol-pro
+    litellm_params:
+      model: openai/openai/gpt-6.1-sol-pro
+      api_base: https://api.sandbase.ai/v1
+      api_key: os.environ/SANDBASE_API_KEY
+    model_info:
+      input_cost_per_token: 2e-06
+      output_cost_per_token: 1e-05
+  - model_name: openai/gpt-6.1-terra
+    litellm_params:
+      model: openai/openai/gpt-6.1-terra
+      api_base: https://api.sandbase.ai/v1
+      api_key: os.environ/SANDBASE_API_KEY
+    model_info:
+      input_cost_per_token: 1e-06
+      output_cost_per_token: 5e-06
+  - model_name: openai/gpt-6.1-terra-pro
+    litellm_params:
+      model: openai/openai/gpt-6.1-terra-pro
+      api_base: https://api.sandbase.ai/v1
+      api_key: os.environ/SANDBASE_API_KEY
+    model_info:
+      input_cost_per_token: 1e-06
+      output_cost_per_token: 5e-06
+  - model_name: openai/gpt-oss-120b
+    litellm_params:
+      model: openai/openai/gpt-oss-120b
+      api_base: https://api.sandbase.ai/v1
+      api_key: os.environ/SANDBASE_API_KEY
+    model_info:
+      input_cost_per_token: 3.9e-08
+      output_cost_per_token: 1.8e-07
+  - model_name: openai/text-embedding-3-large
+    litellm_params:
+      model: openai/openai/text-embedding-3-large
+      api_base: https://api.sandbase.ai/v1
+      api_key: os.environ/SANDBASE_API_KEY
+    model_info:
+      input_cost_per_token: 1.3e-07
+      output_cost_per_token: 0
+  - model_name: stepfun/step-5-preview
+    litellm_params:
+      model: openai/stepfun/step-5-preview
+      api_base: https://api.sandbase.ai/v1
+      api_key: os.environ/SANDBASE_API_KEY
+    model_info:
+      input_cost_per_token: 1e-06
+      output_cost_per_token: 2.7e-06
+  - model_name: tencent/hy3
+    litellm_params:
+      model: openai/tencent/hy3
+      api_base: https://api.sandbase.ai/v1
+      api_key: os.environ/SANDBASE_API_KEY
+    model_info:
+      input_cost_per_token: 1.32e-07
+      output_cost_per_token: 5.28e-07
+  - model_name: tencent/hy4-preview
+    litellm_params:
+      model: openai/tencent/hy4-preview
+      api_base: https://api.sandbase.ai/v1
+      api_key: os.environ/SANDBASE_API_KEY
+    model_info:
+      input_cost_per_token: 8.34e-07
+      output_cost_per_token: 2.501e-06
+  - model_name: typesafe/jev-1.13
+    litellm_params:
+      model: openai/typesafe/jev-1.13
+      api_base: https://api.sandbase.ai/v1
+      api_key: os.environ/SANDBASE_API_KEY
+    model_info:
+      input_cost_per_token: 4.2e-08
+      output_cost_per_token: 0
+  - model_name: typesafe/jev-1.14
+    litellm_params:
+      model: openai/typesafe/jev-1.14
+      api_base: https://api.sandbase.ai/v1
+      api_key: os.environ/SANDBASE_API_KEY
+    model_info:
+      input_cost_per_token: 4.2e-08
+      output_cost_per_token: 0
+  - model_name: x-ai/grok-4.3
+    litellm_params:
+      model: openai/x-ai/grok-4.3
+      api_base: https://api.sandbase.ai/v1
+      api_key: os.environ/SANDBASE_API_KEY
+    model_info:
+      input_cost_per_token: 1.25e-06
+      output_cost_per_token: 2.5e-06
+  - model_name: x-ai/grok-4.5
+    litellm_params:
+      model: openai/x-ai/grok-4.5
+      api_base: https://api.sandbase.ai/v1
+      api_key: os.environ/SANDBASE_API_KEY
+    model_info:
+      input_cost_per_token: 2e-06
+      output_cost_per_token: 6e-06
+  - model_name: x-ai/grok-4.6
+    litellm_params:
+      model: openai/x-ai/grok-4.6
+      api_base: https://api.sandbase.ai/v1
+      api_key: os.environ/SANDBASE_API_KEY
+    model_info:
+      input_cost_per_token: 2e-06
+      output_cost_per_token: 6e-06
+  - model_name: x-ai/grok-4.7
+    litellm_params:
+      model: openai/x-ai/grok-4.7
+      api_base: https://api.sandbase.ai/v1
+      api_key: os.environ/SANDBASE_API_KEY
+    model_info:
+      input_cost_per_token: 2e-06
+      output_cost_per_token: 6e-06
+  - model_name: xiaomi/mimo-v2.6-flash
+    litellm_params:
+      model: openai/xiaomi/mimo-v2.6-flash
+      api_base: https://api.sandbase.ai/v1
+      api_key: os.environ/SANDBASE_API_KEY
+    model_info:
+      input_cost_per_token: 1.4e-07
+      output_cost_per_token: 2.8e-07
+  - model_name: xiaomi/mimo-v2.6-pro
+    litellm_params:
+      model: openai/xiaomi/mimo-v2.6-pro
+      api_base: https://api.sandbase.ai/v1
+      api_key: os.environ/SANDBASE_API_KEY
+    model_info:
+      input_cost_per_token: 4.35e-07
+      output_cost_per_token: 8.7e-07
+  - model_name: z-ai/glm-4.5-air
+    litellm_params:
+      model: openai/z-ai/glm-4.5-air
+      api_base: https://api.sandbase.ai/v1
+      api_key: os.environ/SANDBASE_API_KEY
+    model_info:
+      input_cost_per_token: 2e-07
+      output_cost_per_token: 1.1e-06
+  - model_name: z-ai/glm-5.2
+    litellm_params:
+      model: openai/z-ai/glm-5.2
+      api_base: https://api.sandbase.ai/v1
+      api_key: os.environ/SANDBASE_API_KEY
+    model_info:
+      input_cost_per_token: 1.4e-06
+      output_cost_per_token: 4.4e-06
+  - model_name: z-ai/glm-5.3
+    litellm_params:
+      model: openai/z-ai/glm-5.3
+      api_base: https://api.sandbase.ai/v1
+      api_key: os.environ/SANDBASE_API_KEY
+    model_info:
+      input_cost_per_token: 1.4e-06
+      output_cost_per_token: 4.4e-06
+  - model_name: z-ai/glm-5.3-flash
+    litellm_params:
+      model: openai/z-ai/glm-5.3-flash
+      api_base: https://api.sandbase.ai/v1
+      api_key: os.environ/SANDBASE_API_KEY
+    model_info:
+      input_cost_per_token: 1.5e-07
+      output_cost_per_token: 5e-07
+  - model_name: z-ai/glm-5.3-flashx
+    litellm_params:
+      model: openai/z-ai/glm-5.3-flashx
+      api_base: https://api.sandbase.ai/v1
+      api_key: os.environ/SANDBASE_API_KEY
+    model_info:
+      input_cost_per_token: 3.7e-07
+      output_cost_per_token: 1.25e-06

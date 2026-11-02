@@ -41,5 +41,6 @@
   "cover_url": "https://t0.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=https://www.alibabacloud.com&size=256",
   "page_url": "https://www.sandbase.ai/model/alibaba/qwen3.8-27b",
   "published_at": "2026-08-14T15:55:10Z",
-  "created_at": "2026-09-03T09:48:22.485Z"
+  "created_at": "2026-09-03T09:48:22.485Z",
+  "context_length": 1000000
 }

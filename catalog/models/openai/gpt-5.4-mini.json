@@ -40,5 +40,6 @@
   "cover_url": "https://t0.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=https://openai.com&size=256",
   "page_url": "https://www.sandbase.ai/model/openai/gpt-5.4-mini",
   "published_at": "2026-03-17T11:49:38Z",
-  "created_at": "2026-05-08T23:55:39.281Z"
+  "created_at": "2026-05-08T23:55:39.281Z",
+  "context_length": 400000
 }
