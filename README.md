@@ -40,7 +40,10 @@ agent = sb.create_agent(
     instructions="You are my research agent. Use SandBase tools for live data.",
 )
 
-reply = sb.run_agent(agent["id"], "What are people on X saying about AI agents today?")
+reply = sb.run_agent(
+    agent["id"],
+    "What are people on X saying about AI agents today?",
+)
 print(reply["output"])
 ```
 
