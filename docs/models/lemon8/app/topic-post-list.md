@@ -20,7 +20,7 @@ Modes: sync (default `sync`). Only pass `mode` values listed here. The SDKs' `ru
 ```bash
 curl https://api.sandbase.ai/v1/run \
   -H "Authorization: Bearer $SANDBASE_API_KEY" -H 'Content-Type: application/json' \
-  -d '{"model": "lemon8/app/topic-post-list", "category": "<category>", "category_parameter": "<category_parameter>", "hashtag_name": "<hashtag_name>"}'
+  -d '{"model": "lemon8/app/topic-post-list", "category": "590", "category_parameter": "7174447913778593798", "hashtag_name": "lemon8christmas"}'
 ```
 
 **Python** ([sdk/python](../../../../sdk/python))
@@ -28,7 +28,7 @@ curl https://api.sandbase.ai/v1/run \
 ```python
 from sandbase import SandBase
 
-result = SandBase().run('lemon8/app/topic-post-list', {'category': '<category>', 'category_parameter': '<category_parameter>', 'hashtag_name': '<hashtag_name>'})
+result = SandBase().run('lemon8/app/topic-post-list', {'category': '590', 'category_parameter': '7174447913778593798', 'hashtag_name': 'lemon8christmas'})
 print(result["outputs"])
 ```
 
@@ -38,9 +38,9 @@ print(result["outputs"])
 import { SandBase } from "@sandbaseai/sdk";
 
 const result = await new SandBase().run("lemon8/app/topic-post-list", {
-  "category": "<category>",
-  "category_parameter": "<category_parameter>",
-  "hashtag_name": "<hashtag_name>"
+  "category": "590",
+  "category_parameter": "7174447913778593798",
+  "hashtag_name": "lemon8christmas"
 });
 console.log(result.outputs);
 ```
@@ -50,9 +50,9 @@ console.log(result.outputs);
 ```go
 c, _ := sandbase.NewClient("")
 run, err := c.Run(ctx, "lemon8/app/topic-post-list", sandbase.Params{
-	"category": "<category>",
-	"category_parameter": "<category_parameter>",
-	"hashtag_name": "<hashtag_name>",
+	"category": "590",
+	"category_parameter": "7174447913778593798",
+	"hashtag_name": "lemon8christmas",
 })
 ```
 
@@ -84,7 +84,7 @@ Retrieve a list of posts under a Lemon8 topic using `category`, `hashtag_name`, 
 curl -X POST "https://api.sandbase.ai/v1/api/lemon8/app/topic-post-list" \
   -H "Authorization: Bearer $SANDBASE_API_KEY" \
   -H "Content-Type: application/json" \
-  -d '{"category": "<category>", "category_parameter": "<category_parameter>", "hashtag_name": "<hashtag_name>"}'
+  -d '{"category": "590", "category_parameter": "7174447913778593798", "hashtag_name": "lemon8christmas"}'
 ```
 
 ### Parameters
@@ -109,9 +109,9 @@ Flat price per call. Failed calls, including lookups whose target does not exist
 
 ### Related APIs
 
-- [Lemon8 Discover Page Banners](/model/lemon8/app/discover-banners): Returns the current promotional and featured banners displayed on the Lemon8 discover page.
-- [Lemon8 Discover Page Content](/model/lemon8/app/discover-tab): Returns the main content featured on the Lemon8 discover tab.
-- [Lemon8 Discover Editor Picks](/model/lemon8/app/discover-tab-information-tabs): Returns the Editor's Picks and discover tab information from the Lemon8 mobile app.
+- [Lemon8 Discover Page Banners](/apis/lemon8/app/discover-banners): Returns the current promotional and featured banners displayed on the Lemon8 discover page.
+- [Lemon8 Discover Page Content](/apis/lemon8/app/discover-tab): Returns the main content featured on the Lemon8 discover tab.
+- [Lemon8 Discover Editor Picks](/apis/lemon8/app/discover-tab-information-tabs): Returns the Editor's Picks and discover tab information from the Lemon8 mobile app.
 
 ---
 Machine-readable: [`catalog/models/lemon8/app/topic-post-list.json`](../../../../catalog/models/lemon8/app/topic-post-list.json) · Store page: https://www.sandbase.ai/model/lemon8/app/topic-post-list

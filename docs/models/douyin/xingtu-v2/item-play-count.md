@@ -110,9 +110,9 @@ Flat price per call. Failed calls, including lookups whose target does not exist
 
 ### Related APIs
 
-- [Get Author Audience Distribution](/model/douyin/xingtu-v2/author-audience-distribution): Get creator audience profile distribution.
-- [Get Author Base Info](/model/douyin/xingtu-v2/author-base-info): Get creator/author base information.
-- [Get Author Business Card Info](/model/douyin/xingtu-v2/author-business-card-info): Get creator/author business card information.
+- [Get Author Audience Distribution](/apis/douyin/xingtu-v2/author-audience-distribution): Get creator audience profile distribution.
+- [Get Author Base Info](/apis/douyin/xingtu-v2/author-base-info): Get creator/author base information.
+- [Get Author Business Card Info](/apis/douyin/xingtu-v2/author-business-card-info): Get creator/author business card information.
 
 ---
 Machine-readable: [`catalog/models/douyin/xingtu-v2/item-play-count.json`](../../../../catalog/models/douyin/xingtu-v2/item-play-count.json) · Store page: https://www.sandbase.ai/model/douyin/xingtu-v2/item-play-count

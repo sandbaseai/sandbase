@@ -114,7 +114,7 @@ Query cooperable Pugongying bloggers for a brand by passing `brand_user_id`. Ref
 curl -X POST "https://api.sandbase.ai/v1/api/xiaohongshu/pgy/blogger-list" \
   -H "Authorization: Bearer $SANDBASE_API_KEY" \
   -H "Content-Type: application/json" \
-  -d '{"brand_user_id": "<brand_user_id>"}'
+  -d '{"brand_user_id": "5dcfa5370000000001006030"}'
 ```
 
 ### Parameters
@@ -150,9 +150,9 @@ Flat price per call. Failed calls, including lookups whose target does not exist
 
 ### Related APIs
 
-- [Xiaohongshu (RED) Blogger Core Data](/model/xiaohongshu/pgy/blogger-core-data): Returns Pugongying core performance metrics and daily trend data for a specified Xiaohongshu blogger, filterable by date range, note type, and traffic source.
-- [Xiaohongshu (RED) PGY Blogger Data Summary](/model/xiaohongshu/pgy/blogger-data-summary): Returns an account-level data summary for a Xiaohongshu blogger on the Pugongying (PGY) platform based on the specified blogger user ID.
-- [Xiaohongshu (RED) PGY Blogger Details](/model/xiaohongshu/pgy/blogger-detail): Retrieves detailed profile information for a specific Xiaohongshu blogger on the PGY platform using their user ID.
+- [Xiaohongshu (RED) Blogger Core Data](/apis/xiaohongshu/pgy/blogger-core-data): Returns Pugongying core performance metrics and daily trend data for a specified Xiaohongshu blogger, filterable by date range, note type, and traffic source.
+- [Xiaohongshu (RED) PGY Blogger Data Summary](/apis/xiaohongshu/pgy/blogger-data-summary): Returns an account-level data summary for a Xiaohongshu blogger on the Pugongying (PGY) platform based on the specified blogger user ID.
+- [Xiaohongshu (RED) PGY Blogger Details](/apis/xiaohongshu/pgy/blogger-detail): Retrieves detailed profile information for a specific Xiaohongshu blogger on the PGY platform using their user ID.
 
 ---
 Machine-readable: [`catalog/models/xiaohongshu/pgy/blogger-list.json`](../../../../catalog/models/xiaohongshu/pgy/blogger-list.json) · Store page: https://www.sandbase.ai/model/xiaohongshu/pgy/blogger-list

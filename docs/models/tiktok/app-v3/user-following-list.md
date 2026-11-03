@@ -76,7 +76,7 @@ Retrieve the list of accounts followed by a user using either `user_id` or `sec_
 curl -X POST "https://api.sandbase.ai/v1/api/tiktok/app-v3/user-following-list" \
   -H "Authorization: Bearer $SANDBASE_API_KEY" \
   -H "Content-Type: application/json" \
-  -d '{}'
+  -d '{"user_id": "7486586574684881927", "sec_user_id": "MS4wLjABAAAA0lKrE0cVLLZCnVil-n-YEZlOoik9oeO3zOYQ08dqOEOw2pRSXWJdcSFw7lZeZcSP", "count": 20, "min_time": 0}'
 ```
 
 ### Parameters
@@ -101,9 +101,9 @@ Flat price per call. Failed calls, including lookups whose target does not exist
 
 ### Related APIs
 
-- [TikTok LIVE Status](/model/tiktok/app-v3/check-live-room-online): Check whether a TikTok LIVE room is currently live by room ID.
-- [TikTok Room Online Status Batch](/model/tiktok/app-v3/check-live-room-online-batch): Returns the online availability status for multiple TikTok broadcast rooms in a single request.
-- [TikTok Content Translation](/model/tiktok/app-v3/content-translate): Translates provided text content into a designated target language.
+- [TikTok LIVE Status](/apis/tiktok/app-v3/check-live-room-online): Check whether a TikTok LIVE room is currently live by room ID.
+- [TikTok Room Online Status Batch](/apis/tiktok/app-v3/check-live-room-online-batch): Returns the online availability status for multiple TikTok broadcast rooms in a single request.
+- [TikTok Content Translation](/apis/tiktok/app-v3/content-translate): Translates provided text content into a designated target language.
 
 ---
 Machine-readable: [`catalog/models/tiktok/app-v3/user-following-list.json`](../../../../catalog/models/tiktok/app-v3/user-following-list.json) · Store page: https://www.sandbase.ai/model/tiktok/app-v3/user-following-list

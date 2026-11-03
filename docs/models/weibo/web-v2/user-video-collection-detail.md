@@ -20,7 +20,7 @@ Modes: sync (default `sync`). Only pass `mode` values listed here. The SDKs' `ru
 ```bash
 curl https://api.sandbase.ai/v1/run \
   -H "Authorization: Bearer $SANDBASE_API_KEY" -H 'Content-Type: application/json' \
-  -d '{"model": "weibo/web-v2/user-video-collection-detail", "cid": "<cid>"}'
+  -d '{"model": "weibo/web-v2/user-video-collection-detail", "cid": "4883992307236954"}'
 ```
 
 **Python** ([sdk/python](../../../../sdk/python))
@@ -28,7 +28,7 @@ curl https://api.sandbase.ai/v1/run \
 ```python
 from sandbase import SandBase
 
-result = SandBase().run('weibo/web-v2/user-video-collection-detail', {'cid': '<cid>'})
+result = SandBase().run('weibo/web-v2/user-video-collection-detail', {'cid': '4883992307236954'})
 print(result["outputs"])
 ```
 
@@ -38,7 +38,7 @@ print(result["outputs"])
 import { SandBase } from "@sandbaseai/sdk";
 
 const result = await new SandBase().run("weibo/web-v2/user-video-collection-detail", {
-  "cid": "<cid>"
+  "cid": "4883992307236954"
 });
 console.log(result.outputs);
 ```
@@ -48,7 +48,7 @@ console.log(result.outputs);
 ```go
 c, _ := sandbase.NewClient("")
 run, err := c.Run(ctx, "weibo/web-v2/user-video-collection-detail", sandbase.Params{
-	"cid": "<cid>",
+	"cid": "4883992307236954",
 })
 ```
 
@@ -78,7 +78,7 @@ Retrieve detailed video listings and information from a specific Weibo video col
 curl -X POST "https://api.sandbase.ai/v1/api/weibo/web-v2/user-video-collection-detail" \
   -H "Authorization: Bearer $SANDBASE_API_KEY" \
   -H "Content-Type: application/json" \
-  -d '{"cid": "<cid>"}'
+  -d '{"cid": "4883992307236954"}'
 ```
 
 ### Parameters
@@ -101,9 +101,9 @@ Flat price per call. Failed calls, including lookups whose target does not exist
 
 ### Related APIs
 
-- [Weibo Advanced Search](/model/weibo/web-v2/advanced-search): Search Weibo posts by keyword with filters for time range, post type (hot, original, verified, media) and content type (images, video, links).
-- [Weibo AI Related Search Content](/model/weibo/web-v2/ai-related-search): Returns AI-generated content extensions for a keyword, including related questions, recommended bloggers, and reference posts.
-- [Weibo AI Search](/model/weibo/web-v2/ai-search): Returns multimodal search results and relevance scores from Weibo intelligent search for a specified keyword or topic query.
+- [Weibo Advanced Search](/apis/weibo/web-v2/advanced-search): Search Weibo posts by keyword with filters for time range, post type (hot, original, verified, media) and content type (images, video, links).
+- [Weibo AI Related Search Content](/apis/weibo/web-v2/ai-related-search): Returns AI-generated content extensions for a keyword, including related questions, recommended bloggers, and reference posts.
+- [Weibo AI Search](/apis/weibo/web-v2/ai-search): Returns multimodal search results and relevance scores from Weibo intelligent search for a specified keyword or topic query.
 
 ---
 Machine-readable: [`catalog/models/weibo/web-v2/user-video-collection-detail.json`](../../../../catalog/models/weibo/web-v2/user-video-collection-detail.json) · Store page: https://www.sandbase.ai/model/weibo/web-v2/user-video-collection-detail

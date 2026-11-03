@@ -65,13 +65,12 @@ Same call via the path form: `POST /v1/api/exa/answer` with the body above minus
 
 ## Details
 
-Provides answers accompanied by cited web sources based on a submitted `query`. It supports tuning the retrieval mode via `type` and structuring the output with `outputSchema`.
+Ask a question and get a short answer grounded in live web search, with the sources Exa used as citations (title, URL, publish date). Optionally return a structured answer that follows your JSON Schema.
 
 ### Use cases
 
-- Retrieve cited answers to factual questions.
-- Extract full-text web references alongside synthesized answers.
-- Format answers into structured JSON schemas for automated workflows.
+- Answer factual questions in an agent with cited sources.
+- Extract structured facts with `outputSchema`.
 
 ### Request
 
@@ -82,40 +81,51 @@ curl -X POST "https://api.sandbase.ai/v1/api/exa/answer" \
   -d '{"query": "OpenAI"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
 |---|---|---|---|
 | `query` | string | Yes | The question to answer. |
+| `outputSchema` | object | No | JSON Schema for a structured answer output. |
 | `text` | boolean | No | Include the full page text of each citation. |
 | `type` | string | No | Retrieval mode used to gather sources before answering. |
-| `outputSchema` | object | No | JSON Schema for a structured answer output. |
 
 ### Example response
 
-Real response for the request above, trimmed to the main fields. User names and long IDs are masked.
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
 
 ```json
 {
+  "answer": "OpenAI is an American artificial intelligence public benefit corporation based i…",
   "citations": [
     {
-      "id": "https://en.wikipedia.org/wiki/_OpenAI",
+      "author": "Unauthorized hacks",
+      "id": "https://en.wikipedia.org/wiki/OpenAI",
+      "publishedDate": "2026-10-27T00:00:00.000Z",
       "title": "OpenAI",
-      "url": "https://en.wikipedia.org/wiki/_OpenAI"
+      "url": "https://en.wikipedia.org/wiki/OpenAI"
     }
-  ]
+  ],
+  "requestId": "f07f69f06d8753ed462b91b73130a835"
 }
 ```
 
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `answer` | The answer text, or an object when `outputSchema` is set. |
+| `citations[]` | Sources: `title`, `url`, `publishedDate`, `author`, and `text` when requested. |
+
 ### Notes
 
-- The `type` parameter configures retrieval behavior across modes such as auto, fast, instant, deep-lite, deep, or deep-reasoning.
-- Set `text` to true to include the complete page text for each returned citation.
-- Supply `outputSchema` with a JSON schema to receive structured answer outputs.
+- Set `text: true` to include each citation's page text, for example to verify the answer.
 
 ### Pricing
 
-Flat price per call. Failed calls are not charged.
+$0.0075 per successful call. Failed calls, including lookups whose target does not exist, are not charged. It is included in the daily free quota of each organization.
 
 ---
 Machine-readable: [`catalog/models/exa/answer.json`](../../../catalog/models/exa/answer.json) · Store page: https://www.sandbase.ai/model/exa/answer

@@ -115,9 +115,9 @@ Flat price per call. Failed calls, including lookups whose target does not exist
 
 ### Related APIs
 
-- [Telegram Channel Info](/model/telegram/web/channel-info): Returns public metadata for a Telegram channel, including title, description, verified status, and username, using the public web preview.
-- [Telegram Channel Posts](/model/telegram/web/channel-posts): Get a public Telegram channel's recent posts: text, media, forwards, replies, link previews, reactions, views and time, with cursor pagination.
-- [Telegram Channel Post Search](/model/telegram/web/channel-search): Returns messages matching a search keyword from a specific Telegram channel.
+- [Telegram Channel Info](/apis/telegram/web/channel-info): Returns public metadata for a Telegram channel, including title, description, verified status, and username, using the public web preview.
+- [Telegram Channel Posts](/apis/telegram/web/channel-posts): Get a public Telegram channel's recent posts: text, media, forwards, replies, link previews, reactions, views and time, with cursor pagination.
+- [Telegram Channel Post Search](/apis/telegram/web/channel-search): Returns messages matching a search keyword from a specific Telegram channel.
 
 ---
 Machine-readable: [`catalog/models/telegram/web/batch-channel-info.json`](../../../../catalog/models/telegram/web/batch-channel-info.json) · Store page: https://www.sandbase.ai/model/telegram/web/batch-channel-info

@@ -77,7 +77,7 @@ Look up official WeChat account profile information by passing the account ID in
 curl -X POST "https://api.sandbase.ai/v1/api/wechat-mp/v2/account-profile" \
   -H "Authorization: Bearer $SANDBASE_API_KEY" \
   -H "Content-Type: application/json" \
-  -d '{"username": "<username>"}'
+  -d '{"username": "gh_363b924965e9"}'
 ```
 
 ### Parameters
@@ -99,9 +99,9 @@ Flat price per call. Failed calls, including lookups whose target does not exist
 
 ### Related APIs
 
-- [WeChat MP Account Articles](/model/wechat-mp/v2/account-articles): Get the published articles of a WeChat official account by its gh_ username: titles, links, covers and post dates, one page at a time, including video and audi…
-- [WeChat MP Article Ads](/model/wechat-mp/v2/article-ad): Returns embedded ad slot information for a specified WeChat MP article URL.
-- [WeChat MP Article Comments](/model/wechat-mp/v2/article-comments): Get the comments on a WeChat official account article from its URL: comment text, likes, time and commenter region, with cursor pagination.
+- [WeChat MP Account Articles](/apis/wechat-mp/v2/account-articles): Get the published articles of a WeChat official account by its gh_ username: titles, links, covers and post dates, one page at a time, including video and audi…
+- [WeChat MP Article Ads](/apis/wechat-mp/v2/article-ad): Returns embedded ad slot information for a specified WeChat MP article URL.
+- [WeChat MP Article Comments](/apis/wechat-mp/v2/article-comments): Get the comments on a WeChat official account article from its URL: comment text, likes, time and commenter region, with cursor pagination.
 
 ---
 Machine-readable: [`catalog/models/wechat-mp/v2/account-profile.json`](../../../../catalog/models/wechat-mp/v2/account-profile.json) · Store page: https://www.sandbase.ai/model/wechat-mp/v2/account-profile

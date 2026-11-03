@@ -30,7 +30,7 @@
       "uid": {
         "type": "string",
         "title": "Uid",
-        "example": "1437582453",
+        "example": "178360345",
         "description": "User UID"
       }
     }
@@ -57,7 +57,7 @@
       "default": true
     }
   ],
-  "readme": "# Bilibili User Collection Folders API\n\nThis endpoint retrieves the collection folders for a specified user account. Pass the target user ID using the `uid` parameter.\n\n## Use cases\n\n- Inspect public collection folder lists for a specific Bilibili user.\n- Organize and display saved video collections from a target account.\n- Monitor changes in a creator's collection folder structure.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/bilibili/web/collect-folders\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"uid\": \"1437582453\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `uid` | string | Yes | User UID |\n\n## Notes\n\n- Requires the target user ID in the `uid` parameter.\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [Bilibili Streaming Areas](/model/bilibili/web/all-live-areas): Returns the complete list of streaming broadcast areas and categories on Bilibili.\n- [Bilibili BV to AID Converter](/model/bilibili/web/bv-to-aid): Converts a Bilibili BV identifier to its corresponding numeric AID value.\n- [Bilibili Comprehensive Popular Videos](/model/bilibili/web/com-popular): Returns a comprehensive list of trending videos on Bilibili, including video metadata, author details, and engagement statistics across pages.\n",
+  "readme": "# Bilibili User Collection Folders API\n\nThis endpoint retrieves the collection folders for a specified user account. Pass the target user ID using the `uid` parameter.\n\n## Use cases\n\n- Inspect public collection folder lists for a specific Bilibili user.\n- Organize and display saved video collections from a target account.\n- Monitor changes in a creator's collection folder structure.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/bilibili/web/collect-folders\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"uid\": \"178360345\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `uid` | string | Yes | User UID |\n\n## Notes\n\n- Requires the target user ID in the `uid` parameter.\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [Bilibili Streaming Areas](/apis/bilibili/web/all-live-areas): Returns the complete list of streaming broadcast areas and categories on Bilibili.\n- [Bilibili BV to AID Converter](/apis/bilibili/web/bv-to-aid): Converts a Bilibili BV identifier to its corresponding numeric AID value.\n- [Bilibili Comprehensive Popular Videos](/apis/bilibili/web/com-popular): Returns a comprehensive list of trending videos on Bilibili, including video metadata, author details, and engagement statistics across pages.\n",
   "page_url": "https://www.sandbase.ai/model/bilibili/web/collect-folders",
   "created_at": "2026-07-31T03:53:32.297Z"
 }

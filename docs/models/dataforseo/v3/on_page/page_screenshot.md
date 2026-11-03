@@ -154,9 +154,9 @@ Billed at the actual cost of each call, about $0.0048 for the request above. The
 
 ### Related APIs
 
-- [DataForSEO Google Ads Keyword Search Volume](/model/dataforseo/v3/keywords_data/google_ads/search_volume/live): Get Google Ads search volume, CPC, competition and 12-month trend for up to 1,000 keywords per request, by location and language.
-- [DataForSEO Google Trends](/model/dataforseo/v3/keywords_data/google_trends/explore/live): Get Google Trends interest over time for up to 5 keywords by location, language and time range, with weekly values on a 0–100 scale.
-- [DataForSEO Google SERP (Advanced)](/model/dataforseo/v3/serp/google/organic/live/advanced): Get live Google organic search results for any keyword, location and language, including AI Overviews, featured snippets, People Also Ask and other SERP featur…
+- [DataForSEO Google Ads Keyword Search Volume](/apis/dataforseo/v3/keywords_data/google_ads/search_volume/live): Get Google Ads search volume, CPC, competition and 12-month trend for up to 1,000 keywords per request, by location and language.
+- [DataForSEO Google Trends](/apis/dataforseo/v3/keywords_data/google_trends/explore/live): Get Google Trends interest over time for up to 5 keywords by location, language and time range, with weekly values on a 0–100 scale.
+- [DataForSEO Google SERP (Advanced)](/apis/dataforseo/v3/serp/google/organic/live/advanced): Get live Google organic search results for any keyword, location and language, including AI Overviews, featured snippets, People Also Ask and other SERP featur…
 
 ---
 Machine-readable: [`catalog/models/dataforseo/v3/on_page/page_screenshot.json`](../../../../../catalog/models/dataforseo/v3/on_page/page_screenshot.json) · Store page: https://www.sandbase.ai/model/dataforseo/v3/on_page/page_screenshot

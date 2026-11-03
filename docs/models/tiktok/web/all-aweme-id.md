@@ -97,9 +97,9 @@ Flat price per call. Failed calls, including lookups whose target does not exist
 
 ### Related APIs
 
-- [TikTok User Sec User ID Extractor](/model/tiktok/web/all-sec-user-id): Returns a list of sec_user_id identifiers corresponding to TikTok user profile URLs.
-- [TikTok Profile Unique IDs](/model/tiktok/web/all-unique-id): Resolves a batch of TikTok user homepage links to retrieve their corresponding unique identifiers.
-- [TikTok Video ID from URL](/model/tiktok/web/aweme-id): Extracts and returns the unique single video ID from a provided TikTok video link.
+- [TikTok User Sec User ID Extractor](/apis/tiktok/web/all-sec-user-id): Returns a list of sec_user_id identifiers corresponding to TikTok user profile URLs.
+- [TikTok Profile Unique IDs](/apis/tiktok/web/all-unique-id): Resolves a batch of TikTok user homepage links to retrieve their corresponding unique identifiers.
+- [TikTok Video ID from URL](/apis/tiktok/web/aweme-id): Extracts and returns the unique single video ID from a provided TikTok video link.
 
 ---
 Machine-readable: [`catalog/models/tiktok/web/all-aweme-id.json`](../../../../catalog/models/tiktok/web/all-aweme-id.json) · Store page: https://www.sandbase.ai/model/tiktok/web/all-aweme-id

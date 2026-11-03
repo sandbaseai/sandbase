@@ -75,7 +75,7 @@ Query details for multiple Kuaishou videos simultaneously using `photo_ids`.
 curl -X POST "https://api.sandbase.ai/v1/api/kuaishou/app/videos-batch" \
   -H "Authorization: Bearer $SANDBASE_API_KEY" \
   -H "Content-Type: application/json" \
-  -d '{"photo_ids": "<photo_ids>"}'
+  -d '{"photo_ids": "5228960823332207296,5196309727975443273,5222486898325987583"}'
 ```
 
 ### Parameters
@@ -94,9 +94,9 @@ Flat price per call. Failed calls, including lookups whose target does not exist
 
 ### Related APIs
 
-- [Kuaishou Brand Top List](/model/kuaishou/app/brand-top-list): Returns top brand rankings and related live stream links from Kuaishou.
-- [Kuaishou App Share Link](/model/kuaishou/app/generate-share-link): Generates a shareable URL for Kuaishou application content using a specified object identifier.
-- [Kuaishou Hot Board Categories](/model/kuaishou/app/hot-board-categories): Returns the active list of hot board categories available in the Kuaishou app.
+- [Kuaishou Brand Top List](/apis/kuaishou/app/brand-top-list): Returns top brand rankings and related live stream links from Kuaishou.
+- [Kuaishou App Share Link](/apis/kuaishou/app/generate-share-link): Generates a shareable URL for Kuaishou application content using a specified object identifier.
+- [Kuaishou Hot Board Categories](/apis/kuaishou/app/hot-board-categories): Returns the active list of hot board categories available in the Kuaishou app.
 
 ---
 Machine-readable: [`catalog/models/kuaishou/app/videos-batch.json`](../../../../catalog/models/kuaishou/app/videos-batch.json) · Store page: https://www.sandbase.ai/model/kuaishou/app/videos-batch

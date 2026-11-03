@@ -132,9 +132,9 @@ Flat price per call. Failed calls, including lookups whose target does not exist
 
 ### Related APIs
 
-- [Douyin Hot Search List](/model/douyin/app-v3/hot-search-list): Get the Douyin hot search list and other boards (seeding, entertainment, social and challenge lists): trending words with heat values and video counts.
-- [Douyin Video Statistics (Batch)](/model/douyin/app-v3/multi-video-statistics): Get play, like, share and download counts for up to 50 Douyin videos in one request by passing comma-separated video IDs.
-- [Get Douyin brand hot search list data](/model/douyin/app-v3/brand-hot-search-list): Get Douyin brand hot search category data.
+- [Douyin Hot Search List](/apis/douyin/app-v3/hot-search-list): Get the Douyin hot search list and other boards (seeding, entertainment, social and challenge lists): trending words with heat values and video counts.
+- [Douyin Video Statistics (Batch)](/apis/douyin/app-v3/multi-video-statistics): Get play, like, share and download counts for up to 50 Douyin videos in one request by passing comma-separated video IDs.
+- [Get Douyin brand hot search list data](/apis/douyin/app-v3/brand-hot-search-list): Get Douyin brand hot search category data.
 
 ---
 Machine-readable: [`catalog/models/douyin/app-v3/user-post-videos.json`](../../../../catalog/models/douyin/app-v3/user-post-videos.json) · Store page: https://www.sandbase.ai/model/douyin/app-v3/user-post-videos

@@ -75,9 +75,9 @@ Flat price per call. Failed calls, including lookups whose target does not exist
 
 ### Related APIs
 
-- [Kuaishou Web Share Short URL](/model/kuaishou/web/generate-share-short-url): Returns a shareable short URL for a specified Kuaishou video or photo post.
-- [Kuaishou User ID Lookup](/model/kuaishou/web/get-user-id): Resolves a Kuaishou user ID from a provided user share link.
-- [Kuaishou Web Hot List (V2)](/model/kuaishou/web/hot-list-v2): Returns current trending search rankings and hot topics on Kuaishou web.
+- [Kuaishou Web Share Short URL](/apis/kuaishou/web/generate-share-short-url): Returns a shareable short URL for a specified Kuaishou video or photo post.
+- [Kuaishou User ID Lookup](/apis/kuaishou/web/get-user-id): Resolves a Kuaishou user ID from a provided user share link.
+- [Kuaishou Web Hot List (V2)](/apis/kuaishou/web/hot-list-v2): Returns current trending search rankings and hot topics on Kuaishou web.
 
 ---
 Machine-readable: [`catalog/models/kuaishou/web/hot-list-v1.json`](../../../../catalog/models/kuaishou/web/hot-list-v1.json) · Store page: https://www.sandbase.ai/model/kuaishou/web/hot-list-v1

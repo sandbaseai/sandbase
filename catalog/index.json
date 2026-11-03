@@ -1,14 +1,14 @@
 {
  "catalog_version": "1",
- "generated_at": "2026-11-02T23:37:01Z",
+ "generated_at": "2026-11-03T06:46:38Z",
  "base_url": "https://api.sandbase.ai",
- "count": 2296,
+ "count": 2287,
  "counts_by_type": {
-  "api": 1860,
-  "video": 176,
+  "api": 1850,
+  "video": 177,
   "llm": 121,
-  "image": 104,
-  "audio": 33,
+  "image": 105,
+  "audio": 32,
   "embedding": 2
  },
  "models": [
@@ -8180,27 +8180,6 @@
     "free_quota": true
    },
    "record": "catalog/models/douyin/creator/creator-content-course.json"
-  },
-  {
-   "name": "douyin/creator/creator-hot-challenge-billboard",
-   "display_name": "Douyin Hot Challenge Billboard",
-   "type": "api",
-   "vendor": "Douyin",
-   "description": "Returns trending challenge billboard rankings directly from Douyin. Discover active community challenges and monitor popular campaign topics.",
-   "tags": [
-    "api",
-    "douyin"
-   ],
-   "modes": [
-    "sync"
-   ],
-   "endpoint": "POST /v1/run",
-   "price": {
-    "model": "per_call",
-    "usd_per_call": 0.001,
-    "free_quota": true
-   },
-   "record": "catalog/models/douyin/creator/creator-hot-challenge-billboard.json"
   },
   {
    "name": "douyin/creator/creator-hot-course",
@@ -28826,132 +28805,6 @@
    "record": "catalog/models/tiktok/comment-replies.json"
   },
   {
-   "name": "tiktok/creator/account-health-status",
-   "display_name": "TikTok Creator Account Health Status",
-   "type": "api",
-   "vendor": "TikTok",
-   "description": "Returns the health status of a TikTok Shop creator account. Provides the 90-day health score and accumulated violation points to evaluate account standing.",
-   "tags": [
-    "api",
-    "tiktok"
-   ],
-   "modes": [
-    "sync"
-   ],
-   "endpoint": "POST /v1/run",
-   "price": {
-    "model": "per_call",
-    "usd_per_call": 0.001,
-    "free_quota": true
-   },
-   "record": "catalog/models/tiktok/creator/account-health-status.json"
-  },
-  {
-   "name": "tiktok/creator/account-insights-overview",
-   "display_name": "TikTok Creator Account Insights Overview",
-   "type": "api",
-   "vendor": "TikTok",
-   "description": "Retrieves performance metrics for a TikTok Shop creator account, including revenue, exposure, clicks, and orders for the specified month.",
-   "tags": [
-    "api",
-    "tiktok"
-   ],
-   "modes": [
-    "sync"
-   ],
-   "endpoint": "POST /v1/run",
-   "price": {
-    "model": "per_call",
-    "usd_per_call": 0.001,
-    "free_quota": true
-   },
-   "record": "catalog/models/tiktok/creator/account-insights-overview.json"
-  },
-  {
-   "name": "tiktok/creator/account-violation-list",
-   "display_name": "TikTok Creator Account Violations",
-   "type": "api",
-   "vendor": "TikTok",
-   "description": "Returns the violation history and enforcement actions for a TikTok Shop creator account. Supports chronological pagination across historical violation records.",
-   "tags": [
-    "api",
-    "tiktok"
-   ],
-   "modes": [
-    "sync"
-   ],
-   "endpoint": "POST /v1/run",
-   "price": {
-    "model": "per_call",
-    "usd_per_call": 0.001,
-    "free_quota": true
-   },
-   "record": "catalog/models/tiktok/creator/account-violation-list.json"
-  },
-  {
-   "name": "tiktok/creator/creator-account-info",
-   "display_name": "TikTok Creator Account Info",
-   "type": "api",
-   "vendor": "TikTok",
-   "description": "Returns basic profile details for a TikTok Shop creator account, including username, avatar URLs, account ID, region, partner bindings, and permissions.",
-   "tags": [
-    "api",
-    "tiktok"
-   ],
-   "modes": [
-    "sync"
-   ],
-   "endpoint": "POST /v1/run",
-   "price": {
-    "model": "per_call",
-    "usd_per_call": 0.001,
-    "free_quota": true
-   },
-   "record": "catalog/models/tiktok/creator/creator-account-info.json"
-  },
-  {
-   "name": "tiktok/creator/live-analytics-summary",
-   "display_name": "TikTok Stream Analytics Summary",
-   "type": "api",
-   "vendor": "TikTok",
-   "description": "Returns streaming performance metrics for a TikTok Shop account over a monthly period. Accepts an optional `start_date` to review broadcast analytics for a calendar month.",
-   "tags": [
-    "api",
-    "tiktok"
-   ],
-   "modes": [
-    "sync"
-   ],
-   "endpoint": "POST /v1/run",
-   "price": {
-    "model": "per_call",
-    "usd_per_call": 0.001,
-    "free_quota": true
-   },
-   "record": "catalog/models/tiktok/creator/live-analytics-summary.json"
-  },
-  {
-   "name": "tiktok/creator/product-analytics-list",
-   "display_name": "TikTok Creator Product Analytics List",
-   "type": "api",
-   "vendor": "TikTok",
-   "description": "Returns products promoted by a TikTok Shop creator along with sales analytics for a designated date range. Results can be filtered by dates and navigated through page numbers.",
-   "tags": [
-    "api",
-    "tiktok"
-   ],
-   "modes": [
-    "sync"
-   ],
-   "endpoint": "POST /v1/run",
-   "price": {
-    "model": "per_call",
-    "usd_per_call": 0.001,
-    "free_quota": true
-   },
-   "record": "catalog/models/tiktok/creator/product-analytics-list.json"
-  },
-  {
    "name": "tiktok/creator/product-related-videos",
    "display_name": "TikTok Product Related Videos",
    "type": "api",
@@ -28971,48 +28824,6 @@
     "free_quota": true
    },
    "record": "catalog/models/tiktok/creator/product-related-videos.json"
-  },
-  {
-   "name": "tiktok/creator/showcase-product-list",
-   "display_name": "TikTok Creator Showcase Product List",
-   "type": "api",
-   "vendor": "TikTok",
-   "description": "Returns the list of products displayed in a TikTok Shop creator showcase. Supports pagination controls via offset and item count.",
-   "tags": [
-    "api",
-    "tiktok"
-   ],
-   "modes": [
-    "sync"
-   ],
-   "endpoint": "POST /v1/run",
-   "price": {
-    "model": "per_call",
-    "usd_per_call": 0.001,
-    "free_quota": true
-   },
-   "record": "catalog/models/tiktok/creator/showcase-product-list.json"
-  },
-  {
-   "name": "tiktok/creator/video-analytics-summary",
-   "display_name": "TikTok Creator Video Analytics Summary",
-   "type": "api",
-   "vendor": "TikTok",
-   "description": "Returns a video performance overview for a TikTok Shop creator account over a time range. Provides metrics including video count, views, new followers, and generated GMV.",
-   "tags": [
-    "api",
-    "tiktok"
-   ],
-   "modes": [
-    "sync"
-   ],
-   "endpoint": "POST /v1/run",
-   "price": {
-    "model": "per_call",
-    "usd_per_call": 0.001,
-    "free_quota": true
-   },
-   "record": "catalog/models/tiktok/creator/video-analytics-summary.json"
   },
   {
    "name": "tiktok/creator/video-associated-product-list",
@@ -29076,27 +28887,6 @@
     "free_quota": true
    },
    "record": "catalog/models/tiktok/creator/video-detailed-stats.json"
-  },
-  {
-   "name": "tiktok/creator/video-list-analytics",
-   "display_name": "TikTok Creator Video List Analytics",
-   "type": "api",
-   "vendor": "TikTok",
-   "description": "Returns video records and performance metrics for a TikTok Shop creator within a specific date range. Supports pagination and custom sorting rules.",
-   "tags": [
-    "api",
-    "tiktok"
-   ],
-   "modes": [
-    "sync"
-   ],
-   "endpoint": "POST /v1/run",
-   "price": {
-    "model": "per_call",
-    "usd_per_call": 0.001,
-    "free_quota": true
-   },
-   "record": "catalog/models/tiktok/creator/video-list-analytics.json"
   },
   {
    "name": "tiktok/creator/video-to-product-stats",
@@ -39841,25 +39631,6 @@
    "record": "catalog/models/heygen/heygen-voice/turbo.json"
   },
   {
-   "name": "kwaivgi/kling-video/create-voice",
-   "display_name": "Kling Create Voice",
-   "type": "audio",
-   "vendor": "KwaiVGI",
-   "description": "Kling Create Voice clones a reusable custom voice from a 5-30 second recording of a single speaker and returns a voice ID for Kling V4 reference-to-video, plus a short preview clip.",
-   "tags": [
-    "audio-to-audio"
-   ],
-   "modes": [
-    "async"
-   ],
-   "endpoint": "POST /v1/run",
-   "price": {
-    "model": "per_call",
-    "usd_per_call": 0.035
-   },
-   "record": "catalog/models/kwaivgi/kling-video/create-voice.json"
-  },
-  {
    "name": "minimax/music/2.6",
    "display_name": "MiniMax Music 2.6",
    "type": "audio",
@@ -41869,6 +41640,25 @@
     "usd_to": 0.04
    },
    "record": "catalog/models/recraft/recraft/v4.1/utility.json"
+  },
+  {
+   "name": "sandbase-ai/cat-vton",
+   "display_name": "try-on",
+   "type": "image",
+   "vendor": "sandbase-ai",
+   "description": "CatVTON is a virtual try-on model. It dresses the person in a photo with a garment from a second image, with controls for the covered body area, guidance, steps, and aspect ratio.",
+   "tags": [
+    "image-to-image"
+   ],
+   "modes": [
+    "async"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "per_call",
+    "usd_per_call": 0.00125
+   },
+   "record": "catalog/models/sandbase-ai/cat-vton.json"
   },
   {
    "name": "tencent/hunyuan-3d/3.0/image-to-3d",
@@ -47711,6 +47501,27 @@
    "record": "catalog/models/kwaivgi/kling-video/v3/standard/text-to-video.json"
   },
   {
+   "name": "kwaivgi/kling-video/v4",
+   "display_name": "Kling V4",
+   "type": "video",
+   "vendor": "KwaiVGI",
+   "description": "Kling V4 is Kuaishou's next-generation video model, announced on September 28, 2026, with single generations of up to 30 seconds guided by text, keyframe images, and references. The public API has not opened yet; specifications and pricing will be confirmed at launch.",
+   "tags": [
+    "text-to-video",
+    "image-to-video",
+    "coming-soon"
+   ],
+   "modes": [
+    "async"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "unknown"
+   },
+   "status": "coming_soon",
+   "record": "catalog/models/kwaivgi/kling-video/v4.json"
+  },
+  {
    "name": "kwaivgi/kling-video/v4/image-to-video",
    "display_name": "Kling V4 Image to Video",
    "type": "video",
@@ -48796,7 +48607,7 @@
   }
  ],
  "free_quota": {
-  "apis": 1248,
+  "apis": 1238,
   "daily_calls_per_org": 100,
   "note": "Shared across all free-quota APIs per organization; resets 00:00 UTC."
  },

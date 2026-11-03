@@ -65,13 +65,12 @@ Same call via the path form: `POST /v1/api/bilibili/web/video-playurl` with the 
 
 ## Details
 
-Fetch playback stream URLs and stream qualities for Bilibili videos by providing `bv_id` and `cid`.
+Get the stream URLs of a Bilibili video: separate DASH video and audio tracks with codec, resolution, frame rate and bitrate, for the qualities available to a guest viewer.
 
 ### Use cases
 
-- Retrieve direct DASH video stream URLs for playback integration.
-- Inspect available frame rates and stream codecs for a specific video.
-- Automate media player setups with official streaming endpoints.
+- Download a video for archiving or analysis.
+- Read available resolutions and codecs.
 
 ### Request
 
@@ -82,29 +81,51 @@ curl -X POST "https://api.sandbase.ai/v1/api/bilibili/web/video-playurl" \
   -d '{"bv_id": "BV1y7411Q7Eq", "cid": "171776208"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
 |---|---|---|---|
-| `cid` | string | Yes | Video cid |
 | `bv_id` | string | Yes | Video id |
+| `cid` | string | Yes | Video cid |
 
 ### Example response
 
-Real response for the request above, trimmed to the main fields. User names and long IDs are masked.
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
 
 ```json
 {
+  "code": 0,
   "data": {
+    "quality": 64,
+    "accept_description": [
+      "高清 1080P+",
+      "高清 1080P",
+      "高清 720P",
+      "清晰 480P",
+      "流畅 360P"
+    ],
+    "timelength": 283723,
     "dash": {
+      "duration": 284,
       "video": [
         {
-          "base_url": "https://upos-sz-mirrorcosov.bilivideo.com/upgcxcode/08/62/171776208/171776208_nb…",
-          "frameRate": "29.412",
-          "frame_rate": "29.412",
           "id": 32,
-          "mimeType": "video/mp4",
-          "mime_type": "video/mp4"
+          "codecs": "avc1.64001F",
+          "width": 852,
+          "height": 480,
+          "frameRate": "29.412",
+          "bandwidth": 746163,
+          "baseUrl": "https://upos-sz-mirrorcosov.bilivideo.com/upgcxcode/08/62/17…"
+        }
+      ],
+      "audio": [
+        {
+          "id": 30232,
+          "codecs": "mp4a.40.2",
+          "bandwidth": 132686,
+          "baseUrl": "https://upos-sz-mirrorcosov.bilivideo.com/upgcxcode/08/62/17…"
         }
       ]
     }
@@ -112,19 +133,30 @@ Real response for the request above, trimmed to the main fields. User names and 
 }
 ```
 
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `data.quality / accept_description` | Quality served and qualities available. |
+| `data.dash.video[]` | Video tracks: `id` (quality), `codecs`, `width`, `height`, `frameRate`, `bandwidth`, `baseUrl`. |
+| `data.dash.audio[]` | Audio tracks: `codecs`, `bandwidth`, `baseUrl`. |
+| `data.timelength` | Duration in milliseconds. |
+
 ### Notes
 
-- Requires both `bv_id` (Bilibili video ID) and `cid` (video content ID) to locate the playback stream.
+- Video and audio are separate files; merge them, for example with `ffmpeg -i video.m4s -i audio.m4s -c copy out.mp4`.
+- Stream URLs expire and the CDN expects a `Referer: https://www.bilibili.com` header.
+- Get `cid` from a video detail API.
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls, including lookups whose target does not exist, are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 
-- [Bilibili Streaming Areas](/model/bilibili/web/all-live-areas): Returns the complete list of streaming broadcast areas and categories on Bilibili.
-- [Bilibili BV to AID Converter](/model/bilibili/web/bv-to-aid): Converts a Bilibili BV identifier to its corresponding numeric AID value.
-- [Bilibili User Collection Folders](/model/bilibili/web/collect-folders): Returns the collection folders owned by a specific Bilibili user.
+- [Bilibili Streaming Areas](/apis/bilibili/web/all-live-areas): Returns the complete list of streaming broadcast areas and categories on Bilibili.
+- [Bilibili BV to AID Converter](/apis/bilibili/web/bv-to-aid): Converts a Bilibili BV identifier to its corresponding numeric AID value.
+- [Bilibili User Collection Folders](/apis/bilibili/web/collect-folders): Returns the collection folders owned by a specific Bilibili user.
 
 ---
 Machine-readable: [`catalog/models/bilibili/web/video-playurl.json`](../../../../catalog/models/bilibili/web/video-playurl.json) · Store page: https://www.sandbase.ai/model/bilibili/web/video-playurl

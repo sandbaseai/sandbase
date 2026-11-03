@@ -95,7 +95,7 @@ Flat price per call. Failed calls, including lookups whose target does not exist
 
 ### Related APIs
 
-- [Toutiao Article Details (Web)](/model/toutiao/web/article-info): Returns detailed post information and interface action settings for a specified Toutiao article based on its unique post identifier.
+- [Toutiao Article Details (Web)](/apis/toutiao/web/article-info): Returns detailed post information and interface action settings for a specified Toutiao article based on its unique post identifier.
 
 ---
 Machine-readable: [`catalog/models/toutiao/web/video-info.json`](../../../../catalog/models/toutiao/web/video-info.json) · Store page: https://www.sandbase.ai/model/toutiao/web/video-info

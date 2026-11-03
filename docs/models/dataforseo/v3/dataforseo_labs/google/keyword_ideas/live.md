@@ -60,13 +60,12 @@ Same call via the path form: `POST /v1/api/dataforseo/v3/dataforseo_labs/google/
 
 ## Details
 
-Query Google keyword ideas along with estimated search volume and CPC data. Use this endpoint to inspect search terms and discover related keyword opportunities.
+Keyword ideas related to up to 100 seed keywords, chosen by topic relevance rather than by containing the seed phrase, with search volume, CPC, competition, keyword difficulty and search intent.
 
 ### Use cases
 
-- Discover new Google search term variations for content planning.
-- Analyze search volume and CPC metrics to prioritize keyword targets.
-- Evaluate related keyword opportunities for paid search campaigns.
+- Find adjacent topics and synonyms you do not rank for yet.
+- Build topic clusters from a handful of seed keywords.
 
 ### Request
 
@@ -77,26 +76,88 @@ curl -X POST "https://api.sandbase.ai/v1/api/dataforseo/v3/dataforseo_labs/googl
   -d '{"keywords": ["running shoes"], "limit": 5, "location_code": 2840, "language_code": "en"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
-The JSON body is forwarded to the upstream endpoint (one task per call). Fields used above:
+| Name | Type | Required | Description |
+|---|---|---|---|
+| `keywords` | array | No | List of keywords (up to 100 per call). |
+| `language_code` | string | No | Language code, e.g. "en". |
+| `limit` | integer | No | Maximum number of results (up to 100). |
+| `location_code` | integer | No | Location code, e.g. 2840 for the United States. |
 
-| Name | Description |
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "status_code": 20000,
+  "tasks": [
+    {
+      "status_code": 20000,
+      "result": [
+        {
+          "se_type": "google",
+          "location_code": 2840,
+          "language_code": "en",
+          "total_count": 1013880,
+          "items_count": 5,
+          "items": [
+            {
+              "keyword": "on running shoes",
+              "keyword_info": {
+                "search_volume": 201000,
+                "cpc": 1.23,
+                "competition": 1,
+                "competition_level": "HIGH",
+                "low_top_of_page_bid": 0.39,
+                "high_top_of_page_bid": 1.96
+              },
+              "keyword_properties": {
+                "keyword_difficulty": 27,
+                "core_keyword": "running shoes"
+              },
+              "search_intent_info": {
+                "main_intent": "transactional"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
+```
+
+### Response fields
+
+| Field | Meaning |
 |---|---|
-| `keywords` | List of keywords (up to 100 per call). |
-| `limit` | Maximum number of results (up to 100). |
-| `location_code` | Location code, e.g. 2840 for the United States. |
-| `language_code` | Language code, e.g. "en". |
+| `tasks[].result[].items[]` | One row per keyword. |
+| `keyword` | The keyword. |
+| `keyword_info.search_volume` | Average monthly Google searches (last 12 months). |
+| `keyword_info.cpc / competition_level` | Average cost per click in USD and Google Ads competition (LOW/MEDIUM/HIGH). |
+| `keyword_info.monthly_searches[]` | Searches per month for the last 12 months. |
+| `keyword_properties.keyword_difficulty` | Ranking difficulty 0-100 for the top 10 organic results. |
+| `search_intent_info.main_intent` | informational, navigational, commercial or transactional. |
+| `total_count` | Matching keywords in the database; page with `offset`. |
+
+### Notes
+
+- Ideas can omit the seed phrase. For variants that always contain it, use [Keyword Suggestions](/apis/dataforseo/v3/dataforseo_labs/google/keyword_suggestions/live).
+- `keywords` takes up to 100 seeds; `limit` is capped at 100 per call.
 
 ### Pricing
 
-Billed at the actual cost of each call, about $0.0126 for the request above. The cost grows with the number of rows, targets or pages a call returns. Failed calls are not charged. Searches with no results are billed at their actual cost.
+Billed at the actual cost of each call, about $0.0126 for the request above. Failed calls are not charged.
 
 ### Related APIs
 
-- [DataForSEO Backlinks Anchors](/model/dataforseo/v3/backlinks/anchors/live): Returns anchor text distribution metrics for backlinks pointing to a target website or page.
-- [DataForSEO Backlinks List](/model/dataforseo/v3/backlinks/backlinks/live): Returns a list of external backlinks pointing to a specified target domain or webpage.
-- [DataForSEO Backlinks Bulk Ranks](/model/dataforseo/v3/backlinks/bulk_ranks/live): Returns rank metrics for multiple domains or pages in bulk.
+- [DataForSEO Backlinks Anchors](/apis/dataforseo/v3/backlinks/anchors/live): Returns anchor text distribution metrics for backlinks pointing to a target website or page.
+- [DataForSEO Backlinks List](/apis/dataforseo/v3/backlinks/backlinks/live): Returns a list of external backlinks pointing to a specified target domain or webpage.
+- [DataForSEO Backlinks Bulk Ranks](/apis/dataforseo/v3/backlinks/bulk_ranks/live): Returns rank metrics for multiple domains or pages in bulk.
 
 ---
 Machine-readable: [`catalog/models/dataforseo/v3/dataforseo_labs/google/keyword_ideas/live.json`](../../../../../../../catalog/models/dataforseo/v3/dataforseo_labs/google/keyword_ideas/live.json) · Store page: https://www.sandbase.ai/model/dataforseo/v3/dataforseo_labs/google/keyword_ideas/live

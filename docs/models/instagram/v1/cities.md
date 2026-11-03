@@ -113,9 +113,9 @@ Flat price per call. Failed calls, including lookups whose target does not exist
 
 ### Related APIs
 
-- [Instagram Hashtag Posts (V1)](/model/instagram/v1/hashtag-posts): Returns public Instagram posts associated with a specific hashtag.
-- [Instagram Location Details (V1)](/model/instagram/v1/location-info): Returns detailed metadata and profile information for a specified Instagram location using its unique identifier.
-- [Instagram Location Posts (V1)](/model/instagram/v1/location-posts): Returns posts tagged at a designated location.
+- [Instagram Hashtag Posts (V1)](/apis/instagram/v1/hashtag-posts): Returns public Instagram posts associated with a specific hashtag.
+- [Instagram Location Details (V1)](/apis/instagram/v1/location-info): Returns detailed metadata and profile information for a specified Instagram location using its unique identifier.
+- [Instagram Location Posts (V1)](/apis/instagram/v1/location-posts): Returns posts tagged at a designated location.
 
 ---
 Machine-readable: [`catalog/models/instagram/v1/cities.json`](../../../../catalog/models/instagram/v1/cities.json) · Store page: https://www.sandbase.ai/model/instagram/v1/cities

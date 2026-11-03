@@ -130,9 +130,9 @@ Flat price per call. Failed calls, including lookups whose target does not exist
 
 ### Related APIs
 
-- [Batch channel info](/model/telegram/web/batch-channel-info): Fetch basic info (title/description/avatar/subscribers/verified) for multiple public channels concurrently.
-- [Get channel info](/model/telegram/web/channel-info): Get public Telegram channel metadata: title, description, avatar, subscriber count, verified badge and media counters..
-- [Search posts in a channel](/model/telegram/web/channel-search): Search posts in a channel by keyword (case-insensitive)..
+- [Batch channel info](/apis/telegram/web/batch-channel-info): Fetch basic info (title/description/avatar/subscribers/verified) for multiple public channels concurrently.
+- [Get channel info](/apis/telegram/web/channel-info): Get public Telegram channel metadata: title, description, avatar, subscriber count, verified badge and media counters..
+- [Search posts in a channel](/apis/telegram/web/channel-search): Search posts in a channel by keyword (case-insensitive)..
 
 ---
 Machine-readable: [`catalog/models/telegram/web/channel-posts.json`](../../../../catalog/models/telegram/web/channel-posts.json) · Store page: https://www.sandbase.ai/model/telegram/web/channel-posts

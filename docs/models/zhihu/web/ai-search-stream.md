@@ -101,9 +101,9 @@ Flat price per call. Failed calls, including lookups whose target does not exist
 
 ### Related APIs
 
-- [Zhihu Answer Details](/model/zhihu/web/answer-detail): Retrieves detailed information for a specific Zhihu answer using its numeric ID, including answer text, timestamps, and share links.
-- [Zhihu Article Search](/model/zhihu/web/article-search-v3): Search Zhihu articles and answers by keyword and get titles, excerpts, authors, vote and comment counts, with sorting, content type and time filters plus offse…
-- [Zhihu Column Article Detail](/model/zhihu/web/column-article-detail): Returns detailed information and metadata for a specific Zhihu column article, including author profile details, using a provided article ID.
+- [Zhihu Answer Details](/apis/zhihu/web/answer-detail): Retrieves detailed information for a specific Zhihu answer using its numeric ID, including answer text, timestamps, and share links.
+- [Zhihu Article Search](/apis/zhihu/web/article-search-v3): Search Zhihu articles and answers by keyword and get titles, excerpts, authors, vote and comment counts, with sorting, content type and time filters plus offse…
+- [Zhihu Column Article Detail](/apis/zhihu/web/column-article-detail): Returns detailed information and metadata for a specific Zhihu column article, including author profile details, using a provided article ID.
 
 ---
 Machine-readable: [`catalog/models/zhihu/web/ai-search-stream.json`](../../../../catalog/models/zhihu/web/ai-search-stream.json) · Store page: https://www.sandbase.ai/model/zhihu/web/ai-search-stream

@@ -150,9 +150,9 @@ Flat price per call. Failed calls, including lookups whose target does not exist
 
 ### Related APIs
 
-- [Zhihu Hot List](/model/zhihu/web/hot-list): Get the Zhihu hot list: trending questions with title, excerpt, heat, answer and follower counts, and links.
-- [Get Zhihu AI Search (v2)](/model/zhihu/web/ai-search-stream): Get Zhihu AI Search results (new endpoint).
-- [Get Zhihu Answer Detail](/model/zhihu/web/answer-detail): Get a single Zhihu answer's detail (content / stats / author / question, etc.).
+- [Zhihu Hot List](/apis/zhihu/web/hot-list): Get the Zhihu hot list: trending questions with title, excerpt, heat, answer and follower counts, and links.
+- [Get Zhihu AI Search (v2)](/apis/zhihu/web/ai-search-stream): Get Zhihu AI Search results (new endpoint).
+- [Get Zhihu Answer Detail](/apis/zhihu/web/answer-detail): Get a single Zhihu answer's detail (content / stats / author / question, etc.).
 
 ---
 Machine-readable: [`catalog/models/zhihu/web/article-search-v3.json`](../../../../catalog/models/zhihu/web/article-search-v3.json) · Store page: https://www.sandbase.ai/model/zhihu/web/article-search-v3

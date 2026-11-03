@@ -136,9 +136,9 @@ Flat price per call. Failed calls, including lookups whose target does not exist
 
 ### Related APIs
 
-- [Instagram Comment Replies (V2)](/model/instagram/v2/comment-replies): Retrieves a paginated list of replies to an Instagram comment using the post URL or shortcode and the target comment ID.
-- [Instagram General Search (V2)](/model/instagram/v2/general-search): Returns Instagram search results matching a specified keyword, including media items, user profiles, and engagement statistics.
-- [Instagram Highlight Stories](/model/instagram/v2/highlight-stories): Returns all stories contained within a specific Instagram highlight using its unique identifier.
+- [Instagram Comment Replies (V2)](/apis/instagram/v2/comment-replies): Retrieves a paginated list of replies to an Instagram comment using the post URL or shortcode and the target comment ID.
+- [Instagram General Search (V2)](/apis/instagram/v2/general-search): Returns Instagram search results matching a specified keyword, including media items, user profiles, and engagement statistics.
+- [Instagram Highlight Stories](/apis/instagram/v2/highlight-stories): Returns all stories contained within a specific Instagram highlight using its unique identifier.
 
 ---
 Machine-readable: [`catalog/models/instagram/v2/hashtag-posts.json`](../../../../catalog/models/instagram/v2/hashtag-posts.json) · Store page: https://www.sandbase.ai/model/instagram/v2/hashtag-posts

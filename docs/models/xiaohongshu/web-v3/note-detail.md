@@ -79,7 +79,7 @@ Retrieve detailed note data from Xiaohongshu by providing the `note_id` and corr
 curl -X POST "https://api.sandbase.ai/v1/api/xiaohongshu/web-v3/note-detail" \
   -H "Authorization: Bearer $SANDBASE_API_KEY" \
   -H "Content-Type: application/json" \
-  -d '{"note_id": "<note_id>", "xsec_token": "<xsec_token>"}'
+  -d '{"note_id": "6a2f423d000000001003cb36", "xsec_token": "ABtexB6bX5HgLD42SFrK1scGUmSO8YV5_isaLrDy9sLxQ="}'
 ```
 
 ### Parameters
@@ -99,9 +99,9 @@ Flat price per call. Failed calls, including lookups whose target does not exist
 
 ### Related APIs
 
-- [Xiaohongshu (RED) Homepage Feed](/model/xiaohongshu/web-v3/homefeed): Retrieves recommended notes from the Xiaohongshu homepage feed.
-- [Xiaohongshu (RED) Homepage Categories](/model/xiaohongshu/web-v3/homefeed-categories): Returns a list of available homefeed category channels on Xiaohongshu (RED).
-- [Xiaohongshu (RED) Search Suggestions](/model/xiaohongshu/web-v3/search-suggest): Returns search query suggestions and autocomplete terms from Xiaohongshu (RED).
+- [Xiaohongshu (RED) Homepage Feed](/apis/xiaohongshu/web-v3/homefeed): Retrieves recommended notes from the Xiaohongshu homepage feed.
+- [Xiaohongshu (RED) Homepage Categories](/apis/xiaohongshu/web-v3/homefeed-categories): Returns a list of available homefeed category channels on Xiaohongshu (RED).
+- [Xiaohongshu (RED) Search Suggestions](/apis/xiaohongshu/web-v3/search-suggest): Returns search query suggestions and autocomplete terms from Xiaohongshu (RED).
 
 ---
 Machine-readable: [`catalog/models/xiaohongshu/web-v3/note-detail.json`](../../../../catalog/models/xiaohongshu/web-v3/note-detail.json) · Store page: https://www.sandbase.ai/model/xiaohongshu/web-v3/note-detail

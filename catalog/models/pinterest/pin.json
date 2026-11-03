@@ -28,6 +28,7 @@
       "url": {
         "type": "string",
         "title": "Pin URL",
+        "example": "https://www.pinterest.com/pin/99360735500167749/",
         "description": "The Pinterest pin URL to fetch details for."
       },
       "trim": {
@@ -82,7 +83,7 @@
     "model": "per_call",
     "per_call": 0.018
   },
-  "readme": "# Pinterest Pin Details API\n\nRetrieve detailed metadata for a specific Pinterest pin by supplying its link via `url`. Set `trim` to true to receive a compact version of the data.\n\n## Use cases\n\n- Inspect metadata and media details from a Pinterest pin URL.\n- Display pin information within external social media monitoring tools.\n- Retrieve compact pin details by enabling the trimmed response option.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/pinterest/pin\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"url\": \"<url>\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `url` | string | Yes | The Pinterest pin URL to fetch details for. |\n| `trim` | boolean | No | Set to true for a trimmed down version of the response. |\n\n## Notes\n\n- Set `trim` to true to obtain a trimmed-down version of the response.\n\n## Pricing\n\nFlat price per call. Failed calls are not charged.\n",
+  "readme": "# Pinterest Pin Details API\n\nRetrieve detailed metadata for a specific Pinterest pin by supplying its link via `url`. Set `trim` to true to receive a compact version of the data.\n\n## Use cases\n\n- Inspect metadata and media details from a Pinterest pin URL.\n- Display pin information within external social media monitoring tools.\n- Retrieve compact pin details by enabling the trimmed response option.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/pinterest/pin\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"url\": \"https://www.pinterest.com/pin/99360735500167749/\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `url` | string | Yes | The Pinterest pin URL to fetch details for. |\n| `trim` | boolean | No | Set to true for a trimmed down version of the response. |\n\n## Notes\n\n- Set `trim` to true to obtain a trimmed-down version of the response.\n\n## Pricing\n\nFlat price per call. Failed calls are not charged.\n",
   "page_url": "https://www.sandbase.ai/model/pinterest/pin",
   "published_at": "2024-01-01T00:00:00Z",
   "created_at": "2026-08-09T12:40:34.836Z"

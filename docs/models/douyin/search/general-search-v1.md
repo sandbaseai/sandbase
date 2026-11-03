@@ -142,9 +142,9 @@ Flat price per call. Failed calls, including lookups whose target does not exist
 
 ### Related APIs
 
-- [Douyin Video Search](/model/douyin/search/video-search-v2): Search Douyin videos by keyword and get descriptions, authors and play, like, comment and share counts.
-- [Fetch hashtag search V1](/model/douyin/search/challenge-search-v1): Fetch hashtag/challenge search results from Douyin App.
-- [Fetch hashtag search V2](/model/douyin/search/challenge-search-v2): Fetch hashtag/challenge search results from Douyin App using V2 API.
+- [Douyin Video Search](/apis/douyin/search/video-search-v2): Search Douyin videos by keyword and get descriptions, authors and play, like, comment and share counts.
+- [Fetch hashtag search V1](/apis/douyin/search/challenge-search-v1): Fetch hashtag/challenge search results from Douyin App.
+- [Fetch hashtag search V2](/apis/douyin/search/challenge-search-v2): Fetch hashtag/challenge search results from Douyin App using V2 API.
 
 ---
 Machine-readable: [`catalog/models/douyin/search/general-search-v1.json`](../../../../catalog/models/douyin/search/general-search-v1.json) · Store page: https://www.sandbase.ai/model/douyin/search/general-search-v1

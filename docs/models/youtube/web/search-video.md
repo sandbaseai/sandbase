@@ -137,9 +137,9 @@ Flat price per call. Failed calls, including lookups whose target does not exist
 
 ### Related APIs
 
-- [Get channel ID](/model/youtube/web/channel-id): Get channel ID.
-- [Get channel ID from URL V2](/model/youtube/web/channel-id-v2): Convert YouTube channel URL to channel ID..
-- [Get channel information](/model/youtube/web/channel-info): Get channel information.
+- [Get channel ID](/apis/youtube/web/channel-id): Get channel ID.
+- [Get channel ID from URL V2](/apis/youtube/web/channel-id-v2): Convert YouTube channel URL to channel ID..
+- [Get channel information](/apis/youtube/web/channel-info): Get channel information.
 
 ---
 Machine-readable: [`catalog/models/youtube/web/search-video.json`](../../../../catalog/models/youtube/web/search-video.json) · Store page: https://www.sandbase.ai/model/youtube/web/search-video

@@ -120,9 +120,9 @@ Flat price per call. Failed calls, including lookups whose target does not exist
 
 ### Related APIs
 
-- [WeChat MP Account Articles](/model/wechat-mp/v2/account-articles): Get the published articles of a WeChat official account by its gh_ username: titles, links, covers and post dates, one page at a time, including video and audi…
-- [WeChat MP Article Detail](/model/wechat-mp/v2/article-detail): Get a WeChat official account (MP) article from its URL: title, author, account, publish time, cover, full text and HTML content, and album info.
-- [WeChat MP Article Stats](/model/wechat-mp/v2/article-stats): Get the engagement metrics of a WeChat official account article from its URL: reads, likes, "wow" count, shares, favorites and comments.
+- [WeChat MP Account Articles](/apis/wechat-mp/v2/account-articles): Get the published articles of a WeChat official account by its gh_ username: titles, links, covers and post dates, one page at a time, including video and audi…
+- [WeChat MP Article Detail](/apis/wechat-mp/v2/article-detail): Get a WeChat official account (MP) article from its URL: title, author, account, publish time, cover, full text and HTML content, and album info.
+- [WeChat MP Article Stats](/apis/wechat-mp/v2/article-stats): Get the engagement metrics of a WeChat official account article from its URL: reads, likes, "wow" count, shares, favorites and comments.
 
 ---
 Machine-readable: [`catalog/models/wechat-mp/v2/article-comments.json`](../../../../catalog/models/wechat-mp/v2/article-comments.json) · Store page: https://www.sandbase.ai/model/wechat-mp/v2/article-comments

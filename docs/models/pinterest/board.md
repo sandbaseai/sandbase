@@ -19,7 +19,7 @@ Modes: sync (default `sync`). Only pass `mode` values listed here. The SDKs' `ru
 ```bash
 curl https://api.sandbase.ai/v1/run \
   -H "Authorization: Bearer $SANDBASE_API_KEY" -H 'Content-Type: application/json' \
-  -d '{"model": "pinterest/board", "url": "<url>"}'
+  -d '{"model": "pinterest/board", "url": "https://www.pinterest.com/pinterest/official-news/"}'
 ```
 
 **Python** ([sdk/python](../../../sdk/python))
@@ -27,7 +27,7 @@ curl https://api.sandbase.ai/v1/run \
 ```python
 from sandbase import SandBase
 
-result = SandBase().run('pinterest/board', {'url': '<url>'})
+result = SandBase().run('pinterest/board', {'url': 'https://www.pinterest.com/pinterest/official-news/'})
 print(result["outputs"])
 ```
 
@@ -37,7 +37,7 @@ print(result["outputs"])
 import { SandBase } from "@sandbaseai/sdk";
 
 const result = await new SandBase().run("pinterest/board", {
-  "url": "<url>"
+  "url": "https://www.pinterest.com/pinterest/official-news/"
 });
 console.log(result.outputs);
 ```
@@ -47,7 +47,7 @@ console.log(result.outputs);
 ```go
 c, _ := sandbase.NewClient("")
 run, err := c.Run(ctx, "pinterest/board", sandbase.Params{
-	"url": "<url>",
+	"url": "https://www.pinterest.com/pinterest/official-news/",
 })
 ```
 
@@ -77,7 +77,7 @@ Retrieve pins and associated metadata from a Pinterest board using its `url`. Th
 curl -X POST "https://api.sandbase.ai/v1/api/pinterest/board" \
   -H "Authorization: Bearer $SANDBASE_API_KEY" \
   -H "Content-Type: application/json" \
-  -d '{"url": "<url>"}'
+  -d '{"url": "https://www.pinterest.com/pinterest/official-news/"}'
 ```
 
 ### Parameters

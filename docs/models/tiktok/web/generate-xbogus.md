@@ -65,13 +65,12 @@ Same call via the path form: `POST /v1/api/tiktok/web/generate-xbogus` with the 
 
 ## Details
 
-Produces an X-Bogus signed TikTok URL using the target `url` and the caller's `user_agent`.
+Generate the `X-Bogus` signature for a TikTok web request URL and user agent. TikTok's web endpoints reject unsigned requests; the signature is appended to the query string as `X-Bogus=<value>`.
 
 ### Use cases
 
-- Signing TikTok Web requests for data collection scripts.
-- Generating valid X-Bogus query tokens for web scraping workflows.
-- Aligning API request URLs with specific browser User-Agent headers.
+- Sign requests when you call TikTok web endpoints from your own crawler.
+- Debug why a captured TikTok web request fails after its parameters change.
 
 ### Request
 
@@ -82,6 +81,8 @@ curl -X POST "https://api.sandbase.ai/v1/api/tiktok/web/generate-xbogus" \
   -d '{"url": "https://www.tiktok.com/tag/cat?_r=1&name=cat&u_code=f02lm2f78d1elh&_d=f02ll161mcjihj&share_challenge_id=7551&sharer_language=en&source=h5_m", "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:145.0) Gecko/20100101 Firefox/145.0"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
@@ -91,27 +92,37 @@ curl -X POST "https://api.sandbase.ai/v1/api/tiktok/web/generate-xbogus" \
 
 ### Example response
 
-Real response for the request above, trimmed to the main fields. User names and long IDs are masked.
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
 
 ```json
 {
-  "url": "https://www.tiktok.com/tag/cat?_r=1&name=cat&u_code=f02lm2f78d1elh&_d=f02ll161mc…"
+  "url": "https://www.tiktok.com/tag/cat?_r=1&name=cat&u_code=f02lm2f78d1elh&_d=f02ll161mc…",
+  "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:145.0) Gecko/20100101 Firefox/1…",
+  "x_bogus": "DFSzswVY8ZXANGnECXHeqM9WX7nO"
 }
 ```
 
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `x_bogus` | The signature to append as `&X-Bogus=<value>`. |
+| `url / user_agent` | The inputs, echoed back. |
+
 ### Notes
 
-- Requires both an unsigned target `url` and the matching browser `user_agent` string.
+- The signature is bound to the exact query string and user agent: send requests with the same user agent you signed with, and sign again after changing any parameter.
+- Pair it with [TikTok Device Register](/apis/tiktok/web/device-register) to get a matching device ID and cookie.
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls, including lookups whose target does not exist, are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 
-- [TikTok Video IDs from URLs (Batch)](/model/tiktok/web/all-aweme-id): Resolves and extracts TikTok video IDs from a list of video URLs.
-- [TikTok User Sec User ID Extractor](/model/tiktok/web/all-sec-user-id): Returns a list of sec_user_id identifiers corresponding to TikTok user profile URLs.
-- [TikTok Profile Unique IDs](/model/tiktok/web/all-unique-id): Resolves a batch of TikTok user homepage links to retrieve their corresponding unique identifiers.
+- [TikTok Video IDs from URLs (Batch)](/apis/tiktok/web/all-aweme-id): Resolves and extracts TikTok video IDs from a list of video URLs.
+- [TikTok User Sec User ID Extractor](/apis/tiktok/web/all-sec-user-id): Returns a list of sec_user_id identifiers corresponding to TikTok user profile URLs.
+- [TikTok Profile Unique IDs](/apis/tiktok/web/all-unique-id): Resolves a batch of TikTok user homepage links to retrieve their corresponding unique identifiers.
 
 ---
 Machine-readable: [`catalog/models/tiktok/web/generate-xbogus.json`](../../../../catalog/models/tiktok/web/generate-xbogus.json) · Store page: https://www.sandbase.ai/model/tiktok/web/generate-xbogus

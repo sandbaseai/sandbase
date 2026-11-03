@@ -75,9 +75,9 @@ Flat price per call. Failed calls, including lookups whose target does not exist
 
 ### Related APIs
 
-- [Bilibili App Bangumi Tab](/model/bilibili/app/bangumi-tab): Returns Bilibili app bangumi tab data, providing curated anime recommendations, feed items, and category listings for mobile clients.
-- [Bilibili App Home Feed](/model/bilibili/app/home-feed): Returns recommended video items from the Bilibili app home feed.
-- [Bilibili App Single Video Details](/model/bilibili/app/one-video): Returns detailed video metadata for a specific Bilibili video.
+- [Bilibili App Bangumi Tab](/apis/bilibili/app/bangumi-tab): Returns Bilibili app bangumi tab data, providing curated anime recommendations, feed items, and category listings for mobile clients.
+- [Bilibili App Home Feed](/apis/bilibili/app/home-feed): Returns recommended video items from the Bilibili app home feed.
+- [Bilibili App Single Video Details](/apis/bilibili/app/one-video): Returns detailed video metadata for a specific Bilibili video.
 
 ---
 Machine-readable: [`catalog/models/bilibili/app/cinema-tab.json`](../../../../catalog/models/bilibili/app/cinema-tab.json) · Store page: https://www.sandbase.ai/model/bilibili/app/cinema-tab

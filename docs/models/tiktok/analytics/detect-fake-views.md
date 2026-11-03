@@ -144,9 +144,9 @@ The result is a statistical estimate, not a verdict from TikTok. Use it to scree
 
 ### Related TikTok analytics APIs
 
-- [Get video metrics](/model/tiktok/analytics/video-metrics): views, likes and engagement trends for a video.
-- [Get creator info and milestones](/model/tiktok/analytics/creator-info-and-milestones): follower milestones and creator profile.
-- [Get comment keywords analysis](/model/tiktok/analytics/comment-keywords): what viewers are saying in the comments.
+- [Get video metrics](/apis/tiktok/analytics/video-metrics): views, likes and engagement trends for a video.
+- [Get creator info and milestones](/apis/tiktok/analytics/creator-info-and-milestones): follower milestones and creator profile.
+- [Get comment keywords analysis](/apis/tiktok/analytics/comment-keywords): what viewers are saying in the comments.
 
 ### Pricing
 

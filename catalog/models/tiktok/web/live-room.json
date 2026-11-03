@@ -31,11 +31,13 @@
       "danmaku_type": {
         "type": "string",
         "title": "Danmaku Type",
+        "example": "WebcastChatMessage",
         "description": "Message type"
       },
       "live_room_url": {
         "type": "string",
         "title": "Live Room Url",
+        "example": "https://www.tiktok.com/@mpl.id.official/live",
         "description": "Live room link"
       }
     }
@@ -54,7 +56,7 @@
       "note": "Shared across all free-quota APIs, resets 00:00 UTC."
     }
   },
-  "readme": "# TikTok Broadcast Danmaku API\n\nRetrieve real-time stream messages by providing the broadcast link via `live_room_url` along with the desired `danmaku_type`.\n\n## Use cases\n\n- Monitor audience chat messages during a TikTok stream.\n- Extract broadcast interaction data for engagement analysis.\n- Collect stream danmaku logs filtered by message type.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/tiktok/web/live-room\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"danmaku_type\": \"<danmaku_type>\", \"live_room_url\": \"<live_room_url>\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `danmaku_type` | string | Yes | Message type |\n| `live_room_url` | string | Yes | Live room link |\n\n## Notes\n\n- Requires `live_room_url` to identify the target TikTok stream.\n- Filter the category of returned stream messages with `danmaku_type`.\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [TikTok Video IDs from URLs (Batch)](/model/tiktok/web/all-aweme-id): Resolves and extracts TikTok video IDs from a list of video URLs.\n- [TikTok User Sec User ID Extractor](/model/tiktok/web/all-sec-user-id): Returns a list of sec_user_id identifiers corresponding to TikTok user profile URLs.\n- [TikTok Profile Unique IDs](/model/tiktok/web/all-unique-id): Resolves a batch of TikTok user homepage links to retrieve their corresponding unique identifiers.\n",
+  "readme": "# TikTok Broadcast Danmaku API\n\nRetrieve real-time stream messages by providing the broadcast link via `live_room_url` along with the desired `danmaku_type`.\n\n## Use cases\n\n- Monitor audience chat messages during a TikTok stream.\n- Extract broadcast interaction data for engagement analysis.\n- Collect stream danmaku logs filtered by message type.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/tiktok/web/live-room\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"danmaku_type\": \"WebcastChatMessage\", \"live_room_url\": \"https://www.tiktok.com/@mpl.id.official/live\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `danmaku_type` | string | Yes | Message type |\n| `live_room_url` | string | Yes | Live room link |\n\n## Notes\n\n- Requires `live_room_url` to identify the target TikTok stream.\n- Filter the category of returned stream messages with `danmaku_type`.\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [TikTok Video IDs from URLs (Batch)](/apis/tiktok/web/all-aweme-id): Resolves and extracts TikTok video IDs from a list of video URLs.\n- [TikTok User Sec User ID Extractor](/apis/tiktok/web/all-sec-user-id): Returns a list of sec_user_id identifiers corresponding to TikTok user profile URLs.\n- [TikTok Profile Unique IDs](/apis/tiktok/web/all-unique-id): Resolves a batch of TikTok user homepage links to retrieve their corresponding unique identifiers.\n",
   "page_url": "https://www.sandbase.ai/model/tiktok/web/live-room",
   "created_at": "2026-07-31T04:17:21.256Z"
 }

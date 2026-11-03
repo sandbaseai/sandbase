@@ -1,11 +1,11 @@
 # Platforms
 
-152 platforms and model makers, each reachable with one SandBase API key.
+153 platforms and model makers, each reachable with one SandBase API key.
 
 | Platform | Capabilities | Types |
 |---|---|---|
-| [Douyin](douyin.md) | 320 | data API |
-| [TikTok](tiktok.md) | 175 | data API |
+| [Douyin](douyin.md) | 319 | data API |
+| [TikTok](tiktok.md) | 166 | data API |
 | [DataForSEO](dataforseo.md) | 148 | data API |
 | [Instagram](instagram.md) | 107 | data API |
 | [Alibaba](alibaba.md) | 72 | LLM, audio model, embedding model, image generation model, video generation model |
@@ -17,7 +17,7 @@
 | [Zhihu](zhihu.md) | 51 | data API |
 | [OpenAI](openai.md) | 47 | LLM, audio model, embedding model, image generation model |
 | [Bilibili](bilibili.md) | 46 | data API |
-| [KwaiVGI](kwaivgi.md) | 44 | audio model, image generation model, video generation model |
+| [KwaiVGI](kwaivgi.md) | 44 | image generation model, video generation model |
 | [Kuaishou](kuaishou.md) | 40 | data API |
 | [LinkedIn](linkedin.md) | 38 | data API |
 | [FRED](fred.md) | 35 | data API |
@@ -146,6 +146,7 @@
 | [Meijer](meijer.md) | 1 | data API |
 | [Midjourney](midjourney.md) | 1 | image generation model |
 | [Naver](naver.md) | 1 | data API |
+| [sandbase-ai](sandbase-ai.md) | 1 | image generation model |
 | [Segari](segari.md) | 1 | data API |
 | [Shopee](shopee.md) | 1 | data API |
 | [Snapchat](snapchat.md) | 1 | data API |

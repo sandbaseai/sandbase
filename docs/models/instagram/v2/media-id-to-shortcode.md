@@ -62,13 +62,12 @@ Same call via the path form: `POST /v1/api/instagram/v2/media-id-to-shortcode` w
 
 ## Details
 
-Resolve an Instagram post shortcode from a given `media_id`. This allows building standard post URLs from numeric media identifiers.
+Convert a numeric Instagram media ID into the post shortcode, so you can rebuild the public link `https://www.instagram.com/p/<shortcode>/`.
 
 ### Use cases
 
-- Reconstruct web links for posts stored only by numeric media ID.
-- Convert legacy database identifiers into standard Instagram post URLs.
-- Prepare link previews by resolving shortcodes for social dashboards.
+- Build clickable post links for media IDs returned by comment, tag or analytics APIs.
+- Store posts by ID and render links only when needed.
 
 ### Request
 
@@ -79,25 +78,48 @@ curl -X POST "https://api.sandbase.ai/v1/api/instagram/v2/media-id-to-shortcode"
   -d '{"media_id": "3774507992167247878"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
 |---|---|---|---|
 | `media_id` | string | Yes | Post media ID |
 
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "media_id": "3774507992167247878",
+  "shortcode": "DRhvwVLAHAG",
+  "status": true
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `shortcode` | Shortcode for `instagram.com/p/<shortcode>/`. |
+| `media_id` | The media ID you sent. |
+| `status` | `true` when the conversion succeeded. |
+
 ### Notes
 
-- Requires a valid numeric Instagram post `media_id`.
+- An Instagram media ID and its shortcode are the same number in two encodings. The shortcode is the media ID written in base 64 with the alphabet `A-Z a-z 0-9 - _` (A = 0, _ = 63), so `DRhvwVLAHAG` and `3774507992167247878` name the same post. The media ID itself is a 64-bit snowflake: the top 41 bits are milliseconds since Instagram's epoch (2011-08-24 21:07:01.721 UTC), followed by 13 bits of shard ID and 10 bits of sequence, so `media_id >> 23` plus 1314220021721 gives the post's creation time in Unix milliseconds. Media IDs longer than 19 digits, with a `_<user_id>` suffix, are the same ID with the owner appended: drop the suffix before converting.
+- Same result as the v1 and v3 versions; v1 is the cheapest.
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.002 per successful call. Failed calls, including lookups whose target does not exist, are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 
-- [Instagram Comment Replies (V2)](/model/instagram/v2/comment-replies): Retrieves a paginated list of replies to an Instagram comment using the post URL or shortcode and the target comment ID.
-- [Instagram General Search (V2)](/model/instagram/v2/general-search): Returns Instagram search results matching a specified keyword, including media items, user profiles, and engagement statistics.
-- [Instagram Hashtag Posts (V2)](/model/instagram/v2/hashtag-posts): Returns posts associated with a specific hashtag.
+- [Instagram Comment Replies (V2)](/apis/instagram/v2/comment-replies): Retrieves a paginated list of replies to an Instagram comment using the post URL or shortcode and the target comment ID.
+- [Instagram General Search (V2)](/apis/instagram/v2/general-search): Returns Instagram search results matching a specified keyword, including media items, user profiles, and engagement statistics.
+- [Instagram Hashtag Posts (V2)](/apis/instagram/v2/hashtag-posts): Returns posts associated with a specific hashtag.
 
 ---
 Machine-readable: [`catalog/models/instagram/v2/media-id-to-shortcode.json`](../../../../catalog/models/instagram/v2/media-id-to-shortcode.json) · Store page: https://www.sandbase.ai/model/instagram/v2/media-id-to-shortcode

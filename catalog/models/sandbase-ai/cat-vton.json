@@ -1,0 +1,164 @@
+{
+  "name": "sandbase-ai/cat-vton",
+  "display_name": "try-on",
+  "type": "image",
+  "vendor": "sandbase-ai",
+  "vendor_slug": "sandbase-ai",
+  "description": "CatVTON is a virtual try-on model. It dresses the person in a photo with a garment from a second image, with controls for the covered body area, guidance, steps, and aspect ratio.",
+  "tags": [
+    "image-to-image"
+  ],
+  "capabilities": [
+    "image-to-image"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}"
+  },
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "seed": {
+        "type": "integer",
+        "title": "Seed",
+        "description": "\n            The same seed and the same input given to the same version of the model\n            will output the same image every time.\n        "
+      },
+      "cloth_type": {
+        "enum": [
+          "upper",
+          "lower",
+          "overall",
+          "inner",
+          "outer"
+        ],
+        "type": "string",
+        "title": "Cloth Type",
+        "examples": [
+          "upper",
+          "lower",
+          "overall",
+          "inner",
+          "outer"
+        ],
+        "description": "\n        Type of the Cloth to be tried on.\n\n        Options:\n        upper: Upper body cloth\n        lower: Lower body cloth\n        overall: Full body cloth\n        inner: Inner cloth, like T-shirt inside a jacket\n        outer: Outer cloth, like a jacket over a T-shirt\n        "
+      },
+      "aspect_ratio": {
+        "enum": [
+          "21:9",
+          "16:9",
+          "3:2",
+          "4:3",
+          "5:4",
+          "1:1",
+          "4:5",
+          "3:4",
+          "2:3",
+          "9:16"
+        ],
+        "type": "string",
+        "title": "Aspect Ratio",
+        "description": "The aspect ratio of the generated image."
+      },
+      "guidance_scale": {
+        "type": "number",
+        "title": "Guidance scale (CFG)",
+        "default": 2.5,
+        "maximum": 20,
+        "minimum": 0,
+        "description": "\n            The CFG (Classifier Free Guidance) scale is a measure of how close you want\n            the model to stick to your prompt when looking for a related image to show you.\n        "
+      },
+      "human_image_url": {
+        "type": "string",
+        "title": "Human Image Url",
+        "examples": [
+          "https://static.sandbase.ai/examples/bfl/flux-2/virtual-tryon/input_images_0.png"
+        ],
+        "description": "Url for the human image."
+      },
+      "garment_image_url": {
+        "type": "string",
+        "title": "Garment Image Url",
+        "examples": [
+          "https://static.sandbase.ai/examples/bfl/flux-2/virtual-tryon/input_images_1.png"
+        ],
+        "description": "Url to the garment image."
+      },
+      "num_inference_steps": {
+        "type": "integer",
+        "title": "Num Inference Steps",
+        "default": 30,
+        "maximum": 50,
+        "minimum": 1,
+        "description": "The number of inference steps to perform."
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "title": "GenerationResponse",
+    "required": [
+      "id",
+      "status"
+    ],
+    "properties": {
+      "id": {
+        "type": "string",
+        "description": "Unique identifier for the generation task."
+      },
+      "error": {
+        "type": "string",
+        "description": "Error message if the task failed. Empty on success."
+      },
+      "model": {
+        "type": "string",
+        "description": "Model ID used for the prediction."
+      },
+      "status": {
+        "enum": [
+          "pending",
+          "running",
+          "completed",
+          "failed",
+          "timeout"
+        ],
+        "type": "string",
+        "description": "Status of the task: pending, running, completed, failed, or timeout."
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "title": "OutputItem",
+          "required": [
+            "url"
+          ],
+          "properties": {
+            "url": {
+              "type": "string",
+              "description": "The URL where the generated content can be downloaded from."
+            },
+            "content_type": {
+              "type": "string",
+              "description": "The MIME type of the output file."
+            }
+          }
+        },
+        "description": "Array of generated content. Empty when status is not completed."
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.00125
+  },
+  "readme": "# try-on\n\nCatVTON virtual try-on: dress the person in `human_image_url` with the garment in `garment_image_url`.\n\n## Fields\n\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `aspect_ratio` | `21:9` / `16:9` / `3:2` / `4:3` / `5:4` / `1:1` / `4:5` / `3:4` / `2:3` / `9:16` | — | Output frame shape. |\n| `guidance_scale` | number 0–20 | 2.5 | How strictly to follow the garment. |\n| `num_inference_steps` | integer 1–50 | 30 | More steps add detail and time. |\n| `seed` | integer | random | Fix it to compare prompt changes. |\n| `cloth_type` | `upper` / `lower` / `overall` / `inner` / `outer` | — | Which body area the garment covers. |\n| `garment_image_url` | image URL | — | Photo of the garment. |\n| `human_image_url` | image URL | — | Photo of the person. |\n\n## Billing\n\n$0.00125 per image.\n\n| Request | Price |\n|---|---|\n| One image | $0.0013 |\n\nFailed runs are not charged.\n\n## Prompting\n\n- Use a front-facing person photo and a flat garment photo.\n",
+  "cover_url": "https://static.sandbase.ai/covers/sandbase-ai/cat-vton/cover-flare-20261005043704.webp",
+  "page_url": "https://www.sandbase.ai/model/sandbase-ai/cat-vton",
+  "published_at": "2024-12-17T00:00:00Z",
+  "created_at": "2026-05-16T09:30:11.218Z"
+}

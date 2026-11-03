@@ -20,7 +20,7 @@ Modes: sync (default `sync`). Only pass `mode` values listed here. The SDKs' `ru
 ```bash
 curl https://api.sandbase.ai/v1/run \
   -H "Authorization: Bearer $SANDBASE_API_KEY" -H 'Content-Type: application/json' \
-  -d '{"model": "wechat-mp/v2/comment-replies", "url": "<url>"}'
+  -d '{"model": "wechat-mp/v2/comment-replies", "url": "http://mp.weixin.qq.com/s?__biz=Mzk3NTA0MzM5NA==&mid=2247483745&idx=1&sn=3f34e768cf457a501038991ed30be1f4#rd"}'
 ```
 
 **Python** ([sdk/python](../../../../sdk/python))
@@ -28,7 +28,7 @@ curl https://api.sandbase.ai/v1/run \
 ```python
 from sandbase import SandBase
 
-result = SandBase().run('wechat-mp/v2/comment-replies', {'url': '<url>'})
+result = SandBase().run('wechat-mp/v2/comment-replies', {'url': 'http://mp.weixin.qq.com/s?__biz=Mzk3NTA0MzM5NA==&mid=2247483745&idx=1&sn=3f34e768cf457a501038991ed30be1f4#rd'})
 print(result["outputs"])
 ```
 
@@ -38,7 +38,7 @@ print(result["outputs"])
 import { SandBase } from "@sandbaseai/sdk";
 
 const result = await new SandBase().run("wechat-mp/v2/comment-replies", {
-  "url": "<url>"
+  "url": "http://mp.weixin.qq.com/s?__biz=Mzk3NTA0MzM5NA==&mid=2247483745&idx=1&sn=3f34e768cf457a501038991ed30be1f4#rd"
 });
 console.log(result.outputs);
 ```
@@ -48,7 +48,7 @@ console.log(result.outputs);
 ```go
 c, _ := sandbase.NewClient("")
 run, err := c.Run(ctx, "wechat-mp/v2/comment-replies", sandbase.Params{
-	"url": "<url>",
+	"url": "http://mp.weixin.qq.com/s?__biz=Mzk3NTA0MzM5NA==&mid=2247483745&idx=1&sn=3f34e768cf457a501038991ed30be1f4#rd",
 })
 ```
 
@@ -80,7 +80,7 @@ Fetch second-level comment replies for a WeChat MP article by providing the arti
 curl -X POST "https://api.sandbase.ai/v1/api/wechat-mp/v2/comment-replies" \
   -H "Authorization: Bearer $SANDBASE_API_KEY" \
   -H "Content-Type: application/json" \
-  -d '{"url": "<url>"}'
+  -d '{"url": "http://mp.weixin.qq.com/s?__biz=Mzk3NTA0MzM5NA==&mid=2247483745&idx=1&sn=3f34e768cf457a501038991ed30be1f4#rd"}'
 ```
 
 ### Parameters
@@ -105,9 +105,9 @@ Flat price per call. Failed calls, including lookups whose target does not exist
 
 ### Related APIs
 
-- [WeChat MP Account Articles](/model/wechat-mp/v2/account-articles): Get the published articles of a WeChat official account by its gh_ username: titles, links, covers and post dates, one page at a time, including video and audi…
-- [WeChat MP Account Profile](/model/wechat-mp/v2/account-profile): Retrieves the profile details of an official WeChat account, including name, avatar, signature, and verification entity type using its official account ID.
-- [WeChat MP Article Ads](/model/wechat-mp/v2/article-ad): Returns embedded ad slot information for a specified WeChat MP article URL.
+- [WeChat MP Account Articles](/apis/wechat-mp/v2/account-articles): Get the published articles of a WeChat official account by its gh_ username: titles, links, covers and post dates, one page at a time, including video and audi…
+- [WeChat MP Account Profile](/apis/wechat-mp/v2/account-profile): Retrieves the profile details of an official WeChat account, including name, avatar, signature, and verification entity type using its official account ID.
+- [WeChat MP Article Ads](/apis/wechat-mp/v2/article-ad): Returns embedded ad slot information for a specified WeChat MP article URL.
 
 ---
 Machine-readable: [`catalog/models/wechat-mp/v2/comment-replies.json`](../../../../catalog/models/wechat-mp/v2/comment-replies.json) · Store page: https://www.sandbase.ai/model/wechat-mp/v2/comment-replies

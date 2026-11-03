@@ -1,0 +1,106 @@
+{
+  "name": "kwaivgi/kling-video/v4",
+  "display_name": "Kling V4",
+  "type": "video",
+  "vendor": "KwaiVGI",
+  "vendor_slug": "kwaivgi",
+  "description": "Kling V4 is Kuaishou's next-generation video model, announced on September 28, 2026, with single generations of up to 30 seconds guided by text, keyframe images, and references. The public API has not opened yet; specifications and pricing will be confirmed at launch.",
+  "tags": [
+    "text-to-video",
+    "image-to-video",
+    "coming-soon"
+  ],
+  "capabilities": [
+    "text-to-video",
+    "image-to-video",
+    "coming-soon"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "prompt"
+    ],
+    "properties": {
+      "image": {
+        "type": "string",
+        "title": "Image",
+        "description": "Optional start image URL."
+      },
+      "prompt": {
+        "type": "string",
+        "title": "Prompt",
+        "description": "Text prompt for the generated video."
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "title": "GenerationResponse",
+    "required": [
+      "id",
+      "status"
+    ],
+    "properties": {
+      "id": {
+        "type": "string",
+        "description": "Unique identifier for the generation task."
+      },
+      "error": {
+        "type": "string",
+        "description": "Error message if the task failed. Empty on success."
+      },
+      "model": {
+        "type": "string",
+        "description": "Model ID used for the prediction."
+      },
+      "status": {
+        "enum": [
+          "pending",
+          "running",
+          "completed",
+          "failed",
+          "timeout"
+        ],
+        "type": "string",
+        "description": "Status of the task: pending, running, completed, failed, or timeout."
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "title": "OutputItem",
+          "required": [
+            "url"
+          ],
+          "properties": {
+            "url": {
+              "type": "string",
+              "description": "The URL where the generated content can be downloaded from."
+            },
+            "content_type": {
+              "type": "string",
+              "description": "The MIME type of the output file."
+            }
+          }
+        },
+        "description": "Array of generated content. Empty when status is not completed."
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "unknown"
+  },
+  "cover_url": "https://static.sandbase.ai/covers/kwaivgi/kling-video/v4/cover-flare-20261005145011.webp",
+  "page_url": "https://www.sandbase.ai/model/kwaivgi/kling-video/v4",
+  "created_at": "2026-10-05T05:49:05.125Z",
+  "status": "coming_soon"
+}

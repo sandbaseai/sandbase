@@ -59,13 +59,12 @@ Same call via the path form: `POST /v1/api/zhihu/web/hot-list` with the body abo
 
 ## Details
 
-Fetch the current Zhihu hot list. Each item includes the trending question, an excerpt, heat value, and answer and follower counts.
+Zhihu's current hot list (知乎热榜): the trending questions with their heat score, excerpt, answer count and follower count, in ranking order.
 
 ### Use cases
 
-- Track trending discussions on Zhihu.
-- Find popular questions to answer for content marketing.
-- Build daily trend digests.
+- Track trending topics in China for content planning or PR monitoring.
+- Collect daily snapshots of Zhihu trends.
 
 ### Request
 
@@ -76,51 +75,62 @@ curl -X POST "https://api.sandbase.ai/v1/api/zhihu/web/hot-list" \
   -d '{}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
 |---|---|---|---|
-| `limit` | string | No | Number of articles per page |
 | `desktop` | string | No | Is it a desktop |
+| `limit` | string | No | Number of articles per page |
 
 ### Example response
 
-Real response for the request above, trimmed to the main fields. User names and long IDs are masked.
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
 
 ```json
 {
-  "fresh_text": "热榜已更新",
   "data": [
     {
-      "type": "hot_list_feed",
-      "detail_text": "163 万热度",
+      "detail_text": "2160 万热度",
       "target": {
-        "id": 26705971,
-        "type": "question",
-        "title": "Adobe Photoshop 是否已经过时？",
-        "answer_count": 286,
-        "follower_count": 4005,
-        "created": 1416488544,
-        "excerpt": "时代在发展，Photoshop 软件是否已经过时了？ 感谢各位热心以及耐心的回答，在此深表感谢。关…",
-        "url": "https://api.zhihu.com/questions/26705971"
+        "id": 2099419745036650047,
+        "title": "如何看待10元快剪正暴打全国的「设计总监」？",
+        "excerpt": "近期，全国多地出现10元快剪排队潮，没有收银员，没有洗头台，没有推销办卡。反观传统理发店则因推销办卡等问题大量关停。此前，理发店因“头衔通胀”、预付卡纠纷频发被…",
+        "answer_count": 530,
+        "follower_count": 856,
+        "created": 1793320672,
+        "url": "https://api.zhihu.com/questions/2099419745036650047"
       }
     }
-  ],
-  "paging": {
-    "is_end": false
-  }
+  ]
 }
 ```
 
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `data[]` | Hot items in rank order. |
+| `data[].detail_text` | Heat, e.g. "2160 万热度" (21.6 million). |
+| `data[].target.id / title / url` | Question ID, title and link. |
+| `data[].target.excerpt` | Excerpt of the top answer or question detail. |
+| `data[].target.answer_count / follower_count` | Answers and followers of the question. |
+| `data[].target.created` | Question creation time, Unix seconds. |
+
+### Notes
+
+- `limit` sets how many items are returned.
+
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls, including lookups whose target does not exist, are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 
-- [Zhihu Article Search](/model/zhihu/web/article-search-v3): Search Zhihu articles and answers by keyword and get titles, excerpts, authors, vote and comment counts, with sorting, content type and time filters plus offse…
-- [Get Zhihu AI Search (v2)](/model/zhihu/web/ai-search-stream): Get Zhihu AI Search results (new endpoint).
-- [Get Zhihu Answer Detail](/model/zhihu/web/answer-detail): Get a single Zhihu answer's detail (content / stats / author / question, etc.).
+- [Zhihu Article Search](/apis/zhihu/web/article-search-v3): Search Zhihu articles and answers by keyword and get titles, excerpts, authors, vote and comment counts, with sorting, content type and time filters plus offse…
+- [Get Zhihu AI Search (v2)](/apis/zhihu/web/ai-search-stream): Get Zhihu AI Search results (new endpoint).
+- [Get Zhihu Answer Detail](/apis/zhihu/web/answer-detail): Get a single Zhihu answer's detail (content / stats / author / question, etc.).
 
 ---
 Machine-readable: [`catalog/models/zhihu/web/hot-list.json`](../../../../catalog/models/zhihu/web/hot-list.json) · Store page: https://www.sandbase.ai/model/zhihu/web/hot-list

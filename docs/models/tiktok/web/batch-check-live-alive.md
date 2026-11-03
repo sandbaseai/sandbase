@@ -75,7 +75,7 @@ Inspect the active broadcast status across multiple TikTok streams using `room_i
 curl -X POST "https://api.sandbase.ai/v1/api/tiktok/web/batch-check-live-alive" \
   -H "Authorization: Bearer $SANDBASE_API_KEY" \
   -H "Content-Type: application/json" \
-  -d '{"room_ids": "<room_ids>"}'
+  -d '{"room_ids": "7530611486784277278,7530633767468288782,7530636465034775310,7530604930088848142"}'
 ```
 
 ### Parameters
@@ -94,9 +94,9 @@ Flat price per call. Failed calls, including lookups whose target does not exist
 
 ### Related APIs
 
-- [TikTok Video IDs from URLs (Batch)](/model/tiktok/web/all-aweme-id): Resolves and extracts TikTok video IDs from a list of video URLs.
-- [TikTok User Sec User ID Extractor](/model/tiktok/web/all-sec-user-id): Returns a list of sec_user_id identifiers corresponding to TikTok user profile URLs.
-- [TikTok Profile Unique IDs](/model/tiktok/web/all-unique-id): Resolves a batch of TikTok user homepage links to retrieve their corresponding unique identifiers.
+- [TikTok Video IDs from URLs (Batch)](/apis/tiktok/web/all-aweme-id): Resolves and extracts TikTok video IDs from a list of video URLs.
+- [TikTok User Sec User ID Extractor](/apis/tiktok/web/all-sec-user-id): Returns a list of sec_user_id identifiers corresponding to TikTok user profile URLs.
+- [TikTok Profile Unique IDs](/apis/tiktok/web/all-unique-id): Resolves a batch of TikTok user homepage links to retrieve their corresponding unique identifiers.
 
 ---
 Machine-readable: [`catalog/models/tiktok/web/batch-check-live-alive.json`](../../../../catalog/models/tiktok/web/batch-check-live-alive.json) · Store page: https://www.sandbase.ai/model/tiktok/web/batch-check-live-alive

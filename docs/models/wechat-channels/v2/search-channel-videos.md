@@ -117,9 +117,9 @@ Flat price per call. Failed calls, including lookups whose target does not exist
 
 ### Related APIs
 
-- [WeChat Channels ID to Username](/model/wechat-channels/v2/channel-id-to-username): Convert a public WeChat Channels Channel ID (sph… short ID) into the finder username (v2_…@finder) required by the other WeChat Channels APIs.
-- [WeChat Channels Account Info](/model/wechat-channels/v2/channel-info): Get the public "More info" panel of a WeChat Channels account: Channel ID, IP and profile location, and verification details such as entity type, service categ…
-- [WeChat Channels User Profile](/model/wechat-channels/v2/user-profile): Get a WeChat Channels creator's profile and stats: nickname, bio, region, follower, video, like and favorite counts, and linked accounts.
+- [WeChat Channels ID to Username](/apis/wechat-channels/v2/channel-id-to-username): Convert a public WeChat Channels Channel ID (sph… short ID) into the finder username (v2_…@finder) required by the other WeChat Channels APIs.
+- [WeChat Channels Account Info](/apis/wechat-channels/v2/channel-info): Get the public "More info" panel of a WeChat Channels account: Channel ID, IP and profile location, and verification details such as entity type, service categ…
+- [WeChat Channels User Profile](/apis/wechat-channels/v2/user-profile): Get a WeChat Channels creator's profile and stats: nickname, bio, region, follower, video, like and favorite counts, and linked accounts.
 
 ---
 Machine-readable: [`catalog/models/wechat-channels/v2/search-channel-videos.json`](../../../../catalog/models/wechat-channels/v2/search-channel-videos.json) · Store page: https://www.sandbase.ai/model/wechat-channels/v2/search-channel-videos

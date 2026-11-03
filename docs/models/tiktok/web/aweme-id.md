@@ -62,13 +62,12 @@ Same call via the path form: `POST /v1/api/tiktok/web/aweme-id` with the body ab
 
 ## Details
 
-Extract the unique video ID from a TikTok web URL by providing the target link in `url`.
+Extract the video ID (`aweme_id`) from a TikTok video link such as `https://www.tiktok.com/@user/video/<aweme_id>`. Most TikTok video, comment and download APIs take this ID.
 
 ### Use cases
 
-- Parse video IDs from shared TikTok links.
-- Resolve canonical video identifiers for downstream data queries.
-- Validate and clean TikTok video URLs before ingestion.
+- Normalize shared TikTok links before calling video detail or comment APIs.
+- Deduplicate videos collected as links.
 
 ### Request
 
@@ -79,25 +78,42 @@ curl -X POST "https://api.sandbase.ai/v1/api/tiktok/web/aweme-id" \
   -d '{"url": "https://www.tiktok.com/@owlcitymusic/video/7218694761253735723"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
 |---|---|---|---|
 | `url` | string | Yes | Video link |
 
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+"7218694761253735723"
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `(body)` | The `aweme_id` as a string, e.g. `"7218694761253735723"`. |
+
 ### Notes
 
-- Accepts a complete TikTok video link via the `url` parameter.
+- Keep the ID as a string; it exceeds JavaScript's safe integer range.
+- The same ID works with the TikTok app (`app-v3`) and web endpoints.
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls, including lookups whose target does not exist, are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 
-- [TikTok Video IDs from URLs (Batch)](/model/tiktok/web/all-aweme-id): Resolves and extracts TikTok video IDs from a list of video URLs.
-- [TikTok User Sec User ID Extractor](/model/tiktok/web/all-sec-user-id): Returns a list of sec_user_id identifiers corresponding to TikTok user profile URLs.
-- [TikTok Profile Unique IDs](/model/tiktok/web/all-unique-id): Resolves a batch of TikTok user homepage links to retrieve their corresponding unique identifiers.
+- [TikTok Video IDs from URLs (Batch)](/apis/tiktok/web/all-aweme-id): Resolves and extracts TikTok video IDs from a list of video URLs.
+- [TikTok User Sec User ID Extractor](/apis/tiktok/web/all-sec-user-id): Returns a list of sec_user_id identifiers corresponding to TikTok user profile URLs.
+- [TikTok Profile Unique IDs](/apis/tiktok/web/all-unique-id): Resolves a batch of TikTok user homepage links to retrieve their corresponding unique identifiers.
 
 ---
 Machine-readable: [`catalog/models/tiktok/web/aweme-id.json`](../../../../catalog/models/tiktok/web/aweme-id.json) · Store page: https://www.sandbase.ai/model/tiktok/web/aweme-id

@@ -106,9 +106,9 @@ Flat price per call. Failed calls, including lookups whose target does not exist
 
 ### Related APIs
 
-- [YouTube Channel ID Lookup](/model/youtube/web/channel-id): Retrieves the unique YouTube channel ID associated with a specific channel name.
-- [YouTube Channel Information](/model/youtube/web/channel-info): Returns profile details and external links for a specified YouTube channel.
-- [YouTube Channel Short Videos](/model/youtube/web/channel-short-videos): Returns a list of YouTube Shorts from a specified channel.
+- [YouTube Channel ID Lookup](/apis/youtube/web/channel-id): Retrieves the unique YouTube channel ID associated with a specific channel name.
+- [YouTube Channel Information](/apis/youtube/web/channel-info): Returns profile details and external links for a specified YouTube channel.
+- [YouTube Channel Short Videos](/apis/youtube/web/channel-short-videos): Returns a list of YouTube Shorts from a specified channel.
 
 ---
 Machine-readable: [`catalog/models/youtube/web/channel-id-v2.json`](../../../../catalog/models/youtube/web/channel-id-v2.json) · Store page: https://www.sandbase.ai/model/youtube/web/channel-id-v2

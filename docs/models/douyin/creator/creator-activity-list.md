@@ -99,9 +99,9 @@ Flat price per call. Failed calls, including lookups whose target does not exist
 
 ### Related APIs
 
-- [Douyin Creator Activity Details](/model/douyin/creator/creator-activity-detail): Returns detailed information for a specific Douyin creator activity.
-- [Douyin Content Categories](/model/douyin/creator/creator-content-category): Returns the list of content categories available on Douyin.
-- [Douyin Creator Content Courses](/model/douyin/creator/creator-content-course): Returns content development courses from the Douyin creator platform for a specified category.
+- [Douyin Creator Activity Details](/apis/douyin/creator/creator-activity-detail): Returns detailed information for a specific Douyin creator activity.
+- [Douyin Content Categories](/apis/douyin/creator/creator-content-category): Returns the list of content categories available on Douyin.
+- [Douyin Creator Content Courses](/apis/douyin/creator/creator-content-course): Returns content development courses from the Douyin creator platform for a specified category.
 
 ---
 Machine-readable: [`catalog/models/douyin/creator/creator-activity-list.json`](../../../../catalog/models/douyin/creator/creator-activity-list.json) · Store page: https://www.sandbase.ai/model/douyin/creator/creator-activity-list

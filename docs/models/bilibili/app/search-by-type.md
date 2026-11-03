@@ -74,13 +74,12 @@ Same call via the path form: `POST /v1/api/bilibili/app/search-by-type` with the
 
 ## Details
 
-Query Bilibili content categorized by type using the required `keyword` parameter. You can optionally filter by `search_type`, apply an `order` index, and paginate through results.
+Search Bilibili by keyword within one result type (videos, users, live rooms, articles and more), with sorting and cursor paging. Video results include title, author, play count, danmaku count, duration and publish time.
 
 ### Use cases
 
-- Search for specific video items matching a keyword on Bilibili.
-- Filter platform search results by specified category types.
-- Paginate through Bilibili catalog queries using cursor tokens.
+- Find videos about a topic sorted by plays or recency.
+- Search Bilibili users (UP主) by name.
 
 ### Request
 
@@ -91,53 +90,83 @@ curl -X POST "https://api.sandbase.ai/v1/api/bilibili/app/search-by-type" \
   -d '{"keyword": "OpenAI"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
 |---|---|---|---|
 | `keyword` | string | Yes | Search keyword (required) |
+| `cursor` | string | No | Pagination cursor. Leave empty for the first page; for the next page pass |
 | `order` | integer | No | Sort order |
-| `cursor` | string | No | Pagination cursor. |
 | `page_size` | integer | No | Results per page |
 | `search_type` | string | No | Search type |
 
 ### Example response
 
-Real response for the request above, trimmed to the main fields. User names and long IDs are masked.
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
 
 ```json
 {
+  "code": 0,
   "data": {
+    "annotation": {
+      "qv_id": "bdbca9b09c444039b387fa922af350e0"
+    },
+    "exp_str": "100010#5502#6609#81701100#9902#9921#9931#9947#9961",
     "items": [
       {
         "av": {
-          "author": "红客官方账号",
-          "duration": "9:29",
-          "ptime": "1788174347",
-          "title": "全球首例！700个AI失控组团攻击，全程无人参与，OpenAI都懵了",
-          "view_content": "5.9万"
-        }
+          "author": "布衣愚者",
+          "cover": "https://i0.hdslb.com/bfs/archive/41108b0b9bac8eace885911b7f25dcacc9ecf1b7.jpg",
+          "danmaku": 979,
+          "duration": "18:38",
+          "face": "https://i1.hdslb.com/bfs/face/ab22aa8fcbb6e7c442273cc9c492d8d4826c9c19.jpg",
+          "mid": "362809",
+          "play": 229119,
+          "ptime": "1793494190"
+        },
+        "goto": "av",
+        "param": "117538423901588",
+        "uri": "bilibili://video/117538423901588?cid=43222761497&history_progress=0&player_heigh…",
+        "user_act": "{\"id\":117538423901588,\"type\":\"video\"}"
       }
-    ]
-  }
+    ],
+    "keyword": "OpenAI",
+    "page": "1",
+    "pages": 50,
+    "pagination": {
+      "next": "CAISIGJkYmNhOWIwOWM0NDQwMzliMzg3ZmE5MjJhZjM1MGUw"
+    },
+    "real_exposure_ratio": 0.8,
+    "result_is_recommend": 1000,
+    "trackid": "9348513686332904803"
+  },
+  "message": "success"
 }
 ```
 
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `data.items[]` | Results. For videos: `av.author`, `av.play`, `av.danmaku` (bullet comments), `av.duration`, `av.ptime` (Unix seconds) and `param` (the aid). |
+| `data.pages` | Total pages available. |
+| `data.pagination.next` | Cursor for the next page; pass it as `cursor`. |
+
 ### Notes
 
-- Leave `cursor` empty for the initial request, then pass the returned cursor string for subsequent pages.
-- `keyword` is required for every search request.
-- Use `search_type` to define the target category such as video.
+- Use `search_type` to pick the result type and `order` to sort. For a mixed result list use [Bilibili Search All](/apis/bilibili/app/search-all).
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls, including lookups whose target does not exist, are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 
-- [Bilibili App Bangumi Tab](/model/bilibili/app/bangumi-tab): Returns Bilibili app bangumi tab data, providing curated anime recommendations, feed items, and category listings for mobile clients.
-- [Bilibili App Cinema Tab](/model/bilibili/app/cinema-tab): Returns cinema tab content from the Bilibili app, featuring curated movies, TV shows, and entertainment recommendations without requiring additional query para…
-- [Bilibili App Home Feed](/model/bilibili/app/home-feed): Returns recommended video items from the Bilibili app home feed.
+- [Bilibili App Bangumi Tab](/apis/bilibili/app/bangumi-tab): Returns Bilibili app bangumi tab data, providing curated anime recommendations, feed items, and category listings for mobile clients.
+- [Bilibili App Cinema Tab](/apis/bilibili/app/cinema-tab): Returns cinema tab content from the Bilibili app, featuring curated movies, TV shows, and entertainment recommendations without requiring additional query para…
+- [Bilibili App Home Feed](/apis/bilibili/app/home-feed): Returns recommended video items from the Bilibili app home feed.
 
 ---
 Machine-readable: [`catalog/models/bilibili/app/search-by-type.json`](../../../../catalog/models/bilibili/app/search-by-type.json) · Store page: https://www.sandbase.ai/model/bilibili/app/search-by-type

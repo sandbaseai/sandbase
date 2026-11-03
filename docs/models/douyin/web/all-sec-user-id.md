@@ -97,9 +97,9 @@ Flat price per call. Failed calls, including lookups whose target does not exist
 
 ### Related APIs
 
-- [Douyin Batch Video ID Extraction](/model/douyin/web/all-aweme-id): Extracts video IDs from a list of Douyin video URLs.
-- [Douyin Webcast ID Extraction](/model/douyin/web/all-webcast-id): Extracts webcast IDs from a submitted list of Douyin live room links.
-- [Douyin Video ID Extractor](/model/douyin/web/aweme-id): Extracts the internal video ID from a given Douyin video web URL.
+- [Douyin Batch Video ID Extraction](/apis/douyin/web/all-aweme-id): Extracts video IDs from a list of Douyin video URLs.
+- [Douyin Webcast ID Extraction](/apis/douyin/web/all-webcast-id): Extracts webcast IDs from a submitted list of Douyin live room links.
+- [Douyin Video ID Extractor](/apis/douyin/web/aweme-id): Extracts the internal video ID from a given Douyin video web URL.
 
 ---
 Machine-readable: [`catalog/models/douyin/web/all-sec-user-id.json`](../../../../catalog/models/douyin/web/all-sec-user-id.json) · Store page: https://www.sandbase.ai/model/douyin/web/all-sec-user-id

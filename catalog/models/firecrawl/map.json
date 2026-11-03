@@ -33,11 +33,13 @@
       "url": {
         "type": "string",
         "title": "URL",
+        "example": "https://docs.firecrawl.dev",
         "description": "The HTTPS URL to map."
       },
       "limit": {
         "type": "integer",
         "title": "Limit",
+        "example": 10,
         "maximum": 100000,
         "minimum": 1,
         "description": "Maximum number of links to discover."
@@ -71,7 +73,7 @@
       "note": "Shared across all free-quota APIs, resets 00:00 UTC."
     }
   },
-  "readme": "# Firecrawl URL Discovery API\n\nMap website architecture and discover internal links using `url` and `limit`.\n\n## Use cases\n\n- Discover reachable pages across an entire domain.\n- Map site link structures for search and content indexers.\n- Extract lists of internal website endpoints prior to scraping.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/firecrawl/map\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"url\": \"<url>\", \"limit\": \"<limit>\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `url` | string | Yes | The HTTPS URL to map. |\n| `limit` | integer | Yes | Maximum number of links to discover. |\n\n## Notes\n\n- Requires a valid HTTPS address for `url`.\n- Set `limit` to specify the maximum number of links to discover.\n\n## Pricing\n\nFlat price per call. Failed calls are not charged.\n",
+  "readme": "# Firecrawl URL Discovery API\n\nMap website architecture and discover internal links using `url` and `limit`.\n\n## Use cases\n\n- Discover reachable pages across an entire domain.\n- Map site link structures for search and content indexers.\n- Extract lists of internal website endpoints prior to scraping.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/firecrawl/map\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"url\": \"https://docs.firecrawl.dev\", \"limit\": 10}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `url` | string | Yes | The HTTPS URL to map. |\n| `limit` | integer | Yes | Maximum number of links to discover. |\n\n## Notes\n\n- Requires a valid HTTPS address for `url`.\n- Set `limit` to specify the maximum number of links to discover.\n\n## Pricing\n\nFlat price per call. Failed calls are not charged.\n",
   "page_url": "https://www.sandbase.ai/model/firecrawl/map",
   "published_at": "2024-01-01T00:00:00Z",
   "created_at": "2026-08-09T08:03:45.064Z"

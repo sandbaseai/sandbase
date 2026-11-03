@@ -162,9 +162,9 @@ Flat price per call. Failed calls, including lookups whose target does not exist
 
 ### Related APIs
 
-- [Douyin General Search](/model/douyin/search/general-search-v1): Search Douyin (Chinese TikTok) from the app's general search tab and get videos with descriptions, authors and play, like, comment and share counts.
-- [Douyin Search Suggestions](/model/douyin/search/search-suggest): Get Douyin search autocomplete suggestions for a keyword: the related queries users see while typing in the Douyin app.
-- [Douyin Video Search](/model/douyin/search/video-search-v2): Search Douyin videos by keyword and get descriptions, authors and play, like, comment and share counts.
+- [Douyin General Search](/apis/douyin/search/general-search-v1): Search Douyin (Chinese TikTok) from the app's general search tab and get videos with descriptions, authors and play, like, comment and share counts.
+- [Douyin Search Suggestions](/apis/douyin/search/search-suggest): Get Douyin search autocomplete suggestions for a keyword: the related queries users see while typing in the Douyin app.
+- [Douyin Video Search](/apis/douyin/search/video-search-v2): Search Douyin videos by keyword and get descriptions, authors and play, like, comment and share counts.
 
 ---
 Machine-readable: [`catalog/models/douyin/search/video-search-v1.json`](../../../../catalog/models/douyin/search/video-search-v1.json) · Store page: https://www.sandbase.ai/model/douyin/search/video-search-v1

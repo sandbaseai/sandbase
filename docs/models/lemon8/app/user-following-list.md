@@ -20,7 +20,7 @@ Modes: sync (default `sync`). Only pass `mode` values listed here. The SDKs' `ru
 ```bash
 curl https://api.sandbase.ai/v1/run \
   -H "Authorization: Bearer $SANDBASE_API_KEY" -H 'Content-Type: application/json' \
-  -d '{"model": "lemon8/app/user-following-list", "user_id": "<user_id>"}'
+  -d '{"model": "lemon8/app/user-following-list", "user_id": "7428056850216862763"}'
 ```
 
 **Python** ([sdk/python](../../../../sdk/python))
@@ -28,7 +28,7 @@ curl https://api.sandbase.ai/v1/run \
 ```python
 from sandbase import SandBase
 
-result = SandBase().run('lemon8/app/user-following-list', {'user_id': '<user_id>'})
+result = SandBase().run('lemon8/app/user-following-list', {'user_id': '7428056850216862763'})
 print(result["outputs"])
 ```
 
@@ -38,7 +38,7 @@ print(result["outputs"])
 import { SandBase } from "@sandbaseai/sdk";
 
 const result = await new SandBase().run("lemon8/app/user-following-list", {
-  "user_id": "<user_id>"
+  "user_id": "7428056850216862763"
 });
 console.log(result.outputs);
 ```
@@ -48,7 +48,7 @@ console.log(result.outputs);
 ```go
 c, _ := sandbase.NewClient("")
 run, err := c.Run(ctx, "lemon8/app/user-following-list", sandbase.Params{
-	"user_id": "<user_id>",
+	"user_id": "7428056850216862763",
 })
 ```
 
@@ -77,7 +77,7 @@ Retrieve the list of followed accounts for a given Lemon8 user by supplying `use
 curl -X POST "https://api.sandbase.ai/v1/api/lemon8/app/user-following-list" \
   -H "Authorization: Bearer $SANDBASE_API_KEY" \
   -H "Content-Type: application/json" \
-  -d '{"user_id": "<user_id>"}'
+  -d '{"user_id": "7428056850216862763"}'
 ```
 
 ### Parameters
@@ -98,9 +98,9 @@ Flat price per call. Failed calls, including lookups whose target does not exist
 
 ### Related APIs
 
-- [Lemon8 Discover Page Banners](/model/lemon8/app/discover-banners): Returns the current promotional and featured banners displayed on the Lemon8 discover page.
-- [Lemon8 Discover Page Content](/model/lemon8/app/discover-tab): Returns the main content featured on the Lemon8 discover tab.
-- [Lemon8 Discover Editor Picks](/model/lemon8/app/discover-tab-information-tabs): Returns the Editor's Picks and discover tab information from the Lemon8 mobile app.
+- [Lemon8 Discover Page Banners](/apis/lemon8/app/discover-banners): Returns the current promotional and featured banners displayed on the Lemon8 discover page.
+- [Lemon8 Discover Page Content](/apis/lemon8/app/discover-tab): Returns the main content featured on the Lemon8 discover tab.
+- [Lemon8 Discover Editor Picks](/apis/lemon8/app/discover-tab-information-tabs): Returns the Editor's Picks and discover tab information from the Lemon8 mobile app.
 
 ---
 Machine-readable: [`catalog/models/lemon8/app/user-following-list.json`](../../../../catalog/models/lemon8/app/user-following-list.json) · Store page: https://www.sandbase.ai/model/lemon8/app/user-following-list

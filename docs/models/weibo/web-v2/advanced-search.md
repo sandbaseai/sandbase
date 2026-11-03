@@ -136,9 +136,9 @@ Flat price per call. Failed calls, including lookups whose target does not exist
 
 ### Related APIs
 
-- [Weibo Hot Search List](/model/weibo/web-v2/hot-search-summary): Get the complete real-time Weibo hot search ranking (top 50): keyword, rank, heat tag and search link for each trending topic.
-- [Weibo Post Detail](/model/weibo/web-v2/post-detail): Get the full data of a single Weibo post by its ID: text (including long posts), author, publish time, location and repost, comment and like counts.
-- [Weibo AI Search Content Extension](/model/weibo/web-v2/ai-related-search): Get content extensions related to keyword (related questions, blogger recommendations, reference posts).
+- [Weibo Hot Search List](/apis/weibo/web-v2/hot-search-summary): Get the complete real-time Weibo hot search ranking (top 50): keyword, rank, heat tag and search link for each trending topic.
+- [Weibo Post Detail](/apis/weibo/web-v2/post-detail): Get the full data of a single Weibo post by its ID: text (including long posts), author, publish time, location and repost, comment and like counts.
+- [Weibo AI Search Content Extension](/apis/weibo/web-v2/ai-related-search): Get content extensions related to keyword (related questions, blogger recommendations, reference posts).
 
 ---
 Machine-readable: [`catalog/models/weibo/web-v2/advanced-search.json`](../../../../catalog/models/weibo/web-v2/advanced-search.json) · Store page: https://www.sandbase.ai/model/weibo/web-v2/advanced-search

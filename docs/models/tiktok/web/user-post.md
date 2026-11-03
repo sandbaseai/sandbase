@@ -68,13 +68,12 @@ Same call via the path form: `POST /v1/api/tiktok/web/user-post` with the body a
 
 ## Details
 
-Fetch post lists for any TikTok user using their `secUid`. Supports cursor pagination via `cursor` and custom sorting with `post_item_list_request_type`.
+List the videos a TikTok account has posted, newest first, with each video's caption, cover, play URL, music, hashtags and play, like, comment and share counts. Identify the account by its `secUid`.
 
 ### Use cases
 
-- Retrieve recent video posts from a target TikTok user profile.
-- Track post metrics including play, digg, comment, and share counts.
-- Inspect background music details and author statistics across user posts.
+- Monitor a creator's new uploads and engagement.
+- Collect a creator's recent videos for content or brand-deal analysis.
 
 ### Request
 
@@ -85,103 +84,73 @@ curl -X POST "https://api.sandbase.ai/v1/api/tiktok/web/user-post" \
   -d '{"secUid": "MS4wLjABAAAAv7iSuuXDJGDvJkmH_vz1qkDZYo1apxgzaxdBSeIuPiM"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
 |---|---|---|---|
 | `secUid` | string | Yes | User secUid |
 | `count` | integer | No | Number per page, default is 20, cannot be changed. |
-| `cursor` | integer | No | Page cursor |
 | `coverFormat` | integer | No | Cover format, default is 2, optional values are 1 or 2. |
+| `cursor` | integer | No | Page cursor |
 | `post_item_list_request_type` | integer | No | Sort type |
 
 ### Example response
 
-Real response for the request above, trimmed to the main fields. User names and long IDs are masked.
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
 
 ```json
 {
   "itemList": [
     {
-      "CategoryType": 120,
-      "createTime": 1791209149,
-      "desc": "Real conversations happen on TikTok, and protecting the integrity of elections is a top p…",
-      "id": "7693184538704416031",
-      "itemCommentStatus": 0,
-      "textLanguage": "en",
-      "textTranslatable": true,
-      "author": {
-        "id": "107955",
-        "nickname": "<user>",
-        "privateAccount": false,
-        "verified": true
-      },
-      "authorStats": {
-        "diggCount": 4361,
-        "followerCount": 96100000,
-        "followingCount": 1,
-        "friendCount": 0,
-        "heartCount": 465100000,
-        "videoCount": 1510
-      },
-      "authorStatsV2": {
-        "diggCount": "4361",
-        "followerCount": "96100000",
-        "followingCount": "1",
-        "friendCount": "0",
-        "heartCount": "465100000",
-        "videoCount": "1510"
-      },
-      "music": {
-        "authorName": "TikTok",
-        "duration": 68,
-        "id": "7693184700604599071",
-        "shoot_duration": 68,
-        "title": "original sound"
-      },
-      "penaltyContext": {
-        "arb_content_safety_status": 102,
-        "display_penalty_type": 0,
-        "display_ui_type": 0,
-        "status": 102,
-        "tns_status": 102,
-        "video_status": 10
-      },
+      "id": "7702947070604332319",
+      "createTime": 1793482137,
+      "desc": "already planning next halloween? 👀🎃  take notes from @Mason Smith. find more DIY",
       "stats": {
-        "collectCount": 377,
-        "commentCount": 759,
-        "diggCount": 4234,
-        "playCount": 91000,
-        "shareCount": 375
+        "collectCount": 352,
+        "commentCount": 1159,
+        "diggCount": 4093,
+        "playCount": 287200,
+        "shareCount": 328
       },
-      "statsV2": {
-        "collectCount": "377",
-        "commentCount": "759",
-        "diggCount": "4234",
-        "playCount": "91000",
-        "repostCount": "0",
-        "shareCount": "375"
+      "author": {
+        "uniqueId": "tiktok",
+        "nickname": "TikTok"
       }
     }
-  ]
+  ],
+  "cursor": "1788468783000",
+  "hasMore": true
 }
 ```
 
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `itemList[]` | Videos on this page (about 15). |
+| `itemList[].id` | Video ID (aweme_id). |
+| `itemList[].desc` | Caption. |
+| `itemList[].createTime` | Upload time, Unix seconds. |
+| `itemList[].stats` | `playCount`, `diggCount` (likes), `commentCount`, `shareCount`, `collectCount`. |
+| `itemList[].author / authorStats` | Author profile and follower, like and video counts. |
+| `cursor / hasMore` | Pass `cursor` back to get the next page while `hasMore` is true. |
+
 ### Notes
 
-- `secUid` is required to identify the TikTok user account.
-- `count` defaults to 20 and cannot be changed.
-- `coverFormat` accepts 1 or 2, defaulting to 2.
+- `secUid` is the long ID starting with `MS4wLjABAAAA`. Get it from a profile with [TikTok User Profile](/apis/tiktok/web/user-profile).
+- Video and cover URLs are signed and expire; download them soon after the call.
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls, including lookups whose target does not exist, are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 
-- [TikTok Video IDs from URLs (Batch)](/model/tiktok/web/all-aweme-id): Resolves and extracts TikTok video IDs from a list of video URLs.
-- [TikTok User Sec User ID Extractor](/model/tiktok/web/all-sec-user-id): Returns a list of sec_user_id identifiers corresponding to TikTok user profile URLs.
-- [TikTok Profile Unique IDs](/model/tiktok/web/all-unique-id): Resolves a batch of TikTok user homepage links to retrieve their corresponding unique identifiers.
+- [TikTok Video IDs from URLs (Batch)](/apis/tiktok/web/all-aweme-id): Resolves and extracts TikTok video IDs from a list of video URLs.
+- [TikTok User Sec User ID Extractor](/apis/tiktok/web/all-sec-user-id): Returns a list of sec_user_id identifiers corresponding to TikTok user profile URLs.
+- [TikTok Profile Unique IDs](/apis/tiktok/web/all-unique-id): Resolves a batch of TikTok user homepage links to retrieve their corresponding unique identifiers.
 
 ---
 Machine-readable: [`catalog/models/tiktok/web/user-post.json`](../../../../catalog/models/tiktok/web/user-post.json) · Store page: https://www.sandbase.ai/model/tiktok/web/user-post

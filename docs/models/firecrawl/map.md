@@ -20,7 +20,7 @@ Modes: sync (default `sync`). Only pass `mode` values listed here. The SDKs' `ru
 ```bash
 curl https://api.sandbase.ai/v1/run \
   -H "Authorization: Bearer $SANDBASE_API_KEY" -H 'Content-Type: application/json' \
-  -d '{"model": "firecrawl/map", "url": "<url>", "limit": 1}'
+  -d '{"model": "firecrawl/map", "url": "https://docs.firecrawl.dev", "limit": 10}'
 ```
 
 **Python** ([sdk/python](../../../sdk/python))
@@ -28,7 +28,7 @@ curl https://api.sandbase.ai/v1/run \
 ```python
 from sandbase import SandBase
 
-result = SandBase().run('firecrawl/map', {'url': '<url>', 'limit': 1})
+result = SandBase().run('firecrawl/map', {'url': 'https://docs.firecrawl.dev', 'limit': 10})
 print(result["outputs"])
 ```
 
@@ -38,8 +38,8 @@ print(result["outputs"])
 import { SandBase } from "@sandbaseai/sdk";
 
 const result = await new SandBase().run("firecrawl/map", {
-  "url": "<url>",
-  "limit": 1
+  "url": "https://docs.firecrawl.dev",
+  "limit": 10
 });
 console.log(result.outputs);
 ```
@@ -49,8 +49,8 @@ console.log(result.outputs);
 ```go
 c, _ := sandbase.NewClient("")
 run, err := c.Run(ctx, "firecrawl/map", sandbase.Params{
-	"url": "<url>",
-	"limit": 1,
+	"url": "https://docs.firecrawl.dev",
+	"limit": 10,
 })
 ```
 
@@ -79,7 +79,7 @@ Map website architecture and discover internal links using `url` and `limit`.
 curl -X POST "https://api.sandbase.ai/v1/api/firecrawl/map" \
   -H "Authorization: Bearer $SANDBASE_API_KEY" \
   -H "Content-Type: application/json" \
-  -d '{"url": "<url>", "limit": "<limit>"}'
+  -d '{"url": "https://docs.firecrawl.dev", "limit": 10}'
 ```
 
 ### Parameters

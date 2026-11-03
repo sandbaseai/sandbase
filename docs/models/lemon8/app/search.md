@@ -129,9 +129,9 @@ Flat price per call. Failed calls, including lookups whose target does not exist
 
 ### Related APIs
 
-- [Get banners of discover page](/model/lemon8/app/discover-banners): Get banners of discover page.
-- [Get main content of discover page](/model/lemon8/app/discover-tab): Get main content of discover page.
-- [Get Editor's Picks of discover page](/model/lemon8/app/discover-tab-information-tabs): Get Editor's Picks of discover page.
+- [Get banners of discover page](/apis/lemon8/app/discover-banners): Get banners of discover page.
+- [Get main content of discover page](/apis/lemon8/app/discover-tab): Get main content of discover page.
+- [Get Editor's Picks of discover page](/apis/lemon8/app/discover-tab-information-tabs): Get Editor's Picks of discover page.
 
 ---
 Machine-readable: [`catalog/models/lemon8/app/search.json`](../../../../catalog/models/lemon8/app/search.json) · Store page: https://www.sandbase.ai/model/lemon8/app/search

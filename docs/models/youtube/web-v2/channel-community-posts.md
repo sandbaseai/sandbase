@@ -130,9 +130,9 @@ Flat price per call. Failed calls, including lookups whose target does not exist
 
 ### Related APIs
 
-- [YouTube Channel Description](/model/youtube/web-v2/channel-description): Returns YouTube channel details including subscriber counts, video totals, view counts, joined date, and social links.
-- [YouTube Channel ID from URL](/model/youtube/web-v2/channel-id): Resolves a YouTube channel URL to its canonical channel ID.
-- [YouTube Channel Shorts](/model/youtube/web-v2/channel-shorts): Returns a list of YouTube Shorts from a specified channel.
+- [YouTube Channel Description](/apis/youtube/web-v2/channel-description): Returns YouTube channel details including subscriber counts, video totals, view counts, joined date, and social links.
+- [YouTube Channel ID from URL](/apis/youtube/web-v2/channel-id): Resolves a YouTube channel URL to its canonical channel ID.
+- [YouTube Channel Shorts](/apis/youtube/web-v2/channel-shorts): Returns a list of YouTube Shorts from a specified channel.
 
 ---
 Machine-readable: [`catalog/models/youtube/web-v2/channel-community-posts.json`](../../../../catalog/models/youtube/web-v2/channel-community-posts.json) · Store page: https://www.sandbase.ai/model/youtube/web-v2/channel-community-posts

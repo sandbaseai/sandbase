@@ -41,11 +41,13 @@
       "item_id": {
         "type": "string",
         "title": "Item Id",
+        "example": "7326156045968067873",
         "description": "Video id"
       },
       "comment_id": {
         "type": "string",
         "title": "Comment Id",
+        "example": "7327061675382260482",
         "description": "Comment id"
       }
     }
@@ -73,7 +75,7 @@
       "default": true
     }
   ],
-  "readme": "# TikTok Video Comment Replies API\n\nRetrieve replies to a specific TikTok comment by providing the target video ID in `item_id` and the comment ID in `comment_id`.\n\n## Use cases\n\n- Read nested comment threads under a specific TikTok video comment.\n- Monitor user conversations and feedback on video discussions.\n- Ingest comment reply interactions for sentiment analysis.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/tiktok/app-v3/video-comment-replies\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"comment_id\": \"<comment_id>\", \"item_id\": \"<item_id>\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `item_id` | string | Yes | Video id |\n| `comment_id` | string | Yes | Comment id |\n| `count` | integer | No | Number |\n| `cursor` | integer | No | Cursor, used for paging, the first page is 0, the second page is the cursor value in the first response. |\n\n## Notes\n\n- Use `cursor` for pagination, passing 0 for the first page and the returned cursor value for subsequent pages.\n- Specify `count` to limit the number of replies returned in each response.\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [TikTok LIVE Status](/model/tiktok/app-v3/check-live-room-online): Check whether a TikTok LIVE room is currently live by room ID.\n- [TikTok Room Online Status Batch](/model/tiktok/app-v3/check-live-room-online-batch): Returns the online availability status for multiple TikTok broadcast rooms in a single request.\n- [TikTok Content Translation](/model/tiktok/app-v3/content-translate): Translates provided text content into a designated target language.\n",
+  "readme": "# TikTok Video Comment Replies API\n\nRetrieve replies to a specific TikTok comment by providing the target video ID in `item_id` and the comment ID in `comment_id`.\n\n## Use cases\n\n- Read nested comment threads under a specific TikTok video comment.\n- Monitor user conversations and feedback on video discussions.\n- Ingest comment reply interactions for sentiment analysis.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/tiktok/app-v3/video-comment-replies\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"comment_id\": \"7327061675382260482\", \"item_id\": \"7326156045968067873\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `item_id` | string | Yes | Video id |\n| `comment_id` | string | Yes | Comment id |\n| `count` | integer | No | Number |\n| `cursor` | integer | No | Cursor, used for paging, the first page is 0, the second page is the cursor value in the first response. |\n\n## Notes\n\n- Use `cursor` for pagination, passing 0 for the first page and the returned cursor value for subsequent pages.\n- Specify `count` to limit the number of replies returned in each response.\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [TikTok LIVE Status](/apis/tiktok/app-v3/check-live-room-online): Check whether a TikTok LIVE room is currently live by room ID.\n- [TikTok Room Online Status Batch](/apis/tiktok/app-v3/check-live-room-online-batch): Returns the online availability status for multiple TikTok broadcast rooms in a single request.\n- [TikTok Content Translation](/apis/tiktok/app-v3/content-translate): Translates provided text content into a designated target language.\n",
   "page_url": "https://www.sandbase.ai/model/tiktok/app-v3/video-comment-replies",
   "created_at": "2026-07-31T04:15:32.019Z"
 }

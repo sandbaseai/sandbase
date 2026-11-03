@@ -116,9 +116,9 @@ Flat price per call. Failed calls, including lookups whose target does not exist
 
 ### Related APIs
 
-- [TikTok Shop Product Details](/model/tiktok/shop-web/product-detail): Retrieves full product details and page component information from TikTok Shop by product ID.
-- [TikTok Shop Product Details (V2)](/model/tiktok/shop-web/product-detail-v2): Returns basic product details from TikTok Shop for a specified item.
-- [TikTok Shop Product ID by Share Link](/model/tiktok/shop-web/product-id-by-share-link): Returns the TikTok Shop product identifier extracted from a provided product share link.
+- [TikTok Shop Product Details](/apis/tiktok/shop-web/product-detail): Retrieves full product details and page component information from TikTok Shop by product ID.
+- [TikTok Shop Product Details (V2)](/apis/tiktok/shop-web/product-detail-v2): Returns basic product details from TikTok Shop for a specified item.
+- [TikTok Shop Product ID by Share Link](/apis/tiktok/shop-web/product-id-by-share-link): Returns the TikTok Shop product identifier extracted from a provided product share link.
 
 ---
 Machine-readable: [`catalog/models/tiktok/shop-web/product-detail-v3.json`](../../../../catalog/models/tiktok/shop-web/product-detail-v3.json) · Store page: https://www.sandbase.ai/model/tiktok/shop-web/product-detail-v3

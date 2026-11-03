@@ -111,9 +111,9 @@ Flat price per call. Failed calls, including lookups whose target does not exist
 
 ### Related APIs
 
-- [TikTok Creator Info and Milestones](/model/tiktok/analytics/creator-info-and-milestones): Returns creator details and milestone history for a specified TikTok account.
-- [Detect fake views in video](/model/tiktok/analytics/detect-fake-views): Check whether a TikTok video has fake views.
-- [TikTok Video Metrics](/model/tiktok/analytics/video-metrics): Retrieve detailed analytics for TikTok videos, including total views, likes, comments, favorites, and 14-day daily performance trends using a video identifier.
+- [TikTok Creator Info and Milestones](/apis/tiktok/analytics/creator-info-and-milestones): Returns creator details and milestone history for a specified TikTok account.
+- [Detect fake views in video](/apis/tiktok/analytics/detect-fake-views): Check whether a TikTok video has fake views.
+- [TikTok Video Metrics](/apis/tiktok/analytics/video-metrics): Retrieve detailed analytics for TikTok videos, including total views, likes, comments, favorites, and 14-day daily performance trends using a video identifier.
 
 ---
 Machine-readable: [`catalog/models/tiktok/analytics/comment-keywords.json`](../../../../catalog/models/tiktok/analytics/comment-keywords.json) · Store page: https://www.sandbase.ai/model/tiktok/analytics/comment-keywords

@@ -82,7 +82,7 @@ This endpoint produces an xb signature required for Douyin web barrage stream co
 curl -X POST "https://api.sandbase.ai/v1/api/douyin/web/generate-wss-xb-signature" \
   -H "Authorization: Bearer $SANDBASE_API_KEY" \
   -H "Content-Type: application/json" \
-  -d '{"room_id": "<room_id>", "user_agent": "<user_agent>", "user_unique_id": "<user_unique_id>"}'
+  -d '{"room_id": "7382517534467115826", "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36 Edg/130.0.0.0", "user_unique_id": "7382524529011246630"}'
 ```
 
 ### Parameters
@@ -105,9 +105,9 @@ Flat price per call. Failed calls, including lookups whose target does not exist
 
 ### Related APIs
 
-- [Douyin Batch Video ID Extraction](/model/douyin/web/all-aweme-id): Extracts video IDs from a list of Douyin video URLs.
-- [Douyin sec_user_ids from URLs (Batch)](/model/douyin/web/all-sec-user-id): Extracts Douyin sec_user_id values in bulk from a list of user homepage URLs.
-- [Douyin Webcast ID Extraction](/model/douyin/web/all-webcast-id): Extracts webcast IDs from a submitted list of Douyin live room links.
+- [Douyin Batch Video ID Extraction](/apis/douyin/web/all-aweme-id): Extracts video IDs from a list of Douyin video URLs.
+- [Douyin sec_user_ids from URLs (Batch)](/apis/douyin/web/all-sec-user-id): Extracts Douyin sec_user_id values in bulk from a list of user homepage URLs.
+- [Douyin Webcast ID Extraction](/apis/douyin/web/all-webcast-id): Extracts webcast IDs from a submitted list of Douyin live room links.
 
 ---
 Machine-readable: [`catalog/models/douyin/web/generate-wss-xb-signature.json`](../../../../catalog/models/douyin/web/generate-wss-xb-signature.json) · Store page: https://www.sandbase.ai/model/douyin/web/generate-wss-xb-signature

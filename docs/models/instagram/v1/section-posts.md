@@ -20,7 +20,7 @@ Modes: sync (default `sync`). Only pass `mode` values listed here. The SDKs' `ru
 ```bash
 curl https://api.sandbase.ai/v1/run \
   -H "Authorization: Bearer $SANDBASE_API_KEY" -H 'Content-Type: application/json' \
-  -d '{"model": "instagram/v1/section-posts", "section_id": "<section_id>"}'
+  -d '{"model": "instagram/v1/section-posts", "section_id": "10156104410190727"}'
 ```
 
 **Python** ([sdk/python](../../../../sdk/python))
@@ -28,7 +28,7 @@ curl https://api.sandbase.ai/v1/run \
 ```python
 from sandbase import SandBase
 
-result = SandBase().run('instagram/v1/section-posts', {'section_id': '<section_id>'})
+result = SandBase().run('instagram/v1/section-posts', {'section_id': '10156104410190727'})
 print(result["outputs"])
 ```
 
@@ -38,7 +38,7 @@ print(result["outputs"])
 import { SandBase } from "@sandbaseai/sdk";
 
 const result = await new SandBase().run("instagram/v1/section-posts", {
-  "section_id": "<section_id>"
+  "section_id": "10156104410190727"
 });
 console.log(result.outputs);
 ```
@@ -48,7 +48,7 @@ console.log(result.outputs);
 ```go
 c, _ := sandbase.NewClient("")
 run, err := c.Run(ctx, "instagram/v1/section-posts", sandbase.Params{
-	"section_id": "<section_id>",
+	"section_id": "10156104410190727",
 })
 ```
 
@@ -78,7 +78,7 @@ Retrieve a feed of posts from a designated explore section using `section_id`. P
 curl -X POST "https://api.sandbase.ai/v1/api/instagram/v1/section-posts" \
   -H "Authorization: Bearer $SANDBASE_API_KEY" \
   -H "Content-Type: application/json" \
-  -d '{"section_id": "<section_id>"}'
+  -d '{"section_id": "10156104410190727"}'
 ```
 
 ### Parameters
@@ -101,9 +101,9 @@ Flat price per call. Failed calls, including lookups whose target does not exist
 
 ### Related APIs
 
-- [Instagram Cities by Country](/model/instagram/v1/cities): Returns a list of Instagram cities and regions for a specified country code.
-- [Instagram Hashtag Posts (V1)](/model/instagram/v1/hashtag-posts): Returns public Instagram posts associated with a specific hashtag.
-- [Instagram Location Details (V1)](/model/instagram/v1/location-info): Returns detailed metadata and profile information for a specified Instagram location using its unique identifier.
+- [Instagram Cities by Country](/apis/instagram/v1/cities): Returns a list of Instagram cities and regions for a specified country code.
+- [Instagram Hashtag Posts (V1)](/apis/instagram/v1/hashtag-posts): Returns public Instagram posts associated with a specific hashtag.
+- [Instagram Location Details (V1)](/apis/instagram/v1/location-info): Returns detailed metadata and profile information for a specified Instagram location using its unique identifier.
 
 ---
 Machine-readable: [`catalog/models/instagram/v1/section-posts.json`](../../../../catalog/models/instagram/v1/section-posts.json) · Store page: https://www.sandbase.ai/model/instagram/v1/section-posts

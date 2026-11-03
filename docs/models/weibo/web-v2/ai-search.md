@@ -118,9 +118,9 @@ Flat price per call. Failed calls, including lookups whose target does not exist
 
 ### Related APIs
 
-- [Weibo Advanced Search](/model/weibo/web-v2/advanced-search): Search Weibo posts by keyword with filters for time range, post type (hot, original, verified, media) and content type (images, video, links).
-- [Weibo AI Related Search Content](/model/weibo/web-v2/ai-related-search): Returns AI-generated content extensions for a keyword, including related questions, recommended bloggers, and reference posts.
-- [Weibo All Groups Information](/model/weibo/web-v2/all-groups): Retrieves complete group information on the Weibo platform.
+- [Weibo Advanced Search](/apis/weibo/web-v2/advanced-search): Search Weibo posts by keyword with filters for time range, post type (hot, original, verified, media) and content type (images, video, links).
+- [Weibo AI Related Search Content](/apis/weibo/web-v2/ai-related-search): Returns AI-generated content extensions for a keyword, including related questions, recommended bloggers, and reference posts.
+- [Weibo All Groups Information](/apis/weibo/web-v2/all-groups): Retrieves complete group information on the Weibo platform.
 
 ---
 Machine-readable: [`catalog/models/weibo/web-v2/ai-search.json`](../../../../catalog/models/weibo/web-v2/ai-search.json) · Store page: https://www.sandbase.ai/model/weibo/web-v2/ai-search

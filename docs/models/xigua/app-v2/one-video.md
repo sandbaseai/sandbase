@@ -20,7 +20,7 @@ Modes: sync (default `sync`). Only pass `mode` values listed here. The SDKs' `ru
 ```bash
 curl https://api.sandbase.ai/v1/run \
   -H "Authorization: Bearer $SANDBASE_API_KEY" -H 'Content-Type: application/json' \
-  -d '{"model": "xigua/app-v2/one-video", "item_id": "<item_id>"}'
+  -d '{"model": "xigua/app-v2/one-video", "item_id": "7354954305222377999"}'
 ```
 
 **Python** ([sdk/python](../../../../sdk/python))
@@ -28,7 +28,7 @@ curl https://api.sandbase.ai/v1/run \
 ```python
 from sandbase import SandBase
 
-result = SandBase().run('xigua/app-v2/one-video', {'item_id': '<item_id>'})
+result = SandBase().run('xigua/app-v2/one-video', {'item_id': '7354954305222377999'})
 print(result["outputs"])
 ```
 
@@ -38,7 +38,7 @@ print(result["outputs"])
 import { SandBase } from "@sandbaseai/sdk";
 
 const result = await new SandBase().run("xigua/app-v2/one-video", {
-  "item_id": "<item_id>"
+  "item_id": "7354954305222377999"
 });
 console.log(result.outputs);
 ```
@@ -48,7 +48,7 @@ console.log(result.outputs);
 ```go
 c, _ := sandbase.NewClient("")
 run, err := c.Run(ctx, "xigua/app-v2/one-video", sandbase.Params{
-	"item_id": "<item_id>",
+	"item_id": "7354954305222377999",
 })
 ```
 
@@ -76,7 +76,7 @@ Retrieve basic metadata and related video recommendations for a Xigua video by p
 curl -X POST "https://api.sandbase.ai/v1/api/xigua/app-v2/one-video" \
   -H "Authorization: Bearer $SANDBASE_API_KEY" \
   -H "Content-Type: application/json" \
-  -d '{"item_id": "<item_id>"}'
+  -d '{"item_id": "7354954305222377999"}'
 ```
 
 ### Parameters
@@ -95,9 +95,9 @@ Flat price per call. Failed calls, including lookups whose target does not exist
 
 ### Related APIs
 
-- [Xigua Video Play URL](/model/xigua/app-v2/one-video-play-url): Returns the direct playback URL for a specific Xigua video using its unique item identifier.
-- [Xigua Video Search](/model/xigua/app-v2/search-video): Search Xigua Video (ByteDance long-form video) by keyword: titles, creators, duration, publish time and comment counts, with sort and duration filters.
-- [Xigua User Profile Details](/model/xigua/app-v2/user-info): Returns profile and personal information for a specified Xigua account.
+- [Xigua Video Play URL](/apis/xigua/app-v2/one-video-play-url): Returns the direct playback URL for a specific Xigua video using its unique item identifier.
+- [Xigua Video Search](/apis/xigua/app-v2/search-video): Search Xigua Video (ByteDance long-form video) by keyword: titles, creators, duration, publish time and comment counts, with sort and duration filters.
+- [Xigua User Profile Details](/apis/xigua/app-v2/user-info): Returns profile and personal information for a specified Xigua account.
 
 ---
 Machine-readable: [`catalog/models/xigua/app-v2/one-video.json`](../../../../catalog/models/xigua/app-v2/one-video.json) · Store page: https://www.sandbase.ai/model/xigua/app-v2/one-video

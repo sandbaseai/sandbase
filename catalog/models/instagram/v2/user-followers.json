@@ -27,11 +27,13 @@
       "user_id": {
         "type": "string",
         "title": "User Id",
+        "example": "18527",
         "description": "User ID (either username or user_id required)"
       },
       "username": {
         "type": "string",
         "title": "Username",
+        "example": "instagram",
         "description": "Username (either username or user_id required)"
       },
       "pagination_token": {
@@ -64,7 +66,7 @@
       "default": true
     }
   ],
-  "readme": "# Instagram User Followers (V2) API\n\nFetch a list of followers for an Instagram user by providing either `username` or `user_id`.\n\n## Use cases\n\n- Analyze audience growth and demographic reach for target accounts.\n- Audit follower accounts for brand partnership evaluations.\n- Map social follower networks across public Instagram profiles.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/instagram/v2/user-followers\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `user_id` | string | No | User ID (either username or user_id required) |\n| `username` | string | No | Username (either username or user_id required) |\n| `pagination_token` | string | No | Pagination token from previous response |\n\n## Notes\n\n- Either `username` or `user_id` must be provided.\n- Pass `pagination_token` from a previous response to retrieve the next page of followers.\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [Instagram Comment Replies (V2)](/model/instagram/v2/comment-replies): Retrieves a paginated list of replies to an Instagram comment using the post URL or shortcode and the target comment ID.\n- [Instagram General Search (V2)](/model/instagram/v2/general-search): Returns Instagram search results matching a specified keyword, including media items, user profiles, and engagement statistics.\n- [Instagram Hashtag Posts (V2)](/model/instagram/v2/hashtag-posts): Returns posts associated with a specific hashtag.\n",
+  "readme": "# Instagram User Followers (V2) API\n\nFetch a list of followers for an Instagram user by providing either `username` or `user_id`.\n\n## Use cases\n\n- Analyze audience growth and demographic reach for target accounts.\n- Audit follower accounts for brand partnership evaluations.\n- Map social follower networks across public Instagram profiles.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/instagram/v2/user-followers\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"username\": \"instagram\", \"user_id\": \"18527\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `user_id` | string | No | User ID (either username or user_id required) |\n| `username` | string | No | Username (either username or user_id required) |\n| `pagination_token` | string | No | Pagination token from previous response |\n\n## Notes\n\n- Either `username` or `user_id` must be provided.\n- Pass `pagination_token` from a previous response to retrieve the next page of followers.\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [Instagram Comment Replies (V2)](/apis/instagram/v2/comment-replies): Retrieves a paginated list of replies to an Instagram comment using the post URL or shortcode and the target comment ID.\n- [Instagram General Search (V2)](/apis/instagram/v2/general-search): Returns Instagram search results matching a specified keyword, including media items, user profiles, and engagement statistics.\n- [Instagram Hashtag Posts (V2)](/apis/instagram/v2/hashtag-posts): Returns posts associated with a specific hashtag.\n",
   "page_url": "https://www.sandbase.ai/model/instagram/v2/user-followers",
   "created_at": "2026-07-31T03:56:05.842Z"
 }

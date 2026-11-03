@@ -86,7 +86,7 @@ Look up metadata and profile details for a YouTube channel using `channel_id`. S
 curl -X POST "https://api.sandbase.ai/v1/api/youtube/web-v2/channel-description" \
   -H "Authorization: Bearer $SANDBASE_API_KEY" \
   -H "Content-Type: application/json" \
-  -d '{}'
+  -d '{"channel_id": "UCeu6U67OzJhV1KwBansH3Dg", "language_code": "zh-CN", "country_code": "US"}'
 ```
 
 ### Parameters
@@ -110,9 +110,9 @@ Flat price per call. Failed calls, including lookups whose target does not exist
 
 ### Related APIs
 
-- [YouTube Channel Community Posts](/model/youtube/web-v2/channel-community-posts): Returns community posts from a specific YouTube channel, including text content, polls, votes, and comment counts.
-- [YouTube Channel ID from URL](/model/youtube/web-v2/channel-id): Resolves a YouTube channel URL to its canonical channel ID.
-- [YouTube Channel Shorts](/model/youtube/web-v2/channel-shorts): Returns a list of YouTube Shorts from a specified channel.
+- [YouTube Channel Community Posts](/apis/youtube/web-v2/channel-community-posts): Returns community posts from a specific YouTube channel, including text content, polls, votes, and comment counts.
+- [YouTube Channel ID from URL](/apis/youtube/web-v2/channel-id): Resolves a YouTube channel URL to its canonical channel ID.
+- [YouTube Channel Shorts](/apis/youtube/web-v2/channel-shorts): Returns a list of YouTube Shorts from a specified channel.
 
 ---
 Machine-readable: [`catalog/models/youtube/web-v2/channel-description.json`](../../../../catalog/models/youtube/web-v2/channel-description.json) · Store page: https://www.sandbase.ai/model/youtube/web-v2/channel-description

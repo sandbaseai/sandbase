@@ -20,7 +20,7 @@ Modes: sync (default `sync`). Only pass `mode` values listed here. The SDKs' `ru
 ```bash
 curl https://api.sandbase.ai/v1/run \
   -H "Authorization: Bearer $SANDBASE_API_KEY" -H 'Content-Type: application/json' \
-  -d '{"model": "threads/web/user-reposts", "user_id": "<user_id>"}'
+  -d '{"model": "threads/web/user-reposts", "user_id": "63625256886"}'
 ```
 
 **Python** ([sdk/python](../../../../sdk/python))
@@ -28,7 +28,7 @@ curl https://api.sandbase.ai/v1/run \
 ```python
 from sandbase import SandBase
 
-result = SandBase().run('threads/web/user-reposts', {'user_id': '<user_id>'})
+result = SandBase().run('threads/web/user-reposts', {'user_id': '63625256886'})
 print(result["outputs"])
 ```
 
@@ -38,7 +38,7 @@ print(result["outputs"])
 import { SandBase } from "@sandbaseai/sdk";
 
 const result = await new SandBase().run("threads/web/user-reposts", {
-  "user_id": "<user_id>"
+  "user_id": "63625256886"
 });
 console.log(result.outputs);
 ```
@@ -48,7 +48,7 @@ console.log(result.outputs);
 ```go
 c, _ := sandbase.NewClient("")
 run, err := c.Run(ctx, "threads/web/user-reposts", sandbase.Params{
-	"user_id": "<user_id>",
+	"user_id": "63625256886",
 })
 ```
 
@@ -77,7 +77,7 @@ Retrieve reposted posts for a specific account using `user_id`. Optional paginat
 curl -X POST "https://api.sandbase.ai/v1/api/threads/web/user-reposts" \
   -H "Authorization: Bearer $SANDBASE_API_KEY" \
   -H "Content-Type: application/json" \
-  -d '{"user_id": "<user_id>"}'
+  -d '{"user_id": "63625256886"}'
 ```
 
 ### Parameters
@@ -97,9 +97,9 @@ Flat price per call. Failed calls, including lookups whose target does not exist
 
 ### Related APIs
 
-- [Threads Post Detail](/model/threads/web/post-detail): Returns detailed information for a specific Threads post using its numeric ID.
-- [Threads Post Detail (V2)](/model/threads/web/post-detail-v2): Returns detailed information for a specific Threads post.
-- [Threads Profile Search](/model/threads/web/search-profiles): Searches Threads user profiles based on a specified text query string.
+- [Threads Post Detail](/apis/threads/web/post-detail): Returns detailed information for a specific Threads post using its numeric ID.
+- [Threads Post Detail (V2)](/apis/threads/web/post-detail-v2): Returns detailed information for a specific Threads post.
+- [Threads Profile Search](/apis/threads/web/search-profiles): Searches Threads user profiles based on a specified text query string.
 
 ---
 Machine-readable: [`catalog/models/threads/web/user-reposts.json`](../../../../catalog/models/threads/web/user-reposts.json) · Store page: https://www.sandbase.ai/model/threads/web/user-reposts

@@ -65,13 +65,12 @@ Same call via the path form: `POST /v1/api/bilibili/web/video-subtitle` with the
 
 ## Details
 
-Retrieve subtitle information for a Bilibili video by providing the video ID in `a_id` and the specific part CID in `c_id`.
+List the subtitle tracks of a Bilibili video, including AI-generated Chinese subtitles, with a download URL for each track. Needs the video's `aid` and `cid`.
 
 ### Use cases
 
-- Extract caption tracks for video transcription and translation workflows.
-- Display synchronized subtitles in custom video players.
-- Inspect available subtitle languages and formats for a given video clip.
+- Get a video's transcript for summaries or search.
+- Translate or index Bilibili videos by their spoken content.
 
 ### Request
 
@@ -82,6 +81,8 @@ curl -X POST "https://api.sandbase.ai/v1/api/bilibili/web/video-subtitle" \
   -d '{"a_id": "114006081739452", "c_id": "28400484458"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
@@ -89,19 +90,57 @@ curl -X POST "https://api.sandbase.ai/v1/api/bilibili/web/video-subtitle" \
 | `a_id` | string | Yes | Video id |
 | `c_id` | string | Yes | Video cid |
 
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "allow_submit": false,
+  "font_size_type": 0,
+  "lan": "",
+  "lan_doc": "",
+  "subtitle_position": null,
+  "subtitles": [
+    {
+      "ai_status": 2,
+      "ai_type": 0,
+      "id": 1689850260387946240,
+      "id_str": "1689850260387946240",
+      "is_lock": false,
+      "lan": "ai-zh",
+      "lan_doc": "中文",
+      "subtitle_url": "//aisubtitle.hdslb.com/bfs/ai_subtitle/prod/1140060817394522840048445829058a24de…",
+      "subtitle_url_v2": "//subtitle.bilibili.com/S%13%1BP.%1D%28%29X%2CR%5Ej%1F%25w%0E%02H%5EHO4%14%7B4%0…",
+      "type": 1
+    }
+  ]
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `subtitles[]` | Subtitle tracks. |
+| `subtitles[].lan / lan_doc` | Language code (`ai-zh` for AI Chinese) and its label. |
+| `subtitles[].subtitle_url` | Protocol-relative URL of the subtitle JSON; prefix it with `https:`. The file has `body[]` entries with `from`, `to` (seconds) and `content`. |
+| `subtitles[].ai_type / ai_status` | Set for AI-generated tracks. |
+
 ### Notes
 
-- Both `a_id` and `c_id` are required to pinpoint the exact video part.
+- Get `aid` and `cid` from a video detail API; one video has one `cid` per part.
+- Videos without subtitles return an empty `subtitles` list.
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls, including lookups whose target does not exist, are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 
-- [Bilibili Streaming Areas](/model/bilibili/web/all-live-areas): Returns the complete list of streaming broadcast areas and categories on Bilibili.
-- [Bilibili BV to AID Converter](/model/bilibili/web/bv-to-aid): Converts a Bilibili BV identifier to its corresponding numeric AID value.
-- [Bilibili User Collection Folders](/model/bilibili/web/collect-folders): Returns the collection folders owned by a specific Bilibili user.
+- [Bilibili Streaming Areas](/apis/bilibili/web/all-live-areas): Returns the complete list of streaming broadcast areas and categories on Bilibili.
+- [Bilibili BV to AID Converter](/apis/bilibili/web/bv-to-aid): Converts a Bilibili BV identifier to its corresponding numeric AID value.
+- [Bilibili User Collection Folders](/apis/bilibili/web/collect-folders): Returns the collection folders owned by a specific Bilibili user.
 
 ---
 Machine-readable: [`catalog/models/bilibili/web/video-subtitle.json`](../../../../catalog/models/bilibili/web/video-subtitle.json) · Store page: https://www.sandbase.ai/model/bilibili/web/video-subtitle

@@ -81,7 +81,7 @@ Retrieve daily fan counts for a specified Douyin creator by providing `kolId`, `
 curl -X POST "https://api.sandbase.ai/v1/api/douyin/xingtu/kol-daily-fans-v1" \
   -H "Authorization: Bearer $SANDBASE_API_KEY" \
   -H "Content-Type: application/json" \
-  -d '{"endDate": "<endDate>", "kolId": "<kolId>", "startDate": "<startDate>"}'
+  -d '{"endDate": "2025-01-01", "kolId": "7048929565493690398", "startDate": "2024-12-01"}'
 ```
 
 ### Parameters
@@ -103,9 +103,9 @@ Flat price per call. Failed calls, including lookups whose target does not exist
 
 ### Related APIs
 
-- [Douyin Xingtu Author Hot Comment Keywords](/model/douyin/xingtu/author-content-hot-comment-keywords-v1): Returns hot comment keywords from content produced by a Douyin Xingtu creator.
-- [Douyin Xingtu Author Hot Comment Tokens (Xingtu)](/model/douyin/xingtu/author-hot-comment-tokens-v1): Returns hot comment tokens for a Douyin Xingtu creator based on the specified creator ID.
-- [Douyin Xingtu KOL Audience Portrait (V1)](/model/douyin/xingtu/kol-audience-portrait-v1): Returns audience demographic and portrait insights for a Douyin Xingtu creator.
+- [Douyin Xingtu Author Hot Comment Keywords](/apis/douyin/xingtu/author-content-hot-comment-keywords-v1): Returns hot comment keywords from content produced by a Douyin Xingtu creator.
+- [Douyin Xingtu Author Hot Comment Tokens (Xingtu)](/apis/douyin/xingtu/author-hot-comment-tokens-v1): Returns hot comment tokens for a Douyin Xingtu creator based on the specified creator ID.
+- [Douyin Xingtu KOL Audience Portrait (V1)](/apis/douyin/xingtu/kol-audience-portrait-v1): Returns audience demographic and portrait insights for a Douyin Xingtu creator.
 
 ---
 Machine-readable: [`catalog/models/douyin/xingtu/kol-daily-fans-v1.json`](../../../../catalog/models/douyin/xingtu/kol-daily-fans-v1.json) · Store page: https://www.sandbase.ai/model/douyin/xingtu/kol-daily-fans-v1

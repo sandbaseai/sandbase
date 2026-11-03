@@ -28,6 +28,7 @@
       "url": {
         "type": "string",
         "title": "Board URL",
+        "example": "https://www.pinterest.com/pinterest/official-news/",
         "description": "The URL of the Pinterest board to fetch pins from."
       },
       "trim": {
@@ -83,7 +84,7 @@
     "model": "per_call",
     "per_call": 0.018
   },
-  "readme": "# Pinterest Board Pins API\n\nRetrieve pins and associated metadata from a Pinterest board using its `url`. The endpoint also supports pagination via `cursor` and lightweight responses via `trim`.\n\n## Use cases\n\n- Extract pin images and descriptions from a target Pinterest board.\n- Monitor board content additions and aggregate pin metrics over time.\n- Collect creative assets from curated boards for visual reference libraries.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/pinterest/board\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"url\": \"<url>\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `url` | string | Yes | The URL of the Pinterest board to fetch pins from. |\n| `trim` | boolean | No | Set to true for a trimmed down version of the response. |\n| `cursor` | string | No | Pagination cursor from a previous response to get the next page. |\n\n## Notes\n\n- Use `cursor` to request subsequent pages of pins.\n- Set `trim` to true to retrieve a reduced response payload.\n\n## Pricing\n\nFlat price per call. Failed calls are not charged.\n",
+  "readme": "# Pinterest Board Pins API\n\nRetrieve pins and associated metadata from a Pinterest board using its `url`. The endpoint also supports pagination via `cursor` and lightweight responses via `trim`.\n\n## Use cases\n\n- Extract pin images and descriptions from a target Pinterest board.\n- Monitor board content additions and aggregate pin metrics over time.\n- Collect creative assets from curated boards for visual reference libraries.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/pinterest/board\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"url\": \"https://www.pinterest.com/pinterest/official-news/\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `url` | string | Yes | The URL of the Pinterest board to fetch pins from. |\n| `trim` | boolean | No | Set to true for a trimmed down version of the response. |\n| `cursor` | string | No | Pagination cursor from a previous response to get the next page. |\n\n## Notes\n\n- Use `cursor` to request subsequent pages of pins.\n- Set `trim` to true to retrieve a reduced response payload.\n\n## Pricing\n\nFlat price per call. Failed calls are not charged.\n",
   "page_url": "https://www.sandbase.ai/model/pinterest/board",
   "published_at": "2024-01-01T00:00:00Z",
   "created_at": "2026-08-09T12:39:41.406Z"

@@ -20,7 +20,7 @@ Modes: sync (default `sync`). Only pass `mode` values listed here. The SDKs' `ru
 ```bash
 curl https://api.sandbase.ai/v1/run \
   -H "Authorization: Bearer $SANDBASE_API_KEY" -H 'Content-Type: application/json' \
-  -d '{"model": "tiktok/web/all-unique-id", "body": ["<body>"]}'
+  -d '{"model": "tiktok/web/all-unique-id", "body": ["https://www.tiktok.com/@tiktok"]}'
 ```
 
 **Python** ([sdk/python](../../../../sdk/python))
@@ -28,7 +28,7 @@ curl https://api.sandbase.ai/v1/run \
 ```python
 from sandbase import SandBase
 
-result = SandBase().run('tiktok/web/all-unique-id', {'body': ['<body>']})
+result = SandBase().run('tiktok/web/all-unique-id', {'body': ['https://www.tiktok.com/@tiktok']})
 print(result["outputs"])
 ```
 
@@ -39,7 +39,7 @@ import { SandBase } from "@sandbaseai/sdk";
 
 const result = await new SandBase().run("tiktok/web/all-unique-id", {
   "body": [
-    "<body>"
+    "https://www.tiktok.com/@tiktok"
   ]
 });
 console.log(result.outputs);
@@ -50,7 +50,7 @@ console.log(result.outputs);
 ```go
 c, _ := sandbase.NewClient("")
 run, err := c.Run(ctx, "tiktok/web/all-unique-id", sandbase.Params{
-	"body": []any{"<body>"},
+	"body": []any{"https://www.tiktok.com/@tiktok"},
 })
 ```
 
@@ -78,7 +78,7 @@ Retrieves unique identifiers for TikTok users based on their profile URLs provid
 curl -X POST "https://api.sandbase.ai/v1/api/tiktok/web/all-unique-id" \
   -H "Authorization: Bearer $SANDBASE_API_KEY" \
   -H "Content-Type: application/json" \
-  -d '{"body": "<body>"}'
+  -d '{"body": ["https://www.tiktok.com/@tiktok"]}'
 ```
 
 ### Parameters
@@ -97,9 +97,9 @@ Flat price per call. Failed calls, including lookups whose target does not exist
 
 ### Related APIs
 
-- [TikTok Video IDs from URLs (Batch)](/model/tiktok/web/all-aweme-id): Resolves and extracts TikTok video IDs from a list of video URLs.
-- [TikTok User Sec User ID Extractor](/model/tiktok/web/all-sec-user-id): Returns a list of sec_user_id identifiers corresponding to TikTok user profile URLs.
-- [TikTok Video ID from URL](/model/tiktok/web/aweme-id): Extracts and returns the unique single video ID from a provided TikTok video link.
+- [TikTok Video IDs from URLs (Batch)](/apis/tiktok/web/all-aweme-id): Resolves and extracts TikTok video IDs from a list of video URLs.
+- [TikTok User Sec User ID Extractor](/apis/tiktok/web/all-sec-user-id): Returns a list of sec_user_id identifiers corresponding to TikTok user profile URLs.
+- [TikTok Video ID from URL](/apis/tiktok/web/aweme-id): Extracts and returns the unique single video ID from a provided TikTok video link.
 
 ---
 Machine-readable: [`catalog/models/tiktok/web/all-unique-id.json`](../../../../catalog/models/tiktok/web/all-unique-id.json) · Store page: https://www.sandbase.ai/model/tiktok/web/all-unique-id

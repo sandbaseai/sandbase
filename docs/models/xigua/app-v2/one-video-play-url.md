@@ -76,7 +76,7 @@ Retrieve direct video playback links for Xigua videos by providing the target `i
 curl -X POST "https://api.sandbase.ai/v1/api/xigua/app-v2/one-video-play-url" \
   -H "Authorization: Bearer $SANDBASE_API_KEY" \
   -H "Content-Type: application/json" \
-  -d '{"item_id": "<item_id>"}'
+  -d '{"item_id": "7354954305222377999"}'
 ```
 
 ### Parameters
@@ -95,9 +95,9 @@ Flat price per call. Failed calls, including lookups whose target does not exist
 
 ### Related APIs
 
-- [Xigua Single Video Information](/model/xigua/app-v2/one-video): Returns lightweight single video data and associated related video information from Xigua for a specific post by its unique item ID.
-- [Xigua Video Search](/model/xigua/app-v2/search-video): Search Xigua Video (ByteDance long-form video) by keyword: titles, creators, duration, publish time and comment counts, with sort and duration filters.
-- [Xigua User Profile Details](/model/xigua/app-v2/user-info): Returns profile and personal information for a specified Xigua account.
+- [Xigua Single Video Information](/apis/xigua/app-v2/one-video): Returns lightweight single video data and associated related video information from Xigua for a specific post by its unique item ID.
+- [Xigua Video Search](/apis/xigua/app-v2/search-video): Search Xigua Video (ByteDance long-form video) by keyword: titles, creators, duration, publish time and comment counts, with sort and duration filters.
+- [Xigua User Profile Details](/apis/xigua/app-v2/user-info): Returns profile and personal information for a specified Xigua account.
 
 ---
 Machine-readable: [`catalog/models/xigua/app-v2/one-video-play-url.json`](../../../../catalog/models/xigua/app-v2/one-video-play-url.json) · Store page: https://www.sandbase.ai/model/xigua/app-v2/one-video-play-url

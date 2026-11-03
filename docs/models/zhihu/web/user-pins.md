@@ -20,7 +20,7 @@ Modes: sync (default `sync`). Only pass `mode` values listed here. The SDKs' `ru
 ```bash
 curl https://api.sandbase.ai/v1/run \
   -H "Authorization: Bearer $SANDBASE_API_KEY" -H 'Content-Type: application/json' \
-  -d '{"model": "zhihu/web/user-pins", "user_url_token": "<user_url_token>"}'
+  -d '{"model": "zhihu/web/user-pins", "user_url_token": "excited-vczh"}'
 ```
 
 **Python** ([sdk/python](../../../../sdk/python))
@@ -28,7 +28,7 @@ curl https://api.sandbase.ai/v1/run \
 ```python
 from sandbase import SandBase
 
-result = SandBase().run('zhihu/web/user-pins', {'user_url_token': '<user_url_token>'})
+result = SandBase().run('zhihu/web/user-pins', {'user_url_token': 'excited-vczh'})
 print(result["outputs"])
 ```
 
@@ -38,7 +38,7 @@ print(result["outputs"])
 import { SandBase } from "@sandbaseai/sdk";
 
 const result = await new SandBase().run("zhihu/web/user-pins", {
-  "user_url_token": "<user_url_token>"
+  "user_url_token": "excited-vczh"
 });
 console.log(result.outputs);
 ```
@@ -48,7 +48,7 @@ console.log(result.outputs);
 ```go
 c, _ := sandbase.NewClient("")
 run, err := c.Run(ctx, "zhihu/web/user-pins", sandbase.Params{
-	"user_url_token": "<user_url_token>",
+	"user_url_token": "excited-vczh",
 })
 ```
 
@@ -78,7 +78,7 @@ Retrieve a list of pins and moments for a target Zhihu account by specifying `us
 curl -X POST "https://api.sandbase.ai/v1/api/zhihu/web/user-pins" \
   -H "Authorization: Bearer $SANDBASE_API_KEY" \
   -H "Content-Type: application/json" \
-  -d '{"user_url_token": "<user_url_token>"}'
+  -d '{"user_url_token": "excited-vczh"}'
 ```
 
 ### Parameters
@@ -100,9 +100,9 @@ Flat price per call. Failed calls, including lookups whose target does not exist
 
 ### Related APIs
 
-- [Zhihu AI Search Stream](/model/zhihu/web/ai-search-stream): Returns streaming AI search results from Zhihu based on a query prompt.
-- [Zhihu Answer Details](/model/zhihu/web/answer-detail): Retrieves detailed information for a specific Zhihu answer using its numeric ID, including answer text, timestamps, and share links.
-- [Zhihu Article Search](/model/zhihu/web/article-search-v3): Search Zhihu articles and answers by keyword and get titles, excerpts, authors, vote and comment counts, with sorting, content type and time filters plus offse…
+- [Zhihu AI Search Stream](/apis/zhihu/web/ai-search-stream): Returns streaming AI search results from Zhihu based on a query prompt.
+- [Zhihu Answer Details](/apis/zhihu/web/answer-detail): Retrieves detailed information for a specific Zhihu answer using its numeric ID, including answer text, timestamps, and share links.
+- [Zhihu Article Search](/apis/zhihu/web/article-search-v3): Search Zhihu articles and answers by keyword and get titles, excerpts, authors, vote and comment counts, with sorting, content type and time filters plus offse…
 
 ---
 Machine-readable: [`catalog/models/zhihu/web/user-pins.json`](../../../../catalog/models/zhihu/web/user-pins.json) · Store page: https://www.sandbase.ai/model/zhihu/web/user-pins

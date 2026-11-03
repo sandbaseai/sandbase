@@ -144,7 +144,7 @@ Flat price per call. Failed calls, including lookups whose target does not exist
 
 ### Related APIs
 
-- [WeChat Search for Channels Videos](/model/wechat-search/v2/search-videos): Search WeChat Channels videos specifically (`video` vertical), with the result page's "duration" filter, "relevance/newest/most-liked" sort, and "time" dropdow…
+- [WeChat Search for Channels Videos](/apis/wechat-search/v2/search-videos): Search WeChat Channels videos specifically (`video` vertical), with the result page's "duration" filter, "relevance/newest/most-liked" sort, and "time" dropdow…
 
 ---
 Machine-readable: [`catalog/models/wechat-search/v2/search.json`](../../../../catalog/models/wechat-search/v2/search.json) · Store page: https://www.sandbase.ai/model/wechat-search/v2/search

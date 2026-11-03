@@ -77,7 +77,7 @@ Retrieve detailed profile metrics and public information for a Weibo user using 
 curl -X POST "https://api.sandbase.ai/v1/api/weibo/web-v2/user-info" \
   -H "Authorization: Bearer $SANDBASE_API_KEY" \
   -H "Content-Type: application/json" \
-  -d '{}'
+  -d '{"uid": "1722594714", "custom": "shuqi"}'
 ```
 
 ### Parameters
@@ -97,9 +97,9 @@ Flat price per call. Failed calls, including lookups whose target does not exist
 
 ### Related APIs
 
-- [Weibo Advanced Search](/model/weibo/web-v2/advanced-search): Search Weibo posts by keyword with filters for time range, post type (hot, original, verified, media) and content type (images, video, links).
-- [Weibo AI Related Search Content](/model/weibo/web-v2/ai-related-search): Returns AI-generated content extensions for a keyword, including related questions, recommended bloggers, and reference posts.
-- [Weibo AI Search](/model/weibo/web-v2/ai-search): Returns multimodal search results and relevance scores from Weibo intelligent search for a specified keyword or topic query.
+- [Weibo Advanced Search](/apis/weibo/web-v2/advanced-search): Search Weibo posts by keyword with filters for time range, post type (hot, original, verified, media) and content type (images, video, links).
+- [Weibo AI Related Search Content](/apis/weibo/web-v2/ai-related-search): Returns AI-generated content extensions for a keyword, including related questions, recommended bloggers, and reference posts.
+- [Weibo AI Search](/apis/weibo/web-v2/ai-search): Returns multimodal search results and relevance scores from Weibo intelligent search for a specified keyword or topic query.
 
 ---
 Machine-readable: [`catalog/models/weibo/web-v2/user-info.json`](../../../../catalog/models/weibo/web-v2/user-info.json) · Store page: https://www.sandbase.ai/model/weibo/web-v2/user-info

@@ -30,6 +30,7 @@
       "user_id": {
         "type": "string",
         "title": "User Id",
+        "example": "67027868801",
         "description": "User ID, for example: 67027868801, can be obtained from user profile API or post data"
       }
     }
@@ -55,7 +56,7 @@
       }
     }
   ],
-  "readme": "# Threads User Info by ID API\n\nFetch Threads user profile information by supplying a target `user_id`.\n\n## Use cases\n\n- Retrieve Threads profile metadata using an internal account identifier.\n- Inspect user profile details extracted from post interactions.\n- Resolve account information across threads and user directories.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/threads/web/user-info-by-id\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"user_id\": \"<user_id>\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `user_id` | string | Yes | User ID, for example: 67027868801, can be obtained from user profile API or post data |\n\n## Notes\n\n- The `user_id` value can be obtained from the user profile API or from post data.\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [Threads Post Detail](/model/threads/web/post-detail): Returns detailed information for a specific Threads post using its numeric ID.\n- [Threads Post Detail (V2)](/model/threads/web/post-detail-v2): Returns detailed information for a specific Threads post.\n- [Threads Profile Search](/model/threads/web/search-profiles): Searches Threads user profiles based on a specified text query string.\n",
+  "readme": "# Threads User Info by ID API\n\nFetch Threads user profile information by supplying a target `user_id`.\n\n## Use cases\n\n- Retrieve Threads profile metadata using an internal account identifier.\n- Inspect user profile details extracted from post interactions.\n- Resolve account information across threads and user directories.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/threads/web/user-info-by-id\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"user_id\": \"67027868801\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `user_id` | string | Yes | User ID, for example: 67027868801, can be obtained from user profile API or post data |\n\n## Notes\n\n- The `user_id` value can be obtained from the user profile API or from post data.\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [Threads Post Detail](/apis/threads/web/post-detail): Returns detailed information for a specific Threads post using its numeric ID.\n- [Threads Post Detail (V2)](/apis/threads/web/post-detail-v2): Returns detailed information for a specific Threads post.\n- [Threads Profile Search](/apis/threads/web/search-profiles): Searches Threads user profiles based on a specified text query string.\n",
   "page_url": "https://www.sandbase.ai/model/threads/web/user-info-by-id",
   "created_at": "2026-07-31T04:12:54.362Z"
 }

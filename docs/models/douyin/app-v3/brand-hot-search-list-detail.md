@@ -95,9 +95,9 @@ Flat price per call. Failed calls, including lookups whose target does not exist
 
 ### Related APIs
 
-- [Douyin Brand Hot Search List](/model/douyin/app-v3/brand-hot-search-list): Returns the current Douyin brand hot search list and category data.
-- [Douyin Short Link Generator](/model/douyin/app-v3/generate-short-url): Converts a standard Douyin web link into a shortened Douyin URL.
-- [Douyin Video Share QR Code](/model/douyin/app-v3/generate-video-share-qrcode): Returns a Douyin share QR code for a designated target.
+- [Douyin Brand Hot Search List](/apis/douyin/app-v3/brand-hot-search-list): Returns the current Douyin brand hot search list and category data.
+- [Douyin Short Link Generator](/apis/douyin/app-v3/generate-short-url): Converts a standard Douyin web link into a shortened Douyin URL.
+- [Douyin Video Share QR Code](/apis/douyin/app-v3/generate-video-share-qrcode): Returns a Douyin share QR code for a designated target.
 
 ---
 Machine-readable: [`catalog/models/douyin/app-v3/brand-hot-search-list-detail.json`](../../../../catalog/models/douyin/app-v3/brand-hot-search-list-detail.json) · Store page: https://www.sandbase.ai/model/douyin/app-v3/brand-hot-search-list-detail

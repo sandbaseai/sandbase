@@ -139,9 +139,9 @@ Flat price per call. Failed calls, including lookups whose target does not exist
 
 ### Related APIs
 
-- [Xiaohongshu (RED) Note Search](/model/xiaohongshu/app-v2/search-notes): Search Xiaohongshu (RED / Little Red Book) notes by keyword and get titles, authors, cover images and like, collect, comment and share counts, with sort, note-…
-- [Get creator hot inspiration feed](/model/xiaohongshu/app-v2/creator-hot-inspiration-feed): Get creator center hot inspiration feed, using cursor pagination.
-- [Get creator inspiration feed](/model/xiaohongshu/app-v2/creator-inspiration-feed): Get creator center recommended inspiration feed, using cursor pagination.
+- [Xiaohongshu (RED) Note Search](/apis/xiaohongshu/app-v2/search-notes): Search Xiaohongshu (RED / Little Red Book) notes by keyword and get titles, authors, cover images and like, collect, comment and share counts, with sort, note-…
+- [Get creator hot inspiration feed](/apis/xiaohongshu/app-v2/creator-hot-inspiration-feed): Get creator center hot inspiration feed, using cursor pagination.
+- [Get creator inspiration feed](/apis/xiaohongshu/app-v2/creator-inspiration-feed): Get creator center recommended inspiration feed, using cursor pagination.
 
 ---
 Machine-readable: [`catalog/models/xiaohongshu/app-v2/note-comments.json`](../../../../catalog/models/xiaohongshu/app-v2/note-comments.json) · Store page: https://www.sandbase.ai/model/xiaohongshu/app-v2/note-comments

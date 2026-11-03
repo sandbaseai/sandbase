@@ -77,7 +77,7 @@ Query Webcast user profile details on TikTok by providing `user_id` or `sec_user
 curl -X POST "https://api.sandbase.ai/v1/api/tiktok/app-v3/webcast-user-info" \
   -H "Authorization: Bearer $SANDBASE_API_KEY" \
   -H "Content-Type: application/json" \
-  -d '{}'
+  -d '{"sec_user_id": "MS4wLjABAAAAv7iSuuXDJGDvJkmH_vz1qkDZYo1apxgzaxdBSeIuPiM"}'
 ```
 
 ### Parameters
@@ -98,9 +98,9 @@ Flat price per call. Failed calls, including lookups whose target does not exist
 
 ### Related APIs
 
-- [TikTok LIVE Status](/model/tiktok/app-v3/check-live-room-online): Check whether a TikTok LIVE room is currently live by room ID.
-- [TikTok Room Online Status Batch](/model/tiktok/app-v3/check-live-room-online-batch): Returns the online availability status for multiple TikTok broadcast rooms in a single request.
-- [TikTok Content Translation](/model/tiktok/app-v3/content-translate): Translates provided text content into a designated target language.
+- [TikTok LIVE Status](/apis/tiktok/app-v3/check-live-room-online): Check whether a TikTok LIVE room is currently live by room ID.
+- [TikTok Room Online Status Batch](/apis/tiktok/app-v3/check-live-room-online-batch): Returns the online availability status for multiple TikTok broadcast rooms in a single request.
+- [TikTok Content Translation](/apis/tiktok/app-v3/content-translate): Translates provided text content into a designated target language.
 
 ---
 Machine-readable: [`catalog/models/tiktok/app-v3/webcast-user-info.json`](../../../../catalog/models/tiktok/app-v3/webcast-user-info.json) · Store page: https://www.sandbase.ai/model/tiktok/app-v3/webcast-user-info

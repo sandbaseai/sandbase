@@ -76,7 +76,7 @@ Retrieve detailed personal profile information for a Xigua user using their `use
 curl -X POST "https://api.sandbase.ai/v1/api/xigua/app-v2/user-info" \
   -H "Authorization: Bearer $SANDBASE_API_KEY" \
   -H "Content-Type: application/json" \
-  -d '{"user_id": "<user_id>"}'
+  -d '{"user_id": "52712347586"}'
 ```
 
 ### Parameters
@@ -95,9 +95,9 @@ Flat price per call. Failed calls, including lookups whose target does not exist
 
 ### Related APIs
 
-- [Xigua Single Video Information](/model/xigua/app-v2/one-video): Returns lightweight single video data and associated related video information from Xigua for a specific post by its unique item ID.
-- [Xigua Video Play URL](/model/xigua/app-v2/one-video-play-url): Returns the direct playback URL for a specific Xigua video using its unique item identifier.
-- [Xigua Video Search](/model/xigua/app-v2/search-video): Search Xigua Video (ByteDance long-form video) by keyword: titles, creators, duration, publish time and comment counts, with sort and duration filters.
+- [Xigua Single Video Information](/apis/xigua/app-v2/one-video): Returns lightweight single video data and associated related video information from Xigua for a specific post by its unique item ID.
+- [Xigua Video Play URL](/apis/xigua/app-v2/one-video-play-url): Returns the direct playback URL for a specific Xigua video using its unique item identifier.
+- [Xigua Video Search](/apis/xigua/app-v2/search-video): Search Xigua Video (ByteDance long-form video) by keyword: titles, creators, duration, publish time and comment counts, with sort and duration filters.
 
 ---
 Machine-readable: [`catalog/models/xigua/app-v2/user-info.json`](../../../../catalog/models/xigua/app-v2/user-info.json) · Store page: https://www.sandbase.ai/model/xigua/app-v2/user-info

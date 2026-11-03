@@ -1,13 +1,13 @@
 # SandBase capability index
 
-2296 capabilities · generated 2026-11-02T23:37:01Z
+2287 capabilities · generated 2026-11-03T06:46:38Z
 
-- [api](#api) (1860)
-- [audio](#audio) (33)
+- [api](#api) (1850)
+- [audio](#audio) (32)
 - [embedding](#embedding) (2)
-- [image](#image) (104)
+- [image](#image) (105)
 - [llm](#llm) (121)
-- [video](#video) (176)
+- [video](#video) (177)
 
 ## api
 
@@ -396,7 +396,6 @@
 | [`douyin/creator/creator-activity-list`](models/douyin/creator/creator-activity-list.md) | 0.001 / call (free quota) | sync | Returns activity and campaign records for Douyin accounts within a specified timestamp window between start_time and… |
 | [`douyin/creator/creator-content-category`](models/douyin/creator/creator-content-category.md) | 0.001 / call (free quota) | sync | Returns the list of content categories available on Douyin. Authors and applications can review official topic… |
 | [`douyin/creator/creator-content-course`](models/douyin/creator/creator-content-course.md) | 0.001 / call (free quota) | sync | Returns content development courses from the Douyin creator platform for a specified category. Results can be sorted… |
-| [`douyin/creator/creator-hot-challenge-billboard`](models/douyin/creator/creator-hot-challenge-billboard.md) | 0.001 / call (free quota) | sync | Returns trending challenge billboard rankings directly from Douyin. Discover active community challenges and monitor… |
 | [`douyin/creator/creator-hot-course`](models/douyin/creator/creator-hot-course.md) | 0.001 / call (free quota) | sync | Returns trending creator courses or curated topic lessons from Douyin. Results can be filtered by topic category and… |
 | [`douyin/creator/creator-hot-music-billboard`](models/douyin/creator/creator-hot-music-billboard.md) | 0.001 / call (free quota) | sync | Returns trending music rankings from the Douyin creator platform. Filters allow sorting by view metrics, like counts,… |
 | [`douyin/creator/creator-hot-props-billboard`](models/douyin/creator/creator-hot-props-billboard.md) | 0.001 / call (free quota) | sync | Returns trending creator prop rankings and performance metrics on Douyin. Supports filtering by sorting sequence, time… |
@@ -1370,19 +1369,10 @@
 | [`tiktok/app-v3/webcast-user-info`](models/tiktok/app-v3/webcast-user-info.md) | 0.001 / call (free quota) | sync | Retrieves profile information for a specified TikTok Webcast user. Queries data using either a numeric user ID or a… |
 | [`tiktok/audience-demographics`](models/tiktok/audience-demographics.md) | ~0.018 | sync | Get the audience country breakdown (follower count and share per country) for a TikTok creator by handle. |
 | [`tiktok/comment-replies`](models/tiktok/comment-replies.md) | ~0.0006 | sync | List the replies to a TikTok comment with cursor pagination (text, author, likes). |
-| [`tiktok/creator/account-health-status`](models/tiktok/creator/account-health-status.md) | 0.001 / call (free quota) | sync | Returns the health status of a TikTok Shop creator account. Provides the 90-day health score and accumulated violation… |
-| [`tiktok/creator/account-insights-overview`](models/tiktok/creator/account-insights-overview.md) | 0.001 / call (free quota) | sync | Retrieves performance metrics for a TikTok Shop creator account, including revenue, exposure, clicks, and orders for… |
-| [`tiktok/creator/account-violation-list`](models/tiktok/creator/account-violation-list.md) | 0.001 / call (free quota) | sync | Returns the violation history and enforcement actions for a TikTok Shop creator account. Supports chronological… |
-| [`tiktok/creator/creator-account-info`](models/tiktok/creator/creator-account-info.md) | 0.001 / call (free quota) | sync | Returns basic profile details for a TikTok Shop creator account, including username, avatar URLs, account ID, region,… |
-| [`tiktok/creator/live-analytics-summary`](models/tiktok/creator/live-analytics-summary.md) | 0.001 / call (free quota) | sync | Returns streaming performance metrics for a TikTok Shop account over a monthly period. Accepts an optional… |
-| [`tiktok/creator/product-analytics-list`](models/tiktok/creator/product-analytics-list.md) | 0.001 / call (free quota) | sync | Returns products promoted by a TikTok Shop creator along with sales analytics for a designated date range. Results can… |
 | [`tiktok/creator/product-related-videos`](models/tiktok/creator/product-related-videos.md) | 0.001 / call (free quota) | sync | Returns videos linked to a specified product alongside interaction metrics like counts for likes, comments, and… |
-| [`tiktok/creator/showcase-product-list`](models/tiktok/creator/showcase-product-list.md) | 0.001 / call (free quota) | sync | Returns the list of products displayed in a TikTok Shop creator showcase. Supports pagination controls via offset and… |
-| [`tiktok/creator/video-analytics-summary`](models/tiktok/creator/video-analytics-summary.md) | 0.001 / call (free quota) | sync | Returns a video performance overview for a TikTok Shop creator account over a time range. Provides metrics including… |
 | [`tiktok/creator/video-associated-product-list`](models/tiktok/creator/video-associated-product-list.md) | 0.001 / call (free quota) | sync | Returns products tied to specified TikTok Shop videos along with promotional performance metrics. Filter results by… |
 | [`tiktok/creator/video-audience-stats`](models/tiktok/creator/video-audience-stats.md) | 0.001 / call (free quota) | sync | Returns audience profile statistics for a TikTok video by ID, covering gender, age, and regional breakdowns. Supports… |
 | [`tiktok/creator/video-detailed-stats`](models/tiktok/creator/video-detailed-stats.md) | 0.001 / call (free quota) | sync | Returns segmented performance statistics for a TikTok video, including follower growth, completion rates, and… |
-| [`tiktok/creator/video-list-analytics`](models/tiktok/creator/video-list-analytics.md) | 0.001 / call (free quota) | sync | Returns video records and performance metrics for a TikTok Shop creator within a specific date range. Supports… |
 | [`tiktok/creator/video-to-product-stats`](models/tiktok/creator/video-to-product-stats.md) | 0.001 / call (free quota) | sync | Returns promotional metrics linking a TikTok video to a specific product, including views, clicks, orders, and revenue… |
 | [`tiktok/followers`](models/tiktok/followers.md) | ~0.0008 | sync | List the followers of a TikTok account by username, returning each follower's profile basics. |
 | [`tiktok/following`](models/tiktok/following.md) | ~0.0008 | sync | List the accounts a TikTok user follows (handle, display name, follower count, bio) by username. |
@@ -1898,7 +1888,6 @@
 | [`google/lyria-3.5`](models/google/lyria-3.5.md) | 0 / 0 per 1M tok | async | Lyria 3.5 is Google's flagship music generation model for full-length songs up to a few minutes, with verses,… |
 | [`heygen/heygen-voice`](models/heygen/heygen-voice.md) | 0.03 | async | HeyGen Voice turns text into natural speech in 39 languages, with 24 public voices or a cloned voice from a reference… |
 | [`heygen/heygen-voice/turbo`](models/heygen/heygen-voice/turbo.md) | 0.004 | async | HeyGen Voice Turbo is the faster, lower-cost HeyGen text-to-speech model, with the same voices, languages and voice… |
-| [`kwaivgi/kling-video/create-voice`](models/kwaivgi/kling-video/create-voice.md) | 0.035 / call | async | Kling Create Voice clones a reusable custom voice from a 5-30 second recording of a single speaker and returns a voice… |
 | [`minimax/music/2.6`](models/minimax/music/2.6.md) | 0.15 | async | MiniMax Music 2.6 by MiniMax composes a full song with vocals and accompaniment from a style prompt and lyrics, or an… |
 | [`minimax/music/3`](models/minimax/music/3.md) | 0.002–0.6 | async | MiniMax Music 3 by MiniMax composes a complete song up to five minutes long with expressive vocals and evolving… |
 | [`minimax/speech/2.6/hd`](models/minimax/speech/2.6/hd.md) | 0.0026 | async | MiniMax Speech 2.6 HD by MiniMax converts text into natural, high-fidelity speech in 40+ languages with system or… |
@@ -2010,6 +1999,7 @@
 | [`openai/gpt-image-2/edit`](models/openai/gpt-image-2/edit.md) | 0.02–0.73 | async | GPT Image 2 Editing supports image editing and multi-image synthesis with high-quality results. |
 | [`recraft/recraft/v4.1`](models/recraft/recraft/v4.1.md) | 0.035 / call | async | Recraft V4.1 by Recraft - generate stunning images from text prompts with state-of-the-art AI. Supports multiple… |
 | [`recraft/recraft/v4.1/utility`](models/recraft/recraft/v4.1/utility.md) | 0.04 | async | Recraft V4.1 Utility by Recraft - generate stunning images from text prompts with state-of-the-art AI. Supports… |
+| [`sandbase-ai/cat-vton`](models/sandbase-ai/cat-vton.md) | 0.00125 / call | async | CatVTON is a virtual try-on model. It dresses the person in a photo with a garment from a second image, with controls… |
 | [`tencent/hunyuan-3d/3.0/image-to-3d`](models/tencent/hunyuan-3d/3.0/image-to-3d.md) | 0.45–0.9 | async | Hunyuan 3d V3 is Tencent's image-to-3D AI model. Transform photographs into production-ready 3D meshes with accurate… |
 | [`tencent/hunyuan-3d/3.1/pro/image-to-3d`](models/tencent/hunyuan-3d/3.1/pro/image-to-3d.md) | 0.525–0.675 | async | Hunyuan 3d 3.1 Pro by Tencent - convert 2D images into 3D models with AI. Generate textured 3D assets from single… |
 | [`tencent/hunyuan-3d/3.1/pro/text-to-3d`](models/tencent/hunyuan-3d/3.1/pro/text-to-3d.md) | 0.525–0.675 | async | Hunyuan 3d 3.1 Pro is Tencent's text-to-3D AI model. Turn written descriptions into textured 3D objects with realistic… |
@@ -2279,6 +2269,7 @@
 | [`kwaivgi/kling-video/v3/standard/image-to-video`](models/kwaivgi/kling-video/v3/standard/image-to-video.md) | 0.252–1.008 | async | Kling V3 Standard Image to Video by Kuaishou animates a start image, optionally toward an end image, into a 3-15… |
 | [`kwaivgi/kling-video/v3/standard/motion-control`](models/kwaivgi/kling-video/v3/standard/motion-control.md) | ~0.63 | async | Kling V3 Standard Motion Control by Kuaishou transfers the motion, expressions, and camera movement of a reference… |
 | [`kwaivgi/kling-video/v3/standard/text-to-video`](models/kwaivgi/kling-video/v3/standard/text-to-video.md) | 0.252–1.008 | async | Kling V3 Standard Text to Video by Kuaishou turns a text prompt into a 3-15 second 720p video with optional native… |
+| [`kwaivgi/kling-video/v4`](models/kwaivgi/kling-video/v4.md) | unknown | async | Kling V4 is Kuaishou's next-generation video model, announced on September 28, 2026, with single generations of up to… |
 | [`kwaivgi/kling-video/v4/image-to-video`](models/kwaivgi/kling-video/v4/image-to-video.md) | 0.471–7.05 | async | Kling V4 Image to Video by Kuaishou animates a start image, optionally toward an end image, into a 3-30 second video. |
 | [`kwaivgi/kling-video/v4/reference-to-video`](models/kwaivgi/kling-video/v4/reference-to-video.md) | ~1.175 | async | Kling V4 Reference to Video by Kuaishou generates a 3-30 second video that keeps characters, objects and motion from… |
 | [`kwaivgi/kling-video/v4/text-to-video`](models/kwaivgi/kling-video/v4/text-to-video.md) | 0.471–7.05 | async | Kling V4 Text to Video by Kuaishou turns a text prompt into a 3-30 second video at 720p or 1080p. |

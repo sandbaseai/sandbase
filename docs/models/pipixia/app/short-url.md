@@ -76,7 +76,7 @@ Converts long links into shortened URLs using `original_url`. Useful for sharing
 curl -X POST "https://api.sandbase.ai/v1/api/pipixia/app/short-url" \
   -H "Authorization: Bearer $SANDBASE_API_KEY" \
   -H "Content-Type: application/json" \
-  -d '{"original_url": "<original_url>"}'
+  -d '{"original_url": "https://h5.pipix.com/item/7385813877985909043"}'
 ```
 
 ### Parameters
@@ -95,9 +95,9 @@ Flat price per call. Failed calls, including lookups whose target does not exist
 
 ### Related APIs
 
-- [Pipixia Hashtag Details](/model/pipixia/app/hashtag-detail): Retrieves metadata and profile assets for a specific Pipixia hashtag by its unique identifier.
-- [Pipixia Hashtag Post List](/model/pipixia/app/hashtag-post-list): Returns a list of posts associated with a specific hashtag on Pipixia.
-- [Pipixia App Home Feed](/model/pipixia/app/home-feed): Returns recommended posts from the Pipixia home feed.
+- [Pipixia Hashtag Details](/apis/pipixia/app/hashtag-detail): Retrieves metadata and profile assets for a specific Pipixia hashtag by its unique identifier.
+- [Pipixia Hashtag Post List](/apis/pipixia/app/hashtag-post-list): Returns a list of posts associated with a specific hashtag on Pipixia.
+- [Pipixia App Home Feed](/apis/pipixia/app/home-feed): Returns recommended posts from the Pipixia home feed.
 
 ---
 Machine-readable: [`catalog/models/pipixia/app/short-url.json`](../../../../catalog/models/pipixia/app/short-url.json) · Store page: https://www.sandbase.ai/model/pipixia/app/short-url

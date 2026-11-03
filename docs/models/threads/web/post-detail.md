@@ -96,9 +96,9 @@ Flat price per call. Failed calls, including lookups whose target does not exist
 
 ### Related APIs
 
-- [Threads Post Detail (V2)](/model/threads/web/post-detail-v2): Returns detailed information for a specific Threads post.
-- [Threads Profile Search](/model/threads/web/search-profiles): Searches Threads user profiles based on a specified text query string.
-- [Threads Recent Content Search](/model/threads/web/search-recent): Searches recent Threads content matching a specified keyword query.
+- [Threads Post Detail (V2)](/apis/threads/web/post-detail-v2): Returns detailed information for a specific Threads post.
+- [Threads Profile Search](/apis/threads/web/search-profiles): Searches Threads user profiles based on a specified text query string.
+- [Threads Recent Content Search](/apis/threads/web/search-recent): Searches recent Threads content matching a specified keyword query.
 
 ---
 Machine-readable: [`catalog/models/threads/web/post-detail.json`](../../../../catalog/models/threads/web/post-detail.json) · Store page: https://www.sandbase.ai/model/threads/web/post-detail

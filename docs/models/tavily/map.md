@@ -79,7 +79,7 @@ Maps website URL structures starting from a target `url`. Controls discovery bou
 curl -X POST "https://api.sandbase.ai/v1/api/tavily/map" \
   -H "Authorization: Bearer $SANDBASE_API_KEY" \
   -H "Content-Type: application/json" \
-  -d '{"url": "<url>"}'
+  -d '{"url": "https://docs.tavily.com"}'
 ```
 
 ### Parameters

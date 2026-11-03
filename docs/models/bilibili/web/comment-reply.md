@@ -66,13 +66,12 @@ Same call via the path form: `POST /v1/api/bilibili/web/comment-reply` with the 
 
 ## Details
 
-Fetch threaded replies for a specific comment using `bv_id` and `rpid`. Browse through conversation pages by specifying `pn`.
+List the replies under one Bilibili comment (a comment thread), with each reply's text, author, likes and time. You need the video's BV ID and the root comment's `rpid`.
 
 ### Use cases
 
-- Inspect user conversations beneath specific video comments.
-- Analyze engagement and reaction metrics on comment threads.
-- Build moderation or archiving tools for video discussion replies.
+- Read full discussion threads, not only top-level comments.
+- Collect replies for sentiment or community analysis.
 
 ### Request
 
@@ -83,60 +82,127 @@ curl -X POST "https://api.sandbase.ai/v1/api/bilibili/web/comment-reply" \
   -d '{"bv_id": "BV1dFad6aEz9", "rpid": "237108091664"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
 |---|---|---|---|
-| `rpid` | string | Yes | Reply id |
 | `bv_id` | string | Yes | Video id |
+| `rpid` | string | Yes | Reply id |
 | `pn` | integer | No | Page number |
 
 ### Example response
 
-Real response for the request above, trimmed to the main fields. User names and long IDs are masked.
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
 
 ```json
 {
+  "code": 0,
   "data": {
+    "config": {
+      "read_only": false,
+      "show_up_flag": false,
+      "showtopic": 0
+    },
+    "control": {
+      "answer_guide_android_url": "https://www.bilibili.com/h5/newbie/entry?navhide=1&re_src=6",
+      "answer_guide_icon_url": "http://i0.hdslb.com/bfs/emote/96940d16602cacbbac796245b7bb99fa9b5c970c.png",
+      "answer_guide_ios_url": "https://www.bilibili.com/h5/newbie/entry?navhide=1&re_src=12",
+      "answer_guide_text": "需要升级成为lv2会员后才可以评论，先去答题转正吧！",
+      "bg_text": "",
+      "child_input_text": "下面我简单喵两句",
+      "disable_jump_emote": false,
+      "empty_page": null,
+      "enable_charged": false,
+      "enable_cm_biz_helper": false,
+      "giveup_input_text": "不发没关系，请继续友善哦~",
+      "input_disable": false
+    },
+    "page": {
+      "count": 34,
+      "num": 1,
+      "size": 20
+    },
     "replies": [
       {
+        "action": 0,
+        "assist": 0,
+        "attr": 0,
+        "content": {
+          "jump_url": {},
+          "max_line": 6,
+          "members": [],
+          "message": "那是相当低，很多都是法不责众，真的恶心！"
+        },
         "count": 0,
         "ctime": 1723373731,
+        "dialog": 237107560304,
+        "dialog_str": "237107560304",
         "dynamic_id_str": "0",
-        "like": 18,
-        "rcount": 0,
-        "type": 1,
-        "member": {
-          "rank": "10000",
-          "uname": "喜欢孤独的滋味"
+        "fansgrade": 0,
+        "folder": {
+          "has_folded": false,
+          "is_folded": false,
+          "rule": ""
         },
-        "reply_control": {
-          "time_desc": "786天前发布"
-        },
-        "up_action": {
-          "like": false
-        }
+        "invisible": false
       }
-    ]
-  }
+    ],
+    "root": {
+      "action": 0,
+      "assist": 0,
+      "attr": 0,
+      "content": {
+        "jump_url": {},
+        "max_line": 6,
+        "members": [],
+        "message": "惩治谣言，任重道远啊。现在造谣的成本还是有点低"
+      },
+      "count": 47,
+      "ctime": 1723373621,
+      "dialog": 0,
+      "dialog_str": "0",
+      "dynamic_id_str": "0",
+      "fansgrade": 0,
+      "folder": {
+        "has_folded": false,
+        "is_folded": false,
+        "rule": ""
+      },
+      "invisible": false
+    },
+    "upper": {
+      "mid": 203680252
+    }
+  },
+  "message": "OK",
+  "ttl": 1
 }
 ```
 
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `data.page` | `count` total replies, `num` page number, `size` replies per page (20). |
+| `data.replies[]` | Replies: `rpid`, `content.message` (text), `like`, `ctime` (Unix seconds), `member` (author name, level, avatar) and `dialog` (the reply it answers). |
+| `data.root` | The root comment itself. |
+
 ### Notes
 
-- Identify the target video using `bv_id`.
-- Provide the parent comment identifier via `rpid`.
-- Use `pn` to page through nested reply results.
+- Get `rpid` values from the comments returned by [Bilibili Video Comments](/apis/bilibili/app/video-comments).
+- Page through replies with `pn` (1, 2, ...) until `replies` is empty.
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls, including lookups whose target does not exist, are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 
-- [Bilibili Streaming Areas](/model/bilibili/web/all-live-areas): Returns the complete list of streaming broadcast areas and categories on Bilibili.
-- [Bilibili BV to AID Converter](/model/bilibili/web/bv-to-aid): Converts a Bilibili BV identifier to its corresponding numeric AID value.
-- [Bilibili User Collection Folders](/model/bilibili/web/collect-folders): Returns the collection folders owned by a specific Bilibili user.
+- [Bilibili Streaming Areas](/apis/bilibili/web/all-live-areas): Returns the complete list of streaming broadcast areas and categories on Bilibili.
+- [Bilibili BV to AID Converter](/apis/bilibili/web/bv-to-aid): Converts a Bilibili BV identifier to its corresponding numeric AID value.
+- [Bilibili User Collection Folders](/apis/bilibili/web/collect-folders): Returns the collection folders owned by a specific Bilibili user.
 
 ---
 Machine-readable: [`catalog/models/bilibili/web/comment-reply.json`](../../../../catalog/models/bilibili/web/comment-reply.json) · Store page: https://www.sandbase.ai/model/bilibili/web/comment-reply

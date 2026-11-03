@@ -62,13 +62,12 @@ Same call via the path form: `POST /v1/api/douyin/web/aweme-id` with the body ab
 
 ## Details
 
-Parse a Douyin video link provided in `url` to extract its underlying video ID.
+Extract the `aweme_id` (Douyin video ID) from a Douyin video link. Pass a `https://www.douyin.com/video/<aweme_id>` link.
 
 ### Use cases
 
-- Extract video IDs from shared Douyin web links.
-- Normalize video URLs before querying metadata endpoints.
-- Resolve raw post links captured from social feeds.
+- Normalize shared links before calling video detail, comments or download APIs, which take `aweme_id`.
+- Deduplicate videos collected as links from different sources.
 
 ### Request
 
@@ -79,25 +78,42 @@ curl -X POST "https://api.sandbase.ai/v1/api/douyin/web/aweme-id" \
   -d '{"url": "https://www.douyin.com/video/7512756548356492544"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
 |---|---|---|---|
-| `url` | string | Yes | — |
+| `url` | string | Yes |  |
+
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+"7512756548356492544"
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `(body)` | The `aweme_id` as a string, for example `"7512756548356492544"`. |
 
 ### Notes
 
-- Requires a valid Douyin video URL in the `url` parameter.
+- For many links in one call use [Douyin All Aweme IDs](/apis/douyin/web/all-aweme-id).
+- Keep the ID as a string; it exceeds JavaScript's safe integer range.
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls, including lookups whose target does not exist, are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 
-- [Douyin Batch Video ID Extraction](/model/douyin/web/all-aweme-id): Extracts video IDs from a list of Douyin video URLs.
-- [Douyin sec_user_ids from URLs (Batch)](/model/douyin/web/all-sec-user-id): Extracts Douyin sec_user_id values in bulk from a list of user homepage URLs.
-- [Douyin Webcast ID Extraction](/model/douyin/web/all-webcast-id): Extracts webcast IDs from a submitted list of Douyin live room links.
+- [Douyin Batch Video ID Extraction](/apis/douyin/web/all-aweme-id): Extracts video IDs from a list of Douyin video URLs.
+- [Douyin sec_user_ids from URLs (Batch)](/apis/douyin/web/all-sec-user-id): Extracts Douyin sec_user_id values in bulk from a list of user homepage URLs.
+- [Douyin Webcast ID Extraction](/apis/douyin/web/all-webcast-id): Extracts webcast IDs from a submitted list of Douyin live room links.
 
 ---
 Machine-readable: [`catalog/models/douyin/web/aweme-id.json`](../../../../catalog/models/douyin/web/aweme-id.json) · Store page: https://www.sandbase.ai/model/douyin/web/aweme-id

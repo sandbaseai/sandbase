@@ -160,9 +160,9 @@ Flat price per call. Failed calls, including lookups whose target does not exist
 
 ### Related APIs
 
-- [Check if Subreddit is Muted](/model/reddit/app/check-subreddit-muted): Check if a specified Reddit subreddit is muted by the current user.
-- [Fetch Reddit APP Comment Replies (Sub-comments)](/model/reddit/app/comment-replies): Fetch replies (sub-comments/second-level comments) under a specified Reddit APP comment Use this endpoint when a comment node has more.cursor field to get its …
-- [Fetch Reddit APP Community Highlights](/model/reddit/app/community-highlights): Fetch featured highlight content of a specified Reddit APP community, including popular posts and important announcements.
+- [Check if Subreddit is Muted](/apis/reddit/app/check-subreddit-muted): Check if a specified Reddit subreddit is muted by the current user.
+- [Fetch Reddit APP Comment Replies (Sub-comments)](/apis/reddit/app/comment-replies): Fetch replies (sub-comments/second-level comments) under a specified Reddit APP comment Use this endpoint when a comment node has more.cursor field to get its …
+- [Fetch Reddit APP Community Highlights](/apis/reddit/app/community-highlights): Fetch featured highlight content of a specified Reddit APP community, including popular posts and important announcements.
 
 ---
 Machine-readable: [`catalog/models/reddit/app/dynamic-search.json`](../../../../catalog/models/reddit/app/dynamic-search.json) · Store page: https://www.sandbase.ai/model/reddit/app/dynamic-search

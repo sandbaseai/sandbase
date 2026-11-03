@@ -105,9 +105,9 @@ Flat price per call. Failed calls, including lookups whose target does not exist
 
 ### Related APIs
 
-- [Douyin DOU+ Promotable Items](/model/douyin/douplus/promotable-item-list): Returns the promotable video item list for a Douyin account on the DOU+ promotion page.
-- [Douyin DOU+ Talent Categories](/model/douyin/douplus/talent-categories): Returns the Douyin DOU+ talent category directory.
-- [Douyin DOU+ Talents by Category](/model/douyin/douplus/talents-by-category): Returns a list of DOU+ talents filtered by category name or keyword.
+- [Douyin DOU+ Promotable Items](/apis/douyin/douplus/promotable-item-list): Returns the promotable video item list for a Douyin account on the DOU+ promotion page.
+- [Douyin DOU+ Talent Categories](/apis/douyin/douplus/talent-categories): Returns the Douyin DOU+ talent category directory.
+- [Douyin DOU+ Talents by Category](/apis/douyin/douplus/talents-by-category): Returns a list of DOU+ talents filtered by category name or keyword.
 
 ---
 Machine-readable: [`catalog/models/douyin/douplus/search-user.json`](../../../../catalog/models/douyin/douplus/search-user.json) · Store page: https://www.sandbase.ai/model/douyin/douplus/search-user

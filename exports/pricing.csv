@@ -527,7 +527,6 @@ douyin/creator/creator-activity-detail,api,Douyin,per_call,0.001,,,,,yes,sync,PO
 douyin/creator/creator-activity-list,api,Douyin,per_call,0.001,,,,,yes,sync,POST /v1/run
 douyin/creator/creator-content-category,api,Douyin,per_call,0.001,,,,,yes,sync,POST /v1/run
 douyin/creator/creator-content-course,api,Douyin,per_call,0.001,,,,,yes,sync,POST /v1/run
-douyin/creator/creator-hot-challenge-billboard,api,Douyin,per_call,0.001,,,,,yes,sync,POST /v1/run
 douyin/creator/creator-hot-course,api,Douyin,per_call,0.001,,,,,yes,sync,POST /v1/run
 douyin/creator/creator-hot-music-billboard,api,Douyin,per_call,0.001,,,,,yes,sync,POST /v1/run
 douyin/creator/creator-hot-props-billboard,api,Douyin,per_call,0.001,,,,,yes,sync,POST /v1/run
@@ -1190,7 +1189,6 @@ kwaivgi/kling-video/3.0/omni/pro/reference-to-video,video,KwaiVGI,formula,,,,0.3
 kwaivgi/kling-video/3.0/omni/pro/video-to-video/edit,video,KwaiVGI,formula,,,,0.84,0.84,,async,POST /v1/run
 kwaivgi/kling-video/ai-avatar/2.0/pro,video,KwaiVGI,formula,,,,0.575,0.575,,async,POST /v1/run
 kwaivgi/kling-video/ai-avatar/2.0/standard,video,KwaiVGI,formula,,,,0.281,0.281,,async,POST /v1/run
-kwaivgi/kling-video/create-voice,audio,KwaiVGI,per_call,0.035,,,,,,async,POST /v1/run
 kwaivgi/kling-video/o3,video,KwaiVGI,formula,,,,0.252,3.36,,async,POST /v1/run
 kwaivgi/kling-video/o3/4k/edit,video,KwaiVGI,formula,,,,2.1,2.1,,async,POST /v1/run
 kwaivgi/kling-video/o3/4k/image-to-video,video,KwaiVGI,formula,,,,1.26,3.36,,async,POST /v1/run
@@ -1556,6 +1554,7 @@ reddit/subreddit-search,api,Reddit,usage_based,,,,0.00035,0.00035,,sync,POST /v1
 reddit/trending-posts,api,Reddit,usage_based,,,,0.0003,0.0003,,sync,POST /v1/run
 reddit/user-comments,api,Reddit,usage_based,,,,0.0006,0.0006,,sync,POST /v1/run
 reddit/user-posts,api,Reddit,usage_based,,,,0.00038,0.00038,,sync,POST /v1/run
+sandbase-ai/cat-vton,image,sandbase-ai,per_call,0.00125,,,,,,async,POST /v1/run
 scholar/search-mixed,api,Scholar,per_call,0.0036,,,,,yes,sync,POST /v1/run
 scholar/search-scholar,api,Scholar,per_call,0.0036,,,,,yes,sync,POST /v1/run
 scholar/search-web,api,Scholar,per_call,0.0036,,,,,yes,sync,POST /v1/run
@@ -1745,19 +1744,10 @@ tiktok/app-v3/video-search-result,api,TikTok,per_call,0.001,,,,,yes,sync,POST /v
 tiktok/app-v3/webcast-user-info,api,TikTok,per_call,0.001,,,,,yes,sync,POST /v1/run
 tiktok/audience-demographics,api,TikTok,usage_based,,,,0.018,0.018,,sync,POST /v1/run
 tiktok/comment-replies,api,TikTok,usage_based,,,,0.0006,0.0006,,sync,POST /v1/run
-tiktok/creator/account-health-status,api,TikTok,per_call,0.001,,,,,yes,sync,POST /v1/run
-tiktok/creator/account-insights-overview,api,TikTok,per_call,0.001,,,,,yes,sync,POST /v1/run
-tiktok/creator/account-violation-list,api,TikTok,per_call,0.001,,,,,yes,sync,POST /v1/run
-tiktok/creator/creator-account-info,api,TikTok,per_call,0.001,,,,,yes,sync,POST /v1/run
-tiktok/creator/live-analytics-summary,api,TikTok,per_call,0.001,,,,,yes,sync,POST /v1/run
-tiktok/creator/product-analytics-list,api,TikTok,per_call,0.001,,,,,yes,sync,POST /v1/run
 tiktok/creator/product-related-videos,api,TikTok,per_call,0.001,,,,,yes,sync,POST /v1/run
-tiktok/creator/showcase-product-list,api,TikTok,per_call,0.001,,,,,yes,sync,POST /v1/run
-tiktok/creator/video-analytics-summary,api,TikTok,per_call,0.001,,,,,yes,sync,POST /v1/run
 tiktok/creator/video-associated-product-list,api,TikTok,per_call,0.001,,,,,yes,sync,POST /v1/run
 tiktok/creator/video-audience-stats,api,TikTok,per_call,0.001,,,,,yes,sync,POST /v1/run
 tiktok/creator/video-detailed-stats,api,TikTok,per_call,0.001,,,,,yes,sync,POST /v1/run
-tiktok/creator/video-list-analytics,api,TikTok,per_call,0.001,,,,,yes,sync,POST /v1/run
 tiktok/creator/video-to-product-stats,api,TikTok,per_call,0.001,,,,,yes,sync,POST /v1/run
 tiktok/followers,api,TikTok,usage_based,,,,0.0008,0.0008,,sync,POST /v1/run
 tiktok/following,api,TikTok,usage_based,,,,0.0008,0.0008,,sync,POST /v1/run

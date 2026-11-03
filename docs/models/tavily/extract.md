@@ -80,7 +80,7 @@ Retrieves clean web page content for a list of target addresses supplied via `ur
 curl -X POST "https://api.sandbase.ai/v1/api/tavily/extract" \
   -H "Authorization: Bearer $SANDBASE_API_KEY" \
   -H "Content-Type: application/json" \
-  -d '{"urls": "<urls>"}'
+  -d '{"urls": ["https://en.wikipedia.org/wiki/Artificial_intelligence"]}'
 ```
 
 ### Parameters

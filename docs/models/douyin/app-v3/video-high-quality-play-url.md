@@ -82,7 +82,7 @@ Fetch high-quality video playback addresses by supplying an `aweme_id` or a `sha
 curl -X POST "https://api.sandbase.ai/v1/api/douyin/app-v3/video-high-quality-play-url" \
   -H "Authorization: Bearer $SANDBASE_API_KEY" \
   -H "Content-Type: application/json" \
-  -d '{}'
+  -d '{"aweme_id": "7512756548356492544", "share_url": "https://www.douyin.com/video/7512756548356492544", "region": "CN"}'
 ```
 
 ### Parameters
@@ -104,9 +104,9 @@ Flat price per call. Failed calls, including lookups whose target does not exist
 
 ### Related APIs
 
-- [Douyin Brand Hot Search List](/model/douyin/app-v3/brand-hot-search-list): Returns the current Douyin brand hot search list and category data.
-- [Douyin Brand Hot Search List Detail](/model/douyin/app-v3/brand-hot-search-list-detail): Returns detailed brand hot search list data from Douyin for a specific category.
-- [Douyin Short Link Generator](/model/douyin/app-v3/generate-short-url): Converts a standard Douyin web link into a shortened Douyin URL.
+- [Douyin Brand Hot Search List](/apis/douyin/app-v3/brand-hot-search-list): Returns the current Douyin brand hot search list and category data.
+- [Douyin Brand Hot Search List Detail](/apis/douyin/app-v3/brand-hot-search-list-detail): Returns detailed brand hot search list data from Douyin for a specific category.
+- [Douyin Short Link Generator](/apis/douyin/app-v3/generate-short-url): Converts a standard Douyin web link into a shortened Douyin URL.
 
 ---
 Machine-readable: [`catalog/models/douyin/app-v3/video-high-quality-play-url.json`](../../../../catalog/models/douyin/app-v3/video-high-quality-play-url.json) · Store page: https://www.sandbase.ai/model/douyin/app-v3/video-high-quality-play-url

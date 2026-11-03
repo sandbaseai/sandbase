@@ -75,9 +75,9 @@ Flat price per call. Failed calls, including lookups whose target does not exist
 
 ### Related APIs
 
-- [Douyin Index Valid Dates](/model/douyin/index/all-valid-date): Returns the latest valid dates available for each data type in Douyin Index.
-- [Douyin Brand Popularity Cycles](/model/douyin/index/brand-cycles): Returns periodic brand popularity and cycle analysis data across platforms for a specified brand name and date range.
-- [Douyin Brand Hot Videos Time Scope](/model/douyin/index/brand-hot-videos-time-scope): Returns the queryable time scope for Douyin brand hot videos.
+- [Douyin Index Valid Dates](/apis/douyin/index/all-valid-date): Returns the latest valid dates available for each data type in Douyin Index.
+- [Douyin Brand Popularity Cycles](/apis/douyin/index/brand-cycles): Returns periodic brand popularity and cycle analysis data across platforms for a specified brand name and date range.
+- [Douyin Brand Hot Videos Time Scope](/apis/douyin/index/brand-hot-videos-time-scope): Returns the queryable time scope for Douyin brand hot videos.
 
 ---
 Machine-readable: [`catalog/models/douyin/index/all-area.json`](../../../../catalog/models/douyin/index/all-area.json) · Store page: https://www.sandbase.ai/model/douyin/index/all-area

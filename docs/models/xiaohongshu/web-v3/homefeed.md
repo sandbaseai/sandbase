@@ -98,9 +98,9 @@ Flat price per call. Failed calls, including lookups whose target does not exist
 
 ### Related APIs
 
-- [Xiaohongshu (RED) Homepage Categories](/model/xiaohongshu/web-v3/homefeed-categories): Returns a list of available homefeed category channels on Xiaohongshu (RED).
-- [Xiaohongshu (RED) Web Note Details](/model/xiaohongshu/web-v3/note-detail): Returns detailed information for a specific Xiaohongshu note using its identifier and security token obtained from a web share link.
-- [Xiaohongshu (RED) Search Suggestions](/model/xiaohongshu/web-v3/search-suggest): Returns search query suggestions and autocomplete terms from Xiaohongshu (RED).
+- [Xiaohongshu (RED) Homepage Categories](/apis/xiaohongshu/web-v3/homefeed-categories): Returns a list of available homefeed category channels on Xiaohongshu (RED).
+- [Xiaohongshu (RED) Web Note Details](/apis/xiaohongshu/web-v3/note-detail): Returns detailed information for a specific Xiaohongshu note using its identifier and security token obtained from a web share link.
+- [Xiaohongshu (RED) Search Suggestions](/apis/xiaohongshu/web-v3/search-suggest): Returns search query suggestions and autocomplete terms from Xiaohongshu (RED).
 
 ---
 Machine-readable: [`catalog/models/xiaohongshu/web-v3/homefeed.json`](../../../../catalog/models/xiaohongshu/web-v3/homefeed.json) · Store page: https://www.sandbase.ai/model/xiaohongshu/web-v3/homefeed

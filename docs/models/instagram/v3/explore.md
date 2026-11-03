@@ -106,9 +106,9 @@ Flat price per call. Failed calls, including lookups whose target does not exist
 
 ### Related APIs
 
-- [Instagram Comment Bulk Translation](/model/instagram/v3/bulk-translate-comments): Returns bulk translations for multiple Instagram comments using a list of comment identifiers.
-- [Instagram Comment Replies (V3)](/model/instagram/v3/comment-replies): Returns child comment replies for a specific Instagram comment using the post media ID and parent comment ID.
-- [Instagram Shortcode Extractor](/model/instagram/v3/extract-shortcode): Extracts and returns the unique shortcode identifier from an Instagram post, reel, or TV URL.
+- [Instagram Comment Bulk Translation](/apis/instagram/v3/bulk-translate-comments): Returns bulk translations for multiple Instagram comments using a list of comment identifiers.
+- [Instagram Comment Replies (V3)](/apis/instagram/v3/comment-replies): Returns child comment replies for a specific Instagram comment using the post media ID and parent comment ID.
+- [Instagram Shortcode Extractor](/apis/instagram/v3/extract-shortcode): Extracts and returns the unique shortcode identifier from an Instagram post, reel, or TV URL.
 
 ---
 Machine-readable: [`catalog/models/instagram/v3/explore.json`](../../../../catalog/models/instagram/v3/explore.json) · Store page: https://www.sandbase.ai/model/instagram/v3/explore

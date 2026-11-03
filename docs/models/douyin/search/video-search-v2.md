@@ -83,13 +83,12 @@ Same call via the path form: `POST /v1/api/douyin/search/video-search-v2` with t
 
 ## Details
 
-Search Douyin's video tab for a keyword. Each result includes the video description, author and statistics.
+Search Douyin videos by keyword with sort, publish-time and content-type filters. Each result carries the full video object: caption, stats, author and play URLs.
 
 ### Use cases
 
-- Find videos about a product or topic.
-- Discover creators for influencer campaigns.
-- Track video volume and engagement for a keyword.
+- Find popular videos about a product, brand or topic.
+- Collect video IDs for comment or trend analysis.
 
 ### Request
 
@@ -100,46 +99,56 @@ curl -X POST "https://api.sandbase.ai/v1/api/douyin/search/video-search-v2" \
   -d '{"keyword": "猫咪"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
 |---|---|---|---|
-| `cursor` | integer | No | Pagination cursor (0 for the first page, use the last response cursor for subsequent pages) |
-| `keyword` | string | No | Search keyword, e.g., "robot" |
 | `backtrace` | string | No | Backtrace identifier used for pagination(obtained from the last response) |
+| `content_type` | string | No | Content type filter |
+| `cursor` | integer | No | Pagination cursor (0 for the first page, use the last response cursor for subsequent pages) |
+| `filter_duration` | string | No | Video duration filter |
+| `keyword` | string | No | Search keyword, e.g., "robot" |
+| `publish_time` | string | No | Publish time filter |
 | `search_id` | string | No | Search ID used for pagination(obtained from the last response) |
 | `sort_type` | string | No | Sorting method |
-| `content_type` | string | No | Content type filter |
-| `publish_time` | string | No | Publish time filter |
-| `filter_duration` | string | No | Video duration filter |
 
 ### Example response
 
-Real response for the request above, trimmed to the main fields. User names and long IDs are masked.
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
 
 ```json
 {
   "business_data": [
     {
-      "type": 1,
       "data": {
         "aweme_info": {
-          "aweme_id": "7581331706625500153",
-          "create_time": 1765166347,
-          "duration": 289767,
-          "desc": "科普分享一些猫的种类，你看你认识几种！#盘点#科普#分享#猫",
-          "author": {
-            "nickname": "<user>",
-            "sec_uid": "<sec_uid>"
-          },
+          "aweme_id": "7647874180994472809",
+          "desc": "窝酱紫可爱吗#金白米努特 #米努特矮脚猫 #萌宠小猫 #软萌小猫",
+          "create_time": 1780659469,
           "statistics": {
-            "play_count": 0,
-            "digg_count": 55214,
-            "comment_count": 3720,
-            "share_count": 10943,
-            "collect_count": 21141
+            "digg_count": 44274,
+            "comment_count": 3408,
+            "collect_count": 7609,
+            "share_count": 40029
           },
-          "share_url": "https://www.iesdouyin.com/share/video/7581331706625500153/?…"
+          "author": {
+            "nickname": "小心米努特矮脚猫舍",
+            "uid": "152191991817676",
+            "sec_uid": "MS4wLjABAAAATyiM0d18Q9CLp0BXGm…",
+            "unique_id": "51547535777"
+          },
+          "video": {
+            "duration": 5549,
+            "width": 576,
+            "height": 1024,
+            "play_addr": {
+              "url_list": [
+                "https://v3-search.douyinvod.com/f647cae6595842a683dc8f01c823…"
+              ]
+            }
+          }
         }
       }
     }
@@ -147,26 +156,37 @@ Real response for the request above, trimmed to the main fields. User names and 
   "business_config": {
     "has_more": 1,
     "next_page": {
-      "cursor": 10,
-      "search_id": "<search_id>"
-    }
+      "cursor": 8,
+      "search_id": "20261103113733421D26B2FB79B528103F"
+    },
+    "backtrace": "J6aGE6HAjYfQrWVjdpCA4koXHeq2D+…"
   }
 }
 ```
 
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `business_data[].data.aweme_info` | One video per result, same fields as the video detail APIs (`aweme_id`, `desc`, `statistics`, `author`, `video`). |
+| `business_config.has_more` | 1 when more pages exist. |
+| `business_config.next_page` | `cursor` and `search_id` for the next page. |
+| `business_config.backtrace` | Send back as `backtrace` for the next page. |
+
 ### Notes
 
-- For the next page, pass back `cursor`, `search_id` and `backtrace` from the previous response.
+- For the next page pass `next_page.cursor`, `next_page.search_id` and `backtrace` from the previous response.
+- `sort_type`, `publish_time` and `content_type` follow the Douyin app's filter options.
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.01 per successful call. Failed calls, including lookups whose target does not exist, are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 
-- [Douyin General Search](/model/douyin/search/general-search-v1): Search Douyin (Chinese TikTok) from the app's general search tab and get videos with descriptions, authors and play, like, comment and share counts.
-- [Fetch hashtag search V1](/model/douyin/search/challenge-search-v1): Fetch hashtag/challenge search results from Douyin App.
-- [Fetch hashtag search V2](/model/douyin/search/challenge-search-v2): Fetch hashtag/challenge search results from Douyin App using V2 API.
+- [Douyin General Search](/apis/douyin/search/general-search-v1): Search Douyin (Chinese TikTok) from the app's general search tab and get videos with descriptions, authors and play, like, comment and share counts.
+- [Fetch hashtag search V1](/apis/douyin/search/challenge-search-v1): Fetch hashtag/challenge search results from Douyin App.
+- [Fetch hashtag search V2](/apis/douyin/search/challenge-search-v2): Fetch hashtag/challenge search results from Douyin App using V2 API.
 
 ---
 Machine-readable: [`catalog/models/douyin/search/video-search-v2.json`](../../../../catalog/models/douyin/search/video-search-v2.json) · Store page: https://www.sandbase.ai/model/douyin/search/video-search-v2

@@ -79,7 +79,7 @@ Retrieve top-level comments or reply threads for a video using `object_id`. Prov
 curl -X POST "https://api.sandbase.ai/v1/api/wechat-channels/v2/video-comments" \
   -H "Authorization: Bearer $SANDBASE_API_KEY" \
   -H "Content-Type: application/json" \
-  -d '{"object_id": "<object_id>"}'
+  -d '{"object_id": "14941130915890399732"}'
 ```
 
 ### Parameters
@@ -103,9 +103,9 @@ Flat price per call. Failed calls, including lookups whose target does not exist
 
 ### Related APIs
 
-- [WeChat Channels ID to Username](/model/wechat-channels/v2/channel-id-to-username): Convert a public WeChat Channels Channel ID (sph… short ID) into the finder username (v2_…@finder) required by the other WeChat Channels APIs.
-- [WeChat Channels Account Info](/model/wechat-channels/v2/channel-info): Get the public "More info" panel of a WeChat Channels account: Channel ID, IP and profile location, and verification details such as entity type, service categ…
-- [WeChat Channels Collection Videos](/model/wechat-channels/v2/collection-videos): Returns videos contained within a WeChat Channels collection using a collection ID.
+- [WeChat Channels ID to Username](/apis/wechat-channels/v2/channel-id-to-username): Convert a public WeChat Channels Channel ID (sph… short ID) into the finder username (v2_…@finder) required by the other WeChat Channels APIs.
+- [WeChat Channels Account Info](/apis/wechat-channels/v2/channel-info): Get the public "More info" panel of a WeChat Channels account: Channel ID, IP and profile location, and verification details such as entity type, service categ…
+- [WeChat Channels Collection Videos](/apis/wechat-channels/v2/collection-videos): Returns videos contained within a WeChat Channels collection using a collection ID.
 
 ---
 Machine-readable: [`catalog/models/wechat-channels/v2/video-comments.json`](../../../../catalog/models/wechat-channels/v2/video-comments.json) · Store page: https://www.sandbase.ai/model/wechat-channels/v2/video-comments

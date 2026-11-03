@@ -79,7 +79,7 @@ Look up gift names for multiple items using `gift_ids`. The endpoint resolves na
 curl -X POST "https://api.sandbase.ai/v1/api/tiktok/web/gift-names-by-ids" \
   -H "Authorization: Bearer $SANDBASE_API_KEY" \
   -H "Content-Type: application/json" \
-  -d '{"gift_ids": "<gift_ids>"}'
+  -d '{"gift_ids": ["10001", "10002", "10003"]}'
 ```
 
 ### Parameters
@@ -98,9 +98,9 @@ Flat price per call. Failed calls, including lookups whose target does not exist
 
 ### Related APIs
 
-- [TikTok Video IDs from URLs (Batch)](/model/tiktok/web/all-aweme-id): Resolves and extracts TikTok video IDs from a list of video URLs.
-- [TikTok User Sec User ID Extractor](/model/tiktok/web/all-sec-user-id): Returns a list of sec_user_id identifiers corresponding to TikTok user profile URLs.
-- [TikTok Profile Unique IDs](/model/tiktok/web/all-unique-id): Resolves a batch of TikTok user homepage links to retrieve their corresponding unique identifiers.
+- [TikTok Video IDs from URLs (Batch)](/apis/tiktok/web/all-aweme-id): Resolves and extracts TikTok video IDs from a list of video URLs.
+- [TikTok User Sec User ID Extractor](/apis/tiktok/web/all-sec-user-id): Returns a list of sec_user_id identifiers corresponding to TikTok user profile URLs.
+- [TikTok Profile Unique IDs](/apis/tiktok/web/all-unique-id): Resolves a batch of TikTok user homepage links to retrieve their corresponding unique identifiers.
 
 ---
 Machine-readable: [`catalog/models/tiktok/web/gift-names-by-ids.json`](../../../../catalog/models/tiktok/web/gift-names-by-ids.json) · Store page: https://www.sandbase.ai/model/tiktok/web/gift-names-by-ids

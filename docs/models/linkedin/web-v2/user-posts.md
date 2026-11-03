@@ -101,9 +101,9 @@ Flat price per call. Failed calls, including lookups whose target does not exist
 
 ### Related APIs
 
-- [LinkedIn Company Posts](/model/linkedin/web-v2/company-posts): Returns posts from a LinkedIn organization page using the company URL.
-- [LinkedIn Company Profile](/model/linkedin/web-v2/company-profile): Returns LinkedIn company profile details, including affiliated organizations, using a direct company page URL.
-- [LinkedIn Job Details](/model/linkedin/web-v2/job-detail): Returns detailed information for a specific LinkedIn job posting via its URL.
+- [LinkedIn Company Posts](/apis/linkedin/web-v2/company-posts): Returns posts from a LinkedIn organization page using the company URL.
+- [LinkedIn Company Profile](/apis/linkedin/web-v2/company-profile): Returns LinkedIn company profile details, including affiliated organizations, using a direct company page URL.
+- [LinkedIn Job Details](/apis/linkedin/web-v2/job-detail): Returns detailed information for a specific LinkedIn job posting via its URL.
 
 ---
 Machine-readable: [`catalog/models/linkedin/web-v2/user-posts.json`](../../../../catalog/models/linkedin/web-v2/user-posts.json) · Store page: https://www.sandbase.ai/model/linkedin/web-v2/user-posts

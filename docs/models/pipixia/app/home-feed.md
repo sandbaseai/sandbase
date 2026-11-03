@@ -121,9 +121,9 @@ Flat price per call. Failed calls, including lookups whose target does not exist
 
 ### Related APIs
 
-- [Pipixia Hashtag Details](/model/pipixia/app/hashtag-detail): Retrieves metadata and profile assets for a specific Pipixia hashtag by its unique identifier.
-- [Pipixia Hashtag Post List](/model/pipixia/app/hashtag-post-list): Returns a list of posts associated with a specific hashtag on Pipixia.
-- [Pipixia Home Short Drama Feed](/model/pipixia/app/home-short-drama-feed): Returns short drama and novel recommendations from the Pipixia home feed.
+- [Pipixia Hashtag Details](/apis/pipixia/app/hashtag-detail): Retrieves metadata and profile assets for a specific Pipixia hashtag by its unique identifier.
+- [Pipixia Hashtag Post List](/apis/pipixia/app/hashtag-post-list): Returns a list of posts associated with a specific hashtag on Pipixia.
+- [Pipixia Home Short Drama Feed](/apis/pipixia/app/home-short-drama-feed): Returns short drama and novel recommendations from the Pipixia home feed.
 
 ---
 Machine-readable: [`catalog/models/pipixia/app/home-feed.json`](../../../../catalog/models/pipixia/app/home-feed.json) · Store page: https://www.sandbase.ai/model/pipixia/app/home-feed

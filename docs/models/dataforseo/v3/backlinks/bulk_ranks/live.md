@@ -88,9 +88,9 @@ Billed at the actual cost of each call, about $0.024072 for the request above. T
 
 ### Related APIs
 
-- [DataForSEO Backlinks Anchors](/model/dataforseo/v3/backlinks/anchors/live): Returns anchor text distribution metrics for backlinks pointing to a target website or page.
-- [DataForSEO Backlinks List](/model/dataforseo/v3/backlinks/backlinks/live): Returns a list of external backlinks pointing to a specified target domain or webpage.
-- [DataForSEO Backlinks Competitors](/model/dataforseo/v3/backlinks/competitors/live): Returns domains that compete for similar backlink profiles.
+- [DataForSEO Backlinks Anchors](/apis/dataforseo/v3/backlinks/anchors/live): Returns anchor text distribution metrics for backlinks pointing to a target website or page.
+- [DataForSEO Backlinks List](/apis/dataforseo/v3/backlinks/backlinks/live): Returns a list of external backlinks pointing to a specified target domain or webpage.
+- [DataForSEO Backlinks Competitors](/apis/dataforseo/v3/backlinks/competitors/live): Returns domains that compete for similar backlink profiles.
 
 ---
 Machine-readable: [`catalog/models/dataforseo/v3/backlinks/bulk_ranks/live.json`](../../../../../../catalog/models/dataforseo/v3/backlinks/bulk_ranks/live.json) · Store page: https://www.sandbase.ai/model/dataforseo/v3/backlinks/bulk_ranks/live

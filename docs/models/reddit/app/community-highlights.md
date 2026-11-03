@@ -100,9 +100,9 @@ Flat price per call. Failed calls, including lookups whose target does not exist
 
 ### Related APIs
 
-- [Reddit Subreddit Mute Status](/model/reddit/app/check-subreddit-muted): Checks whether a specified Reddit subreddit is muted by the current account using its ID.
-- [Reddit App Comment Replies](/model/reddit/app/comment-replies): Returns replies and nested sub-comments under a Reddit post comment using a continuation cursor.
-- [Reddit Search](/model/reddit/app/dynamic-search): Search Reddit posts, communities, comments, media and users with the Reddit app search.
+- [Reddit Subreddit Mute Status](/apis/reddit/app/check-subreddit-muted): Checks whether a specified Reddit subreddit is muted by the current account using its ID.
+- [Reddit App Comment Replies](/apis/reddit/app/comment-replies): Returns replies and nested sub-comments under a Reddit post comment using a continuation cursor.
+- [Reddit Search](/apis/reddit/app/dynamic-search): Search Reddit posts, communities, comments, media and users with the Reddit app search.
 
 ---
 Machine-readable: [`catalog/models/reddit/app/community-highlights.json`](../../../../catalog/models/reddit/app/community-highlights.json) · Store page: https://www.sandbase.ai/model/reddit/app/community-highlights

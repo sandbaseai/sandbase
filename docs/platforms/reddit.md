@@ -45,7 +45,7 @@ Call 35 Reddit endpoints through SandBase with one API key: no separate account,
 ```bash
 curl https://api.sandbase.ai/v1/run \
   -H "Authorization: Bearer $SANDBASE_API_KEY" -H 'Content-Type: application/json' \
-  -d '{"model": "reddit/app/check-subreddit-muted", "subreddit_id": "<subreddit_id>"}'
+  -d '{"model": "reddit/app/check-subreddit-muted", "subreddit_id": "t5_2qh0u"}'
 ```
 
 Get a key at [sandbase.ai](https://www.sandbase.ai/console). Back to [all platforms](README.md).

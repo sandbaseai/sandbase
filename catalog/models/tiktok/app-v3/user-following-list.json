@@ -27,16 +27,19 @@
       "count": {
         "type": "integer",
         "title": "Count",
+        "example": 20,
         "description": "Number, do not exceed 20, keep it fixed."
       },
       "user_id": {
         "type": "string",
         "title": "User Id",
+        "example": "7486586574684881927",
         "description": "User ID, this is a pure numeric version of the user ID (one of user_id and sec_user_id)"
       },
       "min_time": {
         "type": "integer",
         "title": "Min Time",
+        "example": 0,
         "description": "Minimum time for paging, use default value 0 for the first request, and use the min_time value returned by the last request for subsequent requests."
       },
       "page_token": {
@@ -47,6 +50,7 @@
       "sec_user_id": {
         "type": "string",
         "title": "Sec User Id",
+        "example": "MS4wLjABAAAA0lKrE0cVLLZCnVil-n-YEZlOoik9oeO3zOYQ08dqOEOw2pRSXWJdcSFw7lZeZcSP",
         "description": "User sec_user_id, this is a mixed letter and number version ID (one of user_id and sec_user_id)"
       }
     }
@@ -65,7 +69,7 @@
       "note": "Shared across all free-quota APIs, resets 00:00 UTC."
     }
   },
-  "readme": "# TikTok User Following List API\n\nRetrieve the list of accounts followed by a user using either `user_id` or `sec_user_id`. Manage pagination across requests using `page_token` and `min_time`.\n\n## Use cases\n\n- Inspect the accounts followed by a target profile.\n- Map out user connections and social network graphs.\n- Track an influencer's followed accounts over time.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/tiktok/app-v3/user-following-list\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `count` | integer | No | Number, do not exceed 20, keep it fixed. |\n| `user_id` | string | No | User ID, this is a pure numeric version of the user ID (one of user_id and sec_user_id) |\n| `min_time` | integer | No | Minimum time for paging, use default value 0 for the first request, and use the min_time value returned by the last request for subsequent requests. |\n| `page_token` | string | No | Page token, use default value \"\" for the first request, and use the page_token value returned by the last request for subsequent requests. |\n| `sec_user_id` | string | No | User sec_user_id, this is a mixed letter and number version ID (one of user_id and sec_user_id) |\n\n## Notes\n\n- Requires either `user_id` or `sec_user_id` to identify the target account.\n- Supports pagination using `page_token` and `min_time` returned by the preceding response.\n- The `count` parameter must not exceed 20.\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [TikTok LIVE Status](/model/tiktok/app-v3/check-live-room-online): Check whether a TikTok LIVE room is currently live by room ID.\n- [TikTok Room Online Status Batch](/model/tiktok/app-v3/check-live-room-online-batch): Returns the online availability status for multiple TikTok broadcast rooms in a single request.\n- [TikTok Content Translation](/model/tiktok/app-v3/content-translate): Translates provided text content into a designated target language.\n",
+  "readme": "# TikTok User Following List API\n\nRetrieve the list of accounts followed by a user using either `user_id` or `sec_user_id`. Manage pagination across requests using `page_token` and `min_time`.\n\n## Use cases\n\n- Inspect the accounts followed by a target profile.\n- Map out user connections and social network graphs.\n- Track an influencer's followed accounts over time.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/tiktok/app-v3/user-following-list\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"user_id\": \"7486586574684881927\", \"sec_user_id\": \"MS4wLjABAAAA0lKrE0cVLLZCnVil-n-YEZlOoik9oeO3zOYQ08dqOEOw2pRSXWJdcSFw7lZeZcSP\", \"count\": 20, \"min_time\": 0}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `count` | integer | No | Number, do not exceed 20, keep it fixed. |\n| `user_id` | string | No | User ID, this is a pure numeric version of the user ID (one of user_id and sec_user_id) |\n| `min_time` | integer | No | Minimum time for paging, use default value 0 for the first request, and use the min_time value returned by the last request for subsequent requests. |\n| `page_token` | string | No | Page token, use default value \"\" for the first request, and use the page_token value returned by the last request for subsequent requests. |\n| `sec_user_id` | string | No | User sec_user_id, this is a mixed letter and number version ID (one of user_id and sec_user_id) |\n\n## Notes\n\n- Requires either `user_id` or `sec_user_id` to identify the target account.\n- Supports pagination using `page_token` and `min_time` returned by the preceding response.\n- The `count` parameter must not exceed 20.\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [TikTok LIVE Status](/apis/tiktok/app-v3/check-live-room-online): Check whether a TikTok LIVE room is currently live by room ID.\n- [TikTok Room Online Status Batch](/apis/tiktok/app-v3/check-live-room-online-batch): Returns the online availability status for multiple TikTok broadcast rooms in a single request.\n- [TikTok Content Translation](/apis/tiktok/app-v3/content-translate): Translates provided text content into a designated target language.\n",
   "page_url": "https://www.sandbase.ai/model/tiktok/app-v3/user-following-list",
   "created_at": "2026-07-31T04:15:10.764Z"
 }

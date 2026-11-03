@@ -66,13 +66,13 @@ Same call via the path form: `POST /v1/api/firecrawl/scrape` with the body above
 
 ## Details
 
-Use this endpoint to extract web content from a target `url` using a designated `proxy` tier and optional output `formats`.
+Scrape any public web page and get clean Markdown, HTML, links or a screenshot, with page metadata such as title, language and HTTP status. JavaScript-rendered pages are handled, and the `proxy` tier controls how hard-to-reach sites are fetched.
 
 ### Use cases
 
-- Extract clean page content from JavaScript-heavy websites.
-- Convert target web pages into specific structured formats.
-- Retrieve website data via automated scraping proxies.
+- Turn web pages into Markdown for LLM context or RAG.
+- Extract article text without writing a parser per site.
+- Capture a screenshot of a page.
 
 ### Request
 
@@ -80,25 +80,63 @@ Use this endpoint to extract web content from a target `url` using a designated 
 curl -X POST "https://api.sandbase.ai/v1/api/firecrawl/scrape" \
   -H "Authorization: Bearer $SANDBASE_API_KEY" \
   -H "Content-Type: application/json" \
-  -d '{"url": "<url>", "proxy": "basic"}'
+  -d '{"url": "https://example.com", "proxy": "basic"}'
 ```
+
+The result is returned in `outputs[0].data`.
 
 ### Parameters
 
 | Name | Type | Required | Description |
 |---|---|---|---|
-| `url` | string | Yes | The HTTPS URL to scrape. |
 | `proxy` | string | Yes | Proxy tier. |
+| `url` | string | Yes | The HTTPS URL to scrape. |
 | `formats` | array | No | Output formats. |
+
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "data": {
+    "markdown": "This domain is for use in documentation examples without needing permission. Thi…",
+    "metadata": {
+      "cacheState": "hit",
+      "cachedAt": "2026-11-03T01:40:17.140Z",
+      "concurrencyLimited": false,
+      "contentType": "text/html; charset=utf-8",
+      "favicon": "data:,",
+      "language": "en",
+      "proxyUsed": "basic",
+      "scrapeId": "01a19f12-61d9-71bf-87c0-52a9fef97a83",
+      "sourceURL": "https://example.com",
+      "statusCode": 200,
+      "title": "Example Domain",
+      "url": "https://example.com/"
+    }
+  },
+  "success": true
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `data.markdown` | Page content as Markdown (default format). |
+| `data.html / data.links / data.screenshot` | Returned when requested in `formats`. |
+| `data.metadata` | `title`, `description`, `language`, `sourceURL`, `statusCode` and `contentType` of the page. |
+| `success` | `true` when the page was scraped. |
 
 ### Notes
 
-- Requires an HTTPS link passed to the `url` parameter.
-- The `proxy` parameter accepts the value `basic`.
+- `proxy`: `basic` for normal sites, `stealth` for sites that block bots (slower), `auto` to retry with stealth when basic fails.
+- Pages that require login or return errors fail and are not charged.
 
 ### Pricing
 
-Flat price per call. Failed calls are not charged.
+$0.0075 per successful call. Failed calls, including lookups whose target does not exist, are not charged. It is included in the daily free quota of each organization.
 
 ---
 Machine-readable: [`catalog/models/firecrawl/scrape.json`](../../../catalog/models/firecrawl/scrape.json) · Store page: https://www.sandbase.ai/model/firecrawl/scrape

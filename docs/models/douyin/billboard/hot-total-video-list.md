@@ -146,9 +146,9 @@ Flat price per call. Failed calls, including lookups whose target does not exist
 
 ### Related APIs
 
-- [Fetch Chinese city list](/model/douyin/billboard/city-list): Get city list.
-- [Fetch vertical content tags](/model/douyin/billboard/content-tag): Get vertical content tags.
-- [Fetch fan interest author 20 users](/model/douyin/billboard/hot-account-fans-interest-account-list): Get the fan interest author 20 users.
+- [Fetch Chinese city list](/apis/douyin/billboard/city-list): Get city list.
+- [Fetch vertical content tags](/apis/douyin/billboard/content-tag): Get vertical content tags.
+- [Fetch fan interest author 20 users](/apis/douyin/billboard/hot-account-fans-interest-account-list): Get the fan interest author 20 users.
 
 ---
 Machine-readable: [`catalog/models/douyin/billboard/hot-total-video-list.json`](../../../../catalog/models/douyin/billboard/hot-total-video-list.json) · Store page: https://www.sandbase.ai/model/douyin/billboard/hot-total-video-list

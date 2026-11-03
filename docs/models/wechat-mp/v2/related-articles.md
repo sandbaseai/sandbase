@@ -99,9 +99,9 @@ Flat price per call. Failed calls, including lookups whose target does not exist
 
 ### Related APIs
 
-- [WeChat MP Account Articles](/model/wechat-mp/v2/account-articles): Get the published articles of a WeChat official account by its gh_ username: titles, links, covers and post dates, one page at a time, including video and audi…
-- [WeChat MP Account Profile](/model/wechat-mp/v2/account-profile): Retrieves the profile details of an official WeChat account, including name, avatar, signature, and verification entity type using its official account ID.
-- [WeChat MP Article Ads](/model/wechat-mp/v2/article-ad): Returns embedded ad slot information for a specified WeChat MP article URL.
+- [WeChat MP Account Articles](/apis/wechat-mp/v2/account-articles): Get the published articles of a WeChat official account by its gh_ username: titles, links, covers and post dates, one page at a time, including video and audi…
+- [WeChat MP Account Profile](/apis/wechat-mp/v2/account-profile): Retrieves the profile details of an official WeChat account, including name, avatar, signature, and verification entity type using its official account ID.
+- [WeChat MP Article Ads](/apis/wechat-mp/v2/article-ad): Returns embedded ad slot information for a specified WeChat MP article URL.
 
 ---
 Machine-readable: [`catalog/models/wechat-mp/v2/related-articles.json`](../../../../catalog/models/wechat-mp/v2/related-articles.json) · Store page: https://www.sandbase.ai/model/wechat-mp/v2/related-articles

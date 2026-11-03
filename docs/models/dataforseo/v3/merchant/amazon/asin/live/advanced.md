@@ -93,8 +93,8 @@ Flat price per call. Failed calls are not charged.
 
 ### Related APIs
 
-- [DataForSEO Merchant Amazon Products](/model/dataforseo/v3/merchant/amazon/products/live/advanced): Returns Amazon search results for a keyword with ratings, sellers and positions.
-- [DataForSEO Merchant Amazon Sellers](/model/dataforseo/v3/merchant/amazon/sellers/live/advanced): Returns sellers and offers for an Amazon product.
+- [DataForSEO Merchant Amazon Products](/apis/dataforseo/v3/merchant/amazon/products/live/advanced): Returns Amazon search results for a keyword with ratings, sellers and positions.
+- [DataForSEO Merchant Amazon Sellers](/apis/dataforseo/v3/merchant/amazon/sellers/live/advanced): Returns sellers and offers for an Amazon product.
 
 ---
 Machine-readable: [`catalog/models/dataforseo/v3/merchant/amazon/asin/live/advanced.json`](../../../../../../../../catalog/models/dataforseo/v3/merchant/amazon/asin/live/advanced.json) · Store page: https://www.sandbase.ai/model/dataforseo/v3/merchant/amazon/asin/live/advanced

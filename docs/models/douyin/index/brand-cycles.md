@@ -106,9 +106,9 @@ Flat price per call. Failed calls, including lookups whose target does not exist
 
 ### Related APIs
 
-- [Douyin Index Area List](/model/douyin/index/all-area): Returns the complete list of supported geographic areas available for Douyin Index queries.
-- [Douyin Index Valid Dates](/model/douyin/index/all-valid-date): Returns the latest valid dates available for each data type in Douyin Index.
-- [Douyin Brand Hot Videos Time Scope](/model/douyin/index/brand-hot-videos-time-scope): Returns the queryable time scope for Douyin brand hot videos.
+- [Douyin Index Area List](/apis/douyin/index/all-area): Returns the complete list of supported geographic areas available for Douyin Index queries.
+- [Douyin Index Valid Dates](/apis/douyin/index/all-valid-date): Returns the latest valid dates available for each data type in Douyin Index.
+- [Douyin Brand Hot Videos Time Scope](/apis/douyin/index/brand-hot-videos-time-scope): Returns the queryable time scope for Douyin brand hot videos.
 
 ---
 Machine-readable: [`catalog/models/douyin/index/brand-cycles.json`](../../../../catalog/models/douyin/index/brand-cycles.json) · Store page: https://www.sandbase.ai/model/douyin/index/brand-cycles

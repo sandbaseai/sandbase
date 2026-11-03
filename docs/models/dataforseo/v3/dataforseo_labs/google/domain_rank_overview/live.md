@@ -59,13 +59,12 @@ Same call via the path form: `POST /v1/api/dataforseo/v3/dataforseo_labs/google/
 
 ## Details
 
-This endpoint provides Google domain rank overview metrics. Use it to inspect domain-level visibility and ranking statistics across search results.
+Organic and paid search overview of a domain in one call: number of ranking keywords, estimated monthly traffic and its value, and how many keywords are in positions 1, 2-3 and 4-10, plus new, rising, falling and lost rankings.
 
 ### Use cases
 
-- Analyze overall search visibility for competitor domains.
-- Track Google domain ranking metrics over time.
-- Benchmark domain search performance against industry peers.
+- Compare competitors' organic visibility.
+- Track a domain's ranking distribution month over month.
 
 ### Request
 
@@ -76,25 +75,90 @@ curl -X POST "https://api.sandbase.ai/v1/api/dataforseo/v3/dataforseo_labs/googl
   -d '{"target": "nike.com", "location_code": 2840, "language_code": "en"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
-The JSON body is forwarded to the upstream endpoint (one task per call). Fields used above:
+| Name | Type | Required | Description |
+|---|---|---|---|
+| `language_code` | string | No | Language code, e.g. "en". |
+| `location_code` | integer | No | Location code, e.g. 2840 for the United States. |
+| `target` | string | No | Target domain or page, e.g. "nike.com". |
 
-| Name | Description |
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "status_code": 20000,
+  "tasks": [
+    {
+      "result": [
+        {
+          "target": "nike.com",
+          "items": [
+            {
+              "metrics": {
+                "organic": {
+                  "count": 665888,
+                  "etv": 8815052.876410566,
+                  "estimated_paid_traffic_cost": 5818161.501292776,
+                  "pos_1": 184525,
+                  "pos_2_3": 74630,
+                  "pos_4_10": 123907,
+                  "is_new": 308184,
+                  "is_up": 134495,
+                  "is_down": 124703,
+                  "is_lost": 386977
+                },
+                "paid": {
+                  "count": 10,
+                  "etv": 196.75402009487152,
+                  "estimated_paid_traffic_cost": 155.61605195701122,
+                  "pos_1": 10,
+                  "pos_2_3": 0,
+                  "pos_4_10": 0,
+                  "is_new": 9,
+                  "is_up": 0,
+                  "is_down": 1,
+                  "is_lost": 17
+                }
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
+```
+
+### Response fields
+
+| Field | Meaning |
 |---|---|
-| `target` | Target domain or page, e.g. "nike.com". |
-| `location_code` | Location code, e.g. 2840 for the United States. |
-| `language_code` | Language code, e.g. "en". |
+| `metrics.organic.count` | Keywords the domain ranks for in Google organic results. |
+| `metrics.organic.etv` | Estimated monthly organic traffic. |
+| `metrics.organic.estimated_paid_traffic_cost` | What that traffic would cost in Google Ads, USD. |
+| `metrics.organic.pos_1 / pos_2_3 / pos_4_10` | Keywords in those positions. |
+| `metrics.organic.is_new / is_up / is_down / is_lost` | Ranking changes since the previous update. |
+| `metrics.paid` | The same metrics for Google Ads. |
+
+### Notes
+
+- Figures are estimates from the DataForSEO Labs database for the given location and language.
+- For the keyword list behind these numbers use [Ranked Keywords](/apis/dataforseo/v3/dataforseo_labs/google/ranked_keywords/live).
 
 ### Pricing
 
-Billed at the actual cost of each call, about $0.01212 for the request above. The cost grows with the number of rows, targets or pages a call returns. Failed calls are not charged. Searches with no results are billed at their actual cost.
+Billed at the actual cost of each call, about $0.01212 for the request above. Failed calls are not charged.
 
 ### Related APIs
 
-- [DataForSEO Backlinks Anchors](/model/dataforseo/v3/backlinks/anchors/live): Returns anchor text distribution metrics for backlinks pointing to a target website or page.
-- [DataForSEO Backlinks List](/model/dataforseo/v3/backlinks/backlinks/live): Returns a list of external backlinks pointing to a specified target domain or webpage.
-- [DataForSEO Backlinks Bulk Ranks](/model/dataforseo/v3/backlinks/bulk_ranks/live): Returns rank metrics for multiple domains or pages in bulk.
+- [DataForSEO Backlinks Anchors](/apis/dataforseo/v3/backlinks/anchors/live): Returns anchor text distribution metrics for backlinks pointing to a target website or page.
+- [DataForSEO Backlinks List](/apis/dataforseo/v3/backlinks/backlinks/live): Returns a list of external backlinks pointing to a specified target domain or webpage.
+- [DataForSEO Backlinks Bulk Ranks](/apis/dataforseo/v3/backlinks/bulk_ranks/live): Returns rank metrics for multiple domains or pages in bulk.
 
 ---
 Machine-readable: [`catalog/models/dataforseo/v3/dataforseo_labs/google/domain_rank_overview/live.json`](../../../../../../../catalog/models/dataforseo/v3/dataforseo_labs/google/domain_rank_overview/live.json) · Store page: https://www.sandbase.ai/model/dataforseo/v3/dataforseo_labs/google/domain_rank_overview/live

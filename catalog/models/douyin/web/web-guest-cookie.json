@@ -30,6 +30,7 @@
       "user_agent": {
         "type": "string",
         "title": "User Agent",
+        "example": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36",
         "description": "User browser agent"
       }
     }
@@ -56,7 +57,7 @@
       "default": true
     }
   ],
-  "readme": "# Douyin Web Guest Cookie API\n\nRetrieve a guest session cookie for Douyin Web by supplying a valid browser `user_agent`.\n\n## Use cases\n\n- Obtain guest credentials for crawling Douyin Web data.\n- Maintain session identity when querying public user and mix videos.\n- Prevent duplicate responses across public web data requests.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/douyin/web/web-guest-cookie\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"user_agent\": \"<user_agent>\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `user_agent` | string | Yes | User browser agent |\n\n## Notes\n\n- Requires `user_agent` containing a valid browser agent string.\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [Douyin Batch Video ID Extraction](/model/douyin/web/all-aweme-id): Extracts video IDs from a list of Douyin video URLs.\n- [Douyin sec_user_ids from URLs (Batch)](/model/douyin/web/all-sec-user-id): Extracts Douyin sec_user_id values in bulk from a list of user homepage URLs.\n- [Douyin Webcast ID Extraction](/model/douyin/web/all-webcast-id): Extracts webcast IDs from a submitted list of Douyin live room links.\n",
+  "readme": "# Douyin Web Guest Cookie API\n\nRetrieve a guest session cookie for Douyin Web by supplying a valid browser `user_agent`.\n\n## Use cases\n\n- Obtain guest credentials for crawling Douyin Web data.\n- Maintain session identity when querying public user and mix videos.\n- Prevent duplicate responses across public web data requests.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/douyin/web/web-guest-cookie\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"user_agent\": \"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `user_agent` | string | Yes | User browser agent |\n\n## Notes\n\n- Requires `user_agent` containing a valid browser agent string.\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [Douyin Batch Video ID Extraction](/apis/douyin/web/all-aweme-id): Extracts video IDs from a list of Douyin video URLs.\n- [Douyin sec_user_ids from URLs (Batch)](/apis/douyin/web/all-sec-user-id): Extracts Douyin sec_user_id values in bulk from a list of user homepage URLs.\n- [Douyin Webcast ID Extraction](/apis/douyin/web/all-webcast-id): Extracts webcast IDs from a submitted list of Douyin live room links.\n",
   "page_url": "https://www.sandbase.ai/model/douyin/web/web-guest-cookie",
   "created_at": "2026-07-31T02:41:06.591Z"
 }

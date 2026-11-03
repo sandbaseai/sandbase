@@ -80,7 +80,7 @@ Fetch creator conversion performance metrics by supplying the creator ID in `o_a
 curl -X POST "https://api.sandbase.ai/v1/api/douyin/xingtu-v2/author-convert-ability" \
   -H "Authorization: Bearer $SANDBASE_API_KEY" \
   -H "Content-Type: application/json" \
-  -d '{"o_author_id": "<o_author_id>"}'
+  -d '{"o_author_id": "7029342444797820939"}'
 ```
 
 ### Parameters
@@ -105,9 +105,9 @@ Flat price per call. Failed calls, including lookups whose target does not exist
 
 ### Related APIs
 
-- [Douyin Xingtu Author Audience Distribution](/model/douyin/xingtu-v2/author-audience-distribution): Returns audience profile distribution metrics for a specified Xingtu creator based on creator ID and link type, with selectable platform source and channel opt…
-- [Douyin Xingtu Author Base Info](/model/douyin/xingtu-v2/author-base-info): Returns basic creator profile data from Douyin Xingtu by author identifier, with options to include recommendation details and linkage information.
-- [Douyin Xingtu Author Business Card Info](/model/douyin/xingtu-v2/author-business-card-info): Returns business card details for a Douyin Xingtu creator based on the specified author ID.
+- [Douyin Xingtu Author Audience Distribution](/apis/douyin/xingtu-v2/author-audience-distribution): Returns audience profile distribution metrics for a specified Xingtu creator based on creator ID and link type, with selectable platform source and channel opt…
+- [Douyin Xingtu Author Base Info](/apis/douyin/xingtu-v2/author-base-info): Returns basic creator profile data from Douyin Xingtu by author identifier, with options to include recommendation details and linkage information.
+- [Douyin Xingtu Author Business Card Info](/apis/douyin/xingtu-v2/author-business-card-info): Returns business card details for a Douyin Xingtu creator based on the specified author ID.
 
 ---
 Machine-readable: [`catalog/models/douyin/xingtu-v2/author-convert-ability.json`](../../../../catalog/models/douyin/xingtu-v2/author-convert-ability.json) · Store page: https://www.sandbase.ai/model/douyin/xingtu-v2/author-convert-ability

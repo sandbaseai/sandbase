@@ -98,11 +98,5 @@ curl -X POST "https://api.sandbase.ai/v1/api/tiktok/creator/video-audience-stats
 
 Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
 
-### Related APIs
-
-- [TikTok Creator Account Health Status](/model/tiktok/creator/account-health-status): Returns the health status of a TikTok Shop creator account.
-- [TikTok Creator Account Insights Overview](/model/tiktok/creator/account-insights-overview): Retrieves performance metrics for a TikTok Shop creator account, including revenue, exposure, clicks, and orders for the specified month.
-- [TikTok Creator Account Violations](/model/tiktok/creator/account-violation-list): Returns the violation history and enforcement actions for a TikTok Shop creator account.
-
 ---
 Machine-readable: [`catalog/models/tiktok/creator/video-audience-stats.json`](../../../../catalog/models/tiktok/creator/video-audience-stats.json) · Store page: https://www.sandbase.ai/model/tiktok/creator/video-audience-stats

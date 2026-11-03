@@ -127,9 +127,9 @@ Flat price per call. Failed calls, including lookups whose target does not exist
 
 ### Related APIs
 
-- [Get the latest tweet comments](/model/twitter/web/latest-post-comments): Get the latest tweet comments.
-- [Get comments](/model/twitter/web/post-comments): Get comments under the tweet.
-- [ReTweet User list](/model/twitter/web/retweet-user-list): Get ReTweet User list.
+- [Get the latest tweet comments](/apis/twitter/web/latest-post-comments): Get the latest tweet comments.
+- [Get comments](/apis/twitter/web/post-comments): Get comments under the tweet.
+- [ReTweet User list](/apis/twitter/web/retweet-user-list): Get ReTweet User list.
 
 ---
 Machine-readable: [`catalog/models/twitter/web/search-timeline.json`](../../../../catalog/models/twitter/web/search-timeline.json) · Store page: https://www.sandbase.ai/model/twitter/web/search-timeline

@@ -76,7 +76,7 @@ Fetch Threads user profile information by supplying a target `user_id`.
 curl -X POST "https://api.sandbase.ai/v1/api/threads/web/user-info-by-id" \
   -H "Authorization: Bearer $SANDBASE_API_KEY" \
   -H "Content-Type: application/json" \
-  -d '{"user_id": "<user_id>"}'
+  -d '{"user_id": "67027868801"}'
 ```
 
 ### Parameters
@@ -95,9 +95,9 @@ Flat price per call. Failed calls, including lookups whose target does not exist
 
 ### Related APIs
 
-- [Threads Post Detail](/model/threads/web/post-detail): Returns detailed information for a specific Threads post using its numeric ID.
-- [Threads Post Detail (V2)](/model/threads/web/post-detail-v2): Returns detailed information for a specific Threads post.
-- [Threads Profile Search](/model/threads/web/search-profiles): Searches Threads user profiles based on a specified text query string.
+- [Threads Post Detail](/apis/threads/web/post-detail): Returns detailed information for a specific Threads post using its numeric ID.
+- [Threads Post Detail (V2)](/apis/threads/web/post-detail-v2): Returns detailed information for a specific Threads post.
+- [Threads Profile Search](/apis/threads/web/search-profiles): Searches Threads user profiles based on a specified text query string.
 
 ---
 Machine-readable: [`catalog/models/threads/web/user-info-by-id.json`](../../../../catalog/models/threads/web/user-info-by-id.json) · Store page: https://www.sandbase.ai/model/threads/web/user-info-by-id

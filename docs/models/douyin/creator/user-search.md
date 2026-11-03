@@ -62,13 +62,12 @@ Same call via the path form: `POST /v1/api/douyin/creator/user-search` with the 
 
 ## Details
 
-Search Douyin accounts by specifying `user_name`. The query supports searches by Douyin ID as well as profile nickname.
+Search Douyin accounts by nickname or Douyin ID (抖音号) and get each match's nickname, Douyin ID (`short_id`), numeric `user_id` and avatar. Useful when you only know an account's name.
 
 ### Use cases
 
-- Locate account profiles by entering a Douyin ID.
-- Search for profiles by display nickname.
-- Retrieve account identifiers such as user ID and short ID.
+- Resolve a brand or creator name into the Douyin account ID before calling profile or video APIs.
+- Check whether a Douyin ID is taken.
 
 ### Request
 
@@ -79,6 +78,8 @@ curl -X POST "https://api.sandbase.ai/v1/api/douyin/creator/user-search" \
   -d '{"user_name": "中国人工智能学会"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
@@ -87,33 +88,47 @@ curl -X POST "https://api.sandbase.ai/v1/api/douyin/creator/user-search" \
 
 ### Example response
 
-Real response for the request above, trimmed to the main fields. User names and long IDs are masked.
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
 
 ```json
 {
+  "status_code": 0,
+  "status_msg": "",
   "user_infos": [
     {
-      "nick_name": "<user>",
-      "short_id": "<user>",
-      "user_id": "<user>"
+      "avatar": "https://p11.douyinpic.com/aweme/100x100/aweme-avatar/tos-cn-avt-0015_ae902e4896a…",
+      "nick_name": "中国人工智能学会",
+      "short_id": "CAAI_Douyin",
+      "user_id": "97074768765"
     }
   ]
 }
 ```
 
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `user_infos[]` | Matching accounts. |
+| `nick_name` | Display name. |
+| `short_id` | Douyin ID shown on the profile (抖音号). |
+| `user_id` | Numeric user ID. |
+| `avatar` | Avatar URL. |
+
 ### Notes
 
-- The `user_name` parameter accepts either a Douyin ID or a user nickname.
+- Results come from the Douyin creator platform search, so the closest names come first; check `nick_name` before using `user_id`.
+- For profile and posts, most Douyin APIs take `sec_user_id`; get it from a profile link or the video detail APIs.
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls, including lookups whose target does not exist, are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 
-- [Douyin Creator Activity Details](/model/douyin/creator/creator-activity-detail): Returns detailed information for a specific Douyin creator activity.
-- [Douyin Activity List](/model/douyin/creator/creator-activity-list): Returns activity and campaign records for Douyin accounts within a specified timestamp window between start_time and end_time.
-- [Douyin Content Categories](/model/douyin/creator/creator-content-category): Returns the list of content categories available on Douyin.
+- [Douyin Creator Activity Details](/apis/douyin/creator/creator-activity-detail): Returns detailed information for a specific Douyin creator activity.
+- [Douyin Activity List](/apis/douyin/creator/creator-activity-list): Returns activity and campaign records for Douyin accounts within a specified timestamp window between start_time and end_time.
+- [Douyin Content Categories](/apis/douyin/creator/creator-content-category): Returns the list of content categories available on Douyin.
 
 ---
 Machine-readable: [`catalog/models/douyin/creator/user-search.json`](../../../../catalog/models/douyin/creator/user-search.json) · Store page: https://www.sandbase.ai/model/douyin/creator/user-search

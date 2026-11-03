@@ -20,7 +20,7 @@ Modes: sync (default `sync`). Only pass `mode` values listed here. The SDKs' `ru
 ```bash
 curl https://api.sandbase.ai/v1/run \
   -H "Authorization: Bearer $SANDBASE_API_KEY" -H 'Content-Type: application/json' \
-  -d '{"model": "weibo/app/user-articles", "uid": "<uid>"}'
+  -d '{"model": "weibo/app/user-articles", "uid": "1725941200"}'
 ```
 
 **Python** ([sdk/python](../../../../sdk/python))
@@ -28,7 +28,7 @@ curl https://api.sandbase.ai/v1/run \
 ```python
 from sandbase import SandBase
 
-result = SandBase().run('weibo/app/user-articles', {'uid': '<uid>'})
+result = SandBase().run('weibo/app/user-articles', {'uid': '1725941200'})
 print(result["outputs"])
 ```
 
@@ -38,7 +38,7 @@ print(result["outputs"])
 import { SandBase } from "@sandbaseai/sdk";
 
 const result = await new SandBase().run("weibo/app/user-articles", {
-  "uid": "<uid>"
+  "uid": "1725941200"
 });
 console.log(result.outputs);
 ```
@@ -48,7 +48,7 @@ console.log(result.outputs);
 ```go
 c, _ := sandbase.NewClient("")
 run, err := c.Run(ctx, "weibo/app/user-articles", sandbase.Params{
-	"uid": "<uid>",
+	"uid": "1725941200",
 })
 ```
 
@@ -77,7 +77,7 @@ Fetch articles authored by a specific user by providing their `uid`. Use `since_
 curl -X POST "https://api.sandbase.ai/v1/api/weibo/app/user-articles" \
   -H "Authorization: Bearer $SANDBASE_API_KEY" \
   -H "Content-Type: application/json" \
-  -d '{"uid": "<uid>"}'
+  -d '{"uid": "1725941200"}'
 ```
 
 ### Parameters
@@ -97,9 +97,9 @@ Flat price per call. Failed calls, including lookups whose target does not exist
 
 ### Related APIs
 
-- [Weibo App AI Smart Search](/model/weibo/app/ai-smart-search): Returns AI smart search channel results and feed metadata from Weibo for a specified keyword query, with optional page-based pagination.
-- [Weibo Home Recommend Feed](/model/weibo/app/home-recommend-feed): Returns recommended feed items from the Weibo app homepage, with options to paginate and specify the number of items per request.
-- [Weibo Hot Search Rankings](/model/weibo/app/hot-search): Returns current Weibo hot search rankings across various categories.
+- [Weibo App AI Smart Search](/apis/weibo/app/ai-smart-search): Returns AI smart search channel results and feed metadata from Weibo for a specified keyword query, with optional page-based pagination.
+- [Weibo Home Recommend Feed](/apis/weibo/app/home-recommend-feed): Returns recommended feed items from the Weibo app homepage, with options to paginate and specify the number of items per request.
+- [Weibo Hot Search Rankings](/apis/weibo/app/hot-search): Returns current Weibo hot search rankings across various categories.
 
 ---
 Machine-readable: [`catalog/models/weibo/app/user-articles.json`](../../../../catalog/models/weibo/app/user-articles.json) · Store page: https://www.sandbase.ai/model/weibo/app/user-articles

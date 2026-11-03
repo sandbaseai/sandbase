@@ -130,9 +130,9 @@ Flat price per call. Failed calls, including lookups whose target does not exist
 
 ### Related APIs
 
-- [Get product detail V1(Full data)](/model/tiktok/shop-web/product-detail): if so, try using `fetch_product_detail_v3`.
-- [Get product detail V2 (Less Data)](/model/tiktok/shop-web/product-detail-v2): for more complete data, use `fetch_product_detail` or `fetch_product_detail_v3`.
-- [Get product detail V3 (Full Data)](/model/tiktok/shop-web/product-detail-v3): Get TikTok Shop product details Provides the most complete product information including recommendations, videos, shop info, etc..
+- [Get product detail V1(Full data)](/apis/tiktok/shop-web/product-detail): if so, try using `fetch_product_detail_v3`.
+- [Get product detail V2 (Less Data)](/apis/tiktok/shop-web/product-detail-v2): for more complete data, use `fetch_product_detail` or `fetch_product_detail_v3`.
+- [Get product detail V3 (Full Data)](/apis/tiktok/shop-web/product-detail-v3): Get TikTok Shop product details Provides the most complete product information including recommendations, videos, shop info, etc..
 
 ---
 Machine-readable: [`catalog/models/tiktok/shop-web/product-reviews-v2.json`](../../../../catalog/models/tiktok/shop-web/product-reviews-v2.json) · Store page: https://www.sandbase.ai/model/tiktok/shop-web/product-reviews-v2

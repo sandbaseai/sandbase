@@ -79,7 +79,7 @@ Query answers submitted by a specific user on Zhihu using their `user_url_token`
 curl -X POST "https://api.sandbase.ai/v1/api/zhihu/web/user-answers" \
   -H "Authorization: Bearer $SANDBASE_API_KEY" \
   -H "Content-Type: application/json" \
-  -d '{"user_url_token": "<user_url_token>"}'
+  -d '{"user_url_token": "excited-vczh"}'
 ```
 
 ### Parameters
@@ -103,9 +103,9 @@ Flat price per call. Failed calls, including lookups whose target does not exist
 
 ### Related APIs
 
-- [Zhihu AI Search Stream](/model/zhihu/web/ai-search-stream): Returns streaming AI search results from Zhihu based on a query prompt.
-- [Zhihu Answer Details](/model/zhihu/web/answer-detail): Retrieves detailed information for a specific Zhihu answer using its numeric ID, including answer text, timestamps, and share links.
-- [Zhihu Article Search](/model/zhihu/web/article-search-v3): Search Zhihu articles and answers by keyword and get titles, excerpts, authors, vote and comment counts, with sorting, content type and time filters plus offse…
+- [Zhihu AI Search Stream](/apis/zhihu/web/ai-search-stream): Returns streaming AI search results from Zhihu based on a query prompt.
+- [Zhihu Answer Details](/apis/zhihu/web/answer-detail): Retrieves detailed information for a specific Zhihu answer using its numeric ID, including answer text, timestamps, and share links.
+- [Zhihu Article Search](/apis/zhihu/web/article-search-v3): Search Zhihu articles and answers by keyword and get titles, excerpts, authors, vote and comment counts, with sorting, content type and time filters plus offse…
 
 ---
 Machine-readable: [`catalog/models/zhihu/web/user-answers.json`](../../../../catalog/models/zhihu/web/user-answers.json) · Store page: https://www.sandbase.ai/model/zhihu/web/user-answers

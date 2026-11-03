@@ -102,9 +102,9 @@ Flat price per call. Failed calls, including lookups whose target does not exist
 
 ### Related APIs
 
-- [Pipixia Search](/model/pipixia/app/search): Search Pipixia (ByteDance humor community) by keyword across posts, videos, images, users and hashtags.
-- [Get hashtag detail](/model/pipixia/app/hashtag-detail): Get hashtag detail data.
-- [Get hashtag post list](/model/pipixia/app/hashtag-post-list): Get hashtag post list data.
+- [Pipixia Search](/apis/pipixia/app/search): Search Pipixia (ByteDance humor community) by keyword across posts, videos, images, users and hashtags.
+- [Get hashtag detail](/apis/pipixia/app/hashtag-detail): Get hashtag detail data.
+- [Get hashtag post list](/apis/pipixia/app/hashtag-post-list): Get hashtag post list data.
 
 ---
 Machine-readable: [`catalog/models/pipixia/app/hot-search-board-list.json`](../../../../catalog/models/pipixia/app/hot-search-board-list.json) · Store page: https://www.sandbase.ai/model/pipixia/app/hot-search-board-list

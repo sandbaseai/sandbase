@@ -20,7 +20,7 @@ Modes: sync (default `sync`). Only pass `mode` values listed here. The SDKs' `ru
 ```bash
 curl https://api.sandbase.ai/v1/run \
   -H "Authorization: Bearer $SANDBASE_API_KEY" -H 'Content-Type: application/json' \
-  -d '{"model": "reddit/app/check-subreddit-muted", "subreddit_id": "<subreddit_id>"}'
+  -d '{"model": "reddit/app/check-subreddit-muted", "subreddit_id": "t5_2qh0u"}'
 ```
 
 **Python** ([sdk/python](../../../../sdk/python))
@@ -28,7 +28,7 @@ curl https://api.sandbase.ai/v1/run \
 ```python
 from sandbase import SandBase
 
-result = SandBase().run('reddit/app/check-subreddit-muted', {'subreddit_id': '<subreddit_id>'})
+result = SandBase().run('reddit/app/check-subreddit-muted', {'subreddit_id': 't5_2qh0u'})
 print(result["outputs"])
 ```
 
@@ -38,7 +38,7 @@ print(result["outputs"])
 import { SandBase } from "@sandbaseai/sdk";
 
 const result = await new SandBase().run("reddit/app/check-subreddit-muted", {
-  "subreddit_id": "<subreddit_id>"
+  "subreddit_id": "t5_2qh0u"
 });
 console.log(result.outputs);
 ```
@@ -48,7 +48,7 @@ console.log(result.outputs);
 ```go
 c, _ := sandbase.NewClient("")
 run, err := c.Run(ctx, "reddit/app/check-subreddit-muted", sandbase.Params{
-	"subreddit_id": "<subreddit_id>",
+	"subreddit_id": "t5_2qh0u",
 })
 ```
 
@@ -77,7 +77,7 @@ Inspects whether an account has muted a specific subreddit by providing `subredd
 curl -X POST "https://api.sandbase.ai/v1/api/reddit/app/check-subreddit-muted" \
   -H "Authorization: Bearer $SANDBASE_API_KEY" \
   -H "Content-Type: application/json" \
-  -d '{"subreddit_id": "<subreddit_id>"}'
+  -d '{"subreddit_id": "t5_2qh0u"}'
 ```
 
 ### Parameters
@@ -98,9 +98,9 @@ Flat price per call. Failed calls, including lookups whose target does not exist
 
 ### Related APIs
 
-- [Reddit App Comment Replies](/model/reddit/app/comment-replies): Returns replies and nested sub-comments under a Reddit post comment using a continuation cursor.
-- [Reddit Community Highlights](/model/reddit/app/community-highlights): Returns featured highlight content for a designated Reddit community, such as popular posts and announcements, by subreddit ID.
-- [Reddit Search](/model/reddit/app/dynamic-search): Search Reddit posts, communities, comments, media and users with the Reddit app search.
+- [Reddit App Comment Replies](/apis/reddit/app/comment-replies): Returns replies and nested sub-comments under a Reddit post comment using a continuation cursor.
+- [Reddit Community Highlights](/apis/reddit/app/community-highlights): Returns featured highlight content for a designated Reddit community, such as popular posts and announcements, by subreddit ID.
+- [Reddit Search](/apis/reddit/app/dynamic-search): Search Reddit posts, communities, comments, media and users with the Reddit app search.
 
 ---
 Machine-readable: [`catalog/models/reddit/app/check-subreddit-muted.json`](../../../../catalog/models/reddit/app/check-subreddit-muted.json) · Store page: https://www.sandbase.ai/model/reddit/app/check-subreddit-muted

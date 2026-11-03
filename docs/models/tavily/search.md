@@ -75,13 +75,13 @@ Same call via the path form: `POST /v1/api/tavily/search` with the body above mi
 
 ## Details
 
-Tavily returns search results already cleaned for LLMs: each result has a title, URL, relevant content snippet and score. Optionally get a short generated answer or the raw page content.
+Web search built for LLM agents and RAG. Each result comes back with a title, URL, the most relevant content snippet and a relevance score, so you can pass results straight to a model. Optionally get a generated answer, images or the cleaned full page text.
 
 ### Use cases
 
-- Give agents real-time web access.
-- Build RAG pipelines on fresh sources.
-- Research news or financial topics.
+- Give an agent current web results without writing a scraper.
+- Collect fresh sources for retrieval-augmented generation.
+- Track news or finance topics with `topic` and a time range.
 
 ### Request
 
@@ -92,46 +92,66 @@ curl -X POST "https://api.sandbase.ai/v1/api/tavily/search" \
   -d '{"query": "OpenAI Codex documentation", "max_results": 3}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
 |---|---|---|---|
 | `query` | string | Yes | The search query. |
-| `topic` | string | No | Topic category to focus the search. |
-| `max_results` | integer | No | Maximum number of results to return. |
-| `search_depth` | string | No | Depth of search. 'advanced' returns more comprehensive results. |
-| `include_answer` | boolean | No | Include an LLM-generated answer summarizing the results. |
 | `exclude_domains` | array | No | Exclude results from these domains. |
+| `include_answer` | boolean | No | Include an LLM-generated answer summarizing the results. |
 | `include_domains` | array | No | Only include results from these domains. |
 | `include_raw_content` | boolean | No | Include the full raw page content for each result. |
+| `max_results` | integer | No | Maximum number of results to return. |
+| `search_depth` | string | No | Depth of search. 'advanced' returns more comprehensive results. |
+| `topic` | string | No | Topic category to focus the search. |
 
 ### Example response
 
-Real response for the request above, trimmed to the main fields. User names and long IDs are masked.
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
 
 ```json
 {
+  "answer": null,
+  "follow_up_questions": null,
+  "images": [],
   "query": "OpenAI Codex documentation",
+  "request_id": "9a4efa6f-8022-44af-a4c1-a1633319ea49",
+  "response_time": 0.99,
   "results": [
     {
-      "title": "Documentation and implementation of Open AI's new Codex model - API -…",
-      "url": "https://community.openai.com/t/documentation-and-implementation-of-op…",
-      "content": "# Documentation and implementation of Open AI's new Codex model  Hi,  I am look…",
-      "score": 0.8624794
+      "content": "[52:01] So before we wrap up, I just want to share a few additional resources. s…",
+      "id": "a3a4d2-00",
+      "raw_content": null,
+      "score": 0.81665546,
+      "title": "Getting started with Codex",
+      "url": "https://www.youtube.com/watch?v=px7XlbYgk7I"
     }
   ],
-  "response_time": 1.18
+  "usage": {
+    "credits": 1
+  }
 }
 ```
 
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `results[]` | Ranked results: `title`, `url`, `content` (relevant excerpt), `score` (0-1 relevance) and `raw_content` when `include_raw_content` is set. |
+| `answer` | Generated answer when `include_answer` is true, otherwise null. |
+| `images` | Image results when `include_images` is true. |
+| `response_time` | Upstream time in seconds. |
+
 ### Notes
 
-- `search_depth`: basic or advanced (more comprehensive).
-- Set `include_answer` to `true` for an LLM-generated summary.
+- `search_depth: "advanced"` searches more deeply and is slower; the default `basic` fits most agent calls.
+- Use `include_domains` / `exclude_domains` to restrict sources and `max_results` (up to 20) to bound the answer size.
 
 ### Pricing
 
-Flat price per call. Failed calls are not charged.
+$0.012 per successful call. Failed calls, including lookups whose target does not exist, are not charged. It is included in the daily free quota of each organization.
 
 ---
 Machine-readable: [`catalog/models/tavily/search.json`](../../../catalog/models/tavily/search.json) · Store page: https://www.sandbase.ai/model/tavily/search

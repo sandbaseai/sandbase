@@ -20,7 +20,7 @@ Modes: sync (default `sync`). Only pass `mode` values listed here. The SDKs' `ru
 ```bash
 curl https://api.sandbase.ai/v1/run \
   -H "Authorization: Bearer $SANDBASE_API_KEY" -H 'Content-Type: application/json' \
-  -d '{"model": "kuaishou/web/one-video", "share_text": "<share_text>"}'
+  -d '{"model": "kuaishou/web/one-video", "share_text": "https://www.kuaishou.com/f/X-f2k5KJpiXN1SY"}'
 ```
 
 **Python** ([sdk/python](../../../../sdk/python))
@@ -28,7 +28,7 @@ curl https://api.sandbase.ai/v1/run \
 ```python
 from sandbase import SandBase
 
-result = SandBase().run('kuaishou/web/one-video', {'share_text': '<share_text>'})
+result = SandBase().run('kuaishou/web/one-video', {'share_text': 'https://www.kuaishou.com/f/X-f2k5KJpiXN1SY'})
 print(result["outputs"])
 ```
 
@@ -38,7 +38,7 @@ print(result["outputs"])
 import { SandBase } from "@sandbaseai/sdk";
 
 const result = await new SandBase().run("kuaishou/web/one-video", {
-  "share_text": "<share_text>"
+  "share_text": "https://www.kuaishou.com/f/X-f2k5KJpiXN1SY"
 });
 console.log(result.outputs);
 ```
@@ -48,7 +48,7 @@ console.log(result.outputs);
 ```go
 c, _ := sandbase.NewClient("")
 run, err := c.Run(ctx, "kuaishou/web/one-video", sandbase.Params{
-	"share_text": "<share_text>",
+	"share_text": "https://www.kuaishou.com/f/X-f2k5KJpiXN1SY",
 })
 ```
 
@@ -76,7 +76,7 @@ Retrieve detailed metadata for a specific video on Kuaishou using the `share_tex
 curl -X POST "https://api.sandbase.ai/v1/api/kuaishou/web/one-video" \
   -H "Authorization: Bearer $SANDBASE_API_KEY" \
   -H "Content-Type: application/json" \
-  -d '{"share_text": "<share_text>"}'
+  -d '{"share_text": "https://www.kuaishou.com/f/X-f2k5KJpiXN1SY"}'
 ```
 
 ### Parameters
@@ -96,9 +96,9 @@ Flat price per call. Failed calls, including lookups whose target does not exist
 
 ### Related APIs
 
-- [Kuaishou Web Share Short URL](/model/kuaishou/web/generate-share-short-url): Returns a shareable short URL for a specified Kuaishou video or photo post.
-- [Kuaishou User ID Lookup](/model/kuaishou/web/get-user-id): Resolves a Kuaishou user ID from a provided user share link.
-- [Kuaishou Web Hot List](/model/kuaishou/web/hot-list-v1): Returns the current trending hot list from Kuaishou Web.
+- [Kuaishou Web Share Short URL](/apis/kuaishou/web/generate-share-short-url): Returns a shareable short URL for a specified Kuaishou video or photo post.
+- [Kuaishou User ID Lookup](/apis/kuaishou/web/get-user-id): Resolves a Kuaishou user ID from a provided user share link.
+- [Kuaishou Web Hot List](/apis/kuaishou/web/hot-list-v1): Returns the current trending hot list from Kuaishou Web.
 
 ---
 Machine-readable: [`catalog/models/kuaishou/web/one-video.json`](../../../../catalog/models/kuaishou/web/one-video.json) · Store page: https://www.sandbase.ai/model/kuaishou/web/one-video

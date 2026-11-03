@@ -146,9 +146,9 @@ Flat price per call. Failed calls, including lookups whose target does not exist
 
 ### Related APIs
 
-- [TikTok LIVE Status](/model/tiktok/app-v3/check-live-room-online): Check if live room is online The Room ID of the live room can be obtained from the `/api/v1/tiktok/web/get_live_room_id` interface through the live room link.
-- [Batch check if live rooms are online](/model/tiktok/app-v3/check-live-room-online-batch): Batch check TikTok live rooms' online status, supports up to 50 room IDs Room IDs can be retrieved from `/api/v1/tiktok/web/get_live_room_id`.
-- [Get content translation data](/model/tiktok/app-v3/content-translate): Get content translation data.
+- [TikTok LIVE Status](/apis/tiktok/app-v3/check-live-room-online): Check if live room is online The Room ID of the live room can be obtained from the `/api/v1/tiktok/web/get_live_room_id` interface through the live room link.
+- [Batch check if live rooms are online](/apis/tiktok/app-v3/check-live-room-online-batch): Batch check TikTok live rooms' online status, supports up to 50 room IDs Room IDs can be retrieved from `/api/v1/tiktok/web/get_live_room_id`.
+- [Get content translation data](/apis/tiktok/app-v3/content-translate): Get content translation data.
 
 ---
 Machine-readable: [`catalog/models/tiktok/app-v3/creator-search-insights.json`](../../../../catalog/models/tiktok/app-v3/creator-search-insights.json) · Store page: https://www.sandbase.ai/model/tiktok/app-v3/creator-search-insights

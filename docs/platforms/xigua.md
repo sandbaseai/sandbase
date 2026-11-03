@@ -16,7 +16,7 @@ Call 6 Xigua endpoints through SandBase with one API key: no separate account, o
 ```bash
 curl https://api.sandbase.ai/v1/run \
   -H "Authorization: Bearer $SANDBASE_API_KEY" -H 'Content-Type: application/json' \
-  -d '{"model": "xigua/app-v2/one-video", "item_id": "<item_id>"}'
+  -d '{"model": "xigua/app-v2/one-video", "item_id": "7354954305222377999"}'
 ```
 
 Get a key at [sandbase.ai](https://www.sandbase.ai/console). Back to [all platforms](README.md).

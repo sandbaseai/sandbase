@@ -108,9 +108,9 @@ Flat price per call. Failed calls, including lookups whose target does not exist
 
 ### Related APIs
 
-- [Twitter (X) Search](/model/twitter/web/search-timeline): Search Twitter / X posts by keyword and get tweets with text, author, time and engagement counts (likes, retweets, replies, views).
-- [Twitter (X) Trending Topics](/model/twitter/web/trending): Get trending topics on Twitter / X by country: trend names with their category context, for the United States, Japan, India, the UK and other markets.
-- [Twitter Tweet Detail](/model/twitter/web/tweet-detail): Get a single tweet (X post) by ID: full text, author, media, and like, retweet, reply, quote, bookmark and view counts.
+- [Twitter (X) Search](/apis/twitter/web/search-timeline): Search Twitter / X posts by keyword and get tweets with text, author, time and engagement counts (likes, retweets, replies, views).
+- [Twitter (X) Trending Topics](/apis/twitter/web/trending): Get trending topics on Twitter / X by country: trend names with their category context, for the United States, Japan, India, the UK and other markets.
+- [Twitter Tweet Detail](/apis/twitter/web/tweet-detail): Get a single tweet (X post) by ID: full text, author, media, and like, retweet, reply, quote, bookmark and view counts.
 
 ---
 Machine-readable: [`catalog/models/twitter/web/user-profile.json`](../../../../catalog/models/twitter/web/user-profile.json) · Store page: https://www.sandbase.ai/model/twitter/web/user-profile

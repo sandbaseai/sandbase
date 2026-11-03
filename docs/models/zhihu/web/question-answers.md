@@ -83,7 +83,7 @@ Retrieve answers submitted to a Zhihu question using its `question_id`. Response
 curl -X POST "https://api.sandbase.ai/v1/api/zhihu/web/question-answers" \
   -H "Authorization: Bearer $SANDBASE_API_KEY" \
   -H "Content-Type: application/json" \
-  -d '{"question_id": "<question_id>"}'
+  -d '{"question_id": "19550225"}'
 ```
 
 ### Parameters
@@ -109,9 +109,9 @@ Flat price per call. Failed calls, including lookups whose target does not exist
 
 ### Related APIs
 
-- [Zhihu AI Search Stream](/model/zhihu/web/ai-search-stream): Returns streaming AI search results from Zhihu based on a query prompt.
-- [Zhihu Answer Details](/model/zhihu/web/answer-detail): Retrieves detailed information for a specific Zhihu answer using its numeric ID, including answer text, timestamps, and share links.
-- [Zhihu Article Search](/model/zhihu/web/article-search-v3): Search Zhihu articles and answers by keyword and get titles, excerpts, authors, vote and comment counts, with sorting, content type and time filters plus offse…
+- [Zhihu AI Search Stream](/apis/zhihu/web/ai-search-stream): Returns streaming AI search results from Zhihu based on a query prompt.
+- [Zhihu Answer Details](/apis/zhihu/web/answer-detail): Retrieves detailed information for a specific Zhihu answer using its numeric ID, including answer text, timestamps, and share links.
+- [Zhihu Article Search](/apis/zhihu/web/article-search-v3): Search Zhihu articles and answers by keyword and get titles, excerpts, authors, vote and comment counts, with sorting, content type and time filters plus offse…
 
 ---
 Machine-readable: [`catalog/models/zhihu/web/question-answers.json`](../../../../catalog/models/zhihu/web/question-answers.json) · Store page: https://www.sandbase.ai/model/zhihu/web/question-answers

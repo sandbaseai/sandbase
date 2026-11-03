@@ -30,6 +30,7 @@
       "item_id": {
         "type": "string",
         "title": "Item Id",
+        "example": "7354954305222377999",
         "description": "Video id"
       }
     }
@@ -48,7 +49,7 @@
       "note": "Shared across all free-quota APIs, resets 00:00 UTC."
     }
   },
-  "readme": "# Xigua Single Video Information API\n\nRetrieve basic metadata and related video recommendations for a Xigua video by providing `item_id`.\n\n## Use cases\n\n- Discover related video recommendations for a specific post.\n- Inspect baseline item data without full title metadata.\n- Trace content recommendation graphs across Xigua videos.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/xigua/app-v2/one-video\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"item_id\": \"<item_id>\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `item_id` | string | Yes | Video id |\n\n## Notes\n\n- Requires a valid `item_id` representing the target Xigua video.\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [Xigua Video Play URL](/model/xigua/app-v2/one-video-play-url): Returns the direct playback URL for a specific Xigua video using its unique item identifier.\n- [Xigua Video Search](/model/xigua/app-v2/search-video): Search Xigua Video (ByteDance long-form video) by keyword: titles, creators, duration, publish time and comment counts, with sort and duration filters.\n- [Xigua User Profile Details](/model/xigua/app-v2/user-info): Returns profile and personal information for a specified Xigua account.\n",
+  "readme": "# Xigua Single Video Information API\n\nRetrieve basic metadata and related video recommendations for a Xigua video by providing `item_id`.\n\n## Use cases\n\n- Discover related video recommendations for a specific post.\n- Inspect baseline item data without full title metadata.\n- Trace content recommendation graphs across Xigua videos.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/xigua/app-v2/one-video\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"item_id\": \"7354954305222377999\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `item_id` | string | Yes | Video id |\n\n## Notes\n\n- Requires a valid `item_id` representing the target Xigua video.\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [Xigua Video Play URL](/apis/xigua/app-v2/one-video-play-url): Returns the direct playback URL for a specific Xigua video using its unique item identifier.\n- [Xigua Video Search](/apis/xigua/app-v2/search-video): Search Xigua Video (ByteDance long-form video) by keyword: titles, creators, duration, publish time and comment counts, with sort and duration filters.\n- [Xigua User Profile Details](/apis/xigua/app-v2/user-info): Returns profile and personal information for a specified Xigua account.\n",
   "page_url": "https://www.sandbase.ai/model/xigua/app-v2/one-video",
   "created_at": "2026-07-31T04:22:18.386Z"
 }

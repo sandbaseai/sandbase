@@ -117,9 +117,9 @@ Flat price per call. Failed calls, including lookups whose target does not exist
 
 ### Related APIs
 
-- [Xiaohongshu (RED) Inspiration Feed](/model/xiaohongshu/app-v2/creator-inspiration-feed): Returns recommended inspiration feed items and trending topics from Xiaohongshu (RED).
-- [Xiaohongshu (RED) Image Note Details](/model/xiaohongshu/app-v2/image-note-detail): Returns detailed information for a Xiaohongshu image note.
-- [Xiaohongshu (RED) Note Comments](/model/xiaohongshu/app-v2/note-comments): Get the comments on a Xiaohongshu note: comment text, time, likes, reply counts and location, with sorting and cursor pagination.
+- [Xiaohongshu (RED) Inspiration Feed](/apis/xiaohongshu/app-v2/creator-inspiration-feed): Returns recommended inspiration feed items and trending topics from Xiaohongshu (RED).
+- [Xiaohongshu (RED) Image Note Details](/apis/xiaohongshu/app-v2/image-note-detail): Returns detailed information for a Xiaohongshu image note.
+- [Xiaohongshu (RED) Note Comments](/apis/xiaohongshu/app-v2/note-comments): Get the comments on a Xiaohongshu note: comment text, time, likes, reply counts and location, with sorting and cursor pagination.
 
 ---
 Machine-readable: [`catalog/models/xiaohongshu/app-v2/creator-hot-inspiration-feed.json`](../../../../catalog/models/xiaohongshu/app-v2/creator-hot-inspiration-feed.json) · Store page: https://www.sandbase.ai/model/xiaohongshu/app-v2/creator-hot-inspiration-feed

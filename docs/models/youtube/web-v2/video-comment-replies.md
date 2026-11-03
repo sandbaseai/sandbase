@@ -79,7 +79,7 @@ Retrieve threaded replies to a top-level video comment by supplying `continuatio
 curl -X POST "https://api.sandbase.ai/v1/api/youtube/web-v2/video-comment-replies" \
   -H "Authorization: Bearer $SANDBASE_API_KEY" \
   -H "Content-Type: application/json" \
-  -d '{"continuation_token": "<continuation_token>"}'
+  -d '{"continuation_token": "Eg0SC2RRdzR3OVdnWGNRGAYygwEaUBIaVWd6S1lrc3FlUTVnQTN0MGcwRjRBYUFCQWciAggAKhhVQ3VBWEZrZ3N3MUw3eGFDZm5kNUpKT3cyC2RRdzR3OVdnWGNRQAFICoIBAggBQi9jb21tZW50LXJlcGxpZXMtaXRlbS1VZ3pLWWtzcWVRNWdBM3QwZzBGNEFhQUJBZw%3D%3D"}'
 ```
 
 ### Parameters
@@ -103,9 +103,9 @@ Flat price per call. Failed calls, including lookups whose target does not exist
 
 ### Related APIs
 
-- [YouTube Channel Community Posts](/model/youtube/web-v2/channel-community-posts): Returns community posts from a specific YouTube channel, including text content, polls, votes, and comment counts.
-- [YouTube Channel Description](/model/youtube/web-v2/channel-description): Returns YouTube channel details including subscriber counts, video totals, view counts, joined date, and social links.
-- [YouTube Channel ID from URL](/model/youtube/web-v2/channel-id): Resolves a YouTube channel URL to its canonical channel ID.
+- [YouTube Channel Community Posts](/apis/youtube/web-v2/channel-community-posts): Returns community posts from a specific YouTube channel, including text content, polls, votes, and comment counts.
+- [YouTube Channel Description](/apis/youtube/web-v2/channel-description): Returns YouTube channel details including subscriber counts, video totals, view counts, joined date, and social links.
+- [YouTube Channel ID from URL](/apis/youtube/web-v2/channel-id): Resolves a YouTube channel URL to its canonical channel ID.
 
 ---
 Machine-readable: [`catalog/models/youtube/web-v2/video-comment-replies.json`](../../../../catalog/models/youtube/web-v2/video-comment-replies.json) · Store page: https://www.sandbase.ai/model/youtube/web-v2/video-comment-replies

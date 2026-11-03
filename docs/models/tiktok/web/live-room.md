@@ -20,7 +20,7 @@ Modes: sync (default `sync`). Only pass `mode` values listed here. The SDKs' `ru
 ```bash
 curl https://api.sandbase.ai/v1/run \
   -H "Authorization: Bearer $SANDBASE_API_KEY" -H 'Content-Type: application/json' \
-  -d '{"model": "tiktok/web/live-room", "danmaku_type": "<danmaku_type>", "live_room_url": "<live_room_url>"}'
+  -d '{"model": "tiktok/web/live-room", "danmaku_type": "WebcastChatMessage", "live_room_url": "https://www.tiktok.com/@mpl.id.official/live"}'
 ```
 
 **Python** ([sdk/python](../../../../sdk/python))
@@ -28,7 +28,7 @@ curl https://api.sandbase.ai/v1/run \
 ```python
 from sandbase import SandBase
 
-result = SandBase().run('tiktok/web/live-room', {'danmaku_type': '<danmaku_type>', 'live_room_url': '<live_room_url>'})
+result = SandBase().run('tiktok/web/live-room', {'danmaku_type': 'WebcastChatMessage', 'live_room_url': 'https://www.tiktok.com/@mpl.id.official/live'})
 print(result["outputs"])
 ```
 
@@ -38,8 +38,8 @@ print(result["outputs"])
 import { SandBase } from "@sandbaseai/sdk";
 
 const result = await new SandBase().run("tiktok/web/live-room", {
-  "danmaku_type": "<danmaku_type>",
-  "live_room_url": "<live_room_url>"
+  "danmaku_type": "WebcastChatMessage",
+  "live_room_url": "https://www.tiktok.com/@mpl.id.official/live"
 });
 console.log(result.outputs);
 ```
@@ -49,8 +49,8 @@ console.log(result.outputs);
 ```go
 c, _ := sandbase.NewClient("")
 run, err := c.Run(ctx, "tiktok/web/live-room", sandbase.Params{
-	"danmaku_type": "<danmaku_type>",
-	"live_room_url": "<live_room_url>",
+	"danmaku_type": "WebcastChatMessage",
+	"live_room_url": "https://www.tiktok.com/@mpl.id.official/live",
 })
 ```
 
@@ -79,7 +79,7 @@ Retrieve real-time stream messages by providing the broadcast link via `live_roo
 curl -X POST "https://api.sandbase.ai/v1/api/tiktok/web/live-room" \
   -H "Authorization: Bearer $SANDBASE_API_KEY" \
   -H "Content-Type: application/json" \
-  -d '{"danmaku_type": "<danmaku_type>", "live_room_url": "<live_room_url>"}'
+  -d '{"danmaku_type": "WebcastChatMessage", "live_room_url": "https://www.tiktok.com/@mpl.id.official/live"}'
 ```
 
 ### Parameters
@@ -100,9 +100,9 @@ Flat price per call. Failed calls, including lookups whose target does not exist
 
 ### Related APIs
 
-- [TikTok Video IDs from URLs (Batch)](/model/tiktok/web/all-aweme-id): Resolves and extracts TikTok video IDs from a list of video URLs.
-- [TikTok User Sec User ID Extractor](/model/tiktok/web/all-sec-user-id): Returns a list of sec_user_id identifiers corresponding to TikTok user profile URLs.
-- [TikTok Profile Unique IDs](/model/tiktok/web/all-unique-id): Resolves a batch of TikTok user homepage links to retrieve their corresponding unique identifiers.
+- [TikTok Video IDs from URLs (Batch)](/apis/tiktok/web/all-aweme-id): Resolves and extracts TikTok video IDs from a list of video URLs.
+- [TikTok User Sec User ID Extractor](/apis/tiktok/web/all-sec-user-id): Returns a list of sec_user_id identifiers corresponding to TikTok user profile URLs.
+- [TikTok Profile Unique IDs](/apis/tiktok/web/all-unique-id): Resolves a batch of TikTok user homepage links to retrieve their corresponding unique identifiers.
 
 ---
 Machine-readable: [`catalog/models/tiktok/web/live-room.json`](../../../../catalog/models/tiktok/web/live-room.json) · Store page: https://www.sandbase.ai/model/tiktok/web/live-room

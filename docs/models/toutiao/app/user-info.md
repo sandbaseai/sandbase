@@ -119,9 +119,9 @@ Flat price per call. Failed calls, including lookups whose target does not exist
 
 ### Related APIs
 
-- [Get information of specified article](/model/toutiao/app/article-info): Get information of specified post.
-- [Get comments of specified post](/model/toutiao/app/comments): Get comments of specified post.
-- [Get user_id from user profile](/model/toutiao/app/user-id): Get user_id from user profile.
+- [Get information of specified article](/apis/toutiao/app/article-info): Get information of specified post.
+- [Get comments of specified post](/apis/toutiao/app/comments): Get comments of specified post.
+- [Get user_id from user profile](/apis/toutiao/app/user-id): Get user_id from user profile.
 
 ---
 Machine-readable: [`catalog/models/toutiao/app/user-info.json`](../../../../catalog/models/toutiao/app/user-info.json) · Store page: https://www.sandbase.ai/model/toutiao/app/user-info

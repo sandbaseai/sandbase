@@ -77,7 +77,7 @@ Retrieve all collections on a WeChat Channels creator profile using `username`. 
 curl -X POST "https://api.sandbase.ai/v1/api/wechat-channels/v2/user-collections" \
   -H "Authorization: Bearer $SANDBASE_API_KEY" \
   -H "Content-Type: application/json" \
-  -d '{"username": "<username>"}'
+  -d '{"username": "v2_060000231003b20faec8c6e4811dc1d4c602ee30b0771bbcf220c67926bb76ab7702ac335a53@finder"}'
 ```
 
 ### Parameters
@@ -98,9 +98,9 @@ Flat price per call. Failed calls, including lookups whose target does not exist
 
 ### Related APIs
 
-- [WeChat Channels ID to Username](/model/wechat-channels/v2/channel-id-to-username): Convert a public WeChat Channels Channel ID (sph… short ID) into the finder username (v2_…@finder) required by the other WeChat Channels APIs.
-- [WeChat Channels Account Info](/model/wechat-channels/v2/channel-info): Get the public "More info" panel of a WeChat Channels account: Channel ID, IP and profile location, and verification details such as entity type, service categ…
-- [WeChat Channels Collection Videos](/model/wechat-channels/v2/collection-videos): Returns videos contained within a WeChat Channels collection using a collection ID.
+- [WeChat Channels ID to Username](/apis/wechat-channels/v2/channel-id-to-username): Convert a public WeChat Channels Channel ID (sph… short ID) into the finder username (v2_…@finder) required by the other WeChat Channels APIs.
+- [WeChat Channels Account Info](/apis/wechat-channels/v2/channel-info): Get the public "More info" panel of a WeChat Channels account: Channel ID, IP and profile location, and verification details such as entity type, service categ…
+- [WeChat Channels Collection Videos](/apis/wechat-channels/v2/collection-videos): Returns videos contained within a WeChat Channels collection using a collection ID.
 
 ---
 Machine-readable: [`catalog/models/wechat-channels/v2/user-collections.json`](../../../../catalog/models/wechat-channels/v2/user-collections.json) · Store page: https://www.sandbase.ai/model/wechat-channels/v2/user-collections

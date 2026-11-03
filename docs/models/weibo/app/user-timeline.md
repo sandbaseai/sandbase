@@ -138,9 +138,9 @@ Flat price per call. Failed calls, including lookups whose target does not exist
 
 ### Related APIs
 
-- [AI Smart Search](/model/weibo/app/ai-smart-search): App Ai Smart Search provides a focused capability for applications, automation, and data workflows.
-- [Get home recommend feed](/model/weibo/app/home-recommend-feed): Get the home recommend feed from Weibo.
-- [Get hot search](/model/weibo/app/hot-search): Get Weibo hot search ranking, supports multiple categories.
+- [AI Smart Search](/apis/weibo/app/ai-smart-search): App Ai Smart Search provides a focused capability for applications, automation, and data workflows.
+- [Get home recommend feed](/apis/weibo/app/home-recommend-feed): Get the home recommend feed from Weibo.
+- [Get hot search](/apis/weibo/app/hot-search): Get Weibo hot search ranking, supports multiple categories.
 
 ---
 Machine-readable: [`catalog/models/weibo/app/user-timeline.json`](../../../../catalog/models/weibo/app/user-timeline.json) · Store page: https://www.sandbase.ai/model/weibo/app/user-timeline

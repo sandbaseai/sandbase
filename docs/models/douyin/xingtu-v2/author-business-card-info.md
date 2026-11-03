@@ -76,7 +76,7 @@ Retrieves business card information for a creator using the `o_author_id` parame
 curl -X POST "https://api.sandbase.ai/v1/api/douyin/xingtu-v2/author-business-card-info" \
   -H "Authorization: Bearer $SANDBASE_API_KEY" \
   -H "Content-Type: application/json" \
-  -d '{"o_author_id": "<o_author_id>"}'
+  -d '{"o_author_id": "7589271892177518598"}'
 ```
 
 ### Parameters
@@ -95,9 +95,9 @@ Flat price per call. Failed calls, including lookups whose target does not exist
 
 ### Related APIs
 
-- [Douyin Xingtu Author Audience Distribution](/model/douyin/xingtu-v2/author-audience-distribution): Returns audience profile distribution metrics for a specified Xingtu creator based on creator ID and link type, with selectable platform source and channel opt…
-- [Douyin Xingtu Author Base Info](/model/douyin/xingtu-v2/author-base-info): Returns basic creator profile data from Douyin Xingtu by author identifier, with options to include recommendation details and linkage information.
-- [Douyin Xingtu Author Content Hot Keywords](/model/douyin/xingtu-v2/author-content-hot-keywords): Returns trending content keywords for a Douyin creator.
+- [Douyin Xingtu Author Audience Distribution](/apis/douyin/xingtu-v2/author-audience-distribution): Returns audience profile distribution metrics for a specified Xingtu creator based on creator ID and link type, with selectable platform source and channel opt…
+- [Douyin Xingtu Author Base Info](/apis/douyin/xingtu-v2/author-base-info): Returns basic creator profile data from Douyin Xingtu by author identifier, with options to include recommendation details and linkage information.
+- [Douyin Xingtu Author Content Hot Keywords](/apis/douyin/xingtu-v2/author-content-hot-keywords): Returns trending content keywords for a Douyin creator.
 
 ---
 Machine-readable: [`catalog/models/douyin/xingtu-v2/author-business-card-info.json`](../../../../catalog/models/douyin/xingtu-v2/author-business-card-info.json) · Store page: https://www.sandbase.ai/model/douyin/xingtu-v2/author-business-card-info

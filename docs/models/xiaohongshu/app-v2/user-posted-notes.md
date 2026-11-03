@@ -78,7 +78,7 @@ Returns notes posted by a specific user using either `user_id` or `share_text`. 
 curl -X POST "https://api.sandbase.ai/v1/api/xiaohongshu/app-v2/user-posted-notes" \
   -H "Authorization: Bearer $SANDBASE_API_KEY" \
   -H "Content-Type: application/json" \
-  -d '{}'
+  -d '{"user_id": "61b46d790000000010008153", "share_text": "http://xhslink.com/o/8GqargIxrko"}'
 ```
 
 ### Parameters
@@ -100,9 +100,9 @@ Flat price per call. Failed calls, including lookups whose target does not exist
 
 ### Related APIs
 
-- [Xiaohongshu (RED) Creator Hot Inspiration Feed](/model/xiaohongshu/app-v2/creator-hot-inspiration-feed): Retrieves creator center hot inspiration feed items with topic titles, popularity scores, and deeplinks.
-- [Xiaohongshu (RED) Inspiration Feed](/model/xiaohongshu/app-v2/creator-inspiration-feed): Returns recommended inspiration feed items and trending topics from Xiaohongshu (RED).
-- [Xiaohongshu (RED) Image Note Details](/model/xiaohongshu/app-v2/image-note-detail): Returns detailed information for a Xiaohongshu image note.
+- [Xiaohongshu (RED) Creator Hot Inspiration Feed](/apis/xiaohongshu/app-v2/creator-hot-inspiration-feed): Retrieves creator center hot inspiration feed items with topic titles, popularity scores, and deeplinks.
+- [Xiaohongshu (RED) Inspiration Feed](/apis/xiaohongshu/app-v2/creator-inspiration-feed): Returns recommended inspiration feed items and trending topics from Xiaohongshu (RED).
+- [Xiaohongshu (RED) Image Note Details](/apis/xiaohongshu/app-v2/image-note-detail): Returns detailed information for a Xiaohongshu image note.
 
 ---
 Machine-readable: [`catalog/models/xiaohongshu/app-v2/user-posted-notes.json`](../../../../catalog/models/xiaohongshu/app-v2/user-posted-notes.json) · Store page: https://www.sandbase.ai/model/xiaohongshu/app-v2/user-posted-notes

@@ -14,7 +14,7 @@ Call 4 Pinterest endpoints through SandBase with one API key: no separate accoun
 ```bash
 curl https://api.sandbase.ai/v1/run \
   -H "Authorization: Bearer $SANDBASE_API_KEY" -H 'Content-Type: application/json' \
-  -d '{"model": "pinterest/board", "url": "<url>"}'
+  -d '{"model": "pinterest/board", "url": "https://www.pinterest.com/pinterest/official-news/"}'
 ```
 
 Get a key at [sandbase.ai](https://www.sandbase.ai/console). Back to [all platforms](README.md).

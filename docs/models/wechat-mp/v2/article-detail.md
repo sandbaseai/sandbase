@@ -63,13 +63,13 @@ Same call via the path form: `POST /v1/api/wechat-mp/v2/article-detail` with the
 
 ## Details
 
-Pass a WeChat MP article URL (`https://mp.weixin.qq.com/s/…`) and get the article as structured JSON, including the full text, title, account name and publish time.
+Fetch a WeChat Official Account article from its `mp.weixin.qq.com` link: title, author, account, publish time, cover, the article body and album navigation.
 
 ### Use cases
 
-- Archive or index WeChat articles for search and RAG.
-- Monitor coverage published by official accounts.
-- Extract clean text for summarization.
+- Archive or index Official Account articles for search and monitoring.
+- Feed article text to an LLM for summaries or classification.
+- Follow an account's album by walking the previous and next article links.
 
 ### Request
 
@@ -80,47 +80,73 @@ curl -X POST "https://api.sandbase.ai/v1/api/wechat-mp/v2/article-detail" \
   -d '{"url": "https://mp.weixin.qq.com/s/TSNQKkRpN1qbKsT7BvzqIw", "raw": false}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
 |---|---|---|---|
-| `url` | string | Yes | WeChat MP article URL (`https://mp.weixin.qq.com/s/…` or long URL with `__biz`). |
-| `raw` | boolean | No | Optional, default True. |
+| `url` | string | Yes | WeChat MP article URL (`https://mp.weixin.qq.com/s/…` or long URL with `__biz`). E.g. `https://mp.weixin.qq.com/s/TSNQKkRpN1qbKsT7BvzqIw` |
+| `raw` | boolean | No | Optional, default True. True=raw response; False=simplified projection. |
 
 ### Example response
 
-Real response for the request above, trimmed to the main fields. User names and long IDs are masked.
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
 
 ```json
 {
-  "url": "https://mp.weixin.qq.com/s/TSNQKkRpN1qbKsT7BvzqIw",
+  "bizUin": 3236757533,
   "content": {
-    "title": "“老黄骗人”！5070首批评测：说好1/3价格赛4090，实际不如4070Ti",
-    "nick_name": "量子位",
+    "ad_mark_status": 0,
+    "advertisement_info": [],
+    "ai_chat_info": {
+      "ai_chat_status": 0,
+      "room_info": ""
+    },
+    "aigc_pictures": [],
+    "ainfos": [],
     "alias": "QbitAI",
-    "create_time": "2025-03-05 12:22",
-    "desc": "博主：史上最差70系列",
-    "lang": "zh_CN",
-    "content_text": "金磊 发自 凹非寺 量子位 | 公众号 QbitAI 一夜之间，RTX 5070被网友们喷成“史上最差的70系列”了。 这咋回事呢？ 因为…",
-    "cdn_url": "https://mmbiz.qpic.cn/mmbiz_jpg/YicUhk5aAGtB8zqMsOsFEsStNXL…",
-    "appmsgalbuminfo": "{…}"
-  }
+    "anchor_tree": [],
+    "app_id": "wx2f0fbcc28597dbce",
+    "appmsg_ext_get": {
+      "func_flag": 0
+    },
+    "appmsg_fe_filter": "contenteditable",
+    "appmsg_like_type": 2,
+    "appmsg_listen_id": "150401723788215308"
+  },
+  "debug_id": "76bcf329",
+  "debug_info": "gAAAAABq6TvHOF0gUZr0UtGRNNjD4W-NNP-IT4lPPio5Dwex8GR_nFBUjeaR1hbn-qVXS0Vv-38ZkNLU…",
+  "itemIdx": 1,
+  "url": "https://mp.weixin.qq.com/s/TSNQKkRpN1qbKsT7BvzqIw"
 }
 ```
 
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `content.title / content.author / content.nick_name` | Article title, author and account name. |
+| `content.content / content_noencode` | Article body HTML. |
+| `content.create_time` | Publish time. |
+| `content.appmsgalbuminfo` | Album (series) info with `pre_article_link` and `next_article_link`. |
+| `bizUin` | Numeric ID of the Official Account. |
+
 ### Notes
 
-- Both short links (`/s/…`) and long links with `__biz` are supported.
+- Set `raw: true` to get the unprocessed page payload.
+- Read counts and likes are not included; use [WeChat MP Article Stats (H5)](/apis/wechat-mp/v2/article-stats-h5) for those.
+- Deleted or blocked articles fail and are not charged.
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.01 per successful call. Failed calls, including lookups whose target does not exist, are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 
-- [WeChat MP Account Articles](/model/wechat-mp/v2/account-articles): Get the published articles of a WeChat official account by its gh_ username: titles, links, covers and post dates, one page at a time, including video and audi…
-- [Get WeChat MP Account Profile](/model/wechat-mp/v2/account-profile): Pass a `gh_username` to get the official account profile: name / avatar / description / verification entity type, etc..
-- [Get WeChat MP Article Ads](/model/wechat-mp/v2/article-ad): Pass an article URL to get the embedded ad slot info of the article..
+- [WeChat MP Account Articles](/apis/wechat-mp/v2/account-articles): Get the published articles of a WeChat official account by its gh_ username: titles, links, covers and post dates, one page at a time, including video and audi…
+- [Get WeChat MP Account Profile](/apis/wechat-mp/v2/account-profile): Pass a `gh_username` to get the official account profile: name / avatar / description / verification entity type, etc..
+- [Get WeChat MP Article Ads](/apis/wechat-mp/v2/article-ad): Pass an article URL to get the embedded ad slot info of the article..
 
 ---
 Machine-readable: [`catalog/models/wechat-mp/v2/article-detail.json`](../../../../catalog/models/wechat-mp/v2/article-detail.json) · Store page: https://www.sandbase.ai/model/wechat-mp/v2/article-detail

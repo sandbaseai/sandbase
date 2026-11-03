@@ -75,7 +75,7 @@ Retrieve account-level performance and summary metrics for a Xiaohongshu creator
 curl -X POST "https://api.sandbase.ai/v1/api/xiaohongshu/pgy/blogger-data-summary" \
   -H "Authorization: Bearer $SANDBASE_API_KEY" \
   -H "Content-Type: application/json" \
-  -d '{"user_id": "<user_id>"}'
+  -d '{"user_id": "5c668b3e0000000012021605"}'
 ```
 
 ### Parameters
@@ -94,9 +94,9 @@ Flat price per call. Failed calls, including lookups whose target does not exist
 
 ### Related APIs
 
-- [Xiaohongshu (RED) Blogger Core Data](/model/xiaohongshu/pgy/blogger-core-data): Returns Pugongying core performance metrics and daily trend data for a specified Xiaohongshu blogger, filterable by date range, note type, and traffic source.
-- [Xiaohongshu (RED) PGY Blogger Details](/model/xiaohongshu/pgy/blogger-detail): Retrieves detailed profile information for a specific Xiaohongshu blogger on the PGY platform using their user ID.
-- [Xiaohongshu (RED) PGY Blogger Fan History](/model/xiaohongshu/pgy/blogger-fans-history): Returns historical follower growth counts for a Xiaohongshu Pugongying blogger over time based on user ID and a selected date range.
+- [Xiaohongshu (RED) Blogger Core Data](/apis/xiaohongshu/pgy/blogger-core-data): Returns Pugongying core performance metrics and daily trend data for a specified Xiaohongshu blogger, filterable by date range, note type, and traffic source.
+- [Xiaohongshu (RED) PGY Blogger Details](/apis/xiaohongshu/pgy/blogger-detail): Retrieves detailed profile information for a specific Xiaohongshu blogger on the PGY platform using their user ID.
+- [Xiaohongshu (RED) PGY Blogger Fan History](/apis/xiaohongshu/pgy/blogger-fans-history): Returns historical follower growth counts for a Xiaohongshu Pugongying blogger over time based on user ID and a selected date range.
 
 ---
 Machine-readable: [`catalog/models/xiaohongshu/pgy/blogger-data-summary.json`](../../../../catalog/models/xiaohongshu/pgy/blogger-data-summary.json) · Store page: https://www.sandbase.ai/model/xiaohongshu/pgy/blogger-data-summary

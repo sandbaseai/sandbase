@@ -1,6 +1,6 @@
-# Douyin API: 320 endpoints with pricing and code examples
+# Douyin API: 319 endpoints with pricing and code examples
 
-Call 320 Douyin endpoints through SandBase with one API key: no separate account, one balance, the same request format for every endpoint. Each page has the input schema, the price and curl / Python / TypeScript / Go examples.
+Call 319 Douyin endpoints through SandBase with one API key: no separate account, one balance, the same request format for every endpoint. Each page has the input schema, the price and curl / Python / TypeScript / Go examples.
 
 | Endpoint | What it does | Price |
 |---|---|---|
@@ -74,7 +74,6 @@ Call 320 Douyin endpoints through SandBase with one API key: no separate account
 | [`douyin/creator/creator-activity-list`](../models/douyin/creator/creator-activity-list.md) | Returns activity and campaign records for Douyin accounts within a specified timestamp window between start_time and end_time. | $0.001 per call (free daily quota) |
 | [`douyin/creator/creator-content-category`](../models/douyin/creator/creator-content-category.md) | Returns the list of content categories available on Douyin. Authors and applications can review official topic classifications without… | $0.001 per call (free daily quota) |
 | [`douyin/creator/creator-content-course`](../models/douyin/creator/creator-content-course.md) | Returns content development courses from the Douyin creator platform for a specified category. Results can be sorted by recommendation,… | $0.001 per call (free daily quota) |
-| [`douyin/creator/creator-hot-challenge-billboard`](../models/douyin/creator/creator-hot-challenge-billboard.md) | Returns trending challenge billboard rankings directly from Douyin. Discover active community challenges and monitor popular campaign… | $0.001 per call (free daily quota) |
 | [`douyin/creator/creator-hot-course`](../models/douyin/creator/creator-hot-course.md) | Returns trending creator courses or curated topic lessons from Douyin. Results can be filtered by topic category and sorted by… | $0.001 per call (free daily quota) |
 | [`douyin/creator/creator-hot-music-billboard`](../models/douyin/creator/creator-hot-music-billboard.md) | Returns trending music rankings from the Douyin creator platform. Filters allow sorting by view metrics, like counts, popularity, or… | $0.001 per call (free daily quota) |
 | [`douyin/creator/creator-hot-props-billboard`](../models/douyin/creator/creator-hot-props-billboard.md) | Returns trending creator prop rankings and performance metrics on Douyin. Supports filtering by sorting sequence, time interval, and prop… | $0.001 per call (free daily quota) |

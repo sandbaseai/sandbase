@@ -30,6 +30,7 @@
       "url": {
         "type": "string",
         "title": "URL",
+        "example": "https://docs.tavily.com",
         "description": "The starting URL to map."
       },
       "limit": {
@@ -72,7 +73,7 @@
       }
     }
   ],
-  "readme": "# Tavily Site Map API\n\nMaps website URL structures starting from a target `url`. Controls discovery bounds using optional `limit` and `max_depth` parameters.\n\n## Use cases\n\n- Map domain architectures before targeted content extraction.\n- Discover all accessible subpages across a specific website.\n- Audit site navigation depth and internal link structures.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/tavily/map\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"url\": \"<url>\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `url` | string | Yes | The starting URL to map. |\n| `limit` | integer | No | Maximum number of URLs to discover. |\n| `max_depth` | integer | No | Maximum traversal depth from the starting URL. |\n\n## Notes\n\n- Configure `limit` to restrict the maximum number of discovered URLs.\n- Use `max_depth` to define how many levels deep traversal continues from `url`.\n\n## Pricing\n\nFlat price per call. Failed calls are not charged.\n",
+  "readme": "# Tavily Site Map API\n\nMaps website URL structures starting from a target `url`. Controls discovery bounds using optional `limit` and `max_depth` parameters.\n\n## Use cases\n\n- Map domain architectures before targeted content extraction.\n- Discover all accessible subpages across a specific website.\n- Audit site navigation depth and internal link structures.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/tavily/map\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"url\": \"https://docs.tavily.com\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `url` | string | Yes | The starting URL to map. |\n| `limit` | integer | No | Maximum number of URLs to discover. |\n| `max_depth` | integer | No | Maximum traversal depth from the starting URL. |\n\n## Notes\n\n- Configure `limit` to restrict the maximum number of discovered URLs.\n- Use `max_depth` to define how many levels deep traversal continues from `url`.\n\n## Pricing\n\nFlat price per call. Failed calls are not charged.\n",
   "page_url": "https://www.sandbase.ai/model/tavily/map",
   "published_at": "2024-01-01T00:00:00Z",
   "created_at": "2026-08-09T08:48:30.07Z"

@@ -62,13 +62,12 @@ Same call via the path form: `POST /v1/api/instagram/v3/user-id-by-username` wit
 
 ## Details
 
-Pass an Instagram username and get the account's numeric user ID. Use it with the other Instagram APIs that require `user_id`.
+Look up the numeric user ID (`pk`) of an Instagram account from its username. Most Instagram profile, posts, reels and followers APIs take this ID, and it stays the same when the account changes its username.
 
 ### Use cases
 
-- Resolve handles collected from links or bios into stable IDs.
-- Track accounts even after they change username.
-- First step before fetching posts, reels or followers.
+- Resolve handles from links or bios into stable IDs before calling other Instagram APIs.
+- Keep tracking an account after it renames itself.
 
 ### Request
 
@@ -79,6 +78,8 @@ curl -X POST "https://api.sandbase.ai/v1/api/instagram/v3/user-id-by-username" \
   -d '{"username": "nasa"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
@@ -87,7 +88,7 @@ curl -X POST "https://api.sandbase.ai/v1/api/instagram/v3/user-id-by-username" \
 
 ### Example response
 
-Real response for the request above, trimmed to the main fields. User names and long IDs are masked.
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
 
 ```json
 {
@@ -95,15 +96,26 @@ Real response for the request above, trimmed to the main fields. User names and 
 }
 ```
 
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `user_id` | Numeric user ID as a string. |
+
+### Notes
+
+- Pass the username without `@`. Usernames that do not exist fail and are not charged.
+- To go the other way, use [Instagram ID to Username](/apis/instagram/v3/user-id-to-username).
+
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.008 per successful call. Failed calls, including lookups whose target does not exist, are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 
-- [Bulk translate comments](/model/instagram/v3/bulk-translate-comments): Bulk translate Instagram comments Support translating multiple comments at once for better efficiency Comment IDs can be obtained from get_post_comments API.
-- [Get comment replies](/model/instagram/v3/comment-replies): Get Instagram comment's child comments (replies) list Support pagination to fetch all replies Parent comment's comment_id can be obtained from get_post_comment…
-- [Get explore feed](/model/instagram/v3/explore): V3 Explore provides a focused capability for applications, automation, and data workflows.
+- [Bulk translate comments](/apis/instagram/v3/bulk-translate-comments): Bulk translate Instagram comments Support translating multiple comments at once for better efficiency Comment IDs can be obtained from get_post_comments API.
+- [Get comment replies](/apis/instagram/v3/comment-replies): Get Instagram comment's child comments (replies) list Support pagination to fetch all replies Parent comment's comment_id can be obtained from get_post_comment…
+- [Get explore feed](/apis/instagram/v3/explore): V3 Explore provides a focused capability for applications, automation, and data workflows.
 
 ---
 Machine-readable: [`catalog/models/instagram/v3/user-id-by-username.json`](../../../../catalog/models/instagram/v3/user-id-by-username.json) · Store page: https://www.sandbase.ai/model/instagram/v3/user-id-by-username

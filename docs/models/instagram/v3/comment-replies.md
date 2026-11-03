@@ -20,7 +20,7 @@ Modes: sync (default `sync`). Only pass `mode` values listed here. The SDKs' `ru
 ```bash
 curl https://api.sandbase.ai/v1/run \
   -H "Authorization: Bearer $SANDBASE_API_KEY" -H 'Content-Type: application/json' \
-  -d '{"model": "instagram/v3/comment-replies", "comment_id": "<comment_id>", "media_id": "<media_id>"}'
+  -d '{"model": "instagram/v3/comment-replies", "comment_id": "18065937092249736", "media_id": "3829530490739515971"}'
 ```
 
 **Python** ([sdk/python](../../../../sdk/python))
@@ -28,7 +28,7 @@ curl https://api.sandbase.ai/v1/run \
 ```python
 from sandbase import SandBase
 
-result = SandBase().run('instagram/v3/comment-replies', {'comment_id': '<comment_id>', 'media_id': '<media_id>'})
+result = SandBase().run('instagram/v3/comment-replies', {'comment_id': '18065937092249736', 'media_id': '3829530490739515971'})
 print(result["outputs"])
 ```
 
@@ -38,8 +38,8 @@ print(result["outputs"])
 import { SandBase } from "@sandbaseai/sdk";
 
 const result = await new SandBase().run("instagram/v3/comment-replies", {
-  "comment_id": "<comment_id>",
-  "media_id": "<media_id>"
+  "comment_id": "18065937092249736",
+  "media_id": "3829530490739515971"
 });
 console.log(result.outputs);
 ```
@@ -49,8 +49,8 @@ console.log(result.outputs);
 ```go
 c, _ := sandbase.NewClient("")
 run, err := c.Run(ctx, "instagram/v3/comment-replies", sandbase.Params{
-	"comment_id": "<comment_id>",
-	"media_id": "<media_id>",
+	"comment_id": "18065937092249736",
+	"media_id": "3829530490739515971",
 })
 ```
 
@@ -80,7 +80,7 @@ Retrieve threaded comment replies for an Instagram post by supplying `media_id` 
 curl -X POST "https://api.sandbase.ai/v1/api/instagram/v3/comment-replies" \
   -H "Authorization: Bearer $SANDBASE_API_KEY" \
   -H "Content-Type: application/json" \
-  -d '{"comment_id": "<comment_id>", "media_id": "<media_id>"}'
+  -d '{"comment_id": "18065937092249736", "media_id": "3829530490739515971"}'
 ```
 
 ### Parameters
@@ -103,9 +103,9 @@ Flat price per call. Failed calls, including lookups whose target does not exist
 
 ### Related APIs
 
-- [Instagram Comment Bulk Translation](/model/instagram/v3/bulk-translate-comments): Returns bulk translations for multiple Instagram comments using a list of comment identifiers.
-- [Instagram Explore Feed](/model/instagram/v3/explore): Returns curated sectional items from the Instagram explore feed, including layout formats and feed types.
-- [Instagram Shortcode Extractor](/model/instagram/v3/extract-shortcode): Extracts and returns the unique shortcode identifier from an Instagram post, reel, or TV URL.
+- [Instagram Comment Bulk Translation](/apis/instagram/v3/bulk-translate-comments): Returns bulk translations for multiple Instagram comments using a list of comment identifiers.
+- [Instagram Explore Feed](/apis/instagram/v3/explore): Returns curated sectional items from the Instagram explore feed, including layout formats and feed types.
+- [Instagram Shortcode Extractor](/apis/instagram/v3/extract-shortcode): Extracts and returns the unique shortcode identifier from an Instagram post, reel, or TV URL.
 
 ---
 Machine-readable: [`catalog/models/instagram/v3/comment-replies.json`](../../../../catalog/models/instagram/v3/comment-replies.json) · Store page: https://www.sandbase.ai/model/instagram/v3/comment-replies

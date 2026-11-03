@@ -30,6 +30,7 @@
       "original_url": {
         "type": "string",
         "title": "Original Url",
+        "example": "https://h5.pipix.com/item/7385813877985909043",
         "description": "Original URL, can be any link."
       }
     }
@@ -55,7 +56,7 @@
       }
     }
   ],
-  "readme": "# Pipixia Short URL Conversion API\n\nConverts long links into shortened URLs using `original_url`. Useful for sharing clean links across social workflows.\n\n## Use cases\n\n- Convert long content links into compact URLs for easy sharing.\n- Transform external addresses into Pipixia short link format.\n- Prepare streamlined links for mobile app distribution.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/pipixia/app/short-url\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"original_url\": \"<original_url>\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `original_url` | string | Yes | Original URL, can be any link. |\n\n## Notes\n\n- The `original_url` parameter is required and accepts any web address.\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [Pipixia Hashtag Details](/model/pipixia/app/hashtag-detail): Retrieves metadata and profile assets for a specific Pipixia hashtag by its unique identifier.\n- [Pipixia Hashtag Post List](/model/pipixia/app/hashtag-post-list): Returns a list of posts associated with a specific hashtag on Pipixia.\n- [Pipixia App Home Feed](/model/pipixia/app/home-feed): Returns recommended posts from the Pipixia home feed.\n",
+  "readme": "# Pipixia Short URL Conversion API\n\nConverts long links into shortened URLs using `original_url`. Useful for sharing clean links across social workflows.\n\n## Use cases\n\n- Convert long content links into compact URLs for easy sharing.\n- Transform external addresses into Pipixia short link format.\n- Prepare streamlined links for mobile app distribution.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/pipixia/app/short-url\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"original_url\": \"https://h5.pipix.com/item/7385813877985909043\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `original_url` | string | Yes | Original URL, can be any link. |\n\n## Notes\n\n- The `original_url` parameter is required and accepts any web address.\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n## Related APIs\n\n- [Pipixia Hashtag Details](/apis/pipixia/app/hashtag-detail): Retrieves metadata and profile assets for a specific Pipixia hashtag by its unique identifier.\n- [Pipixia Hashtag Post List](/apis/pipixia/app/hashtag-post-list): Returns a list of posts associated with a specific hashtag on Pipixia.\n- [Pipixia App Home Feed](/apis/pipixia/app/home-feed): Returns recommended posts from the Pipixia home feed.\n",
   "page_url": "https://www.sandbase.ai/model/pipixia/app/short-url",
   "created_at": "2026-07-31T04:09:46.13Z"
 }

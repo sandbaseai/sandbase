@@ -81,7 +81,7 @@ Retrieve nested comment replies for a Reddit post by providing the target `post_
 curl -X POST "https://api.sandbase.ai/v1/api/reddit/app/comment-replies" \
   -H "Authorization: Bearer $SANDBASE_API_KEY" \
   -H "Content-Type: application/json" \
-  -d '{"cursor": "<cursor>", "post_id": "<post_id>"}'
+  -d '{"cursor": "commenttree:ex:(RjiJd", "post_id": "t3_1qmup73"}'
 ```
 
 ### Parameters
@@ -105,9 +105,9 @@ Flat price per call. Failed calls, including lookups whose target does not exist
 
 ### Related APIs
 
-- [Reddit Subreddit Mute Status](/model/reddit/app/check-subreddit-muted): Checks whether a specified Reddit subreddit is muted by the current account using its ID.
-- [Reddit Community Highlights](/model/reddit/app/community-highlights): Returns featured highlight content for a designated Reddit community, such as popular posts and announcements, by subreddit ID.
-- [Reddit Search](/model/reddit/app/dynamic-search): Search Reddit posts, communities, comments, media and users with the Reddit app search.
+- [Reddit Subreddit Mute Status](/apis/reddit/app/check-subreddit-muted): Checks whether a specified Reddit subreddit is muted by the current account using its ID.
+- [Reddit Community Highlights](/apis/reddit/app/community-highlights): Returns featured highlight content for a designated Reddit community, such as popular posts and announcements, by subreddit ID.
+- [Reddit Search](/apis/reddit/app/dynamic-search): Search Reddit posts, communities, comments, media and users with the Reddit app search.
 
 ---
 Machine-readable: [`catalog/models/reddit/app/comment-replies.json`](../../../../catalog/models/reddit/app/comment-replies.json) · Store page: https://www.sandbase.ai/model/reddit/app/comment-replies

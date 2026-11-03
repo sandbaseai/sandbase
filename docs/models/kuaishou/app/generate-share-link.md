@@ -76,7 +76,7 @@ This endpoint produces a share link for a specific Kuaishou app object using `sh
 curl -X POST "https://api.sandbase.ai/v1/api/kuaishou/app/generate-share-link" \
   -H "Authorization: Bearer $SANDBASE_API_KEY" \
   -H "Content-Type: application/json" \
-  -d '{"shareObjectId": "<shareObjectId>"}'
+  -d '{"shareObjectId": "3xg5wjqdtekbb3u"}'
 ```
 
 ### Parameters
@@ -95,9 +95,9 @@ Flat price per call. Failed calls, including lookups whose target does not exist
 
 ### Related APIs
 
-- [Kuaishou Brand Top List](/model/kuaishou/app/brand-top-list): Returns top brand rankings and related live stream links from Kuaishou.
-- [Kuaishou Hot Board Categories](/model/kuaishou/app/hot-board-categories): Returns the active list of hot board categories available in the Kuaishou app.
-- [Kuaishou Hot Board Detail](/model/kuaishou/app/hot-board-detail): Returns trending topics and search keywords from Kuaishou hot boards based on the specified board identifier and board type.
+- [Kuaishou Brand Top List](/apis/kuaishou/app/brand-top-list): Returns top brand rankings and related live stream links from Kuaishou.
+- [Kuaishou Hot Board Categories](/apis/kuaishou/app/hot-board-categories): Returns the active list of hot board categories available in the Kuaishou app.
+- [Kuaishou Hot Board Detail](/apis/kuaishou/app/hot-board-detail): Returns trending topics and search keywords from Kuaishou hot boards based on the specified board identifier and board type.
 
 ---
 Machine-readable: [`catalog/models/kuaishou/app/generate-share-link.json`](../../../../catalog/models/kuaishou/app/generate-share-link.json) · Store page: https://www.sandbase.ai/model/kuaishou/app/generate-share-link

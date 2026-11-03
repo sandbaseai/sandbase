@@ -162,9 +162,9 @@ Flat price per call. Failed calls, including lookups whose target does not exist
 
 ### Related APIs
 
-- [TikTok LIVE Status](/model/tiktok/app-v3/check-live-room-online): Check whether a TikTok LIVE room is currently live by room ID.
-- [TikTok Creator Search Insights](/model/tiktok/app-v3/creator-search-insights): Get TikTok Creator Search Insights: trending search queries with popularity scores, trend history and video counts, including content-gap topics, by category a…
-- [TikTok Search](/model/tiktok/app-v3/general-search-result): Search TikTok by keyword across videos and users (Top tab).
+- [TikTok LIVE Status](/apis/tiktok/app-v3/check-live-room-online): Check whether a TikTok LIVE room is currently live by room ID.
+- [TikTok Creator Search Insights](/apis/tiktok/app-v3/creator-search-insights): Get TikTok Creator Search Insights: trending search queries with popularity scores, trend history and video counts, including content-gap topics, by category a…
+- [TikTok Search](/apis/tiktok/app-v3/general-search-result): Search TikTok by keyword across videos and users (Top tab).
 
 ---
 Machine-readable: [`catalog/models/tiktok/app-v3/creator-search-insights-detail.json`](../../../../catalog/models/tiktok/app-v3/creator-search-insights-detail.json) · Store page: https://www.sandbase.ai/model/tiktok/app-v3/creator-search-insights-detail

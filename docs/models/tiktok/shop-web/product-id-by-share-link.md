@@ -76,7 +76,7 @@ Look up a TikTok Shop product identifier using a `share_link`. Resolves shared U
 curl -X POST "https://api.sandbase.ai/v1/api/tiktok/shop-web/product-id-by-share-link" \
   -H "Authorization: Bearer $SANDBASE_API_KEY" \
   -H "Content-Type: application/json" \
-  -d '{"share_link": "<share_link>"}'
+  -d '{"share_link": "https://affiliate-us.tiktok.com/api/v1/share/AJ4hS3OdXmSg"}'
 ```
 
 ### Parameters
@@ -95,9 +95,9 @@ Flat price per call. Failed calls, including lookups whose target does not exist
 
 ### Related APIs
 
-- [TikTok Shop Product Details](/model/tiktok/shop-web/product-detail): Retrieves full product details and page component information from TikTok Shop by product ID.
-- [TikTok Shop Product Details (V2)](/model/tiktok/shop-web/product-detail-v2): Returns basic product details from TikTok Shop for a specified item.
-- [TikTok Shop Product Detail (V3)](/model/tiktok/shop-web/product-detail-v3): Returns comprehensive TikTok Shop product data including shop information, videos, and recommendations for a given product ID across supported regions.
+- [TikTok Shop Product Details](/apis/tiktok/shop-web/product-detail): Retrieves full product details and page component information from TikTok Shop by product ID.
+- [TikTok Shop Product Details (V2)](/apis/tiktok/shop-web/product-detail-v2): Returns basic product details from TikTok Shop for a specified item.
+- [TikTok Shop Product Detail (V3)](/apis/tiktok/shop-web/product-detail-v3): Returns comprehensive TikTok Shop product data including shop information, videos, and recommendations for a given product ID across supported regions.
 
 ---
 Machine-readable: [`catalog/models/tiktok/shop-web/product-id-by-share-link.json`](../../../../catalog/models/tiktok/shop-web/product-id-by-share-link.json) · Store page: https://www.sandbase.ai/model/tiktok/shop-web/product-id-by-share-link

@@ -138,7 +138,7 @@ Flat price per call. Failed calls, including lookups whose target does not exist
 
 ### Related APIs
 
-- [WeChat Search](/model/wechat-search/v2/search): Search WeChat with one endpoint: official account articles, accounts, Channels videos, live streams, news and more.
+- [WeChat Search](/apis/wechat-search/v2/search): Search WeChat with one endpoint: official account articles, accounts, Channels videos, live streams, news and more.
 
 ---
 Machine-readable: [`catalog/models/wechat-search/v2/search-videos.json`](../../../../catalog/models/wechat-search/v2/search-videos.json) · Store page: https://www.sandbase.ai/model/wechat-search/v2/search-videos

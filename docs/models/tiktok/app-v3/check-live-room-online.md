@@ -62,13 +62,12 @@ Same call via the path form: `POST /v1/api/tiktok/app-v3/check-live-room-online`
 
 ## Details
 
-Pass a TikTok LIVE `room_id` and find out whether the stream is live right now.
+Check whether a TikTok LIVE room is broadcasting right now. Pass the `room_id`; the answer says `alive: true` while the creator is live.
 
 ### Use cases
 
-- Trigger alerts when a creator goes live.
-- Schedule live-stream data collection.
-- Monitor competitors' live activity.
+- Alert when a tracked creator goes live.
+- Skip live-comment or gift collection for rooms that are offline.
 
 ### Request
 
@@ -79,6 +78,8 @@ curl -X POST "https://api.sandbase.ai/v1/api/tiktok/app-v3/check-live-room-onlin
   -d '{"room_id": "7358603858249009962"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
@@ -87,7 +88,7 @@ curl -X POST "https://api.sandbase.ai/v1/api/tiktok/app-v3/check-live-room-onlin
 
 ### Example response
 
-Real response for the request above, trimmed to the main fields. User names and long IDs are masked.
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
 
 ```json
 {
@@ -97,19 +98,34 @@ Real response for the request above, trimmed to the main fields. User names and 
       "room_id": 7358603858249009962,
       "room_id_str": "7358603858249009962"
     }
-  ]
+  ],
+  "extra": {
+    "now": 1793676899476
+  },
+  "status_code": 0
 }
 ```
 
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `data[].alive` | `true` if the room is live now. |
+| `data[].room_id_str` | The room ID as a string. |
+
+### Notes
+
+- A creator gets a new `room_id` for each broadcast. Get the current one from a live link with [TikTok Live Room ID](/apis/tiktok/web/live-room-id).
+
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls, including lookups whose target does not exist, are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 
-- [TikTok Creator Search Insights](/model/tiktok/app-v3/creator-search-insights): Get TikTok Creator Search Insights: trending search queries with popularity scores, trend history and video counts, including content-gap topics, by category a…
-- [TikTok Creator Search Insights Detail](/model/tiktok/app-v3/creator-search-insights-detail): Get detailed statistics for a TikTok Creator Search Insights query: popularity over time and audience breakdown by age, gender and country.
-- [TikTok Search](/model/tiktok/app-v3/general-search-result): Search TikTok by keyword across videos and users (Top tab).
+- [TikTok Creator Search Insights](/apis/tiktok/app-v3/creator-search-insights): Get TikTok Creator Search Insights: trending search queries with popularity scores, trend history and video counts, including content-gap topics, by category a…
+- [TikTok Creator Search Insights Detail](/apis/tiktok/app-v3/creator-search-insights-detail): Get detailed statistics for a TikTok Creator Search Insights query: popularity over time and audience breakdown by age, gender and country.
+- [TikTok Search](/apis/tiktok/app-v3/general-search-result): Search TikTok by keyword across videos and users (Top tab).
 
 ---
 Machine-readable: [`catalog/models/tiktok/app-v3/check-live-room-online.json`](../../../../catalog/models/tiktok/app-v3/check-live-room-online.json) · Store page: https://www.sandbase.ai/model/tiktok/app-v3/check-live-room-online

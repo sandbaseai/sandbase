@@ -20,7 +20,7 @@ Modes: sync (default `sync`). Only pass `mode` values listed here. The SDKs' `ru
 ```bash
 curl https://api.sandbase.ai/v1/run \
   -H "Authorization: Bearer $SANDBASE_API_KEY" -H 'Content-Type: application/json' \
-  -d '{"model": "instagram/v3/bulk-translate-comments", "comment_ids": "<comment_ids>"}'
+  -d '{"model": "instagram/v3/bulk-translate-comments", "comment_ids": "18099342953509681"}'
 ```
 
 **Python** ([sdk/python](../../../../sdk/python))
@@ -28,7 +28,7 @@ curl https://api.sandbase.ai/v1/run \
 ```python
 from sandbase import SandBase
 
-result = SandBase().run('instagram/v3/bulk-translate-comments', {'comment_ids': '<comment_ids>'})
+result = SandBase().run('instagram/v3/bulk-translate-comments', {'comment_ids': '18099342953509681'})
 print(result["outputs"])
 ```
 
@@ -38,7 +38,7 @@ print(result["outputs"])
 import { SandBase } from "@sandbaseai/sdk";
 
 const result = await new SandBase().run("instagram/v3/bulk-translate-comments", {
-  "comment_ids": "<comment_ids>"
+  "comment_ids": "18099342953509681"
 });
 console.log(result.outputs);
 ```
@@ -48,7 +48,7 @@ console.log(result.outputs);
 ```go
 c, _ := sandbase.NewClient("")
 run, err := c.Run(ctx, "instagram/v3/bulk-translate-comments", sandbase.Params{
-	"comment_ids": "<comment_ids>",
+	"comment_ids": "18099342953509681",
 })
 ```
 
@@ -76,7 +76,7 @@ Translate multiple Instagram comments simultaneously by providing a list of IDs 
 curl -X POST "https://api.sandbase.ai/v1/api/instagram/v3/bulk-translate-comments" \
   -H "Authorization: Bearer $SANDBASE_API_KEY" \
   -H "Content-Type: application/json" \
-  -d '{"comment_ids": "<comment_ids>"}'
+  -d '{"comment_ids": "18099342953509681"}'
 ```
 
 ### Parameters
@@ -96,9 +96,9 @@ Flat price per call. Failed calls, including lookups whose target does not exist
 
 ### Related APIs
 
-- [Instagram Comment Replies (V3)](/model/instagram/v3/comment-replies): Returns child comment replies for a specific Instagram comment using the post media ID and parent comment ID.
-- [Instagram Explore Feed](/model/instagram/v3/explore): Returns curated sectional items from the Instagram explore feed, including layout formats and feed types.
-- [Instagram Shortcode Extractor](/model/instagram/v3/extract-shortcode): Extracts and returns the unique shortcode identifier from an Instagram post, reel, or TV URL.
+- [Instagram Comment Replies (V3)](/apis/instagram/v3/comment-replies): Returns child comment replies for a specific Instagram comment using the post media ID and parent comment ID.
+- [Instagram Explore Feed](/apis/instagram/v3/explore): Returns curated sectional items from the Instagram explore feed, including layout formats and feed types.
+- [Instagram Shortcode Extractor](/apis/instagram/v3/extract-shortcode): Extracts and returns the unique shortcode identifier from an Instagram post, reel, or TV URL.
 
 ---
 Machine-readable: [`catalog/models/instagram/v3/bulk-translate-comments.json`](../../../../catalog/models/instagram/v3/bulk-translate-comments.json) · Store page: https://www.sandbase.ai/model/instagram/v3/bulk-translate-comments

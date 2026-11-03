@@ -101,9 +101,9 @@ Flat price per call. Failed calls, including lookups whose target does not exist
 
 ### Related APIs
 
-- [TikTok Ad Interactive Analysis](/model/tiktok/ads/ad-interactive-analysis): Returns audience retention and interaction analytics across video timestamps for a specified ad creative.
-- [TikTok Ad Keyframe Analysis](/model/tiktok/ads/ad-keyframe-analysis): Returns keyframe performance metrics across video ad timestamps for a specified material ID, including retention and conversion figures.
-- [TikTok Ad Detail](/model/tiktok/ads/ads-detail): Returns detailed information about a single TikTok ad, including creative content, creator information, and engagement performance metrics using a specific ad …
+- [TikTok Ad Interactive Analysis](/apis/tiktok/ads/ad-interactive-analysis): Returns audience retention and interaction analytics across video timestamps for a specified ad creative.
+- [TikTok Ad Keyframe Analysis](/apis/tiktok/ads/ad-keyframe-analysis): Returns keyframe performance metrics across video ad timestamps for a specified material ID, including retention and conversion figures.
+- [TikTok Ad Detail](/apis/tiktok/ads/ads-detail): Returns detailed information about a single TikTok ad, including creative content, creator information, and engagement performance metrics using a specific ad …
 
 ---
 Machine-readable: [`catalog/models/tiktok/ads/ad-percentile.json`](../../../../catalog/models/tiktok/ads/ad-percentile.json) · Store page: https://www.sandbase.ai/model/tiktok/ads/ad-percentile

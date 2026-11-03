@@ -62,13 +62,12 @@ Same call via the path form: `POST /v1/api/instagram/v1/user-info-by-username` w
 
 ## Details
 
-Access Instagram profile details and related accounts by providing a target `username`.
+Get an Instagram profile by username in the format of Instagram's web profile API: bio, bio links, follower and following counts, post count, verification, privacy and business details.
 
 ### Use cases
 
-- Retrieve public profile data for a specific Instagram account.
-- Explore related profiles associated with a target username.
-- Verify account details and profile information before displaying in an application.
+- Enrich a list of usernames with audience size and bio.
+- Read a business account's category and contact options.
 
 ### Request
 
@@ -79,6 +78,8 @@ curl -X POST "https://api.sandbase.ai/v1/api/instagram/v1/user-info-by-username"
   -d '{"username": "instagram"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
@@ -87,42 +88,59 @@ curl -X POST "https://api.sandbase.ai/v1/api/instagram/v1/user-info-by-username"
 
 ### Example response
 
-Real response for the request above, trimmed to the main fields. User names and long IDs are masked.
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
 
 ```json
 {
   "data": {
     "user": {
-      "edge_related_profiles": {
-        "edges": [
-          {
-            "node": {
-              "full_name": "абу",
-              "id": "80458337039",
-              "profile_pic_url": "https://instagram.fbcn2-1.fna.fbcdn.net/v/t51.82787-19/809201576_178909588026810…",
-              "username": "<user>"
-            }
-          }
-        ]
+      "id": "25025320",
+      "username": "instagram",
+      "full_name": "Instagram",
+      "biography": "Discover what's new on Instagram 🔎✨",
+      "is_private": false,
+      "is_verified": true,
+      "is_business_account": false,
+      "category_name": null,
+      "external_url": "http://help.instagram.com/",
+      "edge_followed_by": {
+        "count": 686358280
+      },
+      "edge_follow": {
+        "count": 165
+      },
+      "edge_owner_to_timeline_media": {
+        "count": 8634
       }
     }
-  }
+  },
+  "status": "ok"
 }
 ```
 
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `data.user.id / username / full_name` | Numeric ID, handle and display name. |
+| `data.user.edge_followed_by.count / edge_follow.count` | Followers and accounts followed. |
+| `data.user.edge_owner_to_timeline_media.count` | Number of posts. |
+| `data.user.is_private / is_verified / is_business_account` | Account flags. |
+| `data.user.bio_links` | Links in bio. |
+
 ### Notes
 
-- Requires a valid `username` string without special formatting.
+- Counts sit under `edge_*` keys, as in Instagram's web API. For flat `follower_count` fields use [Instagram User Info (v2)](/apis/instagram/v2/user-info).
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls, including lookups whose target does not exist, are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 
-- [Instagram Cities by Country](/model/instagram/v1/cities): Returns a list of Instagram cities and regions for a specified country code.
-- [Instagram Hashtag Posts (V1)](/model/instagram/v1/hashtag-posts): Returns public Instagram posts associated with a specific hashtag.
-- [Instagram Location Details (V1)](/model/instagram/v1/location-info): Returns detailed metadata and profile information for a specified Instagram location using its unique identifier.
+- [Instagram Cities by Country](/apis/instagram/v1/cities): Returns a list of Instagram cities and regions for a specified country code.
+- [Instagram Hashtag Posts (V1)](/apis/instagram/v1/hashtag-posts): Returns public Instagram posts associated with a specific hashtag.
+- [Instagram Location Details (V1)](/apis/instagram/v1/location-info): Returns detailed metadata and profile information for a specified Instagram location using its unique identifier.
 
 ---
 Machine-readable: [`catalog/models/instagram/v1/user-info-by-username.json`](../../../../catalog/models/instagram/v1/user-info-by-username.json) · Store page: https://www.sandbase.ai/model/instagram/v1/user-info-by-username

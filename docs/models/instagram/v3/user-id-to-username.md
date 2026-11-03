@@ -62,13 +62,13 @@ Same call via the path form: `POST /v1/api/instagram/v3/user-id-to-username` wit
 
 ## Details
 
-Look up an Instagram user profile by providing a numeric `user_id`. The response returns core account metrics including username, follower count, and profile picture URL.
+Find the current username of an Instagram account from its numeric user ID, together with the profile: full name, bio, follower, following and post counts, verification and privacy flags.
 
 ### Use cases
 
-- Resolve an Instagram numeric account ID to its current username.
-- Inspect follower and following counts alongside total media counts.
-- Retrieve profile details such as full name, profile picture URL, and external website.
+- Show readable handles for IDs stored in your database or returned by other APIs.
+- Detect username changes by re-checking stored IDs.
+- Get basic audience size for influencer screening.
 
 ### Request
 
@@ -79,6 +79,8 @@ curl -X POST "https://api.sandbase.ai/v1/api/instagram/v3/user-id-to-username" \
   -d '{"user_id": "25025320"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
@@ -87,34 +89,56 @@ curl -X POST "https://api.sandbase.ai/v1/api/instagram/v3/user-id-to-username" \
 
 ### Example response
 
-Real response for the request above, trimmed to the main fields. User names and long IDs are masked.
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
 
 ```json
 {
+  "_rid": "351695735c9af",
+  "biography": "Discover what's new on Instagram 🔎✨",
+  "category": "",
+  "edge_follow": {
+    "count": 165
+  },
+  "edge_followed_by": {
+    "count": 686358280
+  },
+  "edge_owner_to_timeline_media": {
+    "count": 8634
+  },
   "external_url": "http://help.instagram.com",
-  "follower_count": 686584231,
-  "following_count": 305,
+  "follower_count": 686358280,
+  "following_count": 165,
   "full_name": "Instagram",
   "id": "25025320",
-  "media_count": 8612,
-  "profile_pic_url": "https://instagram.fpit1-1.fna.fbcdn.net/v/t51.82787-19/550891366_186677716840013…",
-  "username": "<user>"
+  "is_private": false
 }
 ```
 
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `username` | Current handle, without `@`. |
+| `full_name` | Display name. |
+| `biography` | Profile bio. |
+| `follower_count / following_count / media_count` | Followers, accounts followed and number of posts. |
+| `is_verified / is_private` | Verification badge and private-account flag. |
+| `profile_pic_url` | Avatar URL; signed and expires after some days. |
+| `external_url` | Link in bio. |
+
 ### Notes
 
-- The `user_id` parameter requires a numeric string representing the target account identifier.
+- The ID is the numeric `pk`, not a shortcode. Get it with [Instagram User ID Lookup](/apis/instagram/v3/user-id-by-username).
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.008 per successful call. Failed calls, including lookups whose target does not exist, are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 
-- [Instagram Comment Bulk Translation](/model/instagram/v3/bulk-translate-comments): Returns bulk translations for multiple Instagram comments using a list of comment identifiers.
-- [Instagram Comment Replies (V3)](/model/instagram/v3/comment-replies): Returns child comment replies for a specific Instagram comment using the post media ID and parent comment ID.
-- [Instagram Explore Feed](/model/instagram/v3/explore): Returns curated sectional items from the Instagram explore feed, including layout formats and feed types.
+- [Instagram Comment Bulk Translation](/apis/instagram/v3/bulk-translate-comments): Returns bulk translations for multiple Instagram comments using a list of comment identifiers.
+- [Instagram Comment Replies (V3)](/apis/instagram/v3/comment-replies): Returns child comment replies for a specific Instagram comment using the post media ID and parent comment ID.
+- [Instagram Explore Feed](/apis/instagram/v3/explore): Returns curated sectional items from the Instagram explore feed, including layout formats and feed types.
 
 ---
 Machine-readable: [`catalog/models/instagram/v3/user-id-to-username.json`](../../../../catalog/models/instagram/v3/user-id-to-username.json) · Store page: https://www.sandbase.ai/model/instagram/v3/user-id-to-username

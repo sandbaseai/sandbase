@@ -62,13 +62,12 @@ Same call via the path form: `POST /v1/api/douyin/app-v3/one-video-by-share-url`
 
 ## Details
 
-Retrieve video metadata and stream specs from Douyin by providing a post link in `share_url`.
+Get a Douyin video's full details straight from a share link (`douyin.com/video/<id>` or a `v.douyin.com` short link copied from the app): caption, stats, author, music and play URLs.
 
 ### Use cases
 
-- Extract video stream qualities from a Douyin post link.
-- Look up Douyin video details from shared mobile URLs.
-- Parse media bitrates and playback specifications for a clip.
+- Handle links pasted by users without parsing them yourself.
+- Look up engagement and author for a shared video.
 
 ### Request
 
@@ -79,6 +78,8 @@ curl -X POST "https://api.sandbase.ai/v1/api/douyin/app-v3/one-video-by-share-ur
   -d '{"share_url": "https://www.douyin.com/video/7512756548356492544"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
@@ -87,37 +88,65 @@ curl -X POST "https://api.sandbase.ai/v1/api/douyin/app-v3/one-video-by-share-ur
 
 ### Example response
 
-Real response for the request above, trimmed to the main fields. User names and long IDs are masked.
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
 
 ```json
 {
   "aweme_detail": {
+    "aweme_id": "7512756548356492544",
+    "desc": "#neo浪漫蓝调",
+    "create_time": 1749199950,
+    "statistics": {
+      "digg_count": 190359,
+      "comment_count": 1456,
+      "collect_count": 10797,
+      "share_count": 27894
+    },
+    "author": {
+      "nickname": "栗子味",
+      "uid": "3635433641882579",
+      "sec_uid": "MS4wLjABAAAAr52fXcfmzqOZJM_sma…",
+      "unique_id": "Wuf666"
+    },
     "video": {
-      "bit_rate": [
-        {
-          "bit_rate": 582425,
-          "gear_name": "540_2_2",
-          "quality_type": 23
-        }
-      ]
+      "duration": 12634,
+      "width": 1024,
+      "height": 576,
+      "play_addr": {
+        "url_list": [
+          "https://v9-colds.douyinvod.com/0783179606d7b480c2e57136bba54…"
+        ]
+      }
     }
   }
 }
 ```
 
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `aweme_id` | Video ID. |
+| `desc` | Caption with hashtags. |
+| `create_time` | Publish time, Unix seconds. |
+| `statistics` | `digg_count` (likes), `comment_count`, `collect_count` (saves), `share_count`. |
+| `author` | `nickname`, numeric `uid`, `sec_uid` (used by profile APIs) and `unique_id` (抖音号). |
+| `video.play_addr.url_list` | Play URLs; signed and temporary. |
+| `video.duration` | Length in milliseconds. |
+
 ### Notes
 
-- Pass the full post URL in `share_url` to retrieve video details.
+- When you already have the `aweme_id`, [Douyin Video Detail](/apis/douyin/web/one-video) takes it directly.
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls, including lookups whose target does not exist, are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 
-- [Douyin Brand Hot Search List](/model/douyin/app-v3/brand-hot-search-list): Returns the current Douyin brand hot search list and category data.
-- [Douyin Brand Hot Search List Detail](/model/douyin/app-v3/brand-hot-search-list-detail): Returns detailed brand hot search list data from Douyin for a specific category.
-- [Douyin Short Link Generator](/model/douyin/app-v3/generate-short-url): Converts a standard Douyin web link into a shortened Douyin URL.
+- [Douyin Brand Hot Search List](/apis/douyin/app-v3/brand-hot-search-list): Returns the current Douyin brand hot search list and category data.
+- [Douyin Brand Hot Search List Detail](/apis/douyin/app-v3/brand-hot-search-list-detail): Returns detailed brand hot search list data from Douyin for a specific category.
+- [Douyin Short Link Generator](/apis/douyin/app-v3/generate-short-url): Converts a standard Douyin web link into a shortened Douyin URL.
 
 ---
 Machine-readable: [`catalog/models/douyin/app-v3/one-video-by-share-url.json`](../../../../catalog/models/douyin/app-v3/one-video-by-share-url.json) · Store page: https://www.sandbase.ai/model/douyin/app-v3/one-video-by-share-url

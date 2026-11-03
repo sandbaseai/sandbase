@@ -112,9 +112,9 @@ Flat price per call. Failed calls, including lookups whose target does not exist
 
 ### Related APIs
 
-- [Douyin Challenge Search](/model/douyin/search/challenge-search-v1): Returns Douyin challenge and hashtag search results matching a query.
-- [Douyin Hashtag Challenge Search (V2)](/model/douyin/search/challenge-search-v2): Returns Douyin hashtag and challenge search results matching a query keyword.
-- [Douyin Discussion Search](/model/douyin/search/discuss-search): Returns discussion and question-and-answer search results from Douyin.
+- [Douyin Challenge Search](/apis/douyin/search/challenge-search-v1): Returns Douyin challenge and hashtag search results matching a query.
+- [Douyin Hashtag Challenge Search (V2)](/apis/douyin/search/challenge-search-v2): Returns Douyin hashtag and challenge search results matching a query keyword.
+- [Douyin Discussion Search](/apis/douyin/search/discuss-search): Returns discussion and question-and-answer search results from Douyin.
 
 ---
 Machine-readable: [`catalog/models/douyin/search/challenge-suggest.json`](../../../../catalog/models/douyin/search/challenge-suggest.json) · Store page: https://www.sandbase.ai/model/douyin/search/challenge-suggest

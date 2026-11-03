@@ -125,9 +125,9 @@ Flat price per call. Failed calls, including lookups whose target does not exist
 
 ### Related APIs
 
-- [Instagram User Profile](/model/instagram/v2/user-info): Get an Instagram user profile by username or user ID: full name, bio, website, follower, following and post counts, verification and category.
-- [Get comment replies](/model/instagram/v2/comment-replies): Get list of replies to a comment Need to get comment ID from fetch_post_comments first Support pagination.
-- [General search](/model/instagram/v2/general-search): Perform general search on Instagram by keyword Support pagination.
+- [Instagram User Profile](/apis/instagram/v2/user-info): Get an Instagram user profile by username or user ID: full name, bio, website, follower, following and post counts, verification and category.
+- [Get comment replies](/apis/instagram/v2/comment-replies): Get list of replies to a comment Need to get comment ID from fetch_post_comments first Support pagination.
+- [General search](/apis/instagram/v2/general-search): Perform general search on Instagram by keyword Support pagination.
 
 ---
 Machine-readable: [`catalog/models/instagram/v2/search-reels.json`](../../../../catalog/models/instagram/v2/search-reels.json) · Store page: https://www.sandbase.ai/model/instagram/v2/search-reels

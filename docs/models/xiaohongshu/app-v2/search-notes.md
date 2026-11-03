@@ -86,13 +86,13 @@ Same call via the path form: `POST /v1/api/xiaohongshu/app-v2/search-notes` with
 
 ## Details
 
-Search Xiaohongshu for a keyword and get matching notes with title, author, images and engagement counts. Sort by relevance, popularity or time and filter by note type.
+Search Xiaohongshu (RedNote) notes by keyword, with sorting, note type and time filters. Each note comes with title, text, author, likes, saves, comments and shares, and the `xsec_token` needed to open it.
 
 ### Use cases
 
-- Research consumer opinions and trends on Xiaohongshu.
-- Find KOLs and popular notes for a product category.
-- Monitor brand mentions on RED.
+- Research what users say about a product or brand on Xiaohongshu.
+- Find popular notes for a keyword sorted by likes or recency.
+- Collect note IDs for detail and comment APIs.
 
 ### Request
 
@@ -103,45 +103,47 @@ curl -X POST "https://api.sandbase.ai/v1/api/xiaohongshu/app-v2/search-notes" \
   -d '{"keyword": "OpenAI"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
 |---|---|---|---|
 | `keyword` | string | Yes | Search keyword |
-| `page` | integer | No | Page number, start from 1 |
-| `source` | string | No | Source, default "explore_feed" |
 | `ai_mode` | integer | No | AI mode, 0=off, 1=on |
 | `note_type` | string | No | Note type filter |
+| `page` | integer | No | Page number, start from 1 |
 | `search_id` | string | No | Search ID, pass value from first search response for pagination |
-| `sort_type` | string | No | Sort type |
-| `time_filter` | string | No | Time filter |
 | `search_session_id` | string | No | Search session ID, pass value from first search response for pagination |
+| `sort_type` | string | No | Sort type |
+| `source` | string | No | Source, default "explore_feed" |
+| `time_filter` | string | No | Time filter |
 
 ### Example response
 
-Real response for the request above, trimmed to the main fields. User names and long IDs are masked.
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
 
 ```json
 {
   "code": 0,
-  "page": 1,
-  "next_page": 2,
-  "search_id": "<search_id>",
   "data": {
     "items": [
       {
         "model_type": "note",
         "note": {
-          "id": "6a6c688000000000060041d4",
+          "id": "68417e340000000012005009",
+          "title": "在OpenAI工作一年是什么体验？",
+          "desc": "今天是Kay在@openai一周年纪念日。就像所有美好的事物一样，感觉就像一辈子那么长，又像只有一周那么长。 在过去的一",
           "type": "normal",
-          "liked_count": 98,
-          "collected_count": 78,
-          "comments_count": 56,
-          "shared_count": 25,
-          "timestamp": 1785489536,
-          "title": "我发现我真的很会面OpenAI的MLE（已上岸",
+          "liked_count": 1710,
+          "collected_count": 436,
+          "comments_count": 45,
+          "shared_count": 63,
+          "timestamp": 1749122612,
+          "xsec_token": "YBInGnHNhG3Mpg74EPpAit_uooczsdD7_5qKSMlc2sqWE=",
           "user": {
-            "nickname": "<user>"
+            "nickname": "科技漫步者",
+            "userid": "60c73fb9000000000101fef2"
           }
         }
       }
@@ -150,19 +152,31 @@ Real response for the request above, trimmed to the main fields. User names and 
 }
 ```
 
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `data.items[].note.id` | Note ID. |
+| `data.items[].note.title / desc` | Title and text. |
+| `data.items[].note.type` | `normal` (image) or `video`. |
+| `data.items[].note.liked_count / collected_count / comments_count / shared_count` | Engagement counts. |
+| `data.items[].note.user` | Author nickname and `userid`. |
+| `data.items[].note.xsec_token` | Token required by the note detail and comment APIs. |
+
 ### Notes
 
-- For the next page, pass `page`, plus `search_id` and `search_session_id` from the first response.
+- Pages start at 1. Pass the `search_id` from the first response when you request page 2 and later.
+- `sort_type` and `time_filter` follow the app's options.
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.01 per successful call. Failed calls, including lookups whose target does not exist, are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 
-- [Get creator hot inspiration feed](/model/xiaohongshu/app-v2/creator-hot-inspiration-feed): Get creator center hot inspiration feed, using cursor pagination.
-- [Get creator inspiration feed](/model/xiaohongshu/app-v2/creator-inspiration-feed): Get creator center recommended inspiration feed, using cursor pagination.
-- [Get image note detail](/model/xiaohongshu/app-v2/image-note-detail): App V2 Image Note Detail provides a focused capability for applications, automation, and data workflows.
+- [Get creator hot inspiration feed](/apis/xiaohongshu/app-v2/creator-hot-inspiration-feed): Get creator center hot inspiration feed, using cursor pagination.
+- [Get creator inspiration feed](/apis/xiaohongshu/app-v2/creator-inspiration-feed): Get creator center recommended inspiration feed, using cursor pagination.
+- [Get image note detail](/apis/xiaohongshu/app-v2/image-note-detail): App V2 Image Note Detail provides a focused capability for applications, automation, and data workflows.
 
 ---
 Machine-readable: [`catalog/models/xiaohongshu/app-v2/search-notes.json`](../../../../catalog/models/xiaohongshu/app-v2/search-notes.json) · Store page: https://www.sandbase.ai/model/xiaohongshu/app-v2/search-notes

@@ -79,7 +79,7 @@ Retrieve detailed information for multiple Reddit posts using a comma-separated 
 curl -X POST "https://api.sandbase.ai/v1/api/reddit/app/post-details-batch" \
   -H "Authorization: Bearer $SANDBASE_API_KEY" \
   -H "Content-Type: application/json" \
-  -d '{"post_ids": "<post_ids>"}'
+  -d '{"post_ids": "t3_1ojnh50,t3_1ok432f,t3_1nwil8j"}'
 ```
 
 ### Parameters
@@ -102,9 +102,9 @@ Flat price per call. Failed calls, including lookups whose target does not exist
 
 ### Related APIs
 
-- [Reddit Subreddit Mute Status](/model/reddit/app/check-subreddit-muted): Checks whether a specified Reddit subreddit is muted by the current account using its ID.
-- [Reddit App Comment Replies](/model/reddit/app/comment-replies): Returns replies and nested sub-comments under a Reddit post comment using a continuation cursor.
-- [Reddit Community Highlights](/model/reddit/app/community-highlights): Returns featured highlight content for a designated Reddit community, such as popular posts and announcements, by subreddit ID.
+- [Reddit Subreddit Mute Status](/apis/reddit/app/check-subreddit-muted): Checks whether a specified Reddit subreddit is muted by the current account using its ID.
+- [Reddit App Comment Replies](/apis/reddit/app/comment-replies): Returns replies and nested sub-comments under a Reddit post comment using a continuation cursor.
+- [Reddit Community Highlights](/apis/reddit/app/community-highlights): Returns featured highlight content for a designated Reddit community, such as popular posts and announcements, by subreddit ID.
 
 ---
 Machine-readable: [`catalog/models/reddit/app/post-details-batch.json`](../../../../catalog/models/reddit/app/post-details-batch.json) · Store page: https://www.sandbase.ai/model/reddit/app/post-details-batch

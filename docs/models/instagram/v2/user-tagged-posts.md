@@ -74,7 +74,7 @@ Retrieve posts where an account is tagged by other users by specifying either `u
 curl -X POST "https://api.sandbase.ai/v1/api/instagram/v2/user-tagged-posts" \
   -H "Authorization: Bearer $SANDBASE_API_KEY" \
   -H "Content-Type: application/json" \
-  -d '{}'
+  -d '{"username": "instagram", "user_id": "18527"}'
 ```
 
 ### Parameters
@@ -96,9 +96,9 @@ Flat price per call. Failed calls, including lookups whose target does not exist
 
 ### Related APIs
 
-- [Instagram Comment Replies (V2)](/model/instagram/v2/comment-replies): Retrieves a paginated list of replies to an Instagram comment using the post URL or shortcode and the target comment ID.
-- [Instagram General Search (V2)](/model/instagram/v2/general-search): Returns Instagram search results matching a specified keyword, including media items, user profiles, and engagement statistics.
-- [Instagram Hashtag Posts (V2)](/model/instagram/v2/hashtag-posts): Returns posts associated with a specific hashtag.
+- [Instagram Comment Replies (V2)](/apis/instagram/v2/comment-replies): Retrieves a paginated list of replies to an Instagram comment using the post URL or shortcode and the target comment ID.
+- [Instagram General Search (V2)](/apis/instagram/v2/general-search): Returns Instagram search results matching a specified keyword, including media items, user profiles, and engagement statistics.
+- [Instagram Hashtag Posts (V2)](/apis/instagram/v2/hashtag-posts): Returns posts associated with a specific hashtag.
 
 ---
 Machine-readable: [`catalog/models/instagram/v2/user-tagged-posts.json`](../../../../catalog/models/instagram/v2/user-tagged-posts.json) · Store page: https://www.sandbase.ai/model/instagram/v2/user-tagged-posts

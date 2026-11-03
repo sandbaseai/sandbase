@@ -119,9 +119,9 @@ Flat price per call. Failed calls, including lookups whose target does not exist
 
 ### Related APIs
 
-- [Toutiao Post Comments](/model/toutiao/app/comments): Returns user comments and interaction metrics for a specific Toutiao post.
-- [Toutiao Profile User ID](/model/toutiao/app/user-id): Resolves a Toutiao user profile URL into numeric and secure user identifiers.
-- [Toutiao User Profile](/model/toutiao/app/user-info): Get a Toutiao (Jinri Toutiao) user profile by user ID: name, bio, avatar, follower, following and like counts, and content tabs.
+- [Toutiao Post Comments](/apis/toutiao/app/comments): Returns user comments and interaction metrics for a specific Toutiao post.
+- [Toutiao Profile User ID](/apis/toutiao/app/user-id): Resolves a Toutiao user profile URL into numeric and secure user identifiers.
+- [Toutiao User Profile](/apis/toutiao/app/user-info): Get a Toutiao (Jinri Toutiao) user profile by user ID: name, bio, avatar, follower, following and like counts, and content tabs.
 
 ---
 Machine-readable: [`catalog/models/toutiao/app/article-info.json`](../../../../catalog/models/toutiao/app/article-info.json) · Store page: https://www.sandbase.ai/model/toutiao/app/article-info

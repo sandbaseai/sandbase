@@ -73,7 +73,7 @@ Fetch detailed information about an Instagram post by supplying either `url` or 
 curl -X POST "https://api.sandbase.ai/v1/api/instagram/v3/post-info" \
   -H "Authorization: Bearer $SANDBASE_API_KEY" \
   -H "Content-Type: application/json" \
-  -d '{}'
+  -d '{"media_id": "3850699893338385742", "url": "https://www.instagram.com/p/DUajw4YkorV/"}'
 ```
 
 ### Parameters
@@ -94,9 +94,9 @@ Flat price per call. Failed calls, including lookups whose target does not exist
 
 ### Related APIs
 
-- [Instagram Comment Bulk Translation](/model/instagram/v3/bulk-translate-comments): Returns bulk translations for multiple Instagram comments using a list of comment identifiers.
-- [Instagram Comment Replies (V3)](/model/instagram/v3/comment-replies): Returns child comment replies for a specific Instagram comment using the post media ID and parent comment ID.
-- [Instagram Explore Feed](/model/instagram/v3/explore): Returns curated sectional items from the Instagram explore feed, including layout formats and feed types.
+- [Instagram Comment Bulk Translation](/apis/instagram/v3/bulk-translate-comments): Returns bulk translations for multiple Instagram comments using a list of comment identifiers.
+- [Instagram Comment Replies (V3)](/apis/instagram/v3/comment-replies): Returns child comment replies for a specific Instagram comment using the post media ID and parent comment ID.
+- [Instagram Explore Feed](/apis/instagram/v3/explore): Returns curated sectional items from the Instagram explore feed, including layout formats and feed types.
 
 ---
 Machine-readable: [`catalog/models/instagram/v3/post-info.json`](../../../../catalog/models/instagram/v3/post-info.json) · Store page: https://www.sandbase.ai/model/instagram/v3/post-info

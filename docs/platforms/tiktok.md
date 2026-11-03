@@ -1,6 +1,6 @@
-# TikTok API: 175 endpoints with pricing and code examples
+# TikTok API: 166 endpoints with pricing and code examples
 
-Call 175 TikTok endpoints through SandBase with one API key: no separate account, one balance, the same request format for every endpoint. Each page has the input schema, the price and curl / Python / TypeScript / Go examples.
+Call 166 TikTok endpoints through SandBase with one API key: no separate account, one balance, the same request format for every endpoint. Each page has the input schema, the price and curl / Python / TypeScript / Go examples.
 
 | Endpoint | What it does | Price |
 |---|---|---|
@@ -78,19 +78,10 @@ Call 175 TikTok endpoints through SandBase with one API key: no separate account
 | [`tiktok/app-v3/webcast-user-info`](../models/tiktok/app-v3/webcast-user-info.md) | Retrieves profile information for a specified TikTok Webcast user. Queries data using either a numeric user ID or a secure user ID. | $0.001 per call (free daily quota) |
 | [`tiktok/audience-demographics`](../models/tiktok/audience-demographics.md) | Get the audience country breakdown (follower count and share per country) for a TikTok creator by handle. | about $0.018 per call |
 | [`tiktok/comment-replies`](../models/tiktok/comment-replies.md) | List the replies to a TikTok comment with cursor pagination (text, author, likes). | about $0.0006 per call |
-| [`tiktok/creator/account-health-status`](../models/tiktok/creator/account-health-status.md) | Returns the health status of a TikTok Shop creator account. Provides the 90-day health score and accumulated violation points to evaluate… | $0.001 per call (free daily quota) |
-| [`tiktok/creator/account-insights-overview`](../models/tiktok/creator/account-insights-overview.md) | Retrieves performance metrics for a TikTok Shop creator account, including revenue, exposure, clicks, and orders for the specified month. | $0.001 per call (free daily quota) |
-| [`tiktok/creator/account-violation-list`](../models/tiktok/creator/account-violation-list.md) | Returns the violation history and enforcement actions for a TikTok Shop creator account. Supports chronological pagination across… | $0.001 per call (free daily quota) |
-| [`tiktok/creator/creator-account-info`](../models/tiktok/creator/creator-account-info.md) | Returns basic profile details for a TikTok Shop creator account, including username, avatar URLs, account ID, region, partner bindings,… | $0.001 per call (free daily quota) |
-| [`tiktok/creator/live-analytics-summary`](../models/tiktok/creator/live-analytics-summary.md) | Returns streaming performance metrics for a TikTok Shop account over a monthly period. Accepts an optional `start_date` to review… | $0.001 per call (free daily quota) |
-| [`tiktok/creator/product-analytics-list`](../models/tiktok/creator/product-analytics-list.md) | Returns products promoted by a TikTok Shop creator along with sales analytics for a designated date range. Results can be filtered by… | $0.001 per call (free daily quota) |
 | [`tiktok/creator/product-related-videos`](../models/tiktok/creator/product-related-videos.md) | Returns videos linked to a specified product alongside interaction metrics like counts for likes, comments, and shares. Supports… | $0.001 per call (free daily quota) |
-| [`tiktok/creator/showcase-product-list`](../models/tiktok/creator/showcase-product-list.md) | Returns the list of products displayed in a TikTok Shop creator showcase. Supports pagination controls via offset and item count. | $0.001 per call (free daily quota) |
-| [`tiktok/creator/video-analytics-summary`](../models/tiktok/creator/video-analytics-summary.md) | Returns a video performance overview for a TikTok Shop creator account over a time range. Provides metrics including video count, views,… | $0.001 per call (free daily quota) |
 | [`tiktok/creator/video-associated-product-list`](../models/tiktok/creator/video-associated-product-list.md) | Returns products tied to specified TikTok Shop videos along with promotional performance metrics. Filter results by video IDs and an… | $0.001 per call (free daily quota) |
 | [`tiktok/creator/video-audience-stats`](../models/tiktok/creator/video-audience-stats.md) | Returns audience profile statistics for a TikTok video by ID, covering gender, age, and regional breakdowns. Supports filtering starting… | $0.001 per call (free daily quota) |
 | [`tiktok/creator/video-detailed-stats`](../models/tiktok/creator/video-detailed-stats.md) | Returns segmented performance statistics for a TikTok video, including follower growth, completion rates, and engagement metrics. | $0.001 per call (free daily quota) |
-| [`tiktok/creator/video-list-analytics`](../models/tiktok/creator/video-list-analytics.md) | Returns video records and performance metrics for a TikTok Shop creator within a specific date range. Supports pagination and custom… | $0.001 per call (free daily quota) |
 | [`tiktok/creator/video-to-product-stats`](../models/tiktok/creator/video-to-product-stats.md) | Returns promotional metrics linking a TikTok video to a specific product, including views, clicks, orders, and revenue trends over time… | $0.001 per call (free daily quota) |
 | [`tiktok/followers`](../models/tiktok/followers.md) | List the followers of a TikTok account by username, returning each follower's profile basics. | about $0.0008 per call |
 | [`tiktok/following`](../models/tiktok/following.md) | List the accounts a TikTok user follows (handle, display name, follower count, bio) by username. | about $0.0008 per call |

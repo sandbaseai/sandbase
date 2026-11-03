@@ -20,7 +20,7 @@ Modes: sync (default `sync`). Only pass `mode` values listed here. The SDKs' `ru
 ```bash
 curl https://api.sandbase.ai/v1/run \
   -H "Authorization: Bearer $SANDBASE_API_KEY" -H 'Content-Type: application/json' \
-  -d '{"model": "wechat-channels/v2/collection-videos", "topic_id": "<topic_id>"}'
+  -d '{"model": "wechat-channels/v2/collection-videos", "topic_id": "14616794565351966924"}'
 ```
 
 **Python** ([sdk/python](../../../../sdk/python))
@@ -28,7 +28,7 @@ curl https://api.sandbase.ai/v1/run \
 ```python
 from sandbase import SandBase
 
-result = SandBase().run('wechat-channels/v2/collection-videos', {'topic_id': '<topic_id>'})
+result = SandBase().run('wechat-channels/v2/collection-videos', {'topic_id': '14616794565351966924'})
 print(result["outputs"])
 ```
 
@@ -38,7 +38,7 @@ print(result["outputs"])
 import { SandBase } from "@sandbaseai/sdk";
 
 const result = await new SandBase().run("wechat-channels/v2/collection-videos", {
-  "topic_id": "<topic_id>"
+  "topic_id": "14616794565351966924"
 });
 console.log(result.outputs);
 ```
@@ -48,7 +48,7 @@ console.log(result.outputs);
 ```go
 c, _ := sandbase.NewClient("")
 run, err := c.Run(ctx, "wechat-channels/v2/collection-videos", sandbase.Params{
-	"topic_id": "<topic_id>",
+	"topic_id": "14616794565351966924",
 })
 ```
 
@@ -81,7 +81,7 @@ Fetch all videos listed in a specific WeChat Channels collection by providing `t
 curl -X POST "https://api.sandbase.ai/v1/api/wechat-channels/v2/collection-videos" \
   -H "Authorization: Bearer $SANDBASE_API_KEY" \
   -H "Content-Type: application/json" \
-  -d '{"topic_id": "<topic_id>"}'
+  -d '{"topic_id": "14616794565351966924"}'
 ```
 
 ### Parameters
@@ -107,9 +107,9 @@ Flat price per call. Failed calls, including lookups whose target does not exist
 
 ### Related APIs
 
-- [WeChat Channels ID to Username](/model/wechat-channels/v2/channel-id-to-username): Convert a public WeChat Channels Channel ID (sph… short ID) into the finder username (v2_…@finder) required by the other WeChat Channels APIs.
-- [WeChat Channels Account Info](/model/wechat-channels/v2/channel-info): Get the public "More info" panel of a WeChat Channels account: Channel ID, IP and profile location, and verification details such as entity type, service categ…
-- [WeChat Channels Stream Detail](/model/wechat-channels/v2/live-detail): Returns live-room details including anchor info, status, online count, and replay data using a live ID.
+- [WeChat Channels ID to Username](/apis/wechat-channels/v2/channel-id-to-username): Convert a public WeChat Channels Channel ID (sph… short ID) into the finder username (v2_…@finder) required by the other WeChat Channels APIs.
+- [WeChat Channels Account Info](/apis/wechat-channels/v2/channel-info): Get the public "More info" panel of a WeChat Channels account: Channel ID, IP and profile location, and verification details such as entity type, service categ…
+- [WeChat Channels Stream Detail](/apis/wechat-channels/v2/live-detail): Returns live-room details including anchor info, status, online count, and replay data using a live ID.
 
 ---
 Machine-readable: [`catalog/models/wechat-channels/v2/collection-videos.json`](../../../../catalog/models/wechat-channels/v2/collection-videos.json) · Store page: https://www.sandbase.ai/model/wechat-channels/v2/collection-videos

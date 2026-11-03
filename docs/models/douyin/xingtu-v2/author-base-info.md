@@ -107,9 +107,9 @@ Flat price per call. Failed calls, including lookups whose target does not exist
 
 ### Related APIs
 
-- [Douyin Xingtu Author Audience Distribution](/model/douyin/xingtu-v2/author-audience-distribution): Returns audience profile distribution metrics for a specified Xingtu creator based on creator ID and link type, with selectable platform source and channel opt…
-- [Douyin Xingtu Author Business Card Info](/model/douyin/xingtu-v2/author-business-card-info): Returns business card details for a Douyin Xingtu creator based on the specified author ID.
-- [Douyin Xingtu Author Content Hot Keywords](/model/douyin/xingtu-v2/author-content-hot-keywords): Returns trending content keywords for a Douyin creator.
+- [Douyin Xingtu Author Audience Distribution](/apis/douyin/xingtu-v2/author-audience-distribution): Returns audience profile distribution metrics for a specified Xingtu creator based on creator ID and link type, with selectable platform source and channel opt…
+- [Douyin Xingtu Author Business Card Info](/apis/douyin/xingtu-v2/author-business-card-info): Returns business card details for a Douyin Xingtu creator based on the specified author ID.
+- [Douyin Xingtu Author Content Hot Keywords](/apis/douyin/xingtu-v2/author-content-hot-keywords): Returns trending content keywords for a Douyin creator.
 
 ---
 Machine-readable: [`catalog/models/douyin/xingtu-v2/author-base-info.json`](../../../../catalog/models/douyin/xingtu-v2/author-base-info.json) · Store page: https://www.sandbase.ai/model/douyin/xingtu-v2/author-base-info

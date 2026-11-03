@@ -127,9 +127,9 @@ Billed at the actual cost of each call, about $0.002 for the request above. The 
 
 ### Related APIs
 
-- [DataForSEO Google Historical Search Volume](/model/dataforseo/v3/dataforseo_labs/google/historical_search_volume/live): Get historical Google search volume for keywords from DataForSEO Labs: monthly searches, CPC, competition and keyword properties by location and language.
-- [DataForSEO Google Ads Keyword Search Volume](/model/dataforseo/v3/keywords_data/google_ads/search_volume/live): Get Google Ads search volume, CPC, competition and 12-month trend for up to 1,000 keywords per request, by location and language.
-- [DataForSEO Google Trends](/model/dataforseo/v3/keywords_data/google_trends/explore/live): Get Google Trends interest over time for up to 5 keywords by location, language and time range, with weekly values on a 0–100 scale.
+- [DataForSEO Google Historical Search Volume](/apis/dataforseo/v3/dataforseo_labs/google/historical_search_volume/live): Get historical Google search volume for keywords from DataForSEO Labs: monthly searches, CPC, competition and keyword properties by location and language.
+- [DataForSEO Google Ads Keyword Search Volume](/apis/dataforseo/v3/keywords_data/google_ads/search_volume/live): Get Google Ads search volume, CPC, competition and 12-month trend for up to 1,000 keywords per request, by location and language.
+- [DataForSEO Google Trends](/apis/dataforseo/v3/keywords_data/google_trends/explore/live): Get Google Trends interest over time for up to 5 keywords by location, language and time range, with weekly values on a 0–100 scale.
 
 ---
 Machine-readable: [`catalog/models/dataforseo/v3/serp/google/news/live/advanced.json`](../../../../../../../../catalog/models/dataforseo/v3/serp/google/news/live/advanced.json) · Store page: https://www.sandbase.ai/model/dataforseo/v3/serp/google/news/live/advanced

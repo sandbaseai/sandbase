@@ -19,7 +19,7 @@ Modes: sync (default `sync`). Only pass `mode` values listed here. The SDKs' `ru
 ```bash
 curl https://api.sandbase.ai/v1/run \
   -H "Authorization: Bearer $SANDBASE_API_KEY" -H 'Content-Type: application/json' \
-  -d '{"model": "pinterest/pin", "url": "<url>"}'
+  -d '{"model": "pinterest/pin", "url": "https://www.pinterest.com/pin/99360735500167749/"}'
 ```
 
 **Python** ([sdk/python](../../../sdk/python))
@@ -27,7 +27,7 @@ curl https://api.sandbase.ai/v1/run \
 ```python
 from sandbase import SandBase
 
-result = SandBase().run('pinterest/pin', {'url': '<url>'})
+result = SandBase().run('pinterest/pin', {'url': 'https://www.pinterest.com/pin/99360735500167749/'})
 print(result["outputs"])
 ```
 
@@ -37,7 +37,7 @@ print(result["outputs"])
 import { SandBase } from "@sandbaseai/sdk";
 
 const result = await new SandBase().run("pinterest/pin", {
-  "url": "<url>"
+  "url": "https://www.pinterest.com/pin/99360735500167749/"
 });
 console.log(result.outputs);
 ```
@@ -47,7 +47,7 @@ console.log(result.outputs);
 ```go
 c, _ := sandbase.NewClient("")
 run, err := c.Run(ctx, "pinterest/pin", sandbase.Params{
-	"url": "<url>",
+	"url": "https://www.pinterest.com/pin/99360735500167749/",
 })
 ```
 
@@ -76,7 +76,7 @@ Retrieve detailed metadata for a specific Pinterest pin by supplying its link vi
 curl -X POST "https://api.sandbase.ai/v1/api/pinterest/pin" \
   -H "Authorization: Bearer $SANDBASE_API_KEY" \
   -H "Content-Type: application/json" \
-  -d '{"url": "<url>"}'
+  -d '{"url": "https://www.pinterest.com/pin/99360735500167749/"}'
 ```
 
 ### Parameters

@@ -120,9 +120,9 @@ Flat price per call. Failed calls, including lookups whose target does not exist
 
 ### Related APIs
 
-- [Weibo Home Recommend Feed](/model/weibo/app/home-recommend-feed): Returns recommended feed items from the Weibo app homepage, with options to paginate and specify the number of items per request.
-- [Weibo Hot Search Rankings](/model/weibo/app/hot-search): Returns current Weibo hot search rankings across various categories.
-- [Weibo Hot Search Categories](/model/weibo/app/hot-search-categories): Returns all available hot search categories from Weibo.
+- [Weibo Home Recommend Feed](/apis/weibo/app/home-recommend-feed): Returns recommended feed items from the Weibo app homepage, with options to paginate and specify the number of items per request.
+- [Weibo Hot Search Rankings](/apis/weibo/app/hot-search): Returns current Weibo hot search rankings across various categories.
+- [Weibo Hot Search Categories](/apis/weibo/app/hot-search-categories): Returns all available hot search categories from Weibo.
 
 ---
 Machine-readable: [`catalog/models/weibo/app/ai-smart-search.json`](../../../../catalog/models/weibo/app/ai-smart-search.json) · Store page: https://www.sandbase.ai/model/weibo/app/ai-smart-search

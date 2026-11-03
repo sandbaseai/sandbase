@@ -77,7 +77,7 @@ Retrieve detailed metadata and content for a Xiaohongshu image post using `note_
 curl -X POST "https://api.sandbase.ai/v1/api/xiaohongshu/app-v2/image-note-detail" \
   -H "Authorization: Bearer $SANDBASE_API_KEY" \
   -H "Content-Type: application/json" \
-  -d '{}'
+  -d '{"note_id": "697c0eee000000000a03c308", "share_text": "http://xhslink.com/o/8GqargIxrko"}'
 ```
 
 ### Parameters
@@ -97,9 +97,9 @@ Flat price per call. Failed calls, including lookups whose target does not exist
 
 ### Related APIs
 
-- [Xiaohongshu (RED) Creator Hot Inspiration Feed](/model/xiaohongshu/app-v2/creator-hot-inspiration-feed): Retrieves creator center hot inspiration feed items with topic titles, popularity scores, and deeplinks.
-- [Xiaohongshu (RED) Inspiration Feed](/model/xiaohongshu/app-v2/creator-inspiration-feed): Returns recommended inspiration feed items and trending topics from Xiaohongshu (RED).
-- [Xiaohongshu (RED) Note Comments](/model/xiaohongshu/app-v2/note-comments): Get the comments on a Xiaohongshu note: comment text, time, likes, reply counts and location, with sorting and cursor pagination.
+- [Xiaohongshu (RED) Creator Hot Inspiration Feed](/apis/xiaohongshu/app-v2/creator-hot-inspiration-feed): Retrieves creator center hot inspiration feed items with topic titles, popularity scores, and deeplinks.
+- [Xiaohongshu (RED) Inspiration Feed](/apis/xiaohongshu/app-v2/creator-inspiration-feed): Returns recommended inspiration feed items and trending topics from Xiaohongshu (RED).
+- [Xiaohongshu (RED) Note Comments](/apis/xiaohongshu/app-v2/note-comments): Get the comments on a Xiaohongshu note: comment text, time, likes, reply counts and location, with sorting and cursor pagination.
 
 ---
 Machine-readable: [`catalog/models/xiaohongshu/app-v2/image-note-detail.json`](../../../../catalog/models/xiaohongshu/app-v2/image-note-detail.json) · Store page: https://www.sandbase.ai/model/xiaohongshu/app-v2/image-note-detail

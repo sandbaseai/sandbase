@@ -62,13 +62,12 @@ Same call via the path form: `POST /v1/api/instagram/v3/extract-shortcode` with 
 
 ## Details
 
-This endpoint resolves the unique shortcode identifier from an Instagram link provided in `url`. It accepts links from standard posts, reels, and TV items.
+Extract the shortcode from an Instagram post, reel or TV link. Instagram links take the forms `instagram.com/p/<shortcode>/`, `instagram.com/reel/<shortcode>/` and `instagram.com/tv/<shortcode>/`, often with tracking query strings such as `?igsh=`.
 
 ### Use cases
 
-- Parse a shortcode identifier from an Instagram reel or post link.
-- Prepare Instagram post identifiers for downstream media lookups.
-- Normalize diverse Instagram content URLs into standardized post keys.
+- Normalize links pasted by users before calling post APIs.
+- Deduplicate the same post shared with different tracking parameters.
 
 ### Request
 
@@ -79,25 +78,46 @@ curl -X POST "https://api.sandbase.ai/v1/api/instagram/v3/extract-shortcode" \
   -d '{"url": "https://www.instagram.com/p/DUajw4YkorV/"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
 |---|---|---|---|
 | `url` | string | Yes | Full Instagram post URL |
 
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "shortcode": "DUajw4YkorV",
+  "url": "https://www.instagram.com/p/DUajw4YkorV/"
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `shortcode` | The 11-character post shortcode. |
+| `url` | The link you sent. |
+
 ### Notes
 
-- Provide a full Instagram post link in the `url` parameter.
+- The shortcode is the media ID in base 64; convert it with [Shortcode to Media ID](/apis/instagram/v1/shortcode-to-media-id).
+- This only parses the link; it does not check that the post exists.
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.002 per successful call. Failed calls, including lookups whose target does not exist, are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 
-- [Instagram Comment Bulk Translation](/model/instagram/v3/bulk-translate-comments): Returns bulk translations for multiple Instagram comments using a list of comment identifiers.
-- [Instagram Comment Replies (V3)](/model/instagram/v3/comment-replies): Returns child comment replies for a specific Instagram comment using the post media ID and parent comment ID.
-- [Instagram Explore Feed](/model/instagram/v3/explore): Returns curated sectional items from the Instagram explore feed, including layout formats and feed types.
+- [Instagram Comment Bulk Translation](/apis/instagram/v3/bulk-translate-comments): Returns bulk translations for multiple Instagram comments using a list of comment identifiers.
+- [Instagram Comment Replies (V3)](/apis/instagram/v3/comment-replies): Returns child comment replies for a specific Instagram comment using the post media ID and parent comment ID.
+- [Instagram Explore Feed](/apis/instagram/v3/explore): Returns curated sectional items from the Instagram explore feed, including layout formats and feed types.
 
 ---
 Machine-readable: [`catalog/models/instagram/v3/extract-shortcode.json`](../../../../catalog/models/instagram/v3/extract-shortcode.json) · Store page: https://www.sandbase.ai/model/instagram/v3/extract-shortcode

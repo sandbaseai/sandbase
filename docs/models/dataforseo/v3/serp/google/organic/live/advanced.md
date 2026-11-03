@@ -72,13 +72,13 @@ Same call via the path form: `POST /v1/api/dataforseo/v3/serp/google/organic/liv
 
 ## Details
 
-Send a keyword with a location and language and get the live Google results page as structured JSON: organic rankings plus SERP features such as AI Overviews, featured snippets and People Also Ask.
+Live Google search results for a keyword in any location, language and device: organic results with position, title, URL and snippet, plus the other SERP features on the page such as AI Overview, featured snippets, People Also Ask, local pack and video results.
 
 ### Use cases
 
-- Track keyword rankings for SEO.
-- Monitor which SERP features (AI Overview, snippets) appear for your keywords.
-- Analyze competitor visibility by location.
+- Track rankings for your keywords in specific cities or countries.
+- Read the AI Overview and its cited sources for a query.
+- Feed fresh search results to an agent or a content brief.
 
 ### Request
 
@@ -89,48 +89,49 @@ curl -X POST "https://api.sandbase.ai/v1/api/dataforseo/v3/serp/google/organic/l
   -d '{"keyword": "running shoes", "location_code": 2840, "language_code": "en"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
-The body is passed through to DataForSEO. Common fields:
-
-| Name | Type | Description |
-|---|---|---|
-| `keyword` | string | Search query, e.g. "openai api". |
-| `location_code` | integer | DataForSEO location code, e.g. 2840 for the United States. |
-| `language_code` | string | Language code, e.g. "en". |
-| `depth` | integer | Number of results to return (default 100). |
+| Name | Type | Required | Description |
+|---|---|---|---|
+| `depth` | string | No | Number of results to return (default 100). |
+| `keyword` | string | No | Search query, e.g. "openai api". |
+| `language_code` | string | No | Language code, e.g. "en". |
+| `location_code` | integer | No | DataForSEO location code, e.g. 2840 for the United States. |
 
 ### Example response
 
-Real response for the request above, trimmed to the main fields. User names and long IDs are masked.
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
 
 ```json
 {
   "status_code": 20000,
   "tasks": [
     {
-      "status_message": "Ok.",
       "result": [
         {
-          "keyword": "openai api",
-          "se_domain": "google.com",
-          "location_code": 2840,
-          "language_code": "en",
+          "keyword": "running shoes",
+          "check_url": "https://www.google.com/search?q=running%20shoes&hl=en&gl=US&ie=UTF-8&uule=w+CAIQIFISCQs2MuSEtepUEUK33kOSuTsc",
           "item_types": [
             "ai_overview",
-            "organic"
+            "organic",
+            "local_pack",
+            "images",
+            "perspectives",
+            "product_considerations",
+            "related_searches"
           ],
-          "items_count": 7,
+          "se_results_count": 74,
           "items": [
             {
               "type": "organic",
-              "rank_group": 1,
-              "rank_absolute": 1,
-              "domain": "openai.com",
-              "title": "API Platform",
-              "url": "https://openai.com/api/",
-              "breadcrumb": "https://openai.com › api",
-              "description": "Our API platform offers our latest models and guides for safety best practices."
+              "rank_group": 3,
+              "rank_absolute": 7,
+              "domain": "shop.runnersdepot.com",
+              "title": "Running and Walking Shoes",
+              "url": "https://shop.runnersdepot.com/",
+              "description": "Shop online with Runner&#39;s. Running and Walking Shoes. Shop by Category Shoes Insoles S…"
             }
           ]
         }
@@ -140,20 +141,32 @@ Real response for the request above, trimmed to the main fields. User names and 
 }
 ```
 
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `result[].item_types` | SERP feature types present on the page, e.g. `organic`, `ai_overview`, `people_also_ask`. |
+| `result[].items[]` | Every element in page order. Organic rows have `type: "organic"`, `rank_group`, `rank_absolute`, `title`, `url`, `domain` and `description`. |
+| `items[] (type ai_overview)` | AI Overview text in `markdown` and its `references` (source title, URL, domain). |
+| `result[].check_url` | The Google URL that was searched, for manual checks. |
+| `result[].se_results_count` | Google's reported number of results. |
+
 ### Notes
 
-- Use `location_code` / `language_code` (or `location_name` / `language_name`) from DataForSEO's location and language lists.
-- Other DataForSEO task fields (e.g. `device`, `os`) are passed through as-is.
+- `depth` sets how many results are fetched; the cost grows with the number of result pages.
+- Some organic `url` values come back as `google.com/goto?url=...` redirect links, as Google serves them; follow the redirect to get the destination.
+- `location_code` 2840 is the United States; use `location_name` such as "London,England,United Kingdom" for cities.
+- The response keeps DataForSEO's original JSON; results are under `tasks[0].result[0]`.
 
 ### Pricing
 
-Billed at the actual cost of each call, about $0.002 for the request above. The cost grows with the number of rows, targets or pages a call returns. `depth` sets how many result pages are fetched. Extra crawled pages, pixel rankings, async AI overview, People Also Ask clicks and search operators (site:, intitle: ...) are not supported. Failed calls are not charged. Searches with no results are billed at their actual cost.
+Billed at the actual cost of each call, about $0.002 for the request above. Failed calls are not charged.
 
 ### Related APIs
 
-- [DataForSEO Google Ads Keyword Search Volume](/model/dataforseo/v3/keywords_data/google_ads/search_volume/live): Get Google Ads search volume, CPC, competition and 12-month trend for up to 1,000 keywords per request, by location and language.
-- [DataForSEO Google Trends](/model/dataforseo/v3/keywords_data/google_trends/explore/live): Get Google Trends interest over time for up to 5 keywords by location, language and time range, with weekly values on a 0–100 scale.
-- [DataForSEO Website Screenshot](/model/dataforseo/v3/on_page/page_screenshot): Capture a full-page or viewport screenshot of any URL in desktop, mobile or tablet view.
+- [DataForSEO Google Ads Keyword Search Volume](/apis/dataforseo/v3/keywords_data/google_ads/search_volume/live): Get Google Ads search volume, CPC, competition and 12-month trend for up to 1,000 keywords per request, by location and language.
+- [DataForSEO Google Trends](/apis/dataforseo/v3/keywords_data/google_trends/explore/live): Get Google Trends interest over time for up to 5 keywords by location, language and time range, with weekly values on a 0–100 scale.
+- [DataForSEO Website Screenshot](/apis/dataforseo/v3/on_page/page_screenshot): Capture a full-page or viewport screenshot of any URL in desktop, mobile or tablet view.
 
 ---
 Machine-readable: [`catalog/models/dataforseo/v3/serp/google/organic/live/advanced.json`](../../../../../../../../catalog/models/dataforseo/v3/serp/google/organic/live/advanced.json) · Store page: https://www.sandbase.ai/model/dataforseo/v3/serp/google/organic/live/advanced

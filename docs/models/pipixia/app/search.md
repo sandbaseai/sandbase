@@ -103,9 +103,9 @@ Flat price per call. Failed calls, including lookups whose target does not exist
 
 ### Related APIs
 
-- [Pipixia Hot Search](/model/pipixia/app/hot-search-board-list): Get the Pipixia hot search boards: trending posts with daily likes and top comments.
-- [Get hashtag detail](/model/pipixia/app/hashtag-detail): Get hashtag detail data.
-- [Get hashtag post list](/model/pipixia/app/hashtag-post-list): Get hashtag post list data.
+- [Pipixia Hot Search](/apis/pipixia/app/hot-search-board-list): Get the Pipixia hot search boards: trending posts with daily likes and top comments.
+- [Get hashtag detail](/apis/pipixia/app/hashtag-detail): Get hashtag detail data.
+- [Get hashtag post list](/apis/pipixia/app/hashtag-post-list): Get hashtag post list data.
 
 ---
 Machine-readable: [`catalog/models/pipixia/app/search.json`](../../../../catalog/models/pipixia/app/search.json) · Store page: https://www.sandbase.ai/model/pipixia/app/search

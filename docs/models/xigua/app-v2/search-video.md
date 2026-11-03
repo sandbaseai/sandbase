@@ -121,9 +121,9 @@ Flat price per call. Failed calls, including lookups whose target does not exist
 
 ### Related APIs
 
-- [Get single video data](/model/xigua/app-v2/one-video): Get single video data (less information, does not include title and other information, but includes information about related videos).
-- [Get single video play URL](/model/xigua/app-v2/one-video-play-url): App V2 One Video Play Url provides a focused capability for applications, automation, and data workflows.
-- [Personal information](/model/xigua/app-v2/user-info): Personal information.
+- [Get single video data](/apis/xigua/app-v2/one-video): Get single video data (less information, does not include title and other information, but includes information about related videos).
+- [Get single video play URL](/apis/xigua/app-v2/one-video-play-url): App V2 One Video Play Url provides a focused capability for applications, automation, and data workflows.
+- [Personal information](/apis/xigua/app-v2/user-info): Personal information.
 
 ---
 Machine-readable: [`catalog/models/xigua/app-v2/search-video.json`](../../../../catalog/models/xigua/app-v2/search-video.json) · Store page: https://www.sandbase.ai/model/xigua/app-v2/search-video
