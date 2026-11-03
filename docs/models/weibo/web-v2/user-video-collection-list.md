@@ -62,13 +62,13 @@ Same call via the path form: `POST /v1/api/weibo/web-v2/user-video-collection-li
 
 ## Details
 
-Retrieve video collections from a specified Weibo profile. Pass the user identifier in `uid` to inspect playlist metadata and contents.
+Returns the video collections (playlists) that a Weibo user has set up on their profile. It needs one input, the user's numeric `uid`. The response also carries a few profile video display settings.
 
 ### Use cases
 
-- Browse video collections and playlists curated by a specific user.
-- Monitor video compilations featured on a creator profile.
-- Organize user-curated media assets for social content analysis.
+- Check whether a Weibo creator has published any video playlists.
+- Collect playlist entries from a creator profile before pulling the videos inside each one.
+- Track a list of accounts and flag when one starts to organize its videos into collections.
 
 ### Request
 
@@ -79,19 +79,46 @@ curl -X POST "https://api.sandbase.ai/v1/api/weibo/web-v2/user-video-collection-
   -d '{"uid": "8431518763"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
 |---|---|---|---|
 | `uid` | string | Yes | User ID (required) |
 
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "attitude_msg": "",
+  "attitude_visible": 1,
+  "icon": "https://h5.sinaimg.cn/upload/1011/55/2023/02/08/svideo_profile_video_like.png",
+  "playlists": []
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `playlists` | List of video collections for the user. It is empty (`[]`) when the account has no collections. |
+| `attitude_visible` | Flag with value `1` in the sample. The name suggests it controls whether the like tab on the profile video page is shown. |
+| `attitude_msg` | Message text tied to the like tab. It is an empty string in the sample. |
+| `icon` | URL of an icon image. The file name suggests it is the profile video like icon. |
+
 ### Notes
 
-- Requires `uid` to identify the target Weibo user account.
+- Pass the Weibo user ID as a string in `uid`, for example `8431518763`. Use [Weibo User Search](/apis/weibo/web-v2/user-search) to find an account if you do not have the ID.
+- This API takes no pagination parameter. The only input is `uid`.
+- An empty `playlists` list means the account has no collections. Call [Weibo User Video List](/apis/weibo/web-v2/user-video-list) to see the user's videos instead.
+- To open a single collection, use [Weibo User Video Collection Detail](/apis/weibo/web-v2/user-video-collection-detail).
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

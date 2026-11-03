@@ -63,13 +63,14 @@ Same call via the path form: `POST /v1/api/xiaohongshu/app-v2/user-info` with th
 
 ## Details
 
-Retrieve detailed profile information for an account using either `user_id` or a profile URL in `share_text`.
+Returns the public profile of a Xiaohongshu (RED) user, including nickname, bio, follower and following counts, like and save totals, avatar images and IP location. Pass either a `user_id` or a Xiaohongshu share link in `share_text`.
 
 ### Use cases
 
-- Inspect user profiles using direct account IDs.
-- Extract account details from shared mobile or web URLs.
-- Gather creator profile metadata for analytics workflows.
+- Pull a creator's follower count and total likes to compare accounts before a partnership.
+- Resolve a shared `xhslink.com` link into a user profile with a nickname and bio.
+- Track a creator's `fans` and `liked` values over time by calling the API on a schedule.
+- Collect avatar and banner image URLs to build creator cards in a dashboard.
 
 ### Request
 
@@ -80,21 +81,75 @@ curl -X POST "https://api.sandbase.ai/v1/api/xiaohongshu/app-v2/user-info" \
   -d '{"user_id": "61b46d790000000010008153", "share_text": "https://xhslink.com/m/3ZSCJZAMz0a"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
 |---|---|---|---|
-| `user_id` | string | No | User ID, e.g. "61b46d790000000010008153" |
 | `share_text` | string | No | Xiaohongshu sharing link (support APP and Web sharing link) |
+| `user_id` | string | No | User ID, e.g. "61b46d790000000010008153" |
+
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "code": 0,
+  "data": {
+    "avatar_handle_entry_list": [],
+    "avatar_like_status": false,
+    "avatar_pendant": {
+      "current_user_pendant": false,
+      "current_user_pet": false
+    },
+    "banner_info": {
+      "bg_color": "c7e6fa",
+      "image": "http://sns-avatar-qc.rednotecdn.com/user_banner/default/h240-b100.png?imageView2…",
+      "like_status": false
+    },
+    "block_view_from_user": false,
+    "block_view_to_user": false,
+    "blocked": false,
+    "blocking": false,
+    "collected": 48646,
+    "collected_book_num": 0,
+    "collected_brand_num": 0,
+    "collected_movie_num": 0
+  },
+  "debug_id": "898018b4",
+  "debug_info": "gAAAAABq6ZFv5BtK4dso-3h-ngz1foB6gdA6F2YCQNeRx4m40l-FFNMQ02-TZHGXND36iDpfo2CDnftS…",
+  "msg": "成功",
+  "success": true
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `data.nickname` | Display name of the user. |
+| `data.desc` | Bio text the user wrote for their profile. |
+| `data.fans / data.follows` | Number of followers and number of accounts the user follows. |
+| `data.liked / data.collected` | Total likes and total saves the user's content has received. |
+| `data.interactions[]` | Summary counters for the profile header. Each row has `type`, a display `name`, a `count` and an `is_private` flag. The `interaction` row (`Likes & Collects`) gives the combined total. |
+| `data.ip_location` | IP-based location label shown on the profile, such as `Beijing`. |
+| `data.ndiscovery` | Count of discovery items on the profile. Its exact meaning is not documented, and it is likely the number of published notes. |
+| `data.images / data.imageb` | Avatar image URLs. `images` is the smaller version and `imageb` is the larger one. |
+| `data.banner_info.image` | URL of the profile banner image. `bg_color` holds its background color. |
+| `data.hula_tabs.all_show_tab_config[]` | Tabs shown on the profile page, with `tab_id` and `tab_name`, for example Notes and Saves. |
 
 ### Notes
 
-- Accepts queries by `user_id` or `share_text`.
-- `share_text` supports both mobile app and web sharing links.
+- Send either `user_id` or `share_text`. The example sends both, and `user_id` is a 24-character hex string such as `61b46d790000000010008153`.
+- `share_text` accepts a Xiaohongshu app or web share link, for example `https://xhslink.com/m/3ZSCJZAMz0a`.
+- A successful call returns `code` `0` and `success` `true`. The profile sits under `data`.
+- To list the user's notes, call [Xiaohongshu (RED) User Posted Notes](/apis/xiaohongshu/app-v2/user-posted-notes). For saved notes, call [Xiaohongshu (RED) User Favorited Notes](/apis/xiaohongshu/app-v2/user-faved-notes).
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.01 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

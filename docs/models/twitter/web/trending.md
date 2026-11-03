@@ -58,13 +58,14 @@ Same call via the path form: `POST /v1/api/twitter/web/trending` with the body a
 
 ## Details
 
-Fetch the current X (Twitter) trending list for a country. Each trend includes its name and context such as the category it trends in.
+Returns the current list of trending topics on Twitter (X) for one country. The only input is the optional `country` parameter, which defaults to `UnitedStates`.
 
 ### Use cases
 
-- Monitor what is trending in a market right now.
-- Trigger alerts when a brand or keyword trends.
-- Plan timely social content.
+- Check which topics trend in Japan, India or the UK at the moment you call.
+- Flag a brand or keyword when its name appears in the `name` field of a trend.
+- Group trends by their `context` label, such as NFL, to see which categories dominate a market.
+- Pick topics to search for or write about while they trend.
 
 ### Request
 
@@ -75,34 +76,48 @@ curl -X POST "https://api.sandbase.ai/v1/api/twitter/web/trending" \
   -d '{}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
 |---|---|---|---|
-| `country` | string | No | Country, default is UnitedStates, other optional values are as follows: China; India; Japan; Russia; Germany; Indonesia… |
+| `country` | string | No | Country, default is UnitedStates, other optional values are as follows: China; India; Japan; Russia; Germany; Indonesia; Brazil; France; UnitedKingdom; Turkey; Italy; Mexico; SouthKorea; Canada; Spain; SaudiArabia; Egypt |
 
 ### Example response
 
-Real response for the request above, trimmed to the main fields. User names and long IDs are masked.
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
 
 ```json
 {
   "trends": [
     {
-      "context": "Sports · Trending",
-      "name": "Falcons"
+      "context": "NFL · Trending",
+      "description": null,
+      "name": "Bears"
     }
   ]
 }
 ```
 
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `trends[]` | List of trending topics for the chosen country. |
+| `trends[].name` | The trend text as shown on X, for example a team, person or hashtag. |
+| `trends[].context` | Short label that shows where the trend sits, for example `NFL · Trending`. The part before the dot names the category. |
+| `trends[].description` | Extra text about the trend. It is `null` when none is given. |
+
 ### Notes
 
-- `country` defaults to `UnitedStates`; other values include Japan, India, UnitedKingdom, Germany and more.
+- Pass `country` as a full name without spaces, such as `UnitedStates`, `UnitedKingdom`, `SouthKorea` or `SaudiArabia`. An empty request returns `UnitedStates`.
+- The response has no pagination, tweet counts or rank field. The order of `trends` is the order returned.
+- To see posts about a trend, pass its `name` to [Twitter (X) Search](/apis/twitter/web/search-timeline).
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

@@ -71,13 +71,14 @@ Same call via the path form: `POST /v1/api/reddit/app/post-details` with the bod
 
 ## Details
 
-Retrieve comprehensive metadata and metrics for a Reddit submission using `post_id`. You can also supply `comment_id` to focus on specific comment context.
+Returns metadata for one Reddit post, including the author, flair, awards, lock status and comment count. It needs a `post_id` in the form `t3_XXXXXX`. The result comes back as a list under `postsInfoByIds`.
 
 ### Use cases
 
-- Retrieve submission engagement metrics including score and comment count.
-- Inspect subreddit and author details for a specific Reddit post.
-- Access post permalinks and outbound link metadata by post ID.
+- Check how many comments a Reddit post has and whether it is locked.
+- Read the author's account ID and name for a given post.
+- Read the flair text and domain of a post to classify it.
+- List the awards a post has received.
 
 ### Request
 
@@ -88,69 +89,140 @@ curl -X POST "https://api.sandbase.ai/v1/api/reddit/app/post-details" \
   -d '{"post_id": "t3_1ojnh50"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
 |---|---|---|---|
 | `post_id` | string | Yes | Post ID, format like "t3_XXXXXX" |
 | `comment_id` | string | No | Comment ID (used when include_comment_id is True), format like "t1_XXXXXX" |
-| `need_format` | boolean | No | Whether to clean and format the data |
 | `include_comment_id` | boolean | No | Whether to include specific comment ID, default False |
+| `need_format` | boolean | No | Whether to clean and format the data |
 
 ### Example response
 
-Real response for the request above, trimmed to the main fields. User names and long IDs are masked.
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
 
 ```json
 {
   "postsInfoByIds": [
     {
       "__typename": "SubredditPost",
-      "commentCount": 11406,
-      "id": "t3_1ojnh50",
-      "isAuthorBlocked": false,
-      "isScoreHidden": false,
-      "permalink": "/r/TikTokCringe/comments/1ojnh50/removed_by_moderator/",
-      "postTitle": "[ Removed by moderator ]",
-      "removedByCategory": "MODERATOR",
-      "score": 33358,
-      "url": "https://www.reddit.com/r/TikTokCringe/comments/1ojnh50/removed_by_moderator/",
+      "attributionInfo": null,
+      "authorCommunityBadge": null,
+      "authorFlair": null,
       "authorInfo": {
         "__typename": "Redditor",
         "accountType": "USER",
+        "iconSmall": {
+          "__typename": "MediaSource",
+          "dimensions": {
+            "height": 50,
+            "width": 50
+          },
+          "url": "https://styles.redditmedia.com/t5_9uhspc/styles/profileIcon_snoo-nftv2_bmZ0X2Vpc…"
+        },
         "id": "t2_n5zmzf3v0",
-        "name": "ambachk"
+        "isBlocked": false,
+        "isCakeDayNow": false,
+        "name": "ambachk",
+        "newIcon": {
+          "__typename": "MediaSource",
+          "dimensions": {
+            "height": 256,
+            "width": 256
+          },
+          "url": "https://styles.redditmedia.com/t5_9uhspc/styles/profileIcon_snoo-nftv2_bmZ0X2Vpc…"
+        }
       },
-      "flair": {
-        "__typename": "PostFlair",
-        "text": "Cringe",
-        "type": "text"
-      },
-      "outboundLink": {
-        "url": "https://www.reddit.com/r/TikTokCringe/comments/1ojnh50/removed_by_moderator/"
-      },
-      "subreddit": {
-        "__typename": "Subreddit",
-        "id": "t5_mvcq5",
-        "isTitleSafe": true,
-        "name": "TikTokCringe",
-        "prefixedName": "r/TikTokCringe",
-        "subscribersCount": 5640715.0
-      }
+      "awardings": [
+        {
+          "__typename": "AwardingTotal",
+          "award": {
+            "__typename": "Award",
+            "id": "award_wholesome_seal",
+            "name": "Wholesome Seal",
+            "static_icon_16": {
+              "__typename": "MediaSource",
+              "dimensions": {
+                "height": 16,
+                "width": 16
+              },
+              "url": "https://www.redditstatic.com/marketplace-assets/v1/core/awards/wholsome_v1_16.pn…"
+            },
+            "static_icon_24": {
+              "__typename": "MediaSource",
+              "dimensions": {
+                "height": 24,
+                "width": 24
+              },
+              "url": "https://www.redditstatic.com/marketplace-assets/v1/core/awards/wholsome_v1_24.pn…"
+            },
+            "static_icon_32": {
+              "__typename": "MediaSource",
+              "dimensions": {
+                "height": 32,
+                "width": 32
+              },
+              "url": "https://www.redditstatic.com/marketplace-assets/v1/core/awards/wholsome_v1_32.pn…"
+            },
+            "static_icon_48": {
+              "__typename": "MediaSource",
+              "dimensions": {
+                "height": 48,
+                "width": 48
+              },
+              "url": "https://www.redditstatic.com/marketplace-assets/v1/core/awards/wholsome_v1_48.pn…"
+            },
+            "static_icon_64": {
+              "__typename": "MediaSource",
+              "dimensions": {
+                "height": 64,
+                "width": 64
+              },
+              "url": "https://www.redditstatic.com/marketplace-assets/v1/core/awards/wholsome_v1_64.pn…"
+            }
+          },
+          "total": 1
+        }
+      ],
+      "awardingsInfo": null,
+      "commentCount": 11404,
+      "content": null,
+      "createdAt": "2025-10-30T01:58:59.142000+0000",
+      "crosspostRoot": null,
+      "crowdControlLevel": "OFF"
     }
   ]
 }
 ```
 
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `postsInfoByIds[]` | List of posts found for the requested ID. A single `post_id` returns one item. |
+| `postsInfoByIds[].id` | Post ID in the `t3_XXXXXX` format. |
+| `postsInfoByIds[].commentCount` | Number of comments on the post. |
+| `postsInfoByIds[].createdAt` | Creation time of the post as an ISO 8601 timestamp with a UTC offset. |
+| `postsInfoByIds[].authorInfo.name / postsInfoByIds[].authorInfo.id` | Username of the author and their account ID in the `t2_` format. |
+| `postsInfoByIds[].authorInfo.accountType` | Account type of the author, such as `USER`. |
+| `postsInfoByIds[].flair.text` | Text of the post flair, for example `Cringe`. |
+| `postsInfoByIds[].awardings[].award.name / postsInfoByIds[].awardings[].total` | Name of each award on the post and how many times it was given. |
+| `postsInfoByIds[].domain` | Domain the post links to. The value `v.redd.it` marks a Reddit-hosted video. |
+| `postsInfoByIds[].isLocked / postsInfoByIds[].isNsfw / postsInfoByIds[].isStickied` | Flags that show if the post is locked, marked NSFW, or stickied. |
+
 ### Notes
 
-- `post_id` format follows the pattern `t3_XXXXXX`.
-- `comment_id` uses the pattern `t1_XXXXXX` when `include_comment_id` is set to true.
-- Set `need_format` to true to clean and format the returned data.
+- Pass `post_id` with the `t3_` prefix, for example `t3_1ojnh50`.
+- Set `include_comment_id` to `true` and pass a `comment_id` in the `t1_XXXXXX` format to add comment context.
+- To fetch the comments of a post, call [Reddit App Post Comments](/apis/reddit/app/post-comments).
+- To look up many posts in one call, use [Reddit Batch Post Details](/apis/reddit/app/post-details-batch).
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

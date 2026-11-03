@@ -66,9 +66,14 @@ Same call via the path form: `POST /v1/api/tiktok/post-sub-comment` with the bod
 
 ## Details
 
-Get replies to a specific comment on a TikTok post with cursor pagination. Use it to inspect threaded discussions and continue through reply pages for a known post comment.
+Returns the replies to one comment on a TikTok post. You send the post ID (`awemeId`) and the parent comment ID (`commentId`). Results come in pages, controlled by `cursor`.
 
-The response is the platform's original data structure.
+### Use cases
+
+- Read the full reply thread under a single TikTok comment.
+- Walk through every reply page of a busy comment by passing the cursor forward.
+- Check whether a known comment has any replies before you collect more data.
+- Archive a threaded discussion for moderation or research.
 
 ### Request
 
@@ -79,6 +84,8 @@ curl -X POST "https://api.sandbase.ai/v1/api/tiktok/post-sub-comment" \
   -d '{"awemeId": "7701102965385383199", "commentId": "1650470666299398"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
@@ -87,9 +94,50 @@ curl -X POST "https://api.sandbase.ai/v1/api/tiktok/post-sub-comment" \
 | `commentId` | string | Yes | The unique ID of the comment to retrieve replies for. |
 | `cursor` | string | No | Pagination cursor. Start with '0'. |
 
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "comments": [],
+  "cursor": 0,
+  "extra": {
+    "fatal_item_ids": [],
+    "logid": "20261103074409E041FC3BC7C8170221E3",
+    "now": 1793691849000
+  },
+  "has_more": 0,
+  "log_pb": {
+    "impr_id": "20261103074409E041FC3BC7C8170221E3"
+  },
+  "status_code": 0,
+  "status_msg": "",
+  "total": 0
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `comments` | List of reply objects for the requested comment. It is an empty list in the sample response, which means that comment had no replies to return. |
+| `has_more` | Paging flag. `0` means there are no more reply pages after this one. |
+| `cursor` | Cursor value returned with this page. Use it as the `cursor` of your next request when `has_more` is not `0`. |
+| `total` | Total count reported with the reply list. It is `0` in the sample response. |
+| `status_code / status_msg` | Result status of the call. `status_code` is `0` and `status_msg` is empty in the sample response. |
+| `extra.fatal_item_ids` | List of item IDs flagged in the response. It is empty in the sample response. |
+| `log_pb.impr_id` | Request identifier. It matches `extra.logid` in the sample response. |
+
+### Notes
+
+- `awemeId` is the ID of the TikTok post. `commentId` is the ID of the parent comment whose replies you want.
+- Start with `cursor` set to `"0"`. Send the returned `cursor` on the next call while `has_more` is not `0`.
+- A reply-free comment returns `status_code` `0` with an empty `comments` list.
+
 ### Pricing
 
-Flat price per call. Failed calls and empty results are not charged.
+$0.014286 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ---
 Machine-readable: [`catalog/models/tiktok/post-sub-comment.json`](../../../catalog/models/tiktok/post-sub-comment.json) · Store page: https://www.sandbase.ai/model/tiktok/post-sub-comment

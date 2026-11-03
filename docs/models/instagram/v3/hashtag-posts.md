@@ -63,13 +63,14 @@ Same call via the path form: `POST /v1/api/instagram/v3/hashtag-posts` with the 
 
 ## Details
 
-Use this endpoint to retrieve Instagram posts tagged with a specific keyword by supplying `tag`. Pass `max_id` to page through subsequent sets of results.
+Returns a page of public Instagram posts that use a given hashtag. Each post includes its caption, like and comment counts, media type, thumbnail, and owner details. The only required input is `tag`, the hashtag without the `#`.
 
 ### Use cases
 
-- Monitor user-generated content for branded hashtag campaigns.
-- Track trending discussions and popular media around specific keywords.
-- Collect feeds of public posts tagged with target topic labels.
+- Collect captions and engagement counts for posts under a branded hashtag campaign.
+- List the accounts that post most often under a topic hashtag, using `owner.username`.
+- Page through a hashtag feed with `next_max_id` to build a sample of posts on one topic.
+- Gather post shortcodes for a hashtag and send them to a post detail API for deeper data.
 
 ### Request
 
@@ -80,6 +81,8 @@ curl -X POST "https://api.sandbase.ai/v1/api/instagram/v3/hashtag-posts" \
   -d '{"tag": "cat"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
@@ -87,14 +90,65 @@ curl -X POST "https://api.sandbase.ai/v1/api/instagram/v3/hashtag-posts" \
 | `tag` | string | Yes | Hashtag keyword (without #) |
 | `max_id` | string | No | Pagination cursor from previous response, omit for first request |
 
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "count": 21,
+  "items": [
+    {
+      "caption_text": "#igcats #meow #cat #Catsofinstagram\n#貓",
+      "code": "DfRWVkaSnmE",
+      "comment_count": 0,
+      "id": "4022094181446613380_562740540",
+      "is_video": false,
+      "like_count": 2,
+      "media_type": 1,
+      "owner": {
+        "full_name": "Takano",
+        "is_verified": false,
+        "pk": "562740540",
+        "username": "takano.snapshot"
+      },
+      "pk": "4022094181446613380",
+      "shortcode": "DfRWVkaSnmE",
+      "taken_at": null,
+      "thumbnail_url": "https://scontent-sjc3-1.cdninstagram.com/v/t51.82787-15/888724102_18641860837052…"
+    }
+  ],
+  "more_available": true,
+  "next_max_id": "WyJRVkZCVjFkVkxXVXpiemR1Wm1jNFR6UkZZMUU0V0dFMFIwTmtWSE5uUm5NMVdXRkhiVGxVUWpWeFpU…",
+  "status": "ok"
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `items[]` | List of posts returned for the hashtag on this page. |
+| `items[].caption_text` | Caption of the post, including its hashtags and mentions. |
+| `items[].code / items[].shortcode` | Short code of the post. Both keys hold the same value in the sample, for example `DfRWVkaSnmE`. |
+| `items[].id / items[].pk` | Identifiers of the post. `id` joins the post `pk` and the owner `pk` with an underscore. |
+| `items[].like_count / items[].comment_count / items[].view_count` | Number of likes, comments and views on the post. |
+| `items[].media_type / items[].is_video` | `is_video` tells you if the post is a video. `media_type` is a numeric type code; the sample shows `1` and `8`. |
+| `items[].thumbnail_url / items[].video_url` | URL of the thumbnail image and of the video file. Either one can be `null`. |
+| `items[].owner.username / items[].owner.full_name` | Username and display name of the account that posted. |
+| `items[].owner.pk / items[].owner.is_verified` | Numeric ID of the account as a string, and whether the account is verified. |
+| `more_available / next_max_id` | `more_available` says if more results exist. `next_max_id` is the cursor for the next page. |
+
 ### Notes
 
-- Provide the `tag` parameter without the '#' symbol.
-- Pass `max_id` from a previous response cursor for pagination, or omit it on the initial request.
+- Send `tag` without the `#` symbol, for example `cat`.
+- For the next page, pass the `next_max_id` value from the response as `max_id`. Omit `max_id` on the first request.
+- `taken_at` was `null` in the sample, so do not rely on it for post dates.
+- To get more detail on a post, pass its shortcode to [Instagram Post Info by Shortcode](/apis/instagram/v3/post-info-by-code), or read its comments with [Instagram Post Comments (V3)](/apis/instagram/v3/post-comments).
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.008 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

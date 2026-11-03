@@ -65,9 +65,13 @@ Same call via the path form: `POST /v1/api/fred/source` with the body above minu
 
 ## Details
 
-Get Source from FRED. Returns the official FRED API response unchanged.
+Returns details for one data source in FRED, such as the Federal Reserve Board. It needs a numeric `source_id` and returns the source name, website link, and the real-time period used for the lookup.
 
-The response is the official FRED API response, unchanged.
+### Use cases
+
+- Show the full name and website of the organization behind a FRED data set.
+- Turn a `source_id` from a release or series lookup into a readable source name.
+- Add a source credit and link to a chart or report built on FRED data.
 
 ### Request
 
@@ -78,18 +82,57 @@ curl -X POST "https://api.sandbase.ai/v1/api/fred/source" \
   -d '{"source_id": 1, "file_type": "json"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
 |---|---|---|---|
+| `source_id` | integer | Yes | The id for a source. integer, required |
 | `file_type` | string | No | Response format. Only json is supported. |
 | `realtime_end` | string | No | The end of the real-time period. For more information, see Real-Time Periods . YYYY-MM-DD formatted string, optional, default: today's date |
 | `realtime_start` | string | No | The start of the real-time period. For more information, see Real-Time Periods . YYYY-MM-DD formatted string, optional, default: today's date |
-| `source_id` | integer | Yes | The id for a source. integer, required |
+
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "realtime_end": "2026-11-02",
+  "realtime_start": "2026-11-02",
+  "sources": [
+    {
+      "id": 1,
+      "link": "https://www.federalreserve.gov",
+      "name": "Board of Governors of the Federal Reserve System (US)",
+      "realtime_end": "2026-11-02",
+      "realtime_start": "2026-11-02"
+    }
+  ]
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `sources[]` | List of matching sources. A request with one `source_id` returns one item. |
+| `sources[].id` | Numeric ID of the source. It matches the `source_id` you sent. |
+| `sources[].name` | Full name of the organization that publishes the data, for example `Board of Governors of the Federal Reserve System (US)`. |
+| `sources[].link` | Website URL of the source. |
+| `realtime_start / realtime_end` | Start and end dates of the real-time period for the response, in `YYYY-MM-DD` format. |
+| `sources[].realtime_start / sources[].realtime_end` | Real-time period applied to this source record, in `YYYY-MM-DD` format. |
+
+### Notes
+
+- Find `source_id` values with [FRED Get Sources](/apis/fred/sources) or [FRED Get Release Sources](/apis/fred/release-sources).
+- To list the releases that come from this source, call [FRED Get Source Releases](/apis/fred/source-releases) with the same `source_id`.
+- `realtime_start` and `realtime_end` are optional and take `YYYY-MM-DD` dates. Both default to today's date.
 
 ### Pricing
 
-Flat price per call. Failed calls are not charged.
+$0.00001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ---
 Machine-readable: [`catalog/models/fred/source.json`](../../../catalog/models/fred/source.json) · Store page: https://www.sandbase.ai/model/fred/source

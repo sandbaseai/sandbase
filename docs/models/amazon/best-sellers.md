@@ -64,9 +64,14 @@ Same call via the path form: `POST /v1/api/amazon/best-sellers` with the body ab
 
 ## Details
 
-Get the Amazon Best Sellers list for a category path in a chosen marketplace country, with rank, title, price, rating and ASIN, page by page.
+Returns the Amazon Best Sellers list for one category in one marketplace country. Each item has its rank, ASIN, title, star rating, rating count, photo and product URL. You send a `category` path and can set `country` and `page`.
 
-The response is the platform's original data structure.
+### Use cases
+
+- Track which products hold the top ranks in a category such as `electronics` over time.
+- Build a list of ASINs from a category to feed into product research or catalog tracking.
+- Compare top sellers in the same category across marketplaces by changing `country`.
+- Check the rating and rating count of current best sellers before choosing products to stock.
 
 ### Request
 
@@ -77,6 +82,8 @@ curl -X POST "https://api.sandbase.ai/v1/api/amazon/best-sellers" \
   -d '{"category": "electronics"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
@@ -85,9 +92,54 @@ curl -X POST "https://api.sandbase.ai/v1/api/amazon/best-sellers" \
 | `country` | string | No | Country code for the Amazon product. |
 | `page` | integer | No | Page number for pagination. |
 
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "best_sellers": [
+    {
+      "asin": "B08JHCVHTY",
+      "product_num_ratings": 281657,
+      "product_photo": "https://images-na.ssl-images-amazon.com/images/I/31YHGbJsldL._AC_UL900_SR900,600…",
+      "product_price": "$11.99",
+      "product_star_rating": "4.4",
+      "product_title": "blink plus plan with monthly auto-renewal",
+      "product_url": "https://www.amazon.com/dp/B08JHCVHTY",
+      "rank": 1,
+      "rank_change_label": null
+    }
+  ],
+  "category_name": "Electronics",
+  "country": "US",
+  "domain": "www.amazon.com"
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `best_sellers[]` | One entry per product on the requested page of the Best Sellers list. |
+| `best_sellers[].rank` | Position of the product in the list. `1` is the top seller. |
+| `best_sellers[].asin` | Amazon product ID. Use it to look up the product in other APIs. |
+| `best_sellers[].product_title` | Product title as shown in the list. |
+| `best_sellers[].product_star_rating / best_sellers[].product_num_ratings` | Average star rating as a string, and the number of ratings as an integer. |
+| `best_sellers[].product_url / best_sellers[].product_photo` | Link to the product page and link to the product image. |
+| `best_sellers[].rank_change_label` | Label for a rank change. It is `null` in this response. |
+| `category_name / country / domain` | The category name, country code and Amazon domain that the list came from. |
+
+### Notes
+
+- Copy the `category` value from an Amazon Best Sellers URL. It can be a slug like `electronics` or a nested path.
+- Use `page` to move through the list. It defaults to `1`.
+- `country` defaults to `US`. The response echoes it in `country` and gives the matching `domain`, such as `www.amazon.com`.
+- Use the `asin` values with [Amazon Product Details](/apis/amazon/product-detail) to get more data on a single product.
+
 ### Pricing
 
-Flat price per call. Failed calls are not charged.
+$0.014286 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ---
 Machine-readable: [`catalog/models/amazon/best-sellers.json`](../../../catalog/models/amazon/best-sellers.json) · Store page: https://www.sandbase.ai/model/amazon/best-sellers

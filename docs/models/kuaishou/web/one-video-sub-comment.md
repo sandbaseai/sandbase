@@ -66,13 +66,14 @@ Same call via the path form: `POST /v1/api/kuaishou/web/one-video-sub-comment` w
 
 ## Details
 
-Retrieve threaded reply comments for a specific Kuaishou video comment using `photo_id` and `root_comment_id`.
+Returns the replies under one root comment on a Kuaishou video. Each reply includes its text, author, like count, and post time. You send the video's `photo_id` and the `root_comment_id`.
 
 ### Use cases
 
-- Display threaded comment replies under a primary video comment.
-- Analyze conversational sentiment and audience interactions within comment threads.
-- Extract nested user feedback and community discussions on video posts.
+- Show the full reply thread under a top comment on a Kuaishou video.
+- Read the text of replies to judge how viewers react to a popular comment.
+- Collect the author region and gender fields of repliers to see who joins a discussion.
+- Track which replies get the most likes in a thread.
 
 ### Request
 
@@ -83,22 +84,74 @@ curl -X POST "https://api.sandbase.ai/v1/api/kuaishou/web/one-video-sub-comment"
   -d '{"photo_id": "3xgarycnydawq3g", "root_comment_id": "908850553827"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
 |---|---|---|---|
-| `photo_id` | string | Yes | — |
-| `root_comment_id` | string | Yes | — |
-| `pcursor` | string | No | — |
+| `photo_id` | string | Yes |  |
+| `root_comment_id` | string | Yes |  |
+| `pcursor` | string | No |  |
+
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "host-name": "public-bjmt-c26-kce-node638.idchb1az4.hb1.kwaidc.com",
+  "pcursor": "911717572030",
+  "result": 1,
+  "subComments": [
+    {
+      "authorArea": "黑龙江",
+      "authorVerified": false,
+      "author_id": 3640978934,
+      "author_liked": false,
+      "author_name": "차은우",
+      "cashTags": {},
+      "commentAuthorTags": [],
+      "commentBottomTags": [],
+      "comment_id": 908917394015,
+      "content": "好看啊",
+      "headurl": "http://p5.a.yximgs.com/uhead/AB/2024/07/25/11/BMjAyNDA3MjUxMTQ2NTVfMzY0MDk3ODkzN…",
+      "headurls": [
+        {
+          "cdn": "p5.a.yximgs.com",
+          "url": "http://p5.a.yximgs.com/uhead/AB/2024/07/25/11/BMjAyNDA3MjUxMTQ2NTVfMzY0MDk3ODkzN…"
+        }
+      ]
+    }
+  ]
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `subComments[]` | List of reply comments under the root comment. |
+| `subComments[].comment_id` | ID of the reply itself. |
+| `subComments[].content` | Text of the reply. It can contain @mentions. |
+| `subComments[].author_name / subComments[].author_id` | Display name and numeric ID of the user who wrote the reply. |
+| `subComments[].authorArea` | Region shown for the reply author, for example `黑龙江`. |
+| `subComments[].likedCount` | Number of likes on the reply. |
+| `subComments[].time / subComments[].timestamp` | Post time of the reply. `time` is a formatted string and `timestamp` is a number in milliseconds. |
+| `subComments[].replyToUserName / subComments[].reply_to` | Name and numeric ID of the user the reply is addressed to. |
+| `subComments[].headurl` | Avatar image URL of the reply author. |
+| `pcursor` | Cursor value returned with the page. Pass it as `pcursor` in the next request to get more replies. |
 
 ### Notes
 
-- Use `pcursor` to navigate across paginated pages of sub-comments.
-- Both `photo_id` and `root_comment_id` are required to identify the target thread.
+- `photo_id` and `root_comment_id` are both required. The root comment ID is the `comment_id` of a top-level comment, which you can get from [Kuaishou Video Comments (Web)](/apis/kuaishou/web/one-video-comment).
+- For the next page, send the returned `pcursor` value as the `pcursor` request parameter.
+- In replies, `photo_id` appears as a long number, while the request `photo_id` is a short string like `3xgarycnydawq3g`.
+- To get the video itself, use [Kuaishou Single Video Details](/apis/kuaishou/web/one-video).
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.01 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

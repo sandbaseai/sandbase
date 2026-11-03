@@ -65,13 +65,14 @@ Same call via the path form: `POST /v1/api/youtube/web-v2/shorts-search-v2` with
 
 ## Details
 
-Use this endpoint to search YouTube Shorts videos by entering a `keyword`. You can also filter results by `upload_date` and adjust order with `sort_by`.
+Returns a list of YouTube Shorts that match a search keyword. Each result has a title, video ID, Shorts URL, view count text, and thumbnails. You can filter by upload date and sort the results.
 
 ### Use cases
 
-- Discover trending YouTube Shorts on specific topics.
-- Monitor newly posted short-form video content using date filters.
-- Track top-performing Shorts ranked by view count or rating.
+- Find popular Shorts about a topic such as coding tips.
+- List recently uploaded Shorts on a keyword with the `upload_date` filter.
+- Rank Shorts for a keyword by `view_count` or `rating` to see which ones perform best.
+- Collect Shorts URLs and thumbnails to build a content review list.
 
 ### Request
 
@@ -82,24 +83,69 @@ curl -X POST "https://api.sandbase.ai/v1/api/youtube/web-v2/shorts-search-v2" \
   -d '{"keyword": "coding tips"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
 |---|---|---|---|
+| `continuation_token` | string | No | Pagination token (from previous response) |
 | `keyword` | string | No | Search keyword (required for first request) |
 | `sort_by` | string | No | Sort by - relevance/upload_date/view_count/rating |
 | `upload_date` | string | No | Upload date filter - last_hour/today/this_week/this_month/this_year |
-| `continuation_token` | string | No | Pagination token (from previous response) |
+
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "continuation_token": "Eo4DEgtj…",
+  "keyword": "coding tips",
+  "shorts": [
+    {
+      "author": "",
+      "channel_id": "",
+      "published_time": "",
+      "thumbnails": [
+        {
+          "height": 720,
+          "url": "https://i.ytimg.com/vi/NGlX-1jhYJE/oardefault.jpg?sqp=-oaymwEkCJUDENAFSFqQAgHyq4…",
+          "width": 405
+        }
+      ],
+      "title": "How to Learn to Code",
+      "url": "https://www.youtube.com/shorts/NGlX-1jhYJE",
+      "video_id": "NGlX-1jhYJE",
+      "view_count": "9.3M views"
+    }
+  ]
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `shorts[]` | List of Shorts that match the keyword. |
+| `shorts[].video_id` | ID of the Short. It is also the last part of the `url` value. |
+| `shorts[].title` | Title of the Short. It can include hashtags. |
+| `shorts[].url` | Link to the Short on YouTube. |
+| `shorts[].view_count` | View count as display text, for example `9.3M views`. It is a string, not a number. |
+| `shorts[].thumbnails[]` | Thumbnail images. Each one has a `url`, `width`, and `height`. |
+| `shorts[].author / shorts[].channel_id / shorts[].published_time` | Channel name, channel ID, and publish time. These were empty strings in this response. |
+| `continuation_token` | Token for the next page of results. |
+| `keyword` | The search keyword that the response was run for. |
 
 ### Notes
 
-- `keyword` is required for the initial query.
-- `sort_by` accepts relevance, upload_date, view_count, or rating.
-- Use `continuation_token` from a previous response to fetch the next page of results.
+- Send `keyword` on the first request. For the next page, send the `continuation_token` from the previous response.
+- `sort_by` accepts `relevance`, `upload_date`, `view_count`, or `rating`. `upload_date` accepts `last_hour`, `today`, `this_week`, `this_month`, or `this_year`.
+- `author`, `channel_id`, and `published_time` can come back empty. Call [YouTube Video Information (V2)](/apis/youtube/web-v2/video-info-v2) with the `video_id` to get more details about a Short.
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.002 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

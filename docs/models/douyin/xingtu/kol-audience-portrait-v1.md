@@ -61,13 +61,14 @@ Same call via the path form: `POST /v1/api/douyin/xingtu/kol-audience-portrait-v
 
 ## Details
 
-Look up audience portrait statistics for Douyin Xingtu creators using `kolId`.
+Returns audience portrait data for a Douyin Xingtu creator, grouped into distributions such as interests, age and city tier. It needs the creator's Xingtu `kolId`.
 
 ### Use cases
 
-- Analyze audience demographics for specific Douyin Xingtu creators.
-- Evaluate follower profile alignment before booking marketing campaigns.
-- Inspect audience composition metrics across creator accounts.
+- Check which interest categories a creator's audience follows before choosing a campaign theme.
+- Compare the age spread of a creator's audience with a target customer group.
+- Check the city tier mix of an audience to judge fit for a regional product launch.
+- Store the portrait with `last_update_time` to track how a creator's audience profile looks over time.
 
 ### Request
 
@@ -78,19 +79,68 @@ curl -X POST "https://api.sandbase.ai/v1/api/douyin/xingtu/kol-audience-portrait
   -d '{"kolId": "7048929565493690398"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
 |---|---|---|---|
-| `kolId` | string | Yes | User kolId, can be obtained from the following interfaces: `douyin/xingtu/xingtu-kolid-by-uid`; `douyin/xingtu/xingtu-kolid-by-sec-user-id`; `douyin/xingtu/xin… |
+| `kolId` | string | Yes | User kolId, can be obtained from the following interfaces: `douyin/xingtu/xingtu-kolid-by-uid`; `douyin/xingtu/xingtu-kolid-by-sec-user-id`; `douyin/xingtu/xingtu-kolid-by-unique-id` |
+
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "base_resp": {
+    "status_code": 0,
+    "status_message": ""
+  },
+  "distributions": [
+    {
+      "description": "分布最多的3个兴趣随拍(30%),亲子(10%),明星(10%)",
+      "distribution_list": [
+        {
+          "distribution_key": "随拍",
+          "distribution_value": "3"
+        }
+      ],
+      "image": [
+        "随拍,亲子,明星居多"
+      ],
+      "origin_type": 6,
+      "type": 64,
+      "type_display": "兴趣分布"
+    }
+  ],
+  "last_update_time": "1793691190"
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `distributions[]` | One block per portrait dimension. Each block holds a text summary, a list of buckets and a dimension label. |
+| `distributions[].type_display` | Name of the dimension, for example `兴趣分布` (interest), `年龄分布` (age) and `城市等级分布` (city tier). |
+| `distributions[].description` | Short text summary of the dimension, such as the top interests with percentages. The text is in Chinese. |
+| `distributions[].distribution_list[].distribution_key` | Label of one bucket, such as an interest name, an age range like `31-40`, or a city tier like `三线`. |
+| `distributions[].distribution_list[].distribution_value` | Value for that bucket, returned as a string. Compare it only with other buckets in the same list. |
+| `distributions[].image[]` | Short text caption for the dimension, such as `18到23岁居多`. |
+| `distributions[].type / distributions[].origin_type` | Numeric codes for the dimension. Use `type` or `type_display` to pick the block you need. |
+| `last_update_time` | Unix timestamp in seconds, returned as a string, that marks the last update of this portrait. |
+| `base_resp.status_code / base_resp.status_message` | Status of the call. `0` with an empty message means it succeeded. |
 
 ### Notes
 
-- Obtain `kolId` from endpoints such as `douyin/xingtu/xingtu-kolid-by-uid`, `douyin/xingtu/xingtu-kolid-by-sec-user-id`, or `douyin/xingtu/xingtu-kolid-by-unique-id`.
+- Get `kolId` from [Douyin XingTu KOL ID by User ID](/apis/douyin/xingtu/xingtu-kolid-by-uid), [Douyin XingTu kolId Lookup](/apis/douyin/xingtu/xingtu-kolid-by-sec-user-id) or [Douyin XingTu KOL ID by Unique ID](/apis/douyin/xingtu/xingtu-kolid-by-unique-id).
+- The `description` text can cover buckets that are not in `distribution_list`. In the sample, the age description says 18 to 23 is the largest group, but the list shows other ranges.
+- Match blocks by `type_display` or `type`, not by array position.
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.02 per successful call. Failed calls are not charged.
 
 ### Related APIs
 

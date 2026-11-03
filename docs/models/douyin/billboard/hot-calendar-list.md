@@ -61,13 +61,14 @@ Same call via the path form: `POST /v1/api/douyin/billboard/hot-calendar-list` w
 
 ## Details
 
-Fetch scheduled trending events from the Douyin billboard using optional `start_date`, `end_date`, `city_code`, and `category_code` filters.
+Returns the Douyin trending activity calendar as two lists: scheduled events and the larger topics they belong to. All inputs are optional. You can filter by `start_date`, `end_date`, `city_code` and `category_code`.
 
 ### Use cases
 
-- Track upcoming trending events on Douyin across specific dates.
-- Filter scheduled activities by city and content category.
-- Monitor event schedules and status for marketing campaign planning.
+- Plan content around upcoming food, travel or seasonal events on Douyin by reading each event's `start_date` and `end_date`.
+- Group events under their parent topics to see which campaigns, such as a new year season, contain several events.
+- Filter the calendar by city to find local activities for a regional campaign.
+- Build an internal editorial calendar from event titles, categories and cover images.
 
 ### Request
 
@@ -78,47 +79,92 @@ curl -X POST "https://api.sandbase.ai/v1/api/douyin/billboard/hot-calendar-list"
   -d '{}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
 |---|---|---|---|
-| `end_date` | integer | No | Snapshot end time format 10 digit timestamp |
-| `city_code` | string | No | City code, get from city list, empty for all |
-| `start_date` | integer | No | Snapshot start time format 10 digit timestamp |
 | `category_code` | string | No | Hot list category code, get from hot list category, empty for all |
+| `city_code` | string | No | City code, get from city list, empty for all |
+| `end_date` | integer | No | Snapshot end time format 10 digit timestamp |
+| `start_date` | integer | No | Snapshot start time format 10 digit timestamp |
 
 ### Example response
 
-Real response for the request above, trimmed to the main fields. User names and long IDs are masked.
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
 
 ```json
 {
+  "code": 0,
   "data": {
     "event_list": [
       {
         "category_name": "美食",
-        "cover_url": "http://p6-dyhot.byteimg.com/tos-cn-i-jid1fmi4d3/b2a4e31229c85f2d04b83278a2ce2082.png",
+        "city_name": "",
+        "cover_url": "http://p6-dyhot.byteimg.com/tos-cn-i-jid1fmi4d3/b2a4e31229c85f2d04b83278a2ce2082…",
         "end_date": 1735660799,
+        "event_ids": null,
         "event_status": -1,
         "hot_title": "冬日与干净饮食的适配度",
         "id": 1549,
+        "is_favorite": 0,
+        "level_code": 2,
         "parent_id": 1462,
-        "publish_cnt": 0,
-        "start_date": 1730304000
+        "publish_cnt": 0
+      }
+    ],
+    "topic_list": [
+      {
+        "category_name": "",
+        "city_name": "",
+        "cover_url": "",
+        "end_date": 1738684799,
+        "event_ids": [
+          1718
+        ],
+        "event_status": -1,
+        "hot_title": "抖音生活新年季",
+        "id": 1717,
+        "is_favorite": 0,
+        "level_code": 1,
+        "parent_id": 0,
+        "publish_cnt": 0
       }
     ]
-  }
+  },
+  "extra": {
+    "now": 1793691106000
+  },
+  "message": ""
 }
 ```
 
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `data.event_list[].hot_title` | Title of the scheduled event. |
+| `data.event_list[].category_name` | Content category of the event, such as food. The topic entries in `topic_list` leave it empty. |
+| `data.event_list[].start_date / data.event_list[].end_date` | Start and end of the event as 10-digit Unix timestamps. |
+| `data.event_list[].id` | ID of the event. Topic entries list it in `event_ids`. |
+| `data.event_list[].parent_id` | ID of the topic the event belongs to. The value `0` means no parent topic appears in the response. |
+| `data.event_list[].cover_url` | Cover image URL for the event. It is an empty string for topics. |
+| `data.topic_list[].hot_title` | Title of a larger topic or campaign that groups events. |
+| `data.topic_list[].event_ids` | List of event IDs that belong to this topic. |
+| `data.topic_list[].level_code` | Level marker of the entry. Topics show `1` and events show `2` in this response. |
+| `data.event_list[].city_name / data.event_list[].event_status / data.event_list[].publish_cnt` | City name, status code and publish count of the event. In the sample they are empty, `-1` and `0`. |
+
 ### Notes
 
-- `start_date` and `end_date` accept 10-digit Unix timestamps.
-- Pass empty strings to `city_code` and `category_code` to retrieve activities for all cities and categories.
+- Send `start_date` and `end_date` as 10-digit Unix timestamps in seconds.
+- Leave `city_code` and `category_code` empty to get all cities and all categories.
+- Get `city_code` values from [Douyin Billboard City List](/apis/douyin/billboard/city-list) and `category_code` values from [Douyin Billboard Hot Category List](/apis/douyin/billboard/hot-category-list).
+- To read one calendar entry in detail, call [Douyin Billboard Hot Calendar Detail](/apis/douyin/billboard/hot-calendar-detail).
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

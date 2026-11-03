@@ -71,9 +71,14 @@ Same call via the path form: `POST /v1/api/coingecko/simple-price` with the body
 
 ## Details
 
-Get the prices of one or more coins by using their unique Coin API IDs, symbols, or names
+Returns the market value of one or more coins on CoinGecko, quoted in the currencies you choose. You pass `vs_currencies` plus a coin identifier as `ids`, `symbols`, or `names`. The response is an object keyed by coin ID, with one number per target currency.
 
-The response is the official CoinGecko API response, unchanged.
+### Use cases
+
+- Show the Bitcoin rate in USD on a dashboard or in a chat bot.
+- Convert a portfolio of coins into several fiat currencies with one call by listing multiple `ids` and `vs_currencies`.
+- Add 24-hour change, volume, or market cap to a ticker with the `include_*` flags.
+- Look up a coin by ticker with `symbols` when you do not know the CoinGecko coin ID.
 
 ### Request
 
@@ -84,10 +89,13 @@ curl -X POST "https://api.sandbase.ai/v1/api/coingecko/simple-price" \
   -d '{"ids": "bitcoin", "vs_currencies": "usd"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
 |---|---|---|---|
+| `vs_currencies` | string | Yes | Target currency of coins, comma-separated if querying more than 1 currency. *refers to [`/simple/supported_vs_currencies`](/reference/simple-supported-currencies) |
 | `ids` | string | No | Coins' IDs, comma-separated if querying more than 1 coin. *refers to [`/coins/list`](/reference/coins-list) |
 | `include_24hr_change` | boolean | No | Include 24-hour change percentage. Default: false |
 | `include_24hr_vol` | boolean | No | Include 24-hour trading volume. Default: false |
@@ -97,11 +105,36 @@ curl -X POST "https://api.sandbase.ai/v1/api/coingecko/simple-price" \
 | `names` | string | No | Coins' names, comma-separated if querying more than 1 coin. |
 | `precision` | string | No | Decimal places for currency price value |
 | `symbols` | string | No | Coins' symbols, comma-separated if querying more than 1 coin. |
-| `vs_currencies` | string | Yes | Target currency of coins, comma-separated if querying more than 1 currency. *refers to [`/simple/supported_vs_currencies`](/reference/simple-supported-currencie |
+
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "bitcoin": {
+    "usd": 76688
+  }
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `bitcoin` | Top-level key. It is the coin ID that was requested. Each requested coin gets its own key. |
+| `bitcoin.usd` | Value of one coin in the target currency. The key name is the currency code from `vs_currencies`, so other currencies appear as sibling keys. |
+
+### Notes
+
+- Get valid coin IDs from [CoinGecko Coins List (ID Map)](/apis/coingecko/coins-list).
+- Get valid `vs_currencies` values from [CoinGecko Supported Currencies List](/apis/coingecko/simple-supported-vs-currencies).
+- Set `include_24hr_change`, `include_24hr_vol`, `include_market_cap`, or `include_last_updated_at` to `true` to add extra keys next to each currency value. The sample request did not use them, so the sample response has only the currency value.
+- For contract addresses instead of coin IDs, use [CoinGecko Coin Data by Token Address](/apis/coingecko/coins-contract).
 
 ### Pricing
 
-Flat price per call. Failed calls are not charged.
+$0.008 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ---
 Machine-readable: [`catalog/models/coingecko/simple-price.json`](../../../catalog/models/coingecko/simple-price.json) · Store page: https://www.sandbase.ai/model/coingecko/simple-price

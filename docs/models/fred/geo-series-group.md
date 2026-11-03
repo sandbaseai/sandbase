@@ -63,9 +63,14 @@ Same call via the path form: `POST /v1/api/fred/geo-series-group` with the body 
 
 ## Details
 
-GeoFRED Series Group from FRED. Returns the official FRED API response unchanged.
+This API returns GeoFRED map metadata for one FRED series. It tells you the series group, region type, frequency, date range and units. It needs a FRED `series_id` that has geographic data, such as `WIPCPI`.
 
-The response is the official FRED API response, unchanged.
+### Use cases
+
+- Check whether a FRED series can be mapped by state before you request regional data.
+- Read the `series_group` id and `region_type` that you need for GeoFRED map requests.
+- Find the first and last date of a regional series to set a valid date range.
+- Show the title, units and frequency of a map series in a dashboard label.
 
 ### Request
 
@@ -76,16 +81,55 @@ curl -X POST "https://api.sandbase.ai/v1/api/fred/geo-series-group" \
   -d '{"series_id": "WIPCPI", "file_type": "json"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
 |---|---|---|---|
-| `file_type` | string | No | Response format. Only json is supported. |
 | `series_id` | string | Yes | The FRED series id you want to request maps meta information for. Not all series that are in FRED have geographical data. string, required |
+| `file_type` | string | No | Response format. Only json is supported. |
+
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "series_group": {
+    "frequency": "Annual",
+    "max_date": "2025-01-01",
+    "min_date": "1929-01-01",
+    "region_type": "state",
+    "season": "NSA",
+    "series_group": "882",
+    "title": "Per Capita Personal Income",
+    "units": "Dollars"
+  }
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `series_group.series_group` | The id of the series group, for example `882`. Use it to identify the group in GeoFRED requests. |
+| `series_group.title` | The name of the series group, for example `Per Capita Personal Income`. |
+| `series_group.region_type` | The type of region the data covers, for example `state`. |
+| `series_group.frequency` | How often the series reports values, for example `Annual`. |
+| `series_group.units` | The units of the values, for example `Dollars`. |
+| `series_group.season` | The seasonal adjustment label, for example `NSA`. |
+| `series_group.min_date / series_group.max_date` | The first and last dates with data, in `YYYY-MM-DD` format. |
+
+### Notes
+
+- Not every FRED series has geographic data. Use a `series_id` that is part of GeoFRED.
+- Call [FRED GeoFRED Series Data](/apis/fred/geo-series-data) to get the values for a series.
+- Call [FRED GeoFRED Regional Data](/apis/fred/geo-regional-data) to get values across regions, and [FRED GeoFRED Shape Files](/apis/fred/geo-shapes-file) to get map shapes.
 
 ### Pricing
 
-Flat price per call. Failed calls are not charged.
+$0.00001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ---
 Machine-readable: [`catalog/models/fred/geo-series-group.json`](../../../catalog/models/fred/geo-series-group.json) · Store page: https://www.sandbase.ai/model/fred/geo-series-group

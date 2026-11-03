@@ -63,13 +63,14 @@ Same call via the path form: `POST /v1/api/weibo/web-v2/topic-search` with the b
 
 ## Details
 
-Search Weibo topics by supplying a search keyword in `query`. Paginate through results using `page`.
+This API searches Weibo topics that match a keyword. It returns each topic's hashtag name, search URL, discussion count, read count, cover image and a short description. It needs a `query` keyword and accepts an optional `page` number.
 
 ### Use cases
 
-- Track discussion volume and reader metrics for specific Weibo topics.
-- Discover trending topic hashtags associated with a target keyword.
-- Monitor audience engagement on brand or industry hashtags.
+- Find hashtags that Weibo users have created around a brand or product name such as `OpenAI`.
+- Rank topics for a keyword by `read_count` or `discuss_count` to see which hashtags draw the most attention.
+- Collect topic URLs to open the matching Weibo search page for each hashtag.
+- Compare how many topics exist for several competing keywords by checking `parsed_data.count`.
 
 ### Request
 
@@ -80,6 +81,8 @@ curl -X POST "https://api.sandbase.ai/v1/api/weibo/web-v2/topic-search" \
   -d '{"query": "OpenAI"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
@@ -89,14 +92,20 @@ curl -X POST "https://api.sandbase.ai/v1/api/weibo/web-v2/topic-search" \
 
 ### Example response
 
-Real response for the request above, trimmed to the main fields. User names and long IDs are masked.
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
 
 ```json
 {
   "parsed_data": {
+    "count": 19,
     "items": [
       {
-        "discuss_count": 75000,
+        "cover": {
+          "large": "https://wx1.sinaimg.cn/large/0024cZx9ly8hqa409rwgkj6050050wej02.jpg",
+          "thumb": "https://wx1.sinaimg.cn/thumb180/0024cZx9ly8hqa409rwgkj6050050wej02.jpg"
+        },
+        "desc": null,
+        "discuss_count": 78000,
         "read_count": 110000000,
         "topic": {
           "name": "#openai#",
@@ -104,19 +113,36 @@ Real response for the request above, trimmed to the main fields. User names and 
           "url": "https://s.weibo.com/weibo/%23openai%23"
         }
       }
-    ]
+    ],
+    "parse_success": true
   }
 }
 ```
 
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `parsed_data.count` | Number of topic items in this response. |
+| `parsed_data.items[].topic.name` | Topic hashtag as written on Weibo, wrapped in `#` characters. |
+| `parsed_data.items[].topic.name_plain` | Topic name without the `#` characters. |
+| `parsed_data.items[].topic.url` | Weibo search URL for the topic. |
+| `parsed_data.items[].discuss_count` | Discussion count for the topic. For example, `78000` for `#openai#`. |
+| `parsed_data.items[].read_count` | Read count for the topic. For example, `110000000` for `#openai#`. |
+| `parsed_data.items[].desc` | Short text description of the topic. It is `null` when the topic has none. |
+| `parsed_data.items[].cover.large / parsed_data.items[].cover.thumb` | Image URLs for the topic cover, in a large and a thumbnail version. |
+| `parsed_data.parse_success` | Shows `true` when the response was parsed into the fields above. |
+
 ### Notes
 
-- `query` is required for all searches.
-- `page` defaults to 1 when omitted.
+- `query` is required. Use any keyword, in English or Chinese.
+- Send `page` to get further results. It starts at `1`.
+- `desc` can be `null`, so check for it before you display it.
+- To search posts instead of topics, call [Weibo Advanced Search](/apis/weibo/web-v2/advanced-search).
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

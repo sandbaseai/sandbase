@@ -88,7 +88,14 @@ Same call via the path form: `POST /v1/api/linkedin/search-profiles` with the bo
 
 ## Details
 
-Search LinkedIn profiles by keyword with optional location and job-title filters. Each match returns a full profile record: name, headline, location, current position, work experience, education, and skills, plus the profile URL, handle, and id. For a cheaper name/headline/URL-only search use linkedin.search_profiles_thin; add emails with linkedin.search_profiles_email.
+Returns full LinkedIn profile records that match a keyword search. The only required input is `query`, and you can narrow results with filters such as `currentCompanies`, `location`, `jobTitle`, `schools`, and `seniorityLevelIds`.
+
+### Use cases
+
+- Build a list of engineers who currently work at a target company, with their work history and skills.
+- Find recruiting candidates by job function, seniority level, and years of experience.
+- Spot people who recently changed jobs and reach out while the move is new.
+- Collect profile URLs and ids for a set of people, then pull their posts or activity with other LinkedIn APIs.
 
 ### Request
 
@@ -99,7 +106,7 @@ curl -X POST "https://api.sandbase.ai/v1/api/linkedin/search-profiles" \
   -d '{"limit": 3, "query": "engineer", "currentCompanies": ["Google"]}'
 ```
 
-The result is returned in `outputs[0].data`. A lookup that finds nothing still succeeds and returns `found: false`.
+The result is returned in `outputs[0].data`.
 
 ### Parameters
 
@@ -134,9 +141,114 @@ The result is returned in `outputs[0].data`. A lookup that finds nothing still s
 | `yearsAtCurrentCompanyIds` | array | No | Filter by tenure at the current company. Codes: 1=Less than 1 year, 2=1 to 2 years, 3=3 to 5 years, 4=6 to 10 years, 5=More than 10 years. |
 | `yearsOfExperienceIds` | array | No | Filter by total years of experience. Codes: 1=Less than 1 year, 2=1 to 2 years, 3=3 to 5 years, 4=6 to 10 years, 5=More than 10 years. |
 
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "data": {
+    "items": [
+      {
+        "about": "Software engineer focused on Gemini AI agent security and safety. Experience in …",
+        "city": "San Francisco",
+        "connectionsCount": 773,
+        "country": "United States",
+        "countryCode": "US",
+        "coverImage": "https://media.licdn.com/dms/image/v2/D5616AQF4qWL-k2s3EA/profile-displaybackgrou…",
+        "creator": false,
+        "currentPosition": [
+          {
+            "companyId": "1594050",
+            "companyLinkedinUrl": "https://www.linkedin.com/company/googledeepmind/",
+            "companyLogo": {
+              "sizes": [
+                {
+                  "height": 400,
+                  "url": "https://media.licdn.com/dms/image/v2/D4E0BAQEntrYwxPlbQA/company-logo_400_400/co…",
+                  "width": 400
+                }
+              ],
+              "url": "https://media.licdn.com/dms/image/v2/D4E0BAQEntrYwxPlbQA/company-logo_400_400/co…"
+            },
+            "companyName": "Google DeepMind",
+            "companyUniversalName": "googledeepmind",
+            "description": "- Building systems for agentic AI security for the latest Gemini models, includi…",
+            "duration": "5 mos",
+            "employmentType": "Full-time"
+          }
+        ],
+        "education": [
+          {
+            "degree": "BS",
+            "description": "Selected Coursework:\nCS 61A: Structure and Interpretation of Computer Programs\nC…",
+            "endDate": {
+              "month": "Dec",
+              "text": "Dec 2020",
+              "year": 2020
+            },
+            "fieldOfStudy": "Electrical Engineering and Computer Science",
+            "insights": null,
+            "period": "Aug 2017 - Dec 2020",
+            "schoolId": "2517",
+            "schoolLinkedinUrl": "https://www.linkedin.com/company/2517/"
+          }
+        ],
+        "experience": [
+          {
+            "companyId": "1594050",
+            "companyLinkedinUrl": "https://www.linkedin.com/company/googledeepmind/",
+            "companyLogo": {
+              "sizes": [
+                {
+                  "height": 400,
+                  "url": "https://media.licdn.com/dms/image/v2/D4E0BAQEntrYwxPlbQA/company-logo_400_400/co…",
+                  "width": 400
+                }
+              ],
+              "url": "https://media.licdn.com/dms/image/v2/D4E0BAQEntrYwxPlbQA/company-logo_400_400/co…"
+            },
+            "companyName": "Google DeepMind",
+            "companyUniversalName": "googledeepmind",
+            "description": "- Building systems for agentic AI security for the latest Gemini models, includi…",
+            "duration": "5 mos",
+            "employmentType": "Full-time"
+          }
+        ],
+        "firstName": "Rahul",
+        "followerCount": 790
+      }
+    ]
+  },
+  "found": true
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `data.items[].url / data.items[].handle` | The LinkedIn profile URL and the handle at the end of it, for example `rahulrathi123`. |
+| `data.items[].id` | The LinkedIn member id of the profile, in a form like `ACoAABALO9MBdW_ZVdXWockmbgrIFGDCWGhX-WE`. |
+| `data.items[].firstName / data.items[].lastName` | The person's first and last name. |
+| `data.items[].headline` | The headline text shown under the person's name, such as a job title and employer. |
+| `data.items[].location / data.items[].city / data.items[].state / data.items[].country / data.items[].countryCode` | Where the person is based. `location` is the area text shown on the profile. The other fields split it into city, state, country, and country code. |
+| `data.items[].currentPosition[]` | The person's current job or jobs. Each row has `companyName`, `companyUniversalName`, `companyLinkedinUrl`, `description`, `duration`, and `employmentType`. |
+| `data.items[].experience[]` | The work history. Each row has the same fields as `currentPosition[]`, for example `companyName`, `duration`, and `description`. |
+| `data.items[].education[]` | Schools the person attended. Each row has `degree`, `fieldOfStudy`, `period`, `endDate`, `schoolId`, and `schoolLinkedinUrl`. |
+| `data.items[].skills[].name` | The name of each skill listed on the profile. |
+| `data.items[].connectionsCount / data.items[].followerCount` | The number of connections and the number of followers on the profile. |
+
+### Notes
+
+- Set `limit` between 1 and 25 to control how many profiles come back. The default is 10.
+- Use `companyUniversalName` and `companyId` from `currentPosition[]` and `experience[]` to identify companies in other LinkedIn APIs, such as [LinkedIn Company](/apis/linkedin/company).
+- For a lighter search that returns only name, headline, and URL, use [LinkedIn Profile Search (basic)](/apis/linkedin/search-profiles-thin).
+- To read the posts of a person you found, pass the profile URL to [LinkedIn Profile Posts (full)](/apis/linkedin/profile-posts-full).
+
 ### Pricing
 
-Billed at the actual cost of each call, usually $0.198 per request. A call can cost more when the first data source fails and another one answers. Failed calls are not charged. Lookups that find nothing and searches with no results are billed at their actual cost, which is often lower and can be $0.
+Billed at the actual cost of each call, about $0.198 for the request above. Failed calls are not charged.
 
 ---
 Machine-readable: [`catalog/models/linkedin/search-profiles.json`](../../../catalog/models/linkedin/search-profiles.json) · Store page: https://www.sandbase.ai/model/linkedin/search-profiles

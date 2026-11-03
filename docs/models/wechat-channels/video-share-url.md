@@ -61,9 +61,13 @@ Same call via the path form: `POST /v1/api/wechat-channels/video-share-url` with
 
 ## Details
 
-Generates a share link for a WeChat Channels video identified by objectId. Use it to share a known Channels video or obtain its link for a subsequent lookup.
+Returns a share link for a WeChat Channels video. It needs the video's `objectId`, a numeric string of up to 32 digits.
 
-The response is the platform's original data structure.
+### Use cases
+
+- Build a shareable link for a Channels video when you only store its `objectId`.
+- Add a clickable video link to a report or dashboard that tracks Channels content.
+- Check that an `objectId` resolves to a share link before you run other lookups on it.
 
 ### Request
 
@@ -74,15 +78,62 @@ curl -X POST "https://api.sandbase.ai/v1/api/wechat-channels/video-share-url" \
   -d '{"objectId": "14941130915890399732"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
 |---|---|---|---|
 | `objectId` | string | Yes | WeChat Channels video objectId as a numeric string of up to 32 digits. |
 
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "baseResponse": {
+    "errMsg": {
+      "pbRequestMsgInfo": null,
+      "string": ""
+    },
+    "pbRequestMsgInfo": null,
+    "ret": 0
+  },
+  "debug_id": "0d40f417",
+  "debug_info": "gAAAAABq6ZEtz42gcdCDHhDLWar9xy2VgLbbYPFgPXOAEtdZkXrXcdwRuKMG5f15jimcUeQld7nEBFAJ…",
+  "feedH5Url": "https://weixin.qq.com/sph/Aci4tPzBEf",
+  "pbRequestMsgInfo": null,
+  "urlList": [
+    {
+      "feedH5Url": "https://weixin.qq.com/sph/Aci4tPzBEf",
+      "objectId": 14941130915890399732,
+      "pbRequestMsgInfo": null
+    }
+  ]
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `feedH5Url` | The share link for the video. It is a `weixin.qq.com/sph/` URL. The same value appears in `urlList[].feedH5Url`. |
+| `urlList[].feedH5Url` | Share link for each requested video. The list holds one entry for the `objectId` you sent. |
+| `urlList[].objectId` | The video `objectId` that the link belongs to. It comes back as a number here, so large values may lose precision in some JSON parsers. |
+| `baseResponse.ret` | Status code of the call. The sample returns `0`. |
+| `baseResponse.errMsg.string` | Error message text. It is an empty string in the sample response. |
+| `debug_id / debug_info` | Debug values attached to the response. You do not need them to use the link. |
+
+### Notes
+
+- Send `objectId` as a string, as in the request example. Read `urlList[].objectId` with a big-number safe parser, or match on the string you sent.
+- A newer version of this endpoint is available as [WeChat Channels Video Share URL](/apis/wechat-channels/v2/video-share-url).
+- To get video details for the same `objectId`, call [WeChat Channels Video Detail](/apis/wechat-channels/v2/video-detail).
+
 ### Pricing
 
-Flat price per call. Failed calls and empty results are not charged.
+$0.028571 per successful call. Failed calls are not charged.
 
 ---
 Machine-readable: [`catalog/models/wechat-channels/video-share-url.json`](../../../catalog/models/wechat-channels/video-share-url.json) · Store page: https://www.sandbase.ai/model/wechat-channels/video-share-url

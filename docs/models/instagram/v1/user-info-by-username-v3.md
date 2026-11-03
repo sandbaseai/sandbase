@@ -62,13 +62,14 @@ Same call via the path form: `POST /v1/api/instagram/v1/user-info-by-username-v3
 
 ## Details
 
-Retrieve detailed Instagram user profile data by supplying an account handle via the `username` parameter.
+Returns profile data for one Instagram account, including follower and following counts, biography, verification status and the list of links in the bio. It needs one input, the account handle in `username`.
 
 ### Use cases
 
-- Inspect bio links and external URLs attached to an Instagram profile.
-- Retrieve public profile details for a specific Instagram username.
-- Verify public Instagram account handles and link metadata.
+- Read the links in an account's bio, including each link's `title` and `url`, to check where a brand sends its audience.
+- Check `follower_count` and `is_verified` for an account before you add it to an influencer list.
+- Pull the `id` for a handle so you can call APIs that take a numeric user ID.
+- Save the biography text and profile picture URL of an account for a profile card or a brand monitoring record.
 
 ### Request
 
@@ -79,6 +80,8 @@ curl -X POST "https://api.sandbase.ai/v1/api/instagram/v1/user-info-by-username-
   -d '{"username": "instagram"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
@@ -87,28 +90,64 @@ curl -X POST "https://api.sandbase.ai/v1/api/instagram/v1/user-info-by-username-
 
 ### Example response
 
-Real response for the request above, trimmed to the main fields. User names and long IDs are masked.
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
 
 ```json
 {
+  "account_badges": [],
+  "account_type": 3,
+  "address_street": null,
+  "aigm_account_label_info": null,
+  "attempts": "0",
   "bio_links": [
     {
+      "creation_source": "NONE",
+      "image_url": "",
+      "is_pinned": false,
       "link_type": "external",
-      "lynx_url": "https://l.instagram.com/?u=https%3A%2F%2Fhelp.instagram.com%2F&e=AUDPRoUBv2LXTt2…",
+      "lynx_url": "https://l.instagram.com/?u=https%3A%2F%2Fhelp.instagram.com%2F&e=AUDalAOqK26dSSL…",
+      "media_accent_color_hex": "",
       "media_type": "none",
+      "title": "",
       "url": "http://help.instagram.com"
     }
-  ]
+  ],
+  "biography": "Discover what's new on Instagram 🔎✨",
+  "biography_with_entities": {
+    "entities": []
+  },
+  "category": "",
+  "city_name": null,
+  "external_lynx_url": "https://l.instagram.com/?u=https%3A%2F%2Fhelp.instagram.com%2F&e=AUAq3xoFe1w-NbE…",
+  "external_url": "http://help.instagram.com"
 }
 ```
 
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `id` | Numeric Instagram user ID of the account, returned as a string. |
+| `full_name` | Display name shown on the profile. |
+| `biography` | Bio text of the account. |
+| `follower_count / following_count` | Number of accounts that follow this account, and number of accounts it follows. |
+| `is_verified / is_private / is_business` | Flags for a verified badge, a private account, and a business account. |
+| `bio_links[].url` | Destination URL of each link in the bio. |
+| `bio_links[].title` | Label of the bio link. It can be an empty string. |
+| `bio_links[].lynx_url` | Instagram redirect version of the link that wraps the destination URL. |
+| `external_url` | Main external link shown on the profile. |
+| `hd_profile_pic_url_info.url` | URL of the high-resolution profile picture. |
+
 ### Notes
 
-- Pass the target Instagram account handle into `username` without the leading @ symbol.
+- Pass the handle in `username` without the leading @.
+- Many fields can come back as `null`, for example `media_count` and `is_professional_account`. Do not rely on them being filled.
+- Use the `id` value with [Instagram User Profile by ID](/apis/instagram/v1/user-info-by-id) to look up the same account by its numeric ID.
+- To list the account's posts, call [Instagram User Posts (V1)](/apis/instagram/v1/user-posts).
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

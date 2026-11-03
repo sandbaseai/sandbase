@@ -64,13 +64,14 @@ Same call via the path form: `POST /v1/api/douyin/xingtu/kol-base-info-v1` with 
 
 ## Details
 
-Pass a XingTu `kolId` and get the creator's marketplace profile: follower count, region, content tags and which collaboration types are open.
+This API returns the XingTu (Douyin creator marketplace) profile of one KOL. It needs a XingTu `kolId` and a `platformChannel` value (`_1` for Douyin video, `_10` for Douyin live).
 
 ### Use cases
 
-- Screen Douyin influencers before a campaign.
-- Build a KOL database with categories and regions.
-- Combine with price and fan-portrait APIs for full vetting.
+- Check follower count and city of a Douyin creator before adding them to a campaign shortlist.
+- Filter creators by content theme labels such as pet or cat content.
+- Check `is_online` and `has_phone` to see whether a creator is active and reachable.
+- Store `core_user_id` and `id` to join XingTu profiles with other creator records.
 
 ### Request
 
@@ -81,40 +82,65 @@ curl -X POST "https://api.sandbase.ai/v1/api/douyin/xingtu/kol-base-info-v1" \
   -d '{"kolId": "7038603512770461703", "platformChannel": "_1"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
 |---|---|---|---|
-| `kolId` | string | Yes | User kolId, can be obtained from the following interfaces: `douyin/xingtu/xingtu-kolid-by-uid`; `douyin/xingtu/xingtu-k… |
+| `kolId` | string | Yes | User kolId, can be obtained from the following interfaces: `douyin/xingtu/xingtu-kolid-by-uid`; `douyin/xingtu/xingtu-kolid-by-sec-user-id`; `douyin/xingtu/xingtu-kolid-by-unique-id` |
 | `platformChannel` | string | Yes | Platform channel, supports the following parameters: _1: Douyin Video; _10: Douyin Live |
 
 ### Example response
 
-Real response for the request above, trimmed to the main fields. User names and long IDs are masked.
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
 
 ```json
 {
-  "id": "7038603512770461703",
-  "core_user_id": "93153724393",
-  "follower": 886798,
+  "abandon_sign_result": 0,
+  "appeal_id": "0",
+  "author_avatar_frame_icon": 20,
+  "author_type": 1,
+  "avatar_uri": "https://p3.douyinpic.com/aweme/1080x1080/aweme-avatar/tos-cn-avt-0015_8c900db621…",
+  "avg_play": 0,
+  "aweme_tags": [],
+  "base64_qrcode": "iVBORw0KGgoAAAANSUhEUgAAAWgAAAFoAQAAAABSnlx4AAACZElEQVR4nO2bzW7DMAyDySHv/8rcQT+2…",
+  "base_resp": {
+    "status_code": 0,
+    "status_message": "Success"
+  },
+  "category_id": "1",
   "city": "长沙市",
-  "province": "湖南省",
-  "is_star": true,
-  "online_status": 1,
-  "tags_level_two": "[\"\\u65e5\\u5e38\\u5ba0\\u7269\"]",
-  "nick_name": "<user>",
-  "sec_uid": "<sec_uid>"
+  "content_theme_labels": [
+    "宠物猫日常"
+  ]
 }
 ```
 
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `id` | The XingTu `kolId` of the creator. It matches the `kolId` you sent. |
+| `nick_name` | Display name of the creator. |
+| `follower` | Follower count of the creator. |
+| `city` | City of the creator, as a Chinese place name. |
+| `content_theme_labels[]` | Content theme tags for the creator, such as pet cat topics. |
+| `is_online / online_status` | Whether the creator is currently online on XingTu. `is_online` is a boolean and `online_status` is a numeric flag. |
+| `is_star / e_commerce_enable / is_game_author` | Flags for creator type: XingTu star author, e-commerce enabled, and game author. |
+| `opened_task_category` | List of task category IDs open for collaboration. It is returned as a string that holds a list. |
+| `platform_channel[]` | Channel codes the creator is available on. The values `1` and `10` match `_1` (Douyin video) and `_10` (Douyin live). |
+| `create_time / modify_time` | Unix timestamps in seconds as strings. |
+
 ### Notes
 
-- Get `kolId` from a Douyin `sec_user_id` with the XingTu kolid by sec_user_id API.
-- `platformChannel`: `_1` Douyin video, `_10` Douyin live.
+- Get `kolId` from [Douyin XingTu kolId Lookup](/apis/douyin/xingtu/xingtu-kolid-by-sec-user-id), [Douyin XingTu KOL ID by User ID](/apis/douyin/xingtu/xingtu-kolid-by-uid) or [Douyin XingTu KOL ID by Unique ID](/apis/douyin/xingtu/xingtu-kolid-by-unique-id).
+- `platformChannel` accepts `_1` for Douyin video and `_10` for Douyin live.
+- For rates per collaboration type, call [Douyin XingTu KOL Price](/apis/douyin/xingtu/kol-service-price-v1) next.
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.02 per successful call. Failed calls are not charged.
 
 ### Related APIs
 

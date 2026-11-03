@@ -60,9 +60,14 @@ Same call via the path form: `POST /v1/api/dataforseo/v3/app_data/apple/app_list
 
 ## Details
 
-Search the Apple App Store catalog by app title or description and get ratings, review counts and prices for each match.
+This API searches the Apple App Store catalog for apps whose title (and optionally description) match the words you send. It needs a `title` value and returns a list of matching apps with their IDs, developer details, store URLs and icons.
 
-Request fields follow the official DataForSEO `/v3/app_data/apple/app_listings/search/live` task schema (one task per call). The response is DataForSEO's original JSON; results are in `tasks[].result`.
+### Use cases
+
+- Find competing VPN apps by searching a keyword like `vpn` in app titles.
+- Build a list of apps from one developer by collecting `developer_id` and `developer_url` values.
+- Check how many App Store apps match a keyword with `total_count` to gauge how crowded a niche is.
+- Collect `app_id` values to feed into other app lookups or to track specific apps.
 
 ### Request
 
@@ -73,24 +78,106 @@ curl -X POST "https://api.sandbase.ai/v1/api/dataforseo/v3/app_data/apple/app_li
   -d '{"title": "vpn", "limit": 10}'
 ```
 
+The result is returned in `outputs[0]`.
+
 ### Parameters
 
-The JSON body is forwarded to the upstream endpoint. Main fields:
+| Name | Type | Required | Description |
+|---|---|---|---|
+| `description` | string | No | Optional words to match in app descriptions. |
+| `filters` | string | No | Optional filter array, e.g. [["rating.value", ">", 4]]. |
+| `limit` | integer | No | Maximum number of apps to return. |
+| `title` | string | No | Words to match in app titles. |
 
-| Name | Description |
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "status_code": 20000,
+  "status_message": "Ok.",
+  "tasks": [
+    {
+      "data": {
+        "api": "app_data",
+        "function": "search",
+        "limit": 10,
+        "se": "apple",
+        "title": "vpn"
+      },
+      "id": "11030828-2190-0556-0000-555cc30267bd",
+      "path": [
+        "v3"
+      ],
+      "result": [
+        {
+          "count": 10,
+          "items": [
+            {
+              "app_id": "1370293473",
+              "check_url": "https://apps.apple.com/us/app/id1370293473?l=en-US",
+              "item": {
+                "advisories": [
+                  "4+"
+                ],
+                "app_id": "1370293473",
+                "categories": null,
+                "description": "■ Free VPN for iPhone - access global content\n■ Unlimited time, bandwidth, and s…",
+                "developer": "Mobile Jump Pte Ltd",
+                "developer_id": "1484585154",
+                "developer_url": "https://apps.apple.com/us/developer/mobile-jump-pte-ltd/id1484585154?platform=ip…",
+                "icon": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/3e/b9/ad/3eb9ad77-10…"
+              },
+              "language_code": "en",
+              "location_code": 2840,
+              "se_domain": "itunes.apple.com",
+              "time_update": "2026-10-02 05:33:49 +00:00"
+            }
+          ],
+          "offset": 0,
+          "offset_token": "eyJDdXJy…",
+          "total_count": 1873
+        }
+      ],
+      "result_count": 1,
+      "status_code": 20000,
+      "status_message": "Ok.",
+      "time": "0.2280 sec."
+    }
+  ],
+  "tasks_count": 1,
+  "tasks_error": 0,
+  "time": "0.2401 sec.",
+  "version": "0.1.20261022"
+}
+```
+
+### Response fields
+
+| Field | Meaning |
 |---|---|
-| `title` | Words to match in app titles. |
-| `description` | Optional words to match in app descriptions. |
-| `limit` | Maximum number of apps to return. |
-| `filters` | Optional filter array, e.g. [["rating.value", ">", 4]]. |
+| `tasks[].result[].total_count` | Total number of apps that match the search. It can be larger than the number returned in this call. |
+| `tasks[].result[].count` | Number of apps returned in this response. |
+| `tasks[].result[].items[].app_id` | App Store ID of the app, as a string. It is the number in the `check_url` after `id`. |
+| `tasks[].result[].items[].check_url` | Link to the app's page on the App Store. |
+| `tasks[].result[].items[].item.developer / tasks[].result[].items[].item.developer_id` | Name and numeric ID of the developer that publishes the app. |
+| `tasks[].result[].items[].item.developer_url` | Link to the developer's page on the App Store. |
+| `tasks[].result[].items[].item.description` | Start of the app description text. Some items do not include it, and long text is cut. |
+| `tasks[].result[].items[].item.advisories` | Age rating labels for the app, such as `4+`. |
+| `tasks[].result[].items[].item.icon / tasks[].result[].items[].item.images[]` | URLs of the app icon and of its listing screenshots. `images` appears only on some items. |
+| `tasks[].result[].items[].time_update` | Date and time the listing was last updated, in the format `2026-10-02 05:33:49 +00:00`. |
 
-### Reference
+### Notes
 
-- Official docs: https://docs.dataforseo.com/v3/app_data/apple/app_listings/search/live/
+- Use `offset_token` from `tasks[].result[]` to continue past the first page. `offset` shows where the current page starts.
+- `limit` sets the maximum number of apps returned. The example request uses `10`.
+- `location_code` is `2840` and `language_code` is `en` in this response. `se_domain` is `itunes.apple.com`.
+- To search Android apps instead, use [DataForSEO Google Play App Listings Search](/apis/dataforseo/v3/app_data/google/app_listings/search/live).
 
 ### Pricing
 
-Billed at the actual cost of each call, about $0.11 for the request above. The cost grows with the number of rows, targets or tokens a call returns. Failed calls are not charged. Searches with no results are billed at their actual cost.
+Billed at the actual cost of each call, about $0.11 for the request above. Failed calls are not charged.
 
 ---
 Machine-readable: [`catalog/models/dataforseo/v3/app_data/apple/app_listings/search/live.json`](../../../../../../../../catalog/models/dataforseo/v3/app_data/apple/app_listings/search/live.json) · Store page: https://www.sandbase.ai/model/dataforseo/v3/app_data/apple/app_listings/search/live

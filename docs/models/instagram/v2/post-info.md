@@ -62,13 +62,14 @@ Same call via the path form: `POST /v1/api/instagram/v2/post-info` with the body
 
 ## Details
 
-Retrieve detailed Instagram post data by providing the target post shortcode or full link in `code_or_url`.
+Returns detailed data for one Instagram post, including its caption, audio details, and permission flags. It needs a post shortcode or a full post URL in `code_or_url`.
 
 ### Use cases
 
-- Extract media asset URLs for a specific Instagram post.
-- Inspect post metadata using a post shortcode or direct URL.
-- Verify video versions and source links for Instagram content.
+- Read the caption text, mentions, and hashtags of a single post.
+- Check which original or licensed audio a Reel uses, including artist and title.
+- Convert a post URL into structured data such as its shortcode and creation time.
+- Check whether a post allows resharing, saving, and comment likes before you build a feature around it.
 
 ### Request
 
@@ -79,6 +80,8 @@ curl -X POST "https://api.sandbase.ai/v1/api/instagram/v2/post-info" \
   -d '{"code_or_url": "DRhvwVLAHAG"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
@@ -87,29 +90,97 @@ curl -X POST "https://api.sandbase.ai/v1/api/instagram/v2/post-info" \
 
 ### Example response
 
-Real response for the request above, trimmed to the main fields. User names and long IDs are masked.
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
 
 ```json
 {
   "data": {
-    "video_versions": [
-      {
-        "id": "1961917128003357v",
-        "type": 101,
-        "url": "https://scontent-arn2-1.cdninstagram.com/o1/v/t2/f2/m86/AQM5-tU7kYwNnMkDKY2gOnuG…"
-      }
-    ]
+    "accessibility_caption": null,
+    "are_remixes_crosspostable": true,
+    "boost_unavailable_identifier": null,
+    "boost_unavailable_reason": null,
+    "boost_unavailable_reason_v2": null,
+    "can_reshare": true,
+    "can_save": true,
+    "caption": {
+      "created_at": 1764176515,
+      "created_at_utc": 1764176515,
+      "did_report_as_spam": false,
+      "hashtags": [],
+      "id": "3774507992167247878",
+      "is_covered": false,
+      "is_ranked_comment": false,
+      "mentions": [
+        "@sadiesink_"
+      ],
+      "pk": "17844901506605283",
+      "private_reply_status": 0,
+      "share_enabled": false,
+      "text": "@sadiesink_ (Sadie Sink) and @maya_hawke (Maya Hawke) are returning to Hawkins f…"
+    },
+    "caption_is_edited": false,
+    "clips_metadata": {
+      "achievements_info": {
+        "num_earned_achievements": null,
+        "show_achievements": false
+      },
+      "additional_audio_info": {
+        "additional_audio_username": null,
+        "audio_reattribution_info": {
+          "should_allow_restore": false
+        }
+      },
+      "asset_recommendation_info": null,
+      "audio_canonical_id": "18367181326095461",
+      "audio_ranking_info": {
+        "best_audio_cluster_id": "1490444716426084"
+      },
+      "audio_type": "original_sounds",
+      "basel_template_info_for_ig_app": {
+        "is_basel_template": null,
+        "original_template_media_id": null,
+        "should_show_reuse_setting_for_owner": false,
+        "use_template_deeplink": null
+      },
+      "branded_content_tag_info": {
+        "can_add_tag": false
+      },
+      "breaking_content_info": null,
+      "breaking_creator_info": null,
+      "challenge_info": null,
+      "clips_creation_entry_point": "feed"
+    },
+    "clips_tab_pinned_user_ids": [],
+    "coauthor_producer_can_see_organic_insights": false
   }
 }
 ```
 
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `data.code` | The post shortcode. It matches the `code_or_url` value in the request. |
+| `data.caption.text` | The caption of the post. Mentions appear as @usernames inside the text. |
+| `data.caption.created_at / data.caption.created_at_utc` | Unix timestamp in seconds for when the caption was created. |
+| `data.caption.mentions[]` | List of accounts mentioned in the caption, each with a leading @. |
+| `data.caption.hashtags[]` | List of hashtags found in the caption. It is empty when the caption has none. |
+| `data.caption.text_translation` | A translated version of the caption text. |
+| `data.clips_metadata.audio_type` | The kind of audio on the Reel, such as `original_sounds`. |
+| `data.clips_metadata.original_sound_info.audio_parts[].display_title / data.clips_metadata.original_sound_info.audio_parts[].display_artist` | Title and artist of each audio part used in the sound. |
+| `data.has_audio` | Whether the post has an audio track. |
+| `data.can_reshare / data.can_save / data.comment_likes_enabled` | Flags that show whether viewers can reshare the post, save it, and like its comments. |
+
 ### Notes
 
-- Accepts either a post shortcode or a complete URL in `code_or_url`.
+- Pass either the shortcode, such as `DRhvwVLAHAG`, or the full post URL in `code_or_url`.
+- To turn a shortcode into a numeric media ID, use [Instagram Shortcode to Media ID (V2)](/apis/instagram/v2/shortcode-to-media-id).
+- To read the discussion on the post, call [Instagram Post Comments (V2)](/apis/instagram/v2/post-comments).
+- To see who liked the post, call [Instagram Post Likes (V2)](/apis/instagram/v2/post-likes).
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.002 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

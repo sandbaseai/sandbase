@@ -66,13 +66,14 @@ Same call via the path form: `POST /v1/api/youtube/web-v2/channel-community-post
 
 ## Details
 
-Use this endpoint to look up community feed entries for a channel using `channel_id`. Paginate through past updates with `continuation_token`.
+Returns community posts from a YouTube channel, including post text, poll or image attachments, vote counts, and comment counts. It needs a `channel_id` and returns a page of posts with a token for the next page.
 
 ### Use cases
 
-- Track creator audience polls and status updates.
-- Monitor engagement metrics on channel community announcements.
-- Archive text posts and audience interactions from specific channels.
+- Archive the text and polls a creator publishes on their community tab.
+- Compare `comment_count` and `vote_count` across posts to see which topics get the most reaction.
+- Collect poll questions and answer choices from a channel to study what the creator asks their audience.
+- Page through a channel's older posts to build a history of its announcements.
 
 ### Request
 
@@ -83,50 +84,88 @@ curl -X POST "https://api.sandbase.ai/v1/api/youtube/web-v2/channel-community-po
   -d '{"channel_id": "UCeu6U67OzJhV1KwBansH3Dg"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
 |---|---|---|---|
 | `channel_id` | string | Yes | Channel ID |
-| `need_format` | boolean | No | Whether to format data, default `true` |
+| `continuation_token` | string | No | Next page pagination token |
 | `country_code` | string | No | Country code, default `"US"` |
 | `language_code` | string | No | Language code, default `"zh-CN"` |
-| `continuation_token` | string | No | Next page pagination token |
+| `need_format` | boolean | No | Whether to format data, default `true` |
 
 ### Example response
 
-Real response for the request above, trimmed to the main fields. User names and long IDs are masked.
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
 
 ```json
 {
+  "channel_id": "UCeu6U67OzJhV1KwBansH3Dg",
+  "continuation_token": "4qmFsgKB…",
+  "has_more": true,
   "posts": [
     {
+      "attachment": {
+        "choices": [
+          {
+            "text": "Yes, slow 'em down",
+            "vote_count": "",
+            "vote_percentage": ""
+          }
+        ],
+        "total_votes": "1919 票",
+        "type": "poll"
+      },
       "author_channel_id": "UCeu6U67OzJhV1KwBansH3Dg",
-      "author_name": "<user>",
+      "author_name": "CozyCraft",
+      "author_thumbnails": [
+        {
+          "height": 32,
+          "url": "//yt3.googleusercontent.com/jwfgqnpI22YpsFDz25QtgITBf5tX7mFHqXWVhHoWzbk3ddAz9Fab…",
+          "width": 32
+        }
+      ],
       "author_url": "/@CozyCraftYT",
       "comment_count": "9",
       "content_text": "Would you like to see more slowed versions of songs? 🤔",
       "post_id": "Ugkxarbrw7GyCGm2je0mLftFSKUOIMp3CUkE",
       "post_url": "https://www.youtube.com/post/Ugkxarbrw7GyCGm2je0mLftFSKUOIMp3CUkE",
-      "published_time": "5个月前",
-      "vote_count": "98",
-      "attachment": {
-        "type": "poll"
-      }
+      "published_time": "6个月前",
+      "vote_count": "102"
     }
-  ]
+  ],
+  "total_count": 9
 }
 ```
 
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `posts[].post_id` | ID of the community post. |
+| `posts[].post_url` | Link to the post on YouTube. |
+| `posts[].content_text` | Text of the post. Long text may be cut off with an ellipsis. |
+| `posts[].published_time` | Relative publish time as a text label, such as `6个月前`. It is not a date or timestamp. |
+| `posts[].vote_count / posts[].comment_count` | Counts for the post, returned as strings. `vote_count` is the like-style vote count, and `comment_count` is the number of comments. |
+| `posts[].author_name / posts[].author_channel_id / posts[].author_url` | Name, channel ID and channel path (such as `/@CozyCraftYT`) of the channel that wrote the post. |
+| `posts[].attachment.type` | Kind of attachment on the post. This response shows `poll` and `image`. |
+| `posts[].attachment.choices[].text` | Text of each poll option. `vote_count` and `vote_percentage` inside each choice were empty strings in this response. |
+| `posts[].attachment.total_votes` | Total votes on a poll as a text label, for example `1919 票`. |
+| `posts[].attachment.images[].url` | Image URL for image posts, listed with its `width` and `height`. Several sizes of the same image are returned. |
+| `has_more / continuation_token` | `has_more` is `true` when more posts exist. Pass `continuation_token` in the next request to get them. |
+
 ### Notes
 
-- Pass `continuation_token` from previous results to navigate through older community posts.
-- `country_code` defaults to "US" and `language_code` defaults to "zh-CN".
-- `need_format` defaults to true to format the returned output.
+- Get the `channel_id` from a channel URL with [YouTube Channel ID from URL](/apis/youtube/web-v2/channel-id). Channel IDs start with `UC`.
+- To page, send the returned `continuation_token` as `continuation_token` along with the same `channel_id`. Stop when `has_more` is `false`.
+- To read the comments on a single post, call [YouTube Community Post Comments](/apis/youtube/web-v2/post-comments) with its `post_id`.
+- `published_time` and `total_votes` follow `language_code`, which defaults to `zh-CN`. Set another value if you want labels in a different language.
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

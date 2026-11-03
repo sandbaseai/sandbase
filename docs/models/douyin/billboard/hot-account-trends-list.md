@@ -64,13 +64,14 @@ Same call via the path form: `POST /v1/api/douyin/billboard/hot-account-trends-l
 
 ## Details
 
-Retrieve historical trend data for an account by supplying `sec_uid`, with options to filter by metric type using `option` and aggregation period via `date_window`.
+Returns a time series of one metric for a Douyin account, plus the average value across the series. It needs the account's `sec_uid`. You can pick the metric with `option` and the interval with `date_window`.
 
 ### Use cases
 
-- Track hourly or daily engagement metrics for a Douyin creator.
-- Analyze recent growth in likes, comments, and shares across user profiles.
-- Monitor content output frequency and incoming engagement trends over time.
+- Chart daily new likes for a creator to see which days performed best.
+- Compare new works, comments, and shares for an account over the same period.
+- Switch to hourly values to find the times of day when an account gains the most engagement.
+- Use the average value as a baseline to flag days that rise far above normal.
 
 ### Request
 
@@ -81,39 +82,58 @@ curl -X POST "https://api.sandbase.ai/v1/api/douyin/billboard/hot-account-trends
   -d '{"sec_uid": "MS4wLjABAAAAr52fXcfmzqOZJM_smap9Uuxtm16h8BupkCVaCt89BENq3E91mHCvtz5Z5TkXPHq_"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
 |---|---|---|---|
 | `sec_uid` | string | Yes | User sec_id |
-| `option` | integer | No | Option, 2 New like 3 New work 4 New comment 5 New share |
 | `date_window` | integer | No | Time window, 1 by hour 2 by day |
+| `option` | integer | No | Option, 2 New like 3 New work 4 New comment 5 New share |
 
 ### Example response
 
-Real response for the request above, trimmed to the main fields. User names and long IDs are masked.
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
 
 ```json
 {
+  "code": 0,
   "data": {
+    "avg": 24082.404494382023,
     "trends": [
       {
-        "datetime": 1783440000,
-        "value": 1600
+        "datetime": 1785859200,
+        "value": 28479
       }
     ]
-  }
+  },
+  "extra": {
+    "now": 1793691105000
+  },
+  "message": ""
 }
 ```
 
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `data.trends[]` | List of data points in time order. Each item is one interval of the chosen metric. |
+| `data.trends[].datetime` | Start time of the interval as a Unix timestamp in seconds. |
+| `data.trends[].value` | Metric count for that interval. The metric depends on the `option` you send. |
+| `data.avg` | Average of the metric across the returned interval values. |
+| `code / message` | `code` is `0` on success. `message` is an empty string when there is no error. |
+
 ### Notes
 
-- Use `option` to select the metric: 2 for new likes, 3 for new works, 4 for new comments, and 5 for new shares.
-- Set `date_window` to 1 for hourly intervals or 2 for daily intervals.
+- Get `sec_uid` from an account entry in [Douyin Hot Account List](/apis/douyin/billboard/hot-account-list) or [Douyin Hot Account Search](/apis/douyin/billboard/hot-account-search-list).
+- `option` values: `2` new likes, `3` new works, `4` new comments, `5` new shares. `date_window` values: `1` by hour, `2` by day.
+- In the example response, consecutive `datetime` values differ by `86400`, which matches one-day steps.
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

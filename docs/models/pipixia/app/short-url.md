@@ -62,13 +62,13 @@ Same call via the path form: `POST /v1/api/pipixia/app/short-url` with the body 
 
 ## Details
 
-Converts long links into shortened URLs using `original_url`. Useful for sharing clean links across social workflows.
+Returns a Pipixia short URL for a web address you send. It needs one input, `original_url`, which can be any link.
 
 ### Use cases
 
-- Convert long content links into compact URLs for easy sharing.
-- Transform external addresses into Pipixia short link format.
-- Prepare streamlined links for mobile app distribution.
+- Shorten a Pipixia post link such as `https://h5.pipix.com/item/7385813877985909043` before sharing it in a message or caption.
+- Convert external web addresses into the `https://h5.pipix.com/s/` short format.
+- Batch-generate compact links for a list of posts in a campaign report or share sheet.
 
 ### Request
 
@@ -79,19 +79,49 @@ curl -X POST "https://api.sandbase.ai/v1/api/pipixia/app/short-url" \
   -d '{"original_url": "https://h5.pipix.com/item/7385813877985909043"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
 |---|---|---|---|
 | `original_url` | string | Yes | Original URL, can be any link. |
 
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "data": {
+    "short_url": "https://h5.pipix.com/s/rFYPVXgqO3o/"
+  },
+  "message": "success",
+  "prompt": "",
+  "status_code": 0,
+  "time": 1793691714055
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `data.short_url` | The shortened link for the `original_url` you sent. It uses the `https://h5.pipix.com/s/<code>/` format. |
+| `status_code` | Result code of the call. `0` means the call succeeded. |
+| `message` | Short status text. It reads `success` when the call works. |
+| `prompt` | Extra prompt text. It is an empty string in the sample response. |
+| `time` | Numeric timestamp in the response. The sample value `1793691714055` has 13 digits. |
+
 ### Notes
 
-- The `original_url` parameter is required and accepts any web address.
+- Send `original_url` as a full address that starts with `https://`. A Pipixia post link has the form `https://h5.pipix.com/item/<post id>`.
+- Read the result from `data.short_url`. Check that `status_code` is `0` before you use it.
+- To look up the post behind a link, call [Pipixia Post Detail](/apis/pipixia/app/post-detail) with the post ID from the `/item/` path.
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

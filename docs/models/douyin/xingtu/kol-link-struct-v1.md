@@ -61,13 +61,14 @@ Same call via the path form: `POST /v1/api/douyin/xingtu/kol-link-struct-v1` wit
 
 ## Details
 
-Retrieve link structure details for a Douyin Xingtu creator using `kolId`.
+Returns the link structure for one Douyin Xingtu creator. The response has a link type label and five numbered entries with values, proportions and same-industry comparisons. The only input is the creator's `kolId`.
 
 ### Use cases
 
-- Analyze link structure details for specific Douyin creators.
-- Evaluate Douyin Xingtu KOL profile configurations.
-- Integrate creator link data into talent evaluation systems.
+- Check the `author_link_type` label of a creator before adding them to a Xingtu shortlist.
+- Compare the `proportion` split across entries 1 to 4 for different creators.
+- Compare a creator's `same_industry_median` numbers with the industry medians for the same entries.
+- Pull `rank_percent` for entry 5 to sort a list of candidate creators.
 
 ### Request
 
@@ -78,19 +79,77 @@ curl -X POST "https://api.sandbase.ai/v1/api/douyin/xingtu/kol-link-struct-v1" \
   -d '{"kolId": "7048929565493690398"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
 |---|---|---|---|
-| `kolId` | string | Yes | User kolId, can be obtained from the following interfaces: `douyin/xingtu/xingtu-kolid-by-uid`; `douyin/xingtu/xingtu-kolid-by-sec-user-id`; `douyin/xingtu/xin… |
+| `kolId` | string | Yes | User kolId, can be obtained from the following interfaces: `douyin/xingtu/xingtu-kolid-by-uid`; `douyin/xingtu/xingtu-kolid-by-sec-user-id`; `douyin/xingtu/xingtu-kolid-by-unique-id` |
+
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "author_link_type": "种草",
+  "base_resp": {
+    "status_code": 0,
+    "status_message": ""
+  },
+  "link_struct": {
+    "1": {
+      "proportion": 0.3,
+      "same_industry_median": 7393,
+      "value": 3
+    },
+    "2": {
+      "proportion": 0.2,
+      "same_industry_median": 1913,
+      "value": 2
+    },
+    "3": {
+      "proportion": 0.5,
+      "same_industry_median": 653,
+      "value": 5
+    },
+    "4": {
+      "proportion": 0,
+      "same_industry_median": 0,
+      "value": 0
+    },
+    "5": {
+      "rank_percent": 0.9634,
+      "relative_ratio": -0.2308,
+      "value": 10
+    }
+  }
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `author_link_type` | Text label for the creator's link type. The sample value is the Chinese label `种草`. |
+| `link_struct.1.value / link_struct.2.value / link_struct.3.value / link_struct.4.value` | Number for each of entries 1 to 4. In the sample they are 3, 2, 5 and 0. |
+| `link_struct.1.proportion / link_struct.2.proportion / link_struct.3.proportion / link_struct.4.proportion` | Share of each entry as a decimal. In the sample they are 0.3, 0.2, 0.5 and 0, and they add up to 1. |
+| `link_struct.1.same_industry_median / link_struct.2.same_industry_median / link_struct.3.same_industry_median / link_struct.4.same_industry_median` | Median for creators in the same industry, for each entry. Use it as a benchmark next to the creator's own numbers. |
+| `link_struct.5.value` | Number for entry 5. In the sample it is 10, which equals the sum of the values in entries 1 to 4. |
+| `link_struct.5.rank_percent` | Rank percentile for entry 5 as a decimal. The sample value is `0.9634`. |
+| `link_struct.5.relative_ratio` | Relative ratio for entry 5. The value can be negative, as in the sample `-0.2308`. |
+| `base_resp.status_code / base_resp.status_message` | Status of the request. A `status_code` of `0` with an empty `status_message` appears in the sample response. |
 
 ### Notes
 
-- Obtain `kolId` using the related Xingtu creator lookup endpoints via UID, sec_uid, or unique ID.
+- Get `kolId` from [Douyin XingTu KOL ID by User ID](/apis/douyin/xingtu/xingtu-kolid-by-uid), [Douyin XingTu kolId Lookup](/apis/douyin/xingtu/xingtu-kolid-by-sec-user-id) or [Douyin XingTu KOL ID by Unique ID](/apis/douyin/xingtu/xingtu-kolid-by-unique-id).
+- `kolId` is a numeric string, for example `7048929565493690398`.
+- The keys inside `link_struct` are the strings `1` to `5`. Entries 1 to 4 share one field set, and entry 5 uses `rank_percent` and `relative_ratio` instead.
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.02 per successful call. Failed calls are not charged.
 
 ### Related APIs
 

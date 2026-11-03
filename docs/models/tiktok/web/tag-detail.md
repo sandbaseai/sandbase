@@ -62,13 +62,14 @@ Same call via the path form: `POST /v1/api/tiktok/web/tag-detail` with the body 
 
 ## Details
 
-Use this endpoint to look up TikTok hashtag details by supplying a `tag_name`.
+Returns detail data for one TikTok hashtag, including its ID, title, and view and video counts. It needs one input: the hashtag name in `tag_name`, without the `#` sign.
 
 ### Use cases
 
-- Look up hashtag profile data on TikTok
-- Inspect metadata for specific topic tags
-- Monitor hashtag identifiers across platform web pages
+- Track how many views and videos a hashtag such as `openai` has gathered.
+- Convert a hashtag name into its numeric challenge ID for use in other tools.
+- Check whether a hashtag is marked as commercial before using it in a campaign.
+- Read the share title and description TikTok shows for a hashtag page.
 
 ### Request
 
@@ -79,6 +80,8 @@ curl -X POST "https://api.sandbase.ai/v1/api/tiktok/web/tag-detail" \
   -d '{"tag_name": "openai"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
@@ -87,22 +90,83 @@ curl -X POST "https://api.sandbase.ai/v1/api/tiktok/web/tag-detail" \
 
 ### Example response
 
-Real response for the request above, trimmed to the main fields. User names and long IDs are masked.
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
 
 ```json
 {
+  "challengeInfo": {
+    "challenge": {
+      "coverLarger": "",
+      "coverMedium": "",
+      "coverThumb": "",
+      "desc": "",
+      "id": "72988465",
+      "isCommerce": false,
+      "profileLarger": "",
+      "profileMedium": "",
+      "profileThumb": "",
+      "stats": {
+        "videoCount": 0,
+        "viewCount": 9100000000
+      },
+      "title": "openai"
+    },
+    "challengeAnnouncement": {
+      "body": "",
+      "title": ""
+    },
+    "stats": {
+      "videoCount": 0,
+      "viewCount": 9100000000
+    },
+    "statsV2": {
+      "videoCount": "377014",
+      "viewCount": "9077075330"
+    }
+  },
+  "cookie": "tt_chain…",
+  "extra": {
+    "fatal_item_ids": [],
+    "logid": "20261103154429F2959E7F1D151604ED12",
+    "now": 1793691870000
+  },
+  "log_pb": {
+    "impr_id": "20261103154429F2959E7F1D151604ED12"
+  },
+  "shareMeta": {
+    "desc": "Watch awesome short videos created with trending hashtag #openai",
+    "title": "#openai on TikTok"
+  },
   "statusCode": 0,
-  "status_code": 0
+  "status_code": 0,
+  "status_msg": "",
+  "tt_chain_token": "0k5cdiqY…"
 }
 ```
 
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `challengeInfo.challenge.id` | Numeric ID of the hashtag (challenge) as a string. |
+| `challengeInfo.challenge.title` | The hashtag name, shown without the `#` sign. |
+| `challengeInfo.challenge.isCommerce` | Boolean flag that shows whether the hashtag is marked as commercial. |
+| `challengeInfo.challenge.desc` | Hashtag description text. It is an empty string for this tag. |
+| `challengeInfo.statsV2.viewCount / challengeInfo.statsV2.videoCount` | Total views and total videos for the hashtag, returned as numeric strings. Prefer these over the `stats` fields, because `stats.videoCount` is `0` in this response. |
+| `challengeInfo.stats.viewCount / challengeInfo.stats.videoCount` | The same counts as plain numbers. `viewCount` looks rounded, and `videoCount` is `0` here. |
+| `challengeInfo.challenge.coverLarger / coverMedium / coverThumb` | Cover image URLs in three sizes. They are empty strings for this tag. |
+| `shareMeta.title / shareMeta.desc` | Title and description text TikTok uses when someone shares the hashtag page. |
+| `statusCode / status_msg` | Request status. `0` in `statusCode` means the call worked, and `status_msg` holds a message if there is one. |
+
 ### Notes
 
-- Requires `tag_name` to specify the target hashtag.
+- Pass the hashtag name as plain text in `tag_name`, for example `openai`.
+- Use `challengeInfo.statsV2` for counts, since the values in `challengeInfo.stats` can be `0` or rounded.
+- To list videos under a hashtag, call [TikTok Tag Posts](/apis/tiktok/web/tag-post).
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

@@ -62,13 +62,14 @@ Same call via the path form: `POST /v1/api/douyin/billboard/hot-total-high-like-
 
 ## Details
 
-Retrieve rankings of Douyin videos with high like rates using optional filters such as `tags`, `keyword`, and `date_window`.
+Returns a ranked list of Douyin videos on the high like rate billboard. Each item includes the video, its author, and engagement counts. All inputs are optional, so an empty request returns the first page of the billboard.
 
 ### Use cases
 
-- Identify top-performing Douyin videos with exceptional engagement rates.
-- Monitor viral video trends filtered by category tags or search keywords.
-- Inspect engagement metrics including follower growth rates and view durations.
+- Find Douyin videos that earn many likes relative to their plays.
+- Track which creators with small follower counts get strong engagement.
+- Filter the billboard by `keyword` or `tags` to study one content niche.
+- Compare the same ranking over an hourly and a daily window with `date_window`.
 
 ### Request
 
@@ -79,50 +80,81 @@ curl -X POST "https://api.sandbase.ai/v1/api/douyin/billboard/hot-total-high-lik
   -d '{}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
 |---|---|---|---|
-| `page` | integer | No | Page number |
-| `tags` | array | No | Sub-level vertical category tag, empty for all, multiple tags need to be passed in |
-| `keyword` | string | No | Search keyword to filter the billboard, empty for all |
-| `page_size` | integer | No | Number of items per page |
 | `date_window` | integer | No | Time window, 1 by hour 2 by day |
+| `keyword` | string | No | Search keyword to filter the billboard, empty for all |
+| `page` | integer | No | Page number |
+| `page_size` | integer | No | Number of items per page |
+| `tags` | array | No | Sub-level vertical category tag, empty for all, multiple tags need to be passed in |
 
 ### Example response
 
-Real response for the request above, trimmed to the main fields. User names and long IDs are masked.
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
 
 ```json
 {
+  "code": 0,
   "data": {
     "objs": [
       {
-        "fans_cnt": 7287,
+        "avatar_url": "https://p11.douyinpic.com/aweme/100x100/aweme-avatar/tos-cn-i-c9aec8xkvj_bcd40e4…",
+        "fans_cnt": 3105051,
         "favorite_id": 0,
-        "follow_cnt": 3774,
-        "follow_rate": 0.00029,
+        "follow_cnt": 2023,
+        "follow_rate": 0.000176,
         "image_cnt": 0,
-        "item_cover_url": "https://p3-sign.douyinpic.com/tos-cn-i-0813/o0Akye3HDQGhAD9UAwFAGA7OhEfYVABIEeAE…",
-        "item_duration": 13652,
-        "item_id": "7692681489309628406",
-        "item_title": "谁能翻译下😅#猫咪 #喵语 #猫咪的迷惑行为",
-        "item_url": "https://v11-cold1.douyinvod.com/91dceb8bc953f41a1e93392f24bfd743/6ac4f9c5/video/…"
+        "is_favorite": false,
+        "item_cover_url": "https://p3-sign.douyinpic.com/tos-cn-i-dy/0e589841a8d345298f6595376262a04f~tplv-…",
+        "item_duration": 72122,
+        "item_id": "7703456989958999305",
+        "item_title": "偶遇“sha人魔”并用电动滑板“严肃逃跑”吗？！#离谱 #逃跑 #心脏 #细思极恐",
+        "item_url": "https://v11-cold.douyinvod.com/e1c70a0a849acb06512bb2ab740e61ba/6ae99c3d/video/t…"
       }
-    ]
-  }
+    ],
+    "page": {
+      "page": 1,
+      "page_size": 10,
+      "total": 1000
+    }
+  },
+  "extra": {
+    "now": 1793691109000
+  },
+  "message": ""
 }
 ```
 
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `data.objs[].item_id` | ID of the video, as a string. |
+| `data.objs[].item_title` | Video caption, including its hashtags. |
+| `data.objs[].like_cnt / play_cnt` | Number of likes and number of plays for the video. |
+| `data.objs[].like_rate` | Likes divided by plays, as a decimal. For example, `0.059227` is about 5.9%. |
+| `data.objs[].score` | Ranking score for the video on this billboard. |
+| `data.objs[].nick_name` | Display name of the author. |
+| `data.objs[].fans_cnt / follow_cnt` | Follower count of the author and the `follow_cnt` count for the video's author. |
+| `data.objs[].follow_rate` | Follow rate for the video, as a decimal. |
+| `data.objs[].publish_time` | Publish time of the video as a Unix timestamp in seconds. |
+| `data.objs[].item_duration` | Length of the video. The values look like milliseconds. |
+| `data.page.total` | Total number of items in the billboard for the current filters. |
+
 ### Notes
 
-- Use `date_window` to set the time frame (1 for hourly, 2 for daily).
-- Supports pagination with `page` and `page_size`.
-- Leave `keyword` or `tags` empty to return billboard rankings across all categories.
+- Use `page` and `page_size` to paginate. The response echoes them in `data.page.page` and `data.page.page_size`.
+- `date_window` takes `1` for hourly or `2` for daily, per the parameter description.
+- To get values for `tags`, call [Douyin Billboard Vertical Content Tags](/apis/douyin/billboard/content-tag).
+- `item_cover_url` and `item_url` are signed links that carry an expiry in the URL, so save the media soon after you fetch it.
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

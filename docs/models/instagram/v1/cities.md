@@ -63,13 +63,14 @@ Same call via the path form: `POST /v1/api/instagram/v1/cities` with the body ab
 
 ## Details
 
-Look up cities and regions within a specific country by passing `country_code` and optional `page` parameters.
+Returns a paged list of Instagram cities and regions for one country. You pass a `country_code` such as `US`, and each city comes back with an `id`, a `name` and a `slug`.
 
 ### Use cases
 
-- Look up Instagram city identifiers for a target country.
-- Populate location filters based on country-level selections.
-- Browse regional location directories page by page.
+- Build a city picker for a chosen country using the returned `name` values.
+- Collect Instagram city `id` values to use in later location lookups.
+- Walk through every city of a country by requesting one page after another.
+- Match a city `slug` against your own location data.
 
 ### Request
 
@@ -80,36 +81,60 @@ curl -X POST "https://api.sandbase.ai/v1/api/instagram/v1/cities" \
   -d '{"country_code": "US"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
 |---|---|---|---|
-| `country_code` | string | Yes | Country code, e.g. |
+| `country_code` | string | Yes | Country code, e.g. US, CN, JP |
 | `page` | integer | No | Page number, default 1 |
 
 ### Example response
 
-Real response for the request above, trimmed to the main fields. User names and long IDs are masked.
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
 
 ```json
 {
+  "attempts": "0",
   "city_list": [
     {
       "id": "c2753900",
-      "name": "Downtown-PennQuarter-Chinatown"
+      "name": "Downtown-PennQuarter-Chinatown",
+      "slug": "downtown-pennquarter-chinatown-united-states"
     }
-  ]
+  ],
+  "country_info": {
+    "id": "US",
+    "name": "United States",
+    "slug": "united-states"
+  },
+  "next_page": 2,
+  "status": true
 }
 ```
 
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `city_list[].id` | Instagram identifier of the city or region. The sample values start with `c`, for example `c2420379`. |
+| `city_list[].name` | Name of the city or region. Spaces are removed in the sample values, for example `LosAngeles`. |
+| `city_list[].slug` | Lowercase, hyphenated name with the country name added at the end, for example `losangeles-united-states`. |
+| `country_info.id / country_info.name / country_info.slug` | Country that the list belongs to. In the sample, `id` is `US`, `name` is `United States` and `slug` is `united-states`. |
+| `next_page` | Number of the next page, `2` in the sample. Pass it as `page` to get more cities. |
+| `status` | Boolean that is `true` when the request succeeded. |
+
 ### Notes
 
-- The `country_code` parameter accepts two-letter country codes such as US, CN, or JP.
-- Use `page` for pagination, which defaults to 1.
+- `country_code` is required. It is a two-letter code such as `US`, `CN` or `JP`.
+- `page` starts at `1`. Send the `next_page` value from the response to get the following page.
+- The city `id` and `slug` values are location identifiers. To see the locations inside a city, try [Instagram City Locations](/apis/instagram/v1/locations).
+- To get details for a single location, call [Instagram Location Details (V1)](/apis/instagram/v1/location-info).
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

@@ -64,7 +64,14 @@ Same call via the path form: `POST /v1/api/tiktok/hashtag-videos` with the body 
 
 ## Details
 
-List recent TikTok videos for a hashtag (creator, caption, views, likes, shares).
+Returns a page of recent TikTok videos posted under a hashtag. Each video includes the creator, caption, hashtags, sound, and view, like, comment, share and save counts. The only required input is the `hashtag`, written without the # prefix.
+
+### Use cases
+
+- Track which creators and videos get the most views under a niche hashtag such as `cooking`.
+- Collect captions and co-used hashtags to find related tags for a content plan.
+- Compare `playCount` and `likeCount` across videos to spot posts that perform well for a topic.
+- Find which sounds are used most often in a hashtag's videos.
 
 ### Request
 
@@ -75,7 +82,7 @@ curl -X POST "https://api.sandbase.ai/v1/api/tiktok/hashtag-videos" \
   -d '{"limit": 3, "hashtag": "cooking"}'
 ```
 
-The result is returned in `outputs[0].data`. A lookup that finds nothing still succeeds and returns `found: false`.
+The result is returned in `outputs[0].data`.
 
 ### Parameters
 
@@ -86,9 +93,62 @@ The result is returned in `outputs[0].data`. A lookup that finds nothing still s
 | `limit` | integer | No | Maximum number of results to return (1-20, default 20). |
 | `requireFields` | array | No | Optional; omit it and routing is unchanged, with the cheapest source serving. Name the output fields this request must be able to return, for example `playCount`, and it is served only by a source that returns every one  |
 
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "data": {
+    "items": [
+      {
+        "authorFollowers": 251600,
+        "authorHandle": "gisellecooks_",
+        "authorImage": "https://p16-common-sign.tiktokcdn-eu.com/tos-maliva-avt-0068/a9c98a411138142ad07…",
+        "authorName": "gisellecooks",
+        "authorUserId": "6853687020456412166",
+        "authorVerified": false,
+        "collectCount": 477771,
+        "commentCount": 4304,
+        "createdUtc": 1789585739,
+        "durationSeconds": 60,
+        "hashtags": [
+          "smores"
+        ],
+        "id": "7686212146052549902"
+      }
+    ],
+    "nextCursor": "cur_5xH-mglA6e0Rvv0_mI_L-w"
+  },
+  "found": true
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `data.items[].id / data.items[].url` | The video ID and the link to the video page on TikTok. |
+| `data.items[].text` | The video caption, including its hashtags. |
+| `data.items[].hashtags[]` | Hashtag names used on the video, without the # prefix. The list can be empty. |
+| `data.items[].playCount / likeCount / commentCount / shareCount / collectCount` | Engagement counts for the video: plays, likes, comments, shares and saves. Values for large videos can be rounded. |
+| `data.items[].authorHandle / authorName / authorUserId` | The creator's handle, display name and numeric user ID. |
+| `data.items[].authorFollowers / authorVerified` | The creator's follower count and whether the account is verified. |
+| `data.items[].createdUtc / durationSeconds` | When the video was posted, as a Unix timestamp in seconds, and its length in seconds. |
+| `data.items[].soundTitle / soundAuthor / soundClipId` | The title, author and ID of the sound used in the video. |
+| `data.items[].videoUrl / image / authorImage` | Links to the video file, the cover image and the creator's avatar. |
+| `data.nextCursor` | Cursor for the next page of videos. |
+
+### Notes
+
+- Pass `hashtag` without the # prefix, for example `cooking`.
+- To get more videos, send `data.nextCursor` as `cursor` in the next request. `limit` accepts 1 to 20.
+- `requireFields` limits serving to a source that returns every field you name, such as `playCount` or `soundClipId`. It can raise the price of the call.
+- For a single video in more detail, use [TikTok Video Details](/apis/tiktok/app-v3/one-video). For tag-level stats, use [TikTok Hashtag Detail](/apis/tiktok/app-v3/hashtag-detail).
+
 ### Pricing
 
-Billed at the actual cost of each call, usually $0.0012 per request. A call can cost more when the first data source fails and another one answers. Failed calls are not charged. Lookups that find nothing and searches with no results are billed at their actual cost, which is often lower and can be $0.
+Billed at the actual cost of each call, about $0.0012 for the request above. Failed calls are not charged.
 
 ---
 Machine-readable: [`catalog/models/tiktok/hashtag-videos.json`](../../../catalog/models/tiktok/hashtag-videos.json) · Store page: https://www.sandbase.ai/model/tiktok/hashtag-videos

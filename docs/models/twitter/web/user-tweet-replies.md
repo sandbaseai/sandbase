@@ -63,13 +63,14 @@ Same call via the path form: `POST /v1/api/twitter/web/user-tweet-replies` with 
 
 ## Details
 
-Retrieve reply tweets from a designated account using the `screen_name` parameter. Pass a `cursor` value to paginate through earlier reply history.
+Returns a timeline of replies posted by one Twitter (X) user, plus that user's profile details. It needs the `screen_name` of the account, and you can pass a `cursor` to load the next page.
 
 ### Use cases
 
-- Monitor conversational engagement from a brand or competitor profile.
-- Archive customer support responses and thread interactions for a user.
-- Analyze communication patterns and reply volume across accounts.
+- Track how a brand account answers customers and which posts it replies under.
+- Collect the replies a public figure posts to build a record of their public conversations.
+- Compare reply engagement such as `favorites`, `retweets` and `views` across a user's recent replies.
+- Find the parent tweet of each reply through `in_reply_to_status_id_str` and `conversation_id`, then study the threads.
 
 ### Request
 
@@ -80,6 +81,8 @@ curl -X POST "https://api.sandbase.ai/v1/api/twitter/web/user-tweet-replies" \
   -d '{"screen_name": "NASA"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
@@ -89,36 +92,95 @@ curl -X POST "https://api.sandbase.ai/v1/api/twitter/web/user-tweet-replies" \
 
 ### Example response
 
-Real response for the request above, trimmed to the main fields. User names and long IDs are masked.
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
 
 ```json
 {
+  "next_cursor": "DAABCgABHWL0XC5__-oKAAIdPk6_s9rwAAgAAwAAAAIAAA",
   "timeline": [
     {
-      "conversation_id": "2107095768821576019",
-      "in_reply_to_status_id_str": "2107095768821576019",
-      "text": "@NASA I know this is a replay. My brain still does the little 'please work' thing.",
-      "tweet_id": "2107144593343189432",
-      "views": "4115",
       "author": {
+        "avatar": "https://pbs.twimg.com/profile_images/1321163587679784960/0ZxKlEKB_normal.jpg",
         "blue_verified": true,
-        "name": "Mohammed Siddiq",
-        "rest_id": "1913390828405628928",
-        "screen_name": "<user>"
-      }
+        "favourites_count": null,
+        "followers_count": null,
+        "name": "NASA",
+        "rest_id": "11348282",
+        "screen_name": "NASA"
+      },
+      "bookmarks": 22,
+      "conversation_id": "2117383753139925271",
+      "created_at": "Mon Nov 02 22:30:00 +0000 2026",
+      "entities": {
+        "urls": [
+          {
+            "display_url": "go.nasa.gov/3V2iiWX",
+            "expanded_url": "https://go.nasa.gov/3V2iiWX",
+            "url": "https://t.co/aqD1x7wzRq"
+          }
+        ]
+      },
+      "favorites": 470,
+      "in_reply_to_status_id_str": null,
+      "lang": "en",
+      "media": {
+        "photo": [
+          {
+            "id": "2117375637358882816",
+            "media_url_https": "https://pbs.twimg.com/media/HWJt7IDXsAAa7bN.jpg"
+          }
+        ]
+      },
+      "quotes": 6,
+      "replies": 39,
+      "retweets": 45
     }
-  ]
+  ],
+  "user": {
+    "affiliates": [],
+    "avatar": "https://pbs.twimg.com/profile_images/1321163587679784960/0ZxKlEKB_normal.jpg",
+    "blue_verified": true,
+    "business_account": {
+      "affiliates_count": 85
+    },
+    "created_at": "Wed Dec 19 20:20:32 +0000 2007",
+    "desc": "Making the seemingly impossible, possible. ✨",
+    "friends": 115,
+    "header_image": "https://pbs.twimg.com/profile_banners/11348282/1788992290",
+    "id": "11348282",
+    "location": "Pale Blue Dot",
+    "media_count": 28223,
+    "name": "NASA"
+  }
 }
 ```
 
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `timeline[].tweet_id` | ID of the tweet in the timeline, as a string. |
+| `timeline[].text` | Text of the tweet. Long text may be cut off with an ellipsis. |
+| `timeline[].created_at` | Post time as a text date, for example `Mon Nov 02 22:30:00 +0000 2026`. |
+| `timeline[].in_reply_to_status_id_str` | ID of the tweet this one replies to. It is `null` when the item is not a direct reply. |
+| `timeline[].conversation_id` | ID of the tweet that started the conversation thread. |
+| `timeline[].favorites / timeline[].retweets / timeline[].replies / timeline[].quotes / timeline[].bookmarks` | Engagement counts for the tweet. |
+| `timeline[].views` | View count for the tweet, returned as a string. |
+| `timeline[].author.screen_name / timeline[].author.name / timeline[].author.rest_id` | Handle, display name and numeric ID of the account that wrote the tweet. A timeline item can come from another account in the same thread. |
+| `user.rest_id / user.screen_name` | ID and handle of the account you looked up. |
+| `user.sub_count / user.statuses_count / user.friends` | Counts on the profile: `sub_count` is the subscriber count, `statuses_count` is the number of posts, and `friends` is the number of accounts it follows. |
+| `next_cursor` | Cursor token to send as `cursor` to get the next page. |
+
 ### Notes
 
-- `screen_name` can be extracted directly from a profile URL (for example, elonmusk from https://twitter.com/elonmusk).
-- Use the `cursor` returned from the prior response to navigate pagination.
+- Take `screen_name` from the profile URL. For https://twitter.com/NASA, use `NASA`.
+- For the next page, send the `next_cursor` value from the last response as `cursor`, with the same `screen_name`.
+- The timeline can include tweets from the looked-up user and from other accounts in the same thread. Check `timeline[].author.screen_name` to tell them apart.
+- To read the replies under a single tweet, use [Twitter (X) Tweet Comments](/apis/twitter/web/post-comments) with its `tweet_id`.
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

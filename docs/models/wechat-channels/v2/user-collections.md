@@ -63,13 +63,14 @@ Same call via the path form: `POST /v1/api/wechat-channels/v2/user-collections` 
 
 ## Details
 
-Retrieve all collections on a WeChat Channels creator profile using `username`. Provide `raw` to choose between raw and parsed response structures.
+Returns the video collections shown on a WeChat Channels creator homepage. It needs the creator's finder `username` (format `v2_…@finder`). Each collection includes its name, cover image, video count and identifiers.
 
 ### Use cases
 
-- Browse the video collections organized by a WeChat Channels creator.
-- Extract collection identifiers for subsequent video listing queries.
-- Audit playlist categorization across creator channel homepages.
+- List every collection a creator has published, with the video count of each.
+- Collect `categoryId` and `collectionTopicId` values to look up the videos inside a collection.
+- Sort a creator's collections by `lastUpdateTime` to see which series were updated most recently.
+- Compare how different creator accounts organize their content into series.
 
 ### Request
 
@@ -80,21 +81,70 @@ curl -X POST "https://api.sandbase.ai/v1/api/wechat-channels/v2/user-collections
   -d '{"username": "v2_060000231003b20faec8c6e4811dc1d4c602ee30b0771bbcf220c67926bb76ab7702ac335a53@finder"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
 |---|---|---|---|
-| `username` | string | Yes | WeChat Channels finder username (`v2_…@finder` format). |
-| `raw` | boolean | No | Optional, default True. |
+| `username` | string | Yes | WeChat Channels finder username (`v2_…@finder` format). E.g. `v2_060000231003b20faec8c6e4811dc1d4c602ee30b0771bbcf220c67926bb76ab7702ac335a53@finder` (People's Daily). |
+| `raw` | boolean | No | Optional, default True. True=raw response; False=simplified parsed structure. |
+
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "collectionCount": 7,
+  "collectionInfo": [
+    {
+      "businessType": 0,
+      "categoryId": "nfccid-14566193340220246217",
+      "collectionBuffer": "",
+      "collectionDesc": "",
+      "collectionEnterType": 0,
+      "collectionName": "习语",
+      "collectionTopicBuffer": "",
+      "collectionTopicId": 14566193340220246217,
+      "collectionTopicIdStr": "",
+      "collectionTopicType": 16,
+      "collectionType": 1,
+      "collectionTypeWording": ""
+    }
+  ],
+  "debug_id": "7363a780",
+  "debug_info": "gAAAAABq6ZEnBTcr8zbeDChUPRfoCE30pdi5gcf_eRfqmHzDu1qERb_xwThPiduf6y8tpuW9k5mhUM2T…",
+  "lastBuffer": "",
+  "pbRequestMsgInfo": null
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `collectionCount` | Total number of collections on the creator homepage. |
+| `collectionInfo[]` | One entry per collection. The response may list only some of the collections counted in `collectionCount`. |
+| `collectionInfo[].collectionName` | Display name of the collection. |
+| `collectionInfo[].categoryId` | Collection identifier as a string, in the form `nfccid-<digits>`. |
+| `collectionInfo[].collectionTopicId` | Numeric topic identifier of the collection. It matches the digits in `categoryId`. |
+| `collectionInfo[].feedCount` | Number of videos in the collection. |
+| `collectionInfo[].lastUpdateTime` | Time the collection was last updated, as a 10-digit Unix timestamp. |
+| `collectionInfo[].coverImgUrl` | URL of the collection cover image. |
+| `collectionInfo[].collectionDesc` | Collection description text. It is an empty string for the collections shown here. |
+| `lastBuffer` | Cursor-style string at the end of the response. It is empty in this response. |
 
 ### Notes
 
-- The `username` parameter requires the finder username format ending in `@finder`.
-- Set `raw` to false for a simplified parsed structure instead of the default raw response.
+- Get the `username` from a creator's Channel ID with [WeChat Channels ID to Username](/apis/wechat-channels/v2/channel-id-to-username).
+- Pass a collection's `categoryId` to [WeChat Channels Collection Videos](/apis/wechat-channels/v2/collection-videos) to list its videos.
+- Set `raw` to `false` to get a simplified parsed structure instead of the raw response shown here.
+- The response also contains `debug_id` and `debug_info`, which describe the request and not the creator.
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.01 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

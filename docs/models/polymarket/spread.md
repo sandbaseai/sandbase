@@ -62,9 +62,13 @@ Same call via the path form: `POST /v1/api/polymarket/spread` with the body abov
 
 ## Details
 
-Retrieves the spread for a specific token ID. The spread is the difference between the best ask and best bid prices.
+Returns the current spread for one Polymarket outcome token. The spread is the gap between the best ask price and the best bid price. You send one `token_id`.
 
-The response is the official Polymarket API response, unchanged.
+### Use cases
+
+- Check how tight the market is for an outcome token before placing an order.
+- Flag thin markets by filtering out tokens with a wide spread.
+- Track the spread of a token over time to see how the gap between bid and ask changes.
 
 ### Request
 
@@ -75,15 +79,41 @@ curl -X POST "https://api.sandbase.ai/v1/api/polymarket/spread" \
   -d '{"token_id": "32338220190071351435772801779725302244575775216413325951443816017994629993401"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
 |---|---|---|---|
 | `token_id` | string | Yes | Token ID (asset ID) |
 
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "spread": "0.001"
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `spread` | The difference between the best ask price and the best bid price for the token. |
+| `spread` | Returned as a decimal string. In the sample, `0.001` means the best ask and best bid are 0.001 apart. |
+| `spread` | A smaller value means the best bid and best ask sit closer together. A larger value means they sit further apart. |
+
+### Notes
+
+- The `token_id` is the long numeric asset ID of one outcome. Get it from [Polymarket Get market by slug](/apis/polymarket/markets-slug) or [Polymarket List markets](/apis/polymarket/markets).
+- The `spread` value is a string. Convert it to a number before you compare or calculate with it.
+- For the full list of bids and asks behind the spread, call [Polymarket Get order book](/apis/polymarket/book).
+
 ### Pricing
 
-Flat price per call. Failed calls are not charged.
+$0.012 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ---
 Machine-readable: [`catalog/models/polymarket/spread.json`](../../../catalog/models/polymarket/spread.json) · Store page: https://www.sandbase.ai/model/polymarket/spread

@@ -68,13 +68,14 @@ Same call via the path form: `POST /v1/api/douyin/search/image-search-v3` with t
 
 ## Details
 
-Query Douyin for image-text posts matching a target `keyword`. You can paginate through result sets using `cursor` and `search_id`.
+Returns Douyin image-text post search results for a keyword. Each result is a card with the post data, the author, and a rank. The only required input is `keyword`.
 
 ### Use cases
 
-- Search Douyin image-text posts for specific keywords or topics.
-- Track visual content trends and user posts across Douyin.
-- Retrieve image post identifiers for downstream content processing.
+- Collect image-text posts that match a topic such as `猫咪` to study what content ranks for it.
+- Build a list of author IDs and avatar images for accounts that post about a keyword.
+- Page through all results for a keyword with `cursor` and `search_id` to build a larger sample.
+- Store the `data_id` values to track which posts appear for a keyword over time.
 
 ### Request
 
@@ -84,6 +85,8 @@ curl -X POST "https://api.sandbase.ai/v1/api/douyin/search/image-search-v3" \
   -H "Content-Type: application/json" \
   -d '{"keyword": "猫咪"}'
 ```
+
+The result is returned in `outputs[0].data`.
 
 ### Parameters
 
@@ -95,39 +98,138 @@ curl -X POST "https://api.sandbase.ai/v1/api/douyin/search/image-search-v3" \
 
 ### Example response
 
-Real response for the request above, trimmed to the main fields. User names and long IDs are masked.
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
 
 ```json
 {
+  "business_config": {
+    "ad_info": null,
+    "card_count": 7,
+    "extra_fresh_struct": null,
+    "feedback": null,
+    "feelgood_msg": {},
+    "filter_bar": null,
+    "general_search_config": {
+      "double_column_layout_type": 3
+    },
+    "has_more": 1,
+    "is_filter_search": 0,
+    "keyword": "猫咪",
+    "next_page": {
+      "cursor": 8,
+      "keyword": "猫咪",
+      "origin_query": "猫咪",
+      "poi_search_info": "",
+      "search_id": "202611031532178EA25612545EC9B86A9F",
+      "search_request_id": "202611031532178EA25612545EC9B86A9F"
+    },
+    "poi_search_info": ""
+  },
   "business_data": [
     {
       "card_id": "douyin.doctype_aweme_image",
-      "data_id": "0_7693107447376465529",
-      "type": 12,
       "data": {
+        "aweme_info": {
+          "activity_video_type": 0,
+          "ai_follow_images": null,
+          "ai_search_struct": {
+            "show_ai_entrance": true
+          },
+          "anchors": null,
+          "authentication_token": "MS4wLjAA…",
+          "author": {
+            "accept_private_policy": false,
+            "account_region": "",
+            "ad_cover_url": null,
+            "allow_story_normal_like": false,
+            "apple_account": 0,
+            "authority_status": 0,
+            "avatar_168x168": {
+              "height": 720,
+              "uri": "168x168/aweme-avatar/tos-cn-avt-0015_db24175ed4fad5b8c3189ec252d41369",
+              "url_list": [
+                "https://p3.douyinpic.com/img/aweme-avatar/tos-cn-avt-0015_db24175ed4fad5b8c3189e…"
+              ],
+              "width": 720
+            },
+            "avatar_300x300": {
+              "height": 720,
+              "uri": "300x300/aweme-avatar/tos-cn-avt-0015_db24175ed4fad5b8c3189ec252d41369",
+              "url_list": [
+                "https://p3.douyinpic.com/img/aweme-avatar/tos-cn-avt-0015_db24175ed4fad5b8c3189e…"
+              ],
+              "width": 720
+            }
+          },
+          "author_mask_tag": 0,
+          "author_user_id": 4338007174810816
+        },
+        "aweme_list": null,
         "card_id": "douyin.doctype_aweme_image",
+        "card_style_type": 1,
         "card_type": 1,
-        "doc_type": 303,
-        "provider_doc_id": 7693107447376465529,
-        "provider_doc_id_str": "7693107447376465529",
-        "type": 1
+        "debug_data": {
+          "filter_debug_info_list": null
+        },
+        "debug_diff_info": {},
+        "doc_type": 303
       },
+      "data_id": "0_7693825739632053071",
       "log": {
-        "rank": "1"
-      }
+        "dcm": "search.natural.aweme_image.7693825739632053071.202611031532178EA25612545EC9B86A9…",
+        "rank": "1",
+        "search_id": "202611031532178EA25612545EC9B86A9F"
+      },
+      "type": 12
     }
-  ]
+  ],
+  "extra": {
+    "fatal_item_ids": [],
+    "logid": "202611031532178EA25612545EC9B86A9F",
+    "now": 1793691138000,
+    "scenes": null,
+    "search_request_id": "202611026F72F7399D796ABC"
+  },
+  "global_config": {},
+  "log": {
+    "impr_id": "202611031532178EA25612545EC9B86A9F",
+    "search_id": "202611031532178EA25612545EC9B86A9F",
+    "search_keyword": "猫咪"
+  },
+  "log_pb": {
+    "impr_id": "202611031532178EA25612545EC9B86A9F"
+  },
+  "status_code": 0,
+  "time_cost": {
+    "stream_inner": 1094
+  }
 }
 ```
 
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `business_data[]` | One search result card. The list holds the image-text posts returned for this page. |
+| `business_data[].data_id` | Result identifier. It starts with the zero-based position in the list, then an underscore, then a long numeric post ID. |
+| `business_data[].log.rank` | Position of the result in the search, as a string. The first result is `"1"`. |
+| `business_data[].data.aweme_info.author_user_id` | Numeric ID of the account that posted the content. |
+| `business_data[].data.aweme_info.author.avatar_168x168.url_list / business_data[].data.aweme_info.author.avatar_300x300.url_list` | Avatar image URLs for the author at 168x168 and 300x300. Each list has a `webp` and a `jpeg` link. |
+| `business_data[].data.aweme_info.authentication_token` | Long token string attached to the post. The response gives no description of what it is used for. |
+| `business_config.has_more` | Shows whether more results exist. `1` means you can request another page. |
+| `business_config.next_page.cursor / business_config.next_page.search_id` | Values to send in the next request to get the following page. |
+| `business_config.card_count` | Number of cards the response reports for this page. |
+
 ### Notes
 
-- Set `cursor` to 0 on the first request.
-- Pass the `search_id` from a previous response to paginate through additional results.
+- Set `cursor` to `0` and leave `search_id` empty on the first request.
+- For the next page, send `business_config.next_page.cursor` as `cursor` and `business_config.next_page.search_id` as `search_id`. Keep the same `keyword`.
+- Stop paging when `business_config.has_more` is not `1`.
+- For a different result mix, try [Douyin Image Search](/apis/douyin/search/image-search) or [Douyin General Search](/apis/douyin/search/general-search-v1).
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.01 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

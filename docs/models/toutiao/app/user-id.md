@@ -62,13 +62,13 @@ Same call via the path form: `POST /v1/api/toutiao/app/user-id` with the body ab
 
 ## Details
 
-Look up account identifiers from a Toutiao user profile link by passing `user_profile_url`.
+This API takes a Toutiao user profile URL and returns the numeric `user_id` and the `sec_user_id` for that account. It needs one input, `user_profile_url`.
 
 ### Use cases
 
-- Convert web profile links into Toutiao user IDs for downstream queries.
-- Retrieve sec_user_id values needed for Toutiao data integrations.
-- Resolve account identifiers from shared Toutiao user links.
+- Convert a shared Toutiao profile link into a `user_id` before you look up the account.
+- Extract the `sec_user_id` from a profile link to use in other Toutiao requests.
+- Match profile links collected from different sources to the same account by comparing `user_id` values.
 
 ### Request
 
@@ -79,6 +79,8 @@ curl -X POST "https://api.sandbase.ai/v1/api/toutiao/app/user-id" \
   -d '{"user_profile_url": "https://www.toutiao.com/c/user/token/MS4wLjABAAAAwK6echNksY69R8l2vcZudupfhTItbGSGt-8ineO5UaB4L-djqkYDgB6TkAdMvrmW/"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
@@ -87,22 +89,30 @@ curl -X POST "https://api.sandbase.ai/v1/api/toutiao/app/user-id" \
 
 ### Example response
 
-Real response for the request above, trimmed to the main fields. User names and long IDs are masked.
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
 
 ```json
 {
-  "sec_user_id": "<user>",
-  "user_id": "<user>"
+  "sec_user_id": "MS4wLjABAAAAwK6echNksY69R8l2vcZudupfhTItbGSGt-8ineO5UaB4L-djqkYDgB6TkAdMvrmW",
+  "user_id": "1352838578180211"
 }
 ```
 
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `user_id` | Numeric ID of the Toutiao account. It is returned as a string. |
+| `sec_user_id` | Secure user ID for the same account. In the example, it matches the token segment at the end of the profile URL. |
+
 ### Notes
 
-- Requires the full profile link in `user_profile_url`.
+- Pass the full profile link in `user_profile_url`. The example uses the form `https://www.toutiao.com/c/user/token/<token>/`.
+- To get profile details such as name, bio and follower counts, send the returned `user_id` to [Toutiao User Profile](/apis/toutiao/app/user-info).
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

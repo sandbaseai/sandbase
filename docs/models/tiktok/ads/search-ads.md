@@ -71,13 +71,14 @@ Same call via the path form: `POST /v1/api/tiktok/ads/search-ads` with the body 
 
 ## Details
 
-Query TikTok Creative Center ad cases using parameters like `keyword`, `industry`, and `country_code`. Returns matching ad materials along with engagement metrics and video details.
+Searches TikTok Creative Center ad materials and returns a page of matching ads with titles, brand names, like counts, click-through rates and video details. No input is required. You can narrow results with `keyword`, `industry`, `country_code`, `period` and other filters.
 
 ### Use cases
 
-- Discover top-performing video ad campaigns across specific industries.
-- Analyze competitive creative strategies by keyword and country.
-- Benchmark ad performance metrics such as like counts and video durations.
+- Find the most liked video ads in one industry for a given country.
+- Search a keyword to see how competing brands word their ad titles.
+- Collect cover images and video files of ads for a creative swipe file.
+- Compare `ctr` and `like` across ads with different campaign objectives.
 
 ### Request
 
@@ -88,62 +89,105 @@ curl -X POST "https://api.sandbase.ai/v1/api/tiktok/ads/search-ads" \
   -d '{}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
 |---|---|---|---|
-| `like` | integer | No | Like count filter, 1=All |
-| `page` | integer | No | Page number, default 1 |
-| `limit` | integer | No | Items per page, default 20, max 50 |
-| `period` | integer | No | Time period in days, e.g., 7, 30, 120, 180 days |
-| `keyword` | string | No | Search keyword, optional, returns all ads if empty |
-| `duration` | string | No | 视频时长筛选值（可选）/Video duration filter value (optional) |
-| `industry` | string | No | Industry ID list, multiple IDs separated by commas. |
-| `order_by` | string | No | Sort method, "for_you"=Recommended, "likes"=Sort by likes |
 | `ad_format` | integer | No | Ad format, 1=Video ads |
-| `objective` | integer | No | Ad objective, 1=All |
-| `search_id` | string | No | Search ID (optional) |
 | `ad_language` | string | No | Ad language code, e.g., en, zh |
 | `country_code` | string | No | Country code, e.g., US, UK, JP |
+| `duration` | string | No | 视频时长筛选值（可选）/Video duration filter value (optional) |
+| `industry` | string | No | Industry ID list, multiple IDs separated by commas. |
+| `keyword` | string | No | Search keyword, optional, returns all ads if empty |
+| `like` | integer | No | Like count filter, 1=All |
+| `limit` | integer | No | Items per page, default 20, max 50 |
+| `objective` | integer | No | Ad objective, 1=All |
+| `order_by` | string | No | Sort method, "for_you"=Recommended, "likes"=Sort by likes |
+| `page` | integer | No | Page number, default 1 |
 | `pattern_label` | string | No | 创意趋势标签（可选）/Creative pattern label (optional) |
+| `period` | integer | No | Time period in days, e.g., 7, 30, 120, 180 days |
+| `search_id` | string | No | Search ID (optional) |
 
 ### Example response
 
-Real response for the request above, trimmed to the main fields. User names and long IDs are masked.
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
 
 ```json
 {
+  "code": 0,
   "data": {
     "materials": [
       {
-        "ad_title": "Upgrade your dog's gear",
-        "brand_name": "Tactipup",
-        "id": "7172587525965332482",
-        "like": 69817,
+        "ad_title": "Prism Pavilion — every item earns its place",
+        "brand_name": "wondermart",
+        "cost": 2,
+        "ctr": 0.16,
+        "favorite": false,
+        "id": "7164467399885864962",
+        "industry_key": "label_15100000000",
+        "is_search": true,
+        "like": 36951,
+        "objective_key": "campaign_objective_traffic",
+        "tag": 1,
         "video_info": {
-          "duration": 29.92
+          "cover": "https://p16-common-sign.tiktokcdn.com/tos-useast2a-p-0051c799-euttp/ocZdEUNYLDA0…",
+          "duration": 17.904,
+          "height": 1024,
+          "vid": "v14033g50000d7nteivog65o65kvtj6g",
+          "video_url": {
+            "360p": "https://v16m-default.tiktokcdn.com/3880605c9b6dfc909a49f6d67c0fc8ad/6ae9e52b/vid…",
+            "480p": "https://v16m-default.tiktokcdn.com/08003f78c06f5df8e4e3a125013dd0d7/6ae9e52b/vid…",
+            "540p": "https://v16m-default.tiktokcdn.com/b4f69654b8cbb8170275f69bfc79d20f/6ae9e52b/vid…",
+            "720p": "https://v16m-default.tiktokcdn.com/a2fa185eb2001a03e614595a0bc26843/6ae9e52b/vid…"
+          },
+          "width": 576
         }
       }
-    ]
-  }
+    ],
+    "pagination": {
+      "has_more": true,
+      "page": 1,
+      "size": 20,
+      "total_count": 400
+    }
+  },
+  "msg": "OK"
 }
 ```
 
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `data.materials[].id` | ID of the ad material. Pass it to other ad APIs that ask for a material ID. |
+| `data.materials[].ad_title / data.materials[].brand_name` | Title text of the ad and the name of the brand that runs it. |
+| `data.materials[].like` | Like count of the ad. |
+| `data.materials[].ctr` | Click-through rate value of the ad, as a number such as `0.16`. |
+| `data.materials[].cost` | Cost level value of the ad, returned as a small integer such as `2`. |
+| `data.materials[].industry_key / data.materials[].objective_key` | Industry label code and campaign objective of the ad, for example `campaign_objective_traffic`. |
+| `data.materials[].video_info.cover` | URL of the cover image of the ad video. |
+| `data.materials[].video_info.duration / data.materials[].video_info.width / data.materials[].video_info.height` | Length of the video, and its frame width and height. |
+| `data.materials[].video_info.video_url` | Video file URLs keyed by resolution, such as `720p`. Some ads list only one resolution. |
+| `data.pagination.has_more / data.pagination.total_count` | Whether more pages exist, and the total number of matching ads. |
+
 ### Notes
 
-- Use `limit` (max 50, default 20) and `page` (default 1) for pagination.
-- `order_by` accepts `for_you` for recommendations or `likes` to sort by engagement.
-- `industry` accepts a comma-separated list of industry IDs.
+- Page through results with `page` and `limit`. The response `data.pagination` shows the current `page` and `size`.
+- Set `order_by` to `likes` to sort by like count, or `for_you` for recommended order.
+- Pass several industry IDs in `industry` separated by commas.
+- Use `id` from `data.materials[]` with [TikTok Ad Percentile Rankings](/apis/tiktok/ads/ad-percentile) or [TikTok Ad Keyframe Analysis](/apis/tiktok/ads/ad-keyframe-analysis) for deeper analysis of one ad.
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 
-- [TikTok Ad Interactive Analysis](/model/tiktok/ads/ad-interactive-analysis): Returns audience retention and interaction analytics across video timestamps for a specified ad creative.
-- [TikTok Ad Keyframe Analysis](/model/tiktok/ads/ad-keyframe-analysis): Returns keyframe performance metrics across video ad timestamps for a specified material ID, including retention and conversion figures.
-- [TikTok Ad Material Percentile Rankings](/model/tiktok/ads/ad-percentile): Returns ad performance percentile rankings within the industry for a specific ad material.
+- [TikTok Ad Interactive Analysis](/apis/tiktok/ads/ad-interactive-analysis): Returns audience retention and interaction analytics across video timestamps for a specified ad creative.
+- [TikTok Ad Keyframe Analysis](/apis/tiktok/ads/ad-keyframe-analysis): Returns keyframe performance metrics across video ad timestamps for a specified material ID, including retention and conversion figures.
+- [TikTok Ad Material Percentile Rankings](/apis/tiktok/ads/ad-percentile): Returns ad performance percentile rankings within the industry for a specific ad material.
 
 ---
 Machine-readable: [`catalog/models/tiktok/ads/search-ads.json`](../../../../catalog/models/tiktok/ads/search-ads.json) · Store page: https://www.sandbase.ai/model/tiktok/ads/search-ads

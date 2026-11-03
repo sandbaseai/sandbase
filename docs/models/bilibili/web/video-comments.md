@@ -65,13 +65,14 @@ Same call via the path form: `POST /v1/api/bilibili/web/video-comments` with the
 
 ## Details
 
-Retrieve user comments and replies for a specific Bilibili video using `bv_id`. You can paginate through comment threads using the `pn` parameter.
+Returns one page of top-level comments for a Bilibili video, with a few preview replies under each comment. It needs the video's BV ID in `bv_id` and takes an optional page number in `pn`.
 
 ### Use cases
 
-- Analyze viewer feedback and engagement on a video.
-- Monitor top comments and user interactions on specific content.
-- Collect discussion data across multiple video comment pages.
+- Pull the most liked comments on a video to see what viewers react to.
+- Track how many replies a comment thread has gathered by reading `rcount` on each comment.
+- Collect comment text from several pages of a video for sentiment or topic analysis.
+- Find the user IDs of active commenters, then look up their profiles.
 
 ### Request
 
@@ -82,6 +83,8 @@ curl -X POST "https://api.sandbase.ai/v1/api/bilibili/web/video-comments" \
   -d '{"bv_id": "BV1M1421t7hT"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
@@ -91,45 +94,111 @@ curl -X POST "https://api.sandbase.ai/v1/api/bilibili/web/video-comments" \
 
 ### Example response
 
-Real response for the request above, trimmed to the main fields. User names and long IDs are masked.
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
 
 ```json
 {
+  "code": 0,
   "data": {
+    "assist": 0,
+    "blacklist": 0,
+    "config": {
+      "read_only": false,
+      "show_up_flag": true,
+      "showtopic": 1
+    },
+    "control": {
+      "answer_guide_android_url": "https://www.bilibili.com/h5/newbie/entry?navhide=1&re_src=6",
+      "answer_guide_icon_url": "http://i0.hdslb.com/bfs/emote/96940d16602cacbbac796245b7bb99fa9b5c970c.png",
+      "answer_guide_ios_url": "https://www.bilibili.com/h5/newbie/entry?navhide=1&re_src=12",
+      "answer_guide_text": "需要升级成为lv2会员后才可以评论，先去答题转正吧！",
+      "bg_text": "",
+      "child_input_text": "天青色等烟雨，评论区在等你",
+      "disable_jump_emote": false,
+      "empty_page": null,
+      "enable_charged": false,
+      "enable_cm_biz_helper": false,
+      "giveup_input_text": "不发没关系，请继续友善哦~",
+      "input_disable": false
+    },
+    "folder": {
+      "has_folded": false,
+      "is_folded": false,
+      "rule": ""
+    },
+    "mode": 3,
+    "page": {
+      "acount": 2258,
+      "count": 2258,
+      "num": 1,
+      "size": 20
+    },
     "replies": [
       {
+        "action": 0,
+        "assist": 0,
+        "attr": 0,
+        "content": {
+          "jump_url": {},
+          "max_line": 6,
+          "members": [],
+          "message": "惩治谣言，任重道远啊。现在造谣的成本还是有点低"
+        },
         "count": 47,
         "ctime": 1723373621,
+        "dialog": 0,
+        "dialog_str": "0",
         "dynamic_id_str": "0",
-        "like": 2301,
-        "rcount": 34,
-        "type": 1,
-        "member": {
-          "rank": "10000",
-          "uname": "笑chu腹肌"
+        "fansgrade": 0,
+        "folder": {
+          "has_folded": false,
+          "is_folded": false,
+          "rule": ""
         },
-        "reply_control": {
-          "sub_reply_entry_text": "共34条回复",
-          "sub_reply_title_text": "相关回复共34条",
-          "time_desc": "786天前发布"
-        },
-        "up_action": {
-          "like": false
-        }
+        "invisible": false
       }
-    ]
-  }
+    ],
+    "support_mode": [
+      2
+    ],
+    "top": null,
+    "upper": {
+      "mid": 19286458,
+      "top": null,
+      "vote": null
+    },
+    "vote": 0
+  },
+  "message": "OK",
+  "ttl": 1
 }
 ```
 
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `data.page.count / data.page.acount` | Total number of comments on the video. |
+| `data.page.num / data.page.size` | Current page number and the number of comments per page. |
+| `data.replies[].content.message` | Text of the top-level comment. |
+| `data.replies[].like` | Number of likes on the comment. |
+| `data.replies[].rcount / data.replies[].count` | Reply counts for the comment. `rcount` matches the number in `reply_control.sub_reply_entry_text` (for example "共34条回复"). |
+| `data.replies[].ctime` | Time the comment was posted, as a Unix timestamp in seconds. |
+| `data.replies[].rpid_str / data.replies[].mid_str` | ID of the comment and ID of the user who wrote it, as strings. |
+| `data.replies[].oid_str` | ID of the video the comment belongs to. This is the numeric ID, not the BV ID. |
+| `data.replies[].member.avatar` | URL of the commenter's avatar image. |
+| `data.replies[].replies[].content.message` | Text of a preview reply under the comment. Only a few replies appear here, not the full thread. |
+
 ### Notes
 
-- Specify the target video using its identifier in `bv_id`.
-- Use `pn` to paginate through comment results.
+- Take `bv_id` from a Bilibili video URL. It starts with `BV`, for example `BV1M1421t7hT`.
+- Send `pn` to page through comments. It starts at 1, and the response shows the current page in `data.page.num` and the page size in `data.page.size`.
+- To read all replies under one comment, call [Bilibili Comment Replies](/apis/bilibili/web/comment-reply). Use the comment's `rpid_str` and the video's `oid_str`.
+- To get the numeric video ID from a BV ID, call [Bilibili BV to AID Converter](/apis/bilibili/web/bv-to-aid).
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

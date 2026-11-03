@@ -68,7 +68,14 @@ Same call via the path form: `POST /v1/api/secform4/company-insider-trading` wit
 
 ## Details
 
-Returns the full insider trading history for a specific company identified by its SEC CIK number. Includes all buy, sell, and option transactions filed in Form 4s for the company.
+Returns insider trading transactions from Form 4 filings for one company, identified by its SEC CIK number. Each row lists the insider, the trade size, the price, and a link to the filing. The only input is `cik`.
+
+### Use cases
+
+- Track which executives at a company sold or bought shares in recent weeks.
+- Total the dollar value of insider sales for one company over a period.
+- Open the original Form 4 filing for any transaction to check the details.
+- Watch the holdings of a named officer after each reported trade.
 
 ### Request
 
@@ -79,7 +86,7 @@ curl -X POST "https://api.sandbase.ai/v1/api/secform4/company-insider-trading" \
   -d '{"cik": "320193"}'
 ```
 
-This API runs asynchronously. The call returns a task `id` with status `pending`; poll `GET https://api.sandbase.ai/v1/run/{id}` until `status` is `completed` and read the result from `outputs[0].data`.
+The result is returned in `outputs[0].data`.
 
 ### Parameters
 
@@ -87,9 +94,59 @@ This API runs asynchronously. The call returns a task `id` with status `pending`
 |---|---|---|---|
 | `cik` | string | Yes | SEC CIK number of the company (e.g. '320193' for Apple Inc, '789019' for Microsoft) |
 
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "data": {
+    "items": [
+      {
+        "average_price": "$343.36",
+        "company": "Apple Inc.",
+        "filing": "View",
+        "filing_url": "https://www.secform4.com/filings/320193/0001140361-26-041201.htm",
+        "insider_relationship": "Newstead Jennifer SVP, GC and Government Affairs",
+        "insider_relationship_url": "https://www.secform4.com/insider-trading/1780525.htm",
+        "reported_datetime": "2026-10-29 6:30 pm",
+        "shares_owned": "32,396 (Direct)",
+        "shares_traded": "2,399",
+        "symbol": "AAPL",
+        "symbol_url": "https://www.secform4.com/#S2",
+        "total_amount": "$823,721"
+      }
+    ]
+  },
+  "status": "success"
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `data.items[].insider_relationship` | The insider's name followed by their role at the company, for example `SVP, GC and Government Affairs`. |
+| `data.items[].insider_relationship_url` | Link to the page for this insider on the source site. |
+| `data.items[].transaction_date` | The date of the trade followed by the transaction type, for example `2026-10-27 Sale`. |
+| `data.items[].reported_datetime` | The date and time the transaction was reported. |
+| `data.items[].shares_traded` | Number of shares in the transaction. |
+| `data.items[].average_price` | Average price per share for the transaction, as a string with a `$` sign. |
+| `data.items[].total_amount` | Total dollar value of the transaction, as a string with a `$` sign. |
+| `data.items[].shares_owned` | Shares the insider holds after the trade, with the ownership type in brackets, for example `(Direct)`. |
+| `data.items[].filing_url` | Link to the Form 4 filing for this transaction. |
+| `data.items[].symbol / data.items[].company` | The ticker symbol and company name for the row. |
+
+### Notes
+
+- Find the `cik` for a company with [SECForm4 Search](/apis/secform4/search). Apple Inc is `320193` and Microsoft is `789019`.
+- All values in each item are strings, including prices, amounts and share counts. Remove the `$` and commas before doing math.
+- The trimmed response shows no pagination parameter. The request takes only `cik`.
+- For market-wide lists, see [SECForm4 Insider Buys](/apis/secform4/insider-buys) and [SECForm4 Insider Sales](/apis/secform4/insider-sales).
+
 ### Pricing
 
-Flat price per call. Failed calls are not charged.
+$0.01 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ---
 Machine-readable: [`catalog/models/secform4/company-insider-trading.json`](../../../catalog/models/secform4/company-insider-trading.json) · Store page: https://www.sandbase.ai/model/secform4/company-insider-trading

@@ -58,13 +58,14 @@ Same call via the path form: `POST /v1/api/weibo/web-v2/city-list` with the body
 
 ## Details
 
-Call this endpoint to retrieve the list of provinces and cities on Weibo. Configure `normalized` to select between raw or normalized regional hierarchy formats.
+Returns a list of provinces and the cities inside each one, as used on Weibo. Each entry has a numeric `code` and a Chinese `name`. The only input is the optional `normalized` boolean, so you can send an empty body.
 
 ### Use cases
 
-- Populate regional dropdown filters for Weibo content analytics.
-- Map user location records against standardized Chinese administrative divisions.
-- Standardize geographical search queries within Weibo automation workflows.
+- Fill a province and city dropdown in a tool that filters Weibo data by region.
+- Match region codes found in Weibo user data to province and city names.
+- Build a lookup table from region `code` values to Chinese place names.
+- Check that a city name is spelled the way Weibo spells it before you use it in a query.
 
 ### Request
 
@@ -75,6 +76,8 @@ curl -X POST "https://api.sandbase.ai/v1/api/weibo/web-v2/city-list" \
   -d '{}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
@@ -83,25 +86,45 @@ curl -X POST "https://api.sandbase.ai/v1/api/weibo/web-v2/city-list" \
 
 ### Example response
 
-Real response for the request above, trimmed to the main fields. User names and long IDs are masked.
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
 
 ```json
 {
   "provinces": [
     {
+      "cities": [
+        {
+          "code": 0,
+          "name": "城市/地区"
+        }
+      ],
+      "code": 0,
       "name": "省/直辖市"
     }
   ]
 }
 ```
 
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `provinces[]` | One entry for each province or municipality. Each entry holds its own `code` and `name` and a list of `cities`. |
+| `provinces[].code` | Numeric code of the province or municipality. For example, `34` is 安徽 and `11` is 北京. |
+| `provinces[].name` | Province or municipality name in Chinese. |
+| `provinces[].cities[]` | The cities or districts that belong to this province. |
+| `provinces[].cities[].code` | Numeric code of the city or district. The value counts up from `1` inside each province, so the same code can appear under different provinces. |
+| `provinces[].cities[].name` | City or district name in Chinese, such as 合肥 or 东城区. |
+
 ### Notes
 
-- The `normalized` parameter defaults to true and controls whether the regional structure is normalized.
+- The first province entry has `code` `0` and the name 省/直辖市. Its only city has `code` `0` and the name 城市/地区. These look like placeholder labels for a dropdown, not real places.
+- City `code` values are only unique inside one province. Keep the province `code` together with the city `code` when you store a location.
+- The `normalized` parameter defaults to `true`. The request in this example sent `{}`, so it used the default.
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

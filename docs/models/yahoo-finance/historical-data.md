@@ -69,7 +69,14 @@ Same call via the path form: `POST /v1/api/yahoo-finance/historical-data` with t
 
 ## Details
 
-Extract historical OHLCV price data for a single ticker over a configurable date range and interval. Returns timestamped records suitable for charting and technical analysis.
+Returns historical price records for one stock ticker on Yahoo Finance. Each record has open, high, low, close and volume values with a timestamp. The only required input is `symbol`, and you can set `range` and `interval` to change the window and spacing.
+
+### Use cases
+
+- Plot a candlestick chart for AAPL from the returned `open`, `high`, `low` and `close` values.
+- Compute moving averages or other technical indicators over the closing price series.
+- Compare trading volume across days to spot unusually active sessions.
+- Export daily price history for a ticker into a spreadsheet or backtesting tool.
 
 ### Request
 
@@ -80,7 +87,7 @@ curl -X POST "https://api.sandbase.ai/v1/api/yahoo-finance/historical-data" \
   -d '{"symbol": "AAPL"}'
 ```
 
-This API runs asynchronously. The call returns a task `id` with status `pending`; poll `GET https://api.sandbase.ai/v1/run/{id}` until `status` is `completed` and read the result from `outputs[0].data`.
+The result is returned in `outputs[0].data`.
 
 ### Parameters
 
@@ -90,9 +97,53 @@ This API runs asynchronously. The call returns a task `id` with status `pending`
 | `interval` | string | No | Data interval granularity. |
 | `range` | string | No | Date range for historical data. |
 
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "data": {
+    "currency": "USD",
+    "history": [
+      {
+        "close": 269.04998779296875,
+        "high": 270.8500061035156,
+        "low": 266.25,
+        "open": 270.4200134277344,
+        "timestamp": 1762180200,
+        "volume": 50194600
+      }
+    ],
+    "symbol": "AAPL"
+  },
+  "status": "success"
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `data.symbol` | The ticker symbol the history belongs to, such as `AAPL`. |
+| `data.currency` | The currency code of the price values, such as `USD`. |
+| `data.history[]` | One price record per interval, listed in order from oldest to newest. |
+| `data.history[].timestamp` | The start time of the record as a Unix timestamp in seconds. |
+| `data.history[].open / data.history[].close` | The first and last price of the interval. |
+| `data.history[].high / data.history[].low` | The highest and lowest price reached during the interval. |
+| `data.history[].volume` | The number of shares traded during the interval. |
+| `status` | Shows `success` when the request worked. |
+
+### Notes
+
+- `symbol` is the stock ticker. If you do not know it, use [Yahoo Finance Search Tickers](/apis/yahoo-finance/search-tickers) to find it.
+- `timestamp` values are Unix seconds. Convert them to dates before charting.
+- Price values are floats with many decimal places. Round them for display.
+- For the latest price instead of a series, call [Yahoo Finance Quote](/apis/yahoo-finance/quote).
+
 ### Pricing
 
-Flat price per call. Failed calls are not charged.
+$0.05 per successful call. Failed calls are not charged.
 
 ---
 Machine-readable: [`catalog/models/yahoo-finance/historical-data.json`](../../../catalog/models/yahoo-finance/historical-data.json) · Store page: https://www.sandbase.ai/model/yahoo-finance/historical-data

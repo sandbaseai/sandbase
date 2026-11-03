@@ -62,13 +62,13 @@ Same call via the path form: `POST /v1/api/tiktok/web/generate-hashed-id` with t
 
 ## Details
 
-Produces a hashed identifier for TikTok Web workflows using a target `email` address. Pass the required `email` parameter to obtain the hashed ID value.
+Returns a hashed identifier for an email address, as used by TikTok Web. It needs one input, the `email` string. The response holds a single `hashed_id` value.
 
 ### Use cases
 
-- Look up hashed identifiers using user email addresses.
-- Prepare hashed identity values for TikTok Web workflows.
-- Convert email addresses into TikTok-compatible hashed IDs.
+- Turn a plain email address into a `hashed_id` before you use it in a TikTok Web workflow.
+- Compare `hashed_id` values for a list of emails without keeping the raw addresses in your own records.
+- Build a lookup table that maps each email in your user list to its `hashed_id`.
 
 ### Request
 
@@ -79,19 +79,40 @@ curl -X POST "https://api.sandbase.ai/v1/api/tiktok/web/generate-hashed-id" \
   -d '{"email": "test@example.com"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
 |---|---|---|---|
 | `email` | string | Yes | Email address |
 
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "hashed_id": "7dd39e8713c40837f6ca56a44ba13da737eb608737b40e0b3c4975528c607309"
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `hashed_id` | The hashed identifier calculated from the `email` you sent. |
+| `hashed_id` | The value is a lowercase hexadecimal string, 64 characters long. |
+| `hashed_id` | This is the only field in the response, so you can read it straight from the top level of the JSON object. |
+
 ### Notes
 
-- `email` is a required string parameter.
+- Send the address in the `email` parameter as a plain string. The call has no other parameters, so there is no pagination.
+- For other TikTok Web identifiers, see [TikTok Web ID](/apis/tiktok/web/generate-webid) and [TikTok Web TTWID Identifier](/apis/tiktok/web/generate-ttwid).
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

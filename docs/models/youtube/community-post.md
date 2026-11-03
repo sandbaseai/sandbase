@@ -61,7 +61,14 @@ Same call via the path form: `POST /v1/api/youtube/community-post` with the body
 
 ## Details
 
-Fetch a single YouTube community post by URL (text, images, channel, publish time).
+Returns one YouTube community post: its text, image URLs, like count, publish time and the channel that posted it. It needs the full URL of the post in the `url` parameter.
+
+### Use cases
+
+- Archive the text and images of a creator announcement before it is edited or deleted.
+- Track the like count of a single community post over time.
+- Match a post URL from a mention or report to its channel handle and channel ID.
+- Pull the image URL from a post to show a preview in a monitoring dashboard.
 
 ### Request
 
@@ -72,7 +79,7 @@ curl -X POST "https://api.sandbase.ai/v1/api/youtube/community-post" \
   -d '{"url": "https://www.youtube.com/post/Ugkx1LonSRBBUqASv-J8j9_FesxwlMAhT3_e"}'
 ```
 
-The result is returned in `outputs[0].data`. A lookup that finds nothing still succeeds and returns `found: false`.
+The result is returned in `outputs[0].data`.
 
 ### Parameters
 
@@ -80,9 +87,53 @@ The result is returned in `outputs[0].data`. A lookup that finds nothing still s
 |---|---|---|---|
 | `url` | string | Yes | URL of the YouTube community post. |
 
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "data": {
+    "channelHandle": "MrBeast",
+    "channelId": "UCX6OQ3DkcsbYNE6H8uQQuVA",
+    "channelTitle": "MrBeast",
+    "content": "All the YouTube Play Buttons",
+    "createdUtc": 1783064892,
+    "id": "Ugkx1LonSRBBUqASv-J8j9_FesxwlMAhT3_e",
+    "image": "https://yt3.ggpht.com/GuMi512thU6CHTFw1kYlRISWYQmCyn90qa9JmrV2p6oj0K8v05z-omlruh…",
+    "images": [
+      "https://yt3.ggpht.com/GuMi512thU6CHTFw1kYlRISWYQmCyn90qa9JmrV2p6oj0K8v05z-omlruh…"
+    ],
+    "likeCount": 2000000,
+    "publishedTime": "4 months ago"
+  },
+  "found": true
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `found` | `true` when the post exists. A lookup that finds nothing returns `false`. |
+| `data.id` | ID of the community post. It is the last part of the post URL. |
+| `data.content` | Text of the post. |
+| `data.image / images[]` | URL of the post image, and the list of all image URLs attached to the post. |
+| `data.likeCount` | Number of likes on the post. |
+| `data.createdUtc` | Creation time of the post as a Unix timestamp. Compare it with `publishedTime` before you rely on it. |
+| `data.publishedTime` | Relative publish time as YouTube shows it, for example `4 months ago`. |
+| `data.channelId / channelHandle / channelTitle` | ID, handle and display name of the channel that posted. |
+
+### Notes
+
+- Pass a post URL in the form `https://www.youtube.com/post/<id>`. The `id` in the response matches the last part of this URL.
+- Use `channelId` with [YouTube Channel](/apis/youtube/channel) to get details about the posting channel.
+- To list more posts from the same channel, call [YouTube Channel Community Posts](/apis/youtube/channel-community-posts).
+- To read the replies to a post, call [YouTube Community Post Comments](/apis/youtube/web-v2/post-comments).
+
 ### Pricing
 
-Billed at the actual cost of each call, usually $0.0012 per request. A call can cost more when the first data source fails and another one answers. Failed calls are not charged. Lookups that find nothing and searches with no results are billed at their actual cost, which is often lower and can be $0.
+Billed at the actual cost of each call, about $0.0012 for the request above. Failed calls are not charged.
 
 ---
 Machine-readable: [`catalog/models/youtube/community-post.json`](../../../catalog/models/youtube/community-post.json) · Store page: https://www.sandbase.ai/model/youtube/community-post

@@ -65,9 +65,14 @@ Same call via the path form: `POST /v1/api/fred/release` with the body above min
 
 ## Details
 
-Get Release from FRED. Returns the official FRED API response unchanged.
+Returns details for one FRED data release, such as its name, its public link, and whether it has a press release. It needs a `release_id`, for example `53` for Gross Domestic Product.
 
-The response is the official FRED API response, unchanged.
+### Use cases
+
+- Show the name and source link of a release when you display a FRED series.
+- Check whether a release is published with a press release before you build a news alert.
+- Turn a stored `release_id` into a readable release name for a dashboard or report.
+- Send users from a release ID to the publisher's page for the full data.
 
 ### Request
 
@@ -78,18 +83,60 @@ curl -X POST "https://api.sandbase.ai/v1/api/fred/release" \
   -d '{"release_id": 53, "file_type": "json"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
 |---|---|---|---|
+| `release_id` | integer | Yes | The id for a release. integer, required |
 | `file_type` | string | No | Response format. Only json is supported. |
 | `realtime_end` | string | No | The end of the real-time period. For more information, see Real-Time Periods . YYYY-MM-DD formatted string, optional, default: today's date |
 | `realtime_start` | string | No | The start of the real-time period. For more information, see Real-Time Periods . YYYY-MM-DD formatted string, optional, default: today's date |
-| `release_id` | integer | Yes | The id for a release. integer, required |
+
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "realtime_end": "2026-11-02",
+  "realtime_start": "2026-11-02",
+  "releases": [
+    {
+      "id": 53,
+      "link": "https://www.bea.gov/data/gdp/gross-domestic-product",
+      "name": "Gross Domestic Product",
+      "press_release": true,
+      "realtime_end": "2026-11-02",
+      "realtime_start": "2026-11-02"
+    }
+  ]
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `releases[]` | List of matching releases. A request for one `release_id` returns one item. |
+| `releases[].id` | Numeric ID of the release. It matches the `release_id` you sent. |
+| `releases[].name` | Name of the release, for example `Gross Domestic Product`. |
+| `releases[].link` | URL of the release page on the publisher's website. |
+| `releases[].press_release` | `true` if the release is a press release, `false` if not. |
+| `releases[].realtime_start / releases[].realtime_end` | Start and end dates of the real-time period for this release, in `YYYY-MM-DD` format. |
+| `realtime_start / realtime_end` | Start and end dates of the real-time period used for the request. Both default to today's date. |
+
+### Notes
+
+- Set `release_id` as an integer. To find IDs, call [FRED Get Releases](/apis/fred/releases), or call [FRED Series Release](/apis/fred/series-release) to get the release for a series.
+- Use [FRED Get Release Dates](/apis/fred/release-dates) to see the dates on which this release is published.
+- Use [FRED Get Release Series](/apis/fred/release-series) to list the series that belong to this release.
+- Dates use the `YYYY-MM-DD` format. `file_type` accepts only `json`.
 
 ### Pricing
 
-Flat price per call. Failed calls are not charged.
+$0.00001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ---
 Machine-readable: [`catalog/models/fred/release.json`](../../../catalog/models/fred/release.json) · Store page: https://www.sandbase.ai/model/fred/release

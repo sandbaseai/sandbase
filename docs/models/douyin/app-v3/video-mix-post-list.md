@@ -64,13 +64,14 @@ Same call via the path form: `POST /v1/api/douyin/app-v3/video-mix-post-list` wi
 
 ## Details
 
-Retrieve video posts included in a Douyin mix playlist by supplying `mix_id`. Supports sequential paging using `cursor`.
+Returns the video posts that belong to one Douyin mix (a video compilation). You send a `mix_id` and get a page of posts with author, hashtag and permission data. Paging uses `cursor`.
 
 ### Use cases
 
-- Retrieve all videos compiled under a specific Douyin mix.
-- Track sequential episodes or series posted within a collection.
-- Extract video identifiers and metadata for a curated playlist.
+- List every episode in a Douyin compilation to build a full watch order.
+- Collect the `aweme_id` values of a mix, then fetch each video's details or statistics.
+- Check which hashtags a creator attaches to the videos in one series.
+- Check whether the posts in a mix allow comments, forwarding and sharing.
 
 ### Request
 
@@ -80,6 +81,8 @@ curl -X POST "https://api.sandbase.ai/v1/api/douyin/app-v3/video-mix-post-list" 
   -H "Content-Type: application/json" \
   -d '{"mix_id": "7384792941870450726"}'
 ```
+
+The result is returned in `outputs[0].data`.
 
 ### Parameters
 
@@ -91,52 +94,122 @@ curl -X POST "https://api.sandbase.ai/v1/api/douyin/app-v3/video-mix-post-list" 
 
 ### Example response
 
-Real response for the request above, trimmed to the main fields. User names and long IDs are masked.
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
 
 ```json
 {
   "aweme_list": [
     {
       "activity_video_type": -1,
-      "author_user_id": 2557909361237356,
-      "aweme_id": "7384478157656673562",
-      "aweme_type": 0,
-      "bodydance_score": 0,
-      "boost_status": 0,
-      "caption_template_id": 0,
-      "cf_assets_type": 0,
-      "create_time": 1719332130,
-      "desc": "变量的大小为何很重要？ #编程 #编译原理",
       "admire_auth": {
-        "author_can_admire": 0
+        "admire_button": 1,
+        "author_can_admire": 0,
+        "exit_admire_in_aweme_post": 0,
+        "is_admire": 0,
+        "is_click_admire_icon_recently": 0,
+        "is_fifty_admire_author_stable_fans": 0,
+        "is_iron_fans_in_aweme_post": 0,
+        "is_show_admire_button": 0
       },
+      "ai_follow_images": null,
       "ancestor_info": {
-        "product_id": 32
+        "gid": 7384475272541635072,
+        "product_id": 32,
+        "uid": 3326402489
       },
+      "anchors": null,
+      "authentication_token": "MS4wLjAA…",
       "author": {
+        "accept_private_policy": false,
+        "account_region": "",
+        "ad_cover_url": null,
+        "allow_story_normal_like": false,
         "apple_account": 0,
         "authority_status": 0,
-        "aweme_count": 103,
-        "close_friend_type": 0,
-        "comment_filter_status": 0,
-        "contacts_status": 2
+        "avatar_168x168": {
+          "height": 720,
+          "uri": "168x168/aweme-avatar/tos-cn-i-0813_ooQ2tkQ4kDVFApMfIA8eW6A0AfIFfANnCa8h1D",
+          "url_list": [
+            "https://p3.douyinpic.com/img/aweme-avatar/tos-cn-i-0813_ooQ2tkQ4kDVFApMfIA8eW6A0…"
+          ],
+          "width": 720
+        },
+        "avatar_300x300": {
+          "height": 720,
+          "uri": "300x300/aweme-avatar/tos-cn-i-0813_ooQ2tkQ4kDVFApMfIA8eW6A0AfIFfANnCa8h1D",
+          "url_list": [
+            "https://p3.douyinpic.com/img/aweme-avatar/tos-cn-i-0813_ooQ2tkQ4kDVFApMfIA8eW6A0…"
+          ],
+          "width": 720
+        }
       },
-      "comment_permission_info": {
-        "comment_permission_status": 0
+      "author_mask_tag": 0,
+      "author_user_id": 2557909361237356,
+      "aweme_control": {
+        "can_comment": true,
+        "can_forward": true,
+        "can_share": true,
+        "can_show_comment": true
+      },
+      "aweme_id": "7384478157656673562",
+      "aweme_listen_struct": {
+        "listen_diversion": {
+          "extra": [
+            {
+              "key": "new_guide_prefix",
+              "val": "下载汽水"
+            }
+          ],
+          "popup_scene": 4,
+          "side_desc": "听更多精彩内容",
+          "sub_title_type": "relation"
+        },
+        "music_cover_listen": 1,
+        "trace_info": "{\"copyright_not_speech\":\"false\",\"copyright_reason\":\"has_listen_cp_new\",\"copyrigh…"
       }
     }
-  ]
+  ],
+  "cursor": 15,
+  "extra": {
+    "fatal_item_ids": [],
+    "logid": "20261103153142D21BE2032677DA43D82A",
+    "now": 1793691102000
+  },
+  "has_more": 1,
+  "item_id_to_episode": "{\"7384477694525836595\":2,\"7384478157656673562\":1,\"7384480323989556506\":3,\"738479…",
+  "log_pb": {
+    "impr_id": "20261103153142D21BE2032677DA43D82A"
+  },
+  "min_cursor": 0,
+  "status_code": 0,
+  "status_msg": ""
 }
 ```
 
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `aweme_list[]` | One entry per video post in the mix. |
+| `aweme_list[].aweme_id` | ID of the video post, returned as a string. |
+| `aweme_list[].author_user_id` | Numeric ID of the account that posted the video. |
+| `aweme_list[].author.avatar_168x168.url_list / avatar_300x300.url_list` | Avatar image URLs for the author at the 168x168 and 300x300 sizes. Each list holds a `webp` and a `jpeg` link. |
+| `aweme_list[].cha_list[].cha_name / cid` | Name and ID of a hashtag attached to the video. |
+| `aweme_list[].aweme_control.can_comment / can_forward / can_share` | Flags that show whether viewers can comment on, forward or share the post. |
+| `aweme_list[].commerce_info.is_ad` | Shows whether the post is marked as an ad. |
+| `aweme_list[].aweme_type` | Numeric post type code. The sample posts all return `0`. |
+| `aweme_list[].comment_gid` | ID used for the comments of the post. It matches `aweme_id` in the sample. |
+
 ### Notes
 
-- Use `cursor` for pagination, starting with 0 on the first call and passing the cursor value returned in the prior response.
-- Keep `count` at its default value to avoid unexpected issues.
+- `mix_id` is a string of digits, for example `7384792941870450726`.
+- Send `cursor` as `0` for the first page. For the next page, pass the cursor value from the previous response.
+- Leave `count` at its default value. The parameter description warns that changing it causes bugs.
+- To look at the mix itself, call [Douyin Video Mix Detail](/apis/douyin/app-v3/video-mix-detail). To get numbers for a single post, pass its `aweme_id` to [Douyin Video Statistics](/apis/douyin/app-v3/video-statistics).
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

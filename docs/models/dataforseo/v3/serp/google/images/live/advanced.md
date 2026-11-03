@@ -59,13 +59,14 @@ Same call via the path form: `POST /v1/api/dataforseo/v3/serp/google/images/live
 
 ## Details
 
-Retrieve real-time Google Images search engine result pages. Inspect returned image ranking positions, source URLs, and visual search features.
+Returns Google Images search results for a keyword, with the rank, title, source site and image links for each result. It needs a `keyword`, and you can set `location_code` and `language_code` to choose the market.
 
 ### Use cases
 
-- Track visual search rankings across Google Images.
-- Analyze competitor imagery and source domains in image search results.
-- Extract rich metadata from visual SERP layouts.
+- Track which pages and brands appear in Google Images for a product keyword in a given country.
+- Compare the `source_url` domains of the top image results to see which sites win visual search.
+- Collect image titles and alt text to review how competitors describe their product images.
+- Check the related carousel topics Google shows for a query, such as brand names, to find new keyword ideas.
 
 ### Request
 
@@ -76,19 +77,110 @@ curl -X POST "https://api.sandbase.ai/v1/api/dataforseo/v3/serp/google/images/li
   -d '{"keyword": "running shoes", "location_code": 2840, "language_code": "en"}'
 ```
 
+The result is returned in `outputs[0]`.
+
 ### Parameters
 
-The JSON body is forwarded to the upstream endpoint (one task per call). Fields used above:
+| Name | Type | Required | Description |
+|---|---|---|---|
+| `keyword` | string | No | Search query. |
+| `language_code` | string | No | Language code, e.g. "en". |
+| `location_code` | integer | No | Location code, e.g. 2840 for the United States. |
 
-| Name | Description |
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "status_code": 20000,
+  "status_message": "Ok.",
+  "tasks": [
+    {
+      "data": {
+        "api": "serp",
+        "device": "desktop",
+        "function": "live",
+        "keyword": "running shoes",
+        "language_code": "en",
+        "location_code": 2840,
+        "os": "windows",
+        "se": "google"
+      },
+      "id": "11030829-1614-0139-0000-2f06afcc5851",
+      "path": [
+        "v3"
+      ],
+      "result": [
+        {
+          "check_url": "https://www.google.com/search?q=running%20shoes&udm=2&hl=en&gl=US&gws_rd=cr&ie=U…",
+          "datetime": "2026-11-03 08:29:38 +00:00",
+          "item_types": [
+            "images_search"
+          ],
+          "items": [
+            {
+              "items": [
+                {
+                  "image_url": "https://api.dataforseo.com/cdn/i/11030829-1614-0139-0000-2f06afcc5851:0",
+                  "subtitle": null,
+                  "title": "Nike",
+                  "type": "carousel_element"
+                }
+              ],
+              "page": 1,
+              "position": "left",
+              "rank_absolute": 1,
+              "rank_group": 1,
+              "rectangle": null,
+              "title": null,
+              "type": "carousel"
+            }
+          ],
+          "items_count": 105,
+          "keyword": "running shoes",
+          "language_code": "en",
+          "location_code": 2840
+        }
+      ],
+      "result_count": 1,
+      "status_code": 20000,
+      "status_message": "Ok.",
+      "time": "8.7524 sec."
+    }
+  ],
+  "tasks_count": 1,
+  "tasks_error": 0,
+  "time": "8.8263 sec.",
+  "version": "0.1.20261022"
+}
+```
+
+### Response fields
+
+| Field | Meaning |
 |---|---|
-| `keyword` | Search query. |
-| `location_code` | Location code, e.g. 2840 for the United States. |
-| `language_code` | Language code, e.g. "en". |
+| `tasks[].result[].items[]` | One block on the results page. The `type` value tells you what it is, such as `images_search` for an image result or `carousel` for a row of related topics. |
+| `tasks[].result[].items[].rank_absolute / rank_group` | `rank_absolute` is the position of the block among all blocks on the page. `rank_group` is the position among blocks of the same `type`. |
+| `tasks[].result[].items[].title / alt` | The title and alt text of an image result. |
+| `tasks[].result[].items[].subtitle` | The site or brand name shown under the image, for example `Runner's World`. |
+| `tasks[].result[].items[].source_url` | The address of the image file on the site that hosts it. |
+| `tasks[].result[].items[].encoded_url` | A Google-hosted thumbnail address for the image. |
+| `tasks[].result[].items[].items[].title / image_url` | The label and image link of each entry inside a `carousel` block. |
+| `tasks[].result[].item_types` | The block types found on this results page, such as `images_search`, `related_searches` and `carousel`. |
+| `tasks[].result[].items_count` | The number of items found for the query. |
+| `tasks[].result[].check_url` | The Google Images search address that matches this request. |
+
+### Notes
+
+- The `type` field changes which keys an item has. `images_search` items have `source_url` and `encoded_url`, while `carousel` items hold their entries in a nested `items` list.
+- Results are nested under `tasks[].result[]`. A single call returns one task, and `tasks[].id` is the ID of that task.
+- `datetime` on each result is formatted like `2026-11-03 08:29:38 +00:00`.
+- Use `location_code` 2840 for the United States and `language_code` `en` for English.
 
 ### Pricing
 
-Billed at the actual cost of each call, about $0.002 for the request above. The cost grows with the number of rows, targets or pages a call returns. `depth` sets how many result pages are fetched. Extra crawled pages, pixel rankings, async AI overview, People Also Ask clicks and search operators (site:, intitle: ...) are not supported. Failed calls are not charged. Searches with no results are billed at their actual cost.
+Billed at the actual cost of each call, about $0.002 for the request above. Failed calls are not charged.
 
 ### Related APIs
 

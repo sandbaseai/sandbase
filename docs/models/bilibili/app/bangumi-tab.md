@@ -52,13 +52,14 @@ Same call via the path form: `POST /v1/api/bilibili/app/bangumi-tab` with the bo
 
 ## Details
 
-Retrieve Bilibili app bangumi tab content, including anime recommendations and featured series listings without requiring input parameters.
+Returns the layout of the Bilibili app bangumi tab: banner modules, function entry buttons, and region links. The request takes no parameters, so you send an empty JSON object.
 
 ### Use cases
 
-- Display curated anime recommendations from the Bilibili app.
-- Track featured bangumi titles and season promotions.
-- Populate anime discovery feeds in client applications.
+- Capture the current banner lineup on the bangumi tab and the episode each banner links to.
+- Read the `link` and `episode_id` of each banner item to find which anime episodes the app is promoting.
+- List the region shortcuts, such as 番剧 and 国创, with their icons and in-app deep links.
+- Compare the module layout of the tab over time by storing `module_id`, `style` and `title`.
 
 ### Request
 
@@ -69,9 +70,108 @@ curl -X POST "https://api.sandbase.ai/v1/api/bilibili/app/bangumi-tab" \
   -d '{}'
 ```
 
+The result is returned in `outputs[0].data`.
+
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "code": 0,
+  "message": "success",
+  "result": {
+    "hot": {
+      "desc": "查看更多",
+      "items": [],
+      "title": "热点推荐",
+      "wid": 0
+    },
+    "modules": [
+      {
+        "attr": {
+          "follow": 0,
+          "header": 0,
+          "random": 0
+        },
+        "headers": [],
+        "items": [
+          {
+            "badge_info": {
+              "bg_color": "",
+              "bg_color_night": "",
+              "text": ""
+            },
+            "cover": "http://i0.hdslb.com/bfs/bangumi/image/c030ff67970da5e456dc16af0cb1242880ab8b2c.p…",
+            "episode_id": 424179,
+            "is_preview": 0,
+            "item_id": 150352,
+            "link": "https://www.bilibili.com/bangumi/play/ep424179",
+            "oid": 424179,
+            "report": {
+              "card_type": "banner",
+              "item_id": "150352",
+              "module_id": "83",
+              "module_type": "banner",
+              "oid": "https://www.bilibili.com/bangumi/play/ep424179"
+            }
+          }
+        ],
+        "module_id": 83,
+        "report": {
+          "module_id": "83",
+          "module_type": "banner"
+        },
+        "size": 6,
+        "style": "banner",
+        "title": "新版banner",
+        "type": 1,
+        "wid": [
+          283
+        ]
+      }
+    ],
+    "regions": [
+      {
+        "icon": "http://i0.hdslb.com/bfs/bangumi/image/2e6f9066e4eb5f30d75a28c3bcaa7541dad5c95d.p…",
+        "report": {
+          "card_type": "function",
+          "item_id": "24386",
+          "module_id": "241",
+          "module_type": "function"
+        },
+        "title": "全部内容",
+        "url": "bilibili://pgc/bangumi/index"
+      }
+    ]
+  }
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `code / message` | Status of the call. `code` is `0` and `message` is `success` when the request works. |
+| `result.modules[]` | List of content blocks on the tab. Each block holds a group of items and has its own layout settings. |
+| `result.modules[].module_id / style / title` | ID, layout style and name of the module. Seen styles include `banner`, `function` and `tip`. |
+| `result.modules[].items[].cover` | URL of the cover image for the item. |
+| `result.modules[].items[].link` | Target of the item. It is a web URL for banner items or a `bilibili://` app link for function items. |
+| `result.modules[].items[].episode_id / oid` | Episode ID for banner items. In the banner items shown, both fields hold the same value. |
+| `result.modules[].items[].title` | Label of a function item, for example 番剧, 国创 or 时间表. Banner items do not carry this field. |
+| `result.regions[].title / icon / url` | Name, icon image URL and in-app deep link for each region shortcut on the tab. |
+| `result.hot.title / result.hot.items[]` | Title of the hot recommendation section and its items. `items` was empty in this response. |
+
+### Notes
+
+- The endpoint has no request parameters. Send `{}` as the body.
+- Some modules, such as the `tip` module, can return an empty `items` list.
+- Banner `link` values point to a play page in the form `https://www.bilibili.com/bangumi/play/ep<episode_id>`.
+- To look at other app tabs, call [Bilibili App Cinema Tab](/apis/bilibili/app/cinema-tab) or [Bilibili App Home Feed](/apis/bilibili/app/home-feed).
+
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

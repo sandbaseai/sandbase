@@ -61,13 +61,14 @@ Same call via the path form: `POST /v1/api/douyin/web/user-following-list` with 
 
 ## Details
 
-Fetch the accounts followed by a user using `sec_user_id`. Pagination is supported through `max_time` alongside `source_type` adjustments.
+Returns the list of accounts that a Douyin user follows. It needs the target user's `sec_user_id` and returns one page of followed accounts with paging timestamps.
 
 ### Use cases
 
-- Inspect the list of profiles followed by a specific user.
-- Map user interest graphs by tracking followed creator profiles.
-- Audit account connections and relationship networks across audiences.
+- Pull the creators a specific Douyin account follows to see what that user is interested in.
+- Build a follow graph by walking the accounts followed by a seed user.
+- Check whether a brand or business account (see `account_cert_info`) appears among the accounts a user follows.
+- Collect avatar images and video counts for followed accounts to fill a dashboard.
 
 ### Request
 
@@ -77,6 +78,8 @@ curl -X POST "https://api.sandbase.ai/v1/api/douyin/web/user-following-list" \
   -H "Content-Type: application/json" \
   -d '{}'
 ```
+
+The result is returned in `outputs[0].data`.
 
 ### Parameters
 
@@ -89,44 +92,71 @@ curl -X POST "https://api.sandbase.ai/v1/api/douyin/web/user-following-list" \
 
 ### Example response
 
-Real response for the request above, trimmed to the main fields. User names and long IDs are masked.
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
 
 ```json
 {
+  "extra": {
+    "fatal_item_ids": [],
+    "logid": "202611031532315C2777D33738AB243FBF",
+    "now": 1793691152000
+  },
   "followings": [
     {
-      "account_cert_info": "{}",
-      "apple_account": 0,
-      "authority_status": 0,
-      "aweme_count": 222,
-      "comment_filter_status": 0,
-      "create_time": 1591592883,
-      "favoriting_count": 690,
-      "fb_expire_time": 0,
-      "follow_status": 0,
-      "follower_count": 143488,
-      "original_musician": {
-        "digg_count": 0,
-        "music_count": 0,
-        "music_used_count": 0
-      },
-      "search_impr": {
-        "entity_id": "1257480849466808"
-      }
+      "accept_private_policy": false,
+      "account_cert_info": null,
+      "account_region": "",
+      "account_type": null,
+      "activity": null,
+      "activity_label": null,
+      "ad_cover_title": null,
+      "ad_cover_url": null,
+      "ad_order_id": null,
+      "age_gate_action": null,
+      "age_gate_post_action": null,
+      "age_gate_time": null
     }
-  ]
+  ],
+  "has_more": true,
+  "hotsoon_has_more": 0,
+  "hotsoon_text": "",
+  "log_pb": {
+    "impr_id": "202611031532315C2777D33738AB243FBF"
+  },
+  "max_time": 1793329603,
+  "min_time": 1788086525,
+  "mix_count": 436,
+  "myself_user_id": "1185696462159498",
+  "offset": 0,
+  "rec_has_more": false
 }
 ```
 
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `followings[]` | One followed account per item. Each item holds profile and avatar data for that account. |
+| `followings[].aweme_count` | Number of videos the followed account has posted. |
+| `followings[].account_cert_info` | JSON string with account certification flags. For example `{"is_biz_account":1}` marks a business account. It is `null` when no flags are set. |
+| `followings[].avatar_thumb / avatar_168x168 / avatar_300x300 / avatar_medium / avatar_larger` | Avatar images in different sizes. Each has a `url_list` with image URLs, plus `uri`, `width` and `height`. |
+| `followings[].avatar_uri` | Storage path of the avatar image for the followed account. |
+| `followings[].aweme_control` | Flags such as `can_comment`, `can_forward` and `can_share` that show what viewers may do with the account's videos. |
+| `has_more` | `true` when more followed accounts remain after this page. |
+| `max_time / min_time` | Timestamps that bound this page of results. Use `max_time` for the next page request. |
+| `total` | Total number of accounts the user follows. |
+| `myself_user_id` | Numeric user ID tied to the requested user. |
+
 ### Notes
 
-- Use `2` for `source_type` on the initial call, then use `1` for subsequent calls.
-- Pass the returned timestamp value to `max_time` to paginate through results.
-- The `count` parameter defaults to 20 items per page.
+- Get `sec_user_id` from a user's profile link. Use [Douyin sec_user_id from URL](/apis/douyin/web/sec-user-id) to extract it.
+- Send `source_type` as `2` on the first request. Use `1` on every later request.
+- To get the next page, set `max_time` to the `max_time` value from the previous response while `has_more` is `true`. The first request uses `0`.
+- The `count` parameter defaults to 20.
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

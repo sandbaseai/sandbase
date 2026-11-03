@@ -62,13 +62,14 @@ Same call via the path form: `POST /v1/api/douyin/index/brand-suggest` with the 
 
 ## Details
 
-Retrieve brand search auto-complete suggestions on Douyin using the `keyword` parameter.
+Returns a list of brand auto-complete suggestions on Douyin for a brand name keyword. Each suggestion has a brand ID, brand name, category, and logo image link. The only input is `keyword`.
 
 ### Use cases
 
-- Populate brand autocomplete dropdowns in search interfaces.
-- Resolve query strings to standard Douyin brand IDs and categories.
-- Display matching brand logos and category labels in discovery tools.
+- Fill a brand search box with live suggestions as a user types.
+- Convert a typed brand name such as `华为` into a `brand_id` for other Douyin Index calls.
+- List every category a brand appears under, such as phones and home appliances.
+- Show brand logos next to suggestion labels in a discovery tool.
 
 ### Request
 
@@ -79,6 +80,8 @@ curl -X POST "https://api.sandbase.ai/v1/api/douyin/index/brand-suggest" \
   -d '{"keyword": "华为"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
@@ -87,10 +90,14 @@ curl -X POST "https://api.sandbase.ai/v1/api/douyin/index/brand-suggest" \
 
 ### Example response
 
-Real response for the request above, trimmed to the main fields. User names and long IDs are masked.
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
 
 ```json
 {
+  "BaseResp": {
+    "StatusCode": 0,
+    "StatusMessage": ""
+  },
   "suggestion_list": [
     {
       "brand_id": "9117",
@@ -103,13 +110,27 @@ Real response for the request above, trimmed to the main fields. User names and 
 }
 ```
 
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `suggestion_list` | List of brand suggestions that match `keyword`. Each item is one brand and category pair. |
+| `suggestion_list[].brand_id` | ID of the brand, returned as a string. The same brand can appear in several items with the same ID. |
+| `suggestion_list[].brand_name` | Display name of the brand. |
+| `suggestion_list[].category_id / suggestion_list[].category_name` | ID and name of the category the brand is listed under, for example `手机` (phones) or `家用电器` (home appliances). |
+| `suggestion_list[].logo_url` | Link to the brand logo image. |
+| `BaseResp.StatusCode` | Status code of the response. `0` appears in a successful call. |
+| `BaseResp.StatusMessage` | Status text. It is an empty string in a successful call. |
+
 ### Notes
 
-- Requires `keyword` to query matching brand names.
+- The same `brand_id` can repeat across items when the brand has more than one category, so group by `brand_id` if you need unique brands.
+- Use the `brand_id` and `brand_name` from this response as input for brand analysis APIs such as [Douyin Brand Popularity Cycles](/apis/douyin/index/brand-cycles) or [Douyin Brand Trend Lines](/apis/douyin/index/brand-lines).
+- Use [Douyin Brand Valid Information](/apis/douyin/index/brand-valid-info) to check brand details after you pick a suggestion.
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

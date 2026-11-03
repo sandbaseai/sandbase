@@ -69,7 +69,14 @@ Same call via the path form: `POST /v1/api/tripadvisor/reviews` with the body ab
 
 ## Details
 
-Public reviews of a Tripadvisor hotel, restaurant or attraction by place ID: rating, title, text, date and reviewer.
+Returns public Tripadvisor reviews for one hotel, restaurant or attraction. You pass the numeric `place_id`. Each review includes the rating, title, text, dates, trip type and reviewer profile.
+
+### Use cases
+
+- Track new guest reviews of a hotel by sorting with `sort_by` set to `recent`.
+- Pull review text and ratings for one place to run sentiment analysis.
+- Compare how couples, families and business travelers rate the same hotel using `trip.type`.
+- Build a review feed on a travel site with links back to each review page.
 
 ### Request
 
@@ -91,13 +98,74 @@ The result is returned in `outputs[0].data`.
 | `num` | integer | No | Number of reviews, 1 through 50. |
 | `sort_by` | string | No | Review order: recent (newest first) or relevance. |
 | `start` | integer | No | Review offset from 0 through 10,000. |
-| `timeout` | number | No | Optional budget for the entire request in seconds, measured from gateway receipt until the response is ready to send. Includes admission, queueing and settlement. Must be greater t |
+| `timeout` | number | No | Optional budget for the entire request in seconds, measured from gateway receipt until the response is ready to send. Includes admission, queueing and settlement. Must be greater than 0 and at most 90. On expiry, the cal |
 | `translate` | boolean | No | Request Tripadvisor's machine translation of reviews. |
 | `tripadvisor_domain` | string | No | Supported first-party localized Tripadvisor hostname, such as www.tripadvisor.co.uk. |
 
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "pagination": {},
+  "reviews": [
+    {
+      "created_date": "2026-11-01",
+      "helpful_votes": 0,
+      "id": "1084031574",
+      "language": "en",
+      "link": "https://www.tripadvisor.com/ShowUserReviews-g30196-d18941405-r1084031574-Austin_…",
+      "max_rating": 5,
+      "original_language": "en",
+      "place": {
+        "link": "https://www.tripadvisor.com/Hotel_Review-g30196-d18941405-Reviews-Austin_Proper_…",
+        "place_id": "18941405",
+        "title": "Austin Proper Hotel",
+        "type": "ACCOMMODATION"
+      },
+      "position": 1,
+      "published_date": "2026-11-01",
+      "rating": 5,
+      "status": "PUBLISHED"
+    }
+  ],
+  "search_information": {
+    "results_on_page": 5,
+    "total_results": 1028
+  },
+  "sort": {
+    "by": "DATE",
+    "type": "DATE"
+  }
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `reviews[].id` | Unique ID of the review, given as a string. |
+| `reviews[].rating / reviews[].max_rating` | The star rating given by the reviewer and the highest possible rating. In this response the scale is 5. |
+| `reviews[].title / reviews[].text` | The headline and body of the review. Long text may be shortened in the example. |
+| `reviews[].created_date / reviews[].published_date` | Dates of the review in `YYYY-MM-DD` format. |
+| `reviews[].trip.date / reviews[].trip.type` | The date of the stay and the kind of trip, such as `COUPLES`, `FAMILY` or `BUSINESS`. |
+| `reviews[].user.name / reviews[].user.username / reviews[].user.link` | Display name, username and profile URL of the reviewer. Some reviews have no `username`. |
+| `reviews[].user.country / reviews[].user.hometown / reviews[].user.contributions` | Where the reviewer is from, when given, and the number of contributions on their profile. |
+| `reviews[].helpful_votes` | Number of helpful votes the review has received. |
+| `reviews[].place.title / reviews[].place.type / reviews[].place.place_id` | Name, category (for example `ACCOMMODATION`) and ID of the reviewed place. |
+| `search_information.total_results` | Total number of reviews available for this place. `results_on_page` shows how many came back in this call. |
+
+### Notes
+
+- Use [Tripadvisor Search](/apis/tripadvisor/search) to find the `place_id` of a place. It also appears in review links after `-d`, for example `d18941405`.
+- To page through reviews, raise `start` by the value of `num`. `num` accepts 1 to 50.
+- The `pagination` object was empty in this response, so use `start` and `search_information.total_results` to decide when to stop.
+- The `sort.by` field shows the applied order. It returned `DATE` for the default `recent` sort.
+
 ### Pricing
 
-Flat price per call. Failed calls are not charged.
+$0.00015 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ---
 Machine-readable: [`catalog/models/tripadvisor/reviews.json`](../../../catalog/models/tripadvisor/reviews.json) · Store page: https://www.sandbase.ai/model/tripadvisor/reviews

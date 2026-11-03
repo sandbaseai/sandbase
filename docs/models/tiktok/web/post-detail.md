@@ -63,13 +63,14 @@ Same call via the path form: `POST /v1/api/tiktok/web/post-detail` with the body
 
 ## Details
 
-Returns details for an individual video post by providing its `itemId`. An optional `region` parameter adjusts the geographic content scope.
+Returns the full record for one TikTok video: caption, author, stats, music, hashtags and posting settings. It needs the video's `itemId`, with an optional `region` code.
 
 ### Use cases
 
-- Inspect metrics and metadata for a specific TikTok post.
-- Retrieve localized video data based on selected country codes.
-- Track performance details for individual video items.
+- Pull play, like, comment, share and save counts for a single video to log its performance.
+- Read the caption, hashtags and music of a video to study how a trend is built.
+- Check the author's follower and video counts next to a specific post.
+- Compare a video's data across regions by changing `region`, for example `US`, `GB`, `JP` or `ID`.
 
 ### Request
 
@@ -80,21 +81,132 @@ curl -X POST "https://api.sandbase.ai/v1/api/tiktok/web/post-detail" \
   -d '{"itemId": "7339393672959757570"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
 |---|---|---|---|
 | `itemId` | string | Yes | Video id |
-| `region` | string | No | Region code, optional; affects content region, e.g. |
+| `region` | string | No | Region code, optional; affects content region, e.g. US/GB/JP/ID, default US. |
+
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "extra": {
+    "fatal_item_ids": [],
+    "logid": "202611030744289D1BCEAFB0AA6802D6F7",
+    "now": 1793691868000
+  },
+  "itemInfo": {
+    "itemStruct": {
+      "AIGCDescription": "",
+      "CategoryType": 119,
+      "IsHDBitrate": false,
+      "ShowAIGC": false,
+      "author": {
+        "UserStoryStatus": 0,
+        "avatarLarger": "https://p16-common-sign.tiktokcdn-us.com/tos-alisg-avt-0068/d7e8c4a3573642d087e4…",
+        "avatarMedium": "https://p19-common-sign.tiktokcdn-us.com/tos-alisg-avt-0068/d7e8c4a3573642d087e4…",
+        "avatarThumb": "https://p16-common-sign.tiktokcdn-us.com/tos-alisg-avt-0068/d7e8c4a3573642d087e4…",
+        "commentSetting": 0,
+        "downloadSetting": 0,
+        "duetSetting": 0,
+        "ftc": false
+      },
+      "authorStats": {
+        "diggCount": 65500,
+        "followerCount": 3900000,
+        "followingCount": 552,
+        "friendCount": 0,
+        "heart": 115000000,
+        "heartCount": 115000000,
+        "videoCount": 640
+      },
+      "authorStatsV2": {
+        "diggCount": "65500",
+        "followerCount": "3900000",
+        "followingCount": "552",
+        "friendCount": "0",
+        "heart": "115000000",
+        "heartCount": "115000000",
+        "videoCount": "640"
+      },
+      "backendSourceEventTracking": "",
+      "challenges": [
+        {
+          "coverLarger": "",
+          "coverMedium": "",
+          "coverThumb": "",
+          "desc": "",
+          "id": "7066697838675099650",
+          "profileLarger": "",
+          "profileMedium": "",
+          "profileThumb": ""
+        }
+      ],
+      "collected": false,
+      "contents": [
+        {
+          "desc": "Singing that Chinese dance meme song. #科目三 #chinese #cover",
+          "textExtra": [
+            {
+              "awemeId": "",
+              "end": 42,
+              "hashtagId": "7066697838675099650",
+              "hashtagName": "科目三",
+              "isCommerce": false,
+              "start": 38,
+              "subType": 0,
+              "type": 1
+            }
+          ]
+        }
+      ],
+      "createTime": 1708835760
+    }
+  },
+  "log_pb": {
+    "impr_id": "202611030744289D1BCEAFB0AA6802D6F7"
+  },
+  "shareMeta": {
+    "desc": "Singing that Chinese dance meme song. #科目三 #chinese #cover",
+    "title": "sugar on TikTok"
+  },
+  "statusCode": 0,
+  "status_code": 0,
+  "status_msg": ""
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `itemInfo.itemStruct.id` | The video ID. It matches the `itemId` you sent. |
+| `itemInfo.itemStruct.desc` | The video caption text, including hashtags. |
+| `itemInfo.itemStruct.createTime` | When the video was posted, as a Unix timestamp in seconds. |
+| `itemInfo.itemStruct.stats.playCount / diggCount / commentCount / shareCount / collectCount` | Counts for plays, likes, comments, shares and saves. Large values are rounded. |
+| `itemInfo.itemStruct.statsV2.playCount / diggCount / commentCount / shareCount / collectCount / repostCount` | The same counts as strings. `collectCount` here is more exact than in `stats`. |
+| `itemInfo.itemStruct.author` | The author's avatar image URLs and settings such as `commentSetting`, `duetSetting` and `downloadSetting`. |
+| `itemInfo.itemStruct.authorStats.followerCount / followingCount / videoCount / heartCount` | The author's follower, following, video and total like counts. |
+| `itemInfo.itemStruct.music.id / authorName / duration` | The sound used in the video: its ID, the name of its author and its length. `duration` is `32` in this example. |
+| `itemInfo.itemStruct.challenges[].id / desc` | The hashtags on the video. `desc` is empty for some hashtags. |
+| `itemInfo.itemStruct.textExtra[].hashtagName / start / end` | Each hashtag in the caption and its character position in `desc`. |
 
 ### Notes
 
-- Specify `itemId` to target a specific video post.
-- The `region` parameter accepts country codes such as US, GB, JP, or ID and defaults to US.
+- Get the `itemId` from a video link with [TikTok Video ID from URL](/apis/tiktok/web/aweme-id), or for many links at once with [TikTok Video IDs from URLs (Batch)](/apis/tiktok/web/all-aweme-id).
+- `itemId` is a numeric string such as `7339393672959757570`. Send it as a string.
+- Image URLs in the response carry expiry parameters, so save the images if you need them later.
+- [TikTok Post Details (V2)](/apis/tiktok/web/post-detail-v2) is another detail endpoint for a single post.
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

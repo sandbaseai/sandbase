@@ -66,13 +66,14 @@ Same call via the path form: `POST /v1/api/douyin/xingtu-v2/author-homepage-vide
 
 ## Details
 
-Fetch a list of homepage videos for a creator using their `o_author_id`. Filter the results by date range using `start_time` and `end_time` or filter by star collaboration status.
+Returns a paged list of homepage videos for one Douyin Xingtu creator. Each item has the title, publish time, duration, play and interaction counts, and rates such as finish rate. The only required input is the creator ID in `o_author_id`.
 
 ### Use cases
 
-- Track video releases from a specific Douyin creator.
-- Filter a creator's portfolio to inspect Xingtu star collaboration items.
-- Inspect creator video activity across specific Unix timestamp ranges.
+- Pull a creator's latest videos with play, like and comment counts to review recent performance.
+- Limit results to a publish window with `start_time` and `end_time` to compare a creator's output across campaign periods.
+- Set `is_star_item` to separate Xingtu star item videos from regular posts.
+- Rank a creator's videos by `finish_rate` or `interact_rate` to find which content held viewers best.
 
 ### Request
 
@@ -83,25 +84,78 @@ curl -X POST "https://api.sandbase.ai/v1/api/douyin/xingtu-v2/author-homepage-vi
   -d '{"o_author_id": "7029342444797820939"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
 |---|---|---|---|
 | `o_author_id` | string | Yes | Creator ID |
-| `page` | integer | No | Page number, default 1 |
 | `end_time` | string | No | Publish end time, unix seconds, optional |
-| `start_time` | string | No | Publish start time, unix seconds, optional |
 | `is_star_item` | string | No | 1=star items only, 0=non-star only, omit=all |
+| `page` | integer | No | Page number, default 1 |
+| `start_time` | string | No | Publish start time, unix seconds, optional |
+
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "base_resp": {
+    "status_code": 0,
+    "status_message": ""
+  },
+  "items": [
+    {
+      "comment_cnt": "8215",
+      "content_theme_labels": [],
+      "cover_uri": "tos-cn-i-dy/ab08db17659849f58dbeb878ee1e65a2",
+      "create_time": "1792486908",
+      "duration": 789.664,
+      "finish_rate": 0.026315,
+      "interact_rate": 0.0254,
+      "item_id": "7698612187585203482",
+      "like_cnt": "100531",
+      "title": "今天在泰山当挑山工，挑战日入一千！#华哥带你练  #挑山工",
+      "url": "https://www.iesdouyin.com/share/video/7698612187585203482/?region=CN&mid=7698612…",
+      "video_id": "v0d00fg10000dbbfbqfog65mpv6gq99g"
+    }
+  ],
+  "pagination": {
+    "has_more": true,
+    "limit": 20,
+    "page": 1,
+    "total_count": 73
+  }
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `items[].item_id / items[].video_id` | Identifiers for the video. `item_id` is the numeric ID that also appears in the share `url`. |
+| `items[].title` | Video caption, including any hashtags. |
+| `items[].create_time` | Publish time as a Unix timestamp in seconds, returned as a string. |
+| `items[].duration` | Video length. The value is a decimal number, for example `789.664`. |
+| `items[].watch_cnt / items[].like_cnt / items[].comment_cnt` | Play, like and comment counts for the video. They arrive as strings. |
+| `items[].finish_rate / items[].interact_rate` | Decimal rates for the video. `finish_rate` is a completion rate and `interact_rate` is an interaction rate. |
+| `items[].content_theme_labels` | List of content theme labels for the video. It can be empty. |
+| `items[].url` | Share link for the video on Douyin. |
+| `pagination.has_more / pagination.total_count` | `has_more` shows whether more pages exist. `total_count` is the total number of matching videos. |
+| `pagination.page / pagination.limit` | Current page number and the number of items per page (`20` in this response). |
 
 ### Notes
 
-- Requires `o_author_id` to specify the creator.
-- Set `is_star_item` to 1 for star items only, 0 for non-star items, or omit to view all.
-- Supports pagination through `page`, which defaults to 1.
+- Get the creator ID for `o_author_id` from a search API such as [Douyin Xingtu Creator Search](/apis/douyin/xingtu-v2/search-creator).
+- Increase `page` while `pagination.has_more` is `true` to read the next page.
+- `start_time` and `end_time` take Unix seconds, the same format as `items[].create_time`.
+- Set `is_star_item` to `1` for star items only or `0` for non-star items. Omit it to get all videos.
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.002 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

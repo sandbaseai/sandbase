@@ -71,9 +71,14 @@ Same call via the path form: `POST /v1/api/fred/series-updates` with the body ab
 
 ## Details
 
-Get Series Updates from FRED. Returns the official FRED API response unchanged.
+Returns the FRED economic data series that were updated within a time window, newest first. You must pass `start_time` and `end_time`. Each result includes the series ID, title, frequency, units and the date it was last updated.
 
-The response is the official FRED API response, unchanged.
+### Use cases
+
+- Poll for FRED series changed in the last day to refresh a local copy of economic data.
+- Build a feed of newly updated regional or macro series by setting `filter_value`.
+- Find which series to re-pull after a data release by listing updates in a time range.
+- Page through all updated series with `limit` and `offset` to audit what changed in a given period.
 
 ### Request
 
@@ -84,22 +89,80 @@ curl -X POST "https://api.sandbase.ai/v1/api/fred/series-updates" \
   -d '{"start_time": "202610270000", "end_time": "202610280000", "limit": 2}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
 |---|---|---|---|
-| `end_time` | string | Yes | End time for limiting results for a time range, can filter down to minutes YYYYMMDDHhmm formatted string, optional, , start_time is required if end_time is set  |
+| `end_time` | string | Yes | End time for limiting results for a time range, can filter down to minutes YYYYMMDDHhmm formatted string, optional, , start_time is required if end_time is set < Example: 2018-03-02 2:20 would be 201803020220 |
+| `start_time` | string | Yes | Start time for limiting results for a time range, can filter down to minutes YYYYMMDDHhmm formatted string, optional, end_time is required if start_time is set Example: 2018-03-02 14:20 would be 201803021420 |
 | `file_type` | string | No | Response format. Only json is supported. |
-| `filter_value` | string | No | Limit results by geographic type of economic data series; namely 'macro', 'regional', and 'all'. String, optional, default: 'all' meaning no filter. One of the  |
+| `filter_value` | string | No | Limit results by geographic type of economic data series; namely 'macro', 'regional', and 'all'. String, optional, default: 'all' meaning no filter. One of the values: 'macro', 'regional', 'all' 'macro' limits results to |
 | `limit` | integer | No | The maximum number of results to return. integer between 1 and 1000, optional, default: 1000 |
 | `offset` | integer | No | non-negative integer, optional, default: 0 |
 | `realtime_end` | string | No | The end of the real-time period. For more information, see Real-Time Periods . YYYY-MM-DD formatted string, optional, default: today's date |
 | `realtime_start` | string | No | The start of the real-time period. For more information, see Real-Time Periods . YYYY-MM-DD formatted string, optional, default: today's date |
-| `start_time` | string | Yes | Start time for limiting results for a time range, can filter down to minutes YYYYMMDDHhmm formatted string, optional, end_time is required if start_time is set  |
+
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "count": 74753,
+  "filter_value": "all",
+  "filter_variable": "geography",
+  "limit": 2,
+  "offset": 0,
+  "order_by": "last_updated",
+  "realtime_end": "2026-11-03",
+  "realtime_start": "2026-11-03",
+  "seriess": [
+    {
+      "frequency": "Monthly",
+      "frequency_short": "M",
+      "id": "LARE748BPPRIVSA",
+      "last_updated": "2026-10-27 19:07:29-05",
+      "notes": "This series represents the total number of building permits for all structure ty…",
+      "observation_end": "2026-09-01",
+      "observation_start": "1988-01-01",
+      "popularity": 1,
+      "realtime_end": "2026-11-03",
+      "realtime_start": "2026-11-03",
+      "seasonal_adjustment": "Seasonally Adjusted",
+      "seasonal_adjustment_short": "SA"
+    }
+  ],
+  "sort_order": "desc"
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `count` | Total number of updated series that match the time range and filter. Use it to plan paging. |
+| `seriess[].id` | FRED series ID, such as `LARE748BPPRIVSA`. Pass it to other FRED APIs to get the series itself. |
+| `seriess[].title` | Full name of the series, including the geography when there is one. |
+| `seriess[].last_updated` | Timestamp of the latest update to the series, with a UTC offset such as `-05`. Results are sorted by this field. |
+| `seriess[].observation_start / seriess[].observation_end` | Dates of the first and last data points in the series. |
+| `seriess[].frequency / seriess[].frequency_short` | How often the series reports, as a full word (`Monthly`) and a short code (`M`). |
+| `seriess[].units / seriess[].units_short` | The unit the series values are measured in, such as `Units`. |
+| `seriess[].seasonal_adjustment / seriess[].seasonal_adjustment_short` | Whether the series is seasonally adjusted, as full text and a short code (`SA`). |
+| `seriess[].popularity` | FRED popularity score for the series. |
+| `seriess[].notes` | Description of the series. Long text may be cut. |
+
+### Notes
+
+- Format `start_time` and `end_time` as `YYYYMMDDHhmm`, for example `202610270000`. Both are required.
+- Page with `limit` (1 to 1000) and `offset`. Compare `offset` plus `limit` against `count` to know when to stop.
+- `filter_value` accepts `macro`, `regional` or `all`. The response echoes it with `filter_variable` set to `geography`.
+- Call [FRED Get Series Observations](/apis/fred/series-observations) with a series `id` to get its data values, or [FRED Get Series](/apis/fred/series) for its metadata.
 
 ### Pricing
 
-Flat price per call. Failed calls are not charged.
+$0.00001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ---
 Machine-readable: [`catalog/models/fred/series-updates.json`](../../../catalog/models/fred/series-updates.json) · Store page: https://www.sandbase.ai/model/fred/series-updates

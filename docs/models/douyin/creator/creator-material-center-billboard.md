@@ -68,13 +68,14 @@ Same call via the path form: `POST /v1/api/douyin/creator/creator-material-cente
 
 ## Details
 
-Retrieve creator material billboard items along with engagement statistics using `order_key`, `time_filter`, and `billboard_tag`.
+Returns a list of trending videos from the Douyin Creator Material Center billboard, with play, like, comment and share counts for each. All inputs are optional integers: `billboard_tag`, `order_key` and `time_filter`.
 
 ### Use cases
 
-- Track top-performing creator video materials across Douyin.
-- Analyze engagement metrics such as play counts, likes, and hot scores.
-- Discover trending content categories filtered by specific billboard tags.
+- Rank the most played Douyin videos in a billboard category.
+- Compare `hot_score` with `like_count` and `share_count` to find videos that spread faster than they are liked.
+- Collect `key_words` from trending titles to spot themes before planning new content.
+- Build a list of top authors by reading `author_name` and `author_link` across billboard items.
 
 ### Request
 
@@ -85,45 +86,72 @@ curl -X POST "https://api.sandbase.ai/v1/api/douyin/creator/creator-material-cen
   -d '{}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
 |---|---|---|---|
+| `billboard_tag` | integer | No | Billboard tag, 0=all, other values can be obtained through config interface |
 | `order_key` | integer | No | Order key |
 | `time_filter` | integer | No | Time filter |
-| `billboard_tag` | integer | No | Billboard tag, 0=all, other values can be obtained through config interface |
 
 ### Example response
 
-Real response for the request above, trimmed to the main fields. User names and long IDs are masked.
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
 
 ```json
 {
   "item_list": [
     {
-      "author_link": "https://www.iesdouyin.com/share/user/70563022822?sec_uid=MS4wLjABAAAAQeIjx1d53Cg…",
-      "author_name": "<user>",
+      "author_link": "https://www.iesdouyin.com/share/user/58600794821?sec_uid=MS4wLjABAAAADdBKgoN-VYy…",
+      "author_name": "张百乔",
+      "aweme_list": null,
       "collection_count": 0,
-      "comment_count": 102759,
-      "duration": 133313,
+      "comment_count": 37658,
+      "cover": {
+        "url_list": [
+          "https://p5-ex-gddgtc-sign.douyinpic.com/tos-cn-i-0813/ocAAfDQIECArh8o8eRWMo7DeQ9…"
+        ]
+      },
+      "duration": 19534,
+      "hot_involve_ratio": "",
+      "hot_involve_type": "",
       "hot_onboard_time": 0,
-      "hot_score": 660013,
-      "item_id": "7692811973934927590",
-      "like_count": 3286609,
-      "play_count": 49355670
+      "hot_score": 428224,
+      "item_id": "7703486126555902874"
     }
-  ]
+  ],
+  "status_code": 0,
+  "status_msg": ""
 }
 ```
 
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `item_list[]` | One trending video on the billboard. |
+| `item_list[].item_id / item_list[].sec_item_id` | Identifiers for the video. `item_id` is a numeric string. `sec_item_id` is a longer encoded string. |
+| `item_list[].title` | Video caption text. It can include hashtags. |
+| `item_list[].author_name / item_list[].author_link` | Display name of the author and a link to the author's Douyin share page. |
+| `item_list[].play_count / item_list[].like_count` | Total plays and likes for the video. |
+| `item_list[].comment_count / item_list[].share_count` | Total comments and shares for the video. |
+| `item_list[].hot_score` | Hotness score the billboard gives the video. Higher values mean a hotter item. |
+| `item_list[].key_words` | Short list of keywords taken from the video. |
+| `item_list[].duration` | Video length as an integer. The values suggest milliseconds, but the response does not state the unit. |
+| `item_list[].cover.url_list[]` | Cover image URLs for the video. Each entry points to the same image on a different host. |
+
 ### Notes
 
-- Set `billboard_tag` to 0 for all categories, or pass values obtained from the configuration interface.
-- Refine rankings by passing `order_key` for sorting and `time_filter` for time frames.
+- Set `billboard_tag` to `0` for all categories. To get other tag values, call [Douyin Material Center Configuration](/apis/douyin/creator/creator-material-center-config).
+- The request has no page parameter. Use `order_key` and `time_filter` to change which items come back.
+- Several fields, such as `publish_count`, `show_count`, `shoot_count` and `collection_count`, are `0` in this response. `aweme_list` and `related_item_ids` are `null`.
+- To see related videos for an item, try [Douyin Material Center Related Videos](/apis/douyin/creator/creator-material-center-related).
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

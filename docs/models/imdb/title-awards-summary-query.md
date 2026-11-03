@@ -63,9 +63,14 @@ Same call via the path form: `POST /v1/api/imdb/title-awards-summary-query` with
 
 ## Details
 
-Get the IMDb awards summary for a title ID using selected language and country preferences. Use it to research a title's awards record or support awards-focused catalog review.
+Returns the awards summary for one IMDb title: total wins, total nominations, a highlighted prestigious award summary, and the title's top ranking. It needs an IMDb title ID in `tt<digits>` format, such as `tt0111161`.
 
-The response is the platform's original data structure.
+### Use cases
+
+- Show the total number of awards won and nominations received on a movie detail page.
+- Check how many Oscar nominations and wins a title has during catalog review.
+- Flag titles that hold a top ranking label such as `Top Rated` in a curated list.
+- Compare the awards records of several titles by calling the API once per title ID.
 
 ### Request
 
@@ -76,6 +81,8 @@ curl -X POST "https://api.sandbase.ai/v1/api/imdb/title-awards-summary-query" \
   -d '{"id": "tt0111161"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
@@ -83,9 +90,67 @@ curl -X POST "https://api.sandbase.ai/v1/api/imdb/title-awards-summary-query" \
 | `id` | string | Yes | The IMDb title identifier in tt<digits> format. |
 | `languageCountry` | string | No | Language and country preferences. |
 
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "title": {
+    "prestigiousAwardSummary": {
+      "__typename": "PrestigiousAwardSummary",
+      "awardNomination": {
+        "award": {
+          "eventEdition": {
+            "event": {
+              "id": "ev0000003"
+            }
+          },
+          "text": "Oscar"
+        }
+      },
+      "nominations": 7,
+      "wins": 0
+    },
+    "ratingsSummary": {
+      "topRanking": {
+        "rank": 1,
+        "text": {
+          "value": "Top Rated"
+        }
+      }
+    },
+    "totalNominations": {
+      "total": 43
+    },
+    "totalWins": {
+      "total": 21
+    }
+  }
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `title.totalWins.total` | Total number of awards the title has won. |
+| `title.totalNominations.total` | Total number of award nominations the title has received. |
+| `title.prestigiousAwardSummary.awardNomination.award.text` | Name of the prestigious award that the summary covers. In this response the value is `Oscar`. |
+| `title.prestigiousAwardSummary.nominations / title.prestigiousAwardSummary.wins` | Number of nominations and wins for that prestigious award. |
+| `title.prestigiousAwardSummary.awardNomination.award.eventEdition.event.id` | ID of the award event, such as `ev0000003` for the Oscar. |
+| `title.ratingsSummary.topRanking.rank` | Numeric rank of the title in its top ranking. |
+| `title.ratingsSummary.topRanking.text.value` | Label for the top ranking, such as `Top Rated`. |
+
+### Notes
+
+- Find the title ID in the `tt<digits>` part of an IMDb title page URL, or get it from another IMDb API in this catalog.
+- `languageCountry` accepts `en_US`, `fr_CA`, `fr_FR`, `de_DE`, `hi_IN`, `it_IT`, `pt_BR`, `es_ES`, `es_US` and `es_MX`. The default is `en_US`.
+- For basic title data, call [IMDb Base Info](/apis/imdb/title-base-query). For ranking lists, call [IMDb Chart Rankings](/apis/imdb/title-chart-rankings).
+
 ### Pricing
 
-Flat price per call. Failed calls and empty results are not charged.
+$0.007143 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ---
 Machine-readable: [`catalog/models/imdb/title-awards-summary-query.json`](../../../catalog/models/imdb/title-awards-summary-query.json) · Store page: https://www.sandbase.ai/model/imdb/title-awards-summary-query

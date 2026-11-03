@@ -74,13 +74,14 @@ Same call via the path form: `POST /v1/api/xiaohongshu/app-v2/product-reviews` w
 
 ## Details
 
-Retrieve user reviews and ratings for an item by providing `sku_id`. Optional parameters allow sorting, pagination, and filtering only entries with images.
+Returns customer reviews for one Xiaohongshu (RED) shop SKU. Each review has the text, score, photos, buyer name and the purchased variant. You pass the product `sku_id`.
 
 ### Use cases
 
-- Analyze customer feedback and satisfaction scores for specific product SKUs.
-- Filter and display user reviews containing uploaded photos.
-- Monitor recent product comments and sentiment trends over time.
+- Read buyer feedback on a single SKU to spot recurring complaints about size, color or quality.
+- Collect review photos for a SKU to see how the product looks in real use.
+- Compare which variants, such as color or size, buyers choose most often.
+- Track repeat buyers through the purchase-count tags on each review.
 
 ### Request
 
@@ -91,50 +92,139 @@ curl -X POST "https://api.sandbase.ai/v1/api/xiaohongshu/app-v2/product-reviews"
   -d '{"sku_id": "669ddd44e05f3700011067ed"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
 |---|---|---|---|
 | `sku_id` | string | Yes | Product SKU ID (required), e.g. "669ddd44e05f3700011067ed" |
-| `page` | integer | No | Page number, start from 0 |
 | `from_page` | string | No | From page, default "score_page" |
+| `page` | integer | No | Page number, start from 0 |
 | `share_pics_only` | integer | No | Show reviews with images only, 0=no, 1=yes |
 | `sort_strategy_type` | integer | No | Sort strategy |
 
 ### Example response
 
-Real response for the request above, trimmed to the main fields. User names and long IDs are masked.
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
 
 ```json
 {
+  "code": 0,
   "data": {
+    "expMap": {
+      "aiTagPatternHighlight": 0,
+      "mallReviewLivePhoto": 1,
+      "pingjiabiaoqian": 1,
+      "pingjiaerjiyegaiban": 1,
+      "review_buyer_identity_style": 1,
+      "review_image_optimization_v2": 1,
+      "sharePicShow": 1,
+      "subReviewLadder": 1
+    },
+    "hasMore": true,
     "reviews": [
       {
         "reviewInfo": {
           "commentType": 5,
           "content": "非常貌美，就是甲片是薄的，不是很硬，但是我觉得完全没问题，很闪很好看，嬛嬛甲的回购款，很上镜",
           "createTimeDesc": "2025-09-26",
-          "itemScore": 5,
-          "likeCount": 3,
-          "logisticsScore": 5
+          "forbiddenReply": false,
+          "highlightSubContent": "",
+          "images": [
+            "https://qimg.xiaohongshu.com/comment/1040g3mg31mt1ebh0lmdg5ohikl041s0qu52sr38"
+          ],
+          "imagesV3": [
+            {
+              "height": 3072,
+              "thumbnailUrl": "https://mall-i10.xhscdn.com/comment/1040g3mg31mt1ebh0lmdg5ohikl041s0qu52sr38?ima…",
+              "url": "https://mall-i10.xhscdn.com/comment/1040g3mg31mt1ebh0lmdg5ohikl041s0qu52sr38?ima…",
+              "width": 3072
+            }
+          ],
+          "itemScore": 5
         },
+        "subReviews": [],
+        "tags": [
+          {
+            "name": "本店购买3次"
+          }
+        ],
+        "translateFlag": false,
         "userInfo": {
-          "name": "小Yang"
-        }
+          "anonymous": false,
+          "avatar": "https://sns-avatar-qc.xhscdn.com/avatar/1040g2jo31p8idp8ciu6g5ohikl041s0q4200vvg…",
+          "name": "小Yang",
+          "userId": "a7413e5b9ac9d918d1bb6401e7e3c",
+          "visitorFlag": false
+        },
+        "variants": [
+          {
+            "id": "5a60c42f69bd891ed8939bc0",
+            "name": "尺寸",
+            "value": "s"
+          }
+        ]
       }
-    ]
-  }
+    ],
+    "sortedPicResult": {
+      "hasMore": false,
+      "sortedPicsInfos": [
+        {
+          "enableDelete": false,
+          "imageContents": {
+            "content": "实在美丽[色色R]",
+            "createTime": "02-03",
+            "desc": "发布于笔记评论区",
+            "fileId": "comment/1040g4b831s3uoeqblm805pevt92h97d5dmjmmng",
+            "height": 480,
+            "mainItemId": "669ddd44e05f3700011067d4",
+            "order": 1,
+            "thumbnailUrl": "https://sns-na-i11.xhscdn.com/comment/1040g4b831s3uoeqblm805pevt92h97d5dmjmmng?i…"
+          },
+          "userInfo": {
+            "avatar": "https://sns-avatar-qc.xhscdn.com/avatar/1040g2jo31ml9nf58mg0g5pevt92h97d5gilvkdo…",
+            "name": "屁桃不喝旺仔🐟",
+            "userId": "a4a500e71062633550b74e90e2509",
+            "visitorFlag": false
+          }
+        }
+      ],
+      "totalSortedPicNums": 4
+    }
+  },
+  "debug_id": "f99f0822",
+  "debug_info": "gAAAAABq6ZFqq2GT8Vt6c6kEFerbqCq4pL7f442QB72UwPx1KanH6v9yhTqciK8uFSVslDhJjPaVI752…",
+  "msg": "ok",
+  "success": true
 }
 ```
 
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `data.reviews[].reviewInfo.content` | Review text written by the buyer. |
+| `data.reviews[].reviewInfo.itemScore` | Star score the buyer gave the item. The example reviews show `5`. |
+| `data.reviews[].reviewInfo.createTimeDesc` | Review date as a `YYYY-MM-DD` string. |
+| `data.reviews[].reviewInfo.images / data.reviews[].reviewInfo.imagesV3[].url` | Photo links attached to the review. `imagesV3` also gives `width`, `height` and `thumbnailUrl` for each photo. |
+| `data.reviews[].variants[].name / data.reviews[].variants[].value` | The variant the buyer purchased, such as size (`尺寸`) or color (`颜色分类`) with its chosen value. |
+| `data.reviews[].tags[].name` | Label on the review, for example how many times the buyer purchased from this shop. Not every review has tags. |
+| `data.reviews[].userInfo.name / data.reviews[].userInfo.userId` | Display name and ID of the reviewer. |
+| `data.reviews[].subReviews` | List of follow-up reviews. It is empty in the example. |
+| `data.hasMore` | `true` when more reviews exist beyond the current page. |
+| `data.sortedPicResult.sortedPicsInfos[]` | Photos shared in note comments for this product. Each entry has the image `imageContents` and the poster's `userInfo`. `totalSortedPicNums` gives the count. |
+
 ### Notes
 
-- `page` begins numbering at 0.
-- Set `share_pics_only` to 1 to show only reviews with images, or 0 for all reviews.
+- Pages start at `0`. Raise `page` while `data.hasMore` is `true` to read further reviews.
+- Set `share_pics_only` to `1` to return only reviews with images.
+- Use `sort_strategy_type` to change the sort order. The accepted values are not listed in the schema.
+- To find a `sku_id`, use [Xiaohongshu (RED) Product Search](/apis/xiaohongshu/app-v2/search-products). For a summary of ratings, see [Xiaohongshu (RED) Product Review Overview](/apis/xiaohongshu/app-v2/product-review-overview).
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.01 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

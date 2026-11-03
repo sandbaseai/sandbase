@@ -62,13 +62,14 @@ Same call via the path form: `POST /v1/api/bilibili/web/user-up-stat` with the b
 
 ## Details
 
-Fetch cumulative statistics including total video views and likes for a Bilibili content creator by passing their `uid`.
+Returns total video views, article views, and total likes for one Bilibili creator account. It needs the creator's numeric `uid` as input.
 
 ### Use cases
 
-- Analyze overall engagement metrics for a target creator.
-- Monitor total audience reach and like growth across an account.
-- Evaluate creator influence for partnership assessment.
+- Compare total video views and likes across several Bilibili creators before picking partners.
+- Record the `archive.view` and `likes` totals on a schedule to chart growth for one account.
+- Add creator-level view and like totals to a dashboard next to profile and follower data.
+- Screen a list of creator accounts by total reach before pulling their individual videos.
 
 ### Request
 
@@ -79,19 +80,51 @@ curl -X POST "https://api.sandbase.ai/v1/api/bilibili/web/user-up-stat" \
   -d '{"uid": "178360345"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
 |---|---|---|---|
 | `uid` | string | Yes | User UID |
 
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "archive": {
+    "enable_vt": 0,
+    "view": 49024,
+    "vt": 0
+  },
+  "article": {
+    "view": 0
+  },
+  "likes": 640
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `archive.view` | Total view count across the creator's videos. |
+| `likes` | Total like count for the creator account. |
+| `article.view` | Total view count across the creator's articles. It is `0` for this account. |
+| `archive.enable_vt` | Flag next to the video totals. The value is `0` here. The key name does not say more, so treat it as an on/off flag. |
+| `archive.vt` | Extra counter in the `archive` object. It is `0` here and the response does not explain it. |
+
 ### Notes
 
-- Pass the creator account ID using the `uid` parameter.
+- Pass the creator's numeric ID as a string in `uid`, for example `178360345`.
+- The response has no name or follower fields. Call [Bilibili User Profile](/apis/bilibili/web/user-profile) for profile details and [Bilibili User Relation Statistics](/apis/bilibili/web/user-relation-stat) for relation counts.
+- If you only have a profile link or name, use [Bilibili User ID Extraction](/apis/bilibili/web/get-user-id) to find the `uid`.
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

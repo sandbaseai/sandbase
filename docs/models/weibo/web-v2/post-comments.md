@@ -64,13 +64,14 @@ Same call via the path form: `POST /v1/api/weibo/web-v2/post-comments` with the 
 
 ## Details
 
-Pass a Weibo post ID and get its comments, page by page.
+Returns the first-level comments on a Weibo post, with comment text, author, time, like count and reply count. It needs the Weibo post `id`. Results come in pages that you walk through with the `max_id` cursor.
 
 ### Use cases
 
-- Analyze reactions to a post.
-- Collect customer feedback.
-- Monitor comments on brand posts.
+- Read the most recent reactions to a brand post on Weibo.
+- Rank comments by `like_counts` to find the most supported opinions on a post.
+- Export comment text and author follower counts for sentiment analysis.
+- Find comments with replies and fetch those replies in a second call.
 
 ### Request
 
@@ -80,6 +81,8 @@ curl -X POST "https://api.sandbase.ai/v1/api/weibo/web-v2/post-comments" \
   -H "Content-Type: application/json" \
   -d '{"id": "5350554563773695"}'
 ```
+
+The result is returned in `outputs[0].data`.
 
 ### Parameters
 
@@ -91,35 +94,98 @@ curl -X POST "https://api.sandbase.ai/v1/api/weibo/web-v2/post-comments" \
 
 ### Example response
 
-Real response for the request above, trimmed to the main fields. User names and long IDs are masked.
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
 
 ```json
 {
-  "max_id": "<max_id>",
-  "total_number": 34,
   "data": [
     {
-      "id": 5350555695188006,
+      "allow_follow": false,
+      "analysis_extra": "author_uid:1727858283|mid:5350554563773695|rid:162412728022526544",
+      "biz_mark_type": 0,
+      "cmt_ext": "level_type:1",
+      "comment_bubble": {
+        "end_color": "#1AFEAD3A",
+        "end_color_dark": "#33FEAD3A",
+        "icon_url": "https://h5.sinaimg.cn/upload/100/1720/2023/06/14/commentbubble_jin_FEAD3A.png",
+        "id": "jin_0001",
+        "name": "金粉专属",
+        "obtain_type": 3,
+        "start_color": "#00FEAD3A",
+        "start_color_dark": "#00FEAD3A"
+      },
+      "comments": [
+        {
+          "allow_follow": false,
+          "analysis_extra": "author_uid:1727858283|mid:5350554563773695|rid:162412728022526544",
+          "biz_mark_type": 0,
+          "blogger_icons": [
+            {
+              "actionlog": {
+                "act_code": "3671",
+                "ext": "status:author"
+              },
+              "length": "1.33",
+              "name": "blogger",
+              "url": "https://h5.sinaimg.cn/upload/116/1347/2020/12/15/bozhu.png"
+            }
+          ],
+          "cmt_ext": "level_type:2",
+          "created_at": "Mon Oct 05 07:49:58 +0800 2026",
+          "degrade_type": "normal",
+          "disable_reply": 0
+        }
+      ],
       "created_at": "Mon Oct 05 07:09:09 +0800 2026",
-      "like_counts": 7,
-      "total_number": 3,
-      "source": "来自 上海",
-      "text_raw": "也就是28天每天要么上新一个新功能/重置一次吗？ 还挺好的！[打call]刚开了Pro会员又可以尽…",
-      "user": {
-        "screen_name": "<user>"
-      }
+      "degrade_type": "normal",
+      "disable_reply": 0,
+      "floor_number": 2,
+      "id": 5350555695188006,
+      "idstr": "5350555695188006"
     }
-  ]
+  ],
+  "filter_group": [
+    {
+      "isDefault": 1,
+      "param": "flow=0",
+      "scheme": "",
+      "title": "按热度"
+    }
+  ],
+  "max_id": 138895166347417,
+  "ok": 1,
+  "rootComment": [],
+  "tip_msg": "",
+  "total_number": 36,
+  "trendsText": "已加载全部评论"
 }
 ```
 
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `data[].text_raw` | Plain text of the comment. Emoji appear as bracket tags such as `[打call]`. The `text` field holds the same comment as HTML with image tags. |
+| `data[].id / data[].idstr` | ID of the comment, as a number and as a string. Use the string form to avoid number precision loss. |
+| `data[].created_at` | Time the comment was posted, in a format like `Mon Oct 05 07:09:09 +0800 2026`. |
+| `data[].like_counts` | Number of likes on the comment. |
+| `data[].total_number` | Number of replies to this comment. The `data[].comments[]` list holds a few of those replies, and `data[].more_info.text` shows a label such as `共3条回复`. |
+| `data[].source` | Location label shown with the comment, for example `来自 上海`. |
+| `data[].user.followers_count` | Follower count of the commenter. `data[].user.description` holds the commenter's profile bio and `data[].user.avatar_large` holds the avatar URL. |
+| `data[].floor_number` | Floor position of the comment in the thread. |
+| `max_id` | Cursor for the next page. Pass it as `max_id` in the next request. |
+| `total_number` | Total comment count reported for the post. `trendsText` holds a status message such as `已加载全部评论`. |
+
 ### Notes
 
-- Paginate with `max_id` from the previous response.
+- Leave `max_id` empty on the first call. For later pages, pass the top-level `max_id` from the previous response.
+- `count` sets how many comments to return per page and defaults to 10.
+- The `filter_group` list shows two sort modes, `flow=0` (by heat, the default) and `flow=1` (by time).
+- To read all replies under a comment, call [Weibo Post Sub-Comments](/apis/weibo/web-v2/post-sub-comments). For the post itself, use [Weibo Post Detail](/apis/weibo/web-v2/post-detail).
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

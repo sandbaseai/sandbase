@@ -63,13 +63,14 @@ Same call via the path form: `POST /v1/api/kuaishou/app/search-music` with the b
 
 ## Details
 
-Query Kuaishou music tracks by specifying a search term in `keyword`. Supports cursor pagination across search results using `pcursor`.
+This API searches Kuaishou music tracks by a keyword such as a song name or artist. It returns a list of matching tracks with artist, audio file URLs, cover image URLs and the number of videos that use each track. It needs one input, `keyword`.
 
 ### Use cases
 
-- Search for specific songs or artists on Kuaishou
-- Discover background audio tracks matching query terms
-- Paginate through music catalog search results
+- Find a Kuaishou track by song name and get its audio file links.
+- Check how many videos use a track through `photoCount` to compare how widely tracks are used.
+- Collect artist names and cover images for tracks that match a brand or topic keyword.
+- Page through all tracks for a keyword to build a list of candidate background music.
 
 ### Request
 
@@ -80,20 +81,129 @@ curl -X POST "https://api.sandbase.ai/v1/api/kuaishou/app/search-music" \
   -d '{"keyword": "OpenAI"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
 |---|---|---|---|
-| `keyword` | string | Yes | — |
+| `keyword` | string | Yes |  |
 | `pcursor` | string | No | Cursor, empty for first page |
+
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "debug_id": "0aaa3f4e",
+  "debug_info": "gAAAAABq6Y7kVwuWPVSr5AxutSUvuEhTYuEnWaNJikRmlceIe0iPndQ0PZLi3oQasB3YxlXnvm3d_XGC…",
+  "extParams": {
+    "disablePhotoInsert": false,
+    "dynamicShard": false,
+    "isCreativeMode": false,
+    "isShowPymkUserPhotos": true,
+    "isShowScrollTopButton": false,
+    "livePendantResource": "https://static.yximgs.com/udata/pkg/ks-nearby/nearby_living_tag/origin_196uxh2cv…",
+    "outerStreamFetch": 6,
+    "pageSingleDoubleStyle": 0,
+    "rsRecoAfterPlayInterval": 2,
+    "searchTaskParam": {},
+    "sessionParams": "",
+    "streamExtParams": "{\"single\":false,\"predict\":false,\"searchDetailCost\":{\"filterItem\":1,\"getView\":47}…"
+  },
+  "host-name": "public-bjzey-c97-kce-node21.idchb1az3.hb1.kwaidc.com",
+  "llsid": "2006451174999715826",
+  "musics": [
+    {
+      "atmosphereType": 0,
+      "extInfo": {
+        "itemPlugin": true,
+        "mortiseDelivery": false
+      },
+      "isSingleColumnMode": false,
+      "itemTransferInfo": "{\"refer_single_double_type\":0}",
+      "itemType": 2,
+      "photoCount": 5656,
+      "rank": 0,
+      "tag": {
+        "durationPlayTrail": 272000,
+        "hideArtist": false,
+        "id": 1125906107083767,
+        "invalid": false,
+        "isCollected": false,
+        "isKaraoke": false,
+        "music": {
+          "analysisResult": {
+            "beats": [
+              {
+                "algorithm": "main",
+                "beatsUrls": [
+                  {
+                    "cdn": "tx2.a.yximgs.com",
+                    "url": "http://tx2.a.yximgs.com/udata/music/bm_mKWV7i3cNc4_3c6ba8bf0c_MMU_BEATS_main.dat"
+                  }
+                ]
+              }
+            ]
+          },
+          "artist": "亿阳",
+          "audioType": 1,
+          "audioUrls": [
+            {
+              "cdn": "v1-plat-fdl.wsukwai.com",
+              "url": "https://v1-plat-fdl.wsukwai.com/ksc2/NVfoQ6SQeydXGUJ_wXMDWTUsxW8mb2ITbzWWpdCDLCk…"
+            }
+          ],
+          "avatarUrl": "http://tx2.a.yximgs.com/udata/music/bm_TDMexlTlk-Q_v.jpg",
+          "avatarUrls": [
+            {
+              "cdn": "tx2.a.yximgs.com",
+              "url": "http://tx2.a.yximgs.com/udata/music/bm_TDMexlTlk-Q_v.jpg"
+            }
+          ],
+          "chorus": 89600,
+          "copyrightTimeLimit": 60
+        },
+        "photoCount": 5656
+      }
+    }
+  ],
+  "pcursor": "1",
+  "portalFlag": true,
+  "recoPcursor": "no_more",
+  "responseCode": 0,
+  "result": 1,
+  "ussid": "NF8wXzE3OTM2OTEzNjMzNTVfXzg2MDE"
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `musics[]` | List of matched music tracks for the keyword. |
+| `musics[].tag.id` | ID of the music track. |
+| `musics[].tag.music.artist` | Artist name shown for the track. |
+| `musics[].tag.music.audioUrls[].url` | Link to the track's audio file (`.m4a`). Each entry has a `cdn` host name and a `url`. |
+| `musics[].tag.music.avatarUrl` | Cover image URL for the track. `avatarUrls[]` lists the same image on different hosts. |
+| `musics[].photoCount / musics[].tag.photoCount` | Number of videos that use this track. |
+| `musics[].tag.music.duration / musics[].tag.durationPlayTrail` | Track length values. `duration` appears on some tracks and `durationPlayTrail` on all of them. In the sample, `duration` is 131 and `durationPlayTrail` is 131000 for the same track. |
+| `musics[].tag.music.chorus` | Chorus value for the track. Only some tracks include it. |
+| `musics[].tag.music.analysisResult.beats[]` | Beat analysis files for the track. Each entry has an `algorithm` name (`main`, `downbeats`, `segmentation`) and `beatsUrls[]` with download links. |
+| `musics[].rank` | Position value of the track in the result set. |
+| `pcursor` | Cursor for the next page. Pass it as `pcursor` in the next request. |
 
 ### Notes
 
-- Leave `pcursor` empty to retrieve the first page of results, or supply the cursor string for subsequent pages.
+- Leave `pcursor` empty for the first page. Send the returned `pcursor` value to get the next page.
+- `recoPcursor` returned `no_more` in the sample response.
+- Audio URLs carry a `pkey` query parameter in the link, so use the full URL as returned.
+- For chart-style music lists, see [Kuaishou Music Ranking](/apis/kuaishou/app/music-ranking).
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.01 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

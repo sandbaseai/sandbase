@@ -65,13 +65,14 @@ Same call via the path form: `POST /v1/api/douyin/app-v3/hot-search-list` with t
 
 ## Details
 
-Fetch the current Douyin hot search board, or switch to the seeding, entertainment, social or challenge lists with `board_type`.
+This API returns the current Douyin hot search board as a ranked list of trending words, each with a heat value, video count and view count. It needs no input for the default hot search list. Set `board_type` and `board_sub_type` to request other boards.
 
 ### Use cases
 
-- Track trending topics on Douyin in real time.
-- Find hot challenges for content planning.
-- Alert when a brand or product starts trending.
+- Track which words climb the Douyin hot search list and record their `hot_value` over time.
+- Check whether a brand, person or event name appears in `word_list` and alert when it does.
+- Build a daily snapshot of the top topics with their `video_count` to plan short video content.
+- Read the rising topics in `trending_list` to spot stories before they reach the main board.
 
 ### Request
 
@@ -82,43 +83,114 @@ curl -X POST "https://api.sandbase.ai/v1/api/douyin/app-v3/hot-search-list" \
   -d '{}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
 |---|---|---|---|
-| `board_type` | string | No | - 0: Hot search list (default) |
 | `board_sub_type` | string | No | - Empty string: Hot search list (default) |
+| `board_type` | string | No | - 0: Hot search list (default) |
 
 ### Example response
 
-Real response for the request above, trimmed to the main fields. User names and long IDs are masked.
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
 
 ```json
 {
+  "banner_dark": {
+    "uri": "33a57000197f34889bc27",
+    "url_list": [
+      "https://p26-sign.douyinpic.com/obj/33a57000197f34889bc27?lk3s=03ea9982&x-expires…"
+    ]
+  },
+  "banner_light": {
+    "uri": "33a580000cefdf44e9f76",
+    "url_list": [
+      "https://p11-sign.douyinpic.com/obj/33a580000cefdf44e9f76?lk3s=03ea9982&x-expires…"
+    ]
+  },
   "data": {
-    "active_time": "2026-10-06 16:57:19",
+    "active_time": "2026-11-03 15:27:26",
+    "banner_display": {},
+    "display_style": 0,
+    "share_info": {
+      "share_link_desc": "我在看抖音热榜，发现最火的内容，赶快来看！戳这里>>",
+      "share_title": "我在看抖音热榜，发现最火的内容，赶快来看！",
+      "share_url": "https://www.iesdouyin.com/share/billboard/?id=0"
+    },
+    "trending_desc": "实时上升热点",
+    "trending_list": [
+      {
+        "article_detail_count": 0,
+        "discuss_video_count": 1,
+        "display_style": 0,
+        "event_time": 1793667178,
+        "group_id": "6967627156244927781",
+        "hot_value": 0,
+        "hotlist_param": "{\"board_type\":3,\"rank\":0,\"time\":1793691095}",
+        "label": 0,
+        "sentence_id": "2726464",
+        "sentence_tag": 7000,
+        "video_count": 5,
+        "word": "央行将上调外汇存款准备金率"
+      }
+    ],
     "word_list": [
       {
-        "position": 13,
-        "word": "跑步真的伤膝盖吗",
-        "hot_value": 9039299,
-        "sentence_id": "2682767",
-        "event_time": 1791245696,
-        "video_count": 1,
-        "label": 16
+        "can_extend_detail": false,
+        "discuss_video_count": 1,
+        "hot_value": 0,
+        "hotlist_param": "{\"board_type\":0,\"time\":1793691095}",
+        "is_n1": true,
+        "label": 0,
+        "sentence_id": "2727285",
+        "topic_info": {},
+        "view_count": 0,
+        "word": "让互联网更好造福人民造福世界",
+        "word_type": 14
       }
     ]
-  }
+  },
+  "extra": {
+    "logid": "202611031531351724301AEE0DFF43838A",
+    "now": 1793691095000,
+    "time_cost": {
+      "stream_inner": 440
+    }
+  },
+  "log_pb": {
+    "impr_id": "202611031531351724301AEE0DFF43838A"
+  },
+  "status_code": 0
 }
 ```
 
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `data.word_list[].word` | The trending phrase as shown on the board. |
+| `data.word_list[].position` | Current rank of the word on the board. The first item in the sample has `position` 1. |
+| `data.word_list[].hot_value` | Heat value of the word. Higher values rank higher. |
+| `data.word_list[].video_count / data.word_list[].discuss_video_count` | Number of videos tied to the word. `discuss_video_count` counts discussion videos. |
+| `data.word_list[].view_count` | View count for the word. |
+| `data.word_list[].sentence_id / data.word_list[].group_id` | IDs for the hot word and its related content group. Both are strings. |
+| `data.word_list[].event_time` | Unix timestamp in seconds for the event behind the word. |
+| `data.word_list[].label / data.word_list[].label_url` | Label code for the word. `label_url` is an icon image URL when a label is set. |
+| `data.trending_list[].word` | A rising topic from the separate real-time trending list. Its `hot_value` is 0 in the sample, so rely on `video_count` to compare items. |
+| `data.active_time` | Time of the board in the format `YYYY-MM-DD HH:MM:SS`. |
+
 ### Notes
 
-- `board_type` selects the list; `"0"` is the main hot search list.
+- Send `board_type` as a string. The default `"0"` with an empty `board_sub_type` returns the main hot search list.
+- `data.word_list[].hotlist_param` is a JSON string that holds the board type, rank and a Unix timestamp.
+- Some entries in `data.word_list`, such as the one with `is_n1` set to `true`, have `hot_value` 0 and no `position`. Check for these before ranking.
+- For brand boards, call [Douyin Brand Hot Search List](/apis/douyin/app-v3/brand-hot-search-list). For music boards, call [Douyin Music Hot Search List](/apis/douyin/app-v3/music-hot-search-list).
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

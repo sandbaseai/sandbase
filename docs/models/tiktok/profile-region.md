@@ -61,7 +61,14 @@ Same call via the path form: `POST /v1/api/tiktok/profile-region` with the body 
 
 ## Details
 
-Resolve the home region (country) of a TikTok creator by handle.
+Returns the home region of a TikTok creator as a two-letter country code. It needs one input, the creator's `handle` without the leading @.
+
+### Use cases
+
+- Check whether a creator is based in the US before adding them to a regional influencer campaign.
+- Filter a list of TikTok handles by country before outreach.
+- Add a country column to a creator database that only stores usernames.
+- Confirm a creator's market before you buy or plan local ads.
 
 ### Request
 
@@ -72,7 +79,7 @@ curl -X POST "https://api.sandbase.ai/v1/api/tiktok/profile-region" \
   -d '{"handle": "stoolpresidente"}'
 ```
 
-The result is returned in `outputs[0].data`. A lookup that finds nothing still succeeds and returns `found: false`.
+The result is returned in `outputs[0].data`.
 
 ### Parameters
 
@@ -80,9 +87,39 @@ The result is returned in `outputs[0].data`. A lookup that finds nothing still s
 |---|---|---|---|
 | `handle` | string | Yes | TikTok username without the leading @ (e.g. "stoolpresidente"). |
 
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "data": {
+    "handle": "stoolpresidente",
+    "profileUrl": "https://www.tiktok.com/@stoolpresidente",
+    "region": "US"
+  },
+  "found": true
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `found` | `true` when the handle matched a TikTok profile. A lookup that finds nothing returns `found: false`. |
+| `data.region` | Two-letter country code for the creator's home region, for example `US`. |
+| `data.handle` | The TikTok username that was looked up, without the @. |
+| `data.profileUrl` | Direct link to the creator's TikTok profile page. |
+
+### Notes
+
+- Pass `handle` without the leading @, for example `stoolpresidente`.
+- Check `found` before you read `data.region`.
+- For creator details beyond region, try [TikTok Creator Info and Milestones](/apis/tiktok/analytics/creator-info-and-milestones).
+
 ### Pricing
 
-Billed at the actual cost of each call, usually $0.0012 per request. A call can cost more when the first data source fails and another one answers. Failed calls are not charged. Lookups that find nothing and searches with no results are billed at their actual cost, which is often lower and can be $0.
+Billed at the actual cost of each call, about $0.0012 for the request above. Failed calls are not charged.
 
 ---
 Machine-readable: [`catalog/models/tiktok/profile-region.json`](../../../catalog/models/tiktok/profile-region.json) · Store page: https://www.sandbase.ai/model/tiktok/profile-region

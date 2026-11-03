@@ -60,9 +60,14 @@ Same call via the path form: `POST /v1/api/dataforseo/v3/serp/youtube/video_subt
 
 ## Details
 
-Fetch the subtitle track of a YouTube video with timestamps.
+Returns the subtitle track of a YouTube video as a list of timed text lines. You send a `video_id` and optionally a `language_code` and `location_code`.
 
-Request fields follow the official DataForSEO `/v3/serp/youtube/video_subtitles/live/advanced` task schema (one task per call; send `{"tasks": [...]}` for several). The response is DataForSEO's original JSON; results are in `tasks[].result`.
+### Use cases
+
+- Build a searchable transcript of a video from its subtitle lines.
+- Create caption files or quote clips by using the start and end time of each line.
+- Feed video text into summarization or topic analysis without downloading the video.
+- Check whether a video has subtitles in a given language.
 
 ### Request
 
@@ -73,23 +78,100 @@ curl -X POST "https://api.sandbase.ai/v1/api/dataforseo/v3/serp/youtube/video_su
   -d '{"video_id": "dQw4w9WgXcQ", "location_code": 2840, "language_code": "en"}'
 ```
 
+The result is returned in `outputs[0]`.
+
 ### Parameters
 
-The JSON body is forwarded to the upstream endpoint (one task per call). Fields used above:
+| Name | Type | Required | Description |
+|---|---|---|---|
+| `language_code` | string | No | Language code, e.g. "en". |
+| `location_code` | integer | No | Location code, e.g. 2840 for the United States. |
+| `video_id` | string | No | YouTube video ID. |
 
-| Name | Description |
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "status_code": 20000,
+  "status_message": "Ok.",
+  "tasks": [
+    {
+      "data": {
+        "api": "serp",
+        "device": "desktop",
+        "function": "live",
+        "language_code": "en",
+        "location_code": 2840,
+        "os": "windows",
+        "se": "youtube",
+        "se_type": "video_subtitles"
+      },
+      "id": "11030829-1614-0139-0000-776382922759",
+      "path": [
+        "v3"
+      ],
+      "result": [
+        {
+          "category": null,
+          "check_url": "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+          "datetime": "2026-11-03 08:29:44 +00:00",
+          "item_types": [
+            "youtube_subtitles"
+          ],
+          "items": [
+            {
+              "duration_time": 1.68,
+              "end_time": 3.04,
+              "rank_absolute": 1,
+              "rank_group": 1,
+              "start_time": 1.36,
+              "text": "[♪♪♪]",
+              "type": "youtube_subtitles"
+            }
+          ],
+          "items_count": 61,
+          "language_code": "en",
+          "location_code": 2840
+        }
+      ],
+      "result_count": 1,
+      "status_code": 20000,
+      "status_message": "Ok.",
+      "time": "10.4056 sec."
+    }
+  ],
+  "tasks_count": 1,
+  "tasks_error": 0,
+  "time": "10.4905 sec.",
+  "version": "0.1.20261022"
+}
+```
+
+### Response fields
+
+| Field | Meaning |
 |---|---|
-| `video_id` | YouTube video ID. |
-| `location_code` | Location code, e.g. 2840 for the United States. |
-| `language_code` | Language code, e.g. "en". |
+| `tasks[].result[].items[].text` | The subtitle text for one line. A line can contain a newline character and music symbols or bracketed sound cues such as `[♪♪♪]`. |
+| `tasks[].result[].items[].start_time / end_time` | When the line appears and disappears. The values look like seconds from the start of the video. |
+| `tasks[].result[].items[].duration_time` | How long the line stays on screen. It equals `end_time` minus `start_time`. |
+| `tasks[].result[].items[].rank_absolute / rank_group` | Position of the line in the subtitle list, starting at 1. |
+| `tasks[].result[].items_count` | Number of subtitle lines in the result. |
+| `tasks[].result[].check_url` | The YouTube watch URL for the video that was checked. |
+| `tasks[].result[].language_code` | Language code of the returned subtitles. |
+| `tasks[].result[].datetime` | Time the result was produced, with a UTC offset. |
+| `tasks[].status_code / status_message` | Status of the task. `20000` with `Ok.` means the call succeeded. |
 
-### Reference
+### Notes
 
-- Official docs: https://docs.dataforseo.com/v3/serp/youtube/video_subtitles/live/advanced/
+- Take `video_id` from the `v` parameter of a YouTube watch URL, for example `dQw4w9WgXcQ` from `https://www.youtube.com/watch?v=dQw4w9WgXcQ`.
+- Read the lines from `tasks[].result[].items[]` and sort by `start_time` or `rank_absolute` to keep them in order.
+- The request echoes `language_code` and `location_code` in `tasks[].data` and in the result.
 
 ### Pricing
 
-Flat price per call. Failed calls are not charged.
+$0.006 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ---
 Machine-readable: [`catalog/models/dataforseo/v3/serp/youtube/video_subtitles/live/advanced.json`](../../../../../../../../catalog/models/dataforseo/v3/serp/youtube/video_subtitles/live/advanced.json) · Store page: https://www.sandbase.ai/model/dataforseo/v3/serp/youtube/video_subtitles/live/advanced

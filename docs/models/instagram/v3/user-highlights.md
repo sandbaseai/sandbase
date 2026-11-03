@@ -66,13 +66,14 @@ Same call via the path form: `POST /v1/api/instagram/v3/user-highlights` with th
 
 ## Details
 
-Retrieve highlight collections for an account by providing `username`. Navigate through result pages using `first`, `after`, `before`, and `last`.
+Returns the story highlights on a public Instagram profile. Each highlight has a title, a cover image, a creation time, and a count of the stories inside it. The only required input is `username`.
 
 ### Use cases
 
-- Display story highlight reels from an account profile.
-- Archive story highlight collections for creator monitoring.
-- Navigate paginated highlight feeds across public profiles.
+- Show an account's highlight reels, with titles and cover images, in a profile viewer.
+- Track how many stories each highlight holds to see when a creator adds new material.
+- Build a list of highlight IDs to feed into a tool that fetches the stories inside each highlight.
+- Compare highlight titles across brand accounts to see which topics they feature.
 
 ### Request
 
@@ -83,25 +84,95 @@ curl -X POST "https://api.sandbase.ai/v1/api/instagram/v3/user-highlights" \
   -d '{"username": "instagram"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
 |---|---|---|---|
 | `username` | string | Yes | Instagram username (required) |
-| `last` | integer | No | Highlights per page for backward pagination, use with `before` |
 | `after` | string | No | Forward pagination cursor, from previous response `data.page_info.end_cursor` |
-| `first` | integer | No | Number of highlights per page (default 10, max 50) |
 | `before` | string | No | Backward pagination cursor, from previous response `data.page_info.start_cursor` |
+| `first` | integer | No | Number of highlights per page (default 10, max 50) |
+| `last` | integer | No | Highlights per page for backward pagination, use with `before` |
+
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "_rid": "355f3072ef4ec",
+  "count": 7,
+  "items": [
+    {
+      "cover_media": {
+        "crop_rect": null,
+        "cropped_image_version": {
+          "height": 150,
+          "scans_profile": "",
+          "url": "https://scontent-xxc1-1.cdninstagram.com/v/t51.71878-15/756700225_16539857623317…",
+          "width": 150
+        },
+        "full_image_version": null,
+        "media_id": null,
+        "upload_id": null
+      },
+      "created_at": "2024-06-28T20:31:11Z",
+      "id": "highlight:18223279177302854",
+      "media_count": 52,
+      "pk": "18223279177302854",
+      "title": "close friends"
+    }
+  ],
+  "tray": [
+    {
+      "cover_media": {
+        "crop_rect": null,
+        "cropped_image_version": {
+          "height": 150,
+          "scans_profile": "",
+          "url": "https://scontent-xxc1-1.cdninstagram.com/v/t51.71878-15/756700225_16539857623317…",
+          "width": 150
+        },
+        "full_image_version": null,
+        "media_id": null,
+        "upload_id": null
+      },
+      "created_at": "2024-06-28T20:31:11Z",
+      "id": "highlight:18223279177302854",
+      "media_count": 52,
+      "pk": "18223279177302854",
+      "title": "close friends"
+    }
+  ]
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `count` | Number of highlights in this response. |
+| `items[]` | List of highlight collections for the account. Each entry is one highlight. |
+| `items[].title` | Name of the highlight as shown under the profile. It can contain emoji. |
+| `items[].id / items[].pk` | Identifier of the highlight. `id` is the `pk` value with a `highlight:` prefix. |
+| `items[].media_count` | Number of stories stored in the highlight. |
+| `items[].created_at` | Creation time of the highlight, in ISO 8601 UTC format. |
+| `items[].cover_media.cropped_image_version.url` | URL of the cropped cover image for the highlight. |
+| `items[].cover_media.cropped_image_version.width / items[].cover_media.cropped_image_version.height` | Pixel size of the cover image. Both are 150 in the sample. |
+| `tray[]` | List of highlights with the same entries as `items[]` in this response. |
 
 ### Notes
 
-- `first` sets the number of highlights returned per page (default 10, max 50).
-- Use `after` with `data.page_info.end_cursor` from the previous response for forward pagination.
-- Use `before` with `last` and `data.page_info.start_cursor` for backward pagination.
+- Pass the account name as `username`, for example `instagram`, without the `@` sign.
+- Set `first` to change the page size (default 10, max 50). Use `after` for forward paging and `before` with `last` for backward paging.
+- Use the `pk` value of a highlight with [Instagram Highlight Detail](/apis/instagram/highlight-detail) to read the stories inside it.
+- The cover image URLs in the response are long and contain query parameters, so store the full string.
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.008 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

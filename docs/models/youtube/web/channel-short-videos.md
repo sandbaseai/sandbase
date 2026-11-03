@@ -63,13 +63,14 @@ Same call via the path form: `POST /v1/api/youtube/web/channel-short-videos` wit
 
 ## Details
 
-Fetch YouTube Shorts uploaded by a creator by supplying a `channel_id`. Use `continuation_token` to paginate through subsequent sets of short videos.
+Returns a list of YouTube Shorts for one channel. Each item has the video ID, title, view count and thumbnails. You send a `channel_id`, and you can add a `continuation_token` to get the next page.
 
 ### Use cases
 
-- List all short-form videos belonging to a target YouTube channel.
-- Track recent YouTube Shorts releases for content monitoring tools.
-- Paginate through a channel's Shorts catalog for analytics dashboards.
+- Build a list of a creator's Shorts with titles and thumbnails for a content dashboard.
+- Compare `number_of_views` across Shorts to find a channel's top-performing short videos.
+- Collect `video_id` values from a channel to fetch full details for each Short.
+- Page through a channel's full Shorts catalog to archive titles and links.
 
 ### Request
 
@@ -80,20 +81,71 @@ curl -X POST "https://api.sandbase.ai/v1/api/youtube/web/channel-short-videos" \
   -d '{"channel_id": "UCXuqSBlHAE6Xw-yeJA0Tunw"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
 |---|---|---|---|
 | `channel_id` | string | Yes | Channel ID. |
-| `continuation_token` | string | No | Token to continue fetching channel short videos. |
+| `continuation_token` | string | No | Token to continue fetching channel short videos. Default is None. |
+
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "continuation_token": "4qmFsgLB…",
+  "videos": [
+    {
+      "author": null,
+      "category": null,
+      "channel_id": "UCXuqSBlHAE6Xw-yeJA0Tunw",
+      "description": null,
+      "is_live_content": null,
+      "keywords": [],
+      "number_of_views": 156000,
+      "published_time": "",
+      "thumbnails": [
+        {
+          "height": 720,
+          "url": "https://i.ytimg.com/vi/9st7OYkUHJk/sardefault.jpg?sqp=-oaymwEoCJUDENAFSFqQAgHyq4…",
+          "width": 405
+        }
+      ],
+      "title": "Ep. 35 - Best Tech for a Deserted Island...",
+      "type": "SHORTS",
+      "video_id": "9st7OYkUHJk"
+    }
+  ]
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `videos[]` | One Short from the channel. The list holds the Shorts for the current page. |
+| `videos[].video_id` | YouTube video ID of the Short, for example `9st7OYkUHJk`. |
+| `videos[].title` | Title of the Short. Long titles can appear cut off with `...`. |
+| `videos[].number_of_views` | View count as a number, for example `156000`. |
+| `videos[].type` | Kind of video. Every item here has the value `SHORTS`. |
+| `videos[].channel_id` | ID of the channel that owns the Short. |
+| `videos[].thumbnails[]` | Thumbnail images for the Short. Each entry has a `url`, a `width` and a `height`. |
+| `continuation_token` | Token for the next page of Shorts. Send it back as `continuation_token` in the next request. |
+| `videos[].author / videos[].category / videos[].description / videos[].published_time / videos[].video_length` | These fields were `null` or empty in this response. Do not rely on them for this API. |
 
 ### Notes
 
-- Pass `continuation_token` to retrieve the next page of short videos.
+- Get the `channel_id` from a channel name or URL with [YouTube Channel ID Lookup](/apis/youtube/web/channel-id) or [YouTube Channel ID from URL (V2)](/apis/youtube/web/channel-id-v2).
+- For the next page, copy the top-level `continuation_token` from the response into the `continuation_token` request parameter.
+- Channel IDs start with `UC`. Video IDs are 11-character strings.
+- Use [YouTube Channel Information](/apis/youtube/web/channel-info) to get profile details for the same channel.
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

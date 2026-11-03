@@ -75,9 +75,14 @@ Same call via the path form: `POST /v1/api/similarweb/search-serp-players-timese
 
 ## Details
 
-Get month-by-month clicks for the websites that appear on search results for given keywords.
+Returns monthly click counts for each website that appears in search results for a keyword. You send a `keywords` value, a `start_date`, an `end_date` and a `limit`.
 
-The response is the official Similarweb API response, unchanged.
+### Use cases
+
+- Track how many search clicks `youtube.com` gets for "running shoes" from month to month.
+- Compare which domains gain or lose search clicks for a keyword over a date range.
+- Build a chart of the top sites competing on a keyword for an SEO report.
+- Spot new domains that start to capture clicks for a product keyword.
 
 ### Request
 
@@ -88,21 +93,81 @@ curl -X POST "https://api.sandbase.ai/v1/api/similarweb/search-serp-players-time
   -d '{"start_date": "2026-09", "end_date": "2026-09", "country": "ww", "keywords": "running shoes", "limit": 1}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
 |---|---|---|---|
-| `country` | string | No | Worldwide data only; values are case-insensitive. |
 | `end_date` | string | Yes | end_date |
-| `granularity` | string | No | granularity |
 | `keywords` | string | Yes | keywords |
 | `limit` | integer | Yes | limit |
-| `offset` | integer | No | offset |
 | `start_date` | string | Yes | start_date |
+| `country` | string | No | Worldwide data only; values are case-insensitive. |
+| `granularity` | string | No | granularity |
+| `offset` | integer | No | offset |
+
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "data": [
+    {
+      "clicks": 24689,
+      "date": "2026-09-01",
+      "domain": "youtube.com"
+    }
+  ],
+  "meta": {
+    "last_updated": "2026-09-30",
+    "query": {
+      "asc": null,
+      "limit": 1,
+      "offset": 0,
+      "sort": null
+    },
+    "request": {
+      "country": "ww",
+      "end_date": "2026-09-30",
+      "format": "json",
+      "granularity": "monthly",
+      "is_keyword_group": false,
+      "keyword": "running shoes",
+      "start_date": "2026-09-01",
+      "traffic_source": "all",
+      "web_source": "total"
+    },
+    "status": "success"
+  }
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `data[].domain` | The website that appeared in search results for the keyword. |
+| `data[].date` | The first day of the month the click count belongs to, in `YYYY-MM-DD` format. |
+| `data[].clicks` | The number of clicks the domain received from search results for the keyword in that month. |
+| `meta.status` | Shows `success` when the call worked. |
+| `meta.last_updated` | Date the data was last updated, in `YYYY-MM-DD` format. |
+| `meta.query.limit / meta.query.offset` | The page size and starting position applied to the `data` list. |
+| `meta.request.keyword` | The keyword the results are for. |
+| `meta.request.start_date / meta.request.end_date` | The date range used, expanded to full days. A `2026-09` input becomes `2026-09-01` to `2026-09-30`. |
+| `meta.request.granularity` | The time step of the rows. The value `monthly` gives one row per domain per month. |
+
+### Notes
+
+- Send `start_date` and `end_date` as `YYYY-MM`. The response echoes them as full dates.
+- Use `limit` (1 to 20) and `offset` to page through domains.
+- For totals over the whole period instead of month-by-month rows, use [Similarweb SERP Players - Aggregated](/apis/similarweb/search-serp-players-aggregated).
+- To see which keywords drive traffic to one site, use [Similarweb Website Keywords](/apis/similarweb/search-website-keywords).
 
 ### Pricing
 
-$0.075 per Similarweb credit; 0.02 credit per returned row, rounded up to whole credits. Failed calls are not charged.
+Billed at the actual cost of each call, about $0.075 for the request above. Failed calls are not charged.
 
 ---
 Machine-readable: [`catalog/models/similarweb/search-serp-players-timeseries.json`](../../../catalog/models/similarweb/search-serp-players-timeseries.json) · Store page: https://www.sandbase.ai/model/similarweb/search-serp-players-timeseries

@@ -62,13 +62,13 @@ Same call via the path form: `POST /v1/api/youtube/web/channel-id` with the body
 
 ## Details
 
-Look up the unique YouTube channel ID for a creator by supplying the target name in `channel_name`.
+This API returns the YouTube channel ID that matches a channel name. It needs one input, `channel_name`, and returns the ID with the name it matched.
 
 ### Use cases
 
-- Resolve a YouTube channel name into its official channel ID.
-- Obtain channel identifiers required for downstream channel data lookups.
-- Verify the channel ID associated with a specific creator handle or username.
+- Convert a creator's channel name into a channel ID before you store it in a database.
+- Get the channel ID you need to call other YouTube channel APIs.
+- Check that a channel name maps to the channel ID you expect.
 
 ### Request
 
@@ -79,6 +79,8 @@ curl -X POST "https://api.sandbase.ai/v1/api/youtube/web/channel-id" \
   -d '{"channel_name": "LinusTechTips"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
@@ -87,7 +89,7 @@ curl -X POST "https://api.sandbase.ai/v1/api/youtube/web/channel-id" \
 
 ### Example response
 
-Real response for the request above, trimmed to the main fields. User names and long IDs are masked.
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
 
 ```json
 {
@@ -96,13 +98,22 @@ Real response for the request above, trimmed to the main fields. User names and 
 }
 ```
 
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `channel_id` | The YouTube channel ID for the matched channel. It starts with `UC`, as in `UCXuqSBlHAE6Xw-yeJA0Tunw`. |
+| `channel_name` | The channel name in the response. It matches the `channel_name` you sent in the example request. |
+
 ### Notes
 
-- Requires `channel_name` as an input string.
+- Pass the channel name as plain text in `channel_name`, for example `LinusTechTips`.
+- Use the returned `channel_id` as input for other YouTube channel APIs, such as [YouTube Channel Information](/apis/youtube/web/channel-info).
+- To go the other way and find a channel ID from a channel URL, use [YouTube Channel ID from URL (V2)](/apis/youtube/web/channel-id-v2).
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

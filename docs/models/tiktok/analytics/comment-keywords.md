@@ -62,13 +62,14 @@ Same call via the path form: `POST /v1/api/tiktok/analytics/comment-keywords` wi
 
 ## Details
 
-Analyze audience feedback by inspecting frequent keywords from video comments using `item_id`.
+Returns keywords and short phrases pulled from the comments on one TikTok video. Each keyword comes with example comments that contain it. The only input is the video ID in `item_id`.
 
 ### Use cases
 
-- Identify common viewer topics across video comments.
-- Extract audience feedback to refine video content strategy.
-- Track recurring phrases mentioned by viewers.
+- Find the phrases viewers repeat most in the comments of a single video.
+- Read sample comments behind each phrase to see how viewers talk about a topic.
+- Spot the most liked comments that mention a phrase.
+- Compare the keyword lists of several videos to see which topics come up again.
 
 ### Request
 
@@ -79,6 +80,8 @@ curl -X POST "https://api.sandbase.ai/v1/api/tiktok/analytics/comment-keywords" 
   -d '{"item_id": "7350810998023949599"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
@@ -87,27 +90,67 @@ curl -X POST "https://api.sandbase.ai/v1/api/tiktok/analytics/comment-keywords" 
 
 ### Example response
 
-Real response for the request above, trimmed to the main fields. User names and long IDs are masked.
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
 
 ```json
 {
+  "item_id": "7350810998023949599",
   "key_words": {
     "comment_key_words": [
       {
+        "comments": [
+          {
+            "channel_id": 0,
+            "cid": "7350994816208044831",
+            "comment_author": {
+              "cover": {
+                "url_list": [
+                  "https://p16-common-sign.tiktokcdn-us.com/tos-useast8-avt-0068-tx2/83a239de10dcb0…"
+                ]
+              },
+              "nick_name": "Itsmellow",
+              "uid": "7312929108468139054"
+            },
+            "comment_type": 0,
+            "create_date": 1711536918,
+            "digg_count": 0,
+            "text": "Yo if you look again I’m pretty sure she made it"
+          }
+        ],
         "key_word": "pretty sure"
       }
-    ]
+    ],
+    "message": {
+      "data_source": 1,
+      "status": 1,
+      "timestamp": 1793691831
+    }
   }
 }
 ```
 
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `item_id` | The video ID that was queried. It matches the `item_id` in the request. |
+| `key_words.comment_key_words[].key_word` | An extracted keyword or phrase, such as `pretty sure` or `long way`. |
+| `key_words.comment_key_words[].comments[].text` | The text of a comment that contains the keyword. |
+| `key_words.comment_key_words[].comments[].cid` | The ID of the comment. |
+| `key_words.comment_key_words[].comments[].digg_count` | The like count of the comment. |
+| `key_words.comment_key_words[].comments[].create_date` | The time the comment was posted, as a Unix timestamp in seconds. |
+| `key_words.comment_key_words[].comments[].comment_author.nick_name / key_words.comment_key_words[].comments[].comment_author.uid` | The display name and the user ID of the person who wrote the comment. |
+| `key_words.comment_key_words[].comments[].comment_author.cover.url_list[]` | Image URLs for the comment author's avatar. |
+
 ### Notes
 
-- Find the required `item_id` in TikTok Studio or inside video sharing links.
+- Get `item_id` from a TikTok video sharing link or from TikTok Studio. It is a numeric string such as `7350810998023949599`.
+- Each keyword in the response holds a short list of comments, not every comment on the video.
+- To see views, likes and other metrics for the same video, call [TikTok Video Metrics](/apis/tiktok/analytics/video-metrics).
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

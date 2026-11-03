@@ -64,9 +64,14 @@ Same call via the path form: `POST /v1/api/similarweb/website-top-geographies` w
 
 ## Details
 
-Get the countries a website's traffic comes from, with share and visits for each country.
+Returns the countries that send traffic to a website, with each country's share of traffic and visit count. It needs a bare `domain` such as `cnn.com` and can take a `month` in `YYYY-MM` format.
 
-The response is the official Similarweb API response, unchanged.
+### Use cases
+
+- Check which countries make up most of a news site's audience.
+- Compare the US share of visits for two competing websites.
+- Find smaller markets, such as India, where a site already gets traffic.
+- Feed country-level visit counts into a market sizing report.
 
 ### Request
 
@@ -77,6 +82,8 @@ curl -X POST "https://api.sandbase.ai/v1/api/similarweb/website-top-geographies"
   -d '{"domain": "cnn.com", "month": "2026-09"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
@@ -84,9 +91,59 @@ curl -X POST "https://api.sandbase.ai/v1/api/similarweb/website-top-geographies"
 | `domain` | string | Yes | Bare website hostname without scheme, path, port, or credentials. |
 | `month` | string | No | Complete month in YYYY-MM. |
 
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "data": {
+    "countries": [
+      {
+        "country_code": "us",
+        "country_name": "United States",
+        "rank": null,
+        "share": 0.8111012961668697,
+        "visits": 153021200.49451894
+      }
+    ]
+  },
+  "meta": {
+    "country": "ww",
+    "end_date": "2026-09",
+    "granularity": "monthly",
+    "request_id": "imc_c30995d6af7ed527de005aaf6c0822d71f6c0fc719e2f31a4cb27ddb09d08ee5",
+    "retrieved_at": "2026-11-03T07:43:23.793583227Z",
+    "source": "similarweb",
+    "start_date": "2026-09"
+  }
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `data.countries[]` | List of countries that send traffic to the domain. Each item is one country. |
+| `data.countries[].country_code` | Lowercase two-letter country code, for example `us`. |
+| `data.countries[].country_name` | English name of the country. |
+| `data.countries[].share` | Fraction of the site's traffic from this country. A value of `0.81` means about 81 percent. |
+| `data.countries[].visits` | Number of visits from this country. The value is a decimal, so round it for display. |
+| `data.countries[].rank` | Country rank value. It is `null` in this response. |
+| `meta.start_date / meta.end_date` | First and last month covered by the data, in `YYYY-MM` format. |
+| `meta.granularity` | Time step of the data. The value here is `monthly`. |
+| `meta.country` | Country scope of the request. The value `ww` is used here for all countries combined. |
+
+### Notes
+
+- `month` is optional. Use a complete month in `YYYY-MM` format, such as `2026-09`.
+- Pass the hostname only. Leave out the scheme, path, port, and credentials.
+- The response has no pagination parameters. The pricing section says up to 10 countries come back.
+- For more on a site's traffic over time, call [Similarweb Website Traffic Trend](/apis/similarweb/website-traffic-trend).
+
 ### Pricing
 
-$0.225 per country returned (3 Similarweb credits), up to 10 countries. Failed calls are not charged.
+Billed at the actual cost of each call, about $0.225 for the request above. Failed calls are not charged.
 
 ---
 Machine-readable: [`catalog/models/similarweb/website-top-geographies.json`](../../../catalog/models/similarweb/website-top-geographies.json) · Store page: https://www.sandbase.ai/model/similarweb/website-top-geographies

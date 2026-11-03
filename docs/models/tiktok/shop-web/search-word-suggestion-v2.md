@@ -64,13 +64,14 @@ Same call via the path form: `POST /v1/api/tiktok/shop-web/search-word-suggestio
 
 ## Details
 
-Use this endpoint to retrieve search keyword suggestions optimized for TikTok Shop using `search_word`.
+Returns a list of TikTok Shop search keyword suggestions for a starting query. You send `search_word`, and you can set `region` and `lang` to match a market.
 
 ### Use cases
 
-- Populate autocomplete recommendations in product search boxes.
-- Discover popular search terms across different regional markets.
-- Research relevant search keywords for product catalog tagging.
+- Fill a product search box with autocomplete suggestions for a partial keyword.
+- Expand a seed word like `coffee` into related shopping queries for keyword research.
+- Compare the suggestions returned for different `region` values to see how shoppers phrase searches in each market.
+- Pick search phrases to feed into a product search call.
 
 ### Request
 
@@ -81,6 +82,8 @@ curl -X POST "https://api.sandbase.ai/v1/api/tiktok/shop-web/search-word-suggest
   -d '{"search_word": "coffee"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
@@ -89,15 +92,38 @@ curl -X POST "https://api.sandbase.ai/v1/api/tiktok/shop-web/search-word-suggest
 | `lang` | string | No | Language code (en-US/zh-CN etc.) |
 | `region` | string | No | Region code (US/GB/SG/MY/PH/TH/VN/ID) |
 
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "code": 0,
+  "data": [
+    "coffee table"
+  ],
+  "message": "success"
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `code` | Status code of the call. `0` means the request succeeded. |
+| `message` | Text status of the call. It shows `success` when the request worked. |
+| `data` | List of suggested search keywords as plain strings. The list is ordered as returned. |
+| `data[]` | One suggested search phrase, such as `coffee table` or `coffee maker machine`. |
+
 ### Notes
 
-- `search_word` is required to supply the query keyword.
-- `region` supports values such as US, GB, SG, MY, PH, TH, VN, and ID.
-- `lang` accepts standard language codes such as en-US or zh-CN.
+- `search_word` is the only required parameter. `region` defaults to `US` and `lang` defaults to `en-US`.
+- The response is a flat list of strings. It has no counts, scores or IDs for each suggestion.
+- Pass a suggestion into [TikTok Shop Product Search](/apis/tiktok/shop-web/search-products-list) to find products for that phrase.
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

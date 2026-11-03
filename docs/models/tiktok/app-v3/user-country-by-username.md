@@ -62,13 +62,14 @@ Same call via the path form: `POST /v1/api/tiktok/app-v3/user-country-by-usernam
 
 ## Details
 
-Look up account location details for a TikTok user based on their `username`. The response includes the user's registered country code and internal identifiers.
+Returns the registered country code, the numeric and secure user IDs, and a username modification timestamp for a TikTok account. It needs one input: the account `username`, without the @ sign.
 
 ### Use cases
 
-- Identify the country where a TikTok account is registered.
-- Verify creator geographic details for regional marketing campaigns.
-- Retrieve internal user identifiers alongside country information.
+- Check which country a creator account is registered in before you plan a regional campaign.
+- Filter a list of TikTok handles by registered country.
+- Convert a `username` into `user_id` and `sec_user_id` for later API calls.
+- Check when an account last changed its username.
 
 ### Request
 
@@ -79,6 +80,8 @@ curl -X POST "https://api.sandbase.ai/v1/api/tiktok/app-v3/user-country-by-usern
   -d '{"username": "tiktok"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
@@ -87,25 +90,39 @@ curl -X POST "https://api.sandbase.ai/v1/api/tiktok/app-v3/user-country-by-usern
 
 ### Example response
 
-Real response for the request above, trimmed to the main fields. User names and long IDs are masked.
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
 
 ```json
 {
+  "api_version": "v1",
   "country": "US",
-  "sec_user_id": "<user>",
-  "user_id": "<user>",
-  "username": "<user>",
-  "username_modify_time": 1791290369
+  "sec_user_id": "MS4wLjABAAAAv7iSuuXDJGDvJkmH_vz1qkDZYo1apxgzaxdBSeIuPiM",
+  "user_id": 107955,
+  "username": "tiktok",
+  "username_modify_time": 1793691840
 }
 ```
 
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `country` | Two-letter country code for the account, such as `US`. |
+| `user_id` | Numeric ID of the TikTok user. |
+| `sec_user_id` | Secure user ID string for the same account. Other TikTok endpoints accept it in place of the username. |
+| `username` | The username that was looked up, returned as the account currently holds it. |
+| `username_modify_time` | Unix timestamp in seconds for the account's username modification. |
+| `api_version` | Version label of the response format, `v1` in this response. |
+
 ### Notes
 
-- The `username` parameter can be obtained directly from the profile URL, such as the handle following the @ symbol.
+- Take `username` from the profile URL. In https://www.tiktok.com/@tiktok, the value is `tiktok`.
+- To get more ID details for a username, call [TikTok User ID by Username](/apis/tiktok/app-v3/user-id-and-sec-user-id-by-username).
+- For profile details such as bio and counts, call [TikTok User Profile Details](/apis/tiktok/app-v3/user-profile).
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

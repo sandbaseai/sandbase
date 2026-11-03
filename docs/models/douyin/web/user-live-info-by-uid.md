@@ -62,13 +62,13 @@ Same call via the path form: `POST /v1/api/douyin/web/user-live-info-by-uid` wit
 
 ## Details
 
-This endpoint retrieves Douyin user broadcast information using a specified `uid`. It returns session identifiers and scene metadata linked to the account.
+This API takes a Douyin user `uid` and returns a short record with stream session metadata. The response holds a `log_id`, a `scene_id` and a `user_live` list. In the sample response, `user_live` is empty.
 
 ### Use cases
 
-- Check broadcast status details for a specific Douyin account.
-- Track streaming session logs and scene identifiers by user identifier.
-- Integrate Douyin creator broadcast data into monitoring dashboards.
+- Check whether a Douyin account has any entries in `user_live` for a known `uid`.
+- Store the `log_id` of each lookup to trace a specific request in your own logs.
+- Run a quick check on a list of creator UIDs before calling heavier live-room APIs.
 
 ### Request
 
@@ -79,6 +79,8 @@ curl -X POST "https://api.sandbase.ai/v1/api/douyin/web/user-live-info-by-uid" \
   -d '{"uid": "92769419069"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
@@ -87,26 +89,45 @@ curl -X POST "https://api.sandbase.ai/v1/api/douyin/web/user-live-info-by-uid" \
 
 ### Example response
 
-Real response for the request above, trimmed to the main fields. User names and long IDs are masked.
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
 
 ```json
 {
   "data": [
     {
-      "log_id": "20261006204105F5A3868EFFBE457E1D1B",
-      "scene_id": 253
+      "log_id": "2026110315323230CB2D8E36B04148220A",
+      "scene_id": 253,
+      "user_live": []
     }
-  ]
+  ],
+  "extra": {
+    "now": 1793691152930
+  },
+  "status_code": 0
 }
 ```
 
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `data[]` | List of result objects for the requested `uid`. The sample holds one object. |
+| `data[].user_live` | List of stream entries for the user. It is an empty list in the sample response, which means no stream entries came back for that `uid`. |
+| `data[].log_id` | String that identifies this lookup. Its first 14 digits look like a date and time, but the time zone is not shown. |
+| `data[].scene_id` | Number that labels the scene of the request. The sample value is `253`. |
+| `extra.now` | Server time as a 13-digit number, which looks like a Unix timestamp in milliseconds. |
+| `status_code` | Status of the call. `0` in the sample response. |
+
 ### Notes
 
-- `uid` is required to identify the target Douyin account.
+- The `uid` is the numeric user ID as a string, for example `92769419069`.
+- If you only have a `sec_user_id`, or need the reverse, use [Douyin UID to Sec User ID](/apis/douyin/web/encrypt-uid-to-sec-user-id) to convert IDs.
+- To see profile details for the same `uid`, call [Douyin User Profile by UID](/apis/douyin/web/user-profile-by-uid).
+- To get live room data once you have a room ID, call [Douyin Stream Data by Room ID (V2)](/apis/douyin/web/user-live-videos-by-room-id-v2).
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

@@ -62,13 +62,13 @@ Same call via the path form: `POST /v1/api/toutiao/web/video-info` with the body
 
 ## Details
 
-Fetch detailed information for a Toutiao video by supplying the post ID in `aweme_id`.
+Returns details for one Toutiao video post, looked up by its post ID in `aweme_id`. The sample response for this ID holds only a `delete` flag and a status message.
 
 ### Use cases
 
-- Retrieve metadata for a specific Toutiao video post.
-- Monitor video engagement metrics and post attributes.
-- Inspect Toutiao content details using a known post identifier.
+- Check whether a known Toutiao video post is still available before you process it.
+- Validate a stored list of Toutiao post IDs and flag the ones that return a `delete` value.
+- Test an `aweme_id` before you call a richer video endpoint for the same post.
 
 ### Request
 
@@ -79,19 +79,45 @@ curl -X POST "https://api.sandbase.ai/v1/api/toutiao/web/video-info" \
   -d '{"aweme_id": "7431543350882206242"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
 |---|---|---|---|
 | `aweme_id` | string | Yes | Post ID |
 
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "data": {
+    "delete": 1
+  },
+  "message": "success"
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `data` | Object that holds the result for the requested post. |
+| `data.delete` | Deletion flag for the post. The sample shows `1` for the requested ID, which suggests the post was removed. The response does not define the values, so check against a post you know is live. |
+| `message` | Status text for the call. The sample returns `success`. |
+
 ### Notes
 
-- Provide the target post ID via the required `aweme_id` parameter.
+- Pass the post ID as a string in `aweme_id`, for example `7431543350882206242`.
+- A `success` message does not mean the post has full details. The sample response returned only `data.delete`.
+- To get more video fields, try [Toutiao Video Information](/apis/toutiao/app/video-info).
+- For article posts, use [Toutiao Article Details (Web)](/apis/toutiao/web/article-info).
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

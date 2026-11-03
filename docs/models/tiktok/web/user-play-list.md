@@ -64,13 +64,14 @@ Same call via the path form: `POST /v1/api/tiktok/web/user-play-list` with the b
 
 ## Details
 
-Retrieve playlist collections for a specified TikTok account using the `secUid` parameter. Supports pagination controls through `cursor` and `count`.
+Returns the public playlists (mixes) on a TikTok account. Each playlist includes its name, cover image, video count and creator details. The input is the user's `secUid`.
 
 ### Use cases
 
-- Inspect playlists curated by a target TikTok creator.
-- Analyze video collection counts across profile mixes.
-- Display organized video series on creator dashboard tools.
+- List the playlists a TikTok creator has published on their profile.
+- Compare `videoCount` across playlists to see which series hold the most videos.
+- Collect playlist IDs to feed into a mix video lookup.
+- Show a creator's playlist names and covers in a profile dashboard.
 
 ### Request
 
@@ -80,6 +81,8 @@ curl -X POST "https://api.sandbase.ai/v1/api/tiktok/web/user-play-list" \
   -H "Content-Type: application/json" \
   -d '{"secUid": "MS4wLjABAAAAv7iSuuXDJGDvJkmH_vz1qkDZYo1apxgzaxdBSeIuPiM"}'
 ```
+
+The result is returned in `outputs[0].data`.
 
 ### Parameters
 
@@ -91,35 +94,72 @@ curl -X POST "https://api.sandbase.ai/v1/api/tiktok/web/user-play-list" \
 
 ### Example response
 
-Real response for the request above, trimmed to the main fields. User names and long IDs are masked.
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
 
 ```json
 {
+  "cookie": "tt_chain…",
+  "cursor": "5",
+  "extra": {
+    "fatal_item_ids": [],
+    "logid": "20261103154431181FE96A9F411504D026",
+    "now": 1793691871000
+  },
+  "hasMore": false,
+  "log_pb": {
+    "impr_id": "20261103154431181FE96A9F411504D026"
+  },
   "playList": [
     {
+      "cover": "https://p16-common-sign.tiktokcdn.com/tos-useast8-p-0068-tx2/o8UZ7AA11Ciogu5XByi…",
+      "creator": {
+        "avatarLarger": "https://p16-common-sign.tiktokcdn.com/tos-maliva-avt-0068/ba67b11de451691939223e…",
+        "avatarMedium": "https://p16-common-sign.tiktokcdn.com/tos-maliva-avt-0068/ba67b11de451691939223e…",
+        "avatarThumb": "https://p16-common-sign.tiktokcdn.com/tos-maliva-avt-0068/ba67b11de451691939223e…",
+        "ftc": false,
+        "id": "107955",
+        "isADVirtual": false,
+        "nickname": "TikTok",
+        "openFavorite": false
+      },
       "id": "7681171537575824159",
+      "mixId": "7681171537575824159",
       "mixName": "Songs Of The Summer 2026",
       "name": "Songs Of The Summer 2026",
-      "videoCount": 3,
-      "creator": {
-        "id": "107955",
-        "nickname": "<user>",
-        "privateAccount": true,
-        "verified": false
-      }
+      "videoCount": 3
     }
-  ]
+  ],
+  "statusCode": 0,
+  "status_code": 0,
+  "status_msg": "",
+  "tt_chain_token": "0k5cdiqY…"
 }
 ```
 
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `playList[]` | List of playlists (mixes) on the account. |
+| `playList[].id / playList[].mixId` | ID of the playlist. Both keys hold the same value in this response. |
+| `playList[].mixName / playList[].name` | Display name of the playlist. |
+| `playList[].videoCount` | Number of videos in the playlist. |
+| `playList[].cover` | URL of the playlist cover image. The URL carries an `x-expires` query value, so save the image if you need it later. |
+| `playList[].creator.id` | ID of the account that owns the playlist. |
+| `playList[].creator.nickname` | Display name of the creator. |
+| `playList[].creator.avatarLarger / playList[].creator.avatarMedium / playList[].creator.avatarThumb` | Creator avatar image URLs in three sizes. |
+| `hasMore` | Tells you whether more pages remain. `false` means this was the last page. |
+| `cursor` | Cursor value returned for this page, as a string. |
+
 ### Notes
 
-- Paginate results using `cursor` and adjust the batch size with `count`.
-- Requires the target account's `secUid`.
+- Get the `secUid` for a profile from [TikTok Profile Sec User ID](/apis/tiktok/web/sec-user-id) or [TikTok User Sec User ID Extractor](/apis/tiktok/web/all-sec-user-id).
+- Paginate with `count` (default `30`) and `cursor` (default `0`). Pass the returned `cursor` into the next request while `hasMore` is `true`.
+- Use a playlist `id` with [TikTok User Mix Video List](/apis/tiktok/web/user-mix) to see the videos inside it.
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

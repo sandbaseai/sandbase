@@ -63,7 +63,14 @@ Same call via the path form: `POST /v1/api/instagram/audio-reels` with the body 
 
 ## Details
 
-List Instagram reels that use a given audio track by audio id.
+Returns a page of Instagram reels that use a given audio track. Each reel includes the creator, caption, engagement counts, and location data when present. The only required input is `audioId`.
+
+### Use cases
+
+- Track how many creators use a song and which reels get the most plays.
+- Find creators who post with a specific sound to plan outreach.
+- Compare `likes`, `comments`, and `reshares` across reels that share one audio track.
+- Collect reels tagged with a place by reading the location fields.
 
 ### Request
 
@@ -74,7 +81,7 @@ curl -X POST "https://api.sandbase.ai/v1/api/instagram/audio-reels" \
   -d '{"audioId": "1392969992841787"}'
 ```
 
-The result is returned in `outputs[0].data`. A lookup that finds nothing still succeeds and returns `found: false`.
+The result is returned in `outputs[0].data`.
 
 ### Parameters
 
@@ -84,9 +91,63 @@ The result is returned in `outputs[0].data`. A lookup that finds nothing still s
 | `cursor` | string | No | Pagination cursor returned by a previous response. |
 | `requireFields` | array | No | Optional; omit it and routing is unchanged, with the cheapest source serving. Name the output fields this request must be able to return, for example `reshares`, and it is served only by a source that returns every one o |
 
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "data": {
+    "hasMore": true,
+    "nextCursor": "cur_5wMl39Ie9zJrkNOUjs_d3A",
+    "reels": [
+      {
+        "avatarUrl": "https://scontent-lax3-1.cdninstagram.com/v/t51.82787-19/795554226_18091598798677…",
+        "caption": "SOMEONE GET IN THE BOAT\n\n#crowdsurf #moshpit #grunge #rockmusic #concerts",
+        "code": "DeFBkTapVop",
+        "comments": 77,
+        "createdUtc": 1791130067,
+        "displayName": "Dexter and The Moonrocks",
+        "durationSeconds": 29.882,
+        "handle": "the_moonrocks",
+        "hashtags": [
+          "#crowdsurf"
+        ],
+        "id": "4000610736784366121",
+        "image": "https://scontent-lax3-2.cdninstagram.com/v/t51.82787-15/836512536_18093524156677…",
+        "likes": 16593
+      }
+    ]
+  },
+  "found": true
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `data.reels[].code` | Short code of the reel. It is the identifier used in Instagram post URLs. |
+| `data.reels[].id` | Numeric ID of the reel as a string. |
+| `data.reels[].handle / data.reels[].displayName` | Username and display name of the account that posted the reel. |
+| `data.reels[].caption` | Caption text of the reel. |
+| `data.reels[].plays / data.reels[].likes / data.reels[].comments / data.reels[].reshares` | Engagement counts for the reel: plays, likes, comments, and reshares. |
+| `data.reels[].createdUtc` | Time the reel was posted, as a Unix timestamp in seconds. |
+| `data.reels[].durationSeconds` | Length of the reel in seconds. |
+| `data.reels[].hashtags / data.reels[].mentions` | Hashtags and @handles found in the caption, as lists of strings. |
+| `data.reels[].locationName / data.reels[].locationLat / data.reels[].locationLng` | Place tagged on the reel with its coordinates. These are `null` when no location is tagged. |
+| `data.hasMore / data.nextCursor` | Whether more reels exist, and the cursor that fetches the next page. |
+
+### Notes
+
+- Take `audioId` from the Instagram audio page URL.
+- To get the next page, send `data.nextCursor` as `cursor` along with the same `audioId`. Stop when `hasMore` is `false`.
+- Pass `requireFields` with names such as `reshares` or `taggedUsers` when you need those fields on every reel. The call may then cost more.
+- To read one reel in full, pass its `code` to [Instagram Post Details](/apis/instagram/post-detail).
+
 ### Pricing
 
-Billed at the actual cost of each call, usually $0.0011 per request. A call can cost more when the first data source fails and another one answers. Failed calls are not charged. Lookups that find nothing and searches with no results are billed at their actual cost, which is often lower and can be $0.
+Billed at the actual cost of each call, about $0.0011 for the request above. Failed calls are not charged.
 
 ---
 Machine-readable: [`catalog/models/instagram/audio-reels.json`](../../../catalog/models/instagram/audio-reels.json) · Store page: https://www.sandbase.ai/model/instagram/audio-reels

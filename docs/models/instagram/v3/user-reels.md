@@ -67,13 +67,14 @@ Same call via the path form: `POST /v1/api/instagram/v3/user-reels` with the bod
 
 ## Details
 
-Retrieves Reels associated with an account using `username`. Includes pagination controls via cursors such as `after` and `before`.
+Returns a page of Reels for one Instagram account. Each Reel includes its caption, like, comment and view counts, a thumbnail URL and a video URL. The only required input is `username`.
 
 ### Use cases
 
-- Analyze engagement metrics like likes and comment counts on an account's Reels.
-- Collect recent Reel media clips and captions for creator profiles.
-- Browse through a creator's historical Reel catalog.
+- Compare likes, comments and views across an account's recent Reels to find its best performers.
+- Collect Reel captions to check which topics, hashtags and mentions a brand uses.
+- Page through a creator's Reel history and save the `video_url` and `thumbnail_url` of each clip.
+- Build a list of Reel shortcodes and pass them to a post details API for deeper checks.
 
 ### Request
 
@@ -84,50 +85,127 @@ curl -X POST "https://api.sandbase.ai/v1/api/instagram/v3/user-reels" \
   -d '{"username": "instagram"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
 |---|---|---|---|
 | `username` | string | Yes | Instagram username (required) |
-| `last` | integer | No | Reels per page for backward pagination, use with `before` |
 | `after` | string | No | Forward pagination cursor, from previous response `data.page_info.end_cursor` |
-| `first` | integer | No | Reels per page for forward pagination (default 12, max 50) |
 | `before` | string | No | Backward pagination cursor, from previous response `data.page_info.start_cursor` |
+| `first` | integer | No | Reels per page for forward pagination (default 12, max 50) |
+| `last` | integer | No | Reels per page for backward pagination, use with `before` |
 | `page_size` | integer | No | Videos per page (default 12) |
 
 ### Example response
 
-Real response for the request above, trimmed to the main fields. User names and long IDs are masked.
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
 
 ```json
 {
+  "_rid": "37c234b2a69a8",
+  "count": 12,
   "data": {
     "xdt_api__v1__clips__user__connection_v2": {
       "edges": [
         {
           "node": {
-            "caption_text": "DIY fish squishy 🐟⁣ ⁣ @yano4kaa.a made this squishy using stuff she already had at home l…",
-            "comment_count": 18380,
-            "id": "3998430248382584993_25025320",
-            "like_count": 642825,
+            "caption_text": "@troyesivan's advice? Go make music in your bedroom 🎶\n\n“Making music at home is …",
+            "code": "DfQCqMnhpsG",
+            "comment_count": 3330,
+            "id": "4021726163100932870_25025320",
+            "is_video": true,
+            "like_count": 145724,
             "media_type": 2,
-            "thumbnail_url": "https://scontent-hou1-1.cdninstagram.com/v/t51.82787-15/830594125_18798964129001…"
+            "owner": {
+              "full_name": "Instagram",
+              "is_verified": true,
+              "pk": "25025320",
+              "username": "instagram"
+            }
           }
         }
-      ]
+      ],
+      "page_info": {
+        "end_cursor": "QVFBU2V5Wm9UcW5ORFZHNkV6QzFtamtwbU9jNjJZRmtlbzR0eFBXVW5DVlZHQmljdTFNR24tNjlUVi1p…",
+        "has_next_page": true
+      }
     }
+  },
+  "edges": [
+    {
+      "node": {
+        "caption_text": "@troyesivan's advice? Go make music in your bedroom 🎶\n\n“Making music at home is …",
+        "code": "DfQCqMnhpsG",
+        "comment_count": 3330,
+        "id": "4021726163100932870_25025320",
+        "is_video": true,
+        "like_count": 145724,
+        "media_type": 2,
+        "owner": {
+          "full_name": "Instagram",
+          "is_verified": true,
+          "pk": "25025320",
+          "username": "instagram"
+        }
+      }
+    }
+  ],
+  "items": [
+    {
+      "caption_text": "@troyesivan's advice? Go make music in your bedroom 🎶\n\n“Making music at home is …",
+      "code": "DfQCqMnhpsG",
+      "comment_count": 3330,
+      "id": "4021726163100932870_25025320",
+      "is_video": true,
+      "like_count": 145724,
+      "media_type": 2,
+      "owner": {
+        "full_name": "Instagram",
+        "is_verified": true,
+        "pk": "25025320",
+        "username": "instagram"
+      },
+      "pk": "4021726163100932870",
+      "shortcode": "DfQCqMnhpsG",
+      "taken_at": null,
+      "thumbnail_url": "https://scontent-mia5-2.cdninstagram.com/v/t51.82787-15/883416041_18810804649001…"
+    }
+  ],
+  "next_max_id": "QVFBU2V5Wm9UcW5ORFZHNkV6QzFtamtwbU9jNjJZRmtlbzR0eFBXVW5DVlZHQmljdTFNR24tNjlUVi1p…",
+  "page_info": {
+    "end_cursor": "QVFBU2V5Wm9UcW5ORFZHNkV6QzFtamtwbU9jNjJZRmtlbzR0eFBXVW5DVlZHQmljdTFNR24tNjlUVi1p…",
+    "has_next_page": true
   }
 }
 ```
 
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `items[].caption_text` | Caption of the Reel. Long captions are cut in the response. |
+| `items[].code / items[].shortcode` | Short code of the Reel. It is the same value in both fields and appears in the Reel's Instagram URL. |
+| `items[].id / items[].pk` | `id` is the media ID with the owner's ID added after an underscore. `pk` is the same media ID without that suffix. |
+| `items[].like_count / items[].comment_count / items[].view_count` | Number of likes, comments and views on the Reel. |
+| `items[].video_url / items[].thumbnail_url` | Links to the video file and to a still image of the Reel. |
+| `items[].owner.username / items[].owner.full_name / items[].owner.is_verified` | Username, display name and verified status of the account that posted the Reel. |
+| `items[].owner.pk` | Numeric ID of the account that owns the Reel, as a string. |
+| `items[].taken_at` | Posting time field. It was `null` in this response, so do not rely on it. |
+| `page_info.end_cursor / page_info.has_next_page` | `end_cursor` is the cursor for the next page. `has_next_page` is `true` when more Reels are available. |
+| `data.xdt_api__v1__clips__user__connection_v2.edges[].node` | The same Reels in a nested format with fewer fields. The flat `items` list has more fields, such as `view_count` and `video_url`. |
+
 ### Notes
 
-- Set `first` up to a maximum of 50 to control forward pagination page size.
-- Pass `after` using `end_cursor` or `before` using `start_cursor` from previous response page info.
+- To get the next page, send `page_info.end_cursor` as `after`. The top-level `next_max_id` holds the same value.
+- Use `first` to set the page size, from 1 to 50. The default is 12.
+- The `data.page_info.start_cursor` mentioned for `before` was not in this response. Backward paging with `before` and `last` needs a `start_cursor` value.
+- To look up the account behind a Reel, use [Instagram User Profile (V3)](/apis/instagram/v3/user-profile). For regular posts instead of Reels, use [Instagram User Posts (V3)](/apis/instagram/v3/user-posts).
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.008 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

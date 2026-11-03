@@ -62,13 +62,13 @@ Same call via the path form: `POST /v1/api/douyin/search/school-search` with the
 
 ## Details
 
-Search for schools on Douyin using the optional `keyword` parameter to query by school name or location.
+Returns a list of Douyin schools whose names match a search keyword. The input is a `keyword` string, such as a school name or a city name.
 
 ### Use cases
 
-- Search for school names on Douyin.
-- Look up educational institutions by city or location keyword.
-- Populate school selection fields in search workflows.
+- Check how a school name is written on Douyin before you search for content about it.
+- List schools that match a city name such as `北京` to build a school picker.
+- Collect school names for a city to use as keywords in other Douyin searches.
 
 ### Request
 
@@ -79,6 +79,8 @@ curl -X POST "https://api.sandbase.ai/v1/api/douyin/search/school-search" \
   -d '{}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
@@ -87,25 +89,46 @@ curl -X POST "https://api.sandbase.ai/v1/api/douyin/search/school-search" \
 
 ### Example response
 
-Real response for the request above, trimmed to the main fields. User names and long IDs are masked.
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
 
 ```json
 {
+  "extra": {
+    "fatal_item_ids": [],
+    "logid": "2026110315322051AE9BB2F3DCC44F33AD",
+    "now": 1793691140000
+  },
+  "log_pb": {
+    "impr_id": "2026110315322051AE9BB2F3DCC44F33AD"
+  },
   "schools": [
     {
-      "name": "北京四中"
+      "name": "北京中学"
     }
-  ]
+  ],
+  "status_code": 0
 }
 ```
 
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `schools[]` | List of schools that match `keyword`. |
+| `schools[].name` | School name as shown on Douyin, for example `北京大学`. |
+| `status_code` | Status of the request. `0` in the sample response. |
+| `log_pb.impr_id / extra.logid` | Request identifiers. Both hold the same value in the sample response. |
+| `extra.now` | Timestamp in the response, a 13-digit number that looks like milliseconds. |
+
 ### Notes
 
-- Pass a school name or city name in `keyword` to narrow results.
+- The response lists only the school `name`. It has no school ID, so you cannot pass a result to another API directly.
+- `keyword` is the only input. The schema shows no pagination parameter.
+- To search Douyin content about a school, pass the returned `name` to [Douyin General Search](/apis/douyin/search/general-search-v1) or [Douyin Video Search](/apis/douyin/search/video-search-v2).
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.01 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

@@ -83,9 +83,14 @@ Same call via the path form: `POST /v1/api/open-meteo/forecast` with the body ab
 
 ## Details
 
-Up to 16-day hourly, daily and current weather forecast by coordinates: temperature, precipitation, wind, cloud cover and more.
+Returns a weather forecast for one point on Earth. You send `latitude` and `longitude`, plus the variables you want in `current`, `hourly`, `daily` or `minutely_15`. The response holds the values and their units.
 
-The result is returned in `outputs[0].data` as the official Open-Meteo API response, unchanged.
+### Use cases
+
+- Show the current temperature and wind speed on a city dashboard.
+- Plan outdoor events with a daily forecast of rain, wind and temperature highs and lows.
+- Feed hourly temperature and precipitation into an energy demand or irrigation model.
+- Add a short weather summary to a travel app for a given destination.
 
 ### Request
 
@@ -96,20 +101,22 @@ curl -X POST "https://api.sandbase.ai/v1/api/open-meteo/forecast" \
   -d '{"latitude": "52.52", "longitude": "13.41", "current": "temperature_2m,wind_speed_10m"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
 |---|---|---|---|
+| `latitude` | string | Yes | WGS84 latitude of the location. Multiple coordinates can be comma-separated. |
+| `longitude` | string | Yes | WGS84 longitude of the location (negative for the Americas). Multiple coordinates can be comma-separated. |
 | `cell_selection` | string | No | Grid-cell preference for the coordinate. Default `land`. |
-| `current` | string | No | Comma-separated list of current-condition variables to return. Common values: `temperature_2m`, `relative_humidity_2m`, `apparent_temperature`, `is_day`, `preci |
-| `daily` | string | No | Comma-separated list of daily aggregation variables to return. Requires `timezone`. Common values: `temperature_2m_max`, `temperature_2m_min`, `temperature_2m_m |
+| `current` | string | No | Comma-separated list of current-condition variables to return. Common values: `temperature_2m`, `relative_humidity_2m`, `apparent_temperature`, `is_day`, `precipitation`, `weather_code`, `wind_speed_10m`, `wind_direction |
+| `daily` | string | No | Comma-separated list of daily aggregation variables to return. Requires `timezone`. Common values: `temperature_2m_max`, `temperature_2m_min`, `temperature_2m_mean`, `precipitation_sum`, `rain_sum`, `snowfall_sum`, `weat |
 | `elevation` | string | No | Manual elevation (meters) for statistical downscaling. Defaults to a 90m DEM. Use `nan` to disable downscaling. |
 | `end_date` | string | No | End of the interval, `yyyy-mm-dd` (ISO 8601). |
 | `forecast_days` | integer | No | Number of forecast days to return (0-16). Default 7. |
 | `forecast_hours` | integer | No | Limit the forecast to a given number of hours from now. |
-| `hourly` | string | No | Comma-separated list of hourly variables to return. Common values: `temperature_2m`, `relative_humidity_2m`, `dew_point_2m`, `apparent_temperature`, `precipitat |
-| `latitude` | string | Yes | WGS84 latitude of the location. Multiple coordinates can be comma-separated. |
-| `longitude` | string | Yes | WGS84 longitude of the location (negative for the Americas). Multiple coordinates can be comma-separated. |
+| `hourly` | string | No | Comma-separated list of hourly variables to return. Common values: `temperature_2m`, `relative_humidity_2m`, `dew_point_2m`, `apparent_temperature`, `precipitation`, `rain`, `showers`, `snowfall`, `weather_code`, `pressu |
 | `minutely_15` | string | No | Comma-separated 15-minutely variables (Central Europe & North America high-resolution models only). |
 | `models` | string | No | Comma-separated forecast models to use. Default `auto` selects the best model mix per location. |
 | `past_days` | integer | No | Number of past days to include (0-92). Default 0. |
@@ -121,9 +128,58 @@ curl -X POST "https://api.sandbase.ai/v1/api/open-meteo/forecast" \
 | `timezone` | string | No | IANA time zone name (e.g. `Europe/Berlin`) or `auto` to resolve from coordinates. Defaults to `GMT`. |
 | `wind_speed_unit` | string | No | Wind speed unit. Default `kmh`. |
 
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "current": {
+    "interval": 900,
+    "temperature_2m": 4.6,
+    "time": "2026-11-03T07:30",
+    "wind_speed_10m": 7.4
+  },
+  "current_units": {
+    "interval": "seconds",
+    "temperature_2m": "°C",
+    "time": "iso8601",
+    "wind_speed_10m": "km/h"
+  },
+  "elevation": 38.0,
+  "generationtime_ms": 0.12421607971191406,
+  "latitude": 52.512604,
+  "longitude": 13.419517,
+  "timezone": "GMT",
+  "timezone_abbreviation": "GMT",
+  "utc_offset_seconds": 0
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `current.time` | Time of the current reading, in the format set by `timeformat`. The example value is `2026-11-03T07:30`, in the time zone given by `timezone`. |
+| `current.interval` | Length of the current-conditions interval. The matching entry in `current_units` is `seconds`, so `900` means 15 minutes. |
+| `current.temperature_2m / current.wind_speed_10m` | Current air temperature at 2 m and wind speed at 10 m. These keys appear because they were listed in `current`. Each variable you request adds a key here. |
+| `current_units` | Unit for each key in `current`, such as `°C` for `temperature_2m` and `km/h` for `wind_speed_10m`. Unit parameters like `temperature_unit` and `wind_speed_unit` change these. |
+| `latitude / longitude` | Coordinates of the grid cell the forecast belongs to. They can differ slightly from the coordinates you sent. |
+| `elevation` | Elevation of the location in meters. Set the `elevation` parameter to override it. |
+| `timezone / timezone_abbreviation` | Time zone used for all timestamps in the response. It is `GMT` unless you set `timezone`. |
+| `utc_offset_seconds` | Offset of the response time zone from UTC, in seconds. |
+| `generationtime_ms` | Time taken to generate the response, in milliseconds. |
+
+### Notes
+
+- Only the variables you list in `current`, `hourly`, `daily` or `minutely_15` come back. A request with no variable list returns just the location and time zone fields.
+- `daily` needs `timezone`. Set it to an IANA name like `Europe/Berlin`, or to `auto` to resolve it from the coordinates.
+- Use `forecast_days` (0-16) for the range, or `start_date` and `end_date` in `yyyy-mm-dd` format. Use `past_days` to include earlier days.
+- To look up coordinates from a place name, call [Open-Meteo Geocoding](/apis/open-meteo/geocoding). For older dates, use [Open-Meteo Historical Weather](/apis/open-meteo/archive).
+
 ### Pricing
 
-Flat price per call. Failed calls are not charged.
+$0.0001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ---
 Machine-readable: [`catalog/models/open-meteo/forecast.json`](../../../catalog/models/open-meteo/forecast.json) · Store page: https://www.sandbase.ai/model/open-meteo/forecast

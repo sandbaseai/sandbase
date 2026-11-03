@@ -68,7 +68,14 @@ Same call via the path form: `POST /v1/api/g2/category-products` with the body a
 
 ## Details
 
-List software products within a given G2 category. Returns products with name, slug, rating, and review count.
+Returns a list of software products in one G2 category, with each product's name, slug, rating, and review count. It needs a `category_slug` such as `crm`, and an optional `page` number.
+
+### Use cases
+
+- Build a ranked list of the main CRM tools with their ratings and review volumes.
+- Compare how many reviews competing products have in one software category.
+- Collect product slugs for a category so you can pull details or reviews for each one.
+- Track which products appear on each page of a category over time.
 
 ### Request
 
@@ -79,7 +86,7 @@ curl -X POST "https://api.sandbase.ai/v1/api/g2/category-products" \
   -d '{"category_slug": "crm", "page": 1}'
 ```
 
-This API runs asynchronously. The call returns a task `id` with status `pending`; poll `GET https://api.sandbase.ai/v1/run/{id}` until `status` is `completed` and read the result from `outputs[0].data`.
+The result is returned in `outputs[0].data`.
 
 ### Parameters
 
@@ -88,9 +95,49 @@ This API runs asynchronously. The call returns a task `id` with status `pending`
 | `category_slug` | string | Yes | Category slug from get_categories results (e.g. 'crm', 'project-management') |
 | `page` | integer | No | Page number for pagination |
 
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "data": {
+    "category": "crm",
+    "page": 1,
+    "products": [
+      {
+        "name": "Salesforce Sales Cloud",
+        "rating": 4.4,
+        "review_count": 27587,
+        "slug": "agentforce-sales-formerly-salesforce-sales-cloud"
+      }
+    ]
+  },
+  "status": "success"
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `data.category` | The category slug that the request used, for example `crm`. |
+| `data.page` | The page number of this result set. |
+| `data.products[].name` | Display name of the software product. |
+| `data.products[].slug` | G2 slug for the product. Use it as the product input in other G2 APIs. |
+| `data.products[].rating` | Average rating of the product on G2, shown as a decimal such as `4.4`. |
+| `data.products[].review_count` | Number of reviews the product has on G2. |
+| `status` | Shows `success` when the call worked. |
+
+### Notes
+
+- Get valid `category_slug` values from [G2 Categories](/apis/g2/categories).
+- Increase `page` to read more products in the same category. The response echoes the current page in `data.page`.
+- Pass a product `slug` to [G2 Product Overview](/apis/g2/product-overview) for details or to [G2 Product Reviews](/apis/g2/product-reviews) for individual reviews.
+
 ### Pricing
 
-Flat price per call. Failed calls are not charged.
+$0.05 per successful call. Failed calls are not charged.
 
 ---
 Machine-readable: [`catalog/models/g2/category-products.json`](../../../catalog/models/g2/category-products.json) · Store page: https://www.sandbase.ai/model/g2/category-products

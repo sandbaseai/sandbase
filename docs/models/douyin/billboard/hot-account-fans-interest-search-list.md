@@ -62,13 +62,14 @@ Same call via the path form: `POST /v1/api/douyin/billboard/hot-account-fans-int
 
 ## Details
 
-Retrieves the top 10 fan interest search terms from the past three days for a target creator using `sec_uid`.
+Returns the top ten search terms that fans of a Douyin creator account searched for over the last three days. Each term comes with a hot score. You send the creator's `sec_uid` as input.
 
 ### Use cases
 
-- Analyze trending search queries from an account's audience over recent days.
-- Identify content opportunities based on follower search behavior.
-- Track recent audience interest shifts for Douyin creators.
+- Find out what an account's audience is searching for right now to plan new videos.
+- Compare the search interests of fans across several creators before choosing a partner.
+- Spot a recurring search term in a niche and build a topic or hashtag around it.
+- Check whether a creator's fan interests match your product category, such as beauty items.
 
 ### Request
 
@@ -79,19 +80,54 @@ curl -X POST "https://api.sandbase.ai/v1/api/douyin/billboard/hot-account-fans-i
   -d '{"sec_uid": "MS4wLjABAAAAr52fXcfmzqOZJM_smap9Uuxtm16h8BupkCVaCt89BENq3E91mHCvtz5Z5TkXPHq_"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
 |---|---|---|---|
 | `sec_uid` | string | Yes | User sec_id |
 
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "code": 0,
+  "data": [
+    {
+      "hot_score": 32,
+      "word": "反相之地"
+    }
+  ],
+  "extra": {
+    "now": 1793691104000
+  },
+  "message": ""
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `data[]` | List of fan interest search terms for the account. The sample response shows three items, and the API describes the list as the top ten. |
+| `data[].word` | The search term fans looked up. The sample values are Chinese text. |
+| `data[].hot_score` | Numeric hot score for the term. Higher values mean the term ranks higher in fan interest, and the sample scores run from 31 to 32. |
+| `code` | Status code of the response. `0` appears in the sample response for a successful call. |
+| `message` | Status message. It is an empty string in the sample response. |
+| `extra.now` | Timestamp for the response in the `extra` object. The sample value `1793691104000` has 13 digits, which fits a millisecond Unix timestamp. |
+
 ### Notes
 
-- Requires the target account's user sec_id supplied via `sec_uid`.
+- Pass the creator's `sec_uid`, which is the Douyin user sec_id. It is a long string that starts with `MS4wLjAB`.
+- The endpoint takes only `sec_uid`. It has no pagination parameters.
+- To see which accounts the same fans follow, call [Douyin Fan Interest Account List](/apis/douyin/billboard/hot-account-fans-interest-account-list). For the topics they care about, call [Douyin Account Fan Interest Topics](/apis/douyin/billboard/hot-account-fans-interest-topic-list).
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

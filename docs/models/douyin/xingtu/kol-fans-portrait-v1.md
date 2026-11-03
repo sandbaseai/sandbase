@@ -62,13 +62,14 @@ Same call via the path form: `POST /v1/api/douyin/xingtu/kol-fans-portrait-v1` w
 
 ## Details
 
-Pass a XingTu `kolId` and get the demographics of the creator's fans.
+Returns the audience portrait of a Douyin creator from XingTu. It needs a XingTu `kolId` and returns fan distributions such as age, province and city tier.
 
 ### Use cases
 
-- Check that a creator's audience matches your target customers.
-- Compare audiences across KOLs.
-- Plan region-specific campaigns.
+- Check whether a creator's fan age range matches your target customers before booking a campaign.
+- Compare the province split of several KOLs to pick one for a region-specific promotion.
+- Review the city tier mix of a creator's fans to judge fit for a premium or mass-market product.
+- Switch `fansType` to compare the general fan base with the fan group or loyal fan portrait.
 
 ### Request
 
@@ -79,50 +80,69 @@ curl -X POST "https://api.sandbase.ai/v1/api/douyin/xingtu/kol-fans-portrait-v1"
   -d '{"kolId": "7038603512770461703"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
 |---|---|---|---|
-| `kolId` | string | Yes | User kolId, can be obtained from the following interfaces: `douyin/xingtu/xingtu-kolid-by-uid`; `douyin/xingtu/xingtu-k… |
-| `fansType` | string | No | Fans Type, supports the following parameters: _1: Fans Portrait - Default; _2: Fans Group Portrait; _5: Iron Fans Portr… |
+| `kolId` | string | Yes | User kolId, can be obtained from the following interfaces: `douyin/xingtu/xingtu-kolid-by-uid`; `douyin/xingtu/xingtu-kolid-by-sec-user-id`; `douyin/xingtu/xingtu-kolid-by-unique-id` |
+| `fansType` | string | No | Fans Type, supports the following parameters: _1: Fans Portrait - Default; _2: Fans Group Portrait; _5: Iron Fans Portrait |
 
 ### Example response
 
-Real response for the request above, trimmed to the main fields. User names and long IDs are masked.
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
 
 ```json
 {
+  "base_resp": {
+    "status_code": 0,
+    "status_message": ""
+  },
   "distributions": [
     {
-      "type_display": "年龄分布",
       "description": "18到23岁居多,占比34%",
       "distribution_list": [
         {
-          "distribution_key": "24-30",
-          "distribution_value": "175378"
-        },
-        {
           "distribution_key": "50+",
-          "distribution_value": "82955"
-        },
-        {
-          "distribution_key": "31-40",
-          "distribution_value": "155328"
+          "distribution_value": "84120"
         }
-      ]
-    },
-    "…"
-  ]
+      ],
+      "image": [
+        "18到23岁居多"
+      ],
+      "origin_type": 1,
+      "type": 2,
+      "type_display": "年龄分布"
+    }
+  ],
+  "last_update_time": "1793691185"
 }
 ```
 
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `distributions[]` | One block per audience dimension. The response shows age, province and city tier blocks. |
+| `distributions[].type_display` | Name of the dimension, for example `年龄分布` (age), `省份分布` (province) or `城市等级分布` (city tier). |
+| `distributions[].description` | Short text summary of the block, such as which age group or provinces have the largest share and their percentages. |
+| `distributions[].distribution_list[].distribution_key` | Label of one bucket, such as an age range like `24-30`, a province name or a city tier like `二线`. |
+| `distributions[].distribution_list[].distribution_value` | Value for that bucket, returned as a string. It looks like a fan count, and the buckets can be compared with each other. |
+| `distributions[].type / origin_type` | Numeric codes for the dimension. Use them to identify a block without matching on the display text. |
+| `distributions[].image[]` | Short label text for the block, such as the top age group or top provinces. |
+| `last_update_time` | Timestamp of the portrait as a string of Unix seconds. |
+| `base_resp.status_code / base_resp.status_message` | Status of the call. `0` with an empty message appears on success. |
+
 ### Notes
 
-- `fansType`: `_1` fans portrait (default), `_2` fan-group portrait, `_5` loyal fans.
+- Get `kolId` from [Douyin XingTu KOL ID by User ID](/apis/douyin/xingtu/xingtu-kolid-by-uid), [Douyin XingTu kolId Lookup](/apis/douyin/xingtu/xingtu-kolid-by-sec-user-id) or [Douyin XingTu KOL ID by Unique ID](/apis/douyin/xingtu/xingtu-kolid-by-unique-id).
+- `fansType` is optional. Use `_1` for the fans portrait (default), `_2` for the fan group portrait and `_5` for the iron fans portrait.
+- The `description` and `distribution_key` texts, such as province names, come back in Chinese.
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.02 per successful call. Failed calls are not charged.
 
 ### Related APIs
 

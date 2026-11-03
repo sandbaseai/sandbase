@@ -64,13 +64,14 @@ Same call via the path form: `POST /v1/api/youtube/web-v2/video-info` with the b
 
 ## Details
 
-Retrieve video information and caption URLs for a specific video using `video_id`. You can optionally format the response with `need_format` and select language preferences with `language_code`.
+Returns metadata and caption tracks for one YouTube video. You pass the 11-character `video_id`. The response includes title, channel details, like count, publish date, thumbnails, end screen items and a list of caption tracks with their URLs.
 
 ### Use cases
 
-- Retrieve caption track URLs for automated subtitle extraction.
-- Inspect YouTube video metadata for media workflows.
-- Filter video metadata by language preference.
+- Collect caption track URLs and language codes for a video to start subtitle extraction.
+- Pull the title, `keywords`, `category` and `description` of a video to build a content catalog.
+- Check `is_private`, `is_unlisted`, `is_family_safe` and `playability_status` before you add a video to a playlist or feed.
+- Read the channel ID and handle from a video to link it to its channel.
 
 ### Request
 
@@ -81,37 +82,78 @@ curl -X POST "https://api.sandbase.ai/v1/api/youtube/web-v2/video-info" \
   -d '{"video_id": "dQw4w9WgXcQ"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
 |---|---|---|---|
-| `video_id` | string | Yes | Purpose: Video ID |
+| `video_id` | string | Yes | **Purpose**: Video ID |
+| `language_code` | string | No | **Purpose**: Set language preference |
 | `need_format` | boolean | No | Whether to clean and format the data |
-| `language_code` | string | No | Purpose: Set language preference |
 
 ### Example response
 
-Real response for the request above, trimmed to the main fields. User names and long IDs are masked.
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
 
 ```json
 {
+  "allow_ratings": true,
+  "author": "Rick Astley",
+  "available_countries": [
+    "AD"
+  ],
+  "badge_tooltip": "音乐人官方频道",
   "captions": [
     {
-      "base_url": "https://www.youtube.com/api/timedtext?v=dQw4w9WgXcQ&ei=quvEapT4C4O0kucP77OG0Qw&c…",
+      "base_url": "https://www.youtube.com/api/timedtext?v=dQw4w9WgXcQ&ei=0JHpavzwFZSY0_wPk9jD2Q0&c…",
+      "is_translatable": true,
+      "kind": "",
+      "language_code": "de-DE",
       "language_name": "德语（德国）"
     }
-  ]
+  ],
+  "category": "Music",
+  "channel_avatar_thumbnails": [
+    {
+      "height": 48,
+      "url": "https://yt3.ggpht.com/_ShEGOdg-t5YGJse14Ooq6FYBZqX_QSlhaTNjG06miYusm5lWm1UroLyVx…",
+      "width": 48
+    }
+  ],
+  "channel_handle": "@RickAstleyYT",
+  "channel_id": "UCuAXFkgsw1L7xaCfnd5JJOw",
+  "channel_url": "https://www.youtube.com/channel/UCuAXFkgsw1L7xaCfnd5JJOw",
+  "chapters": null,
+  "comment_count": "246万"
 }
 ```
 
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `title / author / description` | Video title, channel name and the video description text. The description may be long. |
+| `video_id / channel_id / channel_handle / channel_url` | IDs and links for the video and its channel. `channel_handle` is the `@` name of the channel. |
+| `like_count / like_count_text` | Like count as a plain number string, and the same count as display text in the response language. |
+| `comment_count / short_view_count / subscriber_count_text` | Display text for comments, views and channel subscribers. These values are localized strings such as `246万`, not plain numbers. |
+| `publish_date / upload_date / date_text / relative_date_text` | Publish and upload time as an ISO 8601 timestamp with a UTC offset. `date_text` and `relative_date_text` are display text in the response language. |
+| `length_seconds` | Video length in seconds, returned as a string. |
+| `captions[].language_code / captions[].language_name` | Language code and display name of each caption track. |
+| `captions[].base_url / captions[].is_translatable / captions[].kind` | URL of the caption track, whether the track can be translated, and the track kind. `kind` is an empty string for these tracks. |
+| `endscreen[].style / endscreen[].title / endscreen[].video_id` | Items shown at the end of the video. `style` is `CHANNEL` or `VIDEO`. Video items carry a `video_id`. |
+| `is_verified / is_private / is_unlisted / is_live_content / playability_status` | Flags for the channel and video state. `playability_status` is `OK` when the video can be played. |
+
 ### Notes
 
-- Set `need_format` to true to return cleaned and formatted data.
-- Use `language_code` to specify a preferred language for returned captions.
+- `video_id` must be exactly 11 characters, for example `dQw4w9WgXcQ`.
+- Text fields such as `comment_count`, `short_view_count` and `language_name` follow `language_code`, which defaults to `zh-CN`. The example response shows Chinese display text.
+- Counts like `like_count` and `length_seconds` are strings. Convert them before you do math.
+- To get comments for the video, call [YouTube Video Comments](/apis/youtube/web-v2/video-comments). For similar videos, call [YouTube Related Videos (Web V2)](/apis/youtube/web-v2/related-videos).
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

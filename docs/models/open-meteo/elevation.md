@@ -65,9 +65,14 @@ Same call via the path form: `POST /v1/api/open-meteo/elevation` with the body a
 
 ## Details
 
-Terrain elevation in meters for one or more coordinates, from a 90 m digital elevation model.
+Returns terrain elevation in meters for one or more coordinates, taken from a 90 m digital elevation model. You send WGS84 `latitude` and `longitude` values, either as single numbers or as comma-separated lists.
 
-The result is returned in `outputs[0].data` as the official Open-Meteo API response, unchanged.
+### Use cases
+
+- Add ground elevation to a list of store or site locations before analysis.
+- Correct a weather forecast or temperature reading for the height of a location.
+- Check the elevation of several waypoints on a hiking or cycling route in one request.
+- Fill in missing altitude values in a dataset of GPS points.
 
 ### Request
 
@@ -78,6 +83,8 @@ curl -X POST "https://api.sandbase.ai/v1/api/open-meteo/elevation" \
   -d '{"latitude": "52.52,48.85", "longitude": "13.41,2.35"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
@@ -85,9 +92,36 @@ curl -X POST "https://api.sandbase.ai/v1/api/open-meteo/elevation" \
 | `latitude` | string | Yes | WGS84 latitude, or a comma-separated list of up to 100 latitudes. |
 | `longitude` | string | Yes | WGS84 longitude, or a comma-separated list of up to 100 longitudes (positions aligned with `latitude`). |
 
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "elevation": [
+    38.0
+  ]
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `elevation` | List of terrain elevations in meters, one per requested coordinate. |
+| `elevation[0]` | Elevation for the first coordinate pair. For the example request this is `38.0` for `52.52`, `13.41`. |
+| `elevation[1]` | Elevation for the second coordinate pair. For the example request this is `46.0` for `48.85`, `2.35`. |
+
+### Notes
+
+- Send up to 100 coordinates in one request. Put them in `latitude` and `longitude` as comma-separated lists.
+- Values in `elevation` appear in the same order as the input coordinates. Position 0 in `latitude` pairs with position 0 in `longitude`.
+- If you only have a place name, use [Open-Meteo Geocoding](/apis/open-meteo/geocoding) first to get its coordinates.
+- To get weather for the same coordinates, use [Open-Meteo Weather Forecast](/apis/open-meteo/forecast).
+
 ### Pricing
 
-Flat price per call. Failed calls are not charged.
+$0.0001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ---
 Machine-readable: [`catalog/models/open-meteo/elevation.json`](../../../catalog/models/open-meteo/elevation.json) · Store page: https://www.sandbase.ai/model/open-meteo/elevation

@@ -59,9 +59,14 @@ Same call via the path form: `POST /v1/api/financial-datasets/news` with the bod
 
 ## Details
 
-Get recent news articles for a specific company or the broad market. Pass a ticker for company-specific news, or omit the ticker for general market news.
+Returns a list of recent news articles, each with a headline, source name, publish date and link. Pass a `ticker` to get news for one company, or leave it out to get general market news.
 
-The response is the official Financial Datasets API response, unchanged.
+### Use cases
+
+- Show a feed of recent headlines next to a stock quote for a given ticker.
+- Scan broad market headlines each morning to see what moved global markets.
+- Collect article links for a company to feed a sentiment or summarization pipeline.
+- Track which news outlets cover a ticker by grouping results on the `source` field.
 
 ### Request
 
@@ -72,17 +77,55 @@ curl -X POST "https://api.sandbase.ai/v1/api/financial-datasets/news" \
   -d '{}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
 |---|---|---|---|
-| `cursor` | string | No | Opaque pagination cursor from a previous response's next_page_url. When provided, all other query parameters are ignored: the cursor carries the original reques |
-| `limit` | string | No | The maximum number of news articles to return (default: 5, max: 10). This is the total across all pages, not a page size: each page holds up to 10 records, link |
+| `cursor` | string | No | Opaque pagination cursor from a previous response's next_page_url. When provided, all other query parameters are ignored: the cursor carries the original request's filters. Treat it as opaque; do not construct or modify  |
+| `limit` | string | No | The maximum number of news articles to return (default: 5, max: 10). This is the total across all pages, not a page size: each page holds up to 10 records, linked by `next_page_url`. Provider reference (supplier schema): |
 | `ticker` | string | No | The ticker symbol of the company. Omit for broad market news. |
+
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "news": [
+    {
+      "date": "2026-11-03T01:03:00+00:00",
+      "source": "The Economic Times",
+      "ticker": "MARKET",
+      "title": "Global Market Today: Asian stocks slide as US chip selloff deepens - The Economi…",
+      "url": "https://m.economictimes.com/markets/us-stocks/news/global-market-today-asian-sto…"
+    }
+  ]
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `news[]` | List of news articles. Each item is one article. |
+| `news[].title` | Headline of the article. It ends with the publisher name after a dash in the examples. |
+| `news[].source` | Name of the outlet that published the article, such as `The Economic Times`. |
+| `news[].date` | Publish time of the article as an ISO 8601 timestamp with a UTC offset, such as `2026-11-03T01:03:00+00:00`. |
+| `news[].ticker` | Ticker the article is tied to. Market-wide news returns the value `MARKET`. |
+| `news[].url` | Link to the full article on the publisher's site. |
+
+### Notes
+
+- The request with no `ticker` returns market news, and each item has `ticker` set to `MARKET`.
+- `limit` is the total number of articles across all pages. The default is 5 and the maximum is 10.
+- To get the next page, send the `cursor` value taken from `next_page_url` in a previous response. When you send `cursor`, all other parameters are ignored.
+- Use [Financial Datasets Get Company Facts](/apis/financial-datasets/company-facts) to check company details for a ticker, or [Financial Datasets Get Stock Price Snapshot](/apis/financial-datasets/prices-snapshot) to see its current price.
 
 ### Pricing
 
-Flat price per call. Failed calls are not charged.
+$0.02 per successful call. Failed calls are not charged.
 
 ---
 Machine-readable: [`catalog/models/financial-datasets/news.json`](../../../catalog/models/financial-datasets/news.json) · Store page: https://www.sandbase.ai/model/financial-datasets/news

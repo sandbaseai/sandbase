@@ -61,13 +61,14 @@ Same call via the path form: `POST /v1/api/douyin/xingtu/kol-cp-info-v1` with th
 
 ## Details
 
-Pass a XingTu `kolId` and get the cost-performance estimates XingTu shows for the creator.
+Returns the expected campaign metrics XingTu shows for one Douyin creator: expected views, CPM and CPE estimates, and a hot-video count. It needs one input, the creator's XingTu `kolId`.
 
 ### Use cases
 
-- Estimate campaign reach and cost per view.
-- Compare cost efficiency across KOLs.
-- Support media-buying decisions.
+- Estimate how many views a sponsored video from a given KOL is likely to get with `expect_vv.value`.
+- Compare CPM and CPE estimates across a shortlist of KOLs before booking.
+- Check CPM and CPE for different video lengths to pick the better format for a brief.
+- Screen creators by `hot_item.value` to see how many hot videos XingTu counts for them.
 
 ### Request
 
@@ -78,28 +79,34 @@ curl -X POST "https://api.sandbase.ai/v1/api/douyin/xingtu/kol-cp-info-v1" \
   -d '{"kolId": "7038603512770461703"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
 |---|---|---|---|
-| `kolId` | string | Yes | User kolId, can be obtained from the following interfaces: `douyin/xingtu/xingtu-kolid-by-uid`; `douyin/xingtu/xingtu-k… |
+| `kolId` | string | Yes | User kolId, can be obtained from the following interfaces: `douyin/xingtu/xingtu-kolid-by-uid`; `douyin/xingtu/xingtu-kolid-by-sec-user-id`; `douyin/xingtu/xingtu-kolid-by-unique-id` |
 
 ### Example response
 
-Real response for the request above, trimmed to the main fields. User names and long IDs are masked.
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
 
 ```json
 {
+  "base_resp": {
+    "status_code": 0,
+    "status_message": ""
+  },
   "expect_cpe": {
-    "cpe_21_60": "106",
-    "cpe_60": "143"
+    "cpe_21_60": "47",
+    "cpe_60": "63"
   },
   "expect_cpm": {
-    "cpm_21_60": "4415",
-    "cpm_60": "5919"
+    "cpm_21_60": "2039",
+    "cpm_60": "2733"
   },
   "expect_vv": {
-    "value": 312535
+    "value": 676711
   },
   "hot_item": {
     "value": 1800
@@ -107,9 +114,28 @@ Real response for the request above, trimmed to the main fields. User names and 
 }
 ```
 
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `expect_vv.value` | Expected video views for the KOL, as a number. |
+| `expect_cpm.cpm_21_60` | Expected CPM for videos in the 21 to 60 range, returned as a string. The key name suggests a 21 to 60 second video length. |
+| `expect_cpm.cpm_60` | Expected CPM for videos in the 60 range, returned as a string. The key name suggests videos longer than 60 seconds. |
+| `expect_cpe.cpe_21_60` | Expected CPE for the 21 to 60 range, returned as a string. |
+| `expect_cpe.cpe_60` | Expected CPE for the 60 range, returned as a string. |
+| `hot_item.value` | Hot-video count for the KOL, as a number. |
+| `base_resp.status_code / base_resp.status_message` | Status of the call. `0` with an empty message means it succeeded. |
+
+### Notes
+
+- Get `kolId` from [Douyin XingTu kolId Lookup](/apis/douyin/xingtu/xingtu-kolid-by-sec-user-id), [Douyin XingTu KOL ID by User ID](/apis/douyin/xingtu/xingtu-kolid-by-uid) or [Douyin XingTu KOL ID by Unique ID](/apis/douyin/xingtu/xingtu-kolid-by-unique-id).
+- `kolId` is a numeric ID sent as a string, for example `7038603512770461703`.
+- CPM and CPE values come back as strings, so convert them to numbers before you compare them.
+- For the rate card of the same creator, call [Douyin XingTu KOL Price](/apis/douyin/xingtu/kol-service-price-v1).
+
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.02 per successful call. Failed calls are not charged.
 
 ### Related APIs
 

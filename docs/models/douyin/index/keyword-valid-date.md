@@ -62,13 +62,14 @@ Same call via the path form: `POST /v1/api/douyin/index/keyword-valid-date` with
 
 ## Details
 
-Use this endpoint to inspect the available Douyin Index date ranges for search terms provided via `keyword_list`.
+Returns Douyin Index date availability for each keyword you send. It needs `keyword_list`, a comma-separated string of search terms. The response is keyed by keyword and gives a valid day and a valid week day for each one.
 
 ### Use cases
 
-- Check historical data availability before querying keyword index metrics.
-- Verify valid date boundaries for multiple tracking keywords in batch.
-- Align analytics date pickers with active Douyin Index time windows.
+- Check the valid day for a keyword before you request its index trend.
+- Check the valid week day for a keyword before you run a weekly query.
+- Compare `origin_keyword` with `real_keyword` to see whether a keyword text changed.
+- Check several tracked keywords in one call to set the date limits of a date picker.
 
 ### Request
 
@@ -79,19 +80,56 @@ curl -X POST "https://api.sandbase.ai/v1/api/douyin/index/keyword-valid-date" \
   -d '{"keyword_list": "人工智能"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
 |---|---|---|---|
 | `keyword_list` | string | Yes | Keyword list, comma separated |
 
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "人工智能": {
+    "keyword_types": [
+      0
+    ],
+    "origin_keyword": "人工智 能",
+    "real_keyword": "人工智能",
+    "status": 0,
+    "valid_category_list": [],
+    "valid_day": "20211018",
+    "valid_week_day": "20211024"
+  }
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `人工智能.valid_day` | Valid date for daily data, in `YYYYMMDD` format. The sample value is `20211018`. The top-level key is the keyword you sent. |
+| `人工智能.valid_week_day` | Valid date for weekly data, in `YYYYMMDD` format. The sample value is `20211024`. |
+| `人工智能.origin_keyword` | The original keyword text. In the sample it is `人工智 能`, with a space inside the term, although the request had none. |
+| `人工智能.real_keyword` | The keyword text used for the lookup. In the sample it is `人工智能`, without a space. |
+| `人工智能.keyword_types` | List of numeric type codes for the keyword. The sample contains `0`. The response does not explain what each code means. |
+| `人工智能.status` | Numeric status code for the keyword. The sample returns `0`. |
+| `人工智能.valid_category_list` | List of valid categories for the keyword. It is empty in the sample. |
+
 ### Notes
 
-- Accepts multiple terms supplied as a comma-separated string in `keyword_list`.
+- The response has one top-level object per keyword, named after that keyword. The sample uses `人工智能`.
+- Send several terms in one call by joining them with commas in `keyword_list`.
+- `valid_day` and `valid_week_day` are strings in `YYYYMMDD` format.
+- To see the latest valid dates for each Douyin Index data type, call [Douyin Index Valid Dates](/apis/douyin/index/all-valid-date).
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

@@ -61,7 +61,14 @@ Same call via the path form: `POST /v1/api/truth-social/post` with the body abov
 
 ## Details
 
-Get a single Truth Social post by its URL - text, author, engagement (likes, comments, shares), and timestamp as clean JSON.
+Returns one Truth Social post as JSON: its text, author details, like, comment and share counts, attached media, and a creation timestamp. The only input is the full post URL in `url`.
+
+### Use cases
+
+- Track how many likes, comments and shares a specific post has gathered.
+- Archive the text and media files of a post before it is edited or removed.
+- Check whether an account that posted is verified before citing the post.
+- Add post text and engagement numbers to a news or monitoring dashboard.
 
 ### Request
 
@@ -72,7 +79,7 @@ curl -X POST "https://api.sandbase.ai/v1/api/truth-social/post" \
   -d '{"url": "https://truthsocial.com/@realDonaldTrump/posts/116824551176646175"}'
 ```
 
-The result is returned in `outputs[0].data`. A lookup that finds nothing still succeeds and returns `found: false`.
+The result is returned in `outputs[0].data`.
 
 ### Parameters
 
@@ -80,9 +87,56 @@ The result is returned in `outputs[0].data`. A lookup that finds nothing still s
 |---|---|---|---|
 | `url` | string | Yes | Full Truth Social post URL, e.g. "https://truthsocial.com/@realDonaldTrump/posts/116824551176646175". |
 
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "data": {
+    "avatarUrl": "https://static-assets-1.truthsocial.com/tmtg:prime-ts-assets/accounts/avatars/10…",
+    "comments": 594,
+    "createdUtc": 1782601183,
+    "displayName": "Donald J. Trump",
+    "id": "116824551176646175",
+    "image": "https://static-assets-1.truthsocial.com/tmtg:prime-ts-assets/media_attachments/f…",
+    "likes": 15764,
+    "mediaUrls": [
+      "https://static-assets-1.truthsocial.com/tmtg:prime-ts-assets/media_attachments/f…"
+    ],
+    "shares": 3961,
+    "text": "RT: https://truthsocial.com/users/realDonaldTrump/statuses/116824550355095950",
+    "username": "realDonaldTrump",
+    "verified": true
+  },
+  "found": true
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `found` | `true` when the post was located. A lookup that finds nothing returns `false`. |
+| `data.id` | ID of the post. It matches the last part of the post URL. |
+| `data.text` | Text of the post. A repost can show only a `RT:` prefix followed by a link to the original status. |
+| `data.username / data.displayName` | Handle of the author and the name shown on the profile. |
+| `data.verified` | `true` if the author account is verified. |
+| `data.likes / data.comments / data.shares` | Engagement counts for the post. |
+| `data.createdUtc` | Time the post was created, as a Unix timestamp in seconds. |
+| `data.mediaUrls[]` | Links to the full-size media files attached to the post. |
+| `data.image` | Link to a smaller preview image of the attached media. |
+| `data.avatarUrl` | Link to the author's profile picture. |
+
+### Notes
+
+- Copy the post URL from the Truth Social site. It has the form `https://truthsocial.com/@<username>/posts/<id>`.
+- Use the result from `outputs[0].data`. Check `found` first, since a missing post returns `found: false` instead of an error.
+- To see more from the same author, call [Truth Social User Posts](/apis/truth-social/user-posts). For account details, call [Truth Social Profile](/apis/truth-social/profile).
+
 ### Pricing
 
-Billed at the actual cost of each call, usually $0.0011 per request. A call can cost more when the first data source fails and another one answers. Failed calls are not charged. Lookups that find nothing and searches with no results are billed at their actual cost, which is often lower and can be $0.
+Billed at the actual cost of each call, about $0.0011 for the request above. Failed calls are not charged.
 
 ---
 Machine-readable: [`catalog/models/truth-social/post.json`](../../../catalog/models/truth-social/post.json) · Store page: https://www.sandbase.ai/model/truth-social/post

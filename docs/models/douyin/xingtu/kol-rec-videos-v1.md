@@ -61,13 +61,14 @@ Same call via the path form: `POST /v1/api/douyin/xingtu/kol-rec-videos-v1` with
 
 ## Details
 
-Retrieve recommended videos for a creator on Douyin Xingtu by supplying their `kolId`.
+Returns lists of videos tied to a Douyin Xingtu creator: masterpiece videos, newest videos and order hot videos. It needs one input, the creator's `kolId`.
 
 ### Use cases
 
-- Review recommended content associated with a Douyin Xingtu influencer.
-- Analyze high-performing video formats from specific creators.
-- Select creator video examples for influencer marketing research.
+- Pull a creator's newest videos to check how recent posts are performing.
+- Compare `play` counts across masterpiece and order hot videos to see which content earns the most views.
+- Collect `item_id` values to look up full details for a creator's best videos.
+- Screen a creator's recent output before you shortlist them for a campaign.
 
 ### Request
 
@@ -78,19 +79,100 @@ curl -X POST "https://api.sandbase.ai/v1/api/douyin/xingtu/kol-rec-videos-v1" \
   -d '{"kolId": "7048929565493690398"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
 |---|---|---|---|
-| `kolId` | string | Yes | User kolId, can be obtained from the following interfaces: `douyin/xingtu/xingtu-kolid-by-uid`; `douyin/xingtu/xingtu-kolid-by-sec-user-id`; `douyin/xingtu/xin… |
+| `kolId` | string | Yes | User kolId, can be obtained from the following interfaces: `douyin/xingtu/xingtu-kolid-by-uid`; `douyin/xingtu/xingtu-kolid-by-sec-user-id`; `douyin/xingtu/xingtu-kolid-by-unique-id` |
+
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "base_resp": {
+    "status_code": 0,
+    "status_message": ""
+  },
+  "masterpiece_videos": [
+    {
+      "acu": 0,
+      "avg_watch": 0,
+      "barrage": 0,
+      "biz_id": "0",
+      "comment": 0,
+      "core_user_id": "0",
+      "create_time": 1734027222,
+      "create_timestamp": 0,
+      "duration": 0,
+      "duration_min": 0,
+      "fans_club": 0,
+      "favorite": "0"
+    }
+  ],
+  "newest_videos": [
+    {
+      "acu": 0,
+      "avg_watch": 0,
+      "barrage": 0,
+      "biz_id": "0",
+      "comment": 0,
+      "core_user_id": "0",
+      "create_time": 1734515396,
+      "create_timestamp": 0,
+      "duration": 0,
+      "duration_min": 0,
+      "fans_club": 0,
+      "favorite": "0"
+    }
+  ],
+  "order_hot_videos": [
+    {
+      "acu": 0,
+      "avg_watch": 0,
+      "barrage": 0,
+      "biz_id": "0",
+      "comment": 0,
+      "core_user_id": "0",
+      "create_time": 1734082828,
+      "create_timestamp": 0,
+      "duration": 0,
+      "duration_min": 0,
+      "fans_club": 0,
+      "favorite": "0"
+    }
+  ],
+  "personal_hot_videos": []
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `masterpiece_videos[]` | List of videos the creator is known for. Each item uses the same video fields as the other lists. |
+| `newest_videos[]` | List of the creator's most recent videos. |
+| `order_hot_videos[]` | List of videos in the order hot group. The name suggests top videos from sponsored orders, but the response does not say so. |
+| `personal_hot_videos[]` | List of personal hot videos. It can be empty, as in the sample. |
+| `masterpiece_videos[].item_id` | ID of the video, as a string. Use it to identify the video in other calls. |
+| `masterpiece_videos[].play` | Play count of the video. In the sample it is the most filled-in metric. |
+| `masterpiece_videos[].create_time` | Creation time of the video as a Unix timestamp in seconds. |
+| `masterpiece_videos[].like / comment / share / repin` | Engagement counts for the video. Many items return `0` here, so check `play` first. |
+| `masterpiece_videos[].item_title / item_cover` | Title and cover image of the video. These can be empty strings. |
+| `base_resp.status_code` | Status code of the response. `0` in the sample, with an empty `status_message`. |
 
 ### Notes
 
-- Obtain the required `kolId` from endpoints such as `douyin/xingtu/xingtu-kolid-by-uid`, `douyin/xingtu/xingtu-kolid-by-sec-user-id`, or `douyin/xingtu/xingtu-kolid-by-unique-id`.
+- Get `kolId` from [Douyin XingTu KOL ID by User ID](/apis/douyin/xingtu/xingtu-kolid-by-uid), [Douyin XingTu kolId Lookup](/apis/douyin/xingtu/xingtu-kolid-by-sec-user-id) or [Douyin XingTu KOL ID by Unique ID](/apis/douyin/xingtu/xingtu-kolid-by-unique-id).
+- The request has no pagination parameter. Each list returns only a few videos.
+- Many metric fields come back as `0` or an empty string in the sample, so `play`, `item_id` and `create_time` are the most reliable fields.
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.02 per successful call. Failed calls are not charged.
 
 ### Related APIs
 

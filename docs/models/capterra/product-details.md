@@ -71,7 +71,14 @@ Same call via the path form: `POST /v1/api/capterra/product-details` with the bo
 
 ## Details
 
-Retrieve detailed information about a specific software product, including description, overall rating, review count, and feature list. Requires both product_id and product_name (slug) which are available from.
+This API returns details for one software product listed on Capterra: its name, description, overall rating, review count, and page URL. It needs the numeric `product_id` and the URL slug `product_name`.
+
+### Use cases
+
+- Show the current Capterra rating and review count for a CRM product on a comparison page.
+- Track how the `rating` and `review_count` of a product change between your own checks.
+- Pull the description and Capterra URL of a product to enrich a company or vendor record.
+- Compare several products from one category by calling this API once for each product.
 
 ### Request
 
@@ -82,7 +89,7 @@ curl -X POST "https://api.sandbase.ai/v1/api/capterra/product-details" \
   -d '{"product_id": "155928", "product_name": "Zoho-CRM"}'
 ```
 
-This API runs asynchronously. The call returns a task `id` with status `pending`; poll `GET https://api.sandbase.ai/v1/run/{id}` until `status` is `completed` and read the result from `outputs[0].data`.
+The result is returned in `outputs[0].data`.
 
 ### Parameters
 
@@ -91,9 +98,48 @@ This API runs asynchronously. The call returns a task `id` with status `pending`
 | `product_id` | string | Yes | The numeric product ID (e.g. '155928'). Available from get_category_products or search_software results. |
 | `product_name` | string | Yes | The URL slug of the product (e.g. 'Zoho-CRM', 'HubSpot-CRM'). Available from get_category_products or search_software results. |
 
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "data": {
+    "description": "Zoho CRM empowers businesses of all sizes with a 360º customer relationship life…",
+    "features": [],
+    "id": "155928",
+    "name": "Zoho CRM",
+    "rating": "4.3",
+    "review_count": "6983",
+    "url": "https://www.capterra.com/p/155928/Zoho-CRM/"
+  },
+  "status": "success"
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `data.name` | Display name of the product, for example `Zoho CRM`. |
+| `data.id` | Numeric Capterra product ID, returned as a string. It matches the `product_id` you sent. |
+| `data.description` | Text description of the product from its Capterra listing. Long descriptions may be cut off. |
+| `data.rating` | Overall rating of the product, returned as a string such as `4.3`. |
+| `data.review_count` | Number of reviews for the product, returned as a string. |
+| `data.url` | Link to the product page on Capterra. It contains the ID and the slug. |
+| `data.features` | List of product features. It can be an empty list, as in this example. |
+| `status` | Shows `success` when the request worked. |
+
+### Notes
+
+- Get `product_id` and `product_name` from [Capterra Search Software](/apis/capterra/search-software) or [Capterra Category Products](/apis/capterra/category-products).
+- The slug in `product_name` is the last part of the product URL, for example `Zoho-CRM` in `https://www.capterra.com/p/155928/Zoho-CRM/`.
+- `rating` and `review_count` are strings, so convert them to numbers before you sort or calculate.
+- To read individual reviews, call [Capterra Product Reviews](/apis/capterra/product-reviews).
+
 ### Pricing
 
-Flat price per call. Failed calls are not charged.
+$0.01 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ---
 Machine-readable: [`catalog/models/capterra/product-details.json`](../../../catalog/models/capterra/product-details.json) · Store page: https://www.sandbase.ai/model/capterra/product-details

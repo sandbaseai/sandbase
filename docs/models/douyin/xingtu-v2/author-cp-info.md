@@ -64,13 +64,14 @@ Same call via the path form: `POST /v1/api/douyin/xingtu-v2/author-cp-info` with
 
 ## Details
 
-Retrieve Douyin Xingtu creator cooperation details by querying `o_author_id`. You can also configure optional platform source and channel options to target specific partner data.
+Returns expected performance numbers for one Douyin Xingtu creator: expected cost per engagement (CPE), expected cost per thousand views (CPM), expected video views, and a hot item value. It needs a creator ID in `o_author_id`.
 
 ### Use cases
 
-- Review creator collaboration statistics before launching marketing campaigns.
-- Inspect commercial cooperation profiles for Douyin Xingtu authors.
-- Evaluate influencer partnership data across specific platform channels.
+- Compare the expected CPM of several creators before you pick who to book for a campaign.
+- Estimate the reach of a planned video from the creator's expected views in `expect_vv.value`.
+- Check the expected CPE of a creator to judge how much each engagement may cost.
+- Screen a shortlist of Xingtu authors by their expected cost figures.
 
 ### Request
 
@@ -81,22 +82,63 @@ curl -X POST "https://api.sandbase.ai/v1/api/douyin/xingtu-v2/author-cp-info" \
   -d '{"o_author_id": "7029342444797820939"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
 |---|---|---|---|
 | `o_author_id` | string | Yes | Creator ID |
-| `platform_source` | integer | No | Platform source, default 1 |
 | `platform_channel` | integer | No | Platform channel, default 1 |
+| `platform_source` | integer | No | Platform source, default 1 |
+
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "base_resp": {
+    "status_code": 0,
+    "status_message": ""
+  },
+  "expect_cpe": {
+    "cpe_21_60": "100",
+    "cpe_60": "377"
+  },
+  "expect_cpm": {
+    "cpm_21_60": "1923",
+    "cpm_60": "7211"
+  },
+  "expect_vv": {
+    "value": 4160093
+  },
+  "hot_item": {
+    "value": 1000
+  }
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `expect_cpe.cpe_21_60 / expect_cpe.cpe_60` | Expected cost per engagement (CPE) for two video length groups. The key names suggest `cpe_21_60` covers videos of 21 to 60 seconds and `cpe_60` covers videos over 60 seconds. Values are strings. |
+| `expect_cpm.cpm_21_60 / expect_cpm.cpm_60` | Expected cost per thousand views (CPM) for the same two video length groups. Values are strings. |
+| `expect_vv.value` | Expected video views (VV) for the creator, as a number. |
+| `hot_item.value` | A numeric value for the creator's hot item metric. The response does not show what unit it uses. |
+| `base_resp.status_code` | Status code of the call. `0` means the call succeeded. |
+| `base_resp.status_message` | Status message. It is an empty string when the call succeeds. |
 
 ### Notes
 
-- `platform_source` defaults to 1 if not specified.
-- `platform_channel` defaults to 1 if not specified.
+- Pass the Xingtu creator ID as `o_author_id`. If you only have a Douyin ID, call [Douyin XingTu kolId by Douyin ID](/apis/douyin/xingtu-v2/xingtu-kolid-by-unique-id) first to get it.
+- `platform_source` and `platform_channel` are optional integers. Both default to `1`.
+- For profile data on the same creator, call [Douyin Xingtu Author Base Info](/apis/douyin/xingtu-v2/author-base-info).
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.004 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

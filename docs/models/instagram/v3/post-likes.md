@@ -62,13 +62,14 @@ Same call via the path form: `POST /v1/api/instagram/v3/post-likes` with the bod
 
 ## Details
 
-Retrieve the profiles of users who liked a specific Instagram post by providing the post shortcode via `code`.
+Returns a list of Instagram users who liked a post, plus the total like count for the post. It needs one input, the post shortcode `code`, which is the part of the post URL after `/p/`.
 
 ### Use cases
 
-- Inspect audience engagement on public Instagram posts.
-- Gather profile details of accounts interacting with specific media.
-- Track liking activity across brand campaigns.
+- Build a list of accounts that engaged with a brand post and check which ones are verified.
+- Compare `user_count` across several posts to measure how much like activity each one gets.
+- Collect usernames and profile pictures of people who liked a campaign post for outreach research.
+- Check whether a set of known accounts liked a specific post by matching `username` or `pk`.
 
 ### Request
 
@@ -79,6 +80,8 @@ curl -X POST "https://api.sandbase.ai/v1/api/instagram/v3/post-likes" \
   -d '{"code": "Dd9RyBWBVih"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
@@ -87,33 +90,66 @@ curl -X POST "https://api.sandbase.ai/v1/api/instagram/v3/post-likes" \
 
 ### Example response
 
-Real response for the request above, trimmed to the main fields. User names and long IDs are masked.
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
 
 ```json
 {
+  "follow_ranking_token": "658b7c11…",
+  "status": "ok",
+  "user_count": 915443,
   "users": [
     {
-      "full_name": "Balaji Mallaiyan",
-      "id": "21708437252",
-      "pk_id": "21708437252",
-      "profile_pic_id": "3874493532866832816_21708437252",
-      "profile_pic_url": "https://instagram.fpit1-1.fna.fbcdn.net/v/t51.82787-19/670562331_181186270157252…",
-      "username": "<user>",
+      "account_badges": [],
       "friendship_status": {
-        "following": false
-      }
+        "blocking": false,
+        "followed_by": false,
+        "following": false,
+        "incoming_request": false,
+        "is_bestie": false,
+        "is_blocking_reel": false,
+        "is_eligible_to_subscribe": false,
+        "is_feed_favorite": false
+      },
+      "full_name": "Nele",
+      "id": "48566646275",
+      "is_private": true,
+      "is_verified": false,
+      "latest_reel_media": 0,
+      "pk": "48566646275",
+      "pk_id": "48566646275",
+      "profile_pic_id": "3486491172489676304_48566646275",
+      "profile_pic_url": "https://scontent-lga3-3.cdninstagram.com/v/t51.2885-19/464549156_767778562141792…",
+      "strong_id__": "48566646275"
     }
   ]
 }
 ```
 
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `user_count` | Total number of users reported for the post's likes. It can be larger than the number of items in `users` returned in one response. |
+| `users[]` | List of user profiles that liked the post. |
+| `users[].username / users[].full_name` | The account handle and the display name. `full_name` can be an empty string. |
+| `users[].pk / users[].pk_id / users[].id / users[].strong_id__` | The numeric user ID as a string. These fields hold the same value in the sample. |
+| `users[].is_private / users[].is_verified` | Whether the account is private and whether it is verified. |
+| `users[].profile_pic_url` | URL of a small profile picture for the user. |
+| `users[].profile_pic_id` | ID of the profile picture. It starts with the picture ID and ends with the user ID, joined by an underscore. |
+| `users[].friendship_status.following / users[].friendship_status.followed_by` | Whether the account tied to the request follows this user, and whether this user follows it back. |
+| `users[].latest_reel_media` | Value for the user's latest reel media. It is `0` for every user in the sample. |
+| `follow_ranking_token` | Token string returned with the list. The response does not explain its use. |
+
 ### Notes
 
-- Provide the post shortcode in `code`, extracted from the URL path (e.g. instagram.com/p/{code}/).
+- Take `code` from the post URL: for `instagram.com/p/Dd9RyBWBVih/`, the value is `Dd9RyBWBVih`.
+- The request has no pagination parameter. The sample response returns only a few users even though `user_count` is 915443.
+- User IDs are strings of digits. Pass them to [Instagram User Profile (V3)](/apis/instagram/v3/user-profile) or [Instagram User Brief Info](/apis/instagram/v3/user-brief) for more detail on a liker, if those APIs accept that ID.
+- To get post details such as caption or media, call [Instagram Post Details (V3)](/apis/instagram/v3/post-info).
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.008 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

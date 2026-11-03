@@ -62,9 +62,13 @@ Same call via the path form: `POST /v1/api/weibo/tv-component` with the body abo
 
 ## Details
 
-Get Weibo TV video details for a colon-delimited object ID (OID). Use it to look up a known TV video for content review, cataloging, or downstream processing.
+This API takes a Weibo object ID (`oid`) for a TV video and returns the video's play component data. The `oid` is colon-delimited, for example `1022:2309405359416706203708`.
 
-The response is the platform's original data structure.
+### Use cases
+
+- Check whether a known Weibo TV video ID returns play information before you add it to a catalog.
+- Run a quick lookup on a stored `oid` during content review.
+- Pass a video `oid` into a pipeline that reads the play component data.
 
 ### Request
 
@@ -75,15 +79,46 @@ curl -X POST "https://api.sandbase.ai/v1/api/weibo/tv-component" \
   -d '{"oid": "1022:2309405359416706203708"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
 |---|---|---|---|
 | `oid` | string | Yes | Weibo video/object ID. |
 
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "code": "100000",
+  "data": {
+    "Component_Play_Playinfo": null
+  },
+  "msg": "succ"
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `code` | Status code of the response. The sample shows `100000`. |
+| `msg` | Status message. The sample shows `succ`. |
+| `data` | Container for the result of the lookup. |
+| `data.Component_Play_Playinfo` | Play information for the video. It is `null` in the sample response, so no play details came back for this `oid`. |
+
+### Notes
+
+- The `oid` has two parts separated by a colon. The example is `1022:2309405359416706203708`.
+- A `code` of `100000` with `msg` set to `succ` can still return `data.Component_Play_Playinfo` as `null`. Check that field before you use the result.
+- If you need video data for a different ID, try [Weibo Video Detail](/apis/weibo/app/video-detail).
+
 ### Pricing
 
-Flat price per call. Failed calls and empty results are not charged.
+$0.014286 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ---
 Machine-readable: [`catalog/models/weibo/tv-component.json`](../../../catalog/models/weibo/tv-component.json) · Store page: https://www.sandbase.ai/model/weibo/tv-component

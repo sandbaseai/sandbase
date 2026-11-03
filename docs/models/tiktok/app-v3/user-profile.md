@@ -64,13 +64,14 @@ Same call via the path form: `POST /v1/api/tiktok/app-v3/user-profile` with the 
 
 ## Details
 
-Retrieve detailed user profile data from TikTok by querying with `user_id`, `unique_id`, or `sec_user_id`.
+Returns the public profile of one TikTok account, including nickname, follower and following counts, video count, verification label and avatar image URLs. You pass one identifier: `sec_user_id`, `unique_id` (the username) or `user_id`.
 
 ### Use cases
 
-- Look up public account metrics and profile details by username.
-- Resolve numeric TikTok user identifiers to profile data.
-- Inspect TikTok account information using a sec_user_id string.
+- Track the `follower_count` and `aweme_count` of a creator or brand account over time.
+- Check whether an account is verified and which category label it carries before a partnership.
+- Download avatar images and the bio link of an account for a profile card or a CRM record.
+- Confirm that a `sec_user_id` belongs to the expected account by checking its `nickname`.
 
 ### Request
 
@@ -81,22 +82,128 @@ curl -X POST "https://api.sandbase.ai/v1/api/tiktok/app-v3/user-profile" \
   -d '{"sec_user_id": "MS4wLjABAAAAv7iSuuXDJGDvJkmH_vz1qkDZYo1apxgzaxdBSeIuPiM"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
 |---|---|---|---|
-| `user_id` | string | No | User uid, optional parameter, pure number, if used, please keep sec_user_id and unique_id empty. |
-| `unique_id` | string | No | User unique_id, optional parameter, if sec_user_id is empty, use unique_id to get user information, unique_id is also the user's username, if used, please keep… |
 | `sec_user_id` | string | No | User sec_user_id |
+| `unique_id` | string | No | User unique_id, optional parameter, if sec_user_id is empty, use unique_id to get user information, unique_id is also the user's username, if used, please keep sec_user_id and user_id empty. |
+| `user_id` | string | No | User uid, optional parameter, pure number, if used, please keep sec_user_id and unique_id empty. |
+
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "extra": {
+    "fatal_item_ids": [],
+    "logid": "2026110307440258124FAE33158303128D",
+    "now": 1793691843000
+  },
+  "log_pb": {
+    "impr_id": "2026110307440258124FAE33158303128D"
+  },
+  "status_code": 0,
+  "status_msg": "",
+  "user": {
+    "account_labels": [
+      {
+        "content": "Artist",
+        "label_type": 3
+      }
+    ],
+    "account_type": 3,
+    "ad_virtual": false,
+    "avatar_168x168": {
+      "uri": "tos-useast5-avt-0068-tx/ba67b11de451691939223e9d978e613a",
+      "url_list": [
+        "https://p16-common-sign.tiktokcdn-us.com/tos-useast5-avt-0068-tx/ba67b11de451691…"
+      ],
+      "url_prefix": null
+    },
+    "avatar_300x300": {
+      "uri": "tos-useast5-avt-0068-tx/ba67b11de451691939223e9d978e613a",
+      "url_list": [
+        "https://p16-common-sign.tiktokcdn-us.com/tos-useast5-avt-0068-tx/ba67b11de451691…"
+      ],
+      "url_prefix": null
+    },
+    "avatar_larger": {
+      "uri": "tos-useast5-avt-0068-tx/ba67b11de451691939223e9d978e613a",
+      "url_list": [
+        "https://p19-common-sign.tiktokcdn-us.com/tos-useast5-avt-0068-tx/ba67b11de451691…"
+      ],
+      "url_prefix": null
+    },
+    "avatar_medium": {
+      "uri": "tos-useast5-avt-0068-tx/ba67b11de451691939223e9d978e613a",
+      "url_list": [
+        "https://p16-common-sign.tiktokcdn-us.com/tos-useast5-avt-0068-tx/ba67b11de451691…"
+      ],
+      "url_prefix": null
+    },
+    "avatar_thumb": {
+      "uri": "tos-useast5-avt-0068-tx/ba67b11de451691939223e9d978e613a",
+      "url_list": [
+        "https://p16-common-sign.tiktokcdn-us.com/tos-useast5-avt-0068-tx/ba67b11de451691…"
+      ],
+      "url_prefix": null
+    },
+    "aweme_count": 1601,
+    "bio_secure_url": "https://www.tiktoklinksafety.us/link/v2?aid=1233&lang=en&scene=bio_url&target=ti…",
+    "bio_url": "tiktok.com/discovermore",
+    "biz_account_info": {
+      "added_contact_and_link_list": null,
+      "android_download_app_link": "",
+      "coupon_list": null,
+      "ios_download_app_link": "",
+      "leads_gen": {
+        "action_name": "",
+        "business_data": "",
+        "has_leads_gen": false,
+        "page_id": 0,
+        "schema_url": ""
+      },
+      "permission_list": [
+        "017002"
+      ],
+      "rba_user_info": {
+        "company_name": "TikTok"
+      }
+    }
+  },
+  "version": "v2"
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `user.nickname` | Display name of the account. |
+| `user.follower_count / user.following_count` | Number of followers the account has and number of accounts it follows. |
+| `user.aweme_count` | Number of videos posted by the account. |
+| `user.enterprise_verify_reason` | Verification text shown on the account, for example `Verified account`. |
+| `user.account_labels[].content` | Label shown on the account, for example `Artist`. |
+| `user.category` | Category of the account, for example `Others`. |
+| `user.bio_url` | Link shown in the profile bio. `user.bio_secure_url` holds the same link wrapped in a TikTok link safety redirect. |
+| `user.avatar_larger.url_list[] / user.avatar_medium.url_list[] / user.avatar_thumb.url_list[]` | Avatar image URLs in large, medium and thumbnail sizes. Each list has several URLs for the same image. |
+| `user.original_musician.music_count` | Number of original sounds credited to the account. |
+| `user.privacy_setting.following_visibility` | Setting that controls who can see the account's following list. The response shows only the value `1`. |
 
 ### Notes
 
-- Pass only one identifier at a time; if using `user_id`, leave `sec_user_id` and `unique_id` empty.
-- If `sec_user_id` is empty, use `unique_id` (the username) while keeping `user_id` empty.
+- Send only one of `sec_user_id`, `unique_id` or `user_id`. Leave the other two empty.
+- `unique_id` is the username, for example `tiktok`. If you only have a username and need the IDs, call [TikTok User ID by Username](/apis/tiktok/app-v3/user-id-and-sec-user-id-by-username).
+- To list the videos of the account, call [TikTok User Videos (App V3)](/apis/tiktok/app-v3/user-post-videos) with the same `sec_user_id`.
+- `status_code` is `0` when the lookup works. The profile data sits under `user`.
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

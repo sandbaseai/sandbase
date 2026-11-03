@@ -80,13 +80,14 @@ Same call via the path form: `POST /v1/api/bilibili/web/general-search` with the
 
 ## Details
 
-Query video search results across Bilibili by specifying a `keyword` along with pagination and sorting criteria.
+Returns a page of Bilibili video search results for a search `keyword`. Each result carries the video title fields, author, play and like counts, and publish time. You can sort the results and filter them by duration and publication date range.
 
 ### Use cases
 
-- Search for videos matching specific query terms across Bilibili.
-- Filter search results by video duration and publication date timestamps.
-- Sort keyword search listings by criteria such as overall ranking.
+- Track which videos rank for a brand or topic such as `OpenAI` on Bilibili.
+- Collect the top creators (`author`, `mid`) posting about a keyword.
+- Compare `play`, `like` and `favorites` across videos to find the most watched content on a topic.
+- Build a list of `bvid` values to feed into video detail or comment lookups.
 
 ### Request
 
@@ -97,51 +98,91 @@ curl -X POST "https://api.sandbase.ai/v1/api/bilibili/web/general-search" \
   -d '{"keyword": "OpenAI", "order": "totalrank", "page": 1, "page_size": 20}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
 |---|---|---|---|
-| `page` | integer | Yes | Page number |
-| `order` | string | Yes | Order method |
 | `keyword` | string | Yes | Search keyword |
+| `order` | string | Yes | Order method |
+| `page` | integer | Yes | Page number |
 | `page_size` | integer | Yes | Number per page |
 | `duration` | integer | No | Duration filter |
-| `pubtime_end_s` | integer | No | End date, 10-digit timestamp, must be greater than start date |
 | `pubtime_begin_s` | integer | No | Start date, 10-digit timestamp, must be less than end date |
+| `pubtime_end_s` | integer | No | End date, 10-digit timestamp, must be greater than start date |
 
 ### Example response
 
-Real response for the request above, trimmed to the main fields. User names and long IDs are masked.
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
 
 ```json
 {
+  "code": 0,
   "data": {
+    "egg_hit": 0,
+    "exp_list": {
+      "100010": true,
+      "5500": true,
+      "6699": true
+    },
+    "in_black_key": 0,
+    "in_white_key": 0,
+    "is_hit_web_inf": false,
+    "next": 2,
+    "numPages": 50,
+    "numResults": 1000,
+    "page": 1,
+    "pagesize": 20,
     "result": [
       {
-        "author": "AI大圆镜",
+        "aid": 117541628284069,
+        "arcurl": "http://www.bilibili.com/video/av117541628284069",
+        "area": 0,
+        "author": "产品君",
+        "badgepay": false,
+        "biz_data": null,
+        "bvid": "BV1Saxb6PEhv",
         "card_status": 0,
-        "description": "9月22号，越狱圈名人老普林尼把GPT-6 Sol Codex全套系统提示词传上GitHub，超29万字符，连禁AI味都写进了家规。",
-        "duration": "1:0",
-        "id": 117385952495187,
-        "like": 399,
-        "live_status": 0,
-        "parent_area_id": 0,
-        "pubdate": 1791167590,
-        "rank_index": 1
+        "cate_name": "",
+        "cny_flag": 0,
+        "corner": "",
+        "cover": ""
       }
-    ]
-  }
+    ],
+    "rqt_type": "search"
+  },
+  "message": "OK",
+  "ttl": 1
 }
 ```
 
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `data.result[]` | List of matching videos on the requested page, in ranked order. |
+| `data.result[].bvid / data.result[].aid` | The video's BV ID and numeric AID. `arcurl` holds the video page link built from the AID. |
+| `data.result[].author / data.result[].mid` | Name and numeric ID of the user who posted the video. |
+| `data.result[].description` | Video description text. Long text is cut and ends with an ellipsis. |
+| `data.result[].play / data.result[].like / data.result[].favorites / data.result[].danmaku` | View, like, favorite and danmaku (on-screen comment) counts for the video. |
+| `data.result[].duration` | Video length as a string such as `3:24`. |
+| `data.result[].pubdate` | Publish time as a 10-digit Unix timestamp. |
+| `data.result[].rank_index` | Position of the video in the result list, starting at 1. |
+| `data.result[].hit_columns` | Parts of the video that matched the keyword, such as `title`, `description` or `tag`. |
+| `data.numResults / data.numPages` | Total number of matching results and total number of pages for the current `page_size`. |
+| `data.page / data.pagesize / data.next` | Current page number, page size, and the next page number. |
+
 ### Notes
 
-- `pubtime_begin_s` and `pubtime_end_s` accept 10-digit timestamps, where the start date must be earlier than the end date.
-- Results can be paginated using `page` and `page_size`.
+- Set `page` and `page_size` to move through results. Use the `data.next` value as the next `page`.
+- `pubtime_begin_s` and `pubtime_end_s` take 10-digit timestamps, the same format as `pubdate`. The end value must be greater than the start value.
+- Use `bvid` from the results with [Bilibili Video Details](/apis/bilibili/web/one-video) to get more about a single video.
+- Use `mid` with [Bilibili User Profile](/apis/bilibili/web/user-profile) to look up a creator.
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

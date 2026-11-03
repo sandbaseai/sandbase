@@ -61,13 +61,14 @@ Same call via the path form: `POST /v1/api/douyin/billboard/hot-total-high-searc
 
 ## Details
 
-Returns rising search queries and trend values from the Douyin billboard. Allows querying by `keyword` and selecting an hourly or daily `date_window`.
+Returns a list of rising search queries from the Douyin billboard. Each item has a search score and a daily trend series. All inputs are optional: `keyword`, `date_window`, `page_num` and `page_size`.
 
 ### Use cases
 
-- Track rapidly rising search queries across Douyin.
-- Inspect keyword trend values over specified time intervals.
-- Gather trending topics for content discovery and research.
+- Find search terms on Douyin that are gaining volume around a topic such as a brand or product name.
+- Chart the daily `value` series of a rising query to see whether interest is still climbing or fading.
+- Rank related queries by `search_score` to pick keywords for Douyin content or ad planning.
+- Page through the full result set with `total_count` to build a keyword list for a topic.
 
 ### Request
 
@@ -78,45 +79,83 @@ curl -X POST "https://api.sandbase.ai/v1/api/douyin/billboard/hot-total-high-sea
   -d '{}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
 |---|---|---|---|
+| `date_window` | integer | No | Time window, 1 by hour 2 by day |
 | `keyword` | string | No | Search keyword |
 | `page_num` | integer | No | Page number |
 | `page_size` | integer | No | Number of items per page |
-| `date_window` | integer | No | Time window, 1 by hour 2 by day |
 
 ### Example response
 
-Real response for the request above, trimmed to the main fields. User names and long IDs are masked.
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
 
 ```json
 {
+  "code": 0,
   "data": {
-    "search_list": [
+    "objs": [
       {
+        "key_word": "抖音来客",
+        "search_score": 1933570,
         "trends": [
           {
-            "date": "20260922",
-            "value": 1090
+            "date": "20261020",
+            "value": 1771342
           }
         ]
       }
-    ]
-  }
+    ],
+    "page_num": 1,
+    "page_size": 10,
+    "search_list": [
+      {
+        "key_word": "抖音来客",
+        "search_score": 1933570,
+        "trends": [
+          {
+            "date": "20261020",
+            "value": 1771342
+          }
+        ]
+      }
+    ],
+    "total_count": 74
+  },
+  "extra": {
+    "now": 1793691109000
+  },
+  "message": ""
 }
 ```
 
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `data.search_list[].key_word` | The rising search query text. |
+| `data.search_list[].search_score` | A single score for the query. Use it to compare queries within the same response. |
+| `data.search_list[].trends[].date` | Date of the trend point as a `YYYYMMDD` string, for example `20261022`. |
+| `data.search_list[].trends[].value` | Trend value for that date. Read the points in order to see the direction of the query. |
+| `data.objs[]` | Holds the same items as `data.search_list[]`, with the same `key_word`, `search_score` and `trends` fields. |
+| `data.total_count` | Total number of matching queries across all pages. |
+| `data.page_num / data.page_size` | The page number and page size that the response used. |
+| `extra.now` | A timestamp in the `extra` block, shown as a 13-digit number that looks like Unix time in milliseconds. |
+
 ### Notes
 
-- Set `date_window` to 1 for hourly data or 2 for daily data.
-- Use `page_num` and `page_size` to manage pagination.
-- Filter for specific topics using the optional `keyword` parameter.
+- All parameters are optional. The response shows `page_num` as `1` and `page_size` as `10` when you send an empty body.
+- Raise `page_num` and compare against `total_count` to read every page.
+- Set `date_window` to `1` for hourly data or `2` for daily data. The example response contains daily `YYYYMMDD` dates.
+- For other Douyin search rankings, see [Douyin Hot Total Search List](/apis/douyin/billboard/hot-total-search-list) and [Douyin Rising Hot Search List](/apis/douyin/billboard/hot-rise-list).
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

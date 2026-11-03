@@ -62,13 +62,14 @@ Same call via the path form: `POST /v1/api/bilibili/web/hot-search` with the bod
 
 ## Details
 
-Look up real-time trending search topics and heat scores on Bilibili. Specify the desired quantity of items using the `limit` parameter.
+Returns the current list of trending search keywords on Bilibili, each with a heat score. The only input is `limit`, the number of keywords to return.
 
 ### Use cases
 
-- Monitor trending topics and viral search terms across Bilibili.
-- Analyze audience interest levels using trending heat scores.
-- Supply search suggestion widgets with top community queries.
+- Track which topics are trending on Bilibili right now.
+- Compare `heat_score` values to see which keywords draw the most interest.
+- Feed a search suggestion box with current popular Bilibili queries.
+- Log the trending list at set times to see how topics rise and fall.
 
 ### Request
 
@@ -79,6 +80,8 @@ curl -X POST "https://api.sandbase.ai/v1/api/bilibili/web/hot-search" \
   -d '{"limit": 10}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
@@ -87,30 +90,56 @@ curl -X POST "https://api.sandbase.ai/v1/api/bilibili/web/hot-search" \
 
 ### Example response
 
-Real response for the request above, trimmed to the main fields. User names and long IDs are masked.
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
 
 ```json
 {
+  "code": 0,
   "data": {
     "trending": {
       "list": [
         {
-          "heat_score": 4248008,
-          "keyword": "当你意识到来不及写国庆作业时"
+          "goto": "",
+          "heat_score": 3216045,
+          "icon": "https://i0.hdslb.com/bfs/activity-plat/static/20251027/aafcb8031fd171c428daaa9b4…",
+          "keyword": "FaZe Falcons",
+          "show_name": "FaZe vs Falcons IEM北京",
+          "uri": ""
         }
-      ]
+      ],
+      "title": "bilibili热搜",
+      "top_list": [],
+      "trackid": "5327011950951300418"
     }
-  }
+  },
+  "message": "OK",
+  "ttl": 1
 }
 ```
 
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `data.trending.list[].keyword` | The trending search term. Use this value as the query text. |
+| `data.trending.list[].show_name` | The title shown to users in the hot search list. It can differ from `keyword`. |
+| `data.trending.list[].heat_score` | Numeric heat score for the keyword. A higher number means a hotter topic. |
+| `data.trending.list[].icon` | URL of a badge image shown next to the keyword. It is an empty string when the entry has no badge. |
+| `data.trending.list[].goto / data.trending.list[].uri` | Link target fields for the entry. They are empty strings in this response. |
+| `data.trending.title` | Title of the list, for example `bilibili热搜`. |
+| `data.trending.top_list` | List of pinned entries. It is empty in this response. |
+| `data.trending.trackid` | Tracking ID string for this list. |
+| `code / message` | Status of the call. `code` is `0` and `message` is `OK` on success. |
+
 ### Notes
 
-- Use `limit` to control the number of trending search keywords returned.
+- Set `limit` to the number of keywords you want. It is the only parameter and it is required.
+- Pass a `keyword` to [Bilibili Web General Search](/apis/bilibili/web/general-search) to find content for a trending topic.
+- Pass a `keyword` to [Bilibili Video Search](/apis/bilibili/search-video) to list videos that match it.
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

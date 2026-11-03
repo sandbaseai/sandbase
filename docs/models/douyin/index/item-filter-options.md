@@ -52,13 +52,14 @@ Same call via the path form: `POST /v1/api/douyin/index/item-filter-options` wit
 
 ## Details
 
-Look up supported filter options for Douyin video search queries. This endpoint requires no parameters and returns valid criteria compatible with `fetch_item_query`.
+Returns the filter options that Douyin video search accepts. The request takes no input. Each option has an `id`, a Chinese `name`, and an English `name_en`.
 
 ### Use cases
 
-- Retrieve valid filter criteria for Douyin video searches.
-- Populate filter dropdowns and selections in video search interfaces.
-- Validate video search arguments against accepted platform values.
+- Fill filter dropdowns for category, publish time, duration and video type in a Douyin video search screen.
+- Check that a category, date range, duration or label `id` is valid before you send a video search request.
+- Map Chinese filter names to English labels for a bilingual interface.
+- Cache the option lists once and reuse them when you build search queries.
 
 ### Request
 
@@ -69,13 +70,67 @@ curl -X POST "https://api.sandbase.ai/v1/api/douyin/index/item-filter-options" \
   -d '{}'
 ```
 
+The result is returned in `outputs[0].data`.
+
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "categories": [
+    {
+      "id": "0",
+      "name": "垂类不限",
+      "name_en": "All categories"
+    }
+  ],
+  "date_types": [
+    {
+      "id": 0,
+      "name": "发布时间不限",
+      "name_en": "Any publish time"
+    }
+  ],
+  "duration_types": [
+    {
+      "id": 0,
+      "name": "时长不限",
+      "name_en": "Any duration"
+    }
+  ],
+  "label_types": [
+    {
+      "id": 0,
+      "name": "类型不限",
+      "name_en": "Any type"
+    }
+  ]
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `categories[].id` | Category ID. The value `0` means all categories. Pass this ID when you filter by category. |
+| `categories[].name / categories[].name_en` | Category name in Chinese and in English, for example `剧情` and `Drama`. |
+| `date_types[].id` | Publish time filter value. It is a number such as `0`, `3` or `7`. The English names suggest `0` means any time and the others mean the last 3 or 7 days. |
+| `date_types[].name / date_types[].name_en` | Publish time label in Chinese and in English, for example `Last 7 days`. |
+| `duration_types[].id` | Video duration filter value. For example `1` is 0-15 seconds and `6` is 15-60 seconds. `0` means any duration. |
+| `duration_types[].name / duration_types[].name_en` | Duration label in Chinese and in English, for example `15-60 seconds`. |
+| `label_types[].id` | Video type filter value. For example `1` is low-follower hit and `2` is high completion rate. `0` means any type. |
+| `label_types[].name / label_types[].name_en` | Video type label in Chinese and in English. |
+
 ### Notes
 
-- Provides filter criteria designed for use with the `fetch_item_query` video search endpoint.
+- Category `id` values are strings, for example `"601"`. The `id` values in `date_types`, `duration_types` and `label_types` are numbers.
+- Use the `id` values from this response as filter values in the video search request. Call [Douyin Index Video Search](/apis/douyin/index/item-query) to run the search.
+- Use [Douyin Video Search Suggestions](/apis/douyin/index/item-sug) to find search terms.
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

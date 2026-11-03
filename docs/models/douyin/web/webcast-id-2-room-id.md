@@ -62,13 +62,13 @@ Same call via the path form: `POST /v1/api/douyin/web/webcast-id-2-room-id` with
 
 ## Details
 
-Look up a Douyin room ID by providing a `webcast_id`. This endpoint maps a Douyin webcast identifier to its associated livestream room ID.
+This API converts a Douyin webcast ID into the livestream room ID that matches it. It needs one input, `webcast_id`, and returns a single `room_id` value.
 
 ### Use cases
 
-- Resolve a webcast ID into a livestream room ID for downstream Douyin web queries.
-- Normalize live broadcast identifiers across Douyin monitoring workflows.
-- Match external webcast links to internal Douyin room identifiers.
+- Convert a webcast ID taken from a Douyin live link into a room ID for room-based lookups.
+- Store room IDs next to webcast IDs so you can match the same livestream across your own records.
+- Prepare the room ID needed to request live stream data for a Douyin broadcast.
 
 ### Request
 
@@ -79,19 +79,41 @@ curl -X POST "https://api.sandbase.ai/v1/api/douyin/web/webcast-id-2-room-id" \
   -d '{"webcast_id": "775841227732"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
 |---|---|---|---|
 | `webcast_id` | string | Yes | Webcast id |
 
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "room_id": "7624919954380180276"
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `room_id` | The livestream room ID that matches the submitted `webcast_id`. This is the only field in the response. |
+| `room_id` | The value is a string of digits, such as `7624919954380180276`. Keep it as a string so tools do not round the long number. |
+| `room_id` | Use this value as the room identifier in other Douyin live APIs that ask for a room ID. |
+
 ### Notes
 
-- Requires a valid `webcast_id` string.
+- Send `webcast_id` as a string. The example value is `775841227732`.
+- To get webcast IDs from live room links, call [Douyin Webcast ID Extraction](/apis/douyin/web/all-webcast-id).
+- To get stream data for a room, call [Douyin Stream Data by Room ID (V2)](/apis/douyin/web/user-live-videos-by-room-id-v2) with the returned `room_id`.
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

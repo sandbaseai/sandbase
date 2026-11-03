@@ -52,13 +52,13 @@ Same call via the path form: `POST /v1/api/douyin/billboard/city-list` with the 
 
 ## Details
 
-This endpoint returns the list of supported Chinese cities for Douyin billboard queries. It requires no input parameters.
+Returns the list of Chinese cities that Douyin billboard rankings support. Each city has a display name and a numeric code. The API takes no input.
 
 ### Use cases
 
-- Retrieve available city identifiers to query localized Douyin trending charts.
-- Populate city selection dropdowns in analytics dashboards.
-- Map regional billboard metrics across supported Chinese municipal markets.
+- Fill a city dropdown in a dashboard that shows local Douyin trending lists.
+- Store the city codes so you can pass them to city-based billboard queries.
+- Check whether a city is supported before you build a regional report.
 
 ### Request
 
@@ -69,9 +69,48 @@ curl -X POST "https://api.sandbase.ai/v1/api/douyin/billboard/city-list" \
   -d '{}'
 ```
 
+The result is returned in `outputs[0].data`.
+
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "code": 0,
+  "data": [
+    {
+      "label": "北京",
+      "value": 110000
+    }
+  ],
+  "extra": {
+    "now": 1793691103000
+  },
+  "message": ""
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `code` | Status code of the response. The sample shows `0`. |
+| `data[]` | One entry for each supported city. |
+| `data[].label` | City name in Chinese, such as `北京` or `上海`. |
+| `data[].value` | Numeric code for the city, such as `110000` for `北京`. Use it to identify the city in other requests. |
+| `extra.now` | Timestamp of the response as a number, in the form of 13 digits (milliseconds). |
+| `message` | Message text. It is an empty string in the sample. |
+
+### Notes
+
+- Send an empty JSON object `{}` as the request body. The API has no parameters.
+- Call [Douyin City Hot List](/apis/douyin/billboard/hot-city-list) next to get city-based rankings.
+- The `value` codes look like Chinese administrative region codes, for example `110000` and `440100`.
+
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

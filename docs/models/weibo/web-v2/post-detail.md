@@ -65,13 +65,14 @@ Same call via the path form: `POST /v1/api/weibo/web-v2/post-detail` with the bo
 
 ## Details
 
-Pass a Weibo post ID and get back the complete post as JSON: the full text, author profile, publish time and region, attached images, and engagement counts.
+Returns the data of a single Weibo post: publish time, region label, repost, comment and like counts, and attached images. It needs the Weibo post ID in `id`. Long posts can be expanded to full text with `is_get_long_text`.
 
 ### Use cases
 
-- Track how a specific post performs over time (reposts, comments, likes).
-- Archive posts referenced in news or brand monitoring.
-- Enrich search results from the Weibo search APIs with full post details.
+- Track how reposts, comments and likes of one post change between calls.
+- Archive a post with its images and publish time for news or brand monitoring.
+- Check where a post was published from using the region label.
+- Download the images of a post in several sizes.
 
 ### Request
 
@@ -82,6 +83,8 @@ curl -X POST "https://api.sandbase.ai/v1/api/weibo/web-v2/post-detail" \
   -d '{"id": "5350554563773695"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
@@ -91,32 +94,59 @@ curl -X POST "https://api.sandbase.ai/v1/api/weibo/web-v2/post-detail" \
 
 ### Example response
 
-Real response for the request above, trimmed to the main fields. User names and long IDs are masked.
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
 
 ```json
 {
-  "id": 5350554563773695,
-  "mblogid": "Rld9CfPI3",
+  "analysis_extra": "",
+  "annotations": [
+    {
+      "photo_sub_type": "0"
+    }
+  ],
+  "attitudes_count": 168,
+  "attitudes_status": 0,
+  "can_edit": false,
+  "comment_manage_info": {
+    "approval_comment_type": 0,
+    "comment_anon_type": 0,
+    "comment_permission_type": -1,
+    "comment_sort_type": 0
+  },
+  "comments_count": 36,
+  "content_auth": 0,
   "created_at": "Mon Oct 05 07:04:39 +0800 2026",
-  "reposts_count": 40,
-  "comments_count": 34,
-  "attitudes_count": 151,
-  "region_name": "发布于 美国",
-  "text_raw": "OpenAI Codex 承诺连续 28 天：每天上新，否则重置额度  OpenAI 给 Codex 用户立了个 28 天的规矩：每天要么上线一项多数人用得上…",
-  "user": {
-    "screen_name": "<user>"
-  }
+  "favorited": false,
+  "id": 5350554563773695,
+  "idstr": "5350554563773695"
 }
 ```
 
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `id / idstr / mid` | The post ID as a number and as strings. Use `idstr` or `mid` when you need the exact ID without number rounding. |
+| `mblogid` | Short alphanumeric ID of the post, the kind used in Weibo post links. |
+| `created_at` | Publish time as a text date with a `+0800` offset, for example `Mon Oct 05 07:04:39 +0800 2026`. |
+| `reposts_count / comments_count / attitudes_count` | Number of reposts, comments and likes of the post. |
+| `region_name` | Region label shown on the post, for example `发布于 美国`. |
+| `isLongText` | `true` if the post is a long post. This sample post is `false`. |
+| `pic_ids` | List of IDs of the images attached to the post. Each ID is a key in `pic_infos`. |
+| `pic_infos.{pic_id}.large.url / pic_infos.{pic_id}.original.url` | Image URLs in different sizes. Other sizes are `thumbnail`, `bmiddle`, `largest` and `mw2000`, each with `width` and `height`. |
+| `pic_num` | Number of images in the post. |
+| `number_display_strategy.display_text` | Short display label for a large count, here `100万+`. |
+
 ### Notes
 
-- The post ID is the numeric `id` / `mid`, or the `weibo_id` returned by Weibo search.
-- Long posts are expanded to full text by default (`is_get_long_text` = `"true"`).
+- Use the numeric `id` or `mid` from a post, or the post ID returned by a Weibo search API, as the `id` input.
+- `is_get_long_text` is a string and defaults to `"true"`.
+- The key under `pic_infos` is the image ID, so read `pic_ids` first and then look up each ID.
+- To read replies, call [Weibo Post Comments](/apis/weibo/web-v2/post-comments) next.
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

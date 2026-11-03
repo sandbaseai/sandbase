@@ -78,9 +78,14 @@ Same call via the path form: `POST /v1/api/similarweb/similar-sites` with the bo
 
 ## Details
 
-Get websites similar to a domain, with affinity score, category and global rank. The date range must span exactly 3 months.
+Returns websites similar to a given domain, with an affinity score, category, global rank and an AdSense flag for each. It needs a `domain` and a `start_date` and `end_date` that span exactly 3 months.
 
-The response is the official Similarweb API response, unchanged.
+### Use cases
+
+- Build a competitor list for a news site such as `cnn.com`.
+- Find lookalike sites to target when planning ad placements.
+- Group related sites by `category` to map a market segment.
+- Rank similar sites by `rank` to pick the biggest competitors to track.
 
 ### Request
 
@@ -91,24 +96,86 @@ curl -X POST "https://api.sandbase.ai/v1/api/similarweb/similar-sites" \
   -d '{"domain": "cnn.com", "start_date": "2026-07", "end_date": "2026-09", "limit": 1}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
 |---|---|---|---|
-| `country` | string | No | Worldwide data only; values are case-insensitive. |
 | `domain` | string | Yes | domain |
 | `end_date` | string | Yes | End month (YYYY-MM). The range must span exactly 3 months, e.g. 2026-07 to 2026-09. |
-| `granularity` | string | No | granularity |
 | `limit` | integer | Yes | limit |
+| `start_date` | string | Yes | Start month (YYYY-MM). The range must span exactly 3 months, e.g. 2026-07 to 2026-09. |
+| `country` | string | No | Worldwide data only; values are case-insensitive. |
+| `granularity` | string | No | granularity |
 | `main_domain_only` | boolean | No | main_domain_only |
 | `offset` | integer | No | offset |
-| `start_date` | string | Yes | Start month (YYYY-MM). The range must span exactly 3 months, e.g. 2026-07 to 2026-09. |
 | `traffic_source` | string | No | traffic_source |
 | `web_source` | string | No | web_source |
 
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "data": [
+    {
+      "affinity": 1.0,
+      "category": "News_and_Media",
+      "domain": "cnbc.com",
+      "has_adsense": true,
+      "rank": 588
+    }
+  ],
+  "meta": {
+    "last_updated": "2026-09-30",
+    "query": {
+      "asc": null,
+      "limit": 1,
+      "offset": 0,
+      "sort": null
+    },
+    "request": {
+      "category": null,
+      "domain": "cnn.com",
+      "end_date": "2026-09-30",
+      "format": "json",
+      "granularity": "monthly",
+      "metrics": [
+        "rank"
+      ],
+      "start_date": "2026-07-01"
+    },
+    "status": "success"
+  }
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `data[].domain` | The similar website's domain. |
+| `data[].affinity` | Similarity score between the similar site and the requested domain. The top result in this example has `1.0`. |
+| `data[].category` | Category of the similar site, written with underscores, for example `News_and_Media`. |
+| `data[].rank` | Global rank of the similar site. A lower number means a higher rank. |
+| `data[].has_adsense` | `true` if the similar site uses AdSense. |
+| `meta.last_updated` | Date of the most recent data, in `YYYY-MM-DD` format. |
+| `meta.query.limit / meta.query.offset` | The pagination values applied to this call. |
+| `meta.request.start_date / meta.request.end_date` | The full date range used for the query. The API expanded the months you sent to the first and last day. |
+| `meta.status` | `success` when the call worked. |
+
+### Notes
+
+- Send `start_date` and `end_date` as `YYYY-MM`. The range must cover exactly 3 months, such as `2026-07` to `2026-09`.
+- Use `limit` (1 to 20) and `offset` to page through results.
+- `country` accepts only `ww` (worldwide), and `granularity` accepts only `monthly`.
+- To compare traffic for a similar site you find, call [Similarweb Traffic & Engagement](/apis/similarweb/traffic-engagement) with its `domain`.
+
 ### Pricing
 
-$0.375 per returned row (5 Similarweb credits), up to 20 rows; billed on rows returned. Failed calls are not charged.
+Billed at the actual cost of each call, about $0.375 for the request above. Failed calls are not charged.
 
 ---
 Machine-readable: [`catalog/models/similarweb/similar-sites.json`](../../../catalog/models/similarweb/similar-sites.json) · Store page: https://www.sandbase.ai/model/similarweb/similar-sites

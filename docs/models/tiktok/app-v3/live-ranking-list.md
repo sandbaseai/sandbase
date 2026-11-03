@@ -65,13 +65,14 @@ Same call via the path form: `POST /v1/api/tiktok/app-v3/live-ranking-list` with
 
 ## Details
 
-Look up audience rankings for a broadcast by supplying the target `room_id` and `anchor_id`.
+Returns the audience ranking panel for a TikTok LIVE room. You pass the `room_id` and the `anchor_id` of the host. The response holds the ranked viewer list plus display settings and notice text for the panel.
 
 ### Use cases
 
-- Analyze audience leaderboard rankings during a stream.
-- Identify top contributing viewers for a specific anchor.
-- Track audience engagement patterns across stream sessions.
+- Read the `ranks` list to see which viewers sit at the top of a LIVE room's audience ranking.
+- Check `total` to see how many viewers appear in the ranking for a room.
+- Read `currency` and `show_score` to see how the ranking panel presents viewer scores.
+- Poll a room during a stream to see whether the ranking list is filled or still empty.
 
 ### Request
 
@@ -82,20 +83,71 @@ curl -X POST "https://api.sandbase.ai/v1/api/tiktok/app-v3/live-ranking-list" \
   -d '{"anchor_id": "7222941468722758702", "room_id": "7358603858249009962"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
 |---|---|---|---|
-| `room_id` | string | Yes | Live room id |
 | `anchor_id` | string | Yes | Anchor id |
+| `room_id` | string | Yes | Live room id |
+
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "data": {
+    "anchor_show_contribution": true,
+    "anonymous": 0,
+    "bottom_notice": "Showing the top viewers in this LIVE.",
+    "currency": "Coins",
+    "deprecated": false,
+    "display_config": {
+      "avatar_count": 2,
+      "can_panel_click": true,
+      "show_avatar_list": true,
+      "show_online_panel": true,
+      "show_score": true
+    },
+    "preview_count": 0,
+    "ranks": [],
+    "rule_url": "aweme://roma_redirect/?spark_page=top_view_ranking_new&roma_url_query=show_new_s…",
+    "sub_tabs": [],
+    "total": 0
+  },
+  "extra": {
+    "now": 1793691833556
+  },
+  "status_code": 0
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `data.ranks[]` | List of ranked viewers in the room. It is empty when no viewers are ranked, as in the sample response. |
+| `data.total` | Total number of entries in the ranking. The sample response returns `0`. |
+| `data.currency` | Name of the currency used by the ranking, for example `Coins`. |
+| `data.anchor_show_contribution` | Boolean flag. `true` means the ranking is set to show viewer contributions for the anchor. |
+| `data.anonymous` | Numeric anonymity value for the ranking. The sample response returns `0`. |
+| `data.bottom_notice` | Notice text shown at the bottom of the ranking panel. |
+| `data.display_config.show_score / data.display_config.show_avatar_list / data.display_config.show_online_panel` | Boolean flags for what the panel shows: viewer scores, an avatar list, and the online viewer panel. |
+| `data.display_config.avatar_count` | Number of avatars the panel is configured to show. |
+| `data.rule_url` | In-app link to the ranking rules page. |
+| `extra.now` | Timestamp of the response as a number, in the format shown in the sample (`1793691833556`). |
 
 ### Notes
 
-- Requires both `room_id` and `anchor_id` to look up room rankings.
+- Both `room_id` and `anchor_id` are required. Take the room ID from a LIVE room lookup such as [TikTok Broadcast Room Information](/apis/tiktok/app-v3/live-room-info).
+- Use [TikTok LIVE Status](/apis/tiktok/app-v3/check-live-room-online) to check that the room is online before you request its ranking.
+- An empty `ranks` list with `total` of `0` is a valid response with `status_code` `0`.
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

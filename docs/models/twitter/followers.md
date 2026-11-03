@@ -64,7 +64,14 @@ Same call via the path form: `POST /v1/api/twitter/followers` with the body abov
 
 ## Details
 
-Fetch the follower list of any public X (Twitter) account by username with cursor pagination. Limit is a per-page maximum and a native page holds up to 200 accounts; follow the response's nextCursor for more.
+Returns a page of accounts that follow a public X (Twitter) user. It needs the `username` of the account, without the @ prefix. Each page holds up to 200 accounts and comes with a cursor for the next page.
+
+### Use cases
+
+- Build a list of accounts that follow a brand or agency account to review its audience.
+- Find large or verified followers of a competitor account for outreach.
+- Export follower IDs and usernames to track who joins an account's audience between two runs.
+- Check which followers are located in a given place by reading the `location` text.
 
 ### Request
 
@@ -75,7 +82,7 @@ curl -X POST "https://api.sandbase.ai/v1/api/twitter/followers" \
   -d '{"limit": 200, "username": "nasa"}'
 ```
 
-The result is returned in `outputs[0].data`. A lookup that finds nothing still succeeds and returns `found: false`.
+The result is returned in `outputs[0].data`.
 
 ### Parameters
 
@@ -83,12 +90,59 @@ The result is returned in `outputs[0].data`. A lookup that finds nothing still s
 |---|---|---|---|
 | `username` | string | Yes | The X (Twitter) username to fetch followers for, without the @ prefix (e.g. elonmusk). |
 | `cursor` | string | No | Opaque pagination cursor from a previous response's nextCursor. Omit for the first page; pass it to fetch the next page of followers. |
-| `limit` | integer | No | Accepted but does not change the page: every call returns one full native page of followers (up to 200, depending on the source), never trimmed, so follow nextCursor to continue exactly where this response ended. Default |
+| `limit` | integer | No | Accepted but does not change the page: every call returns one full native page of followers (up to 200, depending on the source), never trimmed, so follow nextCursor to continue exactly where this response ended. |
 | `requireFields` | array | No | Optional; omit it and routing is unchanged, with the cheapest source serving. Name the output fields this request must be able to return, for example `bio`, and it is served only by a source that returns every one of the |
+
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "data": {
+    "items": [
+      {
+        "avatarUrl": "https://pbs.twimg.com/profile_images/1697749409851985920/HbrI04tM_normal.jpg",
+        "createdUtc": 1240523610,
+        "followers": 41933593,
+        "id": "34743251",
+        "location": "Earth",
+        "name": "SpaceX",
+        "username": "SpaceX",
+        "verified": true
+      }
+    ],
+    "nextCursor": "cur_S42qvQ9PIxL0rN8yJt8zUg"
+  },
+  "found": true
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `data.items[]` | One follower account per row. |
+| `data.items[].id` | The follower's numeric account ID, returned as a string. |
+| `data.items[].username / data.items[].name` | The follower's handle and display name. |
+| `data.items[].followers` | How many followers this follower account has. |
+| `data.items[].verified` | `true` when the follower account is marked as verified. |
+| `data.items[].location` | The free-text location the follower set on their profile. It can be empty or not a real place. |
+| `data.items[].createdUtc` | When the follower account was created, as a Unix timestamp in seconds. |
+| `data.items[].avatarUrl` | Link to the follower's profile image. |
+| `data.nextCursor` | Cursor to pass as `cursor` to get the next page of followers. |
+| `found` | `true` when the account was found. |
+
+### Notes
+
+- Pass `username` without the @ prefix, for example `nasa`.
+- `limit` does not change the page size. Each call returns one full native page, so pass `data.nextCursor` as `cursor` to continue where the last page ended.
+- Omit `cursor` for the first page. Treat cursor values as opaque strings.
+- To list only verified followers, use [X (Twitter) Verified Followers](/apis/twitter/verified-followers). To list the accounts a user follows, use [X / Twitter Following](/apis/twitter/following).
 
 ### Pricing
 
-Billed at the actual cost of each call, usually $0.00045 per request. A call can cost more when the first data source fails and another one answers. Failed calls are not charged. Lookups that find nothing and searches with no results are billed at their actual cost, which is often lower and can be $0.
+Billed at the actual cost of each call, about $0.00045 for the request above. Failed calls are not charged.
 
 ---
 Machine-readable: [`catalog/models/twitter/followers.json`](../../../catalog/models/twitter/followers.json) · Store page: https://www.sandbase.ai/model/twitter/followers

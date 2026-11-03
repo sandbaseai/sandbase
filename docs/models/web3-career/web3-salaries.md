@@ -58,7 +58,14 @@ Same call via the path form: `POST /v1/api/web3-career/web3-salaries` with the b
 
 ## Details
 
-Fetch average salaries for various Web3 roles. Returns a list of roles with their average salary and a link to the role's detail page.
+Returns a list of Web3 job roles from Web3.career, each with an average salary and a link to the role's detail page. The API takes no input, so you send an empty JSON object.
+
+### Use cases
+
+- Compare average pay across Web3 roles such as Unity Developer and Flutter Developer.
+- Build a salary table for a Web3 hiring guide or career site.
+- Check a role's average salary before you set a pay range for a job offer.
+- Collect role names and detail page links to feed a crawler or a content pipeline.
 
 ### Request
 
@@ -69,15 +76,46 @@ curl -X POST "https://api.sandbase.ai/v1/api/web3-career/web3-salaries" \
   -d '{}'
 ```
 
-This API runs asynchronously. The call returns a task `id` with status `pending`; poll `GET https://api.sandbase.ai/v1/run/{id}` until `status` is `completed` and read the result from `outputs[0].data`.
+The result is returned in `outputs[0].data`.
 
-### Parameters
+### Example response
 
-This API takes no parameters.
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "data": {
+    "salaries": [
+      {
+        "average_salary": "$130k",
+        "role": "Unity Developer",
+        "url": "https://web3.career/web3-salaries/unity-developer"
+      }
+    ]
+  },
+  "status": "success"
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `data.salaries[]` | One entry per Web3 role in the list. |
+| `data.salaries[].role` | Name of the job role, for example `Unity Developer`. |
+| `data.salaries[].average_salary` | Average salary for the role as a short text string, for example `$130k`. It includes a dollar sign and a `k` suffix, so parse it before you do math. |
+| `data.salaries[].url` | Link to the Web3.career salary page for that role. |
+| `status` | Shows `success` when the call worked. |
+
+### Notes
+
+- The API has no parameters. Send `{}` as the request body.
+- `average_salary` is a string, not a number. Strip the `$` and convert `k` to thousands if you need a numeric value.
+- To look at open positions, call [Web3.career Job Listings](/apis/web3-career/job-listings) or [Web3.career Search Jobs](/apis/web3-career/search-jobs).
 
 ### Pricing
 
-Flat price per call. Failed calls are not charged.
+$0.01 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ---
 Machine-readable: [`catalog/models/web3-career/web3-salaries.json`](../../../catalog/models/web3-career/web3-salaries.json) · Store page: https://www.sandbase.ai/model/web3-career/web3-salaries

@@ -61,13 +61,14 @@ Same call via the path form: `POST /v1/api/douyin/web/batch-user-profile-v2` wit
 
 ## Details
 
-Retrieves public profile details for multiple Douyin accounts in a single request. Provide a comma-separated list of account identifiers in `sec_user_ids`.
+Returns a list of Douyin account profiles, one object per account. The input is `sec_user_ids`, a comma-separated string of up to 50 `sec_user_id` values.
 
 ### Use cases
 
-- Retrieve profiles for multiple Douyin creators in a single query.
-- Monitor public account metadata across lists of Douyin users.
-- Enrich creator rosters with batch profile data.
+- Pull nicknames, handles and bios for a roster of Douyin creators in one call.
+- Check which accounts in a list still use the default avatar or an empty `signature`.
+- Map `sec_uid` values to the numeric `uid` and `short_id` of each account.
+- Group a list of accounts by `store_region` to see where each one is registered.
 
 ### Request
 
@@ -78,19 +79,72 @@ curl -X POST "https://api.sandbase.ai/v1/api/douyin/web/batch-user-profile-v2" \
   -d '{"sec_user_ids": "MS4wLjABAAAANXSltcLCzDGmdNFI2Q_QixVTr67NiYzjKOIP5s03CAE,MS4wLjABAAAAW9FWcqS7RdQAWPd2AA5fL_ilmqsIFUCQ_Iym6Yh9_cUa6ZRqVLjVQSUjlHrfXY1Y"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
 |---|---|---|---|
 | `sec_user_ids` | string | Yes | User sec_user_id list, separated by commas, up to 50 |
 
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+[
+  {
+    "account_cert_info": "{}",
+    "avatar_signature": "",
+    "avatar_small": {
+      "uri": "168x168/aweme-avatar/tos-cn-avt-0015_d8306450a4b1f0a9992ce420b7468b0b",
+      "url_list": [
+        "https://p11.douyinpic.com/img/aweme-avatar/tos-cn-avt-0015_d8306450a4b1f0a9992ce…"
+      ]
+    },
+    "avatar_thumb": {
+      "uri": "100x100/aweme-avatar/tos-cn-avt-0015_d8306450a4b1f0a9992ce420b7468b0b",
+      "url_list": [
+        "https://p11.douyinpic.com/aweme/100x100/aweme-avatar/tos-cn-avt-0015_d8306450a4b…"
+      ]
+    },
+    "birthday_hide_level": 1,
+    "commerce_user_level": 0,
+    "custom_verify": "",
+    "enterprise_verify_reason": "",
+    "follow_status": 0,
+    "follower_status": 0,
+    "has_e_account_role": false,
+    "im_activeness": 1
+  }
+]
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `[].sec_uid` | The secure user ID of the account. It matches the value you sent in `sec_user_ids`, so you can join results back to your input. |
+| `[].uid / [].short_id` | The numeric user ID and the short ID of the account, both returned as strings. |
+| `[].unique_id` | The public Douyin handle of the account. When the owner has not set a custom one, it equals `short_id`. |
+| `[].nickname` | The display name of the account. |
+| `[].signature` | The bio text of the account. It can be an empty string and can contain line breaks. |
+| `[].avatar_thumb.url_list / [].avatar_small.url_list` | Image URLs for the 100x100 and 168x168 avatars. Each list holds several mirror URLs for the same image. |
+| `[].store_region` | A region code for the account, such as `cn-hn` or `cn-zj`. |
+| `[].verification_type / [].custom_verify / [].enterprise_verify_reason` | Verification data for the account. In this sample the type is `0` and both text fields are empty. |
+| `[].follow_status / [].follower_status / [].is_block` | The relation between the calling session and the account. In this sample all are `0` or `false`. |
+| `[].with_commerce_entry / [].commerce_user_level` | Commerce flags for the account. In this sample the entry is `false` and the level is `0`. |
+
 ### Notes
 
-- Accepts a comma-separated list of up to 50 `sec_user_ids`.
+- The response is a JSON array, not an object. Each item is one account.
+- Send up to 50 comma-separated values in `sec_user_ids`. A `sec_user_id` starts with `MS4wLjAB`.
+- To get a `sec_user_id` from a homepage link, call [Douyin sec_user_ids from URLs (Batch)](/apis/douyin/web/all-sec-user-id). To convert a numeric `uid`, call [Douyin UID to Sec User ID](/apis/douyin/web/encrypt-uid-to-sec-user-id).
+- Some fields appear only on some accounts. For example, `bless_end_time`, `im_bubble_id` and `im_bubble_exp` are present for one account and missing for the other.
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.15 per successful call. Failed calls are not charged.
 
 ### Related APIs
 

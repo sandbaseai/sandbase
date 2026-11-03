@@ -60,13 +60,14 @@ Same call via the path form: `POST /v1/api/dataforseo/v3/keywords_data/google_tr
 
 ## Details
 
-Send up to five keywords and get Google Trends interest-over-time data, the same 0–100 index shown on trends.google.com, for any location and time range.
+Returns Google Trends interest over time for up to 5 keywords. You send `keywords`, `location_code` and `language_code`, and optionally a `time_range`. The response lists weekly values on a 0 to 100 scale for each keyword.
 
 ### Use cases
 
-- Compare interest in brands, products or topics.
-- Detect seasonality and emerging trends.
-- Add trend data to SEO and content planning.
+- Compare weekly search interest in several product names in the United States.
+- Spot seasonal peaks for a keyword such as `running shoes` before planning a content calendar.
+- Check whether interest in a brand is rising or falling over the past year.
+- Open the `check_url` link to see the same chart on trends.google.com.
 
 ### Request
 
@@ -77,77 +78,112 @@ curl -X POST "https://api.sandbase.ai/v1/api/dataforseo/v3/keywords_data/google_
   -d '{"keywords": ["running shoes"], "location_code": 2840, "language_code": "en"}'
 ```
 
+The result is returned in `outputs[0]`.
+
 ### Parameters
 
-The body is passed through to DataForSEO. Common fields:
-
-| Name | Type | Description |
-|---|---|---|
-| `keywords` | array | Up to 5 keywords to compare. |
-| `location_code` | integer | DataForSEO location code, e.g. 2840 for the United States. |
-| `language_code` | string | Language code, e.g. "en". |
-| `time_range` | string | Preset range, e.g. past_hour, past_day, past_7_days, past_30_days, past_90_days, past_12_months, past_5_years. |
+| Name | Type | Required | Description |
+|---|---|---|---|
+| `keywords` | array | No | Up to 5 keywords to compare. |
+| `language_code` | string | No | Language code, e.g. "en". |
+| `location_code` | integer | No | DataForSEO location code, e.g. 2840 for the United States. |
+| `time_range` | string | No | Preset range, e.g. past_hour, past_day, past_7_days, past_30_days, past_90_days, past_12_months, past_5_years. |
 
 ### Example response
 
-Real response for the request above, trimmed to the main fields. User names and long IDs are masked.
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
 
 ```json
 {
   "status_code": 20000,
+  "status_message": "Ok.",
   "tasks": [
     {
-      "status_message": "Ok.",
+      "data": {
+        "api": "keywords_data",
+        "function": "explore",
+        "keywords": [
+          "running shoes"
+        ],
+        "language_code": "en",
+        "location_code": 2840,
+        "se": "google_trends"
+      },
+      "id": "11030829-1614-0173-0000-6ef58a74867e",
+      "path": [
+        "v3"
+      ],
       "result": [
         {
-          "keywords": [
-            "openai"
-          ],
-          "location_code": 2840,
-          "language_code": "en",
-          "datetime": "2026-10-06 09:02:28 +00:00",
+          "check_url": "https://trends.google.com/trends/explore?hl=en&geo=US&date=2025-11-03%202026-11-…",
+          "datetime": "2026-11-03 08:29:26 +00:00",
           "items": [
             {
-              "type": "google_trends_graph",
-              "keywords": [
-                "openai"
-              ],
+              "averages": [],
               "data": [
                 {
-                  "date_from": "2025-10-05",
-                  "date_to": "2025-10-11",
+                  "date_from": "2025-11-02",
+                  "date_to": "2025-11-08",
                   "missing_data": false,
-                  "timestamp": 1759622400,
+                  "timestamp": 1762041600,
                   "values": [
-                    19
-                  ]
-                },
-                {
-                  "date_from": "2025-10-12",
-                  "date_to": "2025-10-18",
-                  "missing_data": false,
-                  "timestamp": 1760227200,
-                  "values": [
-                    12
+                    17
                   ]
                 }
-              ]
+              ],
+              "keywords": [
+                "running shoes"
+              ],
+              "position": 1,
+              "title": null,
+              "type": "google_trends_graph"
             }
-          ]
+          ],
+          "items_count": 1,
+          "keywords": [
+            "running shoes"
+          ],
+          "language_code": "en",
+          "location_code": 2840,
+          "type": "trends"
         }
-      ]
+      ],
+      "result_count": 1,
+      "status_code": 20000,
+      "status_message": "Ok.",
+      "time": "5.1526 sec."
     }
-  ]
+  ],
+  "tasks_count": 1,
+  "tasks_error": 0,
+  "time": "5.1698 sec.",
+  "version": "0.1.20261022"
 }
 ```
 
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `tasks[].result[].items[].data[].values` | Interest values for that week. The list holds one number per keyword, in the same order as the request `keywords`. |
+| `tasks[].result[].items[].data[].date_from / date_to` | First and last day of the weekly period, in `YYYY-MM-DD` format. |
+| `tasks[].result[].items[].data[].timestamp` | Unix timestamp for the start of the period. |
+| `tasks[].result[].items[].data[].missing_data` | `true` when Google Trends has no value for that period. |
+| `tasks[].result[].items[].keywords` | Keywords that the graph item covers. |
+| `tasks[].result[].items[].type` | Type of the item. The value `google_trends_graph` marks the interest-over-time chart. |
+| `tasks[].result[].check_url` | Link to the same query on trends.google.com. |
+| `tasks[].result[].datetime` | Date and time when the result was produced, in UTC. |
+| `tasks[].result[].items_count` | Number of items in the result. |
+
 ### Notes
 
-- Use `date_from` / `date_to` instead of `time_range` for a custom window.
+- Pass `time_range` with a preset such as `past_12_months` or `past_5_years` to change the window. The sample request left it out.
+- `location_code` takes a numeric code, for example `2840` for the United States. `language_code` takes a code such as `en`.
+- Check `tasks[].status_code` and `tasks[].status_message` for the status of each task. `20000` with `Ok.` means success.
 
 ### Pricing
 
-Billed at the actual cost of each call, about $0.011 for the request above. The cost grows with the number of rows, targets or pages a call returns. Failed calls are not charged. Searches with no results are billed at their actual cost.
+Billed at the actual cost of each call, about $0.011 for the request above. Failed calls are not charged.
 
 ### Related APIs
 

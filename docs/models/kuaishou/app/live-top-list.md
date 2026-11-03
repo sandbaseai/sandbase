@@ -59,13 +59,14 @@ Same call via the path form: `POST /v1/api/kuaishou/app/live-top-list` with the 
 
 ## Details
 
-Retrieve top-ranked stream listings from Kuaishou by specifying `subTabId` or `subTabName`. The response provides ranking positions, streamer identifiers, titles, and stream links.
+Returns the ranking of trending live streams on Kuaishou, grouped by leaderboard tab. The request has no required input. You can pass `subTabId` or `subTabName` to pick a tab.
 
 ### Use cases
 
-- Track top-ranking streams across specific Kuaishou categories.
-- Analyze trending streamer visibility and placement data.
-- Collect stream links and broadcaster identifiers for audience research.
+- Track which streamers hold the top spots on the overall live ranking.
+- Compare `hotValue` scores across streamers to see how close the ranks are.
+- Collect streamer IDs from the ranking and feed them into user lookups.
+- List the available leaderboard tabs and their IDs to build a category filter.
 
 ### Request
 
@@ -76,53 +77,114 @@ curl -X POST "https://api.sandbase.ai/v1/api/kuaishou/app/live-top-list" \
   -d '{}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
 |---|---|---|---|
-| `subTabId` | integer | No | — |
-| `subTabName` | string | No | — |
+| `subTabId` | integer | No |  |
+| `subTabName` | string | No |  |
 
 ### Example response
 
-Real response for the request above, trimmed to the main fields. User names and long IDs are masked.
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
 
 ```json
 {
+  "host-name": "public-bjzey-c34-kce-node3936.idchb1az3.hb1.kwaidc.com",
+  "result": 1,
   "topList": {
     "data": [
       {
+        "backGroundImage": [],
         "list": [
           {
-            "linkUrl": "kwai://liveaggregatesquare?path=/rest/n/live/feed/common/slide/more&selectedLiveStreamId=…",
-            "title": "小夺-《负债7百万》收才艺主播",
-            "viewType": 2,
+            "avatar": {
+              "icon": [
+                {
+                  "cdn": "tx2.a.yximgs.com",
+                  "url": "http://tx2.a.yximgs.com/uhead/AB/2022/02/25/18/BMjAyMjAyMjUxODM5MjhfMTM4Njc2MTMy…"
+                }
+              ],
+              "linkUrl": "kwai://liveaggregatesquare?path=/rest/n/live/feed/common/slide/more&selectedLive…",
+              "liveType": 1,
+              "shapeType": 0,
+              "url": [
+                {
+                  "cdn": "ty2.a.kwimgs.com",
+                  "url": "http://ty2.a.kwimgs.com/uhead/AB/2022/02/25/18/BMjAyMjAyMjUxODM5MjhfMTM4Njc2MTMy…"
+                }
+              ]
+            },
+            "feedLogCtx": {
+              "stExParams": null,
+              "stidContainer": "InIxfDIwMDY0NTYxNzMwMDE3NDA3NzB8VVNFUjoxMzg2NzYxMzIxfHsicGciOiJ1bmtub3cifXx7ImJp…"
+            },
+            "linkUrl": "kwai://liveaggregatesquare?path=/rest/n/live/feed/common/slide/more&selectedLive…",
             "logInfo": {
-              "authorid": "4910450607",
-              "id": "4910450607",
+              "authorid": "1386761321",
+              "id": "1386761321",
+              "params": {
+                "hotValue": 142786,
+                "id": "15042369132",
+                "normalindex": "1",
+                "type": "LIVE"
+              },
               "type": "USER"
             },
             "order": {
+              "index": 1,
               "shapeType": 0
             },
+            "renderStrategyIcon": null,
+            "rightView": {
+              "icon": {
+                "shapeType": 0
+              },
+              "text": {
+                "content": "14.3万人气"
+              }
+            },
             "signalParams": {
-              "author_id": 4910450607
+              "author_id": 1386761321
             }
           }
-        ]
+        ],
+        "subTabId": 100,
+        "subTabName": "总榜"
       }
-    ]
-  }
+    ],
+    "dataType": 2,
+    "moduleType": 14
+  },
+  "ussid": "MzAxXzBfMTc5MzY5MTM1MTcwMF9fOTY5OQ"
 }
 ```
 
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `topList.data[].subTabId / topList.data[].subTabName` | ID and name of a leaderboard tab. The sample response includes `100` (总榜, the overall board), `102` (音乐, music) and `107` (舞蹈, dance). |
+| `topList.data[].list[]` | Ranked stream entries for that tab. In the sample response only the first tab, `100`, carries a `list`. |
+| `topList.data[].list[].order.index` | Rank position of the entry, starting at `1`. |
+| `topList.data[].list[].logInfo.params.hotValue` | Numeric popularity score used for the ranking, such as `142786` for the top entry. |
+| `topList.data[].list[].rightView.text.content` | Popularity label shown in the app, such as `14.3万人气`. It is a display version of the score. |
+| `topList.data[].list[].logInfo.authorid / topList.data[].list[].signalParams.author_id` | Streamer's user ID. The first is a string and the second is a number. |
+| `topList.data[].list[].logInfo.params.id` | ID of the entry's live item. Its `type` is `LIVE`. |
+| `topList.data[].list[].avatar.icon[].url` | Streamer avatar image URLs, one per CDN host. |
+| `topList.data[].list[].linkUrl` | In-app `kwai://` deep link that opens the live stream. It contains `selectedLiveStreamId` and a comma-separated `liveStreamId` list. |
+
 ### Notes
 
-- Filter stream rankings by specifying optional `subTabId` or `subTabName` parameters.
+- Call once with `{}` to see the tab list. Then pass a returned `subTabId` or `subTabName` to request that tab.
+- Tabs other than the overall board may come back without a `list` in the sample response, so check that the key exists.
+- Use the streamer ID from `logInfo.authorid` with [Kuaishou User Broadcast Details](/apis/kuaishou/app/user-live-info) or [Kuaishou Single User Data (V2)](/apis/kuaishou/app/one-user-v2) to get more about a streamer.
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

@@ -58,13 +58,14 @@ Same call via the path form: `POST /v1/api/dataforseo/v3/backlinks/anchors/live`
 
 ## Details
 
-Retrieves anchor text distribution metrics for SEO backlink analysis. Use this endpoint to inspect the variety and frequency of anchor texts pointing to target web assets.
+Returns the anchor texts used in backlinks that point to a target domain or page. Each row shows how many backlinks use that anchor, along with spam, broken link and rank figures. You send a `target` such as `nike.com` and an optional `limit`.
 
 ### Use cases
 
-- Analyze backlink anchor text distribution across a domain or URL.
-- Audit backlink profiles for keyword over-optimization or spam indicators.
-- Benchmark anchor text diversity against competing websites.
+- Check which anchor texts dominate a site's link profile, such as the brand name versus empty anchors.
+- Spot anchors with a high `backlinks_spam_score` that may point to spammy or paid links.
+- Find anchors with many `broken_backlinks` and fix or redirect the pages they point to.
+- Compare the anchor mix of your site against a competitor's site by running the same `target` query for each.
 
 ### Request
 
@@ -75,18 +76,90 @@ curl -X POST "https://api.sandbase.ai/v1/api/dataforseo/v3/backlinks/anchors/liv
   -d '{"target": "nike.com", "limit": 5}'
 ```
 
+The result is returned in `outputs[0]`.
+
 ### Parameters
 
-The JSON body is forwarded to the upstream endpoint (one task per call). Fields used above:
+| Name | Type | Required | Description |
+|---|---|---|---|
+| `limit` | integer | No | Maximum number of results (up to 100). |
+| `target` | string | No | Target domain or page, e.g. "nike.com". |
 
-| Name | Description |
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "status_code": 20000,
+  "status_message": "Ok.",
+  "tasks": [
+    {
+      "data": {
+        "api": "backlinks",
+        "function": "anchors",
+        "limit": 5,
+        "target": "nike.com"
+      },
+      "id": "11030828-2190-0272-0000-3c0bcba7dd42",
+      "path": [
+        "v3"
+      ],
+      "result": [
+        {
+          "items": [
+            {
+              "anchor": null,
+              "backlinks": 5206265,
+              "backlinks_spam_score": 7,
+              "broken_backlinks": 1350116,
+              "broken_pages": 1175929,
+              "first_seen": "2019-01-15 23:06:25 +00:00",
+              "lost_date": null,
+              "rank": 577
+            }
+          ],
+          "items_count": 5,
+          "target": "nike.com",
+          "total_count": 183725
+        }
+      ],
+      "result_count": 1,
+      "status_code": 20000,
+      "status_message": "Ok.",
+      "time": "1.9332 sec."
+    }
+  ],
+  "tasks_count": 1,
+  "tasks_error": 0,
+  "time": "1.9428 sec.",
+  "version": "0.1.20261022"
+}
+```
+
+### Response fields
+
+| Field | Meaning |
 |---|---|
-| `target` | Target domain or page, e.g. "nike.com". |
-| `limit` | Maximum number of results (up to 100). |
+| `tasks[].result[].items[].anchor` | The anchor text of the links. It is `null` when the links have no anchor text, as in the first row of the sample. |
+| `tasks[].result[].items[].backlinks` | Number of backlinks that use this anchor text. |
+| `tasks[].result[].items[].backlinks_spam_score` | Spam score for the backlinks with this anchor. A higher value means a higher spam risk. |
+| `tasks[].result[].items[].broken_backlinks / tasks[].result[].items[].broken_pages` | Count of broken backlinks with this anchor, and count of broken pages those links point to. |
+| `tasks[].result[].items[].first_seen / tasks[].result[].items[].lost_date` | When the anchor was first found, in `YYYY-MM-DD HH:MM:SS +00:00` format, and when it was lost. `lost_date` is `null` if the anchor is still present. |
+| `tasks[].result[].items[].rank` | Rank score of the backlinks with this anchor. Higher values go with stronger links in the sample. |
+| `tasks[].result[].total_count` | Total number of anchors found for the target. It can be larger than `items_count`. |
+| `tasks[].result[].items_count` | Number of anchor rows returned in this response. |
+
+### Notes
+
+- Set `target` to a bare domain such as `nike.com` or to a page URL.
+- `limit` caps the rows returned and accepts values up to 100. Compare `items_count` with `total_count` to see how many anchors you did not receive.
+- The first row can have a `null` anchor, so handle empty values in your code.
+- To see the individual links behind an anchor, call [DataForSEO Backlinks List](/apis/dataforseo/v3/backlinks/backlinks/live). For overall totals, use [DataForSEO Backlinks Summary](/apis/dataforseo/v3/backlinks/summary/live).
 
 ### Pricing
 
-Billed at the actual cost of each call, about $0.02418 for the request above. The cost grows with the number of rows, targets or pages a call returns. Failed calls are not charged. Searches with no results are billed at their actual cost.
+Billed at the actual cost of each call, about $0.02418 for the request above. Failed calls are not charged.
 
 ### Related APIs
 

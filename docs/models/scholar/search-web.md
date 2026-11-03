@@ -67,13 +67,14 @@ Same call via the path form: `POST /v1/api/scholar/search-web` with the body abo
 
 ## Details
 
-Search for academic and research-oriented web content using a query string in `query`. You can also filter results within specific publication years.
+Returns a list of web search results for a query about academic or research topics. Each result has a title, a link and a short text snippet. The only required input is `query`.
 
 ### Use cases
 
-- Find web resources relevant to scientific and academic research topics.
-- Filter scholarly search results between specific lower and upper publication years.
-- Retrieve academic search snippets and titles for automated literature discovery.
+- Collect links to web pages about a research topic or organization to start a literature review.
+- Limit results to a range of publication years with `as_ylo` and `as_yhi` when tracking recent work on a subject.
+- Pull titles and snippets into a script to build a quick reading list for a topic.
+- Cap the number of results with `max_num_results` to keep batch searches small.
 
 ### Request
 
@@ -83,6 +84,8 @@ curl -X POST "https://api.sandbase.ai/v1/api/scholar/search-web" \
   -H "Content-Type: application/json" \
   -d '{"query": "OpenAI"}'
 ```
+
+The result is returned in `outputs[0].data`.
 
 ### Parameters
 
@@ -95,28 +98,41 @@ curl -X POST "https://api.sandbase.ai/v1/api/scholar/search-web" \
 
 ### Example response
 
-Real response for the request above, trimmed to the main fields. User names and long IDs are masked.
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
 
 ```json
 {
+  "id": "eHmhgUEw1bDSj3osRJJASw",
   "results": [
     {
       "link": "https://openai.com/",
-      "snippet": "We believe our research will eventually lead to artificial general intelligence, a system…",
+      "snippet": "We believe our research will eventually lead to artificial general intelligence,…",
       "title": "OpenAI | Research & Deployment"
     }
   ]
 }
 ```
 
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `id` | Identifier string for this search response. |
+| `results` | List of search results for the query. |
+| `results[].title` | Title of the matching web page. |
+| `results[].link` | Full URL of the matching web page. |
+| `results[].snippet` | Short text excerpt from the page that relates to the query. |
+
 ### Notes
 
-- Set `as_ylo` and `as_yhi` to constrain results by lower and upper publication years.
-- `max_num_results` accepts an integer up to 100.
+- Use `max_num_results` (1 to 100) to set how many results to return.
+- Use `as_ylo` and `as_yhi` (each 1900 to 2030) to set the lower and upper publication year.
+- Results are general web pages, so they can include company sites and encyclopedia entries. For results from Google Scholar, call [Scholar Search (Google Scholar)](/apis/scholar/search-scholar).
+- For a combined search, try [Scholar Smart Search](/apis/scholar/search-mixed).
 
 ### Pricing
 
-Flat price per call. Failed calls are not charged.
+$0.0036 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ---
 Machine-readable: [`catalog/models/scholar/search-web.json`](../../../catalog/models/scholar/search-web.json) · Store page: https://www.sandbase.ai/model/scholar/search-web

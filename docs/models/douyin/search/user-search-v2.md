@@ -65,13 +65,14 @@ Same call via the path form: `POST /v1/api/douyin/search/user-search-v2` with th
 
 ## Details
 
-Search Douyin users matching a given `keyword` string. Results can be paged using the `cursor` parameter.
+Returns a page of Douyin users whose names match a search keyword. Each result includes the user's `user_id`, `nick_name`, avatar, follower count, like count and number of published videos. The API takes a `keyword` and an optional `cursor`.
 
 ### Use cases
 
-- Discover Douyin accounts matching targeted search topics.
-- Inspect follower and like engagement counts for searched creators.
-- Automate influencer identification workflows across search queries.
+- Find Douyin creators in a niche by searching a topic word such as a pet or fitness term.
+- Rank matching accounts by `fans_cnt` to build a shortlist of influencers.
+- Collect `user_id` values to look up full profiles or videos for each account.
+- Compare `publish_cnt` and `like_cnt` across accounts that share the same name.
 
 ### Request
 
@@ -82,6 +83,8 @@ curl -X POST "https://api.sandbase.ai/v1/api/douyin/search/user-search-v2" \
   -d '{}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
@@ -91,36 +94,62 @@ curl -X POST "https://api.sandbase.ai/v1/api/douyin/search/user-search-v2" \
 
 ### Example response
 
-Real response for the request above, trimmed to the main fields. User names and long IDs are masked.
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
 
 ```json
 {
+  "code": 0,
   "data": {
+    "cursor": 30,
+    "has_more": true,
     "user_list": [
       {
-        "fans_cnt": 223954,
+        "avatar_url": "https://p3.douyinpic.com/aweme/100x100/aweme-avatar/tos-cn-avt-0015_a53d8c295078…",
+        "fans_cnt": 220255,
         "fans_incr_rate": 0,
+        "fans_trends": null,
         "group_id": 0,
-        "like_cnt": 5588658,
+        "group_name": "",
+        "like_cnt": 5689499,
         "monitor_id": 0,
+        "monitor_period": 0,
         "monitor_status": 0,
         "new_fans_cnt": 0,
-        "new_item_target_cnt": 0,
-        "new_item_target_type": 0,
-        "new_like_cnt": 0
+        "new_item_monitor": 0
       }
     ]
-  }
+  },
+  "extra": {
+    "now": 1793691142000
+  },
+  "message": ""
 }
 ```
 
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `data.user_list[].user_id` | Unique ID of the Douyin user. It is a long string that starts with `MS4w`. |
+| `data.user_list[].nick_name` | Display name of the account. |
+| `data.user_list[].avatar_url` | URL of the 100x100 avatar image. |
+| `data.user_list[].fans_cnt` | Follower count of the account. |
+| `data.user_list[].like_cnt` | Total likes the account has received. |
+| `data.user_list[].publish_cnt` | Number of videos the account has published. |
+| `data.cursor` | Cursor value to send in the next request to get the following page. |
+| `data.has_more` | `true` when more results are available after this page. |
+| `data.user_list[].fans_incr_rate / new_fans_cnt / new_like_cnt` | Follower and like growth fields. They are `0` in this response, so do not rely on them. |
+
 ### Notes
 
-- Set `cursor` to 0 to retrieve the first page of results.
+- Send `cursor` as `0` for the first page. For the next page, pass the `data.cursor` value from the previous response (`30` in the sample) and stop when `has_more` is `false`.
+- `keyword` is the search text. Many accounts can share one `nick_name`, so use `user_id` to tell them apart.
+- Fields such as `monitor_id`, `group_id` and `target_cnt` were `0` and `fans_trends` was `null` in the sample response.
+- For a similar user search with a different response layout, see [Douyin User Search (Search)](/apis/douyin/search/user-search).
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

@@ -62,13 +62,14 @@ Same call via the path form: `POST /v1/api/pipixia/app/user-info` with the body 
 
 ## Details
 
-Look up public Pipixia account information using a designated `user_id`. This endpoint returns profile elements such as avatar media URLs.
+This API returns the public profile of a Pipixia user, including name-related text, location, follower counts and avatar image URLs. It needs one input: the `user_id`, which you can take from a Pipixia share link.
 
 ### Use cases
 
-- Display Pipixia user avatar assets in community dashboards.
-- Verify Pipixia user accounts by identifier.
-- Enrich third-party user profiles with Pipixia public details.
+- Show a Pipixia creator's avatar, bio and city on a community dashboard.
+- Track a creator's `followers_count` and `like_count` over time to compare accounts.
+- Check whether an account exists and whether `profile_ban` is set before you show its content.
+- Fill a third-party user record with the public Pipixia profile text and account creation date.
 
 ### Request
 
@@ -79,6 +80,8 @@ curl -X POST "https://api.sandbase.ai/v1/api/pipixia/app/user-info" \
   -d '{"user_id": "3602444694069495"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
@@ -87,31 +90,90 @@ curl -X POST "https://api.sandbase.ai/v1/api/pipixia/app/user-info" \
 
 ### Example response
 
-Real response for the request above, trimmed to the main fields. User names and long IDs are masked.
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
 
 ```json
 {
   "data": {
+    "profile_ban": true,
     "user_info": {
+      "achievements": [],
+      "age": "36岁",
+      "article_count": 0,
+      "authentication": null,
+      "author_ecom_info": null,
+      "author_info": {
+        "AuthorStatus": 1,
+        "author_item_type": 1,
+        "author_type": 104007473,
+        "level": 0,
+        "origin_status": 0,
+        "owner": "script",
+        "recommend_tag": "",
+        "tags": []
+      },
       "avatar": {
+        "download_list": [
+          {
+            "url": "https://p9-ppx-sign.byteimg.com/tos-cn-i-8gu37r9deh/ba804bc702db4d568d93d2ef2a8f…"
+          }
+        ],
+        "height": 200,
+        "is_gif": false,
+        "uri": "tos-cn-i-8gu37r9deh/ba804bc702db4d568d93d2ef2a8f3c51",
         "url_list": [
           {
-            "url": "https://p6-ppx-sign.byteimg.com/tos-cn-i-8gu37r9deh/ba804bc702db4d568d93d2ef2a8f…"
+            "url": "https://p9-ppx-sign.byteimg.com/tos-cn-i-8gu37r9deh/ba804bc702db4d568d93d2ef2a8f…"
           }
-        ]
-      }
+        ],
+        "width": 200
+      },
+      "background": {
+        "download_list": [],
+        "height": 0,
+        "is_gif": false,
+        "uri": "",
+        "url_list": [],
+        "width": 0
+      },
+      "birthday": null,
+      "broadcast_info": null,
+      "certify_info": null,
+      "city": "武汉"
     }
-  }
+  },
+  "message": "success",
+  "prompt": "",
+  "status_code": 0,
+  "time": 1793691716469
 }
 ```
 
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `data.user_info.id_str` | The user ID as a string. It matches the `user_id` you sent. Use this form instead of the numeric `data.user_info.id` to avoid precision loss. |
+| `data.user_info.description` | The bio text the user wrote on their profile. |
+| `data.user_info.followers_count / followings_count` | How many accounts follow this user, and how many accounts this user follows. |
+| `data.user_info.like_count` | Total likes shown on the profile. |
+| `data.user_info.city / city_name / age / horoscope` | Location, age and star sign text shown on the profile. In the sample these are Chinese strings, such as `36岁` for age. |
+| `data.user_info.create_time` | Account creation time as a Unix timestamp in seconds. |
+| `data.user_info.avatar.url_list[].url` | Signed URL of the 200 by 200 avatar image. The `width` and `height` fields sit next to it. |
+| `data.user_info.large_avatar.url_list[].url` | Signed URL of the 600 by 600 avatar image. |
+| `data.user_info.is_default_avatar / is_default_name` | Show whether the user still has the default avatar or the default name. |
+| `data.profile_ban` | Boolean flag about the profile ban state. It is `true` in the sample response. |
+
 ### Notes
 
-- The `user_id` parameter can be obtained directly from the user's Pipixia share link.
+- Send `user_id` as a string. Take it from the user's Pipixia share link. If you only have a short link, try [Pipixia Short URL Conversion](/apis/pipixia/app/short-url) first.
+- Many fields can be `null` or empty, such as `authentication`, `birthday` and `background`. Handle these cases in your code.
+- Avatar URLs carry an `x-expires` query value and a signature. Save the image soon after you fetch it.
+- To see what the user posted, call [Pipixia User Post List](/apis/pipixia/app/user-post-list). For their audience, call [Pipixia User Follower List](/apis/pipixia/app/user-follower-list).
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

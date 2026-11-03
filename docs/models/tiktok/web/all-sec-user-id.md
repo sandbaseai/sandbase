@@ -64,13 +64,13 @@ Same call via the path form: `POST /v1/api/tiktok/web/all-sec-user-id` with the 
 
 ## Details
 
-Retrieve sec_user_id values in bulk by providing an array of TikTok user profile URLs in the `body` parameter.
+This API takes an array of TikTok profile URLs and returns an array of `sec_user_id` strings. Send the URLs in the `body` field of the request.
 
 ### Use cases
 
-- Resolving profile homepage URLs into internal sec_user_id identifiers.
-- Preparing user identifier lists for downstream TikTok profile and video queries.
-- Batch processing creator profile links to collect account security IDs.
+- Convert a list of creator profile links into `sec_user_id` values before you query their profiles.
+- Build a lookup table of `sec_user_id` values for a batch of TikTok accounts in one call.
+- Prepare identifiers for follower, post or like lookups that need a `sec_user_id`.
 
 ### Request
 
@@ -81,6 +81,8 @@ curl -X POST "https://api.sandbase.ai/v1/api/tiktok/web/all-sec-user-id" \
   -d '{"body": ["https://www.tiktok.com/@tiktok"]}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
@@ -89,7 +91,7 @@ curl -X POST "https://api.sandbase.ai/v1/api/tiktok/web/all-sec-user-id" \
 
 ### Example response
 
-Real response for the request above, trimmed to the main fields. User names and long IDs are masked.
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
 
 ```json
 [
@@ -97,13 +99,23 @@ Real response for the request above, trimmed to the main fields. User names and 
 ]
 ```
 
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `[]` | The response is a plain array with no wrapper object. Each entry is a `sec_user_id` string. |
+| `[0]` | The first entry in the array. In the example, the request has one URL, `https://www.tiktok.com/@tiktok`, and the array has one entry. |
+
 ### Notes
 
-- Pass an array of user homepage URLs in `body`.
+- Pass the profile links as a JSON array in `body`, for example `https://www.tiktok.com/@tiktok`.
+- The response is a plain JSON array of strings. The example sends one URL and gets one ID back.
+- For a single URL, use [TikTok Profile Sec User ID](/apis/tiktok/web/sec-user-id).
+- To get the `unique_id` handle for many profiles, use [TikTok Profile Unique IDs](/apis/tiktok/web/all-unique-id).
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

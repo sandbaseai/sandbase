@@ -64,9 +64,14 @@ Same call via the path form: `POST /v1/api/fred/sources` with the body above min
 
 ## Details
 
-Get Sources from FRED. Returns the official FRED API response unchanged.
+Returns the list of data sources that FRED tracks, such as the Board of Governors of the Federal Reserve System. Each source has an ID, a name, and a website link. No input is required, and you can page, sort, and set a real-time period with optional parameters.
 
-The response is the official FRED API response, unchanged.
+### Use cases
+
+- Build a directory of the organizations that publish data in FRED.
+- Look up the numeric `id` of a source before you request its details or releases.
+- Show a source name and website link next to a FRED series in a dashboard.
+- Sort sources by `name` to build an A to Z picker.
 
 ### Request
 
@@ -77,6 +82,8 @@ curl -X POST "https://api.sandbase.ai/v1/api/fred/sources" \
   -d '{"file_type": "json"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
@@ -84,14 +91,58 @@ curl -X POST "https://api.sandbase.ai/v1/api/fred/sources" \
 | `file_type` | string | No | Response format. Only json is supported. |
 | `limit` | integer | No | The maximum number of results to return. integer between 1 and 1000, optional, default: 1000 |
 | `offset` | integer | No | non-negative integer, optional, default: 0 |
-| `order_by` | string | No | Order results by values of the specified attribute. One of the following strings: 'source_id', 'name', 'realtime_start', 'realtime_end'. optional, default: sour |
+| `order_by` | string | No | Order results by values of the specified attribute. One of the following strings: 'source_id', 'name', 'realtime_start', 'realtime_end'. optional, default: source_id |
 | `realtime_end` | string | No | The end of the real-time period. For more information, see Real-Time Periods . YYYY-MM-DD formatted string, optional, default: today's date |
 | `realtime_start` | string | No | The start of the real-time period. For more information, see Real-Time Periods . YYYY-MM-DD formatted string, optional, default: today's date |
 | `sort_order` | string | No | Sort results is ascending or descending order for attribute values specified by order_by. One of the following strings: 'asc', 'desc'. optional, default: asc |
 
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "count": 127,
+  "limit": 1000,
+  "offset": 0,
+  "order_by": "source_id",
+  "realtime_end": "2026-11-03",
+  "realtime_start": "2026-11-03",
+  "sort_order": "asc",
+  "sources": [
+    {
+      "id": 1,
+      "link": "https://www.federalreserve.gov",
+      "name": "Board of Governors of the Federal Reserve System (US)",
+      "realtime_end": "2026-11-03",
+      "realtime_start": "2026-11-03"
+    }
+  ]
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `count` | Total number of sources that match the request. In this response it is 127. |
+| `limit / offset` | Page size and starting position used for this response. Use them to page through the list. |
+| `order_by / sort_order` | The attribute and direction used to sort the sources. |
+| `realtime_start / realtime_end` | The real-time period the request covers, as `YYYY-MM-DD` dates. Each source also carries its own pair of these fields. |
+| `sources[].id` | Numeric ID of the source. Use it to identify the source in related FRED calls. |
+| `sources[].name` | Full name of the organization, for example `Federal Reserve Bank of Philadelphia`. |
+| `sources[].link` | Website URL of the source. This field is not present for every source in every case, so check before you use it. |
+
+### Notes
+
+- All parameters are optional. A call with only `file_type` set to `json` returns up to 1000 sources, starting at `offset` 0.
+- To page through results, raise `offset` by the value of `limit` until you pass `count`.
+- Use `order_by` with `source_id`, `name`, `realtime_start`, or `realtime_end`, and set `sort_order` to `asc` or `desc`.
+- To get one source by its `id`, call [FRED Get Source](/apis/fred/source). To see the releases a source publishes, call [FRED Get Source Releases](/apis/fred/source-releases).
+
 ### Pricing
 
-Flat price per call. Failed calls are not charged.
+$0.00001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ---
 Machine-readable: [`catalog/models/fred/sources.json`](../../../catalog/models/fred/sources.json) · Store page: https://www.sandbase.ai/model/fred/sources

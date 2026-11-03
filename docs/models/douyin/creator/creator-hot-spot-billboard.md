@@ -66,13 +66,14 @@ Same call via the path form: `POST /v1/api/douyin/creator/creator-hot-spot-billb
 
 ## Details
 
-Access current Douyin creator hot spot rankings using `hot_search_type`, optional `billboard_tag`, and `city_code` filters.
+Returns a ranked list of trending hot spot topics on Douyin, each with a title, category, hot score and rank. All inputs are optional: `hot_search_type`, `billboard_tag` and `city_code` filter the board.
 
 ### Use cases
 
-- Track rising search topics and rankings across Douyin.
-- Analyze trending creator themes filtered by category tags.
-- Monitor city-level hot spot rankings using local city codes.
+- Track which news, sports and other topics lead the Douyin hot spot board at a given time.
+- Compare `rank_diff` values across calls to spot topics that are climbing or falling.
+- Pull the top topics by `hot_score` to pick themes for new creator content.
+- Request a city board with `hot_search_type` set to `2` and a `city_code` to see local hot spots.
 
 ### Request
 
@@ -83,41 +84,72 @@ curl -X POST "https://api.sandbase.ai/v1/api/douyin/creator/creator-hot-spot-bil
   -d '{}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
 |---|---|---|---|
-| `city_code` | string | No | City code - required when hot_search_type=2 |
 | `billboard_tag` | string | No | Hot spot tag - multiple tags separated by comma |
+| `city_code` | string | No | City code - required when hot_search_type=2 |
 | `hot_search_type` | integer | No | Hot search type |
 
 ### Example response
 
-Real response for the request above, trimmed to the main fields. User names and long IDs are masked.
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
 
 ```json
 {
   "item_list": [
     {
-      "category": "体育",
-      "hot_score": 12087333,
-      "query_id": "2682945",
+      "aweme_list": null,
+      "category": "时政",
+      "cover": {
+        "uri": "tos-cn-i-dy/073d66416d0d41f89a655bfa94f143c5",
+        "url_list": [
+          "https://p26-sign.douyinpic.com/tos-cn-i-dy/073d66416d0d41f89a655bfa94f143c5~tplv…"
+        ]
+      },
+      "hot_score": 12100275,
+      "key_words": null,
+      "query_id": "2726467",
       "rank": 1,
       "rank_diff": 0,
-      "title": "国足vs塔吉克斯坦"
+      "related_item_ids": null,
+      "title": "美官员称美袭击伊朗格什姆岛"
     }
-  ]
+  ],
+  "status_code": 0,
+  "status_msg": "",
+  "update_time": 20261103152500
 }
 ```
 
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `item_list[].title` | Name of the hot spot topic. |
+| `item_list[].rank` | Position of the topic on the billboard. `1` is the top entry. |
+| `item_list[].rank_diff` | Change in rank for the topic. A value of `0` appears for topics with no change. |
+| `item_list[].hot_score` | Numeric heat value for the topic. Higher values rank higher. |
+| `item_list[].category` | Topic category label, for example `时政` (current affairs) or `体育` (sports). |
+| `item_list[].query_id` | Identifier of the hot spot query, returned as a string. |
+| `item_list[].cover.url_list[]` | Cover image URLs for the topic. Each entry points to a different image host for the same image. |
+| `item_list[].cover.uri` | Internal path of the cover image. |
+| `item_list[].aweme_list / key_words / related_item_ids` | Related videos, keywords and item IDs. These were `null` in this response. |
+| `update_time` | Timestamp of the board, written as `YYYYMMDDHHMMSS` digits, for example `20261103152500`. |
+
 ### Notes
 
-- `city_code` is required when `hot_search_type` is set to 2.
-- Pass multiple tags in `billboard_tag` separated by commas.
+- `city_code` is required when `hot_search_type` is `2`.
+- Pass several tags in `billboard_tag` separated by commas. The default is `0`.
+- Cover image URLs are signed links and include an `x-expires` value.
+- To browse related Douyin trends, call [Douyin Creator Hot Topic Billboard](/apis/douyin/creator/creator-hot-topic-billboard) or [Douyin Hot Search List](/apis/douyin/app-v3/hot-search-list).
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

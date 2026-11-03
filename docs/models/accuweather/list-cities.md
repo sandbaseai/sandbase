@@ -68,7 +68,14 @@ Same call via the path form: `POST /v1/api/accuweather/list-cities` with the bod
 
 ## Details
 
-List all provinces or major administrative divisions within a country by its ISO 2-letter code. Searches across regional browse pages to find the country.
+Returns the provinces or major administrative divisions of a country on AccuWeather. You send an ISO 2-letter country code in `country_code`, and each result has a name, a type, and an AccuWeather browse-page URL.
+
+### Use cases
+
+- List all US states to build a region picker for a weather app.
+- Collect the browse-page URLs for a country to map its administrative divisions on AccuWeather.
+- Check which divisions AccuWeather lists for a country before you search for a specific place.
+- Seed a location database with division names for a given country.
 
 ### Request
 
@@ -79,7 +86,7 @@ curl -X POST "https://api.sandbase.ai/v1/api/accuweather/list-cities" \
   -d '{"country_code": "US"}'
 ```
 
-This API runs asynchronously. The call returns a task `id` with status `pending`; poll `GET https://api.sandbase.ai/v1/run/{id}` until `status` is `completed` and read the result from `outputs[0].data`.
+The result is returned in `outputs[0].data`.
 
 ### Parameters
 
@@ -87,9 +94,45 @@ This API runs asynchronously. The call returns a task `id` with status `pending`
 |---|---|---|---|
 | `country_code` | string | Yes | ISO 2-letter country code, case-insensitive (e.g., 'tr', 'us', 'gb') |
 
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "data": {
+    "items": [
+      {
+        "name": "Alabama",
+        "type": "Province/City",
+        "url": "https://www.accuweather.com/en/browse-locations/eur/us/al"
+      }
+    ]
+  },
+  "status": "success"
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `data.items[]` | One province or major administrative division in the country. |
+| `data.items[].name` | Name of the division, for example `Alabama`. |
+| `data.items[].type` | Kind of division. The sample shows `Province/City` for US states. |
+| `data.items[].url` | AccuWeather browse-locations page for the division. The path ends with a short division code such as `al` or `ak`. |
+| `status` | Result of the call. The sample shows `success`. |
+
+### Notes
+
+- `country_code` is case-insensitive, so `US` and `us` give the same request.
+- The `url` values include the country code and a short division code in the path, for example `/us/al`.
+- To find a specific place, call [AccuWeather Search Locations](/apis/accuweather/search-locations). To get conditions for a place, call [AccuWeather Weather](/apis/accuweather/weather).
+- The request has no pagination parameters. The only input is `country_code`.
+
 ### Pricing
 
-Flat price per call. Failed calls are not charged.
+$0.01 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ---
 Machine-readable: [`catalog/models/accuweather/list-cities.json`](../../../catalog/models/accuweather/list-cities.json) · Store page: https://www.sandbase.ai/model/accuweather/list-cities

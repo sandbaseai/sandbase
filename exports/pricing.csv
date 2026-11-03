@@ -1033,7 +1033,7 @@ instagram/post-comments,api,Instagram,per_call,0.014286,,,,,yes,sync,POST /v1/ru
 instagram/post-detail,api,Instagram,per_call,0.014286,,,,,yes,sync,POST /v1/run
 instagram/post-likers,api,Instagram,usage_based,,,,0.0024,0.0024,,sync,POST /v1/run
 instagram/profile,api,Instagram,usage_based,,,,0.001,0.001,,sync,POST /v1/run
-instagram/reel-transcript,api,Instagram,usage_based,,,,0.095,0.095,,sync,POST /v1/run
+instagram/reel-transcript,api,Instagram,usage_based,,,,0.0083,0.0083,,sync,POST /v1/run
 instagram/search,api,Instagram,usage_based,,,,0.0036,0.0036,,sync,POST /v1/run
 instagram/search-locations,api,Instagram,usage_based,,,,0.0011,0.0011,,sync,POST /v1/run
 instagram/search-profiles,api,Instagram,usage_based,,,,0.0012,0.0012,,sync,POST /v1/run
@@ -1782,7 +1782,7 @@ tiktok/user-post,api,TikTok,per_call,0.014286,,,,,yes,sync,POST /v1/run
 tiktok/video,api,TikTok,usage_based,,,,0.0004,0.0004,,sync,POST /v1/run
 tiktok/video-download,api,TikTok,usage_based,,,,0.0008,0.0008,,sync,POST /v1/run
 tiktok/video-transcript,api,TikTok,usage_based,,,,0.0011,0.0011,,sync,POST /v1/run
-tiktok/video-transcript-full,api,TikTok,usage_based,,,,0.095,0.095,,sync,POST /v1/run
+tiktok/video-transcript-full,api,TikTok,usage_based,,,,0.0085,0.0085,,sync,POST /v1/run
 tiktok/web/all-aweme-id,api,TikTok,per_call,0.001,,,,,yes,sync,POST /v1/run
 tiktok/web/all-sec-user-id,api,TikTok,per_call,0.001,,,,,yes,sync,POST /v1/run
 tiktok/web/all-unique-id,api,TikTok,per_call,0.001,,,,,yes,sync,POST /v1/run

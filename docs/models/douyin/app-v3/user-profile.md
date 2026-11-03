@@ -62,13 +62,14 @@ Same call via the path form: `POST /v1/api/douyin/app-v3/user-profile` with the 
 
 ## Details
 
-Retrieve profile details and follower metadata for a specific Douyin account by supplying `sec_user_id`.
+Returns profile data for one Douyin user, including avatar images, cover images, video count and follower count. It needs the user's `sec_user_id`.
 
 ### Use cases
 
-- Analyze audience reach and follower counts for a target Douyin account.
-- Extract user profile data for influencer research and creator monitoring.
-- Inspect Douyin account details within social media analytics workflows.
+- Track the `follower_count` of a creator over time to measure audience growth.
+- Check how many videos an account has published with `aweme_count` before pulling its video list.
+- Download avatar and profile cover images for a creator database or review dashboard.
+- Check whether an account has an ads entry in its commerce settings.
 
 ### Request
 
@@ -79,6 +80,8 @@ curl -X POST "https://api.sandbase.ai/v1/api/douyin/app-v3/user-profile" \
   -d '{"sec_user_id": "MS4wLjABAAAAr52fXcfmzqOZJM_smap9Uuxtm16h8BupkCVaCt89BENq3E91mHCvtz5Z5TkXPHq_"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
@@ -87,32 +90,98 @@ curl -X POST "https://api.sandbase.ai/v1/api/douyin/app-v3/user-profile" \
 
 ### Example response
 
-Real response for the request above, trimmed to the main fields. User names and long IDs are masked.
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
 
 ```json
 {
+  "extra": {
+    "fatal_item_ids": null,
+    "logid": "202611031531419AC4E1CB78CA9D11D6BF",
+    "now": 1793691101000,
+    "search_request_id": null
+  },
+  "log_pb": {
+    "impr_id": "202611031531419AC4E1CB78CA9D11D6BF"
+  },
+  "status_code": 0,
+  "status_msg": null,
   "user": {
-    "followers_detail": [
-      {
-        "app_name": "aweme",
-        "apple_id": "1142110895",
-        "fans_count": 163334,
-        "name": "抖音",
-        "open_url": "snssdk1128://user/profile/3635433641882579?",
-        "package_name": "com.ss.android.ugc.aweme"
-      }
-    ]
+    "account_cert_info": "{}",
+    "apple_account": 0,
+    "avatar_168x168": {
+      "height": 720,
+      "uri": "aweme-avatar/tos-cn-avt-0015_9186d2f6f96963551bd89aaa2c745843",
+      "url_list": [
+        "https://p3.douyinpic.com/aweme-avatar/tos-cn-avt-0015_9186d2f6f96963551bd89aaa2c…"
+      ],
+      "width": 720
+    },
+    "avatar_300x300": {
+      "height": 720,
+      "uri": "aweme-avatar/tos-cn-avt-0015_9186d2f6f96963551bd89aaa2c745843",
+      "url_list": [
+        "https://p3.douyinpic.com/aweme-avatar/tos-cn-avt-0015_9186d2f6f96963551bd89aaa2c…"
+      ],
+      "width": 720
+    },
+    "avatar_is_digged": false,
+    "avatar_larger": {
+      "height": 720,
+      "uri": "aweme-avatar/tos-cn-avt-0015_9186d2f6f96963551bd89aaa2c745843",
+      "url_list": [
+        "https://p3.douyinpic.com/aweme/1080x1080/aweme-avatar/tos-cn-avt-0015_9186d2f6f9…"
+      ],
+      "width": 720
+    },
+    "avatar_medium": {
+      "height": 720,
+      "uri": "aweme-avatar/tos-cn-avt-0015_9186d2f6f96963551bd89aaa2c745843",
+      "url_list": [
+        "https://p3.douyinpic.com/aweme-avatar/tos-cn-avt-0015_9186d2f6f96963551bd89aaa2c…"
+      ],
+      "width": 720
+    },
+    "avatar_thumb": {
+      "height": 720,
+      "uri": "aweme-avatar/tos-cn-avt-0015_9186d2f6f96963551bd89aaa2c745843",
+      "url_list": [
+        "https://p3.douyinpic.com/aweme-avatar/tos-cn-avt-0015_9186d2f6f96963551bd89aaa2c…"
+      ],
+      "width": 720
+    },
+    "aweme_count": 92,
+    "aweme_count_correction_threshold": -1,
+    "birthday": "",
+    "birthday_hide_level": 0
   }
 }
 ```
 
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `user.follower_count` | Number of followers of the account. |
+| `user.aweme_count` | Number of videos (works) on the account. |
+| `user.dongtai_count / user.favoriting_count / user.evaluation_count` | Other count values on the profile. In this sample all three are `0`. |
+| `user.avatar_larger / user.avatar_medium / user.avatar_thumb` | Avatar image objects in different sizes. Each has `uri`, `width`, `height` and a `url_list` of image links. |
+| `user.avatar_larger.url_list[]` | Image links for the avatar. Several links with different formats (`heic`, `jpeg`) can appear in one list. |
+| `user.cover_url[].url_list[]` | Links to the profile cover images of the account. These links contain `x-expires` and `x-signature` query values. |
+| `user.cover_and_head_image_info.profile_cover_list[]` | Profile cover entries with `cover_url`, `dark_cover_color` and `light_cover_color`. |
+| `user.commerce_user_info.has_ads_entry` | `true` when the account has an ads entry in its commerce info. |
+| `user.follow_status` | Follow relationship value for this user. It is `0` in this sample. |
+| `status_code` | `0` in this response, which is the success value seen here. |
+
 ### Notes
 
-- Requires a valid `sec_user_id` parameter to identify the target profile.
+- Pass `sec_user_id` exactly as given. It is a long string that starts with `MS4wLjABAAAA`.
+- Many fields, such as `city`, `country` and `birthday`, can be empty strings.
+- To list this user's videos, pass the same `sec_user_id` to [Douyin User Videos](/apis/douyin/app-v3/user-post-videos).
+- To list videos this user liked, use [Douyin User Liked Videos (App V3)](/apis/douyin/app-v3/user-like-videos).
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

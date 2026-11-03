@@ -63,13 +63,14 @@ Same call via the path form: `POST /v1/api/weibo/app/user-super-topics` with the
 
 ## Details
 
-Retrieve the super topics joined by a Weibo user by passing their account ID in `uid`. Support for multi-page results is available using `page`.
+Returns the super topics page of a Weibo user as a list of layout items, such as spacers, section cards and feed posts. It needs the user's numeric ID in `uid`. Use `page` to request later pages.
 
 ### Use cases
 
-- Analyze community interests and topical activity for a user profile.
-- Display user-associated super topics within profile dashboards.
-- Track engagement across niche community forums on Weibo.
+- Read the section cards on a user's super topics page, such as the `精华帖` (essence posts) card, to see which sections the page shows.
+- Collect the posts and images that appear in a user's super topics feed.
+- Find location tags on posts in a user's super topics feed.
+- Page through a user's super topics feed with `page` to build a full list for one account.
 
 ### Request
 
@@ -80,6 +81,8 @@ curl -X POST "https://api.sandbase.ai/v1/api/weibo/app/user-super-topics" \
   -d '{"uid": "8431518763"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
@@ -89,26 +92,64 @@ curl -X POST "https://api.sandbase.ai/v1/api/weibo/app/user-super-topics" \
 
 ### Example response
 
-Real response for the request above, trimmed to the main fields. User names and long IDs are masked.
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
 
 ```json
 {
+  "__profile_card_server__": {
+    "from": "SHANHAI-SERVER"
+  },
+  "channelInfo": {
+    "channelConfig": {
+      "selectInfo": {
+        "flowId": "2314758431518763",
+        "pageDataType": "flow"
+      }
+    }
+  },
+  "config": "{}",
   "items": [
     {
       "category": "cell",
+      "span": {
+        "style": {
+          "height": 10
+        }
+      },
       "type": "span"
     }
-  ]
+  ],
+  "loadedInfo": "{}",
+  "navInfo": "{}",
+  "pageData": "{}",
+  "refreshInfo": "{}"
 }
 ```
 
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `items[].category` | Kind of layout item. Values seen are `cell` (spacer), `card` (section header card) and `feed` (a post). |
+| `items[].data.desc / items[].data.title_extra_text` | Title and side label of a card. In the example the card reads `精华帖` with the extra text `更多` (more). |
+| `items[].data.scheme` | App deep link that opens the section, for example `sinaweibo://pageinfo?containerid=_-_soul`. |
+| `items[].data.actionlog.cardid / items[].data.actionlog.fid` | Identifiers of the card and of the page flow it belongs to. The `fid` value matches `channelInfo.channelConfig.selectInfo.flowId`. |
+| `items[].data.attitudes_count` | Number of attitudes on a feed post. The example post shows `688`. |
+| `items[].data.bmiddle_pic` | URL of the medium-size image attached to a feed post. |
+| `items[].data.annotations[].place.title / items[].data.annotations[].place.poiid` | Name and ID of the place tagged on a post. The example shows `郑州` with the type `checkin`. |
+| `items[].data.ad_marked` | Boolean that shows whether the feed post is marked as an ad. |
+| `channelInfo.channelConfig.selectInfo.flowId` | ID of the page flow for this user. The example value is `2314758431518763`. |
+
 ### Notes
 
-- The `page` parameter starts from 1 and defaults to 1.
+- `uid` is a string of digits, for example `8431518763`. Pass it as text.
+- `page` starts at 1 and defaults to 1. Increase it to read further pages.
+- Items of different `category` values are mixed in one `items` list, so check `category` before you read `data`.
+- To get profile data for the same `uid`, call [Weibo User Profile Information](/apis/weibo/app/user-info).
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

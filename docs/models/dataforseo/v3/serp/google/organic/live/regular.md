@@ -76,13 +76,14 @@ Same call via the path form: `POST /v1/api/dataforseo/v3/serp/google/organic/liv
 
 ## Details
 
-The regular SERP endpoint returns only the organic results (rank, title, URL, description) without SERP feature details, which keeps responses small and fast to process.
+This API returns live Google organic results for one keyword, location and language. Each result has a rank, title, domain, description and URL. Send `keyword`, `location_code` and `language_code`, and set `depth` to choose how many results to fetch.
 
 ### Use cases
 
-- Lightweight rank tracking for many keywords.
-- Collect top-ranking URLs for content research.
-- Compare rankings across locations.
+- Track where your pages rank for a list of keywords.
+- List the domains that hold the top spots for a keyword to study competitors.
+- Compare results for the same keyword across different `location_code` values.
+- Find forum and community pages, such as Reddit threads, that rank for a buying keyword.
 
 ### Request
 
@@ -93,67 +94,105 @@ curl -X POST "https://api.sandbase.ai/v1/api/dataforseo/v3/serp/google/organic/l
   -d '{"keyword": "running shoes", "location_code": 2840, "language_code": "en", "depth": 20}'
 ```
 
+The result is returned in `outputs[0]`.
+
 ### Parameters
 
-The body is passed through to DataForSEO. Common fields:
-
-| Name | Type | Description |
-|---|---|---|
-| `keyword` | string | Search query, e.g. "openai api". |
-| `location_code` | integer | DataForSEO location code, e.g. 2840 for the United States. |
-| `language_code` | string | Language code, e.g. "en". |
-| `depth` | integer | Number of results to return (default 100). |
+| Name | Type | Required | Description |
+|---|---|---|---|
+| `depth` | integer | No | Number of results to return (default 100). |
+| `keyword` | string | No | Search query, e.g. "openai api". |
+| `language_code` | string | No | Language code, e.g. "en". |
+| `location_code` | integer | No | DataForSEO location code, e.g. 2840 for the United States. |
 
 ### Example response
 
-Real response for the request above, trimmed to the main fields. User names and long IDs are masked.
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
 
 ```json
 {
   "status_code": 20000,
+  "status_message": "Ok.",
   "tasks": [
     {
-      "status_message": "Ok.",
+      "data": {
+        "api": "serp",
+        "depth": 20,
+        "device": "desktop",
+        "function": "live",
+        "keyword": "running shoes",
+        "language_code": "en",
+        "location_code": 2840,
+        "os": "windows"
+      },
+      "id": "11030829-1614-0121-0000-2ad640deb040",
+      "path": [
+        "v3"
+      ],
       "result": [
         {
-          "keyword": "openai api",
-          "se_domain": "google.com",
-          "location_code": 2840,
-          "language_code": "en",
+          "check_url": "https://www.google.com/search?q=running%20shoes&hl=en&gl=US&ie=UTF-8&uule=w+CAIQ…",
+          "datetime": "2026-11-03 08:29:40 +00:00",
           "item_types": [
-            "ai_overview",
-            "organic",
-            "video",
-            "perspectives",
-            "related_searches"
+            "ai_overview"
           ],
-          "items_count": 7,
           "items": [
             {
-              "type": "organic",
-              "rank_group": 1,
+              "breadcrumb": "https://www.roadrunnersports.com › ... › Buying Guides",
+              "description": "Oct 9, 2026 — There is no single best running shoe brand. The best brand is the …",
+              "domain": "google.com",
+              "page": 1,
               "rank_absolute": 2,
-              "domain": "addepto.com",
-              "title": "How to use OpenAI API and API Key? New Guide for 2026",
-              "url": "https://addepto.com/blog/what-is-an-openai-api-and-how-to-use-it/",
-              "breadcrumb": "https://addepto.com › blog › what-is-an-openai-api-and...",
-              "description": "Jun 11, 2026 — How to use the OpenAI API? · Create an OpenAI account · Generate the OpenA…"
+              "rank_group": 1,
+              "title": "Best Running Shoe Brands for Men and Women (2026)",
+              "type": "organic"
             }
-          ]
+          ],
+          "items_count": 16,
+          "keyword": "running shoes",
+          "language_code": "en",
+          "location_code": 2840
         }
-      ]
+      ],
+      "result_count": 1,
+      "status_code": 20000,
+      "status_message": "Ok.",
+      "time": "7.4828 sec."
     }
-  ]
+  ],
+  "tasks_count": 1,
+  "tasks_error": 0,
+  "time": "7.5545 sec.",
+  "version": "0.1.20261022"
 }
 ```
 
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `tasks[].result[].keyword / location_code / language_code` | The search query, location and language that Google was checked with. |
+| `tasks[].result[].check_url` | The Google search URL that matches this query. Open it to compare with the live page. |
+| `tasks[].result[].datetime` | Date and time of the search, with a UTC offset. |
+| `tasks[].result[].item_types` | The kinds of elements found on this results page, for example `ai_overview`, `organic` and `images`. |
+| `tasks[].result[].items_count` | Number of items returned in `items` for this request. |
+| `tasks[].result[].items[].type` | The kind of result. In this API the items are `organic`. |
+| `tasks[].result[].items[].rank_group` | Position among results of the same type. The first organic result has `rank_group` 1. |
+| `tasks[].result[].items[].rank_absolute` | Position among all elements on the page. It can be higher than `rank_group` when other elements, such as an AI overview, appear above. |
+| `tasks[].result[].items[].title / description` | The title and snippet text Google shows for the result. The snippet can contain HTML entities such as `&#39;`. |
+| `tasks[].result[].items[].domain` | Domain of the ranking page. |
+| `tasks[].result[].items[].breadcrumb` | The path line Google shows under the title. For some results it holds other text, such as a comment count and age. |
+
 ### Notes
 
-- Need AI Overviews, featured snippets or People Also Ask? Use the Advanced SERP API instead.
+- `location_code` 2840 is the United States. `language_code` takes a code such as `en`.
+- `depth` sets how many results you ask for. In this response `depth` was 20 and `items_count` was 16, so check `items_count` rather than assuming the full depth.
+- `page` on each item shows which results page the item came from.
+- This API returns organic results only. For AI Overviews, featured snippets or People Also Ask, use the Advanced SERP API.
 
 ### Pricing
 
-$0.002 per page of 10 results. The default depth (10) is one page; for example depth 50 costs 5 pages. Failed calls are not charged. Extra crawled pages, pixel rankings, async AI overview, People Also Ask clicks and search operators (site:, intitle: ...) are not supported.
+Billed at the actual cost of each call, about $0.002 for the request above. Failed calls are not charged.
 
 ### Related APIs
 

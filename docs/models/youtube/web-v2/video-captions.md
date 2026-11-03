@@ -69,13 +69,14 @@ Same call via the path form: `POST /v1/api/youtube/web-v2/video-captions` with t
 
 ## Details
 
-Fetch YouTube caption lists or full subtitle text by providing `video_id` or `video_url`. Specify `language_code` to retrieve subtitle text or leave it empty to inspect available caption tracks.
+Returns the caption text of a YouTube video for one language, in the format you choose (`srt`, `xml`, `json3` or `txt`). It needs a `video_id` or a `video_url`, plus a `language_code`. If you leave `language_code` empty, it returns the list of available caption tracks instead.
 
 ### Use cases
 
-- Extract subtitles in TXT or SRT formats for video summarization workflows.
-- Inspect all available subtitle tracks and languages for a specific video.
-- Download structured JSON3 transcript data for search indexing.
+- Pull English subtitles as `txt` to feed a video summarization workflow.
+- Download `srt` files with timestamps to build subtitles for a re-upload or translation.
+- Fetch `json3` captions to index spoken words for search.
+- Check which caption languages a video offers before choosing one to download.
 
 ### Request
 
@@ -86,24 +87,51 @@ curl -X POST "https://api.sandbase.ai/v1/api/youtube/web-v2/video-captions" \
   -d '{"video_id": "dQw4w9WgXcQ", "video_url": "https://www.youtube.com/watch?v=dQw4w9WgXcQ", "language_code": "en", "format": "srt"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
 |---|---|---|---|
 | `format` | string | No | Caption format |
+| `language_code` | string | No | Language code (e.g. en, zh-Hans, a.en), returns available caption list if empty |
 | `video_id` | string | No | Video ID (recommended) |
 | `video_url` | string | No | Full video URL (optional) |
-| `language_code` | string | No | Language code (e.g. en, zh-Hans, a.en), returns available caption list if empty |
+
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "content": "1\n00:00:01,360 --> 00:00:03,040\n[♪♪♪]\n\n2\n00:00:18,640 --> 00:00:21,880\n♪ We're n…",
+  "format": "srt",
+  "language_code": "en",
+  "language_name": "English",
+  "video_id": "dQw4w9WgXcQ"
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `content` | The full caption text in the requested format. For `srt`, each cue has a number, a start and end time in `HH:MM:SS,mmm` form, and the caption line. Sound cues such as `[♪♪♪]` appear as text. |
+| `format` | The caption format of `content`, matching the `format` you requested. |
+| `language_code` | The language code of the returned captions, for example `en`. |
+| `language_name` | The readable name of the caption language, for example `English`. |
+| `video_id` | The ID of the video the captions belong to. |
 
 ### Notes
 
-- Leaving `language_code` empty returns the list of available caption tracks.
-- Supported `format` options include `srt`, `xml`, `json3`, and `txt`.
-- Providing `video_id` is recommended instead of `video_url`.
+- Send `video_id` when you can. `video_url` is optional and is not needed if you have the ID.
+- The `video_id` is the value after `v=` in a watch URL, for example `dQw4w9WgXcQ`.
+- Language codes can be plain, like `en` or `zh-Hans`, or auto-generated tracks like `a.en`.
+- `format` defaults to `srt` when you leave it out.
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.008 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

@@ -64,13 +64,14 @@ Same call via the path form: `POST /v1/api/tiktok/app-v3/user-music-list` with t
 
 ## Details
 
-Retrieve audio tracks associated with a user profile by supplying `sec_uid`. Supports cursor pagination via `cursor` and custom page sizes with `count`.
+Returns a list of audio tracks linked to a TikTok user, with title, author, duration, cover images and matched song details. It needs the user's `sec_uid` and accepts `count` and `cursor` for paging.
 
 ### Use cases
 
-- Track original audio tracks associated with a creator account.
-- Browse cataloged songs and audition details for an artist profile.
-- Extract song metadata and duration metrics for specific users.
+- List the sounds a creator has posted or is credited on, to review their music catalog.
+- Find the album name and credited artists behind a track a creator uses often.
+- Check which tracks in a creator's list are commercial music and which are original sounds.
+- Collect track IDs for a creator, then look up each sound in detail.
 
 ### Request
 
@@ -80,6 +81,8 @@ curl -X POST "https://api.sandbase.ai/v1/api/tiktok/app-v3/user-music-list" \
   -H "Content-Type: application/json" \
   -d '{"sec_uid": "MS4wLjABAAAAv7iSuuXDJGDvJkmH_vz1qkDZYo1apxgzaxdBSeIuPiM"}'
 ```
+
+The result is returned in `outputs[0].data`.
 
 ### Parameters
 
@@ -91,50 +94,102 @@ curl -X POST "https://api.sandbase.ai/v1/api/tiktok/app-v3/user-music-list" \
 
 ### Example response
 
-Real response for the request above, trimmed to the main fields. User names and long IDs are masked.
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
 
 ```json
 {
+  "cursor": 10,
+  "extra": {
+    "fatal_item_ids": [],
+    "logid": "20261103074400DD567830EC3BCE01CED8",
+    "now": 1793691841000
+  },
+  "groups": null,
+  "has_more": 1,
+  "honor_label": 3,
+  "log_pb": {
+    "impr_id": "20261103074400DD567830EC3BCE01CED8"
+  },
   "music": [
     {
+      "album": "Chữ Vấn Chữ Vương (Huy PT Remix)",
+      "allow_offline_music_to_detail_page": false,
+      "artists": [
+        {
+          "avatar": {
+            "uri": "tos-useast5-avt-0068-tx/ba67b11de451691939223e9d978e613a",
+            "url_list": [
+              "https://p19-common-sign.tiktokcdn-us.com/tos-useast5-avt-0068-tx/ba67b11de451691…"
+            ],
+            "url_prefix": null
+          },
+          "enter_type": 2,
+          "follow_status": 0,
+          "follower_status": 0,
+          "handle": "tiktok",
+          "is_block": false,
+          "is_blocked": false,
+          "is_private_account": false
+        }
+      ],
       "audition_duration": 60,
       "author": "Chân CaCa",
       "author_deleted": false,
+      "author_position": null,
+      "avatar_medium": {
+        "height": 720,
+        "uri": "tos-useast5-avt-0068-tx/ba67b11de451691939223e9d978e613a",
+        "url_list": [
+          "https://p16-common-sign.tiktokcdn-us.com/tos-useast5-avt-0068-tx/ba67b11de451691…"
+        ],
+        "url_prefix": null,
+        "width": 720
+      },
+      "avatar_thumb": {
+        "height": 720,
+        "uri": "tos-useast5-avt-0068-tx/ba67b11de451691939223e9d978e613a",
+        "url_list": [
+          "https://p19-common-sign.tiktokcdn-us.com/tos-useast5-avt-0068-tx/ba67b11de451691…"
+        ],
+        "url_prefix": null,
+        "width": 720
+      },
       "binded_challenge_id": 0,
-      "commercial_right_type": 3,
-      "create_time": 1777489026,
-      "duration": 60,
-      "id": 7634256818454333457,
-      "preview_end_time": 0,
-      "preview_start_time": 87,
-      "duration_high_precision": {
-        "audition_duration_precision": 60,
-        "duration_precision": 60,
-        "shoot_duration_precision": 60,
-        "video_duration_precision": 60
-      },
-      "matched_song": {
-        "author": "Chân CaCa",
-        "full_duration": 248861,
-        "id": "7634249903032469521",
-        "title": "Chữ Vấn Chữ Vương (Huy PT Remix)"
-      },
-      "music_release_info": {
-        "group_release_date": 1777766400
-      }
+      "can_be_stitched": true,
+      "can_not_reuse": false
     }
-  ]
+  ],
+  "status_code": 0,
+  "status_msg": ""
 }
 ```
 
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `cursor` | Value to send as `cursor` to get the next page. |
+| `has_more` | Shows whether more tracks are available. The value `1` in this response means another page exists. |
+| `music[].id / music[].id_str` | ID of the track. `id_str` holds the same value as a string, which is safer for large numbers. |
+| `music[].album` | Album or release name shown for the track. |
+| `music[].author` | Display name of the track's author or artists. |
+| `music[].artists[].handle` | TikTok handle of each credited artist. |
+| `music[].duration / music[].audition_duration` | Length values for the track, in whole numbers. Both are `60` in this response. |
+| `music[].create_time` | Unix timestamp of when the sound was created. |
+| `music[].is_original_sound / music[].is_commerce_music / music[].is_pgc` | Boolean flags that describe the type of sound. They show whether it is an original sound, commercial music, or marked as PGC. |
+| `music[].matched_song.full_duration` | Duration of the full matched song. The first track shows `248861`, which fits milliseconds given the 60 second clip. |
+| `music[].matched_song.chorus_info.start_ms / music[].matched_song.chorus_info.duration_ms` | Start time and length of the chorus section of the matched song, in milliseconds. |
+
 ### Notes
 
-- Pagination starts at 0 for `cursor`, with subsequent pages using the cursor returned in previous responses.
-- `sec_uid` is required to identify the target TikTok user.
+- Send `cursor` as `0` for the first page. For the next page, send the `cursor` value from the previous response.
+- Keep paging while `has_more` is `1`.
+- Get a `sec_uid` from a username with [TikTok User ID by Username](/apis/tiktok/app-v3/user-id-and-sec-user-id-by-username).
+- Use [TikTok Music Details](/apis/tiktok/app-v3/music-detail) to look up a single track, or [TikTok Music Video List](/apis/tiktok/app-v3/music-video-list) to see videos that use it.
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

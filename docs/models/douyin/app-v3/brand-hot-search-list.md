@@ -52,13 +52,14 @@ Same call via the path form: `POST /v1/api/douyin/app-v3/brand-hot-search-list` 
 
 ## Details
 
-Retrieves the latest brand hot search list and ranking data directly from Douyin without requiring additional query parameters.
+Returns the current Douyin brand hot search page data: a banner image and a list of brand categories. It needs no input, so you send an empty JSON object `{}`.
 
 ### Use cases
 
-- Track trending brand topics and keyword rankings on Douyin.
-- Monitor consumer interest patterns across brand categories.
-- Support competitive intelligence and market research workflows.
+- Read the list of brand categories and their `id` values to build a category picker for brand ranking tools.
+- Pull the category list on a schedule to detect when Douyin adds or renames a brand category.
+- Collect the `id` of each category, then request the ranking for that category in the detail API.
+- Save the banner image for the brand hot search page in a reporting dashboard.
 
 ### Request
 
@@ -69,9 +70,60 @@ curl -X POST "https://api.sandbase.ai/v1/api/douyin/app-v3/brand-hot-search-list
   -d '{}'
 ```
 
+The result is returned in `outputs[0].data`.
+
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "banner_url": {
+    "uri": "daa7000a0f0d6a308320",
+    "url_list": [
+      "https://p26-sign.douyinpic.com/obj/daa7000a0f0d6a308320?x-expires=1793775600&x-s…"
+    ]
+  },
+  "category_list": [
+    {
+      "id": 10,
+      "name": "汽车"
+    }
+  ],
+  "extra": {
+    "fatal_item_ids": [],
+    "logid": "202611031531328768F9FF39F8485A71CE",
+    "now": 1793691092000
+  },
+  "log_pb": {
+    "impr_id": "202611031531328768F9FF39F8485A71CE"
+  },
+  "status_code": 0,
+  "status_msg": ""
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `category_list[].id` | Numeric ID of a brand category, for example `10`. Use it as the category input in the detail API. |
+| `category_list[].name` | Category name as shown on Douyin, in Chinese. Examples in the response are `汽车`, `手机` and `美妆`. |
+| `banner_url.uri` | Identifier of the banner image. |
+| `banner_url.url_list[]` | Image URLs for the banner. They are signed links and contain an `x-expires` value. |
+| `status_code / status_msg` | Result status of the call. `status_code` is `0` and `status_msg` is empty in the sample response. |
+| `extra.now` | Server time in the response, as a 13-digit number that looks like a Unix time in milliseconds. |
+| `extra.logid / log_pb.impr_id` | Request tracking IDs. In the sample response both hold the same value. |
+
+### Notes
+
+- The request takes no parameters. Send `{}` as the body.
+- To get the brand ranking for one category, pass a `category_list[].id` value to [Douyin Brand Hot Search List Detail](/apis/douyin/app-v3/brand-hot-search-list-detail).
+- Banner URLs are signed and include an `x-expires` query value, so download the image soon after you fetch it.
+
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

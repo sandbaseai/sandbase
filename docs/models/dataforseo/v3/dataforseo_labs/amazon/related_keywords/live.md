@@ -60,9 +60,14 @@ Same call via the path form: `POST /v1/api/dataforseo/v3/dataforseo_labs/amazon/
 
 ## Details
 
-Get Amazon keywords related to a seed, with search volume.
+This API returns Amazon keywords related to a seed keyword, with the Amazon search volume for each one. It needs a `keyword`, and you can also set `location_code`, `language_code` and `limit`.
 
-Request fields follow the official DataForSEO `/v3/dataforseo_labs/amazon/related_keywords/live` task schema (one task per call; send `{"tasks": [...]}` for several). `limit` is capped at 100. The response is DataForSEO's original JSON; results are in `tasks[].result`.
+### Use cases
+
+- Expand a product listing's keyword set from a seed like `wireless earbuds` to find terms shoppers also search.
+- Rank related Amazon search terms by `search_volume` to pick which ones to target in titles and ads.
+- Map how a product category connects to nearby categories using the `related_keywords` lists.
+- Compare demand for competing product terms, such as `airpods` and `wireless headphones`, in one call.
 
 ### Request
 
@@ -73,20 +78,107 @@ curl -X POST "https://api.sandbase.ai/v1/api/dataforseo/v3/dataforseo_labs/amazo
   -d '{"keyword": "wireless earbuds", "limit": 5, "location_code": 2840, "language_code": "en"}'
 ```
 
+The result is returned in `outputs[0]`.
+
 ### Parameters
 
-The JSON body is forwarded to the upstream endpoint (one task per call). Fields used above:
+| Name | Type | Required | Description |
+|---|---|---|---|
+| `keyword` | string | No | Search query. |
+| `language_code` | string | No | Language code, e.g. "en". |
+| `limit` | integer | No | Maximum number of results (up to 100). |
+| `location_code` | integer | No | Location code, e.g. 2840 for the United States. |
 
-| Name | Description |
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "status_code": 20000,
+  "status_message": "Ok.",
+  "tasks": [
+    {
+      "data": {
+        "api": "dataforseo_labs",
+        "function": "related_keywords",
+        "keyword": "wireless earbuds",
+        "language_code": "en",
+        "limit": 5,
+        "location_code": 2840,
+        "se_type": "amazon"
+      },
+      "id": "11030828-2190-0387-0000-4752ce873051",
+      "path": [
+        "v3"
+      ],
+      "result": [
+        {
+          "items": [
+            {
+              "depth": 1,
+              "keyword_data": {
+                "keyword": "airpods",
+                "keyword_info": {
+                  "last_updated_time": "2026-11-03 03:44:11 +00:00",
+                  "se_type": "amazon",
+                  "search_volume": 184195
+                },
+                "language_code": "en",
+                "location_code": 2840,
+                "se_type": "amazon"
+              },
+              "related_keywords": [
+                "airpods pro"
+              ],
+              "se_type": "amazon"
+            }
+          ],
+          "items_count": 5,
+          "language_code": "en",
+          "location_code": 2840,
+          "se_type": "amazon",
+          "seed_keyword": "wireless earbuds",
+          "seed_keyword_data": null,
+          "total_count": 7
+        }
+      ],
+      "result_count": 1,
+      "status_code": 20000,
+      "status_message": "Ok.",
+      "time": "0.0412 sec."
+    }
+  ],
+  "tasks_count": 1,
+  "tasks_error": 0,
+  "time": "0.0475 sec.",
+  "version": "0.1.20261022"
+}
+```
+
+### Response fields
+
+| Field | Meaning |
 |---|---|
-| `keyword` | Search query. |
-| `limit` | Maximum number of results (up to 100). |
-| `location_code` | Location code, e.g. 2840 for the United States. |
-| `language_code` | Language code, e.g. "en". |
+| `tasks[].result[].seed_keyword` | The keyword you sent in the request. |
+| `tasks[].result[].items[].keyword_data.keyword` | A keyword in the related set. The seed keyword can appear in the list too. |
+| `tasks[].result[].items[].keyword_data.keyword_info.search_volume` | Search volume for that keyword on Amazon. |
+| `tasks[].result[].items[].keyword_data.keyword_info.last_updated_time` | Timestamp for the keyword data, for example `2026-11-03 03:44:11 +00:00`. |
+| `tasks[].result[].items[].depth` | Distance of the keyword from the seed. The seed itself has `0` and the keywords linked directly to it have `1`. |
+| `tasks[].result[].items[].related_keywords` | A list of other keywords related to this item. |
+| `tasks[].result[].items_count / tasks[].result[].total_count` | `items_count` is the number of items in this response. `total_count` is the total number of related keywords found. |
+| `tasks[].result[].location_code / tasks[].result[].language_code` | The location and language the results apply to. |
+
+### Notes
+
+- Results sit under `tasks[].result[].items[]`.
+- Use `limit` to cap the number of items, up to 100. Compare `items_count` with `total_count` to see whether more related keywords exist.
+- `seed_keyword_data` can be `null`, so read the seed's volume from the item with `depth` `0` instead.
+- Use `location_code` `2840` for the United States and `language_code` `en` for English.
 
 ### Pricing
 
-Billed at the actual cost of each call, about $0.0126 for the request above. The cost grows with the number of rows, targets or pages a call returns. Failed calls are not charged. Searches with no results are billed at their actual cost.
+Billed at the actual cost of each call, about $0.0126 for the request above. Failed calls are not charged.
 
 ---
 Machine-readable: [`catalog/models/dataforseo/v3/dataforseo_labs/amazon/related_keywords/live.json`](../../../../../../../catalog/models/dataforseo/v3/dataforseo_labs/amazon/related_keywords/live.json) · Store page: https://www.sandbase.ai/model/dataforseo/v3/dataforseo_labs/amazon/related_keywords/live

@@ -52,13 +52,13 @@ Same call via the path form: `POST /v1/api/lemon8/app/discover-tab` with the bod
 
 ## Details
 
-Retrieves the primary feed content displayed on the Lemon8 discover tab without requiring any input parameters.
+Returns the content featured on the Lemon8 discover tab as a list in `data`, plus paging flags and impression IDs. It needs no input parameters.
 
 ### Use cases
 
-- Display trending posts from the Lemon8 discover feed.
-- Analyze featured content topics and community trends.
-- Monitor discover page recommendations over time.
+- Pull the current discover feed to see which posts Lemon8 recommends.
+- Check the discover tab on a schedule to track which featured content appears over time.
+- Collect post entries from the feed, then look up each one with a post details call.
 
 ### Request
 
@@ -69,9 +69,40 @@ curl -X POST "https://api.sandbase.ai/v1/api/lemon8/app/discover-tab" \
   -d '{}'
 ```
 
+The result is returned in `outputs[0].data`.
+
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "data": [],
+  "has_more": false,
+  "impr_id": "0",
+  "session_impr_id": "0"
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `data` | List of featured discover tab items. The sample response returns an empty list, so check its length before reading items. |
+| `has_more` | Boolean flag that shows whether more items are available after this response. It is `false` in the sample response. |
+| `impr_id` | Impression ID string for this response. The sample value is `"0"`. |
+| `session_impr_id` | Impression ID string for the session. The sample value is `"0"`. |
+
+### Notes
+
+- The request body is an empty object: send `{}`.
+- The `data` list can come back empty, so handle that case in your code.
+- To get full details for a post found in the feed, call [Lemon8 Post Details](/apis/lemon8/app/post-detail).
+- For promotional banners on the same page, use [Lemon8 Discover Page Banners](/apis/lemon8/app/discover-banners).
+
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

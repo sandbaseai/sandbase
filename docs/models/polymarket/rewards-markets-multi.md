@@ -71,9 +71,14 @@ Same call via the path form: `POST /v1/api/polymarket/rewards-markets-multi` wit
 
 ## Details
 
-Returns multiple markets with rewards and supports filtering and sorting.
+Returns a page of Polymarket markets that have liquidity rewards, with prices, spread, 24-hour volume and reward settings for each market. No input is required. You can filter by event, tag, text, price, spread or volume, and sort the results.
 
-The response is the official Polymarket API response, unchanged.
+### Use cases
+
+- List markets in one event with a reward minimum size and maximum spread to find where to quote orders.
+- Find reward markets with a wide `spread` and high `volume_24hr` to rank quoting opportunities.
+- Pull `token_id` values for reward markets to feed into order book or price calls.
+- Track which markets in a tag such as sports or politics currently offer rewards.
 
 ### Request
 
@@ -83,6 +88,8 @@ curl -X POST "https://api.sandbase.ai/v1/api/polymarket/rewards-markets-multi" \
   -H "Content-Type: application/json" \
   -d '{}'
 ```
+
+The result is returned in `outputs[0].data`.
 
 ### Parameters
 
@@ -103,9 +110,59 @@ curl -X POST "https://api.sandbase.ai/v1/api/polymarket/rewards-markets-multi" \
 | `q` | string | No | Text search on market question/description |
 | `tag_slug` | string | No | Filter by tag slug. Can be repeated for OR logic (e.g., ?tag_slug=sports&tag_slug=politics) |
 
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "count": 100,
+  "data": [
+    {
+      "condition_id": "0x2d3c4fc5cde6dfb43448402b912e41bd4453e3f030448ed026bff8f1a0bc072e",
+      "created_at": "2025-07-08T19:05:57.129881Z",
+      "end_date": "2028-11-08 04:59:00+00",
+      "event_id": "31552",
+      "event_slug": "presidential-election-winner-2028",
+      "group_item_title": "Eric Trump",
+      "image": "https://polymarket-upload.s3.us-east-2.amazonaws.com/eric-trump-eb65c618d6.png",
+      "market_competitiveness": 0,
+      "market_id": "561263",
+      "market_slug": "will-eric-trump-win-the-2028-us-presidential-election",
+      "one_day_price_change": 0,
+      "question": "Will Eric Trump win the 2028 US Presidential Election?"
+    }
+  ],
+  "limit": 100,
+  "next_cursor": "MTAw"
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `count / limit` | Number of markets in this page and the page size used. |
+| `next_cursor` | Cursor for the next page. Send it back as `next_cursor`. |
+| `data[].market_id / data[].condition_id` | Identifiers for the market. `market_id` is a numeric string and `condition_id` is a hex string. |
+| `data[].question / data[].group_item_title` | The market question and the short label of the item inside its event, such as a candidate name. |
+| `data[].event_id / data[].event_slug` | The event the market belongs to. |
+| `data[].tokens[].outcome / data[].tokens[].price` | The outcome name (`Yes` or `No`) and its current price. |
+| `data[].tokens[].token_id` | Token ID for each outcome. Use it in order book, price and spread calls. |
+| `data[].spread / data[].volume_24hr` | Current spread of the market and its 24-hour volume. |
+| `data[].rewards_max_spread / data[].rewards_min_size` | Reward settings for the market: the maximum spread and the minimum order size. |
+| `data[].one_day_price_change / data[].market_competitiveness` | Price change over one day and the competitiveness score of the market. |
+
+### Notes
+
+- Send the `next_cursor` value from the response as the `next_cursor` parameter to get the next page.
+- `page_size` defaults to 100 and is capped at 500.
+- `order_by` accepts values such as `volume_24hr`, `spread`, `rate_per_day` and `reward_end_date`. Set `position` to `ASC` or `DESC`.
+- To read the full details of one market, call [Polymarket Get market by id](/apis/polymarket/markets-by-id). To see its order book, call [Polymarket Get order book](/apis/polymarket/book) with a `token_id`.
+
 ### Pricing
 
-Flat price per call. Failed calls are not charged.
+$0.012 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ---
 Machine-readable: [`catalog/models/polymarket/rewards-markets-multi.json`](../../../catalog/models/polymarket/rewards-markets-multi.json) · Store page: https://www.sandbase.ai/model/polymarket/rewards-markets-multi

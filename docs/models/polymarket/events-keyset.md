@@ -98,9 +98,14 @@ Same call via the path form: `POST /v1/api/polymarket/events-keyset` with the bo
 
 ## Details
 
-List events with cursor based keyset pagination. Use next_cursor as after_cursor to fetch the next page. The offset parameter is rejected.
+Returns a page of Polymarket events, each with its markets, series and tags. All inputs are optional filters, and you page through results with a cursor instead of an offset.
 
-The response is the official Polymarket API response, unchanged.
+### Use cases
+
+- Pull every closed Polymarket event in a sport or tag to build a history of past markets.
+- Find open events above a volume or liquidity threshold with `volume_min` or `liquidity_min`.
+- Search event titles with `title_search` to track markets on a topic.
+- Walk the full event list page by page to keep a local copy in sync.
 
 ### Request
 
@@ -111,13 +116,15 @@ curl -X POST "https://api.sandbase.ai/v1/api/polymarket/events-keyset" \
   -d '{"limit": 2}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
 |---|---|---|---|
 | `after_cursor` | string | No | Opaque cursor token from a previous response's next_cursor |
 | `ascending` | boolean | No | Sort direction. Only used when order is set. |
-| `closed` | boolean | No | Filter by closed state. Omitted includes open and closed events. Use true for closed events, false for open events, or any (case-insensitive) for both states. U |
+| `closed` | boolean | No | Filter by closed state. Omitted includes open and closed events. Use true for closed events, false for open events, or any (case-insensitive) for both states. Unlike markets, any does not require an identifier filter. In |
 | `created_by` | array | No | created_by |
 | `cyom` | boolean | No | cyom |
 | `end_date_max` | string | No | end_date_max |
@@ -157,9 +164,58 @@ curl -X POST "https://api.sandbase.ai/v1/api/polymarket/events-keyset" \
 | `volume_max` | number | No | volume_max |
 | `volume_min` | number | No | volume_min |
 
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "$schema": "https://gamma-api.polymarket.com/schemas/EventsKeysetListResponse.json",
+  "events": [
+    {
+      "active": true,
+      "archived": false,
+      "category": "Sports",
+      "closed": true,
+      "closedTime": "2022-07-27T14:40:02.074Z",
+      "commentCount": 8128,
+      "competitive": 0,
+      "createdAt": "2022-07-27T14:40:02.074Z",
+      "creationDate": "2021-12-04T00:00:00Z",
+      "cyom": false,
+      "deploying": false,
+      "description": "In the upcoming NBA game, scheduled for December 4:\n\nIf the Dallas Mavericks win…"
+    }
+  ],
+  "next_cursor": "baQCMe2wl4-1BqJJ87F6fVlbWuykHjYlEXNrqgeisfJ7InYiOjEsImsiOiJldmVudHMiLCJvaCI6IjRm…"
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `events[].id / events[].slug / events[].ticker` | Identifiers for the event. `id` is a numeric string, and `slug` and `ticker` are readable keys that match the event URL name. |
+| `events[].title / events[].description` | The event question and the text that explains how its markets resolve. |
+| `events[].active / events[].closed / events[].archived` | Flags for the event state. `closedTime` gives the time the event was closed. |
+| `events[].startDate / events[].endDate / events[].createdAt` | ISO 8601 timestamps for when the event starts, ends and was created. |
+| `events[].liquidity / events[].openInterest / events[].commentCount` | Liquidity, open interest and comment count for the event. |
+| `events[].resolutionSource` | URL of the source used to settle the event. |
+| `events[].markets[].bestBid / events[].markets[].bestAsk` | Best bid and best ask price for a market inside the event. |
+| `events[].markets[].clobTokenIds` | Token IDs for the market outcomes, returned as a JSON-encoded string. Parse it before use. |
+| `events[].tags[].id / events[].tags[].label / events[].tags[].slug` | Tags attached to the event. Use the `id` values with `tag_id` or `exclude_tag_id` to filter. |
+| `events[].series[] / events[].seriesSlug` | The series the event belongs to, such as `nba` or `nfl`. |
+
+### Notes
+
+- Copy `next_cursor` from the response into `after_cursor` to get the next page. Do not send `offset`, which returns a 422 error.
+- `limit` accepts 1 to 100 and defaults to 20.
+- To fetch one event, use [Polymarket Get event by slug](/apis/polymarket/events-slug) or [Polymarket Get event by id](/apis/polymarket/events-by-id).
+- For offset-style paging, use [Polymarket List events](/apis/polymarket/events).
+
 ### Pricing
 
-Flat price per call. Failed calls are not charged.
+$0.00044 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ---
 Machine-readable: [`catalog/models/polymarket/events-keyset.json`](../../../catalog/models/polymarket/events-keyset.json) · Store page: https://www.sandbase.ai/model/polymarket/events-keyset

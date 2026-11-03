@@ -67,7 +67,14 @@ Same call via the path form: `POST /v1/api/aaa/price-change-by-state` with the b
 
 ## Details
 
-Returns the price change (delta) for a state between the current price and historical averages (day, week, month, year) for all fuel grades. Positive values indicate prices have risen; negative values indicate prices.
+Returns how AAA fuel prices in one US state have changed over the last day, week, month and year. The response covers Regular, Mid-Grade, Premium and Diesel. It needs a two-letter `state_code`.
+
+### Use cases
+
+- Show a dashboard card that tells drivers in a state whether gas got cheaper or more expensive this week.
+- Compare year-over-year diesel change in a state to track fleet fuel costs.
+- Flag states where `Regular` prices moved the most over the past month.
+- Add a short price trend line to a travel or road-trip planning app.
 
 ### Request
 
@@ -78,7 +85,7 @@ curl -X POST "https://api.sandbase.ai/v1/api/aaa/price-change-by-state" \
   -d '{"state_code": "WA"}'
 ```
 
-This API runs asynchronously. The call returns a task `id` with status `pending`; poll `GET https://api.sandbase.ai/v1/run/{id}` until `status` is `completed` and read the result from `outputs[0].data`.
+The result is returned in `outputs[0].data`.
 
 ### Parameters
 
@@ -86,9 +93,69 @@ This API runs asynchronously. The call returns a task `id` with status `pending`
 |---|---|---|---|
 | `state_code` | string | Yes | Two-letter US state code (e.g. TX, CA, NY, FL). All 50 states and DC are supported. |
 
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "data": {
+    "price_changes": {
+      "Diesel": {
+        "day_change": -0.017,
+        "month_change": -0.123,
+        "week_change": -0.013,
+        "year_change": 2.272
+      },
+      "Mid-Grade": {
+        "day_change": -0.013,
+        "month_change": -0.32,
+        "week_change": -0.114,
+        "year_change": 0.879
+      },
+      "Premium": {
+        "day_change": -0.01,
+        "month_change": -0.309,
+        "week_change": -0.093,
+        "year_change": 0.896
+      },
+      "Regular": {
+        "day_change": -0.011,
+        "month_change": -0.297,
+        "week_change": -0.112,
+        "year_change": 0.907
+      }
+    },
+    "state_code": "WA",
+    "state_name": "Washington"
+  },
+  "status": "success"
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `data.state_code / data.state_name` | The two-letter code and full name of the state the changes apply to. |
+| `data.price_changes.Regular` | Price changes for Regular gas. Other grades use the same structure: `Mid-Grade`, `Premium` and `Diesel`. |
+| `data.price_changes.Regular.day_change` | Change between the current price and the price one day ago. A negative value means the price fell. |
+| `data.price_changes.Regular.week_change` | Change between the current price and the price one week ago. |
+| `data.price_changes.Regular.month_change` | Change between the current price and the price one month ago. |
+| `data.price_changes.Regular.year_change` | Change between the current price and the price one year ago. A positive value means the price rose. |
+| `data.price_changes.Diesel.day_change / week_change / month_change / year_change` | The same four changes for Diesel. |
+| `status` | Shows `success` when the call worked. |
+
+### Notes
+
+- Pass `state_code` as a two-letter US state code such as `WA`. DC is also supported.
+- The changes are numeric differences, not percentages. Positive values mean prices rose and negative values mean they fell.
+- For the current price levels, call [AAA State Gas Prices](/apis/aaa/state-gas-prices).
+- For metro-level changes, call [AAA Price Change By Metro](/apis/aaa/price-change-by-metro).
+
 ### Pricing
 
-Flat price per call. Failed calls are not charged.
+$0.02 per successful call. Failed calls are not charged.
 
 ---
 Machine-readable: [`catalog/models/aaa/price-change-by-state.json`](../../../catalog/models/aaa/price-change-by-state.json) · Store page: https://www.sandbase.ai/model/aaa/price-change-by-state

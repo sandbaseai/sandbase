@@ -61,7 +61,14 @@ Same call via the path form: `POST /v1/api/google/lens` with the body above minu
 
 ## Details
 
-Reverse image search: find web pages and visual matches for an image URL.
+The Google Lens API runs a reverse image search on a public image URL. It returns a list of web pages and visual matches, each with a title, source site, link and image. The only input is the `url` of the image.
+
+### Use cases
+
+- Find the original page or other sites that host a given image.
+- Check where a profile photo or product photo appears online.
+- Collect pages that mention or show the same subject as an image, such as a person, object or meme.
+- Build a list of source sites (for example Reddit or Facebook) that share a picture.
 
 ### Request
 
@@ -72,7 +79,7 @@ curl -X POST "https://api.sandbase.ai/v1/api/google/lens" \
   -d '{"url": "https://i.imgur.com/HBrB8p0.png"}'
 ```
 
-The result is returned in `outputs[0].data`. A lookup that finds nothing still succeeds and returns `found: false`.
+The result is returned in `outputs[0].data`.
 
 ### Parameters
 
@@ -80,9 +87,49 @@ The result is returned in `outputs[0].data`. A lookup that finds nothing still s
 |---|---|---|---|
 | `url` | string | Yes | Public URL of the image to search with. |
 
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "data": {
+    "results": [
+      {
+        "image": "https://preview.redd.it/arnold-schwarzenegger-and-danny-devito-v0-mnja7ruli9dh1.…",
+        "link": "https://www.reddit.com/r/CelebrityLookalikes/comments/1uwlrps/arnold_schwarzeneg…",
+        "source": "Reddit",
+        "thumbnailUrl": "https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcQd3AyHbyvFtdWZ50GZr6_g7e9I…",
+        "title": "Arnold Schwarzenegger und Danny DeVito : r/CelebrityLookalikes"
+      }
+    ],
+    "url": "https://i.imgur.com/HBrB8p0.png"
+  },
+  "found": true
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `found` | `true` when the search returned matches. The request still succeeds when nothing is found, and `found` is `false` in that case. |
+| `data.url` | The image URL that was searched, echoed back from the request. |
+| `data.results[].title` | Title of the matching web page or post. |
+| `data.results[].link` | URL of the web page that contains the matching image. |
+| `data.results[].source` | Name of the site that hosts the match, such as `Reddit` or `Facebook`. |
+| `data.results[].image` | URL of the matching image on the source site. Some values are cut or point to a resized preview. |
+| `data.results[].thumbnailUrl` | URL of a small thumbnail of the match. |
+
+### Notes
+
+- The `url` must point to a public image. Pages that need a login will not work.
+- The request takes only `url`. It has no pagination parameters.
+- To search by keyword instead of by image, use [Google Images](/apis/google/images).
+
 ### Pricing
 
-Billed at the actual cost of each call, usually $0.00085 per request. A call can cost more when the first data source fails and another one answers. Failed calls are not charged. Lookups that find nothing and searches with no results are billed at their actual cost, which is often lower and can be $0.
+Billed at the actual cost of each call, about $0.00085 for the request above. Failed calls are not charged.
 
 ---
 Machine-readable: [`catalog/models/google/lens.json`](../../../catalog/models/google/lens.json) · Store page: https://www.sandbase.ai/model/google/lens

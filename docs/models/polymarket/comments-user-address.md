@@ -66,9 +66,14 @@ Same call via the path form: `POST /v1/api/polymarket/comments-user-address` wit
 
 ## Details
 
-Get comments by user address from Polymarket. Returns the official Polymarket API response unchanged.
+Returns a list of comments posted by one Polymarket wallet address. Each item holds the comment text, timestamps, reaction and report counts, and the event or entity it was posted on. The only required input is `user_address`.
 
-The response is the official Polymarket API response, unchanged.
+### Use cases
+
+- Review what a specific trader has said across Polymarket events.
+- Track how much engagement a wallet's comments receive through `reactionCount`.
+- Find comments from a wallet that were reported, using `reportCount`.
+- Link a wallet's comments to the events they were posted on using `parentEntityID`.
 
 ### Request
 
@@ -78,6 +83,8 @@ curl -X POST "https://api.sandbase.ai/v1/api/polymarket/comments-user-address" \
   -H "Content-Type: application/json" \
   -d '{"user_address": "0xc22d0f7c330d5cc00a92578ed876b8c34aa42dd6", "limit": 2}'
 ```
+
+The result is returned in `outputs[0].data`.
 
 ### Parameters
 
@@ -89,9 +96,49 @@ curl -X POST "https://api.sandbase.ai/v1/api/polymarket/comments-user-address" \
 | `offset` | integer | No | offset |
 | `order` | string | No | Comma-separated list of fields to order by |
 
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+[
+  {
+    "body": "idor-poc-1792753844",
+    "createdAt": "2026-10-23T11:10:47.356694Z",
+    "id": "3305081",
+    "parentEntityID": 2890,
+    "parentEntityType": "Event",
+    "reactionCount": 2,
+    "reportCount": 0,
+    "updatedAt": "2026-10-23T11:10:56.48298Z",
+    "userAddress": "0xc22d0f7c330d5cc00a92578ed876b8c34aa42dd6"
+  }
+]
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `[].body` | The text of the comment. |
+| `[].id` | The comment ID, returned as a string. |
+| `[].createdAt / updatedAt` | ISO 8601 UTC timestamps for when the comment was created and last updated. |
+| `[].parentEntityID` | The ID of the item the comment was posted on. |
+| `[].parentEntityType` | The type of the parent item, for example `Event`. |
+| `[].reactionCount` | The number of reactions the comment has received. |
+| `[].reportCount` | The number of reports filed against the comment. |
+| `[].userAddress` | The wallet address of the commenter. |
+
+### Notes
+
+- Use `limit` and `offset` to page through results. Use `order` and `ascending` to sort them.
+- `user_address` is a 0x wallet address. Get one from [Polymarket Get public profile by wallet address](/apis/polymarket/public-profile) or from search results.
+- To read a single comment by its ID, call [Polymarket Get comments by comment id](/apis/polymarket/comments-by-id).
+- When `parentEntityType` is `Event`, pass `parentEntityID` to [Polymarket Get event by id](/apis/polymarket/events-by-id) to see the event.
+
 ### Pricing
 
-Flat price per call. Failed calls are not charged.
+$0.00044 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ---
 Machine-readable: [`catalog/models/polymarket/comments-user-address.json`](../../../catalog/models/polymarket/comments-user-address.json) · Store page: https://www.sandbase.ai/model/polymarket/comments-user-address

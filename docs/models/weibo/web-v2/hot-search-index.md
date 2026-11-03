@@ -52,13 +52,14 @@ Same call via the path form: `POST /v1/api/weibo/web-v2/hot-search-index` with t
 
 ## Details
 
-Look up the top 10 hot search topics on Weibo. This endpoint does not require any request parameters.
+Returns the current Weibo hot search ranking as a list of trending topics, each with its rank, label and a numeric heat value. It needs no input, so send an empty JSON object `{}`.
 
 ### Use cases
 
-- Track currently trending topics across Weibo.
-- Display real-time hot search rankings in a media monitoring dashboard.
-- Analyze popular cultural and news trends among Weibo users.
+- Show the current top Weibo topics on a media monitoring dashboard.
+- Log the ranking at set times to see which topics enter or leave the list.
+- Flag topics carrying a `新` (new) label to catch fresh stories early.
+- Build search links to open the Weibo results page for each trending topic.
 
 ### Request
 
@@ -69,9 +70,74 @@ curl -X POST "https://api.sandbase.ai/v1/api/weibo/web-v2/hot-search-index" \
   -d '{}'
 ```
 
+The result is returned in `outputs[0].data`.
+
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "hotgovs": [
+    {
+      "emoticon_url": "",
+      "flag": 2,
+      "icon": "https://simg.s.weibo.com/moter/flags/2_0.png",
+      "icon_desc": "热",
+      "icon_desc_color": "#ff9406",
+      "icon_height": 24,
+      "icon_info": "<i class=\"icon-txt icon-txt-len-1\"  style=\"background-color:#ff9406;\">热</i>",
+      "icon_width": 24,
+      "name": "乌镇网事",
+      "pos": 1,
+      "search_url": "/weibo?q=%23%E4%B9%8C%E9%95%87%E7%BD%91%E4%BA%8B%23&Refer=new_time",
+      "show_idx": 1
+    }
+  ],
+  "list": [
+    {
+      "description": "2173490",
+      "emoticon": "",
+      "emoticon_url": "",
+      "flag": 2,
+      "icon": "https://simg.s.weibo.com/moter/flags/2_0.png",
+      "icon_desc": "热",
+      "icon_desc_color": "#ff9406",
+      "icon_height": 24,
+      "icon_info": "<i class=\"icon-txt icon-txt-len-1\"  style=\"background-color:#ff9406;\">热</i>",
+      "icon_width": 24,
+      "label_name": "热",
+      "note": "赴港看演唱会女孩低保已被取消"
+    }
+  ]
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `list[].word / list[].note` | The topic text as shown in the ranking. Both hold the same phrase in the sample. |
+| `list[].word_scheme` | The topic wrapped in `#` hashtag marks, for example `#赴港看演唱会女孩低保已被取消#`. |
+| `list[].num / list[].description` | The numeric heat value for the topic. `description` holds the same number as a string. |
+| `list[].realpos / list[].show_idx` | The rank position of the topic in the list, starting at `1`. |
+| `list[].label_name / list[].icon_desc` | The short label on the topic, such as `热` (hot) or `新` (new). |
+| `list[].flag` | A numeric code for the label type. In the sample, `2` goes with `热` and `1` goes with `新`. |
+| `list[].icon / list[].icon_desc_color` | The label icon image URL and the hex color used for the label. |
+| `list[].search_url` | A relative Weibo search path for the topic. It carries the encoded hashtag query and the `band_rank` value. |
+| `hotgovs[].word / hotgovs[].pos` | A separate short list of topics with their position. The sample shows one item with `pos` set to `1`. |
+| `hotgovs[].search_url` | A relative Weibo search path for the topic in `hotgovs`. |
+
+### Notes
+
+- The request takes no parameters. Send `{}` as the body.
+- The `search_url` values are relative paths that start with `/weibo?q=`. Add the Weibo host yourself to build a full link.
+- For a longer ranking, try [Weibo Real-Time Hot Search](/apis/weibo/web-v2/hot-search) or [Weibo Hot Search List](/apis/weibo/web-v2/hot-search-summary).
+- To find posts about a topic, pass its `word` to [Weibo Topic Search](/apis/weibo/web-v2/topic-search).
+
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

@@ -66,7 +66,14 @@ Same call via the path form: `POST /v1/api/xiaohongshu/pgy/live-blogger-list` wi
 
 ## Details
 
-PGY live blogger square on Xiaohongshu. Returns the platform data as structured JSON.
+Returns a paged list of live-stream sellers (distributors) from the Xiaohongshu PGY live blogger square. You can send paging values alone, or add a nickname search and filter objects for category, buyers, e-commerce, live activity, fans and platform flags.
+
+### Use cases
+
+- Build a shortlist of Xiaohongshu live sellers whose average sales amount falls in a target range.
+- Find live sellers with a high active fan rate for a brand partnership.
+- Page through the square to export candidate sellers into a CRM or spreadsheet.
+- Search by `nick_name` to check how a known seller is listed in the square.
 
 ### Request
 
@@ -94,9 +101,73 @@ The result is returned in `outputs[0].data`.
 | `page_size` | integer | No | Page size, 1-20 |
 | `seed` | integer | No | Paging seed, echo back from previous page |
 
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "code": 0,
+  "data": {
+    "distributor_info_list": [
+      {
+        "distributor_data_info": {
+          "active_fans_rate": 0.8519,
+          "atv": "5000-1w",
+          "avatar": "https://sns-avatar-qc.xhscdn.com/avatar/1040g2jo320n9uck162eg5qe20btst2n4arn4pcg…",
+          "avg_live_viewer_num": "120",
+          "avg_sale_amount": "2w-5w",
+          "avg_sale_amount_value": 23571.060909090917,
+          "bcoo_order_cnt": 0,
+          "buyer_activity": []
+        },
+        "distributor_extra_info": {
+          "buyer_bar_list": [],
+          "grade": 3,
+          "telephone": "AsCoh8eSOTSVJRgpp88+rg==",
+          "willing_category": [],
+          "willing_commsion": "不限"
+        },
+        "is_star": false,
+        "show_data": 1
+      }
+    ],
+    "page_total": 5000,
+    "req_id": "3c0e1f96-e0e7-4ce9-8afa-ea263fb1a337",
+    "seed": 0,
+    "total": 4872599
+  },
+  "msg": "成功",
+  "success": true
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `data.total` | Total number of sellers that match the request. |
+| `data.page_total` | Number of pages reported for the result. |
+| `data.seed` | Paging seed for this result. Send it back as `seed` when you request the next page. |
+| `data.distributor_info_list[].distributor_data_info.avg_sale_amount / data.distributor_info_list[].distributor_data_info.avg_sale_amount_value` | Average sales amount as a range label (for example `2w-5w`) and as a numeric value. |
+| `data.distributor_info_list[].distributor_data_info.atv` | Range label for the seller's `atv`, for example `5000-1w`. |
+| `data.distributor_info_list[].distributor_data_info.avg_live_viewer_num` | Average number of viewers per live stream, returned as a string. |
+| `data.distributor_info_list[].distributor_data_info.active_fans_rate` | Share of active fans as a decimal, for example `0.8519`. |
+| `data.distributor_info_list[].distributor_data_info.avatar` | URL of the seller's avatar image. |
+| `data.distributor_info_list[].distributor_extra_info.grade` | Grade number of the seller. |
+| `data.distributor_info_list[].distributor_extra_info.willing_commsion` | Commission the seller is willing to accept. `不限` means no limit. |
+| `data.distributor_info_list[].is_star` | Whether the seller is flagged as a star. |
+
+### Notes
+
+- Set `page_num` from 1 to 250 and `page_size` from 1 to 20.
+- Send the `seed` value from the previous response with each next page request.
+- The `telephone` value in `distributor_extra_info` is an encoded string, and it is empty for some sellers.
+- Use [Xiaohongshu PGY blogger filter options](/apis/xiaohongshu/pgy/blogger-filter-options) to look up filter choices, and [Xiaohongshu (RED) PGY Blogger Details](/apis/xiaohongshu/pgy/blogger-detail) for a single creator.
+
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.02 per successful call. Failed calls are not charged.
 
 ---
 Machine-readable: [`catalog/models/xiaohongshu/pgy/live-blogger-list.json`](../../../../catalog/models/xiaohongshu/pgy/live-blogger-list.json) · Store page: https://www.sandbase.ai/model/xiaohongshu/pgy/live-blogger-list

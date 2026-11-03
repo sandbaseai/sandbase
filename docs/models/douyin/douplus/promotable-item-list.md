@@ -65,13 +65,14 @@ Same call via the path form: `POST /v1/api/douyin/douplus/promotable-item-list` 
 
 ## Details
 
-Retrieve videos eligible for DOU+ promotion for a specified Douyin user using their `sec_uid`. Customize results by item count with `count`, promotion goal via `target_id`, and optimization objective codes via `aim_ids`.
+Returns the list of videos on a Douyin account that can be promoted with DOU+, with the author and basic video details for each. It needs the account's `sec_uid`. You can also set the promotion goal with `target_id` and the number of items with `count`.
 
 ### Use cases
 
-- Identify videos eligible for DOU+ promotion campaigns on a given Douyin account.
-- Filter promotable content according to specific optimization goals and targets.
-- Track DOU+ delivery candidate items alongside their metadata.
+- Build a list of videos on a Douyin account that can be chosen for a DOU+ campaign.
+- Skip videos that are already promoted or too old by checking `is_item_promotional` and `is_over_90_days`.
+- Page through all promotable videos of an account to review its recent posts.
+- Compare which videos qualify under different `target_id` goals.
 
 ### Request
 
@@ -82,47 +83,93 @@ curl -X POST "https://api.sandbase.ai/v1/api/douyin/douplus/promotable-item-list
   -d '{"sec_uid": "MS4wLjABAAAAr52fXcfmzqOZJM_smap9Uuxtm16h8BupkCVaCt89BENq3E91mHCvtz5Z5TkXPHq_"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
 |---|---|---|---|
 | `sec_uid` | string | Yes | sec_uid of the delivery account (required) |
-| `count` | string | No | Number of items, default 30 |
 | `aim_ids` | string | No | Optional advanced parameter — optimization objective code(s), comma separated. |
+| `count` | string | No | Number of items, default 30 |
 | `target_id` | string | No | Promotion target (the goal card on the DOU+ page), default 31 (likes & comments). |
 
 ### Example response
 
-Real response for the request above, trimmed to the main fields. User names and long IDs are masked.
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
 
 ```json
 {
+  "cursor": "1779354857000",
+  "has_more": 1,
   "item_info_list": [
     {
-      "playlet_type": 0,
       "aweme_info": {
-        "aweme_id": "7691250576776709797",
-        "create_time": 1790758823000,
-        "desc": ". #海俪恩蛋尾巴摇摇#海俪恩美瞳#海俪恩小狗#美瞳推荐",
-        "valid_anchor_type": 0
+        "author": {
+          "avatar_medium": {
+            "uri": "720x720/aweme-avatar/tos-cn-avt-0015_9186d2f6f96963551bd89aaa2c745843",
+            "url_list": [
+              "https://p26.douyinpic.com/aweme/720x720/aweme-avatar/tos-cn-avt-0015_9186d2f6f96…"
+            ]
+          },
+          "nickname": "栗子味",
+          "sec_uid": "MS4wLjABAAAAr52fXcfmzqOZJM_smap9Uuxtm16h8BupkCVaCt89BENq3E91mHCvtz5Z5TkXPHq_"
+        },
+        "aweme_id": "7701639863695617457",
+        "can_play": false,
+        "create_time": 1793177767000,
+        "desc": "伊人妆 秋眉晃 宛在水中央",
+        "is_daily_story": false,
+        "is_photo": false,
+        "is_slides": false
       },
+      "disable_multi_select": false,
+      "douplus_user_post_tag": "爆款预定",
+      "is_ad": false,
+      "is_friend_video": false,
+      "is_item_promotional": false,
+      "is_over_90_days": false,
+      "item_can_mount_enterprise_cart": 0,
       "item_source": {
+        "item_generaion": 0,
         "source_type": 0
-      }
+      },
+      "playlet_type": 0
     }
+  ],
+  "status_code": 0,
+  "status_msg": "",
+  "support_tabs": [
+    1
   ]
 }
 ```
 
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `item_info_list[]` | One promotable video with its details and promotion flags. |
+| `item_info_list[].aweme_info.aweme_id` | ID of the video, as a string. |
+| `item_info_list[].aweme_info.desc` | Caption text of the video. |
+| `item_info_list[].aweme_info.create_time` | Time the video was posted, as a 13-digit number that looks like a millisecond Unix timestamp. |
+| `item_info_list[].aweme_info.author.nickname / item_info_list[].aweme_info.author.sec_uid` | Display name and `sec_uid` of the account that posted the video. |
+| `item_info_list[].aweme_info.is_photo / item_info_list[].aweme_info.is_slides / item_info_list[].aweme_info.is_daily_story` | Flags that show whether the item is a photo post, a slideshow, or a daily story. |
+| `item_info_list[].is_item_promotional / item_info_list[].is_over_90_days / item_info_list[].is_ad` | Flags for whether the item is already promotional, is older than 90 days, or is an ad. |
+| `item_info_list[].douplus_user_post_tag` | Short label shown on some items, such as `爆款预定`. It is missing on other items. |
+| `cursor / has_more` | Paging values. `has_more` is `1` when more items are available. |
+| `support_tabs` | List of tab codes the account supports on the DOU+ page. |
+
 ### Notes
 
-- `sec_uid` is required to identify the delivery account.
-- `target_id` defines the promotion goal card and defaults to 31 for likes and comments.
-- `count` defines the number of items returned, defaulting to 30.
+- `sec_uid` is the long string that starts with `MS4w`. It is the same value that appears in `item_info_list[].aweme_info.author.sec_uid`.
+- `count` sets the number of items per call. `target_id` defaults to `31` (likes and comments). `aim_ids` takes comma separated codes.
+- `cursor` and `has_more` are returned in the response. The request schema has no cursor parameter, so use `count` to control the size of the list.
+- To get full video data for an `aweme_id`, call [Douyin Douplus Video Detail](/apis/douyin/douplus/video-detail).
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

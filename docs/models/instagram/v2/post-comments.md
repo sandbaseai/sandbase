@@ -64,13 +64,14 @@ Same call via the path form: `POST /v1/api/instagram/v2/post-comments` with the 
 
 ## Details
 
-Retrieve comments for an Instagram post using `code_or_url`. Optional parameters include `sort_by` to reorder results and `pagination_token` for navigating through multiple pages.
+Returns comments on an Instagram post, including the comment text, like count, reply count and basic details about the commenter. It needs a post shortcode or full post URL in `code_or_url`.
 
 ### Use cases
 
-- Analyze audience sentiment and feedback on specific Instagram posts.
-- Track popular or recent discussions under brand and influencer media.
-- Extract user replies and interaction counts for social listening reports.
+- Read the comments under a brand post to review audience feedback.
+- Collect commenter IDs and names from a giveaway post to check entries.
+- Find comments with the most likes by calling with `sort_by` set to `popular`.
+- Export comment text and timestamps for a social listening report.
 
 ### Request
 
@@ -81,54 +82,96 @@ curl -X POST "https://api.sandbase.ai/v1/api/instagram/v2/post-comments" \
   -d '{"code_or_url": "DUajw4YkorV"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
 |---|---|---|---|
 | `code_or_url` | string | Yes | Post shortcode or full URL |
-| `sort_by` | string | No | Sort by "recent" or "popular", default recent |
 | `pagination_token` | string | No | Pagination token from previous response |
+| `sort_by` | string | No | Sort by "recent" or "popular", default recent |
 
 ### Example response
 
-Real response for the request above, trimmed to the main fields. User names and long IDs are masked.
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
 
 ```json
 {
   "data": {
+    "additional_data": {
+      "ai_topic_filters": [],
+      "caption": {
+        "content_type": "comment",
+        "created_at": 1770377722,
+        "created_at_for_fb_app": 1770377722,
+        "created_at_utc": 1770377722,
+        "did_report_as_spam": false,
+        "hashtags": [],
+        "id": "18066362081641928",
+        "is_covered": false
+      },
+      "caption_is_edited": false,
+      "comment_cover_pos": "bottom",
+      "comment_filter_param": "no_filter",
+      "comment_likes_enabled": true,
+      "fb_comments": [],
+      "filter_options": [],
+      "foundation_improvements_enabled": true,
+      "geoblocked_comment_notices": [],
+      "has_more_headload_fb_comments": false,
+      "media_header_display": "none"
+    },
+    "count": 7,
     "items": [
       {
         "child_comment_count": 0,
+        "comment_index": 0,
         "comment_like_count": 2,
         "content_type": "comment",
-        "id": "17970092114852855",
-        "meta_ai_comment_type": "NONE",
-        "private_reply_status": 0,
-        "text": "luvvvvvvv🖤🖤🖤",
-        "type": 0,
-        "user_id": "<user>",
-        "user": {
-          "full_name": "Lingga S. P.",
-          "id": "3558721631",
-          "profile_pic_id": "3955241250307294885",
-          "profile_pic_url": "https://scontent-lax7-1.cdninstagram.com/v/t51.82787-19/762008208_18466154488113…",
-          "username": "<user>"
-        }
+        "created_at": 1770378260,
+        "created_at_for_fb_app": 1770378260,
+        "created_at_utc": 1770378260,
+        "did_report_as_spam": false,
+        "has_disliked_comment": false,
+        "has_liked_comment": false,
+        "hashtags": [],
+        "id": "17970092114852855"
       }
-    ]
-  }
+    ],
+    "total": 49
+  },
+  "pagination_token": "GU1VBBoT…"
 }
 ```
 
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `data.items[].text` | Text of the comment. It is an empty string when the comment contains only a GIF. |
+| `data.items[].id` | ID of the comment. Use it to look up replies to that comment. |
+| `data.items[].comment_like_count` | Number of likes on the comment. |
+| `data.items[].child_comment_count` | Number of replies to the comment. |
+| `data.items[].created_at / data.items[].created_at_utc` | Time the comment was posted, as a Unix timestamp in seconds. |
+| `data.items[].user.id / data.items[].user_id` | ID of the account that wrote the comment. |
+| `data.items[].user.full_name` | Display name of the commenter. |
+| `data.items[].user.is_private / data.items[].user.is_verified` | Flags that show whether the commenter's account is private and whether it is verified. |
+| `data.items[].is_pinned` | Shows whether the comment is pinned on the post. |
+| `data.items[].giphy_media_info.title` | Title of the GIF when the comment is a GIF. The `images` object holds the GIF file links. |
+| `data.total` | Total comment count reported for the post. |
+| `pagination_token` | Token that selects the next page of comments. |
+
 ### Notes
 
-- `sort_by` accepts "recent" or "popular", defaulting to "recent".
-- `code_or_url` accepts either an Instagram post shortcode or a full URL.
-- Pass `pagination_token` from a previous response to page through additional comments.
+- Take the shortcode from the post URL. In `https://www.instagram.com/p/DUajw4YkorV/` the shortcode is `DUajw4YkorV`.
+- To get the next page, send the returned `pagination_token` with the same `code_or_url` and `sort_by` values.
+- `sort_by` accepts `recent` or `popular`. The default is `recent`.
+- To read replies to a comment, call [Instagram Comment Replies (V2)](/apis/instagram/v2/comment-replies) with the comment `id`.
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.002 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

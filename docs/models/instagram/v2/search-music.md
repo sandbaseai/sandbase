@@ -62,13 +62,14 @@ Same call via the path form: `POST /v1/api/instagram/v2/search-music` with the b
 
 ## Details
 
-Search Instagram's audio catalog by specifying a search term via `keyword`. It returns matching audio tracks alongside identifiers and duration metadata.
+Returns Instagram audio tracks that match a search keyword. Each item has an audio ID, title, artist, duration, cover artwork and download URLs. The only input is `keyword`.
 
 ### Use cases
 
-- Find background music options for media production workflows.
-- Look up Instagram audio IDs and track titles matching specific terms.
-- Inspect audio duration and licensing subtype details for cataloging.
+- Find licensed tracks on Instagram that match a brand, topic or mood keyword.
+- Collect audio IDs to look up posts that use a given track.
+- Compare track duration and suggested highlight start times when picking music for a short video.
+- Check whether a track is marked explicit or has lyrics before you use it.
 
 ### Request
 
@@ -79,6 +80,8 @@ curl -X POST "https://api.sandbase.ai/v1/api/instagram/v2/search-music" \
   -d '{"keyword": "openai"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
@@ -87,31 +90,58 @@ curl -X POST "https://api.sandbase.ai/v1/api/instagram/v2/search-music" \
 
 ### Example response
 
-Real response for the request above, trimmed to the main fields. User names and long IDs are masked.
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
 
 ```json
 {
   "data": {
+    "count": 10,
     "items": [
       {
-        "audio_id": "406894795669106",
-        "duration_in_ms": 164679,
-        "id": "327387070466441",
-        "licensed_music_subtype": "DEFAULT",
-        "title": "OpenAI ChatGPT"
+        "allows_saving": false,
+        "audio_id": "961546178588254",
+        "cover_artwork_thumbnail_uri": "https://scontent-bru2-1.cdninstagram.com/v/t39.30808-6/425966279_183450367700017…",
+        "cover_artwork_uri": "https://scontent-bru2-1.cdninstagram.com/v/t39.30808-6/425966279_183450367700017…",
+        "dark_message": null,
+        "display_artist": "Worldwide Shine",
+        "duration_in_ms": 257306,
+        "fast_start_progressive_download_url": "https://scontent-bru2-1.cdninstagram.com/o1/v/t2/f2/m69/AQNeIv8QuImCenq2wIo8qoC5…",
+        "has_lyrics": false,
+        "highlight_start_times_in_ms": [
+          59000
+        ],
+        "id": "920581052455716",
+        "is_eligible_for_audio_effects": false
       }
     ]
   }
 }
 ```
 
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `data.count` | Number of audio items in the response. |
+| `data.items[].audio_id` | ID of the audio track. Use it to find posts that use this sound. |
+| `data.items[].id` | A second ID for the item. It differs from `audio_id` in the response, so store both. |
+| `data.items[].title / data.items[].display_artist` | Track title and the artist name shown on Instagram. |
+| `data.items[].duration_in_ms` | Track length in milliseconds. |
+| `data.items[].highlight_start_times_in_ms` | List of start offsets in milliseconds for the suggested highlight part of the track. Some tracks have one value and some have several. |
+| `data.items[].is_explicit / data.items[].has_lyrics` | Boolean flags that show whether the track is marked explicit and whether it has lyrics. |
+| `data.items[].licensed_music_subtype` | Licensing subtype of the track. The sample items show `DEFAULT`. |
+| `data.items[].allows_saving / data.items[].is_eligible_for_audio_effects / data.items[].is_eligible_for_vinyl_sticker` | Boolean flags for what Instagram allows with the track, such as saving, audio effects and the vinyl sticker. |
+| `data.items[].cover_artwork_uri / data.items[].cover_artwork_thumbnail_uri / data.items[].progressive_download_url` | URLs for the cover image, a smaller thumbnail and the audio file. `web_30s_preview_download_url` can be `null`. |
+
 ### Notes
 
-- The `keyword` parameter is required to perform the music search query.
+- Send a single `keyword` string. The API has no pagination parameter in its schema.
+- Use `audio_id` as the input when you look up content that uses a track, for example with [Instagram Music Posts (V2)](/apis/instagram/v2/music-posts).
+- Media URLs in the response are full links. Download or cache the files you need.
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.002 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

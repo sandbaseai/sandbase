@@ -62,13 +62,14 @@ Same call via the path form: `POST /v1/api/douyin/xingtu-v2/xingtu-kolid-by-uniq
 
 ## Details
 
-Look up Douyin Xingtu creator IDs and basic profile data using the `unique_id` parameter.
+Returns the Xingtu author record that matches a Douyin `unique_id`. The response has the Xingtu author `id`, the `core_user_id`, the nickname, the avatar URL and a content tag. The only input is `unique_id`.
 
 ### Use cases
 
-- Map Douyin public accounts to internal Xingtu creator IDs.
-- Retrieve core user identifiers for influencer campaign tracking.
-- Verify creator tags and profile nicknames before campaign assignment.
+- Convert a Douyin `unique_id` into the Xingtu author `id` before calling other Xingtu author APIs.
+- Check the `tag` and `nick_name` of a creator before adding them to a campaign list.
+- Match a list of Douyin handles to Xingtu authors and store the `core_user_id` for each one.
+- Get the avatar URL of a Xingtu author for a creator roster.
 
 ### Request
 
@@ -79,6 +80,8 @@ curl -X POST "https://api.sandbase.ai/v1/api/douyin/xingtu-v2/xingtu-kolid-by-un
   -d '{"unique_id": "dyczxzs"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
@@ -87,25 +90,47 @@ curl -X POST "https://api.sandbase.ai/v1/api/douyin/xingtu-v2/xingtu-kolid-by-un
 
 ### Example response
 
-Real response for the request above, trimmed to the main fields. User names and long IDs are masked.
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
 
 ```json
 {
+  "avatar_uri": "https://p11.douyinpic.com/aweme/1080x1080/aweme-avatar/tos-cn-avt-0015_3beaaeb52…",
+  "base_resp": {
+    "status_code": 0,
+    "status_message": "Success"
+  },
   "core_user_id": "92769419069",
   "finish_rate_ovr": 0,
+  "hot_list_ranks": [],
   "id": "6870164585236660237",
-  "nick_name": "<user>",
+  "nick_name": "抖音作者助手",
   "tag": "教育培训"
 }
 ```
 
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `id` | Xingtu author ID as a string. Use this value as the author ID in other Xingtu author APIs. |
+| `core_user_id` | Core user ID of the account, returned as a string. |
+| `nick_name` | Display name of the creator. |
+| `tag` | Content category label of the creator. The example value is `教育培训` (education and training). |
+| `avatar_uri` | URL of the creator's avatar image. |
+| `finish_rate_ovr` | Numeric completion rate value. It is `0` in the example response, and the response does not state its unit. |
+| `hot_list_ranks` | List of hot list rankings for the creator. It is empty in the example response. |
+| `base_resp.status_code / base_resp.status_message` | Result status of the lookup. `0` and `Success` mean the call worked. |
+
 ### Notes
 
-- Requires a valid Douyin `unique_id` string.
+- `unique_id` is the Douyin account ID, for example `dyczxzs`.
+- `id` and `core_user_id` are long numeric values returned as strings. Keep them as strings to avoid rounding.
+- Pass the returned `id` to [Douyin Xingtu Author Base Info](/apis/douyin/xingtu-v2/author-base-info) for fuller profile data.
+- Use [Douyin Xingtu Author Business Card Info](/apis/douyin/xingtu-v2/author-business-card-info) to get business card details for the same author.
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.002 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

@@ -63,9 +63,14 @@ Same call via the path form: `POST /v1/api/polymarket/value` with the body above
 
 ## Details
 
-Current USD value of a wallet's open positions, optionally limited to given markets.
+Returns the current USD value of a wallet's open positions on Polymarket. It needs a wallet address in `user`, and it can limit the total to specific markets with `condition`.
 
-Served from the Polymarket Data API v2. The result is returned in `outputs[0].data`: rows are under `data`, and paginated routes add `pagination.next_cursor` (pass it back as `cursor`).
+### Use cases
+
+- Track the total size of a trader's open Polymarket portfolio over time.
+- Rank a list of wallets by the current value of their open positions.
+- Check how much of a wallet's value sits in one market by passing that market's `condition_id`.
+- Show a portfolio balance next to a wallet's positions in a dashboard.
 
 ### Request
 
@@ -76,6 +81,8 @@ curl -X POST "https://api.sandbase.ai/v1/api/polymarket/value" \
   -d '{"user": "0xfe787d2da716d60e8acff57fb87eb13cd4d10319"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
@@ -83,13 +90,36 @@ curl -X POST "https://api.sandbase.ai/v1/api/polymarket/value" \
 | `user` | string | Yes | The wallet whose portfolio value to return. Required. |
 | `condition` | string | No | Comma-separated `condition_id`s (at most 20 distinct values); omit for the full portfolio. |
 
-### Reference
+### Example response
 
-- Official docs: https://docs.polymarket.com/api-reference/data-api/overview
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "data": {
+    "proxy_wallet": "0xfe787d2da716d60e8acff57fb87eb13cd4d10319",
+    "value": 185559.3014
+  }
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `data.proxy_wallet` | The wallet address the value belongs to. It matches the `user` you sent in this example. |
+| `data.value` | Current USD value of the wallet's open positions. It covers the full portfolio, or only the markets listed in `condition`. |
+
+### Notes
+
+- `user` is a wallet address in `0x` hex format.
+- `condition` takes up to 20 distinct `condition_id` values separated by commas. Leave it out to value the full portfolio.
+- To see which positions make up the value, call [Polymarket Wallet Positions](/apis/polymarket/positions).
+- To find `condition_id` values for markets, call [Polymarket List markets](/apis/polymarket/markets).
 
 ### Pricing
 
-Flat price per call. Failed calls are not charged.
+$0.012 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ---
 Machine-readable: [`catalog/models/polymarket/value.json`](../../../catalog/models/polymarket/value.json) · Store page: https://www.sandbase.ai/model/polymarket/value

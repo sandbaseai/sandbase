@@ -65,13 +65,14 @@ Same call via the path form: `POST /v1/api/douyin/web/home-feed` with the body a
 
 ## Details
 
-Retrieve video items from the Douyin web home feed using `refresh_index` for pagination and `count` for the batch size.
+This API returns a page of videos from the Douyin web home feed. It needs no input, and you can set `count` and `refresh_index` to control the batch size and the page.
 
 ### Use cases
 
-- Retrieve recommended videos from the Douyin home feed.
-- Paginate through web feed items for content discovery.
-- Inspect video bitrate and stream quality options for feed media.
+- Collect a sample of recommended Douyin videos with their captions and author IDs.
+- Page through the home feed by raising `refresh_index` to build a list of video IDs for later lookups.
+- Track which hashtags appear in feed captions by reading `desc` and `caption`.
+- Check which feed videos allow comments or sharing using the `aweme_control` flags.
 
 ### Request
 
@@ -82,6 +83,8 @@ curl -X POST "https://api.sandbase.ai/v1/api/douyin/web/home-feed" \
   -d '{}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
@@ -91,34 +94,91 @@ curl -X POST "https://api.sandbase.ai/v1/api/douyin/web/home-feed" \
 
 ### Example response
 
-Real response for the request above, trimmed to the main fields. User names and long IDs are masked.
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
 
 ```json
 {
   "aweme_list": [
     {
-      "video": {
-        "bit_rate": [
+      "ad_candidates": null,
+      "ai_follow_images": null,
+      "authentication_token": "MS4wLjAA…",
+      "author": {
+        "avatar_thumb": {
+          "height": 720,
+          "uri": "100x100/aweme-avatar/tos-cn-avt-0015_b0561efc1a4d84e5ec492deaac6c1f28",
+          "url_list": [
+            "https://p3-pc.douyinpic.com/aweme/100x100/aweme-avatar/tos-cn-avt-0015_b0561efc1…"
+          ],
+          "width": 720
+        },
+        "common_interest": null,
+        "cover_url": [
           {
-            "bit_rate": 808807,
-            "gear_name": "normal_1080_0",
-            "quality_type": 1
+            "height": 720,
+            "uri": "c8510002be9a3a61aad2",
+            "url_list": [
+              "https://p3-pc-sign.douyinpic.com/obj/c8510002be9a3a61aad2?lk3s=138a59ce&x-expire…"
+            ],
+            "width": 720
           }
-        ]
-      }
+        ],
+        "custom_verify": "",
+        "enterprise_verify_reason": "",
+        "follow_status": 0,
+        "follower_status": 0,
+        "is_ad_fake": false
+      },
+      "author_user_id": 3207689576654832,
+      "aweme_control": {
+        "can_comment": true,
+        "can_forward": true,
+        "can_share": true,
+        "can_show_comment": true
+      },
+      "aweme_id": "7674483865485987108",
+      "aweme_listen_struct": {
+        "trace_info": "{\"copyright_not_speech\":\"false\",\"copyright_reason\":\"not_intercept\",\"copyright_ta…"
+      },
+      "aweme_type": 0,
+      "can_cache_to_local": true,
+      "caption": "#原创动漫 #原创漫剧 #二次元 #甜文 #ai漫剧",
+      "chapter_abstract": ""
     }
-  ]
+  ],
+  "has_more": 1,
+  "log_pb": {
+    "impr_id": "2026110315322802C13721EFCFF357478D"
+  },
+  "status_code": 0
 }
 ```
 
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `aweme_list[]` | The list of feed items. Each item is one Douyin video. |
+| `aweme_list[].aweme_id` | The ID of the video, as a string. Use it to look up the video in other APIs. |
+| `aweme_list[].desc / aweme_list[].caption` | The video text. `desc` is the full description and `caption` is the hashtag line. |
+| `aweme_list[].create_time` | When the video was created, as a Unix timestamp in seconds. |
+| `aweme_list[].author_user_id` | The numeric user ID of the video author. |
+| `aweme_list[].author.avatar_thumb.url_list[]` | Links to the author's avatar image. |
+| `aweme_list[].aweme_control.can_comment / aweme_list[].aweme_control.can_share` | Flags that show whether comments and sharing are allowed on the video. |
+| `aweme_list[].chapter_list[]` | Chapter markers for the video, when present. Each has a `desc` title, a `timestamp` and an image `url`. |
+| `has_more` | Shows whether more items are available. The value `1` means you can request the next page. |
+| `log_pb.impr_id` | The impression ID of this feed request. |
+
 ### Notes
 
-- `refresh_index` starts at 0 and increments by 1 for each page.
-- `count` defaults to 10 and is recommended to remain unchanged.
+- Start with `refresh_index` set to `0` and add `1` for each next page.
+- Keep `count` at its default of `10`, as the parameter documentation recommends.
+- Some items have `null` for fields such as `chapter_list`, so check for null before you read them.
+- Pass an `aweme_id` to [Douyin Single Video Details (V1)](/apis/douyin/web/one-video) to get more detail on one video.
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

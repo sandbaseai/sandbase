@@ -57,13 +57,14 @@ Same call via the path form: `POST /v1/api/dataforseo/v3/content_analysis/summar
 
 ## Details
 
-Returns aggregated content metrics and performance indicators for content analysis workflows. Use this endpoint to inspect summary content analytics.
+Returns aggregated statistics about online content that mentions a keyword. The response covers sentiment counts, page types, countries, languages and content categories. It needs one input: `keyword`.
 
 ### Use cases
 
-- Review aggregated content statistics for competitive research.
-- Assess overall content volume and citation trends across topics.
-- Analyze high-level performance indicators for media coverage.
+- Compare how positive, neutral and negative the online content about a brand is.
+- Check which page types, such as news, blogs or ecommerce, mention a keyword most often.
+- See which countries and languages produce the most content about a topic.
+- Find the content categories that a brand or topic appears in.
 
 ### Request
 
@@ -74,17 +75,126 @@ curl -X POST "https://api.sandbase.ai/v1/api/dataforseo/v3/content_analysis/summ
   -d '{"keyword": "nike"}'
 ```
 
+The result is returned in `outputs[0]`.
+
 ### Parameters
 
-The JSON body is forwarded to the upstream endpoint (one task per call). Fields used above:
+| Name | Type | Required | Description |
+|---|---|---|---|
+| `keyword` | string | No | Search query. |
 
-| Name | Description |
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "status_code": 20000,
+  "status_message": "Ok.",
+  "tasks": [
+    {
+      "data": {
+        "api": "content_analysis",
+        "function": "summary",
+        "keyword": "nike"
+      },
+      "id": "11030828-2190-0464-0000-6d1e54caa56c",
+      "path": [
+        "v3"
+      ],
+      "result": [
+        {
+          "connotation_types": {
+            "negative": 1513464,
+            "neutral": 494208,
+            "positive": 1745224
+          },
+          "countries": {
+            "BR": 96008,
+            "DE": 106128,
+            "FR": 89168,
+            "GB": 118000,
+            "IN": 83352,
+            "IR": 51672,
+            "NL": 60472,
+            "US": 148608
+          },
+          "languages": {
+            "af": 28224,
+            "br": 11728,
+            "de": 50664,
+            "en": 2590960,
+            "es": 38952,
+            "fr": 32616,
+            "it": 13096,
+            "ja": 1189688
+          },
+          "page_categories": [
+            {
+              "category": null,
+              "count": 381568
+            }
+          ],
+          "page_types": {
+            "blogs": 233416,
+            "ecommerce": 2845640,
+            "message-boards": 66912,
+            "news": 922688,
+            "organization": 299064
+          },
+          "rank": 520,
+          "sentiment_connotations": {
+            "anger": 48,
+            "fun": 6592,
+            "happiness": 435160,
+            "love": 180360,
+            "sadness": 376,
+            "share": 14840
+          },
+          "text_categories": [
+            {
+              "category": null,
+              "count": 241760
+            }
+          ]
+        }
+      ],
+      "result_count": 1,
+      "status_code": 20000,
+      "status_message": "Ok.",
+      "time": "2.8243 sec."
+    }
+  ],
+  "tasks_count": 1,
+  "tasks_error": 0,
+  "time": "2.8336 sec.",
+  "version": "0.1.20261022"
+}
+```
+
+### Response fields
+
+| Field | Meaning |
 |---|---|
-| `keyword` | Search query. |
+| `tasks[].result[].connotation_types` | Counts of mentions by tone. The keys are `negative`, `neutral` and `positive`. |
+| `tasks[].result[].sentiment_connotations` | Counts of mentions by emotion type, such as `anger`, `happiness`, `love`, `fun`, `sadness` and `share`. |
+| `tasks[].result[].page_types` | Counts of mentions by type of page, such as `news`, `blogs`, `ecommerce`, `message-boards` and `organization`. |
+| `tasks[].result[].countries` | Counts of mentions by country. Keys are two-letter country codes such as `US` and `GB`. |
+| `tasks[].result[].languages` | Counts of mentions by language. Keys are language codes such as `en`, `ja` and `de`. |
+| `tasks[].result[].page_categories[].category / tasks[].result[].text_categories[].category` | A list of numeric category codes, or `null` when no category applies. The code list is not part of this response. |
+| `tasks[].result[].page_categories[].count / tasks[].result[].text_categories[].count` | Number of mentions that fall into the matching category. |
+| `tasks[].result[].rank` | A numeric rank value for the keyword's content. The response does not state its scale. |
+| `tasks[].result_count` | Number of result objects in the task. A summary call returns one. |
+
+### Notes
+
+- Pass the search term in the `keyword` parameter, for example `nike`.
+- Category values are numeric code lists such as `[10014, 13605, 13609]`. A `null` category groups content with no category.
+- The result object is nested under `tasks[].result[]`. Read the first item of each list.
 
 ### Pricing
 
-Billed at the actual cost of each call, about $0.024036 for the request above. The cost grows with the number of rows, targets or pages a call returns. Failed calls are not charged. Searches with no results are billed at their actual cost.
+Billed at the actual cost of each call, about $0.024036 for the request above. Failed calls are not charged.
 
 ### Related APIs
 

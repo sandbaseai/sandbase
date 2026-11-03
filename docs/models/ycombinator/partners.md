@@ -58,7 +58,14 @@ Same call via the path form: `POST /v1/api/ycombinator/partners` with the body a
 
 ## Details
 
-List all current YC Partners. Returns partner profiles with name, slug, title, short bio, and photo URLs.
+This API returns the list of current Y Combinator (YC) Partners. Each entry has a name, slug, title, short bio, and photo URLs. It takes no input.
+
+### Use cases
+
+- Build a directory of current YC Partners with photos and bios.
+- Match a founder's background to the Partner whose bio and company history look closest.
+- Track changes in the Partner roster by comparing `slug` values between calls.
+- Fetch each Partner's `slug` to look up their full profile with a person detail call.
 
 ### Request
 
@@ -69,15 +76,53 @@ curl -X POST "https://api.sandbase.ai/v1/api/ycombinator/partners" \
   -d '{}'
 ```
 
-This API runs asynchronously. The call returns a task `id` with status `pending`; poll `GET https://api.sandbase.ai/v1/run/{id}` until `status` is `completed` and read the result from `outputs[0].data`.
+The result is returned in `outputs[0].data`.
 
-### Parameters
+### Example response
 
-This API takes no parameters.
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "data": {
+    "partners": [
+      {
+        "batchPhoto": "https://bookface-static.ycombinator.com/assets/ycdc/partners/garry-tan-batch-com…",
+        "bio": "Co-founder of Posterous (acquired by Twitter) and Initialized Capital. Early eng…",
+        "name": "Garry Tan",
+        "photo": "https://bookface-static.ycombinator.com/assets/ycdc/partners/garry-tan-now-compr…",
+        "slug": "garry-tan",
+        "title": "Posterous, S08",
+        "url": "/people/garry-tan"
+      }
+    ]
+  },
+  "status": "success"
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `data.partners[].name` | Full name of the Partner. |
+| `data.partners[].slug` | URL-style identifier for the Partner, such as `garry-tan`. Use it as a stable key. |
+| `data.partners[].title` | The company and YC batch tied to the Partner, such as `Posterous, S08`. The format is company name, then batch code. |
+| `data.partners[].bio` | Short text on the Partner's background, including past companies and roles. |
+| `data.partners[].photo` | URL of the Partner's current photo. |
+| `data.partners[].batchPhoto` | URL of a photo of the Partner from their own batch. |
+| `data.partners[].url` | Relative path to the Partner's profile page on the YC site, such as `/people/garry-tan`. |
+
+### Notes
+
+- The call takes no parameters. Send an empty JSON object `{}`.
+- The response returns all Partners in one list. There is no pagination.
+- The `url` value is a relative path. The `slug` matches the last part of that path.
+- For a fuller profile of one Partner, try [Y Combinator Person Detail](/apis/ycombinator/person-detail).
 
 ### Pricing
 
-Flat price per call. Failed calls are not charged.
+$0.01 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ---
 Machine-readable: [`catalog/models/ycombinator/partners.json`](../../../catalog/models/ycombinator/partners.json) · Store page: https://www.sandbase.ai/model/ycombinator/partners

@@ -64,13 +64,14 @@ Same call via the path form: `POST /v1/api/kuaishou/app/user-post-v2` with the b
 
 ## Details
 
-Retrieve posted video feeds for a specific Kuaishou account by passing the `user_id`. Supports sorting by post recency or popularity alongside cursor pagination.
+Returns a list of videos posted by one Kuaishou user, with captions, engagement counts, duration, cover images and author avatar URLs. It needs the user's `user_id`, and you can sort by `latest` or `hot`.
 
 ### Use cases
 
-- Track recent video uploads from specific Kuaishou creators.
-- Analyze engagement metrics such as comments and saves across a creator profile.
-- Sort and display an author top-performing video content.
+- Track new uploads from a Kuaishou creator by polling the `latest` sort.
+- Compare `like_count`, `comment_count` and `collect_count` across one creator's videos.
+- Collect cover image URLs and captions to build a gallery of a creator's posts.
+- Pull a creator's top videos with `sort` set to `hot`.
 
 ### Request
 
@@ -81,59 +82,139 @@ curl -X POST "https://api.sandbase.ai/v1/api/kuaishou/app/user-post-v2" \
   -d '{"user_id": "3795214411"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
 |---|---|---|---|
-| `user_id` | string | Yes | — |
-| `sort` | string | No | Sort type, latest (default) / hot. |
+| `user_id` | string | Yes |  |
 | `pcursor` | string | No | Video cursor, empty for the first request, and use the pcursor value in the returned response for subsequent requests. |
+| `sort` | string | No | Sort type, latest (default) / hot. |
 
 ### Example response
 
-Real response for the request above, trimmed to the main fields. User names and long IDs are masked.
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
 
 ```json
 {
   "feeds": [
     {
-      "caption": "听说你还在搞什么原创 #李秀妍u #喜爱度激励计划 #素颜",
-      "captionToComment": "听说你还在搞什么原创 #李秀妍u #喜爱度激励计划 #素颜",
-      "collect_count": 11,
-      "comment_count": 6,
-      "disableCommentDislike": false,
-      "duration": 11616,
-      "exp_tag": "1_i/2010168907973245329_p0",
-      "fastCommentType": 1,
-      "following": 0,
-      "forward_count": 0,
+      "adminTags": [],
       "bottomEntryInfo": {
-        "bottomBizType": 14
+        "bizExtraData": {},
+        "bottomBizType": 14,
+        "bottomStyleInfo": {
+          "bottomStrongStyle": {
+            "actionUrl": "",
+            "backgroundColor": "",
+            "bottomStrongStyleType": 0,
+            "enableForceClose": false,
+            "fontColor": "",
+            "fontSize": 0,
+            "iconHeight": 0,
+            "iconUrl": ""
+          },
+          "bottomWeakStyle": {
+            "actionUrl": "kwai://search?keyword=李秀妍&sessionId=MzIwXzBfMTc5MzY5MTM3MTM2Nl9fODE5OA&source=se…",
+            "backgroundColor": "#444444",
+            "bottomWeakStyleType": 0,
+            "enableForceClose": false,
+            "fontColor": "#FFFFFF",
+            "fontSize": 13,
+            "iconHeight": 48,
+            "iconRightMargin": 4.0
+          },
+          "delayShowWeakStyle": false,
+          "playVideoEndToStrongMillis": 0,
+          "showStrongVideoCountdownMillis": 0,
+          "showStrongVideoMillis": 0,
+          "strongStyleCloseHideWeakStyle": false,
+          "styleTriggers": []
+        },
+        "eventTrackData": {
+          "all_source": "p2q_semantic_recall_v8,p2q_semantic_recall_v4,p2q_recall_exp_v16,p2q_recall_exp_…",
+          "entry_source": "search_entrance_featured_bottom_bar_profile",
+          "is_hotbar": "\u0000",
+          "query_id": "b2cff3d98343317003b3003769567d54",
+          "query_list_id": "MzIwXzBfMTc5MzY5MTM3MTM2Nl9fODE5OA",
+          "query_name": "李秀妍",
+          "rel_score": "0.059634",
+          "stg_recall_source": "p2q_recall_exp_v12"
+        }
       },
+      "canShowQuickCommentGuide": true,
+      "caption": "#李秀妍u #刘屹琦 #喜爱度激励计划",
+      "captionToComment": "#李秀妍u #刘屹琦 #喜爱度激励计划",
+      "collect_count": 9,
       "commentGuessSearch": {
-        "searchWord": "李秀妍素颜照片",
-        "searchWordMD5": "910267cc9d85ae9b8468fe979ef7cc28",
-        "searchWordUrl": "kwai://search?keyword=李秀妍素颜照片&sessionId=MzIwXzBfMTc5MTI5MDQ5OTMwMV9fNzU4Ng&source=search_…"
+        "displayPrefix": "相关搜索：",
+        "extParams": "{\"all_source\":\"p2q_semantic_recall_v8,p2q_semantic_recall_v4,p2q_recall_exp_v16,…",
+        "iconUrl": "https://ali2.a.kwimgs.com/udata/pkg/se-cdn/search_blue3x.png",
+        "searchWord": "李秀妍",
+        "searchWordMD5": "b2cff3d98343317003b3003769567d54",
+        "searchWordUrl": "kwai://search?keyword=李秀妍&sessionId=MzIwXzBfMTc5MzY5MTM3MTM2Nl9fODE5OA&source=se…",
+        "sessionId": "MzIwXzBf…"
       },
-      "ext_params": {
-        "mtype": 3
+      "commentInfo": {
+        "commentEducationGuide": {
+          "guideType": 0,
+          "triggerCharCount": 0
+        },
+        "enableAIPresetGuide": false,
+        "permissions": 191
       },
-      "photoAreaInfo": {
-        "areaName": "发布于湖南"
+      "commentTopBarPriority": [
+        {
+          "bizType": "PLC",
+          "subBizType": "51"
+        }
+      ],
+      "comment_count": 2,
+      "contactRelationFriend": false,
+      "coronaCaption": {
+        "captionSource": 1,
+        "detailCaption": {
+          "caption": "#李秀妍u #刘屹琦 #喜爱度激励计划",
+          "captionSource": 1,
+          "tagClickable": false
+        },
+        "tabCaption": "#李秀妍u #刘屹琦 #喜爱度激励计划"
       }
     }
-  ]
+  ],
+  "host-name": "public-bjx-c26-kce-node1143.idchb1az1.hb1.kwaidc.com",
+  "isUnfollowFeeds": false,
+  "llsid": "2010240768896749585",
+  "pcursor": "1.789836380852E12",
+  "result": 1
 }
 ```
 
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `feeds[]` | One posted video. The list holds one entry per video on the page. |
+| `feeds[].caption` | Caption text of the video, including hashtags. |
+| `feeds[].like_count / feeds[].comment_count / feeds[].collect_count / feeds[].forward_count` | Counts of likes, comments, saves and shares for the video. |
+| `feeds[].duration` | Length of the video. The value `28266` suggests milliseconds, but the response does not state the unit. |
+| `feeds[].ext_params.w / feeds[].ext_params.h` | Width and height of the video. |
+| `feeds[].cover_thumbnail_urls[].url` | Cover image URL for the video. Each entry lists the `cdn` host it is served from. |
+| `feeds[].headurls[].url` | Avatar image URL of the posting user. Each entry lists the `cdn` host. |
+| `feeds[].exp_tag` | Tag string for the item. It contains an ID with a `_p0` suffix. |
+| `feeds[].liked / feeds[].following` | Flags for whether the current viewer liked the video or follows the author. Both are `0` in this response. |
+
 ### Notes
 
-- Set `sort` to 'latest' (default) or 'hot' to order the returned feeds.
-- Leave `pcursor` empty on the initial call and use the returned `pcursor` value for subsequent pages.
+- Leave `pcursor` empty on the first call. For later pages, pass the `pcursor` value from the previous response.
+- `sort` accepts `latest` (default) or `hot`.
+- To find a `user_id` from a name, try [Kuaishou User Search (V2)](/apis/kuaishou/app/search-user-v2).
+- For a creator's profile details, call [Kuaishou Single User Data (V2)](/apis/kuaishou/app/one-user-v2).
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.01 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

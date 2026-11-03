@@ -66,13 +66,14 @@ Same call via the path form: `POST /v1/api/douyin/billboard/hot-category-list` w
 
 ## Details
 
-Retrieve category IDs and popularity data for Douyin hot lists by specifying `billboard_type`. You can also filter categories by `keyword` or snapshot time frames.
+Returns a list of Douyin hot list categories for a given billboard type, with a category label, a count, and numeric category IDs. It needs one input, `billboard_type` (for example `rise`). You can narrow results with `keyword`, `snapshot_time`, or a `start_date` and `end_date` range.
 
 ### Use cases
 
-- Track popularity metrics across various Douyin hot list categories.
-- Filter category trends by snapshot date ranges and specific keywords.
-- Identify high-performing Douyin billboard categories for content research.
+- Pull the category labels and IDs for the `rise` billboard to build a category filter for other billboard calls.
+- Compare the `num` counts across categories such as food and travel to see which categories have more entries.
+- Run the call with different `snapshot_time` values to compare how the category list looks at different times.
+- Search a `keyword` to check which categories a hot search term falls under.
 
 ### Request
 
@@ -83,24 +84,61 @@ curl -X POST "https://api.sandbase.ai/v1/api/douyin/billboard/hot-category-list"
   -d '{"billboard_type": "rise"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
 |---|---|---|---|
 | `billboard_type` | string | Yes | Billboard type |
-| `keyword` | string | No | Hot search term |
 | `end_date` | string | No | Snapshot end time |
-| `start_date` | string | No | Snapshot start time |
+| `keyword` | string | No | Hot search term |
 | `snapshot_time` | string | No | Snapshot time |
+| `start_date` | string | No | Snapshot start time |
+
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "code": 0,
+  "data": [
+    {
+      "label": "美食",
+      "num": 74,
+      "value": [
+        9000
+      ]
+    }
+  ],
+  "extra": {
+    "now": 1793691107000
+  },
+  "message": ""
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `data[].label` | Category name in Chinese, for example `美食` (food) or `旅行` (travel). |
+| `data[].num` | A count for the category. Larger numbers appear for broader categories, such as 326 for `站内玩法`. |
+| `data[].value[]` | List of numeric category IDs for this label. Most labels have one ID, and some have several, such as `1004`, `1000` and `1002`. |
+| `code / message` | `code` is `0` on success. `message` is an empty string in this response. |
+| `extra.now` | Server time of the response as a Unix timestamp in milliseconds. |
 
 ### Notes
 
-- The `billboard_type` parameter is required.
-- Time filters can be applied using `snapshot_time` or a range with `start_date` and `end_date`.
+- `billboard_type` is the only required parameter. The example uses `rise`.
+- Time filters are `snapshot_time` for a single snapshot, or `start_date` and `end_date` for a range.
+- The response is a single list with no pagination fields.
+- For the rising search items themselves, see [Douyin Rising Hot Search List](/apis/douyin/billboard/hot-rise-list).
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

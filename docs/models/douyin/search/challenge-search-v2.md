@@ -83,13 +83,14 @@ Same call via the path form: `POST /v1/api/douyin/search/challenge-search-v2` wi
 
 ## Details
 
-Search Douyin hashtags and challenges using `keyword` alongside multiple filtering parameters. Use `cursor`, `search_id`, and `backtrace` to paginate through consecutive batches of results.
+Returns Douyin hashtag and challenge search results for a `keyword`. Each result card holds the hashtag name, its challenge ID and the account linked to it. The API also returns the values needed to request the next page.
 
 ### Use cases
 
-- Look up trending hashtag challenges across Douyin.
-- Filter challenge search results by video duration and post date.
-- Track content associated with specific campaign keywords.
+- Find Douyin hashtags that match a topic keyword, such as a pet or product term.
+- Collect `cid` values for hashtags to use in other Douyin hashtag lookups.
+- Compare spelling variants of one topic, such as simplified and traditional Chinese hashtag names.
+- Page through all hashtag matches for a campaign keyword and store the names.
 
 ### Request
 
@@ -100,43 +101,149 @@ curl -X POST "https://api.sandbase.ai/v1/api/douyin/search/challenge-search-v2" 
   -d '{}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
 |---|---|---|---|
-| `cursor` | integer | No | Pagination cursor (0 for first request) |
-| `keyword` | string | No | Search keyword, e.g., "game" |
 | `backtrace` | string | No | Backtrace for pagination, obtained from the last response |
+| `content_type` | string | No | Content type filter |
+| `cursor` | integer | No | Pagination cursor (0 for first request) |
+| `filter_duration` | string | No | Video duration filter |
+| `keyword` | string | No | Search keyword, e.g., "game" |
+| `publish_time` | string | No | Publish time filter |
 | `search_id` | string | No | Search ID for pagination |
 | `sort_type` | string | No | Sorting method |
-| `content_type` | string | No | Content type filter |
-| `publish_time` | string | No | Publish time filter |
-| `filter_duration` | string | No | Video duration filter |
 
 ### Example response
 
-Real response for the request above, trimmed to the main fields. User names and long IDs are masked.
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
 
 ```json
 {
+  "business_config": {
+    "ad_info": null,
+    "card_count": 19,
+    "extra": {
+      "is_filter_search": 0,
+      "req_start_ts": 1793691135037
+    },
+    "extra_fresh_struct": null,
+    "feedback": null,
+    "feelgood_msg": {},
+    "filter_bar": null,
+    "has_more": 1,
+    "is_filter_search": 0,
+    "keyword": "猫咪",
+    "next_page": {
+      "cursor": 20,
+      "keyword": "猫咪",
+      "poi_search_info": "",
+      "search_id": "202611031532142BE6991D1648F635C376",
+      "search_request_id": "202611031532142BE6991D1648F635C376"
+    },
+    "poi_search_info": ""
+  },
   "business_data": [
     {
       "card_id": "douyin.doctype_aweme_hashtag",
+      "data": {
+        "challenge_info": {
+          "author": {
+            "accept_private_policy": false,
+            "account_region": "",
+            "ad_cover_url": null,
+            "allow_story_normal_like": false,
+            "apple_account": 0,
+            "authority_status": 0,
+            "avatar_168x168": {
+              "height": 720,
+              "uri": "168x168/aweme-avatar/tos-cn-avt-0015_8f9c89c85921da89d4026411d3fd5864",
+              "url_list": [
+                "https://p3.douyinpic.com/img/aweme-avatar/tos-cn-avt-0015_8f9c89c85921da89d40264…"
+              ],
+              "width": 720
+            },
+            "avatar_300x300": {
+              "height": 720,
+              "uri": "300x300/aweme-avatar/tos-cn-avt-0015_8f9c89c85921da89d4026411d3fd5864",
+              "url_list": [
+                "https://p3.douyinpic.com/img/aweme-avatar/tos-cn-avt-0015_8f9c89c85921da89d40264…"
+              ],
+              "width": 720
+            }
+          },
+          "banner_list": null,
+          "cha_attrs": null,
+          "cha_name": "猫咪",
+          "challenge_status": 1,
+          "cid": "1562727459956738",
+          "collect_stat": 0,
+          "connect_music": []
+        },
+        "items": null,
+        "position": null
+      },
       "data_id": "0",
+      "log": {},
       "type": 2
     }
-  ]
+  ],
+  "extra": {
+    "device_score": 0,
+    "fatal_item_ids": [],
+    "logid": "202611031532142BE6991D1648F635C376",
+    "now": 1793691135000,
+    "scenes": null,
+    "search_request_id": ""
+  },
+  "global_config": {
+    "hidden_filter": false
+  },
+  "log": {
+    "impr_id": "202611031532142BE6991D1648F635C376",
+    "search_id": "202611031532142BE6991D1648F635C376",
+    "search_keyword": "猫咪"
+  },
+  "log_pb": {
+    "impr_id": "202611031532142BE6991D1648F635C376",
+    "stab_extra": {
+      "traffic_identification": "normal"
+    }
+  },
+  "status_code": 0,
+  "time_cost": {
+    "stream_inner": 308
+  }
 }
 ```
 
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `business_data[].data.challenge_info.cha_name` | Name of the hashtag or challenge, without the leading # symbol. |
+| `business_data[].data.challenge_info.cid` | Challenge ID of the hashtag, returned as a string. |
+| `business_data[].data.challenge_info.challenge_status` | Status code of the challenge. The value is `1` for every result in this sample. |
+| `business_data[].data.challenge_info.author.avatar_168x168 / business_data[].data.challenge_info.author.avatar_300x300` | Avatar images of the account linked to the challenge. Each has `url_list` with image URLs, plus `width` and `height`. |
+| `business_data[].card_id` | Card type label. Hashtag results use `douyin.doctype_aweme_hashtag`. |
+| `business_data[].data_id` | Position index of the card in the result list, returned as a string. |
+| `business_config.has_more` | Shows whether more results exist. The value `1` means another page is available. |
+| `business_config.next_page.cursor` | Cursor value to send as `cursor` in the next request. |
+| `business_config.next_page.search_id / log.search_id` | ID of this search. Send it as `search_id` when you request the next page. |
+| `status_code` | Status of the response. `0` appears on a successful call. |
+
 ### Notes
 
-- Set `cursor` to 0 for the initial search request.
-- Pass `search_id` and `backtrace` from the previous response to retrieve the next page of results.
+- Send `cursor` as `0` for the first page. For the next page, send the `cursor` and `search_id` from `business_config.next_page`.
+- No `backtrace` value appears in this response. Leave it empty unless a response returns one.
+- Use the `cid` of a result to look up a hashtag with [Douyin Hashtag Details](/apis/douyin/app-v3/hashtag-detail) or list its videos with [Douyin Hashtag Video List](/apis/douyin/app-v3/hashtag-video-list).
+- `business_data[].data.items` was `null` in this sample, so the cards carry no videos.
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.01 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

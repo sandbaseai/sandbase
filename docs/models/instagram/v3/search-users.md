@@ -63,13 +63,14 @@ Same call via the path form: `POST /v1/api/instagram/v3/search-users` with the b
 
 ## Details
 
-Search for Instagram user accounts using `query` to return matching profile summaries and basic account information.
+Searches Instagram accounts that match a keyword and returns a list of matching user summaries. Each entry has the account ID, username, full name, verification and privacy flags, and a profile picture URL. The only required input is `query`.
 
 ### Use cases
 
-- Discover Instagram user profiles matching brand names or keywords.
-- Retrieve account identifiers and usernames for profile lookup workflows.
-- Navigate through multiple pages of search results using rank tokens.
+- Find the official Instagram account for a brand by searching its name and checking `is_verified`.
+- Build a list of candidate accounts for a keyword to review for influencer or competitor research.
+- Collect account IDs from a name search to pass to profile, posts or followers APIs.
+- Filter out private accounts before you plan further lookups, using `is_private`.
 
 ### Request
 
@@ -80,6 +81,8 @@ curl -X POST "https://api.sandbase.ai/v1/api/instagram/v3/search-users" \
   -d '{"query": "openai"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
@@ -89,28 +92,62 @@ curl -X POST "https://api.sandbase.ai/v1/api/instagram/v3/search-users" \
 
 ### Example response
 
-Real response for the request above, trimmed to the main fields. User names and long IDs are masked.
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
 
 ```json
 {
+  "_rid": "3a2645473ed1f",
+  "count": 30,
   "items": [
     {
       "full_name": "OpenAI",
       "id": "45374573700",
-      "profile_pic_url": "https://instagram.flas1-2.fna.fbcdn.net/v/t51.82787-19/788716177_181152562645177…",
-      "username": "<user>"
+      "is_private": false,
+      "is_verified": true,
+      "pk": "45374573700",
+      "profile_pic_url": "https://scontent-lga3-3.cdninstagram.com/v/t51.82787-19/788716177_18115256264517…",
+      "username": "openai"
+    }
+  ],
+  "rank_token": null,
+  "users": [
+    {
+      "full_name": "OpenAI",
+      "id": "45374573700",
+      "is_private": false,
+      "is_verified": true,
+      "pk": "45374573700",
+      "profile_pic_url": "https://scontent-lga3-3.cdninstagram.com/v/t51.82787-19/788716177_18115256264517…",
+      "username": "openai"
     }
   ]
 }
 ```
 
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `items[]` | Matching user accounts for the query. The `users` list holds the same entries. |
+| `count` | Number of results returned in this response. |
+| `items[].username` | The account handle, such as `openai`. |
+| `items[].full_name` | The display name shown on the profile. |
+| `items[].id / items[].pk` | The numeric account ID as a string. Both keys hold the same value in the sample. |
+| `items[].is_verified` | `true` when the account carries a verified badge. |
+| `items[].is_private` | `true` when the account is private. |
+| `items[].profile_pic_url` | URL of a small profile picture for the account. |
+| `rank_token` | Token for the next page of results. It is `null` in this response. |
+
 ### Notes
 
-- Pass `rank_token` from a prior response to handle pagination.
+- Search by brand or person name, then match on `username` and `is_verified` to pick the right account.
+- For pagination, pass the `rank_token` from a previous response as `rank_token` in the next request.
+- Use the `id` value with [Instagram User Profile (V3)](/apis/instagram/v3/user-profile) or [Instagram User Posts (V3)](/apis/instagram/v3/user-posts) to get more detail on an account.
+- To find accounts related to one you already have, try [Instagram Similar Users (V3)](/apis/instagram/v3/similar-users).
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.008 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

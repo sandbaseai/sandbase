@@ -63,13 +63,14 @@ Same call via the path form: `POST /v1/api/threads/web/user-posts` with the body
 
 ## Details
 
-Fetch posts for a target account using `user_id`. You can navigate multi-page timelines by providing an `end_cursor`.
+Returns a list of text posts from a Threads account. It needs the numeric `user_id` of the account and takes an optional `end_cursor` to fetch the next page.
 
 ### Use cases
 
-- Retrieve historical posts from a specific Threads profile.
-- Page through account activity feeds using pagination tokens.
-- Collect post content and metadata for social media monitoring.
+- Pull the latest posts from a news or brand account on Threads.
+- Archive the caption text and short codes of an account's posts for later review.
+- Track which links a publisher shares by reading the caption text of each post.
+- Page through an account's older posts by passing the cursor from the previous response.
 
 ### Request
 
@@ -80,6 +81,8 @@ curl -X POST "https://api.sandbase.ai/v1/api/threads/web/user-posts" \
   -d '{"user_id": "63625256886"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
@@ -87,14 +90,83 @@ curl -X POST "https://api.sandbase.ai/v1/api/threads/web/user-posts" \
 | `user_id` | string | Yes | User ID, for example: 63625256886, can be obtained from user profile API |
 | `end_cursor` | string | No | Pagination cursor (optional), used to get next page data |
 
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "mediaData": {
+    "edges": [
+      {
+        "__typename": "XDTUserTextPostsResponseEdge",
+        "cursor": "",
+        "node": {
+          "__typename": "XDTThread",
+          "id": "4022095224599806479",
+          "thread_header_context": null,
+          "thread_items": [
+            {
+              "__typename": "XDTThreadItem",
+              "line_type": "none",
+              "post": {
+                "accessibility_caption": "How NATO states on the Black Sea are being drawn into Ukraine war escalation",
+                "audio": null,
+                "caption": {
+                  "has_translation": null,
+                  "pk": "18121968424969344",
+                  "text": "How NATO states on the Black Sea are being drawn into Ukraine war escalation reu…"
+                },
+                "caption_add_on": null,
+                "caption_is_edited": false,
+                "carousel_media": null,
+                "code": "DfRWkv7EQIP",
+                "gen_ai_detection_method": {
+                  "detection_method": "NONE"
+                }
+              },
+              "should_show_ephemeral_post_timer": null
+            }
+          ],
+          "thread_type": "thread"
+        }
+      }
+    ],
+    "page_info": {
+      "end_cursor": null,
+      "has_next_page": false,
+      "has_previous_page": false,
+      "start_cursor": null
+    }
+  }
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `mediaData.edges[]` | One entry per thread in the account's post list. |
+| `mediaData.edges[].node.id` | ID of the thread, returned as a string. |
+| `mediaData.edges[].node.thread_type` | Type of the thread. The sample value is `thread`. |
+| `mediaData.edges[].node.thread_items[].post.caption.text` | Text of the post. Long text may be cut, and links appear as short URLs. |
+| `mediaData.edges[].node.thread_items[].post.caption.pk` | Numeric ID of the caption, returned as a string. |
+| `mediaData.edges[].node.thread_items[].post.code` | Short code of the post. It is the code that identifies the post on Threads. |
+| `mediaData.edges[].node.thread_items[].post.accessibility_caption` | Alt-text style description of the post. It is `null` when none is set. |
+| `mediaData.edges[].node.thread_items[].post.caption_is_edited` | `true` if the caption was edited after posting. |
+| `mediaData.page_info.has_next_page` | `true` if more posts are available on another page. |
+| `mediaData.page_info.end_cursor` | Cursor for the next page. It is `null` when there is no further page. |
+
 ### Notes
 
-- `user_id` can be obtained from the user profile API.
-- `end_cursor` is used to navigate to the next page of results.
+- Get `user_id` from [Threads User Profile](/apis/threads/web/user-info). The example value is `63625256886`.
+- To get the next page, send the `end_cursor` from `mediaData.page_info` as the `end_cursor` parameter. In the sample response it is `null` and `has_next_page` is `false`.
+- For details on a single post, call [Threads Post Detail](/apis/threads/web/post-detail).
+- To see what an account replied to others, use [Threads User Replies](/apis/threads/web/user-replies).
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.002 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

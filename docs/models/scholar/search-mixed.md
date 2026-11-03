@@ -67,13 +67,14 @@ Same call via the path form: `POST /v1/api/scholar/search-mixed` with the body a
 
 ## Details
 
-Search for academic and web materials using `query`. You can also filter publication dates with `as_ylo` and `as_yhi`.
+Returns a list of scholarly search results for a text query. Each result has a title, a link, a snippet, the author list and a citation count. The only required input is `query`, and you can narrow results by publication year or cap the number of results.
 
 ### Use cases
 
-- Find academic papers and scholarly articles by topic.
-- Filter scholarly search results within specific publication years.
-- Retrieve relevant research paper links and snippets for automated review.
+- Build a reading list of papers on a topic by collecting titles and links.
+- Rank papers on a subject by `number_of_citations` to find the most cited work.
+- Limit a literature search to a set of years with `as_ylo` and `as_yhi`.
+- Pull snippets and author names into a tool that screens papers before full review.
 
 ### Request
 
@@ -83,6 +84,8 @@ curl -X POST "https://api.sandbase.ai/v1/api/scholar/search-mixed" \
   -H "Content-Type: application/json" \
   -d '{"query": "OpenAI"}'
 ```
+
+The result is returned in `outputs[0].data`.
 
 ### Parameters
 
@@ -95,28 +98,46 @@ curl -X POST "https://api.sandbase.ai/v1/api/scholar/search-mixed" \
 
 ### Example response
 
-Real response for the request above, trimmed to the main fields. User names and long IDs are masked.
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
 
 ```json
 {
+  "id": "IIWUPXGJyZoQBlkCNCM7ew",
   "results": [
     {
+      "authors": [
+        "KI Roumeliotis"
+      ],
       "link": "https://www.mdpi.com/1999-5903/15/6/192",
-      "snippet": "According to numerous reports, ChatGPT represents a significant breakthrough in the field…",
+      "number_of_citations": 1215,
+      "snippet": "According to numerous reports, ChatGPT represents a significant breakthrough in …",
       "title": "Chatgpt and open-ai models: A preliminary review"
     }
   ]
 }
 ```
 
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `id` | Identifier of this search response. |
+| `results[]` | List of matching scholarly results, one object per result. |
+| `results[].title` | Title of the paper or article. |
+| `results[].link` | URL of the page where the result is hosted, such as a journal site or arXiv. |
+| `results[].authors[]` | Author names as shown in the result, often with first names shortened to initials. |
+| `results[].number_of_citations` | Number of citations listed for the result. |
+| `results[].snippet` | Short text excerpt from the result. Some results do not include it. |
+
 ### Notes
 
-- `max_num_results` accepts a value up to 100.
-- Use `as_ylo` and `as_yhi` to specify lower and upper bounds for publication years.
+- Send `query` as free text. Optional inputs are `max_num_results` (1 to 100), `as_ylo` and `as_yhi` (years from 1900 to 2030).
+- The `snippet` key is missing from some results, so check for it before reading it.
+- For other search styles, see [Scholar Search (Google Scholar)](/apis/scholar/search-scholar) or [Scholar Web Search](/apis/scholar/search-web).
 
 ### Pricing
 
-Flat price per call. Failed calls are not charged.
+$0.0036 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ---
 Machine-readable: [`catalog/models/scholar/search-mixed.json`](../../../catalog/models/scholar/search-mixed.json) · Store page: https://www.sandbase.ai/model/scholar/search-mixed

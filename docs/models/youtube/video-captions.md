@@ -64,9 +64,14 @@ Same call via the path form: `POST /v1/api/youtube/video-captions` with the body
 
 ## Details
 
-Get available caption tracks for a YouTube video or request captions in SRT, XML, JSON3, or plain-text format. Use it to support transcription, accessibility, localization, or text analysis.
+This API returns the caption tracks available for a YouTube video. It needs a `videoId`. If you also pass `languageCode`, it returns the captions for that language in the format you set with `format`.
 
-The response is the platform's original data structure.
+### Use cases
+
+- List which caption languages a video offers before you decide what to download.
+- Check whether a video has English captions before you queue it for transcription.
+- Build a language picker for a video player or localization tool from the track list.
+- Collect caption text in `srt`, `xml`, `json3`, or `txt` format for text analysis.
 
 ### Request
 
@@ -77,17 +82,51 @@ curl -X POST "https://api.sandbase.ai/v1/api/youtube/video-captions" \
   -d '{"videoId": "dQw4w9WgXcQ"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
 |---|---|---|---|
 | `videoId` | string | Yes | The unique identifier for a YouTube video. |
-| `languageCode` | string | No | Caption language code, such as en, zh-Hans, or a.en. Leave it empty to retrieve available caption tracks. |
 | `format` | string | No | Caption output format. |
+| `languageCode` | string | No | Caption language code, such as en, zh-Hans, or a.en. Leave it empty to retrieve available caption tracks. |
+
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "captions": [
+    {
+      "language_code": "en",
+      "language_name": "English"
+    }
+  ],
+  "video_id": "dQw4w9WgXcQ"
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `video_id` | The ID of the video the caption tracks belong to. It matches the `videoId` you sent. |
+| `captions[]` | One entry for each caption track available for the video. |
+| `captions[].language_code` | The code for the track language, such as `en`, `de`, or `ja`. Pass this value as `languageCode` to request the captions for that track. |
+| `captions[].language_name` | The language name for the track in English, such as `English` or `German`. |
+
+### Notes
+
+- Send only `videoId` to get the list of tracks. Add `languageCode` to request the caption content.
+- `format` accepts `srt`, `xml`, `json3`, or `txt`. The default is `srt`.
+- Get the `videoId` from a video URL, or from [YouTube Search](/apis/youtube/search) or [YouTube Channel Videos](/apis/youtube/channel-videos).
+- For a transcript endpoint, see [YouTube Video Transcript](/apis/youtube/video-transcript).
 
 ### Pricing
 
-Flat price per call. Failed calls and empty results are not charged.
+$0.014286 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ---
 Machine-readable: [`catalog/models/youtube/video-captions.json`](../../../catalog/models/youtube/video-captions.json) · Store page: https://www.sandbase.ai/model/youtube/video-captions

@@ -58,13 +58,14 @@ Same call via the path form: `POST /v1/api/dataforseo/v3/domain_analytics/techno
 
 ## Details
 
-Provides aggregated technology metrics and analytics across web domains. Useful for tracking market share and technology adoption patterns across the web.
+Returns aggregated counts for a web technology, such as Nginx, across the domains tracked in the technology index. Each row shows the technology, its category and group, and how many domains match. It needs a `technology` name as input.
 
 ### Use cases
 
-- Analyze technology adoption trends across domains.
-- Benchmark web framework and CMS market share.
-- Evaluate competitor technology stack distribution.
+- Compare how many domains run Nginx against other web servers like OpenResty.
+- Measure the size of a technology's footprint before choosing which platform to build an integration for.
+- Find which technologies are listed in the same category as a competitor's tool.
+- Pull the group and category of a technology to sort a list of tools into a taxonomy.
 
 ### Request
 
@@ -75,18 +76,90 @@ curl -X POST "https://api.sandbase.ai/v1/api/dataforseo/v3/domain_analytics/tech
   -d '{"technology": "Nginx", "limit": 5}'
 ```
 
+The result is returned in `outputs[0]`.
+
 ### Parameters
 
-The JSON body is forwarded to the upstream endpoint (one task per call). Fields used above:
+| Name | Type | Required | Description |
+|---|---|---|---|
+| `limit` | integer | No | Maximum number of results (up to 100). |
+| `technology` | string | No | Technology name, e.g. "Nginx". |
 
-| Name | Description |
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "status_code": 20000,
+  "status_message": "Ok.",
+  "tasks": [
+    {
+      "data": {
+        "api": "domain_analytics",
+        "function": "aggregation_technologies",
+        "limit": 5,
+        "se": "technologies",
+        "technology": "Nginx"
+      },
+      "id": "11030829-1614-0491-0000-1db00da91ee0",
+      "path": [
+        "v3"
+      ],
+      "result": [
+        {
+          "items": [
+            {
+              "categories_count": 51252780,
+              "category": "web_servers",
+              "group": "servers",
+              "groups_count": 113276408,
+              "technologies_count": 37226431,
+              "technology": "Nginx",
+              "type": "aggregation_technologies_item"
+            }
+          ],
+          "items_count": 5,
+          "offset": 0,
+          "total_count": 213
+        }
+      ],
+      "result_count": 1,
+      "status_code": 20000,
+      "status_message": "Ok.",
+      "time": "8.0797 sec."
+    }
+  ],
+  "tasks_count": 1,
+  "tasks_error": 0,
+  "time": "8.0967 sec.",
+  "version": "0.1.20261022"
+}
+```
+
+### Response fields
+
+| Field | Meaning |
 |---|---|
-| `technology` | Technology name, e.g. "Nginx". |
-| `limit` | Maximum number of results (up to 100). |
+| `tasks[].result[].items[].technology` | Name of the technology in this row. The first row matches the requested technology and later rows are related technologies. |
+| `tasks[].result[].items[].technologies_count` | Number of domains counted for this technology. |
+| `tasks[].result[].items[].category` | Category the technology belongs to, for example `web_servers`. |
+| `tasks[].result[].items[].categories_count` | Number of domains counted for the whole category, shared by all rows in that category. |
+| `tasks[].result[].items[].group` | Broader group the technology belongs to, for example `servers`. |
+| `tasks[].result[].items[].groups_count` | Number of domains counted for the whole group, shared by all rows in that group. |
+| `tasks[].result[].items_count` | Number of rows returned in this response. |
+| `tasks[].result[].total_count` | Total number of matching rows available for the request. |
+| `tasks[].result[].offset` | Position of the first returned row in the full result list. |
+
+### Notes
+
+- Pass the technology name as plain text in `technology`, for example `Nginx`. Use `limit` to cap the rows returned, up to 100.
+- `total_count` can be larger than `items_count`. Compare the two to see whether more rows exist beyond your `limit`.
+- To work out a technology's share of its category, divide `technologies_count` by `categories_count` from the same row.
 
 ### Pricing
 
-Billed at the actual cost of each call, about $0.018 for the request above. The cost grows with the number of rows, targets or pages a call returns. Failed calls are not charged. Searches with no results are billed at their actual cost.
+Billed at the actual cost of each call, about $0.018 for the request above. Failed calls are not charged.
 
 ### Related APIs
 

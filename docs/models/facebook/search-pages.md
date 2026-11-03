@@ -63,7 +63,14 @@ Same call via the path form: `POST /v1/api/facebook/search-pages` with the body 
 
 ## Details
 
-Search Facebook Pages by keyword, optionally narrowed to a location, and get structured page profiles (name, category, followers, contact details).
+Returns a list of public Facebook Pages that match a keyword, with each page's name, category, follower count, website and phone. It needs a `query` and accepts an optional `location` and `limit`.
+
+### Use cases
+
+- Find the official and regional Pages that a brand runs, such as sub-brand Pages for one company.
+- Build a list of local businesses in a category and city, with their websites and phone numbers.
+- Check which Pages of a brand are currently running ads.
+- Compare follower counts across competing Pages in the same category.
 
 ### Request
 
@@ -74,7 +81,7 @@ curl -X POST "https://api.sandbase.ai/v1/api/facebook/search-pages" \
   -d '{"limit": 3, "query": "nike"}'
 ```
 
-The result is returned in `outputs[0].data`. A lookup that finds nothing still succeeds and returns `found: false`.
+The result is returned in `outputs[0].data`.
 
 ### Parameters
 
@@ -84,9 +91,61 @@ The result is returned in `outputs[0].data`. A lookup that finds nothing still s
 | `limit` | integer | No | Maximum number of results to return (1-10, default 10). You are billed per result returned, so a lower limit costs less. |
 | `location` | string | No | Optional free-text location to narrow the search: a city, province, or country (e.g. 'Berlin'). |
 
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "data": {
+    "items": [
+      {
+        "about": "Sport Style Innovation\nwww.nike.com/sportswear",
+        "adLibraryPageId": "20825389113",
+        "adStatus": "This Page is currently running ads.",
+        "categories": [
+          "Page"
+        ],
+        "category": "Product/service",
+        "coverPhotoUrl": "https://scontent-lax3-2.xx.fbcdn.net/v/t39.30808-6/351512729_2609225615905264_37…",
+        "createdUtc": 1218153600,
+        "followers": 15452600,
+        "id": "100064933082327",
+        "image": "https://scontent-lax3-2.xx.fbcdn.net/v/t39.30808-1/352238800_1378999996006774_42…",
+        "likes": 0,
+        "owner": "NIKE, Inc."
+      }
+    ]
+  },
+  "found": true
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `data.items[].title` | Display name of the Page. |
+| `data.items[].id` | Numeric ID of the Page. |
+| `data.items[].pageAlias / data.items[].url` | The Page's URL slug and its full Facebook URL. |
+| `data.items[].category / data.items[].categories` | Main category of the Page, and the full list of category labels. |
+| `data.items[].followers / data.items[].likes` | Follower count and like count. `likes` can be `0` even when the Page has many followers, so use `followers` for audience size. |
+| `data.items[].website / data.items[].phone` | Contact details listed on the Page. Either can be an empty string. |
+| `data.items[].about` | Text from the Page's about section. It can be empty. |
+| `data.items[].owner` | Name of the business that owns the Page. |
+| `data.items[].adStatus / data.items[].adLibraryPageId` | Text saying whether the Page is currently running ads, and the Page ID used in the Facebook Ad Library. |
+| `data.items[].createdUtc` | Page creation time as a Unix timestamp in seconds. |
+
+### Notes
+
+- Set `limit` between 1 and 10. The default is 10, and you pay per result returned.
+- Use `location` with a city, province or country, such as `Berlin`, to narrow the results.
+- Pass `adLibraryPageId` to [Facebook Company Ads](/apis/facebook/company-ads) to see a Page's ads, or call [Facebook Page Contact Info](/apis/facebook/page-contact) for more contact details.
+- Use [Facebook Profile Posts](/apis/facebook/profile-posts) with the Page `url` to read its posts.
+
 ### Pricing
 
-Billed at the actual cost of each call, usually $0.123 per request. A call can cost more when the first data source fails and another one answers. Failed calls are not charged. Lookups that find nothing and searches with no results are billed at their actual cost, which is often lower and can be $0.
+Billed at the actual cost of each call, about $0.123 for the request above. Failed calls are not charged.
 
 ---
 Machine-readable: [`catalog/models/facebook/search-pages.json`](../../../catalog/models/facebook/search-pages.json) · Store page: https://www.sandbase.ai/model/facebook/search-pages

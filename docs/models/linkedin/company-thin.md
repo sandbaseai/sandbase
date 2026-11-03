@@ -62,7 +62,14 @@ Same call via the path form: `POST /v1/api/linkedin/company-thin` with the body 
 
 ## Details
 
-Basic company: name, description, employee count, industry, logo, website, tagline. No follower count, founded year, office locations, or funding data - for those use linkedin.company.
+Returns basic details for a LinkedIn company page, such as name, tagline, description, industry, employee count, website and logo. It needs the full LinkedIn company page URL as `url`.
+
+### Use cases
+
+- Enrich a CRM account record with a company's industry, website and employee count.
+- Check a company's `employeeCount` and `industry` to qualify sales leads.
+- Pull the logo and tagline to show a company card in an app.
+- Resolve a LinkedIn company URL to its numeric `id` and `universalName` for use in other lookups.
 
 ### Request
 
@@ -73,7 +80,7 @@ curl -X POST "https://api.sandbase.ai/v1/api/linkedin/company-thin" \
   -d '{"url": "https://www.linkedin.com/company/stripe"}'
 ```
 
-The result is returned in `outputs[0].data`. A lookup that finds nothing still succeeds and returns `found: false`.
+The result is returned in `outputs[0].data`.
 
 ### Parameters
 
@@ -82,9 +89,57 @@ The result is returned in `outputs[0].data`. A lookup that finds nothing still s
 | `url` | string | Yes | Full LinkedIn company page URL. |
 | `requireFields` | array | No | Optional; omit it and routing is unchanged, with the cheapest source serving. Name the output fields this request must be able to return, for example `companyType` or `coverImage`, and it is served only by a source that  |
 
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "data": {
+    "companyType": "Privately Held",
+    "coverImage": null,
+    "description": "Stripe builds programmable financial services. Millions of companies—from the wo…",
+    "employeeCount": 16618,
+    "followerCount": 1756730,
+    "foundedYear": 2010,
+    "id": "2135371",
+    "industry": "Technology, Information and Internet",
+    "linkedinUrl": "https://www.linkedin.com/company/stripe",
+    "logoUrl": "https://media.licdn.com/dms/image/v2/D560BAQE2ZfJyfn-VCg/company-logo_200_200/B5…",
+    "name": "Stripe",
+    "tagline": "Help increase the GDP of the internet."
+  },
+  "found": true
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `data.name` | Company name as shown on its LinkedIn page. |
+| `data.tagline` | Short tagline from the company page. |
+| `data.description` | Company description text. Long descriptions can be cut off. |
+| `data.industry` | Industry label, for example `Technology, Information and Internet`. |
+| `data.employeeCount` | Employee count shown for the company. |
+| `data.followerCount` | Number of followers of the company page. |
+| `data.foundedYear` | Year the company was founded. |
+| `data.companyType` | Company type, for example `Privately Held`. It is `null` or absent when the page has none. |
+| `data.website / data.linkedinUrl` | The company's own website and its LinkedIn page URL. |
+| `data.id / data.universalName` | Numeric company ID and the URL slug name, for example `stripe`. |
+| `data.logoUrl / data.coverImage` | Image URLs for the logo and the cover image. `coverImage` is `null` when no cover image is returned. |
+| `found` | `true` when the company page was found. |
+
+### Notes
+
+- Pass the full page URL, such as `https://www.linkedin.com/company/stripe`. Use the [LinkedIn Company Search](/apis/linkedin/search-companies) API to find company URLs by keyword.
+- Set `requireFields` to `companyType` or `coverImage` to require that the response can return those fields. A named field can still be `null` if the page lacks it.
+- For office locations or funding data, use [LinkedIn Company](/apis/linkedin/company).
+- To list recent posts from the same company, call [LinkedIn Company Posts (basic)](/apis/linkedin/company-posts-thin).
+
 ### Pricing
 
-Billed at the actual cost of each call, usually $0.001 per request. A call can cost more when the first data source fails and another one answers. Failed calls are not charged. Lookups that find nothing and searches with no results are billed at their actual cost, which is often lower and can be $0.
+Billed at the actual cost of each call, about $0.001 for the request above. Failed calls are not charged.
 
 ---
 Machine-readable: [`catalog/models/linkedin/company-thin.json`](../../../catalog/models/linkedin/company-thin.json) · Store page: https://www.sandbase.ai/model/linkedin/company-thin

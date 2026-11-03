@@ -62,7 +62,14 @@ Same call via the path form: `POST /v1/api/tiktok/photos` with the body above mi
 
 ## Details
 
-Get every image in a TikTok photo-mode (slideshow) post by URL, in order, with pixel dimensions and both the clean and watermarked variant of each. Videos carry no images - use tiktok.video_download for those.
+This API returns the images of a TikTok photo-mode (slideshow) post. It needs the full post `url`. Each image comes with its pixel size, a clean link and a watermarked link, alongside post stats, author details and sound details.
+
+### Use cases
+
+- Download every slide of a recipe or travel slideshow in its original order.
+- Archive a post's clean images together with its caption and hashtags.
+- Compare engagement across slideshow posts using `views`, `likes`, `saves` and `shares`.
+- Check image sizes before you place the slides in a layout or a moodboard.
 
 ### Request
 
@@ -73,7 +80,7 @@ curl -X POST "https://api.sandbase.ai/v1/api/tiktok/photos" \
   -d '{"url": "https://www.tiktok.com/@foodbyfranchi/video/7479916555602513174"}'
 ```
 
-The result is returned in `outputs[0].data`. A lookup that finds nothing still succeeds and returns `found: false`.
+The result is returned in `outputs[0].data`.
 
 ### Parameters
 
@@ -82,9 +89,64 @@ The result is returned in `outputs[0].data`. A lookup that finds nothing still s
 | `url` | string | Yes | Full TikTok photo-mode post URL. TikTok serves slideshow posts under the same /video/<id> path as videos, so the normal share link works. |
 | `requireFields` | array | No | Optional; omit it and routing is unchanged, with the cheapest source serving. Name the output fields this request must be able to return, for example `authorFollowers`, and it is served only by a source that returns ever |
 
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "data": {
+    "authorFollowers": null,
+    "authorHandle": "foodbyfranchi",
+    "authorImage": "https://p19-common-sign.tiktokcdn-us.com/tos-maliva-avt-0068/1b81784e343ee84feee…",
+    "authorName": "Emily Franchi",
+    "authorUserId": "6743592683137287173",
+    "caption": "#food #cooking #dinner #dinnerideas #dinnerinspo #dinnerwithme #cookwithme #dish…",
+    "comments": 272,
+    "createdUtc": 1741553789,
+    "hashtags": [
+      "food"
+    ],
+    "id": "7479916555602513174",
+    "images": [
+      {
+        "height": 1919,
+        "image": "https://p16-common-sign.tiktokcdn-us.com/tos-no1a-i-photomode-no/470310afedf94b2…",
+        "watermarkedImage": "https://p16-common-sign.tiktokcdn-us.com/tos-no1a-i-photomode-no/470310afedf94b2…",
+        "width": 1080
+      }
+    ],
+    "likes": 315259
+  },
+  "found": true
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `data.images[]` | The slides of the post, in posting order. Each item holds one image. |
+| `data.images[].image` | Link to the clean version of the slide, without a watermark. |
+| `data.images[].watermarkedImage` | Link to the same slide with the TikTok watermark and author handle added. |
+| `data.images[].width / data.images[].height` | Pixel size of the slide. |
+| `data.caption` | Caption text of the post. Long captions may be cut in the sample, so do not rely on its length. |
+| `data.hashtags[]` | Hashtags from the caption, without the `#` sign. |
+| `data.views / data.likes / data.comments / data.saves / data.shares` | Engagement counts for the post. |
+| `data.authorHandle / data.authorName / data.authorUserId` | The author's handle, display name and numeric user ID. |
+| `data.createdUtc` | Post creation time as a Unix timestamp in seconds (UTC). |
+| `data.soundTitle / data.soundAuthor / data.soundClipId` | Title, author and ID of the sound used on the post. |
+
+### Notes
+
+- Use the normal share link of the post. TikTok serves slideshows under the same `/video/<id>` path as videos, and the response `url` shows the `/photo/<id>` form.
+- `authorFollowers` is `null` in this response. Pass `requireFields: ["authorFollowers"]` to ask for a source that returns it. This can change the price.
+- If no post is found, the call still succeeds and returns `found: false`.
+- Videos have no images. Use the video download API for those posts.
+
 ### Pricing
 
-Billed at the actual cost of each call, usually $0.0012 per request. A call can cost more when the first data source fails and another one answers. Failed calls are not charged. Lookups that find nothing and searches with no results are billed at their actual cost, which is often lower and can be $0.
+Billed at the actual cost of each call, about $0.0012 for the request above. Failed calls are not charged.
 
 ---
 Machine-readable: [`catalog/models/tiktok/photos.json`](../../../catalog/models/tiktok/photos.json) · Store page: https://www.sandbase.ai/model/tiktok/photos

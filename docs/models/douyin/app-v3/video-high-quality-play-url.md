@@ -68,13 +68,14 @@ Same call via the path form: `POST /v1/api/douyin/app-v3/video-high-quality-play
 
 ## Details
 
-Fetch high-quality video playback addresses by supplying an `aweme_id` or a `share_url`. You can also configure an optional `region` exit code.
+Returns a direct playback URL for a Douyin video, plus basic file details. It needs an `aweme_id` or a `share_url`. You can also set an optional `region` to choose the request exit region.
 
 ### Use cases
 
-- Retrieve the best available resolution video stream for media playback.
-- Resolve Douyin share URLs into direct video stream addresses.
-- Route playback link requests through a specified geographic exit region.
+- Download or cache a Douyin video file from its `aweme_id` for offline review.
+- Turn a Douyin share link into a direct video file address.
+- Feed a video URL into a transcription or content analysis pipeline.
+- Request the video URL through a chosen exit region such as `CN`, `US` or `HK`.
 
 ### Request
 
@@ -85,22 +86,49 @@ curl -X POST "https://api.sandbase.ai/v1/api/douyin/app-v3/video-high-quality-pl
   -d '{"aweme_id": "7512756548356492544", "share_url": "https://www.douyin.com/video/7512756548356492544", "region": "CN"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
 |---|---|---|---|
-| `region` | string | No | Optional, ISO country code (e.g. "CN" / "US" / "HK") used as the request exit region. |
 | `aweme_id` | string | No | Video id, prefer to use aweme_id, if not available, use share_url. |
+| `region` | string | No | Optional, ISO country code (e.g. "CN" / "US" / "HK") used as the request exit region. |
 | `share_url` | string | No | Optional, share link, if the video id is provided, this parameter can be omitted. |
+
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "content_type": "application/xml",
+  "file_size": "0",
+  "file_size_in_mb": 0.0,
+  "original_video_url": "https://v11-cold-src.douyinvod.com/9cc3869316e50941773fa3830c54be27/6ae99bfb/vid…",
+  "video_id": "7512756548356492544"
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `original_video_url` | Direct address of the video file on Douyin's video host. Use this as the playback or download link. |
+| `video_id` | ID of the video the URL belongs to. In the sample it matches the `aweme_id` that was sent. |
+| `content_type` | Content type reported for the file. The sample shows `application/xml`, so check this value before treating the URL as a plain video file. |
+| `file_size / file_size_in_mb` | File size values. The sample returns `"0"` and `0.0`, so these may not be filled in for every video. |
 
 ### Notes
 
-- Provide either `aweme_id` or `share_url`; `aweme_id` is preferred.
-- The `region` parameter accepts an ISO country code such as CN, US, or HK.
+- Send `aweme_id` when you have it. Use `share_url` only when the ID is not available.
+- `aweme_id` is a long numeric string, for example `7512756548356492544`.
+- To fetch several videos in one call, use [Douyin Multi-Video High Quality Play URLs](/apis/douyin/app-v3/multi-video-high-quality-play-url).
+- For title, author and other video details, call [Douyin Single Video Details](/apis/douyin/app-v3/one-video).
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.005 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

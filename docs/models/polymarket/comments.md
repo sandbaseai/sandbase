@@ -65,9 +65,14 @@ Same call via the path form: `POST /v1/api/polymarket/comments` with the body ab
 
 ## Details
 
-List comments from Polymarket. Returns the official Polymarket API response unchanged.
+Returns a list of comments posted on a Polymarket event, series, or market. You pass the parent type with `parent_entity_type` and its numeric ID with `parent_entity_id`. Each comment includes the text, the author profile, and its reactions.
 
-The response is the official Polymarket API response, unchanged.
+### Use cases
+
+- Pull the discussion under a Polymarket event to read what traders say about an outcome.
+- Track which comments get the most reactions on a given market.
+- Collect commenter wallet addresses to look up their positions or profiles.
+- Archive comment threads for an event with `limit` and `offset` paging.
 
 ### Request
 
@@ -77,6 +82,8 @@ curl -X POST "https://api.sandbase.ai/v1/api/polymarket/comments" \
   -H "Content-Type: application/json" \
   -d '{"parent_entity_type": "Event", "parent_entity_id": 2890, "limit": 1}'
 ```
+
+The result is returned in `outputs[0].data`.
 
 ### Parameters
 
@@ -91,9 +98,71 @@ curl -X POST "https://api.sandbase.ai/v1/api/polymarket/comments" \
 | `parent_entity_id` | integer | No | parent_entity_id |
 | `parent_entity_type` | string | No | parent_entity_type |
 
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+[
+  {
+    "body": "idor-poc-1792753844",
+    "createdAt": "2026-10-23T11:10:47.356694Z",
+    "id": "3305081",
+    "parentEntityID": 2890,
+    "parentEntityType": "Event",
+    "profile": {
+      "baseAddress": "0xc22d0f7c330d5cc00a92578ed876b8c34aa42dd6",
+      "bio": "",
+      "displayUsernamePublic": false,
+      "name": "Stable-Declaration",
+      "profileImage": "https://polymarket-upload.s3.us-east-2.amazonaws.com/profile-image-7727089-ebb22…",
+      "proxyWallet": "0x06892a304377a4334340678e2d36e19d679cca34",
+      "pseudonym": "Stable-Declaration"
+    },
+    "reactionCount": 2,
+    "reactions": [
+      {
+        "commentID": 3305081,
+        "id": "3198145",
+        "profile": {
+          "proxyWallet": "0x45bc5604d3285ac448ae4a39470b9e6085a0df83"
+        },
+        "reactionType": "HEART",
+        "userAddress": "0x936810690af85a4e357c7ac707e2b81e64a39582"
+      }
+    ],
+    "reportCount": 0,
+    "updatedAt": "2026-10-23T11:10:56.48298Z",
+    "userAddress": "0xc22d0f7c330d5cc00a92578ed876b8c34aa42dd6"
+  }
+]
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `body` | The text of the comment. |
+| `id` | The comment ID, returned as a string. |
+| `createdAt / updatedAt` | ISO 8601 UTC timestamps for when the comment was created and last updated. |
+| `parentEntityID / parentEntityType` | The ID and type of the event, series, or market the comment belongs to. |
+| `userAddress` | The wallet address of the user who wrote the comment. |
+| `profile.name / profile.pseudonym` | The display name and pseudonym of the commenter. |
+| `profile.proxyWallet` | The proxy wallet address of the commenter. |
+| `reactionCount` | The number of reactions on the comment. |
+| `reactions[].reactionType` | The kind of reaction, such as `HEART`. |
+| `reactions[].userAddress` | The wallet address of the user who reacted. |
+
+### Notes
+
+- `parent_entity_type` accepts `Event`, `Series`, or `market`. Set `parent_entity_id` to the numeric ID of that parent.
+- Page through results with `limit` and `offset`. Use `order` and `ascending` to control sorting.
+- To fetch one comment by its ID, call [Polymarket Get comments by comment id](/apis/polymarket/comments-by-id). To list comments from one wallet, call [Polymarket Get comments by user address](/apis/polymarket/comments-user-address).
+- To find event IDs, call [Polymarket List events](/apis/polymarket/events).
+
 ### Pricing
 
-Flat price per call. Failed calls are not charged.
+$0.00044 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ---
 Machine-readable: [`catalog/models/polymarket/comments.json`](../../../catalog/models/polymarket/comments.json) · Store page: https://www.sandbase.ai/model/polymarket/comments

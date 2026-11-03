@@ -52,9 +52,14 @@ Same call via the path form: `POST /v1/api/polymarket/sports-market-types` with 
 
 ## Details
 
-Get valid sports market types from Polymarket. Returns the official Polymarket API response unchanged.
+Returns the list of valid sports market type strings on Polymarket. The call needs no input.
 
-The response is the official Polymarket API response, unchanged.
+### Use cases
+
+- Build a filter menu of sports market types for a Polymarket sports dashboard.
+- Check that a market type string is valid before you use it in another query.
+- Track which sports market types Polymarket adds or removes by saving the list on a schedule.
+- Keep a reference table of market type names for a sports analytics pipeline.
 
 ### Request
 
@@ -65,13 +70,37 @@ curl -X POST "https://api.sandbase.ai/v1/api/polymarket/sports-market-types" \
   -d '{}'
 ```
 
-### Parameters
+The result is returned in `outputs[0].data`.
 
-This API takes no parameters.
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "$schema": "https://gamma-api.polymarket.com/schemas/SportsMarketTypesResponse.json",
+  "marketTypes": [
+    "any_player_rampage"
+  ]
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `marketTypes` | List of valid sports market type names. Each item is a snake_case string such as `any_player_rampage`, `any_player_ultra_kill` or `anytime_touchdowns`. |
+| `marketTypes[]` | One sports market type identifier. Use the exact string when you match or compare types. |
+
+### Notes
+
+- The request body is an empty JSON object `{}`. There are no parameters and no pagination.
+- Call [Polymarket Get sports metadata information](/apis/polymarket/sports) for metadata about the sports themselves.
+- Call [Polymarket List markets](/apis/polymarket/markets) to list markets on Polymarket.
 
 ### Pricing
 
-Flat price per call. Failed calls are not charged.
+$0.00044 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ---
 Machine-readable: [`catalog/models/polymarket/sports-market-types.json`](../../../catalog/models/polymarket/sports-market-types.json) · Store page: https://www.sandbase.ai/model/polymarket/sports-market-types

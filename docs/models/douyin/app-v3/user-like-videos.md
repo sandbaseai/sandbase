@@ -64,13 +64,13 @@ Same call via the path form: `POST /v1/api/douyin/app-v3/user-like-videos` with 
 
 ## Details
 
-Look up videos liked by a Douyin user using their `sec_user_id`. Supports cursor-based pagination with `max_cursor` and results sizing via `counts`.
+Returns the videos a Douyin user has liked, as a paged list. It needs the user's `sec_user_id`. You can set the page size with `counts` and page forward with `max_cursor`.
 
 ### Use cases
 
-- Inspect videos liked by a specific Douyin profile.
-- Analyze content preferences and audience interests from liked feeds.
-- Track historical video likes for research and monitoring.
+- Review which videos a specific Douyin account has liked.
+- Collect a user's liked videos page by page for content or interest research.
+- Check whether a user's liked list is returned at all before building a pipeline around it.
 
 ### Request
 
@@ -81,6 +81,8 @@ curl -X POST "https://api.sandbase.ai/v1/api/douyin/app-v3/user-like-videos" \
   -d '{"sec_user_id": "MS4wLjABAAAAr52fXcfmzqOZJM_smap9Uuxtm16h8BupkCVaCt89BENq3E91mHCvtz5Z5TkXPHq_"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
@@ -89,15 +91,49 @@ curl -X POST "https://api.sandbase.ai/v1/api/douyin/app-v3/user-like-videos" \
 | `counts` | integer | No | Number per page |
 | `max_cursor` | integer | No | Maximum cursor, used for paging, the first page is 0, the second page is the max_cursor value in the first response. |
 
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "aweme_list": null,
+  "extra": {
+    "fatal_item_ids": [],
+    "logid": "20261103153140EA2A63AD2C803311DE9E",
+    "now": 1793691100000
+  },
+  "log_pb": {
+    "impr_id": "20261103153140EA2A63AD2C803311DE9E"
+  },
+  "sec_uid": "MS4wLjABAAAAr52fXcfmzqOZJM_smap9Uuxtm16h8BupkCVaCt89BENq3E91mHCvtz5Z5TkXPHq_",
+  "status_code": 0,
+  "uid": "3635433641882579"
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `aweme_list` | List of liked videos. It is `null` in this response, which means no videos came back for this user and request. |
+| `status_code` | Result code of the call. `0` in this response. |
+| `sec_uid` | The `sec_user_id` of the user whose likes were requested, echoed back. |
+| `uid` | Numeric user ID of the same user. |
+| `extra.now` | Server time of the response as a number. The value looks like a millisecond timestamp. |
+| `extra.logid / log_pb.impr_id` | Request identifiers. Both hold the same value in this response. |
+| `extra.fatal_item_ids` | List of item IDs that failed to load. It is empty in this response. |
+
 ### Notes
 
-- Requires `sec_user_id` to identify the Douyin user.
-- For pagination, pass 0 to `max_cursor` on the first call, then use the returned `max_cursor` value on subsequent calls.
-- Use `counts` to set the number of items returned per page.
+- Get `sec_user_id` from a Douyin user profile, for example with [Douyin User Profile (App V3)](/apis/douyin/app-v3/user-profile).
+- For the first page, send `max_cursor` as `0`. For the next page, send the `max_cursor` value from the previous response.
+- `aweme_list` can be `null` when no videos are returned, so check for `null` before reading it.
+- To see videos the user posted instead of liked, use [Douyin User Videos](/apis/douyin/app-v3/user-post-videos).
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

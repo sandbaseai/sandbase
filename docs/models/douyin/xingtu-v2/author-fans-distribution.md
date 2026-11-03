@@ -64,13 +64,14 @@ Same call via the path form: `POST /v1/api/douyin/xingtu-v2/author-fans-distribu
 
 ## Details
 
-Fetch creator follower demographic breakdowns by supplying the creator identifier in `o_author_id`.
+Returns the audience profile of a Xingtu creator on Douyin as a list of distributions, such as interests, gender and audience groups. It needs the creator ID in `o_author_id`.
 
 ### Use cases
 
-- Analyze the demographic makeup of a Douyin creator's audience.
-- Evaluate creator audience alignment with target marketing segments.
-- Inspect geographic and interest distributions for campaign planning.
+- Check whether a creator's audience is mostly male or female before booking a campaign.
+- Compare the top interest categories of a creator's fans with your product category.
+- Screen creators by audience group, such as urban blue-collar or senior middle-class, for targeted ads.
+- Store the distribution counts to compare several creators side by side.
 
 ### Request
 
@@ -81,22 +82,71 @@ curl -X POST "https://api.sandbase.ai/v1/api/douyin/xingtu-v2/author-fans-distri
   -d '{"o_author_id": "7029342444797820939"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
 |---|---|---|---|
 | `o_author_id` | string | Yes | Creator ID |
-| `platform_source` | integer | No | Platform source, default 1 |
 | `platform_channel` | integer | No | Platform channel, default 1 |
+| `platform_source` | integer | No | Platform source, default 1 |
+
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "base_resp": {
+    "status_code": 0,
+    "status_message": ""
+  },
+  "distributions": [
+    {
+      "description": "分布最多的3个兴趣随拍(53%),体育(9%),社会时政(8%)",
+      "distribution_list": [
+        {
+          "distribution_key": "随拍",
+          "distribution_value": "3138780"
+        }
+      ],
+      "image": [
+        "随拍,体育,社会时政居多"
+      ],
+      "origin_type": 6,
+      "type": 64,
+      "type_display": "兴趣分布"
+    }
+  ],
+  "last_update_time": "1793691160"
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `distributions[]` | One audience breakdown per item. Each item has a type, a description and a list of counts. |
+| `distributions[].type_display` | Name of the breakdown, for example `兴趣分布` (interests), `性别分布` (gender) or `八大人群分布` (eight audience groups). |
+| `distributions[].type / origin_type` | Numeric codes that identify the breakdown type. Use them to pick a breakdown in code instead of matching the display name. |
+| `distributions[].description` | Short summary text of the breakdown, such as which group is largest and its percentage share. |
+| `distributions[].distribution_list[].distribution_key` | Label of one category in the breakdown, such as an interest name, `male` or `female`, or an audience group name. |
+| `distributions[].distribution_list[].distribution_value` | Count for that category, returned as a string. Divide by the sum of the list to get a share. |
+| `distributions[].image[]` | Short text label that restates the main finding of the breakdown. |
+| `last_update_time` | Unix timestamp in seconds, returned as a string. |
+| `base_resp.status_code / base_resp.status_message` | Status of the call. `0` with an empty message means success. |
 
 ### Notes
 
-- `platform_source` defaults to 1 if not specified.
-- `platform_channel` defaults to 1 if not specified.
+- Get the creator ID from a search call such as [Douyin Xingtu Creator Search](/apis/douyin/xingtu-v2/search-creator).
+- If you only have a Douyin ID, convert it first with [Douyin XingTu kolId by Douyin ID](/apis/douyin/xingtu-v2/xingtu-kolid-by-unique-id).
+- `platform_source` and `platform_channel` are optional integers and both default to `1`.
+- For another view of the same audience, call [Douyin Xingtu Author Audience Distribution](/apis/douyin/xingtu-v2/author-audience-distribution).
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.002 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

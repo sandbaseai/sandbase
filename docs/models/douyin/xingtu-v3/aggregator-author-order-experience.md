@@ -62,9 +62,14 @@ Same call via the path form: `POST /v1/api/douyin/xingtu-v3/aggregator-author-or
 
 ## Details
 
-Get Douyin Creator Marketplace (Xingtu) creator order-experience information for the last 30 or 90 days. Use it to review marketplace order history during creator evaluation.
+Returns the industries and product categories a Douyin Xingtu creator has taken marketplace orders in, with the share of orders for each. It needs the creator's `oAuthorId` and an optional `period` of `DAY_30` or `DAY_90`.
 
-The response is the platform's original data structure.
+### Use cases
+
+- Check whether a creator has real order history in your product industry before you book them.
+- Compare the order mix of two creators to see which one focuses on a narrower category.
+- Spot creators who spread orders across many industries and may lack a clear niche.
+- Add industry share data to a creator scorecard for brand campaign planning.
 
 ### Request
 
@@ -75,6 +80,8 @@ curl -X POST "https://api.sandbase.ai/v1/api/douyin/xingtu-v3/aggregator-author-
   -d '{"oAuthorId": "6870161898013196295"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
@@ -82,9 +89,56 @@ curl -X POST "https://api.sandbase.ai/v1/api/douyin/xingtu-v3/aggregator-author-
 | `oAuthorId` | string | Yes | Author's unique ID. |
 | `period` | string | No | Time period. |
 
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "base_resp": {
+    "status_code": 0,
+    "status_message": ""
+  },
+  "order_experience_industries": [
+    {
+      "first_category": [
+        {
+          "name": "家庭护理品",
+          "rate": 1
+        }
+      ],
+      "industry": {
+        "name": "日化",
+        "rate": 0.6667
+      },
+      "second_category": []
+    }
+  ]
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `base_resp.status_code / base_resp.status_message` | Request status. `0` with an empty message means the call succeeded. |
+| `order_experience_industries[]` | One entry per industry the creator has taken orders in. Each entry holds the industry and its category breakdown. |
+| `order_experience_industries[].industry.name` | Name of the industry, in Chinese, for example `日化`. |
+| `order_experience_industries[].industry.rate` | Share of the creator's orders in this industry, as a decimal. In the sample, `0.6667` and `0.3333` add up to 1. |
+| `order_experience_industries[].first_category[].name` | Name of a first-level category inside the industry, for example `个人护理`. |
+| `order_experience_industries[].first_category[].rate` | Share of this first-level category within the industry, as a decimal. |
+| `order_experience_industries[].second_category[].name / order_experience_industries[].second_category[].rate` | Name and share of a second-level category within the industry. The list can be empty when no finer breakdown exists. |
+
+### Notes
+
+- Set `period` to `DAY_30` or `DAY_90`. If you leave it out, it defaults to `DAY_30`.
+- Category names are returned in Chinese. Map them to your own labels if you need another language.
+- Get the `oAuthorId` from [Douyin Xingtu Creator Search](/apis/douyin/xingtu-v3/gsearch-search-for-author-square).
+- For more creator detail, call [Douyin Xingtu Creator Profile](/apis/douyin/xingtu-v3/author-author-base-info).
+
 ### Pricing
 
-Flat price per call. Failed calls and empty results are not charged.
+$0.021429 per successful call. Failed calls are not charged.
 
 ---
 Machine-readable: [`catalog/models/douyin/xingtu-v3/aggregator-author-order-experience.json`](../../../../catalog/models/douyin/xingtu-v3/aggregator-author-order-experience.json) · Store page: https://www.sandbase.ai/model/douyin/xingtu-v3/aggregator-author-order-experience

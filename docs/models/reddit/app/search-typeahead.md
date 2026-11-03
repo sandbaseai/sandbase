@@ -65,13 +65,14 @@ Same call via the path form: `POST /v1/api/reddit/app/search-typeahead` with the
 
 ## Details
 
-Query autocomplete suggestions for search terms using the `query` parameter. You can also configure adult content visibility and safe search behavior.
+Returns Reddit search box autocomplete suggestions for a typed text. It needs one input, `query`, and returns suggested search phrases plus matching subreddits.
 
 ### Use cases
 
-- Display real-time search suggestions in custom Reddit clients.
-- Help users discover relevant subreddits and search terms as they type.
-- Filter autocomplete suggestions according to safe search requirements.
+- Build a search box for a custom Reddit client that shows suggestions as the user types.
+- Find subreddits that match a brand or topic name, such as the communities that appear for `OpenAI`.
+- Collect the phrases Reddit suggests for a keyword to find related search terms.
+- Resolve a topic to a subreddit ID and URL path before calling a subreddit API.
 
 ### Request
 
@@ -81,6 +82,8 @@ curl -X POST "https://api.sandbase.ai/v1/api/reddit/app/search-typeahead" \
   -H "Content-Type: application/json" \
   -d '{"query": "OpenAI"}'
 ```
+
+The result is returned in `outputs[0].data`.
 
 ### Parameters
 
@@ -93,27 +96,133 @@ curl -X POST "https://api.sandbase.ai/v1/api/reddit/app/search-typeahead" \
 
 ### Example response
 
-Real response for the request above, trimmed to the main fields. User names and long IDs are masked.
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
 
 ```json
 {
   "search": {
     "dynamic": {
       "components": {
+        "__typename": "TypeaheadLayout",
         "main": [
           {
+            "__typename": "SearchTypeaheadList",
+            "behaviors": {
+              "collapse": null,
+              "expand": null,
+              "expandCta": null
+            },
             "children": [
               {
                 "__typename": "QueryAutocomplete",
+                "behaviors": {
+                  "default": {
+                    "__typename": "SearchQueryReformulationBehavior",
+                    "query": "openai",
+                    "telemetry": {
+                      "__typename": "SearchElementTelemetry",
+                      "events": [
+                        {
+                          "action": "click",
+                          "noun": "typeahead",
+                          "source": "search",
+                          "trigger": "CLICK",
+                          "triggerConfiguration": null
+                        }
+                      ],
+                      "trackingContext": {
+                        "__typename": "SearchTelemetryTrackingContext",
+                        "actionInfo": {
+                          "paneName": null,
+                          "position": 0,
+                          "reason": null,
+                          "relativePosition": 0,
+                          "type": "query_suggestion"
+                        },
+                        "answers": null,
+                        "metaSearch": {
+                          "displayQuery": "openai",
+                          "rawQuery": "openai"
+                        },
+                        "post": null,
+                        "profile": null,
+                        "search": {
+                          "isNsfw": false,
+                          "query": "OpenAI",
+                          "queryID": "f2458504-7cda-400f-abc7-324fd62e4f9f",
+                          "range": null,
+                          "safeSearch": "UNAVAILABLE",
+                          "scope": {
+                            "id": null,
+                            "name": null,
+                            "path": "/",
+                            "type": "GLOBAL"
+                          },
+                          "snippet": null,
+                          "snippetId": null
+                        },
+                        "subreddit": null
+                      }
+                    }
+                  }
+                },
                 "presentation": {
                   "__typename": "QueryAutocompleteDefaultPresentation",
-                  "query": "openai"
+                  "query": "openai",
+                  "suggestion": "%query%"
                 },
                 "telemetry": {
-                  "__typename": "SearchElementTelemetry"
+                  "__typename": "SearchElementTelemetry",
+                  "events": [
+                    {
+                      "action": "view",
+                      "noun": "typeahead",
+                      "source": "search",
+                      "trigger": "VIEW",
+                      "triggerConfiguration": null
+                    }
+                  ],
+                  "trackingContext": {
+                    "__typename": "SearchTelemetryTrackingContext",
+                    "actionInfo": {
+                      "paneName": null,
+                      "position": 0,
+                      "reason": null,
+                      "relativePosition": 0,
+                      "type": "query_suggestion"
+                    },
+                    "answers": null,
+                    "metaSearch": {
+                      "displayQuery": "openai",
+                      "rawQuery": "openai"
+                    },
+                    "post": null,
+                    "profile": null,
+                    "search": {
+                      "isNsfw": false,
+                      "query": "OpenAI",
+                      "queryID": "f2458504-7cda-400f-abc7-324fd62e4f9f",
+                      "range": null,
+                      "safeSearch": "UNAVAILABLE",
+                      "scope": {
+                        "id": null,
+                        "name": null,
+                        "path": "/",
+                        "type": "GLOBAL"
+                      },
+                      "snippet": null,
+                      "snippetId": null
+                    },
+                    "subreddit": null
+                  }
                 }
               }
-            ]
+            ],
+            "id": "section_0_pipeline_1_query_autocomplete",
+            "presentation": {
+              "__typename": "SearchTypeaheadListDefaultPresentation",
+              "title": ""
+            }
           }
         ]
       }
@@ -122,14 +231,31 @@ Real response for the request above, trimmed to the main fields. User names and 
 }
 ```
 
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `search.dynamic.components.main[]` | Sections of the typeahead list. One section holds query suggestions (`QueryAutocomplete`) and another holds subreddit suggestions (`TypeaheadSuggestion`). |
+| `search.dynamic.components.main[].children[].__typename` | Type of each suggestion. `QueryAutocomplete` is a search phrase and `TypeaheadSuggestion` is a community result. |
+| `search.dynamic.components.main[].children[].behaviors.default.query` | The full search phrase to run if the user picks this suggestion. Present on query suggestions. |
+| `search.dynamic.components.main[].children[].presentation.suggestion` | Display template for a query suggestion. The `%query%` token stands for the typed text. |
+| `search.dynamic.components.main[].children[].behaviors.default.id / search.dynamic.components.main[].children[].behaviors.default.name` | ID and name of the suggested subreddit, for example `t5_7hqomg` and `ChatGPT`. |
+| `search.dynamic.components.main[].children[].behaviors.default.url` | Relative path of the suggested subreddit, for example `/r/ChatGPT/`. |
+| `search.dynamic.components.main[].children[].presentation.name` | Display name of the suggested subreddit, for example `r/ChatGPT`. |
+| `search.dynamic.components.main[].children[].presentation.description / search.dynamic.components.main[].children[].presentation.icon` | Short description text and icon image URL for a subreddit suggestion. |
+| `search.dynamic.components.main[].children[].telemetry.trackingContext.actionInfo.position` | Zero-based position of the suggestion in its list. `type` in the same object shows the kind, such as `query_suggestion` or `subreddit`. |
+| `search.dynamic.components.main[].children[].telemetry.trackingContext.search.queryID` | UUID that identifies this typeahead request. All suggestions in one response share it. |
+
 ### Notes
 
-- Set `allow_nsfw` to "1" to include adult content or "0" to exclude it.
-- The `safe_search` parameter accepts "unset" or "strict".
+- Pass the text typed so far in `query`. The search `query` is echoed back inside the tracking context.
+- `allow_nsfw` takes `"0"` or `"1"`, and `safe_search` takes `"unset"` or `"strict"`.
+- Subreddit IDs use the `t5_` prefix. Use them with [Reddit App Subreddit Info](/apis/reddit/app/subreddit-info) or [Reddit Community Highlights](/apis/reddit/app/community-highlights).
+- To run the full search for a chosen phrase, call [Reddit Search](/apis/reddit/app/dynamic-search).
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

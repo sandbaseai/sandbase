@@ -52,9 +52,13 @@ Same call via the path form: `POST /v1/api/coingecko/simple-supported-vs-currenc
 
 ## Details
 
-Supported Currencies List from CoinGecko. Returns the official CoinGecko API response unchanged.
+Returns the list of currency codes that CoinGecko supports, as a flat JSON array of lowercase strings. The request takes no input.
 
-The response is the official CoinGecko API response, unchanged.
+### Use cases
+
+- Fill a currency dropdown with only the codes CoinGecko supports.
+- Check that a code such as `eth` or `btc` is on the supported list before you send it in another CoinGecko request.
+- Compare the list with your own stored list to spot codes that were added or removed.
 
 ### Request
 
@@ -65,13 +69,35 @@ curl -X POST "https://api.sandbase.ai/v1/api/coingecko/simple-supported-vs-curre
   -d '{}'
 ```
 
-### Parameters
+The result is returned in `outputs[0].data`.
 
-This API takes no parameters.
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+[
+  "btc"
+]
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `[]` | The full response is an array. Each item is one supported currency code as a lowercase string. |
+| `[0]` | The first code in the array. In the sample response it is `btc`. |
+| `[1] / [2]` | Further codes in the array. In the sample response they are `eth` and `ltc`. |
+
+### Notes
+
+- The response is a JSON array of strings, not an object, so there are no named keys.
+- To look up coin IDs, call [CoinGecko Coins List (ID Map)](/apis/coingecko/coins-list).
+- To get market data for coins, call [CoinGecko Coins List with Market Data](/apis/coingecko/coins-markets).
 
 ### Pricing
 
-Flat price per call. Failed calls are not charged.
+$0.008 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ---
 Machine-readable: [`catalog/models/coingecko/simple-supported-vs-currencies.json`](../../../catalog/models/coingecko/simple-supported-vs-currencies.json) · Store page: https://www.sandbase.ai/model/coingecko/simple-supported-vs-currencies

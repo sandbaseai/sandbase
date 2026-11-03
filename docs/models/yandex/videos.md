@@ -61,7 +61,14 @@ Same call via the path form: `POST /v1/api/yandex/videos` with the body above mi
 
 ## Details
 
-Yandex Videos results for a keyword: titles, thumbnails, durations and source sites.
+This API returns Yandex Videos search results for a keyword. Each result has a description, a rank position and a thumbnail URL. It needs one input, the search text in `text`.
+
+### Use cases
+
+- Check which videos Yandex ranks first for a keyword such as `coffee`.
+- Collect video descriptions for a topic to study how creators word their content.
+- Download thumbnail URLs to build a visual overview of a topic.
+- Compare the video results for several keywords by running one call per keyword.
 
 ### Request
 
@@ -80,9 +87,44 @@ The result is returned in `outputs[0].data`.
 |---|---|---|---|
 | `text` | string | Yes | text |
 
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "search_information": {
+    "within": null
+  },
+  "videos_results": [
+    {
+      "description": "In this video Jimmy is teaching us how to make the 3 most popular milk coffees w…",
+      "position": 1,
+      "thumbnail": "https://avatars.mds.yandex.net/get-vthumb/1650686/4b503447f957aa8cc8e5b3f605be6a…"
+    }
+  ]
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `videos_results[]` | List of video results for the keyword, in ranked order. |
+| `videos_results[].position` | Rank of the video in the results. The first result has `position` 1. |
+| `videos_results[].description` | Text snippet describing the video. Long descriptions are cut and end with an ellipsis. |
+| `videos_results[].thumbnail` | URL of the video preview image. The URL ends in `564x318_1`, which suggests a 564 by 318 pixel image. |
+| `search_information.within` | Extra search information. It is `null` in this response. |
+
+### Notes
+
+- Pass the search keyword in the `text` parameter. It is the only parameter and it is required.
+- The response in this example has no title, duration or source site fields, even though the API description mentions them. Rely on `description`, `position` and `thumbnail`.
+- For image results on the same keyword, call [Yandex Images Search](/apis/yandex/images).
+
 ### Pricing
 
-Flat price per call. Failed calls are not charged.
+$0.015 per successful call. Failed calls are not charged.
 
 ---
 Machine-readable: [`catalog/models/yandex/videos.json`](../../../catalog/models/yandex/videos.json) · Store page: https://www.sandbase.ai/model/yandex/videos

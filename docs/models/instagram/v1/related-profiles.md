@@ -62,13 +62,14 @@ Same call via the path form: `POST /v1/api/instagram/v1/related-profiles` with t
 
 ## Details
 
-Look up recommended or similar accounts for an Instagram user by providing their `user_id`. The response returns related profile nodes with IDs, usernames, and display names.
+Returns a list of Instagram accounts that Instagram suggests as related to a target account. You send the target's numeric `user_id`. Each result includes the profile's `id`, `full_name`, profile picture URL, and status flags.
 
 ### Use cases
 
-- Discover competitor or peer accounts within the same niche.
-- Expand creator research by identifying similar profile suggestions.
-- Display account recommendations based on a target user.
+- Find peer or competitor accounts for a brand by listing the profiles Instagram groups with it.
+- Build a seed list of similar creators from one known account for influencer research.
+- Show an "accounts like this" panel in a social analytics tool.
+- Filter suggested accounts to verified or public profiles before outreach.
 
 ### Request
 
@@ -79,6 +80,8 @@ curl -X POST "https://api.sandbase.ai/v1/api/instagram/v1/related-profiles" \
   -d '{"user_id": "25025320"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
@@ -87,21 +90,35 @@ curl -X POST "https://api.sandbase.ai/v1/api/instagram/v1/related-profiles" \
 
 ### Example response
 
-Real response for the request above, trimmed to the main fields. User names and long IDs are masked.
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
 
 ```json
 {
+  "attempts": "43",
   "data": {
     "user": {
       "edge_related_profiles": {
         "edges": [
           {
-            "node": {
-              "full_name": "Meta Prosper",
-              "id": "52276426143",
-              "profile_pic_url": "https://scontent-phl2-1.cdninstagram.com/v/t51.82787-19/551333341_18025298243738…",
-              "username": "<user>"
-            }
+            "friendship_status": {
+              "blocking": false,
+              "followed_by": false,
+              "following": false,
+              "incoming_request": false,
+              "is_bestie": false,
+              "is_feed_favorite": false,
+              "is_restricted": false,
+              "outgoing_request": false
+            },
+            "full_name": "Kevin Systrom",
+            "hd_profile_pic_url_info": {
+              "url": "https://instagram.fbcn2-1.fna.fbcdn.net/v/t51.2885-19/13732144_1764457777134045_…"
+            },
+            "id": "3",
+            "is_private": false,
+            "is_unpublished": false,
+            "is_verified": true,
+            "live_broadcast_id": null
           }
         ]
       }
@@ -110,13 +127,30 @@ Real response for the request above, trimmed to the main fields. User names and 
 }
 ```
 
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `data.user.edge_related_profiles.edges[]` | One related profile suggestion. Each item holds the profile details and the friendship flags. |
+| `data.user.edge_related_profiles.edges[].id` | Instagram user ID of the related account. Use it as `user_id` in other Instagram calls. |
+| `data.user.edge_related_profiles.edges[].full_name` | Display name of the related account, such as `Ray-Ban`. |
+| `data.user.edge_related_profiles.edges[].hd_profile_pic_url_info.url` | URL of the account's profile picture. |
+| `data.user.edge_related_profiles.edges[].is_verified` | `true` if the related account has the verified badge. |
+| `data.user.edge_related_profiles.edges[].is_private` | `true` if the related account is private. |
+| `data.user.edge_related_profiles.edges[].is_unpublished` | Boolean flag on the related account. It is `false` for all items in the sample. |
+| `data.user.edge_related_profiles.edges[].live_broadcast_id` | ID of a live broadcast, or `null` when the account is not live. |
+| `data.user.edge_related_profiles.edges[].friendship_status.following / followed_by / blocking / is_restricted` | Relationship flags between the related account and the account making the request. All are `false` in the sample. |
+| `attempts` | Count returned with the response, shown as a string such as `43`. |
+
 ### Notes
 
-- Requires a valid Instagram `user_id` as input.
+- The response does not include a `username` field. Use the returned `id` with [Instagram User Profile by ID](/apis/instagram/v1/user-info-by-id) to get more details about a related account.
+- To start from a handle instead of an ID, call [Instagram User Info by Username](/apis/instagram/v1/user-info-by-username) first and read the user ID from it.
+- The request takes only `user_id`. There are no pagination parameters.
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

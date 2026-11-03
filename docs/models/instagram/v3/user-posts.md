@@ -67,13 +67,14 @@ Same call via the path form: `POST /v1/api/instagram/v3/user-posts` with the bod
 
 ## Details
 
-Retrieve posts for an Instagram account by providing a `username`, with optional cursor-based pagination parameters.
+Returns a page of recent posts from an Instagram account. Each post includes its caption, like and comment counts, media type, and owner. The only required input is the account `username`, not a numeric user ID.
 
 ### Use cases
 
-- Retrieve historical posts from a public profile.
-- Browse user post feeds using forward or backward cursors.
-- Monitor recent media uploads from specific accounts.
+- Pull the latest posts from a brand account to track what it publishes.
+- Compare `like_count` and `comment_count` across posts to find which content gets the most engagement.
+- Collect `video_url` and `thumbnail_url` links for video posts to review the media.
+- Page backward and forward through an account's feed with cursors to build a post archive.
 
 ### Request
 
@@ -84,26 +85,109 @@ curl -X POST "https://api.sandbase.ai/v1/api/instagram/v3/user-posts" \
   -d '{"username": "99brasil"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
 |---|---|---|---|
-| `username` | string | Yes | Username string (e.g. |
-| `last` | integer | No | Posts per page for backward pagination, use with `before` |
+| `username` | string | Yes | Username string (e.g. `99brasil`), **NOT numeric user_id** |
 | `after` | string | No | Forward pagination cursor, from previous response `page_info.end_cursor` |
+| `before` | string | No | Backward pagination cursor, from previous response `page_info.start_cursor` |
 | `count` | integer | No | Number of posts for first request (default 12) |
 | `first` | integer | No | Posts per page for forward pagination (default 12, max 50) |
-| `before` | string | No | Backward pagination cursor, from previous response `page_info.start_cursor` |
+| `last` | integer | No | Posts per page for backward pagination, use with `before` |
+
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "_rid": "3b0c580e2be36",
+  "count": 12,
+  "data": {
+    "user": {
+      "edge_owner_to_timeline_media": {
+        "count": 12,
+        "edges": [
+          {
+            "node": {
+              "caption_text": "publi | Uma das coisas mais incriveis que a gastronomia proporciona é a de conse…",
+              "code": "DfDPgRny-X3",
+              "comment_count": 756,
+              "id": "4018123481186821623_189966948",
+              "is_video": true,
+              "like_count": 63872,
+              "media_type": 2,
+              "owner": {
+                "full_name": "Gabriela Paveloski | Masterchef 11",
+                "is_verified": true,
+                "pk": "189966948",
+                "username": "gabipaveloski"
+              }
+            }
+          }
+        ],
+        "page_info": {
+          "end_cursor": "3991279117147774438_791258468",
+          "has_next_page": true,
+          "has_previous_page": false,
+          "start_cursor": null
+        }
+      }
+    }
+  },
+  "items": [
+    {
+      "caption_text": "publi | Uma das coisas mais incriveis que a gastronomia proporciona é a de conse…",
+      "code": "DfDPgRny-X3",
+      "comment_count": 756,
+      "id": "4018123481186821623_189966948",
+      "is_video": true,
+      "like_count": 63872,
+      "media_type": 2,
+      "owner": {
+        "full_name": "Gabriela Paveloski | Masterchef 11",
+        "is_verified": true,
+        "pk": "189966948",
+        "username": "gabipaveloski"
+      },
+      "pk": "4018123481186821623",
+      "shortcode": "DfDPgRny-X3",
+      "taken_at": null,
+      "thumbnail_url": "https://scontent-atl3-1.cdninstagram.com/v/t51.82787-15/874538980_18642463201014…"
+    }
+  ],
+  "next_max_id": "3991279117147774438_791258468"
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `items[]` | Flat list of posts on this page. It repeats the posts found under `data.user.edge_owner_to_timeline_media.edges[].node`. |
+| `items[].code / items[].shortcode` | Short code that identifies the post. The same value appears in both fields. |
+| `items[].id / items[].pk` | Post identifiers. `id` is the media ID followed by an underscore and the owner ID. `pk` is the media ID alone. |
+| `items[].caption_text` | Caption of the post. Long captions appear cut off in the response. |
+| `items[].like_count / items[].comment_count` | Number of likes and comments on the post. |
+| `items[].view_count` | View count for the post. It is `0` for the non-video post in the sample. |
+| `items[].media_type / items[].is_video` | `media_type` is a numeric type code. `is_video` is `true` for video posts. In the sample, `2` goes with video posts and `8` goes with a post where `is_video` is `false`. |
+| `items[].owner.username / items[].owner.full_name / items[].owner.is_verified` | Username, display name and verified flag of the account that owns the post. The owner can differ from the `username` you requested. |
+| `items[].thumbnail_url / items[].video_url` | Links to the thumbnail image and the video file. Both can be `null`, as with the non-video post in the sample. |
+| `data.user.edge_owner_to_timeline_media.page_info` | Pagination state with `end_cursor`, `start_cursor`, `has_next_page` and `has_previous_page`. |
 
 ### Notes
 
-- Provide a `username` string rather than a numeric user ID.
-- `first` controls forward page size (default 12, max 50) paired with `after`.
-- `last` controls backward page size paired with `before`.
+- Pass a username such as `99brasil`. A numeric user ID does not work.
+- For the next page, send `page_info.end_cursor` as `after`, and set the page size with `first` (maximum 50). The top-level `next_max_id` holds the same cursor value.
+- For the previous page, send `page_info.start_cursor` as `before` and set the size with `last`. In the sample, `start_cursor` is `null` and `has_previous_page` is `false`.
+- `taken_at` is `null` in the sample, so do not rely on it for post dates.
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.008 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

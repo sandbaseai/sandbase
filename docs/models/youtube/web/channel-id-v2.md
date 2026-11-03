@@ -62,13 +62,14 @@ Same call via the path form: `POST /v1/api/youtube/web/channel-id-v2` with the b
 
 ## Details
 
-Resolve a YouTube channel ID from a link by passing `channel_url`. The endpoint supports handle formats, custom URLs, user links, and standard channel paths.
+Takes a YouTube channel URL and returns the channel's unique ID and its standard channel URL. The input is `channel_url`, which can be a handle, custom URL, user link, or channel link.
 
 ### Use cases
 
-- Resolve creator handle URLs into canonical channel IDs for downstream data queries.
-- Normalize user-submitted YouTube channel links into standard channel identifiers.
-- Verify channel existence and retrieve canonical channel URLs.
+- Convert a creator's `@handle` link into a `UC...` channel ID before you call other channel APIs.
+- Clean up channel links that users paste in different formats and store one standard URL per channel.
+- Check that a submitted channel link points to a real channel.
+- Build a lookup table that maps handles from a spreadsheet to channel IDs.
 
 ### Request
 
@@ -79,6 +80,8 @@ curl -X POST "https://api.sandbase.ai/v1/api/youtube/web/channel-id-v2" \
   -d '{"channel_url": "https://www.youtube.com/@CozyCraftYT"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
@@ -87,7 +90,7 @@ curl -X POST "https://api.sandbase.ai/v1/api/youtube/web/channel-id-v2" \
 
 ### Example response
 
-Real response for the request above, trimmed to the main fields. User names and long IDs are masked.
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
 
 ```json
 {
@@ -96,13 +99,23 @@ Real response for the request above, trimmed to the main fields. User names and 
 }
 ```
 
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `channel_id` | The unique YouTube channel ID. It starts with `UC`, for example `UCeu6U67OzJhV1KwBansH3Dg`. |
+| `channel_url` | The standard channel URL built from the ID, in the form `https://www.youtube.com/channel/<channel_id>`. |
+
 ### Notes
 
-- `channel_url` supports multiple URL formats including `@username`, `/channel/`, `/c/`, and `/user/`.
+- Pass the full URL in `channel_url`. The example uses a handle URL: `https://www.youtube.com/@CozyCraftYT`.
+- The response gives the same ID in `channel_id` and inside `channel_url`, so you can use either one.
+- To go the other way and get a URL from an ID, use [YouTube Channel URL by ID](/apis/youtube/web-v2/channel-url).
+- For profile details of the channel, call [YouTube Channel Information](/apis/youtube/web/channel-info) next.
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

@@ -62,13 +62,14 @@ Same call via the path form: `POST /v1/api/tiktok/shop-web/shop-id-by-share-link
 
 ## Details
 
-Retrieve a TikTok store identifier by submitting a valid TikTok Shop URL in `share_link`. The endpoint returns the numeric `shop_id` along with a deep link to the store.
+Resolves a TikTok Shop share link into the numeric shop ID and an in-app store link. It needs one input, `share_link`, which is a TikTok Shop share URL such as `https://vt.tiktok.com/ZT2AHoGsE/`.
 
 ### Use cases
 
-- Extract numeric store IDs from shortened TikTok share links.
-- Convert shared store links into internal TikTok app deep links.
-- Look up store identifiers to query additional shop metadata.
+- Convert a shortened shop share URL into a numeric `shop_id` you can store in a database.
+- Deduplicate shop links collected from different campaigns by comparing their `shop_id` values.
+- Pull the `sellerId` out of a shared store link to identify the seller behind it.
+- Turn a share URL into a store ID before you look up that shop's products.
 
 ### Request
 
@@ -79,6 +80,8 @@ curl -X POST "https://api.sandbase.ai/v1/api/tiktok/shop-web/shop-id-by-share-li
   -d '{"share_link": "https://vt.tiktok.com/ZT2AHoGsE/"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
@@ -87,22 +90,32 @@ curl -X POST "https://api.sandbase.ai/v1/api/tiktok/shop-web/shop-id-by-share-li
 
 ### Example response
 
-Real response for the request above, trimmed to the main fields. User names and long IDs are masked.
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
 
 ```json
 {
   "shop_id": "7495832087428237549",
-  "shop_link": "snssdk1180://ec/store?sellerId=7495832087428237549&store_page_version=2&trackParams=%7B%2…"
+  "shop_link": "snssdk1180://ec/store?sellerId=7495832087428237549&store_page_version=2&trackPar…"
 }
 ```
 
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `shop_id` | Numeric ID of the TikTok Shop, returned as a string. It is the same value as `sellerId` inside `shop_link`. |
+| `shop_link` | In-app deep link to the store page, using the `snssdk1180://ec/store` scheme. The query string holds `sellerId`, `store_page_version` and URL-encoded `trackParams`. |
+
 ### Notes
 
-- Requires a valid TikTok store URL in `share_link`.
+- Pass the full share URL in `share_link`, for example a short `vt.tiktok.com` link.
+- `shop_id` is a string of digits. Keep it as a string to avoid precision loss in your code.
+- To list products for the shop, call [TikTok Seller Products List](/apis/tiktok/shop-web/seller-products-list) or [TikTok Shop Seller Products (V2)](/apis/tiktok/shop-web/seller-products-list-v2).
+- For a product share link instead of a shop link, use [TikTok Shop Product ID by Share Link](/apis/tiktok/shop-web/product-id-by-share-link).
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

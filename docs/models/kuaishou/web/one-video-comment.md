@@ -63,13 +63,14 @@ Same call via the path form: `POST /v1/api/kuaishou/web/one-video-comment` with 
 
 ## Details
 
-Retrieve root comments for a specific Kuaishou video using `photo_id`. Page through additional comment results using the optional `pcursor` parameter.
+Returns root comments for one Kuaishou video, including the comment text, author details, like count and post time. It needs the video's `photo_id`, and it accepts an optional `pcursor` to fetch the next page.
 
 ### Use cases
 
-- Analyze viewer feedback and discussions on specific Kuaishou videos.
-- Track comment engagement metrics such as like counts.
-- Extract user feedback and reply interactions for sentiment analysis.
+- Collect viewer comments on a Kuaishou video for sentiment analysis.
+- Find which comments on a video get the most likes.
+- Map where commenters live by reading the `authorArea` value on each comment.
+- Export comment text and author IDs to track repeat commenters across videos.
 
 ### Request
 
@@ -80,47 +81,74 @@ curl -X POST "https://api.sandbase.ai/v1/api/kuaishou/web/one-video-comment" \
   -d '{"photo_id": "5193494945927590140"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
 |---|---|---|---|
-| `photo_id` | string | Yes | — |
-| `pcursor` | string | No | — |
+| `photo_id` | string | Yes |  |
+| `pcursor` | string | No |  |
 
 ### Example response
 
-Real response for the request above, trimmed to the main fields. User names and long IDs are masked.
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
 
 ```json
 {
+  "commentCount": 3053,
+  "host-name": "public-bjx-c34-kce-node3731.idchb1az1.hb1.kwaidc.com",
+  "pcursor": "975590339642",
+  "result": 1,
   "rootComments": [
     {
       "authorArea": "江西",
       "authorVerified": false,
       "author_id": 1727775365,
       "author_liked": false,
-      "author_name": "<user>",
+      "author_name": "韩柚希（七谨希）",
+      "cashTags": {},
+      "commentAuthorTags": [],
+      "commentBottomTags": [],
       "comment_id": 1137733188081,
       "content": "回复 挽风：枕头垫高，不要醒来[呆住][呆住][呆住]。",
-      "likedCount": 0,
-      "photo_id": 5193494945927590140,
-      "replyToUserName": "挽风",
-      "profilePagePrefetchInfo": {
-        "profilePageType": 1
-      }
+      "headurl": "http://p5.a.yximgs.com/uhead/AB/2025/12/19/23/BMjAyNTEyMTkyMzE4NDlfMTcyNzc3NTM2N…",
+      "headurls": [
+        {
+          "cdn": "p5.a.yximgs.com",
+          "url": "http://p5.a.yximgs.com/uhead/AB/2025/12/19/23/BMjAyNTEyMTkyMzE4NDlfMTcyNzc3NTM2N…"
+        }
+      ]
     }
-  ]
+  ],
+  "subCommentsMap": {}
 }
 ```
 
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `commentCount` | Total number of comments on the video. |
+| `pcursor` | Cursor for the next page of comments. Send it as the `pcursor` request parameter. |
+| `rootComments[].comment_id` | ID of the comment. |
+| `rootComments[].content` | Text of the comment. Replies to another user start with `回复` followed by that user's name. |
+| `rootComments[].likedCount` | Number of likes on the comment. |
+| `rootComments[].author_id / rootComments[].author_name` | ID and display name of the comment author. |
+| `rootComments[].authorArea / rootComments[].user_sex` | Area shown for the author, and the sex code of the user (`M` or `F`). |
+| `rootComments[].time / rootComments[].timestamp` | Comment time as a text date and as a numeric timestamp. |
+| `rootComments[].replyToUserName / rootComments[].reply_to` | Name and ID of the user this comment replies to. |
+| `rootComments[].headurl` | URL of the author's avatar image. |
+
 ### Notes
 
-- Requires `photo_id` to identify the video.
-- Use `pcursor` to control pagination across comment pages.
+- `photo_id` is the numeric ID of the video, for example `5193494945927590140`. Use [Kuaishou Single Video Details](/apis/kuaishou/web/one-video) to check the video itself.
+- To get the next page, pass the `pcursor` value from the response in your next request with the same `photo_id`.
+- `subCommentsMap` was empty in this response. Use [Kuaishou Video Sub Comments (Web)](/apis/kuaishou/web/one-video-sub-comment) to read replies to a comment.
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.002 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

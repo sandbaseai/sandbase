@@ -62,13 +62,14 @@ Same call via the path form: `POST /v1/api/instagram/v1/post-by-url` with the bo
 
 ## Details
 
-Returns Instagram post information based on the link provided in `post_url`.
+Returns details for a single Instagram post, including the owner, caption, like count, image sizes and posting time. It needs the full post link in `post_url`.
 
 ### Use cases
 
-- Retrieve display resources and media data for a specific Instagram link.
-- Inspect single post information for content archiving.
-- Extract post metadata directly using public Instagram URLs.
+- Download the image of a post at several sizes from the `display_resources` list.
+- Read the like count and caption of a known post to track a celebrity or brand announcement.
+- Check whether a post is an ad or paid partnership before you report on it.
+- Identify the account that published a post from its link, including the verified status.
 
 ### Request
 
@@ -79,19 +80,72 @@ curl -X POST "https://api.sandbase.ai/v1/api/instagram/v1/post-by-url" \
   -d '{"post_url": "https://www.instagram.com/p/DPwhVB-jo9k/"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
 |---|---|---|---|
 | `post_url` | string | Yes | Post URL |
 
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "__typename": "GraphImage",
+  "accessibility_caption": null,
+  "attempts": "0",
+  "can_see_insights_as_brand": false,
+  "caption_is_edited": false,
+  "coauthor_producers": [],
+  "commenting_disabled_for_viewer": true,
+  "comments_disabled": false,
+  "dimensions": {
+    "height": 1080,
+    "width": 1080
+  },
+  "display_resources": [
+    {
+      "config_height": 640,
+      "config_width": 480,
+      "src": "https://instagram.fbcn8-1.fna.fbcdn.net/v/t39.30808-6/735018292_1867233894105495…"
+    }
+  ],
+  "display_url": "https://instagram.fbcn8-1.fna.fbcdn.net/v/t51.82787-15/562815025_186013987930549…",
+  "edge_media_preview_comment": {
+    "count": 0,
+    "edges": []
+  }
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `shortcode / id` | The short code from the post URL and the numeric post ID. |
+| `__typename / is_video` | The post type (here `GraphImage`) and whether the post is a video. |
+| `taken_at_timestamp` | When the post was published, as a Unix timestamp in seconds. |
+| `edge_media_to_caption.edges[].node.text` | The caption text of the post. |
+| `edge_media_to_caption.edges[].node.created_at` | When the caption was written, as a Unix timestamp string. |
+| `edge_media_preview_like.count` | The number of likes on the post. |
+| `edge_media_to_parent_comment.count` | The number of top-level comments returned for the post. |
+| `display_url` | The main image link for the post. |
+| `display_resources[].src` | Image link for one size of the post image. Pair it with `config_width / config_height`. |
+| `owner.username / owner.full_name / owner.id / owner.is_verified` | The username, display name and numeric ID of the account that posted, and whether it is verified. |
+| `is_ad / is_paid_partnership / comments_disabled` | Flags that show whether the post is an ad, a paid partnership, or has comments turned off. |
+
 ### Notes
 
-- Requires a full Instagram post link passed to `post_url`.
+- Pass the full post link, such as `https://www.instagram.com/p/DPwhVB-jo9k/`. The `shortcode` in the response matches the code in the link.
+- In this response the `owner.edge_followed_by.count` and `owner.edge_owner_to_timeline_media.count` values are `0`. Call [Instagram User Info by Username](/apis/instagram/v1/user-info-by-username) for the profile details of `owner.username`.
+- Use [Instagram Post Comment List](/apis/instagram/post-comments) to read the comments, since the comment list in this response is empty.
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

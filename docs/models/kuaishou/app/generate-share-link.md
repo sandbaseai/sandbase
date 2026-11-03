@@ -62,13 +62,14 @@ Same call via the path form: `POST /v1/api/kuaishou/app/generate-share-link` wit
 
 ## Details
 
-This endpoint produces a share link for a specific Kuaishou app object using `shareObjectId`.
+This API returns a Kuaishou share link for one work. You send the work ID as `shareObjectId`, and it returns a short link, a share message with a copy-ready caption, and share metadata.
 
 ### Use cases
 
-- Produce Kuaishou sharing links for specified app objects.
-- Format direct links for sharing Kuaishou items across external channels.
-- Direct users to target Kuaishou media via generated share URLs.
+- Turn a Kuaishou work ID into a `https://v.kuaishou.com/...` short link to post in chats or on other platforms.
+- Build a share caption for a video from the ready-made `shareMessage` text.
+- Store the short link next to a work ID in a content tracking sheet.
+- Check which share type and resource type Kuaishou assigns to a given work.
 
 ### Request
 
@@ -79,19 +80,90 @@ curl -X POST "https://api.sandbase.ai/v1/api/kuaishou/app/generate-share-link" \
   -d '{"shareObjectId": "3xg5wjqdtekbb3u"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
 |---|---|---|---|
-| `shareObjectId` | string | Yes | — |
+| `shareObjectId` | string | Yes |  |
+
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "cache-scope": "nocache",
+  "debug_id": "c1b8d08e",
+  "debug_info": "gAAAAABq6Y7dAVOq-kfXfhMBrCWnwIAjc-dL-69vD4Ur_tjq-1uHCNQygWN0-jpkN1RJuR-tJhcrEiga…",
+  "error_msg": null,
+  "host-name": "public-bjx-c34-kce-node9.idchb1az1.hb1.kwaidc.com",
+  "hostName": "public-bjx-c34-kce-node9.idchb1az1.hb1.kwaidc.com",
+  "max-age": 0,
+  "result": 1,
+  "share": {
+    "appIconUrl": "https://static.yximgs.com/udata/pkg/ks-share-sdk/cardlogonew.png",
+    "appName": "as",
+    "extParams": {
+      "battleTemplateId": "",
+      "expTag": "1_i/0_unknown0",
+      "logExt": "{\"expTag\":\"1_i/0_unknown0\",\"trendingType\":\"\"}",
+      "shareInfoWrap": "{\"shareTitleInfo\":{\"title\":\"分享一个作品给你\",\"subTitle\":\"推荐你看这个视频\"},\"shareId\":\"19167006…",
+      "shareMethod": "token",
+      "shareMode": "app",
+      "styleKey": "",
+      "templateGenerationType": "",
+      "templateStyle": "",
+      "tokenExtParams": "{}",
+      "useMmuTitle": false
+    },
+    "kpn": "KUAISHOU",
+    "shareChannel": "COPY_LINK",
+    "shareMethod": "TOKEN",
+    "shareMethodType": null,
+    "shareMode": "APP",
+    "shareObject": {
+      "copyPopupWindowType": "DEFAULT",
+      "copylinkFailedTips": "Copy failed",
+      "copylinkSuccessTips": "Copied successfully, go share it with friends",
+      "kwaiToken": "X8XgJpxj…",
+      "shareId": "19167006876328",
+      "shareMessage": "https://v.kuaishou.com/KcrZIFsI 被好的风景收买，剩下的全是好心情”\"手机摄影 \"水下摄影 \"治愈系 This work has …",
+      "shareObjectId": "3xg5wjqdtekbb3u",
+      "shareResourceType": "PHOTO_OTHER",
+      "shortLink": "https://v.kuaishou.com/KcrZIFsI",
+      "toastDisplayTimeMillis": 1000
+    },
+    "subBiz": "BROWSE_SLIDE_PHOTO"
+  }
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `share.shareObject.shortLink` | Short URL for the work, on the `v.kuaishou.com` domain. |
+| `share.shareObject.shareMessage` | Full share text. It holds the short link, the work caption with hashtags, and a play count line. |
+| `share.shareObject.shareObjectId` | The work ID you sent in the request. |
+| `share.shareObject.kwaiToken` | Token string tied to this share. Kuaishou uses it for the token share method. |
+| `share.shareObject.shareId` | ID of this share action. |
+| `share.shareObject.shareResourceType` | Type of the shared resource, for example `PHOTO_OTHER`. |
+| `share.shareChannel / share.shareMethod / share.shareMode` | How the share is made. The sample shows `COPY_LINK`, `TOKEN` and `APP`. |
+| `share.shareObject.copylinkSuccessTips / share.shareObject.copylinkFailedTips` | Text the app shows after a copy succeeds or fails. |
+| `share.extParams.shareInfoWrap` | JSON string with extra share details, such as the share title and subtitle text. Parse it before you read it. |
+| `result` | Status code of the call. The sample returns `1`. |
 
 ### Notes
 
-- `shareObjectId` is a required parameter identifying the target object.
+- Use the work ID from a video response as `shareObjectId`. The ID in the example looks like `3xg5wjqdtekbb3u`.
+- Call [Kuaishou Video Details (V1)](/apis/kuaishou/app/one-video) to check the work before you build its share link.
+- Use [Kuaishou Web Share Short URL](/apis/kuaishou/web/generate-share-short-url) if you need a share link from the web side.
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

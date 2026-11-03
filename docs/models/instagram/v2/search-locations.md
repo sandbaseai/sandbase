@@ -62,13 +62,14 @@ Same call via the path form: `POST /v1/api/instagram/v2/search-locations` with t
 
 ## Details
 
-Look up Instagram locations by providing a location name or city query via `keyword`. The endpoint returns place metadata and identifiers for matching locations.
+Returns a list of Instagram locations that match a search term. You send a `keyword` such as a place name or city, and each result includes an ID, name, coordinates, and a Facebook place ID.
 
 ### Use cases
 
-- Find location IDs for geotag research.
-- Auto-complete place and city names in search interfaces.
-- Match user query terms to standardized Instagram location entries.
+- Find the Instagram location ID for a landmark, hotel, or city before pulling posts tagged there.
+- Build a place autocomplete that maps typed text to Instagram location entries.
+- Plot candidate places on a map using the returned latitude and longitude.
+- Tell apart places with similar names by comparing their `address` and `city` values.
 
 ### Request
 
@@ -79,6 +80,8 @@ curl -X POST "https://api.sandbase.ai/v1/api/instagram/v2/search-locations" \
   -d '{"keyword": "paris"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
@@ -87,30 +90,52 @@ curl -X POST "https://api.sandbase.ai/v1/api/instagram/v2/search-locations" \
 
 ### Example response
 
-Real response for the request above, trimmed to the main fields. User names and long IDs are masked.
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
 
 ```json
 {
   "data": {
+    "count": 30,
     "items": [
       {
-        "facebook_places_id": 1619558008055426,
-        "id": "1619558008055426",
-        "name": "Paris, France",
-        "short_name": "Paris"
+        "address": "3655 Las Vegas Blvd S",
+        "city": "",
+        "external_source": "facebook_places",
+        "facebook_places_id": 203320451997,
+        "id": "203320451997",
+        "latitude": 36.112384416244,
+        "longitude": -115.17106896803,
+        "name": "Paris Las Vegas Hotel & Casino",
+        "short_name": "Paris Las Vegas Hotel & Casino"
       }
     ]
   }
 }
 ```
 
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `data.count` | Number of location results returned for the keyword. |
+| `data.items[].id` | Instagram location ID as a string. Use it as the location identifier in other location calls. |
+| `data.items[].name / data.items[].short_name` | Display name of the place. In the sample, both fields hold the same value. |
+| `data.items[].facebook_places_id` | Numeric Facebook place identifier for the location. It matches `id` for some results and differs for others. |
+| `data.items[].latitude / data.items[].longitude` | Coordinates of the place in decimal degrees. |
+| `data.items[].address` | Street address of the place. It is an empty string when none is available. |
+| `data.items[].city` | City label for the place, such as `Paris, France`. It is an empty string when none is available. |
+| `data.items[].external_source` | Source label for the place record. The sample shows `facebook_places`. |
+
 ### Notes
 
-- The `keyword` parameter is required and accepts a location name or city.
+- The `keyword` parameter is the only input. It takes a location name or city, for example `paris`.
+- Results can include places that only contain the keyword in the name, such as a hotel in Las Vegas, so check `latitude`, `longitude`, and `city` before you pick one.
+- Use `id` as a string. Do not use `facebook_places_id` in its place, because the two values can differ.
+- To find locations near a point instead of by name, use [Instagram Location Search by Coordinates (V2)](/apis/instagram/v2/search-by-coordinates). To get posts for a chosen place, use [Instagram Location Posts (V2)](/apis/instagram/v2/location-posts).
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.002 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

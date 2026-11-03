@@ -69,13 +69,14 @@ Same call via the path form: `POST /v1/api/xiaohongshu/app-v2/search-users` with
 
 ## Details
 
-Search for Xiaohongshu accounts by providing a search term in `keyword`. Supports pagination via `page` and `search_id`.
+Returns a page of Xiaohongshu (RED) user accounts that match a search term. Each result has the user ID, display name, RED ID, verification flags, and a follower label. The only required input is `keyword`.
 
 ### Use cases
 
-- Find relevant creators on Xiaohongshu by niche or brand name.
-- Retrieve profile identifiers and official verification status for influencer research.
-- Track creator fan scale metrics through search results.
+- Find creator and brand accounts on Xiaohongshu that match a niche or brand name.
+- Collect user IDs and RED IDs to look up full profiles or posted notes later.
+- Check which accounts carry an official verification flag before shortlisting them.
+- Compare follower sizes across search results with the `sub_title` label.
 
 ### Request
 
@@ -86,47 +87,98 @@ curl -X POST "https://api.sandbase.ai/v1/api/xiaohongshu/app-v2/search-users" \
   -d '{"keyword": "小红书"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
 |---|---|---|---|
 | `keyword` | string | Yes | Search keyword |
 | `page` | integer | No | Page number, start from 1 |
-| `source` | string | No | Source, default "explore_feed" |
 | `search_id` | string | No | Search ID, pass value from first search response for pagination |
+| `source` | string | No | Source, default "explore_feed" |
 
 ### Example response
 
-Real response for the request above, trimmed to the main fields. User names and long IDs are masked.
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
 
 ```json
 {
+  "code": 0,
   "data": {
+    "filters": [
+      {
+        "filter_tags": [
+          {
+            "icon_tail_url": "",
+            "icon_tail_url_night": "",
+            "icon_url": "",
+            "icon_url_night": "",
+            "id": "all",
+            "name": "All",
+            "need_location_info": false,
+            "origin_text": ""
+          }
+        ],
+        "group_show_type": 0,
+        "id": "fans_count",
+        "invisible": true,
+        "name": "Followers",
+        "type": "single",
+        "word_request_id": "71db60eedf9fe0be6ff5538195b2f1f1"
+      }
+    ],
     "users": [
       {
         "desc": "官方账号",
+        "followed": false,
         "id": "59f985684eacab1ce3cc5409",
+        "image": "https://sns-avatar-qc.xhscdn.com/avatar/600e72c904b7c90001c6e3bf.jpg?imageView2/…",
         "link": "xhsdiscover://1/user/user.59f985684eacab1ce3cc5409",
         "name": "小红书REDesign",
+        "reason": "",
         "red_id": "63044481856",
         "red_official_verified": true,
         "red_official_verify_type": 0,
-        "sub_title": "Fans 576.1k"
+        "self": false,
+        "show_red_official_verify_icon": false
       }
     ]
-  }
+  },
+  "debug_id": "88ccd612",
+  "debug_info": "gAAAAABq6ZFs1ibV7bP6A-JK73XWLOTYM3KJaXbSgyAbPq8pvyOCx7gNSP7HregcC4Xa3-EQL8VNxM7e…",
+  "next_page": 2,
+  "page": 1,
+  "search_id": "20f427c7a6d3496b",
+  "success": true
 }
 ```
 
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `data.users[].id` | The user ID of the account. Use it as the user identifier in other Xiaohongshu user calls. |
+| `data.users[].red_id` | The public RED ID of the account, shown as a numeric string. |
+| `data.users[].name` | The display name of the account. |
+| `data.users[].desc` | Short profile label for the account. Official accounts show `官方账号` here. |
+| `data.users[].sub_title` | Follower count as display text, for example `Fans 581.2k`. It is a rounded label, not a number. |
+| `data.users[].red_official_verified / data.users[].red_official_verify_type` | Whether the account has official verification, and a numeric code for the verification type. The meaning of each code is not described in the response. |
+| `data.users[].show_red_official_verify_icon` | Whether the app shows the verification icon next to the account. |
+| `data.users[].image` | URL of the account avatar image. |
+| `data.users[].link` | App deep link that opens the user profile in the Xiaohongshu app. |
+| `search_id` | ID of this search. Send it back in `search_id` when you request the next page. |
+
 ### Notes
 
-- `page` starts from 1 for paginating through search results.
-- Pass `search_id` returned from the initial search response when requesting subsequent pages.
-- `source` defaults to "explore_feed" if not specified.
+- `next_page` in the response gives the page number to request next, and `page` shows the current page. Set `page` to that value to continue.
+- Pass the `search_id` from the first response on every later page request.
+- `data.filters` lists filter groups such as `fans_count` and `user_type`, each with tag IDs like `0-100` and `personal_verification`. The request schema has no parameter for them.
+- To get full profile details for a result, call [Xiaohongshu (RED) User Information](/apis/xiaohongshu/app-v2/user-info) with the user ID. To see their posts, call [Xiaohongshu (RED) User Posted Notes](/apis/xiaohongshu/app-v2/user-posted-notes).
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.01 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

@@ -59,13 +59,14 @@ Same call via the path form: `POST /v1/api/bilibili/app/popular-feed` with the b
 
 ## Details
 
-Access popular trending video items on the Bilibili app. Use `idx` to specify the page index and `last_param` to handle pagination between result sets.
+Returns a page of popular video cards from the Bilibili app popular feed. Each card has a title, BV ID, cover, duration, creator text and view text. The request needs no input, and you can pass `idx` and `last_param` to page through the feed.
 
 ### Use cases
 
-- Track trending and high-performing videos on the Bilibili app.
-- Display popular video recommendations in external dashboards.
-- Paginate through top video feeds for content discovery.
+- Build a daily snapshot of the videos shown on the Bilibili popular feed.
+- Collect `bvid` values from popular cards and send them to a video detail API.
+- Compare which creators and topics appear on the popular feed over time.
+- Show the current popular titles and covers in an external dashboard.
 
 ### Request
 
@@ -76,6 +77,8 @@ curl -X POST "https://api.sandbase.ai/v1/api/bilibili/app/popular-feed" \
   -d '{}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
@@ -85,31 +88,88 @@ curl -X POST "https://api.sandbase.ai/v1/api/bilibili/app/popular-feed" \
 
 ### Example response
 
-Real response for the request above, trimmed to the main fields. User names and long IDs are masked.
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
 
 ```json
 {
+  "code": 0,
+  "config": {
+    "bottom_text": "已经到达热门的尽头惹，<em class=\"keyword\">关于热门</em>",
+    "bottom_text_cover": "https://i0.hdslb.com/bfs/archive/10814950191d33ba6eb6f29439e27399c3eeee37.png",
+    "bottom_text_url": "https://www.bilibili.com/blackboard/activity-RKWxGjjMb.html",
+    "head_image": "https://i0.hdslb.com/bfs/legacy/1e7a9273bba1e3c20fecd7e69274278affd52e0f.png",
+    "item_title": "当前热门",
+    "share_info": {
+      "current_title": "全部热门",
+      "current_top_photo": "https://i0.hdslb.com/bfs/legacy/1e7a9273bba1e3c20fecd7e69274278affd52e0f.png",
+      "share_desc": "",
+      "share_icon": "https://i0.hdslb.com/bfs/activity-plat/static/20190424/df3e2ff90b315fca2f8d24a29…",
+      "share_sub_title": "全站最热的视频都在这儿，你最喜欢哪一个？",
+      "share_title": "哔哩哔哩热门"
+    },
+    "top_items": [
+      {
+        "entrance_id": 4,
+        "icon": "http://i0.hdslb.com/bfs/archive/a3f11218aaf4521b4967db2ae164ecd3052586b9.png",
+        "module_id": "rank",
+        "title": "排行榜",
+        "uri": "bilibili://rank?type=all"
+      }
+    ]
+  },
   "data": [
     {
+      "args": {},
+      "bvid": "BV19P4w6aEk3",
+      "card_goto": "av",
       "card_type": "small_cover_v5",
-      "cover_right_text_1": "23:59",
+      "cover": "http://i0.hdslb.com/bfs/archive/0721196fe0577d7c60837786d44e9130da985544.jpg",
+      "cover_right_text_1": "20:33",
       "from_type": "recommend",
-      "right_desc_1": "小潮院长 等联合创作",
-      "right_desc_2": "223.2万观看 · 昨天 12:00",
-      "title": "惊惊惊惊惊惊惊惊了"
+      "goto": "av",
+      "idx": 2,
+      "is_popular": true,
+      "param": "117546359521318",
+      "rcmd_reason_style": {
+        "bg_style": 2,
+        "border_color": "#FFFB9E60",
+        "border_color_night": "#BC7A4F",
+        "text": "2万分享",
+        "text_color": "#FFFB9E60",
+        "text_color_night": "#BC7A4F"
+      }
     }
-  ]
+  ],
+  "message": "OK",
+  "ver": "1793690839"
 }
 ```
 
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `data[].title` | Video title shown on the card. |
+| `data[].bvid` | BV ID of the video. Use it to look up the video elsewhere. |
+| `data[].param` | Numeric video ID as a string. This is the same number that appears in the `uri` value. |
+| `data[].cover` | Cover image URL of the video. |
+| `data[].cover_right_text_1` | Video duration shown on the cover, for example `20:33`. |
+| `data[].right_desc_1` | Creator line shown on the card. It can be one name or a joint creation label such as `摸鱼事务所 等联合创作`. |
+| `data[].right_desc_2` | Display text with the view count and the time since publishing, for example `32万观看 · 4小时前`. It is a text label, not a number. |
+| `data[].rcmd_reason_style.text` | Short reason label shown on some cards, for example `2万分享`. Many cards do not have this field. |
+| `data[].idx` | Position number of the card in the feed. |
+| `data[].uri` | In-app deep link for the video. It includes the `cid` as a query value. |
+| `config.top_items[].title / config.top_items[].uri` | Title and link of the entrance tiles at the top of the popular page, such as the ranking list. |
+
 ### Notes
 
-- `idx` defines the page index starting from 1.
-- `last_param` accepts the last video ID from the previous page for pagination.
+- `idx` is the page index and starts at 1. Pass the `param` value of the last card on the previous page as `last_param` to get the next page.
+- Take `bvid` from `data[]` and pass it to [Bilibili Video Details](/apis/bilibili/web/one-video) for more data on one video.
+- To read the comments on a video, call [Bilibili Video Comments (App)](/apis/bilibili/app/video-comments).
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

@@ -64,7 +64,14 @@ Same call via the path form: `POST /v1/api/web3-career/web3-companies` with the 
 
 ## Details
 
-Fetch a paginated list of Web3 companies hiring on the platform. Each company includes its name and profile page URL.
+Returns a page of Web3 companies that are hiring on Web3.career. Each company has a name and a profile page URL. The only input is an optional `page` number.
+
+### Use cases
+
+- Build a list of crypto employers to target for outreach or recruiting research.
+- Track which companies appear on the first pages of the Web3.career company directory.
+- Collect company profile URLs to feed a scraper or a CRM import.
+- Match company names against your own watchlist of exchanges and protocols.
 
 ### Request
 
@@ -75,7 +82,7 @@ curl -X POST "https://api.sandbase.ai/v1/api/web3-career/web3-companies" \
   -d '{}'
 ```
 
-This API runs asynchronously. The call returns a task `id` with status `pending`; poll `GET https://api.sandbase.ai/v1/run/{id}` until `status` is `completed` and read the result from `outputs[0].data`.
+The result is returned in `outputs[0].data`.
 
 ### Parameters
 
@@ -83,9 +90,44 @@ This API runs asynchronously. The call returns a task `id` with status `pending`
 |---|---|---|---|
 | `page` | integer | No | Page number for pagination. |
 
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "data": {
+    "companies": [
+      {
+        "name": "Binance",
+        "url": "https://web3.career/web3-companies/binance"
+      }
+    ],
+    "page": "1"
+  },
+  "status": "success"
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `data.companies[]` | List of companies on the requested page. |
+| `data.companies[].name` | Company name as shown on Web3.career, for example `Binance`. |
+| `data.companies[].url` | Link to the company profile page on Web3.career. The last part of the path looks like a slug, for example `crypto-com`. |
+| `data.page` | Page number of this result, returned as a string such as `"1"`. |
+| `status` | Result status of the call. `success` means the data was returned. |
+
+### Notes
+
+- Send `page` to move through the list. The request without `page` returned page `1`.
+- To see open roles for a company, call [Web3.career Company Jobs](/apis/web3-career/company-jobs).
+- To browse all open roles instead of companies, use [Web3.career Job Listings](/apis/web3-career/job-listings).
+
 ### Pricing
 
-Flat price per call. Failed calls are not charged.
+$0.01 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ---
 Machine-readable: [`catalog/models/web3-career/web3-companies.json`](../../../catalog/models/web3-career/web3-companies.json) · Store page: https://www.sandbase.ai/model/web3-career/web3-companies

@@ -52,13 +52,14 @@ Same call via the path form: `POST /v1/api/lemon8/app/discover-tab-information-t
 
 ## Details
 
-This endpoint returns Editor's Picks and discover tab sections from the Lemon8 app without requiring input parameters.
+Returns the Editor's Picks and discover tab sections shown in the Lemon8 mobile app. Each section carries a title, a banner image and a season of featured posts. The request takes no input parameters.
 
 ### Use cases
 
-- Display curated Lemon8 discover categories in a mobile or web interface.
-- Track featured Editor's Picks content sections across Lemon8 discover tabs.
-- Analyze curated discovery topics promoted on the Lemon8 platform.
+- List the current Lemon8 editor campaigns, such as `Weekly Trends` and `girltalk`, with their banner images.
+- Collect featured posts and their authors from each campaign to see which creators Lemon8 promotes.
+- Track how campaign hashtags and season subtitles change from one call to the next.
+- Read the search phrases attached to featured posts to find topics tied to a campaign.
 
 ### Request
 
@@ -69,9 +70,92 @@ curl -X POST "https://api.sandbase.ai/v1/api/lemon8/app/discover-tab-information
   -d '{}'
 ```
 
+The result is returned in `outputs[0].data`.
+
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "data": {
+    "impression_id": "7703843302294030605",
+    "informations": [
+      {
+        "back_color": "",
+        "banner_url": "https://p19-lemon8-va-sign.tiktokcdn-us.com/tos-maliva-i-tej9nj120t-us/7a69aeb45…",
+        "has_more": true,
+        "id": "7470802545074604087",
+        "items": [],
+        "offset": 10,
+        "priority": 1062,
+        "season": {
+          "creator_intro": "",
+          "creators": [],
+          "has_more": true,
+          "items": [
+            {
+              "abstract": "<p>Since grad season is upon us I thought I show some of the poses and locations…",
+              "aggr_type": 0,
+              "anchor_list": [
+                {
+                  "anchor_type": 2,
+                  "biz_extra": "{\"word\":\"graduation photos ideas\",\"group_id\":\"950419280026140709\",\"score\":0.0038…",
+                  "icon_type": "square",
+                  "icon_url": "https://p16-lemon8-cross-sign.tiktokcdn-us.com/tos-alisg-i-2014-sg/10564e90b5d14…",
+                  "log_extra": "{\"anchor_type\":\"search\",\"sar_query\":\"graduation photos ideas\"}",
+                  "schema": "",
+                  "show_in_folded": true,
+                  "sub_title": "graduation photos ideas"
+                }
+              ],
+              "app_transcode_rule": {},
+              "article_class": "Gallery",
+              "article_sub_class": "normal",
+              "article_type": 0,
+              "article_url": "https://www.lemon8-app.com/@swagis4eva/7501417544423703086?user_id=7262344915936…"
+            }
+          ],
+          "offset": 10,
+          "season_id": "7503609246219503621",
+          "season_num": 7,
+          "season_subtitle": "It’s your moment to shine! Whether you’re tossing your cap, striking a power pos…"
+        },
+        "sub_title": "#graduationpictures",
+        "title": "Weekly Trends"
+      }
+    ]
+  },
+  "message": "success",
+  "server_time": "1793691390.56"
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `data.informations[].title / data.informations[].sub_title` | Name of the editor section and its hashtag, for example `Weekly Trends` with `#graduationpictures`. |
+| `data.informations[].id` | ID of the section as a string. |
+| `data.informations[].banner_url` | Banner image URL for the section. |
+| `data.informations[].priority` | Number that sets the order of the sections. Lower values appear first in the sample. |
+| `data.informations[].has_more / data.informations[].offset` | Show whether the section has more posts and the offset value returned for it. |
+| `data.informations[].season.season_id / data.informations[].season.season_num` | ID and number of the current season of the campaign. |
+| `data.informations[].season.season_subtitle` | Short text that describes the campaign and what creators should post. |
+| `data.informations[].season.items[].article_url` | Link to a featured post on lemon8-app.com. The link holds the author handle and the post ID. |
+| `data.informations[].season.items[].article_class` | Type of the post, such as `Gallery` or `Video`. |
+| `data.informations[].season.items[].author.name / data.informations[].season.items[].author.user_unique_name` | Display name and handle of the post author. Author details such as `author_id` and `description` sit in the same object. |
+
+### Notes
+
+- The top-level `items` list in each section is empty in the sample. Read the featured posts from `season.items[]` instead.
+- Some posts include `anchor_list[]`. Its `sub_title` holds a search phrase linked to the post.
+- Pass a post ID from `article_url` to [Lemon8 Post Details](/apis/lemon8/app/post-detail) to get the full post.
+- Pass a handle or author ID to [Lemon8 User Profile Details](/apis/lemon8/app/user-profile) to look at a creator.
+
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

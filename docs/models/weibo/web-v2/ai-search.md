@@ -62,13 +62,14 @@ Same call via the path form: `POST /v1/api/weibo/web-v2/ai-search` with the body
 
 ## Details
 
-Use this endpoint to query Weibo AI intelligent search results by supplying a search keyword via `query`.
+Returns the result of a Weibo AI search for one keyword or topic. The response holds an AI-written answer in `msg`, a block of multimodal post cards in `card_multimodal`, and links to the source posts. It needs one input, `query`.
 
 ### Use cases
 
-- Search Weibo content and topics using AI-assisted matching.
-- Retrieve multimodal card results with relevance and hit scores.
-- Monitor user engagement metrics for specific topic queries.
+- Pull the AI summary text for a Weibo topic such as `#人工智能#` to see how Weibo describes it.
+- List the image and video posts that Weibo ranks highest for a topic, with the author name and media URL.
+- Rank candidate posts for a topic by `hit_score_final` to pick the ones to review first.
+- Collect the post IDs behind an AI answer so you can fetch full post details or comments.
 
 ### Request
 
@@ -79,6 +80,8 @@ curl -X POST "https://api.sandbase.ai/v1/api/weibo/web-v2/ai-search" \
   -d '{"query": "#人工智能#"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
@@ -87,34 +90,75 @@ curl -X POST "https://api.sandbase.ai/v1/api/weibo/web-v2/ai-search" \
 
 ### Example response
 
-Real response for the request above, trimmed to the main fields. User names and long IDs are masked.
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
 
 ```json
 {
+  "ab_suffix": "default",
+  "abtest_info": {
+    "chat_entrance": 1
+  },
+  "analysis_time": 1793666810,
+  "basemodel": "实验组82",
+  "business_context": "long_tail_query",
   "card_multimodal": {
     "data": [
       {
         "click_num": 0,
         "click_rate": 0,
-        "doc_score": 4467,
-        "hit_score_final": 82.729683,
-        "hit_score_new": 99.902344,
-        "type": "p",
-        "user_name": "<user>",
-        "vtype": 0
+        "cur_mid": "5361060795386149",
+        "doc_score": 7754,
+        "focus_point": {
+          "height": 0.6923247,
+          "left": 0.07478951,
+          "top": 0.2864349,
+          "width": 0.9230996
+        },
+        "h": 2304,
+        "hit_score_final": 90.378128,
+        "hit_score_new": 90.722656,
+        "id": "emphasis-tag-0",
+        "img": "http://wx3.sinaimg.cn/middle/5854ac96ly1iiomfq4rcej21c01s0hdu.jpg",
+        "img_pid": "5854ac96ly1iiomfq4rcej21c01s0hdu",
+        "scheme": "sinaweibo://multimedia?mix_mid=5361060795386149&from=search&content_show=1&mix_i…"
       }
-    ]
-  }
+    ],
+    "type": "mediablock"
+  },
+  "chat_status_stage": 4,
+  "comment_info": {},
+  "content_tail": "",
+  "cot": 1,
+  "current_model": "deepseek-v4-flash",
+  "current_time": 1793691982153
 }
 ```
 
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `msg` | The AI-generated answer text, in the format named by `msg_format` (here `markdown`). It can begin with a `<think>` reasoning section. |
+| `display_query` | The query string that Weibo searched, such as `#人工智能#`. |
+| `card_multimodal.data[].cur_mid` | The ID of the post that the card shows. |
+| `card_multimodal.data[].type / card_multimodal.data[].vtype` | The card media type. The sample shows `p` for a picture card and `v` for a video card. `vtype` is a numeric subtype, `0` for the picture card and `3` for the video cards. |
+| `card_multimodal.data[].hit_score_final / card_multimodal.data[].hit_score_new / card_multimodal.data[].doc_score` | Relevance scores for the card. Higher values mean a stronger match in the sample ordering, and `doc_score` falls from the first card to the last. |
+| `card_multimodal.data[].user_name / card_multimodal.data[].user_avatar` | The display name and avatar image URL of the post author. |
+| `card_multimodal.data[].img / card_multimodal.data[].video_url` | The cover image URL and, for video cards, the video page URL. `video_url` is an empty string for picture cards. |
+| `card_multimodal.data[].w / card_multimodal.data[].h` | Width and height of the card image. The response does not state the unit. |
+| `link_list` | Links in the `sinaweibo://detail?mblogid=` form that point to the posts used for the answer. |
+| `current_model` | The name of the model that wrote the answer. |
+
 ### Notes
 
-- The `query` parameter accepts keywords and recommends using the topic format such as #TopicName#.
+- Set `query` in topic format, for example `#人工智能#`. The endpoint takes no pagination parameters.
+- Post IDs appear in `cur_mid` and in `link_list` after `mblogid=`. Pass them to [Weibo Post Detail](/apis/weibo/web-v2/post-detail) or [Weibo Post Comments](/apis/weibo/web-v2/post-comments).
+- `scheme` holds an app deep link that starts with `sinaweibo://`. It opens in the Weibo app, not in a browser.
+- For related questions and recommended bloggers on the same keyword, call [Weibo AI Related Search Content](/apis/weibo/web-v2/ai-related-search).
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

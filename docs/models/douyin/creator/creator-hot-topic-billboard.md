@@ -68,13 +68,14 @@ Same call via the path form: `POST /v1/api/douyin/creator/creator-hot-topic-bill
 
 ## Details
 
-Fetch trending creator topics on Douyin using optional filters such as `order_key`, `time_filter`, and `billboard_tag`.
+Returns a ranked list of trending creator topics on Douyin. Each topic has play, like, comment and share counts plus publish counts. All inputs are optional integers: `billboard_tag`, `order_key` and `time_filter`.
 
 ### Use cases
 
-- Identify trending creator topics to guide content strategy on Douyin.
-- Monitor engagement metrics including likes, shares, and plays across popular topics.
-- Track topic performance over specific time windows.
+- Find which topics get the most plays and likes so you can pick themes for new Douyin videos.
+- Compare `publish_count` and `publish_uv` across topics to spot topics with high reach but few creators posting.
+- Rank topics by `share_count` or `comment_count` to see which ones drive the most interaction.
+- Pull the billboard for different `billboard_tag` values to compare topic trends by category.
 
 ### Request
 
@@ -85,45 +86,71 @@ curl -X POST "https://api.sandbase.ai/v1/api/douyin/creator/creator-hot-topic-bi
   -d '{}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
 |---|---|---|---|
+| `billboard_tag` | integer | No | Billboard tag, 0=all, other values can be obtained through config interface |
 | `order_key` | integer | No | Order key |
 | `time_filter` | integer | No | Time filter |
-| `billboard_tag` | integer | No | Billboard tag, 0=all, other values can be obtained through config interface |
 
 ### Example response
 
-Real response for the request above, trimmed to the main fields. User names and long IDs are masked.
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
 
 ```json
 {
   "item_list": [
     {
+      "aweme_list": null,
       "collection_count": 0,
-      "comment_count": 86375,
+      "comment_count": 437302,
+      "cover": {
+        "url_list": [
+          "https://p11-sign.douyinpic.com/tos-cn-i-dy/05d329044d5340108ec4bc2f05f4248b~noop…"
+        ]
+      },
+      "hot_involve_ratio": "",
+      "hot_involve_type": "",
       "hot_onboard_time": 0,
       "hot_score": 0,
-      "item_id": "1675469940854792",
-      "like_count": 2931145,
-      "play_count": 1087614043,
-      "publish_count": 4802,
-      "query_id": "43003785",
-      "share_count": 90835
+      "item_id": "7495235888088090635",
+      "key_words": null,
+      "like_count": 10362414,
+      "play_count": 932836314
     }
-  ]
+  ],
+  "status_code": 0,
+  "status_msg": ""
 }
 ```
 
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `item_list[].title` | Name of the topic, in Chinese. |
+| `item_list[].item_id / item_list[].query_id` | String IDs for the topic entry. Both are returned as strings. |
+| `item_list[].play_count` | Total plays recorded for the topic. |
+| `item_list[].like_count / item_list[].comment_count / item_list[].share_count` | Total likes, comments and shares recorded for the topic. |
+| `item_list[].publish_count` | Number of videos published under the topic. |
+| `item_list[].publish_uv` | Number of distinct publishers for the topic, as the key name suggests. |
+| `item_list[].cover.url_list[]` | Cover image URLs for the topic. Several URLs are listed for the same image. |
+| `item_list[].collection_count / item_list[].hot_score / item_list[].show_count` | Other counters. They were `0` in this response, so do not rely on them for ranking. |
+| `status_code / status_msg` | Request status. `status_code` is `0` and `status_msg` is empty on success. |
+
 ### Notes
 
-- Set `billboard_tag` to 0 for all tags; other values come from the config interface.
-- Supports sorting and timeframe selection via `order_key` and `time_filter`.
+- `billboard_tag` defaults to `0`, which means all tags. Other values come from the config interface.
+- The schema does not describe the values for `order_key` and `time_filter`. Both default to `1`.
+- The cover URLs are signed and include an `x-expires` value, so download images soon after the call.
+- For other Douyin creator rankings, see [Douyin Creator Hot Spot Billboard](/apis/douyin/creator/creator-hot-spot-billboard) and [Douyin Creator Hot Music Billboard](/apis/douyin/creator/creator-hot-music-billboard).
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

@@ -64,13 +64,14 @@ Same call via the path form: `POST /v1/api/zhihu/web/ai-search-stream` with the 
 
 ## Details
 
-Query Zhihu AI search stream by passing `message_content`. Optionally supply `session_id` for multi-turn conversations and specify `chat_mode`.
+Returns the AI answer to a query from Zhihu AI search as a list of stream events. Each event carries a small piece of the answer text. The only required input is `message_content`, the question or prompt to search.
 
 ### Use cases
 
-- Retrieve AI-synthesized answers from Zhihu content.
-- Maintain multi-turn AI search dialogs using session identifiers.
-- Stream Zhihu search output in fast or alternative chat modes.
+- Collect a full AI-written answer to a question by joining the `summary` pieces from all `Answer` events.
+- Continue a conversation by sending the `session_id` from a first call with a follow-up `message_content`.
+- Measure how fast the answer starts using the `ttft` timing values in `system_meta`.
+- Log the `trace_id` of each call to match a response to a specific search.
 
 ### Request
 
@@ -81,6 +82,8 @@ curl -X POST "https://api.sandbase.ai/v1/api/zhihu/web/ai-search-stream" \
   -d '{"message_content": "<message_content>"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
@@ -89,15 +92,56 @@ curl -X POST "https://api.sandbase.ai/v1/api/zhihu/web/ai-search-stream" \
 | `chat_mode` | string | No | Chat mode, default FAST |
 | `session_id` | string | No | Session ID for multi-turn |
 
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "events": [
+    {
+      "data": {
+        "ai_attached_info": "ogN8EhM3NzAzODQ5MDI0OTU1MDMyODE3GJgBIhM3NzAzODQ5MDI0OTU1MDE3MDg2KhM3NzAzODQ5MDI0…",
+        "message_id": "7703849024955017086",
+        "parent_message_id": "7703849024955032817",
+        "session_id": "37616450…"
+      },
+      "event": "Init",
+      "system_meta": {
+        "flush_time": 1793692127112,
+        "flush_time_format": "15:48:47.112",
+        "trace_id": "4361b701-b2b3-4560-95b0-4fb71bf30c68"
+      }
+    }
+  ]
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `events[]` | List of stream events in the order they were sent. Each item has an `event` name, a `data` object and a `system_meta` object. |
+| `events[].event` | Type of the event. The sample shows `Init` first, followed by `Answer` events. |
+| `events[].data.session_id` | ID of the chat session, sent in the `Init` event. Pass it as `session_id` in a later call for a multi-turn chat. |
+| `events[].data.message_id / events[].data.parent_message_id` | ID of the new message and the ID of the message before it in the session. |
+| `events[].data.summary` | A piece of answer text in an `Answer` event. Join the pieces in order to get the full answer. |
+| `events[].data.delta` | Set to `true` when `summary` holds only the new text for this event, not the whole answer so far. |
+| `events[].data.cite_dict / events[].data.digital_cite_dict` | Citation maps for the answer text. Both are empty in the sample events. |
+| `events[].system_meta.ttft / events[].system_meta.answer_ttft / events[].system_meta.aisp_ttft` | Time to first token values, present on the first `Answer` event. The response does not state their unit. |
+| `events[].system_meta.flush_time / events[].system_meta.flush_time_format` | Time the event was sent, as a number and as a `HH:MM:SS.mmm` string. |
+| `events[].system_meta.trace_id` | Trace ID shared by all events in the same response. |
+
 ### Notes
 
-- `message_content` is required to provide the search text.
-- `session_id` enables multi-turn conversation tracking.
-- `chat_mode` defaults to FAST if omitted.
+- Concatenate `events[].data.summary` from the `Answer` events in order to build the full answer text, since each event has `delta` set to `true`.
+- To keep a conversation going, read `events[].data.session_id` from the `Init` event and send it as `session_id` in the next call.
+- `chat_mode` is optional and defaults to `FAST`.
+- To read the full content behind a topic, use [Zhihu Article Search](/apis/zhihu/web/article-search-v3) to find articles and answers on the same query.
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.005 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

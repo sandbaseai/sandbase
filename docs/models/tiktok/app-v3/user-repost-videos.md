@@ -64,13 +64,14 @@ Same call via the path form: `POST /v1/api/tiktok/app-v3/user-repost-videos` wit
 
 ## Details
 
-Retrieve videos reposted by an account using their `user_id`. Supports navigating through results via `count` and `offset`.
+Returns the list of videos a TikTok user has reposted, as `aweme_list`. The input is the numeric `user_id` of the reposting account. Use `count` and `offset` to page through results.
 
 ### Use cases
 
-- Track videos shared or reposted by a specific creator.
-- Analyze content amplification and sharing trends across targeted accounts.
-- Collect reposted media metadata for audience research.
+- List the videos a creator has reposted to see which content they amplify.
+- Collect the original authors of reposted videos to find accounts a creator tends to endorse.
+- Extract hashtags from reposted videos to see which topics a creator shares.
+- Save the description and sound details of reposted videos for content research.
 
 ### Request
 
@@ -80,6 +81,8 @@ curl -X POST "https://api.sandbase.ai/v1/api/tiktok/app-v3/user-repost-videos" \
   -H "Content-Type: application/json" \
   -d '{"user_id": 107955}'
 ```
+
+The result is returned in `outputs[0].data`.
 
 ### Parameters
 
@@ -91,57 +94,134 @@ curl -X POST "https://api.sandbase.ai/v1/api/tiktok/app-v3/user-repost-videos" \
 
 ### Example response
 
-Real response for the request above, trimmed to the main fields. User names and long IDs are masked.
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
 
 ```json
 {
   "aweme_list": [
     {
-      "author_user_id": 6653919748492099589,
-      "aweme_id": "7691036284428635423",
-      "aweme_type": 0,
-      "bodydance_score": 0,
-      "content_desc": "[\"This @TikTok TikTok ad campaign is live right now — and it’s airing on major national T…",
-      "content_level": 1,
-      "content_original_type": 1,
-      "content_size_type": 1,
-      "content_type": "video",
-      "create_time": 1790708957,
       "added_sound_music_info": {
-        "audition_duration": 15,
+        "album": "",
+        "allow_offline_music_to_detail_page": false,
+        "artists": [],
+        "audition_duration": 75,
         "author": "Christopher Sbrocco",
         "author_deleted": false,
-        "binded_challenge_id": 0,
-        "commercial_right_type": 2,
-        "create_time": 1790708962
+        "author_position": null,
+        "avatar_medium": {
+          "height": 720,
+          "uri": "tos-maliva-avt-0068/7330740761455820805",
+          "url_list": [
+            "https://p16-common-sign.tiktokcdn-us.com/tos-maliva-avt-0068/7330740761455820805…"
+          ],
+          "url_prefix": null,
+          "width": 720
+        }
+      },
+      "ai_remix_info": {
+        "has_entrance": false
       },
       "aigc_info": {
-        "aigc_label_type": 0
+        "aigc_label_type": 0,
+        "created_by_ai": false
       },
+      "anchors": null,
+      "anchors_extras": "",
       "animated_image_info": {
+        "effect": 0,
         "type": 0
       },
       "author": {
+        "accept_private_policy": false,
+        "account_labels": null,
+        "account_region": "",
+        "ad_cover_url": null,
+        "advance_feature_item_order": null,
+        "advanced_feature_info": null,
         "apple_account": 0,
-        "authority_status": 0,
-        "aweme_count": 0,
-        "comment_filter_status": 0,
-        "create_time": 0,
-        "favoriting_count": 0
-      }
+        "authority_status": 0
+      },
+      "author_user_id": 6653919748492099589,
+      "aweme_acl": {
+        "download_general": {
+          "code": 0,
+          "mute": false,
+          "show_type": 2,
+          "transcode": 3
+        },
+        "download_mask_panel": {
+          "code": 0,
+          "mute": false,
+          "show_type": 2,
+          "transcode": 3
+        },
+        "platform_list": null,
+        "press_action_list": null,
+        "share_action_list": null,
+        "share_general": {
+          "code": 0,
+          "mute": false,
+          "show_type": 2,
+          "transcode": 3
+        },
+        "share_list_status": 0
+      },
+      "aweme_id": "7696682138988514590",
+      "aweme_type": 0,
+      "banners": null
     }
-  ]
+  ],
+  "biz_extra": {
+    "7636195229141355789": 107955,
+    "7636204885452672269": 107955,
+    "7636211301831724301": 107955,
+    "7636223701947665678": 107955,
+    "7637007189244218638": 107955,
+    "7641632110284901646": 107955,
+    "7642600295100353805": 107955,
+    "7646813308644936982": 107955,
+    "7647625121582025998": 107955,
+    "7655016712990952726": 107955,
+    "7655392211147820319": 107955,
+    "7656783830187117838": 107955
+  },
+  "extra": {
+    "fatal_item_ids": [],
+    "logid": "20261103074402E833C1BE34075E01C365",
+    "now": 1793691842000
+  },
+  "has_more": true,
+  "log_pb": {
+    "impr_id": "20261103074402E833C1BE34075E01C365"
+  },
+  "status_code": 0,
+  "status_msg": ""
 }
 ```
 
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `aweme_list[].aweme_id` | ID of the reposted video, as a string. |
+| `aweme_list[].author_user_id` | Numeric user ID of the account that originally posted the video. |
+| `aweme_list[].desc / aweme_list[].content_desc` | Caption text of the video. `content_desc` holds the caption lines as a JSON-encoded list in a string. |
+| `aweme_list[].create_time` | Unix timestamp in seconds for the video's creation time. |
+| `aweme_list[].content_type` | Type of the item, for example `video`. |
+| `aweme_list[].cha_list[].cha_name` | Name of a hashtag attached to the video. `cid` holds the hashtag ID. |
+| `aweme_list[].content_desc_extra[]` | Marks the mentions and hashtags in the caption. `start` and `end` give the position of each one. Mentions carry `user_id` and `sec_uid`, and hashtags carry `hashtag_id` and `hashtag_name`. |
+| `aweme_list[].added_sound_music_info.author` | Name of the author of the sound used in the video. |
+| `aweme_list[].aigc_info.created_by_ai` | Whether the video is flagged as created by AI. |
+
 ### Notes
 
-- Obtain `user_id` from the `handler_user_profile` endpoint response via the `uid` field.
-- Paginate through results using `count` and `offset`.
+- Get `user_id` from the `uid` field of the user profile response. [TikTok User Profile Details](/apis/tiktok/app-v3/user-profile) returns the profile, and [TikTok User ID by Username](/apis/tiktok/app-v3/user-id-and-sec-user-id-by-username) looks up IDs from a username.
+- Page through results with `count` (default `21`) and `offset` (default `0`).
+- To see the videos the user posted themselves, call [TikTok User Videos (App V3)](/apis/tiktok/app-v3/user-post-videos).
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

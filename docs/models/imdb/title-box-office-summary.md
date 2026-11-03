@@ -63,9 +63,14 @@ Same call via the path form: `POST /v1/api/imdb/title-box-office-summary` with t
 
 ## Details
 
-Get the IMDb box-office summary for a title ID using selected language and country preferences. Use it to research reported theatrical performance or compare titles.
+Returns the IMDb box-office summary for one title: budget, domestic gross, worldwide gross, and opening weekend gross. It needs an IMDb title ID in `tt<digits>` format, such as `tt0111161`.
 
-The response is the platform's original data structure.
+### Use cases
+
+- Compare the budget of a film with its worldwide gross to see how it performed at the box office.
+- Look up the opening weekend gross and date for a film to compare launches.
+- Add domestic and worldwide gross figures to a movie database or report.
+- Check the release year and title text of a film alongside its box-office numbers.
 
 ### Request
 
@@ -76,6 +81,8 @@ curl -X POST "https://api.sandbase.ai/v1/api/imdb/title-box-office-summary" \
   -d '{"id": "tt0111161"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
@@ -83,9 +90,94 @@ curl -X POST "https://api.sandbase.ai/v1/api/imdb/title-box-office-summary" \
 | `id` | string | Yes | The IMDb title identifier in tt<digits> format. |
 | `languageCountry` | string | No | Language and country preferences. |
 
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "title": {
+    "__typename": "Title",
+    "budget": {
+      "totalBudget": {
+        "__typename": "Money",
+        "amount": 25000000,
+        "currency": "USD"
+      }
+    },
+    "domesticGross": {
+      "__typename": "BoxOfficeGross",
+      "total": {
+        "__typename": "Money",
+        "amount": 28767189,
+        "currency": "USD"
+      }
+    },
+    "id": "tt0111161",
+    "openingWeekendGrosses": {
+      "edges": [
+        {
+          "node": {
+            "gross": {
+              "__typename": "BoxOfficeGross",
+              "total": {
+                "__typename": "Money",
+                "amount": 727327,
+                "currency": "USD"
+              }
+            },
+            "weekendStartDate": "1994-09-23"
+          }
+        }
+      ],
+      "total": 1
+    },
+    "originalTitleText": {
+      "isOriginalTitle": true,
+      "text": "The Shawshank Redemption"
+    },
+    "releaseYear": {
+      "year": 1994
+    },
+    "titleText": {
+      "isOriginalTitle": true,
+      "text": "The Shawshank Redemption"
+    },
+    "worldwideGross": {
+      "__typename": "BoxOfficeGross",
+      "total": {
+        "__typename": "Money",
+        "amount": 29425588,
+        "currency": "USD"
+      }
+    }
+  }
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `title.id` | The IMDb title ID that the figures belong to. |
+| `title.titleText.text / title.originalTitleText.text` | The display title and the original title. `isOriginalTitle` is `true` when the title shown is the original one. |
+| `title.releaseYear.year` | The year the title was released. |
+| `title.budget.totalBudget.amount` | The reported production budget. `currency` gives the currency code, such as `USD`. |
+| `title.domesticGross.total.amount` | The reported domestic box-office gross, with its currency in `currency`. |
+| `title.worldwideGross.total.amount` | The reported worldwide box-office gross, with its currency in `currency`. |
+| `title.openingWeekendGrosses.edges[].node.gross.total.amount` | The gross for an opening weekend, with its currency in `currency`. |
+| `title.openingWeekendGrosses.edges[].node.weekendStartDate` | The start date of that opening weekend, in `YYYY-MM-DD` format. |
+| `title.openingWeekendGrosses.total` | The number of opening weekend entries for the title. |
+
+### Notes
+
+- Find the title ID in the IMDb page URL for a title. It looks like `tt0111161`.
+- `languageCountry` is optional and defaults to `en_US`. Other values are `fr_CA`, `fr_FR`, `de_DE`, `hi_IN`, `it_IT`, `pt_BR`, `es_ES`, `es_US`, and `es_MX`.
+- For more on the same title, call [IMDb Details](/apis/imdb/title-details-query) or [IMDb Base Info](/apis/imdb/title-base-query).
+
 ### Pricing
 
-Flat price per call. Failed calls and empty results are not charged.
+$0.007143 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ---
 Machine-readable: [`catalog/models/imdb/title-box-office-summary.json`](../../../catalog/models/imdb/title-box-office-summary.json) · Store page: https://www.sandbase.ai/model/imdb/title-box-office-summary

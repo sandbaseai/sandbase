@@ -59,13 +59,14 @@ Same call via the path form: `POST /v1/api/dataforseo/v3/serp/google/local_finde
 
 ## Details
 
-This endpoint retrieves advanced Google Local Finder search results in real time. It returns detailed local business rankings and search engine results data.
+Returns Google Local Finder results for a search query at a map location. Each call needs a `keyword`, a `location_coordinate` in `latitude,longitude,zoom` form, and a `language_code`.
 
 ### Use cases
 
-- Monitor local business ranking positions across Google Local Finder results.
-- Gather detailed local pack and map listing data for competitive analysis.
-- Track geographic visibility and presence for local branch locations.
+- Check which businesses appear for a query such as `coffee shop` around a given street corner.
+- Collect `cid` values for local businesses to look up their full profiles.
+- Compare the listings returned for the same keyword at different coordinates to see how local results shift.
+- Read the address and review snippet in each listing's `description` to build a list of nearby competitors.
 
 ### Request
 
@@ -76,19 +77,103 @@ curl -X POST "https://api.sandbase.ai/v1/api/dataforseo/v3/serp/google/local_fin
   -d '{"keyword": "coffee shop", "location_coordinate": "40.7128,-74.0060,14z", "language_code": "en"}'
 ```
 
+The result is returned in `outputs[0]`.
+
 ### Parameters
 
-The JSON body is forwarded to the upstream endpoint (one task per call). Fields used above:
+| Name | Type | Required | Description |
+|---|---|---|---|
+| `keyword` | string | No | Search query. |
+| `language_code` | string | No | Language code, e.g. "en". |
+| `location_coordinate` | string | No | Coordinates as "latitude,longitude,zoom", e.g. "40.7128,-74.0060,14z". |
 
-| Name | Description |
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "status_code": 20000,
+  "status_message": "Ok.",
+  "tasks": [
+    {
+      "data": {
+        "api": "serp",
+        "device": "desktop",
+        "function": "live",
+        "keyword": "coffee shop",
+        "language_code": "en",
+        "location_coordinate": "40.7128,-74.0060,14z",
+        "os": "windows",
+        "se": "google"
+      },
+      "id": "11030829-1614-0139-0000-8b50a676e6cc",
+      "path": [
+        "v3"
+      ],
+      "result": [
+        {
+          "check_url": "https://www.google.com/search?q=coffee+shop&uule=j+WzEsMTIsMTc5MzY5NDU1NzA3ODAwM…",
+          "datetime": "2026-11-03 08:29:29 +00:00",
+          "item_types": [
+            "local_pack"
+          ],
+          "items": [
+            {
+              "booking_url": null,
+              "cid": "9407787749561276587",
+              "description": "93 Worth St \nClosed · Opens 7 AM \n\"The whiskey and rum infused coffee options ma…",
+              "domain": null,
+              "is_paid": false,
+              "page": 1,
+              "phone": null,
+              "position": "left"
+            }
+          ],
+          "items_count": 20,
+          "keyword": "coffee shop",
+          "language_code": "en",
+          "location_code": 2840
+        }
+      ],
+      "result_count": 1,
+      "status_code": 20000,
+      "status_message": "Ok.",
+      "time": "3.2541 sec."
+    }
+  ],
+  "tasks_count": 1,
+  "tasks_error": 0,
+  "time": "3.3437 sec.",
+  "version": "0.1.20261022"
+}
+```
+
+### Response fields
+
+| Field | Meaning |
 |---|---|
-| `keyword` | Search query. |
-| `location_coordinate` | Coordinates as "latitude,longitude,zoom", e.g. "40.7128,-74.0060,14z". |
-| `language_code` | Language code, e.g. "en". |
+| `tasks[].result[].items[]` | The local business listings found for the query. The sample call has `items_count` of 20, and only a few listings are shown in the trimmed response. |
+| `tasks[].result[].items[].cid` | Google's customer ID for the business listing, as a numeric string. |
+| `tasks[].result[].items[].description` | Text block for the listing. It holds the street address, the open or closed status with opening time, and a review snippet. |
+| `tasks[].result[].items[].position` | Where the listing sits on the page. The sample shows `left`. |
+| `tasks[].result[].items[].page` | The result page the listing came from. |
+| `tasks[].result[].items[].is_paid` | Shows whether the listing is a paid placement. |
+| `tasks[].result[].items[].phone / domain / booking_url` | Phone number, website domain and booking link of the listing. These are `null` when Google shows none, as in the sample. |
+| `tasks[].result[].items_count` | Number of items in the result. |
+| `tasks[].result[].check_url` | The Google search URL that matches this query and location. |
+| `tasks[].result[].location_code` | Numeric code of the location used for the search. The sample shows `2840`. |
+
+### Notes
+
+- Take `location_coordinate` from the latitude and longitude of the area you want, then add a zoom level such as `14z`.
+- The sample response lists `datetime` in the form `2026-11-03 08:29:29 +00:00`.
+- `item_types` shows the kinds of elements in the result. The sample contains only `local_pack`.
+- Use `cid` to identify a business, then call [DataForSEO Google Business Listing Info](/apis/dataforseo/v3/business_data/google/my_business_info/live/advanced) for more detail on it.
 
 ### Pricing
 
-Billed at the actual cost of each call, about $0.002 for the request above. The cost grows with the number of rows, targets or pages a call returns. `depth` sets how many result pages are fetched. Extra crawled pages, pixel rankings, async AI overview, People Also Ask clicks and search operators (site:, intitle: ...) are not supported. Failed calls are not charged. Searches with no results are billed at their actual cost.
+Billed at the actual cost of each call, about $0.002 for the request above. Failed calls are not charged.
 
 ### Related APIs
 

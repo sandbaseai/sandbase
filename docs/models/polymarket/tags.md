@@ -63,9 +63,14 @@ Same call via the path form: `POST /v1/api/polymarket/tags` with the body above 
 
 ## Details
 
-List tags from Polymarket. Returns the official Polymarket API response unchanged.
+Returns a list of Polymarket tags. Each tag has an `id`, a `label`, a `slug` and creation and update timestamps. All inputs are optional, so you can call it with no body or use `limit` and `offset` to page through tags.
 
-The response is the official Polymarket API response, unchanged.
+### Use cases
+
+- Build a full list of Polymarket tag labels and slugs to use as category filters in your own app.
+- Sync tag `id` values into a database so you can map events and markets to their tags.
+- Find recently updated tags by sorting on `updatedAt` and checking which categories changed.
+- Page through all tags with `limit` and `offset` to audit the tag catalog.
 
 ### Request
 
@@ -75,6 +80,8 @@ curl -X POST "https://api.sandbase.ai/v1/api/polymarket/tags" \
   -H "Content-Type: application/json" \
   -d '{"limit": 1}'
 ```
+
+The result is returned in `outputs[0].data`.
 
 ### Parameters
 
@@ -87,9 +94,42 @@ curl -X POST "https://api.sandbase.ai/v1/api/polymarket/tags" \
 | `offset` | integer | No | offset |
 | `order` | string | No | Comma-separated list of fields to order by |
 
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+[
+  {
+    "createdAt": "2025-02-18T16:58:25.464578Z",
+    "id": "101867",
+    "label": "product marekt fit",
+    "slug": "product-marekt-fit",
+    "updatedAt": "2026-04-17T17:23:11.67487Z"
+  }
+]
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `[].id` | Tag ID as a string. Pass it to the tag-by-id and related-tags APIs. |
+| `[].label` | Display name of the tag, as people see it on Polymarket. |
+| `[].slug` | URL-style name of the tag. Use it to look up a tag by slug. |
+| `[].createdAt` | ISO 8601 UTC timestamp for when the tag was created. |
+| `[].updatedAt` | ISO 8601 UTC timestamp for the last change to the tag. |
+
+### Notes
+
+- The response is a plain JSON array, so there is no wrapper object. Use `limit` and `offset` to page through it.
+- The `order` parameter takes a comma-separated list of fields, and `ascending` sets the sort direction.
+- To fetch one tag, call [Polymarket Get tag by id](/apis/polymarket/tags-by-id) with the `id`, or [Polymarket Get tag by slug](/apis/polymarket/tags-slug) with the `slug`.
+- To see tags linked to a tag, call [Polymarket Get related tags (relationships) by tag id](/apis/polymarket/tags-related-tags).
+
 ### Pricing
 
-Flat price per call. Failed calls are not charged.
+$0.00044 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ---
 Machine-readable: [`catalog/models/polymarket/tags.json`](../../../catalog/models/polymarket/tags.json) · Store page: https://www.sandbase.ai/model/polymarket/tags

@@ -64,13 +64,14 @@ Same call via the path form: `POST /v1/api/instagram/v3/user-following` with the
 
 ## Details
 
-Retrieve the list of profiles that an Instagram user follows by providing their `username`. Optional parameters include `count` to control batch size and `max_id` for cursor pagination.
+Returns a page of the accounts that an Instagram user follows. You send the account's `username`, and each result includes the followed account's name, ID, verification flag and profile picture URL.
 
 ### Use cases
 
-- Analyze public following lists for influencer network research.
-- Inspect accounts an Instagram profile follows to detect shared interests.
-- Track changes in followed profiles over time across target accounts.
+- Map which brands, creators and public figures an influencer follows.
+- Compare the following lists of two accounts to find shared interests.
+- Collect the usernames and IDs of followed accounts to feed into profile lookups.
+- Check whether followed accounts are private or verified when you build an outreach list.
 
 ### Request
 
@@ -80,6 +81,8 @@ curl -X POST "https://api.sandbase.ai/v1/api/instagram/v3/user-following" \
   -H "Content-Type: application/json" \
   -d '{"username": "instagram"}'
 ```
+
+The result is returned in `outputs[0].data`.
 
 ### Parameters
 
@@ -91,31 +94,66 @@ curl -X POST "https://api.sandbase.ai/v1/api/instagram/v3/user-following" \
 
 ### Example response
 
-Real response for the request above, trimmed to the main fields. User names and long IDs are masked.
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
 
 ```json
 {
+  "_rid": "1db6b1b4493f4",
+  "big_list": true,
+  "follow_ranking_token": "fefb50c8…",
+  "has_more": true,
+  "hidden_following_account_count": 0,
+  "next_max_id": "12",
+  "page_size": 12,
+  "should_limit_list_of_followers": false,
+  "should_limit_list_of_followings": false,
+  "status": "ok",
+  "use_clickable_see_more": false,
   "users": [
     {
-      "full_name": "Meta AI",
-      "id": "64528677628",
-      "pk_id": "64528677628",
-      "profile_pic_id": "3871614390308476415_64528677628",
-      "profile_pic_url": "https://scontent-hou1-1.xx.fbcdn.net/m1/v/t0.65075-6/An_DmLLtCkUAG4zSiC7jef0bz7J…",
-      "username": "<user>"
+      "account_badges": [],
+      "fbid_v2": "17841457643088327",
+      "full_name": "BOYNEXTDOOR",
+      "has_anonymous_profile_picture": false,
+      "id": "57666617436",
+      "is_favorite": false,
+      "is_private": false,
+      "is_verified": true,
+      "latest_reel_media": 1793678764,
+      "pk": "57666617436",
+      "pk_id": "57666617436",
+      "profile_pic_id": "3980226050504551807_57666617436"
     }
   ]
 }
 ```
 
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `users[]` | List of followed accounts on this page. |
+| `users[].username` | Instagram handle of the followed account. |
+| `users[].full_name` | Display name of the followed account. |
+| `users[].id / users[].pk / users[].pk_id` | Numeric ID of the followed account, returned as a string. All three hold the same value in the sample. |
+| `users[].is_verified` | `true` when the followed account is verified. |
+| `users[].is_private` | `true` when the followed account is private. |
+| `users[].profile_pic_url` | Link to a small profile picture of the followed account. |
+| `users[].latest_reel_media` | Number that looks like a Unix timestamp for the latest story reel. The value is `0` when the sample shows no reel. |
+| `has_more` | `true` when more accounts are available after this page. |
+| `next_max_id` | Cursor to pass as `max_id` to get the next page. |
+| `page_size` | Number of users requested for this page. The sample shows `12`. |
+
 ### Notes
 
-- `count` defaults to 12 and accepts a maximum of 100 users per call.
-- Use `max_id` from the previous response `data.next_max_id` to paginate through subsequent pages.
+- Pass `next_max_id` from the response as `max_id` in the next request. Omit `max_id` on the first call.
+- Set `count` from 1 to 100 to change the page size. The default is 12.
+- Stop paging when `has_more` is `false`.
+- To get full details for a followed account, call [Instagram User Profile (V3)](/apis/instagram/v3/user-profile). To see who follows an account, call [Instagram User Followers (V3)](/apis/instagram/v3/user-followers).
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.008 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

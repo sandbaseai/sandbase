@@ -62,13 +62,14 @@ Same call via the path form: `POST /v1/api/douyin/index/item-sug` with the body 
 
 ## Details
 
-Look up auto-complete suggestions and related Douyin video items using the `query` parameter.
+Returns a list of Douyin videos that match a search keyword. Each item has the video title, URL, like count, author nickname, category and thumbnail. It needs one input, the `query` keyword.
 
 ### Use cases
 
-- Display search keyword auto-complete options in a video search interface.
-- Discover trending video titles associated with specific search terms.
-- Retrieve video preview metadata including URLs and engagement metrics.
+- Find popular Douyin videos that mention a topic such as `人工智能`.
+- Collect video URLs and `itemId` values to feed into other Douyin video lookups.
+- Compare which content categories a keyword appears in, using `category_name`.
+- Rank videos for a keyword by `likes` to spot the most engaging posts.
 
 ### Request
 
@@ -79,6 +80,8 @@ curl -X POST "https://api.sandbase.ai/v1/api/douyin/index/item-sug" \
   -d '{"query": "人工智能"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
@@ -87,29 +90,68 @@ curl -X POST "https://api.sandbase.ai/v1/api/douyin/index/item-sug" \
 
 ### Example response
 
-Real response for the request above, trimmed to the main fields. User names and long IDs are masked.
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
 
 ```json
 {
+  "BaseResp": {
+    "StatusCode": 0,
+    "StatusMessage": ""
+  },
   "data": [
     {
-      "category_name": "科技",
-      "likes": "404231",
-      "nickname": "<user>",
-      "title": "找了陌生人上门喂猫遛狗，被家里机器人全程盘问 #我系二白  #机器人二白  #人工智能 #上门喂猫 #机器人看家",
-      "url": "https://www.douyin.com/video/7691553968815623478"
+      "avatarUrl": "https://p6-byteindex-sign.byteimg.com/aweme-avatar/tos-cn-avt-0015_c71d4aad59827…",
+      "category_name": "美食",
+      "index": "173099",
+      "itemId": "7703073570793225579",
+      "likes": "5052",
+      "nickname": "康喜搞笑社",
+      "thumbnail": "https://p6-byteindex-sign.byteimg.com/tos-cn-p-0015c000-ce/oMgVNnCfoAzND7BfgIWwz…",
+      "title": "“人工智能打饭机”#万万想不到 #当代大学生精神状态 #哈哈哈哈哈哈我要笑死了 #人类迷惑行为 #剪映 视频中是可使用食材 可能引人不适谨慎观看 视频效果无不良…",
+      "url": "https://www.douyin.com/video/7703073570793225579"
+    }
+  ],
+  "itemSugResult": [
+    {
+      "avatarUrl": "https://p6-byteindex-sign.byteimg.com/aweme-avatar/tos-cn-avt-0015_c71d4aad59827…",
+      "category_name": "美食",
+      "index": "173099",
+      "itemId": "7703073570793225579",
+      "likes": "5052",
+      "nickname": "康喜搞笑社",
+      "thumbnail": "https://p6-byteindex-sign.byteimg.com/tos-cn-p-0015c000-ce/oMgVNnCfoAzND7BfgIWwz…",
+      "title": "“人工智能打饭机”#万万想不到 #当代大学生精神状态 #哈哈哈哈哈哈我要笑死了 #人类迷惑行为 #剪映 视频中是可使用食材 可能引人不适谨慎观看 视频效果无不良…",
+      "url": "https://www.douyin.com/video/7703073570793225579"
     }
   ]
 }
 ```
 
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `data[]` | List of matching video items for the keyword. Each entry holds the fields below. |
+| `data[].title` | Video caption text, including hashtags. |
+| `data[].url` | Link to the video page on Douyin. |
+| `data[].itemId` | ID of the video. It is also the last part of `url`. |
+| `data[].likes` | Like count for the video, returned as a string. |
+| `data[].nickname` | Display name of the video author. |
+| `data[].category_name` | Content category of the video, for example `美食` or `教育校园`. |
+| `data[].index` | Numeric index value for the video, returned as a string. |
+| `data[].avatarUrl / data[].thumbnail` | Signed image URLs for the author avatar and the video cover. |
+| `itemSugResult[]` | Same list of video items as `data[]`, with the same fields. |
+
 ### Notes
 
-- Requires a search keyword provided in the `query` parameter.
+- Pass the search keyword in `query`. The request has no pagination parameter.
+- `data` and `itemSugResult` hold the same items in this response, so read either one.
+- `likes` and `index` arrive as strings. Convert them to numbers before sorting.
+- To search videos with more filters, try [Douyin Index Video Search](/apis/douyin/index/item-query).
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

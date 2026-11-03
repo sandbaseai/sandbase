@@ -65,13 +65,14 @@ Same call via the path form: `POST /v1/api/douyin/app-v3/open-app-to-send-privat
 
 ## Details
 
-Generates a short deep link that launches the Douyin application to message a targeted account using `uid` and `sec_uid`.
+Returns a short Douyin link that opens the Douyin mobile app to a private message conversation with a given user. It needs the target user's `uid` and `sec_uid`.
 
 ### Use cases
 
-- Direct users to chat with official brand accounts in the Douyin app.
-- Guide audience members from external websites into native app conversations.
-- Facilitate one-click messaging workflows for customer support.
+- Add a "Message us on Douyin" button to a website that opens the brand's chat in the app.
+- Put a chat link in a customer support email or QR code so users reach your Douyin account in one tap.
+- Build outreach tools that give each creator a ready-to-use direct message link.
+- Generate message links in bulk for a list of accounts you already track.
 
 ### Request
 
@@ -82,31 +83,46 @@ curl -X POST "https://api.sandbase.ai/v1/api/douyin/app-v3/open-app-to-send-priv
   -d '{"sec_uid": "MS4wLjABAAAAr52fXcfmzqOZJM_smap9Uuxtm16h8BupkCVaCt89BENq3E91mHCvtz5Z5TkXPHq_", "uid": "92769419069"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
 |---|---|---|---|
-| `uid` | string | Yes | User id |
 | `sec_uid` | string | Yes | User sec_uid |
+| `uid` | string | Yes | User id |
 
 ### Example response
 
-Real response for the request above, trimmed to the main fields. User names and long IDs are masked.
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
 
 ```json
 {
-  "short_url": "https://v.douyin.com/Zy_7aAP2O2w/",
-  "status": "success"
+  "sec_uid": "MS4wLjABAAAAr52fXcfmzqOZJM_smap9Uuxtm16h8BupkCVaCt89BENq3E91mHCvtz5Z5TkXPHq_",
+  "short_url": "https://v.douyin.com/mA8jwqgb6sA/",
+  "status": "success",
+  "uid": "92769419069"
 }
 ```
 
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `short_url` | Shortened `v.douyin.com` link. Opening it on a phone with Douyin installed launches the app to the conversation with the target user. |
+| `status` | Result of the call. The value `success` means the link was created. |
+| `uid` | The user id you sent, echoed back in the response. |
+| `sec_uid` | The user `sec_uid` you sent, echoed back in the response. |
+
 ### Notes
 
-- Both `uid` and `sec_uid` are required to target the account.
+- Send both `uid` and `sec_uid`. Both are required and both must belong to the same account.
+- Get the `uid` and `sec_uid` pair from a user lookup such as [Douyin User Profile (App V3)](/apis/douyin/app-v3/user-profile).
+- To link to a profile page instead of a chat, use [Douyin User Profile Share Link](/apis/douyin/app-v3/open-app-to-user-profile).
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

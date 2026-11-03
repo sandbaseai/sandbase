@@ -64,13 +64,14 @@ Same call via the path form: `POST /v1/api/tiktok/app-v3/creator-search-insights
 
 ## Details
 
-Fetch creator search trend metrics using `query_id_str` to analyze search popularity by region and time.
+Returns search trend data for one TikTok Creator Search Insights query. It includes the query text, a popularity score, recent trend values, the top countries and a topic category. It needs a `query_id_str` value.
 
 ### Use cases
 
-- Analyze search popularity trends across different regions over time.
-- Inspect query performance to guide content topic planning.
-- Retrieve query analysis insights from search trends.
+- Track how a search query's popularity has moved over its most recent data points.
+- Find which countries search for a query most, to choose a target audience.
+- Check a query's topic category and labels, such as `content_gap`, before planning videos.
+- Compare the video count for a query against its popularity to judge how crowded the topic is.
 
 ### Request
 
@@ -81,6 +82,8 @@ curl -X POST "https://api.sandbase.ai/v1/api/tiktok/app-v3/creator-search-insigh
   -d '{"query_id_str": "7555720035176562699"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
@@ -89,15 +92,70 @@ curl -X POST "https://api.sandbase.ai/v1/api/tiktok/app-v3/creator-search-insigh
 | `from_tab_path` | string | No | From tab path, default "TRENDING,TOPICS" |
 | `query_analysis_required` | boolean | No | Whether query analysis is required, default True |
 
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "extra": {
+    "latency": 59,
+    "logid": "20261103074352BD3FE2C596D3AF021A95",
+    "now": 1793691832174,
+    "vgeo": "VGeo-US"
+  },
+  "inspiration_related_product": [],
+  "status_code": 0,
+  "status_msg": "",
+  "top_countries": [
+    {
+      "country_code": "US",
+      "country_name": "United States of America"
+    }
+  ],
+  "user_inspiration": {
+    "business_types": [
+      "basic"
+    ],
+    "cover_image": "",
+    "dislike_option_enabled": false,
+    "entity_id": 0,
+    "favorited_updated_at": 0,
+    "inspiration_types": [
+      "search"
+    ],
+    "is_favorited": false,
+    "order_popularity_seq": [],
+    "popularity": 74,
+    "popularity_updated_at": 1793687815,
+    "popularity_v2": 285385,
+    "query_id": 7555720035176562699
+  }
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `user_inspiration.query_text` | The search phrase this record describes. |
+| `user_inspiration.popularity / user_inspiration.popularity_v2` | Two popularity scores for the query. `popularity` is a small number (74 in this sample) and `popularity_v2` is a larger number (285385 in this sample). |
+| `user_inspiration.trending_seq / user_inspiration.trending_seq_v2` | Lists of recent popularity values for the query, matching the two popularity scores. Each list holds one value per data point. |
+| `user_inspiration.popularity_updated_at` | Unix timestamp in seconds of the last popularity update. |
+| `user_inspiration.video_num` | Number of videos tied to the query. |
+| `user_inspiration.query_labels` | Labels for the query, such as `content_gap`. |
+| `user_inspiration.textnet.layer1 / user_inspiration.textnet.layer2 / user_inspiration.textnet.layer3 / user_inspiration.textnet.layer4` | Topic category from broad to narrow, for example ACGN, Games, Game Works, Game Tutorials and Strategies. |
+| `top_countries[].country_code / top_countries[].country_name` | Countries where the query is most popular, with the country code and its name. |
+
 ### Notes
 
-- Obtain `query_id_str` from the creator search insights endpoint response.
-- `from_tab_path` defaults to "TRENDING,TOPICS".
-- `query_analysis_required` defaults to True.
+- Get `query_id_str` from the [TikTok Creator Search Insights](/apis/tiktok/app-v3/creator-search-insights) response.
+- The response repeats the ID as a number in `user_inspiration.query_id` and as a string in `user_inspiration.query_id_str`. Send the string form.
+- For more on the same query, call [TikTok Creator Search Insights Detail](/apis/tiktok/app-v3/creator-search-insights-detail) or [TikTok Creator Search Insights Videos](/apis/tiktok/app-v3/creator-search-insights-videos).
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

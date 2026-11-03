@@ -67,7 +67,14 @@ Same call via the path form: `POST /v1/api/wellfound/company-profile` with the b
 
 ## Details
 
-Retrieve a company profile by slug, including description, size, badges, and basic info. Returns stale_input if the company is not found.
+Returns a Wellfound company profile for one company slug. The response includes the company name, a product description, a size bucket, badges, and a logo URL. You send the `company_slug` value as input.
+
+### Use cases
+
+- Enrich a list of startup names with a description and logo for a CRM or sales tool.
+- Filter target companies by size bucket such as `SIZE_5000_PLUS` before outreach.
+- Tag companies by badges like `B2B` or `Scale Stage` in a market map.
+- Check that a slug exists before you fetch its open jobs.
 
 ### Request
 
@@ -78,7 +85,7 @@ curl -X POST "https://api.sandbase.ai/v1/api/wellfound/company-profile" \
   -d '{"company_slug": "stripe"}'
 ```
 
-This API runs asynchronously. The call returns a task `id` with status `pending`; poll `GET https://api.sandbase.ai/v1/run/{id}` until `status` is `completed` and read the result from `outputs[0].data`.
+The result is returned in `outputs[0].data`.
 
 ### Parameters
 
@@ -86,9 +93,53 @@ This API runs asynchronously. The call returns a task `id` with status `pending`
 |---|---|---|---|
 | `company_slug` | string | Yes | Company slug (e.g., 'mixpanel', 'juniper-square') |
 
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "data": {
+    "badges": [
+      {
+        "label": "B2B",
+        "tooltip": null
+      }
+    ],
+    "companySize": "SIZE_5000_PLUS",
+    "id": "37232",
+    "logoUrl": "https://photos.wellfound.com/startups/i/37232-b86e6247bcd9846c18c91fe65ca0355d-m…",
+    "name": "Stripe",
+    "productDescription": "Stripe is a software platform for starting and running internet businesses. Mill…",
+    "slug": "stripe"
+  },
+  "status": "success"
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `data.name` | Display name of the company, for example `Stripe`. |
+| `data.slug` | Company slug on Wellfound. It matches the `company_slug` you sent. |
+| `data.id` | Wellfound company ID, returned as a string. |
+| `data.productDescription` | Text description of what the company does. Long text may be cut short. |
+| `data.companySize` | Size bucket as a code, for example `SIZE_5000_PLUS`. |
+| `data.badges[].label` | Short badge name such as `B2B`, `Scale Stage` or `Top Investors`. |
+| `data.badges[].tooltip` | Explanation text for the badge. It is `null` when the badge has none. |
+| `data.logoUrl` | URL of the company logo image. |
+| `status` | Result status of the call. `success` means the profile was found. |
+
+### Notes
+
+- Take the slug from the company page URL on Wellfound. Examples are `stripe`, `mixpanel` and `juniper-square`.
+- If the company is not found, the API returns `stale_input` instead of a profile.
+- Call [Wellfound Company Jobs](/apis/wellfound/company-jobs) next to list open roles at the company.
+
 ### Pricing
 
-Flat price per call. Failed calls are not charged.
+$0.02 per successful call. Failed calls are not charged.
 
 ---
 Machine-readable: [`catalog/models/wellfound/company-profile.json`](../../../catalog/models/wellfound/company-profile.json) · Store page: https://www.sandbase.ai/model/wellfound/company-profile

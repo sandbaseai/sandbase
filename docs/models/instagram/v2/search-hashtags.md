@@ -62,13 +62,14 @@ Same call via the path form: `POST /v1/api/instagram/v2/search-hashtags` with th
 
 ## Details
 
-Query Instagram hashtags by passing a search term into `keyword`. The endpoint returns matching tags along with their unique IDs and media counts.
+Returns Instagram hashtags that match a search keyword. Each result has the hashtag ID, its name, and its total media count. The only input is `keyword`.
 
 ### Use cases
 
-- Discover trending or popular Instagram hashtags related to a specific topic.
-- Retrieve hashtag IDs and media counts for market research.
-- Provide hashtag autocompletion within social analytics tools.
+- Find hashtag variations of a topic, such as `catlife` and `catlovers` for the keyword `cat`.
+- Rank related hashtags by `media_count` to pick tags with larger or smaller audiences.
+- Power hashtag autocomplete in a social media planning tool.
+- Collect hashtag IDs and names to feed into a hashtag posts lookup.
 
 ### Request
 
@@ -79,6 +80,8 @@ curl -X POST "https://api.sandbase.ai/v1/api/instagram/v2/search-hashtags" \
   -d '{"keyword": "cat"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
@@ -87,29 +90,46 @@ curl -X POST "https://api.sandbase.ai/v1/api/instagram/v2/search-hashtags" \
 
 ### Example response
 
-Real response for the request above, trimmed to the main fields. User names and long IDs are masked.
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
 
 ```json
 {
   "data": {
+    "count": 55,
     "items": [
       {
+        "allow_following": false,
         "id": "17841562906103814",
-        "media_count": 314343003,
-        "name": "cat"
+        "media_count": 314739058,
+        "name": "cat",
+        "profile_pic_url": null
       }
     ]
   }
 }
 ```
 
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `data.count` | Number of hashtags matched for the keyword. |
+| `data.items[].id` | Hashtag identifier as a string. |
+| `data.items[].name` | Hashtag text, without the `#` sign. |
+| `data.items[].media_count` | Total number of media items tagged with this hashtag. |
+| `data.items[].allow_following` | Boolean flag. It is `false` for every item in this sample. |
+| `data.items[].profile_pic_url` | Image URL for the hashtag. It is `null` in this sample. |
+
 ### Notes
 
-- The `keyword` parameter is required to perform the search.
+- `keyword` is the only parameter. The response shows no pagination parameters.
+- Hashtag `id` values are long numeric strings. Keep them as strings.
+- To read posts under a hashtag, call [Instagram Hashtag Posts (V2)](/apis/instagram/v2/hashtag-posts).
+- To search across media and users for the same keyword, use [Instagram General Search (V2)](/apis/instagram/v2/general-search).
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.002 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

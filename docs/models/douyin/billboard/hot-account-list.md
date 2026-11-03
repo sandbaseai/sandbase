@@ -61,13 +61,14 @@ Same call via the path form: `POST /v1/api/douyin/billboard/hot-account-list` wi
 
 ## Details
 
-Retrieve trending Douyin accounts and their follower growth metrics using optional filters like `query_tag` and `date_window`.
+Returns a ranked page of trending Douyin accounts from the billboard, with follower counts, like counts, and recent growth figures. All inputs are optional. Use `date_window` for the time window in hours and `query_tag` to filter by category.
 
 ### Use cases
 
-- Track rapidly growing Douyin creator accounts across specific vertical categories.
-- Analyze trending influencer performance and follower growth rates over selected hourly time windows.
-- Benchmark creator engagement metrics including total likes and new follower counts.
+- Find Douyin accounts that gained the most followers in the last 24 hours.
+- Compare `fans_incr_rate` across accounts to spot fast-growing creators.
+- Pull the daily follower change series for each ranked account to chart short-term growth.
+- Collect `user_id` values from a category to feed account-level lookups.
 
 ### Request
 
@@ -78,49 +79,80 @@ curl -X POST "https://api.sandbase.ai/v1/api/douyin/billboard/hot-account-list" 
   -d '{}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
 |---|---|---|---|
+| `date_window` | integer | No | Time window, format hour, default 24 hours |
 | `page_num` | integer | No | Page number, default 1 |
 | `page_size` | integer | No | Number of items per page, default 20 |
 | `query_tag` | object | No | Sub-level vertical category tag, empty for all, multiple tags need to be passed in |
-| `date_window` | integer | No | Time window, format hour, default 24 hours |
 
 ### Example response
 
-Real response for the request above, trimmed to the main fields. User names and long IDs are masked.
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
 
 ```json
 {
+  "code": 0,
   "data": {
+    "has_more": true,
     "user_list": [
       {
-        "fans_cnt": 203292169,
-        "fans_incr_rate": 2.3198677195291536e-05,
+        "avatar_url": "https://p3.douyinpic.com/aweme/720x720/aweme-avatar/tos-cn-i-0813c000-ce_os7G9kX…",
+        "fans_cnt": 188412691,
+        "fans_incr_rate": 0.00010038017178698787,
+        "fans_trends": [
+          {
+            "DateTime": "2026-10-27",
+            "Value": 7534
+          }
+        ],
         "group_id": 0,
-        "like_cnt": 19091626159,
+        "group_name": "",
+        "like_cnt": 14047500224,
         "monitor_id": 0,
+        "monitor_period": 0,
         "monitor_status": 0,
-        "new_fans_cnt": 4716,
-        "new_item_target_cnt": 0,
-        "new_item_target_type": 0,
-        "new_like_cnt": 5275329
+        "new_fans_cnt": 18911,
+        "new_item_monitor": 0
       }
     ]
-  }
+  },
+  "extra": {
+    "now": 1793691105000
+  },
+  "message": ""
 }
 ```
 
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `data.user_list[].nick_name` | Display name of the account. |
+| `data.user_list[].user_id` | Account ID string. Use it to look up the same account in other Douyin billboard APIs. |
+| `data.user_list[].fans_cnt / like_cnt` | Total follower count and total like count of the account. |
+| `data.user_list[].new_fans_cnt / new_like_cnt` | Followers and likes gained in the selected time window. |
+| `data.user_list[].fans_incr_rate` | Follower growth rate as a decimal fraction. A value of `0.001` means 0.1%. |
+| `data.user_list[].fans_trends[]` | Daily follower change series. Each row has `DateTime` as a `YYYY-MM-DD` date and `Value` as the number for that day. Values can be negative. |
+| `data.user_list[].publish_cnt` | Number of works the account has published. |
+| `data.user_list[].second_tag_name` | Sub-category tag of the account. It can be an empty string. |
+| `data.user_list[].avatar_url` | Link to the account's avatar image. |
+| `data.has_more` | `true` when more pages are available after the current one. |
+
 ### Notes
 
-- Specify the time window in hours using `date_window`, which defaults to 24.
-- Paginate through results using `page_num` and `page_size` (default 20).
-- Filter across vertical categories by providing tags in `query_tag`, or leave it empty for all categories.
+- Raise `page_num` while `data.has_more` is `true` to read further pages. `page_size` sets how many accounts each page returns.
+- Get valid values for `query_tag` from [Douyin Billboard Vertical Content Tags](/apis/douyin/billboard/content-tag). Leave it as `{}` for all categories.
+- The `group_id`, `monitor_*`, `target_*` and `notice_*` fields were `0` in the sample response and carry no useful data there.
+- For per-account detail, call [Douyin Account Metric Trends](/apis/douyin/billboard/hot-account-trends-list) or [Douyin Hot Account Fan Portrait](/apis/douyin/billboard/hot-account-fans-portrait-list) with the returned `user_id`.
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

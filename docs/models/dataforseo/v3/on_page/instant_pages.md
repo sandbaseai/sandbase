@@ -57,13 +57,14 @@ Same call via the path form: `POST /v1/api/dataforseo/v3/on_page/instant_pages` 
 
 ## Details
 
-Returns instant page-level on-page SEO audit results for specific web pages. Call this endpoint to inspect technical SEO health and content optimization signals on demand.
+Returns an on-page SEO audit for a single web page, using the page `url` as the only required input. The response lists crawl status, cache settings, and a `checks` object with true/false results for technical SEO items.
 
 ### Use cases
 
-- Audit single web pages instantly for technical SEO compliance.
-- Analyze on-page content and structure during SEO quality checks.
-- Diagnose page-level technical issues within automated SEO audit workflows.
+- Check whether a page declares a canonical URL and an HTML doctype.
+- Flag pages that use deprecated HTML tags, frames, or Flash.
+- Detect duplicate title tags or duplicate meta tags on a landing page.
+- Run a quick one-page audit before a full site crawl.
 
 ### Request
 
@@ -74,17 +75,103 @@ curl -X POST "https://api.sandbase.ai/v1/api/dataforseo/v3/on_page/instant_pages
   -d '{"url": "https://www.python.org/"}'
 ```
 
+The result is returned in `outputs[0]`.
+
 ### Parameters
 
-The JSON body is forwarded to the upstream endpoint (one task per call). Fields used above:
+| Name | Type | Required | Description |
+|---|---|---|---|
+| `url` | string | No | Page URL. |
 
-| Name | Description |
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "status_code": 20000,
+  "status_message": "Ok.",
+  "tasks": [
+    {
+      "data": {
+        "api": "on_page",
+        "function": "instant_pages",
+        "url": "https://www.python.org/"
+      },
+      "id": "11030829-1614-0275-0000-e3413d28ed62",
+      "path": [
+        "v3"
+      ],
+      "result": [
+        {
+          "crawl_gateway_address": "168.119.141.170",
+          "crawl_progress": "finished",
+          "crawl_status": null,
+          "items": [
+            {
+              "broken_links": false,
+              "broken_resources": false,
+              "cache_control": {
+                "cachable": false,
+                "ttl": 0
+              },
+              "checks": {
+                "canonical": true,
+                "deprecated_html_tags": false,
+                "duplicate_meta_tags": false,
+                "duplicate_title_tag": false,
+                "flash": false,
+                "frame": false,
+                "from_sitemap": false,
+                "has_html_doctype": true
+              },
+              "click_depth": 0,
+              "content_encoding": "gzip",
+              "custom_js_client_exception": null,
+              "custom_js_response": null
+            }
+          ],
+          "items_count": 1
+        }
+      ],
+      "result_count": 1,
+      "status_code": 20000,
+      "status_message": "Ok.",
+      "time": "0.1056 sec."
+    }
+  ],
+  "tasks_count": 1,
+  "tasks_error": 0,
+  "time": "0.1693 sec.",
+  "version": "0.1.20261022"
+}
+```
+
+### Response fields
+
+| Field | Meaning |
 |---|---|
-| `url` | Page URL. |
+| `tasks[].result[].crawl_progress` | Crawl state for the page. The sample shows `finished`. |
+| `tasks[].result[].items_count` | Number of page items returned in `items`. |
+| `tasks[].result[].items[].checks.canonical` | Boolean check for the canonical tag. `true` in the sample for python.org. |
+| `tasks[].result[].items[].checks.has_html_doctype` | Boolean check for an HTML doctype declaration. |
+| `tasks[].result[].items[].checks.duplicate_title_tag / tasks[].result[].items[].checks.duplicate_meta_tags` | Boolean checks for duplicated title or meta tags on the page. `false` means the check found none. |
+| `tasks[].result[].items[].checks.deprecated_html_tags / tasks[].result[].items[].checks.flash / tasks[].result[].items[].checks.frame` | Boolean checks for deprecated tags, Flash content, and frames. |
+| `tasks[].result[].items[].broken_links / tasks[].result[].items[].broken_resources` | Boolean flags for broken links and broken resources found on the page. |
+| `tasks[].result[].items[].click_depth` | Number of clicks from the start page. `0` in the sample for the home page. |
+| `tasks[].result[].items[].cache_control.cachable / tasks[].result[].items[].cache_control.ttl` | Whether the page response is cachable, and the cache time to live value. |
+| `tasks[].result[].items[].content_encoding` | Content encoding of the page response, such as `gzip`. |
+
+### Notes
+
+- Pass the full page address in `url`, including the `https://` prefix.
+- The audit data sits in `tasks[].result[].items[]`. Each call returns one task.
+- The `checks` object in the trimmed sample shows only some of the checks. Read the full response for the rest.
+- `tasks[].id` is the task ID string for the call.
 
 ### Pricing
 
-Billed at the actual cost of each call, about $0.00015 for the request above. The cost grows with the number of rows, targets or pages a call returns. Failed calls are not charged. Searches with no results are billed at their actual cost.
+Billed at the actual cost of each call, about $0.00015 for the request above. Failed calls are not charged.
 
 ### Related APIs
 

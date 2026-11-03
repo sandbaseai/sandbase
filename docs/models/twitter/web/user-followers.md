@@ -63,13 +63,14 @@ Same call via the path form: `POST /v1/api/twitter/web/user-followers` with the 
 
 ## Details
 
-Retrieve a list of followers for any public account using their `screen_name`. Supports cursor-based pagination via `cursor`.
+Returns a page of follower profiles for a public Twitter (X) account. It needs the account's `screen_name` and returns each follower's name, handle, ID, and follower count, plus a cursor for the next page.
 
 ### Use cases
 
-- Inspect follower profiles and counts for a specific account.
-- Track verified accounts following a target profile.
-- Page through large follower bases for audience analysis.
+- Sample the accounts that follow a brand or agency profile to see who its audience is.
+- Find large or Blue-verified accounts among the followers of a target profile.
+- Export follower handles and IDs page by page for audience analysis.
+- Compare follower lists of two accounts by matching on `user_id`.
 
 ### Request
 
@@ -80,6 +81,8 @@ curl -X POST "https://api.sandbase.ai/v1/api/twitter/web/user-followers" \
   -d '{"screen_name": "NASA"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
@@ -89,31 +92,58 @@ curl -X POST "https://api.sandbase.ai/v1/api/twitter/web/user-followers" \
 
 ### Example response
 
-Real response for the request above, trimmed to the main fields. User names and long IDs are masked.
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
 
 ```json
 {
   "followers": [
     {
+      "affiliates": [],
       "blue_verified": true,
-      "followers_count": 41935094,
+      "business_account": null,
+      "can_dm": null,
+      "created_at": "Thu Apr 23 21:53:30 +0000 2009",
+      "description": null,
+      "followers_count": 41933560,
+      "friends_count": null,
+      "location": "Earth",
+      "media_count": null,
       "name": "SpaceX",
-      "screen_name": "<user>",
-      "user_id": "<user>",
-      "verified": false
+      "profile_image": "https://pbs.twimg.com/profile_images/1697749409851985920/HbrI04tM_normal.jpg"
     }
-  ]
+  ],
+  "followers_count": 92289815,
+  "more_users": true,
+  "next_cursor": "1880822017849790130|2117523445288796127",
+  "status": "ok"
 }
 ```
 
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `followers[].screen_name / followers[].name` | The follower's handle and display name. |
+| `followers[].user_id` | The follower's numeric account ID, returned as a string. |
+| `followers[].followers_count` | How many followers this follower account has. |
+| `followers[].blue_verified / followers[].verified` | Verification flags for the follower. A profile can be `blue_verified` while `verified` is `false`. |
+| `followers[].created_at` | When the follower account was created, in a format like `Thu Apr 23 21:53:30 +0000 2009`. |
+| `followers[].location` | Location text from the follower's profile. |
+| `followers[].affiliates` | Affiliation data for the follower. It is an empty list when there is none, and an object with a `label` (for example a business badge) when the account is linked to an organization. |
+| `followers_count` | Follower total for the target account (the `screen_name` you sent). |
+| `more_users` | `true` when more follower pages are available. |
+| `next_cursor` | Cursor string to pass as `cursor` in the next request. |
+
 ### Notes
 
-- Pass the account handle found in the profile URL as `screen_name`.
-- Use `cursor` from the previous response to paginate through results.
+- Take `screen_name` from the profile URL. For https://twitter.com/NASA, use `NASA`.
+- To get the next page, send the `next_cursor` value as `cursor` and keep the same `screen_name`. Stop when `more_users` is `false`.
+- Fields such as `description`, `friends_count`, `media_count`, and `statuses_count` came back as `null` in this response, so do not rely on them here.
+- To see who an account follows instead, call [Twitter (X) User Followings](/apis/twitter/web/user-followings).
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

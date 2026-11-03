@@ -72,9 +72,14 @@ Same call via the path form: `POST /v1/api/waveinflu/similar-creators` with the 
 
 ## Details
 
-Finds creators similar to a seed account on Instagram, TikTok, or YouTube.
+Returns a list of creators similar to a seed account on Instagram, TikTok, or YouTube. You send a creator handle or profile URL in `target_account`, and each result includes profile details, follower count, engagement rates, play counts, and a similarity `score`.
 
-The response is the official Waveinflu API response, unchanged.
+### Use cases
+
+- Build a shortlist of lookalike creators for an influencer campaign, starting from a brand or creator you already work with.
+- Find competitor or peer accounts to a brand on Instagram.
+- Narrow candidates by region, language, or follower range with `filters` before outreach.
+- Collect contact emails and profile URLs of similar creators to start outreach.
 
 ### Request
 
@@ -85,18 +90,74 @@ curl -X POST "https://api.sandbase.ai/v1/api/waveinflu/similar-creators" \
   -d '{"target_account": "nike", "platform": "instagram", "limit": 1}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
 |---|---|---|---|
+| `target_account` | string | Yes | Seed account: a creator handle (with or without @) or profile URL to find similar creators for. |
 | `filters` | object | No | Optional filters applied before matching. All fields are optional. |
 | `limit` | integer | No | Maximum number of creators to return. Default 25, range 1–100. Caps the billed count. |
 | `platform` | string | No | Target platform. |
-| `target_account` | string | Yes | Seed account: a creator handle (with or without @) or profile URL to find similar creators for. |
+
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "billingRequestId": "16e7593e-3f9e-4751-aa4a-daebfcf29794",
+  "data": {
+    "count": 1,
+    "items": [
+      {
+        "accountPositioning": [
+          "athletic apparel and footwear brand"
+        ],
+        "ageRange": "unknown",
+        "aiDescription": "An athletic apparel and footwear brand focused on sports, fitness, and lifestyle…",
+        "averageEngagementRate": 0.017512453823882265,
+        "averagePlayCount": 25949.3,
+        "biography": "Nuestra misión es que seas mejor.\n#ProtectThisHouse",
+        "email": "servicioalcliente@ua-argentina.com",
+        "ethnicity": "unknown",
+        "faceVisibility": "mixed",
+        "followerCount": 1158642,
+        "fullName": "Under Armour LATAM",
+        "gender": "unknown"
+      }
+    ]
+  },
+  "requestId": "ae10aaf0-ff77-4ce2-9940-204f2830a746"
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `data.count` | Number of creators returned in `data.items`. |
+| `data.items[].username / data.items[].fullName / data.items[].profileUrl` | Handle, display name, and profile link of the matched creator. |
+| `data.items[].score` | Similarity score between the matched creator and the seed account. In this response a higher value means a closer match (0.90 for the sample). |
+| `data.items[].followerCount` | Follower count of the matched account. |
+| `data.items[].averageEngagementRate / data.items[].medianEngagementRate` | Average and median engagement rate for the account, given as a decimal fraction (0.0175 is about 1.75%). |
+| `data.items[].averagePlayCount / data.items[].medianPlayCount` | Average and median play count across the account's content. |
+| `data.items[].accountPositioning / data.items[].aiDescription` | Short labels and a text summary of what the account is about. |
+| `data.items[].region / data.items[].language` | Region (country code) and language code inferred for the creator, such as `CO` and `es`. |
+| `data.items[].gender / data.items[].ethnicity / data.items[].ageRange / data.items[].faceVisibility` | Inferred audience-facing attributes of the creator. Values can be `unknown`, and `faceVisibility` can be `mixed`. |
+| `data.items[].email / data.items[].biography` | Contact email and bio text from the profile, when present. |
+
+### Notes
+
+- Set `platform` to `instagram`, `tiktok`, or `youtube`. The default is `youtube`.
+- `target_account` accepts a handle with or without `@`, or a profile URL.
+- `limit` ranges from 1 to 100 and defaults to 25.
+- To find creators by a text description instead of a seed account, use [Waveinflu Creator AI Search](/apis/waveinflu/creator-search). To look up a contact email, use [Waveinflu Email Lookup](/apis/waveinflu/email-lookup).
 
 ### Pricing
 
-$0.004977 per creator requested (limit, default 25, max 100). Failed calls are not charged.
+Billed at the actual cost of each call, about $0.124425 for the request above. Failed calls are not charged.
 
 ---
 Machine-readable: [`catalog/models/waveinflu/similar-creators.json`](../../../catalog/models/waveinflu/similar-creators.json) · Store page: https://www.sandbase.ai/model/waveinflu/similar-creators

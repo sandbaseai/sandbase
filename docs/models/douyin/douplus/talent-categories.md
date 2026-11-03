@@ -52,13 +52,14 @@ Same call via the path form: `POST /v1/api/douyin/douplus/talent-categories` wit
 
 ## Details
 
-Retrieve the Douyin DOU+ talent category list to structure creator categorization without requiring any request parameters.
+Returns the list of talent categories used by Douyin DOU+. The request takes no parameters, so you send an empty JSON object.
 
 ### Use cases
 
-- Browse the official Douyin DOU+ talent category taxonomy.
-- Populate category selector menus in talent discovery tools.
-- Group Douyin creators by verified DOU+ content classifications.
+- Fill a category dropdown in a tool that searches for Douyin creators to promote.
+- Fetch the valid category names before you filter talents by category.
+- Keep a local copy of the DOU+ category names to check user input.
+- Show the category list in a creator discovery dashboard.
 
 ### Request
 
@@ -69,9 +70,44 @@ curl -X POST "https://api.sandbase.ai/v1/api/douyin/douplus/talent-categories" \
   -d '{}'
 ```
 
+The result is returned in `outputs[0].data`.
+
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "code": 0,
+  "data": {
+    "categoryList": [
+      {
+        "name": "剧情"
+      }
+    ]
+  },
+  "msg": ""
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `code` | Status code of the response. The sample shows `0`. |
+| `msg` | Message text. It is an empty string in the sample. |
+| `data.categoryList[]` | List of talent categories. Each item is one category. |
+| `data.categoryList[].name` | Category name in Chinese, for example `剧情`, `音乐` or `二次元`. |
+
+### Notes
+
+- The response has a flat list of names. It has no IDs and no nested sub-categories.
+- Pass a `name` value to [Douyin DOU+ Talents by Category](/apis/douyin/douplus/talents-by-category) to list talents in that category.
+- Use [Douyin DOU+ User Search](/apis/douyin/douplus/search-user) when you want to find a specific user instead of browsing by category.
+
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

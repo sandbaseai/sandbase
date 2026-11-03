@@ -61,7 +61,13 @@ Same call via the path form: `POST /v1/api/douyin/xingtu-v2/item-report-th-analy
 
 ## Details
 
-Get Item Report Interaction Analysis on Douyin. Returns the platform data as structured JSON.
+This API returns interaction analysis for one Douyin video as two maps of numbered buckets: `like_info` and `play_lose_info`. It needs the video ID in `item_id`.
+
+### Use cases
+
+- Compare the `like_info` buckets to see at which stage of a video's playback most likes happen.
+- Check `play_lose_info` to see where viewers stop watching a creator's sponsored video.
+- Compare bucket shapes across several videos to find which content holds viewers longer.
 
 ### Request
 
@@ -80,9 +86,58 @@ The result is returned in `outputs[0].data`.
 |---|---|---|---|
 | `item_id` | string | Yes | Video (item) ID |
 
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "base_resp": {
+    "status_code": 0,
+    "status_message": ""
+  },
+  "like_info": {
+    "1": "17512",
+    "2": "75181",
+    "3": "32052",
+    "4": "17422",
+    "5": "11156",
+    "6": "8685",
+    "7": "7102",
+    "8": "5085",
+    "9": "0"
+  },
+  "play_lose_info": {
+    "1": "501853",
+    "2": "741827",
+    "3": "375488",
+    "4": "226554",
+    "5": "146815",
+    "6": "104903",
+    "7": "79733",
+    "8": "61463",
+    "9": "360036"
+  }
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `base_resp.status_code / base_resp.status_message` | Call status. A `status_code` of `0` with an empty `status_message` means the request worked. |
+| `like_info.1 ... like_info.9` | Like counts as strings, one per numbered bucket from `1` to `9`. The response does not say what each bucket covers, so treat the numbers as ordered labels. In the sample, bucket `2` has the highest value and bucket `9` is `0`. |
+| `play_lose_info.1 ... play_lose_info.9` | Drop-off counts as strings, one per numbered bucket from `1` to `9`. In the sample, the values fall from bucket `1` to bucket `8`, then rise again in bucket `9`. |
+
+### Notes
+
+- Send the video ID as `item_id`. It is a numeric string such as `7372484719365098803`.
+- All counts come back as strings, so convert them to numbers before you sum or compare them.
+- For other views of the same video, call [Douyin Item Report Detail](/apis/douyin/xingtu-v2/item-report-detail), [Douyin Item Report Trend](/apis/douyin/xingtu-v2/item-report-trend) or [Douyin Item Report Comments](/apis/douyin/xingtu-v2/item-report-comments).
+
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.003 per successful call. Failed calls are not charged.
 
 ---
 Machine-readable: [`catalog/models/douyin/xingtu-v2/item-report-th-analysis.json`](../../../../catalog/models/douyin/xingtu-v2/item-report-th-analysis.json) · Store page: https://www.sandbase.ai/model/douyin/xingtu-v2/item-report-th-analysis

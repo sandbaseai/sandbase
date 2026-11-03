@@ -86,13 +86,14 @@ Same call via the path form: `POST /v1/api/cloudsway/search` with the body above
 
 ## Details
 
-Search the web for a query and get ranked results with title, URL, publish date and relevance score. Optionally include highlights, summaries or full page text for RAG.
+Runs a web search and returns a ranked list of results, each with a title, URL, text excerpt and relevance score. It needs a `query` string. Optional parameters set the topic, country, date range, domain filters and how much text each result carries.
 
 ### Use cases
 
-- Ground LLM answers with fresh web sources.
-- Research news, companies or academic topics.
-- Restrict results to trusted domains or a date window.
+- Ground an LLM answer with web sources for a question such as a product's documentation.
+- Search news, company, people, finance or academic pages by setting `topic`.
+- Limit results to trusted sites with `include_domains`, or drop noisy sites with `exclude_domains`.
+- Collect page text for a RAG index by setting `include_text` and `max_characters`.
 
 ### Request
 
@@ -103,49 +104,69 @@ curl -X POST "https://api.sandbase.ai/v1/api/cloudsway/search" \
   -d '{"query": "OpenAI Codex documentation", "max_results": 3}'
 ```
 
+The result is returned in `outputs[0]`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
 |---|---|---|---|
 | `query` | string | Yes | The search query string. |
-| `topic` | string | No | Content category to focus on. |
 | `country` | string | No | Two-letter ISO country code for localized results. |
-| `end_date` | string | No | Only return results published before this date. |
-| `start_date` | string | No | Only return results published after this date. |
-| `max_results` | integer | No | Maximum number of results to return. |
-| `include_text` | boolean | No | Return full page text content for each result. |
-| `search_depth` | string | No | basic: fast, low-latency search (~1s). advanced: multi-step reasoning with higher quality results (4-40s), costs more. |
-| `max_characters` | integer | No | Maximum characters for text content per result. |
+| `end_date` | string | No | Only return results published before this date. Format: YYYY-MM-DD. |
 | `exclude_domains` | array | No | Exclude results from these domains. |
 | `include_domains` | array | No | Only return results from these domains. |
-| `include_summary` | boolean | No | Return a short summary of each result. |
 | `include_highlights` | boolean | No | Return key excerpts relevant to the query. |
+| `include_summary` | boolean | No | Return a short summary of each result. |
+| `include_text` | boolean | No | Return full page text content for each result. |
+| `max_characters` | integer | No | Maximum characters for text content per result. |
+| `max_results` | integer | No | Maximum number of results to return. |
+| `search_depth` | string | No | basic: fast, low-latency search (~1s). advanced: multi-step reasoning with higher quality results (4-40s), costs more. |
+| `start_date` | string | No | Only return results published after this date. Format: YYYY-MM-DD. |
+| `topic` | string | No | Content category to focus on. |
 
 ### Example response
 
-Real response for the request above, trimmed to the main fields. User names and long IDs are masked.
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
 
 ```json
 {
   "entities": [
     {
-      "title": "OpenAI Codex CLI Official Documentation Guide (2026) | Codex Knowledg…",
-      "url": "https://codex.danielvaughan.com/2026/04/19/openai-codex-cli-official-…",
-      "content": "The official Codex CLI documentation has grown considerably since the tool’s op…",
-      "published_date": "2026-04-19T07:22:32.0000000",
-      "score": 0.75424725
+      "content": "This repository is an open mirror of publicly available OpenAI documentation, de…",
+      "favicon": "",
+      "published_date": "",
+      "score": 0.7974826,
+      "text": "This repository is an open mirror of publicly available OpenAI documentation, de…",
+      "title": "life-is-blue/openai-codex-docs-mirror",
+      "url": "/goto?url=CAEScwHrOzAVyqJlcWCR7wj-Uo8LUhYkbGGWgWFrXninn1jsth8bPewCNJ4g0-3WaY1ZOS…"
     }
   ]
 }
 ```
 
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `entities[]` | One search result. The list is ordered by the search ranking and holds up to `max_results` items. |
+| `entities[].title` | Title of the result page. |
+| `entities[].url` | Link to the result page. Most results hold a full `https://` URL, but some hold a relative `/goto?url=...` link. |
+| `entities[].content` | Short excerpt of the page that relates to the query. |
+| `entities[].text` | Longer page text. It does not appear on every result. |
+| `entities[].score` | Relevance score as a decimal number. Use it to compare results within one response. |
+| `entities[].published_date` | Publish time in ISO format such as `2026-03-24T00:11:38.0000000`. It is an empty string when the page has no date. |
+| `entities[].favicon` | URL of the site icon. It is an empty string when none is available. |
+
 ### Notes
 
-- `search_depth`: basic (about 1 s) or advanced (multi-step, 4–40 s, higher quality).
+- Set `max_results` between 1 and 100. The default is 10.
+- `search_depth` accepts `basic` or `advanced`. The `advanced` setting takes longer and costs more.
+- `start_date` and `end_date` use the `YYYY-MM-DD` format.
+- `topic` accepts `general`, `news`, `academic`, `company`, `people` or `finance`.
 
 ### Pricing
 
-Flat price per call. Failed calls are not charged.
+$0.005 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ---
 Machine-readable: [`catalog/models/cloudsway/search.json`](../../../catalog/models/cloudsway/search.json) · Store page: https://www.sandbase.ai/model/cloudsway/search

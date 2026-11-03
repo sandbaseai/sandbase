@@ -62,7 +62,14 @@ Same call via the path form: `POST /v1/api/twitter/web/community-info` with the 
 
 ## Details
 
-Get community info on Twitter. Returns the platform data as structured JSON.
+Returns the profile of one Twitter community: its name, description, member count, banner images and rules. It needs a `community_id`.
+
+### Use cases
+
+- Show a community's name, description and member count in a dashboard.
+- Track the growth of a community by saving `member_count` over time.
+- Check a community's rules before posting or moderating.
+- Flag communities marked as NSFW with `is_nsfw` before showing them to users.
 
 ### Request
 
@@ -81,9 +88,57 @@ The result is returned in `outputs[0].data`.
 |---|---|---|---|
 | `community_id` | string | Yes | Community ID |
 
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "created_at": 1644863135598,
+  "custom_banner_media": "https://pbs.twimg.com/media/FECS7TfVcAcCrj2.jpg",
+  "default_banner_media": "https://pbs.twimg.com/media/FECS7TfVcAcCrj2.jpg",
+  "description": "XRP community",
+  "id": "1493290339532222469",
+  "is_nsfw": false,
+  "last_cursor": "",
+  "member_count": 123243,
+  "name": "XRP",
+  "primary_topic": null,
+  "rules": [
+    {
+      "description": "You should be respectful towards others.",
+      "name": "Be Respectful"
+    }
+  ],
+  "status": "failed"
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `id` | Community ID. It matches the `community_id` you sent. |
+| `name` | Display name of the community. |
+| `description` | Short text that describes the community. |
+| `member_count` | Number of members in the community. |
+| `created_at` | Creation time of the community as a number. The value looks like a Unix time in milliseconds. |
+| `is_nsfw` | `true` if the community is marked as NSFW, otherwise `false`. |
+| `custom_banner_media / default_banner_media` | URLs of the community banner images. |
+| `rules[].name / rules[].description` | Title and full text of each community rule. |
+| `primary_topic` | Main topic of the community. It is `null` when none is set. |
+| `status` | Status string in the response. The sample shows `failed`, so check this field in your own code. |
+
+### Notes
+
+- Find a `community_id` with [Twitter Search communities](/apis/twitter/web/search-communities).
+- Call [Twitter Community members](/apis/twitter/web/community-members) to list the people in a community.
+- Call [Twitter Community timeline](/apis/twitter/web/community-timeline) to read its posts.
+- `last_cursor` is an empty string in this response.
+
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ---
 Machine-readable: [`catalog/models/twitter/web/community-info.json`](../../../../catalog/models/twitter/web/community-info.json) · Store page: https://www.sandbase.ai/model/twitter/web/community-info

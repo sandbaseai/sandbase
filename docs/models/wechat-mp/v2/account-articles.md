@@ -68,13 +68,14 @@ Same call via the path form: `POST /v1/api/wechat-mp/v2/account-articles` with t
 
 ## Details
 
-Pass an official account `gh_…` username and get a page of its historical posts with title, URL, cover and publish time. Paginate with `next_offset`.
+This API returns one page of published posts from a WeChat official account. It needs the account's `gh_` username and returns each post's title, link, cover images and timestamps. You can switch between the articles, videos, audios and image-text tabs.
 
 ### Use cases
 
-- Monitor new articles from competitor or media accounts.
-- Back-fill an account's archive for analysis or search.
-- Feed article URLs into the Article Detail API for full text.
+- Check an official account every day for new posts and alert your team when one appears.
+- Back-fill a full archive of an account's posts page by page for search or analysis.
+- Collect article `url` values and send them to an article detail API to fetch full text.
+- Pull cover images in several aspect ratios to build a media preview board.
 
 ### Request
 
@@ -85,47 +86,80 @@ curl -X POST "https://api.sandbase.ai/v1/api/wechat-mp/v2/account-articles" \
   -d '{"username": "gh_363b924965e9", "raw": false}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
 |---|---|---|---|
-| `username` | string | Yes | Official account `gh_username` (`gh_…`). |
-| `raw` | boolean | No | Optional, default True. |
-| `offset` | string | No | Optional pagination cursor (base64), leave empty for the first page; for the next page pass `next_offset` from the prev… |
-| `page_size` | integer | No | Optional, default 20, range 10-20. |
-| `item_show_type` | string | No | Optional content tab (matches the "Articles / Videos / Audios" tabs on the account homepage). |
+| `username` | string | Yes | Official account `gh_username` (`gh_…`). E.g. `gh_363b924965e9` |
+| `item_show_type` | string | No | Optional content tab (matches the "Articles / Videos / Audios" tabs on the account homepage). Empty / `0`=articles (default), `5`=videos, `7`=audios, `8`=image-text posts. Omitting it = articles, behavior unchanged. |
+| `offset` | string | No | Optional pagination cursor (base64), **leave empty for the first page**; for the next page pass `next_offset` from the previous response. E.g. `CAMQChiS5KfRBiAKOJLkp9EGQABIAVgAYABwAQ==` |
+| `page_size` | integer | No | Optional, default 20, range **10-20**. Articles per page. |
+| `raw` | boolean | No | Optional, default True. True=raw; False=simplified parsing. |
 
 ### Example response
 
-Real response for the request above, trimmed to the main fields. User names and long IDs are masked.
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
 
 ```json
 {
-  "count": 10,
-  "is_end": 0,
-  "next_offset": "<next_offset>",
   "articles": [
     {
-      "app_msg_id": 2667038019,
-      "title": "谁家的龙，一直坐着啊？",
-      "create_time": 1791276963,
-      "item_show_type": 0,
+      "app_msg_id": 2667043262,
+      "cover": "https://mmbiz.qpic.cn/sz_mmbiz_jpg/QaRWjMxooXuuJvoef2xYDJDM1gT68bahKtzZW8icwkhMD…",
+      "covers": {
+        "16_9": "https://mmbiz.qpic.cn/sz_mmbiz_jpg/QaRWjMxooXuuJvoef2xYDJDM1gT68bahKtzZW8icwkhMD…",
+        "1_1": "https://mmbiz.qpic.cn/sz_mmbiz_jpg/QaRWjMxooXuPF9A7Lbmgk30txKLibicJhkKnnWHNPUYp6…",
+        "235_1": "https://mmbiz.qpic.cn/sz_mmbiz_jpg/QaRWjMxooXuuJvoef2xYDJDM1gT68bahKtzZW8icwkhMD…",
+        "3_4": "https://mmbiz.qpic.cn/sz_mmbiz_jpg/QaRWjMxooXuuJvoef2xYDJDM1gT68bahKtzZW8icwkhMD…"
+      },
+      "create_time": 1793687341,
+      "digest": "",
+      "idx": 1,
       "is_paid": 0,
-      "url": "http://mp.weixin.qq.com/s?__biz=MjM5MjAxNDM4MA==&mid=266703…",
-      "cover": "https://mmbiz.qpic.cn/mmbiz_jpg/QaRWjMxooXtjiaLui…"
+      "is_pay_subscribe": 0,
+      "item_show_type": 0,
+      "msg_type": 9,
+      "pic_count": 0,
+      "source_url": "https://www.peopleapp.com/"
     }
-  ]
+  ],
+  "biz_username": "gh_363b924965e9",
+  "count": 10,
+  "debug_id": "3abf1131",
+  "debug_info": "gAAAAABq6ZEyXemFYbNluN88EMaiChiAu1gBtoObz7ewpDqb_YwtslUuVI9cFGFJ77gF3uk2Fs5o8NUT…",
+  "is_end": 0,
+  "next_offset": "WABgAGiBpOW+74vB9Go=",
+  "pages": 1
 }
 ```
 
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `articles[].title` | Title of the post. |
+| `articles[].url` | Link to the post on mp.weixin.qq.com. Use it to open the post or pass it to an article API. |
+| `articles[].app_msg_id` | Numeric ID of the post. It also appears as `mid` in the post `url`. |
+| `articles[].create_time / update_time` | Unix timestamps in seconds for when the post was created and last updated. |
+| `articles[].cover` | URL of the main cover image. |
+| `articles[].covers` | Object with cover image URLs cropped to different aspect ratios. Each key is named after its ratio. |
+| `articles[].idx` | Position of the post within its publish batch. A value of `1` is the first post in that batch. |
+| `articles[].is_paid / is_pay_subscribe` | Flags for paid content. In this response both are `0`. |
+| `articles[].source_url` | The external link attached to the post, when there is one. |
+| `count / is_end / next_offset` | `count` is the number of posts on this page. `is_end` shows whether this is the last page. `next_offset` is the cursor for the next page. |
+
 ### Notes
 
-- `is_end` truthy means the last page.
-- `item_show_type`: empty or 0 = articles, 5 = videos, 7 = audio.
+- Leave `offset` empty for the first page. For the next page, pass the `next_offset` value from the previous response as `offset`.
+- Stop paging when `is_end` is truthy. In this response `is_end` is `0`, so more pages exist.
+- `page_size` accepts 10 to 20. `item_show_type` picks the tab: empty or `0` for articles, `5` for videos, `7` for audios, `8` for image-text posts.
+- To read the full text of a post, send its `url` to [WeChat MP Article Detail](/apis/wechat-mp/v2/article-detail). To look up the account itself, use [WeChat MP Account Profile](/apis/wechat-mp/v2/account-profile).
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.01 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

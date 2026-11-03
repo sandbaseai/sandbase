@@ -61,13 +61,14 @@ Same call via the path form: `POST /v1/api/douyin/billboard/hot-total-search-lis
 
 ## Details
 
-Retrieve Douyin search hot list trend data with optional filtering by `keyword` and `date_window`.
+Returns a ranked list of Douyin search keywords from the billboard, each with a search score and a short daily trend. It takes an optional `keyword`, a `date_window` mode, and pagination parameters. The default `keyword` is `抖音`.
 
 ### Use cases
 
-- Track query popularity trends across Douyin search billboards.
-- Monitor volume metrics for specific search keywords over time.
-- Analyze platform-wide search interest using hourly or daily intervals.
+- Compare the search score of related queries such as `抖音客服` and `抖音热门` in one call.
+- Chart the daily search volume of a keyword over the returned date range.
+- Page through all matching keywords to build a list of search terms around a topic.
+- Switch `date_window` between hourly and daily mode to compare short-term and longer-term search interest.
 
 ### Request
 
@@ -78,44 +79,83 @@ curl -X POST "https://api.sandbase.ai/v1/api/douyin/billboard/hot-total-search-l
   -d '{}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
 |---|---|---|---|
+| `date_window` | integer | No | Time window, 1 by hour 2 by day |
 | `keyword` | string | No | Search keyword |
 | `page_num` | integer | No | Page number |
 | `page_size` | integer | No | Number of items per page |
-| `date_window` | integer | No | Time window, 1 by hour 2 by day |
 
 ### Example response
 
-Real response for the request above, trimmed to the main fields. User names and long IDs are masked.
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
 
 ```json
 {
+  "code": 0,
   "data": {
-    "search_list": [
+    "objs": [
       {
+        "key_word": "抖音",
+        "search_score": 3542056,
         "trends": [
           {
-            "date": "20260922",
-            "value": 3360688
+            "date": "20261020",
+            "value": 3322408
           }
         ]
       }
-    ]
-  }
+    ],
+    "page_num": 1,
+    "page_size": 10,
+    "search_list": [
+      {
+        "key_word": "抖音",
+        "search_score": 3542056,
+        "trends": [
+          {
+            "date": "20261020",
+            "value": 3322408
+          }
+        ]
+      }
+    ],
+    "total_count": 820
+  },
+  "extra": {
+    "now": 1793691110000
+  },
+  "message": ""
 }
 ```
 
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `data.search_list[].key_word` | The search keyword for this ranking row. |
+| `data.search_list[].search_score` | The search score of the keyword. Higher values mean more search interest. Rows come ordered from highest to lowest score. |
+| `data.search_list[].trends[].date` | The date of the trend point as a `YYYYMMDD` string, for example `20261022`. |
+| `data.search_list[].trends[].value` | The search value for the keyword on that date. |
+| `data.objs[]` | Holds the same rows as `data.search_list[]`, with the same `key_word`, `search_score` and `trends` fields. |
+| `data.total_count` | The total number of keywords that match the request, across all pages. |
+| `data.page_num / data.page_size` | The page number and page size that the response used. |
+| `extra.now` | A millisecond timestamp attached to the response. |
+
 ### Notes
 
-- `date_window` sets the timeframe mode: 1 for hourly or 2 for daily.
-- Use `page_num` and `page_size` to handle pagination of the search list.
+- Set `page_num` and `page_size` to walk through the list. Compare `data.total_count` with the number of rows you have read to know when to stop.
+- `date_window` takes `1` for hourly mode or `2` for daily mode.
+- `data.objs` and `data.search_list` hold the same rows, so read only one of them.
+- For a list of rising search terms, call [Douyin Billboard Rising Search List](/apis/douyin/billboard/hot-total-high-search-list).
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

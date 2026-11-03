@@ -60,13 +60,14 @@ Same call via the path form: `POST /v1/api/dataforseo/v3/dataforseo_labs/google/
 
 ## Details
 
-This endpoint returns keywords that a target `domain` ranks for on Google search. It assists in reviewing organic search visibility through DataForSEO Labs data.
+This API returns Google keywords that a domain or page ranks for, with search volume, cost per click, competition and backlink averages for each keyword. It needs a `target` domain or page, plus optional `location_code`, `language_code` and `limit` values.
 
 ### Use cases
 
-- Audit keyword rankings across Google search for a competitor domain.
-- Identify organic search queries driving search presence to a specific website.
-- Analyze domain search visibility and ranking keyword portfolios.
+- Review which Google keywords a competitor domain ranks for in a given country.
+- Find high-volume keywords with a low `keyword_difficulty` that a site already ranks for.
+- Estimate paid search value of a domain's keywords using `cpc` and top of page bid ranges.
+- Track seasonal demand for a site's keywords using the monthly search volume history.
 
 ### Request
 
@@ -77,20 +78,135 @@ curl -X POST "https://api.sandbase.ai/v1/api/dataforseo/v3/dataforseo_labs/googl
   -d '{"target": "nike.com", "limit": 5, "location_code": 2840, "language_code": "en"}'
 ```
 
+The result is returned in `outputs[0]`.
+
 ### Parameters
 
-The JSON body is forwarded to the upstream endpoint (one task per call). Fields used above:
+| Name | Type | Required | Description |
+|---|---|---|---|
+| `language_code` | string | No | Language code, e.g. "en". |
+| `limit` | integer | No | Maximum number of results (up to 100). |
+| `location_code` | integer | No | Location code, e.g. 2840 for the United States. |
+| `target` | string | No | Target domain or page, e.g. "nike.com". |
 
-| Name | Description |
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "status_code": 20000,
+  "status_message": "Ok.",
+  "tasks": [
+    {
+      "data": {
+        "api": "dataforseo_labs",
+        "function": "keywords_for_site",
+        "language_code": "en",
+        "limit": 5,
+        "location_code": 2840,
+        "se_type": "google",
+        "target": "nike.com"
+      },
+      "id": "11030829-1614-0398-0000-208d671a5061",
+      "path": [
+        "v3"
+      ],
+      "result": [
+        {
+          "items": [
+            {
+              "avg_backlinks_info": {
+                "backlinks": 9.2,
+                "dofollow": 6,
+                "last_updated_time": "2026-08-01 21:21:04 +00:00",
+                "main_domain_rank": 683.2,
+                "rank": 30.9,
+                "referring_domains": 3.5,
+                "referring_main_domains": 3.5,
+                "referring_pages": 6.9
+              },
+              "clickstream_keyword_info": null,
+              "keyword": "nike acg fleece",
+              "keyword_info": {
+                "categories": [
+                  10014
+                ],
+                "competition": 1,
+                "competition_level": "HIGH",
+                "cpc": 0.51,
+                "high_top_of_page_bid": 0.86,
+                "last_updated_time": "2026-10-20 00:16:59 +00:00",
+                "low_top_of_page_bid": 0.26,
+                "monthly_searches": [
+                  {
+                    "month": 9,
+                    "search_volume": 590,
+                    "year": 2026
+                  }
+                ]
+              },
+              "keyword_info_normalized_with_bing": null,
+              "keyword_info_normalized_with_clickstream": null,
+              "keyword_properties": {
+                "core_keyword": null,
+                "detected_language": "en",
+                "is_another_language": false,
+                "keyword_difficulty": 0,
+                "se_type": "google",
+                "synonym_clustering_algorithm": "text_processing",
+                "words_count": 3
+              },
+              "language_code": "en"
+            }
+          ],
+          "items_count": 5,
+          "language_code": "en",
+          "location_code": 2840,
+          "offset": 0,
+          "offset_token": "eyJDdXJy…",
+          "se_type": "google",
+          "target": "nike.com"
+        }
+      ],
+      "result_count": 1,
+      "status_code": 20000,
+      "status_message": "Ok.",
+      "time": "12.8162 sec."
+    }
+  ],
+  "tasks_count": 1,
+  "tasks_error": 0,
+  "time": "12.8673 sec.",
+  "version": "0.1.20261022"
+}
+```
+
+### Response fields
+
+| Field | Meaning |
 |---|---|
-| `target` | Target domain or page, e.g. "nike.com". |
-| `limit` | Maximum number of results (up to 100). |
-| `location_code` | Location code, e.g. 2840 for the United States. |
-| `language_code` | Language code, e.g. "en". |
+| `tasks[].result[].items[].keyword` | The Google search keyword that the target ranks for. |
+| `tasks[].result[].items[].keyword_info.monthly_searches[]` | Search volume per `month` and `year`. Use it to see recent trends for the keyword. |
+| `tasks[].result[].items[].keyword_info.cpc` | Cost per click for the keyword, as a number. |
+| `tasks[].result[].items[].keyword_info.competition / tasks[].result[].items[].keyword_info.competition_level` | Competition score for the keyword (`competition`) and its label such as `HIGH` (`competition_level`). |
+| `tasks[].result[].items[].keyword_info.low_top_of_page_bid / tasks[].result[].items[].keyword_info.high_top_of_page_bid` | Low and high top of page bid values for the keyword. They can be `null`. |
+| `tasks[].result[].items[].keyword_properties.keyword_difficulty` | Difficulty score for ranking on the keyword. Lower values mean easier. |
+| `tasks[].result[].items[].keyword_properties.words_count` | Number of words in the keyword. |
+| `tasks[].result[].items[].avg_backlinks_info.backlinks / tasks[].result[].items[].avg_backlinks_info.referring_domains` | Average backlink and referring domain counts for pages ranking for this keyword. |
+| `tasks[].result[].items[].avg_backlinks_info.rank / tasks[].result[].items[].avg_backlinks_info.main_domain_rank` | Average rank values for the ranking pages and their main domains. |
+| `tasks[].result[].items_count` | Number of keyword items returned in this response. |
+
+### Notes
+
+- Use `location_code` such as `2840` (United States) together with `language_code` such as `en` to pick the market.
+- `limit` sets the maximum number of items, up to 100.
+- For the next page, the response gives `offset` and `offset_token` in `tasks[].result[]`.
+- Timestamps such as `last_updated_time` use the format `2026-10-20 00:16:59 +00:00`.
 
 ### Pricing
 
-Billed at the actual cost of each call, about $0.0126 for the request above. The cost grows with the number of rows, targets or pages a call returns. Failed calls are not charged. Searches with no results are billed at their actual cost.
+Billed at the actual cost of each call, about $0.0126 for the request above. Failed calls are not charged.
 
 ### Related APIs
 

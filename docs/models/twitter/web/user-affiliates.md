@@ -63,7 +63,14 @@ Same call via the path form: `POST /v1/api/twitter/web/user-affiliates` with the
 
 ## Details
 
-Get user affiliates on Twitter. Returns the platform data as structured JSON.
+Returns the accounts affiliated with a Twitter account, such as the staff, missions and sub-accounts of an organization. It needs the `screen_name` of the parent account, for example `NASA`.
+
+### Use cases
+
+- List the official sub-accounts and people tied to an organization account like NASA.
+- Compare follower counts across the affiliated accounts of a brand or agency.
+- Build a directory of an organization's missions, teams and staff accounts with their bios.
+- Collect `user_id` values of affiliated accounts to feed into other profile lookups.
 
 ### Request
 
@@ -83,9 +90,51 @@ The result is returned in `outputs[0].data`.
 | `screen_name` | string | Yes | Screen Name |
 | `cursor` | string | No | Cursor |
 
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "affilates": [
+    {
+      "description": "Official Twitter account of NASA’s Chandra X-ray Observatory. Operated for NASA …",
+      "followers_count": 418886,
+      "friends_count": 198,
+      "media_count": 4664,
+      "name": "Chandra Observatory",
+      "profile_image": null,
+      "screen_name": "chandraxray",
+      "statuses_count": 78136,
+      "user_id": "12415722"
+    }
+  ],
+  "next_cursor": "DAAHCgABHWL0WQD__-wLAAIAAAAIMzAyNTU4MzMIAAMAAAACAAA"
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `affilates` | List of affiliated accounts. The key is spelled `affilates` in the response. |
+| `affilates[].screen_name / affilates[].name` | The handle and display name of the affiliated account. |
+| `affilates[].user_id` | Numeric ID of the account, returned as a string. |
+| `affilates[].description` | Bio text of the affiliated account. Long bios are cut off with an ellipsis. |
+| `affilates[].followers_count / affilates[].friends_count` | Number of followers and number of accounts it follows. |
+| `affilates[].statuses_count / affilates[].media_count` | Number of posts and number of media posts on the account. |
+| `affilates[].profile_image` | Profile image value. It is `null` in this response. |
+| `next_cursor` | Cursor string for the next page of affiliates. |
+
+### Notes
+
+- Pass `next_cursor` from the response as `cursor` in the next request to get the next page.
+- The `screen_name` is the handle without the `@` sign, for example `NASA`.
+- Use [Twitter (X) User Profile](/apis/twitter/web/user-profile) to get full details for an affiliated account.
+
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ---
 Machine-readable: [`catalog/models/twitter/web/user-affiliates.json`](../../../../catalog/models/twitter/web/user-affiliates.json) · Store page: https://www.sandbase.ai/model/twitter/web/user-affiliates

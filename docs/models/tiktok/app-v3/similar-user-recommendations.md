@@ -63,13 +63,14 @@ Same call via the path form: `POST /v1/api/tiktok/app-v3/similar-user-recommenda
 
 ## Details
 
-Use this endpoint to look up accounts similar to a target TikTok profile using its `sec_uid` parameter. Subsequent batches can be retrieved by providing the `page_token`.
+Returns a list of TikTok accounts that TikTok recommends as similar to a target account. The input is the target account's `sec_uid`. Each user object holds profile counts, avatar images and account settings.
 
 ### Use cases
 
-- Discover comparable creators within the same niche or topic.
-- Expand influencer research by finding related TikTok accounts.
-- Analyze audience overlap and creator recommendation clusters.
+- Find creators close to a known account to build a list of competitors in the same niche.
+- Grow an influencer shortlist by starting from one strong creator and collecting the accounts TikTok suggests next to it.
+- Compare `follower_count` across recommended accounts to sort lookalike creators by audience size.
+- Map clusters of related accounts by calling the endpoint again with the `sec_uid` of each recommended user.
 
 ### Request
 
@@ -80,6 +81,8 @@ curl -X POST "https://api.sandbase.ai/v1/api/tiktok/app-v3/similar-user-recommen
   -d '{"sec_uid": "MS4wLjABAAAAv7iSuuXDJGDvJkmH_vz1qkDZYo1apxgzaxdBSeIuPiM"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
@@ -89,47 +92,93 @@ curl -X POST "https://api.sandbase.ai/v1/api/tiktok/app-v3/similar-user-recommen
 
 ### Example response
 
-Real response for the request above, trimmed to the main fields. User names and long IDs are masked.
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
 
 ```json
 {
+  "has_more": true,
+  "next_page_token": "MzA=",
+  "status_code": 0,
+  "status_msg": "",
   "users": [
     {
+      "accept_private_policy": false,
+      "account_labels": null,
+      "account_region": "",
+      "ad_cover_url": null,
+      "advance_feature_item_order": null,
+      "advanced_feature_info": null,
       "apple_account": 0,
       "authority_status": 0,
-      "aweme_count": 448,
-      "comment_filter_status": 0,
-      "create_time": 1734207833,
-      "favoriting_count": 1105,
-      "fb_expire_time": 0,
-      "follow_status": 0,
-      "follower_count": 888639,
-      "follower_status": 0,
-      "matched_friend": {
-        "face_cover_num": 0,
-        "friend_relation_type": 0,
-        "label_type": "5-0",
-        "rec_type": "5-0",
-        "relation_type": "43"
+      "avatar_168x168": {
+        "data_size": 0,
+        "height": 720,
+        "uri": "tos-useast5-avt-0068-tx/94f94830ec139c3b89320167da2acc60",
+        "url_list": [
+          "https://p16-common-sign.tiktokcdn-us.com/tos-useast5-avt-0068-tx/94f94830ec139c3…"
+        ],
+        "url_prefix": null,
+        "width": 720
       },
-      "original_musician": {
-        "digg_count": 0,
-        "music_count": 0,
-        "music_used_count": 0
+      "avatar_300x300": {
+        "data_size": 0,
+        "height": 720,
+        "uri": "tos-useast5-avt-0068-tx/94f94830ec139c3b89320167da2acc60",
+        "url_list": [
+          "https://p16-common-sign.tiktokcdn-us.com/tos-useast5-avt-0068-tx/94f94830ec139c3…"
+        ],
+        "url_prefix": null,
+        "width": 720
+      },
+      "avatar_larger": {
+        "data_size": 0,
+        "height": 720,
+        "uri": "tos-useast5-avt-0068-tx/94f94830ec139c3b89320167da2acc60",
+        "url_list": [
+          "https://p16-common-sign.tiktokcdn-us.com/tos-useast5-avt-0068-tx/94f94830ec139c3…"
+        ],
+        "url_prefix": null,
+        "width": 720
+      },
+      "avatar_medium": {
+        "data_size": 0,
+        "height": 720,
+        "uri": "tos-useast5-avt-0068-tx/94f94830ec139c3b89320167da2acc60",
+        "url_list": [
+          "https://p16-common-sign.tiktokcdn-us.com/tos-useast5-avt-0068-tx/94f94830ec139c3…"
+        ],
+        "url_prefix": null,
+        "width": 720
       }
     }
   ]
 }
 ```
 
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `users[]` | List of recommended accounts. Each item is one user profile. |
+| `users[].follower_count` | Number of followers the recommended account has. |
+| `users[].aweme_count` | Number of videos the account has posted. |
+| `users[].favoriting_count` | Count of favorites on the account, as returned by TikTok. |
+| `users[].create_time` | Account creation time as a Unix timestamp in seconds (for example `1581743982`). |
+| `users[].custom_verify` | Verification label text for the account. It is an empty string when the account has no label. |
+| `users[].avatar_larger / users[].avatar_medium / users[].avatar_thumb` | Avatar images in different sizes. Each has a `uri` and a `url_list` with several image URLs. |
+| `users[].avatar_uri` | Identifier of the avatar image. |
+| `has_more` | `true` when more recommended users can be fetched with another call. |
+| `next_page_token` | Token to pass as `page_token` to get the next batch. |
+
 ### Notes
 
-- Requires the target user's `sec_uid`.
-- For subsequent requests, pass the previous response's next page token into `page_token`.
+- Pass the target account's `sec_uid` in `sec_uid`. To get a `sec_uid` from a username, call [TikTok User ID by Username](/apis/tiktok/app-v3/user-id-and-sec-user-id-by-username).
+- Leave `page_token` out on the first request. When `has_more` is `true`, send the `next_page_token` value as `page_token` in the next request.
+- To read the full profile of a recommended account, call [TikTok User Profile Details](/apis/tiktok/app-v3/user-profile).
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

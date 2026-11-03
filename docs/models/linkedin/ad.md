@@ -61,7 +61,14 @@ Same call via the path form: `POST /v1/api/linkedin/ad` with the body above minu
 
 ## Details
 
-Look up a single LinkedIn Ad Library ad by URL and get the advertiser, headline, creative text, format, CTA, targeting, run dates, and impressions as clean JSON.
+This API returns the details of one ad from the LinkedIn Ad Library. It needs the ad's Ad Library URL in the `url` parameter. The response includes the advertiser, headline, description, call to action, and media links.
+
+### Use cases
+
+- Save the headline, description, and CTA of a competitor's LinkedIn ad for a swipe file.
+- Download the video or image link of an ad to review its creative.
+- Check which company page runs an ad by reading the advertiser name and page link.
+- Verify that an Ad Library URL still resolves to a live ad record.
 
 ### Request
 
@@ -72,7 +79,7 @@ curl -X POST "https://api.sandbase.ai/v1/api/linkedin/ad" \
   -d '{"url": "https://www.linkedin.com/ad-library/detail/1487405616"}'
 ```
 
-The result is returned in `outputs[0].data`. A lookup that finds nothing still succeeds and returns `found: false`.
+The result is returned in `outputs[0].data`.
 
 ### Parameters
 
@@ -80,9 +87,55 @@ The result is returned in `outputs[0].data`. A lookup that finds nothing still s
 |---|---|---|---|
 | `url` | string | Yes | LinkedIn Ad Library ad URL (e.g. "https://www.linkedin.com/ad-library/detail/666281156"). |
 
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "data": {
+    "adType": "Video Ad",
+    "advertiser": "Microsoft Copilot",
+    "advertiserLinkedinPage": "https://www.linkedin.com/company/3509299",
+    "advertiserLogo": "https://media.licdn.com/dms/image/v2/D560BAQE0EPOgjrUOug/company-logo_100_100/B5…",
+    "cta": "Sign Up",
+    "description": "Get ahead of what’s important with Copilot in Outlook.",
+    "destinationUrl": "",
+    "endDate": "",
+    "headline": "The apps you know go further with Copilot",
+    "id": "1487405616",
+    "image": "",
+    "startDate": ""
+  },
+  "found": true
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `found` | `true` when the ad was found. A lookup that finds nothing returns `found: false`. |
+| `data.id` | The ad ID. It matches the number at the end of the Ad Library URL. |
+| `data.adType` | The ad format, for example `Video Ad`. |
+| `data.advertiser` | Name of the company that runs the ad. |
+| `data.advertiserLinkedinPage / data.advertiserLogo` | Link to the advertiser's LinkedIn page and to its logo image. |
+| `data.headline / data.description` | The headline and the body text of the ad. |
+| `data.cta` | The call-to-action button label, for example `Sign Up`. |
+| `data.videoUrl / data.image` | Media links for the ad creative. `videoUrl` is set for video ads. `image` is an empty string when the ad has no image. |
+| `data.destinationUrl` | The landing page of the ad. It can be an empty string. |
+| `data.startDate / data.endDate / data.totalImpressions` | Run dates and impression count of the ad. These can be empty strings when the Ad Library does not show them for the ad. |
+
+### Notes
+
+- Copy the ad URL from the LinkedIn Ad Library. It has the form `https://www.linkedin.com/ad-library/detail/<id>`.
+- Empty strings in `data` mean the value is not available for that ad.
+- To find ads before looking up one, use [LinkedIn Ad Search](/apis/linkedin/ads-search) or [LinkedIn Ads Library](/apis/linkedin/ads).
+- To learn more about the advertiser, call [LinkedIn Company](/apis/linkedin/company).
+
 ### Pricing
 
-Billed at the actual cost of each call, usually $0.0012 per request. A call can cost more when the first data source fails and another one answers. Failed calls are not charged. Lookups that find nothing and searches with no results are billed at their actual cost, which is often lower and can be $0.
+Billed at the actual cost of each call, about $0.0012 for the request above. Failed calls are not charged.
 
 ---
 Machine-readable: [`catalog/models/linkedin/ad.json`](../../../catalog/models/linkedin/ad.json) · Store page: https://www.sandbase.ai/model/linkedin/ad

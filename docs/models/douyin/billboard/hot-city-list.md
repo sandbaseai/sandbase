@@ -71,13 +71,14 @@ Same call via the path form: `POST /v1/api/douyin/billboard/hot-city-list` with 
 
 ## Details
 
-Query Douyin regional trending lists using `city_code` and `sentence_tag` to track location-specific topics and their trend scores.
+Returns Douyin trending topics for a city, one ranked entry per topic with its hot score, category tag and recent score history. It needs `order`, `page` and `page_size`. You can narrow results with `city_code`, `sentence_tag` and `keyword`.
 
 ### Use cases
 
-- Track trending local topics across specific cities on Douyin.
-- Filter regional billboard rankings by category tags or keywords.
-- Monitor historical hot score trends for location-based search terms.
+- Track which topics rank highest in a single city such as Beijing.
+- Filter a city's hot topics by category, for example travel or food, to find local content ideas.
+- Sort by `rank_diff` to find topics that moved the most in the ranking.
+- Chart the `trends` history of a topic to see how its hot score changed over time.
 
 ### Request
 
@@ -88,47 +89,83 @@ curl -X POST "https://api.sandbase.ai/v1/api/douyin/billboard/hot-city-list" \
   -d '{"order": "rank", "page": 1, "page_size": 10}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
 |---|---|---|---|
-| `page` | integer | Yes | Page number |
 | `order` | string | Yes | Sorting method |
+| `page` | integer | Yes | Page number |
 | `page_size` | integer | Yes | Number of items per page |
-| `keyword` | string | No | Hot search term |
 | `city_code` | string | No | City code, get from city list, empty for all |
+| `keyword` | string | No | Hot search term |
 | `sentence_tag` | string | No | Hot category tag, get from hot list category, multiple categories separated by commas, empty for all |
 
 ### Example response
 
-Real response for the request above, trimmed to the main fields. User names and long IDs are masked.
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
 
 ```json
 {
+  "code": 0,
   "data": {
+    "last_update_time": "20261103152500",
     "objs": [
       {
-        "trends": [
-          {
-            "datetime": "20261006092500",
-            "hot_score": 4026339
-          }
-        ]
+        "SnapshotID": 20261103152500,
+        "SnapshotSubType": "110000",
+        "SnapshotType": 1,
+        "allow_publish": false,
+        "city_code": 0,
+        "city_name": "北京",
+        "create_at": 1793515244,
+        "first_item_cover_url": "",
+        "hot_score": 8223985,
+        "index": 1,
+        "is_favorite": false,
+        "item_list": null
       }
-    ]
-  }
+    ],
+    "page": {
+      "page": 1,
+      "page_size": 10,
+      "total": 8017
+    }
+  },
+  "extra": {
+    "now": 1793691107000
+  },
+  "message": ""
 }
 ```
 
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `data.objs[].sentence` | The hot topic text as shown on the billboard. |
+| `data.objs[].rank / data.objs[].index` | Position of the topic in the list. Both are 1 for the first item. |
+| `data.objs[].rank_diff` | Change value for the rank. Use it with `order` set to `rank_diff` to sort by this value. |
+| `data.objs[].hot_score` | Current hot score of the topic. |
+| `data.objs[].city_name / data.objs[].city_code` | Name and code of the city the topic belongs to. A `city_code` of `0` appears on a row whose `city_name` is still the city name, so rely on `city_name` too. |
+| `data.objs[].sentence_tag / data.objs[].sentence_tag_name` | Numeric category tag and its name, such as `旅行` (travel), `娱乐` (entertainment) or `美食` (food). |
+| `data.objs[].sentence_id` | Numeric ID of the hot topic. |
+| `data.objs[].video_count` | Number of videos linked to the topic. |
+| `data.objs[].trends[]` | Score history for the topic. Each entry has a `datetime` and a `hot_score`. |
+| `data.page.total` | Total number of matching topics across all pages. |
+| `data.last_update_time` | Time of the latest snapshot, written as `YYYYMMDDHHMMSS`. |
+
 ### Notes
 
-- Leave `city_code` empty to retrieve trending topics across all cities.
-- Multiple tags in `sentence_tag` can be separated by commas, or left empty for all categories.
-- Pagination is controlled using the required `page` and `page_size` parameters.
+- Get `city_code` from [Douyin Billboard City List](/apis/douyin/billboard/city-list).
+- Get `sentence_tag` values from [Douyin Billboard Hot Category List](/apis/douyin/billboard/hot-category-list). Separate several tags with commas.
+- Page through results with `page` and `page_size`. Compare `data.page.total` with the number of rows you have read.
+- `datetime` values in `trends` use the format `YYYYMMDDHHMMSS`. `create_at` is a Unix timestamp in seconds.
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

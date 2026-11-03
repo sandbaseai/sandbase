@@ -62,13 +62,14 @@ Same call via the path form: `POST /v1/api/douyin/index/hot-words` with the body
 
 ## Details
 
-Retrieve current trending search terms on Douyin or Toutiao using the optional `app_name` parameter. The response includes keywords alongside their respective growth rates.
+Returns a list of trending search keywords on Douyin or Toutiao. Each keyword comes with an index value and growth figures. The only input is the optional `app_name` parameter, which defaults to `aweme` (Douyin).
 
 ### Use cases
 
-- Track trending topics across Douyin and Toutiao platforms.
-- Analyze search keyword growth rates for content research.
-- Identify popular search queries for marketing campaigns.
+- Pull the current trending Douyin search terms each day to find topics for new videos.
+- Compare the `aweme` and `toutiao` lists to see which keywords trend on one platform but not the other.
+- Rank keywords by `growth_rate` to spot terms that are rising fast.
+- Feed the keywords into other Douyin Index APIs to study a single term in more depth.
 
 ### Request
 
@@ -79,6 +80,8 @@ curl -X POST "https://api.sandbase.ai/v1/api/douyin/index/hot-words" \
   -d '{}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
@@ -87,26 +90,45 @@ curl -X POST "https://api.sandbase.ai/v1/api/douyin/index/hot-words" \
 
 ### Example response
 
-Real response for the request above, trimmed to the main fields. User names and long IDs are masked.
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
 
 ```json
 {
+  "BaseResp": {
+    "StatusCode": 0,
+    "StatusMessage": ""
+  },
   "hot_words": [
     {
+      "growth": "50",
       "growth_rate": 100,
+      "index": "100",
       "keyword": "美食"
     }
   ]
 }
 ```
 
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `hot_words[]` | List of trending search keywords. |
+| `hot_words[].keyword` | The trending search term, as text in Chinese. |
+| `hot_words[].index` | Index value for the keyword, returned as a string. In the sample, all three keywords have `100`. |
+| `hot_words[].growth` | Growth value for the keyword, returned as a string. |
+| `hot_words[].growth_rate` | Growth rate for the keyword, returned as a number. |
+| `BaseResp.StatusCode / BaseResp.StatusMessage` | Status of the call. `StatusCode` of `0` with an empty `StatusMessage` means the call succeeded. |
+
 ### Notes
 
-- `app_name` accepts `aweme` for Douyin or `toutiao` for Toutiao.
+- Set `app_name` to `aweme` for Douyin (the default) or `toutiao` for Toutiao.
+- `index` and `growth` come back as strings, while `growth_rate` is a number. Convert the strings before you sort or compare them.
+- To study one keyword further, pass it to [Douyin Hot Trend Words](/apis/douyin/index/hot-trend-word) or [Douyin Relation Word Analysis](/apis/douyin/index/relation-word).
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

@@ -71,13 +71,14 @@ Same call via the path form: `POST /v1/api/reddit/app/subreddit-post-channels` w
 
 ## Details
 
-Access subreddit channel metadata and flair templates using `subreddit_name`, with options for `sort` and `range` filtering.
+Returns the post flair templates for a subreddit. You send the subreddit name in `subreddit_name`. The request also accepts `sort`, `range` and `need_format`.
 
 ### Use cases
 
-- Retrieve post channel and flair templates for a community.
-- Inspect subreddit channel settings sorted by hot or top activity.
-- Extract flair identifiers to categorize community posts.
+- List every flair a subreddit offers so a posting tool can show a flair picker.
+- Find which flairs are restricted to moderators before you submit a post.
+- Map flair `id` values to their `text` labels when you group posts by category.
+- Compare the flair sets of several communities to see how each one organizes its posts.
 
 ### Request
 
@@ -88,41 +89,58 @@ curl -X POST "https://api.sandbase.ai/v1/api/reddit/app/subreddit-post-channels"
   -d '{}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
 |---|---|---|---|
-| `sort` | string | No | Sort method, supports HOT, NEW, TOP, CONTROVERSIAL, RISING |
-| `range` | string | No | Time range, supports HOUR, DAY, WEEK, MONTH, YEAR, ALL |
 | `need_format` | boolean | No | Whether to clean and format the data |
+| `range` | string | No | Time range, supports HOUR, DAY, WEEK, MONTH, YEAR, ALL |
+| `sort` | string | No | Sort method, supports HOT, NEW, TOP, CONTROVERSIAL, RISING |
 | `subreddit_name` | string | No | Subreddit name |
 
 ### Example response
 
-Real response for the request above, trimmed to the main fields. User names and long IDs are masked.
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
 
 ```json
 {
   "subredditInfoByName": {
+    "__typename": "Subreddit",
     "postFlairTemplates": [
       {
-        "id": "f988392c-41f4-11ea-856e-0e3f43166111",
-        "text": "Arts/Crafts"
+        "id": "260873e0-c9b8-11e5-be06-0ecbb6f4dd8d",
+        "isModOnly": false,
+        "richtext": null,
+        "text": "Politics"
       }
     ]
   }
 }
 ```
 
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `subredditInfoByName` | Top-level object for the requested subreddit. |
+| `subredditInfoByName.__typename` | Object type. The value is `Subreddit`. |
+| `subredditInfoByName.postFlairTemplates[]` | List of post flair templates that the subreddit defines. |
+| `subredditInfoByName.postFlairTemplates[].id` | Unique ID of the flair template, in UUID format. |
+| `subredditInfoByName.postFlairTemplates[].text` | Display label of the flair, such as `Politics` or `Backstory`. |
+| `subredditInfoByName.postFlairTemplates[].isModOnly` | Boolean. When `true`, only moderators can use this flair. In the sample it is `false` for every flair. |
+| `subredditInfoByName.postFlairTemplates[].richtext` | Rich text version of the flair label. It is `null` in the sample, so the plain `text` field holds the label. |
+
 ### Notes
 
-- Supported `sort` values include HOT, NEW, TOP, CONTROVERSIAL, and RISING.
-- Supported `range` values include HOUR, DAY, WEEK, MONTH, YEAR, and ALL.
-- Set `need_format` to true to return cleaned and formatted data.
+- The sample request sent an empty body, so the defaults applied: `subreddit_name` is `pics`, `sort` is `HOT`, `range` is `DAY` and `need_format` is `false`.
+- `sort` accepts `HOT`, `NEW`, `TOP`, `CONTROVERSIAL` and `RISING`. `range` accepts `HOUR`, `DAY`, `WEEK`, `MONTH`, `YEAR` and `ALL`.
+- To read the posts in a subreddit, call [Reddit Subreddit Feed](/apis/reddit/app/subreddit-feed). For general community details, use [Reddit App Subreddit Info](/apis/reddit/app/subreddit-info).
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

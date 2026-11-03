@@ -68,13 +68,14 @@ Same call via the path form: `POST /v1/api/tiktok/app-v3/creator-search-insights
 
 ## Details
 
-Pass a `query_id_str` from Creator Search Insights and get its popularity trend and searcher demographics.
+Returns audience statistics for one TikTok Creator Search Insights query: popularity scores split by age, gender and country. It needs a `query_id_str` from the Creator Search Insights API and accepts an optional time range.
 
 ### Use cases
 
-- Understand who searches for a topic.
-- Validate content ideas with demand data.
-- Target content by age and country.
+- Check which age groups search for a topic before planning a video.
+- Compare male, female and unknown gender shares of a query's audience.
+- Find the top countries where a search topic is popular to choose a posting language or region.
+- Compare the same query over `past_7_days` and `past_6_months` to see how its audience changes.
 
 ### Request
 
@@ -85,80 +86,81 @@ curl -X POST "https://api.sandbase.ai/v1/api/tiktok/app-v3/creator-search-insigh
   -d '{"query_id_str": "7449584484497752069", "time_range": "past_30_days"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
 |---|---|---|---|
 | `query_id_str` | string | Yes | Query ID, obtained from fetch_creator_search_insights response |
+| `dimension_list` | string | No | Dimension list, separated by comma, options: gender, age, country |
 | `end_date` | integer | No | End timestamp (seconds), only for custom range |
 | `start_date` | integer | No | Start timestamp (seconds), only for custom range |
 | `time_range` | string | No | Time range (past_7_days/past_30_days/past_60_days/past_6_months/custom) |
-| `dimension_list` | string | No | Dimension list, separated by comma, options: gender, age, country |
 
 ### Example response
 
-Real response for the request above, trimmed to the main fields. User names and long IDs are masked.
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
 
 ```json
 {
+  "age": [
+    {
+      "category": "total",
+      "popularity": 355704
+    }
+  ],
   "demographics": {
     "age": "25-34",
     "gender": "unknown",
     "location": "United Kingdom"
   },
-  "age": [
-    {
-      "category": "total",
-      "popularity": 433427
-    },
-    {
-      "category": "others",
-      "popularity": 330399
-    },
-    {
-      "category": "25-34",
-      "popularity": 49214
-    }
-  ],
+  "extra": {
+    "latency": 44,
+    "logid": "2026110307435134E8D92AD0DB6B01A3B8",
+    "now": 1793691831842,
+    "vgeo": "VGeo-US"
+  },
   "gender": [
     {
       "category": "total",
-      "popularity": 493646
-    },
-    {
-      "category": "unknown",
-      "popularity": 439331
-    },
-    {
-      "category": "male",
-      "popularity": 29608
+      "popularity": 398818
     }
   ],
   "location": [
     {
       "category": "total",
-      "popularity": 401003
-    },
-    {
-      "category": "United Kingdom",
-      "popularity": 159147
-    },
-    {
-      "category": "United States of America",
-      "popularity": 124437
+      "popularity": 324781
     }
-  ]
+  ],
+  "status_code": 0,
+  "status_msg": ""
 }
 ```
 
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `demographics.age / demographics.gender / demographics.location` | The leading audience group for the query: the top age bucket, gender value and country name. |
+| `age[].category` | Age bucket label such as `25-34`. The list also holds `total` and `others` rows. |
+| `age[].popularity` | Popularity score for that age bucket. The `total` row is the score for the whole query. |
+| `gender[].category` | Gender label such as `male` or `unknown`. The list also holds a `total` row. |
+| `gender[].popularity` | Popularity score for that gender value. |
+| `location[].category` | Country name such as `United Kingdom`. The list also holds a `total` row. |
+| `location[].popularity` | Popularity score for that country. |
+| `status_code / status_msg` | Call status. `status_code` is `0` and `status_msg` is empty when the call succeeds. |
+
 ### Notes
 
-- Get `query_id_str` from the Creator Search Insights API.
-- `time_range`: past_7_days, past_30_days, past_60_days, past_6_months or custom.
+- Get `query_id_str` from the [TikTok Creator Search Insights](/apis/tiktok/app-v3/creator-search-insights) API.
+- `time_range` accepts `past_7_days`, `past_30_days`, `past_60_days`, `past_6_months` or `custom`. Send `start_date` and `end_date` in seconds only with `custom`.
+- Set `dimension_list` to a comma-separated mix of `gender`, `age` and `country` to choose which breakdowns you want.
+- For the popularity trend of a query over time, see [TikTok Creator Search Insights Trend](/apis/tiktok/app-v3/creator-search-insights-trend).
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

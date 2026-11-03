@@ -68,7 +68,14 @@ Same call via the path form: `POST /v1/api/aaa/metro-prices-by-state` with the b
 
 ## Details
 
-Returns gas price data for all metro/city areas within a given state, including current and historical prices (yesterday, week ago, month ago, year ago) for all fuel grades. Each metro includes top-level.
+Returns gas and diesel prices for every metro area in one US state. Each metro includes current prices and prices from yesterday, a week ago, a month ago and a year ago. The only input is a two-letter `state_code`.
+
+### Use cases
+
+- Compare regular gas prices across Washington metros to find the cheapest area.
+- Track how diesel prices in each metro changed over the past week or month.
+- Build a regional fuel cost estimate for a delivery or trucking route within one state.
+- Chart year-over-year price changes for a state's metro areas.
 
 ### Request
 
@@ -79,7 +86,7 @@ curl -X POST "https://api.sandbase.ai/v1/api/aaa/metro-prices-by-state" \
   -d '{"state_code": "WA"}'
 ```
 
-This API runs asynchronously. The call returns a task `id` with status `pending`; poll `GET https://api.sandbase.ai/v1/run/{id}` until `status` is `completed` and read the result from `outputs[0].data`.
+The result is returned in `outputs[0].data`.
 
 ### Parameters
 
@@ -87,9 +94,84 @@ This API runs asynchronously. The call returns a task `id` with status `pending`
 |---|---|---|---|
 | `state_code` | string | Yes | Two-letter US state code (e.g. TX, CA, NY, FL). All 50 states and DC are supported. |
 
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "data": {
+    "metros": [
+      {
+        "diesel": 6.929,
+        "metro": "Bellingham",
+        "mid_grade": 5.3111,
+        "premium": 5.5942,
+        "prices": {
+          "current": {
+            "Diesel": 6.929,
+            "Mid-Grade": 5.3111,
+            "Premium": 5.5942,
+            "Regular": 4.9908
+          },
+          "month_ago": {
+            "Diesel": 7.108,
+            "Mid-Grade": 5.6597,
+            "Premium": 5.9258,
+            "Regular": 5.3468
+          },
+          "week_ago": {
+            "Diesel": 6.9694,
+            "Mid-Grade": 5.2417,
+            "Premium": 5.5555,
+            "Regular": 5.1146
+          },
+          "year_ago": {
+            "Diesel": 4.8277,
+            "Mid-Grade": 4.1671,
+            "Premium": 4.5994,
+            "Regular": 3.9785
+          },
+          "yesterday": {
+            "Diesel": 6.9934,
+            "Mid-Grade": 5.3498,
+            "Premium": 5.5521,
+            "Regular": 5.003
+          }
+        },
+        "regular": 4.9908
+      }
+    ],
+    "state": "Washington"
+  },
+  "status": "success"
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `data.state` | Full name of the state, such as `Washington`. |
+| `data.metros[].metro` | Name of the metro or city area. |
+| `data.metros[].regular / data.metros[].mid_grade / data.metros[].premium / data.metros[].diesel` | Current price for each fuel grade. These match the values in `prices.current`. |
+| `data.metros[].prices.current.Regular / data.metros[].prices.current.Mid-Grade / data.metros[].prices.current.Premium / data.metros[].prices.current.Diesel` | Current price for each fuel grade in the metro. |
+| `data.metros[].prices.yesterday` | Prices for the same four grades one day earlier. |
+| `data.metros[].prices.week_ago` | Prices for the same four grades one week earlier. |
+| `data.metros[].prices.month_ago` | Prices for the same four grades one month earlier. |
+| `data.metros[].prices.year_ago` | Prices for the same four grades one year earlier. |
+| `status` | Shows `success` when the call worked. |
+
+### Notes
+
+- Pass the postal abbreviation, such as `WA`, in `state_code`. The response returns the full state name in `data.state`.
+- The `prices` object uses capitalized grade keys (`Regular`, `Mid-Grade`, `Premium`, `Diesel`). The top-level grade fields use lowercase keys with underscores.
+- For one state-wide summary instead of a metro list, try [AAA State Gas Prices](/apis/aaa/state-gas-prices) or [AAA State Price Details](/apis/aaa/state-price-details).
+- To rank metros by how much prices moved, see [AAA Price Change By Metro](/apis/aaa/price-change-by-metro).
+
 ### Pricing
 
-Flat price per call. Failed calls are not charged.
+$0.01 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ---
 Machine-readable: [`catalog/models/aaa/metro-prices-by-state.json`](../../../catalog/models/aaa/metro-prices-by-state.json) · Store page: https://www.sandbase.ai/model/aaa/metro-prices-by-state

@@ -62,13 +62,14 @@ Same call via the path form: `POST /v1/api/douyin/web/user-live-videos` with the
 
 ## Details
 
-Fetches user broadcast video data from Douyin Web for a target stream. Provide the room identifier in `webcast_id` to view matching video data.
+This API returns the live room record for a Douyin room, looked up by `webcast_id`. The response includes the room ID, title, status, and basic details of the host account.
 
 ### Use cases
 
-- Retrieve broadcast video records for a specific Douyin room.
-- Monitor user stream video data using a webcast identifier.
-- Extract room-level video details and media from Douyin Web.
+- Look up the current room ID and title for a Douyin live room when you only have its `webcast_id`.
+- Check whether a room is live or ended by reading the room status fields.
+- Get the host's `sec_uid` and nickname so you can call a user profile API for that account.
+- Collect host avatar URLs for a dashboard that tracks Douyin live rooms.
 
 ### Request
 
@@ -79,19 +80,96 @@ curl -X POST "https://api.sandbase.ai/v1/api/douyin/web/user-live-videos" \
   -d '{"webcast_id": "376034101029"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
 |---|---|---|---|
 | `webcast_id` | string | Yes | Room webcast_id |
 
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "data": {
+    "auth_cert_info": "",
+    "data": [
+      {
+        "AnchorABMap": {},
+        "admin_user_ids": [],
+        "admin_user_ids_str": [],
+        "admin_user_open_ids": [],
+        "admin_user_open_ids_str": [],
+        "fansclub_msg_style": 0,
+        "follow_msg_style": 0,
+        "gift_msg_style": 0,
+        "has_commerce_goods": false,
+        "id_str": "7703585232380857123",
+        "like_count": 0,
+        "linker_map": {}
+      }
+    ],
+    "enter_mode": 0,
+    "enter_room_id": "7703585232380857123",
+    "partition_road_map": {},
+    "qrcode_url": "",
+    "room_status": 2,
+    "shark_decision_conf": "",
+    "similar_rooms": [],
+    "user": {
+      "avatar_thumb": {
+        "url_list": [
+          "https://p11.douyinpic.com/aweme/100x100/aweme-avatar/tos-cn-avt-0015_3d5484c1ffb…"
+        ]
+      },
+      "follow_info": {
+        "follow_status": 0,
+        "follow_status_str": "0"
+      },
+      "foreign_user": 0,
+      "id_str": "1722258143337120",
+      "nickname": "邓雨馨",
+      "open_id_str": "",
+      "sec_uid": "MS4wLjABAAAAfa6fIQF7wchh5UAYU6WgfR00rGeUCzBk5YBKsz-r4Ocza5JivsqLC0qild84a_pE"
+    }
+  },
+  "extra": {
+    "now": 1793691154095
+  },
+  "status_code": 0
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `data.enter_room_id` | ID of the room that matches the `webcast_id`. Use it as the room ID in other live room calls. |
+| `data.room_status` | Numeric status of the room as a whole. The response gives no label for the values. |
+| `data.data[].id_str` | Room ID as a string. In this response it equals `data.enter_room_id`. |
+| `data.data[].title` | Title of the live room, as set by the host. |
+| `data.data[].status / data.data[].status_str` | Numeric status of the room entry and the same value as a string. |
+| `data.data[].user_count_str` | Viewer count for the room, given as a string. |
+| `data.data[].like_count` | Like count for the room. |
+| `data.data[].has_commerce_goods` | Shows `true` if the room has commerce goods attached, `false` if not. |
+| `data.user.nickname` | Display name of the host. |
+| `data.user.sec_uid` | Encrypted user ID of the host. Use it with APIs that take a `sec_user_id`. |
+| `data.user.id_str` | Numeric ID of the host, as a string. |
+| `data.user.avatar_thumb.url_list[]` | Image URLs for the host's small avatar (100x100). |
+
 ### Notes
 
-- Requires `webcast_id` representing the webcast room identifier.
+- Send the room's `webcast_id` as a string. Use [Douyin Webcast ID Extraction](/apis/douyin/web/all-webcast-id) to pull it from live room links.
+- Use `data.user.sec_uid` with [Douyin User Profile (Web)](/apis/douyin/web/user-profile) to load the host's profile.
+- `extra.now` holds a numeric timestamp for the response, and `status_code` is `0` on success.
+- Many fields in the sample, such as `admin_user_ids` and `similar_rooms`, are empty or zero.
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

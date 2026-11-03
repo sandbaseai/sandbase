@@ -63,13 +63,14 @@ Same call via the path form: `POST /v1/api/instagram/v3/location-info` with the 
 
 ## Details
 
-Retrieve detailed metadata for an Instagram place by passing its numeric `location_id`. You can also configure `show_nearby` to include adjacent locations.
+Returns details for one Instagram location, such as its name, city, address, and coordinates. It needs a numeric `location_id`. It can also list nearby places when `show_nearby` is on.
 
 ### Use cases
 
-- Look up geographical coordinates and street addresses for Instagram places.
-- Discover nearby points of interest associated with a venue.
-- Enrich location-tagged post analysis with structured place metadata.
+- Resolve a numeric Instagram location ID into a readable place name and city.
+- Link an Instagram location to an outside place record using `external_id`.
+- Label location-tagged posts with a place name before you analyze them.
+- Check whether a location has coordinates and a street address on file.
 
 ### Request
 
@@ -80,6 +81,8 @@ curl -X POST "https://api.sandbase.ai/v1/api/instagram/v3/location-info" \
   -d '{"location_id": "1016248898"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
@@ -87,14 +90,59 @@ curl -X POST "https://api.sandbase.ai/v1/api/instagram/v3/location-info" \
 | `location_id` | string | Yes | Location ID (numeric) |
 | `show_nearby` | boolean | No | Whether to show nearby places (default true) |
 
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "_rid": "3cda064c29f93",
+  "address": "",
+  "city": "Changwon",
+  "external_id": 144811708967490,
+  "external_id_source": null,
+  "id": "1016248898",
+  "lat": null,
+  "lng": null,
+  "location": {
+    "address": "",
+    "city": "Changwon",
+    "external_id": 144811708967490,
+    "external_id_source": null,
+    "id": "1016248898",
+    "lat": null,
+    "lng": null,
+    "name": "창원",
+    "pk": "1016248898"
+  },
+  "name": "창원",
+  "nearby_locations": [],
+  "pk": "1016248898"
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `name` | Display name of the location. In this response it is `창원`, written in Korean. |
+| `city` | City the location belongs to, for example `Changwon`. |
+| `id / pk` | The Instagram location ID as a string. Both hold the same value as the `location_id` you sent. |
+| `address` | Street address text. It can be an empty string when none is on file. |
+| `lat / lng` | Latitude and longitude of the place. Both are `null` when the location has no coordinates. |
+| `external_id` | Numeric ID of the place in an outside source. `external_id_source` names that source and can be `null`. |
+| `nearby_locations` | List of nearby places. It is empty here, and may be empty for locations with no neighbors. |
+| `location` | Nested copy of the main place fields: `name`, `city`, `address`, `lat`, `lng`, `id`, `pk` and `external_id`. |
+
 ### Notes
 
-- Obtain `location_id` values from place search endpoints or post metadata.
-- `show_nearby` defaults to true.
+- Set `show_nearby` to `false` if you do not need the `nearby_locations` list.
+- Find a `location_id` with [Instagram Location Search by Coordinates (V3)](/apis/instagram/v3/search-by-coordinates).
+- Call [Instagram Location Posts (V3)](/apis/instagram/v3/location-posts) next to get posts tagged at this location.
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.008 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

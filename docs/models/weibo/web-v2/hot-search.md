@@ -52,13 +52,14 @@ Same call via the path form: `POST /v1/api/weibo/web-v2/hot-search` with the bod
 
 ## Details
 
-Fetch the current Weibo hot search list with each topic's rank, heat value and label.
+Returns the current Weibo real-time hot search list. Each entry has the keyword, a heat value, a position and a label such as new or hot. The request takes no input parameters, so you send an empty JSON object.
 
 ### Use cases
 
-- Track trending topics in China.
-- Alert when a brand enters the hot list.
-- Build trend dashboards.
+- Track which topics are trending on Weibo right now and store each snapshot for later comparison.
+- Alert a team when a brand name or product keyword appears in `realtime[].word`.
+- Build a dashboard that ranks trending topics by `num` and shows their `label_name` tags.
+- Spot topics that carry the new label to find stories as they start to trend.
 
 ### Request
 
@@ -69,27 +70,88 @@ curl -X POST "https://api.sandbase.ai/v1/api/weibo/web-v2/hot-search" \
   -d '{}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Example response
 
-Real response for the request above, trimmed to the main fields. User names and long IDs are masked.
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
 
 ```json
 {
+  "hotgov": {
+    "flag": 2,
+    "icon": "https://simg.s.weibo.com/moter/flags/2_0.png",
+    "icon_desc": "热",
+    "icon_desc_color": "#ff9406",
+    "icon_height": 24,
+    "icon_width": 24,
+    "is_gov": 1,
+    "is_hot": 1,
+    "mid": "5361069742886874",
+    "name": "#乌镇网事#",
+    "note": "#乌镇网事#",
+    "pos": 1
+  },
+  "hotgovs": [
+    {
+      "flag": 2,
+      "icon": "https://simg.s.weibo.com/moter/flags/2_0.png",
+      "icon_desc": "热",
+      "icon_desc_color": "#ff9406",
+      "icon_height": 24,
+      "icon_width": 24,
+      "name": "#乌镇网事#",
+      "pos": 1,
+      "small_icon_desc": "热",
+      "small_icon_desc_color": "#ff9406",
+      "topic_flag": 1,
+      "word": "#乌镇网事#"
+    }
+  ],
   "realtime": [
     {
-      "label_name": "新",
-      "num": 1413832,
+      "emoticon": "",
+      "flag": 2,
+      "icon": "https://simg.s.weibo.com/moter/flags/2_0.png",
+      "icon_desc": "热",
+      "icon_desc_color": "#ff9406",
+      "icon_height": 24,
+      "icon_width": 24,
+      "label_name": "热",
+      "note": "赴港看演唱会女孩低保已被取消",
+      "num": 2173490,
       "rank": 0,
-      "word": "诺贝尔物理学奖",
-      "word_scheme": "诺贝尔物理学奖"
+      "realpos": 1
     }
   ]
 }
 ```
 
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `realtime[].word` | The hot search keyword as plain text. |
+| `realtime[].word_scheme` | The same keyword wrapped in `#` marks, the way Weibo writes a topic tag. Use it as a search term. |
+| `realtime[].num` | The heat value of the topic. A larger number means a hotter topic. |
+| `realtime[].rank` | Zero-based rank in the list. The first entry has `rank` 0. |
+| `realtime[].realpos` | One-based position in the list. The first entry has `realpos` 1. |
+| `realtime[].label_name` | Text label for the topic, such as `热` (hot) or `新` (new). |
+| `realtime[].icon_desc / realtime[].icon_desc_color` | The text and color code of the label badge shown beside the topic. |
+| `realtime[].icon` | URL of the label badge image. |
+| `hotgov.word / hotgov.url` | The pinned topic shown at the top of the board, with a link to the related Weibo post. `hotgov.name` holds the topic name. |
+| `hotgovs[].word / hotgovs[].pos` | Pinned topics in a list, with the position of each one. |
+
+### Notes
+
+- The request has no parameters. Send `{}` as the body.
+- `realtime` holds the ranked list. `hotgov` and `hotgovs` hold the pinned topic, which does not appear in `realtime`.
+- For a list with a search link for each topic, call [Weibo Hot Search List](/apis/weibo/web-v2/hot-search-summary).
+- To read posts about a trending keyword, pass it to [Weibo Real-Time Search](/apis/weibo/web-v2/realtime-search) or [Weibo Advanced Search](/apis/weibo/web-v2/advanced-search).
+
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

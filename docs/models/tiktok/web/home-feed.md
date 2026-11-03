@@ -59,13 +59,14 @@ Same call via the path form: `POST /v1/api/tiktok/web/home-feed` with the body a
 
 ## Details
 
-Call this endpoint to retrieve recommended feed posts from TikTok web using optional `region` and `count` parameters.
+Returns a page of recommended TikTok videos from the web home feed. Each item includes the caption, author, author stats, music, and engagement counts. The request needs no input, and you can set `region` and `count` to change the feed.
 
 ### Use cases
 
-- Inspect trending and recommended video posts across specific regions.
-- Track engagement metrics such as play, digg, and share counts for top feed videos.
-- Analyze author statistics and associated background audio details.
+- Sample what TikTok recommends in a region such as `US`, `GB`, or `JP` by changing the `region` value.
+- Collect `stats` counts for recommended videos to compare how much attention each one gets.
+- Find hashtags used in recommended videos by reading `textExtra[].hashtagName`.
+- Check author size by reading `authorStats.followerCount` for each creator in the feed.
 
 ### Request
 
@@ -76,88 +77,118 @@ curl -X POST "https://api.sandbase.ai/v1/api/tiktok/web/home-feed" \
   -d '{}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
 |---|---|---|---|
 | `count` | integer | No | Number per page |
-| `region` | string | No | Region code, optional parameter, affects the region of recommended content, e.g. |
+| `region` | string | No | Region code, optional parameter, affects the region of recommended content, e.g. US/GB/JP/KR/SG, default US. |
 
 ### Example response
 
-Real response for the request above, trimmed to the main fields. User names and long IDs are masked.
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
 
 ```json
 {
+  "cookie": "tt_chain…",
+  "extra": {
+    "fatal_item_ids": [],
+    "logid": "202611030744251010435B508133018A93",
+    "now": 1793691866000
+  },
+  "hasMore": true,
   "itemList": [
     {
-      "CategoryType": 111,
-      "createTime": 1790911701,
-      "desc": "Cooking stir fried crab and eat recipe",
-      "id": "7691907160216734994",
-      "itemCommentStatus": 0,
-      "textLanguage": "en",
-      "textTranslatable": true,
+      "AIGCDescription": "",
+      "CategoryType": 120,
+      "IsHDBitrate": false,
+      "ShowAIGC": true,
+      "aigcLabelType": 2,
       "author": {
-        "id": "7607710948674159632",
-        "nickname": "<user>",
-        "privateAccount": false,
-        "verified": false
+        "avatarLarger": "https://p19-common-sign.tiktokcdn-us.com/tos-useast5-avt-0068-tx/7761710511d4467…",
+        "avatarMedium": "https://p19-common-sign.tiktokcdn-us.com/tos-useast5-avt-0068-tx/7761710511d4467…",
+        "avatarThumb": "https://p16-common-sign.tiktokcdn-us.com/tos-useast5-avt-0068-tx/7761710511d4467…",
+        "commentSetting": 0,
+        "downloadSetting": 0,
+        "duetSetting": 0,
+        "ftc": false,
+        "id": "6916577766381569029"
       },
       "authorStats": {
-        "diggCount": 0,
-        "followerCount": 101900,
-        "followingCount": 0,
+        "diggCount": 2882,
+        "followerCount": 13900,
+        "followingCount": 170,
         "friendCount": 0,
-        "heartCount": 2000000,
-        "videoCount": 76
+        "heart": 638700,
+        "heartCount": 638700,
+        "videoCount": 185
       },
       "authorStatsV2": {
-        "diggCount": "0",
-        "followerCount": "101900",
-        "followingCount": "0",
+        "diggCount": "2882",
+        "followerCount": "13900",
+        "followingCount": "170",
         "friendCount": "0",
-        "heartCount": "2000000",
-        "videoCount": "76"
+        "heart": "638700",
+        "heartCount": "638700",
+        "videoCount": "185"
       },
+      "backendSourceEventTracking": "fyp_35",
+      "challenges": [
+        {
+          "coverLarger": "",
+          "coverMedium": "",
+          "coverThumb": "",
+          "desc": "",
+          "id": "7690364272014000142",
+          "profileLarger": "",
+          "profileMedium": "",
+          "profileThumb": ""
+        }
+      ],
+      "collected": false,
       "contentContext": {
         "status_tag": "{\"traffic_structure_info\":\"{\\\"slate_group_type\\\":\\\"0\\\"}\"}"
-      },
-      "music": {
-        "authorName": "Cooking Vibe",
-        "duration": 400,
-        "id": "7691907345098853141",
-        "shoot_duration": 400,
-        "title": "original sound - Cooking Vibe"
-      },
-      "penaltyContext": {
-        "arb_content_safety_status": 102,
-        "display_penalty_type": 0,
-        "display_ui_type": 0,
-        "status": 102,
-        "tns_status": 102,
-        "video_status": 10
-      },
-      "stats": {
-        "collectCount": 73100,
-        "commentCount": 14200,
-        "diggCount": 1400000,
-        "playCount": 28600000,
-        "shareCount": 95700
       }
     }
-  ]
+  ],
+  "log_pb": {
+    "impr_id": "202611030744251010435B508133018A93"
+  },
+  "statusCode": 0,
+  "status_code": 0,
+  "status_msg": "",
+  "tt_chain_token": "8e8wZ0N6…"
 }
 ```
 
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `itemList[]` | The list of recommended video items in this page of the feed. |
+| `itemList[].id` | The ID of the video, as a string. Pass it to a video detail API to look up one video. |
+| `itemList[].desc` | The caption of the video, including its hashtags. |
+| `itemList[].createTime` | When the video was posted, as a Unix timestamp in seconds. |
+| `itemList[].author.id` | The ID of the creator who posted the video. |
+| `itemList[].stats.playCount / diggCount / commentCount / shareCount / collectCount` | Engagement counts for the video. `statsV2` holds the same counts as strings. |
+| `itemList[].authorStats.followerCount / heartCount / videoCount` | Counts for the creator: followers, total likes received (`heartCount`), and number of videos posted. `authorStatsV2` holds the same values as strings. |
+| `itemList[].textExtra[].hashtagName` | The name of each hashtag in the caption. `start` and `end` give its position in `desc`. |
+| `itemList[].music.id / authorName / duration` | The ID of the sound used in the video, the name of its author, and its `duration` value. |
+| `itemList[].isAd` | Whether the item is marked as an ad. |
+| `hasMore` | Whether the response reports more items after this page. |
+
 ### Notes
 
-- The `region` parameter accepts country codes such as US, GB, JP, KR, or SG, defaulting to US.
-- The `count` parameter specifies the number of items returned per page.
+- `region` takes a region code such as `US`, `GB`, `JP`, `KR`, or `SG`. The default is `US`.
+- `count` sets the number of items per page. The default is 15.
+- Both parameters are optional, so an empty request body `{}` works.
+- To get full data for one video, take its `id` and call [TikTok Video Detail](/apis/tiktok/web/post-detail).
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

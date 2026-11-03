@@ -52,13 +52,13 @@ Same call via the path form: `POST /v1/api/douyin/xingtu-v2/playlet-actor-rank-c
 
 ## Details
 
-Access the available ranking catalog and classification categories for Douyin Xingtu playlet actors. This endpoint requires no request parameters.
+Returns the ranking catalog for playlet actors on Douyin Xingtu. The `catalog` field holds a JSON string that lists the available ranking lists and their classifications. The request takes no input.
 
 ### Use cases
 
-- Discover available ranking categories for playlet actors on Xingtu.
-- Map catalog identifiers prior to querying specific actor leaderboards.
-- Keep local category definitions synchronized with Douyin Xingtu taxonomies.
+- Read which playlet actor ranking lists exist before you request a specific leaderboard.
+- Collect the identifier keys in the catalog tree to build a category picker.
+- Compare the catalog over time to detect new or removed ranking classifications.
 
 ### Request
 
@@ -69,9 +69,39 @@ curl -X POST "https://api.sandbase.ai/v1/api/douyin/xingtu-v2/playlet-actor-rank
   -d '{}'
 ```
 
+The result is returned in `outputs[0].data`.
+
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "base_resp": {
+    "status_code": 0,
+    "status_message": ""
+  },
+  "catalog": "{\"type\":1,\"children\":{\"playlet_actor_list\":{\"type\":2,\"children\":{\"playlet_actor_…"
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `base_resp.status_code` | Status code of the call. `0` means the call succeeded. |
+| `base_resp.status_message` | Status text. It is an empty string in the sample response. |
+| `catalog` | A JSON-encoded string, so parse it before use. It holds a nested tree of ranking options, with names such as `playlet_actor_list` and `playlet_actor_composite_list` and numeric identifiers such as `30` and `20250930` as keys. |
+
+### Notes
+
+- The `catalog` value is a string, not an object. Run it through a JSON parser to walk the tree.
+- The tree nests several levels deep, and the keys at each level are the identifiers of the ranking options.
+- Call [Douyin Xingtu Playlet Actor Ranking List](/apis/douyin/xingtu-v2/playlet-actor-rank-list) next to fetch a leaderboard.
+
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

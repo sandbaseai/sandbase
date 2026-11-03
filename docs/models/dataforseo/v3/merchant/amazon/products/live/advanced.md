@@ -76,7 +76,7 @@ curl -X POST "https://api.sandbase.ai/v1/api/dataforseo/v3/merchant/amazon/produ
   -d '{"keyword": "wireless earbuds", "location_code": 2840, "language_code": "en_US"}'
 ```
 
-The result is returned in `outputs[0].data`.
+The result is returned in `outputs[0]`.
 
 ### Parameters
 

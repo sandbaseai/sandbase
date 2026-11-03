@@ -62,13 +62,14 @@ Same call via the path form: `POST /v1/api/kuaishou/web/one-video-by-url` with t
 
 ## Details
 
-Access video stream manifests and quality representations for Kuaishou content by supplying a post link in `url`.
+Returns details for one Kuaishou post, including the author, engagement counts, cover images, direct video URLs and a stream manifest with the available quality representations. It needs a Kuaishou post link in `url`, such as a `v.kuaishou.com` short link.
 
 ### Use cases
 
-- Retrieve direct stream URLs and video quality representations from a post link.
-- Inspect video resolution, frame rates, and manifest data.
-- Integrate Kuaishou video playback capabilities into external applications.
+- Download or play a Kuaishou video by taking direct file links from `photo.mainMvUrls`.
+- Compare the bitrate variants of one video using `photo.manifest.adaptationSet[].representation[]`.
+- Track the views, likes, comments and shares of a post from a shared link.
+- Check who published a post and whether the account is verified.
 
 ### Request
 
@@ -79,49 +80,86 @@ curl -X POST "https://api.sandbase.ai/v1/api/kuaishou/web/one-video-by-url" \
   -d '{"url": "https://v.kuaishou.com/GKTpYm"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
 |---|---|---|---|
-| `url` | string | Yes | — |
+| `url` | string | Yes |  |
 
 ### Example response
 
-Real response for the request above, trimmed to the main fields. User names and long IDs are masked.
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
 
 ```json
 {
+  "counts": {
+    "collectionCount": 1836,
+    "fanCount": 69651241,
+    "followCount": 5,
+    "photoCount": 10863
+  },
   "photo": {
-    "manifest": {
-      "adaptationSet": [
-        {
-          "representation": [
-            {
-              "frameRate": 29.97003,
-              "hdrType": 0,
-              "id": 1,
-              "qualityLabel": "高清",
-              "qualityType": "720p",
-              "url": "https://v23-3.kwaicdn.com/upic/2024/06/19/21/BMjAyNDA2MTkyMTA5NDJfMTA5NjYzNzQwMV…",
-              "kvqScore": {
-                "nnvcScore": -1
-              }
-            }
-          ]
-        }
-      ]
-    }
-  }
+    "adminTags": [],
+    "caption": "现场视频！中央军委政治工作会议在延安召开，习近平出席会议并发表重要讲话。（来源：央视时政）",
+    "cccCoverMap": {
+      "height": 1155,
+      "width": 870
+    },
+    "commentCount": 2820,
+    "commentShowType": 2,
+    "coverUrls": [
+      {
+        "cdn": "p23.a.yximgs.com",
+        "url": "https://p23.a.yximgs.com/upic/2024/06/19/21/BMjAyNDA2MTkyMTA5NDJfMTA5NjYzNzQwMV8…"
+      }
+    ],
+    "duration": 15682,
+    "exp_tag": "1_u/2006456229091442258_s0",
+    "ext_params": {
+      "color": "191818",
+      "h": 960,
+      "interval": 29,
+      "mtype": 3,
+      "sound": 15701,
+      "video": 15682,
+      "w": 720
+    },
+    "forcePublic": "H4sIAAAAAAAA%2F%2BNQEmCQ2Hn35s4fzABK4wL6CwAAAA%3D%3D",
+    "forwardCount": 0,
+    "headUrl": "https://p4-pro.a.yximgs.com/uhead/AB/2022/12/07/19/BMjAyMjEyMDcxOTEyMzFfMTA5NjYz…"
+  },
+  "result": 1
 }
 ```
 
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `photo.photoId / photo.photoType` | The ID of the post and its type. In this response the type is `VIDEO`. |
+| `photo.caption` | The text that the author wrote for the post. |
+| `photo.viewCount / likeCount / commentCount / shareCount / forwardCount` | Engagement counts for the post. Each key is a separate count, for example `photo.viewCount` for views and `photo.likeCount` for likes. |
+| `photo.timestamp` | The time of the post as a 13-digit number. It looks like a Unix time in milliseconds. |
+| `photo.duration / photo.width / photo.height` | The length and the pixel size of the video. `photo.duration` is 15682 in this response, which fits milliseconds. |
+| `photo.mainMvUrls[].url / photo.mainMvUrls[].cdn` | Direct MP4 links to the video, each on a different CDN host. The links carry signed query strings. |
+| `photo.coverUrls[].url / photo.webpCoverUrls[].url` | Cover image links in JPG and WebP form, one for each CDN host. |
+| `photo.manifest.adaptationSet[].representation[]` | One entry per available encoding of the video. Each entry has `avgBitrate`, `backupUrl` and a `comment` that names the codec and the resolution tier. |
+| `photo.userName / photo.userId / photo.userEid / photo.kwaiId` | The author's display name, numeric ID, encoded ID and Kuaishou ID. |
+| `photo.verified / photo.verifiedDetail.description` | Shows whether the author is verified and the verification label. In this response the label is the name of a news organisation. |
+| `counts.fanCount / counts.photoCount / counts.followCount / counts.collectionCount` | Counts for the author's account, such as followers and number of posts. |
+
 ### Notes
 
-- Provide a valid Kuaishou post link using the required `url` parameter.
+- Pass a Kuaishou share link in `url`. The example uses the short form `https://v.kuaishou.com/GKTpYm`.
+- `photo.photoId` is a numeric string. You can use it with [Kuaishou Single Video Details](/apis/kuaishou/web/one-video) for more post data.
+- Use [Kuaishou Video Comments (Web)](/apis/kuaishou/web/one-video-comment) to read the comments on the post.
+- The `result` field is `1` in this successful response.
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.002 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

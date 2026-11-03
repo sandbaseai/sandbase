@@ -65,13 +65,14 @@ Same call via the path form: `POST /v1/api/douyin/xingtu-v2/author-link-info` wi
 
 ## Details
 
-Retrieve Douyin Xingtu link performance metrics for a creator using `o_author_id`, with optional filters for industry tag and platform settings.
+Returns Xingtu link indices for one Douyin creator: cooperation, CP, conversion, shopping, spread and star. Each index comes with the creator's value, the average value, and the creator's rank. The only required input is the creator ID in `o_author_id`.
 
 ### Use cases
 
-- Evaluate creator cooperation and conversion indices before initiating brand partnerships.
-- Compare creator shopping performance across specific industry categories.
-- Benchmark creator performance metrics across different platform channels.
+- Compare a creator's `link_shopping_index` with the average before choosing a creator for a product campaign.
+- Check `link_convert_index` and its `link_relative_ratio` to see whether conversion is rising or falling.
+- Screen a list of creators by `rank_percent` on the cooperation and CP indices.
+- Re-run the call with `industy_tag` to see how a creator scores within one industry.
 
 ### Request
 
@@ -82,23 +83,95 @@ curl -X POST "https://api.sandbase.ai/v1/api/douyin/xingtu-v2/author-link-info" 
   -d '{"o_author_id": "7589271892177518598"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
 |---|---|---|---|
 | `o_author_id` | string | Yes | Creator ID |
 | `industy_tag` | integer | No | Industry tag, 0=unlimited, default 0 |
-| `platform_source` | integer | No | Platform source, default 1 |
 | `platform_channel` | integer | No | Platform channel, default 1 |
+| `platform_source` | integer | No | Platform source, default 1 |
+
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "base_resp": {
+    "status_code": 0,
+    "status_message": ""
+  },
+  "cooperate_index": {
+    "avg_value": 75.55,
+    "link_relative_ratio": 0,
+    "rank": "138415",
+    "rank_percent": 0.0632,
+    "value": 75.71
+  },
+  "cp_index": {
+    "avg_value": 64.1,
+    "link_relative_ratio": 0,
+    "rank": "84302",
+    "rank_percent": 0.0385,
+    "value": 67.06
+  },
+  "link_convert_index": {
+    "avg_value": 55.24,
+    "link_relative_ratio": -0.0902,
+    "rank": "409688",
+    "rank_percent": 0.1872,
+    "value": 36.81
+  },
+  "link_shopping_index": {
+    "avg_value": 53.3,
+    "link_relative_ratio": 0.2556,
+    "rank": "93389",
+    "rank_percent": 0.0427,
+    "value": 69.16
+  },
+  "link_spread_index": {
+    "avg_value": 53.1,
+    "link_relative_ratio": 0.1397,
+    "rank": "144503",
+    "rank_percent": 0.066,
+    "value": 63.72
+  },
+  "link_star_index": {
+    "avg_value": 56.19,
+    "link_relative_ratio": 0.062,
+    "rank": "149014",
+    "rank_percent": 0.0681,
+    "value": 62.49
+  }
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `cooperate_index.value / cp_index.value` | The creator's score on the cooperation index and the CP index. |
+| `link_convert_index.value / link_shopping_index.value` | The creator's score on the conversion index and the shopping index. |
+| `link_spread_index.value / link_star_index.value` | The creator's score on the spread index and the star index. |
+| `cooperate_index.avg_value / cp_index.avg_value` | The average score for the same index. Compare it with `value` to see if the creator is above or below average. The same field exists in each of the other indices. |
+| `link_convert_index.link_relative_ratio` | Relative change for the conversion index. In the sample it is `-0.0902`, a negative change. The same field exists in each of the other indices. |
+| `link_shopping_index.rank` | The creator's rank for the shopping index, returned as a string such as `93389`. The same field exists in each of the other indices. |
+| `link_shopping_index.rank_percent` | The rank as a fraction, such as `0.0427`. A smaller number means a better position. The same field exists in each of the other indices. |
+| `base_resp.status_code / base_resp.status_message` | Status of the call. `0` with an empty message is the success result in the sample. |
 
 ### Notes
 
-- Set `industy_tag` to 0 for unlimited industry coverage, which is the default setting.
-- Specify `platform_source` and `platform_channel` to adjust platform parameters, both defaulting to 1.
+- Get the creator ID for `o_author_id` from a lookup such as [Douyin XingTu kolId by Douyin ID](/apis/douyin/xingtu-v2/xingtu-kolid-by-unique-id) or [Douyin Xingtu Creator Search](/apis/douyin/xingtu-v2/search-creator).
+- `industy_tag` defaults to `0`, which means no industry filter. The parameter name is spelled this way in the schema.
+- `platform_source` and `platform_channel` both default to `1`.
+- For more creator detail, call [Douyin Xingtu Author Base Info](/apis/douyin/xingtu-v2/author-base-info).
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.004 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

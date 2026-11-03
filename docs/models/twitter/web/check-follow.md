@@ -65,7 +65,13 @@ Same call via the path form: `POST /v1/api/twitter/web/check-follow` with the bo
 
 ## Details
 
-Check follow on Twitter. Returns the platform data as structured JSON.
+Checks whether one Twitter account follows another. It needs two screen names: `user_name` (the source account) and `follows` (the target account). It returns a boolean and the source username.
+
+### Use cases
+
+- Verify that a customer or partner account follows your brand account before granting a reward.
+- Check follow status between two accounts when you audit a giveaway or campaign.
+- Confirm a relationship between two known accounts without paging through a full follower list.
 
 ### Request
 
@@ -85,9 +91,34 @@ The result is returned in `outputs[0].data`.
 | `follows` | string | Yes | Target Screen Name |
 | `user_name` | string | Yes | Source Screen Name |
 
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "is_follow": false,
+  "username": "elonmusk"
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `is_follow` | Boolean. `true` if the `user_name` account follows the `follows` account, `false` if it does not. The sample call for `elonmusk` and `NASA` returned `false`. |
+| `username` | The source screen name the check was run for. It matches the `user_name` you sent. |
+
+### Notes
+
+- Pass screen names without the `@` sign, for example `elonmusk` and `NASA`.
+- The check runs in one direction only. To test the reverse, swap the values of `user_name` and `follows`.
+- To see the full list of accounts instead of one pair, use [Twitter (X) User Followings](/apis/twitter/web/user-followings) or [Twitter (X) User Followers](/apis/twitter/web/user-followers).
+- To check a retweet instead of a follow, use [Twitter Check retweet](/apis/twitter/web/check-retweet).
+
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ---
 Machine-readable: [`catalog/models/twitter/web/check-follow.json`](../../../../catalog/models/twitter/web/check-follow.json) · Store page: https://www.sandbase.ai/model/twitter/web/check-follow

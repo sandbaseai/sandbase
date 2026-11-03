@@ -63,13 +63,14 @@ Same call via the path form: `POST /v1/api/tiktok/app-v3/user-post-videos` with 
 
 ## Details
 
-Retrieve posted video content from a target TikTok profile using either `sec_user_id` or `unique_id`.
+Returns a list of videos posted on a TikTok user profile. You pass the account's `sec_user_id`, or its `unique_id` (the username), and the API returns each video under `aweme_list`.
 
 ### Use cases
 
-- Track video releases and performance from specific creator accounts.
-- Retrieve historical video catalogs for public TikTok profiles.
-- Sort profile uploads by latest posts or top-performing hot videos.
+- Build a catalog of a creator's recent posts with their video IDs and post times.
+- Find which collaborators appear on a creator's videos through `collab_info`.
+- Check which videos carry an AI-generated label with `aigc_info`.
+- Pull a creator's most popular videos by setting `sort_type` to `1`.
 
 ### Request
 
@@ -80,26 +81,148 @@ curl -X POST "https://api.sandbase.ai/v1/api/tiktok/app-v3/user-post-videos" \
   -d '{"sec_user_id": "MS4wLjABAAAAv7iSuuXDJGDvJkmH_vz1qkDZYo1apxgzaxdBSeIuPiM", "region": "US"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
 |---|---|---|---|
 | `count` | integer | No | Maximum count number |
-| `region` | string | No | Region, optional parameter, if not passed, the US region data will be used by default. |
+| `max_cursor` | integer | No | Maximum cursor, used for paging, the first page is 0, the second page is the max_cursor value in the first response. |
+| `region` | string | No | Region, optional parameter, if not passed, the US region data will be used by default. After passing, the data of the corresponding country and region will be preferred, for example: US, GB, FR, JP, SG, VN, etc. |
+| `sec_user_id` | string | No | User sec_user_id, use sec_user_id to get user video data first, if sec_user_id is empty, use unique_id to get user video data. |
 | `sort_type` | integer | No | Sort type, 0-Latest, 1-Hot |
 | `unique_id` | string | No | User unique_id, optional parameter, if sec_user_id is empty, use unique_id to get user video data, unique_id is also the user's username. |
-| `max_cursor` | integer | No | Maximum cursor, used for paging, the first page is 0, the second page is the max_cursor value in the first response. |
-| `sec_user_id` | string | No | User sec_user_id, use sec_user_id to get user video data first, if sec_user_id is empty, use unique_id to get user video data. |
+
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "aweme_list": [
+    {
+      "added_sound_music_info": {
+        "album": "",
+        "allow_offline_music_to_detail_page": false,
+        "artists": [],
+        "audition_duration": 43,
+        "author": "TikTok",
+        "author_deleted": false,
+        "author_position": null,
+        "avatar_medium": {
+          "data_size": 0,
+          "height": 720,
+          "uri": "tos-useast5-avt-0068-tx/ba67b11de451691939223e9d978e613a",
+          "url_list": [
+            "https://p16-common-sign.tiktokcdn-us.com/tos-useast5-avt-0068-tx/ba67b11de451691…"
+          ],
+          "url_prefix": null,
+          "width": 720
+        }
+      },
+      "ai_remix_info": {
+        "has_entrance": false
+      },
+      "aigc_info": {
+        "aigc_label_type": 0,
+        "created_by_ai": false
+      },
+      "anchors": null,
+      "anchors_extras": "",
+      "animated_image_info": {
+        "effect": 0,
+        "type": 0
+      },
+      "author": {
+        "accept_private_policy": false,
+        "account_labels": null,
+        "account_region": "",
+        "ad_cover_url": null,
+        "advance_feature_item_order": null,
+        "advanced_feature_info": null,
+        "apple_account": 0,
+        "authority_status": 0
+      },
+      "author_user_id": 107955,
+      "aweme_acl": {
+        "download_general": {
+          "code": 0,
+          "mute": false,
+          "show_type": 2,
+          "transcode": 3
+        },
+        "download_mask_panel": {
+          "code": 0,
+          "mute": false,
+          "show_type": 2,
+          "transcode": 3
+        },
+        "platform_list": null,
+        "press_action_list": null,
+        "share_action_list": null,
+        "share_general": {
+          "code": 0,
+          "mute": false,
+          "show_type": 2,
+          "transcode": 3
+        },
+        "share_list_status": 0
+      },
+      "aweme_id": "7702947070604332319",
+      "aweme_type": 0,
+      "banners": [
+        {
+          "key": {
+            "component_key": "bottom_banner_search_rs"
+          }
+        }
+      ]
+    }
+  ],
+  "extra": {
+    "fatal_item_ids": [],
+    "logid": "2026110307440751E2AC0A7755494ACB67",
+    "now": 1793691847000
+  },
+  "has_locate_item": false,
+  "has_more": 1,
+  "log_pb": {
+    "impr_id": "2026110307440751E2AC0A7755494ACB67"
+  },
+  "max_cursor": 1790367198527,
+  "min_cursor": 1793482136132,
+  "status_code": 0,
+  "status_msg": "",
+  "version": "v2"
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `aweme_list[]` | One video per item. The list holds the videos on the requested page. |
+| `aweme_list[].aweme_id` | ID of the video, as a string. |
+| `aweme_list[].create_time` | Time the video was posted. The value is a Unix timestamp in seconds. |
+| `aweme_list[].content_type` | Kind of post. The sample value is `video`. |
+| `aweme_list[].author_user_id` | Numeric ID of the account that posted the video. |
+| `aweme_list[].added_sound_music_info.author` | Name of the author of the sound added to the video. |
+| `aweme_list[].collab_info.collaborators[].user_info` | Profile data for each collaborator on the video, such as the avatar in `avatar_thumb`. |
+| `aweme_list[].collab_info.collaborators[].collab_status` | Status code of the collaboration. The response does not say what each code means. |
+| `aweme_list[].aigc_info.created_by_ai` | Whether the video is flagged as created by AI. `aigc_label_type` holds the label type. |
+| `aweme_list[].comment_config.emoji_recommend_list[].emoji` | Emoji suggested for comments on this video, with a `score` for each. |
 
 ### Notes
 
-- Lookup prioritizes `sec_user_id`; if empty, provide the username via `unique_id`.
-- Set `sort_type` to 0 for latest videos or 1 for hot videos.
-- Paginate by setting `max_cursor` to 0 on the first call, then pass the returned cursor value on subsequent requests.
+- Send either `sec_user_id` or `unique_id`. If both are given, `sec_user_id` is used first.
+- For the next page, pass the `max_cursor` value from the previous response. The first page uses `0`.
+- Use `sort_type` `0` for latest videos and `1` for hot videos.
+- To get a `sec_user_id` from a username, call [TikTok User ID by Username](/apis/tiktok/app-v3/user-id-and-sec-user-id-by-username).
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

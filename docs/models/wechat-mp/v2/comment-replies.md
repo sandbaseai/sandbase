@@ -66,13 +66,14 @@ Same call via the path form: `POST /v1/api/wechat-mp/v2/comment-replies` with th
 
 ## Details
 
-Fetch second-level comment replies for a WeChat MP article by providing the article `url`. Specify `content_id` to target a specific comment thread.
+Returns the second-level replies under one comment on a WeChat MP article. It needs the article `url`, and you can pass `content_id` to pick the parent comment. Each reply includes its text, author name, like count and post time.
 
 ### Use cases
 
-- Retrieve nested reply threads under top-level article comments.
-- Paginate through reader responses on popular WeChat MP posts.
-- Speed up reply retrieval by supplying a pre-fetched comment_id.
+- Read the full reply thread under a top-ranked comment on a WeChat MP article.
+- Collect reader reactions and reply like counts to see which replies get the most support.
+- Check whether the article's own account replied in a thread, using the account identity fields.
+- Export replies in pages to store or analyze discussion around one article.
 
 ### Request
 
@@ -83,25 +84,78 @@ curl -X POST "https://api.sandbase.ai/v1/api/wechat-mp/v2/comment-replies" \
   -d '{"url": "http://mp.weixin.qq.com/s?__biz=Mzk3NTA0MzM5NA==&mid=2247483745&idx=1&sn=3f34e768cf457a501038991ed30be1f4#rd"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
 |---|---|---|---|
-| `url` | string | Yes | WeChat MP article URL (`https://mp.weixin.qq.com/s/…`). |
-| `raw` | boolean | No | Optional, default True. |
-| `offset` | integer | No | Optional, default 0 (>=0). |
-| `comment_id` | string | No | 文章的评论 id（可选，性能捷径）：不传时上游要先抓并解析整篇文章 HTML 才能拿到它，约占本接口耗时的一半；已有该值时传进来可显著加快。取自 /fetch_article_detail 或 /fetch_article_detail_h5 响应的 `$.data.content.comment_id`/Artic… |
-| `content_id` | string | No | Optional (numeric). |
+| `url` | string | Yes | WeChat MP article URL (`https://mp.weixin.qq.com/s/…`). E.g. `http://mp.weixin.qq.com/s?__biz=Mzk3NTA0MzM5NA==&mid=2247483745&idx=1&sn=3f34e768cf457a501038991ed30be1f4#rd` |
+| `comment_id` | string | No | 文章的评论 id（可选，**性能捷径**）：不传时上游要先抓并解析整篇文章 HTML 才能拿到它，约占本接口耗时的一半；已有该值时传进来可显著加快。取自 /fetch_article_detail 或 /fetch_article_detail_h5 响应的 `$.data.content.comment_id`/Article comment id (optional, performance shortcut): when omit |
+| `content_id` | string | No | Optional (numeric). `content_id` of the target first-level comment, from `$.data.comments[N].content_id` of the `fetch_article_comments` response; **defaults to the first comment that has replies when omitted**. E.g. `12 |
+| `offset` | integer | No | Optional, default 0 (>=0). Reply pagination offset; 0 for the first page, pass `next_offset` from the previous response when `has_more=true`. Ignored when `all_pages=true`. |
+| `raw` | boolean | No | Optional, default True. True=full raw reply objects; False=simplified replies. |
+
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "content_id": "12109128638545265979",
+  "count": 10,
+  "debug_id": "0d41cab3",
+  "debug_info": "gAAAAABq6ZFm9cqo_BaXAx6tA_99hUS5k-sFZNfmp4SXBeT9jRLMb-sPphtjS_Hpdix7smKz4HPQeF97…",
+  "has_more": true,
+  "next_offset": 10,
+  "offset": 0,
+  "parent_nick": "静思",
+  "replies": [
+    {
+      "author_like_status": 0,
+      "bizattr_servicetype": 1,
+      "can_share": true,
+      "content": "[破涕为笑][破涕为笑][破涕为笑]",
+      "create_time": 1756807415,
+      "from_ai": false,
+      "identity_name": "gh_d679208ae987",
+      "identity_type": 1,
+      "is_from": 2,
+      "is_from_friend": 0,
+      "is_reward": 0,
+      "logo_url": "https://wx.qlogo.cn/mmhead/SQd7RF5caa1fc1EKVsgLwgCxw9KicpM9h1ibJaqjvAl30sx8EFvkw…"
+    }
+  ],
+  "reply_total": 14
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `content_id` | ID of the parent first-level comment these replies belong to. |
+| `reply_total` | Total number of replies under that comment. |
+| `has_more / next_offset` | `has_more` is `true` when more replies remain. Pass `next_offset` as `offset` to get the next page. |
+| `count / offset` | Number of replies returned in this page and the offset this page started from. |
+| `parent_nick` | Nickname of the author of the parent comment. |
+| `replies[].content` | Text of the reply. Emoji appear as bracket codes such as `[破涕为笑]`. |
+| `replies[].nick_name` | Display name of the reply author. |
+| `replies[].create_time` | Time the reply was posted, as a Unix timestamp in seconds. |
+| `replies[].reply_like_num` | Number of likes on the reply. |
+| `replies[].reply_id` | Sequence ID of the reply within the thread. |
+| `replies[].ip_wording.province_name` | Province shown for the reply author. Some replies, such as ones from the article's account, do not include `ip_wording`. |
 
 ### Notes
 
-- Pass `comment_id` from article detail responses to avoid upstream HTML parsing and improve response latency.
-- Target a specific comment thread by passing `content_id` obtained from comment listing endpoints; defaults to the first comment with replies when omitted.
-- Page through replies by passing `next_offset` into `offset` when more results are available.
+- Get `content_id` from the `comments[].content_id` field of [WeChat MP Article Comments](/apis/wechat-mp/v2/article-comments). If you omit it, the API uses the first comment that has replies.
+- Get `comment_id` from the article detail response at `data.content.comment_id`, for example from [WeChat MP Article Detail (H5, Recommended)](/apis/wechat-mp/v2/article-detail-h5). Passing it skips the article page lookup and speeds up the call.
+- To page through replies, start with `offset` at `0`. While `has_more` is `true`, send `next_offset` as the next `offset`.
+- Set `raw` to `false` to get simplified reply objects instead of the full raw ones shown here.
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.01 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

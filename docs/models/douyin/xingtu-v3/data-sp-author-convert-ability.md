@@ -63,9 +63,14 @@ Same call via the path form: `POST /v1/api/douyin/xingtu-v3/data-sp-author-conve
 
 ## Details
 
-Get Douyin Creator Marketplace (Xingtu) conversion analysis for a creator, content channel, and 30- or 90-day period. Use it to compare creator conversion performance during commerce campaign planning.
+Returns Douyin Xingtu conversion metrics for one creator, such as GPM, click rate, related CPC and recommended product data. It needs the creator's `oAuthorId`. You can also set the content channel with `platform` and the period with `range`.
 
-The response is the platform's original data structure.
+### Use cases
+
+- Compare the conversion range values of several creators before picking one for a commerce campaign.
+- Check how many commerce-linked videos a creator has and their median view count.
+- Switch `range` between `DAY_30` and `DAY_90` to see whether a creator's conversion profile changes over a longer period.
+- Run the call per `platform` value to see which content channel a creator converts best on.
 
 ### Request
 
@@ -76,6 +81,8 @@ curl -X POST "https://api.sandbase.ai/v1/api/douyin/xingtu-v3/data-sp-author-con
   -d '{"oAuthorId": "6870161898013196295"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
@@ -84,9 +91,56 @@ curl -X POST "https://api.sandbase.ai/v1/api/douyin/xingtu-v3/data-sp-author-con
 | `platform` | string | No | Platform type. |
 | `range` | string | No | Time range. |
 
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "avg_sales_amount_range": "-",
+  "base_resp": {
+    "status_code": 0,
+    "status_message": ""
+  },
+  "component_click_cnt_range": "-",
+  "component_click_rate_range": "-",
+  "gpm_range": "-",
+  "rec_product_cnt": {},
+  "rec_product_price_range": "-",
+  "related_cpc_range": "-",
+  "related_video_cnt": {
+    "value": "1"
+  },
+  "video_vv_median": {
+    "value": "16215921"
+  }
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `gpm_range` | Range value for the creator's GPM (gross merchandise value per thousand views). The sample shows `-`, which means no value was returned for this creator. |
+| `avg_sales_amount_range` | Range value for average sales amount. The sample shows `-`. |
+| `component_click_cnt_range / component_click_rate_range` | Range values for clicks on the video component and the click rate. Both show `-` in the sample. |
+| `related_cpc_range` | Range value for related cost per click. The sample shows `-`. |
+| `rec_product_price_range` | Price range of the recommended products. The sample shows `-`. |
+| `rec_product_cnt` | Recommended product count object. It is empty in the sample. |
+| `related_video_cnt.value` | Count of related videos, returned as a string. The sample value is `1`. |
+| `video_vv_median.value` | Median video view count (`vv`), returned as a string. The sample value is `16215921`. |
+| `base_resp.status_code / base_resp.status_message` | Status of the call. `0` with an empty message means the call succeeded. |
+
+### Notes
+
+- Range fields use the string `-` when no value is available, so check for it before parsing numbers.
+- Numeric values such as `related_video_cnt.value` and `video_vv_median.value` arrive as strings.
+- `platform` accepts `SHORT_VIDEO`, `LIVE_STREAMING`, `PICTURE_TEXT` and `SHORT_DRAMA`. `range` accepts `DAY_30` and `DAY_90`.
+- To find an `oAuthorId`, use [Douyin Xingtu Creator Search](/apis/douyin/xingtu-v3/gsearch-search-for-author-square). For the products and videos behind these metrics, call [Douyin Xingtu Conversion Resources](/apis/douyin/xingtu-v3/data-sp-author-convert-videos-or-products).
+
 ### Pricing
 
-Flat price per call. Failed calls and empty results are not charged.
+$0.021429 per successful call. Failed calls are not charged.
 
 ---
 Machine-readable: [`catalog/models/douyin/xingtu-v3/data-sp-author-convert-ability.json`](../../../../catalog/models/douyin/xingtu-v3/data-sp-author-convert-ability.json) · Store page: https://www.sandbase.ai/model/douyin/xingtu-v3/data-sp-author-convert-ability

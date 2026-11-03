@@ -61,9 +61,14 @@ Same call via the path form: `POST /v1/api/xiaohongshu/pgy-v2/data-v2-kol-conten
 
 ## Details
 
-Content category tags of a Xiaohongshu (RedNote) Pugongying creator by user ID, showing which subjects the creator publishes about.
+This API returns the content category tags of a Xiaohongshu (RedNote) Pugongying creator. It needs the creator's `userId` and returns a list of tags, each with a `name` such as a topic label.
 
-The result is returned in `outputs[0].data` in the platform's original structure.
+### Use cases
+
+- Check which subjects a creator publishes about before you shortlist them for a campaign.
+- Filter a list of creators by topic, for example keep only those tagged with food or travel.
+- Compare the tag lists of several creators to find overlap in subject matter.
+- Add content category labels to an internal creator database.
 
 ### Request
 
@@ -74,15 +79,52 @@ curl -X POST "https://api.sandbase.ai/v1/api/xiaohongshu/pgy-v2/data-v2-kol-cont
   -d '{"userId": "5c668b3e0000000012021605"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
 |---|---|---|---|
 | `userId` | string | Yes | KOL's user ID. |
 
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+[
+  {
+    "createTime": null,
+    "id": null,
+    "name": "美食",
+    "proTag": null,
+    "reason": null,
+    "status": null,
+    "tagId": null,
+    "updateTime": null
+  }
+]
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `[].name` | Content category label for the creator, for example `美食` (food) or `出行旅游` (travel). Each item in the list is one tag. |
+| `[].tagId / [].id / [].proTag` | Tag identifiers and tag type fields. They are `null` in the sample response, so do not rely on them. |
+| `[].createTime / [].updateTime` | Tag creation and update times. They are `null` in the sample response. |
+| `[].status / [].reason` | Tag status and reason fields. They are `null` in the sample response. |
+
+### Notes
+
+- The response is a plain list of tag objects. Use the `name` value as the tag. The other keys can be `null`.
+- The `userId` is a 24-character hex string, for example `5c668b3e0000000012021605`.
+- To find a creator's `userId`, use [Xiaohongshu Pugongying Creator Search](/apis/xiaohongshu/pgy-v2/blogger-v2).
+- For profile details of the same creator, call [Xiaohongshu Pugongying Creator Profile](/apis/xiaohongshu/pgy-v2/blogger-user-id).
+
 ### Pricing
 
-Flat price per call. Failed calls and empty results are not charged.
+$0.021429 per successful call. Failed calls are not charged.
 
 ---
 Machine-readable: [`catalog/models/xiaohongshu/pgy-v2/data-v2-kol-content-tags.json`](../../../../catalog/models/xiaohongshu/pgy-v2/data-v2-kol-content-tags.json) · Store page: https://www.sandbase.ai/model/xiaohongshu/pgy-v2/data-v2-kol-content-tags

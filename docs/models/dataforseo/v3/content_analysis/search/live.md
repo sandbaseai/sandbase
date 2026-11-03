@@ -58,13 +58,14 @@ Same call via the path form: `POST /v1/api/dataforseo/v3/content_analysis/search
 
 ## Details
 
-Call this endpoint to search web content by `topic` and inspect relevant content analysis metrics.
+Returns web pages that mention a keyword, with sentiment scores, a content quality score and domain details for each page. It needs a `keyword` and an optional `limit` for the number of results.
 
 ### Use cases
 
-- Discover web articles and discussions relevant to specific topics.
-- Analyze sentiment and natural language patterns across web content.
-- Monitor content coverage and trends across digital media sources.
+- Pull pages that mention a brand such as `nike` and compare their positive and negative sentiment scores.
+- Find high-ranking domains that write about a topic, using `domain_rank` to sort outreach targets.
+- Filter mentions by `language` or `country` to see how a topic appears in different markets.
+- Feed page-level sentiment and quality scores into a content monitoring or NLP pipeline.
 
 ### Request
 
@@ -75,18 +76,107 @@ curl -X POST "https://api.sandbase.ai/v1/api/dataforseo/v3/content_analysis/sear
   -d '{"keyword": "nike", "limit": 5}'
 ```
 
+The result is returned in `outputs[0]`.
+
 ### Parameters
 
-The JSON body is forwarded to the upstream endpoint (one task per call). Fields used above:
+| Name | Type | Required | Description |
+|---|---|---|---|
+| `keyword` | string | No | Search query. |
+| `limit` | integer | No | Maximum number of results (up to 100). |
 
-| Name | Description |
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "status_code": 20000,
+  "status_message": "Ok.",
+  "tasks": [
+    {
+      "data": {
+        "api": "content_analysis",
+        "function": "search",
+        "keyword": "nike",
+        "limit": 5
+      },
+      "id": "11030828-2190-0463-0000-97b94d154e5f",
+      "path": [
+        "v3"
+      ],
+      "result": [
+        {
+          "items": [
+            {
+              "content_info": {
+                "author": null,
+                "connotation_types": {
+                  "negative": 0.14120648801326752,
+                  "neutral": 0.19344741106033325,
+                  "positive": 0.6653761863708496
+                },
+                "content_quality_score": 94,
+                "content_type": "page_content",
+                "date_published": null,
+                "group_date": "2019-01-16 04:49:50 +00:00",
+                "highlighted_text": null,
+                "language": "en"
+              },
+              "country": "CA",
+              "domain": "www.ssense.com",
+              "domain_rank": 456,
+              "fetch_time": "2026-07-21 12:08:42 +00:00",
+              "language": "en",
+              "main_domain": "ssense.com",
+              "page_category": [
+                10014
+              ]
+            }
+          ],
+          "items_count": 5,
+          "offset_token": "eyJDdXJy…",
+          "total_count": 146180252
+        }
+      ],
+      "result_count": 1,
+      "status_code": 20000,
+      "status_message": "Ok.",
+      "time": "34.6436 sec."
+    }
+  ],
+  "tasks_count": 1,
+  "tasks_error": 0,
+  "time": "34.6552 sec.",
+  "version": "0.1.20261022"
+}
+```
+
+### Response fields
+
+| Field | Meaning |
 |---|---|
-| `keyword` | Search query. |
-| `limit` | Maximum number of results (up to 100). |
+| `tasks[].result[].total_count` | Total number of pages that match the keyword. Only the first `limit` pages come back in `items`. |
+| `tasks[].result[].items_count` | Number of items returned in this response. |
+| `tasks[].result[].items[].domain / main_domain` | Host name of the page and its root domain, for example `about.nike.com` and `nike.com`. |
+| `tasks[].result[].items[].domain_rank` | Rank value for the domain. A higher value means a stronger domain in the response. |
+| `tasks[].result[].items[].content_info.connotation_types.positive / negative / neutral` | Sentiment scores between 0 and 1 for the page content. The three values add up to about 1. |
+| `tasks[].result[].items[].content_info.content_quality_score` | Quality score for the page content. The sample values run from 93 to 100. |
+| `tasks[].result[].items[].content_info.language / country` | Language code of the content, and the country code of the page (`country` sits on the item itself). |
+| `tasks[].result[].items[].fetch_time` | Date and time the page was fetched, in the format `2026-10-03 14:31:40 +00:00`. |
+| `tasks[].result[].items[].content_info.group_date` | Date tied to the content, in the same timestamp format. `date_published` is often `null`. |
+| `tasks[].result[].offset_token` | Token that marks where this result page ended. It encodes the current offset and the original request. |
+
+### Notes
+
+- Set `limit` to control how many items you get. The parameter accepts up to 100.
+- `offset_token` in the response points to the next page of results for the same search.
+- Several fields such as `author`, `date_published` and `highlighted_text` can be `null`, so check for them before use.
+- `page_category` holds a list of numeric category codes for each page.
 
 ### Pricing
 
-Billed at the actual cost of each call, about $0.02418 for the request above. The cost grows with the number of rows, targets or pages a call returns. Failed calls are not charged. Searches with no results are billed at their actual cost.
+Billed at the actual cost of each call, about $0.02418 for the request above. Failed calls are not charged.
 
 ### Related APIs
 

@@ -66,13 +66,14 @@ Same call via the path form: `POST /v1/api/douyin/xingtu-v2/author-convert-abili
 
 ## Details
 
-Fetch creator conversion performance metrics by supplying the creator ID in `o_author_id`. Optional filters allow narrowing data by industry, time period, and platform source.
+Returns conversion ability metrics for one Douyin Xingtu creator, such as sales amount, GPM, click and CPC ranges, plus video and product counts. It needs the creator ID in `o_author_id`. Optional filters set the industry, time range and platform.
 
 ### Use cases
 
-- Evaluate Douyin creator sales conversion metrics for influencer marketing selection.
-- Compare creator conversion rates across specific industry categories.
-- Track creator click and GMV tier performance over defined time periods.
+- Check a creator's `gpm_range` and `avg_sales_amount_range` before shortlisting them for a sales campaign.
+- Compare `component_click_cnt_range` and `component_click_rate_range` across several creators.
+- Read `video_vv_median` to see the typical view count of a creator's videos.
+- Check `rec_product_cnt` and `related_video_cnt` to see how many products and videos the metrics rest on.
 
 ### Request
 
@@ -83,25 +84,70 @@ curl -X POST "https://api.sandbase.ai/v1/api/douyin/xingtu-v2/author-convert-abi
   -d '{"o_author_id": "7029342444797820939"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
 |---|---|---|---|
 | `o_author_id` | string | Yes | Creator ID |
-| `time_range` | integer | No | Time range tier, default 2 |
 | `industry_id` | integer | No | Industry ID, 0=unlimited, default 0 |
-| `platform_source` | integer | No | Platform source, default 1 |
 | `platform_channel` | integer | No | Platform channel, default 1 |
+| `platform_source` | integer | No | Platform source, default 1 |
+| `time_range` | integer | No | Time range tier, default 2 |
+
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "avg_sales_amount_range": "-",
+  "base_resp": {
+    "status_code": 0,
+    "status_message": ""
+  },
+  "component_click_cnt_range": "-",
+  "component_click_rate_range": "-",
+  "gpm_range": "-",
+  "rec_product_cnt": {
+    "value": "0"
+  },
+  "rec_product_price_range": "-",
+  "related_cpc_range": "-",
+  "related_video_cnt": {
+    "value": "1"
+  },
+  "video_vv_median": {
+    "value": "4621348"
+  }
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `avg_sales_amount_range` | Range for the creator's average sales amount. The value is `-` when no range is available, as in the sample. |
+| `gpm_range` | Range for the creator's GPM. The value is `-` when no range is available. |
+| `component_click_cnt_range / component_click_rate_range` | Ranges for the number of clicks and the click rate on the creator's video components. Both are `-` when empty. |
+| `related_cpc_range` | Range for the related CPC value. The value is `-` when empty. |
+| `rec_product_cnt.value` | Count of recommended products, returned as a string. The sample shows `0`. |
+| `rec_product_price_range` | Price range of the recommended products. The value is `-` when empty. |
+| `related_video_cnt.value` | Count of related videos, returned as a string. The sample shows `1`. |
+| `video_vv_median.value` | Median video view count, returned as a string. The sample shows `4621348`. |
+| `base_resp.status_code / base_resp.status_message` | Status of the call. `status_code` is `0` and `status_message` is empty in the sample. |
 
 ### Notes
 
-- `o_author_id` is required to identify the target creator.
-- `industry_id` defaults to 0 for unlimited industry coverage.
-- `time_range` defaults to 2.
+- Many range fields return `-` when the creator has no data for the chosen filters. The count fields stay filled, so check them first.
+- Numeric values in `rec_product_cnt`, `related_video_cnt` and `video_vv_median` come as strings inside a `value` key.
+- Find the creator ID with [Douyin Xingtu Creator Search](/apis/douyin/xingtu-v2/search-creator) or [Douyin XingTu kolId by Douyin ID](/apis/douyin/xingtu-v2/xingtu-kolid-by-unique-id).
+- For the videos or products behind these metrics, call [Douyin Xingtu Creator Conversion Details](/apis/douyin/xingtu-v2/author-convert-videos-or-products).
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.002 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

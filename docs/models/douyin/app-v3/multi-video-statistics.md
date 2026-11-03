@@ -61,13 +61,14 @@ Same call via the path form: `POST /v1/api/douyin/app-v3/multi-video-statistics`
 
 ## Details
 
-Pass one or more Douyin video IDs (`aweme_id`) and get each video's play, like, share and download counts in a single call.
+Returns play, like, share and download counts for Douyin videos. Pass one or more video IDs in `aweme_ids`, separated by commas, up to 50 per request.
 
 ### Use cases
 
-- Track performance of a list of campaign videos daily.
-- Compare engagement across many videos at once.
-- Enrich search results with up-to-date statistics.
+- Track the play and like counts of a list of campaign videos over time.
+- Rank a batch of videos by `play_count` or `digg_count` to find the top performers.
+- Compare how often viewers share or download videos in the same set.
+- Refresh the counts for videos you already stored from a user or hashtag listing.
 
 ### Request
 
@@ -78,37 +79,53 @@ curl -X POST "https://api.sandbase.ai/v1/api/douyin/app-v3/multi-video-statistic
   -d '{"aweme_ids": "7565738211130035491"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
 |---|---|---|---|
-| `aweme_ids` | string | Yes | Video id, supports multiple video ids, separated by commas, no more than 50, single is also possible, no need for comma… |
+| `aweme_ids` | string | Yes | Video id, supports multiple video ids, separated by commas, no more than 50, single is also possible, no need for commas. |
 
 ### Example response
 
-Real response for the request above, trimmed to the main fields. User names and long IDs are masked.
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
 
 ```json
 {
   "statistics_list": [
     {
       "aweme_id": "7565738211130035491",
-      "digg_count": 86131,
-      "download_count": 27,
-      "play_count": 2461544,
-      "share_count": 161
+      "digg_count": 88106,
+      "download_count": 29,
+      "play_count": 2553057,
+      "share_count": 165
     }
   ]
 }
 ```
 
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `statistics_list` | List of results, one object per video ID in the request. |
+| `statistics_list[].aweme_id` | ID of the Douyin video. Use it to match each result to the ID you sent. |
+| `statistics_list[].play_count` | Number of plays for the video. |
+| `statistics_list[].digg_count` | Number of likes (diggs) on the video. |
+| `statistics_list[].share_count` | Number of times the video was shared. |
+| `statistics_list[].download_count` | Number of times the video was downloaded. |
+
 ### Notes
 
-- Separate multiple IDs with commas, up to 50 per request.
+- Send `aweme_ids` as one string with IDs separated by commas, for example `7565738211130035491,7565738211130035492`. A single ID needs no comma.
+- Do not send more than 50 IDs per request.
+- Match each result to your input by `aweme_id`, not by position.
+- To get descriptions, authors or play URLs, call [Douyin Batch Video Information (App V3)](/apis/douyin/app-v3/multi-video). To list a user's videos and their IDs first, use [Douyin User Videos](/apis/douyin/app-v3/user-post-videos).
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.025 per successful call. Failed calls are not charged.
 
 ### Related APIs
 

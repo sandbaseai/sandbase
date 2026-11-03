@@ -65,13 +65,13 @@ Same call via the path form: `POST /v1/api/tiktok/web/live-room` with the body a
 
 ## Details
 
-Retrieve real-time stream messages by providing the broadcast link via `live_room_url` along with the desired `danmaku_type`.
+This endpoint is meant to return danmaku and chat messages from a TikTok livestream room. It takes a room URL in `live_room_url` and a message type in `danmaku_type`. The real response currently returns only a notice that the online service is no longer available.
 
 ### Use cases
 
-- Monitor audience chat messages during a TikTok stream.
-- Extract broadcast interaction data for engagement analysis.
-- Collect stream danmaku logs filtered by message type.
+- Check the current availability of this endpoint before you build a live chat pipeline on it.
+- Read the `message_EN` text to see how to get the source code for local deployment.
+- Switch to a related SandBase live room API when you need room messages or room status.
 
 ### Request
 
@@ -82,6 +82,8 @@ curl -X POST "https://api.sandbase.ai/v1/api/tiktok/web/live-room" \
   -d '{"danmaku_type": "WebcastChatMessage", "live_room_url": "https://www.tiktok.com/@mpl.id.official/live"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
@@ -89,14 +91,36 @@ curl -X POST "https://api.sandbase.ai/v1/api/tiktok/web/live-room" \
 | `danmaku_type` | string | Yes | Message type |
 | `live_room_url` | string | Yes | Live room link |
 
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "message_EN": "This interface is no longer available online, you need to purchase the source co…",
+  "message_ZH": "该接口已不再提供线上服务，需要自行购买源代码后在本地部署使用，购买源代码请在Discord服务器联系管理员，Discord邀请链接：https://discor…",
+  "ws_url": "No longer available"
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `message_EN` | English notice that the interface is no longer available online. It says you must buy the source code and deploy it locally. |
+| `message_ZH` | Chinese version of the same notice. It also points to a Discord server where you can contact the administrator to buy the source code. |
+| `ws_url` | Holds the text `No longer available` instead of a WebSocket address. |
+
 ### Notes
 
-- Requires `live_room_url` to identify the target TikTok stream.
-- Filter the category of returned stream messages with `danmaku_type`.
+- The request needs `danmaku_type` (for example `WebcastChatMessage`) and `live_room_url` (for example `https://www.tiktok.com/@mpl.id.official/live`).
+- The sample call returned no chat messages, only the notice fields shown above.
+- To read room messages through SandBase, try [TikTok Room Danmaku Messages](/apis/tiktok/web/live-im-fetch).
+- To check whether a room is live first, call [TikTok Stream Status Check](/apis/tiktok/web/check-live-alive).
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.0015 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

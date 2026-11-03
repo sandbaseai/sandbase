@@ -58,7 +58,14 @@ Same call via the path form: `POST /v1/api/youtube/video-transcript` with the bo
 
 ## Details
 
-Fetch the transcript/captions of a YouTube video or Short by URL or ID.
+Returns the transcript of a YouTube video or Short as plain text and as timed segments. You pass either a video `url` or a video `id`.
+
+### Use cases
+
+- Index what a video says so you can search across many videos by spoken words.
+- Feed the transcript text into a summarizer or a question-answering tool.
+- Build subtitles or clickable timestamps from the timed segments.
+- Check whether a video mentions a brand, product, or phrase.
 
 ### Request
 
@@ -69,7 +76,7 @@ curl -X POST "https://api.sandbase.ai/v1/api/youtube/video-transcript" \
   -d '{"url": "https://www.youtube.com/watch?v=dQw4w9WgXcQ"}'
 ```
 
-The result is returned in `outputs[0].data`. A lookup that finds nothing still succeeds and returns `found: false`.
+The result is returned in `outputs[0].data`.
 
 ### Parameters
 
@@ -78,9 +85,48 @@ The result is returned in `outputs[0].data`. A lookup that finds nothing still s
 | `id` | string | No | YouTube video ID. A Short uses the same ID as any other video. |
 | `url` | string | No | Full YouTube video URL. Shorts (youtube.com/shorts/...), youtu.be, live, and embed URLs all work. |
 
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "data": {
+    "language": "en",
+    "segments": [
+      {
+        "durationSeconds": 1.68,
+        "startSeconds": 1.36,
+        "text": "[♪♪♪]"
+      }
+    ],
+    "transcript": "[♪♪♪]\n♪ We're no strangers to love ♪\n♪ You know the rules and so do I ♪\n♪ A full…"
+  },
+  "found": true
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `found` | `true` when a transcript was found for the video. A lookup that finds nothing returns `found: false`. |
+| `data.language` | Language code of the transcript, for example `en`. |
+| `data.transcript` | The full transcript as one string. Each caption line is separated by a newline. |
+| `data.segments[].text` | The text of one caption line. Music cues such as `[♪♪♪]` can appear as text. |
+| `data.segments[].startSeconds` | Start time of the segment, in seconds from the beginning of the video. |
+| `data.segments[].durationSeconds` | How long the segment lasts, in seconds. |
+
+### Notes
+
+- Send either `url` or `id`. A Short uses the same ID as any other video, and `youtube.com/shorts/...`, `youtu.be`, live, and embed URLs all work for `url`.
+- The `id` is the value after `v=` in a standard watch URL, for example `dQw4w9WgXcQ`.
+- Use `data.transcript` for the whole text and `data.segments` when you need timing.
+- To get video metadata such as title and stats, call [YouTube Video Details](/apis/youtube/video-detail).
+
 ### Pricing
 
-Billed at the actual cost of each call, usually $0.0009 per request. A call can cost more when the first data source fails and another one answers. Failed calls are not charged. Lookups that find nothing and searches with no results are billed at their actual cost, which is often lower and can be $0.
+Billed at the actual cost of each call, about $0.0009 for the request above. Failed calls are not charged.
 
 ---
 Machine-readable: [`catalog/models/youtube/video-transcript.json`](../../../catalog/models/youtube/video-transcript.json) · Store page: https://www.sandbase.ai/model/youtube/video-transcript

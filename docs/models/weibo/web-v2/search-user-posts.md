@@ -72,13 +72,14 @@ Same call via the path form: `POST /v1/api/weibo/web-v2/search-user-posts` with 
 
 ## Details
 
-Search posts from a specific Weibo account using `uid`. Filter results by keyword with `q`, media format flags, and Unix timestamp bounds.
+Returns posts from one Weibo user's timeline that match optional keywords. It needs the user's `uid` and accepts filters for post type and a Unix timestamp date range.
 
 ### Use cases
 
-- Search a specific Weibo creator timeline for keyword or brand mentions.
-- Filter an account post history by media type such as images or videos.
-- Retrieve user posts within a specific time range using timestamps.
+- Find every post where a Weibo creator mentions a brand or product name.
+- Pull only the video or image posts from one account for content review.
+- Collect an account's posts for a set time window by passing `starttime` and `endtime`.
+- Check whether a user has posted about a topic by testing if `data.total` is above zero.
 
 ### Request
 
@@ -89,31 +90,56 @@ curl -X POST "https://api.sandbase.ai/v1/api/weibo/web-v2/search-user-posts" \
   -d '{"uid": "8431518763"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
 |---|---|---|---|
 | `uid` | string | Yes | User ID (required) |
-| `q` | string | No | Search keyword (optional, empty string means search all content) |
-| `page` | integer | No | Page number, starts from 1 (default 1) |
+| `endtime` | string | No | End timestamp (optional, Unix timestamp format) |
+| `hasmusic` | integer | No | Include music posts (default 1 include) |
 | `hasori` | integer | No | Include original posts (default 1 include) |
 | `haspic` | integer | No | Include image posts (default 1 include) |
 | `hasret` | integer | No | Include retweets (default 1 include) |
-| `endtime` | string | No | End timestamp (optional, Unix timestamp format) |
 | `hastext` | integer | No | Include text posts (default 1 include) |
-| `hasmusic` | integer | No | Include music posts (default 1 include) |
 | `hasvideo` | integer | No | Include video posts (default 1 include) |
+| `page` | integer | No | Page number, starts from 1 (default 1) |
+| `q` | string | No | Search keyword (optional, empty string means search all content) |
 | `starttime` | string | No | Start timestamp (optional, Unix timestamp format) |
+
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "data": {
+    "list": [],
+    "total": 0
+  },
+  "ok": 1
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `ok` | Status flag for the call. A value of `1` means the request went through. |
+| `data.list` | List of matching posts for the requested page. It is an empty list when nothing matches, as in the sample call. |
+| `data.total` | Count of posts that match the query and filters. It is `0` in the sample response, which has no matches. |
 
 ### Notes
 
-- `uid` is required, while `q` can be left empty to return all content.
-- Pagination is handled with `page`, which defaults to 1.
-- Date filters `starttime` and `endtime` accept Unix timestamps.
+- Get the `uid` from a user lookup such as [Weibo User Search](/apis/weibo/web-v2/user-search) or [Weibo User Basic Information](/apis/weibo/web-v2/user-basic-info).
+- Use `page` to move through results. It starts at 1.
+- An empty `data.list` with `data.total` of `0` means no posts matched the current `q`, type flags and time range.
+- To list an account's posts without a keyword search, use [Weibo User Posts](/apis/weibo/web-v2/user-posts).
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

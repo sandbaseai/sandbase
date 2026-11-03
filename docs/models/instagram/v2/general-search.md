@@ -63,13 +63,14 @@ Same call via the path form: `POST /v1/api/instagram/v2/general-search` with the
 
 ## Details
 
-Query Instagram posts and related media content by specifying a `keyword`. Use `pagination_token` to retrieve subsequent pages of results.
+Returns Instagram posts and reels that match a search `keyword`. Each item includes the caption, hashtags, comment count and audio details. Send a `keyword` and optionally a `pagination_token` to get the next page.
 
 ### Use cases
 
-- Discover trending media posts and reels related to specific topics.
-- Monitor engagement metrics and captions across keyword-specific posts.
-- Identify active creators producing content around target search terms.
+- Find reels and posts that use a topic keyword such as `cat`.
+- Collect the hashtags that creators attach to posts about a topic.
+- Rank posts for a keyword by `comment_count` to spot those with the most discussion.
+- Group results by `clips_metadata.audio_type` to see how many posts use original sounds.
 
 ### Request
 
@@ -80,6 +81,8 @@ curl -X POST "https://api.sandbase.ai/v1/api/instagram/v2/general-search" \
   -d '{"keyword": "cat"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
@@ -89,57 +92,58 @@ curl -X POST "https://api.sandbase.ai/v1/api/instagram/v2/general-search" \
 
 ### Example response
 
-Real response for the request above, trimmed to the main fields. User names and long IDs are masked.
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
 
 ```json
 {
   "data": {
+    "count": 8,
     "items": [
       {
-        "caption_is_edited": false,
-        "coauthor_producer_can_see_organic_insights": false,
-        "comment_count": 1150,
-        "device_timestamp": 908953868710284,
-        "filter_type": 0,
-        "id": "3773673916037486064",
-        "like_and_view_counts_disabled": false,
-        "like_count": 54439,
-        "media_name": "reel",
-        "media_type": 2,
-        "caption": {
-          "content_type": "comment",
-          "id": "3773673916037486064",
-          "private_reply_status": 0,
-          "status": "Active",
-          "text": "#catsoftheday #cat #cutecats #catlovers❤️",
-          "type": 1
-        },
-        "clips_metadata": {
-          "audio_canonical_id": "18438577903101394",
-          "audio_type": "original_sounds",
-          "professional_clips_upsell_type": 0
-        },
-        "user": {
-          "follower_count": 240938,
-          "full_name": "𝐂𝐀𝐓𝐘 𝐂𝐑𝐔𝐒𝐇",
-          "id": "47539634885",
-          "profile_pic_id": "3737640702256854188",
-          "profile_pic_url": "https://scontent-iad3-1.cdninstagram.com/v/t51.82787-19/562433378_18068299718586…",
-          "type": "XDTUserDict"
-        }
+        "ai_interactive_embodiment_attachment_style_info": null,
+        "ai_label_info": null,
+        "are_remixes_crosspostable": true,
+        "attribution": null,
+        "audience": null,
+        "audio": null,
+        "autodub_status": null,
+        "basel_encoding_timeout": null,
+        "boost_unavailable_identifier": null,
+        "boost_unavailable_reason": null,
+        "boosted_by_sponsor": null,
+        "boosted_post_id": null
       }
     ]
-  }
+  },
+  "pagination_token": "GU1VCxop…"
 }
 ```
 
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `data.count` | Number of items in this page of results. |
+| `data.items[].code` | Short post code for the item. Use it to identify the post on Instagram. |
+| `data.items[].caption.hashtags` | List of hashtags in the post caption, each with a leading `#`. |
+| `data.items[].caption.created_at / data.items[].caption.created_at_utc` | Caption creation time as a Unix timestamp in seconds. |
+| `data.items[].caption.id` | ID of the caption object. |
+| `data.items[].comment_count` | Number of comments on the post. |
+| `data.items[].clips_metadata.audio_type` | Type of audio on the reel, for example `original_sounds`. |
+| `data.items[].clips_metadata.audio_canonical_id` | ID of the audio track used in the reel. |
+| `data.items[].ai_label_info.subtitle_text` | Label text shown for posts flagged as AI content. The field is `null` when no AI label exists. |
+| `pagination_token` | Token to pass as `pagination_token` to request the next page. |
+
 ### Notes
 
-- Pass `pagination_token` from a previous response to paginate through search results.
+- Set `keyword` to any search term. Only `keyword` is required.
+- To get the next page, repeat the call with the same `keyword` and the `pagination_token` from the previous response.
+- Many fields on each item are `null` when they do not apply to the post, such as `carousel_media` on a reel.
+- To search only reels, use [Instagram Reels Search](/apis/instagram/v2/search-reels). To search accounts, use [Instagram User Search (V2)](/apis/instagram/v2/search-users).
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.002 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

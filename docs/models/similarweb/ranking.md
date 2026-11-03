@@ -73,9 +73,14 @@ Same call via the path form: `POST /v1/api/similarweb/ranking` with the body abo
 
 ## Details
 
-Get a website's global, country and category traffic rank month by month.
+Returns a website's traffic rank by month, including its country rank, its category rank and its category name. It needs a `domain` plus `start_date` and `end_date` in `YYYY-MM` format.
 
-The response is the official Similarweb API response, unchanged.
+### Use cases
+
+- Track how a news site's category rank moves from month to month.
+- Compare the worldwide rank of a competitor domain against your own domain.
+- Find which Similarweb category a domain belongs to before you benchmark it.
+- Add monthly rank history to a market research report on a set of domains.
 
 ### Request
 
@@ -86,21 +91,76 @@ curl -X POST "https://api.sandbase.ai/v1/api/similarweb/ranking" \
   -d '{"start_date": "2026-09", "end_date": "2026-09", "country": "ww", "domain": "cnn.com", "granularity": "monthly"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
 |---|---|---|---|
-| `country` | string | No | Worldwide data only; values are case-insensitive. |
 | `domain` | string | Yes | domain |
 | `end_date` | string | Yes | end_date |
+| `start_date` | string | Yes | start_date |
+| `country` | string | No | Worldwide data only; values are case-insensitive. |
 | `granularity` | string | No | granularity |
 | `main_domain_only` | boolean | No | main_domain_only |
-| `start_date` | string | Yes | start_date |
 | `web_source` | string | No | web_source |
+
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "data": [
+    {
+      "category": "News_and_Media",
+      "category_rank": 16,
+      "country_rank": 178,
+      "date": "2026-09-01"
+    }
+  ],
+  "meta": {
+    "last_updated": "2026-09-30",
+    "request": {
+      "country": "ww",
+      "domain": "cnn.com",
+      "end_date": "2026-09-30",
+      "format": "json",
+      "granularity": "monthly",
+      "metrics": [
+        "country_rank"
+      ],
+      "start_date": "2026-09-01",
+      "web_source": "total"
+    },
+    "status": "success"
+  }
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `data[].date` | First day of the month the row covers, for example `2026-09-01`. |
+| `data[].country_rank` | The domain's traffic rank for the requested country. With `country` set to `ww`, this is the worldwide rank. A lower number means a higher rank. |
+| `data[].category_rank` | The domain's traffic rank inside its category. |
+| `data[].category` | The category the domain is ranked in, for example `News_and_Media`. |
+| `meta.status` | Shows `success` when the call worked. |
+| `meta.last_updated` | Date of the latest data update for this response, for example `2026-09-30`. |
+| `meta.request.web_source` | The traffic source the response used. The request here returned `total`. |
+| `meta.request.start_date / meta.request.end_date` | The full date range the request used. The short `YYYY-MM` inputs appear as first and last day of the month. |
+
+### Notes
+
+- Send dates as `YYYY-MM`. The response expands them to full dates such as `2026-09-01` and `2026-09-30`.
+- The `data` list has one row per month in the range.
+- `country` accepts only `ww`, which means worldwide. `granularity` accepts only `monthly`.
+- For traffic volume and engagement of the same domain, call [Similarweb Traffic & Engagement](/apis/similarweb/traffic-engagement). To see ranked lists of sites, use [Similarweb Top Sites Ranking](/apis/similarweb/top-sites-ranking).
 
 ### Pricing
 
-$0.15 per month between start_date and end_date (12 months if omitted). Failed calls are not charged.
+Billed at the actual cost of each call, about $0.15 for the request above. Failed calls are not charged.
 
 ---
 Machine-readable: [`catalog/models/similarweb/ranking.json`](../../../catalog/models/similarweb/ranking.json) · Store page: https://www.sandbase.ai/model/similarweb/ranking

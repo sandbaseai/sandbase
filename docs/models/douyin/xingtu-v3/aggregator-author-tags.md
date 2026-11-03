@@ -61,9 +61,13 @@ Same call via the path form: `POST /v1/api/douyin/xingtu-v3/aggregator-author-ta
 
 ## Details
 
-Get Douyin Creator Marketplace (Xingtu) tags for a specified creator. Use it to classify creators and compare their fit for campaign briefs.
+This API returns the tag data Douyin Creator Marketplace (Xingtu) holds for one creator. It needs the creator's Xingtu ID in `starAuthorId`. In the sample response, the tag detail holds only an `is_curated` flag.
 
-The response is the platform's original data structure.
+### Use cases
+
+- Check the `is_curated` flag for a creator before adding them to a campaign shortlist.
+- Filter a list of Xingtu creator IDs by their curated status.
+- Confirm that a call succeeded by reading the status code before you pass the creator to other Xingtu lookups.
 
 ### Request
 
@@ -74,15 +78,48 @@ curl -X POST "https://api.sandbase.ai/v1/api/douyin/xingtu-v3/aggregator-author-
   -d '{"starAuthorId": "6870161898013196295"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
 |---|---|---|---|
 | `starAuthorId` | string | Yes | Creator's unique Xingtu ID. |
 
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "author_tags_detail": {
+    "is_curated": "0"
+  },
+  "base_resp": {
+    "status_code": 0,
+    "status_message": ""
+  }
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `author_tags_detail` | Object that holds the tag data for the creator. |
+| `author_tags_detail.is_curated` | Curated flag for the creator. The sample value is the string `0`. The response does not explain what each value means, so treat it as a raw flag. |
+| `base_resp.status_code` | Status code of the request. `0` appears in the sample response for a successful call. |
+| `base_resp.status_message` | Status text for the request. It is an empty string in the sample response. |
+
+### Notes
+
+- Get `starAuthorId` from [Douyin Xingtu Creator Search](/apis/douyin/xingtu-v3/gsearch-search-for-author-square). The ID is a numeric string, for example `6870161898013196295`.
+- Send the ID as a string in the JSON body, not as a number.
+- For profile details of the same creator, call [Douyin Xingtu Creator Profile](/apis/douyin/xingtu-v3/author-author-base-info).
+
 ### Pricing
 
-Flat price per call. Failed calls and empty results are not charged.
+$0.021429 per successful call. Failed calls are not charged.
 
 ---
 Machine-readable: [`catalog/models/douyin/xingtu-v3/aggregator-author-tags.json`](../../../../catalog/models/douyin/xingtu-v3/aggregator-author-tags.json) · Store page: https://www.sandbase.ai/model/douyin/xingtu-v3/aggregator-author-tags

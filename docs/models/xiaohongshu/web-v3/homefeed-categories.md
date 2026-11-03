@@ -52,13 +52,14 @@ Same call via the path form: `POST /v1/api/xiaohongshu/web-v3/homefeed-categorie
 
 ## Details
 
-Call this endpoint to retrieve the full list of homefeed category channels available on Xiaohongshu (RED). The request requires no query parameters.
+Returns the list of homefeed category channels on Xiaohongshu (RED). Each entry has a category `id` and a display `name`. The API takes no input parameters.
 
 ### Use cases
 
-- Populate channel navigation menus in client applications.
-- Discover valid category identifiers for homefeed content exploration.
-- Track changes to top-level content channels across the platform.
+- Build a channel menu that mirrors the homefeed tabs on Xiaohongshu.
+- Look up the valid `id` values, such as `homefeed.food_v3`, before you request a category feed.
+- Map category `id` values to their Chinese `name` labels in a dashboard or report.
+- Check the current set of top-level channels by comparing the list between runs.
 
 ### Request
 
@@ -69,9 +70,49 @@ curl -X POST "https://api.sandbase.ai/v1/api/xiaohongshu/web-v3/homefeed-categor
   -d '{}'
 ```
 
+The result is returned in `outputs[0].data`.
+
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "code": 0,
+  "data": {
+    "categories": [
+      {
+        "id": "homefeed.fashion_v3",
+        "name": "穿搭"
+      }
+    ]
+  },
+  "msg": "成功",
+  "ok": true,
+  "status": 200,
+  "success": true
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `data.categories[]` | List of homefeed category channels. Each item is one channel. |
+| `data.categories[].id` | Category identifier, for example `homefeed.fashion_v3`. Use this value when you need to refer to a channel. |
+| `data.categories[].name` | Display name of the category in Chinese, for example `穿搭` (fashion) or `美食` (food). |
+| `code / ok / success` | Status flags. `code` is `0` and `ok` and `success` are `true` when the call worked. |
+| `msg` | Status message text. It is `成功` on a successful call. |
+
+### Notes
+
+- Send an empty JSON object `{}` as the request body. There are no parameters and no pagination.
+- Category `id` values follow the pattern `homefeed.<channel>_v3`.
+- To read posts from the homepage, call [Xiaohongshu (RED) Homepage Feed](/apis/xiaohongshu/web-v3/homefeed).
+
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.01 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

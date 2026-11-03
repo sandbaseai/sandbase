@@ -62,13 +62,14 @@ Same call via the path form: `POST /v1/api/tiktok/app-v3/open-app-to-send-privat
 
 ## Details
 
-Generates a direct message short URL using a specified `uid`. Opening the link directs users to the TikTok mobile application to begin a conversation.
+Returns a TikTok short URL that opens the TikTok app on a direct message conversation with a given user. It needs one input, the numeric `uid` of the target user.
 
 ### Use cases
 
-- Direct users into a TikTok direct message conversation via external links.
-- Launch the TikTok app directly to a specific user chat screen.
-- Generate mobile deep links for creator collaboration outreach.
+- Add a "Message me on TikTok" button to a website or email that opens a chat with a specific account.
+- Build outreach links for creator collaboration campaigns, one link per creator `uid`.
+- Send a support or community link in a bio page or QR code that starts a TikTok chat.
+- Generate message links in bulk for a list of known user IDs.
 
 ### Request
 
@@ -79,6 +80,8 @@ curl -X POST "https://api.sandbase.ai/v1/api/tiktok/app-v3/open-app-to-send-priv
   -d '{"uid": "6860674014860641286"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
@@ -87,22 +90,33 @@ curl -X POST "https://api.sandbase.ai/v1/api/tiktok/app-v3/open-app-to-send-priv
 
 ### Example response
 
-Real response for the request above, trimmed to the main fields. User names and long IDs are masked.
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
 
 ```json
 {
-  "short_url": "https://www.tiktok.com/t/ZP9D9gF4pxcad-bubD8/",
-  "status": 0
+  "short_url": "https://www.tiktok.com/t/ZP9ytcR1Nvfyn-vWa0B/",
+  "status": 0,
+  "uid": "6860674014860641286"
 }
 ```
 
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `short_url` | Short TikTok link. Opening it on a phone launches the TikTok app and starts a direct message with the user. |
+| `uid` | The user ID the link was built for. It matches the `uid` sent in the request. |
+| `status` | Status code of the call. The value `0` appears in a successful response. |
+
 ### Notes
 
-- Obtain the required `uid` parameter from the user profile interface.
+- Get the `uid` from the user profile API, for example [TikTok User Profile Details](/apis/tiktok/app-v3/user-profile).
+- If you only have a username, call [TikTok User ID by Username](/apis/tiktok/app-v3/user-id-and-sec-user-id-by-username) first to find the ID.
+- To link to a profile instead of a chat, use [TikTok User Profile Share Link](/apis/tiktok/app-v3/open-app-to-user-profile).
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

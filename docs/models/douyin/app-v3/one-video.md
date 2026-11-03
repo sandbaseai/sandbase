@@ -62,13 +62,14 @@ Same call via the path form: `POST /v1/api/douyin/app-v3/one-video` with the bod
 
 ## Details
 
-Look up video and photo post details from Douyin using `aweme_id`. Returns playback specifications such as bitrate and quality profiles.
+Returns detailed metadata for one Douyin video or photo post. The only input is the post ID in `aweme_id`. The response covers the caption, author, hashtags, creation time and comment and danmaku settings.
 
 ### Use cases
 
-- Retrieve stream quality profiles and bitrates for Douyin video posts.
-- Inspect individual photo and video metadata using a known video ID.
-- Verify video asset availability and playback parameters for media workflows.
+- Pull the caption, hashtags and author details for a Douyin post when you already know its ID.
+- Check whether comments, sharing and danmaku are enabled on a post before you build a workflow around it.
+- Read the hashtag IDs on a post to look up related topic pages.
+- Store the post creation time and author ID to track a creator's content.
 
 ### Request
 
@@ -79,6 +80,8 @@ curl -X POST "https://api.sandbase.ai/v1/api/douyin/app-v3/one-video" \
   -d '{"aweme_id": "7448118827402972455"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
@@ -87,31 +90,134 @@ curl -X POST "https://api.sandbase.ai/v1/api/douyin/app-v3/one-video" \
 
 ### Example response
 
-Real response for the request above, trimmed to the main fields. User names and long IDs are masked.
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
 
 ```json
 {
   "aweme_detail": {
-    "video": {
-      "bit_rate": [
-        {
-          "bit_rate": 122767,
-          "gear_name": "additional_adapt_lowest_1080_1",
-          "quality_type": 2
-        }
-      ]
-    }
+    "activity_video_type": -1,
+    "admire_auth": {
+      "admire_button": 1,
+      "author_can_admire": 0,
+      "exit_admire_in_aweme_post": 0,
+      "is_admire": 0,
+      "is_click_admire_icon_recently": 0,
+      "is_fifty_admire_author_stable_fans": 0,
+      "is_iron_fans_in_aweme_post": 0,
+      "is_show_admire_button": 0,
+      "is_show_admire_tab": 0
+    },
+    "anchors": null,
+    "authentication_token": "MS4wLjAA…",
+    "author": {
+      "accept_private_policy": false,
+      "account_cert_info": "{}",
+      "account_region": "",
+      "ad_cover_url": null,
+      "allow_story_normal_like": false,
+      "apple_account": 0,
+      "authority_status": 0,
+      "avatar_168x168": {
+        "height": 720,
+        "uri": "168x168/aweme-avatar/tos-cn-i-0813_ooQ2tkQ4kDVFApMfIA8eW6A0AfIFfANnCa8h1D",
+        "url_list": [
+          "https://p3.douyinpic.com/img/aweme-avatar/tos-cn-i-0813_ooQ2tkQ4kDVFApMfIA8eW6A0…"
+        ],
+        "width": 720
+      },
+      "avatar_300x300": {
+        "height": 720,
+        "uri": "300x300/aweme-avatar/tos-cn-i-0813_ooQ2tkQ4kDVFApMfIA8eW6A0AfIFfANnCa8h1D",
+        "url_list": [
+          "https://p3.douyinpic.com/img/aweme-avatar/tos-cn-i-0813_ooQ2tkQ4kDVFApMfIA8eW6A0…"
+        ],
+        "width": 720
+      },
+      "avatar_larger": {
+        "height": 720,
+        "uri": "1080x1080/aweme-avatar/tos-cn-i-0813_ooQ2tkQ4kDVFApMfIA8eW6A0AfIFfANnCa8h1D",
+        "url_list": [
+          "https://p3.douyinpic.com/aweme/1080x1080/aweme-avatar/tos-cn-i-0813_ooQ2tkQ4kDVF…"
+        ],
+        "width": 720
+      },
+      "avatar_medium": {
+        "height": 720,
+        "uri": "720x720/aweme-avatar/tos-cn-i-0813_ooQ2tkQ4kDVFApMfIA8eW6A0AfIFfANnCa8h1D",
+        "url_list": [
+          "https://p3.douyinpic.com/aweme/720x720/aweme-avatar/tos-cn-i-0813_ooQ2tkQ4kDVFAp…"
+        ],
+        "width": 720
+      },
+      "avatar_thumb": {
+        "height": 720,
+        "uri": "100x100/aweme-avatar/tos-cn-i-0813_ooQ2tkQ4kDVFApMfIA8eW6A0AfIFfANnCa8h1D",
+        "url_list": [
+          "https://p3.douyinpic.com/aweme/100x100/aweme-avatar/tos-cn-i-0813_ooQ2tkQ4kDVFAp…"
+        ],
+        "width": 720
+      }
+    },
+    "author_mask_tag": 0,
+    "author_user_id": 2557909361237356,
+    "aweme_acl": {
+      "download_mask_panel": {
+        "code": 1,
+        "show_type": 0
+      }
+    },
+    "aweme_control": {
+      "can_comment": true,
+      "can_forward": true,
+      "can_share": true,
+      "can_show_comment": true
+    },
+    "aweme_id": "7448118827402972455",
+    "aweme_listen_struct": {
+      "listen_diversion": {
+        "extra": [
+          {
+            "key": "new_guide_prefix",
+            "val": "下载汽水"
+          }
+        ],
+        "popup_scene": 4,
+        "side_desc": "听更多精彩内容",
+        "sub_title_type": "relation"
+      },
+      "music_cover_listen": 1,
+      "trace_info": "{\"copyright_not_speech\":\"false\",\"copyright_reason\":\"has_listen_cp_new\",\"copyrigh…"
+    },
+    "aweme_type": 0
   }
 }
 ```
 
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `aweme_detail.aweme_id` | The ID of the post. It matches the `aweme_id` you sent. |
+| `aweme_detail.caption` | The text of the post, including hashtags written as `#tag`. |
+| `aweme_detail.create_time` | Creation time of the post. The value `1734150565` looks like a Unix timestamp in seconds. |
+| `aweme_detail.author_user_id` | Numeric ID of the account that posted the video. |
+| `aweme_detail.author.aweme_count` | Number of posts shown for the author account. |
+| `aweme_detail.author.avatar_thumb / aweme_detail.author.avatar_medium / aweme_detail.author.avatar_larger` | Author avatar images in different sizes. Each has `url_list`, `width` and `height`. |
+| `aweme_detail.cha_list[].cha_name` | Name of a hashtag (challenge) attached to the post. |
+| `aweme_detail.cha_list[].cid` | ID of the hashtag. Use it to look up the hashtag elsewhere. |
+| `aweme_detail.aweme_control.can_comment / aweme_detail.aweme_control.can_share / aweme_detail.aweme_control.can_forward` | Flags that show whether commenting, sharing and forwarding are allowed on the post. |
+| `aweme_detail.danmaku_control.enable_danmaku / aweme_detail.danmaku_control.danmaku_cnt` | Whether danmaku (scrolling comments) are on, and how many exist for the post. |
+
 ### Notes
 
-- Provide the target video identifier in `aweme_id`.
+- Send the post ID in `aweme_id` as a string, for example `7448118827402972455`.
+- The response is large and includes many nested author and display fields. Most fields you need sit directly under `aweme_detail`.
+- To look up a hashtag found in `aweme_detail.cha_list[]`, call [Douyin Hashtag Details](/apis/douyin/app-v3/hashtag-detail).
+- If you only have a share link, use [Douyin Single Video by Share URL](/apis/douyin/app-v3/one-video-by-share-url) instead.
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

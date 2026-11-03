@@ -67,13 +67,14 @@ Same call via the path form: `POST /v1/api/weibo/web-v2/user-search` with the bo
 
 ## Details
 
-Look up Weibo user profiles matching search terms via `query` or `nickname`. You can narrow matches using various demographic and organizational filters.
+Returns Weibo users that match a keyword or profile filters such as company, school, tag, gender, age bucket, region, and verification type. You must send at least one of `query`, `region`, `auth`, `gender`, `age`, `nickname`, `tag`, `school`, or `work`.
 
 ### Use cases
 
-- Discover verified accounts and influencers matching specific industry tags.
-- Locate alumni or corporate colleagues by school or company name.
-- Target user groups segmented by age bracket, gender, or geographic location.
+- Find verified organization accounts by sending `auth` as `org_vip` together with a `tag` or `query`.
+- Look for people who list a given company by sending `work`.
+- Look for people from a given school by sending `school`.
+- Build a list of users in one age bucket and gender by sending `age` and `gender`.
 
 ### Request
 
@@ -84,30 +85,55 @@ curl -X POST "https://api.sandbase.ai/v1/api/weibo/web-v2/user-search" \
   -d '{}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
 |---|---|---|---|
 | `age` | string | No | Age bucket 18y/22y/29y/39y/40y (optional) |
-| `tag` | string | No | Tag filter (optional) |
 | `auth` | string | No | Auth type org_vip/per_vip/ord (optional) |
-| `page` | integer | No | Page number (default 1) |
-| `work` | string | No | Company filter (optional) |
-| `query` | string | No | Search keyword (optional) |
 | `gender` | string | No | Gender man/women (optional) |
+| `nickname` | string | No | Nickname filter (optional) |
+| `page` | integer | No | Page number (default 1) |
+| `query` | string | No | Search keyword (optional) |
 | `region` | string | No | Region code from /fetch_city_list (optional) |
 | `school` | string | No | School filter (optional) |
-| `nickname` | string | No | Nickname filter (optional) |
+| `tag` | string | No | Tag filter (optional) |
+| `work` | string | No | Company filter (optional) |
+
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "message": "Invalid query. Pass at least one of: query, region, auth, gender, age, nickname,…",
+  "message_zh": "query 非法。请至少传入以下一项：query, region, auth, gender, age, nickname, tag, school, work…",
+  "ok": 0,
+  "param": "query"
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `ok` | Status flag. `0` means the request failed, as in the response to an empty request. |
+| `message` | English error text. It says the query is invalid and lists the parameters you can send; at least one is required. |
+| `message_zh` | The same error text in Chinese. |
+| `param` | Name of the parameter the error refers to. An empty request returns `query`, even though any one of the listed filters is enough. |
 
 ### Notes
 
-- Filter verification tiers with `auth` using org_vip, per_vip, or ord.
-- Retrieve valid codes for `region` from the /fetch_city_list endpoint.
-- Paginate through results using `page`, which defaults to 1.
+- An empty request body returns `ok` as `0` with the error message. Send at least one search or filter parameter.
+- Use `page` to move through results. It starts at `1`.
+- Get a `region` code from [Weibo Region City List](/apis/weibo/web-v2/city-list).
+- To see more about a user you found, call [Weibo User Profile Details (Web V2)](/apis/weibo/web-v2/user-info).
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

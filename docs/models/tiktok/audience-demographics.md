@@ -61,7 +61,14 @@ Same call via the path form: `POST /v1/api/tiktok/audience-demographics` with th
 
 ## Details
 
-Get the audience country breakdown (follower count and share per country) for a TikTok creator by handle.
+Returns the country breakdown of a TikTok creator's audience. Each row gives a country, its follower count and its share of the audience. The only input is the creator's `handle`.
+
+### Use cases
+
+- Check whether a creator's audience sits in the countries a campaign targets.
+- Compare the top audience countries of several creators before picking partners.
+- Flag creators whose audience is concentrated in markets that do not match their stated niche.
+- Add audience location data to an influencer report or database.
 
 ### Request
 
@@ -72,7 +79,7 @@ curl -X POST "https://api.sandbase.ai/v1/api/tiktok/audience-demographics" \
   -d '{"handle": "shakira"}'
 ```
 
-The result is returned in `outputs[0].data`. A lookup that finds nothing still succeeds and returns `found: false`.
+The result is returned in `outputs[0].data`.
 
 ### Parameters
 
@@ -80,9 +87,46 @@ The result is returned in `outputs[0].data`. A lookup that finds nothing still s
 |---|---|---|---|
 | `handle` | string | Yes | TikTok username without the leading @ (e.g. "shakira"). |
 
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "data": {
+    "audienceLocations": [
+      {
+        "count": 101,
+        "country": "United States",
+        "countryCode": "US",
+        "percentage": "8.51%"
+      }
+    ]
+  },
+  "found": true
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `found` | `true` when the creator was found and audience data was returned. A lookup that finds nothing returns `false`. |
+| `data.audienceLocations[]` | List of countries in the creator's audience. Each item is one country. |
+| `data.audienceLocations[].country` | Country name in English, for example `United States`. |
+| `data.audienceLocations[].countryCode` | Two-letter country code, for example `US`. |
+| `data.audienceLocations[].count` | Number of audience members counted for this country. |
+| `data.audienceLocations[].percentage` | Share of the audience in this country, returned as a string with a percent sign, for example `8.51%`. |
+
+### Notes
+
+- Pass `handle` without the leading `@`, for example `shakira`.
+- `percentage` is a string, so strip the `%` sign before you do math on it.
+- The response shows the countries in descending order of `count`.
+
 ### Pricing
 
-Billed at the actual cost of each call, usually $0.018 per request. A call can cost more when the first data source fails and another one answers. Failed calls are not charged. Lookups that find nothing and searches with no results are billed at their actual cost, which is often lower and can be $0.
+Billed at the actual cost of each call, about $0.018 for the request above. Failed calls are not charged.
 
 ---
 Machine-readable: [`catalog/models/tiktok/audience-demographics.json`](../../../catalog/models/tiktok/audience-demographics.json) · Store page: https://www.sandbase.ai/model/tiktok/audience-demographics

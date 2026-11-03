@@ -67,13 +67,14 @@ Same call via the path form: `POST /v1/api/douyin/web/video-comment-replies` wit
 
 ## Details
 
-Retrieves replies for a specific comment on a Douyin video using `item_id` and `comment_id`. Supports pagination via `cursor` and `count`.
+Returns the replies under one comment on a Douyin video. Each reply has its text, like count, post time, IP location label and author info. You send the video `item_id` and the parent `comment_id`.
 
 ### Use cases
 
-- Read conversation threads under a specific comment on a Douyin video.
-- Monitor user interactions and responses to parent comments.
-- Export nested reply data for audience engagement analysis.
+- Read the full reply thread under a top comment on a Douyin video.
+- Collect replies and their `digg_count` values to see which responses get the most likes.
+- Map who replies to whom in a thread using the `reply_to_username` and `reply_to_reply_id` fields.
+- Export reply text and `ip_label` values for sentiment or regional analysis of one comment thread.
 
 ### Request
 
@@ -84,23 +85,80 @@ curl -X POST "https://api.sandbase.ai/v1/api/douyin/web/video-comment-replies" \
   -d '{"comment_id": "7354669356632638218", "item_id": "7354666303006723354"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
 |---|---|---|---|
-| `item_id` | string | Yes | Video id |
 | `comment_id` | string | Yes | Comment id |
+| `item_id` | string | Yes | Video id |
 | `count` | integer | No | Number |
 | `cursor` | integer | No | Cursor |
 
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "comments": [
+    {
+      "aweme_id": "7354666303006723354",
+      "can_collect": false,
+      "can_share": true,
+      "cid": "7354723548119139098",
+      "comment_reply_total": 288,
+      "content_type": 1,
+      "create_time": 1712405022,
+      "decorated_emoji_info": null,
+      "digg_count": 15944,
+      "image_list": null,
+      "ip_label": "湖南",
+      "is_author_digged": false
+    }
+  ],
+  "cursor": 20,
+  "extra": {
+    "fatal_item_ids": null,
+    "now": 1793691155000,
+    "scenes": null
+  },
+  "has_more": 1,
+  "log_pb": {
+    "impr_id": "20261103153235436EC061A2EA00CA8DF6"
+  },
+  "merge_cursor": "",
+  "status_code": 0,
+  "total": 288
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `comments[].cid` | ID of the reply itself. |
+| `comments[].text` | Text of the reply. Emoji appear as bracketed tags such as `[再见]`. |
+| `comments[].create_time` | Time the reply was posted, as a Unix timestamp in seconds. |
+| `comments[].digg_count` | Number of likes on the reply. |
+| `comments[].reply_id / comments[].root_comment_id` | `reply_id` is the parent comment ID you asked about. `root_comment_id` is the root comment of the thread. |
+| `comments[].reply_to_reply_id / comments[].reply_to_username` | The reply this one answers, and the name of that user. `reply_to_reply_id` is `0` when the reply goes directly to the parent comment. The `reply_to_*` fields are missing in that case. |
+| `comments[].ip_label` | Location label shown next to the reply, such as a province name. |
+| `comments[].label_text` | Badge text on the reply. The value `作者` marks a reply with the author label. It is an empty string when there is no badge. |
+| `comments[].user` | Profile info of the reply author, including the `avatar_thumb` image URLs. |
+| `total / has_more / cursor` | `total` is the number of replies to the comment (`288` here). `has_more` is `1` when more pages exist. `cursor` is the position after this page (`20` here). |
+
 ### Notes
 
-- Requires both `item_id` (video ID) and `comment_id` (parent comment ID).
-- Pagination is controlled using `cursor` and `count`.
+- Both `item_id` (video ID) and `comment_id` (parent comment ID) are required. `comment_id` is the same value as `reply_id` in each returned reply.
+- To get the next page, send the returned `cursor` value as the `cursor` parameter. Use `count` to set the page size. Stop when `has_more` is not `1`.
+- To list top-level comments and find a `comment_id`, call [Douyin Video Comments (Web)](/apis/douyin/web/video-comments).
+- To get a video ID from a share link, use [Douyin Video ID Extractor](/apis/douyin/web/aweme-id).
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

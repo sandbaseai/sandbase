@@ -61,13 +61,14 @@ Same call via the path form: `POST /v1/api/xiaohongshu/pgy/blogger-detail` with 
 
 ## Details
 
-Retrieve detailed profile information for a PGY blogger on Xiaohongshu (RED). Supply the target creator's identifier via `user_id` to query their profile data.
+Returns a PGY profile record for one Xiaohongshu (RED) blogger. It needs the blogger's `user_id`. The record holds follower counts, 30-day cooperation and impression figures, and estimated ad cost metrics.
 
 ### Use cases
 
-- Inspect creator profiles on the PGY platform.
-- Evaluate potential influencer partnerships.
-- Analyze blogger metrics for campaign selection.
+- Check a creator's current follower count before adding them to a campaign shortlist.
+- Compare estimated picture and video CPM across several bloggers to plan an ad budget.
+- Check 30-day follower growth and cooperation note counts to see how active a creator is in brand work.
+- Pull a creator's profile record into your own influencer database, keyed by `user_id`.
 
 ### Request
 
@@ -78,19 +79,65 @@ curl -X POST "https://api.sandbase.ai/v1/api/xiaohongshu/pgy/blogger-detail" \
   -d '{"user_id": "60b137080000000001000301"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
 |---|---|---|---|
 | `user_id` | string | Yes | Blogger user ID, obtainable from blogger list results or PGY blogger page URL |
 
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "code": 0,
+  "data": {
+    "accumCommonImpMedinNum30d": 0,
+    "accumCoopImpMedinNum30d": 0,
+    "accumPicCommonImpMedinNum30d": 0,
+    "accumVideoCommonImpMedinNum30d": 0,
+    "activityList": null,
+    "algoRecommendReasons": null,
+    "authorityList": null,
+    "avgAgmv90d": 0.0,
+    "avgLiveViewerNum": 0.0,
+    "businessNoteCount": 0,
+    "buyerType": 1,
+    "classifyCode": null
+  },
+  "guid": null,
+  "msg": "成功",
+  "success": true
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `data.fansCount / data.fansNum` | Number of followers the blogger has. Both fields show the same value in this response. |
+| `data.fans30GrowthNum / data.fans30GrowthRate` | Follower growth over the last 30 days, as a count and as a rate. The rate can be `null`. |
+| `data.coopNoteNum30d` | Number of cooperation notes the blogger published in the last 30 days. |
+| `data.accumCoopImpMedinNum30d / data.accumCommonImpMedinNum30d` | Median impression figures over 30 days, for cooperation notes and for regular notes. |
+| `data.accumPicCommonImpMedinNum30d / data.accumVideoCommonImpMedinNum30d` | 30-day median impression figures for regular picture notes and regular video notes. |
+| `data.estimatePictureCpm / data.estimateVideoCpm` | Estimated cost per thousand impressions for picture notes and for video notes. |
+| `data.estimatePictureEngageCost / data.estimateVideoEngageCost` | Estimated cost per engagement for picture notes and for video notes. |
+| `data.estimatePictureCpmCompare / data.estimateVideoCpmCompare` | Comparison values for the CPM estimates above. |
+| `data.businessNoteCount` | Number of business notes counted for this blogger. |
+| `data.avgLiveViewerNum / data.avgAgmv90d` | Average live viewer count, and an average `agmv` figure over 90 days. |
+
 ### Notes
 
-- `user_id` is obtainable from blogger list results or the PGY blogger page URL.
+- Get `user_id` from the blogger list results in [Xiaohongshu (RED) PGY Blogger Search](/apis/xiaohongshu/pgy/blogger-list), or from the PGY blogger page URL.
+- Many fields are `null` or `0` when the PGY platform has no value for that blogger.
+- For follower history, call [Xiaohongshu (RED) PGY Blogger Fan History](/apis/xiaohongshu/pgy/blogger-fans-history). For an account-level summary, call [Xiaohongshu (RED) PGY Blogger Data Summary](/apis/xiaohongshu/pgy/blogger-data-summary).
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.02 per successful call. Failed calls are not charged.
 
 ### Related APIs
 

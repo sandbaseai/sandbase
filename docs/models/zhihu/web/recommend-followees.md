@@ -52,13 +52,14 @@ Same call via the path form: `POST /v1/api/zhihu/web/recommend-followees` with t
 
 ## Details
 
-Access recommended Zhihu users to follow through this web endpoint. It returns suggested profiles without requiring request parameters.
+Returns a list of Zhihu users that Zhihu recommends the current account to follow. It needs no input: send an empty JSON object `{}`.
 
 ### Use cases
 
-- Discover active and relevant Zhihu creators to track.
-- Populate user onboarding screens with suggested accounts.
-- Analyze suggested network connections and top platform contributors.
+- Show a list of suggested Zhihu accounts in an onboarding or discovery screen.
+- Collect creators tagged with a topic area, such as AI or technology, using the `reason` text.
+- Find verified and official accounts by reading the badge fields.
+- Build a seed list of user IDs to look up in more detail.
 
 ### Request
 
@@ -69,9 +70,67 @@ curl -X POST "https://api.sandbase.ai/v1/api/zhihu/web/recommend-followees" \
   -d '{}'
 ```
 
+The result is returned in `outputs[0].data`.
+
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "data": [
+    {
+      "actor": {
+        "avatar_url": "https://picx.zhimg.com/v2-e8a4e76a1420ca566c932936ad0f04d6_l.jpg?source=a0c391dc",
+        "badge": [],
+        "badge_v2": {
+          "detail_badges": null,
+          "merged_badges": [],
+          "title": ""
+        },
+        "description": "",
+        "exposed_medal": {
+          "avatar_url": "https://pic1.zhimg.com/v2-340c50d93c8821c172477e82f0f4e08e_720w.jpg?source=a0c39…",
+          "medal_avatar_frame": "",
+          "medal_id": "972473506181627904"
+        },
+        "gender": -1,
+        "headline": "靠谱科普 就看果壳",
+        "id": "486e2e8a3d77380f1607d6de0fd27c10"
+      },
+      "attached_info": "",
+      "personal_desc": "靠谱科普 就看果壳",
+      "reason": "「人工智能」领域答主"
+    }
+  ]
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `data[]` | One recommended user. Each item holds the user details in `actor` and the reason for the suggestion. |
+| `data[].actor.id` | The user's ID, a 32-character hex string. Use it to look up the user in other Zhihu APIs. |
+| `data[].actor.headline` | The short tagline shown under the user's name. |
+| `data[].actor.description` | The user's profile description. It can be an empty string. |
+| `data[].actor.avatar_url` | Link to the user's avatar image. |
+| `data[].reason` | Why Zhihu suggests this user, for example a topic area the user answers in or `你可能感兴趣` (you may be interested). |
+| `data[].personal_desc` | A short description of the user. It often matches the headline or the badge text. |
+| `data[].actor.badge[].description / data[].actor.badge_v2.title` | The verified identity text of the user, such as an official account or a job title. Both are empty when the user has no badge. |
+| `data[].actor.badge_v2.merged_badges[].badge_status` | Verification status of the badge. The sample shows `passed`. |
+| `data[].actor.is_followed` | Whether the current account already follows this user. It does not appear on every item. |
+
+### Notes
+
+- The request takes no parameters, so send `{}` as the body.
+- The sample response has no pagination fields.
+- Take `data[].actor.id` and pass it to [Zhihu Web User Profile](/apis/zhihu/web/user-info) for the full profile.
+- Use [Zhihu User Answers](/apis/zhihu/web/user-answers) to read what a recommended user has written.
+
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

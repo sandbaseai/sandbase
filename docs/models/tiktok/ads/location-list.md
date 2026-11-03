@@ -52,13 +52,13 @@ Same call via the path form: `POST /v1/api/tiktok/ads/location-list` with the bo
 
 ## Details
 
-Retrieves the full list of supported geographical targeting locations for TikTok ad management without requiring input parameters.
+Returns the list of countries that TikTok Ads supports as geographic targets. The request takes no input. Each entry gives a country code and a country name.
 
 ### Use cases
 
-- Populate geographic targeting dropdowns in advertising campaign tools.
-- Verify whether a specific country or region is eligible for ad delivery.
-- Map platform location identifiers to internal marketing databases.
+- Fill a country dropdown in a campaign planning tool with TikTok-supported targets.
+- Check whether a country appears in the TikTok Ads targeting list before building a campaign.
+- Map two-letter country codes to country names in a marketing database.
 
 ### Request
 
@@ -69,9 +69,47 @@ curl -X POST "https://api.sandbase.ai/v1/api/tiktok/ads/location-list" \
   -d '{}'
 ```
 
+The result is returned in `outputs[0].data`.
+
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "code": 0,
+  "data": {
+    "country": [
+      {
+        "id": "AR",
+        "label": "AR",
+        "value": "Argentina"
+      }
+    ]
+  },
+  "msg": "OK"
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `code` | Status code of the response. `0` means the call succeeded. |
+| `msg` | Status message. `OK` appears on success. |
+| `data.country[]` | List of countries available as ad targeting locations. |
+| `data.country[].id / data.country[].label` | Two-letter country code, such as `AR` or `AU`. Both fields hold the same code in the sample. |
+| `data.country[].value` | Country name in English, such as `Argentina`. |
+
+### Notes
+
+- Send an empty JSON object `{}`. The API has no request parameters.
+- Use `id` as the code to store or match against. Use `value` when you need a display name.
+- To look up places by name on TikTok, call [TikTok Location Search](/apis/tiktok/app-v3/location-search).
+
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

@@ -63,7 +63,14 @@ Same call via the path form: `POST /v1/api/linkedin/ads-search` with the body ab
 
 ## Details
 
-Search the LinkedIn Ad Library by company or keyword and list matching ads (advertiser, headline, creative text, format, CTA, and run dates) with pagination.
+This API searches the LinkedIn Ad Library and returns a page of matching ads. Each ad includes the advertiser, headline, body text, format, call to action, run dates and impression range. Send a `company` name, a `companyId` or a `keyword`, and optionally narrow the results by country and date range.
+
+### Use cases
+
+- Track which ads a competitor runs on LinkedIn and how their messaging changes over time.
+- Collect ad creative text and headlines for a swipe file or messaging research.
+- Check which countries and date ranges a company targets by filtering with `countries`, `startDate` and `endDate`.
+- Compare the ad formats a brand uses, such as single image and carousel ads.
 
 ### Request
 
@@ -74,7 +81,7 @@ curl -X POST "https://api.sandbase.ai/v1/api/linkedin/ads-search" \
   -d '{"company": "microsoft"}'
 ```
 
-The result is returned in `outputs[0].data`. A lookup that finds nothing still succeeds and returns `found: false`.
+The result is returned in `outputs[0].data`.
 
 ### Parameters
 
@@ -88,9 +95,62 @@ The result is returned in `outputs[0].data`. A lookup that finds nothing still s
 | `paginationToken` | string | No | Opaque pagination token from a previous response's nextCursor. |
 | `startDate` | string | No | Search start date in YYYY-MM-DD format. An earlier date is moved up to one year ago in UTC when your range overlaps LinkedIn's accepted dates. |
 
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "data": {
+    "ads": [
+      {
+        "adType": "Single Image Ad",
+        "advertiser": "Microsoft",
+        "advertiserLinkedinPage": "https://www.linkedin.com/company/1035",
+        "advertiserLogo": "https://media.licdn.com/dms/image/v2/D560BAQH32RJQCl3dDQ/company-logo_100_100/B5…",
+        "cta": "Registrieren",
+        "description": "Nehmen Sie am 10. November beim Microsoft Frontier Transformation Day in Wien te…",
+        "destinationUrl": "https://msevents.microsoft.com/event?id=4123375389&wt.mc_id=3084764_QSG_PD_SCL_6…",
+        "endDate": "2026-11-03T00:00:00.000Z",
+        "headline": "Frontier Transformation Day | 10. Nov.",
+        "id": "1624217084",
+        "startDate": "2026-10-30T00:00:00.000Z",
+        "totalImpressions": "10k-20k"
+      }
+    ],
+    "nextCursor": "1624207074-1793359876270",
+    "totalAds": 26901
+  },
+  "found": true
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `data.ads[].id` | Ad ID. Use it to build or look up the ad detail page. |
+| `data.ads[].url` | Link to the ad's page in the LinkedIn Ad Library. |
+| `data.ads[].advertiser` | Name of the advertiser running the ad. |
+| `data.ads[].advertiserLinkedinPage` | URL of the advertiser's LinkedIn company page. The number at the end is the LinkedIn company ID. |
+| `data.ads[].adType` | Ad format, for example `Single Image Ad` or `Carousel Ad`. |
+| `data.ads[].headline / data.ads[].description / data.ads[].cta` | Headline, body text and call-to-action label of the ad. They are in the ad's own language and can be empty strings. |
+| `data.ads[].destinationUrl` | Landing page URL the ad links to. It is empty for some ads. |
+| `data.ads[].startDate / data.ads[].endDate` | ISO 8601 timestamps for when the ad ran. They are empty strings when the library shows no dates. |
+| `data.ads[].totalImpressions` | Impression range as a text bucket, for example `10k-20k`. It is empty when not shown. |
+| `data.nextCursor` | Token for the next page of results. |
+| `data.totalAds` | Total number of ads that match the search. |
+
+### Notes
+
+- Send `data.nextCursor` as `paginationToken` in the next request to get the following page.
+- Dates use the `YYYY-MM-DD` format in requests. Ad dates in the response are full ISO timestamps.
+- Some ads return empty strings for `headline`, `cta`, `endDate` and `totalImpressions`, so check for blanks before you use them.
+- To get more detail on a single ad, pass its `id` to [LinkedIn Ad Details](/apis/linkedin/ad).
+
 ### Pricing
 
-Billed at the actual cost of each call, usually $0.0012 per request. A call can cost more when the first data source fails and another one answers. Failed calls are not charged. Lookups that find nothing and searches with no results are billed at their actual cost, which is often lower and can be $0.
+Billed at the actual cost of each call, about $0.0012 for the request above. Failed calls are not charged.
 
 ---
 Machine-readable: [`catalog/models/linkedin/ads-search.json`](../../../catalog/models/linkedin/ads-search.json) · Store page: https://www.sandbase.ai/model/linkedin/ads-search

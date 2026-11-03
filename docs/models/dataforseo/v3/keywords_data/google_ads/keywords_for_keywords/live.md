@@ -59,13 +59,14 @@ Same call via the path form: `POST /v1/api/dataforseo/v3/keywords_data/google_ad
 
 ## Details
 
-Use this endpoint to retrieve Google Ads keyword suggestions based on input seed `keywords`. It returns search volume metrics and keyword ideas directly from Google Ads.
+Returns Google Ads keyword ideas for a list of seed keywords. Each idea includes competition level, cost per click, top of page bid and brand or topic tags. Send `keywords` (up to 100), `location_code` and `language_code`.
 
 ### Use cases
 
-- Discover new keyword opportunities from a list of seed terms.
-- Evaluate Google Ads search volume data for PPC campaign planning.
-- Expand SEO keyword lists with relevant search variations.
+- Expand a short seed list such as `running shoes` into thousands of related keyword ideas for a PPC campaign.
+- Compare `cpc` and `high_top_of_page_bid` across ideas to estimate bidding budgets.
+- Filter ideas by `competition_index` to find lower competition terms.
+- Group ideas by brand tags in `keyword_annotations` to find competitor brand searches.
 
 ### Request
 
@@ -76,19 +77,91 @@ curl -X POST "https://api.sandbase.ai/v1/api/dataforseo/v3/keywords_data/google_
   -d '{"keywords": ["running shoes"], "location_code": 2840, "language_code": "en"}'
 ```
 
+The result is returned in `outputs[0]`.
+
 ### Parameters
 
-The JSON body is forwarded to the upstream endpoint (one task per call). Fields used above:
+| Name | Type | Required | Description |
+|---|---|---|---|
+| `keywords` | array | No | List of keywords (up to 100 per call). |
+| `language_code` | string | No | Language code, e.g. "en". |
+| `location_code` | integer | No | Location code, e.g. 2840 for the United States. |
 
-| Name | Description |
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "status_code": 20000,
+  "status_message": "Ok.",
+  "tasks": [
+    {
+      "data": {
+        "api": "keywords_data",
+        "function": "keywords_for_keywords",
+        "keywords": [
+          "running shoes"
+        ],
+        "language_code": "en",
+        "location_code": 2840,
+        "se": "google_ads"
+      },
+      "id": "11030829-1614-0368-0000-12dba2f91a04",
+      "path": [
+        "v3"
+      ],
+      "result": [
+        {
+          "competition": "HIGH",
+          "competition_index": 100,
+          "cpc": 1.09,
+          "high_top_of_page_bid": 2.07,
+          "keyword": "running shoes",
+          "keyword_annotations": {
+            "concepts": null
+          },
+          "language_code": "en",
+          "location_code": 2840
+        }
+      ],
+      "result_count": 2768,
+      "status_code": 20000,
+      "status_message": "Ok.",
+      "time": "12.8287 sec."
+    }
+  ],
+  "tasks_count": 1,
+  "tasks_error": 0,
+  "time": "12.8613 sec.",
+  "version": "0.1.20261022"
+}
+```
+
+### Response fields
+
+| Field | Meaning |
 |---|---|
-| `keywords` | List of keywords (up to 100 per call). |
-| `location_code` | Location code, e.g. 2840 for the United States. |
-| `language_code` | Language code, e.g. "en". |
+| `tasks[].result[].keyword` | The keyword idea suggested for the seed keywords. |
+| `tasks[].result[].competition` | Competition level for the keyword as a label, such as `HIGH`. |
+| `tasks[].result[].competition_index` | Numeric competition score for the keyword. A value of `100` goes with the `HIGH` label in this response. |
+| `tasks[].result[].cpc` | Cost per click value for the keyword. The response shows it as a decimal number, for example `1.09`. |
+| `tasks[].result[].high_top_of_page_bid` | Top of page bid value for the keyword. It is higher than `cpc` for each row shown. |
+| `tasks[].result[].keyword_annotations.concepts[].name` | Name of a concept detected in the keyword, such as `hoka` or `sneakers`. The value is `null` when no concept is found. |
+| `tasks[].result[].keyword_annotations.concepts[].concept_group.name / tasks[].result[].keyword_annotations.concepts[].concept_group.type` | Group label for the concept, such as `Brand` or `Shoe`. `type` is `null` for some groups. |
+| `tasks[].result[].language_code / tasks[].result[].location_code` | Language and location the row applies to. They match the request. |
+| `tasks[].result_count` | Total number of keyword ideas found for the task, `2768` in this example. |
+
+### Notes
+
+- The `location_code` value `2840` is the United States and `language_code` `en` is English.
+- Results sit in `tasks[].result[]`. The call sends one task and returns one item in `tasks`.
+- Each task has an `id` in the format `11030829-1614-0368-0000-12dba2f91a04`.
+- To get AI-focused search volume for keywords, try [DataForSEO AI Keyword Search Volume](/apis/dataforseo/v3/ai_optimization/ai_keyword_data/keywords_search_volume/live).
 
 ### Pricing
 
-Billed at the actual cost of each call, about $0.09 for the request above. The cost grows with the number of rows, targets or pages a call returns. Failed calls are not charged. Searches with no results are billed at their actual cost.
+Billed at the actual cost of each call, about $0.09 for the request above. Failed calls are not charged.
 
 ### Related APIs
 

@@ -66,13 +66,13 @@ Same call via the path form: `POST /v1/api/douyin/index/content-creative-duratio
 
 ## Details
 
-Query video length distribution metrics for a specific Douyin category using `tag_id`, `end_date`, and optional `period`.
+Returns the video duration distribution for one Douyin category over a week or a month. You send a category `tag_id`, an `end_date`, and optionally a `period`.
 
 ### Use cases
 
-- Analyze preferred video lengths for creators within a target category.
-- Benchmark video duration patterns across weekly or monthly reporting windows.
-- Identify optimal video runtimes based on category-level creative trends.
+- Check which video length ranges are most common in a single Douyin category.
+- Compare duration patterns between a weekly window and a monthly window for the same category.
+- Plan video runtimes for a category using its recent duration mix.
 
 ### Request
 
@@ -83,22 +83,47 @@ curl -X POST "https://api.sandbase.ai/v1/api/douyin/index/content-creative-durat
   -d '{"end_date": "1735660799", "tag_id": "2027"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
 |---|---|---|---|
-| `tag_id` | string | Yes | Category ID (required, does NOT support 0=all, must pass a specific category ID) |
 | `end_date` | string | Yes | End date YYYYMMDD, must align with period |
+| `tag_id` | string | Yes | Category ID (**required, does NOT support 0=all**, must pass a specific category ID) |
 | `period` | string | No | "week" (end_date must be a Sunday) or "month" (end_date must be month-end) |
+
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "BaseResp": {
+    "StatusCode": -1,
+    "StatusMessage": "end_date非当前周期最后一天"
+  }
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `BaseResp` | Status block for the call. The response you get when the request is rejected contains only this object. |
+| `BaseResp.StatusCode` | Result code. `-1` means the request failed. A failed call returns no duration data. |
+| `BaseResp.StatusMessage` | Reason for the failure, in Chinese. The value `end_date非当前周期最后一天` means `end_date` is not the last day of the period. |
 
 ### Notes
 
-- `tag_id` requires a specific category ID and does not support 0 for all categories.
-- `end_date` must be formatted as YYYYMMDD and align with `period` (Sunday for week, month-end for month).
+- The sample request with `end_date` set to `1735660799` returned `StatusCode` `-1`. Send `end_date` as `YYYYMMDD` instead, for example `20241229`.
+- With `period` set to `week`, `end_date` must be a Sunday. With `month`, it must be the last day of the month.
+- `tag_id` must be a specific category ID. `0` for all categories is not accepted.
+- To find dates that have data, call [Douyin Content Guide Valid Dates](/apis/douyin/index/content-valid-date).
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

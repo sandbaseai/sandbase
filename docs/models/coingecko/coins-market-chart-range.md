@@ -73,9 +73,14 @@ Same call via the path form: `POST /v1/api/coingecko/coins-market-chart-range` w
 
 ## Details
 
-Get the historical chart data of a coin within certain time range in UNIX along with price, market cap and 24hr volume based on particular coin ID
+Returns historical price, market cap and total volume time series for one coin between a start and end time. Pass the coin `id` (for example `bitcoin`), `from`, `to` and `vs_currency`.
 
-The response is the official CoinGecko API response, unchanged.
+### Use cases
+
+- Plot a price chart for a coin over a custom date window.
+- Compare market cap and trading volume of a coin across two periods.
+- Backtest a trading rule against hourly or daily price points.
+- Export price history in a chosen quote currency into a spreadsheet or database.
 
 ### Request
 
@@ -86,20 +91,65 @@ curl -X POST "https://api.sandbase.ai/v1/api/coingecko/coins-market-chart-range"
   -d '{"id": "bitcoin", "from": "1735516800", "to": "1735603200", "vs_currency": "usd"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
 |---|---|---|---|
-| `id` | string | Yes | Coin ID. *refers to [`/coins/list`](/reference/coins-list). |
 | `from` | string | Yes | Starting date in ISO date string (`YYYY-MM-DD` or `YYYY-MM-DDTHH:MM`) or UNIX timestamp. Use ISO date string for best compatibility. |
-| `interval` | string | No | Data interval, leave empty for auto granularity. |
-| `precision` | string | No | Decimal place for currency price value. |
+| `id` | string | Yes | Coin ID. *refers to [`/coins/list`](/reference/coins-list). |
 | `to` | string | Yes | Ending date in ISO date string (`YYYY-MM-DD` or `YYYY-MM-DDTHH:MM`) or UNIX timestamp. Use ISO date string for best compatibility. |
 | `vs_currency` | string | Yes | Target currency of market data. *refers to [`/simple/supported_vs_currencies`](/reference/simple-supported-currencies). |
+| `interval` | string | No | Data interval, leave empty for auto granularity. |
+| `precision` | string | No | Decimal place for currency price value. |
+
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "market_caps": [
+    [
+      1735516800000
+    ]
+  ],
+  "prices": [
+    [
+      1735516800000
+    ]
+  ],
+  "total_volumes": [
+    [
+      1735516800000
+    ]
+  ]
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `prices` | List of `[timestamp, price]` pairs. Each price is in the currency set by `vs_currency`. |
+| `prices[][0] / market_caps[][0] / total_volumes[][0]` | Timestamp of the data point as a number, for example `1735516800000`. It has 13 digits, so it is in milliseconds. |
+| `prices[][1]` | Coin price at that timestamp, in the `vs_currency` currency. |
+| `market_caps` | List of `[timestamp, market cap]` pairs for the same time points. |
+| `market_caps[][1]` | Market cap of the coin at that timestamp, in the `vs_currency` currency. |
+| `total_volumes` | List of `[timestamp, volume]` pairs for the same time points. |
+| `total_volumes[][1]` | Trading volume of the coin at that timestamp, in the `vs_currency` currency. |
+
+### Notes
+
+- Get valid values for `id` from [CoinGecko Coins List (ID Map)](/apis/coingecko/coins-list). Get valid `vs_currency` values from [CoinGecko Supported Currencies List](/apis/coingecko/simple-supported-vs-currencies).
+- `from` and `to` accept `YYYY-MM-DD`, `YYYY-MM-DDTHH:MM` or a UNIX timestamp in seconds. The sample request used `1735516800` and `1735603200`.
+- Set `interval` to `1m`, `5m`, `hourly` or `daily`, or leave it empty for automatic granularity. Use `precision` to set the decimal places of price values.
+- For OHLC candles instead of line points, call [CoinGecko Coin OHLC Chart by ID](/apis/coingecko/coins-ohlc).
 
 ### Pricing
 
-Flat price per call. Failed calls are not charged.
+$0.008 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ---
 Machine-readable: [`catalog/models/coingecko/coins-market-chart-range.json`](../../../catalog/models/coingecko/coins-market-chart-range.json) · Store page: https://www.sandbase.ai/model/coingecko/coins-market-chart-range

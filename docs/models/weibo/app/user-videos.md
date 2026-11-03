@@ -63,13 +63,13 @@ Same call via the path form: `POST /v1/api/weibo/app/user-videos` with the body 
 
 ## Details
 
-Retrieve video items posted by a specific account using `uid`. Subsequent pages can be requested using the returned `since_id` cursor.
+Returns the video feed for a Weibo user as a list of layout items, using the user's `uid`. The response is a waterfall-style list of cells and cards, and you can pass `since_id` to get the next page.
 
 ### Use cases
 
-- Display an account video gallery inside an external application.
-- Track recent video uploads from specific Weibo creators.
-- Archive historical video posts for social media analysis.
+- Check whether a Weibo account has published any videos.
+- Page through a creator's video feed once the account has video cards.
+- Find the link to an account's liked-video stream from the `scheme` value in the first card.
 
 ### Request
 
@@ -80,6 +80,8 @@ curl -X POST "https://api.sandbase.ai/v1/api/weibo/app/user-videos" \
   -d '{"uid": "8431518763"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
@@ -89,27 +91,55 @@ curl -X POST "https://api.sandbase.ai/v1/api/weibo/app/user-videos" \
 
 ### Example response
 
-Real response for the request above, trimmed to the main fields. User names and long IDs are masked.
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
 
 ```json
 {
+  "__profile_card_server__": {
+    "from": "SHANHAI-SERVER"
+  },
+  "config": "{}",
   "items": [
     {
       "category": "cell",
+      "span": {
+        "style": {
+          "height": 10
+        }
+      },
       "type": "span"
     }
-  ]
+  ],
+  "loadedInfo": "{}",
+  "navInfo": "{}",
+  "pageData": "{}",
+  "refreshInfo": "{}"
 }
 ```
 
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `items[]` | List of layout items. Each item is a cell (spacing) or a card (content). |
+| `items[].category` | Item kind, such as `cell` or `card`. |
+| `items[].type` | Subtype of a cell item. The sample shows `span`, a spacer. |
+| `items[].data.card_type` | Numeric card type. The sample shows `156` for the tab card and `58` for the empty-state card. |
+| `items[].data.name` | Text shown on a card. In the sample it reads "该博主还未发布任何视频" (this blogger has not posted any videos), so the account has no videos. |
+| `items[].data.commend_info[].text / items[].data.commend_info[].scheme` | Label and app link for a profile action. The sample shows the label `赞` (like) and a `sinaweibo://svideo_like_stream` link for the user's liked videos. |
+| `items[].data.commend_info[].icon` | Image URL for the action icon. |
+| `items[].itemExt.anchorId` | Anchor ID attached to a card item. |
+
 ### Notes
 
-- Pass `uid` to specify the target user account.
-- Omit `since_id` on the initial call, then pass the returned cursor value for subsequent requests.
+- Send `uid` only on the first request. For later pages, pass the returned `since_id` cursor.
+- The sample response has no video cards. The account returned a `card_type` `58` card saying it has not posted any videos, and no `since_id` appeared.
+- Several top-level fields, such as `config`, `loadedInfo`, `navInfo`, `pageData` and `refreshInfo`, come back as the string `"{}"` in this response.
+- To get account details for a `uid`, call [Weibo User Profile Information](/apis/weibo/app/user-info).
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

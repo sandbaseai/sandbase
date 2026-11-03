@@ -57,13 +57,14 @@ Same call via the path form: `POST /v1/api/dataforseo/v3/content_analysis/rating
 
 ## Details
 
-This endpoint returns rating distribution metrics across web content sources based on the submitted search criteria.
+Returns a list of rating buckets for web content that mentions a keyword. Each bucket covers a score range from `min` to `max` and holds counts of sentiment, countries, languages, page types and categories. The request needs one `keyword`.
 
 ### Use cases
 
-- Examine review rating distributions across online content mentioning a brand or topic.
-- Analyze audience satisfaction levels across multiple digital sources.
-- Benchmark customer sentiment profiles against competitor coverage.
+- Compare how many citations of a brand fall into each rating range.
+- Check whether low-rated mentions of a brand come from stores, blogs or message boards.
+- Find which countries and languages produce the most content in a given rating range.
+- Track emotion counts such as `anger` and `happiness` for a brand in each rating bucket.
 
 ### Request
 
@@ -74,17 +75,97 @@ curl -X POST "https://api.sandbase.ai/v1/api/dataforseo/v3/content_analysis/rati
   -d '{"keyword": "nike"}'
 ```
 
+The result is returned in `outputs[0]`.
+
 ### Parameters
 
-The JSON body is forwarded to the upstream endpoint (one task per call). Fields used above:
+| Name | Type | Required | Description |
+|---|---|---|---|
+| `keyword` | string | No | Search query. |
 
-| Name | Description |
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "status_code": 20000,
+  "status_message": "Ok.",
+  "tasks": [
+    {
+      "data": {
+        "api": "content_analysis",
+        "function": "rating_distribution",
+        "keyword": "nike"
+      },
+      "id": "11030828-2190-0466-0000-0426958cc45a",
+      "path": [
+        "v3"
+      ],
+      "result": [
+        {
+          "max": 0.1,
+          "metrics": {
+            "connotation_types": {
+              "negative": 0,
+              "neutral": 0,
+              "positive": 0
+            },
+            "countries": null,
+            "languages": null,
+            "page_categories": null,
+            "page_types": null,
+            "rank": 0,
+            "sentiment_connotations": {
+              "anger": 0,
+              "fun": 0,
+              "happiness": 0,
+              "love": 0,
+              "sadness": 0,
+              "share": 0
+            },
+            "text_categories": null
+          },
+          "min": 0,
+          "type": "content_analysis_rating_distribution"
+        }
+      ],
+      "result_count": 10,
+      "status_code": 20000,
+      "status_message": "Ok.",
+      "time": "14.8977 sec."
+    }
+  ],
+  "tasks_count": 1,
+  "tasks_error": 0,
+  "time": "14.9059 sec.",
+  "version": "0.1.20261022"
+}
+```
+
+### Response fields
+
+| Field | Meaning |
 |---|---|
-| `keyword` | Search query. |
+| `tasks[].result[].min / max` | Lower and upper bound of the rating range for this bucket. In the example, the buckets run in steps of 0.1, such as 0 to 0.1 and 0.1 to 0.2. |
+| `tasks[].result[].metrics.connotation_types` | Counts of `negative`, `neutral` and `positive` citations in the bucket. |
+| `tasks[].result[].metrics.sentiment_connotations` | Counts of citations by emotion: `anger`, `fun`, `happiness`, `love`, `sadness` and `share`. |
+| `tasks[].result[].metrics.countries` | Citation counts keyed by country code, such as `DE` or `CH`. The value is `null` when the bucket has no data. |
+| `tasks[].result[].metrics.languages` | Citation counts keyed by language code, such as `en` or `de`. |
+| `tasks[].result[].metrics.page_types` | Citation counts by page type, such as `ecommerce`, `blogs`, `news`, `message-boards` and `organization`. |
+| `tasks[].result[].metrics.page_categories[] / text_categories[]` | Lists of category ID arrays with a `count` for each. A `category` of `null` means no category was assigned. |
+| `tasks[].result[].metrics.rank` | Rank value for the bucket. It is `0` in empty buckets and `454` in the 0.1 to 0.2 bucket. |
+| `tasks[].result_count` | Number of result buckets in the task. |
+
+### Notes
+
+- Pass the brand, product or topic you want to analyze as `keyword`.
+- Buckets with no matching content return `0` counts or `null` for the breakdown fields, so check for `null` before reading them.
+- Category values are numeric IDs, not names.
 
 ### Pricing
 
-Billed at the actual cost of each call, about $0.024 for the request above. The cost grows with the number of rows, targets or pages a call returns. Failed calls are not charged. Searches with no results are billed at their actual cost.
+Billed at the actual cost of each call, about $0.024 for the request above. Failed calls are not charged.
 
 ### Related APIs
 

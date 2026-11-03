@@ -59,9 +59,14 @@ Same call via the path form: `POST /v1/api/coingecko/coins-list` with the body a
 
 ## Details
 
-Get all the supported coins on CoinGecko with coins ID, name and symbol
+Returns the list of coins that CoinGecko supports, as a flat array. Each entry has the coin `id`, `name` and `symbol`. No input is required. Optional parameters add contract addresses or switch to inactive coins.
 
-The response is the official CoinGecko API response, unchanged.
+### Use cases
+
+- Build a lookup table that maps CoinGecko coin IDs to symbols and names.
+- Resolve a ticker symbol to a coin `id` before you call a coin data or market data API.
+- Check whether a coin is listed on CoinGecko by searching the list for its `id` or `symbol`.
+- Set `status` to `inactive` to find coins that are not active.
 
 ### Request
 
@@ -72,6 +77,8 @@ curl -X POST "https://api.sandbase.ai/v1/api/coingecko/coins-list" \
   -d '{}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
@@ -79,9 +86,38 @@ curl -X POST "https://api.sandbase.ai/v1/api/coingecko/coins-list" \
 | `include_platform` | boolean | No | Include platform and token's contract addresses. Default: false |
 | `status` | string | No | Filter by status of coins. Default: active |
 
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+[
+  {
+    "id": "_",
+    "name": "༼ つ ◕_◕ ༽つ",
+    "symbol": "gib"
+  }
+]
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `[].id` | CoinGecko coin ID, such as `000-capital`. Pass this value to other CoinGecko APIs that ask for a coin ID. |
+| `[].name` | Display name of the coin. It can contain digits or unusual characters. |
+| `[].symbol` | Ticker symbol of the coin. It appears in lowercase in the response. Use `id` as the identifier when you call other APIs. |
+
+### Notes
+
+- The request body can be empty (`{}`). By default the call returns coins with `status` set to `active`.
+- Set `include_platform` to `true` to add platform and token contract address data to each coin. The sample response was requested without it and shows only `id`, `name` and `symbol`.
+- Use the `id` value as the coin ID in [CoinGecko Coin Data by ID](/apis/coingecko/coins).
+- To get market data for many coins in one call, use [CoinGecko Coins List with Market Data](/apis/coingecko/coins-markets).
+
 ### Pricing
 
-Flat price per call. Failed calls are not charged.
+$0.008 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ---
 Machine-readable: [`catalog/models/coingecko/coins-list.json`](../../../catalog/models/coingecko/coins-list.json) · Store page: https://www.sandbase.ai/model/coingecko/coins-list

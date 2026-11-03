@@ -68,9 +68,14 @@ Same call via the path form: `POST /v1/api/fred/series-vintagedates` with the bo
 
 ## Details
 
-Get Series Vintage Dates from FRED. Returns the official FRED API response unchanged.
+This API returns the vintage dates for one FRED series. A vintage date is a date on which the series data was revised or newly released. It needs a `series_id`, such as `GNPCA`.
 
-The response is the official FRED API response, unchanged.
+### Use cases
+
+- Find every date on which the values of a series such as `GNPCA` changed, to audit its revision history.
+- Pick a vintage date to rebuild what a series looked like at a past point in time.
+- Count how many times a series has been revised by reading `count`.
+- Page through a long revision history in newest-first order with `sort_order` set to `desc`.
 
 ### Request
 
@@ -81,21 +86,59 @@ curl -X POST "https://api.sandbase.ai/v1/api/fred/series-vintagedates" \
   -d '{"series_id": "GNPCA", "file_type": "json"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
 |---|---|---|---|
+| `series_id` | string | Yes | The id for a series. string, required |
 | `file_type` | string | No | Response format. Only json is supported. |
 | `limit` | integer | No | The maximum number of results to return. integer between 1 and 10000, optional, default: 10000 |
 | `offset` | integer | No | non-negative integer, optional, default: 0 |
 | `realtime_end` | string | No | The end of the real-time period. For more information, see Real-Time Periods . YYYY-MM-DD formatted string, optional, default: 9999-12-31 (latest available) |
 | `realtime_start` | string | No | The start of the real-time period. For more information, see Real-Time Periods . YYYY-MM-DD formatted string, optional, default: 1776-07-04 (earliest available) |
-| `series_id` | string | Yes | The id for a series. string, required |
 | `sort_order` | string | No | Sort results is ascending or descending vintage_date order. One of the following strings: 'asc', 'desc'. optional, default: asc |
+
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "count": 189,
+  "limit": 10000,
+  "offset": 0,
+  "order_by": "vintage_date",
+  "realtime_end": "9999-12-31",
+  "realtime_start": "1776-07-04",
+  "sort_order": "asc",
+  "vintage_dates": [
+    "1958-12-21"
+  ]
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `vintage_dates[]` | List of vintage dates as `YYYY-MM-DD` strings. Each one is a date when the series data was revised or released. The order follows `sort_order`. |
+| `count` | Total number of vintage dates found for the series in the real-time period. Use it to know how many pages to request. |
+| `limit / offset` | Echo of the page size and starting position used for this response. |
+| `order_by` | The field the list is sorted by. It shows `vintage_date`. |
+| `sort_order` | Direction of the sort, `asc` or `desc`. |
+| `realtime_start / realtime_end` | The real-time period applied to the request. The defaults cover the full range, `1776-07-04` to `9999-12-31`. |
+
+### Notes
+
+- Get the `series_id` from [FRED Search Series](/apis/fred/series-search) or [FRED Get Series](/apis/fred/series).
+- To page through results, raise `offset` by `limit` until you have read `count` dates.
+- Pass a vintage date as `realtime_start` and `realtime_end` to [FRED Get Series Observations](/apis/fred/series-observations) to see the values as of that date.
 
 ### Pricing
 
-Flat price per call. Failed calls are not charged.
+$0.00001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ---
 Machine-readable: [`catalog/models/fred/series-vintagedates.json`](../../../catalog/models/fred/series-vintagedates.json) · Store page: https://www.sandbase.ai/model/fred/series-vintagedates

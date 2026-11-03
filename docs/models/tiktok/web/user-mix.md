@@ -64,13 +64,14 @@ Same call via the path form: `POST /v1/api/tiktok/web/user-mix` with the body ab
 
 ## Details
 
-Access all videos compiled under a user mix by specifying `mixId`. Manage result pagination using optional `cursor` and `count` parameters.
+Returns the videos in a TikTok user mix (playlist). You send a `mixId` and get one page of videos with their text, author, stats and hashtags.
 
 ### Use cases
 
-- Retrieve videos organized within a specific TikTok user playlist.
-- Track engagement and play statistics across items in a curated mix.
-- Page through sequential multi-part video collections for analysis.
+- Export every video in a creator's playlist with its caption and posting time.
+- Compare `playCount` and `diggCount` across the videos of one mix to see which parts perform best.
+- Collect the hashtags used across a themed mix to study how a creator tags a series.
+- Page through a long mix with `cursor` and `count` to build a full video ID list.
 
 ### Request
 
@@ -80,6 +81,8 @@ curl -X POST "https://api.sandbase.ai/v1/api/tiktok/web/user-mix" \
   -H "Content-Type: application/json" \
   -d '{"mixId": "7101538765474106158"}'
 ```
+
+The result is returned in `outputs[0].data`.
 
 ### Parameters
 
@@ -91,80 +94,122 @@ curl -X POST "https://api.sandbase.ai/v1/api/tiktok/web/user-mix" \
 
 ### Example response
 
-Real response for the request above, trimmed to the main fields. User names and long IDs are masked.
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
 
 ```json
 {
+  "cookie": "tt_chain…",
+  "cursor": "19",
+  "extra": {
+    "fatal_item_ids": [],
+    "logid": "20261103154431BD2354D80FEE59050E02",
+    "now": 1793691871000
+  },
+  "hasMore": false,
   "itemList": [
     {
+      "AIGCDescription": "",
       "CategoryType": 110,
-      "createTime": 1669790506,
-      "desc": "Pit in my stomach when I think ab going to the bathroom lol #fyp #pathologicaldemandavoid…",
-      "id": "7171695560922058030",
-      "itemCommentStatus": 0,
-      "textLanguage": "en",
-      "textTranslatable": true,
+      "IsHDBitrate": false,
+      "ShowAIGC": true,
       "author": {
-        "id": "6762702053111383045",
-        "nickname": "<user>",
-        "privateAccount": false,
-        "verified": true
+        "avatarLarger": "https://p16-common-sign.tiktokcdn.com/tos-maliva-avt-0068/7310736459579785262~tp…",
+        "avatarMedium": "https://p16-common-sign.tiktokcdn.com/tos-maliva-avt-0068/7310736459579785262~tp…",
+        "avatarThumb": "https://p16-common-sign.tiktokcdn.com/tos-maliva-avt-0068/7310736459579785262~tp…",
+        "commentSetting": 0,
+        "downloadSetting": 0,
+        "duetSetting": 0,
+        "ftc": false,
+        "id": "6762702053111383045"
       },
       "authorStats": {
-        "diggCount": 8322,
-        "followerCount": 457200,
-        "followingCount": 359,
+        "diggCount": 8342,
+        "followerCount": 456500,
+        "followingCount": 361,
         "friendCount": 0,
+        "heart": 7700000,
         "heartCount": 7700000,
-        "videoCount": 942
+        "videoCount": 951
       },
       "authorStatsV2": {
-        "diggCount": "8322",
-        "followerCount": "457200",
-        "followingCount": "359",
+        "diggCount": "8342",
+        "followerCount": "456500",
+        "followingCount": "361",
         "friendCount": "0",
+        "heart": "7700000",
         "heartCount": "7700000",
-        "videoCount": "942"
+        "videoCount": "951"
       },
-      "music": {
-        "id": "7114291002097142570",
-        "shoot_duration": 0
-      },
-      "penaltyContext": {
-        "display_penalty_type": 0,
-        "display_ui_type": 0,
-        "status": 102,
-        "tns_status": 102,
-        "video_status": 10
-      },
-      "stats": {
-        "collectCount": 33,
-        "commentCount": 10,
-        "diggCount": 377,
-        "playCount": 38200,
-        "shareCount": 20
-      },
-      "statsV2": {
-        "collectCount": "33",
-        "commentCount": "10",
-        "diggCount": "377",
-        "playCount": "38200",
-        "repostCount": "0",
-        "shareCount": "20"
-      }
+      "backendSourceEventTracking": "",
+      "challenges": [
+        {
+          "coverLarger": "",
+          "coverMedium": "",
+          "coverThumb": "",
+          "desc": "",
+          "id": "229207",
+          "profileLarger": "",
+          "profileMedium": "",
+          "profileThumb": ""
+        }
+      ],
+      "collected": false,
+      "contents": [
+        {
+          "desc": "Pit in my stomach when I think ab going to the bathroom lol #fyp #pathologicalde…",
+          "textExtra": [
+            {
+              "awemeId": "",
+              "end": 64,
+              "hashtagName": "fyp",
+              "isCommerce": false,
+              "start": 60,
+              "subType": 0,
+              "type": 1
+            }
+          ]
+        }
+      ],
+      "createTime": 1669790506
     }
-  ]
+  ],
+  "log_pb": {
+    "impr_id": "20261103154431BD2354D80FEE59050E02"
+  },
+  "statusCode": 0,
+  "status_code": 0,
+  "status_msg": "",
+  "tt_chain_token": "0k5cdiqY…"
 }
 ```
 
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `itemList[]` | The videos on this page of the mix. |
+| `itemList[].id` | ID of the video. |
+| `itemList[].desc` | Caption of the video, including hashtags. |
+| `itemList[].createTime` | Creation time of the video as a Unix timestamp in seconds. |
+| `itemList[].stats.playCount / itemList[].stats.diggCount / itemList[].stats.commentCount / itemList[].stats.shareCount / itemList[].stats.collectCount` | Play, like, comment, share and save counts for the video, as numbers. |
+| `itemList[].statsV2` | The same counts as strings, plus `repostCount`. |
+| `itemList[].author.id` | ID of the account that posted the video. |
+| `itemList[].authorStats.followerCount / itemList[].authorStats.videoCount` | Follower count and number of videos for the author. |
+| `itemList[].textExtra[].hashtagName` | Name of each hashtag in the caption. `start` and `end` give its position in `desc`. |
+| `itemList[].playlistId` | ID of the mix the video belongs to. It matches the `mixId` you sent. |
+| `hasMore` | Shows whether more pages exist after this one. |
+| `cursor` | Cursor value returned with this page. |
+
 ### Notes
 
-- The `mixId` parameter is required to identify the mix collection.
-- Pagination is handled via `cursor` and `count`.
+- `mixId` is the only required parameter. `count` defaults to 30 and `cursor` defaults to 0.
+- To get the next page, check `hasMore`, then send the returned `cursor` value in the next request.
+- The `cursor` in the response is a string, while the request parameter `cursor` is an integer.
+- Use the video `id` values from `itemList[]` to look up a single video with [TikTok Video Detail](/apis/tiktok/web/post-detail).
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

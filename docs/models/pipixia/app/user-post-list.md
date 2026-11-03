@@ -64,13 +64,14 @@ Same call via the path form: `POST /v1/api/pipixia/app/user-post-list` with the 
 
 ## Details
 
-Retrieve post feeds from a specified user profile using `user_id`. Pagination is supported using `cursor` and `feed_count`.
+Returns a page of posts, such as videos and photos, from one Pipixia user profile. It needs a `user_id`, which you can take from the profile share link.
 
 ### Use cases
 
-- Display a user's uploaded videos and photos within an external dashboard.
-- Track engagement metrics and recent posts for specific creators.
-- Archive media items and post text from target Pipixia accounts.
+- Show a creator's recent Pipixia posts in an external dashboard.
+- Check which hashtags a creator's recent posts are tagged with.
+- Collect post IDs and publish times for a creator to build an archive.
+- Page through a creator's full post history with the returned cursor.
 
 ### Request
 
@@ -80,6 +81,8 @@ curl -X POST "https://api.sandbase.ai/v1/api/pipixia/app/user-post-list" \
   -H "Content-Type: application/json" \
   -d '{"user_id": "3602444694069495"}'
 ```
+
+The result is returned in `outputs[0].data`.
 
 ### Parameters
 
@@ -91,51 +94,73 @@ curl -X POST "https://api.sandbase.ai/v1/api/pipixia/app/user-post-list" \
 
 ### Example response
 
-Real response for the request above, trimmed to the main fields. User names and long IDs are masked.
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
 
 ```json
 {
   "data": {
+    "compilation_list": [],
+    "cursor": {
+      "feed_len": 0,
+      "has_more": true,
+      "loadmore_cursor": 1793507806316341,
+      "previous_cursor": null,
+      "refresh_cursor": 0
+    },
     "data": [
       {
-        "cell_id": 7692668426287847734,
-        "cell_id_str": "7692668426287847734",
-        "cell_type": 1,
-        "city_name": "湖北",
-        "display_time": 1791088941,
-        "last_view_time": 0,
+        "ad_info": null,
+        "album_info": null,
+        "banner_info": null,
+        "block_info": null,
         "board_info": {
           "block_type": 12,
           "god_rank": -1
         },
-        "hashtag": {
-          "enter_num": 21002280,
-          "followers_num": 227517,
-          "works_num": 823422
-        },
-        "item": {
-          "ancestor_id": "7692668426287847734",
-          "content": "何亮已经到要给娟儿姐报备的程度了！",
-          "create_time": 1791088941,
-          "duration": 22.87,
-          "item_cell_type": 1,
-          "item_id": 7692668426287847734
-        }
+        "button": null,
+        "card_item": null,
+        "cell_id": 7703195169469765938,
+        "cell_id_str": "7703195169469765938",
+        "cell_type": 1,
+        "city_name": "湖北",
+        "club_info": null
       }
-    ]
-  }
+    ],
+    "index": null,
+    "play_sound": true
+  },
+  "message": "success",
+  "prompt": "",
+  "status_code": 0,
+  "time": 1793691717937
 }
 ```
 
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `data.data[]` | One post card in the user's feed. Each entry holds the post, its hashtag and display details. |
+| `data.data[].cell_id_str` | Post ID as a string. It matches `pass_through` and `item.ancestor_id` for the same post. Use the string form to avoid number rounding. |
+| `data.data[].cell_type` | Numeric type of the card. Every card in this sample has the value `1`. |
+| `data.data[].display_time` | Unix timestamp in seconds for when the post is shown in the feed. |
+| `data.data[].city_name` | City or region name attached to the post, for example `湖北`. |
+| `data.data[].hashtag.base_hashtag.activity_icon.name` | Name shown on the hashtag's activity icon, for example `追剧不能停`. |
+| `data.data[].hashtag.base_hashtag.category_list[].name` | Category name of the hashtag, for example `影视娱乐`. |
+| `data.data[].hashtag.enter_num / data.data[].hashtag.followers_num` | Counts for the hashtag attached to the post: `enter_num` and `followers_num`. |
+| `data.cursor.has_more` | Shows whether another page is available. |
+| `data.cursor.loadmore_cursor` | Cursor value to send as `cursor` to get the next page. |
+
 ### Notes
 
-- `user_id` can be obtained from the account share link.
-- Set `cursor` using the `loadmore_cursor` value from the previous page, defaulting to 0.
-- Increment `feed_count` by 1 for each subsequent page, starting at 0.
+- Get `user_id` from the user's share link. If you only have a short link, use [Pipixia Short URL Conversion](/apis/pipixia/app/short-url) first.
+- For the next page, pass `data.cursor.loadmore_cursor` as `cursor` and raise `feed_count` by 1. The first page uses `0` for both.
+- Many fields in each card, such as `ad_info` and `live_info`, are `null` for ordinary posts.
+- Call [Pipixia Post Detail](/apis/pipixia/app/post-detail) to look up a single post, or [Pipixia User Information](/apis/pipixia/app/user-info) for the profile itself.
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

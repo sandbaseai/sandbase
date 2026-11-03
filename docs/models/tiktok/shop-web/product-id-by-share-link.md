@@ -62,13 +62,14 @@ Same call via the path form: `POST /v1/api/tiktok/shop-web/product-id-by-share-l
 
 ## Details
 
-Look up a TikTok Shop product identifier using a `share_link`. Resolves shared URLs into direct product IDs for downstream product queries.
+Returns the TikTok Shop product ID for a product share link. Send the full share URL in `share_link`. The response also includes a `product_link` deep link for the TikTok app.
 
 ### Use cases
 
-- Resolve TikTok Shop share links into direct product identifiers.
-- Automate product catalog indexing from shared TikTok product URLs.
-- Extract item IDs for subsequent product detail queries.
+- Convert a TikTok Shop share link copied from the app into a numeric product ID.
+- Normalize affiliate share links into product IDs before storing them in a product database.
+- Feed the resolved `product_id` into a product detail call to get price and seller data.
+- Deduplicate a list of shared links by comparing the product IDs they resolve to.
 
 ### Request
 
@@ -79,19 +80,42 @@ curl -X POST "https://api.sandbase.ai/v1/api/tiktok/shop-web/product-id-by-share
   -d '{"share_link": "https://affiliate-us.tiktok.com/api/v1/share/AJ4hS3OdXmSg"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
 |---|---|---|---|
 | `share_link` | string | Yes | Share link |
 
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "product_id": "8651224669119091502",
+  "product_link": "snssdk1180://lynxview?bundle=partner-product-page%2Ftemplate.js&channel=tea_prod…"
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `product_id` | The TikTok Shop product ID that the share link points to. It is returned as a string of digits. |
+| `product_link` | A TikTok app deep link (`snssdk1180://` scheme) for the product page. It carries URL-encoded query parameters such as the page bundle and channel. |
+
 ### Notes
 
-- Pass the full TikTok Shop product URL in the `share_link` parameter.
+- Pass the full share URL in `share_link`, for example `https://affiliate-us.tiktok.com/api/v1/share/AJ4hS3OdXmSg`.
+- Keep `product_id` as a string, because the value is a long number.
+- Pass `product_id` to [TikTok Shop Product Details](/apis/tiktok/shop-web/product-detail) or [TikTok Shop Product Detail (V3)](/apis/tiktok/shop-web/product-detail-v3) to get full product data.
+- For a share link that points to a shop instead of a product, use [TikTok Shop ID by Share Link](/apis/tiktok/shop-web/shop-id-by-share-link).
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

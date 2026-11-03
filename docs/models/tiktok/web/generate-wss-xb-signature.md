@@ -58,13 +58,13 @@ Same call via the path form: `POST /v1/api/tiktok/web/generate-wss-xb-signature`
 
 ## Details
 
-Retrieve an X-Bogus signature needed for TikTok WSS connections. You can optionally supply `user_agent` to match a specific client environment.
+Returns an X-Bogus signature string for TikTok WebSocket (WSS) connections. The only input is an optional `user_agent` string. If you leave it out, the API uses a default browser user agent.
 
 ### Use cases
 
-- Establish real-time TikTok WebSocket connections requiring signature verification.
-- Provide custom user agent strings to match client request headers.
-- Authenticate automated listeners for TikTok web stream events.
+- Sign a TikTok live room WebSocket URL before you open the connection.
+- Generate a signature that matches the user agent your own client sends.
+- Refresh the signature in a script that reconnects to a TikTok WebSocket listener.
 
 ### Request
 
@@ -75,19 +75,42 @@ curl -X POST "https://api.sandbase.ai/v1/api/tiktok/web/generate-wss-xb-signatur
   -d '{}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
 |---|---|---|---|
 | `user_agent` | string | No | User browser agent (optional, uses default UA if not provided) |
 
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "x_bogus": "fd9W5SN3j9PxkwTy"
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `x_bogus` | The X-Bogus signature string for a TikTok WSS connection. |
+| `x_bogus` | In the example, the value is a 16-character string of letters and digits. Treat it as an opaque token and pass it on unchanged. |
+| `x_bogus` | The response has no other keys. Read this single value from the top level of the JSON object. |
+
 ### Notes
 
-- Uses a default user agent string if `user_agent` is omitted.
+- Send an empty JSON object `{}` to use the default user agent.
+- If you pass `user_agent`, use the same string in the headers of your own WebSocket request so the two match.
+- For regular web requests instead of WSS, use [TikTok Web X-Bogus Signature](/apis/tiktok/web/generate-xbogus).
+- To get both signatures in one call, use [TikTok Web X-Gnarly and X-Bogus Signatures](/apis/tiktok/web/generate-xgnarly-and-xbogus).
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

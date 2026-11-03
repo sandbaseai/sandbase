@@ -63,13 +63,13 @@ Same call via the path form: `POST /v1/api/wechat-mp/v2/related-articles` with t
 
 ## Details
 
-Pass a WeChat MP article link via `url` to retrieve recommended related posts. Use `raw` to control whether the output contains the full raw data or a simplified projection.
+This API returns the list of related articles shown at the bottom of a WeChat MP post. It needs the article link in `url`. You can set `raw` to `false` to get a simplified response instead of the full raw one.
 
 ### Use cases
 
-- Discover recommended content linked to a target WeChat MP article.
-- Collect related article links for automated content mapping.
-- Analyze contextual recommendations across official WeChat accounts.
+- Collect the related article links of a given WeChat MP post to map how content links together.
+- Check whether a post has related articles enabled by testing if `list` is empty.
+- Compare the recommendations shown under different posts from the same official account.
 
 ### Request
 
@@ -80,22 +80,58 @@ curl -X POST "https://api.sandbase.ai/v1/api/wechat-mp/v2/related-articles" \
   -d '{"url": "https://mp.weixin.qq.com/s/TSNQKkRpN1qbKsT7BvzqIw"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
 |---|---|---|---|
-| `url` | string | Yes | WeChat MP article URL (long or short form). |
-| `raw` | boolean | No | Optional, default True. |
+| `url` | string | Yes | WeChat MP article URL (long or short form). E.g. `https://mp.weixin.qq.com/s/TSNQKkRpN1qbKsT7BvzqIw` (this article has related articles disabled, returns empty) |
+| `raw` | boolean | No | Optional, default True. True=full raw response; False=simplified projection. |
+
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "article_size": 0,
+  "base_resp": {
+    "exportkey_token": "",
+    "ret": 0
+  },
+  "debug_id": "c8654bd8",
+  "debug_info": "gAAAAABq6ZE_RcOuigyjp77fpRWqW98EwuA1qKR3MgBMlFp6rtnMIC_7FSFL5Iyfq00msdIWVO3nW6Bo…",
+  "empty_scene": 8,
+  "list": [],
+  "report_info": "{}",
+  "show_rec_reason": 1
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `list` | The related articles shown under the post. It is an empty array when the post shows none, as in this example. |
+| `article_size` | Number of related articles returned. It is `0` when `list` is empty. |
+| `empty_scene` | A numeric code that comes with an empty result. The example shows `8`. The response does not explain what each value means. |
+| `show_rec_reason` | A flag that shows whether recommendation reasons are displayed. The example value is `1`. |
+| `base_resp.ret` | Status code of the call inside the response. `0` in the example. |
+| `base_resp.exportkey_token` | Token string in the response. It is empty in the example. |
+| `debug_id / debug_info` | Identifiers for debugging. They do not describe the article content. |
+| `report_info` | A JSON string with reporting data. It is `{}` in the example. |
 
 ### Notes
 
-- `url` accepts either long or short form WeChat MP article links.
-- `raw` defaults to true for the full raw response, or false for a simplified projection.
-- Articles with related recommendations disabled return an empty result.
+- Use a link on `mp.weixin.qq.com/s`, in long or short form. The link must start with `http://` or `https://`.
+- `raw` defaults to `true`. Set it to `false` for a simplified projection.
+- The example article has related articles disabled, so `list` is empty and `article_size` is `0`.
+- To get the article body for a link, call [WeChat MP Article Detail](/apis/wechat-mp/v2/article-detail).
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.01 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

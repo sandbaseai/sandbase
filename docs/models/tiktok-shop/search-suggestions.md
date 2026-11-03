@@ -63,7 +63,14 @@ Same call via the path form: `POST /v1/api/tiktok-shop/search-suggestions` with 
 
 ## Details
 
-Get TikTok Shop search autocomplete terms for a keyword: the long-tail queries shoppers actually type, for keyword and demand research.
+This API returns TikTok Shop search autocomplete suggestions for a seed keyword. It needs a `query` and can also take a `country` code and a `language` tag.
+
+### Use cases
+
+- Expand a product keyword such as `ashwagandha gummies` into the long-tail searches shoppers type.
+- Find product angles to test, such as a suggestion that adds a buyer group or a brand name.
+- Build keyword lists for TikTok Shop listing titles and product research.
+- Compare suggestions for the same seed keyword across different markets by changing `country`.
 
 ### Request
 
@@ -74,19 +81,49 @@ curl -X POST "https://api.sandbase.ai/v1/api/tiktok-shop/search-suggestions" \
   -d '{"query": "ashwagandha gummies", "country": "US"}'
 ```
 
-The result is returned in `outputs[0].data`. A lookup that finds nothing still succeeds and returns `found: false`.
+The result is returned in `outputs[0].data`.
 
 ### Parameters
 
 | Name | Type | Required | Description |
 |---|---|---|---|
 | `query` | string | Yes | Seed keyword to expand (e.g. ashwagandha gummies). |
-| `country` | string | No | Two-letter country code of the TikTok Shop market (e.g. US). Default `"US"`. |
-| `language` | string | No | Language tag for the suggestions (e.g. en-US). Default `"en-US"`. |
+| `country` | string | No | Two-letter country code of the TikTok Shop market (e.g. US). |
+| `language` | string | No | Language tag for the suggestions (e.g. en-US). |
+
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "data": {
+    "suggestions": [
+      "ashwagandha gummies"
+    ]
+  },
+  "found": true
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `data.suggestions[]` | Autocomplete terms for the seed keyword, as plain strings. Each string is a search phrase that can include the seed keyword plus extra words, such as `ashwagandha gummies for men`. |
+| `data.suggestions[0]` | In this response, the first suggestion repeats the seed keyword exactly. |
+| `found` | Boolean flag. It is `true` when the lookup returned data. |
+
+### Notes
+
+- The response is returned in `outputs[0].data`. A lookup that finds nothing still succeeds and returns `found: false`.
+- `country` defaults to `US` and `language` defaults to `en-US`.
+- To see products for a suggested phrase, pass it to [TikTok Shop Search](/apis/tiktok-shop/search).
+- To browse the category tree, use [TikTok Shop Categories](/apis/tiktok-shop/categories).
 
 ### Pricing
 
-Billed at the actual cost of each call, usually $0.00095 per request. A call can cost more when the first data source fails and another one answers. Failed calls are not charged. Lookups that find nothing and searches with no results are billed at their actual cost, which is often lower and can be $0.
+Billed at the actual cost of each call, about $0.00095 for the request above. Failed calls are not charged.
 
 ---
 Machine-readable: [`catalog/models/tiktok-shop/search-suggestions.json`](../../../catalog/models/tiktok-shop/search-suggestions.json) · Store page: https://www.sandbase.ai/model/tiktok-shop/search-suggestions

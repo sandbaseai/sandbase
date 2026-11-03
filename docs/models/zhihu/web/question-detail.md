@@ -62,13 +62,14 @@ Same call via the path form: `POST /v1/api/zhihu/web/question-detail` with the b
 
 ## Details
 
-Look up metadata and engagement metrics for a specific Zhihu discussion via its `question_id`. It returns headline details alongside visit, answer, and follower statistics.
+Returns metadata for one Zhihu question: its title, creation and update times, answer, comment and follower counts, and a visit count. It needs the `question_id` of the question.
 
 ### Use cases
 
-- Analyze engagement levels and visit counts for specific Zhihu questions.
-- Track answer and follower counts across platform discussions over time.
-- Extract question titles and discussion metadata for content research.
+- Track how `visit_count` and `follower_count` of a Zhihu question change across repeated calls.
+- Pull the title and answer count of a question before deciding whether to collect its answers.
+- Compare engagement across a list of questions on one topic, such as wallpapers or software.
+- Check whether a question is still under review using the `review_info` flags.
 
 ### Request
 
@@ -79,6 +80,8 @@ curl -X POST "https://api.sandbase.ai/v1/api/zhihu/web/question-detail" \
   -d '{"question_id": "37811449"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
@@ -87,31 +90,58 @@ curl -X POST "https://api.sandbase.ai/v1/api/zhihu/web/question-detail" \
 
 ### Example response
 
-Real response for the request above, trimmed to the main fields. User names and long IDs are masked.
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
 
 ```json
 {
   "answer_count": 90,
   "answer_count_description": "全部内容 90",
   "comment_count": 9,
+  "created": 1448289701,
+  "detail": "",
+  "excerpt": "",
   "follower_count": 2912,
   "id": "37811449",
   "question_type": "normal",
-  "title": "有哪些优雅的 Windows 10 壁纸？",
-  "type": "question",
-  "updated_time": 1521972248,
-  "url": "https://www.zhihu.com/api/v4/questions/37811449",
-  "visit_count": 3350451
+  "relationship": {
+    "is_following": false
+  },
+  "review_info": {
+    "edit_is_reviewing": false,
+    "edit_tips": "",
+    "is_reviewing": false,
+    "tips": "",
+    "type": ""
+  },
+  "title": "有哪些优雅的 Windows 10 壁纸？"
 }
 ```
 
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `title` | The question title as shown on Zhihu. |
+| `id` | The question ID, returned as a string. It matches the `question_id` you sent. |
+| `answer_count` | Number of answers on the question. |
+| `answer_count_description` | Text label for the answer count. In the example it reads `全部内容 90`. |
+| `comment_count` | Number of comments on the question itself. |
+| `follower_count` | Number of users following the question. |
+| `visit_count` | Number of visits recorded for the question. |
+| `created / updated_time` | Unix timestamps in seconds for when the question was created and last updated. |
+| `question_type / type` | Kind of question and kind of object. The example returns `normal` and `question`. |
+| `review_info.is_reviewing / review_info.edit_is_reviewing` | Flags that show whether the question or an edit to it is under review. |
+
 ### Notes
 
-- Requires a valid `question_id` to look up discussion details.
+- The `question_id` is the number at the end of a Zhihu question URL, for example `37811449` in `https://www.zhihu.com/question/37811449`.
+- `detail` and `excerpt` can come back as empty strings, as they do in the example.
+- To read the answers themselves, call [Zhihu Question Answers](/apis/zhihu/web/question-answers) with the same question ID.
+- To read a single answer in full, use [Zhihu Answer Details](/apis/zhihu/web/answer-detail).
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

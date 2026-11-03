@@ -63,13 +63,14 @@ Same call via the path form: `POST /v1/api/twitter/web/post-comments` with the b
 
 ## Details
 
-Retrieve discussion threads and replies for a specific post by providing `tweet_id`. Use the optional `cursor` parameter to browse through multiple pages of replies.
+Returns the replies under one tweet, plus the parent tweet's own details and engagement counts. The only required input is a `tweet_id`. Pass the `cursor` value from the last response to get the next page of replies.
 
 ### Use cases
 
-- Read public audience replies and conversations under a specific tweet.
-- Track engagement metrics such as reply likes and view counts.
-- Monitor user interactions and follow-up threads on brand announcements.
+- Collect public replies under an announcement to review audience reaction.
+- Rank replies by `likes` and `views` to find the most visible responses.
+- Export reply text and author handles for sentiment or topic analysis.
+- Compare the parent tweet's `replies` count with the number of replies you have fetched.
 
 ### Request
 
@@ -80,6 +81,8 @@ curl -X POST "https://api.sandbase.ai/v1/api/twitter/web/post-comments" \
   -d '{"tweet_id": "2107237881668313108"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
@@ -89,38 +92,147 @@ curl -X POST "https://api.sandbase.ai/v1/api/twitter/web/post-comments" \
 
 ### Example response
 
-Real response for the request above, trimmed to the main fields. User names and long IDs are masked.
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
 
 ```json
 {
-  "thread": [
-    {
-      "conversation_id": "2107237881668313108",
-      "display_text": ".@grok what’s the most important thing that’s ever been discovered on the ISS?",
-      "id": "2107269640590070134",
-      "likes": 1,
-      "status": "active",
-      "text": "@NASA @Space_Station @SpaceX .@grok what’s the most important thing that’s ever been disc…",
-      "views": "795",
-      "author": {
-        "blue_verified": true,
-        "name": "SavingPrivateBryan",
-        "rest_id": "1865856717839339520",
-        "screen_name": "<user>"
+  "author": {
+    "blue_verified": true,
+    "description": null,
+    "image": "https://pbs.twimg.com/profile_images/1321163587679784960/0ZxKlEKB_normal.jpg",
+    "name": "NASA",
+    "rest_id": "11348282",
+    "screen_name": "NASA",
+    "sub_count": null
+  },
+  "bookmarks": 198,
+  "conversation_id": "2107237881668313108",
+  "created_at": "Mon Oct 05 22:33:56 +0000 2026",
+  "cursor": "DAAKCgABHWL0Vva__mMLAAIAAAGoRW1QQzZ3QUFBZlEvZ0dKTjB2R3AvQUFBQUNVZFFGTVBZWmF3bkIw…",
+  "display_text": "Time to bring them home 🌎\n\nAfter nearly eight months aboard the @Space_Station, …",
+  "entities": {
+    "media": [
+      {
+        "allow_download_status": {
+          "allow_download": true
+        },
+        "display_url": "pic.x.com/Vu7At4nnQ3",
+        "expanded_url": "https://x.com/NASA/status/2107237881668313108/photo/1",
+        "ext_alt_text": "Inside the International Space Station NASA’s SpaceX Crew-12 members gather for …",
+        "ext_media_availability": {
+          "status": "Available"
+        },
+        "features": {
+          "large": {
+            "faces": [
+              {
+                "h": 96,
+                "w": 96,
+                "x": 44,
+                "y": 238
+              }
+            ]
+          },
+          "medium": {
+            "faces": [
+              {
+                "h": 56,
+                "w": 56,
+                "x": 25,
+                "y": 139
+              }
+            ]
+          },
+          "orig": {
+            "faces": [
+              {
+                "h": 96,
+                "w": 96,
+                "x": 44,
+                "y": 238
+              }
+            ]
+          },
+          "small": {
+            "faces": [
+              {
+                "h": 31,
+                "w": 31,
+                "x": 14,
+                "y": 79
+              }
+            ]
+          }
+        },
+        "id_str": "2107237609105768448",
+        "indices": [
+          276
+        ],
+        "media_key": "3_2107237609105768448",
+        "media_results": {
+          "result": {
+            "media_key": "3_2107237609105768448"
+          }
+        },
+        "media_url_https": "https://pbs.twimg.com/media/HT5pcNwXwAAKdoM.jpg",
+        "original_info": {
+          "focus_rects": [
+            {
+              "h": 1147,
+              "w": 2048,
+              "x": 0,
+              "y": 0
+            }
+          ],
+          "height": 1365,
+          "width": 2048
+        }
       }
-    }
-  ]
+    ],
+    "user_mentions": [
+      {
+        "id_str": "1451773004",
+        "indices": [
+          64
+        ],
+        "name": "International Space Station",
+        "screen_name": "Space_Station"
+      }
+    ]
+  },
+  "id": "2107237881668313108",
+  "initial_tweets": null,
+  "lang": "en",
+  "likes": 7253,
+  "media": null
 }
 ```
 
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `thread[].text / thread[].display_text` | Reply content. `text` includes the leading @mentions and any `t.co` link. `display_text` is the same reply without the leading mentions. |
+| `thread[].id` | ID of the reply tweet. |
+| `thread[].created_at` | Time the reply was posted, in a string like `Mon Oct 05 22:42:28 +0000 2026`. |
+| `thread[].likes / thread[].retweets / thread[].quotes / thread[].replies / thread[].bookmarks` | Engagement counts for each reply. |
+| `thread[].views` | View count of the reply, returned as a string. |
+| `thread[].author.screen_name / thread[].author.name / thread[].author.rest_id` | Handle, display name and numeric user ID of the person who wrote the reply. |
+| `thread[].author.blue_verified` | Whether the reply author has a blue verified badge. |
+| `thread[].entities.user_mentions[]` | Accounts mentioned in the reply, with `screen_name`, `id_str` and the `indices` of the mention in `text`. |
+| `thread[].media` | Photos attached to the reply, with `media_url_https`. It is empty or `null` when the reply has no media. |
+| `cursor` | Paging token. Send it back as the `cursor` request parameter to load the next page. |
+| `id / text / likes / replies / views` | Details and engagement counts of the parent tweet whose replies are listed. `author` holds the parent tweet's author. |
+
 ### Notes
 
-- Requires `tweet_id` to identify the post.
-- Use `cursor` from the previous response to paginate through additional comments.
+- `tweet_id` is the numeric ID at the end of a tweet URL, such as `2107237881668313108`. Every reply's `conversation_id` equals this ID.
+- To page through replies, copy `cursor` from the response into the next request. Leave `cursor` out on the first call.
+- Use [Twitter Tweet Detail](/apis/twitter/web/tweet-detail) for the parent tweet alone, or [Twitter (X) Latest Tweet Comments](/apis/twitter/web/latest-post-comments) for a recent-replies view of the same tweet.
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

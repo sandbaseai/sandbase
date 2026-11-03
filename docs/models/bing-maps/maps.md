@@ -69,7 +69,14 @@ Same call via the path form: `POST /v1/api/bing-maps/maps` with the body above m
 
 ## Details
 
-Search Bing Maps listings around a map center, or look up one entity by id.
+Returns Bing Maps business listings for a search query near a map center. Each listing has an address, phone number, coordinates, and open state. You can also pass a `place_id` to look up one entity.
+
+### Use cases
+
+- Build a list of coffee shops, pharmacies, or other business types near a given latitude and longitude.
+- Collect phone numbers and addresses of local businesses for a lead list.
+- Plot search results on a map using the `gps_coordinates` of each listing.
+- Check which nearby businesses are open right now using `open_state` and `open_hours`.
 
 ### Request
 
@@ -80,7 +87,7 @@ curl -X POST "https://api.sandbase.ai/v1/api/bing-maps/maps" \
   -d '{"q": "coffee", "cp": "47.6062~-122.3321"}'
 ```
 
-This API runs asynchronously. The call returns a task `id` with status `pending`; poll `GET https://api.sandbase.ai/v1/run/{id}` until `status` is `completed` and read the result from `outputs[0].data`.
+The result is returned in `outputs[0].data`.
 
 ### Parameters
 
@@ -93,9 +100,73 @@ This API runs asynchronously. The call returns a task `id` with status `pending`
 | `q` | string | No | Search query. Required unless place_id is supplied. |
 | `setlang` | string | No | Interface language such as 'en-US'. |
 
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "local_results": [
+    {
+      "items": [
+        {
+          "address": "1912 Pike Pl, Seattle, WA 98101",
+          "entry_type": "Business",
+          "gps_coordinates": {
+            "latitude": 47.610069274902344,
+            "longitude": -122.34262084960938
+          },
+          "link": "https://www.bing.com/maps?q=Starbucks+Coffee+Company&filters=local_ypid%3A%22YNF…",
+          "open_hours": "Open until 8 PM",
+          "open_state": "Open",
+          "phone": "(206) 448-8762",
+          "place_id": "YNF9439D454244F274"
+        }
+      ],
+      "title": "coffee"
+    }
+  ],
+  "search_metadata": {
+    "created_at": "2026-11-03 07:28:13 UTC",
+    "id": "234da23691b61502af88f81d",
+    "processed_at": "2026-11-03 07:28:13 UTC",
+    "status": "Success",
+    "total_time_taken": 0.885
+  },
+  "search_parameters": {
+    "count": 30,
+    "cp": "47.6062~-122.3321",
+    "first": 0,
+    "q": "coffee"
+  }
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `local_results[].title` | The search term that the group of listings answers, such as `coffee`. |
+| `local_results[].items[].place_id` | The Bing Maps entity ID of the listing. Pass it as `place_id` to look up that entity. |
+| `local_results[].items[].address` | Street address of the listing as one text line. |
+| `local_results[].items[].entry_type` | Type of entry, such as `Business`. |
+| `local_results[].items[].gps_coordinates.latitude / local_results[].items[].gps_coordinates.longitude` | Decimal degree coordinates of the listing. |
+| `local_results[].items[].phone` | Phone number of the listing, formatted as text. |
+| `local_results[].items[].open_state / local_results[].items[].open_hours` | Whether the listing is open (`open_state`) and a short text on closing time (`open_hours`), such as `Open until 8 PM`. |
+| `local_results[].items[].link` | Bing Maps URL that opens the listing. |
+| `search_metadata.status` | Shows `Success` when the search finished. |
+| `search_parameters.count / search_parameters.first` | The page size and offset the search used, with defaults filled in. |
+
+### Notes
+
+- Send either `q` or `place_id`. A search uses `q` with `cp` as the map center in the form `latitude~longitude`, such as `47.6062~-122.3321`.
+- Page through results with `count` (1-30, default 30) and `first` (offset, 0-10,000).
+- Take `place_id` from `local_results[].items[].place_id` to run a detail lookup on one listing.
+- Timestamps in `search_metadata` use the format `2026-11-03 07:28:13 UTC`.
+
 ### Pricing
 
-Flat price per call. Failed calls are not charged.
+$0.00015 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ---
 Machine-readable: [`catalog/models/bing-maps/maps.json`](../../../catalog/models/bing-maps/maps.json) · Store page: https://www.sandbase.ai/model/bing-maps/maps

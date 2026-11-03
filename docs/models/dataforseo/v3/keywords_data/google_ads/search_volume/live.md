@@ -91,7 +91,7 @@ curl -X POST "https://api.sandbase.ai/v1/api/dataforseo/v3/keywords_data/google_
   -d '{"keywords": ["running shoes"], "location_code": 2840, "language_code": "en"}'
 ```
 
-The result is returned in `outputs[0].data`.
+The result is returned in `outputs[0]`.
 
 ### Parameters
 

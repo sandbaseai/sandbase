@@ -62,13 +62,13 @@ Same call via the path form: `POST /v1/api/tiktok/web/generate-webid` with the b
 
 ## Details
 
-Retrieve a valid `web_id` for TikTok web requests using optional session metadata like `url`, `user_agent`, and `app_id`.
+Returns a TikTok `web_id` string for use in web session handling, along with a `user_agent` string. All inputs are optional, and an empty request returns a value.
 
 ### Use cases
 
-- Obtain a web identifier for downstream TikTok web requests.
-- Configure simulated web sessions using custom `user_agent` and `referer` values.
-- Track distinct browser contexts by pairing with a `user_unique_id`.
+- Get a `web_id` to attach to TikTok web requests that need a session identifier.
+- Pass your own `user_agent` or `referer` to build a web session that matches the browser you simulate.
+- Pass a `user_unique_id` to tie the generated ID to one browser context in your own tooling.
 
 ### Request
 
@@ -79,33 +79,49 @@ curl -X POST "https://api.sandbase.ai/v1/api/tiktok/web/generate-webid" \
   -d '{}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
 |---|---|---|---|
-| `url` | string | No | — |
-| `app_id` | integer | No | — |
-| `referer` | string | No | — |
-| `user_agent` | string | No | — |
-| `user_unique_id` | string | No | — |
+| `app_id` | integer | No |  |
+| `referer` | string | No |  |
+| `url` | string | No |  |
+| `user_agent` | string | No |  |
+| `user_unique_id` | string | No |  |
 
 ### Example response
 
-Real response for the request above, trimmed to the main fields. User names and long IDs are masked.
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
 
 ```json
 {
-  "web_id": "7693533461642692109"
+  "e": 0,
+  "ssid": "un_support",
+  "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:145.0) Gecko/20100101 Firefox/1…",
+  "web_id": "7703847884642567693"
 }
 ```
 
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `web_id` | The generated TikTok web ID, returned as a string of digits. |
+| `user_agent` | The browser user agent string returned with the ID. Reuse it in later web requests so the session stays consistent. |
+| `ssid` | A session value. The sample returns `un_support`, so do not rely on it. |
+| `e` | A status code. The sample returns `0`. |
+
 ### Notes
 
-- All input parameters including `url`, `app_id`, and `user_agent` are optional.
+- All parameters are optional: `url`, `app_id`, `referer`, `user_agent` and `user_unique_id`. The sample request sent none of them.
+- Treat `web_id` as a string. It is a long number and can lose digits if you parse it as a number.
+- Pair this with [TikTok Web TTWID Identifier](/apis/tiktok/web/generate-ttwid) or [TikTok Real msToken](/apis/tiktok/web/generate-real-ms-token) when you need other session values.
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

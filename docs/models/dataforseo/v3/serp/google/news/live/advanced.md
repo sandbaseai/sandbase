@@ -60,13 +60,14 @@ Same call via the path form: `POST /v1/api/dataforseo/v3/serp/google/news/live/a
 
 ## Details
 
-Send a keyword with a location and language and get the live Google News results as structured JSON.
+Returns live Google News results for a keyword, location and language. Each result has its source domain, a text snippet, a publish time, an image URL and its rank. Send `keyword`, `location_code` and `language_code`.
 
 ### Use cases
 
-- Monitor news coverage of a brand or topic.
-- Track which publishers rank for a query.
-- Feed fresh news into AI summaries.
+- Track which news sites appear for a brand name or product term in a given country.
+- Collect recent news snippets about a topic to feed a summary or alert.
+- Compare the Google News results for the same keyword in different locations or languages.
+- Check how high a specific publisher ranks for a news query.
 
 ### Request
 
@@ -77,53 +78,104 @@ curl -X POST "https://api.sandbase.ai/v1/api/dataforseo/v3/serp/google/news/live
   -d '{"keyword": "running shoes", "location_code": 2840, "language_code": "en"}'
 ```
 
+The result is returned in `outputs[0]`.
+
 ### Parameters
 
-The body is passed through to DataForSEO. Common fields:
-
-| Name | Type | Description |
-|---|---|---|
-| `keyword` | string | Search query. |
-| `location_code` | integer | DataForSEO location code, e.g. 2840 for the United States. |
-| `language_code` | string | Language code, e.g. "en". |
-| `depth` | integer | Number of results to return. |
+| Name | Type | Required | Description |
+|---|---|---|---|
+| `depth` | string | No | Number of results to return. |
+| `keyword` | string | No | Search query. |
+| `language_code` | string | No | Language code, e.g. "en". |
+| `location_code` | integer | No | DataForSEO location code, e.g. 2840 for the United States. |
 
 ### Example response
 
-Real response for the request above, trimmed to the main fields. User names and long IDs are masked.
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
 
 ```json
 {
   "status_code": 20000,
+  "status_message": "Ok.",
   "tasks": [
     {
+      "data": {
+        "api": "serp",
+        "device": "desktop",
+        "function": "live",
+        "keyword": "running shoes",
+        "language_code": "en",
+        "location_code": 2840,
+        "os": "windows",
+        "se": "google"
+      },
+      "id": "11030829-1614-0139-0000-75eda89264ed",
+      "path": [
+        "v3"
+      ],
       "result": [
         {
-          "keyword": "openai",
-          "location_code": 2840,
-          "language_code": "en",
-          "items_count": 10,
+          "check_url": "https://www.google.com/search?q=running%20shoes&num=10&hl=en&gl=US&gws_rd=cr&tbm…",
+          "datetime": "2026-11-03 08:29:31 +00:00",
+          "includes_non_news_search_results": false,
+          "item_types": [
+            "news_search"
+          ],
           "items": [
             {
-              "type": "news_search",
+              "domain": "google.com",
+              "image_url": "https://api.dataforseo.com/cdn/i/11030829-1614-0139-0000-75eda89264ed:0",
+              "rank_absolute": 1,
               "rank_group": 1,
-              "domain": "newsletter.semianalysis.com",
-              "title": "Anthropic Subscriptions Offer 5x+ More Value Than OpenAI",
-              "url": "https://newsletter.semianalysis.com/p/anthropic-subscriptions-offer-5x",
-              "time_published": "15 hours ago",
-              "timestamp": "2026-10-05 19:49:37 +00:00"
+              "rectangle": null,
+              "snippet": "New Balance FuelCell Rebel Trail review: We think New Balance made a questionabl…",
+              "time_published": "17 hours ago",
+              "timestamp": "2026-11-02 15:29:29 +00:00"
             }
-          ]
+          ],
+          "items_count": 10,
+          "keyword": "running shoes",
+          "language_code": "en"
         }
-      ]
+      ],
+      "result_count": 1,
+      "status_code": 20000,
+      "status_message": "Ok.",
+      "time": "3.8170 sec."
     }
-  ]
+  ],
+  "tasks_count": 1,
+  "tasks_error": 0,
+  "time": "4.0184 sec.",
+  "version": "0.1.20261022"
 }
 ```
 
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `tasks[].result[].items[].domain` | Domain of the site that published the news result. |
+| `tasks[].result[].items[].snippet` | Short text excerpt shown for the news result. |
+| `tasks[].result[].items[].rank_group / rank_absolute` | Position of the result in the news list, starting at `1`. |
+| `tasks[].result[].items[].time_published` | Publish time as relative text, such as `17 hours ago`. |
+| `tasks[].result[].items[].timestamp` | Publish time as a date and time with a UTC offset, such as `2026-11-02 15:29:29 +00:00`. |
+| `tasks[].result[].items[].image_url` | URL of the thumbnail image for the result. |
+| `tasks[].result[].items_count` | Number of news items in the result. |
+| `tasks[].result[].check_url` | The Google News search URL for this query, location and language. |
+| `tasks[].result[].datetime` | Date and time of the result set, in UTC. |
+| `tasks[].data.keyword / location_code / language_code` | The query settings that were used for the search. |
+
+### Notes
+
+- Results sit in `tasks[].result[].items[]`. Check `status_code` (`20000` means `Ok.`) at the top level and inside each task.
+- Use `location_code` for the country or area, for example `2840` for the United States. Use `language_code` for the language, for example `en`.
+- Use `depth` to ask for more results. It is a string in the request schema.
+- `timestamp` uses the format `YYYY-MM-DD HH:MM:SS +00:00`, so you can sort results by date.
+
 ### Pricing
 
-Billed at the actual cost of each call, about $0.002 for the request above. The cost grows with the number of rows, targets or pages a call returns. `depth` sets how many result pages are fetched. Extra crawled pages, pixel rankings, async AI overview, People Also Ask clicks and search operators (site:, intitle: ...) are not supported. Failed calls are not charged. Searches with no results are billed at their actual cost.
+Billed at the actual cost of each call, about $0.002 for the request above. Failed calls are not charged.
 
 ### Related APIs
 

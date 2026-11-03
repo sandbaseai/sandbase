@@ -64,13 +64,14 @@ Same call via the path form: `POST /v1/api/youtube/web-v2/search-suggestions` wi
 
 ## Details
 
-Fetch search query autocomplete suggestions by providing a target `keyword`. You can optionally adjust localized results using `region` and `language`.
+Returns YouTube autocomplete suggestions for a search keyword. You send a `keyword` and can set `region` and `language` to localize the results.
 
 ### Use cases
 
-- Populate autocomplete recommendations in video search interfaces.
-- Analyze trending query variations and user search intent.
-- Optimize video tags and titles based on popular search prompts.
+- Fill a search box in your own app with the same suggestions YouTube shows for a partial or full query.
+- Find phrases people type after a brand or topic name, such as `OpenAI`, to plan video titles.
+- Compare suggestions for the same `keyword` across different `region` and `language` values to see how searches differ by market.
+- Build a keyword list for content research by running a seed term and collecting the returned phrases.
 
 ### Request
 
@@ -81,33 +82,47 @@ curl -X POST "https://api.sandbase.ai/v1/api/youtube/web-v2/search-suggestions" 
   -d '{"keyword": "OpenAI"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
 |---|---|---|---|
 | `keyword` | string | Yes | Search keyword (required) |
-| `region` | string | No | Region code (optional, default US) |
 | `language` | string | No | Language code (optional, default en) |
+| `region` | string | No | Region code (optional, default US) |
 
 ### Example response
 
-Real response for the request above, trimmed to the main fields. User names and long IDs are masked.
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
 
 ```json
 {
   "keyword": "OpenAI",
+  "suggestions": [
+    "openai"
+  ],
   "total_count": 14
 }
 ```
 
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `keyword` | The search term the suggestions were requested for. It matches the `keyword` you sent. |
+| `suggestions[]` | List of autocomplete phrases, as plain strings. The first item in the example is the keyword itself in lowercase, followed by longer phrases that start with it. |
+| `total_count` | Number of suggestions reported for the query. In the example it is `14`, while the list is trimmed to a few items. |
+
 ### Notes
 
-- The `region` parameter defaults to US if omitted.
-- The `language` parameter defaults to en if omitted.
+- `keyword` is required and can be up to 200 characters. `region` defaults to `US` and `language` defaults to `en`.
+- Suggestions are returned as plain text strings with no IDs or URLs. To get videos for a suggestion, pass it to [YouTube General Search (Web V2, V2)](/apis/youtube/web-v2/general-search-v2).
+- To find channels for a suggestion, use [YouTube Channel Search](/apis/youtube/web-v2/search-channels).
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

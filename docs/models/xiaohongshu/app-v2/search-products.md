@@ -71,13 +71,14 @@ Same call via the path form: `POST /v1/api/xiaohongshu/app-v2/search-products` w
 
 ## Details
 
-Search Xiaohongshu product listings by supplying a search query in `keyword`. Supports pagination across result pages using `page` and `search_id`.
+Returns Xiaohongshu (RED) product search results for a keyword. Each result is a goods card with an ID, images, a product type and an in-app link. The only required input is `keyword`.
 
 ### Use cases
 
-- Search for e-commerce items on Xiaohongshu using custom keywords.
-- Track product stock availability and listing titles across search feeds.
-- Collect product cards and IDs for market research and item discovery.
+- Collect product IDs that match a brand or topic keyword, such as `OpenAI`, for market research.
+- Build a product image list for a keyword from the card image URLs.
+- Page through all goods cards for a keyword to see which listings appear in Xiaohongshu search.
+- Feed goods IDs into a product detail lookup to get full listing data.
 
 ### Request
 
@@ -88,51 +89,140 @@ curl -X POST "https://api.sandbase.ai/v1/api/xiaohongshu/app-v2/search-products"
   -d '{"keyword": "OpenAI"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
 |---|---|---|---|
 | `keyword` | string | Yes | Search keyword |
 | `page` | integer | No | Page number, start from 1 |
-| `source` | string | No | Source, default "explore_feed" |
 | `search_id` | string | No | Search ID, pass value from first search response for pagination |
+| `source` | string | No | Source, default "explore_feed" |
 
 ### Example response
 
-Real response for the request above, trimmed to the main fields. User names and long IDs are masked.
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
 
 ```json
 {
+  "code": 0,
   "data": {
+    "biz_info": {
+      "common": {
+        "recommend_info": {
+          "extend_tag": 0,
+          "recommend_items": [],
+          "recommend_type": 0
+        },
+        "rewrite_word_info": {
+          "current_result_word": "",
+          "desc": "",
+          "new_result_word": "",
+          "rewrite_type": 0
+        }
+      }
+    },
+    "container": {
+      "template": [
+        {
+          "extra": {
+            "column": 2
+          },
+          "identityId": "cosmos_search_goods_card_single_span-dsl-1.0.0",
+          "name": "cosmos_search_goods_card_single_span",
+          "type": "dsl",
+          "url": "",
+          "version": "1.0.0"
+        }
+      ]
+    },
+    "hierarchy": {
+      "common": {
+        "layout": "slotY",
+        "load_more": true,
+        "pull_refresh": false,
+        "slot": 2
+      },
+      "structure": {
+        "root": [
+          "cosmos_search_goods_card_1"
+        ]
+      }
+    },
     "module": {
       "data": [
         {
           "card_name": "cosmos_search_goods_card",
           "card_type": "dsl",
-          "id": "cosmos_search_goods_card_1",
           "content": {
+            "display_lines": 0,
+            "exp_flag_map": {
+              "Genuine_Brand_Product": "0",
+              "brand_tag": "0",
+              "flag": "0",
+              "help_farmers": "1",
+              "help_farmers_price_prefix": "1",
+              "more_search_tag": "0",
+              "search_add_recommend_tag": "0",
+              "search_green_tag": "0"
+            },
             "goods_type": "normal",
-            "id": "69ca2e68fcd43f0001a0185d",
-            "link": "xhsdiscover://goods_detail/69ca2e68fcd43f0001a0185d?listing_image=https%3A%2F%2Fmall-i8.x…",
-            "stock_status": 1,
-            "title": "OpenAI PPT-以智能为笔，绘就未来图景"
-          }
+            "has_buyer_explain": false,
+            "id": "6a59958bd09fb60001ea5f84",
+            "image": [
+              {
+                "aspect_ratio": 1,
+                "height": 540,
+                "url": "https://mall-i8.xhscdn.com/arkgoods/1040g0o0322n5l2ie74005oqsg6fm41bf139pt6g?ima…",
+                "width": 540
+              }
+            ],
+            "link": "xhsdiscover://goods_detail/6a59958bd09fb60001ea5f84?listing_image=https%3A%2F%2F…",
+            "preload": "{\"type\":\"vision\",\"goods_detail_type\":null,\"original\":null,\"vision\":{\"ver\":\"1.0\",…"
+          },
+          "id": "cosmos_search_goods_card_1",
+          "version": "1.0.0"
         }
       ]
-    }
-  }
+    },
+    "ver": "1.0"
+  },
+  "debug_id": "8f02e548",
+  "debug_info": "gAAAAABq6ZFsfRsCe9v0VGe69_flRCKq5veSf0YtxlWyUNUG69JxE2Om-5CeYLOAerCqMOXTIWc29dE0…",
+  "msg": "成功",
+  "next_page": 2,
+  "page": 1,
+  "search_id": "3e753135d96b4bf9",
+  "success": true
 }
 ```
 
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `data.module.data[].content.id` | Goods ID of the product in this card. Use it to look up the product in other APIs. |
+| `data.module.data[].content.goods_type` | Type of the goods listing, for example `normal`. |
+| `data.module.data[].content.image[].url` | Product image URL. Sibling fields `width`, `height` and `aspect_ratio` give the image size. |
+| `data.module.data[].content.link` | In-app deeplink to the goods detail page, in the `xhsdiscover://goods_detail/<id>` format. |
+| `data.module.data[].content.has_buyer_explain` | Boolean flag for whether the card has a buyer explanation. |
+| `data.module.data[].content.exp_flag_map` | Map of string flags attached to the card, such as `brand_tag` and `help_farmers`. Values are `"0"` or `"1"`. |
+| `data.module.data[].id` | Card position ID in the result list, for example `cosmos_search_goods_card_1`. |
+| `data.hierarchy.common.load_more` | Shows whether more results can be loaded. |
+| `next_page / page` | The next page number and the current page number. |
+| `search_id` | ID of this search. Pass it back to get later pages. |
+
 ### Notes
 
-- `page` starts from 1 for paginated queries.
-- Pass `search_id` from the initial search response to navigate subsequent pages.
-- `source` defaults to "explore_feed".
+- Pagination: take `search_id` from the first response and send it with `page` set to the `next_page` value.
+- `page` starts at 1.
+- The goods ID is the segment after `goods_detail/` in `content.link`. It matches `content.id`.
+- To get full details for a result, call [Xiaohongshu (RED) Product Detail](/apis/xiaohongshu/app-v2/product-detail) with its goods ID.
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.01 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

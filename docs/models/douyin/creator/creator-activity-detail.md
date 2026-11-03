@@ -62,13 +62,14 @@ Same call via the path form: `POST /v1/api/douyin/creator/creator-activity-detai
 
 ## Details
 
-Look up comprehensive creator activity information by specifying an `activity_id`.
+This API returns the details of one Douyin creator activity, such as its name, status, topic tags, run dates and reward rules. It needs one input, the `activity_id` of the activity.
 
 ### Use cases
 
-- Review specific Douyin creator campaign information.
-- Inspect requirements and guidelines for creator activities.
-- Display activity details within creator management dashboards.
+- Show the name, cover image and run dates of a Douyin creator campaign in a creator dashboard.
+- Read the required topic tag and participation steps before posting a video for an activity.
+- Check whether an activity is still open by comparing `publish_start_time` and `publish_end_time` with today's date.
+- Collect the topic names and topic IDs tied to an activity so you can track videos posted under them.
 
 ### Request
 
@@ -79,19 +80,78 @@ curl -X POST "https://api.sandbase.ai/v1/api/douyin/creator/creator-activity-det
   -d '{"activity_id": "7545335931785450534"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
 |---|---|---|---|
 | `activity_id` | string | Yes | Activity ID (obtained from activity list interface) |
 
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "activity_description": "点击查看活动主页，发布视频带话题 #超能下蛋鸭，挂载《超能下蛋鸭》抖音小游戏摇杆，即可成功参与活动。",
+  "activity_info": {
+    "activity_id": "7545335931785450534",
+    "activity_level": 3,
+    "activity_name": "超能下蛋鸭视频激励活动",
+    "activity_status": 2,
+    "activity_type": 1,
+    "challenge": null,
+    "challenge_ids": [
+      7507489617000532000
+    ],
+    "collect_id": 2522,
+    "collect_status": false,
+    "cover_image": "https://lf-gaia-dy.douyinstatic.com/obj/gaia-dy/1708322328af3a8a9d54f9ce683d1e1d…",
+    "game_id": "",
+    "hot_score": 1125
+  },
+  "demo_videos": null,
+  "my_publish_videos": null,
+  "other_publish_videos": null,
+  "publish_end_time": "2025.10.14",
+  "publish_start_time": "2025.09.02",
+  "reward_rules": "{\"text\":\"按投稿贡献排名，奖励详情请点击参与查看。\",\"anchorText\":\"\",\"anchorUri\":\"\"}",
+  "status_code": 0,
+  "topics": [
+    "超能下蛋鸭"
+  ],
+  "topics_ids": [
+    "7507489617000532018"
+  ]
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `activity_info.activity_name` | Name of the activity. |
+| `activity_info.activity_id` | ID of the activity. It matches the `activity_id` you sent. |
+| `activity_description` | Text that explains how to join the activity, including the topic tag and the item to attach to the video. |
+| `activity_info.activity_status / activity_info.activity_type / activity_info.activity_level / activity_info.reward_type` | Numeric codes for the status, type, level and reward type of the activity. The response does not include a label for each code. |
+| `publish_start_time / publish_end_time` | First and last day of the activity period, in `YYYY.MM.DD` format. |
+| `activity_info.show_start_time / activity_info.show_end_time` | Dates between which the activity is shown, in `YYYY.MM.DD` format. |
+| `reward_rules` | A JSON string. Its `text` key holds the reward rule in plain text. Parse the string before you read it. |
+| `topics[] / topics_ids[]` | Names and IDs of the topics linked to the activity. Both lists are in the same order. |
+| `activity_info.hot_score` | Numeric score for the activity's popularity. |
+| `activity_info.cover_image` | URL of the activity cover image. |
+
 ### Notes
 
-- Retrieve the required `activity_id` from the creator activity list interface.
+- Get `activity_id` from [Douyin Activity List](/apis/douyin/creator/creator-activity-list).
+- `activity_info.challenge_ids[]` holds large numbers, while `topics_ids[]` holds IDs as strings. Treat IDs as strings to avoid rounding.
+- `demo_videos`, `my_publish_videos` and `other_publish_videos` came back as `null` for this activity.
+- `status_code` is `0` in the sample response.
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

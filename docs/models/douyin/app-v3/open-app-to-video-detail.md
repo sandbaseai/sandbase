@@ -62,13 +62,13 @@ Same call via the path form: `POST /v1/api/douyin/app-v3/open-app-to-video-detai
 
 ## Details
 
-Generate a direct Douyin application jump link by supplying `aweme_id`.
+Returns a Douyin short share URL for a video. The link opens the Douyin mobile app on that video's detail screen. You send the video ID as `aweme_id`.
 
 ### Use cases
 
-- Direct mobile users straight to a specific Douyin clip inside the app.
-- Produce short share links for external marketing campaigns.
-- Facilitate seamless deep linking from web pages to Douyin video details.
+- Send mobile users straight to one Douyin video inside the app from a web page or message.
+- Build a short share link for a specific Douyin video to put in a campaign or post.
+- Store a tap-to-open link next to each video ID in your own database.
 
 ### Request
 
@@ -79,6 +79,8 @@ curl -X POST "https://api.sandbase.ai/v1/api/douyin/app-v3/open-app-to-video-det
   -d '{"aweme_id": "7197598285882789120"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
@@ -87,23 +89,34 @@ curl -X POST "https://api.sandbase.ai/v1/api/douyin/app-v3/open-app-to-video-det
 
 ### Example response
 
-Real response for the request above, trimmed to the main fields. User names and long IDs are masked.
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
 
 ```json
 {
   "aweme_id": "7197598285882789120",
-  "short_url": "https://v.douyin.com/Zk1puu-EI8A/",
+  "short_url": "https://v.douyin.com/leMEOXh1Mec/",
   "status": "success"
 }
 ```
 
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `aweme_id` | The video ID you sent. It echoes the input so you can match the result to your request. |
+| `short_url` | The short Douyin share link for the video. It has the form `https://v.douyin.com/<code>/`. |
+| `status` | Result of the call. The value is `success` when the link was created. |
+
 ### Notes
 
-- Requires a valid `aweme_id` representing the target video.
+- `aweme_id` is the numeric Douyin video ID, for example `7197598285882789120`. Pass it as a string.
+- The same `aweme_id` can return a different `short_url` code on different calls.
+- To get video details such as description or stats, call [Douyin Single Video Details](/apis/douyin/app-v3/one-video) or [Douyin Video Statistics](/apis/douyin/app-v3/video-statistics).
+- To get a QR code for sharing a video, use [Douyin Video Share QR Code](/apis/douyin/app-v3/generate-video-share-qrcode).
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

@@ -62,13 +62,14 @@ Same call via the path form: `POST /v1/api/tiktok/web/encrypt-str-data` with the
 
 ## Details
 
-Encrypt raw fingerprint data for TikTok web interactions. Pass the stringified JSON payload in the `data` parameter to receive the encrypted result.
+This API encrypts a raw fingerprint string for TikTok web requests. It needs one input, `data`, which is a JSON fingerprint payload converted to a string. It returns the encrypted string and its length.
 
 ### Use cases
 
-- Encrypting client fingerprint payloads for TikTok web automation.
-- Preparing formatted request parameters for web endpoint calls.
-- Generating encrypted device or browser string data.
+- Encrypt a browser fingerprint payload before you send it in a TikTok web request.
+- Build the encrypted `StrData` value for a device registration call.
+- Check the encrypted output of a fingerprint you made with the fingerprint generator.
+- Script repeatable TikTok web request flows that need an encrypted string parameter.
 
 ### Request
 
@@ -79,19 +80,42 @@ curl -X POST "https://api.sandbase.ai/v1/api/tiktok/web/encrypt-str-data" \
   -d '{"data": "7218694761253735723"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
 |---|---|---|---|
 | `data` | string | Yes | Raw fingerprint data string (please convert JSON format to string before requesting) |
 
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "encrypted": "3k6yTlt/uIlvc2Z8k7tNo1LbfxcqSpploVv0153cLn4MP1c7816ZeE9VkzuszWHfLjZn/xtBgiNrF8jx…",
+  "length": 96
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `encrypted` | The encrypted version of the string you sent in `data`. It looks like a Base64-style text value that ends in `==`. |
+| `length` | The character count of the `encrypted` string. In the sample response it is `96`. |
+
 ### Notes
 
-- Convert JSON format to a string before passing it into `data`.
+- Convert your JSON fingerprint to a string before you pass it in `data`. The API takes one string, not a nested object.
+- To get a fingerprint payload to encrypt, call [TikTok Web Browser Fingerprint](/apis/tiktok/web/generate-fingerprint).
+- To turn an encrypted string back into readable data, call [TikTok Web String Data Decryption](/apis/tiktok/web/decrypt-str-data).
+- Use the encrypted value in [TikTok Web Device Registration](/apis/tiktok/web/device-register) if that call needs it.
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

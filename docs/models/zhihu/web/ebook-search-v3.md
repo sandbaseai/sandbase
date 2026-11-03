@@ -65,13 +65,14 @@ Same call via the path form: `POST /v1/api/zhihu/web/ebook-search-v3` with the b
 
 ## Details
 
-Search for ebooks and publications on Zhihu using `keyword`. Results support pagination using `limit` and `offset` parameters.
+Searches Zhihu for ebooks that match a keyword. Each result gives the title, authors, description, cover image, publish time and the `commodity_id` of the ebook. It needs one input, `keyword`.
 
 ### Use cases
 
-- Search for digital books and publications on Zhihu by keyword.
-- Retrieve Zhihu ebook commodity IDs and SKU IDs for catalog indexing.
-- Collect direct links to Zhihu ebook store pages.
+- Build a list of Zhihu ebooks on a topic such as OpenAI, with titles, authors and cover images.
+- Collect `commodity_id` values to index ebooks in a catalog.
+- Track publication dates of ebooks about a subject over time.
+- Page through all matches for a keyword to compare how many ebooks cover it.
 
 ### Request
 
@@ -81,6 +82,8 @@ curl -X POST "https://api.sandbase.ai/v1/api/zhihu/web/ebook-search-v3" \
   -H "Content-Type: application/json" \
   -d '{"keyword": "OpenAI"}'
 ```
+
+The result is returned in `outputs[0].data`.
 
 ### Parameters
 
@@ -93,35 +96,104 @@ curl -X POST "https://api.sandbase.ai/v1/api/zhihu/web/ebook-search-v3" \
 
 ### Example response
 
-Real response for the request above, trimmed to the main fields. User names and long IDs are masked.
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
 
 ```json
 {
+  "ab_params": "dm_a1_abc=0;sb_nvip_ecpm=1;sb_zhiedu=1;sb_vip_tag=1;dm_ai_search_safe=1;dm_AI_ho…",
   "data": [
     {
+      "highlight": {},
+      "hit_labels": null,
       "id": 674492,
-      "type": "knowledge_ad",
+      "index": 0,
       "object": {
+        "ab_id_list": [
+          "dm_a1_abc=0"
+        ],
+        "attached_info_bytes": "OrwECgtwbGFjZWhvbGRlchIgMDEzMWY4YmEzYjM5MGQyNGQxNGQzMDhhZGZlZGEzZTcYDyIGNjc0NDky…",
+        "body": {
+          "authors": [
+            {
+              "bio": "",
+              "icon": "",
+              "name": "雷韦春",
+              "url_token": ""
+            }
+          ],
+          "description": "<em>OpenAI</em> API 是一个为开发者、企业和研究者打造的平台。通过这个 API，用户可以轻松地融合和应用最前沿的 AI 技术",
+          "images": [
+            "https://picx.zhimg.com/v2-f22e1778a7fab84b1a2b9278761879ef.jpg?source=31184dd1"
+          ],
+          "play_icon": "",
+          "publish_at": 1727417136,
+          "show_author": "",
+          "show_image": "",
+          "title": "<em>OpenAI</em> API 接口应用实战"
+        },
+        "card_type": "",
+        "card_version": "1",
         "commodity_id": "120480981",
         "commodity_type": "publication",
-        "sku_id": "1821568022831316992",
-        "slave_url": "https://www.zhihu.com/kvip/sku/ebook/120480981",
-        "tab_type": "publication",
-        "url": "https://www.zhihu.com/kvip/sku/ebook/120480981"
-      }
+        "footer": ""
+      },
+      "type": "knowledge_ad"
     }
-  ]
+  ],
+  "domain_info": {
+    "first_category": ""
+  },
+  "filter_items": null,
+  "hit_labels": null,
+  "is_brand_word": false,
+  "is_koc_words": false,
+  "item_in_view": [
+    {
+      "index": 5,
+      "token": "b62a7302…",
+      "type": "user_survey"
+    }
+  ],
+  "paging": {
+    "is_end": false,
+    "next": "https://api.zhihu.com/search_v3?advert_count=0&correction=1&filter_fields=%7B%27…"
+  },
+  "pendant": null,
+  "related_search_result": [],
+  "search_action_info": {
+    "attached_info_bytes": "OqQBEiAwMTMxZjhiYTNiMzkwZDI0ZDE0ZDMwOGFkZmVkYTNlN0oGb3BlbmFpUABYB2ABagZPcGVuQUlw…",
+    "isfeed": false,
+    "lc_idx": 9,
+    "search_hash_id": "0131f8ba3b390d24d14d308adfeda3e7"
+  }
 }
 ```
 
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `data[].object.commodity_id` | ID of the ebook as a string. Use it to identify the ebook across calls. |
+| `data[].object.commodity_type` | Kind of item. Here the value is `publication`. |
+| `data[].object.body.title` | Ebook title. Matched search terms are wrapped in `<em>` tags. |
+| `data[].object.body.authors[].name` | Name of each author. Books with several authors return several rows. |
+| `data[].object.body.description` | Short description of the ebook. It is cut off for long texts and may contain `<em>` tags around matched terms. |
+| `data[].object.body.images[]` | Cover image URLs for the ebook. |
+| `data[].object.body.publish_at` | Publish time as a Unix timestamp in seconds. |
+| `data[].index / data[].id` | Position of the result in the list, and a numeric ID for the result row. |
+| `paging.is_end / paging.next` | `is_end` is `false` when more results exist. `next` holds the URL for the next page. |
+| `search_action_info.search_hash_id` | Hash ID for this search. Send it back as `search_hash_id` on later pages. |
+
 ### Notes
 
-- Control pagination using the `limit` and `offset` query parameters.
-- An optional `search_hash_id` can be supplied to track search sessions.
+- Use `limit` for page size and `offset` to move through results. Both are sent as strings.
+- Pass the `search_hash_id` from `search_action_info` in follow-up page requests for the same keyword.
+- Strip the `<em>` tags from `title` and `description` before showing them as plain text.
+- To find other Zhihu content on the same keyword, try [Zhihu Article Search](/apis/zhihu/web/article-search-v3) or [Zhihu Video Search (V3)](/apis/zhihu/web/video-search-v3).
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

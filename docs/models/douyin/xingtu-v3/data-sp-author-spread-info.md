@@ -66,9 +66,14 @@ Same call via the path form: `POST /v1/api/douyin/xingtu-v3/data-sp-author-sprea
 
 ## Details
 
-Get Douyin Creator Marketplace (Xingtu) spread metrics for a creator, with channel, period, video-type, assignment, and flow filters. Use it to compare creator spread performance during campaign planning.
+This API returns spread metrics for one creator on Douyin Creator Marketplace (Xingtu), such as median plays, average likes, comments and shares, and interaction rate. It needs the creator's `oAuthorId`. You can also filter by platform type, time range, video type, assigned-only videos, and flow type.
 
-The response is the platform's original data structure.
+### Use cases
+
+- Compare median play counts of several creators before choosing who to book for a campaign.
+- Check a creator's average likes, comments and shares to estimate how much engagement their videos get.
+- Compare `DAY_30` and `DAY_90` results to see whether a creator's spread is steady over time.
+- Compare `PERSONAL_VIDEO` and `XINTU_VIDEO` results to see how a creator's own videos differ from Xingtu order videos.
 
 ### Request
 
@@ -79,20 +84,84 @@ curl -X POST "https://api.sandbase.ai/v1/api/douyin/xingtu-v3/data-sp-author-spr
   -d '{"oAuthorId": "6870161898013196295"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
 |---|---|---|---|
 | `oAuthorId` | string | Yes | Author's unique ID. |
+| `flowType` | string | No | Flow type filter. |
+| `onlyAssign` | boolean | No | Whether to only include assigned videos. |
 | `platform` | string | No | Platform type. |
 | `range` | string | No | Time range. |
 | `type` | string | No | Video type. |
-| `onlyAssign` | boolean | No | Whether to only include assigned videos. |
-| `flowType` | string | No | Flow type filter. |
+
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "avg_duration": "9700",
+  "base_resp": {
+    "status_code": 0,
+    "status_message": ""
+  },
+  "comment_avg": "25722",
+  "expect_cpe": {},
+  "expect_cpm": {},
+  "interact_rate": {
+    "overtake": 8248,
+    "value": 248
+  },
+  "item_num": "420",
+  "item_rate": {
+    "interact_rate": {},
+    "item_num": {
+      "label": "",
+      "value": 420
+    },
+    "play_mid": {
+      "label": "",
+      "overtake": 9996,
+      "value": 16933169
+    }
+  },
+  "like_avg": "516411",
+  "play_mid": "16933169",
+  "play_over_rate": {
+    "overtake": 7112,
+    "value": 2316
+  },
+  "play_stability": {}
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `play_mid` | Median play count of the creator's videos in the selected range. It is returned as a string. |
+| `like_avg / comment_avg / share_avg` | Average likes, comments and shares per video. Each value is returned as a string. |
+| `item_num` | Number of videos counted in the selected range. It is returned as a string. |
+| `avg_duration` | Average video duration. The response does not show the unit. |
+| `interact_rate.value` | The creator's interaction rate value. |
+| `interact_rate.overtake` | Overtake value that goes with the interaction rate. The response does not show how it is scaled. |
+| `play_over_rate.value / play_over_rate.overtake` | Play completion style metric and its overtake value. Both are raw numbers, so the scale is not shown. |
+| `item_rate.play_mid.value / item_rate.play_mid.overtake` | Median plays and its overtake value, grouped under `item_rate`. |
+| `item_rate.item_num.value` | Video count as a number, grouped under `item_rate`. |
+| `base_resp.status_code` | Status of the call. `0` means the request succeeded. |
+
+### Notes
+
+- Only `oAuthorId` is required. Other parameters default to `platform` `SHORT_VIDEO`, `range` `DAY_30`, `type` `PERSONAL_VIDEO`, `onlyAssign` `false`, and `flowType` `EXCLUDE`.
+- Several objects can come back empty, such as `expect_cpe`, `expect_cpm`, `play_stability`, and `sales_expect_cpm`. Check for empty objects before reading them.
+- Use [Douyin Xingtu Creator Search](/apis/douyin/xingtu-v3/gsearch-search-for-author-square) to find creators, and [Douyin Xingtu Creator Profile](/apis/douyin/xingtu-v3/author-author-base-info) for profile details.
 
 ### Pricing
 
-Flat price per call. Failed calls and empty results are not charged.
+$0.071429 per successful call. Failed calls are not charged.
 
 ---
 Machine-readable: [`catalog/models/douyin/xingtu-v3/data-sp-author-spread-info.json`](../../../../catalog/models/douyin/xingtu-v3/data-sp-author-spread-info.json) · Store page: https://www.sandbase.ai/model/douyin/xingtu-v3/data-sp-author-spread-info

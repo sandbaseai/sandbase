@@ -78,9 +78,14 @@ Same call via the path form: `POST /v1/api/similarweb/search-landing-pages` with
 
 ## Details
 
-Get the landing pages that receive a website's search traffic, with clicks, keyword counts and desktop/mobile split.
+Returns the landing pages that receive search traffic for a website on Similarweb. Each row has estimated clicks, keyword count, traffic share and desktop/mobile split. You send a `domain`, a `start_date`, an `end_date` and a `limit`.
 
-The response is the official Similarweb API response, unchanged.
+### Use cases
+
+- Find which pages on a news site bring in the most organic search clicks.
+- Compare how much search traffic goes to the home page versus deeper article pages.
+- Check the desktop and mobile split of search visits for a competitor's top pages.
+- Spot pages that rank for many keywords to plan content updates.
 
 ### Request
 
@@ -91,24 +96,92 @@ curl -X POST "https://api.sandbase.ai/v1/api/similarweb/search-landing-pages" \
   -d '{"start_date": "2026-09", "end_date": "2026-09", "country": "ww", "domain": "cnn.com", "limit": 1}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
 |---|---|---|---|
-| `country` | string | No | Worldwide data only; values are case-insensitive. |
 | `domain` | string | Yes | domain |
 | `end_date` | string | Yes | end_date |
-| `granularity` | string | No | granularity |
 | `limit` | integer | Yes | limit |
+| `start_date` | string | Yes | start_date |
+| `country` | string | No | Worldwide data only; values are case-insensitive. |
+| `granularity` | string | No | granularity |
 | `main_domain_only` | boolean | No | main_domain_only |
 | `offset` | integer | No | offset |
-| `start_date` | string | Yes | start_date |
 | `traffic_source` | string | No | traffic_source |
 | `web_source` | string | No | web_source |
 
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "data": [
+    {
+      "ads": null,
+      "clicks": 5016867.363643058,
+      "desktop_share": 0.5662671565382268,
+      "keywords": 1603,
+      "mobile_share": 0.43373284346177327,
+      "serp_features": [
+        "organic"
+      ],
+      "spend": null,
+      "top_keyword": "cnn",
+      "traffic_share": 0.16950791592879255,
+      "url": "cnn.com"
+    }
+  ],
+  "meta": {
+    "last_updated": "2026-09-30",
+    "query": {
+      "asc": null,
+      "limit": 1,
+      "offset": 0,
+      "sort": null
+    },
+    "request": {
+      "country": "ww",
+      "domain": "cnn.com",
+      "end_date": "2026-09-30",
+      "format": "json",
+      "granularity": "monthly",
+      "start_date": "2026-09-01",
+      "traffic_source": "organic",
+      "web_source": "total"
+    },
+    "status": "success"
+  }
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `data[].url` | The landing page URL. A value like `cnn.com` means the domain's home page. |
+| `data[].clicks` | Estimated search clicks to this page in the selected period. |
+| `data[].keywords` | Number of keywords that send search traffic to this page. |
+| `data[].top_keyword` | The keyword that sends the most search traffic to this page. |
+| `data[].traffic_share` | Share of the domain's search traffic that goes to this page, as a fraction of 1. |
+| `data[].desktop_share / data[].mobile_share` | Share of the page's clicks from desktop and from mobile web. The two values add up to 1. |
+| `data[].serp_features` | List of search result types the page appears in, such as `organic` and `organic_sitelinks`. |
+| `data[].ads / data[].spend` | Ad and spend values for the page. Both are `null` in this response. |
+| `meta.request.traffic_source / meta.request.web_source` | The traffic source and device filter the call used. This response shows `organic` and `total`. |
+
+### Notes
+
+- Send dates as `YYYY-MM`. The response echoes them as full dates, such as `2026-09-01` and `2026-09-30`.
+- Use `limit` (1 to 20) and `offset` to page through the landing pages of a domain.
+- Set `web_source` to `desktop`, `mobile_web` or `total` to choose the device filter.
+- To see the keywords behind a domain's search traffic, call [Similarweb Website Keywords](/apis/similarweb/search-website-keywords).
+
 ### Pricing
 
-$0.075 per Similarweb credit; 0.1 credit per returned row, rounded up to whole credits. Failed calls are not charged.
+Billed at the actual cost of each call, about $0.15 for the request above. Failed calls are not charged.
 
 ---
 Machine-readable: [`catalog/models/similarweb/search-landing-pages.json`](../../../catalog/models/similarweb/search-landing-pages.json) · Store page: https://www.sandbase.ai/model/similarweb/search-landing-pages

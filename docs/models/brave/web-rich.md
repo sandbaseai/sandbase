@@ -62,9 +62,13 @@ Same call via the path form: `POST /v1/api/brave/web-rich` with the body above m
 
 ## Details
 
-Rich Search from Brave. Returns the official Brave API response unchanged.
+Returns the rich result data for a Brave web search. You pass a `callback_key` and get back a `type` and a `results` list.
 
-The response is the official Brave API response, unchanged.
+### Use cases
+
+- Fetch the rich result block (such as weather or other enhanced answers) that Brave flags in a web search response.
+- Complete a two-step search flow by resolving the rich header from a web search into its full data.
+- Check whether a given search produced any rich data by testing if `results` is empty.
 
 ### Request
 
@@ -75,15 +79,41 @@ curl -X POST "https://api.sandbase.ai/v1/api/brave/web-rich" \
   -d '{"callback_key": "9a186935547145e29271648369eeec01"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
 |---|---|---|---|
 | `callback_key` | string | Yes | The callback key to use for the rich header |
 
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "results": [],
+  "type": "rich"
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `type` | Response type. The value is `rich` for this API. |
+| `results` | List of rich result items for the callback key. It is an empty list when Brave has no rich data for the key. |
+
+### Notes
+
+- Get `callback_key` from the rich header in the response of [Brave Web Search](/apis/brave/web). Send that value unchanged.
+- The sample response has an empty `results` list, so a key can return no rich data.
+- For other result types, see [Brave News Search](/apis/brave/news) or [Brave Image Search](/apis/brave/images).
+
 ### Pricing
 
-Flat price per call. Failed calls are not charged.
+$0.005 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ---
 Machine-readable: [`catalog/models/brave/web-rich.json`](../../../catalog/models/brave/web-rich.json) · Store page: https://www.sandbase.ai/model/brave/web-rich

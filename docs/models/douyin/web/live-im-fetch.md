@@ -65,13 +65,14 @@ Same call via the path form: `POST /v1/api/douyin/web/live-im-fetch` with the bo
 
 ## Details
 
-Retrieve danmaku and chat parameters for Douyin broadcasts using `room_id` and `user_unique_id`. This endpoint provides connection parameters for broadcast chat streams.
+Returns a batch of chat messages for a Douyin live room, plus cursor values in the `extra` object. It needs the `room_id` of the broadcast and a `user_unique_id`.
 
 ### Use cases
 
-- Collect chat and danmaku feeds during Douyin broadcasts.
-- Analyze viewer interactions and audience comments in real time.
-- Monitor engagement metrics for specific broadcast rooms.
+- Store the system and chat messages of a Douyin live room as they arrive.
+- Use the `common.method` value of each message to separate room notices from other message types.
+- Save the `extra.cursor` value from each call to track where a room's message stream stood.
+- Use `common.create_time` to build a timeline of a broadcast.
 
 ### Request
 
@@ -82,6 +83,8 @@ curl -X POST "https://api.sandbase.ai/v1/api/douyin/web/live-im-fetch" \
   -d '{"room_id": "7382517534467115826", "user_unique_id": "7382524529011246630"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
@@ -89,14 +92,60 @@ curl -X POST "https://api.sandbase.ai/v1/api/douyin/web/live-im-fetch" \
 | `room_id` | string | Yes | Live room id |
 | `user_unique_id` | string | Yes | User unique ID |
 
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "data": [
+    {
+      "common": {
+        "create_time": 1793691147063,
+        "is_show_msg": true,
+        "method": "WebcastRoomMessage",
+        "msg_id": 7703844818881794276,
+        "play_time": 0,
+        "room_id": 7382517534467115826
+      },
+      "content": "欢迎来到直播间！抖音严禁未成年人直播或礼物消费。严禁违法违规、低俗色情、吸烟酗酒、人身伤害等直播内容。理性消费，如主播在直播中以不当方式诱导消费，请谨慎辨别。切…"
+    }
+  ],
+  "extra": {
+    "cursor": "r-1_d-1_u-1_h-1_t-1793691147079",
+    "fetch_interval": 1000,
+    "live_cursor": "u-1_d-1",
+    "now": 1793691147079
+  },
+  "internal_ext": "internal_src:dim|wss_push_room_id:7382517534467115826|wss_push_did:7571816300415…",
+  "status_code": 0
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `data[].common.method` | Message type name. The sample value is `WebcastRoomMessage`, a room notice. |
+| `data[].common.msg_id` | Numeric ID of the message. |
+| `data[].common.room_id` | ID of the live room the message belongs to. |
+| `data[].common.create_time` | Time the message was created, as a 13-digit number that looks like a millisecond Unix timestamp. |
+| `data[].common.is_show_msg` | Whether the message is meant to be shown in the chat. The sample value is `true`. |
+| `data[].content` | Text of the message. In the sample it is the welcome and safety notice for the room, in Chinese. |
+| `extra.cursor` | Cursor string for this batch. It ends with a `t-` value that matches `extra.now`. |
+| `extra.live_cursor` | A second, shorter cursor string, `u-1_d-1` in the sample. |
+| `extra.fetch_interval` | Fetch interval value. The sample value is `1000`. |
+| `extra.now` | Time of the response as a 13-digit number that looks like a millisecond timestamp. |
+
 ### Notes
 
-- Requires a valid `room_id` representing the broadcast room.
-- Requires `user_unique_id` to establish the chat stream connection.
+- `room_id` is a numeric ID such as `7382517534467115826`. To get it from a webcast ID, call [Douyin Webcast ID to Room ID](/apis/douyin/web/webcast-id-2-room-id).
+- `status_code` is `0` in the sample response.
+- `internal_ext` is a pipe-separated text string. In the sample it repeats the room ID and the fetch time.
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

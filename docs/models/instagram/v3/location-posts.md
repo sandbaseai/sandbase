@@ -66,13 +66,14 @@ Same call via the path form: `POST /v1/api/instagram/v3/location-posts` with the
 
 ## Details
 
-Retrieve posts tagged with a specific place by passing a numeric `location_id`. Sort results by top or latest media using `tab`.
+Returns Instagram posts tagged at one location. It needs a numeric `location_id` and returns caption, like and comment counts, media type and owner details for each post. You can pick the `ranked` or `recent` tab and page through results.
 
 ### Use cases
 
-- Track recent user activity and photos tagged at a venue
-- Monitor top-performing posts tied to a geographical location
-- Analyze location-based social content for places of interest
+- Collect public posts tagged at a restaurant, clinic or shop to see what people post about it.
+- Find the accounts that post most often at a venue by reading `owner.username` across pages.
+- Compare `ranked` and `recent` posts for a place to see which content gets the most likes.
+- Pull captions and hashtags from a local area to study how businesses and visitors describe a place.
 
 ### Request
 
@@ -83,25 +84,107 @@ curl -X POST "https://api.sandbase.ai/v1/api/instagram/v3/location-posts" \
   -d '{"location_id": "1016248898"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
 |---|---|---|---|
 | `location_id` | string | Yes | Location ID (numeric) |
-| `tab` | string | No | Post sort order |
 | `after` | string | No | Pagination cursor from previous response `page_info.end_cursor` |
 | `first` | integer | No | Posts per page (default 12, max 50) |
 | `page_size_override` | integer | No | Posts per page (default 12) |
+| `tab` | string | No | Post sort order |
+
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "_rid": "3432617742581",
+  "count": 12,
+  "data": {
+    "location": {
+      "edge_location_to_media": {
+        "count": 12,
+        "edges": [
+          {
+            "node": {
+              "caption_text": "청소년여드름\n\n[자극은 최소화, 효과는 극대화!]\n압출 당일 자극 최소화는 기본!\n\n다르아크네에서는 단순한 압출로 끝나지 않아요.\n피부 자극을 …",
+              "code": "DZlrTTlNgIr",
+              "comment_count": 0,
+              "id": "3919729493391311403_1425162018",
+              "is_video": false,
+              "like_count": 1,
+              "media_type": 1,
+              "owner": {
+                "full_name": "창원여드름/피부염증흉터/피부루틴 맞춤설계 다르아크네대표",
+                "is_verified": false,
+                "pk": "1425162018",
+                "username": "drr.acne_"
+              }
+            }
+          }
+        ],
+        "page_info": {
+          "end_cursor": null,
+          "has_next_page": false
+        }
+      }
+    }
+  },
+  "items": [
+    {
+      "caption_text": "청소년여드름\n\n[자극은 최소화, 효과는 극대화!]\n압출 당일 자극 최소화는 기본!\n\n다르아크네에서는 단순한 압출로 끝나지 않아요.\n피부 자극을 …",
+      "code": "DZlrTTlNgIr",
+      "comment_count": 0,
+      "id": "3919729493391311403_1425162018",
+      "is_video": false,
+      "like_count": 1,
+      "media_type": 1,
+      "owner": {
+        "full_name": "창원여드름/피부염증흉터/피부루틴 맞춤설계 다르아크네대표",
+        "is_verified": false,
+        "pk": "1425162018",
+        "username": "drr.acne_"
+      },
+      "pk": "3919729493391311403",
+      "shortcode": "DZlrTTlNgIr",
+      "taken_at": null,
+      "thumbnail_url": "https://scontent-lga3-3.cdninstagram.com/v/t51.82787-15/722665770_18590062972010…"
+    }
+  ],
+  "next_max_id": null,
+  "tab": "ranked"
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `items[]` | Flat list of posts on this page. It repeats the posts in `data.location.edge_location_to_media.edges[].node`, so you can read either one. |
+| `items[].caption_text` | Caption text of the post. Long captions may be cut, and hashtags appear inside the text. |
+| `items[].shortcode / items[].code` | Short code of the post, as used in Instagram post URLs. Pass it to a post details API. |
+| `items[].id / items[].pk` | `id` joins the post ID and the owner ID with an underscore. `pk` is the post ID alone. |
+| `items[].like_count / items[].comment_count / items[].view_count` | Engagement counts for the post. |
+| `items[].media_type / items[].is_video` | `media_type` is a numeric code for the post format. In this response `1` is a single image post and `8` is a post with no thumbnail. `is_video` is a true or false flag. |
+| `items[].owner.username / items[].owner.full_name / items[].owner.pk / items[].owner.is_verified` | Account that published the post: handle, display name, numeric user ID and verified flag. |
+| `items[].thumbnail_url / items[].video_url` | Link to a preview image and to a video file. Either can be `null`. |
+| `data.location.edge_location_to_media.page_info` | Pagination state. `has_next_page` tells you if more posts exist, and `end_cursor` holds the cursor for the next page. |
+| `tab` | Sort order applied to this response. This request returned `ranked`. |
 
 ### Notes
 
-- Obtain `location_id` via place search endpoints or existing post details.
-- Use `tab` to sort by `ranked` (top) or `recent` (latest) posts.
-- Paginate using the cursor from `page_info.end_cursor` passed into `after`.
+- Pass `page_info.end_cursor` from the response as `after` to get the next page. When `has_next_page` is `false`, `end_cursor` is `null` and there are no more pages.
+- Use `first` to set posts per page (1 to 50, default 12). Set `tab` to `ranked` or `recent` to change the order.
+- `taken_at` was `null` in this response, so do not rely on it for post dates.
+- To read one post in full, call [Instagram Post Info by Shortcode](/apis/instagram/v3/post-info-by-code) with the `shortcode`. Use [Instagram Location Details (V3)](/apis/instagram/v3/location-info) for the place itself.
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.008 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

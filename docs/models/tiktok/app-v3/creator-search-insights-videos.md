@@ -68,13 +68,14 @@ Same call via the path form: `POST /v1/api/tiktok/app-v3/creator-search-insights
 
 ## Details
 
-Query popular videos related to search topics by providing a `keyword` parameter. Control response volume and pagination using `count` and `offset`.
+Returns a list of popular TikTok videos related to a search term from creator search insights. It needs a `keyword` and supports paging with `offset` and `count`.
 
 ### Use cases
 
-- Discover trending videos tied to specific search queries.
-- Analyze high-performing content formats for target keywords.
-- Track top video results from search insights topic lists.
+- Find which videos currently perform well for a topic such as `openai` before planning a TikTok post.
+- Collect the authors behind popular videos on a keyword to build a list of creators in that niche.
+- Page through the full result list for a keyword to study the content around a trending topic.
+- Check whether a keyword returns videos at all before running a deeper analysis.
 
 ### Request
 
@@ -84,6 +85,8 @@ curl -X POST "https://api.sandbase.ai/v1/api/tiktok/app-v3/creator-search-insigh
   -H "Content-Type: application/json" \
   -d '{"keyword": "openai"}'
 ```
+
+The result is returned in `outputs[0].data`.
 
 ### Parameters
 
@@ -95,34 +98,147 @@ curl -X POST "https://api.sandbase.ai/v1/api/tiktok/app-v3/creator-search-insigh
 
 ### Example response
 
-Real response for the request above, trimmed to the main fields. User names and long IDs are masked.
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
 
 ```json
 {
+  "aweme_list": [],
+  "backtrace": "",
+  "components": null,
+  "cursor": 20,
+  "extra": {
+    "api_debug_info": null,
+    "fatal_item_ids": [],
+    "logid": "202611030743528181513E8C144D01C1FB",
+    "now": 1793691833000,
+    "search_request_id": "",
+    "server_stream_time": 830
+  },
+  "feedback_type": "video",
+  "global_doodle_config": {
+    "display_filter_bar": 1,
+    "feedback_survey": [
+      {
+        "feedback_type": "video",
+        "long_stress_info": null,
+        "multiple_choices": [
+          {
+            "key": "Dislike",
+            "value": "Dislike"
+          }
+        ],
+        "send_us_multiple_choices": null
+      }
+    ],
+    "hide_results": false,
+    "hit_dolphin": false,
+    "hit_shark": false,
+    "keyword": "openai",
+    "new_source": "",
+    "search_channel": "musically_video",
+    "search_intent": {},
+    "tns_search_result": "Pass"
+  },
+  "has_more": 1,
+  "log_pb": {
+    "impr_id": "202611030743528181513E8C144D01C1FB"
+  },
   "search_item_list": [
     {
       "aweme_info": {
-        "author_user_id": 7648715379941901319,
-        "aweme_id": "7691716847925824776",
-        "aweme_type": 0,
-        "bodydance_score": 0,
-        "content_desc": "[\"in 2008 paul graham said you could parachute sam altman onto an island of cannibals and…",
-        "content_level": 1
+        "added_sound_music_info": {
+          "album": "",
+          "allow_offline_music_to_detail_page": false,
+          "artists": [],
+          "audition_duration": 96,
+          "author": ".politicallyspeaking",
+          "author_deleted": false,
+          "author_position": null,
+          "avatar_medium": {
+            "height": 720,
+            "uri": "tos-maliva-avt-0068/696d0a17460329ef81f8ff8f524b9b37",
+            "url_list": [
+              "https://p16-common-sign.tiktokcdn-us.com/tos-maliva-avt-0068/696d0a17460329ef81f…"
+            ],
+            "url_prefix": null,
+            "width": 720
+          }
+        },
+        "ai_remix_info": {
+          "has_entrance": false
+        },
+        "aigc_info": {
+          "aigc_label_type": 0,
+          "created_by_ai": false
+        },
+        "anchors": null,
+        "anchors_extras": "",
+        "animated_image_info": {
+          "effect": 0,
+          "type": 0
+        },
+        "author": {
+          "accept_private_policy": false,
+          "account_labels": null,
+          "ad_cover_url": null,
+          "advance_feature_item_order": null,
+          "advanced_feature_info": null,
+          "authority_status": 0,
+          "avatar_168x168": {
+            "height": 720,
+            "uri": "tos-maliva-avt-0068/696d0a17460329ef81f8ff8f524b9b37",
+            "url_list": [
+              "https://p19-common-sign.tiktokcdn-us.com/tos-maliva-avt-0068/696d0a17460329ef81f…"
+            ],
+            "url_prefix": null,
+            "width": 720
+          },
+          "avatar_300x300": {
+            "height": 720,
+            "uri": "tos-maliva-avt-0068/696d0a17460329ef81f8ff8f524b9b37",
+            "url_list": [
+              "https://p19-common-sign.tiktokcdn-us.com/tos-maliva-avt-0068/696d0a17460329ef81f…"
+            ],
+            "url_prefix": null,
+            "width": 720
+          }
+        },
+        "author_user_id": 6702871155316147205
+      },
+      "search_aweme_info": {
+        "has_creation_intention": false
       }
     }
-  ]
+  ],
+  "status_code": 0
 }
 ```
 
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `search_item_list[]` | One result per popular video for the keyword. Each item holds the video data under `aweme_info`. |
+| `search_item_list[].aweme_info.author_user_id` | Numeric ID of the account that posted the video. |
+| `search_item_list[].aweme_info.author` | Object with the video author's profile data, including avatar images in several sizes such as `avatar_168x168` and `avatar_300x300`. |
+| `search_item_list[].aweme_info.added_sound_music_info.author` | Name shown as the author of the sound used in the video. |
+| `search_item_list[].aweme_info.added_sound_music_info.audition_duration` | Length value for the sound preview. The response does not state the unit. |
+| `search_item_list[].aweme_info.aigc_info.created_by_ai` | Boolean flag that shows whether the video is marked as AI-generated. `aigc_label_type` holds the label type. |
+| `has_more` | Shows whether more results exist. `1` means more pages are available. |
+| `cursor` | Position marker for the next page. It was `20` in the sample request. |
+| `global_doodle_config.keyword` | The keyword the search ran for. |
+| `status_code` | Request status. `0` means the call succeeded. |
+
 ### Notes
 
-- `keyword` can be obtained from creator search insights or search insights trend endpoints.
-- `count` defaults to 20 items per page.
-- `offset` defaults to 0 for pagination.
+- Get the `keyword` value from [TikTok Creator Search Insights](/apis/tiktok/app-v3/creator-search-insights) or [TikTok Creator Search Insights Trend](/apis/tiktok/app-v3/creator-search-insights-trend).
+- Page through results with `offset` and `count`. `count` defaults to 20 and `offset` defaults to 0. Check `has_more` and `cursor` to see if another page exists.
+- The top-level `aweme_list` array was empty in the sample. The videos appear in `search_item_list`.
+- Call [TikTok Video Details](/apis/tiktok/app-v3/one-video) to get full data for a single video.
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

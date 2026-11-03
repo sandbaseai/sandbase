@@ -65,13 +65,14 @@ Same call via the path form: `POST /v1/api/reddit/app/community-highlights` with
 
 ## Details
 
-Retrieve highlighted content and top announcements for a specific subreddit using `subreddit_id`. Optionally clean and format the output data via `need_format`.
+Returns the posts a moderator has highlighted in a subreddit, such as announcements and contest threads. It needs a `subreddit_id` that starts with `t5_`. The response includes the subreddit ID and name plus each highlighted post's text, flair, author icon and comment count.
 
 ### Use cases
 
-- Display pinned community announcements in custom Reddit dashboards.
-- Monitor popular featured posts from designated subreddits.
-- Feed curated subreddit highlight streams into moderation tools.
+- Show a subreddit's pinned announcements on a community dashboard.
+- Track which contest or event threads a subreddit's moderators highlight.
+- Read the markdown text of highlighted posts to archive subreddit announcements.
+- Check the flair and comment count of highlighted threads to see how active they are.
 
 ### Request
 
@@ -82,6 +83,8 @@ curl -X POST "https://api.sandbase.ai/v1/api/reddit/app/community-highlights" \
   -d '{"subreddit_id": "t5_2qh0u"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
@@ -89,14 +92,81 @@ curl -X POST "https://api.sandbase.ai/v1/api/reddit/app/community-highlights" \
 | `subreddit_id` | string | Yes | Subreddit ID starting with "t5_", can be obtained from fetch_subreddit_info endpoint |
 | `need_format` | boolean | No | Whether to clean and format the data |
 
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "subredditInfoById": {
+    "__typename": "Subreddit",
+    "highlightedPosts": [
+      {
+        "expiresAt": null,
+        "label": null,
+        "post": {
+          "__typename": "SubredditPost",
+          "authorInfo": {
+            "__typename": "Redditor",
+            "icon": {
+              "url": "https://styles.redditmedia.com/t5_3kici/styles/profileIcon_snooc32509c3-18e5-4c1…"
+            }
+          },
+          "commentCount": 92,
+          "content": {
+            "markdown": "**It's a Halloween Photo Contest!**\n\nPost your best costume, carved pumpkin, spo…",
+            "richtext": "{\"document\":[{\"c\":[{\"e\":\"text\",\"f\":[[1,0,31]],\"t\":\"It's a Halloween Photo Contes…"
+          },
+          "createdAt": "2026-10-14T22:48:30.525000+0000",
+          "devvit": null,
+          "flair": {
+            "__typename": "PostFlair",
+            "richtext": null,
+            "template": {
+              "backgroundColor": null,
+              "id": "f988392c-41f4-11ea-856e-0e3f43166111",
+              "isEditable": false
+            },
+            "text": "Judging in progress...",
+            "textColor": "DARK",
+            "type": "text"
+          },
+          "id": "t3_1x65iks"
+        }
+      }
+    ],
+    "id": "t5_2qh0u",
+    "modPermissions": null,
+    "name": "pics"
+  }
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `subredditInfoById.id / subredditInfoById.name` | The ID of the subreddit (`t5_2qh0u`) and its name (`pics`). |
+| `subredditInfoById.highlightedPosts[]` | The list of highlighted posts. Each item wraps one post in its `post` object. |
+| `subredditInfoById.highlightedPosts[].post.id` | The post ID, in the form `t3_1x65iks`. |
+| `subredditInfoById.highlightedPosts[].post.content.markdown` | The post body as markdown text. |
+| `subredditInfoById.highlightedPosts[].post.content.richtext` | The post body as a rich text document in a JSON string. |
+| `subredditInfoById.highlightedPosts[].post.commentCount` | The number of comments on the post. |
+| `subredditInfoById.highlightedPosts[].post.createdAt` | When the post was created, as an ISO 8601 timestamp with a `+0000` offset. |
+| `subredditInfoById.highlightedPosts[].post.flair.text` | The text of the post flair, for example `Judging in progress...`. |
+| `subredditInfoById.highlightedPosts[].post.authorInfo.icon.url` | The URL of the author's profile icon image. |
+| `subredditInfoById.highlightedPosts[].expiresAt / subredditInfoById.highlightedPosts[].label` | Expiry time and label of the highlight. Both are `null` in this response. |
+
 ### Notes
 
-- `subreddit_id` must start with "t5_" and can be obtained from the subreddit info endpoint.
-- Set `need_format` to true to clean and format the returned data.
+- Get `subreddit_id` from [Reddit App Subreddit Info](/apis/reddit/app/subreddit-info). It starts with `t5_`.
+- Set `need_format` to `true` to clean and format the response data. It defaults to `false`.
+- Post IDs start with `t3_`. To read a full post, call [Reddit Post Details](/apis/reddit/app/post-details).
+- To list regular posts from the same subreddit, call [Reddit Subreddit Feed](/apis/reddit/app/subreddit-feed).
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

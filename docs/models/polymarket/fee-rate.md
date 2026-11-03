@@ -58,9 +58,13 @@ Same call via the path form: `POST /v1/api/polymarket/fee-rate` with the body ab
 
 ## Details
 
-Retrieves the base fee rate for a specific token ID. The fee rate can be provided either as a query parameter or as a path parameter.
+Returns the base fee rate for one Polymarket outcome token. You pass the token ID (asset ID) as `token_id`.
 
-The response is the official Polymarket API response, unchanged.
+### Use cases
+
+- Check the fee rate for a token before you build an order for it.
+- Compare the fee rate across several outcome tokens in a trading bot.
+- Include the fee in a cost or profit estimate for a Polymarket trade.
 
 ### Request
 
@@ -71,15 +75,40 @@ curl -X POST "https://api.sandbase.ai/v1/api/polymarket/fee-rate" \
   -d '{"token_id": "32338220190071351435772801779725302244575775216413325951443816017994629993401"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
 |---|---|---|---|
 | `token_id` | string | No | Token ID (asset ID) |
 
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "base_fee": 1000
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `base_fee` | The base fee rate for the token ID you sent. This is the only field in the response. |
+| `base_fee` | A whole number. The sample request returned `1000`. |
+| `base_fee` | The response shows no unit label, so check the Polymarket documentation before you convert it to a percentage. |
+
+### Notes
+
+- `token_id` is a long numeric string in the sample request. Send it as a string.
+- [Polymarket Get fee rate by path parameter](/apis/polymarket/fee-rate-by-token-id) returns the fee rate with the token ID in the path instead of the request body.
+
 ### Pricing
 
-Flat price per call. Failed calls are not charged.
+$0.012 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ---
 Machine-readable: [`catalog/models/polymarket/fee-rate.json`](../../../catalog/models/polymarket/fee-rate.json) · Store page: https://www.sandbase.ai/model/polymarket/fee-rate

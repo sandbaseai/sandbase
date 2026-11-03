@@ -62,13 +62,14 @@ Same call via the path form: `POST /v1/api/weibo/web-v2/similar-search` with the
 
 ## Details
 
-Retrieve related search queries on Weibo using the `keyword` parameter. This endpoint also supports topic tag formats for exploring associated search terms.
+Returns search suggestions that Weibo shows for a keyword. The main list is `hotquery`, which holds suggested query strings with a `count` value. The only input is `keyword`, which can be plain text or a topic tag like `#TopicName#`.
 
 ### Use cases
 
-- Discover related search queries for keyword research.
-- Expand search coverage using recommended topic suggestions.
-- Analyze query associations and popularity metrics for specific terms.
+- Collect suggested search phrases around a brand name such as OpenAI for keyword research.
+- Find which related phrases Weibo ranks highest for a term by comparing `count` values.
+- Spot new news-style queries tied to a keyword, such as event headlines, to feed a topic monitor.
+- Check whether a topic tag keyword returns suggestions before you run a full post search.
 
 ### Request
 
@@ -79,6 +80,8 @@ curl -X POST "https://api.sandbase.ai/v1/api/weibo/web-v2/similar-search" \
   -d '{"keyword": "OpenAI"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
@@ -87,27 +90,50 @@ curl -X POST "https://api.sandbase.ai/v1/api/weibo/web-v2/similar-search" \
 
 ### Example response
 
-Real response for the request above, trimmed to the main fields. User names and long IDs are masked.
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
 
 ```json
 {
+  "history": [],
   "hotquery": [
     {
-      "count": 500003910,
+      "count": 500001120,
+      "discuss": 0,
+      "discuss_arae": 0,
       "discuss_num": 0,
-      "type": 14
+      "suggestion": "openai",
+      "top_flag": 2,
+      "topic_flag": 0,
+      "type": 2
     }
-  ]
+  ],
+  "query_relates": [],
+  "real_hot": [],
+  "user": [],
+  "users": []
 }
 ```
 
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `hotquery[].suggestion` | The suggested search text, for example `openai 数学`. |
+| `hotquery[].count` | A numeric score attached to the suggestion. Higher values appear first in the sample, so you can use it to compare suggestions. |
+| `hotquery[].type / hotquery[].top_flag` | Numeric codes for the kind of suggestion. In the sample both fields hold the same value (`2` or `15`) for each item. The response does not explain what each code means. |
+| `hotquery[].topic_flag` | Numeric flag for topic status. It is `0` for all items in the sample. |
+| `hotquery[].discuss / hotquery[].discuss_num / hotquery[].discuss_arae` | Discussion counters for the suggestion. All are `0` in the sample, so they may be empty for many queries. The key `discuss_arae` is spelled this way in the response. |
+| `history / query_relates / real_hot / user / users` | Other suggestion lists. All are empty arrays for this request, so check them for other keywords. |
+
 ### Notes
 
-- The `keyword` parameter accepts plain search terms as well as topic tags in the format `#TopicName#`.
+- Send `keyword` as plain text or wrapped in `#` for a topic tag, for example `#TopicName#`.
+- The request has no pagination parameter. Each call returns one list of suggestions.
+- To read the posts behind a suggestion, pass its `suggestion` text to [Weibo Advanced Search](/apis/weibo/web-v2/advanced-search) or [Weibo Real-Time Search](/apis/weibo/web-v2/realtime-search).
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

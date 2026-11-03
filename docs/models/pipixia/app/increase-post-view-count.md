@@ -63,13 +63,14 @@ Same call via the path form: `POST /v1/api/pipixia/app/increase-post-view-count`
 
 ## Details
 
-Registers a view count increment on a Pipixia post using `cell_id` and an optional `cell_type` parameter.
+This API registers one view count increment on a Pipixia post. It needs the post's `cell_id` and returns a status code, a message, and a response timestamp. The `data` object in the response is empty.
 
 ### Use cases
 
-- Increment view counts on specific Pipixia posts programmatically.
-- Simulate audience views during automated engagement workflows.
-- Trigger view event registrations for verified video links.
+- Send a view event for a single Pipixia video by its `cell_id`.
+- Check the `status_code` value to confirm that a view increment request was accepted.
+- Run a view event call after you resolve a share link to a video ID.
+- Compare a post's view numbers before and after the call by pairing it with a post statistics lookup.
 
 ### Request
 
@@ -80,6 +81,8 @@ curl -X POST "https://api.sandbase.ai/v1/api/pipixia/app/increase-post-view-coun
   -d '{"cell_id": "7411241327297299263"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
@@ -89,23 +92,37 @@ curl -X POST "https://api.sandbase.ai/v1/api/pipixia/app/increase-post-view-coun
 
 ### Example response
 
-Real response for the request above, trimmed to the main fields. User names and long IDs are masked.
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
 
 ```json
 {
+  "data": {},
+  "message": "success",
+  "prompt": "",
   "status_code": 0,
-  "time": 1791290486790
+  "time": 1793691711611
 }
 ```
 
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `status_code` | Result code of the call. `0` means the request succeeded. |
+| `message` | Short text result. The value is `success` when the call worked. |
+| `time` | Response timestamp as a number. The value looks like a Unix time in milliseconds. |
+| `data` | Payload object. It is empty in this response, so the call returns no post data. |
+| `prompt` | Extra text field. It is an empty string in this response. |
+
 ### Notes
 
-- `cell_id` corresponds to the video ID and can be obtained from the post share link.
-- `cell_type` accepts integer values, where `1` specifies video content.
+- Get `cell_id` from the Pipixia post share link. It is the same as the video ID. Use [Pipixia Short URL Conversion](/apis/pipixia/app/short-url) to resolve a short link.
+- Set `cell_type` to `1` for a video. Leave it out for other post types.
+- To read the post's current counts, call [Pipixia Post Statistics](/apis/pipixia/app/post-statistics) or [Pipixia Post Detail](/apis/pipixia/app/post-detail).
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

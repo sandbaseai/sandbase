@@ -65,13 +65,13 @@ Same call via the path form: `POST /v1/api/zhihu/web/video-list` with the body a
 
 ## Details
 
-Retrieve a collection of video entries from Zhihu by specifying pagination parameters including `limit` and `offset`.
+Returns a page of videos from the Zhihu recommended video feed. It takes no required input. You can set `limit` for page size and `offset` for the start position.
 
 ### Use cases
 
-- Browse video feeds from Zhihu for media tracking.
-- Paginate through video listings for content analysis.
-- Integrate Zhihu video entries into external dashboards.
+- Page through the Zhihu recommended video feed to log which videos appear.
+- Build a dashboard that shows a rolling sample of Zhihu video entries.
+- Check whether more pages exist before running a bulk collection job.
 
 ### Request
 
@@ -82,6 +82,8 @@ curl -X POST "https://api.sandbase.ai/v1/api/zhihu/web/video-list" \
   -d '{}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
@@ -89,14 +91,44 @@ curl -X POST "https://api.sandbase.ai/v1/api/zhihu/web/video-list" \
 | `limit` | string | No | Number of videos per page |
 | `offset` | string | No | Offset |
 
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "data": [],
+  "paging": {
+    "is_end": false,
+    "is_start": true,
+    "next": "https://www.zhihu.com/api/v4/zvideo-tabs/tabs/choice/feeds/recommend?include=cre…",
+    "previous": "",
+    "totals": 0
+  }
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `data[]` | List of video entries on the current page. It was empty in the sample response, so check the length before reading items. |
+| `paging.is_end` | `true` when there are no more pages after this one. |
+| `paging.is_start` | `true` when this is the first page of the list. |
+| `paging.next` | URL of the next page. It includes `limit=12` and `offset=12` as query values. |
+| `paging.previous` | URL of the previous page. It is an empty string on the first page. |
+| `paging.totals` | Total count reported for the list. It was `0` in the sample response. |
+
 ### Notes
 
-- Use `limit` to control the number of videos returned per page.
-- Use `offset` to manage list pagination.
+- Both `limit` and `offset` are sent as strings. The defaults are `12` and `0`.
+- To get the next page, add `limit` to `offset` and call again. The `paging.next` URL shows the same values.
+- Stop paging when `paging.is_end` is `true`.
+- To search videos by keyword instead, use [Zhihu Video Search (V3)](/apis/zhihu/web/video-search-v3).
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

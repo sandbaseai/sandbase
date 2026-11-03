@@ -63,9 +63,14 @@ Same call via the path form: `POST /v1/api/imdb/title-more-like-this-query` with
 
 ## Details
 
-Get IMDb titles similar to a specified title ID using selected language and country preferences. Use it to support related-title discovery, recommendations, or catalog curation.
+Returns a list of IMDb title IDs that IMDb considers similar to a given title. It needs one IMDb title ID in `tt<digits>` format, and it accepts an optional `languageCountry` value.
 
-The response is the platform's original data structure.
+### Use cases
+
+- Build a "more like this" row on a movie page from the returned title IDs.
+- Seed a recommendation list for a film you already know, such as `tt0111161`.
+- Expand a catalog by collecting titles related to your existing entries.
+- Chain the returned IDs into other IMDb calls to fill in names, plots, and ratings.
 
 ### Request
 
@@ -76,6 +81,8 @@ curl -X POST "https://api.sandbase.ai/v1/api/imdb/title-more-like-this-query" \
   -d '{"id": "tt0111161"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
@@ -83,9 +90,47 @@ curl -X POST "https://api.sandbase.ai/v1/api/imdb/title-more-like-this-query" \
 | `id` | string | Yes | The IMDb title identifier in tt<digits> format. |
 | `languageCountry` | string | No | Language and country preferences. |
 
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "title": {
+    "connections": {
+      "edges": []
+    },
+    "moreLikeThisTitles": {
+      "edges": [
+        {
+          "node": {
+            "id": "tt0114369"
+          }
+        }
+      ]
+    }
+  }
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `title.moreLikeThisTitles.edges[]` | One similar title per list item. |
+| `title.moreLikeThisTitles.edges[].node.id` | IMDb ID of a similar title, in `tt<digits>` format. For `tt0111161` the response includes `tt0114369`, `tt0120689`, and `tt0108052`. |
+| `title.connections.edges[]` | List of connected titles. It was empty in this response, so some titles may return no connections. |
+
+### Notes
+
+- The response holds IDs only. Pass each `node.id` to [IMDb Base Info](/apis/imdb/title-base-query) to get the title name and basic details.
+- For story text on a returned title, call [IMDb Plot Summary](/apis/imdb/title-plot-query) with its ID.
+- Get the `id` input from the IMDb title page URL. It starts with `tt` followed by digits.
+- `languageCountry` accepts `en_US`, `fr_CA`, `fr_FR`, `de_DE`, `hi_IN`, `it_IT`, `pt_BR`, `es_ES`, `es_US`, or `es_MX`. The default is `en_US`.
+
 ### Pricing
 
-Flat price per call. Failed calls and empty results are not charged.
+$0.007143 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ---
 Machine-readable: [`catalog/models/imdb/title-more-like-this-query.json`](../../../catalog/models/imdb/title-more-like-this-query.json) · Store page: https://www.sandbase.ai/model/imdb/title-more-like-this-query

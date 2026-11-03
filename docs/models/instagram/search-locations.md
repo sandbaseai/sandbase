@@ -61,7 +61,14 @@ Same call via the path form: `POST /v1/api/instagram/search-locations` with the 
 
 ## Details
 
-Search Instagram locations by keyword and return each place's id, name, address and coordinates.
+This API searches Instagram locations by keyword. It needs one `query` (a place name, address or city) and returns matching places with an `id`, name, address, city and coordinates.
+
+### Use cases
+
+- Find the Instagram location `id` for a landmark so you can pull posts tagged there.
+- Map a place name to latitude and longitude from Instagram's own location data.
+- List the different Instagram places that share a name, such as several places called Eiffel Tower.
+- Check how a venue is named on Instagram before you track it.
 
 ### Request
 
@@ -72,7 +79,7 @@ curl -X POST "https://api.sandbase.ai/v1/api/instagram/search-locations" \
   -d '{"query": "Eiffel Tower"}'
 ```
 
-The result is returned in `outputs[0].data`. A lookup that finds nothing still succeeds and returns `found: false`.
+The result is returned in `outputs[0].data`.
 
 ### Parameters
 
@@ -80,9 +87,51 @@ The result is returned in `outputs[0].data`. A lookup that finds nothing still s
 |---|---|---|---|
 | `query` | string | Yes | Place name, address or city to search for. |
 
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "data": {
+    "locations": [
+      {
+        "address": "Champ-de-Mars",
+        "city": "",
+        "id": "103912118089363",
+        "latitude": 48.85824768693,
+        "longitude": 2.2944650859978,
+        "name": "Eiffel Tower, Paris, France",
+        "shortName": "Eiffel Tower"
+      }
+    ]
+  },
+  "found": true
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `data.locations[].id` | Instagram location ID as a string. Use it to look up posts or details for that place. |
+| `data.locations[].name` | Full display name of the place, sometimes with city and country, such as `Eiffel Tower, Paris, France`. |
+| `data.locations[].shortName` | Shorter name of the place without the city or country. |
+| `data.locations[].address` | Street or area address of the place. It can be an empty string. |
+| `data.locations[].city` | City of the place. It can be an empty string. |
+| `data.locations[].latitude / data.locations[].longitude` | Coordinates of the place in decimal degrees. |
+| `found` | `true` when the search returned at least one location. |
+
+### Notes
+
+- Several results can share the same name but sit in different cities, so check `city`, `latitude` and `longitude` before you pick an `id`.
+- `address` and `city` are often empty strings. Use `name` and the coordinates when they are.
+- Pass the chosen `id` to [Instagram Location Posts](/apis/instagram/location-posts) to get posts tagged at that place.
+- Use [Instagram Location Details (V1)](/apis/instagram/v1/location-info) to get more detail about a single location.
+
 ### Pricing
 
-Billed at the actual cost of each call, usually $0.0011 per request. A call can cost more when the first data source fails and another one answers. Failed calls are not charged. Lookups that find nothing and searches with no results are billed at their actual cost, which is often lower and can be $0.
+Billed at the actual cost of each call, about $0.0011 for the request above. Failed calls are not charged.
 
 ---
 Machine-readable: [`catalog/models/instagram/search-locations.json`](../../../catalog/models/instagram/search-locations.json) · Store page: https://www.sandbase.ai/model/instagram/search-locations

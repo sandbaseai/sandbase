@@ -66,13 +66,14 @@ Same call via the path form: `POST /v1/api/instagram/v2/user-followers` with the
 
 ## Details
 
-Fetch a list of followers for an Instagram user by providing either `username` or `user_id`.
+Returns a page of followers for an Instagram account. Each item holds the follower's username, display name, ID, and privacy and verification flags. You pass either `username` or `user_id`.
 
 ### Use cases
 
-- Analyze audience growth and demographic reach for target accounts.
-- Audit follower accounts for brand partnership evaluations.
-- Map social follower networks across public Instagram profiles.
+- Sample the accounts that follow a brand profile to check what kind of audience it has.
+- Flag followers with `is_verified` set to true when you look for notable accounts that follow a profile.
+- Spot likely empty or low-quality followers by checking `has_anonymous_profile_picture` and blank `full_name` values.
+- Collect follower `username` values and pass them to a profile lookup for deeper analysis.
 
 ### Request
 
@@ -83,22 +84,70 @@ curl -X POST "https://api.sandbase.ai/v1/api/instagram/v2/user-followers" \
   -d '{"username": "instagram", "user_id": "18527"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
 |---|---|---|---|
+| `pagination_token` | string | No | Pagination token from previous response |
 | `user_id` | string | No | User ID (either username or user_id required) |
 | `username` | string | No | Username (either username or user_id required) |
-| `pagination_token` | string | No | Pagination token from previous response |
+
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "data": {
+    "count": 58,
+    "items": [
+      {
+        "account_badges": [],
+        "fbid_v2": "17841416077777377",
+        "full_name": "Travel with Das",
+        "has_anonymous_profile_picture": false,
+        "id": "16059023925",
+        "is_private": false,
+        "is_verified": false,
+        "latest_story_ts": 0,
+        "profile_pic_id": "4019937364302932887",
+        "profile_pic_url": "https://scontent-bru2-1.cdninstagram.com/v/t51.82787-19/878274921_18149447857535…",
+        "third_party_downloads_enabled": 1,
+        "username": "das_tales10"
+      }
+    ],
+    "total": 686358280
+  },
+  "pagination_token": null
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `data.items[].username` | The follower's Instagram handle. |
+| `data.items[].id` | The follower's numeric user ID, returned as a string. |
+| `data.items[].full_name` | The display name the follower set. It can be an empty string. |
+| `data.items[].is_private / data.items[].is_verified` | Whether the follower's account is private, and whether it is verified. |
+| `data.items[].has_anonymous_profile_picture` | True when the follower uses the default blank profile picture. |
+| `data.items[].profile_pic_url` | URL of the follower's profile picture. |
+| `data.items[].latest_story_ts` | Timestamp of the follower's latest story. The value `0` appears when no story time is set. |
+| `data.items[].fbid_v2` | A second ID string for the follower account. |
+| `data.count` | Number of follower items returned in this response. |
+| `data.total` | Total follower count reported for the requested account. |
 
 ### Notes
 
-- Either `username` or `user_id` must be provided.
-- Pass `pagination_token` from a previous response to retrieve the next page of followers.
+- Send `username` or `user_id`. The example uses `instagram` and `18527`.
+- To get the next page, pass the response's `pagination_token` as the `pagination_token` parameter. It is `null` in this response.
+- Use [Instagram User Profile](/apis/instagram/v2/user-info) to get details for a follower, and [Instagram User Following](/apis/instagram/v2/user-following) to see who an account follows.
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.002 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

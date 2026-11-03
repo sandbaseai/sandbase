@@ -62,13 +62,14 @@ Same call via the path form: `POST /v1/api/douyin/web/user-live-videos-by-sec-ui
 
 ## Details
 
-Retrieve broadcast video data for a specific user using their `sec_uid`. This endpoint inspects streaming records and related badge data from web profiles.
+Returns a Douyin user's live-streaming profile record for a given `sec_uid`. The response holds the account's display ID, avatar images, live privacy flags, and honor level badges. It needs only the `sec_uid` from the user's homepage link.
 
 ### Use cases
 
-- Inspect broadcast video records for a target account.
-- Monitor streamer profile activity and badge information.
-- Gather streaming media details for creator analysis.
+- Read the honor level badge of a Douyin account from `badge_image_list` and its `level` value.
+- Fetch avatar image URLs in three sizes for a user whose `sec_uid` you already have.
+- Check the `display_id` of an account to match a `sec_uid` to its visible Douyin ID.
+- Read the live-related permission flags, such as `allow_use_linkmic`, for a streamer account.
 
 ### Request
 
@@ -79,6 +80,8 @@ curl -X POST "https://api.sandbase.ai/v1/api/douyin/web/user-live-videos-by-sec-
   -d '{"sec_uid": "MS4wLjABAAAAr52fXcfmzqOZJM_smap9Uuxtm16h8BupkCVaCt89BENq3E91mHCvtz5Z5TkXPHq_"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
@@ -87,30 +90,55 @@ curl -X POST "https://api.sandbase.ai/v1/api/douyin/web/user-live-videos-by-sec-
 
 ### Example response
 
-Real response for the request above, trimmed to the main fields. User names and long IDs are masked.
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
 
 ```json
 {
   "data": {
-    "badge_image_list": [
-      {
-        "image_type": 1,
-        "content": {
-          "alternative_text": "荣誉等级21级勋章"
-        }
-      }
-    ]
-  }
+    "adversary_authorization_info": 3,
+    "adversary_user_status": 1,
+    "age_range": 0,
+    "allow_be_located": false,
+    "allow_find_by_contacts": false,
+    "allow_others_download_video": false,
+    "allow_others_download_when_sharing_video": false,
+    "allow_share_show_profile": false,
+    "allow_show_in_gossip": false,
+    "allow_show_my_action": false,
+    "allow_strange_comment": false,
+    "allow_unfollower_comment": false
+  },
+  "extra": {
+    "now": 1793691153681
+  },
+  "status_code": 0
 }
 ```
 
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `data.display_id` | The public display ID of the account, for example `Wuf666`. |
+| `data.badge_image_list[].content.level` | The honor level shown on the badge. The example value is `21`. |
+| `data.badge_image_list[].content.alternative_text` | Text description of the badge. The example reads as an honor level 21 badge. |
+| `data.badge_image_list[].url_list` | Image URLs for the badge. Each item in the list points to the same badge image on a different host. |
+| `data.badge_image_list_v2` | A second badge list with the same structure as `badge_image_list`. |
+| `data.avatar_large.url_list / data.avatar_medium.url_list / data.avatar_thumb.url_list` | Avatar image URLs. The `uri` values show sizes of 1080x1080, 720x720 and 100x100. |
+| `data.allow_use_linkmic / data.allow_be_located / data.allow_find_by_contacts` | Boolean privacy and live settings of the account. All are `false` in the example. |
+| `data.fans_club.data` | Fans club details for the account, including `club_name` and `level`. The example values are empty or `0`. |
+| `data.bottom_entry.schema` | An in-app link for the honor level page in the live room toolbar. |
+| `status_code` | Status of the call. `0` in the example response. |
+
 ### Notes
 
-- Find `sec_uid` (also referred to as sec_user_id) within the target user's homepage URL.
+- Find `sec_uid` in the user's homepage link. To pull it out of a link, use [Douyin sec_user_id from URL](/apis/douyin/web/sec-user-id).
+- Many fields come back empty or as `0` in the example, such as `city`, `birthday` and `create_time`. Treat these as not set.
+- For a full account profile, call [Douyin User Profile (Web)](/apis/douyin/web/user-profile).
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

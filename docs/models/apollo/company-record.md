@@ -61,9 +61,14 @@ Same call via the path form: `POST /v1/api/apollo/company-record` with the body 
 
 ## Details
 
-The complete Apollo record for one company, by Apollo organization id (not by domain).
+Returns the full Apollo record for one company, looked up by its Apollo organization `id`. The response includes firmographics, industry codes, technologies, funding events, headcount changes and social links.
 
-The response is the official Apollo API response, unchanged.
+### Use cases
+
+- Build a company profile page with revenue, headcount, location and industry for a known Apollo organization.
+- Track a company's funding history and latest round to spot recent investment activity.
+- Check which technologies a company uses to qualify leads for a developer tool or security product.
+- Watch monthly hiring and churn by department to see where a company is growing or shrinking.
 
 ### Request
 
@@ -74,15 +79,80 @@ curl -X POST "https://api.sandbase.ai/v1/api/apollo/company-record" \
   -d '{"id": "5d0a0fbff6512580bf33a120"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
 |---|---|---|---|
-| `id` | string | Yes | The Apollo ID for the organization that you want to research. To find organization IDs, call the Organization Search endpoint and identify the organizaton_id va |
+| `id` | string | Yes | The Apollo ID for the organization that you want to research. To find organization IDs, call the Organization Search endpoint and identify the organizaton_id value for the organization. Example: 5e66b6381e05b4008c8331b8 |
+
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "organization": {
+    "alexa_ranking": 200,
+    "angellist_url": "http://angel.co/stripe",
+    "annual_revenue": 6935000000.0,
+    "annual_revenue_printed": "6.9B",
+    "city": "South San Francisco",
+    "country": "United States",
+    "crunchbase_url": null,
+    "current_technologies": [
+      {
+        "category": "Frameworks and Programming Languages",
+        "name": ".NET",
+        "uid": "net"
+      }
+    ],
+    "detail_view_loaded": true,
+    "employee_metrics": [
+      {
+        "departments": [
+          {
+            "churned": 13,
+            "functions": null,
+            "new": 0,
+            "retained": 1389
+          }
+        ],
+        "start_date": "2024-10-01"
+      }
+    ],
+    "estimated_num_employees": 9400,
+    "facebook_url": "https://www.facebook.com/StripeHQ"
+  }
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `organization.id / organization.name` | The Apollo organization id and the company name. |
+| `organization.estimated_num_employees` | Estimated number of employees at the company. |
+| `organization.annual_revenue / organization.annual_revenue_printed` | Annual revenue as a number and as a short printed string such as `6.9B`. |
+| `organization.industry / organization.industries / organization.keywords` | The main industry, the full list of industries, and descriptive keywords for the company. |
+| `organization.naics_codes` | NAICS industry codes assigned to the company. |
+| `organization.current_technologies[]` | Technologies the company uses. Each item has a `name`, a `category` and a `uid`. |
+| `organization.funding_events[]` | Funding events with `type`, `amount`, `currency`, `date`, `investors` and `news_url`. Some events have no `amount`. |
+| `organization.latest_funding_stage / organization.latest_funding_round_date` | The stage and date of the most recent funding round. |
+| `organization.employee_metrics[].departments[]` | Monthly headcount counts per department, starting at `start_date`. Each row has `new`, `retained` and `churned` counts and a `functions` name. A `functions` value of `null` is the row without a department name. |
+| `organization.linkedin_url / organization.facebook_url / organization.angellist_url` | Links to the company's social profiles. |
+
+### Notes
+
+- Get the `id` from [Apollo Organization Search](/apis/apollo/company-search). The search results carry the organization id.
+- This API takes an Apollo organization `id`, not a domain. To look up a company by domain, use [Apollo Organization Enrichment](/apis/apollo/company-enrich).
+- `date` values in `funding_events` are ISO 8601 timestamps. `start_date` in `employee_metrics` is a `YYYY-MM-DD` date.
+- For several companies at once, call [Apollo Bulk Organization Enrichment](/apis/apollo/company-bulk-enrich).
 
 ### Pricing
 
-Flat price per call. Failed calls are not charged.
+$0.01975 per successful call. Failed calls are not charged.
 
 ---
 Machine-readable: [`catalog/models/apollo/company-record.json`](../../../catalog/models/apollo/company-record.json) · Store page: https://www.sandbase.ai/model/apollo/company-record

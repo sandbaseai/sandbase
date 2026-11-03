@@ -62,13 +62,14 @@ Same call via the path form: `POST /v1/api/zhihu/web/column-relationship` with t
 
 ## Details
 
-Retrieve interaction and endorsement relationship details for a Zhihu article by providing an `article_id`.
+Returns the endorsement reaction summary for one Zhihu column article. It needs the `article_id` of the article. The response includes a display text such as the number of people who endorsed the article and an in-app link to the voter list.
 
 ### Use cases
 
-- Display endorsement counts and voter reaction summaries for a column article.
-- Obtain in-app deep link URLs for article voter lists.
-- Monitor user reaction status on specific Zhihu column articles.
+- Show the endorsement summary line for a column article in a dashboard.
+- Extract the voter list deep link for a given article.
+- Parse the endorsement count from the `text` string to track how many people endorsed an article.
+- Check which reaction type Zhihu attaches to an article through the `type` field.
 
 ### Request
 
@@ -79,6 +80,8 @@ curl -X POST "https://api.sandbase.ai/v1/api/zhihu/web/column-relationship" \
   -d '{"article_id": "669214677"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
@@ -87,24 +90,41 @@ curl -X POST "https://api.sandbase.ai/v1/api/zhihu/web/column-relationship" \
 
 ### Example response
 
-Real response for the request above, trimmed to the main fields. User names and long IDs are masked.
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
 
 ```json
 {
-  "action_url": "zhihu://hybrid?zh_url=https://www.zhihu.com/appview/article/669214677/voters&zh_hide_nav_…",
+  "Member": null,
+  "action_url": "zhihu://hybrid?zh_url=https://www.zhihu.com/appview/article/669214677/voters&zh_…",
+  "is_bold": false,
   "text": "291 人赞同了该文章",
+  "text_color": "GBL05A",
   "text_size": 14,
   "type": "reaction_endorse"
 }
 ```
 
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `text` | Display string for the reaction. In the example it reads "291 人赞同了该文章" (291 people endorsed the article), so the count sits inside the text. |
+| `type` | Kind of relationship item. The example value is `reaction_endorse`. |
+| `action_url` | Zhihu app deep link that opens the voter list page for the article. The link embeds the article ID. |
+| `text_color` | Color code Zhihu uses to style the text, for example `GBL05A`. |
+| `text_size / is_bold` | Styling hints for the text. `text_size` is a number (14 in the example) and `is_bold` is a boolean. |
+| `Member` | Member data tied to the reaction. It is `null` in the example response. |
+
 ### Notes
 
-- Requires a valid `article_id` identifying the Zhihu article.
+- The endorsement count is not a separate number field. Read it from the `text` string.
+- `action_url` uses the `zhihu://` scheme, so it opens in the Zhihu app and not in a browser.
+- To get the article title, author and body, call [Zhihu Column Article Detail](/apis/zhihu/web/column-article-detail) with the same ID.
+- To find articles in a column, use [Zhihu Column Articles](/apis/zhihu/web/column-articles).
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

@@ -61,13 +61,14 @@ Same call via the path form: `POST /v1/api/douyin/douplus/video-ranking` with th
 
 ## Details
 
-Queries the DOU+ video leaderboard using optional filters such as `dim_type`, `tag_id`, and `time_range`. It returns video engagement metrics, author follower counts, and post titles.
+Returns the DOU+ video leaderboard for Douyin. Each entry has the video title, author, cover, and engagement statistics. All inputs are optional, and the defaults return the Entertainment category ranked by hotness index.
 
 ### Use cases
 
-- Track top-performing DOU+ promotional videos across specific content categories.
-- Compare video completion rates, like ratios, and follower growth across leaderboard metrics.
-- Identify trending Douyin short videos ranked by the platform hotness index.
+- Find which videos in a category currently lead the DOU+ hotness ranking.
+- Spot low-follower authors whose videos reach a large audience by ranking with `dim_type` 1.
+- Compare `FinishPlayRate` and `LikeRate` across top videos to see which content holds viewers.
+- Collect `itemId` values of top videos to pull their full details with another API.
 
 ### Request
 
@@ -78,48 +79,77 @@ curl -X POST "https://api.sandbase.ai/v1/api/douyin/douplus/video-ranking" \
   -d '{}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
 |---|---|---|---|
 | `adv_id` | string | No | Advertiser id, optional |
-| `tag_id` | string | No | Category id, default 634 (Entertainment). |
 | `dim_type` | string | No | Ranking dimension, default 5. 1=low-fan hits, 2=high completion, 3=high like-rate, 4=high follower-growth, 5=hotness index |
+| `tag_id` | string | No | Category id, default 634 (Entertainment). Full map: 601 Plot, 602 Star, 606 Music, 607 ACGN, |
 | `time_range` | string | No | Time range, 1 / 2 / 3, default 2 |
 
 ### Example response
 
-Real response for the request above, trimmed to the main fields. User names and long IDs are masked.
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
 
 ```json
 {
+  "code": 0,
   "data": [
     {
-      "createTime": "1790162085",
-      "title": "我宣布这是新的上海落地签#无畏契约 #巴黎世家 #上海 #网吧  #万万没想到",
       "author": {
-        "followerCount": 3525257,
-        "nickname": "<user>"
+        "followerCount": 638,
+        "nickname": "日出夜游"
       },
+      "cover": "https://p26-sign.douyinpic.com/eden-cn/lsfreh7ulphrvhps/douplus/private_cover.pn…",
+      "createTime": "1792581711",
+      "isPhoto": false,
+      "itemId": "7699079819598533282",
+      "photos": [],
       "statistics": {
-        "FinishPlayRate": 0.19741609101658283,
-        "LikeRate": 0.04709622998026867,
-        "NewFansRate": 0.0001355522866117548
-      }
+        "CommentCnt": "0",
+        "FinishPlayRate": 0.5975203935815757,
+        "IndexCnt": "82170",
+        "LikeCnt": "0",
+        "LikeRate": 0.01576316934408921,
+        "NewFansCnt": "406",
+        "NewFansRate": 9.375828467601663e-05,
+        "NewLikeCnt": "68259"
+      },
+      "title": "这变脸速度不挣钱不行啊"
     }
-  ]
+  ],
+  "msg": "success"
 }
 ```
 
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `data[].title` | Caption of the video, including its hashtags. |
+| `data[].itemId` | ID of the video, as a string. |
+| `data[].author.nickname / data[].author.followerCount` | Display name of the author and the author's follower count. |
+| `data[].createTime` | Publish time as a Unix timestamp in seconds, returned as a string. |
+| `data[].statistics.IndexCnt` | Count behind the ranking index for this video, returned as a string. Higher values appear first in the sample under the default ranking. |
+| `data[].statistics.FinishPlayRate / data[].statistics.LikeRate / data[].statistics.NewFansRate` | Ratios between 0 and 1 for completed plays, likes, and new followers gained. |
+| `data[].statistics.NewFansCnt / data[].statistics.NewLikeCnt` | Counts of new followers and new likes, returned as strings. |
+| `data[].cover` | Signed URL of the cover image. The URL carries an expiry in its query string. |
+| `data[].playAddr` | Video play URL. Some entries do not include it. |
+| `data[].isPhoto / data[].photos` | `isPhoto` shows whether the entry is a photo post. `photos` lists the images for photo posts. |
+
 ### Notes
 
-- `dim_type` sets the ranking dimension: 1 for low-fan hits, 2 for high completion, 3 for like rate, 4 for follower growth, and 5 for hotness index.
-- `tag_id` filters by category ID, defaulting to 634 (Entertainment) with options such as 601 (Plot), 602 (Star), 606 (Music), and 607 (ACGN).
-- `time_range` specifies the period using values 1, 2, or 3, with 2 as the default.
+- Send an empty body `{}` to get the defaults: `tag_id` 634 (Entertainment), `dim_type` 5 (hotness index), `time_range` 2.
+- Set `dim_type` to 1 for low-fan hits, 2 for high completion, 3 for high like-rate, 4 for high follower-growth, or 5 for hotness index.
+- Count fields such as `IndexCnt` and `NewFansCnt` are strings, so convert them to numbers before sorting.
+- To read more about one video from the list, pass its `itemId` to [Douyin Douplus Video Detail](/apis/douyin/douplus/video-detail).
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

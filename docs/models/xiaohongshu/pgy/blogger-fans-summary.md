@@ -61,13 +61,14 @@ Same call via the path form: `POST /v1/api/xiaohongshu/pgy/blogger-fans-summary`
 
 ## Details
 
-Retrieve audience overview metrics for a PGY blogger by supplying the target `user_id`. It returns fan statistics such as audience scale and activity levels.
+Returns a fan summary for a Xiaohongshu blogger on PGY. It includes total fan count, recent fan growth, and counts and rates for active, engaged, reading and paying fans. It needs the blogger's `user_id`.
 
 ### Use cases
 
-- Evaluate blogger audience size and engagement before collaboration.
-- Analyze fan scale metrics for targeted influencer campaigns.
-- Monitor changes in blogger follower activity over time.
+- Compare the fan base size and 30-day growth of several bloggers before choosing who to contact for a campaign.
+- Check what share of a blogger's fans are active or paying before agreeing on a price.
+- Rank candidate bloggers by the `...BeyondRate` fields to see how each one compares with other bloggers.
+- Store `fansNum` and `fansIncreaseNum` on a schedule to build your own record of blogger growth.
 
 ### Request
 
@@ -78,19 +79,63 @@ curl -X POST "https://api.sandbase.ai/v1/api/xiaohongshu/pgy/blogger-fans-summar
   -d '{"user_id": "60b137080000000001000301"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
 |---|---|---|---|
 | `user_id` | string | Yes | Blogger user ID |
 
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "code": 0,
+  "data": {
+    "activeFansBeyondRate": "58.4",
+    "activeFansL28": 28342,
+    "activeFansRate": "75.4",
+    "engageFansBeyondRate": "77.5",
+    "engageFansL30": 296,
+    "engageFansRate": "0.8",
+    "fansGrowthBeyondRate": "77.9",
+    "fansGrowthRate": "0.4",
+    "fansIncreaseNum": 151,
+    "fansNum": 37570,
+    "payFansUserNum30d": 6169,
+    "payFansUserRate30d": "16.4"
+  },
+  "guid": null,
+  "msg": "成功",
+  "success": true
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `data.fansNum` | Total number of fans the blogger has. |
+| `data.fansIncreaseNum` | Number of fans gained. The response does not state the time window. |
+| `data.fansGrowthRate / data.fansGrowthBeyondRate` | Fan growth rate and its `BeyondRate` value. Values are strings such as `0.4` and `77.9`. |
+| `data.activeFansL28 / data.activeFansRate / data.activeFansBeyondRate` | Count of active fans (`L28` suggests the last 28 days), the active fan rate, and the matching `BeyondRate` value. |
+| `data.engageFansL30 / data.engageFansRate / data.engageFansBeyondRate` | Count of engaged fans (`L30` suggests the last 30 days), the engaged fan rate, and the matching `BeyondRate` value. |
+| `data.readFansIn30 / data.readFansRate / data.readFansBeyondRate` | Count of fans who read the blogger's content (the key suggests the last 30 days), the read fan rate, and the matching `BeyondRate` value. |
+| `data.payFansUserNum30d / data.payFansUserRate30d` | Count of paying fans over 30 days and the paying fan rate, as a string such as `16.4`. |
+| `success / msg` | `success` is `true` when the call works. `msg` holds a status text such as `成功`. |
+
 ### Notes
 
-- Requires the blogger's `user_id`.
+- Rate fields are returned as strings, so convert them to numbers before sorting or comparing.
+- The response does not explain the `BeyondRate` fields. Treat them as comparison values and check them against known bloggers before relying on them.
+- For fan history over time, call [Xiaohongshu (RED) PGY Blogger Fan History](/apis/xiaohongshu/pgy/blogger-fans-history). For fan demographics, call [Xiaohongshu (RED) PGY Blogger Fan Profile](/apis/xiaohongshu/pgy/blogger-fans-profile).
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.02 per successful call. Failed calls are not charged.
 
 ### Related APIs
 

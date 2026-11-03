@@ -67,13 +67,14 @@ Same call via the path form: `POST /v1/api/tiktok/app-v3/user-search-result` wit
 
 ## Details
 
-Look up TikTok profiles by query using `keyword`. Supports pagination via `count` and `offset` alongside multiple filtering parameters.
+Returns a list of TikTok user profiles that match a search `keyword`. The only required input is `keyword`, and you can add paging and filter parameters.
 
 ### Use cases
 
-- Find creators and accounts matching target search terms.
-- Filter account listings by follower volume and profile type.
-- Page through keyword query matches for audience research.
+- Find TikTok accounts that match a brand name such as `openai`.
+- Collect avatar image URLs for accounts that match a search term.
+- Page through all accounts that match a keyword with `count` and `offset`.
+- Narrow a creator search with the follower count and profile type filters.
 
 ### Request
 
@@ -84,6 +85,8 @@ curl -X POST "https://api.sandbase.ai/v1/api/tiktok/app-v3/user-search-result" \
   -d '{"keyword": "openai"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
@@ -91,39 +94,89 @@ curl -X POST "https://api.sandbase.ai/v1/api/tiktok/app-v3/user-search-result" \
 | `keyword` | string | Yes | Keyword |
 | `count` | integer | No | Number |
 | `offset` | integer | No | Offset |
+| `user_search_follower_count` | string | No | Sort by number of followers |
 | `user_search_other_pref` | string | No | Sort by other preferences |
 | `user_search_profile_type` | string | No | Sort by account type |
-| `user_search_follower_count` | string | No | Sort by number of followers |
 
 ### Example response
 
-Real response for the request above, trimmed to the main fields. User names and long IDs are masked.
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
 
 ```json
 {
-  "user_list": [
-    {
-      "user_info": {
-        "authority_status": 0,
-        "aweme_count": 542,
-        "block_status": 0,
-        "comment_filter_status": 0,
-        "fb_expire_time": 0,
-        "follow_status": 0
+  "challenge_list": null,
+  "cursor": 20,
+  "extra": {
+    "api_debug_info": null,
+    "fatal_item_ids": [],
+    "logid": "20261103074408EF1DF108C79A43821A2A",
+    "now": 1793691849000,
+    "search_request_id": "",
+    "server_stream_time": 612
+  },
+  "feedback_type": "user",
+  "global_doodle_config": {
+    "ab_params": {
+      "user_relation_ship": "1"
+    },
+    "display_filter_bar": 1,
+    "feedback_survey": [
+      {
+        "feedback_type": "user",
+        "long_stress_info": null,
+        "multiple_choices": [
+          {
+            "key": "Dislike",
+            "value": "Dislike"
+          }
+        ],
+        "send_us_multiple_choices": null
       }
-    }
-  ]
+    ],
+    "hide_results": false,
+    "hit_dolphin": false,
+    "hit_shark": false,
+    "keyword": "openai",
+    "new_source": "switch_tab",
+    "search_channel": "musically_user",
+    "tns_search_result": "Pass"
+  },
+  "has_more": 1,
+  "input_keyword": "openai",
+  "log_pb": {
+    "impr_id": "20261103074408EF1DF108C79A43821A2A"
+  },
+  "music_list": null,
+  "qc": "",
+  "rid": "20261103074408EF1DF108C79A43821A2A",
+  "status_code": 0
 }
 ```
 
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `user_list[]` | One matching account per item. Each item holds the account details under `user_info`. |
+| `user_list[].user_info` | Profile data for the matched account. |
+| `user_list[].user_info.avatar_168x168 / user_list[].user_info.avatar_300x300` | Avatar images at two sizes. Each has a `uri`, `width`, `height` and a `url_list` with several image links. |
+| `user_list[].user_info.avatar_168x168.url_list` | Direct image URLs for the small avatar, in HEIC and JPEG formats. |
+| `user_list[].user_info.authority_status` | Account authority flag. It is `0` in the sample response. |
+| `has_more` | Shows whether more results remain. It is `1` in the sample response. |
+| `cursor` | Position value for the next page. It is `20` in the sample response. |
+| `input_keyword` | The search keyword that the request used. |
+| `status_code` | Result status of the call. `0` in the sample response. |
+
 ### Notes
 
-- Control pagination using `count` and `offset`.
-- Refine queries using `user_search_follower_count` and `user_search_profile_type`.
+- Page through results with `count` and `offset`. The sample response returns `cursor` as `20` and `has_more` as `1`, so use the `cursor` value as the next `offset`.
+- Several `user_list[]` fields, such as `items`, `musics` and `challenges`, are `null` for user search results.
+- The filter parameters `user_search_follower_count`, `user_search_profile_type` and `user_search_other_pref` are strings and default to an empty string.
+- To get more details on a matched account, call [TikTok User Profile Details](/apis/tiktok/app-v3/user-profile).
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

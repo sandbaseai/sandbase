@@ -63,13 +63,14 @@ Same call via the path form: `POST /v1/api/instagram/v1/search` with the body ab
 
 ## Details
 
-Search across Instagram profiles, hashtags, and locations by passing a search term into `query`. Narrow the search category by supplying `select`.
+Returns Instagram accounts that match a search keyword, with a position for each result and basic account details. It needs one input, `query`. An optional `select` value limits the result type, for example to `hashtags`.
 
 ### Use cases
 
-- Locate Instagram profiles by keyword or brand name.
-- Discover hashtags related to specific topics or campaigns.
-- Find place entities and locations across Instagram.
+- Find the official Instagram account of a brand by searching its name and checking `full_name` and `id`.
+- Collect the numeric user IDs of accounts that match a topic keyword, then feed them to a profile lookup.
+- Check whether similar-looking accounts exist for a name before you pick one to track.
+- Page through a long list of matches for a keyword using the returned page token.
 
 ### Request
 
@@ -80,6 +81,8 @@ curl -X POST "https://api.sandbase.ai/v1/api/instagram/v1/search" \
   -d '{"query": "openai"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
@@ -89,31 +92,71 @@ curl -X POST "https://api.sandbase.ai/v1/api/instagram/v1/search" \
 
 ### Example response
 
-Real response for the request above, trimmed to the main fields. User names and long IDs are masked.
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
 
 ```json
 {
+  "attempts": "133",
+  "clear_client_cache": false,
+  "has_more": true,
+  "num_results": 20,
+  "page_token": "a53f91e3…",
+  "status": "ok",
   "users": [
     {
+      "position": 0,
       "user": {
+        "account_badges": [],
+        "aigm_account_label_info": {
+          "is_auto_detected": false,
+          "is_enabled": false,
+          "is_manually_enabled": false
+        },
+        "fbid_v2": 17841445531001821,
+        "friendship_status": {
+          "following": false,
+          "incoming_request": false,
+          "is_bestie": false,
+          "is_feed_favorite": false,
+          "is_private": false,
+          "is_restricted": false,
+          "outgoing_request": false
+        },
         "full_name": "OpenAI",
+        "has_anonymous_profile_picture": false,
         "id": "45374573700",
-        "profile_pic_url": "https://scontent-cdg4-1.cdninstagram.com/v/t51.82787-19/788716177_18115256264517…",
-        "username": "<user>"
+        "is_private": false
       }
     }
   ]
 }
 ```
 
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `users[].position` | Zero-based rank of the result in the list. |
+| `users[].user.id` | Instagram user ID as a string. Use it in APIs that look up a user by ID. |
+| `users[].user.full_name` | Display name of the account. |
+| `users[].user.is_private` | Whether the account is private. |
+| `users[].user.fbid_v2` | Numeric Facebook-side ID attached to the account. |
+| `users[].user.friendship_status.following / users[].user.friendship_status.is_restricted` | Relationship flags between the searching account and the result. Each is a boolean. |
+| `num_results` | Number of results in this response. |
+| `has_more` | Whether more results are available after this page. |
+| `page_token` | Token for the next page of results. |
+| `status` | Status of the call. `ok` means it succeeded. |
+
 ### Notes
 
-- Specify `query` with the target keyword to perform the search.
-- Use `select` to filter search results by target type, such as hashtags.
+- `query` is any search keyword, such as a brand or topic name. Set `select` to a value like `hashtags` to limit the result type.
+- When `has_more` is `true`, use the `page_token` value to continue. The response does not show the name of the request parameter that accepts it.
+- The `id` values are strings. Pass one to [Instagram User Profile by ID](/apis/instagram/v1/user-info-by-id) to get the full profile.
+- To list posts for a hashtag you found, call [Instagram Hashtag Posts (V1)](/apis/instagram/v1/hashtag-posts).
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

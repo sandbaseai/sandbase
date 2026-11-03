@@ -65,13 +65,14 @@ Same call via the path form: `POST /v1/api/zhihu/web/video-search-v3` with the b
 
 ## Details
 
-Search for Zhihu videos by providing a query in `keyword`. Control result paging through `offset` and `limit`.
+Returns Zhihu search results for a keyword, mostly video entries with title, author, cover image and comment count. The only required input is `keyword`. Results page with `offset` and `limit`.
 
 ### Use cases
 
-- Search Zhihu videos related to specific topics or keywords.
-- Retrieve video metadata such as play counts, comments, and durations.
-- Paginate through video search results for content monitoring.
+- Find Zhihu videos that mention a brand or product such as OpenAI.
+- Collect video authors and their follower counts to find creators who cover a topic.
+- Gather cover images and video stream URLs for videos that match a keyword.
+- Page through all matches for a keyword to track new Zhihu video content over time.
 
 ### Request
 
@@ -81,6 +82,8 @@ curl -X POST "https://api.sandbase.ai/v1/api/zhihu/web/video-search-v3" \
   -H "Content-Type: application/json" \
   -d '{"keyword": "OpenAI"}'
 ```
+
+The result is returned in `outputs[0].data`.
 
 ### Parameters
 
@@ -93,40 +96,115 @@ curl -X POST "https://api.sandbase.ai/v1/api/zhihu/web/video-search-v3" \
 
 ### Example response
 
-Real response for the request above, trimmed to the main fields. User names and long IDs are masked.
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
 
 ```json
 {
+  "ab_params": "sb_cardfilter=1;dm_center_feature=1;dm_hotvideo=0;dm_paid_recency=0;dm_l1_rel=0;…",
   "data": [
     {
-      "id": "1634622855538356224",
-      "type": "zvideo",
       "highlight": {
-        "description": "起底OpenAI：从人类救世主到“微软的附庸”",
-        "title": "OpenAI到底是一家怎样的公司？"
+        "creator": "太空就是我",
+        "description": "目前看用低端设备也能跑#<em>openai</em> #chatgpt #人工智能",
+        "title": "聊聊<em>OpenAi</em>"
       },
+      "hit_labels": null,
+      "id": "1789796275463544832",
+      "index": 0,
       "object": {
+        "attached_info_bytes": "OpECCgtwbGFjZWhvbGRlchIgM2U0OWQ5ODY2OGJkMDc0NDhkMzQzNjYyZWViNDQzYzQYYyITMTc4OTc5…",
+        "author": {
+          "authority_info": [],
+          "avatar_url": "https://pica.zhimg.com/50/v2-518e0f06c688a3657539e130dcdf6d5a_l.jpg?source=4e949…",
+          "badge": [],
+          "badge_v2": {
+            "detail_badges": [],
+            "icon": "",
+            "merged_badges": [],
+            "night_icon": "",
+            "title": ""
+          },
+          "badge_v2_string": "{\"title\":\"\",\"merged_badges\":[],\"detail_badges\":null,\"icon\":\"\",\"night_icon\":\"\"}",
+          "follower_count": 489,
+          "gender": 1,
+          "headline": "破繭尋光 選擇美麗"
+        },
+        "badge": [],
+        "badge_v2": {
+          "detail_badges": [],
+          "icon": "",
+          "merged_badges": [],
+          "night_icon": "",
+          "title": ""
+        },
+        "badge_v2_string": "{\"title\":\"\",\"merged_badges\":[],\"detail_badges\":null,\"icon\":\"\",\"night_icon\":\"\"}",
         "comment_count": 0,
-        "cover_url": "https://pic1.zhimg.com/v2-96167a53ed8bb7c4a3842263b1deee69.jpg?source=4e949a73",
-        "description": "起底OpenAI：从人类救世主到“微软的附庸”",
-        "duration": 913.641,
-        "favorites_count": 8,
-        "play_count": 9562
-      }
+        "cover_info": {
+          "data_url": "",
+          "height": 1920,
+          "type": "image",
+          "url": "https://picx.zhimg.com/80/v2-3d1e45814a107d146ae472b01ef5b199_qhd.jpg?source=4e9…",
+          "width": 1080
+        },
+        "cover_url": "https://picx.zhimg.com/v2-3d1e45814a107d146ae472b01ef5b199.jpg?source=4e949a73"
+      },
+      "type": "zvideo"
     }
-  ]
+  ],
+  "domain_info": {
+    "first_category": ""
+  },
+  "filter_items": null,
+  "hit_labels": null,
+  "is_brand_word": false,
+  "is_koc_words": false,
+  "item_in_view": [
+    {
+      "index": 5,
+      "token": "b62a7302…",
+      "type": "user_survey"
+    }
+  ],
+  "paging": {
+    "is_end": false,
+    "next": "https://api.zhihu.com/search_v3?advert_count=0&correction=1&filter_fields=%7B%27…"
+  },
+  "pendant": null,
+  "related_search_result": [],
+  "search_action_info": {
+    "attached_info_bytes": "OqQBEiAzZTQ5ZDk4NjY4YmQwNzQ0OGQzNDM2NjJlZWI0NDNjNEoGb3BlbmFpUABYFGABagZPcGVuQUlw…",
+    "isfeed": false,
+    "lc_idx": 20,
+    "search_hash_id": "3e49d98668bd07448d343662eeb443c4"
+  }
 }
 ```
 
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `data[].type` | Kind of result. `zvideo` marks a video entry. `search_result` marks a text post that can embed a video. |
+| `data[].id` | ID of the result as a string. |
+| `data[].highlight.title / data[].highlight.description / data[].highlight.creator` | Title, description and creator name with the matched keyword wrapped in `<em>` tags. |
+| `data[].object.author.follower_count` | Number of followers of the video author. |
+| `data[].object.author.headline` | Short profile line of the author. |
+| `data[].object.comment_count` | Number of comments on the item. |
+| `data[].object.cover_url` | URL of the cover image for the item. |
+| `data[].object.created_time` | Creation time of a `search_result` item. It looks like a Unix timestamp in seconds. |
+| `data[].object.content[].playlist[]` | Video files for an embedded video, each with `quality`, `format`, `height`, `bitrate`, `size` and `url`. |
+| `search_action_info.search_hash_id` | Hash ID for this search. You can pass it back in `search_hash_id` on later requests. |
+| `paging.is_end` | Tells you whether the last page has been reached. `paging.next` holds the URL for the next page. |
+
 ### Notes
 
-- Use `limit` to set the number of videos returned per page.
-- Use `offset` for result pagination.
-- Pass `search_hash_id` when tracking search sessions.
+- Use `offset` and `limit` to move through pages. Check `paging.is_end` to know when to stop.
+- The response mixes `zvideo` entries with `search_result` entries, so check `data[].type` before you read fields. Fields such as `cover_info` appear on videos, while `content` and `excerpt` appear on text posts.
+- To search Zhihu articles and answers instead, call [Zhihu Article Search](/apis/zhihu/web/article-search-v3).
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

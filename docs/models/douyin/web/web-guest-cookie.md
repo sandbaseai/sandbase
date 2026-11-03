@@ -62,13 +62,14 @@ Same call via the path form: `POST /v1/api/douyin/web/web-guest-cookie` with the
 
 ## Details
 
-Retrieve a guest session cookie for Douyin Web by supplying a valid browser `user_agent`.
+Returns a guest cookie string for Douyin Web, built for the browser user agent you send. The only input is `user_agent`, and the response echoes that user agent back with the cookie.
 
 ### Use cases
 
-- Obtain guest credentials for crawling Douyin Web data.
-- Maintain session identity when querying public user and mix videos.
-- Prevent duplicate responses across public web data requests.
+- Get a guest `Cookie` header to attach to other Douyin Web requests that need a browser identity.
+- Pair a cookie and a user agent so repeated web requests use the same browser profile.
+- Refresh the guest cookie for a given user agent before running a batch of Douyin Web lookups.
+- Test how different browser user agent strings change the cookie you receive.
 
 ### Request
 
@@ -79,19 +80,41 @@ curl -X POST "https://api.sandbase.ai/v1/api/douyin/web/web-guest-cookie" \
   -d '{"user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
 |---|---|---|---|
 | `user_agent` | string | Yes | User browser agent |
 
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "Cookie": "__ac_non…",
+  "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko)…"
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `Cookie` | A single cookie header string made of `name=value` pairs separated by semicolons. The sample contains pairs named `__ac_nonce`, `__ac_signature`, `__ac_referer` and `web_sign_token`. Send the whole string as the `Cookie` header in Douyin Web requests. |
+| `User-Agent` | The user agent string the cookie was issued for. It matches the `user_agent` you sent. Use the same value as the `User-Agent` header in later requests. |
+
 ### Notes
 
-- Requires `user_agent` containing a valid browser agent string.
+- Send a real browser user agent string in `user_agent`, such as a current Chrome string. Reuse the same string in later requests that use this cookie.
+- The `Cookie` value is long and the sample here is cut short. Store the full string as returned.
+- To get a signed identity token for other Douyin Web calls, see [Douyin Web TTWID Generator](/apis/douyin/web/generate-ttwid).
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

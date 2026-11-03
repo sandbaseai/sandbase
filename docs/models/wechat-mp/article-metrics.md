@@ -61,9 +61,14 @@ Same call via the path form: `POST /v1/api/wechat-mp/article-metrics` with the b
 
 ## Details
 
-Get basic interaction metrics for a WeChat Official Account article URL that ends with #rd or #wechat_redirect. Use it to perform a lightweight popularity check for a known article.
+This API returns basic interaction counts for one WeChat Official Account article. It needs the article URL in `articleUrl`, and the URL must end with `#rd` or `#wechat_redirect`.
 
-The response is the platform's original data structure.
+### Use cases
+
+- Check how many reads a known article has reached.
+- Compare like counts across a short list of article URLs.
+- Add read and like numbers to a content report for a specific article.
+- Run a quick popularity check before you fetch the full article text.
 
 ### Request
 
@@ -74,15 +79,46 @@ curl -X POST "https://api.sandbase.ai/v1/api/wechat-mp/article-metrics" \
   -d '{"articleUrl": "http://mp.weixin.qq.com/s?__biz=MjM5NzI3NDg4MA==&mid=2659064933&idx=1&sn=c536f78d7358bc2dfe90cde700e21d55&chksm=bc881cb3f28a27f35e0711803b28d8110305cfc1b8beb651674e1aa7870ddf963c658f4dc19a&scene=7#rd"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
 |---|---|---|---|
 | `articleUrl` | string | Yes | WeChat Official Account article URL used to fetch basic interaction metrics such as reads and likes. It must end with #rd or #wechat_redirect. |
 
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "data": {
+    "looking": 188,
+    "read": 73413,
+    "zan": 440
+  }
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `data.read` | Number of reads for the article. The sample article shows `73413`. |
+| `data.zan` | Number of likes (zan) for the article. The sample article shows `440`. |
+| `data.looking` | Count of the article's looking (在看) reactions. The sample article shows `188`. |
+
+### Notes
+
+- Pass the full article URL, including the `#rd` or `#wechat_redirect` ending. The `articleUrl` value in the example ends with `#rd`.
+- The response holds only three counts. To get the article text, call [WeChat MP Article Detail](/apis/wechat-mp/article-detail).
+- To read reader comments on the article, call [WeChat MP Article Comments](/apis/wechat-mp/article-comment).
+- If your link does not end with `#rd` or `#wechat_redirect`, try [WeChat MP Article Link Conversion](/apis/wechat-mp/convert-article-link).
+
 ### Pricing
 
-Flat price per call. Failed calls and empty results are not charged.
+$0.021429 per successful call. Failed calls are not charged.
 
 ---
 Machine-readable: [`catalog/models/wechat-mp/article-metrics.json`](../../../catalog/models/wechat-mp/article-metrics.json) · Store page: https://www.sandbase.ai/model/wechat-mp/article-metrics

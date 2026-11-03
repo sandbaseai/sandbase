@@ -62,13 +62,14 @@ Same call via the path form: `POST /v1/api/zhihu/web/column-article-detail` with
 
 ## Details
 
-Retrieves complete column article details from Zhihu by specifying the `article_id`.
+Returns the details of one Zhihu column article, including its HTML content, engagement counts, author profile and the column it belongs to. It needs one input, the `article_id`.
 
 ### Use cases
 
-- Display Zhihu column article content alongside author topic badges.
-- Extract author metadata and topic expertise from specific column articles.
-- Archive public column posts and contributor details for research.
+- Archive the full HTML body and publish time of a known column article.
+- Read an article's `emoji_reaction.like_count`, `comment_count` and `favlists_count` to compare its engagement with other posts.
+- Collect author details such as `author.url_token` and expertise badges for a column writer.
+- Find which column an article belongs to and how large that column is.
 
 ### Request
 
@@ -79,6 +80,8 @@ curl -X POST "https://api.sandbase.ai/v1/api/zhihu/web/column-article-detail" \
   -d '{"article_id": "669214677"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
@@ -87,13 +90,29 @@ curl -X POST "https://api.sandbase.ai/v1/api/zhihu/web/column-article-detail" \
 
 ### Example response
 
-Real response for the request above, trimmed to the main fields. User names and long IDs are masked.
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
 
 ```json
 {
+  "ab_param": {
+    "qa_hidden_voteup": "",
+    "rs_interest1": "",
+    "zp_zhi_style": ""
+  },
+  "activity_topping_info": {
+    "state": "untopped"
+  },
+  "admin_closed_comment": false,
+  "allow_segment_interaction": 1,
+  "annotation_action": [],
+  "article_type": "normal",
+  "attached_info": "kgIkCgkyMzY4NDQ3NTUSCTY2OTIxNDY3NxgHIgpJTUFHRV9URVhU",
   "author": {
+    "avatar_url": "https://picx.zhimg.com/v2-d626957872f9b38fa594394db2d2e6e7_l.jpg?source=172ae18b",
+    "avatar_url_template": "https://picx.zhimg.com/v2-d626957872f9b38fa594394db2d2e6e7.jpg?source=172ae18b",
     "badge": [
       {
+        "description": "优秀答主",
         "topics": [
           {
             "id": "19609249",
@@ -101,20 +120,101 @@ Real response for the request above, trimmed to the main fields. User names and 
             "type": "topic",
             "url": "https://www.zhihu.com/topic/19609249"
           }
-        ]
+        ],
+        "type": "best_answerer"
       }
-    ]
-  }
+    ],
+    "badge_v2": {
+      "detail_badges": [
+        {
+          "badge_status": "passed",
+          "description": "新知答主",
+          "detail_type": "zhihu_yearly_answerer",
+          "icon": "https://picx.zhimg.com/v2-4a07bc69c4bb04444721f35b32125c75_l.png?source=32738c0c",
+          "night_icon": "https://picx.zhimg.com/v2-4a07bc69c4bb04444721f35b32125c75_l.png?source=32738c0c",
+          "sources": [
+            {
+              "avatar_path": "",
+              "avatar_url": "",
+              "description": "",
+              "id": "2023",
+              "name": "",
+              "priority": 2023,
+              "token": "",
+              "type": "year"
+            }
+          ],
+          "title": "年度新知答主",
+          "type": "reward"
+        }
+      ],
+      "icon": "https://picx.zhimg.com/v2-4a07bc69c4bb04444721f35b32125c75_l.png?source=32738c0c",
+      "merged_badges": [
+        {
+          "badge_status": "passed",
+          "description": "新知答主",
+          "detail_type": "best",
+          "icon": "",
+          "night_icon": "",
+          "sources": [],
+          "title": "年度新知答主",
+          "type": "best"
+        }
+      ],
+      "night_icon": "https://picx.zhimg.com/v2-4a07bc69c4bb04444721f35b32125c75_l.png?source=32738c0c",
+      "title": "新知答主"
+    },
+    "description": "",
+    "exposed_medal": {
+      "avatar_url": "https://pic1.zhimg.com/v2-05b349562f395a352a39342dccbe834f_r.png?source=172ae18b",
+      "description": "2023 年度新知答主获得者",
+      "medal_avatar_frame": "",
+      "medal_id": "1750529444194553856",
+      "medal_name": "2023 年度新知答主",
+      "mini_avatar_url": "https://pic1.zhimg.com/v2-05b349562f395a352a39342dccbe834f_l.png?source=172ae18b"
+    },
+    "gender": 1,
+    "headline": "",
+    "id": "f9de84865e3e8455a09af78bfe4d1da5",
+    "is_advertiser": false,
+    "is_followed": false,
+    "is_following": false
+  },
+  "bar_plugins_flip_time": 3000,
+  "can_comment": {
+    "reason": "因作者设置，评论已关闭",
+    "status": false
+  },
+  "can_reference": false,
+  "can_tip": false
 }
 ```
 
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `id / article_type` | The article ID (same as the `article_id` you sent) and the article type, `normal` in this example. |
+| `content / excerpt` | `content` holds the article body as HTML. `excerpt` is a shorter HTML preview that may start with an image tag. |
+| `created` | Creation time of the article as a Unix timestamp in seconds. |
+| `emoji_reaction.like_count` | Number of likes on the article. |
+| `comment_count / favlists_count` | Number of comments on the article and the number of favorite lists that saved it. |
+| `can_comment.status / can_comment.reason` | Whether commenting is allowed. When it is `false`, `reason` explains why, for example the author closed comments. |
+| `ip_info` | Location label shown for the article, `江苏` in this example. |
+| `author.name / author.url_token / author.id` | The author's display name, URL slug and ID. |
+| `author.badge[].topics[].name` | Topics tied to the author's best answerer badge, for example `网球`, `文学` and `绘画`. |
+| `column.title / column.articles_count / column.followers` | The column's title, how many articles it holds and how many followers it has. |
+
 ### Notes
 
-- `article_id` is required to look up the column article.
+- `article_id` is the numeric string in the article ID field of the response, such as `669214677`.
+- `column.url_token` and `column.id` give the column's identifier. Use [Zhihu Column Articles](/apis/zhihu/web/column-articles) to list other articles in a column.
+- `created` and `column.created` are Unix timestamps in seconds.
+- `author.url_token` can be used to look up the writer with [Zhihu Web User Profile](/apis/zhihu/web/user-info).
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

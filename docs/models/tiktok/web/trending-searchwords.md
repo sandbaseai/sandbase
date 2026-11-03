@@ -52,13 +52,14 @@ Same call via the path form: `POST /v1/api/tiktok/web/trending-searchwords` with
 
 ## Details
 
-Returns current daily trending search words on TikTok Web without requiring any request parameters. Use this data to track popular search queries across the platform.
+Returns the current list of trending search terms on TikTok Web. The request takes no input parameters, so you send an empty JSON object.
 
 ### Use cases
 
-- Discover popular search terms and topics currently trending on TikTok.
-- Analyze query popularity shifts to inform content strategy.
-- Monitor emerging search patterns across TikTok Web.
+- Track which news events and topics people search for on TikTok today.
+- Build a daily log of trending search terms to compare topics across days.
+- Feed trending phrases into a content calendar or keyword research list.
+- Use a trending phrase as the query for a follow-up search to find related videos.
 
 ### Request
 
@@ -69,9 +70,54 @@ curl -X POST "https://api.sandbase.ai/v1/api/tiktok/web/trending-searchwords" \
   -d '{}'
 ```
 
+The result is returned in `outputs[0].data`.
+
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "extra": {
+    "fatal_item_ids": [],
+    "logid": "202611031544316D7CBC035751710D1C41",
+    "now": 1793691871000
+  },
+  "log_pb": {
+    "impr_id": "202611031544316D7CBC035751710D1C41"
+  },
+  "status_code": 0,
+  "status_msg": "",
+  "trending_search_words": [
+    {
+      "trendingSearchWord": "Learjet 60 Crashes Near Palm Beach, 9 Dead",
+      "trendingSearchWordType": "2"
+    }
+  ]
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `trending_search_words[].trendingSearchWord` | The text of one trending search term, as shown on TikTok. |
+| `trending_search_words[].trendingSearchWordType` | A type code for the term, returned as a string such as `"2"`. The response does not explain what each code means. |
+| `status_code / status_msg` | Result status of the call. `0` with an empty message means the request succeeded. |
+| `extra.now` | A timestamp for when the response was generated. The value looks like Unix time in milliseconds. |
+| `extra.logid / log_pb.impr_id` | Request tracking identifiers. They have the same value in this response. |
+| `extra.fatal_item_ids` | A list of item IDs that failed. It is empty when nothing failed. |
+
+### Notes
+
+- Send `{}` as the request body. The API has no parameters.
+- Results come back as a single list in `trending_search_words`. The response shows no pagination fields.
+- To search for a returned term, pass it to [TikTok Web General Search](/apis/tiktok/web/general-search).
+- To get related query ideas for a keyword, call [TikTok Search Keyword Suggestions](/apis/tiktok/web/search-keyword-suggest).
+
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

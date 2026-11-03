@@ -69,13 +69,14 @@ Same call via the path form: `POST /v1/api/douyin/index/brand-cycles` with the b
 
 ## Details
 
-Query periodic brand index cycles by passing `brand_name`, `start_date`, and `end_date` in YYYYMMDD format. You can also specify the target platform using `app_name`.
+Returns periodic brand popularity and cycle analysis data for a brand on Douyin. You send `brand_name`, `start_date` and `end_date`, and can set `app_name` to `aweme` or `toutiao`.
 
 ### Use cases
 
-- Analyze periodic popularity trends for specific brands across platforms.
-- Evaluate cyclical marketing campaign performance across date ranges.
-- Compare brand performance metrics between Aweme and Toutiao.
+- Check how a brand's popularity moves across a chosen week or month.
+- Compare a brand's cycle data on `aweme` with the same range on `toutiao`.
+- Line up a campaign's dates against the brand's popularity cycles.
+- Pull cycle data for several brands over the same date range to compare them.
 
 ### Request
 
@@ -86,23 +87,48 @@ curl -X POST "https://api.sandbase.ai/v1/api/douyin/index/brand-cycles" \
   -d '{"brand_name": "华为", "end_date": "20260412", "start_date": "20260406"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
 |---|---|---|---|
-| `end_date` | string | Yes | End date YYYYMMDD |
 | `brand_name` | string | Yes | Brand info |
+| `end_date` | string | Yes | End date YYYYMMDD |
 | `start_date` | string | Yes | Start date YYYYMMDD |
 | `app_name` | string | No | Platform |
 
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "BaseResp": {
+    "StatusCode": -1,
+    "StatusMessage": "系统异常"
+  }
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `BaseResp` | Status object. It appears in the response from the sample request. |
+| `BaseResp.StatusCode` | Numeric status of the call. The sample request returned `-1`, which came with an error message. |
+| `BaseResp.StatusMessage` | Text message for the status. The sample request returned `系统异常`, meaning system exception. |
+
 ### Notes
 
-- Date parameters `start_date` and `end_date` require the YYYYMMDD format.
-- The `app_name` parameter accepts values aweme or toutiao.
+- Write `start_date` and `end_date` as YYYYMMDD, for example `20260406`.
+- `app_name` accepts `aweme` or `toutiao`. It defaults to `aweme`.
+- The sample request for `华为` from `20260406` to `20260412` returned only `BaseResp` with `StatusCode` `-1`. Check this field before you read any data.
+- Use [Douyin Brand Search Suggestions](/apis/douyin/index/brand-suggest) to find a brand name to pass as `brand_name`.
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

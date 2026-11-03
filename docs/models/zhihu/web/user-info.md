@@ -62,13 +62,14 @@ Same call via the path form: `POST /v1/api/zhihu/web/user-info` with the body ab
 
 ## Details
 
-Access public Zhihu user account metrics by specifying a user token in `user_url_token`. This endpoint returns summary statistics including follower count, article count, and answer count.
+Returns the public profile of a Zhihu user, including display name, headline, answer and article counts, and follower count. It needs one input, the user's `user_url_token`, which is the slug in the profile URL.
 
 ### Use cases
 
-- Analyze user audience size and engagement metrics on Zhihu.
-- Retrieve author details and content publication totals.
-- Display Zhihu creator profile statistics within external dashboards.
+- Track a Zhihu author's follower count and content totals over time.
+- Check whether an account is a real-name verified personal account or an organization before outreach.
+- Show a creator's name, headline, and avatar on an external dashboard.
+- Build a profile record from a known `url_token` before pulling that user's answers or articles.
 
 ### Request
 
@@ -79,6 +80,8 @@ curl -X POST "https://api.sandbase.ai/v1/api/zhihu/web/user-info" \
   -d '{"user_url_token": "ming-he-43-93"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
@@ -87,32 +90,56 @@ curl -X POST "https://api.sandbase.ai/v1/api/zhihu/web/user-info" \
 
 ### Example response
 
-Real response for the request above, trimmed to the main fields. User names and long IDs are masked.
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
 
 ```json
 {
+  "ai_assistant_info": null,
+  "allow_message": true,
   "answer_count": 9,
   "articles_count": 87,
   "available_medals_count": 0,
-  "follower_count": 2830,
-  "follower_count_num": "2830",
-  "follower_count_text": "2830",
-  "id": "bd76ac15154a7024a8adbcc2997efc8d",
-  "name": "洺河",
-  "project_count": 0,
-  "type": "people",
-  "url": "https://www.zhihu.com/api/v4/people/ming-he-43-93",
-  "user_type": "people"
+  "avatar_url": "https://pic1.zhimg.com/v2-60386d319ef90da6904da4fe604bc48f_xl.jpg?source=32738c0…",
+  "avatar_url_template": "https://picx.zhimg.com/v2-60386d319ef90da6904da4fe604bc48f_l.jpg?source=32738c0c…",
+  "badge": [],
+  "badge_v2": {
+    "detail_badges": [],
+    "icon": "",
+    "merged_badges": [],
+    "night_icon": "",
+    "title": ""
+  },
+  "employments": [],
+  "extra": null,
+  "follower_count": 2830
 }
 ```
 
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `name / headline` | Display name and short self-description of the user. |
+| `url_token` | The user's profile slug. It matches the `user_url_token` you sent. |
+| `id` | Internal hash ID of the user account. |
+| `follower_count` | Number of followers as an integer. `follower_count_text` and `follower_count_num` give the same value as strings. |
+| `answer_count / articles_count` | Number of answers and number of articles the user has published. |
+| `project_count / available_medals_count` | Count of the user's projects and of medals available on the account. |
+| `is_realname / is_org / is_advertiser` | Flags that show whether the account is real-name verified, an organization, or an advertiser. |
+| `vip_info.is_vip / kvip_info.is_vip` | Flags that show whether the user holds a VIP membership. |
+| `gender` | Numeric gender code. This example returns `1`. |
+| `avatar_url / url` | Link to the avatar image and to the user's profile API URL. |
+
 ### Notes
 
-- Requires the Zhihu profile slug passed via `user_url_token`.
+- Take `user_url_token` from the end of a Zhihu profile URL, such as `ming-he-43-93` in `zhihu.com/people/ming-he-43-93`.
+- `ip_info` can return a placeholder text when the location is not known.
+- To list this user's content, call [Zhihu User Answers](/apis/zhihu/web/user-answers) or [Zhihu User Articles](/apis/zhihu/web/user-articles) with the same token.
+- To see who this user follows or who follows them, use [Zhihu User Followees](/apis/zhihu/web/user-followees).
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

@@ -69,7 +69,14 @@ Same call via the path form: `POST /v1/api/marketbeat/earnings` with the body ab
 
 ## Details
 
-Get earnings estimates and historical earnings data including EPS estimates (low, high, average), number of analyst estimates, revenue estimates, and company revenue guidance. Covers both quarterly and fiscal year.
+Returns analyst earnings estimates per fiscal quarter for a stock, including low, high and average EPS, the number of estimates, and company revenue guidance. It needs a stock `ticker` such as `AAPL`, with an optional `exchange`.
+
+### Use cases
+
+- Compare the low and high EPS estimates for the next quarter to see how far analysts disagree.
+- Track the revenue guidance range a company gave for upcoming quarters.
+- Build an earnings calendar view that lists each upcoming quarter with its consensus EPS.
+- Check how many analysts cover a stock before relying on its average estimate.
 
 ### Request
 
@@ -80,7 +87,7 @@ curl -X POST "https://api.sandbase.ai/v1/api/marketbeat/earnings" \
   -d '{"ticker": "AAPL"}'
 ```
 
-This API runs asynchronously. The call returns a task `id` with status `pending`; poll `GET https://api.sandbase.ai/v1/run/{id}` until `status` is `completed` and read the result from `outputs[0].data`.
+The result is returned in `outputs[0].data`.
 
 ### Parameters
 
@@ -89,9 +96,47 @@ This API runs asynchronously. The call returns a task `id` with status `pending`
 | `ticker` | string | Yes | Stock ticker symbol (e.g. 'AAPL'). |
 | `exchange` | string | No | Stock exchange (e.g. 'NYSE', ''). |
 
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "data": {
+    "history": [
+      {
+        "Average Estimate": "$2.53",
+        "Company Revenue Guidance": "",
+        "High Estimate": "$2.64",
+        "Low Estimate": "$2.28",
+        "Number of Estimates": "4",
+        "Quarter": "Q1 2026",
+        "Revenue Estimate at Guidance": ""
+      }
+    ]
+  },
+  "status": "success"
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `data.history[]` | One object per fiscal quarter. Each object holds the keys `Average Estimate`, `High Estimate` and `Low Estimate` (EPS as dollar strings such as `$2.53`), and `Number of Estimates` (the count of analyst estimates). |
+| `data.history[].Quarter` | The fiscal quarter the estimates apply to, for example `Q1 2026`. |
+| `data` | Wraps the `history` list of quarterly estimate objects. Each object also holds `Company Revenue Guidance` (a range such as `$107.8 B - $110.6 B`) and `Revenue Estimate at Guidance` (such as `$105.1 B`). Both are empty strings when no guidance exists. |
+| `status` | Shows `success` when the call worked. |
+
+### Notes
+
+- Every value inside `data.history[]` is a string, including numbers and dollar amounts. Parse them before doing math.
+- Empty strings in the revenue guidance keys mean no value was returned for that quarter.
+- Use [MarketBeat Search Stocks](/apis/marketbeat/search-stocks) to find a ticker, and [MarketBeat Analyst Ratings](/apis/marketbeat/analyst-ratings) for rating changes on the same stock.
+
 ### Pricing
 
-Flat price per call. Failed calls are not charged.
+$0.01 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ---
 Machine-readable: [`catalog/models/marketbeat/earnings.json`](../../../catalog/models/marketbeat/earnings.json) · Store page: https://www.sandbase.ai/model/marketbeat/earnings

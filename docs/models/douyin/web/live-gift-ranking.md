@@ -65,13 +65,14 @@ Same call via the path form: `POST /v1/api/douyin/web/live-gift-ranking` with th
 
 ## Details
 
-Fetch the user gift ranking list for a Douyin live stream room using `room_id`. You can also configure the leaderboard format via `rank_type`.
+Returns the gift contributor ranking for one Douyin live room. You send a `room_id` and, optionally, a `rank_type`. The response holds the ranked list, totals, and the ranking info for the requesting viewer.
 
 ### Use cases
 
-- Identify top gift contributors during a Douyin live broadcast.
-- Monitor audience engagement and supporter rankings for live rooms.
-- Track live gifting activity for creator performance analysis.
+- Check who gives the most gifts in a Douyin live room.
+- Compare the contributor count of a live room across repeated calls.
+- Read the ranking rules link that Douyin attaches to a live room leaderboard.
+- Check whether a room has had earlier live sessions using a single flag.
 
 ### Request
 
@@ -82,6 +83,8 @@ curl -X POST "https://api.sandbase.ai/v1/api/douyin/web/live-gift-ranking" \
   -d '{"room_id": "7356585666190461731"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
@@ -89,13 +92,80 @@ curl -X POST "https://api.sandbase.ai/v1/api/douyin/web/live-gift-ranking" \
 | `room_id` | string | Yes | Room room_id |
 | `rank_type` | integer | No | Leaderboard type, default is 30, no need to modify. |
 
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "data": {
+    "currency": "",
+    "has_more": false,
+    "has_once_live": true,
+    "invisible_total": 0,
+    "label": "",
+    "music_wave": "",
+    "ranks": [],
+    "rules_url": "sslocal://webcast_webview?url=https%3A%2F%2Faweme.snssdk.com%2Fmagic%2Fpage%2Fej…",
+    "seats": [],
+    "self_info": {
+      "app_name": "",
+      "delta": 1,
+      "exactly_score": "0",
+      "first_gift": false,
+      "gap_description": "",
+      "is_hidden": false,
+      "rank": 0,
+      "score": 0,
+      "score_description": "0",
+      "team_id": "",
+      "team_jump_schema": "",
+      "user": {
+        "adversary_authorization_info": 0,
+        "adversary_user_status": 0,
+        "age_range": 0,
+        "allow_be_located": false,
+        "allow_find_by_contacts": false,
+        "allow_others_download_video": false,
+        "allow_others_download_when_sharing_video": false,
+        "allow_share_show_profile": false
+      }
+    },
+    "service_days": 0,
+    "total": 0
+  },
+  "extra": {
+    "now": 1793691146979
+  },
+  "status_code": 0
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `data.ranks[]` | List of ranked gift contributors for the room. It is empty in this sample response, so a room with no gifts returns no rows. |
+| `data.total` | Total count for the leaderboard. It is `0` in this sample. |
+| `data.user_count_desc` | Text version of the user count shown on the leaderboard. It is `"0"` in this sample. |
+| `data.has_more` | Shows whether more ranking entries exist beyond the returned list. |
+| `data.has_once_live` | Boolean flag for the room. It is `true` in this sample. |
+| `data.rules_url` | Link to the leaderboard rules page, in a Douyin app `sslocal://` format. |
+| `data.self_info.rank / data.self_info.score` | Rank and gift score of the requesting viewer. Both are `0` in this sample. |
+| `data.self_info.score_description / data.self_info.exactly_score` | Score as text. `exactly_score` is a string and `score_description` is a display string. |
+| `data.self_info.user` | User profile object for the requesting viewer, with many account setting flags. |
+| `status_code` | Request status. `0` means success. |
+
 ### Notes
 
-- `rank_type` specifies the leaderboard type and defaults to 30.
+- Get `room_id` from a Douyin live room link. [Douyin Webcast ID Extraction](/apis/douyin/web/all-webcast-id) extracts webcast IDs, and [Douyin Webcast ID to Room ID](/apis/douyin/web/webcast-id-2-room-id) converts a webcast ID to a `room_id`.
+- Leave `rank_type` at its default of `30` unless you need another leaderboard type.
+- `extra.now` is a 13-digit timestamp, which looks like Unix time in milliseconds.
+- `data.ranks` and `data.seats` can be empty arrays, so handle empty lists in your code.
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

@@ -64,13 +64,14 @@ Same call via the path form: `POST /v1/api/zhihu/web/topic-search-v3` with the b
 
 ## Details
 
-Query Zhihu topics matching a search term using the `keyword` parameter. It returns topic metadata including follower counts, descriptions, and topic identifiers.
+This API searches Zhihu topics by keyword. It returns a list of matching topics with their IDs, names, follower counts, and highlighted text. It needs one input, `keyword`.
 
 ### Use cases
 
-- Discover relevant Zhihu topic identifiers for specific subject keywords.
-- Inspect follower statistics and descriptions across matching Zhihu topics.
-- Track topic visibility and audience interest on Zhihu.
+- Find the Zhihu topic ID for a brand or subject such as OpenAI.
+- Compare `follower_count` across topics that match the same keyword to see which has the largest audience.
+- Show matched terms in a search UI by using the `<em>` tags in the highlight text.
+- Collect topic avatars and descriptions to build a directory of topics on one theme.
 
 ### Request
 
@@ -80,6 +81,8 @@ curl -X POST "https://api.sandbase.ai/v1/api/zhihu/web/topic-search-v3" \
   -H "Content-Type: application/json" \
   -d '{"keyword": "OpenAI"}'
 ```
+
+The result is returned in `outputs[0].data`.
 
 ### Parameters
 
@@ -91,39 +94,87 @@ curl -X POST "https://api.sandbase.ai/v1/api/zhihu/web/topic-search-v3" \
 
 ### Example response
 
-Real response for the request above, trimmed to the main fields. User names and long IDs are masked.
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
 
 ```json
 {
+  "ab_params": "dm_ai_search_safe=1;dm_recency_ab=1;sb_cr=1;sb_vip_tag=1;sb_sku_time=1;dm_correc…",
   "data": [
     {
-      "id": "20083046",
-      "type": "search_result",
       "highlight": {
         "description": "由 Elon Musk, Peter Thiel, Sam Altman",
-        "title": "OpenAI"
+        "title": "<em>OpenAI</em>"
       },
+      "hit_labels": null,
+      "id": "20083046",
+      "index": 0,
       "object": {
         "agreed_count": 0,
+        "ai_ranking_list_url": "",
+        "aliases": [],
+        "attached_info_bytes": "OvEBCgtwbGFjZWhvbGRlchIgZjYyOWJjOGQwZDRmMDljZmNkMDgzMWYyYTFkNzI3OTQYAiIGMTgwNDc2…",
+        "avatar_url": "https://pic1.zhimg.com/80/v2-4a85355a9ea1acc515ddabc2b3d1d4b1_qhd.jpg",
         "description": "由 Elon Musk, Peter Thiel, Sam Altman",
-        "follower_count": 6548,
-        "followers_count": 6548,
-        "id": "20083046",
-        "name": "OpenAI"
-      }
+        "excerpt": "由 Elon Musk, Peter Thiel, Sam Altman",
+        "follower_count": 6574
+      },
+      "type": "search_result"
     }
-  ]
+  ],
+  "domain_info": {
+    "first_category": ""
+  },
+  "filter_items": null,
+  "hit_labels": null,
+  "is_brand_word": false,
+  "is_koc_words": false,
+  "item_in_view": [
+    {
+      "index": 5,
+      "token": "b62a7302…",
+      "type": "user_survey"
+    }
+  ],
+  "paging": {
+    "is_end": false,
+    "next": "https://api.zhihu.com/search_v3?advert_count=0&correction=1&filter_fields=&gk_ve…"
+  },
+  "pendant": null,
+  "related_search_result": [],
+  "search_action_info": {
+    "attached_info_bytes": "OqQBEiBmNjI5YmM4ZDBkNGYwOWNmY2QwODMxZjJhMWQ3Mjc5NEoGb3BlbmFpUABYA2ABagZPcGVuQUlw…",
+    "isfeed": false,
+    "lc_idx": 20,
+    "search_hash_id": "f629bc8d0d4f09cfcd0831f2a1d72794"
+  }
 }
 ```
 
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `data[].id` | ID of the matching topic, as a string. |
+| `data[].type` | Result type. Here it is `search_result`. |
+| `data[].index` | Position of the result in the list, starting at 0. |
+| `data[].highlight.title` | Topic title with the matched keyword wrapped in `<em>` tags. |
+| `data[].highlight.description` | Topic description with matches highlighted. It can be an empty string. |
+| `data[].object.description / data[].object.excerpt` | Short text describing the topic. Both can be empty. |
+| `data[].object.follower_count` | Number of followers of the topic. Many topics show `0`. |
+| `data[].object.avatar_url` | Image URL for the topic. |
+| `data[].object.aliases` | List of alternative names for the topic. It is empty in this response. |
+| `paging.is_end / paging.next` | `is_end` tells you whether more results exist. `next` is a URL for the next page of results. |
+
 ### Notes
 
-- Supports pagination via the optional `limit` and `offset` parameters.
-- The `keyword` parameter is required to perform the search.
+- Use `limit` and `offset` to page through results. Both are sent as strings, and `limit` defaults to `25` and `offset` to `0`.
+- Check `paging.is_end` to know when to stop paging.
+- Strip the `<em>` tags from `highlight.title` if you need the plain topic name.
+- To search content instead of topics, try [Zhihu Article Search](/apis/zhihu/web/article-search-v3) or [Zhihu Search Suggestions](/apis/zhihu/web/search-suggest).
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

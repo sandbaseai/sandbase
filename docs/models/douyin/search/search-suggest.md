@@ -62,13 +62,14 @@ Same call via the path form: `POST /v1/api/douyin/search/search-suggest` with th
 
 ## Details
 
-Pass a keyword and get the search suggestions Douyin shows in its search box.
+Returns the autocomplete suggestions Douyin shows while a user types a keyword in the search box. It needs one input, `keyword`, and returns a list of suggested queries in `sug_list`.
 
 ### Use cases
 
-- Research long-tail keywords for Douyin SEO.
-- Understand how users search for a topic.
-- Generate keyword lists for content planning.
+- Collect long-tail search phrases around a topic such as `人工智能` for Douyin content planning.
+- Check which related queries Douyin offers for a brand or product name.
+- Build keyword lists to feed into a Douyin video or user search.
+- Compare the suggestions for several keywords to see how users phrase a topic.
 
 ### Request
 
@@ -79,6 +80,8 @@ curl -X POST "https://api.sandbase.ai/v1/api/douyin/search/search-suggest" \
   -d '{"keyword": "人工智能"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
@@ -87,13 +90,40 @@ curl -X POST "https://api.sandbase.ai/v1/api/douyin/search/search-suggest" \
 
 ### Example response
 
-Real response for the request above, trimmed to the main fields. User names and long IDs are masked.
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
 
 ```json
 {
+  "cache_conf": {
+    "enable": false
+  },
+  "extra": {
+    "fatal_item_ids": [],
+    "logid": "20261103153220ABB7B6447CA5FAB75334",
+    "now": 1793691141000,
+    "search_request_id": ""
+  },
+  "log_pb": {
+    "impr_id": "20261103153220ABB7B6447CA5FAB75334"
+  },
+  "rid": "20261103153220ABB7B6447CA5FAB75334",
+  "status_code": 0,
+  "status_msg": "",
   "sug_list": [
     {
       "content": "人工智能",
+      "extra_info": {
+        "poi_id": "",
+        "poi_location_recall_log_id": "20261103153220ABB7B6447CA5FAB75334",
+        "search_params": "{\"sug_poi_id\":\"\"}"
+      },
+      "pos": [
+        {
+          "begin": 0,
+          "end": 3
+        }
+      ],
+      "sug_type": "",
       "word_record": {
         "group_id": "6527568579963917582",
         "words_content": "人工智能",
@@ -101,13 +131,44 @@ Real response for the request above, trimmed to the main fields. User names and 
         "words_source": "sug"
       }
     }
-  ]
+  ],
+  "sug_virtual_list": null,
+  "time_cost": {
+    "server_engine_cost": "108",
+    "stream_inner": "119"
+  },
+  "words_lists": [],
+  "words_query_record": {
+    "info": "{}",
+    "query_id": "6527568579963917582",
+    "words_source": "sug"
+  }
 }
 ```
 
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `sug_list[].content` | The suggested search phrase, as a user would see it in the Douyin search box. |
+| `sug_list[].word_record.words_content` | The suggestion text again, stored inside the word record for that suggestion. |
+| `sug_list[].word_record.words_position` | Zero-based position of the suggestion in the list. `0` is the first suggestion. |
+| `sug_list[].word_record.group_id` | ID string for the suggestion word. |
+| `sug_list[].word_record.words_source` | Where the word came from. The sample response shows `sug` for every item. |
+| `sug_list[].pos[].begin / sug_list[].pos[].end` | Start and end character positions inside `content`. In the sample they cover the typed keyword at the start of the phrase. |
+| `words_query_record.query_id` | ID of the query record for this request. In the sample it matches the first suggestion's `group_id`. |
+| `status_code` | Request status inside the response body. `0` appears in the sample response, with an empty `status_msg`. |
+
+### Notes
+
+- The only input is `keyword`. Use the text a person would type into the Douyin search box.
+- To search for content with a suggested phrase, pass its `content` value to [Douyin Video Search](/apis/douyin/search/video-search-v2) or [Douyin General Search](/apis/douyin/search/general-search-v1).
+- For hashtag ideas instead of query suggestions, call [Douyin Hashtag Suggestions](/apis/douyin/search/challenge-suggest).
+- `sug_virtual_list` is `null` and `words_lists` is empty in the sample response.
+
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.01 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

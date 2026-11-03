@@ -62,7 +62,14 @@ Same call via the path form: `POST /v1/api/twitter/tweet` with the body above mi
 
 ## Details
 
-Fetch a single Twitter/X tweet by URL with its full text and engagement counts (likes, retweets, replies, quotes, bookmarks, views).
+Returns one tweet from X (Twitter) as JSON: its text, author details, engagement counts, and attached media. It needs the tweet's `url` as input.
+
+### Use cases
+
+- Show a tweet's text and like, retweet and view counts in a dashboard or report.
+- Track how a tweet's `likes`, `retweets` and `views` change by calling it on a schedule.
+- Check whether a tweet is a reply and which conversation it belongs to.
+- Pull the thumbnail and size of a tweet's video or image for a preview card.
 
 ### Request
 
@@ -73,7 +80,7 @@ curl -X POST "https://api.sandbase.ai/v1/api/twitter/tweet" \
   -d '{"url": "https://x.com/SpaceX/status/1732824684683784516"}'
 ```
 
-The result is returned in `outputs[0].data`. A lookup that finds nothing still succeeds and returns `found: false`.
+The result is returned in `outputs[0].data`.
 
 ### Parameters
 
@@ -82,9 +89,55 @@ The result is returned in `outputs[0].data`. A lookup that finds nothing still s
 | `url` | string | Yes | Canonical x.com or twitter.com status URL with a numeric tweet ID, including /i/web/status and media-share variants. |
 | `requireFields` | array | No | Optional; omit it and routing is unchanged, with the cheapest source serving. Name the output fields this request must be able to return, for example `videoUrl` or `width`, and it is served only by a source that returns  |
 
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "data": {
+    "authorHandle": "SpaceX",
+    "authorId": "34743251",
+    "authorImage": "https://pbs.twimg.com/profile_images/1697749409851985920/HbrI04tM_normal.jpg",
+    "authorName": "SpaceX",
+    "authorVerified": true,
+    "bookmarks": 1877,
+    "conversationId": "1732824684683784516",
+    "createdUtc": 1701972573,
+    "id": "1732824684683784516",
+    "inReplyToId": null,
+    "lang": "en",
+    "likes": 33783
+  },
+  "found": true
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `data.text` | Full text of the tweet. Links appear as shortened `t.co` URLs. |
+| `data.authorHandle / data.authorName` | Handle and display name of the account that posted the tweet. |
+| `data.authorId` | Numeric ID of the author's account, as a string. |
+| `data.authorVerified` | `true` if the author account is marked as verified. |
+| `data.likes / data.retweets / data.replies / data.quotes / data.bookmarks` | Engagement counts for the tweet. |
+| `data.views` | View count for the tweet. |
+| `data.createdUtc` | Time the tweet was posted, as a Unix timestamp in seconds. |
+| `data.conversationId / data.inReplyToId` | `conversationId` is the ID of the conversation the tweet belongs to. `inReplyToId` is `null` when the tweet is not a reply. |
+| `data.media[].type / data.media[].url` | Type of each attached media item, such as `video`, and its image URL. For a video, the URL points to a thumbnail image. |
+| `data.media[].width / data.media[].height` | Pixel size of the media item, as returned. |
+
+### Notes
+
+- Pass the full tweet link in `url`, for example `https://x.com/SpaceX/status/1732824684683784516`. The ID in the link matches `data.id`.
+- Add `requireFields` with `videoUrl`, `width` or `height` if your code needs those fields. This can change which source serves the call and its price.
+- If the tweet is not found, the call still succeeds and `found` is `false`.
+- To fetch many tweets at once, use [Tweets by IDs](/apis/twitter/tweets-by-ids). To read the replies, use [Twitter Post Comments](/apis/twitter/post-comments).
+
 ### Pricing
 
-Billed at the actual cost of each call, usually $0.00022 per request. A call can cost more when the first data source fails and another one answers. Failed calls are not charged. Lookups that find nothing and searches with no results are billed at their actual cost, which is often lower and can be $0.
+Billed at the actual cost of each call, about $0.00022 for the request above. Failed calls are not charged.
 
 ---
 Machine-readable: [`catalog/models/twitter/tweet.json`](../../../catalog/models/twitter/tweet.json) · Store page: https://www.sandbase.ai/model/twitter/tweet

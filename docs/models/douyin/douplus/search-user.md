@@ -68,13 +68,14 @@ Same call via the path form: `POST /v1/api/douyin/douplus/search-user` with the 
 
 ## Details
 
-Query Douyin users eligible for DOU+ delivery using the required `keyword` parameter. Supports stepping through results via `cursor` and custom page sizes via `count`.
+Searches Douyin users in the DOU+ delivery context and returns matching user profiles. It needs a `keyword`, which can be a Douyin ID or a nickname.
 
 ### Use cases
 
-- Find Douyin accounts by nickname for DOU+ promotion targeting.
-- Look up specific Douyin IDs to confirm account identity in delivery workflows.
-- Browse through user search results using pagination tokens.
+- Find Douyin accounts by nickname before you set up DOU+ promotion for them.
+- Check a Douyin ID against the returned `unique_id` to confirm which account it belongs to.
+- Collect the `sec_uid` of matching accounts to use in other Douyin lookups.
+- Page through all accounts that match a topic keyword such as `人工智能`.
 
 ### Request
 
@@ -85,6 +86,8 @@ curl -X POST "https://api.sandbase.ai/v1/api/douyin/douplus/search-user" \
   -d '{"keyword": "人工智能"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
@@ -93,15 +96,61 @@ curl -X POST "https://api.sandbase.ai/v1/api/douyin/douplus/search-user" \
 | `count` | string | No | Number of results per page, default 20 |
 | `cursor` | string | No | Pagination cursor, 0 for first page, then pass the cursor from the previous response |
 
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "cursor": 20,
+  "has_more": true,
+  "status_code": 0,
+  "status_msg": "",
+  "user_list": [
+    {
+      "user_info": {
+        "avatar_thumb": {
+          "uri": "100x100/aweme-avatar/tos-cn-i-0813c000-ce_oIAh9sA9EEVfEjAEKroAoD2EKIktetAfwAHFA9",
+          "url_list": [
+            "https://p11.douyinpic.com/aweme/100x100/aweme-avatar/tos-cn-i-0813c000-ce_oIAh9s…"
+          ]
+        },
+        "nickname": "JYF人工智能",
+        "sec_uid": "MS4wLjABAAAAAwIshD25hrP7M8fkn0f3PU79tUhK_bOj0y2bhYjxIqFbwxUCY4DFbL7YZTrYknBu",
+        "short_id": "",
+        "uid": "4327328752346861",
+        "unique_id": "54166183587"
+      }
+    }
+  ]
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `user_list[].user_info.nickname` | Display name of the matching account. |
+| `user_list[].user_info.unique_id` | Douyin ID of the account, the public ID that users can search by. |
+| `user_list[].user_info.uid` | Numeric user ID of the account, returned as a string. |
+| `user_list[].user_info.sec_uid` | Encoded user ID of the account. Other Douyin APIs use this form of ID to identify a user. |
+| `user_list[].user_info.short_id` | Short ID of the account. It can be an empty string. |
+| `user_list[].user_info.avatar_thumb.url_list` | Image URLs for the account avatar. The path shows a 100x100 size. |
+| `user_list[].user_info.avatar_thumb.uri` | Path of the avatar image without the host name. |
+| `cursor` | Cursor value to pass in the next request to get the following page. |
+| `has_more` | `true` when more results are available after this page. |
+| `status_code / status_msg` | Status of the call. `status_code` is `0` in the sample response and `status_msg` is empty. |
+
 ### Notes
 
-- The `keyword` parameter is required and accepts either a Douyin ID or account nickname.
-- Set `cursor` to 0 for the first page, then use the cursor value returned by the prior response.
-- The `count` parameter defaults to 20 results per page.
+- Send `cursor` as `0` for the first page. For the next page, pass the `cursor` value from the previous response (the sample returned `20`).
+- Keep requesting pages while `has_more` is `true`.
+- Use `count` to set the page size. The documented default is 20.
+- To see which videos an account can promote, call [Douyin DOU+ Promotable Items](/apis/douyin/douplus/promotable-item-list) next.
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

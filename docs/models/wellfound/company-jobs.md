@@ -67,7 +67,14 @@ Same call via the path form: `POST /v1/api/wellfound/company-jobs` with the body
 
 ## Details
 
-List all open job positions at a specific company. Returns job listings with title, compensation, location, and job type.
+Returns the open job listings for one company on Wellfound. You pass the company's Wellfound slug, such as `stripe`, and get back each job's title, job type, locations, remote flag, and compensation text.
+
+### Use cases
+
+- Track the open roles at a target employer and spot new postings over time.
+- Build a list of engineering or product openings at a company you want to apply to.
+- Compare hiring locations across a company's open positions.
+- Feed a recruiting dashboard with the current job slugs and IDs for a set of startups.
 
 ### Request
 
@@ -78,7 +85,7 @@ curl -X POST "https://api.sandbase.ai/v1/api/wellfound/company-jobs" \
   -d '{"company_slug": "stripe"}'
 ```
 
-This API runs asynchronously. The call returns a task `id` with status `pending`; poll `GET https://api.sandbase.ai/v1/run/{id}` until `status` is `completed` and read the result from `outputs[0].data`.
+The result is returned in `outputs[0].data`.
 
 ### Parameters
 
@@ -86,9 +93,56 @@ This API runs asynchronously. The call returns a task `id` with status `pending`
 |---|---|---|---|
 | `company_slug` | string | Yes | Company slug (e.g., 'mixpanel', 'juniper-square') |
 
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "data": {
+    "company": "Stripe",
+    "jobs": [
+      {
+        "compensation": "",
+        "id": "4956127",
+        "jobType": "full_time",
+        "locationNames": [
+          "Toronto"
+        ],
+        "remote": false,
+        "slug": "product-manager-terminal-payments",
+        "title": "Product Manager, Terminal Payments"
+      }
+    ]
+  },
+  "status": "success"
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `data.company` | Name of the company the jobs belong to. |
+| `data.jobs[].id` | Identifier of the job listing, returned as a string. |
+| `data.jobs[].title` | Job title as listed, for example `Product Manager, Terminal Payments`. |
+| `data.jobs[].slug` | URL-style name of the job listing. |
+| `data.jobs[].jobType` | Type of employment, for example `full_time`. |
+| `data.jobs[].locationNames[]` | List of city names where the job is based. |
+| `data.jobs[].remote` | Boolean that shows whether the job is marked as remote. |
+| `data.jobs[].compensation` | Compensation text for the job. It can be an empty string when the listing shows no pay. |
+| `status` | Result status of the call, `success` when it worked. |
+
+### Notes
+
+- Use the company's Wellfound slug for `company_slug`. It is the company name part of its Wellfound URL, in lowercase with hyphens, such as `juniper-square`.
+- The `compensation` value is often empty, so do not rely on it being filled.
+- To get details about the company itself, call [Wellfound Company Profile](/apis/wellfound/company-profile).
+- To see which roles and startups are popular right now, try [Wellfound Trending Jobs](/apis/wellfound/trending-jobs) or [Wellfound Trending Startups](/apis/wellfound/trending-startups).
+
 ### Pricing
 
-Flat price per call. Failed calls are not charged.
+$0.02 per successful call. Failed calls are not charged.
 
 ---
 Machine-readable: [`catalog/models/wellfound/company-jobs.json`](../../../catalog/models/wellfound/company-jobs.json) · Store page: https://www.sandbase.ai/model/wellfound/company-jobs

@@ -62,13 +62,14 @@ Same call via the path form: `POST /v1/api/kuaishou/app/user-live-info` with the
 
 ## Details
 
-Retrieve streaming details for a Kuaishou user by providing the `user_id` parameter. It returns broadcast activity and stream host data for the requested account.
+This API returns the live status and a short activity summary for one Kuaishou account. It needs the numeric `user_id` of the creator.
 
 ### Use cases
 
-- Check whether a specific Kuaishou creator is currently streaming.
-- Inspect broadcast details and host metadata for a creator profile.
-- Integrate creator stream status monitoring into analytics dashboards.
+- Check whether a Kuaishou creator is streaming right now using the `isLive` flag.
+- Track how many videos a creator has posted by reading `photoCount` on a schedule.
+- Filter a list of creator IDs down to the ones that are live before you fetch more data.
+- Confirm that a lookup for a `user_id` succeeded by reading the `result` value.
 
 ### Request
 
@@ -79,15 +80,56 @@ curl -X POST "https://api.sandbase.ai/v1/api/kuaishou/app/user-live-info" \
   -d '{"user_id": "3795214411"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
 |---|---|---|---|
-| `user_id` | string | Yes | — |
+| `user_id` | string | Yes |  |
+
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "debug_id": "36c5a730",
+  "debug_info": "gAAAAABq6Y77fQhzwkkN1X2BZxqssPoHtERg4092vXpG5Nv1xPwYXM2t_9PpgPb6KX17A8Jcs-2zGXeJ…",
+  "dynamicIconV2": {
+    "isLive": false,
+    "photoCount": 683,
+    "result": 1,
+    "type": 3
+  },
+  "host-name": "public-bjmt-c56-kce-node76.idchb1az4.hb1.kwaidc.com",
+  "llsid": 2010206515696162481,
+  "result": 1,
+  "shieldNextPhoto": false
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `dynamicIconV2.isLive` | Shows whether the account is broadcasting right now. In the sample it is `false`. |
+| `dynamicIconV2.photoCount` | Number of posts counted for the account. The sample shows `683`. |
+| `dynamicIconV2.type` | Numeric type code for the profile icon state. The sample shows `3`. The response does not explain what each code means. |
+| `dynamicIconV2.result / result` | Result codes for the icon block and the whole request. The sample shows `1` for both. |
+| `shieldNextPhoto` | Boolean flag in the response. The sample shows `false`. The response does not explain its effect. |
+| `llsid` | Large numeric ID attached to this response. It looks like a request or session identifier. |
+| `debug_id / debug_info / host-name` | Diagnostic values for the request and the server that handled it. Most integrations can ignore them. |
+
+### Notes
+
+- Pass `user_id` as a string, for example `3795214411`.
+- If you only have a username or profile link, call [Kuaishou User ID Lookup](/apis/kuaishou/web/get-user-id) first to get the ID.
+- To see past streams for the same account, call [Kuaishou User Broadcast Replay](/apis/kuaishou/web/user-live-replay).
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

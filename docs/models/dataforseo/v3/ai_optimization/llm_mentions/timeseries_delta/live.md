@@ -63,9 +63,14 @@ Same call via the path form: `POST /v1/api/dataforseo/v3/ai_optimization/llm_men
 
 ## Details
 
-Change in mention count and AI search volume for a domain or keyword between periods.
+Returns the change in LLM mention count and AI search volume for a domain or keyword, grouped by day, week, month or year. It needs a `target` array (up to 10 entities), a `date_from` and a `date_to`. You can limit results to Google AI Overviews or ChatGPT with `platform`.
 
-Request fields follow the official DataForSEO `/v3/ai_optimization/llm_mentions/timeseries_delta/live` task schema (one task per call). The response is DataForSEO's original JSON; results are in `tasks[].result`.
+### Use cases
+
+- Track whether nike.com gained or lost mentions in AI answers from one month to the next.
+- Spot sudden swings in AI search volume tied to a brand or keyword after a campaign or product launch.
+- Compare Google AI Overviews and ChatGPT trends by running the same request with each `platform` value.
+- Feed monthly deltas into a dashboard that reports AI visibility for a domain.
 
 ### Request
 
@@ -76,27 +81,94 @@ curl -X POST "https://api.sandbase.ai/v1/api/dataforseo/v3/ai_optimization/llm_m
   -d '{"target": [{"domain": "nike.com"}], "date_from": "2026-07-01", "date_to": "2026-10-01", "group_range": "month"}'
 ```
 
+The result is returned in `outputs[0]`.
+
 ### Parameters
 
-The JSON body is forwarded to the upstream endpoint. Main fields:
+| Name | Type | Required | Description |
+|---|---|---|---|
+| `date_from` | string | No | Start date, "yyyy-mm-dd" (from 2025-08-01). |
+| `date_to` | string | No | End date, "yyyy-mm-dd". |
+| `group_range` | string | No | "day", "week", "month" or "year". |
+| `language_code` | string | No | Language code; default "en". |
+| `location_code` | string | No | Location code; default 2840 (United States). |
+| `platform` | string | No | Optional: "google" (AI Overviews) or "chat_gpt". Omit for both. |
+| `target` | array | No | Array of up to 10 entities, each with one `domain` or one `keyword` (optional `search_filter`, `search_scope`, `match_type`). |
 
-| Name | Description |
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "status_code": 20000,
+  "status_message": "Ok.",
+  "tasks": [
+    {
+      "data": {
+        "api": "ai_optimization",
+        "date_from": "2026-07-01",
+        "date_to": "2026-10-01",
+        "function": "timeseries_delta",
+        "group_range": "month",
+        "target": [
+          {
+            "domain": "nike.com"
+          }
+        ]
+      },
+      "id": "11030828-2190-0663-0000-afb6aa3768b2",
+      "path": [
+        "v3"
+      ],
+      "result": [
+        {
+          "items": [
+            {
+              "date": "2026-07-01",
+              "delta_ai_search_volume": 21282273,
+              "delta_mentions": 28463
+            }
+          ],
+          "items_count": 4
+        }
+      ],
+      "result_count": 1,
+      "status_code": 20000,
+      "status_message": "Ok.",
+      "time": "6.4089 sec."
+    }
+  ],
+  "tasks_count": 1,
+  "tasks_error": 0,
+  "time": "6.4191 sec.",
+  "version": "0.1.20261022"
+}
+```
+
+### Response fields
+
+| Field | Meaning |
 |---|---|
-| `target` | Array of up to 10 entities, each with one `domain` or one `keyword` (optional `search_filter`, `search_scope`, `match_type`). |
-| `date_from` | Start date, "yyyy-mm-dd" (from 2025-08-01). |
-| `date_to` | End date, "yyyy-mm-dd". |
-| `group_range` | "day", "week", "month" or "year". |
-| `location_code` | Location code; default 2840 (United States). |
-| `language_code` | Language code; default "en". |
-| `platform` | Optional: "google" (AI Overviews) or "chat_gpt". Omit for both. |
+| `tasks[].result[].items[].date` | Start date of the period for this row, in `yyyy-mm-dd` format. With `group_range` set to `month`, each row starts on the first day of a month. |
+| `tasks[].result[].items[].delta_mentions` | Change in the number of mentions for the target in that period. A negative value means mentions fell. |
+| `tasks[].result[].items[].delta_ai_search_volume` | Change in AI search volume for the target in that period. A negative value means it fell. |
+| `tasks[].result[].items_count` | Number of items counted for the result. |
+| `tasks[].data.target` | Echo of the `target` entities sent in the request. |
+| `tasks[].data.date_from / tasks[].data.date_to` | Date range the task used, echoed from the request. |
+| `tasks[].data.group_range` | Period size used to group the rows, echoed from the request. |
+| `tasks[].id` | Task ID in UUID-style format. |
 
-### Reference
+### Notes
 
-- Official docs: https://docs.dataforseo.com/v3/ai_optimization/llm_mentions/timeseries_delta/live/
+- Set `target` to an array of objects, each with one `domain` or one `keyword`. Example: `[{"domain": "nike.com"}]`.
+- `date_from` can be no earlier than 2025-08-01. Dates use `yyyy-mm-dd`.
+- `location_code` defaults to 2840 (United States) and `language_code` defaults to `en`. Omit `platform` to include both Google and ChatGPT.
+- In the sample, `items_count` is 4 while three rows are shown, because the response was trimmed. For absolute values per period, call [DataForSEO LLM Mentions History](/apis/dataforseo/v3/ai_optimization/llm_mentions/historical/live).
 
 ### Pricing
 
-Billed at the actual cost of each call, about $0.104 for the request above. The cost grows with the number of rows, targets or tokens a call returns. Failed calls are not charged. Searches with no results are billed at their actual cost.
+Billed at the actual cost of each call, about $0.104 for the request above. Failed calls are not charged.
 
 ---
 Machine-readable: [`catalog/models/dataforseo/v3/ai_optimization/llm_mentions/timeseries_delta/live.json`](../../../../../../../catalog/models/dataforseo/v3/ai_optimization/llm_mentions/timeseries_delta/live.json) · Store page: https://www.sandbase.ai/model/dataforseo/v3/ai_optimization/llm_mentions/timeseries_delta/live

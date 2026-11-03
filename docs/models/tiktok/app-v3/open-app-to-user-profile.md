@@ -62,13 +62,14 @@ Same call via the path form: `POST /v1/api/tiktok/app-v3/open-app-to-user-profil
 
 ## Details
 
-Generate a share link for a TikTok account by providing the target `uid`. The resulting URL opens the TikTok app directly to that user profile.
+Returns a TikTok short link that opens the TikTok app on a given creator's profile page. It needs one input, the numeric `uid` of the TikTok user.
 
 ### Use cases
 
-- Direct mobile users straight to a creator profile inside the TikTok app.
-- Produce shortened profile share links for influencer marketing campaigns.
-- Route external app traffic seamlessly into native TikTok user accounts.
+- Put a profile link in an email or SMS so recipients land on the creator's page in the TikTok app.
+- Build a list of short profile links for creators in an influencer outreach sheet.
+- Add a tappable profile button to a mobile web page that hands off to the TikTok app.
+- Turn user IDs stored in your database into shareable profile URLs.
 
 ### Request
 
@@ -79,6 +80,8 @@ curl -X POST "https://api.sandbase.ai/v1/api/tiktok/app-v3/open-app-to-user-prof
   -d '{"uid": "107955"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
@@ -87,22 +90,33 @@ curl -X POST "https://api.sandbase.ai/v1/api/tiktok/app-v3/open-app-to-user-prof
 
 ### Example response
 
-Real response for the request above, trimmed to the main fields. User names and long IDs are masked.
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
 
 ```json
 {
-  "short_url": "https://www.tiktok.com/t/ZP9D9b7he77t1-cmO3w/",
-  "status": 0
+  "short_url": "https://www.tiktok.com/t/ZP9ytvwQWXNKj-TV1h1/",
+  "status": 0,
+  "uid": "107955"
 }
 ```
 
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `short_url` | Short TikTok link (`https://www.tiktok.com/t/...`) that opens the app on the requested user's profile. |
+| `uid` | The user ID you sent in the request, echoed back so you can match the link to the input. |
+| `status` | Status code of the call. The sample response returns `0` for a successful call. |
+
 ### Notes
 
-- Obtain the required `uid` parameter from the user profile interface.
+- Get the `uid` from [TikTok User Profile Details](/apis/tiktok/app-v3/user-profile). To start from a username, call [TikTok User ID by Username](/apis/tiktok/app-v3/user-id-and-sec-user-id-by-username).
+- Pass `uid` as a string, for example `"107955"`.
+- For a link to a specific video instead of a profile, use [TikTok Video App Share Link](/apis/tiktok/app-v3/open-app-to-video-detail).
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

@@ -64,9 +64,14 @@ Same call via the path form: `POST /v1/api/semrush/question-keywords` with the b
 
 ## Details
 
-Question-form keyword ideas for a seed phrase, with search volume, CPC and competition.
+Returns question-form keyword ideas for a seed phrase, such as `how to choose running shoes`. Each row has the search volume and the CPC. You send a `phrase` and a regional `database`.
 
-The result is returned in `outputs[0].data` as the official Semrush API response, unchanged.
+### Use cases
+
+- Find the questions people ask about a topic to plan FAQ sections and blog posts.
+- Sort the rows by search volume to pick the best article titles for a topic.
+- Compare CPC across questions to spot ones that advertisers value.
+- Run the same `phrase` against `us`, `uk` and `de` to compare question demand by country.
 
 ### Request
 
@@ -77,16 +82,41 @@ curl -X POST "https://api.sandbase.ai/v1/api/semrush/question-keywords" \
   -d '{"phrase": "running shoes", "database": "us"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
 |---|---|---|---|
-| `database` | string | No | Regional Semrush database, e.g. "us", "uk", "de". |
+| `database` | string | Yes | Regional Semrush database, e.g. "us", "uk", "de". |
 | `phrase` | string | Yes | Keyword to analyze, e.g. "running shoes". |
+
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+"Keyword;Search Volume;CPC\r\nhow to choose running shoes;110000;0.43\r\nhow long do …"
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `[0]` | Column 1 of each row, with the header `Keyword`. It holds the question-form keyword, for example `how long do running shoes last`. |
+| `[1]` | Column 2 of each row, with the header `Search Volume`. It holds the search volume for the keyword in the chosen database. For example, `how to choose running shoes` shows `110000`. |
+| `[2]` | Column 3 of each row, with the header `CPC`. It holds the cost per click as a decimal number such as `0.43`. The response does not show the currency. |
+
+### Notes
+
+- The response is one text table, not JSON objects. The first line is the header `Keyword;Search Volume;CPC`, and lines are separated by `\r\n`.
+- Split each line on `;` to get the columns. In the field list, `[0]`, `[1]` and `[2]` mean the first, second and third column of a line.
+- The description mentions competition, but the sample response only shows the `Keyword`, `Search Volume` and `CPC` columns.
+- To check how hard a question is to rank for, pass it to [Semrush Keyword Difficulty](/apis/semrush/keyword-difficulty). For more detail on one keyword, use [Semrush Keyword Overview](/apis/semrush/keyword-overview).
 
 ### Pricing
 
-Billed at the actual cost of each call, about $0.08 for a typical request; the cost grows with the number of rows returned. Searches with no results are billed at their actual cost. Failed calls are not charged.
+Billed at the actual cost of each call, about $0.08 for the request above. Failed calls are not charged.
 
 ---
 Machine-readable: [`catalog/models/semrush/question-keywords.json`](../../../catalog/models/semrush/question-keywords.json) · Store page: https://www.sandbase.ai/model/semrush/question-keywords

@@ -66,13 +66,14 @@ Same call via the path form: `POST /v1/api/youtube/web-v2/related-videos` with t
 
 ## Details
 
-Retrieve related video recommendations by supplying a `video_id` or full `video_url`. You can also configure `need_format` to format the response data.
+Returns a list of videos that YouTube shows as related to a given video. Send a `video_id` or a full `video_url`. Each item has the title, channel, thumbnails, and a link to the related video.
 
 ### Use cases
 
-- Discover content recommendations related to a target video.
-- Build recommendation carousels in external media apps.
-- Analyze video association networks for research.
+- Build a "watch next" carousel for a video in your own app.
+- Map which channels and videos cluster around a seed video for content research.
+- Collect related video IDs to feed into a video info or comments lookup.
+- Compare the related lists of several videos in one niche to find shared recommendations.
 
 ### Request
 
@@ -83,22 +84,73 @@ curl -X POST "https://api.sandbase.ai/v1/api/youtube/web-v2/related-videos" \
   -d '{"video_id": "dQw4w9WgXcQ", "video_url": "https://www.youtube.com/watch?v=dQw4w9WgXcQ"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
 |---|---|---|---|
+| `need_format` | boolean | No | Whether to format data (default true) |
 | `video_id` | string | No | Video ID (recommended) |
 | `video_url` | string | No | Full video URL (optional, ignored if video_id is provided) |
-| `need_format` | boolean | No | Whether to format data (default true) |
+
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "related_videos": [
+    {
+      "author": "Retro Pulse",
+      "author_id": "UCoDu_E2c5wI_zgfW4mdT0KQ",
+      "author_url": "https://www.youtube.com/channel/UCoDu_E2c5wI_zgfW4mdT0KQ",
+      "length_seconds": null,
+      "length_text": null,
+      "published_time_text": "3mo ago",
+      "thumbnails": [
+        {
+          "height": 94,
+          "url": "https://i.ytimg.com/vi/KLERRzVzPHI/hqdefault.jpg?sqp=-oaymwEbCKgBEF5IVfKriqkDDgg…",
+          "width": 168
+        }
+      ],
+      "title": "Best of 80s Music Legends - Tears For Fears, Madonna, Cyndi Lauper, Modern Talki…",
+      "video_id": "KLERRzVzPHI",
+      "video_url": "https://www.youtube.com/watch?v=KLERRzVzPHI",
+      "view_count_text": "470K"
+    }
+  ],
+  "total_count": 20,
+  "video_id": "dQw4w9WgXcQ"
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `related_videos[]` | List of related videos for the input video. |
+| `related_videos[].video_id / related_videos[].video_url` | ID of the related video and its full watch URL. |
+| `related_videos[].title` | Title of the related video. |
+| `related_videos[].author / related_videos[].author_id / related_videos[].author_url` | Name of the channel that posted the video, its channel ID, and its channel URL. |
+| `related_videos[].view_count_text` | View count as short display text, for example `29M`. It is a string, not a number. |
+| `related_videos[].published_time_text` | Relative publish age as display text, for example `3mo ago` or `6y ago`. |
+| `related_videos[].thumbnails[]` | Thumbnail images, each with `url`, `width`, and `height`. |
+| `related_videos[].length_seconds / related_videos[].length_text` | Video length. Both are `null` in this response, so do not rely on them. |
+| `total_count` | Number of related videos returned. |
+| `video_id` | The video ID the related list was built for. |
 
 ### Notes
 
-- If `video_id` is provided, `video_url` is ignored.
-- `need_format` defaults to true.
+- Send `video_id` when you have it. `video_url` is ignored if `video_id` is set.
+- The `video_id` is the `v` value in a watch URL, such as `dQw4w9WgXcQ` in `https://www.youtube.com/watch?v=dQw4w9WgXcQ`.
+- The request has no pagination parameter. Set `need_format` to `false` if you want the unformatted output structure.
+- Pass a related `video_id` to [YouTube Video Information](/apis/youtube/web-v2/video-info) for full details, or to [YouTube Video Comments](/apis/youtube/web-v2/video-comments) for its comments.
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

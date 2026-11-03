@@ -68,9 +68,14 @@ Same call via the path form: `POST /v1/api/similarweb/top-sites-ranking` with th
 
 ## Details
 
-Get the top-ranked websites worldwide or in a category, ordered by traffic rank.
+Returns a list of the top-ranked websites worldwide, ordered by traffic rank. It needs a `category` (for example `all`) and a `limit` of 1 to 20 rows.
 
-The response is the official Similarweb API response, unchanged.
+### Use cases
+
+- Build a leaderboard of the most visited websites worldwide.
+- Check which domains hold the top ranks in a given category.
+- Seed a competitor list with the highest-ranked domains before deeper analysis.
+- Track how many sites you need to page through to reach a target rank with `offset`.
 
 ### Request
 
@@ -81,18 +86,77 @@ curl -X POST "https://api.sandbase.ai/v1/api/similarweb/top-sites-ranking" \
   -d '{"category": "all", "country": "ww", "limit": 3}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
 |---|---|---|---|
 | `category` | string | Yes | category |
-| `country` | string | No | Worldwide data only; values are case-insensitive. |
 | `limit` | integer | Yes | limit |
+| `country` | string | No | Worldwide data only; values are case-insensitive. |
 | `offset` | integer | No | offset |
+
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "data": [
+    {
+      "domain": "google.com",
+      "rank": 1
+    }
+  ],
+  "meta": {
+    "last_updated": "2026-09-30",
+    "query": {
+      "asc": null,
+      "limit": 3,
+      "offset": 0,
+      "sort": null
+    },
+    "request": {
+      "category": "all",
+      "channel": "total",
+      "country": "ww",
+      "end_date": "2026-09-30",
+      "format": "json",
+      "granularity": "monthly",
+      "start_date": "2026-07-01",
+      "web_source": "total"
+    },
+    "status": "success"
+  }
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `data[]` | One ranked website. The list is ordered by rank. |
+| `data[].domain` | Domain name of the ranked website, such as `google.com`. |
+| `data[].rank` | Traffic rank of the domain. `1` is the top site. |
+| `meta.last_updated` | Date of the ranking data, in `YYYY-MM-DD` format. |
+| `meta.query.limit / meta.query.offset` | The page size and starting position applied to this call. |
+| `meta.request.category` | Category the ranking was built for. `all` means no category filter. |
+| `meta.request.country` | Country scope of the ranking. `ww` means worldwide. |
+| `meta.request.start_date / meta.request.end_date` | Date range the ranking covers, in `YYYY-MM-DD` format. |
+| `meta.request.granularity` | Time grain of the data. The sample shows `monthly`. |
+| `meta.status` | Result of the call. `success` means the request worked. |
+
+### Notes
+
+- Use `offset` with `limit` to page through the list. `limit` accepts 1 to 20 and `offset` accepts 0 to 100000.
+- `country` accepts only `ww` (worldwide), and the value is case-insensitive.
+- To see ranking details for a single domain, call [Similarweb Website Ranking](/apis/similarweb/ranking).
+- To see traffic numbers for a domain from this list, call [Similarweb Website Traffic Snapshot](/apis/similarweb/website-traffic-snapshot).
 
 ### Pricing
 
-$0.075 per returned row (1 Similarweb credit), up to 20 rows; billed on rows returned. Failed calls are not charged.
+Billed at the actual cost of each call, about $0.075 for the request above. Failed calls are not charged.
 
 ---
 Machine-readable: [`catalog/models/similarweb/top-sites-ranking.json`](../../../catalog/models/similarweb/top-sites-ranking.json) · Store page: https://www.sandbase.ai/model/similarweb/top-sites-ranking

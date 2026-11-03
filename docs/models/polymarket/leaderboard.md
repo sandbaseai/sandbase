@@ -63,9 +63,14 @@ Same call via the path form: `POST /v1/api/polymarket/leaderboard` with the body
 
 ## Details
 
-Polymarket trader leaderboard by PnL or volume, for a time period and category.
+Returns the Polymarket trader leaderboard, ranked by profit and loss (`PNL`) or trading `VOLUME`. You can filter by `time_period` and `category`, or pass a wallet in `user` to get that wallet's standing. No input is required.
 
-Served from the Polymarket Data API v2. The result is returned in `outputs[0].data`: rows are under `data`, and paginated routes add `pagination.next_cursor` (pass it back as `cursor`).
+### Use cases
+
+- Build a ranked list of the most profitable Polymarket traders for the past day, week, or month.
+- Compare top traders by `VOLUME` against top traders by `PNL` in a category such as `sports`.
+- Look up one wallet's ranks on both boards to check how a trader performs.
+- Collect wallet addresses of top traders so you can study their positions and activity.
 
 ### Request
 
@@ -76,24 +81,70 @@ curl -X POST "https://api.sandbase.ai/v1/api/polymarket/leaderboard" \
   -d '{"limit": 2}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
 |---|---|---|---|
-| `time_period` | string | No | Window: `day` / `week` / `month` / `all`. Defaults to `day`. |
-| `category` | string | No | `overall` (default), a Gamma market category (e.g. `sports`), or a synthetic category: `combos` (combinatorial positions; PNL boards only; the volume board has no combos rows) or `esports` (promoted s |
-| `sort_by` | string | No | Which board: `PNL` (default) or `VOLUME`. |
-| `user` | string | No | Look up one wallet's standing instead of reading the board. Returns a single object carrying both ranks, not a page. |
-| `limit` | integer | No | First-page size. Ignored when `cursor` is supplied. |
+| `category` | string | No | `overall` (default), a Gamma market category (e.g. `sports`), or a synthetic category: `combos` (combinatorial positions; PNL boards only; the volume board has no combos rows) or `esports` (promoted subcategory). |
 | `cursor` | string | No | Opaque pagination cursor from a prior response's `next_cursor`. |
+| `limit` | integer | No | First-page size. Ignored when `cursor` is supplied. |
+| `sort_by` | string | No | Which board: `PNL` (default) or `VOLUME`. |
+| `time_period` | string | No | Window: `day` / `week` / `month` / `all`. Defaults to `day`. |
+| `user` | string | No | Look up one wallet's standing instead of reading the board. Returns a single object carrying both ranks, not a page. |
 
-### Reference
+### Example response
 
-- Official docs: https://docs.polymarket.com/api-reference/data-api/overview
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "data": [
+    {
+      "pnl": 454238.2733963345,
+      "profile_image": "",
+      "rank": 1,
+      "user_id": "0x2c335066fe58fe9237c3d3dc7b275c2a034a0563",
+      "user_name": "0x2c335066FE58fe9237c3d3Dc7b275C2a034a0563-1759935795465",
+      "verified": false,
+      "volume": 5394555.845070001,
+      "x_username": ""
+    }
+  ],
+  "pagination": {
+    "has_more": true,
+    "limit": 2,
+    "next_cursor": "eyJkYXRhIjp7InR5cGUiOiJsZWFkZXJib2FyZCIsInBhcmFtcyI6eyJsIjoyLCJvIjoyLCJzIjoiUE5M…",
+    "offset": 0
+  }
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `data[].rank` | Position of the trader on the selected board. |
+| `data[].user_id` | The trader's wallet address, as a `0x` hex string. |
+| `data[].user_name` | Display name of the trader. Some names are the wallet address followed by a number. |
+| `data[].pnl` | Profit and loss for the chosen time period and category. |
+| `data[].volume` | Trading volume for the chosen time period and category. |
+| `data[].verified` | Boolean flag for whether the profile is marked verified. |
+| `data[].x_username / data[].profile_image` | The trader's X username and profile image URL. Both can be empty strings. |
+| `pagination.has_more` | `true` when more rows are available after this page. |
+| `pagination.next_cursor` | Opaque cursor string. Send it back as `cursor` to get the next page. |
+
+### Notes
+
+- Set `sort_by` to `PNL` (default) or `VOLUME` to choose the board. `time_period` defaults to `day` and `category` defaults to `overall`.
+- `limit` sets the first-page size, up to 1000. It is ignored when you send `cursor`.
+- With `user` set, the call returns a single object with both ranks instead of a page.
+- To see what a ranked wallet holds, pass its `user_id` to [Polymarket Wallet Positions](/apis/polymarket/positions) or [Polymarket Wallet Activity](/apis/polymarket/activity).
 
 ### Pricing
 
-Flat price per call. Failed calls are not charged.
+$0.012 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ---
 Machine-readable: [`catalog/models/polymarket/leaderboard.json`](../../../catalog/models/polymarket/leaderboard.json) · Store page: https://www.sandbase.ai/model/polymarket/leaderboard

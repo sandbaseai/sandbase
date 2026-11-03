@@ -58,13 +58,14 @@ Same call via the path form: `POST /v1/api/kuaishou/web/hot-list-v2` with the bo
 
 ## Details
 
-Retrieve trending search keywords and popularity metrics from Kuaishou web. Filter topic categories using the optional `board_type` parameter.
+Returns the current trending search list on Kuaishou web, with each keyword, its heat value and a ranking entry ID. It takes an optional `board_type` string to pick a ranking board, and the default is `"1"`.
 
 ### Use cases
 
-- Track real-time trending topics and viral search terms across Kuaishou.
-- Analyze keyword popularity scores and topic classifications.
-- Monitor emerging discussions and public interest trends on the platform.
+- Track which topics rank highest on Kuaishou web at the moment you call.
+- Compare `hotValue` across keywords to see how far the top entries lead the rest of the board.
+- Log the board on a schedule to build a history of which keywords entered the ranking and when.
+- Spot pinned entries by reading the separate `topHots` list next to the main `hots` list.
 
 ### Request
 
@@ -75,37 +76,73 @@ curl -X POST "https://api.sandbase.ai/v1/api/kuaishou/web/hot-list-v2" \
   -d '{}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
 |---|---|---|---|
-| `board_type` | string | No | — |
+| `board_type` | string | No |  |
 
 ### Example response
 
-Real response for the request above, trimmed to the main fields. User names and long IDs are masked.
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
 
 ```json
 {
+  "host-name": "public-bjmt-c58-kce-node10.idchb1az4.hb1.kwaidc.com",
   "hots": [
     {
-      "hotValue": 12445774,
+      "hotValue": 12950162,
       "hotWordType": 0,
-      "id": "6279572",
-      "keyword": "国足vs塔吉克斯坦",
+      "id": "6489869",
+      "keyword": "多海域连发航行警告",
+      "ksOrderId": "",
+      "pvSoarSignal": 0,
+      "viewCount": 0
+    }
+  ],
+  "llsid": "2006450543472340162",
+  "result": 1,
+  "topHots": [
+    {
+      "hotValue": 12979279,
+      "hotWordType": 2,
+      "id": "6493160",
+      "keyword": "让互联网更好造福人民造福世界",
+      "ksOrderId": "",
+      "pvSoarSignal": 0,
       "viewCount": 0
     }
   ]
 }
 ```
 
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `hots[]` | The main ranked list of trending keywords. Entries appear in descending order of `hotValue` in the sample. |
+| `hots[].keyword` | The trending search phrase as shown on the board. |
+| `hots[].hotValue` | Numeric heat score for the keyword. A higher number means a hotter entry. |
+| `hots[].id` | String ID of the hot entry. |
+| `hots[].hotWordType / topHots[].hotWordType` | Integer type code for the entry. Regular entries show `0` and the pinned entry shows `2` in the sample. The response does not explain what each code means. |
+| `hots[].iconInfo.iconUrl[].url` | Image URL of a badge shown beside some keywords. Each item has a `cdn` host name and a `url`. `iconWidth` and `iconHeight` give the icon size. |
+| `hots[].viewCount / hots[].pvSoarSignal` | Extra counters on each entry. Both are `0` in the sample, so they may be empty for many keywords. |
+| `topHots[]` | A separate list of top entries, with the same fields as `hots[]`. The sample holds one item. |
+| `result` | Status number for the call. The sample shows `1`. |
+| `llsid` | String ID that identifies this response. |
+
 ### Notes
 
-- Pass `board_type` to specify the ranking board category.
+- `board_type` is a string. Leave it out to use the default `"1"`.
+- Both `hots` and `topHots` use the same entry shape, so one parser can handle both.
+- `iconInfo` appears only on some entries, so check that it exists before reading it.
+- For the older version of this board, call [Kuaishou Web Hot List](/apis/kuaishou/web/hot-list-v1).
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

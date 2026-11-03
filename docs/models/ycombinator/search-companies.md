@@ -70,7 +70,14 @@ Same call via the path form: `POST /v1/api/ycombinator/search-companies` with th
 
 ## Details
 
-Search and filter the YC company directory via Algolia. Returns paginated results with company metadata including name, batch, industry, team size, and hiring status.
+Returns a page of companies from the Y Combinator directory, with name, batch, industry, tags, team size and hiring status for each. All inputs are optional. Pass `query`, `batch`, `industry`, `is_hiring` or `top_company` to narrow the list.
+
+### Use cases
+
+- Build a list of companies from one batch, such as `Summer 2023`, for market research.
+- Find fintech companies that are hiring and have a large `team_size`.
+- Search by keyword to find Y Combinator companies in a niche, such as crypto or marketplaces.
+- Pull company websites and one-line descriptions to seed a lead list.
 
 ### Request
 
@@ -81,7 +88,7 @@ curl -X POST "https://api.sandbase.ai/v1/api/ycombinator/search-companies" \
   -d '{}'
 ```
 
-This API runs asynchronously. The call returns a task `id` with status `pending`; poll `GET https://api.sandbase.ai/v1/run/{id}` until `status` is `completed` and read the result from `outputs[0].data`.
+The result is returned in `outputs[0].data`.
 
 ### Parameters
 
@@ -95,9 +102,130 @@ This API runs asynchronously. The call returns a task `id` with status `pending`
 | `query` | string | No | Search keyword to match against company name, description, and tags. |
 | `top_company` | string | No | Filter for YC top companies. Accepts 'true' or 'false'. |
 
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "data": {
+    "exhaustive": {
+      "nbHits": true,
+      "typo": true
+    },
+    "exhaustiveNbHits": true,
+    "exhaustiveTypo": true,
+    "extensions": {
+      "queryCategorization": {}
+    },
+    "hits": [
+      {
+        "_highlightResult": {
+          "all_locations": {
+            "matchLevel": "none",
+            "matchedWords": [],
+            "value": "San Francisco, CA, USA"
+          },
+          "industries": [
+            {
+              "matchLevel": "none",
+              "matchedWords": [],
+              "value": "Consumer"
+            }
+          ],
+          "long_description": {
+            "matchLevel": "none",
+            "matchedWords": [],
+            "value": "Founded in 2013, DoorDash is a San Francisco-based technology company passionate…"
+          },
+          "name": {
+            "matchLevel": "none",
+            "matchedWords": [],
+            "value": "DoorDash"
+          },
+          "one_liner": {
+            "matchLevel": "none",
+            "matchedWords": [],
+            "value": "Restaurant delivery."
+          },
+          "tags": [
+            {
+              "matchLevel": "none",
+              "matchedWords": [],
+              "value": "Marketplace"
+            }
+          ],
+          "website": {
+            "matchLevel": "none",
+            "matchedWords": [],
+            "value": "http://doordash.com"
+          }
+        },
+        "all_locations": "San Francisco, CA, USA",
+        "app_answers": null,
+        "app_video_public": false,
+        "batch": "Summer 2013",
+        "demo_day_video_public": false,
+        "former_names": [],
+        "id": 531,
+        "industries": [
+          "Consumer"
+        ],
+        "industry": "Consumer",
+        "isHiring": true,
+        "launched_at": 1367523459
+      }
+    ],
+    "hitsPerPage": 20,
+    "nbHits": 6362,
+    "nbPages": 50,
+    "page": 0,
+    "params": "x-algolia-application-id=45BWZJ1SGC&x-algolia-api-key=MjQwNDk2YTE0YjMzMjQ2ZGM0NG…",
+    "processingTimeMS": 3,
+    "processingTimingsMS": {
+      "_request": {
+        "roundTrip": 19
+      },
+      "afterFetch": {
+        "format": {
+          "highlighting": 1,
+          "total": 2
+        }
+      },
+      "extensions": 2,
+      "total": 3
+    }
+  },
+  "status": "success"
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `data.hits[].name` | Company name. |
+| `data.hits[].slug` | URL-style identifier for the company. Use it to look up the company elsewhere. |
+| `data.hits[].one_liner / data.hits[].long_description` | A short tagline and a longer description of the company. The long text can be cut off. |
+| `data.hits[].batch` | The Y Combinator batch the company joined, for example `Summer 2013`. |
+| `data.hits[].industry / data.hits[].industries[] / data.hits[].subindustry` | Main industry, the full list of industries, and a combined `Industry -> Sub-industry` label. |
+| `data.hits[].tags[]` | Topic tags for the company, such as `Marketplace` or `Crypto / Web3`. |
+| `data.hits[].team_size` | Number of people on the team. |
+| `data.hits[].isHiring / data.hits[].top_company` | Boolean flags. `isHiring` shows whether the company is hiring. `top_company` marks Y Combinator top companies. |
+| `data.hits[].stage / data.hits[].status` | Company stage (for example `Growth`) and status (for example `Public`). |
+| `data.hits[].website / data.hits[].all_locations` | Company website URL and its locations as one text string. |
+| `data.nbHits / data.nbPages / data.page / data.hitsPerPage` | Total matching companies, total pages, the current 0-indexed page, and the page size. |
+
+### Notes
+
+- Use `page` (0-indexed) and `limit` to move through results. Compare `data.page` with `data.nbPages` to know when to stop.
+- `launched_at` is a Unix timestamp in seconds. `id` and `objectID` identify the company inside the directory.
+- Ignore the `_highlightResult` and `tags_highlighted` fields unless you need match highlighting for a `query`.
+- For full details on one company, call [Y Combinator Company](/apis/ycombinator/company) with its `slug`. For open roles, use [Y Combinator Search Jobs](/apis/ycombinator/search-jobs).
+
 ### Pricing
 
-Flat price per call. Failed calls are not charged.
+$0.01 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ---
 Machine-readable: [`catalog/models/ycombinator/search-companies.json`](../../../catalog/models/ycombinator/search-companies.json) · Store page: https://www.sandbase.ai/model/ycombinator/search-companies

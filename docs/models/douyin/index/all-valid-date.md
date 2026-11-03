@@ -52,13 +52,14 @@ Same call via the path form: `POST /v1/api/douyin/index/all-valid-date` with the
 
 ## Details
 
-This endpoint returns the latest valid dates across data types in Douyin Index without requiring input parameters.
+Returns the latest valid date for each data type in Douyin Index, split into brand, keyword and POI groups. It needs no input. Call it with an empty JSON body `{}`.
 
 ### Use cases
 
-- Check current data freshness for Douyin Index metrics.
-- Determine valid date ranges prior to requesting index trends.
-- Automate scheduling for daily Douyin Index data extraction pipelines.
+- Check that the newest day is available for keyword data before you request a keyword trend.
+- Pick the latest weekly date for brand data when you build a weekly brand report.
+- Use the monthly POI date to choose the end month for a POI query.
+- Run it at the start of a scheduled job to set the end date of each query.
 
 ### Request
 
@@ -69,9 +70,49 @@ curl -X POST "https://api.sandbase.ai/v1/api/douyin/index/all-valid-date" \
   -d '{}'
 ```
 
+The result is returned in `outputs[0].data`.
+
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "BaseResp": {
+    "StatusCode": 0,
+    "StatusMessage": ""
+  },
+  "brand_latest_day": "20261102",
+  "brand_latest_week": "20261024",
+  "keyword_latest_day": "20261102",
+  "keyword_latest_week": "20261102",
+  "poi_latest_day": "20261101",
+  "poi_latest_month": "202610",
+  "poi_latest_week": "20261101"
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `brand_latest_day / brand_latest_week` | Latest valid day and latest valid week for brand data. |
+| `keyword_latest_day / keyword_latest_week` | Latest valid day and latest valid week for keyword data. |
+| `poi_latest_day / poi_latest_week` | Latest valid day and latest valid week for POI data. |
+| `poi_latest_month` | Latest valid month for POI data. |
+| `BaseResp.StatusCode` | Status code of the call. `0` appears in a normal response. |
+| `BaseResp.StatusMessage` | Status text of the call. It is an empty string in a normal response. |
+
+### Notes
+
+- Day and week values use the `YYYYMMDD` format, for example `20261102`. The month value uses `YYYYMM`, for example `202610`.
+- The week values are dates, not week numbers. In the sample, `brand_latest_week` is `20261024` while `keyword_latest_week` is `20261102`, so the data types differ.
+- For keyword-specific dates, call [Douyin Index Keyword Valid Dates](/apis/douyin/index/keyword-valid-date). For brand-specific dates, call [Douyin Brand Valid Information](/apis/douyin/index/brand-valid-info).
+- For content guide dates, call [Douyin Content Guide Valid Dates](/apis/douyin/index/content-valid-date).
+
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

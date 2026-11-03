@@ -64,13 +64,14 @@ Same call via the path form: `POST /v1/api/xiaohongshu/pgy/blogger-core-data` wi
 
 ## Details
 
-Retrieve daily performance metrics and summary statistics for a creator using `user_id`. You can refine the returned dataset with `date_type`, `note_type`, and `advertise_switch`.
+Returns core performance metrics for a Xiaohongshu blogger on the Pugongying (PGY) platform. The response has a list of daily values and one summary object. The only required input is the blogger `user_id`.
 
 ### Use cases
 
-- Track daily performance trends for specific Xiaohongshu creators.
-- Compare organic versus paid traffic metrics across blogger content.
-- Filter creator engagement metrics across image and video formats.
+- Chart a blogger's daily impressions, reads and engagement over a chosen period.
+- Compare organic-only numbers with numbers that include ads by setting `advertise_switch`.
+- Check whether a blogger's video notes or image notes get more reads by setting `note_type`.
+- Pull the summary row to screen many bloggers before a campaign.
 
 ### Request
 
@@ -81,41 +82,79 @@ curl -X POST "https://api.sandbase.ai/v1/api/xiaohongshu/pgy/blogger-core-data" 
   -d '{"user_id": "60b137080000000001000301"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
 |---|---|---|---|
 | `user_id` | string | Yes | Blogger user ID |
+| `advertise_switch` | integer | No | Traffic type, 1=all (incl. ads), 0=organic only |
 | `date_type` | integer | No | Date range (~1=7d, 2=30d, 3=90d) |
 | `note_type` | integer | No | Note type, 1=image, 2=video, 3=all (default) |
-| `advertise_switch` | integer | No | Traffic type, 1=all (incl. ads), 0=organic only |
 
 ### Example response
 
-Real response for the request above, trimmed to the main fields. User names and long IDs are masked.
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
 
 ```json
 {
+  "code": 0,
   "data": {
     "dailyData": [
       {
-        "dateKey": "2026-09-06",
+        "cpe": 0,
+        "cpm": 0,
+        "cpuv": 0,
+        "cpv": 0,
+        "dateKey": "2026-10-04",
+        "engage": 10,
+        "imp": 1467,
+        "read": 138,
         "thirdUserNum": 0
       }
-    ]
-  }
+    ],
+    "sumData": {
+      "cpe": 0,
+      "cpm": 0,
+      "cpuv": 0,
+      "cpv": 0,
+      "dateKey": "2026-11-02",
+      "engage": 9,
+      "imp": 1577,
+      "read": 115,
+      "thirdUserNum": 0
+    }
+  },
+  "msg": "成功",
+  "success": true
 }
 ```
 
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `data.dailyData[].dateKey` | Date of the daily row, in `YYYY-MM-DD` format. |
+| `data.dailyData[].imp` | Impressions for that day. |
+| `data.dailyData[].read` | Reads for that day. |
+| `data.dailyData[].engage` | Engagement count for that day. |
+| `data.dailyData[].cpm / data.dailyData[].cpv / data.dailyData[].cpe / data.dailyData[].cpuv` | Cost metrics for that day. The sample shows `0` for all of them. |
+| `data.dailyData[].thirdUserNum` | Count named `thirdUserNum`. The sample shows `0`. |
+| `data.sumData.imp / data.sumData.read / data.sumData.engage` | Summary values for impressions, reads and engagement over the selected range. |
+| `data.sumData.dateKey` | Date attached to the summary object. |
+| `data.sumData.cpm / data.sumData.cpv / data.sumData.cpe / data.sumData.cpuv` | Cost metrics in the summary object. The sample shows `0` for all of them. |
+
 ### Notes
 
-- Set `date_type` to 1 for 7 days, 2 for 30 days, or 3 for 90 days.
-- Configure `note_type` as 1 for images, 2 for video, or 3 for all notes.
-- Use `advertise_switch` to toggle between organic traffic only (0) and all traffic including ads (1).
+- `user_id` is a 24-character hex string, for example `60b137080000000001000301`.
+- `date_type` takes a value from 1 to 12. The documented values are `1` for 7 days, `2` for 30 days and `3` for 90 days.
+- `note_type` accepts `1` for image, `2` for video and `3` for all notes. `advertise_switch` accepts `1` for all traffic including ads and `0` for organic only.
+- To find a `user_id`, use [Xiaohongshu (RED) PGY Blogger Search](/apis/xiaohongshu/pgy/blogger-list). For profile data, call [Xiaohongshu (RED) PGY Blogger Details](/apis/xiaohongshu/pgy/blogger-detail).
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.02 per successful call. Failed calls are not charged.
 
 ### Related APIs
 

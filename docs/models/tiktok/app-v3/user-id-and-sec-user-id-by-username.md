@@ -62,13 +62,14 @@ Same call via the path form: `POST /v1/api/tiktok/app-v3/user-id-and-sec-user-id
 
 ## Details
 
-Look up account identifiers for a TikTok profile using the `username` parameter. This endpoint returns both `user_id` and `sec_user_id` values.
+Returns the `user_id` and `sec_user_id` for a TikTok account. You send the profile `username` and get both identifiers back in a flat JSON object.
 
 ### Use cases
 
-- Resolve TikTok account identifiers from a public username.
-- Retrieve required security IDs for downstream profile calls.
-- Map user handles to unique IDs for analytics tracking.
+- Convert a TikTok handle into the numeric `user_id` for storage in a database.
+- Get the `sec_user_id` needed to call profile and video list endpoints for an account.
+- Keep a stable identifier for a creator in case you track them over time.
+- Check that a handle resolves to a real account before you run other lookups.
 
 ### Request
 
@@ -79,6 +80,8 @@ curl -X POST "https://api.sandbase.ai/v1/api/tiktok/app-v3/user-id-and-sec-user-
   -d '{"username": "tiktok"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
@@ -87,22 +90,31 @@ curl -X POST "https://api.sandbase.ai/v1/api/tiktok/app-v3/user-id-and-sec-user-
 
 ### Example response
 
-Real response for the request above, trimmed to the main fields. User names and long IDs are masked.
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
 
 ```json
 {
-  "sec_user_id": "<user>",
-  "user_id": "<user>"
+  "sec_user_id": "MS4wLjABAAAAv7iSuuXDJGDvJkmH_vz1qkDZYo1apxgzaxdBSeIuPiM",
+  "user_id": "107955"
 }
 ```
 
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `user_id` | Numeric account ID for the username, returned as a string. |
+| `sec_user_id` | Long encoded account ID for the same user. Other TikTok user endpoints take this value as input. |
+
 ### Notes
 
-- Requires a valid account handle passed to `username`.
+- Pass the handle in `username` without the `@` sign, for example `tiktok`.
+- Use the returned `sec_user_id` in [TikTok User Profile Details](/apis/tiktok/app-v3/user-profile) or [TikTok User Videos (App V3)](/apis/tiktok/app-v3/user-post-videos) to get profile data and posts.
+- To find the country of an account from its handle, call [TikTok User Country by Username](/apis/tiktok/app-v3/user-country-by-username).
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

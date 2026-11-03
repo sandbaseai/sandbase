@@ -62,13 +62,14 @@ Same call via the path form: `POST /v1/api/zhihu/web/search-suggest` with the bo
 
 ## Details
 
-Retrieve autocomplete suggestions from Zhihu by providing a query term in `keyword`.
+Returns a list of Zhihu search suggestions for a keyword. It needs one input, `keyword`, and returns the suggested queries with an ID, a tab type and an optional label and icon for each.
 
 ### Use cases
 
-- Populate search autocomplete menus in real time.
-- Discover related topic queries based on user input.
-- Enhance search input boxes with Zhihu suggestions.
+- Fill a search box with Zhihu autocomplete suggestions as a user types.
+- Collect the long-tail queries people use around a brand or topic such as `OpenAI`.
+- Spot trending phrasing around a keyword to plan content titles.
+- Seed a keyword list, then run each suggestion through a Zhihu search API.
 
 ### Request
 
@@ -79,6 +80,8 @@ curl -X POST "https://api.sandbase.ai/v1/api/zhihu/web/search-suggest" \
   -d '{"keyword": "OpenAI"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
@@ -87,29 +90,52 @@ curl -X POST "https://api.sandbase.ai/v1/api/zhihu/web/search-suggest" \
 
 ### Example response
 
-Real response for the request above, trimmed to the main fields. User names and long IDs are masked.
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
 
 ```json
 {
+  "attached_info": "OioSIDQ5NDM5NGJhY2Y1MDIwNTQ4NDIzNDczMDA4ZDBhMDM0agZPcGVuQUk=",
+  "input_hash_id": "494394bacf5020548423473008d0a034",
   "suggest": [
     {
+      "attached_info": "OioSIDQ5NDM5NGJhY2Y1MDIwNTQ4NDIzNDczMDA4ZDBhMDM0agZPcGVuQUnyAksKIDQ5NDM5NGJhY2Y1…",
+      "height": 14,
+      "icon_url": "https://picx.zhimg.com/80/v2-14647b51c955b4cd339e3f2150d45b9a_1440w.png",
       "id": -2962146858830793432,
       "label": "activity_topic",
       "query": "OpenAI",
       "raw_id": "-2962146858830793432",
-      "tab_type": "general"
+      "tab_type": "general",
+      "target_url": "",
+      "width": 26
     }
   ]
 }
 ```
 
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `suggest[]` | List of suggestion entries for the keyword, in the order returned. |
+| `suggest[].query` | The suggested search phrase as plain text. |
+| `suggest[].id / suggest[].raw_id` | Identifier of the suggestion. `raw_id` is the same number as a string, which is safer for tools that lose precision on large integers. |
+| `suggest[].label` | Type tag for the suggestion. A value such as `activity_topic` marks a topic entry. It is an empty string on plain query suggestions. |
+| `suggest[].tab_type` | Search tab the suggestion belongs to. The sample entries all return `general`. |
+| `suggest[].icon_url / suggest[].width / suggest[].height` | Icon image for the suggestion with its size. Plain query suggestions return an empty `icon_url` and `0` for both sizes. |
+| `suggest[].target_url` | Link target for the suggestion. It is an empty string in the sample. |
+| `suggest[].attached_info` | Opaque token attached to each suggestion. Pass it unchanged if you need to refer back to it. |
+| `input_hash_id` | Hash string that identifies the input keyword. |
+
 ### Notes
 
-- The `keyword` parameter is required.
+- `keyword` is the only parameter and it is required. Send the text the user has typed so far.
+- Large `id` values can exceed the safe integer range in some languages. Use `raw_id` when you need an exact value.
+- To search content for a suggested phrase, pass it to [Zhihu Article Search](/apis/zhihu/web/article-search-v3) or [Zhihu Topic Search (V3)](/apis/zhihu/web/topic-search-v3).
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

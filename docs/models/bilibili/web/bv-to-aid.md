@@ -62,13 +62,13 @@ Same call via the path form: `POST /v1/api/bilibili/web/bv-to-aid` with the body
 
 ## Details
 
-Convert a Bilibili video BV identifier to its corresponding numeric AID using `bv_id`. This enables mapping between alphanumeric and numeric video identifiers.
+Returns the numeric AID for a Bilibili video. You send the video's BV identifier in `bv_id`, for example `BV1M1421t7hT`. The response is a single integer.
 
 ### Use cases
 
-- Look up the numeric AID for legacy Bilibili endpoints requiring numeric identifiers.
-- Convert modern BV alphanumeric strings into corresponding AID integers.
-- Bridge data pipelines that index Bilibili videos by numeric AID instead of BV format.
+- Convert a BV string taken from a Bilibili video URL into its numeric AID.
+- Normalize a list of mixed BV identifiers into numeric AIDs before storing them in a database.
+- Match BV identifiers from one dataset against records in another dataset that keys videos by AID.
 
 ### Request
 
@@ -79,19 +79,39 @@ curl -X POST "https://api.sandbase.ai/v1/api/bilibili/web/bv-to-aid" \
   -d '{"bv_id": "BV1M1421t7hT"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
 |---|---|---|---|
 | `bv_id` | string | Yes | Video id |
 
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+1556386640
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `$` | The numeric AID of the video. This is the legacy numeric video identifier that matches the BV string you sent. |
+| `$` | The value is a bare integer. No object or field names wrap it, so there are no keys to read. |
+| `$` | For the sample input `BV1M1421t7hT`, the value is `1556386640`. |
+
 ### Notes
 
-- Supply a valid video string via `bv_id`.
+- Pass the BV string exactly as it appears in the video link, including the `BV` prefix and letter case.
+- The body is a plain number, not a JSON object, so read it directly instead of looking up a key.
+- To get video metadata for the same video, call [Bilibili Video Details](/apis/bilibili/web/one-video) or [Bilibili Web Video Details](/apis/bilibili/web/video-detail).
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

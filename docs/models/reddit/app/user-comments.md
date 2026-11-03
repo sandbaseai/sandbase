@@ -66,13 +66,14 @@ Same call via the path form: `POST /v1/api/reddit/app/user-comments` with the bo
 
 ## Details
 
-Retrieve comments from a Reddit account using the `username` parameter. Results can be sorted by criteria such as newest, top rated, or hot.
+Returns a page of comments written by one Reddit user, each with its text preview, score, creation time and the post it was made on. The only required input is `username`, and you can add `sort`, `page_size` and `after` to control the list.
 
 ### Use cases
 
-- Review comment history for a specific Reddit user account.
-- Analyze user participation and feedback trends across communities.
-- Monitor top-rated and controversial contributions from targeted profiles.
+- Pull the latest comments from an executive account such as `spez` to track public statements.
+- Find the posts and subreddits where a user comments most often.
+- Compare comment `score` values to spot the most upvoted or downvoted replies from a profile.
+- Page through a user's full comment history and store it for moderation or research review.
 
 ### Request
 
@@ -83,25 +84,88 @@ curl -X POST "https://api.sandbase.ai/v1/api/reddit/app/user-comments" \
   -d '{"username": "spez"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
 |---|---|---|---|
 | `username` | string | Yes | Reddit username |
-| `sort` | string | No | Sort method, options: NEW (newest), TOP (top rated), HOT (hot), CONTROVERSIAL (controversial) |
 | `after` | string | No | Pagination parameter for fetching next page |
-| `page_size` | integer | No | Number of comments per page, default 25 |
 | `need_format` | boolean | No | Whether to clean and format the data |
+| `page_size` | integer | No | Number of comments per page, default 25 |
+| `sort` | string | No | Sort method, options: NEW (newest), TOP (top rated), HOT (hot), CONTROVERSIAL (controversial) |
+
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "redditorInfoByName": {
+    "__typename": "Redditor",
+    "comments": {
+      "edges": [
+        {
+          "node": {
+            "__typename": "Comment",
+            "authorInfo": {
+              "displayName": "spez"
+            },
+            "commentStats": null,
+            "content": {
+              "html": null,
+              "preview": "Pretty simple. For people who are already coming to Reddit every week, we have t…"
+            },
+            "createdAt": "2026-10-29T22:42:06.463000+0000",
+            "id": "t1_19ruo33ofgh8i",
+            "postInfo": {
+              "__typename": "SubredditPost",
+              "id": "t3_1xiupuc",
+              "subreddit": {
+                "prefixedName": "r/RDDT"
+              },
+              "title": "Reddit Announces Q3’26 Earnings (plus AMA!)"
+            },
+            "score": -8
+          }
+        }
+      ],
+      "pageInfo": {
+        "__typename": "PageInfo",
+        "endCursor": "dDFfb3B0ZnlxbA==",
+        "hasNextPage": true
+      }
+    }
+  }
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `redditorInfoByName.comments.edges[].node.id` | Comment ID in the form `t1_...`. |
+| `redditorInfoByName.comments.edges[].node.content.preview` | Shortened text of the comment. The full text may be cut off with an ellipsis. |
+| `redditorInfoByName.comments.edges[].node.content.html` | HTML version of the comment. It was `null` in this response. |
+| `redditorInfoByName.comments.edges[].node.score` | Score of the comment. It can be negative. |
+| `redditorInfoByName.comments.edges[].node.createdAt` | Time the comment was created, as an ISO 8601 string with a `+0000` offset. |
+| `redditorInfoByName.comments.edges[].node.authorInfo.displayName` | Username of the comment author. |
+| `redditorInfoByName.comments.edges[].node.postInfo.id / redditorInfoByName.comments.edges[].node.postInfo.title` | ID (form `t3_...`) and title of the post the comment was left on. |
+| `redditorInfoByName.comments.edges[].node.postInfo.subreddit.prefixedName` | Subreddit of the post, such as `r/RDDT`. It is absent when `postInfo.__typename` is `ProfilePost`. |
+| `redditorInfoByName.comments.pageInfo.hasNextPage` | `true` when more comments are available after this page. |
+| `redditorInfoByName.comments.pageInfo.endCursor` | Cursor for the last item on this page. Use it as `after` to get the next page. |
 
 ### Notes
 
-- Supported `sort` options include NEW, TOP, HOT, and CONTROVERSIAL.
-- `page_size` sets the comment count per request and defaults to 25.
-- Use `after` to retrieve the next page of results.
+- Pass the `endCursor` value from `pageInfo` as `after` in the next request, and stop when `hasNextPage` is `false`.
+- Comments on a user's own profile post have `postInfo.__typename` set to `ProfilePost` and no `subreddit` object.
+- `sort` accepts `NEW`, `TOP`, `HOT` and `CONTROVERSIAL`. `page_size` defaults to 25.
+- To see the user's posts instead of comments, call [Reddit User Posts](/apis/reddit/app/user-posts).
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

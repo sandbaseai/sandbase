@@ -59,13 +59,14 @@ Same call via the path form: `POST /v1/api/dataforseo/v3/business_data/google/my
 
 ## Details
 
-Retrieves Google Business Profile listing data directly from Google local results. Call this endpoint to inspect localized merchant profiles and business attributes.
+Returns the Google Business Profile for one place, found by a search query and a location. It needs a `keyword` (the business name), a `location_code` and a `language_code`.
 
 ### Use cases
 
-- Audit local Google Business Profile listings across target geographic locations.
-- Extract business hours, addresses, contact details, and category classifications.
-- Monitor local merchant profile attributes and customer rating metrics.
+- Look up the address, category and Google ID of a named business before adding it to a CRM.
+- Check which accessibility features a venue lists on its Google profile.
+- Compare how the same business is categorized across different locations or languages.
+- Build a link to the Google Maps page for a business from its `cid`.
 
 ### Request
 
@@ -76,19 +77,119 @@ curl -X POST "https://api.sandbase.ai/v1/api/dataforseo/v3/business_data/google/
   -d '{"keyword": "The Metropolitan Museum of Art", "location_code": 2840, "language_code": "en"}'
 ```
 
+The result is returned in `outputs[0]`.
+
 ### Parameters
 
-The JSON body is forwarded to the upstream endpoint (one task per call). Fields used above:
+| Name | Type | Required | Description |
+|---|---|---|---|
+| `keyword` | string | No | Search query. |
+| `language_code` | string | No | Language code, e.g. "en". |
+| `location_code` | integer | No | Location code, e.g. 2840 for the United States. |
 
-| Name | Description |
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "status_code": 20000,
+  "status_message": "Ok.",
+  "tasks": [
+    {
+      "data": {
+        "api": "business_data",
+        "device": "desktop",
+        "function": "my_business_info",
+        "keyword": "The Metropolitan Museum of Art",
+        "language_code": "en",
+        "location_code": 2840,
+        "os": "windows",
+        "se": "google"
+      },
+      "id": "11030828-2190-0572-0000-fe67064bd604",
+      "path": [
+        "v3"
+      ],
+      "result": [
+        {
+          "check_url": "https://www.google.com/maps?cid=4264808743088595450&hl=en&gl=US",
+          "datetime": "2026-11-03 08:28:54 +00:00",
+          "item_types": [
+            "google_business_info"
+          ],
+          "items": [
+            {
+              "additional_categories": [
+                "Arts organization"
+              ],
+              "address": "1000 5th Ave, New York, NY 10028",
+              "address_info": {
+                "address": "1000 5th Ave",
+                "borough": "Manhattan",
+                "city": "New York",
+                "country_code": "US",
+                "region": "New York",
+                "zip": "10028"
+              },
+              "attributes": {
+                "available_attributes": {
+                  "accessibility": [
+                    "has_assisted_listening_devices"
+                  ]
+                },
+                "unavailable_attributes": null
+              },
+              "book_online_url": null,
+              "category": "Art museum",
+              "category_ids": null,
+              "cid": "4264808743088595450"
+            }
+          ],
+          "items_count": 1,
+          "keyword": "The Metropolitan Museum of Art",
+          "language_code": "en",
+          "location_code": 2840
+        }
+      ],
+      "result_count": 1,
+      "status_code": 20000,
+      "status_message": "Ok.",
+      "time": "8.0274 sec."
+    }
+  ],
+  "tasks_count": 1,
+  "tasks_error": 0,
+  "time": "8.0415 sec.",
+  "version": "0.1.20261022"
+}
+```
+
+### Response fields
+
+| Field | Meaning |
 |---|---|
-| `keyword` | Search query. |
-| `location_code` | Location code, e.g. 2840 for the United States. |
-| `language_code` | Language code, e.g. "en". |
+| `tasks[].result[].items[].cid` | Google customer ID of the business as a string. It also appears in `check_url`. |
+| `tasks[].result[].check_url` | Google Maps link for the listing, built from the `cid`. |
+| `tasks[].result[].items[].category` | Main category of the business, such as `Art museum`. |
+| `tasks[].result[].items[].additional_categories[]` | Other categories listed for the business. |
+| `tasks[].result[].items[].address` | Full street address as one string. |
+| `tasks[].result[].items[].address_info.city / region / zip / country_code` | Address split into parts: city, region, ZIP code and country code. |
+| `tasks[].result[].items[].attributes.available_attributes` | Attributes the business has, grouped by topic. For example, `accessibility` lists items like `has_wheelchair_accessible_entrance`. |
+| `tasks[].result[].items[].attributes.unavailable_attributes` | Attributes the business does not have. It is `null` when none are listed. |
+| `tasks[].result[].items_count` | Number of listings returned for the query. |
+| `tasks[].result[].datetime` | Time the result was produced, in UTC. |
+
+### Notes
+
+- Use the business name as `keyword`. `location_code` `2840` is the United States.
+- Some fields, such as `book_online_url` and `category_ids`, can be `null` when the profile has no value.
+- The response wraps results in `tasks[]`. Read the listing from `tasks[].result[].items[]`.
+- Check `status_code` (`20000` means Ok) at the top level and inside each task.
 
 ### Pricing
 
-Billed at the actual cost of each call, about $0.0054 for the request above. The cost grows with the number of rows, targets or pages a call returns. Failed calls are not charged. Searches with no results are billed at their actual cost.
+Billed at the actual cost of each call, about $0.0054 for the request above. Failed calls are not charged.
 
 ### Related APIs
 

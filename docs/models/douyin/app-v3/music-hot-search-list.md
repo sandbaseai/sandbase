@@ -65,13 +65,14 @@ Same call via the path form: `POST /v1/api/douyin/app-v3/music-hot-search-list` 
 
 ## Details
 
-Access Douyin trending and popular music rankings by supplying `chart_type` and `cursor`. It returns audio tracks, duration, and artist details across different leaderboard categories.
+Returns a ranked list of music tracks from a Douyin music chart. You can pick the chart with `chart_type` (`hot`, `trending` or `original`) and page through results with `cursor`. Both inputs are optional.
 
 ### Use cases
 
-- Track trending background music across Douyin charts.
-- Analyze popular original and rising music tracks.
-- Monitor top viral sounds for social media content strategy.
+- Pull the current `hot` chart to see which songs are gaining heat on Douyin.
+- Compare the `hot`, `trending` and `original` charts to find tracks that appear on more than one.
+- Store the `heat` value of each track over time to chart how a song rises or falls.
+- Build a list of track and album names to check for sounds to use in new videos.
 
 ### Request
 
@@ -82,42 +83,83 @@ curl -X POST "https://api.sandbase.ai/v1/api/douyin/app-v3/music-hot-search-list
   -d '{}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
 |---|---|---|---|
-| `cursor` | string | No | Cursor, default value is '0', used for paginating data retrieval. |
 | `chart_type` | string | No | Chart type, default value is 'hot', supports the following values: 'hot': Hot chart; 'trending': Trending chart; 'original': Original chart |
+| `cursor` | string | No | Cursor, default value is '0', used for paginating data retrieval. After each request, the next cursor value will be returned, and the `has_more` field indicates whether there is more data available. |
 
 ### Example response
 
-Real response for the request above, trimmed to the main fields. User names and long IDs are masked.
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
 
 ```json
 {
+  "aweme_list": [],
+  "chart_content_type": 1,
+  "cursor": 0,
+  "extra": {
+    "fatal_item_ids": [],
+    "logid": "20261103153136FB69BAA40A084911D413",
+    "now": 1793691096000
+  },
+  "has_more": 0,
+  "log_pb": {
+    "impr_id": "20261103153136FB69BAA40A084911D413"
+  },
+  "material_list": [],
   "music_list": [
     {
+      "can_background_play": true,
+      "has_copyright": true,
+      "heat": 19951092,
       "music_info": {
-        "audition_duration": 173,
-        "author": "好久不见",
+        "album": "你的不经意",
+        "artist_user_infos": null,
+        "artists": [],
+        "audition_duration": 30,
+        "author": "Fozik佛子克",
         "author_deleted": false,
-        "binded_challenge_id": 0,
-        "dsp_status": 10,
-        "duration": 173
+        "author_position": null,
+        "binded_challenge_id": 0
       }
     }
-  ]
+  ],
+  "release_date": "2026-10-30",
+  "show_author": false,
+  "show_heat": true,
+  "status_code": 0
 }
 ```
 
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `music_list[]` | One ranked track on the chart. Items come in chart order. |
+| `music_list[].heat` | Heat score of the track on this chart. A higher number means a higher position. |
+| `music_list[].music_info.author` | Name of the artist or account that published the track. |
+| `music_list[].music_info.album` | Album or song title shown for the track. It can be an empty string. |
+| `music_list[].music_info.audition_duration` | Length of the preview clip, as a number. Compare it with the other duration fields in the item before you assume units. |
+| `music_list[].has_copyright / music_list[].can_background_play` | Boolean flags. `has_copyright` marks whether the track carries copyright info. `can_background_play` marks whether it can play in the background. |
+| `music_list[].music_info.binded_challenge_id` | ID of a challenge linked to the track. The value is `0` when none is linked. |
+| `release_date` | Date of the chart, in `YYYY-MM-DD` format. |
+| `has_more / cursor` | Pagination state. `has_more` is `0` when there are no more pages. `cursor` is the cursor value returned for this page. |
+| `show_heat / show_author` | Boolean display flags for the chart. `show_heat` is `true` when the chart shows heat values. |
+
 ### Notes
 
-- Supported `chart_type` values include 'hot' (Hot chart), 'trending' (Trending chart), and 'original' (Original chart).
-- Pagination is handled via `cursor`, which defaults to '0', while the response indicates whether more items remain.
+- Send `chart_type` as `hot`, `trending` or `original`. The default is `hot`.
+- For the next page, send the returned `cursor` as the new `cursor` value while `has_more` is not `0`.
+- `aweme_list` and `material_list` were empty in this response. The track data is in `music_list`.
+- To get full details for one track, call [Douyin Music Details](/apis/douyin/app-v3/music-detail). To list videos that use a track, call [Douyin Music Video List](/apis/douyin/app-v3/music-video-list).
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

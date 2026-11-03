@@ -62,7 +62,14 @@ Same call via the path form: `POST /v1/api/truth-social/user-posts` with the bod
 
 ## Details
 
-List a Truth Social account's recent posts by handle - text, engagement (likes, comments, shares), and timestamps as clean JSON.
+Returns a Truth Social account's recent posts as JSON. Each post includes its text, like, comment and share counts, a Unix timestamp, and a link. You send the account handle without the @.
+
+### Use cases
+
+- Track what a public figure posts on Truth Social and when.
+- Compare `likes`, `comments` and `shares` across posts to see which ones get the most reaction.
+- Build an archive of an account's posts with their post URLs and IDs.
+- Feed new post text into a news or monitoring alert.
 
 ### Request
 
@@ -73,7 +80,7 @@ curl -X POST "https://api.sandbase.ai/v1/api/truth-social/user-posts" \
   -d '{"handle": "realDonaldTrump"}'
 ```
 
-The result is returned in `outputs[0].data`. A lookup that finds nothing still succeeds and returns `found: false`.
+The result is returned in `outputs[0].data`.
 
 ### Parameters
 
@@ -82,9 +89,59 @@ The result is returned in `outputs[0].data`. A lookup that finds nothing still s
 | `handle` | string | Yes | Truth Social handle without the @, e.g. "realDonaldTrump". |
 | `cursor` | string | No | Opaque pagination cursor from a previous response's nextCursor. Omit for the first page; a page holds 20 posts. |
 
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "data": {
+    "nextCursor": "cur_UN9TOUrS7RQgenR7fVK2NQ",
+    "posts": [
+      {
+        "avatarUrl": "https://static-assets-1.truthsocial.com/tmtg:prime-ts-assets/accounts/avatars/10…",
+        "comments": 369,
+        "createdUtc": 1793686350,
+        "displayName": "Donald J. Trump",
+        "id": "117551028635722326",
+        "likes": 2088,
+        "shares": 707,
+        "text": "FAKE ALASKA CANDIDATE DANIAL J. SULLIVAN, JR., IS MISSING IN ACTION! HE HAS TOTA…",
+        "url": "https://truthsocial.com/@realDonaldTrump/117551028635722326",
+        "username": "realDonaldTrump",
+        "verified": true
+      }
+    ]
+  },
+  "found": true
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `data.posts[].id` | Unique ID of the post, as a string. |
+| `data.posts[].text` | Text of the post. In this sample it is cut with an ellipsis when long. A post that only shares a link shows that link as its text. |
+| `data.posts[].url` | Direct link to the post on truthsocial.com. |
+| `data.posts[].createdUtc` | Time the post was created, as a Unix timestamp in seconds. |
+| `data.posts[].likes / data.posts[].comments / data.posts[].shares` | Engagement counts for the post. |
+| `data.posts[].username / data.posts[].displayName` | Handle and display name of the account that wrote the post. |
+| `data.posts[].verified` | `true` if the account is shown as verified. |
+| `data.posts[].avatarUrl` | Link to the account's avatar image. |
+| `data.nextCursor` | Cursor to pass as `cursor` to get the next page of posts. |
+| `found` | `true` when the account was found. |
+
+### Notes
+
+- Use the handle without the @, for example `realDonaldTrump`.
+- Each page holds 20 posts. To get the next page, send the same `handle` with `cursor` set to the `data.nextCursor` value from the previous response.
+- Post IDs are numeric strings, and the same ID appears at the end of each post `url`.
+- For account details, call [Truth Social Profile](/apis/truth-social/profile). To fetch a single post, call [Truth Social Post](/apis/truth-social/post).
+
 ### Pricing
 
-Billed at the actual cost of each call, usually $0.0012 per request. A call can cost more when the first data source fails and another one answers. Failed calls are not charged. Lookups that find nothing and searches with no results are billed at their actual cost, which is often lower and can be $0.
+Billed at the actual cost of each call, about $0.0012 for the request above. Failed calls are not charged.
 
 ---
 Machine-readable: [`catalog/models/truth-social/user-posts.json`](../../../catalog/models/truth-social/user-posts.json) · Store page: https://www.sandbase.ai/model/truth-social/user-posts

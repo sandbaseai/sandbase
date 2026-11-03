@@ -76,7 +76,14 @@ Same call via the path form: `POST /v1/api/google-play/reviews` with the body ab
 
 ## Details
 
-Get Google Play reviews for a product with rating, sort, platform, and paging.
+Returns user reviews for a Google Play product, such as an app, book, or movie. Each review has a star rating, a text snippet, a like count, and the app version. You pass a `product_id` such as `com.duolingo`.
+
+### Use cases
+
+- Track new complaints about an app by pulling the newest reviews with `sort_by` set to `2`.
+- Read only 1-star reviews with `rating` set to `1` to find the most common bug reports.
+- Compare feedback across app versions using the `version` field on each review.
+- Collect reviews from different storefronts by changing `gl` and `hl`.
 
 ### Request
 
@@ -87,7 +94,7 @@ curl -X POST "https://api.sandbase.ai/v1/api/google-play/reviews" \
   -d '{"product_id": "com.duolingo"}'
 ```
 
-This API runs asynchronously. The call returns a task `id` with status `pending`; poll `GET https://api.sandbase.ai/v1/run/{id}` until `status` is `completed` and read the result from `outputs[0].data`.
+The result is returned in `outputs[0].data`.
 
 ### Parameters
 
@@ -98,14 +105,102 @@ This API runs asynchronously. The call returns a task `id` with status `pending`
 | `hl` | string | No | Storefront language, such as 'en', 'de', or 'zh-TW'. Default 'en'. |
 | `next_page_token` | string | No | Returned review continuation. Keep product, store, language, country, platform, rating, sort order, and count the same. |
 | `num` | integer | No | Number of reviews, 1-199. Default 40. |
-| `platform` | string | No | Platform the reviews belong to. Default 'phone'. One of: `phone`, `tablet`, `watch`, `chromebook`, `tv`. |
+| `platform` | string | No | Platform the reviews belong to. Default 'phone'. |
 | `rating` | integer | No | Only reviews with this star rating, 1-5. |
-| `sort_by` | any | No | 1 most relevant, 2 newest, 3 by rating. Default 1. |
-| `store` | string | No | Product catalog containing this identifier. Default 'apps'. One of: `apps`, `books`, `audiobooks`, `movies`, `tv`. |
+| `sort_by` | string | No | 1 most relevant, 2 newest, 3 by rating. Default 1. |
+| `store` | string | No | Product catalog containing this identifier. Default 'apps'. |
+
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "litescrape_pagination": {
+    "current": {
+      "endpoint": "/google-play/reviews",
+      "queryParams": {
+        "gl": "us",
+        "hl": "en",
+        "num": 40,
+        "platform": "phone",
+        "product_id": "com.duolingo",
+        "sort_by": 1,
+        "store": "apps"
+      }
+    },
+    "next": {
+      "endpoint": "/google-play/reviews",
+      "queryParams": {
+        "gl": "us",
+        "hl": "en",
+        "next_page_token": "eyJ2Ijox…",
+        "num": 40,
+        "platform": "phone",
+        "product_id": "com.duolingo",
+        "sort_by": 1,
+        "store": "apps"
+      }
+    },
+    "next_page_token": "eyJ2Ijox…"
+  },
+  "reviews": [
+    {
+      "avatar": "https://play-lh.googleusercontent.com/a/ACg8ocJtnPpg-JNwnWu_-3krborBic6awbrsvHhU…",
+      "date": "2026-09-16T12:36:24Z",
+      "id": "98cd315b-60ce-4e15-a68e-0619ea3f330f",
+      "iso_date": "2026-09-16T12:36:24Z",
+      "likes": 815,
+      "rating": 1,
+      "snippet": "I don't feel like I'm learning the language I signed up for. There are no speaki…",
+      "title": "Lunae Strat",
+      "version": "6.96.2"
+    }
+  ],
+  "search_metadata": {
+    "created_at": "2026-11-03T07:34:32.406096+00:00",
+    "id": "d922cb813d116305007ac3b3",
+    "processed_at": "2026-11-03T07:34:32.597521+00:00",
+    "status": "Success",
+    "total_time_taken": 0.191
+  },
+  "search_parameters": {
+    "gl": "us",
+    "hl": "en",
+    "num": 40,
+    "platform": "phone",
+    "product_id": "com.duolingo",
+    "sort_by": 1,
+    "store": "apps"
+  }
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `reviews[]` | List of reviews for the product. The list length follows the `num` parameter. |
+| `reviews[].id` | Unique ID of the review, in UUID format. |
+| `reviews[].title` | Display name shown with the review. It matches the reviewer's name, not a headline. |
+| `reviews[].rating` | Star rating the user gave, from 1 to 5. |
+| `reviews[].snippet` | Review text. Long reviews appear cut off with an ellipsis. |
+| `reviews[].likes` | Number of likes the review received. |
+| `reviews[].version` | App version the review refers to, such as `6.96.2`. |
+| `reviews[].date / reviews[].iso_date` | Time the review was posted, as a UTC ISO 8601 timestamp. |
+| `reviews[].avatar` | URL of the reviewer's profile image. |
+| `litescrape_pagination.next_page_token` | Token for the next page of reviews. Pass it as `next_page_token` in the next call. |
+
+### Notes
+
+- Get the `product_id` from the product's Google Play URL (the value after `id=`) or from [Google Play App Search](/apis/google-play/apps).
+- To page through results, send `litescrape_pagination.next_page_token` as `next_page_token`. Keep `product_id`, `store`, `hl`, `gl`, `platform`, `rating`, `sort_by`, and `num` the same.
+- `litescrape_pagination.next.queryParams` holds the full set of parameters for the next request.
+- For app details such as the description and overall rating, call [Google Play Product Details](/apis/google-play/product).
 
 ### Pricing
 
-Flat price per call. Failed calls are not charged.
+$0.00015 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ---
 Machine-readable: [`catalog/models/google-play/reviews.json`](../../../catalog/models/google-play/reviews.json) · Store page: https://www.sandbase.ai/model/google-play/reviews

@@ -72,13 +72,14 @@ Same call via the path form: `POST /v1/api/douyin/xingtu-v2/author-spread-info` 
 
 ## Details
 
-Look up commercial spread metrics for a creator on Douyin Xingtu using `o_author_id`. Filter performance stats across specific time windows using `range`.
+Returns commercial spread metrics for one Douyin Xingtu creator, such as median plays, average likes, comments and shares, and expected CPM and CPE. It needs the creator's `o_author_id`. You can narrow the data by time range, video type, flow type and assigned-only videos.
 
 ### Use cases
 
-- Evaluate commercial reach and spread capability for potential influencer partnerships.
-- Analyze creator performance across 30-day or 90-day historical time windows.
-- Compare personal video metrics against assigned commercial content.
+- Compare the median play count of several creators before picking one for a campaign.
+- Estimate campaign cost from the expected CPM and CPE values for 21 to 60 second and 60 second plus videos.
+- Check how many videos back a creator's spread stats by reading `item_num`.
+- Screen creators on average likes, comments and shares per video.
 
 ### Request
 
@@ -89,27 +90,92 @@ curl -X POST "https://api.sandbase.ai/v1/api/douyin/xingtu-v2/author-spread-info
   -d '{"o_author_id": "7589271892177518598"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
 |---|---|---|---|
 | `o_author_id` | string | Yes | Creator/author ID |
-| `type` | integer | No | Video type, 1=personal video |
-| `range` | integer | No | Time range, 2=last 30 days, 3=last 90 days |
 | `flow_type` | integer | No | Flow type, default 0 |
 | `only_assign` | boolean | No | Only assigned videos, default False |
-| `platform_source` | integer | No | Platform source, default 1 |
 | `platform_channel` | integer | No | Platform channel, default 1 |
+| `platform_source` | integer | No | Platform source, default 1 |
+| `range` | integer | No | Time range, 2=last 30 days, 3=last 90 days |
+| `type` | integer | No | Video type, 1=personal video |
+
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "avg_duration": "5800",
+  "base_resp": {
+    "status_code": 0,
+    "status_message": ""
+  },
+  "comment_avg": "35",
+  "expect_cpe": {
+    "cpe_21_60": "6153",
+    "cpe_60": "7692"
+  },
+  "expect_cpm": {
+    "cpm_21_60": "776699",
+    "cpm_60": "970873"
+  },
+  "interact_rate": {
+    "overtake": 1555,
+    "value": 50
+  },
+  "item_num": "5",
+  "item_rate": {
+    "interact_rate": {},
+    "item_num": {
+      "label": "",
+      "value": 5
+    },
+    "play_mid": {
+      "label": "",
+      "overtake": 7588,
+      "value": 986
+    }
+  },
+  "like_avg": "61",
+  "play_mid": "986",
+  "play_over_rate": {
+    "overtake": 1701,
+    "value": 185
+  },
+  "play_stability": {}
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `play_mid` | Median play count of the creator's videos in the selected window. |
+| `like_avg / comment_avg / share_avg` | Average likes, comments and shares per video. Values are returned as strings. |
+| `avg_duration` | Average video duration. The response does not show the unit. |
+| `item_num` | Number of videos counted in these stats. |
+| `expect_cpm.cpm_21_60 / expect_cpm.cpm_60` | Expected CPM for videos of 21 to 60 seconds and for videos over 60 seconds. |
+| `expect_cpe.cpe_21_60 / expect_cpe.cpe_60` | Expected CPE for the same two video length bands. |
+| `sales_expect_cpm.cpm_21_60 / sales_expect_cpm.cpm_60` | Expected CPM in the sales context for the same two video length bands. |
+| `interact_rate.value / interact_rate.overtake` | The creator's interaction rate value and an `overtake` figure that shows how the creator ranks against others. |
+| `play_over_rate.value / play_over_rate.overtake` | The creator's play-over rate value and its `overtake` ranking figure. |
+| `item_rate.play_mid.value / item_rate.play_mid.overtake` | Median plays with its `overtake` ranking figure, grouped under `item_rate`. |
 
 ### Notes
 
-- Use `range` to set the time window: 2 for the last 30 days, or 3 for the last 90 days.
-- Set `type` to 1 to filter for personal video spread data.
-- The `only_assign` flag filters exclusively for assigned videos when set to true.
+- Only `o_author_id` is required. Add `range` (`2` for 30 days, `3` for 90 days) to change the time window.
+- Numeric values such as `play_mid` and `like_avg` come back as strings, while `overtake` and `value` inside rate objects are numbers.
+- `play_stability` and `item_rate.interact_rate` can come back as empty objects.
+- For the individual videos behind these stats, call [Douyin Author Spread Videos](/apis/douyin/xingtu-v2/author-spread-videos).
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.002 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

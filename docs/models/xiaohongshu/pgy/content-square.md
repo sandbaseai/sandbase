@@ -77,7 +77,14 @@ Same call via the path form: `POST /v1/api/xiaohongshu/pgy/content-square` with 
 
 ## Details
 
-PGY content square leaderboards on Xiaohongshu. Returns the platform data as structured JSON.
+Returns one page of a PGY content square leaderboard on Xiaohongshu. Each item is a note with its engagement counts, images and author. You choose the leaderboard with `biz_type` (1 to 8) and can narrow it with filters such as `date_range`, `category` and `industry`.
+
+### Use cases
+
+- Pull the top notes of a leaderboard to see which content is performing best this week.
+- Compare `likeNum`, `favNum` and `cmtNum` across ranked notes to spot formats that draw saves and comments.
+- Build a list of high-ranking authors with their follower counts to shortlist creators for outreach.
+- Track how a board changes by calling it with `date_range` set to 3, 7, 14 or 30.
 
 ### Request
 
@@ -112,9 +119,80 @@ The result is returned in `outputs[0].data`.
 | `sub_biz_type` | integer | No | Board 8 only |
 | `theme` | string | No | 4/5/7/Theme |
 
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "code": 0,
+  "data": {
+    "noteList": [
+      {
+        "noteInfo": {
+          "bindType": 4,
+          "bizType": 0,
+          "cmtNum": 489,
+          "favNum": 3285,
+          "isAdNote": 0,
+          "likeNum": 56359,
+          "noteId": "6ae00b99000000001200a9f9",
+          "noteImages": [
+            {
+              "imageHeight": 2400,
+              "imageUrl": "http://ci.xiaohongshu.com/spectrum/1040g34o326qfkfqpl8105p5oj0ol6up1kacjbf8?imag…",
+              "imageWidth": 1440
+            }
+          ]
+        },
+        "userInfo": {
+          "avatar": "https://sns-avatar-qc.xhscdn.com/avatar/1040g2jo31qobul3rgm005p5oj0ol6up1tu11gg8…",
+          "currentLevel": 0,
+          "fansNum": 567283,
+          "nickName": "潇湘晨报",
+          "userId": "64b898310000000014037b21",
+          "userType": 1
+        }
+      }
+    ],
+    "pageInfoDto": {
+      "pageNum": 1,
+      "pageSize": 20,
+      "total": 100,
+      "totalPage": 0
+    },
+    "total": 100
+  },
+  "msg": "成功",
+  "success": true
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `data.noteList[].noteInfo.noteId` | ID of the note. Use it to look up the note in other APIs. |
+| `data.noteList[].noteInfo.likeNum / favNum / cmtNum` | Counts of likes, favorites and comments on the note. |
+| `data.noteList[].noteInfo.isAdNote` | Flag for ad notes. The sample items show `0`. |
+| `data.noteList[].noteInfo.noteImages[].imageUrl` | URL of an image in the note. |
+| `data.noteList[].noteInfo.noteImages[].imageWidth / imageHeight` | Width and height of that image. |
+| `data.noteList[].userInfo.userId` | ID of the author who posted the note. |
+| `data.noteList[].userInfo.nickName` | Display name of the author. |
+| `data.noteList[].userInfo.fansNum` | Follower count of the author. |
+| `data.pageInfoDto.pageNum / pageSize` | Page number and page size of this response. |
+| `data.total` | Total number of items on the board. The sample shows `100`. |
+
+### Notes
+
+- Set `page_num` and `page_size` to page through results. Each board holds only 100 items, and `page_size` accepts 1 to 34.
+- Some filters apply to certain boards only: `category` to board 1, `author_type`, `price` and `fans` to board 4, `sub_biz_type` to board 8, `marketing_target` to board 3.
+- Pass the `userId` to [Xiaohongshu (RED) PGY Blogger Details](/apis/xiaohongshu/pgy/blogger-detail) to get creator details.
+- Pass the `noteId` to [Xiaohongshu (RED) PGY Note Detail](/apis/xiaohongshu/pgy/note-detail) to get details for one note.
+
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.02 per successful call. Failed calls are not charged.
 
 ---
 Machine-readable: [`catalog/models/xiaohongshu/pgy/content-square.json`](../../../../catalog/models/xiaohongshu/pgy/content-square.json) · Store page: https://www.sandbase.ai/model/xiaohongshu/pgy/content-square

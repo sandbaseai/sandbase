@@ -64,9 +64,13 @@ Same call via the path form: `POST /v1/api/polymarket/tags-related-tags` with th
 
 ## Details
 
-Get related tags (relationships) by tag id from Polymarket. Returns the official Polymarket API response unchanged.
+Returns the relationship rows for one Polymarket tag. Each row links the tag you pass in `id` to a related tag and gives its rank. The only required input is the integer tag `id`.
 
-The response is the official Polymarket API response, unchanged.
+### Use cases
+
+- Build a "related topics" list for a Polymarket tag page, ordered by `rank`.
+- Walk the tag graph from one tag to find neighbouring categories of markets.
+- Collect related tag ids, then look up their names and slugs to label a topic map.
 
 ### Request
 
@@ -77,6 +81,8 @@ curl -X POST "https://api.sandbase.ai/v1/api/polymarket/tags-related-tags" \
   -d '{"id": 2}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
@@ -85,9 +91,40 @@ curl -X POST "https://api.sandbase.ai/v1/api/polymarket/tags-related-tags" \
 | `omit_empty` | boolean | No | omit_empty |
 | `status` | string | No | status |
 
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+[
+  {
+    "id": "49569",
+    "rank": 1,
+    "relatedTagID": 126,
+    "tagID": 2
+  }
+]
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `id` | ID of the relationship row itself, returned as a string. It is not a tag id. |
+| `rank` | Position of the related tag in the list for this tag. `1` is the first entry. |
+| `relatedTagID` | Tag id of the related tag. Use it to look up that tag's details. |
+| `tagID` | Tag id the relationship belongs to. It matches the `id` you sent in the request. |
+
+### Notes
+
+- `omit_empty` and `status` are optional. `status` accepts `active`, `closed` or `all`. The example response was requested with only `id`.
+- The response is a plain JSON array. It has no pagination fields in this example.
+- Call [Polymarket Get tag by id](/apis/polymarket/tags-by-id) with a `relatedTagID` value to get the name of that tag.
+- [Polymarket Get tags related to a tag id](/apis/polymarket/tags-related-tags-tags) is a separate API that returns the related tags themselves.
+
 ### Pricing
 
-Flat price per call. Failed calls are not charged.
+$0.00044 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ---
 Machine-readable: [`catalog/models/polymarket/tags-related-tags.json`](../../../catalog/models/polymarket/tags-related-tags.json) · Store page: https://www.sandbase.ai/model/polymarket/tags-related-tags

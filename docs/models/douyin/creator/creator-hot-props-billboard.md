@@ -68,13 +68,14 @@ Same call via the path form: `POST /v1/api/douyin/creator/creator-hot-props-bill
 
 ## Details
 
-Access Douyin creator hot props rankings filtered by `billboard_tag`, `time_filter`, and `order_key`.
+Returns a ranked list of trending creator props (camera effects and filters) on Douyin, with play, show, shoot and publish counts for each prop. All inputs are optional integers: `billboard_tag`, `order_key` and `time_filter`. An empty request returns the default ranking.
 
 ### Use cases
 
-- Identify trending props and visual effects across Douyin video creators.
-- Monitor engagement metrics such as play count and collection count for viral props.
-- Analyze popular creative tools to guide content strategy and production.
+- Track which Douyin props get the most plays and shoots to spot effects that are gaining traction.
+- Compare `publish_count` and `shoot_count` across props to see which effects creators actually use in videos.
+- Build a prop watchlist for a content team by saving each `item_id` and its `title`.
+- Pull the prop cover images to show a visual ranking in a dashboard.
 
 ### Request
 
@@ -85,45 +86,72 @@ curl -X POST "https://api.sandbase.ai/v1/api/douyin/creator/creator-hot-props-bi
   -d '{}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
 |---|---|---|---|
+| `billboard_tag` | integer | No | Billboard tag, 0=all, other values can be obtained through config interface |
 | `order_key` | integer | No | Order key |
 | `time_filter` | integer | No | Time filter |
-| `billboard_tag` | integer | No | Billboard tag, 0=all, other values can be obtained through config interface |
 
 ### Example response
 
-Real response for the request above, trimmed to the main fields. User names and long IDs are masked.
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
 
 ```json
 {
   "item_list": [
     {
-      "collection_count": 43141,
+      "aweme_list": null,
+      "collection_count": 8270,
       "comment_count": 0,
+      "cover": {
+        "url_list": [
+          "https://lf3-effectcdn-tos.byteeffecttos.com/obj/ies.fe.effect/2d07e44c0a2328be56…"
+        ]
+      },
+      "hot_involve_ratio": "",
+      "hot_involve_type": "",
       "hot_onboard_time": 0,
       "hot_score": 0,
-      "item_id": "271554030",
-      "like_count": 192,
-      "play_count": 45800949,
-      "publish_count": 68811,
-      "query_id": "391777092",
-      "share_count": 0
+      "item_id": "273663451",
+      "key_words": null,
+      "like_count": 178,
+      "play_count": 31241388
     }
-  ]
+  ],
+  "status_code": 0,
+  "status_msg": ""
 }
 ```
 
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `item_list[].item_id` | ID of the prop, returned as a string. |
+| `item_list[].title` | Name of the prop as shown on Douyin. |
+| `item_list[].cover.url_list[]` | Image URLs for the prop cover. The list holds more than one URL for the same image. |
+| `item_list[].play_count` | Number of plays recorded for the prop. |
+| `item_list[].show_count` | Number of times the prop was shown. |
+| `item_list[].shoot_count` | Number of times creators shot a video with the prop. |
+| `item_list[].publish_count` | Number of videos published with the prop. |
+| `item_list[].like_count / collection_count` | Like count and collection (favorite) count for the prop. |
+| `item_list[].query_id` | Query ID of the prop, returned as a string. |
+| `status_code / status_msg` | Request status. `status_code` is `0` and `status_msg` is empty in the sample response. |
+
 ### Notes
 
-- Set `billboard_tag` to 0 for all props, or use values obtained from the configuration endpoint.
-- Sort and filter results using `order_key` and `time_filter`.
+- `billboard_tag` defaults to `0`, which means all props. Other values come from the config interface.
+- `order_key` and `time_filter` are integers with a default of `1`. The schema does not describe their values.
+- In the sample response, fields such as `hot_score`, `comment_count`, `share_count` and `publish_uv` are `0`, and `aweme_list` and `key_words` are `null`. Do not rely on them for ranking.
+- This API has no pagination parameters in its schema.
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

@@ -62,13 +62,14 @@ Same call via the path form: `POST /v1/api/bilibili/web/video-detail` with the b
 
 ## Details
 
-Access detailed metadata and episode sections for a Bilibili video by providing the target `aid`.
+Returns metadata for one Bilibili video: title-level details, uploader card, tags, stats, and a list of related videos. It needs the numeric video id as `aid`.
 
 ### Use cases
 
-- Retrieve full video information including episode lists and season metadata.
-- Extract release timestamps and duration metrics for specific video items.
-- Inspect UGC season structure and chapter breakdowns for long-form content.
+- Pull the view counts, `like`, `coin` and `favorite` numbers for a single Bilibili video.
+- Read the uploader's follower count and total likes next to a video to judge a creator.
+- Collect the tags and related videos of a video to map a topic cluster.
+- Get the part list and durations of a multi-part upload before fetching play data.
 
 ### Request
 
@@ -79,19 +80,170 @@ curl -X POST "https://api.sandbase.ai/v1/api/bilibili/web/video-detail" \
   -d '{"aid": "114902186396822"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
 |---|---|---|---|
 | `aid` | string | Yes | Video id |
 
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "code": 0,
+  "data": {
+    "Card": {
+      "archive_count": 222,
+      "article_count": 0,
+      "card": {
+        "DisplayRank": "0",
+        "Official": {
+          "desc": "",
+          "role": 1,
+          "title": "bilibili 知名军事UP主",
+          "type": 0
+        },
+        "approve": false,
+        "article": 0,
+        "attention": 273,
+        "attentions": [],
+        "birthday": "",
+        "description": ""
+      },
+      "follower": 251245,
+      "following": false,
+      "like_num": 1345184,
+      "space": {
+        "l_img": "https://i0.hdslb.com/bfs/space/cb1c3ef50e22b6096fde67febe863494caefebad.png",
+        "s_img": "https://i1.hdslb.com/bfs/activity-plat/static/LRjqHhi0wL.png"
+      }
+    },
+    "Related": [
+      {
+        "ai_rcmd": {
+          "goto": "av",
+          "id": 113548684496734,
+          "trackid": "web_related_0.router-related-2479604-s7xkd.1793690888895.501",
+          "uniq_id": ""
+        },
+        "aid": 113548684496734,
+        "attribute_v3": 4,
+        "bvid": "BV1K4zGYHEzk",
+        "cid": 27040352696,
+        "copyright": 1,
+        "cover43": "",
+        "ctime": 1732615519,
+        "current_state": 0,
+        "desc": "-",
+        "dimension": {
+          "height": 1920,
+          "rotate": 0,
+          "width": 1080
+        },
+        "duration": 12
+      }
+    ],
+    "Reply": {
+      "page": null,
+      "replies": [
+        {
+          "action": 0,
+          "assist": 0,
+          "attr": 0,
+          "content": null,
+          "count": 0,
+          "ctime": 0,
+          "dialog": 0,
+          "fansgrade": 0
+        }
+      ]
+    },
+    "Spec": null,
+    "Tags": [
+      {
+        "jump_url": "",
+        "music_id": "",
+        "tag_id": 59110,
+        "tag_name": "枪械",
+        "tag_type": "old_channel"
+      }
+    ],
+    "View": {
+      "aid": 114902186396822,
+      "argue_info": {
+        "argue_link": "",
+        "argue_msg": "",
+        "argue_type": 0
+      },
+      "bvid": "BV12f8wz1Eit",
+      "cid": 31230396201,
+      "copyright": 2,
+      "ctime": 1753269413,
+      "desc": "https://youtu.be/UbNuAmhqer0?si=ntYRKNqVeOoRc_od",
+      "desc_v2": [
+        {
+          "biz_id": 0,
+          "raw_text": "https://youtu.be/UbNuAmhqer0?si=ntYRKNqVeOoRc_od",
+          "type": 1
+        }
+      ],
+      "dimension": {
+        "height": 2160,
+        "rotate": 0,
+        "width": 3840
+      },
+      "disable_show_up_info": false,
+      "duration": 2447,
+      "dynamic": ""
+    },
+    "elec": null,
+    "emergency": {
+      "no_coin": false,
+      "no_fav": false,
+      "no_like": false,
+      "no_share": false
+    },
+    "guide": null,
+    "hot_share": {
+      "list": [],
+      "show": false
+    },
+    "is_hit_labour_day_activity": false,
+    "module_ctrl": null
+  },
+  "message": "OK",
+  "ttl": 1
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `data.View.bvid / data.View.aid / data.View.cid` | The video's BV id, numeric `aid`, and the `cid` of its first part. |
+| `data.View.owner.name / data.View.owner.mid` | Name and numeric user id of the uploader. |
+| `data.View.pubdate / data.View.ctime` | Publish time and creation time of the video, as Unix timestamps in seconds. |
+| `data.View.duration` | Video length. For this example the value is `2447`. |
+| `data.View.stat.like / data.View.stat.coin / data.View.stat.favorite / data.View.stat.danmaku` | Counts of likes, coins, favorites and danmaku comments for the video. |
+| `data.View.pages[].part` | Title of each part of the video. Each row also has `cid`, `page` and `duration`. |
+| `data.View.season_id` | Id of the season the video belongs to. |
+| `data.Card.follower / data.Card.like_num / data.Card.archive_count` | Uploader's follower count, total likes received, and number of uploaded videos. |
+| `data.Tags[].tag_name` | Tags attached to the video. |
+| `data.Related[].bvid / data.Related[].title / data.Related[].stat.like` | BV id, title and like count of each related video. Each row also has `owner`, `duration` and `pubdate`. |
+
 ### Notes
 
-- Requires `aid`, representing the numeric Bilibili video identifier.
+- The `aid` is the numeric video id. If you only have a BV id such as `BV12f8wz1Eit`, convert it first with [Bilibili BV to AID Converter](/apis/bilibili/web/bv-to-aid).
+- The request has no pagination parameters. The response holds one video and a short `data.Related` list.
+- To read comments on the video, call [Bilibili Video Comments (Web)](/apis/bilibili/web/video-comments).
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

@@ -63,7 +63,14 @@ Same call via the path form: `POST /v1/api/douyin/xingtu-v2/author-video-distrib
 
 ## Details
 
-Get Author Video Distribution on Douyin. Returns the platform data as structured JSON.
+This API returns the content category breakdown of one Douyin creator's short videos, as listed on Xingtu. It needs the creator ID in `o_author_id`. Each row shows a category name, a video count, and that category's share of the total.
+
+### Use cases
+
+- Check whether a creator's videos match the category of your product before you plan a campaign.
+- Compare the main content categories of several creators to build a shortlist for a brand.
+- Spot creators whose output is spread across many categories versus those who focus on one.
+- Add a category mix column to an internal creator database.
 
 ### Request
 
@@ -84,9 +91,48 @@ The result is returned in `outputs[0].data`.
 | `platform_channel` | integer | No | Platform channel, 1 for short video |
 | `platform_source` | integer | No | Platform source, 1 for Douyin |
 
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "base_resp": {
+    "status_code": 0,
+    "status_message": ""
+  },
+  "video_content_distribution": [
+    {
+      "cnt": 4,
+      "id": "0",
+      "name": "生活家居",
+      "proportion": 0.6667
+    }
+  ]
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `video_content_distribution[]` | One entry per content category found in the creator's videos. The list is sorted from the largest share to the smallest in the sample. |
+| `video_content_distribution[].name` | Category name in Chinese, for example `生活家居` (home and living) or `时尚` (fashion). |
+| `video_content_distribution[].cnt` | Number of the creator's videos counted in this category. |
+| `video_content_distribution[].proportion` | Share of the counted videos that fall in this category, as a decimal. For example `0.6667` means about two thirds. |
+| `video_content_distribution[].id` | Category ID. It is `"0"` for every row in this response, so use `name` to tell categories apart. |
+| `base_resp.status_code / base_resp.status_message` | Status of the request. `0` with an empty message means it succeeded. |
+
+### Notes
+
+- The `proportion` values add up to about `1`, and the `cnt` values add up to the number of videos counted.
+- Keep `platform_source` at `1` for Douyin and `platform_channel` at `1` for short video.
+- If you only have a Douyin ID or UID, call [Douyin XingTu kolId by Douyin ID](/apis/douyin/xingtu-v2/xingtu-kolid-by-unique-id) or [Douyin Xingtu Author ID by UID](/apis/douyin/xingtu-v2/xingtu-kolid-by-uid) first to get the creator ID.
+- For creator profile details, call [Douyin Xingtu Author Base Info](/apis/douyin/xingtu-v2/author-base-info).
+
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.002 per successful call. Failed calls are not charged.
 
 ---
 Machine-readable: [`catalog/models/douyin/xingtu-v2/author-video-distribution.json`](../../../../catalog/models/douyin/xingtu-v2/author-video-distribution.json) · Store page: https://www.sandbase.ai/model/douyin/xingtu-v2/author-video-distribution

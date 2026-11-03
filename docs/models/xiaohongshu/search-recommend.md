@@ -61,9 +61,14 @@ Same call via the path form: `POST /v1/api/xiaohongshu/search-recommend` with th
 
 ## Details
 
-Get Xiaohongshu (RedNote) search keyword suggestions for a submitted seed term. Use it to expand query sets, refine content-research searches, and plan SEO or programmatic SEO keyword coverage.
+This API returns search keyword suggestions from Xiaohongshu (RedNote) for a seed term. It needs one input, `keyword`, and returns a list of suggested search phrases.
 
-The response is the platform's original data structure.
+### Use cases
+
+- Expand a seed term like `美食` into a longer list of related search phrases.
+- Find long-tail phrases to target when planning Xiaohongshu note titles and topics.
+- Build keyword sets for content research or programmatic SEO pages.
+- Check which phrasings the platform suggests for a product or topic name.
 
 ### Request
 
@@ -74,15 +79,67 @@ curl -X POST "https://api.sandbase.ai/v1/api/xiaohongshu/search-recommend" \
   -d '{"keyword": "美食"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
 |---|---|---|---|
 | `keyword` | string | Yes | Search keyword. |
 
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "items": [
+    {
+      "highlight_flags": [
+        true
+      ],
+      "icon": "http://picasso-static.xiaohongshu.com/fe-platform/ada4a11451816f9500d7a3bfd561ed…",
+      "icon_night": "http://picasso-static.xiaohongshu.com/fe-platform/20107487de37f8896d23383e41f43d…",
+      "is_intervened": false,
+      "link": "",
+      "search_type": "notes",
+      "text": "美食推荐",
+      "type": "top_note"
+    }
+  ],
+  "result": {
+    "message": "success",
+    "success": true
+  },
+  "search_cpl_id": "a2bf3c0f624ba770ed010e326ae99187",
+  "word_request_id": "07b78290ea0bc085425a9a628b86185c"
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `items[]` | List of suggested search phrases for the submitted `keyword`. |
+| `items[].text` | The suggested search phrase, ready to use as a new search query. |
+| `items[].highlight_flags` | List of true/false values, one per entry. The values show which parts of `text` the app highlights. |
+| `items[].search_type` | The kind of search the suggestion leads to. The sample shows `notes`. |
+| `items[].type` | The suggestion category. The sample shows `top_note`. |
+| `items[].is_intervened` | Boolean flag. The sample shows `false` for every suggestion. |
+| `items[].icon / items[].icon_night` | Icon image URLs for the suggestion, one for the default theme and one for night mode. |
+| `items[].link` | Link attached to the suggestion. It is an empty string in the sample. |
+| `result.success / result.message` | Whether the call worked, plus a status message such as `success`. |
+| `search_cpl_id / word_request_id` | Request identifiers returned with the suggestions. |
+
+### Notes
+
+- Send the seed term in `keyword`. Chinese terms such as `美食` work as shown in the example.
+- Use the `text` values from `items[]` as the `keyword` for a note search, for example with [Xiaohongshu (RED) Note Search](/apis/xiaohongshu/app-v2/search-notes).
+- To see what is trending instead of what matches a seed term, call [Xiaohongshu Hot Search](/apis/xiaohongshu/hot-search).
+
 ### Pricing
 
-Flat price per call. Failed calls and empty results are not charged.
+$0.021429 per successful call. Failed calls are not charged.
 
 ---
 Machine-readable: [`catalog/models/xiaohongshu/search-recommend.json`](../../../catalog/models/xiaohongshu/search-recommend.json) · Store page: https://www.sandbase.ai/model/xiaohongshu/search-recommend

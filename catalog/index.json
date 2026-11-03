@@ -1,6 +1,6 @@
 {
  "catalog_version": "1",
- "generated_at": "2026-11-03T06:46:38Z",
+ "generated_at": "2026-11-03T16:16:29Z",
  "base_url": "https://api.sandbase.ai",
  "count": 2287,
  "counts_by_type": {
@@ -17186,7 +17186,7 @@
    "endpoint": "POST /v1/run",
    "price": {
     "model": "usage_based",
-    "usd_reference": 0.095
+    "usd_reference": 0.0083
    },
    "record": "catalog/models/instagram/reel-transcript.json"
   },
@@ -29610,10 +29610,10 @@
   },
   {
    "name": "tiktok/video-transcript-full",
-   "display_name": "TikTok Video Transcript (speech to text)",
+   "display_name": "TikTok Video Transcript (Speech to Text)",
    "type": "api",
    "vendor": "TikTok",
-   "description": "Transcribe the spoken audio of a TikTok video with speech-to-text: timed sentence-level segments, speaker labels, detected language, and optional per-word timings, for videos TikTok publishes no caption track for and for videos whose caption track gets the words wrong. The…",
+   "description": "Transcribe the spoken audio of a TikTok video with speech-to-text: timed sentence-level segments, speaker labels, detected language, and optional per-word timings, for videos TikTok publishes no caption track for and for videos whose caption track gets the words wrong. The API…",
    "tags": [
     "api",
     "tiktok",
@@ -29625,7 +29625,7 @@
    "endpoint": "POST /v1/run",
    "price": {
     "model": "usage_based",
-    "usd_reference": 0.095
+    "usd_reference": 0.0085
    },
    "record": "catalog/models/tiktok/video-transcript-full.json"
   },

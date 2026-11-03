@@ -62,13 +62,13 @@ Same call via the path form: `POST /v1/api/tiktok/web/gift-name-by-id` with the 
 
 ## Details
 
-Look up the display name for a specific TikTok gift. Provide the gift identifier in `gift_id` to retrieve the corresponding name.
+Returns the name of one TikTok gift for a given gift ID. The only input is `gift_id`, passed as a string.
 
 ### Use cases
 
-- Identify gifts received during TikTok live broadcasts.
-- Display gift names in livestream analytics dashboards.
-- Map numeric gift IDs to readable labels in reporting pipelines.
+- Turn numeric gift IDs from live stream messages into readable gift names.
+- Label gift columns in a live stream analytics report.
+- Build a lookup table of gift IDs and names for a single gift you see in your data.
 
 ### Request
 
@@ -79,6 +79,8 @@ curl -X POST "https://api.sandbase.ai/v1/api/tiktok/web/gift-name-by-id" \
   -d '{"gift_id": "10001"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
@@ -87,22 +89,32 @@ curl -X POST "https://api.sandbase.ai/v1/api/tiktok/web/gift-name-by-id" \
 
 ### Example response
 
-Real response for the request above, trimmed to the main fields. User names and long IDs are masked.
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
 
 ```json
 {
+  "code": 0,
   "gift_id": "10001",
   "gift_name": "鞭炮"
 }
 ```
 
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `code` | Status code of the lookup. The sample response shows `0`. |
+| `gift_id` | The gift ID you sent in the request, returned as a string. |
+| `gift_name` | The name of the gift. The sample returns `鞭炮` for `10001`, so names can be in Chinese. |
+
 ### Notes
 
-- Pass the gift identifier via `gift_id`.
+- To look up several gifts in one call, use [TikTok Gift Names by IDs](/apis/tiktok/web/gift-names-by-ids).
+- To see which gifts are available in a live room, call [TikTok Room Gift List](/apis/tiktok/web/live-gift-list).
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

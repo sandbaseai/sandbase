@@ -80,13 +80,14 @@ Same call via the path form: `POST /v1/api/douyin/index/report-search` with the 
 
 ## Details
 
-Queries trend insight reports from Douyin Index using `search` keywords, `type`, and `report_time` filters.
+Returns a paged list of trend insight reports from Douyin Index. Each report has a title, type, author, release date, summary, view and download counts, and PDF file links. All inputs are optional, and you can filter by keyword, report type, product, category ID and release year.
 
 ### Use cases
 
-- Discover industry and consumer insight reports published on Douyin.
-- Filter historical trend research by release year and category ID.
-- Search report titles and metadata for marketing intelligence.
+- Find Douyin industry reports on a topic such as beauty or technology by passing a `search` keyword.
+- Build a list of the newest trend reports by reading `display_time` and paging through `report_list`.
+- Compare how often reports are viewed or downloaded to see which research topics draw the most interest.
+- Collect the PDF links in `post_files` to archive reports for offline review.
 
 ### Request
 
@@ -97,48 +98,81 @@ curl -X POST "https://api.sandbase.ai/v1/api/douyin/index/report-search" \
   -d '{}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
 |---|---|---|---|
-| `type` | string | No | report type, empty for all |
-| `search` | string | No | keyword search |
 | `business` | string | No | comma-separated product list |
 | `category` | string | No | top-level category ID, default "6" |
+| `current_page` | string | No | Page number |
 | `page_size` | string | No | Page size |
 | `report_time` | string | No | comma-separated year list, e.g. "2024,2023" |
-| `current_page` | string | No | Page number |
+| `search` | string | No | keyword search |
+| `type` | string | No | report type, empty for all |
 
 ### Example response
 
-Real response for the request above, trimmed to the main fields. User names and long IDs are masked.
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
 
 ```json
 {
   "report_list": [
     {
       "author": "抖音",
+      "business": [
+        "抖音"
+      ],
       "category": "6",
+      "coop_institution": "",
+      "cover": [
+        {
+          "cover_url": "https://lf3-trendinsight.bytetos.com/obj/ad-count-platform/b0ac1d2d984baafc",
+          "height": "338",
+          "width": "600"
+        }
+      ],
+      "create_user": "8961757",
       "display_time": "2026-06-15",
+      "download_cnt": "549",
       "id": "1092",
-      "keywords": "抖音 时尚 美妆",
-      "title": "2026年抖音美妆春夏宝藏",
-      "type": "行业洞察",
-      "visit_cnt": "2979"
+      "industry": [
+        "美妆/日化"
+      ],
+      "introduction": "2026年抖音美妆春夏宝藏，经过百万用户投稿、专业评审团打分、专业时尚媒体背书三方权威评选，选出TOP120宝藏好物和TOP10宝藏妆容。这个春夏的美妆护肤答案…",
+      "keywords": "抖音 时尚 美妆"
     }
-  ]
+  ],
+  "total_num": "447"
 }
 ```
 
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `report_list[]` | One report per item. The list holds one page of results. |
+| `total_num` | Total number of reports that match the filters, returned as a string. Use it to work out how many pages exist. |
+| `report_list[].id` | ID of the report. |
+| `report_list[].title` | Report title. |
+| `report_list[].type` | Report type, such as `行业洞察` (industry insight) or `趋势洞察` (trend insight). |
+| `report_list[].display_time` | Release date of the report in `YYYY-MM-DD` format. |
+| `report_list[].introduction` | Short summary of the report. It can contain line breaks. |
+| `report_list[].industry[] / report_list[].business[]` | Industry tags and product tags attached to the report. Either list can be empty. |
+| `visit_cnt / download_cnt` | Number of views and downloads for the report, returned as strings. Both appear under `report_list[]`. |
+| `report_list[].post_files[].file_name / post_files[].file_url` | File name and storage path of the report PDF. `file_image` holds a preview image for the file. |
+
 ### Notes
 
-- Specify multiple release years as a comma-separated list in `report_time`.
-- Leave `type` empty to return all report types, or specify a single category.
-- Manage pagination using `current_page` and `page_size`.
+- Pass years to `report_time` as a comma-separated list, for example `2024,2023`.
+- Leave `type` empty to get all report types. Otherwise use one of `行业洞察`, `产品洞察`, `用户洞察` or `趋势洞察`.
+- Page with `current_page` and `page_size`. Compare `total_num` with the page size to know when to stop.
+- To open one report, take its `id` and call [Douyin Trend Report Detail](/apis/douyin/index/report-detail).
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

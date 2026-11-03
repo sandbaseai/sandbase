@@ -58,13 +58,13 @@ Same call via the path form: `POST /v1/api/tiktok/web/generate-ttwid` with the b
 
 ## Details
 
-Obtain a TikTok web session ttwid cookie. You can optionally supply a custom `user_agent` to match the client environment.
+Returns a TikTok `ttwid` cookie value as a single string. The only input is an optional `user_agent` string, so you can call it with an empty body.
 
 ### Use cases
 
-- Acquire a ttwid cookie for authenticating downstream TikTok web queries.
-- Configure web scrapers with matching browser user agent identifiers.
-- Simulate web client session headers for automated TikTok data collection.
+- Set the `ttwid` cookie on a web client before it sends requests to TikTok web endpoints.
+- Pair the cookie with a specific browser `user_agent` so your request headers stay consistent.
+- Fetch a new cookie value when a scraper needs a fresh web session identity.
 
 ### Request
 
@@ -75,19 +75,41 @@ curl -X POST "https://api.sandbase.ai/v1/api/tiktok/web/generate-ttwid" \
   -d '{}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
 |---|---|---|---|
-| `user_agent` | string | No | — |
+| `user_agent` | string | No |  |
+
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "ttwid": "1%7C0K27…"
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `ttwid` | The full cookie value as a URL-encoded string. Send it as `ttwid=<value>` in a `Cookie` header. |
+| `ttwid` | The value has four segments separated by `%7C`, which decodes to `/`. The segments are `1`, a short token, a 10-digit number, and a 64-character hex string. |
+| `ttwid` | The 10-digit third segment looks like a Unix timestamp in seconds. The response does not say if it marks creation or expiry. |
 
 ### Notes
 
-- Supply `user_agent` to align the cookie with your target browser header.
+- Send `{}` to get a cookie with no `user_agent`. Add `user_agent` to match a specific browser string.
+- The value is already URL-encoded. Use it as is, without encoding it again.
+- Related tokens for TikTok web requests: [TikTok Web ID](/apis/tiktok/web/generate-webid), [TikTok Real msToken](/apis/tiktok/web/generate-real-ms-token) and [TikTok Web X-Bogus Signature](/apis/tiktok/web/generate-xbogus).
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

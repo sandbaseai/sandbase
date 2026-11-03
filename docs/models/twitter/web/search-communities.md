@@ -63,7 +63,14 @@ Same call via the path form: `POST /v1/api/twitter/web/search-communities` with 
 
 ## Details
 
-Search communities on Twitter. Returns the platform data as structured JSON.
+Returns a list of Twitter communities that match a search keyword. Each result includes the community name, ID, primary topic, member count and banner images. The only required input is `keyword`.
+
+### Use cases
+
+- Find communities about a topic or franchise, such as `superman`, to join or study.
+- Rank communities on a topic by `member_count` to see which ones are largest.
+- Collect community IDs to feed into community info, member or timeline lookups.
+- Filter out adult communities with the `is_nsfw` flag before showing results in an app.
 
 ### Request
 
@@ -83,9 +90,51 @@ The result is returned in `outputs[0].data`.
 | `keyword` | string | Yes | Search Keyword |
 | `cursor` | string | No | Cursor |
 
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "communities": [
+    {
+      "community_id": "1589365710655979520",
+      "custom_banner": "https://pbs.twimg.com/community_banner_img/2107751704808579073/T11UFoyj?format=j…",
+      "default_banner": "https://pbs.twimg.com/media/FECQfL3UcAc3IfU.jpg",
+      "is_nsfw": false,
+      "member_count": 111548,
+      "name": "DC",
+      "primary_topic": "Comics",
+      "user_id": ""
+    }
+  ],
+  "next_cursor": "WzgwLjQwNzEzLDE5NDM5Mjk1MzU4ODU3MjIwMTBd"
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `communities[]` | List of communities that match the keyword. |
+| `communities[].community_id` | ID of the community as a numeric string. Use it to look up the community in other APIs. |
+| `communities[].name` | Display name of the community. |
+| `communities[].member_count` | Number of members in the community. |
+| `communities[].primary_topic` | Main topic label of the community, such as `Comics` or `Movies`. |
+| `communities[].is_nsfw` | `true` if the community is marked as adult content, `false` otherwise. |
+| `communities[].custom_banner / communities[].default_banner` | Banner image URLs. `custom_banner` is the image the community set, and `default_banner` is a stock image. |
+| `communities[].user_id` | User ID field. It was an empty string in the sample response. |
+| `next_cursor` | Cursor string for the next page of results. |
+
+### Notes
+
+- Pass `next_cursor` from the response as `cursor` in the next request to get more results.
+- `community_id` is a numeric string. Pass it to [Twitter Community info](/apis/twitter/web/community-info) for details about one community.
+- Use [Twitter Community timeline](/apis/twitter/web/community-timeline) to read the posts of a community you found.
+
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ---
 Machine-readable: [`catalog/models/twitter/web/search-communities.json`](../../../../catalog/models/twitter/web/search-communities.json) · Store page: https://www.sandbase.ai/model/twitter/web/search-communities

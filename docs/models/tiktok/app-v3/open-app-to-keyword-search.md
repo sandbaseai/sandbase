@@ -62,13 +62,14 @@ Same call via the path form: `POST /v1/api/tiktok/app-v3/open-app-to-keyword-sea
 
 ## Details
 
-Produces a TikTok share URL for opening search results in the mobile app based on the provided `keyword`.
+Returns a TikTok short share link that opens the search results for a keyword in the TikTok mobile app. It needs one input: the `keyword` to search for.
 
 ### Use cases
 
-- Direct users to specific keyword searches within the TikTok mobile app.
-- Embed TikTok search links in external campaigns and web applications.
-- Facilitate deep-linking into TikTok content discovery for target topics.
+- Put a TikTok search link behind a button in a marketing email so readers land on results for your campaign keyword.
+- Add a QR code or link on a product page that opens TikTok results for a brand name.
+- Build a list of tappable topic links in a web app that send mobile users straight into TikTok search.
+- Share a keyword search link in a chat or social post without asking people to type the query.
 
 ### Request
 
@@ -79,6 +80,8 @@ curl -X POST "https://api.sandbase.ai/v1/api/tiktok/app-v3/open-app-to-keyword-s
   -d '{"keyword": "openai"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
@@ -87,23 +90,33 @@ curl -X POST "https://api.sandbase.ai/v1/api/tiktok/app-v3/open-app-to-keyword-s
 
 ### Example response
 
-Real response for the request above, trimmed to the main fields. User names and long IDs are masked.
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
 
 ```json
 {
   "keyword": "openai",
-  "short_url": "https://www.tiktok.com/t/ZP9D9bGYUovoJ-5ofDR/",
+  "short_url": "https://www.tiktok.com/t/ZP9ytc66mBWv8-IYMhN/",
   "status": 0
 }
 ```
 
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `keyword` | The keyword you sent. The response echoes it back so you can match the link to the request. |
+| `short_url` | The TikTok share link for the keyword search. Opening it on a phone with the app installed should lead to the search results for that keyword. |
+| `status` | Status code of the result. The value `0` appears in this successful response. |
+
 ### Notes
 
-- Requires the target search query in the `keyword` parameter.
+- Send the search text in the `keyword` parameter. It is the only required input.
+- Each call returns a new `short_url` value, so store the link if you want to reuse it.
+- To get the search results as data instead of a link, call [TikTok Search](/apis/tiktok/app-v3/general-search-result) or [TikTok Video Keyword Search](/apis/tiktok/app-v3/video-search-result).
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

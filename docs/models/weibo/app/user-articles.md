@@ -63,13 +63,14 @@ Same call via the path form: `POST /v1/api/weibo/app/user-articles` with the bod
 
 ## Details
 
-Fetch articles authored by a specific user by providing their `uid`. Use `since_id` to paginate through subsequent sets of results.
+Returns a list of feed items posted by a Weibo user, based on the user's `uid`. Each item carries post data such as like counts and image URLs, and the response includes a cursor for the next page.
 
 ### Use cases
 
-- Retrieve long-form articles authored by a specific Weibo account.
-- Archive historical article feeds for content analysis.
-- Track new articles released by monitored influencers.
+- Pull the latest feed items from a Weibo account to review what it has published.
+- Collect like counts for a user's posts to compare which ones got the most reaction.
+- Page through a user's feed with the returned cursor to build an archive of their posts.
+- Extract image URLs from a user's posts to gather the pictures they shared.
 
 ### Request
 
@@ -80,6 +81,8 @@ curl -X POST "https://api.sandbase.ai/v1/api/weibo/app/user-articles" \
   -d '{"uid": "1725941200"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
@@ -87,13 +90,70 @@ curl -X POST "https://api.sandbase.ai/v1/api/weibo/app/user-articles" \
 | `uid` | string | Yes | User ID (required) |
 | `since_id` | string | No | Pagination cursor, don't pass for first request, use returned since_id for subsequent requests |
 
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "__profile_card_server__": {
+    "from": "SHANHAI-SERVER"
+  },
+  "config": "{}",
+  "items": [
+    {
+      "category": "cell",
+      "span": {
+        "style": {
+          "height": 10
+        }
+      },
+      "type": "span"
+    }
+  ],
+  "loadedInfo": "{}",
+  "moreInfo": {
+    "error": "网络加载失败，请稍后尝试",
+    "loading": "正在加载更多",
+    "moreType": "default",
+    "pagingType": "cursor",
+    "params": {
+      "count": 20,
+      "max_id": 0,
+      "since_id": "5344278831435751_0_0"
+    }
+  },
+  "navInfo": "{}",
+  "pageData": "{}",
+  "refreshInfo": "{}"
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `items[]` | List of entries on the page. Entries with `category` set to `feed` are posts. Entries with `category` set to `cell` and `type` set to `span` are spacing elements with no post data. |
+| `items[].category / items[].type` | Kind of entry. Use `category` to tell post entries (`feed`) apart from layout entries (`cell`). |
+| `items[].data.attitudes_count` | Number of likes on the post. |
+| `items[].data.bmiddle_pic` | URL of the medium-size picture attached to the post, when the post has one. |
+| `items[].data.ad_marked` | Boolean that shows whether the post is marked as an ad. |
+| `items[].data.annotations[]` | List of small objects with extra post details, such as `client_mblogid`. The keys differ from one object to the next. |
+| `items[].itemExt.anchorId / items[].itemExt.extraItemId` | Identifiers for the entry within the feed, for example `2319121725941200_-_ordinary`. |
+| `moreInfo.params.since_id` | Cursor value for the next page, for example `5344278831435751_0_0`. |
+| `moreInfo.params.count` | Page size that the cursor uses. The sample value is `20`. |
+| `moreInfo.pagingType` | Paging method. The value `cursor` means you page with `since_id`. |
+
 ### Notes
 
-- Omit `since_id` on the first request and pass the returned value on subsequent requests for pagination.
+- Leave out `since_id` on the first request. For the next page, pass the value from `moreInfo.params.since_id` as `since_id`.
+- Some fields in the response, such as `config`, `loadedInfo`, `navInfo`, `pageData` and `refreshInfo`, are JSON strings that hold `{}` in the sample.
+- Filter `items[]` on `category` equal to `feed` to skip the spacing entries.
+- To read the full content of one post, call [Weibo Post Detail (App)](/apis/weibo/app/status-detail). To get the account's profile, call [Weibo User Profile Information](/apis/weibo/app/user-info).
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

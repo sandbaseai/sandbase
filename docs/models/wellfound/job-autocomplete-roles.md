@@ -58,7 +58,14 @@ Same call via the path form: `POST /v1/api/wellfound/job-autocomplete-roles` wit
 
 ## Details
 
-Get a list of common job role slugs available on Wellfound. These slugs can be used to construct Wellfound role search URLs.
+This API returns a list of common job roles on Wellfound. Each role has a display name and a URL slug. It takes no input.
+
+### Use cases
+
+- Build a role dropdown in a job search tool using the `name` values.
+- Construct Wellfound role search URLs by inserting a `slug` into the URL.
+- Check which role names Wellfound uses before you map your own job titles to them.
+- Seed a list of roles to track across several job searches.
 
 ### Request
 
@@ -69,15 +76,44 @@ curl -X POST "https://api.sandbase.ai/v1/api/wellfound/job-autocomplete-roles" \
   -d '{}'
 ```
 
-This API runs asynchronously. The call returns a task `id` with status `pending`; poll `GET https://api.sandbase.ai/v1/run/{id}` until `status` is `completed` and read the result from `outputs[0].data`.
+The result is returned in `outputs[0].data`.
 
-### Parameters
+### Example response
 
-This API takes no parameters.
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "data": {
+    "roles": [
+      {
+        "name": "Software Engineer",
+        "slug": "software-engineer"
+      }
+    ]
+  },
+  "status": "success"
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `data.roles[]` | List of common job roles available on Wellfound. |
+| `data.roles[].name` | Display name of the role, for example `Software Engineer`. |
+| `data.roles[].slug` | URL-friendly identifier for the role, for example `software-engineer`. Use it to build Wellfound role search URLs. |
+| `status` | Result of the call. The sample shows `success`. |
+
+### Notes
+
+- Send an empty JSON body `{}`. The API has no parameters, so it has no pagination or filters.
+- Slugs are lowercase and use hyphens between words, such as `backend-engineer`.
+- To see jobs and companies on Wellfound, try [Wellfound Trending Jobs](/apis/wellfound/trending-jobs) or [Wellfound Company Jobs](/apis/wellfound/company-jobs).
 
 ### Pricing
 
-Flat price per call. Failed calls are not charged.
+$0.01 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ---
 Machine-readable: [`catalog/models/wellfound/job-autocomplete-roles.json`](../../../catalog/models/wellfound/job-autocomplete-roles.json) · Store page: https://www.sandbase.ai/model/wellfound/job-autocomplete-roles

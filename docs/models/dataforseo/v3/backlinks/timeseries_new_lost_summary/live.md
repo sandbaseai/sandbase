@@ -60,9 +60,14 @@ Same call via the path form: `POST /v1/api/dataforseo/v3/backlinks/timeseries_ne
 
 ## Details
 
-New and lost backlinks and referring domains for a domain, grouped by day, week, month or year.
+Returns the number of new and lost backlinks and referring domains for a domain, grouped into day, week, month or year buckets. It needs a `target` domain, a date range and a `group_range` value.
 
-Request fields follow the official DataForSEO `/v3/backlinks/timeseries_new_lost_summary/live` task schema (one task per call). The response is DataForSEO's original JSON; results are in `tasks[].result`.
+### Use cases
+
+- Track whether a brand domain is gaining or losing links month over month.
+- Spot a month with a large spike in lost backlinks and investigate the cause.
+- Compare link growth for a domain before and after a site migration or campaign.
+- Build a monthly link churn chart for an SEO report.
 
 ### Request
 
@@ -73,24 +78,96 @@ curl -X POST "https://api.sandbase.ai/v1/api/dataforseo/v3/backlinks/timeseries_
   -d '{"target": "nike.com", "date_from": "2026-07-01", "date_to": "2026-10-01", "group_range": "month"}'
 ```
 
+The result is returned in `outputs[0]`.
+
 ### Parameters
 
-The JSON body is forwarded to the upstream endpoint. Main fields:
+| Name | Type | Required | Description |
+|---|---|---|---|
+| `date_from` | string | No | Start date, "yyyy-mm-dd". |
+| `date_to` | string | No | End date, "yyyy-mm-dd". |
+| `group_range` | string | No | "day", "week", "month" or "year". |
+| `target` | string | No | Domain, e.g. "nike.com". |
 
-| Name | Description |
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "status_code": 20000,
+  "status_message": "Ok.",
+  "tasks": [
+    {
+      "data": {
+        "api": "backlinks",
+        "date_from": "2026-07-01",
+        "date_to": "2026-10-01",
+        "function": "timeseries_new_lost_summary",
+        "group_range": "month",
+        "target": "nike.com"
+      },
+      "id": "11030828-2190-0460-0000-b953ac10804f",
+      "path": [
+        "v3"
+      ],
+      "result": [
+        {
+          "date_from": "2026-07-01",
+          "date_to": "2026-10-01",
+          "group_range": "month",
+          "items": [
+            {
+              "date": "2026-07-31 00:00:00 +00:00",
+              "lost_backlinks": 1501962,
+              "lost_referring_domains": 4175,
+              "lost_referring_main_domains": 3639,
+              "new_backlinks": 662450,
+              "new_referring_domains": 2097,
+              "new_referring_main_domains": 1725,
+              "type": "backlinks_timeseries_new_lost_summary"
+            }
+          ],
+          "items_count": 4,
+          "target": "nike.com"
+        }
+      ],
+      "result_count": 1,
+      "status_code": 20000,
+      "status_message": "Ok.",
+      "time": "0.0076 sec."
+    }
+  ],
+  "tasks_count": 1,
+  "tasks_error": 0,
+  "time": "0.0148 sec.",
+  "version": "0.1.20261022"
+}
+```
+
+### Response fields
+
+| Field | Meaning |
 |---|---|
-| `target` | Domain, e.g. "nike.com". |
-| `date_from` | Start date, "yyyy-mm-dd". |
-| `date_to` | End date, "yyyy-mm-dd". |
-| `group_range` | "day", "week", "month" or "year". |
+| `tasks[].result[].target` | The domain the numbers describe. |
+| `tasks[].result[].group_range` | The bucket size used for the rows, such as `month`. |
+| `tasks[].result[].items[].date` | End date of the bucket, as a timestamp like `2026-07-31 00:00:00 +00:00`. |
+| `tasks[].result[].items[].new_backlinks / lost_backlinks` | Count of backlinks gained and lost by the target in that bucket. |
+| `tasks[].result[].items[].new_referring_domains / lost_referring_domains` | Count of referring domains gained and lost in that bucket. |
+| `tasks[].result[].items[].new_referring_main_domains / lost_referring_main_domains` | Count of referring main domains gained and lost in that bucket. |
+| `tasks[].result[].items_count` | Number of rows reported for the result. |
+| `tasks[].result_count` | Number of result objects in the task. |
 
-### Reference
+### Notes
 
-- Official docs: https://docs.dataforseo.com/v3/backlinks/timeseries_new_lost_summary/live/
+- Set `group_range` to `day`, `week`, `month` or `year`. Send dates as `yyyy-mm-dd`.
+- Each `items[]` row has a bucket end date. In the sample, the monthly rows are dated `2026-07-31`, `2026-08-31` and `2026-09-30`.
+- For total backlink counts over time rather than new and lost, call [DataForSEO Backlinks Totals Over Time](/apis/dataforseo/v3/backlinks/timeseries_summary/live).
+- For a single snapshot of a domain's link profile, call [DataForSEO Backlinks Summary](/apis/dataforseo/v3/backlinks/summary/live).
 
 ### Pricing
 
-Billed at the actual cost of each call, about $0.024144 for the request above. The cost grows with the number of rows, targets or tokens a call returns. Failed calls are not charged. Searches with no results are billed at their actual cost.
+Billed at the actual cost of each call, about $0.024144 for the request above. Failed calls are not charged.
 
 ---
 Machine-readable: [`catalog/models/dataforseo/v3/backlinks/timeseries_new_lost_summary/live.json`](../../../../../../catalog/models/dataforseo/v3/backlinks/timeseries_new_lost_summary/live.json) · Store page: https://www.sandbase.ai/model/dataforseo/v3/backlinks/timeseries_new_lost_summary/live

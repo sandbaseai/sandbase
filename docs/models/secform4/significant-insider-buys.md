@@ -58,7 +58,14 @@ Same call via the path form: `POST /v1/api/secform4/significant-insider-buys` wi
 
 ## Details
 
-Returns insider purchase transactions filtered to significant buys only (larger dollar amounts). Same fields as get_insider_buys but limited to higher-value transactions.
+Returns a list of recent insider stock purchases reported on SEC Form 4, limited to larger dollar amounts. Each item names the company, the insider, the trade size and price, and links to the filing. The API takes no input.
+
+### Use cases
+
+- Spot directors and officers who put large amounts of their own money into a stock.
+- Build a daily alert feed of high-value insider purchases by ticker `symbol`.
+- Rank recent buys by `total_amount` to find the biggest conviction trades.
+- Open the linked filing to check the original Form 4 for a flagged purchase.
 
 ### Request
 
@@ -69,15 +76,61 @@ curl -X POST "https://api.sandbase.ai/v1/api/secform4/significant-insider-buys" 
   -d '{}'
 ```
 
-This API runs asynchronously. The call returns a task `id` with status `pending`; poll `GET https://api.sandbase.ai/v1/run/{id}` until `status` is `completed` and read the result from `outputs[0].data`.
+The result is returned in `outputs[0].data`.
 
-### Parameters
+### Example response
 
-This API takes no parameters.
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "data": {
+    "items": [
+      {
+        "average_price": "$3.0558",
+        "company": "Angel Studios Inc.",
+        "company_url": "https://www.secform4.com/insider-trading/1865200.htm",
+        "filing": "View",
+        "filing_url": "https://www.secform4.com/filings/1865200/0001865200-26-000038.htm",
+        "insider_relationship": "Sarowitz Steven I Director",
+        "insider_relationship_url": "https://www.secform4.com/insider-trading/1597870.htm",
+        "reported_datetime": "2026-05-07 2:25 pm",
+        "shares_owned": "326,840 (Direct)",
+        "shares_traded": "321,544",
+        "symbol": "ANGX",
+        "symbol_url": "https://www.secform4.com/#S2"
+      }
+    ]
+  },
+  "status": "success"
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `data.items[].company / symbol` | Company name and stock ticker for the purchase, for example `Organon & Co.` and `OGN`. |
+| `data.items[].insider_relationship` | Insider name followed by their role at the company, for example `Director` or `SVP and Corporate Controller`. |
+| `data.items[].transaction_date` | Trade date followed by the transaction type. In this response the type is `Purchase`. |
+| `data.items[].reported_datetime` | Date and time the filing was reported, as text like `2026-05-07 2:25 pm`. |
+| `data.items[].shares_traded` | Number of shares bought in the transaction, as a formatted string. |
+| `data.items[].average_price` | Average price paid per share, as a string with a `$` sign. |
+| `data.items[].total_amount` | Total dollar value of the purchase, as a string with a `$` sign. |
+| `data.items[].shares_owned` | Shares the insider holds after the trade, with the ownership type in parentheses such as `(Direct)`. |
+| `data.items[].filing_url` | Link to the Form 4 filing page for this transaction. |
+| `data.items[].company_url / insider_relationship_url` | Links to the SECForm4 pages for the company and for the insider. |
+
+### Notes
+
+- The request has no parameters, so send an empty JSON object `{}`.
+- Numbers and dates come back as formatted strings, such as `$982,574` and `321,544`. Strip the `$` sign and commas before you do math.
+- The `symbol_url` value is the same generic link in every item, so use `company_url` to reach a company page.
+- To see purchases of all sizes, call [SECForm4 Insider Buys](/apis/secform4/insider-buys). For the sell side, use [SECForm4 Insider Sales](/apis/secform4/insider-sales).
 
 ### Pricing
 
-Flat price per call. Failed calls are not charged.
+$0.01 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ---
 Machine-readable: [`catalog/models/secform4/significant-insider-buys.json`](../../../catalog/models/secform4/significant-insider-buys.json) · Store page: https://www.sandbase.ai/model/secform4/significant-insider-buys

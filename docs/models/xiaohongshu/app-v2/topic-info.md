@@ -68,13 +68,14 @@ Same call via the path form: `POST /v1/api/xiaohongshu/app-v2/topic-info` with t
 
 ## Details
 
-Retrieve topic overview metadata by specifying a required `page_id`. You can also supply an optional `note_id` and `source` context.
+Returns details for one Xiaohongshu (RED) topic page, including its name, view count, discussion count, share card and a few sample users. It needs the topic page ID as `page_id`. You can also pass `note_id` and `source` as context.
 
 ### Use cases
 
-- Inspect engagement metrics such as view and discussion counts for a topic.
-- Extract topic names and share configurations for content tracking.
-- Track topic metadata when navigating from a specific source note.
+- Read the view and discussion totals for a hashtag topic such as `新年` to compare how much attention topics get.
+- Collect the share title, link and cover image of a topic to build a link preview.
+- Store the topic name with its `topic_id` to match topic pages to your own tracking list.
+- Check which sort tabs a topic page offers before you fetch its notes.
 
 ### Request
 
@@ -85,42 +86,89 @@ curl -X POST "https://api.sandbase.ai/v1/api/xiaohongshu/app-v2/topic-info" \
   -d '{"page_id": "5c1cc866febed9000184b7c1"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
 |---|---|---|---|
 | `page_id` | string | Yes | Topic page ID (required), e.g. "5c1cc866febed9000184b7c1" |
-| `source` | string | No | Source, default "normal" |
 | `note_id` | string | No | Source note ID, pass when jumping from note to topic (optional) |
+| `source` | string | No | Source, default "normal" |
 
 ### Example response
 
-Real response for the request above, trimmed to the main fields. User names and long IDs are masked.
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
 
 ```json
 {
+  "code": 0,
   "data": {
+    "business_type": 0,
+    "custom_tabs": [],
+    "feedShowType": "2",
+    "followed": false,
+    "inside_deeplink": "xhsdiscover://topic/v2/5c1cc866febed9000184b7c1",
+    "middle_lane_list": [],
+    "moduleId": "0",
+    "page_id": "5c1cc866febed9000184b7c1",
+    "page_info": {
+      "banner": "",
+      "desc": "",
+      "discussNum": 2330307,
+      "discuss_comment_num": 36351380,
+      "discuss_comment_num_text": "999万+",
+      "name": "新年",
+      "topic_translate_info": {
+        "translate_type": 2
+      },
+      "viewNum": 7705118072,
+      "view_num_text": "999万+"
+    },
+    "page_type": "topic",
+    "post_deeplink": "xhsdiscover://post_new_note?page=%7B%22page_type%22%3A%22albums%22%7D&source=%7B…",
     "post_option": {
+      "default_link": "xhsdiscover://post_new_note?source=%7B%22type%22%3A%22pages%22%2C%22ids%22%3A%22…",
       "func_items": [
         {
-          "link": "xhsdiscover://post_new_note?source=%7B%22type%22%3A%22pages%22%2C%22ids%22%3A%225c1cc866f…",
+          "link": "xhsdiscover://post_new_note?source=%7B%22type%22%3A%22pages%22%2C%22ids%22%3A%22…",
           "title": "Choose from Album"
         }
       ]
     }
-  }
+  },
+  "debug_id": "762109a8",
+  "debug_info": "gAAAAABq6ZFtotwmW7U6uFyOoDDeZr9ax0lIvRIbTulQ1cieFB1UjIpDjpxrjvCyh0iXAeX_Jfs5blmq…",
+  "msg": "成功",
+  "success": true
 }
 ```
 
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `data.page_info.name` | Topic name, for example `新年`. |
+| `data.page_info.viewNum / data.page_info.view_num_text` | Total view count as a number, and the same count as a short display text such as `999万+`. |
+| `data.page_info.discussNum` | Number of discussions on the topic, as a number. |
+| `data.page_info.discuss_comment_num / data.page_info.discuss_comment_num_text` | Discussion comment count as a number, and as a short display text. |
+| `data.page_id / data.topic_id / data.topic_long_id` | Identifiers of the topic. `page_id` echoes the requested topic page ID. `topic_id` and `topic_long_id` are two other ID forms for the same topic. |
+| `data.share_info.title / data.share_info.desc / data.share_info.link` | Title, description text and web link used when the topic is shared. |
+| `data.share_info.image / data.share_info.outside_image` | Image URLs for the share card inside the app and for sharing outside the app. |
+| `data.tabs[].name / data.tabs[].value` | Sort tabs on the topic page. `value` is `trend` for Hottest and `time` for Latest. |
+| `data.users[].id / data.users[].nickname / data.users[].image` | User ID, display name and avatar URL of users shown on the topic page. |
+| `data.inside_deeplink` | App deeplink that opens the topic page in the Xiaohongshu app. |
+
 ### Notes
 
-- `page_id` is required to identify the topic page.
-- `note_id` can be supplied when navigating from a note to the topic.
-- `source` defaults to "normal" if not specified.
+- `page_id` is a 24-character hex string, such as `5c1cc866febed9000184b7c1`. The deeplink in `data.inside_deeplink` also contains it.
+- Pass `note_id` only when you reach the topic from a note. It is optional.
+- To list the notes under a topic, call [Xiaohongshu (RED) Topic Feed](/apis/xiaohongshu/app-v2/topic-feed).
+- Counts such as `viewNum` are plain numbers. The `_text` fields are shortened display strings.
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.01 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

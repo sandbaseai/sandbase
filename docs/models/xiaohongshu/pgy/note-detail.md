@@ -61,13 +61,14 @@ Same call via the path form: `POST /v1/api/xiaohongshu/pgy/note-detail` with the
 
 ## Details
 
-Fetch detailed information for a Pugongying note on Xiaohongshu (RED) using its `note_id`. This endpoint returns metadata and data records associated with the note.
+Returns details for one Xiaohongshu (RED) note listed on the Pugongying (PGY) platform. It needs a `note_id` and returns the note text, images, engagement counts and a profile block for the author.
 
 ### Use cases
 
-- Inspect individual Pugongying note information and details.
-- Monitor performance metadata for sponsored Xiaohongshu (RED) posts.
-- Integrate commercial partner note data into external analytics tools.
+- Pull the read, like, favorite, comment and share counts of a sponsored note to check how it performed.
+- Read the author's `fansNum`, `picturePrice` and `videoPrice` next to a note to review a creator before a campaign.
+- Download the note's image URLs and text to archive a campaign post.
+- Match a note to its author's content tags and location to sort creators by niche and city.
 
 ### Request
 
@@ -78,19 +79,67 @@ curl -X POST "https://api.sandbase.ai/v1/api/xiaohongshu/pgy/note-detail" \
   -d '{"note_id": "6a20edfa0000000021020951"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
 |---|---|---|---|
 | `note_id` | string | Yes | Note ID, e.g. "6a20edfa0000000021020951" |
 
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "code": 0,
+  "data": {
+    "agentName": null,
+    "atUserList": null,
+    "cmtNum": 16,
+    "compClickData": null,
+    "content": "憨豆先生表情：盯梢三分钟然后默默点头……\n和我站在湖滨in77这家冰淇淋店前一模一样\n\t\n店员说：每天现做，卖不完当晚报废\n我：嗯？\n店员又说：绝不隔夜\n我：🙂…",
+    "contentItemList": null,
+    "createTime": "2026-06-04 11:16",
+    "favNum": 20,
+    "featureTags": null,
+    "followCnt": 0,
+    "goodCaseCollect": false,
+    "headPhoto": "https://sns-avatar-qc.xhscdn.com/avatar/1040g2jo31hpod1vijs705n36hcv4k5g5f8fn40g…"
+  },
+  "guid": null,
+  "msg": "成功",
+  "success": true
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `data.title / data.content` | Title and body text of the note. The body can contain line breaks and emoji. |
+| `data.readNum / data.impNum` | Read count and impression count of the note. |
+| `data.likeNum / data.favNum / data.cmtNum / data.shareNum` | Like, favorite, comment and share counts of the note. |
+| `data.createTime / data.time.createTime` | Publish time. `createTime` is a text date such as `2026-06-04 11:16`. The `time` object holds the same moment and the update times as millisecond timestamps. |
+| `data.imagesList[].url / data.imagesList[].original` | Image link at 1080 px width and the original image link. `width` and `height` sit beside them. |
+| `data.imagesList[].imageExtraInfo.livePhotoVideoFileId` | File ID of the video clip when an image is a live photo. It is `null` for normal images. |
+| `data.noteLink` | Link to the note on xiaohongshu.com, with the `xsec_token` and `xsec_source` query values included. |
+| `data.userInfo.nickName / data.userInfo.userId` | Display name and user ID of the note's author. |
+| `data.userInfo.fansNum / data.userInfo.location` | Follower count and the listed location of the author. |
+| `data.userInfo.picturePrice / data.userInfo.videoPrice` | Listed prices for an image note and a video note from this author. |
+| `data.userInfo.contentTags[].taxonomy1Tag / data.userInfo.contentTags[].taxonomy2Tags` | Top-level content category and its sub-categories for the author, such as food and city travel. |
+
 ### Notes
 
-- Supply the target note identifier using `note_id`.
+- `note_id` is a 24-character hex string. It also appears in `data.noteId` and in the `data.noteLink` path.
+- `data.userInfo.userId` is the author's ID. Pass it to [Xiaohongshu (RED) PGY Blogger Details](/apis/xiaohongshu/pgy/blogger-detail) for the full creator profile.
+- For featured comments on the same note, call [Xiaohongshu PGY note featured comments](/apis/xiaohongshu/pgy/note-comments).
+- `data.videoInfo` is `null` for this image note, and several other fields can also be `null`.
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.02 per successful call. Failed calls are not charged.
 
 ### Related APIs
 

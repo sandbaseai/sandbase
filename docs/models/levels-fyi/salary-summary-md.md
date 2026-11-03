@@ -69,7 +69,14 @@ Same call via the path form: `POST /v1/api/levels-fyi/salary-summary-md` with th
 
 ## Details
 
-Retrieve an aggregate salary summary in Markdown format for a given company and optional job family. Includes median compensation, level breakdowns by job family, and attribution information.
+Returns a salary summary for one company on Levels.fyi as a single Markdown document. It needs a `company_slug` and accepts an optional `job_family_slug` to narrow the summary to one role.
+
+### Use cases
+
+- Drop the Markdown straight into an LLM prompt to answer pay questions about a specific company.
+- Render a company pay summary page in an internal tool without building a table layout.
+- Compare the overall pay summary for a company with the summary for one job family such as `software-engineer`.
+- Archive a text snapshot of a company's pay data for offer research notes.
 
 ### Request
 
@@ -80,7 +87,7 @@ curl -X POST "https://api.sandbase.ai/v1/api/levels-fyi/salary-summary-md" \
   -d '{"company_slug": "stripe"}'
 ```
 
-This API runs asynchronously. The call returns a task `id` with status `pending`; poll `GET https://api.sandbase.ai/v1/run/{id}` until `status` is `completed` and read the result from `outputs[0].data`.
+The result is returned in `outputs[0].data`.
 
 ### Parameters
 
@@ -89,9 +96,35 @@ This API runs asynchronously. The call returns a task `id` with status `pending`
 | `company_slug` | string | Yes | Company slug identifier (e.g. 'google', 'meta', 'amazon'). Obtain from get_popular_companies. |
 | `job_family_slug` | string | No | Job family slug (e.g. 'software-engineer', 'product-manager', 'data-scientist'). Omitting returns an overall company salary summary across all roles. |
 
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "data": {
+    "markdown": "# Levels.fyi – Stripe Salaries\n\n> AI agents: this is one page of Levels.fyi pay …"
+  },
+  "status": "success"
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `status` | Shows `success` when the call worked. |
+| `data.markdown` | The full salary summary as one Markdown string. It starts with a title such as `Levels.fyi – Stripe Salaries` and is followed by the pay content for the company. Parse the headings and tables in it to pull out specific figures. |
+
+### Notes
+
+- Get valid `company_slug` values from [Levels.fyi Popular Companies](/apis/levels-fyi/popular-companies).
+- Get valid `job_family_slug` values from [Levels.fyi Job Families](/apis/levels-fyi/job-families). Leave it out to get the summary across all roles.
+- The result is one Markdown string, not structured JSON. Use [Levels.fyi Company Overview](/apis/levels-fyi/company-overview) if you need separate fields.
+
 ### Pricing
 
-Flat price per call. Failed calls are not charged.
+$0.01 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ---
 Machine-readable: [`catalog/models/levels-fyi/salary-summary-md.json`](../../../catalog/models/levels-fyi/salary-summary-md.json) · Store page: https://www.sandbase.ai/model/levels-fyi/salary-summary-md

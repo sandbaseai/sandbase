@@ -58,7 +58,14 @@ Same call via the path form: `POST /v1/api/aaa/state-gas-prices` with the body a
 
 ## Details
 
-Returns current average gas prices for all 50 US states plus DC across all four fuel grades (Regular, Mid-Grade, Premium, Diesel). States are listed in alphabetical order by full state name.
+Returns the current average cost of gas for each US state and DC, based on AAA data. Each row covers Regular, Mid-Grade, Premium and Diesel. The request takes no input.
+
+### Use cases
+
+- Compare Regular gas costs between states to find the cheapest and most expensive places to fill up.
+- Estimate fuel costs for a road trip that crosses several states.
+- Build a state-by-state fuel cost table or map for a dashboard.
+- Track the gap between `diesel` and `regular` in each state for fleet planning.
 
 ### Request
 
@@ -69,15 +76,50 @@ curl -X POST "https://api.sandbase.ai/v1/api/aaa/state-gas-prices" \
   -d '{}'
 ```
 
-This API runs asynchronously. The call returns a task `id` with status `pending`; poll `GET https://api.sandbase.ai/v1/run/{id}` until `status` is `completed` and read the result from `outputs[0].data`.
+The result is returned in `outputs[0].data`.
 
-### Parameters
+### Example response
 
-This API takes no parameters.
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "data": {
+    "states": [
+      {
+        "diesel": 5.8537,
+        "mid_grade": 4.1781,
+        "premium": 4.5882,
+        "regular": 3.73,
+        "state": "Alabama"
+      }
+    ]
+  },
+  "status": "success"
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `data.states[]` | One entry per state. The list is in alphabetical order by full state name. |
+| `data.states[].state` | Full name of the state, for example `Alabama`. |
+| `data.states[].regular` | Average cost of Regular gas in that state. |
+| `data.states[].mid_grade` | Average cost of Mid-Grade gas in that state. |
+| `data.states[].premium` | Average cost of Premium gas in that state. |
+| `data.states[].diesel` | Average cost of diesel in that state. |
+| `status` | Shows `success` when the call worked. |
+
+### Notes
+
+- Send an empty JSON object `{}` as the request body. There are no parameters.
+- Fuel values are plain numbers, such as `3.73` or `5.8537`.
+- For the US-wide average, call [AAA National Average](/apis/aaa/national-average).
 
 ### Pricing
 
-Flat price per call. Failed calls are not charged.
+$0.01 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ---
 Machine-readable: [`catalog/models/aaa/state-gas-prices.json`](../../../catalog/models/aaa/state-gas-prices.json) · Store page: https://www.sandbase.ai/model/aaa/state-gas-prices

@@ -62,13 +62,14 @@ Same call via the path form: `POST /v1/api/douyin/app-v3/open-app-to-keyword-sea
 
 ## Details
 
-This endpoint produces a Douyin short link for opening search results in the Douyin mobile app based on a provided `keyword`.
+Returns a Douyin short share link that opens the Douyin app directly on the search results for a keyword. It needs one input, the `keyword` to search for.
 
 ### Use cases
 
-- Direct mobile users to specific search topics inside the Douyin application.
-- Generate clickable deep links for marketing campaigns and external landing pages.
-- Route users to curated discovery terms from third-party interfaces.
+- Send mobile users straight to the Douyin search results for a topic from a web page or message.
+- Add a Douyin search deep link to a marketing campaign page or a QR code.
+- Build a list of tappable links for trending search terms in an external app.
+- Check which short link Douyin creates for a given search term.
 
 ### Request
 
@@ -79,6 +80,8 @@ curl -X POST "https://api.sandbase.ai/v1/api/douyin/app-v3/open-app-to-keyword-s
   -d '{"keyword": "人工智能"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
@@ -87,23 +90,34 @@ curl -X POST "https://api.sandbase.ai/v1/api/douyin/app-v3/open-app-to-keyword-s
 
 ### Example response
 
-Real response for the request above, trimmed to the main fields. User names and long IDs are masked.
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
 
 ```json
 {
   "keyword": "人工智能",
-  "short_url": "https://v.douyin.com/w_Rhf9duAgs/",
+  "short_url": "https://v.douyin.com/VLzKnPXaPKo/",
   "status": "success"
 }
 ```
 
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `short_url` | The Douyin short link. Opening it on a device with the Douyin app launches the search results for the keyword. |
+| `keyword` | The search term the link was built for. It echoes the `keyword` you sent. |
+| `status` | Result of the call. The value `success` means the link was created. |
+
 ### Notes
 
-- Supply the desired query string using the required `keyword` parameter.
+- Pass the search term in the required `keyword` parameter. Chinese text such as `人工智能` works as shown in the example.
+- The `short_url` value is in the form `https://v.douyin.com/<code>/`.
+- To shorten a standard Douyin web link instead, use [Douyin Short Link Generator](/apis/douyin/app-v3/generate-short-url).
+- To find terms worth linking to, call [Douyin Hot Search List](/apis/douyin/app-v3/hot-search-list).
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

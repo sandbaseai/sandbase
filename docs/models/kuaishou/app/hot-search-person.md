@@ -52,13 +52,14 @@ Same call via the path form: `POST /v1/api/kuaishou/app/hot-search-person` with 
 
 ## Details
 
-Retrieves the current trending individuals leaderboard from the Kuaishou app hot search person board without requiring input parameters.
+Returns the current Kuaishou hot search person board as a ranked list of users. It takes no input parameters, so send an empty JSON object `{}`.
 
 ### Use cases
 
-- Track trending personalities and influencers on Kuaishou in real time.
-- Analyze shifts in celebrity and creator popularity across the platform.
-- Identify viral figures for social media monitoring and talent research.
+- Pull the current top trending creators on Kuaishou and store the ranking on a schedule.
+- Compare `hotValue` across calls to see which people gain search heat.
+- Collect user IDs of rising creators, then look up their profiles or videos.
+- Check the `recoReason` tag to see why a person entered the board, such as a new post or a jump in searches.
 
 ### Request
 
@@ -69,9 +70,105 @@ curl -X POST "https://api.sandbase.ai/v1/api/kuaishou/app/hot-search-person" \
   -d '{}'
 ```
 
+The result is returned in `outputs[0].data`.
+
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "host-name": "public-bjzey-c97-kce-node64.idchb1az3.hb1.kwaidc.com",
+  "result": 1,
+  "topList": {
+    "data": [
+      {
+        "backGroundImage": [],
+        "list": [
+          {
+            "avatar": {
+              "icon": [
+                {
+                  "cdn": "ty2.a.kwimgs.com",
+                  "url": "http://ty2.a.kwimgs.com/uhead/AB/2026/10/14/21/BMjAyNjEwMTQyMTEwNTRfMTQ4MDU2MjUz…"
+                }
+              ],
+              "linkUrl": "kwai://search?keyword=%E8%82%96%E5%A4%A9%E8%B5%90&backRecommend=false&sessionId=…",
+              "shapeType": 0,
+              "url": [
+                {
+                  "cdn": "ty2.a.kwimgs.com",
+                  "url": "http://ty2.a.kwimgs.com/uhead/AB/2026/10/14/21/BMjAyNjEwMTQyMTEwNTRfMTQ4MDU2MjUz…"
+                }
+              ]
+            },
+            "feedLogCtx": {
+              "stExParams": null,
+              "stidContainer": "InIxfDIwMDY0NTYxODg3NDA3Mzg3ODZ8VVNFUjoxNDgwNTYyNTM4fHsicGciOiJ1bmtub3cifXx7ImJp…"
+            },
+            "linkUrl": "kwai://search?keyword=%E8%82%96%E5%A4%A9%E8%B5%90&backRecommend=false&sessionId=…",
+            "logInfo": {
+              "authorid": "1480562538",
+              "id": "1480562538",
+              "params": {
+                "hotValue": 10520593,
+                "normalindex": "1",
+                "recoReason": [
+                  "作品更新"
+                ]
+              },
+              "type": "USER"
+            },
+            "order": {
+              "index": 1,
+              "shapeType": 0
+            },
+            "pendant": {},
+            "renderStrategyIcon": null,
+            "rightView": {
+              "icon": {
+                "shapeType": 0
+              },
+              "isPrefix": 1,
+              "text": {
+                "content": "1052.1万"
+              }
+            }
+          }
+        ]
+      }
+    ],
+    "dataType": 1,
+    "moduleType": 13
+  },
+  "ussid": "MzAxXzBfMTc5MzY5MTM1NDk0MV9fODI1Nw"
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `topList.data[].list[]` | The ranked entries on the board. Each entry is one Kuaishou user. |
+| `topList.data[].list[].logInfo.id / topList.data[].list[].logInfo.authorid` | The Kuaishou user ID of the person. Both fields hold the same value in the sample. |
+| `topList.data[].list[].logInfo.type` | The entry type. The sample shows `USER`. |
+| `topList.data[].list[].logInfo.params.hotValue` | The numeric heat value for the person. Some entries do not include it. |
+| `topList.data[].list[].logInfo.params.normalindex` | The position label on the board as a string. Values such as `2.1` appear on entries that have no `hotValue`. |
+| `topList.data[].list[].logInfo.params.recoReason[]` | Text tags that give the reason the person is listed. The sample shows values like 作品更新 (work updated) and 近期搜索量飙升 (recent search volume surge). |
+| `topList.data[].list[].order.index` | The numeric rank of the entry. It is absent on entries that carry an `order.icon` image instead. |
+| `topList.data[].list[].rightView.text.content` | The heat value as display text, for example `1052.1万`. |
+| `topList.data[].list[].avatar.icon[].url` | Avatar image URLs for the person, one per CDN host. |
+| `topList.data[].list[].linkUrl` | A `kwai://search` deep link that opens a Kuaishou search for the person's name. The `keyword` query value holds the URL-encoded name. |
+
+### Notes
+
+- The request has no parameters. Send `{}` as the body.
+- Entries with `normalindex` like `2.1` and no `hotValue` or `rightView` are listed under a rank and use an icon instead of a number in `order`.
+- Use `logInfo.id` as the user ID input for related APIs such as [Kuaishou Single User Data (V2)](/apis/kuaishou/app/one-user-v2) or [Kuaishou User Video List (V2)](/apis/kuaishou/app/user-post-v2).
+
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

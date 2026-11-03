@@ -72,13 +72,14 @@ Same call via the path form: `POST /v1/api/youtube/web/search-video` with the bo
 
 ## Details
 
-Search YouTube for a keyword and get matching videos with their title, channel, view count, length and publish time.
+This API searches YouTube videos by keyword. It returns a list of matching videos with ID, title, channel, view count, length and publish time. You only need `search_query`; country, language and time filters are optional.
 
 ### Use cases
 
-- Monitor new videos about a brand or topic.
-- Research competitors and popular formats.
-- Find creators for sponsorships.
+- Track new videos that mention a brand or topic, such as OpenAI, by searching with `order_by` set to `today` or `last_hour`.
+- Compare view counts across videos on one topic to see which formats and titles get attention.
+- Collect `channel_id` values from search results to find creators who cover a subject, for sponsorship research.
+- Build a list of video IDs for a keyword, then pull details or comments for each one.
 
 ### Request
 
@@ -89,51 +90,81 @@ curl -X POST "https://api.sandbase.ai/v1/api/youtube/web/search-video" \
   -d '{"search_query": "OpenAI"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
 |---|---|---|---|
 | `search_query` | string | Yes | Search keyword. |
-| `order_by` | string | No | Order by, default is this_month, optional values are this_week, this_month, this_year, last_hour, today. |
+| `continuation_token` | string | No | Token to continue fetching search results. Default is None. |
 | `country_code` | string | No | Country code, default is us. |
 | `language_code` | string | No | Language code, default is en. |
-| `continuation_token` | string | No | Token to continue fetching search results. |
+| `order_by` | string | No | Order by, default is this_month, optional values are this_week, this_month, this_year, last_hour, today. |
 
 ### Example response
 
-Real response for the request above, trimmed to the main fields. User names and long IDs are masked.
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
 
 ```json
 {
-  "query": "OpenAI",
+  "continuation_token": "EpUFEgZP…",
   "country": "US",
+  "estimated_results": 3200682,
   "lang": "en",
   "number_of_videos": 20,
-  "estimated_results": 395560,
-  "continuation_token": "<token>",
+  "query": "OpenAI",
+  "timezone": "America/New_York",
   "videos": [
     {
-      "video_id": "Fls_onRviPM",
-      "title": "OpenAI DevDay 2026 Keynote (FULL)",
-      "channel_id": "UCXZCJLdBC09xxGZ6gcdrc6A",
-      "number_of_views": 650665,
-      "published_time": "Streamed 6 days ago",
-      "video_length": "53:35",
+      "author": "Theo - t3․gg",
+      "category": null,
+      "channel_id": "UCbRP3c757lWg9M-U7TyEkXA",
+      "description": "Just a month after their reduction, OpenAI is doubling the limits of their plans…",
+      "is_live_content": null,
+      "keywords": [],
+      "number_of_views": 19914,
+      "published_time": "2 hours ago",
+      "thumbnails": [
+        {
+          "height": 202,
+          "url": "https://i.ytimg.com/vi/Hq2c7pww1Ds/hq720_custom_3.jpg?sqp=CPyhptcG-oaymwEcCOgCEM…",
+          "width": 360
+        }
+      ],
+      "title": "OpenAI is getting desperate",
       "type": "NORMAL",
-      "author": "OpenAI"
+      "video_id": "Hq2c7pww1Ds"
     }
   ]
 }
 ```
 
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `videos[].video_id` | The YouTube video ID. Use it to build a watch link or to call other video APIs. |
+| `videos[].title` | The video title as shown in search results. |
+| `videos[].author / videos[].channel_id` | The channel name and the channel ID that published the video. |
+| `videos[].number_of_views` | The view count of the video as a number. |
+| `videos[].published_time` | Relative publish time as text, such as `2 hours ago` or `3 days ago`. It is not a timestamp. |
+| `videos[].video_length` | The video length as text, such as `15:50`. |
+| `videos[].description` | A short description snippet of the video. It can be an empty string. |
+| `videos[].thumbnails[].url` | Thumbnail image URL. Each entry also has `width` and `height`. |
+| `estimated_results` | The estimated total number of results for the query. |
+| `continuation_token` | Token that you pass back in the next request to get the next page of results. |
+
 ### Notes
 
-- `order_by`: last_hour, today, this_week, this_month (default) or this_year.
-- Paginate with `continuation_token`.
+- Set `order_by` to one of `last_hour`, `today`, `this_week`, `this_month` (default) or `this_year`.
+- To get the next page, send the same request with the `continuation_token` value from the last response.
+- `category`, `is_live_content` and `keywords` came back as `null` or empty in this response, so do not rely on them.
+- Pass a `channel_id` from the results to [YouTube Channel Information](/apis/youtube/web/channel-info) to get details about the channel.
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

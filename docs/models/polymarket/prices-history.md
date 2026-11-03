@@ -66,9 +66,14 @@ Same call via the path form: `POST /v1/api/polymarket/prices-history` with the b
 
 ## Details
 
-Get prices history from Polymarket. Returns the official Polymarket API response unchanged.
+Returns the price history of one Polymarket outcome token as a list of timestamped prices. It needs a `market` value, which is the asset (token) id, and accepts optional `interval`, `fidelity`, `startTs` and `endTs` parameters.
 
-The response is the official Polymarket API response, unchanged.
+### Use cases
+
+- Plot how the market's implied probability for one outcome changed over the past week.
+- Backtest a trading rule against hourly prices for a single outcome token.
+- Find the time when a price jumped by comparing consecutive points in the series.
+- Export a fixed time window of prices by setting `startTs` and `endTs`.
 
 ### Request
 
@@ -79,19 +84,50 @@ curl -X POST "https://api.sandbase.ai/v1/api/polymarket/prices-history" \
   -d '{"market": "32338220190071351435772801779725302244575775216413325951443816017994629993401", "interval": "1w", "fidelity": 60}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
 |---|---|---|---|
+| `market` | string | Yes | The market (asset id) to query. |
 | `endTs` | number | No | Filter by items before this unix timestamp. |
 | `fidelity` | integer | No | Accuracy of the data expressed in minutes. Default is 1 minute. |
 | `interval` | string | No | Time interval for data aggregation. |
-| `market` | string | Yes | The market (asset id) to query. |
 | `startTs` | number | No | Filter by items after this unix timestamp. |
+
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "history": [
+    {
+      "p": 0.0375,
+      "t": 1793088028
+    }
+  ]
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `history` | List of price points for the requested market, in time order. |
+| `history[].p` | Price of the outcome token at that point. The values in this response sit between 0 and 1, such as `0.0375`. |
+| `history[].t` | Unix timestamp in seconds for the price point. |
+
+### Notes
+
+- `market` is the asset (token) id, a long numeric string. Use [Polymarket Get market by slug](/apis/polymarket/markets-slug) to look up a market and find its token ids.
+- In the example request, `fidelity` is `60` and the points are about 3,600 seconds apart, which matches one point per hour.
+- To get the current price instead of a series, call [Polymarket Get market price](/apis/polymarket/price).
 
 ### Pricing
 
-Flat price per call. Failed calls are not charged.
+$0.012 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ---
 Machine-readable: [`catalog/models/polymarket/prices-history.json`](../../../catalog/models/polymarket/prices-history.json) · Store page: https://www.sandbase.ai/model/polymarket/prices-history

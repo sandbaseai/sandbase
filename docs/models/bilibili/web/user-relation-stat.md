@@ -62,13 +62,14 @@ Same call via the path form: `POST /v1/api/bilibili/web/user-relation-stat` with
 
 ## Details
 
-Retrieve following and follower counts for any Bilibili profile by supplying the user `uid`.
+Returns relationship counts for one Bilibili account, including how many accounts it follows and how many follow it. It needs the numeric user ID in `uid`.
 
 ### Use cases
 
-- Track follower growth metrics for specific Bilibili creators.
-- Display audience size and following stats on user profiles.
-- Benchmark channel reach and audience engagement across accounts.
+- Record the `follower` count of a Bilibili creator each day to chart audience growth.
+- Show following and follower numbers on a creator card inside your own dashboard.
+- Compare `follower` to `following` across a list of accounts to sort them by audience size.
+- Confirm that a `uid` matches the `mid` you expect before you run further lookups on the account.
 
 ### Request
 
@@ -79,19 +80,51 @@ curl -X POST "https://api.sandbase.ai/v1/api/bilibili/web/user-relation-stat" \
   -d '{"uid": "178360345"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
 |---|---|---|---|
 | `uid` | string | Yes | User UID |
 
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "black": 0,
+  "fans_effect": null,
+  "fans_medal_toast": null,
+  "follower": 73,
+  "following": 27,
+  "mid": 178360345,
+  "whisper": 0
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `follower` | Number of accounts that follow this user. |
+| `following` | Number of accounts this user follows. |
+| `mid` | Numeric Bilibili user ID of the account. It matches the `uid` you sent. |
+| `black` | Blacklist count for the account. The response shows `0` and gives no further detail. |
+| `whisper` | Whisper count for the account. The response shows `0` and gives no further detail. |
+| `fans_effect / fans_medal_toast` | Fan-related display settings. Both are `null` in this response. |
+
 ### Notes
 
-- Requires a valid target user ID passed to `uid`.
+- Pass the numeric Bilibili user ID as a string in `uid`, for example `178360345`.
+- If you only have a profile link, call [Bilibili User ID Extraction](/apis/bilibili/web/get-user-id) first to get the ID.
+- For name, avatar and other profile details, call [Bilibili User Profile](/apis/bilibili/web/user-profile).
+- For total views and likes of the creator, call [Bilibili Creator View and Like Statistics](/apis/bilibili/web/user-up-stat).
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

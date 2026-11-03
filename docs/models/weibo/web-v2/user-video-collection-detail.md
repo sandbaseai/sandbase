@@ -64,13 +64,14 @@ Same call via the path form: `POST /v1/api/weibo/web-v2/user-video-collection-de
 
 ## Details
 
-Retrieve detailed video listings and information from a specific Weibo video collection using its `cid`.
+Returns the videos in one Weibo video collection, plus a header with the collection's page segments and sort tabs. It needs the collection ID in `cid`. You can sort by default, hottest or latest and page with a cursor.
 
 ### Use cases
 
-- Retrieve full video playlists from a specific user collection.
-- Display collections sorted by latest or hottest video items.
-- Paginate through large video collections using cursor tokens.
+- Export every video post in a creator's themed collection, such as a celebrity edit series.
+- Rank the videos in a collection by `attitudes_count`, `comments_count` and `reposts_count` to find the best performers.
+- Collect cover images and durations to build a video gallery for a collection.
+- Page through a long collection in hottest or latest order to track new uploads.
 
 ### Request
 
@@ -81,6 +82,8 @@ curl -X POST "https://api.sandbase.ai/v1/api/weibo/web-v2/user-video-collection-
   -d '{"cid": "4883992307236954"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
@@ -89,15 +92,91 @@ curl -X POST "https://api.sandbase.ai/v1/api/weibo/web-v2/user-video-collection-
 | `cursor` | string | No | Pagination cursor, pass empty for first request, use returned cursor for subsequent |
 | `tab_code` | integer | No | Sort type (0=default, 1=hottest, 2=latest) |
 
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "header": {
+    "page_segment_size": 20,
+    "page_segments": [
+      {
+        "action_log": {
+          "act_code": 5599,
+          "ext": "type:2|t_id:4883992307236954|t_name:%E5%89%AA%E8%BE%91|mid:null|oid:null"
+        },
+        "first_cursor": 4883992359471289,
+        "first_cursorStr": "4883992359471289",
+        "last_cursor": 4890466766557477,
+        "last_cursorStr": "4890466766557477",
+        "page_index": 0,
+        "part_name": "1-20",
+        "part_state": 1
+      }
+    ],
+    "tabs": [
+      {
+        "code": 0,
+        "name": "默认",
+        "type": 0
+      }
+    ]
+  },
+  "list": [
+    {
+      "analysis_extra": "",
+      "annotations": [
+        []
+      ],
+      "attitudes_count": 121,
+      "attitudes_status": 0,
+      "can_edit": false,
+      "cardid": "star_329",
+      "comment_manage_info": {
+        "approval_comment_type": 0,
+        "comment_anon_type": 0,
+        "comment_permission_type": -1,
+        "comment_sort_type": 0
+      },
+      "comments_count": 1,
+      "content_auth": 0,
+      "created_at": "Mon Mar 27 19:53:01 +0800 2023",
+      "favorited": false,
+      "id": 4883992359471289
+    }
+  ],
+  "next_cursor": 4890787378892026
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `list[]` | One video post in the collection. Each item is a Weibo post with its counts, time and video details. |
+| `list[].mid / list[].idstr` | Post ID as a number-like string. `id` holds the same value as a number. |
+| `list[].mblogid` | Short post ID. It is a different format from `mid`. |
+| `list[].created_at` | Publish time as a text date, for example `Mon Mar 27 19:53:01 +0800 2023`. |
+| `list[].attitudes_count / list[].comments_count / list[].reposts_count` | Counts of likes, comments and reposts on the post. |
+| `list[].region_name` | Region label shown with the post, for example `发布于 辽宁`. |
+| `list[].page_info.content2` | Short label shown on the video card. In this response it holds a person's name. |
+| `list[].page_info.media_info.author_name` | Display name of the account that posted the video. |
+| `list[].page_info.media_info.duration` | Video length. The values are small whole numbers, such as `16`. |
+| `list[].page_info.media_info.big_pic_info.pic_big.url` | Cover image URL at the largest size. `pic_middle` and `pic_small` hold smaller versions with `width` and `height`. |
+| `next_cursor` | Cursor value to send as `cursor` to get the next page of videos. |
+| `header.tabs[]` | Sort options with `code` and `name`. The codes match the `tab_code` values 0, 1 and 2. |
+
 ### Notes
 
-- Obtain the required `cid` from the user video collection list endpoint.
-- Use `tab_code` to sort videos by default (0), hottest (1), or latest (2).
-- Leave `cursor` empty for the initial query and pass the returned token for subsequent requests.
+- Get `cid` from the [Weibo User Video Collection List](/apis/weibo/web-v2/user-video-collection-list) API.
+- Leave `cursor` empty on the first call. Then pass `next_cursor` from the previous response.
+- `header.page_segments[]` splits the collection into ranges such as `1-20` and `21-30`. Each range has `first_cursorStr` and `last_cursorStr`.
+- Set `tab_code` to `0` for default, `1` for hottest or `2` for latest order.
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

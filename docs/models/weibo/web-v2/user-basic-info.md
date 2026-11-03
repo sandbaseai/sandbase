@@ -62,13 +62,14 @@ Same call via the path form: `POST /v1/api/weibo/web-v2/user-basic-info` with th
 
 ## Details
 
-Retrieve basic profile details for a Weibo user by providing the `uid` parameter in the request.
+Returns a short public profile for one Weibo user, including name, avatar, cover image, bio, gender, follower count and following count. It needs the numeric user ID in the `uid` parameter.
 
 ### Use cases
 
-- Look up public profile data for a specific Weibo user account.
-- Verify Weibo user identity details using their unique account ID.
-- Display lightweight profile summaries in external dashboards.
+- Show a Weibo user's name, avatar and bio on a dashboard or contact card.
+- Check whether an account is verified before adding it to an influencer list.
+- Read the displayed follower count of an account to compare creators.
+- Confirm that a numeric `uid` maps to the expected `screen_name`.
 
 ### Request
 
@@ -79,19 +80,63 @@ curl -X POST "https://api.sandbase.ai/v1/api/weibo/web-v2/user-basic-info" \
   -d '{"uid": "7648703289"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
 |---|---|---|---|
 | `uid` | string | Yes | User ID (required) |
 
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "data": {
+    "avatar": "https://tvax3.sinaimg.cn/crop.0.0.1080.1080.180/008lDb85ly8ha4by3jwh3j30u00u0q47…",
+    "block": false,
+    "cover": "https://ww1.sinaimg.cn/mw690/9d44112bjw1f1xl1c10tuj20hs0hs0tw.jpg",
+    "descText": "恨比爱长久",
+    "follow_me": false,
+    "followers_count_str": "362.4万",
+    "following": false,
+    "friends_count_str": 292,
+    "gender": "f",
+    "genderText": "她",
+    "id": 7648703289,
+    "idstr": "7648703289"
+  },
+  "ok": 1
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `data.screen_name` | Display name of the user. |
+| `data.id / data.idstr` | The user ID as a number and as a string. Both match the `uid` you sent. |
+| `data.descText` | The bio text on the profile. |
+| `data.followers_count_str` | Follower count as a display string, for example `362.4万`. It is not a plain integer, so parse the unit suffix yourself. |
+| `data.friends_count_str` | Count of accounts this user follows. It appears as a number in this response. |
+| `data.gender / data.genderText` | Gender code (`f` here) and the pronoun label shown on the profile (`她` here). |
+| `data.verified / data.verified_type` | Whether the account is verified, and a numeric verification type. The value `-1` appears with `verified` set to `false`. |
+| `data.avatar / data.cover` | URLs of the profile picture and the cover image. |
+| `data.profile_url` | Relative profile path, in the form `u/<uid>`. |
+| `data.follow_me / data.following / data.special_follow / data.block` | Relationship flags between the user and the calling account. All are `false` in this response. |
+
 ### Notes
 
-- The `uid` parameter is required to identify the target Weibo user.
+- Pass `uid` as a string of digits, such as `7648703289`.
+- The avatar URL contains `Expires` and `ssig` query values, so it may stop working later. Save the image if you need to keep it.
+- For more profile data, call [Weibo User Profile Details (Web V2)](/apis/weibo/web-v2/user-info).
+- To read the user's content, call [Weibo User Posts](/apis/weibo/web-v2/user-posts) or [Weibo User Follower List](/apis/weibo/web-v2/user-fans).
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

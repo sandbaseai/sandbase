@@ -65,13 +65,14 @@ Same call via the path form: `POST /v1/api/telegram/web/post-detail` with the bo
 
 ## Details
 
-This endpoint returns details for a specific post in a public channel using `channel` and `post_id`.
+Returns one public Telegram channel post, parsed from the web embed view. It needs the channel username (`channel`) and the numeric post ID (`post_id`). The response includes the post text, media links, view count, and reactions.
 
 ### Use cases
 
-- Monitor reaction metrics on individual channel posts.
-- Retrieve public message metadata by post ID.
-- Track engagement levels across specific channel announcements.
+- Read the full text and photo links of a single announcement from a public channel.
+- Record the view count and reaction counts of one post at the time you call it.
+- Check whether a post is forwarded or replies to another post.
+- Build a link to a post from its `channel` and `id` and confirm the post exists.
 
 ### Request
 
@@ -82,6 +83,8 @@ curl -X POST "https://api.sandbase.ai/v1/api/telegram/web/post-detail" \
   -d '{"channel": "durov", "post_id": 510}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
@@ -91,26 +94,62 @@ curl -X POST "https://api.sandbase.ai/v1/api/telegram/web/post-detail" \
 
 ### Example response
 
-Real response for the request above, trimmed to the main fields. User names and long IDs are masked.
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
 
 ```json
 {
+  "author": "Pavel Durov",
+  "channel": "durov",
+  "date": "2026-05-12T17:28:39+00:00",
+  "forwarded_from": null,
+  "id": 510,
+  "is_forwarded": false,
+  "link_preview": null,
+  "media": {
+    "has_unsupported": true,
+    "photos": [
+      "https://cdn4.telesco.pe/file/iw0nUCyqIulL0q3pX-lSNo9-_oaB0eX3MMQgjzDggf_QZEMrMic…"
+    ],
+    "videos": []
+  },
   "reactions": [
     {
-      "count": "8.24K"
+      "count": "8.25K",
+      "emoji": "⭐",
+      "paid": true
     }
-  ]
+  ],
+  "reply_to": null,
+  "text": "🌍 With 400 validators across 6 continents, TON is one of the most decentralized …",
+  "text_html": "🌍 With 400 validators across 6 continents, TON is one of the most decentralized …"
 }
 ```
 
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `text / text_html` | Post body as plain text and as HTML. The HTML version keeps line breaks as `<br>` tags. |
+| `date` | Publication time of the post in ISO 8601 format with a UTC offset, such as `2026-05-12T17:28:39+00:00`. |
+| `type` | Kind of post. The example post is an `album`, which holds more than one photo. |
+| `media.photos[] / media.videos[]` | Lists of media URLs attached to the post. `videos` is empty in the example. |
+| `media.has_unsupported` | `true` when the post holds media that the embed view could not parse. |
+| `reactions[].emoji / reactions[].count` | Reaction emoji and how many people used it. Counts are shortened strings such as `8.25K`. The emoji can be an empty string. |
+| `reactions[].paid` | `true` for a paid reaction. The `⭐` reaction in the example has this flag set. |
+| `views` | View count of the post as a shortened string, such as `3.86M`. |
+| `is_forwarded / forwarded_from / reply_to` | Show whether the post is forwarded or a reply. All three are empty or `false` in the example. |
+| `url` | Public `t.me` link to the post. |
+
 ### Notes
 
-- `channel` requires the public channel username.
-- `post_id` is an auto-incremented integer representing the post within the channel.
+- Take `channel` from the `t.me` link of the channel, without the `@`. `post_id` is the integer at the end of the post URL.
+- `views` and `reactions[].count` are strings with `K` or `M` suffixes, so parse them before you do math.
+- To list recent posts and find IDs, call [Telegram Channel Posts](/apis/telegram/web/channel-posts).
+- To read replies to a post, use [Telegram Post Comments](/apis/telegram/web/post-comments).
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

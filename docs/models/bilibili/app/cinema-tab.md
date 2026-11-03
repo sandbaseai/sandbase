@@ -52,13 +52,14 @@ Same call via the path form: `POST /v1/api/bilibili/app/cinema-tab` with the bod
 
 ## Details
 
-Retrieve movie and TV show recommendation feeds from the Bilibili app cinema tab without passing any input parameters.
+Returns the content layout of the Bilibili app cinema tab: banner modules, function entries, hot recommendations, and category regions. It needs no input. Send an empty JSON object as the request body.
 
 ### Use cases
 
-- Display trending film and television recommendations from Bilibili
-- Monitor cinema section highlights for media research
-- Integrate entertainment discovery feeds into external dashboards
+- Read the banner items to see which movies and shows Bilibili promotes on the cinema tab.
+- Collect `season_id` and `episode_id` values from banners to feed a catalog of promoted titles.
+- Track changes in module titles and item order to study how the cinema tab layout changes over time.
+- List the cinema category entries, such as documentary, movie and TV series, with their icons and app links.
 
 ### Request
 
@@ -69,9 +70,109 @@ curl -X POST "https://api.sandbase.ai/v1/api/bilibili/app/cinema-tab" \
   -d '{}'
 ```
 
+The result is returned in `outputs[0].data`.
+
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "code": 0,
+  "message": "success",
+  "result": {
+    "hot": {
+      "desc": "查看更多",
+      "items": [],
+      "title": "热点推荐",
+      "wid": 0
+    },
+    "modules": [
+      {
+        "attr": {
+          "follow": 0,
+          "header": 0,
+          "random": 0
+        },
+        "headers": [],
+        "items": [
+          {
+            "badge_info": {
+              "bg_color": "",
+              "bg_color_night": "",
+              "text": ""
+            },
+            "cover": "https://i0.hdslb.com/bfs/bangumi/image/ef8e0830ba7f817362c9d2166e71e3fbe4aaa2d9.…",
+            "is_preview": 0,
+            "item_id": 156505,
+            "link": "https://www.bilibili.com/bangumi/play/ss45270?theme=movie",
+            "oid": 45270,
+            "report": {
+              "card_type": "banner",
+              "item_id": "156505",
+              "module_id": "85",
+              "module_type": "banner",
+              "oid": "https://www.bilibili.com/bangumi/play/ss45270?theme=movie"
+            },
+            "season_id": 45270
+          }
+        ],
+        "module_id": "85",
+        "report": {
+          "module_id": "85",
+          "module_type": "banner"
+        },
+        "size": 6,
+        "style": "banner",
+        "title": "banner",
+        "type": 1,
+        "wid": [
+          288
+        ]
+      }
+    ],
+    "regions": [
+      {
+        "icon": "http://i0.hdslb.com/bfs/bangumi/image/c8ad7c4053e80927f0a29c508089ea2781aba317.p…",
+        "report": {
+          "card_type": "function",
+          "item_id": "103591",
+          "module_id": "248",
+          "module_type": "function"
+        },
+        "title": "纪录片",
+        "url": "bilibili://pgc/partition_page?page_name=documentary-operation&title=%E7%BA%AA%E5…"
+      }
+    ]
+  }
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `result.modules[]` | The content blocks of the tab. Each block has a `title`, a `style` (for example `banner`, `function` or `static`), a `module_id`, and a list of `items`. |
+| `result.modules[].items[].cover` | URL of the cover image for the item. |
+| `result.modules[].items[].link` | Link for the item. It is either a Bilibili web play page or an in-app `bilibili://` link. |
+| `result.modules[].items[].season_id / result.modules[].items[].episode_id` | IDs of the season or episode the item points to. They appear only on items that link to a play page. |
+| `result.modules[].items[].aid / result.modules[].items[].cid` | Numeric video IDs attached to some items. |
+| `result.modules[].items[].title` | Label of an entry, such as 电影 (movie) or 电视剧 (TV series). It appears on function entries. |
+| `result.modules[].items[].badge_info.text` | Text of the badge shown on the item. It is an empty string when there is no badge. |
+| `result.modules[].report` | Tracking info for the module, with `module_id` and `module_type`. |
+| `result.hot.title / result.hot.items` | Title and items of the hot recommendation section. `items` can be empty. |
+| `result.regions[].title / result.regions[].icon / result.regions[].url` | Name, icon image and in-app link of each cinema category, such as documentary, movie and TV series. |
+
+### Notes
+
+- The request takes no parameters. Send `{}` as the body.
+- Some modules return an empty `items` list, so check the list length before you read it.
+- Links that start with `bilibili://` open inside the Bilibili app. Links that start with `https://` open a web page.
+- To see anime recommendations instead, call [Bilibili App Bangumi Tab](/apis/bilibili/app/bangumi-tab).
+
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

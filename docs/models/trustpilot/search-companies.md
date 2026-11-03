@@ -69,7 +69,14 @@ Same call via the path form: `POST /v1/api/trustpilot/search-companies` with the
 
 ## Details
 
-Search for companies by name or keyword. Returns basic company info including domain, trust score, star rating, and review count.
+Returns Trustpilot companies that match a search keyword or company name. Each result includes the company domain, categories, trust score, star rating, review count, and a location object. The only required input is `query`.
+
+### Use cases
+
+- Find the Trustpilot ID and domain of a company before you pull its reviews.
+- Compare trust scores and review counts across companies in one industry, such as airlines.
+- Build a list of companies that match a keyword for reputation monitoring.
+- Check whether a brand has a Trustpilot profile and whether it is marked as verified.
 
 ### Request
 
@@ -80,7 +87,7 @@ curl -X POST "https://api.sandbase.ai/v1/api/trustpilot/search-companies" \
   -d '{"query": "airline"}'
 ```
 
-This API runs asynchronously. The call returns a task `id` with status `pending`; poll `GET https://api.sandbase.ai/v1/run/{id}` until `status` is `completed` and read the result from `outputs[0].data`.
+The result is returned in `outputs[0].data`.
 
 ### Parameters
 
@@ -90,9 +97,76 @@ This API runs asynchronously. The call returns a task `id` with status `pending`
 | `limit` | integer | No | Results per page (max 20) |
 | `page` | integer | No | Page number |
 
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "data": {
+    "companies": [
+      {
+        "categories": [
+          "Airline"
+        ],
+        "domain": "www.lufthansa.com",
+        "id": "46d421dd000064000500ba73",
+        "location": {
+          "approximateArea": [
+            [
+              -180
+            ]
+          ],
+          "city": null,
+          "coordinates": {
+            "lat": 39.7837304,
+            "lon": -100.445882
+          },
+          "country": "United States",
+          "countryCode": "US",
+          "postcode": null,
+          "street": null
+        },
+        "name": "Lufthansa",
+        "review_count": 15266,
+        "stars": 1.5,
+        "trust_score": 1.3,
+        "verified": false,
+        "website_url": "https://www.lufthansa.com"
+      }
+    ],
+    "total_hits": 2811,
+    "total_pages": 141
+  },
+  "status": "success"
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `data.companies[].name` | Company name as shown on Trustpilot. |
+| `data.companies[].id` | Trustpilot ID of the company. It is a 24-character hex string. |
+| `data.companies[].domain / data.companies[].website_url` | Company website as a bare domain and as a full URL. |
+| `data.companies[].trust_score` | Trustpilot TrustScore of the company, for example `1.3`. |
+| `data.companies[].stars` | Star rating of the company, for example `1.5`. |
+| `data.companies[].review_count` | Number of reviews the company has on Trustpilot. |
+| `data.companies[].categories[]` | Category labels attached to the company, such as `Airline` or `Travel Agency`. |
+| `data.companies[].verified` | Boolean flag that shows whether the company profile is verified. |
+| `data.companies[].location.country / data.companies[].location.countryCode` | Country name and country code in the location data. `city`, `street`, and `postcode` can be `null`. |
+| `data.total_hits / data.total_pages` | Total number of matching companies and the number of pages at the current page size. |
+
+### Notes
+
+- Use `page` and `limit` to move through results. `limit` has a maximum of 20.
+- Pass the company `domain` or `id` to the next call. [Trustpilot Company Overview](/apis/trustpilot/company-overview) gives more detail on one company.
+- Call [Trustpilot Company Reviews](/apis/trustpilot/company-reviews) to read the individual reviews of a company.
+- To browse by industry instead of keyword, use [Trustpilot Companies By Category](/apis/trustpilot/companies-by-category).
+
 ### Pricing
 
-Flat price per call. Failed calls are not charged.
+$0.03 per successful call. Failed calls are not charged.
 
 ---
 Machine-readable: [`catalog/models/trustpilot/search-companies.json`](../../../catalog/models/trustpilot/search-companies.json) · Store page: https://www.sandbase.ai/model/trustpilot/search-companies

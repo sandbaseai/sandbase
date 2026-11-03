@@ -65,13 +65,14 @@ Same call via the path form: `POST /v1/api/douyin/search/multi-search` with the 
 
 ## Details
 
-Query mixed Douyin content types matching a specific `keyword`. Apply filters like `sort_type`, `content_type`, `publish_time`, and `filter_duration` to refine results.
+Returns Douyin search results for a keyword as a list of result cards, mostly videos, plus pagination state and suggested search words. The main input is `keyword`. Optional filters cover sort order, content type, video duration and publish time.
 
 ### Use cases
 
-- Retrieve blended Douyin search results matching target keywords.
-- Filter content discovery by duration, sort order, and post date.
-- Collect suggested search queries and related topic terms.
+- Pull the top video cards for a keyword such as `猫咪` to see what Douyin ranks first.
+- Collect the suggested search words returned for a keyword to find related topics.
+- Page through results with `cursor`, `search_id` and `backtrace` to build a larger set of videos for one keyword.
+- Narrow results by duration or post date with `filter_duration` and `publish_time` to study recent or short videos.
 
 ### Request
 
@@ -82,48 +83,56 @@ curl -X POST "https://api.sandbase.ai/v1/api/douyin/search/multi-search" \
   -d '{}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
 |---|---|---|---|
-| `cursor` | integer | No | Pagination cursor (0 for the first page, use the last response cursor for subsequent pages) |
-| `keyword` | string | No | Search keyword, e.g., "Artificial Intelligence" |
 | `backtrace` | string | No | Backtrace for pagination, obtained from the last response |
+| `content_type` | string | No | Content type filter |
+| `cursor` | integer | No | Pagination cursor (0 for the first page, use the last response cursor for subsequent pages) |
+| `filter_duration` | string | No | Video duration filter |
+| `keyword` | string | No | Search keyword, e.g., "Artificial Intelligence" |
+| `publish_time` | string | No | Publish time filter |
 | `search_id` | string | No | Search ID used for pagination |
 | `sort_type` | string | No | Sorting method |
-| `content_type` | string | No | Content type filter |
-| `publish_time` | string | No | Publish time filter |
-| `filter_duration` | string | No | Video duration filter |
 
 ### Example response
 
-Real response for the request above, trimmed to the main fields. User names and long IDs are masked.
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
 
 ```json
-{
-  "business_config": {
-    "extra": {
-      "guide_search_words": [
-        {
-          "id": "6527573731718468871",
-          "query_id": "6537523068217103624",
-          "type": "recom",
-          "word": "视频"
-        }
-      ]
-    }
-  }
-}
+[
+  13270
+]
 ```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `business_config.business_data[].card_id` | Type of each result card. The sample value `douyin.doctype_aweme_video` marks a video card. |
+| `business_config.business_data[].data.aweme_info` | Video details for a video card. It includes the video author, an `authentication_token` and the other video metadata. |
+| `business_config.business_data[].data.aweme_info.author` | Profile data of the account that posted the video, including avatar images with `url_list` links. |
+| `business_config.business_data[].log.search_result_id` | ID of the search result, which matches the video ID used in `pitaya_common_feature.doc_feature[].search_result_id`. |
+| `business_config.has_more` | Shows whether more results exist. The sample value is `1`. |
+| `business_config.next_page.cursor` | Cursor value to send as `cursor` when you request the next page. |
+| `business_config.next_page.search_id` | Search ID to send as `search_id` when you request the next page. |
+| `business_config.backtrace` | Pagination token to send as `backtrace` when you request the next page. |
+| `business_config.extra.guide_search_words[].word` | Suggested related search word, such as `视频`, `图片` or `头像`. |
+| `business_config.extra.impression_server_log.query` | The keyword the search ran for. |
 
 ### Notes
 
-- Set `cursor` to 0 for the first page and use the cursor from the previous response for subsequent pages.
-- Pass `backtrace` and `search_id` from the prior response to maintain pagination state.
+- For the first page, send `cursor` as `0` and leave `search_id` and `backtrace` empty.
+- For the next page, copy `business_config.next_page.cursor`, `business_config.next_page.search_id` and `business_config.backtrace` into `cursor`, `search_id` and `backtrace`.
+- The response is a JSON array. The search data is in the second element, under `business_config`.
+- To search one content type only, try [Douyin Video Search](/apis/douyin/search/video-search-v2), [Douyin User Search (V2)](/apis/douyin/search/user-search-v2) or [Douyin Music Search](/apis/douyin/search/music-search).
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.01 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

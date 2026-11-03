@@ -65,13 +65,14 @@ Same call via the path form: `POST /v1/api/bilibili/web/one-video-v2` with the b
 
 ## Details
 
-Retrieve detailed information for a Bilibili video by providing the target `a_id` and `c_id`.
+Returns player-side metadata for one Bilibili video, such as its `bvid`, `cid`, permission flags, paid-preview status and the current online viewer count. It needs the numeric video id as `a_id` and the part id as `c_id`.
 
 ### Use cases
 
-- Retrieve video metadata and stream identifiers for player integration
-- Monitor performance metrics of a specific Bilibili video
-- Inspect individual video components using video and CID identifiers
+- Convert a known `aid` and `cid` pair into the matching `bvid` for building a video link.
+- Check whether a video is a paid or exclusive preview by reading `is_ugc_pay_preview`, `is_upower_exclusive` and `preview_toast`.
+- Read the live `online_count` for a video at the moment of the call.
+- Check subtitle login requirements and playback limits before building a player page.
 
 ### Request
 
@@ -82,6 +83,8 @@ curl -X POST "https://api.sandbase.ai/v1/api/bilibili/web/one-video-v2" \
   -d '{"a_id": "114006081739452", "c_id": "28400484458"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
@@ -89,13 +92,71 @@ curl -X POST "https://api.sandbase.ai/v1/api/bilibili/web/one-video-v2" \
 | `a_id` | string | Yes | Video id |
 | `c_id` | string | Yes | Video cid |
 
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "code": 0,
+  "data": {
+    "aid": 114006081739452,
+    "allow_bp": false,
+    "answer_status": 2,
+    "arc_aigc": null,
+    "asr_language": "",
+    "bgm_info": null,
+    "block_time": 0,
+    "bvid": "BV1GYAAefEjL",
+    "cid": 28400484458,
+    "disable_show_up_info": false,
+    "elec_high_level": {
+      "button_text": "",
+      "intro": "",
+      "jump_url": "",
+      "new": false,
+      "privilege_type": 0,
+      "qa_title": "",
+      "question_text": "",
+      "show_button": false,
+      "sub_title": "",
+      "title": ""
+    },
+    "fawkes": {
+      "config_version": 39232,
+      "ff_version": 21289
+    }
+  },
+  "message": "OK",
+  "ttl": 1
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `data.aid / data.bvid / data.cid` | The numeric video id, the BV-format video id and the part id (`cid`) of the video that was requested. |
+| `data.online_count` | Number of viewers shown as online for the video when the call was made. |
+| `data.is_ugc_pay_preview` | Whether the video is shown as a paid preview. When it is `true`, `data.preview_toast` holds the prompt text for buying the full video. |
+| `data.preview_toast` | Text shown to viewers about purchasing the full video. It is returned in Chinese. |
+| `data.is_upower_exclusive / data.is_upower_exclusive_with_qa / data.is_upower_play` | Flags for exclusive-content status on the video. |
+| `data.need_login_subtitle` | Whether subtitles require a logged-in user. |
+| `data.max_limit` | A numeric limit value returned for the video. The response does not state which item it limits. |
+| `data.has_next` | Whether another item follows this one. |
+| `data.page_no` | The page (part) number of the video that this response covers. |
+| `data.now_time` | A Unix timestamp that marks when the response was generated. |
+
 ### Notes
 
-- Requires both the video ID `a_id` and the video component identifier `c_id`.
+- Both `a_id` and `c_id` are required and are sent as strings.
+- If you only have a `bvid`, call [Bilibili BV to AID Converter](/apis/bilibili/web/bv-to-aid) to get the `a_id`.
+- To list the parts and `cid` values of a video, call [Bilibili Video Parts](/apis/bilibili/web/video-parts).
+- For stream addresses, use [Bilibili Video Playback URL](/apis/bilibili/web/video-playurl).
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.002 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

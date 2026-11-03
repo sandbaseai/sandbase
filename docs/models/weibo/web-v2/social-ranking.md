@@ -52,13 +52,14 @@ Same call via the path form: `POST /v1/api/weibo/web-v2/social-ranking` with the
 
 ## Details
 
-Returns Weibo social ranking data covering current affairs, social hotspots, and livelihood topics without requiring input parameters.
+Returns the current Weibo social ranking list, which covers current affairs, social hotspots and livelihood topics. The API takes no input. Each entry has a topic title, a heat number, a category and a rank.
 
 ### Use cases
 
-- Track trending news and public affairs topics on Weibo.
-- Monitor social sentiment and community livelihood discussions.
-- Supply trending social topic feeds to external dashboards.
+- Show the top Weibo public affairs topics on a news dashboard.
+- Log `hot_num` for each topic over time to see which stories grow fastest.
+- Filter entries by `category` to collect livelihood news or official clarification notices.
+- Collect the `word_scheme` hashtags to use as keywords in a post search.
 
 ### Request
 
@@ -69,9 +70,57 @@ curl -X POST "https://api.sandbase.ai/v1/api/weibo/web-v2/social-ranking" \
   -d '{}'
 ```
 
+The result is returned in `outputs[0].data`.
+
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "band_list": [
+    {
+      "category": "民生新闻",
+      "emoticon": "",
+      "flag": 2,
+      "hot_num": 2173490,
+      "icon": "https://simg.s.weibo.com/moter/flags/2_0.png",
+      "icon_desc": "热",
+      "icon_desc_color": "#ff9406",
+      "icon_height": 24,
+      "icon_url": "https://simg.s.weibo.com/moter/flags/2_0.png",
+      "icon_width": 24,
+      "is_hot": 1,
+      "loc_page": 4
+    }
+  ]
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `band_list[]` | One ranked topic in the social ranking list. |
+| `band_list[].word / note` | The topic title. Both fields hold the same text in the sample. |
+| `band_list[].word_scheme` | The topic written as a Weibo hashtag, such as `#警方通报九寨沟景区游客冲突事件#`. Some entries have no `#` marks. |
+| `band_list[].hot_num / num` | The heat value of the topic. Higher numbers rank higher. |
+| `band_list[].rank / realpos` | The position in the list. `rank` starts at 0 and `realpos` starts at 1. |
+| `band_list[].category / m_category` | The topic category, for example `民生新闻` (livelihood news) or `辟谣/通报` (rumor refutation or official notice). |
+| `band_list[].icon_desc` | The short label shown on the topic, such as `热`, `新` or `沸`. The flags `is_hot`, `is_new` and `is_fei` match these labels. |
+| `band_list[].flag` | Numeric code for the label type. The sample shows `1` with `新`, `2` with `热` and `16` with `沸`. |
+| `band_list[].subject_querys` | Related event names keyed by query text. Each value has `subject_trend` (a trend title) and `subject_type`. |
+| `band_list[].icon_url` | URL of the label image for the topic. |
+
+### Notes
+
+- Send an empty JSON object `{}`. The API has no request parameters and no pagination.
+- To read the posts behind a topic, pass its `word` to [Weibo Topic Search](/apis/weibo/web-v2/topic-search) or [Weibo Real-Time Search](/apis/weibo/web-v2/realtime-search).
+- For other rankings, see [Weibo Life Ranking](/apis/weibo/web-v2/life-ranking).
+
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

@@ -52,13 +52,14 @@ Same call via the path form: `POST /v1/api/lemon8/app/discover-banners` with the
 
 ## Details
 
-Call this endpoint without additional parameters to inspect the latest promotional banners featured on the Lemon8 discover page.
+Returns the banners currently shown on the Lemon8 discover page. Each banner has a title, a click link, and image URLs. The request takes no input parameters.
 
 ### Use cases
 
-- Display current Lemon8 campaign banners inside external dashboards.
-- Monitor featured marketing events showcased on the discover page.
-- Track active promotional highlights across the Lemon8 platform.
+- Show the current Lemon8 campaign banners in an external dashboard.
+- Log banner titles over time to see which campaigns Lemon8 promotes.
+- Download banner images to archive how the discover page looked on a given day.
+- Extract the campaign page links to find which landing pages Lemon8 is promoting.
 
 ### Request
 
@@ -69,9 +70,74 @@ curl -X POST "https://api.sandbase.ai/v1/api/lemon8/app/discover-banners" \
   -d '{}'
 ```
 
+The result is returned in `outputs[0].data`.
+
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "code": 0,
+  "data": {
+    "banners": [
+      {
+        "banner_click_url": "sslocal://webview?url=https%3A%2F%2Fv.lemon8-app.com%2Foxygen%2Fpage%2Frelease%2…",
+        "collection_banner_url": {
+          "height": 1,
+          "uri": "tos-alisg-i-sdweummd6v-sg/ec242ef821a849909b6fedabb9185281",
+          "url_list": [
+            {
+              "url": "https://p16-lemon8-cross-sign.tiktokcdn-us.com/tos-alisg-i-sdweummd6v-sg/ec242ef…"
+            }
+          ],
+          "width": 1
+        },
+        "id": "26051",
+        "profile_banner_url": {
+          "height": 1,
+          "uri": "tos-alisg-i-sdweummd6v-sg/0fc8e0e164d94b179c3c431ab60ceddb",
+          "url_list": [
+            {
+              "url": "https://p16-lemon8-cross-sign.tiktokcdn-us.com/tos-alisg-i-sdweummd6v-sg/0fc8e0e…"
+            }
+          ],
+          "width": 1
+        },
+        "title": "Meet the ingredients behind the glow!"
+      }
+    ]
+  },
+  "message": "success",
+  "result_status": 0,
+  "server_time": "1793691389.99"
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `data.banners[]` | List of banners on the discover page. Each item is one banner. |
+| `data.banners[].id` | Banner ID as a string, such as `26051`. |
+| `data.banners[].title` | Display title of the banner, for example a campaign or topic headline. |
+| `data.banners[].banner_click_url` | Link opened when a user taps the banner. It uses the `sslocal://webview?url=` format, with the target page URL-encoded inside the `url` value. |
+| `data.banners[].profile_banner_url` | Banner image for the profile placement. Contains `url_list[].url`, `uri`, `width` and `height`. |
+| `data.banners[].collection_banner_url` | Banner image for the collection placement. Has the same structure as `profile_banner_url`. Some banners do not include it. |
+| `data.banners[].banner_image` | Main banner image object with `url_list[].url`, `uri`, `width` and `height`. Only some banners include it. |
+| `data.banners[].profile_banner_url.url_list[].url` | Direct image URL (WebP) for the profile banner. Other image objects use the same `url_list[].url` path. |
+| `server_time` | Server timestamp as a string of Unix seconds with decimals. |
+
+### Notes
+
+- The request body is an empty object `{}`. No parameters are needed.
+- Image fields differ between banners. Check that `banner_image` or `collection_banner_url` exists before you read it. One banner returns `collection_banner_uri` as an empty string instead of an image object.
+- The `width` and `height` values in the image objects are `1` in this response, so do not use them as real image sizes.
+- For other discover page data, call [Lemon8 Discover Page Content](/apis/lemon8/app/discover-tab) or [Lemon8 Hot Search Keywords](/apis/lemon8/app/hot-search-keywords).
+
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

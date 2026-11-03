@@ -62,13 +62,14 @@ Same call via the path form: `POST /v1/api/reddit/app/trending-searches` with th
 
 ## Details
 
-Retrieve real-time trending search queries from the Reddit app. Use `need_format` to specify whether the response data should be cleaned and formatted.
+Returns the list of search queries currently trending in the Reddit mobile app. The only input is the optional `need_format` flag, so you can call it with an empty body.
 
 ### Use cases
 
-- Monitor popular and emerging search queries across Reddit.
-- Power search recommendation interfaces with real-time platform trends.
-- Track shifts in user interest and breaking discussion topics.
+- Show a live list of trending Reddit topics on a dashboard or newsletter.
+- Spot new events, product launches and earnings talk that Reddit users are searching for.
+- Feed trending query text into a keyword search to collect the posts behind each topic.
+- Compare the trending list across repeated calls to see which topics enter or leave it.
 
 ### Request
 
@@ -79,6 +80,8 @@ curl -X POST "https://api.sandbase.ai/v1/api/reddit/app/trending-searches" \
   -d '{}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
@@ -87,27 +90,40 @@ curl -X POST "https://api.sandbase.ai/v1/api/reddit/app/trending-searches" \
 
 ### Example response
 
-Real response for the request above, trimmed to the main fields. User names and long IDs are masked.
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
 
 ```json
 {
   "trendingQueries": [
     {
-      "displayQuery": "Administrative Petition for Correction Automated System",
-      "id": "Administrative Petition for Correction Automated System",
-      "rawQuery": "Administrative Petition for Correction Automated System"
+      "displayQuery": "Sephora Rouge Fall 2026 Savings Event Code",
+      "id": "Sephora Rouge Fall 2026 Savings Event Code",
+      "rawQuery": "Sephora Rouge Fall 2026 Savings Event Code",
+      "trendingIcon": ""
     }
   ]
 }
 ```
 
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `trendingQueries` | List of the trending search queries. Each item is one query. |
+| `trendingQueries[].displayQuery` | The query text as shown to app users. Use this for display. |
+| `trendingQueries[].rawQuery` | The query text to use when you run a search for this topic. |
+| `trendingQueries[].id` | Identifier for the query. In this response it has the same value as the query text. |
+| `trendingQueries[].trendingIcon` | Icon value for the query. It is an empty string in this response. |
+
 ### Notes
 
-- Use `need_format` to control whether the query data is cleaned and formatted.
+- The request needs no input. Send `{}` to get the default output, or set `need_format` to `true` to ask for cleaned and formatted data.
+- Pass a `rawQuery` value to [Reddit Keyword Search](/apis/reddit/search) or [Reddit Search](/apis/reddit/app/dynamic-search) to get the posts for a trending topic.
+- To get partial matches while a user types, use [Reddit App Search Typeahead](/apis/reddit/app/search-typeahead).
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

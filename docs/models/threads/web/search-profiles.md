@@ -62,13 +62,14 @@ Same call via the path form: `POST /v1/api/threads/web/search-profiles` with the
 
 ## Details
 
-Look up Threads user profiles by supplying a text search term via the `query` parameter.
+Returns a list of Threads user accounts that match a text query. You send one `query` string, such as a name or handle, and get back each match with its username, display name, ID, and verification status.
 
 ### Use cases
 
-- Find relevant Threads accounts matching brand or organization names.
-- Discover user profiles based on specific keywords or handles.
-- Locate public figures and creators across the Threads network.
+- Find the official Threads account for a brand by searching its name.
+- Collect candidate accounts for a keyword to review who uses similar handles.
+- Resolve a handle to a numeric user ID before calling other Threads APIs.
+- Check whether a matched account is verified and active on Threads.
 
 ### Request
 
@@ -79,19 +80,62 @@ curl -X POST "https://api.sandbase.ai/v1/api/threads/web/search-profiles" \
   -d '{"query": "OpenAI"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
 |---|---|---|---|
 | `query` | string | Yes | Search query, for example: mark |
 
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "xdt_api__v1__users__search_connection": {
+    "edges": [
+      {
+        "node": {
+          "full_name": "OpenAI",
+          "has_onboarded_to_text_post_app": true,
+          "id": "63299409527",
+          "is_active_on_text_post_app": true,
+          "is_verified": true,
+          "pk": "63299409527",
+          "profile_pic_url": "https://scontent-sea5-1.cdninstagram.com/v/t51.82787-19/788716177_18115256264517…",
+          "username": "openai"
+        }
+      }
+    ],
+    "inform_module": null
+  }
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `xdt_api__v1__users__search_connection.edges[].node.username` | The Threads handle of the matched account, such as `openai`. |
+| `xdt_api__v1__users__search_connection.edges[].node.full_name` | The display name shown on the profile. |
+| `xdt_api__v1__users__search_connection.edges[].node.id / pk` | The numeric user ID as a string. Both keys hold the same value in the sample. |
+| `xdt_api__v1__users__search_connection.edges[].node.is_verified` | Whether the account carries a verified flag. |
+| `xdt_api__v1__users__search_connection.edges[].node.is_active_on_text_post_app` | Whether the account is marked active on Threads. |
+| `xdt_api__v1__users__search_connection.edges[].node.has_onboarded_to_text_post_app` | Whether the account has completed onboarding to Threads. |
+| `xdt_api__v1__users__search_connection.edges[].node.profile_pic_url` | A link to the profile picture image. |
+
 ### Notes
 
-- The `query` parameter specifies the text search term, such as a name or handle.
+- The only input is `query`. A name or handle both work as search text.
+- Results are not exact matches only. A search for `OpenAI` also returned accounts like `choi.openai` and `openani.me`, so compare `username` before you pick one.
+- Use `id` or `pk` as the user ID in [Threads User Info by ID](/apis/threads/web/user-info-by-id), or the `username` in [Threads User Profile](/apis/threads/web/user-info).
+- To read an account's content, pass the match to [Threads User Posts](/apis/threads/web/user-posts).
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.003 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

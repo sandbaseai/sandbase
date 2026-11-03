@@ -65,13 +65,14 @@ Same call via the path form: `POST /v1/api/reddit/app/subreddit-settings` with t
 
 ## Details
 
-Retrieve community configuration and moderation rules by specifying a `subreddit_id`.
+Returns settings for one Reddit subreddit, such as allowed post types, flair settings, comment media types and channel options. It needs a `subreddit_id` that starts with `t5_`.
 
 ### Use cases
 
-- Inspect posting rules and flair configurations for a community.
-- Review subreddit moderation and permission settings.
-- Audit community operational settings across multiple subreddits.
+- Check which post types (`LINK`, `IMAGE`, `GALLERY`) a subreddit accepts before you build a posting tool.
+- Find out whether post flair and user flair are turned on and whether users can assign them to themselves.
+- Compare discovery and top listing settings across a list of subreddits.
+- Check which comment media types a community allows, such as GIPHY or static images.
 
 ### Request
 
@@ -82,6 +83,8 @@ curl -X POST "https://api.sandbase.ai/v1/api/reddit/app/subreddit-settings" \
   -d '{"subreddit_id": "t5_2qh0u"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
@@ -89,14 +92,73 @@ curl -X POST "https://api.sandbase.ai/v1/api/reddit/app/subreddit-settings" \
 | `subreddit_id` | string | Yes | Subreddit ID with format starting with t5_, e.g., "t5_2qh0u" (can be obtained from the fetch_subreddit_info endpoint) |
 | `need_format` | boolean | No | Whether to clean and format the data |
 
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "subredditInfoById": {
+    "__typename": "Subreddit",
+    "allAllowedPostTypes": [
+      "LINK"
+    ],
+    "amaSettings": {
+      "postPermissions": "OFF"
+    },
+    "authorFlairSettings": {
+      "isEnabled": true,
+      "isSelfAssignable": false
+    },
+    "commentContributionSettings": {
+      "allowedMediaTypes": [
+        "GIPHY"
+      ]
+    },
+    "countrySiteSettings": {
+      "countryCode": "",
+      "isCountrySiteEditable": true,
+      "languageCode": "",
+      "modMigrationAt": "2023-07-03T16:04:00.000000+0000"
+    },
+    "id": "t5_2qh0u",
+    "isArchivePostsEnabled": true,
+    "isDiscoveryAllowed": true,
+    "isSubredditChannelsEnabled": {
+      "isChatEnabled": false,
+      "isPostEnabled": true
+    },
+    "isTopListingAllowed": true,
+    "language": "en"
+  }
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `subredditInfoById.id` | The subreddit ID, in the same `t5_` format as the input. |
+| `subredditInfoById.allAllowedPostTypes[]` | The post types the subreddit accepts, such as `LINK`, `IMAGE` and `GALLERY`. |
+| `subredditInfoById.postFlairSettings.isEnabled / subredditInfoById.authorFlairSettings.isEnabled` | Whether post flair and author flair are enabled in this subreddit. |
+| `subredditInfoById.postFlairSettings.isSelfAssignable / subredditInfoById.authorFlairSettings.isSelfAssignable` | Whether users can assign the flair to themselves. |
+| `subredditInfoById.commentContributionSettings.allowedMediaTypes[]` | The media types allowed in comments, such as `GIPHY`, `STATIC` and `EXPRESSION`. |
+| `subredditInfoById.isSubredditChannelsEnabled.isChatEnabled / subredditInfoById.isSubredditChannelsEnabled.isPostEnabled` | Whether chat channels and post channels are enabled for the subreddit. |
+| `subredditInfoById.isDiscoveryAllowed / subredditInfoById.isTopListingAllowed` | Whether the subreddit may appear in discovery and in top listings. |
+| `subredditInfoById.isArchivePostsEnabled` | Whether archiving of posts is enabled. |
+| `subredditInfoById.language` | The language code set for the subreddit, such as `en`. |
+| `subredditInfoById.amaSettings.postPermissions` | The AMA post permission setting. The value `OFF` is returned in this example. |
+
 ### Notes
 
-- The `subreddit_id` must start with the t5_ prefix, such as t5_2qh0u.
-- Set `need_format` to true to return cleaned and formatted data.
+- Get the `subreddit_id` from the [Reddit App Subreddit Info](/apis/reddit/app/subreddit-info) API. The ID starts with `t5_`, for example `t5_2qh0u`.
+- Set `need_format` to `true` to clean and format the data. The default is `false`.
+- For the rules and style of a subreddit, call [Reddit Subreddit Rules and Style Info](/apis/reddit/app/subreddit-style).
+- `countrySiteSettings.modMigrationAt` is an ISO 8601 timestamp in UTC.
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

@@ -60,13 +60,14 @@ Same call via the path form: `POST /v1/api/instagram/v2/user-reels` with the bod
 
 ## Details
 
-Retrieve reels posted by an Instagram profile using `username` or `user_id`. Supports `pagination_token` to navigate through subsequent pages of results.
+Returns a list of Reels posted by an Instagram account. Each item holds the caption, comment count, audio details and sharing settings. You pass a `username` or a `user_id`.
 
 ### Use cases
 
-- Browse recent video reels from a specific creator profile.
-- Monitor new reel posts across tracked Instagram accounts.
-- Ingest Instagram reels metadata into content archives.
+- Pull the latest Reels from a brand account to track what it posts.
+- Compare `comment_count` across Reels to find which videos get the most discussion.
+- Collect the hashtags and mentions used in Reel captions to see which creators and tags an account features.
+- Check the `audio_type` of each Reel to see how often an account uses original sounds versus licensed music.
 
 ### Request
 
@@ -77,22 +78,133 @@ curl -X POST "https://api.sandbase.ai/v1/api/instagram/v2/user-reels" \
   -d '{"username": "instagram", "user_id": "18527"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
 |---|---|---|---|
+| `pagination_token` | string | No | Pagination token from previous response |
 | `user_id` | string | No | User ID (either username or user_id required) |
 | `username` | string | No | Username (either username or user_id required) |
-| `pagination_token` | string | No | Pagination token from previous response |
+
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "data": {
+    "count": 12,
+    "items": [
+      {
+        "are_remixes_crosspostable": true,
+        "boost_unavailable_identifier": null,
+        "boost_unavailable_reason": null,
+        "boost_unavailable_reason_v2": null,
+        "can_reshare": true,
+        "can_save": true,
+        "caption": {
+          "created_at": 1793647551,
+          "created_at_utc": 1793647551,
+          "did_report_as_spam": false,
+          "hashtags": [],
+          "id": "4021726163100932870",
+          "is_covered": false,
+          "is_ranked_comment": false,
+          "mentions": [
+            "@troyesivan"
+          ]
+        },
+        "caption_is_edited": false,
+        "clips_demotion_control": {
+          "confirmation_body": "We'll suggest fewer posts like this.",
+          "confirmation_icon": "none",
+          "confirmation_style": "bottomsheet",
+          "confirmation_title": "Post hidden",
+          "confirmation_title_style": "large_left",
+          "enable_word_wrapping": true,
+          "followup_options": [
+            {
+              "data": "author_id:25025320",
+              "demotion_control": {
+                "confirmation_body": "We won't suggest posts from instagram.",
+                "confirmation_icon": "eye-off-pano",
+                "confirmation_style": "bottomsheet",
+                "confirmation_title": "",
+                "undo_style": "inline"
+              },
+              "id": "dislike",
+              "show_icon": true,
+              "style": null,
+              "subtitle": null,
+              "text": "Don't suggest posts from instagram"
+            }
+          ],
+          "title": "Not interested"
+        },
+        "clips_metadata": {
+          "achievements_info": {
+            "num_earned_achievements": null,
+            "show_achievements": false
+          },
+          "additional_audio_info": {
+            "additional_audio_username": null,
+            "audio_reattribution_info": {
+              "should_allow_restore": false
+            }
+          },
+          "asset_recommendation_info": null,
+          "audio_canonical_id": "18418030405089197",
+          "audio_ranking_info": {
+            "best_audio_cluster_id": "1079281138448348"
+          },
+          "audio_type": "original_sounds",
+          "basel_template_info_for_ig_app": {
+            "is_basel_template": null,
+            "original_template_media_id": null,
+            "should_show_reuse_setting_for_owner": false,
+            "use_template_deeplink": null
+          },
+          "branded_content_tag_info": {
+            "can_add_tag": false
+          }
+        },
+        "clips_tab_pinned_user_ids": [],
+        "coauthor_producer_can_see_organic_insights": false
+      }
+    ]
+  },
+  "pagination_token": "GU1VBBop…"
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `data.count` | Number of Reels in this response. |
+| `data.items[].code` | Short code of the Reel. It is the part of the Instagram post URL that identifies the Reel. |
+| `data.items[].fbid` | Numeric ID of the Reel as a string. |
+| `data.items[].comment_count` | Number of comments on the Reel. |
+| `data.items[].caption.id` | ID of the caption. |
+| `data.items[].caption.created_at / data.items[].caption.created_at_utc` | Time the caption was created, as a Unix timestamp in seconds. |
+| `data.items[].caption.hashtags` | List of hashtags in the caption, each with the leading `#`. The list is empty when the caption has none. |
+| `data.items[].caption.mentions` | List of accounts mentioned in the caption, each with the leading `@`. |
+| `data.items[].clips_metadata.audio_type` | Type of audio on the Reel. Values seen include `original_sounds` and `licensed_music`. |
+| `data.items[].clips_metadata.audio_canonical_id` | ID of the audio track used in the Reel. |
+| `data.items[].has_audio` | Whether the Reel has an audio track. |
 
 ### Notes
 
-- Provide either `username` or `user_id` to query an account.
-- Pass `pagination_token` from a previous response to fetch additional pages.
+- Send either `username` or `user_id`. The example uses `instagram` and `18527`.
+- Pass the `pagination_token` from a previous response to get the next page of Reels.
+- To get the full details of one Reel, call [Instagram Post Details (V2)](/apis/instagram/v2/post-info) with its `code`.
+- To read the comments on a Reel, call [Instagram Post Comments (V2)](/apis/instagram/v2/post-comments).
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.002 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

@@ -64,9 +64,14 @@ Same call via the path form: `POST /v1/api/ahrefs/metrics` with the body above m
 
 ## Details
 
-Return core Site Explorer metrics for a target domain on a given date: organic and paid keyword counts, top-3 keyword count, organic traffic, and traffic value. 4xx/5xx are not charged.
+Returns Site Explorer metrics for a target domain on a given date. The response covers organic and paid keyword counts, top-3 organic keywords, organic and paid traffic, and cost values. You send a `target` domain and a `date` in `YYYY-MM-DD` format.
 
-The response is the official Ahrefs API response, unchanged.
+### Use cases
+
+- Compare the organic traffic of a competitor domain with your own on the same date.
+- Track how many keywords a site ranks for in positions 1 to 3 by calling the API for different dates.
+- Check whether a domain runs paid search by reading `metrics.paid_keywords` and `metrics.paid_traffic`.
+- Estimate the value of a site's organic traffic with `metrics.org_cost` when screening acquisition targets.
 
 ### Request
 
@@ -77,6 +82,8 @@ curl -X POST "https://api.sandbase.ai/v1/api/ahrefs/metrics" \
   -d '{"target": "ahrefs.com", "date": "2026-10-01"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
@@ -84,9 +91,47 @@ curl -X POST "https://api.sandbase.ai/v1/api/ahrefs/metrics" \
 | `date` | string | Yes | Snapshot date in `YYYY-MM-DD` format. |
 | `target` | string | Yes | Target domain, e.g. `ahrefs.com`. |
 
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "metrics": {
+    "org_cost": 423229931,
+    "org_keywords": 36098,
+    "org_keywords_1_3": 14678,
+    "org_traffic": 2566697,
+    "paid_cost": 45844,
+    "paid_keywords": 34,
+    "paid_pages": 10,
+    "paid_traffic": 515
+  }
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `metrics.org_keywords` | Number of keywords the target ranks for in organic search. |
+| `metrics.org_keywords_1_3` | Number of organic keywords where the target ranks in positions 1 to 3. |
+| `metrics.org_traffic` | Organic traffic estimate for the target. |
+| `metrics.org_cost` | Cost value of the organic traffic. The response does not show the currency unit. |
+| `metrics.paid_keywords` | Number of keywords the target bids on in paid search. |
+| `metrics.paid_pages` | Number of pages of the target that appear in paid search results. |
+| `metrics.paid_traffic` | Paid traffic estimate for the target. |
+| `metrics.paid_cost` | Cost value of the paid traffic. The response does not show the currency unit. |
+
+### Notes
+
+- Both `target` and `date` are required. Pass the domain, for example `ahrefs.com`, and a date such as `2026-10-01`.
+- Call the API with different `date` values to build a time series for one domain.
+- To see the authority score of the same domain, call [Ahrefs Ahrefs Domain Rating](/apis/ahrefs/domain-rating).
+
 ### Pricing
 
-Flat price per call. Failed calls are not charged.
+$0.08 per successful call. Failed calls are not charged.
 
 ---
 Machine-readable: [`catalog/models/ahrefs/metrics.json`](../../../catalog/models/ahrefs/metrics.json) · Store page: https://www.sandbase.ai/model/ahrefs/metrics

@@ -62,13 +62,14 @@ Same call via the path form: `POST /v1/api/youtube/web/channel-info` with the bo
 
 ## Details
 
-Retrieve channel profile data and associated links by providing a valid `channel_id`.
+Returns the public profile of a YouTube channel: title, description, country, creation date, subscriber, video and view counts, avatar and banner images, and external links. It needs one input, the `channel_id`.
 
 ### Use cases
 
-- Look up public links and metadata associated with a YouTube channel.
-- Audit channel information and external web links.
-- Collect channel details for creator research and monitoring.
+- Build a creator profile card with the channel title, avatar, banner and verified status.
+- Collect a channel's external links, such as store and membership pages, for outreach or link audits.
+- Track a channel's subscriber, video and view counts for creator research.
+- Check whether a channel lists a business email before you plan contact.
 
 ### Request
 
@@ -79,6 +80,8 @@ curl -X POST "https://api.sandbase.ai/v1/api/youtube/web/channel-info" \
   -d '{"channel_id": "UCXuqSBlHAE6Xw-yeJA0Tunw"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
@@ -87,25 +90,66 @@ curl -X POST "https://api.sandbase.ai/v1/api/youtube/web/channel-info" \
 
 ### Example response
 
-Real response for the request above, trimmed to the main fields. User names and long IDs are masked.
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
 
 ```json
 {
+  "avatar": [
+    {
+      "height": 72,
+      "url": "https://yt3.googleusercontent.com/gnvYLhXy8FAlPXZ2RTrkrgj-5kyt0vdE2FUGVOiKGdEZIa…",
+      "width": 72
+    }
+  ],
+  "banner": [
+    {
+      "height": 175,
+      "url": "https://yt3.googleusercontent.com/U_7GWetO6k4sq3pAkbFEIIWzZLKcIJlGJqNz6NQAhgqF6D…",
+      "width": 1060
+    }
+  ],
+  "channel_id": "UCXuqSBlHAE6Xw-yeJA0Tunw",
+  "country": "Canada",
+  "creation_date": "Nov 24, 2008",
+  "description": "Linus Tech Tips is a passionate team of \"professionally curious\" experts in cons…",
+  "has_business_email": true,
   "links": [
     {
+      "endpoint": "lttstore.com",
       "name": "lttstore.com"
     }
-  ]
+  ],
+  "subscriber_count": "16.9M subscribers",
+  "title": "Linus Tech Tips",
+  "verified": true,
+  "video_count": "7.9K videos"
 }
 ```
 
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `title / channel_id` | The channel name and its YouTube channel ID. |
+| `description` | The channel's about text. Long text may be cut. |
+| `country / creation_date` | The country shown on the channel and the date the channel was created, for example `Nov 24, 2008`. |
+| `subscriber_count / video_count / view_count` | Display strings for audience size, number of videos and total views, for example `16.9M subscribers` and `9,961,845,838 views`. Parse the text before you do math on it. |
+| `verified` | `true` when the channel carries a verified status. |
+| `has_business_email` | `true` when the channel has a business email listed. The email address is not in the response. |
+| `links[].name / links[].endpoint` | The label of an external link on the channel and its target address, such as `floatplane.com/ltt`. |
+| `avatar[].url / avatar[].width / avatar[].height` | Profile image URLs at several sizes. Pick the size you need. |
+| `banner[].url / banner[].width / banner[].height` | Banner image URLs at several sizes. |
+
 ### Notes
 
-- Requires a valid `channel_id` representing the target YouTube channel.
+- Channel IDs start with `UC`, as in `UCXuqSBlHAE6Xw-yeJA0Tunw`.
+- If you only have a channel URL, call [YouTube Channel ID from URL (V2)](/apis/youtube/web/channel-id-v2) first to get the `channel_id`.
+- If you only have a channel name, call [YouTube Channel ID Lookup](/apis/youtube/web/channel-id).
+- To list the channel's Shorts, use [YouTube Channel Short Videos](/apis/youtube/web/channel-short-videos).
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

@@ -65,7 +65,14 @@ Same call via the path form: `POST /v1/api/clutch/search-companies` with the bod
 
 ## Details
 
-Search for companies in a specific service category on Clutch.co. Returns a paginated list of company summaries.
+Returns a page of companies listed in one service category on Clutch. Each entry has the company name, profile URL, slug, rating, review count and verification flag. Pass a `category` slug and a 0-based `page` number.
+
+### Use cases
+
+- Build a lead list of agencies or developers in a single service category.
+- Collect company slugs and profile URLs to feed into profile, review or portfolio lookups.
+- Page through a category to track which companies appear in it.
+- Filter a category list by the `verified` flag to find verified companies.
 
 ### Request
 
@@ -76,7 +83,7 @@ curl -X POST "https://api.sandbase.ai/v1/api/clutch/search-companies" \
   -d '{}'
 ```
 
-This API runs asynchronously. The call returns a task `id` with status `pending`; poll `GET https://api.sandbase.ai/v1/run/{id}` until `status` is `completed` and read the result from `outputs[0].data`.
+The result is returned in `outputs[0].data`.
 
 ### Parameters
 
@@ -85,9 +92,53 @@ This API runs asynchronously. The call returns a task `id` with status `pending`
 | `category` | string | No | Category slug identifying the service vertical to search. |
 | `page` | integer | No | Page number, 0-based. |
 
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "data": {
+    "category": "developers",
+    "companies": [
+      {
+        "name": "Simform",
+        "profile_url": "https://clutch.co/profile/simform",
+        "rating": null,
+        "review_count": null,
+        "slug": "simform",
+        "verified": false
+      }
+    ],
+    "page": 0
+  },
+  "status": "success"
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `data.category` | The category slug the search ran against, for example `developers`. |
+| `data.page` | The 0-based page number of this result set. |
+| `data.companies[].name` | Display name of the company. |
+| `data.companies[].profile_url` | Full URL of the company profile page on Clutch. |
+| `data.companies[].slug` | Short identifier of the company, the last part of `profile_url`. Use it to look up the company in other Clutch APIs. |
+| `data.companies[].rating / data.companies[].review_count` | Company rating and number of reviews. Both can be `null` in the list, as in the sample response. |
+| `data.companies[].verified` | Boolean flag. It is `false` for every company in the sample response. |
+| `status` | Result status of the call, `success` when the request worked. |
+
+### Notes
+
+- Both `category` and `page` are optional in the schema. The sample request was sent with `{}` and the response returned the `developers` category on page `0`.
+- Increase `page` by 1 to get the next page. Page numbers start at `0`.
+- Get valid `category` slugs from [Clutch List Categories](/apis/clutch/list-categories).
+- Pass the `slug` to [Clutch Company Profile](/apis/clutch/company-profile) for full company details, or to [Clutch Company Reviews](/apis/clutch/company-reviews) for reviews.
+
 ### Pricing
 
-Flat price per call. Failed calls are not charged.
+$0.01 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ---
 Machine-readable: [`catalog/models/clutch/search-companies.json`](../../../catalog/models/clutch/search-companies.json) · Store page: https://www.sandbase.ai/model/clutch/search-companies

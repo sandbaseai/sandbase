@@ -62,9 +62,14 @@ Same call via the path form: `POST /v1/api/polymarket/events-tags` with the body
 
 ## Details
 
-Get event tags from Polymarket. Returns the official Polymarket API response unchanged.
+Returns the list of tags attached to one Polymarket event. You send the numeric event `id` and get back an array of tag objects with an `id`, `label`, `slug` and update time.
 
-The response is the official Polymarket API response, unchanged.
+### Use cases
+
+- Show category labels next to an event in a market dashboard.
+- Group events by tag `slug` to build topic filters.
+- Check whether an event carries a given tag before you list other events under it.
+- Sync Polymarket tag labels and ids into your own database.
 
 ### Request
 
@@ -75,15 +80,49 @@ curl -X POST "https://api.sandbase.ai/v1/api/polymarket/events-tags" \
   -d '{"id": 2890}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
 |---|---|---|---|
 | `id` | integer | Yes | id |
 
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+[
+  {
+    "forceShow": false,
+    "id": "100215",
+    "label": "All",
+    "slug": "all",
+    "updatedAt": "2026-04-17T20:23:54.340488Z"
+  }
+]
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `[].id` | Tag id as a string. Pass it to the tag lookup APIs to get more detail. |
+| `[].label` | Display name of the tag, such as `All`. |
+| `[].slug` | URL-friendly name of the tag. Use it to look up the tag by slug. |
+| `[].forceShow` | Boolean flag on the tag. In this response it is `false`. |
+| `[].updatedAt` | UTC timestamp in ISO 8601 format for the last update to the tag. |
+
+### Notes
+
+- The `id` parameter is the event id. Get event ids from [Polymarket List events](/apis/polymarket/events) or [Polymarket Get event by slug](/apis/polymarket/events-slug).
+- Tag `id` values are strings, while the request `id` is an integer.
+- Use [Polymarket Get tag by id](/apis/polymarket/tags-by-id) to fetch full details for a tag returned here.
+
 ### Pricing
 
-Flat price per call. Failed calls are not charged.
+$0.00044 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ---
 Machine-readable: [`catalog/models/polymarket/events-tags.json`](../../../catalog/models/polymarket/events-tags.json) · Store page: https://www.sandbase.ai/model/polymarket/events-tags

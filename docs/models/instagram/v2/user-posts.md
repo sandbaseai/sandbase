@@ -60,13 +60,14 @@ Same call via the path form: `POST /v1/api/instagram/v2/user-posts` with the bod
 
 ## Details
 
-Retrieve posts from an Instagram profile by specifying either `username` or `user_id`. Use `pagination_token` to navigate through multiple pages of results.
+Returns a page of recent posts from one Instagram account, plus basic details about the account. You pass a `username` or a `user_id`. Each post includes its caption, comment count, and media details.
 
 ### Use cases
 
-- Retrieve recent posts from an Instagram profile.
-- Archive content history for public accounts.
-- Page through media feeds for social monitoring.
+- Pull the latest posts from a brand account to track what it publishes.
+- Collect comment counts per post to compare engagement across an account's content.
+- Extract caption mentions to see which accounts a profile tags or collaborates with.
+- Page through an account's feed to build an archive of its post codes and captions.
 
 ### Request
 
@@ -77,22 +78,118 @@ curl -X POST "https://api.sandbase.ai/v1/api/instagram/v2/user-posts" \
   -d '{"username": "instagram", "user_id": "18527"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
 |---|---|---|---|
+| `pagination_token` | string | No | Pagination token from previous response |
 | `user_id` | string | No | User ID (either username or user_id required) |
 | `username` | string | No | Username (either username or user_id required) |
-| `pagination_token` | string | No | Pagination token from previous response |
+
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "data": {
+    "count": 12,
+    "items": [
+      {
+        "are_remixes_crosspostable": true,
+        "boost_unavailable_identifier": null,
+        "boost_unavailable_reason": null,
+        "boost_unavailable_reason_v2": null,
+        "can_reshare": true,
+        "can_save": true,
+        "caption": {
+          "created_at": 1793647551,
+          "created_at_utc": 1793647551,
+          "did_report_as_spam": false,
+          "hashtags": [],
+          "id": "4021726163100932870",
+          "is_covered": false,
+          "is_ranked_comment": false,
+          "mentions": [
+            "@troyesivan"
+          ]
+        },
+        "caption_is_edited": false,
+        "clips_metadata": {
+          "achievements_info": {
+            "num_earned_achievements": null,
+            "show_achievements": false
+          },
+          "additional_audio_info": {
+            "additional_audio_username": null,
+            "audio_reattribution_info": {
+              "should_allow_restore": false
+            }
+          },
+          "asset_recommendation_info": null,
+          "audio_canonical_id": "18418030405089197",
+          "audio_ranking_info": {
+            "best_audio_cluster_id": "1079281138448348"
+          },
+          "audio_type": "original_sounds",
+          "basel_template_info_for_ig_app": {
+            "is_basel_template": null,
+            "original_template_media_id": null,
+            "should_show_reuse_setting_for_owner": false,
+            "use_template_deeplink": null
+          },
+          "branded_content_tag_info": {
+            "can_add_tag": false
+          }
+        },
+        "clips_tab_pinned_user_ids": [],
+        "coauthor_producer_can_see_organic_insights": false,
+        "coauthor_producers": []
+      }
+    ],
+    "user": {
+      "full_name": "Instagram",
+      "id": "25025320",
+      "is_active_on_text_post_app": false,
+      "is_private": false,
+      "is_verified": true,
+      "profile_pic_id": "3725434617063385984",
+      "profile_pic_url": "https://scontent-arn2-1.cdninstagram.com/v/t51.82787-19/550891366_18667771684001…",
+      "username": "instagram"
+    }
+  },
+  "pagination_token": "D01MBAwp…"
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `data.user.username / data.user.full_name` | Handle and display name of the account that owns the posts. |
+| `data.user.id` | Numeric ID of the account. You can reuse it as `user_id` in other calls. |
+| `data.user.is_verified / data.user.is_private` | Whether the account has a verification badge and whether it is private. |
+| `data.count` | Number of posts in this page of results. |
+| `data.items[].code` | Short post code. It appears in the post URL on Instagram. |
+| `data.items[].comment_count` | Number of comments on the post. |
+| `data.items[].caption.mentions` | Accounts mentioned in the caption, each with a leading `@`. |
+| `data.items[].caption.created_at` | Unix timestamp (seconds) for when the caption was created. |
+| `data.items[].carousel_media[]` | Slides of a carousel post. Each slide has its own caption data and, where present, an `accessibility_caption` that describes the image. |
+| `data.items[].coauthor_producers[]` | Collaborator accounts on the post, with `username`, `full_name` and `is_verified`. |
+| `pagination_token` | Token that selects the next page of posts. |
 
 ### Notes
 
-- Either `username` or `user_id` must be provided.
-- Pass `pagination_token` from a previous response to navigate through additional pages.
+- Send either `username` or `user_id`. The sample call sent both.
+- To get the next page, send the returned `pagination_token` in the next request along with the same account.
+- Reels items include a `clips_metadata` object with audio details. For reels only, see [Instagram User Reels (V2)](/apis/instagram/v2/user-reels).
+- To read comments on a post, call [Instagram Post Comments (V2)](/apis/instagram/v2/post-comments).
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.002 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

@@ -58,13 +58,13 @@ Same call via the path form: `POST /v1/api/douyin/web/generate-ttwid` with the b
 
 ## Details
 
-Retrieve a Douyin web ttwid cookie for automated platform queries. You can optionally specify a `user_agent` to match your client environment.
+Returns a Douyin web `ttwid` cookie value as a single string. The only input is an optional `user_agent` string, so you can call it with an empty body.
 
 ### Use cases
 
-- Obtain valid session identifiers for Douyin web scraping workflows.
-- Configure web headers with a matching ttwid cookie and user agent.
-- Refresh expired browser session cookies before making platform calls.
+- Build a `Cookie` header for Douyin web requests that need a `ttwid` value.
+- Replace a `ttwid` cookie in your own client when you start a new session.
+- Pair a generated `ttwid` with the same `user_agent` you send in later web requests.
 
 ### Request
 
@@ -75,19 +75,42 @@ curl -X POST "https://api.sandbase.ai/v1/api/douyin/web/generate-ttwid" \
   -d '{}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
 |---|---|---|---|
-| `user_agent` | string | No | — |
+| `user_agent` | string | No |  |
+
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "ttwid": "1%7CvTde…"
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `ttwid` | The full Douyin web `ttwid` cookie value as a URL-encoded string. Use it as is in a cookie header. |
+| `ttwid` | The value has four parts separated by `%7C`, which is an encoded `/`. Keep the separators when you copy the value. |
+| `ttwid` | The parts are a short leading number, a token, a 10-digit number, and a long hex string. Treat the whole string as opaque and do not edit it. |
 
 ### Notes
 
-- Set `user_agent` to match the client headers used in subsequent web requests.
+- Send `{}` to use the default user agent, or set `user_agent` to match the client headers you use later.
+- The response has one key, `ttwid`. Pass its value as the `ttwid` cookie in your next Douyin web request.
+- For a different kind of cookie, see [Douyin Web Guest Cookie](/apis/douyin/web/web-guest-cookie).
+- To prepare IDs for later calls, use [Douyin Video ID Extractor](/apis/douyin/web/aweme-id) or [Douyin sec_user_id from URL](/apis/douyin/web/sec-user-id).
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

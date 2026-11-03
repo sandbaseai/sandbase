@@ -73,9 +73,13 @@ Same call via the path form: `POST /v1/api/similarweb/marketing-channel-sources-
 
 ## Details
 
-Get a website's visits by marketing channel (direct, search, social, referrals, mail, display) month by month.
+Returns estimated website visits split by marketing channel for each month in a date range. It needs a `domain`, a `start_date` and an `end_date` in `YYYY-MM` format.
 
-The response is the official Similarweb API response, unchanged.
+### Use cases
+
+- Compare how much of a competitor's traffic comes from direct visits versus display ads or mail.
+- Track month by month how a site's channel mix changes after a campaign.
+- Build a channel breakdown chart for a domain in a market research report.
 
 ### Request
 
@@ -86,21 +90,80 @@ curl -X POST "https://api.sandbase.ai/v1/api/similarweb/marketing-channel-source
   -d '{"start_date": "2026-09", "end_date": "2026-09", "country": "ww", "domain": "cnn.com", "granularity": "monthly"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
 |---|---|---|---|
-| `country` | string | No | Worldwide data only; values are case-insensitive. |
 | `domain` | string | Yes | domain |
 | `end_date` | string | Yes | end_date |
+| `start_date` | string | Yes | start_date |
+| `country` | string | No | Worldwide data only; values are case-insensitive. |
 | `granularity` | string | No | granularity |
 | `main_domain_only` | boolean | No | main_domain_only |
-| `start_date` | string | Yes | start_date |
 | `web_source` | string | No | web_source |
+
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "data": [
+    {
+      "average_visit_duration": null,
+      "bounce_rate": null,
+      "date": "2026-09-01",
+      "pages_per_visit": null,
+      "source_type": "Direct",
+      "visits": 124416521.07111368
+    }
+  ],
+  "meta": {
+    "last_updated": "2026-09-30",
+    "request": {
+      "country": "ww",
+      "domain": "cnn.com",
+      "end_date": "2026-09-30",
+      "format": "json",
+      "granularity": "monthly",
+      "main_domain_only": true,
+      "metrics": [
+        "visits"
+      ],
+      "mtd": false,
+      "start_date": "2026-09-01",
+      "web_source": "total"
+    },
+    "status": "success"
+  }
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `data[]` | One row per channel and month. The response lists one row for each `source_type` in each month of the range. |
+| `data[].source_type` | The marketing channel for the row, such as `Direct`, `Display Ads` or `Mail`. |
+| `data[].visits` | Estimated number of visits from that channel in that month. The value is a decimal number. |
+| `data[].date` | First day of the month the row covers, in `YYYY-MM-DD` format, for example `2026-09-01`. |
+| `data[].average_visit_duration / bounce_rate / pages_per_visit` | Engagement metrics for the channel. They are `null` in this response, because only the `visits` metric was returned. |
+| `meta.request.metrics` | List of metrics returned for the request. This response contains `visits` only. |
+| `meta.request.web_source` | Device scope used for the data. This response used `total`. |
+| `meta.last_updated` | Date of the most recent data update, for example `2026-09-30`. |
+
+### Notes
+
+- Pass dates as `YYYY-MM`. The echoed request in `meta.request` shows them expanded to the first and last day of the month.
+- `country` accepts only `ww`, which is worldwide data. `granularity` accepts only `monthly`.
+- Set `web_source` to `desktop`, `mobile_web` or `total` to choose the device scope. The response showed `total` when it was not set.
+- To see which sites send referral traffic, call [Similarweb Referrals](/apis/similarweb/referrals). For total visits over time, call [Similarweb Website Traffic Trend](/apis/similarweb/website-traffic-trend).
 
 ### Pricing
 
-$0.525 per month between start_date and end_date (12 months if omitted). Failed calls are not charged.
+Billed at the actual cost of each call, about $0.525 for the request above. Failed calls are not charged.
 
 ---
 Machine-readable: [`catalog/models/similarweb/marketing-channel-sources-legacy.json`](../../../catalog/models/similarweb/marketing-channel-sources-legacy.json) · Store page: https://www.sandbase.ai/model/similarweb/marketing-channel-sources-legacy

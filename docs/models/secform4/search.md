@@ -68,7 +68,14 @@ Same call via the path form: `POST /v1/api/secform4/search` with the body above 
 
 ## Details
 
-Searches for insider trading activity by company ticker symbol, CIK number, or company name. Returns all matching transaction records for the company including buys, sells, and option exercises.
+Returns insider trading records from SEC Form 4 filings for a company. You pass one `query` value: a ticker symbol, a CIK number, or a company name.
+
+### Use cases
+
+- Check whether Tesla executives have been selling shares in recent months.
+- Build an alert that watches new insider filings for a ticker.
+- Pull the filing link for a specific insider transaction to read the original document.
+- Compare trade size and price across several transactions by the same officer.
 
 ### Request
 
@@ -79,7 +86,7 @@ curl -X POST "https://api.sandbase.ai/v1/api/secform4/search" \
   -d '{"query": "Tesla"}'
 ```
 
-This API runs asynchronously. The call returns a task `id` with status `pending`; poll `GET https://api.sandbase.ai/v1/run/{id}` until `status` is `completed` and read the result from `outputs[0].data`.
+The result is returned in `outputs[0].data`.
 
 ### Parameters
 
@@ -87,9 +94,61 @@ This API runs asynchronously. The call returns a task `id` with status `pending`
 |---|---|---|---|
 | `query` | string | Yes | Search query - company ticker symbol (e.g. 'AAPL'), CIK number (e.g. '320193'), or company name (e.g. 'Apple') |
 
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "data": {
+    "query": "Tesla",
+    "results": [
+      {
+        "average_price": "$360.13",
+        "company": "Tesla Inc.",
+        "filing": "View",
+        "filing_url": "https://www.secform4.com/filings/1318605/0001104659-26-106432.htm",
+        "insider_relationship": "Taneja Vaibhav Chief Financial Officer",
+        "insider_relationship_url": "https://www.secform4.com/insider-trading/1771340.htm",
+        "reported_datetime": "2026-09-09 7:00 pm",
+        "shares_owned": "189,277 (Indirect Direct)",
+        "shares_traded": "2,606",
+        "symbol": "TSLA",
+        "symbol_url": "https://www.secform4.com/#S2",
+        "total_amount": "$938,419"
+      }
+    ]
+  },
+  "status": "success"
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `data.query` | The search text that was sent in the request. |
+| `data.results[].company / data.results[].symbol` | Company name and stock ticker for the transaction, such as `Tesla Inc.` and `TSLA`. |
+| `data.results[].insider_relationship` | Name of the insider followed by their role at the company, for example a Chief Financial Officer. |
+| `data.results[].insider_relationship_url` | Link to the page for that insider. |
+| `data.results[].transaction_date` | Date of the trade followed by the transaction type, such as `Sale`. |
+| `data.results[].reported_datetime` | Date and time the transaction was reported. |
+| `data.results[].shares_traded` | Number of shares in the transaction, returned as a string. |
+| `data.results[].average_price` | Average price per share for the transaction, returned as a string with a `$` sign. |
+| `data.results[].total_amount` | Total dollar value of the transaction, returned as a string with a `$` sign. |
+| `data.results[].shares_owned` | Shares held by the insider after the transaction, with an ownership label in parentheses. |
+| `data.results[].filing_url` | Link to the filing document for the transaction. |
+
+### Notes
+
+- All numeric values, such as `shares_traded`, `average_price` and `total_amount`, are strings with commas and `$` signs. Strip them before doing math.
+- The `transaction_date` field combines the date and the transaction type in one string, for example `2026-09-08 Sale`.
+- The `filing_url` path contains the company CIK, for example `1318605`, followed by the filing accession number.
+- For a narrower view of one company, try [SECForm4 Company Insider Trading](/apis/secform4/company-insider-trading). For sales only, use [SECForm4 Insider Sales](/apis/secform4/insider-sales).
+
 ### Pricing
 
-Flat price per call. Failed calls are not charged.
+$0.01 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ---
 Machine-readable: [`catalog/models/secform4/search.json`](../../../catalog/models/secform4/search.json) · Store page: https://www.sandbase.ai/model/secform4/search

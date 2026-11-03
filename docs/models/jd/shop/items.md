@@ -62,9 +62,14 @@ Same call via the path form: `POST /v1/api/jd/shop/items` with the body above mi
 
 ## Details
 
-List products from a JD.com shop by shop ID, page by page, to collect item IDs for follow-up lookups.
+This API returns a page of products from a JD.com shop. Each item has an ID, a product link, and a title. You send the shop ID in `shopId` and can add `page` to move through the list.
 
-The response is the platform's original data structure.
+### Use cases
+
+- Collect every item ID in a competitor's JD.com shop for catalog tracking.
+- Build a product list for one brand's flagship store to feed later detail lookups.
+- Count how many products a shop lists by reading `totalResults`.
+- Match shop product titles against your own catalog to find overlapping items.
 
 ### Request
 
@@ -75,6 +80,8 @@ curl -X POST "https://api.sandbase.ai/v1/api/jd/shop/items" \
   -d '{"shopId": "1000278560"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
@@ -82,9 +89,48 @@ curl -X POST "https://api.sandbase.ai/v1/api/jd/shop/items" \
 | `shopId` | string | Yes | A unique shop identifier on JD.com (Shop ID). |
 | `page` | string | No | Page number for the paginated shop product list. |
 
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "ItemList": [
+    {
+      "itemId": "100431386728",
+      "link": "https://item.jd.com/100431386728.html",
+      "title": "决色iPhone DUO蒙德里安·平衡"
+    }
+  ],
+  "TotalPage": 24,
+  "shopId": "1000278560",
+  "shopName": "决色（DEFENSE）京东自营旗舰店",
+  "totalResults": 563,
+  "venderId": "1000278560"
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `ItemList[].itemId` | JD.com item ID of the product. Use it as input for follow-up item lookups. |
+| `ItemList[].link` | Direct URL of the product page on item.jd.com. |
+| `ItemList[].title` | Product title as listed in the shop. The text is in Chinese. |
+| `TotalPage` | Total number of pages available for this shop's product list. |
+| `totalResults` | Total number of products in the shop's list. |
+| `shopId / venderId` | Identifiers of the shop. Both have the same value in this response. |
+| `shopName` | Display name of the shop. |
+
+### Notes
+
+- Pass `page` as a string to read later pages. Use `TotalPage` to know where to stop.
+- Item IDs are numeric strings such as `100431386728`. Pass them to [JD.com Product Details](/apis/jd/item/detail) for full product data.
+- Call [JD.com Product Comments](/apis/jd/item/comments) with an item ID to read reviews for a product.
+
 ### Pricing
 
-Flat price per call. Failed calls and empty results are not charged.
+$0.028571 per successful call. Failed calls are not charged.
 
 ---
 Machine-readable: [`catalog/models/jd/shop/items.json`](../../../../catalog/models/jd/shop/items.json) · Store page: https://www.sandbase.ai/model/jd/shop/items

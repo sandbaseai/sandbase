@@ -65,13 +65,14 @@ Same call via the path form: `POST /v1/api/toutiao/app/comments` with the body a
 
 ## Details
 
-Retrieve comments for a Toutiao post by passing the target post identifier in `group_id`. Paginate through sequential comment batches with `offset`.
+Returns a page of comments for a Toutiao post, plus paging data and post-level comment settings. It needs the post's `group_id` and an `offset` value.
 
 ### Use cases
 
-- Analyze user sentiment and feedback on Toutiao content.
-- Monitor engagement metrics such as digg and forward counts across post comments.
-- Collect comment threads for community management workflows.
+- Collect the first pages of comments on a Toutiao post to review reader feedback.
+- Track how many `bury_count` votes each comment on a post receives.
+- Page through all comments of a post by repeating the call until `has_more` is false.
+- Check whether commenting is turned off on a post using `ban_comment`.
 
 ### Request
 
@@ -82,44 +83,61 @@ curl -X POST "https://api.sandbase.ai/v1/api/toutiao/app/comments" \
   -d '{"group_id": "7453372680222523931", "offset": "0"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
 |---|---|---|---|
-| `offset` | string | Yes | Offset, used for pagination, default is 0, then add 20 each time |
 | `group_id` | string | Yes | Post ID, can be obtained from the link |
+| `offset` | string | Yes | Offset, used for pagination, default is 0, then add 20 each time |
 
 ### Example response
 
-Real response for the request above, trimmed to the main fields. User names and long IDs are masked.
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
 
 ```json
 {
-  "data": [
-    {
-      "cell_type": 1,
-      "id": 7453426669643629364,
-      "comment": {
-        "bury_count": 9,
-        "content_rich_span": "{\"links\":[]}",
-        "create_time": 1735386148,
-        "digg_count": 557,
-        "forward_count": 0,
-        "id": 7453426669643629364
-      }
-    }
-  ]
+  "at_user_guide_info": null,
+  "ban_ai_polish": true,
+  "ban_audio_comment": true,
+  "ban_comment": false,
+  "ban_comment_reason": "写评论",
+  "ban_comment_toast": "",
+  "ban_face": false,
+  "ban_gif_suggest": 0,
+  "ban_pic_comment": 0,
+  "bottom_tips": null,
+  "comment_activity": null,
+  "comment_classify_detail": null
 }
 ```
 
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `data[]` | List of comment cells. Each item holds one comment and its `id`. |
+| `data[].id` | ID of the comment cell. It is a long number. |
+| `data[].comment.bury_count` | Number of bury votes on the comment. |
+| `data[].comment.aid` | App ID value attached to the comment. The response does not explain its meaning. |
+| `data[].cell_type` | Type code of the list item. Items in this response all have the value `1`. |
+| `has_more` | `true` when more comments are available after this page. |
+| `offset` | Offset value for the next page. The sample response returns `20` after a request with `0`. |
+| `next_comment_since_ts` | Unix-style timestamp number returned for the next comment batch. |
+| `ban_comment / ban_pic_comment / ban_audio_comment` | Flags that show whether commenting, picture comments or audio comments are blocked on this post. |
+| `group.group_id` | ID of the post the comments belong to. |
+
 ### Notes
 
-- Locate `group_id` directly in the Toutiao post URL.
-- Set `offset` to 0 initially and increment by 20 for subsequent pages.
+- Take `group_id` from the Toutiao post link.
+- Start with `offset` set to `0`, then add 20 for each next page, as the parameter description states.
+- Stop paging when `has_more` is `false`.
+- To get details about the post itself, call [Toutiao Article Details (App)](/apis/toutiao/app/article-info).
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

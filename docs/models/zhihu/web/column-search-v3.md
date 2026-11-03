@@ -65,13 +65,14 @@ Same call via the path form: `POST /v1/api/zhihu/web/column-search-v3` with the 
 
 ## Details
 
-Query Zhihu columns by passing a search term into `keyword`. You can paginate through matches using `offset` and `limit`.
+Searches Zhihu columns by keyword and returns a page of matching columns. Each result has the column ID, title with highlighted matches, follower count, article count and author details. The only required input is `keyword`.
 
 ### Use cases
 
-- Discover topic-focused Zhihu columns by keyword.
-- Track column follower counts and publication volume.
-- Retrieve Zhihu column identifiers and descriptions for market research.
+- Find Zhihu columns that cover a topic such as OpenAI.
+- Compare candidate columns by `followers` and `articles_count` before picking which to follow.
+- Collect column IDs and descriptions for a topic to build a reading list or research set.
+- Page through all matching columns for a keyword with `offset` and `limit`.
 
 ### Request
 
@@ -81,6 +82,8 @@ curl -X POST "https://api.sandbase.ai/v1/api/zhihu/web/column-search-v3" \
   -H "Content-Type: application/json" \
   -d '{"keyword": "OpenAI"}'
 ```
+
+The result is returned in `outputs[0].data`.
 
 ### Parameters
 
@@ -93,41 +96,105 @@ curl -X POST "https://api.sandbase.ai/v1/api/zhihu/web/column-search-v3" \
 
 ### Example response
 
-Real response for the request above, trimmed to the main fields. User names and long IDs are masked.
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
 
 ```json
 {
+  "ab_params": "dm_ai_search_safe=1;sb_caowei_4in10=1;sb_xg_search=1;dm_isocial=6;dm_ai_hot_ui=0…",
   "data": [
     {
-      "id": "openai",
-      "type": "search_result",
       "highlight": {
-        "content": "介绍 OpenAI 的一些工作",
-        "description": "介绍 OpenAI 的一些工作",
-        "title": "OpenAI"
+        "content": "",
+        "description": "",
+        "title": "深入理解<em>OpenAI</em> 722篇数学论文"
       },
+      "hit_labels": null,
+      "id": "c_2091671086924670464",
+      "index": 0,
       "object": {
-        "articles_count": 5,
+        "articles_count": 20,
+        "attached_info_bytes": "Ov8BCgtwbGFjZWhvbGRlchIgMGVmMzhhMjcwZmE5ZTg1MDQ2ZWU4YmMwOTQzZGE3NzQYBSIIMTM5NDAx…",
+        "author": {
+          "authority_info": [],
+          "avatar_url": "https://picx.zhimg.com/50/v2-29f7a5d616b2689161e97fa9c3819784_l.jpg?source=4e949…",
+          "badge": [],
+          "badge_v2": {
+            "detail_badges": [],
+            "icon": "",
+            "merged_badges": [],
+            "night_icon": "",
+            "title": ""
+          },
+          "badge_v2_string": "{\"title\":\"\",\"merged_badges\":[],\"detail_badges\":null,\"icon\":\"\",\"night_icon\":\"\"}",
+          "follower_count": 0,
+          "gender": 1,
+          "headline": ""
+        },
+        "avatar_url": "https://picx.zhimg.com/v2-f111d7ee1c41944859e975a712c0883b_r.jpg?source=4e949a73",
         "column_type": "normal",
-        "description": "介绍 OpenAI 的一些工作",
-        "followers": 3153,
-        "id": "openai",
-        "image_url": "https://pica.zhimg.com/v2-9d09bc4b22fc4a71c21e789f77effb48_r.jpg?source=4e949a73"
-      }
+        "description": "",
+        "flag": {
+          "flag_text": "",
+          "flag_type": ""
+        },
+        "followers": 54
+      },
+      "type": "search_result"
     }
-  ]
+  ],
+  "domain_info": {
+    "first_category": ""
+  },
+  "filter_items": null,
+  "hit_labels": null,
+  "is_brand_word": false,
+  "is_koc_words": false,
+  "item_in_view": [
+    {
+      "index": 5,
+      "token": "b62a7302…",
+      "type": "user_survey"
+    }
+  ],
+  "paging": {
+    "is_end": false,
+    "next": "https://api.zhihu.com/search_v3?advert_count=0&correction=1&filter_fields=%7B%27…"
+  },
+  "pendant": null,
+  "related_search_result": [],
+  "search_action_info": {
+    "attached_info_bytes": "OqQBEiAwZWYzOGEyNzBmYTllODUwNDZlZThiYzA5NDNkYTc3NEoGb3BlbmFpUABYBGABagZPcGVuQUlw…",
+    "isfeed": false,
+    "lc_idx": 20,
+    "search_hash_id": "0ef38a270fa9e85046ee8bc0943da774"
+  }
 }
 ```
 
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `data[].id` | Column ID, for example `c_2091671086924670464`. |
+| `data[].highlight.title` | Column title. Matched search terms are wrapped in `<em>` tags. |
+| `data[].highlight.description / data[].highlight.content` | Matching text from the column description, with matched terms wrapped in `<em>`. Both can be empty. |
+| `data[].object.articles_count` | Number of articles in the column. |
+| `data[].object.followers` | Number of followers of the column. |
+| `data[].object.description` | Column description text. It can be empty. |
+| `data[].object.column_type` | Type of the column, such as `normal`. |
+| `data[].object.author.headline` | Short headline text from the column author's profile. |
+| `paging.is_end` | `false` when more results exist, `true` on the last page. |
+| `search_action_info.search_hash_id` | Hash ID of this search. It matches the `search_hash_id` request parameter. |
+
 ### Notes
 
-- Supports pagination via `limit` to control page size and `offset` to navigate pages.
-- Requires `keyword` as the search query parameter.
-- Accepts an optional `search_hash_id` parameter.
+- Set `limit` for page size and `offset` to move through results. Check `paging.is_end` to know when to stop.
+- Pass `search_hash_id` from `search_action_info.search_hash_id` when requesting later pages of the same search.
+- Use the [Zhihu Column Articles](/apis/zhihu/web/column-articles) API to read the articles in a column, and [Zhihu Similar Column Recommendations](/apis/zhihu/web/column-recommend) to find related columns.
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

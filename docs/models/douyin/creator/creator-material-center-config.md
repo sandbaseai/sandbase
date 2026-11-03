@@ -52,13 +52,14 @@ Same call via the path form: `POST /v1/api/douyin/creator/creator-material-cente
 
 ## Details
 
-Access Douyin material center configuration settings without passing query parameters.
+Returns the lookup lists used by the Douyin creator material center: city codes, province and city lists, and tag codes for hot spots and hot words. It takes no input parameters. Send an empty JSON object as the request body.
 
 ### Use cases
 
-- Inspect available material center features and options.
-- Verify system configurations for Douyin digital assets.
-- Load material center settings into management dashboards.
+- Map numeric city codes to city names before you read material center billboard data.
+- Build a province and city picker that shows only cities with a billboard.
+- Translate hot word tag codes into names such as 美食 (food) or 旅行 (travel) in a trend dashboard.
+- Cache the hot spot tag groups to filter hot spot results by category.
 
 ### Request
 
@@ -69,9 +70,81 @@ curl -X POST "https://api.sandbase.ai/v1/api/douyin/creator/creator-material-cen
   -d '{}'
 ```
 
+The result is returned in `outputs[0].data`.
+
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "city_code_list": [
+    {
+      "code": 110000,
+      "name": "北京"
+    }
+  ],
+  "hot_spot_tag_list": [
+    {
+      "code": [
+        1004
+      ],
+      "name": "站内玩法"
+    }
+  ],
+  "hot_word_tag_list": [
+    {
+      "code": 333,
+      "name": "美食"
+    }
+  ],
+  "province_list": [
+    {
+      "city_list": [
+        {
+          "code": 1817993,
+          "has_billboard": true,
+          "name": "安庆"
+        }
+      ],
+      "province": "安徽"
+    }
+  ],
+  "status_code": 0,
+  "status_msg": "",
+  "tag_list": [
+    {
+      "code": 333,
+      "name": "美食"
+    }
+  ]
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `city_code_list[].code / city_code_list[].name` | Numeric code and name of a city, such as `110000` for 北京. This list is separate from the city codes in `province_list`. |
+| `province_list[].province` | Name of a province or municipality, such as 安徽. |
+| `province_list[].city_list[].code / province_list[].city_list[].name` | Numeric code and name of a city inside the province. |
+| `province_list[].city_list[].has_billboard` | `true` if the city has a billboard, `false` if it does not. |
+| `hot_spot_tag_list[].name` | Name of a hot spot tag group, such as 娱乐 (entertainment) or 话题互动. |
+| `hot_spot_tag_list[].code` | List of numeric codes that belong to the hot spot tag group. |
+| `hot_word_tag_list[].code / hot_word_tag_list[].name` | Numeric code and name of a hot word tag, such as `333` for 美食. |
+| `tag_list[].code / tag_list[].name` | Numeric code and name of a general tag. The sample entries match the hot word tags. |
+| `status_code / status_msg` | Result status of the call. `status_code` is `0` and `status_msg` is empty in the sample response. |
+
+### Notes
+
+- This API needs no parameters. Send `{}` as the body.
+- City codes in `city_code_list` (for example `110000`) differ from those in `province_list[].city_list[]` (for example `1816670` for 北京), so match codes within the same list.
+- Names are returned in Chinese.
+- For ranked data, call [Douyin Creator Material Center Billboard](/apis/douyin/creator/creator-material-center-billboard) or [Douyin Creator Hot Spot Billboard](/apis/douyin/creator/creator-hot-spot-billboard).
+
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

@@ -57,9 +57,14 @@ Same call via the path form: `POST /v1/api/dataforseo/v3/backlinks/bulk_spam_sco
 
 ## Details
 
-Backlink spam scores for up to 1,000 domains, subdomains or pages.
+This API returns a backlink spam score for each domain, subdomain or page URL you send. It needs a `targets` array with up to 1,000 entries.
 
-Request fields follow the official DataForSEO `/v3/backlinks/bulk_spam_score/live` task schema (one task per call). The response is DataForSEO's original JSON; results are in `tasks[].result`.
+### Use cases
+
+- Screen a list of link prospects and drop domains with a high spam score before outreach.
+- Compare the spam score of your own site against competitor domains.
+- Check a batch of specific page URLs before you accept a guest post or link swap.
+- Add a spam score column to a large domain list in one call.
 
 ### Request
 
@@ -70,21 +75,82 @@ curl -X POST "https://api.sandbase.ai/v1/api/dataforseo/v3/backlinks/bulk_spam_s
   -d '{"targets": ["nike.com", "adidas.com"]}'
 ```
 
+The result is returned in `outputs[0]`.
+
 ### Parameters
 
-The JSON body is forwarded to the upstream endpoint. Main fields:
+| Name | Type | Required | Description |
+|---|---|---|---|
+| `targets` | array | No | Array of domains, subdomains or page URLs (up to 1,000). |
 
-| Name | Description |
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "status_code": 20000,
+  "status_message": "Ok.",
+  "tasks": [
+    {
+      "data": {
+        "api": "backlinks",
+        "function": "bulk_spam_score",
+        "targets": [
+          "nike.com"
+        ]
+      },
+      "id": "11030828-2190-0482-0000-9450f4d2848b",
+      "path": [
+        "v3"
+      ],
+      "result": [
+        {
+          "items": [
+            {
+              "spam_score": 8,
+              "target": "nike.com",
+              "type": "backlinks_bulk_spam_score"
+            }
+          ],
+          "items_count": 2
+        }
+      ],
+      "result_count": 1,
+      "status_code": 20000,
+      "status_message": "Ok.",
+      "time": "0.0469 sec."
+    }
+  ],
+  "tasks_count": 1,
+  "tasks_error": 0,
+  "time": "0.0546 sec.",
+  "version": "0.1.20261022"
+}
+```
+
+### Response fields
+
+| Field | Meaning |
 |---|---|
-| `targets` | Array of domains, subdomains or page URLs (up to 1,000). |
+| `tasks[].result[].items[].target` | The domain, subdomain or page URL that was scored. It matches an entry from your `targets` array. |
+| `tasks[].result[].items[].spam_score` | The spam score for the target as a number. In the example, `nike.com` returns `8` and `adidas.com` returns `22`. |
+| `tasks[].result[].items[].type` | The item type. It is `backlinks_bulk_spam_score` for every row. |
+| `tasks[].result[].items_count` | The number of scored items in the result. |
+| `tasks[].data.targets` | The targets the task received, echoed back from your request. |
+| `tasks[].id` | The unique task ID, in UUID-like format. |
+| `tasks[].status_code / tasks[].status_message` | The task status. `20000` with `Ok.` means the task succeeded. |
+| `tasks_count / tasks_error` | The number of tasks in the response and how many of them failed. |
 
-### Reference
+### Notes
 
-- Official docs: https://docs.dataforseo.com/v3/backlinks/bulk_spam_score/live/
+- Send domains such as `nike.com`, subdomains, or full page URLs in `targets`. You can mix them in one call.
+- Read results from `tasks[].result[].items[]`. Each target gets one item.
+- To see the full backlink profile of a target, call [DataForSEO Backlinks Summary](/apis/dataforseo/v3/backlinks/summary/live). For rank values on many targets, use [DataForSEO Backlinks Bulk Ranks](/apis/dataforseo/v3/backlinks/bulk_ranks/live).
 
 ### Pricing
 
-Billed at the actual cost of each call, about $0.024072 for the request above. The cost grows with the number of rows, targets or tokens a call returns. Failed calls are not charged. Searches with no results are billed at their actual cost.
+Billed at the actual cost of each call, about $0.024072 for the request above. Failed calls are not charged.
 
 ---
 Machine-readable: [`catalog/models/dataforseo/v3/backlinks/bulk_spam_score/live.json`](../../../../../../catalog/models/dataforseo/v3/backlinks/bulk_spam_score/live.json) · Store page: https://www.sandbase.ai/model/dataforseo/v3/backlinks/bulk_spam_score/live

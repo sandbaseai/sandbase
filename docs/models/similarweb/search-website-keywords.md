@@ -79,9 +79,14 @@ Same call via the path form: `POST /v1/api/similarweb/search-website-keywords` w
 
 ## Details
 
-Get the search keywords a website's search traffic comes from, with clicks, position, competition and search intent.
+Returns the search keywords that send traffic to a website, with clicks, traffic share, competition, search intent and SERP features for each keyword. It needs a `domain`, a `start_date` and `end_date` in `YYYY-MM` format, a `granularity` of `monthly` and a `limit`.
 
-The response is the official Similarweb API response, unchanged.
+### Use cases
+
+- Find which keywords bring the most search clicks to a competitor's site.
+- Split a site's top keywords into navigational and informational intent to see how much traffic is brand-driven.
+- Check which SERP features, such as news or video, appear for a site's top keywords.
+- Find the keywords with the highest `traffic_share` for a domain as a starting point for content planning.
 
 ### Request
 
@@ -92,23 +97,97 @@ curl -X POST "https://api.sandbase.ai/v1/api/similarweb/search-website-keywords"
   -d '{"start_date": "2026-09", "end_date": "2026-09", "country": "ww", "domain": "cnn.com", "limit": 1, "granularity": "monthly"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
 |---|---|---|---|
-| `country` | string | No | Worldwide data only; values are case-insensitive. |
 | `domain` | string | Yes | domain |
 | `end_date` | string | Yes | end_date |
-| `format` | string | No | format |
 | `granularity` | string | Yes | granularity |
 | `limit` | integer | Yes | limit |
-| `main_domain_only` | boolean | No | main_domain_only |
 | `start_date` | string | Yes | start_date |
+| `country` | string | No | Worldwide data only; values are case-insensitive. |
+| `format` | string | No | format |
+| `main_domain_only` | boolean | No | main_domain_only |
 | `web_source` | string | No | web_source |
+
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "data": [
+    {
+      "clicks": 7199467.86166735,
+      "competition": 0,
+      "keyword": "cnn",
+      "position": null,
+      "primary_intent": "Navigational",
+      "secondary_intent": "Informational",
+      "serp_features": [
+        "news"
+      ],
+      "top_url": "cnn.com",
+      "traffic_share": 0.2427171438297492,
+      "url_count": 1291
+    }
+  ],
+  "meta": {
+    "last_updated": "2026-09-30",
+    "query": {
+      "asc": null,
+      "limit": 1,
+      "offset": 0,
+      "sort": null
+    },
+    "request": {
+      "branded_type": "all",
+      "country": "ww",
+      "domain": "cnn.com",
+      "end_date": "2026-09-30",
+      "format": "json",
+      "granularity": "monthly",
+      "keywords_filter_rules": [],
+      "metrics": [
+        "clicks"
+      ],
+      "start_date": "2026-09-01",
+      "traffic_source": "all",
+      "web_source": "total"
+    },
+    "status": "success"
+  }
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `data[].keyword` | The search keyword that sends traffic to the domain. |
+| `data[].clicks` | Estimated number of search clicks for this keyword in the requested period. |
+| `data[].traffic_share` | This keyword's share of the domain's search traffic, as a fraction. A value of `0.24` means about 24%. |
+| `data[].position` | Ranking position of the domain for the keyword. It can be `null` when no position is returned. |
+| `data[].competition` | Competition value for the keyword. The sample row returns `0`. |
+| `data[].primary_intent / data[].secondary_intent` | Search intent labels for the keyword, such as `Navigational` or `Informational`. |
+| `data[].serp_features` | List of result types shown on the search page for this keyword, such as `news`, `video` and `organic`. |
+| `data[].top_url` | The page of the domain that ranks highest for this keyword. |
+| `data[].url_count` | Number of URLs tied to this keyword. |
+| `meta.query.limit / meta.query.offset` | The row limit and starting offset applied to this response. |
+
+### Notes
+
+- `country` accepts only `ww` (worldwide). `limit` runs from 1 to 20.
+- Dates in the request use `YYYY-MM`. The response `meta.request` shows them expanded to full days, for example `2026-09-01` to `2026-09-30`.
+- `meta.request` shows the defaults applied to the call, such as `branded_type` set to `all` and `traffic_source` set to `all`.
+- To see which pages receive this search traffic, call [Similarweb Landing Pages](/apis/similarweb/search-landing-pages). For rival sites on the same keywords, call [Similarweb Keyword Competitors](/apis/similarweb/search-keyword-competitors).
 
 ### Pricing
 
-$0.075 per Similarweb credit; 0.1 credit per returned row, rounded up to whole credits. Failed calls are not charged.
+Billed at the actual cost of each call, about $0.15 for the request above. Failed calls are not charged.
 
 ---
 Machine-readable: [`catalog/models/similarweb/search-website-keywords.json`](../../../catalog/models/similarweb/search-website-keywords.json) · Store page: https://www.sandbase.ai/model/similarweb/search-website-keywords

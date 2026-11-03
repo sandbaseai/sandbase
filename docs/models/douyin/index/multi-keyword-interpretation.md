@@ -74,13 +74,14 @@ Same call via the path form: `POST /v1/api/douyin/index/multi-keyword-interpreta
 
 ## Details
 
-Fetch comparative index interpretation data for multiple topics by supplying `keyword_list`, `start_date`, and `end_date`.
+Returns index metrics for each keyword in a comma separated list over a date range. Each keyword gets search, content and consume index values for the current period and the previous period, plus percentage differences against the previous period and the same period last year. It needs `keyword_list`, `start_date` and `end_date`.
 
 ### Use cases
 
-- Compare content index changes between current and previous periods for multiple topics.
-- Monitor year-over-year search and content index differences for targeted brand terms.
-- Track trend performance across Douyin and Toutiao platforms simultaneously.
+- Compare search interest in two brand names such as `华为` and `人工智能` over the same half-year window.
+- Check whether content volume for a topic fell or rose against the previous period before planning a video campaign.
+- Spot keywords whose consume index grew year over year while their content index dropped.
+- Build a dashboard table that ranks a keyword set by search index change.
 
 ### Request
 
@@ -91,54 +92,83 @@ curl -X POST "https://api.sandbase.ai/v1/api/douyin/index/multi-keyword-interpre
   -d '{"end_date": "20260412", "keyword_list": "人工智能,华为", "start_date": "20251015"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
 |---|---|---|---|
 | `end_date` | string | Yes | End date, YYYYMMDD |
-| `start_date` | string | Yes | Start date, YYYYMMDD |
 | `keyword_list` | string | Yes | Comma separated keywords |
-| `region` | string | No | Region filter, comma separated, empty for all |
+| `start_date` | string | Yes | Start date, YYYYMMDD |
 | `app_name` | string | No | Platform, aweme=Douyin, toutiao=Toutiao |
+| `region` | string | No | Region filter, comma separated, empty for all |
 
 ### Example response
 
-Real response for the request above, trimmed to the main fields. User names and long IDs are masked.
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
 
 ```json
 {
+  "BaseResp": {
+    "StatusCode": 0,
+    "StatusMessage": ""
+  },
   "keyword_index_interpretations": [
     {
-      "keyword": "人工智能",
       "current_period": {
-        "content_index": "6286798"
+        "consume_index": "12721157",
+        "content_index": "5864262",
+        "search_index": "345391408"
       },
+      "keyword": "华为",
       "last_period": {
-        "content_index": "22432607"
+        "consume_index": "11416262",
+        "content_index": "12861878",
+        "search_index": "339348518"
       },
       "last_period_diff": {
-        "content_diff": -0.7197473303036067
+        "consume_diff": 0.11430142370593815,
+        "content_diff": -0.5440586514659833,
+        "search_diff": 0.017807326920461233
       },
       "last_year_diff": {
-        "content_diff": -0.29883205556881526
+        "consume_diff": 0.054911176596635455,
+        "content_diff": -0.7390276463913172,
+        "search_diff": -0.0010165791323027082
       },
       "overview": {
-        "content_index": 6286798
+        "consume_index": 12721157,
+        "content_index": 5864262,
+        "search_index": 345391408
       }
     }
   ]
 }
 ```
 
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `keyword_index_interpretations[].keyword` | The keyword these metrics belong to. The list has one entry per keyword in the request. |
+| `keyword_index_interpretations[].current_period.search_index / content_index / consume_index` | Search, content and consume index for the requested date range. Values are strings. |
+| `keyword_index_interpretations[].last_period.search_index / content_index / consume_index` | The same three indexes for the previous period, used as the baseline for the period-over-period difference. |
+| `keyword_index_interpretations[].last_period_diff.search_diff / content_diff / consume_diff` | Change against the previous period as a decimal ratio. For example `0.114` means about 11.4% higher, and `-0.544` means about 54.4% lower. |
+| `keyword_index_interpretations[].last_year_diff.search_diff / content_diff / consume_diff` | Change against the same period last year, as a decimal ratio. Negative values mean a decline. |
+| `keyword_index_interpretations[].overview.search_index / content_index / consume_index` | The current period indexes as numbers instead of strings. They match the `current_period` values. |
+| `BaseResp.StatusCode` | Status of the call. `0` appears in the sample response, with an empty `StatusMessage`. |
+
 ### Notes
 
-- Set `app_name` to "aweme" for Douyin or "toutiao" for Toutiao.
-- Pass multiple terms in `keyword_list` as a comma-separated string.
-- Use `region` with comma-separated values to filter by specific geographic areas, or leave it empty for all regions.
+- Separate keywords with commas in `keyword_list`, for example `人工智能,华为`.
+- Write `start_date` and `end_date` as `YYYYMMDD`, for example `20251015`.
+- Set `app_name` to `aweme` for Douyin (default) or `toutiao` for Toutiao. Leave `region` empty for all regions.
+- Call [Douyin Index Keyword Valid Dates](/apis/douyin/index/keyword-valid-date) to check which dates are valid, and [Douyin Index Area List](/apis/douyin/index/all-area) for `region` values.
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

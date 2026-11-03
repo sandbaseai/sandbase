@@ -78,9 +78,14 @@ Same call via the path form: `POST /v1/api/open-meteo/previous-runs` with the bo
 
 ## Details
 
-Weather forecasts from earlier model runs for the same coordinates, to compare how forecasts changed day by day.
+Returns weather forecasts that earlier model runs produced for a coordinate, so you can see what was predicted one or more days ahead. It needs `latitude` and `longitude`, plus the variables you want in `hourly` or `daily`.
 
-The result is returned in `outputs[0].data` as the official Open-Meteo API response, unchanged.
+### Use cases
+
+- Compare the `temperature_2m` forecast made one day ahead with the forecast from other lead times to see how much it shifted.
+- Check how stable a precipitation forecast was for a planned outdoor event in a given city.
+- Build a chart of forecast error by lead time for a single location.
+- Test whether a `previous_day` forecast would have given a different result for a past decision.
 
 ### Request
 
@@ -91,17 +96,19 @@ curl -X POST "https://api.sandbase.ai/v1/api/open-meteo/previous-runs" \
   -d '{"latitude": "52.52", "longitude": "13.41", "hourly": "temperature_2m_previous_day1", "forecast_days": 1}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
 |---|---|---|---|
-| `cell_selection` | string | No | Grid-cell preference for the coordinate. Default `land`. |
-| `daily` | string | No | Comma-separated list of daily aggregation variables to return. Requires `timezone`. Common values: `temperature_2m_max`, `temperature_2m_min`, `temperature_2m_m |
-| `end_date` | string | No | End of the interval, `yyyy-mm-dd` (ISO 8601). |
-| `forecast_days` | integer | No | Number of forecast days to return (0-16). Default 7. |
-| `hourly` | string | No | Comma-separated list of hourly variables to return. Common values: `temperature_2m`, `relative_humidity_2m`, `dew_point_2m`, `apparent_temperature`, `precipitat |
 | `latitude` | string | Yes | WGS84 latitude of the location. Multiple coordinates can be comma-separated. |
 | `longitude` | string | Yes | WGS84 longitude of the location (negative for the Americas). Multiple coordinates can be comma-separated. |
+| `cell_selection` | string | No | Grid-cell preference for the coordinate. Default `land`. |
+| `daily` | string | No | Comma-separated list of daily aggregation variables to return. Requires `timezone`. Common values: `temperature_2m_max`, `temperature_2m_min`, `temperature_2m_mean`, `precipitation_sum`, `rain_sum`, `snowfall_sum`, `weat |
+| `end_date` | string | No | End of the interval, `yyyy-mm-dd` (ISO 8601). |
+| `forecast_days` | integer | No | Number of forecast days to return (0-16). Default 7. |
+| `hourly` | string | No | Comma-separated list of hourly variables to return. Common values: `temperature_2m`, `relative_humidity_2m`, `dew_point_2m`, `apparent_temperature`, `precipitation`, `rain`, `showers`, `snowfall`, `weather_code`, `pressu |
 | `models` | string | No | Comma-separated forecast models. Default best match. |
 | `past_days` | integer | No | Number of past days to include (0-92). Default 0. |
 | `precipitation_unit` | string | No | Precipitation unit. Default `mm`. |
@@ -111,9 +118,57 @@ curl -X POST "https://api.sandbase.ai/v1/api/open-meteo/previous-runs" \
 | `timezone` | string | No | IANA time zone name (e.g. `Europe/Berlin`) or `auto` to resolve from coordinates. Defaults to `GMT`. |
 | `wind_speed_unit` | string | No | Wind speed unit. Default `kmh`. |
 
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "elevation": 38.0,
+  "generationtime_ms": 7.387995719909668,
+  "hourly": {
+    "temperature_2m_previous_day1": [
+      6.9
+    ],
+    "time": [
+      "2026-11-03T00:00"
+    ]
+  },
+  "hourly_units": {
+    "temperature_2m_previous_day1": "°C",
+    "time": "iso8601"
+  },
+  "latitude": 52.512604,
+  "longitude": 13.419517,
+  "timezone": "GMT",
+  "timezone_abbreviation": "GMT",
+  "utc_offset_seconds": 0
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `hourly.time` | Hour timestamps for each value, in the format given by `hourly_units.time` (`iso8601` here). They are in the response `timezone`. |
+| `hourly.temperature_2m_previous_day1` | Hourly temperature at 2 m as forecast one day earlier. Each value lines up with the same index in `hourly.time`. The name follows the requested variable, so other variables appear under their own names. |
+| `hourly_units.temperature_2m_previous_day1` | Unit of the hourly temperature values, `°C` in this response. |
+| `latitude / longitude` | Coordinates of the grid cell used for the forecast. They can differ slightly from the coordinates you sent. |
+| `elevation` | Elevation of the selected grid cell, in the same call result as the coordinates. |
+| `timezone / timezone_abbreviation` | Time zone used for the timestamps. It is `GMT` here because no `timezone` was sent. |
+| `utc_offset_seconds` | Offset of the response time zone from UTC, in seconds. |
+| `generationtime_ms` | Time the server took to produce the response, in milliseconds. |
+
+### Notes
+
+- Add `_previous_day1` and similar suffixes to a variable name, for example `temperature_2m_previous_day1`, to ask for an earlier run. Use the same pattern in `daily`, for example `temperature_2m_max_previous_day1`.
+- `daily` needs `timezone`. Use an IANA name such as `Europe/Berlin` or `auto`.
+- Choose the time range with `forecast_days` and `past_days`, or with `start_date` and `end_date` in `yyyy-mm-dd` format.
+- For current forecasts without lead-time suffixes, call [Open-Meteo Weather Forecast](/apis/open-meteo/forecast). For past forecasts stored by date range, see [Open-Meteo Historical Forecast](/apis/open-meteo/historical-forecast).
+
 ### Pricing
 
-Flat price per call. Failed calls are not charged.
+$0.0001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ---
 Machine-readable: [`catalog/models/open-meteo/previous-runs.json`](../../../catalog/models/open-meteo/previous-runs.json) · Store page: https://www.sandbase.ai/model/open-meteo/previous-runs

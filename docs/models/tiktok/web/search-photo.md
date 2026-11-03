@@ -65,13 +65,14 @@ Same call via the path form: `POST /v1/api/tiktok/web/search-photo` with the bod
 
 ## Details
 
-Look up TikTok photo posts using a search term specified in `keyword`. Supports pagination controls using `offset` and `search_id`.
+Returns TikTok photo posts that match a search keyword. Each post includes its caption, images, hashtags, author statistics, music and engagement counts. The only required input is `keyword`.
 
 ### Use cases
 
-- Discover photo posts related to specific topics or keywords on TikTok.
-- Analyze engagement metrics and play counts for trending photo content.
-- Inspect author profiles and music metadata linked to search results.
+- Collect photo posts about a brand or topic, such as `openai`, and read their captions and hashtags.
+- Rank photo posts by `stats.playCount` or `stats.diggCount` to find the ones that perform best.
+- Check the follower and like totals of the authors who post about a keyword.
+- Download the image URLs of a post for review or archiving.
 
 ### Request
 
@@ -81,6 +82,8 @@ curl -X POST "https://api.sandbase.ai/v1/api/tiktok/web/search-photo" \
   -H "Content-Type: application/json" \
   -d '{"keyword": "openai"}'
 ```
+
+The result is returned in `outputs[0].data`.
 
 ### Parameters
 
@@ -93,70 +96,126 @@ curl -X POST "https://api.sandbase.ai/v1/api/tiktok/web/search-photo" \
 
 ### Example response
 
-Real response for the request above, trimmed to the main fields. User names and long IDs are masked.
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
 
 ```json
 {
+  "backtrace": "",
+  "cookie": "tt_chain…",
+  "cursor": 20,
+  "extra": {
+    "api_debug_info": null,
+    "fatal_item_ids": [],
+    "logid": "202611030744288C32E7C0DEB25902A31E",
+    "now": 1793691869000,
+    "search_request_id": ""
+  },
+  "has_more": 1,
   "item_list": [
     {
+      "AIGCDescription": "",
       "CategoryType": 120,
-      "createTime": 1790707203,
-      "desc": "From personal agents and collaborative work spaces to a new affordable frontier model and…",
-      "id": "7691028733624372493",
-      "itemCommentStatus": 0,
-      "textLanguage": "en",
-      "textTranslatable": true,
-      "titleLanguage": "un",
-      "titleTranslatable": false,
+      "IsHDBitrate": false,
       "author": {
-        "id": "7256178298626032683",
-        "nickname": "<user>",
-        "privateAccount": false,
-        "verified": true
+        "avatarLarger": "https://p16-common-sign.tiktokcdn-us.com/tos-maliva-avt-0068/0f21de2969ec6273b0c…",
+        "avatarMedium": "https://p16-common-sign.tiktokcdn-us.com/tos-maliva-avt-0068/0f21de2969ec6273b0c…",
+        "avatarThumb": "https://p19-common-sign.tiktokcdn-us.com/tos-maliva-avt-0068/0f21de2969ec6273b0c…",
+        "commentSetting": 0,
+        "downloadSetting": 0,
+        "duetSetting": 0,
+        "ftc": false,
+        "id": "7668351969518470166"
       },
       "authorStats": {
-        "diggCount": 392,
-        "followerCount": 1000000,
-        "followingCount": 2,
+        "diggCount": 372,
+        "followerCount": 7747,
+        "followingCount": 0,
         "friendCount": 0,
-        "heartCount": 6500000,
-        "videoCount": 378
+        "heart": 292700,
+        "heartCount": 292700,
+        "videoCount": 45
       },
       "authorStatsV2": {
-        "diggCount": "392",
-        "followerCount": "1000000",
-        "followingCount": "2",
+        "diggCount": "372",
+        "followerCount": "7747",
+        "followingCount": "0",
         "friendCount": "0",
-        "heartCount": "6500000",
-        "videoCount": "378"
+        "heart": "292700",
+        "heartCount": "292700",
+        "videoCount": "45"
       },
-      "music": {
-        "authorName": "vowl. & Sace",
-        "duration": 60,
-        "id": "7145154069236041729",
-        "title": "2000"
-      },
-      "stats": {
-        "collectCount": 180,
-        "commentCount": 72,
-        "diggCount": 1119,
-        "playCount": 31700,
-        "shareCount": 104
+      "backendSourceEventTracking": "",
+      "challenges": [
+        {
+          "coverLarger": "",
+          "coverMedium": "",
+          "coverThumb": "",
+          "desc": "",
+          "id": "1660434918591489",
+          "profileLarger": "",
+          "profileMedium": "",
+          "profileThumb": ""
+        }
+      ],
+      "collected": false,
+      "contents": [
+        {
+          "desc": "The model deepseek V4 flash retained its small size yet they still managed to ma…",
+          "textExtra": [
+            {
+              "awemeId": "",
+              "end": 483,
+              "hashtagId": "1660434918591489",
+              "hashtagName": "deepseek",
+              "isCommerce": false,
+              "start": 474,
+              "subType": 0,
+              "type": 1
+            }
+          ]
+        }
+      ],
+      "createTime": 1785660642,
+      "creatorAIComment": {
+        "eligibleVideo": false,
+        "hasAITopic": false,
+        "notEligibleReason": 101
       }
     }
-  ]
+  ],
+  "log_pb": {
+    "impr_id": "202611030744288C32E7C0DEB25902A31E"
+  },
+  "status_code": 0,
+  "tt_chain_token": "e/Y90VJh…"
 }
 ```
 
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `item_list[].id` | ID of the photo post. |
+| `item_list[].desc` | Caption text of the post. Long captions may be shortened. |
+| `item_list[].createTime` | Creation time of the post as a Unix timestamp in seconds. |
+| `item_list[].stats.playCount / diggCount / commentCount / shareCount / collectCount` | Engagement counts for the post. `statsV2` holds the same numbers as strings. |
+| `item_list[].author.id` | ID of the account that published the post. |
+| `item_list[].authorStats.followerCount / heartCount / videoCount` | Follower, total like and video counts of the author. `authorStatsV2` repeats them as strings. |
+| `item_list[].imagePost.images[].imageURL.urlList` | List of image URLs for each image in the post. `imageWidth` and `imageHeight` give the size of that image. |
+| `item_list[].imagePost.title` | Title shown on the photo post. |
+| `item_list[].textExtra[].hashtagName` | Hashtag names used in the caption. `start` and `end` give the position of each hashtag in the text. |
+| `item_list[].music.id / authorName / duration` | ID, author name and duration of the sound used in the post. `original` shows whether it is an original sound. |
+
 ### Notes
 
-- Set `offset` to 0 for initial calls and supply the updated cursor for subsequent pages.
-- Leave `search_id` empty on the first query, then supply the value returned from the previous response.
-- The `count` parameter specifies the number of items per page, with 20 recommended.
+- For the next page, send the `cursor` value from the response as `offset`. The first response returns `cursor` 20 and `has_more` 1.
+- Send the `search_id` from the previous response in follow-up requests. Leave it empty on the first call.
+- Image URLs in the response contain an `x-expires` value, so download the images soon after the call.
+- To look up a single post in more detail, use [TikTok Video Detail](/apis/tiktok/web/post-detail).
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

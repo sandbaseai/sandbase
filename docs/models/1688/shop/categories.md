@@ -59,9 +59,14 @@ Same call via the path form: `POST /v1/api/1688/shop/categories` with the body a
 
 ## Details
 
-List all product categories of a 1688 shop by shop URL or seller member ID.
+Returns the list of product categories that a 1688 shop has set up, with a product count for each category. Send either the shop homepage URL as `shopUrl` or the seller ID as `memberId`.
 
-The response is the platform's original data structure.
+### Use cases
+
+- Map the full catalog structure of a competitor shop on 1688.
+- Find which categories hold the most products in a supplier's shop.
+- Collect category IDs for a shop before you pull the products in each category.
+- Check how a seller groups its products, for example by phone case type.
 
 ### Request
 
@@ -72,16 +77,57 @@ curl -X POST "https://api.sandbase.ai/v1/api/1688/shop/categories" \
   -d '{"memberId": "b2b-3945631662b7581"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
 |---|---|---|---|
-| `shopUrl` | string | No | 1688 shop homepage URL. Supply shopUrl or memberId. |
 | `memberId` | string | No | Seller member ID. Supply memberId or shopUrl. |
+| `shopUrl` | string | No | 1688 shop homepage URL. Supply shopUrl or memberId. |
+
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "is_custom": true,
+  "list": [
+    {
+      "children": [],
+      "count": 16,
+      "full_name": "折叠屏转轴保护套",
+      "id": 169945812,
+      "name": "折叠屏转轴保护套"
+    }
+  ],
+  "member_id": "b2b-3945631662b7581"
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `member_id` | The seller member ID the categories belong to. It matches the `memberId` you sent. |
+| `is_custom` | Boolean flag on the category list. It is `true` in this response. The key name does not say more, so treat the exact meaning as unconfirmed. |
+| `list[]` | One entry per shop category. |
+| `list[].id` | Numeric ID of the category. |
+| `list[].name / list[].full_name` | Category name, and its full name. Both show the same text for these top-level categories. |
+| `list[].count` | Number of products in the category. |
+| `list[].children` | List of sub-categories. It is empty for the categories shown here. |
+
+### Notes
+
+- Supply `shopUrl` or `memberId`. You only need one of them.
+- Category names are returned in Chinese, as set by the seller.
+- Use [1688 Category Products](/apis/1688/category/items) to list products in a category, and [1688 Category Info](/apis/1688/category/info) for category details.
+- Use [1688 Shop Info](/apis/1688/shop/info) to get details about the shop itself.
 
 ### Pricing
 
-Flat price per call. Failed calls and empty results are not charged.
+$0.014286 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ---
 Machine-readable: [`catalog/models/1688/shop/categories.json`](../../../../catalog/models/1688/shop/categories.json) · Store page: https://www.sandbase.ai/model/1688/shop/categories

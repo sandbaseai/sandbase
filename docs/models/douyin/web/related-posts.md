@@ -64,13 +64,14 @@ Same call via the path form: `POST /v1/api/douyin/web/related-posts` with the bo
 
 ## Details
 
-Returns recommended related Douyin posts based on a target video specified by `aweme_id`. Paginate through sequential recommendations using `refresh_index`.
+Returns a list of recommended Douyin videos related to one video. The input is the video's `aweme_id`. Each item in `aweme_list` holds the post text, author, hashtags, chapters and danmaku settings.
 
 ### Use cases
 
-- Discover recommended Douyin videos related to a specific post.
-- Build content recommendation feeds based on video context.
-- Retrieve sequential batches of related Douyin video suggestions.
+- Find videos that Douyin links to a given post, to study what content sits near it.
+- Collect hashtags from related posts to see which topics cluster around a video.
+- Read the AI chapter summaries of related long videos without opening each one.
+- Page through more suggestions by raising `refresh_index` to build a larger set of related videos.
 
 ### Request
 
@@ -80,6 +81,8 @@ curl -X POST "https://api.sandbase.ai/v1/api/douyin/web/related-posts" \
   -H "Content-Type: application/json" \
   -d '{"aweme_id": "7393365489105358132"}'
 ```
+
+The result is returned in `outputs[0].data`.
 
 ### Parameters
 
@@ -91,35 +94,94 @@ curl -X POST "https://api.sandbase.ai/v1/api/douyin/web/related-posts" \
 
 ### Example response
 
-Real response for the request above, trimmed to the main fields. User names and long IDs are masked.
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
 
 ```json
 {
   "aweme_list": [
     {
-      "video": {
-        "bit_rate": [
+      "ad_candidates": null,
+      "ai_follow_images": null,
+      "anchors": null,
+      "authentication_token": "MS4wLjAA…",
+      "author": {
+        "avatar_thumb": {
+          "height": 720,
+          "uri": "100x100/aweme-avatar/tos-cn-i-0813c001_oEBnlHYiAAAuA9FHgEFru1CDJfHqfg9EAACC7I",
+          "url_list": [
+            "https://p3-pc.douyinpic.com/aweme/100x100/aweme-avatar/tos-cn-i-0813c001_oEBnlHY…"
+          ],
+          "width": 720
+        },
+        "common_interest": null,
+        "cover_url": [
           {
-            "bit_rate": 1048328,
-            "gear_name": "normal_1080_0",
-            "quality_type": 1
+            "height": 720,
+            "uri": "c8510002be9a3a61aad2",
+            "url_list": [
+              "https://p3-pc-sign.douyinpic.com/obj/c8510002be9a3a61aad2?lk3s=138a59ce&x-expire…"
+            ],
+            "width": 720
           }
-        ]
-      }
+        ],
+        "custom_verify": "",
+        "enterprise_verify_reason": "",
+        "follow_status": 0,
+        "follower_status": 0,
+        "followers_detail": null
+      },
+      "author_user_id": 3935848376315614,
+      "aweme_control": {
+        "can_comment": true,
+        "can_forward": true,
+        "can_share": true,
+        "can_show_comment": true
+      },
+      "aweme_id": "7703155542465842482",
+      "aweme_listen_struct": {
+        "trace_info": "{\"copyright_not_speech\":\"false\",\"copyright_reason\":\"not_intercept\",\"copyright_ta…"
+      },
+      "aweme_type": 0,
+      "can_cache_to_local": true,
+      "caption": "#历史 #美国 #人文星闪耀计划 #人物 #二战"
     }
-  ]
+  ],
+  "chime_video_list": null,
+  "filter_infos": null,
+  "has_more": 1,
+  "log_pb": {
+    "impr_id": "202611031532293DB8359BA9C2541C2D10"
+  },
+  "status_code": 0
 }
 ```
 
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `aweme_list[].aweme_id / aweme_list[].group_id` | ID of the related video. In this response both fields hold the same value. |
+| `aweme_list[].desc` | Full post text, including hashtags. |
+| `aweme_list[].caption` | Short caption of the post. It can differ from `desc`, which may have an extra title in front. |
+| `aweme_list[].create_time` | Publish time of the video as a Unix timestamp in seconds. |
+| `aweme_list[].duration` | Length of the video. Values such as `2920491` suggest milliseconds, but the response does not state the unit. |
+| `aweme_list[].author_user_id` | Numeric ID of the account that posted the video. |
+| `aweme_list[].author.avatar_thumb.url_list` | Image URLs for the author's small avatar. |
+| `aweme_list[].cha_list[].cha_name / aweme_list[].cha_list[].cid` | Name and ID of each hashtag attached to the video. |
+| `aweme_list[].chapter_abstract` | Text summary of the video content. It is an empty string when the video has none. |
+| `aweme_list[].chapter_list[].desc / aweme_list[].chapter_list[].timestamp` | Title of each chapter and its start position in the video. Values such as `83000` suggest milliseconds. |
+| `aweme_list[].danmaku_control.danmaku_cnt` | Number of danmaku (scrolling comments) on the video. |
+
 ### Notes
 
-- Provide the target video ID in `aweme_id`.
-- Paginate through results by incrementing `refresh_index` by 1, starting at 1.
-- The default value for `count` is 20.
+- Send the target video ID in `aweme_id`. Get it from a video link with [Douyin Video ID Extractor](/apis/douyin/web/aweme-id).
+- To page, raise `refresh_index` by 1 on each call, starting at 1. `count` defaults to 20 and the docs advise leaving it unchanged.
+- Many fields are `null` for some videos, such as `comment_list` and `anchors`. Check for `null` before you read them.
+- Image URLs such as `cover_url` contain `x-expires` and `x-signature` query values, so save the image if you need it long term.
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

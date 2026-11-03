@@ -62,13 +62,13 @@ Same call via the path form: `POST /v1/api/douyin/web/sec-user-id` with the body
 
 ## Details
 
-Resolve a Douyin user security identifier by providing a web link via the `url` parameter. This endpoint parses the input link and returns the corresponding user identifier.
+This API takes a Douyin web link in the `url` parameter and returns a single JSON string. It is meant to extract the `sec_user_id` from a user profile link. In the sample call, a video link came back as the same URL text.
 
 ### Use cases
 
-- Resolve a Douyin user sec_user_id from a shared profile link.
-- Convert profile web URLs into stable user identifiers for downstream queries.
-- Automate profile identity extraction from Douyin web links.
+- Turn a shared Douyin profile link into a `sec_user_id` before you request that user's data.
+- Prepare user identifiers for [Douyin User Profile (Web)](/apis/douyin/web/user-profile) from profile links you collected.
+- Check whether a pasted Douyin link resolves to an identifier or comes back unchanged.
 
 ### Request
 
@@ -79,15 +79,39 @@ curl -X POST "https://api.sandbase.ai/v1/api/douyin/web/sec-user-id" \
   -d '{"url": "https://www.douyin.com/video/7691553968815623478"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
 |---|---|---|---|
-| `url` | string | Yes | — |
+| `url` | string | Yes |  |
+
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+"https://www.douyin.com/video/7691553968815623478"
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `$` | The whole response is one plain JSON string, not an object, so it has no named fields. |
+| `$` | For a user profile link, this string is the resolved `sec_user_id`, according to the API description. |
+| `$` | In the sample call with a video link, the string was the same URL that was sent in `url`. |
+
+### Notes
+
+- Send a user profile or homepage URL in `url` if you want a `sec_user_id`. The sample video URL `https://www.douyin.com/video/7691553968815623478` returned the input unchanged.
+- For a video link, call [Douyin Video ID Extractor](/apis/douyin/web/aweme-id) to get the video ID.
+- To process many profile links in one call, use [Douyin sec_user_ids from URLs (Batch)](/apis/douyin/web/all-sec-user-id).
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

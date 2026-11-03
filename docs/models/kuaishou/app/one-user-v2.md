@@ -62,13 +62,14 @@ Same call via the path form: `POST /v1/api/kuaishou/app/one-user-v2` with the bo
 
 ## Details
 
-Fetch account profile data and interface options on Kuaishou by specifying a target `user_id`.
+Returns the profile page data for one Kuaishou account: name, bio, avatar, follower and post counts, IP location, shop links and the entrance buttons shown on the profile. It needs the numeric `user_id` of the account.
 
 ### Use cases
 
-- Inspect profile navigation and entrance settings for a Kuaishou user.
-- Verify account interface configurations within the Kuaishou app.
-- Integrate Kuaishou user profile metadata into analytics workflows.
+- Read the follower count, post count and total likes of a Kuaishou creator before you decide to track them.
+- Check whether an account runs a Kuaishou shop and read the shop link and product count.
+- Save the display name, bio and avatar URLs of an account for a creator database.
+- Read the IP location shown on a profile for audience or account research.
 
 ### Request
 
@@ -79,41 +80,124 @@ curl -X POST "https://api.sandbase.ai/v1/api/kuaishou/app/one-user-v2" \
   -d '{"user_id": "3795214411"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
 |---|---|---|---|
-| `user_id` | string | Yes | — |
+| `user_id` | string | Yes |  |
 
 ### Example response
 
-Real response for the request above, trimmed to the main fields. User names and long IDs are masked.
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
 
 ```json
 {
-  "userProfile": {
-    "personalEntrances": [
+  "adImBusinessInfo": {
+    "adImEntranceStyle": "DEFAULT"
+  },
+  "adProfileExtInfo": {
+    "hasMagnetic": true,
+    "pageId": 100022410,
+    "posId": 20905,
+    "subPageId": 100024409
+  },
+  "authorInfo": {
+    "isAdBusinessUser": false,
+    "isVerifiedUser": false
+  },
+  "clientLog": {
+    "userStatus": "NORMAL"
+  },
+  "debug_id": "8ce99695",
+  "debug_info": "gAAAAABq6Y7r1P_y-S7GJrTF1G8HSuPD_HX4C0lU5lmua-IPSxq0kCMZ9VP9hbBbSvW65aHshkuowMt6…",
+  "host-name": "public-bjmt-c56-kce-node279.idchb1az4.hb1.kwaidc.com",
+  "profileTemplateCardInfo": {
+    "enableMiddleCardManagement": false,
+    "enableSubManagePanel": false,
+    "profileTemplateCardShowType": 1,
+    "profileTemplateCards": [
       {
-        "entrances": [
+        "bizType": 1,
+        "cardType": 1,
+        "cardTypeName": "MERCHANT_SHOP",
+        "cardViewStyle": 0,
+        "darkIconUrl": "http://p1-ec.ecukwai.com/kos/nlav12333/trade-assets/mp3bbfap5o.d1f073b3f413828d.…",
+        "darkIconUrls": [
           {
-            "actionType": 0,
-            "entranceName": "分享主页",
-            "entranceType": "shareProfile"
+            "cdn": "p1-ec.ecukwai.com",
+            "url": "http://p1-ec.ecukwai.com/kos/nlav12333/trade-assets/mp3bbfap5o.d1f073b3f413828d.…"
           }
-        ]
+        ],
+        "disableManagement": true,
+        "enableIconPlayLoop": true,
+        "extra": {
+          "is_sales_tag": "true",
+          "selling_points_type": "2",
+          "subTitleType": "2"
+        },
+        "iconUrl": "http://p1-ec.ecukwai.com/kos/nlav12333/trade-assets/fuhiss96tc.1243ad193de71988.…",
+        "iconUrls": [
+          {
+            "cdn": "p1-ec.ecukwai.com",
+            "url": "http://p1-ec.ecukwai.com/kos/nlav12333/trade-assets/fuhiss96tc.1243ad193de71988.…"
+          }
+        ],
+        "ksOrderId": "guest_profile_my_shop_1cards_1"
+      }
+    ],
+    "promptCount": 1,
+    "redDotRules": {
+      "exitRule": {
+        "exitDays": 3,
+        "exposureThreshold": 5,
+        "permanentExitTimes": 4
+      },
+      "maxShowCountEveryType": 1
+    }
+  },
+  "recommendUserShowStyle": 0,
+  "result": 1,
+  "tips": {},
+  "totalPhotoLike": {
+    "linkUrl": "kwai://krn?bundleId=KwaiPostLikeList&componentName=LikeList&ownerId=3795214411&g…",
+    "showRedDot": false,
+    "urls": [
+      {
+        "cdn": "tx2.a.kwimgs.com",
+        "url": "https://tx2.a.kwimgs.com/udata/pkg/KS-PROFILE/light_like.05cc35bb8f13018c.jpg"
       }
     ]
   }
 }
 ```
 
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `userProfile.profile.user_id / userProfile.profile.user_name` | Numeric ID and display name of the account. |
+| `userProfile.profile.user_text` | Bio text shown on the profile. |
+| `userProfile.profile.headurl / userProfile.profile.bigHeadUrls[].url` | Avatar image URL, plus a list of larger avatar URLs on different CDN hosts. |
+| `userProfile.profile.user_profile_bg_url` | URL of the profile background image. |
+| `userProfile.ownerCount.fan / userProfile.ownerCount.follow` | Number of followers and number of accounts this user follows. |
+| `userProfile.ownerCount.photo / userProfile.ownerCount.photo_public / userProfile.ownerCount.photo_private` | Count of all posts, public posts and private posts. |
+| `userProfile.ownerCount.total_photo_like` | Total likes received across the account's posts. |
+| `userProfile.ipLocation.ipLocationName` | Region name shown as the account's IP location, such as `Hunan`. |
+| `userProfile.extraLinks[].entranceTitle / userProfile.extraLinks[].subTitle / userProfile.extraLinks[].link` | Name, short subtitle and link of the shop entrance shown on the profile. |
+| `userProfile.personalEntrances[].entrances[].entranceName / userProfile.personalEntrances[].entrances[].entranceType` | Label and type code of each action button on the profile, such as `chat` or `shareProfile`. |
+
 ### Notes
 
-- Requires a valid `user_id` to look up profile information.
+- `user_id` is a numeric string such as `3795214411`. The same value comes back as `userProfile.profile.user_id`.
+- Some text fields are in Chinese and some in English, for example the shop title and `entrances[].detail`.
+- Fields like `debug_id`, `debug_info` and `host-name` are request diagnostics, not profile data.
+- To list the account's videos, call [Kuaishou User Video List (V2)](/apis/kuaishou/app/user-post-v2). To check for a live stream, call [Kuaishou User Broadcast Details](/apis/kuaishou/app/user-live-info).
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.01 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

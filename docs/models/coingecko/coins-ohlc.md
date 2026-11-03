@@ -70,9 +70,14 @@ Same call via the path form: `POST /v1/api/coingecko/coins-ohlc` with the body a
 
 ## Details
 
-Get the OHLC chart (Open, High, Low, Close) of a coin based on particular coin ID
+Returns OHLC (open, high, low, close) candle data for one coin as a list of arrays. Each array starts with a timestamp and is followed by numeric values in the currency you choose. It needs a CoinGecko coin `id`, a `days` range and a `vs_currency`.
 
-The response is the official CoinGecko API response, unchanged.
+### Use cases
+
+- Draw a candlestick chart of Bitcoin for the last day or the last year.
+- Compare a coin's trading range across 7, 30 or 90 day windows.
+- Feed candles into a backtest or a technical indicator calculation.
+- Store daily candles for a coin by setting `interval` to `daily`.
 
 ### Request
 
@@ -83,19 +88,48 @@ curl -X POST "https://api.sandbase.ai/v1/api/coingecko/coins-ohlc" \
   -d '{"id": "bitcoin", "days": "1", "vs_currency": "usd"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
 |---|---|---|---|
-| `id` | string | Yes | Coin ID. *refers to [`/coins/list`](/reference/coins-list). |
 | `days` | string | Yes | Data up to number of days ago. |
+| `id` | string | Yes | Coin ID. *refers to [`/coins/list`](/reference/coins-list). |
+| `vs_currency` | string | Yes | Target currency of price data. *refers to [`/simple/supported_vs_currencies`](/reference/simple-supported-currencies). |
 | `interval` | string | No | Data interval, leave empty for auto granularity. |
 | `precision` | string | No | Decimal place for currency price value. |
-| `vs_currency` | string | Yes | Target currency of price data. *refers to [`/simple/supported_vs_currencies`](/reference/simple-supported-currencies). |
+
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+[
+  [
+    1793604600000
+  ]
+]
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `[]` | One candle. The response is a top-level list of these arrays, ordered from oldest to newest. |
+| `[][0]` | Candle timestamp as a Unix time in milliseconds, for example `1793604600000`. |
+| `[][1] / [][2]` | Numeric values in the `vs_currency` you requested. The description says each candle holds open, high, low and close, but this sample shows only two values after the timestamp. Check the array length in your own response before you map positions to open, high, low and close. |
+
+### Notes
+
+- Get the `id` value (for example `bitcoin`) from [CoinGecko Coins List (ID Map)](/apis/coingecko/coins-list).
+- Get valid `vs_currency` values (for example `usd`) from [CoinGecko Supported Currencies List](/apis/coingecko/simple-supported-vs-currencies).
+- `days` accepts `1`, `7`, `14`, `30`, `90`, `180`, `365` or `max`. In the sample call with `days` set to `1`, the candles are 30 minutes apart (1,800,000 ms).
+- For historical chart data instead of candles, call [CoinGecko Coin Historical Chart Data by ID](/apis/coingecko/coins-market-chart).
 
 ### Pricing
 
-Flat price per call. Failed calls are not charged.
+$0.008 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ---
 Machine-readable: [`catalog/models/coingecko/coins-ohlc.json`](../../../catalog/models/coingecko/coins-ohlc.json) · Store page: https://www.sandbase.ai/model/coingecko/coins-ohlc

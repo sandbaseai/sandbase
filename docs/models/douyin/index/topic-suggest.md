@@ -63,13 +63,14 @@ Same call via the path form: `POST /v1/api/douyin/index/topic-suggest` with the 
 
 ## Details
 
-Look up topic suggestions for a given `keyword` string. You can also specify `app_name` to target Douyin or Toutiao.
+Returns autocomplete topic suggestions for a search keyword. Each suggestion has a topic ID and a topic name. You send a `keyword` and can set `app_name` to choose Douyin or Toutiao.
 
 ### Use cases
 
-- Populate autocomplete dropdowns for topic search inputs.
-- Discover valid topic names and IDs matching user queries.
-- Target topic suggestions specifically for Douyin or Toutiao.
+- Fill a topic search box with suggestions as a user types a keyword.
+- Find the `topic_id` for a topic name before you pass it to another Douyin Index call.
+- Compare the topic names suggested for the same keyword on Douyin and on Toutiao.
+- Build a list of related topic names around a theme such as `人工智能`.
 
 ### Request
 
@@ -80,6 +81,8 @@ curl -X POST "https://api.sandbase.ai/v1/api/douyin/index/topic-suggest" \
   -d '{"keyword": "人工智能"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
@@ -89,10 +92,14 @@ curl -X POST "https://api.sandbase.ai/v1/api/douyin/index/topic-suggest" \
 
 ### Example response
 
-Real response for the request above, trimmed to the main fields. User names and long IDs are masked.
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
 
 ```json
 {
+  "BaseResp": {
+    "StatusCode": 0,
+    "StatusMessage": ""
+  },
   "topic_list": [
     {
       "topic_id": "1576073697445901",
@@ -102,13 +109,26 @@ Real response for the request above, trimmed to the main fields. User names and 
 }
 ```
 
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `topic_list` | List of suggested topics for the keyword. The first item in the sample is an exact match for the keyword. |
+| `topic_list[].topic_id` | ID of the suggested topic, returned as a string. |
+| `topic_list[].topic_name` | Display name of the suggested topic. It can be the keyword itself or a longer related name. |
+| `BaseResp.StatusCode` | Status code of the request. `0` in the sample response. |
+| `BaseResp.StatusMessage` | Status text. It is an empty string in the sample response. |
+
 ### Notes
 
-- The `app_name` parameter accepts aweme for Douyin or toutiao for Toutiao.
+- `app_name` accepts `aweme` for Douyin or `toutiao` for Toutiao. The default is `aweme`.
+- Treat `topic_id` as a string. The sample IDs have 16 to 19 digits.
+- To search topics in full instead of getting suggestions, call [Douyin Topic Search](/apis/douyin/index/topic-query).
+- To see what is trending now, call [Douyin Current Hot Topics Leaderboard](/apis/douyin/index/current-hot-topic).
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

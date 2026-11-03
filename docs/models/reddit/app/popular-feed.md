@@ -62,13 +62,14 @@ Same call via the path form: `POST /v1/api/reddit/app/popular-feed` with the bod
 
 ## Details
 
-Returns popular and trending post listings from the Reddit app, customizable using `sort` and `time` parameters.
+Returns a page of posts from the Reddit popular feed, with author details, post content, and flags such as locked or NSFW. It needs no input. You can set `sort`, `time`, and `after` to change the order, the time window, and the page.
 
 ### Use cases
 
-- Monitor trending posts and viral topics across Reddit communities.
-- Track engagement metrics like comment counts and scores on popular submissions.
-- Collect popular media links and subreddit highlights for social listening.
+- Pull the current popular posts to see which topics are trending on Reddit.
+- Track `commentCount` on popular posts to find the threads with the most discussion.
+- Collect the posts that carry ads or app download links by checking `__typename` and `callToAction`.
+- Page through the feed with `after` and skip known posts with `filter_posts` to build a deduplicated list.
 
 ### Request
 
@@ -79,76 +80,102 @@ curl -X POST "https://api.sandbase.ai/v1/api/reddit/app/popular-feed" \
   -d '{}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
 |---|---|---|---|
+| `after` | string | No | Pagination parameter for fetching next page |
+| `filter_posts` | array | No | List of post IDs to filter out, used to avoid duplicate fetches |
+| `need_format` | boolean | No | Whether to clean and format the data |
 | `sort` | string | No | Sort method, options: BEST, HOT, NEW, TOP, CONTROVERSIAL, RISING |
 | `time` | string | No | Time range, options: ALL, HOUR, DAY, WEEK, MONTH, YEAR |
-| `after` | string | No | Pagination parameter for fetching next page |
-| `need_format` | boolean | No | Whether to clean and format the data |
-| `filter_posts` | array | No | List of post IDs to filter out, used to avoid duplicate fetches |
 
 ### Example response
 
-Real response for the request above, trimmed to the main fields. User names and long IDs are masked.
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
 
 ```json
 {
+  "after": "dDNfMXhseWMwcg==",
   "popularfeed": {
     "postsInfoByIds": [
       {
         "__typename": "SubredditPost",
-        "commentCount": 754,
-        "id": "t3_1wyjtbt",
-        "isAuthorBlocked": false,
-        "isScoreHidden": false,
-        "permalink": "/r/mildlyinfuriating/comments/1wyjtbt/supreme_we_do_not_allow_cancellations_supreme_six/",
-        "postTitle": "Supreme: “We do not allow cancellations.” Supreme six hours after I mention PayPal:",
-        "score": 18775,
-        "url": "https://i.redd.it/j59df1dynpth1.jpeg",
+        "attributionInfo": null,
+        "authorCommunityBadge": null,
+        "authorFlair": null,
         "authorInfo": {
           "__typename": "Redditor",
           "accountType": "USER",
-          "id": "t2_1n6lhgykn9",
-          "name": "Alert-Lavishness-99"
+          "iconSmall": {
+            "__typename": "MediaSource",
+            "dimensions": {
+              "height": 256,
+              "width": 256
+            },
+            "url": "https://www.redditstatic.com/avatars/defaults/v2/avatar_default_1.png"
+          },
+          "id": "t2_2pw0aoobrt",
+          "isBlocked": false,
+          "isCakeDayNow": false,
+          "name": "TrainingThink9747",
+          "newIcon": {
+            "__typename": "MediaSource",
+            "dimensions": {
+              "height": 256,
+              "width": 256
+            },
+            "url": "https://www.redditstatic.com/avatars/defaults/v2/avatar_default_1.png"
+          }
         },
-        "flair": {
-          "__typename": "PostFlair",
-          "richtext": "[{\"e\":\"text\",\"t\":\"Winter is Coming\"}]",
-          "text": "Winter is Coming",
-          "type": "richtext"
+        "awardings": [],
+        "awardingsInfo": {
+          "promos": null
         },
-        "media": {
-          "__typename": "Media",
-          "typeHint": "IMAGE"
+        "commentCount": 405,
+        "content": {
+          "html": "I 26M recently started hooking up with an older coworker 56F \nWe work for a real…",
+          "markdown": "I 26M recently started hooking up with an older coworker 56F \n\nWe work for a rea…",
+          "preview": "I 26M recently started hooking up with an older coworker 56F We work for a reall…",
+          "richtext": "{\"document\":[{\"c\":[{\"e\":\"text\",\"t\":\"I 26M recently started hooking up with an ol…",
+          "richtextMedia": []
         },
-        "outboundLink": {
-          "url": "https://i.redd.it/j59df1dynpth1.jpeg"
-        },
-        "subreddit": {
-          "__typename": "Subreddit",
-          "id": "t5_2ubgg",
-          "isTitleSafe": true,
-          "name": "mildlyinfuriating",
-          "prefixedName": "r/mildlyinfuriating",
-          "subscribersCount": 12622421.0
-        }
+        "createdAt": "2026-11-02T18:57:40.939000+0000",
+        "crosspostRoot": null,
+        "crowdControlLevel": "OFF"
       }
     ]
   }
 }
 ```
 
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `after` | Cursor for the next page. Send it back as the `after` parameter. |
+| `popularfeed.postsInfoByIds[]` | List of posts in the feed. Each item is one post object. |
+| `popularfeed.postsInfoByIds[].__typename` | Post type. The response shows `SubredditPost` for normal posts and `ProfilePost` for posts made from a user profile. |
+| `popularfeed.postsInfoByIds[].id` | Post ID with the `t3_` prefix, for example `t3_1xm61yj`. |
+| `popularfeed.postsInfoByIds[].commentCount` | Number of comments on the post. |
+| `popularfeed.postsInfoByIds[].createdAt` | Creation time of the post as an ISO 8601 timestamp with a `+0000` offset. |
+| `popularfeed.postsInfoByIds[].authorInfo.name / authorInfo.id` | Username of the author and their ID with the `t2_` prefix. |
+| `popularfeed.postsInfoByIds[].content.markdown / content.preview` | Post body as markdown and as a short plain-text preview. `content` is `null` for link posts such as ads. |
+| `popularfeed.postsInfoByIds[].domain` | Domain the post points to. Self posts show values like `self.confession`, and image posts show `i.redd.it`. |
+| `popularfeed.postsInfoByIds[].isLocked / isNsfw / isSelfPost` | Flags that show if the post is locked, marked NSFW, or a text post. |
+
 ### Notes
 
-- Supported `sort` options include BEST, HOT, NEW, TOP, CONTROVERSIAL, and RISING.
-- Supported `time` options include ALL, HOUR, DAY, WEEK, MONTH, and YEAR.
-- Use `after` for pagination and `filter_posts` with post IDs to exclude previously viewed items.
+- Send an empty body `{}` to get the default feed, which uses `sort` of `BEST` and `time` of `ALL`.
+- For the next page, pass the top-level `after` value as the `after` parameter.
+- Pass IDs you have already seen in `filter_posts` to leave them out of the results.
+- To read the comments of a post, call [Reddit App Post Comments](/apis/reddit/app/post-comments). For full post data, call [Reddit Post Details](/apis/reddit/app/post-details).
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

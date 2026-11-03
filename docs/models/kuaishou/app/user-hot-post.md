@@ -63,13 +63,14 @@ Same call via the path form: `POST /v1/api/kuaishou/app/user-hot-post` with the 
 
 ## Details
 
-Retrieve hot post feeds and engagement statistics for a Kuaishou creator using `user_id`.
+Returns a list of popular posts from one Kuaishou user profile. Each post includes the caption, video duration, cover images, and counts for likes, comments, collects and forwards. The only required input is the user's numeric `user_id`.
 
 ### Use cases
 
-- Analyze top-performing video content from a creator.
-- Track engagement metrics like comment and collect counts on popular posts.
-- Browse a user trending feed history using pagination.
+- Rank a creator's posts by `like_count` to find which videos performed best.
+- Compare `comment_count` and `collect_count` across a creator's popular posts to see which content gets saved or discussed.
+- Collect `caption` text and hashtags from top posts to study how a creator titles popular videos.
+- Download cover image URLs from `cover_thumbnail_urls` to build a gallery of a creator's top posts.
 
 ### Request
 
@@ -80,58 +81,146 @@ curl -X POST "https://api.sandbase.ai/v1/api/kuaishou/app/user-hot-post" \
   -d '{"user_id": "3795214411"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
 |---|---|---|---|
-| `user_id` | string | Yes | — |
-| `pcursor` | string | No | — |
+| `user_id` | string | Yes |  |
+| `pcursor` | string | No |  |
 
 ### Example response
 
-Real response for the request above, trimmed to the main fields. User names and long IDs are masked.
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
 
 ```json
 {
   "feeds": [
     {
+      "adminTags": [],
+      "bottomEntryInfo": {
+        "bizExtraData": {},
+        "bottomBizType": 14,
+        "bottomStyleInfo": {
+          "bottomStrongStyle": {
+            "actionUrl": "",
+            "backgroundColor": "",
+            "bottomStrongStyleType": 0,
+            "enableForceClose": false,
+            "fontColor": "",
+            "fontSize": 0,
+            "iconHeight": 0,
+            "iconUrl": ""
+          },
+          "bottomWeakStyle": {
+            "actionUrl": "kwai://search?keyword=回村往事&sessionId=MzIwXzBfMTc5MzY5MTM3MTEwN19fMjE3MA&source=s…",
+            "backgroundColor": "#444444",
+            "bottomWeakStyleType": 0,
+            "enableForceClose": false,
+            "fontColor": "#FFFFFF",
+            "fontSize": 13,
+            "iconHeight": 48,
+            "iconRightMargin": 4.0
+          },
+          "delayShowWeakStyle": false,
+          "playVideoEndToStrongMillis": 0,
+          "showStrongVideoCountdownMillis": 0,
+          "showStrongVideoMillis": 0,
+          "strongStyleCloseHideWeakStyle": false,
+          "styleTriggers": []
+        },
+        "eventTrackData": {
+          "all_source": "p2q_semantic_recall_v4",
+          "entry_source": "search_entrance_featured_bottom_bar_profile",
+          "is_hotbar": "\u0000",
+          "query_id": "189c614ada146afe04ed891f00542f89",
+          "query_list_id": "MzIwXzBfMTc5MzY5MTM3MTEwN19fMjE3MA",
+          "query_name": "回村往事",
+          "rel_score": "0.957747",
+          "stg_recall_source": "p2q_semantic_recall_v4"
+        }
+      },
+      "canShowQuickCommentGuide": true,
       "caption": "回村往事@李秀妍u(O4489551526) #李秀妍u",
       "captionToComment": "回村往事@李秀妍u(O4489551526) #李秀妍u",
-      "collect_count": 8390,
-      "comment_count": 4097,
-      "disableCommentDislike": false,
-      "duration": 129349,
-      "exp_tag": "1_i/2006355482836038866_phot",
-      "fastCommentType": 1,
-      "following": 0,
-      "forward_count": 0,
-      "bottomEntryInfo": {
-        "bottomBizType": 14
-      },
+      "collect_count": 8386,
       "commentGuessSearch": {
+        "displayPrefix": "相关搜索：",
+        "extParams": "{\"all_source\":\"p2q_semantic_recall_v8,p2q_recall_exp_v17\",\"entrySource\":\"search_…",
+        "iconUrl": "https://ali2.a.kwimgs.com/udata/pkg/se-cdn/search_blue3x.png",
         "searchWord": "李秀妍和榜一大哥的视频",
         "searchWordMD5": "c541e248be165bd097c418eb43aa4a47",
-        "searchWordUrl": "kwai://search?keyword=李秀妍和榜一大哥的视频&sessionId=MzIwXzBfMTc5MTI5MDQ5OTE1NV9fOTM1NQ&source=sea…"
+        "searchWordUrl": "kwai://search?keyword=李秀妍和榜一大哥的视频&sessionId=MzIwXzBfMTc5MzY5MTM3MTEwN19fMjE3MA&s…",
+        "sessionId": "MzIwXzBf…"
       },
       "commentInfo": {
-        "commentCountSpecialEffect": true
+        "commentCountSpecialEffect": true,
+        "commentEducationGuide": {
+          "guideType": 0,
+          "triggerCharCount": 0
+        },
+        "commentIconType": 0,
+        "enableAIPresetGuide": false,
+        "permissions": 191
       },
-      "editInfo": {
-        "editTime": 1775816488646
+      "commentTopBarPriority": [
+        {
+          "bizType": "PLC",
+          "subBizType": "51"
+        }
+      ],
+      "comment_count": 4097,
+      "contactRelationFriend": false,
+      "coronaVipInfo": {
+        "enableFilmAd": false,
+        "filmAdInfo": {
+          "pageId": 100014436,
+          "posId": 9777,
+          "subPageId": 100017199
+        },
+        "inspireAdInfo": {
+          "pageId": 100011251,
+          "posId": 20578,
+          "subPageId": 100024209
+        },
+        "vipPhoto": false
       }
     }
-  ]
+  ],
+  "host-name": "public-bjx-c34-kce-node2128.idchb1az1.hb1.kwaidc.com",
+  "isUnfollowFeeds": false,
+  "llsid": "2006449521242258738",
+  "pcursor": "20",
+  "result": 1
 }
 ```
 
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `feeds[]` | One popular post from the user's profile. |
+| `feeds[].caption` | Post text, including hashtags and @mentions. It can be an empty string. |
+| `feeds[].like_count / feeds[].comment_count / feeds[].collect_count / feeds[].forward_count` | Counts of likes, comments, collects and forwards for the post. |
+| `feeds[].duration` | Length of the video as a number, for example `129349`. The `ext_params.video` field holds a nearly identical number. |
+| `feeds[].ext_params.w / feeds[].ext_params.h` | Video width and height values, for example `720` and `960`. |
+| `feeds[].cover_thumbnail_urls[].url` | Cover image URL for the post. Each entry also has a `cdn` host name. |
+| `feeds[].headurls[].url` | Avatar image URL of the post author. Each entry also has a `cdn` host name. |
+| `feeds[].commentGuessSearch.searchWord` | Suggested related search phrase shown with the post's comments. |
+| `feeds[].editInfo.editTime` | Time the post was last edited, as a 13-digit timestamp such as `1775816488646`. |
+| `feeds[].exp_tag` | Tag string that contains the post identifier, for example `1_i/2006449521242258738_phot`. |
+
 ### Notes
 
-- Specify `user_id` to query hot posts for a specific profile.
-- Pass `pcursor` to navigate across paginated feed results.
+- Pass `pcursor` to request further results. Leave it out for the first request.
+- The `user_id` is a numeric string, such as `3795214411`. To find a user's ID, try [Kuaishou User ID Lookup](/apis/kuaishou/web/get-user-id).
+- For a user's full video list instead of popular posts, use [Kuaishou User Video List (V2)](/apis/kuaishou/app/user-post-v2).
+- Many fields, such as `bottomEntryInfo` and `feedSwitches`, hold display and tracking settings and are not needed for most uses.
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

@@ -63,13 +63,13 @@ Same call via the path form: `POST /v1/api/reddit/app/check-subreddit-muted` wit
 
 ## Details
 
-Inspects whether an account has muted a specific subreddit by providing `subreddit_id`. An optional `need_format` parameter controls data formatting.
+Returns whether the current account has muted a given Reddit subreddit. It needs a `subreddit_id` that starts with `t5_`, such as `t5_2qh0u`.
 
 ### Use cases
 
-- Verify mute status for a target subreddit on the active account.
-- Filter out muted subreddit feeds in custom client applications.
-- Display mute preferences alongside subreddit details.
+- Check if a subreddit is muted before showing its posts in a custom Reddit client.
+- Show a mute toggle state next to subreddit details in an account settings screen.
+- Audit a list of subreddit IDs to find which ones the account has muted.
 
 ### Request
 
@@ -80,6 +80,8 @@ curl -X POST "https://api.sandbase.ai/v1/api/reddit/app/check-subreddit-muted" \
   -d '{"subreddit_id": "t5_2qh0u"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
@@ -87,14 +89,36 @@ curl -X POST "https://api.sandbase.ai/v1/api/reddit/app/check-subreddit-muted" \
 | `subreddit_id` | string | Yes | Subreddit ID starting with "t5_", can be obtained from fetch_subreddit_info endpoint |
 | `need_format` | boolean | No | Whether to clean and format the data |
 
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "subredditInfoById": {
+    "__typename": "Subreddit",
+    "isMuted": false
+  }
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `subredditInfoById` | Wrapper object for the subreddit that matches the requested `subreddit_id`. |
+| `subredditInfoById.__typename` | Object type name. The value is `Subreddit` for a subreddit record. |
+| `subredditInfoById.isMuted` | Boolean mute flag. `true` means the current account has muted this subreddit, and `false` means it has not. |
+
 ### Notes
 
-- `subreddit_id` must start with "t5_" and can be obtained from the subreddit info endpoint.
-- `need_format` specifies whether to clean and format the returned data.
+- Get `subreddit_id` from the [Reddit App Subreddit Info](/apis/reddit/app/subreddit-info) API. The ID starts with `t5_`.
+- The result applies to the account tied to the call, so the same `subreddit_id` can return different values for different accounts.
+- `need_format` is optional and is a boolean. The example request omits it.
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

@@ -62,13 +62,14 @@ Same call via the path form: `POST /v1/api/douyin/index/brand-valid-info` with t
 
 ## Details
 
-Look up brand metadata and category IDs on Douyin using `keyword_list`.
+Returns the Douyin brand records that match each keyword you send, including `brand_id` and the categories the brand is listed under. It needs one input, `keyword_list`, a comma-separated string of brand names.
 
 ### Use cases
 
-- Verify recognized brand names and extract their associated brand IDs.
-- Map brands to their corresponding Douyin category classifications.
-- Prepare brand identifiers for subsequent Douyin Index trend lookups.
+- Check whether a brand name such as `华为` is a recognized Douyin brand before you query other brand endpoints.
+- Get the `brand_id` for a brand name so you can store it or pass it to later lookups.
+- List every category a brand appears in, for example `手机` and `家用电器` for `华为`.
+- Check `brand_status` and `yuntu_status` for a batch of brand names in one call.
 
 ### Request
 
@@ -79,6 +80,8 @@ curl -X POST "https://api.sandbase.ai/v1/api/douyin/index/brand-valid-info" \
   -d '{"keyword_list": "华为"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
@@ -87,10 +90,14 @@ curl -X POST "https://api.sandbase.ai/v1/api/douyin/index/brand-valid-info" \
 
 ### Example response
 
-Real response for the request above, trimmed to the main fields. User names and long IDs are masked.
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
 
 ```json
 {
+  "BaseResp": {
+    "StatusCode": 0,
+    "StatusMessage": ""
+  },
   "keyword_info": [
     {
       "brand_info": [
@@ -100,19 +107,38 @@ Real response for the request above, trimmed to the main fields. User names and 
           "category_id": "11",
           "category_name": "手机"
         }
-      ]
+      ],
+      "brand_status": "1",
+      "keyword": "华为",
+      "yuntu_status": "1"
     }
   ]
 }
 ```
 
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `keyword_info[].keyword` | The keyword from your request that this result belongs to. |
+| `keyword_info[].brand_info[]` | List of brand and category matches for the keyword. The same brand can appear more than once, once per category. |
+| `keyword_info[].brand_info[].brand_id` | ID of the brand, returned as a string. It stays the same across the category rows of one brand. |
+| `keyword_info[].brand_info[].brand_name` | Name of the matched brand. |
+| `keyword_info[].brand_info[].category_id / keyword_info[].brand_info[].category_name` | ID and name of a category the brand is listed under, such as `手机` (`11`) or `家用电器` (`28`). |
+| `keyword_info[].brand_status` | Status flag for the brand, returned as a string. `1` for `华为`. |
+| `keyword_info[].yuntu_status` | Status flag named `yuntu_status`, returned as a string. `1` for `华为`. |
+| `BaseResp.StatusCode / BaseResp.StatusMessage` | Status of the call. `0` with an empty message means the request succeeded. |
+
 ### Notes
 
-- Pass multiple brand names to `keyword_list` as a comma-separated string.
+- Send several brand names in `keyword_list` as one comma-separated string. Each name gets its own entry in `keyword_info`.
+- If a brand has several categories, `brand_info` holds one row per category with the same `brand_id`.
+- If you do not know the exact brand name, call [Douyin Brand Search Suggestions](/apis/douyin/index/brand-suggest) first.
+- To see popularity data for a brand, use [Douyin Brand Trend Lines](/apis/douyin/index/brand-lines).
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

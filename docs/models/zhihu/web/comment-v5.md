@@ -65,13 +65,14 @@ Same call via the path form: `POST /v1/api/zhihu/web/comment-v5` with the body a
 
 ## Details
 
-Pass a Zhihu answer ID and get its comments with like and reply counts.
+Returns the top-level comments on a Zhihu answer, each with its text, author, creation time, like and dislike counts, and a few preview replies. It needs an `answer_id`. Paging and sort order are optional.
 
 ### Use cases
 
-- Analyze discussion and sentiment around an answer.
-- Collect user feedback on a topic.
-- Monitor comments on brand content.
+- Pull the most liked comments on an answer to see which views the readers agree with.
+- Track how the comment count on an answer changes by reading `counts.total_counts` over time.
+- Collect comment text with the author's city tag for a study of how opinions differ by region.
+- Find comments with many replies, then fetch their full reply threads.
 
 ### Request
 
@@ -81,6 +82,8 @@ curl -X POST "https://api.sandbase.ai/v1/api/zhihu/web/comment-v5" \
   -H "Content-Type: application/json" \
   -d '{"answer_id": "2023560406912770519"}'
 ```
+
+The result is returned in `outputs[0].data`.
 
 ### Parameters
 
@@ -93,35 +96,122 @@ curl -X POST "https://api.sandbase.ai/v1/api/zhihu/web/comment-v5" \
 
 ### Example response
 
-Real response for the request above, trimmed to the main fields. User names and long IDs are masked.
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
 
 ```json
 {
-  "paging": {
-    "is_end": false
+  "ad_plugin_infos": [],
+  "atmosphere_voting_config": {
+    "daily_frequency": 1,
+    "detail": [
+      {
+        "emoji_level": "dissatisfied",
+        "normal_icon": "https://picx.zhimg.com/v2-1d5d094f0cd71f7da08e7e54d037c0b5.png",
+        "selected_icon": "https://picx.zhimg.com/v2-9af3c8aa46b63f2f840138b0ee6b0a99.png",
+        "title": "不满"
+      }
+    ],
+    "frequency_interval": 3,
+    "location": 3,
+    "min_num_of_root_comment": 10,
+    "title": "你对该内容下的评论氛围是否满意？"
+  },
+  "comment_status": {
+    "induce_text": "",
+    "text": "",
+    "type": 0
+  },
+  "counts": {
+    "collapsed_counts": 0,
+    "reviewing_counts": 0,
+    "segment_comment_counts": 0,
+    "total_counts": 269
   },
   "data": [
     {
-      "id": "11454716173",
-      "created_time": 1775378836,
-      "like_count": 118,
-      "child_comment_count": 60,
-      "content": "人的理解能力也就那么回事，为啥非得高估人类呢，为啥感觉大模型不算理解呢？",
+      "_": null,
       "author": {
-        "name": "<user>"
-      }
+        "avatar_url": "https://picx.zhimg.com/v2-27bc715d780ecfc2402e01ada9c0e98f_l.jpg?source=06d4cd63",
+        "avatar_url_template": "https://pic1.zhimg.com/v2-27bc715d780ecfc2402e01ada9c0e98f_l.jpg?source=06d4cd63",
+        "badge_v2": {
+          "detail_badges": null,
+          "merged_badges": null,
+          "title": ""
+        },
+        "exposed_medal": {
+          "avatar_url": "https://pica.zhimg.com/v2-0cbfd5688630e180e5732c71b9935608_r.jpg?source=06d4cd63",
+          "can_click": true,
+          "description": "赞同 30 次",
+          "medal_avatar_frame": "",
+          "medal_id": "972460827463282688",
+          "medal_name": "表示赞同",
+          "mini_avatar_url": "https://pica.zhimg.com/v2-0cbfd5688630e180e5732c71b9935608_r.jpg?source=06d4cd63"
+        },
+        "gender": 1,
+        "headline": "",
+        "id": "318f3f9198703cf6aff20e05b75ca635",
+        "is_advertiser": false
+      },
+      "author_tag": [],
+      "can_annotation": false,
+      "can_author_top": false,
+      "can_collapse": false,
+      "can_delete": false,
+      "can_dislike": true,
+      "can_hot": false,
+      "can_like": true,
+      "can_more": true,
+      "can_reply": true
+    }
+  ],
+  "edit_status": {
+    "can_reply": true,
+    "toast": "彼此欣赏让讨论更加充实"
+  },
+  "header": [],
+  "is_content_author": false,
+  "is_content_rewardable": true,
+  "paging": {
+    "is_end": false,
+    "is_start": true,
+    "next": "https://www.zhihu.com/api/v4/comment_v5/answers/2023560406912770519/root_comment…",
+    "previous": "https://www.zhihu.com/api/v4/comment_v5/answers/2023560406912770519/root_comment…",
+    "totals": 269
+  },
+  "sorter": [
+    {
+      "text": "默认",
+      "type": "score"
     }
   ]
 }
 ```
 
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `counts.total_counts` | Total number of comments on the answer. |
+| `data[].id` | ID of the comment, as a string. |
+| `data[].content` | Comment text. Some comments contain HTML such as `<p>` and `<a>` tags. |
+| `data[].created_time` | Time the comment was created, as a Unix timestamp in seconds. |
+| `data[].like_count / dislike_count` | Number of likes and dislikes on the comment. |
+| `data[].child_comment_count` | Number of replies under the comment. |
+| `data[].child_comments[]` | A short preview of replies to the comment. Each item has the same shape as a top-level comment. |
+| `data[].child_comment_next_offset` | Cursor value for the next page of replies to this comment. |
+| `data[].author.id / author.headline` | ID and profile headline of the comment author. |
+| `data[].comment_tag[].text` | Tag shown on the comment. Tags with `type` set to `ip_info` hold a place name such as `上海`. |
+| `paging.is_end` | `false` when more pages of comments are available. |
+
 ### Notes
 
-- Get answer IDs from Zhihu search results or answer URLs.
+- Get the `answer_id` from a Zhihu answer URL, or from [Zhihu Question Answers](/apis/zhihu/web/question-answers).
+- Use `limit` and `offset` to page through comments. `paging.is_end` shows whether you have reached the last page.
+- To read all replies under one comment, call [Zhihu Sub Comments](/apis/zhihu/web/sub-comment-v5).
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

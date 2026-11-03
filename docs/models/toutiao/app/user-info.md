@@ -62,13 +62,14 @@ Same call via the path form: `POST /v1/api/toutiao/app/user-info` with the body 
 
 ## Details
 
-Pass a Toutiao user ID and get the public profile of that account, including follower counts and the content tabs it publishes in.
+Returns the public profile of a Toutiao (Jinri Toutiao) account: name, bio, avatar and background image URLs, follower, following and like counts, and the content tabs. It needs one input, the numeric `user_id` of the account.
 
 ### Use cases
 
-- Profile Toutiao creators and media accounts.
-- Track follower growth for accounts you monitor.
-- Enrich author IDs from Toutiao search results.
+- Check whether a Toutiao account exists and read its name and bio before you add it to a monitoring list.
+- Record `followers_count` and `followings_count` on a schedule to compare accounts.
+- Find which content tabs an account has, such as short video, and the URL path that loads each tab.
+- Detect accounts that link to a Douyin profile through the `external_info` block.
 
 ### Request
 
@@ -79,6 +80,8 @@ curl -X POST "https://api.sandbase.ai/v1/api/toutiao/app/user-info" \
   -d '{"user_id": "1352838578180211"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
@@ -87,35 +90,68 @@ curl -X POST "https://api.sandbase.ai/v1/api/toutiao/app/user-info" \
 
 ### Example response
 
-Real response for the request above, trimmed to the main fields. User names and long IDs are masked.
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
 
 ```json
 {
   "data": {
-    "user_id": "1352838578180211",
-    "name": "<user>",
-    "description": "…",
-    "followers_count": "…",
-    "followings_count": "…",
-    "digg_count": "…",
-    "top_tab": [
-      {
-        "type": "external_ies_video",
-        "total_count": "…"
-      }
-    ]
-  }
+    "avatar_url": "",
+    "bg_image": {
+      "status": 0,
+      "url": "https://p11-sign.toutiaoimg.com/tos-cn-i-tt/d74fb91f2825491584acf1afb99c8a2d~tpl…"
+    },
+    "big_avatar_url": "",
+    "description": "",
+    "digg_count": 0,
+    "external_info": {
+      "app_icon_url": "https://p26.toutiaoimg.com/obj/ies.fe.effect/a752e3bd176b10ea340c65db16e7c91c",
+      "app_name": "aweme",
+      "app_schema": "snssdk1128://user/profile/1352838578180211",
+      "appstore_app_id": 1142110895,
+      "button_name": "打开抖音关注作者",
+      "download_url": "https://d.douyin.com/eXBJ/",
+      "icon_title": "来源于抖音",
+      "icon_url": "https://p26.toutiaoimg.com/obj/motor-img/9fd81928b2576d559b363fcf77681f5c",
+      "name": "抖音",
+      "package_name": "com.ss.android.ugc.aweme"
+    },
+    "external_media_type": 0,
+    "followers_count": 0,
+    "followings_count": 0,
+    "gender": 0,
+    "is_gov_media": false,
+    "name": ""
+  },
+  "errno": 0,
+  "message": "success"
 }
 ```
 
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `data.user_id` | Numeric ID of the account, the same value you sent in the request. |
+| `data.name / data.description` | Display name and bio text of the account. Both can be empty strings, as in the sample response. |
+| `data.avatar_url / data.big_avatar_url / data.bg_image.url` | Links to the avatar, a larger avatar and the profile background image. The avatar fields can be empty strings. |
+| `data.followers_count / data.followings_count` | Number of followers the account has and number of accounts it follows. |
+| `data.digg_count` | Number of likes the account has received. |
+| `data.publish_count` | Number of items the account has published. |
+| `data.is_gov_media` | Boolean flag that is `true` when the account is marked as a government media account. |
+| `data.top_tab[].show_name / data.top_tab[].type` | Label and internal type of each content tab on the profile. The sample shows a short video tab with type `external_ies_video`. |
+| `data.top_tab[].url / data.top_tab[].load_count / data.top_tab[].total_count` | Relative feed path for the tab, the number of items loaded per page, and the total item count of the tab. |
+| `data.external_info.name / data.external_info.app_schema / data.external_info.download_url` | Shows that the account's content comes from another app (here Douyin), with a deep link into that app and its download link. |
+
 ### Notes
 
-- Get the user ID from a Toutiao profile link or the Toutiao user ID API.
-- The example below shows the response shape; values depend on the account.
+- Get `user_id` from the [Toutiao Profile User ID](/apis/toutiao/app/user-id) API, which takes a profile link.
+- `data.user_id` comes back as a number, while the request sends `user_id` as a string.
+- A profile can return zero counts and empty text fields. Check `data.name` and `data.followers_count` before you treat the account as populated.
+- To read the content of an account, call the feed path in `data.top_tab[].url`. For single posts, use [Toutiao Article Details (App)](/apis/toutiao/app/article-info).
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

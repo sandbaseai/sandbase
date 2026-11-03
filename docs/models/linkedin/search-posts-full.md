@@ -71,7 +71,14 @@ Same call via the path form: `POST /v1/api/linkedin/search-posts-full` with the 
 
 ## Details
 
-Search public LinkedIn posts with rich author, engagement, attachment, and poll details.
+Returns public LinkedIn posts that match a search query. Each post includes its author, text, URL, creation time and comment and reaction counts. The only required input is `query`, and filters narrow results by date, author, content type and more.
+
+### Use cases
+
+- Track how people on LinkedIn talk about a topic, brand or product over the past week.
+- Find active authors in a niche by searching a keyword and filtering on `authorKeywords` or `authorCompanyNames`.
+- Collect post URLs and IDs to feed into comment or reaction lookups for deeper engagement analysis.
+- Monitor posts that mention specific members with `mentioningMemberUrls`.
 
 ### Request
 
@@ -82,7 +89,7 @@ curl -X POST "https://api.sandbase.ai/v1/api/linkedin/search-posts-full" \
   -d '{"sort": "relevance", "limit": 10, "query": "artificial intelligence", "datePosted": "last-week"}'
 ```
 
-The result is returned in `outputs[0].data`. A lookup that finds nothing still succeeds and returns `found: false`.
+The result is returned in `outputs[0].data`.
 
 ### Parameters
 
@@ -93,16 +100,65 @@ The result is returned in `outputs[0].data`. A lookup that finds nothing still s
 | `authorIndustryIds` | array | No | Only return posts by authors associated with these LinkedIn industry IDs. |
 | `authorKeywords` | string | No | Only return posts whose author profile headline or job title contains at least one of these keywords. |
 | `authorUrls` | array | No | Only return posts authored by these LinkedIn profile or company URLs. |
-| `contentType` | string | No | Only return posts carrying this content type. One of: `all`, `videos`, `images`, `jobs`, `live-videos`, `documents`, `collaborative-articles`. |
-| `datePosted` | string | No | Only return posts published within this relative time window. Last-hour and windows beyond one month route to the provider that supports them. One of: `last-hour`, `last-day`, `last-week`, `last-month`, `last-three-month |
+| `contentType` | string | No | Only return posts carrying this content type. |
+| `datePosted` | string | No | Only return posts published within this relative time window. Last-hour and windows beyond one month route to the provider that supports them. |
 | `limit` | integer | No | Maximum number of posts to return (1-100, default 10). The upper bound is one LinkedIn search page. |
 | `mentioningMemberUrls` | array | No | Only return posts mentioning these LinkedIn member profile URLs. |
 | `requireFields` | array | No | Optional; omit it and routing is unchanged, with the cheapest source serving. Name the output fields this request must be able to return, for example `attachmentType` or `pollOptions`, and it is served only by a source t |
-| `sort` | string | No | Order results by search relevance or publication date. One of: `relevance`, `date`. Default `"relevance"`. |
+| `sort` | string | No | Order results by search relevance or publication date. |
+
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "data": {
+    "posts": [
+      {
+        "author": {
+          "name": "Angela H.",
+          "profileUrl": "https://www.linkedin.com/in/angela-h-75a45431b",
+          "publicIdentifier": "angela-h-75a45431b"
+        },
+        "createdUtc": 1793675023,
+        "engagement": {
+          "comments": 1,
+          "reactions": 0
+        },
+        "id": "7523218324076326913",
+        "text": "Some of the greatest opportunities in artificial intelligence may not come from …",
+        "url": "https://www.linkedin.com/posts/angela-h-75a45431b_artificialintelligence-ai-scie…"
+      }
+    ]
+  },
+  "found": true
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `data.posts[].id` | Numeric ID of the post, returned as a string. |
+| `data.posts[].url` | Public LinkedIn URL of the post. |
+| `data.posts[].text` | Post text. Long posts may be shortened. |
+| `data.posts[].createdUtc` | Creation time of the post as a Unix timestamp in seconds. |
+| `data.posts[].author.name` | Display name of the author. |
+| `data.posts[].author.profileUrl / data.posts[].author.publicIdentifier` | LinkedIn profile URL of the author and the identifier used in that URL. |
+| `data.posts[].engagement.reactions / data.posts[].engagement.comments` | Number of reactions and number of comments on the post. |
+| `found` | `true` when the search returned results. |
+
+### Notes
+
+- Use `sort` set to `date` to order by publication date instead of relevance. `datePosted` defaults to `last-day`.
+- `limit` accepts 1 to 100 and defaults to 10. No pagination parameter exists, so one call returns one search page.
+- Attachment and poll fields appear only when the serving source returns them. Name them in `requireFields` (for example `attachmentType` or `pollOptions`) to require them, which can change the price.
+- Pass a post `url` to [LinkedIn Post](/apis/linkedin/post) for the full post, or use [LinkedIn Post Comments](/apis/linkedin/post-comments) to read its comments.
 
 ### Pricing
 
-Billed at the actual cost of each call, usually $0.004 per request. A call can cost more when the first data source fails and another one answers. Failed calls are not charged. Lookups that find nothing and searches with no results are billed at their actual cost, which is often lower and can be $0.
+Billed at the actual cost of each call, about $0.004 for the request above. Failed calls are not charged.
 
 ---
 Machine-readable: [`catalog/models/linkedin/search-posts-full.json`](../../../catalog/models/linkedin/search-posts-full.json) · Store page: https://www.sandbase.ai/model/linkedin/search-posts-full

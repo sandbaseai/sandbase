@@ -60,13 +60,14 @@ Same call via the path form: `POST /v1/api/instagram/v2/user-tagged-posts` with 
 
 ## Details
 
-Retrieve posts where an account is tagged by other users by specifying either `username` or `user_id`.
+Returns a page of Instagram posts where a given account is tagged. You pass either a `username` or a `user_id`. The response includes post details, a `total` count, and a `pagination_token` for the next page.
 
 ### Use cases
 
-- Monitor user-generated content mentioning a specific profile.
-- Collect posts where a brand or creator is tagged.
-- Track community engagement and external media mentions.
+- Find user-generated posts that tag a brand account.
+- Rank tagged posts by `comment_count` to spot the ones that drew the most discussion.
+- Pull the `caption.hashtags` from tagged posts to see which hashtags people use with a brand.
+- Download image URLs from tagged posts for a content review.
 
 ### Request
 
@@ -77,22 +78,80 @@ curl -X POST "https://api.sandbase.ai/v1/api/instagram/v2/user-tagged-posts" \
   -d '{"username": "instagram", "user_id": "18527"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
 |---|---|---|---|
+| `pagination_token` | string | No | Pagination token from previous response |
 | `user_id` | string | No | User ID (either username or user_id required) |
 | `username` | string | No | Username (either username or user_id required) |
-| `pagination_token` | string | No | Pagination token from previous response |
+
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "data": {
+    "count": 21,
+    "items": [
+      {
+        "boost_unavailable_identifier": null,
+        "boost_unavailable_reason": null,
+        "boost_unavailable_reason_v2": null,
+        "can_reshare": true,
+        "can_save": true,
+        "can_viewer_add_media_to_grid": false,
+        "caption": {
+          "content_type": "comment",
+          "created_at": 1582576667,
+          "created_at_utc": 1582576667,
+          "did_report_as_spam": false,
+          "has_translation": true,
+          "hashtags": [],
+          "id": "2251138696266127152",
+          "is_covered": false
+        },
+        "caption_is_edited": false,
+        "coauthor_producer_can_see_organic_insights": false,
+        "coauthor_producers": [],
+        "code": "B89prebFBcw",
+        "collaborator_edit_eligibility": false
+      }
+    ],
+    "total": 130
+  },
+  "pagination_token": "Ck1JBBkp…"
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `data.total` | Total number of tagged posts reported for the account. |
+| `data.count` | Number of posts returned in this page. |
+| `data.items[].id` | Numeric ID of the post. |
+| `data.items[].code` | Short code of the post. It is the same kind of value used in Instagram post URLs. |
+| `data.items[].caption.created_at` | Unix timestamp for when the caption was created. `created_at_utc` holds the same value in the sample. |
+| `data.items[].caption.hashtags` | List of hashtags in the caption, with the `#` sign. |
+| `data.items[].comment_count` | Number of comments on the post. |
+| `data.items[].image_versions.items[].url / width / height` | URL and pixel size of each image version of the post. |
+| `data.items[].can_reshare / can_save` | Flags for whether the post can be reshared or saved. |
+| `pagination_token` | Token to send in the next request to get the next page. |
 
 ### Notes
 
-- Either `username` or `user_id` is required to perform the request.
-- Use `pagination_token` from a previous response to paginate through results.
+- Send either `username` or `user_id`. The example request sends both.
+- To get the next page, send the returned `pagination_token` with the same account value.
+- Captions are returned as a nested object, so read the text and timestamps from `caption`.
+- To open one post in full, call [Instagram Post Details (V2)](/apis/instagram/v2/post-info). For the comments on a post, use [Instagram Post Comments (V2)](/apis/instagram/v2/post-comments).
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.002 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

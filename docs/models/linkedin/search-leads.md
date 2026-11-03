@@ -85,7 +85,14 @@ Same call via the path form: `POST /v1/api/linkedin/search-leads` with the body 
 
 ## Details
 
-LinkedIn lead search with Sales Navigator's search and filters: one call returns a page of up to 25 people matching a keyword and Sales Navigator lead filters (location, job title, current and past company, school, seniority, function, company size, and more), or the results of a Sales Navigator lead-search URL you built yourself. Each lead comes with name, current positions, location, summary, and photo, and its url opens the profile and can be passed to linkedin.profile for the full record. For full profiles in one call use linkedin.search_profiles.
+Returns a page of up to 25 LinkedIn leads that match a keyword and Sales Navigator filters such as location, job title, current and past company, school, seniority, function, and company size. You can also pass a Sales Navigator lead-search URL you built yourself. Each lead includes name, location, current positions, and a profile URL.
+
+### Use cases
+
+- Build a prospect list of engineers at a target company, filtered by seniority or location.
+- Find people who recently changed jobs at accounts you sell to.
+- Size a market by reading how many leads match a title and company filter.
+- Collect profile URLs to pass to a full profile lookup for enrichment.
 
 ### Request
 
@@ -96,7 +103,7 @@ curl -X POST "https://api.sandbase.ai/v1/api/linkedin/search-leads" \
   -d '{"query": "engineer", "currentCompanies": ["Google"]}'
 ```
 
-The result is returned in `outputs[0].data`. A lookup that finds nothing still succeeds and returns `found: false`.
+The result is returned in `outputs[0].data`.
 
 ### Parameters
 
@@ -132,9 +139,78 @@ The result is returned in `outputs[0].data`. A lookup that finds nothing still s
 | `yearsAtCurrentCompanyIds` | array | No | Filter by tenure at the current company. Codes: 1=Less than 1 year, 2=1 to 2 years, 3=3 to 5 years, 4=6 to 10 years, 5=More than 10 years. |
 | `yearsOfExperienceIds` | array | No | Filter by total years of experience. Codes: 1=Less than 1 year, 2=1 to 2 years, 3=3 to 5 years, 4=6 to 10 years, 5=More than 10 years. |
 
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "data": {
+    "items": [
+      {
+        "currentPositions": [
+          {
+            "companyId": "1594050",
+            "companyLinkedinUrl": "https://www.linkedin.com/company/1594050",
+            "companyName": "Google DeepMind",
+            "startedOn": {
+              "month": 7,
+              "year": 2022
+            },
+            "tenureAtCompany": {
+              "numMonths": 5,
+              "numYears": 4
+            },
+            "tenureAtPosition": {
+              "numMonths": 5,
+              "numYears": 4
+            },
+            "title": "Research Engineer"
+          }
+        ],
+        "firstName": "Alexander",
+        "id": "ACwAACLLZ6oB9J9aXtDSl9zhfkbOI0ZSz9Fr330",
+        "image": "https://media.licdn.com/dms/image/v2/C4D03AQHxbnfouwCB7w/profile-displayphoto-sh…",
+        "lastName": "Donovan",
+        "location": "New York City Metropolitan Area",
+        "openProfile": false,
+        "premium": false,
+        "url": "https://www.linkedin.com/in/ACwAACLLZ6oB9J9aXtDSl9zhfkbOI0ZSz9Fr330"
+      }
+    ],
+    "page": 1,
+    "totalPages": 100,
+    "totalResults": 141476
+  },
+  "found": true
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `data.items[].firstName / data.items[].lastName` | First and last name of the lead. |
+| `data.items[].id` | Sales Navigator ID of the lead. The same value appears at the end of `url`. |
+| `data.items[].url` | LinkedIn profile URL for the lead. Pass it to a profile API to get the full record. |
+| `data.items[].location` | Location text from the lead's profile, such as `San Francisco Bay Area`. |
+| `data.items[].currentPositions[].title` | Job title of the current position. |
+| `data.items[].currentPositions[].companyName` | Name of the company for the current position. |
+| `data.items[].currentPositions[].companyId / data.items[].currentPositions[].companyLinkedinUrl` | ID of the company and the LinkedIn URL of its company page. |
+| `data.items[].currentPositions[].startedOn.month / data.items[].currentPositions[].startedOn.year` | Month and year when the person started the current position. |
+| `data.items[].currentPositions[].tenureAtCompany.numYears / data.items[].currentPositions[].tenureAtCompany.numMonths` | Time the person has spent at the company, split into years and months. `numYears` is missing when the tenure is under a year. |
+| `data.items[].premium / data.items[].openProfile` | Boolean flags for whether the lead has a premium account and whether the profile is marked open. |
+
+### Notes
+
+- Set `page` from 1 to 100 to move through results. `data.page`, `data.totalPages` and `data.totalResults` show where you are in the result set.
+- Provide `query` or `salesNavUrl`. When you set `salesNavUrl`, it overrides `query` and all other filters, and only `page` still applies.
+- `image` is missing for some leads, so check for it before use.
+- To get the full record for a lead, pass its `url` to [LinkedIn User Profile](/apis/linkedin/user-detail). For full profiles in one search call, use [LinkedIn Profile Search](/apis/linkedin/search-profiles).
+
 ### Pricing
 
-Billed at the actual cost of each call, usually $0.07 per request. A call can cost more when the first data source fails and another one answers. Failed calls are not charged. Lookups that find nothing and searches with no results are billed at their actual cost, which is often lower and can be $0.
+Billed at the actual cost of each call, about $0.07 for the request above. Failed calls are not charged.
 
 ---
 Machine-readable: [`catalog/models/linkedin/search-leads.json`](../../../catalog/models/linkedin/search-leads.json) · Store page: https://www.sandbase.ai/model/linkedin/search-leads

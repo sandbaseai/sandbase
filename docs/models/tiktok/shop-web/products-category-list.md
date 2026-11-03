@@ -58,13 +58,14 @@ Same call via the path form: `POST /v1/api/tiktok/shop-web/products-category-lis
 
 ## Details
 
-Retrieves the TikTok Shop product category taxonomy for a specific market using the optional `region` parameter.
+Returns the TikTok Shop product category tree for one regional marketplace. It takes an optional `region` code and defaults to `US`. Each top-level category lists its child categories.
 
 ### Use cases
 
-- Explore available TikTok Shop product categories across supported countries.
-- Map internal catalog taxonomy to TikTok Shop category hierarchies.
-- Validate regional category options for product listings.
+- Build a category picker that mirrors the TikTok Shop taxonomy for a given market.
+- Map your own catalog categories to TikTok Shop `category_id` values.
+- Compare which top-level categories exist across the supported regions.
+- Download category names and images to label product research dashboards.
 
 ### Request
 
@@ -75,19 +76,73 @@ curl -X POST "https://api.sandbase.ai/v1/api/tiktok/shop-web/products-category-l
   -d '{}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
 |---|---|---|---|
 | `region` | string | No | Region code (US/GB/SG/MY/PH/TH/VN/ID) |
 
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+[
+  {
+    "children": [
+      {
+        "children": [],
+        "self": {
+          "category_id": "849032",
+          "category_level": 2,
+          "category_name": "Hand & Foot Care",
+          "category_name_en": "hand-foot-care",
+          "image_url": "https://p16-oec-ttp.tiktokcdn-us.com/tos-useast5-i-omjb5zjo8w-tx/dc05090b19cd43e…",
+          "is_leaf": false,
+          "parent_category_id": "601450"
+        }
+      }
+    ],
+    "self": {
+      "category_id": "601450",
+      "category_level": 1,
+      "category_name": "Beauty & Personal Care",
+      "category_name_en": "beauty-personal-care",
+      "image_url": "https://lf16-tiktok-common.tiktokcdn-us.com/obj/tiktok-web-common-tx/i18n_ecom_f…",
+      "is_leaf": false,
+      "parent_category_id": "0"
+    }
+  }
+]
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `self.category_id` | ID of the top-level category as a string. Use it to match or store the category. |
+| `self.category_name / self.category_name_en` | Display name of the category, and a lowercase hyphenated version of the name. The second form looks like a URL slug, for example `beauty-personal-care`. |
+| `self.category_level` | Depth in the tree. Top-level categories show `1` and their children show `2`. |
+| `self.parent_category_id` | `category_id` of the parent. Top-level categories show `0`. |
+| `self.is_leaf` | Shows whether the category has no further subcategories. Every category in the sample shows `false`. |
+| `self.image_url` | URL of an image for the category. |
+| `children[]` | List of child category nodes under a top-level category. Each node has the same `self` and `children` shape. |
+| `children[].self.category_id / children[].self.category_name` | ID and display name of each level 2 category. |
+| `children[].self.parent_category_id` | Links the child back to the top-level `self.category_id`. |
+| `children[].children[]` | Nested list for deeper levels. It is empty in the sample, even though `children[].self.is_leaf` shows `false`. |
+
 ### Notes
 
-- Supported `region` codes include US, GB, SG, MY, PH, TH, VN, and ID.
+- The response is a JSON array of top-level category nodes, not an object.
+- Pass `region` as one of `US`, `GB`, `SG`, `MY`, `PH`, `TH`, `VN` or `ID`. If you omit it, the request uses `US`.
+- `category_id` values are strings, so keep them as strings when you store them.
+- Level 2 nodes come back with an empty `children` list even when `is_leaf` is `false`, so do not assume the tree stops at level 2.
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

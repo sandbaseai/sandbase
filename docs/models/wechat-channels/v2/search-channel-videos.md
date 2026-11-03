@@ -68,13 +68,14 @@ Same call via the path form: `POST /v1/api/wechat-channels/v2/search-channel-vid
 
 ## Details
 
-Pass a finder username and a keyword to search only that creator's published Channels videos.
+This API searches the videos of one WeChat Channels creator by keyword. It needs the creator's finder username (`v2_…@finder`) and a keyword. It returns the matching videos with their IDs and titles.
 
 ### Use cases
 
-- Find a specific video in a large channel.
-- Check whether a creator has covered a topic or product.
-- Build topic archives for media accounts.
+- Find a specific video in a channel that has hundreds of posts.
+- Check whether a media account has covered a topic, such as a historical artifact, before you plan new content.
+- Build a topic archive by collecting the titles and IDs of all of a creator's videos on one subject.
+- Collect video IDs for one topic, then pass them to a detail or comment API.
 
 ### Request
 
@@ -85,35 +86,66 @@ curl -X POST "https://api.sandbase.ai/v1/api/wechat-channels/v2/search-channel-v
   -d '{"username": "v2_060000231003b20faec8c6e4811dc1d4c602ee30b0771bbcf220c67926bb76ab7702ac335a53@finder", "keyword": "永乐大典", "raw": false}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
 |---|---|---|---|
 | `keyword` | string | Yes | Keyword to search within this channel (1-100 chars) |
-| `username` | string | Yes | Creator finder username (`v2_…@finder` format). |
-| `raw` | boolean | No | Optional, default True. |
+| `username` | string | Yes | Creator finder username (`v2_…@finder` format). E.g. `v2_060000231003b20faec8c6e4811dc1d4c602ee30b0771bbcf220c67926bb76ab7702ac335a53@finder` (People's Daily). |
+| `raw` | boolean | No | Optional, default True. True=raw search response; False=simplified parsed structure. |
 
 ### Example response
 
-Real response for the request above, trimmed to the main fields. User names and long IDs are masked.
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
 
 ```json
 {
-  "count": 2,
   "continue_flag": 0,
+  "count": 2,
+  "debug_id": "02cd9d55",
+  "debug_info": "gAAAAABq6ZEmEsuQBEctI0ZyuqCBcYaZ-dBcS1COMK33U2b9NCw0pykWQmxzzYcVY9z7VDsw_S4LDlOL…",
   "items": [
     {
+      "desc": null,
+      "doc_id": "finderobjv03bpeXe0scUqXKV+shlAmntbJbnpPujnGFatrZHCTR4U=",
+      "nickname": null,
+      "thumb_url": null,
+      "title": "很多人小时候都读过百科全书。明《永乐大典》被誉为“有史以来规模最大的百科全书”。它命运多舛，散佚四方，如今正被我们一点点找回。守护典籍，吾辈有责，望文脉不绝，国…",
       "type": "video",
-      "doc_id": "finderobjv03bpeXe0scUqXKV+shl…",
-      "title": "很多人小时候都读过百科全书。明《永乐大典》被誉为“有史以来规模最大的百科全书”。它命运多舛，散佚四方，如今正被我们一点…"
+      "username": null
     }
-  ]
+  ],
+  "keyword": "永乐大典",
+  "next_cursor": null,
+  "username": "v2_060000231003b20faec8c6e4811dc1d4c602ee30b0771bbcf220c67926bb76ab7702ac335a53@…"
 }
 ```
 
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `count` | Number of videos in the `items` list for this response. |
+| `continue_flag` | Paging flag. The value `0` in this response, where `next_cursor` is `null`, shows that no further results are signaled. |
+| `next_cursor` | Cursor for the next page of results. It is `null` when there is no next page. |
+| `items[].doc_id` | ID of the matching video. It starts with `finderobjv0`. Use it to identify the video in follow-up calls. |
+| `items[].title` | Video title or caption text, including any hashtags and @mentions. |
+| `items[].type` | Kind of result. The value is `video` for each item here. |
+| `items[].desc / items[].nickname / items[].thumb_url / items[].username` | Extra item fields. They are `null` in this response with `raw` set to `false`. |
+| `keyword / username` | Echo of the search keyword and the creator's finder username from the request. |
+
+### Notes
+
+- Get the `username` value with [WeChat Channels ID to Username](/apis/wechat-channels/v2/channel-id-to-username) if you only have a public Channel ID (sph… short ID).
+- Set `raw` to `false` for the simplified structure shown here. The default is `true`, which returns the raw search response.
+- Pass a returned `doc_id` to [WeChat Channels Video Detail](/apis/wechat-channels/v2/video-detail) to look up one video in full.
+- Search covers one channel only. To search across all channels, use [WeChat Channels Video Search](/apis/wechat-channels/search-video).
+
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.01 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

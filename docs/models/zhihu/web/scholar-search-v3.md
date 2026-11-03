@@ -67,13 +67,14 @@ Same call via the path form: `POST /v1/api/zhihu/web/scholar-search-v3` with the
 
 ## Details
 
-Query Zhihu Scholar for academic papers using `keyword`. Refine results using `advanced_filter`, `classification`, and pagination parameters.
+Searches Zhihu Scholar for academic papers that match a keyword. It needs one input, `keyword`, and returns a page of papers with titles, authors, journal, keywords, and highlighted snippets.
 
 ### Use cases
 
-- Search for academic publications and research papers on Zhihu.
-- Filter scholarly documents by keywords, title, authors, or abstract.
-- Collect paper URLs and metadata for research analysis.
+- Build a reading list of papers that mention a company or topic, such as `OpenAI`.
+- Collect author names and journal names to see who publishes on a subject.
+- Scan the `<em>` highlight snippets to check how a keyword appears in each title and abstract.
+- Page through results to build a paper dataset for a keyword.
 
 ### Request
 
@@ -84,49 +85,106 @@ curl -X POST "https://api.sandbase.ai/v1/api/zhihu/web/scholar-search-v3" \
   -d '{"keyword": "OpenAI"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
 |---|---|---|---|
 | `keyword` | string | Yes | Search Keywords |
+| `advanced_filter` | string | No |  |
+| `classification` | string | No |  |
+| `indexed_by` | string | No |  |
 | `limit` | string | No | Number of papers per page |
 | `offset` | string | No | Offset |
-| `indexed_by` | string | No | — |
-| `classification` | string | No | — |
-| `advanced_filter` | string | No | — |
 
 ### Example response
 
-Real response for the request above, trimmed to the main fields. User names and long IDs are masked.
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
 
 ```json
 {
+  "ab_params": "sb_vip_xunzhi=1;sb_sku_ui=1;sb_slot_domain=2;dm_search_pregen=1;dm_ai_corner1=0;…",
   "data": [
     {
-      "id": "1984217783119151617",
-      "type": "search_result",
       "highlight": {
-        "title": "“有效加速”与“超级对齐”之争:OpenAI事件对人工智能发展方向的启示"
+        "excerpt": "intelligence(AI)tool was developed using the <em>OpenAI</em>—Application Program…",
+        "title": "Automation of Software Development Stages with the <em>OpenAI</em> API"
       },
+      "hit_labels": null,
+      "id": "2014571995023581630",
+      "index": 0,
       "object": {
-        "id": "1984217783119151617",
-        "title": "“有效加速”与“超级对齐”之争:OpenAI事件对人工智能发展方向的启示",
-        "type": "scholar",
-        "url": "https://www.zhihu.com/kvip/sku/paper/1984217783119151617"
-      }
+        "attached_info_bytes": "Ov8BCgtwbGFjZWhvbGRlchIgNWVkYzhhNWU2MjZjNTU4YmUwM2ZmZjhlYmNmN2E4MDkYhQEiEzIwMTQ1…",
+        "authors": [
+          "Verónica C.Tapia"
+        ],
+        "excerpt": "In recent years,automation has become a key focus in software development as org…",
+        "id": "2014571995023581630",
+        "journal": "Computer Systems Science & Engineering",
+        "journal_volume": "49",
+        "keywords": [
+          "Artificial intelligence tools"
+        ],
+        "period": "1"
+      },
+      "type": "search_result"
     }
-  ]
+  ],
+  "domain_info": {
+    "first_category": ""
+  },
+  "filter_items": null,
+  "hit_labels": null,
+  "is_brand_word": false,
+  "is_koc_words": false,
+  "item_in_view": [
+    {
+      "index": 5,
+      "token": "b62a7302…",
+      "type": "user_survey"
+    }
+  ],
+  "paging": {
+    "is_end": false,
+    "next": "https://api.zhihu.com/search_v3?advert_count=0&correction=1&filter_fields=%7B%27…"
+  },
+  "pendant": null,
+  "related_search_result": [],
+  "search_action_info": {
+    "attached_info_bytes": "OqQBEiA1ZWRjOGE1ZTYyNmM1NThiZTAzZmZmOGViY2Y3YTgwOUoGb3BlbmFpUABYGWABagZPcGVuQUlw…",
+    "isfeed": false,
+    "lc_idx": 10,
+    "search_hash_id": "5edc8a5e626c558be03fff8ebcf7a809"
+  }
 }
 ```
 
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `data[].id` | ID of the search result. It matches the paper ID in `data[].object.id`. |
+| `data[].highlight.title` | Paper title with each keyword match wrapped in `<em>` tags. |
+| `data[].highlight.excerpt` | Snippet of the abstract around the match, with `<em>` tags on the keyword. |
+| `data[].object.authors[]` | List of author names for the paper. |
+| `data[].object.journal / data[].object.journal_volume / data[].object.period` | Journal name, volume, and issue number (`period`) of the paper. `journal_volume` is missing on some items. |
+| `data[].object.keywords[]` | Keywords the paper lists for itself. |
+| `data[].object.excerpt` | Plain-text abstract excerpt with no highlight tags. It is cut short. |
+| `data[].object.title` | Plain title without highlight tags. It appears on some items only. |
+| `paging.is_end` | `false` when more results are available. Use it to decide whether to request another page. |
+| `paging.next` | URL for the next page of results. |
+
 ### Notes
 
-- Paginate results using `limit` and `offset`.
-- Filter search scopes using `advanced_filter`, such as keywords, title, authors, or abstract.
+- Set `keyword` to the search term. `limit` sets the page size and `offset` sets where the page starts. Both are strings.
+- Keep reading pages until `paging.is_end` is `true`.
+- Paper IDs are long numeric strings. Treat them as strings, not numbers.
+- To search other Zhihu content, try [Zhihu Article Search](/apis/zhihu/web/article-search-v3) or [Zhihu Ebook Search](/apis/zhihu/web/ebook-search-v3).
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

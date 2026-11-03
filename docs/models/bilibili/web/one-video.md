@@ -62,13 +62,14 @@ Same call via the path form: `POST /v1/api/bilibili/web/one-video` with the body
 
 ## Details
 
-Access metadata and honor highlights for a specific Bilibili video by providing its `bv_id`.
+Returns metadata for one Bilibili video, including its stats, owner, pages, rights flags and honor tags such as `热门`. It needs one input: the video's BV id in `bv_id`.
 
 ### Use cases
 
-- Look up honor badges and weekly recommendation highlights for a specific video.
-- Monitor video recognition and tag status across Bilibili.
-- Display video details within external reporting and analytics dashboards.
+- Pull the view, like, coin and favorite counts of a video to track how it performs.
+- Check `honor_reply.honor` to see whether a video carries a popular or weekly recommendation tag.
+- Read the owner `mid` and name of a video to credit or look up its creator.
+- Get the title of each part, the duration and the frame size to catalog video files.
 
 ### Request
 
@@ -79,6 +80,8 @@ curl -X POST "https://api.sandbase.ai/v1/api/bilibili/web/one-video" \
   -d '{"bv_id": "BV1M1421t7hT"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
@@ -87,31 +90,62 @@ curl -X POST "https://api.sandbase.ai/v1/api/bilibili/web/one-video" \
 
 ### Example response
 
-Real response for the request above, trimmed to the main fields. User names and long IDs are masked.
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
 
 ```json
 {
+  "code": 0,
   "data": {
-    "honor_reply": {
-      "honor": [
-        {
-          "desc": "热门",
-          "type": 4,
-          "weekly_recommend_num": 0
-        }
-      ]
-    }
-  }
+    "aid": 1556386640,
+    "argue_info": {
+      "argue_link": "",
+      "argue_msg": "",
+      "argue_type": 0
+    },
+    "bvid": "BV1M1421t7hT",
+    "cid": 1645628975,
+    "copyright": 1,
+    "ctime": 1723355942,
+    "desc": "",
+    "desc_v2": null,
+    "dimension": {
+      "height": 1080,
+      "rotate": 0,
+      "width": 1920
+    },
+    "disable_show_up_info": false,
+    "duration": 353,
+    "dynamic": ""
+  },
+  "message": "OK",
+  "ttl": 1
 }
 ```
 
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `data.bvid / data.aid / data.cid` | The video's BV id, its numeric AID and the CID of its first part. |
+| `data.owner.mid / data.owner.name / data.owner.face` | ID, display name and avatar URL of the user who posted the video. |
+| `data.stat.view / data.stat.like / data.stat.coin / data.stat.favorite / data.stat.share` | View, like, coin, favorite and share counts for the video. |
+| `data.stat.danmaku / data.stat.reply` | Count of danmaku (on-screen comments) and count of replies. |
+| `data.honor_reply.honor[].desc` | Name of an honor tag on the video, for example `热门` or `热门收录`. |
+| `data.honor_reply.honor[].type / data.honor_reply.honor[].weekly_recommend_num` | Numeric code of the honor tag, and the weekly recommendation number tied to it. |
+| `data.pubdate / data.ctime` | Unix timestamps in seconds for the publish time and the creation time of the video. |
+| `data.duration / data.dimension.width / data.dimension.height` | Video length and frame size. The `duration` of 353 matches the single page's `duration`. |
+| `data.pages[].part / data.pages[].page / data.pages[].cid` | Title, page number and CID of each part of the video. |
+| `data.pic` | URL of the video's cover image. |
+
 ### Notes
 
-- Provide the video BV identifier in `bv_id`.
+- The `bv_id` looks like `BV1M1421t7hT`. It is the id in a Bilibili video URL.
+- To get the numeric AID from a BV id on its own, call [Bilibili BV to AID Converter](/apis/bilibili/web/bv-to-aid).
+- For other versions of video details, see [Bilibili Video Details (V2)](/apis/bilibili/web/one-video-v2) or [Bilibili Web Video Details](/apis/bilibili/web/video-detail).
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

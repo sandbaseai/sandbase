@@ -63,13 +63,14 @@ Same call via the path form: `POST /v1/api/pipixia/app/user-following-list` with
 
 ## Details
 
-Fetch the following list for any target Pipixia account by providing `user_id`. Supports paginating through results using the `cursor` parameter.
+Returns the list of accounts that a Pipixia user follows. Each entry holds a profile summary with follower counts, like counts and badge details. You send the user's `user_id` and can page through results with `cursor`.
 
 ### Use cases
 
-- Analyze the network of accounts a specific user follows.
-- Track creator connections and interest graphs on Pipixia.
-- Audit following lists for audience and competitor research.
+- Map which creators a given Pipixia account follows to study its interests.
+- Find large creator accounts in a user's following list by sorting on `followers_count`.
+- Check the verification label of followed accounts through `certify_info` for audience research.
+- Collect `id_str` values from the list and pass them to other Pipixia user APIs.
 
 ### Request
 
@@ -80,6 +81,8 @@ curl -X POST "https://api.sandbase.ai/v1/api/pipixia/app/user-following-list" \
   -d '{"user_id": "3602444694069495"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
@@ -89,35 +92,82 @@ curl -X POST "https://api.sandbase.ai/v1/api/pipixia/app/user-following-list" \
 
 ### Example response
 
-Real response for the request above, trimmed to the main fields. User names and long IDs are masked.
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
 
 ```json
 {
   "data": {
+    "cursor": {
+      "feed_len": 0,
+      "has_more": false,
+      "loadmore_cursor": 1669015588861,
+      "previous_cursor": null,
+      "refresh_cursor": 1696163675006
+    },
     "users": [
       {
+        "achievements": null,
+        "age": "",
+        "author_info": null,
+        "avatar": {
+          "download_list": [
+            {
+              "url": "https://p6-ppx-sign.byteimg.com/p1056/ce77ebdc9130471899863567fac9cbb3~tplv-f3gp…"
+            }
+          ],
+          "height": 200,
+          "is_gif": false,
+          "uri": "p1056/ce77ebdc9130471899863567fac9cbb3",
+          "url_list": [
+            {
+              "url": "https://p9-ppx-sign.byteimg.com/p1056/ce77ebdc9130471899863567fac9cbb3~tplv-f3gp…"
+            }
+          ],
+          "width": 200
+        },
+        "broadcast_info": null,
+        "certify_info": null,
+        "commerce_permission_list": null,
+        "creative_level_info": null,
+        "decoration_list": null,
+        "description": "",
         "followers_count": 5,
-        "followings_count": 33,
-        "god_comment_count": 0,
-        "id": 102889515304,
-        "like_count": 1,
-        "name": "皮皮侠35016970",
-        "status": 0,
-        "vote_count": 0
+        "followings_count": 33
       }
     ]
-  }
+  },
+  "message": "success",
+  "prompt": "",
+  "status_code": 0,
+  "time": 1793691714777
 }
 ```
 
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `data.users[].id_str` | User ID of the followed account as a string. The same value appears as a number in `id`. |
+| `data.users[].name / data.users[].description` | Display name and profile bio of the followed account. `description` can be an empty string. |
+| `data.users[].followers_count / data.users[].followings_count` | Number of followers the account has and number of accounts it follows. |
+| `data.users[].like_count / data.users[].vote_count / data.users[].god_comment_count` | Engagement counters for the account, such as total likes received. |
+| `data.users[].certify_info.description` | Verification label text shown on the profile, for example a creator category. `certify_info` is `null` for accounts without one. |
+| `data.users[].medal_info.total_medal` | Number of badges the account holds. `wear_medal_info` holds the badge currently worn, including `medal_condition`. |
+| `data.users[].avatar.url_list[].url` | Signed link to the profile picture, with `width` and `height` next to it. |
+| `data.users[].region / data.users[].language` | Region code and language code of the account, such as `cn` and `zh`. |
+| `data.users[].profile_schema` | In-app link to the user's profile page. |
+| `data.cursor.loadmore_cursor / data.cursor.has_more` | `loadmore_cursor` is the value for the next page. `has_more` shows whether more results exist. |
+
 ### Notes
 
-- `user_id` can be obtained from the profile share link.
-- For pagination, pass the previous page loadmore_cursor value into `cursor` (default is 0).
+- Get `user_id` from the user's share link. If you only have a short link, use [Pipixia Short URL Conversion](/apis/pipixia/app/short-url) first.
+- For the next page, pass `data.cursor.loadmore_cursor` from the previous response as `cursor`. The default is `0`.
+- Stop paging when `data.cursor.has_more` is `false`.
+- To see who follows a user instead, call [Pipixia User Follower List](/apis/pipixia/app/user-follower-list).
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

@@ -62,13 +62,13 @@ Same call via the path form: `POST /v1/api/douyin/web/shorten-url` with the body
 
 ## Details
 
-Convert standard web links into shortened Douyin links using the required `target_url` parameter.
+Takes one full Douyin web address in `target_url` and returns a short `https://v.douyin.com/` link for it. The response holds the short link as a single string in `data`.
 
 ### Use cases
 
-- Generating compact URLs for sharing Douyin links across external channels.
-- Formatting long web addresses into clean, shareable Douyin links.
-- Preparing concise links for display in space-constrained user interfaces.
+- Turn a long Douyin video page link into a short link for chat messages or posts.
+- Store short links in a database or spreadsheet instead of long video URLs.
+- Build share links for Douyin videos inside an app with limited screen space.
 
 ### Request
 
@@ -79,19 +79,45 @@ curl -X POST "https://api.sandbase.ai/v1/api/douyin/web/shorten-url" \
   -d '{"target_url": "https://www.douyin.com/video/7575136499386720761"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
 |---|---|---|---|
 | `target_url` | string | Yes | Target URL to be converted |
 
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "code": 0,
+  "data": "https://v.douyin.com/nzl1K-jOpdo/",
+  "message": "success",
+  "now": 1793691150
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `data` | The shortened URL for the submitted `target_url`. In this example it is `https://v.douyin.com/nzl1K-jOpdo/`. |
+| `code` | Status code of the call. `0` appears with a successful result. |
+| `message` | Short status text. It reads `success` when the call works. |
+| `now` | Number in the response, `1793691150` in this example. It looks like a Unix timestamp in seconds. |
+
 ### Notes
 
-- The `target_url` parameter requires the full destination address to convert.
+- Send the full link in `target_url`, including `https://`, for example a video page like `https://www.douyin.com/video/7575136499386720761`.
+- The short link is a plain string in `data`, not an object.
+- To get IDs out of Douyin links, use [Douyin Video ID Extractor](/apis/douyin/web/aweme-id) or [Douyin Batch Video ID Extraction](/apis/douyin/web/all-aweme-id).
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

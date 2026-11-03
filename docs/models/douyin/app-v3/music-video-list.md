@@ -64,13 +64,14 @@ Same call via the path form: `POST /v1/api/douyin/app-v3/music-video-list` with 
 
 ## Details
 
-Retrieve videos associated with a specific Douyin audio track using `music_id`.
+Returns a paginated list of Douyin videos that use a given audio track. You send the track's `music_id` and get back video entries with caption, author, hashtags and creation time.
 
 ### Use cases
 
-- Track video posts associated with a specific music track on Douyin.
-- Monitor user adoption and content trends for audio identifiers.
-- Retrieve video metadata and author details linked to a background track.
+- Collect the videos that use one Douyin sound to see how creators use it.
+- Find the accounts that post with a track, using each video's author fields.
+- Build a list of captions and hashtags that go with a track.
+- Page through all videos for a track and store their `aweme_id` values for later lookups.
 
 ### Request
 
@@ -80,6 +81,8 @@ curl -X POST "https://api.sandbase.ai/v1/api/douyin/app-v3/music-video-list" \
   -H "Content-Type: application/json" \
   -d '{"music_id": "7348905216869174025"}'
 ```
+
+The result is returned in `outputs[0].data`.
 
 ### Parameters
 
@@ -91,52 +94,120 @@ curl -X POST "https://api.sandbase.ai/v1/api/douyin/app-v3/music-video-list" \
 
 ### Example response
 
-Real response for the request above, trimmed to the main fields. User names and long IDs are masked.
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
 
 ```json
 {
   "aweme_list": [
     {
       "activity_video_type": 0,
-      "author_user_id": 4055412235572862,
-      "aweme_id": "7357708701425224997",
-      "aweme_type": 68,
-      "bodydance_score": 0,
-      "boost_status": 0,
-      "caption": "永远这词 我只信你 我的朋友",
-      "caption_template_id": 0,
-      "category_da": 16,
-      "cf_assets_type": 0,
+      "ai_follow_images": null,
+      "anchors": null,
+      "authentication_token": "MS4wLjAA…",
       "author": {
         "account_cert_info": "{}",
+        "ad_cover_url": null,
+        "allow_story_normal_like": true,
         "authority_status": 0,
-        "comment_filter_status": 0,
-        "follow_status": 0,
-        "follower_status": 0,
-        "live_status": 0
+        "avatar_168x168": {
+          "height": 720,
+          "uri": "168x168/aweme-avatar/tos-cn-avt-0015_08c81910adcc8424b0095ff35df40625",
+          "url_list": [
+            "https://p3.douyinpic.com/img/aweme-avatar/tos-cn-avt-0015_08c81910adcc8424b0095f…"
+          ],
+          "width": 720
+        },
+        "avatar_300x300": {
+          "height": 720,
+          "uri": "300x300/aweme-avatar/tos-cn-avt-0015_08c81910adcc8424b0095ff35df40625",
+          "url_list": [
+            "https://p3.douyinpic.com/img/aweme-avatar/tos-cn-avt-0015_08c81910adcc8424b0095f…"
+          ],
+          "width": 720
+        },
+        "avatar_larger": {
+          "height": 720,
+          "uri": "1080x1080/aweme-avatar/tos-cn-avt-0015_08c81910adcc8424b0095ff35df40625",
+          "url_list": [
+            "https://p3.douyinpic.com/aweme/1080x1080/aweme-avatar/tos-cn-avt-0015_08c81910ad…"
+          ],
+          "width": 720
+        },
+        "avatar_medium": {
+          "height": 720,
+          "uri": "720x720/aweme-avatar/tos-cn-avt-0015_08c81910adcc8424b0095ff35df40625",
+          "url_list": [
+            "https://p3.douyinpic.com/aweme/720x720/aweme-avatar/tos-cn-avt-0015_08c81910adcc…"
+          ],
+          "width": 720
+        }
       },
-      "comment_permission_info": {
-        "comment_permission_status": 0
+      "author_mask_tag": 0,
+      "author_user_id": 4055412235572862,
+      "aweme_control": {
+        "can_comment": true,
+        "can_forward": true,
+        "can_share": true,
+        "can_show_comment": true
       },
-      "commerce_info": {
-        "ad_type": 0
+      "aweme_id": "7357708701425224997",
+      "aweme_listen_struct": {
+        "listen_diversion": {
+          "extra": [
+            {
+              "key": "new_guide_prefix",
+              "val": "下载汽水"
+            }
+          ],
+          "popup_scene": 4,
+          "side_desc": "听更多精彩内容",
+          "sub_title_type": "relation"
+        },
+        "trace_info": "{\"copyright_not_speech\":\"true\",\"copyright_reason\":\"not_intercept\",\"copyright_tag…"
       },
-      "component_control": {
-        "data_source_url": "/aweme/v1/music/aweme/"
-      }
+      "aweme_type": 68,
+      "aweme_type_tags": ""
     }
-  ]
+  ],
+  "cursor": 10,
+  "extra": {
+    "fatal_item_ids": [],
+    "logid": "20261103153136BE9467C4608A615EE8A7",
+    "now": 1793691097000
+  },
+  "has_more": 1,
+  "log_pb": {
+    "impr_id": "20261103153136BE9467C4608A615EE8A7"
+  },
+  "status_code": 0
 }
 ```
 
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `aweme_list` | List of videos that use the requested audio track. |
+| `aweme_list[].aweme_id` | ID of the video, as a string. Use it to look up that video in other APIs. |
+| `aweme_list[].caption / aweme_list[].desc` | Text the creator wrote for the video, including any `#` hashtags. |
+| `aweme_list[].create_time` | Time the video was created, as a Unix timestamp in seconds. |
+| `aweme_list[].author_user_id` | Numeric ID of the account that posted the video. |
+| `aweme_list[].author.avatar_larger.url_list` | Image URLs for the author's avatar. Smaller sizes are in `avatar_168x168`, `avatar_300x300`, `avatar_medium` and `avatar_thumb`. |
+| `aweme_list[].cha_list[].cha_name` | Name of a hashtag (challenge) attached to the video. |
+| `aweme_list[].cha_list[].cid` | ID of that hashtag, as a string. |
+| `aweme_list[].city` | City code for the video. Values such as `130400` and `440100` appear in the response. |
+| `aweme_list[].commerce_info.is_ad` | Shows whether the video is an ad. |
+
 ### Notes
 
-- Use `cursor` for pagination, starting with 0 and passing the subsequent cursor returned by the prior response.
-- Retain the default value for `count` to prevent issues.
+- Pass the `music_id` as a string. The example uses `7348905216869174025`.
+- For paging, send `cursor` as `0` for the first page. For the next page, send the cursor value returned in the previous response.
+- Keep the default `count`. The parameter description warns that changing it can cause bugs.
+- To get details about the track itself, call [Douyin Music Details](/apis/douyin/app-v3/music-detail). For one video from the list, use [Douyin Single Video Details](/apis/douyin/app-v3/one-video) with its `aweme_id`.
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

@@ -62,7 +62,14 @@ Same call via the path form: `POST /v1/api/tiktok/video-transcript` with the bod
 
 ## Details
 
-Fetch the caption track TikTok itself published for a video, as TikTok wrote it. It is the cheapest way to get the words, and it is only as good as TikTok's own transcription: it mishears names and uncommon words, and many videos - especially non-English ones - have no caption track at all, which comes back as not found. When you need the words to be right, or there is no track to read, tiktok.video_transcript_full transcribes the audio with speech-to-text instead.
+Returns the caption track TikTok published for one video, as a WebVTT text with timestamps. It needs a TikTok video or photo post URL. If the video has no caption track, the call succeeds and returns `found: false`.
+
+### Use cases
+
+- Pull the spoken words from a news clip to quote or search them.
+- Index captions from many videos to find which ones mention a brand, product or topic.
+- Read the caption `language` to sort videos by spoken language before further analysis.
+- Feed the caption text into a summary or sentiment pipeline without downloading the video.
 
 ### Request
 
@@ -73,7 +80,7 @@ curl -X POST "https://api.sandbase.ai/v1/api/tiktok/video-transcript" \
   -d '{"url": "https://www.tiktok.com/@washingtonpost/video/7609177768793787679"}'
 ```
 
-The result is returned in `outputs[0].data`. A lookup that finds nothing still succeeds and returns `found: false`.
+The result is returned in `outputs[0].data`.
 
 ### Parameters
 
@@ -82,9 +89,41 @@ The result is returned in `outputs[0].data`. A lookup that finds nothing still s
 | `url` | string | Yes | TikTok video URL on tiktok.com: a video or photo post (https://www.tiktok.com/@<user>/video/<id> or /photo/<id>) or a vm.tiktok.com, vt.tiktok.com or tiktok.com/t/ share link. A profile link (https://www.tiktok.com/@<use |
 | `requireFields` | array | No | Optional; omit it and routing is unchanged, with the cheapest source serving. Name the output fields this request must be able to return, for example `language`, and it is served only by a source that returns every one o |
 
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "data": {
+    "id": "7609177768793787679",
+    "language": "en",
+    "transcript": "WEBVTT\n\n\n00:00:00.020 --> 00:00:01.540\nYour tariffs are illegal. They're not.\n\n0…",
+    "url": "https://www.tiktok.com/@washingtonpost/video/7609177768793787679"
+  },
+  "found": true
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `found` | `true` when TikTok has a caption track for the video. `false` means no track was found. |
+| `data.id` | The numeric TikTok video ID, taken from the URL. |
+| `data.language` | Language code of the caption track, for example `en`. |
+| `data.transcript` | The caption track in WebVTT format. Each cue has a start and end time (`HH:MM:SS.mmm`) followed by the caption text. |
+| `data.url` | The TikTok video URL the transcript belongs to. |
+
+### Notes
+
+- Pass a full video URL such as `https://www.tiktok.com/@<user>/video/<id>`, a `/photo/<id>` URL, or a `vm.tiktok.com`, `vt.tiktok.com` or `tiktok.com/t/` share link. Profile links and video file links are refused as invalid input.
+- Set `requireFields` to `["language"]` to make sure the serving source returns `data.language`. This can change the price of the call.
+- The text is TikTok's own transcription, so names and uncommon words can be wrong. If the track is missing or must be accurate, use the full transcription API `tiktok.video_transcript_full`.
+
 ### Pricing
 
-Billed at the actual cost of each call, usually $0.0011 per request. A call can cost more when the first data source fails and another one answers. Failed calls are not charged. Lookups that find nothing and searches with no results are billed at their actual cost, which is often lower and can be $0.
+Billed at the actual cost of each call, about $0.0011 for the request above. Failed calls are not charged.
 
 ---
 Machine-readable: [`catalog/models/tiktok/video-transcript.json`](../../../catalog/models/tiktok/video-transcript.json) · Store page: https://www.sandbase.ai/model/tiktok/video-transcript

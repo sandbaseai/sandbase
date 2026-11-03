@@ -62,13 +62,14 @@ Same call via the path form: `POST /v1/api/douyin/app-v3/one-video-v2` with the 
 
 ## Details
 
-Retrieve detailed metadata for a Douyin post by supplying the item identifier in `aweme_id`.
+Returns metadata for one Douyin post, either a video or a photo post, under the `aweme_detail` object. It needs one input: the post's `aweme_id`.
 
 ### Use cases
 
-- Inspect video quality levels and bitrate options for a specific post.
-- Retrieve Douyin photo and video post details using a known item ID.
-- Verify media playback parameters for content archiving workflows.
+- Pull the caption, hashtags, and author details for a known Douyin post.
+- Check the publish time and comment settings of a post before you archive it.
+- Collect hashtag names and IDs from a post to find related topic content.
+- Read the author profile block to map a post back to its creator account.
 
 ### Request
 
@@ -79,6 +80,8 @@ curl -X POST "https://api.sandbase.ai/v1/api/douyin/app-v3/one-video-v2" \
   -d '{"aweme_id": "7448118827402972455"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
@@ -87,31 +90,134 @@ curl -X POST "https://api.sandbase.ai/v1/api/douyin/app-v3/one-video-v2" \
 
 ### Example response
 
-Real response for the request above, trimmed to the main fields. User names and long IDs are masked.
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
 
 ```json
 {
   "aweme_detail": {
-    "video": {
-      "bit_rate": [
-        {
-          "bit_rate": 122767,
-          "gear_name": "additional_adapt_lowest_1080_1",
-          "quality_type": 2
-        }
-      ]
-    }
+    "activity_video_type": -1,
+    "admire_auth": {
+      "admire_button": 1,
+      "author_can_admire": 0,
+      "exit_admire_in_aweme_post": 0,
+      "is_admire": 0,
+      "is_click_admire_icon_recently": 0,
+      "is_fifty_admire_author_stable_fans": 0,
+      "is_iron_fans_in_aweme_post": 0,
+      "is_show_admire_button": 0,
+      "is_show_admire_tab": 0
+    },
+    "anchors": null,
+    "authentication_token": "MS4wLjAA…",
+    "author": {
+      "accept_private_policy": false,
+      "account_cert_info": "{}",
+      "account_region": "",
+      "ad_cover_url": null,
+      "allow_story_normal_like": false,
+      "apple_account": 0,
+      "authority_status": 0,
+      "avatar_168x168": {
+        "height": 720,
+        "uri": "168x168/aweme-avatar/tos-cn-i-0813_ooQ2tkQ4kDVFApMfIA8eW6A0AfIFfANnCa8h1D",
+        "url_list": [
+          "https://p3.douyinpic.com/img/aweme-avatar/tos-cn-i-0813_ooQ2tkQ4kDVFApMfIA8eW6A0…"
+        ],
+        "width": 720
+      },
+      "avatar_300x300": {
+        "height": 720,
+        "uri": "300x300/aweme-avatar/tos-cn-i-0813_ooQ2tkQ4kDVFApMfIA8eW6A0AfIFfANnCa8h1D",
+        "url_list": [
+          "https://p3.douyinpic.com/img/aweme-avatar/tos-cn-i-0813_ooQ2tkQ4kDVFApMfIA8eW6A0…"
+        ],
+        "width": 720
+      },
+      "avatar_larger": {
+        "height": 720,
+        "uri": "1080x1080/aweme-avatar/tos-cn-i-0813_ooQ2tkQ4kDVFApMfIA8eW6A0AfIFfANnCa8h1D",
+        "url_list": [
+          "https://p3.douyinpic.com/aweme/1080x1080/aweme-avatar/tos-cn-i-0813_ooQ2tkQ4kDVF…"
+        ],
+        "width": 720
+      },
+      "avatar_medium": {
+        "height": 720,
+        "uri": "720x720/aweme-avatar/tos-cn-i-0813_ooQ2tkQ4kDVFApMfIA8eW6A0AfIFfANnCa8h1D",
+        "url_list": [
+          "https://p3.douyinpic.com/aweme/720x720/aweme-avatar/tos-cn-i-0813_ooQ2tkQ4kDVFAp…"
+        ],
+        "width": 720
+      },
+      "avatar_thumb": {
+        "height": 720,
+        "uri": "100x100/aweme-avatar/tos-cn-i-0813_ooQ2tkQ4kDVFApMfIA8eW6A0AfIFfANnCa8h1D",
+        "url_list": [
+          "https://p3.douyinpic.com/aweme/100x100/aweme-avatar/tos-cn-i-0813_ooQ2tkQ4kDVFAp…"
+        ],
+        "width": 720
+      }
+    },
+    "author_mask_tag": 0,
+    "author_user_id": 2557909361237356,
+    "aweme_acl": {
+      "download_mask_panel": {
+        "code": 1,
+        "show_type": 0
+      }
+    },
+    "aweme_control": {
+      "can_comment": true,
+      "can_forward": true,
+      "can_share": true,
+      "can_show_comment": true
+    },
+    "aweme_id": "7448118827402972455",
+    "aweme_listen_struct": {
+      "listen_diversion": {
+        "extra": [
+          {
+            "key": "new_guide_prefix",
+            "val": "下载汽水"
+          }
+        ],
+        "popup_scene": 4,
+        "side_desc": "听更多精彩内容",
+        "sub_title_type": "relation"
+      },
+      "music_cover_listen": 1,
+      "trace_info": "{\"copyright_not_speech\":\"false\",\"copyright_reason\":\"has_listen_cp_new\",\"copyrigh…"
+    },
+    "aweme_type": 0
   }
 }
 ```
 
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `aweme_detail.aweme_id` | The ID of the post. It matches the `aweme_id` you sent. |
+| `aweme_detail.caption` | The post text, including hashtags written as `#tag`. |
+| `aweme_detail.create_time` | Publish time of the post. The value `1734150565` looks like a Unix timestamp in seconds. |
+| `aweme_detail.author_user_id` | Numeric ID of the account that posted the item. |
+| `aweme_detail.author.aweme_count` | Number of posts shown on the author's account. |
+| `aweme_detail.author.avatar_168x168 / avatar_300x300 / avatar_larger / avatar_medium / avatar_thumb` | Author avatar images in different sizes. Each has `url_list`, `uri`, `width`, and `height`. |
+| `aweme_detail.cha_list[].cha_name` | Name of a hashtag attached to the post. |
+| `aweme_detail.cha_list[].cid` | ID of the hashtag. It also appears in the hashtag `schema` link. |
+| `aweme_detail.aweme_control.can_comment / can_forward / can_share` | Flags that show whether comments, forwarding, and sharing are allowed on the post. |
+| `aweme_detail.danmaku_control.danmaku_cnt` | Count of danmaku (on-screen comments) on the post. `enable_danmaku` shows whether they are turned on. |
+
 ### Notes
 
-- Provide the unique post identifier in `aweme_id`.
+- Send `aweme_id` as a string. It is the long numeric ID of the post, for example `7448118827402972455`.
+- Many fields are `null`, empty strings, or `0` for this post. Check for these values before you use a field.
+- Image links in the response, such as avatar `url_list` entries, are full URLs. Some of the cover links carry `x-expires` and `x-signature` query parameters.
+- To fetch several posts in one call, use [Douyin Batch Video Information (App V3)](/apis/douyin/app-v3/multi-video).
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

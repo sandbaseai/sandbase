@@ -62,13 +62,14 @@ Same call via the path form: `POST /v1/api/douyin/billboard/hot-comment-word-lis
 
 ## Details
 
-Retrieve keyword weights and word cloud analysis for video comments by supplying `aweme_id`. This endpoint provides audience discussion terms associated with a specific Douyin post.
+Returns a list of keywords taken from the comments on one Douyin video, each with a weight. It needs one input, the video's `aweme_id`.
 
 ### Use cases
 
-- Analyze common terms and audience sentiment across video comments.
-- Generate visual word clouds based on viewer discussion keywords.
-- Extract prominent comment topics to evaluate content engagement.
+- Find the most repeated words in a video's comments to see what viewers talk about.
+- Build a word cloud image for a report on one Douyin video.
+- Compare the top comment words of several videos to see how audience reactions differ.
+- Spot calls to action or repeated phrases in comments, such as requests for replies.
 
 ### Request
 
@@ -79,6 +80,8 @@ curl -X POST "https://api.sandbase.ai/v1/api/douyin/billboard/hot-comment-word-l
   -d '{"aweme_id": "7372484719365098803"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
@@ -87,26 +90,46 @@ curl -X POST "https://api.sandbase.ai/v1/api/douyin/billboard/hot-comment-word-l
 
 ### Example response
 
-Real response for the request above, trimmed to the main fields. User names and long IDs are masked.
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
 
 ```json
 {
+  "code": 0,
   "data": [
     {
-      "value": 61,
+      "related_comment": null,
+      "value": 46,
       "word_seg": "宝宝"
     }
-  ]
+  ],
+  "extra": {
+    "now": 1793691108000
+  },
+  "message": ""
 }
 ```
 
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `code` | Status code of the response. `0` appears in a normal response. |
+| `data[]` | One entry per keyword found in the comments. |
+| `data[].word_seg` | The keyword text, taken from the comments. |
+| `data[].value` | The weight of the keyword. A higher number means the word counts for more in the word cloud. |
+| `data[].related_comment` | Comments linked to the keyword. It is `null` in the sample response. |
+| `extra.now` | A 13-digit number that looks like a timestamp in milliseconds. It is likely the time of the response. |
+| `message` | Text message from the response. It is an empty string in the sample. |
+
 ### Notes
 
-- Requires `aweme_id` representing the target work identifier.
+- Pass the video ID as `aweme_id`, for example `7372484719365098803`. Send it as a string.
+- The request has no pagination parameters. The sample response returns all keywords in one `data` list.
+- Use `data[].value` to size words in a word cloud or to sort keywords.
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

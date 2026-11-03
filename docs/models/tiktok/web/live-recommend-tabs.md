@@ -58,13 +58,14 @@ Same call via the path form: `POST /v1/api/tiktok/web/live-recommend-tabs` with 
 
 ## Details
 
-Retrieve available stream recommendation tabs and sub-tabs from TikTok. Pass `logid` to paginate through subsequent pages of recommendations.
+Returns the recommendation tabs and category tags shown on the TikTok LIVE homepage, with sub-tabs and viewer counts. It needs no input for the first page and takes an optional `logid` cursor for later pages.
 
 ### Use cases
 
-- Explore trending broadcast tags and gaming categories.
-- Monitor viewer counts across featured stream categories.
-- Populate category navigation filters in external streaming dashboards.
+- Track which game categories, such as Gaming sub-tabs, have the most live viewers.
+- Build a category menu for an external live-stream dashboard.
+- Compare viewer counts across lifestyle tabs like Chats, Outdoors and Talents.
+- Collect cover images for each live category.
 
 ### Request
 
@@ -75,41 +76,72 @@ curl -X POST "https://api.sandbase.ai/v1/api/tiktok/web/live-recommend-tabs" \
   -d '{}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
 |---|---|---|---|
-| `logid` | string | No | Pagination cursor. |
+| `logid` | string | No | Pagination cursor. Leave empty for the first page; to load the next page, pass the `logid` value returned by the previous response |
 
 ### Example response
 
-Real response for the request above, trimmed to the main fields. User names and long IDs are masked.
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
 
 ```json
 {
   "data": [
     {
+      "is_not_show_tab": false,
       "sub_tabs": [
         {
-          "cover_url": "https://p16-common-sign.tiktokcdn.com/tos-alisg-i-agnx3xz2cs-sg/Garena_Free_Fire…",
+          "cover_url": "https://p19-common-sign.tiktokcdn.com/tos-alisg-i-agnx3xz2cs-sg/Garena_Free_Fire…",
+          "position": 0,
           "rank_type": "hot_game",
           "tab_name": "Garena Free Fire",
           "tab_type": "Garena Free Fire",
-          "viewer_count": 156952
+          "viewer_count": 71422
         }
-      ]
+      ],
+      "tab_name": "Gaming",
+      "tab_type": "gaming"
     }
-  ]
+  ],
+  "extra": {
+    "has_more": true,
+    "if_expire": true,
+    "now": 1793691866004
+  },
+  "logid": "20261103154425C6E4DDDF5B9C6943B3EB",
+  "status_code": 0
 }
 ```
 
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `data[].tab_name / data[].tab_type` | Display name and internal type of a top-level tab, for example `Gaming` and `gaming`. |
+| `data[].is_not_show_tab` | When `true`, the tab is a settings entry and is not shown as a normal tab. Its `sub_tabs` list is empty. |
+| `data[].sub_tabs[].tab_name` | Display name of a category inside the tab, such as `Fortnite` or `Chats`. |
+| `data[].sub_tabs[].tab_type` | Internal type of the sub-tab. For games it matches the game name. For lifestyle tabs it is a code like `chatting` or `outdoor`. |
+| `data[].sub_tabs[].viewer_count` | Viewer count shown for the sub-tab. |
+| `data[].sub_tabs[].rank_type` | Ranking label for the sub-tab, such as `hot_game`. It is an empty string when no label applies. |
+| `data[].sub_tabs[].cover_url` | Signed URL of the cover image for the sub-tab. |
+| `data[].sub_tabs[].position` | Position value of the sub-tab. It is `0` for every item in this response. |
+| `extra.has_more` | Shows whether another page is available. |
+| `logid` | Cursor value for the next page. Pass it as the `logid` request parameter. |
+
 ### Notes
 
-- Pass the `logid` returned from a prior response to load the next page of results, or leave it empty for the initial page.
+- Leave `logid` empty for the first page. For the next page, send the `logid` value from the previous response.
+- Check `extra.has_more` to see if more pages exist.
+- `extra.now` is a timestamp in milliseconds, for example `1793691866004`.
+- Cover image URLs are signed and contain an `x-expires` parameter, so save the images soon after you fetch them.
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

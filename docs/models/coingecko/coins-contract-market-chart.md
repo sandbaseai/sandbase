@@ -73,9 +73,14 @@ Same call via the path form: `POST /v1/api/coingecko/coins-contract-market-chart
 
 ## Details
 
-Get the historical chart data including time in UNIX, price, market cap and 24hr volume based on asset platform and particular token contract address
+Returns time series of price, market cap and total volume for a token, looked up by its contract address on an asset platform. It needs `contract_address`, the platform `id`, `days` and `vs_currency`.
 
-The response is the official CoinGecko API response, unchanged.
+### Use cases
+
+- Plot a price chart for an ERC-20 token when you only know its contract address.
+- Track how a token's market cap changes over the last day or over its full history with `days` set to `max`.
+- Compare traded volume against price moves for a stablecoin or other token.
+- Export price points to a spreadsheet or database for backtesting.
 
 ### Request
 
@@ -86,20 +91,65 @@ curl -X POST "https://api.sandbase.ai/v1/api/coingecko/coins-contract-market-cha
   -d '{"contract_address": "0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48", "id": "ethereum", "days": "1", "vs_currency": "usd"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
 |---|---|---|---|
 | `contract_address` | string | Yes | The contract address of token. |
-| `id` | string | Yes | Asset platform ID. *refers to [`/asset_platforms`](/reference/asset-platforms-list). |
 | `days` | string | Yes | Data up to number of days ago. You may use any integer or `max` for number of days. |
+| `id` | string | Yes | Asset platform ID. *refers to [`/asset_platforms`](/reference/asset-platforms-list). |
+| `vs_currency` | string | Yes | Target currency of market data. *refers to [`/simple/supported_vs_currencies`](/reference/simple-supported-currencies). |
 | `interval` | string | No | Data interval, leave empty for auto granularity. |
 | `precision` | string | No | Decimal place for currency price value. |
-| `vs_currency` | string | Yes | Target currency of market data. *refers to [`/simple/supported_vs_currencies`](/reference/simple-supported-currencies). |
+
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "market_caps": [
+    [
+      1793604600000
+    ]
+  ],
+  "prices": [
+    [
+      1793604600000
+    ]
+  ],
+  "total_volumes": [
+    [
+      1793604600000
+    ]
+  ]
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `prices` | List of `[timestamp, price]` pairs. The price is in the currency set by `vs_currency`. |
+| `prices[][0] / market_caps[][0] / total_volumes[][0]` | Timestamp of the data point. It is a number such as `1793604600000`, which looks like UNIX time in milliseconds. |
+| `prices[][1]` | Token price at that timestamp in the target currency. |
+| `market_caps` | List of `[timestamp, market cap]` pairs for the token. |
+| `market_caps[][1]` | Market cap value at that timestamp in the target currency. |
+| `total_volumes` | List of `[timestamp, volume]` pairs for the token. |
+| `total_volumes[][1]` | Trading volume value at that timestamp in the target currency. |
+
+### Notes
+
+- Set `id` to an asset platform ID such as `ethereum`. The `contract_address` must be a token on that platform.
+- Set `interval` to `1m`, `5m`, `hourly` or `daily`, or leave it empty for automatic granularity. In the sample call, points are 5 minutes apart.
+- Use `precision` to set the decimal places of the price values.
+- To chart a custom start and end date, call [CoinGecko Coin Historical Chart Data within Time Range by Token Address](/apis/coingecko/coins-contract-market-chart-range). For coins by CoinGecko ID, use [CoinGecko Coin Historical Chart Data by ID](/apis/coingecko/coins-market-chart).
 
 ### Pricing
 
-Flat price per call. Failed calls are not charged.
+$0.008 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ---
 Machine-readable: [`catalog/models/coingecko/coins-contract-market-chart.json`](../../../catalog/models/coingecko/coins-contract-market-chart.json) · Store page: https://www.sandbase.ai/model/coingecko/coins-contract-market-chart

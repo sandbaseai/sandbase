@@ -68,9 +68,14 @@ Same call via the path form: `POST /v1/api/bilibili/video-caption` with the body
 
 ## Details
 
-Get caption data for a Bilibili video segment identified by BVID, AID, and CID. Use it to obtain subtitles for transcript extraction, accessibility review, or language-focused content analysis.
+Returns the list of caption tracks available for one Bilibili video part. Each track has a language code, a language name, and a URL to the subtitle file. You send `bvid`, `aid`, and `cid` together.
 
-The response is the platform's original data structure.
+### Use cases
+
+- Download the subtitle file for each language to build a transcript of a Bilibili video.
+- Check which caption languages a video offers before you plan translation or review work.
+- Collect Simplified and Traditional Chinese tracks to compare wording for language analysis.
+- Audit whether a video has captions for accessibility review.
 
 ### Request
 
@@ -81,17 +86,51 @@ curl -X POST "https://api.sandbase.ai/v1/api/bilibili/video-caption" \
   -d '{"bvid": "BV1GJ411x7h7", "aid": "80433022", "cid": "137649199"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
 |---|---|---|---|
-| `bvid` | string | Yes | Bilibili Video ID (BVID). |
 | `aid` | string | Yes | Bilibili AID. |
+| `bvid` | string | Yes | Bilibili Video ID (BVID). |
 | `cid` | string | Yes | Bilibili CID. |
+
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "data": [
+    {
+      "lan": "zh-CN",
+      "lan_doc": "中文（中国）",
+      "subtitle_url": "https://aisubtitle.hdslb.com/bfs/subtitle/662b660a420431045b483f9b560057c262539b…"
+    }
+  ]
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `data[]` | One caption track per item. The list has one entry for each language available for the video part. |
+| `data[].lan` | Language code of the track, such as `zh-CN`, `zh-Hans`, or `zh-Hant`. |
+| `data[].lan_doc` | Display name of the language, such as `中文（简体）` for Simplified Chinese. |
+| `data[].subtitle_url` | URL of the subtitle file for this track. The file is JSON and the URL carries an `auth_key` query parameter. |
+
+### Notes
+
+- All three parameters are required: `bvid`, `aid`, and `cid`. They must describe the same video part.
+- Use [Bilibili BV to AID Converter](/apis/bilibili/web/bv-to-aid) to get the `aid` from a `bvid`.
+- Use [Bilibili Video Parts](/apis/bilibili/web/video-parts) to find the `cid` of each part of a video.
+- The `subtitle_url` values include an `auth_key`, so fetch the subtitle file soon after you receive the response.
 
 ### Pricing
 
-Flat price per call. Failed calls and empty results are not charged.
+$0.014286 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ---
 Machine-readable: [`catalog/models/bilibili/video-caption.json`](../../../catalog/models/bilibili/video-caption.json) · Store page: https://www.sandbase.ai/model/bilibili/video-caption

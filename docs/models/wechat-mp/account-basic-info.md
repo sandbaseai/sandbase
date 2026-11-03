@@ -61,9 +61,14 @@ Same call via the path form: `POST /v1/api/wechat-mp/account-basic-info` with th
 
 ## Details
 
-Get basic profile information for a WeChat Official Account by account name. Use it to identify or enrich a known account before article, ownership, or publishing research.
+Returns the basic public profile of a WeChat Official Account: its name, description, avatar, account type, WeChat ID and `biz` identifier. It needs one input, the account name in `name`.
 
-The response is the platform's original data structure.
+### Use cases
+
+- Confirm that an Official Account name maps to a real account and read its `wxid` before further research.
+- Collect the `biz` value of an account so you can match it against article links.
+- Fill in an account list with the avatar, description and account type for each name.
+- Check whether an account is a subscription account or another type before you plan article collection.
 
 ### Request
 
@@ -74,15 +79,52 @@ curl -X POST "https://api.sandbase.ai/v1/api/wechat-mp/account-basic-info" \
   -d '{"name": "人民日报"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
 |---|---|---|---|
 | `name` | string | Yes | WeChat Official Account name used to fetch basic profile information. |
 
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "data": {
+    "avatar": "http://mmbiz.qpic.cn/mmbiz_png/xrFYciaHL08D1hiaVU0brP9YwQH1wFm9D9AG7oAVaNE8RzGia…",
+    "biz": "MjM5MjAxNDM4MA==",
+    "desc": "参与、沟通、记录时代。",
+    "name": "人民日报",
+    "type": "订阅号",
+    "wxid": "rmrbwx"
+  }
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `data.name` | The display name of the Official Account. |
+| `data.wxid` | The WeChat ID of the account, for example `rmrbwx`. |
+| `data.biz` | The `biz` identifier of the account. The value looks like a Base64 string, for example `MjM5MjAxNDM4MA==`. |
+| `data.desc` | The account's profile description, as the account owner wrote it. |
+| `data.type` | The account type as a text label. The sample value `订阅号` means subscription account. |
+| `data.avatar` | URL of the account's avatar image. |
+
+### Notes
+
+- Pass the exact account name in `name`. The sample request uses `人民日报`.
+- Keep `biz` and `wxid` from the response to identify the account in later calls.
+- To read the account's posts next, try [WeChat MP Account Articles](/apis/wechat-mp/v2/account-articles) or [WeChat MP Account Historical Articles](/apis/wechat-mp/account-history-articles).
+- For a fuller account record, see [WeChat MP Account Profile](/apis/wechat-mp/v2/account-profile).
+
 ### Pricing
 
-Flat price per call. Failed calls and empty results are not charged.
+$0.142857 per successful call. Failed calls are not charged.
 
 ---
 Machine-readable: [`catalog/models/wechat-mp/account-basic-info.json`](../../../catalog/models/wechat-mp/account-basic-info.json) · Store page: https://www.sandbase.ai/model/wechat-mp/account-basic-info

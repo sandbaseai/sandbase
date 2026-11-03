@@ -62,13 +62,13 @@ Same call via the path form: `POST /v1/api/tiktok/web/sec-user-id` with the body
 
 ## Details
 
-Extract the internal `sec_user_id` from a TikTok profile by providing the homepage link through `url`.
+Returns the `sec_user_id` string for a TikTok user. You send the full profile homepage link in `url`, for example `https://www.tiktok.com/@tiktok`.
 
 ### Use cases
 
-- Resolve a public profile link into a TikTok sec_user_id string.
-- Obtain the required user identifier for subsequent API calls.
-- Automate profile data gathering workflows from standard web links.
+- Convert a profile link into the `sec_user_id` that other TikTok web endpoints ask for.
+- Store a stable user key for each creator you track by profile link.
+- Prepare the input for profile, post list, or follower list calls.
 
 ### Request
 
@@ -79,6 +79,8 @@ curl -X POST "https://api.sandbase.ai/v1/api/tiktok/web/sec-user-id" \
   -d '{"url": "https://www.tiktok.com/@tiktok"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
@@ -87,19 +89,30 @@ curl -X POST "https://api.sandbase.ai/v1/api/tiktok/web/sec-user-id" \
 
 ### Example response
 
-Real response for the request above, trimmed to the main fields. User names and long IDs are masked.
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
 
 ```json
 "MS4wLjABAAAAv7iSuuXDJGDvJkmH_vz1qkDZYo1apxgzaxdBSeIuPiM"
 ```
 
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `$` | The whole body is one JSON string. It is the `sec_user_id` of the profile in `url`. There is no wrapper object and there are no other keys. |
+| `$[0:8]` | The first 8 characters of the string. In the example they are `MS4wLjAB`. |
+| `$[8:]` | The rest of the string after the first 8 characters. Keep the full value together and pass it unchanged to other endpoints. |
+
 ### Notes
 
-- The `url` parameter expects a full TikTok user homepage link.
+- The body is a bare string, not an object. Read it directly instead of looking for a field name.
+- Send a full homepage link in the form `https://www.tiktok.com/@username`.
+- To resolve many profile links in one call, use [TikTok User Sec User ID Extractor](/apis/tiktok/web/all-sec-user-id).
+- To get the user ID from a profile link instead, use [TikTok User ID from Profile Link](/apis/tiktok/web/user-id).
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

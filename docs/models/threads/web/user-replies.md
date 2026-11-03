@@ -63,13 +63,14 @@ Same call via the path form: `POST /v1/api/threads/web/user-replies` with the bo
 
 ## Details
 
-Retrieve replies posted by an account on Threads by supplying the `user_id`. Supports subsequent pages of results via `end_cursor`.
+Returns a list of Threads posts from a user's replies tab. It needs a numeric `user_id` and accepts an optional `end_cursor` to fetch the next page.
 
 ### Use cases
 
-- Monitor recent replies posted by a specific user.
-- Track user conversation history across different threads.
-- Ingest reply activity into an engagement tracking dashboard.
+- Review what a news account says in reply to other users' threads.
+- Collect the text of a user's recent replies for topic or sentiment analysis.
+- Match reply `code` values to post URLs to link back to the original conversation.
+- Page through a user's reply history with `end_cursor` and `has_next_page`.
 
 ### Request
 
@@ -80,6 +81,8 @@ curl -X POST "https://api.sandbase.ai/v1/api/threads/web/user-replies" \
   -d '{"user_id": "63625256886"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
@@ -87,13 +90,75 @@ curl -X POST "https://api.sandbase.ai/v1/api/threads/web/user-replies" \
 | `user_id` | string | Yes | User ID, for example: 63625256886 |
 | `end_cursor` | string | No | Pagination cursor (optional), used to get next page data |
 
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "mediaData": {
+    "edges": [
+      {
+        "__typename": "XDTUserTextPostsResponseEdge",
+        "cursor": "",
+        "node": {
+          "__typename": "XDTThread",
+          "id": "3850504812358707776",
+          "thread_items": [
+            {
+              "__typename": "XDTThreadItem",
+              "post": {
+                "accessibility_caption": null,
+                "audio": null,
+                "caption": {
+                  "has_translation": null,
+                  "pk": "17947992846069632",
+                  "text": "Iran's military command said the world should be prepared for oil to hit $200 a …"
+                },
+                "caption_add_on": null,
+                "caption_is_edited": false,
+                "carousel_media": null,
+                "code": "DVvvbnakqpA",
+                "gen_ai_detection_method": null
+              }
+            }
+          ]
+        }
+      }
+    ],
+    "page_info": {
+      "end_cursor": null,
+      "has_next_page": false,
+      "has_previous_page": false,
+      "start_cursor": null
+    }
+  }
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `mediaData.edges[].node.id` | ID of the thread that holds the reply. |
+| `mediaData.edges[].node.thread_items[].post.caption.text` | Text of the reply. Long text may be cut and can end with a link. |
+| `mediaData.edges[].node.thread_items[].post.caption.pk` | ID of the caption object for the reply. |
+| `mediaData.edges[].node.thread_items[].post.code` | Short post code, the kind Threads uses in post URLs. |
+| `mediaData.edges[].node.thread_items[].post.caption_is_edited` | `true` if the reply text was edited after posting. |
+| `mediaData.edges[].node.thread_items[].post.carousel_media` | Media items attached to the reply. It is `null` when the reply has no carousel. |
+| `mediaData.edges[].cursor` | Cursor value attached to each edge. It was an empty string in this response. |
+| `mediaData.page_info.end_cursor` | Cursor to pass as `end_cursor` for the next page. It is `null` when no more pages exist. |
+| `mediaData.page_info.has_next_page` | `true` if more replies can be fetched. |
+
 ### Notes
 
-- Pass `end_cursor` to paginate through subsequent pages of reply data.
+- To get the next page, send the `mediaData.page_info.end_cursor` value as `end_cursor` along with the same `user_id`.
+- If you only have a username, look up the numeric ID with [Threads User Profile](/apis/threads/web/user-info) first.
+- Use [Threads Post Detail](/apis/threads/web/post-detail) to load a full post, and [Threads User Posts](/apis/threads/web/user-posts) for the user's own top-level posts.
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.002 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

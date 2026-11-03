@@ -67,7 +67,14 @@ Same call via the path form: `POST /v1/api/zillow/zestimate` with the body above
 
 ## Details
 
-Get the Zestimate (automated home value estimate) and rent Zestimate for a property by zpid.
+Returns the Zillow Zestimate (automated home value estimate) and rent Zestimate for one property, plus its address and home type. It needs a Zillow property ID (`zpid`) as input.
+
+### Use cases
+
+- Check the current estimated value of a single home by its `zpid`.
+- Compare `zestimate` with `rentZestimate` to get a rough view of rent against price for one property.
+- Read the low and high percent range around a Zestimate to see how wide the estimate band is.
+- Confirm the address and home type that belong to a `zpid` before you run other lookups.
 
 ### Request
 
@@ -78,7 +85,7 @@ curl -X POST "https://api.sandbase.ai/v1/api/zillow/zestimate" \
   -d '{"zpid": "2080998636"}'
 ```
 
-This API runs asynchronously. The call returns a task `id` with status `pending`; poll `GET https://api.sandbase.ai/v1/run/{id}` until `status` is `completed` and read the result from `outputs[0].data`.
+The result is returned in `outputs[0].data`.
 
 ### Parameters
 
@@ -86,9 +93,53 @@ This API runs asynchronously. The call returns a task `id` with status `pending`
 |---|---|---|---|
 | `zpid` | string | Yes | Zillow property ID (numeric string, e.g., '2080998636') |
 
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "data": {
+    "address": {
+      "city": "Prescott Valley",
+      "neighborhood": null,
+      "state": "AZ",
+      "streetAddress": "0 E 2nd St",
+      "zipcode": "86314"
+    },
+    "homeType": "LOT",
+    "rentZestimate": null,
+    "zestimate": null,
+    "zestimateHighPercent": null,
+    "zestimateLowPercent": null,
+    "zpid": 2080998636
+  },
+  "status": "success"
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `data.zpid` | Zillow property ID of the property, returned as a number. |
+| `data.zestimate` | Automated home value estimate. It is `null` when Zillow has no estimate for the property, as in the sample response for a lot. |
+| `data.rentZestimate` | Automated monthly rent estimate. It is `null` when none exists for the property. |
+| `data.zestimateHighPercent / data.zestimateLowPercent` | High and low percent values for the Zestimate range. Both are `null` when there is no `zestimate`. |
+| `data.homeType` | Type of property, for example `LOT`. |
+| `data.address.streetAddress` | Street address of the property. |
+| `data.address.city / data.address.state / data.address.zipcode` | City, state and ZIP code of the property. |
+| `data.address.neighborhood` | Neighborhood name. It can be `null`. |
+
+### Notes
+
+- Valuation fields can be `null`, especially for vacant lots, so check for `null` before you use them.
+- `zpid` is a numeric string in the request and a number in `data.zpid`.
+- Call [Zillow Property Details](/apis/zillow/property-details) with the same `zpid` for fuller details on the property.
+
 ### Pricing
 
-Flat price per call. Failed calls are not charged.
+$0.03 per successful call. Failed calls are not charged.
 
 ---
 Machine-readable: [`catalog/models/zillow/zestimate.json`](../../../catalog/models/zillow/zestimate.json) · Store page: https://www.sandbase.ai/model/zillow/zestimate

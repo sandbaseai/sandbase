@@ -68,13 +68,14 @@ Same call via the path form: `POST /v1/api/douyin/app-v3/video-comments` with th
 
 ## Details
 
-Pass a Douyin video ID (`aweme_id`) and get its first-level comments with text, likes, reply counts and IP location.
+Returns the first-level comments on a Douyin video, with text, publish time, like count, reply count and the commenter's IP location. It needs the video ID in `aweme_id`. Results come in pages with a cursor.
 
 ### Use cases
 
-- Analyze audience sentiment on a video.
-- Collect feedback on a product or campaign video.
-- Find frequently asked questions in comments.
+- Read what viewers say about a product or campaign video and score the sentiment.
+- Collect the questions viewers ask under a video to build an FAQ.
+- Compare commenter regions using `ip_label` to see where an audience is based.
+- Find comments with replies and call the replies API to read the threads.
 
 ### Request
 
@@ -84,6 +85,8 @@ curl -X POST "https://api.sandbase.ai/v1/api/douyin/app-v3/video-comments" \
   -H "Content-Type: application/json" \
   -d '{"aweme_id": "7565738211130035491"}'
 ```
+
+The result is returned in `outputs[0].data`.
 
 ### Parameters
 
@@ -95,38 +98,94 @@ curl -X POST "https://api.sandbase.ai/v1/api/douyin/app-v3/video-comments" \
 
 ### Example response
 
-Real response for the request above, trimmed to the main fields. User names and long IDs are masked.
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
 
 ```json
 {
-  "total": 4960,
-  "has_more": 1,
-  "cursor": "<next cursor>",
+  "comment_common_data": "MS4wLjAAAAAAK94fZypbcSoKKAxk0SidLyyXg0ilf_OVZdvKpflgNmdnEVcwf9dcRv6n68LYu5sDbbke…",
+  "comment_config": {},
+  "comment_insert_bars": null,
   "comments": [
     {
-      "cid": "7693474478307853091",
       "aweme_id": "7565738211130035491",
-      "create_time": 1791276616,
+      "can_collect": false,
+      "cid": "7703557083483915008",
+      "comment_audio": {
+        "content": "{\"status\":10,\"message\":\"success\",\"version\":3,\"video_id\":\"v03423g10003dbk8feq7dld…",
+        "duration": 9571,
+        "timbre_text": "识别到萌音",
+        "timbre_type": "萌音",
+        "vid": "v03423g10003dbk8feq7dldde24v8c80",
+        "wave": "0.25079367,0.7111111,0.7619048,0.4936508,0.6333333,0.3857143,0.43650794,0.628571…"
+      },
+      "comment_token": "MS4wLjAA…",
+      "content_type": 8,
+      "create_time": 1793624155,
+      "decorated_emoji_info": null,
       "digg_count": 0,
-      "reply_comment_total": 0,
-      "text": "我家小猫很活泼了才3个月[捂脸]",
-      "ip_label": "河南",
-      "user": {
-        "nickname": "<user>"
-      }
+      "ent_parachute_tip": 0,
+      "enter_from": "general_search",
+      "image_list": null
     }
-  ]
+  ],
+  "cursor": 20,
+  "extra": {
+    "fatal_item_ids": null,
+    "now": 1793691105000,
+    "scenes": null
+  },
+  "fast_response_comment": {
+    "constant_response_words": [
+      "赞"
+    ],
+    "timed_response_words": [
+      "早上好"
+    ]
+  },
+  "folded_comment_count": 0,
+  "general_comment_config": {
+    "survey_info": {
+      "stay_duration": 10000,
+      "survey_detail": "{\"icon_url_dark\":\"https://lf3-static.bytednsdoc.com/obj/eden-cn/wpozuvpahsly_lm_…",
+      "survey_id": "1789370631",
+      "survey_index": 0,
+      "survey_lynx_uri": "aweme://lynxview/?surl=https%3A%2F%2Flf-dy-sourcecdn-tos.bytegecko.com%2Fobj%2Fb…",
+      "survey_type": 2
+    }
+  },
+  "has_more": 1,
+  "hotsoon_filtered_count": 0,
+  "log_pb": {
+    "impr_id": "20261103153145C624057C7A1A9E123BFA"
+  }
 }
 ```
 
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `total` | Total number of comments on the video (5092 in this response). |
+| `has_more` | Shows whether another page exists. `1` means more comments are available. |
+| `cursor` | Value to send as `cursor` to get the next page. It was `20` after the first page. |
+| `comments[].cid` | ID of the comment. |
+| `comments[].text` | Comment text. It is an empty string for voice comments. |
+| `comments[].create_time` | Publish time of the comment as a Unix timestamp in seconds. |
+| `comments[].digg_count` | Number of likes on the comment. |
+| `comments[].reply_comment_total` | Number of replies to the comment. |
+| `comments[].ip_label` | Province-level location label of the commenter, such as `河南`. |
+| `comments[].comment_audio.timbre_type / comments[].comment_audio.duration` | Present on voice comments. They give the voice style label and the audio length, with `duration` as a number in the response. |
+
 ### Notes
 
-- Keep `count` at the default 20.
-- Paginate with the `cursor` from the previous response.
+- Get `aweme_id` from a video list or detail API, for example [Douyin Video Detail](/apis/douyin/app-v3/one-video-v3).
+- Send `cursor` as `0` for the first page. For the next page, pass the `cursor` value from the previous response.
+- Keep `count` at the default `20`. The parameter notes say other values can cause bugs.
+- To read replies under a comment, call [Douyin Video Comment Replies (App V3)](/apis/douyin/app-v3/video-comment-replies).
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

@@ -61,13 +61,14 @@ Same call via the path form: `POST /v1/api/kuaishou/app/videos-batch` with the b
 
 ## Details
 
-Query details for multiple Kuaishou videos simultaneously using `photo_ids`.
+Returns details for several Kuaishou videos in one call. The only input is `photo_ids`, a comma-separated string of up to 40 photo IDs. The response has a `photos` list with one entry per video.
 
 ### Use cases
 
-- Retrieve metadata for a list of Kuaishou videos simultaneously.
-- Monitor engagement and view stats across multiple video posts.
-- Sync video catalog records in bulk using their photo IDs.
+- Pull like, comment and collect counts for a set of videos from one account to compare their engagement.
+- Download cover image and video stream URLs for a batch of posts you already track.
+- Read captions and hashtags of event videos to group them by topic.
+- Check video length and frame size for many posts before processing them.
 
 ### Request
 
@@ -78,19 +79,112 @@ curl -X POST "https://api.sandbase.ai/v1/api/kuaishou/app/videos-batch" \
   -d '{"photo_ids": "5228960823332207296,5196309727975443273,5222486898325987583"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
 |---|---|---|---|
 | `photo_ids` | string | Yes | Photo ID list, multiple IDs separated by commas, max 40 per request |
 
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "host-name": "public-bjzey-c34-kce-node1456.idchb1az3.hb1.kwaidc.com",
+  "photos": [
+    {
+      "adminTags": [],
+      "canShowQuickCommentGuide": true,
+      "caption": "零跑A10正式发布 2026年冲击年销100万辆  #2025广州国际车展  #2025广州车展  #上汽车之家看有用的车展指南",
+      "captionToComment": "零跑A10正式发布 2026年冲击年销100万辆 #2025广州国际车展 #2025广州车展 #上汽车之家看有用的车展指南",
+      "collect_count": 4,
+      "commentGuessSearch": {
+        "displayPrefix": "相关搜索：",
+        "extParams": "{\"all_source\":\"p2q_semantic_recall_v1\",\"entrySource\":\"search_entrance_comment_tr…",
+        "iconUrl": "https://ali2.a.kwimgs.com/udata/pkg/se-cdn/search_blue3x.png",
+        "searchWord": "零跑全域自研",
+        "searchWordMD5": "ba63484b615923962aaced09bbad743a",
+        "searchWordUrl": "kwai://search?keyword=零跑全域自研&sessionId=MzIwXzBfMTc5MzY5MTM4MDI5OV9fNDQyNA&source…",
+        "sessionId": "MzIwXzBf…"
+      },
+      "commentInfo": {
+        "commentCountSpecialEffect": true,
+        "commentEducationGuide": {
+          "guideType": 0,
+          "triggerCharCount": 0
+        },
+        "commentIconType": 0,
+        "enableAIPresetGuide": false,
+        "permissions": 191
+      },
+      "commentTopBarPriority": [
+        {
+          "bizType": "PLC",
+          "subBizType": "51"
+        }
+      ],
+      "comment_count": 11,
+      "coronaVipInfo": {
+        "enableFilmAd": false,
+        "filmAdInfo": {
+          "pageId": 100014436,
+          "posId": 9777,
+          "subPageId": 100017199
+        },
+        "inspireAdInfo": {
+          "pageId": 100011251,
+          "posId": 20578,
+          "subPageId": 100024209
+        },
+        "vipPhoto": false
+      },
+      "cover_thumbnail_urls": [
+        {
+          "cdn": "ws2.a.kwimgs.com",
+          "url": "http://ws2.a.kwimgs.com/upic/2025/11/22/14/BMjAyNTExMjIxNDE2NTdfOTAzNTExNzcyXzE4…"
+        }
+      ],
+      "danmakuInfo": {
+        "danmakuShowDirection": 2,
+        "defaultDanmaku": "发个友善的弹幕吧",
+        "hasDanmaku": true,
+        "paster": false,
+        "photoDanmakuGuide": false
+      }
+    }
+  ],
+  "result": 1
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `photos[]` | One entry per requested video. Each entry holds the fields below. |
+| `photos[].caption` | Post text, including hashtags written as `#tag`. |
+| `photos[].like_count / photos[].comment_count / photos[].collect_count / photos[].forward_count` | Counts of likes, comments, collects and forwards for the video. |
+| `photos[].duration` | Video length. The value 56233 for a clip matches `ext_params.video`, which suggests milliseconds. |
+| `photos[].ext_params.w / photos[].ext_params.h` | Video width and height in pixels. A portrait clip shows `w` 720 and `h` 1280. |
+| `photos[].main_mv_urls[].url` | Video stream URL. Each item pairs a `cdn` host with a `url`, so the same video is offered on more than one host. |
+| `photos[].cover_thumbnail_urls[].url` | Cover image URL for the video, one per `cdn` host. |
+| `photos[].headurls[].url` | Avatar image URL of the author, one per `cdn` host. |
+| `photos[].kwaiId` | Public Kuaishou ID of the author, for example `Autohome`. |
+| `photos[].commentGuessSearch.searchWord` | Suggested related search phrase shown with the comments. |
+
 ### Notes
 
-- Supply comma-separated IDs to `photo_ids` with a maximum of 40 IDs per request.
+- Get photo IDs from a list API such as [Kuaishou User Video List (V2)](/apis/kuaishou/app/user-post-v2) or [Kuaishou Video Search (V2)](/apis/kuaishou/app/search-video-v2).
+- Send `photo_ids` as one string with IDs separated by commas, up to 40 per request. Each ID is a long number such as `5228960823332207296`.
+- For one video only, use [Kuaishou Video Details (V1)](/apis/kuaishou/app/one-video).
+- URLs in the response may end with a cut tag value, so use them soon after the call.
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.04 per successful call. Failed calls are not charged.
 
 ### Related APIs
 

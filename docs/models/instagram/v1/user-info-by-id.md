@@ -62,13 +62,14 @@ Same call via the path form: `POST /v1/api/instagram/v1/user-info-by-id` with th
 
 ## Details
 
-Retrieve account details and timeline media by passing the target account's `user_id`.
+Returns profile data for one Instagram account, plus a page of its recent timeline media. It needs the numeric Instagram `user_id`.
 
 ### Use cases
 
-- Inspect timeline media nodes associated with an Instagram account.
-- Look up account video and image posts using a numerical user ID.
-- Extract media display URLs and preview data for specific profiles.
+- Read follower and following counts for an account when you only have its numeric ID.
+- Collect the external links and bio text an account lists on its profile.
+- Check whether an account is a business account and whether it has contact details such as email or phone.
+- Pull display URLs, dimensions and like counts of recent posts for a quick content review.
 
 ### Request
 
@@ -79,6 +80,8 @@ curl -X POST "https://api.sandbase.ai/v1/api/instagram/v1/user-info-by-id" \
   -d '{"user_id": "25025320"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
@@ -87,34 +90,59 @@ curl -X POST "https://api.sandbase.ai/v1/api/instagram/v1/user-info-by-id" \
 
 ### Example response
 
-Real response for the request above, trimmed to the main fields. User names and long IDs are masked.
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
 
 ```json
 {
-  "edge_owner_to_timeline_media": {
-    "edges": [
-      {
-        "node": {
-          "__typename": "GraphVideo",
-          "display_url": "https://instagram.fqpa2-1.fna.fbcdn.net/v/t51.82787-15/830594125_187989641290013…",
-          "id": "3998430248382584993",
-          "like_and_view_counts_disabled": false,
-          "media_preview": "ABgq58LngDmums2JgXPVRtP4dP0xUY0uJectke//ANarMdusYwMke5zUvUaKmd3U4YnnP8h7D+dFWZIFYZ6H2oqLF…",
-          "product_type": "clips"
-        }
-      }
-    ]
-  }
+  "ai_agent_owner_username": null,
+  "attempts": "0",
+  "bio_links": [
+    {
+      "link_type": "external",
+      "lynx_url": "https://l.instagram.com/?u=http%3A%2F%2Fhelp.instagram.com%2F&e=AUAVag0WPMwXU8S1…",
+      "title": "",
+      "url": "http://help.instagram.com"
+    }
+  ],
+  "biography": "Discover what's new on Instagram 🔎✨",
+  "biography_with_entities": {
+    "entities": [],
+    "raw_text": "Discover what's new on Instagram 🔎✨"
+  },
+  "blocked_by_viewer": false,
+  "business_address_json": null,
+  "business_category_name": null,
+  "business_contact_method": "UNKNOWN",
+  "business_email": null,
+  "business_phone_number": null,
+  "category_enum": null
 }
 ```
 
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `id` | The numeric Instagram user ID of the account. It matches the `user_id` you sent. |
+| `full_name` | The display name of the account. |
+| `biography` | The bio text. `biography_with_entities.raw_text` holds the same text, and `biography_with_entities.entities` lists any tagged entities. |
+| `edge_followed_by.count / edge_follow.count` | Number of followers and number of accounts this profile follows. |
+| `bio_links[].url / bio_links[].title / bio_links[].link_type` | Links listed in the bio, with their title and type. `bio_links[].lynx_url` is the same link wrapped in an Instagram redirect URL. |
+| `external_url` | The main website link on the profile. |
+| `is_business_account` | Whether the account is a business account. Related fields include `business_email`, `business_phone_number` and `business_category_name`, which are `null` when not set. |
+| `highlight_reel_count` | Number of story highlights on the profile. |
+| `edge_owner_to_timeline_media.count` | Total number of posts on the account. |
+| `edge_owner_to_timeline_media.edges[].node` | One recent post. It includes `__typename` (such as `GraphVideo` or `GraphSidecar`), `display_url`, `dimensions.height` / `dimensions.width`, `comments_disabled` and `edge_liked_by.count`. |
+
 ### Notes
 
-- Requires a valid Instagram `user_id` to query account details.
+- The `edges` list in `edge_owner_to_timeline_media` holds only a few recent posts. The API has no pagination parameter, so use [Instagram User Posts (V1)](/apis/instagram/v1/user-posts) to read more posts.
+- If you only have a username, call [Instagram User Info by Username](/apis/instagram/v1/user-info-by-username) to look up the profile.
+- Posts with `coauthor_producers` list the co-author's `id`, `username` and `is_verified` flag.
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

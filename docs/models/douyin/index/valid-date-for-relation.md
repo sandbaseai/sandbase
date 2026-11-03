@@ -52,13 +52,13 @@ Same call via the path form: `POST /v1/api/douyin/index/valid-date-for-relation`
 
 ## Details
 
-This endpoint returns the available date range for Douyin relation analysis. Call it to verify supported date boundaries before querying relation index metrics.
+Returns the latest valid dates for Douyin relation analysis. It takes no input, so you send an empty JSON object.
 
 ### Use cases
 
-- Check supported date windows before requesting relation metrics.
-- Validate user-selected date ranges in relation analytics dashboards.
-- Keep automated data pipelines aligned with platform data availability boundaries.
+- Read the latest allowed end date before you build a date picker for relation word queries.
+- Check `industry_relative_words_end_date` before you request industry relation words, so your end date is in range.
+- Run the call at the start of a pipeline job to confirm the date you plan to use is not past the latest valid date.
 
 ### Request
 
@@ -69,9 +69,42 @@ curl -X POST "https://api.sandbase.ai/v1/api/douyin/index/valid-date-for-relatio
   -d '{}'
 ```
 
+The result is returned in `outputs[0].data`.
+
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "BaseResp": {
+    "StatusCode": 0,
+    "StatusMessage": ""
+  },
+  "datetime": "20261101",
+  "industry_relative_words_end_date": "20261101"
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `datetime` | Latest valid date for relation analysis, as a `YYYYMMDD` string. The sample value is `20261101`. |
+| `industry_relative_words_end_date` | Latest valid end date for industry relation words, as a `YYYYMMDD` string. The sample value is `20261101`. |
+| `BaseResp.StatusCode` | Status code of the call. `0` in the sample response. |
+| `BaseResp.StatusMessage` | Status text of the call. It is an empty string in the sample response. |
+
+### Notes
+
+- The request has no parameters. Send `{}` as the body.
+- Dates come back as `YYYYMMDD` strings with no separators.
+- Use the returned dates as the upper bound when you call [Douyin Relation Word Analysis](/apis/douyin/index/relation-word).
+- For valid dates of other data types, call [Douyin Index Valid Dates](/apis/douyin/index/all-valid-date).
+
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

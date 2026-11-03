@@ -65,9 +65,14 @@ Same call via the path form: `POST /v1/api/fred/release-sources` with the body a
 
 ## Details
 
-Get Release Sources from FRED. Returns the official FRED API response unchanged.
+Returns the data sources behind one FRED release. Each source has an id, a name, and a link to the publisher's website. You pass a `release_id`, for example `53`.
 
-The response is the official FRED API response, unchanged.
+### Use cases
+
+- Show which agency publishes a given FRED release on a data page or citation.
+- Build source attribution for charts that use series from a specific release.
+- Map a release to its source id, then list every release from that source.
+- Check the real-time period that applies to a source record before you cite it.
 
 ### Request
 
@@ -78,18 +83,57 @@ curl -X POST "https://api.sandbase.ai/v1/api/fred/release-sources" \
   -d '{"release_id": 53, "file_type": "json"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
 |---|---|---|---|
+| `release_id` | integer | Yes | The id for a release. integer, required |
 | `file_type` | string | No | Response format. Only json is supported. |
 | `realtime_end` | string | No | The end of the real-time period. For more information, see Real-Time Periods . YYYY-MM-DD formatted string, optional, default: today's date |
 | `realtime_start` | string | No | The start of the real-time period. For more information, see Real-Time Periods . YYYY-MM-DD formatted string, optional, default: today's date |
-| `release_id` | integer | Yes | The id for a release. integer, required |
+
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "realtime_end": "2026-11-02",
+  "realtime_start": "2026-11-02",
+  "sources": [
+    {
+      "id": 18,
+      "link": "http://www.bea.gov/",
+      "name": "U.S. Bureau of Economic Analysis",
+      "realtime_end": "2026-11-02",
+      "realtime_start": "2026-11-02"
+    }
+  ]
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `sources[]` | List of sources for the release. The sample returns one source. |
+| `sources[].id` | Numeric id of the source. Use it with the source APIs. |
+| `sources[].name` | Name of the source, such as `U.S. Bureau of Economic Analysis`. |
+| `sources[].link` | Website URL of the source. |
+| `sources[].realtime_start / sources[].realtime_end` | Real-time period for this source record, as `YYYY-MM-DD` dates. |
+| `realtime_start / realtime_end` | Real-time period applied to the whole request. Both default to today's date when you leave them out. |
+
+### Notes
+
+- Get a `release_id` from [FRED Get Releases](/apis/fred/releases) or from [FRED Get Series Release](/apis/fred/series-release).
+- Use the returned `sources[].id` with [FRED Get Source](/apis/fred/source) for details about the source.
+- Set `realtime_start` and `realtime_end` as `YYYY-MM-DD` strings. `file_type` accepts only `json`.
 
 ### Pricing
 
-Flat price per call. Failed calls are not charged.
+$0.00001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ---
 Machine-readable: [`catalog/models/fred/release-sources.json`](../../../catalog/models/fred/release-sources.json) · Store page: https://www.sandbase.ai/model/fred/release-sources

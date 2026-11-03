@@ -67,13 +67,14 @@ Same call via the path form: `POST /v1/api/scholar/search-scholar` with the body
 
 ## Details
 
-Search scholarly literature for a query and get papers with authors, links, citation counts and snippets. Filter by publication year.
+This API searches Google Scholar and returns a list of matching papers. Each result has a title, author initials, a link, a citation count and a text snippet. It needs a `query` string and can limit results by publication year.
 
 ### Use cases
 
-- Literature reviews and research assistants.
-- Find highly cited papers on a topic.
-- Ground AI answers with academic sources.
+- Build a reading list on a topic by pulling the top papers for a search phrase.
+- Rank candidate papers by `number_of_citations` to find widely cited work.
+- Restrict a literature search to recent work with `as_ylo` and `as_yhi`.
+- Feed titles, links and snippets to an AI assistant so it can cite academic sources.
 
 ### Request
 
@@ -83,6 +84,8 @@ curl -X POST "https://api.sandbase.ai/v1/api/scholar/search-scholar" \
   -H "Content-Type: application/json" \
   -d '{"query": "large language models", "max_num_results": 3}'
 ```
+
+The result is returned in `outputs[0].data`.
 
 ### Parameters
 
@@ -95,34 +98,46 @@ curl -X POST "https://api.sandbase.ai/v1/api/scholar/search-scholar" \
 
 ### Example response
 
-Real response for the request above, trimmed to the main fields. User names and long IDs are masked.
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
 
 ```json
 {
+  "id": "J9ir6_SfmHvXRvlaVSaKOA",
   "results": [
     {
-      "title": "A comprehensive overview of large language models",
       "authors": [
-        "H Naveed",
-        "AU Khan",
-        "S Qiu",
-        "…"
+        "G Bai"
       ],
-      "link": "https://dl.acm.org/doi/abs/10.1145/3744746",
-      "number_of_citations": 3775,
-      "snippet": "… Large Language Models (LLMs) have recently demonstrated remarkable capabiliti…"
+      "link": "https://dl.acm.org/doi/abs/10.1145/3845797",
+      "number_of_citations": 279,
+      "snippet": "… Beyond Eficiency: A Systematic Survey of Resource-Eficient Large Language Mode…",
+      "title": "Beyond efficiency: A systematic survey of resource-efficient large language mode…"
     }
   ]
 }
 ```
 
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `results[]` | List of matching papers. The list holds up to `max_num_results` items. |
+| `results[].title` | Title of the paper. |
+| `results[].authors[]` | Authors of the paper, shown as first initials plus surname, such as `G Bai`. The list can be shortened. |
+| `results[].link` | URL of the paper on the publisher's site. |
+| `results[].number_of_citations` | Number of citations Google Scholar shows for the paper. |
+| `results[].snippet` | Short text excerpt from the paper that matches the query. Long snippets end with `…`. |
+| `id` | Identifier string for this search response. |
+
 ### Notes
 
-- `as_ylo` / `as_yhi` set the earliest and latest publication year.
+- Set `max_num_results` between 1 and 100 to control how many papers come back.
+- `as_ylo` is the earliest publication year and `as_yhi` is the latest. Both accept values from 1900 to 2030.
+- For other search modes, see [Scholar Smart Search](/apis/scholar/search-mixed) and [Scholar Web Search](/apis/scholar/search-web).
 
 ### Pricing
 
-Flat price per call. Failed calls are not charged.
+$0.0036 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ---
 Machine-readable: [`catalog/models/scholar/search-scholar.json`](../../../catalog/models/scholar/search-scholar.json) · Store page: https://www.sandbase.ai/model/scholar/search-scholar

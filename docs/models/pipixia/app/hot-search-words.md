@@ -52,13 +52,14 @@ Same call via the path form: `POST /v1/api/pipixia/app/hot-search-words` with th
 
 ## Details
 
-This endpoint returns current trending search queries from the Pipixia app without requiring any request parameters.
+Returns the current list of suggested hot search keywords from the Pipixia app. It needs no input: send an empty JSON object `{}`.
 
 ### Use cases
 
-- Track current trending search queries on Pipixia.
-- Analyze rising content topics and audience search interest.
-- Power search suggestion interfaces with real-time platform trend data.
+- Show the current Pipixia hot search terms on a trend dashboard.
+- Log the keyword list over time to see which topics enter and leave the list.
+- Seed a content search with the current hot keywords using the Pipixia search API.
+- Pre-fill a search box with keywords that Pipixia itself suggests.
 
 ### Request
 
@@ -69,13 +70,61 @@ curl -X POST "https://api.sandbase.ai/v1/api/pipixia/app/hot-search-words" \
   -d '{}'
 ```
 
+The result is returned in `outputs[0].data`.
+
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "data": {
+    "hot_keywords": [
+      "搞笑视频"
+    ],
+    "tip": "",
+    "words": [
+      {
+        "hot_logo_image": null,
+        "hot_type": 0,
+        "schema": "",
+        "tip": "搞笑视频",
+        "write_history": true
+      }
+    ]
+  },
+  "message": "success",
+  "prompt": "",
+  "status_code": 0,
+  "time": 1793691709812
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `data.hot_keywords[]` | Plain list of the hot search keywords as strings, in the order returned. |
+| `data.words[]` | One object per hot keyword, with extra display and behavior settings for that keyword. |
+| `data.words[].tip` | The keyword text. It matches the entry in `data.hot_keywords[]`. |
+| `data.words[].hot_type` | Numeric type code for the keyword. All items in this sample have the value `0`. |
+| `data.words[].hot_logo_image` | Logo image attached to the keyword. It is `null` in this sample, so no logo is set. |
+| `data.words[].schema` | Link or schema string for the keyword. It is an empty string in this sample. |
+| `data.words[].write_history` | Boolean flag. It is `true` in this sample. The key name suggests it controls whether the term is saved to the user's search history. |
+| `data.tip` | Top-level tip text. It is an empty string in this sample. |
+| `status_code / message` | `status_code` is `0` and `message` is `success` when the call works. |
+| `time` | Timestamp of the response, shown as a 13-digit number (milliseconds). |
+
 ### Notes
 
-- This endpoint does not require any request parameters.
+- The request schema has no parameters, so always send `{}`.
+- Keyword text is in Chinese in the sample response.
+- To search posts for a keyword, pass it to [Pipixia Search](/apis/pipixia/app/search).
+- For ranked hot topic boards, see [Pipixia Hot Search](/apis/pipixia/app/hot-search-board-list).
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

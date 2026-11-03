@@ -83,7 +83,14 @@ Same call via the path form: `POST /v1/api/google-shopping/search` with the body
 
 ## Details
 
-Search Google Shopping by keyword: product title, price, old price, store, rating, reviews, delivery and product ID, with price, sort and location filters.
+Returns Google Shopping results for a keyword search. Each product has a title, price, old price, store, rating, review count, delivery note and product ID. The only required input is the search text in `q`.
+
+### Use cases
+
+- Track the price and old price of competing products for a keyword such as `wireless earbuds`.
+- Build a list of the cheapest or best rated products in a category using `sort_by`, `min_price` and `max_price`.
+- Compare which stores list the same type of product and which ones offer free delivery.
+- Collect product IDs and page tokens to fetch full product details in a second call.
 
 ### Request
 
@@ -94,32 +101,143 @@ curl -X POST "https://api.sandbase.ai/v1/api/google-shopping/search" \
   -d '{"q": "wireless earbuds"}'
 ```
 
-This API runs asynchronously. The call returns a task `id` with status `pending`; poll `GET https://api.sandbase.ai/v1/run/{id}` until `status` is `completed` and read the result from `outputs[0].data`.
+The result is returned in `outputs[0].data`.
 
 ### Parameters
 
 | Name | Type | Required | Description |
 |---|---|---|---|
-| `q` | string/number/boolean | Yes | The query you want to search. You can use anything that you would use in a regular Google Shopping search. This parameter is optional if using `shoprs` parameter. |
-| `device` | string/number/boolean | No | The device to use to get the results. It can be set to `desktop` (default) to use a regular browser, `tablet` to use a tablet browser (currently using iPads), or `mobile` to use a mobile browser. |
-| `free_shipping` | string/number/boolean | No | Show only products with free shipping. This parameter overrides corresponding filter embedded into `shoprs` parameter. |
-| `gl` | string/number/boolean | No | The country to use for the Google search. It's a two-letter country code. (e.g., `us` for the United States, `uk` for United Kingdom, or `fr` for France) Head to the Google Shopping countries for a fu… |
-| `google_domain` | string/number/boolean | No | The Google domain to use. It defaults to `google.com`. Head to the Google domains for a full list of supported Google domains. |
-| `hl` | string/number/boolean | No | The language to use for the Google Shopping search. It's a two or three-letter language code. (e.g., `en` for English, `es` for Spanish, or `fr` for French), optionally followed by a two-letter or thr… |
-| `json_restrictor` | string/number/boolean | No | The fields you want to include in the output, reducing payload size for faster response. See the JSON Restrictor documentation for more details. |
-| `max_price` | string/number/boolean | No | Upper bound of price range query. This parameter overrides corresponding filter embedded into `shoprs` parameter. |
-| `min_price` | string/number/boolean | No | Lower bound of price range query. This parameter overrides corresponding filter embedded into `shoprs` parameter. |
-| `on_sale` | string/number/boolean | No | Show only products that are on sale. This parameter overrides corresponding filter embedded into `shoprs` parameter. |
-| `safe` | string/number/boolean | No | The level of filtering for adult content. It can be set to `active` or `off`, by default Google will omit explicit content. |
-| `shoprs` | string/number/boolean | No | The parameter defines the token that includes metadata about query and search filter(s). Providing `q` parameter alongside the `shoprs` is **not** required. To apply multiple filters join them with `\… |
-| `small_business` | string/number/boolean | No | Show only products from small business. This parameter overrides corresponding filter embedded into `shoprs` parameter. |
-| `sort_by` | any | No | The sorting order of the results. Available options: `1` - Price: low to high `2` - Price: high to low This parameter overrides corresponding filter embedded into `shoprs` parameter. |
-| `start` | string/number/boolean | No | Intended to define the result offset for pagination. Google Shopping's current layout does not support offset pagination: the `start` parameter is ignored and every request returns the first page of r… |
-| `uule` | string/number/boolean | No | The Google encoded location you want to use for the search. `uule` and `location` parameters can't be used together. For consistent results with coordinates-based `uule` parameter, a matching `gl` par… |
+| `q` | ['string', 'number', 'boolean'] | Yes | The query you want to search. You can use anything that you would use in a regular Google Shopping search. This parameter is optional if using `shoprs` parameter. |
+| `device` | ['string', 'number', 'boolean'] | No | The device to use to get the results. It can be set to `desktop` (default) to use a regular browser, `tablet` to use a tablet browser (currently using iPads), or `mobile` to use a mobile browser. |
+| `free_shipping` | ['string', 'number', 'boolean'] | No | Show only products with free shipping. This parameter overrides corresponding filter embedded into `shoprs` parameter. |
+| `gl` | ['string', 'number', 'boolean'] | No | The country to use for the Google search. It's a two-letter country code. (e.g., `us` for the United States, `uk` for United Kingdom, or `fr` for France) Head to the Google Shopping countries for a full list of supported |
+| `google_domain` | ['string', 'number', 'boolean'] | No | The Google domain to use. It defaults to `google.com`. Head to the Google domains for a full list of supported Google domains. |
+| `hl` | ['string', 'number', 'boolean'] | No | The language to use for the Google Shopping search. It's a two or three-letter language code. (e.g., `en` for English, `es` for Spanish, or `fr` for French), optionally followed by a two-letter or three-digit region code |
+| `json_restrictor` | ['string', 'number', 'boolean'] | No | The fields you want to include in the output, reducing payload size for faster response. See the JSON Restrictor documentation for more details. |
+| `max_price` | ['string', 'number', 'boolean'] | No | Upper bound of price range query. This parameter overrides corresponding filter embedded into `shoprs` parameter. |
+| `min_price` | ['string', 'number', 'boolean'] | No | Lower bound of price range query. This parameter overrides corresponding filter embedded into `shoprs` parameter. |
+| `on_sale` | ['string', 'number', 'boolean'] | No | Show only products that are on sale. This parameter overrides corresponding filter embedded into `shoprs` parameter. |
+| `safe` | ['string', 'number', 'boolean'] | No | The level of filtering for adult content. It can be set to `active` or `off`, by default Google will omit explicit content. |
+| `shoprs` | ['string', 'number', 'boolean'] | No | The parameter defines the token that includes metadata about query and search filter(s). Providing `q` parameter alongside the `shoprs` is **not** required. To apply multiple filters join them with `//` separator, e.g. ` |
+| `small_business` | ['string', 'number', 'boolean'] | No | Show only products from small business. This parameter overrides corresponding filter embedded into `shoprs` parameter. |
+| `sort_by` | string | No | The sorting order of the results. Available options: `1` - Price: low to high `2` - Price: high to low This parameter overrides corresponding filter embedded into `shoprs` parameter. |
+| `start` | ['string', 'number', 'boolean'] | No | Intended to define the result offset for pagination. Google Shopping's current layout does not support offset pagination: the `start` parameter is ignored and every request returns the first page of results (around 40 it |
+| `uule` | ['string', 'number', 'boolean'] | No | The Google encoded location you want to use for the search. `uule` and `location` parameters can't be used together. For consistent results with coordinates-based `uule` parameter, a matching `gl` parameter is required.  |
+
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "categorized_shopping_results": [
+    {
+      "shopping_results": [
+        {
+          "extensions": [
+            "Nearby, 9 mi"
+          ],
+          "extracted_old_price": 17,
+          "extracted_price": 14.99,
+          "immersive_product_page_token": "KsyGIXic…",
+          "multiple_sources": true,
+          "old_price": "Usually $17",
+          "position": 1,
+          "price": "$14.99"
+        }
+      ],
+      "title": "Best Overall Wireless Earbuds"
+    }
+  ],
+  "filters": [
+    {
+      "input_type": "link_with_icon",
+      "options": [
+        {
+          "serpapi_link": {
+            "endpoint": "/google/shopping",
+            "queryParams": {
+              "device": "desktop",
+              "gl": "us",
+              "google_domain": "google.com",
+              "hl": "en",
+              "q": "wireless earbuds sale",
+              "shoprs": "CAESBEoCGAEYBioQd2lyZWxlc3MgZWFyYnVkczITCAYSB09uIHNhbGUYAiIESgIYAViD6CBgAg"
+            }
+          },
+          "shoprs": "CAESBEoCGAEYBioQd2lyZWxlc3MgZWFyYnVkczITCAYSB09uIHNhbGUYAiIESgIYAViD6CBgAg",
+          "text": "On sale"
+        }
+      ]
+    }
+  ],
+  "search_information": {
+    "query_displayed": "wireless earbuds",
+    "shopping_results_state": "Results for exact spelling"
+  },
+  "search_metadata": {
+    "cached": false,
+    "created_at": "2026-11-03 07:34:32 UTC",
+    "google_shopping_url": "https://www.google.com/search?udm=28&q=wireless+earbuds&oq=wireless+earbuds&sour…",
+    "id": "6ae98e88bccefcad725e0301",
+    "processed_at": "2026-11-03 07:34:32 UTC",
+    "status": "Success",
+    "total_time_taken": 6.51
+  },
+  "search_parameters": {
+    "device": "desktop",
+    "engine": "google_shopping",
+    "gl": "us",
+    "google_domain": "google.com",
+    "hl": "en",
+    "q": "wireless earbuds"
+  },
+  "shopping_results": [
+    {
+      "extensions": [
+        "Nearby, 9 mi"
+      ],
+      "extracted_old_price": 17,
+      "extracted_price": 14.99,
+      "immersive_product_page_token": "fNZ0EXic…",
+      "multiple_sources": true,
+      "old_price": "Usually $17",
+      "position": 1,
+      "price": "$14.99",
+      "product_id": "7310953537322941042",
+      "product_link": "https://www.google.com/search?ibp=oshop&q=wireless earbuds&prds=catalogid:731095…",
+      "rating": 4.3,
+      "reviews": 33000
+    }
+  ]
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `shopping_results[].title` | Product name as shown in the listing. |
+| `shopping_results[].price / shopping_results[].extracted_price` | Current price as display text (for example `$14.99`) and as a number (`14.99`). |
+| `shopping_results[].old_price / shopping_results[].extracted_old_price` | Previous or usual price, as text and as a number. Present only when the listing shows a discount. |
+| `shopping_results[].source` | Name of the store that lists the product, for example `Target`. |
+| `shopping_results[].rating / shopping_results[].reviews` | Average star rating and number of reviews for the product. |
+| `shopping_results[].delivery` | Delivery note such as `Free delivery`. Not every item has it. |
+| `shopping_results[].product_id` | Google Shopping catalog ID of the product. |
+| `shopping_results[].serpapi_product_api.queryParams.page_token` | Token that identifies the product. Use it to request more details about the item. |
+| `categorized_shopping_results[].title` | Name of a result group, for example `Best Overall Wireless Earbuds`. |
+| `filters[].options[].shoprs` | Token for a ready-made filter such as `On sale` or `Under $35`. Pass it in the `shoprs` parameter to apply that filter. |
+
+### Notes
+
+- `q` is the only required parameter. Use `min_price`, `max_price`, `on_sale`, `free_shipping` and `sort_by` (`1` low to high, `2` high to low) to narrow the results.
+- Pagination does not work. The `start` parameter is ignored and each request returns the first page of results.
+- Take `page_token` from a result and call [Google Shopping Product Details](/apis/google-shopping/product) to get more information about one product.
+- Some items have no `rating`, `reviews` or `product_id`, mostly those in `categorized_shopping_results`, so check for missing keys.
 
 ### Pricing
 
-Flat price per call. Failed calls are not charged.
+$0.015 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ---
 Machine-readable: [`catalog/models/google-shopping/search.json`](../../../catalog/models/google-shopping/search.json) · Store page: https://www.sandbase.ai/model/google-shopping/search

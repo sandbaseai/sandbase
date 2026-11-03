@@ -68,13 +68,14 @@ Same call via the path form: `POST /v1/api/weibo/app/status-comments` with the b
 
 ## Details
 
-Retrieve top-level comments for a specific post or video using its `status_id`. You can paginate through responses and control comment ordering.
+Returns the first-level comments under a Weibo post or video, along with a pagination cursor. It needs the post or video ID as `status_id`.
 
 ### Use cases
 
-- Display top-level user comments under a Weibo post or video.
-- Track audience sentiment and reactions on specific Weibo discussions.
-- Extract discussion threads for social listening and community analysis.
+- Collect the top-level comments under a Weibo post to review how readers respond.
+- Page through a long comment thread with the returned `max_id` cursor.
+- Read the comment timestamps and floor numbers to see when a discussion was active.
+- Check the comment count and author tags in `analysis_extra` for a quick per-comment summary.
 
 ### Request
 
@@ -84,6 +85,8 @@ curl -X POST "https://api.sandbase.ai/v1/api/weibo/app/status-comments" \
   -H "Content-Type: application/json" \
   -d '{"status_id": "5258708168476831"}'
 ```
+
+The result is returned in `outputs[0].data`.
 
 ### Parameters
 
@@ -95,31 +98,77 @@ curl -X POST "https://api.sandbase.ai/v1/api/weibo/app/status-comments" \
 
 ### Example response
 
-Real response for the request above, trimmed to the main fields. User names and long IDs are masked.
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
 
 ```json
 {
+  "config": "{}",
   "items": [
     {
       "category": "detail",
-      "type": "comment_header_tip",
       "data": {
         "tip_biz_type": 0,
+        "tip_icon": "https://d.sinaimg.cn/prd/100/1985/2025/09/24/icon.png",
+        "tip_icon_dark": "https://d.sinaimg.cn/prd/100/1985/2025/09/24/icon_dark.png",
+        "tip_msg": "查看我的铁粉关系 查看详情",
+        "tip_scheme": "sinaweibo://cardlist?containerid=231093_-_bigfans&extparam=7480401147",
+        "tip_state": 0,
+        "tip_struct": [
+          {
+            "color": "#507DAF",
+            "color_dark": "#6290C3",
+            "title": "查看详情"
+          }
+        ],
         "tip_type": 3
-      }
+      },
+      "type": "comment_header_tip"
     }
-  ]
+  ],
+  "loadedInfo": "{}",
+  "moreInfo": {
+    "error": "网络加载失败，请稍后尝试",
+    "loading": "正在加载更多",
+    "moreType": "default",
+    "pagingType": "cursor",
+    "params": {
+      "count": 20,
+      "lastAdInterval": 10,
+      "max_id": 138889559850779,
+      "max_id_type": 0,
+      "recommend_max_id": 0,
+      "recommend_page": 0
+    }
+  },
+  "pageData": "{}"
 }
 ```
 
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `items[]` | List of cards on the page. The first card can be a header tip and the rest are comments. Check `type` to tell them apart. |
+| `items[].type` | Card kind. `comment` marks a comment card and `comment_header_tip` marks a notice shown above the comments. |
+| `items[].data.created_at` | Time the comment was posted, as text such as `Sun Jan 25 16:55:24 +0800 2026`. |
+| `items[].data.floor_number` | Floor number of the comment in the thread. |
+| `items[].data.analysis_extra` | Pipe-separated text with `author_uid`, `mid` (the post ID), `page`, `index` and `comment_count`. |
+| `items[].data.comment_bubble.name / items[].data.comment_bubble.id` | Name and ID of the bubble style attached to the comment, for example `金粉专属`. |
+| `items[].data.disable_reply` | Flag for whether replies are turned off for this comment. `0` is the value in this response. |
+| `moreInfo.params.max_id` | Cursor for the next page. Pass it as `max_id` in the next request. |
+| `moreInfo.params.count` | Number of items per page, `20` in this response. |
+| `moreInfo.pagingType` | Paging style. The value `cursor` means pages are fetched with a cursor. |
+
 ### Notes
 
-- Pagination is handled via `max_id`; omit it on the initial call and pass the returned value for subsequent requests.
-- Use `sort_type` to specify the ordering of the returned comments.
+- Leave out `max_id` on the first call. For later pages, copy the value from `moreInfo.params.max_id`.
+- `status_id` is the numeric post or video ID, such as `5258708168476831`. It also appears as `mid` inside `analysis_extra`.
+- The response mixes card types in `items`. Filter on `type` equal to `comment` to keep only comments.
+- To get the post itself, call [Weibo Post Detail (App)](/apis/weibo/app/status-detail).
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

@@ -78,9 +78,14 @@ Same call via the path form: `POST /v1/api/similarweb/referrals` with the body a
 
 ## Details
 
-Get the websites a site's referral traffic comes from, with visits, share and change for each referrer.
+Returns the websites that send referral traffic to a given domain, with visits, share and change for each referrer. It needs a `domain`, a `start_date`, an `end_date` and a `limit`.
 
-The response is the official Similarweb API response, unchanged.
+### Use cases
+
+- List the sites that send the most referral visits to a competitor's domain.
+- Spot referrers whose traffic to a site dropped or grew from the prior period.
+- Find partner or publisher sites to approach based on the share of referral traffic they send.
+- Compare desktop and mobile web referrals by setting `web_source`.
 
 ### Request
 
@@ -91,24 +96,86 @@ curl -X POST "https://api.sandbase.ai/v1/api/similarweb/referrals" \
   -d '{"start_date": "2026-09", "end_date": "2026-09", "country": "ww", "domain": "cnn.com", "limit": 1, "granularity": "monthly"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
 |---|---|---|---|
-| `country` | string | No | Worldwide data only; values are case-insensitive. |
 | `domain` | string | Yes | domain |
 | `end_date` | string | Yes | end_date |
-| `granularity` | string | No | granularity |
 | `limit` | integer | Yes | limit |
+| `start_date` | string | Yes | start_date |
+| `country` | string | No | Worldwide data only; values are case-insensitive. |
+| `granularity` | string | No | granularity |
 | `main_domain_only` | boolean | No | main_domain_only |
 | `offset` | integer | No | offset |
-| `start_date` | string | Yes | start_date |
 | `traffic_source` | string | No | traffic_source |
 | `web_source` | string | No | web_source |
 
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "data": [
+    {
+      "change": -0.3251058721471521,
+      "domain": "drudgereport.com",
+      "share": 0.07414256683760033,
+      "visits": 601755.1926150493
+    }
+  ],
+  "meta": {
+    "last_updated": "2026-09-30",
+    "query": {
+      "asc": null,
+      "limit": 1,
+      "offset": 0,
+      "sort": null
+    },
+    "request": {
+      "country": "ww",
+      "domain": "cnn.com",
+      "end_date": "2026-09-30",
+      "format": "json",
+      "granularity": "monthly",
+      "main_domain_only": false,
+      "referral_type": "incoming",
+      "start_date": "2026-09-01",
+      "web_source": "total"
+    },
+    "status": "success"
+  }
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `data[].domain` | The referring website that sends traffic to the requested domain. |
+| `data[].visits` | Estimated number of visits that came from this referrer in the requested period. |
+| `data[].share` | This referrer's share of the domain's referral traffic, as a fraction. A value of `0.074` means about 7.4%. |
+| `data[].change` | Change in visits for this referrer compared with the previous period, as a fraction. A negative value means a drop. |
+| `meta.status` | Shows `success` when the call worked. |
+| `meta.last_updated` | Date of the latest data for this response, such as `2026-09-30`. |
+| `meta.query.limit / meta.query.offset` | The page size and start position that were applied to the list. |
+| `meta.request.web_source` | The device filter that was applied. The sample response shows `total`. |
+| `meta.request.referral_type` | The kind of referrals returned. The sample response shows `incoming`. |
+| `meta.request.start_date / meta.request.end_date` | The full date range that was queried, expanded to day precision. |
+
+### Notes
+
+- Send `start_date` and `end_date` as `YYYY-MM` values. The response echoes them as full dates such as `2026-09-01` and `2026-09-30`.
+- `limit` accepts 1 to 20. Use `offset` to move through further referrers.
+- `country` accepts only `ww` (worldwide), and `granularity` accepts only `monthly`.
+- Set `main_domain_only` to `true` or `false` to control how referrers are grouped. The sample request left it unset, and the response shows `false`.
+
 ### Pricing
 
-$0.3 per returned row (4 Similarweb credits), up to 20 rows; billed on rows returned. Failed calls are not charged.
+Billed at the actual cost of each call, about $0.3 for the request above. Failed calls are not charged.
 
 ---
 Machine-readable: [`catalog/models/similarweb/referrals.json`](../../../catalog/models/similarweb/referrals.json) · Store page: https://www.sandbase.ai/model/similarweb/referrals

@@ -59,13 +59,14 @@ Same call via the path form: `POST /v1/api/kuaishou/app/shopping-top-list` with 
 
 ## Details
 
-Retrieve trending Kuaishou shopping live streams and top-ranked broadcast entries. Specify `subTabId` or `subTabName` to inspect specific shopping categories.
+Returns the Kuaishou shopping leaderboard as a list of sub-tabs, such as hot streamers and best-selling products. Each sub-tab can hold a ranked list of live stream entries. The request takes an optional `subTabId` or `subTabName`, and an empty body works.
 
 ### Use cases
 
-- Track popular Kuaishou e-commerce live streams in real time.
-- Analyze trending sellers and broadcast rankings across shopping categories.
-- Monitor top-performing shopping streams for market intelligence.
+- Pull the ranked list of hot shopping streamers and store their author IDs for tracking.
+- Collect the live stream IDs inside each `linkUrl` to build a list of streams currently ranked.
+- Compare the heat values shown for each ranked streamer to see who leads the board.
+- List the available sub-tabs and their IDs, then call again with one `subTabId` to focus on a single board.
 
 ### Request
 
@@ -76,50 +77,124 @@ curl -X POST "https://api.sandbase.ai/v1/api/kuaishou/app/shopping-top-list" \
   -d '{}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
 |---|---|---|---|
-| `subTabId` | integer | No | — |
-| `subTabName` | string | No | — |
+| `subTabId` | integer | No |  |
+| `subTabName` | string | No |  |
 
 ### Example response
 
-Real response for the request above, trimmed to the main fields. User names and long IDs are masked.
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
 
 ```json
 {
+  "host-name": "public-bjzey-c97-kce-node51.idchb1az3.hb1.kwaidc.com",
+  "result": 1,
   "topList": {
     "data": [
       {
+        "backGroundImage": [],
         "list": [
           {
-            "linkUrl": "kwai://liveaggregatesquare?path=/rest/n/live/feed/common/slide/more&selectedLiveStreamId=…",
-            "title": "鹿5号12点生日狂欢 全场补贴",
-            "viewType": 2,
+            "avatar": {
+              "icon": [
+                {
+                  "cdn": "tx2.a.yximgs.com",
+                  "url": "http://tx2.a.yximgs.com/uhead/AB/2026/06/12/11/BMjAyNjA2MTIxMTQyNDBfNDAzMDgyMzAy…"
+                }
+              ],
+              "linkUrl": "kwai://liveaggregatesquare?path=/rest/n/live/feed/common/slide/more&selectedLive…",
+              "liveType": 1,
+              "shapeType": 0,
+              "url": [
+                {
+                  "cdn": "ty2.a.kwimgs.com",
+                  "url": "http://ty2.a.kwimgs.com/uhead/AB/2026/06/12/11/BMjAyNjA2MTIxMTQyNDBfNDAzMDgyMzAy…"
+                }
+              ]
+            },
+            "feedLogCtx": {
+              "stExParams": null,
+              "stidContainer": "InAxfDIwMDY0NTA4MTY1MTIyMzY0MzR8VVNFUjo0MDMwODIzMDJ8eyJwZyI6Im1zZ3doIn18eyJiaXoi…"
+            },
+            "linkUrl": "kwai://liveaggregatesquare?path=/rest/n/live/feed/common/slide/more&selectedLive…",
             "logInfo": {
-              "authorid": "98878703",
-              "id": "98878703",
+              "authorid": "403082302",
+              "id": "403082302",
+              "params": {
+                "id": "15042128727",
+                "normalindex": null,
+                "type": "LIVE"
+              },
               "type": "USER"
             },
+            "pendant": {},
+            "renderStrategyIcon": null,
+            "rightView": {
+              "icon": {
+                "icon": [
+                  {
+                    "cdn": "ty2.a.kwimgs.com",
+                    "url": "https://ty2.a.kwimgs.com/udata/pkg/se-cdn/huomiao.png"
+                  }
+                ],
+                "shapeType": 0,
+                "url": [
+                  {
+                    "cdn": "ty2.a.kwimgs.com",
+                    "url": "https://ty2.a.kwimgs.com/udata/pkg/se-cdn/huomiao.png"
+                  }
+                ]
+              },
+              "isPrefix": 1,
+              "text": {
+                "content": "7182.2万"
+              }
+            },
             "signalParams": {
-              "author_id": "98878703"
+              "author_id": "403082302"
             }
           }
-        ]
+        ],
+        "subTabId": 101,
+        "subTabName": "热门主播"
       }
-    ]
-  }
+    ],
+    "dataType": 1,
+    "moduleType": 3
+  },
+  "ussid": "MzAxXzBfMTc5MzY5MTM2ODI0OV9fNDE3MQ"
 }
 ```
 
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `topList.data[]` | One sub-tab of the leaderboard. Each item holds a `subTabId`, a `subTabName` and, for some tabs, a `list` of entries. |
+| `topList.data[].subTabId / topList.data[].subTabName` | ID and display name of the sub-tab. In this response `101` is `热门主播` (hot streamers) and `102` is `热销商品` (best-selling products). |
+| `topList.data[].list[]` | Ranked entries inside a sub-tab, in the order returned. A sub-tab may have no `list`, as `102` does here. |
+| `topList.data[].list[].logInfo.authorid / topList.data[].list[].signalParams.author_id` | Kuaishou ID of the streamer for this entry. |
+| `topList.data[].list[].logInfo.params.id` | Numeric ID attached to the entry, with `type` set to `LIVE`. |
+| `topList.data[].list[].linkUrl` | In-app `kwai://` deep link to the live stream square. It carries `selectedLiveStreamId` for this entry and a `liveStreamId` list of streams in the ranking. |
+| `topList.data[].list[].avatar.icon[].url` | Avatar image URLs for the streamer, served from different CDN hosts. |
+| `topList.data[].list[].rightView.text.content` | Text shown on the right of the entry, such as `7182.2万`. It appears next to a small icon and is likely a popularity count, but the response does not label it. |
+| `result` | Status flag of the call. The value is `1` in this response. |
+
 ### Notes
 
-- Filter category results by passing optional `subTabId` or `subTabName`.
+- Call with an empty body to get every sub-tab. Then pass `subTabId` (for example `101`) or `subTabName` to filter.
+- Read `subTabId` and `subTabName` from the first response to know which values to pass in later calls.
+- Streamer IDs in `logInfo.authorid` are numeric strings. Use them as the input for other Kuaishou user APIs, such as [Kuaishou User Broadcast Details](/apis/kuaishou/app/user-live-info).
+- For a general stream ranking, see [Kuaishou Stream Top List](/apis/kuaishou/app/live-top-list).
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

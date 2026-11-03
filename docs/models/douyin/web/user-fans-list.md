@@ -71,13 +71,14 @@ Same call via the path form: `POST /v1/api/douyin/web/user-fans-list` with the b
 
 ## Details
 
-Fetch follower profiles for a target Douyin account using the `sec_user_id` parameter.
+Returns a page of followers for a Douyin account. Each follower is a user profile object with avatar images and post count. The input is the account's `sec_user_id`.
 
 ### Use cases
 
-- Analyze the follower base and audience demographics of a Douyin creator.
-- Monitor new follower accounts over time for influencer marketing research.
-- Inspect follower profile metrics such as public favorites and follower counts.
+- Pull the follower list of a Douyin creator to review who follows the account.
+- Page through all followers of an account and store each profile with its avatar links.
+- Compare the `total` follower count of several creators during influencer research.
+- Spot followers that have posted few or no videos by checking `aweme_count`.
 
 ### Request
 
@@ -87,6 +88,8 @@ curl -X POST "https://api.sandbase.ai/v1/api/douyin/web/user-fans-list" \
   -H "Content-Type: application/json" \
   -d '{}'
 ```
+
+The result is returned in `outputs[0].data`.
 
 ### Parameters
 
@@ -99,44 +102,70 @@ curl -X POST "https://api.sandbase.ai/v1/api/douyin/web/user-fans-list" \
 
 ### Example response
 
-Real response for the request above, trimmed to the main fields. User names and long IDs are masked.
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
 
 ```json
 {
+  "all_fans_group_title": "全部关注他(她)的人",
+  "display_fans_score_info": true,
+  "extra": {
+    "fatal_item_ids": [],
+    "logid": "20261103153231977D6BDD71CAD9F35C83",
+    "now": 1793691151000
+  },
   "followers": [
     {
-      "apple_account": 0,
-      "authority_status": 0,
-      "aweme_count": 0,
-      "comment_filter_status": 0,
-      "create_time": 0,
-      "favoriting_count": 31024,
-      "fb_expire_time": 0,
-      "follow_status": 0,
-      "follower_count": 83,
-      "follower_request_status": 0,
-      "original_musician": {
-        "digg_count": 0,
-        "music_count": 0,
-        "music_used_count": 0
-      },
-      "search_impr": {
-        "entity_id": "1267057084867163"
-      }
+      "accept_private_policy": false,
+      "account_cert_info": null,
+      "account_region": "",
+      "account_type": null,
+      "activity": null,
+      "activity_label": null,
+      "ad_cover_title": null,
+      "ad_cover_url": null,
+      "ad_order_id": null,
+      "age_gate_action": null,
+      "age_gate_post_action": null,
+      "age_gate_time": null
     }
-  ]
+  ],
+  "group_types": null,
+  "has_more": true,
+  "hotsoon_has_more": 0,
+  "hotsoon_text": "",
+  "log_pb": {
+    "impr_id": "20261103153231977D6BDD71CAD9F35C83"
+  },
+  "max_time": 1792839294,
+  "min_time": 1780926925,
+  "mix_count": 127
 }
 ```
 
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `followers[]` | List of follower profiles for the requested account. Each item is one user. |
+| `followers[].aweme_count` | Number of videos the follower has posted. |
+| `followers[].avatar_thumb / avatar_168x168 / avatar_300x300 / avatar_medium / avatar_larger` | Avatar images in different sizes. Each has a `uri`, `width`, `height` and a `url_list` of image links. |
+| `followers[].aweme_control` | Flags such as `can_comment`, `can_forward` and `can_share` for the follower's videos. |
+| `total` | Total number of followers of the requested account. |
+| `has_more` | `true` when more followers are available on a next page. |
+| `max_time / min_time` | Timestamps of the page boundaries. Use `max_time` for the next request's `max_time` parameter. |
+| `status_code` | Status of the call. `0` in the sample response. |
+| `extra.logid / log_pb.impr_id` | Request identifiers returned with the response. |
+
 ### Notes
 
-- Set `source_type` to `2` for the initial request, then switch to `1` for subsequent pages.
-- Pass the returned timestamp into `max_time` to navigate through paginated follower lists.
-- The default and recommended value for `count` is 20.
+- Get `sec_user_id` from a user profile link with [Douyin sec_user_id from URL](/apis/douyin/web/sec-user-id).
+- For the first request, set `source_type` to `2`. For later pages, set it to `1`.
+- To get the next page, check that `has_more` is `true`, then send the returned `max_time` value as the `max_time` parameter.
+- The sample response shows `min_time` and `max_time` as Unix-style second values, such as `1792839294`.
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

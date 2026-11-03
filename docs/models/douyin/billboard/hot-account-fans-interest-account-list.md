@@ -62,13 +62,14 @@ Same call via the path form: `POST /v1/api/douyin/billboard/hot-account-fans-int
 
 ## Details
 
-Retrieve the top 20 accounts followed by fans of a target Douyin creator using their `sec_uid`. This endpoint provides audience interest insights from Douyin billboard data.
+Returns a list of Douyin accounts that followers of a target creator are interested in. It needs one input, the creator's `sec_uid`. Each row has the account's nickname, avatar, follower count, like count, post count and a short daily follower trend.
 
 ### Use cases
 
-- Analyze follower overlap and audience affinities for Douyin creators.
-- Discover related accounts that interest a creator's audience.
-- Benchmark competitor accounts based on fan following patterns.
+- Find accounts that share an audience with a given Douyin creator.
+- Compare follower counts and like totals across the accounts a creator's fans also follow.
+- Spot accounts whose daily follower change is rising or falling among a creator's audience.
+- Build a list of related creators to review for partnership or competitor research.
 
 ### Request
 
@@ -79,19 +80,74 @@ curl -X POST "https://api.sandbase.ai/v1/api/douyin/billboard/hot-account-fans-i
   -d '{"sec_uid": "MS4wLjABAAAAr52fXcfmzqOZJM_smap9Uuxtm16h8BupkCVaCt89BENq3E91mHCvtz5Z5TkXPHq_"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
 |---|---|---|---|
 | `sec_uid` | string | Yes | User sec_id |
 
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "code": 0,
+  "data": [
+    {
+      "avatar_url": "https://p3.douyinpic.com/aweme/720x720/aweme-avatar/tos-cn-avt-0015_83f5a859c766…",
+      "fans_cnt": 1076929,
+      "fans_incr_rate": 0,
+      "fans_trends": [
+        {
+          "DateTime": "2026-10-27",
+          "Value": -253
+        }
+      ],
+      "group_id": 0,
+      "group_name": "",
+      "like_cnt": 45761127,
+      "monitor_id": 0,
+      "monitor_period": 0,
+      "monitor_status": 0,
+      "new_fans_cnt": 0,
+      "new_item_monitor": 0
+    }
+  ],
+  "extra": {
+    "now": 1793691105000
+  },
+  "message": ""
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `data[].nick_name` | Display name of the interest account. |
+| `data[].user_id` | Account ID in `sec_uid` style. Use it to look up that account in other Douyin APIs that take a `sec_uid`. |
+| `data[].avatar_url` | URL of the account's avatar image. |
+| `data[].fans_cnt` | Current follower count of the interest account. |
+| `data[].like_cnt` | Total likes received by the interest account. |
+| `data[].publish_cnt` | Number of works the account has published. |
+| `data[].fans_trends[].DateTime / data[].fans_trends[].Value` | One entry per day. `DateTime` is a `YYYY-MM-DD` date and `Value` is the follower change for that day. Values can be negative. |
+| `data[].fans_incr_rate` | Follower growth rate field. It is `0` in the sample response. |
+| `extra.now` | Timestamp of the response in milliseconds. |
+| `code` | Status code. `0` appears in a successful response. |
+
 ### Notes
 
-- Requires a valid user `sec_uid`.
+- Get the input `sec_uid` from a Douyin user profile or from an account list such as [Douyin Hot Account List](/apis/douyin/billboard/hot-account-list).
+- The request takes only `sec_uid`. There are no pagination parameters.
+- Many fields in each row, such as `monitor_id`, `group_id`, `target_cnt` and `new_fans_cnt`, return `0` or an empty string in the sample response.
+- For more audience data on the same creator, call [Douyin Account Fan Interest Search Terms](/apis/douyin/billboard/hot-account-fans-interest-search-list) or [Douyin Account Fan Interest Topics](/apis/douyin/billboard/hot-account-fans-interest-topic-list).
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

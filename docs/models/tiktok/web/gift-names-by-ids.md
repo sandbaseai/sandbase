@@ -65,13 +65,14 @@ Same call via the path form: `POST /v1/api/tiktok/web/gift-names-by-ids` with th
 
 ## Details
 
-Look up gift names for multiple items using `gift_ids`. The endpoint resolves names for each specified gift identifier in batches.
+Returns the gift name for each TikTok gift ID in a list. You send `gift_ids` as an array of strings and get one result row per ID, plus counts for found and missing IDs.
 
 ### Use cases
 
-- Map raw TikTok gift identifiers to readable gift names.
-- Enrich live stream gift event logs with display labels.
-- Build a local catalog of TikTok virtual gifts.
+- Turn raw gift IDs in live stream gift event logs into readable gift names.
+- Build a local lookup table of TikTok gift IDs and names.
+- Check which gift IDs in a stored dataset have no known name.
+- Label gift columns in a report on live stream gifting.
 
 ### Request
 
@@ -82,19 +83,58 @@ curl -X POST "https://api.sandbase.ai/v1/api/tiktok/web/gift-names-by-ids" \
   -d '{"gift_ids": ["10001", "10002", "10003"]}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
 |---|---|---|---|
 | `gift_ids` | array | Yes | Gift ID list, recommend 50/call for best value ($0.025), auto-process first 50 if more than 50 |
 
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "found": 3,
+  "message": null,
+  "not_found": 0,
+  "original_count": 3,
+  "results": [
+    {
+      "code": 0,
+      "gift_id": "10001",
+      "gift_name": "鞭炮"
+    }
+  ],
+  "total": 3,
+  "truncated": false
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `results[].gift_id` | The gift ID from your request that this row answers. |
+| `results[].gift_name` | The name of the gift. The sample values are in Chinese, such as `鞭炮` and `红包`. |
+| `results[].code` | Result code for this single lookup. It is `0` on every row in the sample, where all IDs returned a name. |
+| `found / not_found` | Number of IDs that returned a name and number of IDs that did not. |
+| `original_count / total` | Count of IDs in the request and total count of results. Both are `3` in the sample. |
+| `truncated` | Boolean flag. It is `false` in the sample. |
+| `message` | Text message about the call. It is `null` in the sample. |
+
 ### Notes
 
-- Accepts a list of identifiers via `gift_ids` and automatically processes the first 50 if more are provided.
+- Send each ID as a string, for example `"10001"`. The `gift_ids` list accepts 1 to 1000 items.
+- If you send more than 50 IDs, only the first 50 are processed.
+- Compare `found`, `not_found` and `truncated` with your request to see whether any IDs were unresolved or skipped.
+- To look up one ID, use [TikTok Gift Name by ID](/apis/tiktok/web/gift-name-by-id).
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.025 per successful call. Failed calls are not charged.
 
 ### Related APIs
 

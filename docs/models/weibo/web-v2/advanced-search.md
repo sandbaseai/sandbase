@@ -72,13 +72,14 @@ Same call via the path form: `POST /v1/api/weibo/web-v2/advanced-search` with th
 
 ## Details
 
-Search Weibo for a keyword and narrow the results by time range, post type and content type. Each result includes the post text, author, publish time, link and interaction counts.
+Returns Weibo posts that match a keyword. Each result has the post text, author, publish time, post link, media and interaction counts. The only required input is the search keyword `q`. You can narrow results with time range, post type and content type filters.
 
 ### Use cases
 
-- Monitor brand or product mentions on Weibo.
-- Collect posts about an event within a custom date range.
-- Find original or verified-account posts on a topic.
+- Track mentions of a brand or product such as OpenAI on Weibo.
+- Collect posts about an event inside a custom date range.
+- Pull only original or verified-account posts on a topic.
+- Gather image or video posts about a keyword and read their media URLs.
 
 ### Request
 
@@ -89,50 +90,85 @@ curl -X POST "https://api.sandbase.ai/v1/api/weibo/web-v2/advanced-search" \
   -d '{"q": "OpenAI"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
 |---|---|---|---|
 | `q` | string | Yes | Search keyword (required) |
-| `page` | integer | No | Page number (default 1) |
-| `timescope` | string | No | Time scope (format: custom:start_date:end_date, e.g. custom:2025-09-01-0:2025-09-08-23) |
-| `search_type` | string | No | Search type (all/hot/original/verified/media/viewpoint) |
 | `include_type` | string | No | Include type (all/pic/video/music/link) |
+| `page` | integer | No | Page number (default 1) |
+| `search_type` | string | No | Search type (all/hot/original/verified/media/viewpoint) |
+| `timescope` | string | No | Time scope (format: custom:start_date:end_date, e.g. custom:2025-09-01-0:2025-09-08-23) |
 
 ### Example response
 
-Real response for the request above, trimmed to the main fields. User names and long IDs are masked.
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
 
 ```json
 {
   "parsed_data": {
-    "result_count": 19,
+    "pagination": {},
+    "parse_success": true,
+    "result_count": 21,
     "results": [
       {
-        "weibo_id": "5350554563773695",
-        "content": "OpenAI Codex 承诺连续 28 天：每天上新，否则重置额度OpenAI 给 Codex 用户立了个 28 天的规矩：每天要么上线一项多数人用得上的明…",
-        "publish_time": "10月05日 07:04",
-        "user_nick": "<user>",
-        "post_url": "//weibo.com/1727858283/Rld9CfPI3",
+        "content": "nice，dsh可以接openai ​​​​",
         "interaction": {
           "comment_count": 0,
           "like_count": 0,
           "repost_count": 0
-        }
+        },
+        "media": {
+          "has_image": true,
+          "has_video": false,
+          "images": [
+            "https://wx4.sinaimg.cn/large/005BSIfegy1iiox5o7o5dj313g0g478w.jpg"
+          ],
+          "videos": []
+        },
+        "post_url": "//weibo.com/5140428384/RpERF7Wch?refer_flag=1001030103_",
+        "publish_time": "今天12:58",
+        "source": "微博网页版",
+        "user_avatar": "https://tvax1.sinaimg.cn/crop.0.0.828.828.180/005BSIfely8gsohng3cyuj30n00n0wfd.j…",
+        "user_name": "北漂民工的日常",
+        "user_nick": "北漂民工的日常",
+        "user_url": "//weibo.com/5140428384?refer_flag=1001030103_",
+        "weibo_id": "5361152871892009",
+        "weibo_type": "original"
       }
-    ]
+    ],
+    "search_stats": {}
   }
 }
 ```
 
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `parsed_data.results[].content` | Text of the post. |
+| `parsed_data.results[].weibo_id` | ID of the post. Use it to look up the post in other Weibo APIs. |
+| `parsed_data.results[].publish_time` | Publish time as shown on Weibo, such as `今天12:58` or `10月31日 16:45`. It is a display string, not a full timestamp. |
+| `parsed_data.results[].user_name / user_nick` | Display name of the author. |
+| `parsed_data.results[].user_url / post_url` | Links to the author profile and to the post. Both start with `//weibo.com/`. |
+| `parsed_data.results[].interaction.comment_count / like_count / repost_count` | Number of comments, likes and reposts on the post. |
+| `parsed_data.results[].media.has_image / has_video` | Flags that show whether the post carries images or videos. |
+| `parsed_data.results[].media.images[] / media.videos[].src` | Image URLs and video file URLs. Each video also lists alternate quality links in `streams`. |
+| `parsed_data.results[].weibo_type` | Type label of the post, such as `original`. |
+| `parsed_data.result_count` | Number of posts in this response. |
+
 ### Notes
 
-- `timescope` format: `custom:YYYY-MM-DD-H:YYYY-MM-DD-H`, e.g. `custom:2025-09-01-0:2025-09-08-23`.
-- Use `page` to paginate.
+- Set `page` to get further result pages. The default is 1.
+- Write `timescope` as `custom:YYYY-MM-DD-H:YYYY-MM-DD-H`, for example `custom:2025-09-01-0:2025-09-08-23`.
+- `search_type` accepts `all`, `hot`, `original`, `verified`, `media` or `viewpoint`. `include_type` accepts `all`, `pic`, `video`, `music` or `link`.
+- Pass a `weibo_id` to [Weibo Post Detail](/apis/weibo/web-v2/post-detail) for the full post data.
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

@@ -83,13 +83,14 @@ Same call via the path form: `POST /v1/api/douyin/search/music-search` with the 
 
 ## Details
 
-Look up music tracks on Douyin by passing a `keyword` along with optional filter and pagination parameters.
+Returns a page of Douyin music search results for a search `keyword`. Each result is a music track with its author, duration, cover images and lyric URL. You can narrow results with `sort_type`, `content_type`, `publish_time` and `filter_duration`.
 
 ### Use cases
 
-- Discover trending songs and audio tracks on Douyin using keywords.
-- Filter music results by sorting method, content type, or track duration.
-- Retrieve music IDs, author details, and lyric URLs for identified tracks.
+- Find Douyin tracks that match a theme such as a pet or a mood, then collect their IDs.
+- Build a list of track authors and durations for a given keyword.
+- Download cover images and lyric files for the tracks a search returns.
+- Page through deeper results to build a larger set of tracks for one keyword.
 
 ### Request
 
@@ -100,57 +101,128 @@ curl -X POST "https://api.sandbase.ai/v1/api/douyin/search/music-search" \
   -d '{}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
 |---|---|---|---|
-| `cursor` | integer | No | Pagination cursor (0 for first request) |
-| `keyword` | string | No | Search keyword, e.g., "game background music" |
 | `backtrace` | string | No | Backtrace for pagination, obtained from the last response |
+| `content_type` | string | No | Content type filter |
+| `cursor` | integer | No | Pagination cursor (0 for first request) |
+| `filter_duration` | string | No | Video duration filter |
+| `keyword` | string | No | Search keyword, e.g., "game background music" |
+| `publish_time` | string | No | Publish time filter |
 | `search_id` | string | No | Search ID for pagination |
 | `sort_type` | string | No | Sorting method |
-| `content_type` | string | No | Content type filter |
-| `publish_time` | string | No | Publish time filter |
-| `filter_duration` | string | No | Video duration filter |
 
 ### Example response
 
-Real response for the request above, trimmed to the main fields. User names and long IDs are masked.
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
 
 ```json
 {
+  "ad_info": {},
+  "cursor": 10,
+  "extra": {
+    "fatal_item_ids": [],
+    "logid": "20261103153219CE98A368E9F20E36B9C7",
+    "now": 1793691139000,
+    "scenes": null,
+    "search_request_id": ""
+  },
+  "global_doodle_config": {
+    "keyword": "猫咪"
+  },
+  "has_more": 1,
+  "log_pb": {
+    "impr_id": "20261103153219CE98A368E9F20E36B9C7",
+    "stab_extra": {
+      "traffic_identification": "normal"
+    }
+  },
   "music": [
     {
-      "audition_duration": 38,
-      "author": "华Fit",
+      "album": "",
+      "artist_user_infos": null,
+      "artists": [],
+      "audition_duration": 18,
+      "author": "念能先生",
       "author_deleted": false,
+      "author_position": null,
       "binded_challenge_id": 0,
-      "dsp_status": 10,
-      "duration": 38,
-      "end_time": 0,
-      "id": 7692065182327736355,
-      "lyric_type": 10,
-      "lyric_url": "https://sf3-cdn-tos.douyinstatic.com/obj/tos-cn-v-2774c002/oMAMAfPXDAFqFAPtYfEt7…",
-      "search_impr": {
-        "entity_id": "7692065182327736355"
+      "can_background_play": true,
+      "collect_stat": 0,
+      "cover_color_hsv": {
+        "h": 53,
+        "s": 15,
+        "v": 96
       },
-      "song": {
-        "id": 7692065182327703587,
-        "title": "我是快乐小猫咪"
+      "cover_hd": {
+        "height": 720,
+        "uri": "tos-cn-v-2774c002/ogCeF4XyiLHA6aOAIVIGYBeSIAQ4AAHeBaIVPz",
+        "url_list": [
+          "https://p3.douyinpic.com/aweme/1080x1080/tos-cn-v-2774c002/ogCeF4XyiLHA6aOAIVIGY…"
+        ],
+        "width": 720
       }
     }
-  ]
+  ],
+  "music_header_info_list": [],
+  "music_info_list": [
+    {
+      "card_type": 999,
+      "dynamic_patch": {
+        "card_type_name": "music_channel",
+        "height": 84,
+        "origin_type": 3,
+        "raw_data": "{\"music\":{\"id\":7702401322850748456,\"id_str\":\"7702401322850748456\",\"title\":\"小猫咪（剪…",
+        "schema": "aweme://lynxview/?channel=fe_lynx_main_v2_normal&bundle=music-card-vertical%2Fte…"
+      },
+      "music": {
+        "album": "",
+        "artist_user_infos": null,
+        "artists": [],
+        "audition_duration": 18,
+        "author": "念能先生",
+        "author_deleted": false,
+        "author_position": null,
+        "binded_challenge_id": 0
+      },
+      "musics": null
+    }
+  ],
+  "qc": "",
+  "render_type": 0,
+  "search_channel": "aweme_music"
 }
 ```
 
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `music[].id / music[].id_str` | Track ID as a number and as a string. Use the string form to avoid number precision problems. |
+| `music[].author` | Name of the track's author or artist. |
+| `music[].duration / music[].audition_duration` | Length values for the track, as whole numbers. They match each other in the sample items. |
+| `music[].cover_hd / cover_large / cover_medium / cover_thumb` | Cover image in four sizes. Each has `url_list` with image URLs, plus `uri`, `width` and `height`. |
+| `music[].lyric_url` | Link to the lyric file for the track. |
+| `music[].is_original / is_original_sound / is_pgc / is_commerce_music` | Flags that describe the track type, such as original audio, PGC or commercial music. |
+| `music_info_list[].dynamic_patch.raw_data` | JSON string of a music card. It holds the track title (the `title` key), which the main `music[]` items in this trimmed response do not show. |
+| `has_more` | Value `1` means more results are available for the next page. |
+| `cursor` | Cursor value returned for the next page request. This response returned `10`. |
+| `log_pb.impr_id` | Search request ID for this response. It matches `extra.logid` in this sample. |
+
 ### Notes
 
-- Set `cursor` to 0 for the initial query, then pass subsequent pagination tokens to continue.
-- Use `backtrace` and `search_id` from the previous response to paginate through deeper results.
+- Send `cursor` as `0` for the first page. For the next page, pass the `cursor` value from the response.
+- For deeper pages, also send `backtrace` and `search_id` from the previous response.
+- Check `has_more` to see whether another page exists.
+- To work with a track after a search, pass its ID to [Douyin Music Details](/apis/douyin/app-v3/music-detail) or [Douyin Music Video List](/apis/douyin/app-v3/music-video-list).
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.01 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

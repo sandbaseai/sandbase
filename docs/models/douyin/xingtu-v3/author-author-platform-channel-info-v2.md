@@ -62,9 +62,13 @@ Same call via the path form: `POST /v1/api/douyin/xingtu-v3/author-author-platfo
 
 ## Details
 
-Get Douyin Creator Marketplace (Xingtu) channel information for a specified creator and content format. Use it to compare a creator's short-video, live, image-text, or short-drama presence.
+Returns channel information for one creator on Douyin Creator Marketplace (Xingtu), for a chosen content format. It needs the creator's `oAuthorId`, and `platform` is optional. In the sample call, the response held a status block and the creator's self introduction.
 
-The response is the platform's original data structure.
+### Use cases
+
+- Read a creator's self introduction text before shortlisting them for a campaign.
+- Check whether a call for a given `oAuthorId` succeeds before running deeper creator lookups.
+- Request each `platform` value in turn to compare a creator's short-video, live, image-text, and short-drama channel data.
 
 ### Request
 
@@ -75,6 +79,8 @@ curl -X POST "https://api.sandbase.ai/v1/api/douyin/xingtu-v3/author-author-plat
   -d '{"oAuthorId": "6870161898013196295"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
@@ -82,9 +88,37 @@ curl -X POST "https://api.sandbase.ai/v1/api/douyin/xingtu-v3/author-author-plat
 | `oAuthorId` | string | Yes | Author's unique ID. |
 | `platform` | string | No | Platform type. |
 
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "base_resp": {
+    "status_code": 0,
+    "status_message": "Success"
+  },
+  "self_intro": "我用心，你放心"
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `base_resp.status_code` | Result code of the call. `0` means the call succeeded. |
+| `base_resp.status_message` | Text status for the call. The sample shows `Success`. |
+| `self_intro` | The creator's self-written introduction or slogan, as plain Chinese text. The sample value is `我用心，你放心`. |
+
+### Notes
+
+- `oAuthorId` is the creator's Xingtu author ID, a numeric string such as `6870161898013196295`. Find it with [Douyin Xingtu Creator Search](/apis/douyin/xingtu-v3/gsearch-search-for-author-square).
+- `platform` accepts `SHORT_VIDEO`, `LIVE_STREAMING`, `PICTURE_TEXT`, or `SHORT_DRAMA`. It defaults to `SHORT_VIDEO`.
+- For the creator's profile details, call [Douyin Xingtu Creator Profile](/apis/douyin/xingtu-v3/author-author-base-info).
+
 ### Pricing
 
-Flat price per call. Failed calls and empty results are not charged.
+$0.021429 per successful call. Failed calls are not charged.
 
 ---
 Machine-readable: [`catalog/models/douyin/xingtu-v3/author-author-platform-channel-info-v2.json`](../../../../catalog/models/douyin/xingtu-v3/author-author-platform-channel-info-v2.json) · Store page: https://www.sandbase.ai/model/douyin/xingtu-v3/author-author-platform-channel-info-v2

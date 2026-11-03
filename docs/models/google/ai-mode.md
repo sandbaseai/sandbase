@@ -19,7 +19,7 @@ Modes: sync (default `sync`). Only pass `mode` values listed here. The SDKs' `ru
 ```bash
 curl https://api.sandbase.ai/v1/run \
   -H "Authorization: Bearer $SANDBASE_API_KEY" -H 'Content-Type: application/json' \
-  -d '{"model": "google/ai-mode", "prompt": "What are the most useful open-source AI agent frameworks?"}'
+  -d '{"model": "google/ai-mode", "prompt": "What is the Model Context Protocol and who maintains it?"}'
 ```
 
 **Python** ([sdk/python](../../../sdk/python))
@@ -27,7 +27,7 @@ curl https://api.sandbase.ai/v1/run \
 ```python
 from sandbase import SandBase
 
-result = SandBase().run('google/ai-mode', {'prompt': 'What are the most useful open-source AI agent frameworks?'})
+result = SandBase().run('google/ai-mode', {'prompt': 'What is the Model Context Protocol and who maintains it?'})
 print(result["outputs"])
 ```
 
@@ -37,7 +37,7 @@ print(result["outputs"])
 import { SandBase } from "@sandbaseai/sdk";
 
 const result = await new SandBase().run("google/ai-mode", {
-  "prompt": "What are the most useful open-source AI agent frameworks?"
+  "prompt": "What is the Model Context Protocol and who maintains it?"
 });
 console.log(result.outputs);
 ```
@@ -47,7 +47,7 @@ console.log(result.outputs);
 ```go
 c, _ := sandbase.NewClient("")
 run, err := c.Run(ctx, "google/ai-mode", sandbase.Params{
-	"prompt": "What are the most useful open-source AI agent frameworks?",
+	"prompt": "What is the Model Context Protocol and who maintains it?",
 })
 ```
 
@@ -61,7 +61,14 @@ Same call via the path form: `POST /v1/api/google/ai-mode` with the body above m
 
 ## Details
 
-Ask Google AI Mode a prompt and receive the cited answer it generates. AI Mode composes the answer at search time, so repeat calls on one prompt can differ in wording and in which sources are cited.
+Returns the answer Google AI Mode generates for a text prompt, plus the sources it cites. It needs one input, a `prompt` string with the question to answer.
+
+### Use cases
+
+- Check how Google AI Mode describes a brand, product or website and which pages it cites.
+- Collect the source pages AI Mode cites for a topic to see which sites it relies on.
+- Run the same prompt several times and compare the cited sources to see how the answer changes.
+- Feed a question into a research workflow and keep the cited URLs for follow-up checks.
 
 ### Request
 
@@ -69,10 +76,10 @@ Ask Google AI Mode a prompt and receive the cited answer it generates. AI Mode c
 curl -X POST "https://api.sandbase.ai/v1/api/google/ai-mode" \
   -H "Authorization: Bearer $SANDBASE_API_KEY" \
   -H "Content-Type: application/json" \
-  -d '{"prompt": "What are the most useful open-source AI agent frameworks?"}'
+  -d '{"prompt": "What is the Model Context Protocol and who maintains it?"}'
 ```
 
-The result is returned in `outputs[0].data`. A lookup that finds nothing still succeeds and returns `found: false`.
+The result is returned in `outputs[0].data`.
 
 ### Parameters
 
@@ -80,9 +87,49 @@ The result is returned in `outputs[0].data`. A lookup that finds nothing still s
 |---|---|---|---|
 | `prompt` | string | Yes | The question or prompt to answer with Google AI Mode. |
 
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "data": {
+    "answer": "The Model Context Protocol (MCP) is an open standard and open-source framework d…",
+    "answerMarkdown": "The Model Context Protocol (MCP) is an open standard and open-source framework d…",
+    "citations": [
+      {
+        "title": "Wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Model_Context_Protocol"
+      }
+    ],
+    "prompt": "What is the Model Context Protocol and who maintains it?"
+  },
+  "found": true
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `data.answer` | The generated answer as plain text. |
+| `data.answerMarkdown` | The same answer in Markdown. Use it when you want to keep the formatting of the answer. |
+| `data.citations[]` | List of sources cited in the answer. |
+| `data.citations[].title` | Title of the cited source, such as a site or page name. |
+| `data.citations[].url` | Link to the cited page. |
+| `data.prompt` | The prompt that the answer was generated for. It repeats the `prompt` you sent. |
+| `found` | `true` when AI Mode returned a result for the prompt. |
+
+### Notes
+
+- Send the question in `prompt`. The request takes no other parameters and has no pagination.
+- Repeat calls on one prompt can return different wording and different citations.
+- The result is returned in `outputs[0].data`.
+- For the short summary Google shows above regular search results, use [Google AI Overview](/apis/google/ai-overview).
+
 ### Pricing
 
-Billed at the actual cost of each call, usually $0.002 per request. A call can cost more when the first data source fails and another one answers. Failed calls are not charged. Lookups that find nothing and searches with no results are billed at their actual cost, which is often lower and can be $0.
+Billed at the actual cost of each call, about $0.002 for the request above. Failed calls are not charged.
 
 ---
 Machine-readable: [`catalog/models/google/ai-mode.json`](../../../catalog/models/google/ai-mode.json) · Store page: https://www.sandbase.ai/model/google/ai-mode

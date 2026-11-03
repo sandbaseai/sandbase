@@ -62,13 +62,14 @@ Same call via the path form: `POST /v1/api/telegram/web/similar-channels` with t
 
 ## Details
 
-Look up similar channel recommendations directly from Telegram by supplying the target username via `channel`.
+Returns Telegram's similar channel recommendations for one channel, using the channel username in `channel`. The response can also carry an `mtproto_required` flag and a `note` when recommendations are not available for the request.
 
 ### Use cases
 
-- Discover related Telegram channels within the same topic or niche.
-- Research competitor channel networks and linked communities.
-- Automate channel discovery feeds based on official recommendations.
+- Find channels related to a given channel when you research a topic or niche.
+- Build a list of neighbouring channels around a competitor's channel.
+- Feed seed usernames into a channel discovery workflow and collect the recommended channels from `similar`.
+- Check whether a channel returns recommendations before you add it to a monitoring list.
 
 ### Request
 
@@ -79,19 +80,45 @@ curl -X POST "https://api.sandbase.ai/v1/api/telegram/web/similar-channels" \
   -d '{"channel": "telegram"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
 |---|---|---|---|
 | `channel` | string | Yes | Channel username. |
 
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "channel": "telegram",
+  "mtproto_required": true,
+  "note": "相似频道推荐需要在「设置」页启用并登录 MTProto 后端",
+  "similar": []
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `channel` | The channel username the request was made for. It repeats the `channel` input. |
+| `similar` | List of recommended channels. It is an empty list in the sample response, so check its length before you read items. |
+| `mtproto_required` | Boolean flag. When it is `true`, the response says recommendations need an MTProto backend that is not active for this request. |
+| `note` | Short text that explains the `mtproto_required` flag. In the sample it says similar channel recommendations need MTProto to be enabled and logged in on the Settings page. |
+
 ### Notes
 
-- Pass the Telegram channel username using the `channel` parameter.
+- Send the channel username as `channel`, for example `telegram`.
+- If `mtproto_required` is `true` and `similar` is empty, the call returned no recommendations. Read `note` for the reason.
+- To get profile details for a channel you found, call [Telegram Channel Info](/apis/telegram/web/channel-info). To read its recent posts, call [Telegram Channel Posts](/apis/telegram/web/channel-posts).
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

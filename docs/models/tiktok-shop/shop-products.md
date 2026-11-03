@@ -65,7 +65,14 @@ Same call via the path form: `POST /v1/api/tiktok-shop/shop-products` with the b
 
 ## Details
 
-List every product of a TikTok Shop store by URL (title, price, sales, and rating per product plus shop-level stats) with cursor pagination.
+This API returns the products of a TikTok Shop store, with title, price, sold count, and rating for each product. It also returns shop-level stats such as the shop name, shop rating, and total units sold. It needs a TikTok Shop store URL.
+
+### Use cases
+
+- Track a competitor store's best sellers and see how their prices change over time.
+- Build a catalog of every product a brand sells on TikTok Shop.
+- Compare discounts across a store by checking `price` against `originalPrice`.
+- Find a store's newest listings by setting `sortBy` to `new_releases`.
 
 ### Request
 
@@ -76,7 +83,7 @@ curl -X POST "https://api.sandbase.ai/v1/api/tiktok-shop/shop-products" \
   -d '{"url": "https://www.tiktok.com/shop/store/goli-nutrition/7495794203056835079"}'
 ```
 
-The result is returned in `outputs[0].data`. A lookup that finds nothing still succeeds and returns `found: false`.
+The result is returned in `outputs[0].data`.
 
 ### Parameters
 
@@ -86,11 +93,67 @@ The result is returned in `outputs[0].data`. A lookup that finds nothing still s
 | `cursor` | string | No | Opaque pagination cursor from a previous response's nextCursor. |
 | `region` | string | No | Two-letter country code of the store's market (e.g. US). |
 | `requireFields` | array | No | Optional; omit it and routing is unchanged, with the cheapest source serving. Name the output fields this request must be able to return, for example `shopRating`, and it is served only by a source that returns every one |
-| `sortBy` | string | No | Product ordering within the store. One of: `top`, `new_releases`. Default `"top"`. |
+| `sortBy` | string | No | Product ordering within the store. |
+
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "data": {
+    "hasMore": true,
+    "nextCursor": "cur_up8aGtbgaWa2lUhcuYJUcQ",
+    "productCount": 53,
+    "products": [
+      {
+        "currency": "USD",
+        "discountPct": 21,
+        "image": "https://p16-oec-general-useast5.ttcdn-us.com/tos-useast5-i-omjb5zjo8w-tx/2bc69aa…",
+        "originalPrice": 24.7,
+        "price": 19.47,
+        "productId": "1729527313880355335",
+        "rating": 4.5,
+        "reviewCount": 94624,
+        "sellerId": "7495794203056835079",
+        "soldCount": 1306640,
+        "title": "Goli Ashwagandha & Vitamin D Gummy - Mixed Berry, KSM-66, Vegan, Plant Based, No…",
+        "url": "https://www.tiktok.com/shop/pdp/1729527313880355335"
+      }
+    ],
+    "shopName": "Goli Nutrition",
+    "shopRating": 4.6,
+    "soldCount": 5815669
+  },
+  "found": true
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `data.shopName` | Display name of the store. |
+| `data.shopRating` | Average rating of the whole shop. |
+| `data.soldCount` | Total units sold by the shop, as a shop-level figure. |
+| `data.productCount` | Number of products the store lists. |
+| `data.products[].title / data.products[].url` | Product title and the link to its TikTok Shop product page. |
+| `data.products[].price / data.products[].originalPrice` | Current price and the price before discount, in the currency given in `currency`. |
+| `data.products[].discountPct` | Discount as a percentage off `originalPrice`. |
+| `data.products[].rating / data.products[].reviewCount` | Average rating of the product and the number of reviews behind it. |
+| `data.products[].soldCount` | Units sold for this product. |
+| `data.products[].productId / data.products[].sellerId` | Product ID and the ID of the store that sells it. |
+
+### Notes
+
+- Copy the store URL from the TikTok Shop store page. It ends with the store name and a numeric ID, which matches `sellerId` in the products.
+- When `data.hasMore` is `true`, pass `data.nextCursor` as `cursor` in the next request to get the next page.
+- `sortBy` accepts `top` (default) or `new_releases`.
+- To get details for one product, pass its `productId` or `url` to [TikTok Shop Product](/apis/tiktok-shop/product), or read its reviews with [TikTok Shop Product Reviews](/apis/tiktok-shop/product-reviews).
 
 ### Pricing
 
-Billed at the actual cost of each call, usually $0.0012 per request. A call can cost more when the first data source fails and another one answers. Failed calls are not charged. Lookups that find nothing and searches with no results are billed at their actual cost, which is often lower and can be $0.
+Billed at the actual cost of each call, about $0.0012 for the request above. Failed calls are not charged.
 
 ---
 Machine-readable: [`catalog/models/tiktok-shop/shop-products.json`](../../../catalog/models/tiktok-shop/shop-products.json) · Store page: https://www.sandbase.ai/model/tiktok-shop/shop-products

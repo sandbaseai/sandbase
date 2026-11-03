@@ -58,13 +58,14 @@ Same call via the path form: `POST /v1/api/tiktok/app-v3/check-live-room-online-
 
 ## Details
 
-Checks whether multiple TikTok broadcast rooms are currently active by passing a list of room identifiers in `room_ids`.
+Returns the live status of up to 50 TikTok LIVE rooms in one request. It needs a list of room IDs in `room_ids`. Each result shows whether that room is currently live.
 
 ### Use cases
 
-- Check the active status of multiple broadcast rooms simultaneously.
-- Filter out inactive broadcasts before querying detailed room metrics.
-- Track stream availability across a roster of monitored accounts.
+- Check a list of monitored rooms in one call and keep only those that are live.
+- Filter out ended rooms before you request room details.
+- Poll a set of saved room IDs to see when each stream stops.
+- Validate a batch of room IDs collected from earlier lookups.
 
 ### Request
 
@@ -75,6 +76,8 @@ curl -X POST "https://api.sandbase.ai/v1/api/tiktok/app-v3/check-live-room-onlin
   -d '{}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
@@ -83,7 +86,7 @@ curl -X POST "https://api.sandbase.ai/v1/api/tiktok/app-v3/check-live-room-onlin
 
 ### Example response
 
-Real response for the request above, trimmed to the main fields. User names and long IDs are masked.
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
 
 ```json
 {
@@ -93,18 +96,35 @@ Real response for the request above, trimmed to the main fields. User names and 
       "room_id": 7494491933781003054,
       "room_id_str": "7494491933781003054"
     }
-  ]
+  ],
+  "extra": {
+    "now": 1793691831215
+  },
+  "status_code": 0
 }
 ```
 
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `data[]` | One result per room ID you sent. |
+| `data[].room_id_str` | Room ID as a string. Use this form to match results to your input without losing digits. |
+| `data[].room_id` | Room ID as a number. It has the same value as `room_id_str`. |
+| `data[].alive` | `true` if the room is live now, `false` if it is not. All three sample rooms returned `false`. |
+| `extra.now` | Time of the response as a 13-digit number, which looks like a Unix timestamp in milliseconds. |
+| `status_code` | Status of the call. `0` in the sample response. |
+
 ### Notes
 
-- Supports checking up to 50 identifiers in `room_ids` per call.
-- Room identifiers can be obtained from `/api/v1/tiktok/web/get_live_room_id`.
+- Send up to 50 strings in `room_ids`. The sample response returned one `data` entry for each ID sent.
+- Match results by `room_id_str`. The numeric `room_id` is a long integer that some JSON parsers may round.
+- To check a single room, use [TikTok LIVE Status](/apis/tiktok/app-v3/check-live-room-online).
+- To get details about a live room, call [TikTok Broadcast Room Information](/apis/tiktok/app-v3/live-room-info).
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.01 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

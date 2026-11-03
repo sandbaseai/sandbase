@@ -62,13 +62,14 @@ Same call via the path form: `POST /v1/api/bilibili/web/collect-folders` with th
 
 ## Details
 
-This endpoint retrieves the collection folders for a specified user account. Pass the target user ID using the `uid` parameter.
+Returns the public collection folders owned by a Bilibili user, with each folder's title, ID and item count. It needs one input, the user's numeric UID passed as `uid`.
 
 ### Use cases
 
-- Inspect public collection folder lists for a specific Bilibili user.
-- Organize and display saved video collections from a target account.
-- Monitor changes in a creator's collection folder structure.
+- List all collection folders a Bilibili creator has made and compare their sizes.
+- Find the folder ID to fetch the videos inside a specific folder.
+- Track whether a user adds or removes collection folders by comparing `data.count` over time.
+- Build a profile view that shows a user's saved-video topics by folder title.
 
 ### Request
 
@@ -79,19 +80,66 @@ curl -X POST "https://api.sandbase.ai/v1/api/bilibili/web/collect-folders" \
   -d '{"uid": "178360345"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
 |---|---|---|---|
 | `uid` | string | Yes | User UID |
 
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "code": 0,
+  "data": {
+    "count": 4,
+    "list": [
+      {
+        "attr": 22,
+        "fav_state": 0,
+        "fid": 28851128,
+        "id": 2885112845,
+        "is_kid_playlist": false,
+        "kid_playlist_desc": "",
+        "media_count": 14,
+        "mid": 178360345,
+        "title": "好抽象"
+      }
+    ],
+    "season": null
+  },
+  "message": "OK",
+  "ttl": 1
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `data.count` | Number of collection folders returned for the user. |
+| `data.list[].title` | Name of the collection folder, as set by the user. |
+| `data.list[].media_count` | Number of items in the folder. |
+| `data.list[].fid / data.list[].id` | Folder identifiers. `id` looks like `fid` followed by the last two digits of the owner's `mid`, so use the exact value you need for follow-up calls. |
+| `data.list[].mid` | Numeric UID of the user who owns the folder. It matches the `uid` you sent. |
+| `data.list[].attr` | Numeric attribute value for the folder. The response does not explain its bit meanings. |
+| `data.list[].fav_state` | Numeric state flag for the folder. It is `0` for all folders in this response. |
+| `data.list[].is_kid_playlist / data.list[].kid_playlist_desc` | Flag and description text for kid playlists. In this response the flag is `false` and the description is empty. |
+| `data.season` | Season collection data. It is `null` for this user. |
+
 ### Notes
 
-- Requires the target user ID in the `uid` parameter.
+- Pass the user's numeric UID as a string in `uid`. If you only have a profile link, use [Bilibili User ID Extraction](/apis/bilibili/web/get-user-id) to get the UID.
+- To see the videos inside a folder, call [Bilibili User Collection Folder Videos](/apis/bilibili/web/user-collection-videos) with a folder ID from `data.list[]`.
+- The request has no pagination parameters. The response returns the folders in `data.list` along with a total in `data.count`.
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

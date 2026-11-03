@@ -62,13 +62,14 @@ Same call via the path form: `POST /v1/api/douyin/web/user-profile-by-uid` with 
 
 ## Details
 
-Retrieves Douyin web user profile data using the `uid` parameter. Use it to inspect public account badges and user information.
+Returns public profile details for a Douyin user, including avatar images, verification info, badge lists, and account settings flags. It needs one input, the numeric `uid` of the user.
 
 ### Use cases
 
-- Look up profile details for a Douyin user by user ID.
-- Inspect badge lists associated with a Douyin account.
-- Check Douyin user metadata for profile display.
+- Fetch the avatar image URLs and `display_id` of a Douyin account to show it in a dashboard.
+- Check the verification text in `authentication_info.enterprise_verify_reason` to see whether an account is marked as an official account.
+- Read the badge lists to see which honor level badge a Douyin user shows.
+- Check the privacy and permission flags, such as whether others can download the user's videos.
 
 ### Request
 
@@ -79,6 +80,8 @@ curl -X POST "https://api.sandbase.ai/v1/api/douyin/web/user-profile-by-uid" \
   -d '{"uid": "92769419069"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
@@ -87,30 +90,56 @@ curl -X POST "https://api.sandbase.ai/v1/api/douyin/web/user-profile-by-uid" \
 
 ### Example response
 
-Real response for the request above, trimmed to the main fields. User names and long IDs are masked.
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
 
 ```json
 {
   "data": {
-    "badge_image_list": [
-      {
-        "image_type": 1,
-        "content": {
-          "alternative_text": "荣誉等级0级勋章"
-        }
-      }
-    ]
-  }
+    "adversary_authorization_info": 1,
+    "adversary_user_status": 1,
+    "age_range": 0,
+    "allow_be_located": false,
+    "allow_find_by_contacts": false,
+    "allow_others_download_video": false,
+    "allow_others_download_when_sharing_video": false,
+    "allow_share_show_profile": false,
+    "allow_show_in_gossip": false,
+    "allow_show_my_action": false,
+    "allow_strange_comment": false,
+    "allow_unfollower_comment": false
+  },
+  "extra": {
+    "now": 1793691154704
+  },
+  "status_code": 0
 }
 ```
 
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `data.display_id` | Public display ID of the account, such as `dyczxzs` in the example. |
+| `data.authentication_info.enterprise_verify_reason` | Verification text shown for the account. In the example it reads as an official account of the Douyin creator center. |
+| `data.authentication_info.custom_verify / data.authentication_info.account_cert_info` | Other verification text fields. They are empty strings in the example. |
+| `data.avatar_large.url_list[] / data.avatar_medium.url_list[] / data.avatar_thumb.url_list[]` | Avatar image URLs at 1080x1080, 720x720 and 100x100 sizes. Each list holds several mirror URLs for the same image. |
+| `data.badge_image_list[].content.alternative_text` | Text description of a badge. The example reads as an honor level 0 badge. |
+| `data.badge_image_list[].content.level` | Level number of the badge. |
+| `data.badge_image_list_v2[]` | Second badge list with the same structure as `badge_image_list`. |
+| `data.allow_others_download_video / data.allow_strange_comment / data.allow_unfollower_comment` | Boolean flags for what other users may do with this account, such as downloading videos or commenting. |
+| `data.city / data.constellation / data.birthday_description` | Location and personal text fields. They are empty in the example, so expect blanks when the user has not set them. |
+| `extra.now` | Numeric timestamp of the response. The example value looks like Unix time in milliseconds. |
+
 ### Notes
 
-- Requires a valid Douyin user identifier in `uid`.
+- Pass the numeric `uid` as a string, for example `92769419069`.
+- If you only have a `sec_user_id`, or need to convert between ID types, use [Douyin UID to Sec User ID](/apis/douyin/web/encrypt-uid-to-sec-user-id).
+- To look up several users in one call, use [Douyin Batch User Profile](/apis/douyin/web/batch-user-profile-v1).
+- `status_code` is `0` in a successful response.
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

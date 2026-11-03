@@ -62,13 +62,14 @@ Same call via the path form: `POST /v1/api/tiktok/web/live-recommend` with the b
 
 ## Details
 
-Retrieve a list of recommended livestreams from the TikTok homepage based on `related_live_tag`.
+Returns a list of recommended livestream rooms from the TikTok homepage for one live category tag. It needs a `related_live_tag` value such as `VALORANT`.
 
 ### Use cases
 
-- Browse recommended livestreams under a specific category tag.
-- Display curated TikTok broadcasts on an external dashboard.
-- Monitor active broadcast recommendations across diverse categories.
+- Pull the current livestream cards shown for a game category such as `VALORANT`.
+- Collect cover images of recommended live rooms to show in an external dashboard.
+- Check whether more recommendations exist for a tag before you request another batch.
+- Store the `rid` of each result to match a recommendation batch with a later analysis.
 
 ### Request
 
@@ -79,19 +80,99 @@ curl -X POST "https://api.sandbase.ai/v1/api/tiktok/web/live-recommend" \
   -d '{"related_live_tag": "VALORANT"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
 |---|---|---|---|
-| `related_live_tag` | string | Yes | Related live tag (live category). |
+| `related_live_tag` | string | Yes | Related live tag (live category). The available values are not fixed; call `/fetch_live_recommend_tabs` first to get the currently available tag list, then pick one to pass in. |
+
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "cookie": "tt_chain…",
+  "data": [
+    {
+      "data": {
+        "age_restricted": {},
+        "anchor_tab_type": 7,
+        "blurred_cover": {
+          "avg_color": "#FAE6DC",
+          "height": 100,
+          "uri": "tos-maliva-avt-0068/e1c653d347180dc3f095dd5185877b22",
+          "url_list": [
+            "https://p16-common-sign.tiktokcdn.com/tos-maliva-avt-0068/e1c653d347180dc3f095dd…"
+          ],
+          "width": 100
+        },
+        "client_version": 13800,
+        "commerce_info": {},
+        "cover": {
+          "uri": "720x720/tos-maliva-avt-0068/e1c653d347180dc3f095dd5185877b22",
+          "url_list": [
+            "https://p16-common-sign.tiktokcdn.com/tos-maliva-avt-0068/e1c653d347180dc3f095dd…"
+          ]
+        },
+        "cover_type": 1,
+        "enlarge_view_info": {
+          "enabler_enlarge_view": true,
+          "landscape_view": 1,
+          "portrait_view": 1
+        }
+      },
+      "flare_info": {},
+      "rid": "202611031544263DDB5AFB9E6F854E228A",
+      "room_event_tracking": "pc_web_game_sub_feed_refresh:1111006:normal:1:0",
+      "type": 1
+    }
+  ],
+  "extra": {
+    "banner": {},
+    "cost": 113,
+    "has_more": true,
+    "log_pb": {
+      "impr_id": "202611031544263DDB5AFB9E6F854E228A",
+      "session_id": 7703847894004796178
+    },
+    "max_time": 1793691866273,
+    "now": 1793691866273,
+    "total": 12,
+    "unread_extra": "{\"channel_id\":1111006,\"req_from\":\"pc_web_game_sub_feed_refresh\",\"gen_time\":17936…"
+  },
+  "status_code": 0,
+  "tt_chain_token": "0k5cdiqY…"
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `data[].data.cover.url_list` | Image URLs for the 720x720 cover of the livestream. Each entry points to the same image in a different CDN host or format (`webp` or `jpeg`). |
+| `data[].data.blurred_cover.url_list` | URLs of a small 100x100 blurred version of the cover. |
+| `data[].data.blurred_cover.avg_color` | Average color of the blurred cover as a hex code. Use it as a placeholder color while the image loads. |
+| `data[].data.feed_room_label.url_list` | Image URLs for a label shown on the room card. It appears only on some items. |
+| `data[].data.anchor_tab_type` | Numeric tab type for the livestream entry. The response shows `7` for all items. |
+| `data[].rid` | Request ID shared by all items in the same response. It matches `extra.log_pb.impr_id`. |
+| `data[].room_event_tracking` | Tracking string for the feed that returned the item. It includes the feed name `pc_web_game_sub_feed_refresh`. |
+| `extra.has_more` | Shows `true` when more recommendations are available. |
+| `extra.total` | Total count reported for this response. |
+| `extra.now / extra.max_time` | Timestamps in milliseconds, in the same format as `1793691866273`. |
 
 ### Notes
 
-- Call `/fetch_live_recommend_tabs` first to retrieve currently available values for `related_live_tag`.
+- Get valid `related_live_tag` values from [TikTok Stream Recommendation Tabs](/apis/tiktok/web/live-recommend-tabs) first. The list of tags changes, so do not hard-code it.
+- The only request parameter is `related_live_tag`. The response gives `extra.has_more` but this API has no pagination parameter.
+- Each item in `data[]` wraps its details in a second `data` object, so the full path is `data[].data`.
+- The response also returns `tt_chain_token` and `cookie` at the top level.
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

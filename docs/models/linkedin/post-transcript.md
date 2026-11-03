@@ -61,7 +61,14 @@ Same call via the path form: `POST /v1/api/linkedin/post-transcript` with the bo
 
 ## Details
 
-Get the spoken transcript of a LinkedIn video post by URL.
+This API returns the spoken transcript of a LinkedIn video post. It needs the full URL of the post as the `url` input.
+
+### Use cases
+
+- Turn a LinkedIn video post into text so you can search or quote it.
+- Feed the transcript of a company announcement video into a summarizer or classifier.
+- Track what executives or brands say in LinkedIn videos without watching each one.
+- Add captions or a text version of a LinkedIn video to a content archive.
 
 ### Request
 
@@ -72,7 +79,7 @@ curl -X POST "https://api.sandbase.ai/v1/api/linkedin/post-transcript" \
   -d '{"url": "https://www.linkedin.com/posts/artificial-analysis_gemini-35-flash-is-a-step-forward-for-google-activity-7465082408409870337-4Pm-"}'
 ```
 
-The result is returned in `outputs[0].data`. A lookup that finds nothing still succeeds and returns `found: false`.
+The result is returned in `outputs[0].data`.
 
 ### Parameters
 
@@ -80,9 +87,39 @@ The result is returned in `outputs[0].data`. A lookup that finds nothing still s
 |---|---|---|---|
 | `url` | string | Yes | The full URL of the LinkedIn post to get the video transcript from. |
 
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "data": {
+    "transcript": "Hey, my name is Declan Jackson. I am a member of technical staff here at Artific…",
+    "transcriptNotAvailable": false,
+    "url": "https://www.linkedin.com/posts/artificial-analysis_gemini-35-flash-is-a-step-for…"
+  },
+  "found": true
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `data.transcript` | The spoken text of the video as one string. |
+| `data.transcriptNotAvailable` | Boolean flag. It is `false` when a transcript came back. Check it before you use `data.transcript`. |
+| `data.url` | The post URL the transcript belongs to. It matches the `url` you sent. |
+| `found` | Boolean flag. It is `true` when the lookup found the post. |
+
+### Notes
+
+- Copy the `url` value from the post's address in LinkedIn, or from a post list API such as [LinkedIn Profile Posts (basic)](/apis/linkedin/profile-posts-thin) or [LinkedIn Company Posts](/apis/linkedin/company-posts).
+- The `url` must point to a post that contains a video. Check `data.transcriptNotAvailable` to see if a transcript was returned.
+- Call [LinkedIn Post](/apis/linkedin/post) to get the post text and other details for the same URL.
+
 ### Pricing
 
-Billed at the actual cost of each call, usually $0.0012 per request. A call can cost more when the first data source fails and another one answers. Failed calls are not charged. Lookups that find nothing and searches with no results are billed at their actual cost, which is often lower and can be $0.
+Billed at the actual cost of each call, about $0.0012 for the request above. Failed calls are not charged.
 
 ---
 Machine-readable: [`catalog/models/linkedin/post-transcript.json`](../../../catalog/models/linkedin/post-transcript.json) · Store page: https://www.sandbase.ai/model/linkedin/post-transcript

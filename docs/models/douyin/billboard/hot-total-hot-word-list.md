@@ -61,13 +61,14 @@ Same call via the path form: `POST /v1/api/douyin/billboard/hot-total-hot-word-l
 
 ## Details
 
-This endpoint retrieves trending content words from Douyin billboard rankings, optionally filtered by `keyword` and `date_window`.
+Returns a ranked list of Douyin billboard content words that match a search keyword. Each word has a popularity `score` and a daily trend series. The request takes optional `keyword`, `date_window`, `page_num` and `page_size` values.
 
 ### Use cases
 
-- Track rising keyword trends and popularity scores on Douyin.
-- Discover high-performing content topics for social media research.
-- Analyze daily or hourly search interest across specific terms.
+- Check how popular a phrase such as `人工智能` is on Douyin compared with similar words.
+- Chart the daily trend values of a content word to see when interest peaked.
+- Build a list of related content words around a brand or topic keyword.
+- Page through all matching words to export a full keyword set for research.
 
 ### Request
 
@@ -78,43 +79,94 @@ curl -X POST "https://api.sandbase.ai/v1/api/douyin/billboard/hot-total-hot-word
   -d '{}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
 |---|---|---|---|
+| `date_window` | integer | No | Time window, 1 by hour 2 by day |
 | `keyword` | string | No | Search keyword |
 | `page_num` | integer | No | Page number |
 | `page_size` | integer | No | Number of items per page |
-| `date_window` | integer | No | Time window, 1 by hour 2 by day |
 
 ### Example response
 
-Real response for the request above, trimmed to the main fields. User names and long IDs are masked.
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
 
 ```json
 {
+  "code": 0,
   "data": {
+    "objs": [
+      {
+        "favorite_id": 0,
+        "id": "NRsKn6EBoYl6zwhYLhSC",
+        "is_favorite": false,
+        "query_day": "20261102",
+        "rising_ratio": 0,
+        "rising_speed": "",
+        "score": 112,
+        "title": "抖音音乐",
+        "trends": [
+          {
+            "date": "20260928",
+            "value": 9177.417093277045
+          }
+        ]
+      }
+    ],
+    "total_count": 1268,
     "word_list": [
       {
         "favorite_id": 0,
-        "id": "OgfmEKEBoYl6zwhY5vp0",
-        "query_day": "20261005",
-        "score": 83,
-        "title": "抖音音"
+        "id": "NRsKn6EBoYl6zwhYLhSC",
+        "is_favorite": false,
+        "query_day": "20261102",
+        "rising_ratio": 0,
+        "rising_speed": "",
+        "score": 112,
+        "title": "抖音音乐",
+        "trends": [
+          {
+            "date": "20260928",
+            "value": 9177.417093277045
+          }
+        ]
       }
     ]
-  }
+  },
+  "extra": {
+    "now": 1793691109000
+  },
+  "message": ""
 }
 ```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `data.word_list[].title` | The content word text. |
+| `data.word_list[].score` | Popularity score of the word. Higher values mean a more popular word. |
+| `data.word_list[].id` | Identifier of the word entry. |
+| `data.word_list[].query_day` | Day of the query, as a `YYYYMMDD` string. |
+| `data.word_list[].trends[].date / data.word_list[].trends[].value` | One point of the trend series. `date` is a `YYYYMMDD` string and `value` is the metric number for that day. |
+| `data.word_list[].rising_ratio / data.word_list[].rising_speed` | Rise indicators for the word. They were `0` and an empty string in this sample. |
+| `data.word_list[].is_favorite / data.word_list[].favorite_id` | Favorite state of the word for the account. They were `false` and `0` in this sample. |
+| `data.total_count` | Total number of words that match the request. Use it to work out how many pages exist. |
+| `data.objs[]` | Holds the same items as `data.word_list[]`. |
 
 ### Notes
 
 - Set `date_window` to `1` for hourly data or `2` for daily data.
-- Paginate through results using `page_num` and `page_size`.
+- Page through results with `page_num` and `page_size`. Compare `data.total_count` with the number of items you have fetched.
+- Dates in `query_day` and `trends[].date` use the `YYYYMMDD` format.
+- For details on a single word, try [Douyin Billboard Hot Word Details](/apis/douyin/billboard/hot-total-hot-word-detail-list).
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

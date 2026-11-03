@@ -64,9 +64,14 @@ Same call via the path form: `POST /v1/api/brave/local-descriptions` with the bo
 
 ## Details
 
-POI Descriptions from Brave. Returns the official Brave API response unchanged.
+Returns a text description for each place ID you send. The input is a required `ids` array of location IDs, and each ID returns one description object.
 
-The response is the official Brave API response, unchanged.
+### Use cases
+
+- Add a short written summary to a map listing or place card for a cafe, shop or landmark.
+- Fill a travel or local guide with place descriptions after a place search.
+- Give an LLM background text about a business before it answers a question about that place.
+- Show a description next to POI details such as address or opening hours.
 
 ### Request
 
@@ -77,15 +82,51 @@ curl -X POST "https://api.sandbase.ai/v1/api/brave/local-descriptions" \
   -d '{"ids": ["loc4DFZ5OEXSZVDUAEEDV6PMTFK6YDFANIHQIRRVKLA="]}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
 |---|---|---|---|
 | `ids` | array | Yes | A list of unique identifiers for the location. The ids are valid only for 8 hours. |
 
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "results": [
+    {
+      "description": "**Storyville Coffee Pike Place** is a renowned specialty coffee roaster and café…",
+      "id": "loc4DFZ5OEXSZVDUAEEDV6PMTFK6YDFANIHQIRRVKLA=",
+      "type": "local_description"
+    }
+  ],
+  "type": "local_descriptions"
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `results` | List of description objects. It holds one entry for each ID you sent. |
+| `results[].id` | The location ID this description belongs to. Use it to match each description to the ID in your request. |
+| `results[].description` | Text description of the place. It can contain Markdown, such as `**bold**` around the place name. |
+| `results[].type` | Type of the item. In this response it is `local_description`. |
+| `type` | Type of the whole response. In this response it is `local_descriptions`. |
+
+### Notes
+
+- Get the location IDs from [Brave Place Search](/apis/brave/local-place-search) or [Brave Local POIs](/apis/brave/local-pois).
+- The IDs are valid for only 8 hours, so request fresh IDs if a call fails with an old one.
+- Location IDs look like `loc4DFZ5OEXSZVDUAEEDV6PMTFK6YDFANIHQIRRVKLA=`.
+- Send several IDs in one `ids` array to get several descriptions in one call.
+
 ### Pricing
 
-Flat price per call. Failed calls are not charged.
+$0.005 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ---
 Machine-readable: [`catalog/models/brave/local-descriptions.json`](../../../catalog/models/brave/local-descriptions.json) · Store page: https://www.sandbase.ai/model/brave/local-descriptions

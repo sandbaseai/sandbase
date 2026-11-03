@@ -68,7 +68,14 @@ Same call via the path form: `POST /v1/api/web3-career/job-detail` with the body
 
 ## Details
 
-Fetch full details for a single job listing by URL. Returns the job title, company name, full description text, salary range, and application link.
+Returns the full details of one job listing on web3.career. You pass the listing's full URL in `url`. The response includes the job title, company name, description text, salary text, and an application link.
+
+### Use cases
+
+- Pull the full description of a listing you found in a search so you can read the requirements.
+- Collect the salary text and `apply_link` for a shortlist of Web3 jobs.
+- Check which company posted a role and what it pays before you send an application.
+- Store job details in an internal tracker or a job alert tool.
 
 ### Request
 
@@ -79,7 +86,7 @@ curl -X POST "https://api.sandbase.ai/v1/api/web3-career/job-detail" \
   -d '{"url": "https://web3.career/junior-crypto-analyst-trader-empire-assets/155554"}'
 ```
 
-This API runs asynchronously. The call returns a task `id` with status `pending`; poll `GET https://api.sandbase.ai/v1/run/{id}` until `status` is `completed` and read the result from `outputs[0].data`.
+The result is returned in `outputs[0].data`.
 
 ### Parameters
 
@@ -87,9 +94,45 @@ This API runs asynchronously. The call returns a task `id` with status `pending`
 |---|---|---|---|
 | `url` | string | Yes | The full URL of the job listing on web3.career (e.g., https://web3.career/senior-fullstack-engineer-backend-focus-rugsdotfun/150325). |
 
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "data": {
+    "apply_link": "https://web3.career/i/0UTN1UTM",
+    "company": "Empire Assets",
+    "description": "Empire Assets is a young and rapidly developing company working in the field of …",
+    "salary": "Compensation: $60k - $76k",
+    "title": "Junior Crypto Analyst & Trader",
+    "url": "https://web3.career/junior-crypto-analyst-trader-empire-assets/155554"
+  },
+  "status": "success"
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `data.title` | Job title of the listing, for example `Junior Crypto Analyst & Trader`. |
+| `data.company` | Name of the company that posted the job. |
+| `data.description` | Description text of the job. It is a plain text string and can be long. |
+| `data.salary` | Salary as shown on the listing, as one text string such as `Compensation: $60k - $76k`. It is not split into minimum and maximum values. |
+| `data.apply_link` | Link to apply for the job. It is a web3.career redirect link. |
+| `data.url` | The web3.career URL of the listing, the same value you sent in the request. |
+| `status` | Result status of the call. It shows `success` when the listing was returned. |
+
+### Notes
+
+- Get listing URLs from [Web3.career Job Listings](/apis/web3-career/job-listings) or [Web3.career Search Jobs](/apis/web3-career/search-jobs).
+- A listing URL ends with a numeric ID, for example `155554`.
+- The call runs asynchronously. Poll the run endpoint until `status` is `completed`, then read `outputs[0].data`.
+
 ### Pricing
 
-Flat price per call. Failed calls are not charged.
+$0.01 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ---
 Machine-readable: [`catalog/models/web3-career/job-detail.json`](../../../catalog/models/web3-career/job-detail.json) · Store page: https://www.sandbase.ai/model/web3-career/job-detail

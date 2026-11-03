@@ -78,9 +78,14 @@ Same call via the path form: `POST /v1/api/similarweb/subdomains` with the body 
 
 ## Details
 
-Get a website's subdomains with each subdomain's share of traffic.
+Returns the subdomains of a website, each with its share of the site's traffic. It needs a `domain`, a `start_date` and `end_date` in `YYYY-MM` format, and a `limit`.
 
-The response is the official Similarweb API response, unchanged.
+### Use cases
+
+- Check how much of a news site's traffic lands on its main domain versus regional or product subdomains.
+- Find which subdomains of a competitor carry the most visits before you study them further.
+- Track how traffic moves between subdomains after a site migration or redesign.
+- Compare desktop and mobile web subdomain mix by changing `web_source`.
 
 ### Request
 
@@ -91,24 +96,82 @@ curl -X POST "https://api.sandbase.ai/v1/api/similarweb/subdomains" \
   -d '{"start_date": "2026-09", "end_date": "2026-09", "country": "ww", "domain": "cnn.com", "limit": 2, "granularity": "monthly"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
 |---|---|---|---|
-| `country` | string | No | Worldwide data only; values are case-insensitive. |
 | `domain` | string | Yes | domain |
 | `end_date` | string | Yes | end_date |
-| `granularity` | string | No | granularity |
 | `limit` | integer | Yes | limit |
+| `start_date` | string | Yes | start_date |
+| `country` | string | No | Worldwide data only; values are case-insensitive. |
+| `granularity` | string | No | granularity |
 | `main_domain_only` | boolean | No | main_domain_only |
 | `offset` | integer | No | offset |
-| `start_date` | string | Yes | start_date |
 | `traffic_source` | string | No | traffic_source |
 | `web_source` | string | No | web_source |
 
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "data": [
+    {
+      "share": 0.7662921167867314,
+      "subdomain": "cnn.com"
+    }
+  ],
+  "meta": {
+    "last_updated": "2026-09-30",
+    "query": {
+      "asc": null,
+      "limit": 2,
+      "offset": 0,
+      "sort": null
+    },
+    "request": {
+      "country": "ww",
+      "domain": "cnn.com",
+      "end_date": "2026-09-30",
+      "format": "json",
+      "granularity": "monthly",
+      "main_domain_only": false,
+      "start_date": "2026-09-01",
+      "web_source": "desktop"
+    },
+    "status": "success"
+  }
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `data[]` | One subdomain per row, in the order returned. The number of rows follows `limit`. |
+| `data[].subdomain` | Hostname of the subdomain, for example `cnn.com` or `edition.cnn.com`. |
+| `data[].share` | Share of the domain's traffic that goes to this subdomain, as a decimal between 0 and 1. A value of `0.766` means about 76.6%. |
+| `meta.status` | Shows `success` when the call worked. |
+| `meta.last_updated` | Date of the latest data behind this result, such as `2026-09-30`. |
+| `meta.query.limit / meta.query.offset` | Page size and start position applied to the list. |
+| `meta.request.start_date / meta.request.end_date` | Date range the query used, expanded to full days. A monthly request for `2026-09` shows as `2026-09-01` to `2026-09-30`. |
+| `meta.request.web_source` | Device source applied to the query. The sample shows `desktop`. |
+| `meta.request.main_domain_only` | Shows whether the result was limited to the main domain. The sample shows `false`. |
+
+### Notes
+
+- Send dates as `YYYY-MM`. The sample request used `2026-09` for both `start_date` and `end_date`.
+- `limit` accepts 1 to 20. Add `offset` to page through more subdomains.
+- `country` accepts only `ww` (worldwide), and `granularity` accepts only `monthly`.
+- `web_source` accepts `desktop`, `mobile_web` or `total`. The sample response shows `desktop` when you do not set it.
+
 ### Pricing
 
-$0.15 per returned row (2 Similarweb credits), up to 20 rows; billed on rows returned. Failed calls are not charged.
+Billed at the actual cost of each call, about $0.15 for the request above. Failed calls are not charged.
 
 ---
 Machine-readable: [`catalog/models/similarweb/subdomains.json`](../../../catalog/models/similarweb/subdomains.json) · Store page: https://www.sandbase.ai/model/similarweb/subdomains

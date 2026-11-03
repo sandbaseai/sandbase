@@ -69,7 +69,14 @@ Same call via the path form: `POST /v1/api/hunter/discover-ai` with the body abo
 
 ## Details
 
-Describe target companies in plain language; an AI picks the filters and runs the search.
+This API turns a plain-language description of target companies into search filters and returns the matching companies. It needs one input, `query`, such as `AI startups in Paris`. Each result gives a company domain, name, and a count of email addresses found for it.
+
+### Use cases
+
+- Build a lead list of companies in a given city and sector for outbound sales.
+- Check which filters the AI chose for a query, then reuse them in a structured search.
+- Rank prospects by `emails_count.personal` to find companies with many named contacts.
+- Size a market by reading the total number of matching companies in `meta.results`.
 
 ### Request
 
@@ -80,7 +87,7 @@ curl -X POST "https://api.sandbase.ai/v1/api/hunter/discover-ai" \
   -d '{"query": "AI startups in Paris"}'
 ```
 
-This API runs asynchronously. The call returns a task `id` with status `pending`; poll `GET https://api.sandbase.ai/v1/run/{id}` until `status` is `completed` and read the result from `outputs[0].data`.
+The result is returned in `outputs[0].data`.
 
 ### Parameters
 
@@ -90,9 +97,79 @@ This API runs asynchronously. The call returns a task `id` with status `pending`
 | `limit` | integer | No | Companies per page. Default and max 100. |
 | `offset` | integer | No | Companies to skip. Max 10,000. |
 
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "data": [
+    {
+      "domain": "oecd.ai",
+      "emails_count": {
+        "generic": 0,
+        "personal": 67,
+        "total": 67
+      },
+      "organization": "OECD.AI"
+    }
+  ],
+  "meta": {
+    "filters": {
+      "headcount": [
+        "1-10"
+      ],
+      "headquarters_location": {
+        "include": [
+          {
+            "city": "Paris",
+            "country": "FR"
+          }
+        ]
+      },
+      "keywords": {
+        "include": [
+          "ai"
+        ],
+        "match": "any"
+      },
+      "year_founded": {
+        "from": 2020
+      }
+    },
+    "limit": 100,
+    "offset": 0,
+    "params": {
+      "query": "AI startups in Paris"
+    },
+    "results": 1612
+  }
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `data[].domain` | Website domain of the company, for example `omi.so`. |
+| `data[].organization` | Company name. |
+| `data[].emails_count.total` | Total number of email addresses found for the domain. It equals `generic` plus `personal` in the sample. |
+| `data[].emails_count.generic / data[].emails_count.personal` | Count of generic addresses and count of addresses tied to a person. |
+| `meta.filters` | The filters the AI built from your `query`. In the sample these are headcount, headquarters location, keywords and founding year. |
+| `meta.filters.headquarters_location.include[].city / meta.filters.headquarters_location.include[].country` | City and country code used to filter company headquarters. |
+| `meta.filters.keywords.include` | Keywords the search matched on. `meta.filters.keywords.match` shows whether any or all must match. |
+| `meta.results` | Total number of companies that match the filters, across all pages. |
+| `meta.limit / meta.offset` | Page size and number of companies skipped for this response. |
+
+### Notes
+
+- The AI sets the filters, so read `meta.filters` to see how it interpreted your `query`. Rewrite the query if the filters look wrong.
+- To page through results, increase `offset` by `limit`. `limit` is at most 100 and `offset` is at most 10,000.
+- Use the `domain` value as input when you want more detail on a single company with [Hunter Companies Find](/apis/hunter/companies-find).
+
 ### Pricing
 
-Flat price per call. Failed calls are not charged.
+$0.1 per successful call. Failed calls are not charged.
 
 ---
 Machine-readable: [`catalog/models/hunter/discover-ai.json`](../../../catalog/models/hunter/discover-ai.json) · Store page: https://www.sandbase.ai/model/hunter/discover-ai

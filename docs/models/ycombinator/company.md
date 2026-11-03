@@ -68,7 +68,14 @@ Same call via the path form: `POST /v1/api/ycombinator/company` with the body ab
 
 ## Details
 
-Retrieve full details for a YC company by its slug. Returns comprehensive company profile including founders with bios, social links, team size, description, and funding information.
+Returns the Y Combinator profile for one company, including its batch, location, tags, team size, website and social links, and a list of founders with bios. It needs one input, the company `slug`, such as `airbnb`.
+
+### Use cases
+
+- Pull a YC company's founders, titles and LinkedIn or Twitter links to build an outreach list.
+- Check a company's batch, founding year and `ycdc_status` to track which YC companies are still active or public.
+- Enrich a CRM record with a company's one-liner, description, tags, website and team size.
+- Find the YC group partner linked to a company.
 
 ### Request
 
@@ -79,7 +86,7 @@ curl -X POST "https://api.sandbase.ai/v1/api/ycombinator/company" \
   -d '{"slug": "airbnb"}'
 ```
 
-This API runs asynchronously. The call returns a task `id` with status `pending`; poll `GET https://api.sandbase.ai/v1/run/{id}` until `status` is `completed` and read the result from `outputs[0].data`.
+The result is returned in `outputs[0].data`.
 
 ### Parameters
 
@@ -87,9 +94,77 @@ This API runs asynchronously. The call returns a task `id` with status `pending`
 |---|---|---|---|
 | `slug` | string | Yes | Company slug identifier (e.g. 'airbnb', 'coinbase', 'stripe'). Obtainable from search_companies results. |
 
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "data": {
+    "app_answers": [],
+    "app_video_url": null,
+    "batch": "W09",
+    "batch_name": "Winter 2009",
+    "cb_url": "https://www.crunchbase.com/organization/airbnb",
+    "city": "San Francisco",
+    "city_tag": "san-francisco-bay-area",
+    "company_photos": [
+      {
+        "id": 164,
+        "photo_type": "sign",
+        "url": "https://bookface-images.s3.us-west-2.amazonaws.com/attachments/8a7236c94b4d9b78b…"
+      }
+    ],
+    "country": "US",
+    "dday_video_url": null,
+    "fb_url": "https://www.facebook.com/airbnb/",
+    "founders": [
+      {
+        "avatar_thumb_url": "https://bookface-images.s3.us-west-2.amazonaws.com/avatars/7415ee0d3978ae738c766…",
+        "founder_bio": "Brian Chesky is the co-founder,  Head of Community, and  CEO of Airbnb, which he…",
+        "full_name": "Brian Chesky",
+        "has_email": true,
+        "is_active": true,
+        "latest_yc_company": {
+          "href": "https://www.ycombinator.com/companies/airbnb",
+          "name": "Airbnb"
+        },
+        "linkedin_url": "https://www.linkedin.com/in/brianchesky/",
+        "title": "Founder/CEO",
+        "twitter_url": "https://twitter.com/bchesky",
+        "user_id": 21981
+      }
+    ]
+  },
+  "status": "success"
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `data.name / data.one_liner` | Company name and a short one-line description of what it does. |
+| `data.long_description` | Longer text description of the company. The sample response cuts it short. |
+| `data.batch / data.batch_name / data.year_founded` | YC batch code (for example `W09`), the batch's full name (`Winter 2009`), and the year the company was founded. |
+| `data.team_size` | Number of people on the company's team, as an integer. |
+| `data.ycdc_status` | The company's status in the YC directory, for example `Public`. |
+| `data.tags[]` | Industry or category labels for the company, such as `Marketplace` and `Travel`. |
+| `data.city / data.country / data.location` | Where the company is based. |
+| `data.website / data.linkedin_url / data.twitter_url / data.fb_url / data.cb_url` | Links to the company's website and its LinkedIn, Twitter, Facebook and Crunchbase pages. Some links, such as `github_url`, can be `null`. |
+| `data.founders[].full_name / data.founders[].title` | Each founder's name and role at the company, for example `Founder/CEO`. |
+| `data.founders[].founder_bio / data.founders[].linkedin_url / data.founders[].twitter_url` | Each founder's bio and social profile links. |
+| `data.primary_group_partner.full_name` | Name of the YC group partner tied to the company. `url` gives the partner's YC profile page. |
+
+### Notes
+
+- Get the `slug` from the `ycdc_url` of a search result, or from [Y Combinator Search Companies](/apis/ycombinator/search-companies). The slug is the last part of the URL, such as `airbnb`.
+- Each founder has a numeric `user_id`. Use it to look up more about that person with [Y Combinator Person Detail](/apis/ycombinator/person-detail).
+- Image URLs for logos, avatars and photos are signed links, so they carry query parameters.
+
 ### Pricing
 
-Flat price per call. Failed calls are not charged.
+$0.01 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ---
 Machine-readable: [`catalog/models/ycombinator/company.json`](../../../catalog/models/ycombinator/company.json) · Store page: https://www.sandbase.ai/model/ycombinator/company

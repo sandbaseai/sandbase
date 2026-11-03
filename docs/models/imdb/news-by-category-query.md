@@ -63,9 +63,14 @@ Same call via the path form: `POST /v1/api/imdb/news-by-category-query` with the
 
 ## Details
 
-Get IMDb news for a selected top, movie, TV, or celebrity category using language and country preferences. Use it to monitor entertainment news or research a specific category.
+Returns a list of IMDb news articles for one category: `TOP`, `MOVIE`, `TV` or `CELEBRITY`. Each article has a title, byline, date, link, image and source. The only required input is `category`, and `languageCountry` sets the language and country preference.
 
-The response is the platform's original data structure.
+### Use cases
+
+- Build a feed of the latest top entertainment headlines for a news app.
+- Track TV news such as renewals and cancellations by calling the `TV` category.
+- Collect celebrity news to follow coverage of specific people.
+- Compare headlines across `languageCountry` values to see how coverage differs by locale.
 
 ### Request
 
@@ -76,6 +81,8 @@ curl -X POST "https://api.sandbase.ai/v1/api/imdb/news-by-category-query" \
   -d '{"category": "TOP"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
@@ -83,9 +90,77 @@ curl -X POST "https://api.sandbase.ai/v1/api/imdb/news-by-category-query" \
 | `category` | string | Yes | News category to filter by. |
 | `languageCountry` | string | No | Language and country preferences. |
 
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "news": {
+    "__typename": "NewsConnection",
+    "edges": [
+      {
+        "node": {
+          "__typename": "News",
+          "articleTitle": {
+            "plainText": "Box Office Report: ‘You Can See Everything’ #1 in Third Week While ‘Resident Evi…"
+          },
+          "byline": "James Gamble",
+          "date": "2026-11-02T20:12:34Z",
+          "externalUrl": "https://www.imdb.com/news/ni66092278/",
+          "id": "ni66092278",
+          "image": {
+            "__typename": "Image",
+            "height": 5760,
+            "id": "rm3794127618",
+            "url": "https://m.media-amazon.com/images/M/MV5BZGQ5NjE5OGItZGEwMC00ZjJkLTllOTktM2RlNDk4…",
+            "width": 8640
+          },
+          "source": {
+            "description": null,
+            "homepage": {
+              "label": "IMDb News",
+              "url": "https://www.imdb.com/"
+            }
+          }
+        }
+      }
+    ],
+    "pageInfo": {
+      "__typename": "NewsPageInfo",
+      "endCursor": "NjYwOTE4Mjh8MjAyNi0xMS0wMiAxNjozNjoxOQ",
+      "hasNextPage": true
+    },
+    "total": 800472
+  }
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `news.edges[].node.articleTitle.plainText` | Headline of the article as plain text. |
+| `news.edges[].node.byline` | Name of the author of the article. |
+| `news.edges[].node.date` | Publication time of the article in UTC, in ISO 8601 format. |
+| `news.edges[].node.externalUrl` | Link to the article. It points to an IMDb news page or to the original publisher's site. |
+| `news.edges[].node.id` | IMDb news ID, such as `ni66092278`. |
+| `news.edges[].node.image.url` | URL of the article's image. |
+| `news.edges[].node.image.width / news.edges[].node.image.height` | Image dimensions. The values are pixel sizes of the image file. |
+| `news.edges[].node.source.homepage.label` | Name of the outlet that published the article, such as IMDb News or The Hollywood Reporter. |
+| `news.pageInfo.hasNextPage` | Whether more articles are available after this page. |
+| `news.total` | Total number of news items reported for the request. |
+
+### Notes
+
+- `category` accepts `TOP`, `MOVIE`, `TV` or `CELEBRITY`. `languageCountry` accepts values such as `en_US`, `fr_FR`, `de_DE` and `es_MX`, and defaults to `en_US`.
+- `news.pageInfo.endCursor` is a cursor for the next page, but this API lists no pagination parameter in its request schema.
+- Articles are ordered with the newest `date` first in this response.
+- To look up a title mentioned in a headline, try [IMDb Base Info](/apis/imdb/title-base-query) or [IMDb Top Cast and Crew](/apis/imdb/title-top-cast-and-crew).
+
 ### Pricing
 
-Flat price per call. Failed calls and empty results are not charged.
+$0.007143 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ---
 Machine-readable: [`catalog/models/imdb/news-by-category-query.json`](../../../catalog/models/imdb/news-by-category-query.json) · Store page: https://www.sandbase.ai/model/imdb/news-by-category-query

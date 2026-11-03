@@ -62,13 +62,14 @@ Same call via the path form: `POST /v1/api/firecrawl/search` with the body above
 
 ## Details
 
-Look up web search results using `query`. You can optionally restrict the total number of items returned using `limit`.
+Returns a ranked list of web pages that match a text query. Each result has a title, a description, a source URL, and its rank. The only required input is `query`, and `limit` caps the number of results.
 
 ### Use cases
 
-- Retrieve relevant web page URLs and snippets for research queries.
-- Gather search results to feed context into automated LLM pipelines.
-- Find source URLs and page metadata for specific search terms.
+- Collect source URLs and snippets for a research topic before reading the pages.
+- Feed search results into an LLM pipeline as context for a question.
+- Check which sites rank for a brand name such as `OpenAI`.
+- Build a list of URLs to pass to a scraper or crawler.
 
 ### Request
 
@@ -79,6 +80,8 @@ curl -X POST "https://api.sandbase.ai/v1/api/firecrawl/search" \
   -d '{"query": "OpenAI"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
@@ -88,28 +91,47 @@ curl -X POST "https://api.sandbase.ai/v1/api/firecrawl/search" \
 
 ### Example response
 
-Real response for the request above, trimmed to the main fields. User names and long IDs are masked.
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
 
 ```json
 {
-  "web": [
-    {
-      "description": "OpenAI | Research & Deployment  ## Latest research [An OpenAI model proposes a solution t…",
-      "title": "OpenAI | Research & Deployment",
-      "url": "https://openai.com/"
-    }
-  ]
+  "data": {
+    "web": [
+      {
+        "description": "OpenAI | Research & Deployment\n\n## Latest research\n[An OpenAI model proposes a s…",
+        "position": 1,
+        "title": "OpenAI | Research & Deployment",
+        "url": "https://openai.com/"
+      }
+    ]
+  },
+  "id": "01a1a053-d894-7766-8468-2b045150832c",
+  "success": true
 }
 ```
 
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `data.web[]` | List of search results, in ranked order. |
+| `data.web[].position` | Rank of the result in the list. `1` is the first result. |
+| `data.web[].title` | Title of the web page. |
+| `data.web[].url` | Source URL of the page. |
+| `data.web[].description` | Text taken from the page. It can be a short summary or raw page text with Markdown, links, and line breaks. |
+| `success` | `true` when the search call worked. |
+| `id` | Unique ID of this search response, in UUID format. |
+
 ### Notes
 
-- Specify `query` to set the search terms.
-- Use `limit` to configure the maximum number of results to return.
+- `query` can be up to 500 characters. `limit` accepts whole numbers from 1 to 100.
+- The `description` value can contain Markdown and image links, so clean it before showing it to users.
+- To read the full content of a result, pass its `url` to [Firecrawl Page Scraper](/apis/firecrawl/scrape).
+- To list other pages on the same site, pass the `url` to [Firecrawl URL Discovery](/apis/firecrawl/map).
 
 ### Pricing
 
-Flat price per call. Failed calls are not charged.
+$0.015 per successful call. Failed calls are not charged.
 
 ---
 Machine-readable: [`catalog/models/firecrawl/search.json`](../../../catalog/models/firecrawl/search.json) · Store page: https://www.sandbase.ai/model/firecrawl/search

@@ -71,13 +71,14 @@ Same call via the path form: `POST /v1/api/reddit/app/post-comments` with the bo
 
 ## Details
 
-Retrieve discussion comments for a Reddit submission using `post_id`. Configure comment order with `sort_type` and page through comment trees using `after`.
+Returns the comment tree for one Reddit post, including each comment's author, text, timestamp, depth and reply count. It needs a `post_id` in the form `t3_XXXXXX`. You can choose the comment sort order and page through the results.
 
 ### Use cases
 
-- Retrieve top discussion threads and reply trees under a Reddit submission.
-- Analyze audience sentiment and reactions across community discussions.
-- Extract recent community feedback by sorting comments by new.
+- Collect the top comments under a popular post to study how a community reacts to a news event.
+- Pull the newest comments with `sort_type` set to `NEW` to monitor a live thread.
+- Build a dataset of comment text and author names for sentiment analysis on one post.
+- Check which comments come from moderators or bots using the `distinguishedAs` field.
 
 ### Request
 
@@ -88,24 +89,122 @@ curl -X POST "https://api.sandbase.ai/v1/api/reddit/app/post-comments" \
   -d '{"post_id": "t3_1ojnvca"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
 |---|---|---|---|
 | `post_id` | string | Yes | Post ID, format like "t3_XXXXXX" |
-| `after` | string | No | Pagination parameter for fetching the next page, can be found in the last comment node in commentForest, e.g., $.data.postInfoById.commentForest.trees[-1].more… |
-| `sort_type` | string | No | Sort method, supports HOT, NEW, TOP, BEST, CONTROVERSIAL |
+| `after` | string | No | Pagination parameter for fetching the next page, can be found in the last comment node in commentForest, e.g., $.data.postInfoById.commentForest.trees[-1].more.cursor |
 | `need_format` | boolean | No | Whether to clean and format the data |
+| `sort_type` | string | No | Sort method, supports HOT, NEW, TOP, BEST, CONTROVERSIAL |
+
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "postInfoById": {
+    "__typename": "SubredditPost",
+    "commentCount": 1905,
+    "commentForest": {
+      "__typename": "CommentForest",
+      "pageInfo": {
+        "commentCount": 1802,
+        "hasNextPage": true
+      },
+      "trees": [
+        {
+          "childCount": 0,
+          "depth": 0,
+          "more": null,
+          "node": {
+            "__typename": "Comment",
+            "authorCommunityBadge": null,
+            "authorFlair": null,
+            "authorInfo": {
+              "__typename": "Redditor",
+              "accountType": "USER",
+              "iconSmall": {
+                "__typename": "MediaSource",
+                "dimensions": {
+                  "height": 50,
+                  "width": 50
+                },
+                "url": "https://styles.redditmedia.com/t5_1yz875/styles/profileIcon_klqlly9fc4l41.png?wi…"
+              },
+              "id": "t2_6l4z3",
+              "isBlocked": false,
+              "isCakeDayNow": false,
+              "isPremiumAvatarTreatment": true,
+              "name": "AutoModerator"
+            },
+            "commentStats": null,
+            "content": {
+              "__typename": "Content",
+              "markdown": "It looks like this post is about Politics. Various methods of filtering out cont…",
+              "preview": "It looks like this post is about Politics. Various methods of filtering out cont…",
+              "richtext": "{\"document\":[{\"c\":[{\"e\":\"text\",\"t\":\"It looks like this post is about Politics. V…",
+              "richtextMedia": [],
+              "translationInfo": {
+                "isTranslated": false,
+                "translatedLanguage": null
+              },
+              "typeHint": "TEXT"
+            },
+            "createdAt": "2025-10-30T02:17:24.998000+0000",
+            "distinguishedAs": "MODERATOR"
+          },
+          "parentId": null
+        }
+      ]
+    },
+    "id": "t3_1ojnvca",
+    "subreddit": {
+      "allowedMediaInComments": [
+        "GIPHY"
+      ],
+      "id": "t5_2qh0u",
+      "isQuarantined": false,
+      "moderation": {
+        "isShowCommentRemovalReasonPrompt": true
+      },
+      "name": "pics",
+      "prefixedName": "r/pics",
+      "tippingStatus": null
+    },
+    "title": "Official photo of Trump-Xi meeting in Busan, South Korea"
+  }
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `postInfoById.title` | Title of the post the comments belong to. |
+| `postInfoById.commentCount` | Total comment count for the post. |
+| `postInfoById.commentForest.pageInfo.hasNextPage` | `true` when more comments can be fetched with another page request. |
+| `postInfoById.commentForest.pageInfo.commentCount` | Comment count reported for the forest in this response. |
+| `postInfoById.commentForest.trees[].depth` | Nesting level of the comment. `0` is a top-level comment, `1` is a reply to it, and so on. |
+| `postInfoById.commentForest.trees[].childCount` | Number of replies under this comment. |
+| `postInfoById.commentForest.trees[].parentId` | ID of the parent comment, such as `t1_nm4jkk6`. It is `null` for top-level comments. |
+| `postInfoById.commentForest.trees[].node.authorInfo.name / postInfoById.commentForest.trees[].node.authorInfo.id` | Username and user ID (format `t2_...`) of the comment author. |
+| `postInfoById.commentForest.trees[].node.content.markdown / postInfoById.commentForest.trees[].node.content.preview` | Comment text as Markdown and as a short plain-text preview. |
+| `postInfoById.commentForest.trees[].node.createdAt / postInfoById.commentForest.trees[].node.distinguishedAs` | ISO 8601 creation time of the comment, and a label such as `MODERATOR` when the comment is distinguished. The label is `null` otherwise. |
 
 ### Notes
 
-- `post_id` expects an identifier formatted like t3_XXXXXX.
-- Supported `sort_type` options include HOT, NEW, TOP, BEST, and CONTROVERSIAL.
-- Pagination uses the `after` cursor obtained from the last comment node in the comment forest.
+- Pass `post_id` with the `t3_` prefix, for example `t3_1ojnvca`.
+- `sort_type` accepts `HOT`, `NEW`, `TOP`, `BEST` and `CONTROVERSIAL`. The default is `CONFIDENCE`.
+- When `hasNextPage` is `true`, take the cursor from the last item in `commentForest.trees[]` (its `more.cursor` value) and send it as `after`.
+- To load the replies under a single comment, call [Reddit App Comment Replies](/apis/reddit/app/comment-replies). For the post itself, use [Reddit Post Details](/apis/reddit/app/post-details).
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

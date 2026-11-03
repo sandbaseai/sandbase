@@ -68,13 +68,14 @@ Same call via the path form: `POST /v1/api/douyin/xingtu-v2/item-play-count` wit
 
 ## Details
 
-Pass a Douyin video ID and get its play count from XingTu, which Douyin does not show publicly, together with basic video details.
+Returns the play count (`watch_cnt`) of a Douyin video, plus video details such as author ID, title, cover URL, duration, publish time and engagement stats. It needs the video ID in `item_id`.
 
 ### Use cases
 
-- Verify real views of sponsored videos.
-- Track play counts for campaign reporting.
-- Compare views with likes to spot anomalies.
+- Check the play count of a sponsored Douyin video for campaign reports.
+- Compare `like_cnt`, `share_cnt` and `comment_cnt` against `watch_cnt` to judge how well a video engages viewers.
+- Pull the cover image and title of a video to show it in a dashboard.
+- Link a video back to its creator through `item.author_id`.
 
 ### Request
 
@@ -84,6 +85,8 @@ curl -X POST "https://api.sandbase.ai/v1/api/douyin/xingtu-v2/item-play-count" \
   -H "Content-Type: application/json" \
   -d '{"item_id": "7630036460159111515"}'
 ```
+
+The result is returned in `outputs[0].data`.
 
 ### Parameters
 
@@ -95,18 +98,72 @@ curl -X POST "https://api.sandbase.ai/v1/api/douyin/xingtu-v2/item-play-count" \
 
 ### Example response
 
-Real response for the request above, trimmed to the main fields. User names and long IDs are masked.
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
 
 ```json
 {
+  "exist": true,
+  "item": {
+    "author_id": "78050876812",
+    "cover_uri": "tos-cn-i-0813c001/okH4NI7QDNMW1CqOgEf3AZAAbF1cApAAr229eG",
+    "cover_url": "https://p26-star-fe-sign.byteimg.com/tos-cn-i-0813c001/okH4NI7QDNMW1CqOgEf3AZAAb…",
+    "create_time": "1776506300",
+    "duration": 28.234,
+    "id": "7630036460159111515",
+    "stats": {
+      "avg_watch_dura": "0",
+      "comment_cnt": "905",
+      "favorite_cnt": "13473",
+      "interact_rate": 0.0155,
+      "like_cnt": "143631",
+      "share_cnt": "52842",
+      "watch_cnt": "12706869"
+    },
+    "status": 102,
+    "title": "哈哈哈哈哈哈哈哈哈  我还以为真不怕痛呢 哈哈哈哈哈哈哈哈",
+    "topic_ids": [],
+    "url": "https://www.iesdouyin.com/share/video/7630036460159111515/?region=CN&mid=7630036…",
+    "video_id": "v0d00fg10000d7hlb0vog65k07cn1neg"
+  },
   "item_id": "7630036460159111515",
-  "watch_cnt": 12644412
+  "stats": {
+    "avg_watch_dura": "0",
+    "comment_cnt": "905",
+    "favorite_cnt": "13473",
+    "interact_rate": 0.0155,
+    "like_cnt": "143631",
+    "share_cnt": "52842",
+    "watch_cnt": "12706869"
+  },
+  "watch_cnt": 12706869
 }
 ```
 
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `watch_cnt` | Play count of the video as a number. The same value also appears as a string in `stats.watch_cnt`. |
+| `exist` | Whether the video was found. A `true` value means the video data is filled in. |
+| `stats.like_cnt / stats.comment_cnt / stats.favorite_cnt / stats.share_cnt` | Counts of likes, comments, favorites and shares. They come back as strings. |
+| `stats.interact_rate` | Interaction rate of the video as a decimal number, for example `0.0155`. |
+| `stats.avg_watch_dura` | Average watch duration. The sample value is `"0"`, and the unit is not shown in the response. |
+| `item.title` | Video caption text. |
+| `item.author_id` | ID of the creator who posted the video. |
+| `item.create_time` | Publish time as a Unix timestamp in seconds, returned as a string. |
+| `item.duration` | Video length. The sample value is `28.234`. |
+| `item.cover_url` | Link to the video cover image. It is a signed URL with an `x-expires` parameter. |
+
+### Notes
+
+- `item_id` is the numeric Douyin video ID, which also appears in the `item.url` share link.
+- `need_cover_url` defaults to `true`. Set it to `false` if you do not need `item.cover_url`.
+- The `stats` object and `watch_cnt` are also at the top level, so you can read the play count without opening `item`.
+- To get stats for many videos in one call, use [Douyin Xingtu Batch Video Stats](/apis/douyin/xingtu-v2/multi-get-item-stats). For creator details, call [Douyin Xingtu Author Base Info](/apis/douyin/xingtu-v2/author-base-info) with the author ID.
+
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.002 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

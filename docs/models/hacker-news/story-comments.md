@@ -61,7 +61,14 @@ Same call via the path form: `POST /v1/api/hacker-news/story-comments` with the 
 
 ## Details
 
-List the comments on a Hacker News story by id - text, author, and timestamp as clean JSON.
+Returns the comments on a Hacker News story as a flat list. Each comment has its author, text, timestamp, and the id of the item it replies to. You send the story `id` as input.
+
+### Use cases
+
+- Pull the full discussion of a Hacker News post to run sentiment or topic analysis.
+- Rebuild the reply tree of a thread using the `id` and `parentId` of each comment.
+- Track what a specific user said on a story by filtering on `author`.
+- Archive the text of a discussion together with permalinks back to the original comments.
 
 ### Request
 
@@ -72,7 +79,7 @@ curl -X POST "https://api.sandbase.ai/v1/api/hacker-news/story-comments" \
   -d '{"id": "47340079"}'
 ```
 
-The result is returned in `outputs[0].data`. A lookup that finds nothing still succeeds and returns `found: false`.
+The result is returned in `outputs[0].data`.
 
 ### Parameters
 
@@ -80,9 +87,52 @@ The result is returned in `outputs[0].data`. A lookup that finds nothing still s
 |---|---|---|---|
 | `id` | string | Yes | Hacker News story id, e.g. "47340079". |
 
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "data": {
+    "comments": [
+      {
+        "author": "fcpguru",
+        "createdUtc": 1773257417,
+        "id": "47340089",
+        "parentId": "47340079",
+        "permalink": "https://news.ycombinator.com/item?id=47340089",
+        "postId": "47340079",
+        "text": "i agree but how is this ever going to be enforced verified? https://proofofhuman…"
+      }
+    ]
+  },
+  "found": true
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `data.comments[].id` | Id of the comment, as a string. |
+| `data.comments[].author` | Hacker News username of the person who wrote the comment. |
+| `data.comments[].text` | Text of the comment. |
+| `data.comments[].createdUtc` | Time the comment was posted, as a Unix timestamp in seconds. |
+| `data.comments[].parentId` | Id of the item this comment replies to. It equals the story id for top-level comments and another comment's `id` for replies. |
+| `data.comments[].postId` | Id of the story the comment belongs to. |
+| `data.comments[].permalink` | Link to the comment on news.ycombinator.com. |
+| `found` | `true` when the story was found. A lookup that finds nothing returns `found: false`. |
+
+### Notes
+
+- The `id` is the number in the story URL, for example `item?id=47340079`.
+- The list is flat. Replies are linked to their parent through `parentId`, so group by `parentId` to build the thread tree.
+- To get the title, score, or link of the story itself, call [Hacker News Story](/apis/hacker-news/story).
+- To find a story id by keyword, call [Hacker News Search](/apis/hacker-news/search).
+
 ### Pricing
 
-Billed at the actual cost of each call, usually $0.0015 per request. A call can cost more when the first data source fails and another one answers. Failed calls are not charged. Lookups that find nothing and searches with no results are billed at their actual cost, which is often lower and can be $0.
+Billed at the actual cost of each call, about $0.0015 for the request above. Failed calls are not charged.
 
 ---
 Machine-readable: [`catalog/models/hacker-news/story-comments.json`](../../../catalog/models/hacker-news/story-comments.json) · Store page: https://www.sandbase.ai/model/hacker-news/story-comments

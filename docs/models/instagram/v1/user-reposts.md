@@ -63,13 +63,14 @@ Same call via the path form: `POST /v1/api/instagram/v1/user-reposts` with the b
 
 ## Details
 
-Retrieve shared posts and reposted media for a specific account using `user_id`. Supports cursor-based pagination through `max_id`.
+Returns a paginated list of reposted and shared Instagram media for one account. The only required input is the numeric Instagram `user_id`.
 
 ### Use cases
 
-- Track media reposted by target Instagram profiles.
-- Inspect engagement metrics on shared user content.
-- Gather repost histories for creator and audience analytics.
+- Build a history of the posts and reels an account has reposted.
+- Find which creators an account reposts most by reading the co-author entries on each item.
+- Compare comment counts across reposted items to see which shared content drew the most discussion.
+- Page through an account's full repost list by passing the returned cursor back as `max_id`.
 
 ### Request
 
@@ -80,6 +81,8 @@ curl -X POST "https://api.sandbase.ai/v1/api/instagram/v1/user-reposts" \
   -d '{"user_id": "25025320"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
@@ -89,62 +92,58 @@ curl -X POST "https://api.sandbase.ai/v1/api/instagram/v1/user-reposts" \
 
 ### Example response
 
-Real response for the request above, trimmed to the main fields. User names and long IDs are masked.
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
 
 ```json
 {
+  "attempts": "95",
   "items": [
     {
-      "caption_is_edited": false,
-      "carousel_media_count": 5,
-      "carousel_media_pending_post_count": 0,
-      "coauthor_producer_can_see_organic_insights": false,
-      "comment_count": 4477,
-      "filter_type": 0,
-      "id": "3997941272011173993_36623372661",
-      "like_and_view_counts_disabled": false,
-      "like_count": 26048,
-      "media_repost_count": 1502,
-      "caption": {
-        "__typename": "XDTCommentDict",
-        "content_type": "comment",
-        "media_id": "3997941272011173993",
-        "private_reply_status": 0,
-        "status": "Active",
-        "text": "Make it Instagram official. You can now add your Muse to your profile."
-      },
-      "mashup_info": {
-        "non_privacy_filtered_mashups_media_count": 0
-      },
-      "owner": {
-        "__typename": "XDTUserDict",
-        "full_name": "Muse",
-        "id": "36623372661",
-        "profile_pic_id": "3981848964622792966_36623372661",
-        "profile_pic_url": "https://scontent-phl2-1.cdninstagram.com/v/t51.82787-19/800604240_18094883642220…",
-        "username": "<user>"
-      },
-      "user": {
-        "__typename": "XDTUserDict",
-        "account_type": 2,
-        "full_name": "Muse",
-        "id": "36623372661",
-        "profile_pic_id": "3981848964622792966_36623372661",
-        "profile_pic_url": "https://scontent-phl2-1.cdninstagram.com/v/t51.82787-19/800604240_18094883642220…"
-      }
+      "accessibility_caption": null,
+      "all_previous_submitters": null,
+      "are_remixes_crosspostable": true,
+      "attribution_content_url": null,
+      "audience": null,
+      "autodub_status": null,
+      "boost_unavailable_identifier": null,
+      "boost_unavailable_reason": null,
+      "boost_upsell_banner_payload": null,
+      "boosted_post_id": null,
+      "boosted_status": null,
+      "byoa_langs": null
     }
-  ]
+  ],
+  "more_available": true,
+  "next_max_id": "QVFETDlKMWlrSktSYWhtUVNvMXVKaWtyVFlpNEJ2dUNlcWkya2J6RXdtNzlWSE5vX1lybVlWalg3Q0dV…"
 }
 ```
 
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `items[]` | One reposted or shared media item. Each entry is a post, reel, or carousel. |
+| `items[].code` | Short code of the post. It is the identifier used in Instagram post URLs. |
+| `items[].client_cache_key` | Cache key string for the item. Use it to tell items apart. |
+| `items[].comment_count` | Number of comments on the item. |
+| `items[].caption.created_at / items[].caption.created_at_utc` | Unix timestamp for the caption. Both fields carry the same value in this response. |
+| `items[].caption_is_edited` | Whether the caption was edited after posting. |
+| `items[].carousel_media[]` | Slides of a carousel post. Each slide has an `id` and `image_versions2.candidates[]` with image `url`, `width` and `height`. |
+| `items[].carousel_media_count` | Total number of slides in a carousel post. It is `null` for non-carousel items. |
+| `items[].clips_metadata.audio_type` | Type of audio on a reel, for example `original_sounds`. It is `null` when the item is not a reel. |
+| `items[].coauthor_producers[]` | Co-authors of the item. Each entry has `id`, `full_name`, `is_verified`, `is_private` and `profile_pic_url`. |
+| `more_available` | `true` when more reposts can be fetched. |
+| `next_max_id` | Cursor for the next page. Send it as `max_id` in the next request. |
+
 ### Notes
 
-- Pass `user_id` to identify the target Instagram profile.
-- Omit `max_id` on the initial call and pass the pagination cursor to page through results.
+- To get `user_id`, call [Instagram User Info by Username](/apis/instagram/v1/user-info-by-username) with a handle and read the account ID from the result.
+- Omit `max_id` on the first call. While `more_available` is `true`, pass `next_max_id` as `max_id` to get the next page.
+- Use the `code` value with [Instagram Post Details by ID](/apis/instagram/v1/post-by-id) or the post-by-URL APIs to look up a single item in more detail.
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

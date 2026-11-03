@@ -65,13 +65,14 @@ Same call via the path form: `POST /v1/api/wechat-channels/v2/live-detail` with 
 
 ## Details
 
-Retrieve detailed room metrics, anchor information, and replay availability by passing a target `live_id` and optional `finder_username`.
+Returns details for one WeChat Channels live room: the anchor's profile and bound accounts, the live status, and timing and engagement counters for the session. It needs a numeric `live_id`. The default response is the raw payload, and `raw` set to `false` returns a simplified structure.
 
 ### Use cases
 
-- Inspect anchor information and real-time room status.
-- Check online viewer counts during an active session.
-- Retrieve replay details from completed broadcasts.
+- Check whether a live room has ended by reading `liveStatus` and `liveInfo.endTime`.
+- Pull the anchor's nickname, avatar, signature and verification details for a given live session.
+- Find the public account linked to a live anchor through the bound account entries.
+- Measure how long a finished stream ran using `liveInfo.liveElapsedTime`.
 
 ### Request
 
@@ -82,24 +83,126 @@ curl -X POST "https://api.sandbase.ai/v1/api/wechat-channels/v2/live-detail" \
   -d '{"live_id": "2078950291205875194"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
 |---|---|---|---|
-| `live_id` | string | Yes | Live ID (numeric). |
-| `raw` | boolean | No | Optional, default True. |
+| `live_id` | string | Yes | Live ID (numeric). Source: replay items of `fetch_live_history`, live entry, or live share. E.g. `2078950291205875194`. |
+| `finder_username` | string | No | Optional, anchor finder username (`v2_…@finder` format), improves hit rate. E.g. `v2_060000231003b20faec8cae1811ac4d5c702ea32b0771737aa785454f7f8177114cc4d248d66@finder` (Huxiu). |
+| `raw` | boolean | No | Optional, default True. True=raw response; False=simplified parsed structure. |
 | `scene` | integer | No | Optional, entry scene, default 5. |
-| `finder_username` | string | No | Optional, anchor finder username (`v2_…@finder` format), improves hit rate. |
+
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "abnormalClosePage": null,
+  "anchorContact": {
+    "additionalFlag": 201,
+    "archievementInfo": null,
+    "authInfo": {
+      "appName": "gh_4ee148a6ecaa@app",
+      "authGuarantor": null,
+      "authIconType": 2,
+      "authIconUrl": "https://dldir1v6.qq.com/weixin/checkresupdate/icons_filled_channels_authenticati…",
+      "authProfession": "北京虎嗅信息科技股份有限公司",
+      "authVerifyIdentity": 3,
+      "customerType": 1,
+      "detailLink": "pages/index/index.html?showdetail=true&username=v2_060000231003b20faec8cae1811ac…",
+      "pbRequestMsgInfo": null,
+      "realName": "",
+      "unauthProfession": "",
+      "verifyStatus": 0
+    },
+    "bindInfo": [
+      {
+        "bindType": 4,
+        "bizInfo": null,
+        "pbRequestMsgInfo": null,
+        "profileBizInfo": {
+          "info": [
+            {
+              "authInfo": null,
+              "bizNickname": "虎嗅APP",
+              "bizUin": 0,
+              "bizUsername": "wxid_7620846208112",
+              "friendFollowCount": 0,
+              "headImgUrl": "https://wx.qlogo.cn/mmhead/ver_1/ZiaKbNU8WkY5x0OJj4Hj3f0oiaznQz6LLxUsZeXIJRcLukO…",
+              "pbRequestMsgInfo": null,
+              "serviceTypeName": "公众号"
+            }
+          ],
+          "miniapps": [],
+          "pbRequestMsgInfo": null
+        },
+        "qqmusicInfo": null,
+        "stickerInfo": null,
+        "wecomInfo": null
+      }
+    ],
+    "clubInfo": null,
+    "coverEntranceFlag": 0,
+    "coverImgUrl": "http://mmsns.qpic.cn/mmsns/B2EfAOZfS1gDQfFF87q9ZrpjCaxbyB46BMsxicdXsvkqtgxWtibAp…",
+    "coverUrl": "",
+    "extFlag": 2490372,
+    "extInfo": {
+      "birthDay": 0,
+      "birthMonth": 0,
+      "birthYear": 0,
+      "city": "",
+      "country": "CN",
+      "pbRequestMsgInfo": null,
+      "province": "",
+      "sex": 0
+    },
+    "fansCount": 0,
+    "feedCount": 0
+  },
+  "anchorInfo": {
+    "anchorLiveStatus": 2,
+    "pbRequestMsgInfo": null
+  },
+  "anchorNewLiveJumpInfo": null,
+  "anchorQuestEntrance": null,
+  "audienceEndPageControl": 0,
+  "audienceFollowInfo": null,
+  "audienceMicStats": null,
+  "authCollectJumpInfo": null,
+  "autoGenReplayOption": null,
+  "autoPlayControlFlag": 0,
+  "backupFeedsOnImpression": null
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `liveInfo.liveId` | Numeric ID of the live room. It matches the `live_id` you sent. |
+| `liveInfo.endTime` | End time of the live session. The value looks like a Unix timestamp in seconds. |
+| `liveInfo.liveElapsedTime` | Elapsed time of the session, as a number. In this response it is `6368`. |
+| `liveInfo.likeCnt / liveInfo.forwardCnt / liveInfo.heatValue` | Like count, forward count and heat value for the live room. All are `0` in this response. |
+| `anchorContact.nickname` | Display name of the anchor account. |
+| `anchorContact.signature` | Profile signature text of the anchor. |
+| `anchorContact.headUrl` | Avatar image URL of the anchor. |
+| `anchorContact.authInfo.authProfession` | Verified organization name shown on the anchor's account. |
+| `anchorContact.bindInfo[].profileBizInfo.info[].bizNickname / anchorContact.bindInfo[].profileBizInfo.info[].bizUsername` | Name and username of an official account linked to the anchor. `serviceTypeName` gives the account type. |
+| `anchorContact.liveStatus / anchorInfo.anchorLiveStatus` | Numeric live status code for the anchor. Both are `2` in this response, and the response does not explain the code. |
 
 ### Notes
 
-- Set `raw` to false to obtain a simplified parsed response instead of the raw payload.
-- Providing `finder_username` alongside `live_id` improves lookup accuracy.
-- The `live_id` can be obtained from broadcast history items, entry points, or share links.
+- Get `live_id` from the replay items of [WeChat Channels Stream Replay History](/apis/wechat-channels/v2/live-history), or from a live entry or live share.
+- Pass `finder_username` in the `v2_…@finder` format to improve the hit rate. [WeChat Channels ID to Username](/apis/wechat-channels/v2/channel-id-to-username) converts a Channel ID into this value.
+- `liveId` is a number in the response, while `live_id` is a string in the request.
+- Most fields in the raw response are `null`, `0` or empty strings for this ended session.
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.01 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

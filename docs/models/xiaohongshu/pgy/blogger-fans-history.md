@@ -62,13 +62,14 @@ Same call via the path form: `POST /v1/api/xiaohongshu/pgy/blogger-fans-history`
 
 ## Details
 
-Retrieve historical follower counts for a specified blogger using `user_id`. You can also filter the date window by passing `date_type`.
+Returns daily follower counts for a Xiaohongshu (RED) Pugongying (PGY) blogger. It needs the blogger's `user_id` and optionally a date range set with `date_type`.
 
 ### Use cases
 
-- Track follower growth curves for specific Xiaohongshu creators.
-- Evaluate long-term audience momentum before partnering with influencers.
-- Analyze sudden spikes or drops in blogger follower numbers over time.
+- Plot a creator's follower curve over the last 7, 30 or 90 days.
+- Spot days where a blogger's follower count jumps or drops.
+- Compare net follower gain across several candidate creators before a campaign.
+- Check recent growth against the total gain to screen influencers.
 
 ### Request
 
@@ -79,6 +80,8 @@ curl -X POST "https://api.sandbase.ai/v1/api/xiaohongshu/pgy/blogger-fans-histor
   -d '{"user_id": "60b137080000000001000301"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
@@ -88,28 +91,47 @@ curl -X POST "https://api.sandbase.ai/v1/api/xiaohongshu/pgy/blogger-fans-histor
 
 ### Example response
 
-Real response for the request above, trimmed to the main fields. User names and long IDs are masked.
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
 
 ```json
 {
+  "code": 0,
   "data": {
+    "fansNumInc": 151,
+    "fansNumIncRate": 0.004035383094150031,
     "list": [
       {
-        "dateKey": "2026-09-06",
-        "num": 37199
+        "dateKey": "2026-10-04",
+        "num": 37419
       }
     ]
-  }
+  },
+  "guid": null,
+  "msg": "成功",
+  "success": true
 }
 ```
 
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `data.fansNumInc` | Net change in followers over the returned period, as a whole number. |
+| `data.fansNumIncRate` | Follower growth over the period as a decimal ratio. A value of `0.004` means about 0.4%. |
+| `data.list[].dateKey` | Date of the data point, in `YYYY-MM-DD` format. |
+| `data.list[].num` | Follower count of the blogger on that date. |
+| `success / code` | `success` is `true` and `code` is `0` when the call works. |
+| `msg` | Status message text. It reads `成功` (success) on a good call. |
+
 ### Notes
 
-- `date_type` accepts integer values corresponding to time windows: 1 for 7 days, 2 for 30 days, and 3 for 90 days.
+- Pass `user_id` as a string. The example value is `60b137080000000001000301`. Look up blogger IDs with [Xiaohongshu (RED) PGY Blogger Search](/apis/xiaohongshu/pgy/blogger-list).
+- `date_type` is optional. `1` means 7 days, `2` means 30 days and `3` means 90 days. The schema allows values from 1 to 12.
+- For the current audience makeup, call [Xiaohongshu (RED) PGY Blogger Fan Profile](/apis/xiaohongshu/pgy/blogger-fans-profile).
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.02 per successful call. Failed calls are not charged.
 
 ### Related APIs
 

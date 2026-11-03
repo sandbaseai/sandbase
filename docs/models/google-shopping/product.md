@@ -73,7 +73,14 @@ Same call via the path form: `POST /v1/api/google-shopping/product` with the bod
 
 ## Details
 
-One Google Shopping product's merchant offers, prices, specifications, reviews and related products.
+Returns details for one Google Shopping product, including its title, description, specifications and thumbnail images. You pass a search term `q` and a product cluster ID `gpcid`, usually with the companion document IDs from the same shopping result.
+
+### Use cases
+
+- Pull the specification list for a coffee maker to build a side-by-side comparison table.
+- Fetch the product description and images to fill a catalog page for an item found in a shopping search.
+- Check which product title and `gpcid` Google resolves for a search term and ID pair.
+- Collect thumbnail URLs for a product to show in a price-tracking dashboard.
 
 ### Request
 
@@ -100,12 +107,60 @@ The result is returned in `outputs[0].data`.
 | `image_docid` | string | No | Optional image document ID from the same shopping result; use with gpcid. |
 | `location` | string | No | Human-readable search location, such as Austin, Texas. At most 63 UTF-8 bytes. Mutually exclusive with uule. |
 | `prds` | string | No | Google product selector token from a previous response. Mutually exclusive with gpcid and its companion document IDs. |
-| `timeout` | number | No | Optional budget for the entire request in seconds, measured from gateway receipt until the response is ready to send. Includes admission, queueing and settlement. Must be greater t |
+| `timeout` | number | No | Optional budget for the entire request in seconds, measured from gateway receipt until the response is ready to send. Includes admission, queueing and settlement. Must be greater than 0 and at most 90. On expiry, the cal |
 | `uule` | string | No | Pre-encoded Google location token. Mutually exclusive with location. |
+
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "offers": null,
+  "product_result": {
+    "description": "Kickstart your mornings with the invigorating aroma of freshly brewed coffee, th…",
+    "gpcid": "3753285529675071078",
+    "headline_offer_docid": "2823574139643882398",
+    "image_docid": "5002652757944012799",
+    "specifications": [
+      {
+        "name": "Capacity",
+        "value": "10 cups"
+      }
+    ],
+    "thumbnail": "https://encrypted-tbn0.gstatic.com/shopping?q=tbn:ANd9GcSE-TeJ2k_-GjVS30DtuitDDc…",
+    "thumbnails": [
+      "https://encrypted-tbn0.gstatic.com/shopping?q=tbn:ANd9GcSE-TeJ2k_-GjVS30DtuitDDc…"
+    ],
+    "title": "Starfrit 10-Cup Drip Coffee Maker"
+  }
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `product_result.title` | Product name as Google Shopping shows it. |
+| `product_result.description` | Text description of the product. Long descriptions may be cut off in the sample. |
+| `product_result.gpcid` | Product cluster ID of the product. It matches the `gpcid` you sent. |
+| `product_result.headline_offer_docid / product_result.image_docid` | Document IDs for the headline offer and the product image. Use them with `gpcid` in later requests. |
+| `product_result.specifications[].name` | Name of a product attribute, such as `Capacity` or `Depth`. |
+| `product_result.specifications[].value` | Value of that attribute, written with its unit, such as `10 cups` or `7.97 in`. |
+| `product_result.thumbnail` | URL of the main product thumbnail image. |
+| `product_result.thumbnails[]` | URLs of additional thumbnail images for the product. |
+| `offers` | Merchant offers for the product. This is `null` in this response, so no offers were returned for this request. |
+
+### Notes
+
+- Get `gpcid`, `headline_offer_docid` and `image_docid` from one result of the same shopping search, for example with [Google Shopping Search](/apis/google-shopping/search).
+- Send `q` with every request. It is the only required parameter.
+- Use either `prds` or `gpcid` with its companion IDs, not both. `location` and `uule` are also mutually exclusive.
+- The data is in `outputs[0].data`. The `offers` key can be `null`, so check it before you read it.
 
 ### Pricing
 
-Flat price per call. Failed calls are not charged.
+$0.00015 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ---
 Machine-readable: [`catalog/models/google-shopping/product.json`](../../../catalog/models/google-shopping/product.json) · Store page: https://www.sandbase.ai/model/google-shopping/product

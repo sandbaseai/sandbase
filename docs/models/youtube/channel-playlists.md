@@ -59,7 +59,14 @@ Same call via the path form: `POST /v1/api/youtube/channel-playlists` with the b
 
 ## Details
 
-List a YouTube channel's playlists by handle or channel ID with cursor pagination (title, video count, thumbnail).
+Returns the playlists of a YouTube channel, with each playlist's title, video count, thumbnail and links. It needs a channel `handle` such as `@veritasium` or a `channelId`.
+
+### Use cases
+
+- Build a table of contents for a creator's content by listing every playlist and its size.
+- Find a channel's topic series, such as Biology or Computing, to group its videos by subject.
+- Collect playlist URLs to feed into a playlist tracker or a content audit.
+- Show playlist cover images in a channel directory or a recommendation widget.
 
 ### Request
 
@@ -70,7 +77,7 @@ curl -X POST "https://api.sandbase.ai/v1/api/youtube/channel-playlists" \
   -d '{"handle": "@veritasium"}'
 ```
 
-The result is returned in `outputs[0].data`. A lookup that finds nothing still succeeds and returns `found: false`.
+The result is returned in `outputs[0].data`.
 
 ### Parameters
 
@@ -80,9 +87,53 @@ The result is returned in `outputs[0].data`. A lookup that finds nothing still s
 | `cursor` | string | No | Continuation token from a previous response for pagination. |
 | `handle` | string | No | YouTube channel handle. |
 
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "data": {
+    "nextCursor": null,
+    "playlists": [
+      {
+        "id": "PLkahZjV5wKe8w9GC_n2yyhx6Wj-NKzzeE",
+        "playlistUrl": "https://www.youtube.com/playlist?list=PLkahZjV5wKe8w9GC_n2yyhx6Wj-NKzzeE",
+        "thumbnail": "https://i.ytimg.com/vi/AaZ_RSt0KP8/hqdefault.jpg?sqp=-oaymwEXCOADEI4CSFryq4qpAwk…",
+        "title": "Computing",
+        "videoCount": 5,
+        "videoId": "AaZ_RSt0KP8",
+        "videoUrl": "https://www.youtube.com/watch?v=AaZ_RSt0KP8"
+      }
+    ]
+  },
+  "found": true
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `data.playlists[].id` | The playlist ID. It starts with `PL` and works as the `list` value in the playlist URL. |
+| `data.playlists[].title` | The playlist name, for example `Computing`. |
+| `data.playlists[].videoCount` | The number of videos in the playlist. |
+| `data.playlists[].playlistUrl` | A direct link to the playlist page on YouTube. |
+| `data.playlists[].thumbnail` | The thumbnail image URL for the playlist. |
+| `data.playlists[].videoId / data.playlists[].videoUrl` | The ID and watch link of the video that supplies the thumbnail. This is the video shown as the playlist cover. |
+| `data.nextCursor` | The token for the next page of playlists. It is `null` when there are no more pages. |
+| `found` | `true` when the channel was found. |
+
+### Notes
+
+- Send either `handle` (with the leading `@`) or `channelId`. The example request uses `handle`.
+- To page through results, pass the `data.nextCursor` value as `cursor` in the next request. Stop when it is `null`.
+- To list the videos in a playlist, pass its `id` to [YouTube Playlist](/apis/youtube/playlist).
+- To get the channel's own uploads, use [YouTube Channel Videos](/apis/youtube/channel-videos).
+
 ### Pricing
 
-Billed at the actual cost of each call, usually $0.0012 per request. A call can cost more when the first data source fails and another one answers. Failed calls are not charged. Lookups that find nothing and searches with no results are billed at their actual cost, which is often lower and can be $0.
+Billed at the actual cost of each call, about $0.0012 for the request above. Failed calls are not charged.
 
 ---
 Machine-readable: [`catalog/models/youtube/channel-playlists.json`](../../../catalog/models/youtube/channel-playlists.json) · Store page: https://www.sandbase.ai/model/youtube/channel-playlists

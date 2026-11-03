@@ -62,13 +62,14 @@ Same call via the path form: `POST /v1/api/instagram/v1/post-by-url-v2` with the
 
 ## Details
 
-Look up media links and post items from an Instagram post using `post_url`. This endpoint provides accelerated response speeds for high-volume retrieval.
+Returns details for one Instagram post: the caption, like and comment counts, the author, the post time, and direct links to the media files. It needs the full post URL in `post_url`.
 
 ### Use cases
 
-- Retrieve direct media download links from an Instagram post URL.
-- Process bulk post media lookups at higher speeds.
-- Inspect media types associated with a given Instagram post.
+- Download the image or video files from a post by reading the links in `data.medias[]`.
+- Record the like count and comment count of a single post at the time you call.
+- Show the caption and author name of a post in a link preview or a report.
+- Check which posts in a list of URLs hold images and which hold other media types.
 
 ### Request
 
@@ -79,6 +80,8 @@ curl -X POST "https://api.sandbase.ai/v1/api/instagram/v1/post-by-url-v2" \
   -d '{"post_url": "https://www.instagram.com/p/DPwhVB-jo9k/"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
@@ -87,28 +90,52 @@ curl -X POST "https://api.sandbase.ai/v1/api/instagram/v1/post-by-url-v2" \
 
 ### Example response
 
-Real response for the request above, trimmed to the main fields. User names and long IDs are masked.
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
 
 ```json
 {
+  "attempts": "0",
   "data": {
+    "caption": "I’ll never forget how excited I was in 2006 when my first album sold 40,000 copi…",
+    "comment_count": 0,
+    "full_name": "Taylor Swift",
+    "like_count": 3861627,
     "medias": [
       {
-        "link": "https://scontent-cdg4-2.cdninstagram.com/v/t51.82787-15/562815025_18601398793054…",
+        "link": "https://instagram.fvcp2-1.fna.fbcdn.net/v/t51.82787-15/562815025_186013987930549…",
         "type": "image"
       }
-    ]
-  }
+    ],
+    "taken_at_timestamp": 1760377223,
+    "username": "taylorswift"
+  },
+  "status": true
 }
 ```
 
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `data.caption` | Caption text of the post. Long captions may appear shortened. |
+| `data.username / data.full_name` | Account handle and display name of the post author. |
+| `data.like_count / data.comment_count` | Number of likes and number of comments on the post. |
+| `data.taken_at_timestamp` | Time the post was taken, as a Unix timestamp in seconds. |
+| `data.medias[].link` | Direct URL of a media file in the post. |
+| `data.medias[].type` | Kind of media for that item, for example `image`. |
+| `status` | `true` when the lookup succeeded. |
+| `attempts` | Attempt counter returned as a string, `0` in this response. |
+
 ### Notes
 
-- `post_url` requires a standard Instagram post link.
+- Use the full post link, such as `https://www.instagram.com/p/DPwhVB-jo9k/`, as `post_url`.
+- `data.medias` is a list, so a post with several items can return several links.
+- Media links are signed CDN URLs with long query strings. Store the file if you need it later.
+- For other lookups by URL, see [Instagram Post Details by URL](/apis/instagram/v1/post-by-url) or [Instagram Post Details by ID](/apis/instagram/v1/post-by-id).
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

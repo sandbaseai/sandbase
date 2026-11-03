@@ -65,13 +65,14 @@ Same call via the path form: `POST /v1/api/instagram/v3/user-brief` with the bod
 
 ## Details
 
-Look up high-level profile statistics and account details for an Instagram user by providing `user_id` and `username`.
+Returns a short profile summary for one Instagram account, including follower count, following count, media count, bio, and profile picture URLs. It needs both the numeric `user_id` and the `username`.
 
 ### Use cases
 
-- Display account summary metrics such as follower and following counts.
-- Check media counts and profile pictures for designated creators.
-- Verify external profile URLs associated with an account.
+- Show follower, following, and post counts for a creator on a dashboard.
+- Check whether an account is verified or private before you add it to an outreach list.
+- Save the bio, `external_url`, and profile picture of an account for a creator database.
+- Track how `follower_count` and `media_count` change by calling the API on a schedule.
 
 ### Request
 
@@ -82,6 +83,8 @@ curl -X POST "https://api.sandbase.ai/v1/api/instagram/v3/user-brief" \
   -d '{"user_id": "25025320", "username": "instagram"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
@@ -91,29 +94,55 @@ curl -X POST "https://api.sandbase.ai/v1/api/instagram/v3/user-brief" \
 
 ### Example response
 
-Real response for the request above, trimmed to the main fields. User names and long IDs are masked.
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
 
 ```json
 {
+  "_rid": "3148cbeadeb94",
+  "biography": "Discover what's new on Instagram 🔎✨",
+  "category": "",
+  "edge_follow": {
+    "count": 165
+  },
+  "edge_followed_by": {
+    "count": 686358280
+  },
+  "edge_owner_to_timeline_media": {
+    "count": 8634
+  },
   "external_url": "http://help.instagram.com",
-  "follower_count": 686584231,
-  "following_count": 305,
+  "follower_count": 686358280,
+  "following_count": 165,
   "full_name": "Instagram",
   "id": "25025320",
-  "media_count": 8612,
-  "profile_pic_url": "https://instagram.fpit1-1.fna.fbcdn.net/v/t51.82787-19/550891366_186677716840013…",
-  "username": "<user>"
+  "is_private": false
 }
 ```
 
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `follower_count / edge_followed_by.count` | Number of accounts that follow this account. Both fields hold the same value in this response. |
+| `following_count / edge_follow.count` | Number of accounts this account follows. |
+| `media_count / edge_owner_to_timeline_media.count` | Number of posts on the account. |
+| `full_name / username` | Display name and handle of the account. |
+| `biography` | Bio text shown on the profile. It can include emoji. |
+| `external_url` | Link the account lists on its profile. |
+| `is_verified / is_private` | Booleans that show whether the account has a verified badge and whether it is private. |
+| `profile_pic_url / profile_pic_url_hd` | Links to the profile picture. The `_hd` field points to a larger version. |
+| `id / pk` | Instagram user ID as a string. Both fields hold the same value. |
+| `category` | Account category label. It is an empty string when the account sets none. |
+
 ### Notes
 
-- Requires a numeric `user_id`.
-- Both `user_id` and `username` are required.
+- Send both `user_id` and `username`. Both are required.
+- If you only know the handle, call [Instagram User ID Lookup](/apis/instagram/v3/user-id-by-username) first to get the `user_id`.
+- For a fuller profile view, use [Instagram User Profile (V3)](/apis/instagram/v3/user-profile).
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.008 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

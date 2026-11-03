@@ -64,13 +64,14 @@ Same call via the path form: `POST /v1/api/instagram/v3/user-followers` with the
 
 ## Details
 
-Retrieve the follower list for an Instagram profile specified by `username`.
+Returns a list of followers for an Instagram account. Each user entry has the username, full name, IDs, profile picture URL and privacy and verification flags. The only required input is `username`.
 
 ### Use cases
 
-- Audit follower profiles for target Instagram accounts.
-- Analyze audience demographics and follower growth.
-- Collect profile IDs and usernames for network analysis.
+- Build a list of follower usernames and IDs for an account to use in network analysis.
+- Check which followers have private accounts by reading `is_private` on each user.
+- Spot verified accounts among the followers of a brand or creator with `is_verified`.
+- Page through a large follower list in batches of up to 100 users.
 
 ### Request
 
@@ -80,6 +81,8 @@ curl -X POST "https://api.sandbase.ai/v1/api/instagram/v3/user-followers" \
   -H "Content-Type: application/json" \
   -d '{"username": "instagram"}'
 ```
+
+The result is returned in `outputs[0].data`.
 
 ### Parameters
 
@@ -91,31 +94,64 @@ curl -X POST "https://api.sandbase.ai/v1/api/instagram/v3/user-followers" \
 
 ### Example response
 
-Real response for the request above, trimmed to the main fields. User names and long IDs are masked.
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
 
 ```json
 {
+  "_rid": "17ed67fb7dcf8",
+  "big_list": false,
+  "follow_ranking_token": "2cac2e8d…",
+  "has_more": false,
+  "page_size": 50,
+  "should_limit_list_of_followers": true,
+  "should_limit_list_of_followings": false,
+  "show_spam_follow_request_tab": false,
+  "status": "ok",
+  "use_clickable_see_more": false,
   "users": [
     {
-      "full_name": "nebulosa🎀",
-      "id": "45901571201",
-      "pk_id": "45901571201",
-      "profile_pic_id": "3984758658198814100_45901571201",
-      "profile_pic_url": "https://instagram.fpit1-1.fna.fbcdn.net/v/t51.82787-19/806299292_180740922805312…",
-      "username": "<user>"
+      "account_badges": [],
+      "fbid_v2": "17841428736948250",
+      "full_name": "¥;k@&",
+      "has_anonymous_profile_picture": false,
+      "id": "28626005898",
+      "is_private": true,
+      "is_verified": false,
+      "latest_reel_media": 0,
+      "pk": "28626005898",
+      "pk_id": "28626005898",
+      "profile_pic_id": "4018678605823597314_28626005898",
+      "profile_pic_url": "https://scontent-lax3-2.cdninstagram.com/v/t51.82787-19/863891295_18120783028957…"
     }
   ]
 }
 ```
 
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `users[]` | List of follower accounts returned for this request. |
+| `users[].username / users[].full_name` | The follower's Instagram handle and display name. |
+| `users[].pk / users[].id / users[].pk_id / users[].strong_id__` | The follower's numeric user ID as a string. All four carry the same value in this response. |
+| `users[].is_private / users[].is_verified` | Whether the follower's account is private and whether it is verified. |
+| `users[].profile_pic_url` | Link to the follower's profile picture. Profile picture links are long and include query parameters. |
+| `users[].profile_pic_id` | ID of the profile picture. It ends with the follower's user ID after an underscore. |
+| `users[].latest_reel_media` | Number that is `0` when no reel media is set and a large integer otherwise. The value looks like a Unix timestamp in seconds. |
+| `has_more` | Whether more results remain after this page. It is `false` in this response. |
+| `page_size` | Page size value reported with the response (`50` here). |
+| `status` | Request status string. It is `ok` on success. |
+
 ### Notes
 
-- Set `count` between 12 and 100 to adjust the batch size.
-- Pass `max_id` from the previous response `data.next_max_id` to page through subsequent results.
+- Set `count` between 1 and 100 to change how many users come back per request.
+- To get the next page, pass the cursor from the previous response as `max_id`. Omit `max_id` on the first request.
+- In the sample response, `has_more` is `false` and no `next_max_id` key appears, so the list ended after one page.
+- To get the account's own details first, call [Instagram User Profile (V3)](/apis/instagram/v3/user-profile). For the reverse list, call [Instagram User Following List](/apis/instagram/v3/user-following).
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.008 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

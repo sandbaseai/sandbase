@@ -59,13 +59,14 @@ Same call via the path form: `POST /v1/api/youtube/web-v2/video-streams` with th
 
 ## Details
 
-Retrieve available video streams and playback sources for a YouTube video using `video_id` or `video_url`.
+Returns the downloadable stream formats for one YouTube video, with basic video details such as title, author and length. It needs a `video_id` or a full `video_url`.
 
 ### Use cases
 
-- Inspect available streaming formats and URLs for a target video.
-- Parse media stream metadata from YouTube video links.
-- Integrate video stream resolution options into playback tools.
+- List the available audio and video formats for a video before choosing one to download.
+- Pick an audio-only stream by `itag` and `mime_type` for a podcast or transcription tool.
+- Check the available resolutions for a video before building a playback or preview tool.
+- Read the title, author, duration and view count of a video in the same call as its streams.
 
 ### Request
 
@@ -76,6 +77,8 @@ curl -X POST "https://api.sandbase.ai/v1/api/youtube/web-v2/video-streams" \
   -d '{"video_id": "dQw4w9WgXcQ", "video_url": "https://www.youtube.com/watch?v=dQw4w9WgXcQ"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
@@ -83,13 +86,88 @@ curl -X POST "https://api.sandbase.ai/v1/api/youtube/web-v2/video-streams" \
 | `video_id` | string | No | Video ID (recommended) |
 | `video_url` | string | No | Full video URL (optional, ignored if video_id is provided) |
 
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "adaptive_formats": [
+    {
+      "audio_quality": 30.813,
+      "audio_sample_rate": 22050,
+      "bitrate": 30.813,
+      "content_length": 821022,
+      "fps": null,
+      "has_signature": false,
+      "height": null,
+      "itag": 599,
+      "mime_type": "audio/mp4",
+      "quality": "ultralow",
+      "quality_label": "audio only",
+      "type": "audio"
+    }
+  ],
+  "author": "Rick Astley",
+  "available_qualities": [
+    "audio only"
+  ],
+  "expires_in_seconds": 21600,
+  "formats": [
+    {
+      "audio_quality": null,
+      "audio_sample_rate": 44100,
+      "bitrate": 444.226,
+      "content_length": 11832459,
+      "fps": 25,
+      "has_signature": false,
+      "height": 360,
+      "itag": 18,
+      "mime_type": "video/mp4",
+      "quality": "360p",
+      "quality_label": "640x360",
+      "type": "video"
+    }
+  ],
+  "is_live": false,
+  "length_seconds": 213,
+  "short_description": "The official video for “Never Gonna Give You Up” by Rick Astley. \n\nNever: The Au…",
+  "strategy": "account_mweb",
+  "thumbnail": [
+    {
+      "url": "https://i.ytimg.com/vi_webp/dQw4w9WgXcQ/maxresdefault.webp"
+    }
+  ],
+  "title": "Rick Astley - Never Gonna Give You Up (Official Video) (4K Remaster)",
+  "video_id": "dQw4w9WgXcQ"
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `title / author / video_id` | Title of the video, name of the channel that published it, and the video ID. |
+| `length_seconds` | Length of the video in seconds. |
+| `view_count` | Number of views on the video. |
+| `is_live` | Whether the video is a live stream (`false` for this video). |
+| `available_qualities` | List of quality labels offered, such as `audio only`, `854x480` and `640x360`. |
+| `formats[]` | Streams that carry video and audio together. Each row has `itag`, `mime_type`, `quality_label`, `width`, `height`, `fps`, `bitrate` and `content_length`. |
+| `adaptive_formats[]` | Separate streams, such as audio only. Each row has `type`, `itag`, `mime_type`, `quality_label`, `audio_sample_rate`, `bitrate` and `content_length`. |
+| `formats[].url / adaptive_formats[].url` | Direct link to the media stream for that format. |
+| `expires_in_seconds` | Number of seconds given for the stream URLs, `21600` in this response. |
+| `thumbnail[].url` | Link to a thumbnail image of the video. |
+
 ### Notes
 
-- `video_id` is recommended; `video_url` is ignored if `video_id` is provided.
+- Send `video_id` when you have it. `video_url` is ignored if `video_id` is provided.
+- The `video_id` is the 11-character value after `v=` in a YouTube watch URL, such as `dQw4w9WgXcQ`.
+- Fields like `width`, `height` and `fps` are `null` for audio-only streams.
+- For video details without stream links, see [YouTube Video Information](/apis/youtube/web-v2/video-info). For another stream response, see [YouTube Video Streams (V2)](/apis/youtube/web-v2/video-streams-v2).
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

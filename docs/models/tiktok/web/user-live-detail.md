@@ -62,13 +62,14 @@ Same call via the path form: `POST /v1/api/tiktok/web/user-live-detail` with the
 
 ## Details
 
-Retrieve broadcast and stream room details for a TikTok account by passing the user handle in `uniqueId`.
+Returns the current live room details for a TikTok user, including the stream title, viewer counts, available playback qualities and basic profile data. It needs one input: the user's `uniqueId` handle, such as `tiktok`.
 
 ### Use cases
 
-- Check whether a specific TikTok creator is broadcasting.
-- Retrieve stream playback configurations and video qualities.
-- Monitor broadcast activity for target user handles.
+- Read the title, cover image and start time of a creator's current live room.
+- List the playback quality options (`Original`, `1080p`, `720p`) offered for a live stream.
+- Get the `roomId` of a user so you can pass it to other live room APIs.
+- Pair a creator's follower count with their live viewer stats.
 
 ### Request
 
@@ -79,6 +80,8 @@ curl -X POST "https://api.sandbase.ai/v1/api/tiktok/web/user-live-detail" \
   -d '{"uniqueId": "tiktok"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
@@ -87,35 +90,126 @@ curl -X POST "https://api.sandbase.ai/v1/api/tiktok/web/user-live-detail" \
 
 ### Example response
 
-Real response for the request above, trimmed to the main fields. User names and long IDs are masked.
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
 
 ```json
 {
   "data": {
     "liveRoom": {
+      "coverUrl": "https://p16-webcast.tiktokcdn.com/webcast-va/2d40841fa55af281b3c825908f04ebc1.jp…",
+      "gameTagId": 0,
       "hevcStreamData": {
         "pull_data": {
           "options": {
+            "default_preview_quality": {
+              "icon_type": 0,
+              "level": 0,
+              "name": "",
+              "resolution": "",
+              "sdk_key": "",
+              "v_codec": ""
+            },
+            "default_quality": {
+              "icon_type": 0,
+              "level": 0,
+              "name": "720p",
+              "resolution": "",
+              "sdk_key": "hd",
+              "v_codec": ""
+            },
+            "forced_low_latency": false,
+            "max_drm_lenient_size": "",
+            "max_drm_lenient_size_backup": "",
             "qualities": [
               {
-                "name": "Original"
+                "icon_type": 6,
+                "level": 10,
+                "name": "Original",
+                "resolution": "",
+                "sdk_key": "origin",
+                "v_codec": ""
               }
-            ]
-          }
+            ],
+            "show_quality_button": false,
+            "support_low_latency": false
+          },
+          "stream_data": "{\"common\":{\"session_id\":\"173-202611031544314D3AD99C28275204E5E8\",\"room_id\":76936…"
+        },
+        "push_data": {
+          "push_stream_level": 0,
+          "resolution_params": {},
+          "stream_data": ""
         }
-      }
+      },
+      "liveRoomMode": 1,
+      "liveRoomStats": {
+        "enterCount": 382959,
+        "userCount": 1
+      },
+      "liveSubOnly": 0,
+      "multiStreamScene": 0,
+      "multiStreamSource": 0,
+      "paidEvent": {
+        "event_id": 0,
+        "paid_type": 0
+      },
+      "squareCoverImg": "",
+      "startTime": 1791323812,
+      "status": 4
+    },
+    "stats": {
+      "followerCount": 96545668,
+      "followingCount": 1
+    },
+    "user": {
+      "avatarLarger": "https://p16-common-sign.tiktokcdn.com/tos-maliva-avt-0068/ba67b11de451691939223e…",
+      "avatarMedium": "https://p19-common-sign.tiktokcdn.com/tos-maliva-avt-0068/ba67b11de451691939223e…",
+      "avatarThumb": "https://p16-common-sign.tiktokcdn.com/tos-maliva-avt-0068/ba67b11de451691939223e…",
+      "followStatus": 0,
+      "id": "107955",
+      "nickname": "TikTok",
+      "roomId": "7693676830666705678",
+      "secUid": "MS4wLjABAAAAv7iSuuXDJGDvJkmH_vz1qkDZYo1apxgzaxdBSeIuPiM",
+      "secret": false,
+      "signature": "Your nex…",
+      "status": 4,
+      "uniqueId": "tiktok"
     }
-  }
+  },
+  "extra": {
+    "id": "202611031544314D3AD99C28275204E5E8"
+  },
+  "message": "",
+  "statusCode": 0
 }
 ```
 
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `data.liveRoom.title` | Title of the live room. |
+| `data.liveRoom.coverUrl` | URL of the cover image for the live room. |
+| `data.liveRoom.startTime` | Start time of the broadcast. The value looks like a Unix timestamp in seconds. |
+| `data.liveRoom.status` | Numeric status code of the live room. The response does not explain what each value means. |
+| `data.liveRoom.liveRoomStats.enterCount / data.liveRoom.liveRoomStats.userCount` | Viewer counts for the room. `enterCount` is the number of entries and `userCount` is the user count reported for the room. |
+| `data.liveRoom.streamData.pull_data.options.qualities[].name / data.liveRoom.streamData.pull_data.options.qualities[].sdk_key` | Display name and key of each available quality level, such as `Original` with `origin`, or `720p` with `hd`. |
+| `data.liveRoom.streamData.pull_data.options.default_quality.name` | Name of the default playback quality. |
+| `data.liveRoom.streamData.pull_data.stream_data` | String that holds the stream session data. It starts with a `common` object that contains `session_id` and `room_id`. |
+| `data.user.roomId` | ID of the user's live room, as a string. |
+| `data.user.nickname / data.user.signature / data.user.verified` | Display name, bio text and verified flag of the account. |
+| `data.stats.followerCount / data.stats.followingCount` | Number of followers and number of accounts the user follows. |
+
 ### Notes
 
-- Requires the TikTok user handle via `uniqueId`.
+- Pass the handle in `uniqueId` without the `@` sign. The example uses `tiktok`.
+- `data.liveRoom.hevcStreamData` has the same structure as `data.liveRoom.streamData`.
+- To check whether a room is active, call [TikTok Stream Status Check](/apis/tiktok/web/check-live-alive).
+- For more details about a room, call [TikTok Stream Room Information](/apis/tiktok/web/live-data) with the room ID.
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

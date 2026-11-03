@@ -63,13 +63,14 @@ Same call via the path form: `POST /v1/api/tiktok/web/generate-xgnarly-and-xbogu
 
 ## Details
 
-Generates TikTok web request signatures by passing the target endpoint in `url` and optional POST parameters in `body`.
+Returns signature tokens for a TikTok web request. You send the full target `url`, and optionally a `body` string for POST requests. The response contains `xGnarly`, `xBogus`, `xDynosaur`, and a `signedUrl`.
 
 ### Use cases
 
-- Sign TikTok web requests requiring anti-crawler verification tokens.
-- Generate request parameters for automated web scraping pipelines.
-- Formulate valid signed URLs for custom TikTok data workflows.
+- Sign a TikTok tag page URL before you request it from your own HTTP client.
+- Get an `xGnarly` value to attach to a TikTok web request that needs it.
+- Build a signed POST request by passing the request parameters in `body`.
+- Reuse the returned `user_agent` so your signed request uses the same browser string.
 
 ### Request
 
@@ -80,6 +81,8 @@ curl -X POST "https://api.sandbase.ai/v1/api/tiktok/web/generate-xgnarly-and-xbo
   -d '{"url": "https://www.tiktok.com/tag/cat?_r=1&name=cat&u_code=f02lm2f78d1elh&_d=f02ll161mcjihj&share_challenge_id=7551&sharer_language=en&source=h5_m"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
@@ -87,14 +90,48 @@ curl -X POST "https://api.sandbase.ai/v1/api/tiktok/web/generate-xgnarly-and-xbo
 | `url` | string | Yes | The requested API URL, no need to URL encode |
 | `body` | string | No | The API parameters of the request, applicable for POST requests |
 
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "body": "",
+  "signature": {
+    "signedUrl": "https://www.tiktok.com/tag/cat?_r=1&name=cat&u_code=f02lm2f78d1elh&_d=f02ll161mc…",
+    "xBogus": "1",
+    "xDynosaur": "MaFdT8S5zzDCNu2FdzJoSPebgrTnVCKYHQQuRjpE8iRm1-MxvNak5hedfIyt4/NiDVBNySaJIg6kfva0…",
+    "xGnarly": "MaTjg74vTVfgmm0vW/dwPfk43OgEtyKRP28T6NjvhZPZhZ9JI-9WdjukhjSDmoIRoEMljTcYD8oyJ4gE…"
+  },
+  "status": "success",
+  "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:146.0) Gecko/20100101 Firefox/1…",
+  "version": "5.3.2"
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `signature.signedUrl` | The input `url` with the signature parameters added, such as `X-Dynosaur`. You can use it as the request URL. |
+| `signature.xGnarly` | The X-Gnarly token generated for the given `url`. |
+| `signature.xBogus` | The X-Bogus value for the given `url`. In this sample it is `1`, so check it before you rely on it. |
+| `signature.xDynosaur` | The X-Dynosaur token. The `signedUrl` carries this same value as a query parameter. |
+| `body` | The body string used for signing. It is empty when you send no `body`. |
+| `user_agent` | The browser user agent string used when the signatures were made. Send the same value in your request headers. |
+| `version` | The version string of the signing logic, here `5.3.2`. |
+| `status` | Result of the call. A successful call returns `success`. |
+
 ### Notes
 
-- Provide `url` as a plain string without URL encoding.
-- Pass `body` parameters when targeting POST endpoints.
+- Pass `url` as a plain string. You do not need to URL encode it.
+- Set `body` only for POST requests. Leave it out for GET requests.
+- Send the returned `user_agent` with your signed request so the headers match the signature.
+- For single-token needs, see [TikTok Web X-Gnarly Signature](/apis/tiktok/web/generate-xgnarly) or [TikTok Web X-Bogus Signature](/apis/tiktok/web/generate-xbogus).
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.005 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

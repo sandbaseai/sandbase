@@ -65,13 +65,14 @@ Same call via the path form: `POST /v1/api/zhihu/web/user-answers` with the body
 
 ## Details
 
-Query answers submitted by a specific user on Zhihu using their `user_url_token`. You can paginate results and customize the sort order.
+Returns the answers a Zhihu user has posted, looked up by the user's URL token. The response holds a list of answers plus paging details. You can sort by creation date or upvote count.
 
 ### Use cases
 
-- Analyze the most upvoted answers submitted by a specific Zhihu author.
-- Monitor recent answers from specific industry experts on Zhihu.
-- Extract an author's answer history for profile research.
+- Pull the most upvoted answers of a Zhihu author with `sort_type` set to `voteups`.
+- Check a Zhihu expert for new answers by sorting with `created`.
+- Page through an author's full answer history for profile research.
+- Check how many answers a Zhihu user has from `paging.totals` before fetching them all.
 
 ### Request
 
@@ -82,6 +83,8 @@ curl -X POST "https://api.sandbase.ai/v1/api/zhihu/web/user-answers" \
   -d '{"user_url_token": "excited-vczh"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
@@ -91,15 +94,46 @@ curl -X POST "https://api.sandbase.ai/v1/api/zhihu/web/user-answers" \
 | `offset` | string | No | Offset |
 | `sort_type` | string | No | Sort Type |
 
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "data": [],
+  "need_force_login": false,
+  "paging": {
+    "is_end": true,
+    "is_start": true,
+    "next": "http://www.zhihu.com/api/v4/members/excited-vczh/answers?user_url_token=excited-…",
+    "previous": "http://www.zhihu.com/api/v4/members/excited-vczh/answers?user_url_token=excited-…",
+    "totals": 7
+  }
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `data` | List of answers for the requested page. It is an empty list in the sample response, even though `paging.totals` is 7. |
+| `paging.totals` | Total count of answers the API reports for this user. |
+| `paging.is_end` | `true` when the current page is the last page. |
+| `paging.is_start` | `true` when the current page is the first page. |
+| `paging.next` | URL for the next page. It carries the `limit` and `offset` values to use next. |
+| `paging.previous` | URL for the previous page, with its `limit` and `offset` values. |
+| `need_force_login` | Flag that shows whether the request needs a logged-in session. It is `false` in the sample. |
+
 ### Notes
 
-- `user_url_token` is the required user identifier.
-- `sort_type` accepts either `created` or `voteups`.
-- Pagination is controlled using `limit` and `offset`.
+- Take `user_url_token` from the Zhihu profile URL of the user, for example `excited-vczh`.
+- Page with `limit` and `offset`. The `paging.next` URL in the sample uses `limit=20` and `offset=20`.
+- Stop paging when `paging.is_end` is `true`.
+- To get the full text of one answer, call [Zhihu Answer Details](/apis/zhihu/web/answer-detail) with its numeric ID. For the author's profile, use [Zhihu Web User Profile](/apis/zhihu/web/user-info).
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

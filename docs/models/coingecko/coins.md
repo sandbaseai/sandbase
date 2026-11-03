@@ -70,9 +70,14 @@ Same call via the path form: `POST /v1/api/coingecko/coins` with the body above 
 
 ## Details
 
-Get all the metadata (image, websites, socials, description, contract address, etc.) and market data (price, ATH, exchange tickers, etc.) of a coin from the CoinGecko coin page based on a particular coin ID
+Returns the CoinGecko page data for one coin: descriptions, links, categories, images, and market data. It needs a CoinGecko coin `id` such as `bitcoin`.
 
-The response is the official CoinGecko API response, unchanged.
+### Use cases
+
+- Show a coin profile page with its logo, description, homepage, and social links.
+- Read the all-time high, all-time low, and market rank of a coin for a research dashboard.
+- Find a coin's categories, hashing algorithm, and genesis date for research tools.
+- Collect official repos, explorers, and whitepaper links for a coin.
 
 ### Request
 
@@ -82,6 +87,8 @@ curl -X POST "https://api.sandbase.ai/v1/api/coingecko/coins" \
   -H "Content-Type: application/json" \
   -d '{"id": "bitcoin"}'
 ```
+
+The result is returned in `outputs[0].data`.
 
 ### Parameters
 
@@ -97,9 +104,76 @@ curl -X POST "https://api.sandbase.ai/v1/api/coingecko/coins" \
 | `sparkline` | boolean | No | Include sparkline 7-day data. Default: false |
 | `tickers` | boolean | No | Include tickers data. Default: true |
 
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "additional_notices": [],
+  "asset_platform_id": null,
+  "block_time_in_minutes": 10,
+  "categories": [
+    "Smart Contract Platform"
+  ],
+  "country_origin": "",
+  "description": {
+    "ar": "",
+    "bg": "",
+    "cs": "",
+    "da": "",
+    "de": "",
+    "el": "",
+    "en": "Bitcoin is the world's first decentralized cryptocurrency, created in 2009 by th…",
+    "es": "¿Qué es Bitcoin (BTC)?\nBitcoin es el primer caso de éxito de dinero de Internet …",
+    "fi": "",
+    "fr": "",
+    "he": "",
+    "hi": ""
+  },
+  "detail_platforms": {
+    "": {
+      "contract_address": "",
+      "decimal_place": null
+    }
+  },
+  "genesis_date": "2009-01-03",
+  "has_supply_breakdown": false,
+  "hashing_algorithm": "SHA-256",
+  "id": "bitcoin",
+  "image": {
+    "large": "https://coin-images.coingecko.com/coins/images/1/large/bitcoin.png?1696501400",
+    "small": "https://coin-images.coingecko.com/coins/images/1/small/bitcoin.png?1696501400",
+    "thumb": "https://coin-images.coingecko.com/coins/images/1/thumb/bitcoin.png?1696501400"
+  }
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `id` | The CoinGecko coin ID. Use it in other CoinGecko calls. |
+| `categories` | List of category names the coin belongs to, such as `Layer 1 (L1)`. |
+| `description.en` | Text description of the coin in English. Other language keys hold translations and may be empty. |
+| `image.large / image.small / image.thumb` | URLs of the coin logo in three sizes. |
+| `links.homepage / links.blockchain_site / links.whitepaper / links.repos_url.github` | Official website, block explorer links, whitepaper link, and GitHub repository URLs. |
+| `genesis_date / hashing_algorithm / block_time_in_minutes` | Launch date, the hashing algorithm name, and block time in minutes. |
+| `market_cap_rank` | Rank of the coin by market cap. |
+| `market_data.ath / market_data.ath_date / market_data.ath_change_percentage` | All-time high per quote currency, the date it happened, and the percent change from that high to now. |
+| `market_data.circulating_supply` | Number of coins in circulation. |
+| `market_data.fully_diluted_valuation` | Fully diluted valuation of the coin, with one value per quote currency. |
+
+### Notes
+
+- Get valid `id` values from [CoinGecko Coins List (ID Map)](/apis/coingecko/coins-list).
+- Set `market_data`, `tickers`, or `localization` to `false` to leave those sections out of the response.
+- For historical chart data, call [CoinGecko Coin Historical Chart Data by ID](/apis/coingecko/coins-market-chart).
+- Timestamps such as `last_updated` and `market_data.ath_date` use ISO 8601 format in UTC.
+
 ### Pricing
 
-Flat price per call. Failed calls are not charged.
+$0.008 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ---
 Machine-readable: [`catalog/models/coingecko/coins.json`](../../../catalog/models/coingecko/coins.json) · Store page: https://www.sandbase.ai/model/coingecko/coins

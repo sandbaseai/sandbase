@@ -72,13 +72,14 @@ Same call via the path form: `POST /v1/api/youtube/web-v2/general-search-v2` wit
 
 ## Details
 
-Search YouTube items by providing a `keyword` query. Pass `continuation_token` from previous responses to paginate through additional results.
+Returns YouTube search results for a keyword, grouped into videos, channels, playlists and shorts. The only required input is `keyword`. Optional filters narrow results by type, upload date, duration, features and sort order.
 
 ### Use cases
 
-- Find YouTube videos, channels, or playlists matching specific search terms.
-- Filter video search results by duration, definition, or upload date.
-- Sort YouTube content by view count, rating, or upload date.
+- Build a list of top tutorial videos for a topic, with titles, authors, durations and links.
+- Track which channels rank for a keyword by reading `author` and `channel_id` on each video.
+- Find recent uploads on a subject by combining `upload_date` with `sort_by`.
+- Collect thumbnails and description snippets to show search previews in your own app.
 
 ### Request
 
@@ -89,27 +90,80 @@ curl -X POST "https://api.sandbase.ai/v1/api/youtube/web-v2/general-search-v2" \
   -d '{"keyword": "Python tutorial"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
 |---|---|---|---|
-| `type` | string | No | Result type filter - video/channel/playlist/movie |
-| `keyword` | string | No | Search keyword (required for first request) |
-| `sort_by` | string | No | Sort by - relevance/upload_date/view_count/rating |
+| `continuation_token` | string | No | Pagination token (pass from previous response for next page) |
 | `duration` | string | No | Video duration filter - short(<4min)/medium(4-20min)/long(>20min) |
 | `features` | string | No | Feature filter (comma separated) - live/4k/hd/subtitles/creative_commons/360/vr180/3d/hdr |
+| `keyword` | string | No | Search keyword (required for first request) |
+| `sort_by` | string | No | Sort by - relevance/upload_date/view_count/rating |
+| `type` | string | No | Result type filter - video/channel/playlist/movie |
 | `upload_date` | string | No | Upload date filter - last_hour/today/this_week/this_month/this_year |
-| `continuation_token` | string | No | Pagination token (pass from previous response for next page) |
+
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "channels": [],
+  "completion_suggestions": [],
+  "continuation_token": "EvIEEg9Q…",
+  "keyword": "Python tutorial",
+  "playlists": [],
+  "shorts": [],
+  "videos": [
+    {
+      "author": "Indently",
+      "channel_id": "UCuudpdbKmQWq2PPzYgVCWlA",
+      "description_snippet": "In this crash course I'll be teaching you the basics of Python in less than 10 m…",
+      "duration": "10:30",
+      "published_time": "5 years ago",
+      "thumbnails": [
+        {
+          "height": 202,
+          "url": "https://i.ytimg.com/vi/fWjsdhR3z3c/hq720.jpg?sqp=-oaymwEjCOgCEMoBSFryq4qpAxUIARU…",
+          "width": 360
+        }
+      ],
+      "title": "Learn Python in Less than 10 Minutes for Beginners (Fast & Easy)",
+      "url": "https://www.youtube.com/watch?v=fWjsdhR3z3c",
+      "video_id": "fWjsdhR3z3c",
+      "view_count": "1,897,558 views"
+    }
+  ]
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `videos[].title` | Title of the video. |
+| `videos[].video_id / videos[].url` | The video ID and the full watch URL for the video. |
+| `videos[].author / videos[].channel_id` | Name of the channel that posted the video and its channel ID. |
+| `videos[].description_snippet` | Short, cut-off excerpt of the video description. |
+| `videos[].duration` | Video length as text, for example `10:30`. |
+| `videos[].published_time` | Relative upload age as text, for example `3 months ago`. It is not an exact date. |
+| `videos[].view_count` | View count as display text, for example `1,897,558 views`. Parse it before you do math. |
+| `videos[].thumbnails[].url / videos[].thumbnails[].width / videos[].thumbnails[].height` | Thumbnail image links with their pixel sizes. |
+| `continuation_token` | Token to pass in the next request to get the following page of results. |
+| `channels / playlists / shorts` | Lists of matching channels, playlists and shorts. They were empty in this response, which used the default search. |
 
 ### Notes
 
-- `keyword` is required for the initial search request.
-- Use `continuation_token` from the previous response to retrieve the next page of results.
-- Filter by `type` for videos, channels, playlists, or movies, and combine with `features` such as 4k, hd, or subtitles.
+- `keyword` is required for the first request. For later pages, send the `continuation_token` from the previous response.
+- Set `type` to `channel` or `playlist` to fill those lists instead of videos.
+- `duration` accepts `short`, `medium` or `long`. `sort_by` accepts `relevance`, `upload_date`, `view_count` or `rating`.
+- Pass a `channel_id` to [YouTube Channel Videos](/apis/youtube/web-v2/channel-videos), or a `video_id` to [YouTube Video Information (V2)](/apis/youtube/web-v2/video-info-v2), for more detail.
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.002 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

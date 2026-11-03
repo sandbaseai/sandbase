@@ -58,7 +58,14 @@ Same call via the path form: `POST /v1/api/iqair/live-city-ranking` with the bod
 
 ## Details
 
-Real-time global city air quality rankings sorted by AQI descending. Returns up to 122 major cities with current AQI values, geographic metadata, and follower counts.
+Returns a ranked list of major cities with their current air quality index (AQI), sorted from highest AQI to lowest. The API takes no input. Each row includes the city, state, country, follower count and a page path for the city.
+
+### Use cases
+
+- Show a live list of the most polluted cities in a dashboard or news widget.
+- Compare the current AQI of cities in different countries in one call.
+- Pick the most followed cities to decide which ones to track in more detail.
+- Build a list of city page paths to pass to a city-level air quality lookup.
 
 ### Request
 
@@ -69,15 +76,58 @@ curl -X POST "https://api.sandbase.ai/v1/api/iqair/live-city-ranking" \
   -d '{}'
 ```
 
-This API runs asynchronously. The call returns a task `id` with status `pending`; poll `GET https://api.sandbase.ai/v1/run/{id}` until `status` is `completed` and read the result from `outputs[0].data`.
+The result is returned in `outputs[0].data`.
 
-### Parameters
+### Example response
 
-This API takes no parameters.
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "data": {
+    "citiesData": [
+      {
+        "aqi": 236,
+        "city": "Lahore",
+        "country": "Pakistan",
+        "flagURL": "https://cdn.airvisual.net/flags/pakistan.jpg",
+        "followersCount": 1139595,
+        "id": "Dt8HhEj6mC2eatyBr",
+        "rank": 1,
+        "state": "Punjab",
+        "updatedAt": "2026-11-03T07:00:00.000Z",
+        "url": "/pakistan/punjab/lahore"
+      }
+    ],
+    "updatedAt": "2026-11-03T07:00:00.000Z"
+  },
+  "status": "success"
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `data.citiesData[].rank` | Position of the city in the list. Rank 1 has the highest `aqi`. |
+| `data.citiesData[].aqi` | Current air quality index value for the city. A higher number means worse air. |
+| `data.citiesData[].city / data.citiesData[].state / data.citiesData[].country` | Name of the city, its state or region, and its country. |
+| `data.citiesData[].id` | Identifier of the city record. |
+| `data.citiesData[].url` | Path of the city page, built as `/country/state/city` in lowercase with dashes. |
+| `data.citiesData[].followersCount` | Number of followers the city has. |
+| `data.citiesData[].flagURL` | Link to the country flag image. |
+| `data.citiesData[].updatedAt / data.updatedAt` | Timestamp of the reading for the city and for the whole list. Both are ISO 8601 strings in UTC. |
+| `status` | Shows `success` when the call worked. |
+
+### Notes
+
+- The request body is an empty object `{}`. There is no pagination parameter.
+- The `url` value gives the country, state and city slugs. Use them with [IQAir City Air Quality](/apis/iqair/city-air-quality) for a single city.
+- For a map-based view of stations, see [IQAir Map Data](/apis/iqair/map-data).
 
 ### Pricing
 
-Flat price per call. Failed calls are not charged.
+$0.01 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ---
 Machine-readable: [`catalog/models/iqair/live-city-ranking.json`](../../../catalog/models/iqair/live-city-ranking.json) · Store page: https://www.sandbase.ai/model/iqair/live-city-ranking

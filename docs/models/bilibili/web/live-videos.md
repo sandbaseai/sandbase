@@ -62,13 +62,14 @@ Same call via the path form: `POST /v1/api/bilibili/web/live-videos` with the bo
 
 ## Details
 
-Retrieve stream playback addresses and transmission parameters for a Bilibili room. Specify the target broadcast room using `room_id`.
+Returns stream URLs and quality settings for one Bilibili live room. The only input is `room_id`, the live room ID, sent as a string.
 
 ### Use cases
 
-- Access direct media stream links for active Bilibili broadcasts.
-- Integrate Bilibili stream playback into external player interfaces.
-- Inspect streaming protocol types and transmission endpoints for a room.
+- Pull the FLV stream URLs for a live room to feed an external video player.
+- Check which quality level a room is currently streaming at.
+- Compare the backup stream endpoints listed for a room.
+- List the quality labels a room offers before choosing a stream.
 
 ### Request
 
@@ -79,6 +80,8 @@ curl -X POST "https://api.sandbase.ai/v1/api/bilibili/web/live-videos" \
   -d '{"room_id": "1815229528"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
@@ -87,29 +90,62 @@ curl -X POST "https://api.sandbase.ai/v1/api/bilibili/web/live-videos" \
 
 ### Example response
 
-Real response for the request above, trimmed to the main fields. User names and long IDs are masked.
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
 
 ```json
 {
+  "code": 0,
   "data": {
+    "accept_quality": [
+      "4"
+    ],
+    "current_qn": 10000,
+    "current_quality": 4,
     "durl": [
       {
+        "length": 0,
+        "order": 1,
         "p2p_type": -1,
         "stream_type": 0,
-        "url": "https://d1--ov-gotcha07.bilivideo.com/live-bvc/538254/live_1777360364_82518558.f…"
+        "url": "https://d1--ov-gotcha07.bilivideo.com/live-bvc/251381/live_1777360364_82518558.f…"
+      }
+    ],
+    "quality_description": [
+      {
+        "desc": "原画",
+        "qn": 10000
       }
     ]
-  }
+  },
+  "message": "OK",
+  "ttl": 1
 }
 ```
 
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `data.durl[].url` | Full stream URL for the room. The query string carries values such as `expires` and `qn`. |
+| `data.durl[].order` | Position of the stream URL in the list, starting at 1. Each entry points to a different host. |
+| `data.durl[].stream_type / data.durl[].p2p_type / data.durl[].length` | Stream type code, P2P type code and length value for each URL. In the sample, `stream_type` is `0`, `p2p_type` is `-1` and `length` is `0`. |
+| `data.current_qn` | Quality number of the stream now being served. The sample returns `10000`. |
+| `data.current_quality` | Current quality level as a small integer. The sample returns `4`. |
+| `data.accept_quality[]` | Quality levels the room accepts, returned as strings. The sample lists `"4"`. |
+| `data.quality_description[].qn` | Quality number that matches a quality label. |
+| `data.quality_description[].desc` | Text label for the quality number. In the sample, `10000` is labeled `原画`. |
+| `code / message` | Status of the call. `code` is `0` and `message` is `OK` on success. |
+
 ### Notes
 
-- Supply the broadcast room identifier via `room_id`.
+- Send `room_id` as a string, for example `"1815229528"`.
+- The stream URLs contain an `expires` value in the query string, so fetch a fresh response before you play a stream.
+- To get room details such as title or host info, call [Bilibili Live Room Details](/apis/bilibili/web/live-room-detail).
+- To browse live categories, call [Bilibili Streaming Areas](/apis/bilibili/web/all-live-areas).
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

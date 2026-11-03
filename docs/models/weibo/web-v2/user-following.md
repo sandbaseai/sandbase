@@ -63,13 +63,13 @@ Same call via the path form: `POST /v1/api/weibo/web-v2/user-following` with the
 
 ## Details
 
-Retrieves the following list for a target Weibo account using `uid`. Supports paginating through the accounts via `page`.
+Returns the list of accounts that a Weibo user follows, based on the numeric `uid`. You can pass `page` to step through the list. The response also includes paging cursors and a total count.
 
 ### Use cases
 
-- Track which accounts a target user follows on Weibo.
-- Analyze influencer networks and connection graphs.
-- Monitor changes in an account's interest subscriptions.
+- Pull the accounts a given Weibo user follows to map who that user pays attention to.
+- Build a connection graph between influencers by collecting each account's following list.
+- Check whether the following list of an account is empty or hidden before running further analysis.
 
 ### Request
 
@@ -80,6 +80,8 @@ curl -X POST "https://api.sandbase.ai/v1/api/weibo/web-v2/user-following" \
   -d '{"uid": "8431518763"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
@@ -89,25 +91,47 @@ curl -X POST "https://api.sandbase.ai/v1/api/weibo/web-v2/user-following" \
 
 ### Example response
 
-Real response for the request above, trimmed to the main fields. User names and long IDs are masked.
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
 
 ```json
 {
-  "followers_count": 1,
+  "fill_material": 0,
+  "has_filtered_attentions": false,
+  "has_filtered_fans": false,
+  "next_cursor": 0,
+  "ok": 1,
+  "previous_cursor": 0,
   "screenName": "用户8431518763",
+  "show_related_topic": false,
+  "show_unread": false,
   "sort_type": 0,
-  "type": 0,
-  "use_status_strategy": false
+  "total_number": 0,
+  "type": 0
 }
 ```
 
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `users[]` | List of followed accounts on the requested page. In the sample response this list is empty. |
+| `total_number` | Total number of followed accounts reported for the user. The sample response returns `0`. |
+| `next_cursor / previous_cursor` | Cursor values for neighbouring pages. Both are `0` in the sample response. |
+| `screenName` | Display name of the user whose following list was requested. |
+| `ok` | Status flag. The value `1` means the request succeeded. |
+| `has_filtered_attentions` | Boolean flag. The sample response returns `false`. |
+| `sort_type` | Numeric sort mode of the list. The sample response returns `0`. |
+
 ### Notes
 
-- `page` starts from 0, with a default value of 0.
+- `uid` is a required string, for example `8431518763`.
+- `page` starts at `0`, and `0` is the default.
+- An empty `users` array with `total_number` of `0` can come back with `ok` set to `1`.
+- To see who follows the user instead, call [Weibo User Follower List](/apis/weibo/web-v2/user-fans).
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

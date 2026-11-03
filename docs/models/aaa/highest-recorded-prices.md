@@ -64,7 +64,14 @@ Same call via the path form: `POST /v1/api/aaa/highest-recorded-prices` with the
 
 ## Details
 
-Returns all-time highest recorded average gas prices for a specific state or nationally. If no state_code is provided, returns national records.
+Returns the all-time highest recorded average gas prices from AAA, with the date each record was set. It takes an optional two-letter `state_code`. Without it, the API returns national records.
+
+### Use cases
+
+- Compare today's gas price with the national record for regular unleaded gas.
+- Show the record diesel price and its date in a fuel cost dashboard.
+- Check how close a state's current average is to its all-time high.
+- Add historical context to a news story about rising fuel prices.
 
 ### Request
 
@@ -75,7 +82,7 @@ curl -X POST "https://api.sandbase.ai/v1/api/aaa/highest-recorded-prices" \
   -d '{}'
 ```
 
-This API runs asynchronously. The call returns a task `id` with status `pending`; poll `GET https://api.sandbase.ai/v1/run/{id}` until `status` is `completed` and read the result from `outputs[0].data`.
+The result is returned in `outputs[0].data`.
 
 ### Parameters
 
@@ -83,9 +90,49 @@ This API runs asynchronously. The call returns a task `id` with status `pending`
 |---|---|---|---|
 | `state_code` | string | No | Two-letter US state code (e.g. TX, CA). Omitting returns national highest recorded prices. |
 
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "data": {
+    "highest_recorded": {
+      "Diesel": {
+        "date": "9/22/26",
+        "price": "6.5276"
+      },
+      "Regular Unleaded": {
+        "date": "6/14/22",
+        "price": "5.0165"
+      }
+    },
+    "location": "National"
+  },
+  "status": "success"
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `data.location` | The area the records cover. The value is `National` when no `state_code` is sent. |
+| `data.highest_recorded` | Map of fuel type names to record entries. The sample has two fuel types: Diesel and Regular Unleaded. Each entry holds a `price` and a `date`. |
+| `data.highest_recorded.Diesel.price` | Record average price for Diesel, as a string. |
+| `data.highest_recorded.Diesel.date` | Date the Diesel record was set, in `M/D/YY` format. |
+| `status` | Shows `success` when the call worked. |
+
+### Notes
+
+- Prices are returned as strings with four decimal places. Convert them to numbers before you do math.
+- Pass a two-letter code such as `TX` or `CA` in `state_code` to get records for one state.
+- To compare a record with current prices, call [AAA National Average](/apis/aaa/national-average) or [AAA State Gas Prices](/apis/aaa/state-gas-prices).
+- The call runs asynchronously. Read the result from `outputs[0].data` after the task completes.
+
 ### Pricing
 
-Flat price per call. Failed calls are not charged.
+$0.01 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ---
 Machine-readable: [`catalog/models/aaa/highest-recorded-prices.json`](../../../catalog/models/aaa/highest-recorded-prices.json) · Store page: https://www.sandbase.ai/model/aaa/highest-recorded-prices

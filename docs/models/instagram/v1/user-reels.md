@@ -64,13 +64,14 @@ Same call via the path form: `POST /v1/api/instagram/v1/user-reels` with the bod
 
 ## Details
 
-Access Reels media items for an Instagram profile using `user_id`. Manage pagination across results with `max_id` and `count`.
+Returns a paginated list of Reels for one Instagram account. You pass the numeric Instagram `user_id`, and each item in `items` holds a `media` object for one Reel.
 
 ### Use cases
 
-- Review Reels content from a target creator profile.
-- Track engagement indicators such as comment counts across an account's Reels.
-- Index video media associated with a specific Instagram user.
+- Pull the latest Reels from a creator profile to review their recent video output.
+- Build a posting timeline for an account from the caption `created_at` values.
+- Page through an account's full Reels history with `max_id` and store the media IDs.
+- Check which Reels allow resharing or saving by reading the `can_viewer_reshare` and `can_viewer_save` flags.
 
 ### Request
 
@@ -80,6 +81,8 @@ curl -X POST "https://api.sandbase.ai/v1/api/instagram/v1/user-reels" \
   -H "Content-Type: application/json" \
   -d '{"user_id": "25025320"}'
 ```
+
+The result is returned in `outputs[0].data`.
 
 ### Parameters
 
@@ -91,33 +94,66 @@ curl -X POST "https://api.sandbase.ai/v1/api/instagram/v1/user-reels" \
 
 ### Example response
 
-Real response for the request above, trimmed to the main fields. User names and long IDs are masked.
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
 
 ```json
 {
+  "attempts": "0",
   "items": [
     {
       "media": {
-        "caption_is_edited": false,
-        "coauthor_producer_can_see_organic_insights": false,
-        "comment_count": 18380,
-        "device_timestamp": 1790870048722622,
-        "disable_caption_and_comment": false,
-        "filter_type": 0
+        "are_remixes_crosspostable": true,
+        "boost_unavailable_identifier": null,
+        "boost_unavailable_reason": null,
+        "boost_unavailable_reason_v2": [],
+        "can_see_insights_as_brand": false,
+        "can_viewer_reshare": true,
+        "can_viewer_save": true,
+        "caption": {
+          "bit_flags": 0,
+          "content_type": "comment",
+          "created_at": 1793647551,
+          "created_at_utc": 1793647551,
+          "did_report_as_spam": false,
+          "is_covered": false,
+          "is_ranked_comment": false,
+          "media_id": 4021726163100932870
+        }
       }
     }
-  ]
+  ],
+  "paging_info": {
+    "max_id": "QVFESzFzMkVFcTJZS0NNa3ZiMGktQ2NMaS01N0k2VmlRcTNncm1iZW5DaUlmQ3NNVi1hX0kwc0pFa19W…",
+    "more_available": true
+  },
+  "status": "ok"
 }
 ```
 
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `items[].media` | One Reel. All other per-Reel fields sit inside this object. |
+| `items[].media.caption.media_id` | Numeric ID of the Reel that the caption belongs to. |
+| `items[].media.caption.created_at / items[].media.caption.created_at_utc` | Time the caption was created, as a Unix timestamp in seconds. Both fields hold the same value in this response. |
+| `items[].media.caption.content_type` | Type of the caption object. It shows `comment` in this response. |
+| `items[].media.can_viewer_reshare / items[].media.can_viewer_save` | Booleans that show whether the viewer can reshare or save the Reel. |
+| `items[].media.are_remixes_crosspostable` | Boolean that shows whether remixes of the Reel can be crossposted. |
+| `paging_info.max_id` | Cursor for the next page. Send it as `max_id` in the next request. |
+| `paging_info.more_available` | Boolean that is `true` when more Reels can be fetched with the cursor. |
+| `status` | Request status. The value is `ok` on success. |
+
 ### Notes
 
-- Use `max_id` as the pagination cursor after the initial request.
-- The `count` parameter defaults to 12 items per page.
+- Omit `max_id` on the first request. For the next page, send the value of `paging_info.max_id`.
+- Keep paging while `paging_info.more_available` is `true`.
+- `count` sets the page size from 1 to 50 and defaults to 12.
+- To find a `user_id` from a username, call [Instagram User Info by Username](/apis/instagram/v1/user-info-by-username).
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

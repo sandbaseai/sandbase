@@ -62,13 +62,14 @@ Same call via the path form: `POST /v1/api/telegram/web/batch-channel-info` with
 
 ## Details
 
-Look up public profile details for multiple Telegram channels in a single request using the `channels` parameter.
+Returns public profile details for up to 20 Telegram channels in one call. You pass a comma-separated list of channel usernames in `channels`. Each result holds the title, description, photo, verified flag and subscriber and media counts.
 
 ### Use cases
 
-- Retrieve profile summaries for multiple public Telegram channels simultaneously.
-- Verify whether specific Telegram channels have verified badges.
-- Inspect channel descriptions and titles across a list of target usernames.
+- Check the verified status and subscriber counts of a list of competitor channels in one request.
+- Build a directory of channels with titles, descriptions and profile photos from a list of usernames.
+- Validate a list of channel usernames and spot which ones return no profile data.
+- Track how channel subscriber counts and media totals compare across a group of channels.
 
 ### Request
 
@@ -79,6 +80,8 @@ curl -X POST "https://api.sandbase.ai/v1/api/telegram/web/batch-channel-info" \
   -d '{"channels": "telegram"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
@@ -87,31 +90,59 @@ curl -X POST "https://api.sandbase.ai/v1/api/telegram/web/batch-channel-info" \
 
 ### Example response
 
-Real response for the request above, trimmed to the main fields. User names and long IDs are masked.
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
 
 ```json
 {
+  "count": 1,
   "results": [
     {
+      "channel": "telegram",
       "info": {
+        "counters": {
+          "links": "378",
+          "photos": "16",
+          "subscribers": "9.2M",
+          "videos": "228"
+        },
         "description": "The official Telegram on Telegram. Much recursion. Very Telegram. Wow.",
+        "photo": "https://cdn1.telesco.pe/file/hnmFZVV6A1_vjW41WnRQI9LiY1404GFwcfT_HbWGXlPkZCJQr6y…",
+        "subscribers": "9.2M",
         "title": "Telegram News",
-        "username": "<user>",
+        "username": "telegram",
         "verified": true
-      }
+      },
+      "ok": true
     }
   ]
 }
 ```
 
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `count` | Number of channels in the `results` list. |
+| `results[].channel` | The username you asked for, as sent in the request. |
+| `results[].ok` | `true` when the lookup for this channel worked. |
+| `results[].info.title` | Display name of the channel. |
+| `results[].info.username` | Channel username without the `@`. |
+| `results[].info.description` | Channel bio text. |
+| `results[].info.verified` | `true` when the channel has the verified badge. |
+| `results[].info.subscribers / results[].info.counters.subscribers` | Subscriber count as a short text string, such as `9.2M`. It is not an exact number. |
+| `results[].info.counters.photos / results[].info.counters.videos / results[].info.counters.links` | Counts of photos, videos and links shared in the channel, returned as strings. |
+| `results[].info.photo` | URL of the channel profile picture. |
+
 ### Notes
 
-- Pass channel usernames as a comma-separated string to `channels`.
-- Accepts up to 20 channel usernames per request.
+- Send usernames without the `@`, separated by commas, for example `telegram,durov`. The limit is 20 per request.
+- Check `results[].ok` for each channel, since results are returned per channel.
+- Counts such as `subscribers` are abbreviated strings, so parse values like `9.2M` before you do math.
+- For one channel, use [Telegram Channel Info](/apis/telegram/web/channel-info). To read posts next, call [Telegram Channel Posts](/apis/telegram/web/channel-posts).
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.008 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

@@ -62,9 +62,13 @@ Same call via the path form: `POST /v1/api/polymarket/markets-by-token` with the
 
 ## Details
 
-Get market by token from Polymarket. Returns the official Polymarket API response unchanged.
+Returns the parent market identifiers for a Polymarket outcome token. You send one `token_id` and get back the market's `condition_id` and the token IDs of both outcomes.
 
-The response is the official Polymarket API response, unchanged.
+### Use cases
+
+- Map a token ID seen in a trade or order book to its market `condition_id`.
+- Find the opposite outcome token for a token you already hold.
+- Collect the `condition_id` needed to call market-level APIs from a list of token IDs.
 
 ### Request
 
@@ -75,15 +79,44 @@ curl -X POST "https://api.sandbase.ai/v1/api/polymarket/markets-by-token" \
   -d '{"token_id": "32338220190071351435772801779725302244575775216413325951443816017994629993401"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
 |---|---|---|---|
 | `token_id` | string | Yes | The token ID to look up the parent market for |
 
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "condition_id": "0xa467b14d51f01b957109d9cbb1d6c124fab2a089d52ed8f471d23c2812e743b7",
+  "primary_token_id": "25659310…",
+  "secondary_token_id": "32338220…"
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `condition_id` | Identifier of the parent market. It is a hex string starting with `0x`. |
+| `primary_token_id` | Token ID of the market's first outcome token. |
+| `secondary_token_id` | Token ID of the market's second outcome token. In the example it matches the requested `token_id`. |
+
+### Notes
+
+- The request needs only `token_id`. Token IDs are long numeric strings, so send them as strings.
+- The response gives the two token IDs for the market. Whichever one you send, the other is also returned.
+- Use the `condition_id` with [Polymarket Get CLOB market info](/apis/polymarket/clob-markets) to get more detail on the market.
+- Pass a token ID to [Polymarket Get order book](/apis/polymarket/book) to see current bids and asks for that outcome.
+
 ### Pricing
 
-Flat price per call. Failed calls are not charged.
+$0.00044 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ---
 Machine-readable: [`catalog/models/polymarket/markets-by-token.json`](../../../catalog/models/polymarket/markets-by-token.json) · Store page: https://www.sandbase.ai/model/polymarket/markets-by-token

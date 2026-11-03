@@ -62,13 +62,14 @@ Same call via the path form: `POST /v1/api/douyin/billboard/hot-total-high-topic
 
 ## Details
 
-Retrieve trending Douyin topic rankings with rising heat metrics. Filter results using `keyword`, `tags`, and `date_window`, with pagination controlled via `page` and `page_size`.
+Returns a ranked list of Douyin topics (challenges) whose popularity is rising, with play counts, post counts and daily trend values. All inputs are optional. You can filter by `keyword`, `tags` and `date_window`, and page through results with `page` and `page_size`.
 
 ### Use cases
 
-- Identify fast-growing topics on Douyin for content planning.
-- Track historical trend metrics for specific vertical category tags.
-- Monitor rising keyword popularity over hourly or daily time windows.
+- Spot Douyin topics that are gaining plays so you can plan content around them.
+- Chart the daily trend values of a topic to see when it peaked.
+- Compare `publish_cnt` and `avg_play_cnt` across topics to find ones with high reach per post.
+- Pull a keyword-filtered topic list to check whether a theme is currently rising.
 
 ### Request
 
@@ -79,46 +80,81 @@ curl -X POST "https://api.sandbase.ai/v1/api/douyin/billboard/hot-total-high-top
   -d '{}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
 |---|---|---|---|
-| `page` | integer | No | Page number |
-| `tags` | array | No | Sub-level vertical category tag, empty for all, multiple tags need to be passed in |
-| `keyword` | string | No | Search keyword to filter the billboard, empty for all |
-| `page_size` | integer | No | Number of items per page |
 | `date_window` | integer | No | Time window, 1 by hour 2 by day |
+| `keyword` | string | No | Search keyword to filter the billboard, empty for all |
+| `page` | integer | No | Page number |
+| `page_size` | integer | No | Number of items per page |
+| `tags` | array | No | Sub-level vertical category tag, empty for all, multiple tags need to be passed in |
 
 ### Example response
 
-Real response for the request above, trimmed to the main fields. User names and long IDs are masked.
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
 
 ```json
 {
+  "code": 0,
   "data": {
     "objs": [
       {
-        "trends": [
-          {
-            "date": "20260922",
-            "value": 2289584
-          }
-        ]
+        "avg_play_cnt": 19064,
+        "challenge_id": "1730102465878094",
+        "challenge_name": "纯稚",
+        "challenge_type": 1,
+        "cover_url": "https://p11-sign.douyinpic.com/aweme/200x200/image-cut-tos/798fb02bb4e6ac27b2363…",
+        "create_time": 1649956392,
+        "is_favorite": false,
+        "is_recommend": false,
+        "item_list": null,
+        "origin_rank": 1,
+        "origin_trend_str": "20261020:29349.0,20261030:3224149.0,20261028:1157806.0,20261022:20401.0,20261027…",
+        "play_cnt": 1323482617
       }
-    ]
-  }
+    ],
+    "page": {
+      "page": 1,
+      "page_size": 10,
+      "total": 1000
+    }
+  },
+  "extra": {
+    "now": 1793691109000
+  },
+  "message": ""
 }
 ```
 
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `data.objs[].challenge_id / challenge_name` | ID and display name of the topic (challenge). |
+| `data.objs[].real_rank / show_rank / origin_rank` | Rank positions of the topic in the list. They are all `1` for the top item in this response. |
+| `data.objs[].score` | Popularity score of the topic used for the ranking. |
+| `data.objs[].play_cnt` | Total plays recorded for the topic. |
+| `data.objs[].publish_cnt` | Number of videos published under the topic. |
+| `data.objs[].avg_play_cnt` | Average plays per video for the topic. |
+| `data.objs[].trends[].date / value` | Daily trend points. `date` is a `YYYYMMDD` string and `value` is the metric for that day. |
+| `data.objs[].origin_trend_str` | The same trend data as one string of `date:value` pairs separated by commas. |
+| `data.objs[].create_time` | Creation time of the topic as a Unix timestamp in seconds. |
+| `data.objs[].cover_url` | Link to a cover image for the topic. |
+| `data.page.page / page_size / total` | Current page number, items per page, and total number of matching topics. |
+
 ### Notes
 
-- Set `date_window` to 1 for hourly intervals or 2 for daily intervals.
-- Pass vertical category values via `tags` or filter by search terms using `keyword`.
-- Control pagination using `page` and `page_size`.
+- Send `date_window` as `1` for hourly or `2` for daily, as described in the parameter schema.
+- Page through results with `page` and `page_size`. The `data.page.total` value shows how many topics match.
+- To fill `tags`, get category values from [Douyin Billboard Vertical Content Tags](/apis/douyin/billboard/content-tag).
+- `item_list` and `related_event` were `null` in the sample response.
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

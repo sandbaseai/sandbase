@@ -75,13 +75,14 @@ Same call via the path form: `POST /v1/api/douyin/billboard/hot-total-video-list
 
 ## Details
 
-Fetch the Douyin (Juliang Suanshu) hot video billboard. Choose a list type with `sub_type`, filter by keyword or vertical tags, and get ranked videos with play, like and follower metrics.
+Returns a ranked list of hot Douyin videos from the billboard. Each item has play, like and follower stats for the video and its creator. All inputs are optional. Use `sub_type` to pick the list and `date_window` to pick the time window.
 
 ### Use cases
 
-- Spot trending videos and formats before they peak.
-- Find low-follower creators with breakout videos.
-- Benchmark like rate and completion for a category.
+- Track which videos lead the overall Douyin hot list right now.
+- Find videos from small creators that reach high play counts by switching `sub_type` to `1002`.
+- Compare `like_rate` and `follow_rate` across videos to see which content turns views into likes and new followers.
+- Pull a keyword or category filtered list to see which videos lead in a niche.
 
 ### Request
 
@@ -92,57 +93,82 @@ curl -X POST "https://api.sandbase.ai/v1/api/douyin/billboard/hot-total-video-li
   -d '{}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
 |---|---|---|---|
-| `page` | integer | No | Page number |
-| `tags` | array | No | Sub-level vertical category tag, empty for all, multiple tags need to be passed in |
-| `keyword` | string | No | Search keyword to filter the billboard, empty for all |
-| `sub_type` | integer | No | List category, 1001 Video total list 1002 Low fan explosion 1003 High completion rate 1004 High fan growth rate 1005 Hi… |
-| `page_size` | integer | No | Number of items per page |
 | `date_window` | integer | No | Time window, 1 by hour 2 by day |
+| `keyword` | string | No | Search keyword to filter the billboard, empty for all |
+| `page` | integer | No | Page number |
+| `page_size` | integer | No | Number of items per page |
+| `sub_type` | integer | No | List category, 1001 Video total list 1002 Low fan explosion 1003 High completion rate 1004 High fan growth rate 1005 High like rate |
+| `tags` | array | No | Sub-level vertical category tag, empty for all, multiple tags need to be passed in |
 
 ### Example response
 
-Real response for the request above, trimmed to the main fields. User names and long IDs are masked.
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
 
 ```json
 {
   "code": 0,
   "data": {
+    "objs": [
+      {
+        "avatar_url": "https://p3.douyinpic.com/aweme/100x100/aweme-avatar/tos-cn-i-0813_okXaKjzBEfAYIO…",
+        "fans_cnt": 16669,
+        "favorite_id": 0,
+        "follow_cnt": 6810,
+        "follow_rate": 0.000148,
+        "image_cnt": 0,
+        "is_favorite": false,
+        "item_cover_url": "https://p9-sign.douyinpic.com/tos-cn-i-0813c000-ce/o0sEAmqIkvtD3C5awhnaGfEdFAA9D…",
+        "item_duration": 19434,
+        "item_id": "7702397404621350821",
+        "item_title": "哈哈哈病人有活的风险吗#运动会封神现场 #医学生 #医学生接力赛 #药学院",
+        "item_url": "https://v5-coldp.douyinvod.com/506f005831394f7cc7b8fe459c6c7cdd/6ae99c09/video/t…"
+      }
+    ],
     "page": {
       "page": 1,
       "page_size": 10,
       "total": 1000
-    },
-    "objs": [
-      {
-        "item_id": "7692681489309628406",
-        "publish_time": 1791091983,
-        "item_duration": 13652,
-        "play_cnt": 13545023,
-        "like_cnt": 1218230,
-        "like_rate": 0.089939,
-        "follow_rate": 0.00029,
-        "fans_cnt": 6604,
-        "score": 1215906,
-        "item_title": "谁能翻译下😅#猫咪 #喵语 #猫咪的迷惑行为",
-        "nick_name": "<user>"
-      }
-    ]
-  }
+    }
+  },
+  "extra": {
+    "now": 1793691110000
+  },
+  "message": ""
 }
 ```
 
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `data.objs[].item_id` | ID of the video, returned as a string. |
+| `data.objs[].item_title` | Video caption, including its hashtags. |
+| `data.objs[].nick_name` | Display name of the creator who posted the video. |
+| `data.objs[].play_cnt / like_cnt` | Play count and like count of the video. |
+| `data.objs[].like_rate / follow_rate` | Ratios for the video. `like_rate` matches `like_cnt` divided by `play_cnt` in the sample. `follow_rate` is a small decimal that relates to follower gain. |
+| `data.objs[].fans_cnt` | Follower count of the creator. |
+| `data.objs[].score` | Ranking score of the video on the list. |
+| `data.objs[].publish_time` | Publish time of the video as a Unix timestamp in seconds. |
+| `data.objs[].item_duration` | Video length. The value is likely in milliseconds, for example `19434`. |
+| `data.objs[].item_cover_url / avatar_url / item_url` | Links to the cover image, the creator avatar and the video file. |
+| `data.page.page / page_size / total` | Current page number, items per page and total number of items in the list. |
+
 ### Notes
 
-- `sub_type`: 1001 overall, 1002 low-follower breakouts, 1003 high completion, 1004 follower growth, 1005 like rate.
-- `date_window`: 1 = by hour, 2 = by day (default 24).
+- Pass `page` and `page_size` to move through the list. The sample shows `total` as `1000`.
+- `sub_type` values: `1001` overall, `1002` low-follower breakouts, `1003` high completion, `1004` high follower growth, `1005` high like rate.
+- `date_window` takes `1` for by hour and `2` for by day.
+- To fill `tags`, call [Douyin Billboard Vertical Content Tags](/apis/douyin/billboard/content-tag) to look up the vertical category tags.
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

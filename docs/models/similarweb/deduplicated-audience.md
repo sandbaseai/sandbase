@@ -73,9 +73,14 @@ Same call via the path form: `POST /v1/api/similarweb/deduplicated-audience` wit
 
 ## Details
 
-Get a website's deduplicated monthly audience across desktop and mobile web, with each platform's share.
+This API returns the deduplicated monthly audience of a website, counted once even if the same person visits on desktop and mobile web. It needs a `domain`, a `start_date` and an `end_date` in `YYYY-MM` format. The response gives visitor counts and shares for desktop only, mobile web only, and both platforms.
 
-The response is the official Similarweb API response, unchanged.
+### Use cases
+
+- Measure how many unique people reach a news site each month, without double counting people who use both desktop and phone.
+- Compare the share of desktop-only and mobile-web-only readers to decide where to focus ad spend or site design.
+- Track the size of the cross-device audience over several months to see if more users switch between platforms.
+- Compare the deduplicated audience of two competing domains by calling the API once for each.
 
 ### Request
 
@@ -86,21 +91,80 @@ curl -X POST "https://api.sandbase.ai/v1/api/similarweb/deduplicated-audience" \
   -d '{"start_date": "2026-09", "end_date": "2026-09", "country": "ww", "domain": "cnn.com", "granularity": "monthly"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
 |---|---|---|---|
-| `country` | string | No | Worldwide data only; values are case-insensitive. |
 | `domain` | string | Yes | domain |
 | `end_date` | string | Yes | end_date |
+| `start_date` | string | Yes | start_date |
+| `country` | string | No | Worldwide data only; values are case-insensitive. |
 | `granularity` | string | No | granularity |
 | `main_domain_only` | boolean | No | main_domain_only |
-| `start_date` | string | Yes | start_date |
 | `web_source` | string | No | web_source |
+
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "data": [
+    {
+      "date": "2026-09-01",
+      "desktop_and_mobile_web_audience_share": 0.32484400771842364,
+      "desktop_and_mobile_web_audience_visitors": 9005207.086507518,
+      "desktop_only_audience_share": 0.14004679349515559,
+      "desktop_only_audience_visitors": 3882326.123492483,
+      "mobile_web_only_audience_share": 0.5351091987864207,
+      "mobile_web_only_audience_visitors": 14834102.013492484,
+      "total_deduplicated_audience": 27721635.223492485
+    }
+  ],
+  "meta": {
+    "last_updated": "2026-09-30",
+    "request": {
+      "country": "ww",
+      "domain": "cnn.com",
+      "end_date": "2026-09-30",
+      "format": "json",
+      "granularity": "monthly",
+      "main_domain_only": true,
+      "metrics": [
+        "total_deduplicated_audience"
+      ],
+      "start_date": "2026-09-01"
+    },
+    "status": "success"
+  }
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `data[].date` | First day of the month the row covers, such as `2026-09-01`. |
+| `data[].total_deduplicated_audience` | Total unique visitors for the month across desktop and mobile web, with overlap counted once. |
+| `data[].desktop_only_audience_visitors / data[].desktop_only_audience_share` | Visitors who used only desktop, and their share of the total audience. The share is a fraction between 0 and 1. |
+| `data[].mobile_web_only_audience_visitors / data[].mobile_web_only_audience_share` | Visitors who used only mobile web, and their share of the total audience. |
+| `data[].desktop_and_mobile_web_audience_visitors / data[].desktop_and_mobile_web_audience_share` | Visitors who used both desktop and mobile web, and their share of the total audience. |
+| `meta.last_updated` | Date shown by the response as the last update, such as `2026-09-30`. |
+| `meta.request` | Echo of the parameters the request used, with dates expanded to full days such as `2026-09-01` and `2026-09-30`. |
+| `meta.status` | Shows `success` when the call worked. |
+
+### Notes
+
+- The three shares add up to 1, and the three visitor counts add up to `total_deduplicated_audience`.
+- Use `YYYY-MM` for `start_date` and `end_date`. The response returns one row in `data` for each month in the range.
+- `country` accepts only `ww` (worldwide) and `granularity` accepts only `monthly`.
+- For more on a site's traffic, call [Similarweb Traffic & Engagement](/apis/similarweb/traffic-engagement) or [Similarweb Audience Overlap](/apis/similarweb/audience-overlap).
 
 ### Pricing
 
-$0.525 per month between start_date and end_date (12 months if omitted). Failed calls are not charged.
+Billed at the actual cost of each call, about $0.525 for the request above. Failed calls are not charged.
 
 ---
 Machine-readable: [`catalog/models/similarweb/deduplicated-audience.json`](../../../catalog/models/similarweb/deduplicated-audience.json) · Store page: https://www.sandbase.ai/model/similarweb/deduplicated-audience

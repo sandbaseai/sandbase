@@ -63,13 +63,13 @@ Same call via the path form: `POST /v1/api/reddit/app/user-active-subreddits` wi
 
 ## Details
 
-Retrieve the communities where a specific user is most active by providing their `username`. Use `need_format` to toggle cleaned response output.
+Returns the Reddit communities where a given user is most active. It needs a Reddit `username`, such as `spez`. The sample call for `spez` returned the user object with `activeSubreddits` set to `null`.
 
 ### Use cases
 
-- Analyze user interest patterns across Reddit communities.
-- Evaluate an author's topical engagement across subreddits.
-- Gather community participation data for user research.
+- Check which subreddits a Reddit user is listed as active in.
+- Confirm that a username resolves to a Redditor record before you call other user APIs.
+- Compare the `activeSubreddits` value across several usernames to see which accounts have data.
 
 ### Request
 
@@ -80,6 +80,8 @@ curl -X POST "https://api.sandbase.ai/v1/api/reddit/app/user-active-subreddits" 
   -d '{"username": "spez"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
@@ -87,13 +89,37 @@ curl -X POST "https://api.sandbase.ai/v1/api/reddit/app/user-active-subreddits" 
 | `username` | string | Yes | Reddit username |
 | `need_format` | boolean | No | Whether to clean and format the data |
 
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "redditorInfoByName": {
+    "__typename": "Redditor",
+    "activeSubreddits": null
+  }
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `redditorInfoByName` | The user record that matches the `username` you sent. |
+| `redditorInfoByName.__typename` | The object type. The value `Redditor` confirms the lookup found a Reddit user account. |
+| `redditorInfoByName.activeSubreddits` | The list of communities where the user is most active. It is `null` in the sample response for `spez`, so no active subreddits came back for that call. |
+
 ### Notes
 
-- Set `need_format` to true to clean and format the returned data.
+- Send `username` without the `u/` prefix, as in the example `spez`.
+- Handle a `null` value in `activeSubreddits` in your code, since the sample response for `spez` returned no list.
+- To see what a user posts or comments, call [Reddit User Posts](/apis/reddit/app/user-posts) or [Reddit User Comments](/apis/reddit/app/user-comments).
+- For account details, call [Reddit App User Profile](/apis/reddit/app/user-profile).
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

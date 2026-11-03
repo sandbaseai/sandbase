@@ -70,9 +70,14 @@ Same call via the path form: `POST /v1/api/coingecko/coins-market-chart` with th
 
 ## Details
 
-Get the historical chart data of a coin including time in UNIX, price, market cap and 24hr volume based on particular coin ID
+Returns historical price, market cap and total volume series for one coin on CoinGecko. You pass a coin `id` such as `bitcoin`, a number of `days` and a `vs_currency` such as `usd`.
 
-The response is the official CoinGecko API response, unchanged.
+### Use cases
+
+- Draw a price chart for a coin over the last day, week or full history.
+- Compare market cap and trading volume trends for one coin over time.
+- Export time series data for backtesting or analysis in a spreadsheet or notebook.
+- Show price in a local currency by changing `vs_currency`.
 
 ### Request
 
@@ -83,19 +88,64 @@ curl -X POST "https://api.sandbase.ai/v1/api/coingecko/coins-market-chart" \
   -d '{"id": "bitcoin", "days": "1", "vs_currency": "usd"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
 |---|---|---|---|
-| `id` | string | Yes | Coin ID. *refers to [`/coins/list`](/reference/coins-list). |
 | `days` | string | Yes | Data up to number of days ago. You may use any integer or `max` for number of days. |
+| `id` | string | Yes | Coin ID. *refers to [`/coins/list`](/reference/coins-list). |
+| `vs_currency` | string | Yes | Target currency of market data. *refers to [`/simple/supported_vs_currencies`](/reference/simple-supported-currencies). |
 | `interval` | string | No | Data interval, leave empty for auto granularity. |
 | `precision` | string | No | Decimal place for currency price value. |
-| `vs_currency` | string | Yes | Target currency of market data. *refers to [`/simple/supported_vs_currencies`](/reference/simple-supported-currencies). |
+
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "market_caps": [
+    [
+      1793604600000
+    ]
+  ],
+  "prices": [
+    [
+      1793604600000
+    ]
+  ],
+  "total_volumes": [
+    [
+      1793604600000
+    ]
+  ]
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `prices` | List of `[timestamp, price]` pairs. The price is in the currency set by `vs_currency`. |
+| `prices[][0] / market_caps[][0] / total_volumes[][0]` | Timestamp of the data point, as a UNIX time value in milliseconds (for example `1793604600000`). |
+| `prices[][1]` | Coin price at that timestamp. |
+| `market_caps` | List of `[timestamp, market cap]` pairs for the coin. |
+| `market_caps[][1]` | Market cap value at that timestamp. |
+| `total_volumes` | List of `[timestamp, volume]` pairs for the coin's trading volume. |
+| `total_volumes[][1]` | Trading volume value at that timestamp. |
+
+### Notes
+
+- Get the coin `id` from [CoinGecko Coins List (ID Map)](/apis/coingecko/coins-list).
+- Get valid `vs_currency` values from [CoinGecko Supported Currencies List](/apis/coingecko/simple-supported-vs-currencies).
+- Each entry in the three lists is a two-item array, and the lists share the same timestamps. In the sample with `days` set to `1`, points are 5 minutes apart.
+- For a fixed start and end time, use [CoinGecko Coin Historical Chart Data within Time Range by ID](/apis/coingecko/coins-market-chart-range).
 
 ### Pricing
 
-Flat price per call. Failed calls are not charged.
+$0.008 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ---
 Machine-readable: [`catalog/models/coingecko/coins-market-chart.json`](../../../catalog/models/coingecko/coins-market-chart.json) · Store page: https://www.sandbase.ai/model/coingecko/coins-market-chart

@@ -59,13 +59,13 @@ Same call via the path form: `POST /v1/api/douyin/xingtu-v2/user-profile-qrcode`
 
 ## Details
 
-Retrieve a profile QR code for a Douyin Xingtu creator using either `core_user_id` or `sec_uid`. This allows direct linking to creator profiles.
+Returns a link to a QR code image for a Douyin Xingtu creator profile. Pass either `core_user_id` or `sec_uid` to identify the creator.
 
 ### Use cases
 
-- Display creator profile QR codes in marketing dashboards.
-- Facilitate direct mobile navigation to Douyin creator profiles.
-- Share Xingtu profile links via scannable QR codes.
+- Show a scannable profile code next to a creator row in an internal talent dashboard.
+- Add a creator QR code to a pitch deck or campaign brief so a client can open the profile on a phone.
+- Print or embed a creator's profile code in offline materials for a brand partnership event.
 
 ### Request
 
@@ -76,20 +76,47 @@ curl -X POST "https://api.sandbase.ai/v1/api/douyin/xingtu-v2/user-profile-qrcod
   -d '{"core_user_id": "1113181577281568"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
 |---|---|---|---|
-| `sec_uid` | string | No | User sec_uid (pick one with core_user_id) |
 | `core_user_id` | string | No | User core ID (pick one with sec_uid) |
+| `sec_uid` | string | No | User sec_uid (pick one with core_user_id) |
+
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "base_resp": {
+    "status_code": 0,
+    "status_message": "成功"
+  },
+  "qrcode": "https://p3.douyinpic.com/img/aweme-qrcode/TSQBWe7703844895601002240~c5_720x720.p…"
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `qrcode` | URL of the QR code image (a PNG file) for the creator profile. Download or embed this URL to show the code. |
+| `base_resp.status_code` | Result code of the call. A value of `0` means the lookup succeeded. |
+| `base_resp.status_message` | Text message that goes with the status code. It reads `成功` (success) in the sample response. |
 
 ### Notes
 
-- Requires either `core_user_id` or `sec_uid` as an identifier.
+- Send either `core_user_id` or `sec_uid`. The request schema marks both as optional strings and describes them as pick one.
+- The sample call used `core_user_id` set to `1113181577281568`.
+- To find a creator ID first, call [Douyin Xingtu Creator Search](/apis/douyin/xingtu-v2/search-creator). To convert a `sec_uid` into a Xingtu author ID, call [Douyin XingTu kolId by sec_user_id (V2)](/apis/douyin/xingtu-v2/xingtu-kolid-by-sec-user-id).
+- For more profile data on the same creator, call [Douyin Xingtu Author Base Info](/apis/douyin/xingtu-v2/author-base-info).
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.002 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

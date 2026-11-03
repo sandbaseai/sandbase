@@ -66,13 +66,13 @@ Same call via the path form: `POST /v1/api/tiktok/web/user-like` with the body a
 
 ## Details
 
-Fetch videos liked by a TikTok account by supplying the target user's `secUid`. Paginate through past likes using the `cursor` parameter.
+Returns a page of videos liked by a TikTok profile. It needs the profile's `secUid` as input and returns a cursor for the next page.
 
 ### Use cases
 
-- Inspect public videos liked by a specific TikTok creator.
-- Analyze content preferences and engagement trends of a target user.
-- Collect user liked video records for audience research.
+- Check which public videos a specific TikTok creator has liked.
+- Page through a user's like history to build a record of the content they engage with.
+- Collect liked-video data for audience research on a target account.
 
 ### Request
 
@@ -83,36 +83,64 @@ curl -X POST "https://api.sandbase.ai/v1/api/tiktok/web/user-like" \
   -d '{"secUid": "MS4wLjABAAAAv7iSuuXDJGDvJkmH_vz1qkDZYo1apxgzaxdBSeIuPiM"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
 |---|---|---|---|
 | `secUid` | string | Yes | User secUid |
 | `count` | integer | No | Number per page, default is 20, cannot be changed. |
-| `cursor` | integer | No | Page cursor |
 | `coverFormat` | integer | No | Cover format |
+| `cursor` | integer | No | Page cursor |
 | `post_item_list_request_type` | integer | No | Sort type |
 
 ### Example response
 
-Real response for the request above, trimmed to the main fields. User names and long IDs are masked.
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
 
 ```json
 {
+  "cookie": "tt_chain…",
+  "cursor": "1791417327000",
+  "extra": {
+    "fatal_item_ids": [],
+    "logid": "202611031544314BAB8FBD2CDB3104FCC3",
+    "now": 1793691871000
+  },
+  "hasMore": true,
+  "log_pb": {
+    "impr_id": "202611031544314BAB8FBD2CDB3104FCC3"
+  },
   "statusCode": 0,
-  "status_code": 0
+  "status_code": 0,
+  "status_msg": "",
+  "tt_chain_token": "0k5cdiqY…"
 }
 ```
 
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `cursor` | Cursor value for the next page. Pass it as `cursor` in the next request to continue. |
+| `hasMore` | `true` when more liked videos remain after this page. |
+| `statusCode / status_code` | Result code of the call. `0` means the request succeeded. |
+| `status_msg` | Status message text. It is an empty string in this response. |
+| `extra.fatal_item_ids` | List of item IDs that could not be returned. It is empty in this response. |
+| `extra.now` | Server timestamp of the response, as a 13-digit number. |
+| `extra.logid / log_pb.impr_id` | Request log identifier. Both fields hold the same value in this response. |
+
 ### Notes
 
+- Get the `secUid` for a profile with [TikTok Profile Sec User ID](/apis/tiktok/web/sec-user-id), or from profile links with [TikTok User Sec User ID Extractor](/apis/tiktok/web/all-sec-user-id).
+- To fetch the next page, send the returned `cursor` value as the `cursor` parameter while `hasMore` is `true`.
 - The `count` parameter defaults to 20 and cannot be changed.
-- Use `cursor` for pagination across result pages.
-- The target user's `secUid` is required.
+- The trimmed response shown here does not include a video list. Check the full response for the liked video items.
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

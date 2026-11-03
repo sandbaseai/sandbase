@@ -73,7 +73,14 @@ Same call via the path form: `POST /v1/api/linkedin/search-profiles-thin` with t
 
 ## Details
 
-Cheap people search: name/handle, headline, VANITY profile URL, location. No full profile or email - for full profiles per hit use linkedin.search_profiles, add emails with linkedin.search_profiles_email.
+Searches LinkedIn people by keyword and returns a short card for each match: name, headline, location, and profile URL. It needs a `query` such as a role, name, or keywords, and you can narrow results with filters like `title`, `locationId`, or `currentCompanyId`.
+
+### Use cases
+
+- Build a list of recruiters in one region by searching `recruiter` with a `locationId` filter.
+- Find the profile URL of a person when you only know their name and job title.
+- Collect candidate profiles at a target employer using `currentCompanyId`, then pass them to a full profile lookup.
+- Check which profiles in a search are marked `premium` or `verified`.
 
 ### Request
 
@@ -84,7 +91,7 @@ curl -X POST "https://api.sandbase.ai/v1/api/linkedin/search-profiles-thin" \
   -d '{"query": "recruiter"}'
 ```
 
-The result is returned in `outputs[0].data`. A lookup that finds nothing still succeeds and returns `found: false`.
+The result is returned in `outputs[0].data`.
 
 ### Parameters
 
@@ -104,9 +111,57 @@ The result is returned in `outputs[0].data`. A lookup that finds nothing still s
 | `serviceCategoryId` | string | No | Filter by service category, using a numeric service-category id. |
 | `title` | string | No | Filter by job title or headline (e.g. Head of Talent). |
 
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "data": {
+    "items": [
+      {
+        "handle": "linkedwithruby",
+        "headline": "A Technical Recruiter That Doesn’t Suck | Sardonic & Security | I used the spark…",
+        "id": "ACoAAB1QQOgBnODVSz6xioyOGmm8jw8iY8A8o-Y",
+        "image": "https://media.licdn.com/dms/image/v2/D5603AQEB2rD3RM2HRg/profile-displayphoto-sc…",
+        "location": "Los Angeles Metropolitan Area",
+        "name": "✨Ruby Murphy✨",
+        "premium": true,
+        "url": "https://www.linkedin.com/in/linkedwithruby",
+        "verified": false
+      }
+    ],
+    "nextCursor": "cur_eapzt1SXZH784D2SuVfdqA"
+  },
+  "found": true
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `data.items[].name` | Display name of the person as shown on their profile. It can include emojis. |
+| `data.items[].headline` | Headline text under the person's name. |
+| `data.items[].location` | Location text shown on the profile, such as a metro area or country. |
+| `data.items[].handle` | Vanity handle of the profile. It is the last part of the profile URL. |
+| `data.items[].url` | Full LinkedIn profile URL built from the handle. |
+| `data.items[].id` | LinkedIn member ID string for the person. It starts with `ACo`. |
+| `data.items[].image` | URL of the profile photo. It is an empty string when the profile has no photo in the result. |
+| `data.items[].premium / data.items[].verified` | Boolean flags for whether the profile shows a Premium badge and a verified badge. |
+| `data.nextCursor` | Cursor string for the next page of results. |
+| `found` | `true` when the search returned results. |
+
+### Notes
+
+- Each page holds 10 profiles. Pass `data.nextCursor` as `cursor` in the next request to get the next page, and omit `cursor` for the first page.
+- Filters that take IDs, such as `locationId`, `industryId`, `schoolId`, and `currentCompanyId`, need LinkedIn ID values, not names. `currentCompanyId` accepts several comma-separated IDs.
+- This API returns no full profile data and no emails. For full profile details call [LinkedIn Profile Search](/apis/linkedin/search-profiles) or [LinkedIn User Profile](/apis/linkedin/user-detail).
+- Use `data.items[].handle` or `data.items[].url` to identify each person in follow-up calls.
+
 ### Pricing
 
-Billed at the actual cost of each call, usually $0.036 per request. A call can cost more when the first data source fails and another one answers. Failed calls are not charged. Lookups that find nothing and searches with no results are billed at their actual cost, which is often lower and can be $0.
+Billed at the actual cost of each call, about $0.036 for the request above. Failed calls are not charged.
 
 ---
 Machine-readable: [`catalog/models/linkedin/search-profiles-thin.json`](../../../catalog/models/linkedin/search-profiles-thin.json) · Store page: https://www.sandbase.ai/model/linkedin/search-profiles-thin

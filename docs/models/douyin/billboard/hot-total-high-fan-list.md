@@ -62,13 +62,14 @@ Same call via the path form: `POST /v1/api/douyin/billboard/hot-total-high-fan-l
 
 ## Details
 
-Access Douyin billboard rankings for videos with high follow conversion rates using `keyword`, `tags`, and `date_window`.
+Returns a ranked list of Douyin videos and image posts that gained many followers relative to their reach. You can filter by `keyword`, `tags` and `date_window`, and all inputs are optional.
 
 ### Use cases
 
-- Track top Douyin content that drives high follower conversion.
-- Filter viral creator videos by category tags and search keywords.
-- Analyze high-performing video topics across hourly or daily windows.
+- Find Douyin posts that turn viewers into followers, so you can study what they do differently.
+- Compare `follow_rate` across posts from small and large accounts to spot creators who grow fast.
+- Narrow the ranking to one vertical with `tags` to see which posts convert best in a niche.
+- Switch `date_window` between hourly and daily views to see which posts keep their follower gains.
 
 ### Request
 
@@ -79,50 +80,81 @@ curl -X POST "https://api.sandbase.ai/v1/api/douyin/billboard/hot-total-high-fan
   -d '{}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
 |---|---|---|---|
-| `page` | integer | No | Page number |
-| `tags` | array | No | Sub-level vertical category tag, empty for all, multiple tags need to be passed in |
-| `keyword` | string | No | Search keyword to filter the billboard, empty for all |
-| `page_size` | integer | No | Number of items per page |
 | `date_window` | integer | No | Time window, 1 by hour 2 by day |
+| `keyword` | string | No | Search keyword to filter the billboard, empty for all |
+| `page` | integer | No | Page number |
+| `page_size` | integer | No | Number of items per page |
+| `tags` | array | No | Sub-level vertical category tag, empty for all, multiple tags need to be passed in |
 
 ### Example response
 
-Real response for the request above, trimmed to the main fields. User names and long IDs are masked.
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
 
 ```json
 {
+  "code": 0,
   "data": {
     "objs": [
       {
-        "fans_cnt": 229,
+        "avatar_url": "https://p11.douyinpic.com/aweme/100x100/aweme-avatar/tos-cn-avt-0015_533b01a13d6…",
+        "fans_cnt": 79,
         "favorite_id": 0,
-        "follow_cnt": 8251,
-        "follow_rate": 0.015585,
+        "follow_cnt": 5082,
+        "follow_rate": 0.016043,
         "image_cnt": 1,
-        "item_cover_url": "https://p3-sign.douyinpic.com/tos-cn-i-0813c000-ce/ooBeZ7IgOlALaIsyF17L2YeCAvGtJ…",
+        "is_favorite": false,
+        "item_cover_url": "https://p5-ex-gddgtc-sign.douyinpic.com/tos-cn-i-0813c000-ce/o4D5AeGVQEw3iIE6if9…",
         "item_duration": 0,
-        "item_id": "7688038203362429882",
-        "item_title": "抖音推流的核心规则，看懂少踩坑 1.只有观众在推荐页刷到你的视频，自愿看完、点赞评论，才算有效互动，能助推继续推流。 2.自己刷完反复播放、进别人主页求点赞、互赞秒评，这类虚假互…",
-        "item_url": "https://lf9-music-east.douyinstatic.com/obj/ies-music-hj/7677505695020780345.mp3"
+        "item_id": "7700288074861283185",
+        "item_title": "@点贊接单（流量扶持） 抖音推流的核心规则，看懂少踩坑 1️⃣ 只有观众在推荐页刷到你的视频，自愿看完、点赞评论，才算有效互动，能助推继续推流。 2️⃣ 自己刷…",
+        "item_url": "https://sf6-cdn-tos.douyinstatic.com/obj/ies-music/7655350214760352566.mp3"
       }
-    ]
-  }
+    ],
+    "page": {
+      "page": 1,
+      "page_size": 10,
+      "total": 1000
+    }
+  },
+  "extra": {
+    "now": 1793691107000
+  },
+  "message": ""
 }
 ```
 
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `data.objs[].item_id` | ID of the post, given as a string. |
+| `data.objs[].item_title` | Caption text of the post, which may be cut off and may include hashtags and @mentions. |
+| `data.objs[].nick_name / data.objs[].avatar_url` | Display name and avatar image link of the account that published the post. |
+| `data.objs[].fans_cnt` | Follower count of the publishing account. |
+| `data.objs[].follow_cnt` | Number of follows linked to this post. |
+| `data.objs[].follow_rate` | Follow conversion ratio for the post, as a decimal. For example, `0.016043` is about 1.6%. This is the value the billboard is built around. |
+| `data.objs[].play_cnt / data.objs[].like_cnt` | Play count and like count of the post. |
+| `data.objs[].like_rate` | Like ratio for the post, as a decimal. |
+| `data.objs[].publish_time` | Publish time of the post as a Unix timestamp in seconds. |
+| `data.objs[].media_type / data.objs[].image_cnt / data.objs[].item_duration` | Type of the post, the number of images, and its duration. Image posts show `item_duration` as `0`. |
+| `data.page.total` | Total number of items in the billboard for the current filters. |
+
 ### Notes
 
-- `date_window` sets the evaluation time window, such as 1 for hourly or 2 for daily.
-- Results can be paginated using `page` and `page_size`.
-- `tags` accepts category tags to narrow rankings by vertical topics.
+- Page through results with `page` and `page_size`. The response echoes both values in `data.page`.
+- `date_window` takes `1` for hourly or `2` for daily. The schema default is `24`.
+- To fill `tags`, get the category values from [Douyin Billboard Vertical Content Tags](/apis/douyin/billboard/content-tag).
+- `extra.now` is the server time in milliseconds. `publish_time` is in seconds.
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

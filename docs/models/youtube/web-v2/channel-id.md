@@ -62,13 +62,13 @@ Same call via the path form: `POST /v1/api/youtube/web-v2/channel-id` with the b
 
 ## Details
 
-Look up a canonical YouTube channel ID by supplying any standard channel URL in `channel_url`.
+This API takes a YouTube channel URL and returns the channel's canonical ID and the canonical `/channel/` URL. It needs one input, `channel_url`.
 
 ### Use cases
 
-- Convert channel handle URLs into canonical IDs for downstream data retrieval.
-- Normalize various YouTube channel URL formats into a single channel ID identifier.
-- Verify channel identifiers before calling channel-specific endpoints.
+- Turn a handle URL such as `https://www.youtube.com/@CozyCraftYT` into a stable channel ID to store in a database.
+- Normalize a list of mixed channel URLs into one ID format before you remove duplicates.
+- Get the channel ID you need to call channel-level APIs that ask for an ID instead of a URL.
 
 ### Request
 
@@ -79,6 +79,8 @@ curl -X POST "https://api.sandbase.ai/v1/api/youtube/web-v2/channel-id" \
   -d '{"channel_url": "https://www.youtube.com/@CozyCraftYT"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
@@ -87,7 +89,7 @@ curl -X POST "https://api.sandbase.ai/v1/api/youtube/web-v2/channel-id" \
 
 ### Example response
 
-Real response for the request above, trimmed to the main fields. User names and long IDs are masked.
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
 
 ```json
 {
@@ -96,13 +98,22 @@ Real response for the request above, trimmed to the main fields. User names and 
 }
 ```
 
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `channel_id` | The canonical YouTube channel ID. It starts with `UC`. |
+| `channel_url` | The canonical channel URL built from the ID, in the form `https://www.youtube.com/channel/<channel_id>`. |
+
 ### Notes
 
-- Supports handle (@username), /channel/, /c/, and /user/ URL formats via `channel_url`.
+- Pass the full URL in `channel_url`. The current README lists handle (`@username`), `/channel/`, `/c/` and `/user/` formats as supported.
+- Use the returned `channel_id` as input for other channel APIs, such as [YouTube Channel Description](/apis/youtube/web-v2/channel-description) or [YouTube Channel Videos](/apis/youtube/web-v2/channel-videos).
+- To go the other way, from an ID to a URL, call [YouTube Channel URL by ID](/apis/youtube/web-v2/channel-url).
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

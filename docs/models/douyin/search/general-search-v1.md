@@ -65,13 +65,14 @@ Same call via the path form: `POST /v1/api/douyin/search/general-search-v1` with
 
 ## Details
 
-Search Douyin's general (comprehensive) tab for a keyword. Results include videos with their description, author, statistics and share URL.
+Returns Douyin search results for a keyword from the app's general search tab. Each result is a video or image post with its caption, author and an ID. The only input needed is `keyword`.
 
 ### Use cases
 
-- Discover trending Douyin content for a keyword.
-- Find creators and videos for influencer marketing.
-- Monitor brand or product mentions on Douyin.
+- Collect the top Douyin posts for a keyword such as a pet breed or product name.
+- Find creators who post about a topic by reading `publish_username` and `author_user_id`.
+- Track new posts that mention a brand by filtering on publish time and reading the caption text.
+- Build a list of post IDs for a topic and fetch each one in full with another API.
 
 ### Request
 
@@ -82,63 +83,188 @@ curl -X POST "https://api.sandbase.ai/v1/api/douyin/search/general-search-v1" \
   -d '{"keyword": "猫咪"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
 |---|---|---|---|
-| `cursor` | integer | No | Pagination cursor (0 for the first page, use the last response cursor for subsequent pages) |
-| `keyword` | string | No | Search keyword, e.g., "cat" |
 | `backtrace` | string | No | Backtrace identifier (empty for first request, obtained from previous response for pagination) |
+| `content_type` | string | No | Content type filter |
+| `cursor` | integer | No | Pagination cursor (0 for the first page, use the last response cursor for subsequent pages) |
+| `filter_duration` | string | No | Video duration filter |
+| `keyword` | string | No | Search keyword, e.g., "cat" |
+| `publish_time` | string | No | Publish time filter |
 | `search_id` | string | No | Search ID (empty for first request, obtained from previous response for pagination) |
 | `sort_type` | string | No | Sorting method |
-| `content_type` | string | No | Content type filter |
-| `publish_time` | string | No | Publish time filter |
-| `filter_duration` | string | No | Video duration filter |
 
 ### Example response
 
-Real response for the request above, trimmed to the main fields. User names and long IDs are masked.
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
 
 ```json
 {
-  "cursor": 10,
-  "has_more": 1,
-  "search_id": "<search_id>",
-  "backtrace": "<backtrace>",
+  "ad_info": {},
+  "backtrace": "QcYdxJw7yf6duzkWgjcv9m6lNSZ4EWGHlekiwBFcWNm/eLx9nrk3/Ud/xt7uVeZWofx64xqtZ7DyvuOe…",
+  "cursor": 20,
   "data": [
     {
-      "type": 1,
       "aweme_info": {
-        "aweme_id": "7565738211130035491",
-        "create_time": 1761818400,
-        "duration": 94000,
-        "desc": "猫咪离家出走千万不要去找它 #养猫人#猫咪#养猫日常#养猫经验分享#新手养猫#养猫百科#萌宠#养猫…",
+        "activity_video_type": -1,
+        "ai_follow_images": null,
+        "ai_search_struct": {
+          "show_ai_entrance": true
+        },
+        "anchors": null,
+        "authentication_token": "MS4wLjAA…",
         "author": {
-          "nickname": "<user>",
-          "sec_uid": "<sec_uid>"
+          "accept_private_policy": false,
+          "account_cert_info": "{}",
+          "account_region": "",
+          "ad_cover_url": null,
+          "allow_story_normal_like": false,
+          "apple_account": 0,
+          "authority_status": 0,
+          "avatar_168x168": {
+            "height": 720,
+            "uri": "168x168/aweme-avatar/tos-cn-i-0813c000-ce_oEKA8FFsbIDrpkAAXWAwfoEqqkQM9fwEeA9hKE",
+            "url_list": [
+              "https://p3.douyinpic.com/img/aweme-avatar/tos-cn-i-0813c000-ce_oEKA8FFsbIDrpkAAX…"
+            ],
+            "width": 720
+          }
         },
-        "statistics": {
-          "play_count": 0,
-          "digg_count": 86129,
-          "comment_count": 4957,
-          "share_count": 5232,
-          "collect_count": 61272
-        },
-        "share_url": "https://www.iesdouyin.com/share/video/7565738211130035491/?…"
-      }
+        "author_mask_tag": 0,
+        "author_user_id": 99421008169
+      },
+      "aweme_list": null,
+      "card_id": "douyin.doctype_aweme_video",
+      "card_info": {
+        "search_autoplay_business": "153_dy"
+      },
+      "card_style_type": 1,
+      "card_type": 1,
+      "card_type_id": {
+        "card_name": "153|1|double",
+        "doc_type": 153,
+        "performance_infos": {
+          "153": 1,
+          "double_column": 1,
+          "is_native": 1,
+          "search_card_count": 1,
+          "video_has_lynx_anchor": 0
+        }
+      },
+      "card_type_name": "",
+      "comment_list": [
+        {
+          "aweme_id": "7697482617494657147",
+          "cid": "7697483159202726665",
+          "create_time": 1792209959,
+          "decorated_emoji_info": null,
+          "digg_count": 6,
+          "enter_from": "others_homepage",
+          "group_id": 7697482617494657147,
+          "image_list": null
+        }
+      ],
+      "data": {
+        "card_tags": null,
+        "common_tab_config": null,
+        "hotspot_tab_config": null,
+        "recom_extra_info": {
+          "suggest_words_config": 3,
+          "suggest_words_params": {
+            "doc_type": "153",
+            "item_id": "7697482617494657147",
+            "product_id": ""
+          }
+        }
+      },
+      "debug_data": {
+        "filter_debug_info_list": null
+      },
+      "debug_diff_info": {}
     }
-  ]
+  ],
+  "extra": {
+    "fatal_item_ids": [],
+    "logid": "202611031532171EB06BE851C10A585E5E",
+    "now": 1793691138684,
+    "scenes": null,
+    "search_request_id": "",
+    "start_ms": 1793691137274
+  },
+  "global_doodle_config": {
+    "activity_tag": null,
+    "comment_config": {
+      "disable_comment_bar": true
+    },
+    "display_music_anchor": 2,
+    "double_column_button_style": 2,
+    "double_column_layout_type": 3,
+    "ecom_intent": "intent_not_ecom",
+    "extra_server_client_params": "{\"last_strong_style_card_idx\":0}",
+    "is_double_column_left": 0,
+    "keyword": "猫咪",
+    "search_pop_info": [],
+    "srp_algo_for_wind_vane": "{\"bp_personal_strategy_level\":0,\"cate_lv1\":[20063,20041],\"ecom_bp_buy_intent\":0,…",
+    "user_guide": {
+      "inflow_second": 0,
+      "inflow_stop": 7,
+      "resp_second": 5,
+      "show_inflow_guide": true,
+      "show_resp_guide": true
+    }
+  },
+  "guide_search_words": [
+    {
+      "attached_text": null,
+      "id": "6594507188880807176",
+      "query_id": "6537523068217103624",
+      "type": "recom",
+      "word": "图片"
+    }
+  ],
+  "guide_search_words_extra": {},
+  "has_more": 1,
+  "log_pb": {
+    "impr_id": "202611031532171EB06BE851C10A585E5E",
+    "search_source": "homepage_recom_search",
+    "stab_extra": {
+      "traffic_identification": "normal"
+    }
+  },
+  "maokai_extra": {},
+  "new_framework_single_column_card_count": 0
 }
 ```
 
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `data[].impression_server_log.doc_title` | Caption text of the result. Long captions can include line breaks and hashtags. |
+| `data[].impression_server_log.gid / data[].provider_doc_id_str / data[].log_data.search_result_id` | ID of the result as a string. All three hold the same value for a given item. |
+| `data[].impression_server_log.publish_username` | Display name of the author who posted the result. |
+| `data[].impression_server_log.publish_time` | Publish time of the result as a Unix timestamp in seconds. |
+| `data[].aweme_info.author_user_id` | Numeric ID of the author. |
+| `data[].aweme_info.author.avatar_168x168.url_list[]` | Image URLs for the author's 168x168 avatar, in WebP and JPEG formats. |
+| `data[].card_id / data[].doc_type` | Type of the result. `douyin.doctype_aweme_video` with `doc_type` 153 is a video, and `douyin.doctype_aweme_image` with `doc_type` 303 is an image post. |
+| `data[].comment_list[].digg_count` | Like count of a comment shown with the result. The `comment_list` can be missing on some items. |
+| `data[].comment_list[].cid / data[].comment_list[].create_time` | ID of that comment and its creation time as a Unix timestamp in seconds. |
+| `data[].log_data.search_id` | ID of this search. Send it back as `search_id` to get the next page. |
+
 ### Notes
 
-- For the next page, pass back `cursor`, `search_id` and `backtrace` from the previous response.
-- Filters (`sort_type`, `publish_time`, `filter_duration`, `content_type`) use string codes; `"0"` means no filter.
+- For the first page, send only `keyword`. For the next page, send the top-level `cursor` and `backtrace` from the previous response, plus `search_id`.
+- `sort_type`, `content_type`, `publish_time` and `filter_duration` are strings. The default `"0"` applies no filter.
+- Results mix videos and image posts. Check `card_id` or `doc_type` to tell them apart.
+- Pass a result ID to [Douyin Video Detail](/apis/douyin/app-v3/one-video-v3) to load one item. For another search layout, try [Douyin General Search (V2)](/apis/douyin/search/general-search-v2).
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.01 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

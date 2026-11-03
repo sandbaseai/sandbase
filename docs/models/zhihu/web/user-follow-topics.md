@@ -64,13 +64,14 @@ Same call via the path form: `POST /v1/api/zhihu/web/user-follow-topics` with th
 
 ## Details
 
-Retrieve a collection of topics followed by a Zhihu member using their `user_url_token`. Supports pagination via `limit` and `offset` parameters.
+Returns the topics a Zhihu user follows, with each topic's name data, follower count, and discussion count. It needs the user's `user_url_token`, and it accepts `limit` and `offset` for paging.
 
 ### Use cases
 
-- Analyze interest areas and topic preferences for a Zhihu user.
-- Track topical affinities across user profiles on Zhihu.
-- Audit topic subscriptions for target Zhihu accounts.
+- Build an interest profile for a Zhihu user from the topics they follow.
+- Find niche topics with few followers that a specific account follows.
+- Compare the topic lists of two accounts to find shared interests.
+- Collect topic IDs to feed into other topic research workflows.
 
 ### Request
 
@@ -81,6 +82,8 @@ curl -X POST "https://api.sandbase.ai/v1/api/zhihu/web/user-follow-topics" \
   -d '{"user_url_token": "excited-vczh"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
@@ -89,14 +92,64 @@ curl -X POST "https://api.sandbase.ai/v1/api/zhihu/web/user-follow-topics" \
 | `limit` | string | No | Number of topics per page |
 | `offset` | string | No | Offset |
 
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "data": [
+    {
+      "contributions_count": 0,
+      "topic": {
+        "avatar_url": "https://pica.zhimg.com/v2-40e779d5c5e6bcebda41e92d50594618.jpg?source=57bbeac9",
+        "category": "basic",
+        "discuss_count": "12858",
+        "excerpt": "天体生物学，是一门研究在宇宙中生命起源、生物演化、分布和未来发展的交叉学科，并不只限于地外生物，或包括对地球生物的研究。在天体物理学上，指研究天体上存在生物的条…",
+        "followers_count": 2065,
+        "foot_line": {
+          "content": "2065 关注 · 1.2 万讨论"
+        },
+        "id": "20015598",
+        "introduction": "天体生物学，是一门研究在宇宙中生命起源、生物演化、分布和未来发展的交叉学科，并不只限于地外生物，或包括对地球生物的研究。在天体物理学上，指研究天体上存在生物的条…"
+      }
+    }
+  ],
+  "paging": {
+    "is_end": false,
+    "is_start": true,
+    "next": "https://www.zhihu.com/api/v5.1/topics/excited-vczh/following_topics_contribution…",
+    "previous": "https://www.zhihu.com/api/v5.1/topics/excited-vczh/following_topics_contribution…",
+    "totals": 50
+  }
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `data[].topic.id` | ID of the followed topic, returned as a string. |
+| `data[].topic.category` | Category label for the topic, such as `basic` or `n_game`. |
+| `data[].topic.introduction / data[].topic.excerpt` | Description text of the topic. Both can be an empty string when the topic has no description. The text may be cut with an ellipsis. |
+| `data[].topic.followers_count` | Number of followers of the topic, as a number. |
+| `data[].topic.discuss_count` | Number of discussions in the topic, as a string. |
+| `data[].topic.foot_line.content` | Display summary of followers and discussions, for example `2065 关注 · 1.2 万讨论`. |
+| `data[].topic.avatar_url` | URL of the topic's image. |
+| `data[].contributions_count` | Contribution count attached to the topic entry. It is `0` in the sample. |
+| `paging.is_end / paging.is_start` | Flags that show whether the page is the last or the first one. |
+| `paging.totals` | Total number of followed topics for the user. It is `50` in the sample. |
+
 ### Notes
 
-- Use `user_url_token` to identify the target Zhihu user.
-- Supports pagination using `limit` and `offset`.
+- Take `user_url_token` from the Zhihu profile URL of the user, for example `excited-vczh`.
+- To get the next page, increase `offset` by the `limit` value. The sample `paging.next` link uses `offset=20&limit=20`.
+- Stop paging when `paging.is_end` is `true`.
+- To look up the user's own profile, call [Zhihu Web User Profile](/apis/zhihu/web/user-info).
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

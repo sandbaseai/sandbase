@@ -64,13 +64,14 @@ Same call via the path form: `POST /v1/api/twitter/web/user-media` with the body
 
 ## Details
 
-Retrieve a user's media timeline using their `screen_name` or `rest_id`. Page through additional media results with the `cursor` parameter.
+Returns a page of media posts from a public Twitter (X) account, plus the account's profile details. It needs a `screen_name` or a numeric `rest_id`.
 
 ### Use cases
 
-- Browse photos and videos shared by a specific account.
-- Archive media posts from a public profile timeline.
-- Track recent multimedia assets shared by organizations or creators.
+- Collect photo and video URLs posted by a brand or agency account.
+- Compare `favorites`, `retweets` and `views` across an account's recent media posts.
+- Download video files by picking a `variants` entry with the bitrate you want.
+- Build a media archive for a profile by paging back through older posts.
 
 ### Request
 
@@ -80,6 +81,8 @@ curl -X POST "https://api.sandbase.ai/v1/api/twitter/web/user-media" \
   -H "Content-Type: application/json" \
   -d '{"screen_name": "NASA"}'
 ```
+
+The result is returned in `outputs[0].data`.
 
 ### Parameters
 
@@ -91,35 +94,85 @@ curl -X POST "https://api.sandbase.ai/v1/api/twitter/web/user-media" \
 
 ### Example response
 
-Real response for the request above, trimmed to the main fields. User names and long IDs are masked.
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
 
 ```json
 {
+  "next_cursor": "DAABCgABHWL0W1z___0KAAIdXMz4Wdqw1ggAAwAAAAIAAA",
+  "status": "ok",
   "timeline": [
     {
-      "conversation_id": "2107237881668313108",
-      "text": "Time to bring them home 🌎  After nearly eight months aboard the @Space_Station, the four …",
-      "tweet_id": "2107237881668313108",
-      "views": "1979091",
       "author": {
+        "avatar": null,
         "blue_verified": true,
         "name": "NASA",
         "rest_id": "11348282",
-        "screen_name": "<user>"
-      }
+        "screen_name": "NASA"
+      },
+      "bookmarks": 22,
+      "conversation_id": "2117383753139925271",
+      "created_at": "Mon Nov 02 22:30:00 +0000 2026",
+      "favorites": 470,
+      "lang": "en",
+      "media": {
+        "photo": [
+          {
+            "id": "2117375637358882816",
+            "media_url_https": "https://pbs.twimg.com/media/HWJt7IDXsAAa7bN.jpg"
+          }
+        ]
+      },
+      "quotes": 6,
+      "replies": 39,
+      "retweets": 45,
+      "sensitive": false,
+      "source": null
     }
-  ]
+  ],
+  "user": {
+    "affiliates": [],
+    "avatar": "https://pbs.twimg.com/profile_images/1321163587679784960/0ZxKlEKB_normal.jpg",
+    "blue_verified": true,
+    "business_account": {
+      "affiliates_count": 85
+    },
+    "created_at": "Wed Dec 19 20:20:32 +0000 2007",
+    "desc": "Making the seemingly impossible, possible. ✨",
+    "friends": 115,
+    "header_image": "https://pbs.twimg.com/profile_banners/11348282/1788992290",
+    "id": "11348282",
+    "location": "Pale Blue Dot",
+    "media_count": 28223,
+    "name": "NASA"
+  }
 }
 ```
 
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `timeline[].tweet_id / timeline[].conversation_id` | ID of the post and ID of its conversation. They match for a standalone post. |
+| `timeline[].text` | Post text. Long text may be shortened. |
+| `timeline[].created_at` | Post time as a string such as `Mon Nov 02 22:30:00 +0000 2026`. |
+| `timeline[].favorites / retweets / replies / quotes / bookmarks / views` | Engagement counts for the post. `views` is returned as a string. |
+| `timeline[].media.photo[].media_url_https` | Image URL for each photo in the post. |
+| `timeline[].media.video[].variants[]` | Available video files. MP4 entries carry a `bitrate` and `url`, and an HLS playlist entry has `content_type` `application/x-mpegURL`. |
+| `timeline[].media.video[].duration / aspect_ratio` | Length of the video and its width-to-height ratio. `original_info` gives pixel `width` and `height`. |
+| `timeline[].author.screen_name / rest_id` | Handle and numeric ID of the account that wrote the post. |
+| `user.media_count / statuses_count / sub_count` | Number of media posts, number of posts, and subscriber count for the profile. `sub_count` is the follower-style total. |
+| `next_cursor` | Cursor value for the next page of results. |
+
 ### Notes
 
-- If `rest_id` is supplied, `screen_name` is ignored.
-- Pass `cursor` using the next cursor value from a previous response to page through results.
+- Take `screen_name` from the profile URL. In `https://twitter.com/NASA`, it is `NASA`.
+- If you send `rest_id`, the API ignores `screen_name`. `rest_id` is an integer such as `44196397`.
+- To get the next page, pass the `next_cursor` value from the last response as `cursor`.
+- For the account's own posts, call [Twitter (X) User Posts](/apis/twitter/web/user-post-tweet). For one post, call [Twitter Tweet Detail](/apis/twitter/web/tweet-detail).
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

@@ -59,13 +59,14 @@ Same call via the path form: `POST /v1/api/dataforseo/v3/serp/yahoo/organic/live
 
 ## Details
 
-Returns real-time organic Yahoo search engine results pages (SERP) for query keywords and target locations.
+Returns the live Yahoo search results page for a keyword, location and language. Each result lists the page type, its rank on the page, and the page details such as domain, breadcrumb and description. The request needs a `keyword`, and it also takes `location_code` and `language_code`.
 
 ### Use cases
 
-- Track search ranking positions on Yahoo for target keywords.
-- Monitor competitor visibility across Yahoo organic listings.
-- Extract organic snippets and destination URLs for SEO audits.
+- Check where a domain ranks on Yahoo for a keyword in the United States.
+- Collect the snippet text of the top Yahoo results for a keyword to review how competitors describe their pages.
+- Detect which SERP blocks appear for a keyword, such as image carousels or People Also Ask.
+- Open the `check_url` to see the same Yahoo results page in a browser and compare it with the API output.
 
 ### Request
 
@@ -76,19 +77,103 @@ curl -X POST "https://api.sandbase.ai/v1/api/dataforseo/v3/serp/yahoo/organic/li
   -d '{"keyword": "running shoes", "location_code": 2840, "language_code": "en"}'
 ```
 
+The result is returned in `outputs[0]`.
+
 ### Parameters
 
-The JSON body is forwarded to the upstream endpoint (one task per call). Fields used above:
+| Name | Type | Required | Description |
+|---|---|---|---|
+| `keyword` | string | No | Search query. |
+| `language_code` | string | No | Language code, e.g. "en". |
+| `location_code` | integer | No | Location code, e.g. 2840 for the United States. |
 
-| Name | Description |
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "status_code": 20000,
+  "status_message": "Ok.",
+  "tasks": [
+    {
+      "data": {
+        "api": "serp",
+        "device": "desktop",
+        "function": "live",
+        "keyword": "running shoes",
+        "language_code": "en",
+        "location_code": 2840,
+        "os": "windows",
+        "se": "yahoo"
+      },
+      "id": "11030829-1614-0139-0000-0f2f7a755016",
+      "path": [
+        "v3"
+      ],
+      "result": [
+        {
+          "check_url": "https://us.search.yahoo.com/search?p=running+shoes&vl=lang_en&ei=UTF-8&fl=1&lat=…",
+          "datetime": "2026-11-03 08:29:34 +00:00",
+          "item_types": [
+            "organic"
+          ],
+          "items": [
+            {
+              "about_this_result": null,
+              "amp_version": false,
+              "breadcrumb": "https://www.runnersworld.com › gear › a19663621",
+              "cache_url": null,
+              "checks": null,
+              "description": "Oct 22, 2026 ·  Find the best running shoes of 2026, including Runner’s World–te…",
+              "domain": "www.runnersworld.com",
+              "extended_people_also_search": null
+            }
+          ],
+          "items_count": 14,
+          "keyword": "running shoes",
+          "language_code": "en",
+          "location_code": 2840
+        }
+      ],
+      "result_count": 1,
+      "status_code": 20000,
+      "status_message": "Ok.",
+      "time": "5.3721 sec."
+    }
+  ],
+  "tasks_count": 1,
+  "tasks_error": 0,
+  "time": "5.4878 sec.",
+  "version": "0.1.20261022"
+}
+```
+
+### Response fields
+
+| Field | Meaning |
 |---|---|
-| `keyword` | Search query. |
-| `location_code` | Location code, e.g. 2840 for the United States. |
-| `language_code` | Language code, e.g. "en". |
+| `tasks[].result[].items[]` | One block on the results page. Organic results and other blocks such as images sit in this same list. |
+| `tasks[].result[].item_types` | List of block types found on the page, for example `organic`, `images` and `people_also_ask`. |
+| `tasks[].result[].items[].rank_group / tasks[].result[].items[].rank_absolute` | Position of the block. `rank_group` counts within blocks of the same type, `rank_absolute` counts across all blocks on the page. |
+| `tasks[].result[].items[].domain` | Domain of the organic result, for example `www.runnersworld.com`. |
+| `tasks[].result[].items[].breadcrumb` | Displayed URL path of the organic result, with parts separated by `›`. |
+| `tasks[].result[].items[].description` | Snippet text shown under the result. It can start with a date. |
+| `tasks[].result[].items[].items[].image_url` | Image link inside an `images` block. |
+| `tasks[].result[].check_url` | Yahoo search URL that matches this query and location. |
+| `tasks[].result[].items_count` | Number of items returned in `items`. |
+| `tasks[].result[].datetime` | Date and time of the result, with a UTC offset. |
+
+### Notes
+
+- The response holds one task. Read the results from `tasks[0].result[0]`.
+- Use `location_code` `2840` for the United States and `language_code` `en` for English.
+- Items are not all organic listings. Check each item's type before you treat it as a ranked page, since blocks like `images` have a `title` and nested `items` instead of `domain` and `description`.
+- `tasks[].id` identifies the task, and `status_code` `20000` means the call succeeded.
 
 ### Pricing
 
-Billed at the actual cost of each call, about $0.002 for the request above. The cost grows with the number of rows, targets or pages a call returns. `depth` sets how many result pages are fetched. Extra crawled pages, pixel rankings, async AI overview, People Also Ask clicks and search operators (site:, intitle: ...) are not supported. Failed calls are not charged. Searches with no results are billed at their actual cost.
+Billed at the actual cost of each call, about $0.002 for the request above. Failed calls are not charged.
 
 ### Related APIs
 

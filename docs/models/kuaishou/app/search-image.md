@@ -63,13 +63,14 @@ Same call via the path form: `POST /v1/api/kuaishou/app/search-image` with the b
 
 ## Details
 
-Search for Kuaishou image feeds by passing a query string in `keyword`. Supports cursor-based pagination through the `pcursor` parameter.
+Returns Kuaishou image posts that match a search term. Each result includes the caption, the poster's IP location, a collect count, and a relevance score. You pass a `keyword` and can pass a `pcursor` to page through results.
 
 ### Use cases
 
-- Find relevant image content on Kuaishou based on specific keywords.
-- Track user engagement statistics such as comment and collection counts for image feeds.
-- Page through discovery search results using cursor tokens.
+- Collect image posts that mention a brand or topic, such as `OpenAI`, and read their captions and hashtags.
+- Rank posts for a keyword by `relevance_score` to pick the closest matches first.
+- Compare `collect_count` across posts to see which image posts people save most.
+- Group results by `captionIpLocation` to see which regions post about a topic.
 
 ### Request
 
@@ -80,44 +81,164 @@ curl -X POST "https://api.sandbase.ai/v1/api/kuaishou/app/search-image" \
   -d '{"keyword": "OpenAI"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
 |---|---|---|---|
-| `keyword` | string | Yes | — |
+| `keyword` | string | Yes |  |
 | `pcursor` | string | No | Cursor, empty for first page |
 
 ### Example response
 
-Real response for the request above, trimmed to the main fields. User names and long IDs are masked.
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
 
 ```json
 {
+  "debug_id": "4151e0f9",
+  "debug_info": "gAAAAABq6Y7lTZtazFcoSV1itJOzNbNva6Oxe8PEDJ9cUUJ2VSCUI9Hj-ZrRU1nB4xQNNI-opDIkkL7x…",
+  "extParams": {
+    "disablePhotoInsert": false,
+    "dynamicShard": false,
+    "isCreativeMode": false,
+    "isShowPymkUserPhotos": true,
+    "isShowScrollTopButton": false,
+    "livePendantResource": "https://static.yximgs.com/udata/pkg/ks-nearby/nearby_living_tag/origin_196uxh2cv…",
+    "outerStreamFetch": 6,
+    "pageSingleDoubleStyle": 0,
+    "rsRecoAfterPlayInterval": 2,
+    "searchTaskParam": {},
+    "sessionParams": "",
+    "streamExtParams": "{\"single\":false,\"predict\":false,\"searchDetailCost\":{\"filterItem\":14,\"getView\":22…"
+  },
   "feeds": [
     {
       "atmosphereType": 0,
-      "itemType": 5,
-      "rank": 0,
+      "extInfo": {
+        "clickTriggerInnerStream": false,
+        "ext_params": {
+          "relevance_score": "0.89858866"
+        },
+        "feedback": {
+          "contentList": [
+            {
+              "id": "search_quality2",
+              "text": " Poor quality"
+            }
+          ],
+          "otherContent": {
+            "id": "search_other",
+            "text": "Other"
+          },
+          "unInterestList": [
+            {
+              "id": "search_seenlonger",
+              "text": "Author Unlike"
+            }
+          ]
+        },
+        "recallSource": "0",
+        "screenItemKey": "PHOTO$$1$$0",
+        "showPlcFeatureEntry": false
+      },
       "feed": {
-        "caption": "下一家万亿美元公司，会是谁？  anthropic、OpenAI、字节跳动、宇树科技...12家最值得关注的科技独角兽(2026年8月最新版)赶紧收藏!  #IPO #Anthr…",
-        "captionToComment": "下一家万亿美元公司，会是谁？  anthropic、OpenAI、字节跳动、宇树科技...12家最值得关注的科技独角兽(2026年8月最新版)赶紧收藏!  #IPO #Anthr…",
-        "clearScreenSameAuthorCount": 709,
-        "collect_count": 17,
-        "comment_count": 5,
-        "disableCommentDislike": false
-      }
+        "adminTags": [],
+        "bottomEntryInfo": {
+          "bizExtraData": {},
+          "bottomBizType": 14,
+          "bottomStyleInfo": {
+            "bottomStrongStyle": {
+              "actionUrl": "",
+              "backgroundColor": "",
+              "bottomStrongStyleType": 0,
+              "enableForceClose": false,
+              "fontColor": "",
+              "fontSize": 0,
+              "iconHeight": 0,
+              "iconUrl": ""
+            },
+            "bottomWeakStyle": {
+              "actionUrl": "kwai://search?keyword=黄仁勋ai舞蹈&sessionId=MzIwXzBfMTc5MzY5MTM2NDk1Ml9fMzUwNw&sourc…",
+              "backgroundColor": "#333333",
+              "bottomWeakStyleType": 0,
+              "enableForceClose": false,
+              "fontColor": "#FFFFFF",
+              "fontSize": 13,
+              "iconHeight": 48,
+              "iconRightMargin": 4
+            },
+            "delayShowWeakStyle": false,
+            "playVideoEndToStrongMillis": 0,
+            "showStrongVideoCountdownMillis": 0,
+            "showStrongVideoMillis": 0,
+            "strongStyleCloseHideWeakStyle": false,
+            "styleTriggers": []
+          },
+          "eventTrackData": {
+            "all_source": "p2q_semantic_recall_v8",
+            "entry_source": "search_entrance_featured_bottom_bar_search",
+            "is_hotbar": "\u0000",
+            "query_id": "fc079611e9eff69b5d6924befd4e9eff",
+            "query_list_id": "MzIwXzBfMTc5MzY5MTM2NDk1Ml9fMzUwNw",
+            "query_name": "黄仁勋ai舞蹈",
+            "rel_score": "0.415438",
+            "stg_recall_source": "p2q_semantic_recall_v8"
+          }
+        },
+        "canShowQuickCommentGuide": true,
+        "caption": "那一刻，ai的齿轮正在悄然转动。 #黄仁勋 #openai #chatgpt",
+        "captionIpLocation": "Jiangxi",
+        "captionToComment": "那一刻，ai的齿轮正在悄然转动。 #黄仁勋 #openai #chatgpt",
+        "clearScreenSameAuthorCount": 13,
+        "collect_count": 207
+      },
+      "feedLogCtx": {
+        "logParams": "{\"SEARCH\":{\"dr_type\":\"IMAGE_ATLAS\",\"dr_id\":\"5201939237396139534\",\"dr_rank\":0,\"dr…",
+        "stidContainer": "In8xfDIwMTAxOTYwMzM3Nzc1ODU2MDF8cGhvdG86NTIwMTkzOTIzNzM5NjEzOTUzNHx7InBnIjoic2ki…"
+      },
+      "isSingleColumnMode": false,
+      "itemTransferInfo": "{\"refer_single_double_type\":0}",
+      "itemType": 5,
+      "rank": 0
     }
-  ]
+  ],
+  "host-name": "public-bjx-c97-kce-node107.idchb1az1.hb1.kwaidc.com",
+  "llsid": "2010196033777585601",
+  "pcursor": "1",
+  "portalFlag": true,
+  "recoInterestFlag": false,
+  "recoPcursor": "no_more",
+  "requestId": "MTRfMF8xNzkzNjkxMzY0NTEwX184NjAw",
+  "responseCode": 0
 }
 ```
 
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `feeds[]` | One search result per item. Each item holds the post data under `feed` and search metadata around it. |
+| `feeds[].rank` | Position of the result in the search list, starting at `0`. Values can skip numbers, so do not assume they are continuous. |
+| `feeds[].feed.caption` | Text of the post, including hashtags. Long captions end with an ellipsis. |
+| `feeds[].feed.captionIpLocation` | IP location label of the poster, such as `Jiangxi` or `Guangdong`. |
+| `feeds[].feed.collect_count` | Number of times the post has been collected. |
+| `feeds[].extInfo.ext_params.relevance_score` | Relevance score for the post against the search term, returned as a string such as `0.89858866`. |
+| `feeds[].feedLogCtx.logParams` | JSON string. Inside it, `dr_id` holds the post ID, `dr_author_id` holds the author ID, and `dr_type` is `IMAGE_ATLAS` for these image posts. |
+| `feeds[].feed.commentInfo` | Comment settings for the post. It appears on some results only. |
+| `pcursor` | Cursor for the next page. The sample response returns `1`. |
+| `recoPcursor` | Cursor for recommended results. The value `no_more` means there are none left. |
+
 ### Notes
 
-- Leave `pcursor` empty to retrieve the first page of results.
+- Leave `pcursor` empty for the first page. Send the `pcursor` value from the response to get the next page.
+- The `keyword` value is free text, for example `OpenAI`.
+- `dr_id` and `dr_author_id` are inside the `feeds[].feedLogCtx.logParams` string. Parse that string as JSON to read them.
+- To search videos instead of image posts, use [Kuaishou Video Search (V2)](/apis/kuaishou/app/search-video-v2).
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.01 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

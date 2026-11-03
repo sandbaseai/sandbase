@@ -62,13 +62,14 @@ Same call via the path form: `POST /v1/api/bilibili/web/one-video-v3` with the b
 
 ## Details
 
-Retrieve video metadata and episode details from Bilibili by supplying a valid video link in `url`.
+Returns metadata for one Bilibili video: IDs, title parts, description, duration, upload and publish timestamps, uploader info, and engagement counts. It needs the video page link in `url`.
 
 ### Use cases
 
-- Look up episode structure and duration for multi-part Bilibili videos.
-- Extract video titles and release timestamps from web links.
-- Inspect season and collection metadata linked to a specific Bilibili post.
+- Pull view, like, coin, favorite and share counts for a Bilibili video to track how it performs.
+- Read the uploader's `mid` and `name` to attribute a video to its channel.
+- Get the `duration` and per-part titles of a video to build a catalog of its content.
+- Convert a video link into `aid`, `bvid` and `cid` for other video lookups.
 
 ### Request
 
@@ -79,6 +80,8 @@ curl -X POST "https://api.sandbase.ai/v1/api/bilibili/web/one-video-v3" \
   -d '{"url": "https://www.bilibili.com/video/BV1S5uKzzE4r"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
@@ -87,45 +90,63 @@ curl -X POST "https://api.sandbase.ai/v1/api/bilibili/web/one-video-v3" \
 
 ### Example response
 
-Real response for the request above, trimmed to the main fields. User names and long IDs are masked.
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
 
 ```json
 {
-  "ugc_season": {
-    "sections": [
-      {
-        "episodes": [
-          {
-            "id": 130519510,
-            "season_id": 5667281,
-            "section_id": 6287956,
-            "title": "《入侵脑细胞》",
-            "arc": {
-              "ctime": 1693555200,
-              "duration": 2244,
-              "pubdate": 1693555200,
-              "title": "《入侵脑细胞》",
-              "type_id": 0,
-              "type_id_v2": 0
-            },
-            "page": {
-              "duration": 2244
-            }
-          }
-        ]
-      }
-    ]
-  }
+  "aid": 114830681840711,
+  "argue_info": {
+    "argue_link": "",
+    "argue_msg": "作者声明：个人观点，仅供参考",
+    "argue_type": 0
+  },
+  "bvid": "BV1S5uKzzE4r",
+  "cid": 30966218981,
+  "copyright": 1,
+  "ctime": 1752177842,
+  "desc": "如果杀人不犯法，你是拿起武器加入狂欢，还是躲在家裡瑟瑟发抖？\n就有那么一个国家，他有个法定杀人日，越杀越美好，越杀越伟大！\n这是一部寓言奇作，常看常新，什么国会…",
+  "desc_v2": [
+    {
+      "biz_id": 0,
+      "raw_text": "如果杀人不犯法，你是拿起武器加入狂欢，还是躲在家裡瑟瑟发抖？\n就有那么一个国家，他有个法定杀人日，越杀越美好，越杀越伟大！\n这是一部寓言奇作，常看常新，什么国会…",
+      "type": 1
+    }
+  ],
+  "dimension": {
+    "height": 1920,
+    "rotate": 0,
+    "width": 3840
+  },
+  "disable_show_up_info": false,
+  "duration": 2177,
+  "dynamic": ""
 }
 ```
 
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `bvid / aid / cid` | The video's BV ID, numeric AV ID and numeric part ID. Use them as keys in other Bilibili calls. |
+| `desc` | The video description text written by the uploader. |
+| `duration` | Video length. `pages[].duration` gives the length of each part. Both values are plain numbers. |
+| `pubdate / ctime` | Unix timestamps in seconds. `pubdate` is the publish time and `ctime` is the creation time. |
+| `owner.mid / owner.name / owner.face` | The uploader's numeric user ID, display name and avatar image URL. |
+| `stat.view / stat.like / stat.coin / stat.favorite / stat.share` | Counts of views, likes, coins, favorites and shares for the video. |
+| `stat.danmaku / stat.reply` | Count of danmaku (on-screen comments) and count of replies. |
+| `pages[].part / pages[].page / pages[].cid` | Title, part number and ID of each part of the video. |
+| `season_id` | ID of the season (collection) the video belongs to. |
+| `pic` | URL of the video cover image. |
+
 ### Notes
 
-- Requires a complete Bilibili video address in `url`.
+- Copy the video link from the Bilibili page, for example `https://www.bilibili.com/video/BV1S5uKzzE4r`, and send it as `url`.
+- The `bvid` value is the same BV ID that appears at the end of the video link.
+- To get comments, call [Bilibili Video Comments (Web)](/apis/bilibili/web/video-comments). To get subtitles, call [Bilibili Video Subtitle Details](/apis/bilibili/web/video-subtitle).
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

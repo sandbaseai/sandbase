@@ -71,13 +71,14 @@ Same call via the path form: `POST /v1/api/weibo/web-v2/hot-ranking-timeline` wi
 
 ## Details
 
-This endpoint retrieves trending Weibo posts for a specified `ranking_type`. Use `count`, `max_id`, and `since_id` to page through ranked timeline entries.
+Returns a page of popular Weibo posts from a hot ranking list. It needs a `ranking_type` value such as `hour`, and it accepts `count`, `max_id` and `since_id` for paging.
 
 ### Use cases
 
-- Monitoring trending topics and top-ranked posts on Weibo in real time.
-- Analyzing engagement metrics such as likes and comment volumes on viral content.
-- Tracking popular discussions within Weibo super topics.
+- Pull the posts that currently lead the hourly Weibo hot ranking into a trend dashboard.
+- Compare like and comment counts across ranked posts to find the ones with the most engagement.
+- Collect the super topics attached to hot posts to see which fan communities drive current traffic.
+- Download the image URLs of ranked posts for visual trend or media monitoring.
 
 ### Request
 
@@ -87,6 +88,8 @@ curl -X POST "https://api.sandbase.ai/v1/api/weibo/web-v2/hot-ranking-timeline" 
   -H "Content-Type: application/json" \
   -d '{"ranking_type": "hour"}'
 ```
+
+The result is returned in `outputs[0].data`.
 
 ### Parameters
 
@@ -99,58 +102,130 @@ curl -X POST "https://api.sandbase.ai/v1/api/weibo/web-v2/hot-ranking-timeline" 
 
 ### Example response
 
-Real response for the request above, trimmed to the main fields. User names and long IDs are masked.
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
 
 ```json
 {
+  "max_id": 2,
+  "ok": 1,
+  "since_id": 0,
   "statuses": [
     {
-      "attitudes_count": 149055,
+      "analysis_extra": "",
+      "annotations": [
+        {
+          "photo_sub_type": "0,0,0,0,0,0,0,0,0,0,0"
+        }
+      ],
+      "attitudes_count": 73749,
       "attitudes_status": 0,
-      "comments_count": 28209,
-      "content_auth": 0,
-      "id": 5351100492286270,
-      "isLongText": false,
-      "mblog_vip_type": 0,
-      "mblogtype": 0,
-      "mixed_count": 0,
-      "pic_num": 1,
+      "buttons": [
+        {
+          "actionlog": {
+            "act_code": "91",
+            "act_type": "1",
+            "cardid": "102803_-_mbloglist_5361174142779827",
+            "ext": "uid:1802369094|mid:5361174142779827|act:follow|time:1793691984|source:8999|recom…",
+            "fid": "102803_ctg1_1761_-_ctg1_1761",
+            "oid": "1802369094",
+            "source": "hot",
+            "uicode": ""
+          },
+          "name": "关注",
+          "params": {
+            "able_recommend": 1,
+            "extparams": {
+              "followcardid": "1028030098_5361174142779827"
+            },
+            "uid": 6643123988
+          },
+          "pic": "http://u1.sinaimg.cn/upload/2013/07/02/timeline_card_small_button_icon_add.png",
+          "type": "follow"
+        }
+      ],
+      "can_edit": false,
       "comment_manage_info": {
         "approval_comment_type": 0,
         "comment_anon_type": 0,
         "comment_permission_type": -1,
         "comment_sort_type": 0
       },
-      "number_display_strategy": {
-        "display_text": "100万+",
-        "display_text_min_number": 1000000
-      },
-      "title_source": {
-        "name": "黄星Eliot超话",
-        "url": "https://huati.weibo.com/k/%E9%BB%84%E6%98%9FEliot"
-      },
-      "user": {
-        "following": false,
-        "id": 2211239502,
-        "mbrank": 2,
-        "mbtype": 12,
-        "profile_image_url": "https://tvax1.sinaimg.cn/crop.0.0.1080.1080.50/83ccd64ely8hxgoqcpkn1j20u00u0q5f.…",
-        "profile_url": "/u/2211239502"
-      }
+      "comments_count": 11539,
+      "common_struct": [
+        {
+          "actionlog": {
+            "act_code": "300",
+            "cardid": "",
+            "ext": "common_struct:topic|containerid:100808|uid:1802369094|mid:5361174142779827|analy…",
+            "fid": null,
+            "lfid": null,
+            "luicode": null,
+            "mid": 5361174142779827,
+            "oid": "1022:100808f57b3faeb25f86b43a8cc58f02286f40"
+          },
+          "btn_show_type": "1",
+          "buttons": [
+            {
+              "actionlog": {
+                "act_code": 577,
+                "cardid": "",
+                "ext": "common_struct:topic|containerid:100808|uid:1802369094|mid:5361174142779827|analy…",
+                "fid": null,
+                "lfid": null,
+                "luicode": null,
+                "mid": 5361174142779827,
+                "oid": "1022:100808f57b3faeb25f86b43a8cc58f02286f40"
+              },
+              "name": "关注",
+              "params": {
+                "scheme": "${scheme}",
+                "type": "page",
+                "uid": "1022:100808f57b3faeb25f86b43a8cc58f02286f40"
+              },
+              "pic": "https://n.sinaimg.cn/photo/ab36dac5/20170616/follow_hollow.png",
+              "type": "follow"
+            }
+          ],
+          "desc": "5.6亿帖子 1537万小飞侠",
+          "hidden": 1,
+          "img": "http://wx3.sinaimg.cn/thumbnail/e6e53908ly8iiaw440dk5j20u00u0q78.jpg",
+          "name": "【超话】肖战",
+          "page_id": "100808f57b3faeb25f86b43a8cc58f02286f40"
+        }
+      ],
+      "content_auth": 0,
+      "created_at": "Tue Nov 03 14:23:04 +0800 2026",
+      "favorited": false
     }
-  ]
+  ],
+  "total_number": 100
 }
 ```
 
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `statuses[]` | List of ranked posts. Each item is one Weibo post. |
+| `statuses[].mblogid / statuses[].mid / statuses[].id` | Identifiers of the post. `mblogid` is a short alphanumeric code, while `mid` and `id` hold the same long numeric ID as a string and a number. |
+| `statuses[].created_at` | Publish time of the post as a text date with a `+0800` offset, for example `Tue Nov 03 14:23:04 +0800 2026`. |
+| `statuses[].attitudes_count / statuses[].comments_count` | Number of likes and number of comments on the post. |
+| `statuses[].number_display_strategy.display_text` | Short label Weibo shows for large counts, for example `100万+`. |
+| `statuses[].isLongText` | `true` when the post has long text content. |
+| `statuses[].pic_ids[]` | IDs of the images in the post. Use each ID as a key in `statuses[].pic_infos`. |
+| `statuses[].pic_infos.*.original.url / statuses[].pic_infos.*.large.url` | Image URLs at different sizes, with `width` and `height` next to each URL. |
+| `statuses[].common_struct[].name / statuses[].common_struct[].desc` | Name and short description of the topic or super topic linked to the post, for example `【超话】肖战`. |
+| `max_id / since_id` | Paging values returned with the list. Use them in the next request. |
+
 ### Notes
 
-- Specify the category or timeframe using `ranking_type`.
-- Pass "0" to `max_id` on the initial call to start pagination from the beginning.
-- Control the number of returned posts per request with `count`, which defaults to 10.
+- Pass `max_id` as `"0"` on the first request. Send the `max_id` value from the response to get the next page.
+- `count` sets how many posts to return per request. The default is 10.
+- Use the `mblogid` or `id` of a post with [Weibo Post Detail](/apis/weibo/web-v2/post-detail) or [Weibo Post Comments](/apis/weibo/web-v2/post-comments) to get more about a single post.
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

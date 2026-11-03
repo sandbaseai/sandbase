@@ -58,13 +58,14 @@ Same call via the path form: `POST /v1/api/douyin/web/multi-video-high-quality-p
 
 ## Details
 
-Retrieve high-quality video playback URLs in bulk by passing comma-separated video IDs via `aweme_ids`. An optional `region` parameter adjusts the returned CDN links for specific geographic locations.
+Returns direct playback URLs for several Douyin videos in one call. You pass a comma-separated list of video IDs in `aweme_ids`, and you can add a `region` code to get regional CDN links.
 
 ### Use cases
 
-- Collect clean video source files for offline media archiving.
-- Retrieve high-resolution Douyin video streams for video editing pipelines.
-- Extract original video links in batches to supply training datasets.
+- Download the source files of a batch of Douyin videos for offline archiving.
+- Check the file size of each video with `file_size_in_mb` before you start a bulk download.
+- Feed direct video links into an editing or transcoding pipeline.
+- Find which video IDs in a batch failed by reading `success` and `failed_count`.
 
 ### Request
 
@@ -75,37 +76,60 @@ curl -X POST "https://api.sandbase.ai/v1/api/douyin/web/multi-video-high-quality
   -d '{}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
 |---|---|---|---|
-| `region` | string | No | Optional ISO country code (for example, CN, US, or HK). |
 | `aweme_ids` | string | No | Video id list, separated by commas, for example: "123,456,789", up to 50. |
+| `region` | string | No | Optional ISO country code (for example, CN, US, or HK). Pass CN for users in mainland China to get China-region CDN URLs for faster downloads. |
 
 ### Example response
 
-Real response for the request above, trimmed to the main fields. User names and long IDs are masked.
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
 
 ```json
 {
+  "failed_count": 0,
+  "success_count": 2,
+  "total": 3,
   "videos": [
     {
       "content_type": "video/quicktime",
-      "original_video_url": "https://v26-colds.douyinvod.com/910b338418b78405b24b3c9b02ad6db1/6ac4fa01/video/…",
+      "file_size": "82274121",
+      "file_size_in_mb": 78.46,
+      "original_video_url": "https://v26-colds.douyinvod.com/b47516d962cf6197d827b82ce6f0b6da/6ae99c28/video/…",
+      "success": true,
       "video_id": "7512756548356492544"
     }
   ]
 }
 ```
 
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `videos[].video_id` | The Douyin video ID this entry belongs to. |
+| `videos[].original_video_url` | Direct URL of the video file. The link contains signed path parts, so use it soon after you receive it. |
+| `videos[].success` | Whether the URL lookup worked for this video ID. |
+| `videos[].content_type` | MIME type of the video file, for example `video/mp4` or `video/quicktime`. |
+| `videos[].file_size` | File size as a string. It matches `file_size_in_mb` once converted to megabytes. |
+| `videos[].file_size_in_mb` | File size in megabytes, rounded to two decimals. |
+| `success_count / failed_count` | Number of videos that returned a URL and number that did not. |
+| `total` | Total count reported for the request. |
+
 ### Notes
 
-- Accepts up to 50 video IDs separated by commas in `aweme_ids`.
-- Set `region` to an ISO country code like CN, US, or HK to route to regional CDN URLs.
+- Send up to 50 IDs in `aweme_ids`, separated by commas, for example `123,456,789`.
+- Set `region` to `CN` to get China-region CDN URLs. Other examples are `US` and `HK`.
+- In the sample response `total` is `3` while `videos` holds 2 entries, so compare `total` with `success_count` and `failed_count` when you check results.
+- To get video IDs from video links, call [Douyin Batch Video ID Extraction](/apis/douyin/web/all-aweme-id).
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.25 per successful call. Failed calls are not charged.
 
 ### Related APIs
 

@@ -62,13 +62,14 @@ Same call via the path form: `POST /v1/api/youtube/web/channel-url` with the bod
 
 ## Details
 
-Look up the full channel link and vanity URL for any creator using their `channel_id`.
+Returns the standard channel URL and the vanity handle URL for a YouTube channel. It needs one input, the channel ID in the `channel_id` parameter.
 
 ### Use cases
 
-- Resolving a creator vanity handle URL from a raw channel ID.
-- Displaying canonical YouTube channel URLs in external profile links.
-- Validating public web addresses across video catalog databases.
+- Turn a stored channel ID into a clickable YouTube channel link.
+- Find the `@handle` URL of a creator when your database only holds the channel ID.
+- Check that the channel IDs in a creator list resolve to public web addresses.
+- Add both link formats to a profile page or export for a channel.
 
 ### Request
 
@@ -79,6 +80,8 @@ curl -X POST "https://api.sandbase.ai/v1/api/youtube/web/channel-url" \
   -d '{"channel_id": "UCeu6U67OzJhV1KwBansH3Dg"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
@@ -87,7 +90,7 @@ curl -X POST "https://api.sandbase.ai/v1/api/youtube/web/channel-url" \
 
 ### Example response
 
-Real response for the request above, trimmed to the main fields. User names and long IDs are masked.
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
 
 ```json
 {
@@ -97,13 +100,24 @@ Real response for the request above, trimmed to the main fields. User names and 
 }
 ```
 
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `channel_id` | The channel ID you sent in the request, echoed back. It starts with `UC`. |
+| `channel_url` | The channel page URL built from the channel ID, in the form `https://www.youtube.com/channel/<channel_id>`. |
+| `vanity_url` | The channel page URL that uses the creator's `@handle`, for example `http://www.youtube.com/@CozyCraftYT`. This value uses `http` rather than `https`. |
+
 ### Notes
 
-- Requires a valid `channel_id` such as `UCeu6U67OzJhV1KwBansH3Dg`.
+- Pass the channel ID exactly as shown in the example, a 24-character string starting with `UC`.
+- If you only have a channel name, call [YouTube Channel ID Lookup](/apis/youtube/web/channel-id) first to get the ID.
+- If you have a channel URL and need the ID, use [YouTube Channel ID from URL (V2)](/apis/youtube/web/channel-id-v2).
+- To get profile details for the same channel, call [YouTube Channel Information](/apis/youtube/web/channel-info).
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

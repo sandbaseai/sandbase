@@ -64,7 +64,14 @@ Same call via the path form: `POST /v1/api/douyin/xingtu/author-homepage-videos-
 
 ## Details
 
-Get Author Homepage Videos V1 on Douyin. Returns the platform data as structured JSON.
+Returns a page of videos from a Douyin author's Xingtu homepage, with title, engagement counts, and rates for each video. It needs the Xingtu author ID in `oAuthorId`.
+
+### Use cases
+
+- Review an author's recent videos and their view and like counts before choosing a creator for a campaign.
+- Compare `finish_rate` and `interact_rate` across an author's videos to find the content that holds attention best.
+- Export the full video list of a creator by paging through `pagination`.
+- Separate personal videos from Xingtu videos with `videoType` to check how each type performs.
 
 ### Request
 
@@ -86,9 +93,66 @@ The result is returned in `outputs[0].data`.
 | `page` | integer | No | Page number, starts from 1, 20 items per page |
 | `videoType` | string | No | PERSONAL/XINGTU / Traffic type: ALL/PERSONAL/XINGTU |
 
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "base_resp": {
+    "status_code": 0,
+    "status_message": ""
+  },
+  "items": [
+    {
+      "comment_cnt": "2376",
+      "content_theme_labels": [],
+      "cover_uri": "tos-cn-i-0813c000-ce/oUKnEYF9AgQvhS5dJADAIyue7CVg7FDBAeECfU",
+      "create_time": "1792928944",
+      "duration": 761.334,
+      "finish_rate": 0.116147,
+      "interact_rate": 0.063783,
+      "item_id": "7700571178000135673",
+      "like_cnt": "234612",
+      "title": "在大量的聊天中发现了少量的化妆技巧 #vlog #宝妈 #发疯文学 #精神状态 #化妆",
+      "url": "https://www.iesdouyin.com/share/video/7700571178000135673/?region=CN&mid=7700571…",
+      "video_id": "v2800fgi0000dbeumffog65m66333310"
+    }
+  ],
+  "pagination": {
+    "has_more": true,
+    "limit": 20,
+    "page": 1,
+    "total_count": 55
+  }
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `items[].item_id / items[].video_id` | Identifiers for the video. `item_id` is a numeric string that also appears in the share `url`. `video_id` is a separate string ID. |
+| `items[].title` | Video caption, including its hashtags. |
+| `items[].create_time` | Creation time of the video as a Unix timestamp in seconds, returned as a string. |
+| `items[].duration` | Length of the video. The values look like seconds (for example `761.334`). |
+| `items[].watch_cnt / items[].like_cnt / items[].comment_cnt` | View, like and comment counts for the video. They are returned as strings. |
+| `items[].finish_rate / items[].interact_rate` | Completion rate and interaction rate for the video, as decimals (for example `0.116147`). |
+| `items[].url` | Share link to the video on Douyin. |
+| `items[].cover_uri` | Path of the video cover image. `content_theme_labels` lists theme labels and can be empty. |
+| `pagination.page / pagination.limit` | Current page number and the number of items per page. |
+| `pagination.has_more / pagination.total_count` | `has_more` shows whether another page exists. `total_count` is the total number of videos for this query. |
+
+### Notes
+
+- Pages start at 1 and hold 20 items. Increase `page` while `pagination.has_more` is `true`.
+- `videoType` accepts `ALL`, `PERSONAL` or `XINGTU`. Set `onlyAssign` to `true` to return only assigned videos.
+- If you only have a Douyin user ID, get the Xingtu ID first with [Douyin XingTu KOL ID by User ID](/apis/douyin/xingtu/xingtu-kolid-by-uid).
+- For the author's profile, call [Douyin XingTu KOL Profile](/apis/douyin/xingtu/kol-base-info-v1).
+
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.02 per successful call. Failed calls are not charged.
 
 ---
 Machine-readable: [`catalog/models/douyin/xingtu/author-homepage-videos-v1.json`](../../../../catalog/models/douyin/xingtu/author-homepage-videos-v1.json) · Store page: https://www.sandbase.ai/model/douyin/xingtu/author-homepage-videos-v1

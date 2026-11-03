@@ -60,13 +60,14 @@ Same call via the path form: `POST /v1/api/tiktok/ads/top-ads-spotlight` with th
 
 ## Details
 
-Look up top-performing TikTok ad showcases and creative highlights. Filter results by `industry` or paginate through cross-industry cases using `page` and `limit`.
+Returns a list of top spotlight TikTok ad cases with a creative highlight, like count, click-through rate, cost, and video file details. Needs no input. You can add an `industry` ID to narrow the list, and use `page` and `limit` to paginate.
 
 ### Use cases
 
-- Analyze high-performing video ad creative formats and hooks within specific industries.
-- Gather creative inspiration and benchmark engagement metrics for campaign planning.
-- Track top ad trends and spotlight examples across multiple business sectors.
+- Pull the top-liked video ads in one industry to study which creative formats work.
+- Read the `highlight` text on each ad to see why TikTok flags it as a good example.
+- Download cover images and video links to build a swipe file of reference ads.
+- Compare `ctr` and `like` across ads to benchmark your own creative.
 
 ### Request
 
@@ -77,43 +78,78 @@ curl -X POST "https://api.sandbase.ai/v1/api/tiktok/ads/top-ads-spotlight" \
   -d '{}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
 |---|---|---|---|
-| `page` | integer | No | Page number, default 1 |
-| `limit` | integer | No | Items per page, default 20 |
 | `industry` | string | No | Industry ID, optional, returns cross-industry list if omitted, e.g., Education: 25000000000 |
+| `limit` | integer | No | Items per page, default 20 |
+| `page` | integer | No | Page number, default 1 |
 
 ### Example response
 
-Real response for the request above, trimmed to the main fields. User names and long IDs are masked.
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
 
 ```json
 {
+  "code": 0,
   "data": {
     "materials": [
       {
-        "highlight": "Showcase a real-time comparison between products, while communicating your product's valu…",
+        "cost": 2,
+        "ctr": 0.22,
         "id": "7182310470102122497",
         "like": 33506,
         "video_info": {
-          "duration": 43.542
+          "cover": "https://p16-common-sign.tiktokcdn.com/v0201/d7f3c49928d44c02a8788be62fe9487b_167…",
+          "duration": 43.542,
+          "height": 1024,
+          "vid": "v10033g50000cemat43c77u2ehil0a1g",
+          "video_url": {
+            "720p": "https://v16m-default.tiktokcdn.com/c4b2e149232f4d2105b7e0af7121727a/6ae9e541/vid…"
+          },
+          "width": 576
         }
       }
-    ]
-  }
+    ],
+    "pagination": {
+      "has_more": false,
+      "page": 1,
+      "size": 20,
+      "total": 5
+    }
+  },
+  "msg": "OK"
 }
 ```
 
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `data.materials[].id` | ID of the ad material. Use it to look up more detail on the same ad in other ad APIs. |
+| `data.materials[].highlight` | Short text that explains what the ad does well. Some items do not include it. |
+| `data.materials[].like` | Number of likes on the ad. |
+| `data.materials[].ctr` | Click-through rate of the ad, shown as a number such as `0.22`. |
+| `data.materials[].cost` | Cost value for the ad, shown as a small integer such as `2`. The response does not state a unit. |
+| `data.materials[].video_info.cover` | URL of the cover image for the ad video. |
+| `data.materials[].video_info.video_url` | Object that holds video file URLs. In this response it has one entry, keyed by resolution (`720p`). |
+| `data.materials[].video_info.duration / data.materials[].video_info.width / data.materials[].video_info.height` | Length of the video, and its frame width and height. |
+| `data.materials[].video_info.vid` | Video ID string for the ad video. |
+| `data.pagination.has_more / data.pagination.page / data.pagination.size / data.pagination.total` | Pagination state. `has_more` tells you if another page exists, and `total` is the total item count. |
+
 ### Notes
 
-- Omitting `industry` returns a cross-industry list of spotlight ads.
-- Default pagination settings are `page` 1 and `limit` 20.
+- Pass an `industry` ID as a string, for example `25000000000` for Education. Leave it out to get a cross-industry list.
+- `page` starts at 1 and `limit` defaults to 20. Check `data.pagination.has_more` before you request the next page.
+- Cover and video URLs carry an `x-expires` parameter in the query string, so download the files soon after you call.
+- Pass a material `id` to [TikTok Ad Material Percentile Rankings](/apis/tiktok/ads/ad-percentile) or [TikTok Ad Keyframe Analysis](/apis/tiktok/ads/ad-keyframe-analysis) for deeper metrics on one ad.
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

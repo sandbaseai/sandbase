@@ -62,13 +62,14 @@ Same call via the path form: `POST /v1/api/instagram/v3/similar-users` with the 
 
 ## Details
 
-Look up suggested accounts similar to a specified profile by providing the numeric `user_id` parameter.
+Returns a list of Instagram accounts that Instagram suggests as similar to a target profile. It needs one input, the numeric `user_id` of the target account. Each result includes the username, full name, verification and privacy flags, and a profile picture URL.
 
 ### Use cases
 
-- Discover relevant influencers in the same niche as a target profile.
-- Analyze competitor networks and related account suggestions.
-- Expand audience targeting lists by identifying closely related users.
+- Find accounts in the same niche as a creator or brand for influencer research.
+- Build a list of competitor or peer accounts around a known brand profile.
+- Expand an audience targeting list starting from one seed account.
+- Check which verified accounts Instagram groups with a given profile.
 
 ### Request
 
@@ -79,6 +80,8 @@ curl -X POST "https://api.sandbase.ai/v1/api/instagram/v3/similar-users" \
   -d '{"user_id": "25025320"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
@@ -87,31 +90,62 @@ curl -X POST "https://api.sandbase.ai/v1/api/instagram/v3/similar-users" \
 
 ### Example response
 
-Real response for the request above, trimmed to the main fields. User names and long IDs are masked.
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
 
 ```json
 {
+  "chaining_upsell_cards": [],
+  "follow_ranking_token": "556cc6e8…",
+  "is_backup": false,
+  "is_recommend_account": false,
+  "status": "ok",
   "users": [
     {
-      "full_name": "LISA",
-      "id": "8012033210",
-      "pk_id": "8012033210",
-      "profile_pic_id": "4001908869835700028_8012033210",
-      "profile_pic_url": "https://scontent-hou1-1.cdninstagram.com/v/t51.82787-19/839490332_18373632106265…",
-      "social_context": "LISA",
-      "username": "<user>"
+      "chaining_info": {
+        "algorithm": null,
+        "sources": ""
+      },
+      "full_name": "Kevin Systrom",
+      "id": "3",
+      "is_private": false,
+      "is_verified": true,
+      "pk": "3",
+      "pk_id": "3",
+      "profile_pic_id": "1295922680046102746_3",
+      "profile_pic_url": "https://scontent-atl3-1.cdninstagram.com/v/t51.2885-19/13732144_1764457777134045…",
+      "social_context": "Kevin Systrom",
+      "strong_id__": "3",
+      "username": "kevin"
     }
   ]
 }
 ```
 
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `users[]` | List of suggested accounts similar to the target profile. |
+| `users[].username` | Instagram handle of the suggested account. |
+| `users[].full_name` | Display name shown on the suggested account's profile. |
+| `users[].id / users[].pk / users[].pk_id / users[].strong_id__` | Numeric ID of the suggested account, returned as a string. All four hold the same value in this response. Use it as `user_id` in other calls. |
+| `users[].is_verified` | `true` if the suggested account has a verified badge. |
+| `users[].is_private` | `true` if the suggested account is private. |
+| `users[].profile_pic_url` | URL of the account's profile picture. |
+| `users[].profile_pic_id` | Identifier of the profile picture. It ends with an underscore and the account ID. |
+| `users[].social_context` | Short text label Instagram shows with the suggestion. In this response it repeats the full name. |
+| `follow_ranking_token` | Token string returned with the recommendations. It contains the pipe-separated parts of a ranking identifier. |
+
 ### Notes
 
-- The `user_id` parameter requires a numeric account ID, obtainable via the user ID lookup endpoint.
+- Get the numeric `user_id` from a username with [Instagram User ID Lookup](/apis/instagram/v3/user-id-by-username).
+- The request has no pagination parameter. The response returns one list in `users`.
+- To see full details for a suggested account, pass its `id` to [Instagram User Profile (V3)](/apis/instagram/v3/user-profile).
+- The `chaining_upsell_cards` list is empty and `chaining_info` holds empty values in the sample response.
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.008 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

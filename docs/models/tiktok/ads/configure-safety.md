@@ -52,13 +52,13 @@ Same call via the path form: `POST /v1/api/tiktok/ads/configure-safety` with the
 
 ## Details
 
-Check the operating status of TikTok Creative Center search tools without passing any parameters. It returns configuration switches indicating whether individual search modules are accessible.
+Returns a set of configuration switches for the TikTok Creative Center search modules. It needs no input. The response has one flag each for top ads, keyword, hashtag, sound, and creator search.
 
 ### Use cases
 
-- Check the availability of TikTok Creative Center search modules before querying them.
-- Verify whether keyword, hashtag, or sound search features are currently active.
-- Inspect feature flags for creator and top ad discovery tools.
+- Check the switches before you call a Creative Center search API, so your job can skip a module that is turned off.
+- Poll the response to log when a search module changes state.
+- Show a status panel for top ads, keyword, hashtag, sound, and creator search in an internal dashboard.
 
 ### Request
 
@@ -69,9 +69,48 @@ curl -X POST "https://api.sandbase.ai/v1/api/tiktok/ads/configure-safety" \
   -d '{}'
 ```
 
+The result is returned in `outputs[0].data`.
+
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "code": 0,
+  "data": {
+    "cc_banner_key": "",
+    "creator_search": 0,
+    "hashtag_search": 0,
+    "keyword_search": 0,
+    "sound_search": 0,
+    "top_ads_search": 0
+  },
+  "msg": "OK"
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `code` | Status code of the call. `0` appears together with `msg` set to `OK` in the sample response. |
+| `data.top_ads_search` | Switch for the top ads search module. The sample value is `0`. |
+| `data.keyword_search` | Switch for the keyword search module. The sample value is `0`. |
+| `data.hashtag_search` | Switch for the hashtag search module. The sample value is `0`. |
+| `data.sound_search` | Switch for the sound search module. The sample value is `0`. |
+| `data.creator_search` | Switch for the creator search module. The sample value is `0`. |
+| `data.cc_banner_key` | Banner key string for the Creative Center. It is an empty string in the sample response. |
+
+### Notes
+
+- Send an empty JSON body `{}`. The API has no request parameters.
+- All five search switches are `0` in the sample response. The response does not state what `0` or `1` means, so compare values over time rather than assuming a meaning.
+- To search ads after checking the switches, call [TikTok Creative Center Ad Search](/apis/tiktok/ads/search-ads).
+
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

@@ -68,7 +68,14 @@ Same call via the path form: `POST /v1/api/capterra/category-products` with the 
 
 ## Details
 
-Retrieve products listed within a specific software category. Returns product names, numeric IDs, URL slugs, and full URLs.
+Returns the list of software products that Capterra lists under one software category. You send a `category_slug` such as `accounting`, and each product comes back with its ID, name, slug, and Capterra URL.
+
+### Use cases
+
+- Build a list of every accounting or project management tool that Capterra lists in a category.
+- Collect product IDs for a category to look up details or reviews for each product.
+- Track which vendors appear in a category by comparing product names across categories.
+- Feed Capterra product URLs into a research sheet or CRM list.
 
 ### Request
 
@@ -79,7 +86,7 @@ curl -X POST "https://api.sandbase.ai/v1/api/capterra/category-products" \
   -d '{"category_slug": "accounting"}'
 ```
 
-This API runs asynchronously. The call returns a task `id` with status `pending`; poll `GET https://api.sandbase.ai/v1/run/{id}` until `status` is `completed` and read the result from `outputs[0].data`.
+The result is returned in `outputs[0].data`.
 
 ### Parameters
 
@@ -87,9 +94,47 @@ This API runs asynchronously. The call returns a task `id` with status `pending`
 |---|---|---|---|
 | `category_slug` | string | Yes | The slug of the category from get_software_categories (e.g. 'accounting', 'project-management', 'human-resource'). |
 
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "data": {
+    "products": [
+      {
+        "id": "76",
+        "name": "Sage Intacct",
+        "slug": "Intacct",
+        "url": "https://www.capterra.com/p/76/Intacct/"
+      }
+    ]
+  },
+  "status": "success"
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `data.products[]` | List of products in the category. |
+| `data.products[].id` | Numeric product ID on Capterra, returned as a string (for example `76`). It also appears in the product URL. |
+| `data.products[].name` | Display name of the product, for example `Xero`. |
+| `data.products[].slug` | URL slug of the product, for example `Intacct`. It is the last part of the product URL. |
+| `data.products[].url` | Full Capterra page URL for the product. It has the form `https://www.capterra.com/p/{id}/{slug}/`. |
+| `status` | Shows `success` when the call worked. |
+
+### Notes
+
+- Get valid `category_slug` values from the software categories API on SandBase. Examples are `accounting`, `project-management` and `human-resource`.
+- The response shows no pagination parameters. The request takes only `category_slug`.
+- Use the `id` and `slug` values with [Capterra Product Details](/apis/capterra/product-details) or [Capterra Product Reviews](/apis/capterra/product-reviews) to get more about a product.
+- This API runs asynchronously. Poll the run endpoint and read the result from `outputs[0].data`.
+
 ### Pricing
 
-Flat price per call. Failed calls are not charged.
+$0.01 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ---
 Machine-readable: [`catalog/models/capterra/category-products.json`](../../../catalog/models/capterra/category-products.json) · Store page: https://www.sandbase.ai/model/capterra/category-products

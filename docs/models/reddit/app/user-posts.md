@@ -71,13 +71,14 @@ Same call via the path form: `POST /v1/api/reddit/app/user-posts` with the body 
 
 ## Details
 
-Retrieve submissions submitted by a specific account using the `username` parameter, with support for custom sort orders and pagination.
+Returns a feed of posts submitted by one Reddit user, with the post text, comment count and author details for each post. It needs a Reddit `username` and can sort the posts by new, top, hot or controversial.
 
 ### Use cases
 
-- Analyze submission history and activity for a Reddit account.
-- Display a profile feed of posts submitted by an author.
-- Track top-rated or controversial submissions from specific users.
+- Pull the latest posts from an executive or public figure account to monitor what they announce.
+- Archive the full text of a user's posts in Markdown or HTML for research.
+- Compare comment counts across a user's posts to see which ones drew the most discussion.
+- Page through an account's post history with the `after` cursor to build a posting timeline.
 
 ### Request
 
@@ -88,49 +89,116 @@ curl -X POST "https://api.sandbase.ai/v1/api/reddit/app/user-posts" \
   -d '{"username": "spez"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
 |---|---|---|---|
 | `username` | string | Yes | Reddit username |
-| `sort` | string | No | Sort method, options: NEW (newest), TOP (top rated), HOT (hot), CONTROVERSIAL (controversial) |
 | `after` | string | No | Pagination parameter for fetching next page |
 | `need_format` | boolean | No | Whether to clean and format the data |
+| `sort` | string | No | Sort method, options: NEW (newest), TOP (top rated), HOT (hot), CONTROVERSIAL (controversial) |
 
 ### Example response
 
-Real response for the request above, trimmed to the main fields. User names and long IDs are masked.
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
 
 ```json
 {
+  "identity": {
+    "settings": {
+      "postSetSettings": {
+        "maxPostsPerPostSet": 5
+      }
+    }
+  },
   "postFeed": {
+    "__typename": "Redditor",
     "elements": {
+      "dist": null,
       "edges": [
         {
           "node": {
             "__typename": "ProfilePost",
-            "commentCount": 473,
-            "id": "t3_1vgbkge",
-            "isScoreHidden": false,
-            "permalink": "/user/spez/comments/1vgbkge/modernizing_reddits_infrastructure_with_you/",
-            "postTitle": "Modernizing Reddit’s infrastructure with you"
+            "adSupplementaryTextRichtext": null,
+            "attributionInfo": null,
+            "authorFlair": null,
+            "authorInfo": {
+              "__typename": "Redditor",
+              "accountType": "USER",
+              "iconSmall": {
+                "__typename": "MediaSource",
+                "dimensions": {
+                  "height": 50,
+                  "width": 50
+                },
+                "url": "https://styles.redditmedia.com/t5_3k30p/styles/profileIcon_uj015iwx9s7g1.png?wid…"
+              },
+              "id": "t2_1w72",
+              "isBlocked": false,
+              "isCakeDayNow": false,
+              "name": "spez",
+              "newIcon": {
+                "__typename": "MediaSource",
+                "dimensions": {
+                  "height": 256,
+                  "width": 256
+                },
+                "url": "https://styles.redditmedia.com/t5_3k30p/styles/profileIcon_uj015iwx9s7g1.png?fra…"
+              }
+            },
+            "callToAction": null,
+            "commentCount": 481,
+            "content": {
+              "html": "I want to talk about a big change we're making on Reddit: we're going to evolve …",
+              "markdown": "I want to talk about a big change we're making on Reddit: we're going to evolve …",
+              "preview": "I want to talk about a big change we're making on Reddit: we're going to evolve …",
+              "richtext": "{\"document\":[{\"c\":[{\"e\":\"text\",\"t\":\"I want to talk about a big change we're maki…",
+              "richtextMedia": []
+            }
           }
         }
-      ]
+      ],
+      "pageInfo": {
+        "__typename": "PageInfo",
+        "endCursor": "dDNfM2N4ZWRu",
+        "hasNextPage": false
+      }
+    },
+    "profile": {
+      "__typename": "Profile",
+      "stickyPosts": []
     }
   }
 }
 ```
 
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `postFeed.elements.edges[].node.__typename` | Type of the feed item. The value `ProfilePost` marks a post on the user's profile. |
+| `postFeed.elements.edges[].node.commentCount` | Number of comments on the post. |
+| `postFeed.elements.edges[].node.content.markdown / postFeed.elements.edges[].node.content.html` | Post body as Markdown or HTML. Some posts return only `preview`, so check which keys are present. |
+| `postFeed.elements.edges[].node.content.preview` | Short plain-text excerpt of the post body. Long text is cut off. |
+| `postFeed.elements.edges[].node.content.richtext` | Post body as a JSON string in Reddit's rich text document format. |
+| `postFeed.elements.edges[].node.authorInfo.name` | Username of the post author. |
+| `postFeed.elements.edges[].node.authorInfo.id` | Author account ID, which starts with `t2_`. |
+| `postFeed.elements.edges[].node.authorInfo.newIcon.url / postFeed.elements.edges[].node.authorInfo.iconSmall.url` | Links to the author's profile icon in a 256 by 256 size and a 50 by 50 size. |
+| `postFeed.elements.pageInfo.endCursor` | Cursor for the last post on this page. |
+| `postFeed.elements.pageInfo.hasNextPage` | Tells you whether another page of posts exists. It is `false` in this response. |
+
 ### Notes
 
-- `sort` options include NEW, TOP, HOT, and CONTROVERSIAL.
-- Use `after` to retrieve the next page of user submissions.
-- Set `need_format` to true to clean and format the output data.
+- Pass `pageInfo.endCursor` as `after` in the next request when `hasNextPage` is `true`.
+- Set `sort` to `NEW`, `TOP`, `HOT` or `CONTROVERSIAL`. The default is `NEW`.
+- Set `need_format` to `true` to have the data cleaned and formatted.
+- To fetch the comments a user wrote instead of their posts, call [Reddit User Comments](/apis/reddit/app/user-comments).
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

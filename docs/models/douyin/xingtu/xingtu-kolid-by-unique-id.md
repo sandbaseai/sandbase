@@ -62,13 +62,14 @@ Same call via the path form: `POST /v1/api/douyin/xingtu/xingtu-kolid-by-unique-
 
 ## Details
 
-Look up a creator's XingTu KOL ID using their Douyin `unique_id`.
+Returns the XingTu KOL ID and a short profile summary for a Douyin account. It needs the account's `unique_id` as input.
 
 ### Use cases
 
-- Map standard Douyin user accounts to their XingTu commercial creator profiles.
-- Retrieve core user identifiers and profile categories for influencer marketing analysis.
-- Check influencer performance metrics such as task completion rates on XingTu.
+- Convert a Douyin `unique_id` into the XingTu `id` needed to call other XingTu creator APIs.
+- Match public Douyin accounts to their XingTu creator records when building an influencer list.
+- Read the creator's `nick_name` and `tag` category to sort candidate accounts by content niche.
+- Link a XingTu creator back to a Douyin account through `core_user_id`.
 
 ### Request
 
@@ -79,33 +80,56 @@ curl -X POST "https://api.sandbase.ai/v1/api/douyin/xingtu/xingtu-kolid-by-uniqu
   -d '{"unique_id": "dyczxzs"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
 |---|---|---|---|
-| `unique_id` | string | Yes | unique_id, can be obtained from the following interfaces: `douyin/web/user-profile`; `douyin/web/user-profile-v2`; `douyin/web/user-profile-v3`; `douyin/app-v3… |
+| `unique_id` | string | Yes | unique_id, can be obtained from the following interfaces: `douyin/web/user-profile`; `douyin/web/user-profile-v2`; `douyin/web/user-profile-v3`; `douyin/app-v3/user-profile` |
 
 ### Example response
 
-Real response for the request above, trimmed to the main fields. User names and long IDs are masked.
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
 
 ```json
 {
+  "avatar_uri": "https://p11.douyinpic.com/aweme/1080x1080/aweme-avatar/tos-cn-avt-0015_3beaaeb52…",
+  "base_resp": {
+    "status_code": 0,
+    "status_message": "Success"
+  },
   "core_user_id": "92769419069",
   "finish_rate_ovr": 0,
+  "hot_list_ranks": [],
   "id": "6870164585236660237",
-  "nick_name": "<user>",
+  "nick_name": "抖音作者助手",
   "tag": "教育培训"
 }
 ```
 
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `id` | The XingTu KOL ID for the account. Pass this value to other XingTu APIs that take a KOL ID. |
+| `core_user_id` | The core user ID of the account, returned as a string. |
+| `nick_name` | The creator's display name. |
+| `tag` | The creator's content category label, for example `教育培训` (education and training). |
+| `finish_rate_ovr` | A numeric completion rate value for the creator. The example returns `0`. |
+| `hot_list_ranks[]` | List of hot list rankings for the creator. It is empty in the example. |
+| `avatar_uri` | URL of the creator's avatar image. |
+| `base_resp.status_code / base_resp.status_message` | Status of the lookup. `0` and `Success` mean the call worked. |
+
 ### Notes
 
-- The `unique_id` parameter can be obtained from Douyin user profile endpoints such as `douyin/web/user-profile` or `douyin/app-v3/user-profile`.
+- Get `unique_id` from [Douyin User Profile (App V3)](/apis/douyin/app-v3/user-profile) or the `douyin/web/user-profile` family of APIs.
+- IDs such as `id` and `core_user_id` come back as strings. Keep them as strings to avoid losing digits.
+- Use the returned `id` as the KOL ID input for APIs such as [Douyin XingTu KOL Profile](/apis/douyin/xingtu/kol-base-info-v1) or [Douyin XingTu KOL Price](/apis/douyin/xingtu/kol-service-price-v1).
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

@@ -62,7 +62,14 @@ Same call via the path form: `POST /v1/api/reddit/post-comments` with the body a
 
 ## Details
 
-List the comments on a Reddit post by URL (author, body, score, timestamp, parent comment). Replies carry the parentId of the comment they answer.
+Returns the comments on a Reddit post, with author, body, score, creation time and the parent comment for each reply. It needs the full URL of the post as `url`.
+
+### Use cases
+
+- Collect the replies to a popular AMA to study which questions got the most upvotes.
+- Rebuild a comment thread as a tree by matching each `parentId` to a comment `id`.
+- Pull the top-scored comments on a post to summarize what readers think.
+- Link each comment back to its page on Reddit using its `url` to review or moderate it.
 
 ### Request
 
@@ -73,7 +80,7 @@ curl -X POST "https://api.sandbase.ai/v1/api/reddit/post-comments" \
   -d '{"url": "https://www.reddit.com/r/IAmA/comments/z1c9z/i_am_barack_obama_president_of_the_united_states/"}'
 ```
 
-The result is returned in `outputs[0].data`. A lookup that finds nothing still succeeds and returns `found: false`.
+The result is returned in `outputs[0].data`.
 
 ### Parameters
 
@@ -82,9 +89,55 @@ The result is returned in `outputs[0].data`. A lookup that finds nothing still s
 | `url` | string | Yes | Full Reddit post URL on reddit.com. A gallery link (https://www.reddit.com/gallery/<id>) is read as the post it belongs to, and a relative permalink (/r/<subreddit>/comments/<id>/...) as the same path on https://www.redd |
 | `cursor` | string | No | Cursor from a previous response for more comments. |
 
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "data": {
+    "comments": [
+      {
+        "author": "Biinaryy",
+        "body": "Here is a collection of all the questions and answers:\n\nQuestion: [Link](http://…",
+        "createdUtc": 1346276659,
+        "id": "c60o0iw",
+        "parentId": "",
+        "score": 5399,
+        "url": "https://www.reddit.com/r/IAmA/comments/z1c9z/i_am_barack_obama_president_of_the_…"
+      }
+    ],
+    "media": null,
+    "nextCursor": "cur_E_QuTid3jKG5pjQCweyA_g"
+  },
+  "found": true
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `data.comments[].author` | Reddit username of the person who wrote the comment. |
+| `data.comments[].body` | Text of the comment. It uses Reddit markdown, so links and emphasis appear as markdown. |
+| `data.comments[].id` | ID of the comment, for example `c60o0iw`. Replies point to it in `parentId`. |
+| `data.comments[].parentId` | The `id` of the comment this one answers. It is an empty string for a top-level comment. |
+| `data.comments[].score` | Score of the comment, as a number. |
+| `data.comments[].createdUtc` | Creation time of the comment as a Unix timestamp in seconds (UTC). |
+| `data.comments[].url` | Direct link to the comment on reddit.com. |
+| `data.nextCursor` | Cursor for the next page of comments. Send it as `cursor` in the next request. |
+| `data.media` | Media attached to the post. It is `null` in this response. |
+| `found` | `true` when the post was found. A lookup that finds nothing returns `false`. |
+
+### Notes
+
+- Copy the post URL from Reddit. A gallery link or a relative permalink such as `/r/<subreddit>/comments/<id>/...` also works.
+- To get more comments, repeat the request with the same `url` and the `nextCursor` value as `cursor`.
+- Comments are listed in a flat array. Use `parentId` to see which comment each reply answers.
+
 ### Pricing
 
-Billed at the actual cost of each call, usually $0.0006 per request. A call can cost more when the first data source fails and another one answers. Failed calls are not charged. Lookups that find nothing and searches with no results are billed at their actual cost, which is often lower and can be $0.
+Billed at the actual cost of each call, about $0.0006 for the request above. Failed calls are not charged.
 
 ---
 Machine-readable: [`catalog/models/reddit/post-comments.json`](../../../catalog/models/reddit/post-comments.json) · Store page: https://www.sandbase.ai/model/reddit/post-comments

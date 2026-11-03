@@ -78,9 +78,14 @@ Same call via the path form: `POST /v1/api/similarweb/ad-networks` with the body
 
 ## Details
 
-Get the ad networks behind a website's display-ad traffic, with each network's traffic share and change over the selected months.
+Returns the ad networks that send display-ad traffic to a website, with each network's traffic share and change over the selected months. It needs a `domain`, a `start_date`, an `end_date` and a `limit`.
 
-The response is the official Similarweb API response, unchanged.
+### Use cases
+
+- Find which ad networks drive the most display-ad traffic to a publisher such as cnn.com.
+- Compare a competitor's ad network mix with your own to spot networks you do not use.
+- Track which ad networks are gaining or losing share on a site from month to month.
+- Build a list of ad networks to approach when you sell ad inventory or ad tech services.
 
 ### Request
 
@@ -91,24 +96,87 @@ curl -X POST "https://api.sandbase.ai/v1/api/similarweb/ad-networks" \
   -d '{"start_date": "2026-09", "end_date": "2026-09", "country": "ww", "domain": "cnn.com", "limit": 1, "granularity": "monthly"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
 |---|---|---|---|
-| `country` | string | No | Worldwide data only; values are case-insensitive. |
 | `domain` | string | Yes | domain |
 | `end_date` | string | Yes | end_date |
-| `granularity` | string | No | granularity |
 | `limit` | integer | Yes | limit |
+| `start_date` | string | Yes | start_date |
+| `country` | string | No | Worldwide data only; values are case-insensitive. |
+| `granularity` | string | No | granularity |
 | `main_domain_only` | boolean | No | main_domain_only |
 | `offset` | integer | No | offset |
-| `start_date` | string | Yes | start_date |
 | `traffic_source` | string | No | traffic_source |
 | `web_source` | string | No | web_source |
 
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "data": [
+    {
+      "ad_network": "Zeta Global",
+      "change": 0.14955310891417808,
+      "share": 0.48691075625418256
+    }
+  ],
+  "meta": {
+    "last_updated": "2026-09-30",
+    "query": {
+      "asc": null,
+      "limit": 1,
+      "offset": 0,
+      "sort": null
+    },
+    "request": {
+      "ad_network_type": "incoming",
+      "country": "ww",
+      "domain": "cnn.com",
+      "end_date": "2026-09-30",
+      "format": "json",
+      "granularity": "monthly",
+      "main_domain_only": false,
+      "metrics": [
+        "share"
+      ],
+      "start_date": "2026-09-01",
+      "web_source": "total"
+    },
+    "status": "success"
+  }
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `data[].ad_network` | Name of the ad network, for example `Zeta Global`. |
+| `data[].share` | The network's share of the site's display-ad traffic, as a decimal fraction. A value of `0.4869` means about 48.7%. |
+| `data[].change` | Change in the network's share compared with the earlier period, as a decimal. A positive value means the network grew. |
+| `meta.request.ad_network_type` | Type of ad traffic the rows describe. The sample shows `incoming`. |
+| `meta.request.web_source` | Device scope used for the query. The sample shows `total`. |
+| `meta.request.start_date / meta.request.end_date` | Full date range the query covered. The month inputs are expanded to the first and last day of the month. |
+| `meta.query.limit / meta.query.offset` | Page size and starting position used for this response. |
+| `meta.last_updated` | Date shown as the last update for the data, in `YYYY-MM-DD` format. |
+| `meta.status` | Shows `success` when the call worked. |
+
+### Notes
+
+- Send `start_date` and `end_date` as `YYYY-MM` months. Set both to the same month to get one month of data.
+- `limit` accepts 1 to 20. Use `offset` to page through more networks.
+- `country` accepts only `ww` (worldwide). `web_source` accepts `desktop`, `mobile_web` or `total`.
+- To see where a site's other traffic comes from, call [Similarweb Referrals](/apis/similarweb/referrals) or [Similarweb Marketing Channel Sources](/apis/similarweb/marketing-channel-sources-legacy).
+
 ### Pricing
 
-$0.225 per returned row (3 Similarweb credits), up to 20 rows; billed on rows returned. Failed calls are not charged.
+Billed at the actual cost of each call, about $0.225 for the request above. Failed calls are not charged.
 
 ---
 Machine-readable: [`catalog/models/similarweb/ad-networks.json`](../../../catalog/models/similarweb/ad-networks.json) · Store page: https://www.sandbase.ai/model/similarweb/ad-networks

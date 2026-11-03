@@ -65,13 +65,13 @@ Same call via the path form: `POST /v1/api/tiktok/app-v3/search-follower-list` w
 
 ## Details
 
-Look up followers of a specific TikTok account by nickname matching. Supply a numeric `user_id` alongside a search `keyword` to discover relevant follower profiles.
+Searches one TikTok account's followers for nicknames that contain a keyword. It needs a numeric `user_id` and a `keyword`, and returns the matching followers with a count.
 
 ### Use cases
 
-- Verify if a specific profile or brand nickname follows a target account.
-- Filter an audience base to find followers with relevant keywords in their nicknames.
-- Confirm follower presence for influencer collaboration checks.
+- Check whether an account with a brand name in its nickname follows a target account.
+- Find followers of an influencer whose nicknames contain a given word.
+- Spot-check a creator's audience for accounts tied to a partner or competitor.
 
 ### Request
 
@@ -82,6 +82,8 @@ curl -X POST "https://api.sandbase.ai/v1/api/tiktok/app-v3/search-follower-list"
   -d '{"keyword": "openai", "user_id": "107955"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
@@ -91,24 +93,35 @@ curl -X POST "https://api.sandbase.ai/v1/api/tiktok/app-v3/search-follower-list"
 
 ### Example response
 
-Real response for the request above, trimmed to the main fields. User names and long IDs are masked.
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
 
 ```json
 {
   "keyword": "openai",
   "result_count": 0,
-  "user_id": "<user>"
+  "results": [],
+  "user_id": "107955"
 }
 ```
 
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `keyword` | The search keyword from the request. The API matches it against follower nicknames. |
+| `user_id` | The numeric ID of the account whose followers were searched. |
+| `result_count` | The number of followers that matched the keyword. It is `0` when nothing matched. |
+| `results[]` | The list of matching followers. It is an empty list when `result_count` is `0`, as in this example. |
+
 ### Notes
 
-- The `user_id` parameter requires the pure numeric user ID, obtainable through user info endpoints.
-- Matches occur when an account's nickname contains the provided `keyword` string.
+- Pass the pure numeric `user_id`. Get it from [TikTok User Profile Details](/apis/tiktok/app-v3/user-profile) or [TikTok User ID by Username](/apis/tiktok/app-v3/user-id-and-sec-user-id-by-username).
+- A search with no matches returns `result_count` of `0` and an empty `results` list, not an error.
+- To browse followers without a keyword, use [TikTok User Follower List](/apis/tiktok/app-v3/user-follower-list).
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

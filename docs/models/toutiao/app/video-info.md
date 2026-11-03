@@ -62,13 +62,13 @@ Same call via the path form: `POST /v1/api/toutiao/app/video-info` with the body
 
 ## Details
 
-Retrieve detailed information for a specific video post on Toutiao. Provide the video post identifier via `group_id` to query its metadata.
+Returns information for one Toutiao video post. You send the post ID as `group_id`. The response holds a `data` object for the video, plus an error code and message.
 
 ### Use cases
 
-- Retrieve metadata for a specific Toutiao video post.
-- Verify the availability and details of linked Toutiao video content.
-- Display Toutiao video attributes within external dashboards.
+- Check whether a Toutiao video link still resolves to a post.
+- Pull video metadata for a post ID taken from a Toutiao link.
+- Validate a list of `group_id` values before you call comment or article APIs.
 
 ### Request
 
@@ -79,19 +79,46 @@ curl -X POST "https://api.sandbase.ai/v1/api/toutiao/app/video-info" \
   -d '{"group_id": "7431543350882206242"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
 |---|---|---|---|
 | `group_id` | string | Yes | Post ID, can be obtained from the link |
 
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "data": null,
+  "err_no": 10400,
+  "err_tips": "在这个星球中找不到",
+  "message": "rpc err"
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `data` | Holds the video information when the lookup works. It is `null` when the post is not found, as in the sample call for `7431543350882206242`. |
+| `err_no` | Numeric error code. The sample call returned `10400`, which came with `data` set to `null`. |
+| `err_tips` | Short error text for the failed lookup. The sample call returned `在这个星球中找不到`. |
+| `message` | Status message for the call. The sample call returned `rpc err`. |
+
 ### Notes
 
-- The `group_id` parameter represents the post ID and can be obtained from the video URL link.
+- Take `group_id` from the Toutiao video link. It is a long numeric string, for example `7431543350882206242`.
+- Check `err_no` and whether `data` is `null` before you read any video fields.
+- To read comments on the same post, call [Toutiao Post Comments](/apis/toutiao/app/comments).
+- If this lookup fails, try [Toutiao Specified Video Details](/apis/toutiao/web/video-info) with the same post.
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

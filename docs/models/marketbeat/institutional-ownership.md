@@ -69,7 +69,14 @@ Same call via the path form: `POST /v1/api/marketbeat/institutional-ownership` w
 
 ## Details
 
-Get institutional ownership data including top institutional holders, their share positions, market value, portfolio percentage, quarterly change in shares, and ownership percentage in company.
+Returns a list of institutional holders for a stock, with each holder's share count, market value, and ownership stake. It needs a stock `ticker` such as `AAPL`, and accepts an optional `exchange`.
+
+### Use cases
+
+- Track which funds hold the largest positions in a stock.
+- Spot institutions that are adding or cutting shares by checking the quarterly change.
+- Compare how much of each holder's portfolio sits in one company.
+- Build an ownership table for a stock research page.
 
 ### Request
 
@@ -80,7 +87,7 @@ curl -X POST "https://api.sandbase.ai/v1/api/marketbeat/institutional-ownership"
   -d '{"ticker": "AAPL"}'
 ```
 
-This API runs asynchronously. The call returns a task `id` with status `pending`; poll `GET https://api.sandbase.ai/v1/run/{id}` until `status` is `completed` and read the result from `outputs[0].data`.
+The result is returned in `outputs[0].data`.
 
 ### Parameters
 
@@ -89,9 +96,50 @@ This API runs asynchronously. The call returns a task `id` with status `pending`
 | `ticker` | string | Yes | Stock ticker symbol (e.g. 'AAPL'). |
 | `exchange` | string | No | Stock exchange (e.g. 'NYSE', ''). |
 
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "data": {
+    "items": [
+      {
+        "% of Portfolio": "3.4%",
+        "Details": "",
+        "Major Shareholder Name": "Sanders Capital LLC",
+        "Market Value": "$3.49B",
+        "Ownership in Company": "0.072%",
+        "Quarterly Change in Shares": "-0.4%",
+        "Reporting Date": "11/3/2026",
+        "Shares Held": "10,484,052"
+      }
+    ]
+  },
+  "status": "success"
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `data.items` | List of institutional holders. Each entry is one holder with a set of string values. |
+| `data.items[]` | One holder. The keys `Major Shareholder Name`, `Shares Held` and `Market Value` give the holder's name, its share count, and the value of its position. |
+| `data.items[]` | The keys `% of Portfolio` and `Ownership in Company` show how much of the holder's portfolio this stock makes up and what share of the company the holder owns. `Quarterly Change in Shares` shows the share change with a `+` or `-` sign. |
+| `data.items[].Details` | Extra detail text for the row. It is an empty string in the sample response. |
+| `status` | Shows `success` when the call worked. |
+
+### Notes
+
+- All values in each item are strings, including numbers and percentages. Parse them before you sort or sum.
+- `Reporting Date` is the filing date of the position, in the format `11/3/2026`.
+- To find a ticker first, call [MarketBeat Search Stocks](/apis/marketbeat/search-stocks).
+- For insider activity on the same stock, call [MarketBeat Insider Trades](/apis/marketbeat/insider-trades).
+
 ### Pricing
 
-Flat price per call. Failed calls are not charged.
+$0.01 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ---
 Machine-readable: [`catalog/models/marketbeat/institutional-ownership.json`](../../../catalog/models/marketbeat/institutional-ownership.json) · Store page: https://www.sandbase.ai/model/marketbeat/institutional-ownership

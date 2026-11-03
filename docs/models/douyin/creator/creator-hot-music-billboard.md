@@ -68,13 +68,14 @@ Same call via the path form: `POST /v1/api/douyin/creator/creator-hot-music-bill
 
 ## Details
 
-Access Douyin trending audio charts by querying with optional filters such as `order_key`, `time_filter`, and `billboard_tag`.
+Returns a ranked list of trending music tracks from the Douyin creator platform. Each item has play, like, comment, share and submission counts. All inputs are optional: `order_key` sets the sort, `time_filter` sets the time window, and `billboard_tag` picks a chart category.
 
 ### Use cases
 
-- Identify trending audio tracks on Douyin for content planning.
-- Track audio performance metrics including play counts and like numbers.
-- Analyze music popularity shifts across 24-hour, 7-day, or 30-day windows.
+- Pick sounds that are rising on Douyin before you plan a new video.
+- Rank tracks by `like_count` or `play_count` over the last 24 hours, 7 days or 30 days.
+- Compare how many videos use each sound with `publish_count` to find sounds that are not yet crowded.
+- Store the `item_id` of top tracks and watch how the chart changes between days.
 
 ### Request
 
@@ -85,46 +86,71 @@ curl -X POST "https://api.sandbase.ai/v1/api/douyin/creator/creator-hot-music-bi
   -d '{}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
 |---|---|---|---|
+| `billboard_tag` | integer | No | Billboard tag, 0=all, other values can be obtained through config interface |
 | `order_key` | integer | No | Order key (1=highest views, 2=most likes, 4=highest popularity, 5=most submissions) |
 | `time_filter` | integer | No | Time filter (1=24 hours, 2=7 days, 3=30 days) |
-| `billboard_tag` | integer | No | Billboard tag, 0=all, other values can be obtained through config interface |
 
 ### Example response
 
-Real response for the request above, trimmed to the main fields. User names and long IDs are masked.
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
 
 ```json
 {
   "item_list": [
     {
+      "aweme_list": null,
       "collection_count": 0,
-      "comment_count": 102759,
+      "comment_count": 37658,
+      "cover": {
+        "url_list": [
+          "https://p5-ex-gddgtc-sign.douyinpic.com/tos-cn-i-dy/d133d42bf424ce44cd12d17622d0…"
+        ]
+      },
+      "hot_involve_ratio": "",
+      "hot_involve_type": "",
       "hot_onboard_time": 0,
-      "hot_score": 660013,
-      "item_id": "7692811983661746980",
-      "like_count": 2621660,
-      "play_count": 49355670,
-      "publish_count": 244,
-      "query_id": "285104519",
-      "share_count": 262924
+      "hot_score": 428224,
+      "item_id": "7703486029906348850",
+      "key_words": null,
+      "like_count": 2285417,
+      "play_count": 118052061
     }
-  ]
+  ],
+  "status_code": 0,
+  "status_msg": ""
 }
 ```
 
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `item_list[]` | One ranked music entry on the billboard. The list follows the order set by `order_key`. |
+| `item_list[].title` | Name of the sound. Many entries are original sounds, shown as the creator's handle followed by the text for "original sound". |
+| `item_list[].item_id / item_list[].query_id` | Identifiers for the track. Both are strings of digits. |
+| `item_list[].play_count` | Total play count for the sound. |
+| `item_list[].like_count / item_list[].comment_count / item_list[].share_count` | Like, comment and share totals for the sound. |
+| `item_list[].hot_score` | Popularity score for the track. The `order_key` value 4 sorts by popularity. |
+| `item_list[].publish_count` | Number of submissions that use the sound. The `order_key` value 5 sorts by submissions. It is 0 for some entries. |
+| `item_list[].cover.url_list[]` | Cover image URLs for the track. Each URL is signed and carries an `x-expires` value. |
+| `status_code / status_msg` | Status of the call. A `status_code` of 0 with an empty `status_msg` is the success case in this response. |
+
 ### Notes
 
-- `order_key` accepts 1 for highest views, 2 for most likes, 4 for highest popularity, and 5 for most submissions.
-- `time_filter` accepts 1 for 24 hours, 2 for 7 days, and 3 for 30 days.
-- `billboard_tag` defaults to 0 for all categories, with additional category values obtainable from the config endpoint.
+- `order_key` values: 1 for highest views, 2 for most likes, 4 for highest popularity, 5 for most submissions.
+- `time_filter` values: 1 for 24 hours, 2 for 7 days, 3 for 30 days.
+- Leave `billboard_tag` at 0 for all categories. Other values come from a config interface. For related Douyin creator data, see [Douyin Creator Hot Topic Billboard](/apis/douyin/creator/creator-hot-topic-billboard).
+- Fields such as `aweme_list`, `key_words`, `related_item_ids`, `show_count` and `shoot_count` were empty or 0 in the sample response.
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

@@ -61,13 +61,14 @@ Same call via the path form: `POST /v1/api/douyin/xingtu/author-content-hot-comm
 
 ## Details
 
-Retrieves the most frequent comment keywords across a creator's Douyin Xingtu content using their `kolId`.
+Returns hot comment keywords from the content of a Douyin Xingtu creator. It needs one input, the creator's `kolId`.
 
 ### Use cases
 
-- Analyze audience sentiment and discussion trends on creator videos.
-- Evaluate audience engagement topics before sponsoring creator content.
-- Track recurring keywords and themes in Douyin Xingtu video comments.
+- Check which topics and products viewers mention most in comments on a creator's videos.
+- Compare keyword numbers across several creators before choosing who to sponsor.
+- Spot recurring product terms, such as ingredients, that audiences link to a creator's content.
+- Feed the keywords and their numbers into a word cloud or a report on audience interests.
 
 ### Request
 
@@ -78,19 +79,60 @@ curl -X POST "https://api.sandbase.ai/v1/api/douyin/xingtu/author-content-hot-co
   -d '{"kolId": "7048929565493690398"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
 |---|---|---|---|
-| `kolId` | string | Yes | User kolId, can be obtained from the following interfaces: `douyin/xingtu/xingtu-kolid-by-uid`; `douyin/xingtu/xingtu-kolid-by-sec-user-id`; `douyin/xingtu/xin… |
+| `kolId` | string | Yes | User kolId, can be obtained from the following interfaces: `douyin/xingtu/xingtu-kolid-by-uid`; `douyin/xingtu/xingtu-kolid-by-sec-user-id`; `douyin/xingtu/xingtu-kolid-by-unique-id` |
+
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "base_resp": {
+    "status_code": 0,
+    "status_message": ""
+  },
+  "keyword_item_distribution": {
+    "25岁": 4,
+    "女人": 4,
+    "维c": 4,
+    "胶原蛋白肽": 4,
+    "虾青素": 4
+  },
+  "keyword_map": {
+    "25岁": 4,
+    "女人": 4,
+    "女王": 4,
+    "维c": 12,
+    "胶原蛋白肽": 4,
+    "虾青素": 8
+  }
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `keyword_map` | Object that maps each hot comment keyword to a number. The keyword is the key and the number is the value. |
+| `keyword_item_distribution` | Object with the same shape as `keyword_map`: keyword as key, number as value. It holds a smaller set of keywords, and the numbers can differ from those in `keyword_map`. |
+| `base_resp.status_code` | Status code of the response. `0` means the call succeeded. |
+| `base_resp.status_message` | Status text of the response. It is an empty string when the call succeeds. |
 
 ### Notes
 
-- The required `kolId` can be retrieved using the Xingtu KOL ID lookup endpoints by UID, sec_user_id, or unique ID.
+- The keywords are dynamic object keys, not a list. Read each key as the keyword and its value as the number.
+- Get `kolId` from [Douyin XingTu KOL ID by User ID](/apis/douyin/xingtu/xingtu-kolid-by-uid), [Douyin XingTu kolId Lookup](/apis/douyin/xingtu/xingtu-kolid-by-sec-user-id), or the lookup by unique ID.
+- For a token-based view of the comments, call [Douyin Xingtu Author Hot Comment Tokens (Xingtu)](/apis/douyin/xingtu/author-hot-comment-tokens-v1).
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.02 per successful call. Failed calls are not charged.
 
 ### Related APIs
 

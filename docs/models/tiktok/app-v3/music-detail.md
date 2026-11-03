@@ -62,13 +62,14 @@ Same call via the path form: `POST /v1/api/tiktok/app-v3/music-detail` with the 
 
 ## Details
 
-Retrieve detailed information about a specific TikTok audio track by providing its unique identifier in `music_id`.
+Returns details for one TikTok audio track, including title, artist, album, duration, cover images and the matched full-length song. It needs one input, `music_id`, the TikTok identifier of the track.
 
 ### Use cases
 
-- Look up audio track metadata by music ID.
-- Inspect DSP song mappings linked to TikTok audio.
-- Verify audio identifiers across platform catalogs.
+- Read the title, artist and album of a sound that appears in a TikTok video.
+- Check whether a track is a licensed catalog song (`is_pgc`) or an original sound (`is_original_sound`).
+- Get the chorus start time and full song length of the matched song to pick a clip segment.
+- Download artist avatar and cover image URLs to show a track card in your own app.
 
 ### Request
 
@@ -79,6 +80,8 @@ curl -X POST "https://api.sandbase.ai/v1/api/tiktok/app-v3/music-detail" \
   -d '{"music_id": "6943027371519772674"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
@@ -87,28 +90,115 @@ curl -X POST "https://api.sandbase.ai/v1/api/tiktok/app-v3/music-detail" \
 
 ### Example response
 
-Real response for the request above, trimmed to the main fields. User names and long IDs are masked.
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
 
 ```json
 {
+  "ai_recommend_music": null,
+  "ai_recommend_video": null,
+  "behind_the_song_exist": false,
+  "cost_time_info": {
+    "music_server_cost_time": 243
+  },
+  "extra": {
+    "fatal_item_ids": [],
+    "logid": "20261103074355EBF9DC594D9008405170",
+    "now": 1793691836000
+  },
+  "log_pb": {
+    "impr_id": "20261103074355EBF9DC594D9008405170"
+  },
+  "msg": "success",
+  "music_chart_rank": {
+    "chart_music_info": "{\"currentTabId\":0,\"tabList\":[{\"tabId\":0,\"tabNameKey\":\"music_chart_top_50_title\",…",
+    "desc": "Music Charts",
+    "link_style": {
+      "bg_end_color": 12881901,
+      "bg_start_color": 9405693
+    }
+  },
   "music_info": {
-    "tt_to_dsp_song_infos": [
+    "album": "Minecraft - Volume Alpha",
+    "allow_offline_music_to_detail_page": false,
+    "artists": [
       {
-        "button_type": 2,
-        "song_id": "1867885635"
+        "avatar": {
+          "uri": "tos-maliva-avt-0068/e9a5867e4f1c3c626f99bfe5ddecf9b9",
+          "url_list": [
+            "https://p16-common-sign.tiktokcdn-eu.com/tos-maliva-avt-0068/e9a5867e4f1c3c626f9…"
+          ],
+          "url_prefix": null
+        },
+        "enter_type": 2,
+        "follow_status": 0,
+        "follower_status": 0,
+        "handle": "c418",
+        "is_block": false,
+        "is_blocked": false,
+        "is_private_account": false,
+        "is_verified": true,
+        "is_visible": false,
+        "nick_name": "C418",
+        "sec_uid": "MS4wLjABAAAAxrKNI-I7Qvhqi72NG5QIP9o3LUpcy5rW4JqvEcb_Ajd68cn89E_XMABNYa2mrdUf"
       }
-    ]
-  }
+    ],
+    "audition_duration": 60,
+    "author": "C418",
+    "author_deleted": false,
+    "author_position": null,
+    "avatar_medium": {
+      "height": 720,
+      "uri": "tos-maliva-avt-0068/e9a5867e4f1c3c626f99bfe5ddecf9b9",
+      "url_list": [
+        "https://p16-common-sign.tiktokcdn-eu.com/tos-maliva-avt-0068/e9a5867e4f1c3c626f9…"
+      ],
+      "url_prefix": null,
+      "width": 720
+    },
+    "avatar_thumb": {
+      "height": 720,
+      "uri": "tos-maliva-avt-0068/e9a5867e4f1c3c626f99bfe5ddecf9b9",
+      "url_list": [
+        "https://p16-common-sign.tiktokcdn-eu.com/tos-maliva-avt-0068/e9a5867e4f1c3c626f9…"
+      ],
+      "url_prefix": null,
+      "width": 720
+    },
+    "binded_challenge_id": 0,
+    "can_be_stitched": true,
+    "can_not_reuse": false
+  },
+  "rec_list": [],
+  "similar_music": [],
+  "similar_music_ids": null
 }
 ```
 
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `music_info.id_str` | The track ID as a string. Use this form to avoid number rounding in some JSON parsers. |
+| `music_info.author / music_info.album` | The artist name and album name shown for the track. |
+| `music_info.duration / music_info.audition_duration` | Length of the track and of its preview, as whole numbers. Both are 60 in this response. |
+| `music_info.create_time` | Unix timestamp in seconds for when the track was created on TikTok. |
+| `music_info.artists[].nick_name / music_info.artists[].handle` | Display name and handle of each artist account linked to the track. |
+| `music_info.artists[].is_verified` | Whether the artist account is verified. |
+| `music_info.is_pgc / music_info.is_original_sound / music_info.is_commerce_music` | Flags for how the track is classified: catalog track, user-made original sound, or commercial music. |
+| `music_info.matched_song.title` | Title of the full song that TikTok matched to this audio track. |
+| `music_info.matched_song.full_duration` | Length of the full matched song. The value 186250 matches the millisecond fields beside it. |
+| `music_info.matched_song.chorus_info.start_ms / music_info.matched_song.chorus_info.duration_ms` | Where the chorus starts and how long it lasts, in milliseconds. |
+| `music_info.cover_large.url_list[]` | Cover image URLs for the track at 720x720. |
+
 ### Notes
 
-- Provide a valid TikTok audio identifier in `music_id`.
+- Take `music_id` from a video's music data, or from [TikTok Music Search](/apis/tiktok/app-v3/music-search-result).
+- Call [TikTok Music Video List](/apis/tiktok/app-v3/music-video-list) next to see videos that use the track.
+- `music_info.extra` and `music_chart_rank.chart_music_info` are JSON strings. Parse them again to read their contents.
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

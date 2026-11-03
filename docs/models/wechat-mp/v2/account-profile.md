@@ -63,13 +63,14 @@ Same call via the path form: `POST /v1/api/wechat-mp/v2/account-profile` with th
 
 ## Details
 
-Look up official WeChat account profile information by passing the account ID in `username`.
+Returns the profile of an official WeChat account, plus its most recent published articles. It needs the account's `gh_` username in `username`.
 
 ### Use cases
 
-- Verify official WeChat account details such as verification status and entity type.
-- Display official account avatar, nickname, and signature in external dashboards.
-- Inspect raw or simplified profile data structures for integrated WeChat monitoring tools.
+- Check how many original articles an official account has published.
+- Pull the latest article links and publish times for an account to track its posting activity.
+- Read the account's IP location label for a profile record.
+- Page through an account's message list with the returned `offset` cursor.
 
 ### Request
 
@@ -80,22 +81,184 @@ curl -X POST "https://api.sandbase.ai/v1/api/wechat-mp/v2/account-profile" \
   -d '{"username": "gh_363b924965e9"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
 |---|---|---|---|
-| `username` | string | Yes | Official account `gh_username` (`gh_…`). |
-| `raw` | boolean | No | Optional, default True. |
+| `username` | string | Yes | Official account `gh_username` (`gh_…`). Sources: `content.user_name` from article detail, or `jumpInfo.userName` from WeChat Search V2 `fetch_search` (business_type=account) results. E.g. `gh_363b924965e9` |
+| `raw` | boolean | No | Optional, default True. True=raw; False=simplified parsing. |
+
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "accountInfo": {
+    "banReason": "",
+    "banType": 0,
+    "pbRequestMsgInfo": null,
+    "serviceType": 0,
+    "userName": "gh_363b924965e9",
+    "userRole": 0
+  },
+  "aiChatInfo": {
+    "aiChatOpen": 2,
+    "extInfo": "",
+    "pbRequestMsgInfo": null,
+    "pollInterval": 180,
+    "reportExtInfo": "",
+    "roomInfo": "",
+    "stringBizuin": "MjM5MjAxNDM4MA=="
+  },
+  "aiIvrReplyInfo": {
+    "aiReplyOpen": 0,
+    "pbRequestMsgInfo": null,
+    "wording": ""
+  },
+  "articleTab": {
+    "msgList": {
+      "featuredList": [],
+      "featuredUpdateTime": 1793688509,
+      "hideList": false,
+      "msg": [
+        {
+          "appMsg": {
+            "baseInfo": {
+              "appMsgId": 2667043262,
+              "bigPic": 1,
+              "createTime": 1793687341,
+              "hasExpanded": false,
+              "pbRequestMsgInfo": null,
+              "type": 9,
+              "updateTime": 1793688161
+            },
+            "detailInfo": [
+              {
+                "appEditJumpUrl": "",
+                "audioDuRation": 0,
+                "audioId": 0,
+                "audioPlayUrl": "",
+                "authorDesc": "",
+                "bizRecommendInfo": null,
+                "canModifyByWxa": 0,
+                "contentUrl": "http://mp.weixin.qq.com/s?__biz=MjM5MjAxNDM4MA==&mid=2667043262&idx=1&sn=efc2247…"
+              }
+            ],
+            "pbRequestMsgInfo": null
+          },
+          "baseInfo": {
+            "dateTime": 1793687341,
+            "funcFlag": 0,
+            "msgId": 2667043262,
+            "msgType": 49,
+            "pbRequestMsgInfo": null,
+            "status": 0,
+            "uniqueId": "0_2667043262",
+            "virtualMsgType": 0
+          },
+          "featuredExposed": false,
+          "image": null,
+          "pbRequestMsgInfo": null,
+          "text": null,
+          "video": null,
+          "voice": null
+        }
+      ],
+      "pagingInfo": {
+        "isEnd": 0,
+        "offset": "WABgAGiBpOW+74vB9Go=",
+        "pbRequestMsgInfo": null
+      },
+      "pbRequestMsgInfo": null,
+      "poiInfo": null,
+      "recommendSetting": null
+    },
+    "pbRequestMsgInfo": null,
+    "show": true,
+    "topicList": {
+      "pbRequestMsgInfo": null,
+      "title": "Top Topics",
+      "topic": []
+    }
+  },
+  "audioTab": {
+    "msgList": {
+      "featuredList": [],
+      "featuredUpdateTime": 1793688509,
+      "hideList": false,
+      "msg": [],
+      "pagingInfo": {
+        "isEnd": 1,
+        "offset": "WABgAGgAcAA=",
+        "pbRequestMsgInfo": null
+      },
+      "pbRequestMsgInfo": null,
+      "poiInfo": null,
+      "recommendSetting": null
+    },
+    "pbRequestMsgInfo": null,
+    "show": false,
+    "topicList": {
+      "pbRequestMsgInfo": null,
+      "title": "Top Topics",
+      "topic": []
+    }
+  },
+  "baseInfo": {
+    "bizRecommendUrl": "",
+    "friendSubscribeCount": 0,
+    "friendSubscribeStr": "",
+    "isFans": 0,
+    "isSubscribed": 0,
+    "nickNameWhenSubscribe": "",
+    "originalArticleCount": 1133,
+    "originalContentStr": "1133 original articles",
+    "pbRequestMsgInfo": null
+  },
+  "baseResponse": {
+    "errMsg": {
+      "pbRequestMsgInfo": null,
+      "string": ""
+    },
+    "pbRequestMsgInfo": null,
+    "ret": 0
+  },
+  "bindPoiInfo": null,
+  "brandInfo": null,
+  "debug_id": "b7b56c11",
+  "debug_info": "gAAAAABq6ZEysXRPJLLgIxJIvLQd0bAzwA_WC34pPQO1EI1FDQy_kN3H5CloQ309xS0gUmx69615uZLF…",
+  "finderVideoIsBizMode": false
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `accountInfo.userName` | The `gh_` username of the account, matching the value you sent. |
+| `baseInfo.originalArticleCount / baseInfo.originalContentStr` | Number of original articles the account has published, as a number and as a display string such as `1133 original articles`. |
+| `ipwording` | IP location label shown for the account, for example `北京`. |
+| `msgList.msg[].appMsg.detailInfo[].contentUrl` | Link to an article published by the account. |
+| `msgList.msg[].appMsg.baseInfo.appMsgId` | ID of the article message. It also appears in the article link as `mid`. |
+| `msgList.msg[].appMsg.baseInfo.createTime / msgList.msg[].appMsg.baseInfo.updateTime` | Unix timestamps in seconds for when the article was created and last updated. |
+| `msgList.msg[].baseInfo.uniqueId` | Unique ID of the message in the list, formatted like `0_2667043262`. |
+| `msgList.pagingInfo.isEnd / msgList.pagingInfo.offset` | `isEnd` shows whether the list has ended (`1` means it has). `offset` is a cursor string for the next page of messages. |
+| `articleTab.msgList.msg / audioTab.msgList.msg / pictextTab.msgList.msg` | The same message list split by tab: articles, audio and picture-text posts. |
+| `baseResponse.ret` | Status code of the lookup. `0` appears in this response. |
 
 ### Notes
 
-- Set `username` using the `gh_` ID obtained from article details or WeChat search results.
-- Set `raw` to false for simplified parsing, or keep it true by default for raw profile data.
-- Profile fields such as nickname, signature, or avatar URL may return as null.
+- Get `username` from `content.user_name` in [WeChat MP Article Detail](/apis/wechat-mp/v2/article-detail), or from `jumpInfo.userName` in WeChat Search V2 `fetch_search` results with `business_type=account`.
+- `username` must match `gh_` followed by letters, digits or underscores, up to 64 characters.
+- `raw` is optional and defaults to `true`. Set it to `false` for simplified parsing.
+- For a dedicated article list, call [WeChat MP Account Articles](/apis/wechat-mp/v2/account-articles).
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.01 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

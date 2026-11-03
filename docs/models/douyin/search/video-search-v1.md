@@ -89,13 +89,14 @@ Same call via the path form: `POST /v1/api/douyin/search/video-search-v1` with t
 
 ## Details
 
-Search Douyin's video results for a keyword, with the same filters as the app.
+Returns a page of Douyin video search results for a keyword. Each result holds the video record with its author, plus search tracking values for the next page. The only input you need is `keyword`.
 
 ### Use cases
 
-- Find videos about a product or topic.
-- Discover creators for campaigns.
-- Track video volume for a keyword.
+- Collect videos that match a product name or topic on Douyin.
+- Find creators who post about a keyword and read their author IDs and avatars.
+- Page through all results for a keyword to count how many videos appear for it.
+- Use the related search words to expand a keyword list.
 
 ### Request
 
@@ -106,59 +107,154 @@ curl -X POST "https://api.sandbase.ai/v1/api/douyin/search/video-search-v1" \
   -d '{"keyword": "猫咪"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
 |---|---|---|---|
-| `cursor` | integer | No | Pagination cursor (0 for the first page, use the last response cursor for subsequent pages) |
-| `keyword` | string | No | Search keyword, e.g., "Artificial Intelligence" |
 | `backtrace` | string | No | Backtrace identifier used for pagination(obtained from the last response) |
+| `content_type` | string | No | Content type filter |
+| `cursor` | integer | No | Pagination cursor (0 for the first page, use the last response cursor for subsequent pages) |
+| `filter_duration` | string | No | Video duration filter |
+| `keyword` | string | No | Search keyword, e.g., "Artificial Intelligence" |
+| `publish_time` | string | No | Publish time filter |
 | `search_id` | string | No | Search ID used for pagination(obtained from the last response) |
 | `sort_type` | string | No | Sorting method |
-| `content_type` | string | No | Content type filter |
-| `publish_time` | string | No | Publish time filter |
-| `filter_duration` | string | No | Video duration filter |
 
 ### Example response
 
-Real response for the request above, trimmed to the main fields. User names and long IDs are masked.
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
 
 ```json
 {
-  "cursor": 10,
-  "has_more": 1,
-  "search_id": "<search_id>",
+  "ad_info": {},
+  "aweme_list": null,
+  "backtrace": "w8KOvPTzjA32DWEYf/cuFW45DQGXnMhbmtMMdOJA8MfKx+wJO5eOs3pIHfwYBckrqCwIlbiGsquRCyjR…",
+  "cursor": 8,
   "data": [
     {
-      "type": 1,
       "aweme_info": {
-        "aweme_id": "7626222853277534707",
-        "create_time": 1775618376,
-        "desc": "据说这是猫咪无法抗拒的声音！你家猫听到会有什么反应？快试了来告诉我～  #猫咪男高音 #蓝金渐层#…",
-        "author": {
-          "nickname": "<user>",
-          "sec_uid": "<sec_uid>"
+        "activity_video_type": -1,
+        "ad_charge_passive_unlock_config": {
+          "broadcast_btn_config": {
+            "btn_show_frequency": 1,
+            "btn_show_second": 5,
+            "btn_text": "秒后解锁下一集",
+            "show_second_type": 2
+          },
+          "trial_btn_config": {
+            "btn_show_frequency": 1,
+            "btn_show_second": 3,
+            "btn_text": "秒后解锁本集",
+            "show_second_type": 2
+          }
         },
-        "statistics": {
-          "play_count": 0,
-          "digg_count": 62040,
-          "comment_count": 3678,
-          "share_count": 21334,
-          "collect_count": 12233
-        }
+        "ai_follow_images": null,
+        "ai_search_struct": {
+          "show_ai_entrance": true
+        },
+        "anchors": null,
+        "authentication_token": "MS4wLjAA…",
+        "author": {
+          "accept_private_policy": false,
+          "account_region": "",
+          "ad_cover_url": null,
+          "allow_story_normal_like": false,
+          "apple_account": 0,
+          "authority_status": 0,
+          "avatar_168x168": {
+            "height": 720,
+            "uri": "168x168/aweme-avatar/tos-cn-i-0813c000-ce_o8AAjKEQIJgQyYff2SF8fyDjgbmvgBAJDE07A1",
+            "url_list": [
+              "https://p3.douyinpic.com/img/aweme-avatar/tos-cn-i-0813c000-ce_o8AAjKEQIJgQyYff2…"
+            ],
+            "width": 720
+          },
+          "avatar_300x300": {
+            "height": 720,
+            "uri": "300x300/aweme-avatar/tos-cn-i-0813c000-ce_o8AAjKEQIJgQyYff2SF8fyDjgbmvgBAJDE07A1",
+            "url_list": [
+              "https://p3.douyinpic.com/img/aweme-avatar/tos-cn-i-0813c000-ce_o8AAjKEQIJgQyYff2…"
+            ],
+            "width": 720
+          }
+        },
+        "author_mask_tag": 0
+      },
+      "aweme_list": null,
+      "card_id": "douyin.doctype_aweme_video.video_search_video_new_double",
+      "card_info": {
+        "search_autoplay_business": "153_dy"
+      },
+      "card_style_type": 1,
+      "card_type": 1,
+      "card_type_name": "video_search_video_new_double",
+      "debug_data": {
+        "filter_debug_info_list": null
+      },
+      "debug_diff_info": {},
+      "doc_type": 153,
+      "ecom_goods_list": null,
+      "feedback": {
+        "url": "aweme://lynxview_popup/?channel=morphling_normal&bundle=douyin_questionnaire%2Fi…"
       }
     }
-  ]
+  ],
+  "extra": {
+    "fatal_item_ids": [],
+    "logid": "20261103153222807FBF14578AD2BCB393",
+    "now": 1793691143000,
+    "scenes": null,
+    "search_request_id": ""
+  },
+  "global_doodle_config": {
+    "keyword": "猫咪"
+  },
+  "guide_search_words": [
+    {
+      "attached_text": null,
+      "id": "6527573731718468871",
+      "query_id": "6537523068217103624",
+      "type": "recom",
+      "word": "视频"
+    }
+  ],
+  "has_more": 1,
+  "log_pb": {
+    "impr_id": "20261103153222807FBF14578AD2BCB393",
+    "stab_extra": {
+      "traffic_identification": "normal"
+    }
+  },
+  "status_code": 0
 }
 ```
 
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `data[].aweme_info` | The video record for one search result. It holds the video details and the `author` object. |
+| `data[].aweme_info.author_user_id` | Numeric ID of the account that posted the video. |
+| `data[].aweme_info.author.avatar_168x168.url_list / data[].aweme_info.author.avatar_300x300.url_list` | Avatar image URLs for the author at 168x168 and 300x300 sizes. Each list has a `.webp` and a `.jpeg` link. |
+| `data[].log_data.search_id` | ID of this search. It is the same for every item on the page. |
+| `data[].card_type_name` | Name of the result card type. Video results show `video_search_video_new_double`. |
+| `cursor / backtrace` | Pagination values to send back in the next request. |
+| `has_more` | Shows `1` when more results are available. |
+| `guide_search_words[].word` | Related search words suggested for the keyword. Each entry also has an `id` and a `type`. |
+| `status_code` | `0` when the request succeeded. |
+
 ### Notes
 
-- For the next page, pass back `cursor`, `search_id` and `backtrace`.
+- The videos are in `data`. The top-level `aweme_list` is `null`.
+- For the first page, leave `cursor` at `0`. For the next page, send the response `cursor` and `backtrace`, and send `data[].log_data.search_id` as `search_id`.
+- `sort_type`, `content_type`, `publish_time` and `filter_duration` are strings and default to `"0"`.
+- To search other Douyin result types or compare video results, try [Douyin Video Search](/apis/douyin/search/video-search-v2) or [Douyin General Search](/apis/douyin/search/general-search-v1). To get keyword ideas first, call [Douyin Search Suggestions](/apis/douyin/search/search-suggest).
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.01 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

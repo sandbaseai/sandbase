@@ -67,13 +67,14 @@ Same call via the path form: `POST /v1/api/douyin/xingtu/kol-daily-fans-v1` with
 
 ## Details
 
-Retrieve daily fan counts for a specified Douyin creator by providing `kolId`, `startDate`, and `endDate`.
+Returns fan growth statistics for a Douyin Xingtu creator over a date range. It needs the creator's `kolId`, a `startDate` and an `endDate` in `yyyy-MM-dd` format.
 
 ### Use cases
 
-- Track daily follower growth trends for specific Douyin creators.
-- Evaluate creator audience changes over selected date intervals.
-- Monitor audience retention and acquisition fluctuations across specific ranges.
+- Check the net fan change of a creator between two dates before booking a campaign.
+- Compare the fan growth rate of several creators over the same period.
+- Spot creators who lost fans in a given month using the negative growth values.
+- Feed daily fan data into a dashboard that tracks creator audience size.
 
 ### Request
 
@@ -84,22 +85,64 @@ curl -X POST "https://api.sandbase.ai/v1/api/douyin/xingtu/kol-daily-fans-v1" \
   -d '{"endDate": "2025-01-01", "kolId": "7048929565493690398", "startDate": "2024-12-01"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
 |---|---|---|---|
-| `kolId` | string | Yes | User kolId, can be obtained from the following interfaces: `douyin/xingtu/xingtu-kolid-by-uid`; `douyin/xingtu/xingtu-kolid-by-sec-user-id`; `douyin/xingtu/xin… |
 | `endDate` | string | Yes | End date, format: yyyy-MM-dd |
+| `kolId` | string | Yes | User kolId, can be obtained from the following interfaces: `douyin/xingtu/xingtu-kolid-by-uid`; `douyin/xingtu/xingtu-kolid-by-sec-user-id`; `douyin/xingtu/xingtu-kolid-by-unique-id` |
 | `startDate` | string | Yes | Start date, format: yyyy-MM-dd |
+
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "base_resp": {
+    "status_code": 0,
+    "status_message": ""
+  },
+  "daily": [],
+  "delta": [],
+  "description": "",
+  "fans_advice": "",
+  "fans_growth": "0",
+  "fans_growth_rate": 0,
+  "fans_growth_rate_v2": {
+    "value": -22
+  },
+  "fans_growth_v2": {
+    "value": -256
+  },
+  "raw_play_rate": {}
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `fans_growth_v2.value` | Net fan change over the requested date range. A negative number means the creator lost fans. |
+| `fans_growth_rate_v2.value` | Fan growth rate over the requested date range. A negative number means a decline. |
+| `fans_growth` | Older fan growth value, returned as a string. It can be `"0"` even when `fans_growth_v2.value` is not zero. |
+| `fans_growth_rate` | Older fan growth rate, returned as a number. It can be `0` even when `fans_growth_rate_v2.value` is not zero. |
+| `daily[]` | List of per-day fan entries. It was empty in this response. |
+| `delta[]` | List of fan change entries. It was empty in this response. |
+| `fans_advice / description` | Text fields for advice and a description. Both were empty strings in this response. |
+| `base_resp.status_code / base_resp.status_message` | Status of the call. `status_code` is `0` and `status_message` is empty in this response. |
 
 ### Notes
 
-- `kolId` can be obtained from the corresponding Xingtu KOL ID lookup endpoints using UID, sec_user_id, or unique ID.
-- `startDate` and `endDate` must be formatted as yyyy-MM-dd.
+- Get `kolId` from [Douyin XingTu KOL ID by User ID](/apis/douyin/xingtu/xingtu-kolid-by-uid), [Douyin XingTu kolId Lookup](/apis/douyin/xingtu/xingtu-kolid-by-sec-user-id) or [Douyin XingTu KOL ID by Unique ID](/apis/douyin/xingtu/xingtu-kolid-by-unique-id).
+- Send `startDate` and `endDate` as `yyyy-MM-dd`, for example `2024-12-01`.
+- The `daily` and `delta` lists can come back empty while the `_v2` growth fields still hold values, so read `fans_growth_v2.value` and `fans_growth_rate_v2.value` first.
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.02 per successful call. Failed calls are not charged.
 
 ### Related APIs
 

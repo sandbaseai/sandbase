@@ -63,13 +63,14 @@ Same call via the path form: `POST /v1/api/instagram/v3/search-hashtags` with th
 
 ## Details
 
-Search Instagram hashtags matching a keyword using `query`. Returns hashtag metadata including media counts, with support for pagination via `rank_token`.
+Searches Instagram hashtags by keyword and returns matching hashtag names, IDs, and media counts. It needs one input: a search keyword in `query`.
 
 ### Use cases
 
-- Look up hashtag popularity and media counts.
-- Discover relevant hashtags based on search terms.
-- Collect hashtag IDs for social media monitoring workflows.
+- Compare the `media_count` of similar hashtags to pick which tags to use in a campaign.
+- Find spin-off or misspelled variants of a brand or topic keyword, such as `openair` next to `openai`.
+- Collect hashtag IDs and names for a list of keywords to feed a hashtag monitoring job.
+- Check whether a hashtag exists for a new product name before launch.
 
 ### Request
 
@@ -80,6 +81,8 @@ curl -X POST "https://api.sandbase.ai/v1/api/instagram/v3/search-hashtags" \
   -d '{"query": "openai"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
@@ -89,27 +92,54 @@ curl -X POST "https://api.sandbase.ai/v1/api/instagram/v3/search-hashtags" \
 
 ### Example response
 
-Real response for the request above, trimmed to the main fields. User names and long IDs are masked.
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
 
 ```json
 {
+  "_rid": "3f439430dc5ce",
+  "count": 20,
   "hashtags": [
     {
       "id": "17841553213093056",
-      "media_count": 2319697,
-      "name": "openai"
+      "media_count": 2360486,
+      "name": "openai",
+      "profile_pic_url": null
     }
-  ]
+  ],
+  "items": [
+    {
+      "id": "17841553213093056",
+      "media_count": 2360486,
+      "name": "openai",
+      "profile_pic_url": null
+    }
+  ],
+  "rank_token": null
 }
 ```
 
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `hashtags[].name` | Hashtag text without the `#` sign. |
+| `hashtags[].id` | Instagram ID of the hashtag, returned as a string. |
+| `hashtags[].media_count` | Number of posts that use the hashtag. |
+| `hashtags[].profile_pic_url` | Image URL for the hashtag. It is `null` in the sample response. |
+| `items[].name / items[].id / items[].media_count` | The same hashtag entries as in `hashtags`, repeated under `items`. |
+| `count` | Number of hashtags returned in this response. |
+| `rank_token` | Token for requesting the next page of results. It is `null` in the sample response. |
+
 ### Notes
 
-- Use `rank_token` from a previous response to paginate through additional results.
+- Pass the `rank_token` from a response into the next request along with the same `query` to get more results. When `rank_token` is `null`, the response gave no token for another page.
+- `hashtags` and `items` hold the same entries, so you can read either one.
+- To list posts under a hashtag, call [Instagram Hashtag Posts (V3)](/apis/instagram/v3/hashtag-posts).
+- To search across users, hashtags, and places in one call, use [Instagram General Search (V3)](/apis/instagram/v3/general-search).
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.008 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

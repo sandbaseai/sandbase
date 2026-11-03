@@ -61,7 +61,14 @@ Same call via the path form: `POST /v1/api/instagram/similar-profiles` with the 
 
 ## Details
 
-List the accounts Instagram recommends as similar to a public profile, with each account's handle, display name, verified flag and avatar.
+This API returns the accounts Instagram recommends as similar to a public profile. Send the `handle` of the profile, without the leading @. Each result has the account's username, display name, user ID, verified flag and avatar URL.
+
+### Use cases
+
+- Build a list of competitor or peer accounts for a brand by starting from one known handle.
+- Find related creators in the same niche for influencer outreach.
+- Expand a set of accounts to monitor by following the recommended profiles of each seed account.
+- Check which verified accounts Instagram groups with a given profile.
 
 ### Request
 
@@ -72,7 +79,7 @@ curl -X POST "https://api.sandbase.ai/v1/api/instagram/similar-profiles" \
   -d '{"handle": "nasa"}'
 ```
 
-The result is returned in `outputs[0].data`. A lookup that finds nothing still succeeds and returns `found: false`.
+The result is returned in `outputs[0].data`.
 
 ### Parameters
 
@@ -80,9 +87,51 @@ The result is returned in `outputs[0].data`. A lookup that finds nothing still s
 |---|---|---|---|
 | `handle` | string | Yes | Instagram username without the leading @. |
 
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "data": {
+    "profiles": [
+      {
+        "avatarUrl": "https://scontent-phl2-1.cdninstagram.com/v/t51.2885-19/265195576_626729471802765…",
+        "displayName": "HISTORY",
+        "private": null,
+        "userId": "1385204914",
+        "username": "history",
+        "verified": true
+      }
+    ]
+  },
+  "found": true
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `data.profiles[]` | List of accounts Instagram recommends as similar to the requested profile. |
+| `data.profiles[].username` | Handle of the recommended account. Use it as `handle` in other Instagram APIs. |
+| `data.profiles[].displayName` | Public display name of the recommended account. |
+| `data.profiles[].userId` | Numeric Instagram ID of the account, returned as a string. |
+| `data.profiles[].verified` | `true` if the account has the verified badge, `false` if not. |
+| `data.profiles[].avatarUrl` | Link to the account's profile picture. The sample URLs point to a 150x150 image. |
+| `data.profiles[].private` | Whether the account is private. The sample response returns `null` for every account, so treat it as unknown. |
+| `found` | `true` when the lookup returned a result. A lookup that finds nothing returns `false`. |
+
+### Notes
+
+- The `handle` is the username in the profile URL, for example `nasa` for instagram.com/nasa.
+- The request takes only `handle`. There are no pagination parameters.
+- To get full details for a recommended account, pass its `username` to [Instagram Profile](/apis/instagram/profile) or [Instagram User Profile](/apis/instagram/user-detail).
+- To use the numeric `userId` instead, call [Instagram User Profile by ID](/apis/instagram/v1/user-info-by-id).
+
 ### Pricing
 
-Billed at the actual cost of each call, usually $0.00175 per request. A call can cost more when the first data source fails and another one answers. Failed calls are not charged. Lookups that find nothing and searches with no results are billed at their actual cost, which is often lower and can be $0.
+Billed at the actual cost of each call, about $0.00175 for the request above. Failed calls are not charged.
 
 ---
 Machine-readable: [`catalog/models/instagram/similar-profiles.json`](../../../catalog/models/instagram/similar-profiles.json) · Store page: https://www.sandbase.ai/model/instagram/similar-profiles

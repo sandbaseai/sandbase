@@ -63,13 +63,14 @@ Same call via the path form: `POST /v1/api/reddit/app/user-profile` with the bod
 
 ## Details
 
-Retrieve detailed profile information for a Reddit account using the `username` parameter. You can optionally set `need_format` to format the returned data.
+Returns the public profile of a Reddit user, including karma, post and comment counts, account flags, and profile settings. It needs one input: the `username` without the `u/` prefix.
 
 ### Use cases
 
-- Inspect public Reddit account profile details and moderation records.
-- Verify user identities and profile metadata across community platforms.
-- Retrieve formatted user information for analytics dashboards.
+- Check the karma totals and contribution counts of an account before you trust its posts.
+- Confirm whether an account is an employee, verified, or gilded.
+- Read the account creation date and bio text to build a user record.
+- Get the `t2_` user ID to use in other Reddit lookups.
 
 ### Request
 
@@ -80,6 +81,8 @@ curl -X POST "https://api.sandbase.ai/v1/api/reddit/app/user-profile" \
   -d '{"username": "spez"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
@@ -89,34 +92,56 @@ curl -X POST "https://api.sandbase.ai/v1/api/reddit/app/user-profile" \
 
 ### Example response
 
-Real response for the request above, trimmed to the main fields. User names and long IDs are masked.
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
 
 ```json
 {
   "redditorInfoByName": {
-    "profile": {
-      "moderatorsInfo": {
-        "edges": [
-          {
-            "node": {
-              "id": "t2_1w72"
-            }
-          }
-        ]
-      }
-    }
+    "__typename": "Redditor",
+    "accountType": "USER",
+    "contributionStats": {
+      "commentCount": 3228,
+      "postCount": 851
+    },
+    "contributorPublicProfile": {
+      "tier": "NON_CONTRIBUTOR"
+    },
+    "id": "t2_1w72",
+    "isAcceptingChats": true,
+    "isAcceptingFollowers": true,
+    "isAcceptingPMs": true,
+    "isBlocked": false,
+    "isEmployee": true,
+    "isFriend": false,
+    "isGilded": true
   }
 }
 ```
 
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `redditorInfoByName.name / redditorInfoByName.prefixedName` | The username, and the same name with the `u/` prefix. |
+| `redditorInfoByName.id` | The account ID, in the form `t2_1w72`. |
+| `redditorInfoByName.karma.total` | Total karma. `fromPosts` and `fromComments` show the split between the two sources. |
+| `redditorInfoByName.contributionStats.postCount / redditorInfoByName.contributionStats.commentCount` | The number of posts and comments counted for the account. |
+| `redditorInfoByName.isEmployee / redditorInfoByName.isVerified / redditorInfoByName.isGilded` | Boolean flags for employee status, verification, and gilded status. |
+| `redditorInfoByName.isAcceptingChats / redditorInfoByName.isAcceptingFollowers / redditorInfoByName.isAcceptingPMs` | Boolean flags that show whether the account accepts chats, followers, and private messages. |
+| `redditorInfoByName.profile.createdAt` | Account creation time as an ISO 8601 timestamp. |
+| `redditorInfoByName.profile.publicDescriptionText` | The public bio text shown on the profile. |
+| `redditorInfoByName.profile.styles.icon` | URL of the profile icon image. |
+| `redditorInfoByName.trophyCase.totalUnlocked` | The number of trophies the account has unlocked. |
+
 ### Notes
 
-- Provide `username` without the `u/` prefix.
-- Set `need_format` to true to clean and format the response data.
+- Pass `username` without the `u/` prefix. The response gives the prefixed form in `prefixedName`.
+- `need_format` is optional and defaults to `false`. Set it to `true` to clean and format the data.
+- Call [Reddit User Public Trophies](/apis/reddit/app/user-trophies) for trophy details, [Reddit User Posts](/apis/reddit/app/user-posts) for the posts of this user, or [Reddit User Comments](/apis/reddit/app/user-comments) for the comments.
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

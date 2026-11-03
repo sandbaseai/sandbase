@@ -63,7 +63,14 @@ Same call via the path form: `POST /v1/api/tiktok/search-hashtag` with the body 
 
 ## Details
 
-Search TikTok by hashtag and get matching videos (caption, views, likes, comments, shares) as normalized JSON.
+This API returns TikTok videos that match a hashtag or keyword. It needs one input, `query`, which is the hashtag text without the leading #. Each video includes its caption, author, engagement counts, sound details and links.
+
+### Use cases
+
+- Find top-performing videos for a hashtag such as `recipe` to see what content gets the most views.
+- Collect creators who post under a niche hashtag and rank them by `views`, `likes` or `saves`.
+- Track which sounds are used in videos for a topic by reading `soundTitle` and `soundAuthor`.
+- Build a dataset of captions and co-used hashtags to study how a topic is described.
 
 ### Request
 
@@ -74,7 +81,7 @@ curl -X POST "https://api.sandbase.ai/v1/api/tiktok/search-hashtag" \
   -d '{"query": "recipe"}'
 ```
 
-The result is returned in `outputs[0].data`. A lookup that finds nothing still succeeds and returns `found: false`.
+The result is returned in `outputs[0].data`.
 
 ### Parameters
 
@@ -84,9 +91,63 @@ The result is returned in `outputs[0].data`. A lookup that finds nothing still s
 | `cursor` | string | No | Pagination cursor from a previous response. |
 | `requireFields` | array | No | Optional; omit it and routing is unchanged, with the cheapest source serving. Name the output fields this request must be able to return, for example `soundTitle` or `locationName`, and it is served only by a source that |
 
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "data": {
+    "nextCursor": "cur_TBtidisJbVI12bgEDrnxcA",
+    "videos": [
+      {
+        "author": "thehomemaderecipe",
+        "authorImage": "https://p16-common-sign.tiktokcdn-eu.com/tos-maliva-avt-0068/b386c207818f2066ea2…",
+        "authorName": "The Homemade Recipe",
+        "authorUserId": "7504858285972735018",
+        "authorVerified": false,
+        "caption": "I learned this chicken recipe at a Chinese restaurant. You have to try it! #chic…",
+        "comments": 776,
+        "createdUtc": 1761662258,
+        "durationSeconds": 88.047,
+        "hashtags": [
+          "chicken"
+        ],
+        "id": "7566281652981353758",
+        "image": "https://p16-common-sign.tiktokcdn-eu.com/tos-useast8-p-0068-tx2/oE6R3AEAFAnSeBVl…"
+      }
+    ]
+  },
+  "found": true
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `data.videos[].id / data.videos[].url` | The video ID and the public TikTok link to the video. |
+| `data.videos[].caption` | The video caption text, including inline hashtags. |
+| `data.videos[].hashtags[]` | Hashtags used on the video, listed without the # sign. |
+| `data.videos[].views / likes / comments / shares / saves` | Engagement counts for the video as whole numbers. |
+| `data.videos[].author / authorName / authorUserId` | The author's handle, display name and numeric user ID. |
+| `data.videos[].authorVerified` | Whether the author account is marked as verified. |
+| `data.videos[].createdUtc` | Creation time of the video as a Unix timestamp in seconds. |
+| `data.videos[].durationSeconds` | Length of the video in seconds. |
+| `data.videos[].soundTitle / soundAuthor / soundClipId` | The title, author and ID of the sound used in the video. |
+| `data.videos[].locationName` | The location tagged on the video. It is `null` when none is set. |
+| `data.nextCursor` | Cursor string to pass as `cursor` to get the next page of results. |
+
+### Notes
+
+- To get the next page, send the same `query` with `cursor` set to the `data.nextCursor` value from the previous response.
+- Use `requireFields` with `soundTitle`, `soundAuthor` or `locationName` if your request must be served by a source that returns those fields.
+- `videoUrl`, `image` and `authorImage` are direct media links and may be long, so store the video `id` and `url` as your stable reference.
+- For details on one video, call [TikTok Video Details](/apis/tiktok/app-v3/one-video). For hashtag-level data, use [TikTok Hashtag Detail](/apis/tiktok/app-v3/hashtag-detail).
+
 ### Pricing
 
-Billed at the actual cost of each call, usually $0.0012 per request. A call can cost more when the first data source fails and another one answers. Failed calls are not charged. Lookups that find nothing and searches with no results are billed at their actual cost, which is often lower and can be $0.
+Billed at the actual cost of each call, about $0.0012 for the request above. Failed calls are not charged.
 
 ---
 Machine-readable: [`catalog/models/tiktok/search-hashtag.json`](../../../catalog/models/tiktok/search-hashtag.json) · Store page: https://www.sandbase.ai/model/tiktok/search-hashtag

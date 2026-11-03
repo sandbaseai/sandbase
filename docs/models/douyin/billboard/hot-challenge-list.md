@@ -66,13 +66,14 @@ Same call via the path form: `POST /v1/api/douyin/billboard/hot-challenge-list` 
 
 ## Details
 
-Retrieve trending challenge rankings on Douyin using `page` and `page_size`, with optional keyword filtering via `keyword`.
+Returns the Douyin hot challenge leaderboard as a ranked list. Each entry has a rank, a hot score, a video count, and a short hot score history. The request needs `page` and `page_size`, and accepts an optional `keyword`.
 
 ### Use cases
 
-- Track top-performing challenge topics on Douyin.
-- Analyze challenge popularity through hot scores and video counts.
-- Search for specific challenge themes using keyword filters.
+- Track which challenge topics hold the top ranks on Douyin right now.
+- Chart the hot score history of a challenge from its `trends` list.
+- Filter the leaderboard with `keyword` to find challenges on one theme.
+- Collect `sentence_id` values to join challenge entries with data from other Douyin APIs.
 
 ### Request
 
@@ -82,6 +83,8 @@ curl -X POST "https://api.sandbase.ai/v1/api/douyin/billboard/hot-challenge-list
   -H "Content-Type: application/json" \
   -d '{"page": 1, "page_size": 10}'
 ```
+
+The result is returned in `outputs[0].data`.
 
 ### Parameters
 
@@ -93,35 +96,67 @@ curl -X POST "https://api.sandbase.ai/v1/api/douyin/billboard/hot-challenge-list
 
 ### Example response
 
-Real response for the request above, trimmed to the main fields. User names and long IDs are masked.
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
 
 ```json
 {
+  "code": 0,
   "data": {
+    "last_update_time": "20261103152500",
     "objs": [
       {
+        "SnapshotID": 20261103152500,
         "SnapshotSubType": "hotspot_challenge",
         "SnapshotType": 2,
-        "hot_score": 8870294,
-        "label": 0,
-        "rank": 1,
-        "sentence_id": 2683588,
-        "sentence_tag": 1001,
-        "video_count": 10
+        "allow_publish": false,
+        "city_code": 0,
+        "city_name": "",
+        "create_at": 1793592534,
+        "first_item_cover_url": "",
+        "hot_score": 9088842,
+        "index": 1,
+        "is_favorite": false,
+        "item_list": null
       }
-    ]
-  }
+    ],
+    "page": {
+      "page": 1,
+      "page_size": 100,
+      "total": 50
+    }
+  },
+  "extra": {
+    "now": 1793691107000
+  },
+  "message": ""
 }
 ```
 
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `data.objs[].sentence` | Name of the challenge topic, as Douyin shows it on the leaderboard. |
+| `data.objs[].sentence_id` | Numeric ID of the challenge topic. |
+| `data.objs[].rank / data.objs[].index` | Position of the entry on the leaderboard, starting at 1. |
+| `data.objs[].hot_score` | Current hot score of the challenge. Higher scores rank higher. |
+| `data.objs[].video_count` | Video count for the challenge entry, as returned on the leaderboard. |
+| `data.objs[].trends[].datetime / data.objs[].trends[].hot_score` | Past hot score samples. `datetime` uses the format `YYYYMMDDHHMMSS`. |
+| `data.objs[].create_at` | Unix timestamp in seconds for the entry. |
+| `data.objs[].sentence_tag` | Numeric tag code for the challenge. `sentence_tag_name` is empty in this response. |
+| `data.last_update_time` | Time of the latest leaderboard snapshot, in the format `YYYYMMDDHHMMSS`. |
+| `data.page.page / data.page.page_size / data.page.total` | Pagination info. `total` is the number of entries in the leaderboard. |
+
 ### Notes
 
-- Pagination is controlled using the required `page` and `page_size` parameters.
-- Use `keyword` to filter challenge results by a specific search term.
+- `page` and `page_size` are both required. Increase `page` to read further entries.
+- The `page.page_size` value in the response can differ from the `page_size` you sent, so check the number of items in `objs`.
+- `SnapshotID` has the same format as `last_update_time`, so you can use it to see which snapshot an entry came from.
+- For a rising-topic view, try [Douyin Rising Hot Search List](/apis/douyin/billboard/hot-rise-list) or [Douyin Hot Topic Billboard](/apis/douyin/billboard/hot-total-topic-list).
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

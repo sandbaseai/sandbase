@@ -63,7 +63,14 @@ Same call via the path form: `POST /v1/api/instagram/tagged-posts` with the body
 
 ## Details
 
-List the posts an Instagram user is tagged in, with cursor pagination (author, caption, likes, comments).
+This API returns a page of Instagram posts that a given user is tagged in. It needs an Instagram `handle` without the leading @. Each post includes the author, caption, engagement counts, tagged users, and sound details where present.
+
+### Use cases
+
+- Track which creators and fans post content that tags a brand account such as `nasa`.
+- Measure engagement on tagged posts by comparing `likes`, `comments`, `reshares`, and `views`.
+- Find tagged posts at a physical place using `locationName`, `locationLat`, and `locationLng`.
+- Collect `url` values of tagged reels and feed posts for a review or moderation queue.
 
 ### Request
 
@@ -74,7 +81,7 @@ curl -X POST "https://api.sandbase.ai/v1/api/instagram/tagged-posts" \
   -d '{"handle": "nasa"}'
 ```
 
-The result is returned in `outputs[0].data`. A lookup that finds nothing still succeeds and returns `found: false`.
+The result is returned in `outputs[0].data`.
 
 ### Parameters
 
@@ -84,9 +91,60 @@ The result is returned in `outputs[0].data`. A lookup that finds nothing still s
 | `cursor` | string | No | Pagination cursor from a previous response's nextCursor. |
 | `requireFields` | array | No | Optional; omit it and routing is unchanged, with the cheapest source serving. Name the output fields this request must be able to return, for example `audioId`, and it is served only by a source that returns every one of |
 
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "data": {
+    "nextCursor": "cur_yHFk0Kv5Y5je_8NgQW11og",
+    "posts": [
+      {
+        "audioId": "1455782958355315",
+        "author": "exoplanet_emma",
+        "avatarUrl": "https://scontent-ord5-1.cdninstagram.com/v/t51.2885-19/343267148_538566048451511…",
+        "caption": "Still on cloud 9 from this weekend 🚀✨\n\n📁 Astrophysics aerospace rocket launch ex…",
+        "comments": 8,
+        "createdUtc": 1788205763,
+        "durationSeconds": 10.842,
+        "hashtags": [],
+        "id": "3976079382136818132",
+        "likes": 3,
+        "mentions": [],
+        "paidPartnership": false
+      }
+    ]
+  },
+  "found": true
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `data.posts[].id / data.posts[].url` | The post's ID and its public Instagram link. |
+| `data.posts[].author` | Username of the account that published the post. |
+| `data.posts[].caption` | Caption text of the post. Long captions can be shortened. |
+| `data.posts[].likes / comments / reshares / views` | Engagement counts for the post. `views` is missing on some feed posts. |
+| `data.posts[].createdUtc` | Creation time of the post as a Unix timestamp in seconds. |
+| `data.posts[].productType` | Post format, for example `clips` for reels or `feed` for standard posts. |
+| `data.posts[].taggedUsers[].username / userId / displayName` | The accounts tagged in the post, with their username, numeric ID, and display name. |
+| `data.posts[].hashtags / mentions` | Hashtags and @mentions found in the caption, as lists of strings. |
+| `data.posts[].audioId / soundTitle / soundAuthor` | ID, title, and author of the sound used in the post. Present on posts that carry audio. |
+| `data.posts[].locationName / locationLat / locationLng` | Name and coordinates of the tagged location. Only present when the post has a location. |
+
+### Notes
+
+- To get the next page, pass `data.nextCursor` from the response as `cursor` in the next request.
+- Use `handle` without the @, for example `nasa`.
+- Set `requireFields` to `audioId` or `carouselCount` only if you need that field on every post. This can route the call to a dearer source and raise the price.
+- To read one post in full, call [Instagram Post Details](/apis/instagram/post-detail). For the tagged account itself, call [Instagram Profile](/apis/instagram/profile).
+
 ### Pricing
 
-Billed at the actual cost of each call, usually $0.00188 per request. A call can cost more when the first data source fails and another one answers. Failed calls are not charged. Lookups that find nothing and searches with no results are billed at their actual cost, which is often lower and can be $0.
+Billed at the actual cost of each call, about $0.00188 for the request above. Failed calls are not charged.
 
 ---
 Machine-readable: [`catalog/models/instagram/tagged-posts.json`](../../../catalog/models/instagram/tagged-posts.json) · Store page: https://www.sandbase.ai/model/instagram/tagged-posts

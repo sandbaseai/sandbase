@@ -59,13 +59,13 @@ Same call via the path form: `POST /v1/api/tiktok/web/generate-real-ms-token` wi
 
 ## Details
 
-This endpoint produces a real msToken for TikTok web interactions. It accepts optional parameters including `browser_type` and `random_strData`.
+This API returns a real `msToken` string for TikTok web requests. It needs no input, but you can pass `browser_type` and `random_strData` to change how the token is made.
 
 ### Use cases
 
-- Authenticating downstream TikTok web requests with a valid token
-- Simulating specific browser environments using browser type settings
-- Producing randomized token payloads for web sessions
+- Add a fresh `msToken` to TikTok web requests that need one as a query parameter or cookie.
+- Request a token for a specific browser type by setting `browser_type`.
+- Test how `random_strData` changes the token you get back.
 
 ### Request
 
@@ -76,21 +76,45 @@ curl -X POST "https://api.sandbase.ai/v1/api/tiktok/web/generate-real-ms-token" 
   -d '{}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
 |---|---|---|---|
-| `browser_type` | string | No | — |
-| `random_strData` | boolean | No | — |
+| `browser_type` | string | No |  |
+| `random_strData` | boolean | No |  |
+
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "browser_type": null,
+  "msToken": "DFJLzkge…",
+  "random_strData": false
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `msToken` | The generated token string. Pass this value as the `msToken` in your TikTok web requests. |
+| `browser_type` | Echoes the `browser_type` you sent. It is `null` when you leave the parameter out. |
+| `random_strData` | Echoes the `random_strData` flag you sent. It is `false` in the sample call, where the parameter was not set. |
 
 ### Notes
 
-- Set `browser_type` to specify the target browser environment.
-- Toggle `random_strData` to enable or disable randomized string data.
+- Both parameters are optional. An empty `{}` body returns a token.
+- `browser_type` is a string and `random_strData` is a boolean.
+- The token contains letters, digits, `-` and `_`. Copy it as is without extra encoding changes.
+- For signed requests, pair the token with [TikTok Web X-Bogus Signature](/apis/tiktok/web/generate-xbogus) or [TikTok Web TTWID Identifier](/apis/tiktok/web/generate-ttwid).
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

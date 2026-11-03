@@ -64,13 +64,14 @@ Same call via the path form: `POST /v1/api/wechat-mp/v2/article-comments` with t
 
 ## Details
 
-Pass a WeChat MP article URL and get its featured comments, one page at a time.
+This API returns the comments on a WeChat official account article. It needs the article URL in the form `https://mp.weixin.qq.com/s/...`. Each comment has its text, like count, post time and the commenter's region.
 
 ### Use cases
 
-- Analyze reader reactions to articles.
-- Collect feedback on sponsored content.
-- Monitor comments on competitor articles.
+- Read how an audience reacts to a published article by sorting comments by `like_num`.
+- Collect reader feedback on a sponsored post for a campaign report.
+- Track comment volume on a competitor's article by comparing `total_count` over time.
+- Group commenters by province to see where an article's readers are located.
 
 ### Request
 
@@ -81,42 +82,82 @@ curl -X POST "https://api.sandbase.ai/v1/api/wechat-mp/v2/article-comments" \
   -d '{"url": "https://mp.weixin.qq.com/s/TSNQKkRpN1qbKsT7BvzqIw", "raw": false}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
 |---|---|---|---|
-| `url` | string | Yes | WeChat MP article URL (`https://mp.weixin.qq.com/s/…`). |
-| `raw` | boolean | No | Optional, default True. |
-| `buffer` | string | No | Optional, default empty. |
+| `url` | string | Yes | WeChat MP article URL (`https://mp.weixin.qq.com/s/…`). E.g. `https://mp.weixin.qq.com/s/TSNQKkRpN1qbKsT7BvzqIw` |
+| `buffer` | string | No | Optional, default empty. Pagination cursor; leave empty for the first page, pass `buffer` from the previous response for the next page. |
+| `raw` | boolean | No | Optional, default True. True=full raw comment objects; False=simplified comment view. |
 
 ### Example response
 
-Real response for the request above, trimmed to the main fields. User names and long IDs are masked.
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
 
 ```json
 {
-  "has_more": true,
-  "buffer": "<buffer>",
+  "appmsgid": "2247780992",
+  "buffer": "GBQwAA==",
+  "comment_id": "3884868893382230017",
   "comments": [
     {
+      "bucket": "elected_comment",
+      "content": "所谓的软件优化要是真能提升性能的话，老黄他敢卖只有一组128流处理器的游戏卡",
       "content_id": "6255846262940111556",
       "create_time": 1741148719,
+      "identity_name": "oHQDtwFlc10nT5noCRuBWtzFyAB0",
+      "ip_wording": {
+        "city_id": "",
+        "city_name": "",
+        "country_id": "156",
+        "country_name": "中国",
+        "province_id": "",
+        "province_name": "浙江"
+      },
+      "is_elected": 1,
+      "is_top": 0,
       "like_num": 87,
-      "content": "所谓的软件优化要是真能提升性能的话，老黄他敢卖只有一组128流处理器的游戏卡",
-      "nick_name": "<user>",
-      "ip_wording": "浙江"
+      "nick_name": "舟",
+      "replies": [],
+      "reply_total": 0
     }
-  ]
+  ],
+  "continue_flag": true,
+  "debug_id": "274abfa0",
+  "debug_info": "gAAAAABq6ZFFk646JNd6c3Vwdh3W_qwzeiLr3aAaqboZqF8AYBu47-DtHajMf37OrgyKbEHqYOGu4dTf…",
+  "elected_total": 21,
+  "has_more": true,
+  "total_count": 26
 }
 ```
 
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `comments[].content` | Text of the comment. It can include WeChat emoji codes such as `[奸笑]`. |
+| `comments[].like_num` | Number of likes on the comment. |
+| `comments[].create_time` | Time the comment was posted, as a Unix timestamp in seconds. |
+| `comments[].nick_name / comments[].identity_name` | Display name of the commenter and an opaque identifier string for the commenter. |
+| `comments[].ip_wording.province_name / comments[].ip_wording.country_name` | Province and country shown for the commenter. The city fields can be empty strings. |
+| `comments[].content_id` | ID of the comment. Use it to tell comments apart. |
+| `comments[].reply_total / comments[].replies` | Number of replies to the comment and the list of replies returned with it. Both can be empty or zero. |
+| `comments[].is_top / comments[].is_elected` | Flags set to `1` or `0`. `is_top` marks a pinned comment and `is_elected` marks a featured comment. |
+| `total_count / elected_total` | Total comment count for the article and the count of featured comments. |
+| `has_more / buffer` | `has_more` shows whether more pages exist. `buffer` is the cursor to request the next page. |
+
 ### Notes
 
-- Paginate with `buffer`; `has_more` false means the last page.
+- Set `buffer` to empty for the first page. For the next page, send the `buffer` value from the previous response with the same `url`.
+- Stop paging when `has_more` is `false`.
+- `raw` defaults to `true`, which returns full comment objects. The sample response used `raw` set to `false`.
+- To get replies to a single comment, call [WeChat MP Comment Replies](/apis/wechat-mp/v2/comment-replies).
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.01 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

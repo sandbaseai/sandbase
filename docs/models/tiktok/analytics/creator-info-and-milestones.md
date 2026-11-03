@@ -62,13 +62,14 @@ Same call via the path form: `POST /v1/api/tiktok/analytics/creator-info-and-mil
 
 ## Details
 
-Retrieve creator profile metrics and achievement milestones using the required `user_id`. This endpoint outlines account growth trajectory and historical events.
+Returns basic profile data and a list of follower milestones for one TikTok creator. It needs the creator's numeric `user_id`.
 
 ### Use cases
 
-- Review historical follower milestones for specific TikTok creators.
-- Analyze creator growth timelines and major achievement dates.
-- Track account development trajectories for influencer performance evaluations.
+- Show when a creator passed 100K, 500K and 1M followers.
+- Compare how fast different creators reached their first follower milestones.
+- Pull a creator's current follower and like totals next to their growth history for a vetting report.
+- Map a numeric `user_id` to the creator's `unique_id` and `sec_user_id`.
 
 ### Request
 
@@ -79,6 +80,8 @@ curl -X POST "https://api.sandbase.ai/v1/api/tiktok/analytics/creator-info-and-m
   -d '{"user_id": "107955"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
@@ -87,36 +90,88 @@ curl -X POST "https://api.sandbase.ai/v1/api/tiktok/analytics/creator-info-and-m
 
 ### Example response
 
-Real response for the request above, trimmed to the main fields. User names and long IDs are masked.
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
 
 ```json
 {
+  "creator_info": {
+    "avatar_url": "https://p19-common-sign.tiktokcdn-us.com/tos-useast5-avt-0068-tx/ba67b11de451691…",
+    "follower_count": 96532195,
+    "like_count": 466681716,
+    "message": {
+      "data_source": 1,
+      "status": 1,
+      "timestamp": 1793691831
+    },
+    "nickname": "TikTok",
+    "sec_user_id": "MS4wLjABAAAAv7iSuuXDJGDvJkmH_vz1qkDZYo1apxgzaxdBSeIuPiM",
+    "unique_id": "tiktok"
+  },
   "milestones": [
     {
       "creator_summary": {
+        "message": {
+          "data_source": 1,
+          "status": 1,
+          "timestamp": 1793691831
+        },
         "value": "No public data to display"
       },
+      "milestone": 6,
       "milestone_month_day": {
+        "message": {
+          "data_source": 1,
+          "status": 1,
+          "timestamp": 1793691831
+        },
         "value": "10/4"
       },
       "milestone_title": {
+        "message": {
+          "data_source": 1,
+          "status": 1,
+          "timestamp": 1793691831
+        },
         "value": "Reached 1M followers"
       },
       "milestone_year": {
+        "message": {
+          "data_source": 1,
+          "status": 1,
+          "timestamp": 1793691831
+        },
         "value": "2015"
       }
     }
-  ]
+  ],
+  "user_id": "107955"
 }
 ```
 
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `creator_info.unique_id / creator_info.nickname` | The creator's handle and display name. |
+| `creator_info.follower_count / creator_info.like_count` | Total followers and total likes for the account. |
+| `creator_info.sec_user_id` | The creator's `sec_user_id`, a longer string ID for the same account. |
+| `creator_info.avatar_url` | Link to the creator's profile picture image. |
+| `milestones[].milestone` | Number for the milestone step. Higher numbers appear for larger follower targets (6 is 1M, 5 is 500K, 4 is 100K). |
+| `milestones[].milestone_title.value` | Text label for the milestone, such as `Reached 1M followers`. |
+| `milestones[].milestone_month_day.value / milestones[].milestone_year.value` | The month/day and the year of the milestone, as strings. |
+| `milestones[].creator_summary.value` | A summary text for the milestone. It can read `No public data to display`. |
+| `user_id` | The `user_id` you sent, echoed back. |
+
 ### Notes
 
-- `user_id` is required and can be found in the creator profile URL or TikTok backend.
+- Each milestone value sits inside an object with a `value` and a `message` block. The `message` block holds `data_source`, `status` and `timestamp`.
+- `milestone_month_day.value` uses a month/day format without leading zeros, such as `10/4`.
+- Milestones come back newest first in the sample response.
+- To find videos from this account's era or check view quality, try [TikTok Video Metrics](/apis/tiktok/analytics/video-metrics) or [Detect fake views in video](/apis/tiktok/analytics/detect-fake-views).
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

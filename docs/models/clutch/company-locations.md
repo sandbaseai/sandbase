@@ -68,7 +68,14 @@ Same call via the path form: `POST /v1/api/clutch/company-locations` with the bo
 
 ## Details
 
-Get office locations for a company including addresses, phone numbers, and employee counts per location.
+Returns the office locations for a company listed on Clutch. Each location includes a name, street address, postal code, phone number, and an employee count range. The only input is the company `slug`.
+
+### Use cases
+
+- List every office a vendor runs to check if it has a presence in a target city or country.
+- Build a lead list with office addresses and phone numbers for outreach to agencies.
+- Compare how a company spreads its staff across headquarters and branch offices.
+- Enrich a company record in a CRM with its office postal addresses.
 
 ### Request
 
@@ -79,7 +86,7 @@ curl -X POST "https://api.sandbase.ai/v1/api/clutch/company-locations" \
   -d '{"slug": "simform"}'
 ```
 
-This API runs asynchronously. The call returns a task `id` with status `pending`; poll `GET https://api.sandbase.ai/v1/run/{id}` until `status` is `completed` and read the result from `outputs[0].data`.
+The result is returned in `outputs[0].data`.
 
 ### Parameters
 
@@ -87,9 +94,54 @@ This API runs asynchronously. The call returns a task `id` with status `pending`
 |---|---|---|---|
 | `slug` | string | Yes | Company profile slug from search_companies results. |
 
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "data": {
+    "locations": [
+      {
+        "city": "Orlando",
+        "country": "United States",
+        "employees": "10 - 15",
+        "name": "Headquarters",
+        "phone": "3212372727",
+        "postal_code": "32801",
+        "state": "FL",
+        "street": "111 North Orange Avenue Suite 800"
+      }
+    ],
+    "slug": "simform"
+  },
+  "status": "success"
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `data.slug` | The company profile slug that was requested. |
+| `data.locations[].name` | Label for the office, such as `Headquarters` or a city and state like `Los Angeles, CA`. |
+| `data.locations[].street` | Street address of the office, including suite number when present. |
+| `data.locations[].city / data.locations[].state` | City and state of the office. Both can be `null`, so fall back to `name` for the place. |
+| `data.locations[].postal_code` | Postal code of the office. |
+| `data.locations[].country` | Country of the office. |
+| `data.locations[].phone` | Phone number as digits only. It can be an empty string when the office has no listed phone. |
+| `data.locations[].employees` | Employee count for the office, given as a range string such as `10 - 15`. |
+
+### Notes
+
+- Get the `slug` from the results of [Clutch Search Companies](/apis/clutch/search-companies).
+- The `employees` value is a text range, not a number, so parse it before you do math.
+- For company details beyond offices, call [Clutch Company Profile](/apis/clutch/company-profile).
+- The call runs asynchronously: read the result from `outputs[0].data` after the task completes.
+
 ### Pricing
 
-Flat price per call. Failed calls are not charged.
+$0.01 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ---
 Machine-readable: [`catalog/models/clutch/company-locations.json`](../../../catalog/models/clutch/company-locations.json) · Store page: https://www.sandbase.ai/model/clutch/company-locations

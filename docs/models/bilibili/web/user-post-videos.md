@@ -68,13 +68,14 @@ Same call via the path form: `POST /v1/api/bilibili/web/user-post-videos` with t
 
 ## Details
 
-Fetch video lists from a creator's Bilibili homepage by supplying `uid`. You can also specify pagination with `pn` and sort results using `order`.
+Returns the videos posted on a Bilibili user's homepage, one page at a time. It needs the user's numeric `uid` and accepts optional `pn` and `order` parameters.
 
 ### Use cases
 
-- Browse video uploads from a specific Bilibili creator.
-- Monitor new content posted by tracked Bilibili accounts.
-- Sort a user's uploaded videos by post date.
+- List all videos a Bilibili creator has uploaded.
+- Check a tracked account for new uploads by sorting by post date and reading the newest entries.
+- Collect `bvid` values for a creator's videos, then request details or comments for each one.
+- Count how many videos a user has posted using the page total.
 
 ### Request
 
@@ -85,22 +86,83 @@ curl -X POST "https://api.sandbase.ai/v1/api/bilibili/web/user-post-videos" \
   -d '{"uid": "178360345"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
 |---|---|---|---|
 | `uid` | string | Yes | User UID |
-| `pn` | integer | No | Page number |
 | `order` | string | No | Order method |
+| `pn` | integer | No | Page number |
+
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "code": 0,
+  "data": {
+    "episodic_button": {
+      "text": "播放全部",
+      "uri": "//www.bilibili.com/medialist/play/178360345?from=space"
+    },
+    "gaia_data": null,
+    "gaia_res_type": 0,
+    "is_risk": false,
+    "list": {
+      "slist": [],
+      "tlist": null,
+      "vlist": [
+        {
+          "aid": 117346609990524,
+          "attribute": 16384,
+          "author": "Azulsolitan",
+          "bvid": "BV1RMaq65EAH",
+          "comment": 0,
+          "copyright": "3",
+          "created": 1790567470,
+          "description": ""
+        }
+      ]
+    },
+    "page": {
+      "count": 6,
+      "pn": 1,
+      "ps": 25
+    }
+  },
+  "message": "OK",
+  "ttl": 1
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `data.list.vlist[]` | The videos on the requested page. Each item is one posted video. |
+| `data.list.vlist[].bvid / data.list.vlist[].aid` | The two identifiers of a video. `bvid` is the string form that starts with `BV`, and `aid` is the numeric form. |
+| `data.list.vlist[].author` | The display name of the user who posted the video. |
+| `data.list.vlist[].created` | The post time of the video as a Unix timestamp in seconds. |
+| `data.list.vlist[].comment` | The comment count of the video. |
+| `data.list.vlist[].description` | The text description of the video. It can be an empty string. |
+| `data.list.vlist[].copyright` | The copyright type code of the video, returned as a string such as `1` or `3`. |
+| `data.page.count` | The total number of videos for this user. |
+| `data.page.pn / data.page.ps` | The current page number and the page size. In this response `pn` is `1` and `ps` is `25`. |
+| `data.episodic_button.uri` | A link to play all of the user's videos in order. |
 
 ### Notes
 
-- Use `uid` to specify the target Bilibili user identifier.
-- Use `pn` for page navigation and `order` to set the result sort method.
+- Pass `uid` as a string. The example value is `178360345`.
+- Use `pn` to move through pages. Compare `data.page.count` with `data.page.ps` to see how many pages exist.
+- `order` defaults to `pubdate`.
+- To look up one video from the list, pass its `bvid` to [Bilibili Video Details](/apis/bilibili/web/one-video). To get a user's profile, use [Bilibili User Profile](/apis/bilibili/web/user-profile).
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

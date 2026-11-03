@@ -70,13 +70,14 @@ Same call via the path form: `POST /v1/api/reddit/app/news-feed` with the body a
 
 ## Details
 
-Retrieve trending news recommendations from the Reddit app feed, filtered by `subtopic_ids` and paginated via `after`.
+Returns a page of news-related recommended posts from the Reddit app feed. Each item is a group of cells holding the subreddit, author, title, linked article and comment count. All inputs are optional: `subtopic_ids` filters by news category, `after` pages through results, and `need_format` cleans the data.
 
 ### Use cases
 
-- Monitor trending news topics and discussions across Reddit communities.
-- Filter Reddit app news streams by specific category identifiers.
-- Ingest curated news feed items into custom aggregators and dashboards.
+- Track which news articles are being shared and discussed on Reddit right now.
+- Collect the source domain and link of each news post to see which outlets get traction.
+- Compare comment counts across posts to find the most debated current events stories.
+- Separate sponsored cells from organic posts when analysing a news feed.
 
 ### Request
 
@@ -86,6 +87,8 @@ curl -X POST "https://api.sandbase.ai/v1/api/reddit/app/news-feed" \
   -H "Content-Type: application/json" \
   -d '{}'
 ```
+
+The result is returned in `outputs[0].data`.
 
 ### Parameters
 
@@ -97,35 +100,79 @@ curl -X POST "https://api.sandbase.ai/v1/api/reddit/app/news-feed" \
 
 ### Example response
 
-Real response for the request above, trimmed to the main fields. User names and long IDs are masked.
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
 
 ```json
 {
   "newsV3": {
     "elements": {
+      "dist": 6,
       "edges": [
         {
           "__typename": "FeedElementEdge",
           "node": {
             "__typename": "CellGroup",
-            "id": "dDNfMXd5em03bA=="
+            "adPayload": null,
+            "cells": [
+              {
+                "__typename": "MetadataCell",
+                "authorName": "u/southpawFA",
+                "color": {
+                  "__typename": "CustomCellColor",
+                  "rgbaColor": "#205493FF"
+                },
+                "createdAt": "2026-11-02T22:38:45.943000+0000",
+                "detailsLink": "politics",
+                "detailsString": "r/politics",
+                "iconPath": "https://styles.redditmedia.com/t5_2cneq/styles/communityIcon_fy84mdgh75201.jpg?w…",
+                "iconShape": "ROUND"
+              }
+            ],
+            "crosspostCells": [
+              {
+                "__typename": "MetadataCell"
+              }
+            ],
+            "groupId": "t3_1xmbvk3",
+            "groupRecommendationContext": null,
+            "id": "dDNfMXhtYnZrMw==",
+            "payload": null
           }
         }
-      ]
+      ],
+      "pageInfo": {
+        "endCursor": "dDNfMXhtZXRkeQ=="
+      }
     }
   }
 }
 ```
 
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `newsV3.elements.dist` | Number of elements in this page of the feed. |
+| `newsV3.elements.edges[].node.groupId` | Post ID of the feed item, for example `t3_1xmbvk3`. |
+| `newsV3.elements.edges[].node.cells[].authorName` | Username of the poster, prefixed with `u/`. |
+| `newsV3.elements.edges[].node.cells[].detailsString / newsV3.elements.edges[].node.cells[].detailsLink` | Subreddit the post belongs to. `detailsString` is the display form such as `r/politics`, and `detailsLink` is the bare name. |
+| `newsV3.elements.edges[].node.cells[].createdAt` | ISO 8601 timestamp of when the post was created. |
+| `newsV3.elements.edges[].node.cells[].titleCell.title` | Title of the post. |
+| `newsV3.elements.edges[].node.cells[].thumbnail.path` | URL of the news article the post links to. |
+| `newsV3.elements.edges[].node.cells[].thumbnail.domain` | Domain of the linked article, such as `lgbtqnation.com`. |
+| `newsV3.elements.edges[].node.cells[].commentCount` | Number of comments on the post. It appears in the `ActionCell`. |
+| `newsV3.elements.edges[].node.adPayload` | Set to an object when the item is a sponsored ad, and `null` for regular posts. Ad items include fields like `adLinkUrl` and a gallery of products. |
+
 ### Notes
 
-- Use `after` for cursor-based pagination across news feed pages.
-- The `subtopic_ids` parameter defaults to ["all"] to cover all news categories.
-- Set `need_format` to true to clean and format the returned data.
+- Send `{}` to get the default feed. `subtopic_ids` defaults to `["all"]`.
+- Pass the `after` value to request the next page.
+- Check `adPayload` and each cell's `__typename` (such as `MetadataCell`, `TitleWithThumbnailCell`, `ActionCell`, `AdGalleryCell`) to tell post cells from ad cells.
+- For other feeds, see [Reddit App Popular Feed](/apis/reddit/app/popular-feed) or [Reddit App Home Feed](/apis/reddit/app/home-feed).
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

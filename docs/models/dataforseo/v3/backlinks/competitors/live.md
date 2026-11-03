@@ -58,13 +58,14 @@ Same call via the path form: `POST /v1/api/dataforseo/v3/backlinks/competitors/l
 
 ## Details
 
-Fetch competing domains that share backlink profiles with a target domain to analyze off-page SEO competition.
+Returns domains that share backlink sources with a target domain or page. It needs a `target` such as `nike.com` and returns a ranked list of competing domains with the number of shared linking sources.
 
 ### Use cases
 
-- Identify competing websites that share similar backlink profiles.
-- Discover link-building prospects based on competitor backlink overlaps.
-- Benchmark domain authority and link overlap against industry competitors.
+- Find the domains that compete with a brand for the same backlink sources.
+- Build a list of link-building prospects from sites that link to competitors but not to you.
+- Compare how much a domain's link profile overlaps with each competitor.
+- Pick competitor domains to feed into a deeper backlink comparison.
 
 ### Request
 
@@ -75,18 +76,85 @@ curl -X POST "https://api.sandbase.ai/v1/api/dataforseo/v3/backlinks/competitors
   -d '{"target": "nike.com", "limit": 5}'
 ```
 
+The result is returned in `outputs[0]`.
+
 ### Parameters
 
-The JSON body is forwarded to the upstream endpoint (one task per call). Fields used above:
+| Name | Type | Required | Description |
+|---|---|---|---|
+| `limit` | integer | No | Maximum number of results (up to 100). |
+| `target` | string | No | Target domain or page, e.g. "nike.com". |
 
-| Name | Description |
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "status_code": 20000,
+  "status_message": "Ok.",
+  "tasks": [
+    {
+      "data": {
+        "api": "backlinks",
+        "function": "competitors",
+        "limit": 5,
+        "target": "nike.com"
+      },
+      "id": "11030828-2190-0461-0000-fb4014fef084",
+      "path": [
+        "v3"
+      ],
+      "result": [
+        {
+          "items": [
+            {
+              "intersections": 1950,
+              "rank": 318,
+              "target": "adidas-group.com",
+              "type": "backlinks_competitors"
+            }
+          ],
+          "items_count": 5,
+          "total_count": 10411
+        }
+      ],
+      "result_count": 1,
+      "status_code": 20000,
+      "status_message": "Ok.",
+      "time": "1.0989 sec."
+    }
+  ],
+  "tasks_count": 1,
+  "tasks_error": 0,
+  "time": "1.1062 sec.",
+  "version": "0.1.20261022"
+}
+```
+
+### Response fields
+
+| Field | Meaning |
 |---|---|
-| `target` | Target domain or page, e.g. "nike.com". |
-| `limit` | Maximum number of results (up to 100). |
+| `tasks[].result[].items[].target` | Competing domain that shares backlink sources with the requested `target`. |
+| `tasks[].result[].items[].intersections` | Number of intersections between the competitor and the requested `target`. A higher number means more overlap in backlink profiles. |
+| `tasks[].result[].items[].rank` | Rank value for the competing domain. Higher values appear on stronger domains in this sample, such as `318` for `adidas-group.com`. |
+| `tasks[].result[].items[].type` | Item type, `backlinks_competitors` for every row. |
+| `tasks[].result[].items_count` | Number of competitors returned in this response. |
+| `tasks[].result[].total_count` | Total number of competing domains found for the target, not only the rows returned. |
+| `tasks[].data.target / tasks[].data.limit` | Echo of the `target` and `limit` values the call used. |
+| `tasks[].status_code / tasks[].status_message` | Task status. `20000` with `Ok.` means the task succeeded. |
+
+### Notes
+
+- Set `limit` to control how many competitors come back, up to 100.
+- Compare `items_count` with `total_count` to see how many more competitors exist than the response returned.
+- Pass a competitor's `target` value from the results into [Domain Intersection](/apis/dataforseo/v3/backlinks/domain_intersection/live) to see the shared linking sources.
+- Use [Backlinks Summary](/apis/dataforseo/v3/backlinks/summary/live) to get overall link totals for a competitor domain.
 
 ### Pricing
 
-Billed at the actual cost of each call, about $0.02418 for the request above. The cost grows with the number of rows, targets or pages a call returns. Failed calls are not charged. Searches with no results are billed at their actual cost.
+Billed at the actual cost of each call, about $0.02418 for the request above. Failed calls are not charged.
 
 ### Related APIs
 

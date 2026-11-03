@@ -64,13 +64,14 @@ Same call via the path form: `POST /v1/api/douyin/xingtu-v2/author-hot-comment-t
 
 ## Details
 
-Retrieve top comment keywords and hot rates for a Douyin author by supplying `author_id`. You can configure the result size with `num` and filter out emojis using `without_emoji`.
+Returns the most frequent comment tokens (keywords) found in a Douyin creator's comment sections on Xingtu, each with a `hot_rate` score. It needs a Xingtu `author_id`. You can set the number of tokens with `num` and drop emojis with `without_emoji`.
 
 ### Use cases
 
-- Analyze popular topics and discussion themes in an author's comment section.
-- Assess audience sentiment and trending keywords across creator posts.
-- Benchmark audience engagement topics across multiple Xingtu creators.
+- Find the words and topics that audiences repeat most in a creator's comments.
+- Spot recurring complaints or product mentions in a creator's comment section before a brand deal.
+- Compare the top comment tokens of several creators to see which audiences talk about similar topics.
+- Feed the token list into a dashboard or word cloud for a creator report.
 
 ### Request
 
@@ -80,6 +81,8 @@ curl -X POST "https://api.sandbase.ai/v1/api/douyin/xingtu-v2/author-hot-comment
   -H "Content-Type: application/json" \
   -d '{"author_id": "7146074596666507300"}'
 ```
+
+The result is returned in `outputs[0].data`.
 
 ### Parameters
 
@@ -91,26 +94,41 @@ curl -X POST "https://api.sandbase.ai/v1/api/douyin/xingtu-v2/author-hot-comment
 
 ### Example response
 
-Real response for the request above, trimmed to the main fields. User names and long IDs are masked.
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
 
 ```json
 {
+  "base_resp": {
+    "status_code": 0,
+    "status_message": "Success"
+  },
   "hot_comment_tokens": [
     {
+      "comment_token": "平板",
       "hot_rate": 1335
     }
   ]
 }
 ```
 
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `hot_comment_tokens[]` | List of hot comment tokens for the creator. Each item is one token with its score. |
+| `hot_comment_tokens[].comment_token` | The keyword or token found in the creator's comments, such as `平板` or `电脑`. |
+| `hot_comment_tokens[].hot_rate` | Score for how hot the token is. A higher number ranks the token higher in the list. |
+| `base_resp.status_code / base_resp.status_message` | Status of the call. `0` with `Success` means the request worked. |
+
 ### Notes
 
-- `num` defaults to 10 tokens.
-- `without_emoji` defaults to true.
+- Pass the Xingtu creator ID as `author_id`. If you only have a Douyin ID or `sec_user_id`, look up the creator ID first with [Douyin XingTu kolId by Douyin ID](/apis/douyin/xingtu-v2/xingtu-kolid-by-unique-id) or [Douyin XingTu kolId by sec_user_id (V2)](/apis/douyin/xingtu-v2/xingtu-kolid-by-sec-user-id).
+- `num` sets how many tokens come back (default 10). `without_emoji` defaults to `true`; set it to `false` to keep emoji tokens.
+- For keywords from the creator's own content instead of comments, call [Douyin Xingtu Author Content Hot Keywords](/apis/douyin/xingtu-v2/author-content-hot-keywords).
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

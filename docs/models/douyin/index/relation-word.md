@@ -69,13 +69,13 @@ Same call via the path form: `POST /v1/api/douyin/index/relation-word` with the 
 
 ## Details
 
-Retrieve search and content relation word analysis for a target `keyword` across Douyin or Toutiao. Provide `start_date` and `end_date` to define the analysis period.
+This API returns search and content relation word graphs and rankings on Douyin or Toutiao for a keyword. It needs a `keyword`, a `start_date` and an `end_date`. `app_name` is optional and selects the platform.
 
 ### Use cases
 
-- Analyze search and content keywords associated with a specific term.
-- Map relation word graphs to identify emerging topic associations.
-- Compare keyword relations across Douyin and Toutiao platforms.
+- Find which words people connect to a topic such as `人工智能` in a given week.
+- Compare the related words for one keyword on Douyin (`aweme`) and Toutiao (`toutiao`).
+- Check how the word associations around a brand or topic change between weekly periods.
 
 ### Request
 
@@ -86,23 +86,47 @@ curl -X POST "https://api.sandbase.ai/v1/api/douyin/index/relation-word" \
   -d '{"end_date": "1735660799", "keyword": "人工智能", "start_date": "1730044800"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
 |---|---|---|---|
+| `end_date` | string | Yes | End date (**must be a Sunday**), format YYYYMMDD |
 | `keyword` | string | Yes | The keyword to analyze |
-| `end_date` | string | Yes | End date (must be a Sunday), format YYYYMMDD |
 | `start_date` | string | Yes | Start date (recommend Monday), format YYYYMMDD |
 | `app_name` | string | No | Platform, aweme=Douyin, toutiao=Toutiao |
 
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "BaseResp": {
+    "StatusCode": 500,
+    "StatusMessage": "日期格式需满足%Y%m%d，且关联分析终止日期为周日"
+  }
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `BaseResp` | Status wrapper that the response returns. Check it first to see whether the call worked. |
+| `BaseResp.StatusCode` | Numeric result code. `500` means the request failed, as in the sample response. |
+| `BaseResp.StatusMessage` | Text reason for the result. The sample says the date must be in `%Y%m%d` format and the end date must be a Sunday. |
+
 ### Notes
 
-- `end_date` must be a Sunday in YYYYMMDD format, with `start_date` recommended to be a Monday.
-- Set `app_name` to `aweme` for Douyin or `toutiao` for Toutiao.
+- The sample request used values like `1735660799` for `start_date` and `end_date`, and the API rejected them. Send dates as `YYYYMMDD`, for example `20241229`.
+- `end_date` must be a Sunday. Use a Monday for `start_date` so the range covers whole weeks.
+- Use [Douyin Relation Analysis Valid Dates](/apis/douyin/index/valid-date-for-relation) to find dates that work for relation analysis.
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

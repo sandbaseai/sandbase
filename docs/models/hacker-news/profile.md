@@ -61,7 +61,14 @@ Same call via the path form: `POST /v1/api/hacker-news/profile` with the body ab
 
 ## Details
 
-Get a Hacker News user's public profile by username - karma, bio, and account details as clean JSON.
+Returns the public profile of a Hacker News user: the username, karma score, and bio. It needs one input, the Hacker News username as `handle`.
+
+### Use cases
+
+- Check the karma of a Hacker News account before you trust or rank its comments.
+- Show an author's bio and karma next to their posts in a dashboard.
+- Confirm that a Hacker News username exists before you run further lookups.
+- Track the karma of a set of well-known users over time.
 
 ### Request
 
@@ -72,7 +79,7 @@ curl -X POST "https://api.sandbase.ai/v1/api/hacker-news/profile" \
   -d '{"handle": "pg"}'
 ```
 
-The result is returned in `outputs[0].data`. A lookup that finds nothing still succeeds and returns `found: false`.
+The result is returned in `outputs[0].data`.
 
 ### Parameters
 
@@ -80,9 +87,40 @@ The result is returned in `outputs[0].data`. A lookup that finds nothing still s
 |---|---|---|---|
 | `handle` | string | Yes | Hacker News username, e.g. "pg". |
 
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "data": {
+    "bio": "Bug fixer.",
+    "karma": 157316,
+    "username": "pg"
+  },
+  "found": true
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `found` | `true` when the username exists. A lookup with no match still succeeds and returns `found: false`. |
+| `data.username` | The Hacker News username of the profile. |
+| `data.karma` | The karma score of the user. |
+| `data.bio` | The text the user wrote in the profile's about field. |
+
+### Notes
+
+- Pass the username exactly as it appears on Hacker News, for example `pg`.
+- Check `found` before you read `data`, because a missing user returns `found: false`.
+- To find stories and comments on Hacker News, use [Hacker News Search](/apis/hacker-news/search).
+- To read a specific story and its discussion, call [Hacker News Story](/apis/hacker-news/story) or [Hacker News Story Comments](/apis/hacker-news/story-comments).
+
 ### Pricing
 
-Billed at the actual cost of each call, usually $0.0015 per request. A call can cost more when the first data source fails and another one answers. Failed calls are not charged. Lookups that find nothing and searches with no results are billed at their actual cost, which is often lower and can be $0.
+Billed at the actual cost of each call, about $0.0015 for the request above. Failed calls are not charged.
 
 ---
 Machine-readable: [`catalog/models/hacker-news/profile.json`](../../../catalog/models/hacker-news/profile.json) · Store page: https://www.sandbase.ai/model/hacker-news/profile

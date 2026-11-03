@@ -62,7 +62,14 @@ Same call via the path form: `POST /v1/api/tiktok/web/post-ai-article` with the 
 
 ## Details
 
-Get AI-generated article of a single video on TikTok. Returns the platform data as structured JSON.
+Returns an AI-generated article for a single TikTok video, with a title, a short description and SEO keywords. It needs the video id as `itemId`.
+
+### Use cases
+
+- Turn a video into a written summary for a blog or newsletter.
+- Pull the suggested keywords of a video to study how it is described for search.
+- Collect titles and descriptions of many videos to review their topics in bulk.
+- Check how a product review video, such as a skincare or sunscreen review, is summarized in text.
 
 ### Request
 
@@ -81,9 +88,57 @@ The result is returned in `outputs[0].data`.
 |---|---|---|---|
 | `itemId` | string | Yes | Video id |
 
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "extra": {
+    "fatal_item_ids": [],
+    "logid": "202611030744269003827AA4F970017CAA",
+    "now": 1793691867000
+  },
+  "itemCustomTDK": {
+    "article": "The world of sunscreens can be overwhelming, with countless options available, e…",
+    "desc": "Discover my genuine thoughts on the new Supergoop Unseen Sunscreen SPF50 and why…",
+    "keywords": [
+      "Supergoop unseen sunscreen review"
+    ],
+    "title": "Supergoop Unseen Sunscreen SPF50 Review: A Surprising Find"
+  },
+  "log_pb": {
+    "impr_id": "202611030744269003827AA4F970017CAA"
+  },
+  "statusCode": 0,
+  "status_code": 0,
+  "status_msg": ""
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `itemCustomTDK.title` | AI-generated title for the video. |
+| `itemCustomTDK.article` | Body text of the AI-generated article about the video. Long articles are returned as one string. |
+| `itemCustomTDK.desc` | Short description of the video. It can include the hashtags from the video caption. |
+| `itemCustomTDK.keywords[]` | List of suggested keywords for the video. Some entries start with a space, so trim them before use. |
+| `status_code / statusCode` | Result code of the request. `0` in this response. |
+| `status_msg` | Status message. It is an empty string in this response. |
+| `extra.fatal_item_ids[]` | List of video ids that failed to load. It is empty in this response. |
+| `extra.now` | Time of the response as a number, such as `1793691867000`. |
+| `log_pb.impr_id / extra.logid` | Request tracking ids. Both hold the same value in this response. |
+
+### Notes
+
+- Pass the video id as `itemId`. It is a numeric string such as `7651935877744168194`.
+- If you only have a video link, call [TikTok Video ID from URL](/apis/tiktok/web/aweme-id) first to get the id.
+- To see stats, author and media for the same video, call [TikTok Video Detail](/apis/tiktok/web/post-detail).
+
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ---
 Machine-readable: [`catalog/models/tiktok/web/post-ai-article.json`](../../../../catalog/models/tiktok/web/post-ai-article.json) · Store page: https://www.sandbase.ai/model/tiktok/web/post-ai-article

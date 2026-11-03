@@ -87,9 +87,14 @@ Same call via the path form: `POST /v1/api/polymarket/markets-keyset` with the b
 
 ## Details
 
-List markets (keyset pagination) from Polymarket. Returns the official Polymarket API response unchanged.
+Returns a page of Polymarket prediction markets, each with its prices, liquidity, order book settings, fee schedule and linked events. All inputs are optional. You can filter by ids, slugs, token ids, dates, volume, liquidity or tags, and page through results with a cursor.
 
-The response is the official Polymarket API response, unchanged.
+### Use cases
+
+- Scan open markets and rank them by `volume_num` or `liquidity_num` using the `order` parameter.
+- Pull current `bestBid`, `bestAsk` and `lastTradePrice` for a set of markets to track implied odds.
+- Look up markets by `condition_ids`, `clob_token_ids` or `slug` to get their metadata and `id` values.
+- Export every market in a tag or date range by following `next_cursor` page after page.
 
 ### Request
 
@@ -100,6 +105,8 @@ curl -X POST "https://api.sandbase.ai/v1/api/polymarket/markets-keyset" \
   -d '{"limit": 2}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
@@ -107,7 +114,7 @@ curl -X POST "https://api.sandbase.ai/v1/api/polymarket/markets-keyset" \
 | `after_cursor` | string | No | Opaque cursor token from a previous response's next_cursor |
 | `ascending` | boolean | No | Sort direction. Only used when order is set. |
 | `clob_token_ids` | array | No | clob_token_ids |
-| `closed` | boolean | No | Filter by closed state. Omitted or false returns open markets; true returns closed markets. Use any (case-insensitive) to include both states in an identifier l |
+| `closed` | boolean | No | Filter by closed state. Omitted or false returns open markets; true returns closed markets. Use any (case-insensitive) to include both states in an identifier lookup. Requires at least one of id, slug, clob_token_ids, po |
 | `condition_ids` | array | No | condition_ids |
 | `cyom` | boolean | No | cyom |
 | `decimalized` | boolean | No | decimalized |
@@ -135,9 +142,70 @@ curl -X POST "https://api.sandbase.ai/v1/api/polymarket/markets-keyset" \
 | `volume_num_max` | number | No | volume_num_max |
 | `volume_num_min` | number | No | volume_num_min |
 
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "$schema": "https://gamma-api.polymarket.com/schemas/MarketsKeysetListResponse.json",
+  "markets": [
+    {
+      "acceptingOrders": true,
+      "acceptingOrdersTimestamp": "2025-07-03T20:36:33Z",
+      "active": true,
+      "approved": true,
+      "archived": false,
+      "automaticallyActive": true,
+      "bestAsk": 0.021,
+      "bestBid": 0.02,
+      "clearBookOnStart": true,
+      "clobRewards": [
+        {
+          "assetAddress": "0x2791Bca1f2de4661ED88A30C99A7a9449Aa84174",
+          "conditionId": "0xa467b14d51f01b957109d9cbb1d6c124fab2a089d52ed8f471d23c2812e743b7",
+          "endDate": "2500-12-31",
+          "id": "303430",
+          "rewardsAmount": 0,
+          "rewardsDailyRate": 5,
+          "startDate": "2026-09-16"
+        }
+      ],
+      "clobTokenIds": "[\"323382…",
+      "closed": false
+    }
+  ],
+  "next_cursor": "bjZlbp--Id8uILt2O_myoOvX-CNl-MzVGdWQ_udL8nt7InYiOjEsImsiOiJtYXJrZXRzIiwib2giOiI0…"
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `markets[]` | List of market objects for this page. The `limit` parameter sets how many come back. |
+| `markets[].id` | Market id as a string. Use it with the market lookup APIs. |
+| `markets[].conditionId` | Hex condition id of the market. It also appears inside `clobRewards[]`. |
+| `markets[].clobTokenIds` | JSON-encoded string that holds the token ids for the market outcomes. Parse it to get the list. |
+| `markets[].bestBid / markets[].bestAsk / markets[].lastTradePrice` | Current top bid, top ask and last trade price. Values such as `0.15` look like prices between 0 and 1. |
+| `markets[].liquidity` | Liquidity of the market, returned as a string number. |
+| `markets[].active / markets[].closed / markets[].archived / markets[].acceptingOrders` | Flags for the market state. `closed` is `false` for open markets. |
+| `markets[].endDate / markets[].endDateIso` | Scheduled end of the market as a full UTC timestamp and as a plain date. |
+| `markets[].feeSchedule` | Fee settings with `rate`, `rebateRate`, `exponent` and `takerOnly`. |
+| `markets[].clobRewards[]` | Reward programs on the market, with `rewardsDailyRate`, `startDate` and `endDate`. |
+| `markets[].events[]` | Events the market belongs to, with `commentCount` and `competitive`. |
+| `next_cursor` | Opaque token for the next page. Send it as `after_cursor`. |
+
+### Notes
+
+- To get the next page, copy `next_cursor` into `after_cursor` and keep the other filters the same.
+- Do not send `offset`. It returns a 422 error. Use the cursor instead.
+- By default only open markets return. To look up closed markets, set `closed` to `true` or `any` together with an identifier such as `id`, `slug` or `condition_ids`.
+- For a single market, use [Polymarket Get market by slug](/apis/polymarket/markets-slug) or [Polymarket Get market by id](/apis/polymarket/markets-by-id).
+
 ### Pricing
 
-Flat price per call. Failed calls are not charged.
+$0.00044 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ---
 Machine-readable: [`catalog/models/polymarket/markets-keyset.json`](../../../catalog/models/polymarket/markets-keyset.json) · Store page: https://www.sandbase.ai/model/polymarket/markets-keyset

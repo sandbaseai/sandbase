@@ -65,13 +65,14 @@ Same call via the path form: `POST /v1/api/douyin/app-v3/series-video-list` with
 
 ## Details
 
-Fetch video lists from Douyin series and playlets by supplying the `series_id` and optional `cursor` parameters.
+Returns the list of videos in a Douyin series or playlet. Each item is a full video object with author, caption, hashtags and playlet settings. The only required input is `series_id`.
 
 ### Use cases
 
-- Retrieve all episodes within a Douyin drama or playlet series.
-- Track video metadata across serialized short video content.
-- Index playlet episode releases in chronological viewing sequence.
+- Collect every video ID in a Douyin collection so you can fetch details or statistics for each one.
+- Archive the captions and hashtags of a science or explainer series.
+- Check which creator account publishes a given series.
+- Map the episodes of a playlet to build a catalog or tracking sheet.
 
 ### Request
 
@@ -82,6 +83,8 @@ curl -X POST "https://api.sandbase.ai/v1/api/douyin/app-v3/series-video-list" \
   -d '{"series_id": "7585746250092251178"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
@@ -91,52 +94,127 @@ curl -X POST "https://api.sandbase.ai/v1/api/douyin/app-v3/series-video-list" \
 
 ### Example response
 
-Real response for the request above, trimmed to the main fields. User names and long IDs are masked.
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
 
 ```json
 {
   "aweme_list": [
     {
       "activity_video_type": -1,
-      "author_user_id": 2740414975578590,
-      "aweme_id": "7529494667390586171",
-      "aweme_type": 0,
-      "bodydance_score": 0,
-      "boost_status": 0,
-      "caption": "盘点科普一些蝉的种类，你看你认识几种！#盘点#科普#分享#蝉",
-      "cf_assets_type": 0,
-      "create_time": 1753097092,
-      "desc": "盘点科普一些蝉的种类，你看你认识几种！#盘点#科普#分享#蝉",
+      "ad_charge_passive_unlock_config": {
+        "broadcast_btn_config": {
+          "btn_show_frequency": 1,
+          "btn_show_second": 5,
+          "btn_text": "秒后解锁下一集",
+          "show_second_type": 2
+        },
+        "trial_btn_config": {
+          "btn_show_frequency": 1,
+          "btn_show_second": 3,
+          "btn_text": "秒后解锁本集",
+          "show_second_type": 2
+        }
+      },
+      "ai_follow_images": null,
+      "anchors": null,
+      "authentication_token": "MS4wLjAA…",
       "author": {
+        "accept_private_policy": false,
+        "account_region": "",
+        "ad_cover_url": null,
+        "allow_story_normal_like": false,
         "apple_account": 0,
         "authority_status": 0,
-        "aweme_count": 0,
-        "close_friend_type": 0,
-        "comment_filter_status": 0,
-        "contacts_status": 2
+        "avatar_168x168": {
+          "height": 720,
+          "uri": "168x168/aweme-avatar/tos-cn-i-0813c000-ce_o8AAjKEQIJgQyYff2SF8fyDjgbmvgBAJDE07A1",
+          "url_list": [
+            "https://p3.douyinpic.com/img/aweme-avatar/tos-cn-i-0813c000-ce_o8AAjKEQIJgQyYff2…"
+          ],
+          "width": 720
+        },
+        "avatar_300x300": {
+          "height": 720,
+          "uri": "300x300/aweme-avatar/tos-cn-i-0813c000-ce_o8AAjKEQIJgQyYff2SF8fyDjgbmvgBAJDE07A1",
+          "url_list": [
+            "https://p3.douyinpic.com/img/aweme-avatar/tos-cn-i-0813c000-ce_o8AAjKEQIJgQyYff2…"
+          ],
+          "width": 720
+        }
       },
-      "comment_permission_info": {
-        "comment_permission_status": 0
+      "author_mask_tag": 0,
+      "author_user_id": 2740414975578590,
+      "aweme_control": {
+        "can_comment": true,
+        "can_forward": true,
+        "can_share": true,
+        "can_show_comment": true
       },
-      "commerce_info": {
-        "ad_type": 0
+      "aweme_id": "7529494667390586171",
+      "aweme_listen_struct": {
+        "listen_diversion": {
+          "extra": [
+            {
+              "key": "new_guide_prefix",
+              "val": "下载汽水"
+            }
+          ],
+          "popup_scene": 4,
+          "side_desc": "听更多精彩内容",
+          "sub_title_type": "relation"
+        },
+        "trace_info": "{\"copyright_not_speech\":\"false\",\"copyright_reason\":\"has_listen_cp_new\",\"copyrigh…"
       },
-      "distribute_circle": {
-        "distribute_type": 0
-      }
+      "aweme_type": 0
     }
-  ]
+  ],
+  "extra": {
+    "fatal_item_ids": [],
+    "logid": "20261103153140A0874E16F54F254A392D",
+    "now": 1793691101000
+  },
+  "has_more": 1,
+  "log_pb": {
+    "impr_id": "20261103153140A0874E16F54F254A392D"
+  },
+  "max_cursor": 15,
+  "min_cursor": 0,
+  "related_item_tag": -1,
+  "selection_panel_conf": {
+    "has_segment": true,
+    "segment_num": 20
+  },
+  "status_code": 0,
+  "status_msg": "",
+  "watch_histories": null
 }
 ```
 
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `aweme_list[]` | The videos in the series for this page. Each entry is one video object. |
+| `aweme_list[].aweme_id` | ID of the video, as a string. Use it to call other video APIs. |
+| `aweme_list[].caption` | Text of the video caption, including hashtags. |
+| `aweme_list[].author_user_id` | Numeric ID of the account that posted the video. |
+| `aweme_list[].author.avatar_168x168.url_list[] / aweme_list[].author.avatar_300x300.url_list[]` | Avatar image URLs of the author at two sizes. |
+| `aweme_list[].cha_list[].cha_name` | Name of a hashtag (challenge) attached to the video. |
+| `aweme_list[].cha_list[].cid` | ID of the hashtag, as a string. |
+| `aweme_list[].comment_permission_info.can_comment` | Whether comments are allowed on the video. |
+| `aweme_list[].commerce_info.is_ad` | Whether the video is marked as an ad. |
+| `aweme_list[].brief_aweme` | JSON string with a short summary of the video. It includes `series_info_series_id` and the series name. |
+
 ### Notes
 
-- Set `cursor` to 0 for the initial page, then pass the offset value for subsequent pages.
-- Requires a valid `series_id` string to identify the target series.
+- Pass `cursor` as `0` for the first page. For later pages, the parameter description says to use the page size (for example `15`) as the next value.
+- `aweme_id` values are long numeric strings. Send them to [Douyin Single Video Details](/apis/douyin/app-v3/one-video) for full data on one video.
+- To read the series title and summary, call [Douyin Series Detail](/apis/douyin/app-v3/series-detail) with the same `series_id`.
+- Use [Douyin User Series List](/apis/douyin/app-v3/user-series-list) to find series IDs for a given creator.
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

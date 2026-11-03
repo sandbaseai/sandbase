@@ -64,7 +64,14 @@ Same call via the path form: `POST /v1/api/youtube/search-shorts` with the body 
 
 ## Details
 
-Search YouTube Shorts by keyword and get matching Shorts (title, views, URL) with cursor pagination as normalized JSON.
+Returns YouTube Shorts that match a keyword. Each result has an ID, title, URL and view count. You only need a `query`, and you can sort, filter by upload date and page through results.
+
+### Use cases
+
+- Find the most-viewed Shorts for a topic by setting `sortBy` to `popular`.
+- Track new Shorts about a brand or keyword by setting `uploadDate` to `today` or `this_week`.
+- Build a list of Short URLs and IDs to pass to a video details lookup.
+- Compare view counts across Shorts that cover the same topic.
 
 ### Request
 
@@ -75,7 +82,7 @@ curl -X POST "https://api.sandbase.ai/v1/api/youtube/search-shorts" \
   -d '{"query": "cats"}'
 ```
 
-The result is returned in `outputs[0].data`. A lookup that finds nothing still succeeds and returns `found: false`.
+The result is returned in `outputs[0].data`.
 
 ### Parameters
 
@@ -83,12 +90,55 @@ The result is returned in `outputs[0].data`. A lookup that finds nothing still s
 |---|---|---|---|
 | `query` | string | Yes | The keyword to search Shorts for. |
 | `cursor` | string | No | Continuation token from a previous response for pagination. |
-| `sortBy` | string | No | Sort order: "relevance" (default) or "popular" (most-viewed). One of: `relevance`, `popular`. |
-| `uploadDate` | string | No | Filter by upload recency. Omit for any time. One of: `today`, `this_week`, `this_month`, `this_year`. |
+| `sortBy` | string | No | Sort order: "relevance" (default) or "popular" (most-viewed). |
+| `uploadDate` | string | No | Filter by upload recency. Omit for any time. |
+
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "data": {
+    "nextCursor": "cur_fPTLy4Ok3x74uh2aBTeYXQ",
+    "shorts": [
+      {
+        "contentType": "short",
+        "id": "M93h41hyPsM",
+        "title": "Ranking Funny Cat Moment",
+        "url": "https://www.youtube.com/watch?v=M93h41hyPsM",
+        "views": 17000000,
+        "viewsAvailable": true
+      }
+    ]
+  },
+  "found": true
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `data.shorts[]` | List of Shorts that match the query. |
+| `data.shorts[].id` | YouTube video ID of the Short. |
+| `data.shorts[].title` | Title of the Short. It can include hashtags and emoji. |
+| `data.shorts[].url` | Watch URL for the Short, in the form `https://www.youtube.com/watch?v=<id>`. |
+| `data.shorts[].views` | View count as a number. |
+| `data.shorts[].viewsAvailable` | `true` when a view count was found for the Short. Check it before you use `views`. |
+| `data.shorts[].contentType` | Type of the result. The value is `short` for these results. |
+| `data.nextCursor` | Token for the next page of results. Send it as `cursor` in the next request. |
+| `found` | `true` when the search returned results. |
+
+### Notes
+
+- For the next page, repeat the same request and add `cursor` with the value of `data.nextCursor`.
+- Use the `id` value with [YouTube Video Details](/apis/youtube/video-detail) to get more data about a single Short.
+- To list the Shorts of one channel instead of searching by keyword, use [YouTube Channel Shorts](/apis/youtube/channel-shorts).
 
 ### Pricing
 
-Billed at the actual cost of each call, usually $0.0012 per request. A call can cost more when the first data source fails and another one answers. Failed calls are not charged. Lookups that find nothing and searches with no results are billed at their actual cost, which is often lower and can be $0.
+Billed at the actual cost of each call, about $0.0012 for the request above. Failed calls are not charged.
 
 ---
 Machine-readable: [`catalog/models/youtube/search-shorts.json`](../../../catalog/models/youtube/search-shorts.json) · Store page: https://www.sandbase.ai/model/youtube/search-shorts

@@ -68,13 +68,14 @@ Same call via the path form: `POST /v1/api/douyin/xingtu-v2/author-convert-video
 
 ## Details
 
-Query conversion metrics for a specific creator by passing `o_author_id`. Use `detail_type` to switch between returning converted videos or converted products.
+Returns conversion details for one creator on Douyin Xingtu. With `detail_type` set to `1` (the default) it lists the creator's videos with click, sales and engagement stats. With `2` it lists associated products. The only required input is the creator ID in `o_author_id`.
 
 ### Use cases
 
-- Review conversion-driving videos associated with a specific Douyin creator.
-- Inspect product conversion performance across chosen time ranges and industries.
-- Compare video and product conversion data across creator campaigns.
+- Check which of a creator's videos drove component clicks and sales before booking a campaign.
+- Compare click rate and watch counts across a creator's videos to find the strongest sales content.
+- Filter a creator's results by `industry_id` to see conversion in one product category.
+- Page through the full list of converted videos for a creator and save it for reporting.
 
 ### Request
 
@@ -85,27 +86,96 @@ curl -X POST "https://api.sandbase.ai/v1/api/douyin/xingtu-v2/author-convert-vid
   -d '{"o_author_id": "7589271892177518598"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
 |---|---|---|---|
 | `o_author_id` | string | Yes | Creator ID |
-| `page` | integer | No | Page number, default 1 |
-| `time_range` | integer | No | Time range tier, default 2 |
 | `detail_type` | integer | No | Detail type, 1=videos, 2=products, default 1 |
 | `industry_id` | integer | No | Industry ID, 0=unlimited, default 0 |
-| `platform_source` | integer | No | Platform source, default 1 |
+| `page` | integer | No | Page number, default 1 |
 | `platform_channel` | integer | No | Platform channel, default 1 |
+| `platform_source` | integer | No | Platform source, default 1 |
+| `time_range` | integer | No | Time range tier, default 2 |
+
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "base_resp": {
+    "status_code": 0,
+    "status_message": ""
+  },
+  "pagination": {
+    "has_more": false,
+    "limit": 10,
+    "page": 1,
+    "total_count": 1
+  },
+  "video_list": [
+    {
+      "click_rate": 0.0095,
+      "component_click_cnt": "2",
+      "gpm": "0",
+      "gpm_range": "0",
+      "industry_id": 1901,
+      "item_pay_amt": "0",
+      "item_pay_amt_range": "0",
+      "item_stats": {
+        "author_id": "1113181577281568",
+        "cover_uri": "tos-cn-i-dy/ebbf065864914a1e8aa0768fb2a44a0b",
+        "create_time": "1792826328",
+        "duration": 100.101,
+        "id": "7700087804163853610",
+        "stats": {
+          "avg_watch_dura": "0",
+          "comment_cnt": "59",
+          "favorite_cnt": "32",
+          "finish_rate": 0.0055,
+          "interact_rate": 0.00240234896343091,
+          "like_cnt": "282",
+          "share_cnt": "10",
+          "watch_cnt": "146107"
+        },
+        "title": "预估到手2219起 蚂蚁电竞 ANT272ZQE镜面屏来了 #京东1111电脑抢先购#电脑以旧换新#蚂蚁电竞ANT272ZQE#显示器推荐",
+        "url": "https://www.iesdouyin.com/share/video/7700087804163853610/?region=CN&mid=7700087…"
+      },
+      "prod_list": []
+    }
+  ]
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `video_list[].item_stats.id` | ID of the video, as a string. |
+| `video_list[].item_stats.title` | Video caption, including its hashtags. |
+| `video_list[].item_stats.url` | Share link to the video on Douyin. |
+| `video_list[].item_stats.create_time` | Video creation time as a Unix timestamp in seconds, returned as a string. |
+| `video_list[].click_rate / video_list[].component_click_cnt` | Click rate of the video and the number of clicks on its attached component. Both come from the video's conversion record. |
+| `video_list[].gpm / video_list[].item_pay_amt` | Sales figures for the video, returned as strings. Both are `0` in this example. |
+| `video_list[].industry_id` | ID of the industry category the video is tied to. |
+| `video_list[].item_stats.stats.watch_cnt` | Number of views of the video. |
+| `video_list[].item_stats.stats.like_cnt / video_list[].item_stats.stats.comment_cnt / video_list[].item_stats.stats.share_cnt / video_list[].item_stats.stats.favorite_cnt` | Counts of likes, comments, shares and favorites on the video. |
+| `video_list[].item_stats.stats.finish_rate / video_list[].item_stats.stats.interact_rate` | Completion rate and interaction rate of the video, as decimal fractions. |
+| `pagination.has_more / pagination.total_count` | Whether another page exists and the total number of records. |
 
 ### Notes
 
-- Set `detail_type` to `1` for video conversion details or `2` for product conversion details.
-- Filter records across industries using `industry_id`, where `0` represents unlimited.
-- Paginate through results using `page`, which defaults to `1`.
+- Pass the creator's Xingtu ID as `o_author_id`. If you only have a Douyin ID, call [Douyin XingTu kolId by Douyin ID](/apis/douyin/xingtu-v2/xingtu-kolid-by-unique-id) first.
+- Use `page` to move through results. `pagination.limit` was `10` in the example, and `has_more` tells you when to stop.
+- `prod_list` is an empty list inside each video entry in this example. Set `detail_type` to `2` to get product details.
+- For a summary score instead of per-item rows, see [Douyin Xingtu Author Conversion Ability](/apis/douyin/xingtu-v2/author-convert-ability).
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.002 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

@@ -58,9 +58,14 @@ Same call via the path form: `POST /v1/api/dataforseo/v3/keywords_data/clickstre
 
 ## Details
 
-Clickstream-based monthly search volume for up to 1,000 keywords in one request.
+This API returns monthly search volume estimates for a list of keywords, based on clickstream data. Send up to 1,000 keywords in `keywords` and a `location_code` such as `2840` for the United States.
 
-Request fields follow the official DataForSEO `/v3/keywords_data/clickstream_data/bulk_search_volume/live` task schema (one task per call). The response is DataForSEO's original JSON; results are in `tasks[].result`.
+### Use cases
+
+- Rank a long list of candidate keywords by search volume in one call.
+- Compare the demand for two product categories, such as coffee and tea, in the same country.
+- Plot the recent monthly trend for each keyword to spot falling or rising interest.
+- Filter a large keyword export down to terms with meaningful volume before deeper research.
 
 ### Request
 
@@ -71,22 +76,93 @@ curl -X POST "https://api.sandbase.ai/v1/api/dataforseo/v3/keywords_data/clickst
   -d '{"keywords": ["coffee", "tea"], "location_code": 2840}'
 ```
 
+The result is returned in `outputs[0]`.
+
 ### Parameters
 
-The JSON body is forwarded to the upstream endpoint. Main fields:
+| Name | Type | Required | Description |
+|---|---|---|---|
+| `keywords` | array | No | Array of keywords (up to 1,000). |
+| `location_code` | integer | No | Location code, e.g. 2840 for the United States. |
 
-| Name | Description |
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "status_code": 20000,
+  "status_message": "Ok.",
+  "tasks": [
+    {
+      "data": {
+        "api": "keywords_data",
+        "function": "bulk_search_volume",
+        "keywords": [
+          "coffee"
+        ],
+        "location_code": 2840,
+        "se": "clickstream_data"
+      },
+      "id": "11030829-1614-0591-0000-969020a1898d",
+      "path": [
+        "v3"
+      ],
+      "result": [
+        {
+          "items": [
+            {
+              "keyword": "coffee",
+              "monthly_searches": [
+                {
+                  "month": 10,
+                  "search_volume": 177126,
+                  "year": 2026
+                }
+              ],
+              "search_volume": 177126
+            }
+          ],
+          "items_count": 2,
+          "location_code": 2840
+        }
+      ],
+      "result_count": 1,
+      "status_code": 20000,
+      "status_message": "Ok.",
+      "time": "0.2405 sec."
+    }
+  ],
+  "tasks_count": 1,
+  "tasks_error": 0,
+  "time": "0.2585 sec.",
+  "version": "0.1.20261022"
+}
+```
+
+### Response fields
+
+| Field | Meaning |
 |---|---|
-| `keywords` | Array of keywords (up to 1,000). |
-| `location_code` | Location code, e.g. 2840 for the United States. |
+| `tasks[].result[].items[].keyword` | The keyword from your request that this row describes. |
+| `tasks[].result[].items[].search_volume` | Estimated search volume for the keyword. It matches the most recent entry in `monthly_searches`. |
+| `tasks[].result[].items[].monthly_searches[].year / tasks[].result[].items[].monthly_searches[].month` | Year and month number (1 to 12) of one monthly data point. |
+| `tasks[].result[].items[].monthly_searches[].search_volume` | Estimated search volume for that keyword in that month. |
+| `tasks[].result[].items_count` | Number of keyword rows in this result. |
+| `tasks[].result[].location_code` | The location code the volumes apply to. |
+| `tasks[].data.keywords` | The keywords the task received, echoed back from your request. |
+| `tasks[].status_code / tasks[].status_message` | Status of the task. `20000` with `Ok.` means it succeeded. |
 
-### Reference
+### Notes
 
-- Official docs: https://docs.dataforseo.com/v3/keywords_data/clickstream_data/bulk_search_volume/live/
+- Results sit in `tasks[].result`. A call sends one task, so read `tasks[0].result[0].items`.
+- Months in `monthly_searches` are listed newest first.
+- Use the `location_code` value from the request to match the results to a market. `2840` is the United States.
+- `tasks[].id` is the task ID, a string like `11030829-1614-0591-0000-969020a1898d`.
 
 ### Pricing
 
-Billed at the actual cost of each call, about $0.01224 for the request above. The cost grows with the number of rows, targets or tokens a call returns. Failed calls are not charged. Searches with no results are billed at their actual cost.
+Billed at the actual cost of each call, about $0.01224 for the request above. Failed calls are not charged.
 
 ---
 Machine-readable: [`catalog/models/dataforseo/v3/keywords_data/clickstream_data/bulk_search_volume/live.json`](../../../../../../../catalog/models/dataforseo/v3/keywords_data/clickstream_data/bulk_search_volume/live.json) · Store page: https://www.sandbase.ai/model/dataforseo/v3/keywords_data/clickstream_data/bulk_search_volume/live

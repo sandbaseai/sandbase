@@ -72,13 +72,14 @@ Same call via the path form: `POST /v1/api/youtube/web/search-channel` with the 
 
 ## Details
 
-Search for videos uploaded by a specific channel using `channel_id` and `search_query`. Supports optional localization via `country_code` and `language_code`.
+Returns videos from one YouTube channel that match a keyword. You send a `channel_id` and a `search_query`. Each result includes the title, view count, relative post time, length, and `video_id`.
 
 ### Use cases
 
-- Find relevant videos uploaded by a specific creator.
-- Audit channel coverage on particular topics or brand keywords.
-- Retrieve video identifiers and view metrics for targeted channel searches.
+- Find every video a creator has posted about a brand or product, such as AMD on Linus Tech Tips.
+- Check how often a channel covers a topic and which of those videos get the most views.
+- Collect `video_id` values from a channel search, then pass them to a video details API.
+- Pull thumbnails and descriptions of matching videos for a content report.
 
 ### Request
 
@@ -89,45 +90,81 @@ curl -X POST "https://api.sandbase.ai/v1/api/youtube/web/search-channel" \
   -d '{"channel_id": "UCXuqSBlHAE6Xw-yeJA0Tunw", "search_query": "AMD"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
 |---|---|---|---|
 | `channel_id` | string | Yes | Channel ID |
 | `search_query` | string | Yes | Search keyword. |
+| `continuation_token` | string | No | Token to continue fetching search results. Default is None. |
 | `country_code` | string | No | Country code, default is us. |
 | `language_code` | string | No | Language code, default is en. |
-| `continuation_token` | string | No | Token to continue fetching search results. |
 
 ### Example response
 
-Real response for the request above, trimmed to the main fields. User names and long IDs are masked.
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
 
 ```json
 {
+  "channel_id": "UCXuqSBlHAE6Xw-yeJA0Tunw",
+  "continuation_token": "4qmFsgJl…",
+  "country": "US",
+  "lang": "en",
+  "number_of_videos": 28,
+  "query": "AMD",
+  "timezone": "America/New_York",
   "videos": [
     {
       "author": "Linus Tech Tips",
+      "category": null,
       "channel_id": "UCXuqSBlHAE6Xw-yeJA0Tunw",
-      "description": "Thanks to AMD for sponsoring this series and sending us a couple of ROG Allys to give awa…",
-      "number_of_views": 3963165,
-      "published_time": "2 years ago",
-      "title": "Don't Get in Trouble with HR Challenge (HARD) - AMD $5,000 Ultimate Tech Upgrade",
+      "description": "Thanks to AMD for sponsoring this series and being a great partner! Check out th…",
+      "is_live_content": null,
+      "keywords": [],
+      "number_of_views": 2165933,
+      "published_time": "1 year ago",
+      "thumbnails": [
+        {
+          "height": 94,
+          "url": "https://i.ytimg.com/vi/GIqnvU1tgPg/hqdefault.jpg?sqp=-oaymwEbCKgBEF5IVfKriqkDDgg…",
+          "width": 168
+        }
+      ],
+      "title": "I made her Upgrade her Husband's PC - AMD $5000 Ultimate Tech Upgrade",
       "type": "NORMAL",
-      "video_id": "oTYwd9OjFRk"
+      "video_id": "GIqnvU1tgPg"
     }
   ]
 }
 ```
 
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `videos[].video_id` | The YouTube ID of the matching video. |
+| `videos[].title` | Title of the video. |
+| `videos[].number_of_views` | View count as a number. |
+| `videos[].published_time` | Relative post time as text, such as `1 year ago`. It is not an exact date. |
+| `videos[].video_length` | Video duration as text, such as `25:45`. |
+| `videos[].description` | Start of the video description. Long text is cut off. |
+| `videos[].thumbnails[].url / videos[].thumbnails[].width / videos[].thumbnails[].height` | Thumbnail image links with their pixel sizes. Each video has several sizes. |
+| `videos[].author / videos[].channel_id` | Name and ID of the channel that posted the video. |
+| `number_of_videos` | Count of videos in this response. |
+| `continuation_token` | Token that fetches the next page of results for the same search. |
+
 ### Notes
 
-- Use `continuation_token` to paginate through subsequent search results.
-- `country_code` defaults to us and `language_code` defaults to en.
+- Get `channel_id` from [YouTube Channel ID Lookup](/apis/youtube/web/channel-id) or [YouTube Channel ID from URL (V2)](/apis/youtube/web/channel-id-v2). The example ID starts with `UC`.
+- To get more results, send the returned `continuation_token` as `continuation_token` in the next request with the same other parameters.
+- Fields such as `category`, `is_live_content` and `keywords` were empty (`null` or `[]`) in the example response.
+- `country_code` defaults to `us` and `language_code` defaults to `en`. The response shows them as `country` and `lang`.
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

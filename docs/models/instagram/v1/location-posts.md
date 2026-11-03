@@ -64,13 +64,13 @@ Same call via the path form: `POST /v1/api/instagram/v1/location-posts` with the
 
 ## Details
 
-Fetch media items tagged at a specific place using `location_id`. You can also configure the sort order using `tab`.
+Returns a page of Instagram posts tagged at one location. It needs a `location_id`, and you can choose top or latest posts with `tab`.
 
 ### Use cases
 
-- Discover trending posts associated with a specific venue or city.
-- Monitor recent user content tagged at a retail storefront.
-- Analyze location-tagged media feeds for regional social research.
+- Pull the posts tagged at a venue or landmark to see what visitors share there.
+- Collect the latest posts at a store location with `tab` set to `recent`.
+- Page through a location feed with `end_cursor` to build a dataset of location-tagged media.
 
 ### Request
 
@@ -81,48 +81,69 @@ curl -X POST "https://api.sandbase.ai/v1/api/instagram/v1/location-posts" \
   -d '{"location_id": "703457703"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
 |---|---|---|---|
 | `location_id` | string | Yes | Location ID |
-| `tab` | string | No | Sorting method, ranked(top)/recent(latest) |
 | `end_cursor` | string | No | Pagination cursor, omit for first request |
+| `tab` | string | No | Sorting method, ranked(top)/recent(latest) |
 
 ### Example response
 
-Real response for the request above, trimmed to the main fields. User names and long IDs are masked.
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
 
 ```json
 {
+  "attempts": "14",
   "edges": [
     {
+      "cursor": null,
       "node": {
-        "carousel_media": [
-          {
-            "carousel_parent_id": "3956906345903348188_6169608598",
-            "id": "3956905332562451903_6169608598",
-            "media_type": 1,
-            "user": {
-              "id": "6169608598"
-            }
-          }
-        ]
+        "__typename": "XDTMediaDict",
+        "accessibility_caption": null,
+        "ad_id": null,
+        "affiliate_info": null,
+        "audience": null,
+        "boost_unavailable_identifier": null,
+        "boost_unavailable_reason": null,
+        "boosted_status": null
       }
     }
-  ]
+  ],
+  "page_info": {
+    "end_cursor": "a1214191bfcb4d848b21401eac8045a9",
+    "has_next_page": true
+  }
 }
 ```
 
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `edges[]` | One post tagged at the location. The list holds a page of results. |
+| `edges[].node` | The media object for the post. |
+| `edges[].node.__typename` | The type of the media object. The sample shows `XDTMediaDict`. |
+| `edges[].cursor` | Per-item cursor. It is `null` in the sample, so use `page_info.end_cursor` to page. |
+| `edges[].node.accessibility_caption` | Accessibility caption for the media. It is `null` in the sample. |
+| `edges[].node.ad_id / edges[].node.boosted_status` | Ad and boost details for the post. They are `null` in the sample, so the posts shown are not marked as ads. |
+| `page_info.end_cursor` | Cursor for the next page. Send it as `end_cursor` in the next request. |
+| `page_info.has_next_page` | `true` when more posts are available after this page. |
+| `attempts` | Number of attempts made to build this response. The sample value is `14`. |
+
 ### Notes
 
-- `location_id` is required to identify the target place.
-- `tab` supports "ranked" for top posts and "recent" for latest posts.
-- `end_cursor` provides pagination; omit it on the initial request.
+- Send only `location_id` on the first request. Then pass `page_info.end_cursor` as `end_cursor` to get the next page.
+- `tab` accepts `ranked` for top posts (the default) and `recent` for latest posts.
+- Many `node` fields come back as `null` in the sample, so check each field before you use it.
+- Use [Instagram Location Details (V1)](/apis/instagram/v1/location-info) to look up details for the same `location_id`.
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

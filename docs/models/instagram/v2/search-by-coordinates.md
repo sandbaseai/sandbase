@@ -65,13 +65,14 @@ Same call via the path form: `POST /v1/api/instagram/v2/search-by-coordinates` w
 
 ## Details
 
-Locate nearby Instagram places by providing geographic coordinates via `latitude` and `longitude`. The endpoint returns matching location records along with their IDs and names.
+Returns a list of Instagram locations near a pair of coordinates. Each item has a place name, an ID, and the latitude and longitude. The request needs `latitude` and `longitude` as numbers.
 
 ### Use cases
 
-- Discover Instagram location IDs for places near specific GPS coordinates.
-- Tag posts with accurate local venues based on device coordinates.
-- Map physical business locations to corresponding Instagram place entries.
+- Find the Instagram location ID for a venue when you only have its GPS coordinates.
+- Build a list of nearby places for a map or check-in picker from a device position.
+- Match a store or hotel address to its Instagram place entry before collecting posts tagged there.
+- Check which place names Instagram lists around a given point.
 
 ### Request
 
@@ -82,6 +83,8 @@ curl -X POST "https://api.sandbase.ai/v1/api/instagram/v2/search-by-coordinates"
   -d '{"latitude": 0, "longitude": 0}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
@@ -91,28 +94,56 @@ curl -X POST "https://api.sandbase.ai/v1/api/instagram/v2/search-by-coordinates"
 
 ### Example response
 
-Real response for the request above, trimmed to the main fields. User names and long IDs are masked.
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
 
 ```json
 {
   "data": {
+    "count": 25,
     "items": [
       {
-        "id": "469499352918885",
-        "name": "Đặng Viring Specialty Coffee"
+        "address": "<0.1mi · 新北市中和橋和路15號",
+        "category": "",
+        "city": null,
+        "hours": [],
+        "id": "482775614919229",
+        "id_source": "facebook_places",
+        "latitude": 0,
+        "longitude": 0,
+        "name": "萱子的秘密小屋",
+        "phone": "",
+        "website": "",
+        "zip": null
       }
     ]
   }
 }
 ```
 
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `data.count` | Number of location items in the response. |
+| `data.items[].id` | Identifier of the location. Use it to look up posts tagged at that place. |
+| `data.items[].id_source` | Source system of the ID. The sample values are `facebook_places`. |
+| `data.items[].name` | Display name of the place. |
+| `data.items[].address` | Street address text. It can start with a distance prefix such as `<0.1mi ·`. |
+| `data.items[].latitude / data.items[].longitude` | Coordinates of the place. In the sample response both are `0`. |
+| `data.items[].category / data.items[].phone / data.items[].website` | Optional place details. They are empty strings when no value is set. |
+| `data.items[].city / data.items[].zip` | City and postal code. Both are `null` in the sample response. |
+| `data.items[].hours` | List of opening hours. It is empty in the sample response. |
+
 ### Notes
 
-- Both `latitude` and `longitude` are required numerical inputs.
+- Both `latitude` and `longitude` are required numbers.
+- Many fields such as `category`, `phone`, `website`, `city` and `zip` can be empty or `null`, so check them before use.
+- Pass a location `id` to [Instagram Location Posts (V2)](/apis/instagram/v2/location-posts) to get posts for that place.
+- To find a place by name instead of coordinates, use [Instagram Location Search](/apis/instagram/v2/search-locations).
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.002 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

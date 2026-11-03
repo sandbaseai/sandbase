@@ -67,7 +67,14 @@ Same call via the path form: `POST /v1/api/reddit/subreddit-posts` with the body
 
 ## Details
 
-Fetch posts from a subreddit listing (hot, new, or top).
+Returns a page of posts from a subreddit listing, sorted by `hot`, `new` or `top`. It needs a `subreddit` name without the leading r/, such as `programming`.
+
+### Use cases
+
+- Track new posts in a subreddit by polling the `new` sort and storing each post `id`.
+- Build a weekly digest of the best posts in a community using `sort` set to `top` and `timeframe` set to `week`.
+- Collect link posts and their `url` values to monitor which sites and videos a community shares.
+- Compare `score` and `upvoteRatio` across posts to see which topics get approval or push back.
 
 ### Request
 
@@ -78,7 +85,7 @@ curl -X POST "https://api.sandbase.ai/v1/api/reddit/subreddit-posts" \
   -d '{"limit": 5, "subreddit": "programming"}'
 ```
 
-The result is returned in `outputs[0].data`. A lookup that finds nothing still succeeds and returns `found: false`.
+The result is returned in `outputs[0].data`.
 
 ### Parameters
 
@@ -89,12 +96,64 @@ The result is returned in `outputs[0].data`. A lookup that finds nothing still s
 | `cursor` | string | No | Opaque pagination cursor from a previous response's `nextCursor`; omit for the first page. |
 | `limit` | integer | No | Page size to ask for (up to 100). Some sources honor it; others always return their whole page of about 25 posts. A page is never trimmed after the call, so pass nextCursor back as cursor to continue exactly where this r |
 | `requireFields` | array | No | Optional; omit it and routing is unchanged, with the cheapest source serving. Name the output fields this request must be able to return, for example `isArchived` or `selftext`, and it is served only by a source that ret |
-| `sort` | string | No | Listing sort order. One of: `hot`, `new`, `top`. Default `"hot"`. |
-| `timeframe` | string | No | Time window, applied when sort is "top" (e.g. "year" for the year's top posts). Ignored for hot/new. Omit to default to the current day for top. One of: `all`, `year`, `month`, `week`, `day`, `hour`. |
+| `sort` | string | No | Listing sort order. |
+| `timeframe` | string | No | Time window, applied when sort is "top" (e.g. "year" for the year's top posts). Ignored for hot/new. Omit to default to the current day for top. |
+
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "data": {
+    "nextCursor": "cur_eQ7nxx9EkQ_JKD3XB66aFA",
+    "posts": [
+      {
+        "author": "grahamperrin",
+        "authorId": "5mpae",
+        "createdUtc": 1793670897,
+        "id": "1xmgayd",
+        "nsfw": false,
+        "numComments": 1,
+        "permalink": "/r/programming/comments/1xmgayd/a_decade_of_kill_bugs_alan_grow/",
+        "score": 36,
+        "selftext": ">… A bug in kill was so surprising that, once I'd found it, I couldn't stop ther…",
+        "subreddit": "programming",
+        "title": "A Decade of Kill Bugs – Alan Grow",
+        "upvoteRatio": 0.95
+      }
+    ]
+  },
+  "found": true
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `data.posts[].id` | Short ID of the post. Use it to identify the post and to look it up with other Reddit APIs. |
+| `data.posts[].title` | Title of the post. |
+| `data.posts[].author / data.posts[].authorId` | Username of the poster and the poster's account ID. |
+| `data.posts[].createdUtc` | Creation time of the post as a Unix timestamp in seconds, in UTC. |
+| `data.posts[].score` | Net score of the post, as shown on Reddit. |
+| `data.posts[].upvoteRatio` | Share of votes that are upvotes, as a number between 0 and 1. |
+| `data.posts[].numComments` | Number of comments on the post. |
+| `data.posts[].url` | Link the post points to. This can be an external page, a video, or a Reddit link. |
+| `data.posts[].permalink` | Path of the post on Reddit, starting with `/r/` or `/user/`. Add the Reddit domain to build a full link. |
+| `data.posts[].selftext` | Body text of a text post. It is an empty string for posts without body text. Long bodies may be cut. |
+| `data.nextCursor` | Cursor for the next page. Pass it back as `cursor`. |
+
+### Notes
+
+- Pass `data.nextCursor` as `cursor` to get the next page. Omit `cursor` for the first page. Prefer `cursor` over the legacy `after` field.
+- `timeframe` only applies when `sort` is `top`. Without it, `top` covers the current day.
+- Set `requireFields` to `isArchived`, `isLocked` or `selftext` if you need those fields. This may route the call to a dearer source.
+- To read the discussion on a post, call [Reddit Post Comments](/apis/reddit/post-comments). For full post data, call [Reddit Post](/apis/reddit/post).
 
 ### Pricing
 
-Billed at the actual cost of each call, usually $0.00038 per request. A call can cost more when the first data source fails and another one answers. Failed calls are not charged. Lookups that find nothing and searches with no results are billed at their actual cost, which is often lower and can be $0.
+Billed at the actual cost of each call, about $0.00038 for the request above. Failed calls are not charged.
 
 ---
 Machine-readable: [`catalog/models/reddit/subreddit-posts.json`](../../../catalog/models/reddit/subreddit-posts.json) · Store page: https://www.sandbase.ai/model/reddit/subreddit-posts

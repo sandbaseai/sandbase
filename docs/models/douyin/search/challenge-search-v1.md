@@ -83,13 +83,14 @@ Same call via the path form: `POST /v1/api/douyin/search/challenge-search-v1` wi
 
 ## Details
 
-Query Douyin hashtag and challenge listings by submitting a `keyword`. Paginate through results using `cursor`, `search_id`, and `backtrace`.
+Returns Douyin challenge (hashtag) search results that match a `keyword`. Each result holds the challenge name, its ID, and the creator's avatar images. You can filter by publish time, content type and duration, and you can set the sort order.
 
 ### Use cases
 
-- Discover trending Douyin hashtags and challenge topics for topic research.
-- Look up challenge metadata including challenge status and profile image assets.
-- Filter hashtag query results by sorting criteria and duration.
+- Find Douyin hashtags that contain a topic word, such as `猫咪`, and compare their name variants.
+- Collect challenge IDs (`cid`) to use in other hashtag lookups.
+- Page through all challenges for a keyword to build a hashtag list for a topic.
+- Check whether a challenge is active by reading `challenge_status`.
 
 ### Request
 
@@ -100,48 +101,116 @@ curl -X POST "https://api.sandbase.ai/v1/api/douyin/search/challenge-search-v1" 
   -d '{}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
 |---|---|---|---|
-| `cursor` | integer | No | Pagination cursor (0 for first request) |
-| `keyword` | string | No | Search keyword, e.g., "food" |
 | `backtrace` | string | No | Backtrace for pagination, obtained from the last response |
+| `content_type` | string | No | Content type filter |
+| `cursor` | integer | No | Pagination cursor (0 for first request) |
+| `filter_duration` | string | No | Video duration filter |
+| `keyword` | string | No | Search keyword, e.g., "food" |
+| `publish_time` | string | No | Publish time filter |
 | `search_id` | string | No | Search ID for pagination |
 | `sort_type` | string | No | Sorting method |
-| `content_type` | string | No | Content type filter |
-| `publish_time` | string | No | Publish time filter |
-| `filter_duration` | string | No | Video duration filter |
 
 ### Example response
 
-Real response for the request above, trimmed to the main fields. User names and long IDs are masked.
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
 
 ```json
 {
+  "ad_info": {},
   "challenge_list": [
     {
       "challenge_info": {
-        "cha_name": "宠物猫咪",
+        "author": {
+          "accept_private_policy": false,
+          "account_region": "",
+          "ad_cover_url": null,
+          "allow_story_normal_like": false,
+          "apple_account": 0,
+          "authority_status": 0,
+          "avatar_168x168": {
+            "height": 720,
+            "uri": "168x168/aweme-avatar/tos-cn-avt-0015_8f9c89c85921da89d4026411d3fd5864",
+            "url_list": [
+              "https://p3.douyinpic.com/img/aweme-avatar/tos-cn-avt-0015_8f9c89c85921da89d40264…"
+            ],
+            "width": 720
+          },
+          "avatar_300x300": {
+            "height": 720,
+            "uri": "300x300/aweme-avatar/tos-cn-avt-0015_8f9c89c85921da89d4026411d3fd5864",
+            "url_list": [
+              "https://p3.douyinpic.com/img/aweme-avatar/tos-cn-avt-0015_8f9c89c85921da89d40264…"
+            ],
+            "width": 720
+          }
+        },
+        "banner_list": null,
+        "cha_attrs": null,
+        "cha_name": "猫咪",
         "challenge_status": 1,
-        "from_ugc_hashtag_bank": "1",
-        "hashtag_profile": "https://p3-sign.douyinpic.com/obj/image-cut-tos/bfe0b2e5561077683b8dca38cf1f5e5b…",
-        "publish_type": 1,
-        "sub_type": 0
-      }
+        "cid": "1562727459956738",
+        "collect_stat": 0,
+        "connect_music": []
+      },
+      "items": null,
+      "position": null
     }
-  ]
+  ],
+  "cursor": 20,
+  "extra": {
+    "fatal_item_ids": [],
+    "logid": "20261103153215538D3B1418CA743E39F6",
+    "now": 1793691135000,
+    "scenes": null,
+    "search_request_id": ""
+  },
+  "global_doodle_config": {
+    "keyword": "猫咪"
+  },
+  "has_more": 1,
+  "is_match": false,
+  "keyword_disabled": 0,
+  "log_pb": {
+    "impr_id": "20261103153215538D3B1418CA743E39F6",
+    "stab_extra": {
+      "traffic_identification": "normal"
+    }
+  },
+  "qc": "",
+  "status_code": 0
 }
 ```
 
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `challenge_list[].challenge_info.cha_name` | The hashtag or challenge name, shown without the # sign. |
+| `challenge_list[].challenge_info.cid` | The challenge ID as a string. Use it to identify the hashtag in other calls. |
+| `challenge_list[].challenge_info.challenge_status` | Status code of the challenge. The value `1` appears on all sample results. |
+| `challenge_list[].challenge_info.author.avatar_168x168 / challenge_list[].challenge_info.author.avatar_300x300` | Avatar images tied to the challenge author, at two sizes. Each has `uri`, `url_list`, `width` and `height`. |
+| `challenge_list[].challenge_info.author.avatar_168x168.url_list` | Image URLs for the avatar in WebP and JPEG formats. |
+| `challenge_list[].items` | Video items under the challenge. It is `null` in the sample results. |
+| `cursor` | Offset to send as `cursor` for the next page. The sample shows `20`. |
+| `has_more` | Shows whether more results exist. `1` means more pages are available. |
+| `extra.logid / log_pb.impr_id` | Request log ID and impression ID for this response. |
+| `status_code` | Status code of the response. `0` appears on this successful call. |
+
 ### Notes
 
-- Set `cursor` to 0 for the first request and pass subsequent offsets for pagination.
-- Pass `backtrace` and `search_id` from the previous response when paginating through results.
+- Send `cursor` as `0` on the first request. For the next page, send the `cursor` value from the response and keep `has_more` in mind to know when to stop.
+- The parameters `backtrace` and `search_id` are meant for pagination. In this response `extra.search_request_id` is an empty string.
+- To see details for a challenge you found, call [Douyin Hashtag Details](/apis/douyin/app-v3/hashtag-detail). To list its videos, call [Douyin Hashtag Video List](/apis/douyin/app-v3/hashtag-video-list).
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.01 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

@@ -65,13 +65,14 @@ Same call via the path form: `POST /v1/api/douyin/app-v3/hashtag-video-list` wit
 
 ## Details
 
-Query videos linked to a specific Douyin topic using `ch_id`. You can sort results by popularity or date using `sort_type` and paginate through feeds with `cursor`.
+Returns a page of videos posted under one Douyin hashtag. It needs the hashtag id in `ch_id`, and you can sort by default rank, most likes or latest release.
 
 ### Use cases
 
-- Track video submissions and trends under a specific Douyin hashtag.
-- Monitor top-liked video content for competitive topic research.
-- Retrieve the latest public posts associated with a campaign hashtag.
+- Collect the videos posted under a campaign hashtag to see who is taking part.
+- Pull the most liked videos for a hashtag with `sort_type` set to `1` to study what content works.
+- Pull the newest videos for a hashtag with `sort_type` set to `2` to watch new posts as they appear.
+- Build a list of creators active in a topic from the author data of each video.
 
 ### Request
 
@@ -82,6 +83,8 @@ curl -X POST "https://api.sandbase.ai/v1/api/douyin/app-v3/hashtag-video-list" \
   -d '{"ch_id": "1575791821492238"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
@@ -91,15 +94,103 @@ curl -X POST "https://api.sandbase.ai/v1/api/douyin/app-v3/hashtag-video-list" \
 | `cursor` | integer | No | Cursor, used for paging, the first page is 0, the second page is the cursor value in the first response. |
 | `sort_type` | integer | No | 0: Comprehensive sorting 1: Most likes 2: Latest release |
 
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "aweme_list": [],
+  "cursor": 10,
+  "extra": {
+    "fatal_item_ids": [],
+    "logid": "20261103153135911EFF7F3C1CEA5D8041",
+    "now": 1793691096000
+  },
+  "has_more": 1,
+  "log_pb": {
+    "impr_id": "20261103153135911EFF7F3C1CEA5D8041"
+  },
+  "mix_list": [
+    {
+      "aweme_info": {
+        "activity_video_type": -1,
+        "ad_charge_passive_unlock_config": {
+          "broadcast_btn_config": {
+            "btn_show_frequency": 1,
+            "btn_show_second": 5,
+            "btn_text": "秒后解锁下一集",
+            "show_second_type": 2
+          },
+          "trial_btn_config": {
+            "btn_show_frequency": 1,
+            "btn_show_second": 3,
+            "btn_text": "秒后解锁本集",
+            "show_second_type": 2
+          }
+        },
+        "ai_follow_images": null,
+        "anchors": null,
+        "authentication_token": "MS4wLjAA…",
+        "author": {
+          "accept_private_policy": false,
+          "account_region": "",
+          "ad_cover_url": null,
+          "allow_story_normal_like": false,
+          "apple_account": 0,
+          "authority_status": 0,
+          "avatar_168x168": {
+            "height": 720,
+            "uri": "168x168/aweme-avatar/tos-cn-i-0813c000-ce_oUiarAJqYAblEMeAi89JB9lEe1gfI2DAAgdwEB",
+            "url_list": [
+              "https://p3.douyinpic.com/img/aweme-avatar/tos-cn-i-0813c000-ce_oUiarAJqYAblEMeAi…"
+            ],
+            "width": 720
+          },
+          "avatar_300x300": {
+            "height": 720,
+            "uri": "300x300/aweme-avatar/tos-cn-i-0813c000-ce_oUiarAJqYAblEMeAi89JB9lEe1gfI2DAAgdwEB",
+            "url_list": [
+              "https://p3.douyinpic.com/img/aweme-avatar/tos-cn-i-0813c000-ce_oUiarAJqYAblEMeAi…"
+            ],
+            "width": 720
+          }
+        },
+        "author_mask_tag": 0,
+        "author_user_id": 7640751860513522725
+      },
+      "search_result_id": "7700554531473526057",
+      "type": 1
+    }
+  ],
+  "status_code": 0
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `mix_list[]` | The list of results on this page. Each item wraps one video. |
+| `mix_list[].aweme_info` | The video object. It holds the author, the video controls and other video data. |
+| `mix_list[].search_result_id` | The id of the video result, as a string. It matches the video id format used by other Douyin video APIs. |
+| `mix_list[].aweme_info.author` | The creator of the video. It includes avatar images as `avatar_168x168` and `avatar_300x300`, each with a `url_list` of image links. |
+| `mix_list[].aweme_info.author_user_id` | The numeric id of the creator who posted the video. |
+| `mix_list[].aweme_info.aweme_control.can_comment / can_forward / can_share` | Boolean flags that show whether commenting, forwarding and sharing are allowed on the video. |
+| `cursor` | The cursor value to send in the next request to get the following page. |
+| `has_more` | Shows whether more results exist. The value `1` means there is another page. |
+| `status_code` | The status of the call. The value `0` was returned for this successful request. |
+
 ### Notes
 
-- Set `cursor` to 0 for the first page, then use the cursor value returned in the response for subsequent pages.
-- Set `sort_type` to 0 for comprehensive sorting, 1 for most likes, or 2 for latest release.
-- It is recommended to keep `count` at its default value to prevent errors.
+- Start with `cursor` set to `0`. For the next page, send the `cursor` value from the previous response.
+- Check `has_more` before you request another page. The `aweme_list` array was empty in this response, and the videos were in `mix_list`.
+- Keep `count` at its default. The parameter description warns that other values can cause bugs.
+- Use [Douyin Hashtag Details](/apis/douyin/app-v3/hashtag-detail) for information about the hashtag itself, and [Douyin Single Video Details](/apis/douyin/app-v3/one-video) to look up one video by its id.
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

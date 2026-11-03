@@ -57,9 +57,14 @@ Same call via the path form: `POST /v1/api/dataforseo/v3/backlinks/bulk_referrin
 
 ## Details
 
-Referring domain counts for up to 1,000 domains, subdomains or pages in one request.
+This API returns referring domain counts for each target you send. Send up to 1,000 domains, subdomains or page URLs in `targets`, and get one row per target.
 
-Request fields follow the official DataForSEO `/v3/backlinks/bulk_referring_domains/live` task schema (one task per call). The response is DataForSEO's original JSON; results are in `tasks[].result`.
+### Use cases
+
+- Compare the referring domain counts of several competitor sites in one call.
+- Rank a list of prospect domains by how many sites link to them.
+- Check how many referring domains are nofollow versus all referring domains for a set of pages.
+- Add referring domain counts to a spreadsheet of hundreds of URLs without sending one request per URL.
 
 ### Request
 
@@ -70,21 +75,85 @@ curl -X POST "https://api.sandbase.ai/v1/api/dataforseo/v3/backlinks/bulk_referr
   -d '{"targets": ["nike.com", "adidas.com"]}'
 ```
 
+The result is returned in `outputs[0]`.
+
 ### Parameters
 
-The JSON body is forwarded to the upstream endpoint. Main fields:
+| Name | Type | Required | Description |
+|---|---|---|---|
+| `targets` | array | No | Array of domains, subdomains or page URLs (up to 1,000). |
 
-| Name | Description |
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "status_code": 20000,
+  "status_message": "Ok.",
+  "tasks": [
+    {
+      "data": {
+        "api": "backlinks",
+        "function": "bulk_referring_domains",
+        "targets": [
+          "nike.com"
+        ]
+      },
+      "id": "11030828-2190-0351-0000-78537a6dd681",
+      "path": [
+        "v3"
+      ],
+      "result": [
+        {
+          "items": [
+            {
+              "referring_domains": 173751,
+              "referring_domains_nofollow": 21984,
+              "referring_main_domains": 160551,
+              "referring_main_domains_nofollow": 17377,
+              "target": "nike.com"
+            }
+          ],
+          "items_count": 2
+        }
+      ],
+      "result_count": 1,
+      "status_code": 20000,
+      "status_message": "Ok.",
+      "time": "0.6460 sec."
+    }
+  ],
+  "tasks_count": 1,
+  "tasks_error": 0,
+  "time": "0.6542 sec.",
+  "version": "0.1.20261022"
+}
+```
+
+### Response fields
+
+| Field | Meaning |
 |---|---|
-| `targets` | Array of domains, subdomains or page URLs (up to 1,000). |
+| `tasks[].result[].items[].target` | The domain, subdomain or page URL this row describes. It matches a value you sent in `targets`. |
+| `tasks[].result[].items[].referring_domains` | Total number of referring domains that link to the target. |
+| `tasks[].result[].items[].referring_domains_nofollow` | Number of referring domains that link to the target with nofollow links. |
+| `tasks[].result[].items[].referring_main_domains` | Number of referring main domains that link to the target. A main domain is the root domain without subdomains, so this count is lower than `referring_domains`. |
+| `tasks[].result[].items[].referring_main_domains_nofollow` | Number of referring main domains that link to the target with nofollow links. |
+| `tasks[].result[].items_count` | Number of rows in `items` for this result. |
+| `tasks[].data.targets` | The list of targets the task received. |
+| `tasks[].id` | The task ID for this call. |
 
-### Reference
+### Notes
 
-- Official docs: https://docs.dataforseo.com/v3/backlinks/bulk_referring_domains/live/
+- Pass every target in the `targets` array of one request. The limit is 1,000 targets.
+- The response uses the original task structure. Read the rows from `tasks[].result[].items[]`.
+- Use [Backlinks Bulk Backlink Counts](/apis/dataforseo/v3/backlinks/bulk_backlinks/live) to get backlink counts for the same targets.
+- Use [Backlinks Referring Domains](/apis/dataforseo/v3/backlinks/referring_domains/live) to list the actual referring domains for one target.
 
 ### Pricing
 
-Billed at the actual cost of each call, about $0.024072 for the request above. The cost grows with the number of rows, targets or tokens a call returns. Failed calls are not charged. Searches with no results are billed at their actual cost.
+Billed at the actual cost of each call, about $0.024072 for the request above. Failed calls are not charged.
 
 ---
 Machine-readable: [`catalog/models/dataforseo/v3/backlinks/bulk_referring_domains/live.json`](../../../../../../catalog/models/dataforseo/v3/backlinks/bulk_referring_domains/live.json) · Store page: https://www.sandbase.ai/model/dataforseo/v3/backlinks/bulk_referring_domains/live

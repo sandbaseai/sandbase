@@ -62,13 +62,14 @@ Same call via the path form: `POST /v1/api/weibo/web-v2/ai-related-search` with 
 
 ## Details
 
-Retrieves AI-extended search content such as related questions and recommended bloggers based on a `keyword`.
+Returns AI-generated search extension content for a keyword on Weibo. The content comes back as one HTML string that holds related questions, recommended bloggers, and reference posts. It needs one input, `keyword`.
 
 ### Use cases
 
-- Explore related search questions and discussions around a specific topic.
-- Identify recommended bloggers associated with a keyword.
-- Discover reference posts tied to search queries.
+- Pull the HTML block for a topic and parse out the related questions to see what users ask about it.
+- Extract the recommended bloggers for a keyword to build a list of accounts to follow or study.
+- Collect the reference posts shown for a keyword to find source posts for a topic.
+- Compare the AI extension block across several topic keywords to see how the content differs.
 
 ### Request
 
@@ -79,19 +80,45 @@ curl -X POST "https://api.sandbase.ai/v1/api/weibo/web-v2/ai-related-search" \
   -d '{"keyword": "OpenAI"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
 |---|---|---|---|
 | `keyword` | string | Yes | Search keyword (required, recommend using topic format #TopicName#) |
 
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "code": "100000",
+  "data": {
+    "html": "                            <div class=\"zhisou_module_9000\">\n            <div cl…"
+  },
+  "msg": ""
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `code` | Status code of the response. The sample call returned `100000`. |
+| `msg` | Message text. It was an empty string in the sample call. |
+| `data.html` | HTML markup of the AI search extension module. It holds the related questions, recommended bloggers, and reference posts as page elements, so you need to parse the HTML to read them. |
+
 ### Notes
 
-- Topic format `#TopicName#` is recommended for `keyword`.
+- Use the topic format `#TopicName#` for `keyword`, for example `#OpenAI#`, as the parameter description recommends.
+- The response has no separate JSON fields for questions, bloggers, or posts. Parse `data.html` to get them.
+- To read full posts found this way, call [Weibo Post Detail](/apis/weibo/web-v2/post-detail). For more keyword ideas, try [Weibo Similar Search Recommendations](/apis/weibo/web-v2/similar-search).
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

@@ -62,13 +62,13 @@ Same call via the path form: `POST /v1/api/weibo/web-v2/check-allow-comment-with
 
 ## Details
 
-Determines whether image comments are permitted on a given post by querying the target post `id`.
+Returns whether a Weibo post allows users to attach images to their comments. It needs one input, the Weibo post `id`.
 
 ### Use cases
 
-- Check if image attachments are supported before displaying media upload options.
-- Verify post comment permissions across monitored Weibo threads.
-- Filter target posts based on their image comment eligibility status.
+- Check a post before showing an image upload option in a comment tool.
+- Screen a list of monitored posts to see which ones accept image comments.
+- Filter target posts by image comment eligibility before running a comment campaign.
 
 ### Request
 
@@ -79,19 +79,41 @@ curl -X POST "https://api.sandbase.ai/v1/api/weibo/web-v2/check-allow-comment-wi
   -d '{"id": "5092682368025584"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
 |---|---|---|---|
 | `id` | string | Yes | Weibo post ID (required) |
 
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "ok": 1,
+  "result": true
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `result` | Image comment eligibility for the post. `true` means the post allows image attachments in comments, and `false` means it does not. |
+| `ok` | Status flag for the request. A value of `1` means the call went through. |
+
 ### Notes
 
-- The `id` parameter specifies the target Weibo post ID.
+- Send the post `id` as a string, for example `5092682368025584`.
+- To read the comments on the post, call [Weibo Post Comments](/apis/weibo/web-v2/post-comments).
+- To get the post itself, call [Weibo Post Detail](/apis/weibo/web-v2/post-detail).
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

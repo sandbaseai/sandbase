@@ -57,13 +57,14 @@ Same call via the path form: `POST /v1/api/dataforseo/v3/backlinks/bulk_ranks/li
 
 ## Details
 
-This endpoint retrieves backlink ranks and authority metrics for multiple targets in bulk. It returns evaluation data across specified domains or URLs.
+Returns a `rank` value for each domain or page in a list of targets. Send a `targets` array of domains or URLs, and the response lists one item per target.
 
 ### Use cases
 
-- Evaluate rank authority for competitor domains in bulk.
-- Audit backlink scores across multiple internal website pages.
-- Filter prospective link-building targets based on rank metrics.
+- Compare the backlink rank of your domain against a list of competitor domains in one call.
+- Sort a list of prospective link partners by `rank` to decide which sites to contact first.
+- Check the rank of several pages on your own site to see which ones carry the most backlink authority.
+- Track a set of domains over time by saving the `rank` values from repeated calls.
 
 ### Request
 
@@ -74,17 +75,82 @@ curl -X POST "https://api.sandbase.ai/v1/api/dataforseo/v3/backlinks/bulk_ranks/
   -d '{"targets": ["nike.com", "adidas.com"]}'
 ```
 
+The result is returned in `outputs[0]`.
+
 ### Parameters
 
-The JSON body is forwarded to the upstream endpoint (one task per call). Fields used above:
+| Name | Type | Required | Description |
+|---|---|---|---|
+| `targets` | array | No | Target domains or pages. |
 
-| Name | Description |
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "status_code": 20000,
+  "status_message": "Ok.",
+  "tasks": [
+    {
+      "data": {
+        "api": "backlinks",
+        "function": "bulk_ranks",
+        "targets": [
+          "nike.com"
+        ]
+      },
+      "id": "11030828-2190-0347-0000-8a5f0260698d",
+      "path": [
+        "v3"
+      ],
+      "result": [
+        {
+          "items": [
+            {
+              "rank": 604,
+              "target": "nike.com"
+            }
+          ],
+          "items_count": 2
+        }
+      ],
+      "result_count": 1,
+      "status_code": 20000,
+      "status_message": "Ok.",
+      "time": "0.0471 sec."
+    }
+  ],
+  "tasks_count": 1,
+  "tasks_error": 0,
+  "time": "0.0539 sec.",
+  "version": "0.1.20261022"
+}
+```
+
+### Response fields
+
+| Field | Meaning |
 |---|---|
-| `targets` | Target domains or pages. |
+| `tasks[].result[].items[].target` | The domain or page that the rank belongs to. It matches one of the values you sent in `targets`. |
+| `tasks[].result[].items[].rank` | The rank value for the target. A higher number means a higher rank in this response, for example `604` for `nike.com` and `596` for `adidas.com`. |
+| `tasks[].result[].items_count` | The number of items returned in the result. |
+| `tasks[].result_count` | The number of result objects in the task. |
+| `tasks[].data.targets` | The list of targets the task ran on, echoed from your request. |
+| `tasks[].id` | The unique ID of the task. |
+| `tasks[].status_code / tasks[].status_message` | The status of the task. `20000` with `Ok.` means the task succeeded. |
+| `tasks_count / tasks_error` | The number of tasks in the response and how many of them returned an error. |
+
+### Notes
+
+- Pass domains such as `nike.com` or full page URLs in the `targets` array. Each target returns one row in `items`.
+- Match rows to your input by reading `target` in each item, not by position.
+- For counts instead of rank, call [DataForSEO Backlinks Bulk Backlink Counts](/apis/dataforseo/v3/backlinks/bulk_backlinks/live) or [DataForSEO Backlinks Bulk Referring Domain Counts](/apis/dataforseo/v3/backlinks/bulk_referring_domains/live).
+- For a full profile of one target, call [DataForSEO Backlinks Summary](/apis/dataforseo/v3/backlinks/summary/live).
 
 ### Pricing
 
-Billed at the actual cost of each call, about $0.024072 for the request above. The cost grows with the number of rows, targets or pages a call returns. Failed calls are not charged. Searches with no results are billed at their actual cost.
+Billed at the actual cost of each call, about $0.024072 for the request above. Failed calls are not charged.
 
 ### Related APIs
 

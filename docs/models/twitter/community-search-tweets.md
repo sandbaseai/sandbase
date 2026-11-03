@@ -65,9 +65,14 @@ Same call via the path form: `POST /v1/api/twitter/community-search-tweets` with
 
 ## Details
 
-Search tweets posted in all X Communities by keyword, sorted by Latest or Top.
+This API searches tweets posted in X Communities by keyword. It needs a `query` and a `queryType` (`Latest` or `Top`). It returns a page of tweets with engagement counts, text, links and author data, plus a cursor for the next page.
 
-The result is returned in `outputs[0].data` as the official X (Twitter) API response, unchanged.
+### Use cases
+
+- Track what people say about a topic such as `AI` inside X Communities.
+- Pull the `Top` tweets for a keyword to find the most engaged community posts.
+- Collect new community posts on a keyword with `Latest` for monitoring or alerts.
+- Build a dataset of community tweets in different languages using the `lang` field.
 
 ### Request
 
@@ -78,17 +83,84 @@ curl -X POST "https://api.sandbase.ai/v1/api/twitter/community-search-tweets" \
   -d '{"query": "AI", "queryType": "Latest"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
 |---|---|---|---|
-| `cursor` | string | No | Cursor for pagination |
 | `query` | string | Yes | Search query (e.g., keyword) |
 | `queryType` | string | Yes | Query type (Latest or Top) |
+| `cursor` | string | No | Cursor for pagination |
+
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "has_next_page": true,
+  "next_cursor": "DAAHCgABHWL0Qjt__-QLAAIAAAAUV3pFM09UTTJPVEV5TnpBd01EQmQIAAMAAAACAAA",
+  "tweets": [
+    {
+      "article": null,
+      "author": {
+        "affiliatesHighlightedLabel": {},
+        "automatedBy": null,
+        "canDm": true,
+        "canMediaTag": false,
+        "coverPicture": "",
+        "createdAt": "Mon Jun 10 07:14:28 +0000 2024",
+        "description": "",
+        "entities": {
+          "description": {
+            "urls": []
+          },
+          "url": {}
+        }
+      },
+      "bookmarkCount": 0,
+      "card": null,
+      "communityInfo": null,
+      "conversationId": "2117523188305531208",
+      "createdAt": "Tue Nov 03 07:44:04 +0000 2026",
+      "displayTextRange": [
+        0
+      ],
+      "entities": {},
+      "extendedEntities": {},
+      "id": "2117523188305531208",
+      "inReplyToId": null
+    }
+  ]
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `tweets[].id` | ID of the tweet, as a string. |
+| `tweets[].text` | Text of the tweet. Long text may be cut off with an ellipsis. |
+| `tweets[].url / tweets[].twitterUrl` | Links to the tweet on x.com and twitter.com. |
+| `tweets[].createdAt` | Time the tweet was posted, in a format like `Tue Nov 03 07:43:59 +0000 2026`. |
+| `tweets[].likeCount / tweets[].replyCount / tweets[].retweetCount / tweets[].quoteCount / tweets[].bookmarkCount / tweets[].viewCount` | Engagement counts for the tweet. |
+| `tweets[].lang` | Language code of the tweet, such as `en`, `ja` or `vi`. |
+| `tweets[].isReply / tweets[].inReplyToId` | Shows whether the tweet is a reply. When it is, `inReplyToId` holds the ID of the tweet it answers. |
+| `tweets[].entities.user_mentions[]` | Accounts mentioned in the tweet, with `screen_name`, `name` and `id_str`. |
+| `tweets[].author` | Profile data for the account that posted the tweet, such as `createdAt`, `coverPicture` and `canDm`. |
+| `has_next_page / next_cursor` | `has_next_page` tells you if more results exist. `next_cursor` is the value to send as `cursor` to get them. |
+
+### Notes
+
+- Set `queryType` to `Latest` for newest tweets first or `Top` for the most relevant ones.
+- To get the next page, pass the `next_cursor` value as `cursor` and repeat the same `query` and `queryType`.
+- Tweet IDs are strings. Pass them to [Twitter Tweet Detail](/apis/twitter/web/tweet-detail) or [X (Twitter) Tweets by IDs](/apis/twitter/tweets-by-ids) for more on a single tweet.
+- To find communities by name rather than by tweet text, use [X / Twitter Community Search](/apis/twitter/search-communities).
 
 ### Pricing
 
-Billed at the actual cost of each call, about $0.003 for a typical request; the cost grows with the number of rows returned. Searches with no results are billed at their actual cost. Failed calls are not charged.
+Billed at the actual cost of each call, about $0.003 for the request above. Failed calls are not charged.
 
 ---
 Machine-readable: [`catalog/models/twitter/community-search-tweets.json`](../../../catalog/models/twitter/community-search-tweets.json) · Store page: https://www.sandbase.ai/model/twitter/community-search-tweets

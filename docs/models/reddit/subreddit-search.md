@@ -66,7 +66,14 @@ Same call via the path form: `POST /v1/api/reddit/subreddit-search` with the bod
 
 ## Details
 
-Search posts within a single subreddit by query, sort, and timeframe.
+Returns Reddit posts from one subreddit that match a search query. It needs a `subreddit` name without the r/ prefix, and it accepts an optional `query`, `sort` and `timeframe`.
+
+### Use cases
+
+- Find past discussions of a topic, such as push-ups, inside r/Fitness.
+- Rank the top posts of a subreddit for a keyword by `score` or `numComments` to see which threads got the most attention.
+- Collect post titles and text from a community to study how people talk about a topic.
+- Track new posts that mention a brand or term in a subreddit by sorting with `new`.
 
 ### Request
 
@@ -77,7 +84,7 @@ curl -X POST "https://api.sandbase.ai/v1/api/reddit/subreddit-search" \
   -d '{"query": "push ups", "subreddit": "Fitness"}'
 ```
 
-The result is returned in `outputs[0].data`. A lookup that finds nothing still succeeds and returns `found: false`.
+The result is returned in `outputs[0].data`.
 
 ### Parameters
 
@@ -87,12 +94,63 @@ The result is returned in `outputs[0].data`. A lookup that finds nothing still s
 | `cursor` | string | No | Optional pagination token from a previous response. Include `nextCursor` in requireFields on the first request to make sure a source that supports pagination serves it. |
 | `query` | string | No | Optional search query to match posts (e.g. 'push ups'). |
 | `requireFields` | array | No | Optional; omit it and routing is unchanged, with the cheapest source serving. Name the output fields this request must be able to return, for example `nextCursor` or `selftext`, and it is served only by a source that ret |
-| `sort` | string | No | Optional sort order: relevance, hot, top, new, comments. One of: `relevance`, `hot`, `top`, `new`, `comments`. |
-| `timeframe` | string | No | Optional time filter: all, year, month, week, day, hour. One of: `all`, `year`, `month`, `week`, `day`, `hour`. |
+| `sort` | string | No | Optional sort order: relevance, hot, top, new, comments. |
+| `timeframe` | string | No | Optional time filter: all, year, month, week, day, hour. |
+
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "data": {
+    "nextCursor": "cur_vSRO4dkJp_Wni4NIHlJvKQ",
+    "posts": [
+      {
+        "author": "Yea_Red",
+        "authorId": "j6hq9",
+        "createdUtc": 1428859519,
+        "id": "32cksu",
+        "nsfw": false,
+        "numComments": 528,
+        "permalink": "/r/Fitness/comments/32cksu/how_much_will_pushups_help_my_chest/",
+        "score": 2003,
+        "selftext": "I try to do 100 a day. Is this doing anything for me, or should I just focus on …",
+        "subreddit": "Fitness",
+        "title": "How much will push-ups help my chest?",
+        "url": "https://www.reddit.com/r/Fitness/comments/32cksu/how_much_will_pushups_help_my_c…"
+      }
+    ]
+  },
+  "found": true
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `data.posts[].title` | Title of the post. |
+| `data.posts[].selftext` | Body text of the post. Long text may be cut, and link posts may have none. |
+| `data.posts[].score` | Score of the post. |
+| `data.posts[].numComments` | Number of comments on the post. |
+| `data.posts[].author / data.posts[].authorId` | Username and ID of the post author. |
+| `data.posts[].createdUtc` | Creation time of the post as a Unix timestamp in seconds (UTC). |
+| `data.posts[].id` | Short ID of the post, such as `32cksu`. |
+| `data.posts[].permalink / data.posts[].url` | Path and full URL of the post on Reddit. |
+| `data.posts[].nsfw` | `true` if the post is marked NSFW. |
+| `data.nextCursor` | Token to pass as `cursor` to get the next page of results. |
+
+### Notes
+
+- Pass the subreddit name without the r/ prefix, for example `Fitness`.
+- For more than the first page, add `nextCursor` to `requireFields` on the first request. Then send the returned `data.nextCursor` as `cursor` on the next call.
+- Add `selftext`, `isArchived` or `isLocked` to `requireFields` if you need those fields on every post.
+- To read the comments of a post, call [Reddit Post Comments](/apis/reddit/post-comments) with the post.
 
 ### Pricing
 
-Billed at the actual cost of each call, usually $0.00035 per request. A call can cost more when the first data source fails and another one answers. Failed calls are not charged. Lookups that find nothing and searches with no results are billed at their actual cost, which is often lower and can be $0.
+Billed at the actual cost of each call, about $0.00035 for the request above. Failed calls are not charged.
 
 ---
 Machine-readable: [`catalog/models/reddit/subreddit-search.json`](../../../catalog/models/reddit/subreddit-search.json) · Store page: https://www.sandbase.ai/model/reddit/subreddit-search

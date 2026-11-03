@@ -62,13 +62,14 @@ Same call via the path form: `POST /v1/api/douyin/web/user-profile-v3` with the 
 
 ## Details
 
-Retrieve public profile information for a Douyin user by supplying their account identifier via `uid`.
+Returns profile details and badge data for a Douyin account. It needs one input, `uid`, which is the short ID of the Douyin number.
 
 ### Use cases
 
-- Display public Douyin user details and profile badges.
-- Look up account information using a user short ID.
-- Verify Douyin account identity for creator monitoring.
+- Check whether a Douyin account carries an enterprise verification label before you work with it.
+- Download an account's avatar in 100x100, 720x720 or 1080x1080 size.
+- Read the public display ID (`display_id`) for a known short ID.
+- Check the honor level badges shown on a creator's account.
 
 ### Request
 
@@ -79,6 +80,8 @@ curl -X POST "https://api.sandbase.ai/v1/api/douyin/web/user-profile-v3" \
   -d '{"uid": "92769419069"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
@@ -87,30 +90,55 @@ curl -X POST "https://api.sandbase.ai/v1/api/douyin/web/user-profile-v3" \
 
 ### Example response
 
-Real response for the request above, trimmed to the main fields. User names and long IDs are masked.
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
 
 ```json
 {
   "data": {
-    "badge_image_list": [
-      {
-        "image_type": 1,
-        "content": {
-          "alternative_text": "荣誉等级0级勋章"
-        }
-      }
-    ]
-  }
+    "adversary_authorization_info": 1,
+    "adversary_user_status": 1,
+    "age_range": 0,
+    "allow_be_located": false,
+    "allow_find_by_contacts": false,
+    "allow_others_download_video": false,
+    "allow_others_download_when_sharing_video": false,
+    "allow_share_show_profile": false,
+    "allow_show_in_gossip": false,
+    "allow_show_my_action": false,
+    "allow_strange_comment": false,
+    "allow_unfollower_comment": false
+  },
+  "extra": {
+    "now": 1793691155539
+  },
+  "status_code": 0
 }
 ```
 
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `data.display_id` | The account's public display ID, for example `dyczxzs`. |
+| `data.authentication_info.enterprise_verify_reason` | The text of the enterprise verification label. In this response it reads as an official account of the Douyin creator center. |
+| `data.authentication_info.authentication_badge.uri` | Path of the verification badge icon. It is not a full URL. |
+| `data.avatar_large.url_list[] / data.avatar_medium.url_list[] / data.avatar_thumb.url_list[]` | Image URLs for the avatar in 1080x1080, 720x720 and 100x100 sizes. Each list holds several mirror URLs for the same image. |
+| `data.badge_image_list[].content.alternative_text` | Text description of a badge. In this response it describes an honor level 0 badge. |
+| `data.badge_image_list[].content.level` | Numeric level of the badge. |
+| `data.badge_image_list_v2[]` | A second badge list with the same structure as `badge_image_list`. |
+| `data.allow_strange_comment / data.allow_unfollower_comment / data.allow_others_download_video` | Boolean privacy and permission flags for the account. All are `false` in this response. |
+| `data.create_time / data.birthday / data.city` | Account creation time, birthday and city. They are `0` or empty in this response, so expect blanks for some accounts. |
+
 ### Notes
 
-- The `uid` parameter represents the short_id of the Douyin account.
+- Pass the account's short ID as `uid`. It is a string, for example `92769419069`.
+- Many profile fields come back as `0`, `false` or an empty string. Check for empty values before you use them.
+- To work with a `sec_user_id` instead, call [Douyin UID to Sec User ID](/apis/douyin/web/encrypt-uid-to-sec-user-id).
+- To look up several accounts in one call, use [Douyin Batch User Profile](/apis/douyin/web/batch-user-profile-v1).
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

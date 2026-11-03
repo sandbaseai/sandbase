@@ -63,13 +63,14 @@ Same call via the path form: `POST /v1/api/twitter/web/user-followings` with the
 
 ## Details
 
-Retrieve the list of accounts that a user follows using their `screen_name`. Paginate through extended results by passing the `cursor` from previous responses.
+Returns a page of the accounts that a Twitter (X) user follows. It needs the `screen_name` of that user, such as `NASA`. Each account comes with its profile details and activity counts.
 
 ### Use cases
 
-- Audit the public accounts followed by a specific profile.
-- Track network connections and interest graphs across Twitter (X).
-- Collect profile statistics for accounts in a user following list.
+- Map which accounts an organization or person follows to study its interests and partners.
+- Build a list of followed accounts and sort them by `followers_count` to find the most visible ones.
+- Collect `user_id` values of followed accounts to look up their full profiles in bulk.
+- Check the `website` and `description` of followed accounts to sort them into groups such as missions, agencies or people.
 
 ### Request
 
@@ -80,6 +81,8 @@ curl -X POST "https://api.sandbase.ai/v1/api/twitter/web/user-followings" \
   -d '{"screen_name": "NASA"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
@@ -89,33 +92,56 @@ curl -X POST "https://api.sandbase.ai/v1/api/twitter/web/user-followings" \
 
 ### Example response
 
-Real response for the request above, trimmed to the main fields. User names and long IDs are masked.
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
 
 ```json
 {
   "following": [
     {
-      "description": "The official X account for the NASA Hubble Space Telescope, managed and operated by NASA'…",
-      "followers_count": 8900825,
+      "created_at": "Thu Mar 06 20:15:02 +0000 2008",
+      "description": "The official X account for the NASA Hubble Space Telescope, managed and operated…",
+      "followers_count": 8894641,
       "friends_count": 44,
-      "media_count": 3138,
+      "media_count": 3158,
       "name": "Hubble",
-      "screen_name": "<user>",
-      "statuses_count": 8467,
-      "user_id": "<user>"
+      "profile_image": "https://pbs.twimg.com/profile_images/3468011581/efb985f24af0a814a722457a768f3cc5…",
+      "screen_name": "NASAHubble",
+      "statuses_count": 8503,
+      "user_id": "14091091",
+      "website": "http://www.nasa.gov/mission_pages/hubble/main/index.html"
     }
-  ]
+  ],
+  "more_users": true,
+  "next_cursor": "1597662469098825850|2117523447289479099",
+  "status": "ok"
 }
 ```
 
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `following[]` | List of accounts that the requested user follows. Each item is one account. |
+| `following[].screen_name / following[].name` | The handle and the display name of the followed account. |
+| `following[].user_id` | Numeric ID of the followed account, returned as a string. |
+| `following[].followers_count / following[].friends_count` | Number of followers the account has and number of accounts it follows. |
+| `following[].statuses_count / following[].media_count` | Number of posts the account has made and number of media items it has posted. |
+| `following[].description / following[].website` | Bio text and website link from the account profile. Some items leave them out. |
+| `following[].created_at` | Date and time the account was created, in a format like `Thu Mar 06 20:15:02 +0000 2008`. |
+| `following[].profile_image` | URL of the account's profile picture. |
+| `more_users` | `true` when more followed accounts are available on a next page. |
+| `next_cursor` | Cursor value to send as `cursor` in the next request to get the next page. |
+
 ### Notes
 
-- `screen_name` corresponds to the handle found in the user profile URL.
-- Pass `cursor` from the previous response to paginate through followings.
+- Take `screen_name` from the profile link. In `https://twitter.com/elonmusk` the value is `elonmusk`.
+- To page through results, pass the `next_cursor` value from the last response as `cursor`. Keep going while `more_users` is `true`.
+- Some followed accounts have no `description` key, so check for it before you read it.
+- To see who follows the user instead, use [Twitter (X) User Followers](/apis/twitter/web/user-followers).
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

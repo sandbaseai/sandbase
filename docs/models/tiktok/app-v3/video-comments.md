@@ -64,13 +64,14 @@ Same call via the path form: `POST /v1/api/tiktok/app-v3/video-comments` with th
 
 ## Details
 
-Retrieve user comments for a single video by providing the target video identifier in `aweme_id`. Supports paginating through comment lists via `cursor` and `count`.
+Returns a page of comments for one TikTok video. You send the video ID as `aweme_id`, and each comment includes its text, like count, reply count, language and creation time.
 
 ### Use cases
 
-- Analyze audience reactions and engagement on specific TikTok videos.
-- Monitor community discussions and sentiment around branded content.
-- Extract top comments and interaction metrics for post performance reports.
+- Collect the top comments on a TikTok video to review audience reactions.
+- Sort comments by `digg_count` to find the most liked replies on a branded post.
+- Filter comments by `comment_language` to see which languages a video's audience writes in.
+- Export `text` and `create_time` for a sentiment analysis dataset.
 
 ### Request
 
@@ -80,6 +81,8 @@ curl -X POST "https://api.sandbase.ai/v1/api/tiktok/app-v3/video-comments" \
   -H "Content-Type: application/json" \
   -d '{"aweme_id": "7350810998023949599"}'
 ```
+
+The result is returned in `outputs[0].data`.
 
 ### Parameters
 
@@ -91,48 +94,72 @@ curl -X POST "https://api.sandbase.ai/v1/api/tiktok/app-v3/video-comments" \
 
 ### Example response
 
-Real response for the request above, trimmed to the main fields. User names and long IDs are masked.
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
 
 ```json
 {
+  "alias_comment_deleted": false,
   "comments": [
     {
+      "allow_download_photo": true,
       "author_pin": false,
       "aweme_id": "7350810998023949599",
+      "cid": "7350848249060934442",
+      "collect_stat": 0,
+      "comment_language": "en",
+      "comment_post_item_ids": null,
+      "content_type": 1,
       "create_time": 1711502748,
-      "digg_count": 28839,
+      "digg_count": 28916,
       "fold_status": -1,
-      "reply_id": "0",
-      "reply_to_reply_id": "0",
-      "seeking_help_model_type": 0,
-      "sort_tags": "{\"fine_sort_search_queue\":1,\"rough_sort_main_queue\":1,\"top_list\":1}",
-      "status": 1,
-      "share_info": {
-        "desc": "୧ ׅ۫ay me𓍯’s comment: why are your eyes bleeding",
-        "title": "im so sick of being tired im so tired of being sick",
-        "url": "https://www.tiktok.com/@jennmelon/video/7350810998023949599?_d=eg2364aic36c1d&_r…"
-      },
-      "user": {
-        "apple_account": 0,
-        "authority_status": 0,
-        "aweme_count": 0,
-        "comment_filter_status": 0,
-        "create_time": 0,
-        "favoriting_count": 0
-      }
+      "image_list": null
     }
-  ]
+  ],
+  "cursor": 20,
+  "extra": {
+    "api_debug_info": null,
+    "fatal_item_ids": null,
+    "now": 1793691842000
+  },
+  "has_filtered_comments": 0,
+  "has_more": 1,
+  "log_pb": {
+    "impr_id": "2026110307440257575558421DBA018FCF"
+  },
+  "reply_style": 2,
+  "status_code": 0,
+  "status_msg": "",
+  "top_gifts": null,
+  "total": 8098
 }
 ```
 
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `comments[].cid` | ID of the comment. Use it to identify a comment across calls. |
+| `comments[].text` | The comment text as written by the user. |
+| `comments[].digg_count` | Number of likes on the comment. |
+| `comments[].reply_comment_total` | Number of replies to the comment. |
+| `comments[].create_time` | When the comment was posted, as a Unix timestamp in seconds. |
+| `comments[].comment_language` | Language code of the comment, such as `en`. |
+| `comments[].share_info.url` | Link to the video with the comment attached for sharing. |
+| `comments[].user` | Profile object of the comment author. |
+| `comments[].reply_id` | ID of the parent comment. The value `0` means the item is a top-level comment. |
+| `total` | Total number of comments reported for the video. |
+| `has_more / cursor` | `has_more` is `1` when more comments exist. `cursor` is the value to send for the next page. |
+
 ### Notes
 
-- Set `cursor` to 0 for the first page, then use the cursor value returned in the response for subsequent pages.
-- Use `aweme_id` to specify the target video ID.
+- Set `cursor` to `0` for the first page. For the next page, send the `cursor` value from the previous response.
+- Use `count` to set how many comments to request per page. The default is `20`.
+- To read the replies under a comment, call [TikTok Video Comment Replies](/apis/tiktok/app-v3/video-comment-replies).
+- To translate a comment into another language, use [TikTok Content Translation](/apis/tiktok/app-v3/content-translate).
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

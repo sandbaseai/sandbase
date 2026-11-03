@@ -63,13 +63,14 @@ Same call via the path form: `POST /v1/api/tiktok/app-v3/share-qr-code` with the
 
 ## Details
 
-Retrieve a TikTok profile share QR code using `object_id` and an optional `schema_type`.
+Returns a QR code image for a TikTok profile. The request needs an `object_id`, which is the user's uid, and accepts an optional `schema_type` integer. The response lists signed image URLs for the QR code.
 
 ### Use cases
 
-- Generate QR codes to link users directly to a specific TikTok account.
-- Display scannable profile badges on external marketing materials.
-- Direct mobile audiences to targeted creator pages through scan links.
+- Print a scannable QR code on flyers or packaging that opens a creator's TikTok profile.
+- Show a profile QR code on a website or in a media kit so visitors can follow an account from their phone.
+- Add a QR code to event slides or stream overlays that points to a speaker's TikTok page.
+- Build a link-in-bio tool that creates a downloadable QR image for each saved TikTok account.
 
 ### Request
 
@@ -80,6 +81,8 @@ curl -X POST "https://api.sandbase.ai/v1/api/tiktok/app-v3/share-qr-code" \
   -d '{"object_id": "6762244951259661318"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
@@ -87,13 +90,52 @@ curl -X POST "https://api.sandbase.ai/v1/api/tiktok/app-v3/share-qr-code" \
 | `object_id` | string | Yes | Object id, currently supports the uid in the response of the personal homepage interface as a parameter. |
 | `schema_type` | integer | No | Schema type |
 
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "extra": {
+    "fatal_item_ids": [],
+    "logid": "20261103074359D5CDAF63A5538401C815",
+    "now": 1793691839000
+  },
+  "log_pb": {
+    "impr_id": "20261103074359D5CDAF63A5538401C815"
+  },
+  "qrcode_url": {
+    "uri": "tikcode-tx2/7703847789901709343",
+    "url_list": [
+      "https://p16-common-sign.tiktokcdn-us.com/tikcode-tx2/7703847789901709343~tplv-ti…"
+    ]
+  },
+  "status_code": 0,
+  "status_msg": ""
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `qrcode_url.url_list[]` | Image URLs for the QR code. The sample contains two `.webp` links and one `.jpeg` link, each sized 720 by 720. Each URL carries `x-expires` and `x-signature` query parameters. |
+| `qrcode_url.uri` | Internal path of the QR code image. It also appears inside every URL in `url_list`. |
+| `status_code / status_msg` | Result of the call. The sample returns `0` and an empty message. |
+| `extra.logid / log_pb.impr_id` | Request identifiers. They carry the same value in the sample. |
+| `extra.now` | Timestamp attached to the response. The sample value `1793691839000` has 13 digits, which fits milliseconds. |
+| `extra.fatal_item_ids` | List of item IDs that failed. It is empty in the sample. |
+
 ### Notes
 
-- `object_id` accepts the uid obtained from personal homepage responses.
+- Get `object_id` from the `uid` field in a profile response, for example from [TikTok User Profile Details](/apis/tiktok/app-v3/user-profile).
+- If you only have a username, call [TikTok User ID by Username](/apis/tiktok/app-v3/user-id-and-sec-user-id-by-username) first.
+- The image URLs are signed and include an `x-expires` value, so download or store the image soon after the call.
+- For a link instead of an image, see [TikTok User Profile Share Link](/apis/tiktok/app-v3/open-app-to-user-profile).
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

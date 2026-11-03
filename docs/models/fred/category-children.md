@@ -61,9 +61,14 @@ Same call via the path form: `POST /v1/api/fred/category-children` with the body
 
 ## Details
 
-Get Category Children from FRED. Returns the official FRED API response unchanged.
+Returns the child categories of a FRED category. Pass a `category_id` to list the children of that category. Leave it out to list the top-level categories under the root (`0`).
 
-The response is the official FRED API response, unchanged.
+### Use cases
+
+- List the top-level FRED categories to build a browsable topic menu.
+- Walk the category tree one level at a time to find where a data topic sits.
+- Collect category ids to feed into a series lookup for a given topic.
+- Check which sub-categories exist under a category before showing them in a data picker.
 
 ### Request
 
@@ -74,6 +79,8 @@ curl -X POST "https://api.sandbase.ai/v1/api/fred/category-children" \
   -d '{"file_type": "json"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
@@ -83,9 +90,41 @@ curl -X POST "https://api.sandbase.ai/v1/api/fred/category-children" \
 | `realtime_end` | string | No | The end of the real-time period. For more information, see Real-Time Periods . YYYY-MM-DD formatted string, optional, default: today's date |
 | `realtime_start` | string | No | The start of the real-time period. For more information, see Real-Time Periods . YYYY-MM-DD formatted string, optional, default: today's date |
 
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "categories": [
+    {
+      "id": 32991,
+      "name": "Money, Banking, & Finance",
+      "parent_id": 0
+    }
+  ]
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `categories[]` | List of child categories of the requested category. |
+| `categories[].id` | Numeric id of the child category. Pass it as `category_id` to get the next level down. |
+| `categories[].name` | Display name of the category, such as `National Accounts`. |
+| `categories[].parent_id` | Id of the parent category. It is `0` for top-level categories under the root. |
+
+### Notes
+
+- Call with no `category_id` to get the root's children, then use an `id` from the result as `category_id` in the next call.
+- Use [FRED Get Category Series](/apis/fred/category-series) to list the data series inside a category you found.
+- Use [FRED category](/apis/fred/category) to get details for a single category id.
+- `realtime_start` and `realtime_end` take `YYYY-MM-DD` dates. `file_type` only accepts `json`.
+
 ### Pricing
 
-Flat price per call. Failed calls are not charged.
+$0.00001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ---
 Machine-readable: [`catalog/models/fred/category-children.json`](../../../catalog/models/fred/category-children.json) · Store page: https://www.sandbase.ai/model/fred/category-children

@@ -64,9 +64,14 @@ Same call via the path form: `POST /v1/api/polymarket/tags-slug-related-tags` wi
 
 ## Details
 
-Get related tags (relationships) by tag slug from Polymarket. Returns the official Polymarket API response unchanged.
+Returns the tag relationships for a Polymarket tag, looked up by its tag slug. Each row links the tag to one related tag and gives its rank. The only required input is `slug`, such as `politics`.
 
-The response is the official Polymarket API response, unchanged.
+### Use cases
+
+- Build a "related topics" list for a Polymarket category page, ordered by `rank`.
+- Map how tags connect to each other to build a topic graph of Polymarket markets.
+- Find the related tag IDs of a topic, then fetch each tag's details to show names and labels.
+- Filter the relationships by `status` to see only tags that have active or closed markets.
 
 ### Request
 
@@ -77,6 +82,8 @@ curl -X POST "https://api.sandbase.ai/v1/api/polymarket/tags-slug-related-tags" 
   -d '{"slug": "politics"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
@@ -85,9 +92,40 @@ curl -X POST "https://api.sandbase.ai/v1/api/polymarket/tags-slug-related-tags" 
 | `omit_empty` | boolean | No | omit_empty |
 | `status` | string | No | status |
 
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+[
+  {
+    "id": "49569",
+    "rank": 1,
+    "relatedTagID": 126,
+    "tagID": 2
+  }
+]
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `id` | ID of the relationship record, returned as a string. |
+| `rank` | Position of the related tag in the list for this tag. Rank 1 comes first. |
+| `tagID` | Numeric ID of the tag you asked for, found from the `slug`. It has the same value in every row. |
+| `relatedTagID` | Numeric ID of the tag that is related to `tagID`. |
+
+### Notes
+
+- The response is a plain JSON array. Each item holds only IDs, not tag names or slugs.
+- To get the name and slug of a `relatedTagID`, call [Polymarket Get tag by id](/apis/polymarket/tags-by-id).
+- To look up relationships by numeric tag ID instead of slug, use [Polymarket Get related tags (relationships) by tag id](/apis/polymarket/tags-related-tags).
+- To get the full tag objects for related tags, use [Polymarket Get tags related to a tag id](/apis/polymarket/tags-related-tags-tags).
+
 ### Pricing
 
-Flat price per call. Failed calls are not charged.
+$0.00044 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ---
 Machine-readable: [`catalog/models/polymarket/tags-slug-related-tags.json`](../../../catalog/models/polymarket/tags-slug-related-tags.json) · Store page: https://www.sandbase.ai/model/polymarket/tags-slug-related-tags

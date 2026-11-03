@@ -78,9 +78,14 @@ Same call via the path form: `POST /v1/api/similarweb/search-keyword-competitors
 
 ## Details
 
-Get the websites that compete with a domain for the same search keywords, with a competition score and shared-keyword ratio.
+Returns a list of websites that compete with a given domain for the same search keywords. Each row has a competition score and a shared-keyword ratio. The API needs a `domain`, a `start_date`, an `end_date` and a `limit`.
 
-The response is the official Similarweb API response, unchanged.
+### Use cases
+
+- Find which sites compete with your domain in search results for the same keywords.
+- Rank competitors by `score` to decide which ones to study first.
+- Check how much of a rival's keyword set overlaps with your own domain.
+- Build a competitor list to feed into keyword or traffic research for each rival.
 
 ### Request
 
@@ -91,24 +96,88 @@ curl -X POST "https://api.sandbase.ai/v1/api/similarweb/search-keyword-competito
   -d '{"start_date": "2026-09", "end_date": "2026-09", "country": "ww", "domain": "cnn.com", "limit": 1}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
 |---|---|---|---|
-| `country` | string | No | Worldwide data only; values are case-insensitive. |
 | `domain` | string | Yes | domain |
 | `end_date` | string | Yes | end_date |
-| `granularity` | string | No | granularity |
 | `limit` | integer | Yes | limit |
+| `start_date` | string | Yes | start_date |
+| `country` | string | No | Worldwide data only; values are case-insensitive. |
+| `granularity` | string | No | granularity |
 | `main_domain_only` | boolean | No | main_domain_only |
 | `offset` | integer | No | offset |
-| `start_date` | string | Yes | start_date |
 | `traffic_source` | string | No | traffic_source |
 | `web_source` | string | No | web_source |
 
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "data": [
+    {
+      "score": 18.24179458618164,
+      "shared_keywords": 0.4459056258201599,
+      "url": "robinhood.com"
+    }
+  ],
+  "meta": {
+    "last_updated": "2026-09-30",
+    "query": {
+      "asc": null,
+      "limit": 1,
+      "offset": 0,
+      "sort": null
+    },
+    "request": {
+      "country": "ww",
+      "domain": "cnn.com",
+      "end_date": "2026-09-30",
+      "format": "json",
+      "granularity": "monthly",
+      "main_domain_only": false,
+      "metrics": [
+        "score"
+      ],
+      "start_date": "2026-09-01",
+      "traffic_source": "organic",
+      "web_source": "desktop"
+    },
+    "status": "success"
+  }
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `data[]` | One competing website per row. The list holds up to `limit` rows. |
+| `data[].url` | Domain name of the competing website, such as `robinhood.com`. |
+| `data[].score` | Competition score for this site against the requested domain. A higher value means stronger competition, and the scale is not shown in the response. |
+| `data[].shared_keywords` | Share of keywords the competitor has in common with the requested domain. It is a ratio, so `0.4459` reads as about 45%. |
+| `meta.request.traffic_source / meta.request.web_source` | The traffic source and device type the query used. The sample call ran with `organic` and `desktop`. |
+| `meta.request.start_date / meta.request.end_date` | The full date range the query covered. Short `YYYY-MM` inputs expand to the first and last day of the month. |
+| `meta.request.main_domain_only` | Whether the query was limited to main domains. It was `false` in this call. |
+| `meta.query.limit / meta.query.offset` | The page size and start position applied to the list. |
+| `meta.last_updated` | Date shown as the last update of the data, in `YYYY-MM-DD` format. |
+| `meta.status` | Shows `success` when the call worked. |
+
+### Notes
+
+- Send `start_date` and `end_date` as `YYYY-MM`. The response echoes them as full dates.
+- Page through results with `limit` (1 to 20) and `offset`.
+- `country` accepts only `ww` (worldwide), and `granularity` accepts only `monthly`.
+- To see the keywords behind a competitor, call [Similarweb Website Keywords](/apis/similarweb/search-website-keywords). For sites with a similar audience, use [Similarweb SimilarSites](/apis/similarweb/similar-sites).
+
 ### Pricing
 
-$0.075 per Similarweb credit; 0.03 credit per returned row, rounded up to whole credits. Failed calls are not charged.
+Billed at the actual cost of each call, about $0.075 for the request above. Failed calls are not charged.
 
 ---
 Machine-readable: [`catalog/models/similarweb/search-keyword-competitors.json`](../../../catalog/models/similarweb/search-keyword-competitors.json) · Store page: https://www.sandbase.ai/model/similarweb/search-keyword-competitors

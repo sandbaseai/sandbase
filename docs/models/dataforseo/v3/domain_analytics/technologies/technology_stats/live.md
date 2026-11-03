@@ -57,13 +57,14 @@ Same call via the path form: `POST /v1/api/dataforseo/v3/domain_analytics/techno
 
 ## Details
 
-Inspect technology adoption metrics across domains with this endpoint. It provides aggregate technology statistics for tracking domain analytics trends.
+Returns monthly usage statistics for one web technology, such as Nginx. Each row shows how many domains use the technology, with breakdowns by country, language and domain rank range. The call needs the technology name in `technology`.
 
 ### Use cases
 
-- Track market share and adoption trends for web technologies.
-- Analyze technology stack prevalence across indexed domains.
-- Benchmark technology adoption across various digital platforms.
+- Chart the growth of a web server or framework over time using monthly `domains_count` values.
+- Compare which countries use a technology the most for regional market sizing.
+- Check which languages the sites using a technology are written in.
+- See how many users of a technology sit in high-ranking versus low-ranking domain ranges.
 
 ### Request
 
@@ -74,17 +75,114 @@ curl -X POST "https://api.sandbase.ai/v1/api/dataforseo/v3/domain_analytics/tech
   -d '{"technology": "Nginx"}'
 ```
 
+The result is returned in `outputs[0]`.
+
 ### Parameters
 
-The JSON body is forwarded to the upstream endpoint (one task per call). Fields used above:
+| Name | Type | Required | Description |
+|---|---|---|---|
+| `technology` | string | No | Technology name, e.g. "Nginx". |
 
-| Name | Description |
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "status_code": 20000,
+  "status_message": "Ok.",
+  "tasks": [
+    {
+      "data": {
+        "api": "domain_analytics",
+        "function": "technology_stats",
+        "se": "technologies",
+        "technology": "Nginx"
+      },
+      "id": "11030829-1614-0558-0000-ab200336c7e7",
+      "path": [
+        "v3"
+      ],
+      "result": [
+        {
+          "date_from": null,
+          "date_to": null,
+          "items": [
+            {
+              "countries": {
+                "40": 3,
+                "AC": 1,
+                "AD": 22,
+                "AE": 11732,
+                "AF": 477,
+                "AG": 38,
+                "AI": 4107,
+                "AL": 1330
+              },
+              "date": "2022-10-31 00:00:00 +00:00",
+              "domains_count": 14964512,
+              "domains_rank": {
+                "0-100": 8690615,
+                "101-200": 4006926,
+                "201-300": 1596276,
+                "301-400": 521581,
+                "401-500": 136266,
+                "501-600": 41537,
+                "601-700": 22256,
+                "701-800": 795
+              },
+              "languages": {
+                "af": 152,
+                "am": 72,
+                "ar": 12058,
+                "as": 3,
+                "az": 894,
+                "ba": 34,
+                "be": 253,
+                "bg": 3337
+              },
+              "type": "technology_stats_item"
+            }
+          ],
+          "items_count": 46,
+          "technology": "Nginx"
+        }
+      ],
+      "result_count": 1,
+      "status_code": 20000,
+      "status_message": "Ok.",
+      "time": "0.0615 sec."
+    }
+  ],
+  "tasks_count": 1,
+  "tasks_error": 0,
+  "time": "0.1170 sec.",
+  "version": "0.1.20261022"
+}
+```
+
+### Response fields
+
+| Field | Meaning |
 |---|---|
-| `technology` | Technology name, e.g. "Nginx". |
+| `tasks[].result[].technology` | The technology name the statistics describe. |
+| `tasks[].result[].items_count` | Number of monthly rows available for this technology. The response shows 46. |
+| `tasks[].result[].items[].date` | The date of the data point, as a timestamp such as `2022-10-31 00:00:00 +00:00`. Each row is one month-end. |
+| `tasks[].result[].items[].domains_count` | Number of domains using the technology on that date. |
+| `tasks[].result[].items[].countries` | Map of country code to the number of domains using the technology in that country. Codes are mostly two letters, such as `AE`. |
+| `tasks[].result[].items[].languages` | Map of language code to the number of domains using the technology with that language, such as `ar` or `bg`. |
+| `tasks[].result[].items[].domains_rank` | Map of rank range to the number of domains in that range, such as `0-100` or `101-200`. |
+| `tasks[].result[].date_from / date_to` | Date range of the results. Both are `null` in this response, so no range was applied. |
+
+### Notes
+
+- Pass the technology name exactly as in the example, for instance `Nginx`.
+- Rows in `items` come in date order, oldest first. Compare consecutive `domains_count` values to get month-over-month change.
+- The `countries`, `languages` and `domains_rank` objects are maps, so read them by key rather than by list position.
 
 ### Pricing
 
-Billed at the actual cost of each call, about $0.0672 for the request above. The cost grows with the number of rows, targets or pages a call returns. Failed calls are not charged. Searches with no results are billed at their actual cost.
+Billed at the actual cost of each call, about $0.0672 for the request above. Failed calls are not charged.
 
 ### Related APIs
 

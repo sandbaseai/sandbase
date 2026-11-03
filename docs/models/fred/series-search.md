@@ -74,9 +74,14 @@ Same call via the path form: `POST /v1/api/fred/series-search` with the body abo
 
 ## Details
 
-Search Series from FRED. Returns the official FRED API response unchanged.
+Searches FRED economic data series by keyword or series ID. It returns a list of matching series with title, units, frequency, seasonal adjustment and the dates the data covers. It needs one input, `search_text`.
 
-The response is the official FRED API response, unchanged.
+### Use cases
+
+- Find the FRED series ID for a topic such as unemployment before you pull its data.
+- Compare seasonally adjusted and not seasonally adjusted versions of the same series.
+- Build a search box for economic indicators that ranks results by `popularity`.
+- List all monthly series that match a keyword by using `filter_variable` and `filter_value`.
 
 ### Request
 
@@ -87,27 +92,83 @@ curl -X POST "https://api.sandbase.ai/v1/api/fred/series-search" \
   -d '{"search_text": "unemployment", "file_type": "json"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
 |---|---|---|---|
-| `exclude_tag_names` | string | No | A semicolon delimited list of tag names that series match none of. String, optional, no filtering by tags by default. Example value: 'discontinued;m1'. Filter r |
+| `search_text` | string | Yes | The words to match against economic data series. |
+| `exclude_tag_names` | string | No | A semicolon delimited list of tag names that series match none of. String, optional, no filtering by tags by default. Example value: 'discontinued;m1'. Filter results to series having neither tag 'discontinued' nor tag ' |
 | `file_type` | string | No | Response format. Only json is supported. |
 | `filter_value` | string | No | The value of the filter_variable attribute to filter results by. String, optional, no filter by default |
 | `filter_variable` | string | No | The attribute to filter results by. One of the following strings: 'frequency', 'units', 'seasonal_adjustment'. optional, no filter by default |
 | `limit` | integer | No | The maximum number of results to return. integer between 1 and 1000, optional, default: 1000 |
 | `offset` | integer | No | non-negative integer, optional, default: 0 |
-| `order_by` | string | No | Order results by values of the specified attribute. One of the following strings: 'search_rank', 'series_id', 'title', 'units', 'frequency', 'seasonal_adjustmen |
+| `order_by` | string | No | Order results by values of the specified attribute. One of the following strings: 'search_rank', 'series_id', 'title', 'units', 'frequency', 'seasonal_adjustment', 'realtime_start', 'realtime_end', 'last_updated', 'obser |
 | `realtime_end` | string | No | The end of the real-time period. For more information, see Real-Time Periods . YYYY-MM-DD formatted string, optional, default: today's date |
 | `realtime_start` | string | No | The start of the real-time period. For more information, see Real-Time Periods . YYYY-MM-DD formatted string, optional, default: today's date |
-| `search_text` | string | Yes | The words to match against economic data series. |
-| `search_type` | string | No | Determines the type of search to perform. One of the following strings: 'full_text', 'series_id'. 'full_text' searches series attributes title, units, frequency |
-| `sort_order` | string | No | Sort results is ascending or descending order for attribute values specified by order_by. One of the following strings: 'asc', 'desc'. optional, default: If ord |
-| `tag_names` | string | No | A semicolon delimited list of tag names that series match all of. String, optional, no filtering by tags by default Example value: 'usa;m2'. Filter results to s |
+| `search_type` | string | No | Determines the type of search to perform. One of the following strings: 'full_text', 'series_id'. 'full_text' searches series attributes title, units, frequency, and tags by parsing words into stems. This makes it possib |
+| `sort_order` | string | No | Sort results is ascending or descending order for attribute values specified by order_by. One of the following strings: 'asc', 'desc'. optional, default: If order_by is equal to 'search_rank' or 'popularity', then the de |
+| `tag_names` | string | No | A semicolon delimited list of tag names that series match all of. String, optional, no filtering by tags by default Example value: 'usa;m2'. Filter results to series having both tags 'usa' and 'm2'. See the related reque |
+
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "count": 53486,
+  "limit": 1000,
+  "offset": 0,
+  "order_by": "search_rank",
+  "realtime_end": "2026-11-03",
+  "realtime_start": "2026-11-03",
+  "seriess": [
+    {
+      "frequency": "Monthly",
+      "frequency_short": "M",
+      "group_popularity": 96,
+      "id": "UNRATE",
+      "last_updated": "2026-10-02 08:24:37-05",
+      "notes": "The unemployment rate represents the number of unemployed as a percentage of the…",
+      "observation_end": "2026-09-01",
+      "observation_start": "1948-01-01",
+      "popularity": 96,
+      "realtime_end": "2026-11-03",
+      "realtime_start": "2026-11-03",
+      "seasonal_adjustment": "Seasonally Adjusted"
+    }
+  ],
+  "sort_order": "desc"
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `count` | Total number of series that match the search. This can be larger than the number of rows returned in one call. |
+| `limit / offset / order_by / sort_order` | Echo of the paging and sorting settings used for this response. In the example, results are sorted by `search_rank` in `desc` order. |
+| `seriess[].id` | FRED series ID, such as `UNRATE`. Use it to fetch details or observations for that series. |
+| `seriess[].title` | Name of the series. |
+| `seriess[].units / seriess[].units_short` | Unit of the series values in long and short form, such as `Percent` and `%`. |
+| `seriess[].frequency / seriess[].frequency_short` | How often the series is published, such as `Monthly` and `M`. |
+| `seriess[].seasonal_adjustment / seriess[].seasonal_adjustment_short` | Whether the series is seasonally adjusted, such as `Seasonally Adjusted` and `SA`. |
+| `seriess[].observation_start / seriess[].observation_end` | First and last observation dates of the series, formatted `YYYY-MM-DD`. |
+| `seriess[].popularity / seriess[].group_popularity` | Popularity scores for the series and for its group of related series. Higher values mean more popular. |
+| `seriess[].notes` | Description text for the series. Long text may be cut, and the field may be missing for some series. |
+
+### Notes
+
+- The list is in the `seriess` key (with a double s).
+- Page through results with `limit` (1 to 1000) and `offset`. Compare `count` with `offset` to see how many results remain.
+- `last_updated` uses the format `YYYY-MM-DD HH:MM:SS` followed by a UTC offset, such as `2026-10-02 08:24:37-05`.
+- Pass an `id` to [FRED Get Series Observations](/apis/fred/series-observations) to get the data values, or to [FRED Get Series](/apis/fred/series) for series metadata.
 
 ### Pricing
 
-Flat price per call. Failed calls are not charged.
+$0.00001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ---
 Machine-readable: [`catalog/models/fred/series-search.json`](../../../catalog/models/fred/series-search.json) · Store page: https://www.sandbase.ai/model/fred/series-search

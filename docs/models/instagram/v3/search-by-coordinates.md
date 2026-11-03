@@ -65,13 +65,14 @@ Same call via the path form: `POST /v1/api/instagram/v3/search-by-coordinates` w
 
 ## Details
 
-Look up nearby Instagram venues by supplying `latitude` and `longitude` coordinates. The response lists location names alongside their external location IDs.
+Returns Instagram locations near a GPS point. Send `latitude` and `longitude` as numbers. Each result has a place name, a short address, its coordinates, and an external ID.
 
 ### Use cases
 
-- Find Instagram venue tags near specific geographic coordinates.
-- Identify external location IDs for regional spots and landmarks.
-- Enrich geographic mapping tools with nearby Instagram place data.
+- Find the Instagram location entries closest to a point on a map.
+- Collect external location IDs for venues near a store, hotel, or event site.
+- Match a GPS coordinate from a photo or device to a named place.
+- Build a list of nearby venue names and addresses for a given area.
 
 ### Request
 
@@ -82,6 +83,8 @@ curl -X POST "https://api.sandbase.ai/v1/api/instagram/v3/search-by-coordinates"
   -d '{"latitude": 0, "longitude": 0}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
@@ -91,27 +94,50 @@ curl -X POST "https://api.sandbase.ai/v1/api/instagram/v3/search-by-coordinates"
 
 ### Example response
 
-Real response for the request above, trimmed to the main fields. User names and long IDs are masked.
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
 
 ```json
 {
+  "rank_token": "",
+  "request_id": "8e894d90a3294616bf6c3cbfc3cb8d09",
+  "status": "ok",
   "venues": [
     {
-      "external_id": "469499352918885",
-      "name": "Đặng Viring Specialty Coffee"
+      "address": "<0.1mi · 新北市中和橋和路15號",
+      "external_id": "482775614919229",
+      "external_id_source": "facebook_places",
+      "lat": 0.0,
+      "lng": 0.0,
+      "name": "萱子的秘密小屋"
     }
   ]
 }
 ```
 
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `venues[]` | List of nearby locations returned for the coordinates. |
+| `venues[].name` | Display name of the venue. |
+| `venues[].address` | Address text for the venue. It starts with a distance label such as `<0.1mi`, followed by the street address. |
+| `venues[].external_id` | ID of the venue in the external places source. Keep it as a string. |
+| `venues[].external_id_source` | Name of the source that the `external_id` belongs to, for example `facebook_places`. |
+| `venues[].lat / venues[].lng` | Latitude and longitude of the venue. |
+| `status` | Request status. The value `ok` means the call succeeded. |
+| `request_id` | ID of this request. |
+| `rank_token` | Ranking token for the result set. It was an empty string in this response. |
+
 ### Notes
 
-- Requires both `latitude` and `longitude` numeric coordinates.
-- Returns a list of venues containing external identifiers and place names.
+- Both `latitude` and `longitude` are required and must be numbers.
+- The request has no pagination parameters.
+- The example request used `0` and `0`, and the returned `lat` and `lng` values were also `0.0`. Use your own coordinates to see venues around a real place.
+- To get details for a venue, pass its ID to [Instagram Location Details (V3)](/apis/instagram/v3/location-info). To see posts tagged there, use [Instagram Location Posts (V3)](/apis/instagram/v3/location-posts).
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.008 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

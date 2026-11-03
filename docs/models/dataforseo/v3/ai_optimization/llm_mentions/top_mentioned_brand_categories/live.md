@@ -61,9 +61,14 @@ Same call via the path form: `POST /v1/api/dataforseo/v3/ai_optimization/llm_men
 
 ## Details
 
-The brand categories most often mentioned in AI answers that match a keyword or domain, with mention counts and AI search volume.
+This API returns the brand categories (such as `product`, `brand` and `company`) most often mentioned in AI answers that match a keyword or domain. Each category comes with a mention count and an AI search volume. It needs a `target` array with up to 10 entries, each holding one `keyword` or one `domain`.
 
-Request fields follow the official DataForSEO `/v3/ai_optimization/llm_mentions/top_mentioned_brand_categories/live` task schema (one task per call). The response is DataForSEO's original JSON; results are in `tasks[].result`.
+### Use cases
+
+- Check whether AI answers about "running shoes" mention mostly products, brands or companies.
+- Find which brand names and product names appear most inside each category for a keyword.
+- See which websites AI answers cite as sources for each brand category.
+- Compare category mix across `platform` values or locations to plan content for AI search.
 
 ### Request
 
@@ -74,25 +79,198 @@ curl -X POST "https://api.sandbase.ai/v1/api/dataforseo/v3/ai_optimization/llm_m
   -d '{"target": [{"keyword": "running shoes"}], "location_code": 2840, "language_code": "en", "limit": 5}'
 ```
 
+The result is returned in `outputs[0]`.
+
 ### Parameters
 
-The JSON body is forwarded to the upstream endpoint. Main fields:
+| Name | Type | Required | Description |
+|---|---|---|---|
+| `language_code` | string | No | Language code; default "en". |
+| `limit` | integer | No | Maximum number of items to return. |
+| `location_code` | integer | No | Location code; default 2840 (United States). |
+| `platform` | string | No | Optional: "google" (AI Overviews) or "chat_gpt". Omit for both. |
+| `target` | array | No | Array of up to 10 entities, each with one `domain` or one `keyword` (optional `search_filter`, `search_scope`, `match_type`). |
 
-| Name | Description |
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "status_code": 20000,
+  "status_message": "Ok.",
+  "tasks": [
+    {
+      "data": {
+        "api": "ai_optimization",
+        "function": "top_mentioned_brand_categories",
+        "language_code": "en",
+        "limit": 5,
+        "location_code": 2840,
+        "target": [
+          {
+            "keyword": "running shoes"
+          }
+        ]
+      },
+      "id": "11030828-2190-0656-0000-e909915b5cae",
+      "path": [
+        "v3"
+      ],
+      "result": [
+        {
+          "aggregated_metrics": {
+            "brand_entities_category": [
+              {
+                "ai_search_volume": 144624,
+                "key": "product",
+                "mentions": 7520
+              }
+            ],
+            "brand_entities_title": [
+              {
+                "ai_search_volume": 5963,
+                "key": "Nike",
+                "mentions": 775
+              }
+            ],
+            "language": [
+              {
+                "ai_search_volume": 353618,
+                "key": "en",
+                "mentions": 17726
+              }
+            ],
+            "location": [
+              {
+                "ai_search_volume": 353618,
+                "key": 2840,
+                "mentions": 17726
+              }
+            ],
+            "platform": [
+              {
+                "ai_search_volume": 353618,
+                "key": "chat_gpt",
+                "mentions": 17726
+              }
+            ],
+            "search_results_domain": [
+              {
+                "ai_search_volume": 52067,
+                "key": "runrepeat.com",
+                "mentions": 2895
+              }
+            ],
+            "sources_domain": [
+              {
+                "ai_search_volume": 24341,
+                "key": "www.reddit.com",
+                "mentions": 2750
+              }
+            ],
+            "total": {
+              "ai_search_volume": 353618,
+              "mentions": 17726
+            }
+          },
+          "items": [
+            {
+              "brand_category": "product",
+              "brand_entities_category": [
+                {
+                  "ai_search_volume": 144624,
+                  "key": "product",
+                  "mentions": 7520
+                }
+              ],
+              "brand_entities_title": [
+                {
+                  "ai_search_volume": 6837,
+                  "key": "HOKA Bondi 9",
+                  "mentions": 219
+                }
+              ],
+              "language": [
+                {
+                  "ai_search_volume": 144624,
+                  "key": "en",
+                  "mentions": 7520
+                }
+              ],
+              "location": [
+                {
+                  "ai_search_volume": 144624,
+                  "key": 2840,
+                  "mentions": 7520
+                }
+              ],
+              "platform": [
+                {
+                  "ai_search_volume": 144624,
+                  "key": "chat_gpt",
+                  "mentions": 7520
+                }
+              ],
+              "search_results_domain": [
+                {
+                  "ai_search_volume": 39673,
+                  "key": "runrepeat.com",
+                  "mentions": 2098
+                }
+              ],
+              "sources_domain": [
+                {
+                  "ai_search_volume": 28186,
+                  "key": "runrepeat.com",
+                  "mentions": 1296
+                }
+              ]
+            }
+          ],
+          "items_count": 5,
+          "offset": 0,
+          "total_count": 230
+        }
+      ],
+      "result_count": 1,
+      "status_code": 20000,
+      "status_message": "Ok.",
+      "time": "0.0237 sec."
+    }
+  ],
+  "tasks_count": 1,
+  "tasks_error": 0,
+  "time": "0.0339 sec.",
+  "version": "0.1.20261022"
+}
+```
+
+### Response fields
+
+| Field | Meaning |
 |---|---|
-| `target` | Array of up to 10 entities, each with one `domain` or one `keyword` (optional `search_filter`, `search_scope`, `match_type`). |
-| `location_code` | Location code; default 2840 (United States). |
-| `language_code` | Language code; default "en". |
-| `platform` | Optional: "google" (AI Overviews) or "chat_gpt". Omit for both. |
-| `limit` | Maximum number of items to return. |
+| `tasks[].result[].items[].brand_category` | Name of the brand category for this item, for example `product`, `brand` or `company`. |
+| `tasks[].result[].items[].brand_entities_category[].key / mentions / ai_search_volume` | Categories that appear together with this category, each with a mention count and an AI search volume. The entry that matches the item's own category carries its main totals. |
+| `tasks[].result[].items[].brand_entities_title[].key` | Name of a specific brand or product mentioned in this category, such as `Nike` or `HOKA Bondi 9`. Each entry has its own `mentions` and `ai_search_volume`. |
+| `tasks[].result[].items[].sources_domain[].key` | Domain that AI answers cite as a source for this category. Each entry has `mentions` and `ai_search_volume`. |
+| `tasks[].result[].items[].search_results_domain[].key` | Domain that appears in search results tied to this category. Each entry has `mentions` and `ai_search_volume`. |
+| `tasks[].result[].items[].platform[].key` | AI platform the numbers come from, such as `chat_gpt`. Sibling lists `language` and `location` show the language code and location code. |
+| `tasks[].result[].aggregated_metrics` | The same breakdown lists (categories, brand titles, domains, platform, language, location) summed over all categories for the target. |
+| `tasks[].result[].aggregated_metrics.total.mentions / ai_search_volume` | Total mention count and total AI search volume across all categories for the target. |
+| `tasks[].result[].total_count` | Number of categories available for this target. |
+| `tasks[].result[].items_count` | Number of items returned in this response. |
 
-### Reference
+### Notes
 
-- Official docs: https://docs.dataforseo.com/v3/ai_optimization/llm_mentions/top_mentioned_brand_categories/live/
+- Set `limit` to cap the number of items returned. The response also shows `offset` (here `0`) and `total_count`, so you can see how many items exist.
+- Location is a numeric code in `location_code` (for example `2840`) and language is a code in `language_code` (for example `en`). The same values come back as `key` in the `location` and `language` lists.
+- Omit `platform` to get both Google AI Overviews and ChatGPT, or set it to `google` or `chat_gpt` to narrow the result.
+- For a lighter version of this data, use [DataForSEO LLM Mentions Top Brand Categories Lite](/apis/dataforseo/v3/ai_optimization/llm_mentions/top_mentioned_brand_categories_lite/live). For individual brand rankings, use [DataForSEO LLM Mentions Top Brands](/apis/dataforseo/v3/ai_optimization/llm_mentions/top_mentioned_brands/live).
 
 ### Pricing
 
-Billed at the actual cost of each call, about $0.105 for the request above. The cost grows with the number of rows, targets or tokens a call returns. Failed calls are not charged. Searches with no results are billed at their actual cost.
+Billed at the actual cost of each call, about $0.105 for the request above. Failed calls are not charged.
 
 ---
 Machine-readable: [`catalog/models/dataforseo/v3/ai_optimization/llm_mentions/top_mentioned_brand_categories/live.json`](../../../../../../../catalog/models/dataforseo/v3/ai_optimization/llm_mentions/top_mentioned_brand_categories/live.json) · Store page: https://www.sandbase.ai/model/dataforseo/v3/ai_optimization/llm_mentions/top_mentioned_brand_categories/live

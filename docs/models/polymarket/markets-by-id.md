@@ -63,9 +63,14 @@ Same call via the path form: `POST /v1/api/polymarket/markets-by-id` with the bo
 
 ## Details
 
-Get market by id from Polymarket. Returns the official Polymarket API response unchanged.
+Returns the full record for one Polymarket market, including its prices, order book settings, fees, dates and status flags. It needs the numeric market `id`. You can set `include_tag` to ask for tag data as well.
 
-The response is the official Polymarket API response, unchanged.
+### Use cases
+
+- Show the current best bid, best ask and last trade price for a single prediction market.
+- Check whether a market is active, closed, archived or accepting orders before you place or display it.
+- Read the `conditionId` and `clobTokenIds` of a market to query its order book or trades.
+- Read the fee schedule and rewards settings for a market to estimate trading costs.
 
 ### Request
 
@@ -76,6 +81,8 @@ curl -X POST "https://api.sandbase.ai/v1/api/polymarket/markets-by-id" \
   -d '{"id": 559651}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
@@ -83,9 +90,61 @@ curl -X POST "https://api.sandbase.ai/v1/api/polymarket/markets-by-id" \
 | `id` | integer | Yes | id |
 | `include_tag` | boolean | No | include_tag |
 
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "$schema": "https://gamma-api.polymarket.com/schemas/Market.json",
+  "acceptingOrders": true,
+  "acceptingOrdersTimestamp": "2025-07-03T20:36:33Z",
+  "active": true,
+  "approved": true,
+  "archived": false,
+  "automaticallyActive": true,
+  "bestAsk": 0.021,
+  "bestBid": 0.02,
+  "clearBookOnStart": true,
+  "clobRewards": [
+    {
+      "assetAddress": "0x2791Bca1f2de4661ED88A30C99A7a9449Aa84174",
+      "conditionId": "0xa467b14d51f01b957109d9cbb1d6c124fab2a089d52ed8f471d23c2812e743b7",
+      "endDate": "2500-12-31",
+      "id": "303430",
+      "rewardsAmount": 0,
+      "rewardsDailyRate": 5,
+      "startDate": "2026-09-16"
+    }
+  ],
+  "clobTokenIds": "[\"323382…"
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `id` | The market id as a string. It matches the `id` you sent in the request. |
+| `conditionId` | The condition id of the market, a 0x-prefixed hex string. The same value appears in `clobRewards[].conditionId`. |
+| `clobTokenIds` | A JSON-encoded string that holds a list of token ids for the market outcomes. Parse it before use. |
+| `bestBid / bestAsk / lastTradePrice` | The highest bid, the lowest ask and the last trade price for the market. Values are decimals such as `0.02`. |
+| `liquidity` | Liquidity of the market, returned as a numeric string. |
+| `active / closed / archived / acceptingOrders` | Status flags that show whether the market is live, finished, archived or taking orders right now. |
+| `endDate / endDateIso` | The scheduled end of the market, as a full UTC timestamp and as a plain date. |
+| `description` | The resolution rules of the market in plain text. |
+| `feeSchedule.rate / feeSchedule.rebateRate / feeSchedule.takerOnly` | Fee settings for the market. `takerOnly` shows whether the fee applies only to takers. |
+| `clobRewards[].rewardsDailyRate` | The daily rewards rate in a rewards entry for this market. Each entry also has `startDate` and `endDate`. |
+
+### Notes
+
+- Use [Polymarket List markets](/apis/polymarket/markets) to find market ids, or [Polymarket Get market by slug](/apis/polymarket/markets-slug) if you only have a slug.
+- Timestamps such as `createdAt` use ISO 8601 UTC format. `endDateIso` is a date only.
+- Pass the values from `clobTokenIds` to [Polymarket Get order book](/apis/polymarket/book) to see the live order book.
+
 ### Pricing
 
-Flat price per call. Failed calls are not charged.
+$0.00044 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ---
 Machine-readable: [`catalog/models/polymarket/markets-by-id.json`](../../../catalog/models/polymarket/markets-by-id.json) · Store page: https://www.sandbase.ai/model/polymarket/markets-by-id

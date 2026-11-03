@@ -62,13 +62,14 @@ Same call via the path form: `POST /v1/api/tiktok/web/search-keyword-suggest` wi
 
 ## Details
 
-Returns search keyword suggestions based on a query term passed via `keyword`. Use it to discover autocomplete phrases and related query terms on TikTok Web.
+Returns autocomplete and related search suggestions for a keyword on TikTok Web. Send one `keyword` string, such as `openai`.
 
 ### Use cases
 
-- Suggest relevant query terms in search autocomplete interfaces.
-- Discover trending search phrases associated with a target topic.
-- Optimize content discovery by analyzing suggested search queries.
+- Collect autocomplete phrases for a topic to plan TikTok video titles and hashtags.
+- Check how people phrase searches around a brand name or product.
+- Build a keyword list for a topic by running a seed term and its variations through the API.
+- Feed suggested phrases into a search tool to see what content they return.
 
 ### Request
 
@@ -79,6 +80,8 @@ curl -X POST "https://api.sandbase.ai/v1/api/tiktok/web/search-keyword-suggest" 
   -d '{"keyword": "openai"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
@@ -87,22 +90,34 @@ curl -X POST "https://api.sandbase.ai/v1/api/tiktok/web/search-keyword-suggest" 
 
 ### Example response
 
-Real response for the request above, trimmed to the main fields. User names and long IDs are masked.
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
 
 ```json
 {
-  "data": [
-    {
-      "group_id": "1357815902537310788",
-      "word": "ai generated video"
-    }
-  ]
+  "log_id": "2026110315442738CBBE360AAF9704603D",
+  "status_code": 0,
+  "status_msg": ""
 }
 ```
 
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `status_code` | Status number for the call. The sample request for `openai` returned `0`. |
+| `status_msg` | Status text for the call. It was an empty string in the sample response. |
+| `log_id` | Identifier string for this call. Keep it if you need to refer to a specific request. |
+
+### Notes
+
+- The sample response for `keyword` set to `openai` held only `log_id`, `status_code` and `status_msg`. It did not include a list of suggestions, so check for extra keys before you read them.
+- The API takes a single required `keyword` string and has no pagination parameters.
+- To see current popular terms without a seed keyword, call [TikTok Daily Trending Search Words](/apis/tiktok/web/trending-searchwords).
+- To see the results for a suggested phrase, pass it to [TikTok Web General Search](/apis/tiktok/web/general-search).
+
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

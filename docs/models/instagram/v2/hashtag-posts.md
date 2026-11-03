@@ -64,13 +64,14 @@ Same call via the path form: `POST /v1/api/instagram/v2/hashtag-posts` with the 
 
 ## Details
 
-Query posts tagged with a specific topic using `keyword` without the leading hash symbol. Feed results can optionally be filtered by `feed_type`.
+Returns a list of Instagram posts and reels that use a given hashtag. It needs a `keyword` (the hashtag without the `#`) and can switch between top posts, recent posts, and reels with `feed_type`.
 
 ### Use cases
 
-- Track media content and engagement around specific campaign hashtags.
-- Discover trending reels and top posts within niche topics.
-- Monitor user-generated content for brand or community tags.
+- Track likes, comments, and plays on posts under a campaign hashtag.
+- Find reels with high `play_count` in a niche topic.
+- Collect recent posts for a brand tag to review user-generated content.
+- Build a list of accounts that post often under a hashtag.
 
 ### Request
 
@@ -80,6 +81,8 @@ curl -X POST "https://api.sandbase.ai/v1/api/instagram/v2/hashtag-posts" \
   -H "Content-Type: application/json" \
   -d '{"keyword": "cat"}'
 ```
+
+The result is returned in `outputs[0].data`.
 
 ### Parameters
 
@@ -91,48 +94,93 @@ curl -X POST "https://api.sandbase.ai/v1/api/instagram/v2/hashtag-posts" \
 
 ### Example response
 
-Real response for the request above, trimmed to the main fields. User names and long IDs are masked.
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
 
 ```json
 {
   "data": {
+    "count": 30,
     "items": [
       {
-        "caption_text": "Some coffee? #cat #cute #coffee #viral #fyp",
-        "comment_count": 4,
-        "id": "4001398805562288512",
-        "like_and_view_counts_disabled": false,
-        "like_count": 343,
-        "media_name": "reel",
-        "media_type": 2,
-        "play_count": 8090,
-        "product_type": "clips",
-        "thumbnail_url": "https://scontent-lax7-1.cdninstagram.com/v/t51.71878-15/836759883_10889105004450…",
+        "accessibility_caption": null,
+        "caption_hashtags": [
+          "#cat"
+        ],
+        "caption_mentions": [],
+        "caption_text": "His favorite brother.\n\n#cat #catstagram #catsofinstagram #cats #cats_of_instagra…",
         "clips_metadata": {
-          "audio_canonical_id": "18632259277042329",
+          "achievements_info": {
+            "num_earned_achievements": null,
+            "show_achievements": false
+          },
+          "additional_audio_info": {
+            "additional_audio_username": null,
+            "audio_reattribution_info": {
+              "should_allow_restore": false
+            }
+          },
+          "asset_recommendation_info": null,
+          "audio_canonical_id": "18642912691057530",
+          "audio_ranking_info": {
+            "best_audio_cluster_id": "27998652563101654"
+          },
           "audio_type": "original_sounds",
-          "professional_clips_upsell_type": 0
+          "basel_template_info_for_ig_app": {
+            "is_basel_template": null,
+            "original_template_media_id": null,
+            "should_show_reuse_setting_for_owner": false,
+            "use_template_deeplink": null
+          },
+          "branded_content_tag_info": {
+            "can_add_tag": false
+          }
         },
-        "user": {
-          "id": "25310575539",
-          "profile_pic_url": "https://scontent-lax3-1.cdninstagram.com/v/t51.82787-19/816178425_18114219469847…",
-          "username": "<user>"
-        }
+        "coauthor_producers": [],
+        "code": "DfPiM_Hh78G",
+        "comment_count": 3,
+        "comments_disabled": false,
+        "has_liked": false,
+        "id": "4021583418252312326",
+        "image_versions": [
+          {
+            "height": 1333,
+            "is_spatial_image": false,
+            "url": "https://scontent-lax7-1.cdninstagram.com/v/t51.82787-15/875347989_18642158602021…",
+            "width": 750
+          }
+        ]
       }
     ]
-  }
+  },
+  "pagination_token": "D01SBBAp…"
 }
 ```
 
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `data.count` | Number of items returned in this response. |
+| `data.items[].id / data.items[].code` | Post ID and short post code. The code is the part of the post URL after `/p/` or `/reel/`. |
+| `data.items[].caption_text` | Full caption text of the post. |
+| `data.items[].caption_hashtags` | List of hashtags found in the caption, each with the leading `#`. |
+| `data.items[].like_count / comment_count / play_count` | Engagement counts for the post. `play_count` is set on reels. |
+| `data.items[].taken_at / data.items[].taken_at_ts` | When the post was published, as an ISO 8601 time and as a Unix timestamp in seconds. |
+| `data.items[].media_name / data.items[].product_type` | Type of post, such as `reel` with product type `clips`. |
+| `data.items[].video_url / data.items[].video_duration` | Link to the video file and its length for video posts. The duration value looks like seconds. |
+| `data.items[].thumbnail_url` | Link to a preview image of the post. |
+| `data.items[].user.username / user.full_name / user.id` | Account that published the post: handle, display name, and numeric ID. |
+
 ### Notes
 
-- Provide `keyword` without the leading '#' symbol.
-- `feed_type` accepts "top", "recent", or "reels", defaulting to "top".
-- Pass `pagination_token` from a prior response to page through additional items.
+- Pass `keyword` without the `#`. For example, use `cat` for `#cat`.
+- `feed_type` accepts `top`, `recent`, or `reels`. The default is `top`.
+- To get more items, send the `pagination_token` from the previous response in the next request.
+- To get details on one post from the results, call [Instagram Post Details (V2)](/apis/instagram/v2/post-info). To find related hashtags first, use [Instagram Hashtag Search (V2)](/apis/instagram/v2/search-hashtags).
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.002 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

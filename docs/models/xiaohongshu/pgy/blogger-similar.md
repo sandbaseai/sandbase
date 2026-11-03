@@ -63,7 +63,14 @@ Same call via the path form: `POST /v1/api/xiaohongshu/pgy/blogger-similar` with
 
 ## Details
 
-Get PGY similar bloggers on Xiaohongshu. Returns the platform data as structured JSON.
+This API returns a list of Xiaohongshu bloggers that PGY marks as similar to a target blogger. It needs the target blogger's `user_id`, and it returns profile, content tag, pricing and cooperation data for each similar blogger.
+
+### Use cases
+
+- Find lookalike creators for a blogger you already work with, to widen an influencer shortlist.
+- Compare follower counts and sponsored note counts across similar food or travel bloggers before you pick partners.
+- Group similar bloggers by content tags to map a niche on Xiaohongshu.
+- Page through the similar list to build a candidate pool for a campaign brief.
 
 ### Request
 
@@ -84,9 +91,67 @@ The result is returned in `outputs[0].data`.
 | `page_num` | integer | No | Page |
 | `page_size` | integer | No | Page size, 1-4 |
 
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "code": 0,
+  "data": {
+    "highlightWords": [],
+    "kols": [
+      {
+        "accumCommonImpMedinNum30d": 0,
+        "accumCoopImpMedinNum30d": 0,
+        "accumPicCommonImpMedinNum30d": 0,
+        "accumVideoCommonImpMedinNum30d": 0,
+        "activityList": [],
+        "algoRecommendReasons": null,
+        "authorityList": null,
+        "avgAgmv90d": 0.0,
+        "avgLiveViewerNum": 0.0,
+        "businessNoteCount": 133,
+        "buyerType": 2,
+        "classifyCode": null
+      }
+    ],
+    "redirect2NickSearch": false,
+    "resultType": 0,
+    "total": 8,
+    "trackId": "kolSimilar_be353bb575c84f58a9dc3a2bfec5cf2f"
+  },
+  "guid": null,
+  "msg": "成功",
+  "success": true
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `data.kols[]` | One similar blogger per item. The response holds one object for each blogger on the current page. |
+| `data.kols[].fansCount / data.kols[].fansNum` | Follower count of the similar blogger. Both keys carry the same number in this response. |
+| `data.kols[].contentTags[].taxonomy1Tag` | Top-level content category of the blogger, for example `美食` (food). |
+| `data.kols[].contentTags[].taxonomy2Tags[]` | Sub-categories under the top-level tag, for example `美食探店` (food venue reviews). |
+| `data.kols[].businessNoteCount` | Number of sponsored notes the blogger has, as the key name indicates. |
+| `data.kols[].coopNoteNum30d` | Number of cooperation notes in the last 30 days, as the key name indicates. |
+| `data.kols[].clickMidNum` | Median click count for the blogger. The response gives a bare number, so the exact scope is not stated. |
+| `data.kols[].clothingIndustryPrice.picturePrice / data.kols[].clothingIndustryPrice.videoPrice` | Price for an image note and a video note in the clothing industry. The value is `0` for all bloggers in this sample. |
+| `data.total` | Total number of similar bloggers found for the target. It was `8` in this sample. |
+| `data.trackId` | Identifier of this similar-blogger result, starting with `kolSimilar_`. |
+
+### Notes
+
+- Set `page_size` between 1 and 4. The default is `4`.
+- Use `page_num` to move through the list. Compare `data.total` with the number of items you have collected to know when to stop.
+- Get a `user_id` from [Xiaohongshu (RED) PGY Blogger Search](/apis/xiaohongshu/pgy/blogger-list). It is a 24-character hex string, such as `5c668b3e0000000012021605`.
+- Call [Xiaohongshu (RED) PGY Blogger Details](/apis/xiaohongshu/pgy/blogger-detail) to look deeper at one of the similar bloggers.
+
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.02 per successful call. Failed calls are not charged.
 
 ---
 Machine-readable: [`catalog/models/xiaohongshu/pgy/blogger-similar.json`](../../../../catalog/models/xiaohongshu/pgy/blogger-similar.json) · Store page: https://www.sandbase.ai/model/xiaohongshu/pgy/blogger-similar

@@ -66,13 +66,13 @@ Same call via the path form: `POST /v1/api/douyin/index/content-consumer-portrai
 
 ## Details
 
-Fetch demographic and viewer profile data for users who consume content in a category using `tag_id` and `end_date`.
+Returns viewer portrait data for the audience watching videos in one Douyin category over a week or a month. You send a specific `tag_id` and an `end_date`, and you can set `period` to `week` or `month`.
 
 ### Use cases
 
-- Analyze the viewer demographic breakdown for a specific video category.
-- Evaluate consumer audience shifts across weekly or monthly reporting cycles.
-- Compare Douyin category viewership profiles against content creator personas.
+- Check who watches a single Douyin video category before you plan content for it.
+- Compare the viewer portrait of one category across weekly or monthly periods.
+- Pull the audience profile of a category to support a brand or ad targeting brief.
 
 ### Request
 
@@ -83,23 +83,47 @@ curl -X POST "https://api.sandbase.ai/v1/api/douyin/index/content-consumer-portr
   -d '{"end_date": "1735660799", "tag_id": "2027"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
 |---|---|---|---|
-| `tag_id` | string | Yes | Category ID (required, does NOT support 0=all, must pass a specific category ID) |
 | `end_date` | string | Yes | End date YYYYMMDD, must align with period |
+| `tag_id` | string | Yes | Category ID (**required, does NOT support 0=all**, must pass a specific category ID) |
 | `period` | string | No | "week" (end_date must be a Sunday) or "month" (end_date must be month-end, e.g. 20260331) |
+
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "BaseResp": {
+    "StatusCode": -1,
+    "StatusMessage": "end_date非当前周期最后一天"
+  }
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `BaseResp` | Status block returned with the request result. |
+| `BaseResp.StatusCode` | Result code. The sample call returned `-1`, which marks a failed request. |
+| `BaseResp.StatusMessage` | Text reason for the result. The sample call returned a message saying `end_date` is not the last day of the current period. |
 
 ### Notes
 
-- The `tag_id` parameter is required and does not accept 0; a specific category identifier is necessary.
-- When `period` is set to "week", `end_date` must fall on a Sunday.
-- When `period` is set to "month", `end_date` must be the final day of that month.
+- The sample call failed because `end_date` was `1735660799`, which is not a `YYYYMMDD` date. Send a value such as `20260331`.
+- With `period` set to `week`, `end_date` must be a Sunday. With `period` set to `month`, `end_date` must be the last day of the month.
+- `tag_id` must be a specific category ID. The value `0` for all categories is not accepted.
+- To find dates that have data, call [Douyin Index Valid Dates](/apis/douyin/index/all-valid-date).
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

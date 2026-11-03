@@ -62,9 +62,14 @@ Same call via the path form: `POST /v1/api/polymarket/oi` with the body above mi
 
 ## Details
 
-Open interest in USDC for one or more markets by condition ID.
+Returns the open interest in USDC for one or more Polymarket markets. You pass one or more condition IDs in `condition`, separated by commas.
 
-Served from the Polymarket Data API v2. The result is returned in `outputs[0].data`: rows are under `data`, and paginated routes add `pagination.next_cursor` (pass it back as `cursor`).
+### Use cases
+
+- Track how much money is still committed to a market before deciding whether it is liquid enough to trade.
+- Rank a set of markets by open interest to find the most active ones.
+- Chart open interest for a market over time by calling the API on a schedule and storing the `value`.
+- Compare open interest across up to 20 related markets in a single call.
 
 ### Request
 
@@ -75,19 +80,47 @@ curl -X POST "https://api.sandbase.ai/v1/api/polymarket/oi" \
   -d '{"condition": "0xc5eae79d1ffe716572353962eb926b1e3964c500a4880a7a94f58408218ee76b"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
 |---|---|---|---|
-| `condition` | string | Yes | Condition id(s), comma-separated (at most 20 distinct values). `condition` is the unified key across v2 (same as the feeds); `condition_id` / `conditionId` are accepted aliases. Omit for global open i |
+| `condition` | string | Yes | Condition id(s), comma-separated (at most 20 distinct values). `condition` is the unified key across v2 (same as the feeds); `condition_id` / `conditionId` are accepted aliases. Omit for global open interest. |
 
-### Reference
+### Example response
 
-- Official docs: https://docs.polymarket.com/api-reference/data-api/overview
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "data": [
+    {
+      "condition_id": "0xc5eae79d1ffe716572353962eb926b1e3964c500a4880a7a94f58408218ee76b",
+      "value": 7708257.285468
+    }
+  ]
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `data` | List of results. Each row covers one condition ID. |
+| `data[].condition_id` | The condition ID of the market. It matches the value you sent in `condition`. |
+| `data[].value` | Open interest for that market in USDC, as a decimal number. |
+
+### Notes
+
+- Condition IDs are 0x-prefixed hex strings. Pass at most 20 distinct values, separated by commas.
+- `condition_id` and `conditionId` work as aliases for `condition`.
+- Get condition IDs from [Polymarket List markets](/apis/polymarket/markets) or [Polymarket Get market by slug](/apis/polymarket/markets-slug).
+- Use [Polymarket Market Holders](/apis/polymarket/holders) to see who holds positions in the same market.
 
 ### Pricing
 
-Flat price per call. Failed calls are not charged.
+$0.00044 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ---
 Machine-readable: [`catalog/models/polymarket/oi.json`](../../../catalog/models/polymarket/oi.json) · Store page: https://www.sandbase.ai/model/polymarket/oi

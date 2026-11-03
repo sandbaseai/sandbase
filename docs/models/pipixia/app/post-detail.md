@@ -63,13 +63,14 @@ Same call via the path form: `POST /v1/api/pipixia/app/post-detail` with the bod
 
 ## Details
 
-Retrieve detailed post and video information from Pipixia by providing a `cell_id` and optional `cell_type`.
+Returns the detail record for one Pipixia post, including its hashtag, location label, display time and item media. It needs a `cell_id`, which is the post (video) ID, and accepts an optional `cell_type`.
 
 ### Use cases
 
-- Retrieve metadata and media content for a specific Pipixia video post.
-- Inspect hashtag and post details linked to a shared Pipixia link.
-- Extract post attributes for individual Pipixia photo or video items.
+- Look up the hashtag a Pipixia video belongs to, with its follower and visit counts.
+- Convert a shared Pipixia link into a post record with its ID and publish time.
+- Collect the thumbnail images attached to a post.
+- Check which city or region label a post carries.
 
 ### Request
 
@@ -80,6 +81,8 @@ curl -X POST "https://api.sandbase.ai/v1/api/pipixia/app/post-detail" \
   -d '{"cell_id": "7411193113223371043"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
@@ -89,32 +92,61 @@ curl -X POST "https://api.sandbase.ai/v1/api/pipixia/app/post-detail" \
 
 ### Example response
 
-Real response for the request above, trimmed to the main fields. User names and long IDs are masked.
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
 
 ```json
 {
   "data": {
     "data": {
-      "hashtag": {
-        "base_hashtag": {
-          "avatars": [
-            {}
-          ]
-        }
-      }
+      "ad_info": null,
+      "album_info": null,
+      "banner_info": null,
+      "block_info": null,
+      "board_info": {
+        "block_type": 12,
+        "god_rank": -1
+      },
+      "button": null,
+      "card_item": null,
+      "cell_id": 7411193113223371043,
+      "cell_id_str": "7411193113223371043",
+      "cell_type": 1,
+      "city_name": "广东",
+      "club_info": null
     }
-  }
+  },
+  "message": "success",
+  "prompt": "",
+  "status_code": 0,
+  "time": 1793691712048
 }
 ```
 
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `data.data.cell_id / data.data.cell_id_str` | The post ID as a number and as a string. Use the string version to avoid precision loss. |
+| `data.data.cell_type` | The type of the returned cell. The value `1` matches the video type in the request parameter. |
+| `data.data.display_time` | Time the post is shown, as a Unix timestamp in seconds. |
+| `data.data.city_name` | Location label of the post, such as `广东`. |
+| `data.data.hashtag.base_hashtag.atmosphere` | Short label text of the hashtag the post is attached to. |
+| `data.data.hashtag.base_hashtag.category_list[].name` | Name of the category the hashtag belongs to, for example `同城生活`. |
+| `data.data.hashtag.enter_num / data.data.hashtag.followers_num` | Counts for the hashtag. `enter_num` is the entry count and `followers_num` is the number of followers. |
+| `data.data.hashtag.base_hashtag.avatars[].url_list[].url` | Image URLs for the hashtag avatars, each 200 by 200 pixels. |
+| `data.data.item.aha_image[].url_list[].url` | Image URLs attached to the post item. Each entry also has `width`, `height` and `uri`. |
+| `data.data.item.ancestor_id` | ID of the original post this item traces back to. It equals the requested `cell_id` here. |
+
 ### Notes
 
-- Obtain `cell_id` directly from the Pipixia share link.
-- Set `cell_type` to 1 for video posts, or keep the default value for other media types.
+- Take `cell_id` from a Pipixia share link. Use [Pipixia Short URL Conversion](/apis/pipixia/app/short-url) if you only have a short link.
+- Keep `cell_type` at its default of `1` for videos. Keep the default for other types too.
+- Many fields, such as `comment`, `user_info` and `ad_info`, return `null` in this response.
+- For engagement numbers and comments, call [Pipixia Post Statistics](/apis/pipixia/app/post-statistics) or [Pipixia Post Comments](/apis/pipixia/app/post-comment-list).
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

@@ -62,13 +62,14 @@ Same call via the path form: `POST /v1/api/douyin/web/user-profile-v2` with the 
 
 ## Details
 
-Retrieves profile and compilation details for a specified Douyin user account. Provide the account `unique_id` to look up user data.
+Returns the public profile of a Douyin account, including nickname, `sec_uid`, follower-style counts and avatar URLs. It needs one input, the account `unique_id` (the Douyin ID handle).
 
 ### Use cases
 
-- Retrieve public profile details for a Douyin account.
-- Access video collection metadata associated with a user.
-- Verify user account data using their unique identifier.
+- Look up the `sec_uid` for a Douyin handle so you can call other user endpoints.
+- Check an account's nickname, signature and post count from its `unique_id`.
+- Download avatar images for a creator directory.
+- Compare `total_favorited` and `following_count` across several accounts.
 
 ### Request
 
@@ -79,6 +80,8 @@ curl -X POST "https://api.sandbase.ai/v1/api/douyin/web/user-profile-v2" \
   -d '{"unique_id": "TheChief"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
@@ -87,28 +90,68 @@ curl -X POST "https://api.sandbase.ai/v1/api/douyin/web/user-profile-v2" \
 
 ### Example response
 
-Real response for the request above, trimmed to the main fields. User names and long IDs are masked.
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
 
 ```json
 {
+  "extra": {
+    "logid": "20261103153238A5DEF746CA9D67CB166D",
+    "now": 1793691159083
+  },
+  "is_oversea": 0,
+  "status_code": 0,
   "user_info": {
-    "mix_info": [
-      {
-        "mix_id": "7554237184270665754",
-        "mix_name": "精选内容创作指南"
-      }
-    ]
+    "account_cert_info": "{}",
+    "avatar_medium": {
+      "uri": "aweme-avatar/tos-cn-avt-0015_b864d4d80c09ad5b48591f6e8ebe4732",
+      "url_list": [
+        "https://p3.douyinpic.com/aweme/100x100/aweme-avatar/tos-cn-avt-0015_b864d4d80c09…"
+      ]
+    },
+    "avatar_thumb": {
+      "uri": "aweme-avatar/tos-cn-avt-0015_b864d4d80c09ad5b48591f6e8ebe4732",
+      "url_list": [
+        "https://p3.douyinpic.com/aweme/100x100/aweme-avatar/tos-cn-avt-0015_b864d4d80c09…"
+      ]
+    },
+    "aweme_count": 6,
+    "card_entries": [],
+    "custom_verify": "",
+    "enterprise_verify_reason": "",
+    "favoriting_count": 57000,
+    "follow_status": 0,
+    "followers_detail": null,
+    "following_count": 400,
+    "geofencing": null
   }
 }
 ```
 
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `user_info.nickname` | Display name of the account. |
+| `user_info.unique_id` | The Douyin ID handle you searched for. |
+| `user_info.sec_uid` | Encrypted user ID that starts with `MS4w`. Other Douyin user APIs use it to identify the account. |
+| `user_info.signature` | Profile bio text. In this response the value is Base64 text with a `B64: ` prefix, so decode it to read the bio. |
+| `user_info.aweme_count` | Number of videos posted by the account. |
+| `user_info.total_favorited` | Total likes the account has received. It comes back as a string. |
+| `user_info.following_count / user_info.favoriting_count` | Number of accounts this user follows and number of videos this user has liked. |
+| `user_info.mplatform_followers_count` | Follower count reported under this key name. |
+| `user_info.avatar_medium.url_list[] / user_info.avatar_thumb.url_list[]` | Image URLs for the medium and thumbnail avatar. Each list has several mirror URLs for the same image. |
+| `status_code` | `0` when the request succeeded. |
+
 ### Notes
 
-- Supply the user's account handle or ID via the `unique_id` parameter.
+- Pass the account handle as `unique_id`, for example `TheChief`.
+- Use `user_info.sec_uid` from this response as input to [Douyin User Video Posts](/apis/douyin/web/user-post-videos).
+- If you only have a profile URL, use [Douyin sec_user_id from URL](/apis/douyin/web/sec-user-id) to get the `sec_user_id`.
+- `user_info.mix_info` is `null` in this response, so the account has no compilation data here.
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

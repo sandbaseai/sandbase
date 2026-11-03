@@ -65,13 +65,14 @@ Same call via the path form: `POST /v1/api/instagram/v2/similar-users` with the 
 
 ## Details
 
-Use this endpoint to retrieve recommended accounts similar to a target profile using `username` or `user_id`.
+Returns a list of Instagram accounts that Instagram recommends as similar to a given account. You pass either a `username` or a numeric `user_id`.
 
 ### Use cases
 
-- Discover comparable influencer accounts for brand partnerships.
-- Explore related profiles within a specific niche or community.
-- Automate competitor audience and account discovery.
+- Find comparable creators to shortlist for a brand partnership.
+- Build a list of accounts in the same niche as a seed profile.
+- Map related accounts around a competitor to see who shares its audience space.
+- Expand a list of tracked accounts by adding the recommended ones.
 
 ### Request
 
@@ -82,6 +83,8 @@ curl -X POST "https://api.sandbase.ai/v1/api/instagram/v2/similar-users" \
   -d '{"username": "instagram", "user_id": "18527"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
@@ -89,13 +92,50 @@ curl -X POST "https://api.sandbase.ai/v1/api/instagram/v2/similar-users" \
 | `user_id` | string | No | User ID (either username or user_id required) |
 | `username` | string | No | Username (either username or user_id required) |
 
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "data": {
+    "count": 78,
+    "items": [
+      {
+        "full_name": "Sergei Kosenko",
+        "id": "56499608746",
+        "is_private": false,
+        "is_verified": true,
+        "profile_pic_url": "https://scontent-arn2-1.cdninstagram.com/v/t51.82787-19/541225038_18032030669880…",
+        "username": "mr.thank.you"
+      }
+    ]
+  }
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `data.count` | Number of similar accounts returned for the target account. |
+| `data.items[].username` | Handle of the recommended account. Use it as the `username` input for other Instagram calls. |
+| `data.items[].id` | Numeric ID of the recommended account, returned as a string. Use it as the `user_id` input. |
+| `data.items[].full_name` | Display name shown on the recommended profile. |
+| `data.items[].is_verified` | `true` if the recommended account has a verified badge. |
+| `data.items[].is_private` | `true` if the recommended account is private. |
+| `data.items[].profile_pic_url` | Link to a 320x320 profile picture of the recommended account. |
+
 ### Notes
 
-- Either `user_id` or `username` must be provided.
+- Send either `username` or `user_id`. The example uses `instagram` and `18527`, which belong to the same account.
+- The response has no pagination parameters. All recommended accounts come back in `data.items`.
+- The response gives only basic identity fields. Call [Instagram User Profile](/apis/instagram/v2/user-info) with a returned `username` for full profile details.
+- Profile picture links in `profile_pic_url` are long signed URLs, so download or store the image soon after you fetch it.
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.002 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

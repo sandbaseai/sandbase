@@ -63,9 +63,14 @@ Same call via the path form: `POST /v1/api/douyin/video-sub-comment` with the bo
 
 ## Details
 
-Get replies to a top-level Douyin (TikTok China) video comment with page-based pagination. Use it to inspect threaded discussions and review feedback under a known comment.
+Returns replies to one top-level Douyin comment. It needs the `commentId` of that comment and takes an optional `page` number. Each reply includes its text, timestamp, like count and the video it belongs to.
 
-The response is the platform's original data structure.
+### Use cases
+
+- Read the full thread under a popular comment to see how viewers respond to it.
+- Collect reply text under a known comment for sentiment or feedback review.
+- Count replies and likes on a comment to find threads with active discussion.
+- Link each reply back to its video and parent comment to rebuild a comment tree.
 
 ### Request
 
@@ -76,6 +81,8 @@ curl -X POST "https://api.sandbase.ai/v1/api/douyin/video-sub-comment" \
   -d '{"commentId": "7373626964752450315"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
@@ -83,9 +90,69 @@ curl -X POST "https://api.sandbase.ai/v1/api/douyin/video-sub-comment" \
 | `commentId` | string | Yes | The unique identifier of the top-level comment. |
 | `page` | integer | No | Page number (starting from 1). |
 
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "comments": [
+    {
+      "aweme_id": "7372484719365098803",
+      "can_collect": false,
+      "cid": "7373632254276944680",
+      "comment_reply_total": 6,
+      "content_type": 1,
+      "create_time": 1716807549,
+      "decorated_emoji_info": null,
+      "digg_count": 0,
+      "image_list": null,
+      "is_author_digged": false,
+      "is_folded": false,
+      "is_hot": false
+    }
+  ],
+  "cursor": 10,
+  "extra": {
+    "fatal_item_ids": null,
+    "now": 1793691144000,
+    "scenes": null
+  },
+  "has_more": 0,
+  "log_pb": {
+    "impr_id": "202611031532243E3D7BB70E367D24D5ED"
+  },
+  "merge_cursor": "",
+  "status_code": 0,
+  "total": 6
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `comments[].cid` | ID of the reply. Use it as a unique key for each reply. |
+| `comments[].text` | Text of the reply. Emoji appear as bracket tags such as `[玫瑰]`. |
+| `comments[].create_time` | Time the reply was posted, as a Unix timestamp in seconds. |
+| `comments[].digg_count` | Number of likes on the reply. |
+| `comments[].reply_id` | ID of the top-level comment that this reply belongs to. It matches the `commentId` you sent. |
+| `comments[].reply_to_reply_id` | ID of the reply this reply answers. The value `0` means it answers the top-level comment directly. |
+| `comments[].aweme_id` | ID of the video that holds the comment thread. |
+| `comments[].comment_reply_total` | Reply count shown on each reply item. It matches `total` in this response. |
+| `comments[].user` | Profile object of the reply author. It holds avatar image objects and account flags. |
+| `has_more / cursor / total` | `has_more` is `0` when no further page exists. `cursor` is the paging offset returned by the platform. `total` is the number of replies to the comment. |
+
+### Notes
+
+- Get `commentId` from the `cid` field of a top-level comment. The [Douyin Video Comments](/apis/douyin/app-v3/video-comments) API lists those comments for a video.
+- Set `page` to 1, 2, 3 and so on. Keep requesting the next page while `has_more` is `1`.
+- Some `avatar_*` objects come back with an empty `url_list`, so do not rely on them for images.
+- An alternative reply endpoint is [Douyin Video Comment Replies (App V3)](/apis/douyin/app-v3/video-comment-replies).
+
 ### Pricing
 
-Flat price per call. Failed calls and empty results are not charged.
+$0.014286 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ---
 Machine-readable: [`catalog/models/douyin/video-sub-comment.json`](../../../catalog/models/douyin/video-sub-comment.json) · Store page: https://www.sandbase.ai/model/douyin/video-sub-comment

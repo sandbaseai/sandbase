@@ -62,13 +62,14 @@ Same call via the path form: `POST /v1/api/douyin/app-v3/video-statistics` with 
 
 ## Details
 
-Fetch performance metrics for Douyin videos by providing one or two video identifiers in `aweme_ids`.
+Returns like, play and share counts for one or two Douyin videos. You pass the video IDs in `aweme_ids`, separated by a comma.
 
 ### Use cases
 
-- Track engagement metrics such as play and like counts for specific Douyin posts.
-- Compare statistical performance across multiple Douyin videos.
-- Monitor video share counts to evaluate content reach.
+- Check the play and like counts of a single Douyin post.
+- Compare engagement between two Douyin videos in one call.
+- Read `share_count` to see how often a video was shared.
+- Check `download_count` on videos that report it.
 
 ### Request
 
@@ -79,6 +80,8 @@ curl -X POST "https://api.sandbase.ai/v1/api/douyin/app-v3/video-statistics" \
   -d '{"aweme_ids": "7448118827402972455,7126745726494821640"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
@@ -87,28 +90,42 @@ curl -X POST "https://api.sandbase.ai/v1/api/douyin/app-v3/video-statistics" \
 
 ### Example response
 
-Real response for the request above, trimmed to the main fields. User names and long IDs are masked.
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
 
 ```json
 {
   "statistics_list": [
     {
       "aweme_id": "7448118827402972455",
-      "digg_count": 4554,
-      "play_count": 239764,
+      "digg_count": 4553,
+      "play_count": 239913,
       "share_count": 69
     }
   ]
 }
 ```
 
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `statistics_list[]` | One entry per video ID you sent. |
+| `statistics_list[].aweme_id` | The ID of the video these counts belong to. Use it to match each entry to your input. |
+| `statistics_list[].digg_count` | Number of likes on the video. |
+| `statistics_list[].play_count` | Number of plays on the video. |
+| `statistics_list[].share_count` | Number of shares of the video. |
+| `statistics_list[].download_count` | Number of downloads of the video. It appears only for some videos, so the first video in the example does not have it. |
+
 ### Notes
 
-- The `aweme_ids` parameter accepts a single video ID or up to two IDs separated by commas.
+- Send at most two IDs in `aweme_ids`. For one video, send the ID without a comma.
+- `aweme_id` values are long numeric strings. Keep them as strings.
+- `download_count` can be missing from an entry, so check for it before you read it.
+- To count more than two videos at once, use [Douyin Video Statistics (Batch)](/apis/douyin/app-v3/multi-video-statistics).
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

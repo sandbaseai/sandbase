@@ -72,13 +72,14 @@ Same call via the path form: `POST /v1/api/youtube/web-v2/channel-description` w
 
 ## Details
 
-Look up metadata and profile details for a YouTube channel using `channel_id`. Supports regional localization and pagination via `continuation_token`.
+Returns profile details for one YouTube channel, including its title, handle, description, subscriber and video counts, and avatar and banner images. It needs a `channel_id`. You can also pass `country_code` and `language_code`.
 
 ### Use cases
 
-- Retrieve channel statistics such as view counts and subscriber metrics.
-- Extract social links and about-page text from channel profiles.
-- Review channel join dates and metadata localized by region or language.
+- Show a channel card with its title, handle, avatar and banner in a creator directory.
+- Track a channel's subscriber and video counts by saving the response over time.
+- Check whether a channel has memberships, a business email, or a verified badge before outreach.
+- Read a channel's keywords and description to sort it into a topic category.
 
 ### Request
 
@@ -89,24 +90,76 @@ curl -X POST "https://api.sandbase.ai/v1/api/youtube/web-v2/channel-description"
   -d '{"channel_id": "UCeu6U67OzJhV1KwBansH3Dg", "language_code": "zh-CN", "country_code": "US"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
 |---|---|---|---|
-| `channel_id` | string | No | Purpose: Channel ID for first request to get basic channel info |
-| `need_format` | boolean | No | Purpose: Whether to return cleaned simplified data |
-| `country_code` | string | No | Purpose: Set region code |
-| `language_code` | string | No | Purpose: Set language preference |
-| `continuation_token` | string | No | Purpose: Pagination token for second request to get advanced info |
+| `channel_id` | string | No | **Purpose**: Channel ID for first request to get basic channel info |
+| `continuation_token` | string | No | **Purpose**: Pagination token for second request to get advanced info |
+| `country_code` | string | No | **Purpose**: Set region code |
+| `language_code` | string | No | **Purpose**: Set language preference |
+| `need_format` | boolean | No | **Purpose**: Whether to return cleaned simplified data |
+
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "avatar": [
+    {
+      "height": 900,
+      "url": "https://yt3.googleusercontent.com/jwfgqnpI22YpsFDz25QtgITBf5tX7mFHqXWVhHoWzbk3dd…",
+      "width": 900
+    }
+  ],
+  "banner": [
+    {
+      "height": 175,
+      "url": "https://yt3.googleusercontent.com/g9zR1vL-i8QnAWLs08CHvjci79h2AXAps29dGIOLyB9T7Z…",
+      "width": 1060
+    }
+  ],
+  "channel_id": "UCeu6U67OzJhV1KwBansH3Dg",
+  "channel_url": "https://www.youtube.com/channel/UCeu6U67OzJhV1KwBansH3Dg",
+  "continuation_token": "4qmFsgJg…",
+  "country": null,
+  "creation_date": null,
+  "description": "Minecraft ambience and cozy visuals for sleep, relaxing, studying, etc 🌿\n\nHi, I’…",
+  "handle": "CozyCraftYT",
+  "has_business_email": false,
+  "has_membership": true,
+  "is_family_safe": true
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `title / handle` | The channel display name and its @handle without the @ sign. |
+| `channel_id / channel_url / vanity_url` | The channel ID, its youtube.com/channel link, and its @handle link. |
+| `subscriber_count / video_count` | Subscriber and video totals as display text. The text follows `language_code`, for example `12.3万位订阅者` and `227 个视频` with `zh-CN`. |
+| `view_count / creation_date / country` | Total views, join date and channel country. These came back as `null` for this channel. |
+| `description / keywords` | The channel's about text and its keyword string. Long values may be long strings with line breaks. |
+| `avatar[] / banner[]` | Image variants as `url`, `width` and `height`. Pick the size you need. |
+| `verified / has_membership / has_business_email / is_family_safe` | Boolean flags for the verified badge, channel memberships, a listed business email, and family-safe status. |
+| `links[]` | External links from the channel profile. The list is empty when the channel shows none. |
+| `rss_url` | The channel's RSS feed address for new videos. |
+| `continuation_token` | A token you can send back in `continuation_token` for the second request, which returns advanced info. |
 
 ### Notes
 
-- Set `need_format` to true to receive cleaned, simplified channel data.
-- Supply `continuation_token` on follow-up calls to fetch advanced information.
+- Counts such as `subscriber_count` and `video_count` are localized strings, not numbers. Parse them with the language you set in `language_code`.
+- Send `channel_id` on the first request. Send the returned `continuation_token` on a second request for advanced info.
+- If you only have a channel URL, call [YouTube Channel ID from URL](/apis/youtube/web-v2/channel-id) first to get the `channel_id`.
+- To list the channel's content next, call [YouTube Channel Videos](/apis/youtube/web-v2/channel-videos) or [YouTube Channel Shorts](/apis/youtube/web-v2/channel-shorts).
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

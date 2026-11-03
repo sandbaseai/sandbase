@@ -65,9 +65,14 @@ Same call via the path form: `POST /v1/api/fred/series-release` with the body ab
 
 ## Details
 
-Get Series Release from FRED. Returns the official FRED API response unchanged.
+Returns the FRED data release that a series belongs to, such as the release name, ID and link to the source page. It needs a `series_id` such as `GNPCA`.
 
-The response is the official FRED API response, unchanged.
+### Use cases
+
+- Find which release publishes a given series, for example to label a chart with its source.
+- Get the release `id` for a series, then pull all other series in that release.
+- Check whether a series comes from a press release before you build an update schedule around it.
+- Link a series to the publisher's page using the `link` value.
 
 ### Request
 
@@ -78,18 +83,58 @@ curl -X POST "https://api.sandbase.ai/v1/api/fred/series-release" \
   -d '{"series_id": "GNPCA", "file_type": "json"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
 |---|---|---|---|
+| `series_id` | string | Yes | The id for a series. string, required |
 | `file_type` | string | No | Response format. Only json is supported. |
 | `realtime_end` | string | No | The end of the real-time period. For more information, see Real-Time Periods . YYYY-MM-DD formatted string, optional, default: today's date |
 | `realtime_start` | string | No | The start of the real-time period. For more information, see Real-Time Periods . YYYY-MM-DD formatted string, optional, default: today's date |
-| `series_id` | string | Yes | The id for a series. string, required |
+
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "realtime_end": "2026-11-03",
+  "realtime_start": "2026-11-03",
+  "releases": [
+    {
+      "id": 53,
+      "link": "https://www.bea.gov/data/gdp/gross-domestic-product",
+      "name": "Gross Domestic Product",
+      "press_release": true,
+      "realtime_end": "2026-11-03",
+      "realtime_start": "2026-11-03"
+    }
+  ]
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `releases[].id` | Numeric ID of the release that contains the series. Use it with other FRED release APIs. |
+| `releases[].name` | Name of the release, for example `Gross Domestic Product`. |
+| `releases[].link` | URL of the web page for the release. |
+| `releases[].press_release` | `true` if the release is a press release, `false` otherwise. |
+| `releases[].realtime_start / releases[].realtime_end` | Real-time period for this release record, as YYYY-MM-DD dates. |
+| `realtime_start / realtime_end` | Real-time period applied to the whole request, as YYYY-MM-DD dates. Both default to today's date. |
+
+### Notes
+
+- `series_id` is required. Use [FRED Search Series](/apis/fred/series-search) to find an ID if you do not have one.
+- Pass `realtime_start` and `realtime_end` as YYYY-MM-DD strings to set the real-time period.
+- Pass the returned `releases[].id` to [FRED Get Release](/apis/fred/release) for details, or to [FRED Get Release Series](/apis/fred/release-series) to list the other series in the release.
 
 ### Pricing
 
-Flat price per call. Failed calls are not charged.
+$0.00001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ---
 Machine-readable: [`catalog/models/fred/series-release.json`](../../../catalog/models/fred/series-release.json) · Store page: https://www.sandbase.ai/model/fred/series-release

@@ -65,9 +65,14 @@ Same call via the path form: `POST /v1/api/twitter/tweet-quotes` with the body a
 
 ## Details
 
-Quote tweets of a post by tweet ID, newest first, with optional time range and cursor pagination.
+Returns quote tweets of a post, newest first. Each item has the quoting tweet's text, engagement counts, author and a copy of the quoted tweet. It needs a `tweetId`.
 
-The result is returned in `outputs[0].data` as the official X (Twitter) API response, unchanged.
+### Use cases
+
+- Find who is quoting a viral post and read what they say about it.
+- Track reaction to a brand announcement by sorting quote tweets by `likeCount` or `viewCount`.
+- Pull quotes posted inside a set time window using `sinceTime` and `untilTime`.
+- Collect quoting authors for a tweet to review who amplifies it.
 
 ### Request
 
@@ -78,19 +83,88 @@ curl -X POST "https://api.sandbase.ai/v1/api/twitter/tweet-quotes" \
   -d '{"tweetId": "1585341984679469056"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
 |---|---|---|---|
+| `tweetId` | string | Yes | The tweet ID to get quotes for. |
 | `cursor` | string | No | Cursor for pagination. |
 | `includeReplies` | boolean | No | Whether to include replies in the results. Default is True. Provider reference (supplier schema): `{"default":true,"type":"boolean"}`. |
 | `sinceTime` | integer | No | On or after a specified unix timestamp in seconds. Provider reference (supplier schema): `{"format":"int64","type":"integer"}`. |
-| `tweetId` | string | No | The tweet ID to get quotes for. |
 | `untilTime` | integer | No | Before a specified unix timestamp in seconds. Provider reference (supplier schema): `{"format":"int64","type":"integer"}`. |
+
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "has_next_page": true,
+  "msg": "success",
+  "next_cursor": "DAADDAABCgABHV-2mSOaQZoKAAIdWnCOlBtBRgAIAAIAAAACCAADAAAAAAgABAAAAAAKAAUdYvRLOMAn…",
+  "status": "success",
+  "tweets": [
+    {
+      "article": null,
+      "author": {
+        "affiliatesHighlightedLabel": {},
+        "automatedBy": null,
+        "canDm": true,
+        "canMediaTag": true,
+        "coverPicture": "https://pbs.twimg.com/profile_banners/374202112/1747863953",
+        "createdAt": "Thu Sep 15 21:57:34 +0000 2011",
+        "description": "",
+        "entities": {
+          "description": {
+            "urls": []
+          },
+          "url": {}
+        }
+      },
+      "bookmarkCount": 0,
+      "card": null,
+      "communityInfo": null,
+      "conversationId": "2116611118730985882",
+      "createdAt": "Sat Oct 31 19:19:50 +0000 2026",
+      "displayTextRange": [
+        0
+      ],
+      "entities": {},
+      "extendedEntities": {},
+      "id": "2116611118730985882",
+      "inReplyToId": null
+    }
+  ]
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `tweets[].id` | ID of the quote tweet, as a string. |
+| `tweets[].text` | Text of the quote tweet. Long text may be cut in the sample. |
+| `tweets[].url / tweets[].twitterUrl` | Links to the quote tweet on x.com and twitter.com. |
+| `tweets[].createdAt` | When the quote tweet was posted, in a format like `Sat Oct 31 19:19:50 +0000 2026`. |
+| `tweets[].likeCount / tweets[].replyCount / tweets[].retweetCount / tweets[].quoteCount / tweets[].bookmarkCount / tweets[].viewCount` | Engagement counts for the quote tweet. |
+| `tweets[].author` | Profile of the account that wrote the quote, including `createdAt`, `coverPicture`, `canDm` and `description`. |
+| `tweets[].quoted_tweet` | The original tweet that was quoted, with its own `author`, `bookmarkCount`, `conversationId` and `createdAt`. |
+| `tweets[].isReply / tweets[].inReplyToId` | Show whether the quote tweet is also a reply, and which tweet it replies to. |
+| `tweets[].entities.user_mentions[]` | Accounts mentioned in the quote tweet, with `screen_name`, `name` and `id_str`. |
+| `has_next_page / next_cursor` | Show whether more results exist and give the cursor value for the next page. |
+
+### Notes
+
+- Take `tweetId` from the number at the end of a tweet URL, for example `1585341984679469056` in `https://x.com/<user>/status/1585341984679469056`.
+- To get the next page, pass the `next_cursor` value as `cursor` while `has_next_page` is `true`.
+- `sinceTime` and `untilTime` are unix timestamps in seconds. `createdAt` in the response uses a text date format instead.
+- To read the original post itself, call [Twitter Tweet Detail](/apis/twitter/web/tweet-detail) or [X (Twitter) Twitter Tweet](/apis/twitter/tweet).
 
 ### Pricing
 
-Billed at the actual cost of each call, about $0.003 for a typical request; the cost grows with the number of rows returned. Searches with no results are billed at their actual cost. Failed calls are not charged.
+Billed at the actual cost of each call, about $0.003 for the request above. Failed calls are not charged.
 
 ---
 Machine-readable: [`catalog/models/twitter/tweet-quotes.json`](../../../catalog/models/twitter/tweet-quotes.json) · Store page: https://www.sandbase.ai/model/twitter/tweet-quotes

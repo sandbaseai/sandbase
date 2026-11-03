@@ -59,13 +59,14 @@ Same call via the path form: `POST /v1/api/instagram/v3/post-info` with the body
 
 ## Details
 
-Fetch detailed information about an Instagram post by supplying either `url` or `media_id`.
+Returns details for one Instagram post, reel, or video as a list under `items`. Send a post `url` or a numeric `media_id`.
 
 ### Use cases
 
-- Retrieve post metadata from standard posts, reels, or video URLs.
-- Look up specific media content using a numeric media identifier.
-- Monitor engagement and post details across Instagram media links.
+- Read the comment count and Facebook cross-post counts for a single reel.
+- Find the co-authors of a collaboration post and check whether they are verified.
+- Convert a post link into its `code`, `fbid`, and caption timestamp for record keeping.
+- Check whether comments and reshares are enabled on a post before you build a tool around it.
 
 ### Request
 
@@ -76,21 +77,100 @@ curl -X POST "https://api.sandbase.ai/v1/api/instagram/v3/post-info" \
   -d '{"media_id": "3850699893338385742", "url": "https://www.instagram.com/p/DUajw4YkorV/"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
 |---|---|---|---|
-| `url` | string | No | Post URL, e.g. |
 | `media_id` | string | No | Post media ID (numeric ID), can be obtained via `/shortcode_to_media_id` endpoint |
+| `url` | string | No | Post URL, e.g. `https://www.instagram.com/p/DUajw4YkorV/`, supports `/p/`, `/reel/`, `/reels/`, `/tv/` paths |
+
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "_rid": "1ccf10e877cb4",
+  "auto_load_more_enabled": false,
+  "items": [
+    {
+      "are_remixes_crosspostable": true,
+      "boost_unavailable_identifier": null,
+      "boost_unavailable_reason": null,
+      "boost_unavailable_reason_v2": null,
+      "can_see_insights_as_brand": false,
+      "can_view_more_preview_comments": false,
+      "can_viewer_reshare": true,
+      "can_viewer_save": true,
+      "caption": {
+        "bit_flags": 0,
+        "content_type": "comment",
+        "created_at": 1773259206,
+        "created_at_utc": 1773259206,
+        "did_report_as_spam": false,
+        "has_translation": true,
+        "is_covered": false,
+        "is_ranked_comment": false
+      },
+      "caption_is_edited": false,
+      "client_cache_key": "Mzg1MDY5OTg5MzMzODM4NTc0Mg==.3",
+      "clips_metadata": {
+        "achievements_info": {
+          "num_earned_achievements": null,
+          "show_achievements": false
+        },
+        "additional_audio_info": {
+          "additional_audio_username": null,
+          "audio_reattribution_info": {
+            "should_allow_restore": false
+          }
+        },
+        "asset_recommendation_info": null,
+        "audio_ranking_info": {
+          "best_audio_cluster_id": "727312237013877"
+        },
+        "audio_type": "original_sounds",
+        "branded_content_tag_info": {
+          "can_add_tag": false
+        },
+        "breaking_content_info": null,
+        "breaking_creator_info": null
+      }
+    }
+  ],
+  "more_available": false,
+  "num_results": 1,
+  "status": "ok"
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `items[].code` | Short code of the post. It is the part of the post URL after `/p/` or `/reel/`. |
+| `items[].comment_count` | Number of comments on the post. |
+| `items[].caption.created_at / items[].caption.created_at_utc` | Time the caption was created, as a Unix timestamp in seconds. |
+| `items[].caption.has_translation` | Shows whether a translation exists for the caption. |
+| `items[].fb_like_count / items[].fb_play_count / items[].fb_comment_count` | Like, play, and comment counts for the Facebook side of the post. |
+| `items[].fbid` | Facebook-side ID for the post. |
+| `items[].coauthor_producers[].full_name / items[].coauthor_producers[].id / items[].coauthor_producers[].is_verified` | Name, user ID, and verified status of each co-author on a collaboration post. |
+| `items[].clips_metadata.audio_type` | Type of audio used in the reel. The value `original_sounds` marks audio made for this reel. |
+| `items[].can_viewer_reshare / items[].can_viewer_save / items[].comment_likes_enabled` | Flags that show whether the viewer can reshare or save the post and whether comment likes are on. |
+| `items[].device_timestamp` | Unix timestamp in seconds recorded by the posting device. |
 
 ### Notes
 
-- `url` accepts standard Instagram web links supporting `/p/`, `/reel/`, `/reels/`, and `/tv/` path formats.
-- `media_id` requires a numeric identifier, which can be resolved from a post shortcode.
+- Send either `url` or `media_id`. The `url` can use the `/p/`, `/reel/`, `/reels/`, or `/tv/` path.
+- To get a `media_id` from a post link, call [Instagram Shortcode to Media ID (V3)](/apis/instagram/v3/shortcode-to-media-id).
+- The response holds one post in `items`, and `num_results` is `1`. `more_available` is `false`, so there is no paging.
+- To read the comments on the post, call [Instagram Post Comments (V3)](/apis/instagram/v3/post-comments).
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.008 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

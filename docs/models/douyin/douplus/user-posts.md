@@ -64,13 +64,14 @@ Same call via the path form: `POST /v1/api/douyin/douplus/user-posts` with the b
 
 ## Details
 
-Query a creator's public profile videos by providing their `sec_uid`. The endpoint returns compact post details with support for cursor pagination.
+Returns a page of homepage video posts for one Douyin user, including description, publish time, engagement counts, cover and play URLs. It needs the user's `sec_uid`. You can set the page size with `count` and page forward with `cursor`.
 
 ### Use cases
 
-- Retrieve video listings from a target Douyin creator's profile.
-- Monitor new video uploads and tags for competitive profile tracking.
-- Feed Douplus post metadata into content performance dashboards.
+- Pull the latest videos from a Douyin creator's profile to check what they posted.
+- Track `Statistics` counts such as likes and shares across a creator's posts for a performance report.
+- Find posts that carry a `DouplusUserPostTag` label to see which videos the DOU+ tool flags.
+- Collect play URLs and cover images for a creator's videos to build a content archive.
 
 ### Request
 
@@ -80,6 +81,8 @@ curl -X POST "https://api.sandbase.ai/v1/api/douyin/douplus/user-posts" \
   -H "Content-Type: application/json" \
   -d '{"sec_uid": "MS4wLjABAAAAr52fXcfmzqOZJM_smap9Uuxtm16h8BupkCVaCt89BENq3E91mHCvtz5Z5TkXPHq_"}'
 ```
+
+The result is returned in `outputs[0].data`.
 
 ### Parameters
 
@@ -91,38 +94,120 @@ curl -X POST "https://api.sandbase.ai/v1/api/douyin/douplus/user-posts" \
 
 ### Example response
 
-Real response for the request above, trimmed to the main fields. User names and long IDs are masked.
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
 
 ```json
 {
+  "code": 0,
   "data": {
+    "cursor": "1790585915000",
+    "hasMore": true,
     "itemInfoList": [
       {
+        "AwemeInfo": {
+          "Author": {
+            "AvatarMedium": {
+              "Uri": "720x720/aweme-avatar/tos-cn-avt-0015_9186d2f6f96963551bd89aaa2c745843",
+              "UrlList": [
+                "https://p26.douyinpic.com/aweme/720x720/aweme-avatar/tos-cn-avt-0015_9186d2f6f96…"
+              ]
+            },
+            "AvatarThumb": {},
+            "FollowerCount": 0,
+            "LabelList": [],
+            "Nickname": "栗子味",
+            "SecUid": "MS4wLjABAAAAr52fXcfmzqOZJM_smap9Uuxtm16h8BupkCVaCt89BENq3E91mHCvtz5Z5TkXPHq_",
+            "ShortId": "",
+            "Signature": ""
+          },
+          "AwemeId": "7701639863695617457",
+          "CreateTime": "1793177767000",
+          "Desc": "伊人妆 秋眉晃 宛在水中央",
+          "IsPhoto": false,
+          "Statistics": {
+            "AwemeId": "",
+            "CommentCount": 32,
+            "DiggCount": 2283,
+            "ShareCount": 41
+          },
+          "Video": {
+            "Cover": {
+              "Height": 0,
+              "Uri": "tos-cn-p-0015c000-ce/ocjh9b0CqIecA6EjuC4FGfiEQTDDraAoHwfTKk",
+              "UrlKey": "",
+              "UrlList": [
+                "http://p6-douplus-sign.byteimg.com/tos-cn-p-0015c000-ce/ocjh9b0CqIecA6EjuC4FGfiE…"
+              ],
+              "Width": 0
+            },
+            "CreateTime": "1793177767",
+            "ImageURL": {},
+            "IsPhoto": false,
+            "ItemID": "7701639863695617457",
+            "ItemOptions": {},
+            "PlayAddr": {
+              "Height": 576,
+              "Uri": "v1e00fgi0000dbgrh1vog65hqsh78ht0",
+              "UrlKey": "",
+              "UrlList": [
+                "https://v13-cold.douyinvod.com/d6e2d6ff40f7293164b039c01c0d8daa/6ae99c0c/video/t…"
+              ],
+              "Width": 1024
+            },
+            "Statistics": {
+              "CommentCnt": "0",
+              "FinishPlayRate": 0,
+              "IndexCnt": "0",
+              "LikeCnt": "0",
+              "LikeRate": 0,
+              "NewFansCnt": "0",
+              "NewFansRate": 0,
+              "NewLikeCnt": "0"
+            }
+          }
+        },
         "CanMountEnterpriseShopCartType": 2,
         "DouplusUserPostTag": "爆款预定",
-        "PlayletType": 0,
-        "AwemeInfo": {
-          "CreateTime": "1790758823000",
-          "Desc": ". #海俪恩蛋尾巴摇摇#海俪恩美瞳#海俪恩小狗#美瞳推荐"
-        },
+        "IsAd": false,
+        "IsItemPromotional": false,
+        "IsOver90Days": false,
         "ItemSource": {
+          "ItemGeneraion": 0,
           "SourceType": 1
-        }
+        },
+        "PlayletType": 0
       }
     ]
-  }
+  },
+  "msg": "success"
 }
 ```
 
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `data.itemInfoList[].AwemeInfo.AwemeId` | ID of the video post, as a string. |
+| `data.itemInfoList[].AwemeInfo.Desc` | Caption text of the video. |
+| `data.itemInfoList[].AwemeInfo.CreateTime` | Publish time of the post as a string. The value looks like a Unix timestamp in milliseconds. |
+| `data.itemInfoList[].AwemeInfo.Statistics.DiggCount / CommentCount / ShareCount` | Like, comment and share counts for the post. |
+| `data.itemInfoList[].AwemeInfo.Author.Nickname / SecUid` | Display name and `sec_uid` of the post author. |
+| `data.itemInfoList[].AwemeInfo.Video.PlayAddr.UrlList` | List of video file URLs. `Width` and `Height` in the same object give the video size. |
+| `data.itemInfoList[].AwemeInfo.Video.Cover.UrlList` | List of cover image URLs for the video. |
+| `data.itemInfoList[].DouplusUserPostTag` | Tag text attached to a post, such as `爆款预定`. It appears only on some posts. |
+| `data.itemInfoList[].IsAd / IsItemPromotional / IsOver90Days` | Boolean flags for whether the post is an ad, is promotional, or is over 90 days old. |
+| `data.cursor / data.hasMore` | `cursor` is the value to send for the next page. `hasMore` tells you whether more posts remain. |
+
 ### Notes
 
-- `sec_uid` is required to identify the target user.
-- Use "0" for `cursor` on the first page, then pass the cursor returned in subsequent calls.
-- `count` defaults to 10 items per page.
+- Send `cursor` as `"0"` for the first page. For later pages, pass the `data.cursor` value from the previous response.
+- Keep paging while `data.hasMore` is `true`.
+- `count` sets the page size and defaults to 10.
+- Cover and play URLs are signed links, and some include an `x-expires` value, so download them soon after the call.
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

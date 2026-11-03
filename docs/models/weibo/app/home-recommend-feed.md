@@ -63,13 +63,14 @@ Same call via the path form: `POST /v1/api/weibo/app/home-recommend-feed` with t
 
 ## Details
 
-Retrieve the Weibo mobile app home recommendation stream using optional `page` and `count` query parameters.
+Returns a page of recommended feed items from the Weibo app home screen. It needs no input. You can pass `count` to set the page size and `page` to move to later pages.
 
 ### Use cases
 
-- Analyze engagement metrics on recommended Weibo posts.
-- Track recommended content trends from the mobile home stream.
-- Collect recommended feed items for social media monitoring.
+- Sample the posts Weibo recommends on the home screen and compare their `attitudes_count` values.
+- Separate paid ad items from regular recommended posts using the ad fields and `itemExt.adCountInfo.isAd`.
+- Collect post and video IDs from the recommend stream, then fetch full details for the ones you care about.
+- Study which recommend sources and list names produce the items shown in the feed.
 
 ### Request
 
@@ -80,43 +81,87 @@ curl -X POST "https://api.sandbase.ai/v1/api/weibo/app/home-recommend-feed" \
   -d '{}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
 |---|---|---|---|
-| `page` | string | No | Page number, don't pass for first page, pass "2" for second page, and so on |
 | `count` | integer | No | Items per page, default 15, max 50 |
+| `page` | string | No | Page number, don't pass for first page, pass "2" for second page, and so on |
 
 ### Example response
 
-Real response for the request above, trimmed to the main fields. User names and long IDs are masked.
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
 
 ```json
 {
+  "config": "{}",
   "items": [
     {
       "category": "feed",
       "data": {
-        "attitudes_count": 94,
-        "attitudes_status": 0,
-        "comment_guide_type": 0,
-        "comments_count": 12,
-        "content_auth": 0,
-        "favorites_count": 0
+        "ad_marked": false,
+        "analysis_extra": "ui:C@video34|finalRank:0|recommend_source:251|hot_request_id:1793691964393041000…",
+        "analysis_media": "recommend_source:251|listName:interest|recommend_source_ex:source_ids#841_1519_1…",
+        "annotations": [
+          {
+            "photo_sub_type": ""
+          }
+        ],
+        "appid": 2825286,
+        "attitudes_animation": 1,
+        "attitudes_count": 42039,
+        "attitudes_status": 0
+      },
+      "itemExt": {
+        "adCountInfo": {
+          "intervalCount": 1
+        }
       }
     }
-  ]
+  ],
+  "loadedInfo": "{}",
+  "moreInfo": {
+    "error": "网络加载失败，请稍后尝试",
+    "loading": "正在加载更多",
+    "moreType": "default",
+    "pagingType": "cursor",
+    "params": {
+      "count": 15,
+      "lastAdInterval": 4,
+      "max_id": 1
+    }
+  },
+  "pageData": "{}",
+  "refreshInfo": "{}"
 }
 ```
 
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `items[].category` | Type of the entry. The sample items show `feed`. |
+| `items[].data.attitudes_count` | Number of likes (attitudes) on the post. |
+| `items[].data.ad_marked` | Boolean flag on the post. It is `false` in the sample items. |
+| `items[].data.ad_state / items[].data.ad_object` | Present only on ad items. They hold the ad state and the ad tracking object. |
+| `items[].itemExt.adCountInfo.isAd` | Set to `true` on items that are ads. Regular items carry `intervalCount` instead. |
+| `items[].data.analysis_extra` | Pipe-separated string of ranking and source tags, such as `finalRank`, `recommend_source` and `listName`. |
+| `items[].data.annotations[].client_mblogid` | Client-side post ID string that appears in the annotations of some items. |
+| `moreInfo.pagingType` | Paging style reported by the response. The sample value is `cursor`. |
+| `moreInfo.params.count / moreInfo.params.max_id` | Paging values the feed reports for the next request: the item count and a `max_id` cursor. |
+
 ### Notes
 
-- Omit `page` for the first page and pass "2" or higher for subsequent pages.
-- Use `count` to set items per page from 1 to 50, defaulting to 15.
+- Leave `page` out for the first page. Pass `"2"` for the second page, and so on. `page` is a string.
+- `count` accepts 1 to 50 and defaults to 15.
+- Some items are ads. Check `items[].itemExt.adCountInfo.isAd` before you treat an item as an organic post.
+- To go deeper on a post you found here, call [Weibo Post Detail (App)](/apis/weibo/app/status-detail) or [Weibo Post Comments (App)](/apis/weibo/app/status-comments).
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

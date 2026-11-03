@@ -63,13 +63,14 @@ Same call via the path form: `POST /v1/api/lemon8/app/user-follower-list` with t
 
 ## Details
 
-Retrieve a list of followers for a given account by passing the `user_id`. Supports cursor-based pagination via `cursor` for subsequent requests.
+Returns a page of followers for a Lemon8 account. Each follower entry has a name, handle, avatar URL and profile link. The only required input is the account's `user_id`.
 
 ### Use cases
 
-- Audit audience profiles following a targeted Lemon8 creator.
-- Track follower base composition across creator accounts.
-- Collect paginated lists of follower accounts for audience research.
+- Build a list of accounts that follow a Lemon8 creator for audience research.
+- Collect follower handles and profile links to review who engages with a brand account.
+- Page through a creator's followers and store their `user_id` values for later profile lookups.
+- Compare follower lists of several creators to find shared followers.
 
 ### Request
 
@@ -80,21 +81,73 @@ curl -X POST "https://api.sandbase.ai/v1/api/lemon8/app/user-follower-list" \
   -d '{"user_id": "7428056850216862763"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
 |---|---|---|---|
 | `user_id` | string | Yes | User ID, can be obtained from the interface `/lemon8/app/get_user_id` |
-| `cursor` | string | No | Pagination parameter, can be obtained from the return result of the last request. |
+| `cursor` | string | No | Pagination parameter, can be obtained from the return result of the last request. It is empty for the first request, and the cursor returned by the last request is used for subsequent requests. |
+
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "data": {
+    "cursor": 20,
+    "data": [
+      {
+        "description": "",
+        "hide_follow_button": 0,
+        "icon_url": "https://p16-lemon8-cross-sign.tiktokcdn-us.com/user-avatar-alisg/d322cea4d51ddf0…",
+        "is_canceled": false,
+        "is_follow_apply": 0,
+        "is_followed": 0,
+        "is_following": 0,
+        "name": "Matt t💔🇨🇦",
+        "privacy_status": 1,
+        "relation": 2,
+        "share_url": "https://www.lemon8-app.com/@matttabak2018",
+        "user_auth_info": "{\"auth_type\":0,\"show_auth_symbol\":false}"
+      }
+    ],
+    "has_more": true
+  },
+  "error_code": 0,
+  "error_message": "",
+  "message": "success",
+  "server_time": "1793691395.6"
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `data.data[]` | List of follower accounts on the current page. |
+| `data.data[].user_id` | Numeric ID of the follower. Use it to look up that account in other Lemon8 APIs. |
+| `data.data[].name` | Display name of the follower. It can contain emoji. |
+| `data.data[].user_unique_name` | Unique handle of the follower. It matches the part after `@` in `share_url`. |
+| `data.data[].share_url` | Link to the follower's public Lemon8 profile. |
+| `data.data[].icon_url` | Avatar image URL of the follower. |
+| `data.data[].description` | Profile bio of the follower. It is an empty string when none is set. |
+| `data.data[].is_following / data.data[].is_followed` | Flags for the follow relationship between the follower and the requesting context. Values are `0` or `1`. |
+| `data.cursor` | Cursor value for the next page. Pass it as `cursor` in the next request. |
+| `data.has_more` | `true` when more followers are available after this page. |
 
 ### Notes
 
-- Pass `user_id`, which can be retrieved from `/lemon8/app/get_user_id`.
-- Leave `cursor` empty on the first call, then pass the returned cursor value for subsequent pages.
+- Get `user_id` from [Lemon8 User ID from Share Link](/apis/lemon8/app/user-id).
+- Leave `cursor` empty on the first call. For later pages, send the `data.cursor` value from the last response and stop when `data.has_more` is `false`.
+- `user_id` values in the response are numbers, while the request takes `user_id` as a string.
+- To see the accounts a user follows instead, call [Lemon8 User Following List](/apis/lemon8/app/user-following-list).
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

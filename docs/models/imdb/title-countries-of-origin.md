@@ -63,9 +63,14 @@ Same call via the path form: `POST /v1/api/imdb/title-countries-of-origin` with 
 
 ## Details
 
-Get countries of origin associated with an IMDb title ID using selected language and country preferences. Use it to enrich regional catalog metadata or support origin-based analysis.
+Returns the countries of origin for one IMDb title. You pass an IMDb title ID in `tt<digits>` format, and you can pick a language and country preference for the returned names.
 
-The response is the platform's original data structure.
+### Use cases
+
+- Tag each title in a streaming catalog with its production country.
+- Filter a film library to titles made in a given country.
+- Group titles by origin to compare regional output.
+- Show country names in a viewer's language on a title page.
 
 ### Request
 
@@ -76,6 +81,8 @@ curl -X POST "https://api.sandbase.ai/v1/api/imdb/title-countries-of-origin" \
   -d '{"id": "tt0111161"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
@@ -83,9 +90,44 @@ curl -X POST "https://api.sandbase.ai/v1/api/imdb/title-countries-of-origin" \
 | `id` | string | Yes | The IMDb title identifier in tt<digits> format. |
 | `languageCountry` | string | No | Language and country preferences. |
 
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "title": {
+    "countriesOfOrigin": {
+      "countries": [
+        {
+          "__typename": "CountryOfOrigin",
+          "id": "US",
+          "text": "United States"
+        }
+      ]
+    }
+  }
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `title.countriesOfOrigin.countries[]` | List of countries of origin for the title. A title with several origin countries has several entries. |
+| `title.countriesOfOrigin.countries[].id` | Short country code, for example `US`. |
+| `title.countriesOfOrigin.countries[].text` | Country name as a display string, for example `United States`. |
+| `title.countriesOfOrigin.countries[].__typename` | Object type label. It is `CountryOfOrigin` for every entry. |
+
+### Notes
+
+- Find the `id` in the IMDb title URL or in other IMDb APIs. It starts with `tt` and is followed by digits, such as `tt0111161`.
+- Set `languageCountry` to one of `en_US`, `fr_CA`, `fr_FR`, `de_DE`, `hi_IN`, `it_IT`, `pt_BR`, `es_ES`, `es_US` or `es_MX`. The default is `en_US`.
+- For more title data, call [IMDb Details](/apis/imdb/title-details-query) or [IMDb Base Info](/apis/imdb/title-base-query).
+
 ### Pricing
 
-Flat price per call. Failed calls and empty results are not charged.
+$0.007143 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ---
 Machine-readable: [`catalog/models/imdb/title-countries-of-origin.json`](../../../catalog/models/imdb/title-countries-of-origin.json) · Store page: https://www.sandbase.ai/model/imdb/title-countries-of-origin

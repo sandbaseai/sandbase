@@ -58,9 +58,14 @@ Same call via the path form: `POST /v1/api/dataforseo/v3/backlinks/bulk_new_lost
 
 ## Details
 
-New and lost backlink counts since a date for up to 1,000 targets.
+Returns the number of new and lost backlinks for each target you send. A target can be a domain, a subdomain or a page URL, and one call accepts up to 1,000 targets. Add `date_from` to set the start date of the count.
 
-Request fields follow the official DataForSEO `/v3/backlinks/bulk_new_lost_backlinks/live` task schema (one task per call). The response is DataForSEO's original JSON; results are in `tasks[].result`.
+### Use cases
+
+- Compare link growth between competing domains, such as nike.com and adidas.com, in one call.
+- Flag domains in a client portfolio that lost many backlinks in the period.
+- Rank a long list of prospect sites by `new_backlinks` to find those gaining links fastest.
+- Track link churn for specific pages by passing page URLs as targets.
 
 ### Request
 
@@ -71,22 +76,84 @@ curl -X POST "https://api.sandbase.ai/v1/api/dataforseo/v3/backlinks/bulk_new_lo
   -d '{"targets": ["nike.com", "adidas.com"]}'
 ```
 
+The result is returned in `outputs[0]`.
+
 ### Parameters
 
-The JSON body is forwarded to the upstream endpoint. Main fields:
+| Name | Type | Required | Description |
+|---|---|---|---|
+| `date_from` | string | No | Optional start date, "yyyy-mm-dd". |
+| `targets` | array | No | Array of domains, subdomains or page URLs (up to 1,000). |
 
-| Name | Description |
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "status_code": 20000,
+  "status_message": "Ok.",
+  "tasks": [
+    {
+      "data": {
+        "api": "backlinks",
+        "function": "bulk_new_lost_backlinks",
+        "targets": [
+          "nike.com"
+        ]
+      },
+      "id": "11030828-2190-0349-0000-7da41015310a",
+      "path": [
+        "v3"
+      ],
+      "result": [
+        {
+          "items": [
+            {
+              "lost_backlinks": 536609,
+              "new_backlinks": 426575,
+              "target": "nike.com"
+            }
+          ],
+          "items_count": 2
+        }
+      ],
+      "result_count": 1,
+      "status_code": 20000,
+      "status_message": "Ok.",
+      "time": "0.2283 sec."
+    }
+  ],
+  "tasks_count": 1,
+  "tasks_error": 0,
+  "time": "0.2391 sec.",
+  "version": "0.1.20261022"
+}
+```
+
+### Response fields
+
+| Field | Meaning |
 |---|---|
-| `targets` | Array of domains, subdomains or page URLs (up to 1,000). |
-| `date_from` | Optional start date, "yyyy-mm-dd". |
+| `tasks[].result[].items[].target` | The domain, subdomain or page URL that the counts belong to. It matches a value from your `targets` list. |
+| `tasks[].result[].items[].new_backlinks` | Number of new backlinks found for the target in the period. |
+| `tasks[].result[].items[].lost_backlinks` | Number of backlinks lost by the target in the period. |
+| `tasks[].result[].items_count` | Number of target rows returned in this result. |
+| `tasks[].data.targets` | The targets the task received, echoed from your request. |
+| `tasks[].id` | Unique ID of the task. |
+| `tasks[].status_code / tasks[].status_message` | Status of the task. `20000` with `Ok.` means it succeeded. |
+| `tasks_count / tasks_error` | Number of tasks in the call and how many of them failed. |
 
-### Reference
+### Notes
 
-- Official docs: https://docs.dataforseo.com/v3/backlinks/bulk_new_lost_backlinks/live/
+- Send the targets in one `targets` array. This is cheaper in calls than one request per domain.
+- Use `date_from` in `yyyy-mm-dd` format to set the start date. The request above left it out.
+- Each row holds only counts. To see the actual links, call [DataForSEO Backlinks List](/apis/dataforseo/v3/backlinks/backlinks/live).
+- For new and lost referring domains instead of backlinks, use [DataForSEO Backlinks Bulk New and Lost Referring Domains](/apis/dataforseo/v3/backlinks/bulk_new_lost_referring_domains/live).
 
 ### Pricing
 
-Billed at the actual cost of each call, about $0.024072 for the request above. The cost grows with the number of rows, targets or tokens a call returns. Failed calls are not charged. Searches with no results are billed at their actual cost.
+Billed at the actual cost of each call, about $0.024072 for the request above. Failed calls are not charged.
 
 ---
 Machine-readable: [`catalog/models/dataforseo/v3/backlinks/bulk_new_lost_backlinks/live.json`](../../../../../../catalog/models/dataforseo/v3/backlinks/bulk_new_lost_backlinks/live.json) · Store page: https://www.sandbase.ai/model/dataforseo/v3/backlinks/bulk_new_lost_backlinks/live

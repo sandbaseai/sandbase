@@ -63,7 +63,14 @@ Same call via the path form: `POST /v1/api/linkedin/search-companies` with the b
 
 ## Details
 
-Search LinkedIn companies by keyword with optional location filtering, returning normalized company records.
+Returns a list of LinkedIn companies that match a keyword. Each record has the company name, handle, industry, location, follower count text, and a short description. The only required input is `query`, and you can add `location` to narrow the results.
+
+### Use cases
+
+- Build a list of companies in a niche, such as fintech or marketing agencies, for outreach.
+- Narrow a market scan to one city or country with the `location` filter.
+- Find the LinkedIn `handle` of a company so you can fetch its full profile or posts.
+- Compare similar companies by industry and follower count.
 
 ### Request
 
@@ -74,7 +81,7 @@ curl -X POST "https://api.sandbase.ai/v1/api/linkedin/search-companies" \
   -d '{"limit": 3, "query": "fintech"}'
 ```
 
-The result is returned in `outputs[0].data`. A lookup that finds nothing still succeeds and returns `found: false`.
+The result is returned in `outputs[0].data`.
 
 ### Parameters
 
@@ -84,9 +91,56 @@ The result is returned in `outputs[0].data`. A lookup that finds nothing still s
 | `limit` | integer | No | Maximum number of results to return (1-20, default 20). |
 | `location` | string | No | Optional location filter, written out in full (e.g. United Kingdom or San Francisco). |
 
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "data": {
+    "items": [
+      {
+        "description": "Fintech, a pioneering business solutions provider, has been dedicated to serving…",
+        "followersText": "109K followers",
+        "handle": "fintech-net",
+        "id": "2785182",
+        "image": "https://media.licdn.com/dms/image/v2/D4D0BAQE405phR1bFjA/company-logo_100_100/B4…",
+        "industry": "Financial Services",
+        "location": "Tampa, FL",
+        "name": "Fintech",
+        "url": "https://www.linkedin.com/company/fintech-net/"
+      }
+    ]
+  },
+  "found": true
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `data.items[].name` | Display name of the company on LinkedIn. |
+| `data.items[].handle` | Company slug used in the LinkedIn URL. Use it to look up the company in other LinkedIn APIs. |
+| `data.items[].id` | LinkedIn company ID, returned as a string. |
+| `data.items[].url` | Full LinkedIn page URL of the company. |
+| `data.items[].industry` | Industry label shown on the company page, such as `Financial Services`. |
+| `data.items[].location` | Headquarters or main location as written on the company page, such as `Tampa, FL`. |
+| `data.items[].followersText` | Follower count as display text, such as `109K followers`. It is a rounded string, not a number. |
+| `data.items[].description` | Short company description. Long text is cut off and can be in any language. |
+| `data.items[].image` | URL of the company logo image. |
+| `found` | `true` when the search returned results. |
+
+### Notes
+
+- Set `limit` between 1 and 20. The default is 20. This response shows no pagination parameter.
+- Write `location` out in full, for example `United Kingdom` or `San Francisco`.
+- Pass a result's `handle` or `url` to [LinkedIn Company](/apis/linkedin/company) for a full company record.
+- Use [LinkedIn Company Posts](/apis/linkedin/company-posts) to read what a company has posted.
+
 ### Pricing
 
-Billed at the actual cost of each call, usually $0.005 per request. A call can cost more when the first data source fails and another one answers. Failed calls are not charged. Lookups that find nothing and searches with no results are billed at their actual cost, which is often lower and can be $0.
+Billed at the actual cost of each call, about $0.005 for the request above. Failed calls are not charged.
 
 ---
 Machine-readable: [`catalog/models/linkedin/search-companies.json`](../../../catalog/models/linkedin/search-companies.json) · Store page: https://www.sandbase.ai/model/linkedin/search-companies

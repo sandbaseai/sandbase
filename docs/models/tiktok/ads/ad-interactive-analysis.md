@@ -64,13 +64,14 @@ Same call via the path form: `POST /v1/api/tiktok/ads/ad-interactive-analysis` w
 
 ## Details
 
-Look up audience retention and engagement data across video time points using `material_id`. Customize results with optional `metric_type` and `period_type` parameters.
+Returns audience retention and interaction analytics across video timestamps for one TikTok ad creative. The response has a `keyframe` block and a `percentile` block. The call needs a `material_id`, and you can add `metric_type` and `period_type` to filter the result.
 
 ### Use cases
 
-- Inspect audience retention curves at specific video playback timestamps.
-- Identify high-engagement moments within video ad creatives.
-- Determine optimal ad duration based on historical interaction patterns.
+- Check how audience retention changes across the timeline of a video ad.
+- Find the moments in an ad creative that draw the most interaction.
+- Compare the keyframe and percentile results for one creative in a single call.
+- Re-run the same creative with a different `period_type` to see how results change over time.
 
 ### Request
 
@@ -81,6 +82,8 @@ curl -X POST "https://api.sandbase.ai/v1/api/tiktok/ads/ad-interactive-analysis"
   -d '{"material_id": "<material_id>"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
@@ -89,14 +92,42 @@ curl -X POST "https://api.sandbase.ai/v1/api/tiktok/ads/ad-interactive-analysis"
 | `metric_type` | string | No | Analysis type |
 | `period_type` | integer | No | Time range, default 180 days |
 
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "keyframe": {
+    "code": 40000,
+    "msg": "strconv.ParseInt: parsing \"<material_id>\": invalid syntax"
+  },
+  "percentile": {
+    "code": 40000,
+    "msg": "strconv.ParseInt: parsing \"<material_id>\": invalid syntax"
+  }
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `keyframe` | Result block for the keyframe part of the analysis. In the sample response it holds only `code` and `msg`, because the call failed. |
+| `percentile` | Result block for the percentile part of the analysis. In the sample response it holds only `code` and `msg`, because the call failed. |
+| `keyframe.code / percentile.code` | Status code for each block. The sample shows `40000`, which came back because the `material_id` was not a valid number. |
+| `keyframe.msg / percentile.msg` | Error text for each block. In the sample it says the `material_id` value could not be parsed as an integer. |
+
 ### Notes
 
-- `period_type` specifies the analysis time range and defaults to 180 days.
-- `material_id` is required to identify the target ad material.
+- Send `material_id` as a string of digits. The placeholder value in the sample request failed with a parse error in both blocks.
+- Each block reports its own `code` and `msg`, so check both `keyframe` and `percentile` after every call.
+- `period_type` is an integer for the time range and defaults to 180 days. `metric_type` is a string that selects the analysis type.
+- For one part of the data on its own, see [TikTok Ad Keyframe Analysis](/apis/tiktok/ads/ad-keyframe-analysis) or [TikTok Ad Material Percentile Rankings](/apis/tiktok/ads/ad-percentile).
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

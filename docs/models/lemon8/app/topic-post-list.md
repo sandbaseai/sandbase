@@ -70,13 +70,14 @@ Same call via the path form: `POST /v1/api/lemon8/app/topic-post-list` with the 
 
 ## Details
 
-Retrieve a list of posts under a Lemon8 topic using `category`, `hashtag_name`, and `category_parameter`. Supports cursor pagination via `max_behot_time`.
+Returns a page of Lemon8 posts under one topic hashtag. Each post includes its author, engagement counts, link, and images. You need the topic `category`, `category_parameter`, and `hashtag_name` values.
 
 ### Use cases
 
-- Monitor community posts associated with a specific Lemon8 hashtag.
-- Extract topically relevant posts for content discovery and trend tracking.
-- Gather user posts across designated Lemon8 categories for analysis.
+- Track which posts and creators appear under a seasonal hashtag such as `lemon8christmas`.
+- Compare `digg_count` and `comment_count` across posts to find the strongest content in a topic.
+- Collect image URLs and captions from a hashtag for content research.
+- Build a list of active creators in a topic from the `author` objects.
 
 ### Request
 
@@ -87,25 +88,105 @@ curl -X POST "https://api.sandbase.ai/v1/api/lemon8/app/topic-post-list" \
   -d '{"category": "590", "category_parameter": "7174447913778593798", "hashtag_name": "lemon8christmas"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
 |---|---|---|---|
 | `category` | string | Yes | Topic category ID, can be obtained from the interface `/lemon8/app/fetch_topic_info` |
-| `hashtag_name` | string | Yes | Hashtag name, can be obtained from the interface `/lemon8/app/fetch_topic_info` |
 | `category_parameter` | string | Yes | Category parameter ID, can be obtained from the interface `/lemon8/app/fetch_topic_info` |
+| `hashtag_name` | string | Yes | Hashtag name, can be obtained from the interface `/lemon8/app/fetch_topic_info` |
+| `max_behot_time` | string | No | Pagination parameter, can be obtained from the return result of the last request. It is empty for the first request, and the max_behot_time returned by the last request is used for subsequent requests. |
 | `sort_type` | string | No | Sort type, 0 for default sort, currently only support default sort, please do not pass other values. |
-| `max_behot_time` | string | No | Pagination parameter, can be obtained from the return result of the last request. |
+
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "data": {
+    "duration": 2,
+    "has_more": true,
+    "items": [
+      {
+        "activity_forum_list": [],
+        "app_transcode_rule": {},
+        "article_class": "Gallery",
+        "article_selected": false,
+        "article_sub_class": "normal",
+        "article_tag_list": [],
+        "article_type": 0,
+        "article_url": "https://www.lemon8-app.com/@lemon8_us/7578989388068946487?user_id=72623449159366…",
+        "author": {
+          "author_id": 7233310269842719790,
+          "avatar": {
+            "height": 1,
+            "log_extra": "{\"channel_id\":590,\"image_index\":0,\"image_type\":\"avatar\",\"impression_index\":0,\"mi…",
+            "main_color": "",
+            "mimetype": "",
+            "origin_uri": "user-avatar-musically/af9910a9b88477e9a051741b7cc737f6",
+            "thumb_uri": "thumb/user-avatar-musically/af9910a9b88477e9a051741b7cc737f6",
+            "thumb_url_list": [],
+            "uri": "https://p16-lemon8-va-sign.tiktokcdn-us.com/user-avatar-musically/af9910a9b88477…"
+          },
+          "description": "Lemon8 official account🍋\nNew Feature Notes is LIVE 🔥🍋",
+          "link": "sslocal://user_profile?user_id=7233310269842719790",
+          "name": "Lemon8 US",
+          "rec_reason": "",
+          "relation": 0,
+          "user_auth_info": "{\"auth_type\":102,\"show_auth_symbol\":true}"
+        },
+        "avatar_clickable": false,
+        "ban_comment": 0,
+        "behot_time": 1793691394.999
+      }
+    ],
+    "latency_info": {
+      "gostream": 953685,
+      "loader": 417090,
+      "planner": 23,
+      "provider": 525246,
+      "stream_api": 1229507
+    },
+    "login_status": 1,
+    "module_offset": 20,
+    "session_impr_id": 7703845882646497549,
+    "tip": "10 stories from TopBuzz",
+    "total_number": 10
+  },
+  "message": "success",
+  "server_time": "1793691395.48"
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `data.items[].item_id / data.items[].group_id` | Numeric ID of the post. Both fields hold the same value in the sample. Pass it to other post APIs. |
+| `data.items[].article_url` | Public Lemon8 web link to the post. |
+| `data.items[].article_class` | Type of post. The sample value is `Gallery`, an image post. |
+| `data.items[].author.author_id / data.items[].author.name` | ID and display name of the creator who published the post. |
+| `data.items[].author.description` | The creator's profile bio text. |
+| `data.items[].digg_count / comment_count / favorite_count` | Counts of likes, comments, and saves for the post. Likes is the usual reading of `digg_count`, and saves of `favorite_count`. |
+| `data.items[].abstract / article_description` | Caption text of the post as HTML. Not every post includes these fields. |
+| `data.items[].gallery[].image.thumb_url_list[].url` | Thumbnail image URLs for each image in the post. |
+| `data.items[].image_list[].image_multi_gears[].url_list[].url` | Larger image URLs for each image, with the size named in `gear` (for example `1080P`). |
+| `data.items[].behot_time / display_time` | Timestamps of the post as Unix seconds with decimals. |
+| `data.has_more` | Tells you whether more posts are available after this page. |
 
 ### Notes
 
-- Obtain `category`, `category_parameter`, and `hashtag_name` from the `/lemon8/app/fetch_topic_info` endpoint.
-- Pagination uses `max_behot_time` returned from the previous request; leave it empty on the first call.
-- Set `sort_type` to 0 for default sorting, as other values are currently unsupported.
+- Get `category`, `category_parameter`, and `hashtag_name` from [Lemon8 Topic Information](/apis/lemon8/app/topic-info).
+- Leave `max_behot_time` empty on the first call. For the next page, pass the `max_behot_time` value from the previous response, and stop when `data.has_more` is `false`.
+- Pass `0` for `sort_type` or leave it out. Other values are not supported.
+- Use [Lemon8 Post Details](/apis/lemon8/app/post-detail) or [Lemon8 Post Comments List](/apis/lemon8/app/post-comment-list) with an `item_id` to get more on one post.
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

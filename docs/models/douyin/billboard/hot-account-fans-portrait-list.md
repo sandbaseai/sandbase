@@ -63,13 +63,14 @@ Same call via the path form: `POST /v1/api/douyin/billboard/hot-account-fans-por
 
 ## Details
 
-Retrieve audience demographic distribution and portrait metrics for a specific Douyin account using `sec_uid` and an optional `option` setting.
+Returns the fan portrait of a Douyin account as a share distribution and a TGI distribution across buckets. It needs the account's `sec_uid` and accepts an optional integer `option` to pick the portrait type.
 
 ### Use cases
 
-- Analyze demographic breakdowns of a Douyin creator audience.
-- Evaluate audience alignment for influencer partnership selection.
-- Track fan base characteristics across trending Douyin accounts.
+- Compare the top buckets in `portrait` across creators to see which audience segment dominates each account.
+- Use `portrait_tgi` to find which segment is over-represented in a creator's fans compared with the baseline.
+- Screen influencers for a campaign by checking whether their fan distribution matches a target segment.
+- Store portrait snapshots for an account to review its audience mix over time.
 
 ### Request
 
@@ -80,6 +81,8 @@ curl -X POST "https://api.sandbase.ai/v1/api/douyin/billboard/hot-account-fans-p
   -d '{"sec_uid": "MS4wLjABAAAAr52fXcfmzqOZJM_smap9Uuxtm16h8BupkCVaCt89BENq3E91mHCvtz5Z5TkXPHq_"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
@@ -89,31 +92,63 @@ curl -X POST "https://api.sandbase.ai/v1/api/douyin/billboard/hot-account-fans-p
 
 ### Example response
 
-Real response for the request above, trimmed to the main fields. User names and long IDs are masked.
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
 
 ```json
 {
+  "code": 0,
   "data": {
+    "option": "1",
     "portrait": {
+      "key": "2000~2999",
       "portrait_data": [
         {
           "name": "2000~2999",
-          "value": 0.24706867671691793
+          "value": 0.24579581073685258
         }
       ]
-    }
-  }
+    },
+    "portrait_tgi": {
+      "key": "7000~7999",
+      "portrait_data": [
+        {
+          "name": "7000~7999",
+          "value": 166.5975572593203
+        }
+      ]
+    },
+    "user_id": "MS4wLjABAAAAr52fXcfmzqOZJM_smap9Uuxtm16h8BupkCVaCt89BENq3E91mHCvtz5Z5TkXPHq_"
+  },
+  "extra": {
+    "now": 1793691104000
+  },
+  "message": ""
 }
 ```
 
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `data.option` | The portrait option the response is for, returned as a string. The request sent no `option`, and the response shows `1`. |
+| `data.user_id` | The `sec_uid` of the account the portrait belongs to. |
+| `data.portrait.key` | The name of the bucket with the highest share in `portrait_data`. |
+| `data.portrait.portrait_data[].name` | Bucket label, such as `2000~2999`. The labels are ranges of numbers, and the response does not say what the numbers measure. |
+| `data.portrait.portrait_data[].value` | Share of fans in that bucket, as a decimal. For example `0.2458` is about 24.6 percent. |
+| `data.portrait_tgi.key` | The name of the bucket with the highest TGI value in `portrait_tgi.portrait_data`. |
+| `data.portrait_tgi.portrait_data[].name` | Bucket label for the TGI list. It uses the same range format as `portrait`. |
+| `data.portrait_tgi.portrait_data[].value` | TGI score for the bucket. A value above 100 would mean the bucket is over-represented, but the scale is not documented, so check it against your own data. |
+
 ### Notes
 
-- Requires the target creator secure user ID passed in `sec_uid`.
-- Accepts an optional integer in `option` to configure portrait categories.
+- Get `sec_uid` from an account list call such as [Douyin Hot Account List](/apis/douyin/billboard/hot-account-list) or [Douyin Hot Account Search](/apis/douyin/billboard/hot-account-search-list).
+- `sec_uid` is the only required parameter. The `option` value is an integer and the API does not list the allowed values.
+- The `portrait_data` lists in the response are sorted from highest to lowest `value`.
+- For what else fans like, call [Douyin Fan Interest Account List](/apis/douyin/billboard/hot-account-fans-interest-account-list).
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

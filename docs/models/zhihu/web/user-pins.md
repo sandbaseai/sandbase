@@ -64,13 +64,14 @@ Same call via the path form: `POST /v1/api/zhihu/web/user-pins` with the body ab
 
 ## Details
 
-Retrieve a list of pins and moments for a target Zhihu account by specifying `user_url_token`. Pagination is supported through `limit` and `offset`.
+Returns a page of pins (short posts or moments) published by one Zhihu user. The only required input is the user's `user_url_token`, and `limit` and `offset` control paging.
 
 ### Use cases
 
-- Display a timeline of pins and short posts from a Zhihu creator profile.
-- Track recent thoughts and moments shared by selected Zhihu users.
-- Archive historical user pins using paginated requests.
+- Build a timeline of short posts from a Zhihu creator's profile.
+- Archive a user's pins page by page with `offset`.
+- Check whether a Zhihu account has posted any pins before you fetch more data.
+- Collect pin IDs to pass to a pin detail or pin comments lookup.
 
 ### Request
 
@@ -81,6 +82,8 @@ curl -X POST "https://api.sandbase.ai/v1/api/zhihu/web/user-pins" \
   -d '{"user_url_token": "excited-vczh"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
@@ -89,14 +92,43 @@ curl -X POST "https://api.sandbase.ai/v1/api/zhihu/web/user-pins" \
 | `limit` | string | No | Number of pins per page |
 | `offset` | string | No | Offset |
 
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "data": [],
+  "paging": {
+    "is_end": true,
+    "is_start": true,
+    "next": "https://www.zhihu.com/api/v4/v2/pins/excited-vczh/moments?includes=data%5B%2A%5D…",
+    "previous": "https://www.zhihu.com/api/v4/v2/pins/excited-vczh/moments?includes=data%5B%2A%5D…",
+    "totals": 0
+  }
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `data` | List of pins on the current page. It is an empty list when the user has no pins, as in the example response. |
+| `paging.totals` | Total number of pins the response reports for this user. It is `0` in the example. |
+| `paging.is_end / paging.is_start` | Booleans that show whether this page is the last page or the first page of the list. |
+| `paging.next` | URL for the next page. It carries the `limit` and `offset` values for that page. |
+| `paging.previous` | URL for the previous page. It carries the `limit` and `offset` values for that page. |
+
 ### Notes
 
-- Pass the user identifier in `user_url_token`.
-- Control pagination using `limit` and `offset`.
+- `user_url_token` is the slug in a Zhihu profile URL, for example `excited-vczh` in `zhihu.com/people/excited-vczh`.
+- The `next` and `previous` links in `paging` show a default page size of `20` and step the `offset` by that amount.
+- Stop paging when `paging.is_end` is `true`.
+- To read one pin in full, call [Zhihu Pin Detail](/apis/zhihu/web/pin-detail). For its replies, call [Zhihu Pin Comments](/apis/zhihu/web/pin-comments).
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

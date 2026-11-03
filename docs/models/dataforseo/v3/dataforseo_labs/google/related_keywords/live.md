@@ -60,13 +60,14 @@ Same call via the path form: `POST /v1/api/dataforseo/v3/dataforseo_labs/google/
 
 ## Details
 
-Retrieve related Google search queries that appear in shared search engine results pages. Analyze overlapping SERP appearances to discover semantically linked search terms.
+Returns keywords related to a seed keyword on Google, with search volume, CPC, competition and keyword difficulty for each one. It needs a `keyword`, and you can set `location_code`, `language_code` and `limit`.
 
 ### Use cases
 
-- Discover alternative search queries that rank alongside target keywords.
-- Identify semantic keyword clusters based on shared Google SERP positions.
-- Expand keyword research with terms that appear in overlapping search results.
+- Build a keyword list around a seed term such as `running shoes`, with search volume and CPC for each row.
+- Rank related terms by `keyword_difficulty` to find easier targets.
+- Estimate ad costs for related terms from the CPC and top-of-page bid range.
+- Chart seasonality of related terms from their monthly search volumes.
 
 ### Request
 
@@ -77,20 +78,141 @@ curl -X POST "https://api.sandbase.ai/v1/api/dataforseo/v3/dataforseo_labs/googl
   -d '{"keyword": "running shoes", "limit": 5, "location_code": 2840, "language_code": "en"}'
 ```
 
+The result is returned in `outputs[0]`.
+
 ### Parameters
 
-The JSON body is forwarded to the upstream endpoint (one task per call). Fields used above:
+| Name | Type | Required | Description |
+|---|---|---|---|
+| `keyword` | string | No | Search query. |
+| `language_code` | string | No | Language code, e.g. "en". |
+| `limit` | integer | No | Maximum number of results (up to 100). |
+| `location_code` | integer | No | Location code, e.g. 2840 for the United States. |
 
-| Name | Description |
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "status_code": 20000,
+  "status_message": "Ok.",
+  "tasks": [
+    {
+      "data": {
+        "api": "dataforseo_labs",
+        "function": "related_keywords",
+        "keyword": "running shoes",
+        "language_code": "en",
+        "limit": 5,
+        "location_code": 2840,
+        "se_type": "google"
+      },
+      "id": "11030828-2190-0387-0000-481d8d79144d",
+      "path": [
+        "v3"
+      ],
+      "result": [
+        {
+          "items": [
+            {
+              "depth": 0,
+              "keyword_data": {
+                "avg_backlinks_info": {
+                  "backlinks": 368.9,
+                  "dofollow": 204.9,
+                  "last_updated_time": "2026-08-03 09:50:34 +00:00",
+                  "main_domain_rank": 569.7,
+                  "rank": 224.9,
+                  "referring_domains": 96.8,
+                  "referring_main_domains": 87.3,
+                  "referring_pages": 264.8
+                },
+                "clickstream_keyword_info": null,
+                "keyword": "running shoes",
+                "keyword_info": {
+                  "categories": [
+                    10014
+                  ],
+                  "competition": 1,
+                  "competition_level": "HIGH",
+                  "cpc": 1.09,
+                  "high_top_of_page_bid": 2.07,
+                  "last_updated_time": "2026-10-18 15:02:03 +00:00",
+                  "low_top_of_page_bid": 0.48,
+                  "monthly_searches": [
+                    {
+                      "month": 9,
+                      "search_volume": 246000,
+                      "year": 2026
+                    }
+                  ]
+                },
+                "keyword_info_normalized_with_bing": null,
+                "keyword_info_normalized_with_clickstream": null,
+                "keyword_properties": {
+                  "core_keyword": null,
+                  "detected_language": "en",
+                  "is_another_language": false,
+                  "keyword_difficulty": 43,
+                  "se_type": "google",
+                  "synonym_clustering_algorithm": "text_processing"
+                },
+                "language_code": "en"
+              },
+              "related_keywords": [
+                "running shoes nike"
+              ],
+              "se_type": "google"
+            }
+          ],
+          "items_count": 5,
+          "language_code": "en",
+          "location_code": 2840,
+          "se_type": "google",
+          "seed_keyword": "running shoes",
+          "seed_keyword_data": null,
+          "total_count": 9
+        }
+      ],
+      "result_count": 1,
+      "status_code": 20000,
+      "status_message": "Ok.",
+      "time": "0.0455 sec."
+    }
+  ],
+  "tasks_count": 1,
+  "tasks_error": 0,
+  "time": "0.0529 sec.",
+  "version": "0.1.20261022"
+}
+```
+
+### Response fields
+
+| Field | Meaning |
 |---|---|
-| `keyword` | Search query. |
-| `limit` | Maximum number of results (up to 100). |
-| `location_code` | Location code, e.g. 2840 for the United States. |
-| `language_code` | Language code, e.g. "en". |
+| `tasks[].result[].seed_keyword` | The keyword you sent in the request. |
+| `tasks[].result[].total_count / items_count` | `total_count` is the number of related keywords found. `items_count` is the number returned in this response. |
+| `tasks[].result[].items[].keyword_data.keyword` | A related keyword. |
+| `tasks[].result[].items[].depth` | Distance from the seed keyword in the related keyword tree. The seed itself is `0` and its direct related terms are `1`. |
+| `tasks[].result[].items[].related_keywords[]` | Further related keywords listed under this item. |
+| `tasks[].result[].items[].keyword_data.keyword_info.monthly_searches[]` | Search volume per month. Each row has `year`, `month` and `search_volume`. |
+| `tasks[].result[].items[].keyword_data.keyword_info.cpc / low_top_of_page_bid / high_top_of_page_bid` | Cost per click and the low and high top-of-page bid for the keyword. These are price values. |
+| `tasks[].result[].items[].keyword_data.keyword_info.competition / competition_level` | Competition score and its label, such as `HIGH`. |
+| `tasks[].result[].items[].keyword_data.keyword_properties.keyword_difficulty` | Difficulty score for ranking on this keyword. Higher values mean harder. |
+| `tasks[].result[].items[].keyword_data.avg_backlinks_info.backlinks / referring_domains` | Average backlink and referring domain counts for pages that rank for this keyword. |
+
+### Notes
+
+- Pass `location_code` such as `2840` (United States) and `language_code` such as `en` to set the market.
+- `limit` caps the number of items returned, up to 100. In the sample, `limit` 5 gave a `total_count` of 9.
+- Read results from `tasks[0].result[0].items`. Check `status_code` `20000` for success.
+- To check backlink strength for pages that rank for these terms, try [DataForSEO Backlinks Summary](/apis/dataforseo/v3/backlinks/summary/live).
 
 ### Pricing
 
-Billed at the actual cost of each call, about $0.0126 for the request above. The cost grows with the number of rows, targets or pages a call returns. Failed calls are not charged. Searches with no results are billed at their actual cost.
+Billed at the actual cost of each call, about $0.0126 for the request above. Failed calls are not charged.
 
 ### Related APIs
 

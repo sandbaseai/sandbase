@@ -67,13 +67,14 @@ Same call via the path form: `POST /v1/api/douyin/index/content-creative-topic` 
 
 ## Details
 
-Fetch trending creative topics within a specific Douyin category by providing a `tag_id` and an `end_date`.
+Returns a list of trending creative topics (hashtags) for one Douyin content category. Each topic comes with engagement totals and a few sample videos. You send a `tag_id` and an `end_date`.
 
 ### Use cases
 
-- Identify trending video topics within a target category.
-- Track topic performance metrics like item count and like counts.
-- Analyze rising versus overall indexed content themes over time.
+- Find which hashtags are leading in a content category for a given week.
+- Compare topics by `index`, `digg_cnt` and `item_cnt` to pick tags for new videos.
+- Pull sample videos under a topic to see what content drives it.
+- Switch `rank_type` to `rise` to find topics that are growing fastest.
 
 ### Request
 
@@ -84,41 +85,73 @@ curl -X POST "https://api.sandbase.ai/v1/api/douyin/index/content-creative-topic
   -d '{"end_date": "20260405", "tag_id": "601"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
 |---|---|---|---|
+| `end_date` | string | Yes | End date YYYYMMDD. **Must be a Sunday only when period=7**; any day for period=1/3 |
 | `tag_id` | string | Yes | Category ID (same as category_id in fetch_item_query) |
-| `end_date` | string | Yes | End date YYYYMMDD. |
 | `period` | string | No | "1" / "3" / "7" |
 | `rank_type` | string | No | "index" or "rise" |
 
 ### Example response
 
-Real response for the request above, trimmed to the main fields. User names and long IDs are masked.
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
 
 ```json
 {
+  "BaseResp": {
+    "StatusCode": 0,
+    "StatusMessage": ""
+  },
   "topic_list": [
     {
       "digg_cnt": "171445435",
       "id": "1635669004810253",
+      "index": "201575639",
       "item_cnt": "19739286",
-      "name": "搞笑"
+      "item_list": [
+        {
+          "img": "https://p9-byteindex-sign.byteimg.com/tos-cn-p-0015c000-ce/oAfEB3pEBb9bEEkAFmALx…",
+          "item_id": "7621900494017844389",
+          "title": "仅用了0秒就接受了自己的新身份#vlog十亿流量扶持计划 #内容太过真实 #vlog日常 #搞笑 #学生时代",
+          "url": "https://www.douyin.com/share/video/7621900494017844389"
+        }
+      ],
+      "name": "搞笑",
+      "vv": "9700000928"
     }
   ]
 }
 ```
 
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `topic_list[].name` | Topic name, shown as a hashtag-style label such as `搞笑`. |
+| `topic_list[].id` | ID of the topic. |
+| `topic_list[].index` | Index score used to rank the topic. Higher values mean a higher rank under `rank_type` `index`. |
+| `topic_list[].digg_cnt` | Total like count for videos under the topic. |
+| `topic_list[].item_cnt` | Number of videos under the topic. |
+| `topic_list[].vv` | View count for the topic. |
+| `topic_list[].item_list[].title` | Caption of a sample video, including its hashtags. |
+| `topic_list[].item_list[].item_id` | ID of the sample video. |
+| `topic_list[].item_list[].url` | Share link to the sample video on douyin.com. |
+| `topic_list[].item_list[].img` | Cover image URL of the sample video. The link is signed and carries an expiry in its query string. |
+
 ### Notes
 
-- The `end_date` must be formatted as YYYYMMDD and must fall on a Sunday when `period` is set to "7".
-- `tag_id` corresponds to the category ID used in query operations.
-- `rank_type` accepts either "index" or "rise".
+- Numeric values such as `digg_cnt`, `index` and `vv` come back as strings.
+- `end_date` uses the format `YYYYMMDD`. It must be a Sunday when `period` is `7`. Any day works for `1` or `3`.
+- `tag_id` is the same value as `category_id` in the video search APIs. [Douyin Index Video Search](/apis/douyin/index/item-query) is a related call.
+- Call [Douyin Index Valid Dates](/apis/douyin/index/all-valid-date) or [Douyin Content Guide Valid Dates](/apis/douyin/index/content-valid-date) to check which dates have data.
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

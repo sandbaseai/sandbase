@@ -63,13 +63,14 @@ Same call via the path form: `POST /v1/api/twitter/web/retweet-user-list` with t
 
 ## Details
 
-Fetch the accounts that reposted a post by supplying its `tweet_id`. Use the optional `cursor` parameter to navigate through paginated results.
+Returns the accounts that reposted a given post on Twitter (X). It needs the `tweet_id` of the post and returns one profile summary per user, plus a cursor for the next page.
 
 ### Use cases
 
-- Analyze audience reach and engagement for specific posts.
-- Identify influencers and active followers who amplify content.
-- Monitor distribution networks and sharing patterns across the platform.
+- Build a list of accounts that amplified a launch announcement or news post.
+- Rank reposters by `followers_count` to find the largest accounts that shared a post.
+- Spot low-activity accounts by comparing `statuses_count` and `media_count` across reposters.
+- Export reposter handles and IDs for follow-up profile lookups.
 
 ### Request
 
@@ -80,41 +81,61 @@ curl -X POST "https://api.sandbase.ai/v1/api/twitter/web/retweet-user-list" \
   -d '{"tweet_id": "2107237881668313108"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
 |---|---|---|---|
-| `tweet_id` | string | Yes | Tweet ID, can be obtained from the tweet link. |
+| `tweet_id` | string | Yes | Tweet ID, can be obtained from the tweet link. For example: 1808168603721650364 in https://x.com/elonmusk/status/1808168603721650364 |
 | `cursor` | string | No | Cursor, default is None, used for paging, obtained from the last request |
 
 ### Example response
 
-Real response for the request above, trimmed to the main fields. User names and long IDs are masked.
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
 
 ```json
 {
+  "next_cursor": "HBaAgIDxlZiekTQAAA==",
   "retweets": [
     {
-      "followers_count": 1076,
-      "friends_count": 1708,
-      "media_count": 3809,
-      "name": "Francisco Javier",
-      "screen_name": "<user>",
-      "statuses_count": 80694,
-      "user_id": "<user>"
+      "description": "Ras Emilio Heru Selassie 1..2022... X Mark Everything Wynn 93 MGM Macau 2030 D.C…",
+      "followers_count": 2134,
+      "friends_count": 7493,
+      "media_count": 284556,
+      "name": "Ras Nathan C. Selassie I",
+      "profile_image": null,
+      "screen_name": "RasNate001",
+      "statuses_count": 810547,
+      "user_id": "108682255"
     }
   ]
 }
 ```
 
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `retweets[]` | One entry per user who reposted the post. |
+| `retweets[].user_id` | Numeric ID of the user, returned as a string. |
+| `retweets[].screen_name / retweets[].name` | The user's handle and display name. |
+| `retweets[].description` | The user's profile bio text. |
+| `retweets[].followers_count / retweets[].friends_count` | Number of followers the user has and number of accounts the user follows. |
+| `retweets[].statuses_count / retweets[].media_count` | Total posts and total media items counted for the user's account. |
+| `retweets[].profile_image` | Profile image value. It is `null` in the sample response. |
+| `next_cursor` | Cursor string for the next page of reposters. |
+
 ### Notes
 
-- Find the `tweet_id` directly inside the URL of the post status.
-- Use `cursor` from the previous response to paginate through subsequent user records.
+- Take `tweet_id` from the post link. In `https://x.com/elonmusk/status/1808168603721650364`, the ID is `1808168603721650364`.
+- To get the next page, send the `next_cursor` value from the last response as `cursor`, with the same `tweet_id`.
+- Send `tweet_id` and `user_id` values as strings, as they appear in the response.
+- To check whether one specific user reposted a post, try [Twitter Check retweet](/apis/twitter/web/check-retweet).
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

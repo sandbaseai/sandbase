@@ -65,13 +65,14 @@ Same call via the path form: `POST /v1/api/dataforseo/v3/backlinks/summary/live`
 
 ## Details
 
-Use this endpoint to retrieve summary metrics for a backlink profile. Provide target parameters to inspect overall backlink volume and referring domain totals.
+Returns a backlink profile summary for one domain or page. It gives counts of backlinks, broken links and crawled pages, plus spam scores and basic server details. The only input is `target`, such as `nike.com`.
 
 ### Use cases
 
-- Assess overall backlink profile metrics for competitor research.
-- Evaluate domain authority and referring domain volume.
-- Monitor high-level link growth and historical SEO performance.
+- Compare the total backlink count of your site with a competitor's domain.
+- Check `backlinks_spam_score` and `info.target_spam_score` to flag a domain with a risky link profile.
+- Find how many backlinks and pages are broken to plan link reclamation work.
+- Look up the country, server and CMS of a target before an SEO audit.
 
 ### Request
 
@@ -82,17 +83,90 @@ curl -X POST "https://api.sandbase.ai/v1/api/dataforseo/v3/backlinks/summary/liv
   -d '{"target": "nike.com"}'
 ```
 
+The result is returned in `outputs[0]`.
+
 ### Parameters
 
-The JSON body is forwarded to the upstream endpoint (one task per call). Fields used above:
+| Name | Type | Required | Description |
+|---|---|---|---|
+| `target` | string | No | Target domain or page, e.g. "nike.com". |
 
-| Name | Description |
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "status_code": 20000,
+  "status_message": "Ok.",
+  "tasks": [
+    {
+      "data": {
+        "api": "backlinks",
+        "function": "summary",
+        "target": "nike.com"
+      },
+      "id": "11030828-2190-0265-0000-19272d50772c",
+      "path": [
+        "v3"
+      ],
+      "result": [
+        {
+          "backlinks": 17595303,
+          "backlinks_spam_score": 10,
+          "broken_backlinks": 1739366,
+          "broken_pages": 1353132,
+          "crawled_pages": 5181466,
+          "external_links_count": 41218143,
+          "first_seen": "2019-01-15 22:56:16 +00:00",
+          "info": {
+            "cms": "asciidoc",
+            "country": "US",
+            "ip_address": "23.52.180.92",
+            "is_ip": false,
+            "platform_type": null,
+            "server": "unified-edge-router",
+            "target_spam_score": 1
+          }
+        }
+      ],
+      "result_count": 1,
+      "status_code": 20000,
+      "status_message": "Ok.",
+      "time": "0.0072 sec."
+    }
+  ],
+  "tasks_count": 1,
+  "tasks_error": 0,
+  "time": "0.0133 sec.",
+  "version": "0.1.20261022"
+}
+```
+
+### Response fields
+
+| Field | Meaning |
 |---|---|
-| `target` | Target domain or page, e.g. "nike.com". |
+| `tasks[].result[].backlinks` | Total number of backlinks found pointing to the target. |
+| `tasks[].result[].backlinks_spam_score` | Spam score for the target's backlinks. Higher values suggest more spammy links. |
+| `tasks[].result[].broken_backlinks / broken_pages` | Count of backlinks that point to broken pages, and count of broken pages on the target. |
+| `tasks[].result[].crawled_pages` | Number of pages on the target that were crawled. |
+| `tasks[].result[].external_links_count` | Number of external links found on the target's pages. |
+| `tasks[].result[].first_seen` | Date and time the target was first seen, in `YYYY-MM-DD HH:MM:SS +00:00` format. |
+| `tasks[].result[].info.target_spam_score` | Spam score for the target itself. |
+| `tasks[].result[].info.cms / info.server / info.platform_type` | Detected CMS, web server and platform type of the target. Values can be `null`. |
+| `tasks[].result[].info.country / info.ip_address / info.is_ip` | Country code and IP address of the target. `is_ip` shows whether the target is an IP address. |
+| `tasks[].result_count` | Number of items in `result`. A single-target call returns 1. |
+
+### Notes
+
+- Send the domain or page in `target`, for example `nike.com`. Leave out the protocol and use the bare domain for a domain-level summary.
+- The response holds one task in `tasks[]`. Its `id` is a task ID string, and `status_code` of `20000` means the call succeeded.
+- For the individual links behind these totals, call [DataForSEO Backlinks List](/apis/dataforseo/v3/backlinks/backlinks/live). For growth over time, use [DataForSEO Backlinks Totals Over Time](/apis/dataforseo/v3/backlinks/timeseries_summary/live).
 
 ### Pricing
 
-Billed at the actual cost of each call, about $0.024036 for the request above. The cost grows with the number of rows, targets or pages a call returns. Failed calls are not charged. Searches with no results are billed at their actual cost.
+Billed at the actual cost of each call, about $0.024036 for the request above. Failed calls are not charged.
 
 ### Related APIs
 

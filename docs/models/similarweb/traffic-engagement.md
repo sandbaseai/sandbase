@@ -77,9 +77,14 @@ Same call via the path form: `POST /v1/api/similarweb/traffic-engagement` with t
 
 ## Details
 
-Get a website's traffic and engagement metrics month by month: visits, page views, visit duration, bounce rate and more.
+Returns monthly traffic and engagement metrics for a website, such as visits, page views, visit duration and bounce rate. You send a `domain`, a `start_date` and `end_date` in `YYYY-MM` format, and the `metrics` you want.
 
-The response is the official Similarweb API response, unchanged.
+### Use cases
+
+- Track monthly visits for a news site over a date range.
+- Compare a competitor's traffic month by month against your own site.
+- Pull bounce rate and pages per visit to check how engaged a site's visitors are.
+- Build a traffic time series for a domain to feed a dashboard or report.
 
 ### Request
 
@@ -90,23 +95,88 @@ curl -X POST "https://api.sandbase.ai/v1/api/similarweb/traffic-engagement" \
   -d '{"start_date": "2026-09", "end_date": "2026-09", "country": "ww", "domain": "cnn.com", "metrics": "visits", "granularity": "monthly"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
 |---|---|---|---|
-| `country` | string | No | Worldwide data only; values are case-insensitive. |
 | `domain` | string | Yes | domain |
 | `end_date` | string | Yes | end_date |
+| `metrics` | string | Yes | metrics |
+| `start_date` | string | Yes | start_date |
+| `country` | string | No | Worldwide data only; values are case-insensitive. |
 | `granularity` | string | No | granularity |
 | `main_domain_only` | boolean | No | main_domain_only |
-| `metrics` | string | Yes | metrics |
 | `mtd` | boolean | No | mtd |
-| `start_date` | string | Yes | start_date |
 | `web_source` | string | No | web_source |
+
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "data": [
+    {
+      "average_visit_duration": null,
+      "bounce_rate": null,
+      "date": "2026-09-01",
+      "new_users": null,
+      "page_views": null,
+      "pages_per_visit": null,
+      "returning_users": null,
+      "unique_visitors": null,
+      "visits": 188658557.46746868
+    }
+  ],
+  "meta": {
+    "last_updated": "2026-09-30",
+    "request": {
+      "country": "ww",
+      "domain": "cnn.com",
+      "end_date": "2026-09-30",
+      "format": "json",
+      "granularity": "monthly",
+      "main_domain_only": true,
+      "metrics": [
+        "visits"
+      ],
+      "mtd": false,
+      "start_date": "2026-09-01",
+      "state": null,
+      "web_source": "total",
+      "week_start_day": "default"
+    },
+    "status": "success"
+  }
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `data[].date` | First day of the month the row covers, for example `2026-09-01`. |
+| `data[].visits` | Estimated number of visits to the domain in that month. This is a decimal number, not a rounded count. |
+| `data[].page_views / data[].unique_visitors` | Page view and unique visitor counts for the month. They are `null` unless you request those metrics. |
+| `data[].average_visit_duration / data[].bounce_rate / data[].pages_per_visit` | Engagement metrics for the month. They are `null` unless you request them in `metrics`. |
+| `data[].new_users / data[].returning_users` | Split of new and returning users for the month. They are `null` when not requested. |
+| `meta.last_updated` | Date of the most recent data update, shown as `YYYY-MM-DD`. |
+| `meta.request.web_source` | Traffic source the data covers. The response shows `total` when you do not set `web_source`. |
+| `meta.request.metrics` | List of the metrics the call applied. |
+| `meta.status` | Shows `success` when the call worked. |
+
+### Notes
+
+- Metrics you do not request come back as `null` in each `data[]` row, so set `metrics` to the ones you need.
+- Send `start_date` and `end_date` as `YYYY-MM`. The response echoes them as full dates, such as `2026-09-01` and `2026-09-30`.
+- Set `web_source` to `desktop`, `mobile_web` or `total` to pick the traffic source. `country` accepts only `ww` (worldwide) and `granularity` accepts only `monthly`.
+- For a ready-made trend view, see [Similarweb Website Traffic Trend](/apis/similarweb/website-traffic-trend) or [Similarweb Website Traffic Snapshot](/apis/similarweb/website-traffic-snapshot).
 
 ### Pricing
 
-$0.075 per metric per month between start_date and end_date. Failed calls are not charged.
+Billed at the actual cost of each call, about $0.075 for the request above. Failed calls are not charged.
 
 ---
 Machine-readable: [`catalog/models/similarweb/traffic-engagement.json`](../../../catalog/models/similarweb/traffic-engagement.json) · Store page: https://www.sandbase.ai/model/similarweb/traffic-engagement

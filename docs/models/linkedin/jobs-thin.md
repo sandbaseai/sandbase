@@ -71,7 +71,14 @@ Same call via the path form: `POST /v1/api/linkedin/jobs-thin` with the body abo
 
 ## Details
 
-Cheap job index: title, company, location, posted date, URL. No description, salary, applicant counts, or seniority - for those use linkedin.jobs.
+Returns a page of LinkedIn job listings that match a search. Each listing has the job title, company, location, posted time, and URL. The only required input is `query`, a job title or keywords.
+
+### Use cases
+
+- Track new remote software engineer openings in the United States and list them in a daily digest.
+- Build a lead list of companies that are hiring for a given role, using `company` and `companyUrl`.
+- Monitor one employer's open roles by filtering with `companyId`.
+- Collect job URLs in bulk, then fetch full details only for the listings you care about.
 
 ### Request
 
@@ -82,7 +89,7 @@ curl -X POST "https://api.sandbase.ai/v1/api/linkedin/jobs-thin" \
   -d '{"limit": 3, "query": "software engineer", "location": "United States", "workplaceType": "remote"}'
 ```
 
-The result is returned in `outputs[0].data`. A lookup that finds nothing still succeeds and returns `found: false`.
+The result is returned in `outputs[0].data`.
 
 ### Parameters
 
@@ -91,18 +98,65 @@ The result is returned in `outputs[0].data`. A lookup that finds nothing still s
 | `query` | string | Yes | Job title or keywords to search. |
 | `companyId` | string | No | Filter to a specific company by its LinkedIn numeric company id. |
 | `cursor` | string | No | Opaque pagination cursor from a previous response's nextCursor. Omit for the first page; pass it to fetch the next page of job listings. |
-| `employmentType` | string | No | Filter by employment type. One of: `full-time`, `part-time`, `contract`, `internship`, `temporary`. |
-| `experienceLevel` | string | No | Filter by required seniority/experience level. One of: `internship`, `entry`, `associate`, `mid-senior`, `director`, `executive`. |
+| `employmentType` | string | No | Filter by employment type. |
+| `experienceLevel` | string | No | Filter by required seniority/experience level. |
 | `geoId` | string | No | LinkedIn geo id to target a precise location (e.g. 103644278 for the United States); more exact than the free-text location. |
 | `limit` | integer | No | Accepted for compatibility and ignored: each call returns one full source page (10 or 25 jobs depending on source); follow nextCursor for more. |
 | `location` | string | No | City, region, or country to search within. |
-| `postedLimit` | string | No | Only jobs posted within this window (past 24 hours, week, or month). One of: `24h`, `week`, `month`. |
+| `postedLimit` | string | No | Only jobs posted within this window (past 24 hours, week, or month). |
 | `requireFields` | array | No | Optional; omit it and routing is unchanged, with the cheapest source serving. Name the output fields this request must be able to return, for example `logoUrl`, and it is served only by a source that returns every one of |
-| `workplaceType` | string | No | Filter by workplace type (remote, hybrid, or onsite). One of: `remote`, `hybrid`, `onsite`. |
+| `workplaceType` | string | No | Filter by workplace type (remote, hybrid, or onsite). |
+
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "data": {
+    "items": [
+      {
+        "company": "JPMorganChase",
+        "companyUrl": "https://www.linkedin.com/company/jpmorganchase",
+        "createdUtc": 1793232000,
+        "id": "4476983365",
+        "location": "New York, NY",
+        "logoUrl": "https://media.licdn.com/dms/image/v2/D4E0BAQGxpntCyRgsuA/company-logo_100_100/co…",
+        "title": "Software Engineer II (Java/AWS)",
+        "url": "https://www.linkedin.com/jobs/view/software-engineer-ii-java-aws-at-jpmorganchas…"
+      }
+    ],
+    "nextCursor": "cur_UndpALJZYhG_2f7uy7cJJw"
+  },
+  "found": true
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `data.items[].title` | Job title as shown on the listing. |
+| `data.items[].company` | Name of the hiring company. |
+| `data.items[].companyUrl` | LinkedIn page URL of the hiring company. |
+| `data.items[].location` | Job location as free text, such as a city and state. |
+| `data.items[].createdUtc` | Posted time of the listing as a Unix timestamp in seconds. |
+| `data.items[].id` | LinkedIn job id. It also appears at the end of `url`. |
+| `data.items[].url` | Link to the job page on LinkedIn. |
+| `data.items[].logoUrl` | Image URL of the company logo. |
+| `data.nextCursor` | Cursor for the next page of results. Pass it as `cursor` in the next request. |
+| `found` | `true` when the search returned results. |
+
+### Notes
+
+- Each call returns one full page of jobs. The `limit` parameter is ignored, so follow `data.nextCursor` with `cursor` to get more.
+- Use `geoId` for an exact location. For example, `103644278` is the United States.
+- This API returns no description, salary, applicant counts, or seniority. Call [LinkedIn Jobs](/apis/linkedin/jobs) or [LinkedIn Job Details](/apis/linkedin/web-v2/job-detail) for those.
+- To look up the hiring company, call [LinkedIn Company](/apis/linkedin/company).
 
 ### Pricing
 
-Billed at the actual cost of each call, usually $0.00066 per request. A call can cost more when the first data source fails and another one answers. Failed calls are not charged. Lookups that find nothing and searches with no results are billed at their actual cost, which is often lower and can be $0.
+Billed at the actual cost of each call, about $0.00066 for the request above. Failed calls are not charged.
 
 ---
 Machine-readable: [`catalog/models/linkedin/jobs-thin.json`](../../../catalog/models/linkedin/jobs-thin.json) · Store page: https://www.sandbase.ai/model/linkedin/jobs-thin

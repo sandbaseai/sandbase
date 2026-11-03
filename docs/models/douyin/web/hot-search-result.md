@@ -52,13 +52,14 @@ Same call via the path form: `POST /v1/api/douyin/web/hot-search-result` with th
 
 ## Details
 
-Access the latest trending search results from the Douyin web platform. This endpoint retrieves active hot search listings directly.
+Returns the current Douyin web hot search board. It includes a ranked list of hot words and a list of rising trending topics. The request takes no input parameters, so send an empty JSON object `{}`.
 
 ### Use cases
 
-- Track trending search queries across Douyin web in real time.
-- Monitor viral topics and hashtags for content research.
-- Analyze popular search query patterns on Douyin.
+- Pull the ranked hot words on Douyin and store them to see which topics lead the board over time.
+- Compare `hot_value` and `view_count` across hot words to find the topics that draw the most attention.
+- Collect the rising topics in `data.trending_list` to spot stories before they reach the main ranking.
+- Save the cover images and `sentence_id` values to build a dashboard of current Douyin news topics.
 
 ### Request
 
@@ -69,9 +70,107 @@ curl -X POST "https://api.sandbase.ai/v1/api/douyin/web/hot-search-result" \
   -d '{}'
 ```
 
+The result is returned in `outputs[0].data`.
+
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "banner_dark": {
+    "uri": "33a57000197f34889bc27",
+    "url_list": [
+      "https://p26-sign.douyinpic.com/obj/33a57000197f34889bc27?lk3s=03ea9982&x-expires…"
+    ]
+  },
+  "banner_light": {
+    "uri": "33a580000cefdf44e9f76",
+    "url_list": [
+      "https://p11-sign.douyinpic.com/obj/33a580000cefdf44e9f76?lk3s=03ea9982&x-expires…"
+    ]
+  },
+  "data": {
+    "active_time": "2026-11-03 15:31:55",
+    "banner_display": {},
+    "display_style": 0,
+    "share_info": {
+      "share_link_desc": "我在看抖音热榜，发现最火的内容，赶快来看！戳这里>>",
+      "share_title": "我在看抖音热榜，发现最火的内容，赶快来看！",
+      "share_url": "https://www.iesdouyin.com/share/billboard/?id=0"
+    },
+    "trending_desc": "实时上升热点",
+    "trending_list": [
+      {
+        "article_detail_count": 0,
+        "discuss_video_count": 1,
+        "display_style": 0,
+        "event_time": 1793628525,
+        "group_id": "7702756444730922282",
+        "hot_value": 0,
+        "hotlist_param": "{\"board_type\":3,\"rank\":0,\"time\":1793691146}",
+        "label": 0,
+        "sentence_id": "2726328",
+        "sentence_tag": 3002,
+        "video_count": 3,
+        "word": "比利时首相因预算谈判失败请辞"
+      }
+    ],
+    "word_list": [
+      {
+        "can_extend_detail": false,
+        "discuss_video_count": 1,
+        "hot_value": 0,
+        "hotlist_param": "{\"board_type\":0,\"time\":1793691146}",
+        "is_n1": true,
+        "label": 0,
+        "sentence_id": "2727285",
+        "topic_info": {},
+        "view_count": 0,
+        "word": "让互联网更好造福人民造福世界",
+        "word_type": 14
+      }
+    ]
+  },
+  "extra": {
+    "logid": "202611031532264EE322D5C259B56DE447",
+    "now": 1793691146000,
+    "time_cost": {
+      "stream_inner": 188
+    }
+  },
+  "log_pb": {
+    "impr_id": "202611031532264EE322D5C259B56DE447"
+  },
+  "status_code": 0
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `data.word_list[].word` | The hot search phrase as shown on the Douyin board. |
+| `data.word_list[].position / data.word_list[].max_rank` | `position` is the rank of the word in the list, starting at 1. `max_rank` is the best rank value returned for the word. |
+| `data.word_list[].hot_value / data.word_list[].view_count` | Heat score and view count for the hot word. Some entries, such as pinned items without a rank, return no `hot_value`. |
+| `data.word_list[].video_count / data.word_list[].discuss_video_count` | Number of videos tied to the hot word. `discuss_video_count` is a second video count that comes with it. |
+| `data.word_list[].sentence_id / data.word_list[].group_id` | Identifiers for the hot word and its related content group. Both are returned as strings. |
+| `data.word_list[].event_time` | Time of the event behind the word, as a Unix timestamp in seconds. |
+| `data.word_list[].word_cover.url_list` | Signed image URLs for the cover picture of the word. The URLs carry an `x-expires` parameter. |
+| `data.trending_list[].word / data.trending_list[].video_count` | The rising topic phrase and the number of videos linked to it. Entries in this list have a `hot_value` of 0 in this sample. |
+| `data.trending_desc / data.active_time` | `trending_desc` is the label for the rising list. `active_time` is the date and time string for the board. |
+| `extra.now` | Server time of the response as a Unix timestamp in milliseconds. |
+
+### Notes
+
+- No parameters are needed. Send `{}` as the request body.
+- `data.word_list[].hotlist_param` is a JSON string with `board_type`, `rank` and `time`. Parse it if you need the board type and timestamp.
+- `data.word_list[]` entries with `is_n1` set to `true` have no `position` or `hot_value` in the sample, so check for missing keys.
+- To read the videos in a chosen topic or find the creators behind them, use [Douyin Video Channel Feed](/apis/douyin/web/video-channel-result) or [Douyin Web Home Feed](/apis/douyin/web/home-feed).
+
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

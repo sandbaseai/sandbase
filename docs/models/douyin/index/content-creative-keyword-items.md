@@ -69,13 +69,13 @@ Same call via the path form: `POST /v1/api/douyin/index/content-creative-keyword
 
 ## Details
 
-Look up videos contributing to a trending keyword using `keyword`, category identifier `tag_id`, `end_date`, and an optional `period`.
+Returns videos linked to a trending keyword in one Douyin category. You send a category ID in `tag_id`, a `keyword`, and an `end_date`. You can also set `period` to `1`, `3` or `7` days.
 
 ### Use cases
 
-- Inspect videos that drive volume for a trending creative keyword.
-- Analyze creative formats associated with trending terms across categories.
-- Track top-performing content over 1, 3, or 7-day intervals.
+- Find the videos behind a rising keyword such as `人工智能` in a single category.
+- Compare which videos match a keyword over a 1, 3 or 7 day window.
+- Check which video styles a category uses for a trending term before planning new content.
 
 ### Request
 
@@ -86,24 +86,48 @@ curl -X POST "https://api.sandbase.ai/v1/api/douyin/index/content-creative-keywo
   -d '{"end_date": "1735660799", "keyword": "人工智能", "tag_id": "2027"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
 |---|---|---|---|
-| `tag_id` | string | Yes | Category ID (same as category_id in fetch_item_query) |
+| `end_date` | string | Yes | End date YYYYMMDD. **Must be a Sunday only when period=7**; any day for period=1/3 |
 | `keyword` | string | Yes | Hot keyword (typically from fetch_content_creative_keywords) |
-| `end_date` | string | Yes | End date YYYYMMDD. |
+| `tag_id` | string | Yes | Category ID (same as category_id in fetch_item_query) |
 | `period` | string | No | "1" / "3" / "7" days |
+
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "BaseResp": {
+    "StatusCode": -1,
+    "StatusMessage": "json data error，key:ca,2027,人工智能,1735660799,keyword_items_v2,aweme,7"
+  }
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `BaseResp` | Status wrapper for the call. It is the only top-level object in the sample response. |
+| `BaseResp.StatusCode` | Numeric status of the lookup. The sample request returned `-1`, which marks a failed lookup. |
+| `BaseResp.StatusMessage` | Text describing the status. In the sample it reads `json data error` and then lists the values used for the lookup: `2027`, `人工智能`, `1735660799` and `7`. |
 
 ### Notes
 
-- `end_date` must be in YYYYMMDD format and must fall on a Sunday when `period` is 7.
-- `period` accepts values of 1, 3, or 7 days.
-- `tag_id` represents the category ID corresponding to category query endpoints.
+- The sample request used `end_date` `1735660799` and returned `StatusCode` `-1`. The schema asks for `end_date` in `YYYYMMDD` format, so send a date like `20241229`.
+- When `period` is `7`, `end_date` must be a Sunday. For `1` or `3`, any day works.
+- Take `keyword` from [Douyin Content Creative Keywords](/apis/douyin/index/content-creative-keywords). Use the same category ID as `tag_id`.
+- `period` accepts only the strings `1`, `3` and `7`.
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

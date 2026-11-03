@@ -65,13 +65,14 @@ Same call via the path form: `POST /v1/api/zhihu/web/user-articles` with the bod
 
 ## Details
 
-Look up articles authored by a Zhihu member using their `user_url_token`. Results can be sorted and paged via query parameters.
+Returns a page of articles written by one Zhihu member, with titles, excerpts, full HTML content, vote and comment counts, and timestamps. The only required input is the member's `user_url_token`, such as `excited-vczh`.
 
 ### Use cases
 
-- Retrieve article feeds from specific Zhihu authors.
-- Identify top-rated articles by sorting by upvotes.
-- Collect historical long-form contributions for user profile analysis.
+- Build a feed of new long-form posts from a chosen Zhihu author.
+- Rank an author's articles by `voteup_count` to find their most upvoted work.
+- Archive an author's article titles, links and cover images for a content audit.
+- Track comment and favorite counts on an author's articles to compare engagement.
 
 ### Request
 
@@ -82,6 +83,8 @@ curl -X POST "https://api.sandbase.ai/v1/api/zhihu/web/user-articles" \
   -d '{"user_url_token": "excited-vczh"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
@@ -91,15 +94,120 @@ curl -X POST "https://api.sandbase.ai/v1/api/zhihu/web/user-articles" \
 | `offset` | string | No | Offset |
 | `sort_type` | string | No | Sort Type |
 
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "data": [
+    {
+      "admin_closed_comment": false,
+      "article_type": "normal",
+      "author": {
+        "avatar_url": "https://pic1.zhimg.com/v2-ada18a9354a3831171306f2c7ce20aaf_l.jpg?source=d16d100b",
+        "avatar_url_template": "https://pica.zhimg.com/v2-ada18a9354a3831171306f2c7ce20aaf.jpg?source=d16d100b",
+        "badge": [],
+        "badge_v2": {
+          "detail_badges": [],
+          "icon": "",
+          "merged_badges": [],
+          "night_icon": "",
+          "title": ""
+        },
+        "gender": -1,
+        "headline": "",
+        "id": "0970f947b898ecc0ec035f9126dd4e08",
+        "is_advertiser": false
+      },
+      "can_comment": {
+        "reason": "",
+        "status": true
+      },
+      "comment_count": 28,
+      "comment_permission": "all",
+      "content": "<p data-pid=\"MQZ4WGyX\">思路已经有了，也开始做了。</p><p data-pid=\"t6cPGsnd\">早期GacUI为了跨平台精心设计了…",
+      "content_need_truncated": false,
+      "copyright_permission": "need_review",
+      "created": 1705652701,
+      "endorsements": [
+        {
+          "background_color": {
+            "alpha": 0.1,
+            "group": "GBL01A"
+          },
+          "elements": [
+            {
+              "content": "创作声明: 内容包含剧透",
+              "font_color": {
+                "alpha": 1.0,
+                "group": "GBL07A"
+              },
+              "font_size": 13,
+              "is_bold": true,
+              "max_line": 1,
+              "type": "TEXT"
+            }
+          ],
+          "sub_elements": [
+            {
+              "elements": [
+                {
+                  "content": "创作声明: 内容包含剧透",
+                  "font_color": {
+                    "alpha": 1.0,
+                    "group": "GBL07A"
+                  },
+                  "font_size": 13,
+                  "is_bold": true,
+                  "max_line": 1,
+                  "type": "TEXT"
+                }
+              ]
+            }
+          ],
+          "sub_elements_type": "DESCRIPTION"
+        }
+      ],
+      "excerpt": "思路已经有了，也开始做了。早期GacUI为了跨平台精心设计了一套隔离层，可以把操作系统和渲染器的细节正交地隔离掉，后来在移植到macos和linux的时候，得到…"
+    }
+  ],
+  "need_force_login": false,
+  "paging": {
+    "is_end": false,
+    "is_start": true,
+    "next": "http://www.zhihu.com/api/v4/members/excited-vczh/articles?user_url_token=excited…",
+    "previous": "http://www.zhihu.com/api/v4/members/excited-vczh/articles?user_url_token=excited…",
+    "totals": 147
+  }
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `data[].id / data[].title` | The article ID and the article title. |
+| `data[].url` | Link to the article on the Zhihu column site. |
+| `data[].excerpt / data[].content` | A short preview and the article body. Both can contain HTML tags and may be cut off. |
+| `data[].created / data[].updated` | Creation and last update times as Unix timestamps in seconds. |
+| `data[].voteup_count / data[].comment_count` | Number of upvotes and number of comments on the article. |
+| `data[].reaction.statistics.favorites / data[].reaction.statistics.like_count` | Number of favorites and number of likes on the article. |
+| `data[].image_url` | Cover image URL for the article. It is an empty string when the article has no cover. |
+| `data[].author.id / data[].author.headline` | The author's ID and profile headline. |
+| `data[].endorsements[].elements[].content` | Label text shown with the article, such as a column name or a creator statement. |
+| `paging.totals / paging.is_end / paging.next` | Total number of articles for this author, whether this is the last page, and the URL of the next page. |
+
 ### Notes
 
-- Provide the Zhihu account identifier in `user_url_token`.
-- Pagination is controlled using `limit` and `offset`.
-- Use `sort_type` to organize results by date or `voteups`.
+- Take `user_url_token` from the member's Zhihu profile URL. The example value is `excited-vczh`.
+- Page through results with `limit` and `offset`. The `paging.next` URL in the sample response uses `limit=20` and `offset=20`.
+- Set `sort_type` to `created` or `voteups` to order results by post date or upvotes.
+- To list the same author's answers instead, call [Zhihu User Answers](/apis/zhihu/web/user-answers). For the author's profile, call [Zhihu Web User Profile](/apis/zhihu/web/user-info).
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

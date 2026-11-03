@@ -62,13 +62,13 @@ Same call via the path form: `POST /v1/api/tiktok/app-v3/open-app-to-video-detai
 
 ## Details
 
-Generate a direct mobile application share URL by providing the video identifier in `aweme_id`.
+Returns a short TikTok URL that opens a specific video in the TikTok mobile app. The only input is the video ID in `aweme_id`.
 
 ### Use cases
 
-- Direct users from external platforms into the TikTok mobile app.
-- Generate short shareable links for specific video clips.
-- Route mobile traffic directly to video details pages.
+- Put a tappable link in an email, SMS or web page that opens a chosen TikTok video in the app.
+- Build a link list for a set of videos you already track by `aweme_id`.
+- Turn stored video IDs into short links for reports or chat messages.
 
 ### Request
 
@@ -79,6 +79,8 @@ curl -X POST "https://api.sandbase.ai/v1/api/tiktok/app-v3/open-app-to-video-det
   -d '{"aweme_id": "7440436579409153311"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
@@ -87,23 +89,33 @@ curl -X POST "https://api.sandbase.ai/v1/api/tiktok/app-v3/open-app-to-video-det
 
 ### Example response
 
-Real response for the request above, trimmed to the main fields. User names and long IDs are masked.
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
 
 ```json
 {
   "aweme_id": "7440436579409153311",
-  "short_url": "https://www.tiktok.com/t/ZP9D9bnSdX695-XhTyt/",
+  "short_url": "https://www.tiktok.com/t/ZP9ytck3pDm1g-jjond/",
   "status": 0
 }
 ```
 
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `short_url` | Short `tiktok.com/t/` link that opens the video in the TikTok app. Use this value as the share link. |
+| `aweme_id` | The video ID from your request, returned unchanged. Use it to match the link to the video. |
+| `status` | Status code of the call. The value `0` appears in a successful response. |
+
 ### Notes
 
-- Requires `aweme_id` representing the target video identifier.
+- `aweme_id` is the numeric video ID, for example `7440436579409153311`. It is sent as a string.
+- Each call returns one link for one video. For a general share link, see [TikTok Share Short Link](/apis/tiktok/app-v3/share-short-link).
+- To read the video's details before you build the link, call [TikTok Video Details](/apis/tiktok/app-v3/one-video).
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

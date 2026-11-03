@@ -63,13 +63,14 @@ Same call via the path form: `POST /v1/api/weibo/app/status-likes` with the body
 
 ## Details
 
-Retrieve users who liked a specific post or video by passing the target identifier via `status_id`.
+Returns the users who liked a Weibo post or video, plus a summary of like counts by reaction type. It needs one input, the post ID or video ID in `status_id`. You can narrow the results with `attitude_type`.
 
 ### Use cases
 
-- Audit audience engagement on specific posts or videos.
-- Inspect the list of accounts interacting with content.
-- Filter reaction data based on attitude types.
+- Pull the accounts that liked a specific post to review who engages with it.
+- Read the per-type like counts for a post to compare reaction types.
+- Check the profile data of likers, such as verification status and avatar, to profile an audience.
+- Filter likes by reaction type with `attitude_type` to study one kind of reaction.
 
 ### Request
 
@@ -80,6 +81,8 @@ curl -X POST "https://api.sandbase.ai/v1/api/weibo/app/status-likes" \
   -d '{"status_id": "5016922058656962"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
@@ -87,14 +90,56 @@ curl -X POST "https://api.sandbase.ai/v1/api/weibo/app/status-likes" \
 | `status_id` | string | Yes | Post ID or Video ID (required) |
 | `attitude_type` | string | No | Like type filter |
 
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "config": "{}",
+  "items": [
+    {
+      "category": "detail",
+      "data": {
+        "attitudes_count": [
+          {
+            "count": 87629,
+            "type": 0
+          }
+        ],
+        "cur_sub_tab": 0
+      },
+      "type": "like_attitude"
+    }
+  ],
+  "loadedInfo": "{}",
+  "pageData": "{}"
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `items[].type` | Row kind. `like_attitude` is the summary row with counts. `like` is one user who liked the post. |
+| `items[].data.attitudes_count[].count` | Number of likes for one reaction type in the summary row. |
+| `items[].data.attitudes_count[].type` | Reaction type code for that count. The response shows values `0`, `1` and `6`, and does not name them. |
+| `items[].data.attitude` | Reaction type code of the like from this user. The sample rows show `1`. |
+| `items[].data.user` | Profile object of the user who liked the post. |
+| `items[].data.user.avatar_hd` | URL of the user's high-resolution avatar image. |
+| `items[].data.user.auth_status` | Numeric verification status of the user's account. |
+| `items[].data.user.allow_all_comment / items[].data.user.allow_all_act_msg` | Boolean flags for the user's settings. They show whether everyone may comment and whether everyone may send action messages. |
+
 ### Notes
 
-- Accepts either a post ID or video ID in `status_id`.
-- Use `attitude_type` to filter by specific like types.
+- Use the `id` of a post as `status_id`. The example value is `5016922058656962`.
+- The first item in `items` is the `like_attitude` summary row. User rows with type `like` follow it.
+- Several fields in the response, such as `config`, `loadedInfo` and `pageData`, come back as empty JSON strings in this sample.
+- To get the post itself, call [Weibo Post Detail (App)](/apis/weibo/app/status-detail). For its comments, call [Weibo Post Comments (App)](/apis/weibo/app/status-comments).
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

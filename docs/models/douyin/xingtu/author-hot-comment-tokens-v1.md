@@ -61,13 +61,14 @@ Same call via the path form: `POST /v1/api/douyin/xingtu/author-hot-comment-toke
 
 ## Details
 
-This endpoint retrieves hot comment tokens for a Douyin Xingtu creator specified by `kolId`. It helps teams inspect frequent words and topics appearing in audience discussions.
+Returns a list of hot comment tokens for one Douyin Xingtu creator. Each token is a word or phrase from the creator's audience comments, with a numeric `hot_rate`. The only input is the creator's `kolId`.
 
 ### Use cases
 
-- Analyze trending keywords across a creator's audience comments.
-- Evaluate audience feedback and topic sentiment for Douyin influencers.
-- Identify recurring themes in viewer responses for campaign planning.
+- Spot the words that come up most in a creator's comments before you pitch a campaign.
+- Compare the top comment tokens of several creators to see which audiences talk about your product category.
+- Track recurring topic words in a creator's comments to judge audience interest.
+- Feed the token list into a keyword or sentiment review of a creator's audience.
 
 ### Request
 
@@ -78,19 +79,52 @@ curl -X POST "https://api.sandbase.ai/v1/api/douyin/xingtu/author-hot-comment-to
   -d '{"kolId": "7048929565493690398"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
 |---|---|---|---|
-| `kolId` | string | Yes | User kolId, can be obtained from the following interfaces: `douyin/xingtu/xingtu-kolid-by-uid`; `douyin/xingtu/xingtu-kolid-by-sec-user-id`; `douyin/xingtu/xin… |
+| `kolId` | string | Yes | User kolId, can be obtained from the following interfaces: `douyin/xingtu/xingtu-kolid-by-uid`; `douyin/xingtu/xingtu-kolid-by-sec-user-id`; `douyin/xingtu/xingtu-kolid-by-unique-id` |
+
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "base_resp": {
+    "status_code": 0,
+    "status_message": "Success"
+  },
+  "hot_comment_tokens": [
+    {
+      "comment_token": "胶原",
+      "hot_rate": 488
+    }
+  ]
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `hot_comment_tokens[]` | List of hot comment tokens for the creator. Each item is one word or phrase with its score. |
+| `hot_comment_tokens[].comment_token` | The word or phrase that appears often in the creator's comments, in Chinese in this example (for example `胶原`). |
+| `hot_comment_tokens[].hot_rate` | Numeric score for the token. A higher value means the token ranks hotter in the list; the example runs from `488` down to `219`. |
+| `base_resp.status_code` | Status code of the call. `0` means success. |
+| `base_resp.status_message` | Text status of the call, for example `Success`. |
 
 ### Notes
 
-- The `kolId` parameter can be obtained from `douyin/xingtu/xingtu-kolid-by-uid`, `douyin/xingtu/xingtu-kolid-by-sec-user-id`, or `douyin/xingtu/xingtu-kolid-by-unique-id`.
+- Get `kolId` from [Douyin XingTu KOL ID by User ID](/apis/douyin/xingtu/xingtu-kolid-by-uid), [Douyin XingTu kolId Lookup](/apis/douyin/xingtu/xingtu-kolid-by-sec-user-id), or [Douyin XingTu KOL ID by Unique ID](/apis/douyin/xingtu/xingtu-kolid-by-unique-id).
+- Pass `kolId` as a string, for example `"7048929565493690398"`.
+- The request has no pagination parameters. The list in the example response has three items.
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.02 per successful call. Failed calls are not charged.
 
 ### Related APIs
 

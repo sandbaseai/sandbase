@@ -78,13 +78,14 @@ Same call via the path form: `POST /v1/api/wechat-search/v2/search` with the bod
 
 ## Details
 
-Run a WeChat universal search for a keyword. Choose the vertical with `business_type` (articles, accounts, videos, live streams, news, and more) and get titles, sources, timestamps and links.
+Searches WeChat for a keyword and returns matching results from the vertical you choose with `business_type`, such as official account articles, accounts, Channels videos, live streams or news. It needs one input, `keyword`. Filters for sort order and publish time narrow the results.
 
 ### Use cases
 
-- Find WeChat official account articles about a topic or brand.
-- Discover official accounts and Channels creators in a niche.
-- Monitor new WeChat coverage with `sort=latest` and `publish_time`.
+- Track new official account articles about a brand or topic with `sort` set to `latest`.
+- Collect article titles, snippets and links for a keyword to build a media monitoring feed.
+- Find which official accounts publish most on a subject by reading the source name of each result.
+- Limit a search to the last day or week with `publish_time` to check recent coverage.
 
 ### Request
 
@@ -95,52 +96,84 @@ curl -X POST "https://api.sandbase.ai/v1/api/wechat-search/v2/search" \
   -d '{"keyword": "OpenAI", "business_type": "article", "raw": false}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
 |---|---|---|---|
 | `keyword` | string | Yes | Search keyword (1-100 chars) |
-| `raw` | boolean | No | Optional, default True. |
-| `sort` | string | No | Optional, default `default`. |
-| `cursor` | string | No | Optional. |
-| `offset` | integer | No | Optional, default 0 (>=0). |
-| `publish_time` | string | No | Optional, default `all`. |
-| `business_type` | string | No | Optional, default `all`. |
+| `business_type` | string | No | Optional, default `all`. Vertical string key, only the following are supported — `all` / `account` / `article` / `video` / `live_stream` / `moments` / `news` / `book` / `listen` / `image` / `encyclopedia` / `weixin_index |
+| `cursor` | string | No | Optional. Pagination cursor. Leave empty for the first page; for the next page pass back the `cursor` returned in the previous response (repeat the same `sort` / `publish_time`), and use `continue_flag` to check whether  |
+| `offset` | integer | No | Optional, default 0 (>=0). Pass `0` for the first page; **use `cursor` to paginate — offset alone does not work** (it returns the first page every time). |
+| `publish_time` | string | No | Optional, default `all`. Publish time (result page "time" dropdown, common) — `all`/0 / `day`/1 / `week`/2 / `half_year`/3; string key or integer, invalid values rejected (400). |
+| `raw` | boolean | No | Optional, default True. True=raw search response; False=simplified parsing. |
+| `sort` | string | No | Optional, default `default`. Sort (result page "sort" dropdown, common to all verticals) — `default`/0 (relevance) / `latest`/1 (newest) / `hot`/2 (most liked); string key or integer, invalid values rejected (400). |
 
 ### Example response
 
-Real response for the request above, trimmed to the main fields. User names and long IDs are masked.
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
 
 ```json
 {
-  "keyword": "OpenAI",
   "business_type": 2,
-  "count": 38,
-  "total": 315,
+  "categories": null,
   "continue_flag": 1,
-  "cursor": "<next page cursor>",
+  "count": 38,
+  "cursor": "hO0SuC6V7gEWmcGXQvsJ5wYWU4HyplzRxHlbePoYMtHLQY0vwElfi8d9LA-X87FzUQ7qOvpJTpv4SPHP…",
+  "debug_id": "e5835ac5",
+  "debug_info": "gAAAAABq6ZE7ot2LojpCJR304JESp7F_lWS4y7oOLUfqwVqQ9TIO8WNyZlsFYGWjOnT9jqzEk27z2sgB…",
   "items": [
     {
-      "title": "OpenAI「疯狂28天」首日，这都发了些啥啊…",
+      "date": 1793688900,
+      "desc": "<em class=\"highlight\">OpenAI</em>不是一家普通的公司。GPT-6 Astra、5亿年化营收、全球最大的AI用户入口，这些东西是真…",
+      "docID": "5774067735576686510",
+      "docType": 0,
+      "doc_url": "http://mp.weixin.qq.com/s?__biz=MzU4ODQwNTIxMw==&mid=2247595037&idx=1&sn=8c2c2d5…",
+      "itemShowType": 0,
+      "mpScene": 7,
       "source": {
-        "dateTime": "4小时前",
-        "title": "量子位"
+        "dateTime": "51分钟前",
+        "title": "人工智能产业链union"
       },
-      "timestamp": 1791260267,
-      "doc_url": "http://mp.weixin.qq.com/s?__biz=MzIzNjc1NzUzMw==&mid=2247931194&idx=1…"
+      "src_type": 49,
+      "thumbUrl": "https://mmbiz.qpic.cn/sz_mmbiz_jpg/9NdMVNE3GyZlQFyh70as5OnDBo1sPia1hpUW8PMhpoHnf…",
+      "timestamp": 1793688900,
+      "title": "【投融资】没人抢了：<em class=\"highlight\">OpenAI</em>的估值，一周之内自己砍掉了1500亿美元"
     }
-  ]
+  ],
+  "keyword": "OpenAI",
+  "no_more": null,
+  "offset": 38,
+  "total": 280
 }
 ```
 
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `items[].title` | Article title. Search matches are wrapped in `<em class="highlight">` tags. |
+| `items[].desc` | Short text snippet of the article, with matched keywords wrapped in `<em class="highlight">` tags. |
+| `items[].doc_url` | Link to the article on mp.weixin.qq.com. |
+| `items[].source.title` | Name of the official account that published the article. |
+| `items[].source.dateTime` | Relative publish time as shown on the WeChat result page, for example `51分钟前` or `1天前`. |
+| `items[].timestamp / items[].date` | Publish time of the article as a Unix timestamp in seconds. |
+| `items[].thumbUrl` | Cover image URL for the article. |
+| `items[].docID` | Identifier of the result document. |
+| `count / total` | `count` is the number of items in this page's result. `total` is the overall result count reported by the search. |
+| `continue_flag / cursor` | `continue_flag` is `1` when more pages exist. `cursor` is the value to pass back to get the next page. |
+
 ### Notes
 
-- Paginate with `cursor`: pass back the `cursor` from the previous response with the same keyword and filters.
-- Set `raw` to `false` for a simplified response.
+- To get the next page, pass the returned `cursor` back with the same `keyword`, `sort` and `publish_time`. Check `continue_flag` first.
+- `offset` alone does not paginate. It returns the first page every time, so use `cursor`.
+- `sort` accepts `default`, `latest` or `hot`. `publish_time` accepts `all`, `day`, `week` or `half_year`.
+- To search only accounts, articles or Channels videos, see [WeChat Account Search](/apis/wechat-search/search-account), [WeChat Article Search](/apis/wechat-search/search-article) or [WeChat Search for Channels Videos](/apis/wechat-search/v2/search-videos).
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.01 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

@@ -65,13 +65,14 @@ Same call via the path form: `POST /v1/api/weibo/app/status-reposts` with the bo
 
 ## Details
 
-Retrieve the repost list for a specified Weibo post or video using `status_id`. Page through additional results by passing `max_id`.
+Returns a list of reposts for one Weibo post or video. It needs the `status_id` of the original post, and returns each repost as an item with engagement counts and display settings, plus cursor paging info.
 
 ### Use cases
 
-- Track repost activity and distribution metrics for Weibo posts.
-- Analyze social sharing patterns and amplification for specific content.
-- Collect repost identifiers and interaction counts for social analytics.
+- Count how many reposts a Weibo post has received and inspect each repost entry.
+- Page through every repost of a post to map how the post spread.
+- Check the like counts on reposts to find reposts that drew engagement.
+- Group reposts by the `appid` value to see which client apps people used to share.
 
 ### Request
 
@@ -82,6 +83,8 @@ curl -X POST "https://api.sandbase.ai/v1/api/weibo/app/status-reposts" \
   -d '{"status_id": "5016922058656962"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
@@ -91,35 +94,81 @@ curl -X POST "https://api.sandbase.ai/v1/api/weibo/app/status-reposts" \
 
 ### Example response
 
-Real response for the request above, trimmed to the main fields. User names and long IDs are masked.
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
 
 ```json
 {
+  "config": "{}",
   "items": [
     {
       "category": "detail",
-      "type": "forward",
       "data": {
+        "ad_marked": false,
+        "analysis_extra": "mblog_rt_mid:5016922058656962",
+        "annotations": [
+          {
+            "mapi_request": true
+          }
+        ],
+        "appid": 2830606,
+        "attitudes_animation": 1,
         "attitudes_count": 0,
         "attitudes_status": 0,
-        "comments_count": 0,
-        "content_auth": 0,
-        "favorites_count": 0,
-        "id": 5343146838068091
-      }
+        "bottom_bar_dyna": {
+          "cell_item": {
+            "category": "dynamic",
+            "itemExt": {
+              "bizType": "common"
+            },
+            "type": "detailBottomBarDefaultButtonStyle"
+          }
+        }
+      },
+      "type": "forward"
     }
-  ]
+  ],
+  "loadedInfo": "{}",
+  "moreInfo": {
+    "error": "网络加载失败，请稍后尝试",
+    "loading": "正在加载更多",
+    "moreType": "default",
+    "pagingType": "cursor",
+    "params": {
+      "count": 20,
+      "lastAdInterval": 16,
+      "max_id_type": 0,
+      "page": 2
+    }
+  },
+  "pageData": "{}"
 }
 ```
 
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `items[]` | One entry per repost. Each entry has a `category`, a `type` and a `data` object. |
+| `items[].type` | Kind of entry. The value `forward` marks a repost. |
+| `items[].category` | Entry group. The value `detail` appears for repost entries. |
+| `items[].data.attitudes_count` | Number of likes on the repost. |
+| `items[].data.analysis_extra` | Tracking string that includes `mblog_rt_mid:` followed by the ID of the original post. |
+| `items[].data.appid` | Numeric ID of the app used to create the repost. |
+| `items[].data.ad_marked` | Boolean that shows whether the repost is marked as an ad. |
+| `moreInfo.pagingType` | Paging style. The value `cursor` means pages follow a cursor. |
+| `moreInfo.params.count` | Page size hint, shown as `20` in this response. |
+| `moreInfo.params.page` | Page number the server reports for the next load. |
+
 ### Notes
 
-- Pass the post or video identifier to `status_id`.
-- Leave `max_id` empty for the initial request, then pass the returned cursor for subsequent pages.
+- Take `status_id` from a post or video ID, for example the `mblog_rt_mid` value in a response. You can also get it from [Weibo Post Detail (App)](/apis/weibo/app/status-detail).
+- Leave `max_id` out on the first request. For later pages, pass the returned `max_id`.
+- The `data` object of each item holds the full repost record. The trimmed example shows only a few of its keys.
+- To read replies on the original post instead, call [Weibo Post Comments (App)](/apis/weibo/app/status-comments).
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

@@ -71,13 +71,14 @@ Same call via the path form: `POST /v1/api/douyin/index/topic-query` with the bo
 
 ## Details
 
-Query topic metrics on Douyin by submitting a `keyword` alongside `start_date` and `end_date` date filters.
+Returns Douyin topics that match a search keyword, with item, like, and view counts for a date range. It needs a `keyword`, a `start_date`, and an `end_date` in YYYYMMDD format.
 
 ### Use cases
 
-- Track engagement and total views for specific trend topics.
-- Compare topic volume across Aweme and Toutiao platforms.
-- Retrieve topic identifiers for historical performance monitoring.
+- Compare how many videos and views the topic `人工智能` has against related topics such as `人工智能机器人`.
+- Find the `topic_id` of a Douyin topic from its name.
+- Spot topics with zero activity in a date range and drop them from a tracking list.
+- Pull weekly topic totals for a keyword to build a trend report.
 
 ### Request
 
@@ -88,41 +89,64 @@ curl -X POST "https://api.sandbase.ai/v1/api/douyin/index/topic-query" \
   -d '{"end_date": "20260412", "keyword": "人工智能", "start_date": "20260406"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
 |---|---|---|---|
-| `keyword` | string | Yes | Topic keyword |
 | `end_date` | string | Yes | End date YYYYMMDD |
+| `keyword` | string | Yes | Topic keyword |
 | `start_date` | string | Yes | Start date YYYYMMDD |
 | `app_name` | string | No | Platform |
 
 ### Example response
 
-Real response for the request above, trimmed to the main fields. User names and long IDs are masked.
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
 
 ```json
 {
+  "BaseResp": {
+    "StatusCode": 0,
+    "StatusMessage": ""
+  },
   "topic_list": [
     {
+      "datetime": "",
       "digg_cnt": "3886643",
       "item_cnt": "26313",
       "play_read_cnt": "201528869",
       "topic_id": "1576073697445901",
+      "topic_index": "2729228",
       "topic_name": "人工智能"
     }
   ]
 }
 ```
 
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `topic_list[]` | List of topics whose names match the keyword. Each entry is one topic. |
+| `topic_list[].topic_name` | Name of the topic, for example `人工智能`. |
+| `topic_list[].topic_id` | ID of the topic, returned as a string. |
+| `topic_list[].item_cnt` | Number of items (videos) counted for the topic. Returned as a string. |
+| `topic_list[].digg_cnt` | Like count for the topic. Returned as a string. |
+| `topic_list[].play_read_cnt` | View count for the topic. Returned as a string. |
+| `topic_list[].topic_index` | Index value for the topic. It is `0` for topics with no activity. |
+| `topic_list[].datetime` | Date field for the entry. It is an empty string in this response. |
+| `BaseResp.StatusCode / BaseResp.StatusMessage` | Status of the call. `StatusCode` is `0` and `StatusMessage` is empty in this response. |
+
 ### Notes
 
-- `start_date` and `end_date` must be formatted as YYYYMMDD.
-- `app_name` filters by platform and supports `aweme` or `toutiao`.
+- All counts and IDs are returned as strings. Convert them to numbers before you sort or sum them.
+- `app_name` accepts `aweme` or `toutiao`. It defaults to `aweme`.
+- Use [Douyin Topic Search Suggestions](/apis/douyin/index/topic-suggest) to find topic keywords to search with.
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

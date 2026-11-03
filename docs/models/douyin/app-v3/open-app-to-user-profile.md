@@ -65,13 +65,14 @@ Same call via the path form: `POST /v1/api/douyin/app-v3/open-app-to-user-profil
 
 ## Details
 
-Provides a short URL that opens the Douyin app to a targeted profile using `uid` and `sec_uid`.
+Returns a Douyin short link that opens the Douyin app on a specific user profile. It needs the user's `uid` and `sec_uid`.
 
 ### Use cases
 
-- Direct users to a Douyin profile from external marketing pages.
-- Embed profile deep links inside mobile applications or web portals.
-- Route traffic to specific Douyin creators through standardized short URLs.
+- Add a button on a landing page that opens a creator's Douyin profile in the app.
+- Build a list of profile deep links for a set of creators you track.
+- Send a profile link in a campaign message so users land on the right account.
+- Check that a `uid` and `sec_uid` pair resolves to a working profile link.
 
 ### Request
 
@@ -82,31 +83,46 @@ curl -X POST "https://api.sandbase.ai/v1/api/douyin/app-v3/open-app-to-user-prof
   -d '{"sec_uid": "MS4wLjABAAAAr52fXcfmzqOZJM_smap9Uuxtm16h8BupkCVaCt89BENq3E91mHCvtz5Z5TkXPHq_", "uid": "92769419069"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
 |---|---|---|---|
-| `uid` | string | Yes | User id |
 | `sec_uid` | string | Yes | User sec_uid |
+| `uid` | string | Yes | User id |
 
 ### Example response
 
-Real response for the request above, trimmed to the main fields. User names and long IDs are masked.
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
 
 ```json
 {
-  "short_url": "https://v.douyin.com/yXDBC0IkXRQ/",
-  "status": "success"
+  "sec_uid": "MS4wLjABAAAAr52fXcfmzqOZJM_smap9Uuxtm16h8BupkCVaCt89BENq3E91mHCvtz5Z5TkXPHq_",
+  "short_url": "https://v.douyin.com/Ihlbayv701k/",
+  "status": "success",
+  "uid": "92769419069"
 }
 ```
 
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `short_url` | Short Douyin link that opens the app on the requested user profile. |
+| `status` | Result of the request. The value is `success` when the link was generated. |
+| `uid` | The user ID from the request, echoed back. |
+| `sec_uid` | The secure user ID from the request, echoed back. |
+
 ### Notes
 
-- Requires both `uid` and `sec_uid` to identify the target user account.
+- Both `uid` and `sec_uid` are required. Send them as strings.
+- Use [Douyin User Profile (App V3)](/apis/douyin/app-v3/user-profile) to look up profile details for the same user.
+- Use [Douyin Short Link Generator](/apis/douyin/app-v3/generate-short-url) to shorten a standard Douyin web link instead.
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

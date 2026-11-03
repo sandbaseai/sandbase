@@ -65,13 +65,14 @@ Same call via the path form: `POST /v1/api/douyin/creator/creator-activity-list`
 
 ## Details
 
-Retrieve Douyin campaign and event activity listings by specifying `start_time` and `end_time` timestamps.
+Returns a list of Douyin creator activity and campaign records that fall inside a time window. You send `start_time` and `end_time` as integer Unix timestamps in seconds.
 
 ### Use cases
 
-- Track platform events and promotional campaigns within custom date ranges.
-- Monitor Douyin campaign participation timelines across specified intervals.
-- Audit historical activity records between chosen start and end timestamps.
+- Build a calendar of Douyin campaigns that run during a given month.
+- Find activities with a high `hot_score` to decide which campaign to join.
+- Collect `activity_id` values and fetch full details for each activity.
+- Pull each activity's cover image and jump link to show campaigns in your own creator dashboard.
 
 ### Request
 
@@ -82,6 +83,8 @@ curl -X POST "https://api.sandbase.ai/v1/api/douyin/creator/creator-activity-lis
   -d '{"end_time": 1759247999, "start_time": 1756656000}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
@@ -89,13 +92,59 @@ curl -X POST "https://api.sandbase.ai/v1/api/douyin/creator/creator-activity-lis
 | `end_time` | integer | Yes | End timestamp |
 | `start_time` | integer | Yes | Start timestamp |
 
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "list": [
+    {
+      "activity_id": "7555852683250996270",
+      "activity_level": 3,
+      "activity_type": 1,
+      "challenge_ids": [
+        0
+      ],
+      "creator_id": 2600,
+      "crowd_id": "7555781468044364553",
+      "game_id": "",
+      "head_image": "https://lf-gaia-zb.douyinstatic.com/obj/gaia-zb/0add5e4217e2b0e0f4550bcfa026073e…",
+      "highlight_tag": 0,
+      "hot_score": 100,
+      "jump_link": "https://webcast.amemv.com/magic/eco/runtime/release/68d678defa986f07272121e4?sho…",
+      "jump_type": 2
+    }
+  ],
+  "status_code": 0
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `list[]` | One activity or campaign record. The list holds every activity found in the time window. |
+| `list[].activity_id` | ID of the activity, returned as a string. Use it to look up the activity in the detail API. |
+| `list[].show_name` | Display title of the activity, such as a campaign or hashtag name. |
+| `list[].show_start_time / list[].show_end_time` | Start and end of the period when the activity is shown, as Unix timestamps in seconds. |
+| `list[].hot_score` | Popularity score of the activity. All three sample records show `100`. |
+| `list[].head_image` | URL of the cover image for the activity. |
+| `list[].jump_link` | Link that opens the activity. It can be a web URL, an `aweme://` app link, or an empty string. |
+| `list[].challenge_ids[]` | IDs of the challenges (hashtags) linked to the activity. The value `0` appears when none is linked. |
+| `list[].activity_type / list[].activity_level / list[].jump_type` | Numeric codes that classify the activity and how its link opens. The response gives no labels for these codes. |
+| `status_code` | Status of the call. `0` appears in the sample response. |
+
 ### Notes
 
-- Both `start_time` and `end_time` require integer timestamps to define the query window.
+- `start_time` and `end_time` are both required. They are integer Unix timestamps in seconds, for example `1756656000` and `1759247999`.
+- Pass `list[].activity_id` to [Douyin Creator Activity Details](/apis/douyin/creator/creator-activity-detail) to get more information on one activity.
+- The request has no pagination parameters. The whole result comes back in `list`.
+- Some fields, such as `tag_start_time` and `tag_end_time`, can be `0` when the activity has no tag period.
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

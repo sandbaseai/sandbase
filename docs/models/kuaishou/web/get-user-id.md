@@ -62,13 +62,13 @@ Same call via the path form: `POST /v1/api/kuaishou/web/get-user-id` with the bo
 
 ## Details
 
-Resolves a Kuaishou profile identifier by parsing the provided `share_link`.
+Returns the Kuaishou user ID found in a user share link. It needs one input, `share_link`, which is a Kuaishou user share URL such as `https://c.kuaishou.com/fw/user/3xcuu5habgc8z29`.
 
 ### Use cases
 
-- Resolve raw user profile IDs from shared Kuaishou web links.
-- Convert mobile share links into standard identifiers for downstream lookups.
-- Automate profile identity extraction from social share URLs.
+- Turn a copied Kuaishou profile share link into a user ID you can store.
+- Normalize a list of user share URLs into IDs before you run profile lookups.
+- Match a creator's shared link to the same creator in your own database.
 
 ### Request
 
@@ -79,19 +79,41 @@ curl -X POST "https://api.sandbase.ai/v1/api/kuaishou/web/get-user-id" \
   -d '{"share_link": "https://c.kuaishou.com/fw/user/3xcuu5habgc8z29"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
 |---|---|---|---|
-| `share_link` | string | Yes | — |
+| `share_link` | string | Yes |  |
+
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "user_id": "3xcuu5habgc8z29"
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `user_id` | The Kuaishou user ID, returned as a string. |
+| `user_id` | In the sample, the value equals the last segment of the share link path (`/fw/user/3xcuu5habgc8z29`). |
+| `user_id` | The only field in the response. Pass it to other Kuaishou APIs that take a user identifier. |
 
 ### Notes
 
-- Requires a valid user URL passed via `share_link`.
+- Pass the full user share URL in `share_link`. The sample uses the form `https://c.kuaishou.com/fw/user/<id>`.
+- The response holds only `user_id`. Use it as input to a profile API such as [Kuaishou Web User Info](/apis/kuaishou/web/user-info) or [Kuaishou Single User Data (V2)](/apis/kuaishou/app/one-user-v2).
+- To list a creator's posts after the lookup, try [Kuaishou User Video List (V2)](/apis/kuaishou/app/user-post-v2).
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

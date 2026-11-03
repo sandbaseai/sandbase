@@ -66,13 +66,14 @@ Same call via the path form: `POST /v1/api/xigua/app-v2/search-video` with the b
 
 ## Details
 
-Search Xigua Video for a keyword and get matching videos. Filter by duration and paginate with `offset`.
+This API searches Xigua Video by keyword and returns a page of 10 matching videos. It needs a `keyword` and can also take duration filters, a sort type and an `offset` for paging.
 
 ### Use cases
 
-- Research long-form video content in China.
-- Find creators for a topic.
-- Monitor brand mentions in video.
+- Collect Xigua videos that mention a brand or product, such as OpenAI, with their comment counts.
+- Rank search hits by `comment_count` to see which videos draw the most discussion.
+- Find the channels that publish on a topic, using the `emphasized.source` name on each result.
+- Limit a search to short or long videos with `min_duration` and `max_duration` to study one format.
 
 ### Request
 
@@ -83,41 +84,193 @@ curl -X POST "https://api.sandbase.ai/v1/api/xigua/app-v2/search-video" \
   -d '{"keyword": "OpenAI"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
 |---|---|---|---|
 | `keyword` | string | Yes | Keyword |
-| `offset` | integer | No | Offset, pass 0 for the first request, pass the offset returned by the previous request for subsequent requests |
-| `order_type` | string | No | Order type, empty for default sorting, the following are optional sorting methods. |
 | `max_duration` | integer | No | Maximum duration, default empty, in seconds. |
 | `min_duration` | integer | No | Minimum duration, default empty, in seconds. |
+| `offset` | integer | No | Offset, pass 0 for the first request, pass the offset returned by the previous request for subsequent requests |
+| `order_type` | string | No | Order type, empty for default sorting, the following are optional sorting methods. |
 
 ### Example response
 
-Real response for the request above, trimmed to the main fields. User names and long IDs are masked.
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
 
 ```json
 {
-  "offset": 10,
-  "results": [
-    {
-      "data": {
-        "group_id": "7306123103342592551",
-        "title": "Open AI 宫斗大戏始末，一场人工智能向人类发起的挑衅！",
-        "publish_time": 1701089344,
-        "video_duration": 793,
-        "comment_count": 20,
-        "source": "<user>"
-      }
+  "common_data": {
+    "abFields": {},
+    "client": {
+      "height": 0,
+      "isAndroid": true,
+      "isPad": true,
+      "pixelRatio": 2,
+      "platform": "android_pad",
+      "userAgent": "Dalvik/2.1.0 (Linux; U; Android 13; 23078PND5G Build/TP1A.220624.014) VideoArtic…",
+      "width": 0
+    },
+    "isSsrFrame": true,
+    "location": {
+      "hash": "",
+      "host": "security.snssdk.com",
+      "hostname": "security.snssdk.com",
+      "href": "https://security.snssdk.com/s/video_search/video/app/search/search_content/?devi…",
+      "origin": "https://security.snssdk.com",
+      "pathname": "/s/video_search/video/app/search/search_content/",
+      "port": "",
+      "protocol": "https:",
+      "search": "?device_id=939401905983347&iid=1783851837819571&ac=wifi&channel=google_play&aid=…"
+    },
+    "query": {
+      "ab_version": "668853,9274002,668856,9273984,668855,9273955,668859,9273981,668858,9273942,66885…",
+      "ac": "wifi",
+      "aid": "32",
+      "app_name": "video_article",
+      "channel": "google_play",
+      "device_brand": "Xiaomi",
+      "device_id": "939401905983347",
+      "device_platform": "android",
+      "device_type": "23078PND5G",
+      "dpi": "480",
+      "filter_info": "order_type=None&min_duration=None&max_duration=None",
+      "forum": "1"
+    },
+    "runtimeVersion": 980,
+    "targetChannel": "video_search",
+    "userAgent": "Dalvik/2.1.0 (Linux; U; Android 13; 23078PND5G Build/TP1A.220624.014) VideoArtic…"
+  },
+  "count": 10,
+  "custom_data": {
+    "extraData": {
+      "abFields": {},
+      "baseHeight": 0,
+      "baseWidth": 0,
+      "cardTypeContext": [],
+      "client": {
+        "height": 0,
+        "isAndroid": true,
+        "isPad": true,
+        "pixelRatio": 2,
+        "platform": "android_pad",
+        "userAgent": "Dalvik/2.1.0 (Linux; U; Android 13; 23078PND5G Build/TP1A.220624.014) VideoArtic…",
+        "width": 0
+      },
+      "durationType": "default",
+      "extraInfo": {
+        "enable_tag_search_xigua_tab": true,
+        "fe_ab_params": null,
+        "fe_client_ab_params": null,
+        "game_aladdin_show_cnt": 3,
+        "is_hit_new_tag_ui": true,
+        "is_hit_shark": false,
+        "is_no_result": false,
+        "is_req_skip_ten": false
+      },
+      "isAndroid": true,
+      "isIOS": false,
+      "isSsrFrame": true,
+      "keyword": "OpenAI",
+      "keywordType": "keyword_type"
     }
-  ]
+  },
+  "err_code": 0,
+  "extra_data": {
+    "initCount": 10,
+    "initHasMore": true,
+    "initIsEmptyContent": false,
+    "initOffset": 10,
+    "initReqId": "20261103154724B82D0677FE75EF02CB5A",
+    "initSearchId": "20261102122708FAB1AED852AD4265A36F"
+  },
+  "extra_data_element": {
+    "attr": [
+      [
+        "type"
+      ]
+    ],
+    "inner": "{\"initOffset\":10,\"initHasMore\":true,\"initReqId\":\"20261103154724B82D0677FE75EF02C…",
+    "tag": "script"
+  },
+  "fb_results": [
+    {
+      "abaseKey": "[card_html]video_search:32:OpenAI:0:::android:Inner_FilterBar",
+      "browserJs": "//lf3-material.searchpstatp.com/toutiao/feoffline/search-materials-source-video_…",
+      "compileCss": ".s-filter-bar{z-index:800}@font-face{font-family:Condensed-Bold-Number;src:local…",
+      "html": "",
+      "id": "cff626c0",
+      "itemDataStr": "{\"extraData\":{}}",
+      "output": {
+        "dom": [
+          {
+            "attr": [
+              [
+                "id"
+              ]
+            ],
+            "inner": "",
+            "tag": "div"
+          }
+        ],
+        "script": [
+          {
+            "attr": [
+              [
+                "type"
+              ]
+            ],
+            "inner": "{\"extraData\":{}}",
+            "tag": "script"
+          }
+        ],
+        "style": [
+          {
+            "attr": [],
+            "inner": ".s-filter-bar{z-index:800}@font-face{font-family:Condensed-Bold-Number;src:local…",
+            "tag": "style"
+          }
+        ]
+      },
+      "templateId": "Inner_FilterBar",
+      "templateVersion": 72
+    }
+  ],
+  "feed_down_tag": "",
+  "feed_up_tag": "",
+  "filtered_data": [],
+  "has_more": true,
+  "is_empty_content": false
 }
 ```
 
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `results[].data.group_id / results[].data.id_str` | The ID of the video, as a string. Use it to look up the video in other Xigua APIs. |
+| `results[].data.emphasized.title` | The video title. Matched search terms are wrapped in `<em>` tags. |
+| `results[].data.emphasized.source` | The name of the source that posted the video. |
+| `results[].data.emphasized.summary` | The description text of the video. |
+| `results[].data.comment_count` | The number of comments on the video. |
+| `results[].data.highlight.title[]` | Where the matched terms sit in the title. `start` is the position and `count` is the length of the match. |
+| `has_more` | `true` when more results exist after this page. |
+| `offset` | The offset to send as `offset` in the next request to get the next page. |
+| `count / list_length` | The number of results on this page. |
+| `search_id` | The ID of this search session. It stays the same for the same query. |
+
+### Notes
+
+- For the first page, pass `offset` as `0`. For the next page, pass the `offset` value from the previous response (10 in this example).
+- Keep requesting while `has_more` is `true`.
+- `min_duration` and `max_duration` are in seconds.
+- To get more detail on a video, pass its `group_id` to [Xigua Single Video Information](/apis/xigua/app-v2/one-video) or read its comments with [Xigua Video Comment List](/apis/xigua/app-v2/video-comment-list).
+
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

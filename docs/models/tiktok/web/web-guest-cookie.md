@@ -62,13 +62,14 @@ Same call via the path form: `POST /v1/api/tiktok/web/web-guest-cookie` with the
 
 ## Details
 
-Retrieve guest session cookies for TikTok Web by providing a browser `user_agent` string.
+Returns a set of guest session headers for TikTok Web: a `Cookie` string, a `Referer` URL and the `User-Agent` you sent. It needs one input, a browser `user_agent` string.
 
 ### Use cases
 
-- Establish guest sessions for scraping public TikTok web data.
-- Maintain consistent session identity across web requests to avoid duplicate data.
-- Format session headers matching specific browser user agent profiles.
+- Build a cookie header for guest requests to TikTok Web endpoints.
+- Pair a cookie with a chosen browser `user_agent` so both headers match across requests.
+- Fetch fresh guest cookies at the start of a scraping job that reads public TikTok data.
+- Copy the returned `Referer` and `User-Agent` into your own HTTP client along with the cookie.
 
 ### Request
 
@@ -79,19 +80,44 @@ curl -X POST "https://api.sandbase.ai/v1/api/tiktok/web/web-guest-cookie" \
   -d '{"user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:145.0) Gecko/20100101 Firefox/145.0"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
 |---|---|---|---|
 | `user_agent` | string | Yes | User browser agent |
 
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "Cookie": "tt_csrf_…",
+  "Referer": "https://www.tiktok.com/explore",
+  "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:145.0) Gecko/20100101 Firefox/1…"
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `Cookie` | Full cookie string for a guest session, ready to use as a `Cookie` header. It holds several name=value pairs separated by semicolons, including `tt_csrf_token` and `ttwid`. |
+| `Referer` | Referer URL to send with requests, here `https://www.tiktok.com/explore`. |
+| `User-Agent` | The browser user agent string the cookie was issued for. It matches the `user_agent` you sent. |
+
 ### Notes
 
-- Requires a valid browser user agent string via the `user_agent` parameter.
+- Send the same `User-Agent` value in your later requests that you passed in `user_agent` here.
+- The `Cookie` value is a single string. Use it as is in the `Cookie` header.
+- For a standalone `ttwid` value, call [TikTok Web TTWID Identifier](/apis/tiktok/web/generate-ttwid).
+- To sign web requests, see [TikTok Web X-Bogus Signature](/apis/tiktok/web/generate-xbogus).
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.002 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

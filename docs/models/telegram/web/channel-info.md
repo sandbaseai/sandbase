@@ -62,13 +62,14 @@ Same call via the path form: `POST /v1/api/telegram/web/channel-info` with the b
 
 ## Details
 
-Retrieve public profile details and verification status for a specified Telegram channel using the `channel` parameter.
+Returns public metadata for a Telegram channel: title, description, username, verified flag, profile photo URL and subscriber and media counts. It needs one input, the `channel` username, link or @handle.
 
 ### Use cases
 
-- Check verified status and public profile details for Telegram channels.
-- Display Telegram channel previews within external applications.
-- Gather public metadata such as title and description from channel usernames or links.
+- Check whether a Telegram channel is verified before you add it to a monitoring list.
+- Show a channel card with its title, photo and subscriber count inside your own app.
+- Track the subscriber count of a channel by calling the API on a schedule and storing the result.
+- Resolve a `https://t.me/` link into a clean username and title.
 
 ### Request
 
@@ -79,6 +80,8 @@ curl -X POST "https://api.sandbase.ai/v1/api/telegram/web/channel-info" \
   -d '{"channel": "telegram"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
@@ -87,24 +90,47 @@ curl -X POST "https://api.sandbase.ai/v1/api/telegram/web/channel-info" \
 
 ### Example response
 
-Real response for the request above, trimmed to the main fields. User names and long IDs are masked.
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
 
 ```json
 {
+  "counters": {
+    "links": "378",
+    "photos": "16",
+    "subscribers": "9.2M",
+    "videos": "228"
+  },
   "description": "The official Telegram on Telegram. Much recursion. Very Telegram. Wow.",
+  "photo": "https://cdn1.telesco.pe/file/hnmFZVV6A1_vjW41WnRQI9LiY1404GFwcfT_HbWGXlPkZCJQr6y…",
+  "subscribers": "9.2M",
   "title": "Telegram News",
-  "username": "<user>",
+  "username": "telegram",
   "verified": true
 }
 ```
 
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `title` | Display name of the channel, such as `Telegram News`. |
+| `username` | Channel username without the `@` sign. |
+| `description` | Public description text shown on the channel page. |
+| `verified` | `true` when the channel shows as verified. |
+| `subscribers / counters.subscribers` | Subscriber count as a short string such as `9.2M`. Both fields hold the same value in this response. |
+| `counters.photos / counters.videos / counters.links` | Counts of photos, videos and links shared in the channel, returned as strings. |
+| `photo` | URL of the channel profile picture. |
+
 ### Notes
 
-- The `channel` parameter accepts formats such as `durov`, `@durov`, or `https://t.me/durov` and normalizes them automatically.
+- Pass `channel` as `durov`, `@durov` or `https://t.me/durov`. The API normalizes all three.
+- Counts are returned as strings and may be abbreviated, for example `9.2M`. Parse them before you do math.
+- To read the channel's messages, call [Telegram Channel Posts](/apis/telegram/web/channel-posts) next.
+- To look up many channels in one call, use [Telegram Batch Channel Info](/apis/telegram/web/batch-channel-info).
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

@@ -68,7 +68,14 @@ Same call via the path form: `POST /v1/api/builtin/suggest-job-titles` with the 
 
 ## Details
 
-Returns up to 10 autocomplete suggestions for job title searches, matching the query prefix against Built In's job title index. Useful for building type-ahead search interfaces.
+Returns up to 10 autocomplete suggestions for job titles on Built In. It needs one input, `query`, a partial job title prefix such as `software engineer`.
+
+### Use cases
+
+- Power a type-ahead job title box in a job search form.
+- Normalize free-text job titles typed by users into titles that exist on Built In.
+- Build a list of related title variants to use as keywords in a job board crawler.
+- Check which title wording is common for a role before writing a job post.
 
 ### Request
 
@@ -79,7 +86,7 @@ curl -X POST "https://api.sandbase.ai/v1/api/builtin/suggest-job-titles" \
   -d '{"query": "software engineer"}'
 ```
 
-This API runs asynchronously. The call returns a task `id` with status `pending`; poll `GET https://api.sandbase.ai/v1/run/{id}` until `status` is `completed` and read the result from `outputs[0].data`.
+The result is returned in `outputs[0].data`.
 
 ### Parameters
 
@@ -87,9 +94,37 @@ This API runs asynchronously. The call returns a task `id` with status `pending`
 |---|---|---|---|
 | `query` | string | Yes | Partial job title prefix to get suggestions for |
 
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "data": {
+    "suggestions": [
+      "Software Engineering"
+    ]
+  },
+  "status": "success"
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `status` | Result of the call. The value `success` means the request worked. |
+| `data.suggestions[]` | Suggested job titles that match the `query` prefix. Each item is a plain string, such as `Junior Software Engineer`. |
+
+### Notes
+
+- The API takes no pagination parameter. It returns one list of suggestions per call.
+- Send a short prefix in `query`. The response in this example includes titles with extra words before or after the prefix, such as `Junior Software Engineer` and `Software Engineering Manager`.
+- The call runs asynchronously. Poll `GET /v1/run/{id}` and read the result from `outputs[0].data`.
+
 ### Pricing
 
-Flat price per call. Failed calls are not charged.
+$0.01 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ---
 Machine-readable: [`catalog/models/builtin/suggest-job-titles.json`](../../../catalog/models/builtin/suggest-job-titles.json) · Store page: https://www.sandbase.ai/model/builtin/suggest-job-titles

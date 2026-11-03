@@ -62,13 +62,14 @@ Same call via the path form: `POST /v1/api/douyin/xingtu-v2/resource-list` with 
 
 ## Details
 
-Access marketing activity resources from Douyin Xingtu by providing a `resource_id`.
+Returns marketing activity resources from Douyin Xingtu for a given `resource_id`. The `data` list holds one JSON string per resource, such as a case study article with a title, link and cover image.
 
 ### Use cases
 
-- Look up marketing resources associated with a specific resource ID.
-- Inspect campaign asset listings for Douyin Xingtu activities.
-- Monitor marketing activity resources for campaign tracking.
+- Pull the case study articles and campaign write-ups that Xingtu lists under a resource group.
+- Collect article links from Xingtu marketing activities to review past campaigns.
+- Filter resources by industry code to find examples for a specific sector.
+- Save cover images and slogans from Xingtu resources for campaign research.
 
 ### Request
 
@@ -79,19 +80,48 @@ curl -X POST "https://api.sandbase.ai/v1/api/douyin/xingtu-v2/resource-list" \
   -d '{"resource_id": 1052}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
 |---|---|---|---|
 | `resource_id` | integer | Yes | Resource ID |
 
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "base_resp": {
+    "status_code": 0,
+    "status_message": ""
+  },
+  "data": [
+    "{\"title\":\"2024巨量星图CNY「生意星龙」IP圆满收官，助力众多品牌龙年首战告捷！\",\"create_time\":\"1709350920\",\"nam…"
+  ]
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `base_resp.status_code` | Request status code. The value `0` in the sample means the call succeeded. |
+| `base_resp.status_message` | Status text for the request. It is an empty string in the sample. |
+| `data[]` | One resource per list item. Each item is a string that holds a JSON object, so parse it again after reading the response. Keys seen inside the sample strings include `title`, `name`, `link`, `url`, `cover_url`, `image`, `slogan`, `industries`, `create_time` and `id`. |
+
 ### Notes
 
-- Requires `resource_id` to specify which marketing resource to retrieve.
+- Each entry in `data` is a JSON string. Decode it to read inner keys such as `title`, `link`, `cover_url` and `industries`.
+- Not every item has every inner key. Check that a key exists before you read it.
+- `industries` holds comma-separated numeric codes, for example `1930,1903,1933`. `create_time` and `id` arrive as strings.
+- For related activity data, see [Douyin Xingtu IP Activity List](/apis/douyin/xingtu-v2/ip-activity-list).
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

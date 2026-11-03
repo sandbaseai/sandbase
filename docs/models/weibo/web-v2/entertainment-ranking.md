@@ -52,13 +52,14 @@ Same call via the path form: `POST /v1/api/weibo/web-v2/entertainment-ranking` w
 
 ## Details
 
-Retrieve Weibo entertainment ranking data covering films, television series, and variety shows without requiring input parameters.
+Returns the current Weibo entertainment ranking as a list of trending topics. Each entry has a topic title, a heat number, a category such as artist or TV series, and its position. The API takes no input.
 
 ### Use cases
 
-- Track trending entertainment topics and celebrity news on Weibo.
-- Analyze popular film and television show leaderboards.
-- Monitor public interest across variety show rankings.
+- Show the top entertainment topics on Weibo right now in a dashboard or daily digest.
+- Track which artists or TV series appear in the ranking by reading `category` and `subject_querys`.
+- Compare `hot_num` between topics to see which entertainment story draws the most attention.
+- Collect `word_scheme` values to build a list of hashtags to search or monitor.
 
 ### Request
 
@@ -69,9 +70,57 @@ curl -X POST "https://api.sandbase.ai/v1/api/weibo/web-v2/entertainment-ranking"
   -d '{}'
 ```
 
+The result is returned in `outputs[0].data`.
+
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "band_list": [
+    {
+      "category": "艺人",
+      "emoticon": "",
+      "flag": 2,
+      "hot_num": 1437012,
+      "icon_desc": "热",
+      "icon_desc_color": "#ff9406",
+      "is_hot": 1,
+      "loc_page": 4,
+      "m_category": "艺人",
+      "note": "曝陈奕迅疑女儿被绿与黄泽林绝交",
+      "num": 1437012,
+      "rank": 0
+    }
+  ]
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `band_list[]` | One ranked entertainment topic. The list is ordered by rank. |
+| `band_list[].word / note` | The topic title text. In the sample, both fields hold the same text. |
+| `band_list[].word_scheme` | The topic written as a Weibo hashtag, wrapped in `#` for hashtag topics. Plain topics have no `#`. |
+| `band_list[].hot_num / num` | The heat number of the topic. A larger number means a higher position in the sample. |
+| `band_list[].rank / realpos` | Position of the topic in the list. `rank` starts at `0` and `realpos` starts at `1`. |
+| `band_list[].category / m_category` | The topic category label, for example `艺人` (artist) or `剧集` (TV series). |
+| `band_list[].subject_querys` | Related subjects for the topic. Each key is a subject name, with `subject_trend` as the related trend text and `subject_type` as the subject type such as `综艺`, `剧集` or `event`. |
+| `band_list[].icon_desc / icon_desc_color` | Badge label and badge color for the topic, such as `热` (hot) in orange. Only some entries have them. |
+| `band_list[].is_hot / topic_flag / flag` | Numeric flags attached to the topic. The response does not explain their exact meaning. |
+
+### Notes
+
+- Send an empty JSON object `{}`. The API has no request parameters and no pagination.
+- `rank` is zero-based and `realpos` is one-based, so the first topic has `rank` `0` and `realpos` `1`.
+- Text values are in Chinese. Pass `word` to [Weibo Topic Search](/apis/weibo/web-v2/topic-search) or [Weibo Real-Time Search](/apis/weibo/web-v2/realtime-search) to find posts about a topic.
+- For other Weibo rankings, see [Weibo Social Ranking](/apis/weibo/web-v2/social-ranking).
+
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

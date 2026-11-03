@@ -65,13 +65,14 @@ Same call via the path form: `POST /v1/api/weibo/web-v2/pic-search` with the bod
 
 ## Details
 
-Look up Weibo images and associated post metadata based on a specified `query`. Supports pagination through the optional `page` parameter.
+Returns Weibo posts that contain pictures and match a search keyword. Each result has an image URL, the post text, and basic details about the user who posted it. It needs one input, `query`, and takes an optional `page`.
 
 ### Use cases
 
-- Search for Weibo images matching specific keywords or brand terms.
-- Collect media assets and post text for social sentiment analysis.
-- Track visual content shared by users around current events.
+- Collect images that Weibo users post about a brand or product name.
+- Pull post text next to each picture to review how a topic is discussed with images.
+- Build a list of accounts that post pictures about a keyword using `user.name` and `user.profile_url`.
+- Check whether a picture comes from an original post or a repost with `is_forward`.
 
 ### Request
 
@@ -82,6 +83,8 @@ curl -X POST "https://api.sandbase.ai/v1/api/weibo/web-v2/pic-search" \
   -d '{"query": "OpenAI"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
@@ -91,35 +94,69 @@ curl -X POST "https://api.sandbase.ai/v1/api/weibo/web-v2/pic-search" \
 
 ### Example response
 
-Real response for the request above, trimmed to the main fields. User names and long IDs are masked.
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
 
 ```json
 {
+  "claim_auth": [],
+  "claim_auth_white": true,
+  "is_end": 0,
+  "noResultMsg": "抱歉，未找到相关结果。",
   "pic_list": [
     {
+      "created_at": "Tue Nov 03 15:42:14 +0800 2026",
       "forward_id": 0,
-      "sub_name": "郑总i",
-      "sub_text": "AMD首席执行官苏姿丰表示，当前AI芯片市场需求...",
-      "text": "AMD首席执行官苏姿丰表示，当前AI芯片市场需求非常旺盛，就算AMD持续提升产能，市场需求依旧大于供给。并表示公司后续将会持续大幅扩产，加码AI加速芯片、服务器CPU的产能投放。…",
-      "url": "//wx3.sinaimg.cn/thumb180/bbd55d63gy1ihswq5iaauj20u00ehjvc.jpg",
+      "is_forward": false,
+      "mid": "5361194065202409",
+      "original_pic": "//wx1.sinaimg.cn/large/66fd066bly1iip1qt0l0sj20hw0aadhh.jpg",
+      "sub_name": "宝玉xp",
+      "sub_text": "OpenAI 的下一代大模型可能要来了，正好接上...",
+      "text": "OpenAI 的下一代大模型可能要来了，正好接上 Altman 11 月 2 日在阿布扎比说的“下一个 GPT 很快发布”。\n\n不过目前只是猜测，没有正式发布。…",
+      "url": "//wx1.sinaimg.cn/thumb180/66fd066bly1iip1qt0l0sj20hw0aadhh.jpg",
       "user": {
-        "name": "郑总i",
-        "profile_image_url": "//tvax2.sinaimg.cn/crop.0.0.1080.1080.50/bbd55d63ly8i3xfxp27klj20u00u0gp1.jpg?KID=imgbed,…",
-        "profile_url": "//weibo.com/zhengbinqiang"
+        "name": "宝玉xp",
+        "profile_image_url": "//tva3.sinaimg.cn/crop.0.0.180.180.50/66fd066bjw1e8qgp5bmzyj2050050aa8.jpg?KID=i…",
+        "profile_url": "//weibo.com/dotey"
       }
     }
-  ]
+  ],
+  "risk_control": {
+    "aitabHidden": 0,
+    "cateList": [],
+    "navControl": [],
+    "overall": 0
+  },
+  "suda_pre": "seqid:179369198652802043194|type:0|t:0|pos:1-0|q:OpenAI|ext:",
+  "total_number": 0
 }
 ```
 
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `pic_list[]` | One picture result per item. Each item holds the image links, the post text and the poster. |
+| `pic_list[].original_pic` | Link to the large version of the image. It starts with `//`, so add `https:` to use it. |
+| `pic_list[].url` | Link to a small thumbnail (`thumb180`) of the same image. |
+| `pic_list[].text` | Text of the post. Long posts end with an ellipsis. |
+| `pic_list[].sub_text` | Shorter preview of the post text. |
+| `pic_list[].mid` | ID of the post as a string of digits. |
+| `pic_list[].created_at` | Time the post was created, for example `Tue Nov 03 15:42:14 +0800 2026`. |
+| `pic_list[].is_forward / pic_list[].forward_id` | `is_forward` is `true` when the post is a repost. `forward_id` holds an ID for a repost and is `0` when the post is not a repost. |
+| `pic_list[].user.name / pic_list[].user.profile_url` | Display name of the poster and a link to their Weibo profile. `sub_name` repeats the name at the item level. |
+| `pic_list[].user.profile_image_url` | Link to the poster's avatar image. |
+| `is_end` | Paging flag. The value `0` is shown in this response, which had results. |
+
 ### Notes
 
-- Paginate results using `page`, which defaults to 1.
-- The `query` parameter is required.
+- `pic_list[].mid` is the post ID. Pass it to [Weibo Post Detail](/apis/weibo/web-v2/post-detail) to get the full post.
+- Image and profile links start with `//`. Add `https:` before you open them.
+- Set `page` to get later result pages. It defaults to 1.
+- `total_number` returned `0` even though `pic_list` had items, so count the items in `pic_list` instead.
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

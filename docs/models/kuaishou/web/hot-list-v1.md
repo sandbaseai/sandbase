@@ -52,13 +52,14 @@ Same call via the path form: `POST /v1/api/kuaishou/web/hot-list-v1` with the bo
 
 ## Details
 
-Access real-time trending topics and popular rankings from Kuaishou Web without requiring query parameters.
+Returns the current Kuaishou Web hot list as an array of ranked trending topics. Each item has a name, a rank, a heat value and linked video IDs. The API takes no input parameters.
 
 ### Use cases
 
-- Track trending topics and viral discussions across Kuaishou in real time.
-- Monitor shifts in audience interest and public sentiment on the platform.
-- Identify popular themes to guide video content strategy and research.
+- Snapshot the top trending topics on Kuaishou at a set time each day.
+- Compare `hotValue` across topics to see which trends draw the most attention.
+- Collect `photoIds` for each topic to fetch the related videos in a later call.
+- Flag pinned or rising topics through `tagType` and `iconUrl`.
 
 ### Request
 
@@ -69,9 +70,57 @@ curl -X POST "https://api.sandbase.ai/v1/api/kuaishou/web/hot-list-v1" \
   -d '{}'
 ```
 
+The result is returned in `outputs[0].data`.
+
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+[
+  {
+    "__typename": "VisionHotRankItem",
+    "hotValue": null,
+    "iconUrl": "https://p66.a.yximgs.com/udata/pkg/nebula-app/rank_tag_rising3x.png",
+    "id": "让互联网更好造福人民造福世界",
+    "name": "让互联网更好造福人民造福世界",
+    "photoIds": {
+      "json": [
+        "3xmtwfbf6h99thk"
+      ],
+      "type": "json"
+    },
+    "poster": "http://v23-3.kwaicdn.com/upic/2026/11/02/07/BMjAyNjExMDIwNzQ4NDdfMTMxMjExOTkyNV8…",
+    "rank": 0,
+    "tagType": "置顶",
+    "viewCount": null
+  }
+]
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `[].name` | Title of the trending topic. In the sample, `id` holds the same text. |
+| `[].rank` | Position in the list. The first item is `0`. |
+| `[].hotValue` | Heat value as a display string, such as `1188.2万`. It is `null` for the pinned item. |
+| `[].tagType` | Label for the item, such as `置顶` (pinned). It is `null` when the item has no label. |
+| `[].iconUrl` | URL of a tag icon image. It is `null` when the item has no icon. |
+| `[].photoIds.json[]` | IDs of the videos or photo posts linked to the topic. |
+| `[].poster` | URL of a cover image for the topic. |
+| `[].viewCount` | View count for the topic. It is `null` in the sample items. |
+| `[].id` | Identifier of the topic. In the sample it is the same text as `name`. |
+
+### Notes
+
+- Send an empty JSON object `{}` as the request body. The API has no parameters and no pagination.
+- Use the values in `photoIds.json` with [Kuaishou Single Video Details](/apis/kuaishou/web/one-video) to load each linked video.
+- For another trending view, call [Kuaishou Web Hot List (V2)](/apis/kuaishou/web/hot-list-v2).
+
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

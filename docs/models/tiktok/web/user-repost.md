@@ -65,13 +65,14 @@ Same call via the path form: `POST /v1/api/tiktok/web/user-repost` with the body
 
 ## Details
 
-Retrieve reposted videos from a TikTok account by passing the user's `secUid`. Supports cursor-based pagination through `cursor`.
+Returns a page of videos that a TikTok user has reposted, with video details, author totals, and engagement counts. It needs the user's `secUid` as input.
 
 ### Use cases
 
-- Monitor videos that a specific creator has reposted on their profile.
-- Track engagement and view metrics on reposted content.
-- Collect reposted video metadata for user interest and trend analysis.
+- Review which videos a creator reposts to see what content they endorse.
+- Compare `playCount` and `diggCount` across reposted videos to find which ones perform best.
+- Collect hashtags and captions from reposted videos to study the topics a creator follows.
+- Download reposted video files or cover images from the playback URLs.
 
 ### Request
 
@@ -82,96 +83,134 @@ curl -X POST "https://api.sandbase.ai/v1/api/tiktok/web/user-repost" \
   -d '{"secUid": "MS4wLjABAAAAv7iSuuXDJGDvJkmH_vz1qkDZYo1apxgzaxdBSeIuPiM"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
 |---|---|---|---|
 | `secUid` | string | Yes | User secUid |
 | `count` | integer | No | Number per page, default is 20, cannot be changed. |
-| `cursor` | integer | No | Page cursor |
 | `coverFormat` | integer | No | Cover format, default is 2, optional values are 1 or 2. |
+| `cursor` | integer | No | Page cursor |
 
 ### Example response
 
-Real response for the request above, trimmed to the main fields. User names and long IDs are masked.
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
 
 ```json
 {
+  "cookie": "tt_chain…",
+  "cursor": "20",
+  "extra": {
+    "fatal_item_ids": [],
+    "logid": "202611030744324566AD1DDD14C902E263",
+    "now": 1793691872000
+  },
+  "hasMore": true,
   "itemList": [
     {
+      "AIGCDescription": "",
       "CategoryType": 105,
-      "createTime": 1790708957,
-      "desc": "This @TikTok TikTok ad campaign is live right now — and it’s airing on major national TV …",
-      "id": "7691036284428635423",
-      "itemCommentStatus": 0,
-      "textLanguage": "en",
-      "textTranslatable": true,
+      "IsHDBitrate": false,
+      "ShowAIGC": true,
       "author": {
-        "id": "6653919748492099589",
-        "nickname": "<user>",
-        "privateAccount": false,
-        "verified": false
+        "avatarLarger": "https://p19-common-sign.tiktokcdn-us.com/tos-maliva-avt-0068/7330740761455820805…",
+        "avatarMedium": "https://p19-common-sign.tiktokcdn-us.com/tos-maliva-avt-0068/7330740761455820805…",
+        "avatarThumb": "https://p19-common-sign.tiktokcdn-us.com/tos-maliva-avt-0068/7330740761455820805…",
+        "commentSetting": 0,
+        "downloadSetting": 0,
+        "duetSetting": 0,
+        "ftc": false,
+        "id": "6653919748492099589"
       },
       "authorStats": {
-        "diggCount": 301,
+        "diggCount": 302,
         "followerCount": 22600,
         "followingCount": 15,
         "friendCount": 0,
-        "heartCount": 536000,
-        "videoCount": 724
+        "heart": 539300,
+        "heartCount": 539300,
+        "videoCount": 742
       },
       "authorStatsV2": {
-        "diggCount": "301",
+        "diggCount": "302",
         "followerCount": "22600",
         "followingCount": "15",
         "friendCount": "0",
-        "heartCount": "536000",
-        "videoCount": "724"
+        "heart": "539300",
+        "heartCount": "539300",
+        "videoCount": "742"
       },
-      "music": {
-        "authorName": "Christopher Sbrocco",
-        "duration": 15,
-        "id": "7691036398622673694",
-        "shoot_duration": 15,
-        "title": "original sound"
-      },
-      "penaltyContext": {
-        "arb_content_safety_status": 102,
-        "display_penalty_type": 0,
-        "display_ui_type": 0,
-        "status": 102,
-        "tns_status": 102,
-        "video_status": 10
-      },
-      "stats": {
-        "collectCount": 10,
-        "commentCount": 12,
-        "diggCount": 118,
-        "playCount": 7222,
-        "shareCount": 11
-      },
-      "statsV2": {
-        "collectCount": "10",
-        "commentCount": "12",
-        "diggCount": "118",
-        "playCount": "7222",
-        "repostCount": "0",
-        "shareCount": "11"
-      }
+      "backendSourceEventTracking": "",
+      "challenges": [
+        {
+          "coverLarger": "",
+          "coverMedium": "",
+          "coverThumb": "",
+          "desc": "",
+          "id": "1619172155642885",
+          "profileLarger": "",
+          "profileMedium": "",
+          "profileThumb": ""
+        }
+      ],
+      "collected": false,
+      "contents": [
+        {
+          "desc": "Over 2 million skilled trades jobs are sitting unfilled. @TikTok has been the bi…",
+          "textExtra": [
+            {
+              "awemeId": "",
+              "end": 64,
+              "hashtagName": "",
+              "isCommerce": false,
+              "secUid": "MS4wLjABAAAAv7iSuuXDJGDvJkmH_vz1qkDZYo1apxgzaxdBSeIuPiM",
+              "start": 57,
+              "subType": 0,
+              "type": 0
+            }
+          ]
+        }
+      ],
+      "createTime": 1792023471
     }
-  ]
+  ],
+  "log_pb": {
+    "impr_id": "202611030744324566AD1DDD14C902E263"
+  },
+  "statusCode": 0,
+  "status_code": 0,
+  "status_msg": "",
+  "tt_chain_token": "uWGiRtoC…"
 }
 ```
 
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `itemList[].id` | ID of the reposted video. |
+| `itemList[].desc` | Caption text of the video. Hashtags and mentions are included in the text. |
+| `itemList[].createTime` | Time the video was created, as a Unix timestamp in seconds. |
+| `itemList[].stats.playCount / stats.diggCount / stats.commentCount / stats.shareCount / stats.collectCount` | Engagement counts for the video: plays, likes, comments, shares and saves. `statsV2` repeats them as strings. |
+| `itemList[].author.id` | ID of the account that made the original video. |
+| `itemList[].authorStats.followerCount / followingCount / videoCount / heartCount` | Totals for the video's author: followers, accounts followed, videos posted and total likes received. |
+| `itemList[].music.id / music.authorName / music.duration` | ID, author name and duration of the sound used in the video. |
+| `itemList[].video.cover` | URL of the cover image for the video. |
+| `itemList[].video.PlayAddrStruct.UrlList` | Playback URLs for the video file. `Width`, `Height` and `DataSize` describe the file. |
+| `itemList[].textExtra[].hashtagName` | Hashtag name found in the caption. `start` and `end` give its position in `desc`. |
+
 ### Notes
 
-- The `count` parameter defaults to 20 and cannot be changed.
-- Pagination is handled using the `cursor` parameter.
-- `coverFormat` accepts values `1` or `2`, with `2` as the default.
+- Pass `cursor` from the previous response to get the next page. The response also returns `hasMore`, which is `true` when more results exist.
+- `count` is fixed at 20 per page and cannot be changed.
+- The `secUid` value starts with `MS4w`. Get it from [TikTok Profile Sec User ID](/apis/tiktok/web/sec-user-id) or [TikTok User Sec User ID Extractor](/apis/tiktok/web/all-sec-user-id).
+- To see the videos the user posted themselves, call [TikTok User Posts](/apis/tiktok/web/user-post).
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

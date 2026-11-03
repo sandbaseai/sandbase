@@ -63,13 +63,14 @@ Same call via the path form: `POST /v1/api/reddit/app/user-trophies` with the bo
 
 ## Details
 
-Retrieve the public achievements and trophies earned by a Reddit user by specifying their `username`.
+Returns the public trophies shown on a Reddit user's profile. Each trophy has an ID, a name and an image URL. The only required input is the `username`, without the u/ prefix.
 
 ### Use cases
 
-- Display user badges and achievements in community profiles.
-- Inspect Reddit account milestones and historical participation awards.
-- Verify account authenticity and longevity using public trophy records.
+- Show a user's Reddit trophies and streak badges on an external profile page.
+- Check which streak trophies an account holds, such as `700-Day Streak` or `600-Day Streak`.
+- Collect trophy image URLs to display achievement icons in a dashboard.
+- Compare the trophy names of several accounts when reviewing community members.
 
 ### Request
 
@@ -80,6 +81,8 @@ curl -X POST "https://api.sandbase.ai/v1/api/reddit/app/user-trophies" \
   -d '{"username": "spez"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
@@ -87,14 +90,65 @@ curl -X POST "https://api.sandbase.ai/v1/api/reddit/app/user-trophies" \
 | `username` | string | Yes | Reddit username (without u/ prefix) |
 | `need_format` | boolean | No | Whether to clean and format the data |
 
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "redditorInfoByName": {
+    "__typename": "Redditor",
+    "trophyCase": {
+      "categories": {
+        "edges": [
+          {
+            "node": {
+              "__typename": "AchievementTrophyCategory",
+              "trophies": {
+                "edges": [
+                  {
+                    "node": {
+                      "__typename": "AchievementImageTrophy",
+                      "id": "700-day-streak",
+                      "image": {
+                        "url": "https://preview.redd.it/h9a6sd4jhosf1.png?width=500&height=500&auto=webp&s=005d6…"
+                      },
+                      "name": "700-Day Streak"
+                    }
+                  }
+                ]
+              }
+            }
+          }
+        ]
+      }
+    }
+  }
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `redditorInfoByName` | Root object for the Reddit user that matches the `username`. |
+| `redditorInfoByName.trophyCase.categories.edges[].node.trophies.edges[]` | List of trophies in one trophy category. Each entry holds a `node` object with the trophy details. |
+| `redditorInfoByName.trophyCase.categories.edges[].node.__typename` | Type of the trophy category, for example `AchievementTrophyCategory`. |
+| `redditorInfoByName.trophyCase.categories.edges[].node.trophies.edges[].node.name` | Display name of the trophy, such as `Conversation Starter` or `700-Day Streak`. |
+| `redditorInfoByName.trophyCase.categories.edges[].node.trophies.edges[].node.id` | Identifier of the trophy. Values can be a number string like `11` or a slug like `700-day-streak`. |
+| `redditorInfoByName.trophyCase.categories.edges[].node.trophies.edges[].node.image.url` | URL of the trophy image. |
+| `redditorInfoByName.trophyCase.categories.edges[].node.trophies.edges[].node.__typename` | Type of the trophy, for example `AchievementImageTrophy`. |
+
 ### Notes
 
-- Provide the `username` without the u/ prefix.
-- Set `need_format` to true to receive cleaned and formatted response data.
+- Pass the `username` without the u/ prefix, for example `spez`.
+- Trophy IDs are strings. Some are numeric and some are slugs, so treat them as text.
+- The response nests trophies under categories, so loop over the categories first and then over the trophies in each one.
+- To look up more about the same account, call [Reddit App User Profile](/apis/reddit/app/user-profile) or [Reddit User Posts](/apis/reddit/app/user-posts).
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

@@ -59,7 +59,14 @@ Same call via the path form: `POST /v1/api/youtube/channel` with the body above 
 
 ## Details
 
-Fetch a YouTube channel's stats (subscribers, video count, total views, description) and the links on its About page, by handle or channel ID.
+Returns public stats for one YouTube channel: title, handle, channel ID, subscriber count, video count, total views, description and avatar. It needs a channel `handle` such as `@mkbhd` or a `channelId` that starts with `UC`.
+
+### Use cases
+
+- Track a creator's subscriber and view totals over time by calling the API on a schedule.
+- Check a channel's size and description before you add it to an influencer outreach list.
+- Convert a `handle` into a `channelId` so you can call other channel endpoints.
+- Show a channel card with its avatar, title and link in your own app.
 
 ### Request
 
@@ -70,7 +77,7 @@ curl -X POST "https://api.sandbase.ai/v1/api/youtube/channel" \
   -d '{"handle": "@mkbhd"}'
 ```
 
-The result is returned in `outputs[0].data`. A lookup that finds nothing still succeeds and returns `found: false`.
+The result is returned in `outputs[0].data`.
 
 ### Parameters
 
@@ -80,9 +87,51 @@ The result is returned in `outputs[0].data`. A lookup that finds nothing still s
 | `handle` | string | No | YouTube channel handle. |
 | `requireFields` | array | No | Optional; omit it and routing is unchanged, with the cheapest source serving. Name the output fields this request must be able to return, for example `views`, and it is served only by a source that returns every one of t |
 
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "data": {
+    "avatarUrl": "https://yt3.ggpht.com/qu4TmIaYUlS41-dJ9gZ7DUR3nilvmB5_11i6OKSdvNnBNiyOusZP1bMN6I…",
+    "channelId": "UCBJycsmduvYEL83R_U4JriQ",
+    "description": "MKBHD: Quality Tech Videos | YouTuber | Geek | Consumer Electronics | Tech Head …",
+    "handle": "@mkbhd",
+    "subscribers": 21400000,
+    "title": "Marques Brownlee",
+    "url": "https://www.youtube.com/channel/UCBJycsmduvYEL83R_U4JriQ",
+    "videos": 1863,
+    "views": 5860083118
+  },
+  "found": true
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `found` | `true` when the channel exists. A lookup that finds nothing returns `found: false`. |
+| `data.channelId` | The channel's ID. It starts with `UC`. |
+| `data.handle` | The channel handle, including the leading `@`. |
+| `data.title` | The channel's display name. |
+| `data.subscribers` | Subscriber count as a whole number. |
+| `data.videos` | Number of videos on the channel. |
+| `data.views` | Total view count across the channel, as a whole number. |
+| `data.description` | The channel description text. It can contain line breaks and contact details. |
+| `data.url / data.avatarUrl` | `url` is the channel page link built from the channel ID. `avatarUrl` is the link to the channel's profile image. |
+
+### Notes
+
+- Send either `handle` or `channelId`. Pass `channelId` when you have it, because it skips a handle lookup.
+- Use `requireFields` with values such as `links` or `views` if you need those fields. The response shown here did not include a `links` field, so a request that requires it may be served by a different source.
+- To list the channel's content next, call [YouTube Channel Videos](/apis/youtube/channel-videos) or [YouTube Channel Shorts](/apis/youtube/channel-shorts) with the `channelId`.
+- To find a channel ID from a channel URL, use [YouTube Channel ID Lookup](/apis/youtube/web/channel-id).
+
 ### Pricing
 
-Billed at the actual cost of each call, usually $0.00045 per request. A call can cost more when the first data source fails and another one answers. Failed calls are not charged. Lookups that find nothing and searches with no results are billed at their actual cost, which is often lower and can be $0.
+Billed at the actual cost of each call, about $0.00045 for the request above. Failed calls are not charged.
 
 ---
 Machine-readable: [`catalog/models/youtube/channel.json`](../../../catalog/models/youtube/channel.json) · Store page: https://www.sandbase.ai/model/youtube/channel

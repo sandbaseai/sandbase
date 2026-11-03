@@ -62,13 +62,14 @@ Same call via the path form: `POST /v1/api/zhihu/web/answer-detail` with the bod
 
 ## Details
 
-Retrieves full content and metadata for an individual Zhihu answer using `answer_id`. It returns details such as the body text, timestamps, and answer URL.
+Returns the full record for one Zhihu answer: the HTML body, an excerpt, timestamps, the author, the parent question and a share text. It needs one input, the numeric `answer_id` from the answer page URL.
 
 ### Use cases
 
-- Extract the full text content of a Zhihu response.
-- Retrieve posting timestamps and URLs for archiving purposes.
-- Collect answer metadata for content analysis.
+- Archive the full HTML body of a Zhihu answer together with its `created_time` and `updated_time`.
+- Link an answer back to its parent question using `question.id` and `question.title`.
+- Collect author names and profile tokens for answers you have already found.
+- Build share messages or citations from the ready-made `share_text` and `url` values.
 
 ### Request
 
@@ -79,6 +80,8 @@ curl -X POST "https://api.sandbase.ai/v1/api/zhihu/web/answer-detail" \
   -d '{"answer_id": "2054145988235880002"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
@@ -87,29 +90,75 @@ curl -X POST "https://api.sandbase.ai/v1/api/zhihu/web/answer-detail" \
 
 ### Example response
 
-Real response for the request above, trimmed to the main fields. User names and long IDs are masked.
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
 
 ```json
 {
+  "allow_segment_interaction": 1,
   "answer_type": "normal",
-  "content": "我哥是万年老二，再一次输给傅寒澈，他说他得了绝症。「妹！哥没多少日子了，哥这辈子就想赢傅寒澈一次，就一次！」看着我哥省吃俭用刚给我买的限量款包包，我咽了咽口水。「哥，您说话！」我…",
+  "author": {
+    "avatar_url": "https://picx.zhimg.com/v2-497a418999540453d381c2a22d40759c_l.jpg?source=2c26e567",
+    "avatar_url_template": "https://pic1.zhimg.com/v2-497a418999540453d381c2a22d40759c.jpg?source=2c26e567",
+    "badge": [],
+    "badge_v2": {
+      "detail_badges": [],
+      "icon": "",
+      "merged_badges": [],
+      "night_icon": "",
+      "title": "我不癫 文集搜索：《白泽合集》 天瞳搜：《天瞳大全》"
+    },
+    "gender": 0,
+    "headline": "我不癫 文集搜索：《白泽合集》 天瞳搜：《天瞳大全》",
+    "id": "974e867264de46d0cab4c9420eb421fc",
+    "is_advertiser": false,
+    "is_org": false,
+    "is_privacy": false,
+    "name": "白泽丧葬用品店",
+    "type": "people"
+  },
+  "biz_ext": {
+    "share_guide": {
+      "has_positive_bubble": false,
+      "has_time_bubble": false,
+      "hit_share_guide_cluster": false
+    }
+  },
+  "content": "<p data-pid=\"JjvPL_Bi\">我哥是万年老二，再一次输给傅寒澈，他说他得了绝症。</p><p data-pid=\"aQhuG9ar\">「妹！哥没…",
   "content_need_truncated": false,
   "created_time": 1782526567,
+  "excerpt": "我哥是万年老二，再一次输给傅寒澈，他说他得了绝症。 「妹！哥没多少日子了，哥这辈子就想赢傅寒澈一次，就一次！」 看着我哥省吃俭用刚给我买的限量款包包，我咽了咽口…",
+  "extras": "",
+  "force_login_when_click_read_more": false,
   "id": "2054145988235880002",
-  "share_text": "有没有一上来就很刺激的甜文！? - 回答作者: 白泽丧葬用品店 https://zhihu.com/question/5721660615/answer/205414598823…",
-  "type": "answer",
-  "updated_time": 1782526567,
-  "url": "https://www.zhihu.com/api/v4/answers/2054145988235880002"
+  "is_collapsed": false
 }
 ```
 
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `content` | Full answer body as HTML. Paragraphs are `<p>` tags with a `data-pid` attribute. |
+| `excerpt` | Plain-text preview of the start of the answer. |
+| `created_time / updated_time` | Unix timestamps for when the answer was created and last updated. The values look like seconds. |
+| `id / type / answer_type` | The answer ID, the object type (`answer`) and the answer kind (for example `normal`). |
+| `author.name / author.headline` | Display name and profile headline of the answer author. |
+| `author.id / author.url_token` | Identifiers for the author. Use them to look up the author's profile or other answers. |
+| `question.id / question.title` | ID and title of the question this answer belongs to. |
+| `question.created / question.updated_time` | Unix timestamps for the parent question's creation and last update. |
+| `share_text` | Ready-to-post text with the question title, author name and the public answer link. |
+| `podcast_audio_enter.text` | Short label for the audio version of the answer, such as the number of listeners. |
+
 ### Notes
 
-- Locate the `answer_id` from the numeric segment in the Zhihu answer URL path.
+- Take `answer_id` from the number after `/answer/` in a Zhihu answer URL.
+- `url` is an API address. The public page link is inside `share_text`, in the form `zhihu.com/question/{question_id}/answer/{answer_id}`.
+- To list other answers to the same question, pass `question.id` to [Zhihu Question Answers](/apis/zhihu/web/question-answers).
+- To read the discussion under an answer, use [Zhihu Answer Comments](/apis/zhihu/web/comment-v5).
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

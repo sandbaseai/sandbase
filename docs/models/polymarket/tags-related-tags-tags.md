@@ -64,9 +64,14 @@ Same call via the path form: `POST /v1/api/polymarket/tags-related-tags-tags` wi
 
 ## Details
 
-Get tags related to a tag id from Polymarket. Returns the official Polymarket API response unchanged.
+Returns a list of Polymarket tags that are related to a given tag. It needs a numeric tag `id` as input. Each result has the related tag's label, slug, and a count of active events.
 
-The response is the official Polymarket API response, unchanged.
+### Use cases
+
+- Build a topic explorer that suggests neighboring topics, such as moving from one political tag to `Midterms` or `Senate Elections`.
+- Rank related tags by `activeEventsCount` to see which linked topics have the most open events.
+- Expand a tag filter by collecting related tag `id` values to use when searching for events.
+- Map how Polymarket groups topics by walking from one tag to its related tags.
 
 ### Request
 
@@ -77,6 +82,8 @@ curl -X POST "https://api.sandbase.ai/v1/api/polymarket/tags-related-tags-tags" 
   -d '{"id": 2}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
@@ -85,9 +92,49 @@ curl -X POST "https://api.sandbase.ai/v1/api/polymarket/tags-related-tags-tags" 
 | `omit_empty` | boolean | No | omit_empty |
 | `status` | string | No | status |
 
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+[
+  {
+    "activeEventsCount": 333,
+    "createdAt": "2023-11-02T21:23:16.39Z",
+    "forceShow": false,
+    "id": "126",
+    "label": "Trump",
+    "publishedAt": "2023-11-02 21:23:16.384+00",
+    "slug": "trump",
+    "updatedAt": "2026-04-17T20:39:14.206724Z",
+    "updatedBy": 15
+  }
+]
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `[].id` | ID of the related tag, returned as a string. |
+| `[].label` | Display name of the related tag, such as `Trump` or `Midterms`. |
+| `[].slug` | URL-style name of the related tag. Use it to look up the tag by slug. |
+| `[].activeEventsCount` | Number of active events that carry this tag. |
+| `[].createdAt / updatedAt` | Timestamps for when the tag was created and last changed, in ISO 8601 format. |
+| `[].publishedAt` | Time the tag was published. It appears only on some tags and uses a different date format from `createdAt`. |
+| `[].forceShow` | Boolean flag on the tag. It is missing on some tags. |
+| `[].updatedBy` | Numeric ID of the user who last updated the tag. It appears only on some tags. |
+
+### Notes
+
+- The response is a bare JSON array, not an object. Some optional fields, such as `forceShow`, `publishedAt` and `updatedBy`, are missing on some items.
+- Get the tag `id` from [Polymarket List tags](/apis/polymarket/tags) or [Polymarket Get tag by slug](/apis/polymarket/tags-slug).
+- `status` accepts `active`, `closed` or `all`. `omit_empty` is a boolean filter.
+- For the relationship records between tags, call [Polymarket Get related tags (relationships) by tag id](/apis/polymarket/tags-related-tags).
+
 ### Pricing
 
-Flat price per call. Failed calls are not charged.
+$0.00044 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ---
 Machine-readable: [`catalog/models/polymarket/tags-related-tags-tags.json`](../../../catalog/models/polymarket/tags-related-tags-tags.json) · Store page: https://www.sandbase.ai/model/polymarket/tags-related-tags-tags

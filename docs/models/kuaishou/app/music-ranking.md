@@ -60,13 +60,14 @@ Same call via the path form: `POST /v1/api/kuaishou/app/music-ranking` with the 
 
 ## Details
 
-Retrieve music chart leaderboards on Kuaishou by specifying `tab_id` for different rankings, with pagination managed via `pcursor` and `count`.
+Returns a ranked list of music tracks from a Kuaishou chart. Each track has an ID, title, artist, a hot count, cover images and audio file URLs. No input is required, and you can pass `tab_id` to pick the chart.
 
 ### Use cases
 
-- Track trending songs and popular background audio across Kuaishou.
-- Identify viral music tracks for social media content planning.
-- Retrieve audio URLs and track metadata for platform music rankings.
+- Track which songs are trending as background music on Kuaishou.
+- Build a weekly chart snapshot of top tracks and artists for a music report.
+- Download cover images, lyric files and audio previews for tracks on a chart.
+- Compare the hot songs chart with the Pi-plan chart to find tracks that appear on both.
 
 ### Request
 
@@ -77,46 +78,101 @@ curl -X POST "https://api.sandbase.ai/v1/api/kuaishou/app/music-ranking" \
   -d '{}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
 |---|---|---|---|
 | `count` | integer | No | Page size, default 20, range 1-50 |
-| `tab_id` | integer | No | 100002=hot songs (default), 100063=Pi-plan ranking |
 | `pcursor` | string | No | Cursor, empty for first page |
+| `tab_id` | integer | No | 100002=hot songs (default), 100063=Pi-plan ranking |
 
 ### Example response
 
-Real response for the request above, trimmed to the main fields. User names and long IDs are masked.
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
 
 ```json
 {
+  "debug_id": "c835f052",
+  "debug_info": "gAAAAABq6Y7Z84ABb8lDV4hTWoPnhjPx10ReH8XwOG51x82Opzzb1k4QzkGhKkOPvLY6C6IrL3l-BwyH…",
+  "host-name": "public-bjy-c34-kce-node3847.idchb1az2.hb1.kwaidc.com",
+  "listTitleMessage": "榜单更新于2026年10月31日",
   "musics": [
     {
+      "analysisResult": {
+        "beats": [
+          {
+            "algorithm": "main",
+            "beatsUrls": [
+              {
+                "cdn": "tx2.a.yximgs.com",
+                "url": "http://tx2.a.yximgs.com/udata/music/bm_IFKjNoN6fjQ_164866fbdf_MMU_BEATS_main.dat"
+              }
+            ]
+          }
+        ]
+      },
+      "artist": "周杰伦",
       "audioType": 1,
+      "audioUrls": [
+        {
+          "cdn": "v1-plat-fdl.wsukwai.com",
+          "url": "https://v1-plat-fdl.wsukwai.com/ksc2/ij9zjAXvUWifRe8PCEOj9oX6NyGjjHdv05L9fM_9q-b…"
+        }
+      ],
+      "avatarUrl": "http://tx2.a.yximgs.com/udata/music/bgm_IFKjNoN6fjQ_-MBE-bCbRC8_scaled.jpg",
+      "avatarUrls": [
+        {
+          "cdn": "tx2.a.yximgs.com",
+          "url": "http://tx2.a.yximgs.com/udata/music/bgm_IFKjNoN6fjQ_-MBE-bCbRC8_scaled.jpg"
+        }
+      ],
+      "begin": 1,
+      "chorus": 1,
+      "clickMoreUrl": "kwai://tag/electrical/5xqbk8s4a3ina96",
       "copyrightTimeLimit": 60,
-      "duration": 320,
-      "finalStatus": 0,
-      "hotCount": "1902.1万",
-      "id": "5xak4hqnwe7ecw9",
-      "name": "我不难过",
-      "snippetDuration": 60,
-      "type": 4,
-      "url": "https://v1-plat-fdl.wsukwai.com/ksc2/pUMOAetCwmckeNtMnU5XWhK1n-Cof_zoeJdTw0B4qvO…"
+      "duration": 59,
+      "durationInfo": [
+        {
+          "durationPlayTrail": 60000,
+          "durationShooting": 60000,
+          "product": "KUAISHOU",
+          "scene": 2
+        }
+      ]
     }
-  ]
+  ],
+  "pcursor": "25",
+  "result": 1
 }
 ```
 
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `musics[]` | List of ranked tracks, in chart order. |
+| `musics[].id` | Track ID, a short alphanumeric string such as `5xqbk8s4a3ina96`. |
+| `musics[].name / musics[].artist` | Track title and artist name. |
+| `musics[].hotCount` | Popularity count as a display string with a unit suffix, such as `1996万`. It is text, not a number. |
+| `musics[].duration` | Track length as a number. The shown values are 59 and 60. |
+| `musics[].audioUrls[].url / musics[].url` | Audio file links in `.m4a` format. Each entry in `audioUrls` also gives the `cdn` host that serves the file. |
+| `musics[].image / musics[].avatarUrl` | Cover image links for the track. |
+| `musics[].lrc` | Link to a lyrics file in `.trcx` format. `mmuLrcUrls` lists `.srt` lyric files. |
+| `musics[].hasCopyright` | Boolean flag for whether the track has copyright set. |
+| `listTitleMessage` | Chart update note in Chinese, such as a line saying when the chart was updated. |
+
 ### Notes
 
-- Set `tab_id` to 100002 for hot songs or 100063 for Pi-plan rankings.
-- Use `count` to specify the page size between 1 and 50 tracks.
-- Pass an empty string to `pcursor` for the initial page, then use subsequent cursor values for pagination.
+- Set `tab_id` to `100002` for the hot songs chart (default) or `100063` for the Pi-plan chart.
+- Set `count` from 1 to 50 for page size. The default is 20.
+- Leave `pcursor` empty for the first page. Pass the cursor value from the previous response to get the next page.
+- To find a track by name instead of by chart, use [Kuaishou Music Search](/apis/kuaishou/app/search-music).
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

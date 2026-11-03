@@ -68,7 +68,14 @@ Same call via the path form: `POST /v1/api/nasdaq/mutual-fund-quote` with the bo
 
 ## Details
 
-Quote and details for a mutual fund including NAV and daily change. Mutual funds show isRealTime=false and have no bid/ask/volume data.
+Returns the current quote and basic details for one mutual fund listed on Nasdaq, including the last price, currency and fund type. It needs a fund ticker in `symbol`, such as `VFIAX`.
+
+### Use cases
+
+- Show the latest price of a Vanguard or other fund in a portfolio tracker.
+- Check whether a fund moved up or down since the previous price using `deltaIndicator`.
+- Confirm a ticker is a managed fund and read its full company name before adding it to a watchlist.
+- Fill a fund detail page with the fund name, exchange and currency.
 
 ### Request
 
@@ -79,7 +86,7 @@ curl -X POST "https://api.sandbase.ai/v1/api/nasdaq/mutual-fund-quote" \
   -d '{"symbol": "VFIAX"}'
 ```
 
-This API runs asynchronously. The call returns a task `id` with status `pending`; poll `GET https://api.sandbase.ai/v1/run/{id}` until `status` is `completed` and read the result from `outputs[0].data`.
+The result is returned in `outputs[0].data`.
 
 ### Parameters
 
@@ -87,9 +94,72 @@ This API runs asynchronously. The call returns a task `id` with status `pending`
 |---|---|---|---|
 | `symbol` | string | Yes | Mutual fund symbol (e.g. VFIAX). |
 
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "data": {
+    "data": {
+      "assetClass": "MUTUALFUNDS",
+      "companyName": "Vanguard 500 Index Fd Admiral Shs",
+      "exchange": "Nasdaq Fund Network",
+      "isHeld": false,
+      "isNasdaq100": false,
+      "isNasdaqListed": false,
+      "keyStats": null,
+      "marketStatus": null,
+      "notifications": null,
+      "primaryData": {
+        "askPrice": "",
+        "askSize": "",
+        "bidPrice": "",
+        "bidSize": "",
+        "currency": "USD",
+        "deltaIndicator": "down",
+        "isRealTime": false,
+        "lastSalePrice": "$699.87"
+      },
+      "secondaryData": null,
+      "stockType": "Managed Fund"
+    },
+    "message": null,
+    "status": {
+      "bCodeMessage": null,
+      "developerMessage": null,
+      "rCode": 200
+    }
+  },
+  "status": "success"
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `data.data.symbol` | The fund ticker that was requested, for example `VFIAX`. |
+| `data.data.companyName` | Full name of the fund, for example `Vanguard 500 Index Fd Admiral Shs`. |
+| `data.data.assetClass / data.data.stockType` | Asset class (`MUTUALFUNDS`) and fund type (`Managed Fund`). |
+| `data.data.exchange` | Where the fund is listed. Mutual funds show `Nasdaq Fund Network`. |
+| `data.data.primaryData.lastSalePrice` | Latest price of the fund as a formatted string with a dollar sign, for example `$699.87`. |
+| `data.data.primaryData.deltaIndicator` | Direction of the latest change, such as `down`. |
+| `data.data.primaryData.currency` | Currency of the price, for example `USD`. |
+| `data.data.primaryData.isRealTime` | Whether the price is real time. It is `false` for mutual funds. |
+| `data.data.primaryData.askPrice / bidPrice / askSize / bidSize` | Bid and ask values. They are empty strings for mutual funds. |
+| `data.status.rCode` | Status code of the quote lookup. `200` means the lookup worked. |
+
+### Notes
+
+- `lastSalePrice` is a string with a `$` sign. Strip the symbol before you do math.
+- `keyStats`, `marketStatus`, `notifications` and `secondaryData` are `null` in this response.
+- If you do not know the ticker, find it first with [Nasdaq Search Symbols](/apis/nasdaq/search-symbols).
+- For exchange-traded funds, use [Nasdaq Etf Quote](/apis/nasdaq/etf-quote) instead.
+
 ### Pricing
 
-Flat price per call. Failed calls are not charged.
+$0.01 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ---
 Machine-readable: [`catalog/models/nasdaq/mutual-fund-quote.json`](../../../catalog/models/nasdaq/mutual-fund-quote.json) · Store page: https://www.sandbase.ai/model/nasdaq/mutual-fund-quote

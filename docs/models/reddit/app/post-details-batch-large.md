@@ -64,13 +64,14 @@ Same call via the path form: `POST /v1/api/reddit/app/post-details-batch-large` 
 
 ## Details
 
-Retrieve detailed post information for multiple Reddit submissions simultaneously by supplying post IDs in `post_ids`. Optional parameters like `include_comment_id` and `need_format` allow comment targeting and data formatting.
+Returns details for up to 30 Reddit posts in one request. You pass the post IDs as a comma-separated string in `post_ids`, each with the `t3_` prefix. The response lists one entry per ID, in a `postsInfoByIds` array.
 
 ### Use cases
 
-- Retrieve submission metadata for up to 30 Reddit posts simultaneously.
-- Collect post context associated with a specific comment ID.
-- Extract cleaned and formatted post datasets for bulk analysis.
+- Pull the comment count, flair and lock status for a list of posts you track.
+- Check which posts in a saved list were deleted by looking for `DeletedSubredditPost` entries.
+- Collect author names and award totals for a set of posts to compare them.
+- Refresh stored metadata for many post IDs with one call instead of one call per post.
 
 ### Request
 
@@ -81,24 +82,140 @@ curl -X POST "https://api.sandbase.ai/v1/api/reddit/app/post-details-batch-large
   -d '{"post_ids": "t3_1ojnh50,t3_1ok432f,t3_1nwil8j,t3_1oj6vn6,t3_1nuenmd"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
 |---|---|---|---|
 | `post_ids` | string | Yes | Post IDs comma-separated, format like "t3_XXXXXX,t3_YYYYYY,...", max 30 posts |
 | `comment_id` | string | No | Comment ID (used when include_comment_id is True), format like "t1_XXXXXX" |
-| `need_format` | boolean | No | Whether to clean and format the data |
 | `include_comment_id` | boolean | No | Whether to include specific comment ID, default False |
+| `need_format` | boolean | No | Whether to clean and format the data |
+
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "postsInfoByIds": [
+    {
+      "__typename": "SubredditPost",
+      "attributionInfo": null,
+      "authorCommunityBadge": null,
+      "authorFlair": null,
+      "authorInfo": {
+        "__typename": "Redditor",
+        "accountType": "USER",
+        "iconSmall": {
+          "__typename": "MediaSource",
+          "dimensions": {
+            "height": 50,
+            "width": 50
+          },
+          "url": "https://styles.redditmedia.com/t5_9uhspc/styles/profileIcon_snoo-nftv2_bmZ0X2Vpc…"
+        },
+        "id": "t2_n5zmzf3v0",
+        "isBlocked": false,
+        "isCakeDayNow": false,
+        "name": "ambachk",
+        "newIcon": {
+          "__typename": "MediaSource",
+          "dimensions": {
+            "height": 256,
+            "width": 256
+          },
+          "url": "https://styles.redditmedia.com/t5_9uhspc/styles/profileIcon_snoo-nftv2_bmZ0X2Vpc…"
+        }
+      },
+      "awardings": [
+        {
+          "__typename": "AwardingTotal",
+          "award": {
+            "__typename": "Award",
+            "id": "award_wholesome_seal",
+            "name": "Wholesome Seal",
+            "static_icon_16": {
+              "__typename": "MediaSource",
+              "dimensions": {
+                "height": 16,
+                "width": 16
+              },
+              "url": "https://www.redditstatic.com/marketplace-assets/v1/core/awards/wholsome_v1_16.pn…"
+            },
+            "static_icon_24": {
+              "__typename": "MediaSource",
+              "dimensions": {
+                "height": 24,
+                "width": 24
+              },
+              "url": "https://www.redditstatic.com/marketplace-assets/v1/core/awards/wholsome_v1_24.pn…"
+            },
+            "static_icon_32": {
+              "__typename": "MediaSource",
+              "dimensions": {
+                "height": 32,
+                "width": 32
+              },
+              "url": "https://www.redditstatic.com/marketplace-assets/v1/core/awards/wholsome_v1_32.pn…"
+            },
+            "static_icon_48": {
+              "__typename": "MediaSource",
+              "dimensions": {
+                "height": 48,
+                "width": 48
+              },
+              "url": "https://www.redditstatic.com/marketplace-assets/v1/core/awards/wholsome_v1_48.pn…"
+            },
+            "static_icon_64": {
+              "__typename": "MediaSource",
+              "dimensions": {
+                "height": 64,
+                "width": 64
+              },
+              "url": "https://www.redditstatic.com/marketplace-assets/v1/core/awards/wholsome_v1_64.pn…"
+            }
+          },
+          "total": 1
+        }
+      ],
+      "awardingsInfo": null,
+      "commentCount": 11404,
+      "content": null,
+      "createdAt": "2025-10-30T01:58:59.142000+0000",
+      "crosspostRoot": null,
+      "crowdControlLevel": "OFF"
+    }
+  ]
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `postsInfoByIds[]` | One entry per requested post ID. Deleted posts appear as an entry that holds only `__typename`. |
+| `postsInfoByIds[].__typename` | Entry type. `SubredditPost` is a live post. `DeletedSubredditPost` is a deleted post with no other fields. |
+| `postsInfoByIds[].id` | Post ID with the `t3_` prefix. |
+| `postsInfoByIds[].createdAt` | Creation time of the post as an ISO 8601 timestamp with a `+0000` offset. |
+| `postsInfoByIds[].commentCount` | Number of comments on the post. |
+| `postsInfoByIds[].authorInfo.name / postsInfoByIds[].authorInfo.id` | Username of the post author and the author ID with the `t2_` prefix. |
+| `postsInfoByIds[].flair.text` | Text of the post flair, such as `Cringe`. |
+| `postsInfoByIds[].awardings[].award.name / postsInfoByIds[].awardings[].total` | Name of each award on the post and how many times it was given. |
+| `postsInfoByIds[].domain` | Domain of the linked content, such as `v.redd.it` for Reddit-hosted video. |
+| `postsInfoByIds[].isLocked / postsInfoByIds[].isNsfw / postsInfoByIds[].isSelfPost` | Flags for whether the post is locked, marked NSFW, or a text post. |
 
 ### Notes
 
-- Pass a comma-separated list of up to 30 post IDs to `post_ids` using the `t3_` prefix format.
-- Provide `comment_id` using the `t1_` prefix when `include_comment_id` is set to true.
-- Set `need_format` to true to return cleaned and standardized data.
+- Build `post_ids` from IDs that start with `t3_`. Separate them with commas and send at most 30.
+- Check `__typename` on each entry. A `DeletedSubredditPost` entry has no other fields.
+- Set `include_comment_id` to `true` and pass a `t1_` ID in `comment_id` to add a specific comment.
+- To read the comments of a post, call [Reddit App Post Comments](/apis/reddit/app/post-comments). For a single post, use [Reddit Post Details](/apis/reddit/app/post-details).
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.025 per successful call. Failed calls are not charged.
 
 ### Related APIs
 

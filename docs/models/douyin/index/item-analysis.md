@@ -68,13 +68,13 @@ Same call via the path form: `POST /v1/api/douyin/index/item-analysis` with the 
 
 ## Details
 
-This endpoint retrieves comparative performance analysis and trends for a Douyin video identified by `item_id`. Queries require a date window defined by `start_date` and `end_date`.
+Returns comparison analysis and metric trends for one Douyin video over a date range. You send the video's `item_id`, a `start_date` and an `end_date`.
 
 ### Use cases
 
-- Benchmark video performance against similar content.
-- Track metric accumulation trends across a specified date range.
-- Evaluate engagement indicators for Douyin items over time.
+- Compare a Douyin video's metric trends against benchmark or similar content.
+- Track how a video's metrics change day by day across a chosen week or month.
+- Check a video's performance over a campaign window before and after a push.
 
 ### Request
 
@@ -85,41 +85,46 @@ curl -X POST "https://api.sandbase.ai/v1/api/douyin/index/item-analysis" \
   -d '{"end_date": "20260710", "item_id": "7660090930283744575", "start_date": "20260704"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
 |---|---|---|---|
-| `item_id` | string | Yes | Video ID (Douyin aweme id, numeric string) |
 | `end_date` | string | Yes | End date YYYYMMDD |
+| `item_id` | string | Yes | Video ID (Douyin aweme id, numeric string) |
 | `start_date` | string | Yes | Start date YYYYMMDD |
 
 ### Example response
 
-Real response for the request above, trimmed to the main fields. User names and long IDs are masked.
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
 
 ```json
 {
-  "detail": {
-    "comment_acc": {
-      "trend": [
-        {
-          "datetime": "20260705",
-          "value": "0"
-        }
-      ]
-    }
+  "BaseResp": {
+    "StatusCode": -1,
+    "StatusMessage": "系统异常"
   }
 }
 ```
 
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `BaseResp` | Status wrapper for the call. It holds the status code and a status message. |
+| `BaseResp.StatusCode` | Numeric status of the call. The sample request returned `-1`, which came with an error message. |
+| `BaseResp.StatusMessage` | Text message for the status. The sample request returned `系统异常`, which means system exception. |
+
 ### Notes
 
-- Pass `item_id` as a numeric Douyin aweme ID string.
-- Format `start_date` and `end_date` as YYYYMMDD strings.
+- `item_id` is the Douyin aweme ID as a numeric string, for example `7660090930283744575`. Use [Douyin Index Video Search](/apis/douyin/index/item-query) to find videos.
+- Send `start_date` and `end_date` as `YYYYMMDD` strings, for example `20260704` and `20260710`.
+- The sample request for `item_id` `7660090930283744575` from `20260704` to `20260710` returned only a `BaseResp` object with `StatusCode` `-1`. Check the dates with [Douyin Index Valid Dates](/apis/douyin/index/all-valid-date) and retry if you see this.
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

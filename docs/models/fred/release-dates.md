@@ -69,9 +69,14 @@ Same call via the path form: `POST /v1/api/fred/release-dates` with the body abo
 
 ## Details
 
-Get Release Dates from FRED. Returns the official FRED API response unchanged.
+Returns the list of dates on which a FRED data release was published or scheduled. It needs a `release_id` and returns one entry per release date, along with the paging and real-time period settings used for the query.
 
-The response is the official FRED API response, unchanged.
+### Use cases
+
+- Build a calendar of past publication dates for a single economic release.
+- Measure how often a release is published by comparing consecutive `release_dates[].date` values.
+- Check the full publication history of a release before you pull its series data.
+- Page through a long release history in chunks using `limit` and `offset`.
 
 ### Request
 
@@ -82,22 +87,65 @@ curl -X POST "https://api.sandbase.ai/v1/api/fred/release-dates" \
   -d '{"release_id": 53, "file_type": "json"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
 |---|---|---|---|
+| `release_id` | integer | Yes | The id for a release. integer, required |
 | `file_type` | string | No | Response format. Only json is supported. |
-| `include_release_dates_with_no_data` | string | No | Determines whether release dates with no data available are returned. The defalut value 'false' excludes release dates that do not have data. In particular, thi |
+| `include_release_dates_with_no_data` | string | No | Determines whether release dates with no data available are returned. The defalut value 'false' excludes release dates that do not have data. In particular, this excludes future release dates which may be available in th |
 | `limit` | integer | No | The maximum number of results to return. integer between 1 and 10000, optional, default: 10000 |
 | `offset` | integer | No | non-negative integer, optional, default: 0 |
 | `realtime_end` | string | No | The end of the real-time period. For more information, see Real-Time Periods . YYYY-MM-DD formatted string, optional, default: 9999-12-31 (latest available) |
 | `realtime_start` | string | No | The start of the real-time period. For more information, see Real-Time Periods . YYYY-MM-DD formatted string, optional, default: 1776-07-04 (earliest available) |
-| `release_id` | integer | Yes | The id for a release. integer, required |
 | `sort_order` | string | No | Sort results is ascending or descending release date order. One of the following strings: 'asc', 'desc'. optional, default: asc |
+
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "count": 858,
+  "limit": 10000,
+  "offset": 0,
+  "order_by": "release_date",
+  "realtime_end": "9999-12-31",
+  "realtime_start": "1776-07-04",
+  "release_dates": [
+    {
+      "date": "1947-07-20",
+      "release_id": 53
+    }
+  ],
+  "sort_order": "asc"
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `release_dates[].date` | The date of one release, formatted as YYYY-MM-DD. |
+| `release_dates[].release_id` | The id of the release this date belongs to. It matches the `release_id` you sent. |
+| `count` | The total number of release dates that match the query. Use it to decide how many pages to fetch. |
+| `limit / offset` | The page size and the starting position used for this response. |
+| `order_by` | The field the results are sorted by. In this response it is `release_date`. |
+| `sort_order` | The direction of the sort, `asc` or `desc`. |
+| `realtime_start / realtime_end` | The real-time period applied to the query, formatted as YYYY-MM-DD. |
+
+### Notes
+
+- `release_id` is required. To find an id, call [FRED Get Releases](/apis/fred/releases) or [FRED Get Series Release](/apis/fred/series-release).
+- Page through results with `limit` (1 to 10000) and `offset`. Compare `count` with `offset` to see if more rows remain.
+- By default, release dates with no data are excluded, which also leaves out future dates. Set `include_release_dates_with_no_data` to `true` to include them.
+- To see details about the release itself, call [FRED Get Release](/apis/fred/release).
 
 ### Pricing
 
-Flat price per call. Failed calls are not charged.
+$0.00001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ---
 Machine-readable: [`catalog/models/fred/release-dates.json`](../../../catalog/models/fred/release-dates.json) · Store page: https://www.sandbase.ai/model/fred/release-dates

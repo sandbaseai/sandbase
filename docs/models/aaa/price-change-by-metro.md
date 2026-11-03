@@ -68,7 +68,14 @@ Same call via the path form: `POST /v1/api/aaa/price-change-by-metro` with the b
 
 ## Details
 
-Returns price changes for all metro areas within a given state, showing the difference between current and historical prices for each fuel grade. Includes yesterday_change, week_ago_change, month_ago_change, and.
+Returns gas and diesel changes since yesterday, last week, last month and last year for every metro area in a US state. It needs a two-letter `state_code` such as `WA`. Each metro lists changes for Regular, Mid-Grade, Premium and Diesel.
+
+### Use cases
+
+- Compare how fast Regular gas is moving in Bellingham, Bremerton and Olympia.
+- Flag metros where `yesterday_change` shows a sudden jump or drop.
+- Chart month over month and year over year fuel trends for a state.
+- Add local fuel trends to a logistics or fleet dashboard.
 
 ### Request
 
@@ -79,7 +86,7 @@ curl -X POST "https://api.sandbase.ai/v1/api/aaa/price-change-by-metro" \
   -d '{"state_code": "WA"}'
 ```
 
-This API runs asynchronously. The call returns a task `id` with status `pending`; poll `GET https://api.sandbase.ai/v1/run/{id}` until `status` is `completed` and read the result from `outputs[0].data`.
+The result is returned in `outputs[0].data`.
 
 ### Parameters
 
@@ -87,9 +94,73 @@ This API runs asynchronously. The call returns a task `id` with status `pending`
 |---|---|---|---|
 | `state_code` | string | Yes | Two-letter US state code (e.g. TX, CA, NY, FL). All 50 states and DC are supported. |
 
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "data": {
+    "metro_price_changes": [
+      {
+        "changes": {
+          "Diesel": {
+            "month_ago_change": -0.179,
+            "week_ago_change": -0.04,
+            "year_ago_change": 2.101,
+            "yesterday_change": -0.064
+          },
+          "Mid-Grade": {
+            "month_ago_change": -0.349,
+            "week_ago_change": 0.069,
+            "year_ago_change": 1.144,
+            "yesterday_change": -0.039
+          },
+          "Premium": {
+            "month_ago_change": -0.332,
+            "week_ago_change": 0.039,
+            "year_ago_change": 0.995,
+            "yesterday_change": 0.042
+          },
+          "Regular": {
+            "month_ago_change": -0.356,
+            "week_ago_change": -0.124,
+            "year_ago_change": 1.012,
+            "yesterday_change": -0.012
+          }
+        },
+        "metro": "Bellingham"
+      }
+    ],
+    "state": "Washington"
+  },
+  "status": "success"
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `data.state` | Full name of the state the metros belong to, such as `Washington`. |
+| `data.metro_price_changes[].metro` | Name of the metro area. |
+| `data.metro_price_changes[].changes` | Changes for this metro, keyed by fuel grade: `Regular`, `Mid-Grade`, `Premium` and `Diesel`. |
+| `data.metro_price_changes[].changes.Regular.yesterday_change` | Difference between the current Regular value and yesterday's value for this metro. |
+| `data.metro_price_changes[].changes.Regular.week_ago_change / month_ago_change / year_ago_change` | Difference between the current Regular value and the value one week, one month or one year ago. |
+| `data.metro_price_changes[].changes.Diesel.yesterday_change / week_ago_change / month_ago_change / year_ago_change` | The same set of changes for Diesel. |
+| `data.metro_price_changes[].changes.Mid-Grade` | Same four change fields for Mid-Grade gas. |
+| `data.metro_price_changes[].changes.Premium` | Same four change fields for Premium gas. |
+| `status` | Shows `success` when the call worked. |
+
+### Notes
+
+- Pass the two-letter state code in `state_code`. The response returns the full state name in `data.state`.
+- The fuel grades are object keys under `changes`, and `Mid-Grade` includes a hyphen.
+- Change values are decimals with up to three places, such as `-0.012`. Negative values mean the current value is lower than the earlier one.
+
 ### Pricing
 
-Flat price per call. Failed calls are not charged.
+$0.01 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ---
 Machine-readable: [`catalog/models/aaa/price-change-by-metro.json`](../../../catalog/models/aaa/price-change-by-metro.json) · Store page: https://www.sandbase.ai/model/aaa/price-change-by-metro

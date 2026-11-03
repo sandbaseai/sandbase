@@ -65,13 +65,13 @@ Same call via the path form: `POST /v1/api/douyin/index/hot-trend-word` with the
 
 ## Details
 
-Returns hot trend words suggested in the keyword index search box using `app_name` and `type`.
+Returns the trending search words that Douyin suggests in the keyword index search box. Both inputs are optional: `app_name` picks the platform and `type` picks the word type.
 
 ### Use cases
 
-- Retrieve trending keyword suggestions from Douyin's search box.
-- Identify rising topics for keyword index analysis.
-- Power autocomplete and recommendation fields for search inputs.
+- Pull the current list of suggested search words to see which terms Douyin is surfacing today.
+- Seed a keyword research list with fresh terms before you check each one in the keyword index.
+- Track which words appear from one day to the next by saving the list with its `update_time`.
 
 ### Request
 
@@ -82,36 +82,50 @@ curl -X POST "https://api.sandbase.ai/v1/api/douyin/index/hot-trend-word" \
   -d '{}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
 |---|---|---|---|
-| `type` | integer | No | Word type, 0=search words (plain words, id is always "0"), |
 | `app_name` | string | No | Platform, aweme=Douyin, toutiao=Toutiao (toutiao currently returns empty) |
+| `type` | integer | No | Word type, 0=search words (plain words, id is always "0"), |
 
 ### Example response
 
-Real response for the request above, trimmed to the main fields. User names and long IDs are masked.
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
 
 ```json
 {
   "trend_words": [
     {
       "id": "0",
-      "word": "蔡康永"
+      "word": "百乔"
     }
-  ]
+  ],
+  "update_time": "20261102"
 }
 ```
 
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `trend_words[]` | List of suggested trending search words. |
+| `trend_words[].word` | The suggested search word as plain text. |
+| `trend_words[].id` | Word ID. For `type` 0 (search words) it is always the string `"0"`. |
+| `update_time` | Date of the list as a `YYYYMMDD` string, for example `20261102`. |
+
 ### Notes
 
-- Set `app_name` to `aweme` for Douyin or `toutiao` for Toutiao (Toutiao currently returns empty).
-- Set `type` to `0` for plain search words where the ID is always `0`.
+- The request works with an empty body `{}`. The defaults are `app_name` set to `aweme` and `type` set to `0`.
+- `app_name` accepts `aweme` (Douyin) or `toutiao`. Toutiao currently returns an empty result.
+- `type` accepts `0` or `1`. Only `0` (search words) is described in the parameter documentation.
+- To analyze a word you found here, pass it to [Douyin Hot Search Keywords](/apis/douyin/index/hot-words) or [Douyin Relation Word Analysis](/apis/douyin/index/relation-word).
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

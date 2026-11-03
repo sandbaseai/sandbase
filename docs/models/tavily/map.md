@@ -65,13 +65,14 @@ Same call via the path form: `POST /v1/api/tavily/map` with the body above minus
 
 ## Details
 
-Maps website URL structures starting from a target `url`. Controls discovery bounds using optional `limit` and `max_depth` parameters.
+Returns a list of URLs found on a website, starting from the `url` you provide. It does not return page content. You can set `max_depth` (1 to 5) and `limit` (1 to 1000) to bound the crawl.
 
 ### Use cases
 
-- Map domain architectures before targeted content extraction.
-- Discover all accessible subpages across a specific website.
-- Audit site navigation depth and internal link structures.
+- Map a documentation site to see which pages exist before you pull their content.
+- Build a list of page URLs on one domain to feed into a content extraction step.
+- Check whether a page such as a changelog or a Markdown version of a page is reachable from the start URL.
+- Compare the URL lists from two runs to spot added or removed pages.
 
 ### Request
 
@@ -82,6 +83,8 @@ curl -X POST "https://api.sandbase.ai/v1/api/tavily/map" \
   -d '{"url": "https://docs.tavily.com"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
@@ -90,14 +93,43 @@ curl -X POST "https://api.sandbase.ai/v1/api/tavily/map" \
 | `limit` | integer | No | Maximum number of URLs to discover. |
 | `max_depth` | integer | No | Maximum traversal depth from the starting URL. |
 
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "base_url": "https://docs.tavily.com",
+  "request_id": "fc2b750c-6921-4ef2-835a-fc35e907522f",
+  "response_time": 0.07,
+  "results": [
+    "https://docs.tavily.com/"
+  ],
+  "usage": {
+    "credits": 2
+  }
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `base_url` | The starting URL that was mapped, echoed back from the request. |
+| `results[]` | List of discovered page URLs on the site. Each item is a full URL string. |
+| `request_id` | Unique ID for this request, as a UUID string. |
+| `response_time` | Time the mapping took, as a number. The response does not state the unit. |
+| `usage.credits` | Number of credits this call used, as reported in the response. |
+
 ### Notes
 
-- Configure `limit` to restrict the maximum number of discovered URLs.
-- Use `max_depth` to define how many levels deep traversal continues from `url`.
+- Only `url` is required. Add `max_depth` and `limit` to keep the result small on large sites.
+- The `results` list holds plain URL strings with no titles or page text. Pass them to [Tavily URL Content Extraction](/apis/tavily/extract) to get page content.
+- To find pages by topic instead of by site structure, use [Tavily Search](/apis/tavily/search).
 
 ### Pricing
 
-Flat price per call. Failed calls are not charged.
+$0.012 per successful call. Failed calls are not charged.
 
 ---
 Machine-readable: [`catalog/models/tavily/map.json`](../../../catalog/models/tavily/map.json) · Store page: https://www.sandbase.ai/model/tavily/map

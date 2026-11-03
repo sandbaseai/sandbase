@@ -69,13 +69,13 @@ Same call via the path form: `POST /v1/api/douyin/index/portrait` with the body 
 
 ## Details
 
-Query crowd portrait metrics for a targeted `keyword` across a timeframe set by `start_date` and `end_date`.
+Returns crowd portrait analysis for one keyword over a date range on Douyin or Toutiao. It needs a `keyword`, a `start_date` and an `end_date`. `app_name` is optional and picks the platform.
 
 ### Use cases
 
-- Analyze audience demographics interested in specific search terms.
-- Compare audience interest between Douyin and Toutiao platforms.
-- Evaluate keyword audience trends across selected date ranges.
+- Check which audience a search term such as `人工智能` attracts on Douyin.
+- Compare the crowd behind the same keyword on Douyin (`aweme`) and Toutiao (`toutiao`).
+- Run the same keyword over different date ranges to see how its audience changes.
 
 ### Request
 
@@ -86,23 +86,47 @@ curl -X POST "https://api.sandbase.ai/v1/api/douyin/index/portrait" \
   -d '{"end_date": "1735660799", "keyword": "人工智能", "start_date": "1730044800"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
 |---|---|---|---|
-| `keyword` | string | Yes | The keyword to analyze |
 | `end_date` | string | Yes | End date YYYYMMDD |
+| `keyword` | string | Yes | The keyword to analyze |
 | `start_date` | string | Yes | Start date YYYYMMDD |
 | `app_name` | string | No | Platform, aweme=Douyin, toutiao=Toutiao |
 
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "BaseResp": {
+    "StatusCode": 500,
+    "StatusMessage": "日期格式满足%Y%m%d"
+  }
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `BaseResp` | Status block of the response. In the sample call it is the only top-level key. |
+| `BaseResp.StatusCode` | Numeric status of the call. The sample call returned `500`, which means the request failed. |
+| `BaseResp.StatusMessage` | Text that explains the status. The sample call returned `日期格式满足%Y%m%d`, which says the date must match the `%Y%m%d` format. |
+
 ### Notes
 
-- The `app_name` parameter supports `aweme` for Douyin and `toutiao` for Toutiao.
-- Both `start_date` and `end_date` require the YYYYMMDD date format.
+- Send `start_date` and `end_date` as `YYYYMMDD` strings, for example `20241101`. The sample request used Unix-style numbers such as `1730044800`, and the call failed with the date format error shown above.
+- Set `app_name` to `aweme` for Douyin or `toutiao` for Toutiao.
+- To pick dates that have data, call [Douyin Index Valid Dates](/apis/douyin/index/all-valid-date) first.
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

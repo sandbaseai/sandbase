@@ -18,7 +18,7 @@ Call 107 Instagram endpoints through SandBase with one API key: no separate acco
 | [`instagram/post-detail`](../models/instagram/post-detail.md) | Get an Instagram post by its shortcode. Use it to look up a known post before content review, archiving, comment analysis, or related… | $0.014286 per call (free daily quota) |
 | [`instagram/post-likers`](../models/instagram/post-likers.md) | List the accounts that liked a public Instagram post, one page of likers per call, with each liker's handle, display name, verified flag… | about $0.0024 per call |
 | [`instagram/profile`](../models/instagram/profile.md) | Fetch an Instagram account's public profile (followers, posts, bio, verification) by handle. | about $0.001 per call |
-| [`instagram/reel-transcript`](../models/instagram/reel-transcript.md) | Transcribe any public Instagram reel or video post: the full speech transcript, speaker labels, and word-level timestamps, from a reel,… | about $0.095 per call |
+| [`instagram/reel-transcript`](../models/instagram/reel-transcript.md) | Transcribe any public Instagram reel or video post: the full speech transcript, speaker labels, and word-level timestamps, from a reel,… | about $0.0083 per call |
 | [`instagram/search`](../models/instagram/search.md) | Search Instagram for users, hashtags, or places by keyword and get matching results with names, counts, and links. | about $0.0036 per call |
 | [`instagram/search-locations`](../models/instagram/search-locations.md) | Search Instagram locations by keyword and return each place's id, name, address and coordinates. | about $0.0011 per call |
 | [`instagram/search-profiles`](../models/instagram/search-profiles.md) | Search public Instagram profiles by a bio or caption keyword. | about $0.0012 per call |

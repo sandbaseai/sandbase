@@ -66,13 +66,14 @@ Same call via the path form: `POST /v1/api/reddit/app/subreddit-feed` with the b
 
 ## Details
 
-Retrieve a list of posts from a target community feed by passing `subreddit_name`. You can configure feed order with `sort` and paginate through older items.
+Returns the post feed of one subreddit as a list of cell groups, each holding the cells that make up a post (author, title, flair, media). It needs a `subreddit_name` without the `r/` prefix, and you can set the sort order.
 
 ### Use cases
 
-- Monitor community discussions and trending posts across specific subreddits.
-- Retrieve sorted post listings by top, hot, or new criteria for content curation.
-- Ingest subreddit feed data continuously into internal monitoring dashboards.
+- Pull the newest posts from r/technology with `sort` set to `NEW` to track breaking tech news.
+- Collect post titles, linked article URLs and flairs to build a link digest for one community.
+- Read the `flair` text on each post to count how many posts fall into topics such as Business.
+- Page through a subreddit feed with `after` to build a dataset of posts for later analysis.
 
 ### Request
 
@@ -83,47 +84,87 @@ curl -X POST "https://api.sandbase.ai/v1/api/reddit/app/subreddit-feed" \
   -d '{"subreddit_name": "technology"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
 |---|---|---|---|
 | `subreddit_name` | string | Yes | Subreddit name (without r/ prefix), e.g., "pics", "funny" |
-| `sort` | string | No | Sort method, options: BEST, HOT, NEW, TOP, CONTROVERSIAL, RISING |
 | `after` | string | No | Pagination parameter for fetching next page |
-| `need_format` | boolean | No | Whether to clean and format the data |
 | `filter_posts` | array | No | List of post IDs to filter out |
+| `need_format` | boolean | No | Whether to clean and format the data |
+| `sort` | string | No | Sort method, options: BEST, HOT, NEW, TOP, CONTROVERSIAL, RISING |
 
 ### Example response
 
-Real response for the request above, trimmed to the main fields. User names and long IDs are masked.
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
 
 ```json
 {
   "subredditV3": {
     "elements": {
+      "dist": 6,
       "edges": [
         {
           "__typename": "FeedElementEdge",
           "node": {
             "__typename": "CellGroup",
-            "id": "c29ydGNlbGw="
+            "adPayload": null,
+            "cells": [
+              {
+                "__typename": "SortCell",
+                "isModerator": false,
+                "layoutOptions": [
+                  "CARD"
+                ]
+              }
+            ],
+            "crosspostCells": [
+              {
+                "__typename": "SortCell"
+              }
+            ],
+            "groupId": "sortcell",
+            "groupRecommendationContext": null,
+            "id": "c29ydGNlbGw=",
+            "payload": null
           }
         }
-      ]
+      ],
+      "pageInfo": {
+        "endCursor": "dDNfMXhtNnRmMg=="
+      }
     }
   }
 }
 ```
 
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `subredditV3.elements.edges[].node.groupId` | Identifier of the feed item. Post items use a `t3_` prefix followed by the post ID, such as `t3_1xm9jey`. The first item has the value `sortcell` and is the sort control, not a post. |
+| `subredditV3.elements.edges[].node.cells[].__typename` | Type of each cell, such as `MetadataCell`, `TitleWithThumbnailCell`, `FlairCell`, `TitleCell` or `ImageCell`. Use it to find the cell you need inside a post. |
+| `subredditV3.elements.edges[].node.cells[].authorName` | Author of the post, written as `u/name`. It appears in the metadata cell. |
+| `subredditV3.elements.edges[].node.cells[].createdAt` | Creation time of the post as an ISO 8601 string with a UTC offset. |
+| `subredditV3.elements.edges[].node.cells[].titleCell.title` | Post title. It appears in the `TitleWithThumbnailCell`. Cells of type `TitleCell` hold it in `title`. |
+| `subredditV3.elements.edges[].node.cells[].thumbnail.path` | URL of the page the post links to. The `thumbnail.domain` field gives its domain, and `thumbnail.media.path` gives a preview image. |
+| `subredditV3.elements.edges[].node.cells[].flair.text` | Flair label of the post, such as `Business`. |
+| `subredditV3.elements.edges[].node.adPayload` | Set to an object when the item is an ad. It holds fields like `adLinkUrl`. It is `null` for normal posts. |
+| `subredditV3.elements.pageInfo.endCursor` | Cursor that points to the end of this page. Use it to request the next page. |
+| `subredditV3.elements.dist` | Number of items in this response. |
+
 ### Notes
 
-- Specify `subreddit_name` without the 'r/' prefix (e.g., 'technology').
-- Supported `sort` values include BEST, HOT, NEW, TOP, CONTROVERSIAL, and RISING.
-- Use `after` to retrieve the next page of feed results.
+- Pass `subreddit_name` without the `r/` prefix, for example `technology`.
+- For the next page, send the value of `subredditV3.elements.pageInfo.endCursor` as `after`.
+- Skip items with a non-null `adPayload` if you only want organic posts. The first edge, with `groupId` of `sortcell`, is not a post either.
+- To get the full content and comments of a post, take the ID from `groupId` and call [Reddit Post Details](/apis/reddit/app/post-details) or [Reddit App Post Comments](/apis/reddit/app/post-comments).
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

@@ -64,13 +64,14 @@ Same call via the path form: `POST /v1/api/instagram/v1/section-posts` with the 
 
 ## Details
 
-Retrieve a feed of posts from a designated explore section using `section_id`. Paginate through results using `max_id` and adjust batch size with `count`.
+Returns a page of posts listed under one Instagram explore section, plus the section name and its subsections. It needs a `section_id`. You can set the page size with `count` and continue with `max_id`.
 
 ### Use cases
 
-- Retrieve posts featured in specific Instagram explore categories.
-- Track trending content feeds organized by explore sections.
-- Collect post streams for topic-based social media monitoring.
+- Pull the posts shown in the Fashion & Beauty explore section to see which carousels get the most comments.
+- Walk the `subsections` list to collect posts for narrower topics such as Beauty or Fashion.
+- Save the `display_uri` images and post `code` values from an explore section for a content research board.
+- Compare `comment_count` across posts in a section to find the most discussed posts.
 
 ### Request
 
@@ -81,6 +82,8 @@ curl -X POST "https://api.sandbase.ai/v1/api/instagram/v1/section-posts" \
   -d '{"section_id": "10156104410190727"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
@@ -89,15 +92,89 @@ curl -X POST "https://api.sandbase.ai/v1/api/instagram/v1/section-posts" \
 | `count` | integer | No | Count per page, default 20 |
 | `max_id` | string | No | Pagination cursor, omit for first request |
 
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "attempts": "0",
+  "items": [
+    {
+      "boost_unavailable_identifier": null,
+      "boost_unavailable_reason": null,
+      "boost_unavailable_reason_v2": [],
+      "can_modify_carousel": true,
+      "can_see_insights_as_brand": false,
+      "can_view_more_preview_comments": false,
+      "can_viewer_reshare": true,
+      "can_viewer_save": true,
+      "caption": {
+        "bit_flags": 0,
+        "content_type": "comment",
+        "created_at": 1792382586,
+        "created_at_utc": 1792382586,
+        "did_report_as_spam": false,
+        "is_covered": false,
+        "is_ranked_comment": false,
+        "media_id": 4011117858977833779
+      },
+      "caption_is_edited": true,
+      "carousel_media": [
+        {
+          "caption": null,
+          "carousel_parent_id": "4011117858977833779_23527883966",
+          "commerciality_status": "not_commercial",
+          "creative_config": null,
+          "display_uri": "https://instagram.fsvq2-1.fna.fbcdn.net/v/t51.82787-15/852515261_181270900127879…",
+          "explore_pivot_grid": false,
+          "fb_user_tags": {
+            "in": []
+          },
+          "featured_products": []
+        }
+      ],
+      "carousel_media_count": 8
+    }
+  ],
+  "max_id": null,
+  "more_available": false,
+  "section_name": "Fashion & Beauty",
+  "status": "ok",
+  "subsections": [
+    {
+      "name": "Beauty",
+      "section_id": 1700128603535381
+    }
+  ]
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `section_name` | Name of the explore section you requested, for example `Fashion & Beauty`. |
+| `subsections[].name / subsections[].section_id` | Name and ID of each narrower section inside this one. You can pass these `section_id` values in a new request. |
+| `items[].code` | Short post code. It is the part of an Instagram post URL that identifies the post. |
+| `items[].caption.created_at` | Unix timestamp in seconds for the caption. The caption text itself is not in this response. |
+| `items[].caption.media_id` | Numeric ID of the post the caption belongs to. |
+| `items[].comment_count` | Number of comments on the post. |
+| `items[].display_uri` | URL of the main image for the post. |
+| `items[].carousel_media_count` | Number of slides in a carousel post. |
+| `items[].carousel_media[].display_uri` | Image URL for one slide of the carousel. The list may show only the first few slides. |
+| `more_available / max_id` | Pagination state. `more_available` tells you whether more pages exist, and `max_id` holds the cursor for the next page. |
+
 ### Notes
 
-- Requires `section_id`, obtained from the explore sections endpoint.
-- Use `max_id` as a pagination cursor, omitting it on the first request.
-- `count` defines the number of posts per page and defaults to 20.
+- Get `section_id` from the explore sections API. Each entry in `subsections` also gives a usable ID.
+- For the next page, send the returned `max_id` as the `max_id` parameter. In this response `max_id` is `null` and `more_available` is `false`, so there was no next page.
+- `count` accepts 1 to 50 and defaults to 20.
+- Use [Instagram Post Details by ID](/apis/instagram/v1/post-by-id) or [Instagram Post Details by URL](/apis/instagram/v1/post-by-url) to look at a single post from the list.
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

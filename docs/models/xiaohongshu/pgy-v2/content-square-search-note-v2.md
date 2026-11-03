@@ -61,9 +61,14 @@ Same call via the path form: `POST /v1/api/xiaohongshu/pgy-v2/content-square-sea
 
 ## Details
 
-Search Xiaohongshu Pugongying Content Square notes by keyword or browse all notes, with business-category, ranking, time-window, and page controls. Use it to discover high-performing campaign content.
+This API returns a page of notes from the Xiaohongshu Pugongying Content Square. Each result has note engagement counts, note images, and the author's profile summary. All inputs are optional. Send `searchWord` to filter by keyword, or leave it empty to browse all notes.
 
-The response is the platform's original data structure.
+### Use cases
+
+- Find the most liked or saved notes for a keyword to study what content works in a product category.
+- Rank notes by a metric such as `premium_engage_num` over the last 7 or 30 days to spot campaign content that is gaining traction.
+- Collect author `userId` values from top notes to build a list of creators to review.
+- Compare note formats by checking image count and image size across top-ranked notes.
 
 ### Request
 
@@ -74,19 +79,87 @@ curl -X POST "https://api.sandbase.ai/v1/api/xiaohongshu/pgy-v2/content-square-s
   -d '{}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
 |---|---|---|---|
-| `searchWord` | string | No | Keyword for note search. Empty string searches all notes. |
-| `pageNum` | integer | No | Page number for results. |
 | `bizType` | string | No | Business category. |
-| `orderBy` | string | No | Ranking metric. |
 | `nd` | string | No | Time range in days. |
+| `orderBy` | string | No | Ranking metric. |
+| `pageNum` | integer | No | Page number for results. |
+| `searchWord` | string | No | Keyword for note search. Empty string searches all notes. |
+
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "noteList": [
+    {
+      "noteInfo": {
+        "bindType": 4,
+        "bizType": 0,
+        "cmtNum": 489,
+        "favNum": 3285,
+        "isAdNote": 0,
+        "likeNum": 56359,
+        "noteId": "6ae00b99000000001200a9f9",
+        "noteImages": [
+          {
+            "imageHeight": 2400,
+            "imageUrl": "http://ci.xiaohongshu.com/spectrum/1040g34o326qfkfqpl8105p5oj0ol6up1kacjbf8?imag…",
+            "imageWidth": 1440
+          }
+        ]
+      },
+      "userInfo": {
+        "avatar": "https://sns-avatar-qc.xhscdn.com/avatar/1040g2jo31qobul3rgm005p5oj0ol6up1tu11gg8…",
+        "currentLevel": 0,
+        "fansNum": 567283,
+        "nickName": "潇湘晨报",
+        "userId": "64b898310000000014037b21",
+        "userType": 1
+      }
+    }
+  ],
+  "pageInfoDto": {
+    "pageNum": 1,
+    "pageSize": 10,
+    "total": 100,
+    "totalPage": 0
+  },
+  "total": 100
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `noteList[].noteInfo.noteId` | ID of the note. Pass it to a note detail API for more data. |
+| `noteList[].noteInfo.likeNum / favNum / cmtNum` | Like, favorite and comment counts for the note. |
+| `noteList[].noteInfo.noteImages[].imageUrl` | URL of one image in the note. |
+| `noteList[].noteInfo.noteImages[].imageWidth / imageHeight` | Width and height of that image. |
+| `noteList[].noteInfo.isAdNote` | Ad flag for the note. The sample values are `0`. |
+| `noteList[].userInfo.userId` | ID of the note's author. |
+| `noteList[].userInfo.nickName` | Display name of the author. |
+| `noteList[].userInfo.fansNum` | Follower count of the author. |
+| `pageInfoDto.pageNum / pageSize` | Current page number and the number of notes per page. |
+| `total` | Total number of matching notes reported for the query. |
+
+### Notes
+
+- Use `pageNum` to move through results. The sample response shows `pageSize` of `10`.
+- `pageInfoDto.totalPage` returned `0` in the sample even though `total` was `100`, so rely on `total` and `pageSize` to work out the page count.
+- Take `noteList[].noteInfo.noteId` to [Xiaohongshu Pugongying Note Details](/apis/xiaohongshu/pgy-v2/note-id-detail) for a single note.
+- Take `noteList[].userInfo.userId` to [Xiaohongshu Pugongying Creator Profile](/apis/xiaohongshu/pgy-v2/blogger-user-id) to look at the author.
 
 ### Pricing
 
-Flat price per call. Failed calls and empty results are not charged.
+$0.021429 per successful call. Failed calls are not charged.
 
 ---
 Machine-readable: [`catalog/models/xiaohongshu/pgy-v2/content-square-search-note-v2.json`](../../../../catalog/models/xiaohongshu/pgy-v2/content-square-search-note-v2.json) · Store page: https://www.sandbase.ai/model/xiaohongshu/pgy-v2/content-square-search-note-v2

@@ -68,13 +68,13 @@ Same call via the path form: `POST /v1/api/douyin/index/item-index-interpret` wi
 
 ## Details
 
-Fetch index breakdown details for a Douyin video by providing the `item_id`, `start_date`, and `end_date`.
+Returns index interpretation scores for one Douyin video over a date range. It needs a video ID (`item_id`), a `start_date`, and an `end_date`. The response scores three sub-indexes: play, interaction, and fan rise.
 
 ### Use cases
 
-- Analyze sub-index breakdowns for a specific Douyin video.
-- Track video index performance across a defined date window.
-- Pair with video index queries to interpret metric changes.
+- Compare how a video scores on play, interaction, and fan rise over one week.
+- Check which sub-index is weakest for a video before deciding what to change in the next post.
+- Store the sub-index scores for a set of videos to rank them side by side.
 
 ### Request
 
@@ -85,22 +85,76 @@ curl -X POST "https://api.sandbase.ai/v1/api/douyin/index/item-index-interpret" 
   -d '{"end_date": "20260710", "item_id": "7660090930283744575", "start_date": "20260704"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
 |---|---|---|---|
-| `item_id` | string | Yes | Video ID (Douyin aweme id, numeric string) |
 | `end_date` | string | Yes | End date YYYYMMDD |
+| `item_id` | string | Yes | Video ID (Douyin aweme id, numeric string) |
 | `start_date` | string | Yes | Start date YYYYMMDD |
+
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "BaseResp": {
+    "StatusCode": 0,
+    "StatusMessage": ""
+  },
+  "interpretRadar": {
+    "itself": {
+      "fanRise": {
+        "ratio": null,
+        "score": "0"
+      },
+      "interaction": {
+        "ratio": null,
+        "score": "0"
+      },
+      "play": {
+        "ratio": null,
+        "score": "0"
+      }
+    }
+  },
+  "interpretRank": {
+    "fanRise": {
+      "score": "0"
+    },
+    "interaction": {
+      "score": "0"
+    },
+    "play": {
+      "score": "0"
+    }
+  }
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `interpretRank.play.score / interpretRank.interaction.score / interpretRank.fanRise.score` | Rank score for each sub-index of the video: play, interaction, and fan rise. Values are strings, for example `"0"`. |
+| `interpretRadar.itself.play.score / interpretRadar.itself.interaction.score / interpretRadar.itself.fanRise.score` | Radar chart score for the video itself on each of the three sub-indexes. Values are strings. |
+| `interpretRadar.itself.play.ratio / interpretRadar.itself.interaction.ratio / interpretRadar.itself.fanRise.ratio` | Ratio value for each sub-index in the radar data. It is `null` in the sample response. |
+| `BaseResp.StatusCode` | Status code of the call. `0` in the sample response. |
+| `BaseResp.StatusMessage` | Status message of the call. It is an empty string in the sample response. |
 
 ### Notes
 
-- The `item_id` corresponds to the Douyin aweme ID as a numeric string.
-- Dates for `start_date` and `end_date` must follow the YYYYMMDD format.
+- `item_id` is the Douyin aweme ID, a numeric string such as `7660090930283744575`. You can find it with [Douyin Index Video Search](/apis/douyin/index/item-query).
+- Write `start_date` and `end_date` as `YYYYMMDD`, for example `20260704`. Call [Douyin Index Valid Dates](/apis/douyin/index/all-valid-date) to see the dates that have data.
+- The sample response returned `"0"` scores and `null` ratios, so a video or date range can return empty values.
+- For the daily index values of the same video, call [Douyin Video Index Trend](/apis/douyin/index/item-index).
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

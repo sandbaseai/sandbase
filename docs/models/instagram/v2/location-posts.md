@@ -63,13 +63,14 @@ Same call via the path form: `POST /v1/api/instagram/v2/location-posts` with the
 
 ## Details
 
-Retrieve public Instagram posts associated with a specific location by passing `location_id`.
+Returns public Instagram posts tagged at one location. You send a `location_id` and get a page of posts, a total `count`, and a `pagination_token` for the next page.
 
 ### Use cases
 
-- Discover content tagged at specific venues or geographical spots.
-- Track social activity and media from specific locations.
-- Monitor visitor media and public posts from travel destinations.
+- Collect recent public posts from a landmark, venue or neighborhood to see what visitors share.
+- Count how many posts are tagged at a place using `data.count`.
+- Page through a location's posts to build a media feed for a travel or local-guide site.
+- Pull post codes from a location to open each post in a related post-detail call.
 
 ### Request
 
@@ -80,6 +81,8 @@ curl -X POST "https://api.sandbase.ai/v1/api/instagram/v2/location-posts" \
   -d '{"location_id": "331004901"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
@@ -89,62 +92,84 @@ curl -X POST "https://api.sandbase.ai/v1/api/instagram/v2/location-posts" \
 
 ### Example response
 
-Real response for the request above, trimmed to the main fields. User names and long IDs are masked.
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
 
 ```json
 {
   "data": {
+    "count": 63,
     "items": [
       {
+        "are_remixes_crosspostable": true,
+        "boost_unavailable_identifier": null,
+        "boost_unavailable_reason": null,
+        "boost_unavailable_reason_v2": null,
+        "can_reshare": true,
+        "can_save": true,
+        "caption": null,
         "caption_is_edited": false,
-        "coauthor_producer_can_see_organic_insights": false,
-        "comment_count": 1,
-        "device_timestamp": 1791288704181305,
-        "disable_caption_and_comment": false,
-        "feed_type": "media",
-        "filter_type": 0,
-        "id": "4001942187585855200",
-        "ig_play_count": 90,
-        "layout_type": "media_grid",
-        "caption": {
-          "id": "4001942187585855200",
-          "private_reply_status": 0,
-          "text": "Вот такая осень в Париже🍂✨",
-          "type": 1,
-          "user_id": "<user>"
-        },
         "clips_metadata": {
-          "audio_type": "licensed_music",
-          "professional_clips_upsell_type": 0
+          "achievements_info": {
+            "num_earned_achievements": null,
+            "show_achievements": false
+          },
+          "additional_audio_info": {
+            "additional_audio_username": null,
+            "audio_reattribution_info": {
+              "should_allow_restore": false
+            }
+          },
+          "asset_recommendation_info": null,
+          "audio_canonical_id": "18452354581120915",
+          "audio_ranking_info": {
+            "best_audio_cluster_id": "1162699206086923"
+          },
+          "audio_type": "original_sounds",
+          "basel_template_info_for_ig_app": {
+            "is_basel_template": null,
+            "original_template_media_id": null,
+            "should_show_reuse_setting_for_owner": false,
+            "use_template_deeplink": null
+          },
+          "branded_content_tag_info": {
+            "can_add_tag": false
+          }
         },
-        "location": {
-          "facebook_places_id": 509413279115937,
-          "id": "331004901",
-          "name": "Paris , Eiffel Tower",
-          "short_name": "Paris"
-        },
-        "user": {
-          "account_type": 3,
-          "eligible_for_text_app_activation_badge": false,
-          "full_name": "Raya",
-          "id": "1496267232",
-          "profile_pic_id": "3994684519919488052",
-          "profile_pic_url": "https://scontent-arn2-1.cdninstagram.com/v/t51.82787-19/825325846_18629745385011…"
-        }
+        "clips_tab_pinned_user_ids": [],
+        "coauthor_producer_can_see_organic_insights": false,
+        "coauthor_producers": []
       }
     ]
-  }
+  },
+  "pagination_token": "HE1lBBsp…"
 }
 ```
 
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `data.count` | Number of posts reported for this location. |
+| `data.items[]` | One post tagged at the location. Posts can be single media, reels (with `clips_metadata`) or carousels (with `carousel_media`). |
+| `data.items[].code` | Short post code, such as `DfRKBtKMS51`. Use it to build the post URL or to look the post up in another API. |
+| `data.items[].fbid` | Numeric ID string for the post. |
+| `data.items[].caption.created_at / data.items[].caption.created_at_utc` | Unix timestamp in seconds for when the caption was created. In this response both fields hold the same value. `caption` is `null` when the post has no caption. |
+| `data.items[].comment_count` | Number of comments on the post. |
+| `data.items[].carousel_media_count` | Number of items in a carousel post. Only carousel posts include it. `carousel_media` may list fewer items than this count. |
+| `data.items[].carousel_media[].id` | ID of one item inside a carousel post. |
+| `data.items[].clips_metadata.audio_type` | Type of audio on a reel, such as `original_sounds` or `licensed_music`. |
+| `pagination_token` | Token for the next page of results. Send it back as `pagination_token`. |
+
 ### Notes
 
-- Obtain `location_id` from location search endpoints.
-- Pass `pagination_token` from a previous response to fetch subsequent pages.
+- Find a `location_id` with [Instagram Location Search](/apis/instagram/v2/search-locations), or with [Instagram Location Search by Coordinates](/apis/instagram/v2/search-by-coordinates) if you only have coordinates.
+- To get the next page, repeat the call with the same `location_id` and the `pagination_token` from the previous response.
+- Not every item has every field. Reels include `clips_metadata`, carousels include `carousel_media`, and `caption` can be `null`.
+- For full details on one post, pass its `code` to [Instagram Post Details (V2)](/apis/instagram/v2/post-info).
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.002 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

@@ -68,13 +68,14 @@ Same call via the path form: `POST /v1/api/douyin/index/item-index` with the bod
 
 ## Details
 
-Retrieve index trend statistics for a Douyin video by providing `item_id` alongside `start_date` and `end_date`.
+Returns a daily index trend for one Douyin video between a start date and an end date. You send the video ID (`item_id`) plus `start_date` and `end_date` in `YYYYMMDD` format.
 
 ### Use cases
 
-- Track index interest changes for a specific Douyin video over time.
-- Evaluate historical popularity metrics across defined date intervals.
-- Compare index performance trends across different video items.
+- Chart the daily index of a single Douyin video across a chosen week or month.
+- Check whether a video's index rose or fell after a campaign push.
+- Pull the average index value of a video to rank it against other videos you track.
+- Export day-by-day values for a video into a spreadsheet or dashboard.
 
 ### Request
 
@@ -85,20 +86,27 @@ curl -X POST "https://api.sandbase.ai/v1/api/douyin/index/item-index" \
   -d '{"end_date": "20260710", "item_id": "7660090930283744575", "start_date": "20260704"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
 |---|---|---|---|
-| `item_id` | string | Yes | Video ID (Douyin aweme id, numeric string) |
 | `end_date` | string | Yes | End date YYYYMMDD |
+| `item_id` | string | Yes | Video ID (Douyin aweme id, numeric string) |
 | `start_date` | string | Yes | Start date YYYYMMDD |
 
 ### Example response
 
-Real response for the request above, trimmed to the main fields. User names and long IDs are masked.
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
 
 ```json
 {
+  "BaseResp": {
+    "StatusCode": 0,
+    "StatusMessage": ""
+  },
+  "avg": "0",
   "trend": [
     {
       "datetime": "20260704",
@@ -108,14 +116,26 @@ Real response for the request above, trimmed to the main fields. User names and 
 }
 ```
 
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `trend[]` | One entry per day in the requested date range. |
+| `trend[].datetime` | The day of the data point, in `YYYYMMDD` format. |
+| `trend[].value` | The index value for that day. It is returned as a string, for example `"0"`. |
+| `avg` | The average index value for the period. It is returned as a string. |
+| `BaseResp.StatusCode` | Status code of the call. `0` appears in the sample response. |
+| `BaseResp.StatusMessage` | Status text. It is empty in the sample response. |
+
 ### Notes
 
-- Set `item_id` as the numeric Douyin aweme ID string.
-- Enter `start_date` and `end_date` in YYYYMMDD format.
+- Use the numeric Douyin aweme ID as `item_id`. To find a video ID, call [Douyin Index Video Search](/apis/douyin/index/item-query).
+- Values in `trend[].value` and `avg` are strings, so convert them to numbers before you calculate.
+- For a written reading of a video's index, call [Douyin Video Index Interpretation](/apis/douyin/index/item-index-interpret).
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

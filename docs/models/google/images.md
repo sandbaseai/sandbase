@@ -67,7 +67,14 @@ Same call via the path form: `POST /v1/api/google/images` with the body above mi
 
 ## Details
 
-Run a Google Images search and get structured results: image URLs, dimensions, titles, and source pages.
+This API runs a Google Images search and returns a list of matching images. Each result has the full image URL, a thumbnail, the page it came from, a title, and pixel dimensions. It needs one input, a search `query`.
+
+### Use cases
+
+- Collect image candidates for a topic such as a dog breed to review for an editorial article.
+- Find the source pages that host an image so you can check where it was published.
+- Build a mood board or dataset by pulling many image URLs and sizes for one search term.
+- Compare image results across countries by changing `gl`, `hl`, or `location`.
 
 ### Request
 
@@ -78,7 +85,7 @@ curl -X POST "https://api.sandbase.ai/v1/api/google/images" \
   -d '{"gl": "us", "hl": "en", "limit": 5, "query": "golden retriever"}'
 ```
 
-The result is returned in `outputs[0].data`. A lookup that finds nothing still succeeds and returns `found: false`.
+The result is returned in `outputs[0].data`.
 
 ### Parameters
 
@@ -86,15 +93,60 @@ The result is returned in `outputs[0].data`. A lookup that finds nothing still s
 |---|---|---|---|
 | `query` | string | Yes | Image search query (e.g. golden gate bridge at sunset). |
 | `autocorrect` | boolean | No | Toggle Google spelling autocorrect (default true). Set false to search the exact query without correction. |
-| `gl` | string | No | Two-letter country code for result localization (e.g. us, gb, de). Default `"us"`. |
-| `hl` | string | No | Two-letter interface and results language code (e.g. en, es, de). Default `"en"`. |
+| `gl` | string | No | Two-letter country code for result localization (e.g. us, gb, de). |
+| `hl` | string | No | Two-letter interface and results language code (e.g. en, es, de). |
 | `limit` | integer | No | Maximum number of images to return (1-100, default 20). Requests for 10 results or fewer are billed at a lower rate than larger requests. |
 | `location` | string | No | Fine-grained location for result localization, given as a canonical Google location string (e.g. 'New York, United States', 'London, United Kingdom'). More specific than the country-level gl. |
-| `timeframe` | string | No | Restrict results to a recent time window: 1h, 1d, 7d, 1y, or all. Default all (no time restriction). One of: `1h`, `1d`, `7d`, `1y`, `all`. |
+| `timeframe` | string | No | Restrict results to a recent time window: 1h, 1d, 7d, 1y, or all. Default all (no time restriction). |
+
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "data": {
+    "items": [
+      {
+        "height": 1707,
+        "position": 1,
+        "source": "blog.ollie.com",
+        "sourceUrl": "https://blog.ollie.com/breed-deets-golden-retriever/",
+        "thumbnailUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSe1mLcW_M8xRI0J5UcnG6soPw9…",
+        "title": "Golden Retriever: Pros, Cons & Diet Guide | Ollie",
+        "url": "https://blog.ollie.com/wp-content/uploads/250506_Livingroom_SHOT-10_0173_FR-scal…",
+        "width": 2560
+      }
+    ]
+  },
+  "found": true
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `found` | `true` when the search returned results. A search with no results returns `false`. |
+| `data.items[]` | One image result. Results appear in the order Google ranked them. |
+| `data.items[].position` | Rank of the image in the results, starting at 1. |
+| `data.items[].url` | Direct URL of the full-size image. Long URLs may be cut off in some cases, so check that a URL loads before you rely on it. |
+| `data.items[].thumbnailUrl` | URL of a small preview version of the image. |
+| `data.items[].width / data.items[].height` | Image dimensions. Both values look like pixel counts. |
+| `data.items[].title` | Title shown for the image, usually the title of the page that hosts it. |
+| `data.items[].source` | Domain name of the site that hosts the image. |
+| `data.items[].sourceUrl` | URL of the web page where the image appears. |
+
+### Notes
+
+- Use `limit` to set how many images come back. It accepts 1 to 100 and defaults to 20.
+- Use `timeframe` with `1h`, `1d`, `7d`, `1y`, or `all` to limit results to recent images.
+- Set `autocorrect` to `false` to search the exact query without spelling correction.
+- To search by an image instead of text, try [Google Lens](/apis/google/lens). For video results, use [Google Videos](/apis/google/videos).
 
 ### Pricing
 
-Billed at the actual cost of each call, usually $0.00085 per request. A call can cost more when the first data source fails and another one answers. Failed calls are not charged. Lookups that find nothing and searches with no results are billed at their actual cost, which is often lower and can be $0.
+Billed at the actual cost of each call, about $0.00085 for the request above. Failed calls are not charged.
 
 ---
 Machine-readable: [`catalog/models/google/images.json`](../../../catalog/models/google/images.json) · Store page: https://www.sandbase.ai/model/google/images

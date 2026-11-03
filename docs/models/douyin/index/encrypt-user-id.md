@@ -62,13 +62,13 @@ Same call via the path form: `POST /v1/api/douyin/index/encrypt-user-id` with th
 
 ## Details
 
-Convert a numeric Douyin user identifier into an internal encrypted format by passing `uid`. This provides direct access to the encrypted identifier required by Douyin Index queries.
+This API converts a numeric Douyin `uid` into the encrypted `user_id` string used by Douyin Index endpoints. It needs one input, the `uid` as a numeric string, and returns both values.
 
 ### Use cases
 
-- Look up encrypted user identifiers for debugging Douyin Index integration issues.
-- Convert numeric user IDs for manual queries against Douyin Index endpoints.
-- Resolve internal user ID formats without calling full daren analytics endpoints.
+- Get the encrypted `user_id` for a creator before you build a custom Douyin Index query.
+- Check that your own uid-to-`user_id` conversion matches the value this API returns.
+- Convert a list of numeric creator uids into the IDs that Douyin Index creator endpoints expect.
 
 ### Request
 
@@ -79,19 +79,41 @@ curl -X POST "https://api.sandbase.ai/v1/api/douyin/index/encrypt-user-id" \
   -d '{"uid": "92769419069"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
 |---|---|---|---|
 | `uid` | string | Yes | Douyin uid, numeric string |
 
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "uid": "92769419069",
+  "user_id": "jchgjebjagj"
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `uid` | The numeric Douyin uid you sent in the request, returned unchanged. |
+| `user_id` | The encrypted form of the uid. Pass this value to Douyin Index endpoints that ask for an encrypted user ID. |
+
 ### Notes
 
-- The required `uid` parameter expects a numeric string representation of the Douyin account ID.
+- Send `uid` as a string of digits, for example `92769419069`. Do not send it as a number.
+- The response has only two keys, `uid` and `user_id`. The call returns no creator profile data.
+- Use the returned `user_id` in creator endpoints such as [Douyin Creator Top Videos](/apis/douyin/index/daren-great-user-top-video) or [Douyin Daren Fan Analysis](/apis/douyin/index/daren-great-user-fans-info), if their parameters ask for an encrypted ID.
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

@@ -1,6 +1,6 @@
 # SandBase capability index
 
-2287 capabilities · generated 2026-11-03T06:46:38Z
+2287 capabilities · generated 2026-11-03T16:16:29Z
 
 - [api](#api) (1850)
 - [audio](#audio) (32)
@@ -821,7 +821,7 @@
 | [`instagram/post-detail`](models/instagram/post-detail.md) | 0.014286 / call (free quota) | sync | Get an Instagram post by its shortcode. Use it to look up a known post before content review, archiving, comment… |
 | [`instagram/post-likers`](models/instagram/post-likers.md) | ~0.0024 | sync | List the accounts that liked a public Instagram post, one page of likers per call, with each liker's handle, display… |
 | [`instagram/profile`](models/instagram/profile.md) | ~0.001 | sync | Fetch an Instagram account's public profile (followers, posts, bio, verification) by handle. |
-| [`instagram/reel-transcript`](models/instagram/reel-transcript.md) | ~0.095 | sync | Transcribe any public Instagram reel or video post: the full speech transcript, speaker labels, and word-level… |
+| [`instagram/reel-transcript`](models/instagram/reel-transcript.md) | ~0.0083 | sync | Transcribe any public Instagram reel or video post: the full speech transcript, speaker labels, and word-level… |
 | [`instagram/search`](models/instagram/search.md) | ~0.0036 | sync | Search Instagram for users, hashtags, or places by keyword and get matching results with names, counts, and links. |
 | [`instagram/search-locations`](models/instagram/search-locations.md) | ~0.0011 | sync | Search Instagram locations by keyword and return each place's id, name, address and coordinates. |
 | [`instagram/search-profiles`](models/instagram/search-profiles.md) | ~0.0012 | sync | Search public Instagram profiles by a bio or caption keyword. |
@@ -1407,7 +1407,7 @@
 | [`tiktok/video`](models/tiktok/video.md) | ~0.0004 | sync | Fetch a single TikTok video by URL with its caption and engagement counts (views, likes, comments, shares, saves). |
 | [`tiktok/video-download`](models/tiktok/video-download.md) | ~0.0008 | sync | Get the playable media files behind a TikTok video URL: the clean no-watermark MP4, the watermarked one TikTok's own… |
 | [`tiktok/video-transcript`](models/tiktok/video-transcript.md) | ~0.0011 | sync | Fetch the caption track TikTok itself published for a video, as TikTok wrote it. It is the cheapest way to get the… |
-| [`tiktok/video-transcript-full`](models/tiktok/video-transcript-full.md) | ~0.095 | sync | Transcribe the spoken audio of a TikTok video with speech-to-text: timed sentence-level segments, speaker labels,… |
+| [`tiktok/video-transcript-full`](models/tiktok/video-transcript-full.md) | ~0.0085 | sync | Transcribe the spoken audio of a TikTok video with speech-to-text: timed sentence-level segments, speaker labels,… |
 | [`tiktok/web/all-aweme-id`](models/tiktok/web/all-aweme-id.md) | 0.001 / call (free quota) | sync | Resolves and extracts TikTok video IDs from a list of video URLs. Takes a list of video links to return corresponding… |
 | [`tiktok/web/all-sec-user-id`](models/tiktok/web/all-sec-user-id.md) | 0.001 / call (free quota) | sync | Returns a list of sec_user_id identifiers corresponding to TikTok user profile URLs. Provide an array of user homepage… |
 | [`tiktok/web/all-unique-id`](models/tiktok/web/all-unique-id.md) | 0.001 / call (free quota) | sync | Resolves a batch of TikTok user homepage links to retrieve their corresponding unique identifiers. Accepts a list of… |

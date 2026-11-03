@@ -75,7 +75,14 @@ Same call via the path form: `POST /v1/api/facebook/marketplace` with the body a
 
 ## Details
 
-Search Facebook Marketplace listings by keyword near a location, filter by price, condition, delivery, recency, and availability, and get title, price, location, and image as normalized JSON.
+Returns a page of Facebook Marketplace listings that match a keyword near a latitude and longitude. Each listing includes title, price, city, photo, delivery types, and a link to the item. You send `query`, `lat`, and `lng`, and can add price, condition, delivery, recency, availability, and sort filters.
+
+### Use cases
+
+- Compare asking prices for used bikes within a set budget in one city.
+- Track newly posted listings for a keyword by sorting with `creation_time_descend`.
+- Build a deal alert that flags listings under a target `priceAmount`.
+- Collect sold listings with `availability` set to `sold` to see what items sold for in an area.
 
 ### Request
 
@@ -86,7 +93,7 @@ curl -X POST "https://api.sandbase.ai/v1/api/facebook/marketplace" \
   -d '{"lat": "30.2677", "lng": "-97.7475", "query": "bike", "priceMax": 500, "priceMin": 100}'
 ```
 
-The result is returned in `outputs[0].data`. A lookup that finds nothing still succeeds and returns `found: false`.
+The result is returned in `outputs[0].data`.
 
 ### Parameters
 
@@ -95,18 +102,73 @@ The result is returned in `outputs[0].data`. A lookup that finds nothing still s
 | `lat` | string | Yes | Latitude of the search location (e.g. '30.2677'). |
 | `lng` | string | Yes | Longitude of the search location (e.g. '-97.7475'). |
 | `query` | string | Yes | Search keyword for Marketplace listings (e.g. 'bike'). |
-| `availability` | string | No | Filter by availability: available (default), sold, or all (e.g. sold). One of: `available`, `sold`, `all`. |
-| `condition` | string | No | Only return listings in this condition (e.g. used_good). One of: `new`, `used_like_new`, `used_good`, `used_fair`. |
+| `availability` | string | No | Filter by availability: available (default), sold, or all (e.g. sold). |
+| `condition` | string | No | Only return listings in this condition (e.g. used_good). |
 | `cursor` | string | No | Pagination cursor from a previous response to fetch the next page. |
-| `dateListed` | string | No | Only return listings posted within this window (e.g. last_7_days). One of: `all`, `last_24_hours`, `last_7_days`, `last_30_days`. |
-| `deliveryMethod` | string | No | Only return listings offering this delivery method (e.g. shipping). One of: `all`, `local_pickup`, `shipping`. |
+| `dateListed` | string | No | Only return listings posted within this window (e.g. last_7_days). |
+| `deliveryMethod` | string | No | Only return listings offering this delivery method (e.g. shipping). |
 | `priceMax` | integer | No | Maximum listing price in whole currency units, e.g. 500 for $500. Facebook may mix in a few suggested listings outside the range. |
 | `priceMin` | integer | No | Minimum listing price in whole currency units, e.g. 100 for $100. Facebook may mix in a few suggested listings outside the range. |
-| `sort` | string | No | Sort order for the returned listings (e.g. price_ascend). One of: `suggested`, `distance_ascend`, `creation_time_descend`, `price_ascend`, `price_descend`. |
+| `sort` | string | No | Sort order for the returned listings (e.g. price_ascend). |
+
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "data": {
+    "hasNextPage": true,
+    "listings": [
+      {
+        "categoryId": "1658310421102081",
+        "city": "Austin",
+        "cityPageId": "106224666074625",
+        "createdUtc": 1788826593,
+        "deliveryTypes": [
+          "IN_PERSON"
+        ],
+        "id": "2010100319696587",
+        "isHidden": false,
+        "isLive": true,
+        "isPending": false,
+        "isSold": false,
+        "listingDateText": "Listed 1 month ago",
+        "locationName": "Austin, Texas"
+      }
+    ],
+    "nextCursor": "cur_jXjcjdldJp1WvqUPdeX5sw"
+  },
+  "found": true
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `data.listings[].id` | Marketplace listing ID. Use it to build the item link or to look up the listing in detail. |
+| `data.listings[].title` | Title the seller gave the listing. |
+| `data.listings[].priceAmount / data.listings[].priceFormatted` | Listing price as a number and as display text, for example `350` and `$350`. |
+| `data.listings[].city / data.listings[].state / data.listings[].locationName` | Where the item is listed, as city, state code, and a combined place name. |
+| `data.listings[].createdUtc` | Time the listing was created, as a Unix timestamp in seconds. |
+| `data.listings[].listingDateText` | Relative age of the listing as shown on Facebook, for example `Listed 2 weeks ago`. |
+| `data.listings[].deliveryTypes` | List of delivery options the seller offers, such as `IN_PERSON`, `PUBLIC_MEETUP`, and `DOOR_PICKUP`. |
+| `data.listings[].isSold / data.listings[].isPending / data.listings[].isLive / data.listings[].isHidden` | Status flags for the listing. |
+| `data.listings[].photoUrl` | URL of the main listing photo. |
+| `data.listings[].url` | Direct link to the listing on Facebook Marketplace. |
+| `data.hasNextPage / data.nextCursor` | `hasNextPage` shows whether more results exist. `nextCursor` is the value to send as `cursor` for the next page. |
+
+### Notes
+
+- To get the next page, repeat the request with `cursor` set to `data.nextCursor`. Stop when `data.hasNextPage` is `false`.
+- Use the same `lat` and `lng` as a Marketplace location. [Facebook Marketplace Location Search](/apis/facebook/marketplace-location-search) can help you find coordinates for a place name.
+- Call [Facebook Marketplace Item](/apis/facebook/marketplace-item) with a listing `id` to get more detail on a single listing.
+- `priceMin` and `priceMax` use whole currency units. A few suggested listings outside the range can still appear.
 
 ### Pricing
 
-Billed at the actual cost of each call, usually $0.0012 per request. A call can cost more when the first data source fails and another one answers. Failed calls are not charged. Lookups that find nothing and searches with no results are billed at their actual cost, which is often lower and can be $0.
+Billed at the actual cost of each call, about $0.0012 for the request above. Failed calls are not charged.
 
 ---
 Machine-readable: [`catalog/models/facebook/marketplace.json`](../../../catalog/models/facebook/marketplace.json) · Store page: https://www.sandbase.ai/model/facebook/marketplace

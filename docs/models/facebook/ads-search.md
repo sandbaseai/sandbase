@@ -71,7 +71,14 @@ Same call via the path form: `POST /v1/api/facebook/ads-search` with the body ab
 
 ## Details
 
-Search the Meta Ad Library by keyword and get matching ads (advertiser, creative text, CTA, platforms, and run dates) with cursor pagination.
+Returns ads from the Meta Ad Library that match a keyword. Each ad includes the advertiser page, creative text, call to action, platforms, and start and end dates. The only required input is `query`.
+
+### Use cases
+
+- Track which creatives and offers a competitor runs for a brand name.
+- Collect ad copy and call-to-action types for a keyword to study how a niche advertises.
+- Find the advertiser pages that run ads for a product term, then check their page details.
+- Pull image links and landing page URLs for ads that mention a brand.
 
 ### Request
 
@@ -82,27 +89,82 @@ curl -X POST "https://api.sandbase.ai/v1/api/facebook/ads-search" \
   -d '{"query": "nike", "country": "US", "searchType": "keyword_exact_phrase"}'
 ```
 
-The result is returned in `outputs[0].data`. A lookup that finds nothing still succeeds and returns `found: false`.
+The result is returned in `outputs[0].data`.
 
 ### Parameters
 
 | Name | Type | Required | Description |
 |---|---|---|---|
 | `query` | string | Yes | Keyword to search the Meta Ad Library for (e.g. "protein powder"). |
-| `adType` | string | No | Restrict to all ads (default) or only political and issue ads. One of: `all`, `political_and_issue_ads`. |
+| `adType` | string | No | Restrict to all ads (default) or only political and issue ads. |
 | `country` | string | No | Two-letter country code to scope results. Omit for all countries. |
 | `cursor` | string | No | Opaque pagination cursor from a previous response's nextCursor. |
 | `endDate` | string | No | Filter to ads with impressions on or before this date, in YYYY-MM-DD format. |
-| `mediaType` | string | No | Creative media type filter. One of: `ALL`, `IMAGE`, `VIDEO`, `MEME`, `IMAGE_AND_MEME`, `NONE`. |
+| `mediaType` | string | No | Creative media type filter. |
 | `requireFields` | array | No | Optional; omit it and routing is unchanged, with the cheapest source serving. Name the output fields this request must be able to return, for example `totalResults`, and it is served only by a source that returns every o |
-| `searchType` | string | No | Match mode for the query: loose keyword match (keyword_unordered, the default) or exact phrase (keyword_exact_phrase). One of: `keyword_unordered`, `keyword_exact_phrase`. |
-| `sortBy` | string | No | Sort order: impressions (highest first, the default) or recent (most recent). One of: `impressions`, `recent`. |
+| `searchType` | string | No | Match mode for the query: loose keyword match (keyword_unordered, the default) or exact phrase (keyword_exact_phrase). |
+| `sortBy` | string | No | Sort order: impressions (highest first, the default) or recent (most recent). |
 | `startDate` | string | No | Filter to ads with impressions on or after this date, in YYYY-MM-DD format. |
-| `status` | string | No | Ad status filter. One of: `ALL`, `ACTIVE`, `INACTIVE`. Default `"ACTIVE"`. |
+| `status` | string | No | Ad status filter. |
+
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "data": {
+    "ads": [
+      {
+        "active": true,
+        "adCount": null,
+        "caption": "play.google.com",
+        "categories": [
+          "UNKNOWN"
+        ],
+        "creatives": [],
+        "ctaText": "Install now",
+        "ctaType": "INSTALL_MOBILE_APP",
+        "displayFormat": "IMAGE",
+        "endDate": 1793606400,
+        "id": "1550534860016399",
+        "isReshared": false,
+        "linkDescription": ""
+      }
+    ],
+    "nextCursor": "cur_I3725J-mWy22VxKd8YIRew",
+    "totalResults": 19895
+  },
+  "found": true
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `data.ads[].id` | ID of the ad in the Meta Ad Library. `sourceUrl` links to the ad's library page. |
+| `data.ads[].pageName / pageId / pageUrl` | Name, ID and Facebook URL of the advertiser page that runs the ad. |
+| `data.ads[].text / title` | Main body text and headline of the ad. |
+| `data.ads[].ctaText / ctaType` | Button label shown on the ad (such as `Shop now`) and its type code (such as `SHOP_NOW`). |
+| `data.ads[].platforms` | List of platforms the ad runs on, such as `FACEBOOK`, `INSTAGRAM`, `MESSENGER` and `AUDIENCE_NETWORK`. |
+| `data.ads[].startDate / endDate` | Start and end of the ad run as Unix timestamps in seconds. |
+| `data.ads[].active` | `true` when the ad is currently active. |
+| `data.ads[].displayFormat` | Creative format, for example `IMAGE` or `DPA`. Ads in `DPA` format carry several items in `creatives`. |
+| `data.ads[].creatives[]` | Per-item creatives for multi-item ads. Each has `title`, `body`, `image`, `linkUrl`, `ctaText` and `ctaType`. |
+| `data.ads[].media[]` | Media files of the ad. Each has a `type` and a `url`. |
+| `data.totalResults` | Total number of ads that match the search. |
+
+### Notes
+
+- Pass `nextCursor` from the response as `cursor` in the next request to get the next page.
+- Ad IDs are numeric strings. Use them with [Facebook Ad Details](/apis/facebook/ad-details) to look up one ad.
+- To list ads for one advertiser instead of a keyword, use [Facebook Company Ads](/apis/facebook/company-ads).
+- `adCount` is `null` for the ads in this sample.
 
 ### Pricing
 
-Billed at the actual cost of each call, usually $0.0011 per request. A call can cost more when the first data source fails and another one answers. Failed calls are not charged. Lookups that find nothing and searches with no results are billed at their actual cost, which is often lower and can be $0.
+Billed at the actual cost of each call, about $0.0011 for the request above. Failed calls are not charged.
 
 ---
 Machine-readable: [`catalog/models/facebook/ads-search.json`](../../../catalog/models/facebook/ads-search.json) · Store page: https://www.sandbase.ai/model/facebook/ads-search

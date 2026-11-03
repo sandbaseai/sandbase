@@ -63,13 +63,14 @@ Same call via the path form: `POST /v1/api/wechat-channels/v2/video-share-url` w
 
 ## Details
 
-Retrieve a shareable link for a WeChat Channels video by supplying its `object_id`. Use the optional `raw` parameter to toggle between full and simplified response schemas.
+Returns the public share URL for a WeChat Channels video. It needs the numeric `object_id` of the video and returns a short `weixin.qq.com/sph/...` link.
 
 ### Use cases
 
-- Retrieve public sharing links for specific WeChat Channels videos.
-- Direct users to native WeChat Channels video content via external platforms.
-- Automate the collection of video URLs for reporting and distribution workflows.
+- Build a list of shareable links for videos you collected from a channel.
+- Add a clickable WeChat Channels link to a report or spreadsheet that already holds video IDs.
+- Check that a video `object_id` still resolves to a link before you publish it elsewhere.
+- Send a share link to a user from an app that tracks WeChat Channels videos.
 
 ### Request
 
@@ -80,21 +81,64 @@ curl -X POST "https://api.sandbase.ai/v1/api/wechat-channels/v2/video-share-url"
   -d '{"object_id": "14941130915890399732"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
 |---|---|---|---|
-| `object_id` | string | Yes | Video objectId (numeric), e.g. |
-| `raw` | boolean | No | Optional, default True. |
+| `object_id` | string | Yes | Video objectId (numeric), e.g. `14941130915890399732`. From the video `id` of `fetch_user_videos` / `fetch_video_detail`. |
+| `raw` | boolean | No | Optional, default True. True=raw response; False=simplified parsed structure. |
+
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "baseResponse": {
+    "errMsg": {
+      "pbRequestMsgInfo": null,
+      "string": ""
+    },
+    "pbRequestMsgInfo": null,
+    "ret": 0
+  },
+  "debug_id": "af3be523",
+  "debug_info": "gAAAAABq6ZEqPk4z1vRiD4BkXYJ1vs5NqAg3czDYG8Tn1QYQUux9zbT-rgf724H9718E0u-cGQlmdi1c…",
+  "feedH5Url": "https://weixin.qq.com/sph/An9q68ZQCn",
+  "pbRequestMsgInfo": null,
+  "urlList": [
+    {
+      "feedH5Url": "https://weixin.qq.com/sph/An9q68ZQCn",
+      "objectId": 14941130915890399732,
+      "pbRequestMsgInfo": null
+    }
+  ]
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `feedH5Url` | The share URL for the video. It is a short `https://weixin.qq.com/sph/...` link. |
+| `urlList[].feedH5Url` | The same share URL, returned inside a list of results. |
+| `urlList[].objectId` | The numeric video ID that the URL belongs to. It matches the `object_id` you sent. |
+| `baseResponse.ret` | Status code of the lookup. `0` means the call succeeded in this response. |
+| `baseResponse.errMsg.string` | Error message text. It is empty when the call succeeds. |
+| `debug_id` | Short identifier for this response. Useful when you report a problem. |
 
 ### Notes
 
-- Find `object_id` from the video `id` returned by user video lists or video detail endpoints.
-- Set `raw` to false for a simplified parsed structure, or true (default) for the raw response.
+- Get `object_id` from the video `id` returned by [WeChat Channels User Videos](/apis/wechat-channels/v2/user-videos) or [WeChat Channels Video Detail](/apis/wechat-channels/v2/video-detail).
+- `object_id` must be digits only, up to 32 characters. Send it as a string.
+- `raw` defaults to `true`, which returns the full structure shown here. Set it to `false` for a simplified parsed structure.
+- In `urlList[]`, `objectId` is a number, while the request `object_id` is a string.
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.01 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

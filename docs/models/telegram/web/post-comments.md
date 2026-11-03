@@ -66,13 +66,14 @@ Same call via the path form: `POST /v1/api/telegram/web/post-comments` with the 
 
 ## Details
 
-Retrieve discussion comments for a specific post using `channel` and `post_id`. Use `limit` to adjust the number of comments returned.
+Returns comments from the linked discussion group of a Telegram channel post. It needs the channel username in `channel` and the numeric `post_id`. An optional `limit` sets how many comments to return.
 
 ### Use cases
 
-- Analyze user discussions and feedback on specific channel posts.
-- Monitor linked group responses to broad channel announcements.
-- Archive comment threads connected to public channel content.
+- Read reader replies under a specific announcement post in a public channel.
+- Check whether a post has any discussion before you pull its full thread.
+- Collect comment text from a channel post for sentiment review.
+- Pair comment results with post data from the channel to compare a post with its replies.
 
 ### Request
 
@@ -83,6 +84,8 @@ curl -X POST "https://api.sandbase.ai/v1/api/telegram/web/post-comments" \
   -d '{"channel": "telegram", "post_id": 450}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
@@ -91,13 +94,40 @@ curl -X POST "https://api.sandbase.ai/v1/api/telegram/web/post-comments" \
 | `post_id` | integer | Yes | Post ID |
 | `limit` | integer | No | Number of comments |
 
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "channel": "telegram",
+  "comments": [],
+  "mtproto_required": true,
+  "note": "帖子评论需要在「设置」页启用并登录 MTProto 后端",
+  "post_id": 450
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `channel` | The channel username that the request used. |
+| `post_id` | The ID of the post that the request asked about. |
+| `comments` | List of comments on the post. In the sample response it is empty `[]`. |
+| `mtproto_required` | When `true`, the call needs an MTProto backend to be enabled and logged in before it can return comments. |
+| `note` | Text message that explains why the result is empty. In the sample it says post comments need MTProto to be enabled and logged in on the settings page. |
+
 ### Notes
 
-- The `limit` parameter supports values between 1 and 100.
+- Use the channel username without the `@` sign, for example `telegram`.
+- `limit` accepts whole numbers from 1 to 100.
+- Check `mtproto_required` first. If it is `true`, `comments` stays empty and `note` explains the reason.
+- Get post IDs from [Telegram Channel Posts](/apis/telegram/web/channel-posts), or look up one post with [Telegram Channel Post Details](/apis/telegram/web/post-detail).
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

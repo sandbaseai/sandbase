@@ -75,9 +75,14 @@ Same call via the path form: `POST /v1/api/similarweb/search-serp-players-aggreg
 
 ## Details
 
-Get the websites that win clicks on search results for given keywords, with clicks, top URL and SERP features, aggregated over the period.
+Returns the websites that win clicks on search results for a keyword, aggregated over a date range. You send a `keywords` value, a `start_date` and `end_date` in `YYYY-MM` format, and a `limit`. Each row gives the domain, its estimated clicks, its share of traffic, its top URL and the SERP features it appears in.
 
-The response is the official Similarweb API response, unchanged.
+### Use cases
+
+- Find which sites take the most clicks for a keyword such as `running shoes`.
+- Check whether video results from sites like YouTube compete with your pages on a target keyword.
+- Pick the top-ranking URL of a rival domain to study its content for a keyword.
+- Compare the share of clicks between domains to size up the competition before you plan SEO work.
 
 ### Request
 
@@ -88,21 +93,91 @@ curl -X POST "https://api.sandbase.ai/v1/api/similarweb/search-serp-players-aggr
   -d '{"start_date": "2026-09", "end_date": "2026-09", "country": "ww", "keywords": "running shoes", "limit": 1}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
 |---|---|---|---|
-| `country` | string | No | Worldwide data only; values are case-insensitive. |
 | `end_date` | string | Yes | end_date |
-| `granularity` | string | No | granularity |
 | `keywords` | string | Yes | keywords |
 | `limit` | integer | Yes | limit |
-| `offset` | integer | No | offset |
 | `start_date` | string | Yes | start_date |
+| `country` | string | No | Worldwide data only; values are case-insensitive. |
+| `granularity` | string | No | granularity |
+| `offset` | integer | No | offset |
+
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "data": [
+    {
+      "clicks": 24689.870996804166,
+      "domain": "youtube.com",
+      "serp_features": [
+        "organic"
+      ],
+      "site": "youtube.com",
+      "top_url": "youtube.com/watch?v=Yi8-joojOlc",
+      "top_url_position": null,
+      "traffic_share": 0.1730323313951437
+    }
+  ],
+  "meta": {
+    "last_updated": "2026-09-30",
+    "query": {
+      "asc": null,
+      "limit": 1,
+      "offset": 0,
+      "sort": null
+    },
+    "request": {
+      "country": "ww",
+      "end_date": "2026-09-30",
+      "format": "json",
+      "granularity": "monthly",
+      "is_keyword_group": false,
+      "keyword": "running shoes",
+      "metrics": [
+        "clicks"
+      ],
+      "start_date": "2026-09-01",
+      "traffic_source": "all",
+      "web_source": "total"
+    },
+    "status": "success"
+  }
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `data[].domain / data[].site` | The domain that earns clicks on the search results for the keyword. In this response both fields hold the same value. |
+| `data[].clicks` | Clicks that the domain receives for the keyword over the selected period. |
+| `data[].traffic_share` | The share of the keyword's clicks that goes to this domain, as a decimal. A value of `0.173` means about 17.3%. |
+| `data[].top_url` | The URL of the page on the domain that gets the most clicks for the keyword. |
+| `data[].top_url_position` | Position of the top URL in the results. It is `null` in this response. |
+| `data[].serp_features` | List of SERP feature types in which the domain appears, such as `organic` and `video`. |
+| `meta.request.keyword / meta.request.is_keyword_group` | The keyword that was queried, and whether it was treated as a keyword group. |
+| `meta.request.start_date / meta.request.end_date` | The full date range that was applied. A month input such as `2026-09` expands to the first and last day of that month. |
+| `meta.query.limit / meta.query.offset` | The page size and starting row used for this response. |
+| `meta.status` | Shows `success` when the call worked. |
+
+### Notes
+
+- Set `limit` between 1 and 20 and use `offset` to page through further rows.
+- Only `monthly` is accepted for `granularity`, and only `ww` (worldwide) for `country`.
+- To see how clicks change month by month, call [Similarweb SERP Players - Clicks over time](/apis/similarweb/search-serp-players-timeseries).
+- To find the domains that compete for a keyword set from the website side, try [Similarweb Keyword Competitors](/apis/similarweb/search-keyword-competitors).
 
 ### Pricing
 
-$0.075 per Similarweb credit; 0.07 credit per returned row, rounded up to whole credits. Failed calls are not charged.
+Billed at the actual cost of each call, about $0.15 for the request above. Failed calls are not charged.
 
 ---
 Machine-readable: [`catalog/models/similarweb/search-serp-players-aggregated.json`](../../../catalog/models/similarweb/search-serp-players-aggregated.json) · Store page: https://www.sandbase.ai/model/similarweb/search-serp-players-aggregated

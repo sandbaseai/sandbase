@@ -64,13 +64,14 @@ Same call via the path form: `POST /v1/api/twitter/web/user-post-tweet` with the
 
 ## Details
 
-Retrieve a user's timeline posts using either their `screen_name` or numeric `rest_id`. You can paginate through older posts using the `cursor` parameter.
+Returns a page of posts from one Twitter (X) user's timeline, plus the user's profile summary and the pinned post. Send a `screen_name` or a numeric `rest_id` to pick the account.
 
 ### Use cases
 
-- Archive public tweets and posts from a specific profile.
-- Monitor recent timeline activity for designated accounts.
-- Analyze posting frequency and timeline history for public figures.
+- Archive an account's recent posts with their text, timestamps and engagement counts.
+- Track how many views, likes and reposts each new post from a public figure gets.
+- Separate original posts, reposts and quote posts in a timeline by checking `retweeted_tweet` and `quoted`.
+- Page back through older posts of an account with the returned cursor values.
 
 ### Request
 
@@ -81,6 +82,8 @@ curl -X POST "https://api.sandbase.ai/v1/api/twitter/web/user-post-tweet" \
   -d '{"screen_name": "elonmusk", "rest_id": 44196397}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
@@ -89,14 +92,140 @@ curl -X POST "https://api.sandbase.ai/v1/api/twitter/web/user-post-tweet" \
 | `rest_id` | integer | No | User ID, for example: 44196397, if the user ID is used, the username will be ignored, only one of them can be selected. |
 | `screen_name` | string | No | Screen Name, for example: elonmusk, can be obtained from the user's homepage link, for example: elonmusk in https://twitter.com/elonmusk |
 
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "next_cursor": "DAAHCgABHWL0Wy7__-oLAAIAAAATMjExNzI3MjgyNDgzMDIxMDM5MQgAAwAAAAIAAA",
+  "pinned": {
+    "author": {
+      "avatar": "https://pbs.twimg.com/profile_images/2103567689515954176/aR-Kjpp4_normal.jpg",
+      "blue_verified": true,
+      "followers_count": 241472218,
+      "name": "Elon Musk",
+      "rest_id": "44196397",
+      "screen_name": "elonmusk"
+    },
+    "bookmarks": 21300,
+    "conversation_id": "2116039632743702637",
+    "created_at": "Fri Oct 30 05:28:57 +0000 2026",
+    "favorites": 366432,
+    "lang": "en",
+    "media": [],
+    "quotes": 6905,
+    "replies": 41562,
+    "retweets": 69933,
+    "sensitive": null,
+    "source": null
+  },
+  "prev_cursor": "DAAHCgABHWL0Wy8AJxELAAIAAAATMjExNzQ4MjU3MDc1NzY1NjgzNggAAwAAAAEAAA",
+  "status": "ok",
+  "timeline": [
+    {
+      "author": {
+        "avatar": "https://pbs.twimg.com/profile_images/2103567689515954176/aR-Kjpp4_normal.jpg",
+        "blue_verified": true,
+        "followers_count": 241472218,
+        "name": "Elon Musk",
+        "rest_id": "44196397",
+        "screen_name": "elonmusk"
+      },
+      "bookmarks": 0,
+      "conversation_id": "2117482570757656836",
+      "created_at": "Tue Nov 03 05:02:40 +0000 2026",
+      "entities": {
+        "user_mentions": [
+          {
+            "id_str": "1082912120",
+            "name": "Jerry Tworek",
+            "screen_name": "MillionInt"
+          }
+        ]
+      },
+      "favorites": 0,
+      "lang": "en",
+      "media": [],
+      "quotes": 0,
+      "replies": 0,
+      "retweeted": {
+        "id": "2117465116858052725"
+      },
+      "retweeted_tweet": {
+        "author": {
+          "avatar": "https://pbs.twimg.com/profile_images/1184690787419734016/7ija9HDY_normal.jpg",
+          "blue_verified": true,
+          "name": "Jerry Tworek",
+          "rest_id": "1082912120",
+          "screen_name": "MillionInt"
+        },
+        "bookmarks": 109,
+        "conversation_id": "2117465116858052725",
+        "created_at": "Tue Nov 03 03:53:19 +0000 2026",
+        "entities": [],
+        "favorites": 1182,
+        "lang": "en",
+        "media": []
+      }
+    }
+  ],
+  "user": {
+    "affiliates": {
+      "label": {
+        "badge": {
+          "url": "https://pbs.twimg.com/profile_images/1955359038532653056/OSHY3ewP_bigger.jpg"
+        },
+        "description": "X",
+        "url": {
+          "url": "https://twitter.com/X",
+          "urlType": "DeepLink"
+        },
+        "userLabelDisplayType": "Badge",
+        "userLabelType": "BusinessLabel"
+      }
+    },
+    "avatar": "https://pbs.twimg.com/profile_images/2103567689515954176/aR-Kjpp4_normal.jpg",
+    "blue_verified": true,
+    "created_at": "Tue Jun 02 20:12:29 +0000 2009",
+    "desc": null,
+    "friends": null,
+    "header_image": null,
+    "id": "44196397",
+    "location": "",
+    "media_count": null,
+    "name": "Elon Musk",
+    "profile": "elonmusk"
+  }
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `timeline[]` | The list of posts on this page. Each item is one post or repost from the user. |
+| `timeline[].tweet_id` | ID of the post, as a string. |
+| `timeline[].text` | Text of the post. Reposts start with `RT @name:` and the text may be cut short. |
+| `timeline[].created_at` | Time the post was created, in a format like `Tue Nov 03 05:02:40 +0000 2026`. |
+| `timeline[].favorites / timeline[].retweets / timeline[].replies / timeline[].quotes / timeline[].bookmarks` | Engagement counts for the post: likes, reposts, replies, quote posts and bookmarks. |
+| `timeline[].views` | View count of the post, returned as a string. |
+| `timeline[].retweeted_tweet / timeline[].quoted` | Details of the original post when the item is a repost or a quote post. Each holds the original `author`, counts and `media`. |
+| `timeline[].author.screen_name / timeline[].author.followers_count` | Handle and follower count of the account that wrote the post. |
+| `pinned` | The user's pinned post, with the same fields as an item in `timeline`. |
+| `next_cursor / prev_cursor` | Cursor values for paging to older and newer results. |
+| `user.id / user.name / user.profile / user.created_at` | Numeric ID, display name, handle and account creation time of the requested user. |
+
 ### Notes
 
-- Provide either `rest_id` or `screen_name`; if `rest_id` is specified, `screen_name` is ignored.
-- Pass `cursor` from the previous response payload to page through timeline results.
+- Send either `screen_name` or `rest_id`. If you send both, `rest_id` is used and `screen_name` is ignored.
+- To page, pass `next_cursor` from the last response as `cursor` in the next request.
+- Take `screen_name` from the profile link, for example `elonmusk` in `https://twitter.com/elonmusk`.
+- Call [Twitter Tweet Detail](/apis/twitter/web/tweet-detail) with a `tweet_id` for one post, or [Twitter (X) Tweet Comments](/apis/twitter/web/post-comments) for its replies.
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

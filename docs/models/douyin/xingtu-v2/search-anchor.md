@@ -100,13 +100,14 @@ Same call via the path form: `POST /v1/api/douyin/xingtu-v2/search-anchor` with 
 
 ## Details
 
-Query Douyin Xingtu anchors by providing a search term in `keyword`. Refine results using filters for follower counts, engagement rates, and industry categories.
+This API searches Douyin Xingtu anchors by keyword and returns a paged list of matching creators. The only required input is `keyword`, which can be a nickname, Douyin ID, Xingtu ID or a live content word. Optional filters cover followers, price, CPE, CPM, interaction rate and more.
 
 ### Use cases
 
-- Find Douyin anchors matching brand campaign requirements.
-- Filter potential creators by follower volume and audience engagement metrics.
-- Identify relevant talent using specific niche keywords and industry tags.
+- Build a shortlist of Xingtu creators whose live content matches a topic such as `人工智能`.
+- Narrow candidates by follower range with `fans_min` and `fans_max` before contacting them.
+- Check whether your account can send a task to a creator, using the restriction flags on each result.
+- Collect `star_id` values from search results to feed into creator detail APIs.
 
 ### Request
 
@@ -117,71 +118,124 @@ curl -X POST "https://api.sandbase.ai/v1/api/douyin/xingtu-v2/search-anchor" \
   -d '{"keyword": "人工智能"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
 |---|---|---|---|
 | `keyword` | string | Yes | Search keyword: nickname, Douyin ID, Xingtu ID or live content word |
-| `tag` | string | No | Creator category IDs, comma-separated |
-| `page` | integer | No | Page number, default 1 |
-| `gender` | string | No | Creator gender, 1=male, 2=female |
+| `author_list_id` | string | No | Featured creator list ID |
+| `burst_text_rate_max` | string | No | Maximum viral-post rate, 0-1 decimal |
+| `burst_text_rate_min` | string | No | Minimum viral-post rate, 0-1 decimal |
 | `cpe_max` | string | No | Maximum expected CPE |
 | `cpe_min` | string | No | Minimum expected CPE |
 | `cpm_max` | string | No | Maximum expected CPM |
 | `cpm_min` | string | No | Minimum expected CPM |
-| `fans_max` | string | No | Maximum followers |
-| `fans_min` | string | No | Minimum followers |
-| `price_max` | string | No | Maximum creator price |
-| `price_min` | string | No | Minimum creator price |
-| `sort_type` | integer | No | Sort type, 1=asc, 2=desc, default 2 |
-| `price_type` | string | No | Price tier by video length |
-| `sort_field` | string | No | Sort field, default `score` (comprehensive sort) |
-| `extra_filter` | string | No | Extra profile filters (JSON array) for audience/fans profile, region, etc. |
-| `persona_tags` | string | No | Persona IDs. |
-| `task_category` | integer | No | Cooperation target |
-| `author_list_id` | string | No | Featured creator list ID |
-| `marketing_target` | integer | No | Marketing target |
 | `expected_play_max` | string | No | Maximum expected plays |
 | `expected_play_min` | string | No | Minimum expected plays |
+| `extra_filter` | string | No | Extra profile filters (JSON array) for audience/fans profile, region, etc. |
+| `fans_max` | string | No | Maximum followers |
+| `fans_min` | string | No | Minimum followers |
 | `first_industry_id` | string | No | Industry ID |
+| `gender` | string | No | Creator gender, 1=male, 2=female |
 | `interact_rate_max` | string | No | Maximum interaction rate, 0-1 decimal |
 | `interact_rate_min` | string | No | Minimum interaction rate, 0-1 decimal |
+| `marketing_target` | integer | No | Marketing target |
+| `page` | integer | No | Page number, default 1 |
+| `persona_tags` | string | No | Persona IDs. Comma=match any, semicolon=group AND |
 | `play_over_rate_max` | string | No | Maximum play-completion rate, 0-1 decimal |
 | `play_over_rate_min` | string | No | Minimum play-completion rate, 0-1 decimal |
-| `burst_text_rate_max` | string | No | Maximum viral-post rate, 0-1 decimal |
-| `burst_text_rate_min` | string | No | Minimum viral-post rate, 0-1 decimal |
+| `price_max` | string | No | Maximum creator price |
+| `price_min` | string | No | Minimum creator price |
+| `price_type` | string | No | Price tier by video length |
+| `sort_field` | string | No | Sort field, default `score` (comprehensive sort) |
+| `sort_type` | integer | No | Sort type, 1=asc, 2=desc, default 2 |
+| `tag` | string | No | Creator category IDs, comma-separated |
+| `task_category` | integer | No | Cooperation target |
 
 ### Example response
 
-Real response for the request above, trimmed to the main fields. User names and long IDs are masked.
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
 
 ```json
 {
   "authors": [
     {
-      "star_id": "7481538995130728485",
       "attribute_datas": {
+        "author_avatar_frame_icon": "0",
         "author_status": "1",
         "author_type": "1",
-        "core_user_id": "1379225338382761",
-        "fans_increment_rate_within_15d": "-0.027777777777777776",
-        "id": "7481538995130728485",
-        "nick_name": "<user>"
-      }
+        "avatar_uri": "https://p3.douyinpic.com/aweme/1080x1080/aweme-avatar/tos-cn-i-0813_02df7b1c9ab1…",
+        "city": "",
+        "core_user_id": "4089782058092311",
+        "fans_increment_rate_within_15d": "0",
+        "fans_increment_within_15d": "0"
+      },
+      "extra_data": {
+        "assign_live_restrict_tip": "当前账号暂无法向该达人发起任务",
+        "assign_live_restricted": true,
+        "content_query_from_word": "",
+        "content_query_score": 0,
+        "debug_info": "",
+        "recall_from": [
+          "1_0"
+        ],
+        "recall_return_infos": {},
+        "recommend_types": []
+      },
+      "items": [],
+      "star_id": "7535764710830899235",
+      "task_infos": []
     }
-  ]
+  ],
+  "base_resp": {
+    "status_code": 0,
+    "status_message": ""
+  },
+  "extra_data": {
+    "intent_score": 0.14355403184890747,
+    "is_cpm_project_search": false,
+    "is_intent_consistent": false,
+    "search_author_count": 0,
+    "search_item_count": 0,
+    "search_session_id": "77038444…",
+    "speaker_live_base_dis": []
+  },
+  "pagination": {
+    "has_more": true,
+    "limit": 20,
+    "page": 1,
+    "total_count": 1094
+  }
 }
 ```
 
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `authors[].star_id` | Xingtu ID of the creator. Use it as the creator identifier in other Xingtu APIs. |
+| `authors[].attribute_datas.core_user_id` | Core user ID of the creator account. |
+| `authors[].attribute_datas.avatar_uri` | URL of the creator avatar image. |
+| `authors[].attribute_datas.city` | City shown on the creator profile. It can be an empty string. |
+| `authors[].attribute_datas.author_status / authors[].attribute_datas.author_type` | Status and type codes of the creator. Values are returned as strings. |
+| `authors[].attribute_datas.fans_increment_within_15d / authors[].attribute_datas.fans_increment_rate_within_15d` | Follower change and change rate over the last 15 days. Present on some results only. |
+| `authors[].extra_data.assign_live_restricted` | `true` when your account cannot send a task to this creator. `assign_live_restrict_tip` holds the reason text. |
+| `authors[].extra_data.content_query_score` | Relevance score of the creator's content for the keyword. It is `0` for results that matched on other grounds. |
+| `pagination.has_more / pagination.total_count` | Whether more pages exist and how many creators match the search in total. |
+| `pagination.page / pagination.limit` | Current page number and the number of creators per page (`20` in this response). |
+
 ### Notes
 
-- Set `gender` to 1 for male or 2 for female creators.
-- Use `sort_type` with 1 for ascending order and 2 for descending order (default 2).
-- Filter results using `page` for pagination, which defaults to 1.
+- Use `page` to move through results. The response shows `limit` as `20` per page.
+- Some fields in `attribute_datas` appear only on certain creators, so check for missing keys.
+- To get full profiles, pass a `star_id` to [Douyin Xingtu Author Base Info](/apis/douyin/xingtu-v2/author-base-info).
+- For audience data on a creator, call [Douyin Xingtu Author Audience Distribution](/apis/douyin/xingtu-v2/author-audience-distribution).
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

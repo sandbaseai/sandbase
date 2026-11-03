@@ -58,9 +58,14 @@ Same call via the path form: `POST /v1/api/coingecko/exchanges-list` with the bo
 
 ## Details
 
-Exchanges List (ID Map) from CoinGecko. Returns the official CoinGecko API response unchanged.
+Returns a list of CoinGecko exchanges, each with an `id` and a `name`. It takes one optional input, `status`, which filters the list to `active` or `inactive` exchanges. The default is `active`.
 
-The response is the official CoinGecko API response, unchanged.
+### Use cases
+
+- Build a lookup table that maps exchange names to CoinGecko exchange IDs.
+- Fill an exchange picker in a dashboard with names, and store the `id` for later calls.
+- Check whether a given exchange `id` exists before you request its data.
+- Compare the `active` and `inactive` lists to find exchanges that CoinGecko no longer tracks as active.
 
 ### Request
 
@@ -71,15 +76,44 @@ curl -X POST "https://api.sandbase.ai/v1/api/coingecko/exchanges-list" \
   -d '{}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
 |---|---|---|---|
 | `status` | string | No | Filter by status of exchanges. Default: `active` |
 
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+[
+  {
+    "id": "10kswap-starknet-alpha",
+    "name": "10KSwap"
+  }
+]
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `[].id` | CoinGecko exchange ID, for example `9inch`. Use this value as the exchange identifier in other CoinGecko APIs. |
+| `[].name` | Display name of the exchange, for example `9mm V3 (Pulsechain)`. |
+
+### Notes
+
+- The response is a flat array of objects. This request has no pagination parameters.
+- Pass `status` as `active` or `inactive`. If you leave it out, the API returns `active` exchanges.
+- Pass an `id` to [CoinGecko Exchange Data by ID](/apis/coingecko/exchanges-by-id) for details on one exchange.
+- Call [CoinGecko Exchanges List with Data](/apis/coingecko/exchanges) when you need more than the ID and name.
+
 ### Pricing
 
-Flat price per call. Failed calls are not charged.
+$0.008 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ---
 Machine-readable: [`catalog/models/coingecko/exchanges-list.json`](../../../catalog/models/coingecko/exchanges-list.json) · Store page: https://www.sandbase.ai/model/coingecko/exchanges-list

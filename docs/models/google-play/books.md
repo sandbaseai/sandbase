@@ -68,7 +68,14 @@ Same call via the path form: `POST /v1/api/google-play/books` with the body abov
 
 ## Details
 
-Search Google Play ebooks and audiobooks by keyword or browse categories and charts.
+Returns Google Play book results for a keyword, grouped into sections such as series, ebooks and audiobooks. You send a search term in `q`, or you browse with `books_category` or `chart`. Each item has a title or author, a link and price data.
+
+### Use cases
+
+- Compare ebook and audiobook prices for a title across the Google Play storefront.
+- List every book in a series, such as Dune, with its position in the series.
+- Build a catalog of a author's works with links to each Google Play page.
+- Track discounts by comparing `extracted_original_price` with `extracted_price` on audiobooks.
 
 ### Request
 
@@ -95,11 +102,59 @@ The result is returned in `outputs[0].data`.
 | `q` | string | No | At most 2,048 UTF-8 bytes. |
 | `section_page_token` | string | No | Continue one result group using its returned token and the same parameters. Excludes the other pagination selectors and chart. |
 | `see_more_token` | string | No | Open a result collection using its returned token and the same parameters. Excludes the other pagination selectors and chart. |
-| `timeout` | number | No | Optional budget for the entire request in seconds, measured from gateway receipt until the response is ready to send. Includes admission, queueing and settlement. Must be greater t |
+| `timeout` | number | No | Optional budget for the entire request in seconds, measured from gateway receipt until the response is ready to send. Includes admission, queueing and settlement. Must be greater than 0 and at most 90. On expiry, the cal |
+
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "organic_results": [
+    {
+      "items": [
+        {
+          "extension": "8 items",
+          "format": "Ebook series",
+          "link": "https://play.google.com/store/books/series?id=av3XFwAAABC86M",
+          "product_id": "av3XFwAAABC86M",
+          "thumbnail": "https://play-lh.googleusercontent.com/DO9D9mcmQJ8OXHXGOFyfQWRKgzoTlKbw1Epd4kHRZm…",
+          "title": "Dune"
+        }
+      ],
+      "see_more_link": "https://play.google.com/store/books/collection/cluster?gsr=SlBqLGhVcU5uUGxzV1VxN…",
+      "see_more_token": "eyJ2Ijox…",
+      "title": "Series"
+    }
+  ]
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `organic_results[]` | One result group. Each group has a `title` such as `Series`, `Ebooks` or `Audiobooks`, and a list of `items`. |
+| `organic_results[].items[].title` | Name of the item. Series items include it; book items in this response do not. |
+| `organic_results[].items[].author / category` | Author name and genre label of a book or audiobook. |
+| `organic_results[].items[].link` | Google Play URL for the item. Book and audiobook links contain an `id` query value. |
+| `organic_results[].items[].product_id` | ID of a series item. It also appears in the series `link`. |
+| `organic_results[].items[].format / extension` | `format` names the item type, such as `Ebook series`. `extension` gives extra detail, such as `8 items` for a series or `Book 1` for an ebook. |
+| `organic_results[].items[].price / extracted_price / currency` | Price as display text, as a number, and its currency code, such as `$9.99`, `9.99` and `USD`. |
+| `organic_results[].items[].original_price / extracted_original_price` | List price before a discount, as text and as a number. Audiobooks show it next to a lower `extracted_price`. |
+| `organic_results[].section_page_token / see_more_token` | Tokens for loading more items in this group or opening its full collection. |
+| `organic_results[].see_more_link` | Google Play URL of the full collection for this group. |
+
+### Notes
+
+- Pass `section_page_token` or `see_more_token` back with the same parameters to continue one group. Do not combine it with `chart`.
+- `q` excludes `chart` and `books_category`. `price` (`1` free, `2` paid) requires `q`.
+- `age` works only with `books_category=coll_1689`.
+- Not every item has every field. Series items have no price, and some books have no `description`.
 
 ### Pricing
 
-Flat price per call. Failed calls are not charged.
+$0.00015 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ---
 Machine-readable: [`catalog/models/google-play/books.json`](../../../catalog/models/google-play/books.json) · Store page: https://www.sandbase.ai/model/google-play/books

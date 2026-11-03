@@ -68,13 +68,13 @@ Same call via the path form: `POST /v1/api/douyin/web/generate-wss-xb-signature`
 
 ## Details
 
-This endpoint produces an xb signature required for Douyin web barrage stream connections. Supply `room_id`, `user_agent`, and `user_unique_id` to obtain the signature value.
+Returns a signature string for a Douyin live room barrage (danmaku) WebSocket connection. It needs a `room_id`, a browser `user_agent` string, and a `user_unique_id`.
 
 ### Use cases
 
-- Obtaining signature parameters for web barrage connections.
-- Connecting to Douyin chat streams with valid browser headers.
-- Authenticating WebSocket sessions using a room identifier.
+- Sign a Douyin live room WebSocket URL before you open the barrage stream.
+- Generate a signature for each viewer identity when you run several chat listeners.
+- Pair the signature with the same `user_agent` you send in your WebSocket headers.
 
 ### Request
 
@@ -85,6 +85,8 @@ curl -X POST "https://api.sandbase.ai/v1/api/douyin/web/generate-wss-xb-signatur
   -d '{"room_id": "7382517534467115826", "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36 Edg/130.0.0.0", "user_unique_id": "7382524529011246630"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
@@ -93,15 +95,33 @@ curl -X POST "https://api.sandbase.ai/v1/api/douyin/web/generate-wss-xb-signatur
 | `user_agent` | string | Yes | User browser agent |
 | `user_unique_id` | string | Yes | User unique ID |
 
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "x_bogus": "6kux4VFjvCR1Mnox"
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `x_bogus` | The signature string. The response holds only this one key, and its value is a short string such as `6kux4VFjvCR1Mnox`. |
+| `x_bogus` | The value is built from the `room_id`, `user_agent`, and `user_unique_id` you sent. A different input set gives a different signature. |
+| `x_bogus` | Use this value as the xb signature in the barrage WebSocket connection for that room. |
+
 ### Notes
 
-- `room_id` is required to specify the target room.
-- Supply `user_agent` corresponding to the client browser environment.
-- `user_unique_id` represents the unique viewer identifier.
+- If you only have a webcast ID, convert it to a `room_id` with [Douyin Webcast ID to Room ID](/apis/douyin/web/webcast-id-2-room-id).
+- Use the same `user_agent` and `user_unique_id` in the WebSocket connection that you used to create the signature.
+- Call [Douyin Room Danmaku Parameters](/apis/douyin/web/live-im-fetch) to get more parameters for the barrage connection.
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

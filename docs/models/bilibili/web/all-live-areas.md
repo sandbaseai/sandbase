@@ -52,13 +52,14 @@ Same call via the path form: `POST /v1/api/bilibili/web/all-live-areas` with the
 
 ## Details
 
-Retrieve the complete directory of streaming partitions and categories across Bilibili. This request takes no query parameters and returns the platform's current broadcast hierarchy.
+Returns the full list of live streaming parent categories on Bilibili, with the child areas inside each one. It needs no input. Send an empty JSON object as the request body.
 
 ### Use cases
 
-- Explore available streaming partitions and categories across Bilibili.
-- Map streaming area identifiers to their corresponding category labels.
-- Populate category filters and navigation menus for streaming discovery.
+- Build a category filter or menu for a live streaming discovery tool.
+- Map a child area `id` to its Chinese area name when you process live stream data.
+- Store the parent and child area structure to group live rooms by game type.
+- Check which areas are marked hot or locked before you show them in a list.
 
 ### Request
 
@@ -69,9 +70,62 @@ curl -X POST "https://api.sandbase.ai/v1/api/bilibili/web/all-live-areas" \
   -d '{}'
 ```
 
+The result is returned in `outputs[0].data`.
+
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "code": 0,
+  "data": [
+    {
+      "id": 2,
+      "list": [
+        {
+          "act_id": "0",
+          "area_type": 0,
+          "complex_area_name": "",
+          "hot_status": 0,
+          "id": "86",
+          "lock_status": "0",
+          "name": "英雄联盟",
+          "old_area_id": "4"
+        }
+      ],
+      "name": "网游"
+    }
+  ],
+  "message": "success",
+  "msg": "success"
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `data[]` | One parent category, such as online games, mobile games or single-player games. |
+| `data[].id` | Numeric ID of the parent category. |
+| `data[].name` | Name of the parent category, in Chinese. |
+| `data[].list[]` | The child areas that belong to this parent category. |
+| `data[].list[].id` | ID of the child area. It is returned as a string. |
+| `data[].list[].name` | Name of the child area, in Chinese. Examples are game titles or groups like other single-player games. |
+| `data[].list[].old_area_id` | ID of an older area that this child area maps to. It is returned as a string. |
+| `data[].list[].hot_status / data[].list[].lock_status` | Flags for the child area. In the sample, `hot_status` is `0` and `lock_status` is `"0"`. |
+| `data[].list[].act_id / data[].list[].area_type / data[].list[].complex_area_name` | Extra area attributes. In the sample, `act_id` is `"0"`, `area_type` is `0` and `complex_area_name` is empty. |
+
+### Notes
+
+- This API takes no parameters. Send `{}` as the body.
+- Parent `id` values are numbers, while child `id` values are strings.
+- Child areas sit under `data[].list[]`, so loop over both levels to build a flat list of areas.
+- To look at a single live room, call [Bilibili Live Room Details](/apis/bilibili/web/live-room-detail).
+
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

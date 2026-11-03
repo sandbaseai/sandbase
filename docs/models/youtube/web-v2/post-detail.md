@@ -65,13 +65,14 @@ Same call via the path form: `POST /v1/api/youtube/web-v2/post-detail` with the 
 
 ## Details
 
-Retrieve detailed information for a specific YouTube community post using its `post_id`.
+Returns one YouTube community post with its text, image attachments, author details, and vote count. The only required input is the `post_id` of the post.
 
 ### Use cases
 
-- Inspect community post text and attached image media.
-- Monitor engagement metrics on specific YouTube community posts.
-- Display localized community post content by setting country and language codes.
+- Read the full text and image attachments of a single community post.
+- Track the vote count of a specific post by calling it again later.
+- Identify which channel published a post from its author name and channel ID.
+- Build a link back to the post on YouTube using the returned post URL.
 
 ### Request
 
@@ -82,41 +83,87 @@ curl -X POST "https://api.sandbase.ai/v1/api/youtube/web-v2/post-detail" \
   -d '{"post_id": "UgkxiCSRfD6g7SPlWGPDa3vbP7aIsytXRkvy"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
 |---|---|---|---|
-| `post_id` | string | Yes | Purpose: Post ID |
-| `need_format` | boolean | No | Whether to format data, default `true` |
+| `post_id` | string | Yes | **Purpose**: Post ID |
 | `country_code` | string | No | Country code, default `"US"` |
 | `language_code` | string | No | Language code, default `"zh-CN"` |
+| `need_format` | boolean | No | Whether to format data, default `true` |
 
 ### Example response
 
-Real response for the request above, trimmed to the main fields. User names and long IDs are masked.
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
 
 ```json
 {
+  "channel_metadata": {
+    "avatar_url": "",
+    "channel_id": "UCkRfArvrzheW2E7b6SVT7vQ",
+    "channel_url": "",
+    "description": "",
+    "title": "YouTube Creators"
+  },
+  "comments_continuation_token": "4qmFsgKz…",
   "post": {
     "attachment": {
       "images": [
         {
-          "url": "https://yt3.ggpht.com/wbxSQ9KLMZWcSCw2Q78wZ1YfvUb9zpWRs6QYRSHt4n277DENaKkLxd9WYZ…"
+          "height": 288,
+          "url": "https://yt3.ggpht.com/wbxSQ9KLMZWcSCw2Q78wZ1YfvUb9zpWRs6QYRSHt4n277DENaKkLxd9WYZ…",
+          "width": 288
         }
-      ]
-    }
+      ],
+      "type": "image"
+    },
+    "author_channel_id": "UCkRfArvrzheW2E7b6SVT7vQ",
+    "author_name": "YouTube Creators",
+    "author_thumbnails": [
+      {
+        "height": 32,
+        "url": "//yt3.googleusercontent.com/LZeUOuOM8lzINkYAKi1X3pCQz1xsSD_EndPUR1vOGesaGavUtyM_…",
+        "width": 32
+      }
+    ],
+    "author_url": "/@youtubecreators",
+    "comment_count": "",
+    "content_text": "🎉 Posts are rolling out to more creators than ever before!! 🎉 \n\nWe're so excited…",
+    "post_id": "UgkxiCSRfD6g7SPlWGPDa3vbP7aIsytXRkvy",
+    "post_url": "https://www.youtube.com/post/UgkxiCSRfD6g7SPlWGPDa3vbP7aIsytXRkvy",
+    "published_time": "2年前（修改过）",
+    "vote_count": "4409"
   }
 }
 ```
 
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `post.post_id / post.post_url` | The ID of the post and its full YouTube link. |
+| `post.content_text` | The text of the post. |
+| `post.vote_count` | The number of votes on the post, returned as a string such as `"4409"`. |
+| `post.comment_count` | The comment count of the post. It is an empty string in this response. |
+| `post.published_time` | The publish time as display text in the requested language, for example `2年前（修改过）`. It is relative text, not a date. |
+| `post.author_name / post.author_channel_id / post.author_url` | The name of the posting channel, its channel ID, and its relative channel path. |
+| `post.author_thumbnails[].url` | Avatar image URLs for the author at several sizes. Each row has `width` and `height`. |
+| `post.attachment.images[].url` | Image URLs attached to the post, one per size, with `width` and `height`. `post.attachment.type` is `image` here. |
+| `channel_metadata.channel_id / channel_metadata.title` | The ID and title of the channel that owns the post. |
+| `comments_continuation_token` | A token for loading the comments of this post. |
+
 ### Notes
 
-- `need_format` defaults to `true` to structure the response payload.
-- `country_code` defaults to `"US"` and `language_code` defaults to `"zh-CN"`.
+- Take `post_id` from the post list of a channel. [YouTube Channel Community Posts](/apis/youtube/web-v2/channel-community-posts) returns posts for a channel.
+- Use `comments_continuation_token` with [YouTube Community Post Comments](/apis/youtube/web-v2/post-comments) to read the comments on this post.
+- `language_code` defaults to `zh-CN`, so text such as `published_time` comes back in Chinese unless you set another value like `en-US`.
+- In this response, `channel_metadata.avatar_url`, `channel_metadata.channel_url`, and `channel_metadata.description` are empty strings. Use `post.author_thumbnails` and `post.author_url` for these values.
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

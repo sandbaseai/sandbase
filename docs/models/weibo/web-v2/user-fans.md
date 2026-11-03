@@ -63,13 +63,14 @@ Same call via the path form: `POST /v1/api/weibo/web-v2/user-fans` with the body
 
 ## Details
 
-Retrieve the list of followers for any target account by specifying `uid` and an optional `page` number.
+Returns a page of accounts that follow a given Weibo user, with a profile summary and counts for each follower. It needs the target user's `uid` and takes an optional `page` number.
 
 ### Use cases
 
-- Inspect follower profiles and audience composition for a specific Weibo account.
-- Browse paginated lists of users who follow an influencer or brand profile.
-- Extract engagement statistics and follower counts for audience analysis.
+- Pull the follower profiles of a brand or influencer account to review who follows it.
+- Check follower accounts for verification status, follower counts and profile descriptions.
+- Page through the follower list of a Weibo account to build an audience sample.
+- Compare the follower counts of the accounts that follow a profile to find large or influential followers.
 
 ### Request
 
@@ -80,6 +81,8 @@ curl -X POST "https://api.sandbase.ai/v1/api/weibo/web-v2/user-fans" \
   -d '{"uid": "8431518763"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
@@ -89,48 +92,50 @@ curl -X POST "https://api.sandbase.ai/v1/api/weibo/web-v2/user-fans" \
 
 ### Example response
 
-Real response for the request above, trimmed to the main fields. User names and long IDs are masked.
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
 
 ```json
 {
-  "users": [
-    {
-      "auth_status": 1,
-      "bi_followers_count": 132,
-      "block_word": 1,
-      "brand_account": 0,
-      "credit_score": 80,
-      "delete_mode_time": 0,
-      "description": "教授新手使用微博方法专业户，每天推荐方法介绍、微博热点...有问题请call我，@、私信都可以，欢迎骚扰~",
-      "favourites_count": 2643,
-      "followers_count": 165078910,
-      "followers_count_str": "1.65亿",
-      "insecurity": {
-        "sexual_content": false
-      },
-      "status_total_counter": {
-        "comment_cnt": 3906988,
-        "comment_like_cnt": 376936,
-        "like_cnt": 19747921,
-        "repost_cnt": 7908170,
-        "total_cnt": 31940015
-      },
-      "video_total_counter": {
-        "play_cnt": 147182632
-      }
-    }
-  ]
+  "display_total_number": 1,
+  "display_total_number_str": "1",
+  "fill_material": 0,
+  "has_filtered_attentions": false,
+  "has_filtered_fans": false,
+  "next_cursor": 0,
+  "ok": 1,
+  "previous_cursor": 0,
+  "screenName": "用户8431518763",
+  "show_related_topic": false,
+  "show_unread": false,
+  "sort_type": 0
 }
 ```
 
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `users[]` | List of follower accounts on this page. Each item is one Weibo user profile. |
+| `users[].description` | Profile bio text of the follower. |
+| `users[].created_at` | Account creation time as a text date, for example `Wed Mar 21 10:31:42 +0800 2012`. |
+| `users[].followers_count / users[].followers_count_str` | Number of followers of this follower account. The `_str` field gives a short display form such as `1.65亿`. |
+| `users[].friends_count / users[].favourites_count / users[].bi_followers_count` | Counts of accounts this user follows, posts this user favorited, and mutual follow relationships. |
+| `users[].auth_status / users[].credit_score` | Verification status flag and the credit score shown on the profile. |
+| `users[].avatar_hd / users[].avatar_large` | Image URLs for the follower's profile picture in high and large sizes. |
+| `users[].follow_me / users[].following` | Flags for whether this user follows the requester and whether the requester follows this user. |
+| `total_number / display_total_number_str` | Total follower count reported for the list, and its display string. |
+| `next_cursor / previous_cursor` | Cursor values for the neighboring pages. Both are `0` in this response. |
+
 ### Notes
 
-- `page` starts from 0 and defaults to 0.
-- `uid` is required to specify the target user account.
+- `uid` is a numeric user ID passed as a string, for example `8431518763`. Look it up with [Weibo User Search](/apis/weibo/web-v2/user-search).
+- `page` starts at 0. Increase it to read later pages.
+- To see the accounts a user follows instead, call [Weibo User Following List](/apis/weibo/web-v2/user-following).
+- Avatar URLs in the response carry `Expires` and `ssig` query parameters.
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

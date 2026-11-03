@@ -74,13 +74,14 @@ Same call via the path form: `POST /v1/api/douyin/xingtu-v2/playlet-actor-rank-l
 
 ## Details
 
-Retrieve Douyin Xingtu playlet actor rankings by specifying evaluation parameters such as `date`, `period`, and list `name`.
+Returns a Xingtu ranking list of Douyin playlet actors for a given date and evaluation period. Each entry has the actor's ID, name, follower count and a set of scores. All inputs have defaults, so an empty request returns the monthly composite list.
 
 ### Use cases
 
-- Track top-performing Douyin playlet actors over weekly or monthly intervals.
-- Evaluate talent options for upcoming playlet productions.
-- Monitor composite performance metrics across playlet creator categories.
+- Pull the top-ranked playlet actors for a given month to build a casting shortlist.
+- Compare an actor's `composite_score` with their `commercial_conversion_score` to judge sales value against acting quality.
+- Track rank movement by reading `old_rank` against the current list position.
+- Filter the list by actor type with `qualifier` to review a single group of actors.
 
 ### Request
 
@@ -91,41 +92,76 @@ curl -X POST "https://api.sandbase.ai/v1/api/douyin/xingtu-v2/playlet-actor-rank
   -d '{}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
 |---|---|---|---|
+| `category` | string | No | Category, default `playlet_actor_list` |
 | `date` | string | No | Date, format YYYYMMDD |
 | `name` | string | No | Ranking name, `playlet_actor_composite_list`=composite list |
 | `period` | integer | No | 7=weekly, 30=monthly |
-| `category` | string | No | Category, default `playlet_actor_list` |
 | `qualifier` | string | No | Actor type, empty=all |
 
 ### Example response
 
-Real response for the request above, trimmed to the main fields. User names and long IDs are masked.
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
 
 ```json
 {
   "author_rank_list": [
     {
+      "avatar_uri": "https://p11.douyinpic.com/aweme/1080x1080/aweme-avatar/tos-cn-avt-0015_88c16cb6a…",
       "core_user_id": "59187082550",
+      "extra": {
+        "act_performance_score": "95.44",
+        "actor_name": "傅汉源",
+        "commercial_conversion_score": "100.0",
+        "compass_virality_score": "100.0",
+        "composite_score": "99.54",
+        "cover": "tos-cn-i-dy/720f8f97f48c8c678e06d42d57f1e379",
+        "gender": "男",
+        "old_rank": "32"
+      },
+      "follower": 105720,
       "id": "59187082550",
       "name": "傅汉源"
     }
-  ]
+  ],
+  "base_resp": {
+    "status_code": 0,
+    "status_message": ""
+  },
+  "modify_time": "1765124053"
 }
 ```
 
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `author_rank_list[]` | One ranked actor. The list order is the ranking order. |
+| `author_rank_list[].core_user_id / author_rank_list[].id` | The actor's numeric user ID, returned as a string. Both fields hold the same value in the sample. |
+| `author_rank_list[].name` | The actor's display name on Douyin. |
+| `author_rank_list[].follower` | The actor's follower count as a number. |
+| `author_rank_list[].avatar_uri` | URL of the actor's avatar image. |
+| `author_rank_list[].extra.composite_score` | The overall score used for the composite list. It is returned as a string. |
+| `author_rank_list[].extra.act_performance_score / author_rank_list[].extra.commercial_conversion_score / author_rank_list[].extra.compass_virality_score` | Component scores for acting performance, commercial conversion and virality. Each is a string. |
+| `author_rank_list[].extra.old_rank` | The actor's earlier rank, returned as a string. Compare it with the current position to see movement. |
+| `author_rank_list[].extra.actor_name / author_rank_list[].extra.gender` | The actor's name and gender as shown on the ranking. |
+| `modify_time` | Unix timestamp in seconds for the last update of the ranking. |
+
 ### Notes
 
-- Set `period` to 7 for weekly lists or 30 for monthly lists.
-- Provide `date` in YYYYMMDD format to inspect historical rankings.
-- Set `name` to `playlet_actor_composite_list` for composite rankings.
+- Set `period` to `7` for a weekly list or `30` for a monthly list.
+- Send `date` as `YYYYMMDD`, for example `20251130`.
+- Leave `qualifier` empty to include all actor types. To see the available ranking options, call [Douyin Xingtu Playlet Actor Rank Catalog](/apis/douyin/xingtu-v2/playlet-actor-rank-catalog).
+- Pass an actor's `id` to [Douyin Xingtu Author Base Info](/apis/douyin/xingtu-v2/author-base-info) for more profile data.
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.002 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

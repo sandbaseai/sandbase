@@ -62,13 +62,14 @@ Same call via the path form: `POST /v1/api/bilibili/web/live-room-detail` with t
 
 ## Details
 
-Retrieve detailed live stream information for a specific Bilibili room by providing the target `room_id`.
+Returns metadata and status for one Bilibili live room, including its title, streamer ID, area, cover image and live status. It needs a single input, the `room_id` of the live room.
 
 ### Use cases
 
-- Monitor the status of a specific Bilibili live room.
-- Retrieve stream metadata for display in external dashboards.
-- Verify live room availability before directing viewers.
+- Check whether a Bilibili live room is currently broadcasting by reading `data.live_status`.
+- Show a room's title, cover image and category in an external dashboard.
+- Find the streamer's `uid` for a room, then look up that user's profile.
+- Group tracked rooms by `data.parent_area_name` and `data.area_name`.
 
 ### Request
 
@@ -79,19 +80,67 @@ curl -X POST "https://api.sandbase.ai/v1/api/bilibili/web/live-room-detail" \
   -d '{"room_id": "22816111"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
 |---|---|---|---|
 | `room_id` | string | Yes | Live room ID |
 
+### Example response
+
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
+
+```json
+{
+  "code": 0,
+  "data": {
+    "allow_change_area_time": 0,
+    "allow_upload_cover_time": 0,
+    "area_id": 745,
+    "area_name": "虚拟Gamer",
+    "area_pendants": "",
+    "attention": 892815,
+    "background": "https://i0.hdslb.com/bfs/live/room_bg/c4eed3ef37ef4cd30bbcac7491a7ed9ac78e1459.j…",
+    "battle_id": 0,
+    "description": "",
+    "hot_words": [
+      "2333333"
+    ],
+    "hot_words_status": 0,
+    "is_anchor": 0
+  },
+  "message": "ok",
+  "msg": "ok"
+}
+```
+
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `data.room_id / data.short_id` | The numeric room ID. `short_id` is the short room ID, and `0` means no short ID is set for this room. |
+| `data.uid` | The user ID of the room owner. |
+| `data.title` | The current title of the live room. |
+| `data.live_status` | The broadcast state code of the room. This sample returns `2`, with `online` at `0` and `live_time` at `0000-00-00 00:00:00`. |
+| `data.live_time` | The start time of the current broadcast as a `YYYY-MM-DD HH:MM:SS` string. The value `0000-00-00 00:00:00` appears when no start time is set. |
+| `data.parent_area_id / data.parent_area_name` | The ID and name of the top-level category the room belongs to. |
+| `data.area_id / data.area_name` | The ID and name of the sub-category the room belongs to. |
+| `data.attention` | The follower count for the room, as shown in this response (`892815`). |
+| `data.user_cover / data.background / data.keyframe` | Image URLs for the room cover and the room background. `keyframe` is an empty string in this sample. |
+| `data.hot_words[]` | A list of preset hot words (quick chat phrases) for the room. |
+
 ### Notes
 
-- Provide the target live broadcast identifier using `room_id`.
+- `room_id` is passed as a string, for example `"22816111"`. The response returns `data.room_id` as a number.
+- Use `data.uid` from this response as the input to a user API such as [Bilibili User Profile](/apis/bilibili/web/user-profile).
+- Use `data.area_id` and `data.parent_area_id` with [Bilibili Streaming Areas](/apis/bilibili/web/all-live-areas) to match the IDs to the full list of categories.
+- For stream data of a room, call [Bilibili Room Stream Data](/apis/bilibili/web/live-videos).
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

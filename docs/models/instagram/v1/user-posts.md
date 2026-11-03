@@ -64,13 +64,14 @@ Same call via the path form: `POST /v1/api/instagram/v1/user-posts` with the bod
 
 ## Details
 
-Retrieve recent posts from an Instagram account by supplying the target `user_id`. Supports pagination via cursor parameters to browse historical media feeds.
+Returns a paginated list of posts for one Instagram account. You send the numeric `user_id` of the account. Each item includes the post `code`, caption data, `comment_count`, and media details such as carousel items and clip metadata.
 
 ### Use cases
 
-- Display an Instagram account media feed in an external application.
-- Monitor engagement metrics such as likes and comments over recent posts.
-- Archive captions and post metadata for specific public profiles.
+- Build a media feed for an Instagram account inside another app.
+- Track `comment_count` across an account's recent posts to compare engagement.
+- Collect accessibility captions and carousel media IDs to catalog an account's images.
+- Page back through an account's history with `next_max_id` to archive its posts.
 
 ### Request
 
@@ -80,6 +81,8 @@ curl -X POST "https://api.sandbase.ai/v1/api/instagram/v1/user-posts" \
   -H "Content-Type: application/json" \
   -d '{"user_id": "25025320"}'
 ```
+
+The result is returned in `outputs[0].data`.
 
 ### Parameters
 
@@ -91,57 +94,94 @@ curl -X POST "https://api.sandbase.ai/v1/api/instagram/v1/user-posts" \
 
 ### Example response
 
-Real response for the request above, trimmed to the main fields. User names and long IDs are masked.
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
 
 ```json
 {
+  "attempts": "79",
   "items": [
     {
-      "caption_is_edited": false,
-      "coauthor_producer_can_see_organic_insights": false,
-      "comment_count": 18380,
-      "device_timestamp": 1790870048722622,
-      "disable_caption_and_comment": false,
-      "filter_type": 0,
-      "id": "3998430248382584993_25025320",
-      "ig_play_count": 150975683,
-      "like_and_view_counts_disabled": false,
-      "like_count": 642777,
+      "are_remixes_crosspostable": true,
+      "boost_unavailable_identifier": null,
+      "boost_unavailable_reason": null,
+      "boost_unavailable_reason_v2": null,
+      "can_see_insights_as_brand": false,
+      "can_viewer_reshare": true,
+      "can_viewer_save": true,
       "caption": {
+        "bit_flags": 0,
         "content_type": "comment",
-        "media_id": 3998430248382584993,
-        "private_reply_status": 0,
-        "status": "Active",
-        "text": "DIY fish squishy 🐟⁣ ⁣ @yano4kaa.a made this squishy using stuff she already had at home l…",
-        "text_translation": "DIY fish squishy 🐟     @yano4kaa.a made this squishy using stuff she already had at home …"
+        "created_at": 1793647551,
+        "created_at_utc": 1793647551,
+        "did_report_as_spam": false,
+        "is_covered": false,
+        "is_ranked_comment": false,
+        "media_id": 4021726163100932870
       },
+      "caption_is_edited": false,
+      "client_cache_key": "NDAyMTcyNjE2MzEwMDkzMjg3MA==.3",
       "clips_metadata": {
-        "audio_type": "licensed_music",
-        "music_canonical_id": "18242041438023387",
-        "professional_clips_upsell_type": 0
+        "achievements_info": {
+          "num_earned_achievements": null,
+          "show_achievements": false
+        },
+        "additional_audio_info": {
+          "additional_audio_username": null,
+          "audio_reattribution_info": {
+            "should_allow_restore": false
+          }
+        },
+        "asset_recommendation_info": null,
+        "audio_ranking_info": {
+          "best_audio_cluster_id": "1079281138448348"
+        },
+        "audio_type": "original_sounds",
+        "basel_template_info_for_ig_app": {
+          "is_basel_template": null,
+          "original_template_media_id": null,
+          "should_show_reuse_setting_for_owner": false,
+          "use_template_deeplink": null
+        },
+        "branded_content_tag_info": {
+          "can_add_tag": false
+        },
+        "breaking_content_info": null
       },
-      "user": {
-        "account_type": 3,
-        "eligible_for_text_app_activation_badge": false,
-        "full_name": "Instagram",
-        "id": "25025320",
-        "pk_id": "25025320",
-        "profile_pic_id": "3725434617063385984_25025320"
-      }
+      "clips_tab_pinned_user_ids": []
     }
-  ]
+  ],
+  "more_available": true,
+  "next_max_id": "4007127383642387898_25025320"
 }
 ```
 
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `items[]` | List of posts for the account. Each entry is one post, which can be a single video, a clip, or a carousel. |
+| `items[].code` | Short post code, for example `DfQCqMnhpsG`. It is the shortcode used in Instagram post links. |
+| `items[].comment_count` | Number of comments on the post. |
+| `items[].caption.created_at / items[].caption.created_at_utc` | Unix timestamp in seconds for when the caption was created. In the sample both values are equal. |
+| `items[].caption.media_id` | Numeric ID of the media that the caption belongs to. |
+| `items[].accessibility_caption` | Text description of the image. It appears on image posts and carousel items, not on every post. |
+| `items[].carousel_media[]` | Child items of a carousel post. Each one has its own `caption`, `carousel_parent_id`, and `commerciality_status`. |
+| `items[].carousel_media_count` | Number of items in the carousel post. |
+| `items[].coauthor_producers[]` | Accounts that co-author the post. Each entry has `full_name`, `pk`, `is_verified`, and `is_private`. |
+| `items[].clips_metadata.audio_type` | Type of audio on a clip, for example `original_sounds`. |
+| `more_available` | `true` when more posts can be fetched after this page. |
+| `next_max_id` | Cursor for the next page. Pass it as `max_id` in the next request. |
+
 ### Notes
 
-- Supply `user_id` to identify the Instagram profile.
-- Pass `max_id` as the pagination cursor for requests after the first page.
-- Use `count` to specify the number of posts returned per page, defaulting to 12.
+- Pass `next_max_id` from the response as `max_id` to get the next page. Stop when `more_available` is `false`.
+- `count` sets the page size from 1 to 50. The default is 12.
+- `user_id` is the numeric Instagram account ID. Get it from [Instagram User Info by Username](/apis/instagram/v1/user-info-by-username) if you only have a username.
+- Post fields vary by type. Clips include `clips_metadata`, and carousels include `carousel_media`. To read one post in full, use [Instagram Post Details by ID](/apis/instagram/v1/post-by-id).
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

@@ -63,13 +63,14 @@ Same call via the path form: `POST /v1/api/youtube/web/relate-video` with the bo
 
 ## Details
 
-Retrieve recommended and related videos for a specific video using `video_id`. Pass `continuation_token` to load additional pages of related content.
+Returns a list of videos that YouTube recommends next to a given video. You send a `video_id` and get back each related video's title, channel, length, publish age and thumbnails, plus a token for the next page.
 
 ### Use cases
 
-- Build video recommendation feeds based on a currently playing item.
-- Discover related content and channels in specific topic clusters.
-- Extract recommended video metadata for audience interest analysis.
+- Build a "watch next" feed for a video you already track.
+- Map which channels YouTube groups with a given video, such as channels that make similar music mixes.
+- Collect titles and channel IDs of related videos to study a topic cluster.
+- Walk through several pages of recommendations by repeating the call with the returned token.
 
 ### Request
 
@@ -80,25 +81,40 @@ curl -X POST "https://api.sandbase.ai/v1/api/youtube/web/relate-video" \
   -d '{"video_id": "LuIL5JATZsc"}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
 |---|---|---|---|
 | `video_id` | string | Yes | Video ID, get it from the URL, for example: https://www.youtube.com/watch?v=LuIL5JATZsc, the id is LuIL5JATZsc. |
-| `continuation_token` | string | No | Token to continue fetching related videos. |
+| `continuation_token` | string | No | Token to continue fetching related videos. Default is None. |
 
 ### Example response
 
-Real response for the request above, trimmed to the main fields. User names and long IDs are masked.
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
 
 ```json
 {
+  "continuation_token": "CBQSKRIL…",
+  "number_of_videos": 20,
   "videos": [
     {
       "author": "CozyCraft",
+      "category": null,
       "channel_id": "UCeu6U67OzJhV1KwBansH3Dg",
+      "description": "",
+      "is_live_content": null,
+      "keywords": [],
       "number_of_views": 0,
-      "published_time": "5mo ago",
+      "published_time": "6mo ago",
+      "thumbnails": [
+        {
+          "height": 94,
+          "url": "https://i.ytimg.com/vi/CijACOd7jQk/hqdefault.jpg?sqp=-oaymwEbCKgBEF5IVfKriqkDDgg…",
+          "width": 168
+        }
+      ],
       "title": "just relax, everything can wait… (minecraft music & ambience)",
       "type": "NORMAL",
       "video_id": "CijACOd7jQk"
@@ -107,14 +123,31 @@ Real response for the request above, trimmed to the main fields. User names and 
 }
 ```
 
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `videos[].video_id` | ID of the related video. Use it as `video_id` in other YouTube calls. |
+| `videos[].title` | Title of the related video. |
+| `videos[].author / videos[].channel_id` | Name and channel ID of the channel that posted the related video. |
+| `videos[].video_length` | Length of the video as a clock string, such as `11:00:00`. |
+| `videos[].published_time` | Relative publish age as text, such as `6mo ago` or `13d ago`. It is not an exact date. |
+| `videos[].number_of_views` | View count of the related video. The sample shows `0` for every item, so do not rely on it. |
+| `videos[].thumbnails[]` | Thumbnail images with `url`, `width` and `height`. Each video lists two sizes. |
+| `videos[].type` | Kind of item. The sample shows `NORMAL`. |
+| `number_of_videos` | Count of videos returned in this page. |
+| `continuation_token` | Token that loads the next page of related videos. |
+
 ### Notes
 
-- Obtain `video_id` directly from the YouTube video URL.
-- Use `continuation_token` to paginate through subsequent related videos.
+- Take `video_id` from the watch URL. In `https://www.youtube.com/watch?v=LuIL5JATZsc`, the ID is `LuIL5JATZsc`.
+- For the next page, send the same `video_id` with the `continuation_token` from the previous response.
+- In the sample, `category`, `is_live_content`, `description` and `keywords` are `null` or empty. Call [YouTube Video Details](/apis/youtube/video-detail) for a related video to get fuller data.
+- For channel profile data, pass a `channel_id` from this response to [YouTube Channel Information](/apis/youtube/web/channel-info).
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

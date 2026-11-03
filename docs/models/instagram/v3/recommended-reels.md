@@ -59,13 +59,13 @@ Same call via the path form: `POST /v1/api/instagram/v3/recommended-reels` with 
 
 ## Details
 
-Retrieve recommended Instagram Reels posts using optional `first` to set page size and `after` for pagination cursors.
+Returns a page of Instagram Reels from the recommendation feed, with caption and media details for each Reel. It needs no input. You can set the page size with `first` and continue with an `after` cursor.
 
 ### Use cases
 
-- Browse recommended Reels content from Instagram.
-- Collect trending short-form video media URLs for content analysis.
-- Paginate through continuous Reels recommendation feeds.
+- Sample the Reels that Instagram recommends to collect captions and hashtags for trend research.
+- Page through the feed to build a set of short video posts for content analysis.
+- Check which hashtags and topics appear most often in recommended Reels.
 
 ### Request
 
@@ -76,6 +76,8 @@ curl -X POST "https://api.sandbase.ai/v1/api/instagram/v3/recommended-reels" \
   -d '{}'
 ```
 
+The result is returned in `outputs[0].data`.
+
 ### Parameters
 
 | Name | Type | Required | Description |
@@ -85,36 +87,66 @@ curl -X POST "https://api.sandbase.ai/v1/api/instagram/v3/recommended-reels" \
 
 ### Example response
 
-Real response for the request above, trimmed to the main fields. User names and long IDs are masked.
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
 
 ```json
 {
+  "_rid": "175cd2383155a",
   "edges": [
     {
+      "cursor": "",
       "node": {
+        "__typename": "XDTClipsItemDict",
         "media": {
-          "image_versions2": {
-            "candidates": [
-              {
-                "url": "https://scontent.cdninstagram.com/v/t51.82787-15/829788099_18117638282107842_802…"
-              }
-            ]
-          }
+          "__typename": "XDTMediaDict",
+          "ai_interactive_embodiment_attachment_style_info": null,
+          "ai_label_info": null,
+          "audience": null,
+          "brs_severity": 70,
+          "can_viewer_reshare": true,
+          "caption": {
+            "has_translation": null,
+            "pk": "17886277431503571",
+            "text": "Hoping to get more of these soon 🩵\n#northernlights #aurora #fairbanks #aurorabor…"
+          },
+          "carousel_media": null
         }
       }
     }
-  ]
+  ],
+  "gating": null,
+  "page_info": {
+    "end_cursor": "Giae5PnbnMSEuG-wtPuzjbeFvm8mis2shbRoFAQ0AikIGAAaCBgNczoxYTFhMDU1OTM0NRQBGgYZDAA=",
+    "has_next_page": true,
+    "has_previous_page": false,
+    "start_cursor": null
+  }
 }
 ```
 
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `edges[].node.media` | The Reel item. It holds the media details for one recommended Reel. |
+| `edges[].node.media.caption.text` | Caption text of the Reel, including hashtags. |
+| `edges[].node.media.caption.pk` | ID of the caption. |
+| `edges[].node.media.can_viewer_reshare` | Whether the viewer can reshare the Reel (`true` or `false`). |
+| `edges[].node.media.carousel_media` | Carousel items. It is `null` for a single Reel. |
+| `edges[].node.__typename` | Item type. Reels in this feed show `XDTClipsItemDict`. |
+| `page_info.end_cursor` | Cursor for the last item on this page. Pass it as `after` to get the next page. |
+| `page_info.has_next_page` | `true` when more Reels are available after this page. |
+
 ### Notes
 
-- Use `first` to specify the count of items to return, with a default of 12 and a maximum of 50.
-- Pass `after` with the cursor from `data.page_info.end_cursor` of a previous response to paginate.
+- Omit `after` on the first request. For later pages, send the `page_info.end_cursor` value from the previous response as `after`.
+- `first` sets the number of Reels per request. The default is 12 and the maximum is 50.
+- In the response the pagination object is at `page_info`. The `edges[].cursor` values were empty in the sample, so use `page_info.end_cursor`.
+- To get full details for a Reel you found, call [Instagram Post Details (V3)](/apis/instagram/v3/post-info).
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.008 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 

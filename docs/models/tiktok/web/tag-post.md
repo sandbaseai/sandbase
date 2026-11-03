@@ -64,13 +64,14 @@ Same call via the path form: `POST /v1/api/tiktok/web/tag-post` with the body ab
 
 ## Details
 
-Retrieve videos tied to a specific hashtag challenge by supplying `challengeID`. Supports pagination via `cursor` and `count`.
+Returns a page of TikTok videos that use a given hashtag challenge. Each video includes its caption, author, stats, music and playback URLs. The only required input is `challengeID`.
 
 ### Use cases
 
-- Retrieve video content grouped under a specific TikTok hashtag challenge.
-- Analyze trending videos associated with a targeted tag ID.
-- Collect paginated video feeds for hashtag performance research.
+- Pull the latest videos under a hashtag such as `cat` to see what creators post for it.
+- Compare `stats.playCount` and `stats.diggCount` across videos in one tag to find the top performers.
+- Collect author follower counts for a hashtag to build a list of creators who post in that niche.
+- Download video files from the `video.PlayAddrStruct.UrlList` links for offline review.
 
 ### Request
 
@@ -80,6 +81,8 @@ curl -X POST "https://api.sandbase.ai/v1/api/tiktok/web/tag-post" \
   -H "Content-Type: application/json" \
   -d '{"challengeID": "7551"}'
 ```
+
+The result is returned in `outputs[0].data`.
 
 ### Parameters
 
@@ -91,34 +94,120 @@ curl -X POST "https://api.sandbase.ai/v1/api/tiktok/web/tag-post" \
 
 ### Example response
 
-Real response for the request above, trimmed to the main fields. User names and long IDs are masked.
+Real response for the request above, trimmed: lists keep their first item and long strings are cut.
 
 ```json
 {
+  "cookie": "tt_chain…",
+  "cursor": "1",
+  "extra": {
+    "fatal_item_ids": [],
+    "logid": "20261103074430ADC687E8CD26C202B696",
+    "now": 1793691870000
+  },
+  "hasMore": false,
   "itemList": [
     {
-      "video": {
-        "bitrateInfo": [
-          {
-            "CodecType": "h264",
-            "GearName": "normal_720_0",
-            "QualityType": 10
-          }
-        ]
-      }
+      "AIGCDescription": "",
+      "CategoryType": 113,
+      "IsHDBitrate": false,
+      "ShowAIGC": true,
+      "author": {
+        "avatarLarger": "https://p16-common-sign.tiktokcdn-us.com/tos-useast8-avt-0068-tx2/43225e8d641a71…",
+        "avatarMedium": "https://p16-common-sign.tiktokcdn-us.com/tos-useast8-avt-0068-tx2/43225e8d641a71…",
+        "avatarThumb": "https://p16-common-sign.tiktokcdn-us.com/tos-useast8-avt-0068-tx2/43225e8d641a71…",
+        "commentSetting": 0,
+        "downloadSetting": 3,
+        "duetSetting": 0,
+        "ftc": false,
+        "id": "7440864094419059758"
+      },
+      "authorStats": {
+        "diggCount": 103,
+        "followerCount": 248900,
+        "followingCount": 7,
+        "friendCount": 0,
+        "heart": 46400000,
+        "heartCount": 46400000,
+        "videoCount": 415
+      },
+      "authorStatsV2": {
+        "diggCount": "103",
+        "followerCount": "248900",
+        "followingCount": "7",
+        "friendCount": "0",
+        "heart": "46400000",
+        "heartCount": "46400000",
+        "videoCount": "415"
+      },
+      "backendSourceEventTracking": "",
+      "challenges": [
+        {
+          "coverLarger": "",
+          "coverMedium": "",
+          "coverThumb": "",
+          "desc": "",
+          "id": "7551",
+          "profileLarger": "https://p19-common-sign.tiktokcdn-us.com/musically-maliva-obj/2e13829d6e18167082…",
+          "profileMedium": "https://p19-common-sign.tiktokcdn-us.com/musically-maliva-obj/2e13829d6e18167082…",
+          "profileThumb": "https://p19-common-sign.tiktokcdn-us.com/musically-maliva-obj/2e13829d6e18167082…"
+        }
+      ],
+      "collected": false,
+      "contents": [
+        {
+          "desc": "#cat ",
+          "textExtra": [
+            {
+              "awemeId": "",
+              "end": 4,
+              "hashtagName": "cat",
+              "isCommerce": false,
+              "start": 0,
+              "subType": 0,
+              "type": 1
+            }
+          ]
+        }
+      ],
+      "createTime": 1793639413
     }
-  ]
+  ],
+  "log_pb": {
+    "impr_id": "20261103074430ADC687E8CD26C202B696"
+  },
+  "statusCode": 0,
+  "status_code": 0,
+  "status_msg": "",
+  "tt_chain_token": "i1xd4jgR…"
 }
 ```
 
+### Response fields
+
+| Field | Meaning |
+|---|---|
+| `itemList[]` | The list of videos returned for the tag. Each entry is one video. |
+| `itemList[].id / itemList[].createTime` | The video ID as a string, and the creation time as a Unix timestamp in seconds. |
+| `itemList[].desc` | The video caption text, including hashtags. |
+| `itemList[].stats.playCount / diggCount / commentCount / shareCount / collectCount` | View, like, comment, share and save counts for the video as numbers. |
+| `itemList[].author.id` | The ID of the account that posted the video. |
+| `itemList[].authorStats.followerCount / heartCount / videoCount` | The author's follower count, total likes received and number of videos. |
+| `itemList[].challenges[].id` | IDs of the challenges (tags) attached to the video. The `challengeID` you searched for appears here. |
+| `itemList[].music.id / music.authorName` | The ID and author name of the sound used in the video. |
+| `itemList[].video.PlayAddrStruct.UrlList` | Direct playback URLs for the default video file. `Width`, `Height` and `DataSize` describe that file. |
+| `hasMore / cursor` | `hasMore` tells you whether another page exists. `cursor` is the value returned for paging. |
+
 ### Notes
 
-- Specify the target hashtag identifier using `challengeID`.
-- Manage pagination via `cursor` and configure batch size with `count`.
+- `challengeID` is the numeric tag ID as a string, for example `7551`. Use [TikTok Tag Detail](/apis/tiktok/web/tag-detail) to look up details for a tag.
+- Page through results with `count` (default 30) and `cursor` (default 0). Stop when `hasMore` is `false`.
+- Each video also appears with string versions of its counts in `statsV2` and `authorStatsV2`.
+- To get more detail on one video, pass its `id` to [TikTok Video Detail](/apis/tiktok/web/post-detail).
 
 ### Pricing
 
-Flat price per call. Failed calls, including lookups whose target does not exist, are not charged.
+$0.001 per successful call. Failed calls are not charged. It is included in the daily free quota of each organization.
 
 ### Related APIs
 
