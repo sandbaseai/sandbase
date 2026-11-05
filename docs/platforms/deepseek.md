@@ -1,6 +1,6 @@
-# DeepSeek models API: 8 endpoints with pricing and code examples
+# DeepSeek models API: 9 endpoints with pricing and code examples
 
-Call 8 DeepSeek models through SandBase with one API key: no separate account, one balance, the same request format for every endpoint. Each page has the input schema, the price and curl / Python / TypeScript / Go examples.
+Call 9 DeepSeek models through SandBase with one API key: no separate account, one balance, the same request format for every endpoint. Each page has the input schema, the price and curl / Python / TypeScript / Go examples.
 
 | Endpoint | What it does | Price |
 |---|---|---|
@@ -12,6 +12,7 @@ Call 8 DeepSeek models through SandBase with one API key: no separate account, o
 | [`deepseek/deepseek-v4-pro`](../models/deepseek/deepseek-v4-pro.md) | DeepSeek V4 Pro is the large tier of DeepSeek's V4 family, a 1.6T-parameter mixture-of-experts model with 49B active parameters,… | $1.32 input / $3.96 output per 1M tokens |
 | [`deepseek/deepseek-v4-pro-0813`](../models/deepseek/deepseek-v4-pro-0813.md) | DeepSeek V4 Pro 0813 is the pinned GA release of DeepSeek V4 Pro from August 2026, for workloads that need a fixed version. It keeps V4… | $1.32 input / $3.96 output per 1M tokens |
 | [`deepseek/deepseek-v4.1-flash`](../models/deepseek/deepseek-v4.1-flash.md) | DeepSeek V4.1 Flash is the smallest model in DeepSeek's V4.1 architecture family, released in September 2026 with native visual… | $0.3 input / $1.2 output per 1M tokens |
+| [`deepseek/deepseek-v4.1-flash-economy`](../models/deepseek/deepseek-v4.1-flash-economy.md) | DeepSeek V4.1 Flash Economy is a lower-cost service tier of the October 17, 2026 snapshot of DeepSeek V4.1 Flash, served through… | $0.3 input / $1.2 output per 1M tokens |
 
 ## Quick start
 

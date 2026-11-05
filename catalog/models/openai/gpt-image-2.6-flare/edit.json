@@ -1,0 +1,279 @@
+{
+  "name": "openai/gpt-image-2.6-flare/edit",
+  "display_name": "GPT Image 2.6 Flare Edit",
+  "type": "image",
+  "vendor": "OpenAI",
+  "vendor_slug": "openai",
+  "description": "GPT Image 2.6 Flare Edit is optimized for fast, high-quality image editing and multi-image composition.",
+  "tags": [
+    "image-to-image",
+    "commercial"
+  ],
+  "capabilities": [
+    "image-to-image",
+    "commercial"
+  ],
+  "modes": [
+    "sync",
+    "async"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "prompt",
+      "images"
+    ],
+    "properties": {
+      "images": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        },
+        "title": "Images",
+        "examples": [
+          "https://cdn.openai.com/API/docs/images/body-lotion.png",
+          "https://cdn.openai.com/API/docs/images/soap.png",
+          "https://cdn.openai.com/API/docs/images/incense-kit.png",
+          "https://cdn.openai.com/API/docs/images/bath-bomb.png"
+        ],
+        "description": "The URLs of the images to use for image-to-image generation or image editing."
+      },
+      "prompt": {
+        "type": "string",
+        "title": "Prompt",
+        "default": "Generate a photorealistic image of a gift basket on a white background labeled 'Relax & Unwind' with a ribbon and handwriting-like font, containing all the items in the reference pictures.",
+        "maxLength": 32000,
+        "minLength": 3,
+        "description": "The text prompt to generate an image from."
+      },
+      "quality": {
+        "enum": [
+          "low",
+          "medium",
+          "high"
+        ],
+        "type": "string",
+        "title": "Quality",
+        "default": "high",
+        "description": "Rendering quality. Higher quality adds detail at higher latency and cost."
+      },
+      "resolution": {
+        "enum": [
+          "1k",
+          "2k",
+          "4k"
+        ],
+        "type": "string",
+        "title": "Resolution",
+        "description": "The resolution of the generated image. Leave unset to preserve the provider's standard dimensions."
+      },
+      "aspect_ratio": {
+        "enum": [
+          "1:1",
+          "1:2",
+          "2:1",
+          "2:3",
+          "3:2",
+          "3:4",
+          "4:3",
+          "4:5",
+          "5:4",
+          "9:16",
+          "16:9",
+          "9:21",
+          "21:9"
+        ],
+        "type": "string",
+        "title": "Aspect Ratio",
+        "description": "The aspect ratio of the generated image."
+      },
+      "output_format": {
+        "enum": [
+          "jpeg",
+          "png",
+          "webp"
+        ],
+        "type": "string",
+        "title": "Output Format",
+        "default": "png",
+        "description": "The format of the generated image."
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "title": "GenerationResponse",
+    "required": [
+      "id",
+      "status"
+    ],
+    "properties": {
+      "id": {
+        "type": "string",
+        "description": "Unique identifier for the generation task."
+      },
+      "error": {
+        "type": "string",
+        "description": "Error message if the task failed. Empty on success."
+      },
+      "model": {
+        "type": "string",
+        "description": "Model ID used for the prediction."
+      },
+      "status": {
+        "enum": [
+          "pending",
+          "running",
+          "completed",
+          "failed",
+          "timeout"
+        ],
+        "type": "string",
+        "description": "Status of the task: pending, running, completed, failed, or timeout."
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "title": "OutputItem",
+          "required": [
+            "url"
+          ],
+          "properties": {
+            "url": {
+              "type": "string",
+              "description": "The URL where the generated content can be downloaded from."
+            },
+            "content_type": {
+              "type": "string",
+              "description": "The MIME type of the output file."
+            }
+          }
+        },
+        "description": "Array of generated content. Empty when status is not completed."
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "formula",
+    "formula": "((params.quality ?? \"high\") == \"low\" ? ((params.resolution ?? \"1k\") == \"4k\" ? 0.045 : (params.resolution ?? \"1k\") == \"2k\" ? 0.035 : 0.025) : ((params.quality ?? \"high\") == \"medium\" ? ((params.resolution ?? \"1k\") == \"4k\" ? 0.085 : (params.resolution ?? \"1k\") == \"2k\" ? 0.055 : 0.039) : ((params.resolution ?? \"1k\") == \"4k\" ? 0.285 : (params.resolution ?? \"1k\") == \"2k\" ? 0.165 : 0.105))) + Math.max(float(len(params.images ?? [])) - 1.0, 0.0) * 0.015",
+    "formula_variables": [
+      "params.images",
+      "params.quality",
+      "params.resolution"
+    ],
+    "reference_price": 0.105,
+    "price_examples": [
+      {
+        "params": {
+          "quality": "low",
+          "resolution": "1k"
+        },
+        "usd": 0.025
+      },
+      {
+        "params": {
+          "quality": "low",
+          "resolution": "2k"
+        },
+        "usd": 0.035
+      },
+      {
+        "params": {
+          "quality": "low",
+          "resolution": "4k"
+        },
+        "usd": 0.045
+      },
+      {
+        "params": {
+          "quality": "medium",
+          "resolution": "1k"
+        },
+        "usd": 0.039
+      },
+      {
+        "params": {
+          "quality": "medium",
+          "resolution": "2k"
+        },
+        "usd": 0.055
+      },
+      {
+        "params": {
+          "quality": "medium",
+          "resolution": "4k"
+        },
+        "usd": 0.085
+      },
+      {
+        "params": {
+          "quality": "high",
+          "resolution": "1k"
+        },
+        "usd": 0.105
+      },
+      {
+        "params": {
+          "quality": "high",
+          "resolution": "2k"
+        },
+        "usd": 0.165
+      },
+      {
+        "params": {
+          "quality": "high",
+          "resolution": "4k"
+        },
+        "usd": 0.285
+      }
+    ]
+  },
+  "examples": [
+    {
+      "input": {
+        "aspect_ratio": "16:9",
+        "images": [
+          "https://static.sandbase.ai/examples/0de9d081-6109-4bf2-908c-fce8cad00373/input/4da5ba0b-d3ae-435c-846b-690644bf60b7.png"
+        ],
+        "prompt": "Create a realistic billboard mockup of the shampoo on a highway scene during sunset.\nBillboard text (EXACT, verbatim, no extra characters):\n\"Fresh and clean\"\nTypography: bold sans-serif, high contrast, centered, clean kerning.\nEnsure text appears once and is perfectly legible.\nNo watermarks, no logos."
+      },
+      "output": [
+        {
+          "url": "https://static.sandbase.ai/examples/0de9d081-6109-4bf2-908c-fce8cad00373/output/c277c298-0c00-42d1-896e-18a3e2994809.png"
+        }
+      ],
+      "default": true
+    },
+    {
+      "input": {
+        "aspect_ratio": "16:9",
+        "images": [
+          "https://static.sandbase.ai/examples/bd4060f1-4491-4c59-98f9-54943cbe6191/input/f147bed3-d4a2-43ef-a94a-2ef397df66b7.png",
+          "https://static.sandbase.ai/examples/bd4060f1-4491-4c59-98f9-54943cbe6191/input/e4f27c7b-b3e3-45a3-88a1-1e19aa705c2f.png",
+          "https://static.sandbase.ai/examples/bd4060f1-4491-4c59-98f9-54943cbe6191/input/0c2449a1-164a-4300-bbc6-745840d19b5c.png",
+          "https://static.sandbase.ai/examples/bd4060f1-4491-4c59-98f9-54943cbe6191/input/db5daf91-c1fc-4106-a72b-118050d34c53.png"
+        ],
+        "output_format": "png",
+        "prompt": "Create a premium photorealistic spa bathroom scene using all four products from the reference images.\n\nArrange the body lotion, artisan soap, incense burner, and bath bomb together on a natural stone vanity beside a softly steaming bathtub. Add neatly folded white towels, a small eucalyptus branch, warm candlelight, and subtle morning sunlight coming through a frosted window.\n\nPreserve the recognizable shape, material, color, proportions, and visible label details of every referenced product. Each of the four products must appear exactly once and remain clearly visible.\n\nUse an elegant editorial product-photography composition with realistic reflections, soft shadows, shallow depth of field, and refined neutral colors. The result should feel luxurious, calm, cohesive, and suitable for a premium wellness campaign.\n\nDo not use a gift basket, gift box, ribbon, or additional branded products. Do not duplicate, merge, deform, or obscure any referenced item. No extra text, no watermark, and no unrelated logos.",
+        "quality": "high"
+      },
+      "output": [
+        {
+          "url": "https://static.sandbase.ai/examples/bd4060f1-4491-4c59-98f9-54943cbe6191/output/45d45468-00e4-4702-8dc9-60023cd1e8df.png"
+        }
+      ]
+    }
+  ],
+  "readme": "# GPT Image 2.6 Flare Edit\n\nGPT Image 2.6 Flare edit: fast edits and multi-image composition with GPT Image 2.6.\n\n## Fields\n\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `images` | image URL[], required | — | Images to edit or combine, Image 1, Image 2, … |\n| `prompt` | string, required | — | Up to 32,000 characters. |\n| `quality` | `low` / `medium` / `high` | `high` | Higher quality costs more; `high` is the default. |\n| `resolution` | `1k` / `2k` / `4k` | — | Output size tier; omit for 1K. |\n| `aspect_ratio` | `1:1` / `1:2` / `2:1` / `2:3` / `3:2` / `3:4` / `4:3` / `4:5` / `5:4` / `9:16` / `16:9` / `9:21` / `21:9` | — | Omit to follow the first input image. |\n| `output_format` | `jpeg` / `png` / `webp` | `png` | Output file format. |\n\n## Billing\n\nPrice depends on quality and resolution, per output image, plus $0.015 for each input image after the first:\n\n| Quality, 1 input | 1k | 2k | 4k |\n|---|---|---|---|\n| low | $0.025 | $0.035 | $0.045 |\n| medium | $0.039 | $0.055 | $0.085 |\n| high (default) | $0.105 | $0.165 | $0.285 |\n\nFailed runs are not charged.\n\n## Prompting\n\n- Say which image is the base and what each other image adds.\n- List what must not change.\n\n## Limits\n\n- One output image per request.\n- Up to 16 input images.\n\n## Also on SandBase\n\nOther GPT Image endpoints: `openai/gpt-image-2.6-flare`, `openai/gpt-image-2.6-sunburst`, `openai/gpt-image-2.6-sunburst/edit`, `openai/gpt-image-2.5-flare`, `openai/gpt-image-2.5-sunburst`.\n",
+  "cover_url": "https://static.sandbase.ai/covers/openai/gpt-image-2.6-flare/edit/cover-flare-20261105103609.webp",
+  "page_url": "https://www.sandbase.ai/model/openai/gpt-image-2.6-flare/edit",
+  "published_at": "2026-11-04T00:00:00Z",
+  "created_at": "2026-11-05T02:26:56.645Z"
+}

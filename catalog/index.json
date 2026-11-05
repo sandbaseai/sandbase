@@ -1,13 +1,13 @@
 {
  "catalog_version": "1",
- "generated_at": "2026-11-03T16:16:29Z",
+ "generated_at": "2026-11-05T12:20:00Z",
  "base_url": "https://api.sandbase.ai",
- "count": 2287,
+ "count": 2292,
  "counts_by_type": {
   "api": 1850,
   "video": 177,
-  "llm": 121,
-  "image": 105,
+  "llm": 122,
+  "image": 109,
   "audio": 32,
   "embedding": 2
  },
@@ -41582,6 +41582,94 @@
    "record": "catalog/models/openai/gpt-image-2.5-sunburst/edit.json"
   },
   {
+   "name": "openai/gpt-image-2.6-flare",
+   "display_name": "GPT Image 2.6 Flare Text to Image",
+   "type": "image",
+   "vendor": "OpenAI",
+   "description": "GPT Image 2.6 Flare is optimized for fast, high-quality image generation, with improved layout quality for posters, product imagery, and other professional visuals.",
+   "tags": [
+    "text-to-image",
+    "commercial"
+   ],
+   "modes": [
+    "sync",
+    "async"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "formula",
+    "usd_from": 0.01,
+    "usd_to": 0.27
+   },
+   "record": "catalog/models/openai/gpt-image-2.6-flare.json"
+  },
+  {
+   "name": "openai/gpt-image-2.6-flare/edit",
+   "display_name": "GPT Image 2.6 Flare Edit",
+   "type": "image",
+   "vendor": "OpenAI",
+   "description": "GPT Image 2.6 Flare Edit is optimized for fast, high-quality image editing and multi-image composition.",
+   "tags": [
+    "image-to-image",
+    "commercial"
+   ],
+   "modes": [
+    "sync",
+    "async"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "formula",
+    "usd_from": 0.025,
+    "usd_to": 0.285
+   },
+   "record": "catalog/models/openai/gpt-image-2.6-flare/edit.json"
+  },
+  {
+   "name": "openai/gpt-image-2.6-sunburst",
+   "display_name": "GPT Image 2.6 Sunburst Text to Image",
+   "type": "image",
+   "vendor": "OpenAI",
+   "description": "GPT Image 2.6 Sunburst prioritizes detail and precision for complex image generation workflows.",
+   "tags": [
+    "text-to-image",
+    "commercial"
+   ],
+   "modes": [
+    "sync",
+    "async"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "formula",
+    "usd_from": 0.01,
+    "usd_to": 0.27
+   },
+   "record": "catalog/models/openai/gpt-image-2.6-sunburst.json"
+  },
+  {
+   "name": "openai/gpt-image-2.6-sunburst/edit",
+   "display_name": "GPT Image 2.6 Sunburst Edit",
+   "type": "image",
+   "vendor": "OpenAI",
+   "description": "GPT Image 2.6 Sunburst Edit prioritizes precision and consistency across successive edits for complex image editing workflows.",
+   "tags": [
+    "image-to-image",
+    "commercial"
+   ],
+   "modes": [
+    "sync",
+    "async"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "formula",
+    "usd_from": 0.025,
+    "usd_to": 0.285
+   },
+   "record": "catalog/models/openai/gpt-image-2.6-sunburst/edit.json"
+  },
+  {
    "name": "openai/gpt-image-2/edit",
    "display_name": "GPT Image 2 Edit",
    "type": "image",
@@ -43071,6 +43159,32 @@
     }
    },
    "record": "catalog/models/deepseek/deepseek-v4.1-flash.json"
+  },
+  {
+   "name": "deepseek/deepseek-v4.1-flash-economy",
+   "display_name": "DeepSeek: DeepSeek V4.1 Flash Economy",
+   "type": "llm",
+   "vendor": "DeepSeek",
+   "description": "DeepSeek V4.1 Flash Economy is a lower-cost service tier of the October 17, 2026 snapshot of DeepSeek V4.1 Flash, served through Volcengine Ark. It keeps the 1M-token context window, image input and reasoning of the standard model, and suits cost-sensitive batch and agent…",
+   "tags": [
+    "chat",
+    "vision",
+    "reasoning",
+    "structured_output",
+    "function_calling"
+   ],
+   "modes": [
+    "sync"
+   ],
+   "endpoint": "POST /v1/chat/completions",
+   "price": {
+    "model": "per_token",
+    "usd_per_million_tokens": {
+     "input": 0.3,
+     "output": 1.2
+    }
+   },
+   "record": "catalog/models/deepseek/deepseek-v4.1-flash-economy.json"
   },
   {
    "name": "google/gemini-2.5-flash",

@@ -451,6 +451,7 @@ deepseek/deepseek-v4-flash-vision-exp,llm,DeepSeek,per_token,,0.3,1.2,,,,sync,PO
 deepseek/deepseek-v4-pro,llm,DeepSeek,per_token,,1.32,3.96,,,,sync,POST /v1/chat/completions
 deepseek/deepseek-v4-pro-0813,llm,DeepSeek,per_token,,1.32,3.96,,,,sync,POST /v1/chat/completions
 deepseek/deepseek-v4.1-flash,llm,DeepSeek,per_token,,0.3,1.2,,,,sync,POST /v1/chat/completions
+deepseek/deepseek-v4.1-flash-economy,llm,DeepSeek,per_token,,0.3,1.2,,,,sync,POST /v1/chat/completions
 douban/movie-comments,api,Douban,per_call,0.014286,,,,,yes,sync,POST /v1/run
 douban/movie-review-detail,api,Douban,per_call,0.014286,,,,,yes,sync,POST /v1/run
 douban/movie-reviews,api,Douban,per_call,0.014286,,,,,yes,sync,POST /v1/run
@@ -1431,6 +1432,10 @@ openai/gpt-image-2.5-flare,image,OpenAI,formula,,,,0.01,1,,sync async,POST /v1/r
 openai/gpt-image-2.5-flare/edit,image,OpenAI,formula,,,,0.025,1.015,,sync async,POST /v1/run
 openai/gpt-image-2.5-sunburst,image,OpenAI,formula,,,,0.01,1,,sync async,POST /v1/run
 openai/gpt-image-2.5-sunburst/edit,image,OpenAI,formula,,,,0.025,1.015,,sync async,POST /v1/run
+openai/gpt-image-2.6-flare,image,OpenAI,formula,,,,0.01,0.27,,sync async,POST /v1/run
+openai/gpt-image-2.6-flare/edit,image,OpenAI,formula,,,,0.025,0.285,,sync async,POST /v1/run
+openai/gpt-image-2.6-sunburst,image,OpenAI,formula,,,,0.01,0.27,,sync async,POST /v1/run
+openai/gpt-image-2.6-sunburst/edit,image,OpenAI,formula,,,,0.025,0.285,,sync async,POST /v1/run
 openai/gpt-image-2/edit,image,OpenAI,formula,,,,0.02,0.73,,async,POST /v1/run
 openai/gpt-oss-120b,llm,OpenAI,per_token,,0.039,0.18,,,,sync,POST /v1/chat/completions
 openai/text-embedding-3-large,embedding,OpenAI,per_token,,0.13,0,,,,sync,POST /v1/embeddings

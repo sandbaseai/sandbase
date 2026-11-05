@@ -1,0 +1,44 @@
+{
+  "name": "deepseek/deepseek-v4.1-flash-economy",
+  "display_name": "DeepSeek: DeepSeek V4.1 Flash Economy",
+  "type": "llm",
+  "vendor": "DeepSeek",
+  "vendor_slug": "deepseek",
+  "description": "DeepSeek V4.1 Flash Economy is a lower-cost service tier of the October 17, 2026 snapshot of DeepSeek V4.1 Flash, served through Volcengine Ark. It keeps the 1M-token context window, image input and reasoning of the standard model, and suits cost-sensitive batch and agent workloads that can accept higher latency.",
+  "tags": [
+    "chat",
+    "vision",
+    "reasoning",
+    "structured_output",
+    "function_calling"
+  ],
+  "capabilities": [
+    "chat",
+    "vision",
+    "reasoning",
+    "structured_output",
+    "function_calling"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "chat_completions": "POST /v1/chat/completions",
+    "responses": "POST /v1/responses",
+    "messages": "POST /v1/messages"
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_token",
+    "per_million_tokens": {
+      "input": 0.3,
+      "output": 1.2,
+      "cache_read_multiplier": 0.02
+    }
+  },
+  "page_url": "https://www.sandbase.ai/model/deepseek/deepseek-v4.1-flash-economy",
+  "published_at": "2026-11-05T00:00:00Z",
+  "created_at": "2026-11-05T07:08:57.833Z",
+  "context_length": 1048576
+}

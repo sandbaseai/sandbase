@@ -1,6 +1,6 @@
-# OpenAI models API: 47 endpoints with pricing and code examples
+# OpenAI models API: 51 endpoints with pricing and code examples
 
-Call 47 OpenAI models through SandBase with one API key: no separate account, one balance, the same request format for every endpoint. Each page has the input schema, the price and curl / Python / TypeScript / Go examples.
+Call 51 OpenAI models through SandBase with one API key: no separate account, one balance, the same request format for every endpoint. Each page has the input schema, the price and curl / Python / TypeScript / Go examples.
 
 | Endpoint | What it does | Price |
 |---|---|---|
@@ -47,6 +47,10 @@ Call 47 OpenAI models through SandBase with one API key: no separate account, on
 | [`openai/gpt-image-2.5-flare/edit`](../models/openai/gpt-image-2.5-flare/edit.md) | GPT Image 2.5 Flare Edit is optimized for fast, high-quality image editing and multi-image composition. | from $0.025 to $1.015 per run, depending on parameters |
 | [`openai/gpt-image-2.5-sunburst`](../models/openai/gpt-image-2.5-sunburst.md) | GPT Image 2.5 Sunburst prioritizes visual fidelity and precision for complex image generation workflows. | from $0.01 to $1 per run, depending on parameters |
 | [`openai/gpt-image-2.5-sunburst/edit`](../models/openai/gpt-image-2.5-sunburst/edit.md) | GPT Image 2.5 Sunburst Edit prioritizes precision and visual fidelity for complex image editing workflows. | from $0.025 to $1.015 per run, depending on parameters |
+| [`openai/gpt-image-2.6-flare`](../models/openai/gpt-image-2.6-flare.md) | GPT Image 2.6 Flare is optimized for fast, high-quality image generation, with improved layout quality for posters, product imagery, and… | from $0.01 to $0.27 per run, depending on parameters |
+| [`openai/gpt-image-2.6-flare/edit`](../models/openai/gpt-image-2.6-flare/edit.md) | GPT Image 2.6 Flare Edit is optimized for fast, high-quality image editing and multi-image composition. | from $0.025 to $0.285 per run, depending on parameters |
+| [`openai/gpt-image-2.6-sunburst`](../models/openai/gpt-image-2.6-sunburst.md) | GPT Image 2.6 Sunburst prioritizes detail and precision for complex image generation workflows. | from $0.01 to $0.27 per run, depending on parameters |
+| [`openai/gpt-image-2.6-sunburst/edit`](../models/openai/gpt-image-2.6-sunburst/edit.md) | GPT Image 2.6 Sunburst Edit prioritizes precision and consistency across successive edits for complex image editing workflows. | from $0.025 to $0.285 per run, depending on parameters |
 | [`openai/gpt-image-2/edit`](../models/openai/gpt-image-2/edit.md) | GPT Image 2 Editing supports image editing and multi-image synthesis with high-quality results. | from $0.02 to $0.73 per run, depending on parameters |
 | [`openai/gpt-oss-120b`](../models/openai/gpt-oss-120b.md) | gpt-oss-120b is OpenAI's largest open-weight reasoning model, released in August 2025 under the Apache 2.0 license: a 117B-parameter… | $0.039 input / $0.18 output per 1M tokens |
 | [`openai/text-embedding-3-large`](../models/openai/text-embedding-3-large.md) | OpenAI text-embedding-3-large creates embeddings for semantic search, retrieval, clustering, and classification. | $0.13 input / $0 output per 1M tokens |

@@ -1,12 +1,12 @@
 # SandBase capability index
 
-2287 capabilities · generated 2026-11-03T16:16:29Z
+2292 capabilities · generated 2026-11-05T12:20:00Z
 
 - [api](#api) (1850)
 - [audio](#audio) (32)
 - [embedding](#embedding) (2)
-- [image](#image) (105)
-- [llm](#llm) (121)
+- [image](#image) (109)
+- [llm](#llm) (122)
 - [video](#video) (177)
 
 ## api
@@ -1996,6 +1996,10 @@
 | [`openai/gpt-image-2.5-flare/edit`](models/openai/gpt-image-2.5-flare/edit.md) | 0.025–1.015 | sync, async | GPT Image 2.5 Flare Edit is optimized for fast, high-quality image editing and multi-image composition. |
 | [`openai/gpt-image-2.5-sunburst`](models/openai/gpt-image-2.5-sunburst.md) | 0.01–1 | sync, async | GPT Image 2.5 Sunburst prioritizes visual fidelity and precision for complex image generation workflows. |
 | [`openai/gpt-image-2.5-sunburst/edit`](models/openai/gpt-image-2.5-sunburst/edit.md) | 0.025–1.015 | sync, async | GPT Image 2.5 Sunburst Edit prioritizes precision and visual fidelity for complex image editing workflows. |
+| [`openai/gpt-image-2.6-flare`](models/openai/gpt-image-2.6-flare.md) | 0.01–0.27 | sync, async | GPT Image 2.6 Flare is optimized for fast, high-quality image generation, with improved layout quality for posters,… |
+| [`openai/gpt-image-2.6-flare/edit`](models/openai/gpt-image-2.6-flare/edit.md) | 0.025–0.285 | sync, async | GPT Image 2.6 Flare Edit is optimized for fast, high-quality image editing and multi-image composition. |
+| [`openai/gpt-image-2.6-sunburst`](models/openai/gpt-image-2.6-sunburst.md) | 0.01–0.27 | sync, async | GPT Image 2.6 Sunburst prioritizes detail and precision for complex image generation workflows. |
+| [`openai/gpt-image-2.6-sunburst/edit`](models/openai/gpt-image-2.6-sunburst/edit.md) | 0.025–0.285 | sync, async | GPT Image 2.6 Sunburst Edit prioritizes precision and consistency across successive edits for complex image editing… |
 | [`openai/gpt-image-2/edit`](models/openai/gpt-image-2/edit.md) | 0.02–0.73 | async | GPT Image 2 Editing supports image editing and multi-image synthesis with high-quality results. |
 | [`recraft/recraft/v4.1`](models/recraft/recraft/v4.1.md) | 0.035 / call | async | Recraft V4.1 by Recraft - generate stunning images from text prompts with state-of-the-art AI. Supports multiple… |
 | [`recraft/recraft/v4.1/utility`](models/recraft/recraft/v4.1/utility.md) | 0.04 | async | Recraft V4.1 Utility by Recraft - generate stunning images from text prompts with state-of-the-art AI. Supports… |
@@ -2064,6 +2068,7 @@
 | [`deepseek/deepseek-v4-pro`](models/deepseek/deepseek-v4-pro.md) | 1.32 / 3.96 per 1M tok | sync | DeepSeek V4 Pro is the large tier of DeepSeek's V4 family, a 1.6T-parameter mixture-of-experts model with 49B active… |
 | [`deepseek/deepseek-v4-pro-0813`](models/deepseek/deepseek-v4-pro-0813.md) | 1.32 / 3.96 per 1M tok | sync | DeepSeek V4 Pro 0813 is the pinned GA release of DeepSeek V4 Pro from August 2026, for workloads that need a fixed… |
 | [`deepseek/deepseek-v4.1-flash`](models/deepseek/deepseek-v4.1-flash.md) | 0.3 / 1.2 per 1M tok | sync | DeepSeek V4.1 Flash is the smallest model in DeepSeek's V4.1 architecture family, released in September 2026 with… |
+| [`deepseek/deepseek-v4.1-flash-economy`](models/deepseek/deepseek-v4.1-flash-economy.md) | 0.3 / 1.2 per 1M tok | sync | DeepSeek V4.1 Flash Economy is a lower-cost service tier of the October 17, 2026 snapshot of DeepSeek V4.1 Flash,… |
 | [`google/gemini-2.5-flash`](models/google/gemini-2.5-flash.md) | 0.3 / 2.5 per 1M tok | sync | Gemini 2.5 Flash is the workhorse model of Google's Gemini 2.5 family, a thinking model released as stable in June… |
 | [`google/gemini-2.5-flash-lite`](models/google/gemini-2.5-flash-lite.md) | 0.1 / 0.4 per 1M tok | sync | Gemini 2.5 Flash-Lite is the lightweight tier of Google's Gemini 2.5 family, released in July 2025 and described by… |
 | [`google/gemini-2.5-pro`](models/google/gemini-2.5-pro.md) | 1.25 / 10 per 1M tok | sync | Gemini 2.5 Pro is the Pro-tier thinking model of Google's Gemini 2.5 family, released as stable in June 2025 and… |

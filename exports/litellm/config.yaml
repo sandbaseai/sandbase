@@ -338,6 +338,14 @@ model_list:
     model_info:
       input_cost_per_token: 3e-07
       output_cost_per_token: 1.2e-06
+  - model_name: deepseek/deepseek-v4.1-flash-economy
+    litellm_params:
+      model: openai/deepseek/deepseek-v4.1-flash-economy
+      api_base: https://api.sandbase.ai/v1
+      api_key: os.environ/SANDBASE_API_KEY
+    model_info:
+      input_cost_per_token: 3e-07
+      output_cost_per_token: 1.2e-06
   - model_name: google/gemini-2.5-flash
     litellm_params:
       model: openai/google/gemini-2.5-flash

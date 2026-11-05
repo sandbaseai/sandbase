@@ -41,6 +41,7 @@
  "deepseek/deepseek-v4-pro": 0.66,
  "deepseek/deepseek-v4-pro-0813": 0.66,
  "deepseek/deepseek-v4.1-flash": 0.15,
+ "deepseek/deepseek-v4.1-flash-economy": 0.15,
  "google/gemini-2.5-flash": 0.15,
  "google/gemini-2.5-flash-lite": 0.05,
  "google/gemini-2.5-pro": 0.625,

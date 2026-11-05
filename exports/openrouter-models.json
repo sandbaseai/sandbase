@@ -493,6 +493,18 @@
    }
   },
   {
+   "id": "deepseek/deepseek-v4.1-flash-economy",
+   "name": "DeepSeek: DeepSeek V4.1 Flash Economy",
+   "description": "DeepSeek V4.1 Flash Economy is a lower-cost service tier of the October 17, 2026 snapshot of DeepSeek V4.1 Flash, served through Volcengine Ark. It keeps the 1M-token context window, image input and reasoning of the standard model, and suits cost-sensitive batch and agent workloads that can accept higher latency.",
+   "context_length": 1048576,
+   "pricing": {
+    "prompt": "0.0000003",
+    "completion": "0.0000012",
+    "request": "0",
+    "image": "0"
+   }
+  },
+  {
    "id": "google/gemini-2.5-flash",
    "name": "Google: Gemini 2.5 Flash",
    "description": "Gemini 2.5 Flash is the workhorse model of Google's Gemini 2.5 family, a thinking model released as stable in June 2025. Google positions it for large-scale processing, low-latency and high-volume tasks that require reasoning, and agentic use cases, with text, image, video and audio input. It sits between 2.5 Flash-Lite and 2.5 Pro in the same generation and remains a stable model with no announced shutdown date.",

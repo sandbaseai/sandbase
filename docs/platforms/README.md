@@ -14,8 +14,8 @@
 | [Polymarket](polymarket.md) | 59 | data API |
 | [Google](google.md) | 58 | LLM, audio model, data API, image generation model, video generation model |
 | [YouTube](youtube.md) | 54 | data API |
+| [OpenAI](openai.md) | 51 | LLM, audio model, embedding model, image generation model |
 | [Zhihu](zhihu.md) | 51 | data API |
-| [OpenAI](openai.md) | 47 | LLM, audio model, embedding model, image generation model |
 | [Bilibili](bilibili.md) | 46 | data API |
 | [KwaiVGI](kwaivgi.md) | 44 | image generation model, video generation model |
 | [Kuaishou](kuaishou.md) | 40 | data API |
@@ -48,11 +48,11 @@
 | [GetApp](getapp.md) | 10 | data API |
 | [HeyGen](heygen.md) | 10 | audio model, video generation model |
 | [Brave](brave.md) | 9 | data API |
+| [DeepSeek](deepseek.md) | 9 | LLM |
 | [SECForm4](secform4.md) | 9 | data API |
 | [Threads](threads.md) | 9 | data API |
 | [Web3.career](web3-career.md) | 9 | data API |
 | [Apollo](apollo.md) | 8 | data API |
-| [DeepSeek](deepseek.md) | 8 | LLM |
 | [Tencent](tencent.md) | 8 | LLM, image generation model, video generation model |
 | [TikTok Shop](tiktok-shop.md) | 8 | data API |
 | [Toutiao](toutiao.md) | 8 | data API |

@@ -248,6 +248,12 @@
    "owned_by": "deepseek"
   },
   {
+   "id": "deepseek/deepseek-v4.1-flash-economy",
+   "object": "model",
+   "created": 0,
+   "owned_by": "deepseek"
+  },
+  {
    "id": "google/gemini-2.5-flash",
    "object": "model",
    "created": 0,
