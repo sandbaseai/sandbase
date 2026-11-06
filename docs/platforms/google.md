@@ -1,6 +1,6 @@
-# Google models API: 58 endpoints with pricing and code examples
+# Google models API: 62 endpoints with pricing and code examples
 
-Call 58 Google models through SandBase with one API key: no separate account, one balance, the same request format for every endpoint. Each page has the input schema, the price and curl / Python / TypeScript / Go examples.
+Call 62 Google models through SandBase with one API key: no separate account, one balance, the same request format for every endpoint. Each page has the input schema, the price and curl / Python / TypeScript / Go examples.
 
 | Endpoint | What it does | Price |
 |---|---|---|
@@ -31,6 +31,10 @@ Call 58 Google models through SandBase with one API key: no separate account, on
 | [`google/gemini-omni-flash/1.1/image-to-video`](../models/google/gemini-omni-flash/1.1/image-to-video.md) | Gemini Omni Flash 1.1 by Google - animate still images into dynamic videos with AI. Transform photos into cinematic clips with natural… | from $0.09 to $3 per run, depending on parameters |
 | [`google/gemini-omni-flash/1.1/reference-to-video`](../models/google/gemini-omni-flash/1.1/reference-to-video.md) | Gemini Omni Flash 1.1 Reference to Video by Google generates a short video with synchronized audio guided by up to ten reference images… | from $0.09 to $3 per run, depending on parameters |
 | [`google/gemini-omni-flash/1.1/text-to-video`](../models/google/gemini-omni-flash/1.1/text-to-video.md) | Gemini Omni Flash 1.1 is Google's text-to-video AI model. Turn written scripts and prompts into professional-quality video clips with… | from $0.09 to $3 per run, depending on parameters |
+| [`google/gemini-omni-flash/1.2/edit`](../models/google/gemini-omni-flash/1.2/edit.md) | Gemini Omni Flash 1.2 Edit by Google applies natural-language edits to an existing video of up to 15 seconds, such as swapping objects,… | about $0.832 per call |
+| [`google/gemini-omni-flash/1.2/image-to-video`](../models/google/gemini-omni-flash/1.2/image-to-video.md) | Gemini Omni Flash 1.2 Image to Video by Google animates a still image into a 3–15 second clip with synchronized audio, with an optional… | from $0.069 to $3.15 per run, depending on parameters |
+| [`google/gemini-omni-flash/1.2/reference-to-video`](../models/google/gemini-omni-flash/1.2/reference-to-video.md) | Gemini Omni Flash 1.2 Reference to Video by Google generates a clip with synchronized audio guided by up to ten reference images and up to… | from $0.069 to $3.15 per run, depending on parameters |
+| [`google/gemini-omni-flash/1.2/text-to-video`](../models/google/gemini-omni-flash/1.2/text-to-video.md) | Gemini Omni Flash 1.2 is Google's text-to-video model. Generate 3–15 second clips with synchronized audio from a written prompt, at 360p… | from $0.069 to $3.15 per run, depending on parameters |
 | [`google/gemini-omni-flash/edit`](../models/google/gemini-omni-flash/edit.md) | Gemini Omni Flash Edit by Google applies natural-language edits to an existing short video, such as changing style, lighting, or objects,… | about $1.2 per call |
 | [`google/gemini-omni-flash/image-to-video`](../models/google/gemini-omni-flash/image-to-video.md) | Gemini Omni Flash by Google - animate still images into dynamic videos with AI. Transform photos into cinematic clips with natural motion,… | from $0.39 to $1.3 per run, depending on parameters |
 | [`google/gemini-omni-flash/reference-to-video`](../models/google/gemini-omni-flash/reference-to-video.md) | Gemini Omni Flash Reference to Video by Google generates a short video with synchronized audio that keeps subjects, products, or style… | from $0.39 to $1.3 per run, depending on parameters |

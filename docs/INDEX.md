@@ -1,13 +1,13 @@
 # SandBase capability index
 
-2292 capabilities · generated 2026-11-05T12:20:00Z
+2296 capabilities · generated 2026-11-06T15:57:26Z
 
 - [api](#api) (1850)
 - [audio](#audio) (32)
 - [embedding](#embedding) (2)
 - [image](#image) (109)
 - [llm](#llm) (122)
-- [video](#video) (177)
+- [video](#video) (181)
 
 ## api
 
@@ -2212,6 +2212,10 @@
 | [`google/gemini-omni-flash/1.1/image-to-video`](models/google/gemini-omni-flash/1.1/image-to-video.md) | 0.09–3 | async | Gemini Omni Flash 1.1 by Google - animate still images into dynamic videos with AI. Transform photos into cinematic… |
 | [`google/gemini-omni-flash/1.1/reference-to-video`](models/google/gemini-omni-flash/1.1/reference-to-video.md) | 0.09–3 | async | Gemini Omni Flash 1.1 Reference to Video by Google generates a short video with synchronized audio guided by up to ten… |
 | [`google/gemini-omni-flash/1.1/text-to-video`](models/google/gemini-omni-flash/1.1/text-to-video.md) | 0.09–3 | async | Gemini Omni Flash 1.1 is Google's text-to-video AI model. Turn written scripts and prompts into professional-quality… |
+| [`google/gemini-omni-flash/1.2/edit`](models/google/gemini-omni-flash/1.2/edit.md) | ~0.832 | async | Gemini Omni Flash 1.2 Edit by Google applies natural-language edits to an existing video of up to 15 seconds, such as… |
+| [`google/gemini-omni-flash/1.2/image-to-video`](models/google/gemini-omni-flash/1.2/image-to-video.md) | 0.069–3.15 | async | Gemini Omni Flash 1.2 Image to Video by Google animates a still image into a 3–15 second clip with synchronized audio,… |
+| [`google/gemini-omni-flash/1.2/reference-to-video`](models/google/gemini-omni-flash/1.2/reference-to-video.md) | 0.069–3.15 | async | Gemini Omni Flash 1.2 Reference to Video by Google generates a clip with synchronized audio guided by up to ten… |
+| [`google/gemini-omni-flash/1.2/text-to-video`](models/google/gemini-omni-flash/1.2/text-to-video.md) | 0.069–3.15 | async | Gemini Omni Flash 1.2 is Google's text-to-video model. Generate 3–15 second clips with synchronized audio from a… |
 | [`google/gemini-omni-flash/edit`](models/google/gemini-omni-flash/edit.md) | ~1.2 | async | Gemini Omni Flash Edit by Google applies natural-language edits to an existing short video, such as changing style,… |
 | [`google/gemini-omni-flash/image-to-video`](models/google/gemini-omni-flash/image-to-video.md) | 0.39–1.3 | async | Gemini Omni Flash by Google - animate still images into dynamic videos with AI. Transform photos into cinematic clips… |
 | [`google/gemini-omni-flash/reference-to-video`](models/google/gemini-omni-flash/reference-to-video.md) | 0.39–1.3 | async | Gemini Omni Flash Reference to Video by Google generates a short video with synchronized audio that keeps subjects,… |

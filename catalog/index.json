@@ -1,11 +1,11 @@
 {
  "catalog_version": "1",
- "generated_at": "2026-11-05T12:20:00Z",
+ "generated_at": "2026-11-06T15:57:26Z",
  "base_url": "https://api.sandbase.ai",
- "count": 2292,
+ "count": 2296,
  "counts_by_type": {
   "api": 1850,
-  "video": 177,
+  "video": 181,
   "llm": 122,
   "image": 109,
   "audio": 32,
@@ -46385,6 +46385,85 @@
     "usd_to": 3
    },
    "record": "catalog/models/google/gemini-omni-flash/1.1/text-to-video.json"
+  },
+  {
+   "name": "google/gemini-omni-flash/1.2/edit",
+   "display_name": "Gemini Omni Flash 1.2 Edit",
+   "type": "video",
+   "vendor": "Google",
+   "description": "Gemini Omni Flash 1.2 Edit by Google applies natural-language edits to an existing video of up to 15 seconds, such as swapping objects, backgrounds, lighting, or style, at 360p to 4K output.",
+   "tags": [
+    "video-to-video"
+   ],
+   "modes": [
+    "async"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "formula",
+    "usd_reference": 0.832
+   },
+   "record": "catalog/models/google/gemini-omni-flash/1.2/edit.json"
+  },
+  {
+   "name": "google/gemini-omni-flash/1.2/image-to-video",
+   "display_name": "Gemini Omni Flash 1.2 Image to Video",
+   "type": "video",
+   "vendor": "Google",
+   "description": "Gemini Omni Flash 1.2 Image to Video by Google animates a still image into a 3–15 second clip with synchronized audio, with an optional end frame for interpolation.",
+   "tags": [
+    "image-to-video"
+   ],
+   "modes": [
+    "async"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "formula",
+    "usd_from": 0.069,
+    "usd_to": 3.15
+   },
+   "record": "catalog/models/google/gemini-omni-flash/1.2/image-to-video.json"
+  },
+  {
+   "name": "google/gemini-omni-flash/1.2/reference-to-video",
+   "display_name": "Gemini Omni Flash 1.2 Reference to Video",
+   "type": "video",
+   "vendor": "Google",
+   "description": "Gemini Omni Flash 1.2 Reference to Video by Google generates a clip with synchronized audio guided by up to ten reference images and up to three reference videos, keeping faces, products, and style consistent.",
+   "tags": [
+    "reference-to-video"
+   ],
+   "modes": [
+    "async"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "formula",
+    "usd_from": 0.069,
+    "usd_to": 3.15
+   },
+   "record": "catalog/models/google/gemini-omni-flash/1.2/reference-to-video.json"
+  },
+  {
+   "name": "google/gemini-omni-flash/1.2/text-to-video",
+   "display_name": "Gemini Omni Flash 1.2 Text to Video",
+   "type": "video",
+   "vendor": "Google",
+   "description": "Gemini Omni Flash 1.2 is Google's text-to-video model. Generate 3–15 second clips with synchronized audio from a written prompt, at 360p to 4K.",
+   "tags": [
+    "text-to-video"
+   ],
+   "modes": [
+    "async"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "formula",
+    "usd_from": 0.069,
+    "usd_to": 3.15
+   },
+   "record": "catalog/models/google/gemini-omni-flash/1.2/text-to-video.json"
   },
   {
    "name": "google/gemini-omni-flash/edit",

@@ -942,6 +942,10 @@ google/gemini-omni-flash/1.1/edit,video,Google,formula,,,,1.12,1.12,,async,POST 
 google/gemini-omni-flash/1.1/image-to-video,video,Google,formula,,,,0.09,3,,async,POST /v1/run
 google/gemini-omni-flash/1.1/reference-to-video,video,Google,formula,,,,0.09,3,,async,POST /v1/run
 google/gemini-omni-flash/1.1/text-to-video,video,Google,formula,,,,0.09,3,,async,POST /v1/run
+google/gemini-omni-flash/1.2/edit,video,Google,formula,,,,0.832,0.832,,async,POST /v1/run
+google/gemini-omni-flash/1.2/image-to-video,video,Google,formula,,,,0.069,3.15,,async,POST /v1/run
+google/gemini-omni-flash/1.2/reference-to-video,video,Google,formula,,,,0.069,3.15,,async,POST /v1/run
+google/gemini-omni-flash/1.2/text-to-video,video,Google,formula,,,,0.069,3.15,,async,POST /v1/run
 google/gemini-omni-flash/edit,video,Google,formula,,,,1.2,1.2,,async,POST /v1/run
 google/gemini-omni-flash/image-to-video,video,Google,formula,,,,0.39,1.3,,async,POST /v1/run
 google/gemini-omni-flash/reference-to-video,video,Google,formula,,,,0.39,1.3,,async,POST /v1/run

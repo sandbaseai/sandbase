@@ -1,0 +1,248 @@
+{
+  "name": "google/gemini-omni-flash/1.2/reference-to-video",
+  "display_name": "Gemini Omni Flash 1.2 Reference to Video",
+  "type": "video",
+  "vendor": "Google",
+  "vendor_slug": "google",
+  "description": "Gemini Omni Flash 1.2 Reference to Video by Google generates a clip with synchronized audio guided by up to ten reference images and up to three reference videos, keeping faces, products, and style consistent.",
+  "tags": [
+    "reference-to-video"
+  ],
+  "capabilities": [
+    "reference-to-video"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "prompt"
+    ],
+    "properties": {
+      "images": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        },
+        "title": "Image URLs",
+        "examples": [
+          [
+            "https://static.sandbase.ai/examples/google/gemini-omni-flash/reference-to-video/input_images_0.png",
+            "https://static.sandbase.ai/examples/google/gemini-omni-flash/reference-to-video/input_images_1.png"
+          ]
+        ],
+        "maxItems": 10,
+        "description": "URLs of up to ten reference images to incorporate."
+      },
+      "prompt": {
+        "type": "string",
+        "title": "Prompt",
+        "examples": [
+          "A cat inspired by <IMAGE_REF_0> walks through the setting in <VIDEO_REF_0>."
+        ],
+        "maxLength": 20000,
+        "description": "The text prompt describing the video. Reference media is sent in list order before the prompt."
+      },
+      "videos": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        },
+        "title": "Videos",
+        "maxItems": 3,
+        "description": "URLs of up to three reference videos. Each video must be at most 15 seconds long."
+      },
+      "duration": {
+        "type": "integer",
+        "title": "Duration",
+        "default": 8,
+        "maximum": 15,
+        "minimum": 3,
+        "description": "The duration of the generated video, in seconds."
+      },
+      "resolution": {
+        "enum": [
+          "360p",
+          "720p",
+          "1080p",
+          "4k"
+        ],
+        "type": "string",
+        "title": "Resolution",
+        "default": "720p",
+        "description": "The resolution of the generated video."
+      },
+      "aspect_ratio": {
+        "enum": [
+          "16:9",
+          "9:16"
+        ],
+        "type": "string",
+        "title": "Aspect Ratio",
+        "default": "16:9",
+        "description": "The aspect ratio of the generated video."
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "title": "GenerationResponse",
+    "required": [
+      "id",
+      "status"
+    ],
+    "properties": {
+      "id": {
+        "type": "string",
+        "description": "Unique identifier for the generation task."
+      },
+      "error": {
+        "type": "string",
+        "description": "Error message if the task failed. Empty on success."
+      },
+      "model": {
+        "type": "string",
+        "description": "Model ID used for the prediction."
+      },
+      "status": {
+        "enum": [
+          "pending",
+          "running",
+          "completed",
+          "failed",
+          "timeout"
+        ],
+        "type": "string",
+        "description": "Status of the task: pending, running, completed, failed, or timeout."
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "title": "OutputItem",
+          "required": [
+            "url"
+          ],
+          "properties": {
+            "url": {
+              "type": "string",
+              "description": "The URL where the generated content can be downloaded from."
+            },
+            "content_type": {
+              "type": "string",
+              "description": "The MIME type of the output file."
+            }
+          }
+        },
+        "description": "Array of generated content. Empty when status is not completed."
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "formula",
+    "formula": "(params.duration ?? 8) * ((params.resolution ?? \"720p\") == \"360p\" ? 0.023 : (params.resolution ?? \"720p\") == \"1080p\" ? 0.105 : (params.resolution ?? \"720p\") == \"4k\" ? 0.21 : 0.07)",
+    "formula_variables": [
+      "params.duration",
+      "params.resolution"
+    ],
+    "reference_price": 0.56,
+    "price_examples": [
+      {
+        "params": {
+          "duration": 3,
+          "resolution": "360p"
+        },
+        "usd": 0.069
+      },
+      {
+        "params": {
+          "duration": 3,
+          "resolution": "720p"
+        },
+        "usd": 0.21
+      },
+      {
+        "params": {
+          "duration": 3,
+          "resolution": "1080p"
+        },
+        "usd": 0.315
+      },
+      {
+        "params": {
+          "duration": 3,
+          "resolution": "4k"
+        },
+        "usd": 0.63
+      },
+      {
+        "params": {
+          "duration": 8,
+          "resolution": "360p"
+        },
+        "usd": 0.184
+      },
+      {
+        "params": {
+          "duration": 8,
+          "resolution": "720p"
+        },
+        "usd": 0.56
+      },
+      {
+        "params": {
+          "duration": 8,
+          "resolution": "1080p"
+        },
+        "usd": 0.84
+      },
+      {
+        "params": {
+          "duration": 8,
+          "resolution": "4k"
+        },
+        "usd": 1.68
+      },
+      {
+        "params": {
+          "duration": 15,
+          "resolution": "360p"
+        },
+        "usd": 0.345
+      },
+      {
+        "params": {
+          "duration": 15,
+          "resolution": "720p"
+        },
+        "usd": 1.05
+      },
+      {
+        "params": {
+          "duration": 15,
+          "resolution": "1080p"
+        },
+        "usd": 1.575
+      },
+      {
+        "params": {
+          "duration": 15,
+          "resolution": "4k"
+        },
+        "usd": 3.15
+      }
+    ]
+  },
+  "readme": "# Gemini Omni Flash 1.2 Reference to Video\n\nGemini Omni Flash 1.2 reference-to-video: up to 10 reference images and 3 reference videos keep characters, products, typography, and style consistent in a new clip with synchronized audio.\n\n## Fields\n\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `prompt` | string, required | — | Up to 20,000 characters. |\n| `images` | image URL[] (≤10) | — | Reference images, Image 1, Image 2, … |\n| `videos` | video URL[] (≤3) | — | Reference clips, Video 1, Video 2, … Google recommends short motion clips of up to 3 seconds. |\n| `resolution` | `360p` / `720p` / `1080p` / `4k` | `720p` | Sets the per-second rate. |\n| `duration` | integer 3–15 | 8 | Output length in seconds. |\n| `aspect_ratio` | `16:9` / `9:16` | `16:9` | Output frame shape. |\n\n## Billing\n\nYou pay for output seconds: $0.023 at 360p, $0.07 at 720p, $0.105 at 1080p, and $0.21 at 4K.\n\n| Output | 360p | 720p | 1080p | 4k |\n|---|---|---|---|---|\n| 3s | $0.07 | $0.21 | $0.32 | $0.63 |\n| 8s (default) | $0.18 | $0.56 | $0.84 | $1.68 |\n| 10s | $0.23 | $0.70 | $1.05 | $2.10 |\n| 15s | $0.34 | $1.05 | $1.57 | $3.15 |\n\nFailed runs are not charged.\n\n## Prompting\n\n- Give each reference a role and refer to it by number.\n\n## Limits\n\n- Send at least one reference image or video.\n\n## Also on SandBase\n\nOther Gemini Omni Flash 1.2 endpoints: `google/gemini-omni-flash/1.2/text-to-video`, `google/gemini-omni-flash/1.2/image-to-video`, `google/gemini-omni-flash/1.2/edit`, `google/gemini-omni-flash/1.1/reference-to-video` (previous version).\n",
+  "cover_url": "https://static.sandbase.ai/covers/google/gemini-omni-flash/1.1/reference-to-video/cover-flare-20261004181622.webp",
+  "page_url": "https://www.sandbase.ai/model/google/gemini-omni-flash/1.2/reference-to-video",
+  "published_at": "2026-11-05T19:44:22.22Z",
+  "created_at": "2026-11-06T10:55:40.055Z"
+}

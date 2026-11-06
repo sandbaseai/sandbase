@@ -11,8 +11,8 @@
 | [Alibaba](alibaba.md) | 72 | LLM, audio model, embedding model, image generation model, video generation model |
 | [Xiaohongshu](xiaohongshu.md) | 67 | data API |
 | [Weibo](weibo.md) | 63 | data API |
+| [Google](google.md) | 62 | LLM, audio model, data API, image generation model, video generation model |
 | [Polymarket](polymarket.md) | 59 | data API |
-| [Google](google.md) | 58 | LLM, audio model, data API, image generation model, video generation model |
 | [YouTube](youtube.md) | 54 | data API |
 | [OpenAI](openai.md) | 51 | LLM, audio model, embedding model, image generation model |
 | [Zhihu](zhihu.md) | 51 | data API |

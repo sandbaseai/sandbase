@@ -1,0 +1,238 @@
+{
+  "name": "google/gemini-omni-flash/1.2/image-to-video",
+  "display_name": "Gemini Omni Flash 1.2 Image to Video",
+  "type": "video",
+  "vendor": "Google",
+  "vendor_slug": "google",
+  "description": "Gemini Omni Flash 1.2 Image to Video by Google animates a still image into a 3–15 second clip with synchronized audio, with an optional end frame for interpolation.",
+  "tags": [
+    "image-to-video"
+  ],
+  "capabilities": [
+    "image-to-video"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "prompt",
+      "image"
+    ],
+    "properties": {
+      "image": {
+        "type": "string",
+        "title": "Image URL",
+        "examples": [
+          "https://static.sandbase.ai/examples/google/gemini-omni-flash/image-to-video/input_image_0.png"
+        ],
+        "description": "URL of the first frame to animate."
+      },
+      "prompt": {
+        "type": "string",
+        "title": "Prompt",
+        "examples": [
+          "The dog turns its head and wags its tail in warm sunlight."
+        ],
+        "maxLength": 20000,
+        "description": "The text prompt describing how the first image should be animated or interpolated into the optional end image."
+      },
+      "duration": {
+        "type": "integer",
+        "title": "Duration",
+        "default": 8,
+        "maximum": 15,
+        "minimum": 3,
+        "description": "The duration of the generated video, in seconds. At most 10 seconds when an end image is provided."
+      },
+      "end_image": {
+        "type": "string",
+        "title": "End Image URL",
+        "description": "Optional URL of the end frame. When provided, the model interpolates between the two images in their listed order and the duration is capped at 10 seconds."
+      },
+      "resolution": {
+        "enum": [
+          "360p",
+          "720p",
+          "1080p",
+          "4k"
+        ],
+        "type": "string",
+        "title": "Resolution",
+        "default": "720p",
+        "description": "The resolution of the generated video."
+      },
+      "aspect_ratio": {
+        "enum": [
+          "16:9",
+          "9:16"
+        ],
+        "type": "string",
+        "title": "Aspect Ratio",
+        "default": "16:9",
+        "description": "The aspect ratio of the generated video."
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "title": "GenerationResponse",
+    "required": [
+      "id",
+      "status"
+    ],
+    "properties": {
+      "id": {
+        "type": "string",
+        "description": "Unique identifier for the generation task."
+      },
+      "error": {
+        "type": "string",
+        "description": "Error message if the task failed. Empty on success."
+      },
+      "model": {
+        "type": "string",
+        "description": "Model ID used for the prediction."
+      },
+      "status": {
+        "enum": [
+          "pending",
+          "running",
+          "completed",
+          "failed",
+          "timeout"
+        ],
+        "type": "string",
+        "description": "Status of the task: pending, running, completed, failed, or timeout."
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "title": "OutputItem",
+          "required": [
+            "url"
+          ],
+          "properties": {
+            "url": {
+              "type": "string",
+              "description": "The URL where the generated content can be downloaded from."
+            },
+            "content_type": {
+              "type": "string",
+              "description": "The MIME type of the output file."
+            }
+          }
+        },
+        "description": "Array of generated content. Empty when status is not completed."
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "formula",
+    "formula": "(params.duration ?? 8) * ((params.resolution ?? \"720p\") == \"360p\" ? 0.023 : (params.resolution ?? \"720p\") == \"1080p\" ? 0.105 : (params.resolution ?? \"720p\") == \"4k\" ? 0.21 : 0.07)",
+    "formula_variables": [
+      "params.duration",
+      "params.resolution"
+    ],
+    "reference_price": 0.56,
+    "price_examples": [
+      {
+        "params": {
+          "duration": 3,
+          "resolution": "360p"
+        },
+        "usd": 0.069
+      },
+      {
+        "params": {
+          "duration": 3,
+          "resolution": "720p"
+        },
+        "usd": 0.21
+      },
+      {
+        "params": {
+          "duration": 3,
+          "resolution": "1080p"
+        },
+        "usd": 0.315
+      },
+      {
+        "params": {
+          "duration": 3,
+          "resolution": "4k"
+        },
+        "usd": 0.63
+      },
+      {
+        "params": {
+          "duration": 8,
+          "resolution": "360p"
+        },
+        "usd": 0.184
+      },
+      {
+        "params": {
+          "duration": 8,
+          "resolution": "720p"
+        },
+        "usd": 0.56
+      },
+      {
+        "params": {
+          "duration": 8,
+          "resolution": "1080p"
+        },
+        "usd": 0.84
+      },
+      {
+        "params": {
+          "duration": 8,
+          "resolution": "4k"
+        },
+        "usd": 1.68
+      },
+      {
+        "params": {
+          "duration": 15,
+          "resolution": "360p"
+        },
+        "usd": 0.345
+      },
+      {
+        "params": {
+          "duration": 15,
+          "resolution": "720p"
+        },
+        "usd": 1.05
+      },
+      {
+        "params": {
+          "duration": 15,
+          "resolution": "1080p"
+        },
+        "usd": 1.575
+      },
+      {
+        "params": {
+          "duration": 15,
+          "resolution": "4k"
+        },
+        "usd": 3.15
+      }
+    ]
+  },
+  "readme": "# Gemini Omni Flash 1.2 Image to Video\n\nGemini Omni Flash 1.2 image-to-video: animate a picture into a 3–15 second clip with synchronized audio. Add `end_image` to interpolate between two frames (up to 10 seconds).\n\n## Fields\n\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `prompt` | string, required | — | Up to 20,000 characters. |\n| `image` | image URL, required | — | First frame. JPEG, PNG, or WebP URL. |\n| `end_image` | image URL | — | Optional last frame. Caps `duration` at 10 seconds. |\n| `resolution` | `360p` / `720p` / `1080p` / `4k` | `720p` | Sets the per-second rate. |\n| `duration` | integer 3–15 | 8 | Output length in seconds. |\n| `aspect_ratio` | `16:9` / `9:16` | `16:9` | Output frame shape. |\n\n## Billing\n\nYou pay for output seconds: $0.023 at 360p, $0.07 at 720p, $0.105 at 1080p, and $0.21 at 4K.\n\n| Output | 360p | 720p | 1080p | 4k |\n|---|---|---|---|---|\n| 3s | $0.07 | $0.21 | $0.32 | $0.63 |\n| 8s (default) | $0.18 | $0.56 | $0.84 | $1.68 |\n| 10s | $0.23 | $0.70 | $1.05 | $2.10 |\n| 15s | $0.34 | $1.05 | $1.57 | $3.15 |\n\nFailed runs are not charged.\n\n## Prompting\n\n- Describe what moves and what it sounds like, not what is already visible.\n\n## Limits\n\n- 16:9 or 9:16 only.\n- With `end_image`, duration is capped at 10 seconds.\n\n## Also on SandBase\n\nOther Gemini Omni Flash 1.2 endpoints: `google/gemini-omni-flash/1.2/text-to-video`, `google/gemini-omni-flash/1.2/reference-to-video`, `google/gemini-omni-flash/1.2/edit`, `google/gemini-omni-flash/1.1/image-to-video` (previous version).\n",
+  "cover_url": "https://static.sandbase.ai/covers/google/gemini-omni-flash/1.1/image-to-video/cover-flare-20261005083306.webp",
+  "page_url": "https://www.sandbase.ai/model/google/gemini-omni-flash/1.2/image-to-video",
+  "published_at": "2026-11-05T19:44:14.788Z",
+  "created_at": "2026-11-06T10:54:42.426Z"
+}
