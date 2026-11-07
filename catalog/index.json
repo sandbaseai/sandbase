@@ -1,6 +1,6 @@
 {
  "catalog_version": "1",
- "generated_at": "2026-11-06T15:57:26Z",
+ "generated_at": "2026-11-07T14:55:29Z",
  "base_url": "https://api.sandbase.ai",
  "count": 2296,
  "counts_by_type": {
@@ -43527,8 +43527,8 @@
    "price": {
     "model": "per_token",
     "usd_per_million_tokens": {
-     "input": 0.75,
-     "output": 3.75
+     "input": 1.5,
+     "output": 7.5
     }
    },
    "record": "catalog/models/google/gemini-3.6-flash.json"

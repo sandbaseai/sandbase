@@ -2,13 +2,13 @@
 
 `google/gemini-3.6-flash` · LLM · Google · callable with one SandBase API key from curl, Python, TypeScript and Go.
 
-**Price:** $0.75 input / $3.75 output per 1M tokens · **Modes:** sync
+**Price:** $1.5 input / $7.5 output per 1M tokens · **Modes:** sync
 
 Gemini 3.6 Flash is a multimodal reasoning model in Google's Gemini 3 Flash line, released in July 2026 alongside 3.5 Flash-Lite. Google describes it as delivering frontier-level intelligence at higher speed for real-world agentic work, excelling at code generation, agentic execution and spatial reasoning, and particularly effective in rapid agentic loops with repeated coding iterations. It is Google's recommended replacement for the Gemini 3 Flash preview; 3.7 Flash and 3.8 Flash followed it.
 
 ## Pricing
 
-- Input **$0.75** / output **$3.75** per 1M tokens (USD)
+- Input **$1.5** / output **$7.5** per 1M tokens (USD)
 - cache read multiplier: 0.1
 
 ## Call it

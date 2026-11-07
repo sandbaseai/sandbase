@@ -54,7 +54,7 @@
  "google/gemini-3.1-pro-preview-customtools": 1.0,
  "google/gemini-3.5-flash": 0.75,
  "google/gemini-3.5-flash-lite": 0.15,
- "google/gemini-3.6-flash": 0.375,
+ "google/gemini-3.6-flash": 0.75,
  "google/gemini-3.7-flash": 0.75,
  "google/gemini-3.8-flash": 0.75,
  "google/gemini-4-argon": 2.0,

@@ -448,8 +448,8 @@ model_list:
       api_base: https://api.sandbase.ai/v1
       api_key: os.environ/SANDBASE_API_KEY
     model_info:
-      input_cost_per_token: 7.5e-07
-      output_cost_per_token: 3.75e-06
+      input_cost_per_token: 1.5e-06
+      output_cost_per_token: 7.5e-06
   - model_name: google/gemini-3.7-flash
     litellm_params:
       model: openai/google/gemini-3.7-flash

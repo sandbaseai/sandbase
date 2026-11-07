@@ -1,6 +1,6 @@
 # SandBase capability index
 
-2296 capabilities · generated 2026-11-06T15:57:26Z
+2296 capabilities · generated 2026-11-07T14:55:29Z
 
 - [api](#api) (1850)
 - [audio](#audio) (32)
@@ -2081,7 +2081,7 @@
 | [`google/gemini-3.1-pro-preview-customtools`](models/google/gemini-3.1-pro-preview-customtools.md) | 2 / 12 per 1M tok | sync | Gemini 3.1 Pro Preview Custom Tools is a separate endpoint of Google's Gemini 3.1 Pro Preview, the Pro-tier reasoning… |
 | [`google/gemini-3.5-flash`](models/google/gemini-3.5-flash.md) | 1.5 / 9 per 1M tok | sync | Gemini 3.5 Flash is the Flash model of Google's Gemini 3.5 family, introduced at Google I/O in May 2026. Google… |
 | [`google/gemini-3.5-flash-lite`](models/google/gemini-3.5-flash-lite.md) | 0.3 / 2.5 per 1M tok | sync | Gemini 3.5 Flash-Lite is the low-latency, high-throughput tier of Google's Gemini 3.5 family, released in July 2026… |
-| [`google/gemini-3.6-flash`](models/google/gemini-3.6-flash.md) | 0.75 / 3.75 per 1M tok | sync | Gemini 3.6 Flash is a multimodal reasoning model in Google's Gemini 3 Flash line, released in July 2026 alongside 3.5… |
+| [`google/gemini-3.6-flash`](models/google/gemini-3.6-flash.md) | 1.5 / 7.5 per 1M tok | sync | Gemini 3.6 Flash is a multimodal reasoning model in Google's Gemini 3 Flash line, released in July 2026 alongside 3.5… |
 | [`google/gemini-3.7-flash`](models/google/gemini-3.7-flash.md) | 1.5 / 7.5 per 1M tok | sync | Gemini 3.7 Flash is a natively multimodal reasoning model in Google's Gemini 3 Flash line, released in August 2026,… |
 | [`google/gemini-3.8-flash`](models/google/gemini-3.8-flash.md) | 1.5 / 7.5 per 1M tok | sync | Gemini 3.8 Flash is a Flash-tier reasoning model in Google's Gemini 3 series, released in September 2026 and described… |
 | [`google/gemini-4-argon`](models/google/gemini-4-argon.md) | 4 / 20 per 1M tok | sync | Gemini 4 Argon is Google's flagship reasoning model and the first model of the Gemini 4 generation, generally… |

@@ -34,8 +34,8 @@
     "currency": "USD",
     "model": "per_token",
     "per_million_tokens": {
-      "input": 0.75,
-      "output": 3.75,
+      "input": 1.5,
+      "output": 7.5,
       "cache_read_multiplier": 0.1
     }
   },

@@ -931,7 +931,7 @@ google/gemini-3.1-pro-preview,llm,Google,per_token,,2,12,,,,sync,POST /v1/chat/c
 google/gemini-3.1-pro-preview-customtools,llm,Google,per_token,,2,12,,,,sync,POST /v1/chat/completions
 google/gemini-3.5-flash,llm,Google,per_token,,1.5,9,,,,sync,POST /v1/chat/completions
 google/gemini-3.5-flash-lite,llm,Google,per_token,,0.3,2.5,,,,sync,POST /v1/chat/completions
-google/gemini-3.6-flash,llm,Google,per_token,,0.75,3.75,,,,sync,POST /v1/chat/completions
+google/gemini-3.6-flash,llm,Google,per_token,,1.5,7.5,,,,sync,POST /v1/chat/completions
 google/gemini-3.7-flash,llm,Google,per_token,,1.5,7.5,,,,sync,POST /v1/chat/completions
 google/gemini-3.8-flash,llm,Google,per_token,,1.5,7.5,,,,sync,POST /v1/chat/completions
 google/gemini-3.8-flash-lite-tts,audio,Google,formula,,,,0.03,0.03,,async,POST /v1/run
