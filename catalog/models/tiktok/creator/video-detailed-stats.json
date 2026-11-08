@@ -24,6 +24,7 @@
   "input_schema": {
     "type": "object",
     "required": [
+      "cookie",
       "item_id"
     ],
     "properties": {
@@ -38,6 +39,12 @@
         ],
         "title": "Proxy",
         "description": "Optional HTTP Proxy Address"
+      },
+      "cookie": {
+        "type": "string",
+        "title": "Cookie",
+        "minLength": 1,
+        "description": "Cookie string of your own logged-in TikTok Shop creator account (from your browser session on the TikTok Shop / Seller Center site). Sent to the upstream for this request only and never stored by SandBase."
       },
       "item_id": {
         "type": "string",
@@ -66,7 +73,7 @@
       "note": "Shared across all free-quota APIs, resets 00:00 UTC."
     }
   },
-  "readme": "# TikTok Video Detailed Statistics API\n\nRetrieve detailed performance metrics for a specific TikTok video by providing its `item_id`. You can also filter the reporting period using `start_date`.\n\n## Use cases\n\n- Track daily or weekly engagement metrics for a single video.\n- Analyze completion rates and follower growth over time.\n- Measure audience response and product views from video content.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/tiktok/creator/video-detailed-stats\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"item_id\": \"7350810998023949599\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `item_id` | string | Yes | Video ID |\n| `proxy` | string | No | Optional HTTP Proxy Address |\n| `start_date` | string | No | Query Start Date, e.g. '04-01-2025' |\n\n## Notes\n\n- Specify the target video using `item_id`.\n- Provide `start_date` in month-day-year format (such as '04-01-2025') to set the query start date.\n- An optional HTTP proxy can be configured using `proxy`.\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n",
+  "readme": "# TikTok Video Detailed Statistics API\n\nRetrieve detailed performance metrics for a specific TikTok video by providing its `item_id`. You can also filter the reporting period using `start_date`.\n\n## Use cases\n\n- Track daily or weekly engagement metrics for a single video.\n- Analyze completion rates and follower growth over time.\n- Measure audience response and product views from video content.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/tiktok/creator/video-detailed-stats\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"cookie\": \"<YOUR_TIKTOK_SHOP_COOKIE>\", \"item_id\": \"7350810998023949599\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `cookie` | string | Yes | Cookie string of your own logged-in TikTok Shop creator account. Used for this request only and never stored |\n| `item_id` | string | Yes | Video ID |\n| `proxy` | string | No | Optional HTTP Proxy Address |\n| `start_date` | string | No | Query Start Date, e.g. '04-01-2025' |\n\n## Notes\n\n- Requires `cookie` from your own TikTok Shop creator account. The data returned belongs to that account; this API cannot look up other creators. SandBase forwards the cookie for this synchronous request only and does not store it in call history or logs, so async mode and retries are not supported.\n- Specify the target video using `item_id`.\n- Provide `start_date` in month-day-year format (such as '04-01-2025') to set the query start date.\n- An optional HTTP proxy can be configured using `proxy`.\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n",
   "page_url": "https://www.sandbase.ai/model/tiktok/creator/video-detailed-stats",
   "created_at": "2026-07-31T04:16:00.86Z"
 }

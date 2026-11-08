@@ -1,0 +1,77 @@
+{
+  "name": "tiktok/creator/product-analytics-list",
+  "display_name": "TikTok Creator Product Analytics List",
+  "type": "api",
+  "vendor": "TikTok",
+  "vendor_slug": "tiktok",
+  "description": "Returns products promoted by a TikTok Shop creator along with sales analytics for a designated date range. Results can be filtered by dates and navigated through page numbers.",
+  "tags": [
+    "api",
+    "tiktok"
+  ],
+  "capabilities": [
+    "api",
+    "tiktok"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/tiktok/creator/product-analytics-list"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "cookie"
+    ],
+    "properties": {
+      "page": {
+        "type": "integer",
+        "title": "Page",
+        "description": "Page number, default is the first page `0`"
+      },
+      "proxy": {
+        "anyOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "title": "Proxy",
+        "description": "Optional HTTP proxy address, can be omitted if not used"
+      },
+      "cookie": {
+        "type": "string",
+        "title": "Cookie",
+        "minLength": 1,
+        "description": "Cookie string of your own logged-in TikTok Shop creator account (from your browser session on the TikTok Shop / Seller Center site). Sent to the upstream for this request only and never stored by SandBase."
+      },
+      "end_date": {
+        "type": "string",
+        "title": "End Date",
+        "description": "End date, formatted as 'YYYY-MM-DD', e.g., '2025-05-01'"
+      },
+      "start_date": {
+        "type": "string",
+        "title": "Start Date",
+        "description": "Start date, formatted as 'YYYY-MM-DD', e.g., '2025-04-01'"
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.001
+  },
+  "readme": "# TikTok Creator Product Analytics List API\n\nQuery promoted products and their sales metrics for a creator account over a specific timeframe using `start_date` and `end_date`.\n\n## Use cases\n\n- Review sales performance for products promoted by a creator.\n- Track product revenue trends across custom date intervals.\n- Extract historical affiliate product performance records.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/tiktok/creator/product-analytics-list\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"cookie\": \"<YOUR_TIKTOK_SHOP_COOKIE>\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `cookie` | string | Yes | Cookie string of your own logged-in TikTok Shop creator account. Used for this request only and never stored |\n| `page` | integer | No | Page number, default is the first page `0` |\n| `proxy` | string | No | Optional HTTP proxy address, can be omitted if not used |\n| `end_date` | string | No | End date, formatted as 'YYYY-MM-DD', e.g., '2025-05-01' |\n| `start_date` | string | No | Start date, formatted as 'YYYY-MM-DD', e.g., '2025-04-01' |\n\n## Notes\n\n- Requires `cookie` from your own TikTok Shop creator account. The data returned belongs to that account; this API cannot look up other creators. SandBase forwards the cookie for this synchronous request only and does not store it in call history or logs, so async mode and retries are not supported.\n- Pagination is controlled via `page`, which defaults to `0` for the first page.\n- Dates must follow the 'YYYY-MM-DD' format for `start_date` and `end_date`.\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n",
+  "page_url": "https://www.sandbase.ai/model/tiktok/creator/product-analytics-list",
+  "created_at": "2026-07-31T04:15:48.227Z"
+}

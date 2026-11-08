@@ -1,0 +1,67 @@
+{
+  "name": "tiktok/creator/live-analytics-summary",
+  "display_name": "TikTok Stream Analytics Summary",
+  "type": "api",
+  "vendor": "TikTok",
+  "vendor_slug": "tiktok",
+  "description": "Returns streaming performance metrics for a TikTok Shop account over a monthly period. Accepts an optional `start_date` to review broadcast analytics for a calendar month.",
+  "tags": [
+    "api",
+    "tiktok"
+  ],
+  "capabilities": [
+    "api",
+    "tiktok"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/tiktok/creator/live-analytics-summary"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "cookie"
+    ],
+    "properties": {
+      "proxy": {
+        "anyOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "title": "Proxy",
+        "description": "Optional HTTP proxy address, can be omitted if not used"
+      },
+      "cookie": {
+        "type": "string",
+        "title": "Cookie",
+        "minLength": 1,
+        "description": "Cookie string of your own logged-in TikTok Shop creator account (from your browser session on the TikTok Shop / Seller Center site). Sent to the upstream for this request only and never stored by SandBase."
+      },
+      "start_date": {
+        "type": "string",
+        "title": "Start Date",
+        "description": "Query start date in the format `MM-DD-YYYY`, e.g., `04-01-2025`"
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.001
+  },
+  "readme": "# TikTok Stream Analytics Summary API\n\nRetrieve performance analytics for TikTok Shop broadcasts by specifying `start_date` in `MM-DD-YYYY` format. You can also supply an optional `proxy` to route requests.\n\n## Use cases\n\n- Review monthly broadcast performance and audience metrics.\n- Analyze TikTok Shop stream results across specific calendar months.\n- Benchmark sales and engagement trends across consecutive streaming periods.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/tiktok/creator/live-analytics-summary\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"cookie\": \"<YOUR_TIKTOK_SHOP_COOKIE>\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `cookie` | string | Yes | Cookie string of your own logged-in TikTok Shop creator account. Used for this request only and never stored |\n| `proxy` | string | No | Optional HTTP proxy address, can be omitted if not used |\n| `start_date` | string | No | Query start date in the format `MM-DD-YYYY`, e.g., `04-01-2025` |\n\n## Notes\n\n- Requires `cookie` from your own TikTok Shop creator account. The data returned belongs to that account; this API cannot look up other creators. SandBase forwards the cookie for this synchronous request only and does not store it in call history or logs, so async mode and retries are not supported.\n- Format `start_date` as `MM-DD-YYYY`, which defaults to covering the entire calendar month starting from that date.\n- An optional HTTP proxy address can be passed via `proxy`.\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n",
+  "page_url": "https://www.sandbase.ai/model/tiktok/creator/live-analytics-summary",
+  "created_at": "2026-07-31T04:15:46.549Z"
+}

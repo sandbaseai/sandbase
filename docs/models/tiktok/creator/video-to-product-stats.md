@@ -20,7 +20,7 @@ Modes: sync (default `sync`). Only pass `mode` values listed here. The SDKs' `ru
 ```bash
 curl https://api.sandbase.ai/v1/run \
   -H "Authorization: Bearer $SANDBASE_API_KEY" -H 'Content-Type: application/json' \
-  -d '{"model": "tiktok/creator/video-to-product-stats", "item_id": "7350810998023949599", "product_id": "1732108663255959373"}'
+  -d '{"model": "tiktok/creator/video-to-product-stats", "cookie": "<cookie>", "item_id": "7350810998023949599", "product_id": "1732108663255959373"}'
 ```
 
 **Python** ([sdk/python](../../../../sdk/python))
@@ -28,7 +28,7 @@ curl https://api.sandbase.ai/v1/run \
 ```python
 from sandbase import SandBase
 
-result = SandBase().run('tiktok/creator/video-to-product-stats', {'item_id': '7350810998023949599', 'product_id': '1732108663255959373'})
+result = SandBase().run('tiktok/creator/video-to-product-stats', {'cookie': '<cookie>', 'item_id': '7350810998023949599', 'product_id': '1732108663255959373'})
 print(result["outputs"])
 ```
 
@@ -38,6 +38,7 @@ print(result["outputs"])
 import { SandBase } from "@sandbaseai/sdk";
 
 const result = await new SandBase().run("tiktok/creator/video-to-product-stats", {
+  "cookie": "<cookie>",
   "item_id": "7350810998023949599",
   "product_id": "1732108663255959373"
 });
@@ -49,6 +50,7 @@ console.log(result.outputs);
 ```go
 c, _ := sandbase.NewClient("")
 run, err := c.Run(ctx, "tiktok/creator/video-to-product-stats", sandbase.Params{
+	"cookie": "<cookie>",
 	"item_id": "7350810998023949599",
 	"product_id": "1732108663255959373",
 })
@@ -61,6 +63,7 @@ Same call via the path form: `POST /v1/api/tiktok/creator/video-to-product-stats
 | name | type | required | description |
 |---|---|---|---|
 | `proxy` |  |  | Optional HTTP Proxy Address  |
+| `cookie` | string | yes | Cookie string of your own logged-in TikTok Shop creator account (from your browser session on the TikTok Shop / Seller Center site). Sent to the upstream for this request only and never stored by SandBase.  |
 | `item_id` | string | yes | Video ID  |
 | `product_id` | string | yes | Product ID  |
 | `start_date` | string |  | Query Start Date, e.g. '04-01-2025'  |
@@ -81,13 +84,14 @@ Returns promotional performance metrics linking a TikTok video to a specific pro
 curl -X POST "https://api.sandbase.ai/v1/api/tiktok/creator/video-to-product-stats" \
   -H "Authorization: Bearer $SANDBASE_API_KEY" \
   -H "Content-Type: application/json" \
-  -d '{"item_id": "7350810998023949599", "product_id": "1732108663255959373"}'
+  -d '{"cookie": "<YOUR_TIKTOK_SHOP_COOKIE>", "item_id": "7350810998023949599", "product_id": "1732108663255959373"}'
 ```
 
 ### Parameters
 
 | Name | Type | Required | Description |
 |---|---|---|---|
+| `cookie` | string | Yes | Cookie string of your own logged-in TikTok Shop creator account. Used for this request only and never stored |
 | `item_id` | string | Yes | Video ID |
 | `product_id` | string | Yes | Product ID |
 | `proxy` | string | No | Optional HTTP Proxy Address |
@@ -95,6 +99,7 @@ curl -X POST "https://api.sandbase.ai/v1/api/tiktok/creator/video-to-product-sta
 
 ### Notes
 
+- Requires `cookie` from your own TikTok Shop creator account. The data returned belongs to that account; this API cannot look up other creators. SandBase forwards the cookie for this synchronous request only and does not store it in call history or logs, so async mode and retries are not supported.
 - Supply `start_date` formatted like '04-01-2025' to filter historical data.
 - An optional HTTP proxy address can be set via `proxy`.
 

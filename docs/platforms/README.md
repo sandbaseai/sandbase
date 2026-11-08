@@ -5,7 +5,7 @@
 | Platform | Capabilities | Types |
 |---|---|---|
 | [Douyin](douyin.md) | 319 | data API |
-| [TikTok](tiktok.md) | 166 | data API |
+| [TikTok](tiktok.md) | 175 | data API |
 | [DataForSEO](dataforseo.md) | 148 | data API |
 | [Instagram](instagram.md) | 107 | data API |
 | [Alibaba](alibaba.md) | 72 | LLM, audio model, embedding model, image generation model, video generation model |

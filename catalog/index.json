@@ -1,10 +1,10 @@
 {
  "catalog_version": "1",
- "generated_at": "2026-11-07T14:55:29Z",
+ "generated_at": "2026-11-08T15:11:59Z",
  "base_url": "https://api.sandbase.ai",
- "count": 2296,
+ "count": 2305,
  "counts_by_type": {
-  "api": 1850,
+  "api": 1859,
   "video": 181,
   "llm": 122,
   "image": 109,
@@ -28805,6 +28805,126 @@
    "record": "catalog/models/tiktok/comment-replies.json"
   },
   {
+   "name": "tiktok/creator/account-health-status",
+   "display_name": "TikTok Creator Account Health Status",
+   "type": "api",
+   "vendor": "TikTok",
+   "description": "Returns the health status of a TikTok Shop creator account. Provides the 90-day health score and accumulated violation points to evaluate account standing.",
+   "tags": [
+    "api",
+    "tiktok"
+   ],
+   "modes": [
+    "sync"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "per_call",
+    "usd_per_call": 0.001
+   },
+   "record": "catalog/models/tiktok/creator/account-health-status.json"
+  },
+  {
+   "name": "tiktok/creator/account-insights-overview",
+   "display_name": "TikTok Creator Account Insights Overview",
+   "type": "api",
+   "vendor": "TikTok",
+   "description": "Retrieves performance metrics for a TikTok Shop creator account, including revenue, exposure, clicks, and orders for the specified month.",
+   "tags": [
+    "api",
+    "tiktok"
+   ],
+   "modes": [
+    "sync"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "per_call",
+    "usd_per_call": 0.001
+   },
+   "record": "catalog/models/tiktok/creator/account-insights-overview.json"
+  },
+  {
+   "name": "tiktok/creator/account-violation-list",
+   "display_name": "TikTok Creator Account Violations",
+   "type": "api",
+   "vendor": "TikTok",
+   "description": "Returns the violation history and enforcement actions for a TikTok Shop creator account. Supports chronological pagination across historical violation records.",
+   "tags": [
+    "api",
+    "tiktok"
+   ],
+   "modes": [
+    "sync"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "per_call",
+    "usd_per_call": 0.001
+   },
+   "record": "catalog/models/tiktok/creator/account-violation-list.json"
+  },
+  {
+   "name": "tiktok/creator/creator-account-info",
+   "display_name": "TikTok Creator Account Info",
+   "type": "api",
+   "vendor": "TikTok",
+   "description": "Returns basic profile details for a TikTok Shop creator account, including username, avatar URLs, account ID, region, partner bindings, and permissions.",
+   "tags": [
+    "api",
+    "tiktok"
+   ],
+   "modes": [
+    "sync"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "per_call",
+    "usd_per_call": 0.001
+   },
+   "record": "catalog/models/tiktok/creator/creator-account-info.json"
+  },
+  {
+   "name": "tiktok/creator/live-analytics-summary",
+   "display_name": "TikTok Stream Analytics Summary",
+   "type": "api",
+   "vendor": "TikTok",
+   "description": "Returns streaming performance metrics for a TikTok Shop account over a monthly period. Accepts an optional `start_date` to review broadcast analytics for a calendar month.",
+   "tags": [
+    "api",
+    "tiktok"
+   ],
+   "modes": [
+    "sync"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "per_call",
+    "usd_per_call": 0.001
+   },
+   "record": "catalog/models/tiktok/creator/live-analytics-summary.json"
+  },
+  {
+   "name": "tiktok/creator/product-analytics-list",
+   "display_name": "TikTok Creator Product Analytics List",
+   "type": "api",
+   "vendor": "TikTok",
+   "description": "Returns products promoted by a TikTok Shop creator along with sales analytics for a designated date range. Results can be filtered by dates and navigated through page numbers.",
+   "tags": [
+    "api",
+    "tiktok"
+   ],
+   "modes": [
+    "sync"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "per_call",
+    "usd_per_call": 0.001
+   },
+   "record": "catalog/models/tiktok/creator/product-analytics-list.json"
+  },
+  {
    "name": "tiktok/creator/product-related-videos",
    "display_name": "TikTok Product Related Videos",
    "type": "api",
@@ -28824,6 +28944,46 @@
     "free_quota": true
    },
    "record": "catalog/models/tiktok/creator/product-related-videos.json"
+  },
+  {
+   "name": "tiktok/creator/showcase-product-list",
+   "display_name": "TikTok Creator Showcase Product List",
+   "type": "api",
+   "vendor": "TikTok",
+   "description": "Returns the list of products displayed in a TikTok Shop creator showcase. Supports pagination controls via offset and item count.",
+   "tags": [
+    "api",
+    "tiktok"
+   ],
+   "modes": [
+    "sync"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "per_call",
+    "usd_per_call": 0.001
+   },
+   "record": "catalog/models/tiktok/creator/showcase-product-list.json"
+  },
+  {
+   "name": "tiktok/creator/video-analytics-summary",
+   "display_name": "TikTok Creator Video Analytics Summary",
+   "type": "api",
+   "vendor": "TikTok",
+   "description": "Returns a video performance overview for a TikTok Shop creator account over a time range. Provides metrics including video count, views, new followers, and generated GMV.",
+   "tags": [
+    "api",
+    "tiktok"
+   ],
+   "modes": [
+    "sync"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "per_call",
+    "usd_per_call": 0.001
+   },
+   "record": "catalog/models/tiktok/creator/video-analytics-summary.json"
   },
   {
    "name": "tiktok/creator/video-associated-product-list",
@@ -28887,6 +29047,26 @@
     "free_quota": true
    },
    "record": "catalog/models/tiktok/creator/video-detailed-stats.json"
+  },
+  {
+   "name": "tiktok/creator/video-list-analytics",
+   "display_name": "TikTok Creator Video List Analytics",
+   "type": "api",
+   "vendor": "TikTok",
+   "description": "Returns video records and performance metrics for a TikTok Shop creator within a specific date range. Supports pagination and custom sorting rules.",
+   "tags": [
+    "api",
+    "tiktok"
+   ],
+   "modes": [
+    "sync"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "per_call",
+    "usd_per_call": 0.001
+   },
+   "record": "catalog/models/tiktok/creator/video-list-analytics.json"
   },
   {
    "name": "tiktok/creator/video-to-product-stats",

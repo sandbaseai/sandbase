@@ -1,0 +1,62 @@
+{
+  "name": "tiktok/creator/account-health-status",
+  "display_name": "TikTok Creator Account Health Status",
+  "type": "api",
+  "vendor": "TikTok",
+  "vendor_slug": "tiktok",
+  "description": "Returns the health status of a TikTok Shop creator account. Provides the 90-day health score and accumulated violation points to evaluate account standing.",
+  "tags": [
+    "api",
+    "tiktok"
+  ],
+  "capabilities": [
+    "api",
+    "tiktok"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/tiktok/creator/account-health-status"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "cookie"
+    ],
+    "properties": {
+      "proxy": {
+        "anyOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "title": "Proxy",
+        "description": "Optional HTTP proxy address, can be omitted if not needed"
+      },
+      "cookie": {
+        "type": "string",
+        "title": "Cookie",
+        "minLength": 1,
+        "description": "Cookie string of your own logged-in TikTok Shop creator account (from your browser session on the TikTok Shop / Seller Center site). Sent to the upstream for this request only and never stored by SandBase."
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.001
+  },
+  "readme": "# TikTok Creator Account Health Status API\n\nAccess the health metrics and violation points for a TikTok Shop creator account. An optional `proxy` address can be configured for request routing.\n\n## Use cases\n\n- Monitor creator account standing over the past 90 days.\n- Track accumulated violation points to avoid platform restrictions.\n- Evaluate creator risk before initiating campaign collaborations.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/tiktok/creator/account-health-status\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"cookie\": \"<YOUR_TIKTOK_SHOP_COOKIE>\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `cookie` | string | Yes | Cookie string of your own logged-in TikTok Shop creator account. Used for this request only and never stored |\n| `proxy` | string | No | Optional HTTP proxy address, can be omitted if not needed |\n\n## Notes\n\n- Requires `cookie` from your own TikTok Shop creator account. The data returned belongs to that account; this API cannot look up other creators. SandBase forwards the cookie for this synchronous request only and does not store it in call history or logs, so async mode and retries are not supported.\n- The `proxy` parameter accepts an optional HTTP proxy address.\n\n## Pricing\n\nFlat price per call. Failed calls, including lookups whose target does not exist, are not charged.\n\n",
+  "page_url": "https://www.sandbase.ai/model/tiktok/creator/account-health-status",
+  "created_at": "2026-07-31T04:15:39.549Z"
+}

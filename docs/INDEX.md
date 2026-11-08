@@ -1,8 +1,8 @@
 # SandBase capability index
 
-2296 capabilities · generated 2026-11-07T14:55:29Z
+2305 capabilities · generated 2026-11-08T15:11:59Z
 
-- [api](#api) (1850)
+- [api](#api) (1859)
 - [audio](#audio) (32)
 - [embedding](#embedding) (2)
 - [image](#image) (109)
@@ -1369,10 +1369,19 @@
 | [`tiktok/app-v3/webcast-user-info`](models/tiktok/app-v3/webcast-user-info.md) | 0.001 / call (free quota) | sync | Retrieves profile information for a specified TikTok Webcast user. Queries data using either a numeric user ID or a… |
 | [`tiktok/audience-demographics`](models/tiktok/audience-demographics.md) | ~0.018 | sync | Get the audience country breakdown (follower count and share per country) for a TikTok creator by handle. |
 | [`tiktok/comment-replies`](models/tiktok/comment-replies.md) | ~0.0006 | sync | List the replies to a TikTok comment with cursor pagination (text, author, likes). |
+| [`tiktok/creator/account-health-status`](models/tiktok/creator/account-health-status.md) | 0.001 / call | sync | Returns the health status of a TikTok Shop creator account. Provides the 90-day health score and accumulated violation… |
+| [`tiktok/creator/account-insights-overview`](models/tiktok/creator/account-insights-overview.md) | 0.001 / call | sync | Retrieves performance metrics for a TikTok Shop creator account, including revenue, exposure, clicks, and orders for… |
+| [`tiktok/creator/account-violation-list`](models/tiktok/creator/account-violation-list.md) | 0.001 / call | sync | Returns the violation history and enforcement actions for a TikTok Shop creator account. Supports chronological… |
+| [`tiktok/creator/creator-account-info`](models/tiktok/creator/creator-account-info.md) | 0.001 / call | sync | Returns basic profile details for a TikTok Shop creator account, including username, avatar URLs, account ID, region,… |
+| [`tiktok/creator/live-analytics-summary`](models/tiktok/creator/live-analytics-summary.md) | 0.001 / call | sync | Returns streaming performance metrics for a TikTok Shop account over a monthly period. Accepts an optional… |
+| [`tiktok/creator/product-analytics-list`](models/tiktok/creator/product-analytics-list.md) | 0.001 / call | sync | Returns products promoted by a TikTok Shop creator along with sales analytics for a designated date range. Results can… |
 | [`tiktok/creator/product-related-videos`](models/tiktok/creator/product-related-videos.md) | 0.001 / call (free quota) | sync | Returns videos linked to a specified product alongside interaction metrics like counts for likes, comments, and… |
+| [`tiktok/creator/showcase-product-list`](models/tiktok/creator/showcase-product-list.md) | 0.001 / call | sync | Returns the list of products displayed in a TikTok Shop creator showcase. Supports pagination controls via offset and… |
+| [`tiktok/creator/video-analytics-summary`](models/tiktok/creator/video-analytics-summary.md) | 0.001 / call | sync | Returns a video performance overview for a TikTok Shop creator account over a time range. Provides metrics including… |
 | [`tiktok/creator/video-associated-product-list`](models/tiktok/creator/video-associated-product-list.md) | 0.001 / call (free quota) | sync | Returns products tied to specified TikTok Shop videos along with promotional performance metrics. Filter results by… |
 | [`tiktok/creator/video-audience-stats`](models/tiktok/creator/video-audience-stats.md) | 0.001 / call (free quota) | sync | Returns audience profile statistics for a TikTok video by ID, covering gender, age, and regional breakdowns. Supports… |
 | [`tiktok/creator/video-detailed-stats`](models/tiktok/creator/video-detailed-stats.md) | 0.001 / call (free quota) | sync | Returns segmented performance statistics for a TikTok video, including follower growth, completion rates, and… |
+| [`tiktok/creator/video-list-analytics`](models/tiktok/creator/video-list-analytics.md) | 0.001 / call | sync | Returns video records and performance metrics for a TikTok Shop creator within a specific date range. Supports… |
 | [`tiktok/creator/video-to-product-stats`](models/tiktok/creator/video-to-product-stats.md) | 0.001 / call (free quota) | sync | Returns promotional metrics linking a TikTok video to a specific product, including views, clicks, orders, and revenue… |
 | [`tiktok/followers`](models/tiktok/followers.md) | ~0.0008 | sync | List the followers of a TikTok account by username, returning each follower's profile basics. |
 | [`tiktok/following`](models/tiktok/following.md) | ~0.0008 | sync | List the accounts a TikTok user follows (handle, display name, follower count, bio) by username. |
