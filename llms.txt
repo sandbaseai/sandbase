@@ -18,7 +18,7 @@ Base URL: https://api.sandbase.ai. Auth: `Authorization: Bearer $SANDBASE_API_KE
 - [Agents with the OpenAI SDK](https://raw.githubusercontent.com/sandbaseai/sandbase/main/examples/agents/python/openai_agents.py)
 
 ## Top platforms
-- Douyin, TikTok, DataForSEO, Instagram, Alibaba, Xiaohongshu, Weibo, Google, Polymarket, YouTube, Zhihu, OpenAI, Bilibili, KwaiVGI, Kuaishou, LinkedIn, FRED, Reddit, X (Twitter), Facebook, Bytedance, Similarweb, Financial Datasets, MiniMax, CoinGecko, WeChat Channels, BFL, xAI, Semrush, WeChat MP, IMDb, Nasdaq, Pipixia, Twitter, Lemon8, 1688, Anthropic, AAA, MarketBeat, Open-Meteo
+- Douyin, TikTok, DataForSEO, Instagram, Alibaba, Xiaohongshu, Weibo, Google, Polymarket, YouTube, Zhihu, OpenAI, Bilibili, KwaiVGI, Kuaishou, LinkedIn, FRED, Reddit, X (Twitter), Facebook, Bytedance, Similarweb, Financial Datasets, MiniMax, CoinGecko, WeChat Channels, BFL, xAI, Semrush, WeChat MP, IMDb, Nasdaq, Pipixia, Twitter, Lemon8, Anthropic, 1688, AAA, MarketBeat, Open-Meteo
 
 ## Optional
 - [SandBase CLI / MCP for coding agents](https://github.com/sandbaseai/cli)

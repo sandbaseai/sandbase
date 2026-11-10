@@ -1,12 +1,12 @@
 # SandBase capability index
 
-2305 capabilities · generated 2026-11-08T15:11:59Z
+2306 capabilities · generated 2026-11-10T02:45:49Z
 
 - [api](#api) (1859)
 - [audio](#audio) (32)
 - [embedding](#embedding) (2)
 - [image](#image) (109)
-- [llm](#llm) (122)
+- [llm](#llm) (123)
 - [video](#video) (181)
 
 ## api
@@ -2055,6 +2055,7 @@
 | [`alibaba/qwen3.8-omni-flash`](models/alibaba/qwen3.8-omni-flash.md) | 0.15 / 0.47 per 1M tok | sync | Qwen3.8 Omni Flash is Alibaba's omni-modal reasoning model in the Qwen3.8 family, accepting text, image, audio and… |
 | [`anthropic/claude-fable-5`](models/anthropic/claude-fable-5.md) | 10 / 50 per 1M tok | sync | Claude Fable 5 is a Mythos-class model from Anthropic, built for autonomous knowledge work and coding. It supports… |
 | [`anthropic/claude-fable-5.1`](models/anthropic/claude-fable-5.1.md) | 10 / 50 per 1M tok | sync | Claude Fable 5.1 improves on Claude Fable 5 across the board, with the biggest gains in agentic coding, long-running… |
+| [`anthropic/claude-fable-5.2`](models/anthropic/claude-fable-5.2.md) | 8 / 40 per 1M tok | sync | Claude Fable 5.2 is Anthropic's most capable model for the most demanding technical work, with gains over Fable 5.1 in… |
 | [`anthropic/claude-fable-5.5`](models/anthropic/claude-fable-5.5.md) | unknown | sync | Claude Fable 5.5 is the expected successor to Claude Fable 5.1, Anthropic's tier above Opus for repository-scale… |
 | [`anthropic/claude-haiku-4.5`](models/anthropic/claude-haiku-4.5.md) | 1 / 5 per 1M tok | sync | Claude Haiku 4.5 is Anthropic’s fastest and most efficient model, delivering near-frontier intelligence at a fraction… |
 | [`anthropic/claude-haiku-5.5`](models/anthropic/claude-haiku-5.5.md) | 0.1 / 0.5 per 1M tok | sync | Claude Haiku 5.5 is Anthropic's small, fast model for high-volume, cost-sensitive work such as summarization,… |

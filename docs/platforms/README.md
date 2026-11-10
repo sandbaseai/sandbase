@@ -38,9 +38,9 @@
 | [Nasdaq](nasdaq.md) | 17 | data API |
 | [Pipixia](pipixia.md) | 17 | data API |
 | [Twitter](twitter.md) | 17 | data API |
+| [Anthropic](anthropic.md) | 16 | LLM |
 | [Lemon8](lemon8.md) | 16 | data API |
 | [1688](1688.md) | 15 | data API |
-| [Anthropic](anthropic.md) | 15 | LLM |
 | [AAA](aaa.md) | 13 | data API |
 | [MarketBeat](marketbeat.md) | 13 | data API |
 | [ElevenLabs](elevenlabs.md) | 12 | audio model, video generation model |

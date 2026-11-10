@@ -1,12 +1,12 @@
 {
  "catalog_version": "1",
- "generated_at": "2026-11-08T15:11:59Z",
+ "generated_at": "2026-11-10T02:45:49Z",
  "base_url": "https://api.sandbase.ai",
- "count": 2305,
+ "count": 2306,
  "counts_by_type": {
   "api": 1859,
   "video": 181,
-  "llm": 122,
+  "llm": 123,
   "image": 109,
   "audio": 32,
   "embedding": 2
@@ -42776,6 +42776,32 @@
     }
    },
    "record": "catalog/models/anthropic/claude-fable-5.1.json"
+  },
+  {
+   "name": "anthropic/claude-fable-5.2",
+   "display_name": "Anthropic: Claude Fable 5.2",
+   "type": "llm",
+   "vendor": "Anthropic",
+   "description": "Claude Fable 5.2 is Anthropic's most capable model for the most demanding technical work, with gains over Fable 5.1 in coding, reasoning, and vision. In prerelease testing it completed otherwise-infeasible...",
+   "tags": [
+    "chat",
+    "vision",
+    "reasoning",
+    "structured_output",
+    "function_calling"
+   ],
+   "modes": [
+    "sync"
+   ],
+   "endpoint": "POST /v1/chat/completions",
+   "price": {
+    "model": "per_token",
+    "usd_per_million_tokens": {
+     "input": 8,
+     "output": 40
+    }
+   },
+   "record": "catalog/models/anthropic/claude-fable-5.2.json"
   },
   {
    "name": "anthropic/claude-fable-5.5",

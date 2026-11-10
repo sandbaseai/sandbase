@@ -1,11 +1,12 @@
-# Anthropic models API: 15 endpoints with pricing and code examples
+# Anthropic models API: 16 endpoints with pricing and code examples
 
-Call 15 Anthropic models through SandBase with one API key: no separate account, one balance, the same request format for every endpoint. Each page has the input schema, the price and curl / Python / TypeScript / Go examples.
+Call 16 Anthropic models through SandBase with one API key: no separate account, one balance, the same request format for every endpoint. Each page has the input schema, the price and curl / Python / TypeScript / Go examples.
 
 | Endpoint | What it does | Price |
 |---|---|---|
 | [`anthropic/claude-fable-5`](../models/anthropic/claude-fable-5.md) | Claude Fable 5 is a Mythos-class model from Anthropic, built for autonomous knowledge work and coding. It supports text, image, and file… | $10 input / $50 output per 1M tokens |
 | [`anthropic/claude-fable-5.1`](../models/anthropic/claude-fable-5.1.md) | Claude Fable 5.1 improves on Claude Fable 5 across the board, with the biggest gains in agentic coding, long-running agentic workflows,… | $10 input / $50 output per 1M tokens |
+| [`anthropic/claude-fable-5.2`](../models/anthropic/claude-fable-5.2.md) | Claude Fable 5.2 is Anthropic's most capable model for the most demanding technical work, with gains over Fable 5.1 in coding, reasoning,… | $8 input / $40 output per 1M tokens |
 | [`anthropic/claude-fable-5.5`](../models/anthropic/claude-fable-5.5.md) | Claude Fable 5.5 is the expected successor to Claude Fable 5.1, Anthropic's tier above Opus for repository-scale coding, long-running… |  |
 | [`anthropic/claude-haiku-4.5`](../models/anthropic/claude-haiku-4.5.md) | Claude Haiku 4.5 is Anthropic’s fastest and most efficient model, delivering near-frontier intelligence at a fraction of the cost and… | $1 input / $5 output per 1M tokens |
 | [`anthropic/claude-haiku-5.5`](../models/anthropic/claude-haiku-5.5.md) | Claude Haiku 5.5 is Anthropic's small, fast model for high-volume, cost-sensitive work such as summarization, classification, compaction,… | $0.1 input / $0.5 output per 1M tokens |
