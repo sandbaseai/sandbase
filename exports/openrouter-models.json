@@ -709,6 +709,18 @@
    }
   },
   {
+   "id": "google/gemini-4-carbon",
+   "name": "Google: Gemini 4 Carbon",
+   "description": "Gemini 4 Carbon is Google's most capable Gemini 4 model, released on November 10, 2026 and positioned above Gemini 4 Argon. Google built it for long-horizon agentic work such as complex software engineering, full-stack web development, scientific research and cybersecurity defense. It accepts text, image, video, audio and PDF input with a 1M-token context window, always reasons before answering with low, medium or high effort, and supports function calling and structured output.",
+   "context_length": 1048576,
+   "pricing": {
+    "prompt": "0.000004",
+    "completion": "0.00002",
+    "request": "0",
+    "image": "0"
+   }
+  },
+  {
    "id": "google/gemini-nano-banana-2.1",
    "name": "Google: Nano Banana 2.1 (Gemini Nano Banana 2.1)",
    "description": "Nano Banana 2.1 (Gemini Nano Banana 2.1) is Google's Flash-tier image generation and editing model, succeeding Nano Banana 2 and producing images alongside text through the native Gemini generateContent API. It improves prompt adherence, text rendering, product recontextualization and multi-turn editing consistency, supports extreme aspect ratios and 1K to 4K output, and can ground generation with Google web and image search. Pick Nano Banana Pro instead for the most demanding professional\u2026",

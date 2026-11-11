@@ -59,6 +59,7 @@
  "google/gemini-3.7-flash": 0.75,
  "google/gemini-3.8-flash": 0.75,
  "google/gemini-4-argon": 2.0,
+ "google/gemini-4-carbon": 2.0,
  "google/gemini-nano-banana-2.1": 0.75,
  "meta/llama-3.3-70b-instruct": 0.05,
  "minimax/minimax-m2.5": 0.15,

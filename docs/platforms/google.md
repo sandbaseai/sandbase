@@ -1,6 +1,6 @@
-# Google models API: 62 endpoints with pricing and code examples
+# Google models API: 63 endpoints with pricing and code examples
 
-Call 62 Google models through SandBase with one API key: no separate account, one balance, the same request format for every endpoint. Each page has the input schema, the price and curl / Python / TypeScript / Go examples.
+Call 63 Google models through SandBase with one API key: no separate account, one balance, the same request format for every endpoint. Each page has the input schema, the price and curl / Python / TypeScript / Go examples.
 
 | Endpoint | What it does | Price |
 |---|---|---|
@@ -26,6 +26,7 @@ Call 62 Google models through SandBase with one API key: no separate account, on
 | [`google/gemini-3.8-flash-lite-tts`](../models/google/gemini-3.8-flash-lite-tts.md) | Gemini 3.8 Flash Lite TTS by Google turns text into expressive speech with 30 prebuilt voices and natural-language style direction. | from $0.03 per run, depending on parameters |
 | [`google/gemini-3.8-flash-tts`](../models/google/gemini-3.8-flash-tts.md) | Gemini 3.8 Flash TTS by Google turns text into expressive speech with 30 prebuilt voices and natural-language style direction. | from $0.045 per run, depending on parameters |
 | [`google/gemini-4-argon`](../models/google/gemini-4-argon.md) | Gemini 4 Argon is Google's flagship reasoning model and the first model of the Gemini 4 generation, generally available since October 13,… | $4 input / $20 output per 1M tokens |
+| [`google/gemini-4-carbon`](../models/google/gemini-4-carbon.md) | Gemini 4 Carbon is Google's most capable Gemini 4 model, released on November 10, 2026 and positioned above Gemini 4 Argon. Google built… | $4 input / $20 output per 1M tokens |
 | [`google/gemini-nano-banana-2.1`](../models/google/gemini-nano-banana-2.1.md) | Nano Banana 2.1 (Gemini Nano Banana 2.1) is Google's Flash-tier image generation and editing model, succeeding Nano Banana 2 and producing… | $1.5 input / $7.5 output per 1M tokens |
 | [`google/gemini-omni-flash/1.1/edit`](../models/google/gemini-omni-flash/1.1/edit.md) | Gemini Omni Flash 1.1 Edit by Google applies natural-language edits to an existing video of up to ten seconds, such as changing style,… | about $1.12 per call |
 | [`google/gemini-omni-flash/1.1/image-to-video`](../models/google/gemini-omni-flash/1.1/image-to-video.md) | Gemini Omni Flash 1.1 by Google - animate still images into dynamic videos with AI. Transform photos into cinematic clips with natural… | from $0.09 to $3 per run, depending on parameters |

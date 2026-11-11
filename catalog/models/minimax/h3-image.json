@@ -1,0 +1,202 @@
+{
+  "name": "minimax/h3-image",
+  "display_name": "MiniMax H3 Image Text to Image",
+  "type": "image",
+  "vendor": "MiniMax",
+  "vendor_slug": "minimax",
+  "description": "MiniMax H3 Image is MiniMax's flagship image generation model from the H3 family, turning text prompts into detailed, photorealistic images with built-in prompt enhancement, aspect ratios from 1:3 to 3:1 and 1K, 2K or 4K output.",
+  "tags": [
+    "text-to-image",
+    "commercial"
+  ],
+  "capabilities": [
+    "text-to-image",
+    "commercial"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "prompt"
+    ],
+    "properties": {
+      "prompt": {
+        "type": "string",
+        "title": "Prompt",
+        "default": "A rustic farm-to-table feast on a weathered wooden table, overhead food photograph, warm side light",
+        "maxLength": 32000,
+        "minLength": 1,
+        "description": "The text prompt to generate an image from."
+      },
+      "resolution": {
+        "enum": [
+          "1K",
+          "2K",
+          "4K"
+        ],
+        "type": "string",
+        "title": "Resolution",
+        "default": "1K",
+        "description": "Output resolution tier: 1K (about 1 MP), 2K (about 4 MP) or 4K (about 16 MP)."
+      },
+      "aspect_ratio": {
+        "enum": [
+          "21:9",
+          "16:9",
+          "2:1",
+          "3:2",
+          "4:3",
+          "5:4",
+          "1:1",
+          "4:5",
+          "3:4",
+          "2:3",
+          "1:2",
+          "9:16",
+          "9:21",
+          "3:1",
+          "1:3"
+        ],
+        "type": "string",
+        "title": "Aspect Ratio",
+        "default": "1:1",
+        "description": "Output aspect ratio."
+      },
+      "output_format": {
+        "enum": [
+          "jpeg",
+          "png",
+          "webp"
+        ],
+        "type": "string",
+        "title": "Output Format",
+        "default": "png",
+        "description": "The format of the generated image."
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "title": "GenerationResponse",
+    "required": [
+      "id",
+      "status"
+    ],
+    "properties": {
+      "id": {
+        "type": "string",
+        "description": "Unique identifier for the generation task."
+      },
+      "error": {
+        "type": "string",
+        "description": "Error message if the task failed. Empty on success."
+      },
+      "model": {
+        "type": "string",
+        "description": "Model ID used for the prediction."
+      },
+      "status": {
+        "enum": [
+          "pending",
+          "running",
+          "completed",
+          "failed",
+          "timeout"
+        ],
+        "type": "string",
+        "description": "Status of the task: pending, running, completed, failed, or timeout."
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "title": "OutputItem",
+          "required": [
+            "url"
+          ],
+          "properties": {
+            "url": {
+              "type": "string",
+              "examples": [
+                "https://storage.googleapis.com/falserverless/example_outputs/nano-banana-2-t2i-output.png"
+              ],
+              "description": "The URL where the generated content can be downloaded from."
+            },
+            "content_type": {
+              "type": "string",
+              "description": "The MIME type of the output file."
+            }
+          }
+        },
+        "description": "Array of generated content. Empty when status is not completed."
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "formula",
+    "formula": "((params.resolution ?? \"1K\") == \"4K\" ? 0.09 : 0.03)",
+    "formula_variables": [
+      "params.resolution"
+    ],
+    "reference_price": 0.03,
+    "price_examples": [
+      {
+        "params": {
+          "resolution": "1K"
+        },
+        "usd": 0.03
+      },
+      {
+        "params": {
+          "resolution": "2K"
+        },
+        "usd": 0.03
+      },
+      {
+        "params": {
+          "resolution": "4K"
+        },
+        "usd": 0.09
+      }
+    ]
+  },
+  "examples": [
+    {
+      "input": {
+        "aspect_ratio": "16:9",
+        "prompt": "A rustic farm-to-table feast on a weathered wooden table, overhead food photograph, warm side light",
+        "resolution": "1K"
+      },
+      "output": [
+        {
+          "url": "https://static.sandbase.ai/examples/962a1dc9-8034-499e-a91d-ff1c9d83e191/output/54bb2742-2049-4e44-ab16-f89596219766.png"
+        }
+      ],
+      "default": true
+    },
+    {
+      "input": {
+        "aspect_ratio": "16:9",
+        "prompt": "Widescreen cinematic photo of a tiny ramen shop on a rainy Tokyo side street at night, glowing red lantern and a neon sign that reads \"MIDNIGHT NOODLES\", steam rising from the open kitchen, reflections on wet cobblestones, a cyclist with a clear umbrella passing by, shallow depth of field",
+        "resolution": "1K"
+      },
+      "output": [
+        {
+          "url": "https://static.sandbase.ai/examples/1da77726-e40d-42e2-bddf-5abce456f864/output/b1ebfb32-2b84-40dc-af57-7d72850badaf.png"
+        }
+      ]
+    }
+  ],
+  "cover_url": "https://static.sandbase.ai/covers/minimax/h3-image/cover-flare-20261111132020.webp",
+  "page_url": "https://www.sandbase.ai/model/minimax/h3-image",
+  "published_at": "2026-11-10T08:43:09Z",
+  "created_at": "2026-11-11T05:09:00.46Z"
+}

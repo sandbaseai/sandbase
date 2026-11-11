@@ -1,0 +1,46 @@
+{
+  "name": "google/gemini-4-carbon",
+  "display_name": "Google: Gemini 4 Carbon",
+  "type": "llm",
+  "vendor": "Google",
+  "vendor_slug": "google",
+  "description": "Gemini 4 Carbon is Google's most capable Gemini 4 model, released on November 10, 2026 and positioned above Gemini 4 Argon. Google built it for long-horizon agentic work such as complex software engineering, full-stack web development, scientific research and cybersecurity defense. It accepts text, image, video, audio and PDF input with a 1M-token context window, always reasons before answering with low, medium or high effort, and supports function calling and structured output.",
+  "tags": [
+    "chat",
+    "vision",
+    "audio_input",
+    "reasoning",
+    "structured_output",
+    "function_calling"
+  ],
+  "capabilities": [
+    "chat",
+    "vision",
+    "audio_input",
+    "reasoning",
+    "structured_output",
+    "function_calling"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "chat_completions": "POST /v1/chat/completions",
+    "responses": "POST /v1/responses",
+    "messages": "POST /v1/messages"
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_token",
+    "per_million_tokens": {
+      "input": 4,
+      "output": 20,
+      "cache_read_multiplier": 0.05
+    }
+  },
+  "page_url": "https://www.sandbase.ai/model/google/gemini-4-carbon",
+  "published_at": "2026-11-10T16:07:51Z",
+  "created_at": "2026-11-11T03:32:06.627Z",
+  "context_length": 1048576
+}

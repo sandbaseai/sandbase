@@ -1,12 +1,12 @@
 # SandBase capability index
 
-2306 capabilities · generated 2026-11-10T02:45:49Z
+2311 capabilities · generated 2026-11-11T06:14:27Z
 
 - [api](#api) (1859)
 - [audio](#audio) (32)
 - [embedding](#embedding) (2)
-- [image](#image) (109)
-- [llm](#llm) (123)
+- [image](#image) (113)
+- [llm](#llm) (124)
 - [video](#video) (181)
 
 ## api
@@ -1997,6 +1997,10 @@
 | [`microsoft/mai-image-2.5-pro/edit`](models/microsoft/mai-image-2.5-pro/edit.md) | 0.29 | async | Mai Image 2.5 Pro Edit by Microsoft - AI-powered image editing, style transfer, and transformation. Edit photos with… |
 | [`microsoft/mai-image-2.5/edit`](models/microsoft/mai-image-2.5/edit.md) | 0.05 / call | async | Mai Image 2.5 Edit by Microsoft - AI-powered image editing, style transfer, and transformation. Edit photos with… |
 | [`midjourney/midjourney-v8.1`](models/midjourney/midjourney-v8.1.md) | 0.08–0.12 | async | Midjourney V8.1 text-to-image generation. |
+| [`minimax/h3-image`](models/minimax/h3-image.md) | 0.03–0.09 | async | MiniMax H3 Image is MiniMax's flagship image generation model from the H3 family, turning text prompts into detailed,… |
+| [`minimax/h3-image-highspeed`](models/minimax/h3-image-highspeed.md) | 0.05–0.18 | async | MiniMax H3 Image Highspeed is the faster version of MiniMax's H3 image generation model, with the same prompt… |
+| [`minimax/h3-image-highspeed/edit`](models/minimax/h3-image-highspeed/edit.md) | 0.066–0.196 | async | MiniMax H3 Image Highspeed Edit is the faster version of MiniMax H3 Image Edit, editing and composing images from 1 to… |
+| [`minimax/h3-image/edit`](models/minimax/h3-image/edit.md) | 0.038–0.098 | async | MiniMax H3 Image Edit edits and composes images from 1 to 16 reference images with MiniMax's H3 image model, following… |
 | [`openai/gpt-image-1-mini/edit`](models/openai/gpt-image-1-mini/edit.md) | 0.007–0.054 | async | Gpt Image 1 Mini Edit is OpenAI's intelligent image editing model. Transform, retouch, and reimagine existing images… |
 | [`openai/gpt-image-1.5`](models/openai/gpt-image-1.5.md) | 0.014–0.205 | async | Gpt Image 1.5 is OpenAI's advanced text-to-image AI model. Create photorealistic images, illustrations, and concept… |
 | [`openai/gpt-image-1.5/edit`](models/openai/gpt-image-1.5/edit.md) | 0.009–0.2 | async | Gpt Image 1.5 Edit by OpenAI - AI-powered image editing, style transfer, and transformation. Edit photos with natural… |
@@ -2095,6 +2099,7 @@
 | [`google/gemini-3.7-flash`](models/google/gemini-3.7-flash.md) | 1.5 / 7.5 per 1M tok | sync | Gemini 3.7 Flash is a natively multimodal reasoning model in Google's Gemini 3 Flash line, released in August 2026,… |
 | [`google/gemini-3.8-flash`](models/google/gemini-3.8-flash.md) | 1.5 / 7.5 per 1M tok | sync | Gemini 3.8 Flash is a Flash-tier reasoning model in Google's Gemini 3 series, released in September 2026 and described… |
 | [`google/gemini-4-argon`](models/google/gemini-4-argon.md) | 4 / 20 per 1M tok | sync | Gemini 4 Argon is Google's flagship reasoning model and the first model of the Gemini 4 generation, generally… |
+| [`google/gemini-4-carbon`](models/google/gemini-4-carbon.md) | 4 / 20 per 1M tok | sync | Gemini 4 Carbon is Google's most capable Gemini 4 model, released on November 10, 2026 and positioned above Gemini 4… |
 | [`google/gemini-nano-banana-2.1`](models/google/gemini-nano-banana-2.1.md) | 1.5 / 7.5 per 1M tok | sync | Nano Banana 2.1 (Gemini Nano Banana 2.1) is Google's Flash-tier image generation and editing model, succeeding Nano… |
 | [`meta/llama-3.3-70b-instruct`](models/meta/llama-3.3-70b-instruct.md) | 0.1 / 0.32 per 1M tok | sync | Llama 3.3 70B Instruct is Meta's instruction-tuned, text-only multilingual model released on December 6, 2024, built… |
 | [`minimax/minimax-m2.5`](models/minimax/minimax-m2.5.md) | 0.3 / 1.2 per 1M tok | sync | MiniMax-M2.5 is a MiniMax M2-series language model released in February 2026 for real-world productivity, trained with… |

@@ -10,8 +10,8 @@
 | [Instagram](instagram.md) | 107 | data API |
 | [Alibaba](alibaba.md) | 72 | LLM, audio model, embedding model, image generation model, video generation model |
 | [Xiaohongshu](xiaohongshu.md) | 67 | data API |
+| [Google](google.md) | 63 | LLM, audio model, data API, image generation model, video generation model |
 | [Weibo](weibo.md) | 63 | data API |
-| [Google](google.md) | 62 | LLM, audio model, data API, image generation model, video generation model |
 | [Polymarket](polymarket.md) | 59 | data API |
 | [YouTube](youtube.md) | 54 | data API |
 | [OpenAI](openai.md) | 51 | LLM, audio model, embedding model, image generation model |
@@ -25,9 +25,9 @@
 | [X (Twitter)](x-twitter.md) | 30 | data API |
 | [Bytedance](bytedance.md) | 28 | LLM, audio model, image generation model, video generation model |
 | [Facebook](facebook.md) | 28 | data API |
+| [MiniMax](minimax.md) | 27 | audio model, image generation model, video generation model |
 | [Similarweb](similarweb.md) | 25 | data API |
 | [Financial Datasets](financial-datasets.md) | 24 | data API |
-| [MiniMax](minimax.md) | 23 | audio model, video generation model |
 | [BFL](bfl.md) | 22 | image generation model, video generation model |
 | [CoinGecko](coingecko.md) | 22 | data API |
 | [WeChat Channels](wechat-channels.md) | 22 | data API |
