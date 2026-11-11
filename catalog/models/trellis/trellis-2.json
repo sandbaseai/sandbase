@@ -1,0 +1,213 @@
+{
+  "name": "trellis/trellis-2",
+  "display_name": "TRELLIS.2",
+  "type": "image",
+  "vendor": "trellis",
+  "vendor_slug": "trellis",
+  "description": "TRELLIS.2 by Microsoft generates a textured 3D model (GLB with PBR materials) from a single image.",
+  "tags": [
+    "image-to-3d"
+  ],
+  "capabilities": [
+    "image-to-3d"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "image"
+    ],
+    "properties": {
+      "seed": {
+        "type": "integer",
+        "title": "Seed",
+        "description": "Random seed for reproducible results."
+      },
+      "image": {
+        "type": "string",
+        "title": "Image",
+        "examples": [
+          "https://static.sandbase.ai/examples/trellis/trellis-2/input_image_0.png"
+        ],
+        "description": "Image of the object to convert to 3D."
+      },
+      "remesh": {
+        "type": "boolean",
+        "title": "Remesh",
+        "default": true,
+        "description": "Rebuild the mesh topology for cleaner triangles. Slower, but usually better for animation or 3D printing."
+      },
+      "resolution": {
+        "enum": [
+          512,
+          1024,
+          1536
+        ],
+        "type": "integer",
+        "title": "Resolution",
+        "default": 1024,
+        "description": "Generation resolution. Higher is slower and more detailed, and changes the price."
+      },
+      "texture_size": {
+        "enum": [
+          1024,
+          2048,
+          4096
+        ],
+        "type": "integer",
+        "title": "Texture Size",
+        "default": 2048,
+        "description": "Resolution of the baked texture image. Higher values keep finer surface detail but produce larger files."
+      },
+      "decimation_target": {
+        "type": "integer",
+        "title": "Target Vertex Count",
+        "default": 500000,
+        "maximum": 2000000,
+        "minimum": 5000,
+        "description": "Target number of vertices in the final mesh. Lower values give smaller files; 20k-50k suits web and mobile."
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "title": "GenerationResponse",
+    "required": [
+      "id",
+      "status"
+    ],
+    "properties": {
+      "id": {
+        "type": "string",
+        "description": "Unique identifier for the generation task."
+      },
+      "error": {
+        "type": "string",
+        "description": "Error message if the task failed. Empty on success."
+      },
+      "model": {
+        "type": "string",
+        "description": "Model ID used for the prediction."
+      },
+      "status": {
+        "enum": [
+          "pending",
+          "running",
+          "completed",
+          "failed",
+          "timeout"
+        ],
+        "type": "string",
+        "description": "Status of the task: pending, running, completed, failed, or timeout."
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "title": "OutputItem",
+          "required": [
+            "url"
+          ],
+          "properties": {
+            "url": {
+              "type": "string",
+              "description": "The URL where the generated content can be downloaded from."
+            },
+            "content_type": {
+              "type": "string",
+              "description": "The MIME type of the output file."
+            }
+          }
+        },
+        "description": "Array of generated content. Empty when status is not completed."
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "formula",
+    "formula": "(params.resolution ?? 1024) == 1536 ? ((params.texture_size ?? 2048) == 4096 ? 0.45 : 0.4) : ((params.resolution ?? 1024) == 512 ? 0.25 : 0.3)",
+    "formula_variables": [
+      "params.resolution",
+      "params.texture_size"
+    ],
+    "reference_price": 0.3,
+    "price_examples": [
+      {
+        "params": {
+          "resolution": 512,
+          "texture_size": 1024
+        },
+        "usd": 0.25
+      },
+      {
+        "params": {
+          "resolution": 512,
+          "texture_size": 2048
+        },
+        "usd": 0.25
+      },
+      {
+        "params": {
+          "resolution": 512,
+          "texture_size": 4096
+        },
+        "usd": 0.25
+      },
+      {
+        "params": {
+          "resolution": 1024,
+          "texture_size": 1024
+        },
+        "usd": 0.3
+      },
+      {
+        "params": {
+          "resolution": 1024,
+          "texture_size": 2048
+        },
+        "usd": 0.3
+      },
+      {
+        "params": {
+          "resolution": 1024,
+          "texture_size": 4096
+        },
+        "usd": 0.3
+      },
+      {
+        "params": {
+          "resolution": 1536,
+          "texture_size": 1024
+        },
+        "usd": 0.4
+      },
+      {
+        "params": {
+          "resolution": 1536,
+          "texture_size": 2048
+        },
+        "usd": 0.4
+      },
+      {
+        "params": {
+          "resolution": 1536,
+          "texture_size": 4096
+        },
+        "usd": 0.45
+      }
+    ]
+  },
+  "readme": "# TRELLIS.2\nTRELLIS.2 by Microsoft generates a textured 3D model (GLB with PBR materials) from a single image.\n## Fields\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `image` | image URL, required | — | Image of the object to convert to 3D. |\n| `resolution` | `512` / `1024` / `1536` | `1024` | Generation resolution. Higher is slower and more detailed, and changes the price. |\n| `texture_size` | `1024` / `2048` / `4096` | `2048` | Resolution of the baked texture image. Higher values keep finer surface detail but produce larger files. |\n| `decimation_target` | integer 5000–2000000 | `500000` | Target number of vertices in the final mesh. Lower values give smaller files; 20k-50k suits web and mobile. |\n| `remesh` | boolean | `true` | Rebuild the mesh topology for cleaner triangles. Slower, but usually better for animation or 3D printing. |\n| `seed` | integer | — | Random seed for reproducible results. |\n## Output\n- `url`: Main 3D file (GLB unless another export format is selected).\n## Billing\n$0.30 per request with default settings. Price by option (other settings at default):\n| Option | Price |\n|---|---|\n| resolution = 512 | $0.25 |\n| resolution = 1024 | $0.30 |\n| resolution = 1536 | $0.40 |\n| texture_size = 1024 | $0.30 |\n| texture_size = 2048 | $0.30 |\n| texture_size = 4096 | $0.30 |\nFailed runs are not charged.\n## Also on SandBase\nOther trellis 3D endpoints: `trellis/trellis`, `trellis/trellis-2/retexture`, `trellis/trellis/multi`.\n",
+  "cover_url": "https://static.sandbase.ai/covers/trellis/trellis-2/cover-flare-20261111181111.webp",
+  "page_url": "https://www.sandbase.ai/model/trellis/trellis-2",
+  "published_at": "2025-12-17T21:49:28.133Z",
+  "created_at": "2026-05-15T23:12:11.49Z"
+}

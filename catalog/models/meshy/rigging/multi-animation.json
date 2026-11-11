@@ -1,0 +1,160 @@
+{
+  "name": "meshy/rigging/multi-animation",
+  "display_name": "Meshy Rigging Multi-Animation",
+  "type": "image",
+  "vendor": "Meshy",
+  "vendor_slug": "meshy",
+  "description": "Meshy Rigging Multi-Animation rigs an existing humanoid character model and generates up to 10 animation clips on the same rig.",
+  "tags": [
+    "3d-to-3d"
+  ],
+  "capabilities": [
+    "3d-to-3d"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "model_url",
+      "animation_action_ids"
+    ],
+    "properties": {
+      "model_url": {
+        "type": "string",
+        "title": "Model URL",
+        "examples": [
+          "https://storage.googleapis.com/falserverless/model_tests/video_models/base_basic_shaded.glb"
+        ],
+        "description": "URL of a humanoid character model in GLB format with clearly defined limbs. Works with models from Meshy, Hunyuan, Trellis or any other 3D tool."
+      },
+      "height_meters": {
+        "type": "number",
+        "title": "Height (m)",
+        "default": 1.7,
+        "description": "Approximate height of the character in meters.",
+        "exclusiveMinimum": 0
+      },
+      "include_fingers": {
+        "type": "boolean",
+        "title": "Include Fingers",
+        "default": false,
+        "description": "Rig the character's fingers."
+      },
+      "skeleton_template": {
+        "enum": [
+          "mixamo",
+          "ue5_mannequin",
+          "unity_humanoid",
+          "maya_human_ik",
+          "blender_rigify_basic_human",
+          "max_biped",
+          "cc5_hd_neutral_base",
+          "daz_genesis9",
+          "meshyrig"
+        ],
+        "type": "string",
+        "title": "Skeleton Template",
+        "default": "meshyrig",
+        "description": "Skeleton template for the rig (e.g. mixamo, ue5_mannequin, unity_humanoid). Some models can only be rigged on meshyrig without fingers."
+      },
+      "animation_action_ids": {
+        "type": "array",
+        "items": {
+          "type": "integer",
+          "maximum": 696,
+          "minimum": 0
+        },
+        "title": "Animation Action IDs",
+        "examples": [
+          [
+            92
+          ]
+        ],
+        "maxItems": 10,
+        "minItems": 1,
+        "description": "1 to 10 animation preset IDs from Meshy's animation library (0 is Idle). One clip is generated per ID, in request order; duplicates are merged."
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "title": "GenerationResponse",
+    "required": [
+      "id",
+      "status"
+    ],
+    "properties": {
+      "id": {
+        "type": "string",
+        "description": "Unique identifier for the generation task."
+      },
+      "error": {
+        "type": "string",
+        "description": "Error message if the task failed. Empty on success."
+      },
+      "model": {
+        "type": "string",
+        "description": "Model ID used for the prediction."
+      },
+      "status": {
+        "enum": [
+          "pending",
+          "running",
+          "completed",
+          "failed",
+          "timeout"
+        ],
+        "type": "string",
+        "description": "Status of the task: pending, running, completed, failed, or timeout."
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "title": "OutputItem",
+          "required": [
+            "url"
+          ],
+          "properties": {
+            "url": {
+              "type": "string",
+              "description": "The URL where the generated content can be downloaded from."
+            },
+            "content_type": {
+              "type": "string",
+              "description": "The MIME type of the output file."
+            }
+          }
+        },
+        "description": "Array of generated content. Empty when status is not completed."
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "formula",
+    "formula": "0.2 + len(params.animation_action_ids ?? []) * 0.12",
+    "formula_variables": [
+      "params.animation_action_ids"
+    ],
+    "reference_price": 0.32,
+    "price_examples": [
+      {
+        "params": {},
+        "usd": 0.2
+      }
+    ]
+  },
+  "readme": "# Meshy Rigging Multi-Animation\nMeshy Rigging Multi-Animation rigs an existing humanoid character model and generates up to 10 animation clips on the same rig.\n## Fields\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `model_url` | string, required | — | URL of a humanoid character model in GLB format with clearly defined limbs. Works with models from Meshy, Hunyuan, Trellis or any other 3D tool. |\n| `animation_action_ids` | array (1–10), required | — | 1 to 10 animation preset IDs from Meshy's animation library (0 is Idle). One clip is generated per ID, in request order; duplicates are merged. |\n| `skeleton_template` | `mixamo` / `ue5_mannequin` / `unity_humanoid` / `maya_human_ik` / `blender_rigify_basic_human` / `max_biped` / `cc5_hd_neutral_base` / `daz_genesis9` / `meshyrig` | `meshyrig` | Skeleton template for the rig (e.g. mixamo, ue5_mannequin, unity_humanoid). Some models can only be rigged on meshyrig without fingers. |\n| `include_fingers` | boolean | `false` | Rig the character's fingers. |\n| `height_meters` | number | `1.7` | Approximate height of the character in meters. |\n## Output\n- `url`: Main 3D file (GLB unless another export format is selected).\n- `fbx`: Additional file returned by the provider.\n- `animation_glb`: Additional file returned by the provider.\n- `animation_fbx`: Additional file returned by the provider.\n## Billing\n$0.32 per request with default settings. Price by option (other settings at default):\n| Option | Price |\n|---|---|\n| 1 animation action ids | $0.32 |\n| 2 animation action ids | $0.44 |\n| 4 animation action ids | $0.68 |\nFailed runs are not charged.\n## Also on SandBase\nOther Meshy 3D endpoints: `meshy/6.0-lite/retexture`, `meshy/6.0/retexture`, `meshy/7.0/image-to-3d`, `meshy/7.0/multi-image-to-3d`.\n",
+  "cover_url": "https://static.sandbase.ai/covers/meshy/rigging/multi-animation/cover-flare-20261111181024.webp",
+  "page_url": "https://www.sandbase.ai/model/meshy/rigging/multi-animation",
+  "published_at": "2026-06-12T21:40:43.99Z",
+  "created_at": "2026-08-17T09:05:41.912Z"
+}

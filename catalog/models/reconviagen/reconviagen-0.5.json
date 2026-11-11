@@ -1,0 +1,168 @@
+{
+  "name": "reconviagen/reconviagen-0.5",
+  "display_name": "ReconViaGen 0.5",
+  "type": "image",
+  "vendor": "reconviagen",
+  "vendor_slug": "reconviagen",
+  "description": "ReconViaGen 0.5 reconstructs a textured 3D model (GLB with PBR materials) from one or more views of the same object; more views give a more accurate result.",
+  "tags": [
+    "image-to-3d"
+  ],
+  "capabilities": [
+    "image-to-3d"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "images"
+    ],
+    "properties": {
+      "seed": {
+        "type": "integer",
+        "title": "Seed",
+        "description": "Random seed for reproducible results."
+      },
+      "images": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        },
+        "title": "Images",
+        "examples": [
+          "https://storage.googleapis.com/falserverless/model_tests/video_models/front.png",
+          "https://storage.googleapis.com/falserverless/model_tests/video_models/back.png",
+          "https://storage.googleapis.com/falserverless/model_tests/video_models/left.png"
+        ],
+        "maxItems": 16,
+        "minItems": 1,
+        "description": "1 to 16 views of the same object."
+      },
+      "resolution": {
+        "enum": [
+          512,
+          1024,
+          1536
+        ],
+        "type": "integer",
+        "title": "Resolution",
+        "default": 1024,
+        "description": "Generation resolution. Higher is slower and more detailed, and changes the price."
+      },
+      "texture_size": {
+        "enum": [
+          1024,
+          2048,
+          4096
+        ],
+        "type": "integer",
+        "title": "Texture Size",
+        "default": 2048,
+        "description": "Resolution of the baked texture image. Higher values keep finer surface detail but produce larger files."
+      },
+      "decimation_target": {
+        "type": "integer",
+        "title": "Target Vertex Count",
+        "default": 500000,
+        "maximum": 2000000,
+        "minimum": 5000,
+        "description": "Target number of vertices in the final mesh. Lower values give smaller files; 20k-50k suits web and mobile."
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "title": "GenerationResponse",
+    "required": [
+      "id",
+      "status"
+    ],
+    "properties": {
+      "id": {
+        "type": "string",
+        "description": "Unique identifier for the generation task."
+      },
+      "error": {
+        "type": "string",
+        "description": "Error message if the task failed. Empty on success."
+      },
+      "model": {
+        "type": "string",
+        "description": "Model ID used for the prediction."
+      },
+      "status": {
+        "enum": [
+          "pending",
+          "running",
+          "completed",
+          "failed",
+          "timeout"
+        ],
+        "type": "string",
+        "description": "Status of the task: pending, running, completed, failed, or timeout."
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "title": "OutputItem",
+          "required": [
+            "url"
+          ],
+          "properties": {
+            "url": {
+              "type": "string",
+              "description": "The URL where the generated content can be downloaded from."
+            },
+            "content_type": {
+              "type": "string",
+              "description": "The MIME type of the output file."
+            }
+          }
+        },
+        "description": "Array of generated content. Empty when status is not completed."
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "formula",
+    "formula": "(params.resolution ?? 1024) == 512 ? 0.25 : ((params.resolution ?? 1024) == 1536 ? 0.35 : 0.3)",
+    "formula_variables": [
+      "params.resolution"
+    ],
+    "reference_price": 0.3,
+    "price_examples": [
+      {
+        "params": {
+          "resolution": 512
+        },
+        "usd": 0.25
+      },
+      {
+        "params": {
+          "resolution": 1024
+        },
+        "usd": 0.3
+      },
+      {
+        "params": {
+          "resolution": 1536
+        },
+        "usd": 0.35
+      }
+    ]
+  },
+  "readme": "# ReconViaGen 0.5\nReconViaGen 0.5 reconstructs a textured 3D model (GLB with PBR materials) from one or more views of the same object; more views give a more accurate result.\n## Fields\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `images` | image URLs (1–16), required | — | 1 to 16 views of the same object. |\n| `resolution` | `512` / `1024` / `1536` | `1024` | Generation resolution. Higher is slower and more detailed, and changes the price. |\n| `texture_size` | `1024` / `2048` / `4096` | `2048` | Resolution of the baked texture image. Higher values keep finer surface detail but produce larger files. |\n| `decimation_target` | integer 5000–2000000 | `500000` | Target number of vertices in the final mesh. Lower values give smaller files; 20k-50k suits web and mobile. |\n| `seed` | integer | — | Random seed for reproducible results. |\n## Output\n- `url`: Main 3D file (GLB unless another export format is selected).\n## Billing\n$0.30 per request with default settings. Price by option (other settings at default):\n| Option | Price |\n|---|---|\n| resolution = 512 | $0.25 |\n| resolution = 1024 | $0.30 |\n| resolution = 1536 | $0.35 |\nFailed runs are not charged.\n",
+  "cover_url": "https://static.sandbase.ai/covers/reconviagen/reconviagen-0.5/cover-flare-20261111204635.webp",
+  "page_url": "https://www.sandbase.ai/model/reconviagen/reconviagen-0.5",
+  "published_at": "2026-04-07T03:18:27.695Z",
+  "created_at": "2026-11-11T13:12:38.75Z"
+}

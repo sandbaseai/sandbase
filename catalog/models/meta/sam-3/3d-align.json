@@ -1,0 +1,123 @@
+{
+  "name": "meta/sam-3/3d-align",
+  "display_name": "SAM 3 3D Align",
+  "type": "image",
+  "vendor": "Meta",
+  "vendor_slug": "meta",
+  "description": "SAM 3D Align by Meta places a SAM 3D Body mesh into the scene of its source image, optionally combining it with a SAM 3D Objects mesh into one GLB scene.",
+  "tags": [
+    "3d-to-3d"
+  ],
+  "capabilities": [
+    "3d-to-3d"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "image",
+      "model_url"
+    ],
+    "properties": {
+      "mask": {
+        "type": "string",
+        "title": "Mask",
+        "description": "Optional human mask image. The full image is used when omitted."
+      },
+      "image": {
+        "type": "string",
+        "title": "Image",
+        "examples": [
+          "https://static.sandbase.ai/examples/meta/sam-3/3d-body/input_image_0.jpeg"
+        ],
+        "description": "Original image the body mesh was reconstructed from."
+      },
+      "model_url": {
+        "type": "string",
+        "title": "Model URL",
+        "description": "URL of the SAM 3D Body mesh (.ply or .glb) to align."
+      },
+      "focal_length": {
+        "type": "number",
+        "title": "Focal Length",
+        "description": "Focal length from SAM 3D Body metadata. Estimated from the image when omitted."
+      },
+      "object_model_url": {
+        "type": "string",
+        "title": "Object Model URL",
+        "description": "Optional URL of a SAM 3D Objects mesh (.glb). When set, the output is a combined body + object scene."
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "title": "GenerationResponse",
+    "required": [
+      "id",
+      "status"
+    ],
+    "properties": {
+      "id": {
+        "type": "string",
+        "description": "Unique identifier for the generation task."
+      },
+      "error": {
+        "type": "string",
+        "description": "Error message if the task failed. Empty on success."
+      },
+      "model": {
+        "type": "string",
+        "description": "Model ID used for the prediction."
+      },
+      "status": {
+        "enum": [
+          "pending",
+          "running",
+          "completed",
+          "failed",
+          "timeout"
+        ],
+        "type": "string",
+        "description": "Status of the task: pending, running, completed, failed, or timeout."
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "title": "OutputItem",
+          "required": [
+            "url"
+          ],
+          "properties": {
+            "url": {
+              "type": "string",
+              "description": "The URL where the generated content can be downloaded from."
+            },
+            "content_type": {
+              "type": "string",
+              "description": "The MIME type of the output file."
+            }
+          }
+        },
+        "description": "Array of generated content. Empty when status is not completed."
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.024
+  },
+  "readme": "# SAM 3 3D Align\nSAM 3D Align by Meta places a SAM 3D Body mesh into the scene of its source image, optionally combining it with a SAM 3D Objects mesh into one GLB scene.\n## Fields\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `image` | image URL, required | — | Original image the body mesh was reconstructed from. |\n| `model_url` | string, required | — | URL of the SAM 3D Body mesh (.ply or .glb) to align. |\n| `mask` | image URL | — | Optional human mask image. The full image is used when omitted. |\n| `object_model_url` | string | — | Optional URL of a SAM 3D Objects mesh (.glb). When set, the output is a combined body + object scene. |\n| `focal_length` | number | — | Focal length from SAM 3D Body metadata. Estimated from the image when omitted. |\n## Output\n- `url`: Main 3D file (GLB unless another export format is selected).\n- `thumbnail`: Preview image rendered by the provider.\n## Billing\n$0.024 per request.\nFailed runs are not charged.\n## Also on SandBase\nOther Meta 3D endpoints: `meta/sam-3/3d-body`, `meta/sam-3/3d-objects`.\n",
+  "cover_url": "https://static.sandbase.ai/covers/meta/sam-3/3d-align/cover-flare-20261111180812.webp",
+  "page_url": "https://www.sandbase.ai/model/meta/sam-3/3d-align",
+  "published_at": "2025-12-02T20:56:43.845Z",
+  "created_at": "2026-06-01T14:14:10.716Z"
+}

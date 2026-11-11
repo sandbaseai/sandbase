@@ -1,0 +1,125 @@
+{
+  "name": "speridlabs/idol",
+  "display_name": "Idol",
+  "type": "image",
+  "vendor": "speridlabs",
+  "vendor_slug": "speridlabs",
+  "description": "Idol by Sperid Labs turns a single image of an object into a 3D Gaussian splat (PLY) with a GLB point-cloud preview.",
+  "tags": [
+    "image-to-3d"
+  ],
+  "capabilities": [
+    "image-to-3d"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "image"
+    ],
+    "properties": {
+      "seed": {
+        "type": "integer",
+        "title": "Seed",
+        "description": "Random seed for reproducible results."
+      },
+      "image": {
+        "type": "string",
+        "title": "Image",
+        "examples": [
+          "https://raw.githubusercontent.com/VAST-AI-Research/TripoSplat/36b6deb0a1613e43c6910de441cb57d50352e44a/static/example_inputs/building_stone_house.webp"
+        ],
+        "description": "Image of a single object to convert into a 3D Gaussian splat."
+      },
+      "image_type": {
+        "enum": [
+          "synthetic",
+          "real"
+        ],
+        "type": "string",
+        "title": "Image Type",
+        "default": "synthetic",
+        "description": "'synthetic' for renders and generated images (tight crop), 'real' for photographs (looser crop)."
+      },
+      "num_gaussians": {
+        "type": "integer",
+        "title": "Number of Gaussians",
+        "default": 262144,
+        "maximum": 1048576,
+        "minimum": 32768,
+        "description": "Target number of Gaussians in the output splat."
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "title": "GenerationResponse",
+    "required": [
+      "id",
+      "status"
+    ],
+    "properties": {
+      "id": {
+        "type": "string",
+        "description": "Unique identifier for the generation task."
+      },
+      "error": {
+        "type": "string",
+        "description": "Error message if the task failed. Empty on success."
+      },
+      "model": {
+        "type": "string",
+        "description": "Model ID used for the prediction."
+      },
+      "status": {
+        "enum": [
+          "pending",
+          "running",
+          "completed",
+          "failed",
+          "timeout"
+        ],
+        "type": "string",
+        "description": "Status of the task: pending, running, completed, failed, or timeout."
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "title": "OutputItem",
+          "required": [
+            "url"
+          ],
+          "properties": {
+            "url": {
+              "type": "string",
+              "description": "The URL where the generated content can be downloaded from."
+            },
+            "content_type": {
+              "type": "string",
+              "description": "The MIME type of the output file."
+            }
+          }
+        },
+        "description": "Array of generated content. Empty when status is not completed."
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.1
+  },
+  "readme": "# Idol\nIdol by Sperid Labs turns a single image of an object into a 3D Gaussian splat (PLY) with a GLB point-cloud preview.\n## Fields\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `image` | image URL, required | — | Image of a single object to convert into a 3D Gaussian splat. |\n| `image_type` | `synthetic` / `real` | `synthetic` | 'synthetic' for renders and generated images (tight crop), 'real' for photographs (looser crop). |\n| `num_gaussians` | integer 32768–1048576 | `262144` | Target number of Gaussians in the output splat. |\n| `seed` | integer | — | Random seed for reproducible results. |\n## Output\n- `url`: Main 3D file (GLB unless another export format is selected).\n- `thumbnail`: Preview image rendered by the provider.\n- `gaussian_splat`: Additional file returned by the provider.\n## Billing\n$0.10 per request.\nFailed runs are not charged.\n",
+  "cover_url": "https://static.sandbase.ai/covers/speridlabs/idol/cover-flare-20261111180904.webp",
+  "page_url": "https://www.sandbase.ai/model/speridlabs/idol",
+  "published_at": "2026-10-30T22:18:06.298Z",
+  "created_at": "2026-11-11T13:13:22.771Z"
+}

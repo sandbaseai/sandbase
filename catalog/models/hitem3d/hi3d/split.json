@@ -1,0 +1,161 @@
+{
+  "name": "hitem3d/hi3d/split",
+  "display_name": "Hitem3D Hi3D Split",
+  "type": "image",
+  "vendor": "Hitem3D",
+  "vendor_slug": "hitem3d",
+  "description": "Hi3D Split by Hitem3D splits a 3D model into parts, either by a humanoid character template with optional joints or by granularity for general objects.",
+  "tags": [
+    "3d-to-3d"
+  ],
+  "capabilities": [
+    "3d-to-3d"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "model_url"
+    ],
+    "properties": {
+      "part": {
+        "enum": [
+          "a",
+          "b",
+          "c",
+          "d",
+          "e",
+          "f"
+        ],
+        "type": "string",
+        "title": "Character Template",
+        "default": "a",
+        "description": "Character split template: a 6 parts, b 5, c 4 without head, d 4 with head, e 3, f 2."
+      },
+      "joint": {
+        "enum": [
+          "none",
+          "ball",
+          "dovetail"
+        ],
+        "type": "string",
+        "title": "Joint",
+        "default": "ball",
+        "description": "Joint type added between character parts."
+      },
+      "level": {
+        "enum": [
+          "low",
+          "medium",
+          "high"
+        ],
+        "type": "string",
+        "title": "Level",
+        "default": "medium",
+        "description": "Split granularity for general mode."
+      },
+      "model_url": {
+        "type": "string",
+        "title": "Model URL",
+        "examples": [
+          "https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Models/master/2.0/DamagedHelmet/glTF-Binary/DamagedHelmet.glb"
+        ],
+        "description": "URL of the input model. GLB, STL or OBJ, up to 200MB."
+      },
+      "split_mode": {
+        "enum": [
+          "character",
+          "general"
+        ],
+        "type": "string",
+        "title": "Split Mode",
+        "default": "character",
+        "description": "character splits humanoid models using a template; general splits any model by granularity."
+      },
+      "export_format": {
+        "enum": [
+          "glb",
+          "obj",
+          "stl",
+          "fbx",
+          "usdz"
+        ],
+        "type": "string",
+        "title": "Export Format",
+        "default": "glb",
+        "description": "File format of the generated model. Character split supports only glb."
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "title": "GenerationResponse",
+    "required": [
+      "id",
+      "status"
+    ],
+    "properties": {
+      "id": {
+        "type": "string",
+        "description": "Unique identifier for the generation task."
+      },
+      "error": {
+        "type": "string",
+        "description": "Error message if the task failed. Empty on success."
+      },
+      "model": {
+        "type": "string",
+        "description": "Model ID used for the prediction."
+      },
+      "status": {
+        "enum": [
+          "pending",
+          "running",
+          "completed",
+          "failed",
+          "timeout"
+        ],
+        "type": "string",
+        "description": "Status of the task: pending, running, completed, failed, or timeout."
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "title": "OutputItem",
+          "required": [
+            "url"
+          ],
+          "properties": {
+            "url": {
+              "type": "string",
+              "description": "The URL where the generated content can be downloaded from."
+            },
+            "content_type": {
+              "type": "string",
+              "description": "The MIME type of the output file."
+            }
+          }
+        },
+        "description": "Array of generated content. Empty when status is not completed."
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.4
+  },
+  "readme": "# Hitem3D Hi3D Split\nHi3D Split by Hitem3D splits a 3D model into parts, either by a humanoid character template with optional joints or by granularity for general objects.\n## Fields\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `model_url` | string, required | — | URL of the input model. GLB, STL or OBJ, up to 200MB. |\n| `split_mode` | `character` / `general` | `character` | character splits humanoid models using a template; general splits any model by granularity. |\n| `part` | `a` / `b` / `c` / `d` / `e` / `f` | `a` | Character split template: a 6 parts, b 5, c 4 without head, d 4 with head, e 3, f 2. |\n| `joint` | `none` / `ball` / `dovetail` | `ball` | Joint type added between character parts. |\n| `level` | `low` / `medium` / `high` | `medium` | Split granularity for general mode. |\n| `export_format` | `glb` / `obj` / `stl` / `fbx` / `usdz` | `glb` | File format of the generated model. Character split supports only glb. |\n## Output\n- `url`: Main 3D file (GLB unless another export format is selected).\n- `thumbnail`: Preview image rendered by the provider.\n## Billing\n$0.40 per request.\nFailed runs are not charged.\n## Also on SandBase\nOther Hitem3D 3D endpoints: `hitem3d/hi3d/image-to-3d`, `hitem3d/hi3d/multi-view-to-3d`, `hitem3d/hi3d/multicolor`, `hitem3d/hi3d/texture`.\n",
+  "cover_url": "https://static.sandbase.ai/covers/hitem3d/hi3d/split/cover-flare-20261111180717.webp",
+  "page_url": "https://www.sandbase.ai/model/hitem3d/hi3d/split",
+  "published_at": "2026-08-06T21:11:41.926Z",
+  "created_at": "2026-11-11T12:57:47.066Z"
+}

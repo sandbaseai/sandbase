@@ -1,0 +1,124 @@
+{
+  "name": "trellis/trellis/multi",
+  "display_name": "TRELLIS Multi-Image",
+  "type": "image",
+  "vendor": "trellis",
+  "vendor_slug": "trellis",
+  "description": "TRELLIS by Microsoft generates a textured 3D mesh (GLB) from several views of the same object.",
+  "tags": [
+    "image-to-3d"
+  ],
+  "capabilities": [
+    "image-to-3d"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "images"
+    ],
+    "properties": {
+      "seed": {
+        "type": "integer",
+        "title": "Seed",
+        "description": "Random seed for reproducible results."
+      },
+      "images": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        },
+        "title": "Images",
+        "examples": [
+          "https://static.sandbase.ai/examples/trellis/trellis/multi/input_images_0.png",
+          "https://static.sandbase.ai/examples/trellis/trellis/multi/input_images_1.png",
+          "https://static.sandbase.ai/examples/trellis/trellis/multi/input_images_2.png"
+        ],
+        "minItems": 1,
+        "description": "2 or more views of the same object."
+      },
+      "texture_size": {
+        "enum": [
+          512,
+          1024,
+          2048
+        ],
+        "type": "integer",
+        "title": "Texture Size",
+        "default": 1024,
+        "description": "Resolution of the baked texture image."
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "title": "GenerationResponse",
+    "required": [
+      "id",
+      "status"
+    ],
+    "properties": {
+      "id": {
+        "type": "string",
+        "description": "Unique identifier for the generation task."
+      },
+      "error": {
+        "type": "string",
+        "description": "Error message if the task failed. Empty on success."
+      },
+      "model": {
+        "type": "string",
+        "description": "Model ID used for the prediction."
+      },
+      "status": {
+        "enum": [
+          "pending",
+          "running",
+          "completed",
+          "failed",
+          "timeout"
+        ],
+        "type": "string",
+        "description": "Status of the task: pending, running, completed, failed, or timeout."
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "title": "OutputItem",
+          "required": [
+            "url"
+          ],
+          "properties": {
+            "url": {
+              "type": "string",
+              "description": "The URL where the generated content can be downloaded from."
+            },
+            "content_type": {
+              "type": "string",
+              "description": "The MIME type of the output file."
+            }
+          }
+        },
+        "description": "Array of generated content. Empty when status is not completed."
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.02
+  },
+  "readme": "# TRELLIS Multi-Image\nTRELLIS by Microsoft generates a textured 3D mesh (GLB) from several views of the same object.\n## Fields\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `images` | image URLs, required | — | 2 or more views of the same object. |\n| `texture_size` | `512` / `1024` / `2048` | `1024` | Resolution of the baked texture image. |\n| `seed` | integer | — | Random seed for reproducible results. |\n## Output\n- `url`: Main 3D file (GLB unless another export format is selected).\n## Billing\n$0.02 per request.\nFailed runs are not charged.\n## Also on SandBase\nOther trellis 3D endpoints: `trellis/trellis`, `trellis/trellis-2`, `trellis/trellis-2/retexture`.\n",
+  "cover_url": "https://static.sandbase.ai/covers/trellis/trellis/multi/cover-flare-20261111181335.webp",
+  "page_url": "https://www.sandbase.ai/model/trellis/trellis/multi",
+  "published_at": "2025-05-02T01:45:42.664Z",
+  "created_at": "2026-05-16T09:42:39.634Z"
+}

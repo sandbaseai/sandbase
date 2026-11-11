@@ -994,6 +994,13 @@ heygen/lipsync/precision,video,HeyGen,formula,,,,0.5,0.5,,async,POST /v1/run
 heygen/lipsync/speed,video,HeyGen,formula,,,,0.25,0.25,,async,POST /v1/run
 heygen/video-agent/v3,video,HeyGen,formula,,,,1.02,1.02,,async,POST /v1/run
 hidream-ai/hidream-o1/dev,image,HiDream,per_call,0.02,,,,,,async,POST /v1/run
+hitem3d/hi3d/image-to-3d,image,Hitem3D,formula,,,,0.4,0.9,,async,POST /v1/run
+hitem3d/hi3d/multi-view-to-3d,image,Hitem3D,formula,,,,0.4,0.9,,async,POST /v1/run
+hitem3d/hi3d/multicolor,image,Hitem3D,per_call,0.4,,,,,,async,POST /v1/run
+hitem3d/hi3d/split,image,Hitem3D,per_call,0.4,,,,,,async,POST /v1/run
+hitem3d/hi3d/texture,image,Hitem3D,per_call,0.2,,,,,,async,POST /v1/run
+hitem3d/hi3d/v3.0/image-to-3d,image,Hitem3D,formula,,,,2.16,10.92,,async,POST /v1/run
+hitem3d/hi3d/v3.0/multi-view-to-3d,image,Hitem3D,formula,,,,2.16,10.92,,async,POST /v1/run
 home-depot/product,api,Home Depot,per_call,0.015,,,,,yes,async,POST /v1/run
 home-depot/product-reviews,api,Home Depot,per_call,0.015,,,,,yes,async,POST /v1/run
 home-depot/search,api,Home Depot,per_call,0.015,,,,,yes,async,POST /v1/run
@@ -1004,6 +1011,7 @@ hyper3d/rodin/2.5/fast/image-to-3d,image,hyper3d,per_call,0.1,,,,,,async,POST /v
 hyper3d/rodin/2.5/fast/text-to-3d,image,hyper3d,per_call,0.1,,,,,,async,POST /v1/run
 hyper3d/rodin/2.5/image-to-3d,image,hyper3d,formula,,,,1.44,1.92,,async,POST /v1/run
 hyper3d/rodin/2.5/text-to-3d,image,hyper3d,formula,,,,1.44,1.92,,async,POST /v1/run
+hyper3d/rodin/v2,image,hyper3d,formula,,,,1.2,1.2,,async,POST /v1/run
 ideogram-ai/ideogram-v3,image,Ideogram,formula,,,,0.03,0.09,,async,POST /v1/run
 ideogram-ai/ideogram-v3/edit,image,Ideogram,formula,,,,0.03,0.09,,async,POST /v1/run
 ideogram/4.5,image,Ideogram,formula,,,,0.03,0.22,,async,POST /v1/run
@@ -1324,15 +1332,33 @@ meigen/infinitetalk/video-to-video,video,MeiGen-AI,formula,,,,3.48,3.48,,async,P
 meijer/scrape/product,api,Meijer,per_call,0.01,,,,,yes,async,POST /v1/run
 meshy/6.0-lite/retexture,image,Meshy,per_call,0.36,,,,,,async,POST /v1/run
 meshy/6.0/retexture,image,Meshy,formula,,,,0.33,0.5,,async,POST /v1/run
+meshy/7.0/image-to-3d,image,Meshy,formula,,,,0.8,1.72,,async,POST /v1/run
+meshy/7.0/multi-image-to-3d,image,Meshy,formula,,,,0.8,1.72,,async,POST /v1/run
 meshy/7.0/retexture,image,Meshy,formula,,,,0.33,0.5,,async,POST /v1/run
+meshy/7.0/text-to-3d,image,Meshy,formula,,,,0.8,1.72,,async,POST /v1/run
 meshy/7.1/image-to-3d,image,Meshy,formula,,,,0.96,2.304,,async,POST /v1/run
 meshy/7.1/multi-image-to-3d,image,Meshy,formula,,,,0.96,2.064,,async,POST /v1/run
 meshy/7.1/text-to-3d,image,Meshy,formula,,,,1.44,2.304,,async,POST /v1/run
+meshy/meshy-v6,image,Meshy,formula,,,,0.8,1.52,,async,POST /v1/run
+meshy/meshy-v6/multi-image-to-3d,image,Meshy,formula,,,,0.8,1.52,,async,POST /v1/run
+meshy/meshy-v6/text-to-3d,image,Meshy,formula,,,,0.8,1.52,,async,POST /v1/run
+meshy/n1/retexture,image,Meshy,per_call,0.4,,,,,,async,POST /v1/run
+meshy/relief,image,Meshy,per_call,0.8,,,,,,async,POST /v1/run
+meshy/rigging,image,Meshy,formula,,,,0.2,0.32,,async,POST /v1/run
+meshy/rigging/multi-animation,image,Meshy,formula,,,,0.2,0.2,,async,POST /v1/run
+meshy/t2.5/image-to-3d,image,Meshy,formula,,,,0.2,0.92,,async,POST /v1/run
+meshy/t2.5/text-to-3d,image,Meshy,formula,,,,0.2,0.92,,async,POST /v1/run
+meshy/t2/image-to-3d,image,Meshy,formula,,,,0.2,0.92,,async,POST /v1/run
+meshy/t2/text-to-3d,image,Meshy,formula,,,,0.2,0.92,,async,POST /v1/run
 meta/llama-3.3-70b-instruct,llm,Meta,per_token,,0.1,0.32,,,,sync,POST /v1/chat/completions
+meta/sam-3/3d-align,image,Meta,per_call,0.024,,,,,,async,POST /v1/run
+meta/sam-3/3d-body,image,Meta,per_call,0.024,,,,,,async,POST /v1/run
 meta/sam-3/3d-objects,image,Meta,formula,,,,0.024,0.024,,async,POST /v1/run
 meta/sam-3/image,image,Meta,per_call,0.005,,,,,,async,POST /v1/run
 microsoft/mai-image-2.5-pro/edit,image,Microsoft,formula,,,,0.29,0.29,,async,POST /v1/run
 microsoft/mai-image-2.5/edit,image,Microsoft,per_call,0.05,,,,,,async,POST /v1/run
+microsoft/moge-2,image,Microsoft,per_call,0.05,,,,,,async,POST /v1/run
+microsoft/moge-3,image,Microsoft,per_call,0.075,,,,,,async,POST /v1/run
 midjourney/midjourney-v8.1,image,Midjourney,formula,,,,0.08,0.12,,async,POST /v1/run
 minimax/h3-image,image,MiniMax,formula,,,,0.03,0.09,,async,POST /v1/run
 minimax/h3-image-highspeed,image,MiniMax,formula,,,,0.05,0.18,,async,POST /v1/run
@@ -1471,6 +1497,7 @@ pipixia/app/user-follower-list,api,Pipixia,per_call,0.001,,,,,yes,sync,POST /v1/
 pipixia/app/user-following-list,api,Pipixia,per_call,0.001,,,,,yes,sync,POST /v1/run
 pipixia/app/user-info,api,Pipixia,per_call,0.001,,,,,yes,sync,POST /v1/run
 pipixia/app/user-post-list,api,Pipixia,per_call,0.001,,,,,yes,sync,POST /v1/run
+pixal3d/pixal3d,image,pixal3d,formula,,,,0.3,0.42,,async,POST /v1/run
 pixverse/c1/image-to-video,video,PixVerse,formula,,,,0.03,1.8,,async,POST /v1/run
 pixverse/v6/image-to-video,video,PixVerse,formula,,,,0.025,1.725,,async,POST /v1/run
 polymarket/activity,api,Polymarket,per_call,0.012,,,,,yes,sync,POST /v1/run
@@ -1532,6 +1559,7 @@ polymarket/tick-size-by-token-id,api,Polymarket,per_call,0.012,,,,,yes,sync,POST
 polymarket/time,api,Polymarket,per_call,0.012,,,,,yes,sync,POST /v1/run
 polymarket/traded,api,Polymarket,per_call,0.012,,,,,yes,sync,POST /v1/run
 polymarket/value,api,Polymarket,per_call,0.012,,,,,yes,sync,POST /v1/run
+reconviagen/reconviagen-0.5,image,reconviagen,formula,,,,0.25,0.35,,async,POST /v1/run
 recraft/recraft/v4.1,image,Recraft,per_call,0.035,,,,,,async,POST /v1/run
 recraft/recraft/v4.1/utility,image,Recraft,formula,,,,0.04,0.04,,async,POST /v1/run
 reddit/app/check-subreddit-muted,api,Reddit,per_call,0.001,,,,,yes,sync,POST /v1/run
@@ -1629,6 +1657,7 @@ similarweb/website-top-geographies,api,Similarweb,formula,,,,0.225,0.225,,sync,P
 similarweb/website-traffic-snapshot,api,Similarweb,per_call,0.3,,,,,,sync,POST /v1/run
 similarweb/website-traffic-trend,api,Similarweb,per_call,0.45,,,,,,sync,POST /v1/run
 snapchat/profile,api,Snapchat,usage_based,,,,0.0011,0.0011,,sync,POST /v1/run
+speridlabs/idol,image,speridlabs,per_call,0.1,,,,,,async,POST /v1/run
 stability-ai/stable-audio/3/medium/text-to-audio,audio,stability-ai,per_call,0.0376,,,,,,async,POST /v1/run
 stability-ai/stable-audio/3/small/music/text-to-audio,audio,stability-ai,per_call,0.0217,,,,,,async,POST /v1/run
 stepfun/step-5-preview,llm,Stepfun,per_token,,1,2.7,,,,sync,POST /v1/chat/completions
@@ -1661,11 +1690,22 @@ tencent-huxuan/finder-publisher-rank-finder-content,api,Tencent Huxuan,per_call,
 tencent-huxuan/finder-publisher-search,api,Tencent Huxuan,per_call,0.071429,,,,,,sync,POST /v1/run
 tencent-huxuan/mp-publisher-search,api,Tencent Huxuan,per_call,0.071429,,,,,,sync,POST /v1/run
 tencent/hunyuan-3d/3.0/image-to-3d,image,Tencent,formula,,,,0.45,0.9,,async,POST /v1/run
+tencent/hunyuan-3d/3.1/part,image,Tencent,per_call,0.45,,,,,,async,POST /v1/run
 tencent/hunyuan-3d/3.1/pro/image-to-3d,image,Tencent,formula,,,,0.525,0.675,,async,POST /v1/run
 tencent/hunyuan-3d/3.1/pro/text-to-3d,image,Tencent,formula,,,,0.525,0.675,,async,POST /v1/run
+tencent/hunyuan-3d/3.1/rapid/image-to-3d,image,Tencent,formula,,,,0.27,0.375,,async,POST /v1/run
+tencent/hunyuan-3d/3.1/rapid/text-to-3d,image,Tencent,formula,,,,0.27,0.375,,async,POST /v1/run
+tencent/hunyuan-3d/3.1/smart-topology,image,Tencent,per_call,0.75,,,,,,async,POST /v1/run
+tencent/hunyuan-3d/v2,image,Tencent,formula,,,,0.16,0.48,,async,POST /v1/run
+tencent/hunyuan-3d/v2/mini,image,Tencent,formula,,,,0.1,0.3,,async,POST /v1/run
+tencent/hunyuan-3d/v2/mini-turbo,image,Tencent,formula,,,,0.08,0.24,,async,POST /v1/run
+tencent/hunyuan-3d/v2/multi-view,image,Tencent,formula,,,,0.16,0.48,,async,POST /v1/run
+tencent/hunyuan-3d/v2/multi-view-turbo,image,Tencent,formula,,,,0.14,0.42,,async,POST /v1/run
+tencent/hunyuan-3d/v3/text-to-3d,image,Tencent,formula,,,,0.45,0.9,,async,POST /v1/run
 tencent/hunyuan-image/3.0,image,Tencent,per_call,0.1,,,,,,async,POST /v1/run
 tencent/hunyuan-image/3.0/edit,image,Tencent,per_call,0.45,,,,,,async,POST /v1/run
 tencent/hunyuan-video/1.5/text-to-video,video,Tencent,formula,,,,0.375,0.375,,async,POST /v1/run
+tencent/hunyuan3d/v2/turbo,image,Tencent,formula,,,,0.14,0.42,,async,POST /v1/run
 tencent/hy3,llm,Tencent,per_token,,0.132,0.528,,,,sync,POST /v1/chat/completions
 tencent/hy4-preview,llm,Tencent,per_token,,0.834,2.501,,,,sync,POST /v1/chat/completions
 threads/web/post-detail,api,Threads,per_call,0.002,,,,,yes,sync,POST /v1/run
@@ -1870,13 +1910,24 @@ toutiao/app/video-info,api,Toutiao,per_call,0.001,,,,,yes,sync,POST /v1/run
 toutiao/search,api,Toutiao,per_call,0.071429,,,,,,sync,POST /v1/run
 toutiao/web/article-info,api,Toutiao,per_call,0.001,,,,,yes,sync,POST /v1/run
 toutiao/web/video-info,api,Toutiao,per_call,0.001,,,,,yes,sync,POST /v1/run
+trellis/trellis,image,trellis,per_call,0.02,,,,,,async,POST /v1/run
+trellis/trellis-2,image,trellis,formula,,,,0.25,0.45,,async,POST /v1/run
+trellis/trellis-2/retexture,image,trellis,formula,,,,0.2,0.24,,async,POST /v1/run
+trellis/trellis/multi,image,trellis,per_call,0.02,,,,,,async,POST /v1/run
 tripadvisor/reviews,api,Tripadvisor,per_call,0.00015,,,,,yes,sync,POST /v1/run
 tripadvisor/search,api,Tripadvisor,per_call,0.00015,,,,,yes,sync,POST /v1/run
 tripo3d/tripo-h3.1/image-to-3d,image,Tripo3D,formula,,,,0.24,0.78,,async,POST /v1/run
 tripo3d/tripo-h3.1/multiview-to-3d,image,Tripo3D,formula,,,,0.24,0.78,,async,POST /v1/run
 tripo3d/tripo-h3.1/text-to-3d,image,Tripo3D,formula,,,,0.12,0.66,,async,POST /v1/run
+tripo3d/tripo-p1/image-to-3d,image,Tripo3D,formula,,,,0.48,0.6,,async,POST /v1/run
+tripo3d/tripo-p1/text-to-3d,image,Tripo3D,formula,,,,0.36,0.48,,async,POST /v1/run
 tripo3d/tripo-p2/image-to-3d,image,Tripo3D,formula,,,,1.2,1.56,,async,POST /v1/run
 tripo3d/tripo-p2/text-to-3d,image,Tripo3D,formula,,,,1.2,1.56,,async,POST /v1/run
+tripo3d/tripo-v2.5/image-to-3d,image,Tripo3D,formula,,,,0.2,0.45,,async,POST /v1/run
+tripo3d/tripo-v2.5/multiview-to-3d,image,Tripo3D,formula,,,,0.2,0.45,,async,POST /v1/run
+tripo3d/tripo/remesh,image,Tripo3D,formula,,,,0.42,0.48,,async,POST /v1/run
+tripo3d/tripo/segment,image,Tripo3D,per_call,0.48,,,,,,async,POST /v1/run
+tripo3d/triposplat,image,Tripo3D,per_call,0.05,,,,,,async,POST /v1/run
 trustpilot/categories,api,Trustpilot,per_call,0.01,,,,,yes,async,POST /v1/run
 trustpilot/companies-by-category,api,Trustpilot,per_call,0.01,,,,,yes,async,POST /v1/run
 trustpilot/company-overview,api,Trustpilot,per_call,0.03,,,,,,async,POST /v1/run

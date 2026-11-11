@@ -1,0 +1,358 @@
+{
+  "name": "meshy/7.0/text-to-3d",
+  "display_name": "Meshy 7 Text to 3D",
+  "type": "image",
+  "vendor": "Meshy",
+  "vendor_slug": "meshy",
+  "description": "Meshy 7 generates a 3D model from a text prompt, either as an untextured preview mesh or fully textured, with optional 2K geometry, rigging and animation.",
+  "tags": [
+    "text-to-3d"
+  ],
+  "capabilities": [
+    "text-to-3d"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "prompt"
+    ],
+    "properties": {
+      "seed": {
+        "type": "integer",
+        "title": "Seed",
+        "description": "Seed for reproducible geometry."
+      },
+      "prompt": {
+        "type": "string",
+        "title": "Prompt",
+        "examples": [
+          "A rustic, antique wooden treasure chest with a curved, domed lid, constructed from weathered, dark brown planks exhibiting prominent wood grain and subtle distress. It's heavily reinforced with broad, dark grey, oxidized metal bands secured by numerous circular rivets. Ornate, dark iron decorative elements featuring swirling foliate patterns and dragon motifs adorn the corners and lid. A prominent, circular, intricately carved metal lock plate with a central keyhole dominates the front, flanked by two large, dark metallic pull rings."
+        ],
+        "maxLength": 600,
+        "description": "Describe the object to generate. Maximum 600 characters."
+      },
+      "topology": {
+        "enum": [
+          "quad",
+          "triangle"
+        ],
+        "type": "string",
+        "title": "Topology",
+        "default": "triangle",
+        "description": "quad for smooth surfaces, triangle for detail."
+      },
+      "pose_mode": {
+        "enum": [
+          "a-pose",
+          "t-pose",
+          ""
+        ],
+        "type": "string",
+        "title": "Pose Mode",
+        "default": "",
+        "description": "Generate the character in an A-pose or T-pose; empty for no specific pose."
+      },
+      "enable_pbr": {
+        "type": "boolean",
+        "title": "Enable PBR",
+        "default": false,
+        "description": "Generate PBR maps (metallic, roughness, normal) in addition to base color."
+      },
+      "symmetry_mode": {
+        "enum": [
+          "off",
+          "auto",
+          "on"
+        ],
+        "type": "string",
+        "title": "Symmetry Mode",
+        "default": "auto",
+        "description": "Symmetry enforcement: off, auto or on."
+      },
+      "texture_image": {
+        "type": "string",
+        "title": "Texture Image",
+        "description": "Image URL to guide texturing."
+      },
+      "enable_rigging": {
+        "type": "boolean",
+        "title": "Auto Rigging",
+        "default": false,
+        "description": "Rig the model as a humanoid character. The rigged GLB is returned as rigged_glb."
+      },
+      "texture_prompt": {
+        "type": "string",
+        "title": "Texture Prompt",
+        "maxLength": 800,
+        "description": "Text prompt to guide texturing. Maximum 800 characters."
+      },
+      "generation_mode": {
+        "enum": [
+          "preview",
+          "full"
+        ],
+        "type": "string",
+        "title": "Generation Mode",
+        "default": "full",
+        "description": "'preview' returns the untextured mesh only; 'full' also textures it."
+      },
+      "enable_animation": {
+        "type": "boolean",
+        "title": "Animation",
+        "default": false,
+        "description": "Apply an animation preset to the rigged character (billed together with rigging). The animated GLB is returned as animation_glb."
+      },
+      "target_polycount": {
+        "type": "integer",
+        "title": "Target Polycount",
+        "default": 30000,
+        "maximum": 300000,
+        "minimum": 100,
+        "description": "Target polygon count (100–300,000)."
+      },
+      "animation_action_id": {
+        "type": "integer",
+        "title": "Animation Action ID",
+        "default": 92,
+        "maximum": 696,
+        "minimum": 0,
+        "description": "Animation preset ID from Meshy's animation library (0 is Idle). Only used when animation is enabled."
+      },
+      "geometry_resolution": {
+        "enum": [
+          "standard",
+          "2k"
+        ],
+        "type": "string",
+        "title": "Geometry Resolution",
+        "default": "standard",
+        "description": "Geometry resolution. 2k gives finer geometry at a higher price."
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "title": "GenerationResponse",
+    "required": [
+      "id",
+      "status"
+    ],
+    "properties": {
+      "id": {
+        "type": "string",
+        "description": "Unique identifier for the generation task."
+      },
+      "error": {
+        "type": "string",
+        "description": "Error message if the task failed. Empty on success."
+      },
+      "model": {
+        "type": "string",
+        "description": "Model ID used for the prediction."
+      },
+      "status": {
+        "enum": [
+          "pending",
+          "running",
+          "completed",
+          "failed",
+          "timeout"
+        ],
+        "type": "string",
+        "description": "Status of the task: pending, running, completed, failed, or timeout."
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "title": "OutputItem",
+          "required": [
+            "url"
+          ],
+          "properties": {
+            "url": {
+              "type": "string",
+              "description": "The URL where the generated content can be downloaded from."
+            },
+            "content_type": {
+              "type": "string",
+              "description": "The MIME type of the output file."
+            }
+          }
+        },
+        "description": "Array of generated content. Empty when status is not completed."
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "formula",
+    "formula": "((params.generation_mode ?? \"full\") == \"full\" ? 1.2 : 0.8) + ((params.geometry_resolution ?? \"standard\") == \"2k\" ? 0.2 : 0.0) + (((params.enable_rigging ?? false) || (params.enable_animation ?? false)) ? 0.2 : 0.0) + ((params.enable_animation ?? false) ? 0.12 : 0.0)",
+    "formula_variables": [
+      "params.enable_animation",
+      "params.enable_rigging",
+      "params.generation_mode",
+      "params.geometry_resolution"
+    ],
+    "reference_price": 1.2,
+    "price_examples": [
+      {
+        "params": {
+          "enable_animation": false,
+          "enable_rigging": false,
+          "generation_mode": "preview",
+          "geometry_resolution": "standard"
+        },
+        "usd": 0.8
+      },
+      {
+        "params": {
+          "enable_animation": false,
+          "enable_rigging": false,
+          "generation_mode": "preview",
+          "geometry_resolution": "2k"
+        },
+        "usd": 1
+      },
+      {
+        "params": {
+          "enable_animation": false,
+          "enable_rigging": false,
+          "generation_mode": "full",
+          "geometry_resolution": "standard"
+        },
+        "usd": 1.2
+      },
+      {
+        "params": {
+          "enable_animation": false,
+          "enable_rigging": false,
+          "generation_mode": "full",
+          "geometry_resolution": "2k"
+        },
+        "usd": 1.4
+      },
+      {
+        "params": {
+          "enable_animation": false,
+          "enable_rigging": true,
+          "generation_mode": "preview",
+          "geometry_resolution": "standard"
+        },
+        "usd": 1
+      },
+      {
+        "params": {
+          "enable_animation": false,
+          "enable_rigging": true,
+          "generation_mode": "preview",
+          "geometry_resolution": "2k"
+        },
+        "usd": 1.2
+      },
+      {
+        "params": {
+          "enable_animation": false,
+          "enable_rigging": true,
+          "generation_mode": "full",
+          "geometry_resolution": "standard"
+        },
+        "usd": 1.4
+      },
+      {
+        "params": {
+          "enable_animation": false,
+          "enable_rigging": true,
+          "generation_mode": "full",
+          "geometry_resolution": "2k"
+        },
+        "usd": 1.6
+      },
+      {
+        "params": {
+          "enable_animation": true,
+          "enable_rigging": false,
+          "generation_mode": "preview",
+          "geometry_resolution": "standard"
+        },
+        "usd": 1.12
+      },
+      {
+        "params": {
+          "enable_animation": true,
+          "enable_rigging": false,
+          "generation_mode": "preview",
+          "geometry_resolution": "2k"
+        },
+        "usd": 1.32
+      },
+      {
+        "params": {
+          "enable_animation": true,
+          "enable_rigging": false,
+          "generation_mode": "full",
+          "geometry_resolution": "standard"
+        },
+        "usd": 1.52
+      },
+      {
+        "params": {
+          "enable_animation": true,
+          "enable_rigging": false,
+          "generation_mode": "full",
+          "geometry_resolution": "2k"
+        },
+        "usd": 1.72
+      },
+      {
+        "params": {
+          "enable_animation": true,
+          "enable_rigging": true,
+          "generation_mode": "preview",
+          "geometry_resolution": "standard"
+        },
+        "usd": 1.12
+      },
+      {
+        "params": {
+          "enable_animation": true,
+          "enable_rigging": true,
+          "generation_mode": "preview",
+          "geometry_resolution": "2k"
+        },
+        "usd": 1.32
+      },
+      {
+        "params": {
+          "enable_animation": true,
+          "enable_rigging": true,
+          "generation_mode": "full",
+          "geometry_resolution": "standard"
+        },
+        "usd": 1.52
+      },
+      {
+        "params": {
+          "enable_animation": true,
+          "enable_rigging": true,
+          "generation_mode": "full",
+          "geometry_resolution": "2k"
+        },
+        "usd": 1.72
+      }
+    ]
+  },
+  "readme": "# Meshy 7 Text to 3D\nMeshy 7 generates a 3D model from a text prompt, either as an untextured preview mesh or fully textured, with optional 2K geometry, rigging and animation.\n## Fields\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `prompt` | string, required | — | Describe the object to generate. Maximum 600 characters. |\n| `generation_mode` | `preview` / `full` | `full` | 'preview' returns the untextured mesh only; 'full' also textures it. |\n| `seed` | integer | — | Seed for reproducible geometry. |\n| `symmetry_mode` | `off` / `auto` / `on` | `auto` | Symmetry enforcement: off, auto or on. |\n| `topology` | `quad` / `triangle` | `triangle` | quad for smooth surfaces, triangle for detail. |\n| `geometry_resolution` | `standard` / `2k` | `standard` | Geometry resolution. 2k gives finer geometry at a higher price. |\n| `target_polycount` | integer 100–300000 | `30000` | Target polygon count (100–300,000). |\n| `pose_mode` | `a-pose` / `t-pose` / `` | `\"\"` | Generate the character in an A-pose or T-pose; empty for no specific pose. |\n| `enable_pbr` | boolean | `false` | Generate PBR maps (metallic, roughness, normal) in addition to base color. |\n| `texture_prompt` | string | — | Text prompt to guide texturing. Maximum 800 characters. |\n| `texture_image` | image URL | — | Image URL to guide texturing. |\n| `enable_rigging` | boolean | `false` | Rig the model as a humanoid character. The rigged GLB is returned as rigged_glb. |\n| `enable_animation` | boolean | `false` | Apply an animation preset to the rigged character (billed together with rigging). The animated GLB is returned as animation_glb. |\n| `animation_action_id` | integer 0–696 | `92` | Animation preset ID from Meshy's animation library (0 is Idle). Only used when animation is enabled. |\n## Output\n- `url`: Main 3D file (GLB unless another export format is selected).\n- `thumbnail`: Preview image rendered by the provider.\n- `rigged_glb`: Additional file returned by the provider.\n- `animation_glb`: Additional file returned by the provider.\n## Billing\n$1.20 per request with default settings. Price by option (other settings at default):\n| Option | Price |\n|---|---|\n| enable_animation on | $1.52 |\n| enable_animation off | $1.20 |\n| enable_rigging on | $1.40 |\n| enable_rigging off | $1.20 |\n| generation_mode = preview | $0.80 |\n| generation_mode = full | $1.20 |\n| geometry_resolution = standard | $1.20 |\n| geometry_resolution = 2k | $1.40 |\nFailed runs are not charged.\n## Also on SandBase\nOther Meshy 3D endpoints: `meshy/6.0-lite/retexture`, `meshy/6.0/retexture`, `meshy/7.0/image-to-3d`, `meshy/7.0/multi-image-to-3d`.\n",
+  "cover_url": "https://static.sandbase.ai/covers/meshy/7.0/text-to-3d/cover-flare-20261111180807.webp",
+  "page_url": "https://www.sandbase.ai/model/meshy/7.0/text-to-3d",
+  "published_at": "2026-08-24T11:50:18.611Z",
+  "created_at": "2026-08-31T04:11:18.947Z"
+}

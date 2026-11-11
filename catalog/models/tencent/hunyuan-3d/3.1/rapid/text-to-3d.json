@@ -1,0 +1,133 @@
+{
+  "name": "tencent/hunyuan-3d/3.1/rapid/text-to-3d",
+  "display_name": "Hunyuan 3D 3.1 Rapid Text to 3D",
+  "type": "image",
+  "vendor": "Tencent",
+  "vendor_slug": "tencent",
+  "description": "Hunyuan 3D 3.1 Rapid by Tencent quickly generates a textured or geometry-only 3D model from a text prompt.",
+  "tags": [
+    "text-to-3d"
+  ],
+  "capabilities": [
+    "text-to-3d"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "prompt"
+    ],
+    "properties": {
+      "prompt": {
+        "type": "string",
+        "title": "Prompt",
+        "examples": [
+          "A rustic wooden treasure chest with metal bands and ornate lock"
+        ],
+        "maxLength": 200,
+        "description": "Text description of the 3D object to generate. Max 200 characters."
+      },
+      "enable_pbr": {
+        "type": "boolean",
+        "title": "Enable PBR",
+        "default": false,
+        "description": "Generate PBR materials (metallic, roughness, normal maps). Ignored when Geometry Only is on."
+      },
+      "enable_geometry": {
+        "type": "boolean",
+        "title": "Geometry Only",
+        "default": false,
+        "description": "Generate a geometry-only white model without textures."
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "title": "GenerationResponse",
+    "required": [
+      "id",
+      "status"
+    ],
+    "properties": {
+      "id": {
+        "type": "string",
+        "description": "Unique identifier for the generation task."
+      },
+      "error": {
+        "type": "string",
+        "description": "Error message if the task failed. Empty on success."
+      },
+      "model": {
+        "type": "string",
+        "description": "Model ID used for the prediction."
+      },
+      "status": {
+        "enum": [
+          "pending",
+          "running",
+          "completed",
+          "failed",
+          "timeout"
+        ],
+        "type": "string",
+        "description": "Status of the task: pending, running, completed, failed, or timeout."
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "title": "OutputItem",
+          "required": [
+            "url"
+          ],
+          "properties": {
+            "url": {
+              "type": "string",
+              "description": "The URL where the generated content can be downloaded from."
+            },
+            "content_type": {
+              "type": "string",
+              "description": "The MIME type of the output file."
+            }
+          }
+        },
+        "description": "Array of generated content. Empty when status is not completed."
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "formula",
+    "formula": "(params.enable_pbr ?? false) ? 0.375 : 0.27",
+    "formula_variables": [
+      "params.enable_pbr"
+    ],
+    "reference_price": 0.27,
+    "price_examples": [
+      {
+        "params": {
+          "enable_pbr": false
+        },
+        "usd": 0.27
+      },
+      {
+        "params": {
+          "enable_pbr": true
+        },
+        "usd": 0.375
+      }
+    ]
+  },
+  "readme": "# Hunyuan 3D 3.1 Rapid Text to 3D\nHunyuan 3D 3.1 Rapid by Tencent quickly generates a textured or geometry-only 3D model from a text prompt.\n## Fields\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `prompt` | string, required | — | Text description of the 3D object to generate. Max 200 characters. |\n| `enable_pbr` | boolean | `false` | Generate PBR materials (metallic, roughness, normal maps). Ignored when Geometry Only is on. |\n| `enable_geometry` | boolean | `false` | Generate a geometry-only white model without textures. |\n## Output\n- `url`: Main 3D file (GLB unless another export format is selected).\n- `thumbnail`: Preview image rendered by the provider.\n## Billing\n$0.27 per request with default settings. Price by option (other settings at default):\n| Option | Price |\n|---|---|\n| enable_pbr on | $0.375 |\n| enable_pbr off | $0.27 |\nFailed runs are not charged.\n## Also on SandBase\nOther Tencent 3D endpoints: `tencent/hunyuan-3d/3.0/image-to-3d`, `tencent/hunyuan-3d/3.1/part`, `tencent/hunyuan-3d/3.1/pro/image-to-3d`, `tencent/hunyuan-3d/3.1/pro/text-to-3d`.\n",
+  "cover_url": "https://static.sandbase.ai/covers/tencent/hunyuan-3d/3.1/rapid/text-to-3d/cover-flare-20261111180953.webp",
+  "page_url": "https://www.sandbase.ai/model/tencent/hunyuan-3d/3.1/rapid/text-to-3d",
+  "published_at": "2026-01-29T11:55:24.432Z",
+  "created_at": "2026-05-15T12:21:12.258Z"
+}

@@ -1,0 +1,285 @@
+{
+  "name": "hitem3d/hi3d/multi-view-to-3d",
+  "display_name": "Hitem3D Hi3D Multi-view to 3D",
+  "type": "image",
+  "vendor": "Hitem3D",
+  "vendor_slug": "hitem3d",
+  "description": "Hi3D by Hitem3D generates a 3D model from a front view plus optional back, left and right views, with a selectable model version and resolution tier.",
+  "tags": [
+    "image-to-3d"
+  ],
+  "capabilities": [
+    "image-to-3d"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "image"
+    ],
+    "properties": {
+      "image": {
+        "type": "string",
+        "title": "Front Image",
+        "examples": [
+          "https://storage.googleapis.com/falserverless/example_inputs/dog.png"
+        ],
+        "description": "Front view image URL (PNG/JPEG/WebP, up to 20MB)."
+      },
+      "version": {
+        "enum": [
+          "hitem3dv1.5",
+          "hitem3dv2.0",
+          "hitem3dv2.1",
+          "scene-portraitv1.5",
+          "scene-portraitv2.0",
+          "scene-portraitv2.1"
+        ],
+        "type": "string",
+        "title": "Version",
+        "default": "hitem3dv2.1",
+        "description": "Model version. hitem3d* are general models; scene-portrait* are tuned for portraits and characters."
+      },
+      "back_image": {
+        "type": "string",
+        "title": "Back Image",
+        "description": "Optional back view image URL."
+      },
+      "enable_pbr": {
+        "type": "boolean",
+        "title": "Enable PBR",
+        "default": true,
+        "description": "Generate PBR material maps with the texture (v2.0 and above; billed add-on)."
+      },
+      "face_count": {
+        "type": "integer",
+        "title": "Face Count",
+        "maximum": 2000000,
+        "minimum": 100000,
+        "description": "Target face count. Uses the recommended count for the resolution when unset."
+      },
+      "left_image": {
+        "type": "string",
+        "title": "Left Image",
+        "description": "Optional left view image URL."
+      },
+      "resolution": {
+        "enum": [
+          "512",
+          "1024",
+          "1536",
+          "1536pro",
+          "1536fast",
+          "1536profast"
+        ],
+        "type": "string",
+        "title": "Resolution",
+        "description": "Generation resolution; supported values depend on the model: v1.5/v2.0 accept 512, 1024, 1536, 1536pro; v2.1 accepts 1536fast, 1536pro; scene-portraitv1.5 accepts 1536; scene-portraitv2.0 accepts 1536pro; scene-portraitv2.1 accepts 1536profast, 1536pro. Uses the model's recommended value when unset."
+      },
+      "right_image": {
+        "type": "string",
+        "title": "Right Image",
+        "description": "Optional right view image URL."
+      },
+      "export_format": {
+        "enum": [
+          "glb",
+          "obj",
+          "stl",
+          "fbx",
+          "usdz"
+        ],
+        "type": "string",
+        "title": "Export Format",
+        "default": "glb",
+        "description": "File format of the generated model."
+      },
+      "enable_texture": {
+        "type": "boolean",
+        "title": "Enable Texture",
+        "default": true,
+        "description": "Generate textures in addition to geometry. When false, only the geometry mesh is generated (cheaper)."
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "title": "GenerationResponse",
+    "required": [
+      "id",
+      "status"
+    ],
+    "properties": {
+      "id": {
+        "type": "string",
+        "description": "Unique identifier for the generation task."
+      },
+      "error": {
+        "type": "string",
+        "description": "Error message if the task failed. Empty on success."
+      },
+      "model": {
+        "type": "string",
+        "description": "Model ID used for the prediction."
+      },
+      "status": {
+        "enum": [
+          "pending",
+          "running",
+          "completed",
+          "failed",
+          "timeout"
+        ],
+        "type": "string",
+        "description": "Status of the task: pending, running, completed, failed, or timeout."
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "title": "OutputItem",
+          "required": [
+            "url"
+          ],
+          "properties": {
+            "url": {
+              "type": "string",
+              "description": "The URL where the generated content can be downloaded from."
+            },
+            "content_type": {
+              "type": "string",
+              "description": "The MIME type of the output file."
+            }
+          }
+        },
+        "description": "Array of generated content. Empty when status is not completed."
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "formula",
+    "formula": "((params.resolution ?? \"\") == \"512\" ? 0.10 : (params.resolution ?? \"\") == \"1024\" ? 0.20 : (params.resolution ?? \"\") == \"1536\" ? 0.40 : ((params.resolution ?? \"\") == \"1536fast\" || (params.resolution ?? \"\") == \"1536profast\") ? 0.20 : (params.resolution ?? \"\") == \"1536pro\" ? 0.60 : (params.version ?? \"hitem3dv2.1\") == \"scene-portraitv1.5\" ? 0.40 : 0.60) + ((params.enable_texture ?? true) ? 0.20 + (((params.enable_pbr ?? true) && (params.version ?? \"hitem3dv2.1\") != \"hitem3dv1.5\" && (params.version ?? \"hitem3dv2.1\") != \"scene-portraitv1.5\") ? 0.10 : 0.0) : 0.0)",
+    "formula_variables": [
+      "params.enable_pbr",
+      "params.enable_texture",
+      "params.resolution",
+      "params.version"
+    ],
+    "reference_price": 0.9,
+    "price_examples": [
+      {
+        "params": {},
+        "usd": 0.9
+      },
+      {
+        "params": {
+          "enable_pbr": false
+        },
+        "usd": 0.8
+      },
+      {
+        "params": {
+          "enable_pbr": true
+        },
+        "usd": 0.9
+      },
+      {
+        "params": {
+          "enable_texture": false
+        },
+        "usd": 0.6
+      },
+      {
+        "params": {
+          "enable_texture": true
+        },
+        "usd": 0.9
+      },
+      {
+        "params": {
+          "resolution": "512"
+        },
+        "usd": 0.4
+      },
+      {
+        "params": {
+          "resolution": "1024"
+        },
+        "usd": 0.5
+      },
+      {
+        "params": {
+          "resolution": "1536"
+        },
+        "usd": 0.7
+      },
+      {
+        "params": {
+          "resolution": "1536pro"
+        },
+        "usd": 0.9
+      },
+      {
+        "params": {
+          "resolution": "1536fast"
+        },
+        "usd": 0.5
+      },
+      {
+        "params": {
+          "resolution": "1536profast"
+        },
+        "usd": 0.5
+      },
+      {
+        "params": {
+          "version": "hitem3dv1.5"
+        },
+        "usd": 0.8
+      },
+      {
+        "params": {
+          "version": "hitem3dv2.0"
+        },
+        "usd": 0.9
+      },
+      {
+        "params": {
+          "version": "hitem3dv2.1"
+        },
+        "usd": 0.9
+      },
+      {
+        "params": {
+          "version": "scene-portraitv1.5"
+        },
+        "usd": 0.6
+      },
+      {
+        "params": {
+          "version": "scene-portraitv2.0"
+        },
+        "usd": 0.9
+      },
+      {
+        "params": {
+          "version": "scene-portraitv2.1"
+        },
+        "usd": 0.9
+      }
+    ]
+  },
+  "readme": "# Hitem3D Hi3D Multi-view to 3D\nHi3D by Hitem3D generates a 3D model from a front view plus optional back, left and right views, with a selectable model version and resolution tier.\n## Fields\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `image` | image URL, required | — | Front view image URL (PNG/JPEG/WebP, up to 20MB). |\n| `back_image` | image URL | — | Optional back view image URL. |\n| `left_image` | image URL | — | Optional left view image URL. |\n| `right_image` | image URL | — | Optional right view image URL. |\n| `version` | `hitem3dv1.5` / `hitem3dv2.0` / `hitem3dv2.1` / `scene-portraitv1.5` / `scene-portraitv2.0` / `scene-portraitv2.1` | `hitem3dv2.1` | Model version. hitem3d* are general models; scene-portrait* are tuned for portraits and characters. |\n| `resolution` | `512` / `1024` / `1536` / `1536pro` / `1536fast` / `1536profast` | — | Generation resolution; supported values depend on the model: v1.5/v2.0 accept 512, 1024, 1536, 1536pro; v2.1 accepts 1536fast, 1536pro; scene-portraitv1.5 accepts 1536; scene-portraitv2.0 accepts 1536pro; scene-portraitv2.1 accepts 1536profast, 1536pro. Uses the model's recommended value when unset. |\n| `enable_texture` | boolean | `true` | Generate textures in addition to geometry. When false, only the geometry mesh is generated (cheaper). |\n| `enable_pbr` | boolean | `true` | Generate PBR material maps with the texture (v2.0 and above; billed add-on). |\n| `face_count` | integer 100000–2000000 | — | Target face count. Uses the recommended count for the resolution when unset. |\n| `export_format` | `glb` / `obj` / `stl` / `fbx` / `usdz` | `glb` | File format of the generated model. |\n## Output\n- `url`: Main 3D file (GLB unless another export format is selected).\n- `thumbnail`: Preview image rendered by the provider.\n## Billing\n$0.90 per request with default settings. Price by option (other settings at default):\n| Option | Price |\n|---|---|\n| enable_pbr on | $0.90 |\n| enable_pbr off | $0.80 |\n| enable_texture on | $0.90 |\n| enable_texture off | $0.60 |\n| resolution unset | $0.90 |\n| resolution = 512 | $0.40 |\n| resolution = 1024 | $0.50 |\n| resolution = 1536 | $0.70 |\n| resolution = 1536pro | $0.90 |\n| resolution = 1536fast | $0.50 |\n| resolution = 1536profast | $0.50 |\n| version = hitem3dv1.5 | $0.80 |\n| version = hitem3dv2.0 | $0.90 |\n| version = hitem3dv2.1 | $0.90 |\n| version = scene-portraitv1.5 | $0.60 |\n| version = scene-portraitv2.0 | $0.90 |\n| version = scene-portraitv2.1 | $0.90 |\nFailed runs are not charged.\n## Also on SandBase\nOther Hitem3D 3D endpoints: `hitem3d/hi3d/image-to-3d`, `hitem3d/hi3d/multicolor`, `hitem3d/hi3d/split`, `hitem3d/hi3d/texture`.\n",
+  "cover_url": "https://static.sandbase.ai/covers/hitem3d/hi3d/multi-view-to-3d/cover-flare-20261111180833.webp",
+  "page_url": "https://www.sandbase.ai/model/hitem3d/hi3d/multi-view-to-3d",
+  "published_at": "2026-08-06T21:11:38.549Z",
+  "created_at": "2026-11-11T12:54:35.037Z"
+}

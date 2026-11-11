@@ -1,0 +1,123 @@
+{
+  "name": "meshy/n1/retexture",
+  "display_name": "Meshy N1 Retexture",
+  "type": "image",
+  "vendor": "Meshy",
+  "vendor_slug": "meshy",
+  "description": "Meshy N1 Retexture repaints an existing 3D model from one reference image or up to four reference views, producing a 2K base color texture.",
+  "tags": [
+    "3d-to-3d"
+  ],
+  "capabilities": [
+    "3d-to-3d"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "model_url"
+    ],
+    "properties": {
+      "model_url": {
+        "type": "string",
+        "title": "Model URL",
+        "examples": [
+          "https://static.sandbase.ai/examples/meshy/n1/retexture/input_model_url_0.glb"
+        ],
+        "description": "URL of the 3D model to texture. Supports .glb, .gltf, .obj, .fbx and .stl."
+      },
+      "image_style_url": {
+        "type": "string",
+        "title": "Style Image",
+        "description": "Single reference image of the target texture, treated as the front view. Provide this or multiview_image_urls."
+      },
+      "enable_original_uv": {
+        "type": "boolean",
+        "title": "Keep Original UV",
+        "default": true,
+        "description": "Use the model's original UV mapping instead of generating new UVs."
+      },
+      "multiview_image_urls": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        },
+        "title": "Multi-view Images",
+        "maxItems": 4,
+        "minItems": 1,
+        "description": "1 to 4 reference views of the target texture; the first is the front view. Cannot be combined with image_style_url."
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "title": "GenerationResponse",
+    "required": [
+      "id",
+      "status"
+    ],
+    "properties": {
+      "id": {
+        "type": "string",
+        "description": "Unique identifier for the generation task."
+      },
+      "error": {
+        "type": "string",
+        "description": "Error message if the task failed. Empty on success."
+      },
+      "model": {
+        "type": "string",
+        "description": "Model ID used for the prediction."
+      },
+      "status": {
+        "enum": [
+          "pending",
+          "running",
+          "completed",
+          "failed",
+          "timeout"
+        ],
+        "type": "string",
+        "description": "Status of the task: pending, running, completed, failed, or timeout."
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "title": "OutputItem",
+          "required": [
+            "url"
+          ],
+          "properties": {
+            "url": {
+              "type": "string",
+              "description": "The URL where the generated content can be downloaded from."
+            },
+            "content_type": {
+              "type": "string",
+              "description": "The MIME type of the output file."
+            }
+          }
+        },
+        "description": "Array of generated content. Empty when status is not completed."
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.4
+  },
+  "readme": "# Meshy N1 Retexture\nMeshy N1 Retexture repaints an existing 3D model from one reference image or up to four reference views, producing a 2K base color texture.\n## Fields\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `model_url` | string, required | — | URL of the 3D model to texture. Supports .glb, .gltf, .obj, .fbx and .stl. |\n| `image_style_url` | image URL | — | Single reference image of the target texture, treated as the front view. Provide this or multiview_image_urls. |\n| `multiview_image_urls` | image URLs (1–4) | — | 1 to 4 reference views of the target texture; the first is the front view. Cannot be combined with image_style_url. |\n| `enable_original_uv` | boolean | `true` | Use the model's original UV mapping instead of generating new UVs. |\n## Output\n- `url`: Main 3D file (GLB unless another export format is selected).\n- `thumbnail`: Preview image rendered by the provider.\n## Billing\n$0.40 per request.\nFailed runs are not charged.\n## Also on SandBase\nOther Meshy 3D endpoints: `meshy/6.0-lite/retexture`, `meshy/6.0/retexture`, `meshy/7.0/image-to-3d`, `meshy/7.0/multi-image-to-3d`.\n",
+  "cover_url": "https://static.sandbase.ai/covers/meshy/n1/retexture/cover-flare-20261111180949.webp",
+  "page_url": "https://www.sandbase.ai/model/meshy/n1/retexture",
+  "published_at": "2026-11-05T22:29:53.044Z",
+  "created_at": "2026-11-11T13:04:59.377Z"
+}

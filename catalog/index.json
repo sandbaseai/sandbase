@@ -1,13 +1,13 @@
 {
  "catalog_version": "1",
- "generated_at": "2026-11-11T06:14:27Z",
+ "generated_at": "2026-11-11T16:11:06Z",
  "base_url": "https://api.sandbase.ai",
- "count": 2311,
+ "count": 2362,
  "counts_by_type": {
   "api": 1859,
   "video": 181,
+  "image": 164,
   "llm": 124,
-  "image": 113,
   "audio": 32,
   "embedding": 2
  },
@@ -41177,6 +41177,143 @@
    "record": "catalog/models/hidream-ai/hidream-o1/dev.json"
   },
   {
+   "name": "hitem3d/hi3d/image-to-3d",
+   "display_name": "Hitem3D Hi3D Image to 3D",
+   "type": "image",
+   "vendor": "Hitem3D",
+   "description": "Hi3D by Hitem3D generates a 3D model from a single image, with a selectable model version (v1.5, v2.0, v2.1, or portrait-tuned variants) and resolution tier.",
+   "tags": [
+    "image-to-3d"
+   ],
+   "modes": [
+    "async"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "formula",
+    "usd_from": 0.4,
+    "usd_to": 0.9
+   },
+   "record": "catalog/models/hitem3d/hi3d/image-to-3d.json"
+  },
+  {
+   "name": "hitem3d/hi3d/multi-view-to-3d",
+   "display_name": "Hitem3D Hi3D Multi-view to 3D",
+   "type": "image",
+   "vendor": "Hitem3D",
+   "description": "Hi3D by Hitem3D generates a 3D model from a front view plus optional back, left and right views, with a selectable model version and resolution tier.",
+   "tags": [
+    "image-to-3d"
+   ],
+   "modes": [
+    "async"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "formula",
+    "usd_from": 0.4,
+    "usd_to": 0.9
+   },
+   "record": "catalog/models/hitem3d/hi3d/multi-view-to-3d.json"
+  },
+  {
+   "name": "hitem3d/hi3d/multicolor",
+   "display_name": "Hitem3D Hi3D Multicolor",
+   "type": "image",
+   "vendor": "Hitem3D",
+   "description": "Hi3D Multicolor by Hitem3D converts a textured GLB model into a model with a limited set of flat colors, for multi-color 3D printing.",
+   "tags": [
+    "3d-to-3d"
+   ],
+   "modes": [
+    "async"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "per_call",
+    "usd_per_call": 0.4
+   },
+   "record": "catalog/models/hitem3d/hi3d/multicolor.json"
+  },
+  {
+   "name": "hitem3d/hi3d/split",
+   "display_name": "Hitem3D Hi3D Split",
+   "type": "image",
+   "vendor": "Hitem3D",
+   "description": "Hi3D Split by Hitem3D splits a 3D model into parts, either by a humanoid character template with optional joints or by granularity for general objects.",
+   "tags": [
+    "3d-to-3d"
+   ],
+   "modes": [
+    "async"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "per_call",
+    "usd_per_call": 0.4
+   },
+   "record": "catalog/models/hitem3d/hi3d/split.json"
+  },
+  {
+   "name": "hitem3d/hi3d/texture",
+   "display_name": "Hitem3D Hi3D Texture",
+   "type": "image",
+   "vendor": "Hitem3D",
+   "description": "Hi3D Texture by Hitem3D adds textures to an untextured GLB model using a reference image. It uses the v1.5 texture models.",
+   "tags": [
+    "3d-to-3d"
+   ],
+   "modes": [
+    "async"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "per_call",
+    "usd_per_call": 0.2
+   },
+   "record": "catalog/models/hitem3d/hi3d/texture.json"
+  },
+  {
+   "name": "hitem3d/hi3d/v3.0/image-to-3d",
+   "display_name": "Hitem3D Hi3D 3.0 Image to 3D",
+   "type": "image",
+   "vendor": "Hitem3D",
+   "description": "Hi3D 3.0 by Hitem3D reconstructs a detailed, watertight 3D model at 2048³ resolution from a single image, with optional texture and PBR materials.",
+   "tags": [
+    "image-to-3d"
+   ],
+   "modes": [
+    "async"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "formula",
+    "usd_from": 2.16,
+    "usd_to": 10.92
+   },
+   "record": "catalog/models/hitem3d/hi3d/v3.0/image-to-3d.json"
+  },
+  {
+   "name": "hitem3d/hi3d/v3.0/multi-view-to-3d",
+   "display_name": "Hitem3D Hi3D 3.0 Multi-view to 3D",
+   "type": "image",
+   "vendor": "Hitem3D",
+   "description": "Hi3D 3.0 by Hitem3D reconstructs a detailed 3D model at 2048³ resolution from a front view plus optional back, left and right views.",
+   "tags": [
+    "image-to-3d"
+   ],
+   "modes": [
+    "async"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "formula",
+    "usd_from": 2.16,
+    "usd_to": 10.92
+   },
+   "record": "catalog/models/hitem3d/hi3d/v3.0/multi-view-to-3d.json"
+  },
+  {
    "name": "hyper3d/rodin/2.5/fast/image-to-3d",
    "display_name": "Rodin 2.5 Fast Image to 3D",
    "type": "image",
@@ -41253,6 +41390,26 @@
     "usd_to": 1.92
    },
    "record": "catalog/models/hyper3d/rodin/2.5/text-to-3d.json"
+  },
+  {
+   "name": "hyper3d/rodin/v2",
+   "display_name": "Rodin Gen-2 Image to 3D",
+   "type": "image",
+   "vendor": "hyper3d",
+   "description": "Rodin Gen-2 by Hyper3D (Deemos) generates production-ready 3D assets from one to five reference images.",
+   "tags": [
+    "image-to-3d"
+   ],
+   "modes": [
+    "async"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "formula",
+    "usd_from": 1.2,
+    "usd_to": 1.2
+   },
+   "record": "catalog/models/hyper3d/rodin/v2.json"
   },
   {
    "name": "ideogram-ai/ideogram-v3",
@@ -41414,6 +41571,46 @@
    "record": "catalog/models/meshy/6.0/retexture.json"
   },
   {
+   "name": "meshy/7.0/image-to-3d",
+   "display_name": "Meshy 7 Image to 3D",
+   "type": "image",
+   "vendor": "Meshy",
+   "description": "Meshy 7 turns a single image into a 3D model, with optional textures, PBR maps, 2K geometry, humanoid auto-rigging and animation.",
+   "tags": [
+    "image-to-3d"
+   ],
+   "modes": [
+    "async"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "formula",
+    "usd_from": 0.8,
+    "usd_to": 1.72
+   },
+   "record": "catalog/models/meshy/7.0/image-to-3d.json"
+  },
+  {
+   "name": "meshy/7.0/multi-image-to-3d",
+   "display_name": "Meshy 7 Multi-Image to 3D",
+   "type": "image",
+   "vendor": "Meshy",
+   "description": "Meshy 7 reconstructs a 3D model from 1–4 views of the same object, with optional textures, PBR maps, 2K geometry, auto-rigging and animation.",
+   "tags": [
+    "image-to-3d"
+   ],
+   "modes": [
+    "async"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "formula",
+    "usd_from": 0.8,
+    "usd_to": 1.72
+   },
+   "record": "catalog/models/meshy/7.0/multi-image-to-3d.json"
+  },
+  {
    "name": "meshy/7.0/retexture",
    "display_name": "Meshy 7 Retexture",
    "type": "image",
@@ -41432,6 +41629,26 @@
     "usd_to": 0.5
    },
    "record": "catalog/models/meshy/7.0/retexture.json"
+  },
+  {
+   "name": "meshy/7.0/text-to-3d",
+   "display_name": "Meshy 7 Text to 3D",
+   "type": "image",
+   "vendor": "Meshy",
+   "description": "Meshy 7 generates a 3D model from a text prompt, either as an untextured preview mesh or fully textured, with optional 2K geometry, rigging and animation.",
+   "tags": [
+    "text-to-3d"
+   ],
+   "modes": [
+    "async"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "formula",
+    "usd_from": 0.8,
+    "usd_to": 1.72
+   },
+   "record": "catalog/models/meshy/7.0/text-to-3d.json"
   },
   {
    "name": "meshy/7.1/image-to-3d",
@@ -41492,6 +41709,262 @@
     "usd_to": 2.304
    },
    "record": "catalog/models/meshy/7.1/text-to-3d.json"
+  },
+  {
+   "name": "meshy/meshy-v6",
+   "display_name": "Meshy 6 Image to 3D",
+   "type": "image",
+   "vendor": "Meshy",
+   "description": "Meshy 6 turns a single image into a 3D model, with optional textures, PBR maps, humanoid auto-rigging and animation.",
+   "tags": [
+    "image-to-3d"
+   ],
+   "modes": [
+    "async"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "formula",
+    "usd_from": 0.8,
+    "usd_to": 1.52
+   },
+   "record": "catalog/models/meshy/meshy-v6.json"
+  },
+  {
+   "name": "meshy/meshy-v6/multi-image-to-3d",
+   "display_name": "Meshy 6 Multi-Image to 3D",
+   "type": "image",
+   "vendor": "Meshy",
+   "description": "Meshy 6 reconstructs a 3D model from 1–4 views of the same object, with optional textures, PBR maps, auto-rigging and animation.",
+   "tags": [
+    "image-to-3d"
+   ],
+   "modes": [
+    "async"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "formula",
+    "usd_from": 0.8,
+    "usd_to": 1.52
+   },
+   "record": "catalog/models/meshy/meshy-v6/multi-image-to-3d.json"
+  },
+  {
+   "name": "meshy/meshy-v6/text-to-3d",
+   "display_name": "Meshy 6 Text to 3D",
+   "type": "image",
+   "vendor": "Meshy",
+   "description": "Meshy 6 generates a 3D model from a text prompt, either as an untextured preview mesh or fully textured, with optional rigging and animation.",
+   "tags": [
+    "text-to-3d"
+   ],
+   "modes": [
+    "async"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "formula",
+    "usd_from": 0.8,
+    "usd_to": 1.52
+   },
+   "record": "catalog/models/meshy/meshy-v6/text-to-3d.json"
+  },
+  {
+   "name": "meshy/n1/retexture",
+   "display_name": "Meshy N1 Retexture",
+   "type": "image",
+   "vendor": "Meshy",
+   "description": "Meshy N1 Retexture repaints an existing 3D model from one reference image or up to four reference views, producing a 2K base color texture.",
+   "tags": [
+    "3d-to-3d"
+   ],
+   "modes": [
+    "async"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "per_call",
+    "usd_per_call": 0.4
+   },
+   "record": "catalog/models/meshy/n1/retexture.json"
+  },
+  {
+   "name": "meshy/relief",
+   "display_name": "Meshy Relief",
+   "type": "image",
+   "vendor": "Meshy",
+   "description": "Meshy Relief turns a photo into a printable 3D relief (GLB and STL) with emboss or engrave carving and an optional curved bend.",
+   "tags": [
+    "image-to-3d"
+   ],
+   "modes": [
+    "async"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "per_call",
+    "usd_per_call": 0.8
+   },
+   "record": "catalog/models/meshy/relief.json"
+  },
+  {
+   "name": "meshy/rigging",
+   "display_name": "Meshy Rigging",
+   "type": "image",
+   "vendor": "Meshy",
+   "description": "Meshy Rigging adds a humanoid skeleton to an existing character model and can also apply one animation preset.",
+   "tags": [
+    "3d-to-3d"
+   ],
+   "modes": [
+    "async"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "formula",
+    "usd_from": 0.2,
+    "usd_to": 0.32
+   },
+   "record": "catalog/models/meshy/rigging.json"
+  },
+  {
+   "name": "meshy/rigging/multi-animation",
+   "display_name": "Meshy Rigging Multi-Animation",
+   "type": "image",
+   "vendor": "Meshy",
+   "description": "Meshy Rigging Multi-Animation rigs an existing humanoid character model and generates up to 10 animation clips on the same rig.",
+   "tags": [
+    "3d-to-3d"
+   ],
+   "modes": [
+    "async"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "formula",
+    "usd_from": 0.2,
+    "usd_to": 0.2
+   },
+   "record": "catalog/models/meshy/rigging/multi-animation.json"
+  },
+  {
+   "name": "meshy/t2.5/image-to-3d",
+   "display_name": "Meshy T2.5 Image to 3D",
+   "type": "image",
+   "vendor": "Meshy",
+   "description": "Meshy T2.5 turns a single image into a clean Smart Topology triangle mesh (up to 30,000 triangles), with optional textures, rigging and animation.",
+   "tags": [
+    "image-to-3d"
+   ],
+   "modes": [
+    "async"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "formula",
+    "usd_from": 0.2,
+    "usd_to": 0.92
+   },
+   "record": "catalog/models/meshy/t2.5/image-to-3d.json"
+  },
+  {
+   "name": "meshy/t2.5/text-to-3d",
+   "display_name": "Meshy T2.5 Text to 3D",
+   "type": "image",
+   "vendor": "Meshy",
+   "description": "Meshy T2.5 generates a clean Smart Topology triangle mesh (up to 30,000 triangles) from a text prompt, untextured in preview mode or textured in full mode.",
+   "tags": [
+    "text-to-3d"
+   ],
+   "modes": [
+    "async"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "formula",
+    "usd_from": 0.2,
+    "usd_to": 0.92
+   },
+   "record": "catalog/models/meshy/t2.5/text-to-3d.json"
+  },
+  {
+   "name": "meshy/t2/image-to-3d",
+   "display_name": "Meshy T2 Image to 3D",
+   "type": "image",
+   "vendor": "Meshy",
+   "description": "Meshy T2 turns a single image into a clean Smart Topology triangle mesh (up to 15,000 triangles), with optional textures, rigging and animation.",
+   "tags": [
+    "image-to-3d"
+   ],
+   "modes": [
+    "async"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "formula",
+    "usd_from": 0.2,
+    "usd_to": 0.92
+   },
+   "record": "catalog/models/meshy/t2/image-to-3d.json"
+  },
+  {
+   "name": "meshy/t2/text-to-3d",
+   "display_name": "Meshy T2 Text to 3D",
+   "type": "image",
+   "vendor": "Meshy",
+   "description": "Meshy T2 generates a clean Smart Topology triangle mesh (up to 15,000 triangles) from a text prompt, untextured in preview mode or textured in full mode.",
+   "tags": [
+    "text-to-3d"
+   ],
+   "modes": [
+    "async"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "formula",
+    "usd_from": 0.2,
+    "usd_to": 0.92
+   },
+   "record": "catalog/models/meshy/t2/text-to-3d.json"
+  },
+  {
+   "name": "meta/sam-3/3d-align",
+   "display_name": "SAM 3 3D Align",
+   "type": "image",
+   "vendor": "Meta",
+   "description": "SAM 3D Align by Meta places a SAM 3D Body mesh into the scene of its source image, optionally combining it with a SAM 3D Objects mesh into one GLB scene.",
+   "tags": [
+    "3d-to-3d"
+   ],
+   "modes": [
+    "async"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "per_call",
+    "usd_per_call": 0.024
+   },
+   "record": "catalog/models/meta/sam-3/3d-align.json"
+  },
+  {
+   "name": "meta/sam-3/3d-body",
+   "display_name": "SAM 3 3D Body",
+   "type": "image",
+   "vendor": "Meta",
+   "description": "SAM 3D Body by Meta reconstructs the 3D shape and pose of the people in a single image and returns them as a GLB mesh.",
+   "tags": [
+    "image-to-3d"
+   ],
+   "modes": [
+    "async"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "per_call",
+    "usd_per_call": 0.024
+   },
+   "record": "catalog/models/meta/sam-3/3d-body.json"
   },
   {
    "name": "meta/sam-3/3d-objects",
@@ -41570,6 +42043,44 @@
     "usd_per_call": 0.05
    },
    "record": "catalog/models/microsoft/mai-image-2.5/edit.json"
+  },
+  {
+   "name": "microsoft/moge-2",
+   "display_name": "MoGe-2",
+   "type": "image",
+   "vendor": "Microsoft",
+   "description": "MoGe-2 by Microsoft estimates metric 3D geometry from a single image and returns a textured GLB mesh, a PLY point cloud, and depth, normal and mask maps.",
+   "tags": [
+    "image-to-3d"
+   ],
+   "modes": [
+    "async"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "per_call",
+    "usd_per_call": 0.05
+   },
+   "record": "catalog/models/microsoft/moge-2.json"
+  },
+  {
+   "name": "microsoft/moge-3",
+   "display_name": "MoGe-3",
+   "type": "image",
+   "vendor": "Microsoft",
+   "description": "MoGe-3 by Microsoft estimates metric 3D geometry from a single image, refining depth with a sparse 3D refiner, and returns a textured GLB mesh, a PLY point cloud, and depth, normal and mask maps.",
+   "tags": [
+    "image-to-3d"
+   ],
+   "modes": [
+    "async"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "per_call",
+    "usd_per_call": 0.075
+   },
+   "record": "catalog/models/microsoft/moge-3.json"
   },
   {
    "name": "midjourney/midjourney-v8.1",
@@ -41955,6 +42466,46 @@
    "record": "catalog/models/openai/gpt-image-2/edit.json"
   },
   {
+   "name": "pixal3d/pixal3d",
+   "display_name": "Pixal3D",
+   "type": "image",
+   "vendor": "pixal3d",
+   "description": "Pixal3D generates a high-fidelity textured 3D model (GLB) from a single image.",
+   "tags": [
+    "image-to-3d"
+   ],
+   "modes": [
+    "async"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "formula",
+    "usd_from": 0.3,
+    "usd_to": 0.42
+   },
+   "record": "catalog/models/pixal3d/pixal3d.json"
+  },
+  {
+   "name": "reconviagen/reconviagen-0.5",
+   "display_name": "ReconViaGen 0.5",
+   "type": "image",
+   "vendor": "reconviagen",
+   "description": "ReconViaGen 0.5 reconstructs a textured 3D model (GLB with PBR materials) from one or more views of the same object; more views give a more accurate result.",
+   "tags": [
+    "image-to-3d"
+   ],
+   "modes": [
+    "async"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "formula",
+    "usd_from": 0.25,
+    "usd_to": 0.35
+   },
+   "record": "catalog/models/reconviagen/reconviagen-0.5.json"
+  },
+  {
    "name": "recraft/recraft/v4.1",
    "display_name": "Recraft V4.1",
    "type": "image",
@@ -42013,6 +42564,25 @@
    "record": "catalog/models/sandbase-ai/cat-vton.json"
   },
   {
+   "name": "speridlabs/idol",
+   "display_name": "Idol",
+   "type": "image",
+   "vendor": "speridlabs",
+   "description": "Idol by Sperid Labs turns a single image of an object into a 3D Gaussian splat (PLY) with a GLB point-cloud preview.",
+   "tags": [
+    "image-to-3d"
+   ],
+   "modes": [
+    "async"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "per_call",
+    "usd_per_call": 0.1
+   },
+   "record": "catalog/models/speridlabs/idol.json"
+  },
+  {
    "name": "tencent/hunyuan-3d/3.0/image-to-3d",
    "display_name": "Hunyuan 3D 3.0 Image to 3D",
    "type": "image",
@@ -42031,6 +42601,25 @@
     "usd_to": 0.9
    },
    "record": "catalog/models/tencent/hunyuan-3d/3.0/image-to-3d.json"
+  },
+  {
+   "name": "tencent/hunyuan-3d/3.1/part",
+   "display_name": "Hunyuan 3D 3.1 Part Splitter",
+   "type": "image",
+   "vendor": "Tencent",
+   "description": "Hunyuan 3D 3.1 Part by Tencent splits an FBX 3D model into its separate parts and returns one FBX file per part.",
+   "tags": [
+    "3d-to-3d"
+   ],
+   "modes": [
+    "async"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "per_call",
+    "usd_per_call": 0.45
+   },
+   "record": "catalog/models/tencent/hunyuan-3d/3.1/part.json"
   },
   {
    "name": "tencent/hunyuan-3d/3.1/pro/image-to-3d",
@@ -42073,6 +42662,185 @@
    "record": "catalog/models/tencent/hunyuan-3d/3.1/pro/text-to-3d.json"
   },
   {
+   "name": "tencent/hunyuan-3d/3.1/rapid/image-to-3d",
+   "display_name": "Hunyuan 3D 3.1 Rapid Image to 3D",
+   "type": "image",
+   "vendor": "Tencent",
+   "description": "Hunyuan 3D 3.1 Rapid by Tencent quickly turns a single image into a textured or geometry-only 3D model.",
+   "tags": [
+    "image-to-3d"
+   ],
+   "modes": [
+    "async"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "formula",
+    "usd_from": 0.27,
+    "usd_to": 0.375
+   },
+   "record": "catalog/models/tencent/hunyuan-3d/3.1/rapid/image-to-3d.json"
+  },
+  {
+   "name": "tencent/hunyuan-3d/3.1/rapid/text-to-3d",
+   "display_name": "Hunyuan 3D 3.1 Rapid Text to 3D",
+   "type": "image",
+   "vendor": "Tencent",
+   "description": "Hunyuan 3D 3.1 Rapid by Tencent quickly generates a textured or geometry-only 3D model from a text prompt.",
+   "tags": [
+    "text-to-3d"
+   ],
+   "modes": [
+    "async"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "formula",
+    "usd_from": 0.27,
+    "usd_to": 0.375
+   },
+   "record": "catalog/models/tencent/hunyuan-3d/3.1/rapid/text-to-3d.json"
+  },
+  {
+   "name": "tencent/hunyuan-3d/3.1/smart-topology",
+   "display_name": "Hunyuan 3D 3.1 Smart Topology",
+   "type": "image",
+   "vendor": "Tencent",
+   "description": "Hunyuan 3D 3.1 Smart Topology by Tencent retopologizes a GLB or OBJ model into a clean triangle or quad mesh at a chosen polygon density.",
+   "tags": [
+    "3d-to-3d"
+   ],
+   "modes": [
+    "async"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "per_call",
+    "usd_per_call": 0.75
+   },
+   "record": "catalog/models/tencent/hunyuan-3d/3.1/smart-topology.json"
+  },
+  {
+   "name": "tencent/hunyuan-3d/v2",
+   "display_name": "Hunyuan3D 2.0",
+   "type": "image",
+   "vendor": "Tencent",
+   "description": "Hunyuan3D 2.0 by Tencent generates a 3D mesh from a single image, as a white mesh or with textures.",
+   "tags": [
+    "image-to-3d"
+   ],
+   "modes": [
+    "async"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "formula",
+    "usd_from": 0.16,
+    "usd_to": 0.48
+   },
+   "record": "catalog/models/tencent/hunyuan-3d/v2.json"
+  },
+  {
+   "name": "tencent/hunyuan-3d/v2/mini",
+   "display_name": "Hunyuan3D 2.0 Mini",
+   "type": "image",
+   "vendor": "Tencent",
+   "description": "Hunyuan3D 2.0 Mini by Tencent, a smaller and cheaper version of Hunyuan3D 2.0, generates a 3D mesh from a single image, as a white mesh or with textures.",
+   "tags": [
+    "image-to-3d"
+   ],
+   "modes": [
+    "async"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "formula",
+    "usd_from": 0.1,
+    "usd_to": 0.3
+   },
+   "record": "catalog/models/tencent/hunyuan-3d/v2/mini.json"
+  },
+  {
+   "name": "tencent/hunyuan-3d/v2/mini-turbo",
+   "display_name": "Hunyuan3D 2.0 Mini Turbo",
+   "type": "image",
+   "vendor": "Tencent",
+   "description": "Hunyuan3D 2.0 Mini Turbo by Tencent, the fast variant of Hunyuan3D 2.0 Mini, generates a 3D mesh from a single image, as a white mesh or with textures.",
+   "tags": [
+    "image-to-3d"
+   ],
+   "modes": [
+    "async"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "formula",
+    "usd_from": 0.08,
+    "usd_to": 0.24
+   },
+   "record": "catalog/models/tencent/hunyuan-3d/v2/mini-turbo.json"
+  },
+  {
+   "name": "tencent/hunyuan-3d/v2/multi-view",
+   "display_name": "Hunyuan3D 2.0 Multi-View",
+   "type": "image",
+   "vendor": "Tencent",
+   "description": "Hunyuan3D 2.0 Multi-View by Tencent generates a 3D mesh from front, back, and left view images, as a white mesh or with textures.",
+   "tags": [
+    "image-to-3d"
+   ],
+   "modes": [
+    "async"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "formula",
+    "usd_from": 0.16,
+    "usd_to": 0.48
+   },
+   "record": "catalog/models/tencent/hunyuan-3d/v2/multi-view.json"
+  },
+  {
+   "name": "tencent/hunyuan-3d/v2/multi-view-turbo",
+   "display_name": "Hunyuan3D 2.0 Multi-View Turbo",
+   "type": "image",
+   "vendor": "Tencent",
+   "description": "Hunyuan3D 2.0 Multi-View Turbo by Tencent, the fast multi-view variant, generates a 3D mesh from front, back, and left view images, as a white mesh or with textures.",
+   "tags": [
+    "image-to-3d"
+   ],
+   "modes": [
+    "async"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "formula",
+    "usd_from": 0.14,
+    "usd_to": 0.42
+   },
+   "record": "catalog/models/tencent/hunyuan-3d/v2/multi-view-turbo.json"
+  },
+  {
+   "name": "tencent/hunyuan-3d/v3/text-to-3d",
+   "display_name": "Hunyuan 3D 3.0 Text to 3D",
+   "type": "image",
+   "vendor": "Tencent",
+   "description": "Hunyuan 3D 3.0 by Tencent generates a textured, low-poly, or geometry-only 3D model from a text prompt.",
+   "tags": [
+    "text-to-3d"
+   ],
+   "modes": [
+    "async"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "formula",
+    "usd_from": 0.45,
+    "usd_to": 0.9
+   },
+   "record": "catalog/models/tencent/hunyuan-3d/v3/text-to-3d.json"
+  },
+  {
    "name": "tencent/hunyuan-image/3.0",
    "display_name": "Hunyuan Image 3.0 Text to Image",
    "type": "image",
@@ -42111,6 +42879,26 @@
    "record": "catalog/models/tencent/hunyuan-image/3.0/edit.json"
   },
   {
+   "name": "tencent/hunyuan3d/v2/turbo",
+   "display_name": "Hunyuan3D 2.0 Turbo",
+   "type": "image",
+   "vendor": "Tencent",
+   "description": "Hunyuan3D 2.0 Turbo by Tencent, the fast variant of Hunyuan3D 2.0, generates a 3D mesh from a single image, as a white mesh or with textures.",
+   "tags": [
+    "image-to-3d"
+   ],
+   "modes": [
+    "async"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "formula",
+    "usd_from": 0.14,
+    "usd_to": 0.42
+   },
+   "record": "catalog/models/tencent/hunyuan3d/v2/turbo.json"
+  },
+  {
    "name": "topaz/upscale/image",
    "display_name": "Topaz Upscale",
    "type": "image",
@@ -42128,6 +42916,84 @@
     "usd_reference": 0.08
    },
    "record": "catalog/models/topaz/upscale/image.json"
+  },
+  {
+   "name": "trellis/trellis",
+   "display_name": "TRELLIS",
+   "type": "image",
+   "vendor": "trellis",
+   "description": "TRELLIS by Microsoft generates a textured 3D mesh (GLB) from a single image using structured 3D latents.",
+   "tags": [
+    "image-to-3d"
+   ],
+   "modes": [
+    "async"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "per_call",
+    "usd_per_call": 0.02
+   },
+   "record": "catalog/models/trellis/trellis.json"
+  },
+  {
+   "name": "trellis/trellis-2",
+   "display_name": "TRELLIS.2",
+   "type": "image",
+   "vendor": "trellis",
+   "description": "TRELLIS.2 by Microsoft generates a textured 3D model (GLB with PBR materials) from a single image.",
+   "tags": [
+    "image-to-3d"
+   ],
+   "modes": [
+    "async"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "formula",
+    "usd_from": 0.25,
+    "usd_to": 0.45
+   },
+   "record": "catalog/models/trellis/trellis-2.json"
+  },
+  {
+   "name": "trellis/trellis-2/retexture",
+   "display_name": "TRELLIS.2 Retexture",
+   "type": "image",
+   "vendor": "trellis",
+   "description": "TRELLIS.2 Retexture by Microsoft paints new textures onto an existing 3D mesh (GLB, OBJ, PLY or STL) from a reference image.",
+   "tags": [
+    "3d-to-3d"
+   ],
+   "modes": [
+    "async"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "formula",
+    "usd_from": 0.2,
+    "usd_to": 0.24
+   },
+   "record": "catalog/models/trellis/trellis-2/retexture.json"
+  },
+  {
+   "name": "trellis/trellis/multi",
+   "display_name": "TRELLIS Multi-Image",
+   "type": "image",
+   "vendor": "trellis",
+   "description": "TRELLIS by Microsoft generates a textured 3D mesh (GLB) from several views of the same object.",
+   "tags": [
+    "image-to-3d"
+   ],
+   "modes": [
+    "async"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "per_call",
+    "usd_per_call": 0.02
+   },
+   "record": "catalog/models/trellis/trellis/multi.json"
   },
   {
    "name": "tripo3d/tripo-h3.1/image-to-3d",
@@ -42190,6 +43056,46 @@
    "record": "catalog/models/tripo3d/tripo-h3.1/text-to-3d.json"
   },
   {
+   "name": "tripo3d/tripo-p1/image-to-3d",
+   "display_name": "Tripo P1 Image to 3D",
+   "type": "image",
+   "vendor": "Tripo3D",
+   "description": "Tripo P1 is Tripo3D's image-to-3D model. It reconstructs a 3D mesh with optional textures from a single image.",
+   "tags": [
+    "image-to-3d"
+   ],
+   "modes": [
+    "async"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "formula",
+    "usd_from": 0.48,
+    "usd_to": 0.6
+   },
+   "record": "catalog/models/tripo3d/tripo-p1/image-to-3d.json"
+  },
+  {
+   "name": "tripo3d/tripo-p1/text-to-3d",
+   "display_name": "Tripo P1 Text to 3D",
+   "type": "image",
+   "vendor": "Tripo3D",
+   "description": "Tripo P1 is Tripo3D's text-to-3D model. It generates a 3D mesh with optional textures from a text description.",
+   "tags": [
+    "text-to-3d"
+   ],
+   "modes": [
+    "async"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "formula",
+    "usd_from": 0.36,
+    "usd_to": 0.48
+   },
+   "record": "catalog/models/tripo3d/tripo-p1/text-to-3d.json"
+  },
+  {
    "name": "tripo3d/tripo-p2/image-to-3d",
    "display_name": "Tripo P2 Image to 3D",
    "type": "image",
@@ -42228,6 +43134,104 @@
     "usd_to": 1.56
    },
    "record": "catalog/models/tripo3d/tripo-p2/text-to-3d.json"
+  },
+  {
+   "name": "tripo3d/tripo-v2.5/image-to-3d",
+   "display_name": "Tripo v2.5 Image to 3D",
+   "type": "image",
+   "vendor": "Tripo3D",
+   "description": "Tripo v2.5 by Tripo3D generates a textured 3D mesh from a single image, with optional HD textures, PBR materials and quad topology.",
+   "tags": [
+    "image-to-3d"
+   ],
+   "modes": [
+    "async"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "formula",
+    "usd_from": 0.2,
+    "usd_to": 0.45
+   },
+   "record": "catalog/models/tripo3d/tripo-v2.5/image-to-3d.json"
+  },
+  {
+   "name": "tripo3d/tripo-v2.5/multiview-to-3d",
+   "display_name": "Tripo v2.5 Multiview to 3D",
+   "type": "image",
+   "vendor": "Tripo3D",
+   "description": "Tripo v2.5 by Tripo3D reconstructs a textured 3D mesh from a front view plus optional left, back and right views of the same object.",
+   "tags": [
+    "image-to-3d"
+   ],
+   "modes": [
+    "async"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "formula",
+    "usd_from": 0.2,
+    "usd_to": 0.45
+   },
+   "record": "catalog/models/tripo3d/tripo-v2.5/multiview-to-3d.json"
+  },
+  {
+   "name": "tripo3d/tripo/remesh",
+   "display_name": "Tripo Remesh",
+   "type": "image",
+   "vendor": "Tripo3D",
+   "description": "Tripo Remesh rebuilds an existing 3D model with clean triangle or quad topology at a target face count. Accepts GLB, OBJ, FBX or STL input.",
+   "tags": [
+    "3d-to-3d"
+   ],
+   "modes": [
+    "async"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "formula",
+    "usd_from": 0.42,
+    "usd_to": 0.48
+   },
+   "record": "catalog/models/tripo3d/tripo/remesh.json"
+  },
+  {
+   "name": "tripo3d/tripo/segment",
+   "display_name": "Tripo Segment",
+   "type": "image",
+   "vendor": "Tripo3D",
+   "description": "Tripo Segment splits an existing 3D model into named parts. Accepts GLB, OBJ, FBX or STL input.",
+   "tags": [
+    "3d-to-3d"
+   ],
+   "modes": [
+    "async"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "per_call",
+    "usd_per_call": 0.48
+   },
+   "record": "catalog/models/tripo3d/tripo/segment.json"
+  },
+  {
+   "name": "tripo3d/triposplat",
+   "display_name": "TripoSplat",
+   "type": "image",
+   "vendor": "Tripo3D",
+   "description": "TripoSplat by Tripo3D turns a single image into a 3D Gaussian splat for real-time rendering. Output is a .ply or .splat file.",
+   "tags": [
+    "image-to-3d"
+   ],
+   "modes": [
+    "async"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "per_call",
+    "usd_per_call": 0.05
+   },
+   "record": "catalog/models/tripo3d/triposplat.json"
   },
   {
    "name": "xai/grok-imagine-image/2.0/edit",

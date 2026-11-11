@@ -1,0 +1,126 @@
+{
+  "name": "tripo3d/triposplat",
+  "display_name": "TripoSplat",
+  "type": "image",
+  "vendor": "Tripo3D",
+  "vendor_slug": "tripo3d",
+  "description": "TripoSplat by Tripo3D turns a single image into a 3D Gaussian splat for real-time rendering. Output is a .ply or .splat file.",
+  "tags": [
+    "image-to-3d"
+  ],
+  "capabilities": [
+    "image-to-3d"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "image"
+    ],
+    "properties": {
+      "seed": {
+        "type": "integer",
+        "title": "Seed",
+        "description": "Seed for reproducible generation. Random when unset."
+      },
+      "image": {
+        "type": "string",
+        "title": "Image",
+        "examples": [
+          "https://raw.githubusercontent.com/VAST-AI-Research/TripoSplat/36b6deb0a1613e43c6910de441cb57d50352e44a/static/example_inputs/building_stone_house.webp",
+          "https://raw.githubusercontent.com/VAST-AI-Research/TripoSplat/36b6deb0a1613e43c6910de441cb57d50352e44a/static/example_inputs/creature_butterfly.webp"
+        ],
+        "description": "URL of the input image to convert into a 3D Gaussian splat."
+      },
+      "num_gaussians": {
+        "type": "integer",
+        "title": "Num Gaussians",
+        "default": 262144,
+        "maximum": 262144,
+        "minimum": 32768,
+        "description": "Target number of Gaussians. Higher means more detail but larger files."
+      },
+      "output_format": {
+        "enum": [
+          "ply",
+          "splat"
+        ],
+        "type": "string",
+        "title": "Output Format",
+        "default": "ply",
+        "description": "File format of the generated Gaussian splat."
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "title": "GenerationResponse",
+    "required": [
+      "id",
+      "status"
+    ],
+    "properties": {
+      "id": {
+        "type": "string",
+        "description": "Unique identifier for the generation task."
+      },
+      "error": {
+        "type": "string",
+        "description": "Error message if the task failed. Empty on success."
+      },
+      "model": {
+        "type": "string",
+        "description": "Model ID used for the prediction."
+      },
+      "status": {
+        "enum": [
+          "pending",
+          "running",
+          "completed",
+          "failed",
+          "timeout"
+        ],
+        "type": "string",
+        "description": "Status of the task: pending, running, completed, failed, or timeout."
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "title": "OutputItem",
+          "required": [
+            "url"
+          ],
+          "properties": {
+            "url": {
+              "type": "string",
+              "description": "The URL where the generated content can be downloaded from."
+            },
+            "content_type": {
+              "type": "string",
+              "description": "The MIME type of the output file."
+            }
+          }
+        },
+        "description": "Array of generated content. Empty when status is not completed."
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.05
+  },
+  "readme": "# TripoSplat\nTripoSplat by Tripo3D turns a single image into a 3D Gaussian splat for real-time rendering. Output is a .ply or .splat file.\n## Fields\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `image` | image URL, required | — | URL of the input image to convert into a 3D Gaussian splat. |\n| `output_format` | `ply` / `splat` | `ply` | File format of the generated Gaussian splat. |\n| `num_gaussians` | integer 32768–262144 | `262144` | Target number of Gaussians. Higher means more detail but larger files. |\n| `seed` | integer | — | Seed for reproducible generation. Random when unset. |\n## Output\n- `url`: Main 3D file (GLB unless another export format is selected).\n- `thumbnail`: Preview image rendered by the provider.\n## Billing\n$0.05 per request.\nFailed runs are not charged.\n## Also on SandBase\nOther Tripo3D 3D endpoints: `tripo3d/tripo-h3.1/image-to-3d`, `tripo3d/tripo-h3.1/multiview-to-3d`, `tripo3d/tripo-h3.1/text-to-3d`, `tripo3d/tripo-p1/image-to-3d`.\n",
+  "cover_url": "https://static.sandbase.ai/covers/tripo3d/triposplat/cover-flare-20261111181306.webp",
+  "page_url": "https://www.sandbase.ai/model/tripo3d/triposplat",
+  "published_at": "2026-06-03T21:25:03.135Z",
+  "created_at": "2026-08-17T09:12:49.203Z"
+}

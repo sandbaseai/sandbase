@@ -1,0 +1,139 @@
+{
+  "name": "tripo3d/tripo-p1/text-to-3d",
+  "display_name": "Tripo P1 Text to 3D",
+  "type": "image",
+  "vendor": "Tripo3D",
+  "vendor_slug": "tripo3d",
+  "description": "Tripo P1 is Tripo3D's text-to-3D model. It generates a 3D mesh with optional textures from a text description.",
+  "tags": [
+    "text-to-3d"
+  ],
+  "capabilities": [
+    "text-to-3d"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "prompt"
+    ],
+    "properties": {
+      "seed": {
+        "type": "integer",
+        "title": "Seed",
+        "description": "Seed for reproducible geometry generation."
+      },
+      "prompt": {
+        "type": "string",
+        "title": "Prompt",
+        "examples": [
+          "A simple wooden chair"
+        ],
+        "maxLength": 1024,
+        "description": "Text description of the 3D object to generate. Maximum 1024 characters."
+      },
+      "texture": {
+        "type": "boolean",
+        "title": "Texture",
+        "default": true,
+        "description": "Generate textures. Set to false for an untextured mesh (cheaper)."
+      },
+      "face_limit": {
+        "type": "integer",
+        "title": "Face Limit",
+        "maximum": 20000,
+        "minimum": 48,
+        "description": "Target face count of the mesh. Adaptive when unset."
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "title": "GenerationResponse",
+    "required": [
+      "id",
+      "status"
+    ],
+    "properties": {
+      "id": {
+        "type": "string",
+        "description": "Unique identifier for the generation task."
+      },
+      "error": {
+        "type": "string",
+        "description": "Error message if the task failed. Empty on success."
+      },
+      "model": {
+        "type": "string",
+        "description": "Model ID used for the prediction."
+      },
+      "status": {
+        "enum": [
+          "pending",
+          "running",
+          "completed",
+          "failed",
+          "timeout"
+        ],
+        "type": "string",
+        "description": "Status of the task: pending, running, completed, failed, or timeout."
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "title": "OutputItem",
+          "required": [
+            "url"
+          ],
+          "properties": {
+            "url": {
+              "type": "string",
+              "description": "The URL where the generated content can be downloaded from."
+            },
+            "content_type": {
+              "type": "string",
+              "description": "The MIME type of the output file."
+            }
+          }
+        },
+        "description": "Array of generated content. Empty when status is not completed."
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "formula",
+    "formula": "(params.texture ?? true) ? 0.48 : 0.36",
+    "formula_variables": [
+      "params.texture"
+    ],
+    "reference_price": 0.48,
+    "price_examples": [
+      {
+        "params": {
+          "texture": false
+        },
+        "usd": 0.36
+      },
+      {
+        "params": {
+          "texture": true
+        },
+        "usd": 0.48
+      }
+    ]
+  },
+  "readme": "# Tripo P1 Text to 3D\nTripo P1 is Tripo3D's text-to-3D model. It generates a 3D mesh with optional textures from a text description.\n## Fields\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `prompt` | string, required | — | Text description of the 3D object to generate. Maximum 1024 characters. |\n| `texture` | boolean | `true` | Generate textures. Set to false for an untextured mesh (cheaper). |\n| `face_limit` | integer 48–20000 | — | Target face count of the mesh. Adaptive when unset. |\n| `seed` | integer | — | Seed for reproducible geometry generation. |\n## Output\n- `url`: Main 3D file (GLB unless another export format is selected).\n- `thumbnail`: Preview image rendered by the provider.\n## Billing\n$0.48 per request with default settings. Price by option (other settings at default):\n| Option | Price |\n|---|---|\n| texture on | $0.48 |\n| texture off | $0.36 |\nFailed runs are not charged.\n## Also on SandBase\nOther Tripo3D 3D endpoints: `tripo3d/tripo-h3.1/image-to-3d`, `tripo3d/tripo-h3.1/multiview-to-3d`, `tripo3d/tripo-h3.1/text-to-3d`, `tripo3d/tripo-p1/image-to-3d`.\n",
+  "cover_url": "https://static.sandbase.ai/covers/tripo3d/tripo-p1/text-to-3d/cover-flare-20261111181154.webp",
+  "page_url": "https://www.sandbase.ai/model/tripo3d/tripo-p1/text-to-3d",
+  "published_at": "2026-04-15T18:24:09.919Z",
+  "created_at": "2026-06-01T14:39:38.311Z"
+}

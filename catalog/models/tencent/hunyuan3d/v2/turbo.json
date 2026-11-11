@@ -1,0 +1,139 @@
+{
+  "name": "tencent/hunyuan3d/v2/turbo",
+  "display_name": "Hunyuan3D 2.0 Turbo",
+  "type": "image",
+  "vendor": "Tencent",
+  "vendor_slug": "tencent",
+  "description": "Hunyuan3D 2.0 Turbo by Tencent, the fast variant of Hunyuan3D 2.0, generates a 3D mesh from a single image, as a white mesh or with textures.",
+  "tags": [
+    "image-to-3d"
+  ],
+  "capabilities": [
+    "image-to-3d"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "image"
+    ],
+    "properties": {
+      "seed": {
+        "type": "integer",
+        "title": "Seed",
+        "description": "Random seed. The same seed and input reproduce the same result."
+      },
+      "image": {
+        "type": "string",
+        "title": "Image",
+        "examples": [
+          "https://static.sandbase.ai/examples/tencent/hunyuan3d/v2/turbo/input_image_0.png"
+        ],
+        "description": "URL of the image to turn into a 3D model."
+      },
+      "textured_mesh": {
+        "type": "boolean",
+        "title": "Textured Mesh",
+        "default": false,
+        "description": "Generate a textured mesh instead of a white (untextured) mesh. Textured output costs 3x."
+      },
+      "octree_resolution": {
+        "type": "integer",
+        "title": "Octree Resolution",
+        "default": 256,
+        "maximum": 1024,
+        "minimum": 1,
+        "description": "Octree resolution of the generated mesh. Higher values give finer geometry."
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "title": "GenerationResponse",
+    "required": [
+      "id",
+      "status"
+    ],
+    "properties": {
+      "id": {
+        "type": "string",
+        "description": "Unique identifier for the generation task."
+      },
+      "error": {
+        "type": "string",
+        "description": "Error message if the task failed. Empty on success."
+      },
+      "model": {
+        "type": "string",
+        "description": "Model ID used for the prediction."
+      },
+      "status": {
+        "enum": [
+          "pending",
+          "running",
+          "completed",
+          "failed",
+          "timeout"
+        ],
+        "type": "string",
+        "description": "Status of the task: pending, running, completed, failed, or timeout."
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "title": "OutputItem",
+          "required": [
+            "url"
+          ],
+          "properties": {
+            "url": {
+              "type": "string",
+              "description": "The URL where the generated content can be downloaded from."
+            },
+            "content_type": {
+              "type": "string",
+              "description": "The MIME type of the output file."
+            }
+          }
+        },
+        "description": "Array of generated content. Empty when status is not completed."
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "formula",
+    "formula": "(params.textured_mesh ?? false) ? 0.42 : 0.14",
+    "formula_variables": [
+      "params.textured_mesh"
+    ],
+    "reference_price": 0.14,
+    "price_examples": [
+      {
+        "params": {
+          "textured_mesh": false
+        },
+        "usd": 0.14
+      },
+      {
+        "params": {
+          "textured_mesh": true
+        },
+        "usd": 0.42
+      }
+    ]
+  },
+  "readme": "# Hunyuan3D 2.0 Turbo\nHunyuan3D 2.0 Turbo by Tencent, the fast variant of Hunyuan3D 2.0, generates a 3D mesh from a single image, as a white mesh or with textures.\n## Fields\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `image` | image URL, required | — | URL of the image to turn into a 3D model. |\n| `textured_mesh` | boolean | `false` | Generate a textured mesh instead of a white (untextured) mesh. Textured output costs 3x. |\n| `octree_resolution` | integer 1–1024 | `256` | Octree resolution of the generated mesh. Higher values give finer geometry. |\n| `seed` | integer | — | Random seed. The same seed and input reproduce the same result. |\n## Output\n- `url`: Main 3D file (GLB unless another export format is selected).\n## Billing\n$0.14 per request with default settings. Price by option (other settings at default):\n| Option | Price |\n|---|---|\n| textured_mesh on | $0.42 |\n| textured_mesh off | $0.14 |\nFailed runs are not charged.\n## Also on SandBase\nOther Tencent 3D endpoints: `tencent/hunyuan-3d/3.0/image-to-3d`, `tencent/hunyuan-3d/3.1/part`, `tencent/hunyuan-3d/3.1/pro/image-to-3d`, `tencent/hunyuan-3d/3.1/pro/text-to-3d`.\n",
+  "cover_url": "https://static.sandbase.ai/covers/tencent/hunyuan3d/v2/turbo/cover-flare-20261111181133.webp",
+  "page_url": "https://www.sandbase.ai/model/tencent/hunyuan3d/v2/turbo",
+  "published_at": "2025-03-20T00:00:00Z",
+  "created_at": "2026-06-01T14:35:57.383Z"
+}

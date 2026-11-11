@@ -1,0 +1,160 @@
+{
+  "name": "pixal3d/pixal3d",
+  "display_name": "Pixal3D",
+  "type": "image",
+  "vendor": "pixal3d",
+  "vendor_slug": "pixal3d",
+  "description": "Pixal3D generates a high-fidelity textured 3D model (GLB) from a single image.",
+  "tags": [
+    "image-to-3d"
+  ],
+  "capabilities": [
+    "image-to-3d"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "image"
+    ],
+    "properties": {
+      "seed": {
+        "type": "integer",
+        "title": "Seed",
+        "description": "Random seed for reproducible results."
+      },
+      "image": {
+        "type": "string",
+        "title": "Image",
+        "examples": [
+          "https://static.sandbase.ai/examples/pixal3d/pixal3d/input_image_0.png"
+        ],
+        "description": "Image of the object to convert to 3D."
+      },
+      "remesh": {
+        "type": "boolean",
+        "title": "Remesh",
+        "default": true,
+        "description": "Rebuild the mesh topology for cleaner triangles. Slower, but usually better for animation or 3D printing."
+      },
+      "resolution": {
+        "enum": [
+          1024,
+          1536
+        ],
+        "type": "integer",
+        "title": "Resolution",
+        "default": 1024,
+        "description": "Generation resolution. Higher is slower and more detailed, and changes the price."
+      },
+      "texture_size": {
+        "enum": [
+          1024,
+          2048,
+          4096
+        ],
+        "type": "integer",
+        "title": "Texture Size",
+        "default": 2048,
+        "description": "Resolution of the baked texture image. Higher values keep finer surface detail but produce larger files."
+      },
+      "decimation_target": {
+        "type": "integer",
+        "title": "Target Vertex Count",
+        "default": 200000,
+        "maximum": 1586021,
+        "minimum": 5000,
+        "description": "Target number of vertices in the final mesh. Lower values give smaller files; 20k-50k suits web and mobile."
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "title": "GenerationResponse",
+    "required": [
+      "id",
+      "status"
+    ],
+    "properties": {
+      "id": {
+        "type": "string",
+        "description": "Unique identifier for the generation task."
+      },
+      "error": {
+        "type": "string",
+        "description": "Error message if the task failed. Empty on success."
+      },
+      "model": {
+        "type": "string",
+        "description": "Model ID used for the prediction."
+      },
+      "status": {
+        "enum": [
+          "pending",
+          "running",
+          "completed",
+          "failed",
+          "timeout"
+        ],
+        "type": "string",
+        "description": "Status of the task: pending, running, completed, failed, or timeout."
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "title": "OutputItem",
+          "required": [
+            "url"
+          ],
+          "properties": {
+            "url": {
+              "type": "string",
+              "description": "The URL where the generated content can be downloaded from."
+            },
+            "content_type": {
+              "type": "string",
+              "description": "The MIME type of the output file."
+            }
+          }
+        },
+        "description": "Array of generated content. Empty when status is not completed."
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "formula",
+    "formula": "(params.resolution ?? 1024) == 1536 ? 0.42 : 0.3",
+    "formula_variables": [
+      "params.resolution"
+    ],
+    "reference_price": 0.3,
+    "price_examples": [
+      {
+        "params": {
+          "resolution": 1024
+        },
+        "usd": 0.3
+      },
+      {
+        "params": {
+          "resolution": 1536
+        },
+        "usd": 0.42
+      }
+    ]
+  },
+  "readme": "# Pixal3D\nPixal3D generates a high-fidelity textured 3D model (GLB) from a single image.\n## Fields\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `image` | image URL, required | — | Image of the object to convert to 3D. |\n| `resolution` | `1024` / `1536` | `1024` | Generation resolution. Higher is slower and more detailed, and changes the price. |\n| `texture_size` | `1024` / `2048` / `4096` | `2048` | Resolution of the baked texture image. Higher values keep finer surface detail but produce larger files. |\n| `decimation_target` | integer 5000–1586021 | `200000` | Target number of vertices in the final mesh. Lower values give smaller files; 20k-50k suits web and mobile. |\n| `remesh` | boolean | `true` | Rebuild the mesh topology for cleaner triangles. Slower, but usually better for animation or 3D printing. |\n| `seed` | integer | — | Random seed for reproducible results. |\n## Output\n- `url`: Main 3D file (GLB unless another export format is selected).\n## Billing\n$0.30 per request with default settings. Price by option (other settings at default):\n| Option | Price |\n|---|---|\n| resolution = 1024 | $0.30 |\n| resolution = 1536 | $0.42 |\nFailed runs are not charged.\n",
+  "cover_url": "https://static.sandbase.ai/covers/pixal3d/pixal3d/cover-flare-20261111180923.webp",
+  "page_url": "https://www.sandbase.ai/model/pixal3d/pixal3d",
+  "published_at": "2026-05-13T20:35:36.991Z",
+  "created_at": "2026-05-15T23:12:20.24Z"
+}

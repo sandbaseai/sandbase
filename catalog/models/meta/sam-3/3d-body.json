@@ -1,0 +1,113 @@
+{
+  "name": "meta/sam-3/3d-body",
+  "display_name": "SAM 3 3D Body",
+  "type": "image",
+  "vendor": "Meta",
+  "vendor_slug": "meta",
+  "description": "SAM 3D Body by Meta reconstructs the 3D shape and pose of the people in a single image and returns them as a GLB mesh.",
+  "tags": [
+    "image-to-3d"
+  ],
+  "capabilities": [
+    "image-to-3d"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "image"
+    ],
+    "properties": {
+      "mask": {
+        "type": "string",
+        "title": "Mask",
+        "description": "Optional binary mask (white = person, black = background). When set, automatic person detection is skipped."
+      },
+      "image": {
+        "type": "string",
+        "title": "Image",
+        "examples": [
+          "https://static.sandbase.ai/examples/meta/sam-3/3d-body/input_image_0.jpeg"
+        ],
+        "description": "Image containing one or more people."
+      },
+      "include_3d_keypoints": {
+        "type": "boolean",
+        "title": "Include 3D Keypoints",
+        "default": true,
+        "description": "Add 3D keypoint markers (spheres) to the GLB mesh."
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "title": "GenerationResponse",
+    "required": [
+      "id",
+      "status"
+    ],
+    "properties": {
+      "id": {
+        "type": "string",
+        "description": "Unique identifier for the generation task."
+      },
+      "error": {
+        "type": "string",
+        "description": "Error message if the task failed. Empty on success."
+      },
+      "model": {
+        "type": "string",
+        "description": "Model ID used for the prediction."
+      },
+      "status": {
+        "enum": [
+          "pending",
+          "running",
+          "completed",
+          "failed",
+          "timeout"
+        ],
+        "type": "string",
+        "description": "Status of the task: pending, running, completed, failed, or timeout."
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "title": "OutputItem",
+          "required": [
+            "url"
+          ],
+          "properties": {
+            "url": {
+              "type": "string",
+              "description": "The URL where the generated content can be downloaded from."
+            },
+            "content_type": {
+              "type": "string",
+              "description": "The MIME type of the output file."
+            }
+          }
+        },
+        "description": "Array of generated content. Empty when status is not completed."
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.024
+  },
+  "readme": "# SAM 3 3D Body\nSAM 3D Body by Meta reconstructs the 3D shape and pose of the people in a single image and returns them as a GLB mesh.\n## Fields\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `image` | image URL, required | — | Image containing one or more people. |\n| `mask` | image URL | — | Optional binary mask (white = person, black = background). When set, automatic person detection is skipped. |\n| `include_3d_keypoints` | boolean | `true` | Add 3D keypoint markers (spheres) to the GLB mesh. |\n## Output\n- `url`: Main 3D file (GLB unless another export format is selected).\n- `thumbnail`: Preview image rendered by the provider.\n## Billing\n$0.024 per request.\nFailed runs are not charged.\n## Also on SandBase\nOther Meta 3D endpoints: `meta/sam-3/3d-align`, `meta/sam-3/3d-objects`.\n",
+  "cover_url": "https://static.sandbase.ai/covers/meta/sam-3/3d-body/cover-flare-20261111181021.webp",
+  "page_url": "https://www.sandbase.ai/model/meta/sam-3/3d-body",
+  "published_at": "2025-12-02T20:52:11.002Z",
+  "created_at": "2026-05-16T09:40:57.334Z"
+}

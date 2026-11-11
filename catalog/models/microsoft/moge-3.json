@@ -1,0 +1,131 @@
+{
+  "name": "microsoft/moge-3",
+  "display_name": "MoGe-3",
+  "type": "image",
+  "vendor": "Microsoft",
+  "vendor_slug": "microsoft",
+  "description": "MoGe-3 by Microsoft estimates metric 3D geometry from a single image, refining depth with a sparse 3D refiner, and returns a textured GLB mesh, a PLY point cloud, and depth, normal and mask maps.",
+  "tags": [
+    "image-to-3d"
+  ],
+  "capabilities": [
+    "image-to-3d"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "image"
+    ],
+    "properties": {
+      "fov_x": {
+        "type": "number",
+        "title": "Horizontal FoV",
+        "maximum": 179,
+        "minimum": 1,
+        "description": "Known horizontal field of view in degrees. Estimated from the image when omitted."
+      },
+      "image": {
+        "type": "string",
+        "title": "Image",
+        "examples": [
+          "https://storage.googleapis.com/falserverless/example_inputs/dog.png"
+        ],
+        "description": "Input RGB image to reconstruct."
+      },
+      "apply_mask": {
+        "type": "boolean",
+        "title": "Apply Mask",
+        "default": true,
+        "description": "Mask out invalid regions (sky, background, uncertain) in the reconstruction."
+      },
+      "resolution_level": {
+        "type": "integer",
+        "title": "Resolution Level",
+        "default": 9,
+        "maximum": 9,
+        "minimum": 0,
+        "description": "Processing resolution level (0-9). Higher values give finer detail but run slower; output size always matches the input."
+      },
+      "num_refinement_steps": {
+        "type": "integer",
+        "title": "Refinement Steps",
+        "default": 3,
+        "maximum": 5,
+        "minimum": 0,
+        "description": "Number of sparse 3D refinement passes over the predicted depth. 0 skips the refiner."
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "title": "GenerationResponse",
+    "required": [
+      "id",
+      "status"
+    ],
+    "properties": {
+      "id": {
+        "type": "string",
+        "description": "Unique identifier for the generation task."
+      },
+      "error": {
+        "type": "string",
+        "description": "Error message if the task failed. Empty on success."
+      },
+      "model": {
+        "type": "string",
+        "description": "Model ID used for the prediction."
+      },
+      "status": {
+        "enum": [
+          "pending",
+          "running",
+          "completed",
+          "failed",
+          "timeout"
+        ],
+        "type": "string",
+        "description": "Status of the task: pending, running, completed, failed, or timeout."
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "title": "OutputItem",
+          "required": [
+            "url"
+          ],
+          "properties": {
+            "url": {
+              "type": "string",
+              "description": "The URL where the generated content can be downloaded from."
+            },
+            "content_type": {
+              "type": "string",
+              "description": "The MIME type of the output file."
+            }
+          }
+        },
+        "description": "Array of generated content. Empty when status is not completed."
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.075
+  },
+  "readme": "# MoGe-3\nMoGe-3 by Microsoft estimates metric 3D geometry from a single image, refining depth with a sparse 3D refiner, and returns a textured GLB mesh, a PLY point cloud, and depth, normal and mask maps.\n## Fields\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `image` | image URL, required | — | Input RGB image to reconstruct. |\n| `num_refinement_steps` | integer 0–5 | `3` | Number of sparse 3D refinement passes over the predicted depth. 0 skips the refiner. |\n| `resolution_level` | integer 0–9 | `9` | Processing resolution level (0-9). Higher values give finer detail but run slower; output size always matches the input. |\n| `fov_x` | number 1–179 | — | Known horizontal field of view in degrees. Estimated from the image when omitted. |\n| `apply_mask` | boolean | `true` | Mask out invalid regions (sky, background, uncertain) in the reconstruction. |\n## Output\n- `url`: Main 3D file (GLB unless another export format is selected).\n- `point_cloud`: Additional file returned by the provider.\n- `depth_map`: Additional file returned by the provider.\n- `normal_map`: Additional file returned by the provider.\n- `mask`: Additional file returned by the provider.\n## Billing\n$0.075 per request.\nFailed runs are not charged.\n## Also on SandBase\nOther Microsoft 3D endpoints: `microsoft/moge-2`.\n",
+  "cover_url": "https://static.sandbase.ai/covers/microsoft/moge-3/cover-flare-20261111180906.webp",
+  "page_url": "https://www.sandbase.ai/model/microsoft/moge-3",
+  "published_at": "2026-11-06T19:50:24.109Z",
+  "created_at": "2026-11-11T13:12:05.171Z"
+}

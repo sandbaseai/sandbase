@@ -1,0 +1,155 @@
+{
+  "name": "trellis/trellis-2/retexture",
+  "display_name": "TRELLIS.2 Retexture",
+  "type": "image",
+  "vendor": "trellis",
+  "vendor_slug": "trellis",
+  "description": "TRELLIS.2 Retexture by Microsoft paints new textures onto an existing 3D mesh (GLB, OBJ, PLY or STL) from a reference image.",
+  "tags": [
+    "3d-to-3d"
+  ],
+  "capabilities": [
+    "3d-to-3d"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "model_url",
+      "image"
+    ],
+    "properties": {
+      "seed": {
+        "type": "integer",
+        "title": "Seed",
+        "description": "Random seed for reproducible results."
+      },
+      "image": {
+        "type": "string",
+        "title": "Image",
+        "examples": [
+          "https://static.sandbase.ai/examples/trellis/trellis-2/retexture/input_image_1.png"
+        ],
+        "description": "Reference image for the new texture."
+      },
+      "model_url": {
+        "type": "string",
+        "title": "Model URL",
+        "examples": [
+          "https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Assets/main/Models/ClearCoatCarPaint/glTF-Binary/ClearCoatCarPaint.glb"
+        ],
+        "description": "URL of the untextured 3D mesh to retexture. Supports GLB, OBJ, PLY and STL."
+      },
+      "resolution": {
+        "enum": [
+          512,
+          1024
+        ],
+        "type": "integer",
+        "title": "Resolution",
+        "default": 1024,
+        "description": "Internal texture generation resolution. Higher gives finer texture detail, and changes the price."
+      },
+      "texture_size": {
+        "enum": [
+          1024,
+          2048,
+          4096
+        ],
+        "type": "integer",
+        "title": "Texture Size",
+        "default": 2048,
+        "description": "Resolution of the baked texture image. Higher values keep finer surface detail but produce larger files."
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "title": "GenerationResponse",
+    "required": [
+      "id",
+      "status"
+    ],
+    "properties": {
+      "id": {
+        "type": "string",
+        "description": "Unique identifier for the generation task."
+      },
+      "error": {
+        "type": "string",
+        "description": "Error message if the task failed. Empty on success."
+      },
+      "model": {
+        "type": "string",
+        "description": "Model ID used for the prediction."
+      },
+      "status": {
+        "enum": [
+          "pending",
+          "running",
+          "completed",
+          "failed",
+          "timeout"
+        ],
+        "type": "string",
+        "description": "Status of the task: pending, running, completed, failed, or timeout."
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "title": "OutputItem",
+          "required": [
+            "url"
+          ],
+          "properties": {
+            "url": {
+              "type": "string",
+              "description": "The URL where the generated content can be downloaded from."
+            },
+            "content_type": {
+              "type": "string",
+              "description": "The MIME type of the output file."
+            }
+          }
+        },
+        "description": "Array of generated content. Empty when status is not completed."
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "formula",
+    "formula": "(params.resolution ?? 1024) == 512 ? 0.2 : 0.24",
+    "formula_variables": [
+      "params.resolution"
+    ],
+    "reference_price": 0.24,
+    "price_examples": [
+      {
+        "params": {
+          "resolution": 512
+        },
+        "usd": 0.2
+      },
+      {
+        "params": {
+          "resolution": 1024
+        },
+        "usd": 0.24
+      }
+    ]
+  },
+  "readme": "# TRELLIS.2 Retexture\nTRELLIS.2 Retexture by Microsoft paints new textures onto an existing 3D mesh (GLB, OBJ, PLY or STL) from a reference image.\n## Fields\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `model_url` | string, required | — | URL of the untextured 3D mesh to retexture. Supports GLB, OBJ, PLY and STL. |\n| `image` | image URL, required | — | Reference image for the new texture. |\n| `resolution` | `512` / `1024` | `1024` | Internal texture generation resolution. Higher gives finer texture detail, and changes the price. |\n| `texture_size` | `1024` / `2048` / `4096` | `2048` | Resolution of the baked texture image. Higher values keep finer surface detail but produce larger files. |\n| `seed` | integer | — | Random seed for reproducible results. |\n## Output\n- `url`: Main 3D file (GLB unless another export format is selected).\n## Billing\n$0.24 per request with default settings. Price by option (other settings at default):\n| Option | Price |\n|---|---|\n| resolution = 512 | $0.20 |\n| resolution = 1024 | $0.24 |\nFailed runs are not charged.\n## Also on SandBase\nOther trellis 3D endpoints: `trellis/trellis`, `trellis/trellis-2`, `trellis/trellis/multi`.\n",
+  "cover_url": "https://static.sandbase.ai/covers/trellis/trellis-2/retexture/cover-flare-20261111181118.webp",
+  "page_url": "https://www.sandbase.ai/model/trellis/trellis-2/retexture",
+  "published_at": "2026-03-02T05:51:42.196Z",
+  "created_at": "2026-06-01T14:38:53.08Z"
+}

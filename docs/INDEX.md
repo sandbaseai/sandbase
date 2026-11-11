@@ -1,11 +1,11 @@
 # SandBase capability index
 
-2311 capabilities · generated 2026-11-11T06:14:27Z
+2362 capabilities · generated 2026-11-11T16:11:06Z
 
 - [api](#api) (1859)
 - [audio](#audio) (32)
 - [embedding](#embedding) (2)
-- [image](#image) (113)
+- [image](#image) (164)
 - [llm](#llm) (124)
 - [video](#video) (181)
 
@@ -1976,10 +1976,18 @@
 | [`google/nano-banana-pro`](models/google/nano-banana-pro.md) | 0.134–0.24 | async | Nano Banana Pro is Google's new state-of-the-art image generation and editing model |
 | [`google/nano-banana-pro/edit`](models/google/nano-banana-pro/edit.md) | 0.1362–0.2422 | async | Nano Banana Pro is Google's new state-of-the-art image generation and editing model |
 | [`hidream-ai/hidream-o1/dev`](models/hidream-ai/hidream-o1/dev.md) | 0.02 / call | async | Hidream O1 Dev by hidream-ai - generate stunning images from text prompts with state-of-the-art AI. Supports multiple… |
+| [`hitem3d/hi3d/image-to-3d`](models/hitem3d/hi3d/image-to-3d.md) | 0.4–0.9 | async | Hi3D by Hitem3D generates a 3D model from a single image, with a selectable model version (v1.5, v2.0, v2.1, or… |
+| [`hitem3d/hi3d/multi-view-to-3d`](models/hitem3d/hi3d/multi-view-to-3d.md) | 0.4–0.9 | async | Hi3D by Hitem3D generates a 3D model from a front view plus optional back, left and right views, with a selectable… |
+| [`hitem3d/hi3d/multicolor`](models/hitem3d/hi3d/multicolor.md) | 0.4 / call | async | Hi3D Multicolor by Hitem3D converts a textured GLB model into a model with a limited set of flat colors, for… |
+| [`hitem3d/hi3d/split`](models/hitem3d/hi3d/split.md) | 0.4 / call | async | Hi3D Split by Hitem3D splits a 3D model into parts, either by a humanoid character template with optional joints or by… |
+| [`hitem3d/hi3d/texture`](models/hitem3d/hi3d/texture.md) | 0.2 / call | async | Hi3D Texture by Hitem3D adds textures to an untextured GLB model using a reference image. It uses the v1.5 texture… |
+| [`hitem3d/hi3d/v3.0/image-to-3d`](models/hitem3d/hi3d/v3.0/image-to-3d.md) | 2.16–10.92 | async | Hi3D 3.0 by Hitem3D reconstructs a detailed, watertight 3D model at 2048³ resolution from a single image, with… |
+| [`hitem3d/hi3d/v3.0/multi-view-to-3d`](models/hitem3d/hi3d/v3.0/multi-view-to-3d.md) | 2.16–10.92 | async | Hi3D 3.0 by Hitem3D reconstructs a detailed 3D model at 2048³ resolution from a front view plus optional back, left… |
 | [`hyper3d/rodin/2.5/fast/image-to-3d`](models/hyper3d/rodin/2.5/fast/image-to-3d.md) | 0.1 / call | async | Rodin Gen-2.5 by Hyper3D (Deemos) generates game- and production-ready 3D assets from one to five reference images,… |
 | [`hyper3d/rodin/2.5/fast/text-to-3d`](models/hyper3d/rodin/2.5/fast/text-to-3d.md) | 0.1 / call | async | Rodin Gen-2.5 by Hyper3D (Deemos) generates game- and production-ready 3D assets from a text prompt, tuned for speed… |
 | [`hyper3d/rodin/2.5/image-to-3d`](models/hyper3d/rodin/2.5/image-to-3d.md) | 1.44–1.92 | async | Rodin Gen-2.5 by Hyper3D (Deemos) generates game- and production-ready 3D assets from one to five reference images. |
 | [`hyper3d/rodin/2.5/text-to-3d`](models/hyper3d/rodin/2.5/text-to-3d.md) | 1.44–1.92 | async | Rodin Gen-2.5 by Hyper3D (Deemos) generates game- and production-ready 3D assets from a text prompt. |
+| [`hyper3d/rodin/v2`](models/hyper3d/rodin/v2.md) | 1.2 | async | Rodin Gen-2 by Hyper3D (Deemos) generates production-ready 3D assets from one to five reference images. |
 | [`ideogram-ai/ideogram-v3`](models/ideogram-ai/ideogram-v3.md) | 0.03–0.09 | async | 3.0 is Ideogram's advanced text-to-image AI model. Create photorealistic images, illustrations, and concept art from… |
 | [`ideogram-ai/ideogram-v3/edit`](models/ideogram-ai/ideogram-v3/edit.md) | 0.03–0.09 | async | Ideogram V3 Edit by ideogram-ai - AI-powered image editing, style transfer, and transformation. Edit photos with… |
 | [`ideogram/4.5`](models/ideogram/4.5.md) | 0.03–0.22 | async | Ideogram 4.5 generates images from a text prompt, with reliable text rendering and polished graphic design output. |
@@ -1988,14 +1996,32 @@
 | [`kwaivgi/kling-image/o3/edit`](models/kwaivgi/kling-image/o3/edit.md) | 0.028–0.056 | async | Kling Image O3 Edit by Kuaishou edits or recomposes images from a text instruction using up to 10 reference images,… |
 | [`meshy/6.0-lite/retexture`](models/meshy/6.0-lite/retexture.md) | 0.36 / call | async | Meshy 6 Lite Retexture is the lower-cost Meshy retexturing model: repaint an existing 3D model from a text or image… |
 | [`meshy/6.0/retexture`](models/meshy/6.0/retexture.md) | 0.33–0.5 | async | Meshy 6 Retexture repaints an existing 3D model from a text or image style, with optional PBR maps and up to 8K… |
+| [`meshy/7.0/image-to-3d`](models/meshy/7.0/image-to-3d.md) | 0.8–1.72 | async | Meshy 7 turns a single image into a 3D model, with optional textures, PBR maps, 2K geometry, humanoid auto-rigging and… |
+| [`meshy/7.0/multi-image-to-3d`](models/meshy/7.0/multi-image-to-3d.md) | 0.8–1.72 | async | Meshy 7 reconstructs a 3D model from 1–4 views of the same object, with optional textures, PBR maps, 2K geometry,… |
 | [`meshy/7.0/retexture`](models/meshy/7.0/retexture.md) | 0.33–0.5 | async | Meshy 7 Retexture repaints an existing 3D model from a text or image style, with optional PBR maps and up to 8K… |
+| [`meshy/7.0/text-to-3d`](models/meshy/7.0/text-to-3d.md) | 0.8–1.72 | async | Meshy 7 generates a 3D model from a text prompt, either as an untextured preview mesh or fully textured, with optional… |
 | [`meshy/7.1/image-to-3d`](models/meshy/7.1/image-to-3d.md) | 0.96–2.304 | async | Meshy 7.1 turns a single image into a textured, optionally rigged and animated 3D model. |
 | [`meshy/7.1/multi-image-to-3d`](models/meshy/7.1/multi-image-to-3d.md) | 0.96–2.064 | async | Meshy 7.1 reconstructs a textured, optionally rigged 3D model from 1–4 views of the same object. |
 | [`meshy/7.1/text-to-3d`](models/meshy/7.1/text-to-3d.md) | 1.44–2.304 | async | Meshy 7.1 generates a textured, optionally rigged and animated 3D model from a text prompt. |
+| [`meshy/meshy-v6`](models/meshy/meshy-v6.md) | 0.8–1.52 | async | Meshy 6 turns a single image into a 3D model, with optional textures, PBR maps, humanoid auto-rigging and animation. |
+| [`meshy/meshy-v6/multi-image-to-3d`](models/meshy/meshy-v6/multi-image-to-3d.md) | 0.8–1.52 | async | Meshy 6 reconstructs a 3D model from 1–4 views of the same object, with optional textures, PBR maps, auto-rigging and… |
+| [`meshy/meshy-v6/text-to-3d`](models/meshy/meshy-v6/text-to-3d.md) | 0.8–1.52 | async | Meshy 6 generates a 3D model from a text prompt, either as an untextured preview mesh or fully textured, with optional… |
+| [`meshy/n1/retexture`](models/meshy/n1/retexture.md) | 0.4 / call | async | Meshy N1 Retexture repaints an existing 3D model from one reference image or up to four reference views, producing a… |
+| [`meshy/relief`](models/meshy/relief.md) | 0.8 / call | async | Meshy Relief turns a photo into a printable 3D relief (GLB and STL) with emboss or engrave carving and an optional… |
+| [`meshy/rigging`](models/meshy/rigging.md) | 0.2–0.32 | async | Meshy Rigging adds a humanoid skeleton to an existing character model and can also apply one animation preset. |
+| [`meshy/rigging/multi-animation`](models/meshy/rigging/multi-animation.md) | 0.2 | async | Meshy Rigging Multi-Animation rigs an existing humanoid character model and generates up to 10 animation clips on the… |
+| [`meshy/t2.5/image-to-3d`](models/meshy/t2.5/image-to-3d.md) | 0.2–0.92 | async | Meshy T2.5 turns a single image into a clean Smart Topology triangle mesh (up to 30,000 triangles), with optional… |
+| [`meshy/t2.5/text-to-3d`](models/meshy/t2.5/text-to-3d.md) | 0.2–0.92 | async | Meshy T2.5 generates a clean Smart Topology triangle mesh (up to 30,000 triangles) from a text prompt, untextured in… |
+| [`meshy/t2/image-to-3d`](models/meshy/t2/image-to-3d.md) | 0.2–0.92 | async | Meshy T2 turns a single image into a clean Smart Topology triangle mesh (up to 15,000 triangles), with optional… |
+| [`meshy/t2/text-to-3d`](models/meshy/t2/text-to-3d.md) | 0.2–0.92 | async | Meshy T2 generates a clean Smart Topology triangle mesh (up to 15,000 triangles) from a text prompt, untextured in… |
+| [`meta/sam-3/3d-align`](models/meta/sam-3/3d-align.md) | 0.024 / call | async | SAM 3D Align by Meta places a SAM 3D Body mesh into the scene of its source image, optionally combining it with a SAM… |
+| [`meta/sam-3/3d-body`](models/meta/sam-3/3d-body.md) | 0.024 / call | async | SAM 3D Body by Meta reconstructs the 3D shape and pose of the people in a single image and returns them as a GLB mesh. |
 | [`meta/sam-3/3d-objects`](models/meta/sam-3/3d-objects.md) | 0.024 | async | Sam 3 3d Objects by Meta - convert 2D images into 3D models with AI. Generate textured 3D assets from single photos… |
 | [`meta/sam-3/image`](models/meta/sam-3/image.md) | 0.005 / call | async | SAM 3 Image is Meta's segmentation model. It finds objects in an image from a text, point, or box prompt and returns… |
 | [`microsoft/mai-image-2.5-pro/edit`](models/microsoft/mai-image-2.5-pro/edit.md) | 0.29 | async | Mai Image 2.5 Pro Edit by Microsoft - AI-powered image editing, style transfer, and transformation. Edit photos with… |
 | [`microsoft/mai-image-2.5/edit`](models/microsoft/mai-image-2.5/edit.md) | 0.05 / call | async | Mai Image 2.5 Edit by Microsoft - AI-powered image editing, style transfer, and transformation. Edit photos with… |
+| [`microsoft/moge-2`](models/microsoft/moge-2.md) | 0.05 / call | async | MoGe-2 by Microsoft estimates metric 3D geometry from a single image and returns a textured GLB mesh, a PLY point… |
+| [`microsoft/moge-3`](models/microsoft/moge-3.md) | 0.075 / call | async | MoGe-3 by Microsoft estimates metric 3D geometry from a single image, refining depth with a sparse 3D refiner, and… |
 | [`midjourney/midjourney-v8.1`](models/midjourney/midjourney-v8.1.md) | 0.08–0.12 | async | Midjourney V8.1 text-to-image generation. |
 | [`minimax/h3-image`](models/minimax/h3-image.md) | 0.03–0.09 | async | MiniMax H3 Image is MiniMax's flagship image generation model from the H3 family, turning text prompts into detailed,… |
 | [`minimax/h3-image-highspeed`](models/minimax/h3-image-highspeed.md) | 0.05–0.18 | async | MiniMax H3 Image Highspeed is the faster version of MiniMax's H3 image generation model, with the same prompt… |
@@ -2014,20 +2040,45 @@
 | [`openai/gpt-image-2.6-sunburst`](models/openai/gpt-image-2.6-sunburst.md) | 0.01–0.27 | sync, async | GPT Image 2.6 Sunburst prioritizes detail and precision for complex image generation workflows. |
 | [`openai/gpt-image-2.6-sunburst/edit`](models/openai/gpt-image-2.6-sunburst/edit.md) | 0.025–0.285 | sync, async | GPT Image 2.6 Sunburst Edit prioritizes precision and consistency across successive edits for complex image editing… |
 | [`openai/gpt-image-2/edit`](models/openai/gpt-image-2/edit.md) | 0.02–0.73 | async | GPT Image 2 Editing supports image editing and multi-image synthesis with high-quality results. |
+| [`pixal3d/pixal3d`](models/pixal3d/pixal3d.md) | 0.3–0.42 | async | Pixal3D generates a high-fidelity textured 3D model (GLB) from a single image. |
+| [`reconviagen/reconviagen-0.5`](models/reconviagen/reconviagen-0.5.md) | 0.25–0.35 | async | ReconViaGen 0.5 reconstructs a textured 3D model (GLB with PBR materials) from one or more views of the same object;… |
 | [`recraft/recraft/v4.1`](models/recraft/recraft/v4.1.md) | 0.035 / call | async | Recraft V4.1 by Recraft - generate stunning images from text prompts with state-of-the-art AI. Supports multiple… |
 | [`recraft/recraft/v4.1/utility`](models/recraft/recraft/v4.1/utility.md) | 0.04 | async | Recraft V4.1 Utility by Recraft - generate stunning images from text prompts with state-of-the-art AI. Supports… |
 | [`sandbase-ai/cat-vton`](models/sandbase-ai/cat-vton.md) | 0.00125 / call | async | CatVTON is a virtual try-on model. It dresses the person in a photo with a garment from a second image, with controls… |
+| [`speridlabs/idol`](models/speridlabs/idol.md) | 0.1 / call | async | Idol by Sperid Labs turns a single image of an object into a 3D Gaussian splat (PLY) with a GLB point-cloud preview. |
 | [`tencent/hunyuan-3d/3.0/image-to-3d`](models/tencent/hunyuan-3d/3.0/image-to-3d.md) | 0.45–0.9 | async | Hunyuan 3d V3 is Tencent's image-to-3D AI model. Transform photographs into production-ready 3D meshes with accurate… |
+| [`tencent/hunyuan-3d/3.1/part`](models/tencent/hunyuan-3d/3.1/part.md) | 0.45 / call | async | Hunyuan 3D 3.1 Part by Tencent splits an FBX 3D model into its separate parts and returns one FBX file per part. |
 | [`tencent/hunyuan-3d/3.1/pro/image-to-3d`](models/tencent/hunyuan-3d/3.1/pro/image-to-3d.md) | 0.525–0.675 | async | Hunyuan 3d 3.1 Pro by Tencent - convert 2D images into 3D models with AI. Generate textured 3D assets from single… |
 | [`tencent/hunyuan-3d/3.1/pro/text-to-3d`](models/tencent/hunyuan-3d/3.1/pro/text-to-3d.md) | 0.525–0.675 | async | Hunyuan 3d 3.1 Pro is Tencent's text-to-3D AI model. Turn written descriptions into textured 3D objects with realistic… |
+| [`tencent/hunyuan-3d/3.1/rapid/image-to-3d`](models/tencent/hunyuan-3d/3.1/rapid/image-to-3d.md) | 0.27–0.375 | async | Hunyuan 3D 3.1 Rapid by Tencent quickly turns a single image into a textured or geometry-only 3D model. |
+| [`tencent/hunyuan-3d/3.1/rapid/text-to-3d`](models/tencent/hunyuan-3d/3.1/rapid/text-to-3d.md) | 0.27–0.375 | async | Hunyuan 3D 3.1 Rapid by Tencent quickly generates a textured or geometry-only 3D model from a text prompt. |
+| [`tencent/hunyuan-3d/3.1/smart-topology`](models/tencent/hunyuan-3d/3.1/smart-topology.md) | 0.75 / call | async | Hunyuan 3D 3.1 Smart Topology by Tencent retopologizes a GLB or OBJ model into a clean triangle or quad mesh at a… |
+| [`tencent/hunyuan-3d/v2`](models/tencent/hunyuan-3d/v2.md) | 0.16–0.48 | async | Hunyuan3D 2.0 by Tencent generates a 3D mesh from a single image, as a white mesh or with textures. |
+| [`tencent/hunyuan-3d/v2/mini`](models/tencent/hunyuan-3d/v2/mini.md) | 0.1–0.3 | async | Hunyuan3D 2.0 Mini by Tencent, a smaller and cheaper version of Hunyuan3D 2.0, generates a 3D mesh from a single… |
+| [`tencent/hunyuan-3d/v2/mini-turbo`](models/tencent/hunyuan-3d/v2/mini-turbo.md) | 0.08–0.24 | async | Hunyuan3D 2.0 Mini Turbo by Tencent, the fast variant of Hunyuan3D 2.0 Mini, generates a 3D mesh from a single image,… |
+| [`tencent/hunyuan-3d/v2/multi-view`](models/tencent/hunyuan-3d/v2/multi-view.md) | 0.16–0.48 | async | Hunyuan3D 2.0 Multi-View by Tencent generates a 3D mesh from front, back, and left view images, as a white mesh or… |
+| [`tencent/hunyuan-3d/v2/multi-view-turbo`](models/tencent/hunyuan-3d/v2/multi-view-turbo.md) | 0.14–0.42 | async | Hunyuan3D 2.0 Multi-View Turbo by Tencent, the fast multi-view variant, generates a 3D mesh from front, back, and left… |
+| [`tencent/hunyuan-3d/v3/text-to-3d`](models/tencent/hunyuan-3d/v3/text-to-3d.md) | 0.45–0.9 | async | Hunyuan 3D 3.0 by Tencent generates a textured, low-poly, or geometry-only 3D model from a text prompt. |
 | [`tencent/hunyuan-image/3.0`](models/tencent/hunyuan-image/3.0.md) | 0.1 / call | async | Hunyuan Image 3.0 is Tencent's advanced text-to-image AI model. Create photorealistic images, illustrations, and… |
 | [`tencent/hunyuan-image/3.0/edit`](models/tencent/hunyuan-image/3.0/edit.md) | 0.45 / call | async | Hunyuan Image 3.0 Edit by Tencent - AI-powered image editing, style transfer, and transformation. Edit photos with… |
+| [`tencent/hunyuan3d/v2/turbo`](models/tencent/hunyuan3d/v2/turbo.md) | 0.14–0.42 | async | Hunyuan3D 2.0 Turbo by Tencent, the fast variant of Hunyuan3D 2.0, generates a 3D mesh from a single image, as a white… |
 | [`topaz/upscale/image`](models/topaz/upscale/image.md) | ~0.08 | async | Upscale Image is Topaz Labs's intelligent image editing model. Transform, retouch, and reimagine existing images using… |
+| [`trellis/trellis`](models/trellis/trellis.md) | 0.02 / call | async | TRELLIS by Microsoft generates a textured 3D mesh (GLB) from a single image using structured 3D latents. |
+| [`trellis/trellis-2`](models/trellis/trellis-2.md) | 0.25–0.45 | async | TRELLIS.2 by Microsoft generates a textured 3D model (GLB with PBR materials) from a single image. |
+| [`trellis/trellis-2/retexture`](models/trellis/trellis-2/retexture.md) | 0.2–0.24 | async | TRELLIS.2 Retexture by Microsoft paints new textures onto an existing 3D mesh (GLB, OBJ, PLY or STL) from a reference… |
+| [`trellis/trellis/multi`](models/trellis/trellis/multi.md) | 0.02 / call | async | TRELLIS by Microsoft generates a textured 3D mesh (GLB) from several views of the same object. |
 | [`tripo3d/tripo-h3.1/image-to-3d`](models/tripo3d/tripo-h3.1/image-to-3d.md) | 0.24–0.78 | async | Tripo H3.1 by Tripo3D - convert 2D images into 3D models with AI. Generate textured 3D assets from single photos for… |
 | [`tripo3d/tripo-h3.1/multiview-to-3d`](models/tripo3d/tripo-h3.1/multiview-to-3d.md) | 0.24–0.78 | async | Tripo H3.1 Multiview To 3d by Tripo3D - convert 2D images into 3D models with AI. Generate textured 3D assets from… |
 | [`tripo3d/tripo-h3.1/text-to-3d`](models/tripo3d/tripo-h3.1/text-to-3d.md) | 0.12–0.66 | async | Tripo H3.1 is Tripo3D's text-to-3D AI model. Turn written descriptions into textured 3D objects with realistic… |
+| [`tripo3d/tripo-p1/image-to-3d`](models/tripo3d/tripo-p1/image-to-3d.md) | 0.48–0.6 | async | Tripo P1 is Tripo3D's image-to-3D model. It reconstructs a 3D mesh with optional textures from a single image. |
+| [`tripo3d/tripo-p1/text-to-3d`](models/tripo3d/tripo-p1/text-to-3d.md) | 0.36–0.48 | async | Tripo P1 is Tripo3D's text-to-3D model. It generates a 3D mesh with optional textures from a text description. |
 | [`tripo3d/tripo-p2/image-to-3d`](models/tripo3d/tripo-p2/image-to-3d.md) | 1.2–1.56 | async | Tripo P2 is Tripo3D's latest flagship 3D generation model. It reconstructs a production-ready mesh with optional PBR… |
 | [`tripo3d/tripo-p2/text-to-3d`](models/tripo3d/tripo-p2/text-to-3d.md) | 1.2–1.56 | async | Tripo P2 is Tripo3D's latest flagship 3D generation model. It turns a text description into a production-ready mesh… |
+| [`tripo3d/tripo-v2.5/image-to-3d`](models/tripo3d/tripo-v2.5/image-to-3d.md) | 0.2–0.45 | async | Tripo v2.5 by Tripo3D generates a textured 3D mesh from a single image, with optional HD textures, PBR materials and… |
+| [`tripo3d/tripo-v2.5/multiview-to-3d`](models/tripo3d/tripo-v2.5/multiview-to-3d.md) | 0.2–0.45 | async | Tripo v2.5 by Tripo3D reconstructs a textured 3D mesh from a front view plus optional left, back and right views of… |
+| [`tripo3d/tripo/remesh`](models/tripo3d/tripo/remesh.md) | 0.42–0.48 | async | Tripo Remesh rebuilds an existing 3D model with clean triangle or quad topology at a target face count. Accepts GLB,… |
+| [`tripo3d/tripo/segment`](models/tripo3d/tripo/segment.md) | 0.48 / call | async | Tripo Segment splits an existing 3D model into named parts. Accepts GLB, OBJ, FBX or STL input. |
+| [`tripo3d/triposplat`](models/tripo3d/triposplat.md) | 0.05 / call | async | TripoSplat by Tripo3D turns a single image into a 3D Gaussian splat for real-time rendering. Output is a .ply or… |
 | [`xai/grok-imagine-image/2.0/edit`](models/xai/grok-imagine-image/2.0/edit.md) | 0.04–0.08 | async | Grok Imagine Image 2.0 Edit is xAI's intelligent image editing model. Transform, retouch, and reimagine existing… |
 | [`xai/grok-imagine-image/2.0/text-to-image`](models/xai/grok-imagine-image/2.0/text-to-image.md) | 0.04–0.08 | async | Grok Imagine Image 2.0 by xAI - generate stunning images from text prompts with state-of-the-art AI. Supports multiple… |
 | [`xai/grok-imagine-image/edit`](models/xai/grok-imagine-image/edit.md) | 0.02 | async | Grok Imagine Image Edit is xAI's intelligent image editing model. Transform, retouch, and reimagine existing images… |

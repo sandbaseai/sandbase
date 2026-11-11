@@ -1,0 +1,164 @@
+{
+  "name": "meshy/rigging",
+  "display_name": "Meshy Rigging",
+  "type": "image",
+  "vendor": "Meshy",
+  "vendor_slug": "meshy",
+  "description": "Meshy Rigging adds a humanoid skeleton to an existing character model and can also apply one animation preset.",
+  "tags": [
+    "3d-to-3d"
+  ],
+  "capabilities": [
+    "3d-to-3d"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "model_url"
+    ],
+    "properties": {
+      "model_url": {
+        "type": "string",
+        "title": "Model URL",
+        "examples": [
+          "https://storage.googleapis.com/falserverless/model_tests/video_models/base_basic_shaded.glb"
+        ],
+        "description": "URL of a humanoid character model in GLB format with clearly defined limbs. Works with models from Meshy, Hunyuan, Trellis or any other 3D tool."
+      },
+      "height_meters": {
+        "type": "number",
+        "title": "Height (m)",
+        "default": 1.7,
+        "description": "Approximate height of the character in meters.",
+        "exclusiveMinimum": 0
+      },
+      "include_fingers": {
+        "type": "boolean",
+        "title": "Include Fingers",
+        "default": false,
+        "description": "Rig the character's fingers."
+      },
+      "enable_animation": {
+        "type": "boolean",
+        "title": "Animation",
+        "default": false,
+        "description": "Also generate one animation clip on the rig. Returned as animation_glb / animation_fbx."
+      },
+      "skeleton_template": {
+        "enum": [
+          "mixamo",
+          "ue5_mannequin",
+          "unity_humanoid",
+          "maya_human_ik",
+          "blender_rigify_basic_human",
+          "max_biped",
+          "cc5_hd_neutral_base",
+          "daz_genesis9",
+          "meshyrig"
+        ],
+        "type": "string",
+        "title": "Skeleton Template",
+        "default": "meshyrig",
+        "description": "Skeleton template for the rig (e.g. mixamo, ue5_mannequin, unity_humanoid). Some models can only be rigged on meshyrig without fingers."
+      },
+      "animation_action_id": {
+        "type": "integer",
+        "title": "Animation Action ID",
+        "default": 92,
+        "maximum": 696,
+        "minimum": 0,
+        "description": "Animation preset ID from Meshy's animation library (0 is Idle). Only used when animation is enabled."
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "title": "GenerationResponse",
+    "required": [
+      "id",
+      "status"
+    ],
+    "properties": {
+      "id": {
+        "type": "string",
+        "description": "Unique identifier for the generation task."
+      },
+      "error": {
+        "type": "string",
+        "description": "Error message if the task failed. Empty on success."
+      },
+      "model": {
+        "type": "string",
+        "description": "Model ID used for the prediction."
+      },
+      "status": {
+        "enum": [
+          "pending",
+          "running",
+          "completed",
+          "failed",
+          "timeout"
+        ],
+        "type": "string",
+        "description": "Status of the task: pending, running, completed, failed, or timeout."
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "title": "OutputItem",
+          "required": [
+            "url"
+          ],
+          "properties": {
+            "url": {
+              "type": "string",
+              "description": "The URL where the generated content can be downloaded from."
+            },
+            "content_type": {
+              "type": "string",
+              "description": "The MIME type of the output file."
+            }
+          }
+        },
+        "description": "Array of generated content. Empty when status is not completed."
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "formula",
+    "formula": "(params.enable_animation ?? false) ? 0.32 : 0.2",
+    "formula_variables": [
+      "params.enable_animation"
+    ],
+    "reference_price": 0.2,
+    "price_examples": [
+      {
+        "params": {
+          "enable_animation": false
+        },
+        "usd": 0.2
+      },
+      {
+        "params": {
+          "enable_animation": true
+        },
+        "usd": 0.32
+      }
+    ]
+  },
+  "readme": "# Meshy Rigging\nMeshy Rigging adds a humanoid skeleton to an existing character model and can also apply one animation preset.\n## Fields\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `model_url` | string, required | — | URL of a humanoid character model in GLB format with clearly defined limbs. Works with models from Meshy, Hunyuan, Trellis or any other 3D tool. |\n| `enable_animation` | boolean | `false` | Also generate one animation clip on the rig. Returned as animation_glb / animation_fbx. |\n| `animation_action_id` | integer 0–696 | `92` | Animation preset ID from Meshy's animation library (0 is Idle). Only used when animation is enabled. |\n| `skeleton_template` | `mixamo` / `ue5_mannequin` / `unity_humanoid` / `maya_human_ik` / `blender_rigify_basic_human` / `max_biped` / `cc5_hd_neutral_base` / `daz_genesis9` / `meshyrig` | `meshyrig` | Skeleton template for the rig (e.g. mixamo, ue5_mannequin, unity_humanoid). Some models can only be rigged on meshyrig without fingers. |\n| `include_fingers` | boolean | `false` | Rig the character's fingers. |\n| `height_meters` | number | `1.7` | Approximate height of the character in meters. |\n## Output\n- `url`: Main 3D file (GLB unless another export format is selected).\n- `fbx`: Additional file returned by the provider.\n- `animation_glb`: Additional file returned by the provider.\n- `animation_fbx`: Additional file returned by the provider.\n## Billing\n$0.20 per request with default settings. Price by option (other settings at default):\n| Option | Price |\n|---|---|\n| enable_animation on | $0.32 |\n| enable_animation off | $0.20 |\nFailed runs are not charged.\n## Also on SandBase\nOther Meshy 3D endpoints: `meshy/6.0-lite/retexture`, `meshy/6.0/retexture`, `meshy/7.0/image-to-3d`, `meshy/7.0/multi-image-to-3d`.\n",
+  "cover_url": "https://static.sandbase.ai/covers/meshy/rigging/cover-flare-20261111172549.webp",
+  "page_url": "https://www.sandbase.ai/model/meshy/rigging",
+  "published_at": "2026-05-19T22:13:29.355Z",
+  "created_at": "2026-06-01T11:51:30.379Z"
+}
