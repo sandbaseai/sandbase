@@ -33,7 +33,7 @@ Modes: async (default `async`). Only pass `mode` values listed here. The SDKs' `
 ```bash
 curl https://api.sandbase.ai/v1/run \
   -H "Authorization: Bearer $SANDBASE_API_KEY" -H 'Content-Type: application/json' \
-  -d '{"model": "trellis/trellis-2", "image": "https://static.sandbase.ai/examples/trellis/trellis-2/input_image_0.png"}'
+  -d '{"model": "trellis/trellis-2", "image": "https://static.sandbase.ai/examples/47bf2d18-ab0e-4075-8d34-7f126d87a88c/input/6097f8eb-4c09-4fff-aeb2-85749993ad57.png"}'
 ```
 
 **Python** ([sdk/python](../../../sdk/python))
@@ -41,7 +41,7 @@ curl https://api.sandbase.ai/v1/run \
 ```python
 from sandbase import SandBase
 
-result = SandBase().run('trellis/trellis-2', {'image': 'https://static.sandbase.ai/examples/trellis/trellis-2/input_image_0.png'})
+result = SandBase().run('trellis/trellis-2', {'image': 'https://static.sandbase.ai/examples/47bf2d18-ab0e-4075-8d34-7f126d87a88c/input/6097f8eb-4c09-4fff-aeb2-85749993ad57.png'})
 print(result["outputs"])
 ```
 
@@ -51,7 +51,7 @@ print(result["outputs"])
 import { SandBase } from "@sandbaseai/sdk";
 
 const result = await new SandBase().run("trellis/trellis-2", {
-  "image": "https://static.sandbase.ai/examples/trellis/trellis-2/input_image_0.png"
+  "image": "https://static.sandbase.ai/examples/47bf2d18-ab0e-4075-8d34-7f126d87a88c/input/6097f8eb-4c09-4fff-aeb2-85749993ad57.png"
 });
 console.log(result.outputs);
 ```
@@ -61,7 +61,7 @@ console.log(result.outputs);
 ```go
 c, _ := sandbase.NewClient("")
 run, err := c.Run(ctx, "trellis/trellis-2", sandbase.Params{
-	"image": "https://static.sandbase.ai/examples/trellis/trellis-2/input_image_0.png",
+	"image": "https://static.sandbase.ai/examples/47bf2d18-ab0e-4075-8d34-7f126d87a88c/input/6097f8eb-4c09-4fff-aeb2-85749993ad57.png",
 })
 ```
 

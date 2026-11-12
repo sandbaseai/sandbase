@@ -474,6 +474,21 @@
       }
     ]
   },
+  "examples": [
+    {
+      "input": {
+        "image": "https://static.sandbase.ai/examples/33fdcc66-c331-4b8f-a4b0-95e695982eee/input/bb9227a2-ef6e-4c7d-afa4-073779ff3a60.png"
+      },
+      "output": [
+        {
+          "poster": "https://static.sandbase.ai/examples/33fdcc66-c331-4b8f-a4b0-95e695982eee/output/e0e4ca49-df76-4cc6-99d1-17d251e703dd.png",
+          "thumbnail": "https://static.sandbase.ai/examples/33fdcc66-c331-4b8f-a4b0-95e695982eee/output/e0e4ca49-df76-4cc6-99d1-17d251e703dd.png",
+          "url": "https://static.sandbase.ai/examples/33fdcc66-c331-4b8f-a4b0-95e695982eee/output/838bde62-7435-4282-b12a-7a70ac00ccd8.glb"
+        }
+      ],
+      "default": true
+    }
+  ],
   "readme": "# Tripo H3.1 Image to 3D\n\nTripo H3.1 turns a single image into a textured 3D model quickly and at low cost.\n\n## Fields\n\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `image` | image URL, required | — | URL of the input image for 3D model creation. |\n| `pbr` | boolean | true | PBR materials. |\n| `quad` | boolean | false | Quad mesh output. |\n| `seed` | integer | random | Fix it to compare prompt changes. |\n| `texture` | boolean | true | Generate textures. |\n| `face_limit` | integer 1000–2000000 | — | Maximum face count. |\n| `texture_quality` | `standard` / `detailed` | `standard` | Texture detail; higher costs more. |\n| `geometry_quality` | `standard` / `detailed` | `standard` | `detailed` adds mesh detail and cost. |\n\n## Billing\n\n$0.36 per textured model at standard quality, $0.48 detailed, $0.24 untextured; detailed geometry adds $0.24 and quad output $0.06.\n\n| Request | Price |\n|---|---|\n| Standard texture | $0.36 |\n| Detailed texture | $0.48 |\n| Untextured | $0.24 |\n| Standard + detailed geometry | $0.60 |\n\nFailed runs are not charged.\n\n## Also on SandBase\n\nOther Tripo endpoints: `tripo3d/tripo-p2/text-to-3d`, `tripo3d/tripo-p2/image-to-3d`, `tripo3d/tripo-h3.1/text-to-3d`.\n",
   "cover_url": "https://static.sandbase.ai/covers/tripo3d/tripo-h3.1/image-to-3d/cover-flare-20261008040133.webp",
   "page_url": "https://www.sandbase.ai/model/tripo3d/tripo-h3.1/image-to-3d",

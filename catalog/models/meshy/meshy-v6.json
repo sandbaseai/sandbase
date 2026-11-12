@@ -246,6 +246,21 @@
       }
     ]
   },
+  "examples": [
+    {
+      "input": {
+        "image": "https://static.sandbase.ai/examples/e8e971da-d2c1-45ef-8c68-d89da3ed0242/input/ed047585-9adb-43b4-a726-d93d6ff81306.png"
+      },
+      "output": [
+        {
+          "poster": "https://static.sandbase.ai/examples/e8e971da-d2c1-45ef-8c68-d89da3ed0242/output/dadfced9-b57d-42cb-9cfc-da3460dff42a.png",
+          "thumbnail": "https://static.sandbase.ai/examples/e8e971da-d2c1-45ef-8c68-d89da3ed0242/output/dadfced9-b57d-42cb-9cfc-da3460dff42a.png",
+          "url": "https://static.sandbase.ai/examples/e8e971da-d2c1-45ef-8c68-d89da3ed0242/output/c98228b8-f395-47dc-b817-7a5f01fd1ecb.glb"
+        }
+      ],
+      "default": true
+    }
+  ],
   "readme": "# Meshy 6 Image to 3D\nMeshy 6 turns a single image into a 3D model, with optional textures, PBR maps, humanoid auto-rigging and animation.\n## Fields\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `image` | image URL, required | — | Image URL or base64 data URI of the object. Supports .jpg, .jpeg and .png; AVIF and HEIF are converted automatically. |\n| `should_texture` | boolean | `true` | Generate textures. Untextured meshes cost less. |\n| `symmetry_mode` | `off` / `auto` / `on` | `auto` | Symmetry enforcement: off, auto or on. |\n| `topology` | `quad` / `triangle` | `triangle` | quad for smooth surfaces, triangle for detail. |\n| `target_polycount` | integer 100–300000 | `30000` | Target polygon count (100–300,000). |\n| `pose_mode` | `a-pose` / `t-pose` / `` | `\"\"` | Generate the character in an A-pose or T-pose; empty for no specific pose. |\n| `enable_pbr` | boolean | `false` | Generate PBR maps (metallic, roughness, normal) in addition to base color. |\n| `texture_prompt` | string | — | Text prompt to guide texturing. Maximum 800 characters. |\n| `texture_image` | image URL | — | Image URL to guide texturing. |\n| `enable_rigging` | boolean | `false` | Rig the model as a humanoid character. The rigged GLB is returned as rigged_glb. |\n| `enable_animation` | boolean | `false` | Apply an animation preset to the rigged character (billed together with rigging). The animated GLB is returned as animation_glb. |\n| `animation_action_id` | integer 0–696 | `92` | Animation preset ID from Meshy's animation library (0 is Idle). Only used when animation is enabled. |\n## Output\n- `url`: Main 3D file (GLB unless another export format is selected).\n- `thumbnail`: Preview image rendered by the provider.\n- `rigged_glb`: Additional file returned by the provider.\n- `animation_glb`: Additional file returned by the provider.\n## Billing\n$1.20 per request with default settings. Price by option (other settings at default):\n| Option | Price |\n|---|---|\n| enable_animation on | $1.52 |\n| enable_animation off | $1.20 |\n| enable_rigging on | $1.40 |\n| enable_rigging off | $1.20 |\n| should_texture on | $1.20 |\n| should_texture off | $0.80 |\nFailed runs are not charged.\n## Also on SandBase\nOther Meshy 3D endpoints: `meshy/6.0-lite/retexture`, `meshy/6.0/retexture`, `meshy/7.0/image-to-3d`, `meshy/7.0/multi-image-to-3d`.\n",
   "cover_url": "https://static.sandbase.ai/covers/meshy/meshy-v6/cover-flare-20261111180909.webp",
   "page_url": "https://www.sandbase.ai/model/meshy/meshy-v6",

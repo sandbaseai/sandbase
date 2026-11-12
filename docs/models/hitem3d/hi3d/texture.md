@@ -19,7 +19,7 @@ Modes: async (default `async`). Only pass `mode` values listed here. The SDKs' `
 ```bash
 curl https://api.sandbase.ai/v1/run \
   -H "Authorization: Bearer $SANDBASE_API_KEY" -H 'Content-Type: application/json' \
-  -d '{"model": "hitem3d/hi3d/texture", "model_url": "https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Models/master/2.0/DamagedHelmet/glTF-Binary/DamagedHelmet.glb", "image": "https://storage.googleapis.com/falserverless/example_inputs/dog.png"}'
+  -d '{"model": "hitem3d/hi3d/texture", "image": "https://static.sandbase.ai/examples/c4501277-43f5-4c6a-ae4b-4f56d42ca2f3/input/24dabdc3-0dee-40c8-b5b3-a4433574aa59.png", "model_url": "https://static.sandbase.ai/examples/c4501277-43f5-4c6a-ae4b-4f56d42ca2f3/input/b28d2ada-8f0f-43c0-ae09-ce44d9c4a506.glb"}'
 ```
 
 **Python** ([sdk/python](../../../../sdk/python))
@@ -27,7 +27,7 @@ curl https://api.sandbase.ai/v1/run \
 ```python
 from sandbase import SandBase
 
-result = SandBase().run('hitem3d/hi3d/texture', {'model_url': 'https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Models/master/2.0/DamagedHelmet/glTF-Binary/DamagedHelmet.glb', 'image': 'https://storage.googleapis.com/falserverless/example_inputs/dog.png'})
+result = SandBase().run('hitem3d/hi3d/texture', {'image': 'https://static.sandbase.ai/examples/c4501277-43f5-4c6a-ae4b-4f56d42ca2f3/input/24dabdc3-0dee-40c8-b5b3-a4433574aa59.png', 'model_url': 'https://static.sandbase.ai/examples/c4501277-43f5-4c6a-ae4b-4f56d42ca2f3/input/b28d2ada-8f0f-43c0-ae09-ce44d9c4a506.glb'})
 print(result["outputs"])
 ```
 
@@ -37,8 +37,8 @@ print(result["outputs"])
 import { SandBase } from "@sandbaseai/sdk";
 
 const result = await new SandBase().run("hitem3d/hi3d/texture", {
-  "model_url": "https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Models/master/2.0/DamagedHelmet/glTF-Binary/DamagedHelmet.glb",
-  "image": "https://storage.googleapis.com/falserverless/example_inputs/dog.png"
+  "image": "https://static.sandbase.ai/examples/c4501277-43f5-4c6a-ae4b-4f56d42ca2f3/input/24dabdc3-0dee-40c8-b5b3-a4433574aa59.png",
+  "model_url": "https://static.sandbase.ai/examples/c4501277-43f5-4c6a-ae4b-4f56d42ca2f3/input/b28d2ada-8f0f-43c0-ae09-ce44d9c4a506.glb"
 });
 console.log(result.outputs);
 ```
@@ -48,8 +48,8 @@ console.log(result.outputs);
 ```go
 c, _ := sandbase.NewClient("")
 run, err := c.Run(ctx, "hitem3d/hi3d/texture", sandbase.Params{
-	"model_url": "https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Models/master/2.0/DamagedHelmet/glTF-Binary/DamagedHelmet.glb",
-	"image": "https://storage.googleapis.com/falserverless/example_inputs/dog.png",
+	"image": "https://static.sandbase.ai/examples/c4501277-43f5-4c6a-ae4b-4f56d42ca2f3/input/24dabdc3-0dee-40c8-b5b3-a4433574aa59.png",
+	"model_url": "https://static.sandbase.ai/examples/c4501277-43f5-4c6a-ae4b-4f56d42ca2f3/input/b28d2ada-8f0f-43c0-ae09-ce44d9c4a506.glb",
 })
 ```
 

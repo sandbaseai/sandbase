@@ -137,6 +137,22 @@
     "model": "per_call",
     "per_call": 0.2
   },
+  "examples": [
+    {
+      "input": {
+        "image": "https://static.sandbase.ai/examples/c4501277-43f5-4c6a-ae4b-4f56d42ca2f3/input/24dabdc3-0dee-40c8-b5b3-a4433574aa59.png",
+        "model_url": "https://static.sandbase.ai/examples/c4501277-43f5-4c6a-ae4b-4f56d42ca2f3/input/b28d2ada-8f0f-43c0-ae09-ce44d9c4a506.glb"
+      },
+      "output": [
+        {
+          "poster": "https://static.sandbase.ai/examples/c4501277-43f5-4c6a-ae4b-4f56d42ca2f3/output/9a2b8d5e-4df7-4aa0-ab0c-c571cd319572.webp",
+          "thumbnail": "https://static.sandbase.ai/examples/c4501277-43f5-4c6a-ae4b-4f56d42ca2f3/output/9a2b8d5e-4df7-4aa0-ab0c-c571cd319572.webp",
+          "url": "https://static.sandbase.ai/examples/c4501277-43f5-4c6a-ae4b-4f56d42ca2f3/output/657aa660-3d28-4a47-8766-cef206b48303.glb"
+        }
+      ],
+      "default": true
+    }
+  ],
   "readme": "# Hitem3D Hi3D Texture\nHi3D Texture by Hitem3D adds textures to an untextured GLB model using a reference image. It uses the v1.5 texture models.\n## Fields\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `model_url` | string, required | — | URL of the GLB geometry model to texture (e.g. Hi3D image-to-3d output with texture off). |\n| `image` | image URL, required | — | Reference image URL used to texture the model. PNG, JPEG and WebP, up to 20MB. |\n| `version` | `hitem3dv1.5` / `scene-portraitv1.5` | `hitem3dv1.5` | Texture model version. |\n| `resolution` | `512` / `1024` / `1536` / `1536pro` | — | Texture resolution. hitem3dv1.5 accepts 512, 1024, 1536, 1536pro; scene-portraitv1.5 accepts 1536. Uses the model's recommended value when unset. |\n| `export_format` | `glb` / `obj` / `stl` / `fbx` / `usdz` | `glb` | File format of the generated model. |\n## Output\n- `url`: Main 3D file (GLB unless another export format is selected).\n- `thumbnail`: Preview image rendered by the provider.\n## Billing\n$0.20 per request.\nFailed runs are not charged.\n## Also on SandBase\nOther Hitem3D 3D endpoints: `hitem3d/hi3d/image-to-3d`, `hitem3d/hi3d/multi-view-to-3d`, `hitem3d/hi3d/multicolor`, `hitem3d/hi3d/split`.\n",
   "cover_url": "https://static.sandbase.ai/covers/hitem3d/hi3d/texture/cover-flare-20261111204628.webp",
   "page_url": "https://www.sandbase.ai/model/hitem3d/hi3d/texture",

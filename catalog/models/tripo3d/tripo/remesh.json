@@ -131,6 +131,21 @@
       }
     ]
   },
+  "examples": [
+    {
+      "input": {
+        "model_url": "https://static.sandbase.ai/examples/d844350a-5fac-4a9d-a0c3-79ef0ea8e7e7/input/1a91c960-1c7f-4348-90e9-55eadc4a9b77.glb"
+      },
+      "output": [
+        {
+          "poster": "https://static.sandbase.ai/examples/d844350a-5fac-4a9d-a0c3-79ef0ea8e7e7/output/47b4985a-89cd-4d59-8f71-392e43741f53.png",
+          "thumbnail": "https://static.sandbase.ai/examples/d844350a-5fac-4a9d-a0c3-79ef0ea8e7e7/output/47b4985a-89cd-4d59-8f71-392e43741f53.png",
+          "url": "https://static.sandbase.ai/examples/d844350a-5fac-4a9d-a0c3-79ef0ea8e7e7/output/997c155c-2abb-44ab-9591-8d0424624304.glb"
+        }
+      ],
+      "default": true
+    }
+  ],
   "readme": "# Tripo Remesh\nTripo Remesh rebuilds an existing 3D model with clean triangle or quad topology at a target face count. Accepts GLB, OBJ, FBX or STL input.\n## Fields\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `model_url` | string, required | — | URL of the input 3D model (GLB, OBJ, FBX or STL, max 150MB). |\n| `quad` | boolean | `false` | Generate quad topology instead of triangles. Forces FBX output. |\n| `face_limit` | integer 500–20000 | — | Target face count, 500-20000 (500-10000 with quad). Adaptive when unset. |\n| `bake` | boolean | `true` | Bake textures onto the remeshed model. |\n## Output\n- `url`: Main 3D file (GLB unless another export format is selected).\n- `thumbnail`: Preview image rendered by the provider.\n## Billing\n$0.42 per request with default settings. Price by option (other settings at default):\n| Option | Price |\n|---|---|\n| quad on | $0.48 |\n| quad off | $0.42 |\nFailed runs are not charged.\n## Also on SandBase\nOther Tripo3D 3D endpoints: `tripo3d/tripo-h3.1/image-to-3d`, `tripo3d/tripo-h3.1/multiview-to-3d`, `tripo3d/tripo-h3.1/text-to-3d`, `tripo3d/tripo-p1/image-to-3d`.\n",
   "cover_url": "https://static.sandbase.ai/covers/tripo3d/tripo/remesh/cover-flare-20261111181313.webp",
   "page_url": "https://www.sandbase.ai/model/tripo3d/tripo/remesh",

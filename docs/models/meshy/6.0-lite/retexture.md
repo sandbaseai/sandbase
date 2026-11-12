@@ -19,7 +19,7 @@ Modes: async (default `async`). Only pass `mode` values listed here. The SDKs' `
 ```bash
 curl https://api.sandbase.ai/v1/run \
   -H "Authorization: Bearer $SANDBASE_API_KEY" -H 'Content-Type: application/json' \
-  -d '{"model": "meshy/6.0-lite/retexture", "model_url": "<model_url>"}'
+  -d '{"model": "meshy/6.0-lite/retexture", "model_url": "https://static.sandbase.ai/examples/083613da-f698-400f-9081-e79012416827/input/53f87138-036f-4a9a-9c0c-18327624516b.glb", "text_style_prompt": "hand-painted cartoon toy box, bright blue with yellow stars"}'
 ```
 
 **Python** ([sdk/python](../../../../sdk/python))
@@ -27,7 +27,7 @@ curl https://api.sandbase.ai/v1/run \
 ```python
 from sandbase import SandBase
 
-result = SandBase().run('meshy/6.0-lite/retexture', {'model_url': '<model_url>'})
+result = SandBase().run('meshy/6.0-lite/retexture', {'model_url': 'https://static.sandbase.ai/examples/083613da-f698-400f-9081-e79012416827/input/53f87138-036f-4a9a-9c0c-18327624516b.glb', 'text_style_prompt': 'hand-painted cartoon toy box, bright blue with yellow stars'})
 print(result["outputs"])
 ```
 
@@ -37,7 +37,8 @@ print(result["outputs"])
 import { SandBase } from "@sandbaseai/sdk";
 
 const result = await new SandBase().run("meshy/6.0-lite/retexture", {
-  "model_url": "<model_url>"
+  "model_url": "https://static.sandbase.ai/examples/083613da-f698-400f-9081-e79012416827/input/53f87138-036f-4a9a-9c0c-18327624516b.glb",
+  "text_style_prompt": "hand-painted cartoon toy box, bright blue with yellow stars"
 });
 console.log(result.outputs);
 ```
@@ -47,7 +48,8 @@ console.log(result.outputs);
 ```go
 c, _ := sandbase.NewClient("")
 run, err := c.Run(ctx, "meshy/6.0-lite/retexture", sandbase.Params{
-	"model_url": "<model_url>",
+	"model_url": "https://static.sandbase.ai/examples/083613da-f698-400f-9081-e79012416827/input/53f87138-036f-4a9a-9c0c-18327624516b.glb",
+	"text_style_prompt": "hand-painted cartoon toy box, bright blue with yellow stars",
 })
 ```
 

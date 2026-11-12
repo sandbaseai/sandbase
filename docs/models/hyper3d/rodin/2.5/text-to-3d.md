@@ -30,7 +30,7 @@ Modes: async (default `async`). Only pass `mode` values listed here. The SDKs' `
 ```bash
 curl https://api.sandbase.ai/v1/run \
   -H "Authorization: Bearer $SANDBASE_API_KEY" -H 'Content-Type: application/json' \
-  -d '{"model": "hyper3d/rodin/2.5/text-to-3d", "prompt": "A futuristic robot with sleek metallic design."}'
+  -d '{"model": "hyper3d/rodin/2.5/text-to-3d", "prompt": "A whimsical mushroom house with a red spotted cap, round wooden door and tiny windows"}'
 ```
 
 **Python** ([sdk/python](../../../../../sdk/python))
@@ -38,7 +38,7 @@ curl https://api.sandbase.ai/v1/run \
 ```python
 from sandbase import SandBase
 
-result = SandBase().run('hyper3d/rodin/2.5/text-to-3d', {'prompt': 'A futuristic robot with sleek metallic design.'})
+result = SandBase().run('hyper3d/rodin/2.5/text-to-3d', {'prompt': 'A whimsical mushroom house with a red spotted cap, round wooden door and tiny windows'})
 print(result["outputs"])
 ```
 
@@ -48,7 +48,7 @@ print(result["outputs"])
 import { SandBase } from "@sandbaseai/sdk";
 
 const result = await new SandBase().run("hyper3d/rodin/2.5/text-to-3d", {
-  "prompt": "A futuristic robot with sleek metallic design."
+  "prompt": "A whimsical mushroom house with a red spotted cap, round wooden door and tiny windows"
 });
 console.log(result.outputs);
 ```
@@ -58,7 +58,7 @@ console.log(result.outputs);
 ```go
 c, _ := sandbase.NewClient("")
 run, err := c.Run(ctx, "hyper3d/rodin/2.5/text-to-3d", sandbase.Params{
-	"prompt": "A futuristic robot with sleek metallic design.",
+	"prompt": "A whimsical mushroom house with a red spotted cap, round wooden door and tiny windows",
 })
 ```
 

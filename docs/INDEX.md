@@ -1,8 +1,8 @@
 # SandBase capability index
 
-2362 capabilities · generated 2026-11-11T16:11:06Z
+2387 capabilities · generated 2026-11-12T07:08:56Z
 
-- [api](#api) (1859)
+- [api](#api) (1884)
 - [audio](#audio) (32)
 - [embedding](#embedding) (2)
 - [image](#image) (164)
@@ -46,11 +46,13 @@
 | [`accuweather/weather`](models/accuweather/weather.md) | 0.05 / call | async | Get comprehensive weather data for a city including current conditions, daily and hourly forecasts, alerts, allergens,… |
 | [`ahrefs/domain-rating`](models/ahrefs/domain-rating.md) | 0.08 / call | sync | Return the Ahrefs Domain Rating (0-100 authority score) and Ahrefs Rank for a target domain on a given date. 4xx/5xx… |
 | [`ahrefs/metrics`](models/ahrefs/metrics.md) | 0.08 / call | sync | Return core Site Explorer metrics for a target domain on a given date: organic and paid keyword counts, top-3 keyword… |
+| [`alibaba/search`](models/alibaba/search.md) | ~0.00231 | sync | Search Alibaba by keyword and get up to 25 wholesale listings (title, price range, minimum order, and supplier) in one… |
 | [`aliexpress/search/products`](models/aliexpress/search/products.md) | 0.014286 / call (free quota) | sync | Search AliExpress products by keyword with sort, category, brand, price, locale, region and currency filters. |
 | [`amazon/best-sellers`](models/amazon/best-sellers.md) | 0.014286 / call (free quota) | sync | Get the Amazon Best Sellers list for a category path in a chosen marketplace country, with rank, title, price, rating… |
 | [`amazon/category-products`](models/amazon/category-products.md) | 0.014286 / call (free quota) | sync | Get paginated Amazon products for a numeric category node in a selected country marketplace, with configurable result… |
 | [`amazon/product`](models/amazon/product.md) | 0.015 / call (free quota) | async | Get an Amazon product by ASIN: title, brand, price, rating, reviews, images, variants, availability, purchase options,… |
 | [`amazon/product-detail`](models/amazon/product-detail.md) | 0.014286 / call (free quota) | sync | Get details for an Amazon product identified by ASIN in a selected country marketplace. Use it to look up a known… |
+| [`amazon/reviews`](models/amazon/reviews.md) | ~0.016 | sync | Pull customer reviews for any Amazon product by ASIN or URL: rating, title, text, date, and verified-buyer badge. |
 | [`amazon/search`](models/amazon/search.md) | 0.015 / call (free quota) | async | Search Amazon by keyword: organic results with ASIN, title, price, old price, rating, reviews, Prime and delivery… |
 | [`amazon/search-products`](models/amazon/search-products.md) | 0.014286 / call (free quota) | sync | Search Amazon marketplace products by keyword or ASIN with country, sort, condition, Prime-only, deals, and page… |
 | [`apollo/company-bulk-enrich`](models/apollo/company-bulk-enrich.md) | 0.01975 | sync | Enrich up to 10 companies in one call. Body takes `domains`, an array of bare domains. |
@@ -68,8 +70,13 @@
 | [`artificial-analysis/llm-providers-leaderboard`](models/artificial-analysis/llm-providers-leaderboard.md) | 0.01 / call (free quota) | async | Get the main LLM API Providers Leaderboard data, including all model endpoints and their performance metrics (speed,… |
 | [`artificial-analysis/models-list`](models/artificial-analysis/models-list.md) | 0.02 / call | async | Get a list of all LLM models (one row per model variant, e.g. each effort level) with slug, display name, the release… |
 | [`artificial-analysis/search-models`](models/artificial-analysis/search-models.md) | 0.01 / call (free quota) | async | Search for models by name or slug. Performs client-side filtering against the full models list, matching the query… |
+| [`asos/product`](models/asos/product.md) | ~0.0009 | sync | Fetch an ASOS product by URL from any of its 11 country stores and get title, price, brand, colour, description,… |
+| [`asos/search`](models/asos/search.md) | ~0.00085 | sync | Search ASOS by keyword in any of its 11 country stores with optional sort, price-range, and page filters and get… |
 | [`autozone/scrape/category`](models/autozone/scrape/category.md) | 0.012 / call (free quota) | async | Extract product listings from an AutoZone category page URL with pagination and preferred-store pricing. |
 | [`baidu/news`](models/baidu/news.md) | 0.015 / call | sync | Baidu News results for a keyword: headline, source, date, snippet and link. |
+| [`best-buy/product`](models/best-buy/product.md) | ~0.00085 | sync | Fetch a BestBuy.com product by URL and get title, price, brand, model, UPC, rating, description, and images in one… |
+| [`best-buy/reviews`](models/best-buy/reviews.md) | ~0.00085 | sync | Pull a page of 10 customer reviews for any BestBuy.com product by URL, newest first or by relevance, helpfulness, or… |
+| [`best-buy/search`](models/best-buy/search.md) | ~0.0009 | sync | Search BestBuy.com by keyword with optional sort, price-range, and page filters and get title, price, rating, and… |
 | [`bilibili/app/bangumi-tab`](models/bilibili/app/bangumi-tab.md) | 0.001 / call (free quota) | sync | Returns Bilibili app bangumi tab data, providing curated anime recommendations, feed items, and category listings for… |
 | [`bilibili/app/cinema-tab`](models/bilibili/app/cinema-tab.md) | 0.001 / call (free quota) | sync | Returns cinema tab content from the Bilibili app, featuring curated movies, TV shows, and entertainment… |
 | [`bilibili/app/home-feed`](models/bilibili/app/home-feed.md) | 0.001 / call (free quota) | sync | Returns recommended video items from the Bilibili app home feed. Supports pagination via timestamp index and… |
@@ -650,6 +657,10 @@
 | [`duckduckgo/search`](models/duckduckgo/search.md) | 0.015 / call | sync | DuckDuckGo organic search results for a keyword, with region and safe-search options. |
 | [`ebay/product`](models/ebay/product.md) | 0.015 / call (free quota) | async | Get an eBay product by product ID: title, price, condition, quantity sold, item specifics, media, shipping, returns… |
 | [`ebay/search`](models/ebay/search.md) | 0.015 / call (free quota) | async | Search eBay listings by keyword with price, condition, shipping, bids, time left and seller, plus condition, format,… |
+| [`etsy/product`](models/etsy/product.md) | ~0.00187 | sync | Look up one Etsy listing by id and get its price, images, description, rating, reviews count, shop, category,… |
+| [`etsy/search`](models/etsy/search.md) | ~0.0009 | sync | Search Etsy listings by keyword, the same results an Etsy search or /market page shows, with optional sort, price… |
+| [`etsy/shop`](models/etsy/shop.md) | ~0.0009 | sync | Look up one Etsy shop by name and get its id, location, sales, active listings, rating, reviews count, followers,… |
+| [`etsy/shop-listings`](models/etsy/shop-listings.md) | ~0.0009 | sync | List one Etsy shop's active listings by shop name, a page at a time, and get title, price, original price and image… |
 | [`exa/answer`](models/exa/answer.md) | 0.0075 / call (free quota) | sync | Returns direct answers and cited web sources for a given query. Supports custom retrieval modes, optional full page… |
 | [`exa/contents`](models/exa/contents.md) | 0.0045 / call | sync | Extract clean page contents for a list of URLs: full text, highlights, AI summaries and metadata, from cache or with a… |
 | [`exa/search`](models/exa/search.md) | 0.0105 / call (free quota) | sync | Neural web search for AI apps and agents. Ask in natural language and get the most relevant pages, with optional… |
@@ -789,6 +800,8 @@
 | [`hunter/companies-find`](models/hunter/companies-find.md) | 0.0049 / call (free quota) | async | Look up a company's full profile — industry, size, location, tech stack — from its domain. |
 | [`hunter/discover-ai`](models/hunter/discover-ai.md) | 0.1 / call | async | Describe target companies in plain language; an AI picks the filters and runs the search. |
 | [`hybrid/video-data`](models/hybrid/video-data.md) | 0.001 / call (free quota) | sync | Parse a shared video link from Douyin, TikTok and other supported platforms and get the video details, author and… |
+| [`ikea/product`](models/ikea/product.md) | 0.00015 / call | async | Get one IKEA product by URL with name, price, images, dimensions, materials, rating and store stock when a store ID is… |
+| [`ikea/search`](models/ikea/search.md) | ~0.00085 | sync | Search IKEA's US store by keyword and get title, price, rating, and image for each product in one normalized response. |
 | [`imdb/news-by-category-query`](models/imdb/news-by-category-query.md) | 0.007143 / call (free quota) | sync | Get IMDb news for a selected top, movie, TV, or celebrity category using language and country preferences. Use it to… |
 | [`imdb/streaming-picks-query`](models/imdb/streaming-picks-query.md) | 0.007143 / call (free quota) | sync | Get IMDb streaming picks for Prime Video using selected language and country preferences. Use it to explore streaming… |
 | [`imdb/title-awards-summary-query`](models/imdb/title-awards-summary-query.md) | 0.007143 / call (free quota) | sync | Get the IMDb awards summary for a title ID using selected language and country preferences. Use it to research a… |
@@ -1048,6 +1061,9 @@
 | [`marketbeat/stock-headlines`](models/marketbeat/stock-headlines.md) | 0.01 / call (free quota) | async | Get recent news headlines for a stock from various sources. Each headline includes the title, URL, relative date, and… |
 | [`marketbeat/stock-overview`](models/marketbeat/stock-overview.md) | 0.01 / call (free quota) | async | Get comprehensive stock overview including current price, day change, key stats, company description, and company… |
 | [`meijer/scrape/product`](models/meijer/scrape/product.md) | 0.01 / call (free quota) | async | Extract structured data from a Meijer product page URL: price, availability and product details, optionally localized… |
+| [`mercari/product`](models/mercari/product.md) | ~0.0012 | sync | Get one Mercari US or Japan listing by item id or URL: title, description, price, original price, status, condition,… |
+| [`mercari/search`](models/mercari/search.md) | ~0.0012 | sync | Search active Mercari US or Japan listings for sale by keyword with optional price-range, condition, category, brand,… |
+| [`mercari/sold-listings`](models/mercari/sold-listings.md) | ~0.0012 | sync | Search Mercari US or Japan sold listings by keyword with optional price-range, condition, category, brand, and sort… |
 | [`nasdaq/cryptocurrency-quote`](models/nasdaq/cryptocurrency-quote.md) | 0.01 / call (free quota) | async | Real-time cryptocurrency price and daily change. Coverage limited to major coins supported by Nasdaq (confirmed: BTC,… |
 | [`nasdaq/earnings-calendar`](models/nasdaq/earnings-calendar.md) | 0.01 / call (free quota) | async | Earnings calendar for a specified date. Past dates include actual EPS and surprise; future dates include EPS forecasts… |
 | [`nasdaq/etf-quote`](models/nasdaq/etf-quote.md) | 0.01 / call (free quota) | async | Real-time quote and details for an ETF including price, net change, percentage change, volume, and market status. |
@@ -1193,6 +1209,8 @@
 | [`reddit/trending-posts`](models/reddit/trending-posts.md) | ~0.0003 | sync | Get currently trending Reddit posts across all subreddits with stable cursor pagination. |
 | [`reddit/user-comments`](models/reddit/user-comments.md) | ~0.0006 | sync | List a Reddit user's comments by username, sorted by new, top, hot, or controversial, with the parent post title and… |
 | [`reddit/user-posts`](models/reddit/user-posts.md) | ~0.00038 | sync | List a Reddit user's posts by username, sorted by new, top, hot, or controversial, with cursor pagination. |
+| [`sams-club/product`](models/sams-club/product.md) | ~0.00319 | sync | Fetch a SamsClub.com product by URL and get title, member price, stock, brand, model, UPC, rating, description, and… |
+| [`sams-club/search`](models/sams-club/search.md) | ~0.00319 | sync | Search SamsClub.com by keyword with optional sort, price-range, and page filters and get title, member price, stock,… |
 | [`scholar/search-mixed`](models/scholar/search-mixed.md) | 0.0036 / call (free quota) | sync | Returns scholarly and academic search results matching a query. Supports filtering by publication year range and… |
 | [`scholar/search-scholar`](models/scholar/search-scholar.md) | 0.0036 / call (free quota) | sync | Search academic papers on Google Scholar: titles, authors, links, citation counts and snippets, with publication-year… |
 | [`scholar/search-web`](models/scholar/search-web.md) | 0.0036 / call (free quota) | sync | Returns web search results tailored to academic and research topics. Supports filtering by publication year ranges and… |
@@ -1226,6 +1244,10 @@
 | [`semrush/referring-domains`](models/semrush/referring-domains.md) | ~0.08 | sync | Domains linking to the target, with the number of backlinks from each domain. |
 | [`semrush/url-organic-keywords`](models/semrush/url-organic-keywords.md) | ~0.02 | sync | Keywords a single URL ranks for in Google organic search, with position, search volume and CPC. |
 | [`shopee/search/facets`](models/shopee/search/facets.md) | 0.028571 / call | sync | Get the category facets Shopee shows for a search keyword, to see which categories a query maps to on each site. |
+| [`shopify/product`](models/shopify/product.md) | ~0.00085 | sync | Look up one product on any public Shopify store by its handle or product page URL and get title, vendor, type, tags,… |
+| [`shopify/products`](models/shopify/products.md) | ~0.00085 | sync | List the products of any public Shopify store by its domain, a page at a time, with title, vendor, type, tags, price… |
+| [`shopify/search`](models/shopify/search.md) | ~0.00085 | sync | Search one public Shopify store's products by keyword with the store's own search and get its top matches with title,… |
+| [`shopify/store`](models/shopify/store.md) | ~0.00085 | sync | Look up any public Shopify store by its domain and get its name, description, currency, country and city, the… |
 | [`similarweb/ad-networks`](models/similarweb/ad-networks.md) | ~0.225 | sync | Get the ad networks behind a website's display-ad traffic, with each network's traffic share and change over the… |
 | [`similarweb/audience-interest`](models/similarweb/audience-interest.md) | ~0.375 | sync | Get the other websites a site's audience also visits, with affinity and audience overlap scores. |
 | [`similarweb/audience-overlap`](models/similarweb/audience-overlap.md) | ~0.15 | sync | Compare the audiences of up to 5 websites: unique visitors per site, overlapping visitors and the combined audience. |
@@ -1251,6 +1273,8 @@
 | [`similarweb/website-top-geographies`](models/similarweb/website-top-geographies.md) | ~0.225 | sync | Get the countries a website's traffic comes from, with share and visits for each country. |
 | [`similarweb/website-traffic-snapshot`](models/similarweb/website-traffic-snapshot.md) | 0.3 / call | sync | Get a one-month snapshot of a website's traffic: visits, visit duration, pages per visit and bounce rate. |
 | [`similarweb/website-traffic-trend`](models/similarweb/website-traffic-trend.md) | 0.45 / call | sync | Get a website's monthly traffic trend for chosen metrics over a date range. |
+| [`slickdeals/deal`](models/slickdeals/deal.md) | ~0.00213 | sync | Fetch one Slickdeals deal by URL and get title, price, list price, store, coupon code, score, views, comments, and… |
+| [`slickdeals/search`](models/slickdeals/search.md) | ~0.00213 | sync | Search Slickdeals deals by keyword with optional sort, price, discount, and page filters and get title, price, list… |
 | [`snapchat/profile`](models/snapchat/profile.md) | ~0.0011 | sync | Fetch a Snapchat user's public profile by username: display name, bio, subscriber count, and recent public content. |
 | [`stockanalysis/market-movers-premarket`](models/stockanalysis/market-movers-premarket.md) | 0.01 / call (free quota) | async | Top gainers, losers, and most active stocks in the pre-market session. Each category contains query metadata and a… |
 | [`stockanalysis/search-stocks`](models/stockanalysis/search-stocks.md) | 0.01 / call (free quota) | async | Full-text search for stocks and ETFs by company name or ticker symbol. Returns matches across multiple global… |
@@ -1543,6 +1567,7 @@
 | [`waveinflu/creator-search`](models/waveinflu/creator-search.md) | 0.004977–0.4977 | sync | Finds creators from a natural-language brief instead of a seed account. `platform` and `query` are required; add… |
 | [`waveinflu/email-lookup`](models/waveinflu/email-lookup.md) | 0.001991 / call (free quota) | sync | Looks up the contact email for one Instagram, TikTok, or YouTube creator from a profile URL. |
 | [`waveinflu/similar-creators`](models/waveinflu/similar-creators.md) | 0.004977–0.4977 | sync | Finds creators similar to a seed account on Instagram, TikTok, or YouTube. |
+| [`wayfair/search`](models/wayfair/search.md) | 0.00015 / call | async | Search Wayfair products by keyword and get listings with price, rating, review count and product URL, page by page. |
 | [`weather-underground/historical-airport-temperature-series`](models/weather-underground/historical-airport-temperature-series.md) | 0.01 / call (free quota) | async | Retrieve a complete year-scale airport observation temperature series for settlement calibration. Returns every… |
 | [`web3-career/company-jobs`](models/web3-career/company-jobs.md) | 0.01 / call (free quota) | async | Fetch all job listings for a specific company by its URL slug. Returns paginated job listings posted by the company. |
 | [`web3-career/intelligence-report`](models/web3-career/intelligence-report.md) | 0.01 / call (free quota) | async | Fetch the Web3 Career Intelligence Report content and statistics. Returns the report title, full text content, key… |
@@ -2009,7 +2034,7 @@
 | [`meshy/n1/retexture`](models/meshy/n1/retexture.md) | 0.4 / call | async | Meshy N1 Retexture repaints an existing 3D model from one reference image or up to four reference views, producing a… |
 | [`meshy/relief`](models/meshy/relief.md) | 0.8 / call | async | Meshy Relief turns a photo into a printable 3D relief (GLB and STL) with emboss or engrave carving and an optional… |
 | [`meshy/rigging`](models/meshy/rigging.md) | 0.2–0.32 | async | Meshy Rigging adds a humanoid skeleton to an existing character model and can also apply one animation preset. |
-| [`meshy/rigging/multi-animation`](models/meshy/rigging/multi-animation.md) | 0.2 | async | Meshy Rigging Multi-Animation rigs an existing humanoid character model and generates up to 10 animation clips on the… |
+| [`meshy/rigging/multi-animation`](models/meshy/rigging/multi-animation.md) | 0.44 | async | Meshy Rigging Multi-Animation rigs an existing humanoid character model and generates up to 10 animation clips on the… |
 | [`meshy/t2.5/image-to-3d`](models/meshy/t2.5/image-to-3d.md) | 0.2–0.92 | async | Meshy T2.5 turns a single image into a clean Smart Topology triangle mesh (up to 30,000 triangles), with optional… |
 | [`meshy/t2.5/text-to-3d`](models/meshy/t2.5/text-to-3d.md) | 0.2–0.92 | async | Meshy T2.5 generates a clean Smart Topology triangle mesh (up to 30,000 triangles) from a text prompt, untextured in… |
 | [`meshy/t2/image-to-3d`](models/meshy/t2/image-to-3d.md) | 0.2–0.92 | async | Meshy T2 turns a single image into a clean Smart Topology triangle mesh (up to 15,000 triangles), with optional… |

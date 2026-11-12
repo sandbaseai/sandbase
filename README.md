@@ -191,7 +191,7 @@ Open [`examples/http/sandbase.http`](examples/http/sandbase.http) and click *Sen
 | E-commerce, apps & reviews | 100+ | 1688, GetApp, TikTok Shop, Amazon, Clutch, Google Play, Trustpilot, G2, JD.com, Taobao, … |
 | Finance, crypto & markets | 150+ | Polymarket, FRED, Financial Datasets, CoinGecko, Nasdaq, MarketBeat, SECForm4, StockAnalysis, Yahoo Finance, Kalshi, … |
 | Companies, people & jobs | 40+ | Web3.career, Apollo, Levels.fyi, Y Combinator, Wellfound, Crunchbase, Hunter, Built In, Indeed, … |
-| More | 70+ | Semrush, IMDb, AAA, Open-Meteo, IQAir, AccuWeather, Yahoo, Yandex, Baidu, China Social Media, … |
+| More | 90+ | Semrush, IMDb, AAA, Open-Meteo, IQAir, Shopify, AccuWeather, Best Buy, Mercari, ASOS, … |
 <!-- /inside:en -->
 
 Every entry has a page with its schema, price and code in four languages. See [all models &amp; APIs](docs/INDEX.md) or [browse by platform](docs/platforms/README.md): [TikTok](docs/platforms/tiktok.md) · [Instagram](docs/platforms/instagram.md) · [YouTube](docs/platforms/youtube.md) · [LinkedIn](docs/platforms/linkedin.md) · [Reddit](docs/platforms/reddit.md) · [Douyin](docs/platforms/douyin.md) · [Xiaohongshu](docs/platforms/xiaohongshu.md) · [DataForSEO](docs/platforms/dataforseo.md) · [Polymarket](docs/platforms/polymarket.md) · [OpenAI](docs/platforms/openai.md) · [Google](docs/platforms/google.md) · [Kling](docs/platforms/kwaivgi.md)

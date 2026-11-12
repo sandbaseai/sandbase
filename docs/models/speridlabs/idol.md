@@ -19,7 +19,7 @@ Modes: async (default `async`). Only pass `mode` values listed here. The SDKs' `
 ```bash
 curl https://api.sandbase.ai/v1/run \
   -H "Authorization: Bearer $SANDBASE_API_KEY" -H 'Content-Type: application/json' \
-  -d '{"model": "speridlabs/idol", "image": "https://raw.githubusercontent.com/VAST-AI-Research/TripoSplat/36b6deb0a1613e43c6910de441cb57d50352e44a/static/example_inputs/building_stone_house.webp"}'
+  -d '{"model": "speridlabs/idol", "image": "https://static.sandbase.ai/examples/92b467b8-e906-4df4-a912-290fbd4a134d/input/969c0927-46b5-4d95-91ca-8568e6eed33d.png"}'
 ```
 
 **Python** ([sdk/python](../../../sdk/python))
@@ -27,7 +27,7 @@ curl https://api.sandbase.ai/v1/run \
 ```python
 from sandbase import SandBase
 
-result = SandBase().run('speridlabs/idol', {'image': 'https://raw.githubusercontent.com/VAST-AI-Research/TripoSplat/36b6deb0a1613e43c6910de441cb57d50352e44a/static/example_inputs/building_stone_house.webp'})
+result = SandBase().run('speridlabs/idol', {'image': 'https://static.sandbase.ai/examples/92b467b8-e906-4df4-a912-290fbd4a134d/input/969c0927-46b5-4d95-91ca-8568e6eed33d.png'})
 print(result["outputs"])
 ```
 
@@ -37,7 +37,7 @@ print(result["outputs"])
 import { SandBase } from "@sandbaseai/sdk";
 
 const result = await new SandBase().run("speridlabs/idol", {
-  "image": "https://raw.githubusercontent.com/VAST-AI-Research/TripoSplat/36b6deb0a1613e43c6910de441cb57d50352e44a/static/example_inputs/building_stone_house.webp"
+  "image": "https://static.sandbase.ai/examples/92b467b8-e906-4df4-a912-290fbd4a134d/input/969c0927-46b5-4d95-91ca-8568e6eed33d.png"
 });
 console.log(result.outputs);
 ```
@@ -47,7 +47,7 @@ console.log(result.outputs);
 ```go
 c, _ := sandbase.NewClient("")
 run, err := c.Run(ctx, "speridlabs/idol", sandbase.Params{
-	"image": "https://raw.githubusercontent.com/VAST-AI-Research/TripoSplat/36b6deb0a1613e43c6910de441cb57d50352e44a/static/example_inputs/building_stone_house.webp",
+	"image": "https://static.sandbase.ai/examples/92b467b8-e906-4df4-a912-290fbd4a134d/input/969c0927-46b5-4d95-91ca-8568e6eed33d.png",
 })
 ```
 

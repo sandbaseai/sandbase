@@ -1,0 +1,149 @@
+{
+  "name": "mercari/sold-listings",
+  "display_name": "Mercari Sold Listings",
+  "type": "api",
+  "vendor": "Mercari",
+  "vendor_slug": "mercari",
+  "description": "Search Mercari US or Japan sold listings by keyword with optional price-range, condition, category, brand, and sort filters, page by page, with the total result count; ideal for resale pricing research. The sold price is the final price after any accepted offer; it does not include buyer fees, and whether shipping is included depends on the listing's shipping terms. Rows carry no sale date: call mercari.product for soldUtc (US only).",
+  "tags": [
+    "api",
+    "mercari",
+    "ecommerce",
+    "product-data"
+  ],
+  "capabilities": [
+    "api",
+    "mercari",
+    "ecommerce",
+    "product-data"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/mercari/sold-listings"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "query"
+    ],
+    "properties": {
+      "sort": {
+        "enum": [
+          "relevance",
+          "newest",
+          "price_asc",
+          "price_desc",
+          "most_liked",
+          "recently_sold"
+        ],
+        "type": "string",
+        "description": "Result order; omitted means Mercari's default (most recently sold first for a US sold search). most_liked is Japan only; recently_sold is US only (e.g. price_desc)."
+      },
+      "query": {
+        "type": "string",
+        "example": "nike air jordan 1",
+        "minLength": 1,
+        "description": "Search keyword (e.g. nike air jordan 1). Japanese terms return far more in Japan, though Latin brand and model names work."
+      },
+      "cursor": {
+        "type": "string",
+        "minLength": 1,
+        "description": "Pagination cursor: pass the previous response's nextCursor with the same query and filters; omit for the first page."
+      },
+      "brandId": {
+        "type": "string",
+        "description": "Mercari brand id, or several separated by commas; the US and Japan use separate ids (e.g. 319 for Apple in the US). Every US row carries its brandId."
+      },
+      "country": {
+        "enum": [
+          "us",
+          "jp"
+        ],
+        "type": "string",
+        "default": "us",
+        "description": "Mercari marketplace: us (mercari.com, USD) or jp (jp.mercari.com, JPY)."
+      },
+      "maxPrice": {
+        "type": "integer",
+        "minimum": 0,
+        "description": "Highest sold price to include, in whole units of the country's currency (e.g. 300)."
+      },
+      "minPrice": {
+        "type": "integer",
+        "minimum": 0,
+        "description": "Lowest sold price to include, in whole units of the country's currency (US dollars or yen) (e.g. 50)."
+      },
+      "condition": {
+        "type": "array",
+        "items": {
+          "enum": [
+            "new",
+            "like_new",
+            "good",
+            "fair",
+            "poor",
+            "worn"
+          ],
+          "type": "string"
+        },
+        "description": "Only listings in any of these condition grades (e.g. [\"new\", \"like_new\"]). worn is Japan only."
+      },
+      "categoryId": {
+        "type": "string",
+        "description": "Mercari category id, or several separated by commas; the US and Japan use separate ids and a parent id includes its children (e.g. 778 for US cell phones and smartphones). Every row carries its categoryId."
+      },
+      "requireFields": {
+        "type": "array",
+        "items": {
+          "enum": [
+            "categories",
+            "nextCursor",
+            "shopId"
+          ],
+          "type": "string"
+        },
+        "description": "Optional; omit it and routing is unchanged, with the cheapest source serving. Name the output fields this request must be able to return, for example `categories`, and it is served only by a source that returns every one of them. Fields you do not name are still returned whenever the serving source has them. This can raise your price: when the cheapest source cannot return a named field, a dearer source serves, and you are quoted and charged its price. A named field can still be absent on a listing that genuinely lacks it. Naming a combination that no single source returns together is refused as invalid input, with no charge."
+      }
+    },
+    "additionalProperties": false
+  },
+  "response_schema": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string"
+      },
+      "model": {
+        "type": "string"
+      },
+      "status": {
+        "type": "string"
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "data": {
+              "type": "object",
+              "description": "Normalized result for this request."
+            }
+          }
+        }
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "usage_based",
+    "note": "Billed per call from metered usage; the reference price is typical.",
+    "reference_price": 0.0012
+  },
+  "readme": "# Mercari Sold Listings API\n\nSearch Mercari US or Japan sold listings by keyword with optional price-range, condition, category, brand, and sort filters, page by page, with the total result count; ideal for resale pricing research. The sold price is the final price after any accepted offer; it does not include buyer fees, and whether shipping is included depends on the listing's shipping terms. Rows carry no sale date: call mercari.product for soldUtc (US only).\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/run\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"model\": \"mercari/sold-listings\", \"query\": \"nike air jordan 1\"}'\n```\n\nThe result is returned in `outputs[0].data`. Lookups that find nothing fail with a not-found error.\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `query` | string | Yes | Search keyword (e.g. nike air jordan 1). Japanese terms return far more in Japan, though Latin brand and model names work. |\n| `brandId` | string | No | Mercari brand id, or several separated by commas; the US and Japan use separate ids (e.g. 319 for Apple in the US). Every US row carries its brandId. |\n| `categoryId` | string | No | Mercari category id, or several separated by commas; the US and Japan use separate ids and a parent id includes its children (e.g. 778 for US cell phones and smartphones). Every row carries its categoryId. |\n| `condition` | array | No | Only listings in any of these condition grades (e.g. [\"new\", \"like_new\"]). worn is Japan only. |\n| `country` | string | No | Mercari marketplace: us (mercari.com, USD) or jp (jp.mercari.com, JPY). One of: `us`, `jp`. Default `\"us\"`. |\n| `cursor` | string | No | Pagination cursor: pass the previous response's nextCursor with the same query and filters; omit for the first page. |\n| `maxPrice` | integer | No | Highest sold price to include, in whole units of the country's currency (e.g. 300). |\n| `minPrice` | integer | No | Lowest sold price to include, in whole units of the country's currency (US dollars or yen) (e.g. 50). |\n| `requireFields` | array | No | Optional; omit it and routing is unchanged, with the cheapest source serving. Name the output fields this request must be able to return, for example `categories`, and it is served only by a source that returns every one |\n| `sort` | string | No | Result order; omitted means Mercari's default (most recently sold first for a US sold search). most_liked is Japan only; recently_sold is US only (e.g. price_desc). One of: `relevance`, `newest`, `price_asc`, `price_desc |\n\n## Pricing\n\nBilled at the actual cost of each call, about $0.0012 per request. A call can cost more when the first data source fails and another one answers. Failed calls and lookups that find nothing are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/mercari/sold-listings",
+  "created_at": "2026-11-12T06:53:34.863Z"
+}

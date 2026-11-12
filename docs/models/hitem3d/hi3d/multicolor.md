@@ -19,7 +19,7 @@ Modes: async (default `async`). Only pass `mode` values listed here. The SDKs' `
 ```bash
 curl https://api.sandbase.ai/v1/run \
   -H "Authorization: Bearer $SANDBASE_API_KEY" -H 'Content-Type: application/json' \
-  -d '{"model": "hitem3d/hi3d/multicolor", "model_url": "https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Models/master/2.0/DamagedHelmet/glTF-Binary/DamagedHelmet.glb"}'
+  -d '{"model": "hitem3d/hi3d/multicolor", "model_url": "https://static.sandbase.ai/examples/cf921390-1a95-45c4-bce7-b2526b3601a9/input/6bef0b95-aca3-4a10-b781-41e037547768.glb"}'
 ```
 
 **Python** ([sdk/python](../../../../sdk/python))
@@ -27,7 +27,7 @@ curl https://api.sandbase.ai/v1/run \
 ```python
 from sandbase import SandBase
 
-result = SandBase().run('hitem3d/hi3d/multicolor', {'model_url': 'https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Models/master/2.0/DamagedHelmet/glTF-Binary/DamagedHelmet.glb'})
+result = SandBase().run('hitem3d/hi3d/multicolor', {'model_url': 'https://static.sandbase.ai/examples/cf921390-1a95-45c4-bce7-b2526b3601a9/input/6bef0b95-aca3-4a10-b781-41e037547768.glb'})
 print(result["outputs"])
 ```
 
@@ -37,7 +37,7 @@ print(result["outputs"])
 import { SandBase } from "@sandbaseai/sdk";
 
 const result = await new SandBase().run("hitem3d/hi3d/multicolor", {
-  "model_url": "https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Models/master/2.0/DamagedHelmet/glTF-Binary/DamagedHelmet.glb"
+  "model_url": "https://static.sandbase.ai/examples/cf921390-1a95-45c4-bce7-b2526b3601a9/input/6bef0b95-aca3-4a10-b781-41e037547768.glb"
 });
 console.log(result.outputs);
 ```
@@ -47,7 +47,7 @@ console.log(result.outputs);
 ```go
 c, _ := sandbase.NewClient("")
 run, err := c.Run(ctx, "hitem3d/hi3d/multicolor", sandbase.Params{
-	"model_url": "https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Models/master/2.0/DamagedHelmet/glTF-Binary/DamagedHelmet.glb",
+	"model_url": "https://static.sandbase.ai/examples/cf921390-1a95-45c4-bce7-b2526b3601a9/input/6bef0b95-aca3-4a10-b781-41e037547768.glb",
 })
 ```
 

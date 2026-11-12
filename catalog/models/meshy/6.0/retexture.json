@@ -152,6 +152,32 @@
       }
     ]
   },
+  "examples": [
+    {
+      "input": {
+        "enable_pbr": true,
+        "model_url": "https://static.sandbase.ai/examples/2460aa2a-7d52-4641-807e-ef2add85157b/input/1a80b1b3-43c5-47a7-8b6a-c7c48c6431f1.glb",
+        "text_style_prompt": "sci-fi cargo crate, brushed white metal with orange hazard stripes"
+      },
+      "output": [
+        {
+          "url": "https://static.sandbase.ai/examples/2460aa2a-7d52-4641-807e-ef2add85157b/output/a2284690-ece2-4bc1-8f5b-fcc7bba37927.glb"
+        }
+      ],
+      "default": true
+    },
+    {
+      "input": {
+        "model_url": "https://static.sandbase.ai/examples/9ed92f84-ceae-4ede-affc-aaaa7e579b15/input/3ea76aee-f224-40cc-80ae-beebceb19cb8.glb",
+        "text_style_prompt": "red and black chest"
+      },
+      "output": [
+        {
+          "url": "https://static.sandbase.ai/examples/9ed92f84-ceae-4ede-affc-aaaa7e579b15/output/c2887ec7-4988-4624-b460-a32ee2bdf8b3.glb"
+        }
+      ]
+    }
+  ],
   "readme": "# Meshy 6 Retexture\nMeshy 6 Retexture repaints an existing 3D model from a text or image style, with optional PBR maps and up to 8K textures.\n## Fields\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `model_url` | 3D model URL, required | — | .glb, .gltf, .obj, .fbx or .stl. |\n| `text_style_prompt` | string | — | Texture style, up to 600 characters. Required when `image_style_url` is not set. |\n| `image_style_url` | image URL | — | JPG or PNG style reference; takes precedence over the text prompt. |\n| `texture_resolution` | `2k` / `4k` / `8k` | `2k` | Base color resolution; 8k costs more and its PBR maps are 4k. |\n| `enable_pbr` | boolean | false | Also generate metallic, roughness and normal maps. |\n| `enable_original_uv` | boolean | true | Keep the model's UV layout. |\n## Billing\n$0.33 per retextured model at 2k or 4k, $0.50 at 8k; PBR maps are included.\n| Request | Price |\n|---|---|\n| 2k (default) | $0.33 |\n| 4k + PBR | $0.33 |\n| 8k | $0.50 |\nFailed runs are not charged.\n## Prompting\n- Name materials and finish, e.g. \"weathered bronze with green patina\".\n- Provide either `text_style_prompt` or `image_style_url`.\n## Also on SandBase\nOther retexture models: `meshy/7.0/retexture`, `meshy/6.0-lite/retexture`.",
   "cover_url": "https://static.sandbase.ai/covers/meshy/6.0/retexture/cover-flare-20261022111506.webp",
   "page_url": "https://www.sandbase.ai/model/meshy/6.0/retexture",

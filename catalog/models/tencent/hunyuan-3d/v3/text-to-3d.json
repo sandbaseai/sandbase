@@ -181,6 +181,21 @@
       }
     ]
   },
+  "examples": [
+    {
+      "input": {
+        "prompt": "A vintage red rotary telephone with a coiled cord"
+      },
+      "output": [
+        {
+          "poster": "https://static.sandbase.ai/examples/22003e9c-9594-44af-ba64-e21cbf96d8c5/output/e92d18df-2657-479e-a8fa-3ca14c7f4b42.png",
+          "thumbnail": "https://static.sandbase.ai/examples/22003e9c-9594-44af-ba64-e21cbf96d8c5/output/e92d18df-2657-479e-a8fa-3ca14c7f4b42.png",
+          "url": "https://static.sandbase.ai/examples/22003e9c-9594-44af-ba64-e21cbf96d8c5/output/05198c59-b9e3-4e2e-8a91-630470d87905.glb"
+        }
+      ],
+      "default": true
+    }
+  ],
   "readme": "# Hunyuan 3D 3.0 Text to 3D\nHunyuan 3D 3.0 by Tencent generates a textured, low-poly, or geometry-only 3D model from a text prompt.\n## Fields\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `prompt` | string, required | — | Text description of the 3D object to generate. Up to 1024 characters. |\n| `generate_type` | `Normal` / `LowPoly` / `Geometry` | `Normal` | Normal: textured model. LowPoly: polygon reduction. Geometry: white model without texture. |\n| `enable_pbr` | boolean | `false` | Generate PBR materials (metallic, roughness, normal maps). Ignored for Geometry output. |\n| `face_count` | integer 40000–1500000 | — | Target polygon face count (40,000-1,500,000). Leave empty for the default of 500,000. |\n| `polygon_type` | `triangle` / `quadrilateral` | `triangle` | Polygon type. Only takes effect when Generate Type is LowPoly. |\n## Output\n- `url`: Main 3D file (GLB unless another export format is selected).\n- `thumbnail`: Preview image rendered by the provider.\n## Billing\n$0.63 per request with default settings. Price by option (other settings at default):\n| Option | Price |\n|---|---|\n| enable_pbr on | $0.81 |\n| enable_pbr off | $0.63 |\n| generate_type = Normal | $0.63 |\n| generate_type = LowPoly | $0.72 |\n| generate_type = Geometry | $0.45 |\nFailed runs are not charged.\n## Also on SandBase\nOther Tencent 3D endpoints: `tencent/hunyuan-3d/3.0/image-to-3d`, `tencent/hunyuan-3d/3.1/part`, `tencent/hunyuan-3d/3.1/pro/image-to-3d`, `tencent/hunyuan-3d/3.1/pro/text-to-3d`.\n",
   "cover_url": "https://static.sandbase.ai/covers/tencent/hunyuan-3d/v3/text-to-3d/cover-flare-20261111181040.webp",
   "page_url": "https://www.sandbase.ai/model/tencent/hunyuan-3d/v3/text-to-3d",

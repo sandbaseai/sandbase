@@ -1,0 +1,84 @@
+{
+  "name": "wayfair/search",
+  "display_name": "Wayfair Search",
+  "type": "api",
+  "vendor": "Wayfair",
+  "vendor_slug": "wayfair",
+  "description": "Search Wayfair products by keyword and get listings with price, rating, review count and product URL, page by page.",
+  "tags": [
+    "api",
+    "wayfair",
+    "ecommerce",
+    "product-data"
+  ],
+  "capabilities": [
+    "api",
+    "wayfair",
+    "ecommerce",
+    "product-data"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}",
+    "passthrough": "POST /v1/api/wayfair/search"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "query"
+    ],
+    "properties": {
+      "page": {
+        "type": "integer",
+        "maximum": 100,
+        "minimum": 1,
+        "description": "One-based result page."
+      },
+      "query": {
+        "type": "string",
+        "example": "sofa",
+        "maxLength": 500,
+        "minLength": 1,
+        "description": "Product keywords to search for."
+      },
+      "timeout": {
+        "type": "number",
+        "default": 50,
+        "maximum": 50,
+        "description": "Seconds the data source may spend before giving up (max 50, default 50). A timed-out call is not billed.",
+        "exclusiveMinimum": 0
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "required": [
+      "id",
+      "status",
+      "model"
+    ],
+    "properties": {
+      "id": {
+        "type": "string"
+      },
+      "model": {
+        "type": "string"
+      },
+      "status": {
+        "type": "string"
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.00015
+  },
+  "readme": "# Wayfair Search\n\nSearch Wayfair products by keyword and get listings with price, rating, review count and product URL, page by page.",
+  "page_url": "https://www.sandbase.ai/model/wayfair/search",
+  "created_at": "2026-11-12T07:02:55.523Z"
+}

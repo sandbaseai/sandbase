@@ -113,6 +113,21 @@
     "model": "per_call",
     "per_call": 0.4
   },
+  "examples": [
+    {
+      "input": {
+        "model_url": "https://static.sandbase.ai/examples/cf921390-1a95-45c4-bce7-b2526b3601a9/input/6bef0b95-aca3-4a10-b781-41e037547768.glb"
+      },
+      "output": [
+        {
+          "poster": "https://static.sandbase.ai/examples/cf921390-1a95-45c4-bce7-b2526b3601a9/output/2c8b8d7e-e9d5-415e-9587-ef81fc3a0f21.webp",
+          "thumbnail": "https://static.sandbase.ai/examples/cf921390-1a95-45c4-bce7-b2526b3601a9/output/2c8b8d7e-e9d5-415e-9587-ef81fc3a0f21.webp",
+          "url": "https://static.sandbase.ai/examples/cf921390-1a95-45c4-bce7-b2526b3601a9/output/664113c3-764c-4842-af7b-81865ffef459.glb"
+        }
+      ],
+      "default": true
+    }
+  ],
   "readme": "# Hitem3D Hi3D Multicolor\nHi3D Multicolor by Hitem3D converts a textured GLB model into a model with a limited set of flat colors, for multi-color 3D printing.\n## Fields\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `model_url` | string, required | — | URL of the input textured model. GLB only, up to 200MB. |\n| `number_of_colors` | integer 0–8 | `4` | Number of colors (1-8), or 0 for the maximum. |\n| `export_format` | `glb` / `obj` / `fbx` | `glb` | File format of the generated model. |\n## Output\n- `url`: Main 3D file (GLB unless another export format is selected).\n- `thumbnail`: Preview image rendered by the provider.\n## Billing\n$0.40 per request.\nFailed runs are not charged.\n## Also on SandBase\nOther Hitem3D 3D endpoints: `hitem3d/hi3d/image-to-3d`, `hitem3d/hi3d/multi-view-to-3d`, `hitem3d/hi3d/split`, `hitem3d/hi3d/texture`.\n",
   "cover_url": "https://static.sandbase.ai/covers/hitem3d/hi3d/multicolor/cover-flare-20261111180709.webp",
   "page_url": "https://www.sandbase.ai/model/hitem3d/hi3d/multicolor",

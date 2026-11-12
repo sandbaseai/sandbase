@@ -26,7 +26,7 @@ Modes: async (default `async`). Only pass `mode` values listed here. The SDKs' `
 ```bash
 curl https://api.sandbase.ai/v1/run \
   -H "Authorization: Bearer $SANDBASE_API_KEY" -H 'Content-Type: application/json' \
-  -d '{"model": "tencent/hunyuan-3d/v2/multi-view", "front_image": "https://static.sandbase.ai/examples/tencent/hunyuan-3d/v2/multi-view/input_front_image_url_1.png", "back_image": "https://static.sandbase.ai/examples/tencent/hunyuan-3d/v2/multi-view/input_back_image_url_2.png", "left_image": "https://static.sandbase.ai/examples/tencent/hunyuan-3d/v2/multi-view/input_left_image_url_0.png"}'
+  -d '{"model": "tencent/hunyuan-3d/v2/multi-view", "back_image": "https://static.sandbase.ai/examples/65f8de14-c8fc-4848-8657-8e41485e0ae5/input/ac3e722b-6091-4da5-81b4-d23169549c3b.png", "front_image": "https://static.sandbase.ai/examples/65f8de14-c8fc-4848-8657-8e41485e0ae5/input/ee1fb2aa-db66-4eea-b5ff-863c8a99b58b.png", "left_image": "https://static.sandbase.ai/examples/65f8de14-c8fc-4848-8657-8e41485e0ae5/input/53d6d103-9b10-4e1e-808f-0fdd56e12743.png", "textured_mesh": true}'
 ```
 
 **Python** ([sdk/python](../../../../../sdk/python))
@@ -34,7 +34,7 @@ curl https://api.sandbase.ai/v1/run \
 ```python
 from sandbase import SandBase
 
-result = SandBase().run('tencent/hunyuan-3d/v2/multi-view', {'front_image': 'https://static.sandbase.ai/examples/tencent/hunyuan-3d/v2/multi-view/input_front_image_url_1.png', 'back_image': 'https://static.sandbase.ai/examples/tencent/hunyuan-3d/v2/multi-view/input_back_image_url_2.png', 'left_image': 'https://static.sandbase.ai/examples/tencent/hunyuan-3d/v2/multi-view/input_left_image_url_0.png'})
+result = SandBase().run('tencent/hunyuan-3d/v2/multi-view', {'back_image': 'https://static.sandbase.ai/examples/65f8de14-c8fc-4848-8657-8e41485e0ae5/input/ac3e722b-6091-4da5-81b4-d23169549c3b.png', 'front_image': 'https://static.sandbase.ai/examples/65f8de14-c8fc-4848-8657-8e41485e0ae5/input/ee1fb2aa-db66-4eea-b5ff-863c8a99b58b.png', 'left_image': 'https://static.sandbase.ai/examples/65f8de14-c8fc-4848-8657-8e41485e0ae5/input/53d6d103-9b10-4e1e-808f-0fdd56e12743.png', 'textured_mesh': True})
 print(result["outputs"])
 ```
 
@@ -44,9 +44,10 @@ print(result["outputs"])
 import { SandBase } from "@sandbaseai/sdk";
 
 const result = await new SandBase().run("tencent/hunyuan-3d/v2/multi-view", {
-  "front_image": "https://static.sandbase.ai/examples/tencent/hunyuan-3d/v2/multi-view/input_front_image_url_1.png",
-  "back_image": "https://static.sandbase.ai/examples/tencent/hunyuan-3d/v2/multi-view/input_back_image_url_2.png",
-  "left_image": "https://static.sandbase.ai/examples/tencent/hunyuan-3d/v2/multi-view/input_left_image_url_0.png"
+  "back_image": "https://static.sandbase.ai/examples/65f8de14-c8fc-4848-8657-8e41485e0ae5/input/ac3e722b-6091-4da5-81b4-d23169549c3b.png",
+  "front_image": "https://static.sandbase.ai/examples/65f8de14-c8fc-4848-8657-8e41485e0ae5/input/ee1fb2aa-db66-4eea-b5ff-863c8a99b58b.png",
+  "left_image": "https://static.sandbase.ai/examples/65f8de14-c8fc-4848-8657-8e41485e0ae5/input/53d6d103-9b10-4e1e-808f-0fdd56e12743.png",
+  "textured_mesh": true
 });
 console.log(result.outputs);
 ```
@@ -56,9 +57,10 @@ console.log(result.outputs);
 ```go
 c, _ := sandbase.NewClient("")
 run, err := c.Run(ctx, "tencent/hunyuan-3d/v2/multi-view", sandbase.Params{
-	"front_image": "https://static.sandbase.ai/examples/tencent/hunyuan-3d/v2/multi-view/input_front_image_url_1.png",
-	"back_image": "https://static.sandbase.ai/examples/tencent/hunyuan-3d/v2/multi-view/input_back_image_url_2.png",
-	"left_image": "https://static.sandbase.ai/examples/tencent/hunyuan-3d/v2/multi-view/input_left_image_url_0.png",
+	"back_image": "https://static.sandbase.ai/examples/65f8de14-c8fc-4848-8657-8e41485e0ae5/input/ac3e722b-6091-4da5-81b4-d23169549c3b.png",
+	"front_image": "https://static.sandbase.ai/examples/65f8de14-c8fc-4848-8657-8e41485e0ae5/input/ee1fb2aa-db66-4eea-b5ff-863c8a99b58b.png",
+	"left_image": "https://static.sandbase.ai/examples/65f8de14-c8fc-4848-8657-8e41485e0ae5/input/53d6d103-9b10-4e1e-808f-0fdd56e12743.png",
+	"textured_mesh": true,
 })
 ```
 

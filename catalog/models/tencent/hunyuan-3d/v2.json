@@ -131,6 +131,21 @@
       }
     ]
   },
+  "examples": [
+    {
+      "input": {
+        "image": "https://static.sandbase.ai/examples/05187b2b-6e96-47c8-8833-db646bd11947/input/149732ab-47ad-46d2-bb56-9c208bf696d8.png",
+        "textured_mesh": true
+      },
+      "output": [
+        {
+          "poster": "https://static.sandbase.ai/examples/05187b2b-6e96-47c8-8833-db646bd11947/output/222393f6-6d37-48dc-a2bf-24f529775c5a.png",
+          "url": "https://static.sandbase.ai/examples/05187b2b-6e96-47c8-8833-db646bd11947/output/7769f622-4579-4ddb-86a9-481c31b4de07.glb"
+        }
+      ],
+      "default": true
+    }
+  ],
   "readme": "# Hunyuan3D 2.0\nHunyuan3D 2.0 by Tencent generates a 3D mesh from a single image, as a white mesh or with textures.\n## Fields\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `image` | image URL, required | — | URL of the image to turn into a 3D model. |\n| `textured_mesh` | boolean | `false` | Generate a textured mesh instead of a white (untextured) mesh. Textured output costs 3x. |\n| `octree_resolution` | integer 1–1024 | `256` | Octree resolution of the generated mesh. Higher values give finer geometry. |\n| `seed` | integer | — | Random seed. The same seed and input reproduce the same result. |\n## Output\n- `url`: Main 3D file (GLB unless another export format is selected).\n## Billing\n$0.16 per request with default settings. Price by option (other settings at default):\n| Option | Price |\n|---|---|\n| textured_mesh on | $0.48 |\n| textured_mesh off | $0.16 |\nFailed runs are not charged.\n## Also on SandBase\nOther Tencent 3D endpoints: `tencent/hunyuan-3d/3.0/image-to-3d`, `tencent/hunyuan-3d/3.1/part`, `tencent/hunyuan-3d/3.1/pro/image-to-3d`, `tencent/hunyuan-3d/3.1/pro/text-to-3d`.\n",
   "cover_url": "https://static.sandbase.ai/covers/tencent/hunyuan-3d/v2/cover-flare-20261111172551.webp",
   "page_url": "https://www.sandbase.ai/model/tencent/hunyuan-3d/v2",

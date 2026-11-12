@@ -19,7 +19,7 @@ Modes: async (default `async`). Only pass `mode` values listed here. The SDKs' `
 ```bash
 curl https://api.sandbase.ai/v1/run \
   -H "Authorization: Bearer $SANDBASE_API_KEY" -H 'Content-Type: application/json' \
-  -d '{"model": "meta/sam-3/3d-align", "image": "https://static.sandbase.ai/examples/meta/sam-3/3d-body/input_image_0.jpeg", "model_url": "<model_url>"}'
+  -d '{"model": "meta/sam-3/3d-align", "image": "https://static.sandbase.ai/examples/3bf6e022-6d29-4df3-8083-6b103a64d0cc/input/d75579d7-0e3d-4953-8cfc-376af911dad8.png", "model_url": "https://static.sandbase.ai/examples/3bf6e022-6d29-4df3-8083-6b103a64d0cc/input/cafb7efd-4dda-4b32-ae69-1554d81c1878.glb"}'
 ```
 
 **Python** ([sdk/python](../../../../sdk/python))
@@ -27,7 +27,7 @@ curl https://api.sandbase.ai/v1/run \
 ```python
 from sandbase import SandBase
 
-result = SandBase().run('meta/sam-3/3d-align', {'image': 'https://static.sandbase.ai/examples/meta/sam-3/3d-body/input_image_0.jpeg', 'model_url': '<model_url>'})
+result = SandBase().run('meta/sam-3/3d-align', {'image': 'https://static.sandbase.ai/examples/3bf6e022-6d29-4df3-8083-6b103a64d0cc/input/d75579d7-0e3d-4953-8cfc-376af911dad8.png', 'model_url': 'https://static.sandbase.ai/examples/3bf6e022-6d29-4df3-8083-6b103a64d0cc/input/cafb7efd-4dda-4b32-ae69-1554d81c1878.glb'})
 print(result["outputs"])
 ```
 
@@ -37,8 +37,8 @@ print(result["outputs"])
 import { SandBase } from "@sandbaseai/sdk";
 
 const result = await new SandBase().run("meta/sam-3/3d-align", {
-  "image": "https://static.sandbase.ai/examples/meta/sam-3/3d-body/input_image_0.jpeg",
-  "model_url": "<model_url>"
+  "image": "https://static.sandbase.ai/examples/3bf6e022-6d29-4df3-8083-6b103a64d0cc/input/d75579d7-0e3d-4953-8cfc-376af911dad8.png",
+  "model_url": "https://static.sandbase.ai/examples/3bf6e022-6d29-4df3-8083-6b103a64d0cc/input/cafb7efd-4dda-4b32-ae69-1554d81c1878.glb"
 });
 console.log(result.outputs);
 ```
@@ -48,8 +48,8 @@ console.log(result.outputs);
 ```go
 c, _ := sandbase.NewClient("")
 run, err := c.Run(ctx, "meta/sam-3/3d-align", sandbase.Params{
-	"image": "https://static.sandbase.ai/examples/meta/sam-3/3d-body/input_image_0.jpeg",
-	"model_url": "<model_url>",
+	"image": "https://static.sandbase.ai/examples/3bf6e022-6d29-4df3-8083-6b103a64d0cc/input/d75579d7-0e3d-4953-8cfc-376af911dad8.png",
+	"model_url": "https://static.sandbase.ai/examples/3bf6e022-6d29-4df3-8083-6b103a64d0cc/input/cafb7efd-4dda-4b32-ae69-1554d81c1878.glb",
 })
 ```
 

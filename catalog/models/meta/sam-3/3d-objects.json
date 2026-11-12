@@ -211,6 +211,21 @@
       }
     ]
   },
+  "examples": [
+    {
+      "input": {
+        "image": "https://static.sandbase.ai/examples/adec1dd5-efca-4f0a-bb23-01f828c4988c/input/01b105f2-a252-49d4-bea2-b473619d9110.jpeg",
+        "prompt": "car"
+      },
+      "output": [
+        {
+          "poster": "https://static.sandbase.ai/examples/adec1dd5-efca-4f0a-bb23-01f828c4988c/output/15642b8b-3842-4520-bf1b-11fb2c0e98fd.png",
+          "url": "https://static.sandbase.ai/examples/adec1dd5-efca-4f0a-bb23-01f828c4988c/output/733c862a-794e-4e7d-8013-dfa65d8c126f.glb"
+        }
+      ],
+      "default": true
+    }
+  ],
   "readme": "# SAM 3 3D Objects\n\nSAM 3D Objects reconstructs a segmented object from a single image as a 3D model.\n\n## Fields\n\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `prompt` | string, required | `car` | What to reconstruct. |\n| `image` | image URL, required | — | Image containing the object. JPEG, PNG, or WebP URL. |\n| `point_prompts` | object[] | `[]` | Point prompts for auto-segmentation when no masks provided |\n| `detection_threshold` | number 0.1–1 | — | Detection confidence threshold (0.1-1.0). |\n| `box_prompts` | object[] | `[]` | Box prompts for auto-segmentation when no masks provided. |\n| `pointmap_url` | string | — | Optional URL to external pointmap/depth data (NPY or NPZ format) for improved 3D reconstruction depth estimation |\n| `export_textured_glb` | boolean | false | Export a textured GLB. |\n| `mask_urls` | image URL[] | — | Optional list of mask URLs (one per object). |\n| `seed` | integer | random | Fix it to compare prompt changes. |\n\n## Billing\n\n$0.024 per object.\n\n| Request | Price |\n|---|---|\n| One object | $0.024 |\n\nFailed runs are not charged.\n\n## Also on SandBase\n\nRelated: `meta/sam-3/image`.\n",
   "cover_url": "https://static.sandbase.ai/covers/meta/sam-3/3d-objects/cover-flare-20261005035516.webp",
   "page_url": "https://www.sandbase.ai/model/meta/sam-3/3d-objects",

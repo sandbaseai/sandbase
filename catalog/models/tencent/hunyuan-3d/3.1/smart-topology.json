@@ -125,6 +125,20 @@
     "model": "per_call",
     "per_call": 0.75
   },
+  "examples": [
+    {
+      "input": {
+        "model_url": "https://static.sandbase.ai/examples/9b53f7a8-45d2-4f3b-88b0-76cc4c831443/input/b6fbdee4-dae5-4d90-89b3-3ee62e24f51d.glb"
+      },
+      "output": [
+        {
+          "poster": "https://static.sandbase.ai/examples/9b53f7a8-45d2-4f3b-88b0-76cc4c831443/output/d953d005-c094-4ed0-bdb8-17bdc9781bbd.png",
+          "url": "https://static.sandbase.ai/examples/9b53f7a8-45d2-4f3b-88b0-76cc4c831443/output/cf26742b-6cf8-4342-8fad-078447bc221b.glb"
+        }
+      ],
+      "default": true
+    }
+  ],
   "readme": "# Hunyuan 3D 3.1 Smart Topology\nHunyuan 3D 3.1 Smart Topology by Tencent retopologizes a GLB or OBJ model into a clean triangle or quad mesh at a chosen polygon density.\n## Fields\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `model_url` | string, required | — | URL of the GLB or OBJ model to retopologize. Max 200MB. |\n| `input_file_type` | `glb` / `obj` | `glb` | Format of the input model. |\n| `polygon_type` | `triangle` / `quadrilateral` | `triangle` | triangle: triangles only. quadrilateral: mixed quads and triangles. |\n| `face_level` | `high` / `medium` / `low` | `medium` | Target polygon density: high keeps more detail, low gives fewer polygons. |\n## Output\n- `url`: Main 3D file (GLB unless another export format is selected).\n## Billing\n$0.75 per request.\nFailed runs are not charged.\n## Also on SandBase\nOther Tencent 3D endpoints: `tencent/hunyuan-3d/3.0/image-to-3d`, `tencent/hunyuan-3d/3.1/part`, `tencent/hunyuan-3d/3.1/pro/image-to-3d`, `tencent/hunyuan-3d/3.1/pro/text-to-3d`.\n",
   "cover_url": "https://static.sandbase.ai/covers/tencent/hunyuan-3d/3.1/smart-topology/cover-flare-20261111181049.webp",
   "page_url": "https://www.sandbase.ai/model/tencent/hunyuan-3d/3.1/smart-topology",

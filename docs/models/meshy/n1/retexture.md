@@ -19,7 +19,7 @@ Modes: async (default `async`). Only pass `mode` values listed here. The SDKs' `
 ```bash
 curl https://api.sandbase.ai/v1/run \
   -H "Authorization: Bearer $SANDBASE_API_KEY" -H 'Content-Type: application/json' \
-  -d '{"model": "meshy/n1/retexture", "model_url": "https://static.sandbase.ai/examples/meshy/n1/retexture/input_model_url_0.glb"}'
+  -d '{"model": "meshy/n1/retexture", "image_style_url": "https://static.sandbase.ai/examples/e0fc4828-821c-4974-966e-116c53e8ca86/input/7f895d34-8025-4201-a8da-dc4bff72e967.png", "model_url": "https://static.sandbase.ai/examples/e0fc4828-821c-4974-966e-116c53e8ca86/input/c7fd980b-df7a-4f18-b6ca-4d1fe7e5638e.glb"}'
 ```
 
 **Python** ([sdk/python](../../../../sdk/python))
@@ -27,7 +27,7 @@ curl https://api.sandbase.ai/v1/run \
 ```python
 from sandbase import SandBase
 
-result = SandBase().run('meshy/n1/retexture', {'model_url': 'https://static.sandbase.ai/examples/meshy/n1/retexture/input_model_url_0.glb'})
+result = SandBase().run('meshy/n1/retexture', {'image_style_url': 'https://static.sandbase.ai/examples/e0fc4828-821c-4974-966e-116c53e8ca86/input/7f895d34-8025-4201-a8da-dc4bff72e967.png', 'model_url': 'https://static.sandbase.ai/examples/e0fc4828-821c-4974-966e-116c53e8ca86/input/c7fd980b-df7a-4f18-b6ca-4d1fe7e5638e.glb'})
 print(result["outputs"])
 ```
 
@@ -37,7 +37,8 @@ print(result["outputs"])
 import { SandBase } from "@sandbaseai/sdk";
 
 const result = await new SandBase().run("meshy/n1/retexture", {
-  "model_url": "https://static.sandbase.ai/examples/meshy/n1/retexture/input_model_url_0.glb"
+  "image_style_url": "https://static.sandbase.ai/examples/e0fc4828-821c-4974-966e-116c53e8ca86/input/7f895d34-8025-4201-a8da-dc4bff72e967.png",
+  "model_url": "https://static.sandbase.ai/examples/e0fc4828-821c-4974-966e-116c53e8ca86/input/c7fd980b-df7a-4f18-b6ca-4d1fe7e5638e.glb"
 });
 console.log(result.outputs);
 ```
@@ -47,7 +48,8 @@ console.log(result.outputs);
 ```go
 c, _ := sandbase.NewClient("")
 run, err := c.Run(ctx, "meshy/n1/retexture", sandbase.Params{
-	"model_url": "https://static.sandbase.ai/examples/meshy/n1/retexture/input_model_url_0.glb",
+	"image_style_url": "https://static.sandbase.ai/examples/e0fc4828-821c-4974-966e-116c53e8ca86/input/7f895d34-8025-4201-a8da-dc4bff72e967.png",
+	"model_url": "https://static.sandbase.ai/examples/e0fc4828-821c-4974-966e-116c53e8ca86/input/c7fd980b-df7a-4f18-b6ca-4d1fe7e5638e.glb",
 })
 ```
 

@@ -123,6 +123,24 @@
     "model": "per_call",
     "per_call": 0.075
   },
+  "examples": [
+    {
+      "input": {
+        "image": "https://static.sandbase.ai/examples/7cf3a6ed-343a-423e-a24c-4b59a545886a/input/c4235e86-5291-4a00-8f71-e9bb3cdf85bc.png"
+      },
+      "output": [
+        {
+          "depth_map": "https://static.sandbase.ai/examples/7cf3a6ed-343a-423e-a24c-4b59a545886a/output/ad8c0ec9-21a9-42f7-a7a9-34b87bf5ced8.png",
+          "mask": "https://static.sandbase.ai/examples/7cf3a6ed-343a-423e-a24c-4b59a545886a/output/bc992c7f-d772-4279-ab22-d53fef7e891d.png",
+          "normal_map": "https://static.sandbase.ai/examples/7cf3a6ed-343a-423e-a24c-4b59a545886a/output/815d0933-35d9-4663-873c-8880e27aca21.png",
+          "point_cloud": "https://static.sandbase.ai/examples/7cf3a6ed-343a-423e-a24c-4b59a545886a/output/ea257113-7644-46c8-aab4-fbcc206fe3c1.ply",
+          "poster": "https://static.sandbase.ai/examples/7cf3a6ed-343a-423e-a24c-4b59a545886a/output/97a6fe28-86c9-4442-be9f-6e7b0950ff5a.png",
+          "url": "https://static.sandbase.ai/examples/7cf3a6ed-343a-423e-a24c-4b59a545886a/output/2402b0a8-f11e-438f-b061-71fb5f464f8d.glb"
+        }
+      ],
+      "default": true
+    }
+  ],
   "readme": "# MoGe-3\nMoGe-3 by Microsoft estimates metric 3D geometry from a single image, refining depth with a sparse 3D refiner, and returns a textured GLB mesh, a PLY point cloud, and depth, normal and mask maps.\n## Fields\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `image` | image URL, required | — | Input RGB image to reconstruct. |\n| `num_refinement_steps` | integer 0–5 | `3` | Number of sparse 3D refinement passes over the predicted depth. 0 skips the refiner. |\n| `resolution_level` | integer 0–9 | `9` | Processing resolution level (0-9). Higher values give finer detail but run slower; output size always matches the input. |\n| `fov_x` | number 1–179 | — | Known horizontal field of view in degrees. Estimated from the image when omitted. |\n| `apply_mask` | boolean | `true` | Mask out invalid regions (sky, background, uncertain) in the reconstruction. |\n## Output\n- `url`: Main 3D file (GLB unless another export format is selected).\n- `point_cloud`: Additional file returned by the provider.\n- `depth_map`: Additional file returned by the provider.\n- `normal_map`: Additional file returned by the provider.\n- `mask`: Additional file returned by the provider.\n## Billing\n$0.075 per request.\nFailed runs are not charged.\n## Also on SandBase\nOther Microsoft 3D endpoints: `microsoft/moge-2`.\n",
   "cover_url": "https://static.sandbase.ai/covers/microsoft/moge-3/cover-flare-20261111180906.webp",
   "page_url": "https://www.sandbase.ai/model/microsoft/moge-3",

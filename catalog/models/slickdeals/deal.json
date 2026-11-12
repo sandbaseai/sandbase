@@ -1,0 +1,77 @@
+{
+  "name": "slickdeals/deal",
+  "display_name": "Slickdeals Deal",
+  "type": "api",
+  "vendor": "Slickdeals",
+  "vendor_slug": "slickdeals",
+  "description": "Fetch one Slickdeals deal by URL and get title, price, list price, store, coupon code, score, views, comments, and description in one normalized response.",
+  "tags": [
+    "api",
+    "slickdeals",
+    "ecommerce",
+    "product-data"
+  ],
+  "capabilities": [
+    "api",
+    "slickdeals",
+    "ecommerce",
+    "product-data"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/slickdeals/deal"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "url"
+    ],
+    "properties": {
+      "url": {
+        "type": "string",
+        "example": "https://slickdeals.net/f/20177112-lg-55-c6-series-oled-evo-ai-4k-smart-webos-tv-2026-best-buy-amazon-999-99",
+        "description": "Slickdeals deal page URL, e.g. https://slickdeals.net/f/20177112-lg-55-c6-series-oled-evo-ai-4k-smart-webos-tv-2026-best-buy-amazon-999-99."
+      }
+    },
+    "additionalProperties": false
+  },
+  "response_schema": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string"
+      },
+      "model": {
+        "type": "string"
+      },
+      "status": {
+        "type": "string"
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "data": {
+              "type": "object",
+              "description": "Normalized result for this request."
+            }
+          }
+        }
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "usage_based",
+    "note": "Billed per call from metered usage; the reference price is typical.",
+    "reference_price": 0.00213
+  },
+  "readme": "# Slickdeals Deal API\n\nFetch one Slickdeals deal by URL and get title, price, list price, store, coupon code, score, views, comments, and description in one normalized response.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/run\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"model\": \"slickdeals/deal\", \"url\": \"https://slickdeals.net/f/20177112-lg-55-c6-series-oled-evo-ai-4k-smart-webos-tv-2026-best-buy-amazon-999-99\"}'\n```\n\nThe result is returned in `outputs[0].data`. Lookups that find nothing fail with a not-found error.\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `url` | string | Yes | Slickdeals deal page URL, e.g. https://slickdeals.net/f/20177112-lg-55-c6-series-oled-evo-ai-4k-smart-webos-tv-2026-best-buy-amazon-999-99. |\n\n## Pricing\n\nBilled at the actual cost of each call, about $0.00213 per request. A call can cost more when the first data source fails and another one answers. Failed calls and lookups that find nothing are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/slickdeals/deal",
+  "created_at": "2026-11-12T07:00:44.185Z"
+}

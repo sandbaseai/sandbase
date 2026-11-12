@@ -25,7 +25,7 @@ Modes: async (default `async`). Only pass `mode` values listed here. The SDKs' `
 ```bash
 curl https://api.sandbase.ai/v1/run \
   -H "Authorization: Bearer $SANDBASE_API_KEY" -H 'Content-Type: application/json' \
-  -d '{"model": "meta/sam-3/3d-objects", "prompt": "car", "image": "https://static.sandbase.ai/examples/meta/sam-3/3d-objects/input_image_0.jpeg"}'
+  -d '{"model": "meta/sam-3/3d-objects", "image": "https://static.sandbase.ai/examples/adec1dd5-efca-4f0a-bb23-01f828c4988c/input/01b105f2-a252-49d4-bea2-b473619d9110.jpeg", "prompt": "car"}'
 ```
 
 **Python** ([sdk/python](../../../../sdk/python))
@@ -33,7 +33,7 @@ curl https://api.sandbase.ai/v1/run \
 ```python
 from sandbase import SandBase
 
-result = SandBase().run('meta/sam-3/3d-objects', {'prompt': 'car', 'image': 'https://static.sandbase.ai/examples/meta/sam-3/3d-objects/input_image_0.jpeg'})
+result = SandBase().run('meta/sam-3/3d-objects', {'image': 'https://static.sandbase.ai/examples/adec1dd5-efca-4f0a-bb23-01f828c4988c/input/01b105f2-a252-49d4-bea2-b473619d9110.jpeg', 'prompt': 'car'})
 print(result["outputs"])
 ```
 
@@ -43,8 +43,8 @@ print(result["outputs"])
 import { SandBase } from "@sandbaseai/sdk";
 
 const result = await new SandBase().run("meta/sam-3/3d-objects", {
-  "prompt": "car",
-  "image": "https://static.sandbase.ai/examples/meta/sam-3/3d-objects/input_image_0.jpeg"
+  "image": "https://static.sandbase.ai/examples/adec1dd5-efca-4f0a-bb23-01f828c4988c/input/01b105f2-a252-49d4-bea2-b473619d9110.jpeg",
+  "prompt": "car"
 });
 console.log(result.outputs);
 ```
@@ -54,8 +54,8 @@ console.log(result.outputs);
 ```go
 c, _ := sandbase.NewClient("")
 run, err := c.Run(ctx, "meta/sam-3/3d-objects", sandbase.Params{
+	"image": "https://static.sandbase.ai/examples/adec1dd5-efca-4f0a-bb23-01f828c4988c/input/01b105f2-a252-49d4-bea2-b473619d9110.jpeg",
 	"prompt": "car",
-	"image": "https://static.sandbase.ai/examples/meta/sam-3/3d-objects/input_image_0.jpeg",
 })
 ```
 

@@ -231,6 +231,21 @@
       }
     ]
   },
+  "examples": [
+    {
+      "input": {
+        "image": "https://static.sandbase.ai/examples/94e37e73-ddad-454e-99f6-6362fce34d94/input/64c93e7c-ae98-4ead-975e-c35b5e237d72.png"
+      },
+      "output": [
+        {
+          "poster": "https://static.sandbase.ai/examples/94e37e73-ddad-454e-99f6-6362fce34d94/output/7b3684f8-8af0-4a7e-a46d-4f5e50e64b1d.png",
+          "thumbnail": "https://static.sandbase.ai/examples/94e37e73-ddad-454e-99f6-6362fce34d94/output/7b3684f8-8af0-4a7e-a46d-4f5e50e64b1d.png",
+          "url": "https://static.sandbase.ai/examples/94e37e73-ddad-454e-99f6-6362fce34d94/output/68a6ae99-b0b5-47b6-900e-fd2a2a353704.glb"
+        }
+      ],
+      "default": true
+    }
+  ],
   "readme": "# Hunyuan 3D 3.1 Pro Image to 3D\n\nHunyuan 3D 3.1 Pro turns an image (plus up to six extra views) into a high-detail textured or geometry-only 3D model.\n\n## Fields\n\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `image` | image URL, required | — | Front view. JPEG, PNG, or WebP URL. |\n| `top_image` | image URL | — | Optional extra view. |\n| `back_image` | image URL | — | Optional extra view. |\n| `enable_pbr` | boolean | false | PBR materials. |\n| `face_count` | integer 40000–1500000 | — | Target face count. |\n| `left_image` | image URL | — | Optional extra view. |\n| `right_image` | image URL | — | Optional extra view. |\n| `bottom_image` | image URL | — | Optional extra view. |\n| `generate_type` | `Normal` / `Geometry` | `Normal` | `Normal` textured, `LowPoly`, or `Geometry` (untextured). |\n| `left_front_image` | image URL | — | Optional extra view. |\n| `right_front_image` | image URL | — | Optional extra view. |\n\n## Billing\n\n$0.375 per model; PBR, a custom face count, and extra views each add $0.15.\n\n| Request | Price |\n|---|---|\n| Default | $0.375 |\n| With PBR | $0.525 |\n| With custom face count | $0.525 |\n\nFailed runs are not charged.\n\n## Also on SandBase\n\nOther Hunyuan 3D endpoints: `tencent/hunyuan-3d/3.1/pro/text-to-3d`, `tencent/hunyuan-3d/3.0/image-to-3d`.\n",
   "cover_url": "https://static.sandbase.ai/covers/tencent/hunyuan-3d/3.1/pro/image-to-3d/cover-flare-20261005023848.webp",
   "page_url": "https://www.sandbase.ai/model/tencent/hunyuan-3d/3.1/pro/image-to-3d",

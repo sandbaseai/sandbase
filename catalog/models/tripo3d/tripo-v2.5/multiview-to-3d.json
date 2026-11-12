@@ -266,6 +266,23 @@
       }
     ]
   },
+  "examples": [
+    {
+      "input": {
+        "back_image": "https://static.sandbase.ai/examples/63b09ac5-1238-4faa-abc7-8a23a30b586e/input/85d48a9b-54ca-41bb-89d6-557a1a551598.png",
+        "image": "https://static.sandbase.ai/examples/63b09ac5-1238-4faa-abc7-8a23a30b586e/input/0d0f81a1-5f3f-4370-9588-c67939c2d60c.png",
+        "left_image": "https://static.sandbase.ai/examples/63b09ac5-1238-4faa-abc7-8a23a30b586e/input/6af06d30-3fff-4bb0-9a21-e30df6807dfa.png"
+      },
+      "output": [
+        {
+          "poster": "https://static.sandbase.ai/examples/63b09ac5-1238-4faa-abc7-8a23a30b586e/output/37d0d45f-a4d9-46bd-8fe0-d40dfe9a087b.webp",
+          "thumbnail": "https://static.sandbase.ai/examples/63b09ac5-1238-4faa-abc7-8a23a30b586e/output/37d0d45f-a4d9-46bd-8fe0-d40dfe9a087b.webp",
+          "url": "https://static.sandbase.ai/examples/63b09ac5-1238-4faa-abc7-8a23a30b586e/output/2ac03911-2117-4201-bb63-462d4b543771.glb"
+        }
+      ],
+      "default": true
+    }
+  ],
   "readme": "# Tripo v2.5 Multiview to 3D\nTripo v2.5 by Tripo3D reconstructs a textured 3D mesh from a front view plus optional left, back and right views of the same object.\n## Fields\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `image` | image URL, required | — | Front view image URL. |\n| `left_image` | image URL | — | Optional left view image URL. |\n| `back_image` | image URL | — | Optional back view image URL. |\n| `right_image` | image URL | — | Optional right view image URL. |\n| `texture` | `no` / `standard` / `HD` | `standard` | Texture quality: no (untextured), standard, or HD. |\n| `pbr` | boolean | `false` | Generate PBR materials. |\n| `quad` | boolean | `false` | Generate quad mesh topology (billed as an add-on). |\n| `face_limit` | integer | — | Target face count. Adaptive when unset. |\n| `orientation` | `default` / `align_image` | `default` | Set to align_image to rotate the model to match the input image. |\n| `seed` | integer | — | Seed for reproducible geometry generation. |\n## Output\n- `url`: Main 3D file (GLB unless another export format is selected).\n- `thumbnail`: Preview image rendered by the provider.\n## Billing\n$0.30 per request with default settings. Price by option (other settings at default):\n| Option | Price |\n|---|---|\n| pbr on | $0.30 |\n| pbr off | $0.30 |\n| quad on | $0.35 |\n| quad off | $0.30 |\n| texture = no | $0.20 |\n| texture = standard | $0.30 |\n| texture = HD | $0.40 |\nFailed runs are not charged.\n## Also on SandBase\nOther Tripo3D 3D endpoints: `tripo3d/tripo-h3.1/image-to-3d`, `tripo3d/tripo-h3.1/multiview-to-3d`, `tripo3d/tripo-h3.1/text-to-3d`, `tripo3d/tripo-p1/image-to-3d`.\n",
   "cover_url": "https://static.sandbase.ai/covers/tripo3d/tripo-v2.5/multiview-to-3d/cover-flare-20261111181138.webp",
   "page_url": "https://www.sandbase.ai/model/tripo3d/tripo-v2.5/multiview-to-3d",

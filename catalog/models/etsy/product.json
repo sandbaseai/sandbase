@@ -1,0 +1,91 @@
+{
+  "name": "etsy/product",
+  "display_name": "Etsy Product",
+  "type": "api",
+  "vendor": "Etsy",
+  "vendor_slug": "etsy",
+  "description": "Look up one Etsy listing by id and get its price, images, description, rating, reviews count, shop, category, variations, stock, ship-from country, favorites and materials in one normalized response.",
+  "tags": [
+    "api",
+    "etsy",
+    "ecommerce",
+    "product-data"
+  ],
+  "capabilities": [
+    "api",
+    "etsy",
+    "ecommerce",
+    "product-data"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/etsy/product"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "listingId"
+    ],
+    "properties": {
+      "listingId": {
+        "type": "string",
+        "example": "1810545592",
+        "description": "Etsy listing id, the number in the listing URL (https://www.etsy.com/listing/<id>/...), e.g. 1810545592. The Etsy Search and Etsy Shop Listings SKUs return it as listingId."
+      },
+      "requireFields": {
+        "type": "array",
+        "items": {
+          "enum": [
+            "favoriteCount",
+            "materials",
+            "quantityAvailable",
+            "shipFrom",
+            "video"
+          ],
+          "type": "string"
+        },
+        "description": "Optional; omit it and routing is unchanged, with the cheapest source serving. Name the output fields this request must be able to return, for example `materials`, and it is served only by a source that returns every one of them. Fields you do not name are still returned whenever the serving source has them. This can raise your price: when the cheapest source cannot return a named field, a dearer source serves, and you are quoted and charged its price. Naming a combination that no single source returns together is refused as invalid input, with no charge."
+      }
+    },
+    "additionalProperties": false
+  },
+  "response_schema": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string"
+      },
+      "model": {
+        "type": "string"
+      },
+      "status": {
+        "type": "string"
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "data": {
+              "type": "object",
+              "description": "Normalized result for this request."
+            }
+          }
+        }
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "usage_based",
+    "note": "Billed per call from metered usage; the reference price is typical.",
+    "reference_price": 0.00187
+  },
+  "readme": "# Etsy Product API\n\nLook up one Etsy listing by id and get its price, images, description, rating, reviews count, shop, category, variations, stock, ship-from country, favorites and materials in one normalized response.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/run\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"model\": \"etsy/product\", \"listingId\": \"1810545592\"}'\n```\n\nThe result is returned in `outputs[0].data`. Lookups that find nothing fail with a not-found error.\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `listingId` | string | Yes | Etsy listing id, the number in the listing URL (https://www.etsy.com/listing/<id>/...), e.g. 1810545592. The Etsy Search and Etsy Shop Listings SKUs return it as listingId. |\n| `requireFields` | array | No | Optional; omit it and routing is unchanged, with the cheapest source serving. Name the output fields this request must be able to return, for example `materials`, and it is served only by a source that returns every one  |\n\n## Pricing\n\nBilled at the actual cost of each call, about $0.00187 per request. A call can cost more when the first data source fails and another one answers. Failed calls and lookups that find nothing are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/etsy/product",
+  "created_at": "2026-11-12T06:48:46.437Z"
+}

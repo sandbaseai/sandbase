@@ -41,7 +41,7 @@ Modes: async (default `async`). Only pass `mode` values listed here. The SDKs' `
 ```bash
 curl https://api.sandbase.ai/v1/run \
   -H "Authorization: Bearer $SANDBASE_API_KEY" -H 'Content-Type: application/json' \
-  -d '{"model": "hitem3d/hi3d/image-to-3d", "image": "https://storage.googleapis.com/falserverless/example_inputs/dog.png"}'
+  -d '{"model": "hitem3d/hi3d/image-to-3d", "image": "https://static.sandbase.ai/examples/6fda1575-fd88-4b4d-b090-7587939292a0/input/a4f2ccb4-33d6-4056-917c-05cb450f5a9a.png"}'
 ```
 
 **Python** ([sdk/python](../../../../sdk/python))
@@ -49,7 +49,7 @@ curl https://api.sandbase.ai/v1/run \
 ```python
 from sandbase import SandBase
 
-result = SandBase().run('hitem3d/hi3d/image-to-3d', {'image': 'https://storage.googleapis.com/falserverless/example_inputs/dog.png'})
+result = SandBase().run('hitem3d/hi3d/image-to-3d', {'image': 'https://static.sandbase.ai/examples/6fda1575-fd88-4b4d-b090-7587939292a0/input/a4f2ccb4-33d6-4056-917c-05cb450f5a9a.png'})
 print(result["outputs"])
 ```
 
@@ -59,7 +59,7 @@ print(result["outputs"])
 import { SandBase } from "@sandbaseai/sdk";
 
 const result = await new SandBase().run("hitem3d/hi3d/image-to-3d", {
-  "image": "https://storage.googleapis.com/falserverless/example_inputs/dog.png"
+  "image": "https://static.sandbase.ai/examples/6fda1575-fd88-4b4d-b090-7587939292a0/input/a4f2ccb4-33d6-4056-917c-05cb450f5a9a.png"
 });
 console.log(result.outputs);
 ```
@@ -69,7 +69,7 @@ console.log(result.outputs);
 ```go
 c, _ := sandbase.NewClient("")
 run, err := c.Run(ctx, "hitem3d/hi3d/image-to-3d", sandbase.Params{
-	"image": "https://storage.googleapis.com/falserverless/example_inputs/dog.png",
+	"image": "https://static.sandbase.ai/examples/6fda1575-fd88-4b4d-b090-7587939292a0/input/a4f2ccb4-33d6-4056-917c-05cb450f5a9a.png",
 })
 ```
 

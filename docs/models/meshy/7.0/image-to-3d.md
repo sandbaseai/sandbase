@@ -40,7 +40,7 @@ Modes: async (default `async`). Only pass `mode` values listed here. The SDKs' `
 ```bash
 curl https://api.sandbase.ai/v1/run \
   -H "Authorization: Bearer $SANDBASE_API_KEY" -H 'Content-Type: application/json' \
-  -d '{"model": "meshy/7.0/image-to-3d", "image": "<image>"}'
+  -d '{"model": "meshy/7.0/image-to-3d", "image": "https://static.sandbase.ai/examples/6b71f598-df61-4afb-bbeb-b5c5b39d392a/input/f2b89ec0-88bd-4774-88ae-0f4a963dde39.png"}'
 ```
 
 **Python** ([sdk/python](../../../../sdk/python))
@@ -48,7 +48,7 @@ curl https://api.sandbase.ai/v1/run \
 ```python
 from sandbase import SandBase
 
-result = SandBase().run('meshy/7.0/image-to-3d', {'image': '<image>'})
+result = SandBase().run('meshy/7.0/image-to-3d', {'image': 'https://static.sandbase.ai/examples/6b71f598-df61-4afb-bbeb-b5c5b39d392a/input/f2b89ec0-88bd-4774-88ae-0f4a963dde39.png'})
 print(result["outputs"])
 ```
 
@@ -58,7 +58,7 @@ print(result["outputs"])
 import { SandBase } from "@sandbaseai/sdk";
 
 const result = await new SandBase().run("meshy/7.0/image-to-3d", {
-  "image": "<image>"
+  "image": "https://static.sandbase.ai/examples/6b71f598-df61-4afb-bbeb-b5c5b39d392a/input/f2b89ec0-88bd-4774-88ae-0f4a963dde39.png"
 });
 console.log(result.outputs);
 ```
@@ -68,7 +68,7 @@ console.log(result.outputs);
 ```go
 c, _ := sandbase.NewClient("")
 run, err := c.Run(ctx, "meshy/7.0/image-to-3d", sandbase.Params{
-	"image": "<image>",
+	"image": "https://static.sandbase.ai/examples/6b71f598-df61-4afb-bbeb-b5c5b39d392a/input/f2b89ec0-88bd-4774-88ae-0f4a963dde39.png",
 })
 ```
 

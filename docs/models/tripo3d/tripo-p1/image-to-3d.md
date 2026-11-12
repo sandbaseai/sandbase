@@ -26,7 +26,7 @@ Modes: async (default `async`). Only pass `mode` values listed here. The SDKs' `
 ```bash
 curl https://api.sandbase.ai/v1/run \
   -H "Authorization: Bearer $SANDBASE_API_KEY" -H 'Content-Type: application/json' \
-  -d '{"model": "tripo3d/tripo-p1/image-to-3d", "image": "https://static.sandbase.ai/examples/tripo3d/tripo-p1/image-to-3d/input_image_0.png"}'
+  -d '{"model": "tripo3d/tripo-p1/image-to-3d", "image": "https://static.sandbase.ai/examples/38efe400-c0cd-4761-bb18-b0595f824967/input/c721985f-24e4-405a-9265-ce3a9f6118ff.png"}'
 ```
 
 **Python** ([sdk/python](../../../../sdk/python))
@@ -34,7 +34,7 @@ curl https://api.sandbase.ai/v1/run \
 ```python
 from sandbase import SandBase
 
-result = SandBase().run('tripo3d/tripo-p1/image-to-3d', {'image': 'https://static.sandbase.ai/examples/tripo3d/tripo-p1/image-to-3d/input_image_0.png'})
+result = SandBase().run('tripo3d/tripo-p1/image-to-3d', {'image': 'https://static.sandbase.ai/examples/38efe400-c0cd-4761-bb18-b0595f824967/input/c721985f-24e4-405a-9265-ce3a9f6118ff.png'})
 print(result["outputs"])
 ```
 
@@ -44,7 +44,7 @@ print(result["outputs"])
 import { SandBase } from "@sandbaseai/sdk";
 
 const result = await new SandBase().run("tripo3d/tripo-p1/image-to-3d", {
-  "image": "https://static.sandbase.ai/examples/tripo3d/tripo-p1/image-to-3d/input_image_0.png"
+  "image": "https://static.sandbase.ai/examples/38efe400-c0cd-4761-bb18-b0595f824967/input/c721985f-24e4-405a-9265-ce3a9f6118ff.png"
 });
 console.log(result.outputs);
 ```
@@ -54,7 +54,7 @@ console.log(result.outputs);
 ```go
 c, _ := sandbase.NewClient("")
 run, err := c.Run(ctx, "tripo3d/tripo-p1/image-to-3d", sandbase.Params{
-	"image": "https://static.sandbase.ai/examples/tripo3d/tripo-p1/image-to-3d/input_image_0.png",
+	"image": "https://static.sandbase.ai/examples/38efe400-c0cd-4761-bb18-b0595f824967/input/c721985f-24e4-405a-9265-ce3a9f6118ff.png",
 })
 ```
 

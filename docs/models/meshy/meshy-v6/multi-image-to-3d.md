@@ -32,7 +32,7 @@ Modes: async (default `async`). Only pass `mode` values listed here. The SDKs' `
 ```bash
 curl https://api.sandbase.ai/v1/run \
   -H "Authorization: Bearer $SANDBASE_API_KEY" -H 'Content-Type: application/json' \
-  -d '{"model": "meshy/meshy-v6/multi-image-to-3d", "images": ["<images>"]}'
+  -d '{"model": "meshy/meshy-v6/multi-image-to-3d", "images": ["https://static.sandbase.ai/examples/f41889e8-ed17-45c3-b79d-a3cf076e843b/input/46dcde47-8e59-4ee4-899b-094eb03891a6.png", "https://static.sandbase.ai/examples/f41889e8-ed17-45c3-b79d-a3cf076e843b/input/2475e78c-b343-45f3-8fde-91d2b3793015.png", "https://static.sandbase.ai/examples/f41889e8-ed17-45c3-b79d-a3cf076e843b/input/8d9e5d87-ad37-4bc3-8378-6ae9f3fcb9f4.png"]}'
 ```
 
 **Python** ([sdk/python](../../../../sdk/python))
@@ -40,7 +40,7 @@ curl https://api.sandbase.ai/v1/run \
 ```python
 from sandbase import SandBase
 
-result = SandBase().run('meshy/meshy-v6/multi-image-to-3d', {'images': ['<images>']})
+result = SandBase().run('meshy/meshy-v6/multi-image-to-3d', {'images': ['https://static.sandbase.ai/examples/f41889e8-ed17-45c3-b79d-a3cf076e843b/input/46dcde47-8e59-4ee4-899b-094eb03891a6.png', 'https://static.sandbase.ai/examples/f41889e8-ed17-45c3-b79d-a3cf076e843b/input/2475e78c-b343-45f3-8fde-91d2b3793015.png', 'https://static.sandbase.ai/examples/f41889e8-ed17-45c3-b79d-a3cf076e843b/input/8d9e5d87-ad37-4bc3-8378-6ae9f3fcb9f4.png']})
 print(result["outputs"])
 ```
 
@@ -51,7 +51,9 @@ import { SandBase } from "@sandbaseai/sdk";
 
 const result = await new SandBase().run("meshy/meshy-v6/multi-image-to-3d", {
   "images": [
-    "<images>"
+    "https://static.sandbase.ai/examples/f41889e8-ed17-45c3-b79d-a3cf076e843b/input/46dcde47-8e59-4ee4-899b-094eb03891a6.png",
+    "https://static.sandbase.ai/examples/f41889e8-ed17-45c3-b79d-a3cf076e843b/input/2475e78c-b343-45f3-8fde-91d2b3793015.png",
+    "https://static.sandbase.ai/examples/f41889e8-ed17-45c3-b79d-a3cf076e843b/input/8d9e5d87-ad37-4bc3-8378-6ae9f3fcb9f4.png"
   ]
 });
 console.log(result.outputs);
@@ -62,7 +64,7 @@ console.log(result.outputs);
 ```go
 c, _ := sandbase.NewClient("")
 run, err := c.Run(ctx, "meshy/meshy-v6/multi-image-to-3d", sandbase.Params{
-	"images": []any{"<images>"},
+	"images": []any{"https://static.sandbase.ai/examples/f41889e8-ed17-45c3-b79d-a3cf076e843b/input/46dcde47-8e59-4ee4-899b-094eb03891a6.png", "https://static.sandbase.ai/examples/f41889e8-ed17-45c3-b79d-a3cf076e843b/input/2475e78c-b343-45f3-8fde-91d2b3793015.png", "https://static.sandbase.ai/examples/f41889e8-ed17-45c3-b79d-a3cf076e843b/input/8d9e5d87-ad37-4bc3-8378-6ae9f3fcb9f4.png"},
 })
 ```
 

@@ -17,7 +17,7 @@ Call 7 Hitem3D models through SandBase with one API key: no separate account, on
 ```bash
 curl https://api.sandbase.ai/v1/run \
   -H "Authorization: Bearer $SANDBASE_API_KEY" -H 'Content-Type: application/json' \
-  -d '{"model": "hitem3d/hi3d/image-to-3d", "image": "https://storage.googleapis.com/falserverless/example_inputs/dog.png"}'
+  -d '{"model": "hitem3d/hi3d/image-to-3d", "image": "https://static.sandbase.ai/examples/6fda1575-fd88-4b4d-b090-7587939292a0/input/a4f2ccb4-33d6-4056-917c-05cb450f5a9a.png"}'
 ```
 
 Get a key at [sandbase.ai](https://www.sandbase.ai/console). Back to [all platforms](README.md).

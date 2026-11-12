@@ -41,7 +41,7 @@ Modes: async (default `async`). Only pass `mode` values listed here. The SDKs' `
 ```bash
 curl https://api.sandbase.ai/v1/run \
   -H "Authorization: Bearer $SANDBASE_API_KEY" -H 'Content-Type: application/json' \
-  -d '{"model": "hitem3d/hi3d/multi-view-to-3d", "image": "https://storage.googleapis.com/falserverless/example_inputs/dog.png"}'
+  -d '{"model": "hitem3d/hi3d/multi-view-to-3d", "back_image": "https://static.sandbase.ai/examples/4492f098-3e35-40bc-b740-fab751711044/input/b28c0fdd-62e3-45d9-bf28-3cc8ab70353c.png", "image": "https://static.sandbase.ai/examples/4492f098-3e35-40bc-b740-fab751711044/input/8e4047f8-9f6e-408d-bbc9-5fb3ce7c6b37.png", "left_image": "https://static.sandbase.ai/examples/4492f098-3e35-40bc-b740-fab751711044/input/f02bbf57-4e98-4756-afdd-c268dce95b6f.png"}'
 ```
 
 **Python** ([sdk/python](../../../../sdk/python))
@@ -49,7 +49,7 @@ curl https://api.sandbase.ai/v1/run \
 ```python
 from sandbase import SandBase
 
-result = SandBase().run('hitem3d/hi3d/multi-view-to-3d', {'image': 'https://storage.googleapis.com/falserverless/example_inputs/dog.png'})
+result = SandBase().run('hitem3d/hi3d/multi-view-to-3d', {'back_image': 'https://static.sandbase.ai/examples/4492f098-3e35-40bc-b740-fab751711044/input/b28c0fdd-62e3-45d9-bf28-3cc8ab70353c.png', 'image': 'https://static.sandbase.ai/examples/4492f098-3e35-40bc-b740-fab751711044/input/8e4047f8-9f6e-408d-bbc9-5fb3ce7c6b37.png', 'left_image': 'https://static.sandbase.ai/examples/4492f098-3e35-40bc-b740-fab751711044/input/f02bbf57-4e98-4756-afdd-c268dce95b6f.png'})
 print(result["outputs"])
 ```
 
@@ -59,7 +59,9 @@ print(result["outputs"])
 import { SandBase } from "@sandbaseai/sdk";
 
 const result = await new SandBase().run("hitem3d/hi3d/multi-view-to-3d", {
-  "image": "https://storage.googleapis.com/falserverless/example_inputs/dog.png"
+  "back_image": "https://static.sandbase.ai/examples/4492f098-3e35-40bc-b740-fab751711044/input/b28c0fdd-62e3-45d9-bf28-3cc8ab70353c.png",
+  "image": "https://static.sandbase.ai/examples/4492f098-3e35-40bc-b740-fab751711044/input/8e4047f8-9f6e-408d-bbc9-5fb3ce7c6b37.png",
+  "left_image": "https://static.sandbase.ai/examples/4492f098-3e35-40bc-b740-fab751711044/input/f02bbf57-4e98-4756-afdd-c268dce95b6f.png"
 });
 console.log(result.outputs);
 ```
@@ -69,7 +71,9 @@ console.log(result.outputs);
 ```go
 c, _ := sandbase.NewClient("")
 run, err := c.Run(ctx, "hitem3d/hi3d/multi-view-to-3d", sandbase.Params{
-	"image": "https://storage.googleapis.com/falserverless/example_inputs/dog.png",
+	"back_image": "https://static.sandbase.ai/examples/4492f098-3e35-40bc-b740-fab751711044/input/b28c0fdd-62e3-45d9-bf28-3cc8ab70353c.png",
+	"image": "https://static.sandbase.ai/examples/4492f098-3e35-40bc-b740-fab751711044/input/8e4047f8-9f6e-408d-bbc9-5fb3ce7c6b37.png",
+	"left_image": "https://static.sandbase.ai/examples/4492f098-3e35-40bc-b740-fab751711044/input/f02bbf57-4e98-4756-afdd-c268dce95b6f.png",
 })
 ```
 

@@ -11,7 +11,7 @@ Call 1 speridlabs models through SandBase with one API key: no separate account,
 ```bash
 curl https://api.sandbase.ai/v1/run \
   -H "Authorization: Bearer $SANDBASE_API_KEY" -H 'Content-Type: application/json' \
-  -d '{"model": "speridlabs/idol", "image": "https://raw.githubusercontent.com/VAST-AI-Research/TripoSplat/36b6deb0a1613e43c6910de441cb57d50352e44a/static/example_inputs/building_stone_house.webp"}'
+  -d '{"model": "speridlabs/idol", "image": "https://static.sandbase.ai/examples/92b467b8-e906-4df4-a912-290fbd4a134d/input/969c0927-46b5-4d95-91ca-8568e6eed33d.png"}'
 ```
 
 Get a key at [sandbase.ai](https://www.sandbase.ai/console). Back to [all platforms](README.md).

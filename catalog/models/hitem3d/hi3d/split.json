@@ -153,6 +153,21 @@
     "model": "per_call",
     "per_call": 0.4
   },
+  "examples": [
+    {
+      "input": {
+        "model_url": "https://static.sandbase.ai/examples/ab183559-ca86-4f65-8726-fb4f14c115d7/input/a94a552e-b3b8-4893-a2d6-c3fc02919038.glb"
+      },
+      "output": [
+        {
+          "poster": "https://static.sandbase.ai/examples/ab183559-ca86-4f65-8726-fb4f14c115d7/output/826cb428-460d-47ef-9f6a-ca4cfe00cf5a.webp",
+          "thumbnail": "https://static.sandbase.ai/examples/ab183559-ca86-4f65-8726-fb4f14c115d7/output/826cb428-460d-47ef-9f6a-ca4cfe00cf5a.webp",
+          "url": "https://static.sandbase.ai/examples/ab183559-ca86-4f65-8726-fb4f14c115d7/output/fee9d97c-ae68-4bc9-8410-1874b6b01351.glb"
+        }
+      ],
+      "default": true
+    }
+  ],
   "readme": "# Hitem3D Hi3D Split\nHi3D Split by Hitem3D splits a 3D model into parts, either by a humanoid character template with optional joints or by granularity for general objects.\n## Fields\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `model_url` | string, required | — | URL of the input model. GLB, STL or OBJ, up to 200MB. |\n| `split_mode` | `character` / `general` | `character` | character splits humanoid models using a template; general splits any model by granularity. |\n| `part` | `a` / `b` / `c` / `d` / `e` / `f` | `a` | Character split template: a 6 parts, b 5, c 4 without head, d 4 with head, e 3, f 2. |\n| `joint` | `none` / `ball` / `dovetail` | `ball` | Joint type added between character parts. |\n| `level` | `low` / `medium` / `high` | `medium` | Split granularity for general mode. |\n| `export_format` | `glb` / `obj` / `stl` / `fbx` / `usdz` | `glb` | File format of the generated model. Character split supports only glb. |\n## Output\n- `url`: Main 3D file (GLB unless another export format is selected).\n- `thumbnail`: Preview image rendered by the provider.\n## Billing\n$0.40 per request.\nFailed runs are not charged.\n## Also on SandBase\nOther Hitem3D 3D endpoints: `hitem3d/hi3d/image-to-3d`, `hitem3d/hi3d/multi-view-to-3d`, `hitem3d/hi3d/multicolor`, `hitem3d/hi3d/texture`.\n",
   "cover_url": "https://static.sandbase.ai/covers/hitem3d/hi3d/split/cover-flare-20261111180717.webp",
   "page_url": "https://www.sandbase.ai/model/hitem3d/hi3d/split",

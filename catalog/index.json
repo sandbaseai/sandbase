@@ -1,10 +1,10 @@
 {
  "catalog_version": "1",
- "generated_at": "2026-11-11T16:11:06Z",
+ "generated_at": "2026-11-12T07:08:56Z",
  "base_url": "https://api.sandbase.ai",
- "count": 2362,
+ "count": 2387,
  "counts_by_type": {
-  "api": 1859,
+  "api": 1884,
   "video": 181,
   "image": 164,
   "llm": 124,
@@ -734,6 +734,28 @@
    "record": "catalog/models/ahrefs/metrics.json"
   },
   {
+   "name": "alibaba/search",
+   "display_name": "Alibaba.com Search",
+   "type": "api",
+   "vendor": "Alibaba.com",
+   "description": "Search Alibaba by keyword and get up to 25 wholesale listings (title, price range, minimum order, and supplier) in one normalized response.",
+   "tags": [
+    "api",
+    "alibaba",
+    "ecommerce",
+    "product-data"
+   ],
+   "modes": [
+    "sync"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "usage_based",
+    "usd_reference": 0.00231
+   },
+   "record": "catalog/models/alibaba/search.json"
+  },
+  {
    "name": "aliexpress/search/products",
    "display_name": "AliExpress Product Search",
    "type": "api",
@@ -843,6 +865,28 @@
     "free_quota": true
    },
    "record": "catalog/models/amazon/product-detail.json"
+  },
+  {
+   "name": "amazon/reviews",
+   "display_name": "Amazon Reviews",
+   "type": "api",
+   "vendor": "Amazon",
+   "description": "Pull customer reviews for any Amazon product by ASIN or URL: rating, title, text, date, and verified-buyer badge.",
+   "tags": [
+    "api",
+    "amazon",
+    "ecommerce",
+    "product-data"
+   ],
+   "modes": [
+    "sync"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "usage_based",
+    "usd_reference": 0.016
+   },
+   "record": "catalog/models/amazon/reviews.json"
   },
   {
    "name": "amazon/search",
@@ -1212,6 +1256,50 @@
    "record": "catalog/models/artificial-analysis/search-models.json"
   },
   {
+   "name": "asos/product",
+   "display_name": "ASOS Product",
+   "type": "api",
+   "vendor": "ASOS",
+   "description": "Fetch an ASOS product by URL from any of its 11 country stores and get title, price, brand, colour, description, images, and per-size stock in one normalized response.",
+   "tags": [
+    "api",
+    "asos",
+    "ecommerce",
+    "product-data"
+   ],
+   "modes": [
+    "sync"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "usage_based",
+    "usd_reference": 0.0009
+   },
+   "record": "catalog/models/asos/product.json"
+  },
+  {
+   "name": "asos/search",
+   "display_name": "ASOS Search",
+   "type": "api",
+   "vendor": "ASOS",
+   "description": "Search ASOS by keyword in any of its 11 country stores with optional sort, price-range, and page filters and get title, price, brand, and colour for each product in one normalized response.",
+   "tags": [
+    "api",
+    "asos",
+    "ecommerce",
+    "product-data"
+   ],
+   "modes": [
+    "sync"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "usage_based",
+    "usd_reference": 0.00085
+   },
+   "record": "catalog/models/asos/search.json"
+  },
+  {
    "name": "autozone/scrape/category",
    "display_name": "AutoZone Category Listings",
    "type": "api",
@@ -1254,6 +1342,72 @@
     "usd_per_call": 0.015
    },
    "record": "catalog/models/baidu/news.json"
+  },
+  {
+   "name": "best-buy/product",
+   "display_name": "Best Buy Product",
+   "type": "api",
+   "vendor": "Best Buy",
+   "description": "Fetch a BestBuy.com product by URL and get title, price, brand, model, UPC, rating, description, and images in one normalized response.",
+   "tags": [
+    "api",
+    "best-buy",
+    "ecommerce",
+    "product-data"
+   ],
+   "modes": [
+    "sync"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "usage_based",
+    "usd_reference": 0.00085
+   },
+   "record": "catalog/models/best-buy/product.json"
+  },
+  {
+   "name": "best-buy/reviews",
+   "display_name": "Best Buy Reviews",
+   "type": "api",
+   "vendor": "Best Buy",
+   "description": "Pull a page of 10 customer reviews for any BestBuy.com product by URL, newest first or by relevance, helpfulness, or rating: rating, title, text, date, reviewer, and verified-buyer badge.",
+   "tags": [
+    "api",
+    "best-buy",
+    "ecommerce",
+    "product-data"
+   ],
+   "modes": [
+    "sync"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "usage_based",
+    "usd_reference": 0.00085
+   },
+   "record": "catalog/models/best-buy/reviews.json"
+  },
+  {
+   "name": "best-buy/search",
+   "display_name": "Best Buy Search",
+   "type": "api",
+   "vendor": "Best Buy",
+   "description": "Search BestBuy.com by keyword with optional sort, price-range, and page filters and get title, price, rating, and brand for each product in one normalized response.",
+   "tags": [
+    "api",
+    "best-buy",
+    "ecommerce",
+    "product-data"
+   ],
+   "modes": [
+    "sync"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "usage_based",
+    "usd_reference": 0.0009
+   },
+   "record": "catalog/models/best-buy/search.json"
   },
   {
    "name": "bilibili/app/bangumi-tab",
@@ -13495,6 +13649,94 @@
    "record": "catalog/models/ebay/search.json"
   },
   {
+   "name": "etsy/product",
+   "display_name": "Etsy Product",
+   "type": "api",
+   "vendor": "Etsy",
+   "description": "Look up one Etsy listing by id and get its price, images, description, rating, reviews count, shop, category, variations, stock, ship-from country, favorites and materials in one normalized response.",
+   "tags": [
+    "api",
+    "etsy",
+    "ecommerce",
+    "product-data"
+   ],
+   "modes": [
+    "sync"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "usage_based",
+    "usd_reference": 0.00187
+   },
+   "record": "catalog/models/etsy/product.json"
+  },
+  {
+   "name": "etsy/search",
+   "display_name": "Etsy Search",
+   "type": "api",
+   "vendor": "Etsy",
+   "description": "Search Etsy listings by keyword, the same results an Etsy search or /market page shows, with optional sort, price range and page, and get title, price, original price, image, shop, rating and ad flag for each listing in one normalized response.",
+   "tags": [
+    "api",
+    "etsy",
+    "ecommerce",
+    "product-data"
+   ],
+   "modes": [
+    "sync"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "usage_based",
+    "usd_reference": 0.0009
+   },
+   "record": "catalog/models/etsy/search.json"
+  },
+  {
+   "name": "etsy/shop",
+   "display_name": "Etsy Shop",
+   "type": "api",
+   "vendor": "Etsy",
+   "description": "Look up one Etsy shop by name and get its id, location, sales, active listings, rating, reviews count, followers, description, logo and banner in one normalized response.",
+   "tags": [
+    "api",
+    "etsy",
+    "ecommerce",
+    "product-data"
+   ],
+   "modes": [
+    "sync"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "usage_based",
+    "usd_reference": 0.0009
+   },
+   "record": "catalog/models/etsy/shop.json"
+  },
+  {
+   "name": "etsy/shop-listings",
+   "display_name": "Etsy Shop Listings",
+   "type": "api",
+   "vendor": "Etsy",
+   "description": "List one Etsy shop's active listings by shop name, a page at a time, and get title, price, original price and image for each listing in one normalized response.",
+   "tags": [
+    "api",
+    "etsy",
+    "ecommerce",
+    "product-data"
+   ],
+   "modes": [
+    "sync"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "usage_based",
+    "usd_reference": 0.0009
+   },
+   "record": "catalog/models/etsy/shop-listings.json"
+  },
+  {
    "name": "exa/answer",
    "display_name": "Exa Question Answering",
    "type": "api",
@@ -16476,6 +16718,50 @@
     "free_quota": true
    },
    "record": "catalog/models/hybrid/video-data.json"
+  },
+  {
+   "name": "ikea/product",
+   "display_name": "IKEA Product",
+   "type": "api",
+   "vendor": "IKEA",
+   "description": "Get one IKEA product by URL with name, price, images, dimensions, materials, rating and store stock when a store ID is given.",
+   "tags": [
+    "api",
+    "ikea",
+    "ecommerce",
+    "product-data"
+   ],
+   "modes": [
+    "async"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "per_call",
+    "usd_per_call": 0.00015
+   },
+   "record": "catalog/models/ikea/product.json"
+  },
+  {
+   "name": "ikea/search",
+   "display_name": "IKEA Search",
+   "type": "api",
+   "vendor": "IKEA",
+   "description": "Search IKEA's US store by keyword and get title, price, rating, and image for each product in one normalized response.",
+   "tags": [
+    "api",
+    "ikea",
+    "ecommerce",
+    "product-data"
+   ],
+   "modes": [
+    "sync"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "usage_based",
+    "usd_reference": 0.00085
+   },
+   "record": "catalog/models/ikea/search.json"
   },
   {
    "name": "imdb/news-by-category-query",
@@ -21965,6 +22251,72 @@
    "record": "catalog/models/meijer/scrape/product.json"
   },
   {
+   "name": "mercari/product",
+   "display_name": "Mercari Product",
+   "type": "api",
+   "vendor": "Mercari",
+   "description": "Get one Mercari US or Japan listing by item id or URL: title, description, price, original price, status, condition, brand, category, size, photos, shipping terms (who pays, method, ships-from region, handling days), whether offers are accepted, likes, seller name, rating,…",
+   "tags": [
+    "api",
+    "mercari",
+    "ecommerce",
+    "product-data"
+   ],
+   "modes": [
+    "sync"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "usage_based",
+    "usd_reference": 0.0012
+   },
+   "record": "catalog/models/mercari/product.json"
+  },
+  {
+   "name": "mercari/search",
+   "display_name": "Mercari Search",
+   "type": "api",
+   "vendor": "Mercari",
+   "description": "Search active Mercari US or Japan listings for sale by keyword with optional price-range, condition, category, brand, and sort filters, page by page, with the total result count (price, original price, condition, brand, category path, size, seller, image; who pays shipping in…",
+   "tags": [
+    "api",
+    "mercari",
+    "ecommerce",
+    "product-data"
+   ],
+   "modes": [
+    "sync"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "usage_based",
+    "usd_reference": 0.0012
+   },
+   "record": "catalog/models/mercari/search.json"
+  },
+  {
+   "name": "mercari/sold-listings",
+   "display_name": "Mercari Sold Listings",
+   "type": "api",
+   "vendor": "Mercari",
+   "description": "Search Mercari US or Japan sold listings by keyword with optional price-range, condition, category, brand, and sort filters, page by page, with the total result count; ideal for resale pricing research. The sold price is the final price after any accepted offer; it does not…",
+   "tags": [
+    "api",
+    "mercari",
+    "ecommerce",
+    "product-data"
+   ],
+   "modes": [
+    "sync"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "usage_based",
+    "usd_reference": 0.0012
+   },
+   "record": "catalog/models/mercari/sold-listings.json"
+  },
+  {
    "name": "nasdaq/cryptocurrency-quote",
    "display_name": "Nasdaq Cryptocurrency Quote",
    "type": "api",
@@ -25091,6 +25443,50 @@
    "record": "catalog/models/reddit/user-posts.json"
   },
   {
+   "name": "sams-club/product",
+   "display_name": "Sam's Club Product",
+   "type": "api",
+   "vendor": "Sam's Club",
+   "description": "Fetch a SamsClub.com product by URL and get title, member price, stock, brand, model, UPC, rating, description, and images in one normalized response.",
+   "tags": [
+    "api",
+    "sams-club",
+    "ecommerce",
+    "product-data"
+   ],
+   "modes": [
+    "sync"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "usage_based",
+    "usd_reference": 0.00319
+   },
+   "record": "catalog/models/sams-club/product.json"
+  },
+  {
+   "name": "sams-club/search",
+   "display_name": "Sam's Club Search",
+   "type": "api",
+   "vendor": "Sam's Club",
+   "description": "Search SamsClub.com by keyword with optional sort, price-range, and page filters and get title, member price, stock, and rating for each product in one normalized response.",
+   "tags": [
+    "api",
+    "sams-club",
+    "ecommerce",
+    "product-data"
+   ],
+   "modes": [
+    "sync"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "usage_based",
+    "usd_reference": 0.00319
+   },
+   "record": "catalog/models/sams-club/search.json"
+  },
+  {
    "name": "scholar/search-mixed",
    "display_name": "Scholar Smart Search",
    "type": "api",
@@ -25795,6 +26191,94 @@
    "record": "catalog/models/shopee/search/facets.json"
   },
   {
+   "name": "shopify/product",
+   "display_name": "Shopify Product",
+   "type": "api",
+   "vendor": "Shopify",
+   "description": "Look up one product on any public Shopify store by its handle or product page URL and get title, vendor, type, tags, description, price range, sale price, stock, images, options and every variant's SKU, price and stock in one normalized response.",
+   "tags": [
+    "api",
+    "shopify",
+    "ecommerce",
+    "product-data"
+   ],
+   "modes": [
+    "sync"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "usage_based",
+    "usd_reference": 0.00085
+   },
+   "record": "catalog/models/shopify/product.json"
+  },
+  {
+   "name": "shopify/products",
+   "display_name": "Shopify Store Products",
+   "type": "api",
+   "vendor": "Shopify",
+   "description": "List the products of any public Shopify store by its domain, a page at a time, with title, vendor, type, tags, price range, sale price, stock, images, options and every variant's SKU, price and stock. Filter by vendor, type, tag, title, SKU, price, sale, stock or recent…",
+   "tags": [
+    "api",
+    "shopify",
+    "ecommerce",
+    "product-data"
+   ],
+   "modes": [
+    "sync"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "usage_based",
+    "usd_reference": 0.00085
+   },
+   "record": "catalog/models/shopify/products.json"
+  },
+  {
+   "name": "shopify/search",
+   "display_name": "Shopify Store Search",
+   "type": "api",
+   "vendor": "Shopify",
+   "description": "Search one public Shopify store's products by keyword with the store's own search and get its top matches with title, vendor, type, tags, price range, sale price, stock and images. A domain that is not a public Shopify store comes back not found.",
+   "tags": [
+    "api",
+    "shopify",
+    "ecommerce",
+    "product-data"
+   ],
+   "modes": [
+    "sync"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "usage_based",
+    "usd_reference": 0.00085
+   },
+   "record": "catalog/models/shopify/search.json"
+  },
+  {
+   "name": "shopify/store",
+   "display_name": "Shopify Store Profile",
+   "type": "api",
+   "vendor": "Shopify",
+   "description": "Look up any public Shopify store by its domain and get its name, description, currency, country and city, the countries it ships to, its published product and collection counts and its social links in one normalized response. A domain that is not a public Shopify store comes…",
+   "tags": [
+    "api",
+    "shopify",
+    "ecommerce",
+    "product-data"
+   ],
+   "modes": [
+    "sync"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "usage_based",
+    "usd_reference": 0.00085
+   },
+   "record": "catalog/models/shopify/store.json"
+  },
+  {
    "name": "similarweb/ad-networks",
    "display_name": "Similarweb Ad Networks",
    "type": "api",
@@ -26318,6 +26802,50 @@
     "usd_per_call": 0.45
    },
    "record": "catalog/models/similarweb/website-traffic-trend.json"
+  },
+  {
+   "name": "slickdeals/deal",
+   "display_name": "Slickdeals Deal",
+   "type": "api",
+   "vendor": "Slickdeals",
+   "description": "Fetch one Slickdeals deal by URL and get title, price, list price, store, coupon code, score, views, comments, and description in one normalized response.",
+   "tags": [
+    "api",
+    "slickdeals",
+    "ecommerce",
+    "product-data"
+   ],
+   "modes": [
+    "sync"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "usage_based",
+    "usd_reference": 0.00213
+   },
+   "record": "catalog/models/slickdeals/deal.json"
+  },
+  {
+   "name": "slickdeals/search",
+   "display_name": "Slickdeals Search",
+   "type": "api",
+   "vendor": "Slickdeals",
+   "description": "Search Slickdeals deals by keyword with optional sort, price, discount, and page filters and get title, price, list price, store, score, and comment count for each deal in one normalized response.",
+   "tags": [
+    "api",
+    "slickdeals",
+    "ecommerce",
+    "product-data"
+   ],
+   "modes": [
+    "sync"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "usage_based",
+    "usd_reference": 0.00213
+   },
+   "record": "catalog/models/slickdeals/search.json"
   },
   {
    "name": "snapchat/profile",
@@ -32470,6 +32998,28 @@
     "usd_to": 0.4977
    },
    "record": "catalog/models/waveinflu/similar-creators.json"
+  },
+  {
+   "name": "wayfair/search",
+   "display_name": "Wayfair Search",
+   "type": "api",
+   "vendor": "Wayfair",
+   "description": "Search Wayfair products by keyword and get listings with price, rating, review count and product URL, page by page.",
+   "tags": [
+    "api",
+    "wayfair",
+    "ecommerce",
+    "product-data"
+   ],
+   "modes": [
+    "async"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "per_call",
+    "usd_per_call": 0.00015
+   },
+   "record": "catalog/models/wayfair/search.json"
   },
   {
    "name": "weather-underground/historical-airport-temperature-series",
@@ -41843,8 +42393,8 @@
    "endpoint": "POST /v1/run",
    "price": {
     "model": "formula",
-    "usd_from": 0.2,
-    "usd_to": 0.2
+    "usd_from": 0.44,
+    "usd_to": 0.44
    },
    "record": "catalog/models/meshy/rigging/multi-animation.json"
   },

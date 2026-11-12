@@ -36,7 +36,7 @@ Modes: async (default `async`). Only pass `mode` values listed here. The SDKs' `
 ```bash
 curl https://api.sandbase.ai/v1/run \
   -H "Authorization: Bearer $SANDBASE_API_KEY" -H 'Content-Type: application/json' \
-  -d '{"model": "tripo3d/tripo-v2.5/multiview-to-3d", "image": "https://platform.tripo3d.ai/assets/front-235queJB.jpg", "back_image": "https://platform.tripo3d.ai/assets/front-235queJB.jpg"}'
+  -d '{"model": "tripo3d/tripo-v2.5/multiview-to-3d", "back_image": "https://static.sandbase.ai/examples/63b09ac5-1238-4faa-abc7-8a23a30b586e/input/85d48a9b-54ca-41bb-89d6-557a1a551598.png", "image": "https://static.sandbase.ai/examples/63b09ac5-1238-4faa-abc7-8a23a30b586e/input/0d0f81a1-5f3f-4370-9588-c67939c2d60c.png", "left_image": "https://static.sandbase.ai/examples/63b09ac5-1238-4faa-abc7-8a23a30b586e/input/6af06d30-3fff-4bb0-9a21-e30df6807dfa.png"}'
 ```
 
 **Python** ([sdk/python](../../../../sdk/python))
@@ -44,7 +44,7 @@ curl https://api.sandbase.ai/v1/run \
 ```python
 from sandbase import SandBase
 
-result = SandBase().run('tripo3d/tripo-v2.5/multiview-to-3d', {'image': 'https://platform.tripo3d.ai/assets/front-235queJB.jpg', 'back_image': 'https://platform.tripo3d.ai/assets/front-235queJB.jpg'})
+result = SandBase().run('tripo3d/tripo-v2.5/multiview-to-3d', {'back_image': 'https://static.sandbase.ai/examples/63b09ac5-1238-4faa-abc7-8a23a30b586e/input/85d48a9b-54ca-41bb-89d6-557a1a551598.png', 'image': 'https://static.sandbase.ai/examples/63b09ac5-1238-4faa-abc7-8a23a30b586e/input/0d0f81a1-5f3f-4370-9588-c67939c2d60c.png', 'left_image': 'https://static.sandbase.ai/examples/63b09ac5-1238-4faa-abc7-8a23a30b586e/input/6af06d30-3fff-4bb0-9a21-e30df6807dfa.png'})
 print(result["outputs"])
 ```
 
@@ -54,8 +54,9 @@ print(result["outputs"])
 import { SandBase } from "@sandbaseai/sdk";
 
 const result = await new SandBase().run("tripo3d/tripo-v2.5/multiview-to-3d", {
-  "image": "https://platform.tripo3d.ai/assets/front-235queJB.jpg",
-  "back_image": "https://platform.tripo3d.ai/assets/front-235queJB.jpg"
+  "back_image": "https://static.sandbase.ai/examples/63b09ac5-1238-4faa-abc7-8a23a30b586e/input/85d48a9b-54ca-41bb-89d6-557a1a551598.png",
+  "image": "https://static.sandbase.ai/examples/63b09ac5-1238-4faa-abc7-8a23a30b586e/input/0d0f81a1-5f3f-4370-9588-c67939c2d60c.png",
+  "left_image": "https://static.sandbase.ai/examples/63b09ac5-1238-4faa-abc7-8a23a30b586e/input/6af06d30-3fff-4bb0-9a21-e30df6807dfa.png"
 });
 console.log(result.outputs);
 ```
@@ -65,8 +66,9 @@ console.log(result.outputs);
 ```go
 c, _ := sandbase.NewClient("")
 run, err := c.Run(ctx, "tripo3d/tripo-v2.5/multiview-to-3d", sandbase.Params{
-	"image": "https://platform.tripo3d.ai/assets/front-235queJB.jpg",
-	"back_image": "https://platform.tripo3d.ai/assets/front-235queJB.jpg",
+	"back_image": "https://static.sandbase.ai/examples/63b09ac5-1238-4faa-abc7-8a23a30b586e/input/85d48a9b-54ca-41bb-89d6-557a1a551598.png",
+	"image": "https://static.sandbase.ai/examples/63b09ac5-1238-4faa-abc7-8a23a30b586e/input/0d0f81a1-5f3f-4370-9588-c67939c2d60c.png",
+	"left_image": "https://static.sandbase.ai/examples/63b09ac5-1238-4faa-abc7-8a23a30b586e/input/6af06d30-3fff-4bb0-9a21-e30df6807dfa.png",
 })
 ```
 

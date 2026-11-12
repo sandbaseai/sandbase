@@ -127,6 +127,24 @@
     "model": "per_call",
     "per_call": 0.05
   },
+  "examples": [
+    {
+      "input": {
+        "image": "https://static.sandbase.ai/examples/245b0a9f-0c73-43fa-8572-66eec3e3f22a/input/72556ad0-310a-433f-af29-fcabf057b46a.png"
+      },
+      "output": [
+        {
+          "depth_map": "https://static.sandbase.ai/examples/245b0a9f-0c73-43fa-8572-66eec3e3f22a/output/ec3e8c69-afad-441d-a939-096a2926de4d.png",
+          "mask": "https://static.sandbase.ai/examples/245b0a9f-0c73-43fa-8572-66eec3e3f22a/output/574ff3cf-9929-4bda-bbef-98a345efa919.png",
+          "normal_map": "https://static.sandbase.ai/examples/245b0a9f-0c73-43fa-8572-66eec3e3f22a/output/362a6273-4bf6-4b00-897b-9366768cc441.png",
+          "point_cloud": "https://static.sandbase.ai/examples/245b0a9f-0c73-43fa-8572-66eec3e3f22a/output/caebe43e-0a76-42b4-b0ed-380e08d4552f.ply",
+          "poster": "https://static.sandbase.ai/examples/245b0a9f-0c73-43fa-8572-66eec3e3f22a/output/6f38e720-50cb-4077-8881-1f211caea43b.png",
+          "url": "https://static.sandbase.ai/examples/245b0a9f-0c73-43fa-8572-66eec3e3f22a/output/81835ae6-3afb-46ed-84b5-c0dd4dc64325.glb"
+        }
+      ],
+      "default": true
+    }
+  ],
   "readme": "# MoGe-2\nMoGe-2 by Microsoft estimates metric 3D geometry from a single image and returns a textured GLB mesh, a PLY point cloud, and depth, normal and mask maps.\n## Fields\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `image` | image URL, required | — | Input RGB image to reconstruct. |\n| `checkpoint` | `vitl-normal` / `vitl` / `vitb-normal` / `vits-normal` | `vitl-normal` | MoGe-2 checkpoint. '-normal' variants also predict surface normals; 'vitl' has no normal map; smaller ViT-B/ViT-S variants are faster. |\n| `resolution_level` | integer 0–9 | `9` | Processing resolution level (0-9). Higher values give finer detail but run slower; output size always matches the input. |\n| `fov_x` | number 1–179 | — | Known horizontal field of view in degrees. Estimated from the image when omitted. |\n| `apply_mask` | boolean | `true` | Mask out invalid regions (sky, background, uncertain) in the reconstruction. |\n## Output\n- `url`: Main 3D file (GLB unless another export format is selected).\n- `point_cloud`: Additional file returned by the provider.\n- `depth_map`: Additional file returned by the provider.\n- `normal_map`: Additional file returned by the provider.\n- `mask`: Additional file returned by the provider.\n## Billing\n$0.05 per request.\nFailed runs are not charged.\n## Also on SandBase\nOther Microsoft 3D endpoints: `microsoft/moge-3`.\n",
   "cover_url": "https://static.sandbase.ai/covers/microsoft/moge-2/cover-flare-20261111180856.webp",
   "page_url": "https://www.sandbase.ai/model/microsoft/moge-2",

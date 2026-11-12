@@ -131,6 +131,21 @@
       }
     ]
   },
+  "examples": [
+    {
+      "input": {
+        "prompt": "A potted bonsai tree with twisted trunk and lush green foliage in a glazed blue pot"
+      },
+      "output": [
+        {
+          "poster": "https://static.sandbase.ai/examples/8030312c-3eb2-43b9-afe3-3ba4346a83a5/output/067959ca-989b-47b5-a659-e217d79410e5.png",
+          "thumbnail": "https://static.sandbase.ai/examples/8030312c-3eb2-43b9-afe3-3ba4346a83a5/output/067959ca-989b-47b5-a659-e217d79410e5.png",
+          "url": "https://static.sandbase.ai/examples/8030312c-3eb2-43b9-afe3-3ba4346a83a5/output/1577fbd2-22da-4fe0-adbf-98289ee3d3ec.glb"
+        }
+      ],
+      "default": true
+    }
+  ],
   "readme": "# Tripo P1 Text to 3D\nTripo P1 is Tripo3D's text-to-3D model. It generates a 3D mesh with optional textures from a text description.\n## Fields\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `prompt` | string, required | — | Text description of the 3D object to generate. Maximum 1024 characters. |\n| `texture` | boolean | `true` | Generate textures. Set to false for an untextured mesh (cheaper). |\n| `face_limit` | integer 48–20000 | — | Target face count of the mesh. Adaptive when unset. |\n| `seed` | integer | — | Seed for reproducible geometry generation. |\n## Output\n- `url`: Main 3D file (GLB unless another export format is selected).\n- `thumbnail`: Preview image rendered by the provider.\n## Billing\n$0.48 per request with default settings. Price by option (other settings at default):\n| Option | Price |\n|---|---|\n| texture on | $0.48 |\n| texture off | $0.36 |\nFailed runs are not charged.\n## Also on SandBase\nOther Tripo3D 3D endpoints: `tripo3d/tripo-h3.1/image-to-3d`, `tripo3d/tripo-h3.1/multiview-to-3d`, `tripo3d/tripo-h3.1/text-to-3d`, `tripo3d/tripo-p1/image-to-3d`.\n",
   "cover_url": "https://static.sandbase.ai/covers/tripo3d/tripo-p1/text-to-3d/cover-flare-20261111181154.webp",
   "page_url": "https://www.sandbase.ai/model/tripo3d/tripo-p1/text-to-3d",

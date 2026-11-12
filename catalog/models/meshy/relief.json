@@ -179,6 +179,23 @@
     "model": "per_call",
     "per_call": 0.8
   },
+  "examples": [
+    {
+      "input": {
+        "image": "https://static.sandbase.ai/examples/4c94005b-9c2a-44cc-abe7-337094aa34eb/input/dfd2b1f1-42c5-46c5-92e6-a9fc9ac0c350.png"
+      },
+      "output": [
+        {
+          "depth_map": "https://static.sandbase.ai/examples/4c94005b-9c2a-44cc-abe7-337094aa34eb/output/7046e3e3-aee4-400e-bc54-e8019df43447.png",
+          "poster": "https://static.sandbase.ai/examples/4c94005b-9c2a-44cc-abe7-337094aa34eb/output/9cb0fdcd-7683-4f25-a9c5-c9bbde4d62f6.png",
+          "stl": "https://static.sandbase.ai/examples/4c94005b-9c2a-44cc-abe7-337094aa34eb/output/e6dc3755-f5be-4f86-a1a2-7f300bc07186.stl",
+          "thumbnail": "https://static.sandbase.ai/examples/4c94005b-9c2a-44cc-abe7-337094aa34eb/output/9cb0fdcd-7683-4f25-a9c5-c9bbde4d62f6.png",
+          "url": "https://static.sandbase.ai/examples/4c94005b-9c2a-44cc-abe7-337094aa34eb/output/2295cb5f-74d9-47cf-b445-b8dbe52a9ae4.glb"
+        }
+      ],
+      "default": true
+    }
+  ],
   "readme": "# Meshy Relief\nMeshy Relief turns a photo into a printable 3D relief (GLB and STL) with emboss or engrave carving and an optional curved bend.\n## Fields\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `image` | image URL, required | — | Photo to turn into a relief. Works best with one clear subject on a plain background. JPG, PNG or WebP up to 20 MB. |\n| `variant` | `low` / `high` | `low` | 'low' gives slight depth and finer detail (patterns, badges, seals); 'high' gives bold, sculptural depth (pets, portraits, characters). |\n| `carving_mode` | `emboss` / `engrave` | `emboss` | 'emboss' makes nearer parts stand out; 'engrave' cuts them in. |\n| `size_mm` | number 20–250 | `60` | Length of the photo's long side in millimeters, measured flat before any bend. |\n| `carving_depth_mm` | number 0–60 | — | Carving depth in millimeters. Defaults to 3 for 'low' and 6 for 'high'. |\n| `base_thickness_mm` | number 0.1–10 | — | Base plate thickness in millimeters (default 1). Not allowed with remove_base. |\n| `remove_base` | boolean | `false` | Cut away the background and build no base plate. |\n| `bend_mode` | `off` / `convex` / `concave` | `off` | Bend the relief into a convex or concave curve. |\n| `bend_axis` | `xz` / `yz` | `xz` | 'xz' curls the left and right edges, 'yz' the top and bottom. |\n| `bend_angle` | number 0–360 | `60` | Bend angle in degrees when bending is on. |\n| `mesh_resolution` | integer 512–2048 | `1024` | Mesh points along the long side. At 2048 the GLB reaches about 150 MB and the STL about 300 MB. |\n## Output\n- `url`: Main 3D file (GLB unless another export format is selected).\n- `thumbnail`: Preview image rendered by the provider.\n- `stl`: Additional file returned by the provider.\n- `depth_map`: Additional file returned by the provider.\n## Billing\n$0.80 per request.\nFailed runs are not charged.\n## Also on SandBase\nOther Meshy 3D endpoints: `meshy/6.0-lite/retexture`, `meshy/6.0/retexture`, `meshy/7.0/image-to-3d`, `meshy/7.0/multi-image-to-3d`.\n",
   "cover_url": "https://static.sandbase.ai/covers/meshy/relief/cover-flare-20261111180945.webp",
   "page_url": "https://www.sandbase.ai/model/meshy/relief",

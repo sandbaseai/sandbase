@@ -105,6 +105,21 @@
     "model": "per_call",
     "per_call": 0.024
   },
+  "examples": [
+    {
+      "input": {
+        "image": "https://static.sandbase.ai/examples/662c1b28-14d4-42cb-a8af-1c1aa80892eb/input/f6e28db1-3eed-4390-a6ea-88f96f778324.png"
+      },
+      "output": [
+        {
+          "poster": "https://static.sandbase.ai/examples/662c1b28-14d4-42cb-a8af-1c1aa80892eb/output/036dc4c8-9e1e-453f-a4f6-dd62126eb565.jpg",
+          "thumbnail": "https://static.sandbase.ai/examples/662c1b28-14d4-42cb-a8af-1c1aa80892eb/output/036dc4c8-9e1e-453f-a4f6-dd62126eb565.jpg",
+          "url": "https://static.sandbase.ai/examples/662c1b28-14d4-42cb-a8af-1c1aa80892eb/output/9df365ae-24e9-4539-9017-e264d2268abe.glb"
+        }
+      ],
+      "default": true
+    }
+  ],
   "readme": "# SAM 3 3D Body\nSAM 3D Body by Meta reconstructs the 3D shape and pose of the people in a single image and returns them as a GLB mesh.\n## Fields\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `image` | image URL, required | — | Image containing one or more people. |\n| `mask` | image URL | — | Optional binary mask (white = person, black = background). When set, automatic person detection is skipped. |\n| `include_3d_keypoints` | boolean | `true` | Add 3D keypoint markers (spheres) to the GLB mesh. |\n## Output\n- `url`: Main 3D file (GLB unless another export format is selected).\n- `thumbnail`: Preview image rendered by the provider.\n## Billing\n$0.024 per request.\nFailed runs are not charged.\n## Also on SandBase\nOther Meta 3D endpoints: `meta/sam-3/3d-align`, `meta/sam-3/3d-objects`.\n",
   "cover_url": "https://static.sandbase.ai/covers/meta/sam-3/3d-body/cover-flare-20261111181021.webp",
   "page_url": "https://www.sandbase.ai/model/meta/sam-3/3d-body",

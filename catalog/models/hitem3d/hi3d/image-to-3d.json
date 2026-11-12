@@ -262,6 +262,21 @@
       }
     ]
   },
+  "examples": [
+    {
+      "input": {
+        "image": "https://static.sandbase.ai/examples/6fda1575-fd88-4b4d-b090-7587939292a0/input/a4f2ccb4-33d6-4056-917c-05cb450f5a9a.png"
+      },
+      "output": [
+        {
+          "poster": "https://static.sandbase.ai/examples/6fda1575-fd88-4b4d-b090-7587939292a0/output/5f9cdfb1-3783-4c94-80e5-60d786fcf167.webp",
+          "thumbnail": "https://static.sandbase.ai/examples/6fda1575-fd88-4b4d-b090-7587939292a0/output/5f9cdfb1-3783-4c94-80e5-60d786fcf167.webp",
+          "url": "https://static.sandbase.ai/examples/6fda1575-fd88-4b4d-b090-7587939292a0/output/cd9ca3fe-9288-40d6-a605-e44ffbcb0b29.glb"
+        }
+      ],
+      "default": true
+    }
+  ],
   "readme": "# Hitem3D Hi3D Image to 3D\nHi3D by Hitem3D generates a 3D model from a single image, with a selectable model version (v1.5, v2.0, v2.1, or portrait-tuned variants) and resolution tier.\n## Fields\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `image` | image URL, required | — | Input image URL. PNG, JPEG and WebP, up to 20MB. |\n| `version` | `hitem3dv1.5` / `hitem3dv2.0` / `hitem3dv2.1` / `scene-portraitv1.5` / `scene-portraitv2.0` / `scene-portraitv2.1` | `hitem3dv2.1` | Model version. hitem3d* are general models; scene-portrait* are tuned for portraits and characters. |\n| `resolution` | `512` / `1024` / `1536` / `1536pro` / `1536fast` / `1536profast` | — | Generation resolution; supported values depend on the model: v1.5/v2.0 accept 512, 1024, 1536, 1536pro; v2.1 accepts 1536fast, 1536pro; scene-portraitv1.5 accepts 1536; scene-portraitv2.0 accepts 1536pro; scene-portraitv2.1 accepts 1536profast, 1536pro. Uses the model's recommended value when unset. |\n| `enable_texture` | boolean | `true` | Generate textures in addition to geometry. When false, only the geometry mesh is generated (cheaper). |\n| `enable_pbr` | boolean | `true` | Generate PBR material maps with the texture (v2.0 and above; billed add-on). |\n| `face_count` | integer 100000–2000000 | — | Target face count. Uses the recommended count for the resolution when unset. |\n| `export_format` | `glb` / `obj` / `stl` / `fbx` / `usdz` | `glb` | File format of the generated model. |\n## Output\n- `url`: Main 3D file (GLB unless another export format is selected).\n- `thumbnail`: Preview image rendered by the provider.\n## Billing\n$0.90 per request with default settings. Price by option (other settings at default):\n| Option | Price |\n|---|---|\n| enable_pbr on | $0.90 |\n| enable_pbr off | $0.80 |\n| enable_texture on | $0.90 |\n| enable_texture off | $0.60 |\n| resolution unset | $0.90 |\n| resolution = 512 | $0.40 |\n| resolution = 1024 | $0.50 |\n| resolution = 1536 | $0.70 |\n| resolution = 1536pro | $0.90 |\n| resolution = 1536fast | $0.50 |\n| resolution = 1536profast | $0.50 |\n| version = hitem3dv1.5 | $0.80 |\n| version = hitem3dv2.0 | $0.90 |\n| version = hitem3dv2.1 | $0.90 |\n| version = scene-portraitv1.5 | $0.60 |\n| version = scene-portraitv2.0 | $0.90 |\n| version = scene-portraitv2.1 | $0.90 |\nFailed runs are not charged.\n## Also on SandBase\nOther Hitem3D 3D endpoints: `hitem3d/hi3d/multi-view-to-3d`, `hitem3d/hi3d/multicolor`, `hitem3d/hi3d/split`, `hitem3d/hi3d/texture`.\n",
   "cover_url": "https://static.sandbase.ai/covers/hitem3d/hi3d/image-to-3d/cover-flare-20261111180706.webp",
   "page_url": "https://www.sandbase.ai/model/hitem3d/hi3d/image-to-3d",

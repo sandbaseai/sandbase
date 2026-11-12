@@ -2,7 +2,7 @@
 
 `meshy/rigging/multi-animation` · image generation model · Meshy · callable with one SandBase API key from curl, Python, TypeScript and Go.
 
-**Price:** from $0.2 per run, depending on parameters · **Modes:** async
+**Price:** from $0.44 per run, depending on parameters · **Modes:** async
 
 Meshy Rigging Multi-Animation rigs an existing humanoid character model and generates up to 10 animation clips on the same rig.
 
@@ -12,7 +12,7 @@ Meshy Rigging Multi-Animation rigs an existing humanoid character model and gene
 
 | parameters | USD |
 |---|---|
-| defaults | 0.2 |
+| defaults | 0.44 |
 
 Formula: `0.2 + len(params.animation_action_ids ?? []) * 0.12`
 
@@ -25,7 +25,7 @@ Modes: async (default `async`). Only pass `mode` values listed here. The SDKs' `
 ```bash
 curl https://api.sandbase.ai/v1/run \
   -H "Authorization: Bearer $SANDBASE_API_KEY" -H 'Content-Type: application/json' \
-  -d '{"model": "meshy/rigging/multi-animation", "model_url": "https://storage.googleapis.com/falserverless/model_tests/video_models/base_basic_shaded.glb", "animation_action_ids": [92]}'
+  -d '{"model": "meshy/rigging/multi-animation", "animation_action_ids": [92, 4], "model_url": "https://static.sandbase.ai/examples/b6ee151f-f759-4310-913a-3ef685bd1615/input/9d665214-a80d-47a1-b73e-b1c023a701e9.glb"}'
 ```
 
 **Python** ([sdk/python](../../../../sdk/python))
@@ -33,7 +33,7 @@ curl https://api.sandbase.ai/v1/run \
 ```python
 from sandbase import SandBase
 
-result = SandBase().run('meshy/rigging/multi-animation', {'model_url': 'https://storage.googleapis.com/falserverless/model_tests/video_models/base_basic_shaded.glb', 'animation_action_ids': [92]})
+result = SandBase().run('meshy/rigging/multi-animation', {'animation_action_ids': [92, 4], 'model_url': 'https://static.sandbase.ai/examples/b6ee151f-f759-4310-913a-3ef685bd1615/input/9d665214-a80d-47a1-b73e-b1c023a701e9.glb'})
 print(result["outputs"])
 ```
 
@@ -43,10 +43,11 @@ print(result["outputs"])
 import { SandBase } from "@sandbaseai/sdk";
 
 const result = await new SandBase().run("meshy/rigging/multi-animation", {
-  "model_url": "https://storage.googleapis.com/falserverless/model_tests/video_models/base_basic_shaded.glb",
   "animation_action_ids": [
-    92
-  ]
+    92,
+    4
+  ],
+  "model_url": "https://static.sandbase.ai/examples/b6ee151f-f759-4310-913a-3ef685bd1615/input/9d665214-a80d-47a1-b73e-b1c023a701e9.glb"
 });
 console.log(result.outputs);
 ```
@@ -56,8 +57,8 @@ console.log(result.outputs);
 ```go
 c, _ := sandbase.NewClient("")
 run, err := c.Run(ctx, "meshy/rigging/multi-animation", sandbase.Params{
-	"model_url": "https://storage.googleapis.com/falserverless/model_tests/video_models/base_basic_shaded.glb",
-	"animation_action_ids": []any{92},
+	"animation_action_ids": []any{92, 4},
+	"model_url": "https://static.sandbase.ai/examples/b6ee151f-f759-4310-913a-3ef685bd1615/input/9d665214-a80d-47a1-b73e-b1c023a701e9.glb",
 })
 ```
 

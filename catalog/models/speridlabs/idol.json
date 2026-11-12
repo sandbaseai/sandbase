@@ -117,6 +117,22 @@
     "model": "per_call",
     "per_call": 0.1
   },
+  "examples": [
+    {
+      "input": {
+        "image": "https://static.sandbase.ai/examples/92b467b8-e906-4df4-a912-290fbd4a134d/input/969c0927-46b5-4d95-91ca-8568e6eed33d.png"
+      },
+      "output": [
+        {
+          "gaussian_splat": "https://static.sandbase.ai/examples/92b467b8-e906-4df4-a912-290fbd4a134d/output/e49a06bb-4b33-4d0a-ac86-904b9a97be62.ply",
+          "poster": "https://static.sandbase.ai/examples/92b467b8-e906-4df4-a912-290fbd4a134d/output/04b5e169-d9db-457c-bb8a-0c4708ce57c2.png",
+          "thumbnail": "https://static.sandbase.ai/examples/92b467b8-e906-4df4-a912-290fbd4a134d/output/04b5e169-d9db-457c-bb8a-0c4708ce57c2.png",
+          "url": "https://static.sandbase.ai/examples/92b467b8-e906-4df4-a912-290fbd4a134d/output/a48f1677-7798-478a-9428-ddea77cfd88c.glb"
+        }
+      ],
+      "default": true
+    }
+  ],
   "readme": "# Idol\nIdol by Sperid Labs turns a single image of an object into a 3D Gaussian splat (PLY) with a GLB point-cloud preview.\n## Fields\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `image` | image URL, required | — | Image of a single object to convert into a 3D Gaussian splat. |\n| `image_type` | `synthetic` / `real` | `synthetic` | 'synthetic' for renders and generated images (tight crop), 'real' for photographs (looser crop). |\n| `num_gaussians` | integer 32768–1048576 | `262144` | Target number of Gaussians in the output splat. |\n| `seed` | integer | — | Random seed for reproducible results. |\n## Output\n- `url`: Main 3D file (GLB unless another export format is selected).\n- `thumbnail`: Preview image rendered by the provider.\n- `gaussian_splat`: Additional file returned by the provider.\n## Billing\n$0.10 per request.\nFailed runs are not charged.\n",
   "cover_url": "https://static.sandbase.ai/covers/speridlabs/idol/cover-flare-20261111180904.webp",
   "page_url": "https://www.sandbase.ai/model/speridlabs/idol",

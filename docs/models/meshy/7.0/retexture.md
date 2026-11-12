@@ -27,7 +27,7 @@ Modes: async (default `async`). Only pass `mode` values listed here. The SDKs' `
 ```bash
 curl https://api.sandbase.ai/v1/run \
   -H "Authorization: Bearer $SANDBASE_API_KEY" -H 'Content-Type: application/json' \
-  -d '{"model": "meshy/7.0/retexture", "model_url": "<model_url>"}'
+  -d '{"model": "meshy/7.0/retexture", "enable_pbr": true, "model_url": "https://static.sandbase.ai/examples/9e61c502-30fc-4006-b051-edcdc6539b95/input/e3711001-5915-4f21-8156-beccb1a8316e.glb", "text_style_prompt": "weathered pirate treasure chest, dark oak planks with rusted iron bands and gold rivets", "texture_resolution": "4k"}'
 ```
 
 **Python** ([sdk/python](../../../../sdk/python))
@@ -35,7 +35,7 @@ curl https://api.sandbase.ai/v1/run \
 ```python
 from sandbase import SandBase
 
-result = SandBase().run('meshy/7.0/retexture', {'model_url': '<model_url>'})
+result = SandBase().run('meshy/7.0/retexture', {'enable_pbr': True, 'model_url': 'https://static.sandbase.ai/examples/9e61c502-30fc-4006-b051-edcdc6539b95/input/e3711001-5915-4f21-8156-beccb1a8316e.glb', 'text_style_prompt': 'weathered pirate treasure chest, dark oak planks with rusted iron bands and gold rivets', 'texture_resolution': '4k'})
 print(result["outputs"])
 ```
 
@@ -45,7 +45,10 @@ print(result["outputs"])
 import { SandBase } from "@sandbaseai/sdk";
 
 const result = await new SandBase().run("meshy/7.0/retexture", {
-  "model_url": "<model_url>"
+  "enable_pbr": true,
+  "model_url": "https://static.sandbase.ai/examples/9e61c502-30fc-4006-b051-edcdc6539b95/input/e3711001-5915-4f21-8156-beccb1a8316e.glb",
+  "text_style_prompt": "weathered pirate treasure chest, dark oak planks with rusted iron bands and gold rivets",
+  "texture_resolution": "4k"
 });
 console.log(result.outputs);
 ```
@@ -55,7 +58,10 @@ console.log(result.outputs);
 ```go
 c, _ := sandbase.NewClient("")
 run, err := c.Run(ctx, "meshy/7.0/retexture", sandbase.Params{
-	"model_url": "<model_url>",
+	"enable_pbr": true,
+	"model_url": "https://static.sandbase.ai/examples/9e61c502-30fc-4006-b051-edcdc6539b95/input/e3711001-5915-4f21-8156-beccb1a8316e.glb",
+	"text_style_prompt": "weathered pirate treasure chest, dark oak planks with rusted iron bands and gold rivets",
+	"texture_resolution": "4k",
 })
 ```
 

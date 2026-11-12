@@ -1,0 +1,85 @@
+{
+  "name": "shopify/product",
+  "display_name": "Shopify Product",
+  "type": "api",
+  "vendor": "Shopify",
+  "vendor_slug": "shopify",
+  "description": "Look up one product on any public Shopify store by its handle or product page URL and get title, vendor, type, tags, description, price range, sale price, stock, images, options and every variant's SKU, price and stock in one normalized response.",
+  "tags": [
+    "api",
+    "shopify",
+    "ecommerce",
+    "product-data"
+  ],
+  "capabilities": [
+    "api",
+    "shopify",
+    "ecommerce",
+    "product-data"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/shopify/product"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "store",
+      "product"
+    ],
+    "properties": {
+      "store": {
+        "type": "string",
+        "example": "allbirds.com",
+        "minLength": 1,
+        "description": "Domain or URL of a public Shopify store, e.g. allbirds.com or https://kith.com. A store on its own domain is addressed by that domain."
+      },
+      "product": {
+        "type": "string",
+        "example": "mens-strider",
+        "minLength": 1,
+        "description": "Product handle, the slug after /products/ in the product URL, e.g. mens-strider; the full product page URL also works."
+      }
+    },
+    "additionalProperties": false
+  },
+  "response_schema": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string"
+      },
+      "model": {
+        "type": "string"
+      },
+      "status": {
+        "type": "string"
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "data": {
+              "type": "object",
+              "description": "Normalized result for this request."
+            }
+          }
+        }
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "usage_based",
+    "note": "Billed per call from metered usage; the reference price is typical.",
+    "reference_price": 0.00085
+  },
+  "readme": "# Shopify Product API\n\nLook up one product on any public Shopify store by its handle or product page URL and get title, vendor, type, tags, description, price range, sale price, stock, images, options and every variant's SKU, price and stock in one normalized response.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/run\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"model\": \"shopify/product\", \"store\": \"allbirds.com\", \"product\": \"mens-strider\"}'\n```\n\nThe result is returned in `outputs[0].data`. Lookups that find nothing fail with a not-found error.\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `product` | string | Yes | Product handle, the slug after /products/ in the product URL, e.g. mens-strider; the full product page URL also works. |\n| `store` | string | Yes | Domain or URL of a public Shopify store, e.g. allbirds.com or https://kith.com. A store on its own domain is addressed by that domain. |\n\n## Pricing\n\nBilled at the actual cost of each call, about $0.00085 per request. A call can cost more when the first data source fails and another one answers. Failed calls and lookups that find nothing are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/shopify/product",
+  "created_at": "2026-11-12T06:58:00.068Z"
+}

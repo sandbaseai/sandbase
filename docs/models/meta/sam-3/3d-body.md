@@ -19,7 +19,7 @@ Modes: async (default `async`). Only pass `mode` values listed here. The SDKs' `
 ```bash
 curl https://api.sandbase.ai/v1/run \
   -H "Authorization: Bearer $SANDBASE_API_KEY" -H 'Content-Type: application/json' \
-  -d '{"model": "meta/sam-3/3d-body", "image": "https://static.sandbase.ai/examples/meta/sam-3/3d-body/input_image_0.jpeg"}'
+  -d '{"model": "meta/sam-3/3d-body", "image": "https://static.sandbase.ai/examples/662c1b28-14d4-42cb-a8af-1c1aa80892eb/input/f6e28db1-3eed-4390-a6ea-88f96f778324.png"}'
 ```
 
 **Python** ([sdk/python](../../../../sdk/python))
@@ -27,7 +27,7 @@ curl https://api.sandbase.ai/v1/run \
 ```python
 from sandbase import SandBase
 
-result = SandBase().run('meta/sam-3/3d-body', {'image': 'https://static.sandbase.ai/examples/meta/sam-3/3d-body/input_image_0.jpeg'})
+result = SandBase().run('meta/sam-3/3d-body', {'image': 'https://static.sandbase.ai/examples/662c1b28-14d4-42cb-a8af-1c1aa80892eb/input/f6e28db1-3eed-4390-a6ea-88f96f778324.png'})
 print(result["outputs"])
 ```
 
@@ -37,7 +37,7 @@ print(result["outputs"])
 import { SandBase } from "@sandbaseai/sdk";
 
 const result = await new SandBase().run("meta/sam-3/3d-body", {
-  "image": "https://static.sandbase.ai/examples/meta/sam-3/3d-body/input_image_0.jpeg"
+  "image": "https://static.sandbase.ai/examples/662c1b28-14d4-42cb-a8af-1c1aa80892eb/input/f6e28db1-3eed-4390-a6ea-88f96f778324.png"
 });
 console.log(result.outputs);
 ```
@@ -47,7 +47,7 @@ console.log(result.outputs);
 ```go
 c, _ := sandbase.NewClient("")
 run, err := c.Run(ctx, "meta/sam-3/3d-body", sandbase.Params{
-	"image": "https://static.sandbase.ai/examples/meta/sam-3/3d-body/input_image_0.jpeg",
+	"image": "https://static.sandbase.ai/examples/662c1b28-14d4-42cb-a8af-1c1aa80892eb/input/f6e28db1-3eed-4390-a6ea-88f96f778324.png",
 })
 ```
 

@@ -11,7 +11,7 @@ Call 1 reconviagen models through SandBase with one API key: no separate account
 ```bash
 curl https://api.sandbase.ai/v1/run \
   -H "Authorization: Bearer $SANDBASE_API_KEY" -H 'Content-Type: application/json' \
-  -d '{"model": "reconviagen/reconviagen-0.5", "images": "https://storage.googleapis.com/falserverless/model_tests/video_models/front.png"}'
+  -d '{"model": "reconviagen/reconviagen-0.5", "images": ["https://static.sandbase.ai/examples/e7aaf9f3-ff36-4f29-9817-19caa1bf2e2c/input/61e979cb-8ae9-4cee-a73e-c1402d05faed.png", "https://static.sandbase.ai/examples/e7aaf9f3-ff36-4f29-9817-19caa1bf2e2c/input/3025d72b-49eb-4751-ad7d-502b2e8e7c90.png", "https://static.sandbase.ai/examples/e7aaf9f3-ff36-4f29-9817-19caa1bf2e2c/input/f67785e3-394b-4c82-b251-28f0993af3a0.png"]}'
 ```
 
 Get a key at [sandbase.ai](https://www.sandbase.ai/console). Back to [all platforms](README.md).

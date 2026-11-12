@@ -110,6 +110,20 @@
     "model": "per_call",
     "per_call": 0.02
   },
+  "examples": [
+    {
+      "input": {
+        "image": "https://static.sandbase.ai/examples/fe2420f6-f986-41b0-8ba0-a396d9df8b9b/input/9976ef54-909a-45aa-b4ce-c4fa20a068ad.png"
+      },
+      "output": [
+        {
+          "poster": "https://static.sandbase.ai/examples/fe2420f6-f986-41b0-8ba0-a396d9df8b9b/output/202f95cf-807d-4a3b-9bca-90eddbfde5e5.png",
+          "url": "https://static.sandbase.ai/examples/fe2420f6-f986-41b0-8ba0-a396d9df8b9b/output/ab305265-328a-44d6-b972-ff73ae16a607.glb"
+        }
+      ],
+      "default": true
+    }
+  ],
   "readme": "# TRELLIS\nTRELLIS by Microsoft generates a textured 3D mesh (GLB) from a single image using structured 3D latents.\n## Fields\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `image` | image URL, required | — | Image of the object to convert to 3D. |\n| `texture_size` | `512` / `1024` / `2048` | `1024` | Resolution of the baked texture image. |\n| `seed` | integer | — | Random seed for reproducible results. |\n## Output\n- `url`: Main 3D file (GLB unless another export format is selected).\n## Billing\n$0.02 per request.\nFailed runs are not charged.\n## Also on SandBase\nOther trellis 3D endpoints: `trellis/trellis-2`, `trellis/trellis-2/retexture`, `trellis/trellis/multi`.\n",
   "cover_url": "https://static.sandbase.ai/covers/trellis/trellis/cover-flare-20261111181115.webp",
   "page_url": "https://www.sandbase.ai/model/trellis/trellis",

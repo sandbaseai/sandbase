@@ -183,6 +183,24 @@
       }
     ]
   },
+  "examples": [
+    {
+      "input": {
+        "images": [
+          "https://static.sandbase.ai/examples/de9755e0-9b6c-4943-9e3e-de3318a6880c/input/0156e128-17ca-470a-a12c-97245310277d.png",
+          "https://static.sandbase.ai/examples/de9755e0-9b6c-4943-9e3e-de3318a6880c/input/7d90984e-9a07-4092-9c7c-fd78411ab7b2.png",
+          "https://static.sandbase.ai/examples/de9755e0-9b6c-4943-9e3e-de3318a6880c/input/7c277dac-0e00-40aa-aad6-11a4edd9eb24.png"
+        ]
+      },
+      "output": [
+        {
+          "poster": "https://static.sandbase.ai/examples/de9755e0-9b6c-4943-9e3e-de3318a6880c/output/88980a8e-b8d4-4262-83d0-0c388024e1c0.png",
+          "url": "https://static.sandbase.ai/examples/de9755e0-9b6c-4943-9e3e-de3318a6880c/output/62948add-ffa1-4a21-956e-2fcb04b215a4.glb"
+        }
+      ],
+      "default": true
+    }
+  ],
   "readme": "# Rodin Gen-2 Image to 3D\nRodin Gen-2 by Hyper3D (Deemos) generates production-ready 3D assets from one to five reference images.\n## Fields\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `prompt` | string | — | Optional text prompt to guide generation. Generated from the images when empty. |\n| `images` | image URLs (1–5), required | — | 1 to 5 images of the object. |\n| `geometry_file_format` | `glb` / `usdz` / `fbx` / `obj` / `stl` | `glb` | Output file format. |\n| `quality_mesh_option` | `4K Quad` / `8K Quad` / `18K Quad` / `50K Quad` / `2K Triangle` / `20K Triangle` / `150K Triangle` / `500K Triangle` | `500K Triangle` | Mesh density and topology. Quad gives smooth surfaces, Triangle gives detailed geometry. |\n| `material` | `PBR` / `Shaded` / `All` | `All` | PBR, Shaded (baked lighting) or All (both). |\n| `addons` | `HighPack` | — | Optional add-on. HighPack (4K textures, high-poly) is billed +$0.80. |\n| `TAPose` | boolean | `false` | Generate characters in T-pose or A-pose for rigging. |\n| `seed` | integer 0–65535 | — | Seed (0-65535). |\n## Output\n- `url`: Main 3D file (GLB unless another export format is selected).\n## Billing\n$0.40 per request with default settings. Price by option (other settings at default):\n| Option | Price |\n|---|---|\n| addons unset | $0.40 |\n| addons = HighPack | $1.20 |\nFailed runs are not charged.\n## Also on SandBase\nOther hyper3d 3D endpoints: `hyper3d/rodin/2.5/fast/image-to-3d`, `hyper3d/rodin/2.5/fast/text-to-3d`, `hyper3d/rodin/2.5/image-to-3d`, `hyper3d/rodin/2.5/text-to-3d`.\n",
   "cover_url": "https://static.sandbase.ai/covers/hyper3d/rodin/v2/cover-flare-20261111180803.webp",
   "page_url": "https://www.sandbase.ai/model/hyper3d/rodin/v2",

@@ -231,6 +231,23 @@
       }
     ]
   },
+  "examples": [
+    {
+      "input": {
+        "back_image": "https://static.sandbase.ai/examples/db216f6f-671f-4fb5-bc57-8507406805ac/input/798f8f92-cbec-47bd-b029-931811385a77.png",
+        "image": "https://static.sandbase.ai/examples/db216f6f-671f-4fb5-bc57-8507406805ac/input/4f605729-85d6-44df-b1f5-3ea1242c45ea.png",
+        "left_image": "https://static.sandbase.ai/examples/db216f6f-671f-4fb5-bc57-8507406805ac/input/3cdf51d4-96b7-46db-b833-2d35a54cd091.png"
+      },
+      "output": [
+        {
+          "poster": "https://static.sandbase.ai/examples/db216f6f-671f-4fb5-bc57-8507406805ac/output/f6f34648-f23a-4fd1-90bc-94a6177ddec5.webp",
+          "thumbnail": "https://static.sandbase.ai/examples/db216f6f-671f-4fb5-bc57-8507406805ac/output/f6f34648-f23a-4fd1-90bc-94a6177ddec5.webp",
+          "url": "https://static.sandbase.ai/examples/db216f6f-671f-4fb5-bc57-8507406805ac/output/c02da03e-d468-4e95-8748-f0bc7cb83bf0.glb"
+        }
+      ],
+      "default": true
+    }
+  ],
   "readme": "# Hitem3D Hi3D 3.0 Multi-view to 3D\nHi3D 3.0 by Hitem3D reconstructs a detailed 3D model at 2048³ resolution from a front view plus optional back, left and right views.\n## Fields\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `image` | image URL, required | — | Front view image URL (PNG/JPEG/WebP, up to 20MB). |\n| `back_image` | image URL | — | Optional back view image URL. |\n| `left_image` | image URL | — | Optional left view image URL. |\n| `right_image` | image URL | — | Optional right view image URL. |\n| `resolution` | `2048quality` / `2048master` | `2048quality` | 2048quality is the faster default; 2048master gives the highest quality. |\n| `enable_texture` | boolean | `true` | Generate textures in addition to geometry. When false, only the geometry mesh is generated (cheaper). |\n| `enable_pbr` | boolean | `true` | Generate PBR material maps with the texture (billed add-on, ignored when texture is off). |\n| `face_count` | integer 100000–5000000 | — | Target face count. Recommended 2,000,000 for 2048quality and 5,000,000 for 2048master. |\n| `shading` | number 0–1 | `0.5` | De-shading strength. |\n| `export_format` | `glb` / `obj` / `stl` / `fbx` / `usdz` | `glb` | File format of the generated model. |\n## Output\n- `url`: Main 3D file (GLB unless another export format is selected).\n- `thumbnail`: Preview image rendered by the provider.\n## Billing\n$2.52 per request with default settings. Price by option (other settings at default):\n| Option | Price |\n|---|---|\n| enable_pbr on | $2.52 |\n| enable_pbr off | $2.40 |\n| enable_texture on | $2.52 |\n| enable_texture off | $2.16 |\n| resolution = 2048quality | $2.52 |\n| resolution = 2048master | $10.92 |\nFailed runs are not charged.\n## Also on SandBase\nOther Hitem3D 3D endpoints: `hitem3d/hi3d/image-to-3d`, `hitem3d/hi3d/multi-view-to-3d`, `hitem3d/hi3d/multicolor`, `hitem3d/hi3d/split`.\n",
   "cover_url": "https://static.sandbase.ai/covers/hitem3d/hi3d/v3.0/multi-view-to-3d/cover-flare-20261111180809.webp",
   "page_url": "https://www.sandbase.ai/model/hitem3d/hi3d/v3.0/multi-view-to-3d",

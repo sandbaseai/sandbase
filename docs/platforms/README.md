@@ -1,6 +1,6 @@
 # Platforms
 
-158 platforms and model makers, each reachable with one SandBase API key.
+168 platforms and model makers, each reachable with one SandBase API key.
 
 | Platform | Capabilities | Types |
 |---|---|---|
@@ -58,12 +58,12 @@
 | [Apollo](apollo.md) | 8 | data API |
 | [TikTok Shop](tiktok-shop.md) | 8 | data API |
 | [Toutiao](toutiao.md) | 8 | data API |
+| [Amazon](amazon.md) | 7 | data API |
 | [Hitem3D](hitem3d.md) | 7 | image generation model |
 | [Levels.fyi](levels-fyi.md) | 7 | data API |
 | [Lightricks](lightricks.md) | 7 | video generation model |
 | [Telegram](telegram.md) | 7 | data API |
 | [Vidu](vidu.md) | 7 | video generation model |
-| [Amazon](amazon.md) | 6 | data API |
 | [Clutch](clutch.md) | 6 | data API |
 | [Douban](douban.md) | 6 | data API |
 | [Google Play](google-play.md) | 6 | data API |
@@ -85,6 +85,7 @@
 | [Artificial Analysis](artificial-analysis.md) | 4 | data API |
 | [Capterra](capterra.md) | 4 | data API |
 | [Crunchbase](crunchbase.md) | 4 | data API |
+| [Etsy](etsy.md) | 4 | data API |
 | [Hacker News](hacker-news.md) | 4 | data API |
 | [Ideogram](ideogram.md) | 4 | image generation model |
 | [IQAir](iqair.md) | 4 | data API |
@@ -93,9 +94,11 @@
 | [Minimax](minimax.md) | 4 | LLM |
 | [Moonshotai](moonshotai.md) | 4 | LLM |
 | [Pinterest](pinterest.md) | 4 | data API |
+| [Shopify](shopify.md) | 4 | data API |
 | [trellis](trellis.md) | 4 | image generation model |
 | [AccuWeather](accuweather.md) | 3 | data API |
 | [App Store](app-store.md) | 3 | data API |
+| [Best Buy](best-buy.md) | 3 | data API |
 | [Bing](bing.md) | 3 | data API |
 | [Bluesky](bluesky.md) | 3 | data API |
 | [DuckDuckGo](duckduckgo.md) | 3 | data API |
@@ -103,6 +106,7 @@
 | [Home Depot](home-depot.md) | 3 | data API |
 | [Kelley Blue Book](kelley-blue-book.md) | 3 | data API |
 | [MeiGen-AI](meigen-ai.md) | 3 | video generation model |
+| [Mercari](mercari.md) | 3 | data API |
 | [Scholar](scholar.md) | 3 | data API |
 | [Tavily](tavily.md) | 3 | data API |
 | [Tencent Huxuan](tencent-huxuan.md) | 3 | data API |
@@ -111,12 +115,16 @@
 | [Waveinflu](waveinflu.md) | 3 | data API |
 | [Youku](youku.md) | 3 | data API |
 | [Ahrefs](ahrefs.md) | 2 | data API |
+| [ASOS](asos.md) | 2 | data API |
 | [eBay](ebay.md) | 2 | data API |
 | [Google Shopping](google-shopping.md) | 2 | data API |
 | [Hunter](hunter.md) | 2 | data API |
+| [IKEA](ikea.md) | 2 | data API |
 | [Luma](luma.md) | 2 | video generation model |
 | [PixVerse](pixverse.md) | 2 | video generation model |
 | [Recraft](recraft.md) | 2 | image generation model |
+| [Sam's Club](sam-s-club.md) | 2 | data API |
+| [Slickdeals](slickdeals.md) | 2 | data API |
 | [stability-ai](stability-ai.md) | 2 | audio model |
 | [Sync Labs](sync-labs.md) | 2 | video generation model |
 | [Topaz Labs](topaz-labs.md) | 2 | image generation model, video generation model |
@@ -127,6 +135,7 @@
 | [Yahoo](yahoo.md) | 2 | data API |
 | [Yandex](yandex.md) | 2 | data API |
 | [Yelp](yelp.md) | 2 | data API |
+| [Alibaba.com](alibaba-com.md) | 1 | data API |
 | [AliExpress](aliexpress.md) | 1 | data API |
 | [AutoZone](autozone.md) | 1 | data API |
 | [Baidu](baidu.md) | 1 | data API |
@@ -160,5 +169,6 @@
 | [Target](target.md) | 1 | data API |
 | [VEED](veed.md) | 1 | video generation model |
 | [Watsons](watsons.md) | 1 | data API |
+| [Wayfair](wayfair.md) | 1 | data API |
 | [Weather Underground](weather-underground.md) | 1 | data API |
 | [Z-Image](z-image.md) | 1 | image generation model |

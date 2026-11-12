@@ -269,6 +269,21 @@
       }
     ]
   },
+  "examples": [
+    {
+      "input": {
+        "image": "https://static.sandbase.ai/examples/b9c8f336-1f12-4a85-bb42-8683feabd507/input/09fd0b4f-c9ff-4db9-abca-fd94e1b44049.png"
+      },
+      "output": [
+        {
+          "poster": "https://static.sandbase.ai/examples/b9c8f336-1f12-4a85-bb42-8683feabd507/output/b6d7b12d-e575-4193-8a27-4087e3b3a41b.png",
+          "thumbnail": "https://static.sandbase.ai/examples/b9c8f336-1f12-4a85-bb42-8683feabd507/output/b6d7b12d-e575-4193-8a27-4087e3b3a41b.png",
+          "url": "https://static.sandbase.ai/examples/b9c8f336-1f12-4a85-bb42-8683feabd507/output/d055f165-9ea9-402d-ba71-e1f474903afd.glb"
+        }
+      ],
+      "default": true
+    }
+  ],
   "readme": "# Tripo P2 Image to 3D\n\nTripo P2, Tripo's flagship 3D model, turns a single image into a production-ready mesh with optional PBR textures.\n\n## Fields\n\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `image` | image URL, required | — | Input image URL for 3D model creation. |\n| `face_limit` | integer 48–50000 | — | Maximum face count. |\n| `pbr` | boolean | true | PBR materials. |\n| `quad` | boolean | false | Quad mesh output. |\n| `texture` | boolean | true | Generate textures. |\n| `texture_quality` | `fast` / `standard` / `detailed` / `extreme` | `standard` | Texture detail; higher costs more. |\n| `seed` | integer | random | Fix it to compare prompt changes. |\n\n## Billing\n\n$1.32 per textured model at standard texture quality, $1.44 detailed, $1.56 extreme; $1.20 untextured.\n\n| Texture | Price |\n|---|---|\n| standard | $1.32 |\n| detailed | $1.44 |\n| extreme | $1.56 |\n| Untextured | $1.20 |\n\nFailed runs are not charged.\n\n## Also on SandBase\n\nOther Tripo endpoints: `tripo3d/tripo-p2/text-to-3d`, `tripo3d/tripo-h3.1/text-to-3d`, `tripo3d/tripo-h3.1/image-to-3d`.\n",
   "cover_url": "https://static.sandbase.ai/covers/tripo3d/tripo-p2/image-to-3d/cover-flare-20261008040730.webp",
   "page_url": "https://www.sandbase.ai/model/tripo3d/tripo-p2/image-to-3d",

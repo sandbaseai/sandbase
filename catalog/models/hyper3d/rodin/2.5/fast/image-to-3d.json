@@ -185,6 +185,22 @@
     "model": "per_call",
     "per_call": 0.1
   },
+  "examples": [
+    {
+      "input": {
+        "images": [
+          "https://static.sandbase.ai/examples/02943260-0e07-4cf1-bd63-e29d9dba4dde/input/6d5e76b7-018e-4da5-ad71-c9d354739c21.png"
+        ]
+      },
+      "output": [
+        {
+          "poster": "https://static.sandbase.ai/examples/02943260-0e07-4cf1-bd63-e29d9dba4dde/output/9afd7174-8ff2-43b3-b7ea-390e9eb634e5.png",
+          "url": "https://static.sandbase.ai/examples/02943260-0e07-4cf1-bd63-e29d9dba4dde/output/bc0ae326-8b84-45a8-baa0-faa8907dfb3b.glb"
+        }
+      ],
+      "default": true
+    }
+  ],
   "readme": "# Rodin 2.5 Fast Image to 3D\n\nRodin Gen-2.5 Fast by Hyper3D turns an image set of 1–5 views into a game-ready 3D asset, using the low tiers for speed.\n\n## Fields\n\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `prompt` | string | — | Up to 1,024 characters. |\n| `images` | image URL[] (≤5), required | — | 1–5 reference images of the object. |\n| `material` | `PBR` / `Shaded` / `All` / `None` | `Shaded` | Material output. |\n| `TAPose` | boolean | false | Force a T/A-pose for characters. |\n| `hd_texture` | boolean | false | Higher-resolution textures. |\n| `tier` | `Gen-2.5-Minimum` / `Gen-2.5-Extreme-Low` / `Gen-2.5-Low` | `Gen-2.5-Extreme-Low` | Quality tier. |\n| `geometry_file_format` | `glb` / `usdz` / `fbx` / `obj` / `stl` | `glb` | Output file format. |\n| `quality_mesh_option` | `Auto` / `1K Quad` / `4K Quad` / `8K Quad` / `18K Quad` / `20K Quad` / `2K Triangle` / `4K Triangle` / `8K Triangle` / `10K Triangle` / `20K Triangle` | `Auto` | Mesh density and topology. |\n| `seed` | integer 0–65535 | random | Fix it to compare prompt changes. |\n\n## Billing\n\n$0.10 per model.\n\n| Request | Price |\n|---|---|\n| One model | $0.10 |\n\nFailed runs are not charged.\n\n## Also on SandBase\n\nOther Rodin endpoints: `hyper3d/rodin/2.5/text-to-3d`, `hyper3d/rodin/2.5/image-to-3d`, `hyper3d/rodin/2.5/fast/text-to-3d`.\n",
   "cover_url": "https://static.sandbase.ai/covers/hyper3d/rodin/2.5/fast/image-to-3d/cover-flare-20261008040431.webp",
   "page_url": "https://www.sandbase.ai/model/hyper3d/rodin/2.5/fast/image-to-3d",

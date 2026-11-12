@@ -19,7 +19,7 @@ Modes: async (default `async`). Only pass `mode` values listed here. The SDKs' `
 ```bash
 curl https://api.sandbase.ai/v1/run \
   -H "Authorization: Bearer $SANDBASE_API_KEY" -H 'Content-Type: application/json' \
-  -d '{"model": "tencent/hunyuan-3d/3.1/smart-topology", "model_url": "https://static.sandbase.ai/examples/tencent/hunyuan-3d/3.1/smart-topology/input_input_file_url_0.glb"}'
+  -d '{"model": "tencent/hunyuan-3d/3.1/smart-topology", "model_url": "https://static.sandbase.ai/examples/9b53f7a8-45d2-4f3b-88b0-76cc4c831443/input/b6fbdee4-dae5-4d90-89b3-3ee62e24f51d.glb"}'
 ```
 
 **Python** ([sdk/python](../../../../../sdk/python))
@@ -27,7 +27,7 @@ curl https://api.sandbase.ai/v1/run \
 ```python
 from sandbase import SandBase
 
-result = SandBase().run('tencent/hunyuan-3d/3.1/smart-topology', {'model_url': 'https://static.sandbase.ai/examples/tencent/hunyuan-3d/3.1/smart-topology/input_input_file_url_0.glb'})
+result = SandBase().run('tencent/hunyuan-3d/3.1/smart-topology', {'model_url': 'https://static.sandbase.ai/examples/9b53f7a8-45d2-4f3b-88b0-76cc4c831443/input/b6fbdee4-dae5-4d90-89b3-3ee62e24f51d.glb'})
 print(result["outputs"])
 ```
 
@@ -37,7 +37,7 @@ print(result["outputs"])
 import { SandBase } from "@sandbaseai/sdk";
 
 const result = await new SandBase().run("tencent/hunyuan-3d/3.1/smart-topology", {
-  "model_url": "https://static.sandbase.ai/examples/tencent/hunyuan-3d/3.1/smart-topology/input_input_file_url_0.glb"
+  "model_url": "https://static.sandbase.ai/examples/9b53f7a8-45d2-4f3b-88b0-76cc4c831443/input/b6fbdee4-dae5-4d90-89b3-3ee62e24f51d.glb"
 });
 console.log(result.outputs);
 ```
@@ -47,7 +47,7 @@ console.log(result.outputs);
 ```go
 c, _ := sandbase.NewClient("")
 run, err := c.Run(ctx, "tencent/hunyuan-3d/3.1/smart-topology", sandbase.Params{
-	"model_url": "https://static.sandbase.ai/examples/tencent/hunyuan-3d/3.1/smart-topology/input_input_file_url_0.glb",
+	"model_url": "https://static.sandbase.ai/examples/9b53f7a8-45d2-4f3b-88b0-76cc4c831443/input/b6fbdee4-dae5-4d90-89b3-3ee62e24f51d.glb",
 })
 ```
 

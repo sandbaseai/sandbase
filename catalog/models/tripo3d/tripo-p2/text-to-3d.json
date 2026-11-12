@@ -279,6 +279,21 @@
       }
     ]
   },
+  "examples": [
+    {
+      "input": {
+        "prompt": "An ornate Japanese stone lantern covered in patches of green moss"
+      },
+      "output": [
+        {
+          "poster": "https://static.sandbase.ai/examples/b5b23cf2-90da-449b-9ecf-20c92e6ecd62/output/8155919a-22c7-4fd3-9309-0cb2eb4cf932.png",
+          "thumbnail": "https://static.sandbase.ai/examples/b5b23cf2-90da-449b-9ecf-20c92e6ecd62/output/8155919a-22c7-4fd3-9309-0cb2eb4cf932.png",
+          "url": "https://static.sandbase.ai/examples/b5b23cf2-90da-449b-9ecf-20c92e6ecd62/output/ee5e92f5-e505-44a4-8e4a-9357ecc235fa.glb"
+        }
+      ],
+      "default": true
+    }
+  ],
   "readme": "# Tripo P2 Text to 3D\n\nTripo P2, Tripo's flagship 3D model, turns a text prompt into a production-ready mesh with optional PBR textures.\n\n## Fields\n\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `prompt` | string, required | — | Up to 1,024 characters. |\n| `texture` | boolean | true | Generate textures. |\n| `pbr` | boolean | true | PBR materials. |\n| `quad` | boolean | false | Quad mesh output. |\n| `face_limit` | integer 48–50000 | — | Maximum face count. |\n| `texture_quality` | `fast` / `standard` / `detailed` / `extreme` | `standard` | Texture detail; higher costs more. |\n| `seed` | integer | random | Fix it to compare prompt changes. |\n| `negative_prompt` | string | — | What to avoid. |\n\n## Billing\n\n$1.32 per textured model at standard texture quality, $1.44 detailed, $1.56 extreme; $1.20 untextured.\n\n| Texture | Price |\n|---|---|\n| standard | $1.32 |\n| detailed | $1.44 |\n| extreme | $1.56 |\n| Untextured | $1.20 |\n\nFailed runs are not charged.\n\n## Also on SandBase\n\nOther Tripo endpoints: `tripo3d/tripo-p2/image-to-3d`, `tripo3d/tripo-h3.1/text-to-3d`, `tripo3d/tripo-h3.1/image-to-3d`.\n",
   "cover_url": "https://static.sandbase.ai/covers/tripo3d/tripo-p2/text-to-3d/cover-flare-20261008040115.webp",
   "page_url": "https://www.sandbase.ai/model/tripo3d/tripo-p2/text-to-3d",

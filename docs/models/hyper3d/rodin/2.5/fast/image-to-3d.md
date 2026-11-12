@@ -19,7 +19,7 @@ Modes: async (default `async`). Only pass `mode` values listed here. The SDKs' `
 ```bash
 curl https://api.sandbase.ai/v1/run \
   -H "Authorization: Bearer $SANDBASE_API_KEY" -H 'Content-Type: application/json' \
-  -d '{"model": "hyper3d/rodin/2.5/fast/image-to-3d", "images": "https://static.sandbase.ai/examples/hyper3d/rodin/2.5/fast/image-to-3d/input_images_0.png"}'
+  -d '{"model": "hyper3d/rodin/2.5/fast/image-to-3d", "images": ["https://static.sandbase.ai/examples/02943260-0e07-4cf1-bd63-e29d9dba4dde/input/6d5e76b7-018e-4da5-ad71-c9d354739c21.png"]}'
 ```
 
 **Python** ([sdk/python](../../../../../../sdk/python))
@@ -27,7 +27,7 @@ curl https://api.sandbase.ai/v1/run \
 ```python
 from sandbase import SandBase
 
-result = SandBase().run('hyper3d/rodin/2.5/fast/image-to-3d', {'images': 'https://static.sandbase.ai/examples/hyper3d/rodin/2.5/fast/image-to-3d/input_images_0.png'})
+result = SandBase().run('hyper3d/rodin/2.5/fast/image-to-3d', {'images': ['https://static.sandbase.ai/examples/02943260-0e07-4cf1-bd63-e29d9dba4dde/input/6d5e76b7-018e-4da5-ad71-c9d354739c21.png']})
 print(result["outputs"])
 ```
 
@@ -37,7 +37,9 @@ print(result["outputs"])
 import { SandBase } from "@sandbaseai/sdk";
 
 const result = await new SandBase().run("hyper3d/rodin/2.5/fast/image-to-3d", {
-  "images": "https://static.sandbase.ai/examples/hyper3d/rodin/2.5/fast/image-to-3d/input_images_0.png"
+  "images": [
+    "https://static.sandbase.ai/examples/02943260-0e07-4cf1-bd63-e29d9dba4dde/input/6d5e76b7-018e-4da5-ad71-c9d354739c21.png"
+  ]
 });
 console.log(result.outputs);
 ```
@@ -47,7 +49,7 @@ console.log(result.outputs);
 ```go
 c, _ := sandbase.NewClient("")
 run, err := c.Run(ctx, "hyper3d/rodin/2.5/fast/image-to-3d", sandbase.Params{
-	"images": "https://static.sandbase.ai/examples/hyper3d/rodin/2.5/fast/image-to-3d/input_images_0.png",
+	"images": []any{"https://static.sandbase.ai/examples/02943260-0e07-4cf1-bd63-e29d9dba4dde/input/6d5e76b7-018e-4da5-ad71-c9d354739c21.png"},
 })
 ```
 

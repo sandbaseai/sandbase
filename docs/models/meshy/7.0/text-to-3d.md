@@ -40,7 +40,7 @@ Modes: async (default `async`). Only pass `mode` values listed here. The SDKs' `
 ```bash
 curl https://api.sandbase.ai/v1/run \
   -H "Authorization: Bearer $SANDBASE_API_KEY" -H 'Content-Type: application/json' \
-  -d '{"model": "meshy/7.0/text-to-3d", "prompt": "A rustic, antique wooden treasure chest with a curved, domed lid, constructed from weathered, dark brown planks exhibiting prominent wood grain and subtle distress. It'\''s heavily reinforced with broad, dark grey, oxidized metal bands secured by numerous circular rivets. Ornate, dark iron decorative elements featuring swirling foliate patterns and dragon motifs adorn the corners and lid. A prominent, circular, intricately carved metal lock plate with a central keyhole dominates the front, flanked by two large, dark metallic pull rings."}'
+  -d '{"model": "meshy/7.0/text-to-3d", "generation_mode": "full", "prompt": "A steampunk brass owl with copper gears and glowing amber eyes, perched on a small pedestal"}'
 ```
 
 **Python** ([sdk/python](../../../../sdk/python))
@@ -48,7 +48,7 @@ curl https://api.sandbase.ai/v1/run \
 ```python
 from sandbase import SandBase
 
-result = SandBase().run('meshy/7.0/text-to-3d', {'prompt': "A rustic, antique wooden treasure chest with a curved, domed lid, constructed from weathered, dark brown planks exhibiting prominent wood grain and subtle distress. It's heavily reinforced with broad, dark grey, oxidized metal bands secured by numerous circular rivets. Ornate, dark iron decorative elements featuring swirling foliate patterns and dragon motifs adorn the corners and lid. A prominent, circular, intricately carved metal lock plate with a central keyhole dominates the front, flanked by two large, dark metallic pull rings."})
+result = SandBase().run('meshy/7.0/text-to-3d', {'generation_mode': 'full', 'prompt': 'A steampunk brass owl with copper gears and glowing amber eyes, perched on a small pedestal'})
 print(result["outputs"])
 ```
 
@@ -58,7 +58,8 @@ print(result["outputs"])
 import { SandBase } from "@sandbaseai/sdk";
 
 const result = await new SandBase().run("meshy/7.0/text-to-3d", {
-  "prompt": "A rustic, antique wooden treasure chest with a curved, domed lid, constructed from weathered, dark brown planks exhibiting prominent wood grain and subtle distress. It's heavily reinforced with broad, dark grey, oxidized metal bands secured by numerous circular rivets. Ornate, dark iron decorative elements featuring swirling foliate patterns and dragon motifs adorn the corners and lid. A prominent, circular, intricately carved metal lock plate with a central keyhole dominates the front, flanked by two large, dark metallic pull rings."
+  "generation_mode": "full",
+  "prompt": "A steampunk brass owl with copper gears and glowing amber eyes, perched on a small pedestal"
 });
 console.log(result.outputs);
 ```
@@ -68,7 +69,8 @@ console.log(result.outputs);
 ```go
 c, _ := sandbase.NewClient("")
 run, err := c.Run(ctx, "meshy/7.0/text-to-3d", sandbase.Params{
-	"prompt": "A rustic, antique wooden treasure chest with a curved, domed lid, constructed from weathered, dark brown planks exhibiting prominent wood grain and subtle distress. It's heavily reinforced with broad, dark grey, oxidized metal bands secured by numerous circular rivets. Ornate, dark iron decorative elements featuring swirling foliate patterns and dragon motifs adorn the corners and lid. A prominent, circular, intricately carved metal lock plate with a central keyhole dominates the front, flanked by two large, dark metallic pull rings.",
+	"generation_mode": "full",
+	"prompt": "A steampunk brass owl with copper gears and glowing amber eyes, perched on a small pedestal",
 })
 ```
 

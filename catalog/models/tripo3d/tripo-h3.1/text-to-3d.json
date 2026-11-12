@@ -480,6 +480,21 @@
       }
     ]
   },
+  "examples": [
+    {
+      "input": {
+        "prompt": "A medieval wooden catapult with iron fittings and a stone in the basket"
+      },
+      "output": [
+        {
+          "poster": "https://static.sandbase.ai/examples/6e50ceac-bf0e-479c-9121-66e2c1ca0f45/output/23194dcf-21fa-4462-a1a7-b706540be775.png",
+          "thumbnail": "https://static.sandbase.ai/examples/6e50ceac-bf0e-479c-9121-66e2c1ca0f45/output/23194dcf-21fa-4462-a1a7-b706540be775.png",
+          "url": "https://static.sandbase.ai/examples/6e50ceac-bf0e-479c-9121-66e2c1ca0f45/output/4172f97c-8214-4aa5-97f4-a82b3081bb92.glb"
+        }
+      ],
+      "default": true
+    }
+  ],
   "readme": "# Tripo H3.1 Text to 3D\n\nTripo H3.1 turns a text prompt into a textured 3D model quickly and at low cost.\n\n## Fields\n\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `prompt` | string, required | — | Up to 1,024 characters. |\n| `pbr` | boolean | true | PBR materials. |\n| `quad` | boolean | false | Quad mesh output. |\n| `seed` | integer | random | Fix it to compare prompt changes. |\n| `texture` | boolean | true | Generate textures. |\n| `face_limit` | integer 1000–2000000 | — | Maximum face count. |\n| `negative_prompt` | string | — | What to avoid. |\n| `texture_quality` | `standard` / `detailed` | `standard` | Texture detail; higher costs more. |\n| `geometry_quality` | `standard` / `detailed` | `standard` | `detailed` adds mesh detail and cost. |\n\n## Billing\n\n$0.24 per textured model at standard quality, $0.36 detailed, $0.12 untextured; detailed geometry adds $0.24 and quad output $0.06.\n\n| Request | Price |\n|---|---|\n| Standard texture | $0.24 |\n| Detailed texture | $0.36 |\n| Untextured | $0.12 |\n| Standard + detailed geometry | $0.48 |\n\nFailed runs are not charged.\n\n## Also on SandBase\n\nOther Tripo endpoints: `tripo3d/tripo-p2/text-to-3d`, `tripo3d/tripo-p2/image-to-3d`, `tripo3d/tripo-h3.1/image-to-3d`.\n",
   "cover_url": "https://static.sandbase.ai/covers/tripo3d/tripo-h3.1/text-to-3d/cover-flare-20261008044658.webp",
   "page_url": "https://www.sandbase.ai/model/tripo3d/tripo-h3.1/text-to-3d",

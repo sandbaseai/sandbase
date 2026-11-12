@@ -116,6 +116,24 @@
     "model": "per_call",
     "per_call": 0.02
   },
+  "examples": [
+    {
+      "input": {
+        "images": [
+          "https://static.sandbase.ai/examples/c3217e6c-f044-443d-9957-ace7022fddc1/input/277c5496-1304-4fb9-8ed8-9e324a8ce9d7.png",
+          "https://static.sandbase.ai/examples/c3217e6c-f044-443d-9957-ace7022fddc1/input/3d193c27-3ff2-44e7-9ce8-685cf3d3150a.png",
+          "https://static.sandbase.ai/examples/c3217e6c-f044-443d-9957-ace7022fddc1/input/aaf3daea-a26c-4d1c-abc5-5523262b80f9.png"
+        ]
+      },
+      "output": [
+        {
+          "poster": "https://static.sandbase.ai/examples/c3217e6c-f044-443d-9957-ace7022fddc1/output/4818b01c-92a8-4ea7-beff-3521a9ca840e.png",
+          "url": "https://static.sandbase.ai/examples/c3217e6c-f044-443d-9957-ace7022fddc1/output/027301b9-7214-4d75-b74f-293beb6960fc.glb"
+        }
+      ],
+      "default": true
+    }
+  ],
   "readme": "# TRELLIS Multi-Image\nTRELLIS by Microsoft generates a textured 3D mesh (GLB) from several views of the same object.\n## Fields\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `images` | image URLs, required | — | 2 or more views of the same object. |\n| `texture_size` | `512` / `1024` / `2048` | `1024` | Resolution of the baked texture image. |\n| `seed` | integer | — | Random seed for reproducible results. |\n## Output\n- `url`: Main 3D file (GLB unless another export format is selected).\n## Billing\n$0.02 per request.\nFailed runs are not charged.\n## Also on SandBase\nOther trellis 3D endpoints: `trellis/trellis`, `trellis/trellis-2`, `trellis/trellis-2/retexture`.\n",
   "cover_url": "https://static.sandbase.ai/covers/trellis/trellis/multi/cover-flare-20261111181335.webp",
   "page_url": "https://www.sandbase.ai/model/trellis/trellis/multi",

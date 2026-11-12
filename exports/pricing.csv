@@ -66,6 +66,7 @@ alibaba/qwen3.8-max,llm,Alibaba,per_token,,2,6,,,,sync,POST /v1/chat/completions
 alibaba/qwen3.8-max-0902,llm,Alibaba,per_token,,2,6,,,,sync,POST /v1/chat/completions
 alibaba/qwen3.8-max-prime,llm,Alibaba,per_token,,4,12,,,,sync,POST /v1/chat/completions
 alibaba/qwen3.8-omni-flash,llm,Alibaba,per_token,,0.15,0.47,,,,sync,POST /v1/chat/completions
+alibaba/search,api,Alibaba.com,usage_based,,,,0.00231,0.00231,,sync,POST /v1/run
 alibaba/text-embedding-v4,embedding,Alibaba,per_token,,0.1,0,,,,sync,POST /v1/embeddings
 alibaba/wan/2.2/animate/move,video,Alibaba,formula,,,,0.75,0.75,,async,POST /v1/run
 alibaba/wan/2.2/animate/replace,video,Alibaba,formula,,,,0.75,0.75,,async,POST /v1/run
@@ -109,6 +110,7 @@ amazon/best-sellers,api,Amazon,per_call,0.014286,,,,,yes,sync,POST /v1/run
 amazon/category-products,api,Amazon,per_call,0.014286,,,,,yes,sync,POST /v1/run
 amazon/product,api,Amazon,per_call,0.015,,,,,yes,async,POST /v1/run
 amazon/product-detail,api,Amazon,per_call,0.014286,,,,,yes,sync,POST /v1/run
+amazon/reviews,api,Amazon,usage_based,,,,0.016,0.016,,sync,POST /v1/run
 amazon/search,api,Amazon,per_call,0.015,,,,,yes,async,POST /v1/run
 amazon/search-products,api,Amazon,per_call,0.014286,,,,,yes,sync,POST /v1/run
 anthropic/claude-fable-5,llm,Anthropic,per_token,,10,50,,,,sync,POST /v1/chat/completions
@@ -141,8 +143,13 @@ artificial-analysis/cost-per-task,api,Artificial Analysis,per_call,0.05,,,,,,asy
 artificial-analysis/llm-providers-leaderboard,api,Artificial Analysis,per_call,0.01,,,,,yes,async,POST /v1/run
 artificial-analysis/models-list,api,Artificial Analysis,per_call,0.02,,,,,,async,POST /v1/run
 artificial-analysis/search-models,api,Artificial Analysis,per_call,0.01,,,,,yes,async,POST /v1/run
+asos/product,api,ASOS,usage_based,,,,0.0009,0.0009,,sync,POST /v1/run
+asos/search,api,ASOS,usage_based,,,,0.00085,0.00085,,sync,POST /v1/run
 autozone/scrape/category,api,AutoZone,per_call,0.012,,,,,yes,async,POST /v1/run
 baidu/news,api,Baidu,per_call,0.015,,,,,,sync,POST /v1/run
+best-buy/product,api,Best Buy,usage_based,,,,0.00085,0.00085,,sync,POST /v1/run
+best-buy/reviews,api,Best Buy,usage_based,,,,0.00085,0.00085,,sync,POST /v1/run
+best-buy/search,api,Best Buy,usage_based,,,,0.0009,0.0009,,sync,POST /v1/run
 bfl/flux-1/schnell,image,BFL,per_call,0.003,,,,,,async,POST /v1/run
 bfl/flux-2/dev,image,BFL,per_call,0.012,,,,,,async,POST /v1/run
 bfl/flux-2/dev/edit,image,BFL,per_call,0.024,,,,,,async,POST /v1/run
@@ -795,6 +802,10 @@ elevenlabs/turbo-v2.5,audio,ElevenLabs,formula,,,,0.1,0.1,,async,POST /v1/run
 elevenlabs/v3,audio,ElevenLabs,formula,,,,0.2,0.2,,async,POST /v1/run
 elevenlabs/v4,audio,ElevenLabs,formula,,,,0.08,0.08,,async,POST /v1/run
 elevenlabs/v4-turbo,audio,ElevenLabs,formula,,,,0.04,0.04,,async,POST /v1/run
+etsy/product,api,Etsy,usage_based,,,,0.00187,0.00187,,sync,POST /v1/run
+etsy/search,api,Etsy,usage_based,,,,0.0009,0.0009,,sync,POST /v1/run
+etsy/shop,api,Etsy,usage_based,,,,0.0009,0.0009,,sync,POST /v1/run
+etsy/shop-listings,api,Etsy,usage_based,,,,0.0009,0.0009,,sync,POST /v1/run
 exa/answer,api,Exa,per_call,0.0075,,,,,yes,sync,POST /v1/run
 exa/contents,api,Exa,per_call,0.0045,,,,,,sync,POST /v1/run
 exa/search,api,Exa,per_call,0.0105,,,,,yes,sync,POST /v1/run
@@ -1016,6 +1027,8 @@ ideogram-ai/ideogram-v3,image,Ideogram,formula,,,,0.03,0.09,,async,POST /v1/run
 ideogram-ai/ideogram-v3/edit,image,Ideogram,formula,,,,0.03,0.09,,async,POST /v1/run
 ideogram/4.5,image,Ideogram,formula,,,,0.03,0.22,,async,POST /v1/run
 ideogram/4.5/edit,image,Ideogram,formula,,,,0.008,0.22,,async,POST /v1/run
+ikea/product,api,IKEA,per_call,0.00015,,,,,,async,POST /v1/run
+ikea/search,api,IKEA,usage_based,,,,0.00085,0.00085,,sync,POST /v1/run
 imdb/news-by-category-query,api,IMDb,per_call,0.007143,,,,,yes,sync,POST /v1/run
 imdb/streaming-picks-query,api,IMDb,per_call,0.007143,,,,,yes,sync,POST /v1/run
 imdb/title-awards-summary-query,api,IMDb,per_call,0.007143,,,,,yes,sync,POST /v1/run
@@ -1330,6 +1343,9 @@ meigen/infinitetalk/image-to-video,video,MeiGen-AI,formula,,,,2.32,2.32,,async,P
 meigen/infinitetalk/text-to-video,video,MeiGen-AI,formula,,,,2.32,2.32,,async,POST /v1/run
 meigen/infinitetalk/video-to-video,video,MeiGen-AI,formula,,,,3.48,3.48,,async,POST /v1/run
 meijer/scrape/product,api,Meijer,per_call,0.01,,,,,yes,async,POST /v1/run
+mercari/product,api,Mercari,usage_based,,,,0.0012,0.0012,,sync,POST /v1/run
+mercari/search,api,Mercari,usage_based,,,,0.0012,0.0012,,sync,POST /v1/run
+mercari/sold-listings,api,Mercari,usage_based,,,,0.0012,0.0012,,sync,POST /v1/run
 meshy/6.0-lite/retexture,image,Meshy,per_call,0.36,,,,,,async,POST /v1/run
 meshy/6.0/retexture,image,Meshy,formula,,,,0.33,0.5,,async,POST /v1/run
 meshy/7.0/image-to-3d,image,Meshy,formula,,,,0.8,1.72,,async,POST /v1/run
@@ -1345,7 +1361,7 @@ meshy/meshy-v6/text-to-3d,image,Meshy,formula,,,,0.8,1.52,,async,POST /v1/run
 meshy/n1/retexture,image,Meshy,per_call,0.4,,,,,,async,POST /v1/run
 meshy/relief,image,Meshy,per_call,0.8,,,,,,async,POST /v1/run
 meshy/rigging,image,Meshy,formula,,,,0.2,0.32,,async,POST /v1/run
-meshy/rigging/multi-animation,image,Meshy,formula,,,,0.2,0.2,,async,POST /v1/run
+meshy/rigging/multi-animation,image,Meshy,formula,,,,0.44,0.44,,async,POST /v1/run
 meshy/t2.5/image-to-3d,image,Meshy,formula,,,,0.2,0.92,,async,POST /v1/run
 meshy/t2.5/text-to-3d,image,Meshy,formula,,,,0.2,0.92,,async,POST /v1/run
 meshy/t2/image-to-3d,image,Meshy,formula,,,,0.2,0.92,,async,POST /v1/run
@@ -1597,6 +1613,8 @@ reddit/subreddit-search,api,Reddit,usage_based,,,,0.00035,0.00035,,sync,POST /v1
 reddit/trending-posts,api,Reddit,usage_based,,,,0.0003,0.0003,,sync,POST /v1/run
 reddit/user-comments,api,Reddit,usage_based,,,,0.0006,0.0006,,sync,POST /v1/run
 reddit/user-posts,api,Reddit,usage_based,,,,0.00038,0.00038,,sync,POST /v1/run
+sams-club/product,api,Sam's Club,usage_based,,,,0.00319,0.00319,,sync,POST /v1/run
+sams-club/search,api,Sam's Club,usage_based,,,,0.00319,0.00319,,sync,POST /v1/run
 sandbase-ai/cat-vton,image,sandbase-ai,per_call,0.00125,,,,,,async,POST /v1/run
 scholar/search-mixed,api,Scholar,per_call,0.0036,,,,,yes,sync,POST /v1/run
 scholar/search-scholar,api,Scholar,per_call,0.0036,,,,,yes,sync,POST /v1/run
@@ -1631,6 +1649,10 @@ semrush/question-keywords,api,Semrush,usage_based,,,,0.08,0.08,,sync,POST /v1/ru
 semrush/referring-domains,api,Semrush,usage_based,,,,0.08,0.08,,sync,POST /v1/run
 semrush/url-organic-keywords,api,Semrush,usage_based,,,,0.02,0.02,,sync,POST /v1/run
 shopee/search/facets,api,Shopee,per_call,0.028571,,,,,,sync,POST /v1/run
+shopify/product,api,Shopify,usage_based,,,,0.00085,0.00085,,sync,POST /v1/run
+shopify/products,api,Shopify,usage_based,,,,0.00085,0.00085,,sync,POST /v1/run
+shopify/search,api,Shopify,usage_based,,,,0.00085,0.00085,,sync,POST /v1/run
+shopify/store,api,Shopify,usage_based,,,,0.00085,0.00085,,sync,POST /v1/run
 similarweb/ad-networks,api,Similarweb,formula,,,,0.225,0.225,,sync,POST /v1/run
 similarweb/audience-interest,api,Similarweb,formula,,,,0.375,0.375,,sync,POST /v1/run
 similarweb/audience-overlap,api,Similarweb,formula,,,,0.15,0.15,,sync,POST /v1/run
@@ -1656,6 +1678,8 @@ similarweb/traffic-engagement,api,Similarweb,formula,,,,0.075,0.075,,sync,POST /
 similarweb/website-top-geographies,api,Similarweb,formula,,,,0.225,0.225,,sync,POST /v1/run
 similarweb/website-traffic-snapshot,api,Similarweb,per_call,0.3,,,,,,sync,POST /v1/run
 similarweb/website-traffic-trend,api,Similarweb,per_call,0.45,,,,,,sync,POST /v1/run
+slickdeals/deal,api,Slickdeals,usage_based,,,,0.00213,0.00213,,sync,POST /v1/run
+slickdeals/search,api,Slickdeals,usage_based,,,,0.00213,0.00213,,sync,POST /v1/run
 snapchat/profile,api,Snapchat,usage_based,,,,0.0011,0.0011,,sync,POST /v1/run
 speridlabs/idol,image,speridlabs,per_call,0.1,,,,,,async,POST /v1/run
 stability-ai/stable-audio/3/medium/text-to-audio,audio,stability-ai,per_call,0.0376,,,,,,async,POST /v1/run
@@ -2001,6 +2025,7 @@ watsons/scrape/category,api,Watsons,per_call,0.021,,,,,,async,POST /v1/run
 waveinflu/creator-search,api,Waveinflu,formula,,,,0.004977,0.4977,,sync,POST /v1/run
 waveinflu/email-lookup,api,Waveinflu,per_call,0.001991,,,,,yes,sync,POST /v1/run
 waveinflu/similar-creators,api,Waveinflu,formula,,,,0.004977,0.4977,,sync,POST /v1/run
+wayfair/search,api,Wayfair,per_call,0.00015,,,,,,async,POST /v1/run
 weather-underground/historical-airport-temperature-series,api,Weather Underground,per_call,0.01,,,,,yes,async,POST /v1/run
 web3-career/company-jobs,api,Web3.career,per_call,0.01,,,,,yes,async,POST /v1/run
 web3-career/intelligence-report,api,Web3.career,per_call,0.01,,,,,yes,async,POST /v1/run

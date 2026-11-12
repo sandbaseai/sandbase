@@ -1,0 +1,95 @@
+{
+  "name": "ikea/search",
+  "display_name": "IKEA Search",
+  "type": "api",
+  "vendor": "IKEA",
+  "vendor_slug": "ikea",
+  "description": "Search IKEA's US store by keyword and get title, price, rating, and image for each product in one normalized response.",
+  "tags": [
+    "api",
+    "ikea",
+    "ecommerce",
+    "product-data"
+  ],
+  "capabilities": [
+    "api",
+    "ikea",
+    "ecommerce",
+    "product-data"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/ikea/search"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "query"
+    ],
+    "properties": {
+      "page": {
+        "type": "integer",
+        "default": 1,
+        "maximum": 100,
+        "minimum": 1,
+        "description": "1-based results page of 24 products. Each page is billed as one request."
+      },
+      "query": {
+        "type": "string",
+        "example": "bookshelf",
+        "minLength": 1,
+        "description": "Search keywords, e.g. \"bookshelf\" or \"desk\"."
+      },
+      "requireFields": {
+        "type": "array",
+        "items": {
+          "enum": [
+            "memberOffer"
+          ],
+          "type": "string"
+        },
+        "description": "Optional; omit it and routing is unchanged, with the cheapest source serving. Name the output fields this request must be able to return, for example `memberOffer`, and it is served only by a source that returns every one of them. Fields you do not name are still returned whenever the serving source has them. This can raise your price: when the cheapest source cannot return a named field, a dearer source serves, and you are quoted and charged its price. Naming a combination that no single source returns together is refused as invalid input, with no charge."
+      }
+    },
+    "additionalProperties": false
+  },
+  "response_schema": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string"
+      },
+      "model": {
+        "type": "string"
+      },
+      "status": {
+        "type": "string"
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "data": {
+              "type": "object",
+              "description": "Normalized result for this request."
+            }
+          }
+        }
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "usage_based",
+    "note": "Billed per call from metered usage; the reference price is typical.",
+    "reference_price": 0.00085
+  },
+  "readme": "# IKEA Search API\n\nSearch IKEA's US store by keyword and get title, price, rating, and image for each product in one normalized response.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/run\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"model\": \"ikea/search\", \"query\": \"bookshelf\"}'\n```\n\nThe result is returned in `outputs[0].data`. Lookups that find nothing fail with a not-found error.\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `query` | string | Yes | Search keywords, e.g. \"bookshelf\" or \"desk\". |\n| `page` | integer | No | 1-based results page of 24 products. Each page is billed as one request. Default `1`. |\n| `requireFields` | array | No | Optional; omit it and routing is unchanged, with the cheapest source serving. Name the output fields this request must be able to return, for example `memberOffer`, and it is served only by a source that returns every on |\n\n## Pricing\n\nBilled at the actual cost of each call, about $0.00085 per request. A call can cost more when the first data source fails and another one answers. Failed calls and lookups that find nothing are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/ikea/search",
+  "created_at": "2026-11-12T06:51:29.22Z"
+}

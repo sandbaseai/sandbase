@@ -1,0 +1,116 @@
+{
+  "name": "slickdeals/search",
+  "display_name": "Slickdeals Search",
+  "type": "api",
+  "vendor": "Slickdeals",
+  "vendor_slug": "slickdeals",
+  "description": "Search Slickdeals deals by keyword with optional sort, price, discount, and page filters and get title, price, list price, store, score, and comment count for each deal in one normalized response.",
+  "tags": [
+    "api",
+    "slickdeals",
+    "ecommerce",
+    "product-data"
+  ],
+  "capabilities": [
+    "api",
+    "slickdeals",
+    "ecommerce",
+    "product-data"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/slickdeals/search"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "query"
+    ],
+    "properties": {
+      "page": {
+        "type": "integer",
+        "default": 1,
+        "maximum": 25,
+        "minimum": 1,
+        "description": "1-based page of 40 deals; Slickdeals stops at page 25. Each page is billed as one request."
+      },
+      "sort": {
+        "enum": [
+          "best_match",
+          "new",
+          "popular",
+          "price_low",
+          "price_high"
+        ],
+        "type": "string",
+        "description": "Result order; omit for Slickdeals' relevance order (e.g. new for the most recently posted deals first)."
+      },
+      "query": {
+        "type": "string",
+        "example": "airpods",
+        "minLength": 1,
+        "description": "Search keywords, e.g. \"airpods\" or \"laptop\"."
+      },
+      "maxPrice": {
+        "type": "number",
+        "minimum": 0,
+        "description": "Optional maximum deal price in USD; deals without a numeric price are left out."
+      },
+      "minPrice": {
+        "type": "number",
+        "minimum": 0,
+        "description": "Optional minimum deal price in USD; deals without a numeric price are left out."
+      },
+      "hideExpired": {
+        "type": "boolean",
+        "description": "Optional; true leaves out deals the community marked expired."
+      },
+      "minDiscount": {
+        "type": "integer",
+        "maximum": 99,
+        "minimum": 1,
+        "description": "Optional; keep only deals at least this many percent off the list price, e.g. 50."
+      }
+    },
+    "additionalProperties": false
+  },
+  "response_schema": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string"
+      },
+      "model": {
+        "type": "string"
+      },
+      "status": {
+        "type": "string"
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "data": {
+              "type": "object",
+              "description": "Normalized result for this request."
+            }
+          }
+        }
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "usage_based",
+    "note": "Billed per call from metered usage; the reference price is typical.",
+    "reference_price": 0.00213
+  },
+  "readme": "# Slickdeals Search API\n\nSearch Slickdeals deals by keyword with optional sort, price, discount, and page filters and get title, price, list price, store, score, and comment count for each deal in one normalized response.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/run\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"model\": \"slickdeals/search\", \"query\": \"airpods\"}'\n```\n\nThe result is returned in `outputs[0].data`. Lookups that find nothing fail with a not-found error.\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `query` | string | Yes | Search keywords, e.g. \"airpods\" or \"laptop\". |\n| `hideExpired` | boolean | No | Optional; true leaves out deals the community marked expired. |\n| `maxPrice` | number | No | Optional maximum deal price in USD; deals without a numeric price are left out. |\n| `minDiscount` | integer | No | Optional; keep only deals at least this many percent off the list price, e.g. 50. |\n| `minPrice` | number | No | Optional minimum deal price in USD; deals without a numeric price are left out. |\n| `page` | integer | No | 1-based page of 40 deals; Slickdeals stops at page 25. Each page is billed as one request. Default `1`. |\n| `sort` | string | No | Result order; omit for Slickdeals' relevance order (e.g. new for the most recently posted deals first). One of: `best_match`, `new`, `popular`, `price_low`, `price_high`. |\n\n## Pricing\n\nBilled at the actual cost of each call, about $0.00213 per request. A call can cost more when the first data source fails and another one answers. Failed calls and lookups that find nothing are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/slickdeals/search",
+  "created_at": "2026-11-12T07:01:24.285Z"
+}

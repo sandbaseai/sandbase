@@ -36,7 +36,7 @@ Modes: async (default `async`). Only pass `mode` values listed here. The SDKs' `
 ```bash
 curl https://api.sandbase.ai/v1/run \
   -H "Authorization: Bearer $SANDBASE_API_KEY" -H 'Content-Type: application/json' \
-  -d '{"model": "meshy/7.1/text-to-3d", "prompt": "A rustic, antique wooden treasure chest with a curved, domed lid, constructed from weathered, dark brown planks exhibiting prominent wood grain and subtle distress. It'\''s heavily reinforced with broad, dark grey, oxidized metal bands secured by numerous circular rivets. Ornate, dark iron decorative elements featuring swirling foliate patterns and dragon motifs adorn the corners and lid. A prominent, circular, intricately carved metal lock plate with a central keyhole dominates the front, flanked by two large, dark metallic pull rings."}'
+  -d '{"model": "meshy/7.1/text-to-3d", "prompt": "A sci-fi hover bike with glowing cyan thrusters and sleek white armor panels"}'
 ```
 
 **Python** ([sdk/python](../../../../sdk/python))
@@ -44,7 +44,7 @@ curl https://api.sandbase.ai/v1/run \
 ```python
 from sandbase import SandBase
 
-result = SandBase().run('meshy/7.1/text-to-3d', {'prompt': "A rustic, antique wooden treasure chest with a curved, domed lid, constructed from weathered, dark brown planks exhibiting prominent wood grain and subtle distress. It's heavily reinforced with broad, dark grey, oxidized metal bands secured by numerous circular rivets. Ornate, dark iron decorative elements featuring swirling foliate patterns and dragon motifs adorn the corners and lid. A prominent, circular, intricately carved metal lock plate with a central keyhole dominates the front, flanked by two large, dark metallic pull rings."})
+result = SandBase().run('meshy/7.1/text-to-3d', {'prompt': 'A sci-fi hover bike with glowing cyan thrusters and sleek white armor panels'})
 print(result["outputs"])
 ```
 
@@ -54,7 +54,7 @@ print(result["outputs"])
 import { SandBase } from "@sandbaseai/sdk";
 
 const result = await new SandBase().run("meshy/7.1/text-to-3d", {
-  "prompt": "A rustic, antique wooden treasure chest with a curved, domed lid, constructed from weathered, dark brown planks exhibiting prominent wood grain and subtle distress. It's heavily reinforced with broad, dark grey, oxidized metal bands secured by numerous circular rivets. Ornate, dark iron decorative elements featuring swirling foliate patterns and dragon motifs adorn the corners and lid. A prominent, circular, intricately carved metal lock plate with a central keyhole dominates the front, flanked by two large, dark metallic pull rings."
+  "prompt": "A sci-fi hover bike with glowing cyan thrusters and sleek white armor panels"
 });
 console.log(result.outputs);
 ```
@@ -64,7 +64,7 @@ console.log(result.outputs);
 ```go
 c, _ := sandbase.NewClient("")
 run, err := c.Run(ctx, "meshy/7.1/text-to-3d", sandbase.Params{
-	"prompt": "A rustic, antique wooden treasure chest with a curved, domed lid, constructed from weathered, dark brown planks exhibiting prominent wood grain and subtle distress. It's heavily reinforced with broad, dark grey, oxidized metal bands secured by numerous circular rivets. Ornate, dark iron decorative elements featuring swirling foliate patterns and dragon motifs adorn the corners and lid. A prominent, circular, intricately carved metal lock plate with a central keyhole dominates the front, flanked by two large, dark metallic pull rings.",
+	"prompt": "A sci-fi hover bike with glowing cyan thrusters and sleek white armor panels",
 })
 ```
 
@@ -83,7 +83,7 @@ curl https://api.sandbase.ai/v1/run/$RUN_ID -H "Authorization: Bearer $SANDBASE_
 | `topology` | string |  | quad for smooth surfaces, triangle for detail. one of: `quad`, `triangle`; default `"triangle"` |
 | `pose_mode` | string |  | a-pose, t-pose or empty for none. one of: `a-pose`, `t-pose`, ``; default `""` |
 | `enable_pbr` | boolean |  | Generate PBR maps (metallic, roughness, normal). default `false` |
-| `model_type` | string |  | standard, lowpoly or smart-topology. one of: `standard`, `lowpoly`, `smart-topology`; default `"standard"` |
+| `model_type` | string |  | Model type. Only standard is supported by Meshy 7.1; use Meshy T2 / T2.5 for Smart Topology meshes. one of: `standard`; default `"standard"` |
 | `symmetry_mode` | string |  | off / auto / on. one of: `off`, `auto`, `on`; default `"auto"` |
 | `texture_image` | string |  | Image URL to guide texturing.  |
 | `enable_rigging` | boolean |  | Rig the model as a humanoid character (+$0.20). default `false` |
@@ -109,7 +109,7 @@ Meshy 7.1 turns a text prompt into a textured 3D model, optionally rigged and an
 | `enable_pbr` | boolean | false | PBR texture maps. |
 | `target_polycount` | integer 100–300000 | 30000 | Target polygon count. |
 | `topology` | `quad` / `triangle` | `triangle` | Quad or triangle mesh. |
-| `model_type` | `standard` / `lowpoly` / `smart-topology` | `standard` | Mesh style. |
+| `model_type` | `standard` | `standard` | Only `standard` is supported; use Meshy T2 / T2.5 for Smart Topology meshes. |
 | `enable_rigging` | boolean | false | Add a humanoid rig. |
 | `geometry_resolution` | `standard` / `2k` / `4k` | `standard` | Mesh detail; higher tiers cost more. |
 | `texture_image` | image URL | — | Optional texture reference image. |

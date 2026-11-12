@@ -115,6 +115,22 @@
     "model": "per_call",
     "per_call": 0.4
   },
+  "examples": [
+    {
+      "input": {
+        "image_style_url": "https://static.sandbase.ai/examples/e0fc4828-821c-4974-966e-116c53e8ca86/input/7f895d34-8025-4201-a8da-dc4bff72e967.png",
+        "model_url": "https://static.sandbase.ai/examples/e0fc4828-821c-4974-966e-116c53e8ca86/input/c7fd980b-df7a-4f18-b6ca-4d1fe7e5638e.glb"
+      },
+      "output": [
+        {
+          "poster": "https://static.sandbase.ai/examples/e0fc4828-821c-4974-966e-116c53e8ca86/output/9ca739e6-5e70-4b7b-a2ed-b1c4b6a6de73.png",
+          "thumbnail": "https://static.sandbase.ai/examples/e0fc4828-821c-4974-966e-116c53e8ca86/output/9ca739e6-5e70-4b7b-a2ed-b1c4b6a6de73.png",
+          "url": "https://static.sandbase.ai/examples/e0fc4828-821c-4974-966e-116c53e8ca86/output/433c982c-f7da-48c4-b6df-98db701b814d.glb"
+        }
+      ],
+      "default": true
+    }
+  ],
   "readme": "# Meshy N1 Retexture\nMeshy N1 Retexture repaints an existing 3D model from one reference image or up to four reference views, producing a 2K base color texture.\n## Fields\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `model_url` | string, required | — | URL of the 3D model to texture. Supports .glb, .gltf, .obj, .fbx and .stl. |\n| `image_style_url` | image URL | — | Single reference image of the target texture, treated as the front view. Provide this or multiview_image_urls. |\n| `multiview_image_urls` | image URLs (1–4) | — | 1 to 4 reference views of the target texture; the first is the front view. Cannot be combined with image_style_url. |\n| `enable_original_uv` | boolean | `true` | Use the model's original UV mapping instead of generating new UVs. |\n## Output\n- `url`: Main 3D file (GLB unless another export format is selected).\n- `thumbnail`: Preview image rendered by the provider.\n## Billing\n$0.40 per request.\nFailed runs are not charged.\n## Also on SandBase\nOther Meshy 3D endpoints: `meshy/6.0-lite/retexture`, `meshy/6.0/retexture`, `meshy/7.0/image-to-3d`, `meshy/7.0/multi-image-to-3d`.\n",
   "cover_url": "https://static.sandbase.ai/covers/meshy/n1/retexture/cover-flare-20261111180949.webp",
   "page_url": "https://www.sandbase.ai/model/meshy/n1/retexture",

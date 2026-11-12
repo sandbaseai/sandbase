@@ -243,6 +243,22 @@
       }
     ]
   },
+  "examples": [
+    {
+      "input": {
+        "images": [
+          "https://static.sandbase.ai/examples/be4c00b9-ea62-4709-9596-77dd34383caa/input/7f8f30c0-01cd-4054-86b7-aa0066437ccf.png"
+        ]
+      },
+      "output": [
+        {
+          "poster": "https://static.sandbase.ai/examples/be4c00b9-ea62-4709-9596-77dd34383caa/output/26052134-1f1e-4948-a2f4-4ad38c4de733.png",
+          "url": "https://static.sandbase.ai/examples/be4c00b9-ea62-4709-9596-77dd34383caa/output/12a40ba6-59bd-414b-a397-b4e04b403d43.glb"
+        }
+      ],
+      "default": true
+    }
+  ],
   "readme": "# Rodin 2.5 Image to 3D\n\nRodin Gen-2.5 by Hyper3D turns an image set of 1–5 views into a production-ready 3D asset with PBR materials and quad or triangle meshes.\n\n## Fields\n\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `prompt` | string | — | Up to 1,024 characters. |\n| `images` | image URL[] (≤5), required | — | 1–5 reference images of the object. |\n| `geometry_file_format` | `glb` / `usdz` / `fbx` / `obj` / `stl` | `glb` | Output file format. |\n| `quality_mesh_option` | `Auto` / `4K Quad` / `8K Quad` / `18K Quad` / `50K Quad` / `100K Quad` / `200K Quad` / `2K Triangle` / `20K Triangle` / `50K Triangle` / `150K Triangle` / `500K Triangle` / `1M Triangle` / `2M Triangle` | `Auto` | Mesh density and topology. |\n| `addons` | `HighPack` | — | `HighPack` adds high-resolution textures and denser meshes. |\n| `TAPose` | boolean | false | Force a T/A-pose for characters. |\n| `hd_texture` | boolean | false | Higher-resolution textures. |\n| `tier` | `Gen-2.5-Minimum` / `Gen-2.5-Extreme-Low` / `Gen-2.5-Low` / `Gen-2.5-Medium` / `Gen-2.5-High` / `Gen-2.5-Extreme-High` | `Gen-2.5-High` | Quality tier. |\n| `material` | `PBR` / `Shaded` / `All` / `None` | `All` | Material output. |\n| `seed` | integer 0–65535 | random | Fix it to compare prompt changes. |\n\n## Billing\n\n$0.48 per model ($0.96 on the Extreme-High tier), plus $0.96 for the HighPack add-on.\n\n| Request | Price |\n|---|---|\n| Default tier | $0.48 |\n| Extreme-High tier | $0.96 |\n| Default + HighPack | $1.44 |\n\nFailed runs are not charged.\n\n## Prompting\n\n- Use clean, evenly lit views on a plain background.\n\n## Also on SandBase\n\nOther Rodin endpoints: `hyper3d/rodin/2.5/text-to-3d`, `hyper3d/rodin/2.5/fast/text-to-3d`, `hyper3d/rodin/2.5/fast/image-to-3d`.\n",
   "cover_url": "https://static.sandbase.ai/covers/hyper3d/rodin/2.5/image-to-3d/cover-flare-20261008040540.webp",
   "page_url": "https://www.sandbase.ai/model/hyper3d/rodin/2.5/image-to-3d",

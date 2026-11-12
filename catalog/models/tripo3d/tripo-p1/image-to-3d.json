@@ -130,6 +130,21 @@
       }
     ]
   },
+  "examples": [
+    {
+      "input": {
+        "image": "https://static.sandbase.ai/examples/38efe400-c0cd-4761-bb18-b0595f824967/input/c721985f-24e4-405a-9265-ce3a9f6118ff.png"
+      },
+      "output": [
+        {
+          "poster": "https://static.sandbase.ai/examples/38efe400-c0cd-4761-bb18-b0595f824967/output/cda5e2a7-ee2b-4d04-a69e-96e80c87cf97.png",
+          "thumbnail": "https://static.sandbase.ai/examples/38efe400-c0cd-4761-bb18-b0595f824967/output/cda5e2a7-ee2b-4d04-a69e-96e80c87cf97.png",
+          "url": "https://static.sandbase.ai/examples/38efe400-c0cd-4761-bb18-b0595f824967/output/0d4d39bb-3b8c-4d0d-9f15-788e7b54548b.glb"
+        }
+      ],
+      "default": true
+    }
+  ],
   "readme": "# Tripo P1 Image to 3D\nTripo P1 is Tripo3D's image-to-3D model. It reconstructs a 3D mesh with optional textures from a single image.\n## Fields\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `image` | image URL, required | — | Input image URL for 3D model creation. |\n| `texture` | boolean | `true` | Generate textures. Set to false for an untextured mesh (cheaper). |\n| `face_limit` | integer 48–20000 | — | Target face count of the mesh. Adaptive when unset. |\n| `seed` | integer | — | Seed for reproducible geometry generation. |\n## Output\n- `url`: Main 3D file (GLB unless another export format is selected).\n- `thumbnail`: Preview image rendered by the provider.\n## Billing\n$0.60 per request with default settings. Price by option (other settings at default):\n| Option | Price |\n|---|---|\n| texture on | $0.60 |\n| texture off | $0.48 |\nFailed runs are not charged.\n## Also on SandBase\nOther Tripo3D 3D endpoints: `tripo3d/tripo-h3.1/image-to-3d`, `tripo3d/tripo-h3.1/multiview-to-3d`, `tripo3d/tripo-h3.1/text-to-3d`, `tripo3d/tripo-p1/text-to-3d`.\n",
   "cover_url": "https://static.sandbase.ai/covers/tripo3d/tripo-p1/image-to-3d/cover-flare-20261111181312.webp",
   "page_url": "https://www.sandbase.ai/model/tripo3d/tripo-p1/image-to-3d",

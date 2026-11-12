@@ -480,6 +480,25 @@
       }
     ]
   },
+  "examples": [
+    {
+      "input": {
+        "images": [
+          "https://static.sandbase.ai/examples/ea2bcfa8-a03d-4dda-a811-9c0fc84dd6ae/input/6fd3f606-1213-4602-81cb-f946c0825293.png",
+          "https://static.sandbase.ai/examples/ea2bcfa8-a03d-4dda-a811-9c0fc84dd6ae/input/37c3b222-10ce-4689-80d1-4a7d369fa503.png",
+          "https://static.sandbase.ai/examples/ea2bcfa8-a03d-4dda-a811-9c0fc84dd6ae/input/9a7324a5-25e8-4c9b-983a-a629bcdabf86.png"
+        ]
+      },
+      "output": [
+        {
+          "poster": "https://static.sandbase.ai/examples/ea2bcfa8-a03d-4dda-a811-9c0fc84dd6ae/output/60a02f6b-3163-4144-9075-758391c34c1b.png",
+          "thumbnail": "https://static.sandbase.ai/examples/ea2bcfa8-a03d-4dda-a811-9c0fc84dd6ae/output/60a02f6b-3163-4144-9075-758391c34c1b.png",
+          "url": "https://static.sandbase.ai/examples/ea2bcfa8-a03d-4dda-a811-9c0fc84dd6ae/output/8a5e80d9-2996-4faa-949f-333ba412157e.glb"
+        }
+      ],
+      "default": true
+    }
+  ],
   "readme": "# Tripo H3.1 Multiview to 3D\n\nTripo H3.1 turns up to 4 views into a textured 3D model quickly and at low cost.\n\n## Fields\n\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `images` | image URL[] (≤4), required | — | Up to 4 views (front, left, back, right). |\n| `pbr` | boolean | true | PBR materials. |\n| `quad` | boolean | false | Quad mesh output. |\n| `seed` | integer | random | Fix it to compare prompt changes. |\n| `texture` | boolean | true | Generate textures. |\n| `face_limit` | integer 1000–2000000 | — | Maximum face count. |\n| `texture_quality` | `standard` / `detailed` | `standard` | Texture detail; higher costs more. |\n| `geometry_quality` | `standard` / `detailed` | `standard` | `detailed` adds mesh detail and cost. |\n\n## Billing\n\n$0.36 per textured model at standard quality, $0.48 detailed, $0.24 untextured; detailed geometry adds $0.24 and quad output $0.06.\n\n| Request | Price |\n|---|---|\n| Standard texture | $0.36 |\n| Detailed texture | $0.48 |\n| Untextured | $0.24 |\n| Standard + detailed geometry | $0.60 |\n\nFailed runs are not charged.\n\n## Also on SandBase\n\nOther Tripo endpoints: `tripo3d/tripo-p2/text-to-3d`, `tripo3d/tripo-p2/image-to-3d`, `tripo3d/tripo-h3.1/text-to-3d`.\n",
   "cover_url": "https://static.sandbase.ai/covers/tripo3d/tripo-h3.1/multiview-to-3d/cover-flare-20261008040304.webp",
   "page_url": "https://www.sandbase.ai/model/tripo3d/tripo-h3.1/multiview-to-3d",

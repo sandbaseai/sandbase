@@ -32,7 +32,7 @@ Modes: async (default `async`). Only pass `mode` values listed here. The SDKs' `
 ```bash
 curl https://api.sandbase.ai/v1/run \
   -H "Authorization: Bearer $SANDBASE_API_KEY" -H 'Content-Type: application/json' \
-  -d '{"model": "meshy/t2.5/text-to-3d", "prompt": "A rustic, antique wooden treasure chest with a curved, domed lid, reinforced with dark iron bands and a large circular lock plate on the front."}'
+  -d '{"model": "meshy/t2.5/text-to-3d", "generation_mode": "full", "prompt": "A stylized astronaut helmet with a reflective gold visor and colorful mission patches"}'
 ```
 
 **Python** ([sdk/python](../../../../sdk/python))
@@ -40,7 +40,7 @@ curl https://api.sandbase.ai/v1/run \
 ```python
 from sandbase import SandBase
 
-result = SandBase().run('meshy/t2.5/text-to-3d', {'prompt': 'A rustic, antique wooden treasure chest with a curved, domed lid, reinforced with dark iron bands and a large circular lock plate on the front.'})
+result = SandBase().run('meshy/t2.5/text-to-3d', {'generation_mode': 'full', 'prompt': 'A stylized astronaut helmet with a reflective gold visor and colorful mission patches'})
 print(result["outputs"])
 ```
 
@@ -50,7 +50,8 @@ print(result["outputs"])
 import { SandBase } from "@sandbaseai/sdk";
 
 const result = await new SandBase().run("meshy/t2.5/text-to-3d", {
-  "prompt": "A rustic, antique wooden treasure chest with a curved, domed lid, reinforced with dark iron bands and a large circular lock plate on the front."
+  "generation_mode": "full",
+  "prompt": "A stylized astronaut helmet with a reflective gold visor and colorful mission patches"
 });
 console.log(result.outputs);
 ```
@@ -60,7 +61,8 @@ console.log(result.outputs);
 ```go
 c, _ := sandbase.NewClient("")
 run, err := c.Run(ctx, "meshy/t2.5/text-to-3d", sandbase.Params{
-	"prompt": "A rustic, antique wooden treasure chest with a curved, domed lid, reinforced with dark iron bands and a large circular lock plate on the front.",
+	"generation_mode": "full",
+	"prompt": "A stylized astronaut helmet with a reflective gold visor and colorful mission patches",
 })
 ```
 

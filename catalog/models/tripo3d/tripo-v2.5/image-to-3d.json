@@ -241,6 +241,21 @@
       }
     ]
   },
+  "examples": [
+    {
+      "input": {
+        "image": "https://static.sandbase.ai/examples/20dc0941-0d15-4467-9387-f1c3018cabba/input/73d6d211-722b-4b2c-9616-4f48332d7c75.png"
+      },
+      "output": [
+        {
+          "poster": "https://static.sandbase.ai/examples/20dc0941-0d15-4467-9387-f1c3018cabba/output/93c446cd-eb80-439f-af04-84f1cb87a0fb.webp",
+          "thumbnail": "https://static.sandbase.ai/examples/20dc0941-0d15-4467-9387-f1c3018cabba/output/93c446cd-eb80-439f-af04-84f1cb87a0fb.webp",
+          "url": "https://static.sandbase.ai/examples/20dc0941-0d15-4467-9387-f1c3018cabba/output/2d8b7664-5b8c-43e1-8058-3817f047dd43.glb"
+        }
+      ],
+      "default": true
+    }
+  ],
   "readme": "# Tripo v2.5 Image to 3D\nTripo v2.5 by Tripo3D generates a textured 3D mesh from a single image, with optional HD textures, PBR materials and quad topology.\n## Fields\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `image` | image URL, required | — | Input image URL for 3D model creation. |\n| `texture` | `no` / `standard` / `HD` | `standard` | Texture quality: no (untextured), standard, or HD. |\n| `pbr` | boolean | `false` | Generate PBR materials. |\n| `quad` | boolean | `false` | Generate quad mesh topology (billed as an add-on). |\n| `face_limit` | integer | — | Target face count. Adaptive when unset. |\n| `orientation` | `default` / `align_image` | `default` | Set to align_image to rotate the model to match the input image. |\n| `seed` | integer | — | Seed for reproducible geometry generation. |\n## Output\n- `url`: Main 3D file (GLB unless another export format is selected).\n- `thumbnail`: Preview image rendered by the provider.\n## Billing\n$0.30 per request with default settings. Price by option (other settings at default):\n| Option | Price |\n|---|---|\n| pbr on | $0.30 |\n| pbr off | $0.30 |\n| quad on | $0.35 |\n| quad off | $0.30 |\n| texture = no | $0.20 |\n| texture = standard | $0.30 |\n| texture = HD | $0.40 |\nFailed runs are not charged.\n## Also on SandBase\nOther Tripo3D 3D endpoints: `tripo3d/tripo-h3.1/image-to-3d`, `tripo3d/tripo-h3.1/multiview-to-3d`, `tripo3d/tripo-h3.1/text-to-3d`, `tripo3d/tripo-p1/image-to-3d`.\n",
   "cover_url": "https://static.sandbase.ai/covers/tripo3d/tripo-v2.5/image-to-3d/cover-flare-20261111181314.webp",
   "page_url": "https://www.sandbase.ai/model/tripo3d/tripo-v2.5/image-to-3d",

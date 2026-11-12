@@ -68,14 +68,12 @@
       },
       "model_type": {
         "enum": [
-          "standard",
-          "lowpoly",
-          "smart-topology"
+          "standard"
         ],
         "type": "string",
         "title": "Model Type",
         "default": "standard",
-        "description": "standard, lowpoly or smart-topology."
+        "description": "Model type. Only standard is supported by Meshy 7.1; use Meshy T2 / T2.5 for Smart Topology meshes."
       },
       "symmetry_mode": {
         "enum": [
@@ -295,7 +293,22 @@
       }
     ]
   },
-  "readme": "# Meshy 7.1 Text to 3D\n\nMeshy 7.1 turns a text prompt into a textured 3D model, optionally rigged and animated.\n\n## Fields\n\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `prompt` | string, required | — | Up to 600 characters. |\n| `seed` | integer | random | Fix it to compare prompt changes. |\n| `texture_prompt` | string | — | Optional texture description. |\n| `pose_mode` | `a-pose` / `t-pose` / `` | — | Force an A- or T-pose. |\n| `symmetry_mode` | `off` / `auto` / `on` | `auto` | Enforce symmetry. |\n| `enable_animation` | boolean | false | Add a walk/run animation (requires rigging). |\n| `enable_pbr` | boolean | false | PBR texture maps. |\n| `target_polycount` | integer 100–300000 | 30000 | Target polygon count. |\n| `topology` | `quad` / `triangle` | `triangle` | Quad or triangle mesh. |\n| `model_type` | `standard` / `lowpoly` / `smart-topology` | `standard` | Mesh style. |\n| `enable_rigging` | boolean | false | Add a humanoid rig. |\n| `geometry_resolution` | `standard` / `2k` / `4k` | `standard` | Mesh detail; higher tiers cost more. |\n| `texture_image` | image URL | — | Optional texture reference image. |\n\n## Billing\n\n$1.44 per textured model; 2K geometry adds $0.24 and 4K adds $0.48; rigging adds $0.24 and animation another $0.144.\n\n| Request | Price |\n|---|---|\n| Textured | $1.44 |\n| Textured, 2K geometry | $1.68 |\n| Textured + rig + animation | $1.824 |\n\nFailed runs are not charged.\n\n## Prompting\n\n- Describe or show one object; plain backgrounds work best.\n\n## Also on SandBase\n\nOther Meshy 7.1 endpoints: `meshy/7.1/image-to-3d`, `meshy/7.1/multi-image-to-3d`.\n",
+  "examples": [
+    {
+      "input": {
+        "prompt": "A sci-fi hover bike with glowing cyan thrusters and sleek white armor panels"
+      },
+      "output": [
+        {
+          "poster": "https://static.sandbase.ai/examples/ccb6e880-04d5-4bfc-8f8c-097c8df8fbb1/output/bf9f9eb2-9491-4bac-99eb-548feb84e25e.png",
+          "thumbnail": "https://static.sandbase.ai/examples/ccb6e880-04d5-4bfc-8f8c-097c8df8fbb1/output/bf9f9eb2-9491-4bac-99eb-548feb84e25e.png",
+          "url": "https://static.sandbase.ai/examples/ccb6e880-04d5-4bfc-8f8c-097c8df8fbb1/output/c5cfac5e-123e-4888-a98f-3ebda12f824f.glb"
+        }
+      ],
+      "default": true
+    }
+  ],
+  "readme": "# Meshy 7.1 Text to 3D\n\nMeshy 7.1 turns a text prompt into a textured 3D model, optionally rigged and animated.\n\n## Fields\n\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `prompt` | string, required | — | Up to 600 characters. |\n| `seed` | integer | random | Fix it to compare prompt changes. |\n| `texture_prompt` | string | — | Optional texture description. |\n| `pose_mode` | `a-pose` / `t-pose` / `` | — | Force an A- or T-pose. |\n| `symmetry_mode` | `off` / `auto` / `on` | `auto` | Enforce symmetry. |\n| `enable_animation` | boolean | false | Add a walk/run animation (requires rigging). |\n| `enable_pbr` | boolean | false | PBR texture maps. |\n| `target_polycount` | integer 100–300000 | 30000 | Target polygon count. |\n| `topology` | `quad` / `triangle` | `triangle` | Quad or triangle mesh. |\n| `model_type` | `standard` | `standard` | Only `standard` is supported; use Meshy T2 / T2.5 for Smart Topology meshes. |\n| `enable_rigging` | boolean | false | Add a humanoid rig. |\n| `geometry_resolution` | `standard` / `2k` / `4k` | `standard` | Mesh detail; higher tiers cost more. |\n| `texture_image` | image URL | — | Optional texture reference image. |\n\n## Billing\n\n$1.44 per textured model; 2K geometry adds $0.24 and 4K adds $0.48; rigging adds $0.24 and animation another $0.144.\n\n| Request | Price |\n|---|---|\n| Textured | $1.44 |\n| Textured, 2K geometry | $1.68 |\n| Textured + rig + animation | $1.824 |\n\nFailed runs are not charged.\n\n## Prompting\n\n- Describe or show one object; plain backgrounds work best.\n\n## Also on SandBase\n\nOther Meshy 7.1 endpoints: `meshy/7.1/image-to-3d`, `meshy/7.1/multi-image-to-3d`.\n",
   "cover_url": "https://static.sandbase.ai/covers/meshy/7.1/text-to-3d/cover-flare-20261008040707.webp",
   "page_url": "https://www.sandbase.ai/model/meshy/7.1/text-to-3d",
   "published_at": "2026-09-21T17:30:05.031Z",

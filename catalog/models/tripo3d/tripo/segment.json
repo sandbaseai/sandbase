@@ -94,6 +94,21 @@
     "model": "per_call",
     "per_call": 0.48
   },
+  "examples": [
+    {
+      "input": {
+        "model_url": "https://static.sandbase.ai/examples/5d486446-c09b-4862-9387-00f6850d4373/input/992f8521-7777-4c3c-8d73-e11004b95d99.glb"
+      },
+      "output": [
+        {
+          "poster": "https://static.sandbase.ai/examples/5d486446-c09b-4862-9387-00f6850d4373/output/4a02b9d4-3a65-4894-b75f-c762157f660d.png",
+          "thumbnail": "https://static.sandbase.ai/examples/5d486446-c09b-4862-9387-00f6850d4373/output/4a02b9d4-3a65-4894-b75f-c762157f660d.png",
+          "url": "https://static.sandbase.ai/examples/5d486446-c09b-4862-9387-00f6850d4373/output/28c71329-b3b3-44d0-adcd-b5e6851a8186.glb"
+        }
+      ],
+      "default": true
+    }
+  ],
   "readme": "# Tripo Segment\nTripo Segment splits an existing 3D model into named parts. Accepts GLB, OBJ, FBX or STL input.\n## Fields\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `model_url` | string, required | — | URL of the input 3D model (GLB, OBJ, FBX or STL, max 150MB). |\n## Output\n- `url`: Main 3D file (GLB unless another export format is selected).\n- `thumbnail`: Preview image rendered by the provider.\n## Billing\n$0.48 per request.\nFailed runs are not charged.\n## Also on SandBase\nOther Tripo3D 3D endpoints: `tripo3d/tripo-h3.1/image-to-3d`, `tripo3d/tripo-h3.1/multiview-to-3d`, `tripo3d/tripo-h3.1/text-to-3d`, `tripo3d/tripo-p1/image-to-3d`.\n",
   "cover_url": "https://static.sandbase.ai/covers/tripo3d/tripo/segment/cover-flare-20261111181220.webp",
   "page_url": "https://www.sandbase.ai/model/tripo3d/tripo/segment",

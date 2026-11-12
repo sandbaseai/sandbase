@@ -190,6 +190,21 @@
       }
     ]
   },
+  "examples": [
+    {
+      "input": {
+        "prompt": "A vintage brass diving helmet with round glass portholes and riveted seams"
+      },
+      "output": [
+        {
+          "poster": "https://static.sandbase.ai/examples/7ad8ceac-8e68-4aaf-8b01-893f6145c45f/output/5fcf7ad2-0c28-4eea-84cf-9c35b7d8b238.png",
+          "thumbnail": "https://static.sandbase.ai/examples/7ad8ceac-8e68-4aaf-8b01-893f6145c45f/output/5fcf7ad2-0c28-4eea-84cf-9c35b7d8b238.png",
+          "url": "https://static.sandbase.ai/examples/7ad8ceac-8e68-4aaf-8b01-893f6145c45f/output/bcc8a256-1c4f-41ae-8baf-ff68c5e11646.glb"
+        }
+      ],
+      "default": true
+    }
+  ],
   "readme": "# Hunyuan 3D 3.1 Pro Text to 3D\n\nHunyuan 3D 3.1 Pro turns a text prompt into a high-detail textured or geometry-only 3D model.\n\n## Fields\n\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `prompt` | string, required | — | Up to 1,024 characters. |\n| `enable_pbr` | boolean | false | PBR materials. |\n| `face_count` | integer 40000–1500000 | — | Target face count. |\n| `generate_type` | `Normal` / `Geometry` | `Normal` | `Normal` textured, `LowPoly`, or `Geometry` (untextured). |\n\n## Billing\n\n$0.375 per model; PBR, a custom face count, and extra views each add $0.15.\n\n| Request | Price |\n|---|---|\n| Default | $0.375 |\n| With PBR | $0.525 |\n| With custom face count | $0.525 |\n\nFailed runs are not charged.\n\n## Also on SandBase\n\nOther Hunyuan 3D endpoints: `tencent/hunyuan-3d/3.1/pro/image-to-3d`, `tencent/hunyuan-3d/3.0/image-to-3d`.\n",
   "cover_url": "https://static.sandbase.ai/covers/tencent/hunyuan-3d/3.1/pro/text-to-3d/cover-flare-20261005043512.webp",
   "page_url": "https://www.sandbase.ai/model/tencent/hunyuan-3d/3.1/pro/text-to-3d",

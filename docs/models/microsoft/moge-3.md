@@ -19,7 +19,7 @@ Modes: async (default `async`). Only pass `mode` values listed here. The SDKs' `
 ```bash
 curl https://api.sandbase.ai/v1/run \
   -H "Authorization: Bearer $SANDBASE_API_KEY" -H 'Content-Type: application/json' \
-  -d '{"model": "microsoft/moge-3", "image": "https://storage.googleapis.com/falserverless/example_inputs/dog.png"}'
+  -d '{"model": "microsoft/moge-3", "image": "https://static.sandbase.ai/examples/7cf3a6ed-343a-423e-a24c-4b59a545886a/input/c4235e86-5291-4a00-8f71-e9bb3cdf85bc.png"}'
 ```
 
 **Python** ([sdk/python](../../../sdk/python))
@@ -27,7 +27,7 @@ curl https://api.sandbase.ai/v1/run \
 ```python
 from sandbase import SandBase
 
-result = SandBase().run('microsoft/moge-3', {'image': 'https://storage.googleapis.com/falserverless/example_inputs/dog.png'})
+result = SandBase().run('microsoft/moge-3', {'image': 'https://static.sandbase.ai/examples/7cf3a6ed-343a-423e-a24c-4b59a545886a/input/c4235e86-5291-4a00-8f71-e9bb3cdf85bc.png'})
 print(result["outputs"])
 ```
 
@@ -37,7 +37,7 @@ print(result["outputs"])
 import { SandBase } from "@sandbaseai/sdk";
 
 const result = await new SandBase().run("microsoft/moge-3", {
-  "image": "https://storage.googleapis.com/falserverless/example_inputs/dog.png"
+  "image": "https://static.sandbase.ai/examples/7cf3a6ed-343a-423e-a24c-4b59a545886a/input/c4235e86-5291-4a00-8f71-e9bb3cdf85bc.png"
 });
 console.log(result.outputs);
 ```
@@ -47,7 +47,7 @@ console.log(result.outputs);
 ```go
 c, _ := sandbase.NewClient("")
 run, err := c.Run(ctx, "microsoft/moge-3", sandbase.Params{
-	"image": "https://storage.googleapis.com/falserverless/example_inputs/dog.png",
+	"image": "https://static.sandbase.ai/examples/7cf3a6ed-343a-423e-a24c-4b59a545886a/input/c4235e86-5291-4a00-8f71-e9bb3cdf85bc.png",
 })
 ```
 

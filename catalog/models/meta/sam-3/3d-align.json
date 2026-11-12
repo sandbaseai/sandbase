@@ -115,6 +115,22 @@
     "model": "per_call",
     "per_call": 0.024
   },
+  "examples": [
+    {
+      "input": {
+        "image": "https://static.sandbase.ai/examples/3bf6e022-6d29-4df3-8083-6b103a64d0cc/input/d75579d7-0e3d-4953-8cfc-376af911dad8.png",
+        "model_url": "https://static.sandbase.ai/examples/3bf6e022-6d29-4df3-8083-6b103a64d0cc/input/cafb7efd-4dda-4b32-ae69-1554d81c1878.glb"
+      },
+      "output": [
+        {
+          "poster": "https://static.sandbase.ai/examples/3bf6e022-6d29-4df3-8083-6b103a64d0cc/output/cd7f5f6a-9e7a-4e43-911d-b4b9d39d080f.jpg",
+          "thumbnail": "https://static.sandbase.ai/examples/3bf6e022-6d29-4df3-8083-6b103a64d0cc/output/cd7f5f6a-9e7a-4e43-911d-b4b9d39d080f.jpg",
+          "url": "https://static.sandbase.ai/examples/3bf6e022-6d29-4df3-8083-6b103a64d0cc/output/045c16ec-3aa5-41b3-9c7e-68a00aba8610.glb"
+        }
+      ],
+      "default": true
+    }
+  ],
   "readme": "# SAM 3 3D Align\nSAM 3D Align by Meta places a SAM 3D Body mesh into the scene of its source image, optionally combining it with a SAM 3D Objects mesh into one GLB scene.\n## Fields\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `image` | image URL, required | — | Original image the body mesh was reconstructed from. |\n| `model_url` | string, required | — | URL of the SAM 3D Body mesh (.ply or .glb) to align. |\n| `mask` | image URL | — | Optional human mask image. The full image is used when omitted. |\n| `object_model_url` | string | — | Optional URL of a SAM 3D Objects mesh (.glb). When set, the output is a combined body + object scene. |\n| `focal_length` | number | — | Focal length from SAM 3D Body metadata. Estimated from the image when omitted. |\n## Output\n- `url`: Main 3D file (GLB unless another export format is selected).\n- `thumbnail`: Preview image rendered by the provider.\n## Billing\n$0.024 per request.\nFailed runs are not charged.\n## Also on SandBase\nOther Meta 3D endpoints: `meta/sam-3/3d-body`, `meta/sam-3/3d-objects`.\n",
   "cover_url": "https://static.sandbase.ai/covers/meta/sam-3/3d-align/cover-flare-20261111180812.webp",
   "page_url": "https://www.sandbase.ai/model/meta/sam-3/3d-align",

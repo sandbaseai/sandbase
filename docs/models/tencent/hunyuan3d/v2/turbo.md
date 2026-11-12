@@ -26,7 +26,7 @@ Modes: async (default `async`). Only pass `mode` values listed here. The SDKs' `
 ```bash
 curl https://api.sandbase.ai/v1/run \
   -H "Authorization: Bearer $SANDBASE_API_KEY" -H 'Content-Type: application/json' \
-  -d '{"model": "tencent/hunyuan3d/v2/turbo", "image": "https://static.sandbase.ai/examples/tencent/hunyuan3d/v2/turbo/input_image_0.png"}'
+  -d '{"model": "tencent/hunyuan3d/v2/turbo", "image": "https://static.sandbase.ai/examples/87972c64-37f6-42d8-8cec-8c70a014162e/input/1bd2f553-56ec-49d3-96ed-f98e15d37234.png", "textured_mesh": true}'
 ```
 
 **Python** ([sdk/python](../../../../../sdk/python))
@@ -34,7 +34,7 @@ curl https://api.sandbase.ai/v1/run \
 ```python
 from sandbase import SandBase
 
-result = SandBase().run('tencent/hunyuan3d/v2/turbo', {'image': 'https://static.sandbase.ai/examples/tencent/hunyuan3d/v2/turbo/input_image_0.png'})
+result = SandBase().run('tencent/hunyuan3d/v2/turbo', {'image': 'https://static.sandbase.ai/examples/87972c64-37f6-42d8-8cec-8c70a014162e/input/1bd2f553-56ec-49d3-96ed-f98e15d37234.png', 'textured_mesh': True})
 print(result["outputs"])
 ```
 
@@ -44,7 +44,8 @@ print(result["outputs"])
 import { SandBase } from "@sandbaseai/sdk";
 
 const result = await new SandBase().run("tencent/hunyuan3d/v2/turbo", {
-  "image": "https://static.sandbase.ai/examples/tencent/hunyuan3d/v2/turbo/input_image_0.png"
+  "image": "https://static.sandbase.ai/examples/87972c64-37f6-42d8-8cec-8c70a014162e/input/1bd2f553-56ec-49d3-96ed-f98e15d37234.png",
+  "textured_mesh": true
 });
 console.log(result.outputs);
 ```
@@ -54,7 +55,8 @@ console.log(result.outputs);
 ```go
 c, _ := sandbase.NewClient("")
 run, err := c.Run(ctx, "tencent/hunyuan3d/v2/turbo", sandbase.Params{
-	"image": "https://static.sandbase.ai/examples/tencent/hunyuan3d/v2/turbo/input_image_0.png",
+	"image": "https://static.sandbase.ai/examples/87972c64-37f6-42d8-8cec-8c70a014162e/input/1bd2f553-56ec-49d3-96ed-f98e15d37234.png",
+	"textured_mesh": true,
 })
 ```
 

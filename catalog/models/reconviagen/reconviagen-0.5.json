@@ -160,6 +160,24 @@
       }
     ]
   },
+  "examples": [
+    {
+      "input": {
+        "images": [
+          "https://static.sandbase.ai/examples/e7aaf9f3-ff36-4f29-9817-19caa1bf2e2c/input/61e979cb-8ae9-4cee-a73e-c1402d05faed.png",
+          "https://static.sandbase.ai/examples/e7aaf9f3-ff36-4f29-9817-19caa1bf2e2c/input/3025d72b-49eb-4751-ad7d-502b2e8e7c90.png",
+          "https://static.sandbase.ai/examples/e7aaf9f3-ff36-4f29-9817-19caa1bf2e2c/input/f67785e3-394b-4c82-b251-28f0993af3a0.png"
+        ]
+      },
+      "output": [
+        {
+          "poster": "https://static.sandbase.ai/examples/e7aaf9f3-ff36-4f29-9817-19caa1bf2e2c/output/15626280-eaa2-4881-9833-5706403a359a.png",
+          "url": "https://static.sandbase.ai/examples/e7aaf9f3-ff36-4f29-9817-19caa1bf2e2c/output/b75fc783-c8d4-4f90-9204-473c989acc8b.glb"
+        }
+      ],
+      "default": true
+    }
+  ],
   "readme": "# ReconViaGen 0.5\nReconViaGen 0.5 reconstructs a textured 3D model (GLB with PBR materials) from one or more views of the same object; more views give a more accurate result.\n## Fields\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `images` | image URLs (1–16), required | — | 1 to 16 views of the same object. |\n| `resolution` | `512` / `1024` / `1536` | `1024` | Generation resolution. Higher is slower and more detailed, and changes the price. |\n| `texture_size` | `1024` / `2048` / `4096` | `2048` | Resolution of the baked texture image. Higher values keep finer surface detail but produce larger files. |\n| `decimation_target` | integer 5000–2000000 | `500000` | Target number of vertices in the final mesh. Lower values give smaller files; 20k-50k suits web and mobile. |\n| `seed` | integer | — | Random seed for reproducible results. |\n## Output\n- `url`: Main 3D file (GLB unless another export format is selected).\n## Billing\n$0.30 per request with default settings. Price by option (other settings at default):\n| Option | Price |\n|---|---|\n| resolution = 512 | $0.25 |\n| resolution = 1024 | $0.30 |\n| resolution = 1536 | $0.35 |\nFailed runs are not charged.\n",
   "cover_url": "https://static.sandbase.ai/covers/reconviagen/reconviagen-0.5/cover-flare-20261111204635.webp",
   "page_url": "https://www.sandbase.ai/model/reconviagen/reconviagen-0.5",

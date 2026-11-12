@@ -1,0 +1,84 @@
+{
+  "name": "etsy/shop-listings",
+  "display_name": "Etsy Shop Listings",
+  "type": "api",
+  "vendor": "Etsy",
+  "vendor_slug": "etsy",
+  "description": "List one Etsy shop's active listings by shop name, a page at a time, and get title, price, original price and image for each listing in one normalized response.",
+  "tags": [
+    "api",
+    "etsy",
+    "ecommerce",
+    "product-data"
+  ],
+  "capabilities": [
+    "api",
+    "etsy",
+    "ecommerce",
+    "product-data"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/etsy/shop-listings"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "shopName"
+    ],
+    "properties": {
+      "page": {
+        "type": "integer",
+        "default": 1,
+        "maximum": 250,
+        "minimum": 1,
+        "description": "1-based results page of the shop's listings. Each page is billed as one request."
+      },
+      "shopName": {
+        "type": "string",
+        "example": "StudioStelleHD",
+        "description": "Etsy shop name, as in the shop URL (https://www.etsy.com/shop/<name>), e.g. StudioStelleHD. The Etsy Search and Etsy Product SKUs return it as shopName."
+      }
+    },
+    "additionalProperties": false
+  },
+  "response_schema": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string"
+      },
+      "model": {
+        "type": "string"
+      },
+      "status": {
+        "type": "string"
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "data": {
+              "type": "object",
+              "description": "Normalized result for this request."
+            }
+          }
+        }
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "usage_based",
+    "note": "Billed per call from metered usage; the reference price is typical.",
+    "reference_price": 0.0009
+  },
+  "readme": "# Etsy Shop Listings API\n\nList one Etsy shop's active listings by shop name, a page at a time, and get title, price, original price and image for each listing in one normalized response.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/run\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"model\": \"etsy/shop-listings\", \"shopName\": \"StudioStelleHD\"}'\n```\n\nThe result is returned in `outputs[0].data`. Lookups that find nothing fail with a not-found error.\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `shopName` | string | Yes | Etsy shop name, as in the shop URL (https://www.etsy.com/shop/<name>), e.g. StudioStelleHD. The Etsy Search and Etsy Product SKUs return it as shopName. |\n| `page` | integer | No | 1-based results page of the shop's listings. Each page is billed as one request. Default `1`. |\n\n## Pricing\n\nBilled at the actual cost of each call, about $0.0009 per request. A call can cost more when the first data source fails and another one answers. Failed calls and lookups that find nothing are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/etsy/shop-listings",
+  "created_at": "2026-11-12T06:49:28.725Z"
+}

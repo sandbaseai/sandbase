@@ -14,7 +14,7 @@ Call 4 trellis models through SandBase with one API key: no separate account, on
 ```bash
 curl https://api.sandbase.ai/v1/run \
   -H "Authorization: Bearer $SANDBASE_API_KEY" -H 'Content-Type: application/json' \
-  -d '{"model": "trellis/trellis", "image": "https://static.sandbase.ai/examples/trellis/trellis/input_image_0.png"}'
+  -d '{"model": "trellis/trellis", "image": "https://static.sandbase.ai/examples/fe2420f6-f986-41b0-8ba0-a396d9df8b9b/input/9976ef54-909a-45aa-b4ce-c4fa20a068ad.png"}'
 ```
 
 Get a key at [sandbase.ai](https://www.sandbase.ai/console). Back to [all platforms](README.md).

@@ -1,0 +1,119 @@
+{
+  "name": "etsy/search",
+  "display_name": "Etsy Search",
+  "type": "api",
+  "vendor": "Etsy",
+  "vendor_slug": "etsy",
+  "description": "Search Etsy listings by keyword, the same results an Etsy search or /market page shows, with optional sort, price range and page, and get title, price, original price, image, shop, rating and ad flag for each listing in one normalized response.",
+  "tags": [
+    "api",
+    "etsy",
+    "ecommerce",
+    "product-data"
+  ],
+  "capabilities": [
+    "api",
+    "etsy",
+    "ecommerce",
+    "product-data"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/etsy/search"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "query"
+    ],
+    "properties": {
+      "page": {
+        "type": "integer",
+        "default": 1,
+        "maximum": 250,
+        "minimum": 1,
+        "description": "1-based results page. Each page is billed as one request."
+      },
+      "sort": {
+        "enum": [
+          "relevance",
+          "newest",
+          "price_low",
+          "price_high"
+        ],
+        "type": "string",
+        "default": "relevance",
+        "description": "Result order: relevance (Etsy's own order, the default), newest, price_low, or price_high."
+      },
+      "query": {
+        "type": "string",
+        "example": "cover letter template",
+        "maxLength": 250,
+        "minLength": 1,
+        "description": "Search keywords, e.g. \"cover letter template\". For an Etsy /market page, pass its words: https://www.etsy.com/market/habit_tracker_2027 is the query \"habit tracker 2027\"."
+      },
+      "maxPrice": {
+        "type": "number",
+        "minimum": 0,
+        "description": "Optional maximum listing price, in USD."
+      },
+      "minPrice": {
+        "type": "number",
+        "minimum": 0,
+        "description": "Optional minimum listing price, in USD."
+      },
+      "requireFields": {
+        "type": "array",
+        "items": {
+          "enum": [
+            "rating",
+            "reviewsCount",
+            "totalResults"
+          ],
+          "type": "string"
+        },
+        "description": "Optional; omit it and routing is unchanged, with the cheapest source serving. Name the output fields this request must be able to return, for example `rating`, and it is served only by a source that returns every one of them. Fields you do not name are still returned whenever the serving source has them. This can raise your price: when the cheapest source cannot return a named field, a dearer source serves, and you are quoted and charged its price. Naming a combination that no single source returns together is refused as invalid input, with no charge."
+      }
+    },
+    "additionalProperties": false
+  },
+  "response_schema": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string"
+      },
+      "model": {
+        "type": "string"
+      },
+      "status": {
+        "type": "string"
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "data": {
+              "type": "object",
+              "description": "Normalized result for this request."
+            }
+          }
+        }
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "usage_based",
+    "note": "Billed per call from metered usage; the reference price is typical.",
+    "reference_price": 0.0009
+  },
+  "readme": "# Etsy Search API\n\nSearch Etsy listings by keyword, the same results an Etsy search or /market page shows, with optional sort, price range and page, and get title, price, original price, image, shop, rating and ad flag for each listing in one normalized response.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/run\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"model\": \"etsy/search\", \"query\": \"cover letter template\"}'\n```\n\nThe result is returned in `outputs[0].data`. Lookups that find nothing fail with a not-found error.\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `query` | string | Yes | Search keywords, e.g. \"cover letter template\". For an Etsy /market page, pass its words: https://www.etsy.com/market/habit_tracker_2027 is the query \"habit tracker 2027\". |\n| `maxPrice` | number | No | Optional maximum listing price, in USD. |\n| `minPrice` | number | No | Optional minimum listing price, in USD. |\n| `page` | integer | No | 1-based results page. Each page is billed as one request. Default `1`. |\n| `requireFields` | array | No | Optional; omit it and routing is unchanged, with the cheapest source serving. Name the output fields this request must be able to return, for example `rating`, and it is served only by a source that returns every one of  |\n| `sort` | string | No | Result order: relevance (Etsy's own order, the default), newest, price_low, or price_high. One of: `relevance`, `newest`, `price_low`, `price_high`. |\n\n## Pricing\n\nBilled at the actual cost of each call, about $0.0009 per request. A call can cost more when the first data source fails and another one answers. Failed calls and lookups that find nothing are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/etsy/search",
+  "created_at": "2026-11-12T06:49:25.639Z"
+}

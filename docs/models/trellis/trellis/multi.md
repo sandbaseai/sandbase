@@ -19,7 +19,7 @@ Modes: async (default `async`). Only pass `mode` values listed here. The SDKs' `
 ```bash
 curl https://api.sandbase.ai/v1/run \
   -H "Authorization: Bearer $SANDBASE_API_KEY" -H 'Content-Type: application/json' \
-  -d '{"model": "trellis/trellis/multi", "images": "https://static.sandbase.ai/examples/trellis/trellis/multi/input_images_0.png"}'
+  -d '{"model": "trellis/trellis/multi", "images": ["https://static.sandbase.ai/examples/c3217e6c-f044-443d-9957-ace7022fddc1/input/277c5496-1304-4fb9-8ed8-9e324a8ce9d7.png", "https://static.sandbase.ai/examples/c3217e6c-f044-443d-9957-ace7022fddc1/input/3d193c27-3ff2-44e7-9ce8-685cf3d3150a.png", "https://static.sandbase.ai/examples/c3217e6c-f044-443d-9957-ace7022fddc1/input/aaf3daea-a26c-4d1c-abc5-5523262b80f9.png"]}'
 ```
 
 **Python** ([sdk/python](../../../../sdk/python))
@@ -27,7 +27,7 @@ curl https://api.sandbase.ai/v1/run \
 ```python
 from sandbase import SandBase
 
-result = SandBase().run('trellis/trellis/multi', {'images': 'https://static.sandbase.ai/examples/trellis/trellis/multi/input_images_0.png'})
+result = SandBase().run('trellis/trellis/multi', {'images': ['https://static.sandbase.ai/examples/c3217e6c-f044-443d-9957-ace7022fddc1/input/277c5496-1304-4fb9-8ed8-9e324a8ce9d7.png', 'https://static.sandbase.ai/examples/c3217e6c-f044-443d-9957-ace7022fddc1/input/3d193c27-3ff2-44e7-9ce8-685cf3d3150a.png', 'https://static.sandbase.ai/examples/c3217e6c-f044-443d-9957-ace7022fddc1/input/aaf3daea-a26c-4d1c-abc5-5523262b80f9.png']})
 print(result["outputs"])
 ```
 
@@ -37,7 +37,11 @@ print(result["outputs"])
 import { SandBase } from "@sandbaseai/sdk";
 
 const result = await new SandBase().run("trellis/trellis/multi", {
-  "images": "https://static.sandbase.ai/examples/trellis/trellis/multi/input_images_0.png"
+  "images": [
+    "https://static.sandbase.ai/examples/c3217e6c-f044-443d-9957-ace7022fddc1/input/277c5496-1304-4fb9-8ed8-9e324a8ce9d7.png",
+    "https://static.sandbase.ai/examples/c3217e6c-f044-443d-9957-ace7022fddc1/input/3d193c27-3ff2-44e7-9ce8-685cf3d3150a.png",
+    "https://static.sandbase.ai/examples/c3217e6c-f044-443d-9957-ace7022fddc1/input/aaf3daea-a26c-4d1c-abc5-5523262b80f9.png"
+  ]
 });
 console.log(result.outputs);
 ```
@@ -47,7 +51,7 @@ console.log(result.outputs);
 ```go
 c, _ := sandbase.NewClient("")
 run, err := c.Run(ctx, "trellis/trellis/multi", sandbase.Params{
-	"images": "https://static.sandbase.ai/examples/trellis/trellis/multi/input_images_0.png",
+	"images": []any{"https://static.sandbase.ai/examples/c3217e6c-f044-443d-9957-ace7022fddc1/input/277c5496-1304-4fb9-8ed8-9e324a8ce9d7.png", "https://static.sandbase.ai/examples/c3217e6c-f044-443d-9957-ace7022fddc1/input/3d193c27-3ff2-44e7-9ce8-685cf3d3150a.png", "https://static.sandbase.ai/examples/c3217e6c-f044-443d-9957-ace7022fddc1/input/aaf3daea-a26c-4d1c-abc5-5523262b80f9.png"},
 })
 ```
 

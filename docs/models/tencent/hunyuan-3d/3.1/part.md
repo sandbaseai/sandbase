@@ -19,7 +19,7 @@ Modes: async (default `async`). Only pass `mode` values listed here. The SDKs' `
 ```bash
 curl https://api.sandbase.ai/v1/run \
   -H "Authorization: Bearer $SANDBASE_API_KEY" -H 'Content-Type: application/json' \
-  -d '{"model": "tencent/hunyuan-3d/3.1/part", "model_url": "https://static.sandbase.ai/examples/tencent/hunyuan-3d/3.1/part/input_input_file_url_0.fbx"}'
+  -d '{"model": "tencent/hunyuan-3d/3.1/part", "model_url": "https://static.sandbase.ai/examples/bd2981e7-1b78-4c83-87eb-c29133c990fd/input/130e3fe0-a645-4cf7-aee7-7fbe15596c7a.fbx"}'
 ```
 
 **Python** ([sdk/python](../../../../../sdk/python))
@@ -27,7 +27,7 @@ curl https://api.sandbase.ai/v1/run \
 ```python
 from sandbase import SandBase
 
-result = SandBase().run('tencent/hunyuan-3d/3.1/part', {'model_url': 'https://static.sandbase.ai/examples/tencent/hunyuan-3d/3.1/part/input_input_file_url_0.fbx'})
+result = SandBase().run('tencent/hunyuan-3d/3.1/part', {'model_url': 'https://static.sandbase.ai/examples/bd2981e7-1b78-4c83-87eb-c29133c990fd/input/130e3fe0-a645-4cf7-aee7-7fbe15596c7a.fbx'})
 print(result["outputs"])
 ```
 
@@ -37,7 +37,7 @@ print(result["outputs"])
 import { SandBase } from "@sandbaseai/sdk";
 
 const result = await new SandBase().run("tencent/hunyuan-3d/3.1/part", {
-  "model_url": "https://static.sandbase.ai/examples/tencent/hunyuan-3d/3.1/part/input_input_file_url_0.fbx"
+  "model_url": "https://static.sandbase.ai/examples/bd2981e7-1b78-4c83-87eb-c29133c990fd/input/130e3fe0-a645-4cf7-aee7-7fbe15596c7a.fbx"
 });
 console.log(result.outputs);
 ```
@@ -47,7 +47,7 @@ console.log(result.outputs);
 ```go
 c, _ := sandbase.NewClient("")
 run, err := c.Run(ctx, "tencent/hunyuan-3d/3.1/part", sandbase.Params{
-	"model_url": "https://static.sandbase.ai/examples/tencent/hunyuan-3d/3.1/part/input_input_file_url_0.fbx",
+	"model_url": "https://static.sandbase.ai/examples/bd2981e7-1b78-4c83-87eb-c29133c990fd/input/130e3fe0-a645-4cf7-aee7-7fbe15596c7a.fbx",
 })
 ```
 
@@ -66,6 +66,12 @@ curl https://api.sandbase.ai/v1/run/$RUN_ID -H "Authorization: Bearer $SANDBASE_
 ## Details
 
 Hunyuan 3D 3.1 Part by Tencent splits an FBX 3D model into its separate parts and returns one FBX file per part.
+### Highlights
+- Provides an image-to-3D part-generation pipeline.
+- Uses P3-SAM for part detection and segmentation.
+- Produces semantic features, part segments, and part bounding boxes.
+- Uses X-Part to complete the detected components.
+- Operates its part-analysis workflow on an input mesh.
 ### Fields
 | Field | Type | Default | Notes |
 |---|---|---|---|

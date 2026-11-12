@@ -26,7 +26,7 @@ Modes: async (default `async`). Only pass `mode` values listed here. The SDKs' `
 ```bash
 curl https://api.sandbase.ai/v1/run \
   -H "Authorization: Bearer $SANDBASE_API_KEY" -H 'Content-Type: application/json' \
-  -d '{"model": "pixal3d/pixal3d", "image": "https://static.sandbase.ai/examples/pixal3d/pixal3d/input_image_0.png"}'
+  -d '{"model": "pixal3d/pixal3d", "image": "https://static.sandbase.ai/examples/0aae330f-ad5f-4988-8393-79047a49cd88/input/d0c53122-f929-4cd4-9073-2a48d77f2859.png"}'
 ```
 
 **Python** ([sdk/python](../../../sdk/python))
@@ -34,7 +34,7 @@ curl https://api.sandbase.ai/v1/run \
 ```python
 from sandbase import SandBase
 
-result = SandBase().run('pixal3d/pixal3d', {'image': 'https://static.sandbase.ai/examples/pixal3d/pixal3d/input_image_0.png'})
+result = SandBase().run('pixal3d/pixal3d', {'image': 'https://static.sandbase.ai/examples/0aae330f-ad5f-4988-8393-79047a49cd88/input/d0c53122-f929-4cd4-9073-2a48d77f2859.png'})
 print(result["outputs"])
 ```
 
@@ -44,7 +44,7 @@ print(result["outputs"])
 import { SandBase } from "@sandbaseai/sdk";
 
 const result = await new SandBase().run("pixal3d/pixal3d", {
-  "image": "https://static.sandbase.ai/examples/pixal3d/pixal3d/input_image_0.png"
+  "image": "https://static.sandbase.ai/examples/0aae330f-ad5f-4988-8393-79047a49cd88/input/d0c53122-f929-4cd4-9073-2a48d77f2859.png"
 });
 console.log(result.outputs);
 ```
@@ -54,7 +54,7 @@ console.log(result.outputs);
 ```go
 c, _ := sandbase.NewClient("")
 run, err := c.Run(ctx, "pixal3d/pixal3d", sandbase.Params{
-	"image": "https://static.sandbase.ai/examples/pixal3d/pixal3d/input_image_0.png",
+	"image": "https://static.sandbase.ai/examples/0aae330f-ad5f-4988-8393-79047a49cd88/input/d0c53122-f929-4cd4-9073-2a48d77f2859.png",
 })
 ```
 

@@ -232,6 +232,20 @@
       }
     ]
   },
+  "examples": [
+    {
+      "input": {
+        "prompt": "A whimsical mushroom house with a red spotted cap, round wooden door and tiny windows"
+      },
+      "output": [
+        {
+          "poster": "https://static.sandbase.ai/examples/ec91e9a7-2398-4044-8a93-5ec59a8a7dd8/output/8a215905-5809-4359-bf38-1513c7d8c5fc.png",
+          "url": "https://static.sandbase.ai/examples/ec91e9a7-2398-4044-8a93-5ec59a8a7dd8/output/c0ce8c23-8987-4ca0-870c-39fbb58c075d.glb"
+        }
+      ],
+      "default": true
+    }
+  ],
   "readme": "# Rodin 2.5 Text to 3D\n\nRodin Gen-2.5 by Hyper3D turns a text prompt into a production-ready 3D asset with PBR materials and quad or triangle meshes.\n\n## Fields\n\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `prompt` | string, required | — | Up to 1,024 characters. |\n| `seed` | integer 0–65535 | random | Fix it to compare prompt changes. |\n| `quality_mesh_option` | `Auto` / `4K Quad` / `8K Quad` / `18K Quad` / `50K Quad` / `100K Quad` / `200K Quad` / `2K Triangle` / `20K Triangle` / `50K Triangle` / `150K Triangle` / `500K Triangle` / `1M Triangle` / `2M Triangle` | `Auto` | Mesh density and topology. |\n| `material` | `PBR` / `Shaded` / `All` / `None` | `All` | Material output. |\n| `hd_texture` | boolean | false | Higher-resolution textures. |\n| `geometry_file_format` | `glb` / `usdz` / `fbx` / `obj` / `stl` | `glb` | Output file format. |\n| `TAPose` | boolean | false | Force a T/A-pose for characters. |\n| `addons` | `HighPack` | — | `HighPack` adds high-resolution textures and denser meshes. |\n| `tier` | `Gen-2.5-Minimum` / `Gen-2.5-Extreme-Low` / `Gen-2.5-Low` / `Gen-2.5-Medium` / `Gen-2.5-High` / `Gen-2.5-Extreme-High` | `Gen-2.5-High` | Quality tier. |\n\n## Billing\n\n$0.48 per model ($0.96 on the Extreme-High tier), plus $0.96 for the HighPack add-on.\n\n| Request | Price |\n|---|---|\n| Default tier | $0.48 |\n| Extreme-High tier | $0.96 |\n| Default + HighPack | $1.44 |\n\nFailed runs are not charged.\n\n## Prompting\n\n- Describe one object: shape, materials, and style.\n\n## Also on SandBase\n\nOther Rodin endpoints: `hyper3d/rodin/2.5/image-to-3d`, `hyper3d/rodin/2.5/fast/text-to-3d`, `hyper3d/rodin/2.5/fast/image-to-3d`.\n",
   "cover_url": "https://static.sandbase.ai/covers/hyper3d/rodin/2.5/text-to-3d/cover-flare-20261008043952.webp",
   "page_url": "https://www.sandbase.ai/model/hyper3d/rodin/2.5/text-to-3d",

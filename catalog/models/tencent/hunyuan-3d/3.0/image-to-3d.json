@@ -196,6 +196,21 @@
       }
     ]
   },
+  "examples": [
+    {
+      "input": {
+        "image": "https://static.sandbase.ai/examples/abf2367a-454d-4481-8a41-be5aeee0de10/input/dd7094c9-b163-4c93-bdc3-818d495d55aa.png"
+      },
+      "output": [
+        {
+          "poster": "https://static.sandbase.ai/examples/abf2367a-454d-4481-8a41-be5aeee0de10/output/359c378e-db23-4bb6-8857-721ce94fe4a0.png",
+          "thumbnail": "https://static.sandbase.ai/examples/abf2367a-454d-4481-8a41-be5aeee0de10/output/359c378e-db23-4bb6-8857-721ce94fe4a0.png",
+          "url": "https://static.sandbase.ai/examples/abf2367a-454d-4481-8a41-be5aeee0de10/output/fb2bd85d-31ea-4509-9ae8-0cc24d448897.glb"
+        }
+      ],
+      "default": true
+    }
+  ],
   "readme": "# Hunyuan 3D 3.0 Image to 3D\n\nHunyuan 3D 3.0 turns an image (plus optional side and back views) into a textured, low-poly, or geometry-only 3D model.\n\n## Fields\n\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `image` | image URL, required | — | Front view. JPEG, PNG, or WebP URL. |\n| `enable_pbr` | boolean | false | PBR materials. |\n| `polygon_type` | `triangle` / `quadrilateral` | `triangle` | Triangle or quad mesh. |\n| `generate_type` | `Normal` / `LowPoly` / `Geometry` | `Normal` | `Normal` textured, `LowPoly`, or `Geometry` (untextured). |\n| `face_count` | integer 40000–1500000 | 500000 | Target face count. |\n| `back_image` | image URL | — | Optional extra view. |\n| `left_image` | image URL | — | Optional extra view. |\n| `right_image` | image URL | — | Optional extra view. |\n\n## Billing\n\n$0.63 per textured model, $0.72 low-poly, $0.45 geometry-only; PBR adds $0.18 and extra views add $0.18.\n\n| Request | Price |\n|---|---|\n| Normal | $0.63 |\n| LowPoly | $0.72 |\n| Geometry | $0.45 |\n| Normal + PBR + extra views | $0.99 |\n\nFailed runs are not charged.\n\n## Also on SandBase\n\nOther Hunyuan 3D endpoints: `tencent/hunyuan-3d/3.1/pro/text-to-3d`, `tencent/hunyuan-3d/3.1/pro/image-to-3d`.\n",
   "cover_url": "https://static.sandbase.ai/covers/tencent/hunyuan-3d/v3/cover-flare-20261005022853.webp",
   "page_url": "https://www.sandbase.ai/model/tencent/hunyuan-3d/3.0/image-to-3d",

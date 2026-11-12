@@ -94,7 +94,101 @@
     "model": "per_call",
     "per_call": 0.45
   },
-  "readme": "# Hunyuan 3D 3.1 Part Splitter\nHunyuan 3D 3.1 Part by Tencent splits an FBX 3D model into its separate parts and returns one FBX file per part.\n## Fields\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `model_url` | string, required | — | URL of the FBX model to split. FBX only, max 100MB, up to 30,000 faces. AI-generated models work best. |\n## Output\n- `url`: Main 3D file (GLB unless another export format is selected).\n## Billing\n$0.45 per request.\nFailed runs are not charged.\n## Also on SandBase\nOther Tencent 3D endpoints: `tencent/hunyuan-3d/3.0/image-to-3d`, `tencent/hunyuan-3d/3.1/pro/image-to-3d`, `tencent/hunyuan-3d/3.1/pro/text-to-3d`, `tencent/hunyuan-3d/3.1/rapid/image-to-3d`.\n",
+  "examples": [
+    {
+      "input": {
+        "model_url": "https://static.sandbase.ai/examples/bd2981e7-1b78-4c83-87eb-c29133c990fd/input/130e3fe0-a645-4cf7-aee7-7fbe15596c7a.fbx"
+      },
+      "output": [
+        {
+          "poster": "https://static.sandbase.ai/examples/bd2981e7-1b78-4c83-87eb-c29133c990fd/output/eda9b6a2-fcde-4a30-9652-5a1bf582fc17.png",
+          "url": "https://static.sandbase.ai/examples/bd2981e7-1b78-4c83-87eb-c29133c990fd/output/c44be2dd-3e21-4293-9f69-055c13c846d0.glb"
+        },
+        {
+          "poster": "https://static.sandbase.ai/examples/bd2981e7-1b78-4c83-87eb-c29133c990fd/output/eda9b6a2-fcde-4a30-9652-5a1bf582fc17.png",
+          "url": "https://static.sandbase.ai/examples/bd2981e7-1b78-4c83-87eb-c29133c990fd/output/8e23cc01-130a-42a5-b820-40614089206a.glb"
+        },
+        {
+          "poster": "https://static.sandbase.ai/examples/bd2981e7-1b78-4c83-87eb-c29133c990fd/output/eda9b6a2-fcde-4a30-9652-5a1bf582fc17.png",
+          "url": "https://static.sandbase.ai/examples/bd2981e7-1b78-4c83-87eb-c29133c990fd/output/f9465bed-a8c5-4fff-a7a7-3a5cf6207bc6.glb"
+        },
+        {
+          "poster": "https://static.sandbase.ai/examples/bd2981e7-1b78-4c83-87eb-c29133c990fd/output/eda9b6a2-fcde-4a30-9652-5a1bf582fc17.png",
+          "url": "https://static.sandbase.ai/examples/bd2981e7-1b78-4c83-87eb-c29133c990fd/output/38e97019-9ee5-4fb3-80e8-0cd232ae80f2.glb"
+        },
+        {
+          "poster": "https://static.sandbase.ai/examples/bd2981e7-1b78-4c83-87eb-c29133c990fd/output/eda9b6a2-fcde-4a30-9652-5a1bf582fc17.png",
+          "url": "https://static.sandbase.ai/examples/bd2981e7-1b78-4c83-87eb-c29133c990fd/output/9bcb2061-fc04-4bd3-8f70-aa9c632f82b1.glb"
+        },
+        {
+          "poster": "https://static.sandbase.ai/examples/bd2981e7-1b78-4c83-87eb-c29133c990fd/output/eda9b6a2-fcde-4a30-9652-5a1bf582fc17.png",
+          "url": "https://static.sandbase.ai/examples/bd2981e7-1b78-4c83-87eb-c29133c990fd/output/54790cc9-2894-49d7-ae34-7aab57ba6477.glb"
+        },
+        {
+          "poster": "https://static.sandbase.ai/examples/bd2981e7-1b78-4c83-87eb-c29133c990fd/output/eda9b6a2-fcde-4a30-9652-5a1bf582fc17.png",
+          "url": "https://static.sandbase.ai/examples/bd2981e7-1b78-4c83-87eb-c29133c990fd/output/53b59aa6-56e1-4c09-bfc2-1d9b4d2b121c.glb"
+        },
+        {
+          "poster": "https://static.sandbase.ai/examples/bd2981e7-1b78-4c83-87eb-c29133c990fd/output/eda9b6a2-fcde-4a30-9652-5a1bf582fc17.png",
+          "url": "https://static.sandbase.ai/examples/bd2981e7-1b78-4c83-87eb-c29133c990fd/output/caebff68-e681-47f5-a254-f83552c56d56.glb"
+        },
+        {
+          "poster": "https://static.sandbase.ai/examples/bd2981e7-1b78-4c83-87eb-c29133c990fd/output/eda9b6a2-fcde-4a30-9652-5a1bf582fc17.png",
+          "url": "https://static.sandbase.ai/examples/bd2981e7-1b78-4c83-87eb-c29133c990fd/output/4a1a95d1-a0fe-490f-9dca-0dbff6195ed2.glb"
+        },
+        {
+          "poster": "https://static.sandbase.ai/examples/bd2981e7-1b78-4c83-87eb-c29133c990fd/output/eda9b6a2-fcde-4a30-9652-5a1bf582fc17.png",
+          "url": "https://static.sandbase.ai/examples/bd2981e7-1b78-4c83-87eb-c29133c990fd/output/30f0726f-76ba-4445-8354-d0e7e35f6fee.glb"
+        },
+        {
+          "poster": "https://static.sandbase.ai/examples/bd2981e7-1b78-4c83-87eb-c29133c990fd/output/eda9b6a2-fcde-4a30-9652-5a1bf582fc17.png",
+          "url": "https://static.sandbase.ai/examples/bd2981e7-1b78-4c83-87eb-c29133c990fd/output/a58db4f2-5072-4294-851a-f5faa3a7266d.glb"
+        },
+        {
+          "poster": "https://static.sandbase.ai/examples/bd2981e7-1b78-4c83-87eb-c29133c990fd/output/eda9b6a2-fcde-4a30-9652-5a1bf582fc17.png",
+          "url": "https://static.sandbase.ai/examples/bd2981e7-1b78-4c83-87eb-c29133c990fd/output/567122c5-f042-4379-a322-01b9c935a652.glb"
+        },
+        {
+          "poster": "https://static.sandbase.ai/examples/bd2981e7-1b78-4c83-87eb-c29133c990fd/output/eda9b6a2-fcde-4a30-9652-5a1bf582fc17.png",
+          "url": "https://static.sandbase.ai/examples/bd2981e7-1b78-4c83-87eb-c29133c990fd/output/5d77b3f6-7002-4424-89ad-909611f54f8e.glb"
+        },
+        {
+          "poster": "https://static.sandbase.ai/examples/bd2981e7-1b78-4c83-87eb-c29133c990fd/output/eda9b6a2-fcde-4a30-9652-5a1bf582fc17.png",
+          "url": "https://static.sandbase.ai/examples/bd2981e7-1b78-4c83-87eb-c29133c990fd/output/582a894a-0988-4144-98f6-62e42f51afc1.glb"
+        },
+        {
+          "poster": "https://static.sandbase.ai/examples/bd2981e7-1b78-4c83-87eb-c29133c990fd/output/eda9b6a2-fcde-4a30-9652-5a1bf582fc17.png",
+          "url": "https://static.sandbase.ai/examples/bd2981e7-1b78-4c83-87eb-c29133c990fd/output/c6d8e5a0-9c82-43bf-9855-4da444c34b0d.glb"
+        },
+        {
+          "poster": "https://static.sandbase.ai/examples/bd2981e7-1b78-4c83-87eb-c29133c990fd/output/eda9b6a2-fcde-4a30-9652-5a1bf582fc17.png",
+          "url": "https://static.sandbase.ai/examples/bd2981e7-1b78-4c83-87eb-c29133c990fd/output/f587d6e0-dc1b-4a09-abb9-4e1805dec55b.glb"
+        },
+        {
+          "poster": "https://static.sandbase.ai/examples/bd2981e7-1b78-4c83-87eb-c29133c990fd/output/eda9b6a2-fcde-4a30-9652-5a1bf582fc17.png",
+          "url": "https://static.sandbase.ai/examples/bd2981e7-1b78-4c83-87eb-c29133c990fd/output/336f45c3-4629-4067-907f-0cad14b77120.glb"
+        },
+        {
+          "poster": "https://static.sandbase.ai/examples/bd2981e7-1b78-4c83-87eb-c29133c990fd/output/eda9b6a2-fcde-4a30-9652-5a1bf582fc17.png",
+          "url": "https://static.sandbase.ai/examples/bd2981e7-1b78-4c83-87eb-c29133c990fd/output/2ae1bd4a-9f4c-486b-9242-34234ec82b09.glb"
+        },
+        {
+          "poster": "https://static.sandbase.ai/examples/bd2981e7-1b78-4c83-87eb-c29133c990fd/output/eda9b6a2-fcde-4a30-9652-5a1bf582fc17.png",
+          "url": "https://static.sandbase.ai/examples/bd2981e7-1b78-4c83-87eb-c29133c990fd/output/95530557-9126-41e6-92bd-fc8943e694ff.glb"
+        },
+        {
+          "poster": "https://static.sandbase.ai/examples/bd2981e7-1b78-4c83-87eb-c29133c990fd/output/eda9b6a2-fcde-4a30-9652-5a1bf582fc17.png",
+          "url": "https://static.sandbase.ai/examples/bd2981e7-1b78-4c83-87eb-c29133c990fd/output/1c2e7180-6462-41b2-9921-56d10da089ac.glb"
+        },
+        {
+          "poster": "https://static.sandbase.ai/examples/bd2981e7-1b78-4c83-87eb-c29133c990fd/output/eda9b6a2-fcde-4a30-9652-5a1bf582fc17.png",
+          "url": "https://static.sandbase.ai/examples/bd2981e7-1b78-4c83-87eb-c29133c990fd/output/27ba8166-d2b6-44c0-9d6e-7e19993cb5c2.glb"
+        }
+      ],
+      "default": true
+    }
+  ],
+  "readme": "# Hunyuan 3D 3.1 Part Splitter\nHunyuan 3D 3.1 Part by Tencent splits an FBX 3D model into its separate parts and returns one FBX file per part.\n## Highlights\n- Provides an image-to-3D part-generation pipeline.\n- Uses P3-SAM for part detection and segmentation.\n- Produces semantic features, part segments, and part bounding boxes.\n- Uses X-Part to complete the detected components.\n- Operates its part-analysis workflow on an input mesh.\n## Fields\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `model_url` | string, required | — | URL of the FBX model to split. FBX only, max 100MB, up to 30,000 faces. AI-generated models work best. |\n## Output\n- `url`: Main 3D file (GLB unless another export format is selected).\n## Billing\n$0.45 per request.\nFailed runs are not charged.\n## Also on SandBase\nOther Tencent 3D endpoints: `tencent/hunyuan-3d/3.0/image-to-3d`, `tencent/hunyuan-3d/3.1/pro/image-to-3d`, `tencent/hunyuan-3d/3.1/pro/text-to-3d`, `tencent/hunyuan-3d/3.1/rapid/image-to-3d`.\n",
   "cover_url": "https://static.sandbase.ai/covers/tencent/hunyuan-3d/3.1/part/cover-flare-20261111180929.webp",
   "page_url": "https://www.sandbase.ai/model/tencent/hunyuan-3d/3.1/part",
   "published_at": "2026-01-27T21:42:17.195Z",

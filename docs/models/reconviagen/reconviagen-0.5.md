@@ -27,7 +27,7 @@ Modes: async (default `async`). Only pass `mode` values listed here. The SDKs' `
 ```bash
 curl https://api.sandbase.ai/v1/run \
   -H "Authorization: Bearer $SANDBASE_API_KEY" -H 'Content-Type: application/json' \
-  -d '{"model": "reconviagen/reconviagen-0.5", "images": "https://storage.googleapis.com/falserverless/model_tests/video_models/front.png"}'
+  -d '{"model": "reconviagen/reconviagen-0.5", "images": ["https://static.sandbase.ai/examples/e7aaf9f3-ff36-4f29-9817-19caa1bf2e2c/input/61e979cb-8ae9-4cee-a73e-c1402d05faed.png", "https://static.sandbase.ai/examples/e7aaf9f3-ff36-4f29-9817-19caa1bf2e2c/input/3025d72b-49eb-4751-ad7d-502b2e8e7c90.png", "https://static.sandbase.ai/examples/e7aaf9f3-ff36-4f29-9817-19caa1bf2e2c/input/f67785e3-394b-4c82-b251-28f0993af3a0.png"]}'
 ```
 
 **Python** ([sdk/python](../../../sdk/python))
@@ -35,7 +35,7 @@ curl https://api.sandbase.ai/v1/run \
 ```python
 from sandbase import SandBase
 
-result = SandBase().run('reconviagen/reconviagen-0.5', {'images': 'https://storage.googleapis.com/falserverless/model_tests/video_models/front.png'})
+result = SandBase().run('reconviagen/reconviagen-0.5', {'images': ['https://static.sandbase.ai/examples/e7aaf9f3-ff36-4f29-9817-19caa1bf2e2c/input/61e979cb-8ae9-4cee-a73e-c1402d05faed.png', 'https://static.sandbase.ai/examples/e7aaf9f3-ff36-4f29-9817-19caa1bf2e2c/input/3025d72b-49eb-4751-ad7d-502b2e8e7c90.png', 'https://static.sandbase.ai/examples/e7aaf9f3-ff36-4f29-9817-19caa1bf2e2c/input/f67785e3-394b-4c82-b251-28f0993af3a0.png']})
 print(result["outputs"])
 ```
 
@@ -45,7 +45,11 @@ print(result["outputs"])
 import { SandBase } from "@sandbaseai/sdk";
 
 const result = await new SandBase().run("reconviagen/reconviagen-0.5", {
-  "images": "https://storage.googleapis.com/falserverless/model_tests/video_models/front.png"
+  "images": [
+    "https://static.sandbase.ai/examples/e7aaf9f3-ff36-4f29-9817-19caa1bf2e2c/input/61e979cb-8ae9-4cee-a73e-c1402d05faed.png",
+    "https://static.sandbase.ai/examples/e7aaf9f3-ff36-4f29-9817-19caa1bf2e2c/input/3025d72b-49eb-4751-ad7d-502b2e8e7c90.png",
+    "https://static.sandbase.ai/examples/e7aaf9f3-ff36-4f29-9817-19caa1bf2e2c/input/f67785e3-394b-4c82-b251-28f0993af3a0.png"
+  ]
 });
 console.log(result.outputs);
 ```
@@ -55,7 +59,7 @@ console.log(result.outputs);
 ```go
 c, _ := sandbase.NewClient("")
 run, err := c.Run(ctx, "reconviagen/reconviagen-0.5", sandbase.Params{
-	"images": "https://storage.googleapis.com/falserverless/model_tests/video_models/front.png",
+	"images": []any{"https://static.sandbase.ai/examples/e7aaf9f3-ff36-4f29-9817-19caa1bf2e2c/input/61e979cb-8ae9-4cee-a73e-c1402d05faed.png", "https://static.sandbase.ai/examples/e7aaf9f3-ff36-4f29-9817-19caa1bf2e2c/input/3025d72b-49eb-4751-ad7d-502b2e8e7c90.png", "https://static.sandbase.ai/examples/e7aaf9f3-ff36-4f29-9817-19caa1bf2e2c/input/f67785e3-394b-4c82-b251-28f0993af3a0.png"},
 })
 ```
 

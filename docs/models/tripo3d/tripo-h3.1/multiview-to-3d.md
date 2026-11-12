@@ -48,7 +48,7 @@ Modes: async (default `async`). Only pass `mode` values listed here. The SDKs' `
 ```bash
 curl https://api.sandbase.ai/v1/run \
   -H "Authorization: Bearer $SANDBASE_API_KEY" -H 'Content-Type: application/json' \
-  -d '{"model": "tripo3d/tripo-h3.1/multiview-to-3d", "images": "https://static.sandbase.ai/examples/tripo3d/tripo-h3.1/multiview-to-3d/input_images_0.png"}'
+  -d '{"model": "tripo3d/tripo-h3.1/multiview-to-3d", "images": ["https://static.sandbase.ai/examples/ea2bcfa8-a03d-4dda-a811-9c0fc84dd6ae/input/6fd3f606-1213-4602-81cb-f946c0825293.png", "https://static.sandbase.ai/examples/ea2bcfa8-a03d-4dda-a811-9c0fc84dd6ae/input/37c3b222-10ce-4689-80d1-4a7d369fa503.png", "https://static.sandbase.ai/examples/ea2bcfa8-a03d-4dda-a811-9c0fc84dd6ae/input/9a7324a5-25e8-4c9b-983a-a629bcdabf86.png"]}'
 ```
 
 **Python** ([sdk/python](../../../../sdk/python))
@@ -56,7 +56,7 @@ curl https://api.sandbase.ai/v1/run \
 ```python
 from sandbase import SandBase
 
-result = SandBase().run('tripo3d/tripo-h3.1/multiview-to-3d', {'images': 'https://static.sandbase.ai/examples/tripo3d/tripo-h3.1/multiview-to-3d/input_images_0.png'})
+result = SandBase().run('tripo3d/tripo-h3.1/multiview-to-3d', {'images': ['https://static.sandbase.ai/examples/ea2bcfa8-a03d-4dda-a811-9c0fc84dd6ae/input/6fd3f606-1213-4602-81cb-f946c0825293.png', 'https://static.sandbase.ai/examples/ea2bcfa8-a03d-4dda-a811-9c0fc84dd6ae/input/37c3b222-10ce-4689-80d1-4a7d369fa503.png', 'https://static.sandbase.ai/examples/ea2bcfa8-a03d-4dda-a811-9c0fc84dd6ae/input/9a7324a5-25e8-4c9b-983a-a629bcdabf86.png']})
 print(result["outputs"])
 ```
 
@@ -66,7 +66,11 @@ print(result["outputs"])
 import { SandBase } from "@sandbaseai/sdk";
 
 const result = await new SandBase().run("tripo3d/tripo-h3.1/multiview-to-3d", {
-  "images": "https://static.sandbase.ai/examples/tripo3d/tripo-h3.1/multiview-to-3d/input_images_0.png"
+  "images": [
+    "https://static.sandbase.ai/examples/ea2bcfa8-a03d-4dda-a811-9c0fc84dd6ae/input/6fd3f606-1213-4602-81cb-f946c0825293.png",
+    "https://static.sandbase.ai/examples/ea2bcfa8-a03d-4dda-a811-9c0fc84dd6ae/input/37c3b222-10ce-4689-80d1-4a7d369fa503.png",
+    "https://static.sandbase.ai/examples/ea2bcfa8-a03d-4dda-a811-9c0fc84dd6ae/input/9a7324a5-25e8-4c9b-983a-a629bcdabf86.png"
+  ]
 });
 console.log(result.outputs);
 ```
@@ -76,7 +80,7 @@ console.log(result.outputs);
 ```go
 c, _ := sandbase.NewClient("")
 run, err := c.Run(ctx, "tripo3d/tripo-h3.1/multiview-to-3d", sandbase.Params{
-	"images": "https://static.sandbase.ai/examples/tripo3d/tripo-h3.1/multiview-to-3d/input_images_0.png",
+	"images": []any{"https://static.sandbase.ai/examples/ea2bcfa8-a03d-4dda-a811-9c0fc84dd6ae/input/6fd3f606-1213-4602-81cb-f946c0825293.png", "https://static.sandbase.ai/examples/ea2bcfa8-a03d-4dda-a811-9c0fc84dd6ae/input/37c3b222-10ce-4689-80d1-4a7d369fa503.png", "https://static.sandbase.ai/examples/ea2bcfa8-a03d-4dda-a811-9c0fc84dd6ae/input/9a7324a5-25e8-4c9b-983a-a629bcdabf86.png"},
 })
 ```
 

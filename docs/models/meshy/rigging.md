@@ -26,7 +26,7 @@ Modes: async (default `async`). Only pass `mode` values listed here. The SDKs' `
 ```bash
 curl https://api.sandbase.ai/v1/run \
   -H "Authorization: Bearer $SANDBASE_API_KEY" -H 'Content-Type: application/json' \
-  -d '{"model": "meshy/rigging", "model_url": "https://storage.googleapis.com/falserverless/model_tests/video_models/base_basic_shaded.glb"}'
+  -d '{"model": "meshy/rigging", "enable_animation": true, "model_url": "https://static.sandbase.ai/examples/3d5a1315-3549-4c25-b133-5efbee7dbc0d/input/255717e2-2107-4e10-bfbe-4abaed9024ee.glb"}'
 ```
 
 **Python** ([sdk/python](../../../sdk/python))
@@ -34,7 +34,7 @@ curl https://api.sandbase.ai/v1/run \
 ```python
 from sandbase import SandBase
 
-result = SandBase().run('meshy/rigging', {'model_url': 'https://storage.googleapis.com/falserverless/model_tests/video_models/base_basic_shaded.glb'})
+result = SandBase().run('meshy/rigging', {'enable_animation': True, 'model_url': 'https://static.sandbase.ai/examples/3d5a1315-3549-4c25-b133-5efbee7dbc0d/input/255717e2-2107-4e10-bfbe-4abaed9024ee.glb'})
 print(result["outputs"])
 ```
 
@@ -44,7 +44,8 @@ print(result["outputs"])
 import { SandBase } from "@sandbaseai/sdk";
 
 const result = await new SandBase().run("meshy/rigging", {
-  "model_url": "https://storage.googleapis.com/falserverless/model_tests/video_models/base_basic_shaded.glb"
+  "enable_animation": true,
+  "model_url": "https://static.sandbase.ai/examples/3d5a1315-3549-4c25-b133-5efbee7dbc0d/input/255717e2-2107-4e10-bfbe-4abaed9024ee.glb"
 });
 console.log(result.outputs);
 ```
@@ -54,7 +55,8 @@ console.log(result.outputs);
 ```go
 c, _ := sandbase.NewClient("")
 run, err := c.Run(ctx, "meshy/rigging", sandbase.Params{
-	"model_url": "https://storage.googleapis.com/falserverless/model_tests/video_models/base_basic_shaded.glb",
+	"enable_animation": true,
+	"model_url": "https://static.sandbase.ai/examples/3d5a1315-3549-4c25-b133-5efbee7dbc0d/input/255717e2-2107-4e10-bfbe-4abaed9024ee.glb",
 })
 ```
 

@@ -117,6 +117,31 @@
     "model": "per_call",
     "per_call": 0.36
   },
+  "examples": [
+    {
+      "input": {
+        "model_url": "https://static.sandbase.ai/examples/083613da-f698-400f-9081-e79012416827/input/53f87138-036f-4a9a-9c0c-18327624516b.glb",
+        "text_style_prompt": "hand-painted cartoon toy box, bright blue with yellow stars"
+      },
+      "output": [
+        {
+          "url": "https://static.sandbase.ai/examples/083613da-f698-400f-9081-e79012416827/output/58e5bf6c-003b-4d8d-86ea-9048ea656bc8.glb"
+        }
+      ],
+      "default": true
+    },
+    {
+      "input": {
+        "model_url": "https://static.sandbase.ai/examples/7bc5607f-fc9f-4eb1-980d-e053755e48fc/input/6c710656-4b67-47b8-a08a-218c3323f1c0.glb",
+        "text_style_prompt": "red and black chest"
+      },
+      "output": [
+        {
+          "url": "https://static.sandbase.ai/examples/7bc5607f-fc9f-4eb1-980d-e053755e48fc/output/feea8c03-7b1c-4fc2-ac4c-4cd2362cd4a6.glb"
+        }
+      ]
+    }
+  ],
   "readme": "# Meshy 6 Lite Retexture\nMeshy 6 Lite Retexture is the lower-cost Meshy retexturing model: repaint an existing 3D model from a text or image style.\n## Fields\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `model_url` | 3D model URL, required | — | .glb, .gltf, .obj, .fbx or .stl. |\n| `text_style_prompt` | string | — | Texture style, up to 600 characters. Required when `image_style_url` is not set. |\n| `image_style_url` | image URL | — | JPG or PNG style reference; takes precedence over the text prompt. |\n| `enable_pbr` | boolean | false | Also generate metallic, roughness and normal maps. |\n| `enable_original_uv` | boolean | true | Keep the model's UV layout. |\n## Billing\n$0.36 per retextured model; PBR maps are included.\n| Request | Price |\n|---|---|\n| Retexture | $0.36 |\n| Retexture + PBR | $0.36 |\nFailed runs are not charged.\n## Prompting\n- Name materials and finish, e.g. \"weathered bronze with green patina\".\n- Provide either `text_style_prompt` or `image_style_url`.\n## Also on SandBase\nHigher-detail retexture models: `meshy/7.0/retexture`, `meshy/6.0/retexture`.",
   "cover_url": "https://static.sandbase.ai/covers/meshy/6.0-lite/retexture/cover-flare-20261022111510.webp",
   "page_url": "https://www.sandbase.ai/model/meshy/6.0-lite/retexture",

@@ -225,6 +225,21 @@
       }
     ]
   },
+  "examples": [
+    {
+      "input": {
+        "image": "https://static.sandbase.ai/examples/8748728e-5d42-48ae-93fb-7d05cfa7426c/input/1ab698c4-9bb2-42a6-be0f-b8b6e29a3941.png"
+      },
+      "output": [
+        {
+          "poster": "https://static.sandbase.ai/examples/8748728e-5d42-48ae-93fb-7d05cfa7426c/output/c0a0e7ac-0c9e-442c-83b6-84cd3c7f2e17.png",
+          "thumbnail": "https://static.sandbase.ai/examples/8748728e-5d42-48ae-93fb-7d05cfa7426c/output/c0a0e7ac-0c9e-442c-83b6-84cd3c7f2e17.png",
+          "url": "https://static.sandbase.ai/examples/8748728e-5d42-48ae-93fb-7d05cfa7426c/output/979cfb8b-c05f-4ad7-aeb2-4c3fe4d4ae51.glb"
+        }
+      ],
+      "default": true
+    }
+  ],
   "readme": "# Meshy T2 Image to 3D\nMeshy T2 turns a single image into a clean Smart Topology triangle mesh (up to 15,000 triangles), with optional textures, rigging and animation.\n## Fields\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `image` | image URL, required | — | Image URL or base64 data URI of the object. Supports .jpg, .jpeg and .png; AVIF and HEIF are converted automatically. |\n| `should_texture` | boolean | `true` | Generate textures. Untextured meshes cost less. |\n| `target_polycount` | integer 100–15000 | `4000` | Target polygon count (100–15,000). |\n| `pose_mode` | `a-pose` / `t-pose` / `` | `\"\"` | Generate the character in an A-pose or T-pose; empty for no specific pose. |\n| `enable_pbr` | boolean | `false` | Generate PBR maps (metallic, roughness, normal) in addition to base color. |\n| `texture_prompt` | string | — | Text prompt to guide texturing. Maximum 800 characters. |\n| `texture_image` | image URL | — | Image URL to guide texturing. |\n| `enable_rigging` | boolean | `false` | Rig the model as a humanoid character. The rigged GLB is returned as rigged_glb. |\n| `enable_animation` | boolean | `false` | Apply an animation preset to the rigged character (billed together with rigging). The animated GLB is returned as animation_glb. |\n| `animation_action_id` | integer 0–696 | `92` | Animation preset ID from Meshy's animation library (0 is Idle). Only used when animation is enabled. |\n## Output\n- `url`: Main 3D file (GLB unless another export format is selected).\n- `thumbnail`: Preview image rendered by the provider.\n- `rigged_glb`: Additional file returned by the provider.\n- `animation_glb`: Additional file returned by the provider.\n## Billing\n$0.60 per request with default settings. Price by option (other settings at default):\n| Option | Price |\n|---|---|\n| enable_animation on | $0.92 |\n| enable_animation off | $0.60 |\n| enable_rigging on | $0.80 |\n| enable_rigging off | $0.60 |\n| should_texture on | $0.60 |\n| should_texture off | $0.20 |\nFailed runs are not charged.\n## Also on SandBase\nOther Meshy 3D endpoints: `meshy/6.0-lite/retexture`, `meshy/6.0/retexture`, `meshy/7.0/image-to-3d`, `meshy/7.0/multi-image-to-3d`.\n",
   "cover_url": "https://static.sandbase.ai/covers/meshy/t2/image-to-3d/cover-flare-20261111181020.webp",
   "page_url": "https://www.sandbase.ai/model/meshy/t2/image-to-3d",

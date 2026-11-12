@@ -169,6 +169,20 @@
     "model": "per_call",
     "per_call": 0.1
   },
+  "examples": [
+    {
+      "input": {
+        "prompt": "A cute low-poly fox sitting with its tail wrapped around its paws"
+      },
+      "output": [
+        {
+          "poster": "https://static.sandbase.ai/examples/6a5e00eb-8901-4bff-a65b-0c5294198e9a/output/64d64e6d-55cd-4be0-b144-7329b5469c15.png",
+          "url": "https://static.sandbase.ai/examples/6a5e00eb-8901-4bff-a65b-0c5294198e9a/output/f3111c80-6b97-43d1-a04e-038a4621198c.glb"
+        }
+      ],
+      "default": true
+    }
+  ],
   "readme": "# Rodin 2.5 Fast Text to 3D\n\nRodin Gen-2.5 Fast by Hyper3D turns a text prompt into a game-ready 3D asset, using the low tiers for speed.\n\n## Fields\n\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `prompt` | string, required | — | Up to 1,024 characters. |\n| `seed` | integer 0–65535 | random | Fix it to compare prompt changes. |\n| `geometry_file_format` | `glb` / `usdz` / `fbx` / `obj` / `stl` | `glb` | Output file format. |\n| `material` | `PBR` / `Shaded` / `All` / `None` | `Shaded` | Material output. |\n| `hd_texture` | boolean | false | Higher-resolution textures. |\n| `tier` | `Gen-2.5-Minimum` / `Gen-2.5-Extreme-Low` / `Gen-2.5-Low` | `Gen-2.5-Extreme-Low` | Quality tier. |\n| `quality_mesh_option` | `Auto` / `1K Quad` / `4K Quad` / `8K Quad` / `18K Quad` / `20K Quad` / `2K Triangle` / `4K Triangle` / `8K Triangle` / `10K Triangle` / `20K Triangle` | `Auto` | Mesh density and topology. |\n| `TAPose` | boolean | false | Force a T/A-pose for characters. |\n\n## Billing\n\n$0.10 per model.\n\n| Request | Price |\n|---|---|\n| One model | $0.10 |\n\nFailed runs are not charged.\n\n## Also on SandBase\n\nOther Rodin endpoints: `hyper3d/rodin/2.5/text-to-3d`, `hyper3d/rodin/2.5/image-to-3d`, `hyper3d/rodin/2.5/fast/image-to-3d`.\n",
   "cover_url": "https://static.sandbase.ai/covers/hyper3d/rodin/2.5/fast/text-to-3d/cover-flare-20261008040453.webp",
   "page_url": "https://www.sandbase.ai/model/hyper3d/rodin/2.5/fast/text-to-3d",

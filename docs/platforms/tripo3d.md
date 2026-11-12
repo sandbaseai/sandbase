@@ -22,7 +22,7 @@ Call 12 Tripo3D models through SandBase with one API key: no separate account, o
 ```bash
 curl https://api.sandbase.ai/v1/run \
   -H "Authorization: Bearer $SANDBASE_API_KEY" -H 'Content-Type: application/json' \
-  -d '{"model": "tripo3d/tripo-h3.1/image-to-3d", "image": "https://static.sandbase.ai/examples/tripo3d/tripo-h3.1/image-to-3d/input_image_0.png"}'
+  -d '{"model": "tripo3d/tripo-h3.1/image-to-3d", "image": "https://static.sandbase.ai/examples/33fdcc66-c331-4b8f-a4b0-95e695982eee/input/bb9227a2-ef6e-4c7d-afa4-073779ff3a60.png"}'
 ```
 
 Get a key at [sandbase.ai](https://www.sandbase.ai/console). Back to [all platforms](README.md).

@@ -29,7 +29,7 @@ Call 19 Tencent models through SandBase with one API key: no separate account, o
 ```bash
 curl https://api.sandbase.ai/v1/run \
   -H "Authorization: Bearer $SANDBASE_API_KEY" -H 'Content-Type: application/json' \
-  -d '{"model": "tencent/hunyuan-3d/3.0/image-to-3d", "image": "https://static.sandbase.ai/examples/tencent/hunyuan-3d/v3/input_image_0.png"}'
+  -d '{"model": "tencent/hunyuan-3d/3.0/image-to-3d", "image": "https://static.sandbase.ai/examples/abf2367a-454d-4481-8a41-be5aeee0de10/input/dd7094c9-b163-4c93-bdc3-818d495d55aa.png"}'
 ```
 
 Get a key at [sandbase.ai](https://www.sandbase.ai/console). Back to [all platforms](README.md).
