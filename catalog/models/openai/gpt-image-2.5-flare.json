@@ -281,23 +281,31 @@
     },
     {
       "input": {
-        "aspect_ratio": "16:9",
-        "prompt": "Create a detailed Infographic of the functioning and flow of an automatic coffee machine like a Jura.\nFrom bean basket, to grinding, to scale, water tank, boiler, etc.\nI'd like to understand technically and visually the flow."
+        "aspect_ratio": "4:3",
+        "output_format": "jpeg",
+        "prompt": "Observation car of a train with a curved glass ceiling at night, stars and a faint aurora above snowy peaks, a few empty seats in silhouette, deep blue and teal palette. Cinematic editorial photograph, natural light, fine film grain, restrained colour grade. No text, no letters, no logos, no signage, no watermarks, no recognisable faces.",
+        "quality": "medium",
+        "resolution": "1k"
       },
       "output": [
         {
-          "url": "https://static.sandbase.ai/examples/4e920bab-9e70-4919-9c9a-d9e2527d001c/output/7c82543e-ae6d-417f-8622-5dff1c2a8e86.png"
+          "content_type": "image/jpeg",
+          "url": "https://static.sandbase.ai/examples/47d3242e-83d6-4c67-9656-08204e38a0e1/output/b2b3f049-5d46-4ab6-8e33-c97e17154fd1.jpg"
         }
       ]
     },
     {
       "input": {
-        "aspect_ratio": "16:9",
-        "prompt": "Give me a cool in culture ad / fashion shot for a brand called Thread.\nIt's a hip young street brand. The ad shows a group of friends hanging out together with the tagline \"Yours to Create.\"\nMake it feel like a polished campaign image for a youth streetwear audience: stylish, contemporary, energetic, and tasteful.\nUse clean composition, strong color direction, natural poses, and premium fashion photography cues.\nRender the tagline exactly once, clearly and legibly, integrated into the ad layout.\nNo extra text, no watermarks, no unrelated logos."
+        "aspect_ratio": "3:4",
+        "output_format": "jpeg",
+        "prompt": "Close-up of a brass railway lantern glowing amber, hanging on the side of a dark blue train carriage, frost on the metal, bokeh snow. Cinematic editorial photograph, natural light, fine film grain, restrained colour grade. No text, no letters, no logos, no signage, no watermarks, no recognisable faces.",
+        "quality": "medium",
+        "resolution": "1k"
       },
       "output": [
         {
-          "url": "https://static.sandbase.ai/examples/6f379edf-4aec-4c65-bff4-0ecb54c87303/output/a416e40d-d1a2-4787-b8aa-1fc9e19ab832.png"
+          "content_type": "image/jpeg",
+          "url": "https://static.sandbase.ai/examples/55497722-6577-4e52-85ae-d1c15caa1d97/output/08475abb-575b-4b54-ad70-8745ddc83c4e.jpg"
         }
       ]
     }

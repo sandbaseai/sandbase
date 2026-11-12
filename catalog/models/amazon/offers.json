@@ -1,0 +1,126 @@
+{
+  "name": "amazon/offers",
+  "display_name": "Amazon Offers",
+  "type": "api",
+  "vendor": "Amazon",
+  "vendor_slug": "amazon",
+  "description": "List every offer for one Amazon product by ASIN or product URL, the Buy Box first and then the other sellers, and get price, condition, seller name and ID, seller rating, Prime, delivery estimate and fulfillment for each in one normalized response.",
+  "tags": [
+    "api",
+    "amazon",
+    "ecommerce",
+    "product-data"
+  ],
+  "capabilities": [
+    "api",
+    "amazon",
+    "ecommerce",
+    "product-data"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/amazon/offers"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "product"
+    ],
+    "properties": {
+      "page": {
+        "type": "integer",
+        "default": 1,
+        "minimum": 1,
+        "description": "1-based page of the other sellers' offers, about 10 a page; page 1 also carries the Buy Box. Each page is billed as one request."
+      },
+      "region": {
+        "enum": [
+          "amazon.com",
+          "amazon.co.uk",
+          "amazon.de",
+          "amazon.fr",
+          "amazon.it",
+          "amazon.es",
+          "amazon.nl",
+          "amazon.se",
+          "amazon.pl",
+          "amazon.ca",
+          "amazon.com.mx",
+          "amazon.com.br",
+          "amazon.co.jp",
+          "amazon.in",
+          "amazon.com.au",
+          "amazon.sg",
+          "amazon.ae",
+          "amazon.sa",
+          "amazon.com.tr",
+          "amazon.eg"
+        ],
+        "type": "string",
+        "description": "Amazon marketplace the product ASIN belongs to (e.g. amazon.co.uk); a product URL sets it from its own domain."
+      },
+      "product": {
+        "type": "string",
+        "example": "B00000IZJB",
+        "description": "Amazon product ASIN (e.g. B006MIWDCC) or a product link on one of the marketplaces listed under region, such as https://www.amazon.co.uk/dp/<ASIN>, with the ASIN after /dp/, /gp/product/ or /product-reviews/. A link without an ASIN, such as a search results page (/s?k=...), or a link to another site or marketplace is refused as invalid input, with no charge."
+      },
+      "requireFields": {
+        "type": "array",
+        "items": {
+          "enum": [
+            "freeDelivery",
+            "fulfilledByAmazon",
+            "sellerFeedbackPercent",
+            "sellerId",
+            "sellerRating",
+            "sellerRatingCount",
+            "shipsFrom",
+            "totalResults"
+          ],
+          "type": "string"
+        },
+        "description": "Optional; omit it and routing is unchanged, with the cheapest source serving. Name the output fields this request must be able to return, for example `sellerId`, and it is served only by a source that returns every one of them. Fields you do not name are still returned whenever the serving source has them. This can raise your price: when the cheapest source cannot return a named field, a dearer source serves, and you are quoted and charged its price. A named field can still be absent on a offer that genuinely lacks it. Naming a combination that no single source returns together is refused as invalid input, with no charge."
+      }
+    },
+    "additionalProperties": false
+  },
+  "response_schema": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string"
+      },
+      "model": {
+        "type": "string"
+      },
+      "status": {
+        "type": "string"
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "data": {
+              "type": "object",
+              "description": "Normalized result for this request."
+            }
+          }
+        }
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "usage_based",
+    "note": "Billed per call from metered usage; the reference price is typical.",
+    "reference_price": 0.00085
+  },
+  "readme": "# Amazon Offers API\n\nList every offer for one Amazon product by ASIN or product URL, the Buy Box first and then the other sellers, and get price, condition, seller name and ID, seller rating, Prime, delivery estimate and fulfillment for each in one normalized response.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/run\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"model\": \"amazon/offers\", \"product\": \"B00000IZJB\"}'\n```\n\nThe result is returned in `outputs[0].data`. Lookups that find nothing fail with a not-found error.\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `product` | string | Yes | Amazon product ASIN (e.g. B006MIWDCC) or a product link on one of the marketplaces listed under region, such as https://www.amazon.co.uk/dp/<ASIN>, with the ASIN after /dp/, /gp/product/ or /product-reviews/. A link with |\n| `page` | integer | No | 1-based page of the other sellers' offers, about 10 a page; page 1 also carries the Buy Box. Each page is billed as one request. Default `1`. |\n| `region` | string | No | Amazon marketplace the product ASIN belongs to (e.g. amazon.co.uk); a product URL sets it from its own domain. One of: `amazon.com`, `amazon.co.uk`, `amazon.de`, `amazon.fr`, `amazon.it`, `amazon.es`, `amazon.nl`, `amazo |\n| `requireFields` | array | No | Optional; omit it and routing is unchanged, with the cheapest source serving. Name the output fields this request must be able to return, for example `sellerId`, and it is served only by a source that returns every one o |\n\n## Pricing\n\nBilled at the actual cost of each call, about $0.00085 per request. A call can cost more when the first data source fails and another one answers. Failed calls and lookups that find nothing are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/amazon/offers",
+  "created_at": "2026-11-12T07:07:14.292Z"
+}

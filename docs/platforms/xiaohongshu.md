@@ -1,6 +1,6 @@
-# Xiaohongshu API: 67 endpoints with pricing and code examples
+# Xiaohongshu API: 68 endpoints with pricing and code examples
 
-Call 67 Xiaohongshu endpoints through SandBase with one API key: no separate account, one balance, the same request format for every endpoint. Each page has the input schema, the price and curl / Python / TypeScript / Go examples.
+Call 68 Xiaohongshu endpoints through SandBase with one API key: no separate account, one balance, the same request format for every endpoint. Each page has the input schema, the price and curl / Python / TypeScript / Go examples.
 
 | Endpoint | What it does | Price |
 |---|---|---|
@@ -24,6 +24,7 @@ Call 67 Xiaohongshu endpoints through SandBase with one API key: no separate acc
 | [`xiaohongshu/app-v2/user-posted-notes`](../models/xiaohongshu/app-v2/user-posted-notes.md) | Retrieves a list of notes posted by a specific Xiaohongshu user with cursor pagination. Query by providing a user identifier or a shared… | $0.01 per call (free daily quota) |
 | [`xiaohongshu/app-v2/video-note-detail`](../models/xiaohongshu/app-v2/video-note-detail.md) | Returns detailed metadata for a video note on Xiaohongshu (RED) using an identifier or a share link. | $0.01 per call (free daily quota) |
 | [`xiaohongshu/creator-hot-inspiration-feed`](../models/xiaohongshu/creator-hot-inspiration-feed.md) | Get the Xiaohongshu (RedNote) creator center hot inspiration feed with cursor pagination. Use it to discover inspiration for content… | $0.021429 per call |
+| [`xiaohongshu/ec/product-detail`](../models/xiaohongshu/ec/product-detail.md) | Get a Xiaohongshu (RedNote) shop product by SKU ID, with title, price, images, specifications, seller and sales information. | $0.028571 per call |
 | [`xiaohongshu/ec/search-products`](../models/xiaohongshu/ec/search-products.md) | Search products sold in Xiaohongshu (RedNote) shops by keyword, with price, sales and shop info. | $0.028571 per call |
 | [`xiaohongshu/hot-search`](../models/xiaohongshu/hot-search.md) | Search Xiaohongshu (RedNote) hot-content entries with optional keyword, content-category path, pagination, ranking metric, and time-range… | $0.021429 per call |
 | [`xiaohongshu/note-comment`](../models/xiaohongshu/note-comment.md) | Get comments for a Xiaohongshu (RedNote) note with cursor pagination and normal, latest, or like-count sorting. Use it to support feedback… | $0.021429 per call |

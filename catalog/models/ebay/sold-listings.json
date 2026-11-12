@@ -1,0 +1,162 @@
+{
+  "name": "ebay/sold-listings",
+  "display_name": "eBay Sold Listings",
+  "type": "api",
+  "vendor": "eBay",
+  "vendor_slug": "ebay",
+  "description": "Retrieve recently sold eBay listings for any keyword with optional price-range, condition, category, sold-date, and sort filters, page by page (sold price, sale date, condition, seller, item details); ideal for pricing research.",
+  "tags": [
+    "api",
+    "ebay",
+    "ecommerce",
+    "product-data"
+  ],
+  "capabilities": [
+    "api",
+    "ebay",
+    "ecommerce",
+    "product-data"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/ebay/sold-listings"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "query"
+    ],
+    "properties": {
+      "page": {
+        "type": "integer",
+        "default": 1,
+        "minimum": 1,
+        "description": "1-based results page. Use with hasMore in the output to paginate, and keep query, filters, and limit the same while walking pages, because limit sets the page size."
+      },
+      "site": {
+        "enum": [
+          "ebay.com"
+        ],
+        "type": "string",
+        "default": "ebay.com",
+        "description": "eBay country site to search. Sold-listing coverage is currently US only."
+      },
+      "sort": {
+        "enum": [
+          "ended_recently",
+          "price_low",
+          "price_high"
+        ],
+        "type": "string",
+        "example": "ended_recently",
+        "description": "Result sort order; omitted means ended_recently (e.g. price_high sorts by highest sold price plus shipping first)."
+      },
+      "limit": {
+        "type": "integer",
+        "default": 25,
+        "example": 10,
+        "maximum": 60,
+        "minimum": 1,
+        "description": "Maximum number of results to return (1-60, default 25)."
+      },
+      "query": {
+        "type": "string",
+        "example": "iphone 13 pro",
+        "description": "Search keyword for sold items (e.g. iphone 13 pro)."
+      },
+      "seller": {
+        "type": "string",
+        "description": "Not supported by the current sources: a request that sets it is refused without charge."
+      },
+      "endDate": {
+        "type": "string",
+        "description": "Only return listings sold on or before this date, inclusive, in YYYY-MM-DD format (e.g. 2026-09-15). This bound is applied to each page after it is fetched, so a page can hold fewer than limit listings, or none, while hasMore is still true: keep requesting the next page until hasMore is false."
+      },
+      "maxPrice": {
+        "type": "number",
+        "minimum": 0,
+        "description": "Optional maximum sold price in the site currency (e.g. 500)."
+      },
+      "minPrice": {
+        "type": "number",
+        "minimum": 0,
+        "description": "Optional minimum sold price in the site currency (e.g. 200)."
+      },
+      "condition": {
+        "enum": [
+          "any",
+          "new",
+          "used"
+        ],
+        "type": "string",
+        "default": "any",
+        "description": "Item condition filter (e.g. used)."
+      },
+      "startDate": {
+        "type": "string",
+        "description": "Only return listings sold on or after this date, inclusive, in YYYY-MM-DD format (e.g. 2026-09-01)."
+      },
+      "categoryId": {
+        "type": "string",
+        "description": "Optional numeric eBay category id to search within (e.g. 9355 for Cell Phones & Smartphones, 9394 for Cell Phone Accessories)."
+      },
+      "listingType": {
+        "enum": [
+          "all",
+          "auction",
+          "buy_it_now"
+        ],
+        "type": "string",
+        "description": "Restrict to a listing format; omit or use all for both (e.g. auction for auction sales only)."
+      },
+      "freeShipping": {
+        "type": "boolean",
+        "description": "Not supported by the current sources: only false (no filter) is accepted; true is refused without charge."
+      },
+      "returnsAccepted": {
+        "type": "boolean",
+        "description": "Not supported by the current sources: only false (no filter) is accepted; true is refused without charge."
+      }
+    },
+    "additionalProperties": false
+  },
+  "response_schema": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string"
+      },
+      "model": {
+        "type": "string"
+      },
+      "status": {
+        "type": "string"
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "data": {
+              "type": "object",
+              "description": "Normalized result for this request."
+            }
+          }
+        }
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "usage_based",
+    "note": "Billed per call from metered usage; the reference price is typical.",
+    "reference_price": 0.003
+  },
+  "readme": "# eBay Sold Listings API\n\nRetrieve recently sold eBay listings for any keyword with optional price-range, condition, category, sold-date, and sort filters, page by page (sold price, sale date, condition, seller, item details); ideal for pricing research.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/run\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"model\": \"ebay/sold-listings\", \"sort\": \"ended_recently\", \"limit\": 10, \"query\": \"iphone 13 pro\"}'\n```\n\nThe result is returned in `outputs[0].data`. Lookups that find nothing fail with a not-found error.\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `query` | string | Yes | Search keyword for sold items (e.g. iphone 13 pro). |\n| `categoryId` | string | No | Optional numeric eBay category id to search within (e.g. 9355 for Cell Phones & Smartphones, 9394 for Cell Phone Accessories). |\n| `condition` | string | No | Item condition filter (e.g. used). One of: `any`, `new`, `used`. Default `\"any\"`. |\n| `endDate` | string | No | Only return listings sold on or before this date, inclusive, in YYYY-MM-DD format (e.g. 2026-09-15). This bound is applied to each page after it is fetched, so a page can hold fewer than limit listings, or none, while ha |\n| `freeShipping` | boolean | No | Not supported by the current sources: only false (no filter) is accepted; true is refused without charge. |\n| `limit` | integer | No | Maximum number of results to return (1-60, default 25). |\n| `listingType` | string | No | Restrict to a listing format; omit or use all for both (e.g. auction for auction sales only). One of: `all`, `auction`, `buy_it_now`. |\n| `maxPrice` | number | No | Optional maximum sold price in the site currency (e.g. 500). |\n| `minPrice` | number | No | Optional minimum sold price in the site currency (e.g. 200). |\n| `page` | integer | No | 1-based results page. Use with hasMore in the output to paginate, and keep query, filters, and limit the same while walking pages, because limit sets the page size. Default `1`. |\n| `returnsAccepted` | boolean | No | Not supported by the current sources: only false (no filter) is accepted; true is refused without charge. |\n| `seller` | string | No | Not supported by the current sources: a request that sets it is refused without charge. |\n| `site` | string | No | eBay country site to search. Sold-listing coverage is currently US only. One of: `ebay.com`. Default `\"ebay.com\"`. |\n| `sort` | string | No | Result sort order; omitted means ended_recently (e.g. price_high sorts by highest sold price plus shipping first). One of: `ended_recently`, `price_low`, `price_high`. |\n| `startDate` | string | No | Only return listings sold on or after this date, inclusive, in YYYY-MM-DD format (e.g. 2026-09-01). |\n\n## Pricing\n\nBilled at the actual cost of each call, about $0.003 per request. A call can cost more when the first data source fails and another one answers. Failed calls and lookups that find nothing are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/ebay/sold-listings",
+  "created_at": "2026-11-12T07:28:21.867Z"
+}

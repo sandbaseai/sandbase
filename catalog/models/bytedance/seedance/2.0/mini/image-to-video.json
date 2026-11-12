@@ -269,6 +269,36 @@
         }
       ],
       "default": true
+    },
+    {
+      "input": {
+        "duration": 6,
+        "end_image": "https://static.sandbase.ai/examples/ca8746bf-4ed6-4099-9594-1977ffcba385/input/966b6275-8729-47da-841f-fab5c5de88b6.png",
+        "generate_audio": false,
+        "image": "https://static.sandbase.ai/examples/ca8746bf-4ed6-4099-9594-1977ffcba385/input/59f413c3-08d4-4f6d-a92d-a2d52163168c.png",
+        "prompt": "Static locked-off camera, the background never changes. The character keeps the same calm expression and the shoulders and body stay perfectly still. Only the head turns, smoothly and slowly, in ONE single continuous circle that lasts almost the whole video: first the head turns to look toward the left side of the frame, then tilts up to look at the top left, the top, the top right, turns to look toward the right side, then down to the bottom right, the bottom, the bottom left, and back to the left, the eyes always looking in the same direction the face points; in the last half second the head returns to face the viewer and looks straight into the camera. Constant gentle speed, no blinking, no talking.",
+        "resolution": "720p"
+      },
+      "output": [
+        {
+          "url": "https://static.sandbase.ai/examples/ca8746bf-4ed6-4099-9594-1977ffcba385/output/b2aa58b9-273c-4201-a99f-c42d69a629ff.mp4"
+        }
+      ]
+    },
+    {
+      "input": {
+        "duration": 6,
+        "end_image": "https://static.sandbase.ai/examples/48ed5b2f-52e7-4de8-b643-b03b40a9c9cd/input/6b792ccc-1215-4459-bd0b-6d34db9572e7.png",
+        "generate_audio": false,
+        "image": "https://static.sandbase.ai/examples/48ed5b2f-52e7-4de8-b643-b03b40a9c9cd/input/23a1f401-1b94-4b3a-a134-54b631d47010.png",
+        "prompt": "Locked-off static camera, a smooth time-lapse of the same scene from bright day to night. Nothing in the scene moves: no people, no cars, no camera motion. Only the light changes, gradually and evenly over the whole clip: the sky turns golden, then dusk purple, then deep blue; the windows, signs and street lamps switch on one by one and glow warmly. Continuous, no cuts.",
+        "resolution": "720p"
+      },
+      "output": [
+        {
+          "url": "https://static.sandbase.ai/examples/48ed5b2f-52e7-4de8-b643-b03b40a9c9cd/output/74d44691-0476-4992-8991-aefe1579dc3d.mp4"
+        }
+      ]
     }
   ],
   "readme": "# Seedance 2.0 Mini Image to Video\n\nSeedance 2.0 Mini image-to-video: `image` becomes the first frame and the prompt directs motion, camera, and sound. Add `end_image` to set the final frame.\n\n## Fields\n\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `prompt` | string, required | — | Text instruction. |\n| `image` | image URL, required | — | First frame. JPEG, PNG, or WebP URL. |\n| `end_image` | image URL | — | Optional last frame. |\n| `resolution` | `480p` / `720p` | `720p` | Sets the per-second rate. |\n| `duration` | `auto` / 4 / 5 / 6 / 7 / 8 / 9 / 10 / 11 / 12 / 13 / 14 / 15 | 5 | Output length in seconds (4–15), or `auto` to let the model choose. |\n| `generate_audio` | boolean | true | Native dialogue, music, and effects. Same price on or off. |\n| `aspect_ratio` | `21:9` / `16:9` / `3:2` / `4:3` / `5:4` / `1:1` / `4:5` / `3:4` / `2:3` / `9:16` | — | Output frame shape. |\n| `seed` | integer -1–4294967295 | random | Fix it to compare prompt changes; `-1` is random. |\n\n## Billing\n\nYou pay for output seconds: $0.06 at 480p, $0.12 at 720p. Audio is included. With `duration: \"auto\"` the quote assumes 15 seconds and the final charge uses the generated length.\n\n| Output | 480p | 720p |\n|---|---|---|\n| 4s | $0.24 | $0.48 |\n| 5s (default) | $0.30 | $0.60 |\n| 10s | $0.60 | $1.20 |\n| 15s | $0.90 | $1.80 |\n\nFailed runs are not charged.\n\n## Prompting\n\n- Describe what moves and how the camera behaves, not what is already visible.\n- With two frames, describe the transition between them.\n\n## Limits\n\n- Clips are 4–15 seconds.\n\n## Also on SandBase\n\nOther Seedance 2.0 Mini endpoints and tiers: `bytedance/seedance/2.0/mini/text-to-video`, `bytedance/seedance/2.0/mini/reference-to-video`, `bytedance/seedance/2.5/image-to-video`, `bytedance/seedance/2.0/image-to-video`, `bytedance/seedance/2.0/fast/image-to-video`.\n",

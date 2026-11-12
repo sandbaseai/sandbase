@@ -148,7 +148,7 @@
     "price_examples": [
       {
         "params": {},
-        "usd": 0.44
+        "usd": 0.56
       }
     ]
   },
@@ -157,30 +157,41 @@
       "input": {
         "animation_action_ids": [
           92,
-          4
+          4,
+          30
         ],
-        "model_url": "https://static.sandbase.ai/examples/b6ee151f-f759-4310-913a-3ef685bd1615/input/9d665214-a80d-47a1-b73e-b1c023a701e9.glb"
+        "model_url": "https://static.sandbase.ai/examples/ff903233-a04c-40c5-a624-e3b99ada4c10/input/64e4200d-f0c6-4d32-ba41-17b481908848.glb"
       },
       "output": [
         {
-          "animation_fbx": "https://static.sandbase.ai/examples/b6ee151f-f759-4310-913a-3ef685bd1615/output/8f1ccbc0-ad02-436c-adfd-701157b7fb81.fbx",
-          "animation_glb": "https://static.sandbase.ai/examples/b6ee151f-f759-4310-913a-3ef685bd1615/output/53169d10-a50b-42d4-b25a-2911b94f0668.glb",
-          "fbx": "https://static.sandbase.ai/examples/b6ee151f-f759-4310-913a-3ef685bd1615/output/5db584b8-ec19-4cc6-8ef6-44343dd1bfbc.fbx",
-          "poster": "https://static.sandbase.ai/examples/b6ee151f-f759-4310-913a-3ef685bd1615/output/4004958e-455f-423d-80b0-38f6ff0c74f1.png",
-          "url": "https://static.sandbase.ai/examples/b6ee151f-f759-4310-913a-3ef685bd1615/output/32caa475-5e01-43a6-8f9e-ef6ee5d11d6d.glb"
+          "action_id": 92,
+          "animation_fbx": "https://static.sandbase.ai/examples/ff903233-a04c-40c5-a624-e3b99ada4c10/output/b5ba5293-fb0d-4b03-83f8-55e74771df21.fbx",
+          "fbx": "https://static.sandbase.ai/examples/ff903233-a04c-40c5-a624-e3b99ada4c10/output/18cd77bc-7094-442b-8c75-56db899358de.fbx",
+          "poster": "https://static.sandbase.ai/examples/ff903233-a04c-40c5-a624-e3b99ada4c10/output/7cd90e11-df21-4ab9-a9e2-756d3b77af0d.png",
+          "rigged_glb": "https://static.sandbase.ai/examples/ff903233-a04c-40c5-a624-e3b99ada4c10/output/c38a9ef8-7746-4de5-89ee-5c994ef21d35.glb",
+          "url": "https://static.sandbase.ai/examples/ff903233-a04c-40c5-a624-e3b99ada4c10/output/3d148f71-9c89-43c7-a552-c8ecc26e596c.glb"
         },
         {
-          "animation_fbx": "https://static.sandbase.ai/examples/b6ee151f-f759-4310-913a-3ef685bd1615/output/73d935f7-1a81-4bc1-a49d-b6745ecfcd39.fbx",
-          "animation_glb": "https://static.sandbase.ai/examples/b6ee151f-f759-4310-913a-3ef685bd1615/output/285e650a-a51d-4b02-97e2-06ffd64ac2c5.glb",
-          "fbx": "https://static.sandbase.ai/examples/b6ee151f-f759-4310-913a-3ef685bd1615/output/356c8da1-f439-434d-9b8f-856e72543007.fbx",
-          "poster": "https://static.sandbase.ai/examples/b6ee151f-f759-4310-913a-3ef685bd1615/output/4004958e-455f-423d-80b0-38f6ff0c74f1.png",
-          "url": "https://static.sandbase.ai/examples/b6ee151f-f759-4310-913a-3ef685bd1615/output/0b169073-f187-4864-a926-6efbaa74a4f0.glb"
+          "action_id": 4,
+          "animation_fbx": "https://static.sandbase.ai/examples/ff903233-a04c-40c5-a624-e3b99ada4c10/output/9822552b-8448-4741-9c59-b64c2378a40b.fbx",
+          "fbx": "https://static.sandbase.ai/examples/ff903233-a04c-40c5-a624-e3b99ada4c10/output/7a31daa7-db2c-4ce8-ae96-87e955f1a523.fbx",
+          "poster": "https://static.sandbase.ai/examples/ff903233-a04c-40c5-a624-e3b99ada4c10/output/7cd90e11-df21-4ab9-a9e2-756d3b77af0d.png",
+          "rigged_glb": "https://static.sandbase.ai/examples/ff903233-a04c-40c5-a624-e3b99ada4c10/output/8680444c-c540-47d5-a256-52f59ff4c3ad.glb",
+          "url": "https://static.sandbase.ai/examples/ff903233-a04c-40c5-a624-e3b99ada4c10/output/c39de62f-3549-4c02-8b56-03a51a672af2.glb"
+        },
+        {
+          "action_id": 30,
+          "animation_fbx": "https://static.sandbase.ai/examples/ff903233-a04c-40c5-a624-e3b99ada4c10/output/5326664a-1eeb-4df5-b5b2-98d49280d395.fbx",
+          "fbx": "https://static.sandbase.ai/examples/ff903233-a04c-40c5-a624-e3b99ada4c10/output/e63681cf-2330-413e-8bca-7b8896967b9c.fbx",
+          "poster": "https://static.sandbase.ai/examples/ff903233-a04c-40c5-a624-e3b99ada4c10/output/7cd90e11-df21-4ab9-a9e2-756d3b77af0d.png",
+          "rigged_glb": "https://static.sandbase.ai/examples/ff903233-a04c-40c5-a624-e3b99ada4c10/output/c3c2af3d-f69d-4ebc-a1c5-580e81dbaaa5.glb",
+          "url": "https://static.sandbase.ai/examples/ff903233-a04c-40c5-a624-e3b99ada4c10/output/ae0d63d8-e0e5-4790-b900-bfa79bc53df5.glb"
         }
       ],
       "default": true
     }
   ],
-  "readme": "# Meshy Rigging Multi-Animation\nMeshy Rigging Multi-Animation rigs an existing humanoid character model and generates up to 10 animation clips on the same rig.\n## Fields\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `model_url` | string, required | — | URL of a humanoid character model in GLB format with clearly defined limbs. Works with models from Meshy, Hunyuan, Trellis or any other 3D tool. |\n| `animation_action_ids` | array (1–10), required | — | 1 to 10 animation preset IDs from Meshy's animation library (0 is Idle). One clip is generated per ID, in request order; duplicates are merged. |\n| `skeleton_template` | `mixamo` / `ue5_mannequin` / `unity_humanoid` / `maya_human_ik` / `blender_rigify_basic_human` / `max_biped` / `cc5_hd_neutral_base` / `daz_genesis9` / `meshyrig` | `meshyrig` | Skeleton template for the rig (e.g. mixamo, ue5_mannequin, unity_humanoid). Some models can only be rigged on meshyrig without fingers. |\n| `include_fingers` | boolean | `false` | Rig the character's fingers. |\n| `height_meters` | number | `1.7` | Approximate height of the character in meters. |\n## Output\n- `url`: Main 3D file (GLB unless another export format is selected).\n- `fbx`: Additional file returned by the provider.\n- `animation_glb`: Additional file returned by the provider.\n- `animation_fbx`: Additional file returned by the provider.\n## Billing\n$0.32 per request with default settings. Price by option (other settings at default):\n| Option | Price |\n|---|---|\n| 1 animation action ids | $0.32 |\n| 2 animation action ids | $0.44 |\n| 4 animation action ids | $0.68 |\nFailed runs are not charged.\n## Also on SandBase\nOther Meshy 3D endpoints: `meshy/6.0-lite/retexture`, `meshy/6.0/retexture`, `meshy/7.0/image-to-3d`, `meshy/7.0/multi-image-to-3d`.\n",
+  "readme": "# Meshy Rigging Multi-Animation\nMeshy Rigging Multi-Animation rigs an existing humanoid character model and generates up to 10 animation clips on the same rig.\n## Fields\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `model_url` | string, required | — | URL of a humanoid character model in GLB format with clearly defined limbs. Works with models from Meshy, Hunyuan, Trellis or any other 3D tool. |\n| `animation_action_ids` | array (1–10), required | — | 1 to 10 animation preset IDs from Meshy's animation library (0 is Idle). One clip is generated per ID, in request order; duplicates are merged. |\n| `skeleton_template` | `mixamo` / `ue5_mannequin` / `unity_humanoid` / `maya_human_ik` / `blender_rigify_basic_human` / `max_biped` / `cc5_hd_neutral_base` / `daz_genesis9` / `meshyrig` | `meshyrig` | Skeleton template for the rig (e.g. mixamo, ue5_mannequin, unity_humanoid). Some models can only be rigged on meshyrig without fingers. |\n| `include_fingers` | boolean | `false` | Rig the character's fingers. |\n| `height_meters` | number | `1.7` | Approximate height of the character in meters. |\n## Output\nOne output item per requested animation, in request order:\n- `url`: the animated character for that clip (GLB).\n- `animation_fbx`: the same clip as FBX.\n- `action_id`: the animation preset ID of the clip.\n- `rigged_glb` / `fbx`: the rigged character without animation (same on every item).\n## Billing\n$0.32 per request with default settings. Price by option (other settings at default):\n| Option | Price |\n|---|---|\n| 1 animation action ids | $0.32 |\n| 2 animation action ids | $0.44 |\n| 4 animation action ids | $0.68 |\nFailed runs are not charged.\n## Also on SandBase\nOther Meshy 3D endpoints: `meshy/6.0-lite/retexture`, `meshy/6.0/retexture`, `meshy/7.0/image-to-3d`, `meshy/7.0/multi-image-to-3d`.\n",
   "cover_url": "https://static.sandbase.ai/covers/meshy/rigging/multi-animation/cover-flare-20261111181024.webp",
   "page_url": "https://www.sandbase.ai/model/meshy/rigging/multi-animation",
   "published_at": "2026-06-12T21:40:43.99Z",

@@ -1,13 +1,13 @@
 {
  "catalog_version": "1",
- "generated_at": "2026-11-12T07:08:56Z",
+ "generated_at": "2026-11-12T16:50:00Z",
  "base_url": "https://api.sandbase.ai",
- "count": 2387,
+ "count": 2404,
  "counts_by_type": {
-  "api": 1884,
+  "api": 1902,
   "video": 181,
   "image": 164,
-  "llm": 124,
+  "llm": 123,
   "audio": 32,
   "embedding": 2
  },
@@ -756,6 +756,28 @@
    "record": "catalog/models/alibaba/search.json"
   },
   {
+   "name": "aliexpress/reviews",
+   "display_name": "AliExpress Reviews",
+   "type": "api",
+   "vendor": "AliExpress",
+   "description": "Get one page of buyer reviews for an AliExpress product by id, with rating, text, buyer country, date, bought variant and photos for each review, plus the product's total reviews, average rating and star distribution, in one normalized response.",
+   "tags": [
+    "api",
+    "aliexpress",
+    "ecommerce",
+    "product-data"
+   ],
+   "modes": [
+    "sync"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "usage_based",
+    "usd_reference": 0.00085
+   },
+   "record": "catalog/models/aliexpress/reviews.json"
+  },
+  {
    "name": "aliexpress/search/products",
    "display_name": "AliExpress Product Search",
    "type": "api",
@@ -776,6 +798,50 @@
     "free_quota": true
    },
    "record": "catalog/models/aliexpress/search/products.json"
+  },
+  {
+   "name": "amazon/asins",
+   "display_name": "Amazon Products by ASIN",
+   "type": "api",
+   "vendor": "Amazon",
+   "description": "Look up to 10 Amazon products in one call by ASIN (title, brand, price, ratings, images, and attributes) as normalized JSON.",
+   "tags": [
+    "api",
+    "amazon",
+    "ecommerce",
+    "product-data"
+   ],
+   "modes": [
+    "sync"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "usage_based",
+    "usd_reference": 0.0033
+   },
+   "record": "catalog/models/amazon/asins.json"
+  },
+  {
+   "name": "amazon/autocomplete",
+   "display_name": "Amazon Search Suggestions",
+   "type": "api",
+   "vendor": "Amazon",
+   "description": "Get Amazon search box suggestions for a partial keyword, optionally for a specific Amazon domain and department.",
+   "tags": [
+    "api",
+    "amazon",
+    "ecommerce",
+    "keywords"
+   ],
+   "modes": [
+    "async"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "per_call",
+    "usd_per_call": 0.00015
+   },
+   "record": "catalog/models/amazon/autocomplete.json"
   },
   {
    "name": "amazon/best-sellers",
@@ -820,6 +886,50 @@
     "free_quota": true
    },
    "record": "catalog/models/amazon/category-products.json"
+  },
+  {
+   "name": "amazon/deals",
+   "display_name": "Amazon Deals",
+   "type": "api",
+   "vendor": "Amazon",
+   "description": "List today's Amazon deals for one marketplace and get ASIN, title, deal price, list price, discount, deal type, badge and image for each deal in one normalized response.",
+   "tags": [
+    "api",
+    "amazon",
+    "ecommerce",
+    "product-data"
+   ],
+   "modes": [
+    "sync"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "usage_based",
+    "usd_reference": 0.00085
+   },
+   "record": "catalog/models/amazon/deals.json"
+  },
+  {
+   "name": "amazon/offers",
+   "display_name": "Amazon Offers",
+   "type": "api",
+   "vendor": "Amazon",
+   "description": "List every offer for one Amazon product by ASIN or product URL, the Buy Box first and then the other sellers, and get price, condition, seller name and ID, seller rating, Prime, delivery estimate and fulfillment for each in one normalized response.",
+   "tags": [
+    "api",
+    "amazon",
+    "ecommerce",
+    "product-data"
+   ],
+   "modes": [
+    "sync"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "usage_based",
+    "usd_reference": 0.00085
+   },
+   "record": "catalog/models/amazon/offers.json"
   },
   {
    "name": "amazon/product",
@@ -932,6 +1042,50 @@
     "free_quota": true
    },
    "record": "catalog/models/amazon/search-products.json"
+  },
+  {
+   "name": "amazon/seller",
+   "display_name": "Amazon Seller",
+   "type": "api",
+   "vendor": "Amazon",
+   "description": "Look up one Amazon seller by seller ID and get its name, star rating, positive feedback percentage, feedback counts for the last 30 days, 90 days, 12 months and lifetime, and its registered business name and address in one normalized response.",
+   "tags": [
+    "api",
+    "amazon",
+    "ecommerce",
+    "product-data"
+   ],
+   "modes": [
+    "sync"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "usage_based",
+    "usd_reference": 0.00085
+   },
+   "record": "catalog/models/amazon/seller.json"
+  },
+  {
+   "name": "amazon/seller-products",
+   "display_name": "Amazon Seller Products",
+   "type": "api",
+   "vendor": "Amazon",
+   "description": "List one Amazon seller's storefront by seller ID, a page at a time, and get ASIN, title, price, list price, rating, reviews count, image, coupon and sponsored, Prime, best seller and Amazon's Choice flags for each product in one normalized response.",
+   "tags": [
+    "api",
+    "amazon",
+    "ecommerce",
+    "product-data"
+   ],
+   "modes": [
+    "sync"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "usage_based",
+    "usd_reference": 0.00085
+   },
+   "record": "catalog/models/amazon/seller-products.json"
   },
   {
    "name": "apollo/company-bulk-enrich",
@@ -13649,6 +13803,28 @@
    "record": "catalog/models/ebay/search.json"
   },
   {
+   "name": "ebay/sold-listings",
+   "display_name": "eBay Sold Listings",
+   "type": "api",
+   "vendor": "eBay",
+   "description": "Retrieve recently sold eBay listings for any keyword with optional price-range, condition, category, sold-date, and sort filters, page by page (sold price, sale date, condition, seller, item details); ideal for pricing research.",
+   "tags": [
+    "api",
+    "ebay",
+    "ecommerce",
+    "product-data"
+   ],
+   "modes": [
+    "sync"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "usage_based",
+    "usd_reference": 0.003
+   },
+   "record": "catalog/models/ebay/sold-listings.json"
+  },
+  {
    "name": "etsy/product",
    "display_name": "Etsy Product",
    "type": "api",
@@ -19561,6 +19737,27 @@
    "record": "catalog/models/jd/item/detail.json"
   },
   {
+   "name": "jd/item/price",
+   "display_name": "JD.com Product Price",
+   "type": "api",
+   "vendor": "JD.com",
+   "description": "Get current JD.com prices for up to 10 product IDs in one call; pass the IDs comma-separated. One call costs the same for 1 or 10 IDs.",
+   "tags": [
+    "api",
+    "jd",
+    "ecommerce"
+   ],
+   "modes": [
+    "sync"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "per_call",
+    "usd_per_call": 0.021429
+   },
+   "record": "catalog/models/jd/item/price.json"
+  },
+  {
    "name": "jd/search/items",
    "display_name": "JD.com Product Search",
    "type": "api",
@@ -19751,6 +19948,50 @@
     "free_quota": true
    },
    "record": "catalog/models/kbb/years.json"
+  },
+  {
+   "name": "kroger/product",
+   "display_name": "Kroger Product",
+   "type": "api",
+   "vendor": "Kroger",
+   "description": "Get one Kroger grocery product by URL with title, price, size, images and store availability; pass a store ID for local pricing.",
+   "tags": [
+    "api",
+    "kroger",
+    "ecommerce",
+    "product-data"
+   ],
+   "modes": [
+    "async"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "per_call",
+    "usd_per_call": 0.00015
+   },
+   "record": "catalog/models/kroger/product.json"
+  },
+  {
+   "name": "kroger/search",
+   "display_name": "Kroger Search",
+   "type": "api",
+   "vendor": "Kroger",
+   "description": "Search Kroger grocery products by keyword with price, size and product URL; pass a store ID for local pricing and stock.",
+   "tags": [
+    "api",
+    "kroger",
+    "ecommerce",
+    "product-data"
+   ],
+   "modes": [
+    "async"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "per_call",
+    "usd_per_call": 0.00015
+   },
+   "record": "catalog/models/kroger/search.json"
   },
   {
    "name": "kuaishou/app/brand-top-list",
@@ -27022,6 +27263,27 @@
    "record": "catalog/models/substack/posts.json"
   },
   {
+   "name": "taobao/item/description-images",
+   "display_name": "Taobao Product Description Images",
+   "type": "api",
+   "vendor": "Taobao",
+   "description": "Get the description HTML and the list of description images for a Taobao or Tmall product by item ID, for catalog preparation and listing content review.",
+   "tags": [
+    "api",
+    "taobao",
+    "ecommerce"
+   ],
+   "modes": [
+    "sync"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "per_call",
+    "usd_per_call": 0.021429
+   },
+   "record": "catalog/models/taobao/item/description-images.json"
+  },
+  {
    "name": "taobao/item/detail",
    "display_name": "Taobao Product Details",
    "type": "api",
@@ -27125,6 +27387,92 @@
     "usd_per_call": 0.028571
    },
    "record": "catalog/models/taobao/shop-item-list.json"
+  },
+  {
+   "name": "taobao/shop/detail",
+   "display_name": "Taobao Shop Detail",
+   "type": "api",
+   "vendor": "Taobao",
+   "description": "Get a Taobao or Tmall shop's homepage info, shop categories and default product listing by seller ID and shop ID. Use the category IDs to filter Taobao Shop Items.",
+   "tags": [
+    "api",
+    "taobao",
+    "ecommerce"
+   ],
+   "modes": [
+    "sync"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "per_call",
+    "usd_per_call": 0.021429
+   },
+   "record": "catalog/models/taobao/shop/detail.json"
+  },
+  {
+   "name": "taobao/shop/items",
+   "display_name": "Taobao Shop Products",
+   "type": "api",
+   "vendor": "Taobao",
+   "description": "List products in a Taobao or Tmall shop by seller ID and shop ID, with optional keyword search, shop-category filter, sorting and pagination.",
+   "tags": [
+    "api",
+    "taobao",
+    "ecommerce"
+   ],
+   "modes": [
+    "sync"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "per_call",
+    "usd_per_call": 0.021429
+   },
+   "record": "catalog/models/taobao/shop/items.json"
+  },
+  {
+   "name": "target/product",
+   "display_name": "Target Product",
+   "type": "api",
+   "vendor": "Target",
+   "description": "Fetch a Target.com product by URL and get title, price, brand, rating, description, and images in one normalized response.",
+   "tags": [
+    "api",
+    "target",
+    "ecommerce",
+    "product-data"
+   ],
+   "modes": [
+    "sync"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "usage_based",
+    "usd_reference": 0.00085
+   },
+   "record": "catalog/models/target/product.json"
+  },
+  {
+   "name": "target/reviews",
+   "display_name": "Target Reviews",
+   "type": "api",
+   "vendor": "Target",
+   "description": "Pull a page of 10 customer reviews for any Target.com product by URL, newest first or by helpfulness or rating: rating, title, text, date, reviewer, and verified-buyer badge.",
+   "tags": [
+    "api",
+    "target",
+    "ecommerce",
+    "product-data"
+   ],
+   "modes": [
+    "sync"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "usage_based",
+    "usd_reference": 0.00085
+   },
+   "record": "catalog/models/target/reviews.json"
   },
   {
    "name": "target/search",
@@ -32843,6 +33191,28 @@
    "record": "catalog/models/twitter/web/user-tweet-replies.json"
   },
   {
+   "name": "walmart/product",
+   "display_name": "Walmart Product",
+   "type": "api",
+   "vendor": "Walmart",
+   "description": "Fetch a Walmart product page by URL and get full product details (title, price, availability, ratings, images, and specs) in one normalized response.",
+   "tags": [
+    "api",
+    "walmart",
+    "ecommerce",
+    "product-data"
+   ],
+   "modes": [
+    "sync"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "usage_based",
+    "usd_reference": 0.001
+   },
+   "record": "catalog/models/walmart/product.json"
+  },
+  {
    "name": "walmart/product-reviews",
    "display_name": "Walmart Product Reviews",
    "type": "api",
@@ -36085,6 +36455,27 @@
     "usd_per_call": 0.021429
    },
    "record": "catalog/models/xiaohongshu/creator-hot-inspiration-feed.json"
+  },
+  {
+   "name": "xiaohongshu/ec/product-detail",
+   "display_name": "Xiaohongshu Shop Product Detail",
+   "type": "api",
+   "vendor": "Xiaohongshu",
+   "description": "Get a Xiaohongshu (RedNote) shop product by SKU ID, with title, price, images, specifications, seller and sales information.",
+   "tags": [
+    "api",
+    "xiaohongshu",
+    "ecommerce"
+   ],
+   "modes": [
+    "sync"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "per_call",
+    "usd_per_call": 0.028571
+   },
+   "record": "catalog/models/xiaohongshu/ec/product-detail.json"
   },
   {
    "name": "xiaohongshu/ec/search-products",
@@ -42393,8 +42784,8 @@
    "endpoint": "POST /v1/run",
    "price": {
     "model": "formula",
-    "usd_from": 0.44,
-    "usd_to": 0.44
+    "usd_from": 0.56,
+    "usd_to": 0.56
    },
    "record": "catalog/models/meshy/rigging/multi-animation.json"
   },
@@ -43951,31 +44342,6 @@
     }
    },
    "record": "catalog/models/alibaba/qwen3-32b.json"
-  },
-  {
-   "name": "alibaba/qwen3-8b",
-   "display_name": "Qwen: Qwen3 8B",
-   "type": "llm",
-   "vendor": "Alibaba",
-   "description": "Qwen3 8B is a compact dense model in Alibaba's open-weight Qwen3 family, released in April 2025 with 8.2 billion parameters. Like its siblings, it switches between a thinking mode for math, coding and logical reasoning and a non-thinking mode for efficient dialogue, with tool…",
-   "tags": [
-    "chat",
-    "reasoning",
-    "structured_output",
-    "function_calling"
-   ],
-   "modes": [
-    "sync"
-   ],
-   "endpoint": "POST /v1/chat/completions",
-   "price": {
-    "model": "per_token",
-    "usd_per_million_tokens": {
-     "input": 0.18,
-     "output": 0.7
-    }
-   },
-   "record": "catalog/models/alibaba/qwen3-8b.json"
   },
   {
    "name": "alibaba/qwen3-vl-235b-a22b-instruct",

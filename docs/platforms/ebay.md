@@ -1,11 +1,12 @@
-# eBay API: 2 endpoints with pricing and code examples
+# eBay API: 3 endpoints with pricing and code examples
 
-Call 2 eBay endpoints through SandBase with one API key: no separate account, one balance, the same request format for every endpoint. Each page has the input schema, the price and curl / Python / TypeScript / Go examples.
+Call 3 eBay endpoints through SandBase with one API key: no separate account, one balance, the same request format for every endpoint. Each page has the input schema, the price and curl / Python / TypeScript / Go examples.
 
 | Endpoint | What it does | Price |
 |---|---|---|
 | [`ebay/product`](../models/ebay/product.md) | Get an eBay product by product ID: title, price, condition, quantity sold, item specifics, media, shipping, returns and seller details. | $0.015 per call (free daily quota) |
 | [`ebay/search`](../models/ebay/search.md) | Search eBay listings by keyword with price, condition, shipping, bids, time left and seller, plus condition, format, price and location… | $0.015 per call (free daily quota) |
+| [`ebay/sold-listings`](../models/ebay/sold-listings.md) | Retrieve recently sold eBay listings for any keyword with optional price-range, condition, category, sold-date, and sort filters, page by… | about $0.003 per call |
 
 ## Quick start
 

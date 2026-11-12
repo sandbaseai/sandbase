@@ -1,12 +1,12 @@
 # SandBase capability index
 
-2387 capabilities · generated 2026-11-12T07:08:56Z
+2404 capabilities · generated 2026-11-12T16:50:00Z
 
-- [api](#api) (1884)
+- [api](#api) (1902)
 - [audio](#audio) (32)
 - [embedding](#embedding) (2)
 - [image](#image) (164)
-- [llm](#llm) (124)
+- [llm](#llm) (123)
 - [video](#video) (181)
 
 ## api
@@ -47,14 +47,21 @@
 | [`ahrefs/domain-rating`](models/ahrefs/domain-rating.md) | 0.08 / call | sync | Return the Ahrefs Domain Rating (0-100 authority score) and Ahrefs Rank for a target domain on a given date. 4xx/5xx… |
 | [`ahrefs/metrics`](models/ahrefs/metrics.md) | 0.08 / call | sync | Return core Site Explorer metrics for a target domain on a given date: organic and paid keyword counts, top-3 keyword… |
 | [`alibaba/search`](models/alibaba/search.md) | ~0.00231 | sync | Search Alibaba by keyword and get up to 25 wholesale listings (title, price range, minimum order, and supplier) in one… |
+| [`aliexpress/reviews`](models/aliexpress/reviews.md) | ~0.00085 | sync | Get one page of buyer reviews for an AliExpress product by id, with rating, text, buyer country, date, bought variant… |
 | [`aliexpress/search/products`](models/aliexpress/search/products.md) | 0.014286 / call (free quota) | sync | Search AliExpress products by keyword with sort, category, brand, price, locale, region and currency filters. |
+| [`amazon/asins`](models/amazon/asins.md) | ~0.0033 | sync | Look up to 10 Amazon products in one call by ASIN (title, brand, price, ratings, images, and attributes) as normalized… |
+| [`amazon/autocomplete`](models/amazon/autocomplete.md) | 0.00015 / call | async | Get Amazon search box suggestions for a partial keyword, optionally for a specific Amazon domain and department. |
 | [`amazon/best-sellers`](models/amazon/best-sellers.md) | 0.014286 / call (free quota) | sync | Get the Amazon Best Sellers list for a category path in a chosen marketplace country, with rank, title, price, rating… |
 | [`amazon/category-products`](models/amazon/category-products.md) | 0.014286 / call (free quota) | sync | Get paginated Amazon products for a numeric category node in a selected country marketplace, with configurable result… |
+| [`amazon/deals`](models/amazon/deals.md) | ~0.00085 | sync | List today's Amazon deals for one marketplace and get ASIN, title, deal price, list price, discount, deal type, badge… |
+| [`amazon/offers`](models/amazon/offers.md) | ~0.00085 | sync | List every offer for one Amazon product by ASIN or product URL, the Buy Box first and then the other sellers, and get… |
 | [`amazon/product`](models/amazon/product.md) | 0.015 / call (free quota) | async | Get an Amazon product by ASIN: title, brand, price, rating, reviews, images, variants, availability, purchase options,… |
 | [`amazon/product-detail`](models/amazon/product-detail.md) | 0.014286 / call (free quota) | sync | Get details for an Amazon product identified by ASIN in a selected country marketplace. Use it to look up a known… |
 | [`amazon/reviews`](models/amazon/reviews.md) | ~0.016 | sync | Pull customer reviews for any Amazon product by ASIN or URL: rating, title, text, date, and verified-buyer badge. |
 | [`amazon/search`](models/amazon/search.md) | 0.015 / call (free quota) | async | Search Amazon by keyword: organic results with ASIN, title, price, old price, rating, reviews, Prime and delivery… |
 | [`amazon/search-products`](models/amazon/search-products.md) | 0.014286 / call (free quota) | sync | Search Amazon marketplace products by keyword or ASIN with country, sort, condition, Prime-only, deals, and page… |
+| [`amazon/seller`](models/amazon/seller.md) | ~0.00085 | sync | Look up one Amazon seller by seller ID and get its name, star rating, positive feedback percentage, feedback counts… |
+| [`amazon/seller-products`](models/amazon/seller-products.md) | ~0.00085 | sync | List one Amazon seller's storefront by seller ID, a page at a time, and get ASIN, title, price, list price, rating,… |
 | [`apollo/company-bulk-enrich`](models/apollo/company-bulk-enrich.md) | 0.01975 | sync | Enrich up to 10 companies in one call. Body takes `domains`, an array of bare domains. |
 | [`apollo/company-enrich`](models/apollo/company-enrich.md) | 0.01975 / call | sync | Enrich one company by domain. `domain` is the only parameter and it must be the bare domain (apple.com), not a full URL. |
 | [`apollo/company-job-postings`](models/apollo/company-job-postings.md) | 0.01975 / call | sync | Live job postings for one company, by Apollo organization id. Each posting carries its title, location, posted date… |
@@ -657,6 +664,7 @@
 | [`duckduckgo/search`](models/duckduckgo/search.md) | 0.015 / call | sync | DuckDuckGo organic search results for a keyword, with region and safe-search options. |
 | [`ebay/product`](models/ebay/product.md) | 0.015 / call (free quota) | async | Get an eBay product by product ID: title, price, condition, quantity sold, item specifics, media, shipping, returns… |
 | [`ebay/search`](models/ebay/search.md) | 0.015 / call (free quota) | async | Search eBay listings by keyword with price, condition, shipping, bids, time left and seller, plus condition, format,… |
+| [`ebay/sold-listings`](models/ebay/sold-listings.md) | ~0.003 | sync | Retrieve recently sold eBay listings for any keyword with optional price-range, condition, category, sold-date, and… |
 | [`etsy/product`](models/etsy/product.md) | ~0.00187 | sync | Look up one Etsy listing by id and get its price, images, description, rating, reviews count, shop, category,… |
 | [`etsy/search`](models/etsy/search.md) | ~0.0009 | sync | Search Etsy listings by keyword, the same results an Etsy search or /market page shows, with optional sort, price… |
 | [`etsy/shop`](models/etsy/shop.md) | ~0.0009 | sync | Look up one Etsy shop by name and get its id, location, sales, active listings, rating, reviews count, followers,… |
@@ -934,6 +942,7 @@
 | [`jd/item/comments`](models/jd/item/comments.md) | 0.028571 / call | sync | Get paginated customer comments for a JD.com product by item ID, for buyer feedback and product quality research. |
 | [`jd/item/description-images`](models/jd/item/description-images.md) | 0.021429 / call | sync | Get the description images and product attributes of a JD.com product by item ID. |
 | [`jd/item/detail`](models/jd/item/detail.md) | 0.028571 / call | sync | Get a JD.com product by item ID: title, price, promotion price, brand, shop and images. |
+| [`jd/item/price`](models/jd/item/price.md) | 0.021429 / call | sync | Get current JD.com prices for up to 10 product IDs in one call; pass the IDs comma-separated. One call costs the same… |
 | [`jd/search/items`](models/jd/search/items.md) | 0.021429 / call | sync | Search JD.com products by keyword with item IDs, titles, images, categories and shop names, with page-based pagination. |
 | [`jd/shop/items`](models/jd/shop/items.md) | 0.028571 / call | sync | List products from a JD.com shop by shop ID, page by page, to collect item IDs for follow-up lookups. |
 | [`kalshi/markets`](models/kalshi/markets.md) | 0.02 / call | sync | Get Kalshi Markets from Kalshi. Returns the official Kalshi API response unchanged. |
@@ -943,6 +952,8 @@
 | [`kbb/lease-deals`](models/kbb/lease-deals.md) | 0.01 / call (free quota) | async | Retrieve the current '10 Best Lease Deals Around $200' editorial list from Kelley Blue Book in one round trip. Each… |
 | [`kbb/obd-codes`](models/kbb/obd-codes.md) | 0.01 / call (free quota) | async | Retrieve OBD-II diagnostic trouble code descriptions from KBB. Currently supports powertrain (P) codes only. |
 | [`kbb/years`](models/kbb/years.md) | 0.01 / call (free quota) | async | Retrieve all available vehicle model years from Kelley Blue Book in one round trip. Returns an array of integer years… |
+| [`kroger/product`](models/kroger/product.md) | 0.00015 / call | async | Get one Kroger grocery product by URL with title, price, size, images and store availability; pass a store ID for… |
+| [`kroger/search`](models/kroger/search.md) | 0.00015 / call | async | Search Kroger grocery products by keyword with price, size and product URL; pass a store ID for local pricing and stock. |
 | [`kuaishou/app/brand-top-list`](models/kuaishou/app/brand-top-list.md) | 0.001 / call (free quota) | sync | Returns top brand rankings and related live stream links from Kuaishou. Allows filtering ranking data by sub-tab… |
 | [`kuaishou/app/generate-share-link`](models/kuaishou/app/generate-share-link.md) | 0.001 / call (free quota) | sync | Generates a shareable URL for Kuaishou application content using a specified object identifier. Returns share link… |
 | [`kuaishou/app/hot-board-categories`](models/kuaishou/app/hot-board-categories.md) | 0.001 / call (free quota) | sync | Returns the active list of hot board categories available in the Kuaishou app. Use this endpoint to inspect category… |
@@ -1283,11 +1294,16 @@
 | [`stockanalysis/stock-overview`](models/stockanalysis/stock-overview.md) | 0.01 / call (free quota) | async | Real-time quote overview for a stock symbol. Returns current price, change, volume, exchange, market status, 52-week… |
 | [`stockanalysis/stock-statistics`](models/stockanalysis/stock-statistics.md) | 0.01 / call (free quota) | async | Comprehensive statistics for a stock organized into categorized sections. Each section contains a text summary and a… |
 | [`substack/posts`](models/substack/posts.md) | ~0.0444 | sync | Pull posts from any Substack publication by its URL, or pass a single post URL (…/p/slug) to fetch just that one… |
+| [`taobao/item/description-images`](models/taobao/item/description-images.md) | 0.021429 / call | sync | Get the description HTML and the list of description images for a Taobao or Tmall product by item ID, for catalog… |
 | [`taobao/item/detail`](models/taobao/item/detail.md) | 0.021429 / call | sync | Get a Taobao or Tmall product by item ID: title, images, price, SKU options, delivery and seller details. |
 | [`taobao/item/questions`](models/taobao/item/questions.md) | 0.021429 / call | sync | Get buyer questions and answers for a Taobao or Tmall product by item ID, page by page. |
 | [`taobao/item/reviews`](models/taobao/item/reviews.md) | 0.028571 / call | sync | Get Taobao and Tmall product reviews by item ID with pagination, sorted by latest or default, for customer feedback… |
 | [`taobao/search/items`](models/taobao/search/items.md) | 0.028571 / call | sync | Search Taobao and Tmall products by keyword with titles, prices, images, sales and shop info. Sort by sales or price,… |
 | [`taobao/shop-item-list`](models/taobao/shop-item-list.md) | 0.028571 / call | sync | Get products from a Taobao or Tmall shop using both seller or user ID and shop ID, with page-based pagination and… |
+| [`taobao/shop/detail`](models/taobao/shop/detail.md) | 0.021429 / call | sync | Get a Taobao or Tmall shop's homepage info, shop categories and default product listing by seller ID and shop ID. Use… |
+| [`taobao/shop/items`](models/taobao/shop/items.md) | 0.021429 / call | sync | List products in a Taobao or Tmall shop by seller ID and shop ID, with optional keyword search, shop-category filter,… |
+| [`target/product`](models/target/product.md) | ~0.00085 | sync | Fetch a Target.com product by URL and get title, price, brand, rating, description, and images in one normalized… |
+| [`target/reviews`](models/target/reviews.md) | ~0.00085 | sync | Pull a page of 10 customer reviews for any Target.com product by URL, newest first or by helpfulness or rating:… |
 | [`target/search`](models/target/search.md) | 0.015 / call (free quota) | async | Search Target products by keyword with TCIN, brand, price, sale price, rating, reviews and pickup, delivery and… |
 | [`tavily/extract`](models/tavily/extract.md) | 0.012 / call (free quota) | sync | Extracts clean text content from specified web pages using their URLs. Supports basic or advanced extraction depth and… |
 | [`tavily/map`](models/tavily/map.md) | 0.012 / call | sync | Discovers the URL structure of a target website without extracting full page content. Accepts a starting URL, maximum… |
@@ -1560,6 +1576,7 @@
 | [`twitter/web/user-profile`](models/twitter/web/user-profile.md) | 0.001 / call (free quota) | sync | Get a Twitter / X user profile by screen name or user ID: name, bio, follower and following counts, post and media… |
 | [`twitter/web/user-profiles-by-rest-ids`](models/twitter/web/user-profiles-by-rest-ids.md) | 0.001 / call (free quota) | sync | Get profiles by rest ids on Twitter. Returns the platform data as structured JSON. |
 | [`twitter/web/user-tweet-replies`](models/twitter/web/user-tweet-replies.md) | 0.001 / call (free quota) | sync | Returns a timeline of replies posted by a specific Twitter user. Filter by username and paginate through responses… |
+| [`walmart/product`](models/walmart/product.md) | ~0.001 | sync | Fetch a Walmart product page by URL and get full product details (title, price, availability, ratings, images, and… |
 | [`walmart/product-reviews`](models/walmart/product-reviews.md) | 0.015 / call (free quota) | async | Get Walmart product reviews by product ID: overall rating, ratings histogram, top positive and negative reviews, and… |
 | [`walmart/scrape/product`](models/walmart/scrape/product.md) | 0.01 / call (free quota) | async | Extract structured data from a Walmart product page URL: name, current and list price, stock, delivery estimate,… |
 | [`walmart/search`](models/walmart/search.md) | 0.015 / call (free quota) | async | Search Walmart products by keyword with price, rating, reviews, seller and fulfillment badges, plus sorting, price… |
@@ -1713,6 +1730,7 @@
 | [`xiaohongshu/app-v2/user-posted-notes`](models/xiaohongshu/app-v2/user-posted-notes.md) | 0.01 / call (free quota) | sync | Retrieves a list of notes posted by a specific Xiaohongshu user with cursor pagination. Query by providing a user… |
 | [`xiaohongshu/app-v2/video-note-detail`](models/xiaohongshu/app-v2/video-note-detail.md) | 0.01 / call (free quota) | sync | Returns detailed metadata for a video note on Xiaohongshu (RED) using an identifier or a share link. |
 | [`xiaohongshu/creator-hot-inspiration-feed`](models/xiaohongshu/creator-hot-inspiration-feed.md) | 0.021429 / call | sync | Get the Xiaohongshu (RedNote) creator center hot inspiration feed with cursor pagination. Use it to discover… |
+| [`xiaohongshu/ec/product-detail`](models/xiaohongshu/ec/product-detail.md) | 0.028571 / call | sync | Get a Xiaohongshu (RedNote) shop product by SKU ID, with title, price, images, specifications, seller and sales… |
 | [`xiaohongshu/ec/search-products`](models/xiaohongshu/ec/search-products.md) | 0.028571 / call | sync | Search products sold in Xiaohongshu (RedNote) shops by keyword, with price, sales and shop info. |
 | [`xiaohongshu/hot-search`](models/xiaohongshu/hot-search.md) | 0.021429 / call | sync | Search Xiaohongshu (RedNote) hot-content entries with optional keyword, content-category path, pagination, ranking… |
 | [`xiaohongshu/note-comment`](models/xiaohongshu/note-comment.md) | 0.021429 / call | sync | Get comments for a Xiaohongshu (RedNote) note with cursor pagination and normal, latest, or like-count sorting. Use it… |
@@ -2034,7 +2052,7 @@
 | [`meshy/n1/retexture`](models/meshy/n1/retexture.md) | 0.4 / call | async | Meshy N1 Retexture repaints an existing 3D model from one reference image or up to four reference views, producing a… |
 | [`meshy/relief`](models/meshy/relief.md) | 0.8 / call | async | Meshy Relief turns a photo into a printable 3D relief (GLB and STL) with emboss or engrave carving and an optional… |
 | [`meshy/rigging`](models/meshy/rigging.md) | 0.2–0.32 | async | Meshy Rigging adds a humanoid skeleton to an existing character model and can also apply one animation preset. |
-| [`meshy/rigging/multi-animation`](models/meshy/rigging/multi-animation.md) | 0.44 | async | Meshy Rigging Multi-Animation rigs an existing humanoid character model and generates up to 10 animation clips on the… |
+| [`meshy/rigging/multi-animation`](models/meshy/rigging/multi-animation.md) | 0.56 | async | Meshy Rigging Multi-Animation rigs an existing humanoid character model and generates up to 10 animation clips on the… |
 | [`meshy/t2.5/image-to-3d`](models/meshy/t2.5/image-to-3d.md) | 0.2–0.92 | async | Meshy T2.5 turns a single image into a clean Smart Topology triangle mesh (up to 30,000 triangles), with optional… |
 | [`meshy/t2.5/text-to-3d`](models/meshy/t2.5/text-to-3d.md) | 0.2–0.92 | async | Meshy T2.5 generates a clean Smart Topology triangle mesh (up to 30,000 triangles) from a text prompt, untextured in… |
 | [`meshy/t2/image-to-3d`](models/meshy/t2/image-to-3d.md) | 0.2–0.92 | async | Meshy T2 turns a single image into a clean Smart Topology triangle mesh (up to 15,000 triangles), with optional… |
@@ -2117,7 +2135,6 @@
 |---|---|---|---|
 | [`alibaba/qwen2.5-vl-72b-instruct`](models/alibaba/qwen2.5-vl-72b-instruct.md) | 0.25 / 0.75 per 1M tok | sync | Qwen2.5-VL 72B Instruct is the largest instruction-tuned model in Alibaba's open-weight Qwen2.5-VL vision-language… |
 | [`alibaba/qwen3-32b`](models/alibaba/qwen3-32b.md) | 0.16 / 0.64 per 1M tok | sync | Qwen3 32B is the largest dense model in Alibaba's open-weight Qwen3 family, released in April 2025 with 32.8 billion… |
-| [`alibaba/qwen3-8b`](models/alibaba/qwen3-8b.md) | 0.18 / 0.7 per 1M tok | sync | Qwen3 8B is a compact dense model in Alibaba's open-weight Qwen3 family, released in April 2025 with 8.2 billion… |
 | [`alibaba/qwen3-vl-235b-a22b-instruct`](models/alibaba/qwen3-vl-235b-a22b-instruct.md) | 0.4 / 1.6 per 1M tok | sync | Qwen3-VL 235B A22B Instruct is the largest Mixture-of-Experts model in Alibaba's open-weight Qwen3-VL vision-language… |
 | [`alibaba/qwen3-vl-30b-a3b-instruct`](models/alibaba/qwen3-vl-30b-a3b-instruct.md) | 0.13 / 0.52 per 1M tok | sync | Qwen3-VL 30B A3B Instruct is the mid-size Mixture-of-Experts, non-thinking edition of Alibaba's open-weight Qwen3-VL… |
 | [`alibaba/qwen3-vl-8b-instruct`](models/alibaba/qwen3-vl-8b-instruct.md) | 0.18 / 0.7 per 1M tok | sync | Qwen3-VL 8B Instruct is the 8-billion-parameter dense, non-thinking edition of Alibaba's open-weight Qwen3-VL… |

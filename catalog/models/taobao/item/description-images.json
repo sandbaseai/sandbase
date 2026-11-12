@@ -1,0 +1,51 @@
+{
+  "name": "taobao/item/description-images",
+  "display_name": "Taobao Product Description Images",
+  "type": "api",
+  "vendor": "Taobao",
+  "vendor_slug": "taobao",
+  "description": "Get the description HTML and the list of description images for a Taobao or Tmall product by item ID, for catalog preparation and listing content review.",
+  "tags": [
+    "api",
+    "taobao",
+    "ecommerce"
+  ],
+  "capabilities": [
+    "api",
+    "taobao",
+    "ecommerce"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/taobao/item/description-images"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "itemId"
+    ],
+    "properties": {
+      "itemId": {
+        "type": "string",
+        "example": "920640959876",
+        "description": "Unique product identifier on Taobao/Tmall (item ID)."
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.021429
+  },
+  "readme": "# Taobao Product Description Images API\n\nGet the description HTML and the list of description images for a Taobao or Tmall product by item ID, for catalog preparation and listing content review.\n\nThe result is returned in `outputs[0].data` in the platform's original structure.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/taobao/item/description-images\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"itemId\": \"920640959876\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `itemId` | string | Yes | Unique product identifier on Taobao/Tmall (item ID). |\n\n## Pricing\n\nFlat price per call. Failed calls and empty results are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/taobao/item/description-images",
+  "created_at": "2026-11-12T07:39:13.672Z"
+}

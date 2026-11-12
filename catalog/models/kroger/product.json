@@ -1,0 +1,85 @@
+{
+  "name": "kroger/product",
+  "display_name": "Kroger Product",
+  "type": "api",
+  "vendor": "Kroger",
+  "vendor_slug": "kroger",
+  "description": "Get one Kroger grocery product by URL with title, price, size, images and store availability; pass a store ID for local pricing.",
+  "tags": [
+    "api",
+    "kroger",
+    "ecommerce",
+    "product-data"
+  ],
+  "capabilities": [
+    "api",
+    "kroger",
+    "ecommerce",
+    "product-data"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}",
+    "passthrough": "POST /v1/api/kroger/product"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "url"
+    ],
+    "properties": {
+      "url": {
+        "type": "string",
+        "example": "https://www.kroger.com/p/organic-valley-whole-milk-half-gallon/0009396651300",
+        "maxLength": 4096,
+        "minLength": 1,
+        "description": "Public HTTPS product URL on this retailer's site."
+      },
+      "timeout": {
+        "type": "number",
+        "default": 50,
+        "maximum": 50,
+        "description": "Seconds the data source may spend before giving up (max 50, default 50). A timed-out call is not billed.",
+        "exclusiveMinimum": 0
+      },
+      "store_id": {
+        "type": "string",
+        "pattern": "^[0-9]{1,8}$",
+        "maxLength": 8,
+        "minLength": 1,
+        "description": "Retailer's store ID. Selects the store catalog, pricing or availability where the retailer exposes it."
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "required": [
+      "id",
+      "status",
+      "model"
+    ],
+    "properties": {
+      "id": {
+        "type": "string"
+      },
+      "model": {
+        "type": "string"
+      },
+      "status": {
+        "type": "string"
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.00015
+  },
+  "readme": "# Kroger Product\n\nGet one Kroger grocery product by URL with title, price, size, images and store availability; pass a store ID for local pricing.",
+  "page_url": "https://www.sandbase.ai/model/kroger/product",
+  "created_at": "2026-11-12T07:32:34.541Z"
+}

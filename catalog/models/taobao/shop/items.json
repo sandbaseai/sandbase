@@ -1,0 +1,82 @@
+{
+  "name": "taobao/shop/items",
+  "display_name": "Taobao Shop Products",
+  "type": "api",
+  "vendor": "Taobao",
+  "vendor_slug": "taobao",
+  "description": "List products in a Taobao or Tmall shop by seller ID and shop ID, with optional keyword search, shop-category filter, sorting and pagination.",
+  "tags": [
+    "api",
+    "taobao",
+    "ecommerce"
+  ],
+  "capabilities": [
+    "api",
+    "taobao",
+    "ecommerce"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/taobao/shop/items"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "sellerId",
+      "shopId"
+    ],
+    "properties": {
+      "page": {
+        "type": "integer",
+        "default": 1,
+        "description": "Page number, starting from 1."
+      },
+      "sort": {
+        "enum": [
+          "comprehensive",
+          "sales",
+          "new",
+          "price-asc",
+          "price-desc"
+        ],
+        "type": "string",
+        "default": "comprehensive",
+        "description": "Product sort order."
+      },
+      "catId": {
+        "type": "string",
+        "description": "Shop category ID from Shop Detail. Omit to include all shop categories."
+      },
+      "shopId": {
+        "type": "string",
+        "example": "103710607",
+        "description": "Taobao shop ID associated with the seller."
+      },
+      "keyword": {
+        "type": "string",
+        "description": "Keyword to search for products within the shop. Omit to list products without a keyword filter."
+      },
+      "sellerId": {
+        "type": "string",
+        "example": "1659916565",
+        "description": "Taobao seller user ID associated with the shop."
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.021429
+  },
+  "readme": "# Taobao Shop Products API\n\nList products in a Taobao or Tmall shop by seller ID and shop ID, with optional keyword search, shop-category filter, sorting and pagination.\n\nThe result is returned in `outputs[0].data` in the platform's original structure.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/taobao/shop/items\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"sellerId\": \"1659916565\", \"shopId\": \"103710607\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `sellerId` | string | Yes | Taobao seller user ID associated with the shop. |\n| `shopId` | string | Yes | Taobao shop ID associated with the seller. |\n| `catId` | string | No | Shop category ID from Shop Detail. Omit to include all shop categories. |\n| `keyword` | string | No | Keyword to search for products within the shop. Omit to list products without a keyword filter. |\n| `sort` | string | No | Product sort order. |\n| `page` | integer | No | Page number, starting from 1. |\n\n## Pricing\n\nFlat price per call. Failed calls and empty results are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/taobao/shop/items",
+  "created_at": "2026-10-29T10:18:02.259Z"
+}

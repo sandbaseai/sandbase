@@ -1,0 +1,91 @@
+{
+  "name": "kroger/search",
+  "display_name": "Kroger Search",
+  "type": "api",
+  "vendor": "Kroger",
+  "vendor_slug": "kroger",
+  "description": "Search Kroger grocery products by keyword with price, size and product URL; pass a store ID for local pricing and stock.",
+  "tags": [
+    "api",
+    "kroger",
+    "ecommerce",
+    "product-data"
+  ],
+  "capabilities": [
+    "api",
+    "kroger",
+    "ecommerce",
+    "product-data"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}",
+    "passthrough": "POST /v1/api/kroger/search"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "query"
+    ],
+    "properties": {
+      "page": {
+        "type": "integer",
+        "maximum": 1,
+        "minimum": 1,
+        "description": "Only the first result page is currently supported."
+      },
+      "query": {
+        "type": "string",
+        "example": "milk",
+        "maxLength": 500,
+        "minLength": 1,
+        "description": "Product keywords to search for."
+      },
+      "timeout": {
+        "type": "number",
+        "default": 50,
+        "maximum": 50,
+        "description": "Seconds the data source may spend before giving up (max 50, default 50). A timed-out call is not billed.",
+        "exclusiveMinimum": 0
+      },
+      "store_id": {
+        "type": "string",
+        "pattern": "^[0-9]{1,8}$",
+        "maxLength": 8,
+        "minLength": 1,
+        "description": "Retailer's store ID. Selects the store catalog, pricing or availability where the retailer exposes it."
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "required": [
+      "id",
+      "status",
+      "model"
+    ],
+    "properties": {
+      "id": {
+        "type": "string"
+      },
+      "model": {
+        "type": "string"
+      },
+      "status": {
+        "type": "string"
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.00015
+  },
+  "readme": "# Kroger Search\n\nSearch Kroger grocery products by keyword with price, size and product URL; pass a store ID for local pricing and stock.",
+  "page_url": "https://www.sandbase.ai/model/kroger/search",
+  "created_at": "2026-11-12T07:34:52.369Z"
+}

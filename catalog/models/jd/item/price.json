@@ -1,0 +1,51 @@
+{
+  "name": "jd/item/price",
+  "display_name": "JD.com Product Price",
+  "type": "api",
+  "vendor": "JD.com",
+  "vendor_slug": "jd",
+  "description": "Get current JD.com prices for up to 10 product IDs in one call; pass the IDs comma-separated. One call costs the same for 1 or 10 IDs.",
+  "tags": [
+    "api",
+    "jd",
+    "ecommerce"
+  ],
+  "capabilities": [
+    "api",
+    "jd",
+    "ecommerce"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/jd/item/price"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "itemIds"
+    ],
+    "properties": {
+      "itemIds": {
+        "type": "string",
+        "example": "100012043978,100207440191",
+        "description": "Between 1 and 10 numeric JD.com item IDs, separated by commas without spaces."
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.021429
+  },
+  "readme": "# JD.com Product Price API\n\nGet current JD.com prices for up to 10 product IDs in one call; pass the IDs comma-separated. One call costs the same for 1 or 10 IDs.\n\nThe result is returned in `outputs[0].data` in the platform's original structure.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/jd/item/price\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"itemIds\": \"100012043978,100207440191\"}'\n```\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `itemIds` | string | Yes | Between 1 and 10 numeric JD.com item IDs, separated by commas without spaces. |\n\n## Pricing\n\nFlat price per call. Failed calls and empty results are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/jd/item/price",
+  "created_at": "2026-10-29T10:20:33.519Z"
+}

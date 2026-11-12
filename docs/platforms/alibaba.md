@@ -1,6 +1,6 @@
-# Alibaba models API: 72 endpoints with pricing and code examples
+# Alibaba models API: 71 endpoints with pricing and code examples
 
-Call 72 Alibaba models through SandBase with one API key: no separate account, one balance, the same request format for every endpoint. Each page has the input schema, the price and curl / Python / TypeScript / Go examples.
+Call 71 Alibaba models through SandBase with one API key: no separate account, one balance, the same request format for every endpoint. Each page has the input schema, the price and curl / Python / TypeScript / Go examples.
 
 | Endpoint | What it does | Price |
 |---|---|---|
@@ -22,7 +22,6 @@ Call 72 Alibaba models through SandBase with one API key: no separate account, o
 | [`alibaba/qwen-image-edit/2511/multiple-angles`](../models/alibaba/qwen-image-edit/2511/multiple-angles.md) | Qwen Image Edit 2511 Multiple Angles by Alibaba - AI-powered image editing, style transfer, and transformation. Edit photos with natural… | $0.035 per call |
 | [`alibaba/qwen2.5-vl-72b-instruct`](../models/alibaba/qwen2.5-vl-72b-instruct.md) | Qwen2.5-VL 72B Instruct is the largest instruction-tuned model in Alibaba's open-weight Qwen2.5-VL vision-language family, released in… | $0.25 input / $0.75 output per 1M tokens |
 | [`alibaba/qwen3-32b`](../models/alibaba/qwen3-32b.md) | Qwen3 32B is the largest dense model in Alibaba's open-weight Qwen3 family, released in April 2025 with 32.8 billion parameters. One model… | $0.16 input / $0.64 output per 1M tokens |
-| [`alibaba/qwen3-8b`](../models/alibaba/qwen3-8b.md) | Qwen3 8B is a compact dense model in Alibaba's open-weight Qwen3 family, released in April 2025 with 8.2 billion parameters. Like its… | $0.18 input / $0.7 output per 1M tokens |
 | [`alibaba/qwen3-vl-235b-a22b-instruct`](../models/alibaba/qwen3-vl-235b-a22b-instruct.md) | Qwen3-VL 235B A22B Instruct is the largest Mixture-of-Experts model in Alibaba's open-weight Qwen3-VL vision-language family, in its… | $0.4 input / $1.6 output per 1M tokens |
 | [`alibaba/qwen3-vl-30b-a3b-instruct`](../models/alibaba/qwen3-vl-30b-a3b-instruct.md) | Qwen3-VL 30B A3B Instruct is the mid-size Mixture-of-Experts, non-thinking edition of Alibaba's open-weight Qwen3-VL vision-language… | $0.13 input / $0.52 output per 1M tokens |
 | [`alibaba/qwen3-vl-8b-instruct`](../models/alibaba/qwen3-vl-8b-instruct.md) | Qwen3-VL 8B Instruct is the 8-billion-parameter dense, non-thinking edition of Alibaba's open-weight Qwen3-VL vision-language family.… | $0.18 input / $0.7 output per 1M tokens |

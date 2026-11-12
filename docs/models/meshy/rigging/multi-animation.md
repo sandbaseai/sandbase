@@ -2,7 +2,7 @@
 
 `meshy/rigging/multi-animation` · image generation model · Meshy · callable with one SandBase API key from curl, Python, TypeScript and Go.
 
-**Price:** from $0.44 per run, depending on parameters · **Modes:** async
+**Price:** from $0.56 per run, depending on parameters · **Modes:** async
 
 Meshy Rigging Multi-Animation rigs an existing humanoid character model and generates up to 10 animation clips on the same rig.
 
@@ -12,7 +12,7 @@ Meshy Rigging Multi-Animation rigs an existing humanoid character model and gene
 
 | parameters | USD |
 |---|---|
-| defaults | 0.44 |
+| defaults | 0.56 |
 
 Formula: `0.2 + len(params.animation_action_ids ?? []) * 0.12`
 
@@ -25,7 +25,7 @@ Modes: async (default `async`). Only pass `mode` values listed here. The SDKs' `
 ```bash
 curl https://api.sandbase.ai/v1/run \
   -H "Authorization: Bearer $SANDBASE_API_KEY" -H 'Content-Type: application/json' \
-  -d '{"model": "meshy/rigging/multi-animation", "animation_action_ids": [92, 4], "model_url": "https://static.sandbase.ai/examples/b6ee151f-f759-4310-913a-3ef685bd1615/input/9d665214-a80d-47a1-b73e-b1c023a701e9.glb"}'
+  -d '{"model": "meshy/rigging/multi-animation", "animation_action_ids": [92, 4, 30], "model_url": "https://static.sandbase.ai/examples/ff903233-a04c-40c5-a624-e3b99ada4c10/input/64e4200d-f0c6-4d32-ba41-17b481908848.glb"}'
 ```
 
 **Python** ([sdk/python](../../../../sdk/python))
@@ -33,7 +33,7 @@ curl https://api.sandbase.ai/v1/run \
 ```python
 from sandbase import SandBase
 
-result = SandBase().run('meshy/rigging/multi-animation', {'animation_action_ids': [92, 4], 'model_url': 'https://static.sandbase.ai/examples/b6ee151f-f759-4310-913a-3ef685bd1615/input/9d665214-a80d-47a1-b73e-b1c023a701e9.glb'})
+result = SandBase().run('meshy/rigging/multi-animation', {'animation_action_ids': [92, 4, 30], 'model_url': 'https://static.sandbase.ai/examples/ff903233-a04c-40c5-a624-e3b99ada4c10/input/64e4200d-f0c6-4d32-ba41-17b481908848.glb'})
 print(result["outputs"])
 ```
 
@@ -45,9 +45,10 @@ import { SandBase } from "@sandbaseai/sdk";
 const result = await new SandBase().run("meshy/rigging/multi-animation", {
   "animation_action_ids": [
     92,
-    4
+    4,
+    30
   ],
-  "model_url": "https://static.sandbase.ai/examples/b6ee151f-f759-4310-913a-3ef685bd1615/input/9d665214-a80d-47a1-b73e-b1c023a701e9.glb"
+  "model_url": "https://static.sandbase.ai/examples/ff903233-a04c-40c5-a624-e3b99ada4c10/input/64e4200d-f0c6-4d32-ba41-17b481908848.glb"
 });
 console.log(result.outputs);
 ```
@@ -57,8 +58,8 @@ console.log(result.outputs);
 ```go
 c, _ := sandbase.NewClient("")
 run, err := c.Run(ctx, "meshy/rigging/multi-animation", sandbase.Params{
-	"animation_action_ids": []any{92, 4},
-	"model_url": "https://static.sandbase.ai/examples/b6ee151f-f759-4310-913a-3ef685bd1615/input/9d665214-a80d-47a1-b73e-b1c023a701e9.glb",
+	"animation_action_ids": []any{92, 4, 30},
+	"model_url": "https://static.sandbase.ai/examples/ff903233-a04c-40c5-a624-e3b99ada4c10/input/64e4200d-f0c6-4d32-ba41-17b481908848.glb",
 })
 ```
 
@@ -90,10 +91,11 @@ Meshy Rigging Multi-Animation rigs an existing humanoid character model and gene
 | `include_fingers` | boolean | `false` | Rig the character's fingers. |
 | `height_meters` | number | `1.7` | Approximate height of the character in meters. |
 ### Output
-- `url`: Main 3D file (GLB unless another export format is selected).
-- `fbx`: Additional file returned by the provider.
-- `animation_glb`: Additional file returned by the provider.
-- `animation_fbx`: Additional file returned by the provider.
+One output item per requested animation, in request order:
+- `url`: the animated character for that clip (GLB).
+- `animation_fbx`: the same clip as FBX.
+- `action_id`: the animation preset ID of the clip.
+- `rigged_glb` / `fbx`: the rigged character without animation (same on every item).
 ### Billing
 $0.32 per request with default settings. Price by option (other settings at default):
 | Option | Price |

@@ -155,28 +155,17 @@
   "examples": [
     {
       "input": {
-        "enable_pbr": true,
-        "model_url": "https://static.sandbase.ai/examples/9e61c502-30fc-4006-b051-edcdc6539b95/input/e3711001-5915-4f21-8156-beccb1a8316e.glb",
-        "text_style_prompt": "weathered pirate treasure chest, dark oak planks with rusted iron bands and gold rivets",
-        "texture_resolution": "4k"
+        "image_style_url": "https://static.sandbase.ai/examples/16bfc90f-cc6f-4382-97dc-397313d711e1/input/68719ae5-4158-4996-b4ec-eea77ddc401e.png",
+        "model_url": "https://static.sandbase.ai/examples/16bfc90f-cc6f-4382-97dc-397313d711e1/input/1fc610f0-3af8-4905-a6e7-ee7d57664cb5.glb"
       },
       "output": [
         {
-          "url": "https://static.sandbase.ai/examples/9e61c502-30fc-4006-b051-edcdc6539b95/output/d016a5ba-b29f-4d94-9f5e-ff86f0b431f7.glb"
+          "poster": "https://static.sandbase.ai/examples/16bfc90f-cc6f-4382-97dc-397313d711e1/output/71a68edc-5538-470a-878a-70dd6aa4505e.png",
+          "thumbnail": "https://static.sandbase.ai/examples/16bfc90f-cc6f-4382-97dc-397313d711e1/output/71a68edc-5538-470a-878a-70dd6aa4505e.png",
+          "url": "https://static.sandbase.ai/examples/16bfc90f-cc6f-4382-97dc-397313d711e1/output/428119de-5c47-48f0-b2c7-773e1b6ce84c.glb"
         }
       ],
       "default": true
-    },
-    {
-      "input": {
-        "model_url": "https://static.sandbase.ai/examples/bca34e82-7923-4a14-820a-914e062e8d73/input/b04021f5-5d5f-4ba2-80ed-c71a1d6f50ee.glb",
-        "text_style_prompt": "red and black chest"
-      },
-      "output": [
-        {
-          "url": "https://static.sandbase.ai/examples/bca34e82-7923-4a14-820a-914e062e8d73/output/d1f0e7f6-d858-431e-ac01-79d4ec10a8cb.glb"
-        }
-      ]
     }
   ],
   "readme": "# Meshy 7 Retexture\nMeshy 7 Retexture repaints an existing 3D model from a text or image style, with optional PBR maps and up to 8K textures.\n## Fields\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `model_url` | 3D model URL, required | — | .glb, .gltf, .obj, .fbx or .stl. |\n| `text_style_prompt` | string | — | Texture style, up to 600 characters. Required when `image_style_url` is not set. |\n| `image_style_url` | image URL | — | JPG or PNG style reference; takes precedence over the text prompt. |\n| `texture_resolution` | `2k` / `4k` / `8k` | `2k` | Base color resolution; 8k costs more and its PBR maps are 4k. |\n| `enable_pbr` | boolean | false | Also generate metallic, roughness and normal maps. |\n| `enable_original_uv` | boolean | true | Keep the model's UV layout. |\n## Billing\n$0.33 per retextured model at 2k or 4k, $0.50 at 8k; PBR maps are included.\n| Request | Price |\n|---|---|\n| 2k (default) | $0.33 |\n| 4k + PBR | $0.33 |\n| 8k | $0.50 |\nFailed runs are not charged.\n## Prompting\n- Name materials and finish, e.g. \"weathered bronze with green patina\".\n- Provide either `text_style_prompt` or `image_style_url`.\n## Also on SandBase\nOther retexture models: `meshy/6.0/retexture`, `meshy/6.0-lite/retexture`. Generate a model first with `meshy/7.1/text-to-3d` or `meshy/7.1/image-to-3d`.",

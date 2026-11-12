@@ -50,7 +50,6 @@ alibaba/qwen-image-edit/2511,image,Alibaba,per_call,0.03,,,,,,async,POST /v1/run
 alibaba/qwen-image-edit/2511/multiple-angles,image,Alibaba,per_call,0.035,,,,,,async,POST /v1/run
 alibaba/qwen2.5-vl-72b-instruct,llm,Alibaba,per_token,,0.25,0.75,,,,sync,POST /v1/chat/completions
 alibaba/qwen3-32b,llm,Alibaba,per_token,,0.16,0.64,,,,sync,POST /v1/chat/completions
-alibaba/qwen3-8b,llm,Alibaba,per_token,,0.18,0.7,,,,sync,POST /v1/chat/completions
 alibaba/qwen3-vl-235b-a22b-instruct,llm,Alibaba,per_token,,0.4,1.6,,,,sync,POST /v1/chat/completions
 alibaba/qwen3-vl-30b-a3b-instruct,llm,Alibaba,per_token,,0.13,0.52,,,,sync,POST /v1/chat/completions
 alibaba/qwen3-vl-8b-instruct,llm,Alibaba,per_token,,0.18,0.7,,,,sync,POST /v1/chat/completions
@@ -105,14 +104,21 @@ alibaba/wan/3.0/video-edit,video,Alibaba,formula,,,,1,1,,async,POST /v1/run
 alibaba/wan/3.0/video-extend,video,Alibaba,formula,,,,2,2,,async,POST /v1/run
 alibaba/z-image/base,image,Alibaba,per_call,0.01,,,,,,async,POST /v1/run
 alibaba/z-image/turbo/edit,image,Alibaba,per_call,0.005,,,,,,async,POST /v1/run
+aliexpress/reviews,api,AliExpress,usage_based,,,,0.00085,0.00085,,sync,POST /v1/run
 aliexpress/search/products,api,AliExpress,per_call,0.014286,,,,,yes,sync,POST /v1/run
+amazon/asins,api,Amazon,usage_based,,,,0.0033,0.0033,,sync,POST /v1/run
+amazon/autocomplete,api,Amazon,per_call,0.00015,,,,,,async,POST /v1/run
 amazon/best-sellers,api,Amazon,per_call,0.014286,,,,,yes,sync,POST /v1/run
 amazon/category-products,api,Amazon,per_call,0.014286,,,,,yes,sync,POST /v1/run
+amazon/deals,api,Amazon,usage_based,,,,0.00085,0.00085,,sync,POST /v1/run
+amazon/offers,api,Amazon,usage_based,,,,0.00085,0.00085,,sync,POST /v1/run
 amazon/product,api,Amazon,per_call,0.015,,,,,yes,async,POST /v1/run
 amazon/product-detail,api,Amazon,per_call,0.014286,,,,,yes,sync,POST /v1/run
 amazon/reviews,api,Amazon,usage_based,,,,0.016,0.016,,sync,POST /v1/run
 amazon/search,api,Amazon,per_call,0.015,,,,,yes,async,POST /v1/run
 amazon/search-products,api,Amazon,per_call,0.014286,,,,,yes,sync,POST /v1/run
+amazon/seller,api,Amazon,usage_based,,,,0.00085,0.00085,,sync,POST /v1/run
+amazon/seller-products,api,Amazon,usage_based,,,,0.00085,0.00085,,sync,POST /v1/run
 anthropic/claude-fable-5,llm,Anthropic,per_token,,10,50,,,,sync,POST /v1/chat/completions
 anthropic/claude-fable-5.1,llm,Anthropic,per_token,,10,50,,,,sync,POST /v1/chat/completions
 anthropic/claude-fable-5.2,llm,Anthropic,per_token,,8,40,,,,sync,POST /v1/chat/completions
@@ -790,6 +796,7 @@ duckduckgo/news,api,DuckDuckGo,per_call,0.015,,,,,,sync,POST /v1/run
 duckduckgo/search,api,DuckDuckGo,per_call,0.015,,,,,,sync,POST /v1/run
 ebay/product,api,eBay,per_call,0.015,,,,,yes,async,POST /v1/run
 ebay/search,api,eBay,per_call,0.015,,,,,yes,async,POST /v1/run
+ebay/sold-listings,api,eBay,usage_based,,,,0.003,0.003,,sync,POST /v1/run
 elevenlabs/dubbing,video,ElevenLabs,formula,,,,0.6,0.6,,async,POST /v1/run
 elevenlabs/multilingual-v2,audio,ElevenLabs,formula,,,,0.2,0.2,,async,POST /v1/run
 elevenlabs/music,audio,ElevenLabs,formula,,,,0.6,6,,async,POST /v1/run
@@ -1161,6 +1168,7 @@ iqair/world-air-quality,api,IQAir,per_call,0.01,,,,,yes,async,POST /v1/run
 jd/item/comments,api,JD.com,per_call,0.028571,,,,,,sync,POST /v1/run
 jd/item/description-images,api,JD.com,per_call,0.021429,,,,,,sync,POST /v1/run
 jd/item/detail,api,JD.com,per_call,0.028571,,,,,,sync,POST /v1/run
+jd/item/price,api,JD.com,per_call,0.021429,,,,,,sync,POST /v1/run
 jd/search/items,api,JD.com,per_call,0.021429,,,,,,sync,POST /v1/run
 jd/shop/items,api,JD.com,per_call,0.028571,,,,,,sync,POST /v1/run
 kalshi/markets,api,Kalshi,per_call,0.02,,,,,,sync,POST /v1/run
@@ -1170,6 +1178,8 @@ kalshi/trades,api,Kalshi,per_call,0.02,,,,,,sync,POST /v1/run
 kbb/lease-deals,api,Kelley Blue Book,per_call,0.01,,,,,yes,async,POST /v1/run
 kbb/obd-codes,api,Kelley Blue Book,per_call,0.01,,,,,yes,async,POST /v1/run
 kbb/years,api,Kelley Blue Book,per_call,0.01,,,,,yes,async,POST /v1/run
+kroger/product,api,Kroger,per_call,0.00015,,,,,,async,POST /v1/run
+kroger/search,api,Kroger,per_call,0.00015,,,,,,async,POST /v1/run
 kuaishou/app/brand-top-list,api,Kuaishou,per_call,0.001,,,,,yes,sync,POST /v1/run
 kuaishou/app/generate-share-link,api,Kuaishou,per_call,0.001,,,,,yes,sync,POST /v1/run
 kuaishou/app/hot-board-categories,api,Kuaishou,per_call,0.001,,,,,yes,sync,POST /v1/run
@@ -1361,7 +1371,7 @@ meshy/meshy-v6/text-to-3d,image,Meshy,formula,,,,0.8,1.52,,async,POST /v1/run
 meshy/n1/retexture,image,Meshy,per_call,0.4,,,,,,async,POST /v1/run
 meshy/relief,image,Meshy,per_call,0.8,,,,,,async,POST /v1/run
 meshy/rigging,image,Meshy,formula,,,,0.2,0.32,,async,POST /v1/run
-meshy/rigging/multi-animation,image,Meshy,formula,,,,0.44,0.44,,async,POST /v1/run
+meshy/rigging/multi-animation,image,Meshy,formula,,,,0.56,0.56,,async,POST /v1/run
 meshy/t2.5/image-to-3d,image,Meshy,formula,,,,0.2,0.92,,async,POST /v1/run
 meshy/t2.5/text-to-3d,image,Meshy,formula,,,,0.2,0.92,,async,POST /v1/run
 meshy/t2/image-to-3d,image,Meshy,formula,,,,0.2,0.92,,async,POST /v1/run
@@ -1694,11 +1704,16 @@ stockanalysis/stock-statistics,api,StockAnalysis,per_call,0.01,,,,,yes,async,POS
 substack/posts,api,Substack,usage_based,,,,0.0444,0.0444,,sync,POST /v1/run
 sync/lipsync/3.0/image-to-video,video,Sync Labs,formula,,,,0.675,0.675,,async,POST /v1/run
 sync/lipsync/3.0/video-to-video,video,Sync Labs,formula,,,,0.675,0.675,,async,POST /v1/run
+taobao/item/description-images,api,Taobao,per_call,0.021429,,,,,,sync,POST /v1/run
 taobao/item/detail,api,Taobao,per_call,0.021429,,,,,,sync,POST /v1/run
 taobao/item/questions,api,Taobao,per_call,0.021429,,,,,,sync,POST /v1/run
 taobao/item/reviews,api,Taobao,per_call,0.028571,,,,,,sync,POST /v1/run
 taobao/search/items,api,Taobao,per_call,0.028571,,,,,,sync,POST /v1/run
 taobao/shop-item-list,api,Taobao,per_call,0.028571,,,,,,sync,POST /v1/run
+taobao/shop/detail,api,Taobao,per_call,0.021429,,,,,,sync,POST /v1/run
+taobao/shop/items,api,Taobao,per_call,0.021429,,,,,,sync,POST /v1/run
+target/product,api,Target,usage_based,,,,0.00085,0.00085,,sync,POST /v1/run
+target/reviews,api,Target,usage_based,,,,0.00085,0.00085,,sync,POST /v1/run
 target/search,api,Target,per_call,0.015,,,,,yes,async,POST /v1/run
 tavily/extract,api,Tavily,per_call,0.012,,,,,yes,sync,POST /v1/run
 tavily/map,api,Tavily,per_call,0.012,,,,,,sync,POST /v1/run
@@ -2018,6 +2033,7 @@ vidu/q3/text-to-video,video,Vidu,formula,,,,0.07,2.56,,async,POST /v1/run
 vidu/q3/text-to-video/turbo,video,Vidu,formula,,,,0.04,1.28,,async,POST /v1/run
 vidu/q4/image-to-video,video,Vidu,formula,,,,0.135,6.24,,async,POST /v1/run
 vidu/q4/reference-to-video,video,Vidu,formula,,,,0.135,6.24,,async,POST /v1/run
+walmart/product,api,Walmart,usage_based,,,,0.001,0.001,,sync,POST /v1/run
 walmart/product-reviews,api,Walmart,per_call,0.015,,,,,yes,async,POST /v1/run
 walmart/scrape/product,api,Walmart,per_call,0.01,,,,,yes,async,POST /v1/run
 walmart/search,api,Walmart,per_call,0.015,,,,,yes,async,POST /v1/run
@@ -2191,6 +2207,7 @@ xiaohongshu/app-v2/user-info,api,Xiaohongshu,per_call,0.01,,,,,yes,sync,POST /v1
 xiaohongshu/app-v2/user-posted-notes,api,Xiaohongshu,per_call,0.01,,,,,yes,sync,POST /v1/run
 xiaohongshu/app-v2/video-note-detail,api,Xiaohongshu,per_call,0.01,,,,,yes,sync,POST /v1/run
 xiaohongshu/creator-hot-inspiration-feed,api,Xiaohongshu,per_call,0.021429,,,,,,sync,POST /v1/run
+xiaohongshu/ec/product-detail,api,Xiaohongshu,per_call,0.028571,,,,,,sync,POST /v1/run
 xiaohongshu/ec/search-products,api,Xiaohongshu,per_call,0.028571,,,,,,sync,POST /v1/run
 xiaohongshu/hot-search,api,Xiaohongshu,per_call,0.021429,,,,,,sync,POST /v1/run
 xiaohongshu/note-comment,api,Xiaohongshu,per_call,0.021429,,,,,,sync,POST /v1/run

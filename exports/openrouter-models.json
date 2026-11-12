@@ -25,18 +25,6 @@
    }
   },
   {
-   "id": "alibaba/qwen3-8b",
-   "name": "Qwen: Qwen3 8B",
-   "description": "Qwen3 8B is a compact dense model in Alibaba's open-weight Qwen3 family, released in April 2025 with 8.2 billion parameters. Like its siblings, it switches between a thinking mode for math, coding and logical reasoning and a non-thinking mode for efficient dialogue, with tool use in both modes and coverage of more than 100 languages and dialects. Choose it for lightweight text reasoning and chat where Qwen3 32B is more than the task needs.",
-   "context_length": 131072,
-   "pricing": {
-    "prompt": "0.00000018",
-    "completion": "0.0000007",
-    "request": "0",
-    "image": "0"
-   }
-  },
-  {
    "id": "alibaba/qwen3-vl-235b-a22b-instruct",
    "name": "Qwen: Qwen3 VL 235B A22B Instruct",
    "description": "Qwen3-VL 235B A22B Instruct is the largest Mixture-of-Experts model in Alibaba's open-weight Qwen3-VL vision-language family, in its non-thinking Instruct edition, released in September 2025. Qwen positions it for visual agents that operate PC and mobile GUIs, generating HTML, CSS or diagrams from images and video, 2D and 3D grounding, long-video understanding and OCR in 32 languages. Choose it for direct answers; a separate Thinking edition targets multimodal STEM reasoning.",

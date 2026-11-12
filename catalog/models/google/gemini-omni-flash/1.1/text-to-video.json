@@ -230,6 +230,19 @@
         }
       ],
       "default": true
+    },
+    {
+      "input": {
+        "aspect_ratio": "16:9",
+        "duration": 3,
+        "prompt": "A red paper boat floating on a calm pond at sunrise, gentle ripples.",
+        "resolution": "360p"
+      },
+      "output": [
+        {
+          "url": "https://static.sandbase.ai/examples/4eb41149-b2d0-44fe-96b9-e77050016089/output/18db10ab-9a53-4bc2-9ddb-4683c753d35c.mp4"
+        }
+      ]
     }
   ],
   "readme": "# Gemini Omni Flash 1.1 Text to Video\n\nGemini Omni Flash 1.1 generates a 3–10 second clip with synchronized audio from a written prompt. It is Google's Gemini-native video model, built for fast turnaround and strong prompt following.\n\n## Fields\n\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `prompt` | string, required | — | Up to 20,000 characters. |\n| `aspect_ratio` | `16:9` / `9:16` | `16:9` | Output frame shape. |\n| `resolution` | `360p` / `720p` / `1080p` / `4k` | `720p` | Sets the per-second rate. |\n| `duration` | integer 3–10 | 8 | Output length in seconds (3–10). |\n\n## Billing\n\nYou pay for output seconds: $0.03 at 360p, $0.10 at 720p, $0.15 at 1080p, and $0.30 at 4K.\n\n| Output | 360p | 720p | 1080p | 4k |\n|---|---|---|---|---|\n| 3s | $0.09 | $0.30 | $0.45 | $0.90 |\n| 8s (default) | $0.24 | $0.80 | $1.20 | $2.40 |\n| 10s | $0.30 | $1.00 | $1.50 | $3.00 |\n\nFailed runs are not charged.\n\n## Prompting\n\n- Describe subject, action, camera, and sound in plain sentences.\n- Quote dialogue and name the speaker.\n\n## Limits\n\n- 16:9 or 9:16 only.\n\n## Also on SandBase\n\nOther Gemini Omni Flash 1.1 endpoints: `google/gemini-omni-flash/1.1/image-to-video`, `google/gemini-omni-flash/1.1/reference-to-video`, `google/gemini-omni-flash/1.1/edit`, `google/gemini-omni-flash/text-to-video` (previous version).\n",

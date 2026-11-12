@@ -1,0 +1,98 @@
+{
+  "name": "target/product",
+  "display_name": "Target Product",
+  "type": "api",
+  "vendor": "Target",
+  "vendor_slug": "target",
+  "description": "Fetch a Target.com product by URL and get title, price, brand, rating, description, and images in one normalized response.",
+  "tags": [
+    "api",
+    "target",
+    "ecommerce",
+    "product-data"
+  ],
+  "capabilities": [
+    "api",
+    "target",
+    "ecommerce",
+    "product-data"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/target/product"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "url"
+    ],
+    "properties": {
+      "url": {
+        "type": "string",
+        "example": "https://www.target.com/p/mr-coffee-12c-programmable-drip-coffee-maker-stainless-steel-finish/-/A-91863920",
+        "description": "Target product page URL; the TCIN after /A- identifies the product (e.g. https://www.target.com/p/-/A-91863920)."
+      },
+      "requireFields": {
+        "type": "array",
+        "items": {
+          "enum": [
+            "availability",
+            "category",
+            "dpci",
+            "highlights",
+            "images",
+            "listPrice",
+            "packageDimensions",
+            "rating",
+            "ratingCount",
+            "returnPolicy",
+            "specifications",
+            "upc"
+          ],
+          "type": "string"
+        },
+        "description": "Optional; omit it and routing is unchanged, with the cheapest source serving. Name the output fields this request must be able to return, for example `availability`, and it is served only by a source that returns every one of them. Fields you do not name are still returned whenever the serving source has them. This can raise your price: when the cheapest source cannot return a named field, a dearer source serves, and you are quoted and charged its price. A named field can still be absent on a product that genuinely lacks it. Naming a combination that no single source returns together is refused as invalid input, with no charge."
+      }
+    },
+    "additionalProperties": false
+  },
+  "response_schema": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string"
+      },
+      "model": {
+        "type": "string"
+      },
+      "status": {
+        "type": "string"
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "data": {
+              "type": "object",
+              "description": "Normalized result for this request."
+            }
+          }
+        }
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "usage_based",
+    "note": "Billed per call from metered usage; the reference price is typical.",
+    "reference_price": 0.00085
+  },
+  "readme": "# Target Product API\n\nFetch a Target.com product by URL and get title, price, brand, rating, description, and images in one normalized response.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/run\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"model\": \"target/product\", \"url\": \"https://www.target.com/p/mr-coffee-12c-programmable-drip-coffee-maker-stainless-steel-finish/-/A-91863920\"}'\n```\n\nThe result is returned in `outputs[0].data`. Lookups that find nothing fail with a not-found error.\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `url` | string | Yes | Target product page URL; the TCIN after /A- identifies the product (e.g. https://www.target.com/p/-/A-91863920). |\n| `requireFields` | array | No | Optional; omit it and routing is unchanged, with the cheapest source serving. Name the output fields this request must be able to return, for example `availability`, and it is served only by a source that returns every o |\n\n## Pricing\n\nBilled at the actual cost of each call, about $0.00085 per request. A call can cost more when the first data source fails and another one answers. Failed calls and lookups that find nothing are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/target/product",
+  "created_at": "2026-11-12T07:23:52.155Z"
+}

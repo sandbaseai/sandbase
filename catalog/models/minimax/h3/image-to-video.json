@@ -179,6 +179,20 @@
     },
     {
       "input": {
+        "aigc_watermark": false,
+        "duration": 5,
+        "image": "https://static.sandbase.ai/examples/c375cafc-7a48-4473-af89-323d11969730/input/b13dbd25-b7eb-4f11-a917-1c245919b466.jpg",
+        "prompt": "The camera slowly pushes in toward the single glowing tree in the wet plaza. Mist drifts across the ruined streets, leaves tremble slightly, reflections shimmer on the rain-slick ground. Cinematic night lighting, no new objects, no text, no watermark.",
+        "resolution": "768P"
+      },
+      "output": [
+        {
+          "url": "https://static.sandbase.ai/examples/c375cafc-7a48-4473-af89-323d11969730/output/524defa7-d1af-46d1-b6d7-ad0eb66cbc46.mp4"
+        }
+      ]
+    },
+    {
+      "input": {
         "duration": 15,
         "image": "https://static.sandbase.ai/examples/5b8ea529-00b1-4ea4-91de-bf9aa92233f0/input/e3014cf9-f667-4b58-976d-3c48a4a1887c.jpeg",
         "prompt": "make my cleavage bigger and fatter and jigglier but not that much and my bottom part too\nwith my body and clothes are all sweaty and with some milk on it i dance front facing camera then i turn and jiggle my lower part a bit\nthen i drop on the floor knees first all hot and tired but enjoying my self the i grab a cucumber from the camera and i start sucking it it like its an ice cream \nthen small loads of milk drop on me from the camera while i laugh and enjoy myself\nmake sure to include every detail and make the video longer than the usual 15 seconds maybe 30 and take your time with it until you perfect it",
@@ -188,20 +202,6 @@
         {
           "poster": "https://static.sandbase.ai/examples/posters/643554b45b8288ea410e.jpg",
           "url": "https://static.sandbase.ai/examples/5b8ea529-00b1-4ea4-91de-bf9aa92233f0/output/f439bc16-2b3a-4249-8e1f-8ac01fe41371.mp4"
-        }
-      ]
-    },
-    {
-      "input": {
-        "duration": 15,
-        "image": "https://static.sandbase.ai/examples/cc4277ea-9fe8-47e6-a0dc-4a4a3a44eda5/input/ac3d54d3-5e54-423a-a841-0c764c0c6f51.jpeg",
-        "prompt": "make me turn around and dance like ice spice in a rap video but make my bottom part alot bigger and rounder and jggilier and moves like its clapping and small amount of milk shooting at it  from random directions while the camera moves like its walking towards me while I'm faced against the wall and i start saying ah ah ah ah like I'm enjoying it \nkeep the video frame on my whole body with my face showing too",
-        "resolution": "768P"
-      },
-      "output": [
-        {
-          "poster": "https://static.sandbase.ai/examples/posters/93bbb34e604fe7aaa19b.jpg",
-          "url": "https://static.sandbase.ai/examples/cc4277ea-9fe8-47e6-a0dc-4a4a3a44eda5/output/962e8d53-27cc-4c10-96e6-ae701eda2e81.mp4"
         }
       ]
     }

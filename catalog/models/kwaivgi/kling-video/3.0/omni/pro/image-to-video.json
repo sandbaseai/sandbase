@@ -186,6 +186,18 @@
         }
       ],
       "default": true
+    },
+    {
+      "input": {
+        "duration": 5,
+        "image": "https://static.sandbase.ai/examples/16ef95fa-0659-4423-a63f-717b089e43f6/input/ba2a5e9f-ba44-4ca3-9257-98753cf5a1ba.png",
+        "prompt": "One continuous shot, no cuts. The camera trucks slowly to the left alongside the boat while the boat glides steadily forward to the right, leaving a long silver wake that spreads across the water. Banks of mist roll slowly across the water and drift past the mountain walls. Gentle ripples move across the whole lake surface. Nothing enters or leaves the frame; the empty fog on the left stays empty; no text. Calm, steady speed."
+      },
+      "output": [
+        {
+          "url": "https://static.sandbase.ai/examples/16ef95fa-0659-4423-a63f-717b089e43f6/output/4b476024-1d62-48d8-ad60-dee4a4269aa5.mp4"
+        }
+      ]
     }
   ],
   "readme": "# Kling 3.0 Omni Pro Image to Video\n\nKling 3.0 Omni Pro image-to-video: animate a first frame, optionally toward an end frame, over 3–10 seconds.\n\n## Fields\n\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `prompt` | string, required | — | Up to 2,500 characters. |\n| `image` | image URL, required | — | First frame. JPEG, PNG, or WebP URL. |\n| `end_image` | image URL | — | Optional last frame. |\n| `duration` | 3–10 | 5 | Output length in seconds. |\n\n## Billing\n\n$0.112 per output second.\n\n| Output | Price |\n|---|---|\n| 3s | $0.336 |\n| 5s (default) | $0.56 |\n| 10s | $1.12 |\n\nFailed runs are not charged.\n\n## Prompting\n\n- Describe what moves and how the camera behaves.\n\n## Limits\n\n- Clips are 3–10 seconds.\n\n## Also on SandBase\n\nOther Kling 3.0 Omni endpoints: `kwaivgi/kling-video/3.0/omni/pro/reference-to-video`, `kwaivgi/kling-video/3.0/omni/pro/video-to-video/edit`.\n",

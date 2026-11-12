@@ -27,7 +27,7 @@ Modes: async (default `async`). Only pass `mode` values listed here. The SDKs' `
 ```bash
 curl https://api.sandbase.ai/v1/run \
   -H "Authorization: Bearer $SANDBASE_API_KEY" -H 'Content-Type: application/json' \
-  -d '{"model": "meshy/6.0/retexture", "enable_pbr": true, "model_url": "https://static.sandbase.ai/examples/2460aa2a-7d52-4641-807e-ef2add85157b/input/1a80b1b3-43c5-47a7-8b6a-c7c48c6431f1.glb", "text_style_prompt": "sci-fi cargo crate, brushed white metal with orange hazard stripes"}'
+  -d '{"model": "meshy/6.0/retexture", "model_url": "https://static.sandbase.ai/examples/3aafe4fa-ce21-493c-92ae-998d082ad47e/input/0ce391e6-b1cd-47c7-9956-71eab1c5ec20.glb", "text_style_prompt": "glossy red and white racing livery with chrome details"}'
 ```
 
 **Python** ([sdk/python](../../../../sdk/python))
@@ -35,7 +35,7 @@ curl https://api.sandbase.ai/v1/run \
 ```python
 from sandbase import SandBase
 
-result = SandBase().run('meshy/6.0/retexture', {'enable_pbr': True, 'model_url': 'https://static.sandbase.ai/examples/2460aa2a-7d52-4641-807e-ef2add85157b/input/1a80b1b3-43c5-47a7-8b6a-c7c48c6431f1.glb', 'text_style_prompt': 'sci-fi cargo crate, brushed white metal with orange hazard stripes'})
+result = SandBase().run('meshy/6.0/retexture', {'model_url': 'https://static.sandbase.ai/examples/3aafe4fa-ce21-493c-92ae-998d082ad47e/input/0ce391e6-b1cd-47c7-9956-71eab1c5ec20.glb', 'text_style_prompt': 'glossy red and white racing livery with chrome details'})
 print(result["outputs"])
 ```
 
@@ -45,9 +45,8 @@ print(result["outputs"])
 import { SandBase } from "@sandbaseai/sdk";
 
 const result = await new SandBase().run("meshy/6.0/retexture", {
-  "enable_pbr": true,
-  "model_url": "https://static.sandbase.ai/examples/2460aa2a-7d52-4641-807e-ef2add85157b/input/1a80b1b3-43c5-47a7-8b6a-c7c48c6431f1.glb",
-  "text_style_prompt": "sci-fi cargo crate, brushed white metal with orange hazard stripes"
+  "model_url": "https://static.sandbase.ai/examples/3aafe4fa-ce21-493c-92ae-998d082ad47e/input/0ce391e6-b1cd-47c7-9956-71eab1c5ec20.glb",
+  "text_style_prompt": "glossy red and white racing livery with chrome details"
 });
 console.log(result.outputs);
 ```
@@ -57,9 +56,8 @@ console.log(result.outputs);
 ```go
 c, _ := sandbase.NewClient("")
 run, err := c.Run(ctx, "meshy/6.0/retexture", sandbase.Params{
-	"enable_pbr": true,
-	"model_url": "https://static.sandbase.ai/examples/2460aa2a-7d52-4641-807e-ef2add85157b/input/1a80b1b3-43c5-47a7-8b6a-c7c48c6431f1.glb",
-	"text_style_prompt": "sci-fi cargo crate, brushed white metal with orange hazard stripes",
+	"model_url": "https://static.sandbase.ai/examples/3aafe4fa-ce21-493c-92ae-998d082ad47e/input/0ce391e6-b1cd-47c7-9956-71eab1c5ec20.glb",
+	"text_style_prompt": "glossy red and white racing livery with chrome details",
 })
 ```
 
