@@ -1,0 +1,75 @@
+{
+  "name": "homes-com/search",
+  "display_name": "Homes.com Search",
+  "type": "api",
+  "vendor": "Homes.com",
+  "vendor_slug": "homes-com",
+  "description": "Get Homes.com listings from a search results URL with address, price, beds, baths, size and listing link.",
+  "tags": [
+    "api",
+    "homes-com",
+    "real-estate"
+  ],
+  "capabilities": [
+    "api",
+    "homes-com",
+    "real-estate"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}",
+    "passthrough": "POST /v1/api/homes-com/search"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "url"
+    ],
+    "properties": {
+      "url": {
+        "type": "string",
+        "example": "https://www.homes.com/austin-tx/",
+        "maxLength": 4096,
+        "description": "Homes.com location search URL, including sale, rental, price, property-type or page filters. Alpha: availability may vary by location or property. Use the site URL to set filters or select a page. Follow pagination.next when present."
+      },
+      "timeout": {
+        "type": "number",
+        "default": 50,
+        "maximum": 50,
+        "description": "Seconds the data source may spend before giving up (max 50, default 50). A timed-out call is not billed.",
+        "exclusiveMinimum": 0
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "required": [
+      "id",
+      "status",
+      "model"
+    ],
+    "properties": {
+      "id": {
+        "type": "string"
+      },
+      "model": {
+        "type": "string"
+      },
+      "status": {
+        "type": "string"
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.00015
+  },
+  "readme": "# Homes.com Search\n\nGet Homes.com listings from a search results URL with address, price, beds, baths, size and listing link.",
+  "page_url": "https://www.sandbase.ai/model/homes-com/search",
+  "created_at": "2026-11-13T04:20:31.223Z"
+}

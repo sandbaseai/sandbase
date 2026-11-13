@@ -1,0 +1,89 @@
+{
+  "name": "yelp/place",
+  "display_name": "Yelp Place",
+  "type": "api",
+  "vendor": "Yelp",
+  "vendor_slug": "yelp",
+  "description": "Get a Yelp business by place ID or alias with rating, review count, categories, hours, address, phone, website, amenities and menu.",
+  "tags": [
+    "api",
+    "yelp",
+    "local",
+    "reviews"
+  ],
+  "capabilities": [
+    "api",
+    "yelp",
+    "local",
+    "reviews"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/yelp/place"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "place_id"
+    ],
+    "properties": {
+      "place_id": {
+        "type": "string",
+        "example": "arabica-brooklyn",
+        "description": "Parameter defines the Yelp ID of a place. Each place has two unique IDs (e.g. `ED7A7vDdg8yLNKJTSVHHmg` and `arabica-brooklyn`) and you can use either of them as a value of the `place_id`. To extract the IDs of a place you can use our Yelp Search API."
+      },
+      "full_menu": {
+        "type": "string",
+        "description": "Set parameter to `true` to scrape business full menu when available. It defaults to `false`. When the parameter `full_menu` is set to `true`, but the business queried doesn't have a full menu page, then `place_results` will be returned instead of `full_menu_results`. This information will also be returned in `search_information` and `error` keys in the json response."
+      },
+      "menu_name": {
+        "type": "string",
+        "description": "Parameter defines the name of which Full Menu to scrape when more than one Full Menu is available. It can only be used in combination with `full_menu` parameter."
+      },
+      "yelp_domain": {
+        "type": "string",
+        "description": "Parameter defines the Yelp domain to use. It defaults to `yelp.com`. Head to the Yelp domains for a full list of supported Yelp domains."
+      },
+      "business_alert": {
+        "type": "string",
+        "description": "Set parameter to `true` to include business alert information when available. It defaults to `false`. Business alerts are temporarily unavailable. With this parameter, `place_results` are returned without `business_alert`."
+      },
+      "json_restrictor": {
+        "type": "string",
+        "description": "Parameter defines the fields you want to include in the output, reducing payload size for faster response. See the JSON Restrictor documentation for more details."
+      }
+    },
+    "additionalProperties": false
+  },
+  "response_schema": {
+    "type": "object",
+    "required": [
+      "id",
+      "status",
+      "model"
+    ],
+    "properties": {
+      "id": {
+        "type": "string"
+      },
+      "model": {
+        "type": "string"
+      },
+      "status": {
+        "type": "string"
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.01
+  },
+  "readme": "# Yelp Place\n\nGet a Yelp business by place ID or alias with rating, review count, categories, hours, address, phone, website, amenities and menu.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/yelp/place\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"place_id\": \"arabica-brooklyn\"}'\n```\n\nThe result is returned in `outputs[0].data` as structured JSON.\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `place_id` | string | Yes | Parameter defines the Yelp ID of a place. Each place has two unique IDs (e.g. `ED7A7vDdg8yLNKJTSVHHmg` and `arabica-brooklyn`) and you can use either of them as a value of the `place_id`. To extract the IDs of a place you can use our Yelp S |\n| `yelp_domain` | string | No | Parameter defines the Yelp domain to use. It defaults to `yelp.com`. Head to the Yelp domains for a full list of supported Yelp domains. |\n| `business_alert` | string | No | Set parameter to `true` to include business alert information when available. It defaults to `false`. Business alerts are temporarily unavailable. With this parameter, `place_results` are returned without `business_alert`. |\n| `full_menu` | string | No | Set parameter to `true` to scrape business full menu when available. It defaults to `false`. When the parameter `full_menu` is set to `true`, but the business queried doesn't have a full menu page, then `place_results` will be returned inst |\n| `menu_name` | string | No | Parameter defines the name of which Full Menu to scrape when more than one Full Menu is available. It can only be used in combination with `full_menu` parameter. |\n| `json_restrictor` | string | No | Parameter defines the fields you want to include in the output, reducing payload size for faster response. See the JSON Restrictor documentation for more details. |\n\n## Pricing\n\n$0.010 per successful call. Failed calls are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/yelp/place",
+  "created_at": "2026-11-13T02:48:05.575Z"
+}

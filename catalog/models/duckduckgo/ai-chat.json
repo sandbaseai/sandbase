@@ -1,0 +1,79 @@
+{
+  "name": "duckduckgo/ai-chat",
+  "display_name": "DuckDuckGo AI Chat Answer",
+  "type": "api",
+  "vendor": "DuckDuckGo",
+  "vendor_slug": "duckduckgo",
+  "description": "Get the answer DuckDuckGo's Duck.ai chat gives for a question with a chosen chat model, with answer text and a token for follow-up questions.",
+  "tags": [
+    "api",
+    "duckduckgo",
+    "ai-search"
+  ],
+  "capabilities": [
+    "api",
+    "duckduckgo",
+    "ai-search"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/duckduckgo/ai-chat"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "q"
+    ],
+    "properties": {
+      "q": {
+        "type": "string",
+        "example": "How does a heat pump work?",
+        "description": "Parameter defines the prompt you want to send to Duck AI, DuckDuckGo's AI chat."
+      },
+      "model": {
+        "type": "string",
+        "description": "Parameter defines the AI model that answers the prompt. It can be set to: `gpt-5.6-luna` - GPT-5.6 Luna `gpt-6-luna` - GPT-6 Luna `gpt-5.4-mini` - GPT-5.4 mini `claude-haiku-4-5` - Claude Haiku 4.5 `mistral-small-2603` - Mistral Small 4 `tinfoil/gpt-oss-120b` - gpt-oss 120B `tinfoil/gemma4-31b` - Gemma 4 31B It defaults to `gpt-5.6-luna`."
+      },
+      "json_restrictor": {
+        "type": "string",
+        "description": "Parameter defines the fields you want to include in the output, reducing payload size for faster response. See the JSON Restrictor documentation for more details."
+      },
+      "subsequent_request_token": {
+        "type": "string",
+        "description": "Parameter defines the token used to continue a Duck AI conversation. Pass this token with a new `q` to send a follow-up prompt that includes the previous prompts and answers as context (multi-turn). The token is returned by the API from your previous request using our Duck AI API. The token holds the whole conversation, so it grows with each turn. Conversations longer than about 16,000 characters (prompts and answers combined) can't be continued: the request becomes too long and is rejected."
+      }
+    },
+    "additionalProperties": false
+  },
+  "response_schema": {
+    "type": "object",
+    "required": [
+      "id",
+      "status",
+      "model"
+    ],
+    "properties": {
+      "id": {
+        "type": "string"
+      },
+      "model": {
+        "type": "string"
+      },
+      "status": {
+        "type": "string"
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.01
+  },
+  "readme": "# DuckDuckGo AI Chat Answer\n\nGet the answer DuckDuckGo's Duck.ai chat gives for a question with a chosen chat model, with answer text and a token for follow-up questions.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/duckduckgo/ai-chat\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"q\": \"How does a heat pump work?\"}'\n```\n\nThe result is returned in `outputs[0].data` as structured JSON.\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `q` | string | Yes | Parameter defines the prompt you want to send to Duck AI, DuckDuckGo's AI chat. |\n| `model` | string | No | Parameter defines the AI model that answers the prompt. It can be set to: `gpt-5.6-luna` - GPT-5.6 Luna `gpt-6-luna` - GPT-6 Luna `gpt-5.4-mini` - GPT-5.4 mini `claude-haiku-4-5` - Claude Haiku 4.5 `mistral-small-2603` - Mistral Small 4 `ti |\n| `subsequent_request_token` | string | No | Parameter defines the token used to continue a Duck AI conversation. Pass this token with a new `q` to send a follow-up prompt that includes the previous prompts and answers as context (multi-turn). The token is returned by the API from you |\n| `json_restrictor` | string | No | Parameter defines the fields you want to include in the output, reducing payload size for faster response. See the JSON Restrictor documentation for more details. |\n\n## Pricing\n\n$0.010 per successful call. Failed calls are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/duckduckgo/ai-chat",
+  "created_at": "2026-11-13T03:05:28.23Z"
+}

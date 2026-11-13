@@ -1,0 +1,73 @@
+{
+  "name": "yahoo/trends",
+  "display_name": "Yahoo Trends",
+  "type": "api",
+  "vendor": "Yahoo",
+  "vendor_slug": "yahoo",
+  "description": "List trending searches on Yahoo right now, with topic, related links and videos.",
+  "tags": [
+    "api",
+    "yahoo",
+    "trends",
+    "keywords"
+  ],
+  "capabilities": [
+    "api",
+    "yahoo",
+    "trends",
+    "keywords"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/yahoo/trends"
+  },
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "json_restrictor": {
+        "type": "string",
+        "description": "Parameter defines the fields you want to include in the output, reducing payload size for faster response. See the JSON Restrictor documentation for more details."
+      },
+      "next_page_token": {
+        "type": "string",
+        "description": "Parameter defines the next page token. It is used for retrieving the next page of results. Leave it unset for the first page. Up to `100` results are returned per page; Yahoo! may return fewer. The next page token can be found in the the API JSON response: `the API_pagination -> next_page_token`. It is only present while more results are available."
+      },
+      "full_video_links": {
+        "type": "string",
+        "description": "Parameter defines whether to include playable video links. It can be set to `true` to include a `full_video_link` for each topic video, or `false` (default) to skip them. Enabling it performs an additional request to Yahoo!, which may increase the search response time. Full video links expire after one hour. To retrieve fresh links, run a new search with the `no_cache` parameter enabled."
+      }
+    },
+    "additionalProperties": false
+  },
+  "response_schema": {
+    "type": "object",
+    "required": [
+      "id",
+      "status",
+      "model"
+    ],
+    "properties": {
+      "id": {
+        "type": "string"
+      },
+      "model": {
+        "type": "string"
+      },
+      "status": {
+        "type": "string"
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.01
+  },
+  "readme": "# Yahoo Trends\n\nList trending searches on Yahoo right now, with topic, related links and videos.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/yahoo/trends\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{}'\n```\n\nThe result is returned in `outputs[0].data` as structured JSON.\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `next_page_token` | string | No | Parameter defines the next page token. It is used for retrieving the next page of results. Leave it unset for the first page. Up to `100` results are returned per page; Yahoo! may return fewer. The next page token can be found in the the AP |\n| `full_video_links` | string | No | Parameter defines whether to include playable video links. It can be set to `true` to include a `full_video_link` for each topic video, or `false` (default) to skip them. Enabling it performs an additional request to Yahoo!, which may incre |\n| `json_restrictor` | string | No | Parameter defines the fields you want to include in the output, reducing payload size for faster response. See the JSON Restrictor documentation for more details. |\n\n## Pricing\n\n$0.010 per successful call. Failed calls are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/yahoo/trends",
+  "created_at": "2026-11-13T02:00:10.191Z"
+}

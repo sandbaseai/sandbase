@@ -1,0 +1,82 @@
+{
+  "name": "foreplay/brands-by-domain",
+  "display_name": "Foreplay Brands by Domain",
+  "type": "api",
+  "vendor": "Foreplay",
+  "vendor_slug": "foreplay",
+  "description": "Find the advertiser brands Foreplay tracks for a website domain, with brand ID, name, logo and ad counts, to use in brand ad lookups.",
+  "tags": [
+    "api",
+    "foreplay",
+    "advertising",
+    "ad-library"
+  ],
+  "capabilities": [
+    "api",
+    "foreplay",
+    "advertising",
+    "ad-library"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/foreplay/brands-by-domain"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "domain"
+    ],
+    "properties": {
+      "limit": {
+        "type": "integer",
+        "default": 10,
+        "example": 1,
+        "maximum": 20,
+        "description": "Number of results (1-20). Each returned item is billed at about $0.0175, so this caps the cost of one call."
+      },
+      "order": {
+        "type": "string",
+        "default": "most_ranked",
+        "description": "Order of results: 'most_ranked' (default) or 'least_ranked'. Sorts brands by relevance ranking."
+      },
+      "domain": {
+        "type": "string",
+        "example": "nike.com",
+        "description": "Domain name to search for. This can be a full URL (e.g., 'https://example.com') or just the domain (e.g., 'example.com'). The system will automatically format and clean the domain. This endpoint looks up candidate brands based on the provided domain. The returned brands are potential matches and are not guaranteed to be definitively associated with the domain."
+      }
+    },
+    "additionalProperties": false
+  },
+  "response_schema": {
+    "type": "object",
+    "required": [
+      "id",
+      "status",
+      "model"
+    ],
+    "properties": {
+      "id": {
+        "type": "string"
+      },
+      "model": {
+        "type": "string"
+      },
+      "status": {
+        "type": "string"
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "usage_based",
+    "note": "Billed per call from metered usage; the reference price is typical.",
+    "reference_price": 0.0175
+  },
+  "readme": "# Foreplay Brands by Domain\n\nFind the advertiser brands Foreplay tracks for a website domain, with brand ID, name, logo and ad counts, to use in brand ad lookups.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/foreplay/brands-by-domain\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"domain\": \"nike.com\", \"limit\": 1}'\n```\n\nThe result is returned in `outputs[0].data`.\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `domain` | string | Yes | Domain name to search for. This can be a full URL (e.g., 'https://example.com') or just the domain (e.g., 'example.com'). The system will automatically format and clean the domain. This endpoint looks up candidate brands |\n| `limit` | integer | No | Pagination limit (max 10). Controls the number of brands returned per request. |\n| `order` | string | No | Order of results: 'most_ranked' (default) or 'least_ranked'. Sorts brands by relevance ranking. |\n\n## Pricing\n\nBilled at the actual upstream cost of each call (about $0.0175 for the request above). Failed calls are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/foreplay/brands-by-domain",
+  "created_at": "2026-11-13T07:43:41.195Z"
+}

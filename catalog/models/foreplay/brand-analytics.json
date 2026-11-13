@@ -1,0 +1,89 @@
+{
+  "name": "foreplay/brand-analytics",
+  "display_name": "Foreplay Brand Ad Analytics",
+  "type": "api",
+  "vendor": "Foreplay",
+  "vendor_slug": "foreplay",
+  "description": "Get ad analytics for a brand by Foreplay brand ID: active and total ads, formats, platforms, launch cadence and longest-running creatives over a date range.",
+  "tags": [
+    "api",
+    "foreplay",
+    "advertising",
+    "ad-library"
+  ],
+  "capabilities": [
+    "api",
+    "foreplay",
+    "advertising",
+    "ad-library"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/foreplay/brand-analytics"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "id"
+    ],
+    "properties": {
+      "id": {
+        "type": "string",
+        "example": "3YfFtyvZ3viTAbbLaWLV",
+        "description": "Page ID or Brand ID. Brand IDs are 20-25 character alphanumeric strings with mixed case. Page IDs are numeric Facebook page identifiers."
+      },
+      "order": {
+        "enum": [
+          "newest",
+          "oldest",
+          "longest_running",
+          "most_relevant"
+        ],
+        "type": "string",
+        "default": "newest",
+        "description": "Order of results: 'newest' (default), 'oldest', 'longest_running', or 'most_relevant'. Sorts ads by creation date, longest running duration, or relevance to the search query."
+      },
+      "end_date": {
+        "type": "string",
+        "description": "End date (inclusive). Format: 'YYYY-MM-DD', 'YYYY-MM-DDTHH:MM:SS', or 'YYYY-MM-DD HH:MM:SS'. If you provide only the date (e.g. '2024-11-12'), it will be interpreted as '2024-11-12 00:00:00'. To include all results for a given day, set end_date to 'YYYY-MM-DD 23:59:59' or to the next day at '00:00:00'. Examples: start_date=2024-11-12 00:00:00, end_date=2024-11-12 23:59:59. The window between start_date and end_date must be ≤ 30 days. A larger range returns HTTP 406 `Date range too large`."
+      },
+      "start_date": {
+        "type": "string",
+        "description": "Start date (inclusive). Format: 'YYYY-MM-DD', 'YYYY-MM-DDTHH:MM:SS', or 'YYYY-MM-DD HH:MM:SS'. If you provide only the date (e.g. '2024-11-12'), it will be interpreted as '2024-11-12 00:00:00'. To get all ads from a specific day, set end_date to 'YYYY-MM-DD 23:59:59' or to the next day at '00:00:00'. Examples: start_date=2024-11-12 00:00:00, end_date=2024-11-12 23:59:59. The window between start_date and end_date must be ≤ 30 days. A larger range returns HTTP 406 `Date range too large`."
+      }
+    },
+    "additionalProperties": false
+  },
+  "response_schema": {
+    "type": "object",
+    "required": [
+      "id",
+      "status",
+      "model"
+    ],
+    "properties": {
+      "id": {
+        "type": "string"
+      },
+      "model": {
+        "type": "string"
+      },
+      "status": {
+        "type": "string"
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "usage_based",
+    "note": "Billed per call from metered usage; the reference price is typical.",
+    "reference_price": 0.1225
+  },
+  "readme": "# Foreplay Brand Ad Analytics\n\nGet ad analytics for a brand by Foreplay brand ID: active and total ads, formats, platforms, launch cadence and longest-running creatives over a date range.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/foreplay/brand-analytics\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"id\": \"3YfFtyvZ3viTAbbLaWLV\"}'\n```\n\nThe result is returned in `outputs[0].data`.\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `id` | string | Yes | Page ID or Brand ID. Brand IDs are 20-25 character alphanumeric strings with mixed case. Page IDs are numeric Facebook page identifiers. |\n| `end_date` | string | No | End date (inclusive). Format: 'YYYY-MM-DD', 'YYYY-MM-DDTHH:MM:SS', or 'YYYY-MM-DD HH:MM:SS'. If you provide only the date (e.g. '2024-11-12'), it will be interpreted as '2024-11-12 00:00:00'. To include all results for a |\n| `order` | string | No | Order of results: 'newest' (default), 'oldest', 'longest_running', or 'most_relevant'. Sorts ads by creation date, longest running duration, or relevance to the search query. |\n| `start_date` | string | No | Start date (inclusive). Format: 'YYYY-MM-DD', 'YYYY-MM-DDTHH:MM:SS', or 'YYYY-MM-DD HH:MM:SS'. If you provide only the date (e.g. '2024-11-12'), it will be interpreted as '2024-11-12 00:00:00'. To get all ads from a spec |\n\n## Pricing\n\nBilled at the actual upstream cost of each call (about $0.1225 for the request above). Failed calls are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/foreplay/brand-analytics",
+  "created_at": "2026-11-13T07:43:39.413Z"
+}

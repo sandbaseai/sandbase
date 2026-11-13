@@ -1,0 +1,120 @@
+{
+  "name": "unsplash/search-photos",
+  "display_name": "Unsplash Photo Search",
+  "type": "api",
+  "vendor": "Unsplash",
+  "vendor_slug": "unsplash",
+  "description": "Search Unsplash for free stock photos by keyword. Returns image URLs in several sizes, dimensions, alt text, the photographer's name and profile, and the photo's Unsplash page.",
+  "tags": [
+    "api",
+    "unsplash",
+    "images",
+    "stock-photos"
+  ],
+  "capabilities": [
+    "api",
+    "unsplash",
+    "images",
+    "stock-photos"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/unsplash/search-photos"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "query"
+    ],
+    "properties": {
+      "color": {
+        "enum": [
+          "black_and_white",
+          "black",
+          "white",
+          "yellow",
+          "orange",
+          "red",
+          "purple",
+          "magenta",
+          "green",
+          "teal",
+          "blue"
+        ],
+        "type": "string",
+        "description": "Only return photos with this dominant color tone. Omit for any color."
+      },
+      "limit": {
+        "type": "integer",
+        "example": 2,
+        "maximum": 20,
+        "minimum": 1,
+        "description": "Maximum number of photos to return (1-20, default 20). You are billed per photo returned, so a lower limit costs less."
+      },
+      "query": {
+        "type": "string",
+        "example": "coffee",
+        "minLength": 1,
+        "description": "Keyword or phrase to search Unsplash photos for, e.g. \"coffee\" or \"minimal workspace\"."
+      },
+      "sortBy": {
+        "enum": [
+          "relevant",
+          "recent"
+        ],
+        "type": "string",
+        "default": "relevant",
+        "description": "Order results by best match (relevant, the default) or newest first (recent)."
+      },
+      "orientation": {
+        "enum": [
+          "landscape",
+          "portrait",
+          "square"
+        ],
+        "type": "string",
+        "description": "Only return photos with this orientation. Omit for any orientation."
+      }
+    },
+    "additionalProperties": false
+  },
+  "response_schema": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string"
+      },
+      "model": {
+        "type": "string"
+      },
+      "status": {
+        "type": "string"
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "data": {
+              "type": "object",
+              "description": "Normalized result for this request."
+            }
+          }
+        }
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "usage_based",
+    "note": "Billed per call from metered usage; the reference price is typical.",
+    "reference_price": 0.0033
+  },
+  "readme": "# Unsplash Photo Search API\n\nSearch Unsplash for free stock photos by keyword. Returns image URLs in several sizes, dimensions, alt text, the photographer's name and profile, and the photo's Unsplash page.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/run\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"model\": \"unsplash/search-photos\", \"limit\": 2, \"query\": \"coffee\"}'\n```\n\nThe result is returned in `outputs[0].data`. Lookups that find nothing fail with a not-found error.\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `query` | string | Yes | Keyword or phrase to search Unsplash photos for, e.g. \"coffee\" or \"minimal workspace\". |\n| `color` | string | No | Only return photos with this dominant color tone. Omit for any color. One of: `black_and_white`, `black`, `white`, `yellow`, `orange`, `red`, `purple`, `magenta`, `green`, `teal`, `blue`. |\n| `limit` | integer | No | Maximum number of photos to return (1-20, default 20). You are billed per photo returned, so a lower limit costs less. |\n| `orientation` | string | No | Only return photos with this orientation. Omit for any orientation. One of: `landscape`, `portrait`, `square`. |\n| `sortBy` | string | No | Order results by best match (relevant, the default) or newest first (recent). One of: `relevant`, `recent`. |\n\n## Pricing\n\nBilled at the actual cost of each call: about $0.00165 per result returned, up to $0.0336 per request (about $0.0033 for the request above). A call can cost more when the first data source fails and another one answers. Failed calls and lookups that find nothing are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/unsplash/search-photos",
+  "created_at": "2026-11-13T04:45:44.89Z"
+}

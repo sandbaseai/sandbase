@@ -1,0 +1,75 @@
+{
+  "name": "apartments-com/property",
+  "display_name": "Apartments.com Property",
+  "type": "api",
+  "vendor": "Apartments.com",
+  "vendor_slug": "apartments-com",
+  "description": "Get an Apartments.com rental property by URL with floor plans, rent, availability, amenities, fees, pet policy and contact info.",
+  "tags": [
+    "api",
+    "apartments-com",
+    "real-estate"
+  ],
+  "capabilities": [
+    "api",
+    "apartments-com",
+    "real-estate"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}",
+    "passthrough": "POST /v1/api/apartments-com/property"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "url"
+    ],
+    "properties": {
+      "url": {
+        "type": "string",
+        "example": "https://www.apartments.com/edison-austin-austin-tx/40n18nj/",
+        "maxLength": 2048,
+        "description": "Apartments.com property URL ending in its seven-character listing ID, without query parameters. Alpha: availability may vary by location or property. Returns available fields for the requested property. Prices may represent a rental range."
+      },
+      "timeout": {
+        "type": "number",
+        "default": 50,
+        "maximum": 50,
+        "description": "Seconds the data source may spend before giving up (max 50, default 50). A timed-out call is not billed.",
+        "exclusiveMinimum": 0
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "required": [
+      "id",
+      "status",
+      "model"
+    ],
+    "properties": {
+      "id": {
+        "type": "string"
+      },
+      "model": {
+        "type": "string"
+      },
+      "status": {
+        "type": "string"
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.00015
+  },
+  "readme": "# Apartments.com Property\n\nGet an Apartments.com rental property by URL with floor plans, rent, availability, amenities, fees, pet policy and contact info.",
+  "page_url": "https://www.sandbase.ai/model/apartments-com/property",
+  "created_at": "2026-11-13T04:17:11.505Z"
+}

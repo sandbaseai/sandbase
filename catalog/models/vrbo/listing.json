@@ -1,0 +1,104 @@
+{
+  "name": "vrbo/listing",
+  "display_name": "Vrbo Listing",
+  "type": "api",
+  "vendor": "Vrbo",
+  "vendor_slug": "vrbo",
+  "description": "Get one Vrbo vacation rental by its property ID: name, link, address, coordinates, bedrooms, bathrooms, beds and guest capacity, guest rating with category scores and review count, amenities by group, full description, house rules, important information, availability and price for your dates (total and average per night, fees included), every photo with its caption and the latest guest reviews, as normalized JSON. Takes the id vrbo.search returns.",
+  "tags": [
+    "api",
+    "vrbo",
+    "travel",
+    "lodging"
+  ],
+  "capabilities": [
+    "api",
+    "vrbo",
+    "travel",
+    "lodging"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/vrbo/listing"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "propertyId"
+    ],
+    "properties": {
+      "adults": {
+        "type": "integer",
+        "default": 2,
+        "example": 2,
+        "maximum": 20,
+        "minimum": 1,
+        "description": "Number of adult guests to price for (1-20, default 2)."
+      },
+      "checkIn": {
+        "type": "string",
+        "format": "date",
+        "example": "2026-12-13",
+        "description": "Check-in date to price and check availability for, in YYYY-MM-DD format (e.g. 2027-01-15). Today or later. Without dates, a 3-night stay about a month ahead is priced; the dates used are in stay."
+      },
+      "checkOut": {
+        "type": "string",
+        "format": "date",
+        "example": "2026-12-16",
+        "description": "Check-out date in YYYY-MM-DD format (e.g. 2027-01-18). After the check-in date. With a check-in date alone, the stay is 3 nights."
+      },
+      "propertyId": {
+        "type": "string",
+        "example": "69764328",
+        "description": "Vrbo property ID: the id vrbo.search returns for a listing (e.g. 69764328)."
+      },
+      "childrenAges": {
+        "type": "array",
+        "items": {
+          "type": "integer"
+        },
+        "description": "Age of each child guest, one entry per child (e.g. [5, 8] for two children aged 5 and 8). Omit it when no children are staying."
+      }
+    },
+    "additionalProperties": false
+  },
+  "response_schema": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string"
+      },
+      "model": {
+        "type": "string"
+      },
+      "status": {
+        "type": "string"
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "data": {
+              "type": "object",
+              "description": "Normalized result for this request."
+            }
+          }
+        }
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "usage_based",
+    "note": "Billed per call from metered usage; the reference price is typical.",
+    "reference_price": 0.00085
+  },
+  "readme": "# Vrbo Listing API\n\nGet one Vrbo vacation rental by its property ID: name, link, address, coordinates, bedrooms, bathrooms, beds and guest capacity, guest rating with category scores and review count, amenities by group, full description, house rules, important information, availability and price for your dates (total and average per night, fees included), every photo with its caption and the latest guest reviews, as normalized JSON. Takes the id vrbo.search returns.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/run\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"model\": \"vrbo/listing\", \"adults\": 2, \"checkIn\": \"2026-12-13\", \"checkOut\": \"2026-12-16\", \"propertyId\": \"69764328\"}'\n```\n\nThe result is returned in `outputs[0].data`. Lookups that find nothing fail with a not-found error.\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `propertyId` | string | Yes | Vrbo property ID: the id vrbo.search returns for a listing (e.g. 69764328). |\n| `adults` | integer | No | Number of adult guests to price for (1-20, default 2). |\n| `checkIn` | string | No | Check-in date to price and check availability for, in YYYY-MM-DD format (e.g. 2027-01-15). Today or later. Without dates, a 3-night stay about a month ahead is priced; the dates used are in stay. |\n| `checkOut` | string | No | Check-out date in YYYY-MM-DD format (e.g. 2027-01-18). After the check-in date. With a check-in date alone, the stay is 3 nights. |\n| `childrenAges` | array | No | Age of each child guest, one entry per child (e.g. [5, 8] for two children aged 5 and 8). Omit it when no children are staying. |\n\n## Pricing\n\nBilled at the actual cost of each call, about $0.00085 per request. A call can cost more when the first data source fails and another one answers. Failed calls and lookups that find nothing are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/vrbo/listing",
+  "created_at": "2026-11-13T04:47:54.402Z"
+}

@@ -1,0 +1,101 @@
+{
+  "name": "trader-joes/search",
+  "display_name": "Trader Joe's Search",
+  "type": "api",
+  "vendor": "Trader Joe's",
+  "vendor_slug": "trader-joes",
+  "description": "Search Trader Joe's products by keyword with name, price, size, category and dietary tags, filtered by store and category.",
+  "tags": [
+    "api",
+    "trader-joes",
+    "ecommerce",
+    "grocery"
+  ],
+  "capabilities": [
+    "api",
+    "trader-joes",
+    "ecommerce",
+    "grocery"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/trader-joes/search"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "q"
+    ],
+    "properties": {
+      "q": {
+        "type": "string",
+        "example": "coffee",
+        "description": "Parameter defines the search query. You can use anything that you would use in a regular Trader Joe's search."
+      },
+      "page": {
+        "type": "string",
+        "description": "Parameter defines the page number of the results (e.g., `1` (default) is the first page of results, `2` is the 2nd page of results, etc.). Trader Joe's returns up to 15 results per page."
+      },
+      "tags": {
+        "type": "string",
+        "description": "Parameter defines the tags the products must all have, from the Trader Joe's \"fun tags\" like Date Night or Cheese Board. It's a comma-separated list of options (e.g., `date_night,cheese_board`). Head to the Trader Joe's tags page for a full list of tags."
+      },
+      "sort_by": {
+        "type": "string",
+        "description": "Parameter defines the sorting order of the results. It defaults to relevance. Available options: `price_low_to_high` - Price Low to High `price_high_to_low` - Price High to Low `popularity` - Popularity"
+      },
+      "store_id": {
+        "type": "string",
+        "description": "Parameter defines the Trader Joe's store to search in, so only products sold in this store are returned (e.g., `454` for Austin - Northwest). Head to the Trader Joe's stores page for a full list of store IDs. When it isn't set, or when no store has this ID, products sold in any store are returned."
+      },
+      "category_id": {
+        "type": "string",
+        "description": "Parameter defines the category of the products (e.g., `194` for Coffee & Tea). Head to the Trader Joe's categories page for a full list of category IDs."
+      },
+      "new_products": {
+        "type": "string",
+        "description": "Parameter defines whether to only show the products Trader Joe's marks as new. It can be set to `true` or `false` (default)."
+      },
+      "characteristics": {
+        "type": "string",
+        "description": "Parameter defines the characteristics the products must all have. It's a comma-separated list of options (e.g., `organic,vegan`). Available options: `kosher` - Kosher `organic` - Organic `gluten_free` - Gluten Free `vegan` - Vegan `antibiotic_free` - Antibiotic Free `dairy_free` - Dairy Free `grass_fed` - Grass Fed `vegetarian` - Vegetarian `fair_trade` - Fair Trade"
+      },
+      "json_restrictor": {
+        "type": "string",
+        "description": "Parameter defines the fields you want to include in the output, reducing payload size for faster response. See the JSON Restrictor documentation for more details."
+      }
+    },
+    "additionalProperties": false
+  },
+  "response_schema": {
+    "type": "object",
+    "required": [
+      "id",
+      "status",
+      "model"
+    ],
+    "properties": {
+      "id": {
+        "type": "string"
+      },
+      "model": {
+        "type": "string"
+      },
+      "status": {
+        "type": "string"
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.01
+  },
+  "readme": "# Trader Joe's Search\n\nSearch Trader Joe's products by keyword with name, price, size, category and dietary tags, filtered by store and category.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/trader-joes/search\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"q\": \"coffee\"}'\n```\n\nThe result is returned in `outputs[0].data` as structured JSON.\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `q` | string | Yes | Parameter defines the search query. You can use anything that you would use in a regular Trader Joe's search. |\n| `store_id` | string | No | Parameter defines the Trader Joe's store to search in, so only products sold in this store are returned (e.g., `454` for Austin - Northwest). Head to the Trader Joe's stores page for a full list of store IDs. When it isn't set, or when no s |\n| `category_id` | string | No | Parameter defines the category of the products (e.g., `194` for Coffee & Tea). Head to the Trader Joe's categories page for a full list of category IDs. |\n| `characteristics` | string | No | Parameter defines the characteristics the products must all have. It's a comma-separated list of options (e.g., `organic,vegan`). Available options: `kosher` - Kosher `organic` - Organic `gluten_free` - Gluten Free `vegan` - Vegan `antibiot |\n| `tags` | string | No | Parameter defines the tags the products must all have, from the Trader Joe's \"fun tags\" like Date Night or Cheese Board. It's a comma-separated list of options (e.g., `date_night,cheese_board`). Head to the Trader Joe's tags page for a full |\n| `new_products` | string | No | Parameter defines whether to only show the products Trader Joe's marks as new. It can be set to `true` or `false` (default). |\n| `sort_by` | string | No | Parameter defines the sorting order of the results. It defaults to relevance. Available options: `price_low_to_high` - Price Low to High `price_high_to_low` - Price High to Low `popularity` - Popularity |\n| `page` | string | No | Parameter defines the page number of the results (e.g., `1` (default) is the first page of results, `2` is the 2nd page of results, etc.). Trader Joe's returns up to 15 results per page. |\n| `json_restrictor` | string | No | Parameter defines the fields you want to include in the output, reducing payload size for faster response. See the JSON Restrictor documentation for more details. |\n\n## Pricing\n\n$0.010 per successful call. Failed calls are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/trader-joes/search",
+  "created_at": "2026-11-13T01:58:48.46Z"
+}

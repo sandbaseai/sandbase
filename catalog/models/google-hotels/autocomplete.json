@@ -1,0 +1,85 @@
+{
+  "name": "google-hotels/autocomplete",
+  "display_name": "Google Hotels Autocomplete",
+  "type": "api",
+  "vendor": "Google Hotels",
+  "vendor_slug": "google-hotels",
+  "description": "Get Google Hotels destination and property suggestions for a partial name, with property tokens for hotel lookups.",
+  "tags": [
+    "api",
+    "google-hotels",
+    "travel",
+    "lodging"
+  ],
+  "capabilities": [
+    "api",
+    "google-hotels",
+    "travel",
+    "lodging"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/google-hotels/autocomplete"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "q"
+    ],
+    "properties": {
+      "q": {
+        "type": "string",
+        "example": "austin",
+        "description": "Parameter defines the search query. A query that would be used to provide completion options."
+      },
+      "gl": {
+        "type": "string",
+        "description": "Parameter defines the country to use for the Google Hotels Autocomplete search. It's a two-letter country code. (e.g., `us` for the United States, `uk` for United Kingdom, or `fr` for France) Head to the Google countries page for a full list of supported Google countries."
+      },
+      "hl": {
+        "type": "string",
+        "description": "Parameter defines the language to use for the Google Hotels Autocomplete search. It's a two or three-letter language code. (e.g., `en` for English, `es` for Spanish, or `fr` for French), optionally followed by a two-letter or three-digit region code (e.g., `en-gb` for British English, or `es-419` for Latin American Spanish). Head to the Google languages page for a full list of supported Google languages."
+      },
+      "currency": {
+        "type": "string",
+        "description": "Parameter defines the currency used in `the API_google_hotels_link`. Default value is `USD`. Head to the Google Travel Currencies page for a full list of supported currency codes."
+      },
+      "json_restrictor": {
+        "type": "string",
+        "description": "Parameter defines the fields you want to include in the output, reducing payload size for faster response. See the JSON Restrictor documentation for more details."
+      }
+    },
+    "additionalProperties": false
+  },
+  "response_schema": {
+    "type": "object",
+    "required": [
+      "id",
+      "status",
+      "model"
+    ],
+    "properties": {
+      "id": {
+        "type": "string"
+      },
+      "model": {
+        "type": "string"
+      },
+      "status": {
+        "type": "string"
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.01
+  },
+  "readme": "# Google Hotels Autocomplete\n\nGet Google Hotels destination and property suggestions for a partial name, with property tokens for hotel lookups.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/google-hotels/autocomplete\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"q\": \"austin\"}'\n```\n\nThe result is returned in `outputs[0].data` as structured JSON.\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `q` | string | Yes | Parameter defines the search query. A query that would be used to provide completion options. |\n| `gl` | string | No | Parameter defines the country to use for the Google Hotels Autocomplete search. It's a two-letter country code. (e.g., `us` for the United States, `uk` for United Kingdom, or `fr` for France) Head to the Google countries page for a full lis |\n| `hl` | string | No | Parameter defines the language to use for the Google Hotels Autocomplete search. It's a two or three-letter language code. (e.g., `en` for English, `es` for Spanish, or `fr` for French), optionally followed by a two-letter or three-digit re |\n| `currency` | string | No | Parameter defines the currency used in `the API_google_hotels_link`. Default value is `USD`. Head to the Google Travel Currencies page for a full list of supported currency codes. |\n| `json_restrictor` | string | No | Parameter defines the fields you want to include in the output, reducing payload size for faster response. See the JSON Restrictor documentation for more details. |\n\n## Pricing\n\n$0.010 per successful call. Failed calls are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/google-hotels/autocomplete",
+  "created_at": "2026-11-13T01:39:27.622Z"
+}

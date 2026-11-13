@@ -1,0 +1,97 @@
+{
+  "name": "sec/filings",
+  "display_name": "SEC EDGAR Filings",
+  "type": "api",
+  "vendor": "SEC EDGAR",
+  "vendor_slug": "sec",
+  "description": "List a public company's SEC EDGAR filings - form type, filing date, accession number, and document links - by ticker, company name, or CIK, with optional form-type and date filters.",
+  "tags": [
+    "api",
+    "sec",
+    "finance",
+    "filings"
+  ],
+  "capabilities": [
+    "api",
+    "sec",
+    "finance",
+    "filings"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/sec/filings"
+  },
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "form": {
+        "type": "string",
+        "description": "Filter filings by SEC form type (e.g. 10-K, 10-Q, 8-K, 4, DEF 14A, S-1, 13F-HR); omit for all forms."
+      },
+      "limit": {
+        "type": "integer",
+        "example": 3,
+        "maximum": 25,
+        "minimum": 1,
+        "description": "Maximum number of filings to return (1-25, default 25). You are billed per result returned, so a lower limit costs less."
+      },
+      "dateTo": {
+        "type": "string",
+        "description": "Only return filings filed on or before this date, in YYYY-MM-DD format (e.g. 2026-06-01)."
+      },
+      "ticker": {
+        "type": "string",
+        "example": "AAPL",
+        "description": "Company stock ticker symbol, e.g. AAPL, MSFT, or TSLA. Provide either ticker or companyName; ticker is the more precise lookup."
+      },
+      "dateFrom": {
+        "type": "string",
+        "description": "Only return filings filed on or after this date, in YYYY-MM-DD format (e.g. 2025-01-01)."
+      },
+      "companyName": {
+        "type": "string",
+        "description": "Company name to search for (partial match supported, e.g. 'Tesla' or 'Berkshire'). Use this when you do not have the ticker symbol. If both ticker and companyName are given, ticker takes precedence."
+      }
+    },
+    "additionalProperties": false
+  },
+  "response_schema": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string"
+      },
+      "model": {
+        "type": "string"
+      },
+      "status": {
+        "type": "string"
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "data": {
+              "type": "object",
+              "description": "Normalized result for this request."
+            }
+          }
+        }
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "usage_based",
+    "note": "Billed per call from metered usage; the reference price is typical.",
+    "reference_price": 0.00132
+  },
+  "readme": "# SEC EDGAR Filings API\n\nList a public company's SEC EDGAR filings - form type, filing date, accession number, and document links - by ticker, company name, or CIK, with optional form-type and date filters.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/run\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"model\": \"sec/filings\", \"limit\": 3, \"ticker\": \"AAPL\"}'\n```\n\nThe result is returned in `outputs[0].data`. Lookups that find nothing fail with a not-found error.\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `companyName` | string | No | Company name to search for (partial match supported, e.g. 'Tesla' or 'Berkshire'). Use this when you do not have the ticker symbol. If both ticker and companyName are given, ticker takes precedence. |\n| `dateFrom` | string | No | Only return filings filed on or after this date, in YYYY-MM-DD format (e.g. 2025-01-01). |\n| `dateTo` | string | No | Only return filings filed on or before this date, in YYYY-MM-DD format (e.g. 2026-06-01). |\n| `form` | string | No | Filter filings by SEC form type (e.g. 10-K, 10-Q, 8-K, 4, DEF 14A, S-1, 13F-HR); omit for all forms. |\n| `limit` | integer | No | Maximum number of filings to return (1-25, default 25). You are billed per result returned, so a lower limit costs less. |\n| `ticker` | string | No | Company stock ticker symbol, e.g. AAPL, MSFT, or TSLA. Provide either ticker or companyName; ticker is the more precise lookup. |\n\n## Pricing\n\nBilled at the actual cost of each call: about $0.00044 per result returned, up to $0.0132 per request (about $0.00132 for the request above). A call can cost more when the first data source fails and another one answers. Failed calls and lookups that find nothing are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/sec/filings",
+  "created_at": "2026-11-13T04:50:14.066Z"
+}

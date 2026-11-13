@@ -1,0 +1,244 @@
+{
+  "name": "tendata/trade/destination-countries",
+  "display_name": "Customs Trade by Destination Country",
+  "type": "api",
+  "vendor": "Tendata",
+  "vendor_slug": "tendata",
+  "description": "Break down the customs records that match a trade query by destination country, with weight, USD value and shipment count for each country.",
+  "tags": [
+    "api",
+    "tendata",
+    "trade-data",
+    "business-data"
+  ],
+  "capabilities": [
+    "api",
+    "tendata",
+    "trade-data",
+    "business-data"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}",
+    "passthrough": "POST /v1/api/tendata/trade/destination-countries"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "catalog",
+      "endDate",
+      "pageNo",
+      "pageSize",
+      "startDate"
+    ],
+    "properties": {
+      "hsCode": {
+        "type": "string",
+        "example": "851712",
+        "minLength": 2,
+        "description": "Customs HS code, 4+ digits (e.g. '630492'). A 2-digit chapter code works only combined with productDesc or a company name."
+      },
+      "pageNo": {
+        "type": "integer",
+        "example": 1,
+        "maximum": 9007199254740991,
+        "minimum": 1,
+        "description": "Page number, starting at 1."
+      },
+      "weight": {
+        "type": "array",
+        "description": "Weight range in kilograms, as [min, max].",
+        "prefixItems": [
+          {
+            "type": "number"
+          },
+          {
+            "type": "number"
+          }
+        ]
+      },
+      "catalog": {
+        "enum": [
+          "imports",
+          "exports"
+        ],
+        "type": "string",
+        "example": "imports",
+        "description": "Data-source side: customs import records or export records."
+      },
+      "endDate": {
+        "type": "string",
+        "example": "2025-12-31",
+        "pattern": "^\\d{4}-\\d{2}-\\d{2}$",
+        "description": "Query window end, YYYY-MM-DD."
+      },
+      "exporter": {
+        "type": "string",
+        "minLength": 2,
+        "description": "Exporter company name (min 2 chars). Drop company suffixes and special characters for better matching."
+      },
+      "importer": {
+        "type": "string",
+        "minLength": 2,
+        "description": "Importer company name (min 2 chars). Drop company suffixes and special characters for better matching."
+      },
+      "pageSize": {
+        "type": "integer",
+        "example": 3,
+        "maximum": 20,
+        "minimum": 1,
+        "description": "Rows per page (1-20). Each returned row is billed, so this caps the cost of one call."
+      },
+      "quantity": {
+        "type": "array",
+        "description": "Quantity range, as [min, max].",
+        "prefixItems": [
+          {
+            "type": "number"
+          },
+          {
+            "type": "number"
+          }
+        ]
+      },
+      "sumOfUSD": {
+        "type": "array",
+        "description": "Total USD value range, as [min, max].",
+        "prefixItems": [
+          {
+            "type": "number"
+          },
+          {
+            "type": "number"
+          }
+        ]
+      },
+      "startDate": {
+        "type": "string",
+        "example": "2025-01-01",
+        "pattern": "^\\d{4}-\\d{2}-\\d{2}$",
+        "description": "Query window start, YYYY-MM-DD. The window may span at most three years."
+      },
+      "searchMode": {
+        "type": "string",
+        "const": "FUZZY_SINGLE",
+        "description": "Set to FUZZY_SINGLE for single-keyword fuzzy matching; omit for the default smart search."
+      },
+      "productDesc": {
+        "type": "string",
+        "minLength": 1,
+        "description": "Product description keywords; separate multiple keywords with semicolons (e.g. 'electronics; home appliance')."
+      },
+      "quantityUnit": {
+        "type": "string",
+        "description": "Quantity unit filter (e.g. 'PCS', 'PKG')."
+      },
+      "portOfArrival": {
+        "type": "string",
+        "description": "Arrival port name."
+      },
+      "transportType": {
+        "type": "string",
+        "description": "Transport mode (e.g. sea, air, road)."
+      },
+      "containProducer": {
+        "type": "boolean",
+        "description": "Include producer companies (available on Russia/Kazakhstan sources)."
+      },
+      "portOfDeparture": {
+        "type": "string",
+        "description": "Departure port name."
+      },
+      "filterBlankFields": {
+        "type": "array",
+        "items": {
+          "enum": [
+            "importer",
+            "exporter"
+          ],
+          "type": "string"
+        },
+        "description": "Drop records whose named party is blank (e.g. [\"importer\"])."
+      },
+      "optimizationModel": {
+        "type": "boolean",
+        "description": "Prefer the vendor's optimized data sources."
+      },
+      "weightUnitPriceUSD": {
+        "type": "array",
+        "description": "USD unit price per kilogram range, as [min, max].",
+        "prefixItems": [
+          {
+            "type": "number"
+          },
+          {
+            "type": "number"
+          }
+        ]
+      },
+      "countryOfOriginCode": {
+        "type": "string",
+        "description": "Origin country ISO3 code(s), semicolon-separated (e.g. 'CHN;USA')."
+      },
+      "filterLogisticFields": {
+        "type": "array",
+        "items": {
+          "enum": [
+            "importer",
+            "exporter"
+          ],
+          "type": "string"
+        },
+        "description": "Drop records whose named party is a logistics company (e.g. [\"exporter\"]). Buyers have reported forwarders still being returned, so screen party names yourself."
+      },
+      "quantityUnitPriceUSD": {
+        "type": "array",
+        "description": "USD unit price per quantity range, as [min, max].",
+        "prefixItems": [
+          {
+            "type": "number"
+          },
+          {
+            "type": "number"
+          }
+        ]
+      },
+      "countryOfDestinationCode": {
+        "type": "string",
+        "description": "Destination country ISO3 code(s), semicolon-separated (e.g. 'USA;CHN')."
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "required": [
+      "id",
+      "status",
+      "model"
+    ],
+    "properties": {
+      "id": {
+        "type": "string"
+      },
+      "model": {
+        "type": "string"
+      },
+      "status": {
+        "type": "string"
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "usage_based",
+    "note": "Billed per call from metered usage; the reference price is typical.",
+    "reference_price": 0.016
+  },
+  "readme": "# Customs Trade by Destination Country\n\nBreak down the customs records that match a trade query by destination country, with weight, USD value and shipment count for each country.\n\n## Pricing\n\n- Inspect reference unit price: $0.016 USD per result.\n- Final settlement uses the provider-reported actual cost after strict validation; the reference price is not used to infer the final charge.",
+  "page_url": "https://www.sandbase.ai/model/tendata/trade/destination-countries",
+  "created_at": "2026-11-13T07:40:53.838Z"
+}

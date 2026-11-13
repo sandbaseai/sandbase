@@ -1,9 +1,10 @@
-# Google models API: 76 endpoints with pricing and code examples
+# Google models API: 84 endpoints with pricing and code examples
 
-Call 76 Google models through SandBase with one API key: no separate account, one balance, the same request format for every endpoint. Each page has the input schema, the price and curl / Python / TypeScript / Go examples.
+Call 84 Google models through SandBase with one API key: no separate account, one balance, the same request format for every endpoint. Each page has the input schema, the price and curl / Python / TypeScript / Go examples.
 
 | Endpoint | What it does | Price |
 |---|---|---|
+| [`google/ads`](../models/google/ads.md) | Get the paid ads Google shows for a query in a location, with advertiser, headline, description, displayed link, sitelinks and position. | $0.01 per call |
 | [`google/ads-transparency`](../models/google/ads-transparency.md) | Ads an advertiser is running on Google, from the Ads Transparency Center: creatives, formats, first and last shown dates. | $0.015 per call |
 | [`google/ai-mode`](../models/google/ai-mode.md) | Ask Google AI Mode a prompt and receive the cited answer it generates. AI Mode composes the answer at search time, so repeat calls on one… | about $0.002 per call |
 | [`google/ai-overview`](../models/google/ai-overview.md) | Ask Google Search a prompt and receive the AI Overview it generated for that scrape, with every source Google listed. Google regenerates… | about $0.0015 per call |
@@ -11,6 +12,8 @@ Call 76 Google models through SandBase with one API key: no separate account, on
 | [`google/books`](../models/google/books.md) | Search Google Books by keyword and get titles, authors, snippets, publication info and preview links. | $0.01 per call |
 | [`google/events`](../models/google/events.md) | Search events listed on Google by keyword and place, with title, date, venue, address, ticket links and thumbnails. | $0.01 per call |
 | [`google/finance`](../models/google/finance.md) | Get a Google Finance quote page for a ticker such as GOOGL:NASDAQ: price, movement, key stats, financials, news and price graph over a… | $0.01 per call |
+| [`google/finance-autocomplete`](../models/google/finance-autocomplete.md) | Get Google Finance ticker suggestions for a partial company name or symbol, with exchange and instrument type. | $0.01 per call |
+| [`google/finance-markets`](../models/google/finance-markets.md) | List Google Finance market movers and overviews such as indexes, most active, gainers, losers, crypto and currencies, with price and… | $0.01 per call |
 | [`google/forums`](../models/google/forums.md) | Get Google's Forums results for a query: discussion threads from Reddit, Quora and other forums with title, snippet, source and answer… | $0.01 per call |
 | [`google/gemini-2.5-flash`](../models/google/gemini-2.5-flash.md) | Gemini 2.5 Flash is the workhorse model of Google's Gemini 2.5 family, a thinking model released as stable in June 2025. Google positions… | $0.3 input / $2.5 output per 1M tokens |
 | [`google/gemini-2.5-flash-lite`](../models/google/gemini-2.5-flash-lite.md) | Gemini 2.5 Flash-Lite is the lightweight tier of Google's Gemini 2.5 family, released in July 2025 and described by Google as the fastest… | $0.1 input / $0.4 output per 1M tokens |
@@ -32,6 +35,7 @@ Call 76 Google models through SandBase with one API key: no separate account, on
 | [`google/gemini-3.8-flash-tts`](../models/google/gemini-3.8-flash-tts.md) | Gemini 3.8 Flash TTS by Google turns text into expressive speech with 30 prebuilt voices and natural-language style direction. | from $0.045 per run, depending on parameters |
 | [`google/gemini-4-argon`](../models/google/gemini-4-argon.md) | Gemini 4 Argon is Google's flagship reasoning model and the first model of the Gemini 4 generation, generally available since October 13,… | $4 input / $20 output per 1M tokens |
 | [`google/gemini-4-carbon`](../models/google/gemini-4-carbon.md) | Gemini 4 Carbon is Google's most capable Gemini 4 model, released on November 10, 2026 and positioned above Gemini 4 Argon. Google built… | $4 input / $20 output per 1M tokens |
+| [`google/gemini-answer`](../models/google/gemini-answer.md) | Get the answer Google Gemini gives for a question in the Gemini web app, with answer text, cited sources and a token for follow-up… | $0.01 per call |
 | [`google/gemini-nano-banana-2.1`](../models/google/gemini-nano-banana-2.1.md) | Nano Banana 2.1 (Gemini Nano Banana 2.1) is Google's Flash-tier image generation and editing model, succeeding Nano Banana 2 and producing… | $1.5 input / $7.5 output per 1M tokens |
 | [`google/gemini-omni-flash/1.1/edit`](../models/google/gemini-omni-flash/1.1/edit.md) | Gemini Omni Flash 1.1 Edit by Google applies natural-language edits to an existing video of up to ten seconds, such as changing style,… | about $1.12 per call |
 | [`google/gemini-omni-flash/1.1/image-to-video`](../models/google/gemini-omni-flash/1.1/image-to-video.md) | Gemini Omni Flash 1.1 by Google - animate still images into dynamic videos with AI. Transform photos into cinematic clips with natural… | from $0.09 to $3 per run, depending on parameters |
@@ -59,12 +63,16 @@ Call 76 Google models through SandBase with one API key: no separate account, on
 | [`google/nano-banana-pro`](../models/google/nano-banana-pro.md) | Nano Banana Pro is Google's new state-of-the-art image generation and editing model | from $0.134 to $0.24 per run, depending on parameters |
 | [`google/nano-banana-pro/edit`](../models/google/nano-banana-pro/edit.md) | Nano Banana Pro is Google's new state-of-the-art image generation and editing model | from $0.1362 to $0.2422 per run, depending on parameters |
 | [`google/news`](../models/google/news.md) | Search Google News by keyword, topic or publication and get headlines with source, date, thumbnail and story clusters, localized by… | $0.01 per call |
+| [`google/patent-details`](../models/google/patent-details.md) | Get a Google Patents record by patent ID with title, abstract, claims, inventors, assignees, dates, classifications, citations and family… | $0.01 per call |
 | [`google/patents`](../models/google/patents.md) | Search Google Patents with title, patent number, inventor, assignee, key dates, and PDF link. | about $0.00085 per call |
 | [`google/scholar`](../models/google/scholar.md) | Search Google Scholar for academic papers with title, authors, citation count, and PDF link. | about $0.00085 per call |
 | [`google/scholar-author`](../models/google/scholar-author.md) | Get a Google Scholar author profile by author ID with affiliation, interests, citation counts, h-index, co-authors and article list. | $0.01 per call |
 | [`google/search`](../models/google/search.md) | Get Google web results for a query with organic results, knowledge graph, local pack, top stories, related questions and pagination,… | $0.01 per call |
 | [`google/short-videos`](../models/google/short-videos.md) | Get Google's Short Videos results for a query: short-form clips from YouTube Shorts, TikTok, Instagram and others with title, source,… | $0.01 per call |
+| [`google/translate`](../models/google/translate.md) | Translate text with Google Translate between a source and target language code and get the translation with detected language. | $0.01 per call |
+| [`google/travel-explore`](../models/google/travel-explore.md) | Explore destinations from a departure airport on Google Travel, with cheapest flight and hotel prices, dates and travel time for each… | $0.01 per call |
 | [`google/trends`](../models/google/trends.md) | Get Google Trends data for up to five keywords: interest over time, interest by region, related topics and related queries, by country,… | $0.01 per call |
+| [`google/trends-autocomplete`](../models/google/trends-autocomplete.md) | Get Google Trends topic and query suggestions for a keyword, with the topic ID to use in Google Trends lookups. | $0.01 per call |
 | [`google/trends-trending-now`](../models/google/trends-trending-now.md) | List searches trending right now on Google in a country, with search volume, growth, start time and related queries, filtered by category… | $0.01 per call |
 | [`google/veo3.1/fast/first-last-frame-to-video`](../models/google/veo3.1/fast/first-last-frame-to-video.md) | Veo3.1 Fast First Last Frame To Video is Google's image-to-video AI model. Bring static images to life with fluid animation, consistent… | from $0.32 to $2.4 per run, depending on parameters |
 | [`google/veo3.1/fast/image-to-video`](../models/google/veo3.1/fast/image-to-video.md) | Veo 3.1 Fast is Google's image-to-video AI model. Bring static images to life with fluid animation, consistent character motion, and… | from $0.32 to $2.4 per run, depending on parameters |
@@ -86,7 +94,7 @@ Call 76 Google models through SandBase with one API key: no separate account, on
 ```bash
 curl https://api.sandbase.ai/v1/run \
   -H "Authorization: Bearer $SANDBASE_API_KEY" -H 'Content-Type: application/json' \
-  -d '{"model": "google/ads-transparency"}'
+  -d '{"model": "google/ads", "q": "running shoes", "location": "Austin, Texas, United States"}'
 ```
 
 Get a key at [sandbase.ai](https://www.sandbase.ai/console). Back to [all platforms](README.md).

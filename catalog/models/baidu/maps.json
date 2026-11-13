@@ -1,0 +1,90 @@
+{
+  "name": "baidu/maps",
+  "display_name": "Baidu Maps Search",
+  "type": "api",
+  "vendor": "Baidu",
+  "vendor_slug": "baidu",
+  "description": "Search places on Baidu Maps by keyword in a city or around coordinates, with name, address, category, rating, phone and coordinates.",
+  "tags": [
+    "api",
+    "baidu",
+    "maps",
+    "local"
+  ],
+  "capabilities": [
+    "api",
+    "baidu",
+    "maps",
+    "local"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/baidu/maps"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "q"
+    ],
+    "properties": {
+      "c": {
+        "type": "string",
+        "example": "131",
+        "description": "Parameter defines the city to search in, with its Baidu Maps city code (e.g., `131` for Beijing, `289` for Shanghai, or `257` for Guangzhou). Head to the Baidu Maps cities page for the cities of China. Cities in other countries have codes too (e.g., `49872` for Paris): a search near their coordinates returns it in `search_information.city_code`. Without it, Baidu Maps searches in the city named in `q`, in China or abroad, or lists the cities with results in `cities`. With `lat` and `lon`, it searches in the city at the coordinates. With `lat` and `lon`, the city must be the one where the coord"
+      },
+      "q": {
+        "type": "string",
+        "example": "咖啡",
+        "description": "Parameter defines the search query. You can use anything that you would use in a regular Baidu Maps search: a type of place, a business, a brand, or a landmark (e.g., `咖啡` (coffee), `酒店` (hotels), `星巴克` (Starbucks), or `故宫` (the Forbidden City)). Without `c`, the query can include the city to search in (e.g., `上海 咖啡` for coffee in Shanghai)."
+      },
+      "lat": {
+        "type": "string",
+        "description": "Parameter defines the latitude to search near (e.g., `39.908776`). Results are the places near these coordinates, and their `distance` field says how far each one is. In China, including Hong Kong, Macau and Taiwan, Baidu Maps uses coordinates shifted a few hundred meters from GPS coordinates, like all maps of mainland China (a system called GCJ-02). Parameter is required when using `lon` parameter. `c` is optional with coordinates: without it, the city at the coordinates is used. If it's set, it must be the city where the coordinates are."
+      },
+      "lon": {
+        "type": "string",
+        "description": "Parameter defines the longitude to search near (e.g., `116.39759`). Results are the places near these coordinates, and their `distance` field says how far each one is. In China, including Hong Kong, Macau and Taiwan, Baidu Maps uses coordinates shifted a few hundred meters from GPS coordinates, like all maps of mainland China (a system called GCJ-02). Parameter is required when using `lat` parameter. `c` is optional with coordinates: without it, the city at the coordinates is used. If it's set, it must be the city where the coordinates are."
+      },
+      "page": {
+        "type": "string",
+        "description": "Value is used to get results on a specific page. (e.g., `1` (default) is the first page of results, `2` is the 2nd page of results, `3` is the 3rd page of results, etc.). Baidu Maps returns up to 10 results per page."
+      },
+      "json_restrictor": {
+        "type": "string",
+        "description": "Parameter defines the fields you want to include in the output, reducing payload size for faster response. See the JSON Restrictor documentation for more details."
+      }
+    },
+    "additionalProperties": false
+  },
+  "response_schema": {
+    "type": "object",
+    "required": [
+      "id",
+      "status",
+      "model"
+    ],
+    "properties": {
+      "id": {
+        "type": "string"
+      },
+      "model": {
+        "type": "string"
+      },
+      "status": {
+        "type": "string"
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.01
+  },
+  "readme": "# Baidu Maps Search\n\nSearch places on Baidu Maps by keyword in a city or around coordinates, with name, address, category, rating, phone and coordinates.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/baidu/maps\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"q\": \"咖啡\", \"c\": \"131\"}'\n```\n\nThe result is returned in `outputs[0].data` as structured JSON.\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `q` | string | Yes | Parameter defines the search query. You can use anything that you would use in a regular Baidu Maps search: a type of place, a business, a brand, or a landmark (e.g., `咖啡` (coffee), `酒店` (hotels), `星巴克` (Starbucks), or `故宫` (the Forbidden C |\n| `c` | string | No | Parameter defines the city to search in, with its Baidu Maps city code (e.g., `131` for Beijing, `289` for Shanghai, or `257` for Guangzhou). Head to the Baidu Maps cities page for the cities of China. Cities in other countries have codes t |\n| `lat` | string | No | Parameter defines the latitude to search near (e.g., `39.908776`). Results are the places near these coordinates, and their `distance` field says how far each one is. In China, including Hong Kong, Macau and Taiwan, Baidu Maps uses coordina |\n| `lon` | string | No | Parameter defines the longitude to search near (e.g., `116.39759`). Results are the places near these coordinates, and their `distance` field says how far each one is. In China, including Hong Kong, Macau and Taiwan, Baidu Maps uses coordin |\n| `page` | string | No | Value is used to get results on a specific page. (e.g., `1` (default) is the first page of results, `2` is the 2nd page of results, `3` is the 3rd page of results, etc.). Baidu Maps returns up to 10 results per page. |\n| `json_restrictor` | string | No | Parameter defines the fields you want to include in the output, reducing payload size for faster response. See the JSON Restrictor documentation for more details. |\n\n## Pricing\n\n$0.010 per successful call. Failed calls are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/baidu/maps",
+  "created_at": "2026-11-13T01:49:08.381Z"
+}

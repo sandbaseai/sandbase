@@ -1,0 +1,106 @@
+{
+  "name": "apple-maps/search",
+  "display_name": "Apple Maps Search",
+  "type": "api",
+  "vendor": "Apple Maps",
+  "vendor_slug": "apple-maps",
+  "description": "Search places on Apple Maps by keyword and location, with name, category, rating, address, phone, hours and coordinates.",
+  "tags": [
+    "api",
+    "apple-maps",
+    "maps",
+    "local"
+  ],
+  "capabilities": [
+    "api",
+    "apple-maps",
+    "maps",
+    "local"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/apple-maps/search"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "query"
+    ],
+    "properties": {
+      "sort": {
+        "type": "string",
+        "description": "Parameter defines the sorting refinement for the search. Can be one of the following: `distance` - Sort by distance from the `center`/`location`. `ratings` - Sort by result ratings. `default` - Sort by best match for your query. This is the default."
+      },
+      "span": {
+        "type": "string",
+        "description": "Parameter defines width and height of the search region as `latitudeDelta,longitudeDelta`. Smaller delta values correspond to a higher zoom level. (defaults to `0.5,0.5`)."
+      },
+      "query": {
+        "type": "string",
+        "example": "coffee",
+        "description": "Parameter defines the query you want to search. You can use anything that you would use in a regular Apple Maps search."
+      },
+      "center": {
+        "type": "string",
+        "description": "Parameter defines coordinates of the center point of the region you want to search within. You can pass the coordinates as `latitude,longitude`. (e.g. `30.324639,-97.7304611` for Austin, TX). Either a `center` or a `location` parameter is required. These parameters can't be used together."
+      },
+      "locale": {
+        "type": "string",
+        "description": "Parameter defines the locale the results should be localized for. Locales for Apple Maps are represented as `<LANGUAGE>-<REGION>`. (defaults to `en-US`, the locale for U.S. English). Head to Apple Maps Locales for the list of available locales."
+      },
+      "open_at": {
+        "type": "string",
+        "description": "Parameter defines the time at which result locations should be open at. The value must be a Unix timestamp that is in the future, and no more than 24 hours from the current time. (e.g. `1794559756`)."
+      },
+      "toggles": {
+        "type": "string",
+        "description": "Parameter defines the toggle options for the search. A comma separated list of toggle `key` values can be passed to this parameter. See the `refinements.toggles` object of the response to see available toggles for a search."
+      },
+      "location": {
+        "type": "string",
+        "example": "Austin, TX",
+        "description": "Parameter defines the GPS coordinates used for the search origin. (e.g. `Austin, Texas, United States`). Either a `center` or a `location` parameter is required. These parameters can't be used together."
+      },
+      "json_restrictor": {
+        "type": "string",
+        "description": "Parameter defines the fields you want to include in the output, reducing payload size for faster response. See the JSON Restrictor documentation for more details."
+      },
+      "multi_select_options": {
+        "type": "string",
+        "description": "Parameter defines the options you want to filter by for multi select refinements. A comma separated list of toggle `key` values can be passed to this parameter. See the `refinement.multi_select.<type>.options` object of the response to see available multi select refinements for the search."
+      }
+    },
+    "additionalProperties": false
+  },
+  "response_schema": {
+    "type": "object",
+    "required": [
+      "id",
+      "status",
+      "model"
+    ],
+    "properties": {
+      "id": {
+        "type": "string"
+      },
+      "model": {
+        "type": "string"
+      },
+      "status": {
+        "type": "string"
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.01
+  },
+  "readme": "# Apple Maps Search\n\nSearch places on Apple Maps by keyword and location, with name, category, rating, address, phone, hours and coordinates.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/apple-maps/search\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"query\": \"coffee\", \"location\": \"Austin, TX\"}'\n```\n\nThe result is returned in `outputs[0].data` as structured JSON.\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `query` | string | Yes | Parameter defines the query you want to search. You can use anything that you would use in a regular Apple Maps search. |\n| `location` | string | No | Parameter defines the GPS coordinates used for the search origin. (e.g. `Austin, Texas, United States`). Either a `center` or a `location` parameter is required. These parameters can't be used together. |\n| `center` | string | No | Parameter defines coordinates of the center point of the region you want to search within. You can pass the coordinates as `latitude,longitude`. (e.g. `30.324639,-97.7304611` for Austin, TX). Either a `center` or a `location` parameter is r |\n| `span` | string | No | Parameter defines width and height of the search region as `latitudeDelta,longitudeDelta`. Smaller delta values correspond to a higher zoom level. (defaults to `0.5,0.5`). |\n| `sort` | string | No | Parameter defines the sorting refinement for the search. Can be one of the following: `distance` - Sort by distance from the `center`/`location`. `ratings` - Sort by result ratings. `default` - Sort by best match for your query. This is the |\n| `toggles` | string | No | Parameter defines the toggle options for the search. A comma separated list of toggle `key` values can be passed to this parameter. See the `refinements.toggles` object of the response to see available toggles for a search. |\n| `multi_select_options` | string | No | Parameter defines the options you want to filter by for multi select refinements. A comma separated list of toggle `key` values can be passed to this parameter. See the `refinement.multi_select.<type>.options` object of the response to see  |\n| `open_at` | string | No | Parameter defines the time at which result locations should be open at. The value must be a Unix timestamp that is in the future, and no more than 24 hours from the current time. (e.g. `1794559756`). |\n| `locale` | string | No | Parameter defines the locale the results should be localized for. Locales for Apple Maps are represented as `<LANGUAGE>-<REGION>`. (defaults to `en-US`, the locale for U.S. English). Head to Apple Maps Locales for the list of available loca |\n| `json_restrictor` | string | No | Parameter defines the fields you want to include in the output, reducing payload size for faster response. See the JSON Restrictor documentation for more details. |\n\n## Pricing\n\n$0.010 per successful call. Failed calls are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/apple-maps/search",
+  "created_at": "2026-11-13T01:46:16.649Z"
+}

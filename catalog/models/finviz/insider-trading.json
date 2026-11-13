@@ -1,0 +1,67 @@
+{
+  "name": "finviz/insider-trading",
+  "display_name": "Finviz Insider Trading",
+  "type": "api",
+  "vendor": "Finviz",
+  "vendor_slug": "finviz",
+  "description": "List recent insider transactions in US stocks from Finviz with insider, relationship, transaction type, shares, price and value, filtered by minimum value.",
+  "tags": [
+    "api",
+    "finviz",
+    "finance",
+    "market-data"
+  ],
+  "capabilities": [
+    "api",
+    "finviz",
+    "finance",
+    "market-data"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}",
+    "passthrough": "POST /v1/api/finviz/insider-trading"
+  },
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "min_value": {
+        "type": "integer",
+        "maximum": 9007199254740991,
+        "minimum": -9007199254740991,
+        "description": "Minimum transaction value in USD. Transactions with Value ($) below this threshold are excluded from results."
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "required": [
+      "id",
+      "status",
+      "model"
+    ],
+    "properties": {
+      "id": {
+        "type": "string"
+      },
+      "model": {
+        "type": "string"
+      },
+      "status": {
+        "type": "string"
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.01
+  },
+  "readme": "# Finviz Insider Trading\n\nList recent insider transactions in US stocks from Finviz with insider, relationship, transaction type, shares, price and value, filtered by minimum value.",
+  "page_url": "https://www.sandbase.ai/model/finviz/insider-trading",
+  "created_at": "2026-11-13T04:22:23.158Z"
+}

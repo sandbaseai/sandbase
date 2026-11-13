@@ -1,6 +1,6 @@
-# Amazon API: 13 endpoints with pricing and code examples
+# Amazon API: 14 endpoints with pricing and code examples
 
-Call 13 Amazon endpoints through SandBase with one API key: no separate account, one balance, the same request format for every endpoint. Each page has the input schema, the price and curl / Python / TypeScript / Go examples.
+Call 14 Amazon endpoints through SandBase with one API key: no separate account, one balance, the same request format for every endpoint. Each page has the input schema, the price and curl / Python / TypeScript / Go examples.
 
 | Endpoint | What it does | Price |
 |---|---|---|
@@ -9,6 +9,7 @@ Call 13 Amazon endpoints through SandBase with one API key: no separate account,
 | [`amazon/best-sellers`](../models/amazon/best-sellers.md) | Get the Amazon Best Sellers list for a category path in a chosen marketplace country, with rank, title, price, rating and ASIN, page by… | $0.014286 per call (free daily quota) |
 | [`amazon/category-products`](../models/amazon/category-products.md) | Get paginated Amazon products for a numeric category node in a selected country marketplace, with configurable result sorting. | $0.014286 per call (free daily quota) |
 | [`amazon/deals`](../models/amazon/deals.md) | List today's Amazon deals for one marketplace and get ASIN, title, deal price, list price, discount, deal type, badge and image for each… | about $0.00085 per call |
+| [`amazon/fresh`](../models/amazon/fresh.md) | Search Amazon Fresh grocery products for a delivery ZIP code, with title, price, unit price, rating and availability. | $0.01 per call |
 | [`amazon/offers`](../models/amazon/offers.md) | List every offer for one Amazon product by ASIN or product URL, the Buy Box first and then the other sellers, and get price, condition,… | about $0.00085 per call |
 | [`amazon/product`](../models/amazon/product.md) | Get an Amazon product by ASIN: title, brand, price, rating, reviews, images, variants, availability, purchase options, about-this-item and… | $0.015 per call (free daily quota) |
 | [`amazon/product-detail`](../models/amazon/product-detail.md) | Get details for an Amazon product identified by ASIN in a selected country marketplace. Use it to look up a known listing for catalog… | $0.014286 per call (free daily quota) |

@@ -1,0 +1,77 @@
+{
+  "name": "google-maps/posts",
+  "display_name": "Google Maps Posts",
+  "type": "api",
+  "vendor": "Google Maps",
+  "vendor_slug": "google-maps",
+  "description": "Get the owner posts and updates published on a Google Maps place by data ID, with text, images, date and links.",
+  "tags": [
+    "api",
+    "google-maps",
+    "maps",
+    "local"
+  ],
+  "capabilities": [
+    "api",
+    "google-maps",
+    "maps",
+    "local"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/google-maps/posts"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "data_id"
+    ],
+    "properties": {
+      "data_id": {
+        "type": "string",
+        "example": "0x89c259a61c75684f:0x79d31adb123348d2",
+        "description": "Parameter defines the Google Maps data ID. Find the data ID of a place using our Google Maps API."
+      },
+      "json_restrictor": {
+        "type": "string",
+        "description": "Parameter defines the fields you want to include in the output, reducing payload size for faster response. See the JSON Restrictor documentation for more details."
+      },
+      "next_page_token": {
+        "type": "string",
+        "description": "Parameter defines the next page token. It is used for retrieving the next page results. `10` results are returned per page."
+      }
+    },
+    "additionalProperties": false
+  },
+  "response_schema": {
+    "type": "object",
+    "required": [
+      "id",
+      "status",
+      "model"
+    ],
+    "properties": {
+      "id": {
+        "type": "string"
+      },
+      "model": {
+        "type": "string"
+      },
+      "status": {
+        "type": "string"
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.01
+  },
+  "readme": "# Google Maps Posts\n\nGet the owner posts and updates published on a Google Maps place by data ID, with text, images, date and links.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/google-maps/posts\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"data_id\": \"0x89c259a61c75684f:0x79d31adb123348d2\"}'\n```\n\nThe result is returned in `outputs[0].data` as structured JSON.\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `data_id` | string | Yes | Parameter defines the Google Maps data ID. Find the data ID of a place using our Google Maps API. |\n| `next_page_token` | string | No | Parameter defines the next page token. It is used for retrieving the next page results. `10` results are returned per page. |\n| `json_restrictor` | string | No | Parameter defines the fields you want to include in the output, reducing payload size for faster response. See the JSON Restrictor documentation for more details. |\n\n## Pricing\n\n$0.010 per successful call. Failed calls are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/google-maps/posts",
+  "created_at": "2026-11-13T01:33:55.987Z"
+}

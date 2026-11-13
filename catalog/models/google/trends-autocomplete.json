@@ -1,0 +1,77 @@
+{
+  "name": "google/trends-autocomplete",
+  "display_name": "Google Trends Autocomplete",
+  "type": "api",
+  "vendor": "Google",
+  "vendor_slug": "google",
+  "description": "Get Google Trends topic and query suggestions for a keyword, with the topic ID to use in Google Trends lookups.",
+  "tags": [
+    "api",
+    "google",
+    "trends",
+    "keywords"
+  ],
+  "capabilities": [
+    "api",
+    "google",
+    "trends",
+    "keywords"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/google/trends-autocomplete"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "q"
+    ],
+    "properties": {
+      "q": {
+        "type": "string",
+        "example": "coffee",
+        "description": "Parameter defines the query you want to search. You can use anything that you would use in a regular Google Trends search. The query is used to retrieve suggested searches."
+      },
+      "hl": {
+        "type": "string",
+        "description": "Parameter defines the language to use for the Google Trends Autocomplete search. It's a two or three-letter language code. (e.g., `en` for English, `es` for Spanish, or `fr` for French), optionally followed by a two-letter or three-digit region code (e.g., `en-gb` for British English, or `es-419` for Latin American Spanish). Head to the Google languages page for a full list of supported Google languages."
+      },
+      "json_restrictor": {
+        "type": "string",
+        "description": "Parameter defines the fields you want to include in the output, reducing payload size for faster response. See the JSON Restrictor documentation for more details."
+      }
+    },
+    "additionalProperties": false
+  },
+  "response_schema": {
+    "type": "object",
+    "required": [
+      "id",
+      "status",
+      "model"
+    ],
+    "properties": {
+      "id": {
+        "type": "string"
+      },
+      "model": {
+        "type": "string"
+      },
+      "status": {
+        "type": "string"
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.01
+  },
+  "readme": "# Google Trends Autocomplete\n\nGet Google Trends topic and query suggestions for a keyword, with the topic ID to use in Google Trends lookups.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/google/trends-autocomplete\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"q\": \"coffee\"}'\n```\n\nThe result is returned in `outputs[0].data` as structured JSON.\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `q` | string | Yes | Parameter defines the query you want to search. You can use anything that you would use in a regular Google Trends search. The query is used to retrieve suggested searches. |\n| `hl` | string | No | Parameter defines the language to use for the Google Trends Autocomplete search. It's a two or three-letter language code. (e.g., `en` for English, `es` for Spanish, or `fr` for French), optionally followed by a two-letter or three-digit re |\n| `json_restrictor` | string | No | Parameter defines the fields you want to include in the output, reducing payload size for faster response. See the JSON Restrictor documentation for more details. |\n\n## Pricing\n\n$0.010 per successful call. Failed calls are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/google/trends-autocomplete",
+  "created_at": "2026-11-13T01:27:05.831Z"
+}

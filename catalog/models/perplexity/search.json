@@ -1,0 +1,87 @@
+{
+  "name": "perplexity/search",
+  "display_name": "Perplexity Search",
+  "type": "api",
+  "vendor": "Perplexity",
+  "vendor_slug": "perplexity",
+  "description": "Ask Perplexity a web-grounded question and receive an answer with source citations.",
+  "tags": [
+    "api",
+    "perplexity",
+    "ai-search"
+  ],
+  "capabilities": [
+    "api",
+    "perplexity",
+    "ai-search"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/perplexity/search"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "prompt"
+    ],
+    "properties": {
+      "prompt": {
+        "type": "string",
+        "example": "What are the best practices for home composting?",
+        "maxLength": 2000,
+        "minLength": 1,
+        "description": "Question or research prompt for Perplexity to answer using web search."
+      },
+      "requireFields": {
+        "type": "array",
+        "items": {
+          "enum": [
+            "createdUtc"
+          ],
+          "type": "string"
+        },
+        "description": "Optional; omit it and routing is unchanged, with the cheapest source serving. Name the output fields this request must be able to return, for example `createdUtc`, and it is served only by a source that returns every one of them. Fields you do not name are still returned whenever the serving source has them. This can raise your price: when the cheapest source cannot return a named field, a dearer source serves, and you are quoted and charged its price. A named field can still be absent on a result that genuinely lacks it. Naming a combination that no single source returns together is refused as invalid input, with no charge."
+      }
+    },
+    "additionalProperties": false
+  },
+  "response_schema": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string"
+      },
+      "model": {
+        "type": "string"
+      },
+      "status": {
+        "type": "string"
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "data": {
+              "type": "object",
+              "description": "Normalized result for this request."
+            }
+          }
+        }
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "usage_based",
+    "note": "Billed per call from metered usage; the reference price is typical.",
+    "reference_price": 0.002
+  },
+  "readme": "# Perplexity Search API\n\nAsk Perplexity a web-grounded question and receive an answer with source citations.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/run\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"model\": \"perplexity/search\", \"prompt\": \"What are the best practices for home composting?\"}'\n```\n\nThe result is returned in `outputs[0].data`. Lookups that find nothing fail with a not-found error.\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `prompt` | string | Yes | Question or research prompt for Perplexity to answer using web search. |\n| `requireFields` | array | No | Optional; omit it and routing is unchanged, with the cheapest source serving. Name the output fields this request must be able to return, for example `createdUtc`, and it is served only by a source that returns every one |\n\n## Pricing\n\nBilled at the actual cost of each call, about $0.002 per request. A call can cost more when the first data source fails and another one answers. Failed calls and lookups that find nothing are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/perplexity/search",
+  "created_at": "2026-11-13T04:53:28.669Z"
+}

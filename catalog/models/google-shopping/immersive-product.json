@@ -1,0 +1,80 @@
+{
+  "name": "google-shopping/immersive-product",
+  "display_name": "Google Shopping Product Offers",
+  "type": "api",
+  "vendor": "Google Shopping",
+  "vendor_slug": "google-shopping",
+  "description": "Get the full Google Shopping product view by page token: specifications, ratings, reviews and offers from each store with price and delivery.",
+  "tags": [
+    "api",
+    "google-shopping",
+    "ecommerce",
+    "product-data"
+  ],
+  "capabilities": [
+    "api",
+    "google-shopping",
+    "ecommerce",
+    "product-data"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/google-shopping/immersive-product"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "page_token"
+    ],
+    "properties": {
+      "page_token": {
+        "type": "string",
+        "description": "Parameter defines the token needed to show more product info in Google immersive popup."
+      },
+      "more_stores": {
+        "type": "string",
+        "description": "Parameter for fetching more stores results in single search. It can be set to `1` or `true`. By default, a search returns `3 to 5` stores. When the `more_stores` parameter is **enabled**, up to `13` stores will be returned, or the maximum available, depending on the product."
+      },
+      "json_restrictor": {
+        "type": "string",
+        "description": "Parameter defines the fields you want to include in the output, reducing payload size for faster response. See the JSON Restrictor documentation for more details."
+      },
+      "next_page_token": {
+        "type": "string",
+        "description": "Parameter defines the next page token. It is used for retrieving the next page of results for stores. The token is returned as `stores_next_page_token` from the search results."
+      }
+    },
+    "additionalProperties": false
+  },
+  "response_schema": {
+    "type": "object",
+    "required": [
+      "id",
+      "status",
+      "model"
+    ],
+    "properties": {
+      "id": {
+        "type": "string"
+      },
+      "model": {
+        "type": "string"
+      },
+      "status": {
+        "type": "string"
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.01
+  },
+  "readme": "# Google Shopping Product Offers\n\nGet the full Google Shopping product view by page token: specifications, ratings, reviews and offers from each store with price and delivery.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/google-shopping/immersive-product\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"page_token\": \"<page_token from search results>\"}'\n```\n\nThe result is returned in `outputs[0].data` as structured JSON.\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `page_token` | string | Yes | Parameter defines the token needed to show more product info in Google immersive popup. |\n| `more_stores` | string | No | Parameter for fetching more stores results in single search. It can be set to `1` or `true`. By default, a search returns `3 to 5` stores. When the `more_stores` parameter is **enabled**, up to `13` stores will be returned, or the maximum a |\n| `next_page_token` | string | No | Parameter defines the next page token. It is used for retrieving the next page of results for stores. The token is returned as `stores_next_page_token` from the search results. |\n| `json_restrictor` | string | No | Parameter defines the fields you want to include in the output, reducing payload size for faster response. See the JSON Restrictor documentation for more details. |\n\n## Pricing\n\n$0.010 per successful call. Failed calls are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/google-shopping/immersive-product",
+  "created_at": "2026-11-13T02:57:31.544Z"
+}

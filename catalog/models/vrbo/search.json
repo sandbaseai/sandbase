@@ -1,0 +1,172 @@
+{
+  "name": "vrbo/search",
+  "display_name": "Vrbo Search",
+  "type": "api",
+  "vendor": "Vrbo",
+  "vendor_slug": "vrbo",
+  "description": "Search Vrbo vacation rentals by destination and dates, with guest, bedroom, bed, bathroom and price filters, and get up to 50 listings per call: Vrbo property ID and link, name, summary line, property type, bedrooms, beds, guest rating and review count, nightly and total stay price with the original nightly price before any discount, and photos as normalized JSON. Page with offset; the price is the same whatever the limit.",
+  "tags": [
+    "api",
+    "vrbo",
+    "travel",
+    "lodging"
+  ],
+  "capabilities": [
+    "api",
+    "vrbo",
+    "travel",
+    "lodging"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/vrbo/search"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "location",
+      "checkIn",
+      "checkOut"
+    ],
+    "properties": {
+      "sort": {
+        "enum": [
+          "recommended",
+          "price_low_to_high",
+          "price_high_to_low",
+          "review",
+          "review_count"
+        ],
+        "type": "string",
+        "description": "Result order: recommended (Vrbo's default), price_low_to_high, price_high_to_low, review (highest rated first) or review_count (most reviewed first)."
+      },
+      "limit": {
+        "type": "integer",
+        "default": 20,
+        "example": 5,
+        "maximum": 50,
+        "minimum": 1,
+        "description": "Maximum number of listings to return (1-50, default 20). The price is the same whatever the limit."
+      },
+      "adults": {
+        "type": "integer",
+        "example": 2,
+        "maximum": 20,
+        "minimum": 1,
+        "description": "Number of adult guests (e.g. 2)."
+      },
+      "offset": {
+        "type": "integer",
+        "default": 0,
+        "maximum": 1000,
+        "minimum": 0,
+        "description": "Number of listings to skip, for paging: send offset 20 with limit 20 for the second page."
+      },
+      "checkIn": {
+        "type": "string",
+        "format": "date",
+        "example": "2026-12-13",
+        "description": "Check-in date in YYYY-MM-DD format (e.g. 2027-01-15). Today or later."
+      },
+      "minBeds": {
+        "type": "integer",
+        "maximum": 20,
+        "minimum": 1,
+        "description": "Minimum number of beds (e.g. 4)."
+      },
+      "checkOut": {
+        "type": "string",
+        "format": "date",
+        "example": "2026-12-16",
+        "description": "Check-out date in YYYY-MM-DD format (e.g. 2027-01-18). After the check-in date."
+      },
+      "location": {
+        "type": "string",
+        "example": "Lake Tahoe",
+        "maxLength": 120,
+        "minLength": 2,
+        "description": "Destination to search rentals in: a city, region or area (e.g. Lake Tahoe, Lisbon, Outer Banks, North Carolina)."
+      },
+      "priceMax": {
+        "type": "integer",
+        "maximum": 1000000,
+        "minimum": 1,
+        "description": "Maximum price in the currency results are priced in (each listing's currency), per night or for the whole stay as priceType says (e.g. 400). With a price filter, only listings Vrbo prices for your dates are returned."
+      },
+      "priceMin": {
+        "type": "integer",
+        "maximum": 1000000,
+        "minimum": 0,
+        "description": "Minimum price in the currency results are priced in (each listing's currency), per night or for the whole stay as priceType says (e.g. 100)."
+      },
+      "priceType": {
+        "enum": [
+          "nightly",
+          "total"
+        ],
+        "type": "string",
+        "default": "nightly",
+        "description": "Whether priceMin and priceMax are a nightly price (default) or the total for the stay."
+      },
+      "minBedrooms": {
+        "type": "integer",
+        "maximum": 50,
+        "minimum": 0,
+        "description": "Minimum number of bedrooms (e.g. 3)."
+      },
+      "childrenAges": {
+        "type": "array",
+        "items": {
+          "type": "integer"
+        },
+        "description": "Age of each child guest, one entry per child (e.g. [5, 8] for two children aged 5 and 8). Omit it when no children are staying."
+      },
+      "minBathrooms": {
+        "type": "integer",
+        "maximum": 50,
+        "minimum": 1,
+        "description": "Minimum number of bathrooms (e.g. 2)."
+      }
+    },
+    "additionalProperties": false
+  },
+  "response_schema": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string"
+      },
+      "model": {
+        "type": "string"
+      },
+      "status": {
+        "type": "string"
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "data": {
+              "type": "object",
+              "description": "Normalized result for this request."
+            }
+          }
+        }
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "usage_based",
+    "note": "Billed per call from metered usage; the reference price is typical.",
+    "reference_price": 0.00085
+  },
+  "readme": "# Vrbo Search API\n\nSearch Vrbo vacation rentals by destination and dates, with guest, bedroom, bed, bathroom and price filters, and get up to 50 listings per call: Vrbo property ID and link, name, summary line, property type, bedrooms, beds, guest rating and review count, nightly and total stay price with the original nightly price before any discount, and photos as normalized JSON. Page with offset; the price is the same whatever the limit.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/run\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"model\": \"vrbo/search\", \"limit\": 5, \"adults\": 2, \"checkIn\": \"2026-12-13\", \"checkOut\": \"2026-12-16\", \"location\": \"Lake Tahoe\"}'\n```\n\nThe result is returned in `outputs[0].data`. Lookups that find nothing fail with a not-found error.\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `checkIn` | string | Yes | Check-in date in YYYY-MM-DD format (e.g. 2027-01-15). Today or later. |\n| `checkOut` | string | Yes | Check-out date in YYYY-MM-DD format (e.g. 2027-01-18). After the check-in date. |\n| `location` | string | Yes | Destination to search rentals in: a city, region or area (e.g. Lake Tahoe, Lisbon, Outer Banks, North Carolina). |\n| `adults` | integer | No | Number of adult guests (e.g. 2). |\n| `childrenAges` | array | No | Age of each child guest, one entry per child (e.g. [5, 8] for two children aged 5 and 8). Omit it when no children are staying. |\n| `limit` | integer | No | Maximum number of listings to return (1-50, default 20). The price is the same whatever the limit. |\n| `minBathrooms` | integer | No | Minimum number of bathrooms (e.g. 2). |\n| `minBedrooms` | integer | No | Minimum number of bedrooms (e.g. 3). |\n| `minBeds` | integer | No | Minimum number of beds (e.g. 4). |\n| `offset` | integer | No | Number of listings to skip, for paging: send offset 20 with limit 20 for the second page. Default `0`. |\n| `priceMax` | integer | No | Maximum price in the currency results are priced in (each listing's currency), per night or for the whole stay as priceType says (e.g. 400). With a price filter, only listings Vrbo prices for your dates are returned. |\n| `priceMin` | integer | No | Minimum price in the currency results are priced in (each listing's currency), per night or for the whole stay as priceType says (e.g. 100). |\n| `priceType` | string | No | Whether priceMin and priceMax are a nightly price (default) or the total for the stay. One of: `nightly`, `total`. |\n| `sort` | string | No | Result order: recommended (Vrbo's default), price_low_to_high, price_high_to_low, review (highest rated first) or review_count (most reviewed first). One of: `recommended`, `price_low_to_high`, `price_high_to_low`, `revi |\n\n## Pricing\n\nBilled at the actual cost of each call, about $0.00085 per request. A call can cost more when the first data source fails and another one answers. Failed calls and lookups that find nothing are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/vrbo/search",
+  "created_at": "2026-11-13T04:48:12.052Z"
+}

@@ -1,0 +1,89 @@
+{
+  "name": "github/user-pull-requests",
+  "display_name": "GitHub User Pull Requests",
+  "type": "api",
+  "vendor": "GitHub",
+  "vendor_slug": "github",
+  "description": "List a GitHub user's public pull requests by handle (title, repository, state, creation date, and URL) with optional date filtering and pagination.",
+  "tags": [
+    "api",
+    "github",
+    "developer",
+    "code"
+  ],
+  "capabilities": [
+    "api",
+    "github",
+    "developer",
+    "code"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/github/user-pull-requests"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "handle"
+    ],
+    "properties": {
+      "since": {
+        "type": "string",
+        "description": "Only include pull requests opened on or after this date (YYYY-MM-DD)."
+      },
+      "until": {
+        "type": "string",
+        "description": "Only include pull requests opened on or before this date (YYYY-MM-DD)."
+      },
+      "cursor": {
+        "type": "string",
+        "description": "Pagination cursor from a previous response (page number, defaults to 1)."
+      },
+      "handle": {
+        "type": "string",
+        "example": "torvalds",
+        "description": "GitHub username."
+      }
+    },
+    "additionalProperties": false
+  },
+  "response_schema": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string"
+      },
+      "model": {
+        "type": "string"
+      },
+      "status": {
+        "type": "string"
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "data": {
+              "type": "object",
+              "description": "Normalized result for this request."
+            }
+          }
+        }
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "usage_based",
+    "note": "Billed per call from metered usage; the reference price is typical.",
+    "reference_price": 0.0012
+  },
+  "readme": "# GitHub User Pull Requests API\n\nList a GitHub user's public pull requests by handle (title, repository, state, creation date, and URL) with optional date filtering and pagination.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/run\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"model\": \"github/user-pull-requests\", \"handle\": \"torvalds\"}'\n```\n\nThe result is returned in `outputs[0].data`. Lookups that find nothing fail with a not-found error.\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `handle` | string | Yes | GitHub username. |\n| `cursor` | string | No | Pagination cursor from a previous response (page number, defaults to 1). |\n| `since` | string | No | Only include pull requests opened on or after this date (YYYY-MM-DD). |\n| `until` | string | No | Only include pull requests opened on or before this date (YYYY-MM-DD). |\n\n## Pricing\n\nBilled at the actual cost of each call, about $0.0012 per request. A call can cost more when the first data source fails and another one answers. Failed calls and lookups that find nothing are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/github/user-pull-requests",
+  "created_at": "2026-11-13T03:49:52.701Z"
+}

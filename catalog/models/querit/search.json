@@ -1,0 +1,96 @@
+{
+  "name": "querit/search",
+  "display_name": "Querit Web Search",
+  "type": "api",
+  "vendor": "Querit",
+  "vendor_slug": "querit",
+  "description": "Search the web with Querit and get ranked results with title, URL, snippet and optional page content chunks for AI grounding.",
+  "tags": [
+    "api",
+    "querit",
+    "web-search",
+    "ai-search"
+  ],
+  "capabilities": [
+    "api",
+    "querit",
+    "web-search",
+    "ai-search"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/querit/search"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "query"
+    ],
+    "properties": {
+      "count": {
+        "type": "integer",
+        "description": "Maximum number of results returned. Default: server default (value unspecified)."
+      },
+      "query": {
+        "type": "string",
+        "example": "electric vehicle market share 2026",
+        "description": "Search term. Supports long natural-language descriptions"
+      },
+      "filters": {
+        "type": "object",
+        "description": "Filter conditions, see below"
+      },
+      "highlights": {
+        "type": "boolean",
+        "description": "Request relevant fragments from the body text. true extracts against the original query at the length the model judges best; the object form takes query and maxCharacters, see below"
+      },
+      "needContent": {
+        "type": "boolean",
+        "default": false,
+        "description": "Whether to return body text. When true, body text lands in each result's sentence field (sentence array)"
+      },
+      "chunksPerDoc": {
+        "type": "integer",
+        "default": 1,
+        "description": "Summary chunks per document. Free / PAYG support up to 1; Enterprise up to 3. Deprecated — still available, but migrate to highlights"
+      },
+      "contentMaxChars": {
+        "type": "integer",
+        "description": "Optional body-text length limit per result, from 1 to 1,000,000 Unicode code points. Used with needContent: true; omit or send null to return the full available body text without truncation. Default: Full available body text (value unspecified)."
+      }
+    },
+    "additionalProperties": false
+  },
+  "response_schema": {
+    "type": "object",
+    "required": [
+      "id",
+      "status",
+      "model"
+    ],
+    "properties": {
+      "id": {
+        "type": "string"
+      },
+      "model": {
+        "type": "string"
+      },
+      "status": {
+        "type": "string"
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "usage_based",
+    "note": "Billed per call from metered usage; the reference price is typical.",
+    "reference_price": 0.0048
+  },
+  "readme": "# Querit Web Search\n\nSearch the web with Querit and get ranked results with title, URL, snippet and optional page content chunks for AI grounding.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/querit/search\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"query\": \"electric vehicle market share 2026\"}'\n```\n\nThe result is returned in `outputs[0].data`.\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `query` | string | Yes | Search term. Supports long natural-language descriptions |\n| `chunksPerDoc` | integer | No | Summary chunks per document. Free / PAYG support up to 1; Enterprise up to 3. Deprecated — still available, but migrate to highlights |\n| `contentMaxChars` | integer | No | Optional body-text length limit per result, from 1 to 1,000,000 Unicode code points. Used with needContent: true; omit or send null to return the full available body text without truncation. Default: Full available body  |\n| `count` | integer | No | Maximum number of results returned. Default: server default (value unspecified). |\n| `filters` | object | No | Filter conditions, see below |\n| `highlights` | boolean | No | Request relevant fragments from the body text. true extracts against the original query at the length the model judges best; the object form takes query and maxCharacters, see below |\n| `needContent` | boolean | No | Whether to return body text. When true, body text lands in each result's sentence field (sentence array) |\n\n## Pricing\n\nBilled at the actual upstream cost of each call (about $0.0048 for the request above). Failed calls are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/querit/search",
+  "created_at": "2026-11-13T06:08:17.798Z"
+}

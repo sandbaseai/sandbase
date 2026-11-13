@@ -1,10 +1,10 @@
 {
  "catalog_version": "1",
- "generated_at": "2026-11-13T01:05:31Z",
+ "generated_at": "2026-11-13T12:12:32Z",
  "base_url": "https://api.sandbase.ai",
- "count": 2437,
+ "count": 2549,
  "counts_by_type": {
-  "api": 1935,
+  "api": 2047,
   "video": 181,
   "image": 164,
   "llm": 123,
@@ -932,6 +932,28 @@
    "record": "catalog/models/amazon/deals.json"
   },
   {
+   "name": "amazon/fresh",
+   "display_name": "Amazon Fresh Search",
+   "type": "api",
+   "vendor": "Amazon",
+   "description": "Search Amazon Fresh grocery products for a delivery ZIP code, with title, price, unit price, rating and availability.",
+   "tags": [
+    "api",
+    "amazon",
+    "ecommerce",
+    "grocery"
+   ],
+   "modes": [
+    "sync"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "per_call",
+    "usd_per_call": 0.01
+   },
+   "record": "catalog/models/amazon/fresh.json"
+  },
+  {
    "name": "amazon/offers",
    "display_name": "Amazon Offers",
    "type": "api",
@@ -1108,6 +1130,48 @@
     "usd_reference": 0.00085
    },
    "record": "catalog/models/amazon/seller-products.json"
+  },
+  {
+   "name": "apartments-com/property",
+   "display_name": "Apartments.com Property",
+   "type": "api",
+   "vendor": "Apartments.com",
+   "description": "Get an Apartments.com rental property by URL with floor plans, rent, availability, amenities, fees, pet policy and contact info.",
+   "tags": [
+    "api",
+    "apartments-com",
+    "real-estate"
+   ],
+   "modes": [
+    "async"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "per_call",
+    "usd_per_call": 0.00015
+   },
+   "record": "catalog/models/apartments-com/property.json"
+  },
+  {
+   "name": "apartments-com/search",
+   "display_name": "Apartments.com Search",
+   "type": "api",
+   "vendor": "Apartments.com",
+   "description": "Get rental listings from an Apartments.com search URL with property name, address, rent range, beds and listing link.",
+   "tags": [
+    "api",
+    "apartments-com",
+    "real-estate"
+   ],
+   "modes": [
+    "async"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "per_call",
+    "usd_per_call": 0.00015
+   },
+   "record": "catalog/models/apartments-com/search.json"
   },
   {
    "name": "apollo/company-bulk-enrich",
@@ -1346,6 +1410,50 @@
    "record": "catalog/models/app-store/search.json"
   },
   {
+   "name": "apple-maps/place",
+   "display_name": "Apple Maps Place",
+   "type": "api",
+   "vendor": "Apple Maps",
+   "description": "Get an Apple Maps place by MUID with name, category, rating, address, phone, website, hours and coordinates.",
+   "tags": [
+    "api",
+    "apple-maps",
+    "maps",
+    "local"
+   ],
+   "modes": [
+    "sync"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "per_call",
+    "usd_per_call": 0.01
+   },
+   "record": "catalog/models/apple-maps/place.json"
+  },
+  {
+   "name": "apple-maps/search",
+   "display_name": "Apple Maps Search",
+   "type": "api",
+   "vendor": "Apple Maps",
+   "description": "Search places on Apple Maps by keyword and location, with name, category, rating, address, phone, hours and coordinates.",
+   "tags": [
+    "api",
+    "apple-maps",
+    "maps",
+    "local"
+   ],
+   "modes": [
+    "sync"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "per_call",
+    "usd_per_call": 0.01
+   },
+   "record": "catalog/models/apple-maps/search.json"
+  },
+  {
    "name": "artificial-analysis/cost-per-task",
    "display_name": "Artificial Analysis Cost Per Task",
    "type": "api",
@@ -1476,6 +1584,28 @@
    "record": "catalog/models/asos/search.json"
   },
   {
+   "name": "autozone/product",
+   "display_name": "AutoZone Product",
+   "type": "api",
+   "vendor": "AutoZone",
+   "description": "Get an AutoZone part by product ID with brand, part number, price, specifications, warranty, vehicle fitment and store availability.",
+   "tags": [
+    "api",
+    "autozone",
+    "ecommerce",
+    "automotive"
+   ],
+   "modes": [
+    "sync"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "per_call",
+    "usd_per_call": 0.01
+   },
+   "record": "catalog/models/autozone/product.json"
+  },
+  {
    "name": "autozone/scrape/category",
    "display_name": "AutoZone Category Listings",
    "type": "api",
@@ -1497,6 +1627,50 @@
     "free_quota": true
    },
    "record": "catalog/models/autozone/scrape/category.json"
+  },
+  {
+   "name": "autozone/search",
+   "display_name": "AutoZone Search",
+   "type": "api",
+   "vendor": "AutoZone",
+   "description": "Search AutoZone auto parts by keyword, optionally for a specific vehicle and store, with part number, brand, price, rating and availability.",
+   "tags": [
+    "api",
+    "autozone",
+    "ecommerce",
+    "automotive"
+   ],
+   "modes": [
+    "sync"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "per_call",
+    "usd_per_call": 0.01
+   },
+   "record": "catalog/models/autozone/search.json"
+  },
+  {
+   "name": "baidu/maps",
+   "display_name": "Baidu Maps Search",
+   "type": "api",
+   "vendor": "Baidu",
+   "description": "Search places on Baidu Maps by keyword in a city or around coordinates, with name, address, category, rating, phone and coordinates.",
+   "tags": [
+    "api",
+    "baidu",
+    "maps",
+    "local"
+   ],
+   "modes": [
+    "sync"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "per_call",
+    "usd_per_call": 0.01
+   },
+   "record": "catalog/models/baidu/maps.json"
   },
   {
    "name": "baidu/news",
@@ -2604,6 +2778,28 @@
    "record": "catalog/models/bing-maps/maps.json"
   },
   {
+   "name": "bing-shopping/product",
+   "display_name": "Bing Shopping Product",
+   "type": "api",
+   "vendor": "Bing Shopping",
+   "description": "Get a Bing Shopping product by product token with title, specifications, rating, reviews and offers from each merchant.",
+   "tags": [
+    "api",
+    "bing-shopping",
+    "ecommerce",
+    "product-data"
+   ],
+   "modes": [
+    "sync"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "per_call",
+    "usd_per_call": 0.01
+   },
+   "record": "catalog/models/bing-shopping/product.json"
+  },
+  {
    "name": "bing-shopping/search",
    "display_name": "Bing Shopping Search",
    "type": "api",
@@ -2689,6 +2885,28 @@
     "usd_per_call": 0.01
    },
    "record": "catalog/models/bing/news.json"
+  },
+  {
+   "name": "bing/reverse-image",
+   "display_name": "Bing Reverse Image Search",
+   "type": "api",
+   "vendor": "Bing",
+   "description": "Search Bing Visual Search with an image URL and get visually similar images, pages that contain the image and related searches.",
+   "tags": [
+    "api",
+    "bing",
+    "images",
+    "serp"
+   ],
+   "modes": [
+    "sync"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "per_call",
+    "usd_per_call": 0.01
+   },
+   "record": "catalog/models/bing/reverse-image.json"
   },
   {
    "name": "bing/search",
@@ -2817,6 +3035,28 @@
     "usd_per_call": 0.01
    },
    "record": "catalog/models/booking/search.json"
+  },
+  {
+   "name": "brave/ai-mode",
+   "display_name": "Brave AI Mode",
+   "type": "api",
+   "vendor": "Brave",
+   "description": "Get the AI-generated answer Brave Search shows for a query, with answer text, cited sources and location and language options.",
+   "tags": [
+    "api",
+    "brave",
+    "ai-search",
+    "web-search"
+   ],
+   "modes": [
+    "sync"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "per_call",
+    "usd_per_call": 0.01
+   },
+   "record": "catalog/models/brave/ai-mode.json"
   },
   {
    "name": "brave/images",
@@ -3125,6 +3365,27 @@
     "free_quota": true
    },
    "record": "catalog/models/capterra/search-software.json"
+  },
+  {
+   "name": "chatgpt/search",
+   "display_name": "ChatGPT Search",
+   "type": "api",
+   "vendor": "ChatGPT",
+   "description": "Ask ChatGPT a web-grounded question and receive an answer with source citations. ChatGPT composes each answer per request, so the same prompt returns different wording and a different source set.",
+   "tags": [
+    "api",
+    "chatgpt",
+    "ai-search"
+   ],
+   "modes": [
+    "sync"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "usage_based",
+    "usd_reference": 0.0018
+   },
+   "record": "catalog/models/chatgpt/search.json"
   },
   {
    "name": "cloudsway/search",
@@ -3781,6 +4042,28 @@
     "free_quota": true
    },
    "record": "catalog/models/coingecko/simple-token-price.json"
+  },
+  {
+   "name": "congress/trades",
+   "display_name": "US Congress Stock Trades",
+   "type": "api",
+   "vendor": "US Congress",
+   "description": "Get US Congress members' financial disclosures and stock trades (member, ticker, transaction type, amount range, and dates), filterable by member, ticker, or date range. Results come newest filing first (by reportedUtc, not tradedUtc), so a recent filing can list trades made…",
+   "tags": [
+    "api",
+    "congress",
+    "finance",
+    "politics"
+   ],
+   "modes": [
+    "sync"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "usage_based",
+    "usd_reference": 0.00905
+   },
+   "record": "catalog/models/congress/trades.json"
   },
   {
    "name": "crunchbase/investor-profile",
@@ -13825,6 +14108,49 @@
    "record": "catalog/models/douyin/xingtu/xingtu-kolid-by-unique-id.json"
   },
   {
+   "name": "duckduckgo/ai-chat",
+   "display_name": "DuckDuckGo AI Chat Answer",
+   "type": "api",
+   "vendor": "DuckDuckGo",
+   "description": "Get the answer DuckDuckGo's Duck.ai chat gives for a question with a chosen chat model, with answer text and a token for follow-up questions.",
+   "tags": [
+    "api",
+    "duckduckgo",
+    "ai-search"
+   ],
+   "modes": [
+    "sync"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "per_call",
+    "usd_per_call": 0.01
+   },
+   "record": "catalog/models/duckduckgo/ai-chat.json"
+  },
+  {
+   "name": "duckduckgo/images",
+   "display_name": "DuckDuckGo Images",
+   "type": "api",
+   "vendor": "DuckDuckGo",
+   "description": "Search DuckDuckGo Images by keyword with size, color, type and layout filters, returning image URLs, thumbnails, titles and sources.",
+   "tags": [
+    "api",
+    "duckduckgo",
+    "images",
+    "serp"
+   ],
+   "modes": [
+    "sync"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "per_call",
+    "usd_per_call": 0.01
+   },
+   "record": "catalog/models/duckduckgo/images.json"
+  },
+  {
    "name": "duckduckgo/maps",
    "display_name": "DuckDuckGo Maps",
    "type": "api",
@@ -13887,6 +14213,28 @@
     "usd_per_call": 0.015
    },
    "record": "catalog/models/duckduckgo/search.json"
+  },
+  {
+   "name": "duckduckgo/shopping",
+   "display_name": "DuckDuckGo Shopping",
+   "type": "api",
+   "vendor": "DuckDuckGo",
+   "description": "Search DuckDuckGo Shopping by keyword and get product listings with title, price, merchant, rating and link, by region.",
+   "tags": [
+    "api",
+    "duckduckgo",
+    "ecommerce",
+    "product-data"
+   ],
+   "modes": [
+    "sync"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "per_call",
+    "usd_per_call": 0.01
+   },
+   "record": "catalog/models/duckduckgo/shopping.json"
   },
   {
    "name": "ebay/product",
@@ -13955,6 +14303,28 @@
     "usd_reference": 0.003
    },
    "record": "catalog/models/ebay/sold-listings.json"
+  },
+  {
+   "name": "edinet/documents",
+   "display_name": "EDINET Filing List",
+   "type": "api",
+   "vendor": "EDINET",
+   "description": "List the corporate disclosure documents filed with Japan's EDINET on a given date, with document ID, filer, document type, period and submission time.",
+   "tags": [
+    "api",
+    "edinet",
+    "finance",
+    "filings"
+   ],
+   "modes": [
+    "sync"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "usage_based",
+    "usd_reference": 1e-05
+   },
+   "record": "catalog/models/edinet/documents.json"
   },
   {
    "name": "etsy/product",
@@ -15219,6 +15589,116 @@
    "record": "catalog/models/financial-datasets/prices-snapshot.json"
   },
   {
+   "name": "finviz/insider-trading",
+   "display_name": "Finviz Insider Trading",
+   "type": "api",
+   "vendor": "Finviz",
+   "description": "List recent insider transactions in US stocks from Finviz with insider, relationship, transaction type, shares, price and value, filtered by minimum value.",
+   "tags": [
+    "api",
+    "finviz",
+    "finance",
+    "market-data"
+   ],
+   "modes": [
+    "async"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "per_call",
+    "usd_per_call": 0.01
+   },
+   "record": "catalog/models/finviz/insider-trading.json"
+  },
+  {
+   "name": "finviz/market-movers",
+   "display_name": "Finviz Market Movers",
+   "type": "api",
+   "vendor": "Finviz",
+   "description": "List today's US stock market movers on Finviz such as top gainers, top losers, new highs and unusual volume, with price, change and volume.",
+   "tags": [
+    "api",
+    "finviz",
+    "finance",
+    "market-data"
+   ],
+   "modes": [
+    "async"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "per_call",
+    "usd_per_call": 0.01
+   },
+   "record": "catalog/models/finviz/market-movers.json"
+  },
+  {
+   "name": "finviz/news-sentiment",
+   "display_name": "Finviz Stock News Sentiment",
+   "type": "api",
+   "vendor": "Finviz",
+   "description": "Get recent news headlines for a US ticker from Finviz with source, time and a sentiment score for each headline.",
+   "tags": [
+    "api",
+    "finviz",
+    "finance",
+    "news"
+   ],
+   "modes": [
+    "async"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "per_call",
+    "usd_per_call": 0.01
+   },
+   "record": "catalog/models/finviz/news-sentiment.json"
+  },
+  {
+   "name": "finviz/screener",
+   "display_name": "Finviz Stock Screener",
+   "type": "api",
+   "vendor": "Finviz",
+   "description": "Screen US stocks on Finviz with filter codes for valuation, performance, technicals and fundamentals, returning matching tickers with price, change, market cap and key ratios.",
+   "tags": [
+    "api",
+    "finviz",
+    "finance",
+    "market-data"
+   ],
+   "modes": [
+    "async"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "per_call",
+    "usd_per_call": 0.01
+   },
+   "record": "catalog/models/finviz/screener.json"
+  },
+  {
+   "name": "finviz/ticker-sectors",
+   "display_name": "Finviz Ticker Sectors and Performance",
+   "type": "api",
+   "vendor": "Finviz",
+   "description": "Get the sector, industry and multi-period performance of a list of US tickers from Finviz.",
+   "tags": [
+    "api",
+    "finviz",
+    "finance",
+    "market-data"
+   ],
+   "modes": [
+    "async"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "per_call",
+    "usd_per_call": 0.01
+   },
+   "record": "catalog/models/finviz/ticker-sectors.json"
+  },
+  {
    "name": "firecrawl/batch/scrape",
    "display_name": "Firecrawl Batch Scrape",
    "type": "api",
@@ -15325,6 +15805,116 @@
     "usd_per_call": 0.015
    },
    "record": "catalog/models/firecrawl/search.json"
+  },
+  {
+   "name": "flightradar24/flights",
+   "display_name": "Flightradar24 Live Flights",
+   "type": "api",
+   "vendor": "Flightradar24",
+   "description": "Get live flights from Flightradar24 by airport, flight number, airline, aircraft type or map bounds, with position, altitude, speed, route and aircraft.",
+   "tags": [
+    "api",
+    "flightradar24",
+    "travel",
+    "flights"
+   ],
+   "modes": [
+    "sync"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "per_call",
+    "usd_per_call": 0.01
+   },
+   "record": "catalog/models/flightradar24/flights.json"
+  },
+  {
+   "name": "foreplay/ad-search",
+   "display_name": "Foreplay Ad Search",
+   "type": "api",
+   "vendor": "Foreplay",
+   "description": "Search the Foreplay library of live and past social ads from Facebook, Instagram, TikTok, YouTube and more by keyword, format, platform, niche, language and run time, with creative, copy and landing page.",
+   "tags": [
+    "api",
+    "foreplay",
+    "advertising",
+    "ad-library"
+   ],
+   "modes": [
+    "sync"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "usage_based",
+    "usd_reference": 0.0525
+   },
+   "record": "catalog/models/foreplay/ad-search.json"
+  },
+  {
+   "name": "foreplay/brand-ads",
+   "display_name": "Foreplay Brand Ads",
+   "type": "api",
+   "vendor": "Foreplay",
+   "description": "List the social ads a brand has run by Foreplay brand ID, with creative, copy, platforms, run dates and landing page, filtered by format, platform and run time.",
+   "tags": [
+    "api",
+    "foreplay",
+    "advertising",
+    "ad-library"
+   ],
+   "modes": [
+    "sync"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "usage_based",
+    "usd_reference": 0.0525
+   },
+   "record": "catalog/models/foreplay/brand-ads.json"
+  },
+  {
+   "name": "foreplay/brand-analytics",
+   "display_name": "Foreplay Brand Ad Analytics",
+   "type": "api",
+   "vendor": "Foreplay",
+   "description": "Get ad analytics for a brand by Foreplay brand ID: active and total ads, formats, platforms, launch cadence and longest-running creatives over a date range.",
+   "tags": [
+    "api",
+    "foreplay",
+    "advertising",
+    "ad-library"
+   ],
+   "modes": [
+    "sync"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "usage_based",
+    "usd_reference": 0.1225
+   },
+   "record": "catalog/models/foreplay/brand-analytics.json"
+  },
+  {
+   "name": "foreplay/brands-by-domain",
+   "display_name": "Foreplay Brands by Domain",
+   "type": "api",
+   "vendor": "Foreplay",
+   "description": "Find the advertiser brands Foreplay tracks for a website domain, with brand ID, name, logo and ad counts, to use in brand ad lookups.",
+   "tags": [
+    "api",
+    "foreplay",
+    "advertising",
+    "ad-library"
+   ],
+   "modes": [
+    "sync"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "usage_based",
+    "usd_reference": 0.0175
+   },
+   "record": "catalog/models/foreplay/brands-by-domain.json"
   },
   {
    "name": "fred/category",
@@ -16423,6 +17013,358 @@
    "record": "catalog/models/getapp/software-reviews.json"
   },
   {
+   "name": "github/issue-comments",
+   "display_name": "GitHub Issue Comments",
+   "type": "api",
+   "vendor": "GitHub",
+   "description": "List the comments on a GitHub issue or pull request by its URL, oldest first, with each commenter's login, their relationship to the repository, reactions and the comment text.",
+   "tags": [
+    "api",
+    "github",
+    "developer",
+    "code"
+   ],
+   "modes": [
+    "sync"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "usage_based",
+    "usd_reference": 0.0012
+   },
+   "record": "catalog/models/github/issue-comments.json"
+  },
+  {
+   "name": "github/repository",
+   "display_name": "GitHub Repository",
+   "type": "api",
+   "vendor": "GitHub",
+   "description": "Fetch a GitHub repository's metadata by URL (stars, forks, language, topics, license, and timestamps).",
+   "tags": [
+    "api",
+    "github",
+    "developer",
+    "code"
+   ],
+   "modes": [
+    "sync"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "usage_based",
+    "usd_reference": 0.0012
+   },
+   "record": "catalog/models/github/repository.json"
+  },
+  {
+   "name": "github/repository-contributors",
+   "display_name": "GitHub Repository Contributors",
+   "type": "api",
+   "vendor": "GitHub",
+   "description": "List the people who have committed to a GitHub repository by repository URL, ordered by number of commits, with each contributor's login, profile URL and commit count. Look each one up with github.user for their profile, website and socials.",
+   "tags": [
+    "api",
+    "github",
+    "developer",
+    "code"
+   ],
+   "modes": [
+    "sync"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "usage_based",
+    "usd_reference": 0.0012
+   },
+   "record": "catalog/models/github/repository-contributors.json"
+  },
+  {
+   "name": "github/repository-forks",
+   "display_name": "GitHub Repository Forks",
+   "type": "api",
+   "vendor": "GitHub",
+   "description": "List the forks of a GitHub repository by repository URL, with each fork's owner, description, stars, language and last push. Sort by newest, oldest or most starred.",
+   "tags": [
+    "api",
+    "github",
+    "developer",
+    "code"
+   ],
+   "modes": [
+    "sync"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "usage_based",
+    "usd_reference": 0.0012
+   },
+   "record": "catalog/models/github/repository-forks.json"
+  },
+  {
+   "name": "github/repository-issues",
+   "display_name": "GitHub Repository Issues",
+   "type": "api",
+   "vendor": "GitHub",
+   "description": "List a GitHub repository's issues and pull requests by repository URL (GitHub lists pull requests as issues), with each one's author, state, labels, counts and body. Filter by state, sort and last-activity date.",
+   "tags": [
+    "api",
+    "github",
+    "developer",
+    "code"
+   ],
+   "modes": [
+    "sync"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "usage_based",
+    "usd_reference": 0.0012
+   },
+   "record": "catalog/models/github/repository-issues.json"
+  },
+  {
+   "name": "github/repository-readme",
+   "display_name": "GitHub Repository README",
+   "type": "api",
+   "vendor": "GitHub",
+   "description": "Get a GitHub repository's README by repository URL, as the Markdown text the maintainers wrote, with its file name, path and size. Use it to learn what a project does, which models and tools it uses, and how to reach its authors.",
+   "tags": [
+    "api",
+    "github",
+    "developer",
+    "code"
+   ],
+   "modes": [
+    "sync"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "usage_based",
+    "usd_reference": 0.0012
+   },
+   "record": "catalog/models/github/repository-readme.json"
+  },
+  {
+   "name": "github/search-issues",
+   "display_name": "GitHub Issue and PR Search",
+   "type": "api",
+   "vendor": "GitHub",
+   "description": "Search issues and pull requests across GitHub with GitHub's own search syntax (repo:, is:pr, is:issue, author:, label:, opened:...), with each result's author, state, labels, counts and body. Use it to find who opens issues and pull requests on a repository.",
+   "tags": [
+    "api",
+    "github",
+    "developer",
+    "code"
+   ],
+   "modes": [
+    "sync"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "usage_based",
+    "usd_reference": 0.0024
+   },
+   "record": "catalog/models/github/search-issues.json"
+  },
+  {
+   "name": "github/trending-developers",
+   "display_name": "GitHub Trending Developers",
+   "type": "api",
+   "vendor": "GitHub",
+   "description": "List trending GitHub developers (rank, username, name, avatar, and their most popular repository), optionally filtered by programming language and time range.",
+   "tags": [
+    "api",
+    "github",
+    "developer",
+    "code"
+   ],
+   "modes": [
+    "sync"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "usage_based",
+    "usd_reference": 0.0012
+   },
+   "record": "catalog/models/github/trending-developers.json"
+  },
+  {
+   "name": "github/trending-repositories",
+   "display_name": "GitHub Trending Repositories",
+   "type": "api",
+   "vendor": "GitHub",
+   "description": "List GitHub Trending repositories (rank, stars, stars gained today, language, and description), filterable by language and time window.",
+   "tags": [
+    "api",
+    "github",
+    "developer",
+    "code"
+   ],
+   "modes": [
+    "sync"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "usage_based",
+    "usd_reference": 0.0012
+   },
+   "record": "catalog/models/github/trending-repositories.json"
+  },
+  {
+   "name": "github/user",
+   "display_name": "GitHub User",
+   "type": "api",
+   "vendor": "GitHub",
+   "description": "Fetch a GitHub user's public profile by handle (name, bio, company, location, followers, and repo counts).",
+   "tags": [
+    "api",
+    "github",
+    "developer",
+    "code"
+   ],
+   "modes": [
+    "sync"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "usage_based",
+    "usd_reference": 0.0012
+   },
+   "record": "catalog/models/github/user.json"
+  },
+  {
+   "name": "github/user-activity",
+   "display_name": "GitHub User Activity",
+   "type": "api",
+   "vendor": "GitHub",
+   "description": "List a GitHub user's public contribution activity by handle (grouped monthly summaries of commits, pull requests, and issues with repository links) for a given year.",
+   "tags": [
+    "api",
+    "github",
+    "developer",
+    "code"
+   ],
+   "modes": [
+    "sync"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "usage_based",
+    "usd_reference": 0.0012
+   },
+   "record": "catalog/models/github/user-activity.json"
+  },
+  {
+   "name": "github/user-contributions",
+   "display_name": "GitHub User Contributions",
+   "type": "api",
+   "vendor": "GitHub",
+   "description": "Fetch a GitHub user's contribution graph for a year (total contributions plus per-day counts and heatmap intensity).",
+   "tags": [
+    "api",
+    "github",
+    "developer",
+    "code"
+   ],
+   "modes": [
+    "sync"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "usage_based",
+    "usd_reference": 0.0012
+   },
+   "record": "catalog/models/github/user-contributions.json"
+  },
+  {
+   "name": "github/user-followers",
+   "display_name": "GitHub User Followers",
+   "type": "api",
+   "vendor": "GitHub",
+   "description": "List a GitHub user's followers by handle (each follower's login, type, avatar, and profile URL) with pagination.",
+   "tags": [
+    "api",
+    "github",
+    "developer",
+    "code"
+   ],
+   "modes": [
+    "sync"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "usage_based",
+    "usd_reference": 0.0012
+   },
+   "record": "catalog/models/github/user-followers.json"
+  },
+  {
+   "name": "github/user-following",
+   "display_name": "GitHub User Following",
+   "type": "api",
+   "vendor": "GitHub",
+   "description": "List the GitHub users a given user follows by handle (each account's login, type, avatar, and profile URL) with pagination.",
+   "tags": [
+    "api",
+    "github",
+    "developer",
+    "code"
+   ],
+   "modes": [
+    "sync"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "usage_based",
+    "usd_reference": 0.0012
+   },
+   "record": "catalog/models/github/user-following.json"
+  },
+  {
+   "name": "github/user-pull-requests",
+   "display_name": "GitHub User Pull Requests",
+   "type": "api",
+   "vendor": "GitHub",
+   "description": "List a GitHub user's public pull requests by handle (title, repository, state, creation date, and URL) with optional date filtering and pagination.",
+   "tags": [
+    "api",
+    "github",
+    "developer",
+    "code"
+   ],
+   "modes": [
+    "sync"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "usage_based",
+    "usd_reference": 0.0012
+   },
+   "record": "catalog/models/github/user-pull-requests.json"
+  },
+  {
+   "name": "github/user-repositories",
+   "display_name": "GitHub User Repositories",
+   "type": "api",
+   "vendor": "GitHub",
+   "description": "List a GitHub user's public repositories (name, description, language, stars, and forks) with sorting and cursor pagination.",
+   "tags": [
+    "api",
+    "github",
+    "developer",
+    "code"
+   ],
+   "modes": [
+    "sync"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "usage_based",
+    "usd_reference": 0.0012
+   },
+   "record": "catalog/models/github/user-repositories.json"
+  },
+  {
    "name": "glassdoor/companies",
    "display_name": "Glassdoor Companies",
    "type": "api",
@@ -16488,6 +17430,72 @@
    "record": "catalog/models/glassdoor/reviews.json"
   },
   {
+   "name": "google-flights/autocomplete",
+   "display_name": "Google Flights Autocomplete",
+   "type": "api",
+   "vendor": "Google Flights",
+   "description": "Get Google Flights airport and city suggestions for a partial place name, with IATA codes and location IDs.",
+   "tags": [
+    "api",
+    "google-flights",
+    "travel",
+    "flights"
+   ],
+   "modes": [
+    "sync"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "per_call",
+    "usd_per_call": 0.01
+   },
+   "record": "catalog/models/google-flights/autocomplete.json"
+  },
+  {
+   "name": "google-flights/calendar",
+   "display_name": "Google Flights Calendar",
+   "type": "api",
+   "vendor": "Google Flights",
+   "description": "Get the lowest Google Flights fare for each departure date in a range between two airports, for one-way or round trips.",
+   "tags": [
+    "api",
+    "google-flights",
+    "travel",
+    "flights"
+   ],
+   "modes": [
+    "sync"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "per_call",
+    "usd_per_call": 0.01
+   },
+   "record": "catalog/models/google-flights/calendar.json"
+  },
+  {
+   "name": "google-flights/deals",
+   "display_name": "Google Flights Deals",
+   "type": "api",
+   "vendor": "Google Flights",
+   "description": "Find discounted Google Flights fares from a departure airport, with destination, price, discount, dates and airline.",
+   "tags": [
+    "api",
+    "google-flights",
+    "travel",
+    "flights"
+   ],
+   "modes": [
+    "sync"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "per_call",
+    "usd_per_call": 0.01
+   },
+   "record": "catalog/models/google-flights/deals.json"
+  },
+  {
    "name": "google-flights/search",
    "display_name": "Google Flights Search",
    "type": "api",
@@ -16507,6 +17515,72 @@
     "usd_per_call": 0.015
    },
    "record": "catalog/models/google-flights/search.json"
+  },
+  {
+   "name": "google-hotels/autocomplete",
+   "display_name": "Google Hotels Autocomplete",
+   "type": "api",
+   "vendor": "Google Hotels",
+   "description": "Get Google Hotels destination and property suggestions for a partial name, with property tokens for hotel lookups.",
+   "tags": [
+    "api",
+    "google-hotels",
+    "travel",
+    "lodging"
+   ],
+   "modes": [
+    "sync"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "per_call",
+    "usd_per_call": 0.01
+   },
+   "record": "catalog/models/google-hotels/autocomplete.json"
+  },
+  {
+   "name": "google-hotels/photos",
+   "display_name": "Google Hotels Photos",
+   "type": "api",
+   "vendor": "Google Hotels",
+   "description": "Get photos of a hotel on Google Hotels by property token, with image URLs, categories and paging.",
+   "tags": [
+    "api",
+    "google-hotels",
+    "travel",
+    "lodging"
+   ],
+   "modes": [
+    "sync"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "per_call",
+    "usd_per_call": 0.01
+   },
+   "record": "catalog/models/google-hotels/photos.json"
+  },
+  {
+   "name": "google-hotels/price-calendar",
+   "display_name": "Google Hotels Price Calendar",
+   "type": "api",
+   "vendor": "Google Hotels",
+   "description": "Get the nightly price of a hotel on Google Hotels for each date in a range, by property token and guest count.",
+   "tags": [
+    "api",
+    "google-hotels",
+    "travel",
+    "lodging"
+   ],
+   "modes": [
+    "sync"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "per_call",
+    "usd_per_call": 0.01
+   },
+   "record": "catalog/models/google-hotels/price-calendar.json"
   },
   {
    "name": "google-hotels/reviews",
@@ -16552,6 +17626,49 @@
    "record": "catalog/models/google-hotels/search.json"
   },
   {
+   "name": "google-maps/autocomplete",
+   "display_name": "Google Maps Autocomplete",
+   "type": "api",
+   "vendor": "Google Maps",
+   "description": "Get Google Maps search box suggestions for a partial query near a location, with place names, addresses and place IDs.",
+   "tags": [
+    "api",
+    "google-maps",
+    "maps",
+    "local"
+   ],
+   "modes": [
+    "sync"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "per_call",
+    "usd_per_call": 0.01
+   },
+   "record": "catalog/models/google-maps/autocomplete.json"
+  },
+  {
+   "name": "google-maps/contributor-reviews",
+   "display_name": "Google Maps Contributor Reviews",
+   "type": "api",
+   "vendor": "Google Maps",
+   "description": "Get up to 200 reviews written by one Google Maps contributor.",
+   "tags": [
+    "api",
+    "google-maps",
+    "web-scraping"
+   ],
+   "modes": [
+    "async"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "per_call",
+    "usd_per_call": 0.00015
+   },
+   "record": "catalog/models/google-maps/contributor-reviews.json"
+  },
+  {
    "name": "google-maps/directions",
    "display_name": "Google Maps Directions",
    "type": "api",
@@ -16594,6 +17711,50 @@
     "free_quota": true
    },
    "record": "catalog/models/google-maps/photo-metadata.json"
+  },
+  {
+   "name": "google-maps/photos",
+   "display_name": "Google Maps Photos",
+   "type": "api",
+   "vendor": "Google Maps",
+   "description": "Get photos of a Google Maps place by data ID, with image URLs, categories and paging.",
+   "tags": [
+    "api",
+    "google-maps",
+    "maps",
+    "local"
+   ],
+   "modes": [
+    "sync"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "per_call",
+    "usd_per_call": 0.01
+   },
+   "record": "catalog/models/google-maps/photos.json"
+  },
+  {
+   "name": "google-maps/posts",
+   "display_name": "Google Maps Posts",
+   "type": "api",
+   "vendor": "Google Maps",
+   "description": "Get the owner posts and updates published on a Google Maps place by data ID, with text, images, date and links.",
+   "tags": [
+    "api",
+    "google-maps",
+    "maps",
+    "local"
+   ],
+   "modes": [
+    "sync"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "per_call",
+    "usd_per_call": 0.01
+   },
+   "record": "catalog/models/google-maps/posts.json"
   },
   {
    "name": "google-maps/reviews",
@@ -16771,6 +17932,28 @@
    "record": "catalog/models/google-play/reviews.json"
   },
   {
+   "name": "google-shopping/immersive-product",
+   "display_name": "Google Shopping Product Offers",
+   "type": "api",
+   "vendor": "Google Shopping",
+   "description": "Get the full Google Shopping product view by page token: specifications, ratings, reviews and offers from each store with price and delivery.",
+   "tags": [
+    "api",
+    "google-shopping",
+    "ecommerce",
+    "product-data"
+   ],
+   "modes": [
+    "sync"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "per_call",
+    "usd_per_call": 0.01
+   },
+   "record": "catalog/models/google-shopping/immersive-product.json"
+  },
+  {
    "name": "google-shopping/product",
    "display_name": "Google Shopping Product Details",
    "type": "api",
@@ -16814,6 +17997,28 @@
     "free_quota": true
    },
    "record": "catalog/models/google-shopping/search.json"
+  },
+  {
+   "name": "google/ads",
+   "display_name": "Google Ads Results",
+   "type": "api",
+   "vendor": "Google",
+   "description": "Get the paid ads Google shows for a query in a location, with advertiser, headline, description, displayed link, sitelinks and position.",
+   "tags": [
+    "api",
+    "google",
+    "advertising",
+    "serp"
+   ],
+   "modes": [
+    "sync"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "per_call",
+    "usd_per_call": 0.01
+   },
+   "record": "catalog/models/google/ads.json"
   },
   {
    "name": "google/ads-transparency",
@@ -16967,6 +18172,50 @@
    "record": "catalog/models/google/finance.json"
   },
   {
+   "name": "google/finance-autocomplete",
+   "display_name": "Google Finance Autocomplete",
+   "type": "api",
+   "vendor": "Google",
+   "description": "Get Google Finance ticker suggestions for a partial company name or symbol, with exchange and instrument type.",
+   "tags": [
+    "api",
+    "google",
+    "finance",
+    "market-data"
+   ],
+   "modes": [
+    "sync"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "per_call",
+    "usd_per_call": 0.01
+   },
+   "record": "catalog/models/google/finance-autocomplete.json"
+  },
+  {
+   "name": "google/finance-markets",
+   "display_name": "Google Finance Markets",
+   "type": "api",
+   "vendor": "Google",
+   "description": "List Google Finance market movers and overviews such as indexes, most active, gainers, losers, crypto and currencies, with price and change for each instrument.",
+   "tags": [
+    "api",
+    "google",
+    "finance",
+    "market-data"
+   ],
+   "modes": [
+    "sync"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "per_call",
+    "usd_per_call": 0.01
+   },
+   "record": "catalog/models/google/finance-markets.json"
+  },
+  {
    "name": "google/forums",
    "display_name": "Google Forums",
    "type": "api",
@@ -16987,6 +18236,28 @@
     "usd_per_call": 0.01
    },
    "record": "catalog/models/google/forums.json"
+  },
+  {
+   "name": "google/gemini-answer",
+   "display_name": "Google Gemini Answer",
+   "type": "api",
+   "vendor": "Google",
+   "description": "Get the answer Google Gemini gives for a question in the Gemini web app, with answer text, cited sources and a token for follow-up questions.",
+   "tags": [
+    "api",
+    "google",
+    "ai-search",
+    "serp"
+   ],
+   "modes": [
+    "sync"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "per_call",
+    "usd_per_call": 0.01
+   },
+   "record": "catalog/models/google/gemini-answer.json"
   },
   {
    "name": "google/images",
@@ -17097,6 +18368,28 @@
    "record": "catalog/models/google/news.json"
   },
   {
+   "name": "google/patent-details",
+   "display_name": "Google Patent Details",
+   "type": "api",
+   "vendor": "Google",
+   "description": "Get a Google Patents record by patent ID with title, abstract, claims, inventors, assignees, dates, classifications, citations and family members.",
+   "tags": [
+    "api",
+    "google",
+    "patents",
+    "academic"
+   ],
+   "modes": [
+    "sync"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "per_call",
+    "usd_per_call": 0.01
+   },
+   "record": "catalog/models/google/patent-details.json"
+  },
+  {
    "name": "google/patents",
    "display_name": "Google Patents",
    "type": "api",
@@ -17205,6 +18498,49 @@
    "record": "catalog/models/google/short-videos.json"
   },
   {
+   "name": "google/translate",
+   "display_name": "Google Translate",
+   "type": "api",
+   "vendor": "Google",
+   "description": "Translate text with Google Translate between a source and target language code and get the translation with detected language.",
+   "tags": [
+    "api",
+    "google",
+    "translation"
+   ],
+   "modes": [
+    "sync"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "per_call",
+    "usd_per_call": 0.01
+   },
+   "record": "catalog/models/google/translate.json"
+  },
+  {
+   "name": "google/travel-explore",
+   "display_name": "Google Travel Explore",
+   "type": "api",
+   "vendor": "Google",
+   "description": "Explore destinations from a departure airport on Google Travel, with cheapest flight and hotel prices, dates and travel time for each destination.",
+   "tags": [
+    "api",
+    "google",
+    "travel",
+    "flights"
+   ],
+   "modes": [
+    "sync"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "per_call",
+    "usd_per_call": 0.01
+   },
+   "record": "catalog/models/google/travel-explore.json"
+  },
+  {
    "name": "google/trends",
    "display_name": "Google Trends",
    "type": "api",
@@ -17225,6 +18561,28 @@
     "usd_per_call": 0.01
    },
    "record": "catalog/models/google/trends.json"
+  },
+  {
+   "name": "google/trends-autocomplete",
+   "display_name": "Google Trends Autocomplete",
+   "type": "api",
+   "vendor": "Google",
+   "description": "Get Google Trends topic and query suggestions for a keyword, with the topic ID to use in Google Trends lookups.",
+   "tags": [
+    "api",
+    "google",
+    "trends",
+    "keywords"
+   ],
+   "modes": [
+    "sync"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "per_call",
+    "usd_per_call": 0.01
+   },
+   "record": "catalog/models/google/trends-autocomplete.json"
   },
   {
    "name": "google/trends-trending-now",
@@ -17421,6 +18779,27 @@
     "free_quota": true
    },
    "record": "catalog/models/home-depot/search.json"
+  },
+  {
+   "name": "homes-com/search",
+   "display_name": "Homes.com Search",
+   "type": "api",
+   "vendor": "Homes.com",
+   "description": "Get Homes.com listings from a search results URL with address, price, beds, baths, size and listing link.",
+   "tags": [
+    "api",
+    "homes-com",
+    "real-estate"
+   ],
+   "modes": [
+    "async"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "per_call",
+    "usd_per_call": 0.00015
+   },
+   "record": "catalog/models/homes-com/search.json"
   },
   {
    "name": "hunter/companies-find",
@@ -23170,6 +24549,28 @@
    "record": "catalog/models/mercari/sold-listings.json"
   },
   {
+   "name": "napa/search",
+   "display_name": "NAPA Auto Parts Search",
+   "type": "api",
+   "vendor": "NAPA",
+   "description": "Search NAPA auto parts by keyword with part number, brand, price, rating and store availability.",
+   "tags": [
+    "api",
+    "napa",
+    "ecommerce",
+    "automotive"
+   ],
+   "modes": [
+    "sync"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "per_call",
+    "usd_per_call": 0.01
+   },
+   "record": "catalog/models/napa/search.json"
+  },
+  {
    "name": "nasdaq/cryptocurrency-quote",
    "display_name": "Nasdaq Cryptocurrency Quote",
    "type": "api",
@@ -23544,6 +24945,28 @@
    "record": "catalog/models/nasdaq/stock-sec-filings.json"
   },
   {
+   "name": "naver/ai-mode",
+   "display_name": "Naver AI Mode",
+   "type": "api",
+   "vendor": "Naver",
+   "description": "Get Naver's AI-generated answer for a query with the answer text, cited sources and follow-up token for continuing the conversation.",
+   "tags": [
+    "api",
+    "naver",
+    "ai-search",
+    "serp"
+   ],
+   "modes": [
+    "sync"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "per_call",
+    "usd_per_call": 0.01
+   },
+   "record": "catalog/models/naver/ai-mode.json"
+  },
+  {
    "name": "naver/ai-overview",
    "display_name": "Naver AI Overview",
    "type": "api",
@@ -23563,6 +24986,50 @@
     "usd_per_call": 0.015
    },
    "record": "catalog/models/naver/ai-overview.json"
+  },
+  {
+   "name": "naver/blog-search",
+   "display_name": "Naver Blog Search",
+   "type": "api",
+   "vendor": "Naver",
+   "description": "Search up to five enriched Naver blog results by keyword with stable cursor pagination: result rank, title, excerpt, post and blogger URLs, blogger name, publish time, and Naver's total match count.",
+   "tags": [
+    "api",
+    "naver",
+    "blogs",
+    "serp"
+   ],
+   "modes": [
+    "sync"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "usage_based",
+    "usd_reference": 0.032
+   },
+   "record": "catalog/models/naver/blog-search.json"
+  },
+  {
+   "name": "naver/maps",
+   "display_name": "Naver Maps Search",
+   "type": "api",
+   "vendor": "Naver",
+   "description": "Search places on Naver Maps by keyword around a location, with name, category, rating, reviews, address, phone and booking options.",
+   "tags": [
+    "api",
+    "naver",
+    "maps",
+    "local"
+   ],
+   "modes": [
+    "sync"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "per_call",
+    "usd_per_call": 0.01
+   },
+   "record": "catalog/models/naver/maps.json"
   },
   {
    "name": "naver/search",
@@ -23585,6 +25052,28 @@
     "usd_per_call": 0.01
    },
    "record": "catalog/models/naver/search.json"
+  },
+  {
+   "name": "nextdoor/business",
+   "display_name": "Nextdoor Business",
+   "type": "api",
+   "vendor": "Nextdoor",
+   "description": "Fetch one Nextdoor business page by its slug, with phone, email, website, and street address.",
+   "tags": [
+    "api",
+    "nextdoor",
+    "local",
+    "reviews"
+   ],
+   "modes": [
+    "sync"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "usage_based",
+    "usd_reference": 0.00242
+   },
+   "record": "catalog/models/nextdoor/business.json"
   },
   {
    "name": "open-meteo/air-quality",
@@ -23871,6 +25360,49 @@
     "usd_per_call": 0.01
    },
    "record": "catalog/models/opentable/reviews.json"
+  },
+  {
+   "name": "perplexity/search",
+   "display_name": "Perplexity Search",
+   "type": "api",
+   "vendor": "Perplexity",
+   "description": "Ask Perplexity a web-grounded question and receive an answer with source citations.",
+   "tags": [
+    "api",
+    "perplexity",
+    "ai-search"
+   ],
+   "modes": [
+    "sync"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "usage_based",
+    "usd_reference": 0.002
+   },
+   "record": "catalog/models/perplexity/search.json"
+  },
+  {
+   "name": "pexels/search-photos",
+   "display_name": "Pexels Photo Search",
+   "type": "api",
+   "vendor": "Pexels",
+   "description": "Search Pexels for free stock photos by keyword. Returns image URLs in several sizes, dimensions, alt text, the photographer's name and profile, and the photo's Pexels page.",
+   "tags": [
+    "api",
+    "pexels",
+    "images",
+    "stock-photos"
+   ],
+   "modes": [
+    "sync"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "usage_based",
+    "usd_reference": 0.0066
+   },
+   "record": "catalog/models/pexels/search-photos.json"
   },
   {
    "name": "pinterest/board",
@@ -25605,6 +27137,70 @@
    "record": "catalog/models/polymarket/value.json"
   },
   {
+   "name": "querit/search",
+   "display_name": "Querit Web Search",
+   "type": "api",
+   "vendor": "Querit",
+   "description": "Search the web with Querit and get ranked results with title, URL, snippet and optional page content chunks for AI grounding.",
+   "tags": [
+    "api",
+    "querit",
+    "web-search",
+    "ai-search"
+   ],
+   "modes": [
+    "sync"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "usage_based",
+    "usd_reference": 0.0048
+   },
+   "record": "catalog/models/querit/search.json"
+  },
+  {
+   "name": "realtor/property",
+   "display_name": "Realtor.com Property",
+   "type": "api",
+   "vendor": "Realtor.com",
+   "description": "Get a Realtor.com property by listing URL with price, history, beds, baths, size, lot, year built, schools, agent and photos.",
+   "tags": [
+    "api",
+    "realtor",
+    "real-estate"
+   ],
+   "modes": [
+    "async"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "per_call",
+    "usd_per_call": 0.00015
+   },
+   "record": "catalog/models/realtor/property.json"
+  },
+  {
+   "name": "realtor/search",
+   "display_name": "Realtor.com Search",
+   "type": "api",
+   "vendor": "Realtor.com",
+   "description": "Get Realtor.com listings from a search results URL with address, price, beds, baths, size, status and listing link.",
+   "tags": [
+    "api",
+    "realtor",
+    "real-estate"
+   ],
+   "modes": [
+    "async"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "per_call",
+    "usd_per_call": 0.00015
+   },
+   "record": "catalog/models/realtor/search.json"
+  },
+  {
    "name": "reddit/app/check-subreddit-muted",
    "display_name": "Reddit Subreddit Mute Status",
    "type": "api",
@@ -26340,6 +27936,48 @@
    "record": "catalog/models/reddit/user-posts.json"
   },
   {
+   "name": "redfin/property",
+   "display_name": "Redfin Property",
+   "type": "api",
+   "vendor": "Redfin",
+   "description": "Fetch full details for a single Redfin home by its listing URL (price, beds, baths, square feet, address, listing agent, description and photos) as normalized JSON.",
+   "tags": [
+    "api",
+    "redfin",
+    "real-estate"
+   ],
+   "modes": [
+    "sync"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "usage_based",
+    "usd_reference": 0.0008
+   },
+   "record": "catalog/models/redfin/property.json"
+  },
+  {
+   "name": "redfin/search",
+   "display_name": "Redfin Search",
+   "type": "api",
+   "vendor": "Redfin",
+   "description": "Search Redfin home listings by region, map bounds or search URL with price, beds, baths, size, status and property type filters, returning address, price and listing details.",
+   "tags": [
+    "api",
+    "redfin",
+    "real-estate"
+   ],
+   "modes": [
+    "async"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "per_call",
+    "usd_per_call": 0.00015
+   },
+   "record": "catalog/models/redfin/search.json"
+  },
+  {
    "name": "sams-club/product",
    "display_name": "Sam's Club Product",
    "type": "api",
@@ -26443,6 +28081,28 @@
     "free_quota": true
    },
    "record": "catalog/models/scholar/search-web.json"
+  },
+  {
+   "name": "sec/filings",
+   "display_name": "SEC EDGAR Filings",
+   "type": "api",
+   "vendor": "SEC EDGAR",
+   "description": "List a public company's SEC EDGAR filings - form type, filing date, accession number, and document links - by ticker, company name, or CIK, with optional form-type and date filters.",
+   "tags": [
+    "api",
+    "sec",
+    "finance",
+    "filings"
+   ],
+   "modes": [
+    "sync"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "usage_based",
+    "usd_reference": 0.00132
+   },
+   "record": "catalog/models/sec/filings.json"
   },
   {
    "name": "secform4/13d-filings",
@@ -27766,6 +29426,269 @@
    "record": "catalog/models/snapchat/profile.json"
   },
   {
+   "name": "soundcloud/track",
+   "display_name": "SoundCloud Track",
+   "type": "api",
+   "vendor": "SoundCloud",
+   "description": "Get a SoundCloud track by artist and track slug with title, duration, plays, likes, reposts, comments, genre, artwork and upload date.",
+   "tags": [
+    "api",
+    "soundcloud",
+    "music"
+   ],
+   "modes": [
+    "async"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "per_call",
+    "usd_per_call": 0.00015
+   },
+   "record": "catalog/models/soundcloud/track.json"
+  },
+  {
+   "name": "spotify/album",
+   "display_name": "Spotify Album",
+   "type": "api",
+   "vendor": "Spotify",
+   "description": "Fetch a Spotify album's tracklist, play counts, label, and release details by album URL or ID.",
+   "tags": [
+    "api",
+    "spotify",
+    "music",
+    "podcasts"
+   ],
+   "modes": [
+    "sync"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "usage_based",
+    "usd_reference": 0.0012
+   },
+   "record": "catalog/models/spotify/album.json"
+  },
+  {
+   "name": "spotify/artist",
+   "display_name": "Spotify Artist",
+   "type": "api",
+   "vendor": "Spotify",
+   "description": "Fetch a Spotify artist's discography (albums, singles, top tracks) and metadata by artist URL or ID.",
+   "tags": [
+    "api",
+    "spotify",
+    "music",
+    "podcasts"
+   ],
+   "modes": [
+    "sync"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "usage_based",
+    "usd_reference": 0.0012
+   },
+   "record": "catalog/models/spotify/artist.json"
+  },
+  {
+   "name": "spotify/play-count",
+   "display_name": "Spotify Play Count",
+   "type": "api",
+   "vendor": "Spotify",
+   "description": "Fetch stream counts and stats for a Spotify track, album, or artist URL.",
+   "tags": [
+    "api",
+    "spotify",
+    "music",
+    "podcasts"
+   ],
+   "modes": [
+    "sync"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "usage_based",
+    "usd_reference": 0.0022
+   },
+   "record": "catalog/models/spotify/play-count.json"
+  },
+  {
+   "name": "spotify/podcast",
+   "display_name": "Spotify Podcast",
+   "type": "api",
+   "vendor": "Spotify",
+   "description": "Fetch a Spotify podcast show's name, publisher, description, rating, and topics by show URL or ID.",
+   "tags": [
+    "api",
+    "spotify",
+    "music",
+    "podcasts"
+   ],
+   "modes": [
+    "sync"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "usage_based",
+    "usd_reference": 0.0012
+   },
+   "record": "catalog/models/spotify/podcast.json"
+  },
+  {
+   "name": "spotify/podcast-episodes",
+   "display_name": "Spotify Podcast Episodes",
+   "type": "api",
+   "vendor": "Spotify",
+   "description": "List a Spotify podcast show's episodes with titles, durations, descriptions, and release dates by show URL or ID.",
+   "tags": [
+    "api",
+    "spotify",
+    "music",
+    "podcasts"
+   ],
+   "modes": [
+    "sync"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "usage_based",
+    "usd_reference": 0.0012
+   },
+   "record": "catalog/models/spotify/podcast-episodes.json"
+  },
+  {
+   "name": "spotify/search",
+   "display_name": "Spotify Search",
+   "type": "api",
+   "vendor": "Spotify",
+   "description": "Search Spotify for matching tracks, albums, artists, podcasts, and playlists by keyword.",
+   "tags": [
+    "api",
+    "spotify",
+    "music",
+    "podcasts"
+   ],
+   "modes": [
+    "sync"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "usage_based",
+    "usd_reference": 0.0012
+   },
+   "record": "catalog/models/spotify/search.json"
+  },
+  {
+   "name": "spotify/track",
+   "display_name": "Spotify Track",
+   "type": "api",
+   "vendor": "Spotify",
+   "description": "Fetch a Spotify track's play count, popularity, duration, and album details by track URL or ID.",
+   "tags": [
+    "api",
+    "spotify",
+    "music",
+    "podcasts"
+   ],
+   "modes": [
+    "sync"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "usage_based",
+    "usd_reference": 0.0012
+   },
+   "record": "catalog/models/spotify/track.json"
+  },
+  {
+   "name": "sprouts/product",
+   "display_name": "Sprouts Product",
+   "type": "api",
+   "vendor": "Sprouts Farmers Market",
+   "description": "Get a Sprouts Farmers Market product by URL with name, price, size, description and store availability.",
+   "tags": [
+    "api",
+    "sprouts",
+    "ecommerce",
+    "grocery"
+   ],
+   "modes": [
+    "async"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "per_call",
+    "usd_per_call": 0.00015
+   },
+   "record": "catalog/models/sprouts/product.json"
+  },
+  {
+   "name": "sprouts/search",
+   "display_name": "Sprouts Search",
+   "type": "api",
+   "vendor": "Sprouts Farmers Market",
+   "description": "Search Sprouts Farmers Market grocery products by keyword with name, price, size and product URL, optionally for a store.",
+   "tags": [
+    "api",
+    "sprouts",
+    "ecommerce",
+    "grocery"
+   ],
+   "modes": [
+    "async"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "per_call",
+    "usd_per_call": 0.00015
+   },
+   "record": "catalog/models/sprouts/search.json"
+  },
+  {
+   "name": "steam/app",
+   "display_name": "Steam App",
+   "type": "api",
+   "vendor": "Steam",
+   "description": "Get a Steam game or app by app ID with title, price, discount, release date, developer, publisher, genres, review summary and platform support, by country and language.",
+   "tags": [
+    "api",
+    "steam",
+    "games",
+    "product-data"
+   ],
+   "modes": [
+    "async"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "per_call",
+    "usd_per_call": 0.00015
+   },
+   "record": "catalog/models/steam/app.json"
+  },
+  {
+   "name": "steam/search",
+   "display_name": "Steam Search",
+   "type": "api",
+   "vendor": "Steam",
+   "description": "Search the Steam store by keyword and get games and apps with app ID, title, price, discount, release date and review summary.",
+   "tags": [
+    "api",
+    "steam",
+    "games",
+    "product-data"
+   ],
+   "modes": [
+    "async"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "per_call",
+    "usd_per_call": 0.00015
+   },
+   "record": "catalog/models/steam/search.json"
+  },
+  {
    "name": "stockanalysis/market-movers-premarket",
    "display_name": "StockAnalysis Market Movers Premarket",
    "type": "api",
@@ -28425,6 +30348,272 @@
     "usd_per_call": 0.071429
    },
    "record": "catalog/models/tencent-huxuan/mp-publisher-search.json"
+  },
+  {
+   "name": "tendata/company/search",
+   "display_name": "Trade Company Search",
+   "type": "api",
+   "vendor": "Tendata",
+   "description": "Fuzzy-match a company name to trade company IDs, optionally filtered by ISO3 country code, for use in other customs trade queries.",
+   "tags": [
+    "api",
+    "tendata",
+    "trade-data",
+    "business-data"
+   ],
+   "modes": [
+    "async"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "formula",
+    "usd_from": 0,
+    "usd_to": 0
+   },
+   "record": "catalog/models/tendata/company/search.json"
+  },
+  {
+   "name": "tendata/trade/destination-countries",
+   "display_name": "Customs Trade by Destination Country",
+   "type": "api",
+   "vendor": "Tendata",
+   "description": "Break down the customs records that match a trade query by destination country, with weight, USD value and shipment count for each country.",
+   "tags": [
+    "api",
+    "tendata",
+    "trade-data",
+    "business-data"
+   ],
+   "modes": [
+    "async"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "usage_based",
+    "usd_reference": 0.016
+   },
+   "record": "catalog/models/tendata/trade/destination-countries.json"
+  },
+  {
+   "name": "tendata/trade/exporter-names",
+   "display_name": "Customs Trade Exporter Names",
+   "type": "api",
+   "vendor": "Tendata",
+   "description": "List the names of exporters that match a customs trade query, without aggregates, as a low-cost way to build a supplier list.",
+   "tags": [
+    "api",
+    "tendata",
+    "trade-data",
+    "business-data"
+   ],
+   "modes": [
+    "async"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "usage_based",
+    "usd_reference": 0.0016
+   },
+   "record": "catalog/models/tendata/trade/exporter-names.json"
+  },
+  {
+   "name": "tendata/trade/exporters",
+   "display_name": "Customs Trade Exporters",
+   "type": "api",
+   "vendor": "Tendata",
+   "description": "Rank exporters that match a customs trade query (HS code, product, countries, ports, date window), with aggregated weight, USD value and shipment count per exporter.",
+   "tags": [
+    "api",
+    "tendata",
+    "trade-data",
+    "business-data"
+   ],
+   "modes": [
+    "async"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "usage_based",
+    "usd_reference": 0.019
+   },
+   "record": "catalog/models/tendata/trade/exporters.json"
+  },
+  {
+   "name": "tendata/trade/exporters-summary",
+   "display_name": "Customs Trade Exporters Summary",
+   "type": "api",
+   "vendor": "Tendata",
+   "description": "Get one aggregate summary of the exporters that match a customs trade query: exporter count, total weight, USD value and shipments.",
+   "tags": [
+    "api",
+    "tendata",
+    "trade-data",
+    "business-data"
+   ],
+   "modes": [
+    "async"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "usage_based",
+    "usd_reference": 0.064
+   },
+   "record": "catalog/models/tendata/trade/exporters-summary.json"
+  },
+  {
+   "name": "tendata/trade/hs-codes",
+   "display_name": "Customs Trade by HS Code",
+   "type": "api",
+   "vendor": "Tendata",
+   "description": "Break down the customs records that match a trade query by HS code, with weight, USD value and shipment count for each code.",
+   "tags": [
+    "api",
+    "tendata",
+    "trade-data",
+    "business-data"
+   ],
+   "modes": [
+    "async"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "usage_based",
+    "usd_reference": 0.016
+   },
+   "record": "catalog/models/tendata/trade/hs-codes.json"
+  },
+  {
+   "name": "tendata/trade/importer-names",
+   "display_name": "Customs Trade Importer Names",
+   "type": "api",
+   "vendor": "Tendata",
+   "description": "List the names of importers that match a customs trade query, without aggregates, as a low-cost way to build a prospect list.",
+   "tags": [
+    "api",
+    "tendata",
+    "trade-data",
+    "business-data"
+   ],
+   "modes": [
+    "async"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "usage_based",
+    "usd_reference": 0.0016
+   },
+   "record": "catalog/models/tendata/trade/importer-names.json"
+  },
+  {
+   "name": "tendata/trade/importers",
+   "display_name": "Customs Trade Importers",
+   "type": "api",
+   "vendor": "Tendata",
+   "description": "Rank importers that match a customs trade query (HS code, product, countries, ports, date window), with aggregated weight, USD value and shipment count per importer.",
+   "tags": [
+    "api",
+    "tendata",
+    "trade-data",
+    "business-data"
+   ],
+   "modes": [
+    "async"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "usage_based",
+    "usd_reference": 0.019
+   },
+   "record": "catalog/models/tendata/trade/importers.json"
+  },
+  {
+   "name": "tendata/trade/importers-summary",
+   "display_name": "Customs Trade Importers Summary",
+   "type": "api",
+   "vendor": "Tendata",
+   "description": "Get one aggregate summary of the importers that match a customs trade query: importer count, total weight, USD value and shipments.",
+   "tags": [
+    "api",
+    "tendata",
+    "trade-data",
+    "business-data"
+   ],
+   "modes": [
+    "async"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "usage_based",
+    "usd_reference": 0.064
+   },
+   "record": "catalog/models/tendata/trade/importers-summary.json"
+  },
+  {
+   "name": "tendata/trade/origin-countries",
+   "display_name": "Customs Trade by Origin Country",
+   "type": "api",
+   "vendor": "Tendata",
+   "description": "Break down the customs records that match a trade query by country of origin, with weight, USD value and shipment count for each country.",
+   "tags": [
+    "api",
+    "tendata",
+    "trade-data",
+    "business-data"
+   ],
+   "modes": [
+    "async"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "usage_based",
+    "usd_reference": 0.016
+   },
+   "record": "catalog/models/tendata/trade/origin-countries.json"
+  },
+  {
+   "name": "tendata/trade/record-count",
+   "display_name": "Customs Trade Record Count",
+   "type": "api",
+   "vendor": "Tendata",
+   "description": "Count the customs records that match a trade query before paying for rows, to check that filters are narrow enough.",
+   "tags": [
+    "api",
+    "tendata",
+    "trade-data",
+    "business-data"
+   ],
+   "modes": [
+    "async"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "formula",
+    "usd_from": 0,
+    "usd_to": 0
+   },
+   "record": "catalog/models/tendata/trade/record-count.json"
+  },
+  {
+   "name": "tendata/trade/volume-trend",
+   "display_name": "Customs Trade Volume Trend",
+   "type": "api",
+   "vendor": "Tendata",
+   "description": "Get the weight, USD value and shipment count of the customs records that match a trade query for each month or year in the date window.",
+   "tags": [
+    "api",
+    "tendata",
+    "trade-data",
+    "business-data"
+   ],
+   "modes": [
+    "async"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "usage_based",
+    "usd_reference": 0.019
+   },
+   "record": "catalog/models/tendata/trade/volume-trend.json"
   },
   {
    "name": "threads/web/post-detail",
@@ -32620,6 +34809,71 @@
    "record": "catalog/models/toutiao/web/video-info.json"
   },
   {
+   "name": "trader-joes/product",
+   "display_name": "Trader Joe's Product",
+   "type": "api",
+   "vendor": "Trader Joe's",
+   "description": "Get a Trader Joe's product by product ID with name, price, size, description, ingredients, nutrition and dietary tags.",
+   "tags": [
+    "api",
+    "trader-joes",
+    "ecommerce",
+    "grocery"
+   ],
+   "modes": [
+    "sync"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "per_call",
+    "usd_per_call": 0.01
+   },
+   "record": "catalog/models/trader-joes/product.json"
+  },
+  {
+   "name": "trader-joes/search",
+   "display_name": "Trader Joe's Search",
+   "type": "api",
+   "vendor": "Trader Joe's",
+   "description": "Search Trader Joe's products by keyword with name, price, size, category and dietary tags, filtered by store and category.",
+   "tags": [
+    "api",
+    "trader-joes",
+    "ecommerce",
+    "grocery"
+   ],
+   "modes": [
+    "sync"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "per_call",
+    "usd_per_call": 0.01
+   },
+   "record": "catalog/models/trader-joes/search.json"
+  },
+  {
+   "name": "tripadvisor/place",
+   "display_name": "Tripadvisor Place",
+   "type": "api",
+   "vendor": "Tripadvisor",
+   "description": "Get one Tripadvisor place with rating, ranking, contacts, amenities, and prices.",
+   "tags": [
+    "api",
+    "tripadvisor",
+    "web-scraping"
+   ],
+   "modes": [
+    "async"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "per_call",
+    "usd_per_call": 0.00015
+   },
+   "record": "catalog/models/tripadvisor/place.json"
+  },
+  {
    "name": "tripadvisor/reviews",
    "display_name": "Tripadvisor Reviews",
    "type": "api",
@@ -33845,6 +36099,94 @@
     "free_quota": true
    },
    "record": "catalog/models/twitter/web/user-tweet-replies.json"
+  },
+  {
+   "name": "unsplash/search-photos",
+   "display_name": "Unsplash Photo Search",
+   "type": "api",
+   "vendor": "Unsplash",
+   "description": "Search Unsplash for free stock photos by keyword. Returns image URLs in several sizes, dimensions, alt text, the photographer's name and profile, and the photo's Unsplash page.",
+   "tags": [
+    "api",
+    "unsplash",
+    "images",
+    "stock-photos"
+   ],
+   "modes": [
+    "sync"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "usage_based",
+    "usd_reference": 0.0033
+   },
+   "record": "catalog/models/unsplash/search-photos.json"
+  },
+  {
+   "name": "upwork/jobs",
+   "display_name": "Upwork Jobs",
+   "type": "api",
+   "vendor": "Upwork",
+   "description": "Search Upwork job postings by keyword, with up to 25 fresh listings per request.",
+   "tags": [
+    "api",
+    "upwork",
+    "jobs",
+    "freelance"
+   ],
+   "modes": [
+    "sync"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "usage_based",
+    "usd_reference": 0.007
+   },
+   "record": "catalog/models/upwork/jobs.json"
+  },
+  {
+   "name": "vrbo/listing",
+   "display_name": "Vrbo Listing",
+   "type": "api",
+   "vendor": "Vrbo",
+   "description": "Get one Vrbo vacation rental by its property ID: name, link, address, coordinates, bedrooms, bathrooms, beds and guest capacity, guest rating with category scores and review count, amenities by group, full description, house rules, important information, availability and price…",
+   "tags": [
+    "api",
+    "vrbo",
+    "travel",
+    "lodging"
+   ],
+   "modes": [
+    "sync"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "usage_based",
+    "usd_reference": 0.00085
+   },
+   "record": "catalog/models/vrbo/listing.json"
+  },
+  {
+   "name": "vrbo/search",
+   "display_name": "Vrbo Search",
+   "type": "api",
+   "vendor": "Vrbo",
+   "description": "Search Vrbo vacation rentals by destination and dates, with guest, bedroom, bed, bathroom and price filters, and get up to 50 listings per call: Vrbo property ID and link, name, summary line, property type, bedrooms, beds, guest rating and review count, nightly and total stay…",
+   "tags": [
+    "api",
+    "vrbo",
+    "travel",
+    "lodging"
+   ],
+   "modes": [
+    "sync"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "usage_based",
+    "usd_reference": 0.00085
+   },
+   "record": "catalog/models/vrbo/search.json"
   },
   {
    "name": "walmart/product",
@@ -36673,6 +39015,50 @@
    "record": "catalog/models/wellfound/trending-startups.json"
   },
   {
+   "name": "whole-foods/product",
+   "display_name": "Whole Foods Product",
+   "type": "api",
+   "vendor": "Whole Foods Market",
+   "description": "Get a Whole Foods Market product by URL with name, brand, price, size, ingredients, nutrition and dietary labels.",
+   "tags": [
+    "api",
+    "whole-foods",
+    "ecommerce",
+    "grocery"
+   ],
+   "modes": [
+    "async"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "per_call",
+    "usd_per_call": 0.00015
+   },
+   "record": "catalog/models/whole-foods/product.json"
+  },
+  {
+   "name": "whole-foods/search",
+   "display_name": "Whole Foods Search",
+   "type": "api",
+   "vendor": "Whole Foods Market",
+   "description": "Search Whole Foods Market grocery products by keyword with name, brand, price, size and product URL, optionally for a store.",
+   "tags": [
+    "api",
+    "whole-foods",
+    "ecommerce",
+    "grocery"
+   ],
+   "modes": [
+    "async"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "per_call",
+    "usd_per_call": 0.00015
+   },
+   "record": "catalog/models/whole-foods/search.json"
+  },
+  {
    "name": "xianyu/item/detail",
    "display_name": "Xianyu Item Details",
    "type": "api",
@@ -38419,6 +40805,28 @@
    "record": "catalog/models/yahoo/search.json"
   },
   {
+   "name": "yahoo/trends",
+   "display_name": "Yahoo Trends",
+   "type": "api",
+   "vendor": "Yahoo",
+   "description": "List trending searches on Yahoo right now, with topic, related links and videos.",
+   "tags": [
+    "api",
+    "yahoo",
+    "trends",
+    "keywords"
+   ],
+   "modes": [
+    "sync"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "per_call",
+    "usd_per_call": 0.01
+   },
+   "record": "catalog/models/yahoo/trends.json"
+  },
+  {
    "name": "yahoo/videos",
    "display_name": "Yahoo Videos Search",
    "type": "api",
@@ -38634,6 +41042,28 @@
     "free_quota": true
    },
    "record": "catalog/models/ycombinator/search-jobs.json"
+  },
+  {
+   "name": "yelp/place",
+   "display_name": "Yelp Place",
+   "type": "api",
+   "vendor": "Yelp",
+   "description": "Get a Yelp business by place ID or alias with rating, review count, categories, hours, address, phone, website, amenities and menu.",
+   "tags": [
+    "api",
+    "yelp",
+    "local",
+    "reviews"
+   ],
+   "modes": [
+    "sync"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "per_call",
+    "usd_per_call": 0.01
+   },
+   "record": "catalog/models/yelp/place.json"
   },
   {
    "name": "yelp/reviews",
@@ -41049,6 +43479,27 @@
     "free_quota": true
    },
    "record": "catalog/models/zillow/property-details.json"
+  },
+  {
+   "name": "zillow/search",
+   "display_name": "Zillow Search",
+   "type": "api",
+   "vendor": "Zillow",
+   "description": "Search Zillow listings by region or map bounds with status, price, beds, baths, home type and size filters, returning address, price, Zestimate and listing links.",
+   "tags": [
+    "api",
+    "zillow",
+    "real-estate"
+   ],
+   "modes": [
+    "sync"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "per_call",
+    "usd_per_call": 0.01
+   },
+   "record": "catalog/models/zillow/search.json"
   },
   {
    "name": "zillow/zestimate",

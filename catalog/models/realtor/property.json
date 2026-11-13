@@ -1,0 +1,75 @@
+{
+  "name": "realtor/property",
+  "display_name": "Realtor.com Property",
+  "type": "api",
+  "vendor": "Realtor.com",
+  "vendor_slug": "realtor",
+  "description": "Get a Realtor.com property by listing URL with price, history, beds, baths, size, lot, year built, schools, agent and photos.",
+  "tags": [
+    "api",
+    "realtor",
+    "real-estate"
+  ],
+  "capabilities": [
+    "api",
+    "realtor",
+    "real-estate"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}",
+    "passthrough": "POST /v1/api/realtor/property"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "url"
+    ],
+    "properties": {
+      "url": {
+        "type": "string",
+        "example": "https://www.realtor.com/realestateandhomes-detail/13409-Madrone-Mountain-Way_Austin_TX_78737_M93328-41646",
+        "maxLength": 2048,
+        "description": "Realtor.com property URL under /realestateandhomes-detail/, without query parameters. Alpha: availability may vary by location or property. Returns available fields for the requested property."
+      },
+      "timeout": {
+        "type": "number",
+        "default": 50,
+        "maximum": 50,
+        "description": "Seconds the data source may spend before giving up (max 50, default 50). A timed-out call is not billed.",
+        "exclusiveMinimum": 0
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "required": [
+      "id",
+      "status",
+      "model"
+    ],
+    "properties": {
+      "id": {
+        "type": "string"
+      },
+      "model": {
+        "type": "string"
+      },
+      "status": {
+        "type": "string"
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.00015
+  },
+  "readme": "# Realtor.com Property\n\nGet a Realtor.com property by listing URL with price, history, beds, baths, size, lot, year built, schools, agent and photos.",
+  "page_url": "https://www.sandbase.ai/model/realtor/property",
+  "created_at": "2026-11-13T04:16:01.026Z"
+}

@@ -1,8 +1,8 @@
 # SandBase capability index
 
-2437 capabilities · generated 2026-11-13T01:05:31Z
+2549 capabilities · generated 2026-11-13T12:12:32Z
 
-- [api](#api) (1935)
+- [api](#api) (2047)
 - [audio](#audio) (32)
 - [embedding](#embedding) (2)
 - [image](#image) (164)
@@ -55,6 +55,7 @@
 | [`amazon/best-sellers`](models/amazon/best-sellers.md) | 0.014286 / call (free quota) | sync | Get the Amazon Best Sellers list for a category path in a chosen marketplace country, with rank, title, price, rating… |
 | [`amazon/category-products`](models/amazon/category-products.md) | 0.014286 / call (free quota) | sync | Get paginated Amazon products for a numeric category node in a selected country marketplace, with configurable result… |
 | [`amazon/deals`](models/amazon/deals.md) | ~0.00085 | sync | List today's Amazon deals for one marketplace and get ASIN, title, deal price, list price, discount, deal type, badge… |
+| [`amazon/fresh`](models/amazon/fresh.md) | 0.01 / call | sync | Search Amazon Fresh grocery products for a delivery ZIP code, with title, price, unit price, rating and availability. |
 | [`amazon/offers`](models/amazon/offers.md) | ~0.00085 | sync | List every offer for one Amazon product by ASIN or product URL, the Buy Box first and then the other sellers, and get… |
 | [`amazon/product`](models/amazon/product.md) | 0.015 / call (free quota) | async | Get an Amazon product by ASIN: title, brand, price, rating, reviews, images, variants, availability, purchase options,… |
 | [`amazon/product-detail`](models/amazon/product-detail.md) | 0.014286 / call (free quota) | sync | Get details for an Amazon product identified by ASIN in a selected country marketplace. Use it to look up a known… |
@@ -63,6 +64,8 @@
 | [`amazon/search-products`](models/amazon/search-products.md) | 0.014286 / call (free quota) | sync | Search Amazon marketplace products by keyword or ASIN with country, sort, condition, Prime-only, deals, and page… |
 | [`amazon/seller`](models/amazon/seller.md) | ~0.00085 | sync | Look up one Amazon seller by seller ID and get its name, star rating, positive feedback percentage, feedback counts… |
 | [`amazon/seller-products`](models/amazon/seller-products.md) | ~0.00085 | sync | List one Amazon seller's storefront by seller ID, a page at a time, and get ASIN, title, price, list price, rating,… |
+| [`apartments-com/property`](models/apartments-com/property.md) | 0.00015 / call | async | Get an Apartments.com rental property by URL with floor plans, rent, availability, amenities, fees, pet policy and… |
+| [`apartments-com/search`](models/apartments-com/search.md) | 0.00015 / call | async | Get rental listings from an Apartments.com search URL with property name, address, rent range, beds and listing link. |
 | [`apollo/company-bulk-enrich`](models/apollo/company-bulk-enrich.md) | 0.01975 | sync | Enrich up to 10 companies in one call. Body takes `domains`, an array of bare domains. |
 | [`apollo/company-enrich`](models/apollo/company-enrich.md) | 0.01975 / call | sync | Enrich one company by domain. `domain` is the only parameter and it must be the bare domain (apple.com), not a full URL. |
 | [`apollo/company-job-postings`](models/apollo/company-job-postings.md) | 0.01975 / call | sync | Live job postings for one company, by Apollo organization id. Each posting carries its title, location, posted date… |
@@ -74,13 +77,18 @@
 | [`app-store/product`](models/app-store/product.md) | 0.00015 / call (free quota) | async | Read an iOS or Mac app's details, version history, ratings, privacy, and related apps. |
 | [`app-store/reviews`](models/app-store/reviews.md) | 0.00015 / call (free quota) | async | Read Apple App Store reviews for an app in one storefront country, page by page. |
 | [`app-store/search`](models/app-store/search.md) | 0.00015 / call (free quota) | async | Search iPhone, iPad, and Mac apps or developers on the Apple App Store by storefront. |
+| [`apple-maps/place`](models/apple-maps/place.md) | 0.01 / call | sync | Get an Apple Maps place by MUID with name, category, rating, address, phone, website, hours and coordinates. |
+| [`apple-maps/search`](models/apple-maps/search.md) | 0.01 / call | sync | Search places on Apple Maps by keyword and location, with name, category, rating, address, phone, hours and coordinates. |
 | [`artificial-analysis/cost-per-task`](models/artificial-analysis/cost-per-task.md) | 0.05 / call | async | Get per-model cost-per-task data from the Artificial Analysis homepage. Returns Intelligence Index score, cost per… |
 | [`artificial-analysis/llm-providers-leaderboard`](models/artificial-analysis/llm-providers-leaderboard.md) | 0.01 / call (free quota) | async | Get the main LLM API Providers Leaderboard data, including all model endpoints and their performance metrics (speed,… |
 | [`artificial-analysis/models-list`](models/artificial-analysis/models-list.md) | 0.02 / call | async | Get a list of all LLM models (one row per model variant, e.g. each effort level) with slug, display name, the release… |
 | [`artificial-analysis/search-models`](models/artificial-analysis/search-models.md) | 0.01 / call (free quota) | async | Search for models by name or slug. Performs client-side filtering against the full models list, matching the query… |
 | [`asos/product`](models/asos/product.md) | ~0.0009 | sync | Fetch an ASOS product by URL from any of its 11 country stores and get title, price, brand, colour, description,… |
 | [`asos/search`](models/asos/search.md) | ~0.00085 | sync | Search ASOS by keyword in any of its 11 country stores with optional sort, price-range, and page filters and get… |
+| [`autozone/product`](models/autozone/product.md) | 0.01 / call | sync | Get an AutoZone part by product ID with brand, part number, price, specifications, warranty, vehicle fitment and store… |
 | [`autozone/scrape/category`](models/autozone/scrape/category.md) | 0.012 / call (free quota) | async | Extract product listings from an AutoZone category page URL with pagination and preferred-store pricing. |
+| [`autozone/search`](models/autozone/search.md) | 0.01 / call | sync | Search AutoZone auto parts by keyword, optionally for a specific vehicle and store, with part number, brand, price,… |
+| [`baidu/maps`](models/baidu/maps.md) | 0.01 / call | sync | Search places on Baidu Maps by keyword in a city or around coordinates, with name, address, category, rating, phone… |
 | [`baidu/news`](models/baidu/news.md) | 0.015 / call | sync | Baidu News results for a keyword: headline, source, date, snippet and link. |
 | [`baidu/search`](models/baidu/search.md) | 0.01 / call | sync | Get Baidu web results for a query with organic results, answer boxes, related searches and pagination. |
 | [`best-buy/product`](models/best-buy/product.md) | ~0.00085 | sync | Fetch a BestBuy.com product by URL and get title, price, brand, model, UPC, rating, description, and images in one… |
@@ -133,16 +141,19 @@
 | [`bilibili/web/video-playurl`](models/bilibili/web/video-playurl.md) | 0.001 / call (free quota) | sync | Returns video playback stream URLs and DASH metadata for a specified Bilibili video. Requires both the video… |
 | [`bilibili/web/video-subtitle`](models/bilibili/web/video-subtitle.md) | 0.001 / call (free quota) | sync | Returns subtitle data for a specified Bilibili video based on its video ID and CID. Helps retrieve available caption… |
 | [`bing-maps/maps`](models/bing-maps/maps.md) | 0.00015 / call (free quota) | async | Search Bing Maps listings around a map center, or look up one entity by id. |
+| [`bing-shopping/product`](models/bing-shopping/product.md) | 0.01 / call | sync | Get a Bing Shopping product by product token with title, specifications, rating, reviews and offers from each merchant. |
 | [`bing-shopping/search`](models/bing-shopping/search.md) | 0.015 / call (free quota) | async | Search Bing Shopping by keyword: product title, price, old price, seller, rating, reviews and shipping, with market… |
 | [`bing/copilot`](models/bing/copilot.md) | 0.015 / call | sync | Bing Copilot's conversational answer to a prompt, with the text blocks and cited references. |
 | [`bing/images`](models/bing/images.md) | 0.015 / call | sync | Bing Images results for a keyword: image URLs, thumbnails, titles, sizes and source pages. |
 | [`bing/news`](models/bing/news.md) | 0.01 / call | sync | Search Bing News by keyword and get headlines with source, date, snippet and thumbnail, filtered by freshness and… |
+| [`bing/reverse-image`](models/bing/reverse-image.md) | 0.01 / call | sync | Search Bing Visual Search with an image URL and get visually similar images, pages that contain the image and related… |
 | [`bing/search`](models/bing/search.md) | 0.01 / call | sync | Get Bing web results for a query with organic results, answer boxes, related searches and pagination, localized by… |
 | [`bing/videos`](models/bing/videos.md) | 0.015 / call | sync | Bing Videos results for a keyword: titles, thumbnails, durations, views and source sites. |
 | [`bluesky/post`](models/bluesky/post.md) | ~0.0011 | sync | Get a single Bluesky post by URL - text, author handle, like, reply, and repost counts as clean JSON. |
 | [`bluesky/profile`](models/bluesky/profile.md) | ~0.0011 | sync | Get a Bluesky user's public profile by handle - display name, bio, follower and post counts as clean JSON. |
 | [`bluesky/user-posts`](models/bluesky/user-posts.md) | ~0.0011 | sync | List a Bluesky account's recent posts (text, author handle, like, reply, and repost counts) by handle as clean JSON. |
 | [`booking/search`](models/booking/search.md) | 0.01 / call | sync | Search Booking.com properties by destination and dates, with property name, price, rating, review score, address and… |
+| [`brave/ai-mode`](models/brave/ai-mode.md) | 0.01 / call | sync | Get the AI-generated answer Brave Search shows for a query, with answer text, cited sources and location and language… |
 | [`brave/images`](models/brave/images.md) | 0.005 / call (free quota) | sync | Image Search from Brave. Returns the official Brave API response unchanged. |
 | [`brave/llm-context`](models/brave/llm-context.md) | 0.005 / call (free quota) | sync | LLM Context from Brave. Returns the official Brave API response unchanged. |
 | [`brave/local-descriptions`](models/brave/local-descriptions.md) | 0.005 / call (free quota) | sync | POI Descriptions from Brave. Returns the official Brave API response unchanged. |
@@ -157,6 +168,7 @@
 | [`capterra/product-details`](models/capterra/product-details.md) | 0.01 / call (free quota) | async | Retrieve detailed information about a specific software product, including description, overall rating, review count,… |
 | [`capterra/product-reviews`](models/capterra/product-reviews.md) | 0.01 / call (free quota) | async | Retrieve user reviews for a software product. Returns paginated reviews with title, date, overall rating, pros, and… |
 | [`capterra/search-software`](models/capterra/search-software.md) | 0.01 / call (free quota) | async | Search for software products by keyword. Returns matching products with name, numeric ID, URL slug, and full URL. |
+| [`chatgpt/search`](models/chatgpt/search.md) | ~0.0018 | sync | Ask ChatGPT a web-grounded question and receive an answer with source citations. ChatGPT composes each answer per… |
 | [`cloudsway/search`](models/cloudsway/search.md) | 0.005 / call (free quota) | sync | Web search API for AI agents with topic focus (news, academic, company, finance and more), country, date range and… |
 | [`clutch/company-locations`](models/clutch/company-locations.md) | 0.01 / call (free quota) | async | Get office locations for a company including addresses, phone numbers, and employee counts per location. |
 | [`clutch/company-portfolio`](models/clutch/company-portfolio.md) | 0.01 / call (free quota) | async | Get portfolio items (case studies/projects) for a company. Returns project titles and associated service lines. |
@@ -187,6 +199,7 @@
 | [`coingecko/simple-price`](models/coingecko/simple-price.md) | 0.008 / call (free quota) | sync | Get the prices of one or more coins by using their unique Coin API IDs, symbols, or names |
 | [`coingecko/simple-supported-vs-currencies`](models/coingecko/simple-supported-vs-currencies.md) | 0.008 / call (free quota) | sync | Supported Currencies List from CoinGecko. Returns the official CoinGecko API response unchanged. |
 | [`coingecko/simple-token-price`](models/coingecko/simple-token-price.md) | 0.008 / call (free quota) | sync | Get one or more token prices using their token contract addresses |
+| [`congress/trades`](models/congress/trades.md) | ~0.00905 | sync | Get US Congress members' financial disclosures and stock trades (member, ticker, transaction type, amount range, and… |
 | [`crunchbase/investor-profile`](models/crunchbase/investor-profile.md) | 0.01 / call (free quota) | async | Fetch a comprehensive investor profile by permalink/slug. Makes two API calls: one to retrieve investor-specific data… |
 | [`crunchbase/organization-profile`](models/crunchbase/organization-profile.md) | 0.02 / call | async | Fetch a single organization's full profile by its slug (permalink). Returns the organization's properties including… |
 | [`crunchbase/search-investors`](models/crunchbase/search-investors.md) | 0.02 / call | async | Full-text search over Crunchbase investors. Returns results with investor details including number of investments,… |
@@ -665,12 +678,16 @@
 | [`douyin/xingtu/xingtu-kolid-by-sec-user-id`](models/douyin/xingtu/xingtu-kolid-by-sec-user-id.md) | 0.001 / call (free quota) | sync | Convert a Douyin user's sec_user_id into the XingTu kolId used by the XingTu KOL profile, price, fan portrait and… |
 | [`douyin/xingtu/xingtu-kolid-by-uid`](models/douyin/xingtu/xingtu-kolid-by-uid.md) | 0.001 / call (free quota) | sync | Returns the XingTu creator identifier, nickname, tag, and performance metrics for a specific Douyin account using… |
 | [`douyin/xingtu/xingtu-kolid-by-unique-id`](models/douyin/xingtu/xingtu-kolid-by-unique-id.md) | 0.001 / call (free quota) | sync | Returns a Douyin XingTu KOL identifier and profile summary for a given account unique identifier. Useful for mapping… |
+| [`duckduckgo/ai-chat`](models/duckduckgo/ai-chat.md) | 0.01 / call | sync | Get the answer DuckDuckGo's Duck.ai chat gives for a question with a chosen chat model, with answer text and a token… |
+| [`duckduckgo/images`](models/duckduckgo/images.md) | 0.01 / call | sync | Search DuckDuckGo Images by keyword with size, color, type and layout filters, returning image URLs, thumbnails,… |
 | [`duckduckgo/maps`](models/duckduckgo/maps.md) | 0.00015 / call (free quota) | async | Search DuckDuckGo Maps for places inside a viewport rectangle or around a center. |
 | [`duckduckgo/news`](models/duckduckgo/news.md) | 0.015 / call | sync | DuckDuckGo News results for a keyword: headline, source, date, snippet and link. |
 | [`duckduckgo/search`](models/duckduckgo/search.md) | 0.015 / call | sync | DuckDuckGo organic search results for a keyword, with region and safe-search options. |
+| [`duckduckgo/shopping`](models/duckduckgo/shopping.md) | 0.01 / call | sync | Search DuckDuckGo Shopping by keyword and get product listings with title, price, merchant, rating and link, by region. |
 | [`ebay/product`](models/ebay/product.md) | 0.015 / call (free quota) | async | Get an eBay product by product ID: title, price, condition, quantity sold, item specifics, media, shipping, returns… |
 | [`ebay/search`](models/ebay/search.md) | 0.015 / call (free quota) | async | Search eBay listings by keyword with price, condition, shipping, bids, time left and seller, plus condition, format,… |
 | [`ebay/sold-listings`](models/ebay/sold-listings.md) | ~0.003 | sync | Retrieve recently sold eBay listings for any keyword with optional price-range, condition, category, sold-date, and… |
+| [`edinet/documents`](models/edinet/documents.md) | ~1e-05 | sync | List the corporate disclosure documents filed with Japan's EDINET on a given date, with document ID, filer, document… |
 | [`etsy/product`](models/etsy/product.md) | ~0.00187 | sync | Look up one Etsy listing by id and get its price, images, description, rating, reviews count, shop, category,… |
 | [`etsy/search`](models/etsy/search.md) | ~0.0009 | sync | Search Etsy listings by keyword, the same results an Etsy search or /market page shows, with optional sort, price… |
 | [`etsy/shop`](models/etsy/shop.md) | ~0.0009 | sync | Look up one Etsy shop by name and get its id, location, sales, active listings, rating, reviews count, followers,… |
@@ -731,11 +748,21 @@
 | [`financial-datasets/news`](models/financial-datasets/news.md) | 0.02 / call | sync | Get recent news articles for a specific company or the broad market. Pass a ticker for company-specific news, or omit… |
 | [`financial-datasets/prices`](models/financial-datasets/prices.md) | 0.02 / call | sync | Get Historical Stock Prices from Financial Datasets. Returns the official Financial Datasets API response unchanged. |
 | [`financial-datasets/prices-snapshot`](models/financial-datasets/prices-snapshot.md) | 0.02 / call | sync | Get the real-time price snapshot for a stock, including the current price, day change, and day change percent. |
+| [`finviz/insider-trading`](models/finviz/insider-trading.md) | 0.01 / call | async | List recent insider transactions in US stocks from Finviz with insider, relationship, transaction type, shares, price… |
+| [`finviz/market-movers`](models/finviz/market-movers.md) | 0.01 / call | async | List today's US stock market movers on Finviz such as top gainers, top losers, new highs and unusual volume, with… |
+| [`finviz/news-sentiment`](models/finviz/news-sentiment.md) | 0.01 / call | async | Get recent news headlines for a US ticker from Finviz with source, time and a sentiment score for each headline. |
+| [`finviz/screener`](models/finviz/screener.md) | 0.01 / call | async | Screen US stocks on Finviz with filter codes for valuation, performance, technicals and fundamentals, returning… |
+| [`finviz/ticker-sectors`](models/finviz/ticker-sectors.md) | 0.01 / call | async | Get the sector, industry and multi-period performance of a list of US tickers from Finviz. |
 | [`firecrawl/batch/scrape`](models/firecrawl/batch/scrape.md) | 0.0075 | async | Scrape multiple URLs in a single batch job. Submit a list of URLs and poll for results as each page completes. |
 | [`firecrawl/crawl`](models/firecrawl/crawl.md) | 0.0075 | async | Crawl an entire website starting from a URL. Discovers and scrapes all reachable pages, returning clean markdown for… |
 | [`firecrawl/map`](models/firecrawl/map.md) | 0.0075 / call (free quota) | sync | Discovers and returns URLs found across a target website. Provide an HTTPS target address and define the maximum link… |
 | [`firecrawl/scrape`](models/firecrawl/scrape.md) | 0.0075 / call (free quota) | sync | Scrapes content from target web pages with automatic handling of JavaScript rendering. Returns extracted page data… |
 | [`firecrawl/search`](models/firecrawl/search.md) | 0.015 / call | sync | Searches the web using a text query and returns relevant pages with their titles, descriptions, and source URLs.… |
+| [`flightradar24/flights`](models/flightradar24/flights.md) | 0.01 / call | sync | Get live flights from Flightradar24 by airport, flight number, airline, aircraft type or map bounds, with position,… |
+| [`foreplay/ad-search`](models/foreplay/ad-search.md) | ~0.0525 | sync | Search the Foreplay library of live and past social ads from Facebook, Instagram, TikTok, YouTube and more by keyword,… |
+| [`foreplay/brand-ads`](models/foreplay/brand-ads.md) | ~0.0525 | sync | List the social ads a brand has run by Foreplay brand ID, with creative, copy, platforms, run dates and landing page,… |
+| [`foreplay/brand-analytics`](models/foreplay/brand-analytics.md) | ~0.1225 | sync | Get ad analytics for a brand by Foreplay brand ID: active and total ads, formats, platforms, launch cadence and… |
+| [`foreplay/brands-by-domain`](models/foreplay/brands-by-domain.md) | ~0.0175 | sync | Find the advertiser brands Foreplay tracks for a website domain, with brand ID, name, logo and ad counts, to use in… |
 | [`fred/category`](models/fred/category.md) | 1e-05 / call (free quota) | sync | category from FRED. Returns the official FRED API response unchanged. |
 | [`fred/category-children`](models/fred/category-children.md) | 1e-05 / call (free quota) | sync | Get Category Children from FRED. Returns the official FRED API response unchanged. |
 | [`fred/category-related`](models/fred/category-related.md) | 1e-05 / call (free quota) | sync | Get Category Related from FRED. Returns the official FRED API response unchanged. |
@@ -786,14 +813,40 @@
 | [`getapp/software-integrations`](models/getapp/software-integrations.md) | 0.01 / call (free quota) | async | Retrieve integrations for a software product, including integration names, ratings, and review summaries. |
 | [`getapp/software-pricing`](models/getapp/software-pricing.md) | 0.01 / call (free quota) | async | Retrieve detailed pricing plans for a software product, including plan names, starting prices, and feature lists per… |
 | [`getapp/software-reviews`](models/getapp/software-reviews.md) | 0.01 / call (free quota) | async | Retrieve user reviews and rating breakdowns for a software product, including review snippets, individual reviews, and… |
+| [`github/issue-comments`](models/github/issue-comments.md) | ~0.0012 | sync | List the comments on a GitHub issue or pull request by its URL, oldest first, with each commenter's login, their… |
+| [`github/repository`](models/github/repository.md) | ~0.0012 | sync | Fetch a GitHub repository's metadata by URL (stars, forks, language, topics, license, and timestamps). |
+| [`github/repository-contributors`](models/github/repository-contributors.md) | ~0.0012 | sync | List the people who have committed to a GitHub repository by repository URL, ordered by number of commits, with each… |
+| [`github/repository-forks`](models/github/repository-forks.md) | ~0.0012 | sync | List the forks of a GitHub repository by repository URL, with each fork's owner, description, stars, language and last… |
+| [`github/repository-issues`](models/github/repository-issues.md) | ~0.0012 | sync | List a GitHub repository's issues and pull requests by repository URL (GitHub lists pull requests as issues), with… |
+| [`github/repository-readme`](models/github/repository-readme.md) | ~0.0012 | sync | Get a GitHub repository's README by repository URL, as the Markdown text the maintainers wrote, with its file name,… |
+| [`github/search-issues`](models/github/search-issues.md) | ~0.0024 | sync | Search issues and pull requests across GitHub with GitHub's own search syntax (repo:, is:pr, is:issue, author:,… |
+| [`github/trending-developers`](models/github/trending-developers.md) | ~0.0012 | sync | List trending GitHub developers (rank, username, name, avatar, and their most popular repository), optionally filtered… |
+| [`github/trending-repositories`](models/github/trending-repositories.md) | ~0.0012 | sync | List GitHub Trending repositories (rank, stars, stars gained today, language, and description), filterable by language… |
+| [`github/user`](models/github/user.md) | ~0.0012 | sync | Fetch a GitHub user's public profile by handle (name, bio, company, location, followers, and repo counts). |
+| [`github/user-activity`](models/github/user-activity.md) | ~0.0012 | sync | List a GitHub user's public contribution activity by handle (grouped monthly summaries of commits, pull requests, and… |
+| [`github/user-contributions`](models/github/user-contributions.md) | ~0.0012 | sync | Fetch a GitHub user's contribution graph for a year (total contributions plus per-day counts and heatmap intensity). |
+| [`github/user-followers`](models/github/user-followers.md) | ~0.0012 | sync | List a GitHub user's followers by handle (each follower's login, type, avatar, and profile URL) with pagination. |
+| [`github/user-following`](models/github/user-following.md) | ~0.0012 | sync | List the GitHub users a given user follows by handle (each account's login, type, avatar, and profile URL) with… |
+| [`github/user-pull-requests`](models/github/user-pull-requests.md) | ~0.0012 | sync | List a GitHub user's public pull requests by handle (title, repository, state, creation date, and URL) with optional… |
+| [`github/user-repositories`](models/github/user-repositories.md) | ~0.0012 | sync | List a GitHub user's public repositories (name, description, language, stars, and forks) with sorting and cursor… |
 | [`glassdoor/companies`](models/glassdoor/companies.md) | 0.01 / call | sync | Search companies on Glassdoor by name and get company ID, rating, review and salary counts, size, industry and… |
 | [`glassdoor/jobs`](models/glassdoor/jobs.md) | 0.01 / call | sync | Search Glassdoor job listings by keyword and location, with title, company, rating, salary estimate, location and… |
 | [`glassdoor/reviews`](models/glassdoor/reviews.md) | 0.01 / call | sync | Get employee reviews for a company on Glassdoor by company ID, with rating, pros, cons, job title, date and sub-ratings. |
+| [`google-flights/autocomplete`](models/google-flights/autocomplete.md) | 0.01 / call | sync | Get Google Flights airport and city suggestions for a partial place name, with IATA codes and location IDs. |
+| [`google-flights/calendar`](models/google-flights/calendar.md) | 0.01 / call | sync | Get the lowest Google Flights fare for each departure date in a range between two airports, for one-way or round trips. |
+| [`google-flights/deals`](models/google-flights/deals.md) | 0.01 / call | sync | Find discounted Google Flights fares from a departure airport, with destination, price, discount, dates and airline. |
 | [`google-flights/search`](models/google-flights/search.md) | 0.015 / call | sync | Google Flights itineraries for a route and date: airlines, times, stops, durations, prices and price insights. |
+| [`google-hotels/autocomplete`](models/google-hotels/autocomplete.md) | 0.01 / call | sync | Get Google Hotels destination and property suggestions for a partial name, with property tokens for hotel lookups. |
+| [`google-hotels/photos`](models/google-hotels/photos.md) | 0.01 / call | sync | Get photos of a hotel on Google Hotels by property token, with image URLs, categories and paging. |
+| [`google-hotels/price-calendar`](models/google-hotels/price-calendar.md) | 0.01 / call | sync | Get the nightly price of a hotel on Google Hotels for each date in a range, by property token and guest count. |
 | [`google-hotels/reviews`](models/google-hotels/reviews.md) | 0.01 / call | sync | Get guest reviews for a hotel on Google Hotels by property token, with rating, text, date, source and category filters. |
 | [`google-hotels/search`](models/google-hotels/search.md) | 0.015 / call | sync | Google Hotels results for a destination and stay dates: hotels, nightly rates, ratings, amenities and offers. |
+| [`google-maps/autocomplete`](models/google-maps/autocomplete.md) | 0.01 / call | sync | Get Google Maps search box suggestions for a partial query near a location, with place names, addresses and place IDs. |
+| [`google-maps/contributor-reviews`](models/google-maps/contributor-reviews.md) | 0.00015 / call | async | Get up to 200 reviews written by one Google Maps contributor. |
 | [`google-maps/directions`](models/google-maps/directions.md) | 0.01 / call | sync | Get Google Maps directions between two places by car, transit, walking, cycling or flight, with routes, distance,… |
 | [`google-maps/photo-metadata`](models/google-maps/photo-metadata.md) | 0.00015 / call (free quota) | sync | Contributor, place, coordinates, type and date of one Google Maps photo by its data ID. |
+| [`google-maps/photos`](models/google-maps/photos.md) | 0.01 / call | sync | Get photos of a Google Maps place by data ID, with image URLs, categories and paging. |
+| [`google-maps/posts`](models/google-maps/posts.md) | 0.01 / call | sync | Get the owner posts and updates published on a Google Maps place by data ID, with text, images, date and links. |
 | [`google-maps/reviews`](models/google-maps/reviews.md) | 0.00015 / call | async | Get Google Maps reviews for one place with sorting, filtering, and paging. |
 | [`google-maps/search`](models/google-maps/search.md) | 0.01 / call | sync | Search places on Google Maps by keyword around a location, with name, rating, reviews, address, hours, phone, website,… |
 | [`google-play/apps`](models/google-play/apps.md) | 0.00015 / call (free quota) | sync | Search Google Play apps by keyword or browse categories and top charts, with rating, price and developer. |
@@ -802,8 +855,10 @@
 | [`google-play/movies`](models/google-play/movies.md) | 0.00015 / call (free quota) | async | Search or browse movies, TV shows, episodes, categories, and charts on Google Play. |
 | [`google-play/product`](models/google-play/product.md) | 0.00015 / call (free quota) | sync | Details of a Google Play app, game, ebook, audiobook or movie by product ID: rating, downloads, price, developer and… |
 | [`google-play/reviews`](models/google-play/reviews.md) | 0.00015 / call (free quota) | async | Get Google Play reviews for a product with rating, sort, platform, and paging. |
+| [`google-shopping/immersive-product`](models/google-shopping/immersive-product.md) | 0.01 / call | sync | Get the full Google Shopping product view by page token: specifications, ratings, reviews and offers from each store… |
 | [`google-shopping/product`](models/google-shopping/product.md) | 0.00015 / call (free quota) | sync | One Google Shopping product's merchant offers, prices, specifications, reviews and related products. |
 | [`google-shopping/search`](models/google-shopping/search.md) | 0.015 / call (free quota) | async | Search Google Shopping by keyword: product title, price, old price, store, rating, reviews, delivery and product ID,… |
+| [`google/ads`](models/google/ads.md) | 0.01 / call | sync | Get the paid ads Google shows for a query in a location, with advertiser, headline, description, displayed link,… |
 | [`google/ads-transparency`](models/google/ads-transparency.md) | 0.015 / call | sync | Ads an advertiser is running on Google, from the Ads Transparency Center: creatives, formats, first and last shown… |
 | [`google/ai-mode`](models/google/ai-mode.md) | ~0.002 | sync | Ask Google AI Mode a prompt and receive the cited answer it generates. AI Mode composes the answer at search time, so… |
 | [`google/ai-overview`](models/google/ai-overview.md) | ~0.0015 | sync | Ask Google Search a prompt and receive the AI Overview it generated for that scrape, with every source Google listed.… |
@@ -811,18 +866,25 @@
 | [`google/books`](models/google/books.md) | 0.01 / call | sync | Search Google Books by keyword and get titles, authors, snippets, publication info and preview links. |
 | [`google/events`](models/google/events.md) | 0.01 / call | sync | Search events listed on Google by keyword and place, with title, date, venue, address, ticket links and thumbnails. |
 | [`google/finance`](models/google/finance.md) | 0.01 / call | sync | Get a Google Finance quote page for a ticker such as GOOGL:NASDAQ: price, movement, key stats, financials, news and… |
+| [`google/finance-autocomplete`](models/google/finance-autocomplete.md) | 0.01 / call | sync | Get Google Finance ticker suggestions for a partial company name or symbol, with exchange and instrument type. |
+| [`google/finance-markets`](models/google/finance-markets.md) | 0.01 / call | sync | List Google Finance market movers and overviews such as indexes, most active, gainers, losers, crypto and currencies,… |
 | [`google/forums`](models/google/forums.md) | 0.01 / call | sync | Get Google's Forums results for a query: discussion threads from Reddit, Quora and other forums with title, snippet,… |
+| [`google/gemini-answer`](models/google/gemini-answer.md) | 0.01 / call | sync | Get the answer Google Gemini gives for a question in the Gemini web app, with answer text, cited sources and a token… |
 | [`google/images`](models/google/images.md) | ~0.00085 | sync | Run a Google Images search and get structured results: image URLs, dimensions, titles, and source pages. |
 | [`google/jobs`](models/google/jobs.md) | 0.01 / call | sync | Search job listings aggregated by Google Jobs with title, company, location, posting date, salary and apply links,… |
 | [`google/lens`](models/google/lens.md) | ~0.00085 | sync | Reverse image search: find web pages and visual matches for an image URL. |
 | [`google/local`](models/google/local.md) | 0.01 / call | sync | Search local businesses on Google by keyword and location, with name, rating, reviews, address, hours, phone and place… |
 | [`google/news`](models/google/news.md) | 0.01 / call | sync | Search Google News by keyword, topic or publication and get headlines with source, date, thumbnail and story clusters,… |
+| [`google/patent-details`](models/google/patent-details.md) | 0.01 / call | sync | Get a Google Patents record by patent ID with title, abstract, claims, inventors, assignees, dates, classifications,… |
 | [`google/patents`](models/google/patents.md) | ~0.00085 | sync | Search Google Patents with title, patent number, inventor, assignee, key dates, and PDF link. |
 | [`google/scholar`](models/google/scholar.md) | ~0.00085 | sync | Search Google Scholar for academic papers with title, authors, citation count, and PDF link. |
 | [`google/scholar-author`](models/google/scholar-author.md) | 0.01 / call | sync | Get a Google Scholar author profile by author ID with affiliation, interests, citation counts, h-index, co-authors and… |
 | [`google/search`](models/google/search.md) | 0.01 / call | sync | Get Google web results for a query with organic results, knowledge graph, local pack, top stories, related questions… |
 | [`google/short-videos`](models/google/short-videos.md) | 0.01 / call | sync | Get Google's Short Videos results for a query: short-form clips from YouTube Shorts, TikTok, Instagram and others with… |
+| [`google/translate`](models/google/translate.md) | 0.01 / call | sync | Translate text with Google Translate between a source and target language code and get the translation with detected… |
+| [`google/travel-explore`](models/google/travel-explore.md) | 0.01 / call | sync | Explore destinations from a departure airport on Google Travel, with cheapest flight and hotel prices, dates and… |
 | [`google/trends`](models/google/trends.md) | 0.01 / call | sync | Get Google Trends data for up to five keywords: interest over time, interest by region, related topics and related… |
+| [`google/trends-autocomplete`](models/google/trends-autocomplete.md) | 0.01 / call | sync | Get Google Trends topic and query suggestions for a keyword, with the topic ID to use in Google Trends lookups. |
 | [`google/trends-trending-now`](models/google/trends-trending-now.md) | 0.01 / call | sync | List searches trending right now on Google in a country, with search volume, growth, start time and related queries,… |
 | [`google/videos`](models/google/videos.md) | ~0.00085 | sync | Search Google for video results (YouTube and others) with title, link, thumbnail, and source. |
 | [`hacker-news/profile`](models/hacker-news/profile.md) | ~0.0015 | sync | Get a Hacker News user's public profile by username - karma, bio, and account details as clean JSON. |
@@ -832,6 +894,7 @@
 | [`home-depot/product`](models/home-depot/product.md) | 0.015 / call (free quota) | async | Get a Home Depot product by product ID: title, brand, model number, UPC, price, specifications, images, fulfillment… |
 | [`home-depot/product-reviews`](models/home-depot/product-reviews.md) | 0.015 / call (free quota) | async | Get Home Depot product reviews by product ID: overall rating, ratings histogram, recommendation counts, and reviews… |
 | [`home-depot/search`](models/home-depot/search.md) | 0.015 / call (free quota) | async | Search Home Depot products by keyword with price, brand, model number, rating, delivery and pickup availability,… |
+| [`homes-com/search`](models/homes-com/search.md) | 0.00015 / call | async | Get Homes.com listings from a search results URL with address, price, beds, baths, size and listing link. |
 | [`hunter/companies-find`](models/hunter/companies-find.md) | 0.0049 / call (free quota) | async | Look up a company's full profile — industry, size, location, tech stack — from its domain. |
 | [`hunter/discover-ai`](models/hunter/discover-ai.md) | 0.1 / call | async | Describe target companies in plain language; an AI picks the filters and runs the search. |
 | [`hybrid/video-data`](models/hybrid/video-data.md) | 0.001 / call (free quota) | sync | Parse a shared video link from Douyin, TikTok and other supported platforms and get the video details, author and… |
@@ -1103,6 +1166,7 @@
 | [`mercari/product`](models/mercari/product.md) | ~0.0012 | sync | Get one Mercari US or Japan listing by item id or URL: title, description, price, original price, status, condition,… |
 | [`mercari/search`](models/mercari/search.md) | ~0.0012 | sync | Search active Mercari US or Japan listings for sale by keyword with optional price-range, condition, category, brand,… |
 | [`mercari/sold-listings`](models/mercari/sold-listings.md) | ~0.0012 | sync | Search Mercari US or Japan sold listings by keyword with optional price-range, condition, category, brand, and sort… |
+| [`napa/search`](models/napa/search.md) | 0.01 / call | sync | Search NAPA auto parts by keyword with part number, brand, price, rating and store availability. |
 | [`nasdaq/cryptocurrency-quote`](models/nasdaq/cryptocurrency-quote.md) | 0.01 / call (free quota) | async | Real-time cryptocurrency price and daily change. Coverage limited to major coins supported by Nasdaq (confirmed: BTC,… |
 | [`nasdaq/earnings-calendar`](models/nasdaq/earnings-calendar.md) | 0.01 / call (free quota) | async | Earnings calendar for a specified date. Past dates include actual EPS and surprise; future dates include EPS forecasts… |
 | [`nasdaq/etf-quote`](models/nasdaq/etf-quote.md) | 0.01 / call (free quota) | async | Real-time quote and details for an ETF including price, net change, percentage change, volume, and market status. |
@@ -1120,8 +1184,12 @@
 | [`nasdaq/stock-quote`](models/nasdaq/stock-quote.md) | 0.01 / call (free quota) | async | Real-time quote for a single equity including last sale price, net change, percentage change, bid/ask, volume, 52-week… |
 | [`nasdaq/stock-screener`](models/nasdaq/stock-screener.md) | 0.01 / call (free quota) | async | Screen stocks by exchange and market capitalization. Returns paginated results with symbol, name, last sale, change,… |
 | [`nasdaq/stock-sec-filings`](models/nasdaq/stock-sec-filings.md) | 0.01 / call (free quota) | async | SEC filings for a stock symbol including 10-K, 10-Q, 8-K, and other filing types. Returns filing metadata with links… |
+| [`naver/ai-mode`](models/naver/ai-mode.md) | 0.01 / call | sync | Get Naver's AI-generated answer for a query with the answer text, cited sources and follow-up token for continuing the… |
 | [`naver/ai-overview`](models/naver/ai-overview.md) | 0.015 / call | sync | Naver's AI-generated overview answer for a search query, with the cited sources. |
+| [`naver/blog-search`](models/naver/blog-search.md) | ~0.032 | sync | Search up to five enriched Naver blog results by keyword with stable cursor pagination: result rank, title, excerpt,… |
+| [`naver/maps`](models/naver/maps.md) | 0.01 / call | sync | Search places on Naver Maps by keyword around a location, with name, category, rating, reviews, address, phone and… |
 | [`naver/search`](models/naver/search.md) | 0.01 / call | sync | Get Naver web results for a query with organic results, news, blogs, knowledge panels and other Naver sections. |
+| [`nextdoor/business`](models/nextdoor/business.md) | ~0.00242 | sync | Fetch one Nextdoor business page by its slug, with phone, email, website, and street address. |
 | [`open-meteo/air-quality`](models/open-meteo/air-quality.md) | 0.0001 / call (free quota) | sync | Hourly air quality forecast for any coordinates: PM2.5, PM10, ozone, NO2, CO, dust, pollen and European/US AQI. |
 | [`open-meteo/archive`](models/open-meteo/archive.md) | 0.0001 / call (free quota) | sync | Historical weather by coordinates and date range from the ERA5 reanalysis, back to 1940, with hourly and daily… |
 | [`open-meteo/climate`](models/open-meteo/climate.md) | 0.0001 / call (free quota) | sync | Daily climate model projections to 2050 for any coordinates, from CMIP6 high-resolution models. |
@@ -1135,6 +1203,8 @@
 | [`open-meteo/previous-runs`](models/open-meteo/previous-runs.md) | 0.0001 / call (free quota) | sync | Weather forecasts from earlier model runs for the same coordinates, to compare how forecasts changed day by day. |
 | [`open-meteo/seasonal`](models/open-meteo/seasonal.md) | 0.0001 / call (free quota) | sync | Seasonal weather forecast up to several months ahead by coordinates, from the ECMWF seasonal model. |
 | [`opentable/reviews`](models/opentable/reviews.md) | 0.01 / call | sync | Get diner reviews for a restaurant on OpenTable by restaurant ID, with overall and sub-ratings, text, date and diner… |
+| [`perplexity/search`](models/perplexity/search.md) | ~0.002 | sync | Ask Perplexity a web-grounded question and receive an answer with source citations. |
+| [`pexels/search-photos`](models/pexels/search-photos.md) | ~0.0066 | sync | Search Pexels for free stock photos by keyword. Returns image URLs in several sizes, dimensions, alt text, the… |
 | [`pinterest/board`](models/pinterest/board.md) | 0.018 / call | sync | Returns a paginated list of pins from a specified Pinterest board URL, including pin metadata, images, and aggregated… |
 | [`pinterest/pin`](models/pinterest/pin.md) | 0.018 / call | sync | Returns detailed information for a single Pinterest pin using its page URL. Supports an optional setting to return a… |
 | [`pinterest/search`](models/pinterest/search.md) | 0.018 / call | sync | Search Pinterest pins by keyword and get pin IDs, URLs, titles, descriptions and images, with cursor pagination. |
@@ -1215,6 +1285,9 @@
 | [`polymarket/time`](models/polymarket/time.md) | 0.012 / call (free quota) | sync | Returns the current Unix timestamp of the server. This can be used to synchronize client time with server time. |
 | [`polymarket/traded`](models/polymarket/traded.md) | 0.012 / call (free quota) | sync | A wallet's profile stats: total trades, biggest win, profile views and join date. |
 | [`polymarket/value`](models/polymarket/value.md) | 0.012 / call (free quota) | sync | Current USD value of a wallet's open positions, optionally limited to given markets. |
+| [`querit/search`](models/querit/search.md) | ~0.0048 | sync | Search the web with Querit and get ranked results with title, URL, snippet and optional page content chunks for AI… |
+| [`realtor/property`](models/realtor/property.md) | 0.00015 / call | async | Get a Realtor.com property by listing URL with price, history, beds, baths, size, lot, year built, schools, agent and… |
+| [`realtor/search`](models/realtor/search.md) | 0.00015 / call | async | Get Realtor.com listings from a search results URL with address, price, beds, baths, size, status and listing link. |
 | [`reddit/app/check-subreddit-muted`](models/reddit/app/check-subreddit-muted.md) | 0.001 / call (free quota) | sync | Checks whether a specified Reddit subreddit is muted by the current account using its ID. Supports an optional flag to… |
 | [`reddit/app/comment-replies`](models/reddit/app/comment-replies.md) | 0.001 / call (free quota) | sync | Returns replies and nested sub-comments under a Reddit post comment using a continuation cursor. Supports custom… |
 | [`reddit/app/community-highlights`](models/reddit/app/community-highlights.md) | 0.001 / call (free quota) | sync | Returns featured highlight content for a designated Reddit community, such as popular posts and announcements, by… |
@@ -1250,11 +1323,14 @@
 | [`reddit/trending-posts`](models/reddit/trending-posts.md) | ~0.0003 | sync | Get currently trending Reddit posts across all subreddits with stable cursor pagination. |
 | [`reddit/user-comments`](models/reddit/user-comments.md) | ~0.0006 | sync | List a Reddit user's comments by username, sorted by new, top, hot, or controversial, with the parent post title and… |
 | [`reddit/user-posts`](models/reddit/user-posts.md) | ~0.00038 | sync | List a Reddit user's posts by username, sorted by new, top, hot, or controversial, with cursor pagination. |
+| [`redfin/property`](models/redfin/property.md) | ~0.0008 | sync | Fetch full details for a single Redfin home by its listing URL (price, beds, baths, square feet, address, listing… |
+| [`redfin/search`](models/redfin/search.md) | 0.00015 / call | async | Search Redfin home listings by region, map bounds or search URL with price, beds, baths, size, status and property… |
 | [`sams-club/product`](models/sams-club/product.md) | ~0.00319 | sync | Fetch a SamsClub.com product by URL and get title, member price, stock, brand, model, UPC, rating, description, and… |
 | [`sams-club/search`](models/sams-club/search.md) | ~0.00319 | sync | Search SamsClub.com by keyword with optional sort, price-range, and page filters and get title, member price, stock,… |
 | [`scholar/search-mixed`](models/scholar/search-mixed.md) | 0.0036 / call (free quota) | sync | Returns scholarly and academic search results matching a query. Supports filtering by publication year range and… |
 | [`scholar/search-scholar`](models/scholar/search-scholar.md) | 0.0036 / call (free quota) | sync | Search academic papers on Google Scholar: titles, authors, links, citation counts and snippets, with publication-year… |
 | [`scholar/search-web`](models/scholar/search-web.md) | 0.0036 / call (free quota) | sync | Returns web search results tailored to academic and research topics. Supports filtering by publication year ranges and… |
+| [`sec/filings`](models/sec/filings.md) | ~0.00132 | sync | List a public company's SEC EDGAR filings - form type, filing date, accession number, and document links - by ticker,… |
 | [`secform4/13d-filings`](models/secform4/13d-filings.md) | 0.01 / call (free quota) | async | Returns recent Schedule 13D filings showing significant ownership positions (>5%) in public companies. 13D filers are… |
 | [`secform4/13g-filings`](models/secform4/13g-filings.md) | 0.01 / call (free quota) | async | Returns recent Schedule 13G filings showing passive ownership positions (>5%) in public companies. 13G filers are… |
 | [`secform4/company-insider-trading`](models/secform4/company-insider-trading.md) | 0.01 / call (free quota) | async | Returns the full insider trading history for a specific company identified by its SEC CIK number. Includes all buy,… |
@@ -1317,6 +1393,18 @@
 | [`slickdeals/deal`](models/slickdeals/deal.md) | ~0.00213 | sync | Fetch one Slickdeals deal by URL and get title, price, list price, store, coupon code, score, views, comments, and… |
 | [`slickdeals/search`](models/slickdeals/search.md) | ~0.00213 | sync | Search Slickdeals deals by keyword with optional sort, price, discount, and page filters and get title, price, list… |
 | [`snapchat/profile`](models/snapchat/profile.md) | ~0.0011 | sync | Fetch a Snapchat user's public profile by username: display name, bio, subscriber count, and recent public content. |
+| [`soundcloud/track`](models/soundcloud/track.md) | 0.00015 / call | async | Get a SoundCloud track by artist and track slug with title, duration, plays, likes, reposts, comments, genre, artwork… |
+| [`spotify/album`](models/spotify/album.md) | ~0.0012 | sync | Fetch a Spotify album's tracklist, play counts, label, and release details by album URL or ID. |
+| [`spotify/artist`](models/spotify/artist.md) | ~0.0012 | sync | Fetch a Spotify artist's discography (albums, singles, top tracks) and metadata by artist URL or ID. |
+| [`spotify/play-count`](models/spotify/play-count.md) | ~0.0022 | sync | Fetch stream counts and stats for a Spotify track, album, or artist URL. |
+| [`spotify/podcast`](models/spotify/podcast.md) | ~0.0012 | sync | Fetch a Spotify podcast show's name, publisher, description, rating, and topics by show URL or ID. |
+| [`spotify/podcast-episodes`](models/spotify/podcast-episodes.md) | ~0.0012 | sync | List a Spotify podcast show's episodes with titles, durations, descriptions, and release dates by show URL or ID. |
+| [`spotify/search`](models/spotify/search.md) | ~0.0012 | sync | Search Spotify for matching tracks, albums, artists, podcasts, and playlists by keyword. |
+| [`spotify/track`](models/spotify/track.md) | ~0.0012 | sync | Fetch a Spotify track's play count, popularity, duration, and album details by track URL or ID. |
+| [`sprouts/product`](models/sprouts/product.md) | 0.00015 / call | async | Get a Sprouts Farmers Market product by URL with name, price, size, description and store availability. |
+| [`sprouts/search`](models/sprouts/search.md) | 0.00015 / call | async | Search Sprouts Farmers Market grocery products by keyword with name, price, size and product URL, optionally for a… |
+| [`steam/app`](models/steam/app.md) | 0.00015 / call | async | Get a Steam game or app by app ID with title, price, discount, release date, developer, publisher, genres, review… |
+| [`steam/search`](models/steam/search.md) | 0.00015 / call | async | Search the Steam store by keyword and get games and apps with app ID, title, price, discount, release date and review… |
 | [`stockanalysis/market-movers-premarket`](models/stockanalysis/market-movers-premarket.md) | 0.01 / call (free quota) | async | Top gainers, losers, and most active stocks in the pre-market session. Each category contains query metadata and a… |
 | [`stockanalysis/search-stocks`](models/stockanalysis/search-stocks.md) | 0.01 / call (free quota) | async | Full-text search for stocks and ETFs by company name or ticker symbol. Returns matches across multiple global… |
 | [`stockanalysis/stock-financials-income`](models/stockanalysis/stock-financials-income.md) | 0.01 / call (free quota) | async | Detailed income statement for a stock. Returns annual financial data including revenue, gross profit, operating… |
@@ -1348,6 +1436,18 @@
 | [`tencent-huxuan/finder-publisher-rank-finder-content`](models/tencent-huxuan/finder-publisher-rank-finder-content.md) | 0.042857 / call | sync | List QQ Huxuan hot Video Account content by month and creator category, with six descending sort metrics and… |
 | [`tencent-huxuan/finder-publisher-search`](models/tencent-huxuan/finder-publisher-search.md) | 0.071429 / call | sync | Search or browses QQ Huxuan Video Account creators by optional nickname keyword with page-number pagination. Use it to… |
 | [`tencent-huxuan/mp-publisher-search`](models/tencent-huxuan/mp-publisher-search.md) | 0.071429 / call | sync | Search or browses QQ Huxuan Official Account creators by optional nickname or account keyword with page-number… |
+| [`tendata/company/search`](models/tendata/company/search.md) | 0 | async | Fuzzy-match a company name to trade company IDs, optionally filtered by ISO3 country code, for use in other customs… |
+| [`tendata/trade/destination-countries`](models/tendata/trade/destination-countries.md) | ~0.016 | async | Break down the customs records that match a trade query by destination country, with weight, USD value and shipment… |
+| [`tendata/trade/exporter-names`](models/tendata/trade/exporter-names.md) | ~0.0016 | async | List the names of exporters that match a customs trade query, without aggregates, as a low-cost way to build a… |
+| [`tendata/trade/exporters`](models/tendata/trade/exporters.md) | ~0.019 | async | Rank exporters that match a customs trade query (HS code, product, countries, ports, date window), with aggregated… |
+| [`tendata/trade/exporters-summary`](models/tendata/trade/exporters-summary.md) | ~0.064 | async | Get one aggregate summary of the exporters that match a customs trade query: exporter count, total weight, USD value… |
+| [`tendata/trade/hs-codes`](models/tendata/trade/hs-codes.md) | ~0.016 | async | Break down the customs records that match a trade query by HS code, with weight, USD value and shipment count for each… |
+| [`tendata/trade/importer-names`](models/tendata/trade/importer-names.md) | ~0.0016 | async | List the names of importers that match a customs trade query, without aggregates, as a low-cost way to build a… |
+| [`tendata/trade/importers`](models/tendata/trade/importers.md) | ~0.019 | async | Rank importers that match a customs trade query (HS code, product, countries, ports, date window), with aggregated… |
+| [`tendata/trade/importers-summary`](models/tendata/trade/importers-summary.md) | ~0.064 | async | Get one aggregate summary of the importers that match a customs trade query: importer count, total weight, USD value… |
+| [`tendata/trade/origin-countries`](models/tendata/trade/origin-countries.md) | ~0.016 | async | Break down the customs records that match a trade query by country of origin, with weight, USD value and shipment… |
+| [`tendata/trade/record-count`](models/tendata/trade/record-count.md) | 0 | async | Count the customs records that match a trade query before paying for rows, to check that filters are narrow enough. |
+| [`tendata/trade/volume-trend`](models/tendata/trade/volume-trend.md) | ~0.019 | async | Get the weight, USD value and shipment count of the customs records that match a trade query for each month or year in… |
 | [`threads/web/post-detail`](models/threads/web/post-detail.md) | 0.002 / call (free quota) | sync | Returns detailed information for a specific Threads post using its numeric ID. Call this endpoint to inspect post… |
 | [`threads/web/post-detail-v2`](models/threads/web/post-detail-v2.md) | 0.002 / call (free quota) | sync | Returns detailed information for a specific Threads post. Queries can be performed using either a full post link or a… |
 | [`threads/web/search-profiles`](models/threads/web/search-profiles.md) | 0.003 / call (free quota) | sync | Searches Threads user profiles based on a specified text query string. Returns matching user accounts and profile… |
@@ -1548,6 +1648,9 @@
 | [`toutiao/search`](models/toutiao/search.md) | 0.071429 / call | sync | Search Toutiao web articles by keyword. Use it to discover relevant articles for topic research, media monitoring, or… |
 | [`toutiao/web/article-info`](models/toutiao/web/article-info.md) | 0.001 / call (free quota) | sync | Returns detailed post information and interface action settings for a specified Toutiao article based on its unique… |
 | [`toutiao/web/video-info`](models/toutiao/web/video-info.md) | 0.001 / call (free quota) | sync | Returns detailed information for a specified Toutiao video post. Retrieve post metadata and related video attributes… |
+| [`trader-joes/product`](models/trader-joes/product.md) | 0.01 / call | sync | Get a Trader Joe's product by product ID with name, price, size, description, ingredients, nutrition and dietary tags. |
+| [`trader-joes/search`](models/trader-joes/search.md) | 0.01 / call | sync | Search Trader Joe's products by keyword with name, price, size, category and dietary tags, filtered by store and… |
+| [`tripadvisor/place`](models/tripadvisor/place.md) | 0.00015 / call | async | Get one Tripadvisor place with rating, ranking, contacts, amenities, and prices. |
 | [`tripadvisor/reviews`](models/tripadvisor/reviews.md) | 0.00015 / call (free quota) | sync | Public reviews of a Tripadvisor hotel, restaurant or attraction by place ID: rating, title, text, date and reviewer. |
 | [`tripadvisor/search`](models/tripadvisor/search.md) | 0.00015 / call (free quota) | sync | Search Tripadvisor hotels, restaurants, attractions and places by keyword. |
 | [`trustpilot/categories`](models/trustpilot/categories.md) | 0.01 / call (free quota) | async | Retrieve all top-level categories and their sub-categories available on Trustpilot. |
@@ -1606,6 +1709,10 @@
 | [`twitter/web/user-profile`](models/twitter/web/user-profile.md) | 0.001 / call (free quota) | sync | Get a Twitter / X user profile by screen name or user ID: name, bio, follower and following counts, post and media… |
 | [`twitter/web/user-profiles-by-rest-ids`](models/twitter/web/user-profiles-by-rest-ids.md) | 0.001 / call (free quota) | sync | Get profiles by rest ids on Twitter. Returns the platform data as structured JSON. |
 | [`twitter/web/user-tweet-replies`](models/twitter/web/user-tweet-replies.md) | 0.001 / call (free quota) | sync | Returns a timeline of replies posted by a specific Twitter user. Filter by username and paginate through responses… |
+| [`unsplash/search-photos`](models/unsplash/search-photos.md) | ~0.0033 | sync | Search Unsplash for free stock photos by keyword. Returns image URLs in several sizes, dimensions, alt text, the… |
+| [`upwork/jobs`](models/upwork/jobs.md) | ~0.007 | sync | Search Upwork job postings by keyword, with up to 25 fresh listings per request. |
+| [`vrbo/listing`](models/vrbo/listing.md) | ~0.00085 | sync | Get one Vrbo vacation rental by its property ID: name, link, address, coordinates, bedrooms, bathrooms, beds and guest… |
+| [`vrbo/search`](models/vrbo/search.md) | ~0.00085 | sync | Search Vrbo vacation rentals by destination and dates, with guest, bedroom, bed, bathroom and price filters, and get… |
 | [`walmart/product`](models/walmart/product.md) | ~0.001 | sync | Fetch a Walmart product page by URL and get full product details (title, price, availability, ratings, images, and… |
 | [`walmart/product-reviews`](models/walmart/product-reviews.md) | 0.015 / call (free quota) | async | Get Walmart product reviews by product ID: overall rating, ratings histogram, top positive and negative reviews, and… |
 | [`walmart/scrape/product`](models/walmart/scrape/product.md) | 0.01 / call (free quota) | async | Extract structured data from a Walmart product page URL: name, current and list price, stock, delivery estimate,… |
@@ -1739,6 +1846,8 @@
 | [`wellfound/job-autocomplete-roles`](models/wellfound/job-autocomplete-roles.md) | 0.01 / call (free quota) | async | Get a list of common job role slugs available on Wellfound. These slugs can be used to construct Wellfound role search… |
 | [`wellfound/trending-jobs`](models/wellfound/trending-jobs.md) | 0.01 / call (free quota) | async | Fetch featured/trending jobs from the Wellfound homepage, organized by category (trending, engineering, product,… |
 | [`wellfound/trending-startups`](models/wellfound/trending-startups.md) | 0.02 / call | async | Fetch trending startups currently hiring from the Wellfound homepage. Returns a curated list of startups that… |
+| [`whole-foods/product`](models/whole-foods/product.md) | 0.00015 / call | async | Get a Whole Foods Market product by URL with name, brand, price, size, ingredients, nutrition and dietary labels. |
+| [`whole-foods/search`](models/whole-foods/search.md) | 0.00015 / call | async | Search Whole Foods Market grocery products by keyword with name, brand, price, size and product URL, optionally for a… |
 | [`xianyu/item/detail`](models/xianyu/item/detail.md) | 0.028571 / call | sync | Get a Xianyu (Goofish) second-hand listing by item ID: title, price, description, images, seller and location. |
 | [`xianyu/search/items`](models/xianyu/search/items.md) | 0.028571 / call | sync | Search Xianyu (Goofish) second-hand listings by keyword, sorted by activity, recency, seller credit or price. |
 | [`xiaohongshu/app-v2/creator-hot-inspiration-feed`](models/xiaohongshu/app-v2/creator-hot-inspiration-feed.md) | 0.01 / call (free quota) | sync | Retrieves creator center hot inspiration feed items with topic titles, popularity scores, and deeplinks. Supports… |
@@ -1823,6 +1932,7 @@
 | [`yahoo-finance/stock-news`](models/yahoo-finance/stock-news.md) | 0.05 / call | async | Gather the latest financial news articles related to a specified stock ticker. Returns headlines, publishers, links,… |
 | [`yahoo/images`](models/yahoo/images.md) | 0.015 / call | sync | Yahoo Images results for a keyword: image URLs, thumbnails, sizes and source pages. |
 | [`yahoo/search`](models/yahoo/search.md) | 0.01 / call | sync | Get Yahoo web results for a query with organic results, related searches and pagination, localized by domain and… |
+| [`yahoo/trends`](models/yahoo/trends.md) | 0.01 / call | sync | List trending searches on Yahoo right now, with topic, related links and videos. |
 | [`yahoo/videos`](models/yahoo/videos.md) | 0.015 / call | sync | Yahoo Videos results for a keyword: titles, thumbnails, durations and source sites. |
 | [`yandex/images`](models/yandex/images.md) | 0.015 / call | sync | Yandex Images results for a keyword: image URLs, thumbnails, sizes and source pages. |
 | [`yandex/search`](models/yandex/search.md) | 0.01 / call | sync | Get Yandex web results for a query with organic results and pagination, localized by Yandex domain, region and language. |
@@ -1833,6 +1943,7 @@
 | [`ycombinator/search-companies`](models/ycombinator/search-companies.md) | 0.01 / call (free quota) | async | Search and filter the YC company directory via Algolia. Returns paginated results with company metadata including… |
 | [`ycombinator/search-founders`](models/ycombinator/search-founders.md) | 0.01 / call (free quota) | async | Search the YC founder directory via Algolia. Returns paginated results with founder metadata including name, current… |
 | [`ycombinator/search-jobs`](models/ycombinator/search-jobs.md) | 0.01 / call (free quota) | async | List job openings at YC companies from workatastartup.com, filtered by role category. Returns up to 30 jobs per call… |
+| [`yelp/place`](models/yelp/place.md) | 0.01 / call | sync | Get a Yelp business by place ID or alias with rating, review count, categories, hours, address, phone, website,… |
 | [`yelp/reviews`](models/yelp/reviews.md) | 0.00015 / call (free quota) | sync | Public reviews of a Yelp business by place ID: rating, text, date and reviewer, with paging and sorting. |
 | [`yelp/search`](models/yelp/search.md) | 0.00015 / call (free quota) | sync | Search Yelp businesses by keyword and location: name, rating, review count, price level, categories and address. |
 | [`youku/search-video`](models/youku/search-video.md) | 0.014286 / call (free quota) | sync | Search Youku videos by keyword with page-based pagination. Use it to discover videos related to a topic, title,… |
@@ -1947,6 +2058,7 @@
 | [`zillow/mortgage-rates`](models/zillow/mortgage-rates.md) | 0.05 / call | async | Retrieve current mortgage interest rates from Zillow Home Loans. Returns rates for various loan types including… |
 | [`zillow/open-houses`](models/zillow/open-houses.md) | 0.03 / call | async | Retrieve the scheduled open houses for a property listing by its Zillow property ID (zpid), together with the… |
 | [`zillow/property-details`](models/zillow/property-details.md) | 0.01 / call (free quota) | async | Retrieve full details for a specific property by its Zillow property ID (zpid). Returns comprehensive property… |
+| [`zillow/search`](models/zillow/search.md) | 0.01 / call | sync | Search Zillow listings by region or map bounds with status, price, beds, baths, home type and size filters, returning… |
 | [`zillow/zestimate`](models/zillow/zestimate.md) | 0.03 / call | async | Get the Zestimate (automated home value estimate) and rent Zestimate for a property by zpid. |
 
 ## audio

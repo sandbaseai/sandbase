@@ -1,0 +1,84 @@
+{
+  "name": "google-maps/contributor-reviews",
+  "display_name": "Google Maps Contributor Reviews",
+  "type": "api",
+  "vendor": "Google Maps",
+  "vendor_slug": "google-maps",
+  "description": "Get up to 200 reviews written by one Google Maps contributor.",
+  "tags": [
+    "api",
+    "google-maps",
+    "web-scraping"
+  ],
+  "capabilities": [
+    "api",
+    "google-maps",
+    "web-scraping"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}",
+    "passthrough": "POST /v1/api/google-maps/contributor-reviews"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "contributor_id"
+    ],
+    "properties": {
+      "gl": {
+        "type": "string",
+        "pattern": "^[a-zA-Z]{2}$",
+        "description": "Two-letter country code. Default 'us'."
+      },
+      "hl": {
+        "type": "string",
+        "maxLength": 32,
+        "minLength": 2,
+        "description": "Review and interface language, such as 'en', 'en-US', or 'fr'. Default 'en'."
+      },
+      "limit": {
+        "type": "integer",
+        "maximum": 200,
+        "minimum": 1,
+        "description": "Number of reviews to return, 1-200. Default 200."
+      },
+      "contributor_id": {
+        "type": "string",
+        "pattern": "^\\d{10,32}$",
+        "description": "10 to 32 digit ID from a Google Maps contributor URL."
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "required": [
+      "id",
+      "status",
+      "model"
+    ],
+    "properties": {
+      "id": {
+        "type": "string"
+      },
+      "model": {
+        "type": "string"
+      },
+      "status": {
+        "type": "string"
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.00015
+  },
+  "readme": "# Google Maps Contributor Reviews\n\nGet up to 200 reviews written by one Google Maps contributor.",
+  "page_url": "https://www.sandbase.ai/model/google-maps/contributor-reviews",
+  "created_at": "2026-10-30T09:04:10.279Z"
+}

@@ -1,0 +1,195 @@
+{
+  "name": "redfin/search",
+  "display_name": "Redfin Search",
+  "type": "api",
+  "vendor": "Redfin",
+  "vendor_slug": "redfin",
+  "description": "Search Redfin home listings by region, map bounds or search URL with price, beds, baths, size, status and property type filters, returning address, price and listing details.",
+  "tags": [
+    "api",
+    "redfin",
+    "real-estate"
+  ],
+  "capabilities": [
+    "api",
+    "redfin",
+    "real-estate"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}",
+    "passthrough": "POST /v1/api/redfin/search"
+  },
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "url": {
+        "type": "string",
+        "example": "https://www.redfin.com/city/30749/TX/Austin",
+        "maxLength": 2048,
+        "description": "Redfin city, ZIP, county or neighborhood search URL. Existing URL filters are retained unless overridden. Supply one location: a region URL, region_id with region_type, or map_bounds."
+      },
+      "sort": {
+        "enum": [
+          "newest",
+          "price_asc",
+          "price_desc",
+          "recommended",
+          "sqft"
+        ],
+        "type": "string",
+        "description": "Result ordering. Defaults to recommended when no URL is supplied."
+      },
+      "limit": {
+        "type": "integer",
+        "maximum": 350,
+        "minimum": 1,
+        "description": "Maximum listings returned. Narrow the region or map bounds when results reach this limit. The response does not advertise pagination or a total count. If search_information.possibly_truncated is true, narrow the location or filters."
+      },
+      "status": {
+        "enum": [
+          "for_sale",
+          "sold"
+        ],
+        "type": "string",
+        "description": "Listing status. Defaults to for_sale when no URL is supplied."
+      },
+      "timeout": {
+        "type": "number",
+        "default": 50,
+        "maximum": 50,
+        "description": "Seconds the data source may spend before giving up (max 50, default 50). A timed-out call is not billed.",
+        "exclusiveMinimum": 0
+      },
+      "max_beds": {
+        "type": "integer",
+        "maximum": 20,
+        "minimum": 0,
+        "description": "Maximum number of bedrooms."
+      },
+      "max_sqft": {
+        "type": "integer",
+        "maximum": 9007199254740991,
+        "minimum": 0,
+        "description": "Maximum interior area in square feet."
+      },
+      "min_beds": {
+        "type": "integer",
+        "maximum": 20,
+        "minimum": 0,
+        "description": "Minimum number of bedrooms."
+      },
+      "min_sqft": {
+        "type": "integer",
+        "maximum": 9007199254740991,
+        "minimum": 0,
+        "description": "Minimum interior area in square feet."
+      },
+      "max_price": {
+        "type": "integer",
+        "maximum": 9007199254740991,
+        "minimum": 0,
+        "description": "Maximum listing price in US dollars."
+      },
+      "min_baths": {
+        "type": "number",
+        "maximum": 20,
+        "minimum": 0,
+        "description": "Minimum number of bathrooms."
+      },
+      "min_price": {
+        "type": "integer",
+        "maximum": 9007199254740991,
+        "minimum": 0,
+        "description": "Minimum listing price in US dollars."
+      },
+      "region_id": {
+        "type": "integer",
+        "maximum": 9007199254740991,
+        "minimum": -9007199254740991,
+        "description": "Redfin region identifier; requires region_type.",
+        "exclusiveMinimum": 0
+      },
+      "map_bounds": {
+        "type": "string",
+        "description": "Map rectangle as north,east,south,west."
+      },
+      "region_type": {
+        "anyOf": [
+          {
+            "type": "number",
+            "const": 1
+          },
+          {
+            "type": "number",
+            "const": 11
+          },
+          {
+            "type": "number",
+            "const": 2
+          },
+          {
+            "type": "number",
+            "const": 5
+          },
+          {
+            "type": "number",
+            "const": 6
+          }
+        ],
+        "description": "Region kind: 1 neighborhood, 2 ZIP region, 5 county, 6 city, 11 state. A ZIP region identifier differs from the ZIP code. Use a Redfin ZIP search URL if the region identifier is unknown."
+      },
+      "property_type": {
+        "enum": [
+          "co_op",
+          "condo",
+          "house",
+          "land",
+          "manufactured",
+          "multi_family",
+          "other",
+          "townhouse"
+        ],
+        "type": "string",
+        "description": "Restrict results to one property type."
+      },
+      "sold_within_days": {
+        "type": "integer",
+        "maximum": 365,
+        "minimum": 1,
+        "description": "Sold listings from the last N days; requires status=sold. Defaults to 180 for sold searches."
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "required": [
+      "id",
+      "status",
+      "model"
+    ],
+    "properties": {
+      "id": {
+        "type": "string"
+      },
+      "model": {
+        "type": "string"
+      },
+      "status": {
+        "type": "string"
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.00015
+  },
+  "readme": "# Redfin Search\n\nSearch Redfin home listings by region, map bounds or search URL with price, beds, baths, size, status and property type filters, returning address, price and listing details.",
+  "page_url": "https://www.sandbase.ai/model/redfin/search",
+  "created_at": "2026-11-13T04:14:44.297Z"
+}

@@ -1,0 +1,82 @@
+{
+  "name": "soundcloud/track",
+  "display_name": "SoundCloud Track",
+  "type": "api",
+  "vendor": "SoundCloud",
+  "vendor_slug": "soundcloud",
+  "description": "Get a SoundCloud track by artist and track slug with title, duration, plays, likes, reposts, comments, genre, artwork and upload date.",
+  "tags": [
+    "api",
+    "soundcloud",
+    "music"
+  ],
+  "capabilities": [
+    "api",
+    "soundcloud",
+    "music"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}",
+    "passthrough": "POST /v1/api/soundcloud/track"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "artist",
+      "track"
+    ],
+    "properties": {
+      "track": {
+        "type": "string",
+        "example": "flickermood",
+        "pattern": "^[a-zA-Z0-9_-]{1,200}$",
+        "description": "Track slug from the SoundCloud URL."
+      },
+      "artist": {
+        "type": "string",
+        "example": "forss",
+        "pattern": "^[a-zA-Z0-9_-]{1,100}$",
+        "description": "SoundCloud artist name from the track URL."
+      },
+      "timeout": {
+        "type": "number",
+        "default": 50,
+        "maximum": 50,
+        "description": "Seconds the data source may spend before giving up (max 50, default 50). A timed-out call is not billed.",
+        "exclusiveMinimum": 0
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "required": [
+      "id",
+      "status",
+      "model"
+    ],
+    "properties": {
+      "id": {
+        "type": "string"
+      },
+      "model": {
+        "type": "string"
+      },
+      "status": {
+        "type": "string"
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.00015
+  },
+  "readme": "# SoundCloud Track\n\nGet a SoundCloud track by artist and track slug with title, duration, plays, likes, reposts, comments, genre, artwork and upload date.",
+  "page_url": "https://www.sandbase.ai/model/soundcloud/track",
+  "created_at": "2026-11-13T04:24:44.909Z"
+}

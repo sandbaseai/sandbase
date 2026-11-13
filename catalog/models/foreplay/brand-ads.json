@@ -1,0 +1,174 @@
+{
+  "name": "foreplay/brand-ads",
+  "display_name": "Foreplay Brand Ads",
+  "type": "api",
+  "vendor": "Foreplay",
+  "vendor_slug": "foreplay",
+  "description": "List the social ads a brand has run by Foreplay brand ID, with creative, copy, platforms, run dates and landing page, filtered by format, platform and run time.",
+  "tags": [
+    "api",
+    "foreplay",
+    "advertising",
+    "ad-library"
+  ],
+  "capabilities": [
+    "api",
+    "foreplay",
+    "advertising",
+    "ad-library"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/foreplay/brand-ads"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "brand_ids"
+    ],
+    "properties": {
+      "live": {
+        "type": "string",
+        "description": "Filter ads by live status. `true` means currently active ads, `false` means inactive ads. Leave empty to include both."
+      },
+      "limit": {
+        "type": "integer",
+        "default": 10,
+        "example": 3,
+        "maximum": 20,
+        "description": "Number of results (1-20). Each returned item is billed at about $0.0175, so this caps the cost of one call."
+      },
+      "order": {
+        "enum": [
+          "newest",
+          "oldest",
+          "longest_running",
+          "most_relevant"
+        ],
+        "type": "string",
+        "default": "newest",
+        "description": "Order of results: 'newest' (default), 'oldest', 'longest_running', or 'most_relevant'. Sorts ads by creation date, longest running duration, or relevance to the search query."
+      },
+      "cursor": {
+        "type": "string",
+        "description": "Cursor for pagination. Use the cursor value from the previous response's metadata to get the next page of results."
+      },
+      "niches": {
+        "type": "string",
+        "description": "Filter by one or more niches. Available niches: travel, food, fashion, beauty, health, technology, automotive, finance, education, entertainment, sports, home, pets, business, other Example: `?niches=travel&niches=fashion`"
+      },
+      "collect": {
+        "type": "string",
+        "default": "false",
+        "description": "Best-effort live fallback. If the cached results are empty and `collect=true`, the API translates each brand id to its Meta page id (`adlibraryid`), kicks off a live fetch through our Spyder pipeline, and polls for ~30 seconds. Returns whatever is available at the end of the window — may still be empty if a brand has no Meta page on file, the page is restricted, deleted, or simply isn't running ads. Not perfect — use it as a fallback when the regular response is empty, not as a default."
+      },
+      "end_date": {
+        "type": "string",
+        "description": "End date (inclusive). Format: 'YYYY-MM-DD', 'YYYY-MM-DDTHH:MM:SS', or 'YYYY-MM-DD HH:MM:SS'. If you provide only the date (e.g. '2024-11-12'), it will be interpreted as '2024-11-12 00:00:00'. To include all results for a given day, set end_date to 'YYYY-MM-DD 23:59:59' or to the next day at '00:00:00'. Examples: start_date=2024-11-12 00:00:00, end_date=2024-11-12 23:59:59."
+      },
+      "brand_ids": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        },
+        "example": [
+          "3YfFtyvZ3viTAbbLaWLV"
+        ],
+        "description": "Brand ID(s) to search for. Can be a single ID or multiple IDs separated by commas."
+      },
+      "languages": {
+        "type": "string",
+        "description": "Filter by languages. Accepts various language formats: 'french', 'FR', 'romanian', 'ro', 'english', 'en', etc. Example: `?languages=en&languages=fr`"
+      },
+      "start_date": {
+        "type": "string",
+        "description": "Start date (inclusive). Format: 'YYYY-MM-DD', 'YYYY-MM-DDTHH:MM:SS', or 'YYYY-MM-DD HH:MM:SS'. If you provide only the date (e.g. '2024-11-12'), it will be interpreted as '2024-11-12 00:00:00'. To get all ads from a specific day, set end_date to 'YYYY-MM-DD 23:59:59' or to the next day at '00:00:00'. Examples: start_date=2024-11-12 00:00:00, end_date=2024-11-12 23:59:59."
+      },
+      "market_target": {
+        "type": "string",
+        "description": "Filter by market target. Available targets: b2b (business-to-business), b2c (business-to-consumer) Example: `?market_target=b2b`"
+      },
+      "display_format": {
+        "enum": [
+          "carousel",
+          "dco",
+          "dpa",
+          "event",
+          "image",
+          "multi_images",
+          "multi_medias",
+          "multi_videos",
+          "page_like",
+          "text",
+          "video"
+        ],
+        "type": "string",
+        "description": "Filter by one or more display formats. Available formats (11): carousel, dco, dpa, event, image, multi_images, multi_medias, multi_videos, page_like, text, video Example: `?display_format=video&display_format=carousel`"
+      },
+      "publisher_platform": {
+        "enum": [
+          "facebook",
+          "instagram",
+          "audience_network",
+          "messenger",
+          "tiktok",
+          "youtube",
+          "linkedin",
+          "threads",
+          "whatsapp"
+        ],
+        "type": "string",
+        "description": "Filter by one or more publisher platforms. Available platforms: facebook, instagram, audience_network, messenger, tiktok, youtube, linkedin, threads, whatsapp Example: `?publisher_platform=facebook&publisher_platform=instagram`"
+      },
+      "video_duration_max": {
+        "type": "string",
+        "description": "Filter ads by maximum video duration in seconds. Only applies to video ads."
+      },
+      "video_duration_min": {
+        "type": "string",
+        "description": "Filter ads by minimum video duration in seconds. Only applies to video ads."
+      },
+      "running_duration_max_days": {
+        "type": "string",
+        "description": "Filter ads by maximum running duration in days. Must be a positive integer."
+      },
+      "running_duration_min_days": {
+        "type": "string",
+        "description": "Filter ads by minimum running duration in days. Must be a positive integer."
+      }
+    },
+    "additionalProperties": false
+  },
+  "response_schema": {
+    "type": "object",
+    "required": [
+      "id",
+      "status",
+      "model"
+    ],
+    "properties": {
+      "id": {
+        "type": "string"
+      },
+      "model": {
+        "type": "string"
+      },
+      "status": {
+        "type": "string"
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "usage_based",
+    "note": "Billed per call from metered usage; the reference price is typical.",
+    "reference_price": 0.0525
+  },
+  "readme": "# Foreplay Brand Ads\n\nList the social ads a brand has run by Foreplay brand ID, with creative, copy, platforms, run dates and landing page, filtered by format, platform and run time.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/foreplay/brand-ads\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"brand_ids\": [\"3YfFtyvZ3viTAbbLaWLV\"], \"limit\": 3}'\n```\n\nThe result is returned in `outputs[0].data`.\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `brand_ids` | array | Yes | Brand ID(s) to search for. Can be a single ID or multiple IDs separated by commas. |\n| `limit` | integer | No | Pagination limit (max 250). Controls the number of ads returned per request. |\n| `collect` | string | No | Best-effort live fallback. If the cached results are empty and `collect=true`, the API translates each brand id to its Meta page id (`adlibraryid`), kicks off a live fetch through our Spyder pipeline, and polls for ~30 s |\n| `cursor` | string | No | Cursor for pagination. Use the cursor value from the previous response's metadata to get the next page of results. |\n| `display_format` | string | No | Filter by one or more display formats. Available formats (11): carousel, dco, dpa, event, image, multi_images, multi_medias, multi_videos, page_like, text, video Example: `?display_format=video&display_format=carousel` |\n| `end_date` | string | No | End date (inclusive). Format: 'YYYY-MM-DD', 'YYYY-MM-DDTHH:MM:SS', or 'YYYY-MM-DD HH:MM:SS'. If you provide only the date (e.g. '2024-11-12'), it will be interpreted as '2024-11-12 00:00:00'. To include all results for a |\n| `languages` | string | No | Filter by languages. Accepts various language formats: 'french', 'FR', 'romanian', 'ro', 'english', 'en', etc. Example: `?languages=en&languages=fr` |\n| `live` | string | No | Filter ads by live status. `true` means currently active ads, `false` means inactive ads. Leave empty to include both. |\n| `market_target` | string | No | Filter by market target. Available targets: b2b (business-to-business), b2c (business-to-consumer) Example: `?market_target=b2b` |\n| `niches` | string | No | Filter by one or more niches. Available niches: travel, food, fashion, beauty, health, technology, automotive, finance, education, entertainment, sports, home, pets, business, other Example: `?niches=travel&niches=fashio |\n| `order` | string | No | Order of results: 'newest' (default), 'oldest', 'longest_running', or 'most_relevant'. Sorts ads by creation date, longest running duration, or relevance to the search query. |\n| `publisher_platform` | string | No | Filter by one or more publisher platforms. Available platforms: facebook, instagram, audience_network, messenger, tiktok, youtube, linkedin, threads, whatsapp Example: `?publisher_platform=facebook&publisher_platform=ins |\n| `running_duration_max_days` | string | No | Filter ads by maximum running duration in days. Must be a positive integer. |\n| `running_duration_min_days` | string | No | Filter ads by minimum running duration in days. Must be a positive integer. |\n| `start_date` | string | No | Start date (inclusive). Format: 'YYYY-MM-DD', 'YYYY-MM-DDTHH:MM:SS', or 'YYYY-MM-DD HH:MM:SS'. If you provide only the date (e.g. '2024-11-12'), it will be interpreted as '2024-11-12 00:00:00'. To get all ads from a spec |\n| `video_duration_max` | string | No | Filter ads by maximum video duration in seconds. Only applies to video ads. |\n| `video_duration_min` | string | No | Filter ads by minimum video duration in seconds. Only applies to video ads. |\n\n## Pricing\n\nBilled at the actual upstream cost of each call (about $0.0525 for the request above). Failed calls are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/foreplay/brand-ads",
+  "created_at": "2026-11-13T07:43:37.441Z"
+}

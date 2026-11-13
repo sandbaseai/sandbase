@@ -1,0 +1,110 @@
+{
+  "name": "amazon/fresh",
+  "display_name": "Amazon Fresh Search",
+  "type": "api",
+  "vendor": "Amazon",
+  "vendor_slug": "amazon",
+  "description": "Search Amazon Fresh grocery products for a delivery ZIP code, with title, price, unit price, rating and availability.",
+  "tags": [
+    "api",
+    "amazon",
+    "ecommerce",
+    "grocery"
+  ],
+  "capabilities": [
+    "api",
+    "amazon",
+    "ecommerce",
+    "grocery"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/amazon/fresh"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "delivery_zip"
+    ],
+    "properties": {
+      "k": {
+        "type": "string",
+        "example": "milk",
+        "description": "Parameter defines the query you want to search. You can use anything that you would use in a regular Amazon Fresh search. This parameter can't be used with the `node` parameter."
+      },
+      "s": {
+        "type": "string",
+        "description": "Parameter is used for sorting results. It defaults to `relevanceblender` (Featured). Available options: `relevanceblender` - Featured `price-asc-rank` - Price: Low to High `price-desc-rank` - Price: High to Low `review-rank` - Avg. Customer Review `date-desc-rank` - Newest Arrivals `exact-aware-popularity-rank` - Best Sellers"
+      },
+      "dc": {
+        "type": "string",
+        "description": "Parameter defines the exclusion of results from an auto-corrected query when the original query is spelled wrong. It can be set to `true` to exclude these results, or `false` to include them (default)."
+      },
+      "rh": {
+        "type": "string",
+        "description": "Parameter defines items filtering based on their attributes. The structure is a list of `key:value` pairs separated by `,`. For example `n:16318981,p_n_program_participation:17428820011` to filter for products in the **Fresh Fruits** department (`n:16318981`) that are **SNAP EBT Eligible** (`p_n_program_participation:17428820011`) on `amazon.com`. Use `p_36:<min>-<max>` for a price range, with prices multiplied by 100 (e.g., `p_36:300-500` for $3.00 to $5.00). Available filters depend on the query and are returned in `filters`, along with a `the API_link` to apply each of them."
+      },
+      "node": {
+        "type": "string",
+        "description": "Parameter defines the Amazon Fresh department to browse without a search query. For example, `16318981` for **Fresh Fruits** on `amazon.com`. Department IDs are the `n:` values in `filters.department[].rh` (e.g., `n:16318981`). To switch departments while browsing, change `node` or follow the department's `the API_link`: Amazon ignores departments in `rh` while `node` is set. This parameter can't be used with the `k` parameter."
+      },
+      "page": {
+        "type": "string",
+        "description": "Parameter defines the page number. It's used for pagination. (e.g., `1` (default) is the first page of results, `2` is the 2nd page of results, `3` is the 3rd page of results, etc.)."
+      },
+      "device": {
+        "type": "string",
+        "description": "Parameter defines the device to use to get the results. It can be set to `desktop` (default) to use a regular browser, `tablet` to use a tablet browser (currently using iPads), or `mobile` to use a mobile browser."
+      },
+      "language": {
+        "type": "string",
+        "description": "Parameter defines the language to use for the Amazon Fresh search. It's a locale name represented as <language>_<REGION>. (e.g., on amazon.com `en_US` for English, `es_US` for Spanish, or on amazon.co.jp `ja_JP` for Japanese). Head to Amazon languages for a full list of supported Amazon languages."
+      },
+      "delivery_zip": {
+        "type": "string",
+        "example": "10001",
+        "description": "Parameter defines the ZIP or postal code of the delivery location. Amazon Fresh shows the products, prices, and delivery options available at that location. For example, `10001` on `amazon.com`, `EC1A 1BB` on `amazon.co.uk`, or `100-0001` on `amazon.co.jp`. ZIP+4 codes aren't supported."
+      },
+      "amazon_domain": {
+        "type": "string",
+        "description": "Parameter defines the Amazon domain to use. It defaults to `amazon.com`. Amazon Fresh is available on `amazon.com`, `amazon.co.uk`, `amazon.co.jp`, `amazon.it`, and `amazon.es`."
+      },
+      "json_restrictor": {
+        "type": "string",
+        "description": "Parameter defines the fields you want to include in the output, reducing payload size for faster response. See the JSON Restrictor documentation for more details."
+      }
+    },
+    "additionalProperties": false
+  },
+  "response_schema": {
+    "type": "object",
+    "required": [
+      "id",
+      "status",
+      "model"
+    ],
+    "properties": {
+      "id": {
+        "type": "string"
+      },
+      "model": {
+        "type": "string"
+      },
+      "status": {
+        "type": "string"
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.01
+  },
+  "readme": "# Amazon Fresh Search\n\nSearch Amazon Fresh grocery products for a delivery ZIP code, with title, price, unit price, rating and availability.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/amazon/fresh\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"k\": \"milk\", \"delivery_zip\": \"10001\"}'\n```\n\nThe result is returned in `outputs[0].data` as structured JSON.\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `delivery_zip` | string | Yes | Parameter defines the ZIP or postal code of the delivery location. Amazon Fresh shows the products, prices, and delivery options available at that location. For example, `10001` on `amazon.com`, `EC1A 1BB` on `amazon.co.uk`, or `100-0001` o |\n| `k` | string | No | Parameter defines the query you want to search. You can use anything that you would use in a regular Amazon Fresh search. This parameter can't be used with the `node` parameter. |\n| `amazon_domain` | string | No | Parameter defines the Amazon domain to use. It defaults to `amazon.com`. Amazon Fresh is available on `amazon.com`, `amazon.co.uk`, `amazon.co.jp`, `amazon.it`, and `amazon.es`. |\n| `language` | string | No | Parameter defines the language to use for the Amazon Fresh search. It's a locale name represented as <language>_<REGION>. (e.g., on amazon.com `en_US` for English, `es_US` for Spanish, or on amazon.co.jp `ja_JP` for Japanese). Head to Amazo |\n| `s` | string | No | Parameter is used for sorting results. It defaults to `relevanceblender` (Featured). Available options: `relevanceblender` - Featured `price-asc-rank` - Price: Low to High `price-desc-rank` - Price: High to Low `review-rank` - Avg. Customer |\n| `node` | string | No | Parameter defines the Amazon Fresh department to browse without a search query. For example, `16318981` for **Fresh Fruits** on `amazon.com`. Department IDs are the `n:` values in `filters.department[].rh` (e.g., `n:16318981`). To switch de |\n| `rh` | string | No | Parameter defines items filtering based on their attributes. The structure is a list of `key:value` pairs separated by `,`. For example `n:16318981,p_n_program_participation:17428820011` to filter for products in the **Fresh Fruits** depart |\n| `dc` | string | No | Parameter defines the exclusion of results from an auto-corrected query when the original query is spelled wrong. It can be set to `true` to exclude these results, or `false` to include them (default). |\n| `page` | string | No | Parameter defines the page number. It's used for pagination. (e.g., `1` (default) is the first page of results, `2` is the 2nd page of results, `3` is the 3rd page of results, etc.). |\n| `device` | string | No | Parameter defines the device to use to get the results. It can be set to `desktop` (default) to use a regular browser, `tablet` to use a tablet browser (currently using iPads), or `mobile` to use a mobile browser. |\n| `json_restrictor` | string | No | Parameter defines the fields you want to include in the output, reducing payload size for faster response. See the JSON Restrictor documentation for more details. |\n\n## Pricing\n\n$0.010 per successful call. Failed calls are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/amazon/fresh",
+  "created_at": "2026-11-13T01:44:53.966Z"
+}

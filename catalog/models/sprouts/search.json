@@ -1,0 +1,91 @@
+{
+  "name": "sprouts/search",
+  "display_name": "Sprouts Search",
+  "type": "api",
+  "vendor": "Sprouts Farmers Market",
+  "vendor_slug": "sprouts",
+  "description": "Search Sprouts Farmers Market grocery products by keyword with name, price, size and product URL, optionally for a store.",
+  "tags": [
+    "api",
+    "sprouts",
+    "ecommerce",
+    "grocery"
+  ],
+  "capabilities": [
+    "api",
+    "sprouts",
+    "ecommerce",
+    "grocery"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}",
+    "passthrough": "POST /v1/api/sprouts/search"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "query"
+    ],
+    "properties": {
+      "page": {
+        "type": "integer",
+        "maximum": 100,
+        "minimum": 1,
+        "description": "One-based result page."
+      },
+      "query": {
+        "type": "string",
+        "example": "milk",
+        "maxLength": 500,
+        "minLength": 1,
+        "description": "Product keywords to search for."
+      },
+      "timeout": {
+        "type": "number",
+        "default": 50,
+        "maximum": 50,
+        "description": "Seconds the data source may spend before giving up (max 50, default 50). A timed-out call is not billed.",
+        "exclusiveMinimum": 0
+      },
+      "store_id": {
+        "type": "string",
+        "pattern": "^[0-9]{1,8}$",
+        "maxLength": 8,
+        "minLength": 1,
+        "description": "Sprouts store location ID, such as 17650. Selects that store's in-store catalog."
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "required": [
+      "id",
+      "status",
+      "model"
+    ],
+    "properties": {
+      "id": {
+        "type": "string"
+      },
+      "model": {
+        "type": "string"
+      },
+      "status": {
+        "type": "string"
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.00015
+  },
+  "readme": "# Sprouts Search\n\nSearch Sprouts Farmers Market grocery products by keyword with name, price, size and product URL, optionally for a store.",
+  "page_url": "https://www.sandbase.ai/model/sprouts/search",
+  "created_at": "2026-11-13T04:19:45.556Z"
+}

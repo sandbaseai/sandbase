@@ -1,0 +1,143 @@
+{
+  "name": "chatgpt/search",
+  "display_name": "ChatGPT Search",
+  "type": "api",
+  "vendor": "ChatGPT",
+  "vendor_slug": "chatgpt",
+  "description": "Ask ChatGPT a web-grounded question and receive an answer with source citations. ChatGPT composes each answer per request, so the same prompt returns different wording and a different source set.",
+  "tags": [
+    "api",
+    "chatgpt",
+    "ai-search"
+  ],
+  "capabilities": [
+    "api",
+    "chatgpt",
+    "ai-search"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/chatgpt/search"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "prompt"
+    ],
+    "properties": {
+      "prompt": {
+        "type": "string",
+        "example": "What are the best practices for home composting?",
+        "maxLength": 2000,
+        "minLength": 1,
+        "description": "Question or research prompt for ChatGPT to answer using web search."
+      },
+      "country": {
+        "type": "string",
+        "default": "US",
+        "description": "ISO-3166 alpha-2 country to ask from, e.g. US, GB, DE. ChatGPT localizes both the pages it retrieves and the answer it writes, so this is the difference between what a US buyer and a UK buyer are told."
+      },
+      "webSearch": {
+        "enum": [
+          "force",
+          "auto"
+        ],
+        "type": "string",
+        "default": "force",
+        "description": "Whether to insist ChatGPT browses the web. force instructs it to search and is the default; auto lets ChatGPT decide, which is cheaper and answers from memory roughly half the time. Check webSearchTriggered for what actually happened - an answer written without a search is not web-grounded."
+      },
+      "requireAds": {
+        "type": "boolean",
+        "default": false,
+        "description": "Serve only from a source that can return sponsored placements shown with the answer. One source currently qualifies, so the request cannot fall back when it is unavailable."
+      },
+      "requireFields": {
+        "type": "array",
+        "items": {
+          "enum": [
+            "address",
+            "ads",
+            "advertiserName",
+            "advertiserUrl",
+            "answerPosition",
+            "category",
+            "cited",
+            "createdUtc",
+            "currency",
+            "description",
+            "domain",
+            "entities",
+            "model",
+            "name",
+            "phone",
+            "places",
+            "position",
+            "reviewCount",
+            "searchQueries",
+            "searchResults",
+            "snippet",
+            "webSearchTriggered",
+            "websiteUrl"
+          ],
+          "type": "string"
+        },
+        "description": "Optional; omit it and routing is unchanged, with the cheapest source serving. Name the output fields this request must be able to return, for example `cited` or `ads`, and it is served only by a source that returns every one of them. Fields you do not name are still returned whenever the serving source has them. This can raise your price: when the cheapest source cannot return a named field, a dearer source serves, and you are quoted and charged its price. A named field can still be absent on a result that genuinely lacks it. Naming a combination that no single source returns together is refused as invalid input, with no charge."
+      },
+      "requirePlaces": {
+        "type": "boolean",
+        "default": false,
+        "description": "Serve only from a source that can return places shown with the answer. Leaving this off still returns places whenever the source that answered can. Turning it on selects the single source that guarantees them, which costs more and has nothing to fall back to if it is unavailable."
+      },
+      "requireEntities": {
+        "type": "boolean",
+        "default": false,
+        "description": "Serve only from a source that can return brands and other named entities recognized in the answer. One source currently qualifies, so the request cannot fall back when it is unavailable."
+      },
+      "requireShoppingCards": {
+        "type": "boolean",
+        "default": false,
+        "description": "Serve only from a source that can return shopping cards shown with the answer. Leaving this off still returns shopping cards whenever the source that answered can. Turning it on selects the single source that guarantees them, which costs more and has nothing to fall back to if it is unavailable."
+      }
+    },
+    "additionalProperties": false
+  },
+  "response_schema": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string"
+      },
+      "model": {
+        "type": "string"
+      },
+      "status": {
+        "type": "string"
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "data": {
+              "type": "object",
+              "description": "Normalized result for this request."
+            }
+          }
+        }
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "usage_based",
+    "note": "Billed per call from metered usage; the reference price is typical.",
+    "reference_price": 0.0018
+  },
+  "readme": "# ChatGPT Search API\n\nAsk ChatGPT a web-grounded question and receive an answer with source citations. ChatGPT composes each answer per request, so the same prompt returns different wording and a different source set.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/run\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"model\": \"chatgpt/search\", \"prompt\": \"What are the best practices for home composting?\"}'\n```\n\nThe result is returned in `outputs[0].data`. Lookups that find nothing fail with a not-found error.\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `prompt` | string | Yes | Question or research prompt for ChatGPT to answer using web search. |\n| `country` | string | No | ISO-3166 alpha-2 country to ask from, e.g. US, GB, DE. ChatGPT localizes both the pages it retrieves and the answer it writes, so this is the difference between what a US buyer and a UK buyer are told. Default `\"US\"`. |\n| `requireAds` | boolean | No | Serve only from a source that can return sponsored placements shown with the answer. One source currently qualifies, so the request cannot fall back when it is unavailable. Default `false`. |\n| `requireEntities` | boolean | No | Serve only from a source that can return brands and other named entities recognized in the answer. One source currently qualifies, so the request cannot fall back when it is unavailable. Default `false`. |\n| `requireFields` | array | No | Optional; omit it and routing is unchanged, with the cheapest source serving. Name the output fields this request must be able to return, for example `cited` or `ads`, and it is served only by a source that returns every |\n| `requirePlaces` | boolean | No | Serve only from a source that can return places shown with the answer. Leaving this off still returns places whenever the source that answered can. Turning it on selects the single source that guarantees them, which cost |\n| `requireShoppingCards` | boolean | No | Serve only from a source that can return shopping cards shown with the answer. Leaving this off still returns shopping cards whenever the source that answered can. Turning it on selects the single source that guarantees  |\n| `webSearch` | string | No | Whether to insist ChatGPT browses the web. force instructs it to search and is the default; auto lets ChatGPT decide, which is cheaper and answers from memory roughly half the time. Check webSearchTriggered for what actu |\n\n## Pricing\n\nBilled at the actual cost of each call, about $0.0018 per request. A call can cost more when the first data source fails and another one answers. Failed calls and lookups that find nothing are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/chatgpt/search",
+  "created_at": "2026-11-13T04:52:24.407Z"
+}

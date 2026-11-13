@@ -1,0 +1,113 @@
+{
+  "name": "duckduckgo/images",
+  "display_name": "DuckDuckGo Images",
+  "type": "api",
+  "vendor": "DuckDuckGo",
+  "vendor_slug": "duckduckgo",
+  "description": "Search DuckDuckGo Images by keyword with size, color, type and layout filters, returning image URLs, thumbnails, titles and sources.",
+  "tags": [
+    "api",
+    "duckduckgo",
+    "images",
+    "serp"
+  ],
+  "capabilities": [
+    "api",
+    "duckduckgo",
+    "images",
+    "serp"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/duckduckgo/images"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "q"
+    ],
+    "properties": {
+      "q": {
+        "type": "string",
+        "example": "mountain lake",
+        "description": "Parameter defines the query you want to search. You can use anything that you would use in a regular DuckDuckGo Images search. (e.g., `site:`) Parameter length can not exceed 500 characters."
+      },
+      "df": {
+        "type": "string",
+        "description": "Parameter defines results filtered by date. It can be set to: `d` - Past day `w` - Past week `m` - Past month `y` - Past year"
+      },
+      "kl": {
+        "type": "string",
+        "description": "Parameter defines the region to use for the DuckDuckGo Images search. Region code examples: `us-en` (default) for the United States, `uk-en` for United Kingdom, or `fr-fr` for France. Head to the DuckDuckGo regions for a full list of supported regions."
+      },
+      "safe": {
+        "type": "string",
+        "description": "Parameter defines the level of filtering for adult content. It can be set to `1` (Strict), `-1` (Moderate - default), or `-2` (Off)."
+      },
+      "size": {
+        "type": "string",
+        "description": "Parameter defines results filtered by image size. It can be set to: `Small` - Small `Medium` - Medium `Large` - Large `Wallpaper` - Wallpaper"
+      },
+      "color": {
+        "type": "string",
+        "description": "Parameter defines results filtered by image color. It can be set to: `color` - Color only `Monochrome` - Black and white `Red` - Red `Orange` - Orange `Yellow` - Yellow `Green` - Green `Blue` - Blue `Purple` - Purple `Pink` - Pink `Brown` - Brown `Black` - Black `Gray` - Gray `Teal` - Teal `White` - White"
+      },
+      "start": {
+        "type": "string",
+        "description": "Parameter defines the result offset. It skips the given number of results. DuckDuckGo Images returns up to 100 `images_results` per page, so the next page starts at `100`. The next page can be found in the the API JSON response: `the API_pagination -> next`"
+      },
+      "layout": {
+        "type": "string",
+        "description": "Parameter defines results filtered by image layout. It can be set to: `Square` - Square `Tall` - Tall `Wide` - Wide"
+      },
+      "license": {
+        "type": "string",
+        "description": "Parameter defines results filtered by image license. It can be set to: `Any` - All Creative Commons `Public` - Public domain `Share` - Free to share and use `ShareCommercially` - Free to share and use commercially `Modify` - Free to modify, share, and use `ModifyCommercially` - Free to modify, share, and use commercially"
+      },
+      "image_type": {
+        "type": "string",
+        "description": "Parameter defines results filtered by image type. It can be set to: `photo` - Photograph `clipart` - Clipart `gif` - Animated GIF `transparent` - Transparent `line` - Line drawing"
+      },
+      "hide_ai_images": {
+        "type": "string",
+        "description": "Parameter defines whether to hide AI-generated images, like DuckDuckGo's *Hide AI images* setting. It can be set to `true` or `false` (default)."
+      },
+      "json_restrictor": {
+        "type": "string",
+        "description": "Parameter defines the fields you want to include in the output, reducing payload size for faster response. See the JSON Restrictor documentation for more details."
+      }
+    },
+    "additionalProperties": false
+  },
+  "response_schema": {
+    "type": "object",
+    "required": [
+      "id",
+      "status",
+      "model"
+    ],
+    "properties": {
+      "id": {
+        "type": "string"
+      },
+      "model": {
+        "type": "string"
+      },
+      "status": {
+        "type": "string"
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.01
+  },
+  "readme": "# DuckDuckGo Images\n\nSearch DuckDuckGo Images by keyword with size, color, type and layout filters, returning image URLs, thumbnails, titles and sources.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/duckduckgo/images\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"q\": \"mountain lake\"}'\n```\n\nThe result is returned in `outputs[0].data` as structured JSON.\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `q` | string | Yes | Parameter defines the query you want to search. You can use anything that you would use in a regular DuckDuckGo Images search. (e.g., `site:`) Parameter length can not exceed 500 characters. |\n| `kl` | string | No | Parameter defines the region to use for the DuckDuckGo Images search. Region code examples: `us-en` (default) for the United States, `uk-en` for United Kingdom, or `fr-fr` for France. Head to the DuckDuckGo regions for a full list of suppor |\n| `safe` | string | No | Parameter defines the level of filtering for adult content. It can be set to `1` (Strict), `-1` (Moderate - default), or `-2` (Off). |\n| `df` | string | No | Parameter defines results filtered by date. It can be set to: `d` - Past day `w` - Past week `m` - Past month `y` - Past year |\n| `size` | string | No | Parameter defines results filtered by image size. It can be set to: `Small` - Small `Medium` - Medium `Large` - Large `Wallpaper` - Wallpaper |\n| `color` | string | No | Parameter defines results filtered by image color. It can be set to: `color` - Color only `Monochrome` - Black and white `Red` - Red `Orange` - Orange `Yellow` - Yellow `Green` - Green `Blue` - Blue `Purple` - Purple `Pink` - Pink `Brown` - |\n| `image_type` | string | No | Parameter defines results filtered by image type. It can be set to: `photo` - Photograph `clipart` - Clipart `gif` - Animated GIF `transparent` - Transparent `line` - Line drawing |\n| `layout` | string | No | Parameter defines results filtered by image layout. It can be set to: `Square` - Square `Tall` - Tall `Wide` - Wide |\n| `license` | string | No | Parameter defines results filtered by image license. It can be set to: `Any` - All Creative Commons `Public` - Public domain `Share` - Free to share and use `ShareCommercially` - Free to share and use commercially `Modify` - Free to modify, |\n| `hide_ai_images` | string | No | Parameter defines whether to hide AI-generated images, like DuckDuckGo's *Hide AI images* setting. It can be set to `true` or `false` (default). |\n| `start` | string | No | Parameter defines the result offset. It skips the given number of results. DuckDuckGo Images returns up to 100 `images_results` per page, so the next page starts at `100`. The next page can be found in the the API JSON response: `the API_pa |\n| `json_restrictor` | string | No | Parameter defines the fields you want to include in the output, reducing payload size for faster response. See the JSON Restrictor documentation for more details. |\n\n## Pricing\n\n$0.010 per successful call. Failed calls are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/duckduckgo/images",
+  "created_at": "2026-11-13T01:51:53.86Z"
+}

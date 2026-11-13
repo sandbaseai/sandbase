@@ -1,0 +1,105 @@
+{
+  "name": "autozone/product",
+  "display_name": "AutoZone Product",
+  "type": "api",
+  "vendor": "AutoZone",
+  "vendor_slug": "autozone",
+  "description": "Get an AutoZone part by product ID with brand, part number, price, specifications, warranty, vehicle fitment and store availability.",
+  "tags": [
+    "api",
+    "autozone",
+    "ecommerce",
+    "automotive"
+  ],
+  "capabilities": [
+    "api",
+    "autozone",
+    "ecommerce",
+    "automotive"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/autozone/product"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "product_id"
+    ],
+    "properties": {
+      "store_id": {
+        "type": "string",
+        "description": "Parameter defines the AutoZone store to get the in-store pickup availability for, shown as `in_store_pickup` (e.g., `4254` for 10633 US Hwy 290 E, Manor, TX). The store ID is the store number shown as Store # in AutoZone's store details."
+      },
+      "product_id": {
+        "type": "string",
+        "example": "992113",
+        "description": "Parameter defines the AutoZone product to get. The product ID is the number at the end of the product's page URL on AutoZone (e.g., `832327` for `https://www.autozone.com/p/duralast-gold-battery-24f-dlg/832327`)."
+      },
+      "vehicle_make": {
+        "type": "string",
+        "description": "Parameter defines the make of the vehicle, as named on AutoZone (e.g., `Toyota`). Parameter requires `vehicle_year` and `vehicle_model` parameters to also be set."
+      },
+      "vehicle_type": {
+        "type": "string",
+        "description": "Parameter defines the type of the vehicle. It defaults to `car_truck` when `vehicle_year`, `vehicle_make`, and `vehicle_model` are set. Available options: `car_truck` - Car & Truck `motorcycle` - Motorcycle `recreational` - Recreational Parameter requires `vehicle_year`, `vehicle_make`, and `vehicle_model` parameters to also be set."
+      },
+      "vehicle_year": {
+        "type": "string",
+        "description": "Parameter defines the year of the vehicle to check the fitment of the product for (e.g., `2015`). Parameter requires `vehicle_make` and `vehicle_model` parameters to also be set."
+      },
+      "vehicle_model": {
+        "type": "string",
+        "description": "Parameter defines the model of the vehicle, as named on AutoZone (e.g., `Camry`). Parameter requires `vehicle_year` and `vehicle_make` parameters to also be set."
+      },
+      "vehicle_token": {
+        "type": "string",
+        "description": "Parameter defines the vehicle with the token of an AutoZone Search API search for it, from `search_information.vehicle.vehicle_token` or the `the API_link` of its results, without looking the vehicle up on AutoZone. Parameter can't be used together with `vehicle_year`, `vehicle_make`, `vehicle_model`, `vehicle_engine`, `vehicle_submodel`, and `vehicle_type` parameters."
+      },
+      "vehicle_engine": {
+        "type": "string",
+        "description": "Parameter defines the engine of the vehicle, as named on AutoZone (e.g., `4 Cylinders 2.5L GAS`). Parameter requires `vehicle_year`, `vehicle_make`, and `vehicle_model` parameters to also be set."
+      },
+      "json_restrictor": {
+        "type": "string",
+        "description": "Parameter defines the fields you want to include in the output, reducing payload size for faster response. See the JSON Restrictor documentation for more details."
+      },
+      "vehicle_submodel": {
+        "type": "string",
+        "description": "Parameter defines the submodel of the vehicle, as named on AutoZone (e.g., `LE`). Without it, products that only fit some submodels have a `fitment: needs_more_info`. Parameter requires `vehicle_year`, `vehicle_make`, and `vehicle_model` parameters to also be set."
+      }
+    },
+    "additionalProperties": false
+  },
+  "response_schema": {
+    "type": "object",
+    "required": [
+      "id",
+      "status",
+      "model"
+    ],
+    "properties": {
+      "id": {
+        "type": "string"
+      },
+      "model": {
+        "type": "string"
+      },
+      "status": {
+        "type": "string"
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.01
+  },
+  "readme": "# AutoZone Product\n\nGet an AutoZone part by product ID with brand, part number, price, specifications, warranty, vehicle fitment and store availability.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/autozone/product\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"product_id\": \"992113\"}'\n```\n\nThe result is returned in `outputs[0].data` as structured JSON.\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `product_id` | string | Yes | Parameter defines the AutoZone product to get. The product ID is the number at the end of the product's page URL on AutoZone (e.g., `832327` for `https://www.autozone.com/p/duralast-gold-battery-24f-dlg/832327`). |\n| `store_id` | string | No | Parameter defines the AutoZone store to get the in-store pickup availability for, shown as `in_store_pickup` (e.g., `4254` for 10633 US Hwy 290 E, Manor, TX). The store ID is the store number shown as Store # in AutoZone's store details. |\n| `vehicle_year` | string | No | Parameter defines the year of the vehicle to check the fitment of the product for (e.g., `2015`). Parameter requires `vehicle_make` and `vehicle_model` parameters to also be set. |\n| `vehicle_make` | string | No | Parameter defines the make of the vehicle, as named on AutoZone (e.g., `Toyota`). Parameter requires `vehicle_year` and `vehicle_model` parameters to also be set. |\n| `vehicle_model` | string | No | Parameter defines the model of the vehicle, as named on AutoZone (e.g., `Camry`). Parameter requires `vehicle_year` and `vehicle_make` parameters to also be set. |\n| `vehicle_engine` | string | No | Parameter defines the engine of the vehicle, as named on AutoZone (e.g., `4 Cylinders 2.5L GAS`). Parameter requires `vehicle_year`, `vehicle_make`, and `vehicle_model` parameters to also be set. |\n| `vehicle_submodel` | string | No | Parameter defines the submodel of the vehicle, as named on AutoZone (e.g., `LE`). Without it, products that only fit some submodels have a `fitment: needs_more_info`. Parameter requires `vehicle_year`, `vehicle_make`, and `vehicle_model` pa |\n| `vehicle_type` | string | No | Parameter defines the type of the vehicle. It defaults to `car_truck` when `vehicle_year`, `vehicle_make`, and `vehicle_model` are set. Available options: `car_truck` - Car & Truck `motorcycle` - Motorcycle `recreational` - Recreational Par |\n| `vehicle_token` | string | No | Parameter defines the vehicle with the token of an AutoZone Search API search for it, from `search_information.vehicle.vehicle_token` or the `the API_link` of its results, without looking the vehicle up on AutoZone. Parameter can't be used  |\n| `json_restrictor` | string | No | Parameter defines the fields you want to include in the output, reducing payload size for faster response. See the JSON Restrictor documentation for more details. |\n\n## Pricing\n\n$0.010 per successful call. Failed calls are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/autozone/product",
+  "created_at": "2026-11-13T02:51:29.74Z"
+}

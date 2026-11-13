@@ -1,0 +1,77 @@
+{
+  "name": "trader-joes/product",
+  "display_name": "Trader Joe's Product",
+  "type": "api",
+  "vendor": "Trader Joe's",
+  "vendor_slug": "trader-joes",
+  "description": "Get a Trader Joe's product by product ID with name, price, size, description, ingredients, nutrition and dietary tags.",
+  "tags": [
+    "api",
+    "trader-joes",
+    "ecommerce",
+    "grocery"
+  ],
+  "capabilities": [
+    "api",
+    "trader-joes",
+    "ecommerce",
+    "grocery"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/trader-joes/product"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "product_id"
+    ],
+    "properties": {
+      "store_id": {
+        "type": "string",
+        "description": "Parameter defines the Trader Joe's store to check the product availability in. It's the number at the end of the store page URL on the Trader Joe's store locator (e.g., `454` in `https://locations.traderjoes.com/tx/austin/454/`). When the product isn't sold in the store, `available` is `false` and the price is not returned, as on the Trader Joe's website."
+      },
+      "product_id": {
+        "type": "string",
+        "example": "097234",
+        "description": "Parameter defines the Trader Joe's product to get results for. It's the number at the end of the product page URL (e.g., `080794` in `https://www.traderjoes.com/home/products/pdp/cold-brew-coffee-black-080794`)."
+      },
+      "json_restrictor": {
+        "type": "string",
+        "description": "Parameter defines the fields you want to include in the output, reducing payload size for faster response. See the JSON Restrictor documentation for more details."
+      }
+    },
+    "additionalProperties": false
+  },
+  "response_schema": {
+    "type": "object",
+    "required": [
+      "id",
+      "status",
+      "model"
+    ],
+    "properties": {
+      "id": {
+        "type": "string"
+      },
+      "model": {
+        "type": "string"
+      },
+      "status": {
+        "type": "string"
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.01
+  },
+  "readme": "# Trader Joe's Product\n\nGet a Trader Joe's product by product ID with name, price, size, description, ingredients, nutrition and dietary tags.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/trader-joes/product\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"product_id\": \"097234\"}'\n```\n\nThe result is returned in `outputs[0].data` as structured JSON.\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `product_id` | string | Yes | Parameter defines the Trader Joe's product to get results for. It's the number at the end of the product page URL (e.g., `080794` in `https://www.traderjoes.com/home/products/pdp/cold-brew-coffee-black-080794`). |\n| `store_id` | string | No | Parameter defines the Trader Joe's store to check the product availability in. It's the number at the end of the store page URL on the Trader Joe's store locator (e.g., `454` in `https://locations.traderjoes.com/tx/austin/454/`). When the p |\n| `json_restrictor` | string | No | Parameter defines the fields you want to include in the output, reducing payload size for faster response. See the JSON Restrictor documentation for more details. |\n\n## Pricing\n\n$0.010 per successful call. Failed calls are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/trader-joes/product",
+  "created_at": "2026-11-13T02:53:30.242Z"
+}

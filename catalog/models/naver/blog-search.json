@@ -1,0 +1,98 @@
+{
+  "name": "naver/blog-search",
+  "display_name": "Naver Blog Search",
+  "type": "api",
+  "vendor": "Naver",
+  "vendor_slug": "naver",
+  "description": "Search up to five enriched Naver blog results by keyword with stable cursor pagination: result rank, title, excerpt, post and blogger URLs, blogger name, publish time, and Naver's total match count.",
+  "tags": [
+    "api",
+    "naver",
+    "blogs",
+    "serp"
+  ],
+  "capabilities": [
+    "api",
+    "naver",
+    "blogs",
+    "serp"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/naver/blog-search"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "query"
+    ],
+    "properties": {
+      "sort": {
+        "enum": [
+          "relevance",
+          "recent"
+        ],
+        "type": "string",
+        "example": "relevance",
+        "description": "Order posts by Naver relevance or newest publication date (default relevance)."
+      },
+      "limit": {
+        "type": "integer",
+        "example": 5,
+        "maximum": 5,
+        "minimum": 1,
+        "description": "Maximum number of title-enriched posts to return, from 1 to 5 (default 5)."
+      },
+      "query": {
+        "type": "string",
+        "example": "제주도 맛집",
+        "minLength": 1,
+        "description": "Keyword phrase to search across Naver blogs."
+      },
+      "cursor": {
+        "type": "string",
+        "description": "Opaque pagination cursor from a previous response's nextCursor."
+      }
+    },
+    "additionalProperties": false
+  },
+  "response_schema": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string"
+      },
+      "model": {
+        "type": "string"
+      },
+      "status": {
+        "type": "string"
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "data": {
+              "type": "object",
+              "description": "Normalized result for this request."
+            }
+          }
+        }
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "usage_based",
+    "note": "Billed per call from metered usage; the reference price is typical.",
+    "reference_price": 0.032
+  },
+  "readme": "# Naver Blog Search API\n\nSearch up to five enriched Naver blog results by keyword with stable cursor pagination: result rank, title, excerpt, post and blogger URLs, blogger name, publish time, and Naver's total match count.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/run\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"model\": \"naver/blog-search\", \"sort\": \"relevance\", \"limit\": 5, \"query\": \"제주도 맛집\"}'\n```\n\nThe result is returned in `outputs[0].data`. Lookups that find nothing fail with a not-found error.\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `query` | string | Yes | Keyword phrase to search across Naver blogs. |\n| `cursor` | string | No | Opaque pagination cursor from a previous response's nextCursor. |\n| `limit` | integer | No | Maximum number of title-enriched posts to return, from 1 to 5 (default 5). |\n| `sort` | string | No | Order posts by Naver relevance or newest publication date (default relevance). One of: `relevance`, `recent`. |\n\n## Pricing\n\nBilled at the actual cost of each call, about $0.032 per request. A call can cost more when the first data source fails and another one answers. Failed calls and lookups that find nothing are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/naver/blog-search",
+  "created_at": "2026-11-13T04:54:39.284Z"
+}

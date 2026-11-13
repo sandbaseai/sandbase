@@ -1,0 +1,77 @@
+{
+  "name": "spotify/search",
+  "display_name": "Spotify Search",
+  "type": "api",
+  "vendor": "Spotify",
+  "vendor_slug": "spotify",
+  "description": "Search Spotify for matching tracks, albums, artists, podcasts, and playlists by keyword.",
+  "tags": [
+    "api",
+    "spotify",
+    "music",
+    "podcasts"
+  ],
+  "capabilities": [
+    "api",
+    "spotify",
+    "music",
+    "podcasts"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/spotify/search"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "query"
+    ],
+    "properties": {
+      "query": {
+        "type": "string",
+        "example": "my first million",
+        "description": "Search term (e.g. \"my first million\")."
+      }
+    },
+    "additionalProperties": false
+  },
+  "response_schema": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string"
+      },
+      "model": {
+        "type": "string"
+      },
+      "status": {
+        "type": "string"
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "data": {
+              "type": "object",
+              "description": "Normalized result for this request."
+            }
+          }
+        }
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "usage_based",
+    "note": "Billed per call from metered usage; the reference price is typical.",
+    "reference_price": 0.0012
+  },
+  "readme": "# Spotify Search API\n\nSearch Spotify for matching tracks, albums, artists, podcasts, and playlists by keyword.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/run\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"model\": \"spotify/search\", \"query\": \"my first million\"}'\n```\n\nThe result is returned in `outputs[0].data`. Lookups that find nothing fail with a not-found error.\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `query` | string | Yes | Search term (e.g. \"my first million\"). |\n\n## Pricing\n\nBilled at the actual cost of each call, about $0.0012 per request. A call can cost more when the first data source fails and another one answers. Failed calls and lookups that find nothing are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/spotify/search",
+  "created_at": "2026-11-13T03:51:07.26Z"
+}

@@ -1,0 +1,129 @@
+{
+  "name": "autozone/search",
+  "display_name": "AutoZone Search",
+  "type": "api",
+  "vendor": "AutoZone",
+  "vendor_slug": "autozone",
+  "description": "Search AutoZone auto parts by keyword, optionally for a specific vehicle and store, with part number, brand, price, rating and availability.",
+  "tags": [
+    "api",
+    "autozone",
+    "ecommerce",
+    "automotive"
+  ],
+  "capabilities": [
+    "api",
+    "autozone",
+    "ecommerce",
+    "automotive"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/autozone/search"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "q"
+    ],
+    "properties": {
+      "q": {
+        "type": "string",
+        "example": "oil filter",
+        "description": "Parameter defines the query you want to search. You can use anything that you would use in a regular AutoZone search (e.g., `oil filter`, `brake pads`, or a part number like `S9972`)."
+      },
+      "ps": {
+        "type": "string",
+        "description": "Parameter defines the number of results per page, between `1` and `100`. It defaults to `24`."
+      },
+      "page": {
+        "type": "string",
+        "description": "Value is used to get results on a specific page. (e.g., `1` (default) is the first page of results, `2` is the 2nd page of results, `3` is the 3rd page of results, etc.)."
+      },
+      "sort": {
+        "type": "string",
+        "description": "Parameter defines the sorting of the results. It defaults to `featured`. Available options: `featured` - Featured `price_low` - Price (low to high) `price_high` - Price (high to low) `recently_added` - Recently Added `rating_high` - Customer Rating `best_seller` - Best Sellers"
+      },
+      "facet": {
+        "type": "string",
+        "description": "Parameter defines the filters to apply. It's a comma-separated list of filter values (e.g., `sub_brand_name_display_s:Duralast,avg_rating_range_ss:2~4 TO *~4 and up` for **Duralast** with **4 stars and up**). Filter values are available in `filters[].options[].value` of the results when `include_filters` is set to `true`."
+      },
+      "store_id": {
+        "type": "string",
+        "description": "Parameter defines the AutoZone store to search (e.g., `4254`). The store changes the order of the results and adds their `in_store_pickup` availability. It defaults to `6997`, the store AutoZone uses when no store is selected."
+      },
+      "max_price": {
+        "type": "string",
+        "description": "Parameter defines the maximum price of the products, in whole US dollars (e.g., `50`)."
+      },
+      "min_price": {
+        "type": "string",
+        "description": "Parameter defines the minimum price of the products, in whole US dollars (e.g., `20`)."
+      },
+      "vehicle_make": {
+        "type": "string",
+        "description": "Parameter defines the make of the vehicle, as named on AutoZone (e.g., `Toyota`). Parameter requires `vehicle_year` and `vehicle_model` parameters to also be set."
+      },
+      "vehicle_type": {
+        "type": "string",
+        "description": "Parameter defines the type of the vehicle. It defaults to `car_truck` when `vehicle_year`, `vehicle_make`, and `vehicle_model` are set. Available options: `car_truck` - Car & Truck `motorcycle` - Motorcycle `recreational` - Recreational Parameter requires `vehicle_year`, `vehicle_make`, and `vehicle_model` parameters to also be set."
+      },
+      "vehicle_year": {
+        "type": "string",
+        "description": "Parameter defines the year of the vehicle to find parts for (e.g., `2015`). Parameter requires `vehicle_make` and `vehicle_model` parameters to also be set."
+      },
+      "vehicle_model": {
+        "type": "string",
+        "description": "Parameter defines the model of the vehicle, as named on AutoZone (e.g., `Camry`). Parameter requires `vehicle_year` and `vehicle_make` parameters to also be set."
+      },
+      "vehicle_engine": {
+        "type": "string",
+        "description": "Parameter defines the engine of the vehicle, as named on AutoZone (e.g., `4 Cylinders 2.5L GAS`). Parameter requires `vehicle_year`, `vehicle_make`, and `vehicle_model` parameters to also be set."
+      },
+      "include_filters": {
+        "type": "string",
+        "description": "Parameter defines whether to include the `filters` of the search in the JSON response, with the values to use in `facet`. It can be set to `true` or `false` (default)."
+      },
+      "json_restrictor": {
+        "type": "string",
+        "description": "Parameter defines the fields you want to include in the output, reducing payload size for faster response. See the JSON Restrictor documentation for more details."
+      },
+      "vehicle_submodel": {
+        "type": "string",
+        "description": "Parameter defines the submodel of the vehicle, as named on AutoZone (e.g., `LE`). Without it, parts that only fit some submodels have a `fitment: needs_more_info`. Parameter requires `vehicle_year`, `vehicle_make`, and `vehicle_model` parameters to also be set."
+      }
+    },
+    "additionalProperties": false
+  },
+  "response_schema": {
+    "type": "object",
+    "required": [
+      "id",
+      "status",
+      "model"
+    ],
+    "properties": {
+      "id": {
+        "type": "string"
+      },
+      "model": {
+        "type": "string"
+      },
+      "status": {
+        "type": "string"
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.01
+  },
+  "readme": "# AutoZone Search\n\nSearch AutoZone auto parts by keyword, optionally for a specific vehicle and store, with part number, brand, price, rating and availability.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/autozone/search\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"q\": \"oil filter\"}'\n```\n\nThe result is returned in `outputs[0].data` as structured JSON.\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `q` | string | Yes | Parameter defines the query you want to search. You can use anything that you would use in a regular AutoZone search (e.g., `oil filter`, `brake pads`, or a part number like `S9972`). |\n| `store_id` | string | No | Parameter defines the AutoZone store to search (e.g., `4254`). The store changes the order of the results and adds their `in_store_pickup` availability. It defaults to `6997`, the store AutoZone uses when no store is selected. |\n| `vehicle_year` | string | No | Parameter defines the year of the vehicle to find parts for (e.g., `2015`). Parameter requires `vehicle_make` and `vehicle_model` parameters to also be set. |\n| `vehicle_make` | string | No | Parameter defines the make of the vehicle, as named on AutoZone (e.g., `Toyota`). Parameter requires `vehicle_year` and `vehicle_model` parameters to also be set. |\n| `vehicle_model` | string | No | Parameter defines the model of the vehicle, as named on AutoZone (e.g., `Camry`). Parameter requires `vehicle_year` and `vehicle_make` parameters to also be set. |\n| `vehicle_engine` | string | No | Parameter defines the engine of the vehicle, as named on AutoZone (e.g., `4 Cylinders 2.5L GAS`). Parameter requires `vehicle_year`, `vehicle_make`, and `vehicle_model` parameters to also be set. |\n| `vehicle_submodel` | string | No | Parameter defines the submodel of the vehicle, as named on AutoZone (e.g., `LE`). Without it, parts that only fit some submodels have a `fitment: needs_more_info`. Parameter requires `vehicle_year`, `vehicle_make`, and `vehicle_model` param |\n| `vehicle_type` | string | No | Parameter defines the type of the vehicle. It defaults to `car_truck` when `vehicle_year`, `vehicle_make`, and `vehicle_model` are set. Available options: `car_truck` - Car & Truck `motorcycle` - Motorcycle `recreational` - Recreational Par |\n| `sort` | string | No | Parameter defines the sorting of the results. It defaults to `featured`. Available options: `featured` - Featured `price_low` - Price (low to high) `price_high` - Price (high to low) `recently_added` - Recently Added `rating_high` - Custome |\n| `facet` | string | No | Parameter defines the filters to apply. It's a comma-separated list of filter values (e.g., `sub_brand_name_display_s:Duralast,avg_rating_range_ss:2~4 TO *~4 and up` for **Duralast** with **4 stars and up**). Filter values are available in  |\n| `min_price` | string | No | Parameter defines the minimum price of the products, in whole US dollars (e.g., `20`). |\n| `max_price` | string | No | Parameter defines the maximum price of the products, in whole US dollars (e.g., `50`). |\n| `page` | string | No | Value is used to get results on a specific page. (e.g., `1` (default) is the first page of results, `2` is the 2nd page of results, `3` is the 3rd page of results, etc.). |\n| `ps` | string | No | Parameter defines the number of results per page, between `1` and `100`. It defaults to `24`. |\n| `json_restrictor` | string | No | Parameter defines the fields you want to include in the output, reducing payload size for faster response. See the JSON Restrictor documentation for more details. |\n| `include_filters` | string | No | Parameter defines whether to include the `filters` of the search in the JSON response, with the values to use in `facet`. It can be set to `true` or `false` (default). |\n\n## Pricing\n\n$0.010 per successful call. Failed calls are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/autozone/search",
+  "created_at": "2026-11-13T01:47:43.631Z"
+}

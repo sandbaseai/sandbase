@@ -1,0 +1,85 @@
+{
+  "name": "google-maps/photos",
+  "display_name": "Google Maps Photos",
+  "type": "api",
+  "vendor": "Google Maps",
+  "vendor_slug": "google-maps",
+  "description": "Get photos of a Google Maps place by data ID, with image URLs, categories and paging.",
+  "tags": [
+    "api",
+    "google-maps",
+    "maps",
+    "local"
+  ],
+  "capabilities": [
+    "api",
+    "google-maps",
+    "maps",
+    "local"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/google-maps/photos"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "data_id"
+    ],
+    "properties": {
+      "hl": {
+        "type": "string",
+        "description": "Parameter defines the language to use for the Google Maps Photos search. It's a two or three-letter language code. (e.g., `en` for English, `es` for Spanish, or `fr` for French), optionally followed by a two-letter or three-digit region code (e.g., `en-gb` for British English, or `es-419` for Latin American Spanish). Head to the Google languages page for a full list of supported Google languages."
+      },
+      "data_id": {
+        "type": "string",
+        "example": "0x8644b741914e0c8d:0xcb6fba98ff70f342",
+        "description": "Parameter defines the Google Maps data ID. Find the data ID of a place using our Google Maps API."
+      },
+      "category_id": {
+        "type": "string",
+        "description": "Parameter defines the ID of a category. The number, and the type of categories can vary between places, and a search returns no results for a category the place doesn't have. Common categories: `CgIgAQ` - All (default) `CgIgARICGAI` - Latest `CgIgARICCAQ` - Videos `CgIgARICEAE` - By owner `CgIgARICEAI` - From visitors `CgIgARICCAI` - Street View & 360° `CgIYIQ` - Menu `CgIYIA` - Food & drink `CgIYIg` - Vibe `CgIYEA` - Rooms `CgIYFA` - Amenities `CgIYEw` - Exterior `CgIYEg` - Inside Other category IDs are supported as well."
+      },
+      "json_restrictor": {
+        "type": "string",
+        "description": "Parameter defines the fields you want to include in the output, reducing payload size for faster response. See the JSON Restrictor documentation for more details."
+      },
+      "next_page_token": {
+        "type": "string",
+        "description": "Parameter defines the next page token. It is used for retrieving the next page results. `10` results are returned per page."
+      }
+    },
+    "additionalProperties": false
+  },
+  "response_schema": {
+    "type": "object",
+    "required": [
+      "id",
+      "status",
+      "model"
+    ],
+    "properties": {
+      "id": {
+        "type": "string"
+      },
+      "model": {
+        "type": "string"
+      },
+      "status": {
+        "type": "string"
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.01
+  },
+  "readme": "# Google Maps Photos\n\nGet photos of a Google Maps place by data ID, with image URLs, categories and paging.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/google-maps/photos\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"data_id\": \"0x8644b741914e0c8d:0xcb6fba98ff70f342\"}'\n```\n\nThe result is returned in `outputs[0].data` as structured JSON.\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `data_id` | string | Yes | Parameter defines the Google Maps data ID. Find the data ID of a place using our Google Maps API. |\n| `hl` | string | No | Parameter defines the language to use for the Google Maps Photos search. It's a two or three-letter language code. (e.g., `en` for English, `es` for Spanish, or `fr` for French), optionally followed by a two-letter or three-digit region cod |\n| `category_id` | string | No | Parameter defines the ID of a category. The number, and the type of categories can vary between places, and a search returns no results for a category the place doesn't have. Common categories: `CgIgAQ` - All (default) `CgIgARICGAI` - Lates |\n| `next_page_token` | string | No | Parameter defines the next page token. It is used for retrieving the next page results. `10` results are returned per page. |\n| `json_restrictor` | string | No | Parameter defines the fields you want to include in the output, reducing payload size for faster response. See the JSON Restrictor documentation for more details. |\n\n## Pricing\n\n$0.010 per successful call. Failed calls are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/google-maps/photos",
+  "created_at": "2026-11-13T01:32:31.046Z"
+}

@@ -112,6 +112,7 @@ amazon/autocomplete,api,Amazon,per_call,0.00015,,,,,,async,POST /v1/run
 amazon/best-sellers,api,Amazon,per_call,0.014286,,,,,yes,sync,POST /v1/run
 amazon/category-products,api,Amazon,per_call,0.014286,,,,,yes,sync,POST /v1/run
 amazon/deals,api,Amazon,usage_based,,,,0.00085,0.00085,,sync,POST /v1/run
+amazon/fresh,api,Amazon,per_call,0.01,,,,,,sync,POST /v1/run
 amazon/offers,api,Amazon,usage_based,,,,0.00085,0.00085,,sync,POST /v1/run
 amazon/product,api,Amazon,per_call,0.015,,,,,yes,async,POST /v1/run
 amazon/product-detail,api,Amazon,per_call,0.014286,,,,,yes,sync,POST /v1/run
@@ -135,6 +136,8 @@ anthropic/claude-sonnet-4.5,llm,Anthropic,per_token,,3,15,,,,sync,POST /v1/chat/
 anthropic/claude-sonnet-4.6,llm,Anthropic,per_token,,3,15,,,,sync,POST /v1/chat/completions
 anthropic/claude-sonnet-5,llm,Anthropic,per_token,,2,10,,,,sync,POST /v1/chat/completions
 anthropic/claude-sonnet-5.5,llm,Anthropic,per_token,,2,10,,,,sync,POST /v1/chat/completions
+apartments-com/property,api,Apartments.com,per_call,0.00015,,,,,,async,POST /v1/run
+apartments-com/search,api,Apartments.com,per_call,0.00015,,,,,,async,POST /v1/run
 apollo/company-bulk-enrich,api,Apollo,formula,,,,0.01975,0.01975,,sync,POST /v1/run
 apollo/company-enrich,api,Apollo,per_call,0.01975,,,,,,sync,POST /v1/run
 apollo/company-job-postings,api,Apollo,per_call,0.01975,,,,,,sync,POST /v1/run
@@ -146,13 +149,18 @@ apollo/people-search,api,Apollo,per_call,0.012,,,,,yes,sync,POST /v1/run
 app-store/product,api,App Store,per_call,0.00015,,,,,yes,async,POST /v1/run
 app-store/reviews,api,App Store,per_call,0.00015,,,,,yes,async,POST /v1/run
 app-store/search,api,App Store,per_call,0.00015,,,,,yes,async,POST /v1/run
+apple-maps/place,api,Apple Maps,per_call,0.01,,,,,,sync,POST /v1/run
+apple-maps/search,api,Apple Maps,per_call,0.01,,,,,,sync,POST /v1/run
 artificial-analysis/cost-per-task,api,Artificial Analysis,per_call,0.05,,,,,,async,POST /v1/run
 artificial-analysis/llm-providers-leaderboard,api,Artificial Analysis,per_call,0.01,,,,,yes,async,POST /v1/run
 artificial-analysis/models-list,api,Artificial Analysis,per_call,0.02,,,,,,async,POST /v1/run
 artificial-analysis/search-models,api,Artificial Analysis,per_call,0.01,,,,,yes,async,POST /v1/run
 asos/product,api,ASOS,usage_based,,,,0.0009,0.0009,,sync,POST /v1/run
 asos/search,api,ASOS,usage_based,,,,0.00085,0.00085,,sync,POST /v1/run
+autozone/product,api,AutoZone,per_call,0.01,,,,,,sync,POST /v1/run
 autozone/scrape/category,api,AutoZone,per_call,0.012,,,,,yes,async,POST /v1/run
+autozone/search,api,AutoZone,per_call,0.01,,,,,,sync,POST /v1/run
+baidu/maps,api,Baidu,per_call,0.01,,,,,,sync,POST /v1/run
 baidu/news,api,Baidu,per_call,0.015,,,,,,sync,POST /v1/run
 baidu/search,api,Baidu,per_call,0.01,,,,,,sync,POST /v1/run
 best-buy/product,api,Best Buy,usage_based,,,,0.00085,0.00085,,sync,POST /v1/run
@@ -227,16 +235,19 @@ bilibili/web/video-play-info,api,Bilibili,per_call,0.001,,,,,yes,sync,POST /v1/r
 bilibili/web/video-playurl,api,Bilibili,per_call,0.001,,,,,yes,sync,POST /v1/run
 bilibili/web/video-subtitle,api,Bilibili,per_call,0.001,,,,,yes,sync,POST /v1/run
 bing-maps/maps,api,Bing Maps,per_call,0.00015,,,,,yes,async,POST /v1/run
+bing-shopping/product,api,Bing Shopping,per_call,0.01,,,,,,sync,POST /v1/run
 bing-shopping/search,api,Bing Shopping,per_call,0.015,,,,,yes,async,POST /v1/run
 bing/copilot,api,Bing,per_call,0.015,,,,,,sync,POST /v1/run
 bing/images,api,Bing,per_call,0.015,,,,,,sync,POST /v1/run
 bing/news,api,Bing,per_call,0.01,,,,,,sync,POST /v1/run
+bing/reverse-image,api,Bing,per_call,0.01,,,,,,sync,POST /v1/run
 bing/search,api,Bing,per_call,0.01,,,,,,sync,POST /v1/run
 bing/videos,api,Bing,per_call,0.015,,,,,,sync,POST /v1/run
 bluesky/post,api,Bluesky,usage_based,,,,0.0011,0.0011,,sync,POST /v1/run
 bluesky/profile,api,Bluesky,usage_based,,,,0.0011,0.0011,,sync,POST /v1/run
 bluesky/user-posts,api,Bluesky,usage_based,,,,0.0011,0.0011,,sync,POST /v1/run
 booking/search,api,Booking.com,per_call,0.01,,,,,,sync,POST /v1/run
+brave/ai-mode,api,Brave,per_call,0.01,,,,,,sync,POST /v1/run
 brave/images,api,Brave,per_call,0.005,,,,,yes,sync,POST /v1/run
 brave/llm-context,api,Brave,per_call,0.005,,,,,yes,sync,POST /v1/run
 brave/local-descriptions,api,Brave,per_call,0.005,,,,,yes,sync,POST /v1/run
@@ -279,6 +290,7 @@ capterra/category-products,api,Capterra,per_call,0.01,,,,,yes,async,POST /v1/run
 capterra/product-details,api,Capterra,per_call,0.01,,,,,yes,async,POST /v1/run
 capterra/product-reviews,api,Capterra,per_call,0.01,,,,,yes,async,POST /v1/run
 capterra/search-software,api,Capterra,per_call,0.01,,,,,yes,async,POST /v1/run
+chatgpt/search,api,ChatGPT,usage_based,,,,0.0018,0.0018,,sync,POST /v1/run
 clarity-ai/clarity-upscaler,image,ClarityAI,per_call,0.03,,,,,,async,POST /v1/run
 cloudsway/search,api,Cloudsway,per_call,0.005,,,,,yes,sync,POST /v1/run
 clutch/company-locations,api,Clutch,per_call,0.01,,,,,yes,async,POST /v1/run
@@ -310,6 +322,7 @@ coingecko/search-trending,api,CoinGecko,per_call,0.008,,,,,yes,sync,POST /v1/run
 coingecko/simple-price,api,CoinGecko,per_call,0.008,,,,,yes,sync,POST /v1/run
 coingecko/simple-supported-vs-currencies,api,CoinGecko,per_call,0.008,,,,,yes,sync,POST /v1/run
 coingecko/simple-token-price,api,CoinGecko,per_call,0.008,,,,,yes,sync,POST /v1/run
+congress/trades,api,US Congress,usage_based,,,,0.00905,0.00905,,sync,POST /v1/run
 crunchbase/investor-profile,api,Crunchbase,per_call,0.01,,,,,yes,async,POST /v1/run
 crunchbase/organization-profile,api,Crunchbase,per_call,0.02,,,,,,async,POST /v1/run
 crunchbase/search-investors,api,Crunchbase,per_call,0.02,,,,,,async,POST /v1/run
@@ -797,12 +810,16 @@ douyin/xingtu/sign-image,api,Douyin,per_call,0.001,,,,,yes,sync,POST /v1/run
 douyin/xingtu/xingtu-kolid-by-sec-user-id,api,Douyin,per_call,0.001,,,,,yes,sync,POST /v1/run
 douyin/xingtu/xingtu-kolid-by-uid,api,Douyin,per_call,0.001,,,,,yes,sync,POST /v1/run
 douyin/xingtu/xingtu-kolid-by-unique-id,api,Douyin,per_call,0.001,,,,,yes,sync,POST /v1/run
+duckduckgo/ai-chat,api,DuckDuckGo,per_call,0.01,,,,,,sync,POST /v1/run
+duckduckgo/images,api,DuckDuckGo,per_call,0.01,,,,,,sync,POST /v1/run
 duckduckgo/maps,api,DuckDuckGo,per_call,0.00015,,,,,yes,async,POST /v1/run
 duckduckgo/news,api,DuckDuckGo,per_call,0.015,,,,,,sync,POST /v1/run
 duckduckgo/search,api,DuckDuckGo,per_call,0.015,,,,,,sync,POST /v1/run
+duckduckgo/shopping,api,DuckDuckGo,per_call,0.01,,,,,,sync,POST /v1/run
 ebay/product,api,eBay,per_call,0.015,,,,,yes,async,POST /v1/run
 ebay/search,api,eBay,per_call,0.015,,,,,yes,async,POST /v1/run
 ebay/sold-listings,api,eBay,usage_based,,,,0.003,0.003,,sync,POST /v1/run
+edinet/documents,api,EDINET,usage_based,,,,1e-05,1e-05,,sync,POST /v1/run
 elevenlabs/dubbing,video,ElevenLabs,formula,,,,0.6,0.6,,async,POST /v1/run
 elevenlabs/multilingual-v2,audio,ElevenLabs,formula,,,,0.2,0.2,,async,POST /v1/run
 elevenlabs/music,audio,ElevenLabs,formula,,,,0.6,6,,async,POST /v1/run
@@ -875,11 +892,21 @@ financial-datasets/macro-interest-rates-snapshot,api,Financial Datasets,per_call
 financial-datasets/news,api,Financial Datasets,per_call,0.02,,,,,,sync,POST /v1/run
 financial-datasets/prices,api,Financial Datasets,per_call,0.02,,,,,,sync,POST /v1/run
 financial-datasets/prices-snapshot,api,Financial Datasets,per_call,0.02,,,,,,sync,POST /v1/run
+finviz/insider-trading,api,Finviz,per_call,0.01,,,,,,async,POST /v1/run
+finviz/market-movers,api,Finviz,per_call,0.01,,,,,,async,POST /v1/run
+finviz/news-sentiment,api,Finviz,per_call,0.01,,,,,,async,POST /v1/run
+finviz/screener,api,Finviz,per_call,0.01,,,,,,async,POST /v1/run
+finviz/ticker-sectors,api,Finviz,per_call,0.01,,,,,,async,POST /v1/run
 firecrawl/batch/scrape,api,Firecrawl,formula,,,,0.0075,0.0075,,async,POST /v1/run
 firecrawl/crawl,api,Firecrawl,formula,,,,0.0075,0.0075,,async,POST /v1/run
 firecrawl/map,api,Firecrawl,per_call,0.0075,,,,,yes,sync,POST /v1/run
 firecrawl/scrape,api,Firecrawl,per_call,0.0075,,,,,yes,sync,POST /v1/run
 firecrawl/search,api,Firecrawl,per_call,0.015,,,,,,sync,POST /v1/run
+flightradar24/flights,api,Flightradar24,per_call,0.01,,,,,,sync,POST /v1/run
+foreplay/ad-search,api,Foreplay,usage_based,,,,0.0525,0.0525,,sync,POST /v1/run
+foreplay/brand-ads,api,Foreplay,usage_based,,,,0.0525,0.0525,,sync,POST /v1/run
+foreplay/brand-analytics,api,Foreplay,usage_based,,,,0.1225,0.1225,,sync,POST /v1/run
+foreplay/brands-by-domain,api,Foreplay,usage_based,,,,0.0175,0.0175,,sync,POST /v1/run
 fred/category,api,FRED,per_call,1e-05,,,,,yes,sync,POST /v1/run
 fred/category-children,api,FRED,per_call,1e-05,,,,,yes,sync,POST /v1/run
 fred/category-related,api,FRED,per_call,1e-05,,,,,yes,sync,POST /v1/run
@@ -930,14 +957,40 @@ getapp/software-details,api,GetApp,per_call,0.01,,,,,yes,async,POST /v1/run
 getapp/software-integrations,api,GetApp,per_call,0.01,,,,,yes,async,POST /v1/run
 getapp/software-pricing,api,GetApp,per_call,0.01,,,,,yes,async,POST /v1/run
 getapp/software-reviews,api,GetApp,per_call,0.01,,,,,yes,async,POST /v1/run
+github/issue-comments,api,GitHub,usage_based,,,,0.0012,0.0012,,sync,POST /v1/run
+github/repository,api,GitHub,usage_based,,,,0.0012,0.0012,,sync,POST /v1/run
+github/repository-contributors,api,GitHub,usage_based,,,,0.0012,0.0012,,sync,POST /v1/run
+github/repository-forks,api,GitHub,usage_based,,,,0.0012,0.0012,,sync,POST /v1/run
+github/repository-issues,api,GitHub,usage_based,,,,0.0012,0.0012,,sync,POST /v1/run
+github/repository-readme,api,GitHub,usage_based,,,,0.0012,0.0012,,sync,POST /v1/run
+github/search-issues,api,GitHub,usage_based,,,,0.0024,0.0024,,sync,POST /v1/run
+github/trending-developers,api,GitHub,usage_based,,,,0.0012,0.0012,,sync,POST /v1/run
+github/trending-repositories,api,GitHub,usage_based,,,,0.0012,0.0012,,sync,POST /v1/run
+github/user,api,GitHub,usage_based,,,,0.0012,0.0012,,sync,POST /v1/run
+github/user-activity,api,GitHub,usage_based,,,,0.0012,0.0012,,sync,POST /v1/run
+github/user-contributions,api,GitHub,usage_based,,,,0.0012,0.0012,,sync,POST /v1/run
+github/user-followers,api,GitHub,usage_based,,,,0.0012,0.0012,,sync,POST /v1/run
+github/user-following,api,GitHub,usage_based,,,,0.0012,0.0012,,sync,POST /v1/run
+github/user-pull-requests,api,GitHub,usage_based,,,,0.0012,0.0012,,sync,POST /v1/run
+github/user-repositories,api,GitHub,usage_based,,,,0.0012,0.0012,,sync,POST /v1/run
 glassdoor/companies,api,Glassdoor,per_call,0.01,,,,,,sync,POST /v1/run
 glassdoor/jobs,api,Glassdoor,per_call,0.01,,,,,,sync,POST /v1/run
 glassdoor/reviews,api,Glassdoor,per_call,0.01,,,,,,sync,POST /v1/run
+google-flights/autocomplete,api,Google Flights,per_call,0.01,,,,,,sync,POST /v1/run
+google-flights/calendar,api,Google Flights,per_call,0.01,,,,,,sync,POST /v1/run
+google-flights/deals,api,Google Flights,per_call,0.01,,,,,,sync,POST /v1/run
 google-flights/search,api,Google Flights,per_call,0.015,,,,,,sync,POST /v1/run
+google-hotels/autocomplete,api,Google Hotels,per_call,0.01,,,,,,sync,POST /v1/run
+google-hotels/photos,api,Google Hotels,per_call,0.01,,,,,,sync,POST /v1/run
+google-hotels/price-calendar,api,Google Hotels,per_call,0.01,,,,,,sync,POST /v1/run
 google-hotels/reviews,api,Google Hotels,per_call,0.01,,,,,,sync,POST /v1/run
 google-hotels/search,api,Google Hotels,per_call,0.015,,,,,,sync,POST /v1/run
+google-maps/autocomplete,api,Google Maps,per_call,0.01,,,,,,sync,POST /v1/run
+google-maps/contributor-reviews,api,Google Maps,per_call,0.00015,,,,,,async,POST /v1/run
 google-maps/directions,api,Google Maps,per_call,0.01,,,,,,sync,POST /v1/run
 google-maps/photo-metadata,api,Google Maps,per_call,0.00015,,,,,yes,sync,POST /v1/run
+google-maps/photos,api,Google Maps,per_call,0.01,,,,,,sync,POST /v1/run
+google-maps/posts,api,Google Maps,per_call,0.01,,,,,,sync,POST /v1/run
 google-maps/reviews,api,Google Maps,per_call,0.00015,,,,,,async,POST /v1/run
 google-maps/search,api,Google Maps,per_call,0.01,,,,,,sync,POST /v1/run
 google-play/apps,api,Google Play,per_call,0.00015,,,,,yes,sync,POST /v1/run
@@ -946,8 +999,10 @@ google-play/games,api,Google Play,per_call,0.00015,,,,,yes,sync,POST /v1/run
 google-play/movies,api,Google Play,per_call,0.00015,,,,,yes,async,POST /v1/run
 google-play/product,api,Google Play,per_call,0.00015,,,,,yes,sync,POST /v1/run
 google-play/reviews,api,Google Play,per_call,0.00015,,,,,yes,async,POST /v1/run
+google-shopping/immersive-product,api,Google Shopping,per_call,0.01,,,,,,sync,POST /v1/run
 google-shopping/product,api,Google Shopping,per_call,0.00015,,,,,yes,sync,POST /v1/run
 google-shopping/search,api,Google Shopping,per_call,0.015,,,,,yes,async,POST /v1/run
+google/ads,api,Google,per_call,0.01,,,,,,sync,POST /v1/run
 google/ads-transparency,api,Google,per_call,0.015,,,,,,sync,POST /v1/run
 google/ai-mode,api,Google,usage_based,,,,0.002,0.002,,sync,POST /v1/run
 google/ai-overview,api,Google,usage_based,,,,0.0015,0.0015,,sync,POST /v1/run
@@ -955,6 +1010,8 @@ google/autocomplete,api,Google,per_call,0.01,,,,,,sync,POST /v1/run
 google/books,api,Google,per_call,0.01,,,,,,sync,POST /v1/run
 google/events,api,Google,per_call,0.01,,,,,,sync,POST /v1/run
 google/finance,api,Google,per_call,0.01,,,,,,sync,POST /v1/run
+google/finance-autocomplete,api,Google,per_call,0.01,,,,,,sync,POST /v1/run
+google/finance-markets,api,Google,per_call,0.01,,,,,,sync,POST /v1/run
 google/forums,api,Google,per_call,0.01,,,,,,sync,POST /v1/run
 google/gemini-2.5-flash,llm,Google,per_token,,0.3,2.5,,,,sync,POST /v1/chat/completions
 google/gemini-2.5-flash-lite,llm,Google,per_token,,0.1,0.4,,,,sync,POST /v1/chat/completions
@@ -976,6 +1033,7 @@ google/gemini-3.8-flash-lite-tts,audio,Google,formula,,,,0.03,0.03,,async,POST /
 google/gemini-3.8-flash-tts,audio,Google,formula,,,,0.045,0.045,,async,POST /v1/run
 google/gemini-4-argon,llm,Google,per_token,,4,20,,,,sync,POST /v1/chat/completions
 google/gemini-4-carbon,llm,Google,per_token,,4,20,,,,sync,POST /v1/chat/completions
+google/gemini-answer,api,Google,per_call,0.01,,,,,,sync,POST /v1/run
 google/gemini-nano-banana-2.1,llm,Google,per_token,,1.5,7.5,,,,sync,POST /v1/chat/completions
 google/gemini-omni-flash/1.1/edit,video,Google,formula,,,,1.12,1.12,,async,POST /v1/run
 google/gemini-omni-flash/1.1/image-to-video,video,Google,formula,,,,0.09,3,,async,POST /v1/run
@@ -1003,12 +1061,16 @@ google/nano-banana-2/edit,image,Google,formula,,,,0.045,0.165,,async,POST /v1/ru
 google/nano-banana-pro,image,Google,formula,,,,0.134,0.24,,async,POST /v1/run
 google/nano-banana-pro/edit,image,Google,formula,,,,0.1362,0.2422,,async,POST /v1/run
 google/news,api,Google,per_call,0.01,,,,,,sync,POST /v1/run
+google/patent-details,api,Google,per_call,0.01,,,,,,sync,POST /v1/run
 google/patents,api,Google,usage_based,,,,0.00085,0.00085,,sync,POST /v1/run
 google/scholar,api,Google,usage_based,,,,0.00085,0.00085,,sync,POST /v1/run
 google/scholar-author,api,Google,per_call,0.01,,,,,,sync,POST /v1/run
 google/search,api,Google,per_call,0.01,,,,,,sync,POST /v1/run
 google/short-videos,api,Google,per_call,0.01,,,,,,sync,POST /v1/run
+google/translate,api,Google,per_call,0.01,,,,,,sync,POST /v1/run
+google/travel-explore,api,Google,per_call,0.01,,,,,,sync,POST /v1/run
 google/trends,api,Google,per_call,0.01,,,,,,sync,POST /v1/run
+google/trends-autocomplete,api,Google,per_call,0.01,,,,,,sync,POST /v1/run
 google/trends-trending-now,api,Google,per_call,0.01,,,,,,sync,POST /v1/run
 google/veo3.1/fast/first-last-frame-to-video,video,Google,formula,,,,0.32,2.4,,async,POST /v1/run
 google/veo3.1/fast/image-to-video,video,Google,formula,,,,0.32,2.4,,async,POST /v1/run
@@ -1049,6 +1111,7 @@ hitem3d/hi3d/v3.0/multi-view-to-3d,image,Hitem3D,formula,,,,2.16,10.92,,async,PO
 home-depot/product,api,Home Depot,per_call,0.015,,,,,yes,async,POST /v1/run
 home-depot/product-reviews,api,Home Depot,per_call,0.015,,,,,yes,async,POST /v1/run
 home-depot/search,api,Home Depot,per_call,0.015,,,,,yes,async,POST /v1/run
+homes-com/search,api,Homes.com,per_call,0.00015,,,,,,async,POST /v1/run
 hunter/companies-find,api,Hunter,per_call,0.0049,,,,,yes,async,POST /v1/run
 hunter/discover-ai,api,Hunter,per_call,0.1,,,,,,async,POST /v1/run
 hybrid/video-data,api,Hybrid,per_call,0.001,,,,,yes,sync,POST /v1/run
@@ -1449,6 +1512,7 @@ moonshotai/kimi-k2.5,llm,Moonshotai,per_token,,0.6,3,,,,sync,POST /v1/chat/compl
 moonshotai/kimi-k2.6,llm,Moonshotai,per_token,,0.95,4,,,,sync,POST /v1/chat/completions
 moonshotai/kimi-k3,llm,Moonshotai,per_token,,3,15,,,,sync,POST /v1/chat/completions
 moonshotai/kimi-k3.1-pro,llm,Moonshotai,per_token,,2,10,,,,sync,POST /v1/chat/completions
+napa/search,api,NAPA,per_call,0.01,,,,,,sync,POST /v1/run
 nasdaq/cryptocurrency-quote,api,Nasdaq,per_call,0.01,,,,,yes,async,POST /v1/run
 nasdaq/earnings-calendar,api,Nasdaq,per_call,0.01,,,,,yes,async,POST /v1/run
 nasdaq/etf-quote,api,Nasdaq,per_call,0.01,,,,,yes,async,POST /v1/run
@@ -1466,8 +1530,12 @@ nasdaq/stock-news,api,Nasdaq,per_call,0.01,,,,,yes,async,POST /v1/run
 nasdaq/stock-quote,api,Nasdaq,per_call,0.01,,,,,yes,async,POST /v1/run
 nasdaq/stock-screener,api,Nasdaq,per_call,0.01,,,,,yes,async,POST /v1/run
 nasdaq/stock-sec-filings,api,Nasdaq,per_call,0.01,,,,,yes,async,POST /v1/run
+naver/ai-mode,api,Naver,per_call,0.01,,,,,,sync,POST /v1/run
 naver/ai-overview,api,Naver,per_call,0.015,,,,,,sync,POST /v1/run
+naver/blog-search,api,Naver,usage_based,,,,0.032,0.032,,sync,POST /v1/run
+naver/maps,api,Naver,per_call,0.01,,,,,,sync,POST /v1/run
 naver/search,api,Naver,per_call,0.01,,,,,,sync,POST /v1/run
+nextdoor/business,api,Nextdoor,usage_based,,,,0.00242,0.00242,,sync,POST /v1/run
 open-meteo/air-quality,api,Open-Meteo,per_call,0.0001,,,,,yes,sync,POST /v1/run
 open-meteo/archive,api,Open-Meteo,per_call,0.0001,,,,,yes,sync,POST /v1/run
 open-meteo/climate,api,Open-Meteo,per_call,0.0001,,,,,yes,sync,POST /v1/run
@@ -1532,6 +1600,8 @@ openai/gpt-oss-120b,llm,OpenAI,per_token,,0.039,0.18,,,,sync,POST /v1/chat/compl
 openai/text-embedding-3-large,embedding,OpenAI,per_token,,0.13,0,,,,sync,POST /v1/embeddings
 openai/wizper,audio,OpenAI,per_call,0.006,,,,,,async,POST /v1/run
 opentable/reviews,api,OpenTable,per_call,0.01,,,,,,sync,POST /v1/run
+perplexity/search,api,Perplexity,usage_based,,,,0.002,0.002,,sync,POST /v1/run
+pexels/search-photos,api,Pexels,usage_based,,,,0.0066,0.0066,,sync,POST /v1/run
 pinterest/board,api,Pinterest,per_call,0.018,,,,,,sync,POST /v1/run
 pinterest/pin,api,Pinterest,per_call,0.018,,,,,,sync,POST /v1/run
 pinterest/search,api,Pinterest,per_call,0.018,,,,,,sync,POST /v1/run
@@ -1615,6 +1685,9 @@ polymarket/tick-size-by-token-id,api,Polymarket,per_call,0.012,,,,,yes,sync,POST
 polymarket/time,api,Polymarket,per_call,0.012,,,,,yes,sync,POST /v1/run
 polymarket/traded,api,Polymarket,per_call,0.012,,,,,yes,sync,POST /v1/run
 polymarket/value,api,Polymarket,per_call,0.012,,,,,yes,sync,POST /v1/run
+querit/search,api,Querit,usage_based,,,,0.0048,0.0048,,sync,POST /v1/run
+realtor/property,api,Realtor.com,per_call,0.00015,,,,,,async,POST /v1/run
+realtor/search,api,Realtor.com,per_call,0.00015,,,,,,async,POST /v1/run
 reconviagen/reconviagen-0.5,image,reconviagen,formula,,,,0.25,0.35,,async,POST /v1/run
 recraft/recraft/v4.1,image,Recraft,per_call,0.035,,,,,,async,POST /v1/run
 recraft/recraft/v4.1/utility,image,Recraft,formula,,,,0.04,0.04,,async,POST /v1/run
@@ -1653,12 +1726,15 @@ reddit/subreddit-search,api,Reddit,usage_based,,,,0.00035,0.00035,,sync,POST /v1
 reddit/trending-posts,api,Reddit,usage_based,,,,0.0003,0.0003,,sync,POST /v1/run
 reddit/user-comments,api,Reddit,usage_based,,,,0.0006,0.0006,,sync,POST /v1/run
 reddit/user-posts,api,Reddit,usage_based,,,,0.00038,0.00038,,sync,POST /v1/run
+redfin/property,api,Redfin,usage_based,,,,0.0008,0.0008,,sync,POST /v1/run
+redfin/search,api,Redfin,per_call,0.00015,,,,,,async,POST /v1/run
 sams-club/product,api,Sam's Club,usage_based,,,,0.00319,0.00319,,sync,POST /v1/run
 sams-club/search,api,Sam's Club,usage_based,,,,0.00319,0.00319,,sync,POST /v1/run
 sandbase-ai/cat-vton,image,sandbase-ai,per_call,0.00125,,,,,,async,POST /v1/run
 scholar/search-mixed,api,Scholar,per_call,0.0036,,,,,yes,sync,POST /v1/run
 scholar/search-scholar,api,Scholar,per_call,0.0036,,,,,yes,sync,POST /v1/run
 scholar/search-web,api,Scholar,per_call,0.0036,,,,,yes,sync,POST /v1/run
+sec/filings,api,SEC EDGAR,usage_based,,,,0.00132,0.00132,,sync,POST /v1/run
 secform4/13d-filings,api,SECForm4,per_call,0.01,,,,,yes,async,POST /v1/run
 secform4/13g-filings,api,SECForm4,per_call,0.01,,,,,yes,async,POST /v1/run
 secform4/company-insider-trading,api,SECForm4,per_call,0.01,,,,,yes,async,POST /v1/run
@@ -1721,9 +1797,21 @@ similarweb/website-traffic-trend,api,Similarweb,per_call,0.45,,,,,,sync,POST /v1
 slickdeals/deal,api,Slickdeals,usage_based,,,,0.00213,0.00213,,sync,POST /v1/run
 slickdeals/search,api,Slickdeals,usage_based,,,,0.00213,0.00213,,sync,POST /v1/run
 snapchat/profile,api,Snapchat,usage_based,,,,0.0011,0.0011,,sync,POST /v1/run
+soundcloud/track,api,SoundCloud,per_call,0.00015,,,,,,async,POST /v1/run
 speridlabs/idol,image,speridlabs,per_call,0.1,,,,,,async,POST /v1/run
+spotify/album,api,Spotify,usage_based,,,,0.0012,0.0012,,sync,POST /v1/run
+spotify/artist,api,Spotify,usage_based,,,,0.0012,0.0012,,sync,POST /v1/run
+spotify/play-count,api,Spotify,usage_based,,,,0.0022,0.0022,,sync,POST /v1/run
+spotify/podcast,api,Spotify,usage_based,,,,0.0012,0.0012,,sync,POST /v1/run
+spotify/podcast-episodes,api,Spotify,usage_based,,,,0.0012,0.0012,,sync,POST /v1/run
+spotify/search,api,Spotify,usage_based,,,,0.0012,0.0012,,sync,POST /v1/run
+spotify/track,api,Spotify,usage_based,,,,0.0012,0.0012,,sync,POST /v1/run
+sprouts/product,api,Sprouts Farmers Market,per_call,0.00015,,,,,,async,POST /v1/run
+sprouts/search,api,Sprouts Farmers Market,per_call,0.00015,,,,,,async,POST /v1/run
 stability-ai/stable-audio/3/medium/text-to-audio,audio,stability-ai,per_call,0.0376,,,,,,async,POST /v1/run
 stability-ai/stable-audio/3/small/music/text-to-audio,audio,stability-ai,per_call,0.0217,,,,,,async,POST /v1/run
+steam/app,api,Steam,per_call,0.00015,,,,,,async,POST /v1/run
+steam/search,api,Steam,per_call,0.00015,,,,,,async,POST /v1/run
 stepfun/step-5-preview,llm,Stepfun,per_token,,1,2.7,,,,sync,POST /v1/chat/completions
 stockanalysis/market-movers-premarket,api,StockAnalysis,per_call,0.01,,,,,yes,async,POST /v1/run
 stockanalysis/search-stocks,api,StockAnalysis,per_call,0.01,,,,,yes,async,POST /v1/run
@@ -1777,6 +1865,18 @@ tencent/hunyuan-video/1.5/text-to-video,video,Tencent,formula,,,,0.375,0.375,,as
 tencent/hunyuan3d/v2/turbo,image,Tencent,formula,,,,0.14,0.42,,async,POST /v1/run
 tencent/hy3,llm,Tencent,per_token,,0.132,0.528,,,,sync,POST /v1/chat/completions
 tencent/hy4-preview,llm,Tencent,per_token,,0.834,2.501,,,,sync,POST /v1/chat/completions
+tendata/company/search,api,Tendata,formula,,,,0,0,,async,POST /v1/run
+tendata/trade/destination-countries,api,Tendata,usage_based,,,,0.016,0.016,,async,POST /v1/run
+tendata/trade/exporter-names,api,Tendata,usage_based,,,,0.0016,0.0016,,async,POST /v1/run
+tendata/trade/exporters,api,Tendata,usage_based,,,,0.019,0.019,,async,POST /v1/run
+tendata/trade/exporters-summary,api,Tendata,usage_based,,,,0.064,0.064,,async,POST /v1/run
+tendata/trade/hs-codes,api,Tendata,usage_based,,,,0.016,0.016,,async,POST /v1/run
+tendata/trade/importer-names,api,Tendata,usage_based,,,,0.0016,0.0016,,async,POST /v1/run
+tendata/trade/importers,api,Tendata,usage_based,,,,0.019,0.019,,async,POST /v1/run
+tendata/trade/importers-summary,api,Tendata,usage_based,,,,0.064,0.064,,async,POST /v1/run
+tendata/trade/origin-countries,api,Tendata,usage_based,,,,0.016,0.016,,async,POST /v1/run
+tendata/trade/record-count,api,Tendata,formula,,,,0,0,,async,POST /v1/run
+tendata/trade/volume-trend,api,Tendata,usage_based,,,,0.019,0.019,,async,POST /v1/run
 threads/web/post-detail,api,Threads,per_call,0.002,,,,,yes,sync,POST /v1/run
 threads/web/post-detail-v2,api,Threads,per_call,0.002,,,,,yes,sync,POST /v1/run
 threads/web/search-profiles,api,Threads,per_call,0.003,,,,,yes,sync,POST /v1/run
@@ -1979,10 +2079,13 @@ toutiao/app/video-info,api,Toutiao,per_call,0.001,,,,,yes,sync,POST /v1/run
 toutiao/search,api,Toutiao,per_call,0.071429,,,,,,sync,POST /v1/run
 toutiao/web/article-info,api,Toutiao,per_call,0.001,,,,,yes,sync,POST /v1/run
 toutiao/web/video-info,api,Toutiao,per_call,0.001,,,,,yes,sync,POST /v1/run
+trader-joes/product,api,Trader Joe's,per_call,0.01,,,,,,sync,POST /v1/run
+trader-joes/search,api,Trader Joe's,per_call,0.01,,,,,,sync,POST /v1/run
 trellis/trellis,image,trellis,per_call,0.02,,,,,,async,POST /v1/run
 trellis/trellis-2,image,trellis,formula,,,,0.25,0.45,,async,POST /v1/run
 trellis/trellis-2/retexture,image,trellis,formula,,,,0.2,0.24,,async,POST /v1/run
 trellis/trellis/multi,image,trellis,per_call,0.02,,,,,,async,POST /v1/run
+tripadvisor/place,api,Tripadvisor,per_call,0.00015,,,,,,async,POST /v1/run
 tripadvisor/reviews,api,Tripadvisor,per_call,0.00015,,,,,yes,sync,POST /v1/run
 tripadvisor/search,api,Tripadvisor,per_call,0.00015,,,,,yes,sync,POST /v1/run
 tripo3d/tripo-h3.1/image-to-3d,image,Tripo3D,formula,,,,0.24,0.78,,async,POST /v1/run
@@ -2055,6 +2158,8 @@ twitter/web/user-profiles-by-rest-ids,api,X (Twitter),per_call,0.001,,,,,yes,syn
 twitter/web/user-tweet-replies,api,Twitter,per_call,0.001,,,,,yes,sync,POST /v1/run
 typesafe/jev-1.13,llm,TypeSafe,per_token,,0.042,0,,,,sync,POST /v1/chat/completions
 typesafe/jev-1.14,llm,TypeSafe,per_token,,0.042,0,,,,sync,POST /v1/chat/completions
+unsplash/search-photos,api,Unsplash,usage_based,,,,0.0033,0.0033,,sync,POST /v1/run
+upwork/jobs,api,Upwork,usage_based,,,,0.007,0.007,,sync,POST /v1/run
 veed/lipsync/2.0,video,VEED,formula,,,,0.375,0.375,,async,POST /v1/run
 vidu/q3/image-to-video,video,Vidu,formula,,,,0.07,2.56,,async,POST /v1/run
 vidu/q3/image-to-video/turbo,video,Vidu,formula,,,,0.04,1.28,,async,POST /v1/run
@@ -2063,6 +2168,8 @@ vidu/q3/text-to-video,video,Vidu,formula,,,,0.07,2.56,,async,POST /v1/run
 vidu/q3/text-to-video/turbo,video,Vidu,formula,,,,0.04,1.28,,async,POST /v1/run
 vidu/q4/image-to-video,video,Vidu,formula,,,,0.135,6.24,,async,POST /v1/run
 vidu/q4/reference-to-video,video,Vidu,formula,,,,0.135,6.24,,async,POST /v1/run
+vrbo/listing,api,Vrbo,usage_based,,,,0.00085,0.00085,,sync,POST /v1/run
+vrbo/search,api,Vrbo,usage_based,,,,0.00085,0.00085,,sync,POST /v1/run
 walmart/product,api,Walmart,usage_based,,,,0.001,0.001,,sync,POST /v1/run
 walmart/product-reviews,api,Walmart,per_call,0.015,,,,,yes,async,POST /v1/run
 walmart/scrape/product,api,Walmart,per_call,0.01,,,,,yes,async,POST /v1/run
@@ -2196,6 +2303,8 @@ wellfound/company-profile,api,Wellfound,per_call,0.02,,,,,,async,POST /v1/run
 wellfound/job-autocomplete-roles,api,Wellfound,per_call,0.01,,,,,yes,async,POST /v1/run
 wellfound/trending-jobs,api,Wellfound,per_call,0.01,,,,,yes,async,POST /v1/run
 wellfound/trending-startups,api,Wellfound,per_call,0.02,,,,,,async,POST /v1/run
+whole-foods/product,api,Whole Foods Market,per_call,0.00015,,,,,,async,POST /v1/run
+whole-foods/search,api,Whole Foods Market,per_call,0.00015,,,,,,async,POST /v1/run
 x-ai/grok-4.3,llm,xAI,per_token,,1.25,2.5,,,,sync,POST /v1/chat/completions
 x-ai/grok-4.5,llm,xAI,per_token,,2,6,,,,sync,POST /v1/chat/completions
 x-ai/grok-4.6,llm,xAI,per_token,,2,6,,,,sync,POST /v1/chat/completions
@@ -2302,6 +2411,7 @@ yahoo-finance/search-tickers,api,Yahoo Finance,per_call,0.05,,,,,,async,POST /v1
 yahoo-finance/stock-news,api,Yahoo Finance,per_call,0.05,,,,,,async,POST /v1/run
 yahoo/images,api,Yahoo,per_call,0.015,,,,,,sync,POST /v1/run
 yahoo/search,api,Yahoo,per_call,0.01,,,,,,sync,POST /v1/run
+yahoo/trends,api,Yahoo,per_call,0.01,,,,,,sync,POST /v1/run
 yahoo/videos,api,Yahoo,per_call,0.015,,,,,,sync,POST /v1/run
 yandex/images,api,Yandex,per_call,0.015,,,,,,sync,POST /v1/run
 yandex/search,api,Yandex,per_call,0.01,,,,,,sync,POST /v1/run
@@ -2312,6 +2422,7 @@ ycombinator/person-detail,api,Y Combinator,per_call,0.01,,,,,yes,async,POST /v1/
 ycombinator/search-companies,api,Y Combinator,per_call,0.01,,,,,yes,async,POST /v1/run
 ycombinator/search-founders,api,Y Combinator,per_call,0.01,,,,,yes,async,POST /v1/run
 ycombinator/search-jobs,api,Y Combinator,per_call,0.01,,,,,yes,async,POST /v1/run
+yelp/place,api,Yelp,per_call,0.01,,,,,,sync,POST /v1/run
 yelp/reviews,api,Yelp,per_call,0.00015,,,,,yes,sync,POST /v1/run
 yelp/search,api,Yelp,per_call,0.00015,,,,,yes,sync,POST /v1/run
 youku/search-video,api,Youku,per_call,0.014286,,,,,yes,sync,POST /v1/run
@@ -2432,4 +2543,5 @@ zillow/agent-profile,api,Zillow,per_call,0.01,,,,,yes,async,POST /v1/run
 zillow/mortgage-rates,api,Zillow,per_call,0.05,,,,,,async,POST /v1/run
 zillow/open-houses,api,Zillow,per_call,0.03,,,,,,async,POST /v1/run
 zillow/property-details,api,Zillow,per_call,0.01,,,,,yes,async,POST /v1/run
+zillow/search,api,Zillow,per_call,0.01,,,,,,sync,POST /v1/run
 zillow/zestimate,api,Zillow,per_call,0.03,,,,,,async,POST /v1/run
