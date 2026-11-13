@@ -283,6 +283,8 @@ bytedance/seedream/5.0/lite,image,Bytedance,per_call,0.035,,,,,,async,POST /v1/r
 bytedance/seedream/5.0/lite/edit,image,Bytedance,per_call,0.035,,,,,,async,POST /v1/run
 bytedance/seedream/5.0/pro,image,Bytedance,formula,,,,0.09,0.09,,async,POST /v1/run
 bytedance/seedream/5.0/pro/edit,image,Bytedance,formula,,,,0.096,0.096,,async,POST /v1/run
+bytedance/seedream/5.5,image,Bytedance,formula,,,,0.02,0.035,,async,POST /v1/run
+bytedance/seedream/5.5/edit,image,Bytedance,formula,,,,0.028,0.043,,async,POST /v1/run
 bytedance/seedvr/upscale/image,image,Bytedance,per_call,0.01,,,,,,async,POST /v1/run
 bytedance/seedvr/upscale/video,video,Bytedance,formula,,,,0.31104,0.31104,,async,POST /v1/run
 bytedance/upscaler/video,video,Bytedance,formula,,,,0.036,0.036,,async,POST /v1/run

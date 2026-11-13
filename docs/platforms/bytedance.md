@@ -1,6 +1,6 @@
-# Bytedance models API: 28 endpoints with pricing and code examples
+# Bytedance models API: 30 endpoints with pricing and code examples
 
-Call 28 Bytedance models through SandBase with one API key: no separate account, one balance, the same request format for every endpoint. Each page has the input schema, the price and curl / Python / TypeScript / Go examples.
+Call 30 Bytedance models through SandBase with one API key: no separate account, one balance, the same request format for every endpoint. Each page has the input schema, the price and curl / Python / TypeScript / Go examples.
 
 | Endpoint | What it does | Price |
 |---|---|---|
@@ -29,6 +29,8 @@ Call 28 Bytedance models through SandBase with one API key: no separate account,
 | [`bytedance/seedream/5.0/lite/edit`](../models/bytedance/seedream/5.0/lite/edit.md) | Seedream 5.0 Lite — Fast Text-to-Image API The lightweight version of Seedream 5.0, delivering high-quality, low-latency AI image… | $0.035 per call |
 | [`bytedance/seedream/5.0/pro`](../models/bytedance/seedream/5.0/pro.md) | Seedream 5.0 Pro by Bytedance - generate stunning images from text prompts with state-of-the-art AI. Supports multiple aspect ratios,… | from $0.09 per run, depending on parameters |
 | [`bytedance/seedream/5.0/pro/edit`](../models/bytedance/seedream/5.0/pro/edit.md) | Seedream 5.0 Pro is Bytedance's intelligent image editing model. Transform, retouch, and reimagine existing images using text prompts -… | from $0.096 per run, depending on parameters |
+| [`bytedance/seedream/5.5`](../models/bytedance/seedream/5.5.md) | Seedream 5.5 by ByteDance generates photorealistic images from text prompts, with accurate small and multilingual text and native… | from $0.02 to $0.035 per run, depending on parameters |
+| [`bytedance/seedream/5.5/edit`](../models/bytedance/seedream/5.5/edit.md) | Seedream 5.5 Edit by ByteDance edits images with text instructions and up to 10 reference images. It keeps unedited regions stable across… | from $0.028 to $0.043 per run, depending on parameters |
 | [`bytedance/seedvr/upscale/image`](../models/bytedance/seedvr/upscale/image.md) | Seedvr Upscale Image by Bytedance - AI-powered image editing, style transfer, and transformation. Edit photos with natural language… | $0.01 per call |
 | [`bytedance/seedvr/upscale/video`](../models/bytedance/seedvr/upscale/video.md) | Seedvr Upscale Video by Bytedance - AI-powered video editing and transformation. Apply style transfer, motion control, lip-sync, and… | about $0.31104 per call |
 | [`bytedance/upscaler/video`](../models/bytedance/upscaler/video.md) | Bytedance Video Upscaler upscales videos to 4K resolution with AI-powered enhancement. Supports multiple quality tiers (fast, standard,… | about $0.036 per call |

@@ -1,0 +1,232 @@
+{
+  "name": "bytedance/seedream/5.5",
+  "display_name": "Seedream 5.5 Text to Image",
+  "type": "image",
+  "vendor": "Bytedance",
+  "vendor_slug": "bytedance",
+  "description": "Seedream 5.5 by ByteDance generates photorealistic images from text prompts, with accurate small and multilingual text and native transparent-background (RGBA) output. Choose 1K, 1.5K or 2K resolution and ten aspect ratios.",
+  "tags": [
+    "text-to-image"
+  ],
+  "capabilities": [
+    "text-to-image"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "prompt"
+    ],
+    "properties": {
+      "prompt": {
+        "type": "string",
+        "title": "Prompt",
+        "examples": [
+          "Vibrant editorial of a model in contemporary fashion fused with West African textile patterns and beadwork, Campbell Addy bold aesthetic, saturated palette, dramatic studio lighting, celebratory cultural richness, striking contemporary portraiture"
+        ],
+        "description": "The text prompt used to generate the image."
+      },
+      "background": {
+        "enum": [
+          "auto",
+          "transparent",
+          "opaque"
+        ],
+        "type": "string",
+        "title": "Background",
+        "default": "auto",
+        "description": "auto lets the model decide; transparent returns a PNG with an alpha channel (requires png output); opaque never adds transparency."
+      },
+      "num_images": {
+        "type": "integer",
+        "title": "Number of Images",
+        "default": 1,
+        "maximum": 1,
+        "minimum": 1,
+        "description": "The number of images to generate. Currently limited to 1."
+      },
+      "resolution": {
+        "enum": [
+          "1K",
+          "1.5K",
+          "2K"
+        ],
+        "type": "string",
+        "title": "Resolution",
+        "default": "2K",
+        "description": "Output resolution tier. 1K and 1.5K cost less; 2K is the highest quality."
+      },
+      "aspect_ratio": {
+        "enum": [
+          "21:9",
+          "16:9",
+          "3:2",
+          "4:3",
+          "5:4",
+          "1:1",
+          "4:5",
+          "3:4",
+          "2:3",
+          "9:16"
+        ],
+        "type": "string",
+        "title": "Aspect Ratio",
+        "description": "The aspect ratio of the generated image. Leave unset to let the model choose from the prompt."
+      },
+      "output_format": {
+        "enum": [
+          "jpeg",
+          "png"
+        ],
+        "type": "string",
+        "title": "Output Format",
+        "default": "png",
+        "examples": [
+          "png"
+        ],
+        "description": "The file format of the generated image. Use png for transparent backgrounds."
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "title": "GenerationResponse",
+    "required": [
+      "id",
+      "status"
+    ],
+    "properties": {
+      "id": {
+        "type": "string",
+        "description": "Unique identifier for the generation task."
+      },
+      "error": {
+        "type": "string",
+        "description": "Error message if the task failed. Empty on success."
+      },
+      "model": {
+        "type": "string",
+        "description": "Model ID used for the prediction."
+      },
+      "status": {
+        "enum": [
+          "pending",
+          "running",
+          "completed",
+          "failed",
+          "timeout"
+        ],
+        "type": "string",
+        "description": "Status of the task: pending, running, completed, failed, or timeout."
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "title": "OutputItem",
+          "required": [
+            "url"
+          ],
+          "properties": {
+            "url": {
+              "type": "string",
+              "examples": [
+                "https://static.sandbase.ai/examples/bytedance/seedream/5.5/output_url_0.png"
+              ],
+              "description": "The URL where the generated content can be downloaded from."
+            },
+            "content_type": {
+              "type": "string",
+              "description": "The MIME type of the output file."
+            }
+          }
+        },
+        "description": "Array of generated content. Empty when status is not completed."
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "formula",
+    "formula": "(params.num_images ?? 1) * ((params.resolution ?? \"2K\") == \"2K\" ? 0.035 : 0.02)",
+    "formula_variables": [
+      "params.num_images",
+      "params.resolution"
+    ],
+    "reference_price": 0.035,
+    "price_examples": [
+      {
+        "params": {
+          "num_images": 1,
+          "resolution": "1K"
+        },
+        "usd": 0.02
+      },
+      {
+        "params": {
+          "num_images": 1,
+          "resolution": "1.5K"
+        },
+        "usd": 0.02
+      },
+      {
+        "params": {
+          "num_images": 1,
+          "resolution": "2K"
+        },
+        "usd": 0.035
+      }
+    ]
+  },
+  "examples": [
+    {
+      "input": {
+        "aspect_ratio": "16:9",
+        "prompt": "Vibrant editorial of a model in contemporary fashion fused with West African textile patterns and beadwork, Campbell Addy bold aesthetic, saturated palette, dramatic studio lighting, celebratory cultural richness, striking contemporary portraiture"
+      },
+      "output": [
+        {
+          "url": "https://static.sandbase.ai/examples/e2e70611-24f1-41aa-b146-e16aaf7d0e79/output/d20d6d3e-dea4-4d3f-bd50-5a7824142172.png"
+        }
+      ],
+      "default": true
+    },
+    {
+      "input": {
+        "aspect_ratio": "16:9",
+        "background": "transparent",
+        "output_format": "png",
+        "prompt": "A transparent acrylic standee with a Christmas theme, a rectangular outline, and a thin white edge on all sides that brings out the transparent material. Use a scrapbook collage style: place a red-and-green two-tone vinyl record with a golden rim at the center, surrounded by a dimensional Christmas wreath of acorn leaves and pine branches. Decorate the wreath with hand-drawn red berries, golden four-pointed stars, reindeer, and snowflake stickers. Overlay a minimalist white music-player UI below, with play/pause controls, a progress bar (01:24 / 04:32), and a volume icon. Use vintage red, forest green, champagne gold, and off-white. Add occasional highlights refracted by the acrylic thickness for a realistic product finish. Set a transparent background."
+      },
+      "output": [
+        {
+          "url": "https://static.sandbase.ai/examples/2d68a142-4078-45df-a44d-392adcb6297a/output/1a3fde96-37fe-4f3e-9449-71f2e404cc39.png"
+        }
+      ]
+    },
+    {
+      "input": {
+        "aspect_ratio": "16:9",
+        "background": "transparent",
+        "output_format": "png",
+        "prompt": "Embroidered appliqué vintage stickers, transparent background. Each patch reproduces real embroidery craftsmanship with extreme realism, featuring a dense, three-dimensional raised texture and a thick off-white merrow-stitched border; some elements (stars, pockets, etc.) also show authentic denim fabric texture with yellow double-needle topstitching. All designs are classic girly motifs: hearts, daisies, cherries, rainbows, teddy bears, butterflies, etc.; the text includes black handwritten cursive script reading \"Good VIBES\" and \"By Cecy Papper\"."
+      },
+      "output": [
+        {
+          "url": "https://static.sandbase.ai/examples/5337ef57-3a94-4905-b3f3-97d9e6567a40/output/a786976f-c3aa-427a-aa6c-e4b9cf142187.png"
+        }
+      ]
+    }
+  ],
+  "readme": "# Seedream 5.5 Text to Image\n\nSeedream 5.5 is ByteDance's latest image model (November 2026). It renders photorealistic textures and dense small or multilingual text, and it can output transparent-background (RGBA) PNGs directly from a prompt.\n\n## Fields\n\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `prompt` | string, required | — | Text instruction. |\n| `aspect_ratio` | `21:9` / `16:9` / `3:2` / `4:3` / `5:4` / `1:1` / `4:5` / `3:4` / `2:3` / `9:16` | — | Output shape. Omit to let the model choose from the prompt. |\n| `resolution` | `1K` / `1.5K` / `2K` | `2K` | Output resolution tier. 2K at 16:9 is 2816×1584. |\n| `background` | `auto` / `transparent` / `opaque` | `auto` | `transparent` returns a PNG with an alpha channel. |\n| `num_images` | integer 1–1 | 1 | Fixed at 1. |\n| `output_format` | `png` / `jpeg` | `png` | Use `png` for transparent backgrounds. |\n\n## Billing\n\n$0.035 per image at 2K, $0.02 at 1K or 1.5K.\n\n| Request | Price |\n|---|---|\n| One image, 1K or 1.5K | $0.02 |\n| One image, 2K | $0.035 |\n\nFailed runs are not charged.\n\n## Prompting\n\n- Write subject, layout, style, then light and color.\n- Quote any text that must appear, and say where it goes.\n- For a cut-out asset, describe the subject on its own, ask for a transparent background, and set `background` to `transparent`.\n\n## Limits\n\n- One output image per request.\n- `jpeg` output never has transparency, even with `background` set to `transparent`.\n\n## Also on SandBase\n\nOther Seedream endpoints: `bytedance/seedream/5.5/edit`, `bytedance/seedream/5.0/pro`, `bytedance/seedream/5.0/pro/edit`, `bytedance/seedream/5.0/flash`, `bytedance/seedream/5.0/flash/edit`, `bytedance/seedream/5.0/lite`, `bytedance/seedream/4.5`.\n",
+  "cover_url": "https://static.sandbase.ai/covers/bytedance/seedream/5.5/cover-flare-20261113233614.webp",
+  "page_url": "https://www.sandbase.ai/model/bytedance/seedream/5.5",
+  "created_at": "2026-11-13T14:43:04.67Z"
+}

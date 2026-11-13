@@ -22,8 +22,8 @@
 | [LinkedIn](linkedin.md) | 38 | data API |
 | [FRED](fred.md) | 35 | data API |
 | [Reddit](reddit.md) | 35 | data API |
+| [Bytedance](bytedance.md) | 30 | LLM, audio model, image generation model, video generation model |
 | [X (Twitter)](x-twitter.md) | 30 | data API |
-| [Bytedance](bytedance.md) | 28 | LLM, audio model, image generation model, video generation model |
 | [Facebook](facebook.md) | 28 | data API |
 | [MiniMax](minimax.md) | 27 | audio model, image generation model, video generation model |
 | [Similarweb](similarweb.md) | 25 | data API |

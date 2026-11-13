@@ -1,11 +1,11 @@
 # SandBase capability index
 
-2549 capabilities · generated 2026-11-13T12:12:32Z
+2551 capabilities · generated 2026-11-13T19:41:00Z
 
 - [api](#api) (2047)
 - [audio](#audio) (32)
 - [embedding](#embedding) (2)
-- [image](#image) (164)
+- [image](#image) (166)
 - [llm](#llm) (123)
 - [video](#video) (181)
 
@@ -2153,6 +2153,8 @@
 | [`bytedance/seedream/5.0/lite/edit`](models/bytedance/seedream/5.0/lite/edit.md) | 0.035 / call | async | Seedream 5.0 Lite — Fast Text-to-Image API The lightweight version of Seedream 5.0, delivering high-quality,… |
 | [`bytedance/seedream/5.0/pro`](models/bytedance/seedream/5.0/pro.md) | 0.09 | async | Seedream 5.0 Pro by Bytedance - generate stunning images from text prompts with state-of-the-art AI. Supports multiple… |
 | [`bytedance/seedream/5.0/pro/edit`](models/bytedance/seedream/5.0/pro/edit.md) | 0.096 | async | Seedream 5.0 Pro is Bytedance's intelligent image editing model. Transform, retouch, and reimagine existing images… |
+| [`bytedance/seedream/5.5`](models/bytedance/seedream/5.5.md) | 0.02–0.035 | async | Seedream 5.5 by ByteDance generates photorealistic images from text prompts, with accurate small and multilingual text… |
+| [`bytedance/seedream/5.5/edit`](models/bytedance/seedream/5.5/edit.md) | 0.028–0.043 | async | Seedream 5.5 Edit by ByteDance edits images with text instructions and up to 10 reference images. It keeps unedited… |
 | [`bytedance/seedvr/upscale/image`](models/bytedance/seedvr/upscale/image.md) | 0.01 / call | async | Seedvr Upscale Image by Bytedance - AI-powered image editing, style transfer, and transformation. Edit photos with… |
 | [`clarity-ai/clarity-upscaler`](models/clarity-ai/clarity-upscaler.md) | 0.03 / call | async | Clarity Upscaler by ClarityAI - AI-powered image editing, style transfer, and transformation. Edit photos with natural… |
 | [`google/nano-banana-2`](models/google/nano-banana-2.md) | 0.045–0.165 | async | Nano Banana 2 is Google's new state-of-the-art fast image generation and editing model |
