@@ -1,0 +1,77 @@
+{
+  "name": "opentable/reviews",
+  "display_name": "OpenTable Reviews",
+  "type": "api",
+  "vendor": "OpenTable",
+  "vendor_slug": "opentable",
+  "description": "Get diner reviews for a restaurant on OpenTable by restaurant ID, with overall and sub-ratings, text, date and diner info.",
+  "tags": [
+    "api",
+    "opentable",
+    "restaurants",
+    "reviews"
+  ],
+  "capabilities": [
+    "api",
+    "opentable",
+    "restaurants",
+    "reviews"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/opentable/reviews"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "rid"
+    ],
+    "properties": {
+      "rid": {
+        "type": "string",
+        "example": "r/central-park-boathouse-new-york-2",
+        "description": "Parameter defines the OpenTable Restaurant ID. This identifier can be found in the URL of the restaurant's page, it's the path of the URL (the part after the first singular `/`). For example, in the URL `https://www.opentable.com/r/central-park-boathouse-new-york-2`, the Restaurant ID is `r/central-park-boathouse-new-york-2`."
+      },
+      "page": {
+        "type": "string",
+        "description": "Parameter defines the page number. `1` (default) is the first page of 10 results, `2` is the 2nd page, etc."
+      },
+      "json_restrictor": {
+        "type": "string",
+        "description": "Parameter defines the fields you want to include in the output, reducing payload size for faster response. See the JSON Restrictor documentation for more details."
+      }
+    },
+    "additionalProperties": false
+  },
+  "response_schema": {
+    "type": "object",
+    "required": [
+      "id",
+      "status",
+      "model"
+    ],
+    "properties": {
+      "id": {
+        "type": "string"
+      },
+      "model": {
+        "type": "string"
+      },
+      "status": {
+        "type": "string"
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.01
+  },
+  "readme": "# OpenTable Reviews\n\nGet diner reviews for a restaurant on OpenTable by restaurant ID, with overall and sub-ratings, text, date and diner info.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/opentable/reviews\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"rid\": \"r/central-park-boathouse-new-york-2\"}'\n```\n\nThe result is returned in `outputs[0].data` as structured JSON.\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `rid` | string | Yes | Parameter defines the OpenTable Restaurant ID. This identifier can be found in the URL of the restaurant's page, it's the path of the URL (the part after the first singular `/`). For example, in the URL `https://www.opentable.com/r/central- |\n| `page` | string | No | Parameter defines the page number. `1` (default) is the first page of 10 results, `2` is the 2nd page, etc. |\n| `json_restrictor` | string | No | Parameter defines the fields you want to include in the output, reducing payload size for faster response. See the JSON Restrictor documentation for more details. |\n\n## Pricing\n\n$0.010 per successful call. Failed calls are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/opentable/reviews",
+  "created_at": "2026-11-12T23:57:53.825Z"
+}

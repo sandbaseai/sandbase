@@ -1,10 +1,11 @@
-# Yahoo API: 2 endpoints with pricing and code examples
+# Yahoo API: 3 endpoints with pricing and code examples
 
-Call 2 Yahoo endpoints through SandBase with one API key: no separate account, one balance, the same request format for every endpoint. Each page has the input schema, the price and curl / Python / TypeScript / Go examples.
+Call 3 Yahoo endpoints through SandBase with one API key: no separate account, one balance, the same request format for every endpoint. Each page has the input schema, the price and curl / Python / TypeScript / Go examples.
 
 | Endpoint | What it does | Price |
 |---|---|---|
 | [`yahoo/images`](../models/yahoo/images.md) | Yahoo Images results for a keyword: image URLs, thumbnails, sizes and source pages. | $0.015 per call |
+| [`yahoo/search`](../models/yahoo/search.md) | Get Yahoo web results for a query with organic results, related searches and pagination, localized by domain and language. | $0.01 per call |
 | [`yahoo/videos`](../models/yahoo/videos.md) | Yahoo Videos results for a keyword: titles, thumbnails, durations and source sites. | $0.015 per call |
 
 ## Quick start

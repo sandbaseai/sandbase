@@ -1,0 +1,82 @@
+{
+  "name": "glassdoor/companies",
+  "display_name": "Glassdoor Companies",
+  "type": "api",
+  "vendor": "Glassdoor",
+  "vendor_slug": "glassdoor",
+  "description": "Search companies on Glassdoor by name and get company ID, rating, review and salary counts, size, industry and headquarters.",
+  "tags": [
+    "api",
+    "glassdoor",
+    "jobs",
+    "company-data"
+  ],
+  "capabilities": [
+    "api",
+    "glassdoor",
+    "jobs",
+    "company-data"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/glassdoor/companies"
+  },
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "q": {
+        "type": "string",
+        "example": "nvidia",
+        "description": "Parameter defines the name of the company to search for, like the company search box of Glassdoor (e.g., `Google` or `bank`). Without it, Glassdoor lists the companies with the most reviews."
+      },
+      "page": {
+        "type": "string",
+        "description": "Parameter defines the page number of the results (e.g., `1` (default) is the first page of results, `2` is the 2nd page of results, etc.). Each page has up to `10` companies."
+      },
+      "location": {
+        "type": "string",
+        "description": "Parameter defines the location of the companies' offices: a city, state or country (e.g., `New York, NY`, `Texas`, or `Germany`). We use the first location Glassdoor suggests with that name, or else its first suggestion. Like on Glassdoor, the location doesn't apply to searches with `q`."
+      },
+      "min_rating": {
+        "type": "string",
+        "description": "Parameter defines the minimum overall Glassdoor rating of the companies, from `1` to `4` (e.g., `4` for companies rated 4.0 and up)."
+      },
+      "json_restrictor": {
+        "type": "string",
+        "description": "Parameter defines the fields you want to include in the output, reducing payload size for faster response. See the JSON Restrictor documentation for more details."
+      }
+    },
+    "additionalProperties": false
+  },
+  "response_schema": {
+    "type": "object",
+    "required": [
+      "id",
+      "status",
+      "model"
+    ],
+    "properties": {
+      "id": {
+        "type": "string"
+      },
+      "model": {
+        "type": "string"
+      },
+      "status": {
+        "type": "string"
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.01
+  },
+  "readme": "# Glassdoor Companies\n\nSearch companies on Glassdoor by name and get company ID, rating, review and salary counts, size, industry and headquarters.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/glassdoor/companies\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"q\": \"nvidia\"}'\n```\n\nThe result is returned in `outputs[0].data` as structured JSON.\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `q` | string | No | Parameter defines the name of the company to search for, like the company search box of Glassdoor (e.g., `Google` or `bank`). Without it, Glassdoor lists the companies with the most reviews. |\n| `location` | string | No | Parameter defines the location of the companies' offices: a city, state or country (e.g., `New York, NY`, `Texas`, or `Germany`). We use the first location Glassdoor suggests with that name, or else its first suggestion. Like on Glassdoor,  |\n| `min_rating` | string | No | Parameter defines the minimum overall Glassdoor rating of the companies, from `1` to `4` (e.g., `4` for companies rated 4.0 and up). |\n| `page` | string | No | Parameter defines the page number of the results (e.g., `1` (default) is the first page of results, `2` is the 2nd page of results, etc.). Each page has up to `10` companies. |\n| `json_restrictor` | string | No | Parameter defines the fields you want to include in the output, reducing payload size for faster response. See the JSON Restrictor documentation for more details. |\n\n## Pricing\n\n$0.010 per successful call. Failed calls are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/glassdoor/companies",
+  "created_at": "2026-11-12T23:53:19.206Z"
+}

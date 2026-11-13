@@ -1,0 +1,113 @@
+{
+  "name": "baidu/search",
+  "display_name": "Baidu Search",
+  "type": "api",
+  "vendor": "Baidu",
+  "vendor_slug": "baidu",
+  "description": "Get Baidu web results for a query with organic results, answer boxes, related searches and pagination.",
+  "tags": [
+    "api",
+    "baidu",
+    "web-search",
+    "serp"
+  ],
+  "capabilities": [
+    "api",
+    "baidu",
+    "web-search",
+    "serp"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/baidu/search"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "q"
+    ],
+    "properties": {
+      "f": {
+        "type": "string",
+        "description": "Defines the originating search type. (e.g., `8` is a normal search, `3` is from the suggestion list, and `1` is a related search."
+      },
+      "q": {
+        "type": "string",
+        "example": "人工智能",
+        "description": "Parameter defines the search query, including all Baidu search operators. (e.g., `inurl:`, `site:`, `intitle:`, etc.)."
+      },
+      "bs": {
+        "type": "string",
+        "description": "Defines the previous search query."
+      },
+      "ct": {
+        "type": "string",
+        "description": "Parameter defines which language to restrict results. Available options: `1` - All languages `2` - Simplified Chinese `3` - Traditional Chinese"
+      },
+      "oq": {
+        "type": "string",
+        "description": "Defines the original search query when navigated from a related search."
+      },
+      "pn": {
+        "type": "string",
+        "description": "Parameter defines the result offset. It skips the given number of results. It's used for pagination. (e.g., `0` (default) is the first page of results, `10` is the 2nd page of results, `20` is the 3rd page of results, etc.)."
+      },
+      "q5": {
+        "type": "string",
+        "description": "Similar to using `inurl:` or `intitle:`. (e.g., `1` to search by page title, `2` to search by web address.)."
+      },
+      "q6": {
+        "type": "string",
+        "description": "Similar to using `site:`. (e.g., `q6=the API.com` to search for results only from the domain `the API.com`)."
+      },
+      "rn": {
+        "type": "string",
+        "description": "Parameter defines the maximum number of results to return, limited to 50. (e.g., `10` (default) returns 10 results, `30` returns 30 results, and `50` returns 50 results). This parameter is only available for **desktop and tablet** searches."
+      },
+      "gpc": {
+        "type": "string",
+        "description": "Parameter defines the time period for results. (e.g., `stf=1793918685,1794523485|stftype=1` only returns results from the past 7 days. First integer within the parameter,`1793918685` is Unix Timestamp for 7 days ago. Second integer,`1794523485` is Unix Timestamp for now.)."
+      },
+      "device": {
+        "type": "string",
+        "description": "Parameter defines the device to use to get the results. It can be set to `desktop` (default) to use a regular browser, `tablet` to use a tablet browser (currently using iPads), or `mobile` to use a mobile browser."
+      },
+      "json_restrictor": {
+        "type": "string",
+        "description": "Parameter defines the fields you want to include in the output, reducing payload size for faster response. See the JSON Restrictor documentation for more details."
+      }
+    },
+    "additionalProperties": false
+  },
+  "response_schema": {
+    "type": "object",
+    "required": [
+      "id",
+      "status",
+      "model"
+    ],
+    "properties": {
+      "id": {
+        "type": "string"
+      },
+      "model": {
+        "type": "string"
+      },
+      "status": {
+        "type": "string"
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.01
+  },
+  "readme": "# Baidu Search\n\nGet Baidu web results for a query with organic results, answer boxes, related searches and pagination.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/baidu/search\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"q\": \"人工智能\"}'\n```\n\nThe result is returned in `outputs[0].data` as structured JSON.\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `q` | string | Yes | Parameter defines the search query, including all Baidu search operators. (e.g., `inurl:`, `site:`, `intitle:`, etc.). |\n| `ct` | string | No | Parameter defines which language to restrict results. Available options: `1` - All languages `2` - Simplified Chinese `3` - Traditional Chinese |\n| `pn` | string | No | Parameter defines the result offset. It skips the given number of results. It's used for pagination. (e.g., `0` (default) is the first page of results, `10` is the 2nd page of results, `20` is the 3rd page of results, etc.). |\n| `rn` | string | No | Parameter defines the maximum number of results to return, limited to 50. (e.g., `10` (default) returns 10 results, `30` returns 30 results, and `50` returns 50 results). This parameter is only available for **desktop and tablet** searches. |\n| `gpc` | string | No | Parameter defines the time period for results. (e.g., `stf=1793918685,1794523485/stftype=1` only returns results from the past 7 days. First integer within the parameter,`1793918685` is Unix Timestamp for 7 days ago. Second integer,`1794523 |\n| `q5` | string | No | Similar to using `inurl:` or `intitle:`. (e.g., `1` to search by page title, `2` to search by web address.). |\n| `q6` | string | No | Similar to using `site:`. (e.g., `q6=the API.com` to search for results only from the domain `the API.com`). |\n| `bs` | string | No | Defines the previous search query. |\n| `oq` | string | No | Defines the original search query when navigated from a related search. |\n| `f` | string | No | Defines the originating search type. (e.g., `8` is a normal search, `3` is from the suggestion list, and `1` is a related search. |\n| `device` | string | No | Parameter defines the device to use to get the results. It can be set to `desktop` (default) to use a regular browser, `tablet` to use a tablet browser (currently using iPads), or `mobile` to use a mobile browser. |\n| `json_restrictor` | string | No | Parameter defines the fields you want to include in the output, reducing payload size for faster response. See the JSON Restrictor documentation for more details. |\n\n## Pricing\n\n$0.010 per successful call. Failed calls are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/baidu/search",
+  "created_at": "2026-11-13T00:21:40.088Z"
+}

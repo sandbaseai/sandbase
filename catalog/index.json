@@ -1,10 +1,10 @@
 {
  "catalog_version": "1",
- "generated_at": "2026-11-12T16:50:00Z",
+ "generated_at": "2026-11-13T01:05:31Z",
  "base_url": "https://api.sandbase.ai",
- "count": 2404,
+ "count": 2437,
  "counts_by_type": {
-  "api": 1902,
+  "api": 1935,
   "video": 181,
   "image": 164,
   "llm": 123,
@@ -732,6 +732,28 @@
     "usd_per_call": 0.08
    },
    "record": "catalog/models/ahrefs/metrics.json"
+  },
+  {
+   "name": "airbnb/search",
+   "display_name": "Airbnb Search",
+   "type": "api",
+   "vendor": "Airbnb",
+   "description": "Search Airbnb stays by location and dates, with listing name, price, rating, reviews, room type, photos and coordinates.",
+   "tags": [
+    "api",
+    "airbnb",
+    "travel",
+    "lodging"
+   ],
+   "modes": [
+    "sync"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "per_call",
+    "usd_per_call": 0.01
+   },
+   "record": "catalog/models/airbnb/search.json"
   },
   {
    "name": "alibaba/search",
@@ -1496,6 +1518,28 @@
     "usd_per_call": 0.015
    },
    "record": "catalog/models/baidu/news.json"
+  },
+  {
+   "name": "baidu/search",
+   "display_name": "Baidu Search",
+   "type": "api",
+   "vendor": "Baidu",
+   "description": "Get Baidu web results for a query with organic results, answer boxes, related searches and pagination.",
+   "tags": [
+    "api",
+    "baidu",
+    "web-search",
+    "serp"
+   ],
+   "modes": [
+    "sync"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "per_call",
+    "usd_per_call": 0.01
+   },
+   "record": "catalog/models/baidu/search.json"
   },
   {
    "name": "best-buy/product",
@@ -2625,6 +2669,50 @@
    "record": "catalog/models/bing/images.json"
   },
   {
+   "name": "bing/news",
+   "display_name": "Bing News",
+   "type": "api",
+   "vendor": "Bing",
+   "description": "Search Bing News by keyword and get headlines with source, date, snippet and thumbnail, filtered by freshness and market.",
+   "tags": [
+    "api",
+    "bing",
+    "news",
+    "serp"
+   ],
+   "modes": [
+    "sync"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "per_call",
+    "usd_per_call": 0.01
+   },
+   "record": "catalog/models/bing/news.json"
+  },
+  {
+   "name": "bing/search",
+   "display_name": "Bing Search",
+   "type": "api",
+   "vendor": "Bing",
+   "description": "Get Bing web results for a query with organic results, answer boxes, related searches and pagination, localized by market and country.",
+   "tags": [
+    "api",
+    "bing",
+    "web-search",
+    "serp"
+   ],
+   "modes": [
+    "sync"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "per_call",
+    "usd_per_call": 0.01
+   },
+   "record": "catalog/models/bing/search.json"
+  },
+  {
    "name": "bing/videos",
    "display_name": "Bing Videos Search",
    "type": "api",
@@ -2707,6 +2795,28 @@
     "usd_reference": 0.0011
    },
    "record": "catalog/models/bluesky/user-posts.json"
+  },
+  {
+   "name": "booking/search",
+   "display_name": "Booking.com Search",
+   "type": "api",
+   "vendor": "Booking.com",
+   "description": "Search Booking.com properties by destination and dates, with property name, price, rating, review score, address and photos.",
+   "tags": [
+    "api",
+    "booking",
+    "travel",
+    "lodging"
+   ],
+   "modes": [
+    "sync"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "per_call",
+    "usd_per_call": 0.01
+   },
+   "record": "catalog/models/booking/search.json"
   },
   {
    "name": "brave/images",
@@ -6889,6 +6999,28 @@
     "free_quota": true
    },
    "record": "catalog/models/dataforseo/v3/serp/youtube/video_subtitles/live/advanced.json"
+  },
+  {
+   "name": "doordash/search",
+   "display_name": "DoorDash Search",
+   "type": "api",
+   "vendor": "DoorDash",
+   "description": "Search DoorDash stores and dishes by keyword and delivery address, with store name, rating, delivery fee, ETA and menu items.",
+   "tags": [
+    "api",
+    "doordash",
+    "food-delivery",
+    "local"
+   ],
+   "modes": [
+    "sync"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "per_call",
+    "usd_per_call": 0.01
+   },
+   "record": "catalog/models/doordash/search.json"
   },
   {
    "name": "douban/movie-comments",
@@ -13913,6 +14045,27 @@
    "record": "catalog/models/etsy/shop-listings.json"
   },
   {
+   "name": "eventbrite/search",
+   "display_name": "Eventbrite Search",
+   "type": "api",
+   "vendor": "Eventbrite",
+   "description": "Search Eventbrite events by keyword and location, with title, date, venue, price, organizer and event link.",
+   "tags": [
+    "api",
+    "eventbrite",
+    "events"
+   ],
+   "modes": [
+    "sync"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "per_call",
+    "usd_per_call": 0.01
+   },
+   "record": "catalog/models/eventbrite/search.json"
+  },
+  {
    "name": "exa/answer",
    "display_name": "Exa Question Answering",
    "type": "api",
@@ -16270,6 +16423,71 @@
    "record": "catalog/models/getapp/software-reviews.json"
   },
   {
+   "name": "glassdoor/companies",
+   "display_name": "Glassdoor Companies",
+   "type": "api",
+   "vendor": "Glassdoor",
+   "description": "Search companies on Glassdoor by name and get company ID, rating, review and salary counts, size, industry and headquarters.",
+   "tags": [
+    "api",
+    "glassdoor",
+    "jobs",
+    "company-data"
+   ],
+   "modes": [
+    "sync"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "per_call",
+    "usd_per_call": 0.01
+   },
+   "record": "catalog/models/glassdoor/companies.json"
+  },
+  {
+   "name": "glassdoor/jobs",
+   "display_name": "Glassdoor Jobs",
+   "type": "api",
+   "vendor": "Glassdoor",
+   "description": "Search Glassdoor job listings by keyword and location, with title, company, rating, salary estimate, location and posting age.",
+   "tags": [
+    "api",
+    "glassdoor",
+    "jobs"
+   ],
+   "modes": [
+    "sync"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "per_call",
+    "usd_per_call": 0.01
+   },
+   "record": "catalog/models/glassdoor/jobs.json"
+  },
+  {
+   "name": "glassdoor/reviews",
+   "display_name": "Glassdoor Reviews",
+   "type": "api",
+   "vendor": "Glassdoor",
+   "description": "Get employee reviews for a company on Glassdoor by company ID, with rating, pros, cons, job title, date and sub-ratings.",
+   "tags": [
+    "api",
+    "glassdoor",
+    "jobs",
+    "reviews"
+   ],
+   "modes": [
+    "sync"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "per_call",
+    "usd_per_call": 0.01
+   },
+   "record": "catalog/models/glassdoor/reviews.json"
+  },
+  {
    "name": "google-flights/search",
    "display_name": "Google Flights Search",
    "type": "api",
@@ -16289,6 +16507,28 @@
     "usd_per_call": 0.015
    },
    "record": "catalog/models/google-flights/search.json"
+  },
+  {
+   "name": "google-hotels/reviews",
+   "display_name": "Google Hotels Reviews",
+   "type": "api",
+   "vendor": "Google Hotels",
+   "description": "Get guest reviews for a hotel on Google Hotels by property token, with rating, text, date, source and category filters.",
+   "tags": [
+    "api",
+    "google-hotels",
+    "travel",
+    "reviews"
+   ],
+   "modes": [
+    "sync"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "per_call",
+    "usd_per_call": 0.01
+   },
+   "record": "catalog/models/google-hotels/reviews.json"
   },
   {
    "name": "google-hotels/search",
@@ -16312,6 +16552,28 @@
    "record": "catalog/models/google-hotels/search.json"
   },
   {
+   "name": "google-maps/directions",
+   "display_name": "Google Maps Directions",
+   "type": "api",
+   "vendor": "Google Maps",
+   "description": "Get Google Maps directions between two places by car, transit, walking, cycling or flight, with routes, distance, duration and step-by-step instructions.",
+   "tags": [
+    "api",
+    "google-maps",
+    "maps",
+    "travel"
+   ],
+   "modes": [
+    "sync"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "per_call",
+    "usd_per_call": 0.01
+   },
+   "record": "catalog/models/google-maps/directions.json"
+  },
+  {
    "name": "google-maps/photo-metadata",
    "display_name": "Google Maps Photo Metadata",
    "type": "api",
@@ -16332,6 +16594,49 @@
     "free_quota": true
    },
    "record": "catalog/models/google-maps/photo-metadata.json"
+  },
+  {
+   "name": "google-maps/reviews",
+   "display_name": "Google Maps Reviews",
+   "type": "api",
+   "vendor": "Google Maps",
+   "description": "Get Google Maps reviews for one place with sorting, filtering, and paging.",
+   "tags": [
+    "api",
+    "google-maps",
+    "web-scraping"
+   ],
+   "modes": [
+    "async"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "per_call",
+    "usd_per_call": 0.00015
+   },
+   "record": "catalog/models/google-maps/reviews.json"
+  },
+  {
+   "name": "google-maps/search",
+   "display_name": "Google Maps Search",
+   "type": "api",
+   "vendor": "Google Maps",
+   "description": "Search places on Google Maps by keyword around a location, with name, rating, reviews, address, hours, phone, website, GPS coordinates and place IDs.",
+   "tags": [
+    "api",
+    "google-maps",
+    "maps",
+    "local"
+   ],
+   "modes": [
+    "sync"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "per_call",
+    "usd_per_call": 0.01
+   },
+   "record": "catalog/models/google-maps/search.json"
   },
   {
    "name": "google-play/apps",
@@ -16574,6 +16879,116 @@
    "record": "catalog/models/google/ai-overview.json"
   },
   {
+   "name": "google/autocomplete",
+   "display_name": "Google Autocomplete",
+   "type": "api",
+   "vendor": "Google",
+   "description": "Get Google search box suggestions for a partial query, localized by country and language.",
+   "tags": [
+    "api",
+    "google",
+    "keywords",
+    "serp"
+   ],
+   "modes": [
+    "sync"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "per_call",
+    "usd_per_call": 0.01
+   },
+   "record": "catalog/models/google/autocomplete.json"
+  },
+  {
+   "name": "google/books",
+   "display_name": "Google Books",
+   "type": "api",
+   "vendor": "Google",
+   "description": "Search Google Books by keyword and get titles, authors, snippets, publication info and preview links.",
+   "tags": [
+    "api",
+    "google",
+    "books",
+    "serp"
+   ],
+   "modes": [
+    "sync"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "per_call",
+    "usd_per_call": 0.01
+   },
+   "record": "catalog/models/google/books.json"
+  },
+  {
+   "name": "google/events",
+   "display_name": "Google Events",
+   "type": "api",
+   "vendor": "Google",
+   "description": "Search events listed on Google by keyword and place, with title, date, venue, address, ticket links and thumbnails.",
+   "tags": [
+    "api",
+    "google",
+    "events",
+    "serp"
+   ],
+   "modes": [
+    "sync"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "per_call",
+    "usd_per_call": 0.01
+   },
+   "record": "catalog/models/google/events.json"
+  },
+  {
+   "name": "google/finance",
+   "display_name": "Google Finance",
+   "type": "api",
+   "vendor": "Google",
+   "description": "Get a Google Finance quote page for a ticker such as GOOGL:NASDAQ: price, movement, key stats, financials, news and price graph over a chosen window.",
+   "tags": [
+    "api",
+    "google",
+    "finance",
+    "market-data"
+   ],
+   "modes": [
+    "sync"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "per_call",
+    "usd_per_call": 0.01
+   },
+   "record": "catalog/models/google/finance.json"
+  },
+  {
+   "name": "google/forums",
+   "display_name": "Google Forums",
+   "type": "api",
+   "vendor": "Google",
+   "description": "Get Google's Forums results for a query: discussion threads from Reddit, Quora and other forums with title, snippet, source and answer counts.",
+   "tags": [
+    "api",
+    "google",
+    "web-search",
+    "serp"
+   ],
+   "modes": [
+    "sync"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "per_call",
+    "usd_per_call": 0.01
+   },
+   "record": "catalog/models/google/forums.json"
+  },
+  {
    "name": "google/images",
    "display_name": "Google Images",
    "type": "api",
@@ -16595,6 +17010,28 @@
    "record": "catalog/models/google/images.json"
   },
   {
+   "name": "google/jobs",
+   "display_name": "Google Jobs",
+   "type": "api",
+   "vendor": "Google",
+   "description": "Search job listings aggregated by Google Jobs with title, company, location, posting date, salary and apply links, filtered by location and language.",
+   "tags": [
+    "api",
+    "google",
+    "jobs",
+    "serp"
+   ],
+   "modes": [
+    "sync"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "per_call",
+    "usd_per_call": 0.01
+   },
+   "record": "catalog/models/google/jobs.json"
+  },
+  {
    "name": "google/lens",
    "display_name": "Google Lens",
    "type": "api",
@@ -16614,6 +17051,50 @@
     "usd_reference": 0.00085
    },
    "record": "catalog/models/google/lens.json"
+  },
+  {
+   "name": "google/local",
+   "display_name": "Google Local",
+   "type": "api",
+   "vendor": "Google",
+   "description": "Search local businesses on Google by keyword and location, with name, rating, reviews, address, hours, phone and place ID.",
+   "tags": [
+    "api",
+    "google",
+    "local",
+    "serp"
+   ],
+   "modes": [
+    "sync"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "per_call",
+    "usd_per_call": 0.01
+   },
+   "record": "catalog/models/google/local.json"
+  },
+  {
+   "name": "google/news",
+   "display_name": "Google News",
+   "type": "api",
+   "vendor": "Google",
+   "description": "Search Google News by keyword, topic or publication and get headlines with source, date, thumbnail and story clusters, localized by country and language.",
+   "tags": [
+    "api",
+    "google",
+    "news",
+    "serp"
+   ],
+   "modes": [
+    "sync"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "per_call",
+    "usd_per_call": 0.01
+   },
+   "record": "catalog/models/google/news.json"
   },
   {
    "name": "google/patents",
@@ -16656,6 +17137,116 @@
     "usd_reference": 0.00085
    },
    "record": "catalog/models/google/scholar.json"
+  },
+  {
+   "name": "google/scholar-author",
+   "display_name": "Google Scholar Author",
+   "type": "api",
+   "vendor": "Google",
+   "description": "Get a Google Scholar author profile by author ID with affiliation, interests, citation counts, h-index, co-authors and article list.",
+   "tags": [
+    "api",
+    "google",
+    "academic",
+    "serp"
+   ],
+   "modes": [
+    "sync"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "per_call",
+    "usd_per_call": 0.01
+   },
+   "record": "catalog/models/google/scholar-author.json"
+  },
+  {
+   "name": "google/search",
+   "display_name": "Google Search",
+   "type": "api",
+   "vendor": "Google",
+   "description": "Get Google web results for a query with organic results, knowledge graph, local pack, top stories, related questions and pagination, localized by country, language and location.",
+   "tags": [
+    "api",
+    "google",
+    "web-search",
+    "serp"
+   ],
+   "modes": [
+    "sync"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "per_call",
+    "usd_per_call": 0.01
+   },
+   "record": "catalog/models/google/search.json"
+  },
+  {
+   "name": "google/short-videos",
+   "display_name": "Google Short Videos",
+   "type": "api",
+   "vendor": "Google",
+   "description": "Get Google's Short Videos results for a query: short-form clips from YouTube Shorts, TikTok, Instagram and others with title, source, duration and link.",
+   "tags": [
+    "api",
+    "google",
+    "video",
+    "serp"
+   ],
+   "modes": [
+    "sync"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "per_call",
+    "usd_per_call": 0.01
+   },
+   "record": "catalog/models/google/short-videos.json"
+  },
+  {
+   "name": "google/trends",
+   "display_name": "Google Trends",
+   "type": "api",
+   "vendor": "Google",
+   "description": "Get Google Trends data for up to five keywords: interest over time, interest by region, related topics and related queries, by country, time range and category.",
+   "tags": [
+    "api",
+    "google",
+    "trends",
+    "keywords"
+   ],
+   "modes": [
+    "sync"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "per_call",
+    "usd_per_call": 0.01
+   },
+   "record": "catalog/models/google/trends.json"
+  },
+  {
+   "name": "google/trends-trending-now",
+   "display_name": "Google Trends Trending Now",
+   "type": "api",
+   "vendor": "Google",
+   "description": "List searches trending right now on Google in a country, with search volume, growth, start time and related queries, filtered by category and time window.",
+   "tags": [
+    "api",
+    "google",
+    "trends",
+    "keywords"
+   ],
+   "modes": [
+    "sync"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "per_call",
+    "usd_per_call": 0.01
+   },
+   "record": "catalog/models/google/trends-trending-now.json"
   },
   {
    "name": "google/videos",
@@ -17334,6 +17925,27 @@
     "free_quota": true
    },
    "record": "catalog/models/indeed/company-profile.json"
+  },
+  {
+   "name": "indeed/jobs",
+   "display_name": "Indeed Jobs",
+   "type": "api",
+   "vendor": "Indeed",
+   "description": "Search Indeed job listings by keyword and location, with title, company, location, salary, job type and posting date.",
+   "tags": [
+    "api",
+    "indeed",
+    "jobs"
+   ],
+   "modes": [
+    "sync"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "per_call",
+    "usd_per_call": 0.01
+   },
+   "record": "catalog/models/indeed/jobs.json"
   },
   {
    "name": "instagram/audio-reels",
@@ -22953,6 +23565,28 @@
    "record": "catalog/models/naver/ai-overview.json"
   },
   {
+   "name": "naver/search",
+   "display_name": "Naver Search",
+   "type": "api",
+   "vendor": "Naver",
+   "description": "Get Naver web results for a query with organic results, news, blogs, knowledge panels and other Naver sections.",
+   "tags": [
+    "api",
+    "naver",
+    "web-search",
+    "serp"
+   ],
+   "modes": [
+    "sync"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "per_call",
+    "usd_per_call": 0.01
+   },
+   "record": "catalog/models/naver/search.json"
+  },
+  {
    "name": "open-meteo/air-quality",
    "display_name": "Open-Meteo Air Quality",
    "type": "api",
@@ -23215,6 +23849,28 @@
     "free_quota": true
    },
    "record": "catalog/models/open-meteo/seasonal.json"
+  },
+  {
+   "name": "opentable/reviews",
+   "display_name": "OpenTable Reviews",
+   "type": "api",
+   "vendor": "OpenTable",
+   "description": "Get diner reviews for a restaurant on OpenTable by restaurant ID, with overall and sub-ratings, text, date and diner info.",
+   "tags": [
+    "api",
+    "opentable",
+    "restaurants",
+    "reviews"
+   ],
+   "modes": [
+    "sync"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "per_call",
+    "usd_per_call": 0.01
+   },
+   "record": "catalog/models/opentable/reviews.json"
   },
   {
    "name": "pinterest/board",
@@ -33282,6 +33938,28 @@
    "record": "catalog/models/walmart/search.json"
   },
   {
+   "name": "walmart/seller",
+   "display_name": "Walmart Seller",
+   "type": "api",
+   "vendor": "Walmart",
+   "description": "Get a Walmart marketplace seller page by seller ID, with seller profile, rating, review count and the seller's product listings.",
+   "tags": [
+    "api",
+    "walmart",
+    "ecommerce",
+    "product-data"
+   ],
+   "modes": [
+    "sync"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "per_call",
+    "usd_per_call": 0.01
+   },
+   "record": "catalog/models/walmart/seller.json"
+  },
+  {
    "name": "watsons/scrape/category",
    "display_name": "Watsons Category Listings",
    "type": "api",
@@ -37719,6 +38397,28 @@
    "record": "catalog/models/yahoo/images.json"
   },
   {
+   "name": "yahoo/search",
+   "display_name": "Yahoo Search",
+   "type": "api",
+   "vendor": "Yahoo",
+   "description": "Get Yahoo web results for a query with organic results, related searches and pagination, localized by domain and language.",
+   "tags": [
+    "api",
+    "yahoo",
+    "web-search",
+    "serp"
+   ],
+   "modes": [
+    "sync"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "per_call",
+    "usd_per_call": 0.01
+   },
+   "record": "catalog/models/yahoo/search.json"
+  },
+  {
    "name": "yahoo/videos",
    "display_name": "Yahoo Videos Search",
    "type": "api",
@@ -37759,6 +38459,28 @@
     "usd_per_call": 0.015
    },
    "record": "catalog/models/yandex/images.json"
+  },
+  {
+   "name": "yandex/search",
+   "display_name": "Yandex Search",
+   "type": "api",
+   "vendor": "Yandex",
+   "description": "Get Yandex web results for a query with organic results and pagination, localized by Yandex domain, region and language.",
+   "tags": [
+    "api",
+    "yandex",
+    "web-search",
+    "serp"
+   ],
+   "modes": [
+    "sync"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "per_call",
+    "usd_per_call": 0.01
+   },
+   "record": "catalog/models/yandex/search.json"
   },
   {
    "name": "yandex/videos",

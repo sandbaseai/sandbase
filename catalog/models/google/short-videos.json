@@ -1,0 +1,121 @@
+{
+  "name": "google/short-videos",
+  "display_name": "Google Short Videos",
+  "type": "api",
+  "vendor": "Google",
+  "vendor_slug": "google",
+  "description": "Get Google's Short Videos results for a query: short-form clips from YouTube Shorts, TikTok, Instagram and others with title, source, duration and link.",
+  "tags": [
+    "api",
+    "google",
+    "video",
+    "serp"
+  ],
+  "capabilities": [
+    "api",
+    "google",
+    "video",
+    "serp"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/google/short-videos"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "q"
+    ],
+    "properties": {
+      "q": {
+        "type": "string",
+        "example": "latte art",
+        "description": "Parameter defines the query you want to search. You can use anything that you would use in a regular Google Short Videos search. e.g. `inurl:`, `site:`, `intitle:`. We also support advanced search query parameters such as `as_dt` and `as_eq`. See the full list of supported advanced search query parameters."
+      },
+      "gl": {
+        "type": "string",
+        "description": "Parameter defines the country to use for the Google search. It's a two-letter country code. (e.g., `us` for the United States, `uk` for United Kingdom, or `fr` for France). Head to the Google countries page for a full list of supported Google countries."
+      },
+      "hl": {
+        "type": "string",
+        "description": "Parameter defines the language to use for the Google search. It's a two or three-letter language code. (e.g., `en` for English, `es` for Spanish, or `fr` for French), optionally followed by a two-letter or three-digit region code (e.g., `en-gb` for British English, or `es-419` for Latin American Spanish). Head to the Google languages page for a full list of supported Google languages."
+      },
+      "lr": {
+        "type": "string",
+        "description": "Parameter defines one or multiple languages to limit the search to. It uses `lang_{two-letter language code}` to specify languages and `|` as a delimiter. (e.g., `lang_fr|lang_de` will only search French and German pages). Head to the Google lr languages page for a full list of supported languages."
+      },
+      "tbs": {
+        "type": "string",
+        "description": "(to be searched) parameter defines advanced search parameters that aren't possible in the regular query field. (e.g., advanced search for patents, dates, news, videos, images, apps, or text contents)."
+      },
+      "nfpr": {
+        "type": "string",
+        "description": "Parameter defines the exclusion of results from an auto-corrected query when the original query is spelled wrong. It can be set to `1` to exclude these results, or `0` to include them (default). Note that this parameter may not prevent Google from returning results for an auto-corrected query if no other results are available."
+      },
+      "safe": {
+        "type": "string",
+        "description": "Parameter defines the level of filtering for adult content. It can be set to `active` or `off`, by default Google will blur explicit content."
+      },
+      "uule": {
+        "type": "string",
+        "description": "Parameter is the Google encoded location you want to use for the search. `uule` and `location` parameters can't be used together. For consistent results with coordinates-based `uule` parameter, a matching `gl` parameter is required. Head to UULE Generator if you need to convert a location or GPS coordinates to `uule` parameter, and vice versa."
+      },
+      "start": {
+        "type": "string",
+        "description": "Parameter defines the result offset. It skips the given number of results. It's used for pagination. (e.g., `0` (default) is the first page of results, `12` (desktop) or `8` (mobile) is the 2nd page of results, etc.)."
+      },
+      "device": {
+        "type": "string",
+        "description": "Parameter defines the device to use to get the results. It can be set to `desktop` (default) to use a regular browser, `tablet` to use a tablet browser (currently using iPads), or `mobile` to use a mobile browser."
+      },
+      "filter": {
+        "type": "string",
+        "description": "Parameter defines if the filters for 'Similar Results' and 'Omitted Results' are on or off. It can be set to `1` (default) to enable these filters, or `0` to disable these filters."
+      },
+      "location": {
+        "type": "string",
+        "description": "Parameter defines from where you want the search to originate. If several locations match the location requested, we'll pick the most popular one. Head to the /locations.json API if you need more precise control. The `location` and `uule` parameters can't be used together. It is recommended to specify `location` at the city level in order to simulate a real user’s search. If `location` is omitted, the search may take on the location of the proxy."
+      },
+      "google_domain": {
+        "type": "string",
+        "description": "Parameter defines the Google domain to use. It defaults to `google.com`. Head to the Google domains page for a full list of supported Google domains."
+      },
+      "json_restrictor": {
+        "type": "string",
+        "description": "Parameter defines the fields you want to include in the output, reducing payload size for faster response. See the JSON Restrictor documentation for more details."
+      }
+    },
+    "additionalProperties": false
+  },
+  "response_schema": {
+    "type": "object",
+    "required": [
+      "id",
+      "status",
+      "model"
+    ],
+    "properties": {
+      "id": {
+        "type": "string"
+      },
+      "model": {
+        "type": "string"
+      },
+      "status": {
+        "type": "string"
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.01
+  },
+  "readme": "# Google Short Videos\n\nGet Google's Short Videos results for a query: short-form clips from YouTube Shorts, TikTok, Instagram and others with title, source, duration and link.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/google/short-videos\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"q\": \"latte art\"}'\n```\n\nThe result is returned in `outputs[0].data` as structured JSON.\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `q` | string | Yes | Parameter defines the query you want to search. You can use anything that you would use in a regular Google Short Videos search. e.g. `inurl:`, `site:`, `intitle:`. We also support advanced search query parameters such as `as_dt` and `as_eq |\n| `location` | string | No | Parameter defines from where you want the search to originate. If several locations match the location requested, we'll pick the most popular one. Head to the /locations.json API if you need more precise control. The `location` and `uule` p |\n| `uule` | string | No | Parameter is the Google encoded location you want to use for the search. `uule` and `location` parameters can't be used together. For consistent results with coordinates-based `uule` parameter, a matching `gl` parameter is required. Head to |\n| `google_domain` | string | No | Parameter defines the Google domain to use. It defaults to `google.com`. Head to the Google domains page for a full list of supported Google domains. |\n| `gl` | string | No | Parameter defines the country to use for the Google search. It's a two-letter country code. (e.g., `us` for the United States, `uk` for United Kingdom, or `fr` for France). Head to the Google countries page for a full list of supported Goog |\n| `hl` | string | No | Parameter defines the language to use for the Google search. It's a two or three-letter language code. (e.g., `en` for English, `es` for Spanish, or `fr` for French), optionally followed by a two-letter or three-digit region code (e.g., `en |\n| `lr` | string | No | Parameter defines one or multiple languages to limit the search to. It uses `lang_{two-letter language code}` to specify languages and `/` as a delimiter. (e.g., `lang_fr/lang_de` will only search French and German pages). Head to the Googl |\n| `tbs` | string | No | (to be searched) parameter defines advanced search parameters that aren't possible in the regular query field. (e.g., advanced search for patents, dates, news, videos, images, apps, or text contents). |\n| `safe` | string | No | Parameter defines the level of filtering for adult content. It can be set to `active` or `off`, by default Google will blur explicit content. |\n| `nfpr` | string | No | Parameter defines the exclusion of results from an auto-corrected query when the original query is spelled wrong. It can be set to `1` to exclude these results, or `0` to include them (default). Note that this parameter may not prevent Goog |\n| `filter` | string | No | Parameter defines if the filters for 'Similar Results' and 'Omitted Results' are on or off. It can be set to `1` (default) to enable these filters, or `0` to disable these filters. |\n| `start` | string | No | Parameter defines the result offset. It skips the given number of results. It's used for pagination. (e.g., `0` (default) is the first page of results, `12` (desktop) or `8` (mobile) is the 2nd page of results, etc.). |\n| `device` | string | No | Parameter defines the device to use to get the results. It can be set to `desktop` (default) to use a regular browser, `tablet` to use a tablet browser (currently using iPads), or `mobile` to use a mobile browser. |\n| `json_restrictor` | string | No | Parameter defines the fields you want to include in the output, reducing payload size for faster response. See the JSON Restrictor documentation for more details. |\n\n## Pricing\n\n$0.010 per successful call. Failed calls are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/google/short-videos",
+  "created_at": "2026-11-13T00:12:45.457Z"
+}

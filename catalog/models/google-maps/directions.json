@@ -1,0 +1,123 @@
+{
+  "name": "google-maps/directions",
+  "display_name": "Google Maps Directions",
+  "type": "api",
+  "vendor": "Google Maps",
+  "vendor_slug": "google-maps",
+  "description": "Get Google Maps directions between two places by car, transit, walking, cycling or flight, with routes, distance, duration and step-by-step instructions.",
+  "tags": [
+    "api",
+    "google-maps",
+    "maps",
+    "travel"
+  ],
+  "capabilities": [
+    "api",
+    "google-maps",
+    "maps",
+    "travel"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/google-maps/directions"
+  },
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "gl": {
+        "type": "string",
+        "description": "Parameter defines the country to use for the Google search. It's a two-letter country code. (e.g., `us` for the United States, `uk` for United Kingdom, or `fr` for France) Head to the Google countries page for a full list of supported Google countries."
+      },
+      "hl": {
+        "type": "string",
+        "description": "Parameter defines the language to use for the Google Maps Directions search. It's a two or three-letter language code. (e.g., `en` for English, `es` for Spanish, or `fr` for French), optionally followed by a two-letter or three-digit region code (e.g., `en-gb` for British English, or `es-419` for Latin American Spanish). Head to the Google languages page for a full list of supported Google languages."
+      },
+      "time": {
+        "type": "string",
+        "description": "Parameter defines the time to travel. Available options: `depart_at:xxxxxx` - Specifies the departure time, where `xxxxxx` is the timestamp. E.g. `depart_at:1698229538` specifies the departure time to 2023-10-25 10:25:38 GMT+0000 `arrive_by:xxxxxx` - Specifies the arrival time, where `xxxxxx` is the timestamp. E.g. `arrive_by:1698229538` specifies the arrival time to 2023-10-25 10:25:38 GMT+0000 `last_available` - Takes the last available transit. This option works only if `travel_mode` parameter is set to: `3` (Transit)"
+      },
+      "avoid": {
+        "type": "string",
+        "description": "Parameter defines avoid options. Available options: `highways` - Highways `tolls` - Tolls `ferries` - Ferries You can also combine multiple options by joining them with a comma (e.g.: `highways,tolls`)."
+      },
+      "route": {
+        "type": "string",
+        "description": "Parameter defines route options. Available options: `2` - Fewer transfers `3` - Less walking `4` - Wheelchair accessible Parameter works only if `travel_mode` parameter is set to: `3` (Transit)"
+      },
+      "prefer": {
+        "type": "string",
+        "description": "Parameter defines preferred transit options. Available options: `bus` - Bus `subway` - Subway `train` - Train `tram_light_rail` - Tram and light rail You can also combine multiple options by joining them with a comma (e.g.: `subway,train`). Parameter works only if `travel_mode` parameter is set to: `3` (Transit)"
+      },
+      "end_addr": {
+        "type": "string",
+        "example": "Texas State Capitol",
+        "description": "Parameter defines the address of the ending point for the direction you want to search. You can use anything that you would use in a regular Google Maps Directions search. Alternatively, you can use `end_data_id` or `end_coords`."
+      },
+      "end_coords": {
+        "type": "string",
+        "description": "Parameter defines the GPS coordinates of the ending point for the direction you want to search. The format is `latitude,longitude`. E.g. `30.197471099,-97.66635289`. Alternatively, you can use `end_addr` or `end_data_id`."
+      },
+      "start_addr": {
+        "type": "string",
+        "example": "Austin-Bergstrom International Airport",
+        "description": "Parameter defines the address of the starting point for the direction you want to search. You can use anything that you would use in a regular Google Maps Directions search. Alternatively, you can use `start_data_id` or `start_coords`."
+      },
+      "end_data_id": {
+        "type": "string",
+        "description": "Parameter defines the data ID of the ending point for the direction you want to search. Find the data ID of a place using our Google Maps API. Alternatively, you can use `end_addr` or `end_coords`."
+      },
+      "travel_mode": {
+        "type": "string",
+        "description": "Parameter defines the travel mode. Available options: `6` - Best (Default) `0` - Driving `9` - Two-wheeler `3` - Transit `2` - Walking `1` - Cycling `4` - Flight"
+      },
+      "start_coords": {
+        "type": "string",
+        "description": "Parameter defines the GPS coordinates of the starting point for the direction you want to search. The format is `latitude,longitude`. E.g. `30.197471099,-97.66635289`. Alternatively, you can use `start_addr` or `start_data_id`."
+      },
+      "distance_unit": {
+        "type": "string",
+        "description": "Parameter defines the displayed distance unit. Available options: `1` - miles `0` - km"
+      },
+      "start_data_id": {
+        "type": "string",
+        "description": "Parameter defines the data ID of the starting point for the direction you want to search. Find the data ID of a place using our Google Maps API. Alternatively, you can use `start_addr` or `start_coords`."
+      },
+      "json_restrictor": {
+        "type": "string",
+        "description": "Parameter defines the fields you want to include in the output, reducing payload size for faster response. See the JSON Restrictor documentation for more details."
+      }
+    },
+    "additionalProperties": false
+  },
+  "response_schema": {
+    "type": "object",
+    "required": [
+      "id",
+      "status",
+      "model"
+    ],
+    "properties": {
+      "id": {
+        "type": "string"
+      },
+      "model": {
+        "type": "string"
+      },
+      "status": {
+        "type": "string"
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.01
+  },
+  "readme": "# Google Maps Directions\n\nGet Google Maps directions between two places by car, transit, walking, cycling or flight, with routes, distance, duration and step-by-step instructions.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/google-maps/directions\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"start_addr\": \"Austin-Bergstrom International Airport\", \"end_addr\": \"Texas State Capitol\"}'\n```\n\nThe result is returned in `outputs[0].data` as structured JSON.\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `start_addr` | string | No | Parameter defines the address of the starting point for the direction you want to search. You can use anything that you would use in a regular Google Maps Directions search. Alternatively, you can use `start_data_id` or `start_coords`. |\n| `end_addr` | string | No | Parameter defines the address of the ending point for the direction you want to search. You can use anything that you would use in a regular Google Maps Directions search. Alternatively, you can use `end_data_id` or `end_coords`. |\n| `gl` | string | No | Parameter defines the country to use for the Google search. It's a two-letter country code. (e.g., `us` for the United States, `uk` for United Kingdom, or `fr` for France) Head to the Google countries page for a full list of supported Googl |\n| `hl` | string | No | Parameter defines the language to use for the Google Maps Directions search. It's a two or three-letter language code. (e.g., `en` for English, `es` for Spanish, or `fr` for French), optionally followed by a two-letter or three-digit region |\n| `travel_mode` | string | No | Parameter defines the travel mode. Available options: `6` - Best (Default) `0` - Driving `9` - Two-wheeler `3` - Transit `2` - Walking `1` - Cycling `4` - Flight |\n| `start_data_id` | string | No | Parameter defines the data ID of the starting point for the direction you want to search. Find the data ID of a place using our Google Maps API. Alternatively, you can use `start_addr` or `start_coords`. |\n| `end_data_id` | string | No | Parameter defines the data ID of the ending point for the direction you want to search. Find the data ID of a place using our Google Maps API. Alternatively, you can use `end_addr` or `end_coords`. |\n| `start_coords` | string | No | Parameter defines the GPS coordinates of the starting point for the direction you want to search. The format is `latitude,longitude`. E.g. `30.197471099,-97.66635289`. Alternatively, you can use `start_addr` or `start_data_id`. |\n| `end_coords` | string | No | Parameter defines the GPS coordinates of the ending point for the direction you want to search. The format is `latitude,longitude`. E.g. `30.197471099,-97.66635289`. Alternatively, you can use `end_addr` or `end_data_id`. |\n| `distance_unit` | string | No | Parameter defines the displayed distance unit. Available options: `1` - miles `0` - km |\n| `avoid` | string | No | Parameter defines avoid options. Available options: `highways` - Highways `tolls` - Tolls `ferries` - Ferries You can also combine multiple options by joining them with a comma (e.g.: `highways,tolls`). |\n| `prefer` | string | No | Parameter defines preferred transit options. Available options: `bus` - Bus `subway` - Subway `train` - Train `tram_light_rail` - Tram and light rail You can also combine multiple options by joining them with a comma (e.g.: `subway,train`). |\n| `route` | string | No | Parameter defines route options. Available options: `2` - Fewer transfers `3` - Less walking `4` - Wheelchair accessible Parameter works only if `travel_mode` parameter is set to: `3` (Transit) |\n| `time` | string | No | Parameter defines the time to travel. Available options: `depart_at:xxxxxx` - Specifies the departure time, where `xxxxxx` is the timestamp. E.g. `depart_at:1698229538` specifies the departure time to 2023-10-25 10:25:38 GMT+0000 `arrive_by |\n| `json_restrictor` | string | No | Parameter defines the fields you want to include in the output, reducing payload size for faster response. See the JSON Restrictor documentation for more details. |\n\n## Pricing\n\n$0.010 per successful call. Failed calls are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/google-maps/directions",
+  "created_at": "2026-11-13T00:15:49.983Z"
+}

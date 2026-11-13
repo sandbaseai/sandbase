@@ -1,12 +1,17 @@
-# Google models API: 63 endpoints with pricing and code examples
+# Google models API: 76 endpoints with pricing and code examples
 
-Call 63 Google models through SandBase with one API key: no separate account, one balance, the same request format for every endpoint. Each page has the input schema, the price and curl / Python / TypeScript / Go examples.
+Call 76 Google models through SandBase with one API key: no separate account, one balance, the same request format for every endpoint. Each page has the input schema, the price and curl / Python / TypeScript / Go examples.
 
 | Endpoint | What it does | Price |
 |---|---|---|
 | [`google/ads-transparency`](../models/google/ads-transparency.md) | Ads an advertiser is running on Google, from the Ads Transparency Center: creatives, formats, first and last shown dates. | $0.015 per call |
 | [`google/ai-mode`](../models/google/ai-mode.md) | Ask Google AI Mode a prompt and receive the cited answer it generates. AI Mode composes the answer at search time, so repeat calls on one… | about $0.002 per call |
 | [`google/ai-overview`](../models/google/ai-overview.md) | Ask Google Search a prompt and receive the AI Overview it generated for that scrape, with every source Google listed. Google regenerates… | about $0.0015 per call |
+| [`google/autocomplete`](../models/google/autocomplete.md) | Get Google search box suggestions for a partial query, localized by country and language. | $0.01 per call |
+| [`google/books`](../models/google/books.md) | Search Google Books by keyword and get titles, authors, snippets, publication info and preview links. | $0.01 per call |
+| [`google/events`](../models/google/events.md) | Search events listed on Google by keyword and place, with title, date, venue, address, ticket links and thumbnails. | $0.01 per call |
+| [`google/finance`](../models/google/finance.md) | Get a Google Finance quote page for a ticker such as GOOGL:NASDAQ: price, movement, key stats, financials, news and price graph over a… | $0.01 per call |
+| [`google/forums`](../models/google/forums.md) | Get Google's Forums results for a query: discussion threads from Reddit, Quora and other forums with title, snippet, source and answer… | $0.01 per call |
 | [`google/gemini-2.5-flash`](../models/google/gemini-2.5-flash.md) | Gemini 2.5 Flash is the workhorse model of Google's Gemini 2.5 family, a thinking model released as stable in June 2025. Google positions… | $0.3 input / $2.5 output per 1M tokens |
 | [`google/gemini-2.5-flash-lite`](../models/google/gemini-2.5-flash-lite.md) | Gemini 2.5 Flash-Lite is the lightweight tier of Google's Gemini 2.5 family, released in July 2025 and described by Google as the fastest… | $0.1 input / $0.4 output per 1M tokens |
 | [`google/gemini-2.5-pro`](../models/google/gemini-2.5-pro.md) | Gemini 2.5 Pro is the Pro-tier thinking model of Google's Gemini 2.5 family, released as stable in June 2025 and described by Google as… | $1.25 input / $10 output per 1M tokens |
@@ -41,7 +46,9 @@ Call 63 Google models through SandBase with one API key: no separate account, on
 | [`google/gemini-omni-flash/reference-to-video`](../models/google/gemini-omni-flash/reference-to-video.md) | Gemini Omni Flash Reference to Video by Google generates a short video with synchronized audio that keeps subjects, products, or style… | from $0.39 to $1.3 per run, depending on parameters |
 | [`google/gemini-omni-flash/text-to-video`](../models/google/gemini-omni-flash/text-to-video.md) | Gemini Omni Flash is Google's text-to-video AI model. Turn written scripts and prompts into professional-quality video clips with… | from $0.39 to $1.3 per run, depending on parameters |
 | [`google/images`](../models/google/images.md) | Run a Google Images search and get structured results: image URLs, dimensions, titles, and source pages. | about $0.00085 per call |
+| [`google/jobs`](../models/google/jobs.md) | Search job listings aggregated by Google Jobs with title, company, location, posting date, salary and apply links, filtered by location… | $0.01 per call |
 | [`google/lens`](../models/google/lens.md) | Reverse image search: find web pages and visual matches for an image URL. | about $0.00085 per call |
+| [`google/local`](../models/google/local.md) | Search local businesses on Google by keyword and location, with name, rating, reviews, address, hours, phone and place ID. | $0.01 per call |
 | [`google/lyria-3.5`](../models/google/lyria-3.5.md) | Lyria 3.5 is Google's flagship music generation model for full-length songs up to a few minutes, with verses, choruses, bridges,… | $0 input / $0 output per 1M tokens |
 | [`google/nano-banana-2`](../models/google/nano-banana-2.md) | Nano Banana 2 is Google's new state-of-the-art fast image generation and editing model | from $0.045 to $0.165 per run, depending on parameters |
 | [`google/nano-banana-2-lite`](../models/google/nano-banana-2-lite.md) | Nano Banana 2 Lite by Google - generate stunning images from text prompts with state-of-the-art AI. Supports multiple aspect ratios,… | $0.0336 per call |
@@ -51,8 +58,14 @@ Call 63 Google models through SandBase with one API key: no separate account, on
 | [`google/nano-banana-2/edit`](../models/google/nano-banana-2/edit.md) | Nano Banana 2 is Google's new state-of-the-art image generation and editing model | from $0.045 to $0.165 per run, depending on parameters |
 | [`google/nano-banana-pro`](../models/google/nano-banana-pro.md) | Nano Banana Pro is Google's new state-of-the-art image generation and editing model | from $0.134 to $0.24 per run, depending on parameters |
 | [`google/nano-banana-pro/edit`](../models/google/nano-banana-pro/edit.md) | Nano Banana Pro is Google's new state-of-the-art image generation and editing model | from $0.1362 to $0.2422 per run, depending on parameters |
+| [`google/news`](../models/google/news.md) | Search Google News by keyword, topic or publication and get headlines with source, date, thumbnail and story clusters, localized by… | $0.01 per call |
 | [`google/patents`](../models/google/patents.md) | Search Google Patents with title, patent number, inventor, assignee, key dates, and PDF link. | about $0.00085 per call |
 | [`google/scholar`](../models/google/scholar.md) | Search Google Scholar for academic papers with title, authors, citation count, and PDF link. | about $0.00085 per call |
+| [`google/scholar-author`](../models/google/scholar-author.md) | Get a Google Scholar author profile by author ID with affiliation, interests, citation counts, h-index, co-authors and article list. | $0.01 per call |
+| [`google/search`](../models/google/search.md) | Get Google web results for a query with organic results, knowledge graph, local pack, top stories, related questions and pagination,… | $0.01 per call |
+| [`google/short-videos`](../models/google/short-videos.md) | Get Google's Short Videos results for a query: short-form clips from YouTube Shorts, TikTok, Instagram and others with title, source,… | $0.01 per call |
+| [`google/trends`](../models/google/trends.md) | Get Google Trends data for up to five keywords: interest over time, interest by region, related topics and related queries, by country,… | $0.01 per call |
+| [`google/trends-trending-now`](../models/google/trends-trending-now.md) | List searches trending right now on Google in a country, with search volume, growth, start time and related queries, filtered by category… | $0.01 per call |
 | [`google/veo3.1/fast/first-last-frame-to-video`](../models/google/veo3.1/fast/first-last-frame-to-video.md) | Veo3.1 Fast First Last Frame To Video is Google's image-to-video AI model. Bring static images to life with fluid animation, consistent… | from $0.32 to $2.4 per run, depending on parameters |
 | [`google/veo3.1/fast/image-to-video`](../models/google/veo3.1/fast/image-to-video.md) | Veo 3.1 Fast is Google's image-to-video AI model. Bring static images to life with fluid animation, consistent character motion, and… | from $0.32 to $2.4 per run, depending on parameters |
 | [`google/veo3.1/fast/reference-to-video`](../models/google/veo3.1/fast/reference-to-video.md) | Veo3.1 Fast by Google - animate still images into dynamic videos with AI. Transform photos into cinematic clips with natural motion,… | from $0.64 to $2.4 per run, depending on parameters |

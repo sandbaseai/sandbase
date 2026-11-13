@@ -1,0 +1,134 @@
+{
+  "name": "google/forums",
+  "display_name": "Google Forums",
+  "type": "api",
+  "vendor": "Google",
+  "vendor_slug": "google",
+  "description": "Get Google's Forums results for a query: discussion threads from Reddit, Quora and other forums with title, snippet, source and answer counts.",
+  "tags": [
+    "api",
+    "google",
+    "web-search",
+    "serp"
+  ],
+  "capabilities": [
+    "api",
+    "google",
+    "web-search",
+    "serp"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/google/forums"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "q"
+    ],
+    "properties": {
+      "q": {
+        "type": "string",
+        "example": "best budget mechanical keyboard",
+        "description": "Parameter defines the query you want to search. To search for events in a specific location, just include the location inside your search query (e.g. `Events in Austin, TX`)."
+      },
+      "gl": {
+        "type": "string",
+        "description": "Parameter defines the country to use for the Google Forums search. It's a two-letter country code. (e.g., `us` for the United States, `uk` for United Kingdom, or `fr` for France). Head to the Google countries page for a full list of supported Google countries."
+      },
+      "hl": {
+        "type": "string",
+        "description": "Parameter defines the language to use for the Google Forums search. It's a two or three-letter language code. (e.g., `en` for English, `es` for Spanish, or `fr` for French), optionally followed by a two-letter or three-digit region code (e.g., `en-gb` for British English, or `es-419` for Latin American Spanish). Head to the Google languages page for a full list of supported Google languages."
+      },
+      "tbs": {
+        "type": "string",
+        "description": "(to be searched) parameter defines advanced search parameters that aren't possible in the regular query field. (e.g., advanced search for dates, time period, etc.)."
+      },
+      "nfpr": {
+        "type": "string",
+        "description": "Parameter defines the exclusion of results from an auto-corrected query when the original query is spelled wrong. It can be set to `1` to exclude these results, or `0` to include them (default). Note that this parameter may not prevent Google from returning results for an auto-corrected query if no other results are available."
+      },
+      "uule": {
+        "type": "string",
+        "description": "Parameter is the Google encoded location you want to use for the search. `uule` and `location` parameters can't be used together. For consistent results with coordinates-based `uule` parameter, a matching `gl` parameter is required. Head to UULE Generator if you need to convert a location or GPS coordinates to `uule` parameter, and vice versa."
+      },
+      "start": {
+        "type": "string",
+        "description": "Parameter defines the result offset. It skips the given number of results. It's used for pagination. (e.g., `0` (default) is the first page of results, `10` is the 2nd page of results, `20` is the 3rd page of results, etc.)."
+      },
+      "device": {
+        "type": "string",
+        "description": "Parameter defines the device to use to get the results. It can be set to `desktop` (default) to use a regular browser, `tablet` to use a tablet browser (currently using iPads), or `mobile` to use a mobile browser."
+      },
+      "filter": {
+        "type": "string",
+        "description": "Parameter defines if the filters for 'Similar Results' and 'Omitted Results' are on or off. It can be set to `1` (default) to enable these filters, or `0` to disable these filters."
+      },
+      "end_date": {
+        "type": "string",
+        "description": "Parameter defines the end date of time period you want to limit the image search to. Format: `YYYYMMDD` Example: `20251231` This parameter can't be used with `period_unit`/`period_value` parameters. `end_date` with blank `start_date` produces date range `BEFORE end_date`."
+      },
+      "location": {
+        "type": "string",
+        "description": "Parameter defines from where you want the search to originate. If several locations match the location requested, we'll pick the most popular one. Head to the /locations.json API if you need more precise control. The `location` and `uule` parameters can't be used together. It is recommended to specify `location` at the city level in order to simulate a real user’s search. If `location` is omitted, the search may take on the location of the proxy."
+      },
+      "start_date": {
+        "type": "string",
+        "description": "Parameter defines the start date of time period you want to limit the image search to. Format: `YYYYMMDD` Example: `20251201` This parameter can't be used with `period_unit`/`period_value` parameters. `start_date` with blank `end_date` produces date range `FROM start_date TO today`."
+      },
+      "period_unit": {
+        "enum": [
+          "s",
+          "n",
+          "h",
+          "d",
+          "w",
+          "m",
+          "y"
+        ],
+        "type": "string",
+        "description": "Parameter defines the time period unit to search for the recent images, e.g. from past minute, hour, day etc. Options: `s` - Second `n` - Minute `h` - Hour `d` - Day `w` - Week `m` - Month `y` - Year This parameter can't be used with `start_date`/`end_date` parameters."
+      },
+      "period_value": {
+        "type": "string",
+        "description": "Parameter defines an optional time period value that can be used with `period_unit` to describe time periods like `15 seconds`, `42 hours`, `178 days` etc. Default value: `1` Value range: `1..2147483647`"
+      },
+      "json_restrictor": {
+        "type": "string",
+        "description": "Parameter defines the fields you want to include in the output, reducing payload size for faster response. See the JSON Restrictor documentation for more details."
+      }
+    },
+    "additionalProperties": false
+  },
+  "response_schema": {
+    "type": "object",
+    "required": [
+      "id",
+      "status",
+      "model"
+    ],
+    "properties": {
+      "id": {
+        "type": "string"
+      },
+      "model": {
+        "type": "string"
+      },
+      "status": {
+        "type": "string"
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.01
+  },
+  "readme": "# Google Forums\n\nGet Google's Forums results for a query: discussion threads from Reddit, Quora and other forums with title, snippet, source and answer counts.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/google/forums\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"q\": \"best budget mechanical keyboard\"}'\n```\n\nThe result is returned in `outputs[0].data` as structured JSON.\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `q` | string | Yes | Parameter defines the query you want to search. To search for events in a specific location, just include the location inside your search query (e.g. `Events in Austin, TX`). |\n| `location` | string | No | Parameter defines from where you want the search to originate. If several locations match the location requested, we'll pick the most popular one. Head to the /locations.json API if you need more precise control. The `location` and `uule` p |\n| `uule` | string | No | Parameter is the Google encoded location you want to use for the search. `uule` and `location` parameters can't be used together. For consistent results with coordinates-based `uule` parameter, a matching `gl` parameter is required. Head to |\n| `gl` | string | No | Parameter defines the country to use for the Google Forums search. It's a two-letter country code. (e.g., `us` for the United States, `uk` for United Kingdom, or `fr` for France). Head to the Google countries page for a full list of support |\n| `hl` | string | No | Parameter defines the language to use for the Google Forums search. It's a two or three-letter language code. (e.g., `en` for English, `es` for Spanish, or `fr` for French), optionally followed by a two-letter or three-digit region code (e. |\n| `period_unit` | string | No | Parameter defines the time period unit to search for the recent images, e.g. from past minute, hour, day etc. Options: `s` - Second `n` - Minute `h` - Hour `d` - Day `w` - Week `m` - Month `y` - Year This parameter can't be used with `start |\n| `period_value` | string | No | Parameter defines an optional time period value that can be used with `period_unit` to describe time periods like `15 seconds`, `42 hours`, `178 days` etc. Default value: `1` Value range: `1..2147483647` |\n| `start_date` | string | No | Parameter defines the start date of time period you want to limit the image search to. Format: `YYYYMMDD` Example: `20251201` This parameter can't be used with `period_unit`/`period_value` parameters. `start_date` with blank `end_date` prod |\n| `end_date` | string | No | Parameter defines the end date of time period you want to limit the image search to. Format: `YYYYMMDD` Example: `20251231` This parameter can't be used with `period_unit`/`period_value` parameters. `end_date` with blank `start_date` produc |\n| `start` | string | No | Parameter defines the result offset. It skips the given number of results. It's used for pagination. (e.g., `0` (default) is the first page of results, `10` is the 2nd page of results, `20` is the 3rd page of results, etc.). |\n| `nfpr` | string | No | Parameter defines the exclusion of results from an auto-corrected query when the original query is spelled wrong. It can be set to `1` to exclude these results, or `0` to include them (default). Note that this parameter may not prevent Goog |\n| `filter` | string | No | Parameter defines if the filters for 'Similar Results' and 'Omitted Results' are on or off. It can be set to `1` (default) to enable these filters, or `0` to disable these filters. |\n| `tbs` | string | No | (to be searched) parameter defines advanced search parameters that aren't possible in the regular query field. (e.g., advanced search for dates, time period, etc.). |\n| `device` | string | No | Parameter defines the device to use to get the results. It can be set to `desktop` (default) to use a regular browser, `tablet` to use a tablet browser (currently using iPads), or `mobile` to use a mobile browser. |\n| `json_restrictor` | string | No | Parameter defines the fields you want to include in the output, reducing payload size for faster response. See the JSON Restrictor documentation for more details. |\n\n## Pricing\n\n$0.010 per successful call. Failed calls are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/google/forums",
+  "created_at": "2026-11-13T00:11:43.255Z"
+}

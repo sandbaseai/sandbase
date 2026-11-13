@@ -1,0 +1,81 @@
+{
+  "name": "google/finance",
+  "display_name": "Google Finance",
+  "type": "api",
+  "vendor": "Google",
+  "vendor_slug": "google",
+  "description": "Get a Google Finance quote page for a ticker such as GOOGL:NASDAQ: price, movement, key stats, financials, news and price graph over a chosen window.",
+  "tags": [
+    "api",
+    "google",
+    "finance",
+    "market-data"
+  ],
+  "capabilities": [
+    "api",
+    "google",
+    "finance",
+    "market-data"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/google/finance"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "q"
+    ],
+    "properties": {
+      "q": {
+        "type": "string",
+        "example": "GOOGL:NASDAQ",
+        "description": "Parameter defines the query you want to search. It can be a stock, index, mutual fund, currency or futures. Head to the Google Finance Autocomplete API to find the query for a company name or a keyword."
+      },
+      "hl": {
+        "type": "string",
+        "description": "Parameter defines the language to use for the Google Finance search. It's a two or three-letter language code. (e.g., `en` for English, `es` for Spanish, or `fr` for French), optionally followed by a two-letter or three-digit region code (e.g., `en-gb` for British English, or `es-419` for Latin American Spanish). Head to the Google languages page for a full list of supported Google languages."
+      },
+      "window": {
+        "type": "string",
+        "description": "Parameter is used for setting time range for the graph. It can be set to: `1D` - 1 Day(default) `5D` - 5 Days `1M` - 1 Month `6M` - 6 Months `YTD` - Year to Date `1Y` - 1 Year `5Y` - 5 Years `MAX` - Maximum"
+      },
+      "json_restrictor": {
+        "type": "string",
+        "description": "Parameter defines the fields you want to include in the output, reducing payload size for faster response. See the JSON Restrictor documentation for more details."
+      }
+    },
+    "additionalProperties": false
+  },
+  "response_schema": {
+    "type": "object",
+    "required": [
+      "id",
+      "status",
+      "model"
+    ],
+    "properties": {
+      "id": {
+        "type": "string"
+      },
+      "model": {
+        "type": "string"
+      },
+      "status": {
+        "type": "string"
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.01
+  },
+  "readme": "# Google Finance\n\nGet a Google Finance quote page for a ticker such as GOOGL:NASDAQ: price, movement, key stats, financials, news and price graph over a chosen window.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/google/finance\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"q\": \"GOOGL:NASDAQ\"}'\n```\n\nThe result is returned in `outputs[0].data` as structured JSON.\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `q` | string | Yes | Parameter defines the query you want to search. It can be a stock, index, mutual fund, currency or futures. Head to the Google Finance Autocomplete API to find the query for a company name or a keyword. |\n| `hl` | string | No | Parameter defines the language to use for the Google Finance search. It's a two or three-letter language code. (e.g., `en` for English, `es` for Spanish, or `fr` for French), optionally followed by a two-letter or three-digit region code (e |\n| `window` | string | No | Parameter is used for setting time range for the graph. It can be set to: `1D` - 1 Day(default) `5D` - 5 Days `1M` - 1 Month `6M` - 6 Months `YTD` - Year to Date `1Y` - 1 Year `5Y` - 5 Years `MAX` - Maximum |\n| `json_restrictor` | string | No | Parameter defines the fields you want to include in the output, reducing payload size for faster response. See the JSON Restrictor documentation for more details. |\n\n## Pricing\n\n$0.010 per successful call. Failed calls are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/google/finance",
+  "created_at": "2026-11-13T00:08:20.948Z"
+}

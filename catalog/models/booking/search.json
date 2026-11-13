@@ -1,0 +1,157 @@
+{
+  "name": "booking/search",
+  "display_name": "Booking.com Search",
+  "type": "api",
+  "vendor": "Booking.com",
+  "vendor_slug": "booking",
+  "description": "Search Booking.com properties by destination and dates, with property name, price, rating, review score, address and photos.",
+  "tags": [
+    "api",
+    "booking",
+    "travel",
+    "lodging"
+  ],
+  "capabilities": [
+    "api",
+    "booking",
+    "travel",
+    "lodging"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/booking/search"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "q"
+    ],
+    "properties": {
+      "q": {
+        "type": "string",
+        "example": "Austin",
+        "description": "Parameter defines the destination to search for: a city, a region, a district, a landmark, or an airport (e.g., `Paris`, `Tuscany`, `Manhattan`, or `Eiffel Tower`). Booking.com doesn't return results for most street addresses."
+      },
+      "hl": {
+        "type": "string",
+        "description": "Parameter defines the language to use for the Booking.com search (e.g., `en-us` (default) for English (US), `fr` for French, or `pt-br` for Portuguese (Brazil)). Head to the Booking.com languages page for a full list of supported languages."
+      },
+      "nflt": {
+        "type": "string",
+        "description": "Parameter defines any other Booking.com filters, like amenities, meals, districts, brands, or distance from the center. It's the value of the `nflt` parameter of Booking.com search URLs: a semicolon-separated list of filters (e.g., `hotelfacility=107;mealplan=1;di=2286`). The filters available for a search, with their values, are in `filters` of the results."
+      },
+      "limit": {
+        "type": "string",
+        "description": "Parameter defines the maximum number of results to return, from `1` to `100`. It defaults to `25`, like on Booking.com. Booking.com sometimes returns a few more properties: sponsored ones, or the searched property."
+      },
+      "rooms": {
+        "type": "string",
+        "description": "Parameter defines the number of rooms, from `1` (default) to `30`. It can't be greater than the number of `adults`."
+      },
+      "adults": {
+        "type": "string",
+        "description": "Parameter defines the number of adults, from `1` to `30`. It defaults to `2`."
+      },
+      "device": {
+        "type": "string",
+        "description": "Parameter defines the device to use to get the results. It can be set to `desktop` (default) to use a regular browser, `tablet` to use a tablet browser (currently using iPads), or `mobile` to use a mobile browser."
+      },
+      "offset": {
+        "type": "string",
+        "description": "Parameter defines the result offset. It skips the given number of results. It's used for pagination. (e.g., `0` (default) is the first page of results, `25` is the 2nd page of results with the default `limit`, etc.). It can be up to `1000`: Booking.com returns the same properties for larger offsets, even when it finds more properties."
+      },
+      "rating": {
+        "type": "string",
+        "description": "Parameter defines the minimum review score of the properties. Available options: `9` - Wonderful: 9+ `8` - Very Good: 8+ `7` - Good: 7+ `6` - Pleasant: 6+"
+      },
+      "sort_by": {
+        "type": "string",
+        "description": "Parameter defines the sorting of the results. It defaults to `popularity` (Our top picks). Available options: `popularity` - Our top picks `upsort_bh` - Homes & apartments first `price` - Price (lowest first) `price_from_high_to_low` - Price (highest first) `review_score_and_price` - Best reviewed & lowest price `bayesian_review_score` - Top reviewed `class` - Property rating (high to low) `class_asc` - Property rating (low to high) `class_and_price` - Property rating and price `distance_from_search` - Distance from downtown `closest_beach_distance_v2` - Distance from closest beach `closest_sk"
+      },
+      "children": {
+        "type": "string",
+        "description": "Parameter defines the number of children, from `0` (default) to `10`. Their ages must be set with `children_ages`."
+      },
+      "currency": {
+        "type": "string",
+        "description": "Parameter defines the currency of the returned prices. It defaults to `hotel_currency`, the currency of each property (e.g., `EUR` in Paris), returned in `currency` of each property. Head to the Booking.com currencies page for a full list of supported currency codes."
+      },
+      "max_price": {
+        "type": "string",
+        "description": "Parameter defines the maximum price per night, in the currency of the results (e.g., `300`). It must be used together with a `currency` code."
+      },
+      "min_price": {
+        "type": "string",
+        "description": "Parameter defines the minimum price per night, in the currency of the results (e.g., `100`). It must be used together with a `currency` code."
+      },
+      "flex_window": {
+        "type": "string",
+        "description": "Parameter defines how many days the check-in and check-out dates can move, earlier or later, for the best price of each property. Each property then has the dates of its price in `check_in_date` and `check_out_date`. It must be used together with `check_in_date` and `check_out_date`. Available options: `1` - ± 1 day `2` - ± 2 days `3` - ± 3 days `7` - ± 7 days"
+      },
+      "hotel_class": {
+        "type": "string",
+        "description": "Parameter defines the property ratings to show: stars for hotels, or Booking.com's own rating for homes and apartments. It's a comma-separated list of ratings from `1` to `5` (e.g., `4,5` for 4 and 5-star properties)."
+      },
+      "check_in_date": {
+        "type": "string",
+        "description": "Parameter defines the check-in date. The format is **YYYY-MM-DD** (e.g., `2026-12-12`). It must be used together with `check_out_date`. When dates aren't set, Booking.com returns properties without prices."
+      },
+      "children_ages": {
+        "type": "string",
+        "description": "Parameter defines the age of each child at check-out, from `0` to `17`. It's a comma-separated list of ages (e.g., `5` for one child, or `5,9` for two children). When `children` isn't set, it's the number of ages."
+      },
+      "session_token": {
+        "type": "string",
+        "description": "Parameter defines the token that keeps the same Booking.com visitor between searches. Booking.com ranks properties differently for each visitor, so without it, the next pages can repeat properties of the previous ones. It's returned in `the API_pagination.session_token`, and the links of `the API_pagination` already include it."
+      },
+      "check_out_date": {
+        "type": "string",
+        "description": "Parameter defines the check-out date. The format is **YYYY-MM-DD** (e.g., `2026-12-15`). It must be used together with `check_in_date`, and be up to 90 nights later than it."
+      },
+      "property_types": {
+        "type": "string",
+        "description": "Parameter defines the property types to show. It's a comma-separated list of property type IDs (e.g., `204` for hotels, or `201,220` for apartments and vacation homes). Head to the Booking.com property types page for a full list of supported property types."
+      },
+      "json_restrictor": {
+        "type": "string",
+        "description": "Parameter defines the fields you want to include in the output, reducing payload size for faster response. See the JSON Restrictor documentation for more details."
+      },
+      "free_cancellation": {
+        "type": "string",
+        "description": "Parameter defines whether to only show properties with free cancellation. It can be set to `true` or `false` (default)."
+      }
+    },
+    "additionalProperties": false
+  },
+  "response_schema": {
+    "type": "object",
+    "required": [
+      "id",
+      "status",
+      "model"
+    ],
+    "properties": {
+      "id": {
+        "type": "string"
+      },
+      "model": {
+        "type": "string"
+      },
+      "status": {
+        "type": "string"
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.01
+  },
+  "readme": "# Booking.com Search\n\nSearch Booking.com properties by destination and dates, with property name, price, rating, review score, address and photos.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/booking/search\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"q\": \"Austin\"}'\n```\n\nThe result is returned in `outputs[0].data` as structured JSON.\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `q` | string | Yes | Parameter defines the destination to search for: a city, a region, a district, a landmark, or an airport (e.g., `Paris`, `Tuscany`, `Manhattan`, or `Eiffel Tower`). Booking.com doesn't return results for most street addresses. |\n| `hl` | string | No | Parameter defines the language to use for the Booking.com search (e.g., `en-us` (default) for English (US), `fr` for French, or `pt-br` for Portuguese (Brazil)). Head to the Booking.com languages page for a full list of supported languages. |\n| `currency` | string | No | Parameter defines the currency of the returned prices. It defaults to `hotel_currency`, the currency of each property (e.g., `EUR` in Paris), returned in `currency` of each property. Head to the Booking.com currencies page for a full list o |\n| `check_in_date` | string | No | Parameter defines the check-in date. The format is **YYYY-MM-DD** (e.g., `2026-12-12`). It must be used together with `check_out_date`. When dates aren't set, Booking.com returns properties without prices. |\n| `check_out_date` | string | No | Parameter defines the check-out date. The format is **YYYY-MM-DD** (e.g., `2026-12-15`). It must be used together with `check_in_date`, and be up to 90 nights later than it. |\n| `flex_window` | string | No | Parameter defines how many days the check-in and check-out dates can move, earlier or later, for the best price of each property. Each property then has the dates of its price in `check_in_date` and `check_out_date`. It must be used togethe |\n| `adults` | string | No | Parameter defines the number of adults, from `1` to `30`. It defaults to `2`. |\n| `children` | string | No | Parameter defines the number of children, from `0` (default) to `10`. Their ages must be set with `children_ages`. |\n| `children_ages` | string | No | Parameter defines the age of each child at check-out, from `0` to `17`. It's a comma-separated list of ages (e.g., `5` for one child, or `5,9` for two children). When `children` isn't set, it's the number of ages. |\n| `rooms` | string | No | Parameter defines the number of rooms, from `1` (default) to `30`. It can't be greater than the number of `adults`. |\n| `sort_by` | string | No | Parameter defines the sorting of the results. It defaults to `popularity` (Our top picks). Available options: `popularity` - Our top picks `upsort_bh` - Homes & apartments first `price` - Price (lowest first) `price_from_high_to_low` - Pric |\n| `min_price` | string | No | Parameter defines the minimum price per night, in the currency of the results (e.g., `100`). It must be used together with a `currency` code. |\n| `max_price` | string | No | Parameter defines the maximum price per night, in the currency of the results (e.g., `300`). It must be used together with a `currency` code. |\n| `hotel_class` | string | No | Parameter defines the property ratings to show: stars for hotels, or Booking.com's own rating for homes and apartments. It's a comma-separated list of ratings from `1` to `5` (e.g., `4,5` for 4 and 5-star properties). |\n| `rating` | string | No | Parameter defines the minimum review score of the properties. Available options: `9` - Wonderful: 9+ `8` - Very Good: 8+ `7` - Good: 7+ `6` - Pleasant: 6+ |\n| `free_cancellation` | string | No | Parameter defines whether to only show properties with free cancellation. It can be set to `true` or `false` (default). |\n| `property_types` | string | No | Parameter defines the property types to show. It's a comma-separated list of property type IDs (e.g., `204` for hotels, or `201,220` for apartments and vacation homes). Head to the Booking.com property types page for a full list of supporte |\n| `nflt` | string | No | Parameter defines any other Booking.com filters, like amenities, meals, districts, brands, or distance from the center. It's the value of the `nflt` parameter of Booking.com search URLs: a semicolon-separated list of filters (e.g., `hotelfa |\n| `offset` | string | No | Parameter defines the result offset. It skips the given number of results. It's used for pagination. (e.g., `0` (default) is the first page of results, `25` is the 2nd page of results with the default `limit`, etc.). It can be up to `1000`: |\n| `limit` | string | No | Parameter defines the maximum number of results to return, from `1` to `100`. It defaults to `25`, like on Booking.com. Booking.com sometimes returns a few more properties: sponsored ones, or the searched property. |\n| `session_token` | string | No | Parameter defines the token that keeps the same Booking.com visitor between searches. Booking.com ranks properties differently for each visitor, so without it, the next pages can repeat properties of the previous ones. It's returned in `the |\n| `device` | string | No | Parameter defines the device to use to get the results. It can be set to `desktop` (default) to use a regular browser, `tablet` to use a tablet browser (currently using iPads), or `mobile` to use a mobile browser. |\n| `json_restrictor` | string | No | Parameter defines the fields you want to include in the output, reducing payload size for faster response. See the JSON Restrictor documentation for more details. |\n\n## Pricing\n\n$0.010 per successful call. Failed calls are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/booking/search",
+  "created_at": "2026-11-12T23:55:24.937Z"
+}

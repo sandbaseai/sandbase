@@ -1,0 +1,102 @@
+{
+  "name": "doordash/search",
+  "display_name": "DoorDash Search",
+  "type": "api",
+  "vendor": "DoorDash",
+  "vendor_slug": "doordash",
+  "description": "Search DoorDash stores and dishes by keyword and delivery address, with store name, rating, delivery fee, ETA and menu items.",
+  "tags": [
+    "api",
+    "doordash",
+    "food-delivery",
+    "local"
+  ],
+  "capabilities": [
+    "api",
+    "doordash",
+    "food-delivery",
+    "local"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/doordash/search"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "q",
+      "address"
+    ],
+    "properties": {
+      "q": {
+        "type": "string",
+        "example": "pizza",
+        "description": "Parameter defines the search query. You can use anything that you would use in a regular DoorDash search (e.g., `pizza`, `sushi`, or `milk`), up to 15 words."
+      },
+      "page": {
+        "type": "string",
+        "description": "Parameter defines the page number of the results (e.g., `1` (default) is the first page of results, `2` is the 2nd page of results, etc.). Each page covers 50 stores. With `deals`, `fastest`, or `min_rating`, there's a single page, like on DoorDash, which only shows those of its first 50 stores that match them and doesn't load more as you scroll. Searches where DoorDash shows products first (e.g., `dog food`, or with `store_type` set to `retail`, `pets`, or `alcohol`) also have a single page, which can have more than 50 stores."
+      },
+      "deals": {
+        "type": "string",
+        "description": "Parameter defines whether to only show the stores with deals (e.g., `$5 off on $25+`), like the Deals filter of DoorDash. It can be set to `true` or `false` (default)."
+      },
+      "pickup": {
+        "type": "string",
+        "description": "Parameter defines whether to only show the stores offering pickup, with their pickup time and drive time instead of their delivery time and fee, like switching DoorDash from Delivery to Pickup. It can be set to `true` or `false` (default)."
+      },
+      "address": {
+        "type": "string",
+        "description": "Parameter defines the delivery address to search stores around, like the address set on DoorDash. It can be a street address (e.g., `350 5th Ave, New York, NY 10118`) or a ZIP or postal code (e.g., `10001`). Addresses in the United States, Canada, Australia, and New Zealand are supported. DoorDash matches incomplete addresses and addresses in other countries to a place with the same name (e.g., `Berlin, Germany` finds stores in Berlin, Pennsylvania), so a street address or a ZIP code works best."
+      },
+      "fastest": {
+        "type": "string",
+        "description": "Parameter defines whether to only show the stores delivering the fastest, like the Fastest filter of DoorDash. It can be set to `true` or `false` (default)."
+      },
+      "min_rating": {
+        "type": "string",
+        "description": "Parameter defines the minimum rating of the stores, like the Ratings filter of DoorDash. Available options: `4.5` - Over 4.5 `4.6` - Over 4.6 `4.7` - Over 4.7 `4.8` - Over 4.8 `4.9` - Over 4.9"
+      },
+      "store_type": {
+        "type": "string",
+        "description": "Parameter defines the type of stores to search, like the tabs of the DoorDash search page. By default, DoorDash searches all types of stores, except for some product searches, where it picks a type itself (e.g., `pets` for `dog food`). Use `all` to always search all types of stores. Available options: `all` - All `restaurant` - Restaurant `grocery` - Grocery `retail` - Retail `pets` - Pets `alcohol` - Alcohol `flowers` - Flowers"
+      },
+      "json_restrictor": {
+        "type": "string",
+        "description": "Parameter defines the fields you want to include in the output, reducing payload size for faster response. See the JSON Restrictor documentation for more details."
+      }
+    },
+    "additionalProperties": false
+  },
+  "response_schema": {
+    "type": "object",
+    "required": [
+      "id",
+      "status",
+      "model"
+    ],
+    "properties": {
+      "id": {
+        "type": "string"
+      },
+      "model": {
+        "type": "string"
+      },
+      "status": {
+        "type": "string"
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.01
+  },
+  "readme": "# DoorDash Search\n\nSearch DoorDash stores and dishes by keyword and delivery address, with store name, rating, delivery fee, ETA and menu items.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/doordash/search\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"q\": \"pizza\", \"address\": \"Austin, TX\"}'\n```\n\nThe result is returned in `outputs[0].data` as structured JSON.\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `q` | string | Yes | Parameter defines the search query. You can use anything that you would use in a regular DoorDash search (e.g., `pizza`, `sushi`, or `milk`), up to 15 words. |\n| `address` | string | Yes | Parameter defines the delivery address to search stores around, like the address set on DoorDash. It can be a street address (e.g., `350 5th Ave, New York, NY 10118`) or a ZIP or postal code (e.g., `10001`). Addresses in the United States,  |\n| `store_type` | string | No | Parameter defines the type of stores to search, like the tabs of the DoorDash search page. By default, DoorDash searches all types of stores, except for some product searches, where it picks a type itself (e.g., `pets` for `dog food`). Use  |\n| `min_rating` | string | No | Parameter defines the minimum rating of the stores, like the Ratings filter of DoorDash. Available options: `4.5` - Over 4.5 `4.6` - Over 4.6 `4.7` - Over 4.7 `4.8` - Over 4.8 `4.9` - Over 4.9 |\n| `deals` | string | No | Parameter defines whether to only show the stores with deals (e.g., `$5 off on $25+`), like the Deals filter of DoorDash. It can be set to `true` or `false` (default). |\n| `fastest` | string | No | Parameter defines whether to only show the stores delivering the fastest, like the Fastest filter of DoorDash. It can be set to `true` or `false` (default). |\n| `pickup` | string | No | Parameter defines whether to only show the stores offering pickup, with their pickup time and drive time instead of their delivery time and fee, like switching DoorDash from Delivery to Pickup. It can be set to `true` or `false` (default). |\n| `page` | string | No | Parameter defines the page number of the results (e.g., `1` (default) is the first page of results, `2` is the 2nd page of results, etc.). Each page covers 50 stores. With `deals`, `fastest`, or `min_rating`, there's a single page, like on  |\n| `json_restrictor` | string | No | Parameter defines the fields you want to include in the output, reducing payload size for faster response. See the JSON Restrictor documentation for more details. |\n\n## Pricing\n\n$0.010 per successful call. Failed calls are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/doordash/search",
+  "created_at": "2026-11-12T23:59:03.155Z"
+}

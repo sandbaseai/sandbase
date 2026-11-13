@@ -1,6 +1,6 @@
 # Platforms
 
-169 platforms and model makers, each reachable with one SandBase API key.
+175 platforms and model makers, each reachable with one SandBase API key.
 
 | Platform | Capabilities | Types |
 |---|---|---|
@@ -8,9 +8,9 @@
 | [TikTok](tiktok.md) | 175 | data API |
 | [DataForSEO](dataforseo.md) | 148 | data API |
 | [Instagram](instagram.md) | 107 | data API |
+| [Google](google.md) | 76 | LLM, audio model, data API, image generation model, video generation model |
 | [Alibaba](alibaba.md) | 71 | LLM, audio model, embedding model, image generation model, video generation model |
 | [Xiaohongshu](xiaohongshu.md) | 68 | data API |
-| [Google](google.md) | 63 | LLM, audio model, data API, image generation model, video generation model |
 | [Weibo](weibo.md) | 63 | data API |
 | [Polymarket](polymarket.md) | 59 | data API |
 | [YouTube](youtube.md) | 54 | data API |
@@ -75,10 +75,12 @@
 | [Y Combinator](y-combinator.md) | 6 | data API |
 | [Yahoo Finance](yahoo-finance.md) | 6 | data API |
 | [Z-Ai](z-ai.md) | 6 | LLM |
+| [Bing](bing.md) | 5 | data API |
 | [Firecrawl](firecrawl.md) | 5 | data API |
 | [G2](g2.md) | 5 | data API |
 | [hyper3d](hyper3d.md) | 5 | image generation model |
 | [Meta](meta.md) | 5 | LLM, image generation model |
+| [Walmart](walmart.md) | 5 | data API |
 | [WeChat Search](wechat-search.md) | 5 | data API |
 | [Wellfound](wellfound.md) | 5 | data API |
 | [Zillow](zillow.md) | 5 | data API |
@@ -86,6 +88,7 @@
 | [Capterra](capterra.md) | 4 | data API |
 | [Crunchbase](crunchbase.md) | 4 | data API |
 | [Etsy](etsy.md) | 4 | data API |
+| [Google Maps](google-maps.md) | 4 | data API |
 | [Hacker News](hacker-news.md) | 4 | data API |
 | [Ideogram](ideogram.md) | 4 | image generation model |
 | [IQAir](iqair.md) | 4 | data API |
@@ -96,15 +99,14 @@
 | [Pinterest](pinterest.md) | 4 | data API |
 | [Shopify](shopify.md) | 4 | data API |
 | [trellis](trellis.md) | 4 | image generation model |
-| [Walmart](walmart.md) | 4 | data API |
 | [AccuWeather](accuweather.md) | 3 | data API |
 | [App Store](app-store.md) | 3 | data API |
 | [Best Buy](best-buy.md) | 3 | data API |
-| [Bing](bing.md) | 3 | data API |
 | [Bluesky](bluesky.md) | 3 | data API |
 | [DuckDuckGo](duckduckgo.md) | 3 | data API |
 | [eBay](ebay.md) | 3 | data API |
 | [Exa](exa.md) | 3 | data API |
+| [Glassdoor](glassdoor.md) | 3 | data API |
 | [Home Depot](home-depot.md) | 3 | data API |
 | [Kelley Blue Book](kelley-blue-book.md) | 3 | data API |
 | [MeiGen-AI](meigen-ai.md) | 3 | video generation model |
@@ -115,15 +117,21 @@
 | [Tencent Huxuan](tencent-huxuan.md) | 3 | data API |
 | [Truth Social](truth-social.md) | 3 | data API |
 | [Waveinflu](waveinflu.md) | 3 | data API |
+| [Yahoo](yahoo.md) | 3 | data API |
+| [Yandex](yandex.md) | 3 | data API |
 | [Youku](youku.md) | 3 | data API |
 | [Ahrefs](ahrefs.md) | 2 | data API |
 | [AliExpress](aliexpress.md) | 2 | data API |
 | [ASOS](asos.md) | 2 | data API |
+| [Baidu](baidu.md) | 2 | data API |
+| [Google Hotels](google-hotels.md) | 2 | data API |
 | [Google Shopping](google-shopping.md) | 2 | data API |
 | [Hunter](hunter.md) | 2 | data API |
 | [IKEA](ikea.md) | 2 | data API |
+| [Indeed](indeed.md) | 2 | data API |
 | [Kroger](kroger.md) | 2 | data API |
 | [Luma](luma.md) | 2 | video generation model |
+| [Naver](naver.md) | 2 | data API |
 | [PixVerse](pixverse.md) | 2 | video generation model |
 | [Recraft](recraft.md) | 2 | image generation model |
 | [Sam's Club](sam-s-club.md) | 2 | data API |
@@ -135,30 +143,28 @@
 | [TypeSafe](typesafe.md) | 2 | LLM |
 | [Xianyu](xianyu.md) | 2 | data API |
 | [Xiaomi](xiaomi.md) | 2 | LLM |
-| [Yahoo](yahoo.md) | 2 | data API |
-| [Yandex](yandex.md) | 2 | data API |
 | [Yelp](yelp.md) | 2 | data API |
+| [Airbnb](airbnb.md) | 1 | data API |
 | [Alibaba.com](alibaba-com.md) | 1 | data API |
 | [AutoZone](autozone.md) | 1 | data API |
-| [Baidu](baidu.md) | 1 | data API |
 | [Bing Maps](bing-maps.md) | 1 | data API |
 | [Bing Shopping](bing-shopping.md) | 1 | data API |
+| [Booking.com](booking-com.md) | 1 | data API |
 | [Built In](built-in.md) | 1 | data API |
 | [China Social Media](china-social-media.md) | 1 | data API |
 | [ClarityAI](clarityai.md) | 1 | image generation model |
 | [Cloudsway](cloudsway.md) | 1 | data API |
+| [DoorDash](doordash.md) | 1 | data API |
+| [Eventbrite](eventbrite.md) | 1 | data API |
 | [Google Flights](google-flights.md) | 1 | data API |
-| [Google Hotels](google-hotels.md) | 1 | data API |
-| [Google Maps](google-maps.md) | 1 | data API |
 | [HiDream](hidream.md) | 1 | image generation model |
 | [Hybrid](hybrid.md) | 1 | data API |
-| [Indeed](indeed.md) | 1 | data API |
 | [Linktree](linktree.md) | 1 | data API |
 | [LMArena](lmarena.md) | 1 | data API |
 | [LoopNet](loopnet.md) | 1 | data API |
 | [Meijer](meijer.md) | 1 | data API |
 | [Midjourney](midjourney.md) | 1 | image generation model |
-| [Naver](naver.md) | 1 | data API |
+| [OpenTable](opentable.md) | 1 | data API |
 | [pixal3d](pixal3d.md) | 1 | image generation model |
 | [reconviagen](reconviagen.md) | 1 | image generation model |
 | [sandbase-ai](sandbase-ai.md) | 1 | image generation model |

@@ -1,0 +1,194 @@
+{
+  "name": "google/search",
+  "display_name": "Google Search",
+  "type": "api",
+  "vendor": "Google",
+  "vendor_slug": "google",
+  "description": "Get Google web results for a query with organic results, knowledge graph, local pack, top stories, related questions and pagination, localized by country, language and location.",
+  "tags": [
+    "api",
+    "google",
+    "web-search",
+    "serp"
+  ],
+  "capabilities": [
+    "api",
+    "google",
+    "web-search",
+    "serp"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/google/search"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "q"
+    ],
+    "properties": {
+      "q": {
+        "type": "string",
+        "example": "best coffee grinder",
+        "description": "Parameter defines the query you want to search. You can use anything that you would use in a regular Google search. e.g. `inurl:`, `site:`, `intitle:`. We also support advanced search query parameters such as `as_dt` and `as_eq`. See the full list of supported advanced search query parameters. `site:` can't be used with `tbm` set to `nws`."
+      },
+      "cr": {
+        "type": "string",
+        "description": "Parameter defines one or multiple countries to limit the search to. It uses `country{two-letter upper-case country code}` to specify countries and `|` as a delimiter. (e.g., `countryFR|countryDE` will only search French and German pages). Head to the Google cr countries page for a full list of supported countries."
+      },
+      "gl": {
+        "type": "string",
+        "description": "Parameter defines the country to use for the Google search. It's a two-letter country code. (e.g., `us` for the United States, `uk` for United Kingdom, or `fr` for France). Head to the Google countries page for a full list of supported Google countries. When `location` is set, it defaults to the country of the location."
+      },
+      "hl": {
+        "type": "string",
+        "description": "Parameter defines the language to use for the Google search. It's a two or three-letter language code. (e.g., `en` for English, `es` for Spanish, or `fr` for French), optionally followed by a two-letter or three-digit region code (e.g., `en-gb` for British English, or `es-419` for Latin American Spanish). Head to the Google languages page for a full list of supported Google languages."
+      },
+      "lr": {
+        "type": "string",
+        "description": "Parameter defines one or multiple languages to limit the search to. It uses `lang_{two-letter language code}` to specify languages and `|` as a delimiter. (e.g., `lang_fr|lang_de` will only search French and German pages). Head to the Google lr languages page for a full list of supported languages."
+      },
+      "si": {
+        "type": "string",
+        "description": "Parameter defines the cached search parameters of the Google Search you want to scrape. Searches with `si` parameter will return results for the originally encrypted search parameters. For some searches, `si` may override all other parameters except `startsi` can be used to scrape Google Knowledge Graph Tabs."
+      },
+      "ibp": {
+        "type": "string",
+        "description": "Parameter is responsible for rendering layouts and expansions for some elements (e.g., `gwp;0,7` to expand searches with `ludocid` for expanded knowledge graph)."
+      },
+      "lat": {
+        "type": "string",
+        "description": "Parameter defines a GPS latitude for the search origin. Parameter is required when using `lon` parameter. For consistent results, a matching `gl` parameter is required. Parameter can't be used together with `location` and `uule` parameters."
+      },
+      "lon": {
+        "type": "string",
+        "description": "Parameter defines a GPS longitude for the search origin. Parameter is required when using `lat` parameter. For consistent results, a matching `gl` parameter is required. Parameter can't be used together with `location` and `uule` parameters."
+      },
+      "tbm": {
+        "enum": [
+          "(no selection)",
+          "isch",
+          "lcl",
+          "vid",
+          "nws",
+          "shop",
+          "pts",
+          "bks"
+        ],
+        "type": "string",
+        "description": "(To Be Matched) This parameter defines the type of search you want to do. Options: `(no selection)` - regular Google Search `isch` - Google Images API `lcl` - Google Local API `vid` - Google Videos API `nws` - Google News API `shop` - Google Shopping API `pts` - Google Patents API `bks` - Google Books API `tbm` and `udm` parameters can't be used together."
+      },
+      "tbs": {
+        "type": "string",
+        "description": "(to be searched) parameter defines advanced search parameters that aren't possible in the regular query field. (e.g., advanced search for patents, dates, news, videos, images, apps, or text contents)."
+      },
+      "udm": {
+        "enum": [
+          "(no selection)",
+          "14",
+          "50",
+          "39",
+          "18"
+        ],
+        "type": "string",
+        "description": "This parameter defines the type of Google Search display mode you want to use. Options: `(no selection)` - regular Google Search `web` or `14` - Web results `50` - Google AI Mode API `39` - Google Short Videos API `18` - Google Forums API `tbm` and `udm` parameters can't be used together."
+      },
+      "uds": {
+        "type": "string",
+        "description": "Parameter enables to filter search. It's a string provided by Google as a filter. `uds` values are provided under the section: `filters` with `uds`, `q` and `the API_link` values provided for each filter."
+      },
+      "lsig": {
+        "type": "string",
+        "description": "Parameter that you might have to use to force the knowledge graph map view to show up. You can find the `lsig` ID by using our Local Pack API or Google Local API. `lsig` ID is also available via a redirect Google uses within Google My Business."
+      },
+      "nfpr": {
+        "type": "string",
+        "description": "Parameter defines the exclusion of results from an auto-corrected query when the original query is spelled wrong. It can be set to `1` to exclude these results, or `0` to include them (default). Note that this parameter may not prevent Google from returning results for an auto-corrected query if no other results are available."
+      },
+      "safe": {
+        "type": "string",
+        "description": "Parameter defines the level of filtering for adult content. It can be set to `active` or `off`, by default Google will blur explicit content."
+      },
+      "uule": {
+        "type": "string",
+        "description": "Parameter is the Google encoded location you want to use for the search. `uule` and `location` parameters can't be used together. For consistent results with coordinates-based `uule` parameter, a matching `gl` parameter is required. Head to UULE Generator if you need to convert a location or GPS coordinates to `uule` parameter, and vice versa. The radius of a coordinates-based `uule` is not used."
+      },
+      "kgmid": {
+        "type": "string",
+        "description": "Parameter defines the id (`KGMID`) of the Google Knowledge Graph listing you want to scrape. Also known as Google Knowledge Graph ID. Searches with `kgmid` parameter will return results for the originally encrypted search parameters. For some searches, `kgmid` may override all other parameters except `start` parameter."
+      },
+      "start": {
+        "type": "string",
+        "description": "Parameter defines the result offset. It skips the given number of results. It's used for pagination. (e.g., `0` (default) is the first page of results, `10` is the 2nd page of results, `20` is the 3rd page of results, etc.)."
+      },
+      "device": {
+        "type": "string",
+        "description": "Parameter defines the device to use to get the results. It can be set to `desktop` (default) to use a regular browser, `tablet` to use a tablet browser (currently using iPads), or `mobile` to use a mobile browser."
+      },
+      "filter": {
+        "type": "string",
+        "description": "Parameter defines if the filters for 'Similar Results' and 'Omitted Results' are on or off. It can be set to `1` (default) to enable these filters, or `0` to disable these filters."
+      },
+      "radius": {
+        "type": "string",
+        "description": "Parameter defines the distance (in meters) within which to bias the search results. Results inside of this region will be ranked higher than results outside of it. However, prominent results from outside of the search radius may still be included. Value range per `device`: - Desktop: `1..199` - Tablet: `1..1000` - Mobile: `1..1000` Parameter can be used alongside `location` or `lat`/`lon` parameters. When parameter is paired with `location`, its center point coordinates are used for the search."
+      },
+      "ludocid": {
+        "type": "string",
+        "description": "Parameter defines the Google CID (customer identifier) of a place. This parameter can be found in Google Search API and Google Local API local results under the name of `place_id`, as well as in Google Maps API local results under the name of `data_cid`. You can also acquire it using Google's CID converter."
+      },
+      "location": {
+        "type": "string",
+        "description": "Parameter defines from where you want the search to originate. If several locations match the location requested, we'll pick the most popular one. Head to the /locations.json API if you need more precise control. It is recommended to specify `location` at the city level in order to simulate a real user’s search. If `location` is omitted, the search may take on the location of the proxy. When only the `location` parameter is set, Google may still take into account the proxy’s country, which can influence some results. For more consistent country-specific filtering, use the `gl` parameter alongs"
+      },
+      "color_scheme": {
+        "enum": [
+          "light",
+          "dark"
+        ],
+        "type": "string",
+        "description": "Parameter forces the selected color scheme to be used on the results page. If the parameter is not set, a random color scheme will be returned. Options: `light` - Light `dark` - Dark"
+      },
+      "google_domain": {
+        "type": "string",
+        "description": "Parameter defines the Google domain to use. It defaults to `google.com`. Head to the Google domains page for a full list of supported Google domains."
+      },
+      "json_restrictor": {
+        "type": "string",
+        "description": "Parameter defines the fields you want to include in the output, reducing payload size for faster response. See the JSON Restrictor documentation for more details."
+      }
+    },
+    "additionalProperties": false
+  },
+  "response_schema": {
+    "type": "object",
+    "required": [
+      "id",
+      "status",
+      "model"
+    ],
+    "properties": {
+      "id": {
+        "type": "string"
+      },
+      "model": {
+        "type": "string"
+      },
+      "status": {
+        "type": "string"
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.01
+  },
+  "readme": "# Google Search\n\nGet Google web results for a query with organic results, knowledge graph, local pack, top stories, related questions and pagination, localized by country, language and location.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/google/search\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"q\": \"best coffee grinder\"}'\n```\n\nThe result is returned in `outputs[0].data` as structured JSON.\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `q` | string | Yes | Parameter defines the query you want to search. You can use anything that you would use in a regular Google search. e.g. `inurl:`, `site:`, `intitle:`. We also support advanced search query parameters such as `as_dt` and `as_eq`. See the fu |\n| `location` | string | No | Parameter defines from where you want the search to originate. If several locations match the location requested, we'll pick the most popular one. Head to the /locations.json API if you need more precise control. It is recommended to specif |\n| `uule` | string | No | Parameter is the Google encoded location you want to use for the search. `uule` and `location` parameters can't be used together. For consistent results with coordinates-based `uule` parameter, a matching `gl` parameter is required. Head to |\n| `lat` | string | No | Parameter defines a GPS latitude for the search origin. Parameter is required when using `lon` parameter. For consistent results, a matching `gl` parameter is required. Parameter can't be used together with `location` and `uule` parameters. |\n| `lon` | string | No | Parameter defines a GPS longitude for the search origin. Parameter is required when using `lat` parameter. For consistent results, a matching `gl` parameter is required. Parameter can't be used together with `location` and `uule` parameters |\n| `radius` | string | No | Parameter defines the distance (in meters) within which to bias the search results. Results inside of this region will be ranked higher than results outside of it. However, prominent results from outside of the search radius may still be in |\n| `ludocid` | string | No | Parameter defines the Google CID (customer identifier) of a place. This parameter can be found in Google Search API and Google Local API local results under the name of `place_id`, as well as in Google Maps API local results under the name  |\n| `lsig` | string | No | Parameter that you might have to use to force the knowledge graph map view to show up. You can find the `lsig` ID by using our Local Pack API or Google Local API. `lsig` ID is also available via a redirect Google uses within Google My Busin |\n| `kgmid` | string | No | Parameter defines the id (`KGMID`) of the Google Knowledge Graph listing you want to scrape. Also known as Google Knowledge Graph ID. Searches with `kgmid` parameter will return results for the originally encrypted search parameters. For so |\n| `si` | string | No | Parameter defines the cached search parameters of the Google Search you want to scrape. Searches with `si` parameter will return results for the originally encrypted search parameters. For some searches, `si` may override all other paramete |\n| `ibp` | string | No | Parameter is responsible for rendering layouts and expansions for some elements (e.g., `gwp;0,7` to expand searches with `ludocid` for expanded knowledge graph). |\n| `uds` | string | No | Parameter enables to filter search. It's a string provided by Google as a filter. `uds` values are provided under the section: `filters` with `uds`, `q` and `the API_link` values provided for each filter. |\n| `color_scheme` | string | No | Parameter forces the selected color scheme to be used on the results page. If the parameter is not set, a random color scheme will be returned. Options: `light` - Light `dark` - Dark |\n| `google_domain` | string | No | Parameter defines the Google domain to use. It defaults to `google.com`. Head to the Google domains page for a full list of supported Google domains. |\n| `gl` | string | No | Parameter defines the country to use for the Google search. It's a two-letter country code. (e.g., `us` for the United States, `uk` for United Kingdom, or `fr` for France). Head to the Google countries page for a full list of supported Goog |\n| `hl` | string | No | Parameter defines the language to use for the Google search. It's a two or three-letter language code. (e.g., `en` for English, `es` for Spanish, or `fr` for French), optionally followed by a two-letter or three-digit region code (e.g., `en |\n| `cr` | string | No | Parameter defines one or multiple countries to limit the search to. It uses `country{two-letter upper-case country code}` to specify countries and `/` as a delimiter. (e.g., `countryFR/countryDE` will only search French and German pages). H |\n| `lr` | string | No | Parameter defines one or multiple languages to limit the search to. It uses `lang_{two-letter language code}` to specify languages and `/` as a delimiter. (e.g., `lang_fr/lang_de` will only search French and German pages). Head to the Googl |\n| `tbs` | string | No | (to be searched) parameter defines advanced search parameters that aren't possible in the regular query field. (e.g., advanced search for patents, dates, news, videos, images, apps, or text contents). |\n| `safe` | string | No | Parameter defines the level of filtering for adult content. It can be set to `active` or `off`, by default Google will blur explicit content. |\n| `nfpr` | string | No | Parameter defines the exclusion of results from an auto-corrected query when the original query is spelled wrong. It can be set to `1` to exclude these results, or `0` to include them (default). Note that this parameter may not prevent Goog |\n| `filter` | string | No | Parameter defines if the filters for 'Similar Results' and 'Omitted Results' are on or off. It can be set to `1` (default) to enable these filters, or `0` to disable these filters. |\n| `tbm` | string | No | (To Be Matched) This parameter defines the type of search you want to do. Options: `(no selection)` - regular Google Search `isch` - Google Images API `lcl` - Google Local API `vid` - Google Videos API `nws` - Google News API `shop` - Googl |\n| `udm` | string | No | This parameter defines the type of Google Search display mode you want to use. Options: `(no selection)` - regular Google Search `web` or `14` - Web results `50` - Google AI Mode API `39` - Google Short Videos API `18` - Google Forums API ` |\n| `start` | string | No | Parameter defines the result offset. It skips the given number of results. It's used for pagination. (e.g., `0` (default) is the first page of results, `10` is the 2nd page of results, `20` is the 3rd page of results, etc.). |\n| `device` | string | No | Parameter defines the device to use to get the results. It can be set to `desktop` (default) to use a regular browser, `tablet` to use a tablet browser (currently using iPads), or `mobile` to use a mobile browser. |\n| `json_restrictor` | string | No | Parameter defines the fields you want to include in the output, reducing payload size for faster response. See the JSON Restrictor documentation for more details. |\n\n## Pricing\n\n$0.010 per successful call. Failed calls are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/google/search",
+  "created_at": "2026-11-13T00:00:13.785Z"
+}

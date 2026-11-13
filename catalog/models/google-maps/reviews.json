@@ -1,0 +1,115 @@
+{
+  "name": "google-maps/reviews",
+  "display_name": "Google Maps Reviews",
+  "type": "api",
+  "vendor": "Google Maps",
+  "vendor_slug": "google-maps",
+  "description": "Get Google Maps reviews for one place with sorting, filtering, and paging.",
+  "tags": [
+    "api",
+    "google-maps",
+    "web-scraping"
+  ],
+  "capabilities": [
+    "api",
+    "google-maps",
+    "web-scraping"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}",
+    "passthrough": "POST /v1/api/google-maps/reviews"
+  },
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "gl": {
+        "type": "string",
+        "pattern": "^[a-zA-Z]{2}$",
+        "description": "Two-letter country code, lowercase. Default 'us'."
+      },
+      "hl": {
+        "type": "string",
+        "maxLength": 32,
+        "minLength": 2,
+        "description": "Language for review labels and place context. Default 'en'."
+      },
+      "num": {
+        "type": "integer",
+        "maximum": 100,
+        "minimum": 1,
+        "description": "Number of reviews: 1-100 on an unfiltered first request, 1-20 on filtered or continuation requests. Default 8."
+      },
+      "query": {
+        "type": "string",
+        "minLength": 1,
+        "description": "Only reviews matching this free-text query. Cannot be combined with topic_id."
+      },
+      "data_id": {
+        "type": "string",
+        "pattern": "^0x[0-9a-f]+:0x[0-9a-f]+$",
+        "description": "Hexadecimal Maps feature ID in the form '0x123:0x456'. Required unless place_id is supplied."
+      },
+      "sort_by": {
+        "enum": [
+          "qualityScore",
+          "newestFirst",
+          "ratingHigh",
+          "ratingLow"
+        ],
+        "type": "string",
+        "description": "Review order. Default 'qualityScore'."
+      },
+      "place_id": {
+        "type": "string",
+        "minLength": 1,
+        "description": "Google place ID of the business. Required unless data_id is supplied."
+      },
+      "topic_id": {
+        "type": "string",
+        "minLength": 1,
+        "description": "Only reviews under this topic from the topics group. Cannot be combined with query."
+      },
+      "next_page_token": {
+        "type": "string",
+        "minLength": 1,
+        "description": "Continuation token from pagination.next_page_token, passed back unchanged."
+      },
+      "source_metadata": {
+        "type": "boolean",
+        "description": "Include review-provider icon and scale metadata when available."
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "required": [
+      "id",
+      "status",
+      "model"
+    ],
+    "properties": {
+      "id": {
+        "type": "string"
+      },
+      "model": {
+        "type": "string"
+      },
+      "status": {
+        "type": "string"
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.00015
+  },
+  "readme": "# Google Maps Reviews\n\nGet Google Maps reviews for one place with sorting, filtering, and paging.",
+  "page_url": "https://www.sandbase.ai/model/google-maps/reviews",
+  "created_at": "2026-10-30T09:02:36.802Z"
+}

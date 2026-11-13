@@ -1,0 +1,81 @@
+{
+  "name": "google/events",
+  "display_name": "Google Events",
+  "type": "api",
+  "vendor": "Google",
+  "vendor_slug": "google",
+  "description": "Search events listed on Google by keyword and place, with title, date, venue, address, ticket links and thumbnails.",
+  "tags": [
+    "api",
+    "google",
+    "events",
+    "serp"
+  ],
+  "capabilities": [
+    "api",
+    "google",
+    "events",
+    "serp"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/google/events"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "q"
+    ],
+    "properties": {
+      "q": {
+        "type": "string",
+        "example": "concerts in austin",
+        "description": "Parameter defines the query you want to search. To search for events in a specific location, just include the location inside your search query (e.g. `Events in Austin, TX`)."
+      },
+      "uule": {
+        "type": "string",
+        "description": "Parameter is the Google encoded location you want to use for the search. `uule` and `location` parameters can't be used together. Head to UULE Generator if you need to convert a location or GPS coordinates to `uule` parameter, and vice versa."
+      },
+      "location": {
+        "type": "string",
+        "description": "Parameter defines from where you want the search to originate. If several locations match the location requested, we'll pick the most popular one. Head to the /locations.json API if you need more precise control. The `location` and `uule` parameters can't be used together. It is recommended to specify `location` at the city level in order to simulate a real user’s search. If `location` is omitted, the search may take on the location of the proxy."
+      },
+      "json_restrictor": {
+        "type": "string",
+        "description": "Parameter defines the fields you want to include in the output, reducing payload size for faster response. See the JSON Restrictor documentation for more details."
+      }
+    },
+    "additionalProperties": false
+  },
+  "response_schema": {
+    "type": "object",
+    "required": [
+      "id",
+      "status",
+      "model"
+    ],
+    "properties": {
+      "id": {
+        "type": "string"
+      },
+      "model": {
+        "type": "string"
+      },
+      "status": {
+        "type": "string"
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.01
+  },
+  "readme": "# Google Events\n\nSearch events listed on Google by keyword and place, with title, date, venue, address, ticket links and thumbnails.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/google/events\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"q\": \"concerts in austin\"}'\n```\n\nThe result is returned in `outputs[0].data` as structured JSON.\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `q` | string | Yes | Parameter defines the query you want to search. To search for events in a specific location, just include the location inside your search query (e.g. `Events in Austin, TX`). |\n| `location` | string | No | Parameter defines from where you want the search to originate. If several locations match the location requested, we'll pick the most popular one. Head to the /locations.json API if you need more precise control. The `location` and `uule` p |\n| `uule` | string | No | Parameter is the Google encoded location you want to use for the search. `uule` and `location` parameters can't be used together. Head to UULE Generator if you need to convert a location or GPS coordinates to `uule` parameter, and vice vers |\n| `json_restrictor` | string | No | Parameter defines the fields you want to include in the output, reducing payload size for faster response. See the JSON Restrictor documentation for more details. |\n\n## Pricing\n\n$0.010 per successful call. Failed calls are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/google/events",
+  "created_at": "2026-11-13T00:07:05.261Z"
+}

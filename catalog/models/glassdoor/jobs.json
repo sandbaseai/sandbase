@@ -1,0 +1,116 @@
+{
+  "name": "glassdoor/jobs",
+  "display_name": "Glassdoor Jobs",
+  "type": "api",
+  "vendor": "Glassdoor",
+  "vendor_slug": "glassdoor",
+  "description": "Search Glassdoor job listings by keyword and location, with title, company, rating, salary estimate, location and posting age.",
+  "tags": [
+    "api",
+    "glassdoor",
+    "jobs"
+  ],
+  "capabilities": [
+    "api",
+    "glassdoor",
+    "jobs"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/glassdoor/jobs"
+  },
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "q": {
+        "type": "string",
+        "example": "data engineer",
+        "description": "Parameter defines the job search query, like the job title or keyword search box of Glassdoor (e.g., `software engineer`, `nurse`, or `Python`). `q`, `location`, or `employer_id` is required."
+      },
+      "radius": {
+        "type": "string",
+        "description": "Parameter defines the maximum distance from `location`, in miles in the United States and in kilometers elsewhere, like the Distance filter of Glassdoor. It defaults to `25` for cities. Available options: `0` - Within 0 `5` - Within 5 `10` - Within 10 `15` - Within 15 `25` - Within 25 `50` - Within 50 `100` - Within 100"
+      },
+      "remote": {
+        "type": "string",
+        "description": "Parameter defines whether to only show remote jobs, like the Remote only filter of Glassdoor. It can be set to `true` or `false` (default)."
+      },
+      "job_type": {
+        "type": "string",
+        "description": "Parameter defines the type of the jobs. Available options: `full_time` - Full-time `part_time` - Part-time `contract` - Contract"
+      },
+      "location": {
+        "type": "string",
+        "description": "Parameter defines the location of the jobs, like the location search box of Glassdoor: a city, state or country (e.g., `New York, NY`, `Texas`, `London`, or `Germany`). We use the first location Glassdoor suggests with that name, or else its first suggestion, and the JSON response shows it in `search_information.location`. Without it, Glassdoor searches jobs in the United States. Without `q`, Glassdoor doesn't search some countries (e.g., `Canada` or `Germany`), and the JSON response has an error. `q`, `location`, or `employer_id` is required."
+      },
+      "easy_apply": {
+        "type": "string",
+        "description": "Parameter defines whether to only show jobs you can apply to on Glassdoor, like the Easy Apply only filter of Glassdoor. It can be set to `true` or `false` (default)."
+      },
+      "max_salary": {
+        "type": "string",
+        "description": "Parameter defines the maximum yearly salary of the jobs, in the currency of `location` (e.g., `150000`)."
+      },
+      "min_rating": {
+        "type": "string",
+        "description": "Parameter defines the minimum Glassdoor rating of the companies, from `1` to `4` (e.g., `4` for companies rated 4.0 and up)."
+      },
+      "min_salary": {
+        "type": "string",
+        "description": "Parameter defines the minimum yearly salary of the jobs, in the currency of `location` (e.g., `100000`)."
+      },
+      "date_posted": {
+        "type": "string",
+        "description": "Parameter defines the maximum number of days since the jobs were posted. Available options: `1` - Last day `3` - Last 3 days `7` - Last week `14` - Last 2 weeks `30` - Last month"
+      },
+      "employer_id": {
+        "type": "string",
+        "description": "Parameter defines the Glassdoor ID of the company to show the jobs of (e.g., `9079` for Google). It is the number after `E` in Glassdoor company URLs (e.g., https://www.glassdoor.com/Reviews/Google-Reviews-E9079.htm), and the `company_id` of jobs and `employer_id` of our Glassdoor Companies API results. `q`, `location`, or `employer_id` is required."
+      },
+      "json_restrictor": {
+        "type": "string",
+        "description": "Parameter defines the fields you want to include in the output, reducing payload size for faster response. See the JSON Restrictor documentation for more details."
+      },
+      "next_page_token": {
+        "type": "string",
+        "description": "Parameter defines the token of the next page of results. Up to `30` results are returned per page, for up to `30` pages. The token is in the JSON response: `the API_pagination.next_page_token`. Use it with the same other parameters as the search it comes from."
+      },
+      "seniority_level": {
+        "type": "string",
+        "description": "Parameter defines the seniority level of the jobs. Available options: `internship` - Internship `entry_level` - Entry level `mid_senior_level` - Mid-senior level `director` - Director `executive` - Executive"
+      }
+    },
+    "additionalProperties": false
+  },
+  "response_schema": {
+    "type": "object",
+    "required": [
+      "id",
+      "status",
+      "model"
+    ],
+    "properties": {
+      "id": {
+        "type": "string"
+      },
+      "model": {
+        "type": "string"
+      },
+      "status": {
+        "type": "string"
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.01
+  },
+  "readme": "# Glassdoor Jobs\n\nSearch Glassdoor job listings by keyword and location, with title, company, rating, salary estimate, location and posting age.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/glassdoor/jobs\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"q\": \"data engineer\"}'\n```\n\nThe result is returned in `outputs[0].data` as structured JSON.\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `q` | string | No | Parameter defines the job search query, like the job title or keyword search box of Glassdoor (e.g., `software engineer`, `nurse`, or `Python`). `q`, `location`, or `employer_id` is required. |\n| `location` | string | No | Parameter defines the location of the jobs, like the location search box of Glassdoor: a city, state or country (e.g., `New York, NY`, `Texas`, `London`, or `Germany`). We use the first location Glassdoor suggests with that name, or else it |\n| `radius` | string | No | Parameter defines the maximum distance from `location`, in miles in the United States and in kilometers elsewhere, like the Distance filter of Glassdoor. It defaults to `25` for cities. Available options: `0` - Within 0 `5` - Within 5 `10`  |\n| `date_posted` | string | No | Parameter defines the maximum number of days since the jobs were posted. Available options: `1` - Last day `3` - Last 3 days `7` - Last week `14` - Last 2 weeks `30` - Last month |\n| `job_type` | string | No | Parameter defines the type of the jobs. Available options: `full_time` - Full-time `part_time` - Part-time `contract` - Contract |\n| `seniority_level` | string | No | Parameter defines the seniority level of the jobs. Available options: `internship` - Internship `entry_level` - Entry level `mid_senior_level` - Mid-senior level `director` - Director `executive` - Executive |\n| `remote` | string | No | Parameter defines whether to only show remote jobs, like the Remote only filter of Glassdoor. It can be set to `true` or `false` (default). |\n| `easy_apply` | string | No | Parameter defines whether to only show jobs you can apply to on Glassdoor, like the Easy Apply only filter of Glassdoor. It can be set to `true` or `false` (default). |\n| `min_rating` | string | No | Parameter defines the minimum Glassdoor rating of the companies, from `1` to `4` (e.g., `4` for companies rated 4.0 and up). |\n| `min_salary` | string | No | Parameter defines the minimum yearly salary of the jobs, in the currency of `location` (e.g., `100000`). |\n| `max_salary` | string | No | Parameter defines the maximum yearly salary of the jobs, in the currency of `location` (e.g., `150000`). |\n| `employer_id` | string | No | Parameter defines the Glassdoor ID of the company to show the jobs of (e.g., `9079` for Google). It is the number after `E` in Glassdoor company URLs (e.g., https://www.glassdoor.com/Reviews/Google-Reviews-E9079.htm), and the `company_id` o |\n| `next_page_token` | string | No | Parameter defines the token of the next page of results. Up to `30` results are returned per page, for up to `30` pages. The token is in the JSON response: `the API_pagination.next_page_token`. Use it with the same other parameters as the s |\n| `json_restrictor` | string | No | Parameter defines the fields you want to include in the output, reducing payload size for faster response. See the JSON Restrictor documentation for more details. |\n\n## Pricing\n\n$0.010 per successful call. Failed calls are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/glassdoor/jobs",
+  "created_at": "2026-11-12T23:53:37.322Z"
+}

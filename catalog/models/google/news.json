@@ -1,0 +1,102 @@
+{
+  "name": "google/news",
+  "display_name": "Google News",
+  "type": "api",
+  "vendor": "Google",
+  "vendor_slug": "google",
+  "description": "Search Google News by keyword, topic or publication and get headlines with source, date, thumbnail and story clusters, localized by country and language.",
+  "tags": [
+    "api",
+    "google",
+    "news",
+    "serp"
+  ],
+  "capabilities": [
+    "api",
+    "google",
+    "news",
+    "serp"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/google/news"
+  },
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "q": {
+        "type": "string",
+        "example": "artificial intelligence",
+        "description": "Parameter defines the query you want to search. You can use anything that you would use in a regular Google News search. e.g. `site:`, `when:`. Parameter can't be used together with any of the `Advanced parameters`."
+      },
+      "gl": {
+        "type": "string",
+        "description": "Parameter defines the country to use for the Google News search. It's a two-letter country code. (e.g., `us` for the United States (default), `uk` for United Kingdom, or `fr` for France). Head to the Google countries page for a full list of supported Google News countries."
+      },
+      "hl": {
+        "type": "string",
+        "description": "Parameter defines the language to use for the Google News search. It's a two or three-letter language code. (e.g., `en` for English, `es` for Spanish, or `fr` for French), optionally followed by a two-letter or three-digit region code (e.g., `en-gb` for British English, or `es-419` for Latin American Spanish). Head to the Google languages page for a full list of supported Google languages."
+      },
+      "so": {
+        "type": "string",
+        "description": "Parameter defines the sorting method. Results can be sorted by relevance or by date. By default, the results are sorted by relevance. List of supported values are: `0` - Relevance `1` - Date Parameter can be used together with `story_token` and `section_token`."
+      },
+      "kgmid": {
+        "type": "string",
+        "description": "Parameter defines the Knowledge Graph ID (`KGMID`) of a topic or location for Google News results. It is a string that starts with `/m/` or `/g/`. You can look up entities on Wikidata and use their \"Freebase ID\" as the kgmid. For example, `/m/0vzm` is the kgmid for Austin, TX, and `/m/02mjmr` is the kgmid for Barack Obama. Parameter can only be used alone."
+      },
+      "story_token": {
+        "type": "string",
+        "description": "Parameter defines the Google News story token. It is used for accessing the news results with full coverage of a specific story. The token can be found in our JSON response or the URL of the Google News page (in the URL, it is a string of characters preceded by `/stories/`) Parameter can be used together with `so`."
+      },
+      "topic_token": {
+        "type": "string",
+        "description": "Parameter defines the Google News topic token. It is used for accessing the news results for a specific topic (e.g., \"World\", \"Business\", \"Technology\"). The token can be found in our JSON response or the URL of the Google News page (in the URL, it is a string of characters preceded by `/topics/`). Parameter can be used together with `section_token`."
+      },
+      "section_token": {
+        "type": "string",
+        "description": "Parameter defines the Google News section token. It is used for accessing the sub-section of a specific topic. (e.g., \"Business -> Economy\"). The token can be found in our JSON response or the URL of the Google News page (in the URL, it is a string of characters preceded by `/sections/`) Parameter can be used together with `topic_token`, `publication_token`, and `so`."
+      },
+      "json_restrictor": {
+        "type": "string",
+        "description": "Parameter defines the fields you want to include in the output, reducing payload size for faster response. See the JSON Restrictor documentation for more details."
+      },
+      "publication_token": {
+        "type": "string",
+        "description": "Parameter defines the Google News publication token. It is used for accessing the news results from a specific publisher (e.g., \"CNN\", \"BBC\", \"The Guardian\"). The token can be found in our JSON response or the URL of the Google News page (in the URL, it is a string of characters preceded by `/publications/`). Parameter can be used together with `section_token`."
+      }
+    },
+    "additionalProperties": false
+  },
+  "response_schema": {
+    "type": "object",
+    "required": [
+      "id",
+      "status",
+      "model"
+    ],
+    "properties": {
+      "id": {
+        "type": "string"
+      },
+      "model": {
+        "type": "string"
+      },
+      "status": {
+        "type": "string"
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.01
+  },
+  "readme": "# Google News\n\nSearch Google News by keyword, topic or publication and get headlines with source, date, thumbnail and story clusters, localized by country and language.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/google/news\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"q\": \"artificial intelligence\"}'\n```\n\nThe result is returned in `outputs[0].data` as structured JSON.\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `q` | string | No | Parameter defines the query you want to search. You can use anything that you would use in a regular Google News search. e.g. `site:`, `when:`. Parameter can't be used together with any of the `Advanced parameters`. |\n| `gl` | string | No | Parameter defines the country to use for the Google News search. It's a two-letter country code. (e.g., `us` for the United States (default), `uk` for United Kingdom, or `fr` for France). Head to the Google countries page for a full list of |\n| `hl` | string | No | Parameter defines the language to use for the Google News search. It's a two or three-letter language code. (e.g., `en` for English, `es` for Spanish, or `fr` for French), optionally followed by a two-letter or three-digit region code (e.g. |\n| `topic_token` | string | No | Parameter defines the Google News topic token. It is used for accessing the news results for a specific topic (e.g., \"World\", \"Business\", \"Technology\"). The token can be found in our JSON response or the URL of the Google News page (in the  |\n| `kgmid` | string | No | Parameter defines the Knowledge Graph ID (`KGMID`) of a topic or location for Google News results. It is a string that starts with `/m/` or `/g/`. You can look up entities on Wikidata and use their \"Freebase ID\" as the kgmid. For example, ` |\n| `publication_token` | string | No | Parameter defines the Google News publication token. It is used for accessing the news results from a specific publisher (e.g., \"CNN\", \"BBC\", \"The Guardian\"). The token can be found in our JSON response or the URL of the Google News page (i |\n| `section_token` | string | No | Parameter defines the Google News section token. It is used for accessing the sub-section of a specific topic. (e.g., \"Business -> Economy\"). The token can be found in our JSON response or the URL of the Google News page (in the URL, it is  |\n| `story_token` | string | No | Parameter defines the Google News story token. It is used for accessing the news results with full coverage of a specific story. The token can be found in our JSON response or the URL of the Google News page (in the URL, it is a string of c |\n| `so` | string | No | Parameter defines the sorting method. Results can be sorted by relevance or by date. By default, the results are sorted by relevance. List of supported values are: `0` - Relevance `1` - Date Parameter can be used together with `story_token` |\n| `json_restrictor` | string | No | Parameter defines the fields you want to include in the output, reducing payload size for faster response. See the JSON Restrictor documentation for more details. |\n\n## Pricing\n\n$0.010 per successful call. Failed calls are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/google/news",
+  "created_at": "2026-11-13T00:01:21.043Z"
+}

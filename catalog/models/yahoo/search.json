@@ -1,0 +1,113 @@
+{
+  "name": "yahoo/search",
+  "display_name": "Yahoo Search",
+  "type": "api",
+  "vendor": "Yahoo",
+  "vendor_slug": "yahoo",
+  "description": "Get Yahoo web results for a query with organic results, related searches and pagination, localized by domain and language.",
+  "tags": [
+    "api",
+    "yahoo",
+    "web-search",
+    "serp"
+  ],
+  "capabilities": [
+    "api",
+    "yahoo",
+    "web-search",
+    "serp"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/yahoo/search"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "p"
+    ],
+    "properties": {
+      "b": {
+        "type": "string",
+        "description": "Parameter defines the result offset. It skips the given number of results. It's used for pagination. (e.g., `1` (default) is the first page of results, `11` is the 2nd page of results, `21` is the 3rd page of results, etc.)."
+      },
+      "d": {
+        "type": "string",
+        "description": "Parameter specifies the destination for related topics. By including a unique identifier for the destination page, this parameter directs users to specific content related to their search query, providing them with more targeted results. (e.g. `{\"dn\":\"topic\",\"ykid\":\"71698d3e-6ef0-4fcd-8551-1ffe56058857\",\"pos\":\"0\",\"oq\":\"Coffee\",\"rq\":\"Drinking\"}`)"
+      },
+      "p": {
+        "type": "string",
+        "example": "best coffee grinder",
+        "description": "Parameter defines the search query. You can use anything that you would use in a regular Yahoo! search."
+      },
+      "vc": {
+        "type": "string",
+        "description": "Parameter defines the country to use for the Yahoo! search. It's a two-letter country code. (e.g., `us` for the United States, `uk` for United Kingdom, or `fr` for France) Head to the Yahoo! countries for a full list of supported Yahoo! countries."
+      },
+      "vf": {
+        "type": "string",
+        "description": "`all formats` or specific file format like `pdf` or `txt`. You can check a full list of supported Yahoo! file formats."
+      },
+      "vl": {
+        "type": "string",
+        "description": "Parameter defines language to limit the search to. It uses `lang_{two-letter language code}` to specify languages. (e.g., `vl=lang_fr` will only search French). `fl` will be set to `1` if this parameter is used. You can check a full list of supported Yahoo! languages."
+      },
+      "vm": {
+        "type": "string",
+        "description": "Parameter defines the level of filtering for adult content. Strict: `r`, Moderate: `i`, Off: `p`"
+      },
+      "vs": {
+        "type": "string",
+        "description": "Filter results by top-level domains separated by ','. (e.g., `.com,.org`)"
+      },
+      "fr2": {
+        "type": "string",
+        "description": "Parameter is responsible for rendering positions and expansions for some elements (e.g., `p:s,v:w,m:trendingdomain_center` to expand Related Trending Searches)."
+      },
+      "device": {
+        "type": "string",
+        "description": "Parameter defines the device to use to get the results. It can be set to `desktop` (default) to use a regular browser, `tablet` to use a tablet browser (currently using iPads), or `mobile` to use a mobile browser."
+      },
+      "yahoo_domain": {
+        "type": "string",
+        "description": "Parameter defines the Yahoo! domain to use. It defaults to `search.yahoo.com`. If specified domain is allowed, it will be prepended to the domain (e.g., `fr.search.yahoo.com`). You can check a full list of supported Yahoo! domains."
+      },
+      "json_restrictor": {
+        "type": "string",
+        "description": "Parameter defines the fields you want to include in the output, reducing payload size for faster response. See the JSON Restrictor documentation for more details."
+      }
+    },
+    "additionalProperties": false
+  },
+  "response_schema": {
+    "type": "object",
+    "required": [
+      "id",
+      "status",
+      "model"
+    ],
+    "properties": {
+      "id": {
+        "type": "string"
+      },
+      "model": {
+        "type": "string"
+      },
+      "status": {
+        "type": "string"
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.01
+  },
+  "readme": "# Yahoo Search\n\nGet Yahoo web results for a query with organic results, related searches and pagination, localized by domain and language.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/yahoo/search\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"p\": \"best coffee grinder\"}'\n```\n\nThe result is returned in `outputs[0].data` as structured JSON.\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `p` | string | Yes | Parameter defines the search query. You can use anything that you would use in a regular Yahoo! search. |\n| `yahoo_domain` | string | No | Parameter defines the Yahoo! domain to use. It defaults to `search.yahoo.com`. If specified domain is allowed, it will be prepended to the domain (e.g., `fr.search.yahoo.com`). You can check a full list of supported Yahoo! domains. |\n| `vc` | string | No | Parameter defines the country to use for the Yahoo! search. It's a two-letter country code. (e.g., `us` for the United States, `uk` for United Kingdom, or `fr` for France) Head to the Yahoo! countries for a full list of supported Yahoo! cou |\n| `vl` | string | No | Parameter defines language to limit the search to. It uses `lang_{two-letter language code}` to specify languages. (e.g., `vl=lang_fr` will only search French). `fl` will be set to `1` if this parameter is used. You can check a full list of |\n| `b` | string | No | Parameter defines the result offset. It skips the given number of results. It's used for pagination. (e.g., `1` (default) is the first page of results, `11` is the 2nd page of results, `21` is the 3rd page of results, etc.). |\n| `vm` | string | No | Parameter defines the level of filtering for adult content. Strict: `r`, Moderate: `i`, Off: `p` |\n| `vs` | string | No | Filter results by top-level domains separated by ','. (e.g., `.com,.org`) |\n| `vf` | string | No | `all formats` or specific file format like `pdf` or `txt`. You can check a full list of supported Yahoo! file formats. |\n| `fr2` | string | No | Parameter is responsible for rendering positions and expansions for some elements (e.g., `p:s,v:w,m:trendingdomain_center` to expand Related Trending Searches). |\n| `d` | string | No | Parameter specifies the destination for related topics. By including a unique identifier for the destination page, this parameter directs users to specific content related to their search query, providing them with more targeted results. (e |\n| `device` | string | No | Parameter defines the device to use to get the results. It can be set to `desktop` (default) to use a regular browser, `tablet` to use a tablet browser (currently using iPads), or `mobile` to use a mobile browser. |\n| `json_restrictor` | string | No | Parameter defines the fields you want to include in the output, reducing payload size for faster response. See the JSON Restrictor documentation for more details. |\n\n## Pricing\n\n$0.010 per successful call. Failed calls are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/yahoo/search",
+  "created_at": "2026-11-13T00:22:37.857Z"
+}

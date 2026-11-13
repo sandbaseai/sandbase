@@ -1,0 +1,109 @@
+{
+  "name": "eventbrite/search",
+  "display_name": "Eventbrite Search",
+  "type": "api",
+  "vendor": "Eventbrite",
+  "vendor_slug": "eventbrite",
+  "description": "Search Eventbrite events by keyword and location, with title, date, venue, price, organizer and event link.",
+  "tags": [
+    "api",
+    "eventbrite",
+    "events"
+  ],
+  "capabilities": [
+    "api",
+    "eventbrite",
+    "events"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/eventbrite/search"
+  },
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "q": {
+        "type": "string",
+        "example": "tech meetup",
+        "description": "Parameter defines the query you want to search (e.g., `jazz`, `yoga`, or `tech meetup`). It works like Eventbrite's search box: some queries, like `comedy`, return only the matching events, while others, like `jazz`, return all the events of the place with the best matches first. You can't tell in advance which kind a query is. Without `q`, the search returns all the events of the place. To get only matching events, use `category`, `event_type`, `price`, or the dates. To search for events in a place, use `location` instead of adding the place to the query."
+      },
+      "date": {
+        "type": "string",
+        "description": "Parameter defines the dates of the events. It defaults to all current and future events. Available options: `today` - Today `tomorrow` - Tomorrow `this_weekend` - This weekend `this_week` - This week `next_week` - Next week `this_month` - This month `next_month` - Next month To search for events on other dates, use `start_date` and `end_date` instead."
+      },
+      "page": {
+        "type": "string",
+        "description": "Value is used to get results on a specific page. (e.g., `1` (default) is the first page of results, `2` is the 2nd page of results, `3` is the 3rd page of results, etc.). Eventbrite returns up to 20 events per page, and up to 50 pages (about 1,000 events) per search. A higher page returns an error. To get more events, split the search with narrower dates, `category`, or `event_type`."
+      },
+      "price": {
+        "type": "string",
+        "description": "Parameter defines the price of the events. It takes a single value, and defaults to both free and paid events. Available options: `free` - Free `paid` - Paid"
+      },
+      "online": {
+        "type": "string",
+        "description": "Parameter defines whether to search for Eventbrite's online events instead of the events in a location. It can be set to `true` or `false` (default). `online` and `location` parameters can't be used together."
+      },
+      "sort_by": {
+        "type": "string",
+        "description": "Parameter defines the sorting of the events. It defaults to Eventbrite's relevance ranking. Available options: `date` - Date (soonest first)"
+      },
+      "category": {
+        "type": "string",
+        "description": "Parameter defines the category of the events (e.g., `music`). It takes a single category. Available options: `business_and_professional` - Business & professional `science_and_technology` - Science & technology `music` - Music `film_media_and_entertainment` - Film, media & entertainment `performing_and_visual_arts` - Performing & visual arts `fashion_and_beauty` - Fashion & beauty `health_and_wellness` - Health & wellness `sports_and_fitness` - Sports & fitness `travel_and_outdoor` - Travel & outdoor `food_and_drink` - Food & drink `charity_and_causes` - Charity & causes `government_and_politi"
+      },
+      "end_date": {
+        "type": "string",
+        "description": "Parameter defines the last day of the date range to search for events in. The format is **YYYY-MM-DD** (e.g., `2026-12-14`). It can't be earlier than `start_date`, and can be the same day to search for the events of a single day. It must be used together with `start_date`, and can't be used with `date`."
+      },
+      "location": {
+        "type": "string",
+        "example": "austin",
+        "description": "Parameter defines the location to search for events in (e.g., `Austin, Texas, United States`). It's required unless `online` is set to `true`. If several locations match the location requested, we'll pick the most popular one. Head to the /locations.json API if you need more precise control. It is recommended to specify `location` at the city level. Either `location` should be set, or `online` should be set to `true`."
+      },
+      "event_type": {
+        "type": "string",
+        "description": "Parameter defines the type of the events (e.g., `concert`). It takes a single type. Used together with `category`, only the events matching both are returned (e.g., `music` concerts). Available options: `conference` - Conference `seminar` - Seminar or talk `tradeshow` - Tradeshow, consumer show, or expo `convention` - Convention `festival` - Festival or fair `concert` - Concert or performance `screening` - Screening `dinner` - Dinner or gala `class` - Class, training, or workshop `meeting` - Meeting or networking event `party` - Party or social gathering `rally` - Rally `tournament` - Tourname"
+      },
+      "start_date": {
+        "type": "string",
+        "description": "Parameter defines the first day of the date range to search for events in. The format is **YYYY-MM-DD** (e.g., `2026-12-12`). It can't be in the past. It must be used together with `end_date`, and can't be used with `date`."
+      },
+      "json_restrictor": {
+        "type": "string",
+        "description": "Parameter defines the fields you want to include in the output, reducing payload size for faster response. See the JSON Restrictor documentation for more details."
+      }
+    },
+    "additionalProperties": false
+  },
+  "response_schema": {
+    "type": "object",
+    "required": [
+      "id",
+      "status",
+      "model"
+    ],
+    "properties": {
+      "id": {
+        "type": "string"
+      },
+      "model": {
+        "type": "string"
+      },
+      "status": {
+        "type": "string"
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.01
+  },
+  "readme": "# Eventbrite Search\n\nSearch Eventbrite events by keyword and location, with title, date, venue, price, organizer and event link.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/eventbrite/search\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"q\": \"tech meetup\", \"location\": \"austin\"}'\n```\n\nThe result is returned in `outputs[0].data` as structured JSON.\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `q` | string | No | Parameter defines the query you want to search (e.g., `jazz`, `yoga`, or `tech meetup`). It works like Eventbrite's search box: some queries, like `comedy`, return only the matching events, while others, like `jazz`, return all the events o |\n| `location` | string | No | Parameter defines the location to search for events in (e.g., `Austin, Texas, United States`). It's required unless `online` is set to `true`. If several locations match the location requested, we'll pick the most popular one. Head to the / |\n| `online` | string | No | Parameter defines whether to search for Eventbrite's online events instead of the events in a location. It can be set to `true` or `false` (default). `online` and `location` parameters can't be used together. |\n| `date` | string | No | Parameter defines the dates of the events. It defaults to all current and future events. Available options: `today` - Today `tomorrow` - Tomorrow `this_weekend` - This weekend `this_week` - This week `next_week` - Next week `this_month` - T |\n| `start_date` | string | No | Parameter defines the first day of the date range to search for events in. The format is **YYYY-MM-DD** (e.g., `2026-12-12`). It can't be in the past. It must be used together with `end_date`, and can't be used with `date`. |\n| `end_date` | string | No | Parameter defines the last day of the date range to search for events in. The format is **YYYY-MM-DD** (e.g., `2026-12-14`). It can't be earlier than `start_date`, and can be the same day to search for the events of a single day. It must be |\n| `category` | string | No | Parameter defines the category of the events (e.g., `music`). It takes a single category. Available options: `business_and_professional` - Business & professional `science_and_technology` - Science & technology `music` - Music `film_media_a |\n| `event_type` | string | No | Parameter defines the type of the events (e.g., `concert`). It takes a single type. Used together with `category`, only the events matching both are returned (e.g., `music` concerts). Available options: `conference` - Conference `seminar` - |\n| `price` | string | No | Parameter defines the price of the events. It takes a single value, and defaults to both free and paid events. Available options: `free` - Free `paid` - Paid |\n| `sort_by` | string | No | Parameter defines the sorting of the events. It defaults to Eventbrite's relevance ranking. Available options: `date` - Date (soonest first) |\n| `page` | string | No | Value is used to get results on a specific page. (e.g., `1` (default) is the first page of results, `2` is the 2nd page of results, `3` is the 3rd page of results, etc.). Eventbrite returns up to 20 events per page, and up to 50 pages (abou |\n| `json_restrictor` | string | No | Parameter defines the fields you want to include in the output, reducing payload size for faster response. See the JSON Restrictor documentation for more details. |\n\n## Pricing\n\n$0.010 per successful call. Failed calls are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/eventbrite/search",
+  "created_at": "2026-11-12T23:56:42.357Z"
+}

@@ -1,0 +1,97 @@
+{
+  "name": "google/scholar-author",
+  "display_name": "Google Scholar Author",
+  "type": "api",
+  "vendor": "Google",
+  "vendor_slug": "google",
+  "description": "Get a Google Scholar author profile by author ID with affiliation, interests, citation counts, h-index, co-authors and article list.",
+  "tags": [
+    "api",
+    "google",
+    "academic",
+    "serp"
+  ],
+  "capabilities": [
+    "api",
+    "google",
+    "academic",
+    "serp"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/google/scholar-author"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "author_id"
+    ],
+    "properties": {
+      "hl": {
+        "type": "string",
+        "description": "Parameter defines the language to use for the Google Scholar Author search. It's a two or three-letter language code. (e.g., `en` for English, `es` for Spanish, or `fr` for French), optionally followed by a two-letter or three-digit region code (e.g., `en-gb` for British English, or `es-419` for Latin American Spanish). Head to the Google languages page for a full list of supported Google languages."
+      },
+      "num": {
+        "type": "string",
+        "description": "Parameter defines the number of results to return. (e.g., `20` (default) returns 20 results, `40` returns 40 results, etc.). Maximum number of results to return is `100`."
+      },
+      "sort": {
+        "type": "string",
+        "description": "Parameter is used for sorting and refining articles. Available options: `title` - Sorts articles by \"Title\". `pubdate` - Sorts articles by publish \"date\". By default, articles are sorted by the number of citations."
+      },
+      "start": {
+        "type": "string",
+        "description": "Parameter defines the result offset. It skips the given number of results. It's used for pagination. (e.g., `0` (default) is the first page of results, `20` is the 2nd page of results, `40` is the 3rd page of results, etc.)."
+      },
+      "view_op": {
+        "type": "string",
+        "description": "Parameter is used for viewing specific parts of a page. It has two options: `view_citation` - Select to view citations. `citation_id` is required. `list_colleagues` - Select to view all co-authors"
+      },
+      "author_id": {
+        "type": "string",
+        "example": "LSsXyncAAAAJ",
+        "description": "Parameter defines the ID of an author. You can find the ID either by using our Google Scholar Profiles API or by going to the Google Scholar user profile page and getting it from there (e.g., `https://scholar.google.com/citations?user={author_id}`)."
+      },
+      "citation_id": {
+        "type": "string",
+        "description": "Parameter is used for retrieving individual article citation. It is a required parameter when `view_op=view_citation` is selected. You can access IDs inside our structured JSON response."
+      },
+      "json_restrictor": {
+        "type": "string",
+        "description": "Parameter defines the fields you want to include in the output, reducing payload size for faster response. See the JSON Restrictor documentation for more details."
+      }
+    },
+    "additionalProperties": false
+  },
+  "response_schema": {
+    "type": "object",
+    "required": [
+      "id",
+      "status",
+      "model"
+    ],
+    "properties": {
+      "id": {
+        "type": "string"
+      },
+      "model": {
+        "type": "string"
+      },
+      "status": {
+        "type": "string"
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.01
+  },
+  "readme": "# Google Scholar Author\n\nGet a Google Scholar author profile by author ID with affiliation, interests, citation counts, h-index, co-authors and article list.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/google/scholar-author\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"author_id\": \"LSsXyncAAAAJ\"}'\n```\n\nThe result is returned in `outputs[0].data` as structured JSON.\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `author_id` | string | Yes | Parameter defines the ID of an author. You can find the ID either by using our Google Scholar Profiles API or by going to the Google Scholar user profile page and getting it from there (e.g., `https://scholar.google.com/citations?user={auth |\n| `hl` | string | No | Parameter defines the language to use for the Google Scholar Author search. It's a two or three-letter language code. (e.g., `en` for English, `es` for Spanish, or `fr` for French), optionally followed by a two-letter or three-digit region  |\n| `view_op` | string | No | Parameter is used for viewing specific parts of a page. It has two options: `view_citation` - Select to view citations. `citation_id` is required. `list_colleagues` - Select to view all co-authors |\n| `sort` | string | No | Parameter is used for sorting and refining articles. Available options: `title` - Sorts articles by \"Title\". `pubdate` - Sorts articles by publish \"date\". By default, articles are sorted by the number of citations. |\n| `citation_id` | string | No | Parameter is used for retrieving individual article citation. It is a required parameter when `view_op=view_citation` is selected. You can access IDs inside our structured JSON response. |\n| `start` | string | No | Parameter defines the result offset. It skips the given number of results. It's used for pagination. (e.g., `0` (default) is the first page of results, `20` is the 2nd page of results, `40` is the 3rd page of results, etc.). |\n| `num` | string | No | Parameter defines the number of results to return. (e.g., `20` (default) returns 20 results, `40` returns 40 results, etc.). Maximum number of results to return is `100`. |\n| `json_restrictor` | string | No | Parameter defines the fields you want to include in the output, reducing payload size for faster response. See the JSON Restrictor documentation for more details. |\n\n## Pricing\n\n$0.010 per successful call. Failed calls are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/google/scholar-author",
+  "created_at": "2026-11-13T00:13:43.289Z"
+}

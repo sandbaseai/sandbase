@@ -105,11 +105,11 @@ TypeScript 和 Go 的用法一样，见 [`sdk/typescript`](sdk/typescript) 和 [
 |---|---|---|
 | **AI 模型** | 500+ | LLM 100+、视频 150+、图像 150+、音频 30+：Alibaba, Google, OpenAI, Kling, ByteDance, MiniMax, Black Forest Labs, xAI 等 |
 | 社媒与内容 | 1,200+ | Douyin, TikTok, Instagram, Xiaohongshu, Weibo, YouTube, Zhihu, Bilibili, Kuaishou, LinkedIn 等 |
-| 搜索、SEO 与网页数据 | 200+ | DataForSEO, Similarweb, Brave, Google, Firecrawl, Artificial Analysis, Bing, DuckDuckGo, Exa, Scholar 等 |
+| 搜索、SEO 与网页数据 | 200+ | DataForSEO, Similarweb, Google, Brave, Bing, Firecrawl, Artificial Analysis, DuckDuckGo, Exa, Scholar 等 |
 | 电商、应用与点评 | 100+ | 1688, Amazon, GetApp, Taobao, TikTok Shop, Clutch, Google Play, JD.com, Trustpilot, G2 等 |
 | 金融、加密与市场 | 150+ | Polymarket, FRED, Financial Datasets, CoinGecko, Nasdaq, MarketBeat, SECForm4, StockAnalysis, Yahoo Finance, Kalshi 等 |
-| 公司、人物与招聘 | 40+ | Web3.career, Apollo, Levels.fyi, Y Combinator, Wellfound, Crunchbase, Hunter, Built In, Indeed 等 |
-| 更多 | 100+ | Semrush, IMDb, AAA, Open-Meteo, IQAir, Shopify, AccuWeather, Best Buy, Mercari, ASOS 等 |
+| 公司、人物与招聘 | 40+ | Web3.career, Apollo, Levels.fyi, Y Combinator, Wellfound, Crunchbase, Glassdoor, Hunter, Indeed, Built In 等 |
+| 更多 | 100+ | Semrush, IMDb, AAA, Open-Meteo, IQAir, Shopify, AccuWeather, Best Buy, Mercari, Yahoo 等 |
 <!-- /inside:zh -->
 
 每个模型和 API 都有一页文档，写明 schema、价格，并附四种语言的示例。完整列表见[全部模型和 API](docs/INDEX.md)，也可以[按平台浏览](docs/platforms/README.md)：[抖音](docs/platforms/douyin.md) · [小红书](docs/platforms/xiaohongshu.md) · [TikTok](docs/platforms/tiktok.md) · [Instagram](docs/platforms/instagram.md) · [YouTube](docs/platforms/youtube.md) · [微博](docs/platforms/weibo.md) · [知乎](docs/platforms/zhihu.md) · [B 站](docs/platforms/bilibili.md) · [OpenAI](docs/platforms/openai.md) · [可灵](docs/platforms/kwaivgi.md)

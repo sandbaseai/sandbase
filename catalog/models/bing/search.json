@@ -1,0 +1,109 @@
+{
+  "name": "bing/search",
+  "display_name": "Bing Search",
+  "type": "api",
+  "vendor": "Bing",
+  "vendor_slug": "bing",
+  "description": "Get Bing web results for a query with organic results, answer boxes, related searches and pagination, localized by market and country.",
+  "tags": [
+    "api",
+    "bing",
+    "web-search",
+    "serp"
+  ],
+  "capabilities": [
+    "api",
+    "bing",
+    "web-search",
+    "serp"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/bing/search"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "q"
+    ],
+    "properties": {
+      "q": {
+        "type": "string",
+        "example": "best coffee grinder",
+        "description": "Parameter defines the search query. You can use anything that you would use in a regular Bing search. (e.g., `'query'`, `NOT`, `OR`, `site:`, `filetype:`, `near:`, `ip:`, `loc:`, `feed:` etc.)."
+      },
+      "cc": {
+        "type": "string",
+        "description": "Parameter defines the country to search from. It follows the 2-character ISO_3166-1 format. (e.g., `us` for United States, `de` for Germany, `gb` for United Kingdom, etc.). This parameter and the `mkt` query parameter are mutually exclusive—do not specify both. For countries with more than one language (e.g. CH, BE, CA, US), use `mkt` to choose the language."
+      },
+      "lat": {
+        "type": "string",
+        "description": "Defines a GPS latitude for the search origin"
+      },
+      "lon": {
+        "type": "string",
+        "description": "Defines a GPS longitude for the search origin"
+      },
+      "mkt": {
+        "type": "string",
+        "description": "The market where the results come from (e.g. `en-US`). Typically, `mkt` is the country where the user is making the request from. However, it could be a different country if the user is not located in a country where Bing delivers results. The market must be in the form <language code>-<country code>. For example, en-US. The string is case insensitive. For a list of possible market values, see Market Codes. NOTE: If known, you are encouraged to always specify the market. Specifying the market helps Bing route the request and return an appropriate and optimal response. If you specify a market t"
+      },
+      "first": {
+        "type": "string",
+        "description": "Parameter controls the offset of the organic results. This parameter defaults to `1`. (e.g., `first=10` will move the 10th organic result to the first position)."
+      },
+      "device": {
+        "type": "string",
+        "description": "Parameter defines the device to use to get the results. It can be set to `desktop` (default) to use a regular browser, `tablet` to use a tablet browser (currently using iPads), or `mobile` to use a mobile browser."
+      },
+      "filters": {
+        "type": "string",
+        "description": "Parameter allows usage of a more complex filtering options such as filtering by date range `ex1:\"ez5_18169_18230\"` or using a specific display filters such as `ufn:\"Wunderman+Thompson\"+sid:\"5bede9a2-1bda-9887-e6eb-30b1b8b6b513\"+catguid:\"5bede9a2-1bda-9887-e6eb-30b1b8b6b513_cfb02057\"+segment:\"generic.carousel\"+entitysegment:\"Organization\"`. Exact values can be constructed by using Bing search and copying `filters` query parameter."
+      },
+      "location": {
+        "type": "string",
+        "description": "Parameter defines from where you want the search to originate. If several locations match the location requested, we'll pick the most popular one. Head to the /locations.json API if you need more precise control. The `location` and `uule` parameters can't be used together. It is recommended to specify `location` at the city level in order to simulate a real user’s search. If `location` is omitted, the search may take on the location of the proxy."
+      },
+      "safeSearch": {
+        "type": "string",
+        "description": "Parameter defines the level of filtering for adult content. It can be set to: `Off` to return webpages with adult text, images, or videos. `Moderate` to return webpages with adult text, but not adult images or videos. `Strict` to not return webpages with adult text, images, or videos."
+      },
+      "json_restrictor": {
+        "type": "string",
+        "description": "Parameter defines the fields you want to include in the output, reducing payload size for faster response. See the JSON Restrictor documentation for more details."
+      }
+    },
+    "additionalProperties": false
+  },
+  "response_schema": {
+    "type": "object",
+    "required": [
+      "id",
+      "status",
+      "model"
+    ],
+    "properties": {
+      "id": {
+        "type": "string"
+      },
+      "model": {
+        "type": "string"
+      },
+      "status": {
+        "type": "string"
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.01
+  },
+  "readme": "# Bing Search\n\nGet Bing web results for a query with organic results, answer boxes, related searches and pagination, localized by market and country.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/bing/search\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"q\": \"best coffee grinder\"}'\n```\n\nThe result is returned in `outputs[0].data` as structured JSON.\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `q` | string | Yes | Parameter defines the search query. You can use anything that you would use in a regular Bing search. (e.g., `'query'`, `NOT`, `OR`, `site:`, `filetype:`, `near:`, `ip:`, `loc:`, `feed:` etc.). |\n| `location` | string | No | Parameter defines from where you want the search to originate. If several locations match the location requested, we'll pick the most popular one. Head to the /locations.json API if you need more precise control. The `location` and `uule` p |\n| `lat` | string | No | Defines a GPS latitude for the search origin |\n| `lon` | string | No | Defines a GPS longitude for the search origin |\n| `mkt` | string | No | The market where the results come from (e.g. `en-US`). Typically, `mkt` is the country where the user is making the request from. However, it could be a different country if the user is not located in a country where Bing delivers results.  |\n| `cc` | string | No | Parameter defines the country to search from. It follows the 2-character ISO_3166-1 format. (e.g., `us` for United States, `de` for Germany, `gb` for United Kingdom, etc.). This parameter and the `mkt` query parameter are mutually exclusive |\n| `first` | string | No | Parameter controls the offset of the organic results. This parameter defaults to `1`. (e.g., `first=10` will move the 10th organic result to the first position). |\n| `safeSearch` | string | No | Parameter defines the level of filtering for adult content. It can be set to: `Off` to return webpages with adult text, images, or videos. `Moderate` to return webpages with adult text, but not adult images or videos. `Strict` to not return |\n| `filters` | string | No | Parameter allows usage of a more complex filtering options such as filtering by date range `ex1:\"ez5_18169_18230\"` or using a specific display filters such as `ufn:\"Wunderman+Thompson\"+sid:\"5bede9a2-1bda-9887-e6eb-30b1b8b6b513\"+catguid:\"5be |\n| `device` | string | No | Parameter defines the device to use to get the results. It can be set to `desktop` (default) to use a regular browser, `tablet` to use a tablet browser (currently using iPads), or `mobile` to use a mobile browser. |\n| `json_restrictor` | string | No | Parameter defines the fields you want to include in the output, reducing payload size for faster response. See the JSON Restrictor documentation for more details. |\n\n## Pricing\n\n$0.010 per successful call. Failed calls are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/bing/search",
+  "created_at": "2026-11-13T00:19:38.289Z"
+}

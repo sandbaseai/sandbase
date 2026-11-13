@@ -1,0 +1,113 @@
+{
+  "name": "glassdoor/reviews",
+  "display_name": "Glassdoor Reviews",
+  "type": "api",
+  "vendor": "Glassdoor",
+  "vendor_slug": "glassdoor",
+  "description": "Get employee reviews for a company on Glassdoor by company ID, with rating, pros, cons, job title, date and sub-ratings.",
+  "tags": [
+    "api",
+    "glassdoor",
+    "jobs",
+    "reviews"
+  ],
+  "capabilities": [
+    "api",
+    "glassdoor",
+    "jobs",
+    "reviews"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "passthrough": "POST /v1/api/glassdoor/reviews"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "employer_id"
+    ],
+    "properties": {
+      "q": {
+        "type": "string",
+        "description": "Parameter defines the text to search for in the reviews, like the review search box of Glassdoor (e.g., `work life balance` or `remote`)."
+      },
+      "num": {
+        "type": "string",
+        "description": "Parameter defines the number of reviews per page, from `1` to `100`. It defaults to `10`, like on Glassdoor."
+      },
+      "page": {
+        "type": "string",
+        "description": "Parameter defines the page number of the reviews (e.g., `1` (default) is the first page of reviews, `2` is the 2nd page of reviews, etc.)."
+      },
+      "rating": {
+        "type": "string",
+        "description": "Parameter defines the overall rating of the reviews, from `1` to `5` stars. Searches with `q` return the reviews rated `rating` or higher (e.g., `4` for 4 and 5 stars)."
+      },
+      "sort_by": {
+        "type": "string",
+        "description": "Parameter defines the sorting order of the reviews. It defaults to `most_relevant`. Available options: `most_relevant` - Most relevant `newest` - Newest `oldest` - Oldest `highest_rating` - Highest rating `lowest_rating` - Lowest rating"
+      },
+      "language": {
+        "type": "string",
+        "description": "Parameter defines the language of the reviews. It defaults to `en` (English). Glassdoor's search of `q` only covers English reviews, so the language doesn't apply to searches with `q`. Available options: `en` - English `fr` - French `de` - German `es` - Spanish `pt` - Portuguese `it` - Italian `nl` - Dutch"
+      },
+      "location": {
+        "type": "string",
+        "description": "Parameter defines the location of the reviewers' jobs: a city, state or country (e.g., `New York, NY`, `California`, or `India`). We use the first location Glassdoor suggests with that name, or else its first suggestion."
+      },
+      "job_title": {
+        "type": "string",
+        "description": "Parameter defines the job title of the reviewers (e.g., `Software Engineer`)."
+      },
+      "employer_id": {
+        "type": "string",
+        "example": "7633",
+        "description": "Parameter defines the Glassdoor ID of the company (e.g., `9079` for Google). It is the number after `E` in Glassdoor company URLs (e.g., https://www.glassdoor.com/Reviews/Google-Reviews-E9079.htm), and the `employer_id` of our Glassdoor Companies API results."
+      },
+      "json_restrictor": {
+        "type": "string",
+        "description": "Parameter defines the fields you want to include in the output, reducing payload size for faster response. See the JSON Restrictor documentation for more details."
+      },
+      "current_employees": {
+        "type": "string",
+        "description": "Parameter defines whether to only show the reviews of current employees. It can be set to `true` or `false` (default)."
+      },
+      "employment_status": {
+        "type": "string",
+        "description": "Parameter defines the employment status of the reviewers. Separate several statuses with a comma (e.g., `intern,contract`). It defaults to `full_time,part_time`. Available options: `full_time` - Full-time `part_time` - Part-time `contract` - Contract `intern` - Intern `freelance` - Freelance"
+      }
+    },
+    "additionalProperties": false
+  },
+  "response_schema": {
+    "type": "object",
+    "required": [
+      "id",
+      "status",
+      "model"
+    ],
+    "properties": {
+      "id": {
+        "type": "string"
+      },
+      "model": {
+        "type": "string"
+      },
+      "status": {
+        "type": "string"
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.01
+  },
+  "readme": "# Glassdoor Reviews\n\nGet employee reviews for a company on Glassdoor by company ID, with rating, pros, cons, job title, date and sub-ratings.\n\n## Request\n\n```bash\ncurl -X POST \"https://api.sandbase.ai/v1/api/glassdoor/reviews\" \\\n  -H \"Authorization: Bearer $SANDBASE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"employer_id\": \"7633\"}'\n```\n\nThe result is returned in `outputs[0].data` as structured JSON.\n\n## Parameters\n\n| Name | Type | Required | Description |\n|---|---|---|---|\n| `employer_id` | string | Yes | Parameter defines the Glassdoor ID of the company (e.g., `9079` for Google). It is the number after `E` in Glassdoor company URLs (e.g., https://www.glassdoor.com/Reviews/Google-Reviews-E9079.htm), and the `employer_id` of our Glassdoor Com |\n| `location` | string | No | Parameter defines the location of the reviewers' jobs: a city, state or country (e.g., `New York, NY`, `California`, or `India`). We use the first location Glassdoor suggests with that name, or else its first suggestion. |\n| `language` | string | No | Parameter defines the language of the reviews. It defaults to `en` (English). Glassdoor's search of `q` only covers English reviews, so the language doesn't apply to searches with `q`. Available options: `en` - English `fr` - French `de` -  |\n| `q` | string | No | Parameter defines the text to search for in the reviews, like the review search box of Glassdoor (e.g., `work life balance` or `remote`). |\n| `sort_by` | string | No | Parameter defines the sorting order of the reviews. It defaults to `most_relevant`. Available options: `most_relevant` - Most relevant `newest` - Newest `oldest` - Oldest `highest_rating` - Highest rating `lowest_rating` - Lowest rating |\n| `rating` | string | No | Parameter defines the overall rating of the reviews, from `1` to `5` stars. Searches with `q` return the reviews rated `rating` or higher (e.g., `4` for 4 and 5 stars). |\n| `employment_status` | string | No | Parameter defines the employment status of the reviewers. Separate several statuses with a comma (e.g., `intern,contract`). It defaults to `full_time,part_time`. Available options: `full_time` - Full-time `part_time` - Part-time `contract`  |\n| `current_employees` | string | No | Parameter defines whether to only show the reviews of current employees. It can be set to `true` or `false` (default). |\n| `job_title` | string | No | Parameter defines the job title of the reviewers (e.g., `Software Engineer`). |\n| `page` | string | No | Parameter defines the page number of the reviews (e.g., `1` (default) is the first page of reviews, `2` is the 2nd page of reviews, etc.). |\n| `num` | string | No | Parameter defines the number of reviews per page, from `1` to `100`. It defaults to `10`, like on Glassdoor. |\n| `json_restrictor` | string | No | Parameter defines the fields you want to include in the output, reducing payload size for faster response. See the JSON Restrictor documentation for more details. |\n\n## Pricing\n\n$0.010 per successful call. Failed calls are not charged.\n",
+  "page_url": "https://www.sandbase.ai/model/glassdoor/reviews",
+  "created_at": "2026-11-12T23:53:38.386Z"
+}
