@@ -1,0 +1,77 @@
+{
+  "name": "velabreakout/ideas",
+  "display_name": "Vela Breakout Ideas",
+  "type": "api",
+  "vendor": "Vela Breakout",
+  "vendor_slug": "velabreakout",
+  "description": "List AI research ideas gaining or losing share of new papers, with who publishes on each.",
+  "tags": [
+    "api",
+    "velabreakout",
+    "market-trends"
+  ],
+  "capabilities": [
+    "api",
+    "velabreakout",
+    "market-trends"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}",
+    "passthrough": "POST /v1/api/velabreakout/ideas"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "direction"
+    ],
+    "properties": {
+      "limit": {
+        "type": "integer",
+        "maximum": 25,
+        "minimum": 1,
+        "description": "How many rows to return, 1-25. The price is the same for any limit."
+      },
+      "direction": {
+        "enum": [
+          "rising",
+          "fading"
+        ],
+        "type": "string",
+        "example": "rising",
+        "description": "'rising' for ideas gaining share of new AI research papers, 'fading' for ideas losing it."
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "required": [
+      "id",
+      "status",
+      "model"
+    ],
+    "properties": {
+      "id": {
+        "type": "string"
+      },
+      "model": {
+        "type": "string"
+      },
+      "status": {
+        "type": "string"
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.02
+  },
+  "readme": "# Vela Breakout Ideas\n\nList AI research ideas gaining or losing share of new papers, with who publishes on each.",
+  "page_url": "https://www.sandbase.ai/model/velabreakout/ideas",
+  "created_at": "2026-11-14T18:33:58.071Z"
+}

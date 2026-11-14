@@ -1,0 +1,68 @@
+{
+  "name": "censusdata-xyz/query",
+  "display_name": "US Census Query",
+  "type": "api",
+  "vendor": "US Census",
+  "vendor_slug": "censusdata-xyz",
+  "description": "Ask any US Census question in plain English for a state, county, city, metro area, or ZIP code.",
+  "tags": [
+    "api",
+    "censusdata-xyz",
+    "demographics"
+  ],
+  "capabilities": [
+    "api",
+    "censusdata-xyz",
+    "demographics"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}",
+    "passthrough": "POST /v1/api/censusdata-xyz/query"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "q"
+    ],
+    "properties": {
+      "q": {
+        "type": "string",
+        "example": "median household income in Austin, Texas",
+        "minLength": 1,
+        "description": "A natural-language US Census question. Specify the indicators, geographies (states, counties, cities/places, or ZIP codes), and years of interest in plain English. Examples: 'What is the poverty rate in Chicago, IL?'; 'Compare the median household income and work from home percentage in Seattle, WA and Portland, OR in 2022.'; 'Which counties in Washington state have the highest bachelor's degree percentages?'"
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "required": [
+      "id",
+      "status",
+      "model"
+    ],
+    "properties": {
+      "id": {
+        "type": "string"
+      },
+      "model": {
+        "type": "string"
+      },
+      "status": {
+        "type": "string"
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.01
+  },
+  "readme": "# US Census Query\n\nAsk any US Census question in plain English for a state, county, city, metro area, or ZIP code.",
+  "page_url": "https://www.sandbase.ai/model/censusdata-xyz/query",
+  "created_at": "2026-11-14T18:57:11.874Z"
+}

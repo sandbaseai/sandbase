@@ -1,6 +1,6 @@
 # Platforms
 
-203 platforms and model makers, each reachable with one SandBase API key.
+210 platforms and model makers, each reachable with one SandBase API key.
 
 | Platform | Capabilities | Types |
 |---|---|---|
@@ -20,6 +20,7 @@
 | [KwaiVGI](kwaivgi.md) | 44 | image generation model, video generation model |
 | [Kuaishou](kuaishou.md) | 40 | data API |
 | [LinkedIn](linkedin.md) | 38 | data API |
+| [Ahrefs](ahrefs.md) | 37 | data API |
 | [FRED](fred.md) | 35 | data API |
 | [Reddit](reddit.md) | 35 | data API |
 | [Bytedance](bytedance.md) | 30 | LLM, audio model, image generation model, video generation model |
@@ -59,6 +60,7 @@
 | [Threads](threads.md) | 9 | data API |
 | [Web3.career](web3-career.md) | 9 | data API |
 | [Apollo](apollo.md) | 8 | data API |
+| [Channel3](channel3.md) | 8 | data API |
 | [Google Maps](google-maps.md) | 8 | data API |
 | [Taobao](taobao.md) | 8 | data API |
 | [TikTok Shop](tiktok-shop.md) | 8 | data API |
@@ -82,6 +84,7 @@
 | [Yahoo Finance](yahoo-finance.md) | 6 | data API |
 | [Z-Ai](z-ai.md) | 6 | LLM |
 | [Zillow](zillow.md) | 6 | data API |
+| [Akta](akta.md) | 5 | data API |
 | [Finviz](finviz.md) | 5 | data API |
 | [Firecrawl](firecrawl.md) | 5 | data API |
 | [G2](g2.md) | 5 | data API |
@@ -89,6 +92,7 @@
 | [hyper3d](hyper3d.md) | 5 | image generation model |
 | [Meta](meta.md) | 5 | LLM, image generation model |
 | [Naver](naver.md) | 5 | data API |
+| [Vela Breakout](vela-breakout.md) | 5 | data API |
 | [Walmart](walmart.md) | 5 | data API |
 | [WeChat Search](wechat-search.md) | 5 | data API |
 | [Wellfound](wellfound.md) | 5 | data API |
@@ -108,6 +112,7 @@
 | [Pinterest](pinterest.md) | 4 | data API |
 | [Shopify](shopify.md) | 4 | data API |
 | [trellis](trellis.md) | 4 | image generation model |
+| [Vaquill](vaquill.md) | 4 | data API |
 | [Yahoo](yahoo.md) | 4 | data API |
 | [AccuWeather](accuweather.md) | 3 | data API |
 | [App Store](app-store.md) | 3 | data API |
@@ -123,6 +128,7 @@
 | [Kelley Blue Book](kelley-blue-book.md) | 3 | data API |
 | [MeiGen-AI](meigen-ai.md) | 3 | video generation model |
 | [Mercari](mercari.md) | 3 | data API |
+| [Opoint](opoint.md) | 3 | data API |
 | [Scholar](scholar.md) | 3 | data API |
 | [Target](target.md) | 3 | data API |
 | [Tavily](tavily.md) | 3 | data API |
@@ -133,12 +139,12 @@
 | [Yandex](yandex.md) | 3 | data API |
 | [Yelp](yelp.md) | 3 | data API |
 | [Youku](youku.md) | 3 | data API |
-| [Ahrefs](ahrefs.md) | 2 | data API |
 | [AliExpress](aliexpress.md) | 2 | data API |
 | [Apartments.com](apartments-com.md) | 2 | data API |
 | [Apple Maps](apple-maps.md) | 2 | data API |
 | [ASOS](asos.md) | 2 | data API |
 | [Bing Shopping](bing-shopping.md) | 2 | data API |
+| [Fundable](fundable.md) | 2 | data API |
 | [Hunter](hunter.md) | 2 | data API |
 | [IKEA](ikea.md) | 2 | data API |
 | [Indeed](indeed.md) | 2 | data API |
@@ -157,6 +163,7 @@
 | [Topaz Labs](topaz-labs.md) | 2 | image generation model, video generation model |
 | [Trader Joe's](trader-joe-s.md) | 2 | data API |
 | [TypeSafe](typesafe.md) | 2 | LLM |
+| [US Census](us-census.md) | 2 | data API |
 | [Vrbo](vrbo.md) | 2 | data API |
 | [Whole Foods Market](whole-foods-market.md) | 2 | data API |
 | [Xianyu](xianyu.md) | 2 | data API |

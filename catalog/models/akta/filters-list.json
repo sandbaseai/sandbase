@@ -1,0 +1,66 @@
+{
+  "name": "akta/filters-list",
+  "display_name": "Akta Filters List",
+  "type": "api",
+  "vendor": "Akta",
+  "vendor_slug": "akta",
+  "description": "List every filter key accepted by company list generation. Free.",
+  "tags": [
+    "api",
+    "akta",
+    "company-enrichment"
+  ],
+  "capabilities": [
+    "api",
+    "akta",
+    "company-enrichment"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}",
+    "passthrough": "POST /v1/api/akta/filters-list"
+  },
+  "input_schema": {
+    "type": "object",
+    "properties": {}
+  },
+  "response_schema": {
+    "type": "object",
+    "required": [
+      "id",
+      "status",
+      "model"
+    ],
+    "properties": {
+      "id": {
+        "type": "string"
+      },
+      "model": {
+        "type": "string"
+      },
+      "status": {
+        "type": "string"
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "formula",
+    "formula": "0",
+    "formula_variables": [],
+    "reference_price": 0,
+    "price_examples": [
+      {
+        "params": {},
+        "usd": 0
+      }
+    ]
+  },
+  "readme": "# Akta Filters List\n\nList every filter key accepted by company list generation. Free.",
+  "page_url": "https://www.sandbase.ai/model/akta/filters-list",
+  "created_at": "2026-11-14T18:47:16.278Z"
+}

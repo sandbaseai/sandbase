@@ -1,0 +1,99 @@
+{
+  "name": "akta/markdown",
+  "display_name": "Akta Markdown",
+  "type": "api",
+  "vendor": "Akta",
+  "vendor_slug": "akta",
+  "description": "Get selected company profile sections as one Markdown document.",
+  "tags": [
+    "api",
+    "akta",
+    "company-enrichment"
+  ],
+  "capabilities": [
+    "api",
+    "akta",
+    "company-enrichment"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}",
+    "passthrough": "POST /v1/api/akta/markdown"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "company",
+      "sections"
+    ],
+    "properties": {
+      "company": {
+        "type": "string",
+        "example": "https://canva.com",
+        "minLength": 1,
+        "description": "Company website (e.g. 'https://canva.com') or the company uuid returned by the akta Company Search endpoint. A bare company name is NOT accepted here — resolve it via company-search first."
+      },
+      "sections": {
+        "type": "array",
+        "items": {
+          "enum": [
+            "firmographic",
+            "business_model",
+            "company_assessment",
+            "trust_signal",
+            "company_hierarchy",
+            "digital_presence",
+            "financial_estimate",
+            "location",
+            "management_profile",
+            "product_offering",
+            "strategic_signal",
+            "customer_profile",
+            "industry",
+            "technology",
+            "funding_detail",
+            "mna_and_investment"
+          ],
+          "type": "string"
+        },
+        "example": [
+          "firmographic"
+        ],
+        "minItems": 1,
+        "description": "Sections to return (comma-separated query param). Required — to get every section, list all of them. Available: firmographic, business_model, company_assessment, trust_signal, company_hierarchy, digital_presence, financial_estimate, location, management_profile, product_offering, strategic_signal, customer_profile, industry, technology, funding_detail, mna_and_investment."
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "required": [
+      "id",
+      "status",
+      "model"
+    ],
+    "properties": {
+      "id": {
+        "type": "string"
+      },
+      "model": {
+        "type": "string"
+      },
+      "status": {
+        "type": "string"
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "usage_based",
+    "note": "Billed per call from metered usage; the reference price is typical.",
+    "reference_price": 0.025
+  },
+  "readme": "# Akta Markdown\n\nGet selected company profile sections as one Markdown document.\n\n## Pricing\n\n- Inspect reference unit price: $0.025 USD per result.\n- Final settlement uses the provider-reported actual cost after strict validation; the reference price is not used to infer the final charge.",
+  "page_url": "https://www.sandbase.ai/model/akta/markdown",
+  "created_at": "2026-11-14T18:28:19.275Z"
+}

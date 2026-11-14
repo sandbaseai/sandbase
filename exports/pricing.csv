@@ -31,8 +31,48 @@ accuweather/list-cities,api,AccuWeather,per_call,0.01,,,,,yes,async,POST /v1/run
 accuweather/search-locations,api,AccuWeather,per_call,0.01,,,,,yes,async,POST /v1/run
 accuweather/weather,api,AccuWeather,per_call,0.05,,,,,,async,POST /v1/run
 ahrefs/domain-rating,api,Ahrefs,per_call,0.08,,,,,,sync,POST /v1/run
+ahrefs/keywords-explorer-matching-terms,api,Ahrefs,usage_based,,,,0.01419,0.01419,,async,POST /v1/run
+ahrefs/keywords-explorer-overview,api,Ahrefs,usage_based,,,,0.02709,0.02709,,async,POST /v1/run
+ahrefs/keywords-explorer-related-terms,api,Ahrefs,usage_based,,,,0.01419,0.01419,,async,POST /v1/run
+ahrefs/keywords-explorer-search-suggestions,api,Ahrefs,usage_based,,,,0.00774,0.00774,,async,POST /v1/run
+ahrefs/keywords-explorer-volume-by-country,api,Ahrefs,usage_based,,,,0.007095,0.007095,,async,POST /v1/run
+ahrefs/keywords-explorer-volume-history,api,Ahrefs,usage_based,,,,0.00129,0.00129,,async,POST /v1/run
 ahrefs/metrics,api,Ahrefs,per_call,0.08,,,,,,sync,POST /v1/run
+ahrefs/serp-overview-serp-overview,api,Ahrefs,usage_based,,,,0.0129,0.0129,,async,POST /v1/run
+ahrefs/site-explorer-ai-responses-count,api,Ahrefs,usage_based,,,,0.087075,0.087075,,async,POST /v1/run
+ahrefs/site-explorer-all-backlinks,api,Ahrefs,usage_based,,,,0.00645,0.00645,,async,POST /v1/run
+ahrefs/site-explorer-anchors,api,Ahrefs,usage_based,,,,0.005805,0.005805,,async,POST /v1/run
+ahrefs/site-explorer-backlinks-stats,api,Ahrefs,usage_based,,,,0.00774,0.00774,,async,POST /v1/run
+ahrefs/site-explorer-broken-backlinks,api,Ahrefs,usage_based,,,,0.005805,0.005805,,async,POST /v1/run
+ahrefs/site-explorer-crawled-pages,api,Ahrefs,usage_based,,,,0.00645,0.00645,,async,POST /v1/run
+ahrefs/site-explorer-domain-rating,api,Ahrefs,usage_based,,,,0.00129,0.00129,,async,POST /v1/run
+ahrefs/site-explorer-domain-rating-history,api,Ahrefs,usage_based,,,,0.00129,0.00129,,async,POST /v1/run
+ahrefs/site-explorer-keywords-history,api,Ahrefs,usage_based,,,,0.00387,0.00387,,async,POST /v1/run
+ahrefs/site-explorer-linked-anchors-external,api,Ahrefs,usage_based,,,,0.003225,0.003225,,async,POST /v1/run
+ahrefs/site-explorer-linked-anchors-internal,api,Ahrefs,usage_based,,,,0.00258,0.00258,,async,POST /v1/run
+ahrefs/site-explorer-linkeddomains,api,Ahrefs,usage_based,,,,0.00258,0.00258,,async,POST /v1/run
+ahrefs/site-explorer-metrics,api,Ahrefs,usage_based,,,,0.02838,0.02838,,async,POST /v1/run
+ahrefs/site-explorer-metrics-by-country,api,Ahrefs,usage_based,,,,0.014835,0.014835,,async,POST /v1/run
+ahrefs/site-explorer-metrics-history,api,Ahrefs,usage_based,,,,0.013545,0.013545,,async,POST /v1/run
+ahrefs/site-explorer-organic-competitors,api,Ahrefs,usage_based,,,,0.00903,0.00903,,async,POST /v1/run
+ahrefs/site-explorer-organic-keywords,api,Ahrefs,usage_based,,,,0.01548,0.01548,,async,POST /v1/run
+ahrefs/site-explorer-outlinks-stats,api,Ahrefs,usage_based,,,,0.00258,0.00258,,async,POST /v1/run
+ahrefs/site-explorer-pages-by-backlinks,api,Ahrefs,usage_based,,,,0.00516,0.00516,,async,POST /v1/run
+ahrefs/site-explorer-pages-by-internal-links,api,Ahrefs,usage_based,,,,0.001935,0.001935,,async,POST /v1/run
+ahrefs/site-explorer-pages-by-traffic,api,Ahrefs,usage_based,,,,0.03612,0.03612,,async,POST /v1/run
+ahrefs/site-explorer-pages-history,api,Ahrefs,usage_based,,,,0.00129,0.00129,,async,POST /v1/run
+ahrefs/site-explorer-paid-pages,api,Ahrefs,usage_based,,,,0.008385,0.008385,,async,POST /v1/run
+ahrefs/site-explorer-refdomains,api,Ahrefs,usage_based,,,,0.00387,0.00387,,async,POST /v1/run
+ahrefs/site-explorer-refdomains-history,api,Ahrefs,usage_based,,,,0.00387,0.00387,,async,POST /v1/run
+ahrefs/site-explorer-top-pages,api,Ahrefs,usage_based,,,,0.014835,0.014835,,async,POST /v1/run
+ahrefs/site-explorer-total-search-volume-history,api,Ahrefs,usage_based,,,,0.007095,0.007095,,async,POST /v1/run
+ahrefs/site-explorer-url-rating-history,api,Ahrefs,usage_based,,,,0.00129,0.00129,,async,POST /v1/run
 airbnb/search,api,Airbnb,per_call,0.01,,,,,,sync,POST /v1/run
+akta/company-headcount-trends,api,Akta,per_call,0.125,,,,,,async,POST /v1/run
+akta/company-website-traffic,api,Akta,per_call,0.075,,,,,,async,POST /v1/run
+akta/concise,api,Akta,per_call,0.15,,,,,,async,POST /v1/run
+akta/filters-list,api,Akta,formula,,,,0,0,,async,POST /v1/run
+akta/markdown,api,Akta,usage_based,,,,0.025,0.025,,async,POST /v1/run
 alibaba/flashvsr,video,Alibaba,formula,,,,0.155,0.155,,async,POST /v1/run
 alibaba/happy-horse/1.1/image-to-video,video,Alibaba,formula,,,,0.21,1.44,,async,POST /v1/run
 alibaba/happy-horse/1.1/reference-to-video,video,Alibaba,formula,,,,0.21,1.44,,async,POST /v1/run
@@ -304,6 +344,16 @@ capterra/category-products,api,Capterra,per_call,0.01,,,,,yes,async,POST /v1/run
 capterra/product-details,api,Capterra,per_call,0.01,,,,,yes,async,POST /v1/run
 capterra/product-reviews,api,Capterra,per_call,0.01,,,,,yes,async,POST /v1/run
 capterra/search-software,api,Capterra,per_call,0.01,,,,,yes,async,POST /v1/run
+censusdata-xyz/explore-variables,api,US Census,formula,,,,0,0,,async,POST /v1/run
+censusdata-xyz/query,api,US Census,per_call,0.01,,,,,,async,POST /v1/run
+channel3/brands,api,Channel3,formula,,,,0,0,,async,POST /v1/run
+channel3/brands-search,api,Channel3,formula,,,,0,0,,async,POST /v1/run
+channel3/categories,api,Channel3,formula,,,,0,0,,async,POST /v1/run
+channel3/categories-search,api,Channel3,formula,,,,0,0,,async,POST /v1/run
+channel3/lookup,api,Channel3,per_call,0.007,,,,,,async,POST /v1/run
+channel3/search,api,Channel3,per_call,0.007,,,,,,async,POST /v1/run
+channel3/websites,api,Channel3,formula,,,,0,0,,async,POST /v1/run
+channel3/websites-search,api,Channel3,formula,,,,0,0,,async,POST /v1/run
 chatgpt/search,api,ChatGPT,usage_based,,,,0.0018,0.0018,,sync,POST /v1/run
 clarity-ai/clarity-upscaler,image,ClarityAI,per_call,0.03,,,,,,async,POST /v1/run
 cloudsway/search,api,Cloudsway,per_call,0.005,,,,,yes,sync,POST /v1/run
@@ -956,6 +1006,8 @@ fred/source-releases,api,FRED,per_call,1e-05,,,,,yes,sync,POST /v1/run
 fred/sources,api,FRED,per_call,1e-05,,,,,yes,sync,POST /v1/run
 fred/tags,api,FRED,per_call,1e-05,,,,,yes,sync,POST /v1/run
 fred/tags-series,api,FRED,per_call,1e-05,,,,,yes,sync,POST /v1/run
+fundable/industry-search,api,Fundable,formula,,,,0,0,,async,POST /v1/run
+fundable/location-search,api,Fundable,formula,,,,0,0,,async,POST /v1/run
 g2/categories,api,G2,per_call,0.05,,,,,,async,POST /v1/run
 g2/category-products,api,G2,per_call,0.05,,,,,,async,POST /v1/run
 g2/product-overview,api,G2,per_call,0.01,,,,,yes,async,POST /v1/run
@@ -1615,6 +1667,9 @@ openai/gpt-oss-120b,llm,OpenAI,per_token,,0.039,0.18,,,,sync,POST /v1/chat/compl
 openai/text-embedding-3-large,embedding,OpenAI,per_token,,0.13,0,,,,sync,POST /v1/embeddings
 openai/wizper,audio,OpenAI,per_call,0.006,,,,,,async,POST /v1/run
 opentable/reviews,api,OpenTable,per_call,0.01,,,,,,sync,POST /v1/run
+opoint/search,api,Opoint,per_call,0.06,,,,,,async,POST /v1/run
+opoint/search-headlines,api,Opoint,per_call,0.06,,,,,,async,POST /v1/run
+opoint/suggest,api,Opoint,formula,,,,0,0,,async,POST /v1/run
 perplexity/search,api,Perplexity,usage_based,,,,0.002,0.002,,sync,POST /v1/run
 pexels/search-photos,api,Pexels,usage_based,,,,0.0066,0.0066,,sync,POST /v1/run
 pinterest/board,api,Pinterest,per_call,0.018,,,,,,sync,POST /v1/run
@@ -2175,7 +2230,16 @@ typesafe/jev-1.13,llm,TypeSafe,per_token,,0.042,0,,,,sync,POST /v1/chat/completi
 typesafe/jev-1.14,llm,TypeSafe,per_token,,0.042,0,,,,sync,POST /v1/chat/completions
 unsplash/search-photos,api,Unsplash,usage_based,,,,0.0033,0.0033,,sync,POST /v1/run
 upwork/jobs,api,Upwork,usage_based,,,,0.007,0.007,,sync,POST /v1/run
+vaquill/count,api,Vaquill,per_call,0.01,,,,,,async,POST /v1/run
+vaquill/coverage,api,Vaquill,formula,,,,0,0,,async,POST /v1/run
+vaquill/divisions,api,Vaquill,per_call,0.01,,,,,,async,POST /v1/run
+vaquill/resolve,api,Vaquill,usage_based,,,,0.02,0.02,,async,POST /v1/run
 veed/lipsync/2.0,video,VEED,formula,,,,0.375,0.375,,async,POST /v1/run
+velabreakout/breakouts,api,Vela Breakout,per_call,0.02,,,,,,async,POST /v1/run
+velabreakout/company,api,Vela Breakout,per_call,0.01,,,,,,async,POST /v1/run
+velabreakout/groups,api,Vela Breakout,formula,,,,0,0,,async,POST /v1/run
+velabreakout/ideas,api,Vela Breakout,per_call,0.02,,,,,,async,POST /v1/run
+velabreakout/rising-companies,api,Vela Breakout,per_call,0.02,,,,,,async,POST /v1/run
 vidu/q3/image-to-video,video,Vidu,formula,,,,0.07,2.56,,async,POST /v1/run
 vidu/q3/image-to-video/turbo,video,Vidu,formula,,,,0.04,1.28,,async,POST /v1/run
 vidu/q3/reference-to-video/mix,video,Vidu,formula,,,,0.07,2.464,,async,POST /v1/run

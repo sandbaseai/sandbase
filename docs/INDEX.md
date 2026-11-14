@@ -1,8 +1,8 @@
 # SandBase capability index
 
-2564 capabilities · generated 2026-11-14T11:28:43Z
+2628 capabilities · generated 2026-11-14T23:56:26Z
 
-- [api](#api) (2047)
+- [api](#api) (2111)
 - [audio](#audio) (32)
 - [embedding](#embedding) (2)
 - [image](#image) (166)
@@ -45,8 +45,48 @@
 | [`accuweather/search-locations`](models/accuweather/search-locations.md) | 0.01 / call (free quota) | async | Search for location keys and metadata by query string. Returns matching cities with their AccuWeather location keys,… |
 | [`accuweather/weather`](models/accuweather/weather.md) | 0.05 / call | async | Get comprehensive weather data for a city including current conditions, daily and hourly forecasts, alerts, allergens,… |
 | [`ahrefs/domain-rating`](models/ahrefs/domain-rating.md) | 0.08 / call | sync | Return the Ahrefs Domain Rating (0-100 authority score) and Ahrefs Rank for a target domain on a given date. 4xx/5xx… |
+| [`ahrefs/keywords-explorer-matching-terms`](models/ahrefs/keywords-explorer-matching-terms.md) | ~0.01419 | async | Find keyword ideas containing seed terms, with volume and difficulty. |
+| [`ahrefs/keywords-explorer-overview`](models/ahrefs/keywords-explorer-overview.md) | ~0.02709 | async | Get volume, difficulty, traffic potential, intent, and CPC for up to 100 keywords. |
+| [`ahrefs/keywords-explorer-related-terms`](models/ahrefs/keywords-explorer-related-terms.md) | ~0.01419 | async | Find keywords related to seed terms, with volume and difficulty. |
+| [`ahrefs/keywords-explorer-search-suggestions`](models/ahrefs/keywords-explorer-search-suggestions.md) | ~0.00774 | async | Get autocomplete-style keyword suggestions for seeds, with volume and CPC. |
+| [`ahrefs/keywords-explorer-volume-by-country`](models/ahrefs/keywords-explorer-volume-by-country.md) | ~0.007095 | async | Split a keyword's search volume across countries. |
+| [`ahrefs/keywords-explorer-volume-history`](models/ahrefs/keywords-explorer-volume-history.md) | ~0.00129 | async | Track a keyword's monthly search volume over time in one country. |
 | [`ahrefs/metrics`](models/ahrefs/metrics.md) | 0.08 / call | sync | Return core Site Explorer metrics for a target domain on a given date: organic and paid keyword counts, top-3 keyword… |
+| [`ahrefs/serp-overview-serp-overview`](models/ahrefs/serp-overview-serp-overview.md) | ~0.0129 | async | Get the top organic results for a keyword with ratings, backlinks, and traffic. |
+| [`ahrefs/site-explorer-ai-responses-count`](models/ahrefs/site-explorer-ai-responses-count.md) | ~0.087075 | async | Count how often eight AI assistants cite a target in generated answers. |
+| [`ahrefs/site-explorer-all-backlinks`](models/ahrefs/site-explorer-all-backlinks.md) | ~0.00645 | async | List a target's backlinks with anchors, source ratings, and link attributes. |
+| [`ahrefs/site-explorer-anchors`](models/ahrefs/site-explorer-anchors.md) | ~0.005805 | async | Break down a target's backlinks by anchor text with referring-domain counts. |
+| [`ahrefs/site-explorer-backlinks-stats`](models/ahrefs/site-explorer-backlinks-stats.md) | ~0.00774 | async | Get a target's live and all-time backlink and referring-domain totals. |
+| [`ahrefs/site-explorer-broken-backlinks`](models/ahrefs/site-explorer-broken-backlinks.md) | ~0.005805 | async | List backlinks pointing at a target's broken (non-200) pages. |
+| [`ahrefs/site-explorer-crawled-pages`](models/ahrefs/site-explorer-crawled-pages.md) | ~0.00645 | async | List a target's pages known to the crawler with URL Rating and HTTP codes. |
+| [`ahrefs/site-explorer-domain-rating`](models/ahrefs/site-explorer-domain-rating.md) | ~0.00129 | async | Get a target's Domain Rating (0-100 link authority) and its global rank. |
+| [`ahrefs/site-explorer-domain-rating-history`](models/ahrefs/site-explorer-domain-rating-history.md) | ~0.00129 | async | Track a target's Domain Rating over time, one row per date bucket. |
+| [`ahrefs/site-explorer-keywords-history`](models/ahrefs/site-explorer-keywords-history.md) | ~0.00387 | async | Track a target's ranking keyword counts by position bucket over time. |
+| [`ahrefs/site-explorer-linked-anchors-external`](models/ahrefs/site-explorer-linked-anchors-external.md) | ~0.003225 | async | Break down a target's outbound external links by anchor text. |
+| [`ahrefs/site-explorer-linked-anchors-internal`](models/ahrefs/site-explorer-linked-anchors-internal.md) | ~0.00258 | async | Break down a target's internal links by anchor text. |
+| [`ahrefs/site-explorer-linkeddomains`](models/ahrefs/site-explorer-linkeddomains.md) | ~0.00258 | async | List domains a target links out to, with link and page counts. |
+| [`ahrefs/site-explorer-metrics`](models/ahrefs/site-explorer-metrics.md) | ~0.02838 | async | Get a target's organic and paid keywords, traffic, and cost estimates. |
+| [`ahrefs/site-explorer-metrics-by-country`](models/ahrefs/site-explorer-metrics-by-country.md) | ~0.014835 | async | Split a target's organic and paid keywords and traffic by country. |
+| [`ahrefs/site-explorer-metrics-history`](models/ahrefs/site-explorer-metrics-history.md) | ~0.013545 | async | Track a target's organic and paid traffic estimates over time. |
+| [`ahrefs/site-explorer-organic-competitors`](models/ahrefs/site-explorer-organic-competitors.md) | ~0.00903 | async | Find domains competing with a target in organic search, with keyword overlap. |
+| [`ahrefs/site-explorer-organic-keywords`](models/ahrefs/site-explorer-organic-keywords.md) | ~0.01548 | async | List keywords a target ranks for with position, volume, and traffic estimates. |
+| [`ahrefs/site-explorer-outlinks-stats`](models/ahrefs/site-explorer-outlinks-stats.md) | ~0.00258 | async | Get a target's outbound link totals: external, internal, and dofollow counts. |
+| [`ahrefs/site-explorer-pages-by-backlinks`](models/ahrefs/site-explorer-pages-by-backlinks.md) | ~0.00516 | async | List a target's pages ordered by backlink and referring-domain counts. |
+| [`ahrefs/site-explorer-pages-by-internal-links`](models/ahrefs/site-explorer-pages-by-internal-links.md) | ~0.001935 | async | List a target's pages ordered by incoming internal link counts. |
+| [`ahrefs/site-explorer-pages-by-traffic`](models/ahrefs/site-explorer-pages-by-traffic.md) | ~0.03612 | async | Bucket a target's pages into organic-traffic ranges with totals per range. |
+| [`ahrefs/site-explorer-pages-history`](models/ahrefs/site-explorer-pages-history.md) | ~0.00129 | async | Track how many of a target's pages rank in organic search over time. |
+| [`ahrefs/site-explorer-paid-pages`](models/ahrefs/site-explorer-paid-pages.md) | ~0.008385 | async | List a target's paid-search landing pages with traffic and ad counts. |
+| [`ahrefs/site-explorer-refdomains`](models/ahrefs/site-explorer-refdomains.md) | ~0.00387 | async | List domains linking to a target with Domain Rating and link counts. |
+| [`ahrefs/site-explorer-refdomains-history`](models/ahrefs/site-explorer-refdomains-history.md) | ~0.00387 | async | Track a target's referring-domain count over time. |
+| [`ahrefs/site-explorer-top-pages`](models/ahrefs/site-explorer-top-pages.md) | ~0.014835 | async | List a target's pages by estimated organic traffic and top keyword. |
+| [`ahrefs/site-explorer-total-search-volume-history`](models/ahrefs/site-explorer-total-search-volume-history.md) | ~0.007095 | async | Track total search volume of keywords a target ranks for over time. |
+| [`ahrefs/site-explorer-url-rating-history`](models/ahrefs/site-explorer-url-rating-history.md) | ~0.00129 | async | Track a target URL's rating over time, one row per date bucket. |
 | [`airbnb/search`](models/airbnb/search.md) | 0.01 / call | sync | Search Airbnb stays by location and dates, with listing name, price, rating, reviews, room type, photos and coordinates. |
+| [`akta/company-headcount-trends`](models/akta/company-headcount-trends.md) | 0.125 / call | async | Get a company's employee count and growth trends by department. |
+| [`akta/company-website-traffic`](models/akta/company-website-traffic.md) | 0.075 / call | async | Get a company website's monthly visits, engagement and traffic sources. |
+| [`akta/concise`](models/akta/concise.md) | 0.15 / call | async | Get a condensed all-section company profile at a flat price. |
+| [`akta/filters-list`](models/akta/filters-list.md) | 0 | async | List every filter key accepted by company list generation. Free. |
+| [`akta/markdown`](models/akta/markdown.md) | ~0.025 | async | Get selected company profile sections as one Markdown document. |
 | [`alibaba/search`](models/alibaba/search.md) | ~0.00231 | sync | Search Alibaba by keyword and get up to 25 wholesale listings (title, price range, minimum order, and supplier) in one… |
 | [`aliexpress/reviews`](models/aliexpress/reviews.md) | ~0.00085 | sync | Get one page of buyer reviews for an AliExpress product by id, with rating, text, buyer country, date, bought variant… |
 | [`aliexpress/search/products`](models/aliexpress/search/products.md) | 0.014286 / call (free quota) | sync | Search AliExpress products by keyword with sort, category, brand, price, locale, region and currency filters. |
@@ -168,6 +208,16 @@
 | [`capterra/product-details`](models/capterra/product-details.md) | 0.01 / call (free quota) | async | Retrieve detailed information about a specific software product, including description, overall rating, review count,… |
 | [`capterra/product-reviews`](models/capterra/product-reviews.md) | 0.01 / call (free quota) | async | Retrieve user reviews for a software product. Returns paginated reviews with title, date, overall rating, pros, and… |
 | [`capterra/search-software`](models/capterra/search-software.md) | 0.01 / call (free quota) | async | Search for software products by keyword. Returns matching products with name, numeric ID, URL slug, and full URL. |
+| [`censusdata-xyz/explore-variables`](models/censusdata-xyz/explore-variables.md) | 0 | async | Discover which US Census variables exist for a topic keyword. |
+| [`censusdata-xyz/query`](models/censusdata-xyz/query.md) | 0.01 / call | async | Ask any US Census question in plain English for a state, county, city, metro area, or ZIP code. |
+| [`channel3/brands`](models/channel3/brands.md) | 0 | async | List top brands, optionally only those selling given categories, with cursor paging. |
+| [`channel3/brands-search`](models/channel3/brands-search.md) | 0 | async | Find brands by name or keyword, optionally within categories, to filter product searches. |
+| [`channel3/categories`](models/channel3/categories.md) | 0 | async | List product categories page by page, optionally only the top-level ones. |
+| [`channel3/categories-search`](models/channel3/categories-search.md) | 0 | async | Find product categories by keyword or meaning, to filter product searches by slug. |
+| [`channel3/lookup`](models/channel3/lookup.md) | 0.007 / call | async | Resolve a retailer product-page URL to a canonical product with offers and variants. |
+| [`channel3/search`](models/channel3/search.md) | 0.007 / call | async | Search products across retailers by text or image URL, with offers and pagination. |
+| [`channel3/websites`](models/channel3/websites.md) | 0 | async | List top retailers, optionally only those selling given categories, with cursor paging. |
+| [`channel3/websites-search`](models/channel3/websites-search.md) | 0 | async | Find retailers by name or domain, optionally within categories, to filter product search. |
 | [`chatgpt/search`](models/chatgpt/search.md) | ~0.0018 | sync | Ask ChatGPT a web-grounded question and receive an answer with source citations. ChatGPT composes each answer per… |
 | [`cloudsway/search`](models/cloudsway/search.md) | 0.005 / call (free quota) | sync | Web search API for AI agents with topic focus (news, academic, company, finance and more), country, date range and… |
 | [`clutch/company-locations`](models/clutch/company-locations.md) | 0.01 / call (free quota) | async | Get office locations for a company including addresses, phone numbers, and employee counts per location. |
@@ -798,6 +848,8 @@
 | [`fred/sources`](models/fred/sources.md) | 1e-05 / call (free quota) | sync | Get Sources from FRED. Returns the official FRED API response unchanged. |
 | [`fred/tags`](models/fred/tags.md) | 1e-05 / call (free quota) | sync | Get Tags from FRED. Returns the official FRED API response unchanged. |
 | [`fred/tags-series`](models/fred/tags-series.md) | 1e-05 / call (free quota) | sync | Get Tags Series from FRED. Returns the official FRED API response unchanged. |
+| [`fundable/industry-search`](models/fundable/industry-search.md) | 0 | async | Search industries and super categories by name |
+| [`fundable/location-search`](models/fundable/location-search.md) | 0 | async | Search locations by name and optionally filter by type |
 | [`g2/categories`](models/g2/categories.md) | 0.05 / call | async | Retrieve the full list of software categories and subcategories available on G2. Returns all categories with name,… |
 | [`g2/category-products`](models/g2/category-products.md) | 0.05 / call | async | List software products within a given G2 category. Returns products with name, slug, rating, and review count. |
 | [`g2/product-overview`](models/g2/product-overview.md) | 0.01 / call (free quota) | async | Retrieve product overview information for a given product slug, including name, description, rating, review count, and… |
@@ -1203,6 +1255,9 @@
 | [`open-meteo/previous-runs`](models/open-meteo/previous-runs.md) | 0.0001 / call (free quota) | sync | Weather forecasts from earlier model runs for the same coordinates, to compare how forecasts changed day by day. |
 | [`open-meteo/seasonal`](models/open-meteo/seasonal.md) | 0.0001 / call (free quota) | sync | Seasonal weather forecast up to several months ahead by coordinates, from the ECMWF seasonal model. |
 | [`opentable/reviews`](models/opentable/reviews.md) | 0.01 / call | sync | Get diner reviews for a restaurant on OpenTable by restaurant ID, with overall and sub-ratings, text, date and diner… |
+| [`opoint/search`](models/opoint/search.md) | 0.06 / call | async | Search global news by keyword, phrase, or boolean query with filters. |
+| [`opoint/search-headlines`](models/opoint/search-headlines.md) | 0.06 / call | async | Search global news and return headlines only, without article text. |
+| [`opoint/suggest`](models/opoint/suggest.md) | 0 | async | Translate a country, site, language, or media name into a search filter id. |
 | [`perplexity/search`](models/perplexity/search.md) | ~0.002 | sync | Ask Perplexity a web-grounded question and receive an answer with source citations. |
 | [`pexels/search-photos`](models/pexels/search-photos.md) | ~0.0066 | sync | Search Pexels for free stock photos by keyword. Returns image URLs in several sizes, dimensions, alt text, the… |
 | [`pinterest/board`](models/pinterest/board.md) | 0.018 / call | sync | Returns a paginated list of pins from a specified Pinterest board URL, including pin metadata, images, and aggregated… |
@@ -1711,6 +1766,15 @@
 | [`twitter/web/user-tweet-replies`](models/twitter/web/user-tweet-replies.md) | 0.001 / call (free quota) | sync | Returns a timeline of replies posted by a specific Twitter user. Filter by username and paginate through responses… |
 | [`unsplash/search-photos`](models/unsplash/search-photos.md) | ~0.0033 | sync | Search Unsplash for free stock photos by keyword. Returns image URLs in several sizes, dimensions, alt text, the… |
 | [`upwork/jobs`](models/upwork/jobs.md) | ~0.007 | sync | Search Upwork job postings by keyword, with up to 25 fresh listings per request. |
+| [`vaquill/count`](models/vaquill/count.md) | 0.01 / call | async | Count the law sections in a jurisdiction, corpus, code, title, chapter, or part. |
+| [`vaquill/coverage`](models/vaquill/coverage.md) | 0 | async | List which US law corpora are queryable in each jurisdiction, with live section counts. |
+| [`vaquill/divisions`](models/vaquill/divisions.md) | 0.01 / call | async | Walk a US legal code level by level: titles, chapters, parts, then sections. |
+| [`vaquill/resolve`](models/vaquill/resolve.md) | ~0.02 | async | Resolve up to 50 Bluebook citation strings to the exact US law sections they name. |
+| [`velabreakout/breakouts`](models/velabreakout/breakouts.md) | 0.02 / call | async | Rank the fastest-growing AI apps, models, dev tools, software or companies in one group. |
+| [`velabreakout/company`](models/velabreakout/company.md) | 0.01 / call | async | Get every measured growth signal for one company by name or web domain. |
+| [`velabreakout/groups`](models/velabreakout/groups.md) | 0 | async | List the groups growth can be ranked in, with each one's measure, unit and caveat. |
+| [`velabreakout/ideas`](models/velabreakout/ideas.md) | 0.02 / call | async | List AI research ideas gaining or losing share of new papers, with who publishes on each. |
+| [`velabreakout/rising-companies`](models/velabreakout/rising-companies.md) | 0.02 / call | async | List companies growing faster than 90% of peers on two or more measures at once. |
 | [`vrbo/listing`](models/vrbo/listing.md) | ~0.00085 | sync | Get one Vrbo vacation rental by its property ID: name, link, address, coordinates, bedrooms, bathrooms, beds and guest… |
 | [`vrbo/search`](models/vrbo/search.md) | ~0.00085 | sync | Search Vrbo vacation rentals by destination and dates, with guest, bedroom, bed, bathroom and price filters, and get… |
 | [`walmart/product`](models/walmart/product.md) | ~0.001 | sync | Fetch a Walmart product page by URL and get full product details (title, price, availability, ratings, images, and… |

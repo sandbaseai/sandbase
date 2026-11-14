@@ -1,0 +1,724 @@
+{
+  "name": "channel3/search",
+  "display_name": "Channel3 Search",
+  "type": "api",
+  "vendor": "Channel3",
+  "vendor_slug": "channel3",
+  "description": "Search products across retailers by text or image URL, with offers and pagination.",
+  "tags": [
+    "api",
+    "channel3"
+  ],
+  "capabilities": [
+    "api",
+    "channel3"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}",
+    "passthrough": "POST /v1/api/channel3/search"
+  },
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "limit": {
+        "anyOf": [
+          {
+            "type": "integer",
+            "maximum": 30,
+            "minimum": 1
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "description": "Products per page, 1-30. Channel3 default: 20."
+      },
+      "query": {
+        "anyOf": [
+          {
+            "type": "string",
+            "minLength": 1
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "example": "running shoes",
+        "description": "Text search query. Provide query, image_url or page_token."
+      },
+      "config": {
+        "type": "object",
+        "properties": {
+          "mode": {
+            "enum": [
+              "default",
+              "keyword",
+              "agentic"
+            ],
+            "type": "string",
+            "description": "default (Channel3 default): lexical + semantic. keyword: lexical only, lowest latency. agentic: an LLM plans several structured sub-searches for complex queries; higher latency."
+          },
+          "country": {
+            "anyOf": [
+              {
+                "enum": [
+                  "US",
+                  "GB",
+                  "EU",
+                  "AU",
+                  "CA",
+                  "IE",
+                  "DE",
+                  "AT",
+                  "FR",
+                  "BE",
+                  "IT",
+                  "ES",
+                  "NL",
+                  "SE",
+                  "FI",
+                  "PT",
+                  "CZ",
+                  "GR",
+                  "RO",
+                  "CH"
+                ],
+                "type": "string",
+                "description": "ISO 3166-1 alpha-2 country code (plus the pan-region EU)."
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "currency": {
+            "anyOf": [
+              {
+                "enum": [
+                  "USD",
+                  "CAD",
+                  "AUD",
+                  "GBP",
+                  "EUR",
+                  "SEK",
+                  "CZK",
+                  "RON",
+                  "CHF"
+                ],
+                "type": "string",
+                "description": "ISO 4217 currency for returned offer prices. Does not change what the call costs."
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "language": {
+            "anyOf": [
+              {
+                "enum": [
+                  "en",
+                  "de",
+                  "fr",
+                  "it",
+                  "es",
+                  "nl",
+                  "sv",
+                  "fi",
+                  "pt",
+                  "cs",
+                  "el",
+                  "ro"
+                ],
+                "type": "string",
+                "description": "ISO 639-1 language code."
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "length_unit": {
+            "anyOf": [
+              {
+                "enum": [
+                  "mm",
+                  "cm",
+                  "m",
+                  "in",
+                  "ft"
+                ],
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Preferred unit for returned length dimensions."
+          },
+          "weight_unit": {
+            "anyOf": [
+              {
+                "enum": [
+                  "mg",
+                  "g",
+                  "kg",
+                  "oz",
+                  "lb"
+                ],
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Preferred unit for returned weight."
+          }
+        },
+        "additionalProperties": false
+      },
+      "filters": {
+        "type": "object",
+        "properties": {
+          "age": {
+            "anyOf": [
+              {
+                "type": "array",
+                "items": {
+                  "enum": [
+                    "newborn",
+                    "infant",
+                    "toddler",
+                    "kids",
+                    "adult"
+                  ],
+                  "type": "string"
+                }
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Age groups to match. Age-agnostic products count as adult."
+          },
+          "sale": {
+            "anyOf": [
+              {
+                "type": "string",
+                "const": "on_sale"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "'on_sale' keeps only products with at least one discounted offer."
+          },
+          "price": {
+            "anyOf": [
+              {
+                "type": "object",
+                "properties": {
+                  "max_price": {
+                    "anyOf": [
+                      {
+                        "type": "number"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ],
+                    "description": "Maximum price, inclusive."
+                  },
+                  "min_price": {
+                    "anyOf": [
+                      {
+                        "type": "number"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ],
+                    "description": "Minimum price, inclusive."
+                  }
+                },
+                "additionalProperties": false
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Offer price range in the search currency, in dollars and cents."
+          },
+          "colors": {
+            "anyOf": [
+              {
+                "type": "object",
+                "required": [
+                  "palette"
+                ],
+                "properties": {
+                  "match": {
+                    "enum": [
+                      "strict",
+                      "standard",
+                      "loose"
+                    ],
+                    "type": "string"
+                  },
+                  "palette": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "required": [
+                        "hex"
+                      ],
+                      "properties": {
+                        "hex": {
+                          "type": "string",
+                          "minLength": 1,
+                          "description": "sRGB hex, e.g. '#a1b2c3'."
+                        },
+                        "percentage": {
+                          "anyOf": [
+                            {
+                              "type": "number"
+                            },
+                            {
+                              "type": "null"
+                            }
+                          ],
+                          "description": "Share of the color, where 1.0 is 100%."
+                        }
+                      },
+                      "additionalProperties": false
+                    },
+                    "description": "Colors every match must contain (AND)."
+                  }
+                },
+                "additionalProperties": false
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "[Beta at Channel3] Color filter."
+          },
+          "gender": {
+            "anyOf": [
+              {
+                "enum": [
+                  "male",
+                  "female"
+                ],
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "brand_ids": {
+            "anyOf": [
+              {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Only products from these brands. Brand IDs (brands[].id in results), not names."
+          },
+          "attributes": {
+            "anyOf": [
+              {
+                "type": "object",
+                "propertyNames": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "additionalProperties": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Attribute handle -> allowed values (OR within a key, AND across keys), e.g. {\"material\": [\"leather\"]}. Take handles from structured_attributes in earlier results."
+          },
+          "conditions": {
+            "type": "array",
+            "items": {
+              "enum": [
+                "new",
+                "used"
+              ],
+              "type": "string"
+            },
+            "minItems": 1,
+            "description": "Offer conditions to match (OR). Channel3 default: ['new'] (also matches unknown condition)."
+          },
+          "dimensions": {
+            "anyOf": [
+              {
+                "type": "object",
+                "properties": {
+                  "width": {
+                    "anyOf": [
+                      {
+                        "type": "object",
+                        "required": [
+                          "unit"
+                        ],
+                        "properties": {
+                          "max": {
+                            "anyOf": [
+                              {
+                                "type": "number"
+                              },
+                              {
+                                "type": "null"
+                              }
+                            ],
+                            "description": "Maximum, in `unit`. Inclusive."
+                          },
+                          "min": {
+                            "anyOf": [
+                              {
+                                "type": "number"
+                              },
+                              {
+                                "type": "null"
+                              }
+                            ],
+                            "description": "Minimum, in `unit`. Inclusive."
+                          },
+                          "unit": {
+                            "enum": [
+                              "mm",
+                              "cm",
+                              "m",
+                              "in",
+                              "ft"
+                            ],
+                            "type": "string"
+                          }
+                        },
+                        "additionalProperties": false
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "height": {
+                    "anyOf": [
+                      {
+                        "type": "object",
+                        "required": [
+                          "unit"
+                        ],
+                        "properties": {
+                          "max": {
+                            "anyOf": [
+                              {
+                                "type": "number"
+                              },
+                              {
+                                "type": "null"
+                              }
+                            ],
+                            "description": "Maximum, in `unit`. Inclusive."
+                          },
+                          "min": {
+                            "anyOf": [
+                              {
+                                "type": "number"
+                              },
+                              {
+                                "type": "null"
+                              }
+                            ],
+                            "description": "Minimum, in `unit`. Inclusive."
+                          },
+                          "unit": {
+                            "enum": [
+                              "mm",
+                              "cm",
+                              "m",
+                              "in",
+                              "ft"
+                            ],
+                            "type": "string"
+                          }
+                        },
+                        "additionalProperties": false
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "length": {
+                    "anyOf": [
+                      {
+                        "type": "object",
+                        "required": [
+                          "unit"
+                        ],
+                        "properties": {
+                          "max": {
+                            "anyOf": [
+                              {
+                                "type": "number"
+                              },
+                              {
+                                "type": "null"
+                              }
+                            ],
+                            "description": "Maximum, in `unit`. Inclusive."
+                          },
+                          "min": {
+                            "anyOf": [
+                              {
+                                "type": "number"
+                              },
+                              {
+                                "type": "null"
+                              }
+                            ],
+                            "description": "Minimum, in `unit`. Inclusive."
+                          },
+                          "unit": {
+                            "enum": [
+                              "mm",
+                              "cm",
+                              "m",
+                              "in",
+                              "ft"
+                            ],
+                            "type": "string"
+                          }
+                        },
+                        "additionalProperties": false
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "weight": {
+                    "anyOf": [
+                      {
+                        "type": "object",
+                        "required": [
+                          "unit"
+                        ],
+                        "properties": {
+                          "max": {
+                            "anyOf": [
+                              {
+                                "type": "number"
+                              },
+                              {
+                                "type": "null"
+                              }
+                            ],
+                            "description": "Maximum, in `unit`. Inclusive."
+                          },
+                          "min": {
+                            "anyOf": [
+                              {
+                                "type": "number"
+                              },
+                              {
+                                "type": "null"
+                              }
+                            ],
+                            "description": "Minimum, in `unit`. Inclusive."
+                          },
+                          "unit": {
+                            "enum": [
+                              "mg",
+                              "g",
+                              "kg",
+                              "oz",
+                              "lb"
+                            ],
+                            "type": "string"
+                          }
+                        },
+                        "additionalProperties": false
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  }
+                },
+                "additionalProperties": false
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Physical-dimension ranges; a matching offer satisfies every range."
+          },
+          "website_ids": {
+            "anyOf": [
+              {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1,
+                  "description": "Channel3 website ID or retailer domain (e.g. \"nike.com\")."
+                }
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Only products sold by these retailers: website IDs or domains (e.g. \"nike.com\")."
+          },
+          "availability": {
+            "type": "array",
+            "items": {
+              "enum": [
+                "InStock",
+                "OutOfStock"
+              ],
+              "type": "string"
+            },
+            "minItems": 1,
+            "description": "Offer availability to match (OR). Channel3 default: ['InStock']."
+          },
+          "category_ids": {
+            "anyOf": [
+              {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Only products in these categories, by category slug. Unknown slugs are rejected by Channel3 (422)."
+          },
+          "exclude_brand_ids": {
+            "anyOf": [
+              {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Exclude products from these brands (brand IDs)."
+          },
+          "exclude_website_ids": {
+            "anyOf": [
+              {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1,
+                  "description": "Channel3 website ID or retailer domain (e.g. \"nike.com\")."
+                }
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Exclude these retailers: website IDs or domains."
+          },
+          "exclude_category_ids": {
+            "anyOf": [
+              {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Exclude these categories (and descendants), by category slug."
+          }
+        },
+        "additionalProperties": false
+      },
+      "image_url": {
+        "anyOf": [
+          {
+            "type": "string",
+            "format": "uri",
+            "description": "Publicly accessible HTTP/HTTPS URL of a product image to search by, alone or with query. Base64 and data: URLs are not accepted."
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "page_token": {
+        "anyOf": [
+          {
+            "type": "string",
+            "minLength": 1
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "description": "next_page_token from a previous search's output, to fetch the next page."
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "required": [
+      "id",
+      "status",
+      "model"
+    ],
+    "properties": {
+      "id": {
+        "type": "string"
+      },
+      "model": {
+        "type": "string"
+      },
+      "status": {
+        "type": "string"
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.007
+  },
+  "readme": "# Channel3 Search\n\nSearch products across retailers by text or image URL, with offers and pagination.",
+  "page_url": "https://www.sandbase.ai/model/channel3/search",
+  "created_at": "2026-11-14T18:59:08.878Z"
+}

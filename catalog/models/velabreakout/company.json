@@ -1,0 +1,71 @@
+{
+  "name": "velabreakout/company",
+  "display_name": "Vela Breakout Company",
+  "type": "api",
+  "vendor": "Vela Breakout",
+  "vendor_slug": "velabreakout",
+  "description": "Get every measured growth signal for one company by name or web domain.",
+  "tags": [
+    "api",
+    "velabreakout",
+    "company-enrichment",
+    "market-trends"
+  ],
+  "capabilities": [
+    "api",
+    "velabreakout",
+    "company-enrichment",
+    "market-trends"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}",
+    "passthrough": "POST /v1/api/velabreakout/company"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "name_or_domain"
+    ],
+    "properties": {
+      "name_or_domain": {
+        "type": "string",
+        "example": "supabase.com",
+        "maxLength": 120,
+        "minLength": 2,
+        "description": "The company's name (e.g. 'Supabase') or web domain (e.g. 'supabase.com'), 2-120 characters. A domain is the surest match."
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "required": [
+      "id",
+      "status",
+      "model"
+    ],
+    "properties": {
+      "id": {
+        "type": "string"
+      },
+      "model": {
+        "type": "string"
+      },
+      "status": {
+        "type": "string"
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.01
+  },
+  "readme": "# Vela Breakout Company\n\nGet every measured growth signal for one company by name or web domain.",
+  "page_url": "https://www.sandbase.ai/model/velabreakout/company",
+  "created_at": "2026-11-14T18:22:13.212Z"
+}

@@ -1,0 +1,105 @@
+{
+  "name": "ahrefs/site-explorer-metrics-by-country",
+  "display_name": "Ahrefs Site Explorer Metrics By Country",
+  "type": "api",
+  "vendor": "Ahrefs",
+  "vendor_slug": "ahrefs",
+  "description": "Split a target's organic and paid keywords and traffic by country.",
+  "tags": [
+    "api",
+    "ahrefs",
+    "seo"
+  ],
+  "capabilities": [
+    "api",
+    "ahrefs",
+    "seo"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}",
+    "passthrough": "POST /v1/api/ahrefs/site-explorer-metrics-by-country"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "date",
+      "target"
+    ],
+    "properties": {
+      "date": {
+        "type": "string",
+        "example": "2026-11-01",
+        "pattern": "^\\d{4}-\\d{2}-\\d{2}$",
+        "description": "Report date in YYYY-MM-DD format. Use today's date for current values."
+      },
+      "limit": {
+        "type": "integer",
+        "default": 10,
+        "maximum": 50,
+        "minimum": 1,
+        "description": "Maximum number of rows to return (1-50, default 10). Each returned row is charged, so this caps the cost of one call."
+      },
+      "scope": {
+        "enum": [
+          "exact",
+          "prefix",
+          "domain",
+          "subdomains"
+        ],
+        "type": "string",
+        "default": "subdomains",
+        "example": "domain",
+        "description": "Scope of the target: exact (this URL only), prefix (URLs starting with the target), domain (the domain without subdomains), or subdomains (default — the domain and all its subdomains)."
+      },
+      "target": {
+        "type": "string",
+        "example": "ahrefs.com",
+        "minLength": 1,
+        "description": "The target of the report: a domain ('example.com') or a URL ('https://example.com/page')."
+      },
+      "protocol": {
+        "enum": [
+          "both",
+          "http",
+          "https"
+        ],
+        "type": "string",
+        "default": "both",
+        "description": "Protocol of the target: both (default), http, or https."
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "required": [
+      "id",
+      "status",
+      "model"
+    ],
+    "properties": {
+      "id": {
+        "type": "string"
+      },
+      "model": {
+        "type": "string"
+      },
+      "status": {
+        "type": "string"
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "usage_based",
+    "note": "Billed per call from metered usage; the reference price is typical.",
+    "reference_price": 0.014835
+  },
+  "readme": "# Ahrefs Site Explorer Metrics By Country\n\nSplit a target's organic and paid keywords and traffic by country.\n\n## Pricing\n\n- Inspect reference unit price: $0.014835 USD per result.\n- Final settlement uses the provider-reported actual cost after strict validation; the reference price is not used to infer the final charge.",
+  "page_url": "https://www.sandbase.ai/model/ahrefs/site-explorer-metrics-by-country",
+  "created_at": "2026-11-14T19:53:25.406Z"
+}

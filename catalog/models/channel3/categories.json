@@ -1,0 +1,81 @@
+{
+  "name": "channel3/categories",
+  "display_name": "Channel3 Categories",
+  "type": "api",
+  "vendor": "Channel3",
+  "vendor_slug": "channel3",
+  "description": "List product categories page by page, optionally only the top-level ones.",
+  "tags": [
+    "api",
+    "channel3"
+  ],
+  "capabilities": [
+    "api",
+    "channel3"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}",
+    "passthrough": "POST /v1/api/channel3/categories"
+  },
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "page": {
+        "type": "integer",
+        "maximum": 9007199254740991,
+        "minimum": 1,
+        "description": "1-indexed page number. Channel3 default: 1."
+      },
+      "page_size": {
+        "type": "integer",
+        "maximum": 100,
+        "minimum": 1,
+        "description": "Items per page, 1-100. Channel3 default: 20."
+      },
+      "roots_only": {
+        "type": "boolean",
+        "description": "true = only top-level categories. Channel3 default: false."
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "required": [
+      "id",
+      "status",
+      "model"
+    ],
+    "properties": {
+      "id": {
+        "type": "string"
+      },
+      "model": {
+        "type": "string"
+      },
+      "status": {
+        "type": "string"
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "formula",
+    "formula": "0",
+    "formula_variables": [],
+    "reference_price": 0,
+    "price_examples": [
+      {
+        "params": {},
+        "usd": 0
+      }
+    ]
+  },
+  "readme": "# Channel3 Categories\n\nList product categories page by page, optionally only the top-level ones.",
+  "page_url": "https://www.sandbase.ai/model/channel3/categories",
+  "created_at": "2026-11-14T18:26:54.987Z"
+}

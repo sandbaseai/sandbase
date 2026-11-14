@@ -1,0 +1,66 @@
+{
+  "name": "velabreakout/groups",
+  "display_name": "Vela Breakout Groups",
+  "type": "api",
+  "vendor": "Vela Breakout",
+  "vendor_slug": "velabreakout",
+  "description": "List the groups growth can be ranked in, with each one's measure, unit and caveat.",
+  "tags": [
+    "api",
+    "velabreakout",
+    "market-trends"
+  ],
+  "capabilities": [
+    "api",
+    "velabreakout",
+    "market-trends"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}",
+    "passthrough": "POST /v1/api/velabreakout/groups"
+  },
+  "input_schema": {
+    "type": "object",
+    "properties": {}
+  },
+  "response_schema": {
+    "type": "object",
+    "required": [
+      "id",
+      "status",
+      "model"
+    ],
+    "properties": {
+      "id": {
+        "type": "string"
+      },
+      "model": {
+        "type": "string"
+      },
+      "status": {
+        "type": "string"
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "formula",
+    "formula": "0",
+    "formula_variables": [],
+    "reference_price": 0,
+    "price_examples": [
+      {
+        "params": {},
+        "usd": 0
+      }
+    ]
+  },
+  "readme": "# Vela Breakout Groups\n\nList the groups growth can be ranked in, with each one's measure, unit and caveat.",
+  "page_url": "https://www.sandbase.ai/model/velabreakout/groups",
+  "created_at": "2026-11-14T18:31:32.538Z"
+}

@@ -1,0 +1,76 @@
+{
+  "name": "ahrefs/keywords-explorer-volume-by-country",
+  "display_name": "Ahrefs Keywords Explorer Volume By Country",
+  "type": "api",
+  "vendor": "Ahrefs",
+  "vendor_slug": "ahrefs",
+  "description": "Split a keyword's search volume across countries.",
+  "tags": [
+    "api",
+    "ahrefs",
+    "seo"
+  ],
+  "capabilities": [
+    "api",
+    "ahrefs",
+    "seo"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}",
+    "passthrough": "POST /v1/api/ahrefs/keywords-explorer-volume-by-country"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "keyword"
+    ],
+    "properties": {
+      "limit": {
+        "type": "integer",
+        "default": 10,
+        "maximum": 50,
+        "minimum": 1,
+        "description": "Maximum number of rows to return (1-50, default 10). Each returned row is charged, so this caps the cost of one call."
+      },
+      "keyword": {
+        "type": "string",
+        "example": "coffee grinder",
+        "minLength": 1,
+        "description": "The keyword to analyze."
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "required": [
+      "id",
+      "status",
+      "model"
+    ],
+    "properties": {
+      "id": {
+        "type": "string"
+      },
+      "model": {
+        "type": "string"
+      },
+      "status": {
+        "type": "string"
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "usage_based",
+    "note": "Billed per call from metered usage; the reference price is typical.",
+    "reference_price": 0.007095
+  },
+  "readme": "# Ahrefs Keywords Explorer Volume By Country\n\nSplit a keyword's search volume across countries.\n\n## Pricing\n\n- Inspect reference unit price: $0.007095 USD per result.\n- Final settlement uses the provider-reported actual cost after strict validation; the reference price is not used to infer the final charge.",
+  "page_url": "https://www.sandbase.ai/model/ahrefs/keywords-explorer-volume-by-country",
+  "created_at": "2026-11-14T18:44:17.245Z"
+}

@@ -1,0 +1,120 @@
+{
+  "name": "ahrefs/site-explorer-metrics-history",
+  "display_name": "Ahrefs Site Explorer Metrics History",
+  "type": "api",
+  "vendor": "Ahrefs",
+  "vendor_slug": "ahrefs",
+  "description": "Track a target's organic and paid traffic estimates over time.",
+  "tags": [
+    "api",
+    "ahrefs",
+    "seo"
+  ],
+  "capabilities": [
+    "api",
+    "ahrefs",
+    "seo"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}",
+    "passthrough": "POST /v1/api/ahrefs/site-explorer-metrics-history"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "date_from",
+      "target"
+    ],
+    "properties": {
+      "scope": {
+        "enum": [
+          "exact",
+          "prefix",
+          "domain",
+          "subdomains"
+        ],
+        "type": "string",
+        "default": "subdomains",
+        "example": "domain",
+        "description": "Scope of the target: exact (this URL only), prefix (URLs starting with the target), domain (the domain without subdomains), or subdomains (default — the domain and all its subdomains)."
+      },
+      "target": {
+        "type": "string",
+        "example": "ahrefs.com",
+        "minLength": 1,
+        "description": "The target of the report: a domain ('example.com') or a URL ('https://example.com/page')."
+      },
+      "country": {
+        "type": "string",
+        "example": "us",
+        "maxLength": 2,
+        "minLength": 2,
+        "description": "Two-letter country code (ISO 3166-1 alpha-2), e.g. 'us'."
+      },
+      "date_to": {
+        "type": "string",
+        "pattern": "^\\d{4}-\\d{2}-\\d{2}$",
+        "description": "End date of the historical period in YYYY-MM-DD format. Defaults to today."
+      },
+      "protocol": {
+        "enum": [
+          "both",
+          "http",
+          "https"
+        ],
+        "type": "string",
+        "default": "both",
+        "description": "Protocol of the target: both (default), http, or https."
+      },
+      "date_from": {
+        "type": "string",
+        "example": "2026-08-01",
+        "pattern": "^\\d{4}-\\d{2}-\\d{2}$",
+        "description": "Start date of the historical period in YYYY-MM-DD format."
+      },
+      "history_grouping": {
+        "enum": [
+          "daily",
+          "weekly",
+          "monthly"
+        ],
+        "type": "string",
+        "default": "monthly",
+        "description": "Time bucket size for history rows: daily, weekly, or monthly (default). Each bucket is one charged row."
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "required": [
+      "id",
+      "status",
+      "model"
+    ],
+    "properties": {
+      "id": {
+        "type": "string"
+      },
+      "model": {
+        "type": "string"
+      },
+      "status": {
+        "type": "string"
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "usage_based",
+    "note": "Billed per call from metered usage; the reference price is typical.",
+    "reference_price": 0.013545
+  },
+  "readme": "# Ahrefs Site Explorer Metrics History\n\nTrack a target's organic and paid traffic estimates over time.\n\n## Pricing\n\n- Inspect reference unit price: $0.013545 USD per result.\n- Final settlement uses the provider-reported actual cost after strict validation; the reference price is not used to infer the final charge.",
+  "page_url": "https://www.sandbase.ai/model/ahrefs/site-explorer-metrics-history",
+  "created_at": "2026-11-14T19:50:18.878Z"
+}

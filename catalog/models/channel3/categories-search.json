@@ -1,0 +1,81 @@
+{
+  "name": "channel3/categories-search",
+  "display_name": "Channel3 Categories Search",
+  "type": "api",
+  "vendor": "Channel3",
+  "vendor_slug": "channel3",
+  "description": "Find product categories by keyword or meaning, to filter product searches by slug.",
+  "tags": [
+    "api",
+    "channel3"
+  ],
+  "capabilities": [
+    "api",
+    "channel3"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}",
+    "passthrough": "POST /v1/api/channel3/categories-search"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "query"
+    ],
+    "properties": {
+      "limit": {
+        "type": "integer",
+        "maximum": 20,
+        "minimum": 1,
+        "description": "Results to return, 1-20. Channel3 default: 5."
+      },
+      "query": {
+        "type": "string",
+        "example": "yoga mats",
+        "maxLength": 200,
+        "minLength": 1,
+        "description": "Product type or free text, e.g. 'sofas', 'yoga mats'."
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "required": [
+      "id",
+      "status",
+      "model"
+    ],
+    "properties": {
+      "id": {
+        "type": "string"
+      },
+      "model": {
+        "type": "string"
+      },
+      "status": {
+        "type": "string"
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "formula",
+    "formula": "0",
+    "formula_variables": [],
+    "reference_price": 0,
+    "price_examples": [
+      {
+        "params": {},
+        "usd": 0
+      }
+    ]
+  },
+  "readme": "# Channel3 Categories Search\n\nFind product categories by keyword or meaning, to filter product searches by slug.",
+  "page_url": "https://www.sandbase.ai/model/channel3/categories-search",
+  "created_at": "2026-11-14T18:37:02.989Z"
+}

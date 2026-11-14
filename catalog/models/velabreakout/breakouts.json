@@ -1,0 +1,114 @@
+{
+  "name": "velabreakout/breakouts",
+  "display_name": "Vela Breakout Breakouts",
+  "type": "api",
+  "vendor": "Vela Breakout",
+  "vendor_slug": "velabreakout",
+  "description": "Rank the fastest-growing AI apps, models, dev tools, software or companies in one group.",
+  "tags": [
+    "api",
+    "velabreakout",
+    "market-trends"
+  ],
+  "capabilities": [
+    "api",
+    "velabreakout",
+    "market-trends"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}",
+    "passthrough": "POST /v1/api/velabreakout/breakouts"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "group"
+    ],
+    "properties": {
+      "group": {
+        "enum": [
+          "ai_apps",
+          "ai_models",
+          "ai_labs",
+          "ai_work",
+          "open_models",
+          "editor_extensions",
+          "open_editor_extensions",
+          "workplace_add_ons",
+          "browser_extensions",
+          "agent_skills",
+          "agent_tools",
+          "company_packages",
+          "business_software",
+          "web_technologies",
+          "company_hiring",
+          "company_buzz"
+        ],
+        "type": "string",
+        "example": "ai_apps",
+        "description": "Which group to rank (ids from /groups): ai_apps (AI tokens an app uses), ai_models (tokens a model serves a week), ai_labs (each lab's share of all AI tokens), ai_work (open jobs paying experts to train and test AI models), open_models (open model downloads), editor_extensions and open_editor_extensions (code editor extension installs), workplace_add_ons (workplace suite add-on installs), browser_extensions (browser extensions, measured by reviews), agent_skills (agent skill installs a week), agent_tools (MCP server downloads a week), company_packages (downloads of a company's developer packages), business_software (adoption on a business-spend panel), web_technologies (websites running a technology), company_hiring (open roles on a company's careers page), company_buzz (points on a large tech news forum)."
+      },
+      "limit": {
+        "type": "integer",
+        "maximum": 25,
+        "minimum": 1,
+        "description": "How many rows to return, 1-25. The price is the same for any limit."
+      },
+      "steady": {
+        "type": "boolean",
+        "description": "When true, keep only items that are also up over a longer window — use it for 'steadily', 'sustained' or 'starting to' questions, to drop one-off spikes. A group with no longer window answers an empty ranking."
+      },
+      "min_size": {
+        "enum": [
+          "median",
+          "p75",
+          "none"
+        ],
+        "type": "string",
+        "description": "Size floor: only items at least as big as the group's median (the default), its 75th percentile, or none. A floor keeps tiny starts from dominating the ranking."
+      },
+      "window_days": {
+        "enum": [
+          7,
+          30,
+          90,
+          365
+        ],
+        "type": "number",
+        "description": "Growth window in days: 7, 30, 90 or 365. Omit to use the group's default (usually `usual_window_days` from /groups); the answer's `window` states the one used."
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "required": [
+      "id",
+      "status",
+      "model"
+    ],
+    "properties": {
+      "id": {
+        "type": "string"
+      },
+      "model": {
+        "type": "string"
+      },
+      "status": {
+        "type": "string"
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.02
+  },
+  "readme": "# Vela Breakout Breakouts\n\nRank the fastest-growing AI apps, models, dev tools, software or companies in one group.",
+  "page_url": "https://www.sandbase.ai/model/velabreakout/breakouts",
+  "created_at": "2026-11-14T18:24:43.384Z"
+}

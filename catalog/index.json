@@ -1,10 +1,10 @@
 {
  "catalog_version": "1",
- "generated_at": "2026-11-14T11:28:43Z",
+ "generated_at": "2026-11-14T23:56:26Z",
  "base_url": "https://api.sandbase.ai",
- "count": 2564,
+ "count": 2628,
  "counts_by_type": {
-  "api": 2047,
+  "api": 2111,
   "video": 193,
   "image": 166,
   "llm": 124,
@@ -713,6 +713,132 @@
    "record": "catalog/models/ahrefs/domain-rating.json"
   },
   {
+   "name": "ahrefs/keywords-explorer-matching-terms",
+   "display_name": "Ahrefs Keywords Explorer Matching Terms",
+   "type": "api",
+   "vendor": "Ahrefs",
+   "description": "Find keyword ideas containing seed terms, with volume and difficulty.",
+   "tags": [
+    "api",
+    "ahrefs",
+    "seo"
+   ],
+   "modes": [
+    "async"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "usage_based",
+    "usd_reference": 0.01419
+   },
+   "record": "catalog/models/ahrefs/keywords-explorer-matching-terms.json"
+  },
+  {
+   "name": "ahrefs/keywords-explorer-overview",
+   "display_name": "Ahrefs Keywords Explorer Overview",
+   "type": "api",
+   "vendor": "Ahrefs",
+   "description": "Get volume, difficulty, traffic potential, intent, and CPC for up to 100 keywords.",
+   "tags": [
+    "api",
+    "ahrefs",
+    "seo"
+   ],
+   "modes": [
+    "async"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "usage_based",
+    "usd_reference": 0.02709
+   },
+   "record": "catalog/models/ahrefs/keywords-explorer-overview.json"
+  },
+  {
+   "name": "ahrefs/keywords-explorer-related-terms",
+   "display_name": "Ahrefs Keywords Explorer Related Terms",
+   "type": "api",
+   "vendor": "Ahrefs",
+   "description": "Find keywords related to seed terms, with volume and difficulty.",
+   "tags": [
+    "api",
+    "ahrefs",
+    "seo"
+   ],
+   "modes": [
+    "async"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "usage_based",
+    "usd_reference": 0.01419
+   },
+   "record": "catalog/models/ahrefs/keywords-explorer-related-terms.json"
+  },
+  {
+   "name": "ahrefs/keywords-explorer-search-suggestions",
+   "display_name": "Ahrefs Keywords Explorer Search Suggestions",
+   "type": "api",
+   "vendor": "Ahrefs",
+   "description": "Get autocomplete-style keyword suggestions for seeds, with volume and CPC.",
+   "tags": [
+    "api",
+    "ahrefs",
+    "seo"
+   ],
+   "modes": [
+    "async"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "usage_based",
+    "usd_reference": 0.00774
+   },
+   "record": "catalog/models/ahrefs/keywords-explorer-search-suggestions.json"
+  },
+  {
+   "name": "ahrefs/keywords-explorer-volume-by-country",
+   "display_name": "Ahrefs Keywords Explorer Volume By Country",
+   "type": "api",
+   "vendor": "Ahrefs",
+   "description": "Split a keyword's search volume across countries.",
+   "tags": [
+    "api",
+    "ahrefs",
+    "seo"
+   ],
+   "modes": [
+    "async"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "usage_based",
+    "usd_reference": 0.007095
+   },
+   "record": "catalog/models/ahrefs/keywords-explorer-volume-by-country.json"
+  },
+  {
+   "name": "ahrefs/keywords-explorer-volume-history",
+   "display_name": "Ahrefs Keywords Explorer Volume History",
+   "type": "api",
+   "vendor": "Ahrefs",
+   "description": "Track a keyword's monthly search volume over time in one country.",
+   "tags": [
+    "api",
+    "ahrefs",
+    "seo"
+   ],
+   "modes": [
+    "async"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "usage_based",
+    "usd_reference": 0.00129
+   },
+   "record": "catalog/models/ahrefs/keywords-explorer-volume-history.json"
+  },
+  {
    "name": "ahrefs/metrics",
    "display_name": "Ahrefs Ahrefs Site Metrics",
    "type": "api",
@@ -732,6 +858,615 @@
     "usd_per_call": 0.08
    },
    "record": "catalog/models/ahrefs/metrics.json"
+  },
+  {
+   "name": "ahrefs/serp-overview-serp-overview",
+   "display_name": "Ahrefs Serp Overview Serp Overview",
+   "type": "api",
+   "vendor": "Ahrefs",
+   "description": "Get the top organic results for a keyword with ratings, backlinks, and traffic.",
+   "tags": [
+    "api",
+    "ahrefs",
+    "seo"
+   ],
+   "modes": [
+    "async"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "usage_based",
+    "usd_reference": 0.0129
+   },
+   "record": "catalog/models/ahrefs/serp-overview-serp-overview.json"
+  },
+  {
+   "name": "ahrefs/site-explorer-ai-responses-count",
+   "display_name": "Ahrefs Site Explorer Ai Responses Count",
+   "type": "api",
+   "vendor": "Ahrefs",
+   "description": "Count how often eight AI assistants cite a target in generated answers.",
+   "tags": [
+    "api",
+    "ahrefs",
+    "geo"
+   ],
+   "modes": [
+    "async"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "usage_based",
+    "usd_reference": 0.087075
+   },
+   "record": "catalog/models/ahrefs/site-explorer-ai-responses-count.json"
+  },
+  {
+   "name": "ahrefs/site-explorer-all-backlinks",
+   "display_name": "Ahrefs Site Explorer All Backlinks",
+   "type": "api",
+   "vendor": "Ahrefs",
+   "description": "List a target's backlinks with anchors, source ratings, and link attributes.",
+   "tags": [
+    "api",
+    "ahrefs",
+    "seo"
+   ],
+   "modes": [
+    "async"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "usage_based",
+    "usd_reference": 0.00645
+   },
+   "record": "catalog/models/ahrefs/site-explorer-all-backlinks.json"
+  },
+  {
+   "name": "ahrefs/site-explorer-anchors",
+   "display_name": "Ahrefs Site Explorer Anchors",
+   "type": "api",
+   "vendor": "Ahrefs",
+   "description": "Break down a target's backlinks by anchor text with referring-domain counts.",
+   "tags": [
+    "api",
+    "ahrefs",
+    "seo"
+   ],
+   "modes": [
+    "async"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "usage_based",
+    "usd_reference": 0.005805
+   },
+   "record": "catalog/models/ahrefs/site-explorer-anchors.json"
+  },
+  {
+   "name": "ahrefs/site-explorer-backlinks-stats",
+   "display_name": "Ahrefs Site Explorer Backlinks Stats",
+   "type": "api",
+   "vendor": "Ahrefs",
+   "description": "Get a target's live and all-time backlink and referring-domain totals.",
+   "tags": [
+    "api",
+    "ahrefs",
+    "seo"
+   ],
+   "modes": [
+    "async"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "usage_based",
+    "usd_reference": 0.00774
+   },
+   "record": "catalog/models/ahrefs/site-explorer-backlinks-stats.json"
+  },
+  {
+   "name": "ahrefs/site-explorer-broken-backlinks",
+   "display_name": "Ahrefs Site Explorer Broken Backlinks",
+   "type": "api",
+   "vendor": "Ahrefs",
+   "description": "List backlinks pointing at a target's broken (non-200) pages.",
+   "tags": [
+    "api",
+    "ahrefs",
+    "seo"
+   ],
+   "modes": [
+    "async"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "usage_based",
+    "usd_reference": 0.005805
+   },
+   "record": "catalog/models/ahrefs/site-explorer-broken-backlinks.json"
+  },
+  {
+   "name": "ahrefs/site-explorer-crawled-pages",
+   "display_name": "Ahrefs Site Explorer Crawled Pages",
+   "type": "api",
+   "vendor": "Ahrefs",
+   "description": "List a target's pages known to the crawler with URL Rating and HTTP codes.",
+   "tags": [
+    "api",
+    "ahrefs",
+    "seo"
+   ],
+   "modes": [
+    "async"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "usage_based",
+    "usd_reference": 0.00645
+   },
+   "record": "catalog/models/ahrefs/site-explorer-crawled-pages.json"
+  },
+  {
+   "name": "ahrefs/site-explorer-domain-rating",
+   "display_name": "Ahrefs Site Explorer Domain Rating",
+   "type": "api",
+   "vendor": "Ahrefs",
+   "description": "Get a target's Domain Rating (0-100 link authority) and its global rank.",
+   "tags": [
+    "api",
+    "ahrefs",
+    "seo"
+   ],
+   "modes": [
+    "async"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "usage_based",
+    "usd_reference": 0.00129
+   },
+   "record": "catalog/models/ahrefs/site-explorer-domain-rating.json"
+  },
+  {
+   "name": "ahrefs/site-explorer-domain-rating-history",
+   "display_name": "Ahrefs Site Explorer Domain Rating History",
+   "type": "api",
+   "vendor": "Ahrefs",
+   "description": "Track a target's Domain Rating over time, one row per date bucket.",
+   "tags": [
+    "api",
+    "ahrefs",
+    "seo"
+   ],
+   "modes": [
+    "async"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "usage_based",
+    "usd_reference": 0.00129
+   },
+   "record": "catalog/models/ahrefs/site-explorer-domain-rating-history.json"
+  },
+  {
+   "name": "ahrefs/site-explorer-keywords-history",
+   "display_name": "Ahrefs Site Explorer Keywords History",
+   "type": "api",
+   "vendor": "Ahrefs",
+   "description": "Track a target's ranking keyword counts by position bucket over time.",
+   "tags": [
+    "api",
+    "ahrefs",
+    "seo"
+   ],
+   "modes": [
+    "async"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "usage_based",
+    "usd_reference": 0.00387
+   },
+   "record": "catalog/models/ahrefs/site-explorer-keywords-history.json"
+  },
+  {
+   "name": "ahrefs/site-explorer-linked-anchors-external",
+   "display_name": "Ahrefs Site Explorer Linked Anchors External",
+   "type": "api",
+   "vendor": "Ahrefs",
+   "description": "Break down a target's outbound external links by anchor text.",
+   "tags": [
+    "api",
+    "ahrefs",
+    "seo"
+   ],
+   "modes": [
+    "async"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "usage_based",
+    "usd_reference": 0.003225
+   },
+   "record": "catalog/models/ahrefs/site-explorer-linked-anchors-external.json"
+  },
+  {
+   "name": "ahrefs/site-explorer-linked-anchors-internal",
+   "display_name": "Ahrefs Site Explorer Linked Anchors Internal",
+   "type": "api",
+   "vendor": "Ahrefs",
+   "description": "Break down a target's internal links by anchor text.",
+   "tags": [
+    "api",
+    "ahrefs",
+    "seo"
+   ],
+   "modes": [
+    "async"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "usage_based",
+    "usd_reference": 0.00258
+   },
+   "record": "catalog/models/ahrefs/site-explorer-linked-anchors-internal.json"
+  },
+  {
+   "name": "ahrefs/site-explorer-linkeddomains",
+   "display_name": "Ahrefs Site Explorer Linkeddomains",
+   "type": "api",
+   "vendor": "Ahrefs",
+   "description": "List domains a target links out to, with link and page counts.",
+   "tags": [
+    "api",
+    "ahrefs",
+    "seo"
+   ],
+   "modes": [
+    "async"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "usage_based",
+    "usd_reference": 0.00258
+   },
+   "record": "catalog/models/ahrefs/site-explorer-linkeddomains.json"
+  },
+  {
+   "name": "ahrefs/site-explorer-metrics",
+   "display_name": "Ahrefs Site Explorer Metrics",
+   "type": "api",
+   "vendor": "Ahrefs",
+   "description": "Get a target's organic and paid keywords, traffic, and cost estimates.",
+   "tags": [
+    "api",
+    "ahrefs",
+    "seo"
+   ],
+   "modes": [
+    "async"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "usage_based",
+    "usd_reference": 0.02838
+   },
+   "record": "catalog/models/ahrefs/site-explorer-metrics.json"
+  },
+  {
+   "name": "ahrefs/site-explorer-metrics-by-country",
+   "display_name": "Ahrefs Site Explorer Metrics By Country",
+   "type": "api",
+   "vendor": "Ahrefs",
+   "description": "Split a target's organic and paid keywords and traffic by country.",
+   "tags": [
+    "api",
+    "ahrefs",
+    "seo"
+   ],
+   "modes": [
+    "async"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "usage_based",
+    "usd_reference": 0.014835
+   },
+   "record": "catalog/models/ahrefs/site-explorer-metrics-by-country.json"
+  },
+  {
+   "name": "ahrefs/site-explorer-metrics-history",
+   "display_name": "Ahrefs Site Explorer Metrics History",
+   "type": "api",
+   "vendor": "Ahrefs",
+   "description": "Track a target's organic and paid traffic estimates over time.",
+   "tags": [
+    "api",
+    "ahrefs",
+    "seo"
+   ],
+   "modes": [
+    "async"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "usage_based",
+    "usd_reference": 0.013545
+   },
+   "record": "catalog/models/ahrefs/site-explorer-metrics-history.json"
+  },
+  {
+   "name": "ahrefs/site-explorer-organic-competitors",
+   "display_name": "Ahrefs Site Explorer Organic Competitors",
+   "type": "api",
+   "vendor": "Ahrefs",
+   "description": "Find domains competing with a target in organic search, with keyword overlap.",
+   "tags": [
+    "api",
+    "ahrefs",
+    "seo"
+   ],
+   "modes": [
+    "async"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "usage_based",
+    "usd_reference": 0.00903
+   },
+   "record": "catalog/models/ahrefs/site-explorer-organic-competitors.json"
+  },
+  {
+   "name": "ahrefs/site-explorer-organic-keywords",
+   "display_name": "Ahrefs Site Explorer Organic Keywords",
+   "type": "api",
+   "vendor": "Ahrefs",
+   "description": "List keywords a target ranks for with position, volume, and traffic estimates.",
+   "tags": [
+    "api",
+    "ahrefs",
+    "seo"
+   ],
+   "modes": [
+    "async"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "usage_based",
+    "usd_reference": 0.01548
+   },
+   "record": "catalog/models/ahrefs/site-explorer-organic-keywords.json"
+  },
+  {
+   "name": "ahrefs/site-explorer-outlinks-stats",
+   "display_name": "Ahrefs Site Explorer Outlinks Stats",
+   "type": "api",
+   "vendor": "Ahrefs",
+   "description": "Get a target's outbound link totals: external, internal, and dofollow counts.",
+   "tags": [
+    "api",
+    "ahrefs",
+    "seo"
+   ],
+   "modes": [
+    "async"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "usage_based",
+    "usd_reference": 0.00258
+   },
+   "record": "catalog/models/ahrefs/site-explorer-outlinks-stats.json"
+  },
+  {
+   "name": "ahrefs/site-explorer-pages-by-backlinks",
+   "display_name": "Ahrefs Site Explorer Pages By Backlinks",
+   "type": "api",
+   "vendor": "Ahrefs",
+   "description": "List a target's pages ordered by backlink and referring-domain counts.",
+   "tags": [
+    "api",
+    "ahrefs",
+    "seo"
+   ],
+   "modes": [
+    "async"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "usage_based",
+    "usd_reference": 0.00516
+   },
+   "record": "catalog/models/ahrefs/site-explorer-pages-by-backlinks.json"
+  },
+  {
+   "name": "ahrefs/site-explorer-pages-by-internal-links",
+   "display_name": "Ahrefs Site Explorer Pages By Internal Links",
+   "type": "api",
+   "vendor": "Ahrefs",
+   "description": "List a target's pages ordered by incoming internal link counts.",
+   "tags": [
+    "api",
+    "ahrefs",
+    "seo"
+   ],
+   "modes": [
+    "async"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "usage_based",
+    "usd_reference": 0.001935
+   },
+   "record": "catalog/models/ahrefs/site-explorer-pages-by-internal-links.json"
+  },
+  {
+   "name": "ahrefs/site-explorer-pages-by-traffic",
+   "display_name": "Ahrefs Site Explorer Pages By Traffic",
+   "type": "api",
+   "vendor": "Ahrefs",
+   "description": "Bucket a target's pages into organic-traffic ranges with totals per range.",
+   "tags": [
+    "api",
+    "ahrefs",
+    "seo"
+   ],
+   "modes": [
+    "async"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "usage_based",
+    "usd_reference": 0.03612
+   },
+   "record": "catalog/models/ahrefs/site-explorer-pages-by-traffic.json"
+  },
+  {
+   "name": "ahrefs/site-explorer-pages-history",
+   "display_name": "Ahrefs Site Explorer Pages History",
+   "type": "api",
+   "vendor": "Ahrefs",
+   "description": "Track how many of a target's pages rank in organic search over time.",
+   "tags": [
+    "api",
+    "ahrefs",
+    "seo"
+   ],
+   "modes": [
+    "async"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "usage_based",
+    "usd_reference": 0.00129
+   },
+   "record": "catalog/models/ahrefs/site-explorer-pages-history.json"
+  },
+  {
+   "name": "ahrefs/site-explorer-paid-pages",
+   "display_name": "Ahrefs Site Explorer Paid Pages",
+   "type": "api",
+   "vendor": "Ahrefs",
+   "description": "List a target's paid-search landing pages with traffic and ad counts.",
+   "tags": [
+    "api",
+    "ahrefs",
+    "seo"
+   ],
+   "modes": [
+    "async"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "usage_based",
+    "usd_reference": 0.008385
+   },
+   "record": "catalog/models/ahrefs/site-explorer-paid-pages.json"
+  },
+  {
+   "name": "ahrefs/site-explorer-refdomains",
+   "display_name": "Ahrefs Site Explorer Refdomains",
+   "type": "api",
+   "vendor": "Ahrefs",
+   "description": "List domains linking to a target with Domain Rating and link counts.",
+   "tags": [
+    "api",
+    "ahrefs",
+    "seo"
+   ],
+   "modes": [
+    "async"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "usage_based",
+    "usd_reference": 0.00387
+   },
+   "record": "catalog/models/ahrefs/site-explorer-refdomains.json"
+  },
+  {
+   "name": "ahrefs/site-explorer-refdomains-history",
+   "display_name": "Ahrefs Site Explorer Refdomains History",
+   "type": "api",
+   "vendor": "Ahrefs",
+   "description": "Track a target's referring-domain count over time.",
+   "tags": [
+    "api",
+    "ahrefs",
+    "seo"
+   ],
+   "modes": [
+    "async"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "usage_based",
+    "usd_reference": 0.00387
+   },
+   "record": "catalog/models/ahrefs/site-explorer-refdomains-history.json"
+  },
+  {
+   "name": "ahrefs/site-explorer-top-pages",
+   "display_name": "Ahrefs Site Explorer Top Pages",
+   "type": "api",
+   "vendor": "Ahrefs",
+   "description": "List a target's pages by estimated organic traffic and top keyword.",
+   "tags": [
+    "api",
+    "ahrefs",
+    "seo"
+   ],
+   "modes": [
+    "async"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "usage_based",
+    "usd_reference": 0.014835
+   },
+   "record": "catalog/models/ahrefs/site-explorer-top-pages.json"
+  },
+  {
+   "name": "ahrefs/site-explorer-total-search-volume-history",
+   "display_name": "Ahrefs Site Explorer Total Search Volume History",
+   "type": "api",
+   "vendor": "Ahrefs",
+   "description": "Track total search volume of keywords a target ranks for over time.",
+   "tags": [
+    "api",
+    "ahrefs",
+    "seo"
+   ],
+   "modes": [
+    "async"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "usage_based",
+    "usd_reference": 0.007095
+   },
+   "record": "catalog/models/ahrefs/site-explorer-total-search-volume-history.json"
+  },
+  {
+   "name": "ahrefs/site-explorer-url-rating-history",
+   "display_name": "Ahrefs Site Explorer Url Rating History",
+   "type": "api",
+   "vendor": "Ahrefs",
+   "description": "Track a target URL's rating over time, one row per date bucket.",
+   "tags": [
+    "api",
+    "ahrefs",
+    "seo"
+   ],
+   "modes": [
+    "async"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "usage_based",
+    "usd_reference": 0.00129
+   },
+   "record": "catalog/models/ahrefs/site-explorer-url-rating-history.json"
   },
   {
    "name": "airbnb/search",
@@ -754,6 +1489,113 @@
     "usd_per_call": 0.01
    },
    "record": "catalog/models/airbnb/search.json"
+  },
+  {
+   "name": "akta/company-headcount-trends",
+   "display_name": "Akta Company Headcount Trends",
+   "type": "api",
+   "vendor": "Akta",
+   "description": "Get a company's employee count and growth trends by department.",
+   "tags": [
+    "api",
+    "akta",
+    "company-enrichment",
+    "market-trends"
+   ],
+   "modes": [
+    "async"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "per_call",
+    "usd_per_call": 0.125
+   },
+   "record": "catalog/models/akta/company-headcount-trends.json"
+  },
+  {
+   "name": "akta/company-website-traffic",
+   "display_name": "Akta Company Website Traffic",
+   "type": "api",
+   "vendor": "Akta",
+   "description": "Get a company website's monthly visits, engagement and traffic sources.",
+   "tags": [
+    "api",
+    "akta",
+    "company-enrichment"
+   ],
+   "modes": [
+    "async"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "per_call",
+    "usd_per_call": 0.075
+   },
+   "record": "catalog/models/akta/company-website-traffic.json"
+  },
+  {
+   "name": "akta/concise",
+   "display_name": "Akta Concise",
+   "type": "api",
+   "vendor": "Akta",
+   "description": "Get a condensed all-section company profile at a flat price.",
+   "tags": [
+    "api",
+    "akta",
+    "company-enrichment"
+   ],
+   "modes": [
+    "async"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "per_call",
+    "usd_per_call": 0.15
+   },
+   "record": "catalog/models/akta/concise.json"
+  },
+  {
+   "name": "akta/filters-list",
+   "display_name": "Akta Filters List",
+   "type": "api",
+   "vendor": "Akta",
+   "description": "List every filter key accepted by company list generation. Free.",
+   "tags": [
+    "api",
+    "akta",
+    "company-enrichment"
+   ],
+   "modes": [
+    "async"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "formula",
+    "usd_from": 0,
+    "usd_to": 0
+   },
+   "record": "catalog/models/akta/filters-list.json"
+  },
+  {
+   "name": "akta/markdown",
+   "display_name": "Akta Markdown",
+   "type": "api",
+   "vendor": "Akta",
+   "description": "Get selected company profile sections as one Markdown document.",
+   "tags": [
+    "api",
+    "akta",
+    "company-enrichment"
+   ],
+   "modes": [
+    "async"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "usage_based",
+    "usd_reference": 0.025
+   },
+   "record": "catalog/models/akta/markdown.json"
   },
   {
    "name": "alibaba/search",
@@ -3365,6 +4207,215 @@
     "free_quota": true
    },
    "record": "catalog/models/capterra/search-software.json"
+  },
+  {
+   "name": "censusdata-xyz/explore-variables",
+   "display_name": "US Census Explore Variables",
+   "type": "api",
+   "vendor": "US Census",
+   "description": "Discover which US Census variables exist for a topic keyword.",
+   "tags": [
+    "api",
+    "censusdata-xyz",
+    "demographics"
+   ],
+   "modes": [
+    "async"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "formula",
+    "usd_from": 0,
+    "usd_to": 0
+   },
+   "record": "catalog/models/censusdata-xyz/explore-variables.json"
+  },
+  {
+   "name": "censusdata-xyz/query",
+   "display_name": "US Census Query",
+   "type": "api",
+   "vendor": "US Census",
+   "description": "Ask any US Census question in plain English for a state, county, city, metro area, or ZIP code.",
+   "tags": [
+    "api",
+    "censusdata-xyz",
+    "demographics"
+   ],
+   "modes": [
+    "async"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "per_call",
+    "usd_per_call": 0.01
+   },
+   "record": "catalog/models/censusdata-xyz/query.json"
+  },
+  {
+   "name": "channel3/brands",
+   "display_name": "Channel3 Brands",
+   "type": "api",
+   "vendor": "Channel3",
+   "description": "List top brands, optionally only those selling given categories, with cursor paging.",
+   "tags": [
+    "api",
+    "channel3"
+   ],
+   "modes": [
+    "async"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "formula",
+    "usd_from": 0,
+    "usd_to": 0
+   },
+   "record": "catalog/models/channel3/brands.json"
+  },
+  {
+   "name": "channel3/brands-search",
+   "display_name": "Channel3 Brands Search",
+   "type": "api",
+   "vendor": "Channel3",
+   "description": "Find brands by name or keyword, optionally within categories, to filter product searches.",
+   "tags": [
+    "api",
+    "channel3"
+   ],
+   "modes": [
+    "async"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "formula",
+    "usd_from": 0,
+    "usd_to": 0
+   },
+   "record": "catalog/models/channel3/brands-search.json"
+  },
+  {
+   "name": "channel3/categories",
+   "display_name": "Channel3 Categories",
+   "type": "api",
+   "vendor": "Channel3",
+   "description": "List product categories page by page, optionally only the top-level ones.",
+   "tags": [
+    "api",
+    "channel3"
+   ],
+   "modes": [
+    "async"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "formula",
+    "usd_from": 0,
+    "usd_to": 0
+   },
+   "record": "catalog/models/channel3/categories.json"
+  },
+  {
+   "name": "channel3/categories-search",
+   "display_name": "Channel3 Categories Search",
+   "type": "api",
+   "vendor": "Channel3",
+   "description": "Find product categories by keyword or meaning, to filter product searches by slug.",
+   "tags": [
+    "api",
+    "channel3"
+   ],
+   "modes": [
+    "async"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "formula",
+    "usd_from": 0,
+    "usd_to": 0
+   },
+   "record": "catalog/models/channel3/categories-search.json"
+  },
+  {
+   "name": "channel3/lookup",
+   "display_name": "Channel3 Lookup",
+   "type": "api",
+   "vendor": "Channel3",
+   "description": "Resolve a retailer product-page URL to a canonical product with offers and variants.",
+   "tags": [
+    "api",
+    "channel3"
+   ],
+   "modes": [
+    "async"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "per_call",
+    "usd_per_call": 0.007
+   },
+   "record": "catalog/models/channel3/lookup.json"
+  },
+  {
+   "name": "channel3/search",
+   "display_name": "Channel3 Search",
+   "type": "api",
+   "vendor": "Channel3",
+   "description": "Search products across retailers by text or image URL, with offers and pagination.",
+   "tags": [
+    "api",
+    "channel3"
+   ],
+   "modes": [
+    "async"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "per_call",
+    "usd_per_call": 0.007
+   },
+   "record": "catalog/models/channel3/search.json"
+  },
+  {
+   "name": "channel3/websites",
+   "display_name": "Channel3 Websites",
+   "type": "api",
+   "vendor": "Channel3",
+   "description": "List top retailers, optionally only those selling given categories, with cursor paging.",
+   "tags": [
+    "api",
+    "channel3"
+   ],
+   "modes": [
+    "async"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "formula",
+    "usd_from": 0,
+    "usd_to": 0
+   },
+   "record": "catalog/models/channel3/websites.json"
+  },
+  {
+   "name": "channel3/websites-search",
+   "display_name": "Channel3 Websites Search",
+   "type": "api",
+   "vendor": "Channel3",
+   "description": "Find retailers by name or domain, optionally within categories, to filter product search.",
+   "tags": [
+    "api",
+    "channel3"
+   ],
+   "modes": [
+    "async"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "formula",
+    "usd_from": 0,
+    "usd_to": 0
+   },
+   "record": "catalog/models/channel3/websites-search.json"
   },
   {
    "name": "chatgpt/search",
@@ -16687,6 +17738,50 @@
    "record": "catalog/models/fred/tags-series.json"
   },
   {
+   "name": "fundable/industry-search",
+   "display_name": "Fundable Industry Search",
+   "type": "api",
+   "vendor": "Fundable",
+   "description": "Search industries and super categories by name",
+   "tags": [
+    "api",
+    "fundable",
+    "funding-data"
+   ],
+   "modes": [
+    "async"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "formula",
+    "usd_from": 0,
+    "usd_to": 0
+   },
+   "record": "catalog/models/fundable/industry-search.json"
+  },
+  {
+   "name": "fundable/location-search",
+   "display_name": "Fundable Location Search",
+   "type": "api",
+   "vendor": "Fundable",
+   "description": "Search locations by name and optionally filter by type",
+   "tags": [
+    "api",
+    "fundable",
+    "funding-data"
+   ],
+   "modes": [
+    "async"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "formula",
+    "usd_from": 0,
+    "usd_to": 0
+   },
+   "record": "catalog/models/fundable/location-search.json"
+  },
+  {
    "name": "g2/categories",
    "display_name": "G2 Categories",
    "type": "api",
@@ -25360,6 +26455,70 @@
     "usd_per_call": 0.01
    },
    "record": "catalog/models/opentable/reviews.json"
+  },
+  {
+   "name": "opoint/search",
+   "display_name": "Opoint Search",
+   "type": "api",
+   "vendor": "Opoint",
+   "description": "Search global news by keyword, phrase, or boolean query with filters.",
+   "tags": [
+    "api",
+    "opoint",
+    "news-search"
+   ],
+   "modes": [
+    "async"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "per_call",
+    "usd_per_call": 0.06
+   },
+   "record": "catalog/models/opoint/search.json"
+  },
+  {
+   "name": "opoint/search-headlines",
+   "display_name": "Opoint Search Headlines",
+   "type": "api",
+   "vendor": "Opoint",
+   "description": "Search global news and return headlines only, without article text.",
+   "tags": [
+    "api",
+    "opoint",
+    "news-search"
+   ],
+   "modes": [
+    "async"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "per_call",
+    "usd_per_call": 0.06
+   },
+   "record": "catalog/models/opoint/search-headlines.json"
+  },
+  {
+   "name": "opoint/suggest",
+   "display_name": "Opoint Suggest",
+   "type": "api",
+   "vendor": "Opoint",
+   "description": "Translate a country, site, language, or media name into a search filter id.",
+   "tags": [
+    "api",
+    "opoint",
+    "news-search"
+   ],
+   "modes": [
+    "async"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "formula",
+    "usd_from": 0,
+    "usd_to": 0
+   },
+   "record": "catalog/models/opoint/suggest.json"
   },
   {
    "name": "perplexity/search",
@@ -36143,6 +37302,199 @@
     "usd_reference": 0.007
    },
    "record": "catalog/models/upwork/jobs.json"
+  },
+  {
+   "name": "vaquill/count",
+   "display_name": "Vaquill Count",
+   "type": "api",
+   "vendor": "Vaquill",
+   "description": "Count the law sections in a jurisdiction, corpus, code, title, chapter, or part.",
+   "tags": [
+    "api",
+    "vaquill",
+    "legal-research"
+   ],
+   "modes": [
+    "async"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "per_call",
+    "usd_per_call": 0.01
+   },
+   "record": "catalog/models/vaquill/count.json"
+  },
+  {
+   "name": "vaquill/coverage",
+   "display_name": "Vaquill Coverage",
+   "type": "api",
+   "vendor": "Vaquill",
+   "description": "List which US law corpora are queryable in each jurisdiction, with live section counts.",
+   "tags": [
+    "api",
+    "vaquill",
+    "legal-research"
+   ],
+   "modes": [
+    "async"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "formula",
+    "usd_from": 0,
+    "usd_to": 0
+   },
+   "record": "catalog/models/vaquill/coverage.json"
+  },
+  {
+   "name": "vaquill/divisions",
+   "display_name": "Vaquill Divisions",
+   "type": "api",
+   "vendor": "Vaquill",
+   "description": "Walk a US legal code level by level: titles, chapters, parts, then sections.",
+   "tags": [
+    "api",
+    "vaquill",
+    "legal-research"
+   ],
+   "modes": [
+    "async"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "per_call",
+    "usd_per_call": 0.01
+   },
+   "record": "catalog/models/vaquill/divisions.json"
+  },
+  {
+   "name": "vaquill/resolve",
+   "display_name": "Vaquill Resolve",
+   "type": "api",
+   "vendor": "Vaquill",
+   "description": "Resolve up to 50 Bluebook citation strings to the exact US law sections they name.",
+   "tags": [
+    "api",
+    "vaquill",
+    "legal-research"
+   ],
+   "modes": [
+    "async"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "usage_based",
+    "usd_reference": 0.02
+   },
+   "record": "catalog/models/vaquill/resolve.json"
+  },
+  {
+   "name": "velabreakout/breakouts",
+   "display_name": "Vela Breakout Breakouts",
+   "type": "api",
+   "vendor": "Vela Breakout",
+   "description": "Rank the fastest-growing AI apps, models, dev tools, software or companies in one group.",
+   "tags": [
+    "api",
+    "velabreakout",
+    "market-trends"
+   ],
+   "modes": [
+    "async"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "per_call",
+    "usd_per_call": 0.02
+   },
+   "record": "catalog/models/velabreakout/breakouts.json"
+  },
+  {
+   "name": "velabreakout/company",
+   "display_name": "Vela Breakout Company",
+   "type": "api",
+   "vendor": "Vela Breakout",
+   "description": "Get every measured growth signal for one company by name or web domain.",
+   "tags": [
+    "api",
+    "velabreakout",
+    "company-enrichment",
+    "market-trends"
+   ],
+   "modes": [
+    "async"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "per_call",
+    "usd_per_call": 0.01
+   },
+   "record": "catalog/models/velabreakout/company.json"
+  },
+  {
+   "name": "velabreakout/groups",
+   "display_name": "Vela Breakout Groups",
+   "type": "api",
+   "vendor": "Vela Breakout",
+   "description": "List the groups growth can be ranked in, with each one's measure, unit and caveat.",
+   "tags": [
+    "api",
+    "velabreakout",
+    "market-trends"
+   ],
+   "modes": [
+    "async"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "formula",
+    "usd_from": 0,
+    "usd_to": 0
+   },
+   "record": "catalog/models/velabreakout/groups.json"
+  },
+  {
+   "name": "velabreakout/ideas",
+   "display_name": "Vela Breakout Ideas",
+   "type": "api",
+   "vendor": "Vela Breakout",
+   "description": "List AI research ideas gaining or losing share of new papers, with who publishes on each.",
+   "tags": [
+    "api",
+    "velabreakout",
+    "market-trends"
+   ],
+   "modes": [
+    "async"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "per_call",
+    "usd_per_call": 0.02
+   },
+   "record": "catalog/models/velabreakout/ideas.json"
+  },
+  {
+   "name": "velabreakout/rising-companies",
+   "display_name": "Vela Breakout Rising Companies",
+   "type": "api",
+   "vendor": "Vela Breakout",
+   "description": "List companies growing faster than 90% of peers on two or more measures at once.",
+   "tags": [
+    "api",
+    "velabreakout",
+    "company-enrichment",
+    "market-trends"
+   ],
+   "modes": [
+    "async"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "per_call",
+    "usd_per_call": 0.02
+   },
+   "record": "catalog/models/velabreakout/rising-companies.json"
   },
   {
    "name": "vrbo/listing",

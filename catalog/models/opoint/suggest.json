@@ -1,0 +1,101 @@
+{
+  "name": "opoint/suggest",
+  "display_name": "Opoint Suggest",
+  "type": "api",
+  "vendor": "Opoint",
+  "vendor_slug": "opoint",
+  "description": "Translate a country, site, language, or media name into a search filter id.",
+  "tags": [
+    "api",
+    "opoint",
+    "news-search"
+  ],
+  "capabilities": [
+    "api",
+    "opoint",
+    "news-search"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}",
+    "passthrough": "POST /v1/api/opoint/suggest"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "query"
+    ],
+    "properties": {
+      "limit": {
+        "type": "integer",
+        "maximum": 20,
+        "minimum": 1,
+        "description": "Rows to return (default 5)."
+      },
+      "query": {
+        "type": "string",
+        "example": "bbc",
+        "maxLength": 200,
+        "minLength": 1,
+        "description": "Name or URL to resolve, e.g. 'Norway', 'New York Post', 'bbc.co.uk'."
+      },
+      "types": {
+        "type": "array",
+        "items": {
+          "enum": [
+            "lang",
+            "site",
+            "geo",
+            "media",
+            "content",
+            "topic",
+            "ent"
+          ],
+          "type": "string"
+        },
+        "maxItems": 7,
+        "minItems": 1,
+        "description": "Restrict to these filter types; omitted = all types."
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "required": [
+      "id",
+      "status",
+      "model"
+    ],
+    "properties": {
+      "id": {
+        "type": "string"
+      },
+      "model": {
+        "type": "string"
+      },
+      "status": {
+        "type": "string"
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "formula",
+    "formula": "0",
+    "formula_variables": [],
+    "reference_price": 0,
+    "price_examples": [
+      {
+        "params": {},
+        "usd": 0
+      }
+    ]
+  },
+  "readme": "# Opoint Suggest\n\nTranslate a country, site, language, or media name into a search filter id.",
+  "page_url": "https://www.sandbase.ai/model/opoint/suggest",
+  "created_at": "2026-11-14T18:39:06.34Z"
+}

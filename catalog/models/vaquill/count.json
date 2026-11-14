@@ -1,0 +1,381 @@
+{
+  "name": "vaquill/count",
+  "display_name": "Vaquill Count",
+  "type": "api",
+  "vendor": "Vaquill",
+  "vendor_slug": "vaquill",
+  "description": "Count the law sections in a jurisdiction, corpus, code, title, chapter, or part.",
+  "tags": [
+    "api",
+    "vaquill",
+    "legal-research"
+  ],
+  "capabilities": [
+    "api",
+    "vaquill",
+    "legal-research"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}",
+    "passthrough": "POST /v1/api/vaquill/count"
+  },
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "code": {
+        "anyOf": [
+          {
+            "type": "string",
+            "minLength": 1
+          },
+          {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1
+            },
+            "minItems": 1
+          }
+        ],
+        "description": "State statutory code identifier, e.g. 'tx_pe' (Texas Penal Code) — the identifier /us/statutes/divisions returns for corpusType=STATE. The only way to scope below a whole jurisdiction."
+      },
+      "part": {
+        "anyOf": [
+          {
+            "type": "string",
+            "minLength": 1
+          },
+          {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1
+            },
+            "minItems": 1
+          }
+        ],
+        "description": "Part within a title or code, e.g. '240' (17 C.F.R. Part 240). Must be paired with titleNumber or code, or upstream answers 422."
+      },
+      "state": {
+        "anyOf": [
+          {
+            "enum": [
+              "federal",
+              "al",
+              "ak",
+              "az",
+              "ar",
+              "ca",
+              "co",
+              "ct",
+              "de",
+              "dc",
+              "fl",
+              "ga",
+              "hi",
+              "id",
+              "il",
+              "in",
+              "ia",
+              "ks",
+              "ky",
+              "la",
+              "me",
+              "md",
+              "ma",
+              "mi",
+              "mn",
+              "ms",
+              "mo",
+              "mt",
+              "ne",
+              "nv",
+              "nh",
+              "nj",
+              "nm",
+              "ny",
+              "nc",
+              "nd",
+              "oh",
+              "ok",
+              "or",
+              "pa",
+              "pr",
+              "ri",
+              "sc",
+              "sd",
+              "tn",
+              "tx",
+              "ut",
+              "vt",
+              "va",
+              "wa",
+              "wv",
+              "wi",
+              "wy"
+            ],
+            "type": "string"
+          },
+          {
+            "type": "array",
+            "items": {
+              "enum": [
+                "federal",
+                "al",
+                "ak",
+                "az",
+                "ar",
+                "ca",
+                "co",
+                "ct",
+                "de",
+                "dc",
+                "fl",
+                "ga",
+                "hi",
+                "id",
+                "il",
+                "in",
+                "ia",
+                "ks",
+                "ky",
+                "la",
+                "me",
+                "md",
+                "ma",
+                "mi",
+                "mn",
+                "ms",
+                "mo",
+                "mt",
+                "ne",
+                "nv",
+                "nh",
+                "nj",
+                "nm",
+                "ny",
+                "nc",
+                "nd",
+                "oh",
+                "ok",
+                "or",
+                "pa",
+                "pr",
+                "ri",
+                "sc",
+                "sd",
+                "tn",
+                "tx",
+                "ut",
+                "vt",
+                "va",
+                "wa",
+                "wv",
+                "wi",
+                "wy"
+              ],
+              "type": "string"
+            },
+            "minItems": 1
+          }
+        ],
+        "description": "Lowercase two-letter jurisdiction code (50 states, 'dc', 'pr'), or 'federal' for USC / CFR / Constitution / federal rules. A list covers several at once."
+      },
+      "chapter": {
+        "anyOf": [
+          {
+            "type": "string",
+            "minLength": 1
+          },
+          {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1
+            },
+            "minItems": 1
+          }
+        ],
+        "description": "Chapter within a title or code, e.g. '21'. Must be paired with titleNumber or code, or upstream answers 422."
+      },
+      "actStatus": {
+        "anyOf": [
+          {
+            "enum": [
+              "abolished",
+              "deleted",
+              "expired",
+              "in_force",
+              "inactive",
+              "non_precedential",
+              "not_funded",
+              "not_yet_effective",
+              "omitted",
+              "proposed",
+              "recodified",
+              "recompiled",
+              "rejected",
+              "relocated",
+              "removed",
+              "renumbered",
+              "repealed",
+              "rescinded",
+              "reserved",
+              "revoked",
+              "superseded",
+              "terminated",
+              "transferred",
+              "unconstitutional",
+              "vacant",
+              "vacated",
+              "vetoed",
+              "withdrawn"
+            ],
+            "type": "string"
+          },
+          {
+            "type": "array",
+            "items": {
+              "enum": [
+                "abolished",
+                "deleted",
+                "expired",
+                "in_force",
+                "inactive",
+                "non_precedential",
+                "not_funded",
+                "not_yet_effective",
+                "omitted",
+                "proposed",
+                "recodified",
+                "recompiled",
+                "rejected",
+                "relocated",
+                "removed",
+                "renumbered",
+                "repealed",
+                "rescinded",
+                "reserved",
+                "revoked",
+                "superseded",
+                "terminated",
+                "transferred",
+                "unconstitutional",
+                "vacant",
+                "vacated",
+                "vetoed",
+                "withdrawn"
+              ],
+              "type": "string"
+            },
+            "minItems": 1
+          }
+        ],
+        "description": "Keep only sections carrying these publisher statuses, e.g. 'repealed'. Contradicts excludeRepealed when it names a dead status (upstream 422)."
+      },
+      "corpusType": {
+        "anyOf": [
+          {
+            "enum": [
+              "USC",
+              "CFR",
+              "STATE",
+              "CONSTITUTION",
+              "FEDERAL_RULES",
+              "STATE_CONSTITUTION",
+              "STATE_RULES",
+              "EXECUTIVE_ACTION",
+              "REGULATION",
+              "FEDERAL_REGISTER",
+              "FEDERAL_REGISTER_NOTICE",
+              "AGENCY_GUIDANCE",
+              "SENTENCING_GUIDELINES",
+              "US_TAX_TREATY",
+              "STATE_AGENCY_GUIDANCE",
+              "STATE_AG_OPINION",
+              "SESSION_LAW",
+              "STATUTE_COMPILATION",
+              "AGENCY_ADJUDICATION",
+              "CFR_ANNUAL",
+              "USC_ANNUAL"
+            ],
+            "type": "string"
+          },
+          {
+            "type": "array",
+            "items": {
+              "enum": [
+                "USC",
+                "CFR",
+                "STATE",
+                "CONSTITUTION",
+                "FEDERAL_RULES",
+                "STATE_CONSTITUTION",
+                "STATE_RULES",
+                "EXECUTIVE_ACTION",
+                "REGULATION",
+                "FEDERAL_REGISTER",
+                "FEDERAL_REGISTER_NOTICE",
+                "AGENCY_GUIDANCE",
+                "SENTENCING_GUIDELINES",
+                "US_TAX_TREATY",
+                "STATE_AGENCY_GUIDANCE",
+                "STATE_AG_OPINION",
+                "SESSION_LAW",
+                "STATUTE_COMPILATION",
+                "AGENCY_ADJUDICATION",
+                "CFR_ANNUAL",
+                "USC_ANNUAL"
+              ],
+              "type": "string"
+            },
+            "minItems": 1
+          }
+        ],
+        "description": "Restrict to one corpus or a list, e.g. 'CFR' or ['USC','CFR']. Omit to cover every corpus. /us/statutes/coverage lists what each jurisdiction holds."
+      },
+      "titleNumber": {
+        "type": "integer",
+        "maximum": 9007199254740991,
+        "minimum": -9007199254740991,
+        "description": "USC or CFR title number, e.g. 17 (SEC) or 42 (civil rights). State titles are not numeric — use code."
+      },
+      "excludeRepealed": {
+        "type": "boolean",
+        "description": "Drop sections whose status is affirmatively dead (repealed, renumbered, superseded, ...). A section with no recorded status is kept; read goodLawStatus on each result."
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "required": [
+      "id",
+      "status",
+      "model"
+    ],
+    "properties": {
+      "id": {
+        "type": "string"
+      },
+      "model": {
+        "type": "string"
+      },
+      "status": {
+        "type": "string"
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_call",
+    "per_call": 0.01
+  },
+  "readme": "# Vaquill Count\n\nCount the law sections in a jurisdiction, corpus, code, title, chapter, or part.",
+  "page_url": "https://www.sandbase.ai/model/vaquill/count",
+  "created_at": "2026-11-14T18:19:23.984Z"
+}

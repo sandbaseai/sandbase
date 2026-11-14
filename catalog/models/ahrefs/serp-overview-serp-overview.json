@@ -1,0 +1,89 @@
+{
+  "name": "ahrefs/serp-overview-serp-overview",
+  "display_name": "Ahrefs Serp Overview Serp Overview",
+  "type": "api",
+  "vendor": "Ahrefs",
+  "vendor_slug": "ahrefs",
+  "description": "Get the top organic results for a keyword with ratings, backlinks, and traffic.",
+  "tags": [
+    "api",
+    "ahrefs",
+    "seo"
+  ],
+  "capabilities": [
+    "api",
+    "ahrefs",
+    "seo"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}",
+    "passthrough": "POST /v1/api/ahrefs/serp-overview-serp-overview"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "country",
+      "keyword"
+    ],
+    "properties": {
+      "date": {
+        "type": "string",
+        "pattern": "^\\d{4}-\\d{2}-\\d{2}$",
+        "description": "Report date in YYYY-MM-DD format. Use today's date for current values."
+      },
+      "country": {
+        "type": "string",
+        "example": "us",
+        "maxLength": 2,
+        "minLength": 2,
+        "description": "Two-letter country code (ISO 3166-1 alpha-2), e.g. 'us'."
+      },
+      "keyword": {
+        "type": "string",
+        "example": "coffee grinder",
+        "minLength": 1,
+        "description": "The keyword to analyze."
+      },
+      "top_positions": {
+        "type": "integer",
+        "default": 100,
+        "maximum": 100,
+        "minimum": 1,
+        "description": "Return organic results ranked at positions 1..N — at most N charged rows, fewer when some of those positions hold SERP features (which are never returned). Defaults to 100 (the maximum)."
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "required": [
+      "id",
+      "status",
+      "model"
+    ],
+    "properties": {
+      "id": {
+        "type": "string"
+      },
+      "model": {
+        "type": "string"
+      },
+      "status": {
+        "type": "string"
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "usage_based",
+    "note": "Billed per call from metered usage; the reference price is typical.",
+    "reference_price": 0.0129
+  },
+  "readme": "# Ahrefs Serp Overview Serp Overview\n\nGet the top organic results for a keyword with ratings, backlinks, and traffic.\n\n## Pricing\n\n- Inspect reference unit price: $0.0129 USD per result.\n- Final settlement uses the provider-reported actual cost after strict validation; the reference price is not used to infer the final charge.",
+  "page_url": "https://www.sandbase.ai/model/ahrefs/serp-overview-serp-overview",
+  "created_at": "2026-11-14T18:36:03.68Z"
+}

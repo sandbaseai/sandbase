@@ -1,0 +1,146 @@
+{
+  "name": "vaquill/resolve",
+  "display_name": "Vaquill Resolve",
+  "type": "api",
+  "vendor": "Vaquill",
+  "vendor_slug": "vaquill",
+  "description": "Resolve up to 50 Bluebook citation strings to the exact US law sections they name.",
+  "tags": [
+    "api",
+    "vaquill",
+    "legal-research"
+  ],
+  "capabilities": [
+    "api",
+    "vaquill",
+    "legal-research"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}",
+    "passthrough": "POST /v1/api/vaquill/resolve"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "citations"
+    ],
+    "properties": {
+      "state": {
+        "enum": [
+          "al",
+          "ak",
+          "az",
+          "ar",
+          "ca",
+          "co",
+          "ct",
+          "de",
+          "dc",
+          "fl",
+          "ga",
+          "hi",
+          "id",
+          "il",
+          "in",
+          "ia",
+          "ks",
+          "ky",
+          "la",
+          "me",
+          "md",
+          "ma",
+          "mi",
+          "mn",
+          "ms",
+          "mo",
+          "mt",
+          "ne",
+          "nv",
+          "nh",
+          "nj",
+          "nm",
+          "ny",
+          "nc",
+          "nd",
+          "oh",
+          "ok",
+          "or",
+          "pa",
+          "pr",
+          "ri",
+          "sc",
+          "sd",
+          "tn",
+          "tx",
+          "ut",
+          "vt",
+          "va",
+          "wa",
+          "wv",
+          "wi",
+          "wy"
+        ],
+        "type": "string",
+        "description": "Lowercase two-letter jurisdiction to resolve the whole batch within, for forms several states share ('8 CCR 1206-2' is Colorado, '22 CCR 76227' California). Omit for a batch that spans jurisdictions."
+      },
+      "citations": {
+        "type": "array",
+        "items": {
+          "type": "string",
+          "maxLength": 200,
+          "minLength": 1
+        },
+        "example": [
+          "42 U.S.C. 1983"
+        ],
+        "maxItems": 500,
+        "minItems": 1,
+        "description": "Bluebook citations to resolve, e.g. ['42 U.S.C. 1983', '16 C.F.R. 444.1', 'Cal. Civ. Code 1950.5']. Duplicates are collapsed; at most 50 distinct citations per call. A pinpoint such as '42 U.S.C. 1983(b)(2)' resolves to the parent section and is echoed back in subsection."
+      },
+      "corpusType": {
+        "enum": [
+          "CONSTITUTION",
+          "REGULATION",
+          "STATE",
+          "STATE_CONSTITUTION",
+          "STATE_RULES"
+        ],
+        "type": "string",
+        "description": "Corpus to resolve the whole batch within: STATE (statutory text), REGULATION (administrative codes), STATE_RULES (court rules), CONSTITUTION / STATE_CONSTITUTION."
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "required": [
+      "id",
+      "status",
+      "model"
+    ],
+    "properties": {
+      "id": {
+        "type": "string"
+      },
+      "model": {
+        "type": "string"
+      },
+      "status": {
+        "type": "string"
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "usage_based",
+    "note": "Billed per call from metered usage; the reference price is typical.",
+    "reference_price": 0.02
+  },
+  "readme": "# Vaquill Resolve\n\nResolve up to 50 Bluebook citation strings to the exact US law sections they name.\n\n## Pricing\n\n- Inspect reference unit price: $0.02 USD per result.\n- Final settlement uses the provider-reported actual cost after strict validation; the reference price is not used to infer the final charge.",
+  "page_url": "https://www.sandbase.ai/model/vaquill/resolve",
+  "created_at": "2026-11-14T18:32:45.562Z"
+}
