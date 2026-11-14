@@ -41,7 +41,7 @@ Modes: async (default `async`). Only pass `mode` values listed here. The SDKs' `
 ```bash
 curl https://api.sandbase.ai/v1/run \
   -H "Authorization: Bearer $SANDBASE_API_KEY" -H 'Content-Type: application/json' \
-  -d '{"model": "alibaba/wan/3.0/prime/image-to-video", "prompt": "A red fox runs through a snowy forest at sunrise, cinematic tracking shot", "image": "https://static.sandbase.ai/samples/image-to-video/i2v-black-cat-sky-img0.png"}'
+  -d '{"model": "alibaba/wan/3.0/prime/image-to-video", "duration": 8, "image": "https://static.sandbase.ai/examples/f1e7d4ee-e775-4ab7-89cd-02262aef21d0/input/0b5c42d8-eb51-4b41-b7b5-b7e31f9d0466.png", "prompt": "(0:00 - 0:03) Camera: Medium shot. Scene: A ink-wash bamboo forest scene from Image 1. A swordsman wearing a bamboo hat and dressed in a dark robe, his silhouette standing in the center surrounded by thick fog and swaying bamboo shadows. Action: The swordsman'\''s left hand lightly rests on the sword hilt, bamboo leaves fall with the wind. Atmosphere: Silent, oppressive, with clearly visible ink-wash grain texture. (0:03 - 0:08) Plot introduction. Camera: Close-up. Plot: The swordsman senses killing intent. Scene: The camera rapidly pushes in to a close-up beneath the swordsman'\''s bamboo hat. Detail: Beneath the hat brim, a pair of sharp, resolute eyes appear, gaze like a blade. Ink-wash \"sweat drops\" slide down from the forehead. Action: The swordsman'\''s right hand slowly grips the sword hilt, knuckles turning white. The bamboo leaves fall faster. Style note: Throughout, maintain the highly black-and-white, ink-wash painting style of Image 1 . Actions must have a calligraphic brush feel, speed must be fast, details must be rich (ink drops, sparks, ink crack marks)."}'
 ```
 
 **Python** ([sdk/python](../../../../../../sdk/python))
@@ -49,7 +49,7 @@ curl https://api.sandbase.ai/v1/run \
 ```python
 from sandbase import SandBase
 
-result = SandBase().run('alibaba/wan/3.0/prime/image-to-video', {'prompt': 'A red fox runs through a snowy forest at sunrise, cinematic tracking shot', 'image': 'https://static.sandbase.ai/samples/image-to-video/i2v-black-cat-sky-img0.png'})
+result = SandBase().run('alibaba/wan/3.0/prime/image-to-video', {'duration': 8, 'image': 'https://static.sandbase.ai/examples/f1e7d4ee-e775-4ab7-89cd-02262aef21d0/input/0b5c42d8-eb51-4b41-b7b5-b7e31f9d0466.png', 'prompt': '(0:00 - 0:03) Camera: Medium shot. Scene: A ink-wash bamboo forest scene from Image 1. A swordsman wearing a bamboo hat and dressed in a dark robe, his silhouette standing in the center surrounded by thick fog and swaying bamboo shadows. Action: The swordsman\'s left hand lightly rests on the sword hilt, bamboo leaves fall with the wind. Atmosphere: Silent, oppressive, with clearly visible ink-wash grain texture. (0:03 - 0:08) Plot introduction. Camera: Close-up. Plot: The swordsman senses killing intent. Scene: The camera rapidly pushes in to a close-up beneath the swordsman\'s bamboo hat. Detail: Beneath the hat brim, a pair of sharp, resolute eyes appear, gaze like a blade. Ink-wash "sweat drops" slide down from the forehead. Action: The swordsman\'s right hand slowly grips the sword hilt, knuckles turning white. The bamboo leaves fall faster. Style note: Throughout, maintain the highly black-and-white, ink-wash painting style of Image 1 . Actions must have a calligraphic brush feel, speed must be fast, details must be rich (ink drops, sparks, ink crack marks).'})
 print(result["outputs"])
 ```
 
@@ -59,8 +59,9 @@ print(result["outputs"])
 import { SandBase } from "@sandbaseai/sdk";
 
 const result = await new SandBase().run("alibaba/wan/3.0/prime/image-to-video", {
-  "prompt": "A red fox runs through a snowy forest at sunrise, cinematic tracking shot",
-  "image": "https://static.sandbase.ai/samples/image-to-video/i2v-black-cat-sky-img0.png"
+  "duration": 8,
+  "image": "https://static.sandbase.ai/examples/f1e7d4ee-e775-4ab7-89cd-02262aef21d0/input/0b5c42d8-eb51-4b41-b7b5-b7e31f9d0466.png",
+  "prompt": "(0:00 - 0:03) Camera: Medium shot. Scene: A ink-wash bamboo forest scene from Image 1. A swordsman wearing a bamboo hat and dressed in a dark robe, his silhouette standing in the center surrounded by thick fog and swaying bamboo shadows. Action: The swordsman's left hand lightly rests on the sword hilt, bamboo leaves fall with the wind. Atmosphere: Silent, oppressive, with clearly visible ink-wash grain texture. (0:03 - 0:08) Plot introduction. Camera: Close-up. Plot: The swordsman senses killing intent. Scene: The camera rapidly pushes in to a close-up beneath the swordsman's bamboo hat. Detail: Beneath the hat brim, a pair of sharp, resolute eyes appear, gaze like a blade. Ink-wash \"sweat drops\" slide down from the forehead. Action: The swordsman's right hand slowly grips the sword hilt, knuckles turning white. The bamboo leaves fall faster. Style note: Throughout, maintain the highly black-and-white, ink-wash painting style of Image 1 . Actions must have a calligraphic brush feel, speed must be fast, details must be rich (ink drops, sparks, ink crack marks)."
 });
 console.log(result.outputs);
 ```
@@ -70,8 +71,9 @@ console.log(result.outputs);
 ```go
 c, _ := sandbase.NewClient("")
 run, err := c.Run(ctx, "alibaba/wan/3.0/prime/image-to-video", sandbase.Params{
-	"prompt": "A red fox runs through a snowy forest at sunrise, cinematic tracking shot",
-	"image": "https://static.sandbase.ai/samples/image-to-video/i2v-black-cat-sky-img0.png",
+	"duration": 8,
+	"image": "https://static.sandbase.ai/examples/f1e7d4ee-e775-4ab7-89cd-02262aef21d0/input/0b5c42d8-eb51-4b41-b7b5-b7e31f9d0466.png",
+	"prompt": "(0:00 - 0:03) Camera: Medium shot. Scene: A ink-wash bamboo forest scene from Image 1. A swordsman wearing a bamboo hat and dressed in a dark robe, his silhouette standing in the center surrounded by thick fog and swaying bamboo shadows. Action: The swordsman's left hand lightly rests on the sword hilt, bamboo leaves fall with the wind. Atmosphere: Silent, oppressive, with clearly visible ink-wash grain texture. (0:03 - 0:08) Plot introduction. Camera: Close-up. Plot: The swordsman senses killing intent. Scene: The camera rapidly pushes in to a close-up beneath the swordsman's bamboo hat. Detail: Beneath the hat brim, a pair of sharp, resolute eyes appear, gaze like a blade. Ink-wash \"sweat drops\" slide down from the forehead. Action: The swordsman's right hand slowly grips the sword hilt, knuckles turning white. The bamboo leaves fall faster. Style note: Throughout, maintain the highly black-and-white, ink-wash painting style of Image 1 . Actions must have a calligraphic brush feel, speed must be fast, details must be rich (ink drops, sparks, ink crack marks).",
 })
 ```
 

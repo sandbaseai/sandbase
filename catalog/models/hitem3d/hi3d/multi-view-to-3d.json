@@ -21,6 +21,139 @@
   },
   "input_schema": {
     "type": "object",
+    "allOf": [
+      {
+        "if": {
+          "properties": {
+            "version": {
+              "const": "hitem3dv2.1"
+            }
+          }
+        },
+        "then": {
+          "properties": {
+            "resolution": {
+              "enum": [
+                "1536fast",
+                "1536pro"
+              ]
+            }
+          }
+        }
+      },
+      {
+        "if": {
+          "required": [
+            "version"
+          ],
+          "properties": {
+            "version": {
+              "const": "hitem3dv1.5"
+            }
+          }
+        },
+        "then": {
+          "properties": {
+            "resolution": {
+              "enum": [
+                "512",
+                "1024",
+                "1536",
+                "1536pro"
+              ]
+            }
+          }
+        }
+      },
+      {
+        "if": {
+          "required": [
+            "version"
+          ],
+          "properties": {
+            "version": {
+              "const": "hitem3dv2.0"
+            }
+          }
+        },
+        "then": {
+          "properties": {
+            "resolution": {
+              "enum": [
+                "512",
+                "1024",
+                "1536",
+                "1536pro"
+              ]
+            }
+          }
+        }
+      },
+      {
+        "if": {
+          "required": [
+            "version"
+          ],
+          "properties": {
+            "version": {
+              "const": "scene-portraitv1.5"
+            }
+          }
+        },
+        "then": {
+          "properties": {
+            "resolution": {
+              "enum": [
+                "1536"
+              ]
+            }
+          }
+        }
+      },
+      {
+        "if": {
+          "required": [
+            "version"
+          ],
+          "properties": {
+            "version": {
+              "const": "scene-portraitv2.0"
+            }
+          }
+        },
+        "then": {
+          "properties": {
+            "resolution": {
+              "enum": [
+                "1536pro"
+              ]
+            }
+          }
+        }
+      },
+      {
+        "if": {
+          "required": [
+            "version"
+          ],
+          "properties": {
+            "version": {
+              "const": "scene-portraitv2.1"
+            }
+          }
+        },
+        "then": {
+          "properties": {
+            "resolution": {
+              "enum": [
+                "1536profast",
+                "1536pro"
+              ]
+            }
+          }
+        }
+      }
+    ],
     "required": [
       "image"
     ],

@@ -152,6 +152,20 @@
     ],
     "reference_price": 1.4
   },
+  "examples": [
+    {
+      "input": {
+        "prompt": "Convert the entire scene to clay style",
+        "video": "https://static.sandbase.ai/examples/e26463e4-e928-4062-98f5-cf7a25072a5d/input/cb858e76-76f2-4549-b096-e02efb5bdce9.mp4"
+      },
+      "output": [
+        {
+          "url": "https://static.sandbase.ai/examples/e26463e4-e928-4062-98f5-cf7a25072a5d/output/0929fd60-e2b0-4161-98f4-a4460a4db2fa.mp4"
+        }
+      ],
+      "default": true
+    }
+  ],
   "readme": "# Wan 3.0 Prime Video Edit\n\nChange an existing clip with a sentence: restyle it, swap a subject or prop, or rework the setting. Optional reference images and audio guide the change. The result keeps the length and framing of the source.\n\nPrime is the faster Wan 3.0 tier: the same inputs and output quality as standard Wan 3.0, with significantly shorter end-to-end generation time and a higher per-second rate. Use standard Wan 3.0 for batch or background jobs where turnaround does not matter.\n\n## Fields\n\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `prompt` | string, required | — | Up to 5,000 characters. |\n| `video` | video URL, required | — | Source clip, Video 1 in the prompt. MP4/MOV, 1–15s, ≥16fps, 240–4096px per side, ≤100MB. |\n| `images` | image URL[] (≤10) | — | Referenced as Image 1, Image 2, … |\n| `audios` | audio URL[] (≤5) | — | WAV/MP3, 1–15s each, 15s total, ≤15MB. Referenced as Audio 1, … |\n| `resolution` | `480p` / `720p` / `1080p` | `720p` | Sets the per-second rate. |\n| `generate_audio` | boolean | true | Native dialogue, music, and effects. Same price on or off. |\n| `seed` | integer 0–2147483647 | random | Fix it to compare prompt changes. |\n\nThere is no `duration` field; the output is as long as the source.\n\n## Billing\n\nLike the official Wan 3.0 rate, billing counts the source clip and the edited output, which are the same length, so each source second bills twice: $0.136 at 480p, $0.28 at 720p, $0.56 at 1080p. References are not metered.\n\n| Source clip | Billed | 480p | 720p | 1080p |\n|---|---|---|---|---|\n| 2s | 4s | $0.272 | $0.56 | $1.12 |\n| 5s | 10s | $0.68 | $1.40 | $2.80 |\n| 10s | 20s | $1.36 | $2.80 | $5.60 |\n| 15s | 30s | $2.04 | $4.20 | $8.40 |\n\nThe quote shown before submission assumes a 5-second source ($1.40 at 720p); the final charge uses the measured length. Failed runs are not charged. Output files are copied to SandBase storage and the returned URL stays valid for 7 days; download anything you need to keep.\n\n## Prompting\n\n- Lead with the change and state what must stay: “turn the scene into clay animation; keep her face and the camera motion”.\n- Refer to the source as Video 1 and to references as Image 1 or Audio 1.\n- Draft at 480p; edits cost twice the source length.\n\n## Limits\n\n- The output aspect ratio follows the source video.\n- To add new footage after the clip, use video-extend.\n\n## Also on SandBase\n\nOther Wan 3.0 Prime endpoints: `alibaba/wan/3.0/prime/video` (all modes in one schema), `alibaba/wan/3.0/prime/text-to-video`, `alibaba/wan/3.0/prime/image-to-video`, `alibaba/wan/3.0/prime/reference-to-video`, `alibaba/wan/3.0/prime/video-extend`. Standard tier: `alibaba/wan/3.0/video-edit`.",
   "cover_url": "https://static.sandbase.ai/covers/alibaba/wan/3.0/prime/video-edit/cover-flare-20261005085243.webp",
   "page_url": "https://www.sandbase.ai/model/alibaba/wan/3.0/prime/video-edit",

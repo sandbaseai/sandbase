@@ -28,6 +28,7 @@
       "model_url": {
         "type": "string",
         "title": "Model URL",
+        "pattern": "\\.[Ff][Bb][Xx]([?#].*)?$",
         "examples": [
           "https://static.sandbase.ai/examples/tencent/hunyuan-3d/3.1/part/input_input_file_url_0.fbx"
         ],

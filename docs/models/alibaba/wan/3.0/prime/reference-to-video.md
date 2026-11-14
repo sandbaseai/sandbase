@@ -21,7 +21,7 @@ Modes: async (default `async`). Only pass `mode` values listed here. The SDKs' `
 ```bash
 curl https://api.sandbase.ai/v1/run \
   -H "Authorization: Bearer $SANDBASE_API_KEY" -H 'Content-Type: application/json' \
-  -d '{"model": "alibaba/wan/3.0/prime/reference-to-video", "prompt": "A red fox runs through a snowy forest at sunrise, cinematic tracking shot"}'
+  -d '{"model": "alibaba/wan/3.0/prime/reference-to-video", "aspect_ratio": "16:9", "duration": 5, "images": ["https://static.sandbase.ai/examples/5b3c918d-81ea-4920-a3f0-5c60e82d45e8/input/ef5d62b7-e280-4b0f-b6ce-9e5c6bba1e55.png"], "prompt": "Using the lip gloss product in Image 1, generate a model swatch video, 5 seconds, horizontal screen, highlighting the lip color effect"}'
 ```
 
 **Python** ([sdk/python](../../../../../../sdk/python))
@@ -29,7 +29,7 @@ curl https://api.sandbase.ai/v1/run \
 ```python
 from sandbase import SandBase
 
-result = SandBase().run('alibaba/wan/3.0/prime/reference-to-video', {'prompt': 'A red fox runs through a snowy forest at sunrise, cinematic tracking shot'})
+result = SandBase().run('alibaba/wan/3.0/prime/reference-to-video', {'aspect_ratio': '16:9', 'duration': 5, 'images': ['https://static.sandbase.ai/examples/5b3c918d-81ea-4920-a3f0-5c60e82d45e8/input/ef5d62b7-e280-4b0f-b6ce-9e5c6bba1e55.png'], 'prompt': 'Using the lip gloss product in Image 1, generate a model swatch video, 5 seconds, horizontal screen, highlighting the lip color effect'})
 print(result["outputs"])
 ```
 
@@ -39,7 +39,12 @@ print(result["outputs"])
 import { SandBase } from "@sandbaseai/sdk";
 
 const result = await new SandBase().run("alibaba/wan/3.0/prime/reference-to-video", {
-  "prompt": "A red fox runs through a snowy forest at sunrise, cinematic tracking shot"
+  "aspect_ratio": "16:9",
+  "duration": 5,
+  "images": [
+    "https://static.sandbase.ai/examples/5b3c918d-81ea-4920-a3f0-5c60e82d45e8/input/ef5d62b7-e280-4b0f-b6ce-9e5c6bba1e55.png"
+  ],
+  "prompt": "Using the lip gloss product in Image 1, generate a model swatch video, 5 seconds, horizontal screen, highlighting the lip color effect"
 });
 console.log(result.outputs);
 ```
@@ -49,7 +54,10 @@ console.log(result.outputs);
 ```go
 c, _ := sandbase.NewClient("")
 run, err := c.Run(ctx, "alibaba/wan/3.0/prime/reference-to-video", sandbase.Params{
-	"prompt": "A red fox runs through a snowy forest at sunrise, cinematic tracking shot",
+	"aspect_ratio": "16:9",
+	"duration": 5,
+	"images": []any{"https://static.sandbase.ai/examples/5b3c918d-81ea-4920-a3f0-5c60e82d45e8/input/ef5d62b7-e280-4b0f-b6ce-9e5c6bba1e55.png"},
+	"prompt": "Using the lip gloss product in Image 1, generate a model swatch video, 5 seconds, horizontal screen, highlighting the lip color effect",
 })
 ```
 

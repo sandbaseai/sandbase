@@ -1,6 +1,6 @@
-# Google models API: 84 endpoints with pricing and code examples
+# Google models API: 85 endpoints with pricing and code examples
 
-Call 84 Google models through SandBase with one API key: no separate account, one balance, the same request format for every endpoint. Each page has the input schema, the price and curl / Python / TypeScript / Go examples.
+Call 85 Google models through SandBase with one API key: no separate account, one balance, the same request format for every endpoint. Each page has the input schema, the price and curl / Python / TypeScript / Go examples.
 
 | Endpoint | What it does | Price |
 |---|---|---|
@@ -35,6 +35,7 @@ Call 84 Google models through SandBase with one API key: no separate account, on
 | [`google/gemini-3.8-flash-tts`](../models/google/gemini-3.8-flash-tts.md) | Gemini 3.8 Flash TTS by Google turns text into expressive speech with 30 prebuilt voices and natural-language style direction. | from $0.045 per run, depending on parameters |
 | [`google/gemini-4-argon`](../models/google/gemini-4-argon.md) | Gemini 4 Argon is Google's flagship reasoning model and the first model of the Gemini 4 generation, generally available since October 13,… | $4 input / $20 output per 1M tokens |
 | [`google/gemini-4-carbon`](../models/google/gemini-4-carbon.md) | Gemini 4 Carbon is Google's most capable Gemini 4 model, released on November 10, 2026 and positioned above Gemini 4 Argon. Google built… | $4 input / $20 output per 1M tokens |
+| [`google/gemini-4-hydrogen`](../models/google/gemini-4-hydrogen.md) | Gemini 4 Hydrogen is the high-efficiency model of Google's Gemini 4 family, released on November 12, 2026. Google built it for… | $1.5 input / $7.5 output per 1M tokens |
 | [`google/gemini-answer`](../models/google/gemini-answer.md) | Get the answer Google Gemini gives for a question in the Gemini web app, with answer text, cited sources and a token for follow-up… | $0.01 per call |
 | [`google/gemini-nano-banana-2.1`](../models/google/gemini-nano-banana-2.1.md) | Nano Banana 2.1 (Gemini Nano Banana 2.1) is Google's Flash-tier image generation and editing model, succeeding Nano Banana 2 and producing… | $1.5 input / $7.5 output per 1M tokens |
 | [`google/gemini-omni-flash/1.1/edit`](../models/google/gemini-omni-flash/1.1/edit.md) | Gemini Omni Flash 1.1 Edit by Google applies natural-language edits to an existing video of up to ten seconds, such as changing style,… | about $1.12 per call |

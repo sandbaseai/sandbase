@@ -21,7 +21,7 @@ Modes: async (default `async`). Only pass `mode` values listed here. The SDKs' `
 ```bash
 curl https://api.sandbase.ai/v1/run \
   -H "Authorization: Bearer $SANDBASE_API_KEY" -H 'Content-Type: application/json' \
-  -d '{"model": "alibaba/wan/3.0/prime/video-extend", "prompt": "A red fox runs through a snowy forest at sunrise, cinematic tracking shot", "video": "https://help-static-aliyun-doc.aliyuncs.com/file-manage-files/zh-CN/20260402/ldnfdf/wan2.7-videoedit-style-change.mp4"}'
+  -d '{"model": "alibaba/wan/3.0/prime/video-extend", "duration": 5, "prompt": "Extend Video 1 forward by 5s. Character A is a male with short dark brown hair wearing a black tailcoat, white shirt, black bow tie, and beige vest. Character B is a female with brown upswept hair wearing a beige puff-sleeve vintage long dress with black lace trim on the skirt, and dark teardrop earrings. Inside the ballroom, crystal chandelier light reflects off the marble floor. Guests chat in small groups, holding glasses and speaking in low voices. A graceful waltz string prelude slowly begins, and the guests'\'' conversations gradually quiet. Character B walks slowly from one side of the ballroom, her skirt hem lightly brushing the marble floor, her gaze surveying the room. Character A emerges from the crowd, walks past the guests directly to Character B, gives a slight bow and extends his right hand, his gaze warm and attentive. Character B lowers her eyes with a gentle smile, lightly placing her right hand on Character A'\''s palm. The two exchange a smile, and Character A leads Character B to the center of the dance floor. The surrounding guests naturally step back to make room, all eyes focused on the pair. Character A'\''s left hand holds Character B'\''s right hand raised, his right hand gently resting on her lower back. The two assume the waltz pose, stepping out on the downbeat of the strings, beginning to spin. The elegant atmosphere of a 19th-century court ball, warm golden tones.", "video": "https://static.sandbase.ai/examples/6e550014-aff8-44f0-8e00-0e7fd4abc0c7/input/9c647043-6044-4efa-9400-947c6f035deb.mp4"}'
 ```
 
 **Python** ([sdk/python](../../../../../../sdk/python))
@@ -29,7 +29,7 @@ curl https://api.sandbase.ai/v1/run \
 ```python
 from sandbase import SandBase
 
-result = SandBase().run('alibaba/wan/3.0/prime/video-extend', {'prompt': 'A red fox runs through a snowy forest at sunrise, cinematic tracking shot', 'video': 'https://help-static-aliyun-doc.aliyuncs.com/file-manage-files/zh-CN/20260402/ldnfdf/wan2.7-videoedit-style-change.mp4'})
+result = SandBase().run('alibaba/wan/3.0/prime/video-extend', {'duration': 5, 'prompt': "Extend Video 1 forward by 5s. Character A is a male with short dark brown hair wearing a black tailcoat, white shirt, black bow tie, and beige vest. Character B is a female with brown upswept hair wearing a beige puff-sleeve vintage long dress with black lace trim on the skirt, and dark teardrop earrings. Inside the ballroom, crystal chandelier light reflects off the marble floor. Guests chat in small groups, holding glasses and speaking in low voices. A graceful waltz string prelude slowly begins, and the guests' conversations gradually quiet. Character B walks slowly from one side of the ballroom, her skirt hem lightly brushing the marble floor, her gaze surveying the room. Character A emerges from the crowd, walks past the guests directly to Character B, gives a slight bow and extends his right hand, his gaze warm and attentive. Character B lowers her eyes with a gentle smile, lightly placing her right hand on Character A's palm. The two exchange a smile, and Character A leads Character B to the center of the dance floor. The surrounding guests naturally step back to make room, all eyes focused on the pair. Character A's left hand holds Character B's right hand raised, his right hand gently resting on her lower back. The two assume the waltz pose, stepping out on the downbeat of the strings, beginning to spin. The elegant atmosphere of a 19th-century court ball, warm golden tones.", 'video': 'https://static.sandbase.ai/examples/6e550014-aff8-44f0-8e00-0e7fd4abc0c7/input/9c647043-6044-4efa-9400-947c6f035deb.mp4'})
 print(result["outputs"])
 ```
 
@@ -39,8 +39,9 @@ print(result["outputs"])
 import { SandBase } from "@sandbaseai/sdk";
 
 const result = await new SandBase().run("alibaba/wan/3.0/prime/video-extend", {
-  "prompt": "A red fox runs through a snowy forest at sunrise, cinematic tracking shot",
-  "video": "https://help-static-aliyun-doc.aliyuncs.com/file-manage-files/zh-CN/20260402/ldnfdf/wan2.7-videoedit-style-change.mp4"
+  "duration": 5,
+  "prompt": "Extend Video 1 forward by 5s. Character A is a male with short dark brown hair wearing a black tailcoat, white shirt, black bow tie, and beige vest. Character B is a female with brown upswept hair wearing a beige puff-sleeve vintage long dress with black lace trim on the skirt, and dark teardrop earrings. Inside the ballroom, crystal chandelier light reflects off the marble floor. Guests chat in small groups, holding glasses and speaking in low voices. A graceful waltz string prelude slowly begins, and the guests' conversations gradually quiet. Character B walks slowly from one side of the ballroom, her skirt hem lightly brushing the marble floor, her gaze surveying the room. Character A emerges from the crowd, walks past the guests directly to Character B, gives a slight bow and extends his right hand, his gaze warm and attentive. Character B lowers her eyes with a gentle smile, lightly placing her right hand on Character A's palm. The two exchange a smile, and Character A leads Character B to the center of the dance floor. The surrounding guests naturally step back to make room, all eyes focused on the pair. Character A's left hand holds Character B's right hand raised, his right hand gently resting on her lower back. The two assume the waltz pose, stepping out on the downbeat of the strings, beginning to spin. The elegant atmosphere of a 19th-century court ball, warm golden tones.",
+  "video": "https://static.sandbase.ai/examples/6e550014-aff8-44f0-8e00-0e7fd4abc0c7/input/9c647043-6044-4efa-9400-947c6f035deb.mp4"
 });
 console.log(result.outputs);
 ```
@@ -50,8 +51,9 @@ console.log(result.outputs);
 ```go
 c, _ := sandbase.NewClient("")
 run, err := c.Run(ctx, "alibaba/wan/3.0/prime/video-extend", sandbase.Params{
-	"prompt": "A red fox runs through a snowy forest at sunrise, cinematic tracking shot",
-	"video": "https://help-static-aliyun-doc.aliyuncs.com/file-manage-files/zh-CN/20260402/ldnfdf/wan2.7-videoedit-style-change.mp4",
+	"duration": 5,
+	"prompt": "Extend Video 1 forward by 5s. Character A is a male with short dark brown hair wearing a black tailcoat, white shirt, black bow tie, and beige vest. Character B is a female with brown upswept hair wearing a beige puff-sleeve vintage long dress with black lace trim on the skirt, and dark teardrop earrings. Inside the ballroom, crystal chandelier light reflects off the marble floor. Guests chat in small groups, holding glasses and speaking in low voices. A graceful waltz string prelude slowly begins, and the guests' conversations gradually quiet. Character B walks slowly from one side of the ballroom, her skirt hem lightly brushing the marble floor, her gaze surveying the room. Character A emerges from the crowd, walks past the guests directly to Character B, gives a slight bow and extends his right hand, his gaze warm and attentive. Character B lowers her eyes with a gentle smile, lightly placing her right hand on Character A's palm. The two exchange a smile, and Character A leads Character B to the center of the dance floor. The surrounding guests naturally step back to make room, all eyes focused on the pair. Character A's left hand holds Character B's right hand raised, his right hand gently resting on her lower back. The two assume the waltz pose, stepping out on the downbeat of the strings, beginning to spin. The elegant atmosphere of a 19th-century court ball, warm golden tones.",
+	"video": "https://static.sandbase.ai/examples/6e550014-aff8-44f0-8e00-0e7fd4abc0c7/input/9c647043-6044-4efa-9400-947c6f035deb.mp4",
 })
 ```
 

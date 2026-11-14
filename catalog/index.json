@@ -1,13 +1,13 @@
 {
  "catalog_version": "1",
- "generated_at": "2026-11-13T19:41:00Z",
+ "generated_at": "2026-11-14T11:28:43Z",
  "base_url": "https://api.sandbase.ai",
- "count": 2551,
+ "count": 2564,
  "counts_by_type": {
   "api": 2047,
-  "video": 181,
+  "video": 193,
   "image": 166,
-  "llm": 123,
+  "llm": 124,
   "audio": 32,
   "embedding": 2
  },
@@ -49065,6 +49065,33 @@
    "record": "catalog/models/google/gemini-4-carbon.json"
   },
   {
+   "name": "google/gemini-4-hydrogen",
+   "display_name": "Google: Gemini 4 Hydrogen",
+   "type": "llm",
+   "vendor": "Google",
+   "description": "Gemini 4 Hydrogen is the high-efficiency model of Google's Gemini 4 family, released on November 12, 2026. Google built it for high-throughput agentic workflows, coding and multi-model routing at lower cost and latency than the larger Gemini 4 models. It accepts text, image,…",
+   "tags": [
+    "chat",
+    "vision",
+    "audio_input",
+    "reasoning",
+    "structured_output",
+    "function_calling"
+   ],
+   "modes": [
+    "sync"
+   ],
+   "endpoint": "POST /v1/chat/completions",
+   "price": {
+    "model": "per_token",
+    "usd_per_million_tokens": {
+     "input": 1.5,
+     "output": 7.5
+    }
+   },
+   "record": "catalog/models/google/gemini-4-hydrogen.json"
+  },
+  {
    "name": "google/gemini-nano-banana-2.1",
    "display_name": "Google: Nano Banana 2.1 (Gemini Nano Banana 2.1)",
    "type": "llm",
@@ -51266,6 +51293,246 @@
     "usd_reference": 2.8
    },
    "record": "catalog/models/alibaba/wan/3.0/prime/video-extend.json"
+  },
+  {
+   "name": "alibaba/wan/3.0/pro/image-to-video",
+   "display_name": "Wan 3.0 Pro Image to Video",
+   "type": "video",
+   "vendor": "Alibaba",
+   "description": "Wan 3.0 Pro by Alibaba - animate still images into dynamic videos with AI. Transform photos into cinematic clips with natural motion, camera movement, and optional audio generation, upscaled to 1080p, 2K, or 4K.",
+   "tags": [
+    "image-to-video"
+   ],
+   "modes": [
+    "async"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "formula",
+    "usd_from": 0.36,
+    "usd_to": 1.38
+   },
+   "record": "catalog/models/alibaba/wan/3.0/pro/image-to-video.json"
+  },
+  {
+   "name": "alibaba/wan/3.0/pro/prime/image-to-video",
+   "display_name": "Wan 3.0 Pro Prime Image to Video",
+   "type": "video",
+   "vendor": "Alibaba",
+   "description": "Wan 3.0 Pro Prime by Alibaba - animate still images into dynamic videos with AI. Transform photos into cinematic clips with natural motion, camera movement, and optional audio generation, upscaled to 1080p, 2K, or 4K.",
+   "tags": [
+    "image-to-video"
+   ],
+   "modes": [
+    "async"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "formula",
+    "usd_from": 0.52,
+    "usd_to": 1.86
+   },
+   "record": "catalog/models/alibaba/wan/3.0/pro/prime/image-to-video.json"
+  },
+  {
+   "name": "alibaba/wan/3.0/pro/prime/reference-to-video",
+   "display_name": "Wan 3.0 Pro Prime Reference to Video",
+   "type": "video",
+   "vendor": "Alibaba",
+   "description": "Wan 3.0 Pro Prime by Alibaba generates up to 30-second videos with native audio from reference images, videos, and audio, keeping subjects, motion, and voice consistent with the references, upscaled to 1080p, 2K, or 4K.",
+   "tags": [
+    "reference-to-video"
+   ],
+   "modes": [
+    "async"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "formula",
+    "usd_reference": 1.3
+   },
+   "record": "catalog/models/alibaba/wan/3.0/pro/prime/reference-to-video.json"
+  },
+  {
+   "name": "alibaba/wan/3.0/pro/prime/text-to-video",
+   "display_name": "Wan 3.0 Pro Prime Text to Video",
+   "type": "video",
+   "vendor": "Alibaba",
+   "description": "Wan 3.0 Pro Prime by Alibaba turns a text prompt into a video of up to 30 seconds at 30fps, with native dialogue, music, and sound effects, upscaled to 1080p, 2K, or 4K.",
+   "tags": [
+    "text-to-video"
+   ],
+   "modes": [
+    "async"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "formula",
+    "usd_from": 0.52,
+    "usd_to": 1.86
+   },
+   "record": "catalog/models/alibaba/wan/3.0/pro/prime/text-to-video.json"
+  },
+  {
+   "name": "alibaba/wan/3.0/pro/prime/video",
+   "display_name": "Wan 3.0 Pro Prime Video",
+   "type": "video",
+   "vendor": "Alibaba",
+   "description": "Alibaba Wan 3.0 Pro Prime Video generates videos up to 30 seconds with native audio from text, a first/last frame, or reference images, videos, and audio, upscaled to 1080p, 2K, or 4K.",
+   "tags": [
+    "text-to-video",
+    "image-to-video",
+    "reference-to-video",
+    "video-to-video",
+    "audio-to-video"
+   ],
+   "modes": [
+    "async"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "formula",
+    "usd_reference": 1.3
+   },
+   "record": "catalog/models/alibaba/wan/3.0/pro/prime/video.json"
+  },
+  {
+   "name": "alibaba/wan/3.0/pro/prime/video-edit",
+   "display_name": "Wan 3.0 Pro Prime Video Edit",
+   "type": "video",
+   "vendor": "Alibaba",
+   "description": "Wan 3.0 Pro Prime Video Edit by Alibaba restyles or modifies an input video from a text instruction, optionally guided by reference images and audio, keeping the original length, upscaled to 1080p, 2K, or 4K.",
+   "tags": [
+    "video-to-video"
+   ],
+   "modes": [
+    "async"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "formula",
+    "usd_reference": 2.6
+   },
+   "record": "catalog/models/alibaba/wan/3.0/pro/prime/video-edit.json"
+  },
+  {
+   "name": "alibaba/wan/3.0/pro/prime/video-extend",
+   "display_name": "Wan 3.0 Pro Prime Video Extend",
+   "type": "video",
+   "vendor": "Alibaba",
+   "description": "Wan 3.0 Pro Prime Video Extend by Alibaba continues an input video forward from a text instruction, optionally guided by reference images and audio, with native audio, upscaled to 1080p, 2K, or 4K.",
+   "tags": [
+    "video-to-video"
+   ],
+   "modes": [
+    "async"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "formula",
+    "usd_reference": 5.2
+   },
+   "record": "catalog/models/alibaba/wan/3.0/pro/prime/video-extend.json"
+  },
+  {
+   "name": "alibaba/wan/3.0/pro/reference-to-video",
+   "display_name": "Wan 3.0 Pro Reference to Video",
+   "type": "video",
+   "vendor": "Alibaba",
+   "description": "Wan 3.0 Pro by Alibaba generates up to 30-second videos with native audio from reference images, videos, and audio, keeping subjects, motion, and voice consistent with the references, upscaled to 1080p, 2K, or 4K.",
+   "tags": [
+    "reference-to-video"
+   ],
+   "modes": [
+    "async"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "formula",
+    "usd_reference": 0.9
+   },
+   "record": "catalog/models/alibaba/wan/3.0/pro/reference-to-video.json"
+  },
+  {
+   "name": "alibaba/wan/3.0/pro/text-to-video",
+   "display_name": "Wan 3.0 Pro Text to Video",
+   "type": "video",
+   "vendor": "Alibaba",
+   "description": "Wan 3.0 Pro by Alibaba turns a text prompt into a video of up to 30 seconds at 30fps, with native dialogue, music, and sound effects, upscaled to 1080p, 2K, or 4K.",
+   "tags": [
+    "text-to-video"
+   ],
+   "modes": [
+    "async"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "formula",
+    "usd_from": 0.36,
+    "usd_to": 1.38
+   },
+   "record": "catalog/models/alibaba/wan/3.0/pro/text-to-video.json"
+  },
+  {
+   "name": "alibaba/wan/3.0/pro/video",
+   "display_name": "Wan 3.0 Pro Video",
+   "type": "video",
+   "vendor": "Alibaba",
+   "description": "Alibaba Wan 3.0 Pro Video generates videos up to 30 seconds with native audio from text, a first/last frame, or reference images, videos, and audio, upscaled to 1080p, 2K, or 4K.",
+   "tags": [
+    "text-to-video",
+    "image-to-video",
+    "reference-to-video",
+    "video-to-video",
+    "audio-to-video"
+   ],
+   "modes": [
+    "async"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "formula",
+    "usd_reference": 0.9
+   },
+   "record": "catalog/models/alibaba/wan/3.0/pro/video.json"
+  },
+  {
+   "name": "alibaba/wan/3.0/pro/video-edit",
+   "display_name": "Wan 3.0 Pro Video Edit",
+   "type": "video",
+   "vendor": "Alibaba",
+   "description": "Wan 3.0 Pro Video Edit by Alibaba restyles or modifies an input video from a text instruction, optionally guided by reference images and audio, keeping the original length, upscaled to 1080p, 2K, or 4K.",
+   "tags": [
+    "video-to-video"
+   ],
+   "modes": [
+    "async"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "formula",
+    "usd_reference": 1.8
+   },
+   "record": "catalog/models/alibaba/wan/3.0/pro/video-edit.json"
+  },
+  {
+   "name": "alibaba/wan/3.0/pro/video-extend",
+   "display_name": "Wan 3.0 Pro Video Extend",
+   "type": "video",
+   "vendor": "Alibaba",
+   "description": "Wan 3.0 Pro Video Extend by Alibaba continues an input video forward from a text instruction, optionally guided by reference images and audio, with native audio, upscaled to 1080p, 2K, or 4K.",
+   "tags": [
+    "video-to-video"
+   ],
+   "modes": [
+    "async"
+   ],
+   "endpoint": "POST /v1/run",
+   "price": {
+    "model": "formula",
+    "usd_reference": 3.6
+   },
+   "record": "catalog/models/alibaba/wan/3.0/pro/video-extend.json"
   },
   {
    "name": "alibaba/wan/3.0/reference-to-video",

@@ -1,6 +1,6 @@
-# Alibaba models API: 71 endpoints with pricing and code examples
+# Alibaba models API: 83 endpoints with pricing and code examples
 
-Call 71 Alibaba models through SandBase with one API key: no separate account, one balance, the same request format for every endpoint. Each page has the input schema, the price and curl / Python / TypeScript / Go examples.
+Call 83 Alibaba models through SandBase with one API key: no separate account, one balance, the same request format for every endpoint. Each page has the input schema, the price and curl / Python / TypeScript / Go examples.
 
 | Endpoint | What it does | Price |
 |---|---|---|
@@ -68,6 +68,18 @@ Call 71 Alibaba models through SandBase with one API key: no separate account, o
 | [`alibaba/wan/3.0/prime/video`](../models/alibaba/wan/3.0/prime/video.md) | Alibaba Wan 3.0 Prime Video generates videos up to 30 seconds with native audio from text, a first/last frame, or reference images,… | about $0.7 per call |
 | [`alibaba/wan/3.0/prime/video-edit`](../models/alibaba/wan/3.0/prime/video-edit.md) | Wan 3.0 Prime Video Edit by Alibaba restyles or modifies an input video from a text instruction, optionally guided by reference images and… | about $1.4 per call |
 | [`alibaba/wan/3.0/prime/video-extend`](../models/alibaba/wan/3.0/prime/video-extend.md) | Wan 3.0 Prime Video Extend by Alibaba continues an input video forward from a text instruction, optionally guided by reference images and… | about $2.8 per call |
+| [`alibaba/wan/3.0/pro/image-to-video`](../models/alibaba/wan/3.0/pro/image-to-video.md) | Wan 3.0 Pro by Alibaba - animate still images into dynamic videos with AI. Transform photos into cinematic clips with natural motion,… | from $0.36 to $1.38 per run, depending on parameters |
+| [`alibaba/wan/3.0/pro/prime/image-to-video`](../models/alibaba/wan/3.0/pro/prime/image-to-video.md) | Wan 3.0 Pro Prime by Alibaba - animate still images into dynamic videos with AI. Transform photos into cinematic clips with natural… | from $0.52 to $1.86 per run, depending on parameters |
+| [`alibaba/wan/3.0/pro/prime/reference-to-video`](../models/alibaba/wan/3.0/pro/prime/reference-to-video.md) | Wan 3.0 Pro Prime by Alibaba generates up to 30-second videos with native audio from reference images, videos, and audio, keeping… | about $1.3 per call |
+| [`alibaba/wan/3.0/pro/prime/text-to-video`](../models/alibaba/wan/3.0/pro/prime/text-to-video.md) | Wan 3.0 Pro Prime by Alibaba turns a text prompt into a video of up to 30 seconds at 30fps, with native dialogue, music, and sound… | from $0.52 to $1.86 per run, depending on parameters |
+| [`alibaba/wan/3.0/pro/prime/video`](../models/alibaba/wan/3.0/pro/prime/video.md) | Alibaba Wan 3.0 Pro Prime Video generates videos up to 30 seconds with native audio from text, a first/last frame, or reference images,… | about $1.3 per call |
+| [`alibaba/wan/3.0/pro/prime/video-edit`](../models/alibaba/wan/3.0/pro/prime/video-edit.md) | Wan 3.0 Pro Prime Video Edit by Alibaba restyles or modifies an input video from a text instruction, optionally guided by reference images… | about $2.6 per call |
+| [`alibaba/wan/3.0/pro/prime/video-extend`](../models/alibaba/wan/3.0/pro/prime/video-extend.md) | Wan 3.0 Pro Prime Video Extend by Alibaba continues an input video forward from a text instruction, optionally guided by reference images… | about $5.2 per call |
+| [`alibaba/wan/3.0/pro/reference-to-video`](../models/alibaba/wan/3.0/pro/reference-to-video.md) | Wan 3.0 Pro by Alibaba generates up to 30-second videos with native audio from reference images, videos, and audio, keeping subjects,… | about $0.9 per call |
+| [`alibaba/wan/3.0/pro/text-to-video`](../models/alibaba/wan/3.0/pro/text-to-video.md) | Wan 3.0 Pro by Alibaba turns a text prompt into a video of up to 30 seconds at 30fps, with native dialogue, music, and sound effects,… | from $0.36 to $1.38 per run, depending on parameters |
+| [`alibaba/wan/3.0/pro/video`](../models/alibaba/wan/3.0/pro/video.md) | Alibaba Wan 3.0 Pro Video generates videos up to 30 seconds with native audio from text, a first/last frame, or reference images, videos,… | about $0.9 per call |
+| [`alibaba/wan/3.0/pro/video-edit`](../models/alibaba/wan/3.0/pro/video-edit.md) | Wan 3.0 Pro Video Edit by Alibaba restyles or modifies an input video from a text instruction, optionally guided by reference images and… | about $1.8 per call |
+| [`alibaba/wan/3.0/pro/video-extend`](../models/alibaba/wan/3.0/pro/video-extend.md) | Wan 3.0 Pro Video Extend by Alibaba continues an input video forward from a text instruction, optionally guided by reference images and… | about $3.6 per call |
 | [`alibaba/wan/3.0/reference-to-video`](../models/alibaba/wan/3.0/reference-to-video.md) | Wan 3.0 by Alibaba generates up to 30-second videos with native audio from reference images, videos, and audio, keeping subjects, motion,… | about $0.5 per call |
 | [`alibaba/wan/3.0/text-to-video`](../models/alibaba/wan/3.0/text-to-video.md) | Wan 3.0 by Alibaba turns a text prompt into a video of up to 30 seconds at 30fps, with native dialogue, music, and sound effects. | from $0.1 to $1.2 per run, depending on parameters |
 | [`alibaba/wan/3.0/video`](../models/alibaba/wan/3.0/video.md) | Alibaba Wan 3.0 Video generates videos up to 30 seconds with native audio from text, a first/last frame, or reference images, videos, and… | about $0.5 per call |

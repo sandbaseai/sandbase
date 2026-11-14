@@ -1,13 +1,13 @@
 # SandBase capability index
 
-2551 capabilities · generated 2026-11-13T19:41:00Z
+2564 capabilities · generated 2026-11-14T11:28:43Z
 
 - [api](#api) (2047)
 - [audio](#audio) (32)
 - [embedding](#embedding) (2)
 - [image](#image) (166)
-- [llm](#llm) (123)
-- [video](#video) (181)
+- [llm](#llm) (124)
+- [video](#video) (193)
 
 ## api
 
@@ -2340,6 +2340,7 @@
 | [`google/gemini-3.8-flash`](models/google/gemini-3.8-flash.md) | 1.5 / 7.5 per 1M tok | sync | Gemini 3.8 Flash is a Flash-tier reasoning model in Google's Gemini 3 series, released in September 2026 and described… |
 | [`google/gemini-4-argon`](models/google/gemini-4-argon.md) | 4 / 20 per 1M tok | sync | Gemini 4 Argon is Google's flagship reasoning model and the first model of the Gemini 4 generation, generally… |
 | [`google/gemini-4-carbon`](models/google/gemini-4-carbon.md) | 4 / 20 per 1M tok | sync | Gemini 4 Carbon is Google's most capable Gemini 4 model, released on November 10, 2026 and positioned above Gemini 4… |
+| [`google/gemini-4-hydrogen`](models/google/gemini-4-hydrogen.md) | 1.5 / 7.5 per 1M tok | sync | Gemini 4 Hydrogen is the high-efficiency model of Google's Gemini 4 family, released on November 12, 2026. Google… |
 | [`google/gemini-nano-banana-2.1`](models/google/gemini-nano-banana-2.1.md) | 1.5 / 7.5 per 1M tok | sync | Nano Banana 2.1 (Gemini Nano Banana 2.1) is Google's Flash-tier image generation and editing model, succeeding Nano… |
 | [`meta/llama-3.3-70b-instruct`](models/meta/llama-3.3-70b-instruct.md) | 0.1 / 0.32 per 1M tok | sync | Llama 3.3 70B Instruct is Meta's instruction-tuned, text-only multilingual model released on December 6, 2024, built… |
 | [`minimax/minimax-m2.5`](models/minimax/minimax-m2.5.md) | 0.3 / 1.2 per 1M tok | sync | MiniMax-M2.5 is a MiniMax M2-series language model released in February 2026 for real-world productivity, trained with… |
@@ -2438,6 +2439,18 @@
 | [`alibaba/wan/3.0/prime/video`](models/alibaba/wan/3.0/prime/video.md) | ~0.7 | async | Alibaba Wan 3.0 Prime Video generates videos up to 30 seconds with native audio from text, a first/last frame, or… |
 | [`alibaba/wan/3.0/prime/video-edit`](models/alibaba/wan/3.0/prime/video-edit.md) | ~1.4 | async | Wan 3.0 Prime Video Edit by Alibaba restyles or modifies an input video from a text instruction, optionally guided by… |
 | [`alibaba/wan/3.0/prime/video-extend`](models/alibaba/wan/3.0/prime/video-extend.md) | ~2.8 | async | Wan 3.0 Prime Video Extend by Alibaba continues an input video forward from a text instruction, optionally guided by… |
+| [`alibaba/wan/3.0/pro/image-to-video`](models/alibaba/wan/3.0/pro/image-to-video.md) | 0.36–1.38 | async | Wan 3.0 Pro by Alibaba - animate still images into dynamic videos with AI. Transform photos into cinematic clips with… |
+| [`alibaba/wan/3.0/pro/prime/image-to-video`](models/alibaba/wan/3.0/pro/prime/image-to-video.md) | 0.52–1.86 | async | Wan 3.0 Pro Prime by Alibaba - animate still images into dynamic videos with AI. Transform photos into cinematic clips… |
+| [`alibaba/wan/3.0/pro/prime/reference-to-video`](models/alibaba/wan/3.0/pro/prime/reference-to-video.md) | ~1.3 | async | Wan 3.0 Pro Prime by Alibaba generates up to 30-second videos with native audio from reference images, videos, and… |
+| [`alibaba/wan/3.0/pro/prime/text-to-video`](models/alibaba/wan/3.0/pro/prime/text-to-video.md) | 0.52–1.86 | async | Wan 3.0 Pro Prime by Alibaba turns a text prompt into a video of up to 30 seconds at 30fps, with native dialogue,… |
+| [`alibaba/wan/3.0/pro/prime/video`](models/alibaba/wan/3.0/pro/prime/video.md) | ~1.3 | async | Alibaba Wan 3.0 Pro Prime Video generates videos up to 30 seconds with native audio from text, a first/last frame, or… |
+| [`alibaba/wan/3.0/pro/prime/video-edit`](models/alibaba/wan/3.0/pro/prime/video-edit.md) | ~2.6 | async | Wan 3.0 Pro Prime Video Edit by Alibaba restyles or modifies an input video from a text instruction, optionally guided… |
+| [`alibaba/wan/3.0/pro/prime/video-extend`](models/alibaba/wan/3.0/pro/prime/video-extend.md) | ~5.2 | async | Wan 3.0 Pro Prime Video Extend by Alibaba continues an input video forward from a text instruction, optionally guided… |
+| [`alibaba/wan/3.0/pro/reference-to-video`](models/alibaba/wan/3.0/pro/reference-to-video.md) | ~0.9 | async | Wan 3.0 Pro by Alibaba generates up to 30-second videos with native audio from reference images, videos, and audio,… |
+| [`alibaba/wan/3.0/pro/text-to-video`](models/alibaba/wan/3.0/pro/text-to-video.md) | 0.36–1.38 | async | Wan 3.0 Pro by Alibaba turns a text prompt into a video of up to 30 seconds at 30fps, with native dialogue, music, and… |
+| [`alibaba/wan/3.0/pro/video`](models/alibaba/wan/3.0/pro/video.md) | ~0.9 | async | Alibaba Wan 3.0 Pro Video generates videos up to 30 seconds with native audio from text, a first/last frame, or… |
+| [`alibaba/wan/3.0/pro/video-edit`](models/alibaba/wan/3.0/pro/video-edit.md) | ~1.8 | async | Wan 3.0 Pro Video Edit by Alibaba restyles or modifies an input video from a text instruction, optionally guided by… |
+| [`alibaba/wan/3.0/pro/video-extend`](models/alibaba/wan/3.0/pro/video-extend.md) | ~3.6 | async | Wan 3.0 Pro Video Extend by Alibaba continues an input video forward from a text instruction, optionally guided by… |
 | [`alibaba/wan/3.0/reference-to-video`](models/alibaba/wan/3.0/reference-to-video.md) | ~0.5 | async | Wan 3.0 by Alibaba generates up to 30-second videos with native audio from reference images, videos, and audio,… |
 | [`alibaba/wan/3.0/text-to-video`](models/alibaba/wan/3.0/text-to-video.md) | 0.1–1.2 | async | Wan 3.0 by Alibaba turns a text prompt into a video of up to 30 seconds at 30fps, with native dialogue, music, and… |
 | [`alibaba/wan/3.0/video`](models/alibaba/wan/3.0/video.md) | ~0.5 | async | Alibaba Wan 3.0 Video generates videos up to 30 seconds with native audio from text, a first/last frame, or reference… |

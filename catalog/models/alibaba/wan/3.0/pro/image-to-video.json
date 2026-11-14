@@ -1,0 +1,331 @@
+{
+  "name": "alibaba/wan/3.0/pro/image-to-video",
+  "display_name": "Wan 3.0 Pro Image to Video",
+  "type": "video",
+  "vendor": "Alibaba",
+  "vendor_slug": "alibaba",
+  "description": "Wan 3.0 Pro by Alibaba - animate still images into dynamic videos with AI. Transform photos into cinematic clips with natural motion, camera movement, and optional audio generation, upscaled to 1080p, 2K, or 4K.",
+  "tags": [
+    "image-to-video"
+  ],
+  "capabilities": [
+    "image-to-video"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "prompt",
+      "image"
+    ],
+    "properties": {
+      "seed": {
+        "type": "integer",
+        "title": "Seed",
+        "maximum": 2147483647,
+        "minimum": 0,
+        "description": "Random seed (0-2147483647) for reproducible results. Omit for a random seed; the same seed may still produce slightly different results."
+      },
+      "image": {
+        "type": "string",
+        "title": "Image",
+        "examples": [
+          "https://static.sandbase.ai/samples/image-to-video/i2v-black-cat-sky-img0.png"
+        ],
+        "description": "URL of the image used as the first frame (JPEG, PNG, BMP, or WebP). Cannot be combined with `images`, `videos`, or `audios`."
+      },
+      "prompt": {
+        "type": "string",
+        "title": "Prompt",
+        "maxLength": 5000,
+        "description": "Text prompt describing the motion to generate."
+      },
+      "duration": {
+        "enum": [
+          "auto",
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          20,
+          21,
+          22,
+          23,
+          24,
+          25,
+          26,
+          27,
+          28,
+          29,
+          30
+        ],
+        "title": "Duration",
+        "default": 5,
+        "description": "Output duration in seconds (2-30), or `auto` to let the model pick a length from the prompt and inputs. `auto` is pre-authorized at 30 seconds and billed on the actual output length."
+      },
+      "end_image": {
+        "type": "string",
+        "title": "End Image",
+        "examples": [],
+        "description": "URL of the image used as the last frame (JPEG, PNG, BMP, or WebP). Cannot be combined with `images`, `videos`, or `audios`."
+      },
+      "resolution": {
+        "enum": [
+          "1080p",
+          "2k",
+          "4k"
+        ],
+        "type": "string",
+        "title": "Resolution",
+        "default": "1080p",
+        "description": "Output resolution tier after FlashVSR super-resolution."
+      },
+      "aspect_ratio": {
+        "enum": [
+          "16:9",
+          "4:3",
+          "1:1",
+          "3:4",
+          "9:16"
+        ],
+        "type": "string",
+        "title": "Aspect Ratio",
+        "description": "Output aspect ratio. Omit to match the input image."
+      },
+      "generate_audio": {
+        "type": "boolean",
+        "title": "Generate Audio",
+        "default": true,
+        "description": "Generate a synchronized audio track. Pricing is the same either way."
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "title": "GenerationResponse",
+    "required": [
+      "id",
+      "status"
+    ],
+    "properties": {
+      "id": {
+        "type": "string",
+        "description": "Unique identifier for the generation task."
+      },
+      "error": {
+        "type": "string",
+        "description": "Error message if the task failed. Empty on success."
+      },
+      "model": {
+        "type": "string",
+        "description": "Model ID used for the prediction."
+      },
+      "status": {
+        "enum": [
+          "pending",
+          "running",
+          "completed",
+          "failed",
+          "timeout"
+        ],
+        "type": "string",
+        "description": "Status of the task: pending, running, completed, failed, or timeout."
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "title": "OutputItem",
+          "required": [
+            "url"
+          ],
+          "properties": {
+            "url": {
+              "type": "string",
+              "description": "The URL where the generated content can be downloaded from."
+            },
+            "content_type": {
+              "type": "string",
+              "description": "The MIME type of the output file."
+            }
+          }
+        },
+        "description": "Array of generated content. Empty when status is not completed."
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "formula",
+    "formula": "((params.duration ?? 5) == \"auto\" ? Math.round(usage.duration ?? 30.0) : (params.duration ?? 5)) * ((params.resolution ?? \"1080p\") == \"4k\" ? 0.23 : (params.resolution ?? \"1080p\") == \"2k\" ? 0.20 : 0.18)",
+    "formula_variables": [
+      "params.duration",
+      "params.resolution",
+      "usage.duration"
+    ],
+    "reference_price": 0.9,
+    "price_examples": [
+      {
+        "params": {
+          "duration": 2,
+          "resolution": "1080p"
+        },
+        "usd": 0.36,
+        "estimate": "assumes output duration equals requested duration"
+      },
+      {
+        "params": {
+          "duration": 2,
+          "resolution": "2k"
+        },
+        "usd": 0.4,
+        "estimate": "assumes output duration equals requested duration"
+      },
+      {
+        "params": {
+          "duration": 2,
+          "resolution": "4k"
+        },
+        "usd": 0.46,
+        "estimate": "assumes output duration equals requested duration"
+      },
+      {
+        "params": {
+          "duration": 3,
+          "resolution": "1080p"
+        },
+        "usd": 0.54,
+        "estimate": "assumes output duration equals requested duration"
+      },
+      {
+        "params": {
+          "duration": 3,
+          "resolution": "2k"
+        },
+        "usd": 0.6,
+        "estimate": "assumes output duration equals requested duration"
+      },
+      {
+        "params": {
+          "duration": 3,
+          "resolution": "4k"
+        },
+        "usd": 0.69,
+        "estimate": "assumes output duration equals requested duration"
+      },
+      {
+        "params": {
+          "duration": 4,
+          "resolution": "1080p"
+        },
+        "usd": 0.72,
+        "estimate": "assumes output duration equals requested duration"
+      },
+      {
+        "params": {
+          "duration": 4,
+          "resolution": "2k"
+        },
+        "usd": 0.8,
+        "estimate": "assumes output duration equals requested duration"
+      },
+      {
+        "params": {
+          "duration": 4,
+          "resolution": "4k"
+        },
+        "usd": 0.92,
+        "estimate": "assumes output duration equals requested duration"
+      },
+      {
+        "params": {
+          "duration": 5,
+          "resolution": "1080p"
+        },
+        "usd": 0.9,
+        "estimate": "assumes output duration equals requested duration"
+      },
+      {
+        "params": {
+          "duration": 5,
+          "resolution": "2k"
+        },
+        "usd": 1,
+        "estimate": "assumes output duration equals requested duration"
+      },
+      {
+        "params": {
+          "duration": 5,
+          "resolution": "4k"
+        },
+        "usd": 1.15,
+        "estimate": "assumes output duration equals requested duration"
+      },
+      {
+        "params": {
+          "duration": 6,
+          "resolution": "1080p"
+        },
+        "usd": 1.08,
+        "estimate": "assumes output duration equals requested duration"
+      },
+      {
+        "params": {
+          "duration": 6,
+          "resolution": "2k"
+        },
+        "usd": 1.2,
+        "estimate": "assumes output duration equals requested duration"
+      },
+      {
+        "params": {
+          "duration": 6,
+          "resolution": "4k"
+        },
+        "usd": 1.38,
+        "estimate": "assumes output duration equals requested duration"
+      }
+    ]
+  },
+  "examples": [
+    {
+      "input": {
+        "duration": 8,
+        "image": "https://static.sandbase.ai/examples/76c23e41-3f4a-4f96-8aac-529ecd3e58a9/input/1f94a80c-705e-425c-8b62-68a154e6cbd8.png",
+        "prompt": "(0:00 - 0:03) Camera: Medium shot. Scene: A ink-wash bamboo forest scene from Image 1. A swordsman wearing a bamboo hat and dressed in a dark robe, his silhouette standing in the center surrounded by thick fog and swaying bamboo shadows. Action: The swordsman's left hand lightly rests on the sword hilt, bamboo leaves fall with the wind. Atmosphere: Silent, oppressive, with clearly visible ink-wash grain texture. (0:03 - 0:08) Plot introduction. Camera: Close-up. Plot: The swordsman senses killing intent. Scene: The camera rapidly pushes in to a close-up beneath the swordsman's bamboo hat. Detail: Beneath the hat brim, a pair of sharp, resolute eyes appear, gaze like a blade. Ink-wash \"sweat drops\" slide down from the forehead. Action: The swordsman's right hand slowly grips the sword hilt, knuckles turning white. The bamboo leaves fall faster. Style note: Throughout, maintain the highly black-and-white, ink-wash painting style of Image 1 . Actions must have a calligraphic brush feel, speed must be fast, details must be rich (ink drops, sparks, ink crack marks)."
+      },
+      "output": [
+        {
+          "url": "https://static.sandbase.ai/examples/76c23e41-3f4a-4f96-8aac-529ecd3e58a9/output/d16ae256-796c-4ec5-93e4-e8ac62e88c86.mp4"
+        }
+      ],
+      "default": true
+    }
+  ],
+  "readme": "# Wan 3.0 Pro Image to Video\n\nStart a clip from your own picture. `image` becomes the exact first frame; add `end_image` and the model interpolates the motion between the two. Clips run 2–30 seconds with native audio. Pro runs the same Wan 3.0 model, then upscales the result with FlashVSR, so output comes back at 1080p, 2K, or 4K. For 480p or 720p use the non-Pro endpoints.\n\n## Fields\n\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `prompt` | string, required | — | Up to 5,000 characters. |\n| `image` | image URL, required | — | First frame. JPEG/PNG/BMP/WebP, 240–8000px per side, ≤20MB, no transparency. |\n| `end_image` | image URL | — | Last frame; needs `image`. |\n| `duration` | 2–30 or `auto` | 5 | `auto` lets the model pick the length. |\n| `resolution` | `1080p` / `2k` / `4k` | `1080p` | Output tier after FlashVSR super-resolution; sets the per-second rate. |\n| `aspect_ratio` | `adaptive` / `16:9` / `4:3` / `1:1` / `3:4` / `9:16` | `adaptive` | `adaptive` follows the prompt and inputs. |\n| `generate_audio` | boolean | true | Native dialogue, music, and effects. Same price on or off. |\n| `seed` | integer 0–2147483647 | random | Fix it to compare prompt changes. |\n\n## Billing\n\nYou pay for output seconds only: $0.18 at 1080p, $0.20 at 2K, $0.23 at 4K. Input images, audio, and video are not metered. The frame images are free.\n\n| Output | Billed | 1080p | 2K | 4K |\n|---|---|---|---|---|\n| 2s | 2s | $0.36 | $0.40 | $0.46 |\n| 5s (default) | 5s | $0.90 | $1.00 | $1.15 |\n| 10s | 10s | $1.80 | $2.00 | $2.30 |\n| 30s | 30s | $5.40 | $6.00 | $6.90 |\n\nWith `duration: \"auto\"` the run is pre-authorized at 30 seconds, then settled on the length that was actually generated. Failed runs are not charged. Output files are copied to SandBase storage and the returned URL stays valid for 7 days; download anything you need to keep.\n\n## Prompting\n\n- Describe what moves, not what is already visible: “she turns toward the lens as wind lifts her scarf”.\n- With two frames, keep them compatible in framing and lighting, or describe the transition explicitly.\n- Leave `aspect_ratio` on `adaptive` to keep the image's own proportions.\n\n> The subject slowly turns toward the camera as a breeze moves the fabric; subtle handheld push-in, natural daylight, no dialogue.\n\n## Limits\n\n- Reference images, videos, and audio are not accepted here; use reference-to-video instead.\n\n## Also on SandBase\n\nOther Wan 3.0 Pro endpoints: `alibaba/wan/3.0/pro/video` (all modes in one schema), `alibaba/wan/3.0/pro/text-to-video`, `alibaba/wan/3.0/pro/reference-to-video`, `alibaba/wan/3.0/pro/video-edit`, `alibaba/wan/3.0/pro/video-extend`.",
+  "cover_url": "https://static.sandbase.ai/covers/alibaba/wan/3.0/pro/image-to-video/cover-flare-20261114114821.webp",
+  "page_url": "https://www.sandbase.ai/model/alibaba/wan/3.0/pro/image-to-video",
+  "published_at": "2026-11-14T02:42:10Z",
+  "created_at": "2026-11-14T02:54:50.541Z"
+}

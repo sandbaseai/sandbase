@@ -237,6 +237,24 @@
     ],
     "reference_price": 0.7
   },
+  "examples": [
+    {
+      "input": {
+        "aspect_ratio": "16:9",
+        "duration": 5,
+        "images": [
+          "https://static.sandbase.ai/examples/5b3c918d-81ea-4920-a3f0-5c60e82d45e8/input/ef5d62b7-e280-4b0f-b6ce-9e5c6bba1e55.png"
+        ],
+        "prompt": "Using the lip gloss product in Image 1, generate a model swatch video, 5 seconds, horizontal screen, highlighting the lip color effect"
+      },
+      "output": [
+        {
+          "url": "https://static.sandbase.ai/examples/5b3c918d-81ea-4920-a3f0-5c60e82d45e8/output/f340f9ad-7127-4353-b4b6-aad78b7599eb.mp4"
+        }
+      ],
+      "default": true
+    }
+  ],
   "readme": "# Wan 3.0 Prime Reference to Video\n\nGenerate a new shot that reuses what you already have: faces and products from images, motion and framing from clips, voices and music from audio. The prompt decides how the references come together.\n\nPrime is the faster Wan 3.0 tier: the same inputs and output quality as standard Wan 3.0, with significantly shorter end-to-end generation time and a higher per-second rate. Use standard Wan 3.0 for batch or background jobs where turnaround does not matter.\n\n## Fields\n\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `prompt` | string, required | — | Up to 5,000 characters. |\n| `images` | image URL[] (≤10) | — | Referenced as Image 1, Image 2, … |\n| `videos` | video URL[] (≤5) | — | MP4/MOV, 1–15s each, 15s total, ≤100MB. Referenced as Video 1, … |\n| `audios` | audio URL[] (≤5) | — | WAV/MP3, 1–15s each, 15s total, ≤15MB. Referenced as Audio 1, … |\n| `duration` | 2–30 or `auto` | 5 | `auto` lets the model pick the length. |\n| `resolution` | `480p` / `720p` / `1080p` | `720p` | Sets the per-second rate. |\n| `aspect_ratio` | `adaptive` / `21:9` / `16:9` / `4:3` / `1:1` / `3:4` / `9:16` | `adaptive` | `adaptive` follows the prompt and inputs. |\n| `generate_audio` | boolean | true | Native dialogue, music, and effects. Same price on or off. |\n| `seed` | integer 0–2147483647 | random | Fix it to compare prompt changes. |\n\nSend at least one of `images`, `videos`, or `audios`; any combination works.\n\n## Billing\n\nYou pay per second of output plus, when you send reference `videos`, their total length (rounded up, counted up to 15s): $0.068 at 480p, $0.14 at 720p, $0.28 at 1080p. Input images and audio are not metered. If the reference video length cannot be read, 15s is assumed.\n\n| Request | Billed | 480p | 720p | 1080p |\n|---|---|---|---|---|\n| 5s output (default) | 5s | $0.34 | $0.70 | $1.40 |\n| 10s output | 10s | $0.68 | $1.40 | $2.80 |\n| 30s output | 30s | $2.04 | $4.20 | $8.40 |\n| 5s output + 8s reference video | 13s | $0.884 | $1.82 | $3.64 |\n| 5s output + 15s reference videos | 20s | $1.36 | $2.80 | $5.60 |\n\nWith `duration: \"auto\"` the run is pre-authorized at 30 seconds, then settled on the length that was actually generated. Failed runs are not charged. Output files are copied to SandBase storage and the returned URL stays valid for 7 days; download anything you need to keep.\n\n## Prompting\n\n- Give every reference a job: “Image 1 is the cyclist, Video 1 provides the camera move.”\n- Several images of the same subject from different angles hold identity better than one.\n- Keep reference audio short and focused on the voice or sound you want carried over.\n\n> Image 1 is the cyclist; Video 1 supplies the camera movement. She rides through a rainy city at night in the same red jacket, with quiet traffic in the background.\n\n## Limits\n\n- Up to 10 images, 5 videos (15s total), and 5 audio clips (15s total).\n- Reference video length plus output length must stay within 30 seconds.\n- First/last frames are not accepted here; use image-to-video.\n\n## Also on SandBase\n\nOther Wan 3.0 Prime endpoints: `alibaba/wan/3.0/prime/video` (all modes in one schema), `alibaba/wan/3.0/prime/text-to-video`, `alibaba/wan/3.0/prime/image-to-video`, `alibaba/wan/3.0/prime/video-edit`, `alibaba/wan/3.0/prime/video-extend`. Standard tier: `alibaba/wan/3.0/reference-to-video`.",
   "cover_url": "https://static.sandbase.ai/covers/alibaba/wan/3.0/prime/reference-to-video/cover-flare-20261004183956.webp",
   "page_url": "https://www.sandbase.ai/model/alibaba/wan/3.0/prime/reference-to-video",

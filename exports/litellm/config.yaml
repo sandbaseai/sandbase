@@ -482,6 +482,14 @@ model_list:
     model_info:
       input_cost_per_token: 4e-06
       output_cost_per_token: 2e-05
+  - model_name: google/gemini-4-hydrogen
+    litellm_params:
+      model: openai/google/gemini-4-hydrogen
+      api_base: https://api.sandbase.ai/v1
+      api_key: os.environ/SANDBASE_API_KEY
+    model_info:
+      input_cost_per_token: 1.5e-06
+      output_cost_per_token: 7.5e-06
   - model_name: google/gemini-nano-banana-2.1
     litellm_params:
       model: openai/google/gemini-nano-banana-2.1

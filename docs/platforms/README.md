@@ -8,8 +8,8 @@
 | [TikTok](tiktok.md) | 175 | data API |
 | [DataForSEO](dataforseo.md) | 148 | data API |
 | [Instagram](instagram.md) | 107 | data API |
-| [Google](google.md) | 84 | LLM, audio model, data API, image generation model, video generation model |
-| [Alibaba](alibaba.md) | 71 | LLM, audio model, embedding model, image generation model, video generation model |
+| [Google](google.md) | 85 | LLM, audio model, data API, image generation model, video generation model |
+| [Alibaba](alibaba.md) | 83 | LLM, audio model, embedding model, image generation model, video generation model |
 | [Xiaohongshu](xiaohongshu.md) | 68 | data API |
 | [Weibo](weibo.md) | 63 | data API |
 | [Polymarket](polymarket.md) | 59 | data API |

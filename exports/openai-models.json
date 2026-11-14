@@ -356,6 +356,12 @@
    "owned_by": "google"
   },
   {
+   "id": "google/gemini-4-hydrogen",
+   "object": "model",
+   "created": 0,
+   "owned_by": "google"
+  },
+  {
    "id": "google/gemini-nano-banana-2.1",
    "object": "model",
    "created": 0,

@@ -98,6 +98,18 @@ alibaba/wan/3.0/prime/text-to-video,video,Alibaba,formula,,,,0.136,1.68,,async,P
 alibaba/wan/3.0/prime/video,video,Alibaba,formula,,,,0.7,0.7,,async,POST /v1/run
 alibaba/wan/3.0/prime/video-edit,video,Alibaba,formula,,,,1.4,1.4,,async,POST /v1/run
 alibaba/wan/3.0/prime/video-extend,video,Alibaba,formula,,,,2.8,2.8,,async,POST /v1/run
+alibaba/wan/3.0/pro/image-to-video,video,Alibaba,formula,,,,0.36,1.38,,async,POST /v1/run
+alibaba/wan/3.0/pro/prime/image-to-video,video,Alibaba,formula,,,,0.52,1.86,,async,POST /v1/run
+alibaba/wan/3.0/pro/prime/reference-to-video,video,Alibaba,formula,,,,1.3,1.3,,async,POST /v1/run
+alibaba/wan/3.0/pro/prime/text-to-video,video,Alibaba,formula,,,,0.52,1.86,,async,POST /v1/run
+alibaba/wan/3.0/pro/prime/video,video,Alibaba,formula,,,,1.3,1.3,,async,POST /v1/run
+alibaba/wan/3.0/pro/prime/video-edit,video,Alibaba,formula,,,,2.6,2.6,,async,POST /v1/run
+alibaba/wan/3.0/pro/prime/video-extend,video,Alibaba,formula,,,,5.2,5.2,,async,POST /v1/run
+alibaba/wan/3.0/pro/reference-to-video,video,Alibaba,formula,,,,0.9,0.9,,async,POST /v1/run
+alibaba/wan/3.0/pro/text-to-video,video,Alibaba,formula,,,,0.36,1.38,,async,POST /v1/run
+alibaba/wan/3.0/pro/video,video,Alibaba,formula,,,,0.9,0.9,,async,POST /v1/run
+alibaba/wan/3.0/pro/video-edit,video,Alibaba,formula,,,,1.8,1.8,,async,POST /v1/run
+alibaba/wan/3.0/pro/video-extend,video,Alibaba,formula,,,,3.6,3.6,,async,POST /v1/run
 alibaba/wan/3.0/reference-to-video,video,Alibaba,formula,,,,0.5,0.5,,async,POST /v1/run
 alibaba/wan/3.0/text-to-video,video,Alibaba,formula,,,,0.1,1.2,,async,POST /v1/run
 alibaba/wan/3.0/video,video,Alibaba,formula,,,,0.5,0.5,,async,POST /v1/run
@@ -1035,6 +1047,7 @@ google/gemini-3.8-flash-lite-tts,audio,Google,formula,,,,0.03,0.03,,async,POST /
 google/gemini-3.8-flash-tts,audio,Google,formula,,,,0.045,0.045,,async,POST /v1/run
 google/gemini-4-argon,llm,Google,per_token,,4,20,,,,sync,POST /v1/chat/completions
 google/gemini-4-carbon,llm,Google,per_token,,4,20,,,,sync,POST /v1/chat/completions
+google/gemini-4-hydrogen,llm,Google,per_token,,1.5,7.5,,,,sync,POST /v1/chat/completions
 google/gemini-answer,api,Google,per_call,0.01,,,,,,sync,POST /v1/run
 google/gemini-nano-banana-2.1,llm,Google,per_token,,1.5,7.5,,,,sync,POST /v1/chat/completions
 google/gemini-omni-flash/1.1/edit,video,Google,formula,,,,1.12,1.12,,async,POST /v1/run

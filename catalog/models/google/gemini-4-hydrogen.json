@@ -1,0 +1,46 @@
+{
+  "name": "google/gemini-4-hydrogen",
+  "display_name": "Google: Gemini 4 Hydrogen",
+  "type": "llm",
+  "vendor": "Google",
+  "vendor_slug": "google",
+  "description": "Gemini 4 Hydrogen is the high-efficiency model of Google's Gemini 4 family, released on November 12, 2026. Google built it for high-throughput agentic workflows, coding and multi-model routing at lower cost and latency than the larger Gemini 4 models. It accepts text, image, video, audio and PDF input with a 1M-token context window, supports adjustable reasoning effort, and supports function calling and structured output.",
+  "tags": [
+    "chat",
+    "vision",
+    "audio_input",
+    "reasoning",
+    "structured_output",
+    "function_calling"
+  ],
+  "capabilities": [
+    "chat",
+    "vision",
+    "audio_input",
+    "reasoning",
+    "structured_output",
+    "function_calling"
+  ],
+  "modes": [
+    "sync"
+  ],
+  "default_mode": "sync",
+  "endpoints": {
+    "chat_completions": "POST /v1/chat/completions",
+    "responses": "POST /v1/responses",
+    "messages": "POST /v1/messages"
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "per_token",
+    "per_million_tokens": {
+      "input": 1.5,
+      "output": 7.5,
+      "cache_read_multiplier": 0.05
+    }
+  },
+  "page_url": "https://www.sandbase.ai/model/google/gemini-4-hydrogen",
+  "published_at": "2026-11-12T18:01:00Z",
+  "created_at": "2026-11-14T03:01:35.117Z",
+  "context_length": 1048576
+}

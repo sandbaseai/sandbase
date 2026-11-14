@@ -1,0 +1,174 @@
+{
+  "name": "alibaba/wan/3.0/pro/video-edit",
+  "display_name": "Wan 3.0 Pro Video Edit",
+  "type": "video",
+  "vendor": "Alibaba",
+  "vendor_slug": "alibaba",
+  "description": "Wan 3.0 Pro Video Edit by Alibaba restyles or modifies an input video from a text instruction, optionally guided by reference images and audio, keeping the original length, upscaled to 1080p, 2K, or 4K.",
+  "tags": [
+    "video-to-video"
+  ],
+  "capabilities": [
+    "video-to-video"
+  ],
+  "modes": [
+    "async"
+  ],
+  "default_mode": "async",
+  "endpoints": {
+    "run": "POST /v1/run",
+    "get_run": "GET /v1/run/{id}"
+  },
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "prompt",
+      "video"
+    ],
+    "properties": {
+      "seed": {
+        "type": "integer",
+        "title": "Seed",
+        "maximum": 2147483647,
+        "minimum": 0,
+        "description": "Random seed (0-2147483647) for reproducible results. Omit for a random seed; the same seed may still produce slightly different results."
+      },
+      "video": {
+        "type": "string",
+        "title": "Video",
+        "examples": [
+          "https://help-static-aliyun-doc.aliyuncs.com/file-manage-files/zh-CN/20260402/ldnfdf/wan2.7-videoedit-style-change.mp4"
+        ],
+        "description": "URL of the input video (MP4 or MOV; 1-15 seconds, at least 16 fps, 240-4096px per side, under 100MB)."
+      },
+      "audios": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        },
+        "title": "Audios",
+        "examples": [],
+        "maxItems": 5,
+        "description": "Up to 5 optional reference audio URLs (WAV or MP3; 1-15s each, 15s total, under 15MB each)."
+      },
+      "images": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        },
+        "title": "Images",
+        "examples": [],
+        "maxItems": 10,
+        "description": "Up to 10 optional reference image URLs (JPEG, PNG, BMP, or WebP; up to 20MB each). Refer to them in the prompt as Image 1, Image 2, and so on."
+      },
+      "prompt": {
+        "type": "string",
+        "title": "Prompt",
+        "maxLength": 5000,
+        "minLength": 1,
+        "description": "Text instruction describing the editing. Refer to the input video as Video 1 and to reference images or audio as Image 1, Audio 1, and so on."
+      },
+      "resolution": {
+        "enum": [
+          "1080p",
+          "2k",
+          "4k"
+        ],
+        "type": "string",
+        "title": "Resolution",
+        "default": "1080p",
+        "description": "Output resolution tier after FlashVSR super-resolution."
+      },
+      "generate_audio": {
+        "type": "boolean",
+        "title": "Generate Audio",
+        "default": true,
+        "description": "Generate a synchronized audio track. Pricing is the same either way."
+      }
+    }
+  },
+  "response_schema": {
+    "type": "object",
+    "title": "GenerationResponse",
+    "required": [
+      "id",
+      "status"
+    ],
+    "properties": {
+      "id": {
+        "type": "string",
+        "description": "Unique identifier for the generation task."
+      },
+      "error": {
+        "type": "string",
+        "description": "Error message if the task failed. Empty on success."
+      },
+      "model": {
+        "type": "string",
+        "description": "Model ID used for the prediction."
+      },
+      "status": {
+        "enum": [
+          "pending",
+          "running",
+          "completed",
+          "failed",
+          "timeout"
+        ],
+        "type": "string",
+        "description": "Status of the task: pending, running, completed, failed, or timeout."
+      },
+      "outputs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "title": "OutputItem",
+          "required": [
+            "url"
+          ],
+          "properties": {
+            "url": {
+              "type": "string",
+              "description": "The URL where the generated content can be downloaded from."
+            },
+            "content_type": {
+              "type": "string",
+              "description": "The MIME type of the output file."
+            }
+          }
+        },
+        "description": "Array of generated content. Empty when status is not completed."
+      }
+    }
+  },
+  "pricing": {
+    "currency": "USD",
+    "model": "formula",
+    "formula": "2 * Math.round(usage.duration ?? media_duration(params.video) ?? 5.0) * ((params.resolution ?? \"1080p\") == \"4k\" ? 0.23 : (params.resolution ?? \"1080p\") == \"2k\" ? 0.20 : 0.18)",
+    "formula_variables": [
+      "params.resolution",
+      "params.video",
+      "usage.duration"
+    ],
+    "reference_price": 1.8
+  },
+  "examples": [
+    {
+      "input": {
+        "prompt": "Convert the entire scene to clay style",
+        "video": "https://static.sandbase.ai/examples/639da75d-189b-4e52-98a1-7372d6dc7f33/input/e38eabae-0645-44a5-8d86-ba468b603f44.mp4"
+      },
+      "output": [
+        {
+          "url": "https://static.sandbase.ai/examples/639da75d-189b-4e52-98a1-7372d6dc7f33/output/e7877684-9fe6-464b-8bd4-5ad1dfb7026d.mp4"
+        }
+      ],
+      "default": true
+    }
+  ],
+  "readme": "# Wan 3.0 Pro Video Edit\n\nChange an existing clip with a sentence: restyle it, swap a subject or prop, or rework the setting. Optional reference images and audio guide the change. The result keeps the length and framing of the source. Pro runs the same Wan 3.0 model, then upscales the result with FlashVSR, so output comes back at 1080p, 2K, or 4K. For 480p or 720p use the non-Pro endpoints.\n\n## Fields\n\n| Field | Type | Default | Notes |\n|---|---|---|---|\n| `prompt` | string, required | — | Up to 5,000 characters. |\n| `video` | video URL, required | — | Source clip, Video 1 in the prompt. MP4/MOV, 1–15s, ≥16fps, 240–4096px per side, ≤100MB. |\n| `images` | image URL[] (≤10) | — | Referenced as Image 1, Image 2, … |\n| `audios` | audio URL[] (≤5) | — | WAV/MP3, 1–15s each, 15s total, ≤15MB. Referenced as Audio 1, … |\n| `resolution` | `1080p` / `2k` / `4k` | `1080p` | Output tier after FlashVSR super-resolution; sets the per-second rate. |\n| `generate_audio` | boolean | true | Native dialogue, music, and effects. Same price on or off. |\n| `seed` | integer 0–2147483647 | random | Fix it to compare prompt changes. |\n\nThere is no `duration` field; the output is as long as the source.\n\n## Billing\n\nLike the Wan 3.0 Pro rate, billing counts the source clip and the edited output, which are the same length, so each source second bills twice: $0.36 at 1080p, $0.40 at 2K, $0.46 at 4K. References are not metered.\n\n| Source clip | Billed | 1080p | 2K | 4K |\n|---|---|---|---|---|\n| 2s | 4s | $0.72 | $0.80 | $0.92 |\n| 5s | 10s | $1.80 | $2.00 | $2.30 |\n| 10s | 20s | $3.60 | $4.00 | $4.60 |\n| 15s | 30s | $5.40 | $6.00 | $6.90 |\n\nThe quote shown before submission assumes a 5-second source ($1.80 at 1080p); the final charge uses the measured length. Failed runs are not charged. Output files are copied to SandBase storage and the returned URL stays valid for 7 days; download anything you need to keep.\n\n## Prompting\n\n- Lead with the change and state what must stay: “turn the scene into clay animation; keep her face and the camera motion”.\n- Refer to the source as Video 1 and to references as Image 1 or Audio 1.\n- Draft on the non-Pro video-edit endpoint at 480p, then rerun here for the final tier; edits cost twice the source length.\n\n## Limits\n\n- The output aspect ratio follows the source video.\n- To add new footage after the clip, use video-extend.\n\n## Also on SandBase\n\nOther Wan 3.0 Pro endpoints: `alibaba/wan/3.0/pro/video` (all modes in one schema), `alibaba/wan/3.0/pro/text-to-video`, `alibaba/wan/3.0/pro/image-to-video`, `alibaba/wan/3.0/pro/reference-to-video`, `alibaba/wan/3.0/pro/video-extend`.",
+  "cover_url": "https://static.sandbase.ai/covers/alibaba/wan/3.0/pro/video-edit/cover-flare-20261114115110.webp",
+  "page_url": "https://www.sandbase.ai/model/alibaba/wan/3.0/pro/video-edit",
+  "published_at": "2026-11-14T02:42:10Z",
+  "created_at": "2026-11-14T03:01:23.603Z"
+}
